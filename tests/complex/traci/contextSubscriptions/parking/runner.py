@@ -37,7 +37,6 @@ traci.start([sumoBinary,
              ])
 
 vehID = "ego"
-print("subscribeContext")
 traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE, 50,
                                [tc.VAR_SPEED, tc.VAR_LANE_ID, tc.VAR_POSITION])
 
