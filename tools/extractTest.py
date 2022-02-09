@@ -38,14 +38,14 @@ THIS_DIR = os.path.abspath(os.path.dirname(__file__))
 SUMO_HOME = os.path.dirname(THIS_DIR)
 sys.path.append(join(SUMO_HOME, "tools"))
 
-from sumolib import checkBinary  # noqa
+import sumolib  # noqa
 
 # cannot use ':' because it is a component of absolute paths on windows
 SOURCE_DEST_SEP = ';'
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser(usage="%prog <options> <test directory>")
+    optParser = sumolib.options.ArgumentParser(usage="%prog <options> <test directory>")
     optParser.add_option("-o", "--output", default=".", help="send output to directory")
     optParser.add_option("-f", "--file", help="read list of source and target dirs from")
     optParser.add_option("-p", "--python-script",
@@ -60,7 +60,8 @@ def get_options(args=None):
                          help="remove all options related to XML validation")
     optParser.add_option("-d", "--no-subdir", dest="noSubdir", action="store_true",
                          default=False, help="store test files directly in the output directory")
-    options, args = optParser.parse_args(args=args)
+    optParser.add_option("--depth", type=int, default=1, help="maximum depth when descending into testsuites")
+    options, args = optParser.parse_known_args(args)
     if not options.file and len(args) == 0:
         optParser.print_help()
         sys.exit(1)
@@ -103,6 +104,24 @@ def main(options):
     for val in options.args:
         source_and_maybe_target = val.split(SOURCE_DEST_SEP) + ["", ""]
         targets.append(source_and_maybe_target[:3])
+    depth = options.depth
+    while depth > 0:
+        newTargets = []
+        for source, target, app in targets:
+            source = os.path.realpath(source)
+            suites = glob.glob(os.path.join(source, "testsuite.*"))
+            if suites:
+                with open(suites[0]) as s:
+                    for line in s:
+                        line = line.strip()
+                        if line and not line.startswith("#"):
+                            if target == "" and not options.noSubdir:
+                                target = generateTargetName(os.path.realpath(join(SUMO_HOME, "tests")), source)
+                            newTargets.append((os.path.join(source, line), os.path.join(target, line), app))
+            else:
+                newTargets.append((source, target, app))
+        targets = newTargets
+        depth -= 1
 
     if options.python_script:
         if not os.path.exists(os.path.dirname(options.python_script)):
@@ -245,9 +264,9 @@ for d, p in [
                     app = "netgenerate"
                 if options.verbose:
                     print("calling %s for testPath '%s' with options '%s'" %
-                          (checkBinary(app), testPath, " ".join(appOptions)))
+                          (sumolib.checkBinary(app), testPath, " ".join(appOptions)))
                 try:
-                    haveConfig = subprocess.call([checkBinary(app)] + appOptions +
+                    haveConfig = subprocess.call([sumolib.checkBinary(app)] + appOptions +
                                                  ['--save-configuration', '%s.%scfg' %
                                                   (nameBase, app[:4])]) == 0
                 except OSError:
