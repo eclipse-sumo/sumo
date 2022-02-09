@@ -123,7 +123,7 @@ public:
         const double leaveSpeed;
         /// @brief Whether the vehicle wants to pass the link (@todo: check semantics)
         const bool willPass;
-        /// @brief The time the vehicle's front arrives at the link if it starts braking
+        /// @brief The time at which the vehicle can longer brake before the link
         const SUMOTime arrivalTimeBraking;
         /// @brief The estimated speed with which the vehicle arrives at the link if it starts braking(for headway computation)
         const double arrivalSpeedBraking;

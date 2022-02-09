@@ -726,7 +726,25 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
             return false;
         }
     }
-    const SUMOTime foeArrivalTime = (SUMOTime)((1.0 - impatience) * avi.arrivalTime + impatience * avi.arrivalTimeBraking);
+    // avi.arrivalTimeBraking is the last time at which braking is still possible
+    const SUMOTime foeArrivalTimeBraking = (avi.arrivalTimeBraking > arrivalTime
+            // foe can still brake when we enter the junction
+            ? avi.arrivalTime + TIME2STEPS(30)
+            : avi.arrivalTime);
+
+    const SUMOTime foeArrivalTime = (SUMOTime)((1.0 - impatience) * avi.arrivalTime + impatience * foeArrivalTimeBraking);
+
+#ifdef MSLink_DEBUG_OPENED
+    if ((ego == nullptr || ego->isSelected()) && (veh == nullptr || veh->isSelected())) {
+        std::cout << SIMTIME << " link=" << getDescription() << " ego=" << ego->getID() << " foe=" << veh->getID()
+            << " at=" << STEPS2TIME(arrivalTime)
+            << " atb=" << STEPS2TIME(avi.arrivalTimeBraking)
+            << " fatb=" << STEPS2TIME(foeArrivalTimeBraking)
+            << " fat=" << STEPS2TIME(foeArrivalTime)
+            << "\n";
+    }
+#endif
+
     const SUMOTime lookAhead = (myState == LINKSTATE_ZIPPER
                                 ? myLookaheadTimeZipper
                                 : (ego == nullptr

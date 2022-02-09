@@ -2609,8 +2609,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // compute arrival speed and arrival time if vehicle starts braking now
         // if stopping is possible, arrivalTime can be arbitrarily large. A small value keeps fractional times (impatience) meaningful
         double arrivalSpeedBraking = 0;
-        SUMOTime arrivalTimeBraking = arrivalTime + TIME2STEPS(30);
-        if (seen < cfModel.brakeGap(v) && !isStopped()) { // XXX: should this use the current speed (at least for the ballistic case)? (Leo) Refs. #2575
+        // arrivalTimeBraking holds the time at which braking before the link is no longer possible
+        SUMOTime arrivalTimeBraking;
+        const double bGap = cfModel.brakeGap(v);
+        if (seen < bGap && !isStopped()) { // XXX: should this use the current speed (at least for the ballistic case)? (Leo) Refs. #2575
             // vehicle cannot come to a complete stop in time
             if (MSGlobals::gSemiImplicitEulerUpdate) {
                 arrivalSpeedBraking = cfModel.getMinimalArrivalSpeedEuler(seen, v);
@@ -2622,9 +2624,21 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             if (v + arrivalSpeedBraking <= 0.) {
                 arrivalTimeBraking = std::numeric_limits<long long int>::max();
             } else {
-                arrivalTimeBraking = MAX2(arrivalTime, t + TIME2STEPS(seen / ((v + arrivalSpeedBraking) * 0.5)));
+                // cannot brake in time
+                arrivalTimeBraking = t - DELTA_T;
+            }
+        } else {
+            arrivalTimeBraking = t + TIME2STEPS((seen - bGap) / ((v + arrivalSpeed) * 0.5));
+            if (isStopped()) {
+                arrivalTimeBraking += MAX2((SUMOTime)0, myStops.front().duration);
             }
         }
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND) {
+            //std::cout << SIMTIME << " veh=" << getID() << " speed=" << getSpeed() << " lane=" << lane->getID() << " seen=" << seen << " bGap=" << bGap << " v=" << v << " av=" << arrivalSpeed << " atb=" << STEPS2TIME(arrivalTimeBraking) << "\n";
+        }
+#endif
+
         // estimate leave speed for passing time computation
         // l=linkLength, a=accel, t=continuousTime, v=vLeave
         // l=v*t + 0.5*a*t^2, solve for t and multiply with a, then add v
