@@ -987,7 +987,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
                 }
             }
         }
-        if (bracketOpen == std::string::npos) {
+        if (bracketClose == std::string::npos) {
             throw ProcessError("Unmatched parentheses in condition " + condition + "'");
         }
         std::string cond2 = condition;
