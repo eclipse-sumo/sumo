@@ -626,6 +626,8 @@ private:
     /// @brief compute point of divergence for geomatries with a common start or end
     double computeDistToDivergence(const MSLane* lane, const MSLane* sibling, double minDist, bool sameSource) const;
 
+    /// @brief compute arrival time if foe vehicle is braking for ego
+    static SUMOTime computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* foe, SUMOTime foeArrivalTime, SUMOTime foeLastBrakeTime, double dist); 
 
     /// @brief check whether the given vehicle positions overlap laterally
     static bool lateralOverlap(double posLat, double width, double posLat2, double width2);

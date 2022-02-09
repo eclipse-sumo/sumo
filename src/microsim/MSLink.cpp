@@ -726,24 +726,22 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
             return false;
         }
     }
-    // avi.arrivalTimeBraking is the last time at which braking is still possible
-    const SUMOTime foeArrivalTimeBraking = (avi.arrivalTimeBraking > arrivalTime
-            // foe can still brake when we enter the junction
-            ? avi.arrivalTime + TIME2STEPS(30)
-            : avi.arrivalTime);
-
-    const SUMOTime foeArrivalTime = (SUMOTime)((1.0 - impatience) * avi.arrivalTime + impatience * foeArrivalTimeBraking);
-
+    SUMOTime foeArrivalTime = avi.arrivalTime;
+    if (impatience > 0 && arrivalTime < avi.arrivalTime) {
+        const SUMOTime fatb = computeFoeArrivalTimeBraking(arrivalTime, veh, avi.arrivalTime, avi.arrivalTimeBraking, avi.dist);
+        foeArrivalTime = (SUMOTime)((1.0 - impatience) * avi.arrivalTime + impatience * fatb);
 #ifdef MSLink_DEBUG_OPENED
-    if ((ego == nullptr || ego->isSelected()) && (veh == nullptr || veh->isSelected())) {
-        std::cout << SIMTIME << " link=" << getDescription() << " ego=" << ego->getID() << " foe=" << veh->getID()
-            << " at=" << STEPS2TIME(arrivalTime)
-            << " atb=" << STEPS2TIME(avi.arrivalTimeBraking)
-            << " fatb=" << STEPS2TIME(foeArrivalTimeBraking)
-            << " fat=" << STEPS2TIME(foeArrivalTime)
-            << "\n";
-    }
+        if ((ego == nullptr || ego->isSelected()) && (veh == nullptr || veh->isSelected())) {
+            std::cout << SIMTIME << " link=" << getDescription() << " ego=" << ego->getID() << " foe=" << veh->getID()
+                << " at=" << STEPS2TIME(arrivalTime)
+                << " atb=" << STEPS2TIME(avi.arrivalTimeBraking)
+                << " fatb=" << STEPS2TIME(fatb)
+                << " fat=" << STEPS2TIME(foeArrivalTime)
+                << "\n";
+        }
 #endif
+    }
+
 
     const SUMOTime lookAhead = (myState == LINKSTATE_ZIPPER
                                 ? myLookaheadTimeZipper
@@ -791,6 +789,19 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
         return true;
     }
     return false;
+}
+
+
+SUMOTime
+MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* foe, SUMOTime foeArrivalTime, SUMOTime foeLastBrakeTime, double dist) {
+    UNUSED_PARAMETER(foe);
+    UNUSED_PARAMETER(dist);
+    if (foeLastBrakeTime > arrivalTime) {
+        // foe can still brake when we enter the junction
+        return foeArrivalTime + TIME2STEPS(30);
+    } else {
+        return foeArrivalTime;
+    }
 }
 
 
