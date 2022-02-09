@@ -490,7 +490,6 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
         } else {
             myCurrentRelation = new PCOSMRelation();
             myCurrentRelation->keep = false;
-            bool ok = true;
             myCurrentRelation->id = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
             myRelations.push_back(myCurrentRelation);
         }
