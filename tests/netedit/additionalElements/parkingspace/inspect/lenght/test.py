@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 250, 180)
 netedit.changeElement("space")
 
 # create first space
-netedit.selectAdditionalChild(8, 0)
+netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
 netedit.leftClick(referencePosition, 231, 285)
 
 # go to inspect mode
@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 230, 275)
 
 # Change parameter Lenght with a non valid value (dummy)
-netedit.modifyAttribute(3, "dummyLenght", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.lenght, "dummyLenght", False)
 
 # Change parameter Lenght with a non valid value (negative)
-netedit.modifyAttribute(3, "-6", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.lenght, "-6", False)
 
 # Change parameter Lenght with a non valid value (0)
-netedit.modifyAttribute(3, "0", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.lenght, "0", False)
 
 # Change parameter Lenght with a valid value
-netedit.modifyAttribute(3, "3.4", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.lenght, "3.4", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)
