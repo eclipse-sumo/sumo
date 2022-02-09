@@ -36,12 +36,12 @@ should open showing a map excerpt of central Berlin.
 
 You may zoom and pan to the area of your interest. Caution: if the map
 excerpt covers a very large area, the simulation might become slow or
-even unresponsive. We suggest to choose a similar zoom level as in the
+even unresponsive. We suggest choosing a similar zoom level as in the
 initial view.
 
 In the next step, you select the actual area for which you want to
 generate the simulation scenario. The area selection will be activated
-by clicking the check box *Select Area* at the blue area selection panel
+by clicking the checkbox *Select Area* at the blue area selection panel
 on the right side of the map.
 
 ![wz02.jpg](../images/Wz02.png "wz02.png")
@@ -55,7 +55,7 @@ the next step.
 
 The infrastructure import from OSM into the SUMO simulation are affected by different Wizard options
 
-* by default a road traffic simulation is generated but all types of roads and rails will be imported as well (cycle paths, footpaths, railways etc)
+* by default the "Add Polygon" checkbox is checked and a road traffic simulation is generated but all types of roads and rails will be imported as well (cycle paths, footpaths, railways etc)
 * if the checkbox "left-hand Traffic" is enabled, the network will be built with left hand traffic rules. For most geographic regions where this is required, this feature will be enabled automatically but if it does not work, this option can be used as a remedy.
 * if the checkbox "Car-only Network" is enabled, then only roads that permit passenger car traffic will be included. This can be used to reduce the network size and also helps to reduce intersection complexity
 * if the checkbox "Import Public Transport" is enabled, then busStops and trainStops will be exported. Also busses, trams and trains will be generated that follow the public transport routes defined in OSM (but they will follow synthetic schedules).
@@ -95,6 +95,24 @@ hour and lane-kilometer. Assuming
     seconds somewhere in the network.
 
 The next step is generating and running the scenario.
+
+# Road-Type Selection
+
+In the Road-Type tab of the OSM Web Wizard one can define which road types
+to be downloaded and rendered. 
+
+![wz01.jpg](../images/Wz05.png "wz05.png")
+
+For example one can only choose motorways, primary, 
+secondary and tertiary to simulate major traffic.
+This impacts the file size of the OSM map data.
+
+By default, all road types are checked which implies downloading and rendering
+all roads.
+Unchecking the "Add Polygon" checkbox in the Demand Generation section disables
+downloading and rendering non-road objects like buildings, waterways, etc. resulting
+in a smaller file size.
+
 
 # Generating and Running the scenario
 
