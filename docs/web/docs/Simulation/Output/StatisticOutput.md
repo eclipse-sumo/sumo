@@ -120,7 +120,7 @@ The following output attributes are generated:
 
 ## Fair Traveltime comparison between simulations
 When comparing simulations with a fixed end-time, those simulations may differ in the number of departed and arrived vehicles. In this case, care must be taken to include the "missing" vehicles in a comparison, since many outputs only include arrived vehicles by default.
-The include statistics for these vehicles, the options **--tripinfo-output.write-unfinished --duration-log.statistics** must be set.
+To include statistics for these vehicles, the options **--tripinfo-output.write-unfinished --duration-log.statistics** must be set.
 The general idea is to add up the travel time (duration) and the time that was spent waiting for departure (departDelay) for all vehicles that were defined in the input.
 
 To simplify comparison between simulations that have the same number of vehiclles, the attributes 'totalTravelTime' and 'totalDepartDelay' are provided.
