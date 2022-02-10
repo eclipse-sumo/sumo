@@ -1321,35 +1321,30 @@ class flowEmbedded:
 # stop (over additionals)
 class stop:
     class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
         triggered = 12
         expected = 14
+        permitted = 14
         parking = 15
         actType = 16
-    class createDuration:
-        durationEnable = 7
-        until = 8
-    class createUntil:
-        untilEnable = 8
-        until = 9
-    class createExtension:
-        extensionEnable = 3
-        extension = 4
     class inspect:
         durationEnable = 1
         duration = 2
-        untilEnable = 3
-        extensionEnable = 4
-        triggered = 5
-        expected = 7
-        parking = 7
-        actTypeParking = 7
-        actType = 8
-    class inspectUntil:
         untilEnable = 2
         until = 3
-    class inspectExtension:
         extensionEnable = 3
         extension = 4
+        triggered = 5
+        expected = 7
+        permitted = 7
+        parking = 8
+        actType = 9
+        actTypeParking = 8
     class inspectSelection:
         durationEnable = 1
         duration = 2

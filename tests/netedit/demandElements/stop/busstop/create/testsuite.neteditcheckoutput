@@ -8,12 +8,14 @@ until
 
 extension
 
-triggered
+triggered_person
 
-expected
+triggered_container
+
+triggered_join
+
+permitted
 
 parking
 
 actType
-
-#tripID

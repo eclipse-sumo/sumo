@@ -7,8 +7,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStopA' in GNEChange_Additional
 Debug: Adding busStop 'busStopB' in GNEChange_Additional
 Debug: Adding busStop 'busStopC' in GNEChange_Additional
@@ -27,12 +25,6 @@ Debug: Adding stopBusStop 'route_0' in GNEChange_DemandElement
 Debug: Adding route 'route_1' in GNEChange_DemandElement
 Debug: Adding stopBusStop 'route_1' in GNEChange_DemandElement
 Debug: Adding stopBusStop 'route_1' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1' in GNEChange_DemandElement
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -48,12 +40,6 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,6
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Deleting unreferenced stopBusStop 'route_1'
-Debug: Deleting unreferenced stopBusStop 'route_1'
-Debug: Deleting unreferenced stopBusStop 'route_1'
-Debug: Deleting unreferenced stopBusStop 'route_1'
-Debug: Deleting unreferenced stopBusStop 'route_1'
-Debug: Deleting unreferenced stopBusStop 'route_1'
 Debug: Deleting unreferenced stopBusStop 'route_1'
 Debug: Deleting unreferenced stopBusStop 'route_1'
 Debug: Deleting unreferenced route 'route_1'
@@ -130,18 +116,23 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStopA' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStopB' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStopC' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStopD' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStopE' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStopF' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStopG' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStopH' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced route 'route_0' in AttributeCarriers destructor
-Debug: Deleting unreferenced route 'route_1' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop in AttributeCarriers destructor
+Debug: Deleting unreferenced route in AttributeCarriers destructor
+Debug: Deleting unreferenced route in AttributeCarriers destructor
+Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 8
