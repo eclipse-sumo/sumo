@@ -48,42 +48,42 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00" departPos="400.00" departSpeed="27.80" speedFactor="1.00" arrival="76.00">
+    <vehicle id="0" depart="0.00" departPos="400.00" departSpeed="27.80" speedFactor="1.0000" arrival="76.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="device.rerouting" replacedAtTime="1.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="1" depart="50.00" departPos="400.00" departSpeed="27.80" speedFactor="1.00" arrival="126.00">
+    <vehicle id="1" depart="50.00" departPos="400.00" departSpeed="27.80" speedFactor="1.0000" arrival="126.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="device.rerouting" replacedAtTime="51.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="2" depart="100.00" departPos="400.00" departSpeed="27.80" speedFactor="1.00" arrival="176.00">
+    <vehicle id="2" depart="100.00" departPos="400.00" departSpeed="27.80" speedFactor="1.0000" arrival="176.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="device.rerouting" replacedAtTime="101.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="3" depart="150.00" departPos="400.00" departSpeed="27.80" speedFactor="1.00" arrival="226.00">
+    <vehicle id="3" depart="150.00" departPos="400.00" departSpeed="27.80" speedFactor="1.0000" arrival="226.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="device.rerouting" replacedAtTime="151.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="4" depart="200.00" departPos="300.00" departSpeed="27.80" speedFactor="1.00" arrival="280.00">
+    <vehicle id="4" depart="200.00" departPos="300.00" departSpeed="27.80" speedFactor="1.0000" arrival="280.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="device.rerouting" replacedAtTime="201.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="5" depart="250.00" departPos="300.00" departSpeed="27.80" speedFactor="1.00" arrival="330.00">
+    <vehicle id="5" depart="250.00" departPos="300.00" departSpeed="27.80" speedFactor="1.0000" arrival="330.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="device.rerouting" replacedAtTime="251.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>

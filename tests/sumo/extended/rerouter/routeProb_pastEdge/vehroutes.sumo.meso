@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="ego" depart="0.00" departSpeed="27.80" speedFactor="1.00" arrival="49.00">
+    <vehicle id="ego" depart="0.00" departSpeed="27.80" speedFactor="1.0000" arrival="49.00">
         <routeDistribution>
             <route replacedOnEdge="beg2" replacedOnIndex="1" reason="rerouter" replacedAtTime="7.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg beg2 beg2right right right2end end"/>
