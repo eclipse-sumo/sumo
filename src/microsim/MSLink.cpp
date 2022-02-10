@@ -830,11 +830,14 @@ MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* fo
     // v2 = (v - d - x * m / 2)
     // b = v2 * x
     // solving for x gives:
-    const double x2 = (sqrt(4 * (v - d) * (v - d) - 8 * m * a) * 0.5 - d + v) / m;
     const double x = (sqrt(4 * (v - d) * (v - d) - 8 * m * a) * -0.5 - d + v) / m;
+
+#ifdef MSLink_DEBUG_OPENED
+    const double x2 = (sqrt(4 * (v - d) * (v - d) - 8 * m * a) * 0.5 - d + v) / m;
     if (gDebugFlag6 || ISNAN(x)) {
         std::cout << SIMTIME << "   dist=" << dist << " dist2=" << dist2  << " at=" << STEPS2TIME(arrivalTime) << " m=" << m << " d=" << d << " v=" << v << " a=" << a << " x=" << x << " x2=" << x2 << "\n";
     }
+#endif
     fasb = v - (dt + x) * m;
     return foeArrivalTime + TIME2STEPS(x);
 }
