@@ -401,9 +401,14 @@ GNEFrameAttributeModules::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
                 myValueComboBox->setTextColor(FXRGB(128, 128, 128));
             } else {
                 myValueComboBox->setTextColor(FXRGB(0, 0, 0));
+                myValueComboBox->killFocus();
+                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueComboBox->getText().text());
+                // special case for trigger stops (in the future will be changed)
+                if (myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().isStop() && (myAttrProperties.getAttr() == SUMO_ATTR_TRIGGERED)) {
+                    // refresh entire AttributesCreator
+                    myAttributesCreatorParent->refreshAttributesCreator();
+                }
             }
-            myValueComboBox->killFocus();
-            myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueComboBox->getText().text());
         } else {
             // if value of TextField isn't valid, change their color to Red
             myValueComboBox->setTextColor(FXRGB(255, 0, 0));
@@ -424,8 +429,8 @@ GNEFrameAttributeModules::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             myValueTextField->setTextColor(FXRGB(255, 0, 0));
         }
     }
-    // refresh rows
-    myAttributesCreatorParent->refreshAttributesCreator();
+    // Update row
+    update();
     return 1;
 }
 

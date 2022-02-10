@@ -380,28 +380,30 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         stop.parametersSet |= STOP_EXTENSION_SET;
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIGGERED)) {
-        if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "join") {
-            stop.parametersSet |= STOP_JOIN_SET;
-        } else if ((stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "true") || (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "person")) {
-            stop.parametersSet |= STOP_TRIGGER_SET;
+        stop.parametersSet |= STOP_TRIGGER_SET;
+        if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "person") {
+            stop.triggered = true;
         } else if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "container") {
             stop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+            stop.containerTriggered = true;
+        } else if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "join") {
+            stop.joinTriggered = true;
         }
     }
     if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED)) {
         const auto expected = stopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED);
         if (expected.size() > 0) {
-            if (stop.parametersSet & STOP_TRIGGER_SET) {
+            if (stop.triggered) {
                 for (const auto& id : expected) {
                     stop.awaitedPersons.insert(id);
                 }
                 stop.parametersSet |= STOP_EXPECTED_SET;
-            } else if (stop.parametersSet & STOP_CONTAINER_TRIGGER_SET) {
+            } else if (stop.containerTriggered) {
                 for (const auto& id : expected) {
                     stop.awaitedContainers.insert(id);
                 }
                 stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
-            }
+            } 
         }
     }
     if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_PERMITTED)) {

@@ -43,8 +43,9 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
     // enable parking for stops in parkingAreas
     if (tag == SUMO_TAG_STOP_PARKINGAREA) {
         parametersSet |= STOP_PARKING_SET;
-        parking = true;
     }
+    // set flags
+    parking = (parametersSet & STOP_PARKING_SET);
 }
 
 
@@ -55,15 +56,9 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
     // enable parking for stops in parkingAreas
     if (tag == SUMO_TAG_STOP_PARKINGAREA) {
         parametersSet |= STOP_PARKING_SET;
-        parking = true;
-    } else if (parametersSet & STOP_PARKING_SET) {
-        // set parking flag
-        parking = true;
-    } else {
-        parking = false;
     }
-    triggered = ((parametersSet & STOP_TRIGGER_SET) != 0);
-    containerTriggered = ((parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0);
+    // set flags
+    parking = (parametersSet & STOP_PARKING_SET);
 }
 
 
@@ -72,9 +67,7 @@ GNEStop::GNEStop(GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const
         {}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
     // set flags
-    parking = ((parametersSet & STOP_PARKING_SET) != 0);
-    triggered = ((parametersSet & STOP_TRIGGER_SET) != 0);
-    containerTriggered = ((parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0);
+    parking = (parametersSet & STOP_PARKING_SET);
 }
 
 
@@ -82,10 +75,15 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEE
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {edge}, {}, {}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
+    // enable parking for stops in parkingAreas
+    if (tag == SUMO_TAG_STOP_PARKINGAREA) {
+        parametersSet |= STOP_PARKING_SET;
+    }
     // set flags
-    parking = ((parametersSet & STOP_PARKING_SET) != 0);
-    triggered = ((parametersSet & STOP_TRIGGER_SET) != 0);
-    containerTriggered = ((parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0);
+    parking = (parametersSet & STOP_PARKING_SET);
+    triggered = (parametersSet & STOP_TRIGGER_SET);
+    containerTriggered = (parametersSet & STOP_CONTAINER_TRIGGER_SET);
+    joinTriggered = (parametersSet & STOP_JOIN_SET);
 }
 
 
@@ -519,19 +517,21 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
                 return "";
             }
         case SUMO_ATTR_TRIGGERED:
-            if (parametersSet & STOP_JOIN_SET) {
-                return "join";
-            } else if (parametersSet & STOP_TRIGGER_SET) {
+            if ((parametersSet & STOP_TRIGGER_SET) == false) {
+                return "false";
+            } else if (triggered) {
                 return "person";
-            } else if (parametersSet & STOP_CONTAINER_TRIGGER_SET) {
+            } else if (containerTriggered) {
                 return "container";
             } else {
-                return "false";
+                return "join";
             }
         case SUMO_ATTR_EXPECTED:
-            if (parametersSet & STOP_TRIGGER_SET) {
+            if ((parametersSet & STOP_TRIGGER_SET) == false) {
+                return "";
+            } else if (triggered) {
                 return toString(awaitedPersons);
-            } else if (parametersSet & STOP_CONTAINER_TRIGGER_SET) {
+            } else if (containerTriggered) {
                 return toString(awaitedContainers);
             } else {
                 return "";
@@ -898,7 +898,7 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_EXTENSION:
             return (parametersSet & STOP_EXTENSION_SET) != 0;
         case SUMO_ATTR_EXPECTED:
-            return ((parametersSet & STOP_TRIGGER_SET) || (parametersSet & STOP_CONTAINER_TRIGGER_SET));
+            return (parametersSet & STOP_TRIGGER_SET);
         case SUMO_ATTR_PARKING:
             return (myTagProperty.getTag() != SUMO_TAG_STOP_PARKINGAREA);
         default:
@@ -1223,6 +1223,10 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_TRIGGERED:
+            // reset all flags
+            triggered = false;
+            containerTriggered = false;
+            joinTriggered = false;
             // disable all flags 
             parametersSet &= ~STOP_JOIN_SET;
             parametersSet &= ~STOP_TRIGGER_SET;
@@ -1230,34 +1234,33 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
             parametersSet &= ~STOP_EXPECTED_CONTAINERS_SET;
             // check value
-            if (value == "join") {
-                parametersSet |= STOP_JOIN_SET;
-                join = "person container";
-            } else if ((value == "person") || (value == "true")) {
+            if (value == "person") {
                 parametersSet |= STOP_TRIGGER_SET;
+                triggered = true;
                 if (awaitedPersons.size() > 0) {
                     parametersSet |= STOP_EXPECTED_SET;
                 }
             } else if (value == "container") {
+                parametersSet |= STOP_TRIGGER_SET;
                 parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+                containerTriggered = true;
                 if (awaitedPersons.size() > 0) {
                     parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
                 }
+            } else if (value == "join") {
+                parametersSet |= STOP_TRIGGER_SET;
+                joinTriggered = true;
             }
-            // set flags
-            triggered = ((parametersSet & STOP_TRIGGER_SET) != 0);
-            containerTriggered = ((parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0);
-            joinTriggered = ((parametersSet & STOP_JOIN_SET) != 0);
             break;
         case SUMO_ATTR_EXPECTED:
-            if (parametersSet & STOP_TRIGGER_SET) {
+            if (triggered) {
                 awaitedPersons = parse<std::set<std::string> >(value);
                 if (awaitedPersons.size() > 0) {
                     parametersSet |= STOP_EXPECTED_SET;
                 } else {
                     parametersSet &= ~STOP_EXPECTED_SET;
                 }
-            } else if (parametersSet & STOP_CONTAINER_TRIGGER_SET) {
+            } else if (containerTriggered) {
                 awaitedContainers = parse<std::set<std::string> >(value);
                 if (awaitedPersons.size() > 0) {
                     parametersSet |= STOP_EXPECTED_CONTAINERS_SET;

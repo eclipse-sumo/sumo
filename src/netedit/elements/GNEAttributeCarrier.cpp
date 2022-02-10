@@ -4115,8 +4115,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Activity displayed for stopped container in GUI and output files ",
-                                              "waiting");
+                                              "Activity displayed for stopped container in GUI and output files ");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_STOPCONTAINER_CONTAINERSTOP;
@@ -4147,8 +4146,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Activity displayed for stopped container in GUI and output files ",
-                                              "waiting");
+                                              "Activity displayed for stopped container in GUI and output files ");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
@@ -4466,8 +4464,7 @@ GNEAttributeCarrier::fillStopPersonElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Activity displayed for stopped person in GUI and output files ",
-                                              "waiting");
+                                              "Activity displayed for stopped person in GUI and output files ");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_STOPPERSON_BUSSTOP;
@@ -4499,8 +4496,7 @@ GNEAttributeCarrier::fillStopPersonElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Activity displayed for stopped person in GUI and output files ",
-                                              "waiting");
+                                              "Activity displayed for stopped person in GUI and output files ");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
@@ -5151,8 +5147,7 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                          "Activity displayed for stopped person in GUI and output files ",
-                                          "waiting");
+                                          "Activity displayed for stopped person in GUI and output files ");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     /*
