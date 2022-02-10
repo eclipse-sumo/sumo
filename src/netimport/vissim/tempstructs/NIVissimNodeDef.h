@@ -44,7 +44,6 @@ public:
 //    static std::vector<int> getWithin(const AbstractPoly &p, double off=0.0);
 //    static void buildNodeClusters();
 //    static void dict_assignConnectionsToNodes();
-    static int dictSize();
     static void clearDict();
     static int getMaxID();
 protected:

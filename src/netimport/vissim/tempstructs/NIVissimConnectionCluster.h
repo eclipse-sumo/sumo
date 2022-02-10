@@ -94,9 +94,6 @@ public:
 
     static void _debugOut(std::ostream& into);
 
-    static int dictSize();
-
-
     static int getNextFreeNodeID();
 
     static void clearDict();

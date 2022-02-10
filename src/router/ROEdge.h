@@ -484,11 +484,6 @@ public:
     /** @brief Returns all ROEdges */
     static const ROEdgeVector& getAllEdges();
 
-    /// @brief Returns the number of edges
-    static int dictSize() {
-        return (int)myEdges.size();
-    };
-
     static void setGlobalOptions(const bool interpolate) {
         myInterpolate = interpolate;
     }

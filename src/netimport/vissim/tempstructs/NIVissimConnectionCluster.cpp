@@ -533,12 +533,6 @@ NIVissimConnectionCluster::hasNodeCluster() const {
 }
 
 
-int
-NIVissimConnectionCluster::dictSize() {
-    return (int)myClusters.size();
-}
-
-
 void
 NIVissimConnectionCluster::removeConnections(const NodeSubCluster& c) {
     for (NodeSubCluster::ConnectionCont::const_iterator i = c.myConnections.begin(); i != c.myConnections.end(); i++) {
