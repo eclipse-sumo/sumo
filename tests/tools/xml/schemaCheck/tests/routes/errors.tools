@@ -126,7 +126,7 @@ sumo/basic/routes/parsing/old_style/input_routes.rou.xml:301:0:ERROR:SCHEMASV:SC
 sumo/basic/routes/parsing/old_style/input_routes.rou.xml:304:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'color': '-1,-1,-1' is not a valid value of the union type 'colorType'.
 sumo/basic/routes/parsing/nested_ref/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed.
 sumo/basic/networks/input_routes.rou.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'color': '-1,-1,-1' is not a valid value of the union type 'colorType'.
-sumo/basic/person/walk_0/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'walk', attribute 'duration': [facet 'minExclusive'] The value '0' must be greater than '0'.
+sumo/basic/person/walking/walk_0/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'walk', attribute 'duration': [facet 'minExclusive'] The value '0' must be greater than '0'.
 Error on parsing 'sumo/meta/xml_invalid_schema/input_routes.rou.xml'!
 Traceback (most recent call last):
   File "/home/kobo/dlr/sumo/tests/../tools/build/schemaCheck.py", line 62, in validate
@@ -290,7 +290,6 @@ netedit/demandElements/route/load/cycletime/input_routes.rou.xml:47:0:ERROR:SCHE
 netedit/demandElements/route/load/repeat/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'route', attribute 'repeat': 'dummy' is not a valid value of the atomic type 'xs:nonNegativeInteger'.
 netedit/demandElements/route/load/repeat/input_routes.rou.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'route', attribute 'repeat': '' is not a valid value of the atomic type 'xs:nonNegativeInteger'.
 netedit/demandElements/route/load/repeat/input_routes.rou.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'route', attribute 'repeat': '-13.2' is not a valid value of the atomic type 'xs:nonNegativeInteger'.
-netedit/demandElements/route/fix/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'route', attribute 'color': 'pink' is not a valid value of the union type 'colorType'.
 netedit/demandElements/flow_embedded/load/id/input_routes.rou.xml:56:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'flow': The attribute 'id' is required but missing.
 netedit/demandElements/flow_embedded/load/id/input_routes.rou.xml:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'flow', attribute 'id': [facet 'pattern'] The value '' is not accepted by the pattern '[^ \t\n\r|\\;,']+'.
 netedit/demandElements/flow_embedded/load/id/input_routes.rou.xml:64:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'flow', attribute 'id': [facet 'pattern'] The value 'id with spaces' is not accepted by the pattern '[^ \t\n\r|\\;,']+'.
@@ -687,6 +686,7 @@ netedit/demandElements/vehicletype/load/junctionmodel_params/jm_ignore_foe_speed
 netedit/demandElements/vehicletype/load/junctionmodel_params/jm_ignore_foe_speed/input_routes.rou.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'vType', attribute 'jmIgnoreFoeSpeed': [facet 'minInclusive'] The value '-3' is less than the minimum value allowed ('0').
 netedit/demandElements/vehicletype/load/boardingduration/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'boardingDuration': 'dummyBoardingDuration' is not a valid value of the atomic type 'nonNegativeFloatType'.
 netedit/demandElements/vehicletype/load/boardingduration/input_routes.rou.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'vType', attribute 'boardingDuration': [facet 'minInclusive'] The value '-3' is less than the minimum value allowed ('0').
+netedit/demandElements/flow/inspect/id/input_routes.rou.xml:56:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'flow', attribute 'depart': The attribute 'depart' is not allowed.
 netedit/demandElements/flow/load/id/input_routes.rou.xml:56:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'flow': The attribute 'id' is required but missing.
 netedit/demandElements/flow/load/id/input_routes.rou.xml:58:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'flow', attribute 'id': [facet 'pattern'] The value '' is not accepted by the pattern '[^ \t\n\r|\\;,']+'.
 netedit/demandElements/flow/load/id/input_routes.rou.xml:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'flow', attribute 'id': [facet 'pattern'] The value 'id with spaces' is not accepted by the pattern '[^ \t\n\r|\\;,']+'.
