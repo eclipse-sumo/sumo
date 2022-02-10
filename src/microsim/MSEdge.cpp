@@ -178,7 +178,7 @@ MSEdge::closeBuilding() {
         lane->checkBufferType();
     }
     std::sort(mySuccessors.begin(), mySuccessors.end(), by_id_sorter());
-    rebuildAllowedLanes();
+    rebuildAllowedLanes(true);
     recalcCache();
     // segment building depends on the finished list of successors (for multi-queue)
     if (MSGlobals::gUseMesoSim && !myLanes->empty()) {
@@ -268,7 +268,7 @@ MSEdge::getMesoPermissions(SVCPermissions p, SVCPermissions ignoreIgnored) {
 
 
 void
-MSEdge::rebuildAllowedLanes() {
+MSEdge::rebuildAllowedLanes(const bool onInit) {
     // rebuild myMinimumPermissions and myCombinedPermissions
     myMinimumPermissions = SVCAll;
     myCombinedPermissions = 0;
@@ -296,13 +296,15 @@ MSEdge::rebuildAllowedLanes() {
             }
         }
     }
-    rebuildAllowedTargets(false);
-    for (MSEdge* pred : myPredecessors) {
-        pred->rebuildAllowedTargets(false);
-    }
-    if (MSGlobals::gUseMesoSim) {
-        for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*this); s != nullptr; s = s->getNextSegment()) {
-            s->updatePermissions();
+    if (!onInit) {
+        rebuildAllowedTargets(false);
+        for (MSEdge* pred : myPredecessors) {
+            pred->rebuildAllowedTargets(false);
+        }
+        if (MSGlobals::gUseMesoSim) {
+            for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*this); s != nullptr; s = s->getNextSegment()) {
+                s->updatePermissions();
+            }
         }
     }
 }

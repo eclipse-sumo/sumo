@@ -182,16 +182,16 @@ NLEdgeControlBuilder::build(double networkVersion) {
     if (MSGlobals::gUseMesoSim && !OptionsCont::getOptions().getBool("meso-lane-queue")) {
         MSEdge::setMesoIgnoredVClasses(parseVehicleClasses(OptionsCont::getOptions().getStringVector("meso-ignore-lanes-by-vclass")));
     }
-    for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
-        (*i1)->closeBuilding();
+    for (MSEdge* const edge : myEdges) {
+        edge->closeBuilding();
     }
-    for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
-        (*i1)->buildLaneChanger();
+    for (MSEdge* const edge : myEdges) {
+        edge->rebuildAllowedTargets(false);
+        edge->buildLaneChanger();
     }
     // mark internal edges belonging to a roundabout (after all edges are build)
     if (MSGlobals::gUsingInternalLanes) {
-        for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
-            MSEdge* edge = *i1;
+        for (MSEdge* const edge : myEdges) {
             if (edge->isInternal()) {
                 if (edge->getNumSuccessors() != 1 || edge->getNumPredecessors() != 1) {
                     throw ProcessError("Internal edge '" + edge->getID() + "' is not properly connected (probably a manually modified net.xml).");
