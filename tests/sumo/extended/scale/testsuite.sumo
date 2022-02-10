@@ -1,0 +1,5 @@
+# equidistance scaling of flow by 2
+flow_2
+
+# prevent id collision by using another suffix
+scale-suffix

@@ -1,0 +1,4 @@
+--no-step-log -n net2.net.xml
+--route-files=input_routes.rou.xml
+--scale 2
+--tripinfo-output tripinfos.xml

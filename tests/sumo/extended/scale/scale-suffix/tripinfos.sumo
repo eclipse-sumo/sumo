@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-24 12:58:43 by Eclipse SUMO sumo Version v1_10_0+0979-9637fe4
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <scale value="2"/>
+        <scale-suffix value=".copy"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="x" depart="0.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="17.00" arrivalLane="CN_0" arrivalPos="91.95" arrivalSpeed="13.89" duration="17.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.19" rerouteNo="0" devices="tripinfo_x" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="x.copy1" depart="2.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="2.00" arrival="19.00" arrivalLane="CN_0" arrivalPos="91.95" arrivalSpeed="13.89" duration="17.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.77" rerouteNo="0" devices="tripinfo_x.copy1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="x.1" depart="5.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="5.00" arrival="22.00" arrivalLane="CN_0" arrivalPos="91.95" arrivalSpeed="13.89" duration="17.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.19" rerouteNo="0" devices="tripinfo_x.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="x.1.copy1" depart="7.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="7.00" arrival="24.00" arrivalLane="CN_0" arrivalPos="91.95" arrivalSpeed="13.89" duration="17.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.77" rerouteNo="0" devices="tripinfo_x.1.copy1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+</tripinfos>
