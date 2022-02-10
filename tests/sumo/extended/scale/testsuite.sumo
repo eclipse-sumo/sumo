@@ -1,5 +1,17 @@
 # equidistance scaling of flow by 2
 flow_2
 
+# equidistance scaling of flow by 0.66
+flow_0.66
+
+# proportional scaling of probabilisitic flow by 2
+flow_prob_2
+
+# proportional scaling of probabilisitic flow by 0.5
+flow_prob_0.5
+
+# proportional scaling of probabilisitic flow by 2 (number instead of end defined)
+flow_number_prob_2
+
 # prevent id collision by using another suffix
 scale-suffix
