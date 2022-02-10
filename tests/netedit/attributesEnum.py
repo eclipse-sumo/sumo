@@ -1353,10 +1353,11 @@ class stop:
         extensionEnable = 5
         extension = 6
         triggered = 7
-        expected = 9
-        parking = 9
-        actTypeParking = 9
-        actType = 10
+        expected = 8
+        permitted = 9
+        parking = 10
+        actType = 11
+        actTypeParking = 10
 
 #--------------------------------
 # DATA ELEMENTS
