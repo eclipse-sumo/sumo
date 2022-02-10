@@ -241,7 +241,16 @@ Helper::addSubscriptionFilter(SubscriptionFilterType filter) {
     if (myLastContextSubscription != nullptr) {
         myLastContextSubscription->activeFilters |= filter;
     } else {
-        WRITE_WARNING("addSubscriptionFilter: No previous vehicle context subscription exists to apply the context filter.");
+        // The following code relies on the fact that the filter is 2^(filterType-1),
+        // see Subscription.h and the corresponding TraCIConstants.h.
+        // It is only for getting similar error messages with libsumo and traci.
+        int index = (int)filter;
+        int filterType = 0;
+        if (index != 0) {
+            ++filterType;
+            while (index >>= 1) ++filterType;
+        }
+        throw TraCIException("No previous vehicle context subscription exists to apply filter type " + toHex(filterType, 2));
     }
     return myLastContextSubscription;
 }
