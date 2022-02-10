@@ -520,6 +520,9 @@ MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
             break;
         case DepartPosDefinition::BASE:
         case DepartPosDefinition::DEFAULT:
+            if (!upper) {
+                pos = 0;
+            }
             break;
         default:
             pos = MIN2(pos, veh.getVehicleType().getLength());
