@@ -22,7 +22,7 @@ include /usr/share/dpkg/buildflags.mk
 
 # we need to set the CMAKE_BUILD_TYPE because it is set to "None" otherwise
 override_dh_auto_configure:
-	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DENABLE_JAVA_BINDINGS=OFF
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DMVN_EXECUTABLE=
 
 override_dh_auto_build-indep:
 #	Clean some unneeded files
