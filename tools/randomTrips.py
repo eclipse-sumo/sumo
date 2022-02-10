@@ -570,9 +570,16 @@ def main(options):
                 if options.binomial is None:
                     departures = []
                     if options.randomDepart:
+                        subsecond = math.fmod(options.period, 1)
+                        numVehs = int((maxTime - begin) / options.period)
                         while time < maxTime:
-                            departures.append(random.randrange(begin, maxTime))
+                            rTime = random.randrange(begin, maxTime)
                             time += options.period
+                            if subsecond != 0:
+                                # allow all multiples of subsecond to appear
+                                rSubSecond = math.fmod(subsecond * random.randrange(begin, maxTime), 1)
+                                rTime = min(maxTime, rTime + rSubSecond)
+                            departures.append(rTime)
                         departures.sort()
                     else:
                         while time < maxTime:
