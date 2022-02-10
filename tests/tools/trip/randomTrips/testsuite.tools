@@ -6,6 +6,9 @@ begin_end_human_readable
 # randomize departure times
 random-depart
 
+# randomize subsecond departure times
+random-depart_subsecond
+
 # fractional depart times
 fractional
 
