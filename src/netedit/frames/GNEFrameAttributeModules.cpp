@@ -291,8 +291,10 @@ GNEFrameAttributeModules::AttributesCreatorRow::refreshRow() {
                 myValueCheckButton->setText("false");
             }
             myValueCheckButton->show();
-            // if it's associated to a label button and is disabled, then disable myValueCheckButton
-            if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
+            // check if enable or disable
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
+                myValueCheckButton->enable();
+            } else {
                 myValueCheckButton->disable();
             }
         } else if (myAttrProperties.isDiscrete()) {
@@ -305,16 +307,20 @@ GNEFrameAttributeModules::AttributesCreatorRow::refreshRow() {
             myValueComboBox->setTextColor(FXRGB(0, 0, 0));
             myValueComboBox->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
             myValueComboBox->show();
-            // if it's associated to a label button and is disabled, then disable myValueTextField
-            if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
+            // check if enable or disable
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
+                myValueComboBox->enable();
+            } else {
                 myValueComboBox->disable();
             }
         } else {
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
             myValueTextField->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
             myValueTextField->show();
-            // if it's associated to a label button and is disabled, then disable myValueTextField
-            if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
+            // check if enable or disable
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
+                myValueTextField->enable();
+            } else {
                 myValueTextField->disable();
             }
         }
@@ -418,8 +424,8 @@ GNEFrameAttributeModules::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             myValueTextField->setTextColor(FXRGB(255, 0, 0));
         }
     }
-    // Update aditional frame
-    update();
+    // refresh rows
+    myAttributesCreatorParent->refreshAttributesCreator();
     return 1;
 }
 
