@@ -39,13 +39,16 @@ with the stopping time in seconds.
 
 ## Deliberately causing collisions
 
-To force collisions at a set time, TraCI must be used. Besides setting
-the speed, it is also necessary to disable safety checks using [the
-commands speedMode and
-laneChangeMode](../TraCI/Change_Vehicle_State.md).
+A simple way to create collisions  is by using TraCI to override save speeds (with `traci.vehicle.setSpeed`) or forcing unsafe lane changes.
+To create collisions in this way it is also necessary to disable safety checks using [the
+commands speedMode and laneChangeMode](../TraCI/Change_Vehicle_State.md).
+
+Alternatively, various models within SUMO may be configured to making driving less safe.
+This can be used to create collisions with some probability 
+(or with certainty if vehicle stops are used to force unexpected braking in a critical situation).
 
 ### Collisions during car-following
-Rear-end collisiosn during normal driving may be caused by any of the following:
+Rear-end collisions during normal driving may be caused by any of the following:
 
 - vehicles with a value of *tau* that is lower than the simulation step
 size (default 1s) when using the default Krauss model.
