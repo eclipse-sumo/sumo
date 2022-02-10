@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-08 11:26:14 by Eclipse SUMO sumo Version v1_12_0+0353-0cd4bcd
+<!-- generated on 2022-02-10 14:18:50 by Eclipse SUMO sumo Version v1_12_0+0453-348ab90
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg2"/>
     </vehicle>
 
-    <vehicle id="calibtest.0.1" depart="68.00" arrival="151.00">
+    <vehicle id="calibtest.0.1" depart="65.00" arrival="148.00">
         <route edges="beg2"/>
     </vehicle>
 
@@ -119,7 +119,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg2"/>
     </vehicle>
 
-    <vehicle id="calibtest.200.4" depart="302.00" arrival="385.00">
+    <vehicle id="calibtest.200.4" depart="299.00" arrival="382.00">
         <route edges="beg2"/>
     </vehicle>
 
@@ -195,7 +195,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg2"/>
     </vehicle>
 
-    <vehicle id="calibtest.200.21" depart="380.00" arrival="463.00">
+    <vehicle id="calibtest.200.21" depart="377.00" arrival="460.00">
         <route edges="beg2"/>
     </vehicle>
 
