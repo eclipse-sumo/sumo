@@ -128,7 +128,7 @@ def main(options):
                         outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" count="%s"/>\n' %
                                    (from_edge, to_edge, count))
             outf.write('    </interval>\n')
-        outf.write('</edgeRelations>\n')
+        outf.write('</data>\n')
     outf.close()
 
 
