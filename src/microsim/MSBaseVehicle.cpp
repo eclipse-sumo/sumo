@@ -1442,7 +1442,7 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
     const double routeCost = router.recomputeCosts(newEdges, this, t);
     const double previousCost = router.recomputeCosts(oldRemainingEdges, this, t);
     const double savings = previousCost - routeCost;
-    if (!hasDeparted()) {
+    if (!hasDeparted() && (int)myParameter->stops.size() > nextStopIndex) {
         // stops will be rebuilt from scratch so we must patch the stops in myParameter
         const_cast<SUMOVehicleParameter*>(myParameter)->stops[nextStopIndex] = stop;
     }
