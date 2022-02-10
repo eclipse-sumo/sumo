@@ -410,8 +410,11 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     }
     if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_PERMITTED)) {
         const auto permitted = stopBaseObject->getStringListAttribute(SUMO_ATTR_PERMITTED);
-        for (const auto& permit : permitted) {
-            stop.permitted.insert(permit);
+        if (permitted.size() > 0) {
+            stop.parametersSet |= STOP_PERMITTED_SET;
+            for (const auto& permit : permitted) {
+                stop.permitted.insert(permit);
+            }
         }
     }
     if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_PARKING)) {

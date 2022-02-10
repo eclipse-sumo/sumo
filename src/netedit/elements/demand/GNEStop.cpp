@@ -1262,7 +1262,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 }
             } else if (containerTriggered) {
                 awaitedContainers = parse<std::set<std::string> >(value);
-                if (awaitedPersons.size() > 0) {
+                if (awaitedContainers.size() > 0) {
                     parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
                 } else {
                     parametersSet &= ~STOP_EXPECTED_CONTAINERS_SET;
@@ -1270,7 +1270,12 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_PERMITTED:
-            permitted = parse<std::set<std::string> >(value);
+            if (value.empty()) {
+                parametersSet &= ~STOP_PERMITTED_SET;
+            } else {
+                parametersSet |= STOP_PERMITTED_SET;
+                permitted = parse<std::set<std::string> >(value);
+            }
             break;
         case SUMO_ATTR_PARKING:
             if (parse<bool>(value)) {
