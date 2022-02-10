@@ -55,10 +55,6 @@ sumo2fmi_set_startValues(ModelInstance *comp) {
     snprintf(defaultCallOptions, BUFFER_SIZE * 2, "-c %s/tools/game/grid6.sumocfg", sumoHomePath);
     comp->libsumoCallOptions = (char *)comp->allocateMemory(1 + strlen(defaultCallOptions), sizeof(char));
     strcpy((char *)comp->libsumoCallOptions, (char *)defaultCallOptions);
-
-    comp->freeMemory(comp->bufferArray);
-    comp->bufferArray = NULL;
-    comp->bufferArrayLength = 0;
 }
 
 void
