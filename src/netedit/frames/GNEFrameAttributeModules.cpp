@@ -402,12 +402,12 @@ GNEFrameAttributeModules::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             } else {
                 myValueComboBox->setTextColor(FXRGB(0, 0, 0));
                 myValueComboBox->killFocus();
-                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueComboBox->getText().text());
-                // special case for trigger stops (in the future will be changed)
-                if (myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().isStop() && (myAttrProperties.getAttr() == SUMO_ATTR_TRIGGERED)) {
-                    // refresh entire AttributesCreator
-                    myAttributesCreatorParent->refreshAttributesCreator();
-                }
+            }
+            myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueComboBox->getText().text());
+            // special case for trigger stops (in the future will be changed)
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().isStop() && (myAttrProperties.getAttr() == SUMO_ATTR_TRIGGERED)) {
+                // refresh entire AttributesCreator
+                myAttributesCreatorParent->refreshAttributesCreator();
             }
         } else {
             // if value of TextField isn't valid, change their color to Red

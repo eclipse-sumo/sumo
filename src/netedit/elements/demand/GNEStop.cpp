@@ -898,7 +898,7 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_EXTENSION:
             return (parametersSet & STOP_EXTENSION_SET) != 0;
         case SUMO_ATTR_EXPECTED:
-            return (parametersSet & STOP_TRIGGER_SET);
+            return (parametersSet & STOP_TRIGGER_SET) != 0;
         case SUMO_ATTR_PARKING:
             return (myTagProperty.getTag() != SUMO_TAG_STOP_PARKINGAREA);
         default:
@@ -1377,9 +1377,6 @@ GNEStop::toogleAttribute(SumoXMLAttr key, const bool value, const int /*previous
             } else {
                 parametersSet &= ~STOP_EXTENSION_SET;
             }
-            break;
-        case SUMO_ATTR_EXPECTED:
-        case SUMO_ATTR_PARKING:
             break;
         case SUMO_ATTR_POSITION_LAT:
             if (value) {
