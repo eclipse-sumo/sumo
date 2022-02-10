@@ -27,6 +27,7 @@
 #include <map>
 #include <algorithm>
 #include <iterator>
+#include <mesosim/MELoop.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
@@ -187,6 +188,10 @@ NLEdgeControlBuilder::build(double networkVersion) {
     }
     for (MSEdge* const edge : myEdges) {
         edge->rebuildAllowedTargets(false);
+        // segment building depends on the finished list of successors (for multi-queue)
+        if (MSGlobals::gUseMesoSim && !edge->getLanes().empty()) {
+            MSGlobals::gMesoNet->buildSegmentsFor(*edge, OptionsCont::getOptions());
+        }
         edge->buildLaneChanger();
     }
     // mark internal edges belonging to a roundabout (after all edges are build)

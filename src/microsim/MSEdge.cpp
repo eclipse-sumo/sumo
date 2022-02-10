@@ -180,10 +180,6 @@ MSEdge::closeBuilding() {
     std::sort(mySuccessors.begin(), mySuccessors.end(), by_id_sorter());
     rebuildAllowedLanes(true);
     recalcCache();
-    // segment building depends on the finished list of successors (for multi-queue)
-    if (MSGlobals::gUseMesoSim && !myLanes->empty()) {
-        MSGlobals::gMesoNet->buildSegmentsFor(*this, OptionsCont::getOptions());
-    }
 
     // extend lookup table for sublane model after all edges are read
     if (myLanes->back()->getOpposite() != nullptr) {
