@@ -199,12 +199,14 @@ MSInsertionControl::checkCandidates(SUMOTime time, const bool preCheck) {
 void
 MSInsertionControl::determineCandidates(SUMOTime time) {
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
+    // for equidistant vehicles, up-scaling is done via repetitionOffset
+    const double scale = MAX2(1.0, vehControl.getScale());
     for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end();) {
         SUMOVehicleParameter* pars = i->pars;
         bool tryEmitByProb = pars->repetitionProbability > 0;
         while ((pars->repetitionProbability < 0
-                && pars->repetitionsDone < pars->repetitionNumber
-                && pars->depart + pars->repetitionsDone * pars->repetitionOffset <= time)
+                && pars->repetitionsDone < pars->repetitionNumber * scale
+                && pars->depart + pars->repetitionsDone * pars->repetitionOffset / scale <= time)
                 || (tryEmitByProb
                     && pars->depart <= time
                     && pars->repetitionEnd > time
@@ -214,14 +216,17 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             tryEmitByProb = false; // only emit one per step
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(i->index);
-            newPars->depart = pars->repetitionProbability > 0 ? time : (SUMOTime)(pars->depart + pars->repetitionsDone * pars->repetitionOffset) + computeRandomDepartOffset();
+            newPars->depart = pars->repetitionProbability > 0 ? time : (SUMOTime)(pars->depart + pars->repetitionsDone * pars->repetitionOffset / scale) + computeRandomDepartOffset();
             pars->repetitionsDone++;
             // try to build the vehicle
             if (vehControl.getVehicle(newPars->id) == nullptr) {
                 const MSRoute* const route = MSRoute::dictionary(pars->routeid);
                 MSVehicleType* const vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
                 SUMOVehicle* const vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes);
-                int quota = vehControl.getQuota();
+                // for equidistant vehicles, up-scaling is done via repetitionOffset
+                // down-scaling is still done via quota (individual vehicles go missing) to preserve as much of the original flow structure as possible
+                bool useScale = pars->repetitionProbability < 0 && scale > 1;
+                int quota = useScale ? 1 : vehControl.getQuota();
                 if (quota > 0) {
                     vehControl.addVehicle(newPars->id, vehicle);
                     add(vehicle);
@@ -234,6 +239,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                         SUMOVehicle* const quotaVehicle = vehControl.buildVehicle(quotaPars, route, vtype, !MSGlobals::gCheckRoutes);
                         vehControl.addVehicle(quotaPars->id, quotaVehicle);
                         add(quotaVehicle);
+                        pars->repetitionsDone++;
                         i->index++;
                     }
                 } else {
@@ -247,7 +253,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                 throw ProcessError("Another vehicle with the id '" + newPars->id + "' exists.");
             }
         }
-        if (pars->repetitionsDone == pars->repetitionNumber || (pars->repetitionProbability > 0 && pars->repetitionEnd <= time)) {
+        if (pars->repetitionsDone == (int)(pars->repetitionNumber * scale + 0.5) || pars->repetitionEnd <= time) {
             i = myFlows.erase(i);
             MSRoute::checkDist(pars->routeid);
             delete pars;
