@@ -37,9 +37,14 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
+    // enable parking for stops in parkingAreas
+    if (tag == SUMO_TAG_STOP_PARKINGAREA) {
+        parametersSet |= STOP_PARKING_SET;
+        parking = true;
+    }
 }
 
 
@@ -75,8 +80,8 @@ GNEStop::GNEStop(GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {edge}, {}, {}, {}, {}, {stopParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+        {}, {edge}, {}, {}, {}, {}, {stopParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
     // set flags
     parking = ((parametersSet & STOP_PARKING_SET) != 0);
     triggered = ((parametersSet & STOP_TRIGGER_SET) != 0);
@@ -514,7 +519,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
                 return "";
             }
         case SUMO_ATTR_TRIGGERED:
-            if ((parametersSet & STOP_TRIGGER_SET) && (parametersSet & STOP_CONTAINER_TRIGGER_SET)) {
+            if (parametersSet & STOP_JOIN_SET) {
                 return "join";
             } else if (parametersSet & STOP_TRIGGER_SET) {
                 return "person";
@@ -524,15 +529,15 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
                 return "false";
             }
         case SUMO_ATTR_EXPECTED:
-            if ((parametersSet & STOP_TRIGGER_SET) && (parametersSet & STOP_CONTAINER_TRIGGER_SET)) {
-                return toString(permitted);
-            } else if (parametersSet & STOP_TRIGGER_SET) {
+            if (parametersSet & STOP_TRIGGER_SET) {
                 return toString(awaitedPersons);
             } else if (parametersSet & STOP_CONTAINER_TRIGGER_SET) {
                 return toString(awaitedContainers);
             } else {
                 return "";
             }
+        case SUMO_ATTR_PERMITTED:
+            return toString(permitted);
         case SUMO_ATTR_PARKING:
             if (parametersSet & STOP_PARKING_SET) {
                 return "true";
@@ -642,6 +647,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_EXTENSION:
         case SUMO_ATTR_TRIGGERED:
         case SUMO_ATTR_EXPECTED:
+        case SUMO_ATTR_PERMITTED:
         case SUMO_ATTR_PARKING:
         case SUMO_ATTR_ACTTYPE:
         case SUMO_ATTR_TRIP_ID:
@@ -775,6 +781,15 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
                 }
                 return true;
             }
+        case SUMO_ATTR_PERMITTED: {
+            const std::vector<std::string> expectedValues = parse<std::vector<std::string> >(value);
+            for (const auto& expectedValue : expectedValues) {
+                if (!SUMOXMLDefinitions::isValidVehicleID(expectedValue)) {
+                    return false;
+                }
+            }
+            return true;
+        }
         case SUMO_ATTR_PARKING:
             return canParse<bool>(value);
         case SUMO_ATTR_ACTTYPE:
@@ -882,6 +897,8 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
             return (parametersSet & STOP_UNTIL_SET) != 0;
         case SUMO_ATTR_EXTENSION:
             return (parametersSet & STOP_EXTENSION_SET) != 0;
+        case SUMO_ATTR_EXPECTED:
+            return ((parametersSet & STOP_TRIGGER_SET) || (parametersSet & STOP_CONTAINER_TRIGGER_SET));
         case SUMO_ATTR_PARKING:
             return (myTagProperty.getTag() != SUMO_TAG_STOP_PARKINGAREA);
         default:
@@ -1207,18 +1224,15 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_TRIGGERED:
             // disable all flags 
+            parametersSet &= ~STOP_JOIN_SET;
             parametersSet &= ~STOP_TRIGGER_SET;
-            parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
-            parametersSet &= ~STOP_PERMITTED_SET;
             parametersSet &= ~STOP_EXPECTED_SET;
+            parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
             parametersSet &= ~STOP_EXPECTED_CONTAINERS_SET;
             // check value
             if (value == "join") {
-                parametersSet |= STOP_TRIGGER_SET;
-                parametersSet |= STOP_CONTAINER_TRIGGER_SET;
-                if (permitted.size() > 0) {
-                    parametersSet |= STOP_PERMITTED_SET;
-                }
+                parametersSet |= STOP_JOIN_SET;
+                join = "person container";
             } else if ((value == "person") || (value == "true")) {
                 parametersSet |= STOP_TRIGGER_SET;
                 if (awaitedPersons.size() > 0) {
@@ -1233,16 +1247,10 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             // set flags
             triggered = ((parametersSet & STOP_TRIGGER_SET) != 0);
             containerTriggered = ((parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0);
+            joinTriggered = ((parametersSet & STOP_JOIN_SET) != 0);
             break;
         case SUMO_ATTR_EXPECTED:
-            if ((parametersSet & STOP_TRIGGER_SET) && (parametersSet & STOP_CONTAINER_TRIGGER_SET)) {
-                permitted = parse<std::set<std::string> >(value);
-                if (permitted.size() > 0) {
-                    parametersSet |= STOP_PERMITTED_SET;
-                } else {
-                    parametersSet &= ~STOP_PERMITTED_SET;
-                }
-            } else if (parametersSet & STOP_TRIGGER_SET) {
+            if (parametersSet & STOP_TRIGGER_SET) {
                 awaitedPersons = parse<std::set<std::string> >(value);
                 if (awaitedPersons.size() > 0) {
                     parametersSet |= STOP_EXPECTED_SET;
@@ -1257,6 +1265,9 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                     parametersSet &= ~STOP_EXPECTED_CONTAINERS_SET;
                 }
             }
+            break;
+        case SUMO_ATTR_PERMITTED:
+            permitted = parse<std::set<std::string> >(value);
             break;
         case SUMO_ATTR_PARKING:
             if (parse<bool>(value)) {
@@ -1364,12 +1375,8 @@ GNEStop::toogleAttribute(SumoXMLAttr key, const bool value, const int /*previous
                 parametersSet &= ~STOP_EXTENSION_SET;
             }
             break;
+        case SUMO_ATTR_EXPECTED:
         case SUMO_ATTR_PARKING:
-            if (value) {
-                parametersSet |= STOP_PARKING_SET;
-            } else {
-                parametersSet &= ~STOP_PARKING_SET;
-            }
             break;
         case SUMO_ATTR_POSITION_LAT:
             if (value) {

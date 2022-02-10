@@ -368,54 +368,30 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         stop.parametersSet |= STOP_DURATION_SET;
     } else {
         stop.duration = -1;
-        stop.parametersSet &= ~STOP_DURATION_SET;
     }
     if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
         stop.until = stopBaseObject->getTimeAttribute(SUMO_ATTR_UNTIL);
         stop.parametersSet |= STOP_UNTIL_SET;
     } else {
         stop.until = -1;
-        stop.parametersSet &= ~STOP_UNTIL_SET;
     }
     if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_EXTENSION)) {
         stop.extension = stopBaseObject->getTimeAttribute(SUMO_ATTR_EXTENSION);
         stop.parametersSet |= STOP_EXTENSION_SET;
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIGGERED)) {
-        if ((stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "true") || (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "person")) {
-            // set flags
-            stop.parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
+        if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "join") {
+            stop.parametersSet |= STOP_JOIN_SET;
+        } else if ((stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "true") || (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "person")) {
             stop.parametersSet |= STOP_TRIGGER_SET;
         } else if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "container") {
-            // set flags
-            stop.parametersSet &= ~STOP_TRIGGER_SET;
             stop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
-        } else if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "join") {
-            // set flags
-            stop.parametersSet |= STOP_TRIGGER_SET;
-            stop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
-        } else {
-            // disable all flags
-            stop.parametersSet &= ~STOP_TRIGGER_SET;
-            stop.parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
-        }
-    }
-    if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_PARKING)) {
-        if (stopBaseObject->getBoolAttribute(SUMO_ATTR_PARKING)) {
-            stop.parametersSet |= STOP_PARKING_SET;
-        } else {
-            stop.parametersSet &= ~STOP_PARKING_SET;
         }
     }
     if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED)) {
         const auto expected = stopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED);
         if (expected.size() > 0) {
-            if ((stop.parametersSet & STOP_TRIGGER_SET) && (stop.parametersSet & STOP_CONTAINER_TRIGGER_SET)) {
-                for (const auto& id : expected) {
-                    stop.permitted.insert(id);
-                }
-                stop.parametersSet |= STOP_PERMITTED_SET;
-            } else if (stop.parametersSet & STOP_TRIGGER_SET) {
+            if (stop.parametersSet & STOP_TRIGGER_SET) {
                 for (const auto& id : expected) {
                     stop.awaitedPersons.insert(id);
                 }
@@ -426,10 +402,17 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 }
                 stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
             }
-        } else {
-            stop.parametersSet &= ~STOP_PERMITTED_SET;
-            stop.parametersSet &= ~STOP_EXPECTED_SET;
-            stop.parametersSet &= ~STOP_EXPECTED_CONTAINERS_SET;
+        }
+    }
+    if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_PERMITTED)) {
+        const auto permitted = stopBaseObject->getStringListAttribute(SUMO_ATTR_PERMITTED);
+        for (const auto& permit : permitted) {
+            stop.permitted.insert(permit);
+        }
+    }
+    if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_PARKING)) {
+        if (stopBaseObject->getBoolAttribute(SUMO_ATTR_PARKING)) {
+            stop.parametersSet |= STOP_PARKING_SET;
         }
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIP_ID)) {
