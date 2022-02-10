@@ -2018,10 +2018,10 @@ MSLane::getFirstInternalInConnection(double& offset) const {
 // ------ Static (sic!) container methods  ------
 bool
 MSLane::dictionary(const std::string& id, MSLane* ptr) {
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict.insert(DictType::value_type(id, ptr));
+    const DictType::iterator it = myDict.lower_bound(id);
+    if (it == myDict.end() || it->first != id) {
+        // id not in myDict
+        myDict.emplace_hint(it, id, ptr);
         return true;
     }
     return false;
@@ -2030,9 +2030,9 @@ MSLane::dictionary(const std::string& id, MSLane* ptr) {
 
 MSLane*
 MSLane::dictionary(const std::string& id) {
-    DictType::iterator it = myDict.find(id);
+    const DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
-        // id not in myDict.
+        // id not in myDict
         return nullptr;
     }
     return it->second;

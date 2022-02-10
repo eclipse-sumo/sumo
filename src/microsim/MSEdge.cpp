@@ -885,12 +885,12 @@ MSEdge::getRoutingSpeed() const {
 
 bool
 MSEdge::dictionary(const std::string& id, MSEdge* ptr) {
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict[id] = ptr;
-        while ((int)myEdges.size() < ptr->getNumericalID() + 1) {
-            myEdges.push_back(0);
+    const DictType::iterator it = myDict.lower_bound(id);
+    if (it == myDict.end() || it->first != id) {
+        // id not in myDict
+        myDict.emplace_hint(it, id, ptr);
+        while (ptr->getNumericalID() >= (int)myEdges.size()) {
+            myEdges.push_back(nullptr);
         }
         myEdges[ptr->getNumericalID()] = ptr;
         return true;
@@ -901,18 +901,24 @@ MSEdge::dictionary(const std::string& id, MSEdge* ptr) {
 
 MSEdge*
 MSEdge::dictionary(const std::string& id) {
-    DictType::iterator it = myDict.find(id);
+    const DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
-        // id not in myDict.
         return nullptr;
     }
     return it->second;
 }
 
 
-int
-MSEdge::dictSize() {
-    return (int)myDict.size();
+MSEdge*
+MSEdge::dictionaryHint(const std::string& id, const int startIdx) {
+    // this method is mainly useful when parsing connections from the net.xml which are sorted by "from" id
+    if (myEdges[startIdx]->getID() == id) {
+        return myEdges[startIdx];
+    }
+    if (startIdx + 1 < (int)myEdges.size() && myEdges[startIdx + 1]->getID() == id) {
+        return myEdges[startIdx + 1];
+    }
+    return dictionary(id);
 }
 
 

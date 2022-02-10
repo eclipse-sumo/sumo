@@ -825,15 +825,14 @@ MSNet::clearState(const SUMOTime step) {
     MSGlobals::gClearState = true;
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->clearState();
-        for (int i = 0; i < MSEdge::dictSize(); i++) {
-            for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*MSEdge::getAllEdges()[i]); s != nullptr; s = s->getNextSegment()) {
+        for (MSEdge* const edge : MSEdge::getAllEdges()) {
+            for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge); s != nullptr; s = s->getNextSegment()) {
                 s->clearState();
             }
         }
     } else {
-        for (int i = 0; i < MSEdge::dictSize(); i++) {
-            const std::vector<MSLane*>& lanes = MSEdge::getAllEdges()[i]->getLanes();
-            for (MSLane* lane : lanes) {
+        for (MSEdge* const edge : MSEdge::getAllEdges()) {
+            for (MSLane* const lane : edge->getLanes()) {
                 lane->getVehiclesSecure();
                 lane->clearState();
                 lane->releaseVehicles();

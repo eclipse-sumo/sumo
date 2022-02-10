@@ -754,11 +754,11 @@ public:
         returns false. */
     static bool dictionary(const std::string& id, MSEdge* edge);
 
-    /** @brief Returns the MSEdge associated to the key id if exists, otherwise returns 0. */
+    /** @brief Returns the MSEdge associated to the key id if it exists, otherwise returns nullptr. */
     static MSEdge* dictionary(const std::string& id);
 
-    /// @brief Returns the number of edges
-    static int dictSize();
+    /** @brief Returns the MSEdge associated to the key id giving a hint with a numerical id. */
+    static MSEdge* dictionaryHint(const std::string& id, const int startIdx);
 
     /// @brief Returns all edges with a numerical id
     static const MSEdgeVector& getAllEdges();

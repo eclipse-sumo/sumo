@@ -46,7 +46,7 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
     : myEdges(edges),
       myLanes(MSLane::dictSize()),
       myWithVehicles2Integrate(MSGlobals::gNumSimThreads > 1),
-      myLastLaneChange(MSEdge::dictSize()),
+      myLastLaneChange(edges.size()),
       myInactiveCheckCollisions(MSGlobals::gNumSimThreads > 1),
       myMinLengthGeometryFactor(1.),
 #ifdef THREAD_POOL

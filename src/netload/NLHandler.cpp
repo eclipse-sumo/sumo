@@ -1365,11 +1365,12 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, nullptr, ok, "");
         std::string viaID = attrs.getOpt<std::string>(SUMO_ATTR_VIA, nullptr, ok, "");
 
-        MSEdge* from = MSEdge::dictionary(fromID);
+        MSEdge* from = MSEdge::dictionaryHint(fromID, myPreviousEdgeIdx);
         if (from == nullptr) {
             WRITE_ERROR("Unknown from-edge '" + fromID + "' in connection.");
             return;
         }
+        myPreviousEdgeIdx = from->getNumericalID();
         MSEdge* to = MSEdge::dictionary(toID);
         if (to == nullptr) {
             WRITE_ERROR("Unknown to-edge '" + toID + "' in connection.");
