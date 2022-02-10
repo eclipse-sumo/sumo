@@ -380,13 +380,15 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         stop.parametersSet |= STOP_EXTENSION_SET;
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIGGERED)) {
-        stop.parametersSet |= STOP_TRIGGER_SET;
         if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "person") {
+            stop.parametersSet |= STOP_TRIGGER_SET;
             stop.triggered = true;
         } else if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "container") {
+            stop.parametersSet |= STOP_TRIGGER_SET;
             stop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
             stop.containerTriggered = true;
         } else if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "join") {
+            stop.parametersSet |= STOP_TRIGGER_SET;
             stop.joinTriggered = true;
         }
     }
