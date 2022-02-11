@@ -8,6 +8,12 @@ find_primes
 # tests a 'function' definition
 find_primes_function
 
+# a traffic light program that computes all primes < 100
+# because we can!
+# 
+# tests a 'function' definition that assigns local variables
+function_local_vars
+
 # use custom switching rules to replicate the default behavior
 replicate_default
 
