@@ -177,7 +177,7 @@
         <xsd:attribute name="arrivalSpeed" type="xsd:float" use="required"/>
         <xsd:attribute name="departSpeed" type="xsd:float" use="required"/>
         <xsd:attribute name="request" type="boolType" use="required"/>
-        <xsd:attribute name="arrivalTimeBraking" type="xsd:integer" use="required"/>
+        <xsd:attribute name="arrivalTimeBraking" type="xsd:integer" use="optional"/>
         <xsd:attribute name="arrivalSpeedBraking" type="xsd:float" use="required"/>
         <xsd:attribute name="waitingTime" type="xsd:integer" use="required"/>
         <xsd:attribute name="distance" type="xsd:float" use="required"/>
