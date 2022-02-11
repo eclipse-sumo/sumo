@@ -452,6 +452,7 @@ The following elements are permitted in an expression for attributes
     false (0) otherwise. Supports inductionLoop and laneAreaDetectors. Also supports omitting the prefix of the detector id. (see 'z:')
   - 'g:TLSINDEX': returns current green duration in seconds for link with the given index
   - 'r:TLSINDEX': returns current red duration in seconds for link with the given index
+  - 'c:': returns the time within the current cycle
 - Symbolic names for [pre-defined expressions](#named_expressions)
 
 The following constraints apply to expressions:
