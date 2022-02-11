@@ -1332,6 +1332,7 @@ class stop:
         permitted = 14
         parking = 15
         actType = 16
+        actTypeParking = 15
     class inspect:
         durationEnable = 1
         duration = 2

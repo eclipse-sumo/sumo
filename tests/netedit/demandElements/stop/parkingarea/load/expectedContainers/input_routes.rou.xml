@@ -37,15 +37,25 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE0 gneE1" color="yellow" id="route_0">
+
+    <vehicle id="vehicle_0" depart="0.00">
+	    <route edges="gneE0 gneE1" color="yellow"/>
+		<stop parkingArea="parkingArea" containerTriggered="1" expectedContainers=""/>
+	</vehicle>
+
+    <vehicle id="vehicle_1" depart="0.00">
+	    <route edges="gneE0 gneE1" color="yellow"/>
+		<stop parkingArea="parkingArea" containerTriggered="1" expectedContainers=";;;;"/>
+	</vehicle>
+
+    <vehicle id="vehicle_2" depart="0.00">
+	    <route edges="gneE0 gneE1" color="yellow"/>
+		<stop parkingArea="parkingArea" containerTriggered="1" expectedContainers="ID1"/>
+	</vehicle>
+
+    <vehicle id="vehicle_3" depart="0.00">
+	    <route edges="gneE0 gneE1" color="yellow"/>
+		<stop parkingArea="parkingArea" containerTriggered="1" expectedContainers="ID1 ID2"/>		
+	</vehicle>
 	
-        <stop busStop="busStop" containerTriggered="1" expectedContainers=""/>
-		
-		<stop busStop="busStop" containerTriggered="1" expectedContainers=";;;;"/>
-		
-		<stop busStop="busStop" containerTriggered="1" expectedContainers="ID1"/>
-		
-		<stop busStop="busStop" containerTriggered="1" expectedContainers="ID1 ID2"/>
-		
-    </route>
 </routes>

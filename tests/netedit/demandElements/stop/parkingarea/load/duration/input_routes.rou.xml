@@ -37,16 +37,30 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE0 gneE1" color="yellow" id="route_0">
-        <stop busStop="busStop" duration="dummyDuration"/>
-		
-		<stop busStop="busStop" duration=""/>
-		
-		<stop busStop="busStop" duration="-3"/>
-		
-		<stop busStop="busStop" duration="0"/>
-		
-		<stop busStop="busStop" duration="2"/>
-		
-    </route>
+
+    <vehicle id="vehicle_0" depart="0.00">
+	    <route edges="gneE0 gneE1" color="yellow"/>
+		<stop parkingArea="parkingArea" duration="dummyDuration"/>
+	</vehicle>
+
+    <vehicle id="vehicle_1" depart="0.00">
+	    <route edges="gneE0 gneE1" color="yellow"/>
+		<stop parkingArea="parkingArea" duration=""/>
+	</vehicle>
+
+    <vehicle id="vehicle_2" depart="0.00">
+	    <route edges="gneE0 gneE1" color="yellow"/>
+		<stop parkingArea="parkingArea" duration="-3"/>
+	</vehicle>
+
+    <vehicle id="vehicle_3" depart="0.00">
+	    <route edges="gneE0 gneE1" color="yellow"/>
+		<stop parkingArea="parkingArea" duration="0"/>
+	</vehicle>
+
+    <vehicle id="vehicle_4" depart="0.00">
+	    <route edges="gneE0 gneE1" color="yellow"/>
+		<stop parkingArea="parkingArea" duration="2"/>
+	</vehicle>
+
 </routes>
