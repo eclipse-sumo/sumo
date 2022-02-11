@@ -578,6 +578,34 @@ Every time the control logic is executed, all `assignment`s are executed in the 
 
 The test case [find_primes](https://sumo.dlr.de/extractTest.php?path=sumo/basic/tls/actuated/conditions/assignments/find_primes) computes all prime numbers below 100 inside the traffic light controller as a capability demonstration.
 
+### Custom function definitions
+
+Custom functions are a mechanism that allows to execute multiple assignments with custom arguments.
+They are defined with the `<function>` element within a `<tlLogic>` as shown below:
+
+```
+<tlLogic id="example" type="actuated" ...>
+
+  <function id="FNAME" numArgs="2">
+     <assignment id="COND1" check="1" value="$1 + $2"/>
+     <assignment id="$0" check="1" value="COND1 * COND1"/>
+  </function>
+
+  <condition id="COND2" value="FNAME:3,4"/>
+   ...
+</tlLogic>
+```
+
+- **id** may be any alphanumeric string
+- **nArgs** is the number of arguments required by the function
+- **$0** is the value returned by the function
+- **$1 ... $n** are the values of the functions arguments in the order they are supplied after the **:**
+- functions may not assign to any defined `<condition>` id
+- assignments are local to the function
+- a function call takes the form **id:arg_1,arg_2,...arg_n** and there must be no spaces between the arguments and the commas
+
+in the above example COND2 receives a value of 49
+
 ## Type 'delay_based'
 
 Similar to the control by time gaps between vehicles, a phase
