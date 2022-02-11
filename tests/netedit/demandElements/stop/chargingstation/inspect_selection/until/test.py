@@ -44,22 +44,28 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 290, 208)
+netedit.leftClick(referencePosition, 290, 195)
 
 # change value
-netedit.modifyAttribute(3, "dummyValue", True)
+netedit.modifyBoolAttribute(netedit.attrs.stop.inspectSelection.untilEnable, False)
 
 # change value
-netedit.modifyAttribute(3, "", True)
+netedit.modifyBoolAttribute(netedit.attrs.stop.inspectSelection.untilEnable, False)
 
 # change value
-netedit.modifyAttribute(3, "-5", True)
+netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.until, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(3, "0", True)
+netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.until, "", False)
 
 # change value
-netedit.modifyAttribute(3, "3.5", True)
+netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.until, "-5", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.until, "0", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.until, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

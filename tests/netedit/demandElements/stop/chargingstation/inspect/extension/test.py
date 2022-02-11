@@ -41,34 +41,34 @@ netedit.stopMode()
 netedit.changeStopType("stopChargingStation")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 193)
+netedit.leftClick(referencePosition, 290, 195)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 290, 193)
+netedit.leftClick(referencePosition, 290, 195)
 
 # change value
 netedit.modifyBoolAttribute(netedit.attrs.stop.inspect.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stop.inspectExtension.extensionEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stop.inspect.extensionEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectExtension.extension, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.extension, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectExtension.extension, "", False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.extension, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectExtension.extension, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.extension, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectExtension.extension, "0", False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.extension, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectExtension.extension, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.extension, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

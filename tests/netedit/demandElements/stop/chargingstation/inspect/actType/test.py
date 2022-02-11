@@ -41,13 +41,13 @@ netedit.stopMode()
 netedit.changeStopType("stopChargingStation")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 193)
+netedit.leftClick(referencePosition, 290, 195)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 290, 193)
+netedit.leftClick(referencePosition, 290, 195)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stop.inspect.actType, "dummy", False)
