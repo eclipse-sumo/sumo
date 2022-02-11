@@ -39,6 +39,9 @@ public:
     /// Removes trailing and leading whitechars
     static std::string prune(const std::string& str);
 
+    /// Removes trailing zeros (at most 'max')
+    static std::string pruneZeros(const std::string& str, int max);
+
     /// Transfers the content to lower case
     static std::string to_lower_case(std::string str);
 

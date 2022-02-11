@@ -334,13 +334,15 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
         }
     }
     if (tmp.wasSet(VEHPARS_DEPARTPOS_SET)) {
-        tmp.departPosProcedure = (tmp.departPosProcedure == DepartPosDefinition::RANDOM
+        tmp.departPosProcedure = ((tmp.departPosProcedure != DepartPosDefinition::GIVEN
+                    && tmp.departPosProcedure != DepartPosDefinition::STOP)
                 ? DepartPosDefinition::GIVEN_VEHROUTE
                 : DepartPosDefinition::GIVEN);
         tmp.departPos = myDepartPos;
     }
     if (tmp.wasSet(VEHPARS_DEPARTSPEED_SET)) {
-        tmp.departSpeedProcedure = (tmp.departSpeedProcedure == DepartSpeedDefinition::RANDOM
+        tmp.departSpeedProcedure = ((tmp.departSpeedProcedure != DepartSpeedDefinition::GIVEN
+                    && tmp.departSpeedProcedure != DepartSpeedDefinition::LIMIT)
                 ? DepartSpeedDefinition::GIVEN_VEHROUTE
                 : DepartSpeedDefinition::GIVEN);
         tmp.departSpeed = myDepartSpeed;

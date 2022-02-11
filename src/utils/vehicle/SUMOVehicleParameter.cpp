@@ -752,7 +752,7 @@ SUMOVehicleParameter::getDepartPos() const {
             val = toString(departPos);
             break;
         case DepartPosDefinition::GIVEN_VEHROUTE:
-            val = toString(departPos, MAX2(gPrecisionRandom, gPrecision));
+            val = StringUtils::pruneZeros(toString(departPos, MAX2(gPrecisionRandom, gPrecision)), 2);
             break;
         case DepartPosDefinition::RANDOM:
             val = "random";
@@ -788,7 +788,7 @@ SUMOVehicleParameter::getDepartPosLat() const {
             val = toString(departPos);
             break;
         case DepartPosLatDefinition::GIVEN_VEHROUTE:
-            val = toString(departPos, MAX2(gPrecisionRandom, gPrecision));
+            val = StringUtils::pruneZeros(toString(departPos, MAX2(gPrecisionRandom, gPrecision)), 2);
             break;
         case DepartPosLatDefinition::RANDOM:
             val = "random";
@@ -824,7 +824,7 @@ SUMOVehicleParameter::getDepartSpeed() const {
             val = toString(departSpeed);
             break;
         case DepartSpeedDefinition::GIVEN_VEHROUTE:
-            val = toString(departSpeed, MAX2(gPrecisionRandom, gPrecision));
+            val = StringUtils::pruneZeros(toString(departSpeed, MAX2(gPrecisionRandom, gPrecision)), 2);
             break;
         case DepartSpeedDefinition::RANDOM:
             val = "random";

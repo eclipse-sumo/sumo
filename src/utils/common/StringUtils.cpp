@@ -56,6 +56,16 @@ StringUtils::prune(const std::string& str) {
 
 
 std::string
+StringUtils::pruneZeros(const std::string& str, int max) {
+    const std::string::size_type endpos = str.find_last_not_of("0");
+    if (endpos != std::string::npos && str.back() == '0') {
+        std::string res = str.substr(0, MAX2((int)str.size() - max, (int)endpos + 1));
+        return res;
+    }
+    return str;
+}
+
+std::string
 StringUtils::to_lower_case(std::string str) {
     for (int i = 0; i < (int)str.length(); i++) {
         if (str[i] >= 'A' && str[i] <= 'Z') {
