@@ -160,13 +160,17 @@ def get_options(args):
     optParser.add_argument("-z", "--gzip", action="store_true",
                            default=False, help="save gzipped output")
     options = optParser.parse_args(args=args)
-    return options;
+    if not options.bbox and not options.area and not options.polygon:
+        optParser.error("At least one of 'bbox' and 'area' and 'polygon' has to be set.")
+    if options.bbox:
+        west, south, east, north = [float(v) for v in options.bbox.split(',')]
+        if south > north or west > east or south < -90 or north > 90 or west < -180 or east > 180:
+            optParser.error("Invalid geocoordinates in bbox.")
+    return options
 
 
 def get(args=None):
     options = get_options(args)
-    if not options.bbox and not options.area and not options.polygon:
-        optParser.error("At least one of 'bbox' and 'area' and 'polygon' has to be set.")
     if options.polygon:
         west = 1e400
         south = 1e400
@@ -181,8 +185,6 @@ def get(args=None):
                 north = max(point[1], north)
     if options.bbox:
         west, south, east, north = [float(v) for v in options.bbox.split(',')]
-        if south > north or west > east:
-            optParser.error("Invalid geocoordinates in bbox.")
 
     if options.output_dir:
         options.prefix = os.path.join(options.output_dir, options.prefix)

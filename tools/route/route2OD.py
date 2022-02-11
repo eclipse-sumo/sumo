@@ -39,7 +39,8 @@ def get_options(args=None):
     optParser.add_argument("-r", "--route-file", dest="routefile",
                            help="define the input route file (mandatory)")
     optParser.add_argument("-a", "--taz-files", dest="tazfiles",
-                           help="define the files to load TAZ (districts); it is mandatory when generating taz-based OD file")
+                           help="define the files to load TAZ (districts); "
+                           "it is mandatory when generating taz-based OD file")
     optParser.add_argument("-o", "--output-file", dest="outfile",
                            help="define the output filename (mandatory)")
     optParser.add_argument("-i", "--interval",
@@ -57,7 +58,7 @@ def get_options(args=None):
 
     if options.interval is not None:
         options.interval = parseTime(options.interval)
-        
+
     if not options.edgeod:
         options.tazfiles = options.tazfiles.split()
     return options
@@ -112,13 +113,14 @@ def main(options):
         intervals_edge = defaultdict(lambda: defaultdict(lambda: 0))
     else:
         intervals = defaultdict(lambda: defaultdict(lambda: 0))
+
     def addVehicle(vehID, fromEdge, toEdge, time, count=1):
         nl.numVehicles += count
         if options.interval is None:
             intervalBegin = 0
         else:
             intervalBegin = int(time / options.interval) * options.interval
-        
+
         if options.edgeod:
             intervals_edge[intervalBegin][(fromEdge, toEdge)] += count
         else:
@@ -205,7 +207,7 @@ def main(options):
 
             print("Wrote %s OD-pairs (%s edgeOD) in %s intervals" % (
                 numOD, len(edgeOD), len(intervals_edge)))
-        else:        
+        else:
             with open(options.outfile, 'w') as outf:
                 sumolib.writeXMLHeader(outf, "$Id$", "data", "datamode_file.xsd", options=options)  # noqa
                 for begin, tazRelations in intervals.items():
@@ -225,8 +227,7 @@ def main(options):
 
             print("Wrote %s OD-pairs (%s distinct) in %s intervals" % (
                 numOD, len(distinctOD), len(intervals)))
-        
-        
+
 
 if __name__ == "__main__":
     if not main(get_options()):

@@ -571,7 +571,6 @@ def main(options):
                     departures = []
                     if options.randomDepart:
                         subsecond = math.fmod(options.period, 1)
-                        numVehs = int((maxTime - begin) / options.period)
                         while time < maxTime:
                             rTime = random.randrange(begin, maxTime)
                             time += options.period

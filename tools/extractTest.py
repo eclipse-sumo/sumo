@@ -27,7 +27,6 @@ from __future__ import print_function
 import os
 import sys
 from os.path import join
-import optparse
 import glob
 import shutil
 import shlex
