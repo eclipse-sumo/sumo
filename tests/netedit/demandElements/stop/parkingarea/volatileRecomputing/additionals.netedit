@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-12 14:01:16 by Eclipse SUMO netedit Version v1_10_0+2227-eed75efe9a7
+<!-- generated on 2021-07-02 09:26:13 by Eclipse SUMO netedit Version v1_9_2+0799-42b2810642a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov132736.664\netedit.gui\demandElements\stop\parkingarea\volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.busstop.02Jul080812.2559/netedit.daily.demand.stop.busstop/demandElements/stop/busstop/volatileRecomputing/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov132736.664\netedit.gui\demandElements\stop\parkingarea\volatileRecomputing\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.busstop.02Jul080812.2559/netedit.daily.demand.stop.busstop/demandElements/stop/busstop/volatileRecomputing/net.net.xml"/>
     </output>
 
     <processing>
@@ -32,40 +32,40 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov132736.664\netedit.gui\demandElements\stop\parkingarea\volatileRecomputing\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov132736.664\netedit.gui\demandElements\stop\parkingarea\volatileRecomputing\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov132736.664\netedit.gui\demandElements\stop\parkingarea\volatileRecomputing\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov132736.664\netedit.gui\demandElements\stop\parkingarea\volatileRecomputing\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov132736.664\netedit.gui\demandElements\stop\parkingarea\volatileRecomputing\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov132736.664\netedit.gui\demandElements\stop\parkingarea\volatileRecomputing\datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.busstop.02Jul080812.2559/netedit.daily.demand.stop.busstop/demandElements/stop/busstop/volatileRecomputing/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.busstop.02Jul080812.2559/netedit.daily.demand.stop.busstop/demandElements/stop/busstop/volatileRecomputing/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.busstop.02Jul080812.2559/netedit.daily.demand.stop.busstop/demandElements/stop/busstop/volatileRecomputing/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.busstop.02Jul080812.2559/netedit.daily.demand.stop.busstop/demandElements/stop/busstop/volatileRecomputing/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.busstop.02Jul080812.2559/netedit.daily.demand.stop.busstop/demandElements/stop/busstop/volatileRecomputing/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.busstop.02Jul080812.2559/netedit.daily.demand.stop.busstop/demandElements/stop/busstop/volatileRecomputing/datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov132736.664\netedit.gui\demandElements\stop\parkingarea\volatileRecomputing\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.busstop.02Jul080812.2559/netedit.daily.demand.stop.busstop/demandElements/stop/busstop/volatileRecomputing/gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov132736.664\netedit.gui\demandElements\stop\parkingarea\volatileRecomputing\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.busstop.02Jul080812.2559/netedit.daily.demand.stop.busstop/demandElements/stop/busstop/volatileRecomputing/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov132736.664\netedit.gui\demandElements\stop\parkingarea\volatileRecomputing\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.busstop.02Jul080812.2559/netedit.daily.demand.stop.busstop/demandElements/stop/busstop/volatileRecomputing/log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingAreaA" lane="gneE0_0" startPos="19.75" endPos="29.75"/>
-    <parkingArea id="parkingAreaB" lane="gneE1_0" startPos="28.41" endPos="38.41"/>
-    <parkingArea id="parkingAreaC" lane="gneE2_0" startPos="16.48" endPos="26.48"/>
-    <parkingArea id="parkingAreaD" lane="gneE2_1" startPos="21.73" endPos="31.73"/>
-    <parkingArea id="parkingAreaE" lane="gneE2_2" startPos="23.79" endPos="33.79"/>
-    <parkingArea id="parkingAreaF" lane="gneE2_3" startPos="27.13" endPos="37.13"/>
-    <parkingArea id="parkingAreaG" lane="gneE2_4" startPos="31.03" endPos="41.03"/>
-    <parkingArea id="parkingAreaH" lane="gneE4_0" startPos="17.90" endPos="27.90"/>
+    <busStop id="busStopA" lane="gneE0_0" startPos="19.75" endPos="29.75"/>
+    <busStop id="busStopB" lane="gneE1_0" startPos="28.41" endPos="38.41"/>
+    <busStop id="busStopC" lane="gneE2_0" startPos="16.48" endPos="26.48"/>
+    <busStop id="busStopD" lane="gneE2_1" startPos="21.73" endPos="31.73"/>
+    <busStop id="busStopE" lane="gneE2_2" startPos="23.79" endPos="33.79"/>
+    <busStop id="busStopF" lane="gneE2_3" startPos="27.13" endPos="37.13"/>
+    <busStop id="busStopG" lane="gneE2_4" startPos="31.03" endPos="41.03"/>
+    <busStop id="busStopH" lane="gneE4_0" startPos="17.90" endPos="27.90"/>
 </additional>

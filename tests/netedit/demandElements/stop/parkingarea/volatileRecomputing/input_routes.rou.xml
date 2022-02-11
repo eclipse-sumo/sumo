@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\stop\stopParkingArea\volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\sumo\tests\netedit\demandElements\stop\stopParkingArea\volatileRecomputing\input_net.net.xml"/>
+        <output-file value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\volatileRecomputing\input_net.net.xml"/>
     </output>
 
     <processing>
@@ -30,25 +30,23 @@
     </pedestrian>
 
     <netedit>
-        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopParkingArea\volatileRecomputing\input_routes.rou.xml"/>
+        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\volatileRecomputing\input_routes.rou.xml"/>
     </netedit>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="vehicle_0" depart="0.00">
-	    <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingAreaH" duration="60.00"/>
-        <stop parkingArea="parkingAreaG" duration="60.00"/>
-        <stop parkingArea="parkingAreaF" duration="60.00"/>
-        <stop parkingArea="parkingAreaE" duration="60.00"/>
-        <stop parkingArea="parkingAreaD" duration="60.00"/>
-        <stop parkingArea="parkingAreaC" duration="60.00"/>
-    </vehicle>
-    <vehicle id="vehicle_1" depart="0.00">
-	    <route edges="gneE0 gneE1" color="red"/>
-        <stop parkingArea="parkingAreaB" duration="60.00"/>
-        <stop parkingArea="parkingAreaA" duration="60.00"/>
-    </vehicle>
+    <route edges="gneE2 gneE4" color="yellow" id="route_0">
+        <stop busStop="busStopH" duration="60.00"/>
+        <stop busStop="busStopG" duration="60.00"/>
+        <stop busStop="busStopF" duration="60.00"/>
+        <stop busStop="busStopE" duration="60.00"/>
+        <stop busStop="busStopD" duration="60.00"/>
+        <stop busStop="busStopC" duration="60.00"/>
+    </route>
+    <route edges="gneE0 gneE1" color="yellow" id="route_1">
+        <stop busStop="busStopB" duration="60.00"/>
+        <stop busStop="busStopA" duration="60.00"/>
+    </route>
 </routes>

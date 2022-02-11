@@ -41,40 +41,40 @@ netedit.stopMode()
 netedit.changeStopType("stopParkingArea")
 
 # disable duration
-netedit.changeDefaultBoolValue(4)
+netedit.changeDefaultBoolValue(netedit.attrs.stop.create.durationEnable)
 
 # create stop
-netedit.leftClick(referencePosition, 290, 145)
+netedit.leftClick(referencePosition, 290, 155)
 
 # enable duration
-netedit.changeDefaultBoolValue(4)
+netedit.changeDefaultBoolValue(netedit.attrs.stop.create.durationEnable)
 
 # create stop
-netedit.leftClick(referencePosition, 290, 145)
+netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(5, "dummyValue")
+netedit.changeDefaultValue(netedit.attrs.stop.create.duration, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 145)
+netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(5, "-20")
+netedit.changeDefaultValue(netedit.attrs.stop.create.duration, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 145)
+netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
-netedit.changeDefaultValue(5, "0")
+netedit.changeDefaultValue(netedit.attrs.stop.create.duration, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 145)
+netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
-netedit.changeDefaultValue(5, "22.33")
+netedit.changeDefaultValue(netedit.attrs.stop.create.duration, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 145)
+netedit.leftClick(referencePosition, 290, 155)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
