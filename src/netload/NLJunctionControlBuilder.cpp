@@ -71,7 +71,8 @@ NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet& net, NLDetectorBuilder
     myDetectorBuilder(db),
     myOffset(0),
     myJunctions(nullptr),
-    myNetIsLoaded(false) {
+    myNetIsLoaded(false)
+{
     myLogicControl = new MSTLLogicControl();
     myJunctions = new MSJunctionControl();
 }
@@ -296,7 +297,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
             tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
                     myActiveKey, myActiveProgram, myOffset,
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
-                    myAdditionalParameter, basePath, myActiveConditions, myActiveAssignments);
+                    myAdditionalParameter, basePath, myActiveConditions, myActiveAssignments, myActiveFunctions);
             break;
         case TrafficLightType::NEMA:
             tlLogic = new NEMALogic(getTLLogicControlToUse(),
@@ -412,6 +413,7 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string& id, const std
     myActivePhases.clear();
     myActiveConditions.clear();
     myActiveAssignments.clear();
+    myActiveFunctions.clear();
     myAbsDuration = 0;
     myRequestSize = NO_REQUEST_SIZE;
     myLogicType = type;
@@ -442,9 +444,25 @@ NLJunctionControlBuilder::addCondition(const std::string& id, const std::string&
 
 void
 NLJunctionControlBuilder::addAssignment(const std::string& id, const std::string& check, const std::string& value) {
-    myActiveAssignments.push_back(std::make_tuple(id, check, value));
+    if (myActiveFunction.id == "") {
+        myActiveAssignments.push_back(std::make_tuple(id, check, value));
+    } else {
+        myActiveFunction.assignments.push_back(std::make_tuple(id, check, value));
+    }
 }
 
+
+void
+NLJunctionControlBuilder::addFunction(const std::string& id, int nArgs) {
+    myActiveFunction.id = id;
+    myActiveFunction.nArgs = nArgs;
+}
+
+void
+NLJunctionControlBuilder::closeFunction() {
+    myActiveFunction.id = "";
+    myActiveFunction.assignments.clear();
+}
 
 void
 NLJunctionControlBuilder::closeJunctionLogic() {

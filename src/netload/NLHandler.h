@@ -242,6 +242,12 @@ private:
     /// adds a switching condition assignment to the traffic lights logic currently build
     void addAssignment(const SUMOSAXAttributes& attrs);
 
+    /// adds a switching condition function to the traffic lights logic currently build
+    void addFunction(const SUMOSAXAttributes& attrs);
+
+    /// adds a switching condition function to the traffic lights logic currently build
+    void closeFunction();
+
     /// opens a junction for processing
     virtual void openJunction(const SUMOSAXAttributes& attrs);
 

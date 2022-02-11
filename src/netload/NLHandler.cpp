@@ -121,6 +121,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_ASSIGNMENT:
                 addAssignment(attrs);
                 break;
+            case SUMO_TAG_FUNCTION:
+                addFunction(attrs);
+                break;
             case SUMO_TAG_CONNECTION:
                 addConnection(attrs);
                 break;
@@ -327,6 +330,9 @@ NLHandler::myEndElement(int element) {
                 }
             }
             myAmParsingTLLogicOrJunction = false;
+            break;
+        case SUMO_TAG_FUNCTION:
+            closeFunction();
             break;
         case SUMO_TAG_WAUT:
             closeWAUT();
@@ -878,6 +884,19 @@ NLHandler::addAssignment(const SUMOSAXAttributes& attrs) {
     myJunctionControlBuilder.addAssignment(id, check, value);
 }
 
+
+void
+NLHandler::addFunction(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    const int nArgs = attrs.get<int>(SUMO_ATTR_NARGS, nullptr, ok);
+    myJunctionControlBuilder.addFunction(id, nArgs);
+}
+
+void
+NLHandler::closeFunction() {
+    myJunctionControlBuilder.closeFunction();
+}
 
 void
 NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {

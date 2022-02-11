@@ -175,12 +175,23 @@ public:
      */
     bool addCondition(const std::string& id, const std::string& value);
 
-    /** @brief Adds a condition to the currently built traffic lights logic
+    /** @brief Adds an assignment to the currently built traffic lights logic
      *
      * @param[in] id the condition id
-     * @param[in] value the condition expression
+     * @param[in] check the check condition that guards the assignment
+     * @param[in] value the assigned expression
      */
     void addAssignment(const std::string& id, const std::string& check, const std::string& value);
+
+    /** @brief adds a switching condition function to the traffic lights logic currently build
+     *
+     * @param[in] id the function id
+     * @param[in] nArgs the number of arguments
+     */
+    void addFunction(const std::string& id, int nArgs);
+
+    /// closes a switching condition function to the traffic lights logic currently build
+    void closeFunction();
 
     /** @brief Returns a previously build tls logic
      *
@@ -348,6 +359,12 @@ protected:
 
     /// @brief The current assignments for an actuated traffic light
     MSActuatedTrafficLightLogic::AssignmentMap myActiveAssignments;
+
+    /// @brief The current functions for an actuated traffic light
+    MSActuatedTrafficLightLogic::FunctionMap myActiveFunctions;
+
+    /// @brief The current function for an actuated traffic light
+    MSActuatedTrafficLightLogic::Function myActiveFunction;
 
     /// @brief The size of the request
     int myRequestSize;

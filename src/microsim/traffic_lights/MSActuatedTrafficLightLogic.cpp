@@ -75,11 +75,13 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const std::map<std::string, std::string>& parameter,
         const std::string& basePath,
         const ConditionMap& conditions,
-        const AssignmentMap& assignments) :
+        const AssignmentMap& assignments,
+        const FunctionMap& functions) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, offset, TrafficLightType::ACTUATED, phases, step, delay, parameter),
     myLastTrySwitchTime(0),
     myConditions(conditions),
     myAssignments(assignments),
+    myFunctions(functions),
     myTraCISwitch(false),
     myDetectorPrefix(id + "_" + programID + "_") {
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));

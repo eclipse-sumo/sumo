@@ -51,6 +51,16 @@ public:
     typedef std::map<std::string, std::string> ConditionMap;
     typedef std::vector<std::tuple<std::string, std::string, std::string> > AssignmentMap;
 
+    struct Function {
+        Function(const std::string& _id = "", int _nArgs = -1):
+            id(_id), nArgs(_nArgs) {}
+        std::string id;
+        int nArgs;
+        AssignmentMap assignments;
+    };
+
+    typedef std::map<std::string, Function> FunctionMap;
+
 
     /** @brief Constructor
      * @param[in] tlcontrol The tls control responsible for this tls
@@ -69,7 +79,8 @@ public:
                                 const std::map<std::string, std::string>& parameter,
                                 const std::string& basePath,
                                 const ConditionMap& conditions = ConditionMap(),
-                                const AssignmentMap& assignments = AssignmentMap());
+                                const AssignmentMap& assignments = AssignmentMap(),
+                                const FunctionMap& functions = FunctionMap());
 
 
     /** @brief Initialises the tls with information about incoming lanes
@@ -268,6 +279,8 @@ protected:
     /// @brief The condition assignments
     AssignmentMap myAssignments;
 
+    /// @brief The loaded functions
+    FunctionMap myFunctions;
 
     /// @brief the conditions which shall be listed in GUITLLogicPhasesTrackerWindow
     std::set<std::string> myListedConditions;
