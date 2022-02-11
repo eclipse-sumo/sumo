@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-08 14:35:33 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
+<!-- generated on 2022-02-11 11:28:56 by Eclipse SUMO sumo Version v1_12_0+0490-00f3a0f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -49,10 +54,12 @@ SPDX-License-Identifier: EPL-2.0
     <personinfo id="p0" depart="400.00" type="DEFAULT_PEDTYPE">
         <stop duration="1.00" arrival="401.00" arrivalPos="300.00" actType="waiting"/>
         <ride waitingTime="38.80" vehicle="trainBA.0" depart="439.80" arrival="475.00" arrivalPos="800.00" duration="35.20" routeLength="500.00" timeLoss="0.00"/>
-        <walk depart="475.00" departPos="111.92" arrival="497.00" arrivalPos="81.39" duration="22.00" routeLength="30.53" timeLoss="0.02" maxSpeed="1.39"/>
-        <access stop="stopA_E" depart="497.00" arrival="570.00" duration="73.00" routeLength="102.24"/>
-        <walk depart="570.00" departPos="81.39" arrival="1420.00" arrivalPos="109.86" duration="850.00" routeLength="1176.85" timeLoss="2.67" maxSpeed="1.39"/>
-        <access stop="stopC_E" depart="1420.00" arrival="1431.00" duration="11.00" routeLength="15.46"/>
+        <access stop="stopA_S" depart="475.00" arrival="487.00" duration="12.00" routeLength="17.52"/>
+        <walk depart="487.00" departPos="111.92" arrival="509.00" arrivalPos="81.39" duration="22.00" routeLength="30.53" timeLoss="0.02" maxSpeed="1.39"/>
+        <access stop="stopA_E" depart="509.00" arrival="582.00" duration="73.00" routeLength="102.24"/>
+        <access stop="stopA_E" depart="582.00" arrival="655.00" duration="73.00" routeLength="102.24"/>
+        <walk depart="655.00" departPos="81.39" arrival="1505.00" arrivalPos="109.86" duration="850.00" routeLength="1176.85" timeLoss="2.67" maxSpeed="1.39"/>
+        <access stop="stopC_E" depart="1505.00" arrival="1516.00" duration="11.00" routeLength="15.46"/>
     </personinfo>
     <tripinfo id="trainAB.2" depart="1515.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="1723.00" arrivalLane="" arrivalPos="1200.00" arrivalSpeed="13.89" duration="208.00" routeLength="1200.00" waitingTime="0.00" waitingCount="0" stopTime="121.21" timeLoss="121.21" rerouteNo="0" devices="tripinfo_trainAB.2" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="busABCD.1" depart="1205.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="1749.00" arrivalLane="" arrivalPos="487.60" arrivalSpeed="1.75" duration="544.00" routeLength="4905.20" waitingTime="0.00" waitingCount="0" stopTime="189.87" timeLoss="189.87" rerouteNo="0" devices="tripinfo_busABCD.1" vType="bus" speedFactor="1.00" vaporized=""/>
