@@ -12,10 +12,10 @@ expected
 
 containerTrigger
 
-expectedContainer
+expectedContainers
 
 parking
 
 actType
 
-#tripID
+#tripId

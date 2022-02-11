@@ -30,18 +30,24 @@
     </pedestrian>
 
     <netedit>
-        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopContainerStop\inspect_selection\input_routes.rou.xml"/>
+        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\inspect_selection\input_routes.rou.xml"/>
     </netedit>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <trip id="trip" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop" duration="60.00" extension="dummyDuration"/>
-		<stop containerStop="containerStop" duration="60.00" extension=""/>
-		<stop containerStop="containerStop" duration="60.00" extension="-4"/>
-		<stop containerStop="containerStop" duration="60.00" extension="0"/>
-		<stop containerStop="containerStop" duration="60.00" extension="2.3"/>
-    </trip>
+    <route edges="gneE0 gneE1" color="yellow" id="route_0">
+	
+        <stop busStop="busStop" duration="60.00" extension="dummyDuration"/>
+		
+		<stop busStop="busStop" duration="60.00" extension=""/>
+		
+		<stop busStop="busStop" duration="60.00" extension="-4"/>
+		
+		<stop busStop="busStop" duration="60.00" extension="0"/>
+		
+		<stop busStop="busStop" duration="60.00" extension="2.3"/>
+		
+    </route>
 </routes>

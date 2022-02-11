@@ -41,19 +41,13 @@ netedit.stopMode()
 netedit.changeStopType("stopContainerStop")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 290, 155)
 
 # change parking
-netedit.changeDefaultBoolValue(12)
+netedit.changeDefaultBoolValue(netedit.attrs.stop.create.parking)
 
 # create stop
-netedit.leftClick(referencePosition, 290, 175)
-
-# change parking
-netedit.changeDefaultBoolValue(13)
-
-# create stop
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 290, 155)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

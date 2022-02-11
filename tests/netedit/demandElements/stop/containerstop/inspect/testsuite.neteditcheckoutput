@@ -4,9 +4,15 @@ until
 
 extension
 
-triggered
+triggered_person
+
+triggered_container
+
+triggered_join
 
 expected
+
+permitted
 
 parking
 
