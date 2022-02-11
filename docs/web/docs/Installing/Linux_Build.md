@@ -161,10 +161,8 @@ make -j $(grep -c ^processor /proc/cpuinfo)
 
 Other useful cmake options:
 
-- `-D PROFILING=ON` enable profiling instrumentation for gprof (gcc
-  build only)
-- `-D COVERAGE=ON` enable coverage instrumentation for lcov (gcc build
-  only)
+- `-D PROFILING=ON` enable profiling instrumentation for gprof (gcc build only)
+- `-D COVERAGE=ON` enable coverage instrumentation for lcov (gcc build only)
 - `-D CHECK_OPTIONAL_LIBS=OFF` disable all optional libraries (only
   include EPL compatible licensed code)
 - `-D CMAKE_BUILD_TYPE=RelWithDebInfo` enable debug symbols for
@@ -172,6 +170,7 @@ Other useful cmake options:
 - `-D PROJ_LIBRARY=` disable PROJ
 - `-D FOX_CONFIG=` disable FOX toolkit (GUI and multithreading)
 - `-D PYTHON_EXECUTABLE=/usr/bin/python3` select a different python version (also for libsumo / libtraci)
+- `-D MVN_EXECUTABLE=` disable maven packaging (especially useful if you have no network connection)
 
 
 ## Building with clang
