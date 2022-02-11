@@ -41,7 +41,7 @@ netedit.stopMode()
 netedit.changeStopType("stopBusStop")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stop.createDuration.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stop.create.durationEnable)
 
 # enable until
 netedit.changeDefaultBoolValue(netedit.attrs.stop.create.untilEnable)
