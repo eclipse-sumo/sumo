@@ -127,7 +127,7 @@ def main(options, platform="x64"):
 
     status.killall(("", "D"), BINARIES)
     toClean = []
-    for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.lib", "*.exp", "*.jar", "*.manifest"):
+    for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.lib", "*.exp", "*.jar", "*.manifest", "*.fmu"):
         toClean += glob.glob(os.path.join(SUMO_HOME, "bin", ext))
     toClean += glob.glob(os.path.join(SUMO_HOME, "tools", "lib*", "*lib*"))
     toClean += glob.glob(os.path.join(SUMO_HOME, "share", "*", "*"))
