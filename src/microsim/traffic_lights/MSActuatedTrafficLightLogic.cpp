@@ -111,6 +111,9 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
             }
         }
     }
+    if (myAssignments.size() > 0) {
+        myStack.push_back(std::map<std::string, double>());
+    }
 }
 
 
@@ -617,11 +620,7 @@ MSActuatedTrafficLightLogic::trySwitch() {
     // @note any vehicles which arrived during the previous phases which are now waiting between the detector and the stop line are not
     // considere here. RiLSA recommends to set minDuration in a way that lets all vehicles pass the detector
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    for (const auto& assignment : myAssignments) {
-        if (evalExpression(std::get<1>(assignment))) {
-            myConditions[std::get<0>(assignment)] = toString(evalExpression(std::get<2>(assignment)));
-        }
-    }
+    executeAssignments(myAssignments, myConditions);
 
     if (myLinkGreenTimes.size() > 0) {
         // constraints exist, record green time durations for each link
@@ -1097,6 +1096,53 @@ MSActuatedTrafficLightLogic::evalTernaryExpression(double a, const std::string& 
 }
 
 double
+MSActuatedTrafficLightLogic::evalCustomFunction(const std::string& fun, const std::string& arg) const {
+    std::vector<std::string> args = StringTokenizer(arg, ",").getVector();
+    const Function& f = myFunctions.find(fun)->second;
+    if ((int)args.size() != f.nArgs) {
+        throw ProcessError("Function '" + fun + "' requires " + toString(f.nArgs) + " arguments but " + toString(args.size()) + " were given");
+    }
+    std::vector<double> args2;
+    for (auto a : args) {
+        args2.push_back(evalExpression(a));
+    }
+    myStack.push_back(std::map<std::string, double>());
+    myStack.back()["$0"] = 0;
+    for (int i = 0; i < (int)args2.size(); i++) {
+        myStack.back()["$" + toString(i + 1)] = args2[i];
+    }
+    try {
+        ConditionMap empty;
+        executeAssignments(f.assignments, empty, myConditions);
+    } catch (ProcessError& e) {
+        throw ProcessError("Error when evaluating function '" + fun + "' with args '" + joinToString(args2, ",") + "' (" + e.what() + ")");
+    }
+    double result = myStack.back()["$0"];
+    myStack.pop_back();
+    return result;
+}
+
+
+void
+MSActuatedTrafficLightLogic::executeAssignments(const AssignmentMap& assignments, ConditionMap& conditions, const ConditionMap& forbidden) const {
+    for (const auto& assignment : assignments) {
+        if (evalExpression(std::get<1>(assignment))) {
+            const std::string& id = std::get<0>(assignment);
+            const double val = evalExpression(std::get<2>(assignment));
+            ConditionMap::iterator it = conditions.find(id);
+            if (it != conditions.end()) {
+                it->second = toString(val);
+            } else if (forbidden.find(id) != forbidden.end()) {
+                throw ProcessError("Modifying global condition '" + id + "' is forbidden");
+            } else {
+                myStack.back()[id] = val;
+            }
+        }
+    }
+}
+
+
+double
 MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const {
     if (expr.size() == 0) {
         throw ProcessError("Invalid empty expression");
@@ -1113,6 +1159,14 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                 // symbol lookup
                 return evalExpression(it->second);
             } else {
+                // look at stack
+                if (myStack.size() > 0) {
+                    auto it2 = myStack.back().find(expr);
+                    if (it2 != myStack.back().end()) {
+                        return it2->second;
+                    }
+                }
+                // must be a number
                 return StringUtils::toDouble(expr);
             }
         } else {
@@ -1156,7 +1210,10 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
             } else if (fun == "c") {
                 return STEPS2TIME(getTimeInCycle());
             } else {
-                throw ProcessError("Unsupported function '" + fun + "' in expression '" + expr + "'");
+                if (myFunctions.find(fun) == myFunctions.end()) {
+                    throw ProcessError("Unsupported function '" + fun + "' in expression '" + expr + "'");
+                }
+                return evalCustomFunction(fun, arg);
             }
         }
     }

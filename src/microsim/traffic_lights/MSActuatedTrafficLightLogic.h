@@ -198,6 +198,12 @@ protected:
     /// @brief evaluate atomic expression
     double evalAtomicExpression(const std::string& expr) const;
 
+    /// @brief evaluate function expression
+    double evalCustomFunction(const std::string& fun, const std::string& arg) const;
+
+    /// @brief execute assignemnts of the logic or a custom function
+    void executeAssignments(const AssignmentMap& assignments, ConditionMap& conditions, const ConditionMap& forbidden = ConditionMap()) const;
+
     int getDetectorPriority(const InductLoopInfo& loopInfo) const;
 
     /// @brief count the number of active detectors for the given step
@@ -281,6 +287,9 @@ protected:
 
     /// @brief The loaded functions
     FunctionMap myFunctions;
+
+    /// @brief The function call stack;
+    mutable std::vector<std::map<std::string, double> > myStack;
 
     /// @brief the conditions which shall be listed in GUITLLogicPhasesTrackerWindow
     std::set<std::string> myListedConditions;

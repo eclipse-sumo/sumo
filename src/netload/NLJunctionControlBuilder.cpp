@@ -460,6 +460,7 @@ NLJunctionControlBuilder::addFunction(const std::string& id, int nArgs) {
 
 void
 NLJunctionControlBuilder::closeFunction() {
+    myActiveFunctions[myActiveFunction.id] = myActiveFunction;
     myActiveFunction.id = "";
     myActiveFunction.assignments.clear();
 }
