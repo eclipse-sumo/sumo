@@ -163,6 +163,7 @@ public:
     virtual bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value) = 0;
     virtual bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value) = 0;
     virtual bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) = 0;
+    virtual void empty(const std::string& /* objID */) {}
 };
 
 

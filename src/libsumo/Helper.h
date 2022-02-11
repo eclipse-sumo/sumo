@@ -270,6 +270,7 @@ public:
         bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value);
         bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value);
         bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
+        void empty(const std::string& objID);
     private:
         SubscriptionResults& myResults;
         ContextSubscriptionResults& myContextResults;
