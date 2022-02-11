@@ -95,7 +95,9 @@ When setting option **--turn-max-gap 2**, the edgeRelation `<edgeRelation from="
         
 ## Origin-Destination restrictions
 When loading an edgeRelation file with the option **--od-files**, origin-destination counts will be added.
-This can be used to combine (edge-based) OD-relations with other counting data.
+This can be used to combine (edge-based) OD-relations with other counting data.  
+  
+The tool [route2OD.py](Routes.md#route2odpy) supports option **--edge-relations** to transform any kind of route file into a suitable file of edge-based origin-destination edgeRelations.
         
 ## Output Styles
 By default, routeSampler will generate individual vehicles with embedded routes. This can be changed with the following options (which can also be combined):
