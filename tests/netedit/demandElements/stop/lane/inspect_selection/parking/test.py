@@ -44,10 +44,10 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stop.inspectSelection.parking, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopLane.inspectSelection.parking, False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
