@@ -571,11 +571,14 @@ It may sometimes be useful to store and modify numerical values that persist ove
 </tlLogic>
 ```
 
-- **id** must be the id of a condition element
+- **id** may be any alphanumeric id
 - **check** may be any expression which is permitted for condition values
 - **value** may be any expression which is permitted for conditions values
 
-Every time the control logic is executed, all `assignment`s are executed in the order they are defined: If the the 'check'-expression evaluates to true (a non-0 value), the value of the condition with 'id' will be set to the result of evaluating the 'value'-expression.
+Every time the control logic is executed, all `assignment`s are executed in the order they are defined: If the the 'check'-expression evaluates to true (a non-0 value), the 'value'-expression is evaluated and the result is stored under the given id:
+
+- if **id** is the id of a condition element, the value of that conditions is replaced by a string representation of the result (The accuracy of this representation is limited by simulation option **--precision**)
+- if **id** is not the id of a condition element, a double valued variable with that id is created / updated in the current scope. If the assignment is not part of a [use-defined functions](#custom_function_definitions), this is the global scope
 
 The test case [find_primes](https://sumo.dlr.de/extractTest.php?path=sumo/basic/tls/actuated/conditions/assignments/find_primes) computes all prime numbers below 100 inside the traffic light controller as a capability demonstration.
 
@@ -601,6 +604,7 @@ They are defined with the `<function>` element within a `<tlLogic>` as shown bel
 - **nArgs** is the number of arguments required by the function
 - **$0** is the value returned by the function
 - **$1 ... $n** are the values of the functions arguments in the order they are supplied after the **:**
+- when a function is evaluted, all it's assignments are evaluted in definition order
 - functions may not assign to any defined `<condition>` id
 - assignments are local to the function
 - a function call takes the form **id:arg_1,arg_2,...arg_n** and there must be no spaces between the arguments and the commas (except within parentheses)
