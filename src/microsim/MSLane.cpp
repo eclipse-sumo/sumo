@@ -3226,7 +3226,6 @@ MSLane::saveState(OutputDevice& out) {
                         out.writeAttr(SUMO_ATTR_ARRIVALSPEED, item.second.arrivalSpeed);
                         out.writeAttr(SUMO_ATTR_DEPARTSPEED, item.second.leaveSpeed);
                         out.writeAttr(SUMO_ATTR_REQUEST, item.second.willPass);
-                        out.writeAttr(SUMO_ATTR_ARRIVALTIMEBRAKING, item.second.arrivalTimeBraking);
                         out.writeAttr(SUMO_ATTR_ARRIVALSPEEDBRAKING, item.second.arrivalSpeedBraking);
                         out.writeAttr(SUMO_ATTR_WAITINGTIME, item.second.waitingTime);
                         out.writeAttr(SUMO_ATTR_DISTANCE, item.second.dist);

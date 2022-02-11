@@ -95,7 +95,6 @@ public:
         ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime,
                                       const double _arrivalSpeed, const double _leaveSpeed,
                                       const bool _willPass,
-                                      const SUMOTime _arrivalTimeBraking,
                                       const double _arrivalSpeedBraking,
                                       const SUMOTime _waitingTime,
                                       const double _dist,
@@ -105,7 +104,6 @@ public:
             arrivalTime(_arrivalTime), leavingTime(_leavingTime),
             arrivalSpeed(_arrivalSpeed), leaveSpeed(_leaveSpeed),
             willPass(_willPass),
-            arrivalTimeBraking(_arrivalTimeBraking),
             arrivalSpeedBraking(_arrivalSpeedBraking),
             waitingTime(_waitingTime),
             dist(_dist),
@@ -123,8 +121,6 @@ public:
         const double leaveSpeed;
         /// @brief Whether the vehicle wants to pass the link (@todo: check semantics)
         const bool willPass;
-        /// @brief The time at which the vehicle can longer brake before the link
-        const SUMOTime arrivalTimeBraking;
         /// @brief The estimated speed with which the vehicle arrives at the link if it starts braking(for headway computation)
         const double arrivalSpeedBraking;
         /// @brief The waiting duration at the current link
@@ -205,7 +201,7 @@ public:
      */
     void setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime,
                         const double arrivalSpeed, const double leaveSpeed, const bool setRequest,
-                        const SUMOTime arrivalTimeBraking, const double arrivalSpeedBraking,
+                        const double arrivalSpeedBraking,
                         const SUMOTime waitingTime, double dist, double latOffset);
 
     /** @brief Sets the information about an approaching vehicle */

@@ -2515,7 +2515,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             // arrivalSpeed / arrivalTime when braking for red light is only relevent for rail signal switching
             const SUMOTime arrivalTime = getArrivalTime(t, seen, v, vLinkPass);
             // the vehicle is able to brake in front of a yellow/red traffic light
-            lfLinks.push_back(DriveProcessItem(*link, v, vLinkWait, false, arrivalTime, vLinkWait, arrivalTime + TIME2STEPS(30), 0, seen));
+            lfLinks.push_back(DriveProcessItem(*link, v, vLinkWait, false, arrivalTime, vLinkWait, 0, seen));
             //lfLinks.push_back(DriveProcessItem(0, vLinkWait, vLinkWait, false, 0, 0, stopDist));
             break;
         }
@@ -2609,8 +2609,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // compute arrival speed and arrival time if vehicle starts braking now
         // if stopping is possible, arrivalTime can be arbitrarily large. A small value keeps fractional times (impatience) meaningful
         double arrivalSpeedBraking = 0;
-        // arrivalTimeBraking holds the time at which braking before the link is no longer possible
-        SUMOTime arrivalTimeBraking;
         const double bGap = cfModel.brakeGap(v);
         if (seen < bGap && !isStopped()) { // XXX: should this use the current speed (at least for the ballistic case)? (Leo) Refs. #2575
             // vehicle cannot come to a complete stop in time
@@ -2621,23 +2619,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             } else {
                 arrivalSpeedBraking = cfModel.getMinimalArrivalSpeed(seen, myState.mySpeed);
             }
-            if (v + arrivalSpeedBraking <= 0.) {
-                arrivalTimeBraking = std::numeric_limits<long long int>::max();
-            } else {
-                // cannot brake in time
-                arrivalTimeBraking = t - DELTA_T;
-            }
-        } else {
-            arrivalTimeBraking = t + TIME2STEPS((seen - bGap) / ((v + arrivalSpeed) * 0.5));
-            if (isStopped()) {
-                arrivalTimeBraking += MAX2((SUMOTime)0, myStops.front().duration);
-            }
         }
-#ifdef DEBUG_PLAN_MOVE
-        if (DEBUG_COND) {
-            //std::cout << SIMTIME << " veh=" << getID() << " speed=" << getSpeed() << " lane=" << lane->getID() << " seen=" << seen << " bGap=" << bGap << " v=" << v << " av=" << arrivalSpeed << " atb=" << STEPS2TIME(arrivalTimeBraking) << "\n";
-        }
-#endif
 
         // estimate leave speed for passing time computation
         // l=linkLength, a=accel, t=continuousTime, v=vLeave
@@ -2646,7 +2628,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                                                 getCarFollowModel().estimateSpeedAfterDistance((*link)->getLength(), arrivalSpeed, getVehicleType().getCarFollowModel().getMaxAccel()));
         lfLinks.push_back(DriveProcessItem(*link, v, vLinkWait, setRequest,
                                            arrivalTime, arrivalSpeed,
-                                           arrivalTimeBraking, arrivalSpeedBraking,
+                                           arrivalSpeedBraking,
                                            seen, estimatedLeaveSpeed));
         if ((*link)->getViaLane() == nullptr) {
             hadNonInternal = true;
@@ -4710,7 +4692,7 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
                 dpi.myArrivalTime += (SUMOTime)RandHelper::rand((int)2, getRNG()); // tie braker
             }
             dpi.myLink->setApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
-                                       dpi.mySetRequest, dpi.myArrivalTimeBraking, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance, getLateralPositionOnLane());
+                                       dpi.mySetRequest, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance, getLateralPositionOnLane());
         }
     }
     if (myLaneChangeModel->getShadowLane() != nullptr) {
@@ -4725,7 +4707,7 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
                 if (parallelLink != nullptr) {
                     const double latOffset = getLane()->getRightSideOnEdge() - myLaneChangeModel->getShadowLane()->getRightSideOnEdge();
                     parallelLink->setApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
-                                                 dpi.mySetRequest, dpi.myArrivalTimeBraking, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance,
+                                                 dpi.mySetRequest, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance,
                                                  latOffset);
                     myLaneChangeModel->setShadowApproachingInformation(parallelLink);
                 }
@@ -4744,7 +4726,6 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
                     << " linkLane=" << (dpi.myLink == 0 ? "NULL" : dpi.myLink->getViaLaneOrLane()->getID())
                     << " request=" << dpi.mySetRequest
                     << " atime=" << dpi.myArrivalTime
-                    << " atimeB=" << dpi.myArrivalTimeBraking
                     << "\n";
         }
     }
@@ -6753,11 +6734,11 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
 void
 MSVehicle::loadPreviousApproaching(MSLink* link, bool setRequest,
                                    SUMOTime arrivalTime, double arrivalSpeed,
-                                   SUMOTime arrivalTimeBraking, double arrivalSpeedBraking,
+                                   double arrivalSpeedBraking,
                                    double dist, double leaveSpeed) {
     // ensure that approach information is reset on the next call to setApproachingForAllLinks
     myLFLinkLanes.push_back(DriveProcessItem(link, 0, 0, setRequest,
-                            arrivalTime, arrivalSpeed, arrivalTimeBraking, arrivalSpeedBraking, dist, leaveSpeed));
+                            arrivalTime, arrivalSpeed, arrivalSpeedBraking, dist, leaveSpeed));
 
 }
 
