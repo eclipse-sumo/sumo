@@ -1,8 +1,8 @@
 default
 
-no_parent
+friendlypos
 
-friendlyPos
+poslat
 
 duration
 
@@ -10,16 +10,14 @@ until
 
 extension
 
-triggered
+triggered_person
 
-expected
+triggered_container
 
-containerTrigger
+triggered_join
 
-expectedContainer
+permitted
 
 parking
 
 actType
-
-#tripID

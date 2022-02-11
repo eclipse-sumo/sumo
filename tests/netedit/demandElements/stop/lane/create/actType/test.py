@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to stop mode
 netedit.stopMode()
 
@@ -38,28 +41,28 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # set invalid value
-netedit.changeDefaultValue(14, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stopLane.create.actType, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 400, 185)
 
 # set invalid value
-netedit.changeDefaultValue(14, "")
+netedit.changeDefaultValue(netedit.attrs.stopLane.create.actType, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
-netedit.changeDefaultValue(14, "ID1")
+netedit.changeDefaultValue(netedit.attrs.stopLane.create.actType, "dummy Act")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
-netedit.changeDefaultValue(14, "ID1 ID2 ID3")
+netedit.changeDefaultValue(netedit.attrs.stopLane.create.actType, "singing")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 400, 185)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
