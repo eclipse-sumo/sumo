@@ -37,19 +37,29 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE0 gneE1" color="yellow" id="route_0">
-	
-        <stop busStop="busStop" containerTriggered="dummy"/>
-		
-		<stop busStop="busStop" containerTriggered=""/>
-		
-		<stop busStop="busStop" containerTriggered="-4"/>
-		
-		<stop busStop="busStop" containerTriggered="0"/>
-		
-		<stop busStop="busStop" containerTriggered="2.3"/>
-		
-		<stop busStop="busStop" containerTriggered="true"/>
-		
-    </route>
+
+	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_0">
+		<stop chargingStation="chargingStation" containerTriggered="dummy"/>
+	</flow>
+
+	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_1">
+		<stop chargingStation="chargingStation" containerTriggered=""/>
+	</flow>
+
+	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_2">
+		<stop chargingStation="chargingStation" containerTriggered="-4"/>
+	</flow>
+
+	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_3">
+		<stop chargingStation="chargingStation" containerTriggered="0"/>
+	</flow>
+
+	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_4">
+		<stop chargingStation="chargingStation" containerTriggered="2.3"/>
+	</flow>
+
+	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_5">
+		<stop chargingStation="chargingStation" containerTriggered="true"/>
+	</flow>
+
 </routes>

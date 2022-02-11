@@ -37,17 +37,25 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE0 gneE1" color="yellow" id="route_0">
-	
-        <stop busStop="busStop" until="dummyDuration"/>
-		
-		<stop busStop="busStop" until=""/>
-		
-		<stop busStop="busStop" until="-4"/>
-		
-		<stop busStop="busStop" until="0"/>
-		
-		<stop busStop="busStop" until="2.3"/>
-		
-    </route>
+
+	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_0">
+		<stop chargingStation="chargingStation" until="dummyDuration"/>
+	</flow>
+
+	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_1">
+		<stop chargingStation="chargingStation" until=""/>
+	</flow>
+
+	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_2">
+		<stop chargingStation="chargingStation" until="-4"/>
+	</flow>
+
+	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_3">
+		<stop chargingStation="chargingStation" until="0"/>
+	</flow>
+
+	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_4">
+		<stop chargingStation="chargingStation" until="2.3"/>
+	</flow>
+
 </routes>
