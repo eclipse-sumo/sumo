@@ -111,9 +111,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
             }
         }
     }
-    if (myAssignments.size() > 0) {
-        myStack.push_back(std::map<std::string, double>());
-    }
+    myStack.push_back(std::map<std::string, double>());
 }
 
 
@@ -1106,7 +1104,7 @@ MSActuatedTrafficLightLogic::evalCustomFunction(const std::string& fun, const st
     for (auto a : args) {
         args2.push_back(evalExpression(a));
     }
-    myStack.push_back(std::map<std::string, double>());
+    myStack.push_back(myStack.back());
     myStack.back()["$0"] = 0;
     for (int i = 0; i < (int)args2.size(); i++) {
         myStack.back()["$" + toString(i + 1)] = args2[i];
@@ -1160,11 +1158,9 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                 return evalExpression(it->second);
             } else {
                 // look at stack
-                if (myStack.size() > 0) {
-                    auto it2 = myStack.back().find(expr);
-                    if (it2 != myStack.back().end()) {
-                        return it2->second;
-                    }
+                auto it2 = myStack.back().find(expr);
+                if (it2 != myStack.back().end()) {
+                    return it2->second;
                 }
                 // must be a number
                 return StringUtils::toDouble(expr);
