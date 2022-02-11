@@ -37,17 +37,25 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE0 gneE1" color="yellow" id="route_0">
-	
-        <stop busStop="busStop" duration="60.00" extension="dummyDuration"/>
-		
-		<stop busStop="busStop" duration="60.00" extension=""/>
-		
-		<stop busStop="busStop" duration="60.00" extension="-4"/>
-		
-		<stop busStop="busStop" duration="60.00" extension="0"/>
-		
-		<stop busStop="busStop" duration="60.00" extension="2.3"/>
-		
-    </route>
+
+	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_0">
+		<stop containerStop="containerStop" duration="60.00" extension="dummyDuration"/>
+	</trip>
+
+	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_1">
+		<stop containerStop="containerStop" duration="60.00" extension=""/>
+	</trip>
+
+	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_2">
+		<stop containerStop="containerStop" duration="60.00" extension="-4"/>
+	</trip>
+
+	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_3">
+		<stop containerStop="containerStop" duration="60.00" extension="0"/>
+	</trip>
+
+	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_4">
+		<stop containerStop="containerStop" duration="60.00" extension="2.3"/>
+	</trip>
+
 </routes>

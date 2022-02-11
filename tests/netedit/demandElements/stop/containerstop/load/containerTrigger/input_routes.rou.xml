@@ -37,19 +37,29 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE0 gneE1" color="yellow" id="route_0">
-	
-        <stop busStop="busStop" containerTriggered="dummy"/>
-		
-		<stop busStop="busStop" containerTriggered=""/>
-		
-		<stop busStop="busStop" containerTriggered="-4"/>
-		
-		<stop busStop="busStop" containerTriggered="0"/>
-		
-		<stop busStop="busStop" containerTriggered="2.3"/>
-		
-		<stop busStop="busStop" containerTriggered="true"/>
-		
-    </route>
+
+	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_0">
+		<stop containerStop="containerStop" containerTriggered="dummy"/>
+	</trip>
+
+	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_1">
+		<stop containerStop="containerStop" containerTriggered=""/>
+	</trip>
+
+	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_2">
+		<stop containerStop="containerStop" containerTriggered="-4"/>
+	</trip>
+
+	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_3">
+		<stop containerStop="containerStop" containerTriggered="0"/>
+	</trip>
+
+	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_4">
+		<stop containerStop="containerStop" containerTriggered="2.3"/>
+	</trip>
+
+	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_5">
+		<stop containerStop="containerStop" containerTriggered="true"/>
+	</trip>
+
 </routes>
