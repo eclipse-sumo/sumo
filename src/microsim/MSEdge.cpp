@@ -911,10 +911,10 @@ MSEdge::dictionary(const std::string& id) {
 MSEdge*
 MSEdge::dictionaryHint(const std::string& id, const int startIdx) {
     // this method is mainly useful when parsing connections from the net.xml which are sorted by "from" id
-    if (myEdges[startIdx]->getID() == id) {
+    if (myEdges[startIdx] != nullptr && myEdges[startIdx]->getID() == id) {
         return myEdges[startIdx];
     }
-    if (startIdx + 1 < (int)myEdges.size() && myEdges[startIdx + 1]->getID() == id) {
+    if (startIdx + 1 < (int)myEdges.size() && myEdges[startIdx + 1] != nullptr && myEdges[startIdx + 1]->getID() == id) {
         return myEdges[startIdx + 1];
     }
     return dictionary(id);
