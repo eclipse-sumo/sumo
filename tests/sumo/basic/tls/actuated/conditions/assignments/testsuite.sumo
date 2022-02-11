@@ -2,9 +2,14 @@
 # because we can!
 find_primes
 
+# a traffic light program that computes all primes < 100
+# because we can!
+# 
+# tests a 'function' definition
+find_primes_function
+
 # use custom switching rules to replicate the default behavior
 replicate_default
 
 # assign the values of pre-defined functions to conditions and write them in the tls state
 predefined_functions
-
