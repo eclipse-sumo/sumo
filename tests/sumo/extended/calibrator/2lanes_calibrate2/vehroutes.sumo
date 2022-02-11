@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-08 11:26:14 by Eclipse SUMO sumo Version v1_12_0+0353-0cd4bcd
+<!-- generated on 2022-02-11 10:12:46 by Eclipse SUMO sumo Version v1_12_0+0469-d8c8739
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1211,7 +1211,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.10" depart="2018.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2023.00">
+    <vehicle id="high.10" depart="2018.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2023.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1231,7 +1231,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.15" depart="2027.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2032.00">
+    <vehicle id="high.15" depart="2027.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2032.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1251,7 +1251,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.20" depart="2036.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2041.00">
+    <vehicle id="high.20" depart="2036.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2041.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1271,7 +1271,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.25" depart="2045.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2050.00">
+    <vehicle id="high.25" depart="2045.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2050.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1291,7 +1291,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.30" depart="2054.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2059.00">
+    <vehicle id="high.30" depart="2054.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2059.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1311,7 +1311,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.35" depart="2063.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2068.00">
+    <vehicle id="high.35" depart="2063.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2068.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1331,7 +1331,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.40" depart="2072.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2077.00">
+    <vehicle id="high.40" depart="2072.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2077.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1351,7 +1351,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.45" depart="2081.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2086.00">
+    <vehicle id="high.45" depart="2081.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2086.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1391,11 +1391,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.50" depart="2090.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2095.00">
+    <vehicle id="high.50" depart="2090.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2095.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.5" depart="2009.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2096.00">
+    <vehicle id="high.5" depart="2009.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2096.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1471,7 +1471,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.55" depart="2099.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2186.00">
+    <vehicle id="high.55" depart="2099.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2186.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1491,7 +1491,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.60" depart="2108.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2195.00">
+    <vehicle id="high.60" depart="2108.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2195.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1511,7 +1511,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.65" depart="2117.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2204.00">
+    <vehicle id="high.65" depart="2117.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2204.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1531,7 +1531,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.70" depart="2126.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2213.00">
+    <vehicle id="high.70" depart="2126.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2213.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1551,7 +1551,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.75" depart="2135.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2222.00">
+    <vehicle id="high.75" depart="2135.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2222.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1571,7 +1571,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.80" depart="2144.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2231.00">
+    <vehicle id="high.80" depart="2144.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2231.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1591,7 +1591,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.85" depart="2153.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2240.00">
+    <vehicle id="high.85" depart="2153.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2240.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1611,7 +1611,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.90" depart="2162.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2249.00">
+    <vehicle id="high.90" depart="2162.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2249.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1631,11 +1631,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.140" depart="2252.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2257.00">
+    <vehicle id="high.140" depart="2252.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2257.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.95" depart="2171.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2258.00">
+    <vehicle id="high.95" depart="2171.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2258.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1671,11 +1671,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.145" depart="2261.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2266.00">
+    <vehicle id="high.145" depart="2261.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2266.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.100" depart="2180.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2267.00">
+    <vehicle id="high.100" depart="2180.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2267.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1711,11 +1711,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.150" depart="2270.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2275.00">
+    <vehicle id="high.150" depart="2270.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2275.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.105" depart="2189.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2276.00">
+    <vehicle id="high.105" depart="2189.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2276.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1751,11 +1751,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.155" depart="2279.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2284.00">
+    <vehicle id="high.155" depart="2279.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2284.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.110" depart="2198.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2285.00">
+    <vehicle id="high.110" depart="2198.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2285.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1791,11 +1791,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.160" depart="2288.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2293.00">
+    <vehicle id="high.160" depart="2288.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2293.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.115" depart="2207.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2294.00">
+    <vehicle id="high.115" depart="2207.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2294.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1831,11 +1831,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.165" depart="2297.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2302.00">
+    <vehicle id="high.165" depart="2297.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2302.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.120" depart="2216.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2303.00">
+    <vehicle id="high.120" depart="2216.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2303.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1871,11 +1871,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.170" depart="2306.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2311.00">
+    <vehicle id="high.170" depart="2306.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2311.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.125" depart="2225.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2312.00">
+    <vehicle id="high.125" depart="2225.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2312.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1911,11 +1911,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.175" depart="2315.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2320.00">
+    <vehicle id="high.175" depart="2315.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2320.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.130" depart="2234.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2321.00">
+    <vehicle id="high.130" depart="2234.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2321.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1951,11 +1951,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.180" depart="2324.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2329.00">
+    <vehicle id="high.180" depart="2324.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2329.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.135" depart="2243.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2330.00">
+    <vehicle id="high.135" depart="2243.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2330.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -1991,7 +1991,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.185" depart="2333.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2338.00">
+    <vehicle id="high.185" depart="2333.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2338.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2011,7 +2011,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.190" depart="2342.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2347.00">
+    <vehicle id="high.190" depart="2342.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2347.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2031,7 +2031,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.195" depart="2351.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2356.00">
+    <vehicle id="high.195" depart="2351.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2356.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2063,7 +2063,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.200" depart="2360.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2365.00">
+    <vehicle id="high.200" depart="2360.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2365.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2091,7 +2091,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.205" depart="2369.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2374.00">
+    <vehicle id="high.205" depart="2369.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2374.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2119,7 +2119,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.210" depart="2378.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2383.00">
+    <vehicle id="high.210" depart="2378.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2383.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2147,7 +2147,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.215" depart="2387.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2392.00">
+    <vehicle id="high.215" depart="2387.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2392.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2255,7 +2255,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg2"/>
     </vehicle>
 
-    <vehicle id="high.220" depart="2396.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2483.00">
+    <vehicle id="high.220" depart="2396.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2483.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2287,7 +2287,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.225" depart="2405.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2492.00">
+    <vehicle id="high.225" depart="2405.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2492.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2319,7 +2319,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.230" depart="2414.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2501.00">
+    <vehicle id="high.230" depart="2414.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2501.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2351,7 +2351,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.235" depart="2423.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2510.00">
+    <vehicle id="high.235" depart="2423.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2510.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2383,7 +2383,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.240" depart="2432.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2519.00">
+    <vehicle id="high.240" depart="2432.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2519.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2415,7 +2415,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.245" depart="2441.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2528.00">
+    <vehicle id="high.245" depart="2441.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2528.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2447,7 +2447,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.250" depart="2450.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2537.00">
+    <vehicle id="high.250" depart="2450.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2537.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2479,7 +2479,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.255" depart="2459.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2546.00">
+    <vehicle id="high.255" depart="2459.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2546.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2511,7 +2511,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.260" depart="2468.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2555.00">
+    <vehicle id="high.260" depart="2468.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2555.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2543,7 +2543,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.265" depart="2477.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2564.00">
+    <vehicle id="high.265" depart="2477.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2564.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2575,7 +2575,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.270" depart="2486.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2573.00">
+    <vehicle id="high.270" depart="2486.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2573.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2607,11 +2607,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.320" depart="2576.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2581.00">
+    <vehicle id="high.320" depart="2576.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2581.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.275" depart="2495.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2582.00">
+    <vehicle id="high.275" depart="2495.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2582.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2659,11 +2659,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.325" depart="2585.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2590.00">
+    <vehicle id="high.325" depart="2585.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2590.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.280" depart="2504.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2591.00">
+    <vehicle id="high.280" depart="2504.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2591.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2711,11 +2711,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.330" depart="2594.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2599.00">
+    <vehicle id="high.330" depart="2594.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2599.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.285" depart="2513.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2600.00">
+    <vehicle id="high.285" depart="2513.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2600.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2763,11 +2763,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.335" depart="2603.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2608.00">
+    <vehicle id="high.335" depart="2603.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2608.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.290" depart="2522.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2609.00">
+    <vehicle id="high.290" depart="2522.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2609.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2815,11 +2815,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.340" depart="2612.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2617.00">
+    <vehicle id="high.340" depart="2612.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2617.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.295" depart="2531.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2618.00">
+    <vehicle id="high.295" depart="2531.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2618.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2867,11 +2867,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.345" depart="2621.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2626.00">
+    <vehicle id="high.345" depart="2621.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2626.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.300" depart="2540.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2627.00">
+    <vehicle id="high.300" depart="2540.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2627.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2919,11 +2919,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.350" depart="2630.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2635.00">
+    <vehicle id="high.350" depart="2630.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2635.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.305" depart="2549.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2636.00">
+    <vehicle id="high.305" depart="2549.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2636.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -2971,11 +2971,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.355" depart="2639.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2644.00">
+    <vehicle id="high.355" depart="2639.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2644.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.310" depart="2558.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2645.00">
+    <vehicle id="high.310" depart="2558.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2645.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3023,11 +3023,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.360" depart="2648.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2653.00">
+    <vehicle id="high.360" depart="2648.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2653.00">
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.315" depart="2567.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2654.00">
+    <vehicle id="high.315" depart="2567.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2654.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3075,7 +3075,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.365" depart="2657.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2662.00">
+    <vehicle id="high.365" depart="2657.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2662.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3107,7 +3107,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.370" depart="2666.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2671.00">
+    <vehicle id="high.370" depart="2666.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2671.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3139,7 +3139,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.375" depart="2675.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2680.00">
+    <vehicle id="high.375" depart="2675.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2680.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3171,7 +3171,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.380" depart="2684.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2689.00">
+    <vehicle id="high.380" depart="2684.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2689.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3203,7 +3203,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.385" depart="2693.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2698.00">
+    <vehicle id="high.385" depart="2693.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2698.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3335,7 +3335,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.390" depart="2702.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2789.00">
+    <vehicle id="high.390" depart="2702.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2789.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3355,7 +3355,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.395" depart="2711.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2798.00">
+    <vehicle id="high.395" depart="2711.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2798.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3375,7 +3375,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.400" depart="2720.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2807.00">
+    <vehicle id="high.400" depart="2720.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2807.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3395,7 +3395,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.405" depart="2729.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2816.00">
+    <vehicle id="high.405" depart="2729.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2816.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3415,7 +3415,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.410" depart="2738.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2825.00">
+    <vehicle id="high.410" depart="2738.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2825.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3435,7 +3435,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.415" depart="2747.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2834.00">
+    <vehicle id="high.415" depart="2747.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2834.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3455,7 +3455,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.420" depart="2756.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2843.00">
+    <vehicle id="high.420" depart="2756.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2843.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3475,7 +3475,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.425" depart="2765.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2852.00">
+    <vehicle id="high.425" depart="2765.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2852.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3495,7 +3495,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.430" depart="2774.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2861.00">
+    <vehicle id="high.430" depart="2774.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2861.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3515,7 +3515,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.435" depart="2783.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2870.00">
+    <vehicle id="high.435" depart="2783.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2870.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3535,7 +3535,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.440" depart="2792.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2879.00">
+    <vehicle id="high.440" depart="2792.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2879.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3555,7 +3555,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.445" depart="2801.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2888.00">
+    <vehicle id="high.445" depart="2801.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2888.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3575,7 +3575,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.450" depart="2810.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2897.00">
+    <vehicle id="high.450" depart="2810.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2897.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3595,7 +3595,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.455" depart="2819.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2906.00">
+    <vehicle id="high.455" depart="2819.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2906.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3615,7 +3615,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.460" depart="2828.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2915.00">
+    <vehicle id="high.460" depart="2828.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2915.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3635,7 +3635,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.465" depart="2837.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2924.00">
+    <vehicle id="high.465" depart="2837.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2924.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3655,7 +3655,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.470" depart="2846.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2933.00">
+    <vehicle id="high.470" depart="2846.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2933.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3675,7 +3675,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.475" depart="2855.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2942.00">
+    <vehicle id="high.475" depart="2855.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2942.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3695,7 +3695,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.480" depart="2864.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2951.00">
+    <vehicle id="high.480" depart="2864.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2951.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3715,7 +3715,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.485" depart="2873.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2960.00">
+    <vehicle id="high.485" depart="2873.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2960.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3735,7 +3735,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.490" depart="2882.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2969.00">
+    <vehicle id="high.490" depart="2882.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2969.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3755,7 +3755,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.495" depart="2891.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2978.00">
+    <vehicle id="high.495" depart="2891.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2978.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3775,7 +3775,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.500" depart="2900.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2987.00">
+    <vehicle id="high.500" depart="2900.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2987.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3795,7 +3795,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.505" depart="2909.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="2996.00">
+    <vehicle id="high.505" depart="2909.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="2996.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3815,7 +3815,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.510" depart="2918.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="3005.00">
+    <vehicle id="high.510" depart="2918.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="3005.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3835,7 +3835,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.515" depart="2927.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="3014.00">
+    <vehicle id="high.515" depart="2927.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="3014.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3855,7 +3855,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.520" depart="2936.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="3023.00">
+    <vehicle id="high.520" depart="2936.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="3023.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3875,7 +3875,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.525" depart="2945.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="3032.00">
+    <vehicle id="high.525" depart="2945.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="3032.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3895,7 +3895,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.530" depart="2954.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="3041.00">
+    <vehicle id="high.530" depart="2954.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="3041.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3915,7 +3915,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.535" depart="2963.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="3050.00">
+    <vehicle id="high.535" depart="2963.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="3050.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3935,7 +3935,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.540" depart="2972.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="3059.00">
+    <vehicle id="high.540" depart="2972.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="3059.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3955,7 +3955,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.545" depart="2981.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="3068.00">
+    <vehicle id="high.545" depart="2981.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="3068.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3975,7 +3975,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.550" depart="2990.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="3077.00">
+    <vehicle id="high.550" depart="2990.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="3077.00">
         <route edges="beg beg2"/>
     </vehicle>
 
@@ -3995,7 +3995,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2"/>
     </vehicle>
 
-    <vehicle id="high.555" depart="2999.00" departPos="2896.00" departSpeed="35.06" speedFactor="1.0000" arrival="3086.00">
+    <vehicle id="high.555" depart="2999.00" departPos="2896.00" departSpeed="35.0624" speedFactor="1.0000" arrival="3086.00">
         <route edges="beg beg2"/>
     </vehicle>
 
