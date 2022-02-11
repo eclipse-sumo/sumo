@@ -223,6 +223,7 @@
             <xsd:element name="param" type="paramType"/>
             <xsd:element name="condition" type="conditionType"/>
             <xsd:element name="assignment" type="assignmentType"/>
+            <xsd:element name="function" type="functionType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>
@@ -277,6 +278,14 @@
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="check" type="xsd:string" use="required"/>
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="functionType">
+        <xsd:choice minOccurs="1" maxOccurs="unbounded">
+            <xsd:element name="assignment" type="assignmentType"/>
+        </xsd:choice>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="nArgs" type="xsd:int" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="paramType">

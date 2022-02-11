@@ -609,6 +609,7 @@
             <xsd:element name="param" type="paramType"/>
             <xsd:element name="condition" type="conditionType"/>
             <xsd:element name="assignment" type="assignmentType"/>
+            <xsd:element name="function" type="functionType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>
