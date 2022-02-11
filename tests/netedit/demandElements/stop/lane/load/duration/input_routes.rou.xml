@@ -30,25 +30,32 @@
     </pedestrian>
 
     <netedit>
-        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopLane\inspect_selection\input_routes.rou.xml"/>
+        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\inspect_selection\input_routes.rou.xml"/>
     </netedit>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
 	<route edges="gneE0 gneE1" color="yellow" id="route_0">
-		
-        <stop lane="gneE1_0" startPos="5.00" endPos="15.00" duration="dummyDuration"/>
-		
-		<stop lane="gneE1_0" startPos="5.00" endPos="15.00" duration=""/>
-		
-		<stop lane="gneE1_0" startPos="5.00" endPos="15.00" duration="-3"/>
-		
-		<stop lane="gneE1_0" startPos="5.00" endPos="15.00" duration="0"/>
-		
-		<stop lane="gneE1_0" startPos="5.00" endPos="15.00" duration="2"/>
-		
-    </route>
-	<flow id="routeFlow" begin="0.00" route="route_0" end="3600.00" number="1800"/>
+		<stop busStop="busStop" duration="dummyDuration"/>
+	</route>
+
+	<route edges="gneE0 gneE1" color="yellow" id="route_1">
+		<stop busStop="busStop" duration=""/>
+	</route>
+
+	<route edges="gneE0 gneE1" color="yellow" id="route_2">
+		<stop busStop="busStop" duration="-3"/>
+	</route>
+
+	<route edges="gneE0 gneE1" color="yellow" id="route_3">
+		<stop busStop="busStop" duration="0"/>
+	</route>
+
+	<route edges="gneE0 gneE1" color="yellow" id="route_4">
+		<stop busStop="busStop" duration="2"/>
+	</route>
+
 </routes>

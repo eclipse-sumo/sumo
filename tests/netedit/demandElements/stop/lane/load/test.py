@@ -34,6 +34,9 @@ netedit.supermodeDemand()
 # force save demand elements
 netedit.forceSaveDemandElements()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # show demand elements in network mode
 netedit.changeEditMode('1')
 
