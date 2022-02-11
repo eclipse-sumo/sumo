@@ -1398,15 +1398,15 @@ class stopLane:
         posLat = 2
         durationEnable = 3
         duration = 4
-        untilEnable = 4
-        until = 5
-        extensionEnable = 5
-        extension = 6
-        triggered = 6
-        expected = 8
-        permitted = 9
-        parking = 10
-        actType = 11
+        untilEnable = 5
+        until = 6
+        extensionEnable = 7
+        extension = 8
+        triggered = 9
+        expected = 10
+        permitted = 11
+        parking = 12
+        actType = 13
 
 #--------------------------------
 # DATA ELEMENTS
