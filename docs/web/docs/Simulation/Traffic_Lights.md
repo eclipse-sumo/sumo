@@ -453,6 +453,7 @@ The following elements are permitted in an expression for attributes
   - 'g:TLSINDEX': returns current green duration in seconds for link with the given index
   - 'r:TLSINDEX': returns current red duration in seconds for link with the given index
   - 'c:': returns the time within the current cycle
+- [use-defined functions](#custom_function_definitions) FNAME:arg1,args2,...,argN  where arg may be any expression that does not contain spaces (except within parentheses)
 - Symbolic names for [pre-defined expressions](#named_expressions)
 
 The following constraints apply to expressions:
@@ -602,7 +603,8 @@ They are defined with the `<function>` element within a `<tlLogic>` as shown bel
 - **$1 ... $n** are the values of the functions arguments in the order they are supplied after the **:**
 - functions may not assign to any defined `<condition>` id
 - assignments are local to the function
-- a function call takes the form **id:arg_1,arg_2,...arg_n** and there must be no spaces between the arguments and the commas
+- a function call takes the form **id:arg_1,arg_2,...arg_n** and there must be no spaces between the arguments and the commas (except within parentheses)
+- a function is evaluated within the calling scope (ids assigned to by a function are accessible in a nested function call but assignments are not propagated back to the caller)
 
 in the above example COND2 receives a value of 49
 
