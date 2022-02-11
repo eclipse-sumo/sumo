@@ -1338,11 +1338,11 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_POSITION_LAT:
             if (value.empty()) {
-                toogleAttribute(key, false, -1);
                 posLat = INVALID_DOUBLE;
+                parametersSet &= ~STOP_POSLAT_SET;
             } else {
-                toogleAttribute(key, true, -1);
                 posLat = parse<double>(value);
+                parametersSet |= STOP_POSLAT_SET;
             }
             break;
         //
@@ -1381,13 +1381,6 @@ GNEStop::toogleAttribute(SumoXMLAttr key, const bool value, const int /*previous
                 parametersSet |= STOP_EXTENSION_SET;
             } else {
                 parametersSet &= ~STOP_EXTENSION_SET;
-            }
-            break;
-        case SUMO_ATTR_POSITION_LAT:
-            if (value) {
-                parametersSet |= STOP_POSLAT_SET;
-            } else {
-                parametersSet &= ~STOP_POSLAT_SET;
             }
             break;
         default:

@@ -358,6 +358,15 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS)) {
         stop.friendlyPos = stopBaseObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS);
     }
+    // obtain posLat
+    if (stopBaseObject->hasStringAttribute(SUMO_ATTR_POSITION_LAT)) {
+        if (GNEAttributeCarrier::canParse<double>(stopBaseObject->getStringAttribute(SUMO_ATTR_POSITION_LAT))) {
+            stop.posLat = GNEAttributeCarrier::parse<double>(stopBaseObject->getStringAttribute(SUMO_ATTR_POSITION_LAT));
+            stop.parametersSet |= STOP_POSLAT_SET;
+        } else {
+            stop.posLat = INVALID_DOUBLE;
+        }
+    }
     // obtain actType
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_ACTTYPE)) {
         stop.actType = stopBaseObject->getStringAttribute(SUMO_ATTR_ACTTYPE);
