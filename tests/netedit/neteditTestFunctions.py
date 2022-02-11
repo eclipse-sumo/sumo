@@ -26,7 +26,7 @@ except ImportError:
 import pyautogui
 import time
 import pyperclip
-import attributesEnum as attrs #noqa
+import attributesEnum as attrs  # noqa
 
 # define delay before every operation
 DELAY_KEY = 0.1

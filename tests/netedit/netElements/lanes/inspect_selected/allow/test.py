@@ -65,7 +65,8 @@ netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow, "authority  a
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow, "", True)
 
 # Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow, "authority army vip passenger hov taxi bus coach tram bicycle", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow,
+                        "authority army vip passenger hov taxi bus coach tram bicycle", True)
 
 # recompute
 netedit.rebuildNetwork()

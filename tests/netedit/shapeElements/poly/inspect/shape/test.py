@@ -53,7 +53,7 @@ netedit.modifyAttribute(netedit.attrs.Poly.inspect.shape, "12.00,8.00", False)
 
 # Change parameter 1 with a valid value
 netedit.modifyAttribute(netedit.attrs.Poly.inspect.shape, "12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 " +
-                           "5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00", False)
+                        "5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

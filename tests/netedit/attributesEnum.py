@@ -15,11 +15,13 @@
 # @author  Pablo Alvarez Lopez
 # @date    2022-01-31
 
-#--------------------------------
+# --------------------------------
 # NETWORK
-#--------------------------------
+# --------------------------------
 
 # junction
+
+
 class junction:
     class inspect:
         id = 1
@@ -32,6 +34,7 @@ class junction:
         fringe = 10
         name = 12
         parameters = 15
+
     class inspectTLS:
         id = 1
         pos = 2
@@ -46,6 +49,7 @@ class junction:
         tlLayout = 15   # missing
         tl = 17         # missing
         parameters = 20
+
     class inspectSelection:
         type = 1
         radius = 2
@@ -54,6 +58,7 @@ class junction:
         fringe = 5
         name = 6
         parameters = 9
+
     class inspectSelectionTLS:
         type = 1
         radius = 2
@@ -64,6 +69,8 @@ class junction:
         parameters = 9
 
 # edge
+
+
 class edge:
     class inspect:
         id = 1
@@ -90,6 +97,7 @@ class edge:
         stopExceptionButton = 23    # missing
         stopException = 24          # missing
         parameters = 27
+
     class inspectSelection:
         speed = 1
         priority = 2
@@ -112,6 +120,8 @@ class edge:
         parameters = 22
 
 # lane
+
+
 class lane:
     class inspect:
         speed = 1
@@ -132,6 +142,7 @@ class lane:
         stopOffset = 16             # missing
         stopOffsetException = 17    # missing
         parameters = 21
+
     class inspectSelection:
         speed = 1
         allowButton = 2             # missing
@@ -151,6 +162,8 @@ class lane:
         parameters = 19
 
 # connection
+
+
 class connection:
     class inspect:
         passC = 1
@@ -164,7 +177,7 @@ class connection:
         disallow = 9            # missing
         speed = 10
         length = 11             # missing
-        customShape = 12    
+        customShape = 12
         changeLeftButton = 13   # missing
         changeLeft = 14         # missing
         changeRightButton = 15  # missing
@@ -172,6 +185,7 @@ class connection:
         indirect = 17           # missing
         type = 18               # missing
         parameters = 21
+
     class inspectTLS:
         passC = 1
         keepClear = 2
@@ -194,6 +208,7 @@ class connection:
         indirect = 19           # missing
         type = 20               # missing
         parameters = 23
+
     class inspectSelection:
         passC = 1
         keepClear = 2
@@ -206,7 +221,7 @@ class connection:
         disallow = 9            # missing
         speed = 10
         length = 11             # missing
-        customShape = 12    
+        customShape = 12
         changeLeftButton = 13   # missing
         changeLeft = 14         # missing
         changeRightButton = 15  # missing
@@ -214,6 +229,7 @@ class connection:
         indirect = 17           # missing
         type = 18               # missing
         parameters = 20
+
     class inspectSelectionTLS:
         passC = 1
         keepClear = 2
@@ -238,20 +254,25 @@ class connection:
         parameters = 22
 
 # crossing
+
+
 class crossing:
     class create:
         edges = 1
         priority = 2
         width = 3
+
     class createTLS:
         edges = 1
         width = 2
+
     class inspect:
         edges = 1
         priority = 2
         width = 3
         customShape = 4
         parameters = 7
+
     class inspectTLS:
         edges = 1
         priority = 2
@@ -260,10 +281,12 @@ class crossing:
         linkIndex2 = 5
         customShape = 6
         parameters = 9
+
     class inspectSelection:
         priority = 1
         width = 2
         parameters = 5
+
     class inspectSelectionTLS:
         priority = 1
         width = 2
@@ -271,11 +294,13 @@ class crossing:
         linkIndex2 = 4
         parameters = 7
 
-#--------------------------------
+# --------------------------------
 # ADDITIONALS
-#--------------------------------
+# --------------------------------
 
 # busStop
+
+
 class busStop:
     class create:
         idEnable = 5
@@ -289,6 +314,7 @@ class busStop:
         color = 12
         references = 16
         length = 18
+
     class inspect:
         id = 1
         lane = 2
@@ -302,6 +328,7 @@ class busStop:
         colorDialog = 10        # missing
         color = 11
         parameters = 14
+
     class inspectSelection:
         name = 1
         friendlyPos = 2
@@ -313,6 +340,8 @@ class busStop:
         parameters = 10
 
 # trainStop
+
+
 class trainStop:
     class create:
         idEnable = 5
@@ -326,6 +355,7 @@ class trainStop:
         color = 12
         references = 16
         length = 18
+
     class inspect:
         id = 1
         lane = 2
@@ -339,6 +369,7 @@ class trainStop:
         colorDialog = 10        # missing
         color = 11
         parameters = 14
+
     class inspectSelection:
         name = 1
         friendlyPos = 2
@@ -348,8 +379,10 @@ class trainStop:
         colorDialog = 6        # missing
         color = 7
         parameters = 10
-        
+
 # containerStop
+
+
 class containerStop:
     class create:
         idEnable = 5
@@ -363,6 +396,7 @@ class containerStop:
         color = 12
         references = 16
         length = 18
+
     class inspect:
         id = 1
         lane = 2
@@ -376,6 +410,7 @@ class containerStop:
         colorDialog = 10        # missing
         color = 11
         parameters = 14
+
     class inspectSelection:
         name = 1
         friendlyPos = 2
@@ -387,6 +422,8 @@ class containerStop:
         parameters = 10
 
 # chargingStation
+
+
 class chargingStation:
     class create:
         idEnable = 5
@@ -399,6 +436,7 @@ class chargingStation:
         chargeDelay = 11
         references = 15
         length = 17
+
     class inspect:
         id = 1
         lane = 2
@@ -411,6 +449,7 @@ class chargingStation:
         chargeInTransit = 9
         chargeDelay = 10
         parameters = 13
+
     class inspectSelection:
         name = 1
         friendlyPos = 2
@@ -421,21 +460,27 @@ class chargingStation:
         parameters = 9
 
 # access
+
+
 class access:
     class create:
         length = 5
         friendlyPos = 6
         parent = 9
+
     class inspect:
         lane = 1
         pos = 2
         length = 3
         friendlyPos = 4
+
     class inspectSelection:
         length = 1
         friendlyPos = 2
 
 # parkingArea
+
+
 class parkingArea:
     class create:
         idEnable = 5
@@ -450,6 +495,7 @@ class parkingArea:
         angle = 13
         references = 17
         referencesLength = 19
+
     class inspect:
         id = 1                  # missing
         lane = 2
@@ -464,6 +510,7 @@ class parkingArea:
         length = 11
         angle = 12
         parameters = 15
+
     class inspectSelection:
         departPos = 1           # missing
         name = 2
@@ -476,15 +523,18 @@ class parkingArea:
         parameters = 11
 
 # parkingSpace
+
+
 class parkingSpace:
     class create:
         name = 5
         width = 6
         lenght = 7
         angle = 8
-        slope = 9       # missing       
+        slope = 9       # missing
         parent = 12
-    class inspect: 
+
+    class inspect:
         pos = 1
         name = 2
         width = 3
@@ -493,6 +543,7 @@ class parkingSpace:
         slope = 6       # missing
         parameters = 9
         parent = 13
+
     class inspectSelection:
         name = 1
         width = 2
@@ -503,6 +554,8 @@ class parkingSpace:
         parent = 11
 
 # E1
+
+
 class E1:
     class create:
         idEnable = 5    # missing
@@ -510,8 +563,9 @@ class E1:
         freq = 6
         name = 7
         file = 8
-        vTypes = 9 
+        vTypes = 9
         friendlyPos = 10
+
     class inspect:
         id = 1
         lane = 2
@@ -522,6 +576,7 @@ class E1:
         vTypes = 7
         friendlyPos = 8
         parameters = 11
+
     class inspectSelection:
         freq = 1
         name = 2
@@ -531,6 +586,8 @@ class E1:
         parameters = 8
 
 # E2
+
+
 class E2:
     class create:
         idEnable = 5
@@ -540,11 +597,12 @@ class E2:
         tl = 8
         name = 9
         file = 10
-        vTypes = 11 
+        vTypes = 11
         timeThreshold = 12
         speedThreshold = 13
-        jamThreshold= 14
+        jamThreshold = 14
         friendlyPos = 15
+
     class inspect:
         id = 1
         lane = 2
@@ -554,26 +612,29 @@ class E2:
         tl = 6
         name = 7
         file = 8
-        vTypes = 9 
+        vTypes = 9
         timeThreshold = 10
         speedThreshold = 11
-        jamThreshold= 12
+        jamThreshold = 12
         friendlyPos = 13
         parameters = 16
+
     class inspectSelection:
         length = 1
         freq = 2
         tl = 3
         name = 4
         file = 5
-        vTypes = 6 
+        vTypes = 6
         timeThreshold = 7
         speedThreshold = 8
-        jamThreshold= 9
+        jamThreshold = 9
         friendlyPos = 10
         parameters = 13
 
 # E2Multilane
+
+
 class E2Multilane:
     class create:
         idEnable = 5
@@ -582,11 +643,12 @@ class E2Multilane:
         tl = 7
         name = 8
         file = 9
-        vTypes = 10 
+        vTypes = 10
         timeThreshold = 11
         speedThreshold = 12
-        jamThreshold= 13
+        jamThreshold = 13
         friendlyPos = 14
+
     class inspect:
         id = 1
         lanes = 2
@@ -596,25 +658,28 @@ class E2Multilane:
         tl = 6
         name = 7
         file = 8
-        vTypes = 9 
+        vTypes = 9
         timeThreshold = 10
         speedThreshold = 11
-        jamThreshold= 12
+        jamThreshold = 12
         friendlyPos = 13
         parameters = 16
+
     class inspectSelection:
         freq = 1
         tl = 2
         name = 3
         file = 4
-        vTypes = 5 
+        vTypes = 5
         timeThreshold = 6
         speedThreshold = 7
-        jamThreshold= 8
+        jamThreshold = 8
         friendlyPos = 9
         parameters = 12
 
 # E3
+
+
 class E3:
     class create:
         idEnable = 5
@@ -622,45 +687,53 @@ class E3:
         freq = 6
         name = 7
         file = 8
-        vTypes = 9 
+        vTypes = 9
         timeThreshold = 10
         speedThreshold = 11
+
     class inspect:
         id = 1
         pos = 2
         freq = 3
         name = 4
         file = 5
-        vTypes = 6 
+        vTypes = 6
         timeThreshold = 7
         speedThreshold = 8
         parameters = 11
+
     class inspectSelection:
         freq = 1
         name = 2
         file = 3
-        vTypes = 4 
+        vTypes = 4
         timeThreshold = 5
         speedThreshold = 6
         parameters = 9
 
 # entryExit
+
+
 class entryExit:
     class create:
         friendlyPos = 5
         parent = 8
+
     class inspect:
         lane = 1
         pos = 2
         friendlyPos = 3
         parameters = 6
         parent = 10
+
     class inspectSelection:
         friendlyPos = 1
         parameters = 4
         parent = 7
 
 # E1Instant
+
+
 class E1Instant:
     class create:
         idEnable = 5
@@ -669,6 +742,7 @@ class E1Instant:
         file = 7
         vTypes = 8
         friendlyPos = 9
+
     class inspect:
         id = 1
         lane = 2
@@ -678,6 +752,7 @@ class E1Instant:
         vTypes = 6
         friendlyPos = 7
         parameters = 10
+
     class inspectSelection:
         name = 1
         file = 2
@@ -686,6 +761,8 @@ class E1Instant:
         parameters = 7
 
 # calibrator
+
+
 class calibrator:
     class create:
         idEnable = 5
@@ -698,6 +775,7 @@ class calibrator:
         jamTreshold = 11    # missing
         vTypes = 12         # missing
         center = 16
+
     class inspect:
         id = 1
         edgeLane = 2
@@ -709,6 +787,7 @@ class calibrator:
         jamTreshold = 8     # missing
         vTypes = 9          # missing
         parameters = 12
+
     class inspectSelection:
         pos = 1
         frequency = 2
@@ -719,11 +798,13 @@ class calibrator:
         vTypes = 7          # missing
         parameters = 10
 
-#--------------------------------
+# --------------------------------
 # SHAPE ELEMENTS
-#--------------------------------
+# --------------------------------
 
 # Poly
+
+
 class Poly:
     class create:
         idEnable = 5
@@ -739,6 +820,7 @@ class Poly:
         reativePath = 14
         angle = 15
         closeShape = 19
+
     class inspect:
         id = 1
         shape = 2
@@ -756,6 +838,7 @@ class Poly:
         geo = 16
         parameters = 17
         closeShape = 21
+
     class inspectSelection:
         colorButton = 1
         color = 2
@@ -772,6 +855,8 @@ class Poly:
         closeShape = 18
 
 # POI
+
+
 class POI:
     class create:
         idEnable = 5
@@ -786,6 +871,7 @@ class POI:
         imgFile = 13
         relativePath = 14
         angle = 15
+
     class inspect:
         id = 1
         pos = 2
@@ -800,6 +886,7 @@ class POI:
         relativePath = 11
         angle = 12
         parameters = 15
+
     class inspectSelection:
         colorButton = 1     # missing
         color = 2
@@ -814,6 +901,8 @@ class POI:
         parameters = 13
 
 # POIGEO
+
+
 class POIGEO:
     class create:
         idEnable = 5
@@ -829,6 +918,7 @@ class POIGEO:
         relativePath = 14
         angle = 15
         lonLat = 20         # missing
+
     class inspect:
         id = 1
         lon = 2
@@ -844,6 +934,7 @@ class POIGEO:
         relativePath = 12
         angle = 13
         parameters = 16
+
     class inspectSelection:
         colorButton = 1     # missing
         color = 2
@@ -858,6 +949,8 @@ class POIGEO:
         parameters = 13
 
 # POILane
+
+
 class POILane:
     class create:
         idEnable = 5
@@ -874,6 +967,7 @@ class POILane:
         imgFile = 15
         relativePath = 16
         angle = 14
+
     class inspect:
         id = 1
         lane = 2
@@ -891,6 +985,7 @@ class POILane:
         relativePath = 14
         angle = 15
         parameters = 18
+
     class inspectSelection:
         friendlyPos = 1
         posLat = 2
@@ -906,11 +1001,13 @@ class POILane:
         angle = 12
         parameters = 15
 
-#--------------------------------
+# --------------------------------
 # TAZ ELEMENTS
-#--------------------------------
+# --------------------------------
 
 # TAZ
+
+
 class TAZ:
     class create:
         center = 3
@@ -919,6 +1016,7 @@ class TAZ:
         color = 6
         name = 7
         edgesWithin = 8
+
     class inspect:
         id = 1
         shape = 2
@@ -928,6 +1026,7 @@ class TAZ:
         color = 6
         name = 7
         parameters = 10
+
     class inspectSelection:
         center = 1
         fill = 2
@@ -936,11 +1035,13 @@ class TAZ:
         name = 5
         parameters = 8
 
-#--------------------------------
+# --------------------------------
 # DEMAND ELEMENTS
-#--------------------------------
+# --------------------------------
 
 # route
+
+
 class route:
     class create:
         idEnable = 7
@@ -949,6 +1050,7 @@ class route:
         color = 9
         repeat = 10
         cycletime = 11
+
     class inspect:
         id = 1
         edges = 2
@@ -957,14 +1059,17 @@ class route:
         repeat = 5
         cycletime = 6
         parameters = 9
+
     class inspectSelection:
-        colorButton = 1 # missing
+        colorButton = 1  # missing
         color = 2
         repeat = 3
-        cycletime = 4 
+        cycletime = 4
         parameters = 7
 
 # trip (from-to edges)
+
+
 class tripFromToEdge:
     class create:
         type = 5
@@ -984,6 +1089,7 @@ class tripFromToEdge:
         departPosLat = 20
         arrivalPosLat = 21
         depart = 22
+
     class inspect:
         id = 1
         type = 2
@@ -1005,6 +1111,7 @@ class tripFromToEdge:
         arrivalPosLat = 18
         depart = 19
         parameters = 22
+
     class inspectSelection:
         type = 1            # missing
         colorButton = 2
@@ -1024,6 +1131,8 @@ class tripFromToEdge:
         parameters = 18
 
 # flow (from-to edges)
+
+
 class flowFromToEdge:
     class create:
         type = 5
@@ -1043,6 +1152,7 @@ class flowFromToEdge:
         departPosLat = 20
         arrivalPosLat = 21
         # flow attributes missing
+
     class inspect:
         id = 1
         type = 2
@@ -1064,6 +1174,7 @@ class flowFromToEdge:
         arrivalPosLat = 18
         # flow attributes missing
         parameters = 30
+
     class inspectSelection:
         type = 1            # missing
         colorButton = 2
@@ -1083,6 +1194,8 @@ class flowFromToEdge:
         parameters = 26
 
 # vehicle (over route)
+
+
 class vehicle:
     class create:
         type = 5
@@ -1102,6 +1215,7 @@ class vehicle:
         departPosLat = 20
         arrivalPosLat = 21
         depart = 22
+
     class inspect:
         id = 1
         type = 2
@@ -1123,6 +1237,7 @@ class vehicle:
         arrivalPosLat = 18
         depart = 19
         parameters = 22
+
     class inspectSelection:
         type = 1            # missing
         colorButton = 2
@@ -1142,6 +1257,8 @@ class vehicle:
         parameters = 18
 
 # flow (over route)
+
+
 class routeflow:
     class create:
         type = 5
@@ -1161,6 +1278,7 @@ class routeflow:
         departPosLat = 20
         arrivalPosLat = 21
         # flow attributes missing
+
     class inspect:
         id = 1
         type = 2
@@ -1182,6 +1300,7 @@ class routeflow:
         arrivalPosLat = 18
         # flow attributes missing
         parameters = 30
+
     class inspectSelection:
         type = 1            # missing
         colorButton = 2
@@ -1201,6 +1320,8 @@ class routeflow:
         parameters = 26
 
 # vehicle (embedded route)
+
+
 class vehicleEmbedded:
     class create:
         type = 5
@@ -1220,6 +1341,7 @@ class vehicleEmbedded:
         departPosLat = 20
         arrivalPosLat = 21
         depart = 22
+
     class inspect:
         id = 1              # missing
         type = 2
@@ -1240,6 +1362,7 @@ class vehicleEmbedded:
         arrivalPosLat = 17
         depart = 18
         parameters = 21
+
     class inspectSelection:
         type = 1            # missing
         colorButton = 2
@@ -1259,6 +1382,8 @@ class vehicleEmbedded:
         parameters = 18
 
 # flow (embedded route)
+
+
 class flowEmbedded:
     class create:
         type = 5
@@ -1278,6 +1403,7 @@ class flowEmbedded:
         departPosLat = 20
         arrivalPosLat = 21
         # flow attributes missing
+
     class inspect:
         id = 1              # missing
         type = 2
@@ -1299,6 +1425,7 @@ class flowEmbedded:
         begin = 18          # missing
         # flow attributes missing
         parameters = 29
+
     class inspectSelection:
         type = 1            # missing
         colorButton = 2
@@ -1319,6 +1446,8 @@ class flowEmbedded:
         parameters = 26
 
 # stop (over additionals)
+
+
 class stop:
     class create:
         durationEnable = 8
@@ -1333,6 +1462,7 @@ class stop:
         parking = 15
         actType = 16
         actTypeParking = 15
+
     class inspect:
         durationEnable = 1
         duration = 2
@@ -1346,6 +1476,7 @@ class stop:
         parking = 8
         actType = 9
         actTypeParking = 8
+
     class inspectSelection:
         durationEnable = 1
         duration = 2
@@ -1360,24 +1491,32 @@ class stop:
         actType = 11
         actTypeParking = 10
 
-#--------------------------------
+# --------------------------------
 # DATA ELEMENTS
-#--------------------------------
+# --------------------------------
 
 # edgeData
+
+
 class edgeData:
     class create:
         parameters = 12
+
     class inspect:
         parameters = 7
+
     class inspectSelection:
         parameters = 7
 
 # edgeRelData
+
+
 class edgeRelData:
     class create:
         parameters = 12
+
     class inspect:
         parameters = 7
+
     class inspectSelection:
         parameters = 7

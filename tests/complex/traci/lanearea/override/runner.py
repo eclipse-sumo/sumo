@@ -32,6 +32,7 @@ traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 
 loopID = "detect_0"
 
+
 def check():
     t = traci.simulation.getTime()
     print("step", t)
@@ -54,6 +55,7 @@ def check():
 def ovr(vehNumber):
     print("override %s" % vehNumber)
     traci.lanearea.overrideVehicleNumber(loopID, vehNumber)
+
 
 for step in range(3):
     check()

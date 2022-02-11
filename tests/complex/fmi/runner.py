@@ -120,7 +120,7 @@ def runSingle(startTime, endTime, validate, scalarVariable):
                 print("currentPos =", currentPos)
                 print("targetPos =", targetPos)
                 fmu.setString([valueRefs['vehicle.moveToXY']],
-                        ["ego " + edgeID + " " + laneIndex + " " + str(targetPos[0]) + " " + str(targetPos[1])])
+                              ["ego " + edgeID + " " + laneIndex + " " + str(targetPos[0]) + " " + str(targetPos[1])])
 
         # perform one step
         fmu.doStep(currentCommunicationPoint=time, communicationStepSize=stepSize)
@@ -145,9 +145,9 @@ if len(sys.argv) < 5:
     sys.exit("")
 sys.stdout.flush()
 
-startTime=int(sys.argv[1])
-endTime=int(sys.argv[2])
-validate=bool(strtobool(sys.argv[3]))
-scalarVariable=sys.argv[4]
+startTime = int(sys.argv[1])
+endTime = int(sys.argv[2])
+validate = bool(strtobool(sys.argv[3]))
+scalarVariable = sys.argv[4]
 
 runSingle(startTime, endTime, validate, scalarVariable)
