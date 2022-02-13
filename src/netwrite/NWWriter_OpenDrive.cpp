@@ -193,30 +193,6 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write junctions (junction)
     device << junctionOSS.getString();
 
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* n = (*i).second;
-        const std::vector<NBEdge*>& incoming = n->getIncomingEdges();
-        // check if any connections must be written
-        int numConnections = 0;
-        for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            numConnections += (int)((*j)->getConnections().size());
-        }
-        if (numConnections == 0) {
-            continue;
-        }
-        for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            const NBEdge* inEdge = *j;
-            const std::vector<NBEdge::Connection>& elv = inEdge->getConnections();
-            for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                const NBEdge::Connection& c = *k;
-                const NBEdge* outEdge = c.toEdge;
-                if (outEdge == nullptr) {
-                    continue;
-                }
-            }
-        }
-    }
-
     device.closeTag();
     device.close();
 }
