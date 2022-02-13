@@ -96,10 +96,9 @@ jobs:
       if: matrix.build-type == 'plain'
       run: |
         cd sumo/build_msvc
-        $env:TEXTTEST_TMP = "D:/texttest/1"
+        $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,sumo"
         ctest -R texttest --verbose
-        $env:TEXTTEST_TMP = "D:/texttest/2"
         $env:TEXTTEST_CI_APPS = "-a marouter,netgen,od2trips,polyconvert,netconvert"
         ctest -R texttest --verbose
 
@@ -112,11 +111,12 @@ jobs:
         $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
         ctest --build-config Release --verbose
+        Compress-Archive -Path D:/texttest/complex.* -DestinationPath D:/texttest/tt.zip
 
-#    - name: Uploading test results
-#      if: always()
-#      uses: actions/upload-artifact@v2
-#      with:
-#        name: texttesttmp-${{ matrix.build-type }}
-#        path: D:/texttest
-#        if-no-files-found: warn
+    - name: Uploading test results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: texttesttmp-${{ matrix.build-type }}
+        path: D:/texttest/tt.zip
+        if-no-files-found: warn
