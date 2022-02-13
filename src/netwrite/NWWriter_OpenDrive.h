@@ -55,12 +55,16 @@ public:
     static void writeNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 protected:
+    /// @brief signalID -> (lanes, dirs)
+    typedef std::map<std::string, std::pair<std::set<int>, std::set<LinkDirection> > > SignalLanes;
+
     /// @brief write normal edge to device
     static void writeNormalEdge(OutputDevice& device, const NBEdge* e,
                                 int edgeID, int fromNodeID, int toNodeID,
                                 const bool origNames,
                                 const double straightThresh,
-                                const ShapeContainer& shc);
+                                const ShapeContainer& shc,
+                                SignalLanes& signalLanes);
 
     /// @brief write internal edge to device, return next connectionID
     static int writeInternalEdge(OutputDevice& device, OutputDevice& junctionDevice,
@@ -70,7 +74,8 @@ protected:
                                  const std::vector<NBEdge::Connection>& parallel,
                                  const bool isOuterEdge,
                                  const double straightThresh,
-                                 const std::string& centerMark);
+                                 const std::string& centerMark,
+                                 SignalLanes& signalLanes);
 
     static void addPedestrianConnection(const NBEdge* inEdge, const NBEdge* outEdge, std::vector<NBEdge::Connection>& parallel);
 
@@ -107,4 +112,7 @@ protected:
 
     /// @brief write road objects referenced as edge parameters
     static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc);
+
+    /// @brief write signal record for traffic light
+    static void writeSignals(OutputDevice& device, const NBEdge* e, double length, SignalLanes& signalLanes);
 };
