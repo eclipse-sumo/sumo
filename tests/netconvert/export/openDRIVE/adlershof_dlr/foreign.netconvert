@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-25 16:36:20 by Eclipse SUMO netconvert Version v1_12_0+0022-a691fe0
+<!-- generated on 2022-02-13 23:23:13 by Eclipse SUMO netconvert Version v1_12_0+0523-0c0783a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -39,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Jan 25 16:36:20 2022" north="767.39" south="0.00" east="1737.68" west="0.00">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Sun Feb 13 23:23:13 2022" north="767.39" south="0.00" east="1737.68" west="0.00">
         <geoReference>
  <![CDATA[
  +proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
@@ -130,7 +135,23 @@ SPDX-License-Identifier: EPL-2.0
             </laneSection>
         </lanes>
         <objects/>
-        <signals/>
+        <signals>
+            <signal id="32266935_13" s="440.89" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="20" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+            <signal id="32266935_14" s="440.89" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="30" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+            <signal id="32266935_15" s="440.89" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="30" height="0.78" width="0.26">
+                <validity fromLane="1" toLane="1"/>
+            </signal>
+            <signal id="32266935_16" s="440.89" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="10" height="0.78" width="0.26">
+                <validity fromLane="1" toLane="1"/>
+            </signal>
+            <signal id="32266935_17" s="440.89" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000001" subType="-1" height="0.78" width="0.26">
+                <validity fromLane="1" toLane="1"/>
+            </signal>
+        </signals>
         <userData code="sumoId" value="-24214693#0"/>
     </road>
     <road name="Ernst-Ruska-Ufer" length="19.17589505" id="872" junction="-1">
@@ -173,7 +194,14 @@ SPDX-License-Identifier: EPL-2.0
             </laneSection>
         </lanes>
         <objects/>
-        <signals/>
+        <signals>
+            <signal id="261599791_2" s="19.18" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="30" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+            <signal id="261599791_3" s="19.18" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="30" height="0.78" width="0.26">
+                <validity fromLane="1" toLane="1"/>
+            </signal>
+        </signals>
         <userData code="sumoId" value="-24214693#1"/>
     </road>
     <road name="Wegedornstraße" length="0.80611118" id="873" junction="-1">
@@ -210,7 +238,20 @@ SPDX-License-Identifier: EPL-2.0
             </laneSection>
         </lanes>
         <objects/>
-        <signals/>
+        <signals>
+            <signal id="32266935_10" s="0.81" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="30" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+            <signal id="32266935_11" s="0.81" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="10" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+            <signal id="32266935_12" s="0.81" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000001" subType="-1" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+            <signal id="32266935_9" s="0.81" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="20" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+        </signals>
         <userData code="sumoId" value="-24214694"/>
     </road>
     <road name="" length="461.35645281" id="874" junction="-1">
@@ -2524,7 +2565,11 @@ SPDX-License-Identifier: EPL-2.0
             </laneSection>
         </lanes>
         <objects/>
-        <signals/>
+        <signals>
+            <signal id="94487954_0" s="593.36" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000001" subType="-1" height="0.78" width="0.26">
+                <validity fromLane="1" toLane="1"/>
+            </signal>
+        </signals>
         <userData code="sumoId" value="-7216737#0"/>
     </road>
     <road name="Ernst-Ruska-Ufer" length="18.85376925" id="932" junction="-1">
@@ -3098,7 +3143,14 @@ SPDX-License-Identifier: EPL-2.0
             </laneSection>
         </lanes>
         <objects/>
-        <signals/>
+        <signals>
+            <signal id="261599791_0" s="440.89" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="30" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+            <signal id="261599791_1" s="440.89" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="30" height="0.78" width="0.26">
+                <validity fromLane="1" toLane="1"/>
+            </signal>
+        </signals>
         <userData code="sumoId" value="24214693#0"/>
     </road>
     <road name="Ernst-Ruska-Ufer" length="19.17589505" id="945" junction="-1">
@@ -7407,7 +7459,23 @@ SPDX-License-Identifier: EPL-2.0
             </laneSection>
         </lanes>
         <objects/>
-        <signals/>
+        <signals>
+            <signal id="32266935_4" s="148.42" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="20" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+            <signal id="32266935_5" s="148.42" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="30" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+            <signal id="32266935_6" s="148.42" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="30" height="0.78" width="0.26">
+                <validity fromLane="1" toLane="1"/>
+            </signal>
+            <signal id="32266935_7" s="148.42" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="10" height="0.78" width="0.26">
+                <validity fromLane="1" toLane="1"/>
+            </signal>
+            <signal id="32266935_8" s="148.42" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000001" subType="-1" height="0.78" width="0.26">
+                <validity fromLane="1" toLane="1"/>
+            </signal>
+        </signals>
         <userData code="sumoId" value="7216737#3"/>
     </road>
     <road name="Wegedornstraße" length="68.56552046" id="1053" junction="-1">
@@ -7610,7 +7678,20 @@ SPDX-License-Identifier: EPL-2.0
             </laneSection>
         </lanes>
         <objects/>
-        <signals/>
+        <signals>
+            <signal id="32266935_0" s="35.87" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="20" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+            <signal id="32266935_1" s="35.87" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="30" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+            <signal id="32266935_2" s="35.87" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subType="10" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+            <signal id="32266935_3" s="35.87" t="0" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000001" subType="-1" height="0.78" width="0.26">
+                <validity fromLane="0" toLane="0"/>
+            </signal>
+        </signals>
         <userData code="sumoId" value="7727483#3"/>
     </road>
     <road name="" length="88.66002542" id="1058" junction="-1">
