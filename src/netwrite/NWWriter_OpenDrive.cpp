@@ -193,6 +193,27 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write junctions (junction)
     device << junctionOSS.getString();
 
+    // write controllers
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+        NBNode* n = (*i).second;
+        if (n->isTLControlled()) {
+            NBTrafficLightDefinition* tl = *n->getControllingTLS().begin();
+            std::set<std::string> ids;
+            device.openTag("controller");
+            device.writeAttr("id", tl->getID());
+            for (const NBConnection& c : tl->getControlledLinks()) {
+                const std::string id = tl->getID() + "_" + toString(c.getTLIndex());
+                if (ids.count(id) == 0) {
+                    ids.insert(id);
+                    device.openTag("control");
+                    device.writeAttr("signalID", id);
+                    device.closeTag();
+                }
+            }
+            device.closeTag();
+        }
+    }
+
     device.closeTag();
     device.close();
 }
