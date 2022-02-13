@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-13 23:23:13 by Eclipse SUMO netconvert Version v1_12_0+0523-0c0783a
+<!-- generated on 2022-02-13 23:35:58 by Eclipse SUMO netconvert Version v1_12_0+0526-37096e3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Sun Feb 13 23:23:13 2022" north="767.39" south="0.00" east="1737.68" west="0.00">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Sun Feb 13 23:35:58 2022" north="767.39" south="0.00" east="1737.68" west="0.00">
         <geoReference>
  <![CDATA[
  +proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
@@ -23730,4 +23730,33 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <laneLink from="-1" to="-1"/>
         </connection>
     </junction>
+    <controller id="261599791">
+        <control signalID="261599791_0"/>
+        <control signalID="261599791_1"/>
+        <control signalID="261599791_2"/>
+        <control signalID="261599791_3"/>
+    </controller>
+    <controller id="32266935">
+        <control signalID="32266935_0"/>
+        <control signalID="32266935_1"/>
+        <control signalID="32266935_2"/>
+        <control signalID="32266935_3"/>
+        <control signalID="32266935_4"/>
+        <control signalID="32266935_5"/>
+        <control signalID="32266935_6"/>
+        <control signalID="32266935_7"/>
+        <control signalID="32266935_8"/>
+        <control signalID="32266935_9"/>
+        <control signalID="32266935_10"/>
+        <control signalID="32266935_11"/>
+        <control signalID="32266935_12"/>
+        <control signalID="32266935_13"/>
+        <control signalID="32266935_14"/>
+        <control signalID="32266935_15"/>
+        <control signalID="32266935_16"/>
+        <control signalID="32266935_17"/>
+    </controller>
+    <controller id="94487954">
+        <control signalID="94487954_0"/>
+    </controller>
 </OpenDRIVE>
