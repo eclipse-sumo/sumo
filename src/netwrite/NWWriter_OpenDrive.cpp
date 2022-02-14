@@ -971,10 +971,15 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
             const bool r = dirs.count(LinkDirection::RIGHT) != 0 || dirs.count(LinkDirection::PARTRIGHT) != 0;
             const bool s = dirs.count(LinkDirection::STRAIGHT) != 0;
             const std::string tag = isNew ? "signal" : "signalReference";
+            int firstLane = *signalLanes[id].first.begin();
+            double t = e->getLaneWidth(firstLane) * 0.5;
+            for (int i = 0; i < firstLane; i++) {
+                t += e->getLaneWidth(i);
+            }
             device.openTag(tag);
             device.writeAttr("id", id);
             device.writeAttr("s", length);
-            device.writeAttr("t", 0); // use lane widths
+            device.writeAttr("t", -t);
             device.writeAttr("orientation", "+");
             if (isNew) {
                 int type = 1000001;
