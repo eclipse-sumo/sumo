@@ -35,14 +35,15 @@ second_teleport_oncoming
 # change attributes of second stop without rerouting
 second_change_attribute
 
-# replace last stop after the vehicle has departed
+# insertstop before the last stop
+third
+
+# 
+# insert stop before the third stop
+third_later
+
+# insert stop after the last stop
 last
-
-# replace last stop after the vehicle has reached the second stop
-last_later
-
-# replace last stop on the destination edge and update destination
-last_destination
 
 # replace all stops after the vehicle has departed
 all
