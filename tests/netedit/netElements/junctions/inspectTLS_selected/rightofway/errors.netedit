@@ -35,16 +35,13 @@ Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Value 'dummyRightOfWays' for attribute rightOfWay of junction isn't valid
 Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
-Debug: Restoring previous attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced busStop 'busStop_8_0_4'

@@ -41,7 +41,7 @@ netedit.selectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # select select second junction
-netedit.leftClick(referencePosition, 7, 238)
+netedit.leftClick(referencePosition, 10, 230)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -50,7 +50,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # change keep clear
-netedit.modifyBoolAttribute(2, False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.keepClear, "true", False)
 
 # rebuild network
 netedit.rebuildNetwork()

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-02 12:16:24 by Eclipse SUMO netedit Version v1_12_0+0185-324357a1d93
+<!-- generated on 2022-02-14 13:25:03 by Eclipse SUMO netedit Version v1_12_0+0544-e9874b5b681
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -47,29 +47,29 @@
 
     <connection from="4" to="8" fromLane="1" toLane="1"/>
 
-    <connection from="5" to="4" fromLane="0" toLane="0"/>
-    <connection from="5" to="2" fromLane="0" toLane="0"/>
-    <connection from="5" to="2" fromLane="1" toLane="1"/>
-    <connection from="5" to="3" fromLane="1" toLane="1"/>
-    <connection from="5" to="1" fromLane="1" toLane="1"/>
+    <connection from="5" to="4" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="5" to="2" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="5" to="2" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="5" to="3" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="5" to="1" fromLane="1" toLane="1" keepClear="0"/>
 
-    <connection from="6" to="3" fromLane="0" toLane="0"/>
-    <connection from="6" to="1" fromLane="0" toLane="0"/>
-    <connection from="6" to="1" fromLane="1" toLane="1"/>
-    <connection from="6" to="4" fromLane="1" toLane="1"/>
-    <connection from="6" to="2" fromLane="1" toLane="1"/>
+    <connection from="6" to="3" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="6" to="1" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="6" to="1" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="6" to="4" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="6" to="2" fromLane="1" toLane="1" keepClear="0"/>
 
-    <connection from="7" to="1" fromLane="0" toLane="0"/>
-    <connection from="7" to="4" fromLane="0" toLane="0"/>
-    <connection from="7" to="4" fromLane="1" toLane="1"/>
-    <connection from="7" to="2" fromLane="1" toLane="1"/>
-    <connection from="7" to="3" fromLane="1" toLane="1"/>
+    <connection from="7" to="1" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="7" to="4" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="7" to="4" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="7" to="2" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="7" to="3" fromLane="1" toLane="1" keepClear="0"/>
 
-    <connection from="8" to="2" fromLane="0" toLane="0"/>
-    <connection from="8" to="3" fromLane="0" toLane="0"/>
-    <connection from="8" to="3" fromLane="1" toLane="1"/>
-    <connection from="8" to="1" fromLane="1" toLane="1"/>
-    <connection from="8" to="4" fromLane="1" toLane="1"/>
+    <connection from="8" to="2" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="8" to="3" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="8" to="3" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="8" to="1" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="8" to="4" fromLane="1" toLane="1" keepClear="0"/>
 
     <crossing node="Center" edges="4 8" priority="1" width="3.00" linkIndex="20"/>
     <crossing node="Center" edges="3 7" priority="1" width="4.00" linkIndex="21"/>

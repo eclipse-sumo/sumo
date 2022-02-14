@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-02 12:16:24 by Eclipse SUMO netedit Version v1_12_0+0185-324357a1d93
+<!-- generated on 2022-02-14 13:25:03 by Eclipse SUMO netedit Version v1_12_0+0544-e9874b5b681
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -41,9 +41,19 @@
 <nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
-    <node id="A" x="50.00" y="0.00" type="traffic_light" tl="A"/>
-    <node id="B" x="50.00" y="100.00" type="traffic_light" tl="B"/>
-    <node id="C" x="0.00" y="50.00" type="traffic_light" tl="C"/>
-    <node id="Center" x="50.00" y="50.00" type="traffic_light" tl="Center"/>
-    <node id="D" x="100.00" y="50.00" type="traffic_light" tl="D"/>
+    <node id="A" x="50.00" y="0.00" type="traffic_light" tl="A" name="nameB">
+        <param key="B" value="C"/>
+    </node>
+    <node id="B" x="50.00" y="100.00" type="traffic_light" tl="B" name="nameB">
+        <param key="B" value="C"/>
+    </node>
+    <node id="C" x="0.00" y="50.00" type="traffic_light" tl="C" name="nameB">
+        <param key="B" value="C"/>
+    </node>
+    <node id="Center" x="50.00" y="50.00" type="traffic_light" tl="Center" tlType="actuated" radius="3.00" rightOfWay="edgePriority" fringe="inner" name="nameA">
+        <param key="A" value="B"/>
+    </node>
+    <node id="D" x="100.00" y="50.00" type="traffic_light" tl="D" name="nameB">
+        <param key="B" value="C"/>
+    </node>
 </nodes>

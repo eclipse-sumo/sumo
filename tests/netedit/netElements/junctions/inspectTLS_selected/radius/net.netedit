@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-21 15:11:41 by Eclipse SUMO netedit Version v1_11_0+1361-2e2855ec72d
+<!-- generated on 2022-02-14 13:46:30 by Eclipse SUMO netedit Version v1_12_0+0544-e9874b5b681
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\radius\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb133159.7400\netedit.gui\netElements\junctions\inspectTLS_selected\radius\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\radius\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb133159.7400\netedit.gui\netElements\junctions\inspectTLS_selected\radius\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,27 +31,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\radius\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\radius\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\radius\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\radius\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\radius\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\radius\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb133159.7400\netedit.gui\netElements\junctions\inspectTLS_selected\radius\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb133159.7400\netedit.gui\netElements\junctions\inspectTLS_selected\radius\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb133159.7400\netedit.gui\netElements\junctions\inspectTLS_selected\radius\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb133159.7400\netedit.gui\netElements\junctions\inspectTLS_selected\radius\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb133159.7400\netedit.gui\netElements\junctions\inspectTLS_selected\radius\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb133159.7400\netedit.gui\netElements\junctions\inspectTLS_selected\radius\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\radius\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb133159.7400\netedit.gui\netElements\junctions\inspectTLS_selected\radius\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\radius\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb133159.7400\netedit.gui\netElements\junctions\inspectTLS_selected\radius\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\radius\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb133159.7400\netedit.gui\netElements\junctions\inspectTLS_selected\radius\log.txt"/>
     </report>
 
 </configuration>
@@ -213,49 +213,74 @@
         <lane id="8_1" index="1" speed="13.90" length="41.30" shape="100.00,51.60 58.70,51.60"/>
     </edge>
 
-    <tlLogic id="Center" type="static" programID="0" offset="0">
-        <phase duration="37" state="gGGggrrrrrgGGggrrrrrGG"/>
+    <tlLogic id="A" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
+    <tlLogic id="B" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
+    <tlLogic id="C" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
+    <tlLogic id="Center" type="actuated" programID="0" offset="0">
+        <phase duration="42" state="rrrrrGGGggrrrrrGGGggrr" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="rrrrryyyyyrrrrryyyyyrr"/>
+        <phase duration="37" state="gGGggrrrrrgGGggrrrrrGG" minDur="5" maxDur="50"/>
         <phase duration="5"  state="gGGggrrrrrgGGggrrrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrryyyyyrrrrrrr"/>
-        <phase duration="42" state="rrrrrGGGggrrrrrGGGggrr"/>
-        <phase duration="3"  state="rrrrryyyyyrrrrryyyyyrr"/>
+    </tlLogic>
+    <tlLogic id="D" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
     </tlLogic>
 
-    <junction id="A" type="priority" x="50.00" y="0.00" incLanes="1_0 1_1" intLanes=":A_0_0" shape="50.00,0.00 43.60,0.00 50.00,0.00">
+    <junction id="A" type="traffic_light" x="50.00" y="0.00" incLanes="1_0 1_1" intLanes=":A_0_0" shape="50.00,0.00 43.60,0.00 50.00,0.00" name="nameB">
         <request index="0" response="0" foes="0" cont="0"/>
+        <param key="B" value="C"/>
     </junction>
-    <junction id="B" type="priority" x="50.00" y="100.00" incLanes="2_0 2_1" intLanes=":B_0_0" shape="50.00,100.00 56.40,100.00 50.00,100.00">
+    <junction id="B" type="traffic_light" x="50.00" y="100.00" incLanes="2_0 2_1" intLanes=":B_0_0" shape="50.00,100.00 56.40,100.00 50.00,100.00" name="nameB">
         <request index="0" response="0" foes="0" cont="0"/>
+        <param key="B" value="C"/>
     </junction>
-    <junction id="C" type="priority" x="0.00" y="50.00" incLanes="3_0 3_1" intLanes=":C_0_0" shape="0.00,50.00 0.00,56.40 0.00,50.00" radius="2.30">
+    <junction id="C" type="traffic_light" x="0.00" y="50.00" incLanes="3_0 3_1" intLanes=":C_0_0" shape="0.00,50.00 0.00,56.40 0.00,50.00" radius="2.30" name="nameB">
         <request index="0" response="0" foes="0" cont="0"/>
+        <param key="B" value="C"/>
     </junction>
-    <junction id="Center" type="traffic_light" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1 :Center_w2_0 :Center_w1_0" intLanes=":Center_0_0 :Center_1_0 :Center_1_1 :Center_20_0 :Center_21_0 :Center_5_0 :Center_6_0 :Center_6_1 :Center_22_0 :Center_23_0 :Center_24_0 :Center_11_0 :Center_11_1 :Center_25_0 :Center_26_0 :Center_15_0 :Center_16_0 :Center_16_1 :Center_27_0 :Center_28_0 :Center_c0_0 :Center_c1_0" shape="43.60,58.70 56.40,58.70 56.66,57.42 56.98,56.98 57.42,56.66 58.00,56.46 58.70,56.40 58.70,43.60 57.42,43.34 56.98,43.02 56.66,42.58 56.46,42.00 56.40,41.30 43.60,41.30 43.34,42.58 43.02,43.02 42.58,43.34 42.00,43.54 41.30,43.60 41.30,56.40 42.58,56.66 43.02,56.98 43.34,57.42 43.54,58.00" radius="2.30">
-        <request index="0"  response="1000000000000000000000" foes="1000000000000011000000" cont="0"/>
-        <request index="1"  response="0001000000000100000000" foes="0001111110000111000000" cont="0"/>
-        <request index="2"  response="0001000000000100000000" foes="0001111110000111000000" cont="0"/>
-        <request index="3"  response="0101000001100100000000" foes="0101110001101111000000" cont="1"/>
+    <junction id="Center" type="traffic_light" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1 :Center_w2_0 :Center_w1_0" intLanes=":Center_0_0 :Center_1_0 :Center_1_1 :Center_20_0 :Center_21_0 :Center_5_0 :Center_6_0 :Center_6_1 :Center_22_0 :Center_23_0 :Center_24_0 :Center_11_0 :Center_11_1 :Center_25_0 :Center_26_0 :Center_15_0 :Center_16_0 :Center_16_1 :Center_27_0 :Center_28_0 :Center_c0_0 :Center_c1_0" shape="43.60,58.70 56.40,58.70 56.66,57.42 56.98,56.98 57.42,56.66 58.00,56.46 58.70,56.40 58.70,43.60 57.42,43.34 56.98,43.02 56.66,42.58 56.46,42.00 56.40,41.30 43.60,41.30 43.34,42.58 43.02,43.02 42.58,43.34 42.00,43.54 41.30,43.60 41.30,56.40 42.58,56.66 43.02,56.98 43.34,57.42 43.54,58.00" radius="2.30" rightOfWay="edgePriority" fringe="inner" name="nameA">
+        <request index="0"  response="1000000000000011000000" foes="1000000000000011000000" cont="0"/>
+        <request index="1"  response="0001110000000100000000" foes="0001111110000111000000" cont="0"/>
+        <request index="2"  response="0001110000000100000000" foes="0001111110000111000000" cont="0"/>
+        <request index="3"  response="0101110001100111000000" foes="0101110001101111000000" cont="1"/>
         <request index="4"  response="0001000001100000000000" foes="0001000001100000000000" cont="1"/>
         <request index="5"  response="0100000001100000000000" foes="0100000001100000000000" cont="0"/>
-        <request index="6"  response="1100000011100000001111" foes="1111000011100000001111" cont="0"/>
-        <request index="7"  response="1100000011100000001111" foes="1111000011100000001111" cont="0"/>
+        <request index="6"  response="1100000010000000001110" foes="1111000011100000001111" cont="0"/>
+        <request index="7"  response="1100000010000000001110" foes="1111000011100000001111" cont="0"/>
         <request index="8"  response="0100110011100000001110" foes="0100110111100000001110" cont="1"/>
         <request index="9"  response="0100110000000000001000" foes="0100110000000000001000" cont="1"/>
-        <request index="10" response="0100000000000000000000" foes="0100110000000000000000" cont="1"/>
-        <request index="11" response="0001000000000100000000" foes="0001110000000111111000" cont="0"/>
-        <request index="12" response="0001000000000100000000" foes="0001110000000111111000" cont="0"/>
-        <request index="13" response="1001000000000100000110" foes="1011110000000111000110" cont="1"/>
+        <request index="10" response="0100110000000000000000" foes="0100110000000000000000" cont="1"/>
+        <request index="11" response="0001000000000111000000" foes="0001110000000111111000" cont="0"/>
+        <request index="12" response="0001000000000111000000" foes="0001110000000111111000" cont="0"/>
+        <request index="13" response="1001110000000111000110" foes="1011110000000111000110" cont="1"/>
         <request index="14" response="0000000000000100000110" foes="0000000000000100000110" cont="1"/>
         <request index="15" response="1000000000000000000110" foes="1000000000000000000110" cont="0"/>
-        <request index="16" response="1100000011110000001110" foes="1100000011111100001110" cont="0"/>
-        <request index="17" response="1100000011110000001110" foes="1100000011111100001110" cont="0"/>
+        <request index="16" response="1100000011110000001000" foes="1100000011111100001110" cont="0"/>
+        <request index="17" response="1100000011110000001000" foes="1100000011111100001110" cont="0"/>
         <request index="18" response="1000000011100011001110" foes="1000000011100011011110" cont="1"/>
         <request index="19" response="1000000010000011000000" foes="1000000010000011000000" cont="1"/>
         <request index="20" response="0000000000000000000000" foes="0000110000011111101000" cont="0"/>
         <request index="21" response="0000000000000000000000" foes="0011111010000011000001" cont="0"/>
+        <param key="A" value="B"/>
     </junction>
-    <junction id="D" type="priority" x="100.00" y="50.00" incLanes="4_0 4_1" intLanes=":D_0_0" shape="100.00,50.00 100.00,43.60 100.00,50.00">
+    <junction id="D" type="traffic_light" x="100.00" y="50.00" incLanes="4_0 4_1" intLanes=":D_0_0" shape="100.00,50.00 100.00,43.60 100.00,50.00" name="nameB">
         <request index="0" response="0" foes="0" cont="0"/>
+        <param key="B" value="C"/>
     </junction>
 
     <junction id=":Center_20_0" type="internal" x="49.04" y="54.19" incLanes=":Center_3_0 5_0 5_1" intLanes=":Center_6_0 :Center_6_1 :Center_8_0 :Center_9_0 :Center_10_0 :Center_11_0 :Center_11_1 :Center_16_0 :Center_16_1 :Center_18_0 :Center_c0_0"/>
@@ -268,30 +293,30 @@
     <junction id=":Center_27_0" type="internal" x="45.81" y="49.04" incLanes=":Center_18_0 8_0 8_1" intLanes=":Center_1_0 :Center_1_1 :Center_3_0 :Center_4_0 :Center_5_0 :Center_6_0 :Center_6_1 :Center_11_0 :Center_11_1 :Center_13_0 :Center_c1_0"/>
     <junction id=":Center_28_0" type="internal" x="42.50" y="49.20" incLanes=":Center_19_0 5_1 6_0 8_0 8_1" intLanes=":Center_0_0 :Center_6_0 :Center_6_1 :Center_13_0 :Center_c1_0 :Center_c1_0"/>
 
-    <connection from="1" to="5" fromLane="1" toLane="1" via=":A_0_0" dir="t" state="M"/>
-    <connection from="2" to="6" fromLane="1" toLane="1" via=":B_0_0" dir="t" state="M"/>
-    <connection from="3" to="7" fromLane="1" toLane="1" via=":C_0_0" dir="t" state="M"/>
-    <connection from="4" to="8" fromLane="1" toLane="1" via=":D_0_0" dir="t" state="M"/>
-    <connection from="5" to="4" fromLane="0" toLane="0" via=":Center_10_0" tl="Center" linkIndex="10" dir="r" state="o"/>
-    <connection from="5" to="2" fromLane="0" toLane="0" via=":Center_11_0" tl="Center" linkIndex="11" dir="s" state="O"/>
-    <connection from="5" to="2" fromLane="1" toLane="1" via=":Center_11_1" tl="Center" linkIndex="12" dir="s" state="O"/>
-    <connection from="5" to="3" fromLane="1" toLane="1" via=":Center_13_0" tl="Center" linkIndex="13" dir="l" state="o"/>
-    <connection from="5" to="1" fromLane="1" toLane="1" via=":Center_14_0" tl="Center" linkIndex="14" dir="t" state="o"/>
-    <connection from="6" to="3" fromLane="0" toLane="0" via=":Center_0_0" tl="Center" linkIndex="0" dir="r" state="o"/>
-    <connection from="6" to="1" fromLane="0" toLane="0" via=":Center_1_0" tl="Center" linkIndex="1" dir="s" state="O"/>
-    <connection from="6" to="1" fromLane="1" toLane="1" via=":Center_1_1" tl="Center" linkIndex="2" dir="s" state="O"/>
-    <connection from="6" to="4" fromLane="1" toLane="1" via=":Center_3_0" tl="Center" linkIndex="3" dir="l" state="o"/>
-    <connection from="6" to="2" fromLane="1" toLane="1" via=":Center_4_0" tl="Center" linkIndex="4" dir="t" state="o"/>
-    <connection from="7" to="1" fromLane="0" toLane="0" via=":Center_15_0" tl="Center" linkIndex="15" dir="r" state="o"/>
-    <connection from="7" to="4" fromLane="0" toLane="0" via=":Center_16_0" tl="Center" linkIndex="16" dir="s" state="o"/>
-    <connection from="7" to="4" fromLane="1" toLane="1" via=":Center_16_1" tl="Center" linkIndex="17" dir="s" state="o"/>
-    <connection from="7" to="2" fromLane="1" toLane="1" via=":Center_18_0" tl="Center" linkIndex="18" dir="l" state="o"/>
-    <connection from="7" to="3" fromLane="1" toLane="1" via=":Center_19_0" tl="Center" linkIndex="19" dir="t" state="o"/>
-    <connection from="8" to="2" fromLane="0" toLane="0" via=":Center_5_0" tl="Center" linkIndex="5" dir="r" state="o"/>
-    <connection from="8" to="3" fromLane="0" toLane="0" via=":Center_6_0" tl="Center" linkIndex="6" dir="s" state="o"/>
-    <connection from="8" to="3" fromLane="1" toLane="1" via=":Center_6_1" tl="Center" linkIndex="7" dir="s" state="o"/>
-    <connection from="8" to="1" fromLane="1" toLane="1" via=":Center_8_0" tl="Center" linkIndex="8" dir="l" state="o"/>
-    <connection from="8" to="4" fromLane="1" toLane="1" via=":Center_9_0" tl="Center" linkIndex="9" dir="t" state="o"/>
+    <connection from="1" to="5" fromLane="1" toLane="1" via=":A_0_0" tl="A" linkIndex="0" dir="t" state="O"/>
+    <connection from="2" to="6" fromLane="1" toLane="1" via=":B_0_0" tl="B" linkIndex="0" dir="t" state="O"/>
+    <connection from="3" to="7" fromLane="1" toLane="1" via=":C_0_0" tl="C" linkIndex="0" dir="t" state="O"/>
+    <connection from="4" to="8" fromLane="1" toLane="1" via=":D_0_0" tl="D" linkIndex="0" dir="t" state="O"/>
+    <connection from="5" to="4" fromLane="0" toLane="0" keepClear="0" via=":Center_10_0" tl="Center" linkIndex="10" dir="r" state="o"/>
+    <connection from="5" to="2" fromLane="0" toLane="0" keepClear="0" via=":Center_11_0" tl="Center" linkIndex="11" dir="s" state="o"/>
+    <connection from="5" to="2" fromLane="1" toLane="1" keepClear="0" via=":Center_11_1" tl="Center" linkIndex="12" dir="s" state="o"/>
+    <connection from="5" to="3" fromLane="1" toLane="1" keepClear="0" via=":Center_13_0" tl="Center" linkIndex="13" dir="l" state="o"/>
+    <connection from="5" to="1" fromLane="1" toLane="1" keepClear="0" via=":Center_14_0" tl="Center" linkIndex="14" dir="t" state="o"/>
+    <connection from="6" to="3" fromLane="0" toLane="0" keepClear="0" via=":Center_0_0" tl="Center" linkIndex="0" dir="r" state="o"/>
+    <connection from="6" to="1" fromLane="0" toLane="0" keepClear="0" via=":Center_1_0" tl="Center" linkIndex="1" dir="s" state="o"/>
+    <connection from="6" to="1" fromLane="1" toLane="1" keepClear="0" via=":Center_1_1" tl="Center" linkIndex="2" dir="s" state="o"/>
+    <connection from="6" to="4" fromLane="1" toLane="1" keepClear="0" via=":Center_3_0" tl="Center" linkIndex="3" dir="l" state="o"/>
+    <connection from="6" to="2" fromLane="1" toLane="1" keepClear="0" via=":Center_4_0" tl="Center" linkIndex="4" dir="t" state="o"/>
+    <connection from="7" to="1" fromLane="0" toLane="0" keepClear="0" via=":Center_15_0" tl="Center" linkIndex="15" dir="r" state="o"/>
+    <connection from="7" to="4" fromLane="0" toLane="0" keepClear="0" via=":Center_16_0" tl="Center" linkIndex="16" dir="s" state="o"/>
+    <connection from="7" to="4" fromLane="1" toLane="1" keepClear="0" via=":Center_16_1" tl="Center" linkIndex="17" dir="s" state="o"/>
+    <connection from="7" to="2" fromLane="1" toLane="1" keepClear="0" via=":Center_18_0" tl="Center" linkIndex="18" dir="l" state="o"/>
+    <connection from="7" to="3" fromLane="1" toLane="1" keepClear="0" via=":Center_19_0" tl="Center" linkIndex="19" dir="t" state="o"/>
+    <connection from="8" to="2" fromLane="0" toLane="0" keepClear="0" via=":Center_5_0" tl="Center" linkIndex="5" dir="r" state="o"/>
+    <connection from="8" to="3" fromLane="0" toLane="0" keepClear="0" via=":Center_6_0" tl="Center" linkIndex="6" dir="s" state="o"/>
+    <connection from="8" to="3" fromLane="1" toLane="1" keepClear="0" via=":Center_6_1" tl="Center" linkIndex="7" dir="s" state="o"/>
+    <connection from="8" to="1" fromLane="1" toLane="1" keepClear="0" via=":Center_8_0" tl="Center" linkIndex="8" dir="l" state="o"/>
+    <connection from="8" to="4" fromLane="1" toLane="1" keepClear="0" via=":Center_9_0" tl="Center" linkIndex="9" dir="t" state="o"/>
 
     <connection from=":A_0" to="5" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":B_0" to="6" fromLane="0" toLane="1" dir="t" state="M"/>

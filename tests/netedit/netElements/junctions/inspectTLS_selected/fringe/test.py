@@ -41,7 +41,7 @@ netedit.selectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # select select second junction
-netedit.leftClick(referencePosition, 7, 238)
+netedit.leftClick(referencePosition, 10, 230)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # set invalidvalid fringe
-netedit.modifyAttribute(5, "dummyFringe", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.fringe, "dummyFringe", False)
 
 # set valid fringe
-netedit.modifyAttribute(5, "outer", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.fringe, "outer", False)
 
 # set valid fringe
-netedit.modifyAttribute(5, "inner", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.fringe, "inner", False)
 
 # rebuild network
 netedit.rebuildNetwork()

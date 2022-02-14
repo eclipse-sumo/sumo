@@ -41,7 +41,7 @@ netedit.selectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # select select second junction
-netedit.leftClick(referencePosition, 7, 238)
+netedit.leftClick(referencePosition, 10, 230)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # set invalid radius
-netedit.modifyAttribute(1, "dummyRadius", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.radius, "dummyRadius", False)
 
 # set invalid radius
-netedit.modifyAttribute(1, "-7", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.radius, "-7", False)
 
 # change radio
-netedit.modifyAttribute(1, "2.3", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.radius, "2.3", False)
 
 # rebuild network
 netedit.rebuildNetwork()

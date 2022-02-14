@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-02 12:16:24 by Eclipse SUMO netedit Version v1_12_0+0185-324357a1d93
+<!-- generated on 2022-02-14 13:25:03 by Eclipse SUMO netedit Version v1_12_0+0544-e9874b5b681
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -54,12 +54,12 @@
         <phase duration="3"  state="y"/>
         <phase duration="5"  state="r"/>
     </tlLogic>
-    <tlLogic id="Center" type="static" programID="0" offset="0">
-        <phase duration="37" state="gGGggrrrrrgGGggrrrrrGG"/>
+    <tlLogic id="Center" type="actuated" programID="0" offset="0">
+        <phase duration="42" state="rrrrrGGGggrrrrrGGGggrr" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="rrrrryyyyyrrrrryyyyyrr"/>
+        <phase duration="37" state="gGGggrrrrrgGGggrrrrrGG" minDur="5" maxDur="50"/>
         <phase duration="5"  state="gGGggrrrrrgGGggrrrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrryyyyyrrrrrrr"/>
-        <phase duration="42" state="rrrrrGGGggrrrrrGGGggrr"/>
-        <phase duration="3"  state="rrrrryyyyyrrrrryyyyyrr"/>
     </tlLogic>
     <tlLogic id="D" type="static" programID="0" offset="0">
         <phase duration="82" state="G"/>

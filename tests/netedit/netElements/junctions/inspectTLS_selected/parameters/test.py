@@ -41,7 +41,7 @@ netedit.selectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # select select second junction
-netedit.leftClick(referencePosition, 7, 238)
+netedit.leftClick(referencePosition, 10, 230)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -50,7 +50,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # check parameters
-netedit.checkParameters(referencePosition, 9, False)
+netedit.checkParameters(referencePosition, netedit.attrs.junction.inspectSelectionTLS.parameters, False)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
