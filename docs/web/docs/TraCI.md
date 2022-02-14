@@ -80,6 +80,19 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
 
 ### Value Retrieval
 
+- Traffic Objects
+  - [Vehicle Value
+    Retrieval](TraCI/Vehicle_Value_Retrieval.md) retrieve
+    information about vehicles
+  - [Person Value
+    Retrieval](TraCI/Person_Value_Retrieval.md) retrieve
+    information about persons
+  - [Vehicle Type Value
+    Retrieval](TraCI/VehicleType_Value_Retrieval.md)
+    retrieve information about vehicle types
+  - [Route Value Retrieval](TraCI/Route_Value_Retrieval.md)
+    retrieve information about routes
+- Detectors and Outputs
   - [Induction Loop Value
     Retrieval](TraCI/Induction_Loop_Value_Retrieval.md)
     retrieve information about induction loops
@@ -92,27 +105,20 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
   - [Calibrator Value
     Retrieval](TraCI/Calibrator.md)
     retrieve information about calibrators
+  - [RouteProbe](TraCI/RouteProbe.md)
+    retrieve information about the RouteProbe
+- Network
+  - [Junction Value
+    Retrieval](TraCI/Junction_Value_Retrieval.md) retrieve
+    information about junctions
+  - [Edge Value Retrieval](TraCI/Edge_Value_Retrieval.md)
+    retrieve information about edges
+  - [Lane Value Retrieval](TraCI/Lane_Value_Retrieval.md)
+    retrieve information about lanes
+- Infrastructure    
   - [Traffic Lights Value
     Retrieval](TraCI/Traffic_Lights_Value_Retrieval.md)
     retrieve information about traffic lights
-  - [Lane Value Retrieval](TraCI/Lane_Value_Retrieval.md)
-    retrieve information about lanes
-  - [Vehicle Value
-    Retrieval](TraCI/Vehicle_Value_Retrieval.md) retrieve
-    information about vehicles
-  - [Person Value
-    Retrieval](TraCI/Person_Value_Retrieval.md) retrieve
-    information about persons
-  - [Vehicle Type Value
-    Retrieval](TraCI/VehicleType_Value_Retrieval.md)
-    retrieve information about vehicle types
-  - [Route Value Retrieval](TraCI/Route_Value_Retrieval.md)
-    retrieve information about routes
-  - [PoI Value Retrieval](TraCI/POI_Value_Retrieval.md)
-    retrieve information about points-of-interest
-  - [Polygon Value
-    Retrieval](TraCI/Polygon_Value_Retrieval.md) retrieve
-    information about polygons
   - [BusStop Value
     Retrieval](TraCI/BusStop.md)
     retrieve information about BusStops
@@ -125,28 +131,24 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
   - [Overhead Wire Value
     Retrieval](TraCI/OverheadWire.md)
     retrieve information about overhead wires
-  - [Junction Value
-    Retrieval](TraCI/Junction_Value_Retrieval.md) retrieve
-    information about junctions
-  - [Edge Value Retrieval](TraCI/Edge_Value_Retrieval.md)
-    retrieve information about edges
+   - [Rerouter](TraCI/Rerouter.md)
+    retrieve information about the rerouter
+ - Misc  
+    information about polygons  
   - [Simulation Value
     Retrieval](TraCI/Simulation_Value_Retrieval.md) retrieve
     information about the simulation
   - [GUI Value Retrieval](TraCI/GUI_Value_Retrieval.md)
     retrieve information about the simulation visualization
-  - [Rerouter](TraCI/Rerouter.md)
-    retrieve information about the rerouter
-  - [RouteProbe](TraCI/RouteProbe.md)
-    retrieve information about the RouteProbe
+  - [PoI Value Retrieval](TraCI/POI_Value_Retrieval.md)
+    retrieve information about points-of-interest
+  - [Polygon Value
+    Retrieval](TraCI/Polygon_Value_Retrieval.md) retrieve
+ 
    
 ###  State Changing
 
-  - [Change Lane State](TraCI/Change_Lane_State.md) change a
-    lane's state
-  - [Change Traffic Lights
-    State](TraCI/Change_Traffic_Lights_State.md) change a
-    traffic lights' state
+- Traffic Objects
   - [Change Vehicle State](TraCI/Change_Vehicle_State.md)
     change a vehicle's state
   - [Change Person State](TraCI/Change_Person_State.md)
@@ -156,29 +158,38 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     vehicle type's state
   - [Change Route State](TraCI/Change_Route_State.md) change
     a route's state
-  - [Change PoI State](TraCI/Change_PoI_State.md) change a
-    point-of-interest's state (or add/remove one)
-  - [Change Polygon State](TraCI/Change_Polygon_State.md)
-    change a polygon's state (or add/remove one)
-  - [Change Edge State](TraCI/Change_Edge_State.md) change
-    an edge's state
-  - [Change Simulation
-    State](TraCI/Change_Simulation_State.md) change the
-    simulation
-  - [Change GUI State](TraCI/Change_GUI_State.md) change the
-    simulation visualization
+- Detectors and Outputs
   - [Change Calibrator State](TraCI/Change_Calibrator_State.md) change a
     calibrator state 
   - [Change Inductionloop State](TraCI/Change_Inductionloop_State.md) change a
     inductionloop state
   - [Change Lane Area Detector State](TraCI/Change_Lane_Area_Detector_State.md) change a
     lane area detector state
+- Network
+  - [Change Edge State](TraCI/Change_Edge_State.md) change
+    an edge's state
+  - [Change Lane State](TraCI/Change_Lane_State.md) change a
+    lane's state
+- Infrastructure
+  - [Change Traffic Lights
+    State](TraCI/Change_Traffic_Lights_State.md) change a
+    traffic lights' state
+- Misc
+  - [Change Simulation
+    State](TraCI/Change_Simulation_State.md) change the
+    simulation
+  - [Change GUI State](TraCI/Change_GUI_State.md) change the
+    simulation visualization
+  - [Change PoI State](TraCI/Change_PoI_State.md) change a
+    point-of-interest's state (or add/remove one)
+  - [Change Polygon State](TraCI/Change_Polygon_State.md)
+    change a polygon's state (or add/remove one)
     
 ### Subscriptions
 
-  - [TraCI/Object Variable
+- [TraCI/Object Variable
     Subscription](TraCI/Object_Variable_Subscription.md)
-  - [TraCI/Object Context
+- [TraCI/Object Context
     Subscription](TraCI/Object_Context_Subscription.md)
 
 
