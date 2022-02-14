@@ -1,3 +1,4 @@
+
 # test accessing the ssm device
 ssm
 
@@ -21,6 +22,7 @@ openGap
 # add or update stops
 setStop
 replaceStop
+insertStop
 
 # test taxi API
 taxi
