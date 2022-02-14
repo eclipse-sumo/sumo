@@ -36,10 +36,12 @@
 
 GNERouteProbe::GNERouteProbe(GNENet* net) :
     GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
     myFrequency(0),
-myBegin(0) {
+    myBegin(0) {
+    // reset default values
+    resetDefaultValues();
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -48,11 +50,11 @@ myBegin(0) {
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime frequency, const std::string& name,
                              const std::string& filename, SUMOTime begin, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name,
-{}, {edge}, {}, {}, {}, {}, {}, {},
-parameters),
-myFrequency(frequency),
-myFilename(filename),
-myBegin(begin) {
+        {}, {edge}, {}, {}, {}, {}, {}, {},
+    parameters),
+    myFrequency(frequency),
+    myFilename(filename),
+    myBegin(begin) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -295,10 +297,10 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_FREQUENCY:
-            if (value.empty()) {
-                return true;
+            if (canParse<SUMOTime>(value)) {
+                return (parse<SUMOTime>(value) > 0);
             } else {
-                return canParse<SUMOTime>(value);
+                return false;
             }
         case SUMO_ATTR_BEGIN:
             return canParse<SUMOTime>(value);
