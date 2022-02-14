@@ -973,7 +973,7 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
             const std::string tag = isNew ? "signal" : "signalReference";
             int firstLane = *signalLanes[id].first.begin();
             double t = e->getLaneWidth(firstLane) * 0.5;
-            for (int i = 0; i < firstLane; i++) {
+            for (int i = firstLane + 1; i < e->getNumLanes(); i++) {
                 t += e->getLaneWidth(i);
             }
             device.openTag(tag);
