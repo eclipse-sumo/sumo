@@ -43,6 +43,7 @@ won't be affected by further changes to the original type.
 | move to (0x5c)  | compound (lane ID, position along lane)  | Moves the vehicle to a new position along the current route <sup>(3)</sup>.  | [moveTo](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-moveTo) |
 | move to XY (0xb4) | compound (edgeID, laneIndex, x, y, angle, keepRoute) (see below)  | Moves the vehicle to a new position after normal vehicle movements have taken place. Also forces the angle of the vehicle to the given value (navigational angle in degree). [See below for additional details](../TraCI/Change_Vehicle_State.md#move_to_xy_0xb4) | [moveToXY](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-moveToXY) |
 | replaceStop (0x17) | compound (edgeID, vehID, nextStopIndex, edgeID, pos, laneIndex, duration, flags, startPos, until, teleport) (see below)  | Replaces stop at the given index with a new stop. Automatically modifies the route if the replacement stop is at another location. [See below for additional details](../TraCI/Change_Vehicle_State.md#replaceStop-0x17) | [replaceStop](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-replaceStop) |
+| insertStop (0x18) | compound (edgeID, vehID, nextStopIndex, edgeID, pos, laneIndex, duration, flags, startPos, until, teleport) (see below)  | inserts stop at the given index. Automatically modifies the route to accomodate the new stop. [See below for additional details](../TraCI/Change_Vehicle_State.md#insertStop-0x18) | [insertStop](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-insertStop) |
 | reroute (compute new route) by travel time (0x90)  | compound (<empty\>), see below  | Computes a new route to the current destination that minimizes travel time. The assumed values for each edge in the network can be customized in various ways. See [Simulation/Routing#Travel-time_values_for_routing](../Simulation/Routing.md#travel-time_values_for_routing). Replaces the current route by the found<sup>(2)</sup>.  | [rerouteTraveltime](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-rerouteTraveltime) |
 | reroute (compute new route) by effort (0x91) | compound (<empty\>), see below  | Computes a new route using the vehicle's internal and the global edge effort information. Replaces the current route by the found<sup(2)</sup>. | [rerouteEffort](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-rerouteEffort) |
 | speed mode (0xb3) | int bitset (see below)  | Sets how the values set by speed (0x40) and slowdown (0x14) shall be treated. Also allows to configure the behavior at junctions. [See below](#speed_mode_0xb3).  | [setSpeedMode](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setSpeedMode) |
@@ -225,6 +226,20 @@ Replaces stop at the given index with a new stop. Automatically modifies the rou
   - Otherwise the gap will be between the stop edge for nextStopIndex - 1 and the new stop.
   - It is recommended to also set sumo option **--time-to-teleport.disconnected** when using this
 
+### insertStop (0x18)
+
+| string | int           | string | double  | integer     | double                 | integer | double                 | double              | int        |
+| :----: | :-----------: | :----: | :-----: | :---------: | :--------------------: | :-----: | :--------------------: | :-----------------: | :--------: |
+| vehID  | nextStopIndex | edgeID | pos=1.0 | laneIndex=0 | duration=-1073741824.0 | flags=0 | startPos=-1073741824.0 | until=-1073741824.0 | teleport=0 |
+
+Inserts stop at the given index. Automatically modifies the route to accomodate the new stop
+
+- For edgeID a stopping place id may be given if the flag marks this stop as stopping on busStop, parkingArea, containerStop etc.
+- if nextStopIndex is equal to the number of upcoming stops, the new stop will be added after all other stops
+- If teleport is set to 1, the route to the new stop will be disconnected (forcing a teleport). 
+  - If stopIndex is 0 the gap will be between the current edge and the new stop.
+  - Otherwise the gap will be between the stop edge for nextStopIndex - 1 and the new stop.
+  - It is recommended to also set sumo option **--time-to-teleport.disconnected** when using this
 
 ### resume (0x19)
 
