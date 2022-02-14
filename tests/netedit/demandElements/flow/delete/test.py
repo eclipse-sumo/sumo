@@ -49,7 +49,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete vehicle
-netedit.leftClick(referencePosition, 90, 414)
+netedit.leftClick(referencePosition, 90, 392)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -73,8 +73,8 @@ netedit.changeProtectDemandElements(referencePosition)
 netedit.leftClick(referencePosition, 274, 392)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save routes
 netedit.saveRoutes(referencePosition)
