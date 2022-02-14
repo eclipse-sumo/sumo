@@ -56,12 +56,15 @@ class junction:
         parameters = 9
     class inspectSelectionTLS:
         type = 1
-        radius = 2
-        keepClear = 3
-        rightOfWay = 4
-        fringe = 5
-        name = 6
-        parameters = 9
+        radius = 3
+        keepClear = 4
+        rightOfWay = 5
+        fringe = 6
+        name = 7            # missing
+        tlType = 8          # missing
+        tlLayout = 9        # missing
+        tl = 10             # missing
+        parameters = 14
 
 # edge
 class edge:
