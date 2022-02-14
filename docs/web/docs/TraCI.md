@@ -53,17 +53,33 @@ Please see the [TraCI Protocol Specification](TraCI/Protocol.md)
 [Messages](TraCI/Protocol.md#messages), [Data
 Types](TraCI/Protocol.md#data_types)).
 
-### TraCI Commands
+### Shutdown
 
-- [Control-related
-  commands](TraCI/Control-related_commands.md): perform a
+When using TraCI, the **--end** option of [sumo](sumo.md) is ignored.
+Instead the simulation is closed by issuing the [*close*
+command](TraCI/Control-related_commands.md#command_0x7f_close).
+To detect whether all route files have been exhausted and all vehicles
+have left the simulation, one can check whether the command
+[getMinExpectedNumber](TraCI/Simulation_Value_Retrieval.md)
+returns 0. The simulation will end as soon as all clients have sent the
+*close* command.
+
+It is also possible to reload the simulation with a new list of
+arguments by using the
+[*load*-command](TraCI/Control-related_commands.md#command_0x01_load).
+
+## TraCI Commands
+
+- [Control-related commands](TraCI/Control-related_commands.md): perform a
   simulation step, close the connection, reload the simulation.
+- [Generic Parameters](TraCI/GenericParameters.md)  
 
 For the following APIs, the ID is equal to the ID defined in
 [sumo](sumo.md)'s input files. Here, you find their [general
 structure](TraCI/SUMO_ID_Commands_Structure.md).
 
-- Value Retrieval
+### Value Retrieval
+
   - [Induction Loop Value
     Retrieval](TraCI/Induction_Loop_Value_Retrieval.md)
     retrieve information about induction loops
@@ -123,7 +139,9 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     retrieve information about the rerouter
   - [RouteProbe](TraCI/RouteProbe.md)
     retrieve information about the RouteProbe
-- State Changing
+   
+###  State Changing
+
   - [Change Lane State](TraCI/Change_Lane_State.md) change a
     lane's state
   - [Change Traffic Lights
@@ -155,27 +173,14 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     inductionloop state
   - [Change Lane Area Detector State](TraCI/Change_Lane_Area_Detector_State.md) change a
     lane area detector state
-- Subscriptions
+    
+### Subscriptions
+
   - [TraCI/Object Variable
     Subscription](TraCI/Object_Variable_Subscription.md)
   - [TraCI/Object Context
     Subscription](TraCI/Object_Context_Subscription.md)
-- Accessing [Generic Parameters](TraCI/GenericParameters.md)
 
-### Shutdown
-
-When using TraCI, the **--end** option of [sumo](sumo.md) is ignored.
-Instead the simulation is closed by issuing the [*close*
-command](TraCI/Control-related_commands.md#command_0x7f_close).
-To detect whether all route files have been exhausted and all vehicles
-have left the simulation, one can check whether the command
-[getMinExpectedNumber](TraCI/Simulation_Value_Retrieval.md)
-returns 0. The simulation will end as soon as all clients have sent the
-*close* command.
-
-It is also possible to reload the simulation with a new list of
-arguments by using the
-[*load*-command](TraCI/Control-related_commands.md#command_0x01_load).
 
 ## Using SUMO as a library
 
