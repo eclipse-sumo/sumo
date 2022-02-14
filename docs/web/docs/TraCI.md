@@ -133,8 +133,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     retrieve information about overhead wires
    - [Rerouter](TraCI/Rerouter.md)
     retrieve information about the rerouter
- - Misc  
-    information about polygons  
+ - Misc     
   - [Simulation Value
     Retrieval](TraCI/Simulation_Value_Retrieval.md) retrieve
     information about the simulation
@@ -143,7 +142,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
   - [PoI Value Retrieval](TraCI/POI_Value_Retrieval.md)
     retrieve information about points-of-interest
   - [Polygon Value
-    Retrieval](TraCI/Polygon_Value_Retrieval.md) retrieve
+    Retrieval](TraCI/Polygon_Value_Retrieval.md) retrieve information about polygons
  
    
 ###  State Changing
