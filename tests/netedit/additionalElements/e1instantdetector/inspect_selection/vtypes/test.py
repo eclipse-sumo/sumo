@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# set position
+netedit.setZoom(25, 0, 75)
+
 # go to select mode
 netedit.selectMode()
 

@@ -719,6 +719,50 @@ class calibrator:
         vTypes = 7          # missing
         parameters = 10
 
+# routeProbe
+class routeProbe:
+    class create:
+        idEnable = 5
+        id = 6              # missing
+        frequency = 6
+        name = 7
+        file = 8
+        begin = 9
+        center = 13
+    class inspect:
+        id = 1
+        edge = 2
+        frequency = 3
+        name = 4
+        file = 5
+        begin = 6
+        parameters = 9
+    class inspectSelection:
+        frequency = 1
+        name = 2
+        file = 3
+        begin = 4
+        parameters = 7
+
+# vaporizer
+class vaporizer:
+    class create:
+        begin = 5
+        end = 6
+        name = 7
+        center = 11
+    class inspect:
+        edge = 1
+        begin = 2
+        end = 3
+        name = 4
+        parameters = 7
+    class inspectSelection:
+        begin = 1
+        end = 2
+        name = 3
+        parameters = 6
+
 #--------------------------------
 # SHAPE ELEMENTS
 #--------------------------------

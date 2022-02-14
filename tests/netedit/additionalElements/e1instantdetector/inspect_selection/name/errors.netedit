@@ -6,6 +6,7 @@ Debug: Inserting generic parameter 'KeyB1|valueB1' into instantInductionLoop
 Debug: Inserting generic parameter 'KeyB3|valueB2' into instantInductionLoop
 Debug: Inserting generic parameter 'KeyB2|valueB3' into instantInductionLoop
 Debug: Adding instantInductionLoop 'E1_B' in GNEChange_Additional
+Debug: Current Viewport values: 25.00, 0.00, 75.00. Zoom = '98.67'
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
