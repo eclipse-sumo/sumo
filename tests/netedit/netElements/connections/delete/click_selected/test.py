@@ -38,13 +38,13 @@ netedit.changeEditMode('5')
 netedit.selectMode()
 
 # select all connections
-netedit.selectItems("network element", "connection", "speed", "")
+netedit.selectItems("Network", "connection", "speed", "")
 
 # set delete mode
 netedit.deleteMode()
 
 # delete selected connections
-netedit.leftClick(referencePosition, 250, 138)
+netedit.leftClick(referencePosition, 228, 140)
 
 # rebuild
 netedit.rebuildNetwork()

@@ -1,5 +1,3 @@
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from5_0to4_0' in retrieveGNEConnection()
 Debug: Created connection 'from5_0to2_0' in retrieveGNEConnection()
@@ -17,7 +15,7 @@ Debug: Created connection 'from8_0to2_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to3_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
-Debug: Enabled show demand elements throught alt + 3
+Debug: Enabled show connections throught alt + 5
 Debug: Setting new attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Setting new attribute
@@ -98,7 +96,4 @@ Debug: Deleting unreferenced junction 'B' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'C' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'Center' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'D' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

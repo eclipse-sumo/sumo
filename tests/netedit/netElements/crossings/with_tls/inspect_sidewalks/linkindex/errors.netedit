@@ -18,8 +18,8 @@ Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '248.00'
-Debug: Value 'dummylinkIndex' for attribute linkIndex2 of crossing isn't valid
-Debug: Value '-3' for attribute linkIndex2 of crossing isn't valid
+Debug: Value 'dummylinkIndex' for attribute linkIndex of crossing isn't valid
+Debug: Value '-3' for attribute linkIndex of crossing isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed

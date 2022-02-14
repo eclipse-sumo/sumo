@@ -38,7 +38,7 @@ netedit.changeEditMode('5')
 netedit.deleteMode()
 
 # delete connection
-netedit.leftClick(referencePosition, 250, 138)
+netedit.leftClick(referencePosition, 228, 140)
 
 # rebuild
 netedit.rebuildNetwork()
