@@ -772,7 +772,12 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         OpenDriveEdge* e = (*i).second;
         for (const OpenDriveSignal& signal : e->signals) {
-            if (signal.type != "1000001") { // traffic_light (Section 6.11)
+            int intType = -1;
+            try {
+                intType = StringUtils::toInt(signal.type);
+            } catch (NumberFormatException&) {}
+            if (intType < 1000001 || (intType > 1000013 && intType != 1000020) || intType == 1000008) {
+                // not a traffic_light (Section 6.11)
                 continue;
             }
             if (e->laneSections.size() == 0) {
@@ -853,7 +858,11 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             int odLane = laneIndexMap[std::make_pair(from, c.fromLane)];
                             //std::cout << "  fromLane=" << c.fromLane << " odLane=" << odLane << "\n";
                             if (signal.minLane == 0 || (signal.minLane <= odLane && signal.maxLane >= odLane)) {
-                                c.setParameter("signalID", signal.id);
+                                if (c.knowsParameter("signalID")) {
+                                    c.setParameter("signalID", c.getParameter("signalID") + " " + signal.id);
+                                } else {
+                                    c.setParameter("signalID", signal.id);
+                                }
                             }
                         }
                     }
@@ -880,7 +889,11 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 for (NBEdge::Connection& c : edge->getConnections()) {
                     int odLane = laneIndexMap[std::make_pair(edge, c.fromLane)];
                     if (signal.minLane == 0 || (signal.minLane <= odLane && signal.maxLane >= odLane)) {
-                        c.setParameter("signalID", signal.id);
+                        if (c.knowsParameter("signalID")) {
+                            c.setParameter("signalID", c.getParameter("signalID") + " " + signal.id);
+                        } else {
+                            c.setParameter("signalID", signal.id);
+                        }
                     }
                 }
                 //std::cout << "odrEdge=" << e->id << " sumoID=" << (*k).sumoID << " sumoEdge=" << edge->getID()
