@@ -37,29 +37,31 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    
+	<route id="route_0" edges="gneE0 gneE1" color="yellow"/>
+    
+	<flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
+		<stop lane="gneE1_0" startPos="7.00" endPos="17.00" triggered="dummy"/>
+	</flow>
 
-	<route edges="gneE0 gneE1" color="yellow" id="route_0">
-		<stop busStop="busStop" triggered="dummy"/>
-	</route>
+	<flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
+		<stop lane="gneE1_0" startPos="7.00" endPos="17.00" triggered=""/>
+	</flow>
 
-	<route edges="gneE0 gneE1" color="yellow" id="route_1">
-		<stop busStop="busStop" triggered=""/>
-	</route>
+	<flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
+		<stop lane="gneE1_0" startPos="7.00" endPos="17.00" triggered="-4"/>
+	</flow>
 
-	<route edges="gneE0 gneE1" color="yellow" id="route_2">
-		<stop busStop="busStop" triggered="-4"/>
-	</route>
+	<flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
+		<stop lane="gneE1_0" startPos="7.00" endPos="17.00" triggered="0"/>
+	</flow>
 
-	<route edges="gneE0 gneE1" color="yellow" id="route_3">
-		<stop busStop="busStop" triggered="0"/>
-	</route>
+	<flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
+		<stop lane="gneE1_0" startPos="7.00" endPos="17.00" triggered="2.3"/>
+	</flow>
 
-	<route edges="gneE0 gneE1" color="yellow" id="route_4">
-		<stop busStop="busStop" triggered="2.3"/>
-	</route>
-
-	<route edges="gneE0 gneE1" color="yellow" id="route_5">
-		<stop busStop="busStop" triggered="true"/>
-	</route>
+	<flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
+		<stop lane="gneE1_0" startPos="7.00" endPos="17.00" triggered="true"/>
+	</flow>
 
 </routes>
