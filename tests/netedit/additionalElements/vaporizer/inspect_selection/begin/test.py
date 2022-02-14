@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 533, 200)
 
 # Set invalid begin
-netedit.modifyAttribute(0, "-30", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.begin, "-30", True)
 
 # Set valid begin
-netedit.modifyAttribute(0, "5", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.begin, "5", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

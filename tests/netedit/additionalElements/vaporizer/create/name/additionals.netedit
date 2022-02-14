@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08.08.2019 09:10:58 by Eclipse SUMO netedit Version v1_2_0+1475-19ad2e6581
+<!-- generated on 2022-02-14 09:32:28 by Eclipse SUMO netedit Version v1_12_0+0534-c1e623033b5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug090957.9848/netedit.gui/additionalElements/vaporizer/create/name\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb092718.5460\netedit.gui\additionalElements\vaporizer\create\name\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug090957.9848/netedit.gui/additionalElements/vaporizer/create/name\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb092718.5460\netedit.gui\additionalElements\vaporizer\create\name\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -29,28 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug090957.9848/netedit.gui/additionalElements/vaporizer/create/name\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug090957.9848/netedit.gui/additionalElements/vaporizer/create/name\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug090957.9848/netedit.gui/additionalElements/vaporizer/create/name\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug090957.9848/netedit.gui/additionalElements/vaporizer/create/name\routes.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb092718.5460\netedit.gui\additionalElements\vaporizer\create\name\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb092718.5460\netedit.gui\additionalElements\vaporizer\create\name\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb092718.5460\netedit.gui\additionalElements\vaporizer\create\name\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb092718.5460\netedit.gui\additionalElements\vaporizer\create\name\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb092718.5460\netedit.gui\additionalElements\vaporizer\create\name\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb092718.5460\netedit.gui\additionalElements\vaporizer\create\name\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug090957.9848/netedit.gui/additionalElements/vaporizer/create/name\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb092718.5460\netedit.gui\additionalElements\vaporizer\create\name\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb092718.5460\netedit.gui\additionalElements\vaporizer\create\name\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug090957.9848/netedit.gui/additionalElements/vaporizer/create/name\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb092718.5460\netedit.gui\additionalElements\vaporizer\create\name\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <vaporizer id="gneE1" begin="0.00" end="3600.00" name="customName"/>
+    <vaporizer id="gneE0" name="customName" begin="0.00" end="3600.00"/>
+    <vaporizer id="gneE1" name="%%$$$" begin="0.00" end="3600.00"/>
 </additional>
