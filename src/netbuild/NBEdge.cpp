@@ -638,6 +638,12 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
         myGeom.insert(myGeom.begin(), begin);
         myGeom.push_back(end);
     }
+    // ensure non-zero length (see ::init)
+    if (myGeom.size() == 2 && myGeom[0] == myGeom[1]) {
+        WRITE_WARNINGF("Edge's '%' from- and to-node are at the same position.", myID);
+        int patchIndex = myFrom->getID() < myTo->getID() ? 1 : 0;
+        myGeom[patchIndex].add(Position(POSITION_EPS, POSITION_EPS));
+    }
     computeLaneShapes();
     computeAngle();
 }
