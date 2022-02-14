@@ -884,6 +884,10 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             tag = GNE_TAG_FLOW_WITHROUTE;
         }
     }
+    // special case for flows over route
+    if (objParent->hasStringAttribute(SUMO_ATTR_ROUTE) && (objParent->getTag() == SUMO_TAG_FLOW)) {
+        tag = GNE_TAG_FLOW_ROUTE;
+    }
     // get stop parent
     GNEDemandElement* stopParent = myNet->getAttributeCarriers()->retrieveDemandElement(tag, objParent->getStringAttribute(SUMO_ATTR_ID), false);
     // check if stopParent exist
