@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 552, 205)
 
 # Set invalid freq
-netedit.modifyAttribute(0, "-30", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.frequency, "-30", True)
 
 # Set valid freq
-netedit.modifyAttribute(0, "50", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.frequency, "50", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

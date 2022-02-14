@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("routeProbe")
 
 # disable center view
-netedit.changeDefaultBoolValue(8)
+netedit.changeDefaultBoolValue(netedit.attrs.routeProbe.create.center)
 
 # create routeProbe (camera will be moved)
 netedit.leftClick(referencePosition, 250, 235)

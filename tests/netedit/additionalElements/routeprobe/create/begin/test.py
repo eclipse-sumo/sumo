@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("routeProbe")
 
 # set invalid default begin
-netedit.changeDefaultValue(6, "-11")
+netedit.changeDefaultValue(netedit.attrs.routeProbe.create.begin, "-11")
 
 # try to create routeProbe
 netedit.leftClick(referencePosition, 250, 235)
 
 # set valid default begin
-netedit.changeDefaultValue(6, "10.5")
+netedit.changeDefaultValue(netedit.attrs.routeProbe.create.begin, "10.5")
 
 # create routeProbe (camera will be moved)
 netedit.leftClick(referencePosition, 250, 235)

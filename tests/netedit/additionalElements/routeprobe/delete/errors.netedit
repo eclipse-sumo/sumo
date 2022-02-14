@@ -5,9 +5,8 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'routeProbe' in TagSelector
-Debug: Adding routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
+Debug: Adding routeProbe 'rp_0' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -24,7 +23,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing routeProbe 'routeProbe_01' in GNEChange_Additional
-Debug: Removing routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
+Debug: Removing routeProbe 'rp_0' in GNEChange_Additional
 Debug: Removing routeProbe 'routeProbe_02' in GNEChange_Additional
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in removeConnection()
@@ -59,7 +58,7 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
+Debug: Adding routeProbe 'rp_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
@@ -70,7 +69,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Removing routeProbe 'routeProbe_01' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
+Debug: Removing routeProbe 'rp_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Removing routeProbe 'routeProbe_02' in GNEChange_Additional
@@ -111,7 +110,7 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Deleting unreferenced edge 'gneE0' GNEChange_Edge
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced routeProbe 'routeProbe_gneE1_2'
+Debug: Deleting unreferenced routeProbe 'rp_0'
 Debug: Deleting unreferenced routeProbe 'routeProbe_02'
 Debug: Deleting unreferenced routeProbe 'routeProbe_01'
 Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
