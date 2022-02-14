@@ -314,7 +314,7 @@ domain (induction loops, vehicle etc.) where the more significant half
 of the byte denotes the command (get, set, subscribe, ...) and the
 lesser significant the domain itself. To allow more than the 16 domains
 resulting from this split, the most significant bit (which was unused
-until now because there were only 7 commands) is now used for the domain
+until version 1.7.0 because there were only 7 commands) is now used for the domain
 as well (and only three for the command). This allows for 28 domains 
 because four general commands (like SIMSTEP) block some available combinations.
 Currently there are only four possible domains left.
