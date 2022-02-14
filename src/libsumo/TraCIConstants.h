@@ -78,8 +78,11 @@ TRACI_CONST int CMD_CHANGESUBLANE = 0x15;
 // command: open gap
 TRACI_CONST int CMD_OPENGAP = 0x16;
 
-// command: replace vehicle stop and updated route
+// command: replace vehicle stop and update route
 TRACI_CONST int CMD_REPLACE_STOP = 0x17;
+
+// command: insert vehicle stop and update route
+TRACI_CONST int CMD_INSERT_STOP = 0x18;
 
 // command: retrieve information about the current taxi fleet and their status
 TRACI_CONST int VAR_TAXI_FLEET = 0x20;

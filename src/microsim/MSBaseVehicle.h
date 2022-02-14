@@ -641,12 +641,25 @@ public:
      * will wait for the given duration before continuing on its route
      * The route between start other stops and destination will be kept unchanged and
      * only the part around the replacement index will be adapted according to the new stop location
-     * @param[in] nextStopDist The replacement index
+     * @param[in] nextStopIndex The replacement index
      * @param[in] stop Stop parameters
+     * @param[in] info The rerouting info
      * @param[in] teleport Whether to cover the route to the replacement stop via teleporting
      * @param[out] errorMsg returned error message
      */
     bool replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, bool teleport, std::string& errorMsg);
+
+    /**
+     * insert stop at the given index with the given stop parameters
+     * will wait for the given duration before continuing on its route
+     * The route will be adapted to pass the new stop edge but only from the previous stop (or start) to the new stop and only up to the next stop (or end).
+     * @param[in] nextStopIndex The replacement index
+     * @param[in] stop Stop parameters
+     * @param[in] info The rerouting info
+     * @param[in] teleport Whether to cover the route to the new stop via teleporting
+     * @param[out] errorMsg returned error message
+     */
+    bool insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, bool teleport, std::string& errorMsg);
 
 
     /// @brief whether this vehicle is selected in the GUI

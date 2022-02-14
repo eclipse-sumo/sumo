@@ -368,6 +368,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != libsumo::CMD_REROUTE_TO_PARKING
             && variable != libsumo::CMD_CHANGESUBLANE && variable != libsumo::CMD_OPENGAP
             && variable != libsumo::CMD_REPLACE_STOP
+            && variable != libsumo::CMD_INSERT_STOP
             && variable != libsumo::CMD_SLOWDOWN && variable != libsumo::CMD_CHANGETARGET && variable != libsumo::CMD_RESUME
             && variable != libsumo::VAR_TYPE && variable != libsumo::VAR_ROUTE_ID && variable != libsumo::VAR_ROUTE
             && variable != libsumo::VAR_UPDATE_BESTLANES
@@ -461,56 +462,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 libsumo::Vehicle::setStop(id, edgeID, pos, laneIndex, duration, stopFlags, startPos, until);
             }
             break;
-            case libsumo::CMD_REPLACE_STOP: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Replacing stop needs a compound object description.", outputStorage);
+            case libsumo::CMD_REPLACE_STOP: 
+                if (!insertReplaceStop(server, inputStorage, outputStorage, id, true)) {
+                    return false;
                 }
-                int compoundSize = inputStorage.readInt();
-                if (compoundSize != 8 && compoundSize != 9) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Replacing stop needs a compound object description of eight or nine items.", outputStorage);
+            break;
+            case libsumo::CMD_INSERT_STOP: 
+                if (!insertReplaceStop(server, inputStorage, outputStorage, id, false)) {
+                    return false;
                 }
-                // read road map position
-                std::string edgeID;
-                if (!server.readTypeCheckingString(inputStorage, edgeID)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first stop replacement parameter must be the edge id given as a string.", outputStorage);
-                }
-                double pos = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, pos)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second stop replacement parameter must be the end position along the edge given as a double.", outputStorage);
-                }
-                int laneIndex = 0;
-                if (!server.readTypeCheckingByte(inputStorage, laneIndex)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third stop replacement parameter must be the lane index given as a byte.", outputStorage);
-                }
-                // waitTime
-                double duration = libsumo::INVALID_DOUBLE_VALUE;
-                if (!server.readTypeCheckingDouble(inputStorage, duration)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "The fourth stop replacement parameter must be the stopping duration given as a double.", outputStorage);
-                }
-                int stopFlags = 0;
-                if (!server.readTypeCheckingInt(inputStorage, stopFlags)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fifth stop replacement parameter must be a int indicating its parking/triggered status.", outputStorage);
-                }
-                double startPos = libsumo::INVALID_DOUBLE_VALUE;
-                if (!server.readTypeCheckingDouble(inputStorage, startPos)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The sixth stop replacement parameter must be the start position along the edge given as a double.", outputStorage);
-                }
-                double until = libsumo::INVALID_DOUBLE_VALUE;
-                if (!server.readTypeCheckingDouble(inputStorage, until)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The seventh stop replacement parameter must be the minimum departure time given as a double.", outputStorage);
-                }
-                int nextStopIndex = 0;
-                if (!server.readTypeCheckingInt(inputStorage, nextStopIndex)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The eigth stop replacement parameter must be the replacement index given as a int.", outputStorage);
-                }
-                int teleport = 0;
-                if (compoundSize == 9) {
-                    if (!server.readTypeCheckingByte(inputStorage, teleport)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The nineth stop replacement parameter must be the teleport flag given as a byte.", outputStorage);
-                    }
-                }
-                libsumo::Vehicle::replaceStop(id, nextStopIndex, edgeID, pos, laneIndex, duration, stopFlags, startPos, until, teleport);
-            }
             break;
             case libsumo::CMD_REROUTE_TO_PARKING: {
                 // read variables
@@ -1273,6 +1233,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
     return true;
 }
 
+
 void
 TraCIServerAPI_Vehicle::writeNextStops(TraCIServer& server, const std::string& id, int limit, bool full) {
     std::vector<libsumo::TraCINextStopData> nextStops = libsumo::Vehicle::getStops(id, limit);
@@ -1320,4 +1281,63 @@ TraCIServerAPI_Vehicle::writeNextStops(TraCIServer& server, const std::string& i
     }
 }
 
+bool
+TraCIServerAPI_Vehicle::insertReplaceStop(TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, const std::string& id, bool replace) {
+    const std::string m1 = replace ? "Replacing" : "Inserting";
+    const std::string m2 = replace ? "replacement" : "insertion";
+
+    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, m1 + " stop needs a compound object description.", outputStorage);
+    }
+    int compoundSize = inputStorage.readInt();
+    if (compoundSize != 8 && compoundSize != 9) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, m1 + " stop needs a compound object description of eight or nine items.", outputStorage);
+    }
+    // read road map position
+    std::string edgeID;
+    if (!server.readTypeCheckingString(inputStorage, edgeID)) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first stop " + m2 + " parameter must be the edge id given as a string.", outputStorage);
+    }
+    double pos = 0;
+    if (!server.readTypeCheckingDouble(inputStorage, pos)) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second stop " + m2 + " parameter must be the end position along the edge given as a double.", outputStorage);
+    }
+    int laneIndex = 0;
+    if (!server.readTypeCheckingByte(inputStorage, laneIndex)) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third stop " + m2 + " parameter must be the lane index given as a byte.", outputStorage);
+    }
+    // waitTime
+    double duration = libsumo::INVALID_DOUBLE_VALUE;
+    if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "The fourth stop " + m2 + " parameter must be the stopping duration given as a double.", outputStorage);
+    }
+    int stopFlags = 0;
+    if (!server.readTypeCheckingInt(inputStorage, stopFlags)) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fifth stop " + m2 + " parameter must be a int indicating its parking/triggered status.", outputStorage);
+    }
+    double startPos = libsumo::INVALID_DOUBLE_VALUE;
+    if (!server.readTypeCheckingDouble(inputStorage, startPos)) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The sixth stop " + m2 + " parameter must be the start position along the edge given as a double.", outputStorage);
+    }
+    double until = libsumo::INVALID_DOUBLE_VALUE;
+    if (!server.readTypeCheckingDouble(inputStorage, until)) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The seventh stop " + m2 + " parameter must be the minimum departure time given as a double.", outputStorage);
+    }
+    int nextStopIndex = 0;
+    if (!server.readTypeCheckingInt(inputStorage, nextStopIndex)) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The eigth stop " + m2 + " parameter must be the replacement index given as a int.", outputStorage);
+    }
+    int teleport = 0;
+    if (compoundSize == 9) {
+        if (!server.readTypeCheckingByte(inputStorage, teleport)) {
+            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The nineth stop " + m2 + " parameter must be the teleport flag given as a byte.", outputStorage);
+        }
+    }
+    if (replace) {
+        libsumo::Vehicle::replaceStop(id, nextStopIndex, edgeID, pos, laneIndex, duration, stopFlags, startPos, until, teleport);
+    } else {
+        libsumo::Vehicle::insertStop(id, nextStopIndex, edgeID, pos, laneIndex, duration, stopFlags, startPos, until, teleport);
+    }
+    return true;
+}
 /****************************************************************************/

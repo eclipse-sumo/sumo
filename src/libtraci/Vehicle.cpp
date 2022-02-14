@@ -710,6 +710,32 @@ Vehicle::replaceStop(const std::string& vehID,
 
 
 void
+Vehicle::insertStop(const std::string& vehID,
+                     int nextStopIndex,
+                     const std::string& edgeID,
+                     double pos,
+                     int laneIndex,
+                     double duration,
+                     int flags,
+                     double startPos,
+                     double until,
+                     int teleport) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 9);
+    StoHelp::writeTypedString(content, edgeID);
+    StoHelp::writeTypedDouble(content, pos);
+    StoHelp::writeTypedByte(content, laneIndex);
+    StoHelp::writeTypedDouble(content, duration);
+    StoHelp::writeTypedInt(content, flags);
+    StoHelp::writeTypedDouble(content, startPos);
+    StoHelp::writeTypedDouble(content, until);
+    StoHelp::writeTypedInt(content, nextStopIndex);
+    StoHelp::writeTypedByte(content, teleport);
+    Dom::set(libsumo::CMD_INSERT_STOP, vehID, &content);
+}
+
+
+void
 Vehicle::rerouteParkingArea(const std::string& vehID, const std::string& parkingAreaID) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 1);
