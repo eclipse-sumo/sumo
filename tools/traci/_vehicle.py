@@ -1117,8 +1117,8 @@ class VehicleDomain(Domain):
                      laneIndex, duration, flags, startPos, until, nextStopIndex, teleport)
 
     def insertStop(self, vehID, nextStopIndex, edgeID, pos=1., laneIndex=0, duration=tc.INVALID_DOUBLE_VALUE,
-                    flags=tc.STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE,
-                    until=tc.INVALID_DOUBLE_VALUE, teleport=0):
+                   flags=tc.STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE,
+                   until=tc.INVALID_DOUBLE_VALUE, teleport=0):
         """replaceStop(string, int, string, double, integer, double, integer, double, double) -> None
 
         Insert stop at the given index. Automatically modifies

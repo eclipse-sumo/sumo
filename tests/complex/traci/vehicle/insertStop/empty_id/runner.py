@@ -48,7 +48,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
     if traci.simulation.getTime() == 5:
         try:
             traci.vehicle.insertStop(vehID, 1, "")
-        except:
+        except traci.TraCIException:
             pass
     traci.simulationStep()
 traci.close()

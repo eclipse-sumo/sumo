@@ -48,6 +48,6 @@ vehID = "ego"
 while traci.simulation.getMinExpectedNumber() > 0:
     if traci.simulation.getTime() == 5:
         traci.vehicle.insertStop(vehID, 0, "busStop_A2B2", flags=tc.STOP_BUS_STOP,
-                                  duration=30, teleport=1)
+                                 duration=30, teleport=1)
     traci.simulationStep()
 traci.close()
