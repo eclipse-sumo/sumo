@@ -279,11 +279,14 @@ public:
         /// @brief ComboBox for option A (end, number, end/number)
         FXComboBox* myOptionAComboBox = nullptr;
 
+        /// @brief horizontal frame for ComboBox A
+        FXHorizontalFrame* myOptionAFrameComboBox = nullptr;
+
         /// @brief ComboBox for definition B (perHour, period, probability)
         FXComboBox* myOptionBComboBox = nullptr;
 
         /// @brief horizontal frame for defition A
-        FXHorizontalFrame* myOptionAHorizontalFrame = nullptr;
+        FXHorizontalFrame* myOptionAFrameTextField = nullptr;
 
         /// @brief Label for option A
         FXLabel* myOptionALabel = nullptr;
@@ -292,7 +295,7 @@ public:
         FXTextField* myOptionATextField = nullptr;
 
         /// @brief horizontal frame for defition B
-        FXHorizontalFrame* myOptionBHorizontalFrame = nullptr;
+        FXHorizontalFrame* myOptionBFrameTextField = nullptr;
 
         /// @brief Label for option B
         FXLabel* myOptionBLabel = nullptr;

@@ -752,24 +752,22 @@ GNEFrameAttributeModules::AttributesCreator::refreshRows(const bool createRows) 
 GNEFrameAttributeModules::AttributesCreatorFlow::AttributesCreatorFlow(AttributesCreator* attributesCreatorParent) :
     FXGroupBoxModule(attributesCreatorParent->getFrameParent()->myContentFrame, "Flow attributes"),
     myAttributesCreatorParent(attributesCreatorParent) {
-    // declare auxiliar horizontal frame
-    FXHorizontalFrame* auxiliarHorizontalFrame = nullptr;
     // create comboBox for option A
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(auxiliarHorizontalFrame, "Option A", nullptr, GUIDesignLabelAttribute);
     myOptionAComboBox = new FXComboBox(auxiliarHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create comboBox for option B
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(auxiliarHorizontalFrame, "Option B", nullptr, GUIDesignLabelAttribute);
-    myOptionBComboBox = new FXComboBox(auxiliarHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    myOptionAFrameComboBox = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(myOptionAFrameComboBox, "Option B", nullptr, GUIDesignLabelAttribute);
+    myOptionBComboBox = new FXComboBox(myOptionAFrameComboBox, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create textField for option A
-    myOptionAHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myOptionALabel = new FXLabel(myOptionAHorizontalFrame, "A", nullptr, GUIDesignLabelAttribute);
-    myOptionATextField = new FXTextField(myOptionAHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myOptionAFrameTextField = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    myOptionALabel = new FXLabel(myOptionAFrameTextField, "A", nullptr, GUIDesignLabelAttribute);
+    myOptionATextField = new FXTextField(myOptionAFrameTextField, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create textField for option B
-    myOptionBHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myOptionBLabel = new FXLabel(myOptionBHorizontalFrame, "B", nullptr, GUIDesignLabelAttribute);
-    myOptionBTextField = new FXTextField(myOptionBHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myOptionBFrameTextField = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    myOptionBLabel = new FXLabel(myOptionBFrameTextField, "B", nullptr, GUIDesignLabelAttribute);
+    myOptionBTextField = new FXTextField(myOptionBFrameTextField, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // fill comboBox A
     myOptionAComboBox->appendItem(toString(SUMO_ATTR_END).c_str());
     myOptionAComboBox->appendItem(toString(SUMO_ATTR_NUMBER).c_str());
@@ -826,23 +824,23 @@ GNEFrameAttributeModules::AttributesCreatorFlow::refreshAttributesCreatorFlow() 
     // get flow item
     const auto flow = myAttributesCreatorParent->getCurrentTemplateAC();
     // show both attributes
-    myOptionAHorizontalFrame->show();
-    myOptionBHorizontalFrame->show();
+    myOptionAFrameTextField->show();
+    myOptionBFrameTextField->show();
     // continue depending of combinations
     if (flow->isAttributeEnabled(SUMO_ATTR_END) && flow->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
         // set first comboBox
         myOptionAComboBox->setCurrentItem(2),
-        // disable second comboBox
-        myOptionBComboBox->disable();
+        // hide second comboBox
+        myOptionAFrameComboBox->hide();
         // set label
         myOptionALabel->setText(toString(SUMO_ATTR_END).c_str());
-        myOptionALabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
+        myOptionBLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
         // set text fields
         myOptionATextField->setText(flow->getAttribute(SUMO_ATTR_END).c_str());
         myOptionBTextField->setText(flow->getAttribute(SUMO_ATTR_NUMBER).c_str());
     } else {
-        // enable second comboBox
-        myOptionBComboBox->enable();
+        // show second comboBox
+        myOptionAFrameComboBox->show();
         // set first attribute
         if (flow->isAttributeEnabled(SUMO_ATTR_END)) {
             // set first comboBox
@@ -860,7 +858,7 @@ GNEFrameAttributeModules::AttributesCreatorFlow::refreshAttributesCreatorFlow() 
             myOptionATextField->setText(flow->getAttribute(SUMO_ATTR_NUMBER).c_str());
         } else {
             // invalid combination, disable text field
-            myOptionAHorizontalFrame->hide();
+            myOptionAFrameTextField->hide();
         }
         // set second attribute
         if (flow->isAttributeEnabled(myPerHourAttr)) {
@@ -886,9 +884,11 @@ GNEFrameAttributeModules::AttributesCreatorFlow::refreshAttributesCreatorFlow() 
             myOptionBTextField->setText(flow->getAttribute(SUMO_ATTR_PROB).c_str());
         } else {
             // invalid combination, disable text field
-            myOptionBHorizontalFrame->hide();
+            myOptionBFrameTextField->hide();
         }
     }
+    // recalc
+    recalc();
 }
 
 
@@ -899,11 +899,11 @@ GNEFrameAttributeModules::AttributesCreatorFlow::getFlowAttributes(CommonXMLStru
         baseObject->addDoubleAttribute(SUMO_ATTR_END, GNEAttributeCarrier::parse<double>(myOptionATextField->getText().text()));
     }
     if (myOptionBLabel->getText().text() == toString(SUMO_ATTR_NUMBER)) {
-        baseObject->addDoubleAttribute(SUMO_ATTR_NUMBER, GNEAttributeCarrier::parse<double>(myOptionBTextField->getText().text()));
+        baseObject->addIntAttribute(SUMO_ATTR_NUMBER, GNEAttributeCarrier::parse<int>(myOptionBTextField->getText().text()));
     }
     // other cases
     if (myOptionALabel->getText().text() == toString(SUMO_ATTR_NUMBER)) {
-        baseObject->addDoubleAttribute(SUMO_ATTR_NUMBER, GNEAttributeCarrier::parse<double>(myOptionATextField->getText().text()));
+        baseObject->addIntAttribute(SUMO_ATTR_NUMBER, GNEAttributeCarrier::parse<int>(myOptionATextField->getText().text()));
     }
     if (myOptionBLabel->getText().text() == toString(myPerHourAttr)) {
         baseObject->addDoubleAttribute(myPerHourAttr, GNEAttributeCarrier::parse<double>(myOptionBTextField->getText().text()));
@@ -920,8 +920,8 @@ GNEFrameAttributeModules::AttributesCreatorFlow::getFlowAttributes(CommonXMLStru
 bool
 GNEFrameAttributeModules::AttributesCreatorFlow::areValuesValid() const {
     // check text fields
-    if (myOptionAHorizontalFrame->shown() && (myOptionATextField->getTextColor() == FXRGB(0, 0, 0)) &&
-        myOptionBHorizontalFrame->shown() && (myOptionBTextField->getTextColor() == FXRGB(0, 0, 0))) {
+    if (myOptionAFrameTextField->shown() && (myOptionATextField->getTextColor() == FXRGB(0, 0, 0)) &&
+        myOptionBFrameTextField->shown() && (myOptionBTextField->getTextColor() == FXRGB(0, 0, 0))) {
         return true;
     } else {
         return false;
@@ -931,6 +931,50 @@ GNEFrameAttributeModules::AttributesCreatorFlow::areValuesValid() const {
 
 long
 GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
+    // get flow item
+    const auto flow = myAttributesCreatorParent->getCurrentTemplateAC();
+    // first check if obj is a comboBox or a text field
+    if (obj == myOptionAComboBox) {
+        if (myOptionAComboBox->getText().text() == toString(SUMO_ATTR_END)) {
+            flow->toogleAttribute(SUMO_ATTR_END, true);
+            flow->toogleAttribute(SUMO_ATTR_NUMBER, false);
+        } else if (myOptionAComboBox->getText().text() == toString(SUMO_ATTR_NUMBER)) {
+            flow->toogleAttribute(SUMO_ATTR_END, false);
+            flow->toogleAttribute(SUMO_ATTR_NUMBER, true);
+        } else if (myOptionAComboBox->getText().text() == (toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER))) {
+            flow->toogleAttribute(SUMO_ATTR_END, true);
+            flow->toogleAttribute(SUMO_ATTR_NUMBER, true);
+            // disable others
+            flow->toogleAttribute(myPerHourAttr, false);
+            flow->toogleAttribute(SUMO_ATTR_PERIOD, false);
+            flow->toogleAttribute(SUMO_ATTR_PROB, false);
+        } else {
+            //
+        }
+    } else if (obj == myOptionBComboBox) {
+        if (myOptionBComboBox->getText().text() == toString(myPerHourAttr)) {
+            flow->toogleAttribute(myPerHourAttr, true);
+            flow->toogleAttribute(SUMO_ATTR_PERIOD, false);
+            flow->toogleAttribute(SUMO_ATTR_PROB, false);
+        } else if (myOptionBComboBox->getText().text() == toString(SUMO_ATTR_PERIOD)) {
+            flow->toogleAttribute(myPerHourAttr, false);
+            flow->toogleAttribute(SUMO_ATTR_PERIOD, true);
+            flow->toogleAttribute(SUMO_ATTR_PROB, false);
+        } else if (myOptionBComboBox->getText().text() == toString(SUMO_ATTR_PROB)) {
+            flow->toogleAttribute(myPerHourAttr, false);
+            flow->toogleAttribute(SUMO_ATTR_PERIOD, false);
+            flow->toogleAttribute(SUMO_ATTR_PROB, true);
+        } else {
+            //
+        }
+    } else if (obj == myOptionATextField) {
+
+    } else if (obj == myOptionBTextField) {
+
+    }
+    // refresh attribute creator
+    refreshAttributesCreatorFlow();
+    return 1;
 /*
     // obtain clicked textfield
     FXTextField* textField = nullptr;
