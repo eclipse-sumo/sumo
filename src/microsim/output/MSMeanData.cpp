@@ -531,11 +531,8 @@ MSMeanData::getEdgeID(const MSEdge* const edge) {
 
 void
 MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
-    if (MSGlobals::gUseMesoSim) {
-        throw ProcessError("aggregatd meanData output not yet implemented for meso");
-    }
     if (myTrackVehicles) {
-        throw ProcessError("aggregatd meanData output not yet implemented for trackVehicles");
+        throw ProcessError("aggregated meanData output not yet implemented for trackVehicles");
     }
 
     double edgeLengthSum = 0;
@@ -555,6 +552,16 @@ MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stop
             meanData->reset();
         }
     }
+    if (MSGlobals::gUseMesoSim) {
+        for (MSEdge* edge : myEdges) {
+            MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
+            while (s != nullptr) {
+                s->prepareDetectorForWriting(*sumData);
+                s = s->getNextSegment();
+            }
+        }
+    }
+
     if (writePrefix(dev, *sumData, SUMO_TAG_EDGE, "AGGREGATED")) {
         dev.writeAttr(SUMO_ATTR_NUMEDGES, myEdges.size());
         sumData->write(dev, myWrittenAttributes, stopTime - startTime, (double)laneNumber, speedSum / myEdges.size(),
