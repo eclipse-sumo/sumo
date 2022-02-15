@@ -948,6 +948,9 @@ TRACI_CONST int VAR_ROUTE_ID = 0x53;
 // edges (get: routes, vehicles)
 TRACI_CONST int VAR_EDGES = 0x54;
 
+// filled? (set: vehicles)
+TRACI_CONST int VAR_STOP_PARAMETER = 0x55;
+
 // lanes (get: variablespeedsign)
 TRACI_CONST int VAR_LANES = 0x30;
 
