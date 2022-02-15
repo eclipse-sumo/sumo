@@ -23,6 +23,7 @@
 #include <config.h>
 #include <string>
 #include <vector>
+#include <set>
 
 /**
  * StringTokenizer
@@ -121,6 +122,9 @@ public:
 
     /// @brief return vector of strings
     std::vector<std::string> getVector();
+
+    /// @brief return set of strings
+    std::set<std::string> getSet();
 
 private:
     /// @brief splits the first string at all occurences of the second. If the third parameter is true split at all chars given in the second

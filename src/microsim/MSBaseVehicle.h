@@ -616,6 +616,12 @@ public:
     */
     MSStop& getNextStop();
 
+    /**
+    * returns the upcoming stop with the given index in the stop queue
+    * @return an upcoming stop
+    */
+    MSStop& getStop(int nextStopIndex);
+
     /// @brief return parameters for the next stop (SUMOVehicle Interface)
     const SUMOVehicleParameter::Stop* getNextStopParameter() const;
 

@@ -699,6 +699,18 @@ SUMOVehicleParameter::Stop::writeTriggers(OutputDevice& dev) const {
     }
 }
 
+int
+SUMOVehicleParameter::Stop::getFlags() const {
+    return ((parking ? 1 : 0) +
+            (triggered ? 2 : 0) +
+            (containerTriggered ? 4 : 0) +
+            (busstop != "" ? 8 : 0) +
+            (containerstop != "" ? 16 : 0) +
+            (chargingStation != "" ? 32 : 0) +
+            (parkingarea != "" ? 64 : 0) +
+            (overheadWireSegment != "" ? 128 : 0));
+}
+
 
 std::string
 SUMOVehicleParameter::getDepart() const {

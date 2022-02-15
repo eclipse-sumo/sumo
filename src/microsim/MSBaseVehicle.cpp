@@ -1292,6 +1292,17 @@ MSBaseVehicle::getNextStop() {
 }
 
 
+MSStop&
+MSBaseVehicle::getStop(int nextStopIndex) {
+    if (nextStopIndex < 0 || (int)myStops.size() <= nextStopIndex) {
+        throw InvalidArgument("Invalid stop index " + toString(nextStopIndex) + " (has " + toString(myStops.size()) + " stops)");
+    }
+    auto stopIt = myStops.begin();
+    std::advance(stopIt, nextStopIndex);
+    return *stopIt;
+}
+
+
 const SUMOVehicleParameter::Stop*
 MSBaseVehicle::getNextStopParameter() const {
     if (hasStops()) {

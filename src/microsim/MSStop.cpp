@@ -120,5 +120,9 @@ MSStop::initPars(const SUMOVehicleParameter::Stop& stopPar) {
 }
 
 
+int
+MSStop::getStateFlagsOld() const {
+    return ((reached ? 1 : 0) + 2 * pars.getFlags());
+}
 
 /****************************************************************************/

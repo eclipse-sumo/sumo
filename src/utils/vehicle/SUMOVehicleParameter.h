@@ -445,6 +445,8 @@ public:
         /// @brief Information for the output which parameter were set
         int parametersSet = 0;
 
+        /// @brief return flags as per Vehicle::getStops
+        int getFlags() const;
     };
 
 
