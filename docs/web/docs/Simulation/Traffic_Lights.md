@@ -590,7 +590,7 @@ They are defined with the `<function>` element within a `<tlLogic>` as shown bel
 ```
 <tlLogic id="example" type="actuated" ...>
 
-  <function id="FNAME" numArgs="2">
+  <function id="FNAME" nArgs="2">
      <assignment id="COND1" check="1" value="$1 + $2"/>
      <assignment id="$0" check="1" value="COND1 * COND1"/>
   </function>
