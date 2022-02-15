@@ -508,14 +508,7 @@ Vehicle::getStopState(const std::string& vehID) {
     int result = 0;
     if (veh->isStopped()) {
         const MSStop& stop = veh->getNextStop();
-        result = ((stop.reached ? 1 : 0) +
-                  (stop.pars.parking ? 2 : 0) +
-                  (stop.pars.triggered ? 4 : 0) +
-                  (stop.pars.containerTriggered ? 8 : 0) +
-                  (stop.busstop != nullptr ? 16 : 0) +
-                  (stop.containerstop != nullptr ? 32 : 0) +
-                  (stop.chargingStation != nullptr ? 64 : 0) +
-                  (stop.parkingarea != nullptr ? 128 : 0));
+        result = stop.getStateFlagsOld();
     }
     return result;
 }
@@ -989,6 +982,106 @@ Vehicle::insertStop(const std::string& vehID,
     std::string error;
     if (!vehicle->insertStop(nextStopIndex, stopPars, "traci:insertStop", teleport != 0, error)) {
         throw TraCIException("Stop insertion failed for vehicle '" + vehID + "' (" + error + ").");
+    }
+}
+
+
+void
+Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
+                                 const std::string& param, const std::string& value) {
+    MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
+    try {
+        MSStop& stop = vehicle->getStop(nextStopIndex);
+        SUMOVehicleParameter::Stop& pars = const_cast<SUMOVehicleParameter::Stop&>(stop.pars);
+        std::string error;
+        if (param == toString(SUMO_ATTR_EDGE)
+                || param == toString(SUMO_ATTR_BUS_STOP)
+                || param == toString(SUMO_ATTR_TRAIN_STOP)
+                || param == toString(SUMO_ATTR_CONTAINER_STOP)
+                || param == toString(SUMO_ATTR_CHARGING_STATION)
+                || param == toString(SUMO_ATTR_PARKING_AREA)
+                || param == toString(SUMO_ATTR_LANE)
+                ) {
+            int laneIndex = stop.lane->getIndex();
+            int flags = pars.getFlags() & 3;
+            std::string edgeOrStopID = value;
+            if (param == toString(SUMO_ATTR_LANE)) {
+                laneIndex = StringUtils::toInt(value);
+                edgeOrStopID = pars.edge;
+            } else if (param == toString(SUMO_ATTR_BUS_STOP)
+                    || param == toString(SUMO_ATTR_TRAIN_STOP)) {
+                flags |= 8;
+            } else if (param == toString(SUMO_ATTR_CONTAINER_STOP)) {
+                flags |= 16;
+            } else if (param == toString(SUMO_ATTR_CHARGING_STATION)) {
+                flags |= 32;
+            } else if (param == toString(SUMO_ATTR_PARKING_AREA)) {
+                flags |= 64;
+            }
+            // special case: replace stop
+            replaceStop(vehID, nextStopIndex, edgeOrStopID, pars.endPos, laneIndex, STEPS2TIME(pars.duration),
+                    flags, pars.startPos, STEPS2TIME(pars.until), 0);
+
+        } else if (param == toString(SUMO_ATTR_STARTPOS)) {
+            pars.startPos = StringUtils::toDouble(value);
+            pars.parametersSet |= STOP_START_SET;
+        } else if (param == toString(SUMO_ATTR_ENDPOS)) {
+            pars.endPos = StringUtils::toDouble(value);
+            pars.parametersSet |= STOP_END_SET;
+        } else if (param == toString(SUMO_ATTR_POSITION_LAT)) {
+            pars.posLat = StringUtils::toDouble(value);
+            pars.parametersSet |= STOP_POSLAT_SET;
+        } else if (param == toString(SUMO_ATTR_ARRIVAL)) {
+            pars.arrival = string2time(value);
+            pars.parametersSet |= STOP_ARRIVAL_SET;
+        } else if (param == toString(SUMO_ATTR_DURATION)) {
+            pars.duration = string2time(value);
+            pars.parametersSet |= STOP_DURATION_SET;
+        } else if (param == toString(SUMO_ATTR_UNTIL)) {
+            pars.until = string2time(value);
+            pars.parametersSet |= STOP_UNTIL_SET;
+        } else if (param == toString(SUMO_ATTR_EXTENSION)) {
+            pars.extension = string2time(value);
+            pars.parametersSet |= STOP_EXTENSION_SET;
+        } else if (param == toString(SUMO_ATTR_INDEX)) {
+            throw TraCIException("Changing stop index is not supported");
+        } else if (param == toString(SUMO_ATTR_PARKING)) {
+            pars.parking = StringUtils::toBool(value);
+            pars.parametersSet |= STOP_PARKING_SET;
+        } else if (param == toString(SUMO_ATTR_TRIGGERED)) {
+            SUMOVehicleParameter::parseStopTriggers(StringTokenizer(value).getVector(), false, pars);
+            pars.parametersSet |= STOP_TRIGGERED;
+        } else if (param == toString(SUMO_ATTR_EXPECTED)) {
+            pars.awaitedPersons = StringTokenizer(value).getSet();
+            pars.parametersSet |= STOP_EXPECTED_SET;
+        } else if (param == toString(SUMO_ATTR_EXPECTED_CONTAINERS)) {
+            pars.awaitedContainers = StringTokenizer(value).getSet();
+            pars.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
+        } else if (param == toString(SUMO_ATTR_PERMITTED)) {
+            pars.permitted = StringTokenizer(value).getSet();
+            pars.parametersSet |= STOP_PERMITTED_SET;
+        } else if (param == toString(SUMO_ATTR_ACTTYPE)) {
+            pars.actType = value;
+        } else if (param == toString(SUMO_ATTR_TRIP_ID)) {
+            pars.tripId = value;
+            pars.parametersSet |= STOP_TRIP_ID_SET;
+        } else if (param == toString(SUMO_ATTR_SPLIT)) {
+            pars.split = value;
+            pars.parametersSet |= STOP_SPLIT_SET;
+        } else if (param == toString(SUMO_ATTR_JOIN)) {
+            pars.join = value;
+            pars.parametersSet |= STOP_JOIN_SET;
+        } else if (param == toString(SUMO_ATTR_LINE)) {
+            pars.line = value;
+            pars.parametersSet |= STOP_LINE_SET;
+        } else if (param == toString(SUMO_ATTR_SPEED)) {
+            pars.speed = StringUtils::toDouble(value);
+            pars.parametersSet |= STOP_SPEED_SET;
+        } else {
+            throw ProcessError("Unsupported parameter '" + param + "'");
+        }
+    } catch (ProcessError& e) {
+        throw TraCIException("Could not set stop paramater for vehicle '" + vehID + "' (" + e.what() + ")");
     }
 }
 

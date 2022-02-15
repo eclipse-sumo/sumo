@@ -736,6 +736,18 @@ Vehicle::insertStop(const std::string& vehID,
 
 
 void
+Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
+                                 const std::string& param, const std::string& value) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 3);
+    StoHelp::writeTypedInt(content, nextStopIndex);
+    StoHelp::writeTypedString(content, param);
+    StoHelp::writeTypedString(content, value);
+    Dom::set(libsumo::VAR_STOP_PARAMETER, vehID, &content);
+}
+
+
+void
 Vehicle::rerouteParkingArea(const std::string& vehID, const std::string& parkingAreaID) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 1);

@@ -145,6 +145,9 @@ public:
                             double until = libsumo::INVALID_DOUBLE_VALUE,
                             int teleport = 0);
 
+    static void setStopParameter(const std::string& vehID, int nextStopIndex,
+                                 const std::string& param, const std::string& value);
+
     static void rerouteParkingArea(const std::string& vehID,
                                    const std::string& parkingAreaID);
 

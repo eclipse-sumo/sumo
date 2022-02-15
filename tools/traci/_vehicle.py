@@ -1135,6 +1135,16 @@ class VehicleDomain(Domain):
         self._setCmd(tc.CMD_INSERT_STOP, vehID, "tsdbdiddib", 9, edgeID, pos,
                      laneIndex, duration, flags, startPos, until, nextStopIndex, teleport)
 
+
+    def setStopParameter(self, vehID, nextStopIndex, param, value):
+        """setStopParameter(string, int, string, string) -> None
+        Sets the value of the given parameter for the (upcoming) stop at the given index
+        Supported params correspond to (almost) all legal stop xml-attributes
+        and their value semantics
+        """
+        self._setCmd(tc.VAR_STOP_PARAMETER, vehID, "tiss", 3, nextStopIndex, param, value)
+
+
     def resume(self, vehID):
         """resume(string) -> None
 

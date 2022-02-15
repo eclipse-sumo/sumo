@@ -369,6 +369,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != libsumo::CMD_CHANGESUBLANE && variable != libsumo::CMD_OPENGAP
             && variable != libsumo::CMD_REPLACE_STOP
             && variable != libsumo::CMD_INSERT_STOP
+            && variable != libsumo::VAR_STOP_PARAMETER
             && variable != libsumo::CMD_SLOWDOWN && variable != libsumo::CMD_CHANGETARGET && variable != libsumo::CMD_RESUME
             && variable != libsumo::VAR_TYPE && variable != libsumo::VAR_ROUTE_ID && variable != libsumo::VAR_ROUTE
             && variable != libsumo::VAR_UPDATE_BESTLANES
@@ -471,6 +472,30 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!insertReplaceStop(server, inputStorage, outputStorage, id, false)) {
                     return false;
                 }
+            break;
+            case libsumo::VAR_STOP_PARAMETER: {
+                // read variables
+                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting stop parameter needs a compound object description.", outputStorage);
+                }
+                int compoundSize = inputStorage.readInt();
+                if (compoundSize != 3) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting a stop parameter needs a compound object description of 3 items.", outputStorage);
+                }
+                int nextStopIndex;
+                if (!server.readTypeCheckingInt(inputStorage, nextStopIndex)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first setStopParameter parameter must be the nextStopIndex given as an integer.", outputStorage);
+                }
+                std::string param;
+                if (!server.readTypeCheckingString(inputStorage, param)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second setStopParameter parameter must be the param given as a string.", outputStorage);
+                }
+                std::string value;
+                if (!server.readTypeCheckingString(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third setStopParameter parameter must be the value given as a string.", outputStorage);
+                }
+                libsumo::Vehicle::setStopParameter(id, nextStopIndex, param, value);
+            }
             break;
             case libsumo::CMD_REROUTE_TO_PARKING: {
                 // read variables
