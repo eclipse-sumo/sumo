@@ -5,12 +5,12 @@ title: Lane- or Edge-based Traffic Measures
 Values within this output describe the situation within the network in
 terms of traffic science by giving macroscopic values such as the mean
 vehicle speed, the mean density, etc. This output can be generated
-either for lanes, or for edges.
+either for lanes, edges or groups of edges.
 
 In the following, it is described how both outputs are generated and
 which values they contain. Then, the meanings of the values are given as
 well as a description of intervals. At last, some additional
-possibilities to constraint the outputs are given.
+possibilities to constrain the outputs are given.
 
 !!! note
     Please remark that these outputs are also called "aggregated lane/edge states", "meandata", or "edge/lane-dumps".
