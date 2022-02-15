@@ -1702,56 +1702,23 @@ void
 GNERouteHandler::setFlowParameters(const SumoXMLAttr attribute, const bool value, int& parameters) {
     // modify parameters depending of given Flow attribute
     switch (attribute) {
-        case SUMO_ATTR_END: {
-            // give more priority to end
-            parameters = VEHPARS_END_SET | VEHPARS_NUMBER_SET;
+        case SUMO_ATTR_END:
+            parameters |= VEHPARS_END_SET;
             break;
-        }
         case SUMO_ATTR_NUMBER:
-            parameters ^= VEHPARS_END_SET;
             parameters |= VEHPARS_NUMBER_SET;
             break;
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_PERSONSPERHOUR:
-        case SUMO_ATTR_CONTAINERSPERHOUR: {
-            // give more priority to end
-            if ((parameters & VEHPARS_END_SET) && (parameters & VEHPARS_NUMBER_SET)) {
-                parameters = VEHPARS_END_SET;
-            } else if (parameters & VEHPARS_END_SET) {
-                parameters = VEHPARS_END_SET;
-            } else if (parameters & VEHPARS_NUMBER_SET) {
-                parameters = VEHPARS_NUMBER_SET;
-            }
-            // set VehsPerHour
+        case SUMO_ATTR_CONTAINERSPERHOUR:
             parameters |= VEHPARS_VPH_SET;
             break;
-        }
-        case SUMO_ATTR_PERIOD: {
-            // give more priority to end
-            if ((parameters & VEHPARS_END_SET) && (parameters & VEHPARS_NUMBER_SET)) {
-                parameters = VEHPARS_END_SET;
-            } else if (parameters & VEHPARS_END_SET) {
-                parameters = VEHPARS_END_SET;
-            } else if (parameters & VEHPARS_NUMBER_SET) {
-                parameters = VEHPARS_NUMBER_SET;
-            }
-            // set period
+        case SUMO_ATTR_PERIOD:
             parameters |= VEHPARS_PERIOD_SET;
             break;
-        }
-        case SUMO_ATTR_PROB: {
-            // give more priority to end
-            if ((parameters & VEHPARS_END_SET) && (parameters & VEHPARS_NUMBER_SET)) {
-                parameters = VEHPARS_END_SET;
-            } else if (parameters & VEHPARS_END_SET) {
-                parameters = VEHPARS_END_SET;
-            } else if (parameters & VEHPARS_NUMBER_SET) {
-                parameters = VEHPARS_NUMBER_SET;
-            }
-            // set probability
+        case SUMO_ATTR_PROB:
             parameters |= VEHPARS_PROB_SET;
             break;
-        }
         default:
             break;
     }

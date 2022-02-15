@@ -255,22 +255,17 @@ public:
         /// @brief refresh AttributesCreatorFlow
         void refreshAttributesCreatorFlow();
 
-        /// @brief set parameters
-        void setFlowParameters(CommonXMLStructure::SumoBaseObject* baseObject);
+        /// @brief get flow attributes
+        void getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject);
 
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
 
-        /// @brief show warning message with information about non-valid attributes
-        void showWarningMessage(std::string extra = "") const;
-
         /// @name FOX-callbacks
         /// @{
-        /// @brief called when user set the value of an attribute of type int/float/string/bool
+        /// @brief called when user change flow attribute
         long onCmdSetFlowAttribute(FXObject*, FXSelector, void*);
 
-        /// @brief called when user press a radio button
-        long onCmdSelectFlowRadioButton(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
