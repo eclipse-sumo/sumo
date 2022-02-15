@@ -59,6 +59,7 @@ For additional attributes see the table below.
 | writeAttributes  | string list                  | list of attribute names that shall be written (defaults to all attribute)         |
 | edges  | string list                  | restrict output to the given list of edge ids        |
 | edgesFile  | filename                 | restrict output to the given the list of edges given in file (either one edgeID per line or an id prefixed with 'edge:' as in a [selection file](../../Netedit/editModesCommon.md#selection_operations)        |
+| aggregate  | bool    | Whether the traffic statistic of all edges shall be aggregated into a single value (edge id will be `AGGREGATED`).  |
 
 ## Generated Output
 
