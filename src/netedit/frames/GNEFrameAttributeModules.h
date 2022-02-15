@@ -72,7 +72,7 @@ public:
         /// @brief return status of label checkbox button
         bool getAttributeCheckButtonCheck() const;
 
-        /// @brief enable or disable label checkbox button for optional attributes
+        /// @brief enable or disable label checkbox button for Terminatel attributes
         void setAttributeCheckButtonCheck(bool value);
 
         /// @brief enable row
@@ -259,7 +259,7 @@ public:
         void getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject);
 
         /// @brief check if parameters of attributes are valid
-        bool areValuesValid() const;
+        bool areFlowValuesValid() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -276,32 +276,32 @@ public:
         /// @brief pointer to Attributes Creator Parent
         AttributesCreator* myAttributesCreatorParent;
 
-        /// @brief ComboBox for option A (end, number, end/number)
-        FXComboBox* myOptionAComboBox = nullptr;
+        /// @brief ComboBox for terminate options (end, number, end/number)
+        FXComboBox* myTerminateComboBox = nullptr;
 
-        /// @brief horizontal frame for ComboBox A
-        FXHorizontalFrame* myOptionAFrameComboBox = nullptr;
+        /// @brief horizontal frame for terminate definition
+        FXHorizontalFrame* myTerminateFrameTextField = nullptr;
 
-        /// @brief ComboBox for definition B (perHour, period, probability)
-        FXComboBox* myOptionBComboBox = nullptr;
-
-        /// @brief horizontal frame for defition A
-        FXHorizontalFrame* myOptionAFrameTextField = nullptr;
-
-        /// @brief Label for option A
-        FXLabel* myOptionALabel = nullptr;
+        /// @brief Label for terminate definition
+        FXLabel* myTerminateLabel = nullptr;
 
         /// @brief textField for option A attribute
-        FXTextField* myOptionATextField = nullptr;
+        FXTextField* myTerminateTextField = nullptr;
 
-        /// @brief horizontal frame for defition B
-        FXHorizontalFrame* myOptionBFrameTextField = nullptr;
+        /// @brief horizontal frame for terminate options
+        FXHorizontalFrame* mySpacingFrameComboBox = nullptr;
 
-        /// @brief Label for option B
-        FXLabel* myOptionBLabel = nullptr;
+        /// @brief ComboBox for spacing comboBox (perHour, period, probability)
+        FXComboBox* mySpacingComboBox = nullptr;
 
-        /// @brief textField for option B attribute
-        FXTextField* myOptionBTextField = nullptr;
+        /// @brief horizontal frame for spacing textField
+        FXHorizontalFrame* mySpacingFrameTextField = nullptr;
+
+        /// @brief Label for spacing
+        FXLabel* mySpacingLabel = nullptr;
+
+        /// @brief textField for spacing attribute
+        FXTextField* mySpacingTextField = nullptr;
 
         /// @brief per hours attr (vehicles/person/container)
         SumoXMLAttr myPerHourAttr = SUMO_ATTR_NOTHING;
