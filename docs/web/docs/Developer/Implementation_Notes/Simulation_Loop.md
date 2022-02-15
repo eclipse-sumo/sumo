@@ -23,6 +23,13 @@ simstep -> TraCIServer : processCommandsUntilSimStep
 ... -> MSVehicle : getSpeed, setSpeed, ...
 end
 
+group Events
+simstep -> ... : myBeginOfTimestepEvents->execute
+... -> MSVehicle : reroute
+... -> ... : MSTrafficLightLogic->trySwitch
+... -> *move pedestrians*
+end
+
 group car-following model
 simstep -> MSEdgeControl : planMovements
 ... -> MSVehicle : planMove
