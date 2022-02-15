@@ -27,7 +27,7 @@ group Events
 simstep -> ... : myBeginOfTimestepEvents->execute
 ... -> MSVehicle : reroute
 ... -> ... : MSTrafficLightLogic->trySwitch
-... -> //move pedestrians//
+... -> ... : //move pedestrians//
 end
 
 group car-following model
