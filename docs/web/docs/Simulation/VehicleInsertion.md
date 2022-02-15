@@ -86,23 +86,17 @@ By default, the next attempt happens 2 seconds after the first vehicle has depar
 
 ## Forcing Insertion / Avoiding depart delay
 
-- Make sure that all lanes are used for insertion i.e. by setting `departLane="random"` (or `free` or `best`)
-- Insert with `departSpeed="max"`: vehicle speeds at insertion will be adjusted to the
-  maximum safe speed that allows insertion at the specified time to
-  succeed
-- Insert with `departPos="last"`: vehicle position will be adjusted to the maximum
-  position behind the leader vehicle that allows driving with the
-  given speed (or maximum allowed speed when using `departSpeed="max"`)
+- On multi-lane roads, make sure that all lanes are used for insertion i.e. by setting `departLane="random"` (or `free` or `best`)
+- set option **--extrapolate-departpos**
+- insert with `departSpeed="avg"` or `departSpeed="last"` (see [capacity comparison](Simulation/RoadCapacity.md#further_headway_effects))
+- alternatively: Use `departPos="last"` in combination with `departSpeed="desired"` : vehicle position will be adjusted to the maximum
+  position behind the leader vehicle that allows driving with the desired speed  
 - insert with a fixed departSpeed (numerical value) and set option **--ignore-route-errors**.
   Vehicles will be inserted with unsafe speeds at the specified time
   if emergency-braking would still allow collision-free dynamics
-- inserted vehicles with a homogeneous departSpeed by setting `departSpeed="last"` or departSpeed="avg"`
-- use
-  [traci.vehicle.moveTo](../TraCI/Change_Vehicle_State.md#move_to_0x5c)
-  or
-  [traci.vehicle.moveToXY](../TraCI/Change_Vehicle_State.md#move_to_xy_0xb4)
-  to force the vehicle into the network at the specified time and
-  place.
+- disable some or all insertion checks using [attribute `insertionChecks`](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#available_vehicle_attributes) 
+- use [traci.vehicle.moveTo](../TraCI/Change_Vehicle_State.md#move_to_0x5c) or [traci.vehicle.moveToXY](../TraCI/Change_Vehicle_State.md#move_to_xy_0xb4)
+  to force the vehicle into the network at the specified time and  place.
 
 ## Global options that affect Departure
 
