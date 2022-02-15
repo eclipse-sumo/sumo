@@ -958,6 +958,18 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 vType->parametersSet |= VTYPEPARS_LOADING_DURATION;
             }
         }
+        if (attrs.hasAttribute(SUMO_ATTR_SCALE)) {
+            bool ok = true;
+            const double scale = attrs.get<double>(SUMO_ATTR_SCALE, id.c_str(), ok);
+            if (!ok) {
+                return handleVehicleTypeError(hardFail, vType);
+            } else if (scale < 0) {
+                return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_SCALE) + " may be not be negative");
+            } else {
+                vType->scale = scale;
+                vType->parametersSet |= VTYPEPARS_SCALE_SET;
+            }
+        }
         if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED_LAT)) {
             bool ok = true;
             const double maxSpeedLat = attrs.get<double>(SUMO_ATTR_MAXSPEED_LAT, vType->id.c_str(), ok);

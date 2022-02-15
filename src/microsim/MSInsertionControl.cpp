@@ -91,6 +91,7 @@ MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index) {
                 }
                 delete flow.pars;
                 flow.pars = pars;
+                flow.scale = initScale(pars->vtypeid);
                 return true;
             }
         }
@@ -99,9 +100,31 @@ MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index) {
         Flow flow;
         flow.pars = pars;
         flow.index = loadingFromState ? index : 0;
+        flow.scale = initScale(pars->vtypeid);
         myFlows.push_back(flow);
         myFlowIDs.insert(pars->id);
         return true;
+    }
+}
+
+
+double
+MSInsertionControl::initScale(const std::string vtypeid) {
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    if (vc.hasVTypeDistribution(vtypeid)) {
+        double result = -1;
+        const RandomDistributor<MSVehicleType*>* dist = vc.getVTypeDistribution(vtypeid);
+        for (const MSVehicleType* t : dist->getVals()) {
+            if (result == -1) {
+                result = t->getParameter().scale;
+            } else if (result != t->getParameter().scale) {
+                // unequal scales in distribution
+                return -1;
+            }
+        }
+        return result;
+    } else {
+        return vc.getVType(vtypeid)->getParameter().scale;
     }
 }
 
@@ -200,9 +223,17 @@ void
 MSInsertionControl::determineCandidates(SUMOTime time) {
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
     // for equidistant vehicles, up-scaling is done via repetitionOffset
-    const double scale = MAX2(1.0, vehControl.getScale());
     for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end();) {
+        MSVehicleType* vtype = nullptr;
         SUMOVehicleParameter* pars = i->pars;
+        double typeScale = i->scale;
+        if (typeScale < 0) {
+            // must sample from distribution to determine scale value
+            vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
+            typeScale = vtype->getParameter().scale;
+        }
+        // only upscaling is considered here
+        double scale = MAX2(1.0, vehControl.getScale() * typeScale);
         bool tryEmitByProb = pars->repetitionProbability > 0;
         while ((pars->repetitionProbability < 0
                 && pars->repetitionsDone < pars->repetitionNumber * scale
@@ -221,12 +252,14 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             // try to build the vehicle
             if (vehControl.getVehicle(newPars->id) == nullptr) {
                 const MSRoute* const route = MSRoute::dictionary(pars->routeid);
-                MSVehicleType* const vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
+                if (vtype == nullptr) {
+                    vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
+                }
                 SUMOVehicle* const vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes);
                 // for equidistant vehicles, up-scaling is done via repetitionOffset
                 // down-scaling is still done via quota (individual vehicles go missing) to preserve as much of the original flow structure as possible
                 bool useScale = pars->repetitionProbability < 0 && scale > 1;
-                int quota = useScale ? 1 : vehControl.getQuota();
+                int quota = useScale ? 1 : vehControl.getQuota(vehControl.getScale() * typeScale);
                 if (quota > 0) {
                     vehControl.addVehicle(newPars->id, vehicle);
                     add(vehicle);
@@ -252,6 +285,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                 }
                 throw ProcessError("Another vehicle with the id '" + newPars->id + "' exists.");
             }
+            vtype = nullptr;
         }
         if (pars->repetitionsDone == (int)(pars->repetitionNumber * scale + 0.5) || pars->repetitionEnd <= time) {
             i = myFlows.erase(i);

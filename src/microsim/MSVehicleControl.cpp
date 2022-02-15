@@ -487,5 +487,4 @@ MSVehicleControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const
     }
 }
 
-
 /****************************************************************************/
