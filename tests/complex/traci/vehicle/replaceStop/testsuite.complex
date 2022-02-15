@@ -61,3 +61,12 @@ unreachable
 
 # replace first stop while on a junction leading away from the new stop
 on_junction
+
+# replace first stop after the vehicle has departed using setStopParameter
+first_parameter
+
+# replace first stop after the vehicle has departed using setStopParameter
+first_parameter_edge
+
+# replace parameters of first stop (but keep the location)
+first_parameter_only
