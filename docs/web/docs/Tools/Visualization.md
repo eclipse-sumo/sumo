@@ -77,9 +77,10 @@ Input is [edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Meas
 
 Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density -y left -s  --scatterplot --yfactor 60 --ylabel vehs/hour`
 
-Each color gives encodes a different edge-id
+Each color gives encodes a different edge-id. Option **--factor 60** is used to convert from vehicles per 60s (edgeData-freq 60) to vehicles per hour.
 
 ![plotAttrs_fundamental.png](../images/plotAttrs_fundamental.png "plotAttrs_fundamental.png")
+
 
 
 ## plot_trajectories.py
