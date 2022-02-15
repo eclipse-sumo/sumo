@@ -15,3 +15,15 @@ flow_number_prob_2
 
 # prevent id collision by using another suffix
 scale-suffix
+
+# load two types and scale them differently
+typeScale_1_2
+
+# load two types and scale them differently, also use global scale
+typeScale_1_2_scale2
+
+# load two types and scale them differently, also use global scale
+typeScale_1_2_scale0.5
+
+# load two types and scale them differently
+flow_typeScale_1_2
