@@ -1701,26 +1701,50 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* /*originalContainer*/) {
 void
 GNERouteHandler::setFlowParameters(const SumoXMLAttr attribute, const bool value, int& parameters) {
     // modify parameters depending of given Flow attribute
-    switch (attribute) {
-        case SUMO_ATTR_END:
-            parameters |= VEHPARS_END_SET;
-            break;
-        case SUMO_ATTR_NUMBER:
-            parameters |= VEHPARS_NUMBER_SET;
-            break;
-        case SUMO_ATTR_VEHSPERHOUR:
-        case SUMO_ATTR_PERSONSPERHOUR:
-        case SUMO_ATTR_CONTAINERSPERHOUR:
-            parameters |= VEHPARS_VPH_SET;
-            break;
-        case SUMO_ATTR_PERIOD:
-            parameters |= VEHPARS_PERIOD_SET;
-            break;
-        case SUMO_ATTR_PROB:
-            parameters |= VEHPARS_PROB_SET;
-            break;
-        default:
-            break;
+    if (value) {
+        switch (attribute) {
+            case SUMO_ATTR_END:
+                parameters |= VEHPARS_END_SET;
+                break;
+            case SUMO_ATTR_NUMBER:
+                parameters |= VEHPARS_NUMBER_SET;
+                break;
+            case SUMO_ATTR_VEHSPERHOUR:
+            case SUMO_ATTR_PERSONSPERHOUR:
+            case SUMO_ATTR_CONTAINERSPERHOUR:
+                parameters |= VEHPARS_VPH_SET;
+                break;
+            case SUMO_ATTR_PERIOD:
+                parameters |= VEHPARS_PERIOD_SET;
+                break;
+            case SUMO_ATTR_PROB:
+                parameters |= VEHPARS_PROB_SET;
+                break;
+            default:
+                break;
+        }
+    } else {
+        switch (attribute) {
+            case SUMO_ATTR_END:
+                parameters &= ~VEHPARS_END_SET;
+                break;
+            case SUMO_ATTR_NUMBER:
+                parameters &= ~VEHPARS_NUMBER_SET;
+                break;
+            case SUMO_ATTR_VEHSPERHOUR:
+            case SUMO_ATTR_PERSONSPERHOUR:
+            case SUMO_ATTR_CONTAINERSPERHOUR:
+                parameters &= ~VEHPARS_VPH_SET;
+                break;
+            case SUMO_ATTR_PERIOD:
+                parameters &= ~VEHPARS_PERIOD_SET;
+                break;
+            case SUMO_ATTR_PROB:
+                parameters &= ~VEHPARS_PROB_SET;
+                break;
+            default:
+                break;
+        }
     }
 }
 
