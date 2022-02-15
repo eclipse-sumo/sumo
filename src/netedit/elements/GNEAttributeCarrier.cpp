@@ -2064,7 +2064,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::DETECTOR,
-                                      GNETagProperties::RTREE | GNETagProperties::MINIMUMCHILDREN,
+                                      GNETagProperties::RTREE,
                                       GUIIcon::E3, currentTag, {}, FXRGBA(240, 238, 249, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -2433,7 +2433,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT,
-                                      GNETagProperties::RTREE | GNETagProperties::DIALOG | GNETagProperties::WRITECHILDRENSEPARATE,
+                                      GNETagProperties::RTREE | GNETagProperties::DIALOG,
                                       GUIIcon::REROUTER, currentTag, {}, FXRGBA(255, 213, 213, 255));
 
         // set values of attributes

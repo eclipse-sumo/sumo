@@ -470,12 +470,6 @@ GNETagProperties::hasDialog() const {
 
 
 bool
-GNETagProperties::hasMinimumNumberOfChildren() const {
-    return (myTagProperty & MINIMUMCHILDREN) != 0;
-}
-
-
-bool
 GNETagProperties::hasParameters() const {
     // note: By default all elements support parameters, except Tags with "NOPARAMETERS"
     return (myTagProperty & NOPARAMETERS) == 0;
@@ -491,12 +485,6 @@ GNETagProperties::isPlacedInRTree() const {
 bool
 GNETagProperties::canBeReparent() const {
     return (myTagProperty & REPARENT) != 0;
-}
-
-
-bool
-GNETagProperties::canWriteChildrenSeparate() const {
-    return (myTagProperty & WRITECHILDRENSEPARATE) != 0;
 }
 
 

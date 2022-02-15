@@ -82,17 +82,15 @@ public:
         GEOSHAPE =                  1 << 2,     // Element's shape acn be defined using a GEO Shape
         DIALOG =                    1 << 3,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
         CHILD =                     1 << 4,     // Element is child of another element and will be writed in XML without id (Example: E3Entry -> E3Detector...)
-        MINIMUMCHILDREN =           1 << 5,     // Element will be only writed in XML if has a minimum number of children
-        REPARENT =                  1 << 6,     // Element can be reparent
-        NOTSELECTABLE =             1 << 7,     // Element cannot be selected
-        MASKSTARTENDPOS =           1 << 8,     // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
-        WRITECHILDRENSEPARATE =     1 << 9,     // Element writes their children in a separated filename
-        NOPARAMETERS =              1 << 10,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        RTREE =                     1 << 11,    // Element is placed in RTREE
-        CENTERAFTERCREATION =       1 << 12,    // Camera is moved after element creation
-        EMBEDDED_ROUTE =            1 << 13,    // Element has an embedded route
-        REQUIERE_PROJ =             1 << 14,    // Element requiere a geo-projection defined in network
-        VCLASS_ICON =               1 << 15,    // Element returns icon depending of their vClass
+        REPARENT =                  1 << 5,     // Element can be reparent
+        NOTSELECTABLE =             1 << 6,     // Element cannot be selected
+        MASKSTARTENDPOS =           1 << 7,     // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
+        NOPARAMETERS =              1 << 8,     // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
+        RTREE =                     1 << 9,     // Element is placed in RTREE
+        CENTERAFTERCREATION =       1 << 10,    // Camera is moved after element creation
+        EMBEDDED_ROUTE =            1 << 11,    // Element has an embedded route
+        REQUIERE_PROJ =             1 << 12,    // Element requiere a geo-projection defined in network
+        VCLASS_ICON =               1 << 13,    // Element returns icon depending of their vClass
     };
 
     /// @brief default constructor
@@ -261,9 +259,6 @@ public:
     /// @brief return true if tag correspond to an element that can be edited using a dialog
     bool hasDialog() const;
 
-    /// @brief return true if tag correspond to an element that only have a limited number of children
-    bool hasMinimumNumberOfChildren() const;
-
     /// @brief return true if Tag correspond to an element that supports parameters "key1=value1|key2=value2|...|keyN=valueN"
     bool hasParameters() const;
 
@@ -272,9 +267,6 @@ public:
 
     /// @brief return true if tag correspond to an element that can be reparent
     bool canBeReparent() const;
-
-    /// @brief return true if tag correspond to an element that can write their child in a different file
-    bool canWriteChildrenSeparate() const;
 
     /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "length"
     bool canMaskStartEndPos() const;
