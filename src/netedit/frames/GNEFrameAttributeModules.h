@@ -199,6 +199,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(AttributesCreator);
 
         /// @brief refresh rows
@@ -273,43 +274,38 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(AttributesCreatorFlow);
 
     private:
         /// @brief pointer to Attributes Creator Parent
         AttributesCreator* myAttributesCreatorParent;
 
-        /// @brief Radio button for 'end' attribute
-        FXRadioButton* myAttributeEndRadioButton = nullptr;
+        /// @brief ComboBox for option A (end, number, end/number)
+        FXComboBox* myOptionAComboBox = nullptr;
 
-        /// @brief textField for 'end' attribute
-        FXTextField* myValueEndTextField = nullptr;
+        /// @brief ComboBox for definition B (perHour, period, probability)
+        FXComboBox* myOptionBComboBox = nullptr;
 
-        /// @brief Radio button for 'number' attribute
-        FXRadioButton* myAttributeNumberRadioButton = nullptr;
+        /// @brief horizontal frame for defition A
+        FXHorizontalFrame* myOptionAHorizontalFrame = nullptr;
 
-        /// @brief textField for 'number' attribute
-        FXTextField* myValueNumberTextField = nullptr;
+        /// @brief Label for option A
+        FXLabel* myOptionALabel = nullptr;
 
-        /// @brief Radio button for 'VehsPerHour' attribute
-        FXRadioButton* myAttributeVehsPerHourRadioButton = nullptr;
+        /// @brief textField for option A attribute
+        FXTextField* myOptionATextField = nullptr;
 
-        /// @brief textField for 'VehsPerHour' attribute
-        FXTextField* myValueVehsPerHourTextField = nullptr;
+        /// @brief horizontal frame for defition B
+        FXHorizontalFrame* myOptionBHorizontalFrame = nullptr;
 
-        /// @brief Radio button for 'period' attribute
-        FXRadioButton* myAttributePeriodRadioButton = nullptr;
+        /// @brief Label for option B
+        FXLabel* myOptionBLabel = nullptr;
 
-        /// @brief textField for 'period' attribute
-        FXTextField* myValuePeriodTextField = nullptr;
+        /// @brief textField for option B attribute
+        FXTextField* myOptionBTextField = nullptr;
 
-        /// @brief Radio button for 'probability' attribute
-        FXRadioButton* myAttributeProbabilityRadioButton = nullptr;
-
-        /// @brief textField for 'probability' attribute
-        FXTextField* myValueProbabilityTextField = nullptr;
-
-        /// @brief per hours attr
+        /// @brief per hours attr (vehicles/person/container)
         SumoXMLAttr myPerHourAttr = SUMO_ATTR_NOTHING;
     };
 

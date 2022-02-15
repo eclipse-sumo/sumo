@@ -755,26 +755,22 @@ GNEFrameAttributeModules::AttributesCreatorFlow::AttributesCreatorFlow(Attribute
     myAttributesCreatorParent(attributesCreatorParent) {
     // declare auxiliar horizontal frame
     FXHorizontalFrame* auxiliarHorizontalFrame = nullptr;
-    // create elements for end attribute
+    // create comboBox for option A
     auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributeEndRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_END).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueEndTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create elements for number attribute
+    new FXLabel(auxiliarHorizontalFrame, "Option A", nullptr, GUIDesignLabelAttribute);
+    myOptionAComboBox = new FXComboBox(auxiliarHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    // create comboBox for option B
     auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributeNumberRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_NUMBER).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueNumberTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create elements for vehsPerHour attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributeVehsPerHourRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueVehsPerHourTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create elements for period attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributePeriodRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PERIOD).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValuePeriodTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create elements for Probability attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributeProbabilityRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PROB).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueProbabilityTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    new FXLabel(auxiliarHorizontalFrame, "Option B", nullptr, GUIDesignLabelAttribute);
+    myOptionBComboBox = new FXComboBox(auxiliarHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    // create textField for option A
+    myOptionAHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    myOptionALabel = new FXLabel(myOptionAHorizontalFrame, "A", nullptr, GUIDesignLabelAttribute);
+    myOptionATextField = new FXTextField(myOptionAHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create textField for option B
+    myOptionBHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    myOptionBLabel = new FXLabel(myOptionBHorizontalFrame, "B", nullptr, GUIDesignLabelAttribute);
+    myOptionBTextField = new FXTextField(myOptionBHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 }
 
 
@@ -812,6 +808,7 @@ GNEFrameAttributeModules::AttributesCreatorFlow::shownAttributesCreatorFlowModul
 
 void
 GNEFrameAttributeModules::AttributesCreatorFlow::refreshAttributesCreatorFlow() {
+/*
     const auto flow = myAttributesCreatorParent->getCurrentTemplateAC();
     // End
     myValueEndTextField->setText(flow->getAttribute(SUMO_ATTR_END).c_str());
@@ -859,11 +856,13 @@ GNEFrameAttributeModules::AttributesCreatorFlow::refreshAttributesCreatorFlow() 
         myAttributeProbabilityRadioButton->setCheck(false);
         myValueProbabilityTextField->disable();
     }
+*/
 }
 
 
 void
 GNEFrameAttributeModules::AttributesCreatorFlow::setFlowParameters(CommonXMLStructure::SumoBaseObject* baseObject) {
+/*
     // end
     if (myValueEndTextField->isEnabled()) {
         baseObject->addDoubleAttribute(SUMO_ATTR_END, GNEAttributeCarrier::parse<double>(myValueEndTextField->getText().text()));
@@ -882,6 +881,7 @@ GNEFrameAttributeModules::AttributesCreatorFlow::setFlowParameters(CommonXMLStru
     if (myValueProbabilityTextField->isEnabled()) {
         baseObject->addDoubleAttribute(SUMO_ATTR_PROB, GNEAttributeCarrier::parse<double>(myValueProbabilityTextField->getText().text()));
     }
+*/
 }
 
 
@@ -903,6 +903,7 @@ GNEFrameAttributeModules::AttributesCreatorFlow::showWarningMessage(std::string 
 
 bool
 GNEFrameAttributeModules::AttributesCreatorFlow::areValuesValid() const {
+/*
     // check every flow attribute
     if (myValueEndTextField->isEnabled() && (myValueEndTextField->getTextColor() == FXRGB(255, 0, 0))) {
         return false;
@@ -919,12 +920,14 @@ GNEFrameAttributeModules::AttributesCreatorFlow::areValuesValid() const {
     if (myValueProbabilityTextField->isEnabled() && (myValueProbabilityTextField->getTextColor() == FXRGB(255, 0, 0))) {
         return false;
     }
+*/
     return true;
 }
 
 
 long
 GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
+/*
     // obtain clicked textfield
     FXTextField* textField = nullptr;
     SumoXMLAttr attr = SUMO_ATTR_NOTHING;
@@ -954,12 +957,14 @@ GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject*
         textField->setTextColor(FXRGB(255, 0, 0));
     }
     textField->killFocus();
+*/
     return 1;
 }
 
 
 long
 GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXObject* obj, FXSelector, void*) {
+/*
     // get previous parameters
     const int previousParameters = GNEAttributeCarrier::parse<int>(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(GNE_ATTR_FLOWPARAMETERS));
     // check what check button was pressed
@@ -976,6 +981,7 @@ GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXOb
     } else {
         throw ProcessError("Invalid Radio Button");
     }
+*/
     // refresh attributes
     refreshAttributesCreatorFlow();
     return 1;
