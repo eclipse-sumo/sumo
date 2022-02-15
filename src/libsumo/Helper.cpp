@@ -655,21 +655,12 @@ Helper::buildStopData(const SUMOVehicleParameter::Stop& stopPar) {
     if (stopPar.overheadWireSegment != "") {
         stoppingPlaceID = stopPar.overheadWireSegment;
     }
-    int stopFlags = (
-                        (stopPar.parking ? 1 : 0) +
-                        (stopPar.triggered ? 2 : 0) +
-                        (stopPar.containerTriggered ? 4 : 0) +
-                        (stopPar.busstop != "" ? 8 : 0) +
-                        (stopPar.containerstop != "" ? 16 : 0) +
-                        (stopPar.chargingStation != "" ? 32 : 0) +
-                        (stopPar.parkingarea != "" ? 64 : 0) +
-                        (stopPar.overheadWireSegment != "" ? 128 : 0));
 
     return TraCINextStopData(stopPar.lane,
                              stopPar.startPos,
                              stopPar.endPos,
                              stoppingPlaceID,
-                             stopFlags,
+                             stopPar.getFlags(),
                              // negative duration is permitted to indicate that a vehicle cannot
                              // re-enter traffic after parking
                              stopPar.duration != -1 ? STEPS2TIME(stopPar.duration) : INVALID_DOUBLE_VALUE,
