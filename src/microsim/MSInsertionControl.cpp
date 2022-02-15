@@ -124,7 +124,8 @@ MSInsertionControl::initScale(const std::string vtypeid) {
         }
         return result;
     } else {
-        return vc.getVType(vtypeid)->getParameter().scale;
+        // rng is not used since vtypeid is not a distribution
+        return vc.getVType(vtypeid, nullptr, true)->getParameter().scale;
     }
 }
 
