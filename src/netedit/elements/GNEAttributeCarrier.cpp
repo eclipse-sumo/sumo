@@ -112,7 +112,7 @@ GNEAttributeCarrier::resetDefaultValues() {
         if (attrProperty.hasDefaultValue()) {
             setAttribute(attrProperty.getAttr(), attrProperty.getDefaultValue());
             if (attrProperty.isActivatable()) {
-                toogleAttribute(attrProperty.getAttr(), attrProperty.getDefaultActivated(), -1);
+                toogleAttribute(attrProperty.getAttr(), attrProperty.getDefaultActivated());
             }
         }
     }

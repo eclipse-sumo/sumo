@@ -540,7 +540,7 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNETransport::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNETransport::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     // nothing to toogle
 }
 

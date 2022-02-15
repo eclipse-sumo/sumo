@@ -956,7 +956,7 @@ GNEAdditional::checkChildAdditionalRestriction() const {
 
 
 void
-GNEAdditional::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNEAdditional::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     // nothing to toogle in Additionals
 }
 

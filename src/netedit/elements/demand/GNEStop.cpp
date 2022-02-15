@@ -1200,25 +1200,25 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_DURATION:
             if (value.empty()) {
-                toogleAttribute(key, false, -1);
+                toogleAttribute(key, false);
             } else {
-                toogleAttribute(key, true, -1);
+                toogleAttribute(key, true);
                 duration = string2time(value);
             }
             break;
         case SUMO_ATTR_UNTIL:
             if (value.empty()) {
-                toogleAttribute(key, false, -1);
+                toogleAttribute(key, false);
             } else {
-                toogleAttribute(key, true, -1);
+                toogleAttribute(key, true);
                 until = string2time(value);
             }
             break;
         case SUMO_ATTR_EXTENSION:
             if (value.empty()) {
-                toogleAttribute(key, false, -1);
+                toogleAttribute(key, false);
             } else {
-                toogleAttribute(key, true, -1);
+                toogleAttribute(key, true);
                 extension = string2time(value);
             }
             break;
@@ -1291,9 +1291,9 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_TRIP_ID:
             if (value.empty()) {
-                toogleAttribute(key, false, -1);
+                toogleAttribute(key, false);
             } else {
-                toogleAttribute(key, true, -1);
+                toogleAttribute(key, true);
                 tripId = value;
             }
             break;
@@ -1360,7 +1360,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEStop::toogleAttribute(SumoXMLAttr key, const bool value, const int /*previousParameters*/) {
+GNEStop::toogleAttribute(SumoXMLAttr key, const bool value) {
     switch (key) {
         case SUMO_ATTR_DURATION:
             if (value) {

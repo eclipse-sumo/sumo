@@ -113,7 +113,7 @@ GNEShape::shiftLaneIndex() {
 
 
 void
-GNEShape::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNEShape::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     // throw InvalidArgument("Nothing to enable");
 }
 

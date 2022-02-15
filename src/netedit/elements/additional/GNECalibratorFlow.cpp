@@ -38,8 +38,8 @@ GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
     // reset default values
     resetDefaultValues();
     // set VPH and speed enabled
-    toogleAttribute(SUMO_ATTR_VEHSPERHOUR, true, 0);
-    toogleAttribute(SUMO_ATTR_SPEED, true, 0);
+    toogleAttribute(SUMO_ATTR_VEHSPERHOUR, true);
+    toogleAttribute(SUMO_ATTR_SPEED, true);
 }
 
 
@@ -692,7 +692,7 @@ GNECalibratorFlow::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoL
 
 
 void
-GNECalibratorFlow::toogleAttribute(SumoXMLAttr key, const bool value, const int /*previousParameters*/) {
+GNECalibratorFlow::toogleAttribute(SumoXMLAttr key, const bool value) {
     switch (key) {
         case SUMO_ATTR_TYPE:
             if (value) {

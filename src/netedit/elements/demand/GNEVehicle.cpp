@@ -259,8 +259,8 @@ SUMOVehicleParameter() {
     // reset default values
     resetDefaultValues();
     // set end and vehPerHours
-    toogleAttribute(SUMO_ATTR_END, 1, 0);
-    toogleAttribute(SUMO_ATTR_VEHSPERHOUR, 1, 0);
+    toogleAttribute(SUMO_ATTR_END, 1);
+    toogleAttribute(SUMO_ATTR_VEHSPERHOUR, 1);
 }
 
 
@@ -1521,33 +1521,25 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_END:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 return (parse<double>(value) >= 0);
             } else {
                 return false;
             }
         case SUMO_ATTR_VEHSPERHOUR:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 return (parse<double>(value) > 0);
             } else {
                 return false;
             }
         case SUMO_ATTR_PERIOD:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 return (parse<double>(value) > 0);
             } else {
                 return false;
             }
         case SUMO_ATTR_PROB:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 return (parse<double>(value) >= 0);
             } else {
                 return false;
@@ -1586,8 +1578,18 @@ GNEVehicle::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 
 void
-GNEVehicle::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to disable
+GNEVehicle::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+    switch (key) {
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_NUMBER:
+        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERIOD:
+        case SUMO_ATTR_PROB:
+            undoList->add(new GNEChange_EnableAttribute(this, key, false, parametersSet), true);
+            return;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -2092,12 +2094,8 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVehicle::toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) {
-    if (value) {
-        GNERouteHandler::setFlowParameters(key, parametersSet);
-    } else {
-        parametersSet = previousParameters;
-    }
+GNEVehicle::toogleAttribute(SumoXMLAttr key, const bool value) {
+    GNERouteHandler::setFlowParameters(key, value, parametersSet);
 }
 
 

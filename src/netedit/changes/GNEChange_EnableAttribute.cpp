@@ -37,8 +37,7 @@ GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, co
     myAC(ac),
     myKey(key),
     myOrigValue(ac->isAttributeEnabled(key)),
-    myNewValue(value),
-    myPreviousParameters(-1) {
+    myNewValue(value) {
     myAC->incRef("GNEChange_EnableAttribute " + myAC->getTagProperty().getTagStr());
 }
 
@@ -48,8 +47,7 @@ GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, co
     myAC(ac),
     myKey(key),
     myOrigValue(ac->isAttributeEnabled(key)),
-    myNewValue(value),
-    myPreviousParameters(previousParameters) {
+    myNewValue(value) {
     myAC->incRef("GNEChange_EnableAttribute " + myAC->getTagProperty().getTagStr());
 }
 
@@ -72,7 +70,7 @@ GNEChange_EnableAttribute::undo() {
     // show extra information for tests
     WRITE_DEBUG("Setting previous attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
     // set original value
-    myAC->toogleAttribute(myKey, myOrigValue, myPreviousParameters);
+    myAC->toogleAttribute(myKey, myOrigValue);
     // check if networkElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetworkElement()) {
         myAC->getNet()->requireSaveNet(true);
@@ -89,7 +87,7 @@ GNEChange_EnableAttribute::redo() {
     // show extra information for tests
     WRITE_DEBUG("Setting new attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
     // set new attributes
-    myAC->toogleAttribute(myKey, myNewValue, myPreviousParameters);
+    myAC->toogleAttribute(myKey, myNewValue);
     // check if networkElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetworkElement()) {
         myAC->getNet()->requireSaveNet(true);

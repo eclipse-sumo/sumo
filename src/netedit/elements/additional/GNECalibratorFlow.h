@@ -143,7 +143,7 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief toogle attribute
-    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
+    void toogleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief Invalidated copy constructor.
     GNECalibratorFlow(const GNECalibratorFlow&) = delete;

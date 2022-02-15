@@ -1699,7 +1699,7 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* /*originalContainer*/) {
 
 
 void
-GNERouteHandler::setFlowParameters(const SumoXMLAttr attribute, int& parameters) {
+GNERouteHandler::setFlowParameters(const SumoXMLAttr attribute, const bool value, int& parameters) {
     // modify parameters depending of given Flow attribute
     switch (attribute) {
         case SUMO_ATTR_END: {

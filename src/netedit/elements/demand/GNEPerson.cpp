@@ -921,12 +921,8 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEPerson::toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) {
-    if (value) {
-        GNERouteHandler::setFlowParameters(key, parametersSet);
-    } else {
-        parametersSet = previousParameters;
-    }
+GNEPerson::toogleAttribute(SumoXMLAttr key, const bool value) {
+    GNERouteHandler::setFlowParameters(key, value, parametersSet);
 }
 
 

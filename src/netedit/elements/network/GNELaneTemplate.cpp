@@ -129,7 +129,7 @@ GNELaneTemplate::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/)
 }
 
 void
-GNELaneTemplate::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNELaneTemplate::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     throw InvalidArgument("cannot be called in templates");
 }
 

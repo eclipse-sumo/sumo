@@ -506,7 +506,7 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEEdgeRelData::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNEEdgeRelData::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     throw InvalidArgument("Nothing to enable");
 }
 

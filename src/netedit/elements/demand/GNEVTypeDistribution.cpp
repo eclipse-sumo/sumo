@@ -276,7 +276,7 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVTypeDistribution::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNEVTypeDistribution::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     // nothing to toogle
 }
 

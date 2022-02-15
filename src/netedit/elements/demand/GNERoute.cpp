@@ -800,7 +800,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNERoute::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNERoute::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     // nothing to toogle
 }
 
