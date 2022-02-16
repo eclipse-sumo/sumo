@@ -970,4 +970,85 @@ GNEDemandElement::getSortedStops(const std::vector<GNEEdge*>& edges) const {
 }
 
 
+void
+GNEDemandElement::setFlowParameters(SUMOVehicleParameter *vehicleParameters, const SumoXMLAttr attribute, const bool value) {
+    // modify parameters depending of given Flow attribute
+    if (value) {
+        switch (attribute) {
+            case SUMO_ATTR_END:
+                vehicleParameters->parametersSet |= VEHPARS_END_SET;
+                break;
+            case SUMO_ATTR_NUMBER:
+                vehicleParameters->parametersSet |= VEHPARS_NUMBER_SET;
+                break;
+            case SUMO_ATTR_VEHSPERHOUR:
+            case SUMO_ATTR_PERSONSPERHOUR:
+            case SUMO_ATTR_CONTAINERSPERHOUR:
+                vehicleParameters->parametersSet |= VEHPARS_VPH_SET;
+                break;
+            case SUMO_ATTR_PERIOD:
+                vehicleParameters->parametersSet |= VEHPARS_PERIOD_SET;
+                break;
+            case SUMO_ATTR_PROB:
+                vehicleParameters->parametersSet |= VEHPARS_PROB_SET;
+                break;
+            default:
+                break;
+        }
+    } else {
+        switch (attribute) {
+            case SUMO_ATTR_END:
+                vehicleParameters->parametersSet &= ~VEHPARS_END_SET;
+                break;
+            case SUMO_ATTR_NUMBER:
+                vehicleParameters->parametersSet &= ~VEHPARS_NUMBER_SET;
+                break;
+            case SUMO_ATTR_VEHSPERHOUR:
+            case SUMO_ATTR_PERSONSPERHOUR:
+            case SUMO_ATTR_CONTAINERSPERHOUR:
+                vehicleParameters->parametersSet &= ~VEHPARS_VPH_SET;
+                break;
+            case SUMO_ATTR_PERIOD:
+                vehicleParameters->parametersSet &= ~VEHPARS_PERIOD_SET;
+                break;
+            case SUMO_ATTR_PROB:
+                vehicleParameters->parametersSet &= ~VEHPARS_PROB_SET;
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
+void
+GNEDemandElement::adjustDefaultFlowAttributes(SUMOVehicleParameter *vehicleParameters) {
+    // end
+    if ((vehicleParameters->parametersSet & VEHPARS_END_SET) == 0) {
+        setAttribute(SUMO_ATTR_END, myTagProperty.getDefaultValue(SUMO_ATTR_END));
+    }
+    // number
+    if ((vehicleParameters->parametersSet & VEHPARS_NUMBER_SET) == 0) {
+        setAttribute(SUMO_ATTR_NUMBER, myTagProperty.getDefaultValue(SUMO_ATTR_NUMBER));
+    }
+    // vehicles/person/container per hour
+    if (myTagProperty.hasAttribute(SUMO_ATTR_VEHSPERHOUR) && ((vehicleParameters->parametersSet & VEHPARS_VPH_SET) == 0)) {
+        setAttribute(SUMO_ATTR_VEHSPERHOUR, myTagProperty.getDefaultValue(SUMO_ATTR_VEHSPERHOUR));
+    }
+    if (myTagProperty.hasAttribute(SUMO_ATTR_PERSONSPERHOUR) && ((vehicleParameters->parametersSet & VEHPARS_VPH_SET) == 0)) {
+        setAttribute(SUMO_ATTR_PERSONSPERHOUR, myTagProperty.getDefaultValue(SUMO_ATTR_PERSONSPERHOUR));
+    }
+    if (myTagProperty.hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR) && ((vehicleParameters->parametersSet & VEHPARS_VPH_SET) == 0)) {
+        setAttribute(SUMO_ATTR_CONTAINERSPERHOUR, myTagProperty.getDefaultValue(SUMO_ATTR_CONTAINERSPERHOUR));
+    }
+    // period
+    if ((vehicleParameters->parametersSet & VEHPARS_PERIOD_SET) == 0) {
+        setAttribute(SUMO_ATTR_PERIOD, myTagProperty.getDefaultValue(SUMO_ATTR_PERIOD));
+    }
+    // probability
+    if ((vehicleParameters->parametersSet & VEHPARS_PROB_SET) == 0) {
+        setAttribute(SUMO_ATTR_PROB, myTagProperty.getDefaultValue(SUMO_ATTR_PROB));
+    }
+}
+
 /****************************************************************************/

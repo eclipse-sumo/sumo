@@ -197,9 +197,6 @@ public:
 
     /// @}
 
-    /// @brief set flow parameters (used in toogleAttribute(...) function of vehicles, persons and containers
-    static void setFlowParameters(const SumoXMLAttr attribute, const bool value, int& parameters);
-
 protected:
     /// @brief parse junction
     GNEJunction* parseJunction(const SumoXMLTag tag, const std::string& junctionID) const;

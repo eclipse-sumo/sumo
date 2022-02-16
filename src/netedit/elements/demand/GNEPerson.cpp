@@ -162,7 +162,7 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_PERSON, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
@@ -170,10 +170,12 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
     GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}, {pType}, {}),
-SUMOVehicleParameter(personparameters) {
+        {}, {}, {}, {}, {}, {}, {pType}, {}),
+    SUMOVehicleParameter(personparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
+    // adjust default flow attributes
+    adjustDefaultFlowAttributes(this);
 }
 
 
@@ -922,7 +924,8 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEPerson::toogleAttribute(SumoXMLAttr key, const bool value) {
-    GNERouteHandler::setFlowParameters(key, value, parametersSet);
+    // set flow parameters
+    setFlowParameters(this, key, value);
 }
 
 
