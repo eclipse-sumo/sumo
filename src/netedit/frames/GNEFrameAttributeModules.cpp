@@ -49,8 +49,8 @@ FXDEFMAP(GNEFrameAttributeModules::AttributesCreator) AttributesCreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,       GNEFrameAttributeModules::AttributesCreator::onCmdHelp),
 };
 
-FXDEFMAP(GNEFrameAttributeModules::AttributesCreatorFlow) AttributesCreatorFlowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSetFlowAttribute),
+FXDEFMAP(GNEFrameAttributeModules::FlowEditor) FlowEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEFrameAttributeModules::FlowEditor::onCmdSetFlowAttribute),
 };
 
 FXDEFMAP(GNEFrameAttributeModules::AttributesEditorRow) AttributesEditorRowMap[] = {
@@ -86,7 +86,7 @@ FXDEFMAP(GNEFrameAttributeModules::NeteditAttributes) NeteditAttributesMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesCreatorRow,         FXHorizontalFrame,      RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesCreator,            FXGroupBoxModule,       AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesCreatorFlow,        FXGroupBoxModule,       AttributesCreatorFlowMap,       ARRAYNUMBER(AttributesCreatorFlowMap))
+FXIMPLEMENT(GNEFrameAttributeModules::FlowEditor,                   FXGroupBoxModule,       FlowEditorMap,                  ARRAYNUMBER(FlowEditorMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorRow,          FXHorizontalFrame,      AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditor,             FXGroupBoxModule,       AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorExtended,     FXGroupBoxModule,       AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
@@ -502,8 +502,8 @@ GNEFrameAttributeModules::AttributesCreator::AttributesCreator(GNEFrame* framePa
     myTemplateAC(nullptr) {
     // resize myAttributesCreatorRows
     myAttributesCreatorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
-    // create myAttributesCreatorFlow
-    myAttributesCreatorFlow = new AttributesCreatorFlow(frameParent->getViewNet(), frameParent->myContentFrame);
+    // create myFlowEditor
+    myFlowEditor = new FlowEditor(frameParent->getViewNet(), frameParent->myContentFrame);
     // create reset and help button
     myFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myResetButton = new FXButton(myFrameButtons, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
@@ -544,7 +544,7 @@ GNEFrameAttributeModules::AttributesCreator::showAttributesCreatorModule(GNEAttr
 void
 GNEFrameAttributeModules::AttributesCreator::hideAttributesCreatorModule() {
     // hide attributes creator flow
-    myAttributesCreatorFlow->hideAttributesCreatorFlowModule();
+    myFlowEditor->hideFlowEditor();
     // hide modul
     hide();
 }
@@ -605,9 +605,9 @@ GNEFrameAttributeModules::AttributesCreator::getAttributesAndValues(CommonXMLStr
             }
         }
     }
-    // add extra flow attributes (only will updated if myAttributesCreatorFlow is shown)
-    if (myAttributesCreatorFlow->shownAttributesCreatorFlowModule()) {
-        myAttributesCreatorFlow->getFlowAttributes(baseObject);
+    // add extra flow attributes (only will updated if myFlowEditor is shown)
+    if (myFlowEditor->shownFlowEditor()) {
+        myFlowEditor->getFlowAttributes(baseObject);
     }
 }
 
@@ -666,8 +666,8 @@ GNEFrameAttributeModules::AttributesCreator::areValuesValid() const {
         }
     }
     // check flow attributes
-    if (myAttributesCreatorFlow->shownAttributesCreatorFlowModule()) {
-        return myAttributesCreatorFlow->areFlowValuesValid();
+    if (myFlowEditor->shownFlowEditor()) {
+        return myFlowEditor->areFlowValuesValid();
     }
     return true;
 }
@@ -737,17 +737,17 @@ GNEFrameAttributeModules::AttributesCreator::refreshRows(const bool createRows) 
     recalc();
     // check if flow editor has to be shown
     if (showFlowEditor) {
-        myAttributesCreatorFlow->showAttributesCreatorFlowModule({myTemplateAC});
+        myFlowEditor->showFlowEditor({myTemplateAC});
     } else {
-        myAttributesCreatorFlow->hideAttributesCreatorFlowModule();
+        myFlowEditor->hideFlowEditor();
     }
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributeModules::AttributesCreatorFlow - methods
+// GNEFrameAttributeModules::FlowEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributeModules::AttributesCreatorFlow::AttributesCreatorFlow(GNEViewNet* viewNet, FXVerticalFrame* contentFrame) :
+GNEFrameAttributeModules::FlowEditor::FlowEditor(GNEViewNet* viewNet, FXVerticalFrame* contentFrame) :
     FXGroupBoxModule(contentFrame, "Flow attributes"),
     myViewNet(viewNet) {
     // create comboBox for option A
@@ -779,11 +779,11 @@ GNEFrameAttributeModules::AttributesCreatorFlow::AttributesCreatorFlow(GNEViewNe
 }
 
 
-GNEFrameAttributeModules::AttributesCreatorFlow::~AttributesCreatorFlow() {}
+GNEFrameAttributeModules::FlowEditor::~FlowEditor() {}
 
 
 void
-GNEFrameAttributeModules::AttributesCreatorFlow::showAttributesCreatorFlowModule(const std::vector<GNEAttributeCarrier*> editedFlows) {
+GNEFrameAttributeModules::FlowEditor::showFlowEditor(const std::vector<GNEAttributeCarrier*> editedFlows) {
     // update flows
     myEditedFlows = editedFlows;
     // check number of flows
@@ -803,7 +803,7 @@ GNEFrameAttributeModules::AttributesCreatorFlow::showAttributesCreatorFlowModule
         mySpacingComboBox->appendItem(toString(SUMO_ATTR_PROB).c_str());
         mySpacingComboBox->setNumVisible(3);
         // refresh
-        refreshAttributesCreatorFlow();
+        refreshFlowEditor();
         // show
         show();
     }
@@ -811,19 +811,19 @@ GNEFrameAttributeModules::AttributesCreatorFlow::showAttributesCreatorFlowModule
 
 
 void
-GNEFrameAttributeModules::AttributesCreatorFlow::hideAttributesCreatorFlowModule() {
+GNEFrameAttributeModules::FlowEditor::hideFlowEditor() {
     hide();
 }
 
 
 bool
-GNEFrameAttributeModules::AttributesCreatorFlow::shownAttributesCreatorFlowModule() const {
+GNEFrameAttributeModules::FlowEditor::shownFlowEditor() const {
     return shown();
 }
 
 
 void
-GNEFrameAttributeModules::AttributesCreatorFlow::refreshAttributesCreatorFlow() {
+GNEFrameAttributeModules::FlowEditor::refreshFlowEditor() {
     // show both attributes
     myTerminateFrameTextField->show();
     mySpacingFrameTextField->show();
@@ -839,7 +839,7 @@ GNEFrameAttributeModules::AttributesCreatorFlow::refreshAttributesCreatorFlow() 
 
 
 void
-GNEFrameAttributeModules::AttributesCreatorFlow::getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject) {
+GNEFrameAttributeModules::FlowEditor::getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject) {
     // case end-number
     if (myTerminateLabel->getText().text() == toString(SUMO_ATTR_END)) {
         baseObject->addDoubleAttribute(SUMO_ATTR_END, GNEAttributeCarrier::parse<double>(myTerminateTextField->getText().text()));
@@ -864,7 +864,7 @@ GNEFrameAttributeModules::AttributesCreatorFlow::getFlowAttributes(CommonXMLStru
 
 
 bool
-GNEFrameAttributeModules::AttributesCreatorFlow::areFlowValuesValid() const {
+GNEFrameAttributeModules::FlowEditor::areFlowValuesValid() const {
     // check text fields
     if (myTerminateFrameTextField->shown() && (myTerminateTextField->getTextColor() == FXRGB(0, 0, 0)) &&
         mySpacingFrameTextField->shown() && (mySpacingTextField->getTextColor() == FXRGB(0, 0, 0))) {
@@ -876,7 +876,7 @@ GNEFrameAttributeModules::AttributesCreatorFlow::areFlowValuesValid() const {
 
 
 long
-GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributeModules::FlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
     // check number of flows
     if (myEditedFlows.front()) {
         // declare vectors for enable/disable attributes
@@ -1055,14 +1055,14 @@ GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject*
             }
         }
         // refresh attribute creator
-        refreshAttributesCreatorFlow();
+        refreshFlowEditor();
     }
     return 1;
 }
 
 
 void
-GNEFrameAttributeModules::AttributesCreatorFlow::refreshSingleFlow() {
+GNEFrameAttributeModules::FlowEditor::refreshSingleFlow() {
     // get flow (only for code legibly)
     const auto flow = myEditedFlows.front();
     // continue depending of combinations
@@ -1130,7 +1130,7 @@ GNEFrameAttributeModules::AttributesCreatorFlow::refreshSingleFlow() {
 
 
 void 
-GNEFrameAttributeModules::AttributesCreatorFlow::refreshMultipleFlows() {
+GNEFrameAttributeModules::FlowEditor::refreshMultipleFlows() {
     // get first flow (only for code legibly)
     const auto flow = myEditedFlows.front();
     // get values of first flow
@@ -1243,7 +1243,7 @@ GNEFrameAttributeModules::AttributesCreatorFlow::refreshMultipleFlows() {
 
 
 const std::string
-GNEFrameAttributeModules::AttributesCreatorFlow::getFlowAttribute(SumoXMLAttr attr) {
+GNEFrameAttributeModules::FlowEditor::getFlowAttribute(SumoXMLAttr attr) {
     if (myEditedFlows.size() == 1) {
         return myEditedFlows.front()->getAttribute(attr);
     } else {
@@ -1811,9 +1811,9 @@ GNEFrameAttributeModules::AttributesEditor::AttributesEditor(GNEFrame* FramePare
     // resize myAttributesEditorRows
     myAttributesEditorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // create myAttributesFlowEditor
-    myAttributesEditorFlow = new AttributesCreatorFlow(FrameParent->getViewNet(), FrameParent->myContentFrame);
+    myAttributesEditorFlow = new FlowEditor(FrameParent->getViewNet(), FrameParent->myContentFrame);
     // leave it hidden
-    myAttributesEditorFlow->hideAttributesCreatorFlowModule();
+    myAttributesEditorFlow->hideFlowEditor();
     // Create help button
     myHelpButton = new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -1897,14 +1897,14 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
         }
         // check if Flow editor has to be shown
         if (showFlowEditor) {
-            myAttributesEditorFlow->showAttributesCreatorFlowModule(ACs);
+            myAttributesEditorFlow->showFlowEditor(ACs);
         } else {
-            myAttributesEditorFlow->hideAttributesCreatorFlowModule();
+            myAttributesEditorFlow->hideFlowEditor();
         }
         // show AttributesEditor
         show();
     } else {
-        myAttributesEditorFlow->hideAttributesCreatorFlowModule();
+        myAttributesEditorFlow->hideFlowEditor();
     }
     // reparent help button (to place it at bottom)
     myHelpButton->reparent(this);
@@ -1914,7 +1914,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
 void
 GNEFrameAttributeModules::AttributesEditor::hideAttributesEditorModule() {
     // hide AttributesEditorFlowModule
-    myAttributesEditorFlow->hideAttributesCreatorFlowModule();
+    myAttributesEditorFlow->hideFlowEditor();
     // hide also AttributesEditor
     hide();
 }
@@ -1989,8 +1989,8 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
             }
         }
         // check if flow editor has to be update
-        if (myAttributesEditorFlow->shownAttributesCreatorFlowModule()) {
-            myAttributesEditorFlow->refreshAttributesCreatorFlow();
+        if (myAttributesEditorFlow->shownFlowEditor()) {
+            myAttributesEditorFlow->refreshFlowEditor();
         }
     }
 }

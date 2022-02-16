@@ -45,7 +45,7 @@ public:
 
     class AttributesCreator;
     class AttributesEditor;
-    class AttributesCreatorFlow;
+    class FlowEditor;
     class AttributesEditorFlow;
 
     // ===========================================================================
@@ -209,8 +209,8 @@ public:
         /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent = nullptr;
 
-        /// @brief pointer to myAttributesCreatorFlow
-        AttributesCreatorFlow* myAttributesCreatorFlow = nullptr;
+        /// @brief pointer to myFlowEditor
+        FlowEditor* myFlowEditor = nullptr;
 
         /// @brief current templateAC
         GNEAttributeCarrier* myTemplateAC;
@@ -229,31 +229,31 @@ public:
     };
 
     // ===========================================================================
-    // class AttributesCreatorFlow
+    // class FlowEditor
     // ===========================================================================
 
-    class AttributesCreatorFlow : public FXGroupBoxModule {
+    class FlowEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributeModules::AttributesCreatorFlow)
+        FXDECLARE(GNEFrameAttributeModules::FlowEditor)
 
     public:
         /// @brief constructor
-        AttributesCreatorFlow(GNEViewNet* viewNet, FXVerticalFrame* contentFrame);
+        FlowEditor(GNEViewNet* viewNet, FXVerticalFrame* contentFrame);
 
         /// @brief destructor
-        ~AttributesCreatorFlow();
+        ~FlowEditor();
 
-        /// @brief show AttributesCreatorFlow modul
-        void showAttributesCreatorFlowModule(const std::vector<GNEAttributeCarrier*> editedFlows);
+        /// @brief show FlowEditor modul
+        void showFlowEditor(const std::vector<GNEAttributeCarrier*> editedFlows);
 
         /// @brief hide group box
-        void hideAttributesCreatorFlowModule();
+        void hideFlowEditor();
 
-        /// @brief shown AttributesCreatorFlow modul
-        bool shownAttributesCreatorFlowModule() const;
+        /// @brief shown FlowEditor modul
+        bool shownFlowEditor() const;
 
-        /// @brief refresh AttributesCreatorFlow
-        void refreshAttributesCreatorFlow();
+        /// @brief refresh FlowEditor
+        void refreshFlowEditor();
 
         /// @brief get flow attributes
         void getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject);
@@ -270,7 +270,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(AttributesCreatorFlow);
+        FOX_CONSTRUCTOR(FlowEditor);
 
         /// @brief refresh single flow
         void refreshSingleFlow();
@@ -294,7 +294,7 @@ public:
         /// @brief Label for terminate definition
         FXLabel* myTerminateLabel = nullptr;
 
-        /// @brief textField for option A attribute
+        /// @brief textField for terminate attribute
         FXTextField* myTerminateTextField = nullptr;
 
         /// @brief horizontal frame for terminate options
@@ -434,8 +434,8 @@ public:
         /// @brief pointer to GNEFrame parent
         GNEFrame* myFrameParent;
 
-        /// @brief AttributesCreatorFlow modul
-        AttributesCreatorFlow* myAttributesEditorFlow = nullptr;
+        /// @brief FlowEditor modul
+        FlowEditor* myAttributesEditorFlow = nullptr;
 
         /// @brief list of Attribute editor rows
         std::vector<AttributesEditorRow*> myAttributesEditorRows;
