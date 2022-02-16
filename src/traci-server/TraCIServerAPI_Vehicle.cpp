@@ -168,6 +168,27 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     writeNextStops(server, id, 0, false);
                     break;
                 }
+                case libsumo::VAR_STOP_PARAMETER: {
+                    // read variables
+                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "getting stop parameter needs a compound object description.", outputStorage);
+                    }
+                    int compoundSize = inputStorage.readInt();
+                    if (compoundSize != 2) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "getting a stop parameter needs a compound object description of 2 items.", outputStorage);
+                    }
+                    int nextStopIndex;
+                    if (!server.readTypeCheckingInt(inputStorage, nextStopIndex)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first setStopParameter parameter must be the nextStopIndex given as an integer.", outputStorage);
+                    }
+                    std::string param;
+                    if (!server.readTypeCheckingString(inputStorage, param)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second setStopParameter parameter must be the param given as a string.", outputStorage);
+                    }
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                    server.getWrapperStorage().writeString(libsumo::Vehicle::getStopParameter(id, nextStopIndex, param));
+                }
+                break;
                 case libsumo::DISTANCE_REQUEST: {
                     if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                         return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires a compound object.", outputStorage);

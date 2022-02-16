@@ -902,6 +902,14 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_DISTANCE, vehID)
 
+    def getStopParameter(self, vehID, nextStopIndex, param):
+        """setStopParameter(string, int, string) -> string
+        Gets the value of the given parameter for the stop at the given index
+        Negative indices permit access to past stops.
+        Supported params correspond to all legal stop xml-attributes
+        """
+        return self._getUniversal(tc.VAR_STOP_PARAMETER, vehID, "tis", 2, nextStopIndex, param)
+
     def getStopState(self, vehID):
         """getStopState(string) -> integer
 

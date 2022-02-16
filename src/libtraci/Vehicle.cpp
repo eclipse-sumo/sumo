@@ -379,6 +379,14 @@ Vehicle::getStops(const std::string& vehID, int limit) {
     return result;
 }
 
+std::string
+Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std::string& param) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedInt(content, nextStopIndex);
+    StoHelp::writeTypedString(content, param);
+    return Dom::getString(libsumo::VAR_STOP_PARAMETER, vehID, &content);
+}
 
 int
 Vehicle::getStopState(const std::string& vehID) {

@@ -986,6 +986,80 @@ Vehicle::insertStop(const std::string& vehID,
 }
 
 
+std::string
+Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std::string& param) {
+    MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
+    try {
+        if (nextStopIndex >= (int)vehicle->getStops().size() || (nextStopIndex < 0 && -nextStopIndex > (int)vehicle->getPastStops().size())) {
+            throw ProcessError("Invalid stop index " + toString(nextStopIndex)
+                    + " (has " + toString(vehicle->getPastStops().size()) + " past stops and " + toString(vehicle->getStops().size()) + " remaining stops)");
+
+        }
+        const SUMOVehicleParameter::Stop& pars = (nextStopIndex >= 0
+            ? vehicle->getStop(nextStopIndex).pars
+            : vehicle->getPastStops()[vehicle->getPastStops().size() + nextStopIndex]);
+
+        if (param == toString(SUMO_ATTR_EDGE)) {
+            return pars.edge;
+        } else if (param == toString(SUMO_ATTR_LANE)) {
+            return toString(SUMOXMLDefinitions::getIndexFromLane(pars.lane));
+        } else if (param == toString(SUMO_ATTR_BUS_STOP)
+                || param == toString(SUMO_ATTR_TRAIN_STOP)) {
+            return pars.busstop;
+        } else if (param == toString(SUMO_ATTR_CONTAINER_STOP)) {
+            return pars.containerstop;
+        } else if (param == toString(SUMO_ATTR_CHARGING_STATION)) {
+            return pars.chargingStation;
+        } else if (param == toString(SUMO_ATTR_PARKING_AREA)) {
+            return pars.parkingarea;
+        } else if (param == toString(SUMO_ATTR_STARTPOS)) {
+            return toString(pars.startPos);
+        } else if (param == toString(SUMO_ATTR_ENDPOS)) {
+            return toString(pars.endPos);
+        } else if (param == toString(SUMO_ATTR_POSITION_LAT)) {
+            return toString(pars.posLat == INVALID_DOUBLE ? INVALID_DOUBLE_VALUE : pars.posLat);
+        } else if (param == toString(SUMO_ATTR_ARRIVAL)) {
+            return pars.arrival < 0 ? "-1" : time2string(pars.arrival);
+        } else if (param == toString(SUMO_ATTR_DURATION)) {
+            return pars.duration < 0 ? "-1" : time2string(pars.duration);
+        } else if (param == toString(SUMO_ATTR_UNTIL)) {
+            return pars.until < 0 ? "-1" : time2string(pars.until);
+        } else if (param == toString(SUMO_ATTR_EXTENSION)) {
+            return pars.extension < 0 ? "-1" : time2string(pars.extension);
+        } else if (param == toString(SUMO_ATTR_INDEX)) {
+            return toString(nextStopIndex + vehicle->getPastStops().size()); 
+        } else if (param == toString(SUMO_ATTR_PARKING)) {
+            return toString(pars.parking);
+        } else if (param == toString(SUMO_ATTR_TRIGGERED)) {
+            return joinToString(pars.getTriggers(), " ");
+        } else if (param == toString(SUMO_ATTR_EXPECTED)) {
+            return joinToString(pars.awaitedPersons, " ");
+        } else if (param == toString(SUMO_ATTR_EXPECTED_CONTAINERS)) {
+            return joinToString(pars.awaitedContainers, " ");
+        } else if (param == toString(SUMO_ATTR_PERMITTED)) {
+            return joinToString(pars.permitted, " ");
+        } else if (param == toString(SUMO_ATTR_ACTTYPE)) {
+            return pars.actType;
+        } else if (param == toString(SUMO_ATTR_TRIP_ID)) {
+            return pars.tripId;
+        } else if (param == toString(SUMO_ATTR_SPLIT)) {
+            return pars.split;
+        } else if (param == toString(SUMO_ATTR_JOIN)) {
+            return pars.join;
+        } else if (param == toString(SUMO_ATTR_LINE)) {
+            return pars.line;
+        } else if (param == toString(SUMO_ATTR_SPEED)) {
+            return toString(pars.speed);
+        } else {
+            throw ProcessError("Unsupported parameter '" + param + "'");
+        }
+    } catch (ProcessError& e) {
+        throw TraCIException("Could not get stop parameter for vehicle '" + vehID + "' (" + e.what() + ")");
+    }
+}
+
+
+
 void
 Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
                                  const std::string& param, const std::string& value) {
@@ -1081,7 +1155,7 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
             throw ProcessError("Unsupported parameter '" + param + "'");
         }
     } catch (ProcessError& e) {
-        throw TraCIException("Could not set stop paramater for vehicle '" + vehID + "' (" + e.what() + ")");
+        throw TraCIException("Could not set stop parameter for vehicle '" + vehID + "' (" + e.what() + ")");
     }
 }
 

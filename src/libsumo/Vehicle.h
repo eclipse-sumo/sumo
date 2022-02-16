@@ -87,6 +87,8 @@ public:
     static std::vector<libsumo::TraCINextStopData> getNextStops(const std::string& vehID);
     static std::vector<libsumo::TraCINextStopData> getStops(const std::string& vehID, int limit = 0);
     static int getStopState(const std::string& vehID);
+    static std::string getStopParameter(const std::string& vehID, int nextStopIndex, const std::string& param);
+
     static double getDistance(const std::string& vehID);
     static double getDrivingDistance(const std::string& vehID, const std::string& edgeID, double position, int laneIndex = 0);
     static double getDrivingDistance2D(const std::string& vehID, double x, double y);
