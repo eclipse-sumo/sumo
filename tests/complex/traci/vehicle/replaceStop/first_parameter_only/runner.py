@@ -32,6 +32,33 @@ import traci  # noqa
 import sumolib  # noqa
 import traci.constants as tc  # noqa
 
+def getParams(vehID, index):
+    print("stop parameters for index %s at time %s:" % (
+        index, traci.simulation.getTime()))
+
+    for p in [
+            "index",
+            "edge",
+            "lane",
+            "startPos",
+            "endPos",
+            "posLat",
+            "arrival",
+            "duration",
+            "until",
+            "extension",
+            "parking",
+            "triggered",
+            "permitted",
+            "expected",
+            "actType",
+            "tripId",
+            "split",
+            "join",
+            "line",
+            "speed",
+            ]:
+        print(p, traci.vehicle.getStopParameter(vehID, index, p))
 
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
@@ -64,5 +91,9 @@ while traci.simulation.getMinExpectedNumber() > 0:
         traci.vehicle.setStopParameter(vehID, 0, "join", "train1")
         traci.vehicle.setStopParameter(vehID, 0, "line", "S42")
         traci.vehicle.setStopParameter(vehID, 0, "speed", "3")
+    if traci.simulation.getTime() == 6:
+        getParams(vehID, 0)
+    if traci.simulation.getTime() == 200:
+        getParams(vehID, -1)
     traci.simulationStep()
 traci.close()
