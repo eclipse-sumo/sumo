@@ -241,7 +241,7 @@ GUISUMOAbstractView::updatePositionInformation() const {
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
         text = "lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo);
     } else {
-        text = "x:" + toString(pos.x()) + ", y:" + toString(pos.y());
+        text = "No projection defined";
     }
     myApp->getGeoLabel().setText(text.c_str());
 }
