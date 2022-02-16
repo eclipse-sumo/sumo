@@ -244,7 +244,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
     if ((parametersSet & STOP_EXTENSION_SET) && (extension >= 0)) {
         dev.writeAttr(SUMO_ATTR_EXTENSION, time2string(extension));
     }
-    writeTriggers(dev);
+    if ((parametersSet & STOP_TRIGGER_SET) != 0) {
+        dev.writeAttr(SUMO_ATTR_TRIGGERED, getTriggers());
+    }
     if ((parametersSet & STOP_PARKING_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_PARKING, parking);
     }
@@ -682,21 +684,19 @@ SUMOVehicleParameter::parseStopTriggers(const std::vector<std::string>& triggers
 }
 
 
-void
-SUMOVehicleParameter::Stop::writeTriggers(OutputDevice& dev) const {
-    if ((parametersSet & STOP_TRIGGER_SET) != 0) {
-        std::vector<std::string> triggers;
-        if (triggered) {
-            triggers.push_back(toString(SUMO_TAG_PERSON));
-        }
-        if (containerTriggered) {
-            triggers.push_back(toString(SUMO_TAG_CONTAINER));
-        }
-        if (joinTriggered) {
-            triggers.push_back(toString(SUMO_ATTR_JOIN));
-        }
-        dev.writeAttr(SUMO_ATTR_TRIGGERED, triggers);
+std::vector<std::string>
+SUMOVehicleParameter::Stop::getTriggers() const {
+    std::vector<std::string> triggers;
+    if (triggered) {
+        triggers.push_back(toString(SUMO_TAG_PERSON));
     }
+    if (containerTriggered) {
+        triggers.push_back(toString(SUMO_TAG_CONTAINER));
+    }
+    if (joinTriggered) {
+        triggers.push_back(toString(SUMO_ATTR_JOIN));
+    }
+    return triggers;
 }
 
 int
