@@ -1237,12 +1237,9 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
     if (s.contextDomain > 0) {
         length += 1 + 4;  // context domain and number of objects
     }
-    if (length > 255) {
-        writeInto.writeUnsignedByte(0); // command length -> extended
-        writeInto.writeInt(length);
-    } else {
-        writeInto.writeUnsignedByte(length);
-    }
+    // we always write extended command length here for backward compatibility
+    writeInto.writeUnsignedByte(0); // command length -> extended
+    writeInto.writeInt(length);
     writeInto.writeUnsignedByte(s.commandId + 0x10);
     writeInto.writeString(s.id);
     if (s.contextDomain > 0) {
