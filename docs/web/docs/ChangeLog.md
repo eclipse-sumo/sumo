@@ -18,6 +18,7 @@ title: ChangeLog
   - Fixed invalid route when specifying a trip that loops back onto the start edge with arrivalPos < departPos. Issue #2757
   - Fixed invalid error message when using mismatched parentheses in traffic light switching conditions
   - Fixed sub-optimal insertion flow with departLane="best". Issue #10137
+  - Scaling vehicles with vTypeDistribution now resamples the type for each added vehicle. Issue #10155
 
 - sumo-gui
   - Fixed crash when opening phase tracker window on invalid switching conditions. Issue #10121
@@ -27,10 +28,13 @@ title: ChangeLog
   - Fixed platform dependency in OpenDRIVE export. Issue #10030
   - Internal bicycle lanes which originate from a narrow bicycle lane are now narrow themselves. Issue  #10051
   - removed obsolete multiple-connections warnings. Issue #10089
+  - Fixed invalid junction shape when patching node positions to create zero-length edge (also affected netedit). Issue #10150
+  - Now importing all types of traffic light signals from OpenDRIVE. Issue #10153
 
 - netedit
   - Fixed invalid geometry when loading geo-polygons. Issue #10101 (regression in 1.10.0)
   - Fixed invalid junction color after creating a trip (from/to). Issue #9980 (regression in 1.12.0)
+  - Fixned invalid when creating flow (embedded route) with via edges. Issue #10120
   
 - sumo-gui
   - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069
@@ -42,6 +46,7 @@ title: ChangeLog
 - traci
   - Fixed invalid length value in TraCI response for context subscription. Issue #10108
   - Fixed crash when calling 'vehicle.replaceStop' to replace stop that was added from a named route before a vehicle departed. Issue #10135
+  - libsumo and traci no longer differ on context subscriptions to TRACI_ID_LIST. Issue #7288
 
 - tools
   - generateTurnRatios.py now writes correct closing tag. Issue #10140 (regression in 1.11.0)
@@ -53,8 +58,10 @@ title: ChangeLog
   - Traffic light type 'NEMA' now supports TS1 and TS2 offsets as well as Type 170. Issue #10013
   - Phase attributes 'minDur, maxDur, earliestEnd, latestEnd' can now be [overridden with condition-expressions](Simulation/Traffic_Lights.md#overriding_phase_attributes_with_expressions). Issue #10047
   - Traffic lights with custom switching rules now support [custom runtime variables](Simulation/Traffic_Lights.md#storing_and_modifying_custom_data). Issue #10049
+  - Traffic lights with custom switching rules now support [user-defined functions](Simulation/Traffic_Lights.md#custom_function_definitions). Issue #10123
   - Detector and condition states can now be included in [tls output](Simulation/Output/Traffic_Lights.md#optional_output). Issue #10065
   - edgeData output now supports attributes 'edges' and 'edgesFile' to reduce the output to a configurable list of edges. Issues #10025
+  - edgeData output now supports attribute 'aggregate' to aggregate data for all (selected) edges. Issue #10026
   - Vehroute-output now includes attribute 'replacedOnIndex' for routes that were replaced after departure to resolve ambiguity for looped routes. Issue #10092
   - Added option **--replay-rerouting** to re-run scenarios from vehroute-output in the same way as the original run. Issue #3024
   - Actuated traffic lights with custom switching rules can now retrieve the current time within the cycle `c:`. Issue #10109  
@@ -63,6 +70,7 @@ title: ChangeLog
   - Added option **--save-configuration.relative** to write config-relative file paths when saving configuration. Issue #6578
   - Smoothed the effect size curve of vehicle impatience. Previously, most of the effect occured at low impatience values and larger values did not matter. To compensate for the reduced gradient, the default of option **--time-to-impatience** was reduced from 300s to 180s. Issue #8507
   - Vehicle flows with equidistant spacing (i.e. `period="x"`) now remain equidistant when the flow is increased via option **--scale**. Issue #10126
+  - Added vType attribute 'scale' to allow type-specific demand scaling. Issue #1478
 
 - sumo-gui
   - Enabled dpi awareness. Issue #9985
@@ -72,6 +80,7 @@ title: ChangeLog
 
 - netconvert
   - Improved speed of OSM import. Isse #8147
+  - OpenDRIVE export now includes `<signal>` and `<controller>` information. Issue #2367
 
 - polyconvert
   - Shapefile with geometry encoded as linestring2D is now supported. Issue #10100
@@ -80,6 +89,8 @@ title: ChangeLog
   - Added function 'traci.inductionloop.overrideTimeSinceDetection' and 'traci.lanearea.overrideVehicleNumber' to trigger the detector without the need for vehicles and facilitate traffic light testing. Issue #10045, #10048
   - function 'traci.vehicle.setPreviousSpeed' now supports an optional parameter to set the previous acceleration. Issue #10097
   - function `traci.simulation.subscribeContext' can now be used to subscribe to all objects in the simulation networ. Issue #8388
+  - Added functin 'vehicle.insertStop' to add stops anywhere in the stop list and reroute automatically. Issue #10132
+  - Added function 'vehicle.setStopParameter' to set any possible attribute for any upcoming stop. Issue #7981
 
 - tools
   - routeStats.py: Can use measures "speed", "speedKmh", "routeLength", the fast XML parser and filter by route length . Issue #10044
@@ -97,6 +108,7 @@ title: ChangeLog
   
  - The [test extraction page](https://sumo.dlr.de/extractTest.php) now supports downloading a whole direction of tests. Issue #10105
  - The ubuntu package now includes emission tools, header files and libsumo/libtraci.so files. Issue #10136
+ - Removed obsolete and broken tool 'personGenerator.py' (use personFlow instead). Issue #10143
 
 ## Version 1.12.0 (25.01.2022)
 
