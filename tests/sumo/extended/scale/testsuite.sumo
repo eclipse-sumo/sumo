@@ -27,3 +27,9 @@ typeScale_1_2_scale0.5
 
 # load two types and scale them differently
 flow_typeScale_1_2
+
+# fair sampling from vTypeDistribution when upscaling flow
+flow_10_typeDist
+
+# fair sampling from vTypeDistribution when upscaling a vehicle
+10_typeDist
