@@ -327,6 +327,9 @@ GUIApplicationWindow::create() {
     FXint textWidth = getApp()->getNormalFont()->getTextWidth("8", 1) * 24;
     myCartesianFrame->setWidth(textWidth);
     myGeoFrame->setWidth(textWidth);
+    if (myTestFrame) {
+        myTestFrame->setWidth(textWidth);
+    }
 
     show(PLACEMENT_DEFAULT);
     if (!OptionsCont::getOptions().isSet("window-size")) {
@@ -1852,6 +1855,9 @@ GUIApplicationWindow::closeAllWindows() {
     // remove coordinate information
     myGeoCoordinate->setText("N/A");
     myCartesianCoordinate->setText("N/A");
+    if (myTestCoordinate) {
+        myTestCoordinate->setText("N/A");
+    }
     //
     GUITexturesHelper::clearTextures();
     GLHelper::resetFont();
