@@ -1552,7 +1552,8 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_PROB:
             if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
+                const double prob = parse<double>(value);
+                return ((prob >= 0) && (prob <= 1));
             } else {
                 return false;
             }

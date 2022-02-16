@@ -1140,28 +1140,28 @@ GNEFrameAttributeModules::FlowEditor::refreshMultipleFlows() {
     const bool period = flow->isAttributeEnabled(SUMO_ATTR_PERIOD);
     const bool probability = flow->isAttributeEnabled(SUMO_ATTR_PROB);
     // we need to check if attributes are defined differents in flows
-    bool terminateDifferent = false;
-    bool spacingDifferent = false;
+    std::vector<std::string> terminateDifferent;
+    std::vector<std::string> spacingDifferent;
     // iterate over all flows
     for (const auto &flow : myEditedFlows) {
         if (flow->isAttributeEnabled(SUMO_ATTR_END) != end) {
-            terminateDifferent = true;
+            terminateDifferent.push_back(toString(SUMO_ATTR_END));
         }
         if (flow->isAttributeEnabled(SUMO_ATTR_NUMBER) != number) {
-            terminateDifferent = true;
+            terminateDifferent.push_back(toString(SUMO_ATTR_NUMBER));
         }
         if (flow->isAttributeEnabled(myPerHourAttr) != perhour) {
-            spacingDifferent = true;
+            spacingDifferent.push_back(toString(myPerHourAttr));
         }
         if (flow->isAttributeEnabled(SUMO_ATTR_PERIOD) != period) {
-            spacingDifferent = true;
+            spacingDifferent.push_back(toString(SUMO_ATTR_PERIOD));
         }
         if (flow->isAttributeEnabled(SUMO_ATTR_PROB) != probability) {
-            spacingDifferent = true;
+            spacingDifferent.push_back(toString(SUMO_ATTR_PROB));
         }
     }
     // special case for end and number
-    if (end && number && !terminateDifferent && !spacingDifferent) {
+    if (end && number && terminateDifferent.empty() && spacingDifferent.empty()) {
         // set first comboBox
         myTerminateComboBox->setCurrentItem(2),
         // hide second comboBox
@@ -1176,8 +1176,8 @@ GNEFrameAttributeModules::FlowEditor::refreshMultipleFlows() {
         // show second comboBox
         mySpacingFrameComboBox->show();
         // check terminateDifferent
-        if (terminateDifferent) {
-            myTerminateComboBox->setText("different");
+        if (terminateDifferent.size() > 0) {
+            myTerminateComboBox->setText(("different: " + terminateDifferent.front() + " " + terminateDifferent.back()).c_str());
             // hide textField
             myTerminateFrameTextField->hide();
         } else {
@@ -1204,8 +1204,8 @@ GNEFrameAttributeModules::FlowEditor::refreshMultipleFlows() {
             }
         }
         // check terminateDifferent
-        if (spacingDifferent) {
-            mySpacingComboBox->setText("different");
+        if (spacingDifferent.size() > 0) {
+            mySpacingComboBox->setText(("different: " + spacingDifferent.front() + " " + spacingDifferent.back()).c_str());
             // hide textField
             mySpacingFrameTextField->hide();
         } else {
