@@ -34,6 +34,7 @@ class GNENet;
 class GNEAttributeCarrier;
 class GNEEdge;
 class GNELane;
+class GNEJunction;
 class GNEAdditional;
 
 class GNEPathManager {
