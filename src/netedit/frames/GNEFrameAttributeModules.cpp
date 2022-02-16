@@ -824,75 +824,17 @@ GNEFrameAttributeModules::AttributesCreatorFlow::shownAttributesCreatorFlowModul
 
 void
 GNEFrameAttributeModules::AttributesCreatorFlow::refreshAttributesCreatorFlow() {
-    // continue if flow is valid
-    if (myEditedFlows.size() > 0) {
-        // show both attributes
-        myTerminateFrameTextField->show();
-        mySpacingFrameTextField->show();
-        // continue depending of combinations
-        if (myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_END) && myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
-            // set first comboBox
-            myTerminateComboBox->setCurrentItem(2),
-            // hide second comboBox
-            mySpacingFrameComboBox->hide();
-            // set label
-            myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
-            mySpacingLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
-            // set text fields
-            myTerminateTextField->setText(myEditedFlows.front()->getAttribute(SUMO_ATTR_END).c_str());
-            mySpacingTextField->setText(myEditedFlows.front()->getAttribute(SUMO_ATTR_NUMBER).c_str());
-        } else {
-            // show second comboBox
-            mySpacingFrameComboBox->show();
-            // set first attribute
-            if (myTerminateComboBox->getTextColor() == FXRGB(255, 0, 0)) { 
-                // invalid combination, disable text field
-                myTerminateFrameTextField->hide();
-            } else if (myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_END)) {
-                // set first comboBox
-                myTerminateComboBox->setCurrentItem(0),
-                // set label
-                myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
-                // set text fields
-                myTerminateTextField->setText(myEditedFlows.front()->getAttribute(SUMO_ATTR_END).c_str());
-            } else if (myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
-                // set first comboBox
-                myTerminateComboBox->setCurrentItem(1),
-                // set label
-                myTerminateLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
-                // set text fields
-                myTerminateTextField->setText(myEditedFlows.front()->getAttribute(SUMO_ATTR_NUMBER).c_str());
-            }
-            // set second attribute
-            if (mySpacingComboBox->getTextColor() == FXRGB(255, 0, 0)) {
-                // invalid combination, disable text field
-                mySpacingFrameTextField->hide();
-            } else if (myEditedFlows.front()->isAttributeEnabled(myPerHourAttr)) {
-                // set first comboBox
-                mySpacingComboBox->setCurrentItem(0),
-                // set label
-                mySpacingLabel->setText(toString(myPerHourAttr).c_str());
-                // set text fields
-                mySpacingTextField->setText(myEditedFlows.front()->getAttribute(myPerHourAttr).c_str());
-            } else if (myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_PERIOD)) {
-                // set first comboBox
-                mySpacingComboBox->setCurrentItem(1),
-                // set label
-                mySpacingLabel->setText(toString(SUMO_ATTR_PERIOD).c_str());
-                // set text fields
-                mySpacingTextField->setText(myEditedFlows.front()->getAttribute(SUMO_ATTR_PERIOD).c_str());
-            } else if (myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_PROB)) {
-                // set first comboBox
-                mySpacingComboBox->setCurrentItem(2),
-                // set label
-                mySpacingLabel->setText(toString(SUMO_ATTR_PROB).c_str());
-                // set text fields
-                mySpacingTextField->setText(myEditedFlows.front()->getAttribute(SUMO_ATTR_PROB).c_str());
-            }
-        }
-        // recalc
-        recalc();
+    // show both attributes
+    myTerminateFrameTextField->show();
+    mySpacingFrameTextField->show();
+    // continue depending of number of flow
+    if (myEditedFlows.size() == 1) {
+        refreshSingleFlow();
+    } else if (myEditedFlows.size() > 1) {
+        refreshMultipleFlows();
     }
+    // recalc
+    recalc();
 }
 
 
@@ -1118,6 +1060,210 @@ GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject*
     return 1;
 }
 
+
+void
+GNEFrameAttributeModules::AttributesCreatorFlow::refreshSingleFlow() {
+    // get flow (only for code legibly)
+    const auto flow = myEditedFlows.front();
+    // continue depending of combinations
+    if (flow->isAttributeEnabled(SUMO_ATTR_END) && flow->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
+        // set first comboBox
+        myTerminateComboBox->setCurrentItem(2),
+        // hide second comboBox
+        mySpacingFrameComboBox->hide();
+        // set label
+        myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
+        mySpacingLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
+        // set text fields
+        myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_END).c_str());
+        mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_NUMBER).c_str());
+    } else {
+        // show second comboBox
+        mySpacingFrameComboBox->show();
+        // set first attribute
+        if (myTerminateComboBox->getTextColor() == FXRGB(255, 0, 0)) { 
+            // invalid combination, disable text field
+            myTerminateFrameTextField->hide();
+        } else if (flow->isAttributeEnabled(SUMO_ATTR_END)) {
+            // set first comboBox
+            myTerminateComboBox->setCurrentItem(0),
+            // set label
+            myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
+            // set text fields
+            myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_END).c_str());
+        } else if (flow->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
+            // set first comboBox
+            myTerminateComboBox->setCurrentItem(1),
+            // set label
+            myTerminateLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
+            // set text fields
+            myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_NUMBER).c_str());
+        }
+        // set second attribute
+        if (mySpacingComboBox->getTextColor() == FXRGB(255, 0, 0)) {
+            // invalid combination, disable text field
+            mySpacingFrameTextField->hide();
+        } else if (flow->isAttributeEnabled(myPerHourAttr)) {
+            // set first comboBox
+            mySpacingComboBox->setCurrentItem(0),
+            // set label
+            mySpacingLabel->setText(toString(myPerHourAttr).c_str());
+            // set text fields
+            mySpacingTextField->setText(getFlowAttribute(myPerHourAttr).c_str());
+        } else if (flow->isAttributeEnabled(SUMO_ATTR_PERIOD)) {
+            // set first comboBox
+            mySpacingComboBox->setCurrentItem(1),
+            // set label
+            mySpacingLabel->setText(toString(SUMO_ATTR_PERIOD).c_str());
+            // set text fields
+            mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PERIOD).c_str());
+        } else if (flow->isAttributeEnabled(SUMO_ATTR_PROB)) {
+            // set first comboBox
+            mySpacingComboBox->setCurrentItem(2),
+            // set label
+            mySpacingLabel->setText(toString(SUMO_ATTR_PROB).c_str());
+            // set text fields
+            mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PROB).c_str());
+        }
+    }
+}
+
+
+void 
+GNEFrameAttributeModules::AttributesCreatorFlow::refreshMultipleFlows() {
+    // get first flow (only for code legibly)
+    const auto flow = myEditedFlows.front();
+    // get values of first flow
+    const bool end = flow->isAttributeEnabled(SUMO_ATTR_END);
+    const bool number = flow->isAttributeEnabled(SUMO_ATTR_NUMBER);
+    const bool perhour = flow->isAttributeEnabled(myPerHourAttr);
+    const bool period = flow->isAttributeEnabled(SUMO_ATTR_PERIOD);
+    const bool probability = flow->isAttributeEnabled(SUMO_ATTR_PROB);
+    // we need to check if attributes are defined differents in flows
+    bool terminateDifferent = false;
+    bool spacingDifferent = false;
+    // iterate over all flows
+    for (const auto &flow : myEditedFlows) {
+        if (flow->isAttributeEnabled(SUMO_ATTR_END) != end) {
+            terminateDifferent = true;
+        }
+        if (flow->isAttributeEnabled(SUMO_ATTR_NUMBER) != number) {
+            terminateDifferent = true;
+        }
+        if (flow->isAttributeEnabled(myPerHourAttr) != perhour) {
+            spacingDifferent = true;
+        }
+        if (flow->isAttributeEnabled(SUMO_ATTR_PERIOD) != period) {
+            spacingDifferent = true;
+        }
+        if (flow->isAttributeEnabled(SUMO_ATTR_PROB) != probability) {
+            spacingDifferent = true;
+        }
+    }
+    // special case for end and number
+    if (end && number && !terminateDifferent && !spacingDifferent) {
+        // set first comboBox
+        myTerminateComboBox->setCurrentItem(2),
+        // hide second comboBox
+        mySpacingFrameComboBox->hide();
+        // set label
+        myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
+        mySpacingLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
+        // set text fields
+        myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_END).c_str());
+        mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_NUMBER).c_str());
+    } else {
+        // show second comboBox
+        mySpacingFrameComboBox->show();
+        // check terminateDifferent
+        if (terminateDifferent) {
+            myTerminateComboBox->setText("different");
+            // hide textField
+            myTerminateFrameTextField->hide();
+        } else {
+            // show textField
+            myTerminateFrameTextField->show();
+            // set first attribute
+            if (myTerminateComboBox->getTextColor() == FXRGB(255, 0, 0)) { 
+                // invalid combination, disable text field
+                myTerminateFrameTextField->hide();
+            } else if (end) {
+                // set first comboBox
+                myTerminateComboBox->setCurrentItem(0),
+                // set label
+                myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
+                // set text fields
+                myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_END).c_str());
+            } else if (number) {
+                // set first comboBox
+                myTerminateComboBox->setCurrentItem(1),
+                // set label
+                myTerminateLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
+                // set text fields
+                myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_NUMBER).c_str());
+            }
+        }
+        // check terminateDifferent
+        if (spacingDifferent) {
+            mySpacingComboBox->setText("different");
+            // hide textField
+            mySpacingFrameTextField->hide();
+        } else {
+            // show textField
+            mySpacingFrameTextField->show();
+            // set second attribute
+            if (mySpacingComboBox->getTextColor() == FXRGB(255, 0, 0)) {
+                // invalid combination, disable text field
+                mySpacingFrameTextField->hide();
+            } else if (perhour) {
+                // set first comboBox
+                mySpacingComboBox->setCurrentItem(0),
+                // set label
+                mySpacingLabel->setText(toString(myPerHourAttr).c_str());
+                // set text fields
+                mySpacingTextField->setText(getFlowAttribute(myPerHourAttr).c_str());
+            } else if (period) {
+                // set first comboBox
+                mySpacingComboBox->setCurrentItem(1),
+                // set label
+                mySpacingLabel->setText(toString(SUMO_ATTR_PERIOD).c_str());
+                // set text fields
+                mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PERIOD).c_str());
+            } else if (probability) {
+                // set first comboBox
+                mySpacingComboBox->setCurrentItem(2),
+                // set label
+                mySpacingLabel->setText(toString(SUMO_ATTR_PROB).c_str());
+                // set text fields
+                mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PROB).c_str());
+            }
+        }
+    }
+}
+
+
+const std::string
+GNEFrameAttributeModules::AttributesCreatorFlow::getFlowAttribute(SumoXMLAttr attr) {
+    if (myEditedFlows.size() == 1) {
+        return myEditedFlows.front()->getAttribute(attr);
+    } else {
+        std::string solution;
+        std::set<std::string> values;
+        // extract all values (avoiding duplicated)
+        for (const auto &flow : myEditedFlows) {
+            values.insert(flow->getAttribute(attr));
+        }
+        // insert value and space
+        for (const auto &value : values) {
+            solution.append(value + " ");
+        }
+        // remove last space
+        if (solution.size() > 0) {
+            solution.pop_back();
+        }
+        return solution;
+    }
+}
 
 // ---------------------------------------------------------------------------
 // GNEFrameAttributeModules::AttributesEditorRow - methods

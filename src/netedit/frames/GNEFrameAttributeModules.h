@@ -272,6 +272,15 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(AttributesCreatorFlow);
 
+        /// @brief refresh single flow
+        void refreshSingleFlow();
+
+        /// @brief refresh multiple flows
+        void refreshMultipleFlows();
+
+        /// @brief get flow attribute (of the current edited flows)
+        const std::string getFlowAttribute(SumoXMLAttr attr);
+
     private:
         /// @brief pointer to viewNet
         GNEViewNet *myViewNet;
