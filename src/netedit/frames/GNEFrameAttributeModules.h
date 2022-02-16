@@ -237,17 +237,14 @@ public:
         FXDECLARE(GNEFrameAttributeModules::AttributesCreatorFlow)
 
     public:
-        /// @brief constructor (Attributes creator)
-        AttributesCreatorFlow(AttributesCreator* attributesCreatorParent);
-
-        /// @brief constructor (Attributes editor)
-        AttributesCreatorFlow(AttributesEditor* attributesEditorParent);
+        /// @brief constructor
+        AttributesCreatorFlow(GNEViewNet* viewNet, FXVerticalFrame* contentFrame);
 
         /// @brief destructor
         ~AttributesCreatorFlow();
 
         /// @brief show AttributesCreatorFlow modul
-        void showAttributesCreatorFlowModule();
+        void showAttributesCreatorFlowModule(const std::vector<GNEAttributeCarrier*> editedFlows);
 
         /// @brief hide group box
         void hideAttributesCreatorFlowModule();
@@ -276,11 +273,8 @@ public:
         FOX_CONSTRUCTOR(AttributesCreatorFlow);
 
     private:
-        /// @brief pointer to Attributes Creator Parent
-        AttributesCreator* myAttributesCreatorParent;
-
-        /// @brief pointer to Attributes Editor Parent (temporal)
-        AttributesEditor* myAttributesEditorParent;
+        /// @brief pointer to viewNet
+        GNEViewNet *myViewNet;
 
         /// @brief ComboBox for terminate options (end, number, end/number)
         FXComboBox* myTerminateComboBox = nullptr;
@@ -308,6 +302,9 @@ public:
 
         /// @brief textField for spacing attribute
         FXTextField* mySpacingTextField = nullptr;
+
+        /// @brief edited flows
+        std::vector<GNEAttributeCarrier*> myEditedFlows;
 
         /// @brief per hours attr (vehicles/person/container)
         SumoXMLAttr myPerHourAttr = SUMO_ATTR_NOTHING;

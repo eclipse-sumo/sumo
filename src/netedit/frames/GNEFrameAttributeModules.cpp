@@ -503,7 +503,7 @@ GNEFrameAttributeModules::AttributesCreator::AttributesCreator(GNEFrame* framePa
     // resize myAttributesCreatorRows
     myAttributesCreatorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // create myAttributesCreatorFlow
-    myAttributesCreatorFlow = new AttributesCreatorFlow(this);
+    myAttributesCreatorFlow = new AttributesCreatorFlow(frameParent->getViewNet(), frameParent->myContentFrame);
     // create reset and help button
     myFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myResetButton = new FXButton(myFrameButtons, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
@@ -737,7 +737,7 @@ GNEFrameAttributeModules::AttributesCreator::refreshRows(const bool createRows) 
     recalc();
     // check if flow editor has to be shown
     if (showFlowEditor) {
-        myAttributesCreatorFlow->showAttributesCreatorFlowModule();
+        myAttributesCreatorFlow->showAttributesCreatorFlowModule({myTemplateAC});
     } else {
         myAttributesCreatorFlow->hideAttributesCreatorFlowModule();
     }
@@ -747,43 +747,9 @@ GNEFrameAttributeModules::AttributesCreator::refreshRows(const bool createRows) 
 // GNEFrameAttributeModules::AttributesCreatorFlow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributeModules::AttributesCreatorFlow::AttributesCreatorFlow(AttributesCreator* attributesCreatorParent) :
-    FXGroupBoxModule(attributesCreatorParent->getFrameParent()->myContentFrame, "Flow attributes"),
-    myAttributesCreatorParent(attributesCreatorParent),
-    myAttributesEditorParent(nullptr) {
-    // create comboBox for option A
-    FXHorizontalFrame* auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(auxiliarHorizontalFrame, "terminate", nullptr, GUIDesignLabelAttribute);
-    myTerminateComboBox = new FXComboBox(auxiliarHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
-    // create comboBox for spacing
-    mySpacingFrameComboBox = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(mySpacingFrameComboBox, "spacing", nullptr, GUIDesignLabelAttribute);
-    mySpacingComboBox = new FXComboBox(mySpacingFrameComboBox, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
-    // create textField for option A
-    myTerminateFrameTextField = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myTerminateLabel = new FXLabel(myTerminateFrameTextField, "A", nullptr, GUIDesignLabelAttribute);
-    myTerminateTextField = new FXTextField(myTerminateFrameTextField, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create textField for spacing
-    mySpacingFrameTextField = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    mySpacingLabel = new FXLabel(mySpacingFrameTextField, "B", nullptr, GUIDesignLabelAttribute);
-    mySpacingTextField = new FXTextField(mySpacingFrameTextField, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // fill terminate
-    myTerminateComboBox->appendItem(toString(SUMO_ATTR_END).c_str());
-    myTerminateComboBox->appendItem(toString(SUMO_ATTR_NUMBER).c_str());
-    myTerminateComboBox->appendItem((toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER)).c_str());
-    myTerminateComboBox->setNumVisible(3);
-    // fill comboBox B
-    mySpacingComboBox->appendItem(toString(SUMO_ATTR_VEHSPERHOUR).c_str());
-    mySpacingComboBox->appendItem(toString(SUMO_ATTR_PERIOD).c_str());
-    mySpacingComboBox->appendItem(toString(SUMO_ATTR_PROB).c_str());
-    mySpacingComboBox->setNumVisible(3);
-}
-
-
-GNEFrameAttributeModules::AttributesCreatorFlow::AttributesCreatorFlow(AttributesEditor* attributesEditorParent) :
-    FXGroupBoxModule(attributesEditorParent->getFrameParent()->myContentFrame, "Flow attributes"),
-    myAttributesCreatorParent(nullptr),
-    myAttributesEditorParent(attributesEditorParent) {
+GNEFrameAttributeModules::AttributesCreatorFlow::AttributesCreatorFlow(GNEViewNet* viewNet, FXVerticalFrame* contentFrame) :
+    FXGroupBoxModule(contentFrame, "Flow attributes"),
+    myViewNet(viewNet) {
     // create comboBox for option A
     FXHorizontalFrame* auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(auxiliarHorizontalFrame, "terminate", nullptr, GUIDesignLabelAttribute);
@@ -817,20 +783,15 @@ GNEFrameAttributeModules::AttributesCreatorFlow::~AttributesCreatorFlow() {}
 
 
 void
-GNEFrameAttributeModules::AttributesCreatorFlow::showAttributesCreatorFlowModule() {
-    // get AC
-    GNEAttributeCarrier* flow = nullptr;
-    if (myAttributesCreatorParent) {
-        flow = myAttributesCreatorParent->getCurrentTemplateAC();
-    } else if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
-        flow = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
-    }
-    // continue if AC is valid
-    if (flow) {
+GNEFrameAttributeModules::AttributesCreatorFlow::showAttributesCreatorFlowModule(const std::vector<GNEAttributeCarrier*> editedFlows) {
+    // update flows
+    myEditedFlows = editedFlows;
+    // check number of flows
+    if (myEditedFlows.size() > 0) {
         // update per hour attr
-        if (flow->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR)) {
+        if (myEditedFlows.front()->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR)) {
             myPerHourAttr = SUMO_ATTR_PERSONSPERHOUR;
-        } else if (flow->getTagProperty().hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR)) {
+        } else if (myEditedFlows.front()->getTagProperty().hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR)) {
             myPerHourAttr = SUMO_ATTR_CONTAINERSPERHOUR;
         } else {
             myPerHourAttr = SUMO_ATTR_VEHSPERHOUR;
@@ -863,20 +824,13 @@ GNEFrameAttributeModules::AttributesCreatorFlow::shownAttributesCreatorFlowModul
 
 void
 GNEFrameAttributeModules::AttributesCreatorFlow::refreshAttributesCreatorFlow() {
-    // get flow
-    GNEAttributeCarrier* flow = nullptr;
-    if (myAttributesCreatorParent) {
-        flow = myAttributesCreatorParent->getCurrentTemplateAC();
-    } else if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
-        flow = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
-    }
     // continue if flow is valid
-    if (flow) {
+    if (myEditedFlows.size() > 0) {
         // show both attributes
         myTerminateFrameTextField->show();
         mySpacingFrameTextField->show();
         // continue depending of combinations
-        if (flow->isAttributeEnabled(SUMO_ATTR_END) && flow->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
+        if (myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_END) && myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
             // set first comboBox
             myTerminateComboBox->setCurrentItem(2),
             // hide second comboBox
@@ -885,8 +839,8 @@ GNEFrameAttributeModules::AttributesCreatorFlow::refreshAttributesCreatorFlow() 
             myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
             mySpacingLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
             // set text fields
-            myTerminateTextField->setText(flow->getAttribute(SUMO_ATTR_END).c_str());
-            mySpacingTextField->setText(flow->getAttribute(SUMO_ATTR_NUMBER).c_str());
+            myTerminateTextField->setText(myEditedFlows.front()->getAttribute(SUMO_ATTR_END).c_str());
+            mySpacingTextField->setText(myEditedFlows.front()->getAttribute(SUMO_ATTR_NUMBER).c_str());
         } else {
             // show second comboBox
             mySpacingFrameComboBox->show();
@@ -894,46 +848,46 @@ GNEFrameAttributeModules::AttributesCreatorFlow::refreshAttributesCreatorFlow() 
             if (myTerminateComboBox->getTextColor() == FXRGB(255, 0, 0)) { 
                 // invalid combination, disable text field
                 myTerminateFrameTextField->hide();
-            } else if (flow->isAttributeEnabled(SUMO_ATTR_END)) {
+            } else if (myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_END)) {
                 // set first comboBox
                 myTerminateComboBox->setCurrentItem(0),
                 // set label
                 myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
                 // set text fields
-                myTerminateTextField->setText(flow->getAttribute(SUMO_ATTR_END).c_str());
-            } else if (flow->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
+                myTerminateTextField->setText(myEditedFlows.front()->getAttribute(SUMO_ATTR_END).c_str());
+            } else if (myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
                 // set first comboBox
                 myTerminateComboBox->setCurrentItem(1),
                 // set label
                 myTerminateLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
                 // set text fields
-                myTerminateTextField->setText(flow->getAttribute(SUMO_ATTR_NUMBER).c_str());
+                myTerminateTextField->setText(myEditedFlows.front()->getAttribute(SUMO_ATTR_NUMBER).c_str());
             }
             // set second attribute
             if (mySpacingComboBox->getTextColor() == FXRGB(255, 0, 0)) {
                 // invalid combination, disable text field
                 mySpacingFrameTextField->hide();
-            } else if (flow->isAttributeEnabled(myPerHourAttr)) {
+            } else if (myEditedFlows.front()->isAttributeEnabled(myPerHourAttr)) {
                 // set first comboBox
                 mySpacingComboBox->setCurrentItem(0),
                 // set label
                 mySpacingLabel->setText(toString(myPerHourAttr).c_str());
                 // set text fields
-                mySpacingTextField->setText(flow->getAttribute(myPerHourAttr).c_str());
-            } else if (flow->isAttributeEnabled(SUMO_ATTR_PERIOD)) {
+                mySpacingTextField->setText(myEditedFlows.front()->getAttribute(myPerHourAttr).c_str());
+            } else if (myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_PERIOD)) {
                 // set first comboBox
                 mySpacingComboBox->setCurrentItem(1),
                 // set label
                 mySpacingLabel->setText(toString(SUMO_ATTR_PERIOD).c_str());
                 // set text fields
-                mySpacingTextField->setText(flow->getAttribute(SUMO_ATTR_PERIOD).c_str());
-            } else if (flow->isAttributeEnabled(SUMO_ATTR_PROB)) {
+                mySpacingTextField->setText(myEditedFlows.front()->getAttribute(SUMO_ATTR_PERIOD).c_str());
+            } else if (myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_PROB)) {
                 // set first comboBox
                 mySpacingComboBox->setCurrentItem(2),
                 // set label
                 mySpacingLabel->setText(toString(SUMO_ATTR_PROB).c_str());
                 // set text fields
-                mySpacingTextField->setText(flow->getAttribute(SUMO_ATTR_PROB).c_str());
+                mySpacingTextField->setText(myEditedFlows.front()->getAttribute(SUMO_ATTR_PROB).c_str());
             }
         }
         // recalc
@@ -981,21 +935,14 @@ GNEFrameAttributeModules::AttributesCreatorFlow::areFlowValuesValid() const {
 
 long
 GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
-    // get flow
-    GNEAttributeCarrier* flow = nullptr;
-    if (myAttributesCreatorParent) {
-        flow = myAttributesCreatorParent->getCurrentTemplateAC();
-    } else if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
-        flow = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
-    }
-    // continue if flow is valid
-    if (flow) {
+    // check number of flows
+    if (myEditedFlows.front()) {
         // declare vectors for enable/disable attributes
         std::vector<SumoXMLAttr> enableAttrs, disableAttrs;
         // check if all spacing attributes are disabled
-        const bool spacingEnabled = flow->isAttributeEnabled(myPerHourAttr) || 
-                                     flow->isAttributeEnabled(SUMO_ATTR_PERIOD) || 
-                                     flow->isAttributeEnabled(SUMO_ATTR_PROB);
+        const bool spacingEnabled = myEditedFlows.front()->isAttributeEnabled(myPerHourAttr) || 
+                                    myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_PERIOD) || 
+                                    myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_PROB);
         // get terminate attribute
         SumoXMLAttr terminateAttribute = SUMO_ATTR_NOTHING;
         if (myTerminateComboBox->getText().text() == toString(SUMO_ATTR_END)) {
@@ -1084,12 +1031,21 @@ GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject*
                 mySpacingComboBox->setTextColor(FXRGB(255, 0, 0));
             }
         } else if ((obj == myTerminateTextField) && (terminateAttribute != SUMO_ATTR_NOTHING)) {
-            if (flow->isValid(terminateAttribute, myTerminateTextField->getText().text())) {
-                if (myAttributesCreatorParent) {
-                    flow->setAttribute(terminateAttribute, myTerminateTextField->getText().text());
+            if (myEditedFlows.front()->isValid(terminateAttribute, myTerminateTextField->getText().text())) {
+                // continue depending of flow
+                if (myEditedFlows.front()->isTemplate()) {
+                    // change attribute directly
+                    myEditedFlows.front()->setAttribute(terminateAttribute, myTerminateTextField->getText().text());
+                } else if (myEditedFlows.size() == 1) {
+                    // change using undoList
+                    myEditedFlows.front()->setAttribute(terminateAttribute, myTerminateTextField->getText().text(), myViewNet->getUndoList());
                 } else {
-                    flow->setAttribute(terminateAttribute, myTerminateTextField->getText().text(), 
-                                       myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+                    // change all flows using undoList
+                    myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), "change multiple flow attributes");
+                    for (const auto &flow : myEditedFlows) {
+                        flow->setAttribute(terminateAttribute, myTerminateTextField->getText().text(), myViewNet->getUndoList());
+                    }
+                    myViewNet->getUndoList()->end();
                 }
                 // reset color
                 myTerminateTextField->setTextColor(FXRGB(0, 0, 0));
@@ -1099,12 +1055,21 @@ GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject*
                 myTerminateTextField->setTextColor(FXRGB(255, 0, 0));
             }
         } else if ((obj == mySpacingTextField) && (spacingAttribute != SUMO_ATTR_NOTHING)) {
-            if (flow->isValid(spacingAttribute, mySpacingTextField->getText().text())) {
-                if (myAttributesCreatorParent) {
-                    flow->setAttribute(spacingAttribute, mySpacingTextField->getText().text());
+            if (myEditedFlows.front()->isValid(spacingAttribute, mySpacingTextField->getText().text())) {
+                // continue depending of flow
+                if (myEditedFlows.front()->isTemplate()) {
+                    // change attribute directly
+                    myEditedFlows.front()->setAttribute(spacingAttribute, mySpacingTextField->getText().text());
+                } else if (myEditedFlows.size() == 1) {
+                    // change using undoList
+                    myEditedFlows.front()->setAttribute(spacingAttribute, mySpacingTextField->getText().text(), myViewNet->getUndoList());
                 } else {
-                    flow->setAttribute(spacingAttribute, mySpacingTextField->getText().text(), 
-                                       myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+                    // change all flows using undoList
+                    myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), "change multiple flow attributes");
+                    for (const auto &flow : myEditedFlows) {
+                        flow->setAttribute(spacingAttribute, mySpacingTextField->getText().text(), myViewNet->getUndoList());
+                    }
+                    myViewNet->getUndoList()->end();
                 }
                 // reset color
                 mySpacingTextField->setTextColor(FXRGB(0, 0, 0));
@@ -1116,17 +1081,35 @@ GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject*
         }
         // enable and disable attributes
         for (const auto &attr : enableAttrs) {
-            if (myAttributesCreatorParent) {
-                flow->toogleAttribute(attr, true);
+            if (myEditedFlows.front()->isTemplate()) {
+                // enable directly
+                myEditedFlows.front()->toogleAttribute(attr, true);
+            } else if (myEditedFlows.size() == 1) {
+                // enable using undoList
+                myEditedFlows.front()->enableAttribute(attr, myViewNet->getUndoList());
             } else {
-                flow->enableAttribute(attr, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+                // enable in all flow using undoList
+                myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), "enable multiple flow attributes");
+                for (const auto &flow : myEditedFlows) {
+                    flow->enableAttribute(attr, myViewNet->getUndoList());
+                }
+                myViewNet->getUndoList()->end();
             }
         }
         for (const auto &attr : disableAttrs) {
-            if (myAttributesCreatorParent) {
-                flow->toogleAttribute(attr, false);
+            if (myEditedFlows.front()->isTemplate()) {
+                // disable directly
+                myEditedFlows.front()->toogleAttribute(attr, false);
+            } else if (myEditedFlows.size() == 1) {
+                // disable using undoList
+                myEditedFlows.front()->disableAttribute(attr, myViewNet->getUndoList());
             } else {
-                flow->disableAttribute(attr, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+                // disable in all flow using undoList
+                myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), "disable multiple flow attributes");
+                for (const auto &flow : myEditedFlows) {
+                    flow->disableAttribute(attr, myViewNet->getUndoList());
+                }
+                myViewNet->getUndoList()->end();
             }
         }
         // refresh attribute creator
@@ -1442,6 +1425,10 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
                 for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
                     inspectedAC->setAttribute(myACAttr.getAttr(), newValue, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
                 }
+                // finish change multiple attributes
+                if (ACs.size() > 1) {
+                    myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->end();
+                }
                 // If previously value was incorrect, change font color to black
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
                 myValueTextField->killFocus();
@@ -1678,7 +1665,7 @@ GNEFrameAttributeModules::AttributesEditor::AttributesEditor(GNEFrame* FramePare
     // resize myAttributesEditorRows
     myAttributesEditorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // create myAttributesFlowEditor
-    myAttributesEditorFlow = new AttributesCreatorFlow(this);
+    myAttributesEditorFlow = new AttributesCreatorFlow(FrameParent->getViewNet(), FrameParent->myContentFrame);
     // leave it hidden
     myAttributesEditorFlow->hideAttributesCreatorFlowModule();
     // Create help button
@@ -1764,7 +1751,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
         }
         // check if Flow editor has to be shown
         if (showFlowEditor) {
-            myAttributesEditorFlow->showAttributesCreatorFlowModule();
+            myAttributesEditorFlow->showAttributesCreatorFlowModule(ACs);
         } else {
             myAttributesEditorFlow->hideAttributesCreatorFlowModule();
         }
