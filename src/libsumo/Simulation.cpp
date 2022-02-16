@@ -815,18 +815,7 @@ Simulation::writeMessage(const std::string& msg) {
 
 void
 Simulation::storeShape(PositionVector& shape) {
-    const TraCIPositionVector tpv = getNetBoundary();
-    TraCIPosition minV = tpv.value.front();
-    TraCIPosition maxV = tpv.value.back();
-    const Position lowerLeft = Position(minV.x, minV.y, minV.z);
-    const Position upperLeft = Position(minV.x, maxV.y, minV.z);
-    const Position upperRight = Position(maxV.x, maxV.y, minV.z);
-    const Position lowerRight = Position(maxV.x, minV.y, minV.z);
-    shape.push_back(lowerLeft);
-    shape.push_back(upperLeft);
-    shape.push_back(upperRight);
-    shape.push_back(lowerRight);
-    shape.push_back(lowerLeft);
+    shape = GeoConvHelper::getFinal().getConvBoundary().getShape(true);
 }
 
 

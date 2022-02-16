@@ -259,7 +259,7 @@ public:
     class SubscriptionWrapper final : public VariableWrapper {
     public:
         SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context);
-        void setContext(const std::string& refID);
+        void setContext(const std::string* const refID);
         void clear();
         bool wrapDouble(const std::string& objID, const int variable, const double value);
         bool wrapInt(const std::string& objID, const int variable, const int value);

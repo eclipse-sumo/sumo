@@ -298,9 +298,9 @@ Helper::handleSingleSubscription(const Subscription& s) {
             throw TraCIException("Unsupported domain specified");
         }
         container = containerWrapper->second.get();
-        container->setContext(s.id);
+        container->setContext(&s.id);
     } else {
-        container->setContext("");
+        container->setContext(nullptr);
     }
     for (const std::string& objID : objIDs) {
         if (!s.variables.empty()) {
@@ -1784,8 +1784,8 @@ Helper::SubscriptionWrapper::SubscriptionWrapper(VariableWrapper::SubscriptionHa
 
 
 void
-Helper::SubscriptionWrapper::setContext(const std::string& refID) {
-    myActiveResults = refID == "" ? &myResults : &myContextResults[refID];
+Helper::SubscriptionWrapper::setContext(const std::string* const refID) {
+    myActiveResults = refID == nullptr ? &myResults : &myContextResults[*refID];
 }
 
 
