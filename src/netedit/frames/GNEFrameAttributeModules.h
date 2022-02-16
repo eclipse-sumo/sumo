@@ -237,8 +237,11 @@ public:
         FXDECLARE(GNEFrameAttributeModules::AttributesCreatorFlow)
 
     public:
-        /// @brief constructor
+        /// @brief constructor (Attributes creator)
         AttributesCreatorFlow(AttributesCreator* attributesCreatorParent);
+
+        /// @brief constructor (Attributes editor)
+        AttributesCreatorFlow(AttributesEditor* attributesEditorParent);
 
         /// @brief destructor
         ~AttributesCreatorFlow();
@@ -275,6 +278,9 @@ public:
     private:
         /// @brief pointer to Attributes Creator Parent
         AttributesCreator* myAttributesCreatorParent;
+
+        /// @brief pointer to Attributes Editor Parent (temporal)
+        AttributesEditor* myAttributesEditorParent;
 
         /// @brief ComboBox for terminate options (end, number, end/number)
         FXComboBox* myTerminateComboBox = nullptr;
@@ -422,8 +428,8 @@ public:
         /// @brief pointer to GNEFrame parent
         GNEFrame* myFrameParent;
 
-        /// @brief pointer to attributesEditorFlow
-        AttributesEditorFlow* myAttributesEditorFlow = nullptr;
+        /// @brief AttributesCreatorFlow modul
+        AttributesCreatorFlow* myAttributesEditorFlow = nullptr;
 
         /// @brief list of Attribute editor rows
         std::vector<AttributesEditorRow*> myAttributesEditorRows;
@@ -433,92 +439,6 @@ public:
 
         /// @brief flag used to mark if current edited ACs are bein edited including extended attribute
         bool myIncludeExtended;
-    };
-
-    // ===========================================================================
-    // class AttributesEditorFlow
-    // ===========================================================================
-
-    class AttributesEditorFlow : public FXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributeModules::AttributesEditorFlow)
-
-    public:
-        /// @brief constructor
-        AttributesEditorFlow(AttributesEditor* attributesEditorParent);
-
-        /// @brief show attributes editor Flow Module
-        void showAttributeEditorFlowModule();
-
-        /// @brief hide attribute EditorFlow
-        void hideAttributesEditorFlowModule();
-
-        /// @brief check if attribute editor flow modul is shown
-        bool isAttributesEditorFlowModuleShown() const;
-
-        /// @brief refresh attribute EditorFlow (only the valid values will be refresh)
-        void refreshAttributeEditorFlow();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief called when user set the value of an attribute of type int/float/string/bool
-        long onCmdSetFlowAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief called when user press a radio button
-        long onCmdSelectFlowRadioButton(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        FOX_CONSTRUCTOR(AttributesEditorFlow)
-
-        /// @brief refresh end
-        void refreshEnd();
-
-        /// @brief refresh parameter number
-        void refreshNumber();
-
-        /// @brief refresh parameter VehsPerHour
-        void refreshVehsPerHour();
-
-        /// @brief refresh parameter Period
-        void refreshPeriod();
-
-        /// @brief refresh parameter Probability
-        void refreshProbability();
-
-    private:
-        /// @brief pointer to AttributesEditor parent
-        AttributesEditor* myAttributesEditorParent = nullptr;
-
-        /// @brief Radio button for 'end' attribute
-        FXRadioButton* myAttributeEndRadioButton = nullptr;
-
-        /// @brief textField for 'end' attribute
-        FXTextField* myValueEndTextField = nullptr;
-
-        /// @brief Radio button for 'number' attribute
-        FXRadioButton* myAttributeNumberRadioButton = nullptr;
-
-        /// @brief textField for 'number' attribute
-        FXTextField* myValueNumberTextField = nullptr;
-
-        /// @brief Radio button for 'VehsPerHour' attribute
-        FXRadioButton* myAttributeVehsPerHourRadioButton = nullptr;
-
-        /// @brief textField for 'VehsPerHour' attribute
-        FXTextField* myValueVehsPerHourTextField = nullptr;
-
-        /// @brief Radio button for 'period' attribute
-        FXRadioButton* myAttributePeriodRadioButton = nullptr;
-
-        /// @brief textField for 'period' attribute
-        FXTextField* myValuePeriodTextField = nullptr;
-
-        /// @brief Radio button for 'probability' attribute
-        FXRadioButton* myAttributeProbabilityRadioButton = nullptr;
-
-        /// @brief textField for 'probability' attribute
-        FXTextField* myValueProbabilityTextField = nullptr;
     };
 
     // ===========================================================================
