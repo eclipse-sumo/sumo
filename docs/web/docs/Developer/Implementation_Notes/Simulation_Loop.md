@@ -94,9 +94,17 @@ end
 
 group move pedestrian
 events -> model : //execute movements//
+model -> ... : MSLink->opend (optional, used by model 'striping')
+model -> ... : //retrieve vehicles// (optional, used by model 'striping')
 model -> adapter : //update state//
 model -> events : //register walk events// (optional, used by event-based model 'nonInteracting')
 model -> walk : moveToNextEdge
+end
+
+group vehicles update interacts with pedestrians
+... -> model : hasPedestrians(lane)
+... -> model : blockedAtDist(lane, ...)
+... -> model : nextBlocking(lane, ...)
 end
 
 group output
