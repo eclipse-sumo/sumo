@@ -101,7 +101,7 @@ model -> events : //register walk events// (optional, used by event-based model 
 model -> walk : moveToNextEdge
 end
 
-group vehicles update interacts with pedestrians
+group vehicle update interacts with pedestrians
 ... -> model : hasPedestrians(lane)
 ... -> model : blockedAtDist(lane)
 ... -> model : nextBlocking(lane)
@@ -110,7 +110,7 @@ end
 group output
 ... -> person : getPosition, getEdge, getSpeed, ...
 person -> walk : getPosition, getEdge, getSpeed, ...
-walk -> adapter : getPosition, getEdge, getSpeed, ...
+walk -> adapter : getPosition, getSpeed, ...
 adapter -> walk : return
 walk -> person : return
 person -> ... : return
