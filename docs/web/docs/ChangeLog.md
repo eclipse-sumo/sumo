@@ -13,7 +13,7 @@ title: ChangeLog
   - Fixed invalid switching for actuated traffic light in coordinated mode. Issue #10055
   - Fixed failure to overtake extremely long vehicle. Issue #10060
   - Various NEMA fixes. Issue #10081, #10082, #10090
-  - Sorted vehroute output now preserves the loarding order of vehicles that depart in the same simulation step. Issue #10087
+  - Sorted vehroute output now preserves the loading order of vehicles that depart in the same simulation step. Issue #10087
   - Fixed failing train reversal after waypoint. Issue #10093
   - Fixed invalid route when specifying a trip that loops back onto the start edge with arrivalPos < departPos. Issue #2757
   - Fixed invalid error message when using mismatched parentheses in traffic light switching conditions
@@ -34,7 +34,7 @@ title: ChangeLog
 - netedit
   - Fixed invalid geometry when loading geo-polygons. Issue #10101 (regression in 1.10.0)
   - Fixed invalid junction color after creating a trip (from/to). Issue #9980 (regression in 1.12.0)
-  - Fixned invalid when creating flow (embedded route) with via edges. Issue #10120
+  - Fixed invalid route when creating flow (embedded route) with via edges. Issue #10120
   
 - sumo-gui
   - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069
@@ -64,9 +64,9 @@ title: ChangeLog
   - edgeData output now supports attribute 'aggregate' to aggregate data for all (selected) edges. Issue #10026
   - Vehroute-output now includes attribute 'replacedOnIndex' for routes that were replaced after departure to resolve ambiguity for looped routes. Issue #10092
   - Added option **--replay-rerouting** to re-run scenarios from vehroute-output in the same way as the original run. Issue #3024
-  - Actuated traffic lights with custom switching rules can now retrieve the current time within the cycle `c:`. Issue #10109  
+  - Actuated traffic lights with custom switching rules can now retrieve the current time within the cycle using expression `c:`. Issue #10109  
   - Added new vehicle attribute 'insertionChecks' that allows forcing vehicle insertion in unsafe situations. #10114
-  - Improved error error messages for invalid switching conditions of traffic lights to better identify the faulty input.
+  - Improved error messages for invalid switching conditions of traffic lights to better identify the faulty input.
   - Added option **--save-configuration.relative** to write config-relative file paths when saving configuration. Issue #6578
   - Smoothed the effect size curve of vehicle impatience. Previously, most of the effect occured at low impatience values and larger values did not matter. To compensate for the reduced gradient, the default of option **--time-to-impatience** was reduced from 300s to 180s. Issue #8507
   - Vehicle flows with equidistant spacing (i.e. `period="x"`) now remain equidistant when the flow is increased via option **--scale**. Issue #10126
@@ -89,7 +89,7 @@ title: ChangeLog
   - Added function 'traci.inductionloop.overrideTimeSinceDetection' and 'traci.lanearea.overrideVehicleNumber' to trigger the detector without the need for vehicles and facilitate traffic light testing. Issue #10045, #10048
   - function 'traci.vehicle.setPreviousSpeed' now supports an optional parameter to set the previous acceleration. Issue #10097
   - function `traci.simulation.subscribeContext' can now be used to subscribe to all objects in the simulation networ. Issue #8388
-  - Added functin 'vehicle.insertStop' to add stops anywhere in the stop list and reroute automatically. Issue #10132
+  - Added function 'vehicle.insertStop' to add stops anywhere in the stop list and reroute automatically. Issue #10132
   - Added function 'vehicle.setStopParameter' to set any possible attribute for any upcoming stop. Issue #7981
 
 - tools
