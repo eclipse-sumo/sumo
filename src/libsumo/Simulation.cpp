@@ -101,8 +101,7 @@ Simulation::isLoaded() {
 
 void
 Simulation::step(const double time) {
-    Helper::clearVehicleStates();
-    Helper::clearTransportableStates();
+    Helper::clearStateChanges();
     const SUMOTime t = TIME2STEPS(time);
     if (t == 0) {
         MSNet::getInstance()->simulationStep();
@@ -799,8 +798,7 @@ Simulation::loadState(const std::string& fileName) {
     if (MsgHandler::getErrorInstance()->wasInformed()) {
         throw TraCIException("Loading state from '" + fileName + "' failed.");
     }
-    Helper::clearVehicleStates();
-    Helper::clearTransportableStates();
+    Helper::clearStateChanges();
     Helper::clearSubscriptions();
     PROGRESS_TIME_MESSAGE(before);
     MSNet::getInstance()->updateGUI();

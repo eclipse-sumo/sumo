@@ -210,17 +210,13 @@ public:
 
     static void cleanup();
 
-    static void registerVehicleStateListener();
+    static void registerStateListener();
 
     static const std::vector<std::string>& getVehicleStateChanges(const MSNet::VehicleState state);
 
-    static void clearVehicleStates();
-
-    static void registerTransportableStateListener();
-
     static const std::vector<std::string>& getTransportableStateChanges(const MSNet::TransportableState state);
 
-    static void clearTransportableStates();
+    static void clearStateChanges();
 
     /// @name functions for moveToXY
     /// @{

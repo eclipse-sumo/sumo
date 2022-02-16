@@ -311,7 +311,7 @@ NLBuilder::init(const bool isLibsumo) {
     // need to init TraCI-Server before loading routes to catch VehicleState::BUILT
     TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
     if (isLibsumo) {
-        libsumo::Helper::registerVehicleStateListener();
+        libsumo::Helper::registerStateListener();
     }
 
     NLEdgeControlBuilder eb;

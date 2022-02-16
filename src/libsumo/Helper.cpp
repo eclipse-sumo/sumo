@@ -684,8 +684,7 @@ Helper::cleanup() {
     POI::cleanup();
     InductionLoop::cleanup();
     Junction::cleanup();
-    Helper::clearVehicleStates();
-    Helper::clearTransportableStates();
+    Helper::clearStateChanges();
     Helper::clearSubscriptions();
     delete myLaneTree;
     myLaneTree = nullptr;
@@ -693,9 +692,10 @@ Helper::cleanup() {
 
 
 void
-Helper::registerVehicleStateListener() {
+Helper::registerStateListener() {
     if (MSNet::hasInstance()) {
         MSNet::getInstance()->addVehicleStateListener(&myVehicleStateListener);
+        MSNet::getInstance()->addTransportableStateListener(&myTransportableStateListener);
     }
 }
 
@@ -706,22 +706,6 @@ Helper::getVehicleStateChanges(const MSNet::VehicleState state) {
 }
 
 
-void
-Helper::clearVehicleStates() {
-    for (auto& i : myVehicleStateListener.myVehicleStateChanges) {
-        i.second.clear();
-    }
-}
-
-
-void
-Helper::registerTransportableStateListener() {
-    if (MSNet::hasInstance()) {
-        MSNet::getInstance()->addTransportableStateListener(&myTransportableStateListener);
-    }
-}
-
-
 const std::vector<std::string>&
 Helper::getTransportableStateChanges(const MSNet::TransportableState state) {
     return myTransportableStateListener.myTransportableStateChanges[state];
@@ -729,7 +713,10 @@ Helper::getTransportableStateChanges(const MSNet::TransportableState state) {
 
 
 void
-Helper::clearTransportableStates() {
+Helper::clearStateChanges() {
+    for (auto& i : myVehicleStateListener.myVehicleStateChanges) {
+        i.second.clear();
+    }
     for (auto& i : myTransportableStateListener.myTransportableStateChanges) {
         i.second.clear();
     }
