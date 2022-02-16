@@ -657,6 +657,10 @@ MSRouteHandler::closeVehicle() {
                     newPars->id = myVehicleParameter->id + myScaleSuffix + toString(i + offset);
                 }
                 newPars->depart = origDepart + MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
+                if (vehControl.hasVTypeDistribution(myVehicleParameter->vtypeid)) {
+                    // resample type
+                    vtype = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
+                }
                 vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes);
                 vehControl.addVehicle(newPars->id, vehicle);
             }
