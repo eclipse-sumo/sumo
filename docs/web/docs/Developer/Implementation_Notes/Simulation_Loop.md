@@ -103,8 +103,8 @@ end
 
 group vehicles update interacts with pedestrians
 ... -> model : hasPedestrians(lane)
-... -> model : blockedAtDist(lane, ...)
-... -> model : nextBlocking(lane, ...)
+... -> model : blockedAtDist(lane)
+... -> model : nextBlocking(lane)
 end
 
 group output
