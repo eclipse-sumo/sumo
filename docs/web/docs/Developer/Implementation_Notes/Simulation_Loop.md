@@ -75,15 +75,16 @@ The model must inherit from [class MSPModel]() and provide instances of [MSTrans
 
 ```plantuml
 @startuml
-participant ...
 participant MSEventControl as events
+participant ...
 participant MSPerson as person
 participant MSPersonStage_Walking as walk
 participant MSPModel as model
 participant MSTransportableStateAdapter as adapter
 
 group start walk
-... -> person : proceed, enter walking stage
+... -> person : proceed
+person -> person : enter walking stage
 person -> walk : proceed
 walk -> model : //add//
 model -> adapter : //constructor//
@@ -94,6 +95,7 @@ end
 group move pedestrian
 events -> model : //execute movements//
 model -> adapter : //update state//
+model -> events : //register walk events// (optional, used by event-based model 'nonInteracting')
 model -> walk : moveToNextEdge
 end
 
