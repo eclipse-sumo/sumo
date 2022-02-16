@@ -52,6 +52,9 @@
 #include <mesosim/MESegment.h>
 #include <netload/NLBuilder.h>
 #include <libsumo/TraCIConstants.h>
+#ifdef HAVE_LIBSUMOGUI
+#include "GUI.h"
+#endif
 #include "Simulation.h"
 #include <libsumo/TraCIDefs.h>
 
@@ -70,6 +73,12 @@ ContextSubscriptionResults Simulation::myContextSubscriptionResults;
 std::pair<int, std::string>
 Simulation::start(const std::vector<std::string>& cmd, int /* port */, int /* numRetries */, const std::string& /* label */, const bool /* verbose */,
                   const std::string& /* traceFile */, bool /* traceGetters */, void* /* _stdout */) {
+#ifdef HAVE_LIBSUMOGUI
+    if (cmd[0].find("sumo-gui") != std::string::npos) {
+        GUI::start(cmd);
+        return getVersion();
+    }
+#endif
     load(std::vector<std::string>(cmd.begin() + 1, cmd.end()));
     return getVersion();
 }
@@ -94,6 +103,16 @@ Simulation::load(const std::vector<std::string>& args) {
 
 
 bool
+Simulation::hasGUI() {
+#ifdef HAVE_LIBSUMOGUI
+    return GUI::hasInstance();
+#else
+    return false;
+#endif
+}
+
+
+bool
 Simulation::isLoaded() {
     return MSNet::hasInstance();
 }
@@ -104,13 +123,19 @@ Simulation::step(const double time) {
     Helper::clearVehicleStates();
     Helper::clearTransportableStates();
     const SUMOTime t = TIME2STEPS(time);
-    if (t == 0) {
-        MSNet::getInstance()->simulationStep();
-    } else {
-        while (MSNet::getInstance()->getCurrentTimeStep() < t) {
+#ifdef HAVE_LIBSUMOGUI
+    if (!GUI::step(t)) {
+#endif
+        if (t == 0) {
             MSNet::getInstance()->simulationStep();
+        } else {
+            while (MSNet::getInstance()->getCurrentTimeStep() < t) {
+                MSNet::getInstance()->simulationStep();
+            }
         }
+#ifdef HAVE_LIBSUMOGUI
     }
+#endif
     Helper::handleSubscriptions(t);
 }
 
@@ -118,7 +143,11 @@ Simulation::step(const double time) {
 void
 Simulation::close(const std::string& reason) {
     Helper::clearSubscriptions();
-    if (MSNet::hasInstance()) {
+    if (
+#ifdef HAVE_LIBSUMOGUI
+        !GUI::close() &&
+#endif
+         MSNet::hasInstance()) {
         MSNet::getInstance()->closeSimulation(0, reason);
         delete MSNet::getInstance();
         XMLSubSys::close();

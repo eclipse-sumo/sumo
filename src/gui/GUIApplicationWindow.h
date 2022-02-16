@@ -91,6 +91,9 @@ public:
 
     void loadOnStartup();
 
+    GUIRunThread* getRunner() {
+        return myRunThread;
+    }
 
     void dependentBuild();
 
