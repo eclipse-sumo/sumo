@@ -199,9 +199,19 @@ end of the final edge. Both position attributes support the special
 values `max` and `random` which work as described [for
 vehicles](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#a_vehicles_depart_and_arrival_parameter).
 
+
 ## Stopping
 
 The person stops for the maximum of `currentTime` + `duration` and `until`.
+
+## Access
+
+Whenever a person starts or ends a walk at a busStop or trainStop (collectively called *stoppingPlace*), an access stage inserted into the person plan under the following conditions:
+
+- the walk ends on an edge that is different from the stoppingPlace edge and the stoppingPlace has an `<access>` definition that connects it with the final edge of the walk
+- the walk starts on an edge that is differnt from the stoppingPlace edge and the stoppingPlce has an `<access>` definition that connects it with the first edge of the walk
+
+The time spent in an access stage is equal to the "length" attribute of the access divided by the walking speed of the person. No interaction between persons on the same access element takes place.
 
 
 # Starting the simulation in a Vehicle
