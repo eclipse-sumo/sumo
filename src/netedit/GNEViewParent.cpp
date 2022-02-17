@@ -493,26 +493,48 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserVehicles->restore();
                     myACChoosers.ACChooserVehicles->setFocus();
                 } else {
+                    // get demand elements (only for code legibly)
+                    const auto demandElements = viewNet->getNet()->getAttributeCarriers()->getDemandElements();
                     // reserve memory
-                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE).size() +
-                                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP).size() +
-                                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE).size() +
-                                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW).size());
-                    // fill ACsToLocate with vehicles
-                    for (const auto& vehicle : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
+                    ACsToLocate.reserve(demandElements.at(SUMO_TAG_VEHICLE).size() +
+                                        demandElements.at(SUMO_TAG_TRIP).size() +
+                                        demandElements.at(GNE_TAG_VEHICLE_WITHROUTE).size() +
+                                        demandElements.at(GNE_TAG_TRIP_JUNCTIONS).size() +
+                                        demandElements.at(SUMO_TAG_FLOW).size() +
+                                        demandElements.at(GNE_TAG_FLOW_ROUTE).size() +
+                                        demandElements.at(GNE_TAG_FLOW_WITHROUTE).size() + 
+                                        demandElements.at(GNE_TAG_FLOW_JUNCTIONS).size());
+                    // fill ACsToLocate with vehicles,...
+                    for (const auto& vehicle : demandElements.at(SUMO_TAG_VEHICLE)) {
                         ACsToLocate.push_back(vehicle);
                     }
-                    // fill ACsToLocate with vehicles
-                    for (const auto& trip : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP)) {
+                    // ...trips,...
+                    for (const auto& trip : demandElements.at(SUMO_TAG_TRIP)) {
                         ACsToLocate.push_back(trip);
                     }
-                    // fill ACsToLocate with routeFlows
-                    for (const auto& flowRoute : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE)) {
+                    // ...vehicles with embedded routes,...
+                    for (const auto& trip : demandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
+                        ACsToLocate.push_back(trip);
+                    }
+                    // ...trips over junctions,...
+                    for (const auto& trip : demandElements.at(GNE_TAG_TRIP_JUNCTIONS)) {
+                        ACsToLocate.push_back(trip);
+                    }
+                    // ...flows,...
+                    for (const auto& flow : demandElements.at(SUMO_TAG_FLOW)) {
+                        ACsToLocate.push_back(flow);
+                    }
+                    // ...flows over routes,...
+                    for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_ROUTE)) {
                         ACsToLocate.push_back(flowRoute);
                     }
-                    // fill ACsToLocate with routeFlowsFromTo
-                    for (const auto& flow : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW)) {
-                        ACsToLocate.push_back(flow);
+                    // ...flows with embedded routes...
+                    for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
+                        ACsToLocate.push_back(flowRoute);
+                    }
+                    // ... and flows over junctions.
+                    for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_JUNCTIONS)) {
+                        ACsToLocate.push_back(flowRoute);
                     }
                     myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), "Vehicle Chooser", ACsToLocate);
                 }
