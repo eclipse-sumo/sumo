@@ -363,8 +363,27 @@ inline std::ostream& operator<<(std::ostream& os, const SUMOSAXAttributes& src) 
 
 template<typename X> struct invalid_return {
     static const X value;
-    static const std::string type;
 };
+
+#define INVALID_RETURN(TYPE) \
+template<> struct invalid_return<TYPE> { \
+    static const TYPE value; \
+}
+INVALID_RETURN(std::string);
+INVALID_RETURN(int);
+INVALID_RETURN(long long int);
+INVALID_RETURN(double);
+INVALID_RETURN(bool);
+INVALID_RETURN(RGBColor);
+INVALID_RETURN(Position);
+INVALID_RETURN(PositionVector);
+INVALID_RETURN(Boundary);
+INVALID_RETURN(SumoXMLEdgeFunc);
+INVALID_RETURN(SumoXMLNodeType);
+INVALID_RETURN(RightOfWay);
+INVALID_RETURN(FringeType);
+INVALID_RETURN(std::vector<std::string>);
+INVALID_RETURN(std::vector<int>);
 
 
 template <typename T>
@@ -379,10 +398,9 @@ T SUMOSAXAttributes::get(int attr, const char* objectid,
         if (report) {
             emitUngivenError(getName(attr), objectid);
         }
-        ok = false;
-    } catch (FormatException&) {
+    } catch (const FormatException& e) {
         if (report) {
-            emitFormatError(getName(attr), "of type " + invalid_return<T>::type, objectid);
+            emitFormatError(getName(attr), e.what(), objectid);
         }
     } catch (EmptyData&) {
         if (report) {
@@ -404,9 +422,9 @@ T SUMOSAXAttributes::getOpt(int attr, const char* objectid,
             return fromString<T>(strAttr);
         }
         return defaultValue;
-    } catch (FormatException&) {
+    } catch (const FormatException& e) {
         if (report) {
-            emitFormatError(getName(attr), "of type " + invalid_return<T>::type, objectid);
+            emitFormatError(getName(attr), e.what(), objectid);
         }
     } catch (EmptyData&) {
         if (report) {
