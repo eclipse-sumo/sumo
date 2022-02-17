@@ -272,7 +272,7 @@ public:
     /// @brief removes the nth next stage
     void removeStage(int next, bool stayInSim = true);
 
-    /// sets the walking speed (ignored in other stages)
+    /// @brief set the speed for all present and future (walking) stages and modify the vType so that stages added later are also affected
     void setSpeed(double speed);
 
     /// @brief returns the final arrival pos

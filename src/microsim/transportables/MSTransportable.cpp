@@ -267,9 +267,10 @@ MSTransportable::removeStage(int next, bool stayInSim) {
 
 void
 MSTransportable::setSpeed(double speed) {
-    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
+    for (MSTransportablePlan::const_iterator i = myStep; i != myPlan->end(); ++i) {
         (*i)->setSpeed(speed);
     }
+    getSingularType().setMaxSpeed(speed);
 }
 
 
