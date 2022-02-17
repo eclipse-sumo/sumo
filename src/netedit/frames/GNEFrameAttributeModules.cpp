@@ -827,6 +827,9 @@ GNEFrameAttributeModules::FlowEditor::refreshFlowEditor() {
     // show both attributes
     myTerminateFrameTextField->show();
     mySpacingFrameTextField->show();
+    // reset colors
+    myTerminateTextField->setTextColor(FXRGB(0, 0, 0));
+    mySpacingTextField->setTextColor(FXRGB(0, 0, 0));
     // continue depending of number of flow
     if (myEditedFlows.size() == 1) {
         refreshSingleFlow();
@@ -997,6 +1000,8 @@ GNEFrameAttributeModules::FlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSel
             } else {
                 // set invalid color
                 myTerminateTextField->setTextColor(FXRGB(255, 0, 0));
+                // stop
+                return 1;
             }
         } else if ((obj == mySpacingTextField) && (spacingAttribute != SUMO_ATTR_NOTHING)) {
             if (myEditedFlows.front()->isValid(spacingAttribute, mySpacingTextField->getText().text())) {
@@ -1021,6 +1026,8 @@ GNEFrameAttributeModules::FlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSel
             } else {
                 // set invalid color
                 mySpacingTextField->setTextColor(FXRGB(255, 0, 0));
+                // stop
+                return 1;
             }
         }
         // enable and disable attributes
@@ -1056,7 +1063,7 @@ GNEFrameAttributeModules::FlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSel
                 myViewNet->getUndoList()->end();
             }
         }
-        // refresh attribute creator
+        // refresh flow editor
         refreshFlowEditor();
     }
     return 1;
