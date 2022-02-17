@@ -32,6 +32,7 @@ import traci  # noqa
 import sumolib  # noqa
 import traci.constants as tc  # noqa
 
+
 def getParams(vehID, index):
     print("stop parameters for index %s at time %s:" % (
         index, traci.simulation.getTime()))
@@ -59,6 +60,7 @@ def getParams(vehID, index):
             "speed",
             ]:
         print(p, traci.vehicle.getStopParameter(vehID, index, p))
+
 
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
