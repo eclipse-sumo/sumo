@@ -42,7 +42,7 @@ GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, co
 }
 
 
-GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value, const int previousParameters) :
+GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value, const int /* previousParameters */) :
     GNEChange(ac->getTagProperty().getSupermode(), true, false),
     myAC(ac),
     myKey(key),
