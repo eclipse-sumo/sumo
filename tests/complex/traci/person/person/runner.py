@@ -252,16 +252,24 @@ for i in range(10):
 remaining = traci.person.getRemainingStages("p3")
 assert(remaining == 1)
 # replace current stage
-print_remaining_plan("p3", "(before replacement of current stage")
+print_remaining_plan("p3", "(before replacement of current stage)")
 traci.person.replaceStage("p3", 0, stage2)
-print_remaining_plan("p3", "(after replacement")
+print_remaining_plan("p3", "(after replacement)")
 # replace later stage
 traci.person.appendStage("p3", stage3)
-print_remaining_plan("p3", "(before replacement of next stage")
+print_remaining_plan("p3", "(before replacement of next stage)")
 traci.person.replaceStage("p3", 1, stage4)
-print_remaining_plan("p3", "(after replacement")
+print_remaining_plan("p3", "(after replacement)")
+
+print("speed (before setSpeed)", traci.person.getSpeed("p3"))
+print("maxSpeed (before setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
+traci.person.setSpeed("p3", 4.2)
+print("speed (after setSpeed)", traci.person.getSpeed("p3"))
+print("maxSpeed (after setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
 
 for i in range(41):
     traci.simulationStep()
+print("speed (at end)", traci.person.getSpeed("p3"))
+
 
 traci.close()
