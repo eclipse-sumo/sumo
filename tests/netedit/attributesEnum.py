@@ -1089,11 +1089,13 @@ class flowFromToEdge:
         containerNumber = 19
         departPosLat = 20
         arrivalPosLat = 21
-        begin = 22              # missing
-        terminate = 26          # missing
-        spacing = 28            # missing
-        terminateOptionA = 30   # missing
-        spacingOptionB = 31     # missing
+        begin = 22
+        terminate = 26
+        end = 28
+        number = 29
+        spacing = 28
+        terminateOption = 30
+        spacingOption = 31
     class inspect:
         id = 1
         type = 2
@@ -1116,8 +1118,8 @@ class flowFromToEdge:
         begin = 19              # missing
         terminate = 22          # missing
         spacing = 24            # missing
-        terminateOptionA = 26   # missing
-        spacingOptionB = 27     # missing
+        terminateOption = 26    # missing
+        spacingOption = 27      # missing
         parameters = 29
     class inspectSelection:
         type = 1            # missing
@@ -1137,8 +1139,8 @@ class flowFromToEdge:
         begin = 15              # missing
         terminate = 18          # missing
         spacing = 20            # missing
-        terminateOptionA = 22   # missing
-        spacingOptionB = 23     # missing
+        terminateOption = 22   # missing
+        spacingOption = 23     # missing
         parameters = 25
 
 # vehicle (over route)
@@ -1219,11 +1221,13 @@ class routeflow:
         containerNumber = 19
         departPosLat = 20
         arrivalPosLat = 21
-        begin = 22              # missing
-        terminate = 26          # missing
-        spacing = 28            # missing
-        terminateOptionA = 30   # missing
-        spacingOptionB = 31     # missing
+        begin = 22
+        terminate = 26
+        end = 28
+        number = 29
+        spacing = 28
+        terminateOption = 30
+        spacingOption = 31
     class inspect:
         id = 1
         type = 2
@@ -1246,8 +1250,8 @@ class routeflow:
         begin = 19              # missing
         terminate = 22          # missing
         spacing = 24            # missing
-        terminateOptionA = 26   # missing
-        spacingOptionB = 27     # missing
+        terminateOption = 26    # missing
+        spacingOption = 27      # missing
         parameters = 30
     class inspectSelection:
         type = 1            # missing
@@ -1267,8 +1271,8 @@ class routeflow:
         begin = 15              # missing
         terminate = 18          # missing
         spacing = 20            # missing
-        terminateOptionA = 22   # missing
-        spacingOptionB = 23     # missing
+        terminateOption = 22    # missing
+        spacingOption = 23      # missing
         parameters = 25
 
 # vehicle (embedded route)
@@ -1348,11 +1352,13 @@ class flowEmbedded:
         containerNumber = 19
         departPosLat = 20
         arrivalPosLat = 21
-        begin = 22              # missing
-        terminate = 26          # missing
-        spacing = 28            # missing
-        terminateOptionA = 30   # missing
-        spacingOptionB = 31     # missing
+        begin = 22
+        terminate = 26
+        end = 28
+        number = 29
+        spacing = 28
+        terminateOption = 30
+        spacingOption = 31
     class inspect:
         id = 1              # missing
         type = 2
@@ -1374,8 +1380,8 @@ class flowEmbedded:
         begin = 18              # missing
         terminate = 21          # missing
         spacing = 23            # missing
-        terminateOptionA = 25   # missing
-        spacingOptionB = 26     # missing
+        terminateOption = 25    # missing
+        spacingOption = 26      # missing
         parameters = 28
     class inspectSelection:
         type = 1            # missing
@@ -1395,8 +1401,8 @@ class flowEmbedded:
         begin = 15              # missing
         terminate = 18          # missing
         spacing = 20            # missing
-        terminateOptionA = 22   # missing
-        spacingOptionB = 23     # missing
+        terminateOption = 22    # missing
+        spacingOption = 23      # missing
         parameters = 25
 
 # stop (over additionals)
