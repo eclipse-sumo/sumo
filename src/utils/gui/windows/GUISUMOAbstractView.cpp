@@ -242,7 +242,7 @@ GUISUMOAbstractView::updatePositionInformation() const {
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
         myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
     } else {
-        myApp->getGeoLabel()->setText("No projection defined");
+        myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + " (No projection defined)").c_str());
     }
     // if enabled, set test position
     if (myApp->getTestLabel()) {
