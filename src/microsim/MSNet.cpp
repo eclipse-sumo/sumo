@@ -599,7 +599,7 @@ MSNet::simulationStep() {
         if (myLogExecutionTime) {
             myTraCIStepDuration = SysUtils::getCurrentMillis() - myTraCIStepDuration;
         }
-        if (TraCIServer::wasClosed()) {
+        if (TraCIServer::wasClosed() || !t->getLoadArgs().empty()) {
             return;
         }
     }
