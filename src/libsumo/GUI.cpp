@@ -23,6 +23,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/foxtools/MsgHandlerSynchronized.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
@@ -193,18 +194,34 @@ GUI::getTrackedVehicle(const std::string& viewID) {
 
 void
 GUI::track(const std::string& objID, const std::string& viewID) {
-    GUISUMOAbstractView* const v = getView(viewID);
+    trackVehicle(viewID, objID);
 }
 
 
 bool
 GUI::isSelected(const std::string& objID, const std::string& objType) {
-    return false;
+    const std::string fullName = objType + ":" + objID;
+    GUIGlObject* obj = GUIGlObjectStorage::gIDStorage.getObjectBlocking(fullName);
+    if (obj == nullptr) {
+        GUIGlObjectStorage::gIDStorage.unblockObject(obj->getGlID());
+        throw TraCIException("The " + objType + " " + objID + " is not known.");
+    }
+    const bool result = gSelected.isSelected(obj);
+    GUIGlObjectStorage::gIDStorage.unblockObject(obj->getGlID());
+    return result;
 }
 
 
 void
 GUI::toggleSelection(const std::string& objID, const std::string& objType) {
+    const std::string fullName = objType + ":" + objID;
+    GUIGlObject* obj = GUIGlObjectStorage::gIDStorage.getObjectBlocking(fullName);
+    if (obj == nullptr) {
+        GUIGlObjectStorage::gIDStorage.unblockObject(obj->getGlID());
+        throw TraCIException("The " + objType + " " + objID + " is not known.");
+    }
+    gSelected.toggleSelection(obj->getGlID());
+    GUIGlObjectStorage::gIDStorage.unblockObject(obj->getGlID());
 }
 
 
