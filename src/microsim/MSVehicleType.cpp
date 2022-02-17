@@ -170,6 +170,10 @@ MSVehicleType::setPreferredLateralAlignment(const LatAlignmentDefinition& latAli
     myParameter.parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
 }
 
+void
+MSVehicleType::setScale(double value) {
+    myParameter.scale = value;
+}
 
 void
 MSVehicleType::setDefaultProbability(const double& prob) {

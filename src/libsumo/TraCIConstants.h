@@ -1224,6 +1224,9 @@ TRACI_CONST int VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER = 0x89;
 // ids of vehicles involved in a collision (get: simulation)
 TRACI_CONST int VAR_EMERGENCYSTOPPING_VEHICLES_IDS = 0x8a;
 
+// scale traffic (set, get: simulation, vehicle)
+TRACI_CONST int VAR_SCALE = 0x8e;
+
 // clears the simulation of all not inserted vehicles (set: simulation)
 TRACI_CONST int CMD_CLEAR_PENDING_VEHICLES = 0x94;
 

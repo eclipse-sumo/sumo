@@ -382,6 +382,11 @@ Simulation::getCollisions() {
 }
 
 double
+Simulation::getScale() {
+    return MSNet::getInstance()->getVehicleControl().getScale();
+}
+
+double
 Simulation::getDeltaT() {
     return TS;
 }
@@ -774,6 +779,11 @@ Simulation::setParameter(const std::string& objectID, const std::string& param, 
 }
 
 void
+Simulation::setScale(double value) {
+    MSNet::getInstance()->getVehicleControl().setScale(value);
+}
+
+void
 Simulation::clearPending(const std::string& routeID) {
     MSNet::getInstance()->getInsertionControl().clearPendingVehicles(routeID);
 }
@@ -884,6 +894,8 @@ Simulation::handleVariable(const std::string& objID, const int variable, Variabl
             return wrapper->wrapInt(objID, variable, getArrivedPersonNumber());
         case VAR_ARRIVED_PERSONS_IDS:
             return wrapper->wrapStringList(objID, variable, getArrivedPersonIDList());
+        case VAR_SCALE:
+            return wrapper->wrapDouble(objID, variable, getScale());
         case VAR_DELTA_T:
             return wrapper->wrapDouble(objID, variable, getDeltaT());
         case VAR_MIN_EXPECTED_VEHICLES:

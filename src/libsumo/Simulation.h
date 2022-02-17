@@ -113,6 +113,7 @@ public:
 
     static std::vector<libsumo::TraCICollision> getCollisions();
 
+    static double getScale();
     static double getDeltaT();
 
     static libsumo::TraCIPositionVector getNetBoundary();
@@ -144,6 +145,7 @@ public:
     static const std::pair<std::string, std::string> getParameterWithKey(const std::string& objectID, const std::string& key);
     static void setParameter(const std::string& objectID, const std::string& param, const std::string& value);
 
+    static void setScale(double value);
     static void clearPending(const std::string& routeID = "");
     static void saveState(const std::string& fileName);
     /// @brief quick-load simulation state from file and return the state time

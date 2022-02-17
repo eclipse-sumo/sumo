@@ -176,6 +176,12 @@ class VehicleTypeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_MINGAP_LAT, vehID)
 
+    def getScale(self, typeID):
+        """getScale(string) -> double
+        Returns the traffic scaling factor
+        """
+        return self._getUniversal(tc.VAR_SCALE, typeID)
+
     def getPersonCapacity(self, typeID):
         """getPersonCapacity(string) -> int
 
@@ -339,6 +345,12 @@ class VehicleTypeDomain(Domain):
         Sets the color of this type.
         """
         self._setCmd(tc.VAR_COLOR, typeID, "c", color)
+
+    def setScale(self, typeID, value):
+        """setScale(string, double)
+        Sets the traffic scaling factor
+        """
+        self._setCmd(tc.VAR_SCALE, typeID, "d", value)
 
     def copy(self, origTypeID, newTypeID):
         """copy(string, string) -> None

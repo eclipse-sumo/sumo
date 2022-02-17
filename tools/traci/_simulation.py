@@ -507,6 +507,13 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_PENDING_VEHICLES)
 
+    def getScale(self):
+        """getScale() -> double
+
+        Returns the traffic scaling factor
+        """
+        return self._getUniversal(tc.VAR_SCALE)
+
     def getDeltaT(self):
         """getDeltaT() -> double
         Returns the length of one simulation step in seconds
@@ -621,6 +628,13 @@ class SimulationDomain(Domain):
             answer.read("!B")                   # Type
             result.append(_readStage(answer))
         return tuple(result)
+
+    def setScale(self, value):
+        """setScale(value) -> None
+
+        Sets the traffic scaling factor
+        """
+        self._setCmd(tc.VAR_SCALE, "", "d", value)
 
     def clearPending(self, routeID=""):
         self._setCmd(tc.CMD_CLEAR_PENDING_VEHICLES, "", "s", routeID)
