@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-09 10:49:38 by Eclipse SUMO netedit Version v1_12_0+0390-6ccad2aacb0
+<!-- generated on 2022-02-17 10:16:33 by Eclipse SUMO netedit Version v1_12_0+0632-1b14e00a66e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Feb104210.4692\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Feb101517.4612\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Feb104210.4692\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Feb101517.4612\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,46 +31,45 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Feb104210.4692\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Feb104210.4692\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Feb104210.4692\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Feb104210.4692\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Feb104210.4692\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Feb104210.4692\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Feb101517.4612\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Feb101517.4612\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Feb101517.4612\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Feb101517.4612\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Feb101517.4612\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Feb101517.4612\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Feb104210.4692\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Feb101517.4612\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Feb104210.4692\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Feb101517.4612\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Feb104210.4692\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Feb101517.4612\netedit.gui\additionalElements\parkingspace\inspect_selection\parent\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingArea_A" lane="gneE0_0" startPos="12.00" endPos="22.00" length="5.00">
-        <space name="nameA" x="17.00" y="7.00" z="10.00" width="4.00" length="5.00" angle="45.00">
-            <param key="KeyA1" value="valueA1"/>
-            <param key="KeyA2" value="valueA2"/>
-            <param key="KeyA3" value="valueA3"/>
-        </space>
-    </parkingArea>
+    <parkingArea id="parkingArea_A" lane="gneE0_0" startPos="12.00" endPos="22.00" length="5.00"/>
     <parkingArea id="parkingArea_B" lane="gneE0_0" startPos="29.00" endPos="39.00" length="5.00">
         <space name="nameB" x="34.00" y="7.00" z="20.00" width="2.00" length="12.00" angle="12.00">
             <param key="KeyB1" value="valueB1"/>
             <param key="KeyB2" value="valueB2"/>
             <param key="KeyB3" value="valueB3"/>
+        </space>
+        <space name="nameA" x="17.00" y="7.00" z="10.00" width="4.00" length="5.00" angle="45.00">
+            <param key="KeyA1" value="valueA1"/>
+            <param key="KeyA2" value="valueA2"/>
+            <param key="KeyA3" value="valueA3"/>
         </space>
     </parkingArea>
 </additional>

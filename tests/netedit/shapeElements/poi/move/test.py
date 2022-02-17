@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # create poi
-netedit.leftClick(referencePosition, 100, 100)
+netedit.leftClick(referencePosition, 109, 94)
 
 # change color to white (To see icon)
 netedit.changeDefaultValue(netedit.attrs.POI.create.color, "white")
@@ -50,16 +50,16 @@ netedit.changeDefaultValue(netedit.attrs.POI.create.height, "10")
 netedit.changeDefaultValue(netedit.attrs.POI.create.imgFile, "berlin_icon.ico")
 
 # create poi
-netedit.leftClick(referencePosition, 100, 350)
+netedit.leftClick(referencePosition, 108, 377)
 
 # go to move mode
 netedit.moveMode()
 
 # move first POI to left down
-netedit.moveElement(referencePosition, 108, 94, 370, 155)
+netedit.moveElement(referencePosition, 109, 94, 468, 169)
 
 # move second POI to left up
-netedit.moveElement(referencePosition, 110, 363, 355, 250)
+netedit.moveElement(referencePosition, 110, 363, 468, 263)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

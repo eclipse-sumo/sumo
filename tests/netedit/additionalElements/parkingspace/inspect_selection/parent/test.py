@@ -47,7 +47,7 @@ netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.parent, "dum
 netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.parent, "", False)
 
 # Change parameter parent with a valid value
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.parent, "parkingArea_gneE2_0_1", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.parent, "parkingArea_B", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)
