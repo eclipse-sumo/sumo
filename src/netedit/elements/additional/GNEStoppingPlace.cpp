@@ -166,25 +166,17 @@ GNEStoppingPlace::getPositionInView() const {
 
 void
 GNEStoppingPlace::updateCenteringBoundary(const bool /*updateGrid*/) {
-    if (isTemplate()) {
-        return;
-    }
-    // update geometry
-    updateGeometry();
-    // add shape boundary
-    myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // grow with "width"
-    if (myTagProperty.hasAttribute(SUMO_ATTR_WIDTH)) {
-        // we cannot use "getAttributeDouble(...)"
-        myAdditionalBoundary.grow(parse<double>(getAttribute(SUMO_ATTR_WIDTH)));
-    }
-    // grow
-    myAdditionalBoundary.grow(10);
-    // add parking spaces
-    for (const auto& parkingSpace : getChildAdditionals()) {
-        if (parkingSpace->getTagProperty().getTag() == SUMO_TAG_PARKING_SPACE) {
-            myAdditionalBoundary.add(parkingSpace->getCenteringBoundary());
+    if (!isTemplate()) {
+        // update geometry
+        updateGeometry();
+        // add shape boundary
+        myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+        // grow with "width"
+        if (myTagProperty.hasAttribute(SUMO_ATTR_WIDTH)) {
+            myAdditionalBoundary.grow(getAttributeDouble(SUMO_ATTR_WIDTH));
         }
+        // grow
+        myAdditionalBoundary.grow(10);
     }
 }
 

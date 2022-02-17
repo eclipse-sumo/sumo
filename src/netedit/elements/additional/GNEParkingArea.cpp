@@ -203,12 +203,6 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), myWidth * 0.5,
                         parkingAreaExaggeration, true, true);
             }
-            // draw child spaces
-            for (const auto& parkingSpace : getChildAdditionals()) {
-                if (parkingSpace->getTagProperty().getTag() == SUMO_TAG_PARKING_SPACE) {
-                    parkingSpace->drawGL(s);
-                }
-            }
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
                 if (!demandElement->getTagProperty().isPlacedInRTree()) {

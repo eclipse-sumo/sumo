@@ -33,9 +33,9 @@
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net) :
     GNEAdditional("", net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
-mySlope(0) {
+    {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    mySlope(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -45,13 +45,13 @@ GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, 
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
                                  const std::string& name, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
-{}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
-parameters),
-myPosition(pos),
-myWidth(width),
-myLength(length),
-myAngle(angle),
-mySlope(slope) {
+    {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
+    parameters),
+    myPosition(pos),
+    myWidth(width),
+    myLength(length),
+    myAngle(angle),
+    mySlope(slope) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -149,7 +149,11 @@ GNEParkingSpace::getPositionInView() const {
 
 
 void
-GNEParkingSpace::updateCenteringBoundary(const bool /*updateGrid*/) {
+GNEParkingSpace::updateCenteringBoundary(const bool updateGrid) {
+    // remove additional from grid
+    if (updateGrid) {
+        myNet->removeGLObjectFromGrid(this);
+    }
     // first reset boundary
     myAdditionalBoundary.reset();
     // add position
@@ -159,8 +163,10 @@ GNEParkingSpace::updateCenteringBoundary(const bool /*updateGrid*/) {
     myAdditionalBoundary.grow(myShapeWidth.length2D());
     // grow
     myAdditionalBoundary.grow(10);
-    // update centering boundary of parent
-    getParentAdditionals().front()->updateCenteringBoundary(true);
+    // add additional into RTREE again
+    if (updateGrid) {
+        myNet->addGLObjectIntoGrid(this);
+    }
 }
 
 
@@ -182,6 +188,10 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && s.drawAdditionals(parkingAreaExaggeration)) {
+        // check if boundary has to be drawn
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(getCenteringBoundary());
+        }
         // obtain  values
         const double width = myShapeWidth.length2D() * 0.5 + (parkingAreaExaggeration * 0.1);
         const double angle = getAttributeDouble(SUMO_ATTR_ANGLE);
