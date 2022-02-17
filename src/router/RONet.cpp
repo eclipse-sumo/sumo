@@ -593,7 +593,9 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
             }
         }
     }
+#ifdef HAVE_FOX
     int workerIndex = 0;
+#endif
     for (std::map<const int, std::vector<RORoutable*> >::const_iterator i = bulkVehs.begin(); i != bulkVehs.end(); ++i) {
 #ifdef HAVE_FOX
         if (myThreadPool.size() > 0) {
@@ -632,7 +634,9 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
     }
     SUMOTime lastTime = -1;
     const bool removeLoops = options.getBool("remove-loops");
+#ifdef HAVE_FOX
     const int maxNumThreads = options.getInt("routing-threads");
+#endif
     if (myRoutables.size() != 0) {
         if (options.getBool("bulk-routing")) {
 #ifdef HAVE_FOX

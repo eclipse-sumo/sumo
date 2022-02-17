@@ -495,6 +495,8 @@ MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const MSE
         router.prohibit(prohibited);
         return router;
     }
+#else
+    UNUSED_PARAMETER(rngIndex);
 #endif
 #endif
     myRouterProvider->getVehicleRouter(svc).prohibit(prohibited);

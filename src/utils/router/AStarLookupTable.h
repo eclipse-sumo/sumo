@@ -220,6 +220,8 @@ public:
                         }
                     }
                 }
+#else
+                UNUSED_PARAMETER(reverseRouter);
 #endif
             }
         }
