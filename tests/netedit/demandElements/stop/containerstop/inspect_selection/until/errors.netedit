@@ -33,6 +33,8 @@ Debug: Setting new attribute
 Debug: Value '-5' for attribute until of stopContainerStop isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
