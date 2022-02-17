@@ -228,7 +228,7 @@ GUI::toggleSelection(const std::string& objID, const std::string& objType) {
 void
 GUI::start(const std::vector<std::string>& cmd) {
     try {
-        int argc = cmd.size();
+        int argc = (int)cmd.size();
         char** argv = new char* [argc];
         for (int i = 0; i < argc; i++) {
             argv[i] = new char[cmd[i].size() + 1];
