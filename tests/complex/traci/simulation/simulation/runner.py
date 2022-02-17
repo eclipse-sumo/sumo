@@ -183,6 +183,9 @@ try:
 except traci.TraCIException:
     pass
 
+traci.simulation.setScale(1.5)
+print("scale", traci.simulation.getScale())
+
 for step in range(12):
     print("step", step)
     traci.simulationStep()

@@ -1,7 +1,7 @@
 loaded? False
  Retrying in 1 seconds
-version at start (20, 'SUMO v1_12_0+0384-322f30a63b1')
-version (20, 'SUMO v1_12_0+0384-322f30a63b1')
+version at start (20, 'SUMO v1_12_0+0645-a864339')
+version (20, 'SUMO v1_12_0+0645-a864339')
 loaded? True
 endTime 42.0
 {114: ('horiz', 'horiz1'), 116: ()}
@@ -51,15 +51,15 @@ deltaT 1.0
 boundary ((0.0, 0.0), (3500.0, 3904.56))
 convertRoad2D (-1.22, 3903.52)
 convertRoad3D (-1.22, 3903.52, 2.0)
-convertRoadGeo (12.014678141837997, 48.121449189894975)
-convertRoadGeoAlt (12.014678141837997, 48.121449189894975, 2.0)
+convertRoadGeo (12.014678141843579, 48.121449189819344)
+convertRoadGeoAlt (12.014678141843579, 48.121449189819344, 2.0)
 convertRoad2D length (667.2699999999995, 3124.688)
-convert2DGeo (12.023018905461857, 48.09105459778214)
-convertGeo2D (-1619.5653967780527, -9550.720808431506)
+convert2DGeo (12.023018905467282, 48.09105459770769)
+convertGeo2D (-1619.5653987218393, -9550.720807247795)
 convert2DRoad ('o', 2906.189220451069, 0)
-convertGeoRoad ('o', 1012.1569043555733, 0)
-convertGeoRoadBus ('o', 1012.1569043555733, 0)
-convertGeoRoadBusDisallowed ('2o', 8027.707315024644, 0)
+convertGeoRoad ('o', 1012.1569021973628, 0)
+convertGeoRoadBus ('o', 1012.1569021973628, 0)
+convertGeoRoadBusDisallowed ('2o', 8027.707319230139, 0)
 distance2D 10.0
 drivingDistance2D 6.48934561332
 distanceRoad 5131.87897232
@@ -98,6 +98,7 @@ findIntermodalRoute (bike,car,public)
   Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=729.248201439, cost=729.248201439, length=20111.55, intended=car, depart=6.00096, departPos=0.0, arrivalPos=5000.0)
 
 contextSubscriptions: {'': {'horiz': {66: (22.189899364245058, 3876.0730045306937)}, 'horiz1': {66: (2.0895619928759057, 3899.639695706057)}}}
+scale 1.5
 step 0
 {114: (), 116: ()}
 step 1
