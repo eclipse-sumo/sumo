@@ -136,6 +136,8 @@ def get_options(args=None):
                            "to the output file).")
     optParser.add_argument("--remove-loops", dest="remove_loops", action="store_true",
                            default=False, help="Remove loops at route start and end")
+    optParser.add_argument("--random-routing-factor", dest="randomRoutingFactor", type=float,
+                           default=1, help="Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)")
     optParser.add_argument("--junction-taz", dest="junctionTaz", action="store_true",
                            default=False, help="Write trips with fromJunction and toJunction")
     optParser.add_argument("--via-edge-types", dest="viaEdgeTypes",
@@ -616,6 +618,8 @@ def main(options):
         args += ['--persontrip.walk-opposite-factor', options.walkoppositefactor]
     if options.remove_loops:
         args += ['--remove-loops']
+    if options.randomRoutingFactor != 1:
+        args += ['--weights.random-factor', str(options.randomRoutingFactor)]
     if options.vtypeout is not None:
         args += ['--vtype-output', options.vtypeout]
     if options.junctionTaz:
