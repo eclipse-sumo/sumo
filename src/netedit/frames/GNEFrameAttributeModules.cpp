@@ -885,16 +885,18 @@ GNEFrameAttributeModules::FlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSel
         const bool spacingEnabled = myEditedFlows.front()->isAttributeEnabled(myPerHourAttr) || 
                                     myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_PERIOD) || 
                                     myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_PROB);
+        // get special case endNumber
+        const bool endNumber = (myTerminateComboBox->getText().text() == (toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER)));
         // get terminate attribute
         SumoXMLAttr terminateAttribute = SUMO_ATTR_NOTHING;
-        if (myTerminateComboBox->getText().text() == toString(SUMO_ATTR_END)) {
+        if (myTerminateComboBox->getText().text() == toString(SUMO_ATTR_END) || endNumber) {
             terminateAttribute = SUMO_ATTR_END;
         } else if (myTerminateComboBox->getText().text() == toString(SUMO_ATTR_NUMBER)) {
             terminateAttribute = SUMO_ATTR_NUMBER;
         }
         // get spacing attribute
         SumoXMLAttr spacingAttribute = SUMO_ATTR_NOTHING;
-        if (myTerminateComboBox->getText().text() == (toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER))) {
+        if (endNumber) {
             spacingAttribute = SUMO_ATTR_NUMBER;
         } else if (mySpacingComboBox->getText().text() == toString(myPerHourAttr)) {
             spacingAttribute = myPerHourAttr;
@@ -905,7 +907,17 @@ GNEFrameAttributeModules::FlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSel
         }
         // check if obj is a comboBox or a text field
         if (obj == myTerminateComboBox) {
-            if (terminateAttribute == SUMO_ATTR_END) {
+            if (endNumber) {
+                enableAttrs.push_back(SUMO_ATTR_END);
+                enableAttrs.push_back(SUMO_ATTR_NUMBER);
+                // disable others
+                disableAttrs.push_back(myPerHourAttr);
+                disableAttrs.push_back(SUMO_ATTR_PERIOD);
+                disableAttrs.push_back(SUMO_ATTR_PROB);
+                // reset color
+                myTerminateComboBox->setTextColor(FXRGB(0, 0, 0));
+                myTerminateComboBox->killFocus();
+            } else if (terminateAttribute == SUMO_ATTR_END) {
                 enableAttrs.push_back(SUMO_ATTR_END);
                 disableAttrs.push_back(SUMO_ATTR_NUMBER);
                 // at least enable one spacing attribute
@@ -922,16 +934,6 @@ GNEFrameAttributeModules::FlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSel
                 if (!spacingEnabled) {
                     enableAttrs.push_back(myPerHourAttr);
                 }
-                // reset color
-                myTerminateComboBox->setTextColor(FXRGB(0, 0, 0));
-                myTerminateComboBox->killFocus();
-            } else if (spacingAttribute == SUMO_ATTR_NUMBER) {
-                enableAttrs.push_back(SUMO_ATTR_END);
-                enableAttrs.push_back(SUMO_ATTR_NUMBER);
-                // disable others
-                disableAttrs.push_back(myPerHourAttr);
-                disableAttrs.push_back(SUMO_ATTR_PERIOD);
-                disableAttrs.push_back(SUMO_ATTR_PROB);
                 // reset color
                 myTerminateComboBox->setTextColor(FXRGB(0, 0, 0));
                 myTerminateComboBox->killFocus();
@@ -1132,13 +1134,13 @@ GNEFrameAttributeModules::FlowEditor::refreshSingleFlow() {
 void 
 GNEFrameAttributeModules::FlowEditor::refreshMultipleFlows() {
     // get first flow (only for code legibly)
-    const auto flow = myEditedFlows.front();
+    const auto editedFlow = myEditedFlows.front();
     // get values of first flow
-    const bool end = flow->isAttributeEnabled(SUMO_ATTR_END);
-    const bool number = flow->isAttributeEnabled(SUMO_ATTR_NUMBER);
-    const bool perhour = flow->isAttributeEnabled(myPerHourAttr);
-    const bool period = flow->isAttributeEnabled(SUMO_ATTR_PERIOD);
-    const bool probability = flow->isAttributeEnabled(SUMO_ATTR_PROB);
+    const bool end = editedFlow->isAttributeEnabled(SUMO_ATTR_END);
+    const bool number = editedFlow->isAttributeEnabled(SUMO_ATTR_NUMBER);
+    const bool perhour = editedFlow->isAttributeEnabled(myPerHourAttr);
+    const bool period = editedFlow->isAttributeEnabled(SUMO_ATTR_PERIOD);
+    const bool probability = editedFlow->isAttributeEnabled(SUMO_ATTR_PROB);
     // we need to check if attributes are defined differents in flows
     std::vector<std::string> terminateDifferent;
     std::vector<std::string> spacingDifferent;
