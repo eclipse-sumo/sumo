@@ -1089,7 +1089,11 @@ class flowFromToEdge:
         containerNumber = 19
         departPosLat = 20
         arrivalPosLat = 21
-        # flow attributes missing
+        begin = 22              # missing
+        terminate = 26          # missing
+        spacing = 28            # missing
+        terminateOptionA = 30   # missing
+        spacingOptionB = 31     # missing
     class inspect:
         id = 1
         type = 2
@@ -1109,8 +1113,12 @@ class flowFromToEdge:
         containerNumber = 16
         departPosLat = 17
         arrivalPosLat = 18
-        # flow attributes missing
-        parameters = 30
+        begin = 19              # missing
+        terminate = 22          # missing
+        spacing = 24            # missing
+        terminateOptionA = 26   # missing
+        spacingOptionB = 27     # missing
+        parameters = 29
     class inspectSelection:
         type = 1            # missing
         colorButton = 2
@@ -1126,8 +1134,12 @@ class flowFromToEdge:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
-        # flow attributes missing
-        parameters = 26
+        begin = 15              # missing
+        terminate = 18          # missing
+        spacing = 20            # missing
+        terminateOptionA = 22   # missing
+        spacingOptionB = 23     # missing
+        parameters = 25
 
 # vehicle (over route)
 class vehicle:
@@ -1207,7 +1219,11 @@ class routeflow:
         containerNumber = 19
         departPosLat = 20
         arrivalPosLat = 21
-        # flow attributes missing
+        begin = 22              # missing
+        terminate = 26          # missing
+        spacing = 28            # missing
+        terminateOptionA = 30   # missing
+        spacingOptionB = 31     # missing
     class inspect:
         id = 1
         type = 2
@@ -1227,7 +1243,11 @@ class routeflow:
         containerNumber = 16
         departPosLat = 17
         arrivalPosLat = 18
-        # flow attributes missing
+        begin = 19              # missing
+        terminate = 22          # missing
+        spacing = 24            # missing
+        terminateOptionA = 26   # missing
+        spacingOptionB = 27     # missing
         parameters = 30
     class inspectSelection:
         type = 1            # missing
@@ -1244,8 +1264,12 @@ class routeflow:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
-        # flow attributes missing
-        parameters = 26
+        begin = 15              # missing
+        terminate = 18          # missing
+        spacing = 20            # missing
+        terminateOptionA = 22   # missing
+        spacingOptionB = 23     # missing
+        parameters = 25
 
 # vehicle (embedded route)
 class vehicleEmbedded:
@@ -1324,7 +1348,11 @@ class flowEmbedded:
         containerNumber = 19
         departPosLat = 20
         arrivalPosLat = 21
-        # flow attributes missing
+        begin = 22              # missing
+        terminate = 26          # missing
+        spacing = 28            # missing
+        terminateOptionA = 30   # missing
+        spacingOptionB = 31     # missing
     class inspect:
         id = 1              # missing
         type = 2
@@ -1343,9 +1371,12 @@ class flowEmbedded:
         containerNumber = 15
         departPosLat = 16
         arrivalPosLat = 17
-        begin = 18          # missing
-        # flow attributes missing
-        parameters = 29
+        begin = 18              # missing
+        terminate = 21          # missing
+        spacing = 23            # missing
+        terminateOptionA = 25   # missing
+        spacingOptionB = 26     # missing
+        parameters = 28
     class inspectSelection:
         type = 1            # missing
         colorButton = 2
@@ -1361,9 +1392,12 @@ class flowEmbedded:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
-        begin = 15          # missing
-        # flow attributes missing
-        parameters = 26
+        begin = 15              # missing
+        terminate = 18          # missing
+        spacing = 20            # missing
+        terminateOptionA = 22   # missing
+        spacingOptionB = 23     # missing
+        parameters = 25
 
 # stop (over additionals)
 class stop:
