@@ -398,7 +398,12 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     }
     // delete edge child demand elements
     while (edge->getChildDemandElements().size() > 0) {
-        deleteDemandElement(edge->getChildDemandElements().front(), undoList);
+        // special case for embedded routes
+        if (edge->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+            deleteDemandElement(edge->getChildDemandElements().front()->getParentDemandElements().front(), undoList);
+        } else {
+            deleteDemandElement(edge->getChildDemandElements().front(), undoList);
+        }
     }
     // delete edge child generic datas
     while (edge->getChildGenericDatas().size() > 0) {
