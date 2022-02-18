@@ -1050,6 +1050,10 @@ Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std
             return pars.line;
         } else if (param == toString(SUMO_ATTR_SPEED)) {
             return toString(pars.speed);
+        } else if (param == toString(SUMO_ATTR_STARTED)) {
+            return pars.started < 0 ? "-1" : time2string(pars.started);
+        } else if (param == toString(SUMO_ATTR_ENDED)) {
+            return pars.ended < 0 ? "-1" : time2string(pars.ended);
         } else {
             throw ProcessError("Unsupported parameter '" + param + "'");
         }
@@ -1151,6 +1155,12 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
         } else if (param == toString(SUMO_ATTR_SPEED)) {
             pars.speed = StringUtils::toDouble(value);
             pars.parametersSet |= STOP_SPEED_SET;
+        } else if (param == toString(SUMO_ATTR_STARTED)) {
+            pars.started = string2time(value);
+            pars.parametersSet |= STOP_STARTED_SET;
+        } else if (param == toString(SUMO_ATTR_ENDED)) {
+            pars.ended = string2time(value);
+            pars.parametersSet |= STOP_ENDED_SET;
         } else {
             throw ProcessError("Unsupported parameter '" + param + "'");
         }
