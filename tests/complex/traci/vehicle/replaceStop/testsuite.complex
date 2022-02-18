@@ -59,6 +59,10 @@ reached_invalid
 # test replaceStop failure
 unreachable
 
+# replace second stop with "" after the vehicle has departed.
+# riders with "ANY" from the first stop to the second stop should be aware
+second_remove_rider
+
 # replace first stop while on a junction leading away from the new stop
 on_junction
 
