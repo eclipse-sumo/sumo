@@ -87,7 +87,7 @@ public:
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder& nb);
+    void init(NLDetectorBuilder& nb) override;
 
 
     /// @brief Destructor
@@ -102,7 +102,7 @@ public:
      * @return The time of the next switch
      * @see MSTrafficLightLogic::trySwitch
      */
-    SUMOTime trySwitch();
+    SUMOTime trySwitch() override;
     /// @}
 
     SUMOTime getMinDur(int step = -1) const override;
@@ -121,11 +121,11 @@ public:
      * @see MSTrafficLightLogic::changeStepAndDuration
      */
     void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep,
-                               int step, SUMOTime stepDuration);
+                               int step, SUMOTime stepDuration) override;
 
     /// @brief called when switching programs
-    void activateProgram();
-    void deactivateProgram();
+    void activateProgram() override;
+    void deactivateProgram() override;
 
     bool showDetectors() const {
         return myShowDetectors;
@@ -134,13 +134,13 @@ public:
     void setShowDetectors(bool show);
 
     /**@brief Sets a parameter and updates internal constants */
-    void setParameter(const std::string& key, const std::string& value);
+    void setParameter(const std::string& key, const std::string& value) override;
 
     /// @brief retrieve all detectors used by this program
-    std::map<std::string, double> getDetectorStates() const;
+    std::map<std::string, double> getDetectorStates() const override;
 
     /// @brief return all named conditions defined for this traffic light
-    std::map<std::string, double> getConditions() const;
+    std::map<std::string, double> getConditions() const override;
 
 protected:
     /// @brief initialize custom switching rules
