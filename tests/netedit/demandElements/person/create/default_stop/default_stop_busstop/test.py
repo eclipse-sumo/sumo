@@ -35,10 +35,10 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("stops", "personStop: busStop")
+netedit.changePersonPlan("personStop: busStop")
 
 # create route clicking over busStop
-netedit.leftClick(referencePosition, 270, 54)
+netedit.leftClick(referencePosition, 270, 43)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

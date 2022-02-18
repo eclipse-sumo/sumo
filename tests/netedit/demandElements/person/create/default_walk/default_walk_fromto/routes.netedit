@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-10 11:22:11 by Eclipse SUMO netedit Version v1_10_0+2095-bb366145914
+<!-- generated on 2022-02-18 11:45:18 by Eclipse SUMO netedit Version v1_12_0+0672-203952c1fe1
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="person_0" depart="0.00">
-        <walk from="gneE2" to="gneE5" arrivalPos="0.00"/>
+    <person id="p_0" depart="0.00">
+        <walk from="gneE2" to="gneE5"/>
     </person>
 </routes>
