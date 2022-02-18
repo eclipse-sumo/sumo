@@ -1,5 +1,5 @@
 Error: Attribute 'pos' is missing in definition of e2Detector 'E2_01'.
-Error: Attribute 'pos' in definition of e2Detector 'E2_02' is not of type double.
+Error: Attribute 'pos' in definition of e2Detector 'E2_02' Invalid Number Format (double) dummyPosition.
 Error: Could not build e2Detector with ID 'E2_03' in netedit; Invalid position over lane.
 Error: Could not build e2Detector with ID 'E2_04' in netedit; Invalid position over lane.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb113100.7832\netedit.gui\additionalElements\e2detector\load\pos\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\e2detector\load\pos\input_additionals.add.xml failed.

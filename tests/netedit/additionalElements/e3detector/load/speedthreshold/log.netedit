@@ -1,7 +1,7 @@
-Error: Attribute 'speedThreshold' in definition of e3Detector 'e3Detector_1' is not of type double.
+Error: Attribute 'speedThreshold' in definition of e3Detector 'e3Detector_1' Invalid Number Format (double) dummySpeedThreshold.
 Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
 Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
 Error: Could not build e3Detector with ID 'e3Detector_2' in netedit; attribute speedThreshold cannot be negative.
 Error: Could not build entry in netedit; e3Detector doesn't exist.
 Error: Could not build detExit in netedit; e3Detector doesn't exist.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb131658.3720\netedit.gui\additionalElements\e3detector\load\speedthreshold\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\e3detector\load\speedthreshold\input_additionals.add.xml failed.

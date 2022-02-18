@@ -4,10 +4,10 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding parkingArea 'parkingArea_0' in GNEChange_Additional
-Error: Attribute 'width' in definition of parkingArea 'parkingArea_1' is not of type double.
+Error: Attribute 'width' in definition of parkingArea 'parkingArea_1' Invalid Number Format (double) dummy.
 Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; attribute width cannot be negative.
 Debug: Adding parkingArea 'parkingArea_3' in GNEChange_Additional
-Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.18Jan114657.13884\netedit.gui\additionalElements\parkingarea\load\width\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\parkingarea\load\width\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

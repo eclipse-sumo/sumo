@@ -4,11 +4,11 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
-Error: Attribute 'startPos' in definition of chargingStation 'chargingStation_1' is not of type double.
+Error: Attribute 'startPos' in definition of chargingStation 'chargingStation_1' Invalid Number Format (double) dummyStartPosition.
 Error: Could not build chargingStation with ID 'chargingStation_2' in netedit; Invalid position over lane.
 Error: Could not build chargingStation with ID 'chargingStation_3' in netedit; Invalid position over lane.
 Debug: Adding chargingStation 'chargingStation_4' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov133040.7476\netedit.gui\additionalElements\chargingstation\load\startpos\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\chargingstation\load\startpos\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

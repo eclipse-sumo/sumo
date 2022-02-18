@@ -37,18 +37,20 @@ Debug: Value 'dummy position' for attribute pos of junction isn't valid
 Debug: Opening FXMessageBox 'merge junctions'
 Debug: Closed FXMessageBox 'merge junctions' with 'No'
 Debug: Setting new attribute
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Key F5 (Compute) pressed
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
-Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
-Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Key F5 (Compute) pressed
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
@@ -57,8 +59,6 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Additionals saved after dialog
-Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
-Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Deleting unreferenced busStop 'busStop_8_0_4'
 Debug: Deleting unreferenced busStop 'busStop_7_0_1'
 Debug: Deleting unreferenced busStop 'busStop_6_1_3'

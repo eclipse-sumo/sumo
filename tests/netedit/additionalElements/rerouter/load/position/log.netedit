@@ -1,3 +1,3 @@
-Error: Attribute 'pos' in definition of rerouter 'rerouter_1' is not of type Position.
-Error: Attribute 'pos' in definition of rerouter 'rerouter_2' is not of type Position.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov101212.32404\netedit.gui\additionalElements\rerouter\load\position\input_additionals.add.xml failed.
+Error: Attribute 'pos' in definition of rerouter 'rerouter_1' is not a valid position.
+Error: Attribute 'pos' in definition of rerouter 'rerouter_2' is not a valid position.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\rerouter\load\position\input_additionals.add.xml failed.
