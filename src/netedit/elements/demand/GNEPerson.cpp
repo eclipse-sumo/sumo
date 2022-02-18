@@ -165,6 +165,9 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
         {}, {}, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
+    // set end and vehPerHours
+    toogleAttribute(SUMO_ATTR_END, 1);
+    toogleAttribute(SUMO_ATTR_PERSONSPERHOUR, 1);
 }
 
 
@@ -516,6 +519,9 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
 double
 GNEPerson::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN:
+            return STEPS2TIME(depart);
         case SUMO_ATTR_DEPARTPOS:
             if (departPosProcedure == DepartPosDefinition::GIVEN) {
                 return departPos;
@@ -632,34 +638,27 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_END:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 return (parse<double>(value) >= 0);
             } else {
                 return false;
             }
         case SUMO_ATTR_PERSONSPERHOUR:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 return (parse<double>(value) > 0);
             } else {
                 return false;
             }
         case SUMO_ATTR_PERIOD:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 return (parse<double>(value) > 0);
             } else {
                 return false;
             }
         case SUMO_ATTR_PROB:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
+            if (canParse<double>(value)) {
+                const double prob = parse<double>(value);
+                return ((prob >= 0) && (prob <= 1));
             } else {
                 return false;
             }
@@ -685,7 +684,7 @@ GNEPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
-        case SUMO_ATTR_CONTAINERSPERHOUR:
+        case SUMO_ATTR_PERSONSPERHOUR:
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_PROB:
             undoList->add(new GNEChange_EnableAttribute(this, key, true, parametersSet), true);
@@ -697,8 +696,18 @@ GNEPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 
 void
-GNEPerson::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to disable
+GNEPerson::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+    switch (key) {
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_NUMBER:
+        case SUMO_ATTR_PERSONSPERHOUR:
+        case SUMO_ATTR_PERIOD:
+        case SUMO_ATTR_PROB:
+            undoList->add(new GNEChange_EnableAttribute(this, key, false, parametersSet), true);
+            return;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -729,26 +738,6 @@ GNEPerson::getPopUpID() const {
 
 std::string
 GNEPerson::getHierarchyName() const {
-    // special case for Trips and flow
-    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
-        // check if we're inspecting a Edge
-        if (myNet->getViewNet()->getInspectedAttributeCarriers().front() &&
-                myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-            // check if edge correspond to a "from", "to" or "via" edge
-            if (myNet->getViewNet()->isAttributeCarrierInspected(getParentEdges().front())) {
-                return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (from)";
-            } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentEdges().front())) {
-                return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (to)";
-            } else {
-                // iterate over via
-                for (const auto& i : via) {
-                    if (i == myNet->getViewNet()->getInspectedAttributeCarriers().front()->getID()) {
-                        return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (via)";
-                    }
-                }
-            }
-        }
-    }
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID);
 }
 

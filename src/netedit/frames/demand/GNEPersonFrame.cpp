@@ -354,9 +354,6 @@ GNEPersonFrame::buildPerson() {
         if (!myPersonBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myPersonBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
             myPersonBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
         }
-        if (!myPersonBaseObject->hasStringAttribute(SUMO_ATTR_END) || myPersonBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
-            myPersonBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
-        }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myPersonBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(personTag));
         // obtain personFlow parameters
