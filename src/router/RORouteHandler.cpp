@@ -608,9 +608,23 @@ RORouteHandler::closePersonFlow() {
             }
         } else {
             SUMOTime depart = myVehicleParameter->depart;
-            for (; i < myVehicleParameter->repetitionNumber; i++) {
-                addFlowPerson(type, depart, baseID, i);
-                depart += myVehicleParameter->repetitionOffset;
+            if (OptionsCont::getOptions().getBool("randomize-flows")) {
+                std::vector<SUMOTime> departures;
+                const SUMOTime range  = myVehicleParameter->repetitionNumber * myVehicleParameter->repetitionOffset;
+                for (int j = 0; j < myVehicleParameter->repetitionNumber; ++j) {
+                    departures.push_back(depart + RandHelper::rand(range));
+                }
+                std::sort(departures.begin(), departures.end());
+                std::reverse(departures.begin(), departures.end());
+                for (; i < myVehicleParameter->repetitionNumber; i++) {
+                    addFlowPerson(type, departures[i], baseID, i);
+                    depart += myVehicleParameter->repetitionOffset;
+                }
+            } else {
+                for (; i < myVehicleParameter->repetitionNumber; i++) {
+                    addFlowPerson(type, depart, baseID, i);
+                    depart += myVehicleParameter->repetitionOffset;
+                }
             }
         }
     }
