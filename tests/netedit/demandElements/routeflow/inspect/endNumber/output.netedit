@@ -8,10 +8,13 @@ flow (over route)
 TestFunctions: Clicked over position 578 - 560
 TestFunctions: Clicked over position 395 - 560
 dummyTerminate
-number
+end-number
 dummyEnd
-12.5
-26
+23
+dummyNumber
+12.3
+-30
+81
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
