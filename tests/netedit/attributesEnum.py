@@ -42,9 +42,9 @@ class junction:
         rightOfWay = 8
         fringe = 10
         name = 12
-        tlType = 13     # missing
-        tlLayout = 15   # missing
-        tl = 17         # missing
+        tlType = 13 
+        tlLayout = 15
+        tl = 17     
         parameters = 20
     class inspectSelection:
         type = 1
@@ -60,10 +60,10 @@ class junction:
         keepClear = 4
         rightOfWay = 5
         fringe = 6
-        name = 7            # missing
-        tlType = 8          # missing
-        tlLayout = 9        # missing
-        tl = 10             # missing
+        name = 7  
+        tlType = 8
+        tlLayout = 9    
+        tl = 10   
         parameters = 14
 
 # edge
@@ -76,9 +76,9 @@ class edge:
         priority = 5
         numLanes = 6
         type = 7
-        allowedButton = 8       # missing
+        allowedButton = 8   
         allowed = 9
-        disallowedButton = 10   # missing
+        disallowedButton = 10
         disallowed = 11
         shape = 12
         length = 13
@@ -88,19 +88,19 @@ class edge:
         endOffset = 18
         shapeStart = 19
         shapeEnd = 20
-        distance = 21               # missing
-        stopOffset = 22             # missing
-        stopExceptionButton = 23    # missing
-        stopException = 24          # missing
+        distance = 21 
+        stopOffset = 22   
+        stopExceptionButton = 23
+        stopException = 24
         parameters = 27
     class inspectSelection:
         speed = 1
         priority = 2
         numLanes = 3
         type = 4
-        allowedButton = 5       # missing
+        allowedButton = 5   
         allowed = 6
-        disallowedButton = 7    # missing
+        disallowedButton = 7
         disallowed = 8
         length = 9
         spreadType = 10
@@ -109,48 +109,48 @@ class edge:
         endOffset = 14
         shapeStart = 15
         shapeEnd = 16
-        stopOffset = 17             # missing
-        stopExceptionButton = 18    # missing
-        stopException = 19          # missing
+        stopOffset = 17   
+        stopExceptionButton = 18
+        stopException = 19
         parameters = 22
 
 # lane
 class lane:
     class inspect:
         speed = 1
-        allowButton = 2             # missing
+        allowButton = 2   
         allow = 3
-        disallowButton = 4          # missing
+        disallowButton = 4
         disallow = 5
         width = 6
         endOffset = 7
         acceleration = 8
         customShape = 9
-        opposite = 10               # missing
-        changeLeftButton = 11       # missing
-        changeLeft = 12             # missing
-        changeRightButton = 13      # missing
-        changeRight = 14            # missing
-        type = 15                   # missing
-        stopOffset = 16             # missing
-        stopOffsetException = 17    # missing
+        opposite = 10 
+        changeLeftButton = 11   
+        changeLeft = 12   
+        changeRightButton = 13  
+        changeRight = 14  
+        type = 15     
+        stopOffset = 16   
+        stopOffsetException = 17
         parameters = 21
     class inspectSelection:
         speed = 1
-        allowButton = 2             # missing
+        allowButton = 2   
         allow = 3
-        disallowButton = 4          # missing
+        disallowButton = 4
         disallow = 5
         width = 6
         endOffset = 7
         acceleration = 8
-        changeLeftButton = 9        # missing
-        changeLeft = 10             # missing
-        changeRightButton = 11      # missing
-        changeRight = 12            # missing
-        type = 13                   # missing
-        stopOffset = 14             # missing
-        stopOffsetException = 15    # missing
+        changeLeftButton = 9    
+        changeLeft = 10   
+        changeRightButton = 11  
+        changeRight = 12  
+        type = 13     
+        stopOffset = 14   
+        stopOffsetException = 15
         parameters = 19
 
 # connection
@@ -161,19 +161,19 @@ class connection:
         contPos = 3
         uncontrolled = 4
         visibility = 5
-        allowButton = 6         # missing
-        allow = 7               # missing
-        disallowButton = 8      # missing
-        disallow = 9            # missing
+        allowButton = 6     
+        allow = 7 
+        disallowButton = 8  
+        disallow = 9  
         speed = 10
-        length = 11             # missing
+        length = 11   
         customShape = 12    
-        changeLeftButton = 13   # missing
-        changeLeft = 14         # missing
-        changeRightButton = 15  # missing
-        changeRignt = 16        # missing
-        indirect = 17           # missing
-        type = 18               # missing
+        changeLeftButton = 13
+        changeLeft = 14     
+        changeRightButton = 15 
+        changeRignt = 16    
+        indirect = 17 
+        type = 18 
         parameters = 21
     class inspectTLS:
         passC = 1
@@ -182,20 +182,20 @@ class connection:
         uncontrolled = 4
         visibility = 5
         linkIndex = 6
-        linkIndex2 = 7          # missing
-        allowButton = 8         # missing
-        allow = 9               # missing
-        disallowButton = 10     # missing
-        disallow = 11           # missing
+        linkIndex2 = 7
+        allowButton = 8     
+        allow = 9 
+        disallowButton = 10 
+        disallow = 11 
         speed = 12
-        length = 13             # missing
+        length = 13   
         customShape = 14
-        changeLeftButton = 15   # missing
-        changeLeft = 16         # missing
-        changeRightBtton = 17   # missing
-        changeRignt = 18        # missing
-        indirect = 19           # missing
-        type = 20               # missing
+        changeLeftButton = 15
+        changeLeft = 16     
+        changeRightBtton = 17
+        changeRignt = 18    
+        indirect = 19 
+        type = 20 
         parameters = 23
     class inspectSelection:
         passC = 1
@@ -203,19 +203,19 @@ class connection:
         contPos = 3
         uncontrolled = 4
         visibility = 5
-        allowButton = 6         # missing
-        allow = 7               # missing
-        disallowButton = 8      # missing
-        disallow = 9            # missing
+        allowButton = 6     
+        allow = 7 
+        disallowButton = 8  
+        disallow = 9  
         speed = 10
-        length = 11             # missing
+        length = 11   
         customShape = 12    
-        changeLeftButton = 13   # missing
-        changeLeft = 14         # missing
-        changeRightButton = 15  # missing
-        changeRignt = 16        # missing
-        indirect = 17           # missing
-        type = 18               # missing
+        changeLeftButton = 13
+        changeLeft = 14     
+        changeRightButton = 15 
+        changeRignt = 16    
+        indirect = 17 
+        type = 18 
         parameters = 20
     class inspectSelectionTLS:
         passC = 1
@@ -224,20 +224,20 @@ class connection:
         uncontrolled = 4
         visibility = 5
         linkIndex = 6
-        linkIndex2 = 7          # missing
-        allowButton = 8         # missing
-        allow = 9               # missing
-        disallowButton = 10     # missing
-        disallow = 11           # missing
+        linkIndex2 = 7
+        allowButton = 8     
+        allow = 9 
+        disallowButton = 10 
+        disallow = 11 
         speed = 12
-        length = 13             # missing
+        length = 13   
         customShape = 14
-        changeLeftButton = 15   # missing
-        changeLeft = 16         # missing
-        changeRightBtton = 17   # missing
-        changeRignt = 18        # missing
-        indirect = 19           # missing
-        type = 20               # missing
+        changeLeftButton = 15
+        changeLeft = 16     
+        changeRightBtton = 17
+        changeRignt = 18    
+        indirect = 19 
+        type = 20 
         parameters = 22
 
 # crossing
@@ -302,7 +302,7 @@ class busStop:
         lines = 7
         personCapacity = 8
         parkingLength = 9
-        colorDialog = 10        # missing
+        colorDialog = 10    
         color = 11
         parameters = 14
     class inspectSelection:
@@ -311,7 +311,7 @@ class busStop:
         lines = 3
         personCapacity = 4
         parkingLength = 5
-        colorDialog = 6        # missing
+        colorDialog = 6    
         color = 7
         parameters = 10
 
@@ -339,7 +339,7 @@ class trainStop:
         lines = 7
         personCapacity = 8
         parkingLength = 9
-        colorDialog = 10        # missing
+        colorDialog = 10    
         color = 11
         parameters = 14
     class inspectSelection:
@@ -348,7 +348,7 @@ class trainStop:
         lines = 3
         personCapacity = 4
         parkingLength = 5
-        colorDialog = 6        # missing
+        colorDialog = 6    
         color = 7
         parameters = 10
         
@@ -376,7 +376,7 @@ class containerStop:
         lines = 7
         containerCapacity = 8
         parkingLength = 9
-        colorDialog = 10        # missing
+        colorDialog = 10    
         color = 11
         parameters = 14
     class inspectSelection:
@@ -385,7 +385,7 @@ class containerStop:
         lines = 3
         containerCapacity = 4
         parkingLength = 5
-        colorDialog = 6        # missing
+        colorDialog = 6    
         color = 7
         parameters = 10
 
@@ -443,7 +443,7 @@ class parkingArea:
     class create:
         idEnable = 5
         id = 6
-        departPos = 6           # missing
+        departPos = 6 
         name = 7
         roadSideCapacity = 8
         onRoad = 9
@@ -454,11 +454,11 @@ class parkingArea:
         references = 17
         referencesLength = 19
     class inspect:
-        id = 1                  # missing
+        id = 1    
         lane = 2
         startPos = 3
         endPos = 4
-        departPos = 5           # missing
+        departPos = 5 
         name = 6
         roadSideCapacity = 7
         onRoad = 8
@@ -468,7 +468,7 @@ class parkingArea:
         angle = 12
         parameters = 15
     class inspectSelection:
-        departPos = 1           # missing
+        departPos = 1 
         name = 2
         roadSideCapacity = 3
         onRoad = 4
@@ -485,7 +485,7 @@ class parkingSpace:
         width = 6
         lenght = 7
         angle = 8
-        slope = 9       # missing       
+        slope = 9          
         parent = 12
     class inspect: 
         pos = 1
@@ -493,7 +493,7 @@ class parkingSpace:
         width = 3
         lenght = 4
         angle = 5
-        slope = 6       # missing
+        slope = 6   
         parameters = 9
         parent = 13
     class inspectSelection:
@@ -501,15 +501,15 @@ class parkingSpace:
         width = 2
         lenght = 3
         angle = 4
-        slope = 5       # missing
+        slope = 5   
         parameters = 8
         parent = 11
 
 # E1
 class E1:
     class create:
-        idEnable = 5    # missing
-        id = 6          # missing
+        idEnable = 5
+        id = 6
         freq = 6
         name = 7
         file = 8
@@ -692,14 +692,14 @@ class E1Instant:
 class calibrator:
     class create:
         idEnable = 5
-        id = 6              # missing
+        id = 6
         pos = 6
         frequency = 7
         name = 8
         routeProbe = 9
         output = 10
-        jamTreshold = 11    # missing
-        vTypes = 12         # missing
+        jamTreshold = 11
+        vTypes = 12     
         center = 16
     class inspect:
         id = 1
@@ -709,8 +709,8 @@ class calibrator:
         name = 5
         routeProbe = 6
         output = 7
-        jamTreshold = 8     # missing
-        vTypes = 9          # missing
+        jamTreshold = 8 
+        vTypes = 9
         parameters = 12
     class inspectSelection:
         pos = 1
@@ -718,15 +718,15 @@ class calibrator:
         name = 3
         routeProbe = 4
         output = 5
-        jamTreshold = 6     # missing
-        vTypes = 7          # missing
+        jamTreshold = 6 
+        vTypes = 7
         parameters = 10
 
 # routeProbe
 class routeProbe:
     class create:
         idEnable = 5
-        id = 6              # missing
+        id = 6
         frequency = 6
         name = 7
         file = 8
@@ -789,13 +789,13 @@ class Poly:
     class inspect:
         id = 1
         shape = 2
-        colorButton = 3     # missing
+        colorButton = 3 
         color = 4
         fill = 5
         lineWidth = 6
         layer = 7
         type = 8
-        name = 9            # missing
+        name = 9  
         imgFile = 10
         reativePath = 11
         angle = 12
@@ -806,11 +806,11 @@ class Poly:
     class inspectSelection:
         colorButton = 1
         color = 2
-        fill = 3            # missing
+        fill = 3  
         lineWidth = 4
         layer = 5
         type = 6
-        name = 7            # missing
+        name = 7  
         imgFile = 8
         reativePath = 9
         angle = 10
@@ -836,7 +836,7 @@ class POI:
     class inspect:
         id = 1
         pos = 2
-        colorButton = 3     # missing
+        colorButton = 3 
         color = 4
         type = 5
         name = 6
@@ -848,7 +848,7 @@ class POI:
         angle = 12
         parameters = 15
     class inspectSelection:
-        colorButton = 1     # missing
+        colorButton = 1 
         color = 2
         type = 3
         name = 4
@@ -875,12 +875,12 @@ class POIGEO:
         imgFile = 13
         relativePath = 14
         angle = 15
-        lonLat = 20         # missing
+        lonLat = 20     
     class inspect:
         id = 1
         lon = 2
         lat = 3
-        colorButton = 4     # missing
+        colorButton = 4 
         color = 5
         type = 6
         name = 7
@@ -892,7 +892,7 @@ class POIGEO:
         angle = 13
         parameters = 16
     class inspectSelection:
-        colorButton = 1     # missing
+        colorButton = 1 
         color = 2
         type = 3
         name = 4
@@ -927,7 +927,7 @@ class POILane:
         pos = 3
         friendlyPos = 4
         posLat = 5
-        colorButton = 6     # missing
+        colorButton = 6 
         color = 7
         type = 8
         name = 9
@@ -941,7 +941,7 @@ class POILane:
     class inspectSelection:
         friendlyPos = 1
         posLat = 2
-        colorButton = 3     # missing
+        colorButton = 3 
         color = 4
         type = 5
         name = 6
@@ -971,7 +971,7 @@ class TAZ:
         shape = 2
         center = 3
         fill = 4
-        colorButton = 5         # missing
+        colorButton = 5     
         color = 6
         name = 7
         parameters = 10
@@ -992,20 +992,20 @@ class route:
     class create:
         idEnable = 7
         id = 8
-        colorButton = 8     # missing
+        colorButton = 8 
         color = 9
         repeat = 10
         cycletime = 11
     class inspect:
         id = 1
         edges = 2
-        colorButton = 3     # missing
+        colorButton = 3 
         color = 4
         repeat = 5
         cycletime = 6
         parameters = 9
     class inspectSelection:
-        colorButton = 1 # missing
+        colorButton = 1
         color = 2
         repeat = 3
         cycletime = 4 
@@ -1015,9 +1015,9 @@ class route:
 class tripFromToEdge:
     class create:
         type = 5
-        idEnable = 8        # missing
-        id = 9              # missing
-        colorButton = 9     # missing
+        idEnable = 8    
+        id = 9
+        colorButton = 9 
         color = 10
         departLane = 11
         departPos = 12
@@ -1037,7 +1037,7 @@ class tripFromToEdge:
         fromEdge = 3
         toEdge = 4
         via = 5
-        colorButton = 6     # missing
+        colorButton = 6 
         color = 7
         departLane = 8
         departPos = 9
@@ -1053,7 +1053,7 @@ class tripFromToEdge:
         depart = 19
         parameters = 22
     class inspectSelection:
-        type = 1            # missing
+        type = 1  
         colorButton = 2
         color = 3
         departLane = 4
@@ -1074,9 +1074,9 @@ class tripFromToEdge:
 class flowFromToEdge:
     class create:
         type = 5
-        idEnable = 8        # missing
-        id = 9              # missing
-        colorButton = 9     # missing
+        idEnable = 8    
+        id = 9
+        colorButton = 9 
         color = 10
         departLane = 11
         departPos = 12
@@ -1102,7 +1102,7 @@ class flowFromToEdge:
         fromEdge = 3
         toEdge = 4
         via = 5
-        colorButton = 6     # missing
+        colorButton = 6 
         color = 7
         departLane = 8
         departPos = 9
@@ -1115,14 +1115,15 @@ class flowFromToEdge:
         containerNumber = 16
         departPosLat = 17
         arrivalPosLat = 18
-        begin = 19              # missing
-        terminate = 22          # missing
-        spacing = 24            # missing
-        terminateOption = 26    # missing
-        spacingOption = 27      # missing
+        begin = 19
+        terminate = 22
+        spacing = 24
+        end = 25
+        terminateOption = 26
+        spacingOption = 27
         parameters = 29
     class inspectSelection:
-        type = 1            # missing
+        type = 1  
         colorButton = 2
         color = 3
         departLane = 4
@@ -1136,20 +1137,20 @@ class flowFromToEdge:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
-        begin = 15              # missing
-        terminate = 18          # missing
-        spacing = 20            # missing
-        terminateOption = 22   # missing
-        spacingOption = 23     # missing
+        begin = 15
+        terminate = 18
+        spacing = 20  
+        terminateOption = 22
+        spacingOption = 23 
         parameters = 25
 
 # vehicle (over route)
 class vehicle:
     class create:
         type = 5
-        idEnable = 8        # missing
-        id = 9              # missing
-        colorButton = 9     # missing
+        idEnable = 8    
+        id = 9
+        colorButton = 9 
         color = 10
         departLane = 11
         departPos = 12
@@ -1167,9 +1168,9 @@ class vehicle:
         id = 1
         type = 2
         route = 3
-        departEdge = 4      # missing
-        arrivalEdge = 5     # missing
-        colorButton = 6     # missing
+        departEdge = 4  
+        arrivalEdge = 5 
+        colorButton = 6 
         color = 7
         departLane = 8
         departPos = 9
@@ -1185,7 +1186,7 @@ class vehicle:
         depart = 19
         parameters = 22
     class inspectSelection:
-        type = 1            # missing
+        type = 1  
         colorButton = 2
         color = 3
         departLane = 4
@@ -1206,9 +1207,9 @@ class vehicle:
 class routeflow:
     class create:
         type = 5
-        idEnable = 8        # missing
-        id = 9              # missing
-        colorButton = 9     # missing
+        idEnable = 8    
+        id = 9
+        colorButton = 9 
         color = 10
         departLane = 11
         departPos = 12
@@ -1232,9 +1233,9 @@ class routeflow:
         id = 1
         type = 2
         route = 3
-        departEdge = 4      # missing
-        arrivalEdge = 5     # missing
-        colorButton = 6     # missing
+        departEdge = 4  
+        arrivalEdge = 5 
+        colorButton = 6 
         color = 7
         departLane = 8
         departPos = 9
@@ -1247,14 +1248,15 @@ class routeflow:
         containerNumber = 16
         departPosLat = 17
         arrivalPosLat = 18
-        begin = 19              # missing
-        terminate = 22          # missing
-        spacing = 24            # missing
-        terminateOption = 26    # missing
-        spacingOption = 27      # missing
+        begin = 19
+        terminate = 22
+        spacing = 24
+        end = 25
+        terminateOption = 26
+        spacingOption = 27
         parameters = 30
     class inspectSelection:
-        type = 1            # missing
+        type = 1  
         colorButton = 2
         color = 3
         departLane = 4
@@ -1268,20 +1270,20 @@ class routeflow:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
-        begin = 15              # missing
-        terminate = 18          # missing
-        spacing = 20            # missing
-        terminateOption = 22    # missing
-        spacingOption = 23      # missing
+        begin = 15
+        terminate = 18
+        spacing = 20  
+        terminateOption = 22
+        spacingOption = 23  
         parameters = 25
 
 # vehicle (embedded route)
 class vehicleEmbedded:
     class create:
         type = 5
-        idEnable = 8        # missing
-        id = 9              # missing
-        colorButton = 9     # missing
+        idEnable = 8    
+        id = 9
+        colorButton = 9 
         color = 10
         departLane = 11
         departPos = 12
@@ -1296,11 +1298,11 @@ class vehicleEmbedded:
         arrivalPosLat = 21
         depart = 22
     class inspect:
-        id = 1              # missing
+        id = 1
         type = 2
-        departEdge = 3      # missing
-        arrivalEdge = 4     # missing
-        colorButton = 5     # missing
+        departEdge = 3  
+        arrivalEdge = 4 
+        colorButton = 5 
         color = 6
         departLane = 7
         departPos = 8
@@ -1316,7 +1318,7 @@ class vehicleEmbedded:
         depart = 18
         parameters = 21
     class inspectSelection:
-        type = 1            # missing
+        type = 1  
         colorButton = 2
         color = 3
         departLane = 4
@@ -1337,9 +1339,9 @@ class vehicleEmbedded:
 class flowEmbedded:
     class create:
         type = 5
-        idEnable = 8        # missing
-        id = 9              # missing
-        colorButton = 9     # missing
+        idEnable = 8    
+        id = 9
+        colorButton = 9 
         color = 10
         departLane = 11
         departPos = 12
@@ -1360,11 +1362,11 @@ class flowEmbedded:
         terminateOption = 30
         spacingOption = 31
     class inspect:
-        id = 1              # missing
+        id = 1
         type = 2
-        departEdge = 3      # missing
-        arrivalEdge = 4     # missing
-        colorButton = 5     # missing
+        departEdge = 3  
+        arrivalEdge = 4 
+        colorButton = 5 
         color = 6
         departLane = 7
         departPos = 8
@@ -1377,14 +1379,15 @@ class flowEmbedded:
         containerNumber = 15
         departPosLat = 16
         arrivalPosLat = 17
-        begin = 18              # missing
-        terminate = 21          # missing
-        spacing = 23            # missing
-        terminateOption = 25    # missing
-        spacingOption = 26      # missing
+        begin = 18
+        terminate = 21
+        spacing = 23
+        end = 24
+        terminateOption = 25
+        spacingOption = 26
         parameters = 28
     class inspectSelection:
-        type = 1            # missing
+        type = 1  
         colorButton = 2
         color = 3
         departLane = 4
@@ -1398,11 +1401,11 @@ class flowEmbedded:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
-        begin = 15              # missing
-        terminate = 18          # missing
-        spacing = 20            # missing
-        terminateOption = 22    # missing
-        spacingOption = 23      # missing
+        begin = 15
+        terminate = 18
+        spacing = 20  
+        terminateOption = 22
+        spacingOption = 23  
         parameters = 25
 
 # stop (over additionals)

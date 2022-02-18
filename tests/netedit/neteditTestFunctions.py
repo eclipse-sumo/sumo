@@ -35,9 +35,7 @@ DELAY_MOUSE_MOVE = 0.3
 DELAY_MOUSE_CLICK = 1
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
-DELAY_START_NETEDIT = 3
 DELAY_QUIT_NETEDIT = 5
-DELAY_QUIT_SUMOGUI = 3
 DELAY_UNDOREDO = 1
 DELAY_SELECT = 1
 DELAY_RECOMPUTE = 3
@@ -1259,20 +1257,6 @@ def changeDefaultBoolValue(numTabs):
         typeTab()
     # Change current value
     typeSpace()
-
-
-def modifyStoppingPlaceLines(numTabs, numLines):
-    """
-    @brief modify number of stopping place lines
-    """
-    # focus current frame
-    focusOnFrame()
-    # go to add line
-    for _ in range(numTabs + 1):
-        typeTab()
-    # add lines using space
-    for _ in range(numLines):
-        typeSpace()
 
 
 def selectAdditionalChild(numTabs, childNumber):
