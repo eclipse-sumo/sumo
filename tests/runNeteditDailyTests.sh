@@ -131,6 +131,7 @@ else
   texttest.py -a netedit.daily.demand.trip "$@" &
   texttest.py -a netedit.daily.demand.vehicle "$@" &
   texttest.py -a netedit.daily.demand.vehicle_embedded "$@" &
+  texttest.py -a netedit.daily.demand.trip_junctions "$@" &
   texttest.py -a netedit.daily.demand.vehicletype "$@" &
   texttest.py -a netedit.daily.demand.stop.basic "$@" &
   texttest.py -a netedit.daily.demand.stop.busstop "$@" & 
