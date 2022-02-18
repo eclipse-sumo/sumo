@@ -16,10 +16,11 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Adding busStop 'busStop' in GNEChange_Additional
-Debug: Adding trip 'trip_0' in GNEChange_DemandElement
-Debug: Adding trip 'trip_1' in GNEChange_DemandElement
-Debug: Adding trip 'trip_2' in GNEChange_DemandElement
-Debug: Adding trip 'trip_3' in GNEChange_DemandElement
+Debug: Adding tripJunctions 't_0' in GNEChange_DemandElement
+Debug: Adding tripJunctions 't_1' in GNEChange_DemandElement
+Debug: Adding tripJunctions 't_2' in GNEChange_DemandElement
+Debug: Adding tripJunctions 't_3' in GNEChange_DemandElement
+Debug: Adding tripJunctions 't_4' in GNEChange_DemandElement
 Debug: Enabled toggle show grid throught alt + 1
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
@@ -44,10 +45,11 @@ GLDebug: 	Removed object edge:gneE6 from SUMORTree with boundary 0.00,48.40,80.0
 GLDebug: 	Removed object edge:gneE7 from SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Removed object edge:gneE8 from SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Removed object edge:gneE9 from SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Deleting unreferenced trip 'trip_3'
-Debug: Deleting unreferenced trip 'trip_2'
-Debug: Deleting unreferenced trip 'trip_1'
-Debug: Deleting unreferenced trip 'trip_0'
+Debug: Deleting unreferenced tripJunctions 't_4'
+Debug: Deleting unreferenced tripJunctions 't_3'
+Debug: Deleting unreferenced tripJunctions 't_2'
+Debug: Deleting unreferenced tripJunctions 't_1'
+Debug: Deleting unreferenced tripJunctions 't_0'
 Debug: Deleting unreferenced busStop 'busStop'
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ4 into SUMORTree with boundary 0.00,4.80,20.00,35.20
@@ -173,9 +175,10 @@ Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ8_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
 Debug: Deleting unreferenced busStop in AttributeCarriers destructor
-Debug: Deleting unreferenced trip in AttributeCarriers destructor
-Debug: Deleting unreferenced trip in AttributeCarriers destructor
-Debug: Deleting unreferenced trip in AttributeCarriers destructor
-Debug: Deleting unreferenced trip in AttributeCarriers destructor
+Debug: Deleting unreferenced tripJunctions in AttributeCarriers destructor
+Debug: Deleting unreferenced tripJunctions in AttributeCarriers destructor
+Debug: Deleting unreferenced tripJunctions in AttributeCarriers destructor
+Debug: Deleting unreferenced tripJunctions in AttributeCarriers destructor
+Debug: Deleting unreferenced tripJunctions in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16

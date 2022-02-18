@@ -37,9 +37,8 @@ netedit.vehicleMode()
 # change vehicle
 netedit.changeElement("trip (from-to junctions)")
 
-# create route using three edges
+# create route using two junctions
 netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 85, 77)
 
 # press enter to create route
@@ -49,7 +48,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete vehicle
-netedit.leftClick(referencePosition, 90, 392)
+netedit.leftClick(referencePosition, 85, 360)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -60,17 +59,17 @@ netedit.supermodeNetwork()
 # go to delete mode
 netedit.deleteMode()
 
-# try to delete an edge with demand elements
-netedit.leftClick(referencePosition, 80, 360)
+# try to delete junction with demand elements
+netedit.leftClick(referencePosition, 85, 380)
 
 # wait warning
 netedit.waitDeleteWarning()
 
-# disable protect demand elemnts
+# disable protect demand elements
 netedit.changeProtectDemandElements(referencePosition)
 
 # now delete edge with their route
-netedit.leftClick(referencePosition, 80, 360)
+netedit.leftClick(referencePosition, 85, 380)
 
 # Check undo
 netedit.undo(referencePosition, 1)
