@@ -122,7 +122,7 @@ GUIRunThread::run() {
             myApp->run();
             return 0;
         }
-        // if the simulation shall be perfomed, do it
+        // if the simulation shall be performed, do it
         tryStep();
     }
     // delete a maybe existing simulation at the end

@@ -74,8 +74,7 @@ std::pair<int, std::string>
 Simulation::start(const std::vector<std::string>& cmd, int /* port */, int /* numRetries */, const std::string& /* label */, const bool /* verbose */,
                   const std::string& /* traceFile */, bool /* traceGetters */, void* /* _stdout */) {
 #ifdef HAVE_LIBSUMOGUI
-    if (cmd[0].find("sumo-gui") != std::string::npos) {
-        GUI::start(cmd);
+    if (GUI::start(cmd)) {
         return getVersion();
     }
 #endif

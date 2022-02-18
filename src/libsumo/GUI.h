@@ -66,7 +66,7 @@ public:
 
 #ifndef LIBTRACI
 #ifndef SWIG
-    static void start(const std::vector<std::string>& cmd);
+    static bool start(const std::vector<std::string>& cmd);
 
     static bool hasInstance();
 
@@ -79,6 +79,8 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
     static GUISUMOAbstractView* getView(const std::string& id);
 
     static GUIApplicationWindow* myWindow;

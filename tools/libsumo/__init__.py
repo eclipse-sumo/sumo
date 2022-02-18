@@ -36,7 +36,7 @@ _DOMAINS = [
     calibrator,  # noqa
     chargingstation,  # noqa
     edge,  # noqa
-    # gui,  # noqa
+    gui,  # noqa
     inductionloop,  # noqa
     junction,  # noqa
     lanearea,  # noqa
@@ -133,7 +133,7 @@ def isLibtraci():
 
 
 def hasGUI():
-    return False
+    return simulation.hasGUI()
 
 
 def init(port):
@@ -175,8 +175,7 @@ def close():
 
 
 def start(args, traceFile=None, traceGetters=True):
-    simulation.load(args[1:])
-    version = simulation.getVersion()
+    version = simulation.start(args)
     if traceFile is not None:
         _startTracing(traceFile, args, traceGetters)
     return version

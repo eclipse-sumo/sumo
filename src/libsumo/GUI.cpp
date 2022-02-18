@@ -38,6 +38,7 @@
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <libsumo/TraCIDefs.h>
+#include <libsumo/Helper.h>
 #include <libsumo/GUI.h>
 
 
@@ -45,6 +46,8 @@ namespace libsumo {
 // ===========================================================================
 // static member initializations
 // ===========================================================================
+SubscriptionResults GUI::mySubscriptionResults;
+ContextSubscriptionResults GUI::myContextSubscriptionResults;
 GUIApplicationWindow* GUI::myWindow = nullptr;
 FXApp GUI::myApp("SUMO GUI", "sumo-gui");
 
@@ -225,14 +228,60 @@ GUI::toggleSelection(const std::string& objID, const std::string& objType) {
 }
 
 
+std::string
+GUI::getParameter(const std::string& /* viewID */, const std::string& /* name */) {
+    return "";
+}
+
+
 void
+GUI::setParameter(const std::string& /* viewID */, const std::string& /* name */, const std::string& /* value */) {
+}
+
+
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(GUI)
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(GUI, GUI)
+
+
+bool
 GUI::start(const std::vector<std::string>& cmd) {
+    if (cmd[0].find("sumo-gui") == std::string::npos && std::getenv("LIBSUMO_GUI") == nullptr) {
+        return false;
+    }
     try {
-        int argc = (int)cmd.size();
+        bool needStart = false;
+        bool needQuit = false;
+        if (std::getenv("LIBSUMO_GUI") != nullptr) {
+            needStart = true;
+            needQuit = true;
+            for (const std::string& a: cmd) {
+                if (a == "-S" || a == "--start") {
+                    needStart = false;
+                }
+                if (a == "-Q" || a == "--quit") {
+                    needQuit = false;
+                }
+            }
+        }
+        int origArgc = (int)cmd.size();
+        int argc = origArgc;
+        if (needStart) {
+            argc++;
+        }
+        if (needQuit) {
+            argc++;
+        }
         char** argv = new char* [argc];
-        for (int i = 0; i < argc; i++) {
+        int i;
+        for (i = 0; i < origArgc; i++) {
             argv[i] = new char[cmd[i].size() + 1];
             std::strcpy(argv[i], cmd[i].c_str());
+        }
+        if (needStart) {
+            argv[i++] = (char*)"-S";
+        }
+        if (needQuit) {
+            argv[i++] = (char*)"-Q";
         }
         // make the output aware of threading
         MsgHandler::setFactory(&MsgHandlerSynchronized::create);
@@ -256,11 +305,14 @@ GUI::start(const std::vector<std::string>& cmd) {
         // Load configuration given on command line
         if (argc > 1) {
             myWindow->loadOnStartup();
+            while (!myWindow->getRunner()->simulationAvailable()) {
+                myWindow->getRunner()->sleep(50);
+            }
         }
-        //application.run();
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
     }
+    return true;
 }
 
 
