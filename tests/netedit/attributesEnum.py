@@ -1254,7 +1254,7 @@ class routeflow:
         end = 25
         terminateOption = 26
         spacingOption = 27
-        parameters = 30
+        parameters = 29
     class inspectSelection:
         type = 1  
         colorButton = 2
@@ -1462,7 +1462,7 @@ class stopLane:
         extensionEnable = 12
         extension = 13
         triggered = 14
-        expected = 15
+        expected = 16
         permitted = 16
         parking = 17
         actType = 18

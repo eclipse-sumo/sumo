@@ -1,2 +1,2 @@
-Error: Attribute 'layer' in definition of poi 'POI_1' is not of type double.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun111506.20004\netedit.gui\shapeElements\poi\load\layer\input_additionals.add.xml failed.
+Error: Attribute 'layer' in definition of poi 'POI_1' Invalid Number Format (double) dummyLayer.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\shapeElements\poi\load\layer\input_additionals.add.xml failed.

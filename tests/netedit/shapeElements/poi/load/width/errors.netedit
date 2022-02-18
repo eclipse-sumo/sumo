@@ -5,10 +5,10 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding poi 'POI_0' into viewNet
 GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -50.50,-0.50,-29.50,20.50
-Error: Attribute 'width' in definition of poi 'POI_1' is not of type double.
+Error: Attribute 'width' in definition of poi 'POI_1' Invalid Number Format (double) dummyWidth.
 Debug: Adding poi 'POI_2' into viewNet
 GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary -21.00,19.00,1.00,41.00
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Nov134754.7548\netedit.gui\shapeElements\poi\load\width\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\shapeElements\poi\load\width\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
