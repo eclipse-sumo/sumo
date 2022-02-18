@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 91, 392)
+netedit.leftClick(referencePosition, 80, 360)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.depart, "", False)

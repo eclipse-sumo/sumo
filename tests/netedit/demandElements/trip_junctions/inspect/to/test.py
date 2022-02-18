@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 91, 392)
+netedit.leftClick(referencePosition, 80, 360)
 
 # change vType with a valid value
 netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.toEdge, "bicycle", False)
@@ -60,7 +60,7 @@ netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.toEdge, "", Fal
 netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.toEdge, "dummyEdge", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.toEdge, "gneE4", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.toEdge, "gneJ9", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

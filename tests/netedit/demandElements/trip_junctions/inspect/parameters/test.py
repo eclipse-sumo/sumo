@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 91, 392)
+netedit.leftClick(referencePosition, 80, 360)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.tripFromToJunction.inspect.parameters, False)

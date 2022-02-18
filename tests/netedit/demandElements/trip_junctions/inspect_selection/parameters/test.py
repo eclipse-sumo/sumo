@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 330, 150)
+netedit.leftClick(referencePosition, 410, 170)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.tripFromToJunction.inspectSelection.parameters, False)

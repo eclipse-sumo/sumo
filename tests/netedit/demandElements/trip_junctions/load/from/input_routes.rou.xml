@@ -53,13 +53,13 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-    <trip id="trip_0" to="gneE5" depart="20.00"/>
+    <trip id="trip_0" toJunction="gneJ7" depart="20.00"/>
 	
-	<trip id="trip_1" from="" to="gneE5" depart="20.00"/>
+	<trip id="trip_1" fromJunction="" toJunction="gneJ7" depart="20.00"/>
 	
-	<trip id="trip_2" from="dummyFrom" to="gneE5" depart="20.00"/>
+	<trip id="trip_2" fromJunction="dummyFrom" toJunction="gneJ7" depart="20.00"/>
 	
-	<trip id="trip_3" from="gneE5" to="gneE5" depart="20.00"/>
+	<trip id="trip_3" fromJunction="gneJ7" toJunction="gneJ7" depart="20.00"/>
 	
 	<trip id="trip_4" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
 

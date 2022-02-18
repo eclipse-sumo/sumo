@@ -45,7 +45,7 @@
 	</trip>
 	
 	<!-- trip B -->
-    <trip id="tripB" from="gneE4" to="gneE5" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" depart="0.00">
+    <trip id="tripB" fromJunction="gneJ5" toJunction="gneJ6" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" depart="10.00">
 		<param key="KeyB1" value="valueB1"/>
 		<param key="KeyB3" value="valueB2"/>
 		<param key="KeyB2" value="valueB3"/>

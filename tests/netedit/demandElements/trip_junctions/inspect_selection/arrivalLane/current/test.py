@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 330, 150)
+netedit.leftClick(referencePosition, 410, 170)
 
 # change arrivalLane with an invalid value
 netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.arrivalLane, "", False)

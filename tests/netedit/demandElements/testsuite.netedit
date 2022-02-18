@@ -4,15 +4,17 @@ route
 
 vehicletype
 
+trip
+
 vehicle
 
-routeflow
+vehicle_embedded
 
-trip
+trip_junctions
 
 flow
 
-vehicle_embedded 
+routeflow
 
 flow_embedded
 

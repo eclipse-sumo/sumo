@@ -1,6 +1,6 @@
 default
 
-no_edges
+no_junctions
 
 id
 
@@ -9,8 +9,6 @@ vType
 from
 
 to
-
-via
 
 color
 
