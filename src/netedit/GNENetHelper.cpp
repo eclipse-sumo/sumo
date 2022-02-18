@@ -1428,7 +1428,7 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
         prefix = oc.getString("route-prefix");
     } else if (tag == SUMO_TAG_VTYPE) {
         prefix = oc.getString("vType-prefix");
-    } else if (tag == SUMO_TAG_TRIP) {
+    } else if ((tag == SUMO_TAG_TRIP) || (tag == GNE_TAG_TRIP_JUNCTIONS)) {
         prefix = oc.getString("trip-prefix");
     } else if (tagProperty.isVehicle() && !tagProperty.isFlow()) {
         prefix = oc.getString("vehicle-prefix");
