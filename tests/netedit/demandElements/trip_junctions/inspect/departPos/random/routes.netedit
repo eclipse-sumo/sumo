@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-02-01 09:48:22 by Eclipse SUMO netedit Version v1_12_0+0167-d102d469e93
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="t_0" depart="0.00" departPos="random" fromJunction="gneJ4" toJunction="gneJ7"/>
+</routes>
