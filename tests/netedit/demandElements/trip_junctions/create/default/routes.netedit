@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-18 15:43:45 by Eclipse SUMO netedit Version v1_12_0+0685-835554fde76
+<!-- generated on 2022-02-18 15:55:08 by Eclipse SUMO netedit Version v1_12_0+0687-ba7b5f0f28f
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <trip id="v_0" depart="0.00" fromJunction="gneJ4" toJunction="gneJ7"/>
+    <trip id="t_0" depart="0.00" fromJunction="gneJ4" toJunction="gneJ7"/>
 </routes>
