@@ -1070,6 +1070,181 @@ class tripFromToEdge:
         depart = 15
         parameters = 18
 
+# trip (from-to junctions)
+class tripFromToJunction:
+    class create:
+        type = 5
+        idEnable = 8    
+        id = 9
+        colorButton = 9 
+        color = 10
+        departLane = 11
+        departPos = 12
+        departSpeed = 13
+        arrivalLane = 14
+        arrivalPos = 15
+        arrivalSpeed = 16
+        line = 17
+        personNumber = 18
+        containerNumber = 19
+        departPosLat = 20
+        arrivalPosLat = 21
+        depart = 22
+    class inspect:
+        id = 1
+        type = 2
+        fromJunction = 3
+        toJunction = 4
+        colorButton = 5
+        color = 6
+        departLane = 7
+        departPos = 8
+        departSpeed = 9
+        arrivalLane = 10
+        arrivalPos = 11
+        arrivalSpeed = 12
+        line = 13
+        personNumber = 14
+        containerNumber = 15
+        departPosLat = 16
+        arrivalPosLat = 17
+        depart = 18
+        parameters = 21
+    class inspectSelection:
+        type = 1  
+        colorButton = 2
+        color = 3
+        departLane = 4
+        departPos = 5
+        departSpeed = 6
+        arrivalLane = 7
+        arrivalPos = 8
+        arrivalSpeed = 9
+        line = 10
+        personNumber = 11
+        containerNumber = 12
+        departPosLat = 13
+        arrivalPosLat = 14
+        depart = 15
+        parameters = 18
+
+# vehicle (over route)
+class vehicle:
+    class create:
+        type = 5
+        idEnable = 8    
+        id = 9
+        colorButton = 9 
+        color = 10
+        departLane = 11
+        departPos = 12
+        departSpeed = 13
+        arrivalLane = 14
+        arrivalPos = 15
+        arrivalSpeed = 16
+        line = 17
+        personNumber = 18
+        containerNumber = 19
+        departPosLat = 20
+        arrivalPosLat = 21
+        depart = 22
+    class inspect:
+        id = 1
+        type = 2
+        route = 3
+        departEdge = 4  
+        arrivalEdge = 5 
+        colorButton = 6 
+        color = 7
+        departLane = 8
+        departPos = 9
+        departSpeed = 10
+        arrivalLane = 11
+        arrivalPos = 12
+        arrivalSpeed = 13
+        line = 14
+        personNumber = 15
+        containerNumber = 16
+        departPosLat = 17
+        arrivalPosLat = 18
+        depart = 19
+        parameters = 22
+    class inspectSelection:
+        type = 1  
+        colorButton = 2
+        color = 3
+        departLane = 4
+        departPos = 5
+        departSpeed = 6
+        arrivalLane = 7
+        arrivalPos = 8
+        arrivalSpeed = 9
+        line = 10
+        personNumber = 11
+        containerNumber = 12
+        departPosLat = 13
+        arrivalPosLat = 14
+        depart = 15
+        parameters = 18
+
+# vehicle (embedded route)
+class vehicleEmbedded:
+    class create:
+        type = 5
+        idEnable = 8    
+        id = 9
+        colorButton = 9 
+        color = 10
+        departLane = 11
+        departPos = 12
+        departSpeed = 13
+        arrivalLane = 14
+        arrivalPos = 15
+        arrivalSpeed = 16
+        line = 17
+        personNumber = 18
+        containerNumber = 19
+        departPosLat = 20
+        arrivalPosLat = 21
+        depart = 22
+    class inspect:
+        id = 1
+        type = 2
+        departEdge = 3  
+        arrivalEdge = 4 
+        colorButton = 5 
+        color = 6
+        departLane = 7
+        departPos = 8
+        departSpeed = 9
+        arrivalLane = 10
+        arrivalPos = 11
+        arrivalSpeed = 12
+        line = 13
+        personNumber = 14
+        containerNumber = 15
+        departPosLat = 16
+        arrivalPosLat = 17
+        depart = 18
+        parameters = 21
+    class inspectSelection:
+        type = 1  
+        colorButton = 2
+        color = 3
+        departLane = 4
+        departPos = 5
+        departSpeed = 6
+        arrivalLane = 7
+        arrivalPos = 8
+        arrivalSpeed = 9
+        line = 10
+        personNumber = 11
+        containerNumber = 12
+        departPosLat = 13
+        arrivalPosLat = 14
+        depart = 15
+        parameters = 18
+
 # flow (from-to edges)
 class flowFromToEdge:
     class create:
@@ -1144,65 +1319,6 @@ class flowFromToEdge:
         spacingOption = 23 
         parameters = 25
 
-# vehicle (over route)
-class vehicle:
-    class create:
-        type = 5
-        idEnable = 8    
-        id = 9
-        colorButton = 9 
-        color = 10
-        departLane = 11
-        departPos = 12
-        departSpeed = 13
-        arrivalLane = 14
-        arrivalPos = 15
-        arrivalSpeed = 16
-        line = 17
-        personNumber = 18
-        containerNumber = 19
-        departPosLat = 20
-        arrivalPosLat = 21
-        depart = 22
-    class inspect:
-        id = 1
-        type = 2
-        route = 3
-        departEdge = 4  
-        arrivalEdge = 5 
-        colorButton = 6 
-        color = 7
-        departLane = 8
-        departPos = 9
-        departSpeed = 10
-        arrivalLane = 11
-        arrivalPos = 12
-        arrivalSpeed = 13
-        line = 14
-        personNumber = 15
-        containerNumber = 16
-        departPosLat = 17
-        arrivalPosLat = 18
-        depart = 19
-        parameters = 22
-    class inspectSelection:
-        type = 1  
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        depart = 15
-        parameters = 18
-
 # flow (over route)
 class routeflow:
     class create:
@@ -1276,64 +1392,6 @@ class routeflow:
         terminateOption = 22
         spacingOption = 23  
         parameters = 25
-
-# vehicle (embedded route)
-class vehicleEmbedded:
-    class create:
-        type = 5
-        idEnable = 8    
-        id = 9
-        colorButton = 9 
-        color = 10
-        departLane = 11
-        departPos = 12
-        departSpeed = 13
-        arrivalLane = 14
-        arrivalPos = 15
-        arrivalSpeed = 16
-        line = 17
-        personNumber = 18
-        containerNumber = 19
-        departPosLat = 20
-        arrivalPosLat = 21
-        depart = 22
-    class inspect:
-        id = 1
-        type = 2
-        departEdge = 3  
-        arrivalEdge = 4 
-        colorButton = 5 
-        color = 6
-        departLane = 7
-        departPos = 8
-        departSpeed = 9
-        arrivalLane = 10
-        arrivalPos = 11
-        arrivalSpeed = 12
-        line = 13
-        personNumber = 14
-        containerNumber = 15
-        departPosLat = 16
-        arrivalPosLat = 17
-        depart = 18
-        parameters = 21
-    class inspectSelection:
-        type = 1  
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        depart = 15
-        parameters = 18
 
 # flow (embedded route)
 class flowEmbedded:
