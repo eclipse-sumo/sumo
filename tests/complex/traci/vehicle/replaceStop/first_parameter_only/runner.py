@@ -58,6 +58,8 @@ def getParams(vehID, index):
             "join",
             "line",
             "speed",
+            "started",
+            "ended",
             ]:
         print(p, traci.vehicle.getStopParameter(vehID, index, p))
 
@@ -93,6 +95,8 @@ while traci.simulation.getMinExpectedNumber() > 0:
         traci.vehicle.setStopParameter(vehID, 0, "join", "train1")
         traci.vehicle.setStopParameter(vehID, 0, "line", "S42")
         traci.vehicle.setStopParameter(vehID, 0, "speed", "3")
+        traci.vehicle.setStopParameter(vehID, 0, "started", "0:1:23")
+        traci.vehicle.setStopParameter(vehID, 0, "ended", "0:1:42")
     if traci.simulation.getTime() == 6:
         getParams(vehID, 0)
     if traci.simulation.getTime() == 200:
