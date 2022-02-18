@@ -688,6 +688,24 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 routeFlow->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
+        for (const auto& routeFlow : demandElements.at(GNE_TAG_TRIP_JUNCTIONS)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || routeFlow->isAttributeCarrierSelected()) {
+                routeFlow->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                routeFlow->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& routeFlow : demandElements.at(GNE_TAG_FLOW_JUNCTIONS)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || routeFlow->isAttributeCarrierSelected()) {
+                routeFlow->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                routeFlow->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
     } else if (onlyCount) {
         ignoreLocking = askContinueIfLock();
         return true;
