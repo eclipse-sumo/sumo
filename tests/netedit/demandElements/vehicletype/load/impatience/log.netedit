@@ -1,2 +1,2 @@
-Error: Attribute 'impatience' in definition of vType 'vType0' is not of type double.
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_29Jul111621.6984/netedit.gui/demandElements/vehicletype/load/impatience\input_routes.rou.xml failed.
+Error: Attribute 'impatience' in definition of vType 'vType0' Invalid Number Format (double) dummyImpatience.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\demandElements\vehicletype\load\impatience\input_routes.rou.xml failed.
