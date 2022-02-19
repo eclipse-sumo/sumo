@@ -52,7 +52,7 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.shape.poilane "$@" &
   texttest -a netedit.daily.shape.poly "$@" &
   texttest -a netedit.daily.TAZ.basic "$@" &
-  texttest -a netedit.daily.TAZ.taz "$@"
+  texttest -a netedit.daily.TAZ.taz "$@" &
   wait
   texttest -a netedit.daily.net.connections "$@" &
   texttest -a netedit.daily.net.crossings "$@" &
@@ -78,7 +78,7 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.demand.stop.containerstop "$@" &
   texttest -a netedit.daily.demand.stop.lane "$@" &
   texttest -a netedit.daily.demand.stop.parkingarea "$@" &
-  texttest -a netedit.daily.complex "$@"
+  texttest -a netedit.daily.complex "$@" &
   wait
 else
   texttest.py -a netedit.daily.basic "$@" &
@@ -116,7 +116,7 @@ else
   texttest.py -a netedit.daily.shape.poilane "$@" &
   texttest.py -a netedit.daily.shape.poly "$@" &
   texttest.py -a netedit.daily.TAZ.basic "$@" &
-  texttest.py -a netedit.daily.TAZ.taz "$@"
+  texttest.py -a netedit.daily.TAZ.taz "$@" &
   wait
   texttest.py -a netedit.daily.net.connections "$@" &
   texttest.py -a netedit.daily.net.crossings "$@" &
@@ -142,6 +142,6 @@ else
   texttest.py -a netedit.daily.demand.stop.containerstop "$@" &
   texttest.py -a netedit.daily.demand.stop.lane "$@" &
   texttest.py -a netedit.daily.demand.stop.parkingarea "$@" &
-  texttest.py -a netedit.daily.complex "$@"
+  texttest.py -a netedit.daily.complex "$@" &
   wait
 fi
