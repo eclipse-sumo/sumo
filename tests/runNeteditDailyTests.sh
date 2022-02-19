@@ -28,6 +28,7 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.additional.busstop "$@" &
   texttest -a netedit.daily.additional.calibrator "$@" &
   texttest -a netedit.daily.additional.calibratorflow "$@" &
+  texttest -a netedit.daily.additional.calibratorlane "$@" &
   texttest -a netedit.daily.additional.chargingstation "$@" &
   texttest -a netedit.daily.additional.containerstop "$@" &
   texttest -a netedit.daily.additional.detentry "$@" &
@@ -37,7 +38,6 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.additional.e2detector "$@" &
   texttest -a netedit.daily.additional.e2multilanedetector "$@" &
   texttest -a netedit.daily.additional.e3detector "$@" &
-  texttest -a netedit.daily.additional.lanecalibrator "$@" &
   texttest -a netedit.daily.additional.parkingarea "$@" &
   texttest -a netedit.daily.additional.parkingspace "$@" &
   texttest -a netedit.daily.additional.rerouter "$@" &
@@ -91,6 +91,8 @@ else
   texttest.py -a netedit.daily.additional.basic "$@" &
   texttest.py -a netedit.daily.additional.busstop "$@" &
   texttest.py -a netedit.daily.additional.calibrator "$@" &
+  texttest.py -a netedit.daily.additional.calibratorflow "$@" &
+  texttest.py -a netedit.daily.additional.calibratorlane "$@" &
   texttest.py -a netedit.daily.additional.chargingstation "$@" &
   texttest.py -a netedit.daily.additional.containerstop "$@" &
   texttest.py -a netedit.daily.additional.detentry "$@" &
@@ -100,10 +102,10 @@ else
   texttest.py -a netedit.daily.additional.e2detector "$@" &
   texttest.py -a netedit.daily.additional.e2multilanedetector "$@" &
   texttest.py -a netedit.daily.additional.e3detector "$@" &
-  texttest.py -a netedit.daily.additional.lanecalibrator "$@" &
   texttest.py -a netedit.daily.additional.parkingarea "$@" &
   texttest.py -a netedit.daily.additional.parkingspace "$@" &
   texttest.py -a netedit.daily.additional.rerouter "$@" &
+  texttest.py -a netedit.daily.additional.rerouterelements "$@" &
   texttest.py -a netedit.daily.additional.routeprobe "$@" &
   texttest.py -a netedit.daily.additional.trainstop "$@" &
   texttest.py -a netedit.daily.additional.vaporizer "$@" &
