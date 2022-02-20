@@ -24,6 +24,7 @@ import subprocess
 import smtplib
 import re
 import io
+import time
 from os.path import basename, commonprefix
 from datetime import datetime
 import logging
@@ -32,11 +33,17 @@ import logging.handlers
 
 def killall(debugSuffix, binaries):
     bins = set([name + suff + ".exe" for name in binaries for suff in debugSuffix])
-    for taskline in subprocess.check_output(["tasklist", "/nh"]).splitlines():
-        task = taskline.split()
-        if task and task[0] in bins:
-            subprocess.call(["taskkill", "/f", "/im", task[0]])
-            bins.remove(task[0])
+    for _ in range(2):  # killing twice is better than once ;-)
+        clean = True
+        for taskline in subprocess.check_output(["tasklist", "/nh"]).splitlines():
+            task = taskline.split()
+            if task and task[0] in bins:
+                log_subprocess(["taskkill", "/f", "/im", task[0]])
+                bins.remove(task[0])
+                clean = False
+        if clean:
+            return
+        time.sleep(10)
 
 
 def set_rotating_log(filename, remove=None):
