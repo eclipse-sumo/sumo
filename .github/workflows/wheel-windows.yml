@@ -121,7 +121,7 @@ jobs:
   # PUBLISHING wheels
   ###################
   publish-wheels:
-    if: github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags')
+    if: github.repository == 'eclipse/sumo' && (github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags'))
     needs: [build-wheels]
     runs-on: ubuntu-latest
 
