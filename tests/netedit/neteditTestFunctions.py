@@ -376,6 +376,8 @@ def getReferenceMatch(neProcess):
     """
     # show information
     print("Finding reference")
+    # make a screenshot
+    errorScreenshot = pyautogui.screenshot()
     try:
         # wait for reference
         time.sleep(DELAY_REFERENCE)
@@ -408,8 +410,7 @@ def getReferenceMatch(neProcess):
         time.sleep(DELAY_MOUSE_CLICK)
         # return reference position
         return referencePosition
-    # referente not found, then make a screenshot
-    errorScreenshot = pyautogui.screenshot()
+    # referente not found, then write screenshot
     errorScreenshot.save("errorScreenshot.png")
     # kill netedit process
     neProcess.kill()
