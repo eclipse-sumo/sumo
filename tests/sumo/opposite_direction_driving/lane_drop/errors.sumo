@@ -1,0 +1,3 @@
+Warning: Unexpected end of opposite lane for vehicle 'overtaking' at lane 'CE_0', time=16.00.
+Warning: Teleporting vehicle 'overtaking'; collision with vehicle 'stopped', lane='CE_0', gap=-6.74, time=16.00 stage=move.
+Warning: Vehicle 'overtaking' teleports beyond arrival edge 'CE', time=16.00.
