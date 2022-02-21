@@ -29,8 +29,8 @@ import pyperclip
 import attributesEnum as attrs  # noqa
 
 # define delay before every operation
-DELAY_KEY = 0.1
-DELAY_KEY_TAB = 0.1
+DELAY_KEY = 0.3
+DELAY_KEY_TAB = 0.3
 DELAY_MOUSE_MOVE = 0.3
 DELAY_MOUSE_CLICK = 1
 DELAY_QUESTION = 3
