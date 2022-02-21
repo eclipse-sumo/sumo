@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-21 17:22:49 by Eclipse SUMO sumo Version v1_12_0+0727-0ce41fc
+<!-- generated on 2022-02-21 18:03:38 by Eclipse SUMO sumo Version v1_12_0+0729-e780054
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,6 +37,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="12.00" arrivalLane="VODUGES_end_0" arrivalPos="140.60" arrivalSpeed="31.20" duration="12.00" routeLength="195.30" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.16" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="2.50" vaporized=""/>
     <tripinfo id="stopped" depart="0.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="324.00" arrivalLane="VODUGES_end_0" arrivalPos="140.60" arrivalSpeed="28.90" duration="324.00" routeLength="155.30" waitingTime="0.00" waitingCount="0" stopTime="310.00" timeLoss="8.81" rerouteNo="0" devices="tripinfo_stopped" vType="DEFAULT_VEHTYPE" speedFactor="2.50" vaporized=""/>
-    <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="325.00" arrivalLane="VODUGES_end_0" arrivalPos="140.60" arrivalSpeed="28.90" duration="325.00" routeLength="195.30" waitingTime="307.00" waitingCount="1" stopTime="0.00" timeLoss="318.88" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="2.50" vaporized=""/>
 </tripinfos>
