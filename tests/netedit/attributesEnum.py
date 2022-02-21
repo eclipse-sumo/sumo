@@ -1466,7 +1466,7 @@ class flowEmbedded:
         spacingOption = 23  
         parameters = 25
 
-# stop (over additionals)
+# stop (over busStop/containerStop/chargingStation)
 class stop:
     class create:
         durationEnable = 8
@@ -1480,7 +1480,6 @@ class stop:
         permitted = 14
         parking = 15
         actType = 16
-        actTypeParking = 15
     class inspect:
         durationEnable = 1
         duration = 2
@@ -1493,7 +1492,6 @@ class stop:
         permitted = 7
         parking = 8
         actType = 9
-        actTypeParking = 8
     class inspectSelection:
         durationEnable = 1
         duration = 2
@@ -1506,7 +1504,43 @@ class stop:
         permitted = 9
         parking = 10
         actType = 11
-        actTypeParking = 10
+
+
+# stop (over parkings)
+class stopParking:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
+        triggered = 12
+        expected = 14
+        permitted = 14
+        actType = 15
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 2
+        until = 3
+        extensionEnable = 3
+        extension = 4
+        triggered = 5
+        expected = 7
+        permitted = 7
+        actType = 8
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        triggered = 7
+        expected = 8
+        permitted = 9
+        actType = 10
 
 # stop (over lane)
 class stopLane:
