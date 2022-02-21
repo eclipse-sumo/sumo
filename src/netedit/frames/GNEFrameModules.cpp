@@ -264,7 +264,7 @@ GNEFrameModules::TagSelector::setCurrentTagType(GNETagProperties::TagType tagTyp
     // set color of myTypeMatchBox to black (valid)
     myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
     // Set visible items
-    myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
+    myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems() + 1);
     // set first myACTemplate as edited AC
     myCurrentTemplateAC = myACTemplates.front()->getAC();
     // call tag selected function
