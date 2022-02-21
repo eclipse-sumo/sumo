@@ -29,9 +29,9 @@ import pyperclip
 import attributesEnum as attrs  # noqa
 
 # define delay before every operation
-DELAY_KEY = 0.3
-DELAY_KEY_TAB = 0.3
-DELAY_MOUSE_MOVE = 0.3
+DELAY_KEY = 0.2
+DELAY_KEY_TAB = 0.2
+DELAY_MOUSE_MOVE = 0.5
 DELAY_MOUSE_CLICK = 1
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
@@ -382,7 +382,7 @@ def getReferenceMatch(neProcess):
         # wait for reference
         time.sleep(DELAY_REFERENCE)
         # capture screen and search reference
-        positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, 1)
+        positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, minSearchTime=3)
     except Exception as e:
         # we cannot specify the exception here because some versions of pyautogui use one and some don't
         print(e)
