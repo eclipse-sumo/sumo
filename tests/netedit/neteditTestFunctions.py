@@ -408,7 +408,7 @@ def getReferenceMatch(neProcess):
         time.sleep(DELAY_MOUSE_CLICK)
         # return reference position
         return referencePosition
-    # referente not found, then make an screenshot
+    # referente not found, then make a screenshot
     errorScreenshot = pyautogui.screenshot()
     errorScreenshot.save("errorScreenshot.png")
     # kill netedit process
@@ -699,6 +699,10 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 typeKeyUp("alt")
                 # exit
                 return
+        # error closing NETEDIT then make a screenshot
+        errorScreenshot = pyautogui.screenshot()
+        errorScreenshot.save("errorScreenshot.png")
+        # kill netedit
         NeteditProcess.kill()
         print("TestFunctions: Error closing Netedit")
         # all keys up
