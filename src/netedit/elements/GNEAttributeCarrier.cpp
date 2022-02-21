@@ -5145,13 +5145,22 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
                                           "Activity displayed for stopped person in GUI and output files ");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-    /*
-    Attribute currently disabled. It will be implemented in #6011
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TRIP_ID,
-        GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-        "Value used for trips that uses this stop");
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                          "Parameter to be applied to the vehicle to track the trip id within a cyclical public transport route");
     myTagProperties[currentTag].addAttribute(attrProperty);
-    */
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_LINE,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                          "New line attribute to be set on the vehicle when reaching this stop (for cyclical public transport route)");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    if (false) {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                              "speed to be kept while driving between startPos and endPos");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
 }
 
 

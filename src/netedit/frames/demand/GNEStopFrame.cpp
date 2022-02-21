@@ -435,6 +435,10 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         stop.tripId = stopBaseObject->getStringAttribute(SUMO_ATTR_TRIP_ID);
         stop.parametersSet |= STOP_TRIP_ID_SET;
     }
+    if (stopBaseObject->hasStringAttribute(SUMO_ATTR_LINE)) {
+        stop.line = stopBaseObject->getStringAttribute(SUMO_ATTR_LINE);
+        stop.parametersSet |= STOP_LINE_SET;
+    }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_INDEX)) {
         if (stopBaseObject->getStringAttribute(SUMO_ATTR_INDEX) == "fit") {
             stop.index = STOP_INDEX_FIT;
