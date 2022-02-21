@@ -254,6 +254,13 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "variableSpeedSignSymbol",        GNE_TAG_VSS_SYMBOL },
     { "flowRoute",                      GNE_TAG_FLOW_ROUTE },
     { "flowWithRoute",                  GNE_TAG_FLOW_WITHROUTE },
+    // GNE waypoints
+    { "waypoint",                       SUMO_TAG_WAYPOINT },
+    { "waypointLane",                   SUMO_TAG_WAYPOINT_LANE },
+    { "waypointBusStop",                SUMO_TAG_WAYPOINT_BUSSTOP },
+    { "waypointContainerStop",          SUMO_TAG_WAYPOINT_CONTAINERSTOP },
+    { "waypointChargingStation",        SUMO_TAG_WAYPOINT_CHARGINGSTATION },
+    { "waypointParkingArea",            SUMO_TAG_WAYPOINT_PARKINGAREA },
     // GNE Person trips
     { "personTrip: edge->edge",         GNE_TAG_PERSONTRIP_EDGE },
     { "personTrip: edge->busStop",      GNE_TAG_PERSONTRIP_BUSSTOP },
@@ -267,17 +274,20 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     // GNE Rides
     { "ride: edge->edge",               GNE_TAG_RIDE_EDGE },
     { "ride: edge->busStop",            GNE_TAG_RIDE_BUSSTOP },
-    // GNE person Stops
+    // GNE Person Stops
     { "stopPerson: busStop",            GNE_TAG_STOPPERSON_BUSSTOP },
     { "stopPerson: edge",               GNE_TAG_STOPPERSON_EDGE },
-    // GNE transports
+    // GNE Person Waypointss
+    { "waypointPerson: busStop",        GNE_TAG_WAYPOINTPERSON_BUSSTOP },
+    { "waypointPerson: edge",           GNE_TAG_WAYPOINTPERSON_EDGE },
+    // GNE Transports
     { "transport: edge->edge",          GNE_TAG_TRANSPORT_EDGE },
     { "transport: edge->containerStop", GNE_TAG_TRANSPORT_CONTAINERSTOP },
-    // GNE tranships
+    // GNE Tranships
     { "tranship: edge->edge",           GNE_TAG_TRANSHIP_EDGE },
     { "tranship: edge->containerStop",  GNE_TAG_TRANSHIP_CONTAINERSTOP },
     { "tranship: edges",                GNE_TAG_TRANSHIP_EDGES },
-    // GNE container Stops
+    // GNE Container Stops
     { "stopContainer: containerStop",   GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
     { "stopContainer: edge",            GNE_TAG_STOPCONTAINER_EDGE },
     // root file
