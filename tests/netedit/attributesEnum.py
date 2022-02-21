@@ -1480,6 +1480,9 @@ class stop:
         permitted = 14
         parking = 15
         actType = 16
+        tripID = 17
+        line = 18
+        speed = 19
     class inspect:
         durationEnable = 1
         duration = 2
@@ -1492,6 +1495,9 @@ class stop:
         permitted = 7
         parking = 8
         actType = 9
+        tripID = 10
+        line = 11
+        speed = 12
     class inspectSelection:
         durationEnable = 1
         duration = 2
@@ -1504,7 +1510,9 @@ class stop:
         permitted = 9
         parking = 10
         actType = 11
-
+        tripID = 12
+        line = 13
+        speed = 14
 
 # stop (over parkings)
 class stopParking:
@@ -1519,6 +1527,9 @@ class stopParking:
         expected = 14
         permitted = 14
         actType = 15
+        tripID = 16
+        line = 17
+        speed = 18
     class inspect:
         durationEnable = 1
         duration = 2
@@ -1530,6 +1541,9 @@ class stopParking:
         expected = 7
         permitted = 7
         actType = 8
+        tripID = 9
+        line = 10
+        speed = 11
     class inspectSelection:
         durationEnable = 1
         duration = 2
@@ -1541,6 +1555,9 @@ class stopParking:
         expected = 8
         permitted = 9
         actType = 10
+        tripID = 11
+        line = 12
+        speed = 13
 
 # stop (over lane)
 class stopLane:
@@ -1558,6 +1575,9 @@ class stopLane:
         permitted = 16
         parking = 17
         actType = 18
+        tripID = 19
+        line = 20
+        speed = 21
     class inspect:
         lane = 1
         startPos = 2
@@ -1575,6 +1595,9 @@ class stopLane:
         permitted = 12
         parking = 13
         actType = 14
+        tripID = 15
+        line = 16
+        speed = 17
     class inspectSelection:
         friendlyPos = 1
         posLat = 2
@@ -1589,6 +1612,9 @@ class stopLane:
         permitted = 11
         parking = 12
         actType = 13
+        tripID = 14
+        line = 15
+        speed = 16
 
 #--------------------------------
 # DATA ELEMENTS
