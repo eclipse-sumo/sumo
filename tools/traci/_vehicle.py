@@ -883,7 +883,9 @@ class VehicleDomain(Domain):
     def getDrivingDistance(self, vehID, edgeID, pos, laneIndex=0):
         """getDrivingDistance(string, string, double, integer) -> double
 
-        Return the distance to the given edge and position along the vehicles route.
+        For an edge along the remaining route of vehID, return the distance from the current vehicle position
+        to the given edge and position along the vehicles route.
+        Otherwise, return INVALID_DOUBLE_VALUE
         """
         return self._getUniversal(tc.DISTANCE_REQUEST, vehID, "tru", 2,
                                   (edgeID, pos, laneIndex), tc.REQUEST_DRIVINGDIST)
