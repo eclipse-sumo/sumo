@@ -55,10 +55,13 @@ private:
     /// @brief tagType
     struct TagType {
         /// @brief constructor
-        TagType(SumoXMLTag tag, const bool additional, const bool demand);
+        TagType(SumoXMLTag tag, const bool network, const bool additional, const bool demand);
 
         /// @brief tag related with this TagType
         const SumoXMLTag tag;
+
+        /// @brief tagType is network
+        const bool network;
 
         /// @brief tagType is additional
         const bool additional;
