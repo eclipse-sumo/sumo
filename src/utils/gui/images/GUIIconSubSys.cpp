@@ -286,6 +286,7 @@
 #include "flowjunctions.xpm"
 #include "routeflow.xpm"
 #include "stopelement.xpm"
+#include "waypoint.xpm"
 #include "person.xpm"
 #include "personflow.xpm"
 #include "persontripfromto.xpm"
@@ -690,6 +691,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::FLOW_JUNCTIONS] = new FXXPMIcon(a, flowjunctions_xpm);
     myIcons[GUIIcon::ROUTEFLOW] = new FXXPMIcon(a, routeflow_xpm);
     myIcons[GUIIcon::STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
+    myIcons[GUIIcon::WAYPOINT] = new FXXPMIcon(a, waypoint_xpm);
     myIcons[GUIIcon::PERSON] = new FXXPMIcon(a, person_xpm);
     myIcons[GUIIcon::PERSONFLOW] = new FXXPMIcon(a, personflow_xpm);
     myIcons[GUIIcon::PERSONTRIP_FROMTO] = new FXXPMIcon(a, persontripfromto_xpm);
