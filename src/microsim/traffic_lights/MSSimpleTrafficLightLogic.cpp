@@ -233,7 +233,7 @@ MSSimpleTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
         } else {
             SUMOTime latest = getLatestEnd();
             if (latest != MSPhaseDefinition::UNSPECIFIED_DURATION) {
-                const SUMOTime minRemaining = getCurrentPhaseDef().minDuration - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
+                const SUMOTime minRemaining = getMinDur() - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
                 const SUMOTime minEnd = getTimeInCycle() + minRemaining;
                 if (latest > earliest && latest < minEnd) {
                     // cannot terminate phase between earliest and latest -> move end into next cycle
@@ -250,7 +250,7 @@ MSSimpleTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
 #endif
             }
         }
-        const SUMOTime maxRemaining = getCurrentPhaseDef().maxDuration - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
+        const SUMOTime maxRemaining = getMaxDur() - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
         return MIN2(earliest - getTimeInCycle(), maxRemaining);
     }
 }
