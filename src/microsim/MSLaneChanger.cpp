@@ -1857,15 +1857,17 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
         }
         if (leadLead.first == nullptr) {
             double availableSpace = columnLeader.first->getLane()->getLength() - columnLeader.first->getPositionOnLane();
-            const double requiredSpace = safetyFactor * (requiredSpaceAfterLeader
-                                         + vehicle->getCarFollowModel().brakeGap(overtakingSpeed));
+            const double bGap = vehicle->getCarFollowModel().brakeGap(overtakingSpeed);
+            const double requiredSpace = safetyFactor * (requiredSpaceAfterLeader + bGap);
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
                 std::cout << "   no direct leader found after columnLeader " << columnLeader.first->getID()
                           << " availableSpace=" << availableSpace
-                          << " req1=" << requiredSpaceAfterLeader
-                          << " req2=" << requiredSpace / safetyFactor
-                          << " req3=" << requiredSpace
+                          << " reqAfterLeader=" << requiredSpaceAfterLeader
+                          << " ovSpeed=" << overtakingSpeed
+                          << " reqBGap=" << bGap
+                          << " reqMin=" << requiredSpace / safetyFactor
+                          << " req=" << requiredSpace
                           << "\n";
             }
 #endif
@@ -1901,20 +1903,27 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
                         }
                     }
                 }
+#ifdef DEBUG_CHANGE_OPPOSITE
+                if (DEBUG_COND) {
+                    std::cout << "      foundSpaceAhead=" << foundSpaceAhead << " availableSpace=" << availableSpace << " next=" << Named::getIDSecure(next) << " conts=" << toString(conts) << "\n";
+                }
+#endif
                 if (!foundSpaceAhead) {
                     return std::make_pair(nullptr, -1);
                 }
             }
         } else {
-            const double requiredSpace = safetyFactor * (requiredSpaceAfterLeader
-                                         + vehicle->getCarFollowModel().getSecureGap(vehicle, leadLead.first,
-                                                 overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
+            const double bGap = vehicle->getCarFollowModel().getSecureGap(vehicle, leadLead.first,
+                                                 overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel());
+            const double requiredSpace = safetyFactor * (requiredSpaceAfterLeader + bGap);
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
                 std::cout << "   leader's leader " << leadLead.first->getID() << " space=" << leadLead.second
-                          << " req1=" << requiredSpaceAfterLeader
-                          << " req2=" << requiredSpace / safetyFactor
-                          << " req3=" << requiredSpace
+                          << " reqAfterLeader=" << requiredSpaceAfterLeader
+                          << " ovSpeed=" << overtakingSpeed
+                          << " reqBGap=" << bGap
+                          << " reqMin=" << requiredSpace / safetyFactor
+                          << " req=" << requiredSpace
                           << "\n";
             }
 #endif
