@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-19 13:23:10 by Eclipse SUMO netedit Version v1_11_0+1273-140530bb1dd
+<!-- generated on 2022-02-21 16:10:00 by Eclipse SUMO netedit Version v1_12_0+0728-c7bfe9a0f6f
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan132139.10560\netedit.gui\shapeElements\basic\shape_saveDialog\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Feb160911.7456\netedit.gui\shapeElements\basic\shape_saveDialog\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan132139.10560\netedit.gui\shapeElements\basic\shape_saveDialog\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Feb160911.7456\netedit.gui\shapeElements\basic\shape_saveDialog\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,32 +30,32 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan132139.10560\netedit.gui\shapeElements\basic\shape_saveDialog\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan132139.10560\netedit.gui\shapeElements\basic\shape_saveDialog\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan132139.10560\netedit.gui\shapeElements\basic\shape_saveDialog\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan132139.10560\netedit.gui\shapeElements\basic\shape_saveDialog\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan132139.10560\netedit.gui\shapeElements\basic\shape_saveDialog\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan132139.10560\netedit.gui\shapeElements\basic\shape_saveDialog\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Feb160911.7456\netedit.gui\shapeElements\basic\shape_saveDialog\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Feb160911.7456\netedit.gui\shapeElements\basic\shape_saveDialog\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Feb160911.7456\netedit.gui\shapeElements\basic\shape_saveDialog\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Feb160911.7456\netedit.gui\shapeElements\basic\shape_saveDialog\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Feb160911.7456\netedit.gui\shapeElements\basic\shape_saveDialog\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Feb160911.7456\netedit.gui\shapeElements\basic\shape_saveDialog\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan132139.10560\netedit.gui\shapeElements\basic\shape_saveDialog\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Feb160911.7456\netedit.gui\shapeElements\basic\shape_saveDialog\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan132139.10560\netedit.gui\shapeElements\basic\shape_saveDialog\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Feb160911.7456\netedit.gui\shapeElements\basic\shape_saveDialog\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan132139.10560\netedit.gui\shapeElements\basic\shape_saveDialog\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Feb160911.7456\netedit.gui\shapeElements\basic\shape_saveDialog\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="po_0" color="red" fill="0" layer="0.00" shape="1.000000,19.000000 1.000000,24.000000 -4.000000,24.000000 -4.000000,19.000000 1.000000,19.000000"/>
+    <poly id="po_0" color="red" fill="0" layer="0.00" shape="0.000000,20.000000 0.000000,25.000000 -5.000000,25.000000 -5.000000,20.000000 0.000000,20.000000"/>
 </additional>
