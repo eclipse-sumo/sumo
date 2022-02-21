@@ -670,8 +670,8 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_REPEAT:
             return canParse<int>(value);
         case SUMO_ATTR_CYCLETIME:
-            if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
+            if (canParse<SUMOTime>(value)) {
+                return (parse<SUMOTime>(value) >= 0);
             } else {
                 return false;
             }
