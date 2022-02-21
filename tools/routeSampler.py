@@ -24,7 +24,6 @@ from __future__ import print_function
 
 import os
 import sys
-import random
 from collections import defaultdict
 # multiprocessing imports
 import multiprocessing
@@ -47,7 +46,7 @@ def _run_func(args):
     return num, func(interval=interval, **kwargs)
 
 
-def multi_process(cpu_num, seed, interval_list, func, outf, mismatchf, **kwargs):
+def multi_process(cpu_num, interval_list, func, outf, mismatchf, **kwargs):
     cpu_count = min(cpu_num, multiprocessing.cpu_count()-1, len(interval_list))
     interval_split = np.array_split(interval_list, cpu_count)
     # pool = multiprocessing.Pool(processes=cpu_count)
@@ -329,7 +328,6 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
     """
     import scipy.optimize as opt
     import scipy.version
-    import numpy as np
 
     m = len(countData)
 
@@ -481,9 +479,7 @@ def getRouteUsage(routes, countData):
 
 
 def main(options):
-    if options.seed:
-        random.seed(options.seed)
-        np.random.seed(options.seed)
+    rng = np.random.default_rng(options.seed)
 
     routes = Routes(options.routeFiles)
 
@@ -535,7 +531,7 @@ def main(options):
         sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
         if options.threads > 1:
             # call the multiprocessing function
-            results = multi_process(options.threads, options.seed, intervals,
+            results = multi_process(options.threads, intervals,
                                     _solveIntervalMP, outf, mismatchf, options=options, routes=routes)
             # handle the uFlow, oFlow and GEH
             for _, result in results:
@@ -546,7 +542,8 @@ def main(options):
         else:
             for begin, end in intervals:
                 intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
-                uFlow, oFlow, gehOK, _ = solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf)
+                uFlow, oFlow, gehOK, _ = solveInterval(options, routes, begin, end,
+                                                       intervalPrefix, outf, mismatchf, rng)
                 underflowSummary.add(uFlow, begin)
                 overflowSummary.add(oFlow, begin)
                 gehSummary.add(gehOK, begin)
@@ -562,11 +559,6 @@ def main(options):
         print(gehSummary)
 
 
-def _sample(sampleSet, rng):
-    population = tuple(sampleSet)
-    return population[(int)(rng.random() * len(population))]
-
-
 def _sample_skewed(sampleSet, rng, probabilityMap):
     # build cumulative distribution function for weighted sampling
     cdf = []
@@ -576,14 +568,13 @@ def _sample_skewed(sampleSet, rng, probabilityMap):
         total += probabilityMap[element]
         cdf.append(total)
 
-    value = random.random() * total
+    value = rng.random() * total
     return population[np.searchsorted(cdf, value)]
 
 
 def _solveIntervalMP(options, routes, interval, cpuIndex):
     output_list = []
-    rng = random.Random()
-    rng.seed(options.seed + cpuIndex)
+    rng = np.random.default_rng(seed=options.seed + cpuIndex)
     for begin, end in interval:
         local_outf = StringIO()
         local_mismatch_outf = StringIO() if options.mismatchOut else None
@@ -596,7 +587,7 @@ def _solveIntervalMP(options, routes, interval, cpuIndex):
     return output_lst
 
 
-def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, rng=random):
+def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, rng):
     # store which routes are passing each counting location (using route index)
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end, routes, options.turnAttr,
                                     options=options)
@@ -637,8 +628,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 # sampling equally among open counting locations appears to
                 # improve GEH but it would also introduce a bias in the loaded
                 # route probabilities
-                cd = countData[_sample(openCounts, rng)]
-                routeIndex = _sample(cd.routeSet.intersection(openRoutes), rng)
+                cd = countData[rng.choice(tuple(openCounts))]
+                routeIndex = rng.choice(tuple(cd.routeSet.intersection(openRoutes)))
             usedRoutes.append(routeIndex)
             for dataIndex in routeUsage[routeIndex]:
                 countData[dataIndex].count -= 1
@@ -653,7 +644,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         optimize(options, countData, routes, usedRoutes, routeUsage)
         resetCounts(usedRoutes, routeUsage, countData)
     # avoid bias from sampling order / optimization
-    random.shuffle(usedRoutes, rng.random)
+    rng.shuffle(usedRoutes)
 
     if usedRoutes:
         outf.write('<!-- begin="%s" end="%s" -->\n' % (begin, end))
