@@ -1857,15 +1857,14 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
         }
         if (leadLead.first == nullptr) {
             double availableSpace = columnLeader.first->getLane()->getLength() - columnLeader.first->getPositionOnLane();
-            const double bGap = vehicle->getCarFollowModel().brakeGap(overtakingSpeed);
-            const double requiredSpace = safetyFactor * (requiredSpaceAfterLeader + bGap);
+            const double requiredSpace = safetyFactor * (requiredSpaceAfterLeader + mergeBrakeGap);
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
                 std::cout << "   no direct leader found after columnLeader " << columnLeader.first->getID()
                           << " availableSpace=" << availableSpace
                           << " reqAfterLeader=" << requiredSpaceAfterLeader
                           << " ovSpeed=" << overtakingSpeed
-                          << " reqBGap=" << bGap
+                          << " reqBGap=" << mergeBrakeGap
                           << " reqMin=" << requiredSpace / safetyFactor
                           << " req=" << requiredSpace
                           << "\n";
@@ -1913,15 +1912,15 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
                 }
             }
         } else {
-            const double bGap = vehicle->getCarFollowModel().getSecureGap(vehicle, leadLead.first,
+            const double sGap = vehicle->getCarFollowModel().getSecureGap(vehicle, leadLead.first,
                                                  overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel());
-            const double requiredSpace = safetyFactor * (requiredSpaceAfterLeader + bGap);
+            const double requiredSpace = safetyFactor * (requiredSpaceAfterLeader + sGap);
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
                 std::cout << "   leader's leader " << leadLead.first->getID() << " space=" << leadLead.second
                           << " reqAfterLeader=" << requiredSpaceAfterLeader
                           << " ovSpeed=" << overtakingSpeed
-                          << " reqBGap=" << bGap
+                          << " reqSGap=" << sGap
                           << " reqMin=" << requiredSpace / safetyFactor
                           << " req=" << requiredSpace
                           << "\n";
