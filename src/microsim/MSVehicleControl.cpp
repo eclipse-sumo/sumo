@@ -260,9 +260,15 @@ MSVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
             const MSEdge* const firstEdge = v->getRoute().getEdges()[0];
             if (!MSGlobals::gUseMesoSim) {
                 // position will be checked against person position later
-                static_cast<MSVehicle*>(v)->setTentativeLaneAndPosition(firstEdge->getLanes()[0], v->getParameter().departPos);
+                static_cast<MSVehicle*>(v)->setTentativeLaneAndPosition(nullptr, v->getParameter().departPos);
             }
-            firstEdge->addWaiting(v);
+            if (firstEdge->isTazConnector()) {
+                for (MSEdge* out : firstEdge->getSuccessors()) {
+                    out->addWaiting(v);
+                }
+            } else {
+                firstEdge->addWaiting(v);
+            }
             registerOneWaiting();
         }
         if (v->getVClass() != SVC_TAXI && pars.line != "" && pars.repetitionNumber < 0) {

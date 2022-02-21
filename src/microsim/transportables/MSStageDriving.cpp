@@ -243,7 +243,13 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
         }
         myVehicle->addTransportable(transportable);
         net->getInsertionControl().add(myVehicle);
-        myWaitingEdge->removeWaiting(myVehicle);
+        if (myVehicle->getEdge()->isTazConnector()) {
+            for (MSEdge* out : myVehicle->getEdge()->getSuccessors()) {
+                out->removeWaiting(myVehicle);
+            }
+        } else {
+            myWaitingEdge->removeWaiting(myVehicle);
+        }
         net->getVehicleControl().unregisterOneWaiting();
     } else {
         // check if the ride can be conducted and reserve it
