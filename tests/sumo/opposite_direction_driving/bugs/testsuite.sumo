@@ -11,3 +11,6 @@ ticket9718
 
 # 4 arm priority junction
 ticket9721
+
+# avoid unrealistic overtaking speed estimation
+ticket10194
