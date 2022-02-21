@@ -111,7 +111,13 @@ jobs:
         $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
         ctest --build-config Release --verbose
-        Compress-Archive -Path D:/texttest/complex.* -DestinationPath D:/texttest/tt.zip
+
+    - name: Compressing test results
+      if: always()
+      run: |
+        dir d:\texttest
+        Compress-Archive -Path D:/texttest -DestinationPath D:/texttest/tt.zip
+        dir d:\texttest
 
     - name: Uploading test results
       if: always()
