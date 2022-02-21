@@ -16,7 +16,7 @@
 # @date    2015-02-06
 
 from __future__ import absolute_import
-from .domain import Domain
+from ._vehicletype import VTypeDomain
 from . import constants as tc
 from . import _simulation as simulation
 
@@ -81,12 +81,12 @@ _RETURN_VALUE_FUNC = {tc.VAR_STAGE: simulation._readStage,
                       }
 
 
-class PersonDomain(Domain):
+class PersonDomain(VTypeDomain):
     def __init__(self):
-        Domain.__init__(self, "person", tc.CMD_GET_PERSON_VARIABLE, tc.CMD_SET_PERSON_VARIABLE,
-                        tc.CMD_SUBSCRIBE_PERSON_VARIABLE, tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE,
-                        tc.CMD_SUBSCRIBE_PERSON_CONTEXT, tc.RESPONSE_SUBSCRIBE_PERSON_CONTEXT,
-                        _RETURN_VALUE_FUNC)
+        VTypeDomain.__init__(self, "person", tc.CMD_GET_PERSON_VARIABLE, tc.CMD_SET_PERSON_VARIABLE,
+                             tc.CMD_SUBSCRIBE_PERSON_VARIABLE, tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE,
+                             tc.CMD_SUBSCRIBE_PERSON_CONTEXT, tc.RESPONSE_SUBSCRIBE_PERSON_CONTEXT,
+                             _RETURN_VALUE_FUNC)
 
     def getSpeed(self, personID):
         """getSpeed(string) -> double
@@ -152,20 +152,6 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_LANEPOSITION, personID)
 
-    def getColor(self, personID):
-        """getColor(string) -> (integer, integer, integer, integer)
-
-        Returns the person's rgba color.
-        """
-        return self._getUniversal(tc.VAR_COLOR, personID)
-
-    def getLength(self, personID):
-        """getLength(string) -> double
-
-        Returns the length in m of the given person.
-        """
-        return self._getUniversal(tc.VAR_LENGTH, personID)
-
     def getSpeedFactor(self, personID):
         """getSpeedFactor(string) -> double
 
@@ -180,20 +166,6 @@ class PersonDomain(Domain):
         (basically, the waiting time of a person is reset to 0 every time it moves).
         """
         return self._getUniversal(tc.VAR_WAITING_TIME, personID)
-
-    def getWidth(self, personID):
-        """getWidth(string) -> double
-
-        Returns the width in m of this person.
-        """
-        return self._getUniversal(tc.VAR_WIDTH, personID)
-
-    def getMinGap(self, personID):
-        """getMinGap(string) -> double
-
-        Returns the offset (gap to front person if halting) of this person.
-        """
-        return self._getUniversal(tc.VAR_MINGAP, personID)
 
     def getNextEdge(self, personID):
         """getNextEdge() -> string
@@ -382,45 +354,3 @@ class PersonDomain(Domain):
         Sets the id of the type for the named person.
         """
         self._setCmd(tc.VAR_TYPE, personID, "s", typeID)
-
-    def setWidth(self, personID, width):
-        """setWidth(string, double) -> None
-
-        Sets the width in m for this person.
-        """
-        self._setCmd(tc.VAR_WIDTH, personID, "d", width)
-
-    def setHeight(self, personID, height):
-        """setHeight(string, double) -> None
-
-        Sets the height in m for this person.
-        """
-        self._setCmd(tc.VAR_HEIGHT, personID, "d", height)
-
-    def setLength(self, personID, length):
-        """setLength(string, double) -> None
-
-        Sets the length in m for the given person.
-        """
-        self._setCmd(tc.VAR_LENGTH, personID, "d", length)
-
-    def setSpeedFactor(self, personID, factor):
-        """setSpeedFactor(string, double) -> None
-        Sets the speed factor (multiplier on the maximum speed of the type of this person).
-        """
-        self._setCmd(tc.VAR_SPEED_FACTOR, personID, "d", factor)
-
-    def setMinGap(self, personID, minGap):
-        """setMinGap(string, double) -> None
-
-        Sets the offset (gap to front person if halting) for this vehicle.
-        """
-        self._setCmd(tc.VAR_MINGAP, personID, "d", minGap)
-
-    def setColor(self, personID, color):
-        """setColor(string, (integer, integer, integer, integer))
-
-        Sets the color for the vehicle with the given ID, i.e. (255,0,0) for the color red.
-        The fourth component (alpha) is optional.
-        """
-        self._setCmd(tc.VAR_COLOR, personID, "c", color)

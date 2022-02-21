@@ -24,7 +24,7 @@
 
 from __future__ import absolute_import
 import warnings
-from .domain import Domain
+from ._vehicletype import VTypeDomain
 from . import constants as tc
 from .exceptions import TraCIException, deprecated
 
@@ -215,7 +215,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[
                       tc.CMD_CHANGELANE: lambda result: result.read("!iBiBi")[2::2]}
 
 
-class VehicleDomain(Domain):
+class VehicleDomain(VTypeDomain):
     # imported for backwards compatibility
     STOP_DEFAULT = tc.STOP_DEFAULT
     STOP_PARKING = tc.STOP_PARKING
@@ -237,10 +237,10 @@ class VehicleDomain(Domain):
     DEPART_LANE_FIRST_ALLOWED = tc.DEPARTFLAG_LANE_FIRST_ALLOWED
 
     def __init__(self):
-        Domain.__init__(self, "vehicle", tc.CMD_GET_VEHICLE_VARIABLE, tc.CMD_SET_VEHICLE_VARIABLE,
-                        tc.CMD_SUBSCRIBE_VEHICLE_VARIABLE, tc.RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE,
-                        tc.CMD_SUBSCRIBE_VEHICLE_CONTEXT, tc.RESPONSE_SUBSCRIBE_VEHICLE_CONTEXT,
-                        _RETURN_VALUE_FUNC, subscriptionDefault=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION))
+        VTypeDomain.__init__(self, "vehicle", tc.CMD_GET_VEHICLE_VARIABLE, tc.CMD_SET_VEHICLE_VARIABLE,
+                             tc.CMD_SUBSCRIBE_VEHICLE_VARIABLE, tc.RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE,
+                             tc.CMD_SUBSCRIBE_VEHICLE_CONTEXT, tc.RESPONSE_SUBSCRIBE_VEHICLE_CONTEXT,
+                             _RETURN_VALUE_FUNC, subscriptionDefault=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION))
 
     def getSpeed(self, vehID):
         """getSpeed(string) -> double
@@ -348,13 +348,6 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_LANEPOSITION, vehID)
 
-    def getColor(self, vehID):
-        """getColor(string) -> (integer, integer, integer, integer)
-
-        Returns the vehicle's rgba color.
-        """
-        return self._getUniversal(tc.VAR_COLOR, vehID)
-
     def getCO2Emission(self, vehID):
         """getCO2Emission(string) -> double
 
@@ -418,13 +411,6 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_ELECTRICITYCONSUMPTION, vehID)
 
-    def getPersonCapacity(self, vehID):
-        """getPersonCapacity(string) -> int
-
-        Returns the person capacity of the vehicle
-        """
-        return self._getUniversal(tc.VAR_PERSON_CAPACITY, vehID)
-
     def getPersonNumber(self, vehID):
         """getPersonNumber(string) -> integer
         Returns the total number of persons which includes those defined
@@ -473,20 +459,6 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_SIGNALS, vehID)
 
-    def getLength(self, vehID):
-        """getLength(string) -> double
-
-        Returns the length in m of the given vehicle.
-        """
-        return self._getUniversal(tc.VAR_LENGTH, vehID)
-
-    def getMaxSpeed(self, vehID):
-        """getMaxSpeed(string) -> double
-
-        Returns the maximum speed in m/s of this vehicle.
-        """
-        return self._getUniversal(tc.VAR_MAXSPEED, vehID)
-
     def getLateralLanePosition(self, vehID):
         """getLateralLanePosition(string) -> double
 
@@ -494,63 +466,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_LANEPOSITION_LAT, vehID)
 
-    def getMaxSpeedLat(self, vehID):
-        """getMaxSpeedLat(string) -> double
-
-        Returns the maximum lateral speed in m/s of this vehicle.
-        """
-        return self._getUniversal(tc.VAR_MAXSPEED_LAT, vehID)
-
-    def getLateralAlignment(self, vehID):
-        """getLateralAlignment(string) -> string
-
-        Returns The preferred lateral alignment of the vehicle,
-        see https://sumo.dlr.de/docs/Simulation/SublaneModel.html#lane-changing
-        """
-        return self._getUniversal(tc.VAR_LATALIGNMENT, vehID)
-
-    def getMinGapLat(self, vehID):
-        """getMinGapLat(string) -> double
-
-        Returns The desired lateral gap of this vehicle at 50km/h in m
-        """
-        return self._getUniversal(tc.VAR_MINGAP_LAT, vehID)
-
     def getAllowedSpeed(self, vehID):
         """getAllowedSpeed(string) -> double
 
         Returns the maximum allowed speed on the current lane regarding speed factor in m/s for this vehicle.
         """
         return self._getUniversal(tc.VAR_ALLOWED_SPEED, vehID)
-
-    def getVehicleClass(self, vehID):
-        """getVehicleClass(string) -> string
-
-        Returns the vehicle class of this vehicle,
-        see https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html#abstract_vehicle_class.
-        """
-        return self._getUniversal(tc.VAR_VEHICLECLASS, vehID)
-
-    def getSpeedFactor(self, vehID):
-        """getSpeedFactor(string) -> double
-
-        Returns the chosen speed factor for this vehicle.
-        """
-        return self._getUniversal(tc.VAR_SPEED_FACTOR, vehID)
-
-    def getSpeedDeviation(self, vehID):
-        """getSpeedDeviation(string) -> double
-
-        Returns the standard deviation for the speed factor of the vehicle type.
-        """
-        return self._getUniversal(tc.VAR_SPEED_DEVIATION, vehID)
-
-    def getEmissionClass(self, vehID):
-        """getEmissionClass(string) -> string
-
-        Returns the emission class of this vehicle.
-        """
-        return self._getUniversal(tc.VAR_EMISSIONCLASS, vehID)
 
     def getWaitingTime(self, vehID):
         """getWaitingTime() -> double
@@ -587,20 +508,6 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_SLOPE, vehID)
 
-    def getWidth(self, vehID):
-        """getWidth(string) -> double
-
-        Returns the width in m of this vehicle.
-        """
-        return self._getUniversal(tc.VAR_WIDTH, vehID)
-
-    def getHeight(self, vehID):
-        """getHeight(string) -> double
-
-        Returns the height in m of this vehicle.
-        """
-        return self._getUniversal(tc.VAR_HEIGHT, vehID)
-
     def getLine(self, vehID):
         """getLine(string) -> string
 
@@ -615,76 +522,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_VIA, vehID)
 
-    def getMinGap(self, vehID):
-        """getMinGap(string) -> double
-
-        Returns the offset (gap to front vehicle if halting) of this vehicle.
-        """
-        return self._getUniversal(tc.VAR_MINGAP, vehID)
-
-    def getShapeClass(self, vehID):
-        """getShapeClass(string) -> string
-
-        Returns the shape class of this vehicle,
-        see https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html#visualization.
-        """
-        return self._getUniversal(tc.VAR_SHAPECLASS, vehID)
-
-    def getAccel(self, vehID):
-        """getAccel(string) -> double
-
-        Returns the maximum acceleration possibility in m/s^2 of this vehicle.
-        """
-        return self._getUniversal(tc.VAR_ACCEL, vehID)
-
-    def getDecel(self, vehID):
-        """getDecel(string) -> double
-
-        Returns the preferred maximal deceleration possibility in m/s^2 of this vehicle.
-        """
-        return self._getUniversal(tc.VAR_DECEL, vehID)
-
-    def getEmergencyDecel(self, vehID):
-        """getEmergencyDecel(string) -> double
-
-        Returns the maximal physically possible deceleration in m/s^2 of this vehicle.
-        """
-        return self._getUniversal(tc.VAR_EMERGENCY_DECEL, vehID)
-
-    def getApparentDecel(self, vehID):
-        """getApparentDecel(string) -> double
-
-        Returns the apparent deceleration in m/s^2 of this vehicle.
-        """
-        return self._getUniversal(tc.VAR_APPARENT_DECEL, vehID)
-
-    def getActionStepLength(self, vehID):
-        """getActionStepLength(string) -> double
-
-        Returns the action step length in s for this vehicle.
-        """
-        return self._getUniversal(tc.VAR_ACTIONSTEPLENGTH, vehID)
-
     def getLastActionTime(self, vehID):
         """getLastActionTime(string) -> double
 
         Returns the time in s of last action point for this vehicle.
         """
         return self._getUniversal(tc.VAR_LASTACTIONTIME, vehID)
-
-    def getImperfection(self, vehID):
-        """getImperfection(string) -> double
-
-        Returns the sigma value denoting the driver imperfection in the Krauss model (0 denotes perfect driving).
-        """
-        return self._getUniversal(tc.VAR_IMPERFECTION, vehID)
-
-    def getTau(self, vehID):
-        """getTau(string) -> double
-
-        Returns the driver's desired (minimum) headway time in s for this vehicle.
-        """
-        return self._getUniversal(tc.VAR_TAU, vehID)
 
     def getBestLanes(self, vehID):
         """getBestLanes(string) -> tuple(bestLanesTuples)
@@ -1037,20 +880,6 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_TAXI_FLEET, "", "i", flag)
 
-    def setMaxSpeed(self, vehID, speed):
-        """setMaxSpeed(string, double) -> None
-
-        Sets the maximum speed in m/s for this vehicle.
-        """
-        self._setCmd(tc.VAR_MAXSPEED, vehID, "d", speed)
-
-    def setMaxSpeedLat(self, vehID, speed):
-        """setMaxSpeedLat(string, double) -> None
-
-        Sets the maximum lateral speed in m/s for this vehicle.
-        """
-        self._setCmd(tc.VAR_MAXSPEED_LAT, vehID, "d", speed)
-
     def rerouteParkingArea(self, vehID, parkingAreaID):
         """rerouteParkingArea(string, string)
 
@@ -1399,56 +1228,6 @@ class VehicleDomain(Domain):
         """
         self._setCmd(tc.VAR_PREV_SPEED, vehID, "tdd", 2, speed, acceleration)
 
-    def setColor(self, vehID, color):
-        """setColor(string, (integer, integer, integer, integer)) -> None
-
-        Sets the color for the vehicle with the given ID, i.e. (255,0,0) for the color red.
-        The fourth component (alpha) is optional.
-        """
-        self._setCmd(tc.VAR_COLOR, vehID, "c", color)
-
-    def setLength(self, vehID, length):
-        """setLength(string, double) -> None
-
-        Sets the length in m for the given vehicle.
-        """
-        self._setCmd(tc.VAR_LENGTH, vehID, "d", length)
-
-    def setVehicleClass(self, vehID, clazz):
-        """setVehicleClass(string, string) -> None
-
-        Sets the vehicle class for this vehicle.
-        """
-        self._setCmd(tc.VAR_VEHICLECLASS, vehID, "s", clazz)
-
-    def setSpeedFactor(self, vehID, factor):
-        """setSpeedFactor(string, double) -> None
-
-        Sets the speed factor (tendency to drive faster or slower than).
-        """
-        self._setCmd(tc.VAR_SPEED_FACTOR, vehID, "d", factor)
-
-    def setEmissionClass(self, vehID, clazz):
-        """setEmissionClass(string, string) -> None
-
-        Sets the emission class for this vehicle.
-        """
-        self._setCmd(tc.VAR_EMISSIONCLASS, vehID, "s", clazz)
-
-    def setWidth(self, vehID, width):
-        """setWidth(string, double) -> None
-
-        Sets the width in m for this vehicle.
-        """
-        self._setCmd(tc.VAR_WIDTH, vehID, "d", width)
-
-    def setHeight(self, vehID, height):
-        """setHeight(string, double) -> None
-
-        Sets the height in m for this vehicle.
-        """
-        self._setCmd(tc.VAR_HEIGHT, vehID, "d", height)
-
     def setLine(self, vehID, line):
         """setLine(string, string) -> None
 
@@ -1468,77 +1247,6 @@ class VehicleDomain(Domain):
         if isinstance(edgeList, str):
             edgeList = [edgeList]
         self._setCmd(tc.VAR_VIA, vehID, "l", edgeList)
-
-    def setMinGap(self, vehID, minGap):
-        """setMinGap(string, double) -> None
-
-        Sets the offset (gap to front vehicle if halting) for this vehicle.
-        """
-        self._setCmd(tc.VAR_MINGAP, vehID, "d", minGap)
-
-    def setMinGapLat(self, vehID, minGapLat):
-        """setMinGapLat(string, double) -> None
-
-        Sets the minimum lateral gap of the vehicle at 50km/h in m
-        """
-        self._setCmd(tc.VAR_MINGAP_LAT, vehID, "d", minGapLat)
-
-    def setLateralAlignment(self, vehID, align):
-        """setLateralAlignment(string, string) -> None
-
-        Sets the preferred lateral alignment for this vehicle.
-        """
-        self._setCmd(tc.VAR_LATALIGNMENT, vehID, "s", align)
-
-    def setShapeClass(self, vehID, clazz):
-        """setShapeClass(string, string) -> None
-
-        Sets the shape class for this vehicle.
-        """
-        self._setCmd(tc.VAR_SHAPECLASS, vehID, "s", clazz)
-
-    def setAccel(self, vehID, accel):
-        """setAccel(string, double) -> None
-
-        Sets the maximum acceleration in m/s^2 for this vehicle.
-        """
-        self._setCmd(tc.VAR_ACCEL, vehID, "d", accel)
-
-    def setDecel(self, vehID, decel):
-        """setDecel(string, double) -> None
-
-        Sets the preferred maximal deceleration in m/s^2 for this vehicle.
-        """
-        self._setCmd(tc.VAR_DECEL, vehID, "d", decel)
-
-    def setEmergencyDecel(self, vehID, decel):
-        """setEmergencyDecel(string, double) -> None
-
-        Sets the maximal physically possible deceleration in m/s^2 for this vehicle.
-        """
-        self._setCmd(tc.VAR_EMERGENCY_DECEL, vehID, "d", decel)
-
-    def setApparentDecel(self, vehID, decel):
-        """setApparentDecel(string, double) -> None
-
-        Sets the apparent deceleration in m/s^2 for this vehicle.
-        """
-        self._setCmd(tc.VAR_APPARENT_DECEL, vehID, "d", decel)
-
-    def setActionStepLength(self, vehID, actionStepLength, resetActionOffset=True):
-        """setActionStepLength(string, double, bool) -> None
-
-        Sets the action step length for this vehicle. If resetActionOffset == True (default), the
-        next action point is scheduled immediately. if If resetActionOffset == False, the interval
-        between the last and the next action point is updated to match the given value, or if the latter
-        is smaller than the time since the last action point, the next action follows immediately.
-        """
-        if actionStepLength < 0:
-            raise TraCIException("Invalid value for actionStepLength. Given value must be non-negative.")
-        # Use negative value to indicate resetActionOffset == False
-        if not resetActionOffset:
-            actionStepLength *= -1
-        self._setCmd(tc.VAR_ACTIONSTEPLENGTH, vehID, "d", actionStepLength)
 
     def highlight(self, vehID, color=(255, 0, 0, 255), size=-1, alphaMax=-1, duration=-1, type=0):
         """ highlight(string, color, float, ubyte, float, ubyte) -> None
@@ -1561,21 +1269,6 @@ class VehicleDomain(Domain):
             self._setCmd(tc.VAR_HIGHLIGHT, vehID, "tcdBdB", 5, color, size, alphaMax, duration, type)
         else:
             self._setCmd(tc.VAR_HIGHLIGHT, vehID, "tcd", 2, color, size)
-
-    def setImperfection(self, vehID, imperfection):
-        """setImperfection(string, double) -> None
-
-        Sets the driver imperfection sigma.
-        """
-        self._setCmd(tc.VAR_IMPERFECTION, vehID, "d", imperfection)
-
-    def setTau(self, vehID, tau):
-        """setTau(string, double) -> None
-
-        Sets the driver's tau-parameter (reaction time or anticipation time depending on the car-following model) in s
-        for this vehicle.
-        """
-        self._setCmd(tc.VAR_TAU, vehID, "d", tau)
 
     def setLaneChangeMode(self, vehID, lcm):
         """setLaneChangeMode(string, integer) -> None
