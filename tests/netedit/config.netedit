@@ -24,6 +24,7 @@ copy_test_path:fileB.txt
 copy_test_path_merge:selection.txt
 copy_test_path_merge:myOwnFilenameRerouter.txt
 copy_test_path:sumo.sumocfg
+copy_test_path:errorScreenshot.png
 
 [collate_file]
 net:net.net.xml
@@ -38,6 +39,7 @@ guisettingsoutput:guisettingsoutput.xml
 cfg:config.cfg
 log:log.txt
 selection:selection.txt
+errorScreenshot:errorScreenshot.png
 
 [run_dependent_text]
 net:<!--{[->]}-->
