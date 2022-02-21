@@ -45,12 +45,11 @@ public:
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] pos position (center) of the rerouter in the map
      * @param[in] name Rerouter name
-     * @param[in] filename The path to the definition file
      * @param[in] probability The probability for vehicle rerouting
      * @param[in] off Whether the router should be inactive initially
      * @param[in] parameters generic parameters
      */
-    GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name, const std::string& filename,
+    GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
                 double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                 const std::map<std::string, std::string>& parameters);
 
@@ -141,9 +140,6 @@ public:
 protected:
     /// @brief position of rerouter in view
     Position myPosition;
-
-    /// @brief filename of rerouter
-    std::string myFilename;
 
     /// @brief probability of rerouter
     double myProbability;

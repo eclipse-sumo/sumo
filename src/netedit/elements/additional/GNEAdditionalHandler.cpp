@@ -838,7 +838,7 @@ GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObje
 
 void
 GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
-                                    const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const std::string& file, const bool off, const SUMOTime timeThreshold,
+                                    const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const bool off, const SUMOTime timeThreshold,
                                     const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
@@ -847,8 +847,6 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
         writeErrorInvalidNegativeValue(SUMO_TAG_REROUTER, id, SUMO_ATTR_PROB);
     } else if (timeThreshold < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_REROUTER, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-    } else if (!SUMOXMLDefinitions::isValidFilename(file)) {
-        writeErrorInvalidFilename(SUMO_TAG_REROUTER, id);
     } else if (!vTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vTypes)) {
         writeErrorInvalidVTypes(SUMO_TAG_REROUTER, id);
     } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_REROUTER, id, false) == nullptr) {
@@ -866,12 +864,12 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
                     // move to side
                     laneShape.move2side(3);
                     // create rerouter
-                    rerouter = new GNERerouter(id, myNet, laneShape.positionAtOffset2D(laneShape.length2D() - 6), name, file, prob, off, timeThreshold, vTypes, parameters);
+                    rerouter = new GNERerouter(id, myNet, laneShape.positionAtOffset2D(laneShape.length2D() - 6), name, prob, off, timeThreshold, vTypes, parameters);
                 } else {
-                    rerouter = new GNERerouter(id, myNet, Position(0, 0), name, file, prob, off, timeThreshold, vTypes, parameters);
+                    rerouter = new GNERerouter(id, myNet, Position(0, 0), name, prob, off, timeThreshold, vTypes, parameters);
                 }
             } else {
-                rerouter = new GNERerouter(id, myNet, pos, name, file, prob, off, timeThreshold, vTypes, parameters);
+                rerouter = new GNERerouter(id, myNet, pos, name, prob, off, timeThreshold, vTypes, parameters);
             }
             // create rerouter Symbols
             std::vector<GNEAdditional*> rerouterSymbols;

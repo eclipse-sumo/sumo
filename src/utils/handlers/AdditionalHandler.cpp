@@ -479,7 +479,6 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                           obj->getStringListAttribute(SUMO_ATTR_EDGES),
                           obj->getDoubleAttribute(SUMO_ATTR_PROB),
                           obj->getStringAttribute(SUMO_ATTR_NAME),
-                          obj->getStringAttribute(SUMO_ATTR_FILE),
                           obj->getBoolAttribute(SUMO_ATTR_OFF),
                           obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
                           obj->getStringListAttribute(SUMO_ATTR_VTYPES),
@@ -1262,7 +1261,6 @@ AdditionalHandler::parseRerouterAttributes(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const Position pos = attrs.getOpt<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, Position::INVALID);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
-    const std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, "");
     const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, id.c_str(), parsedOk, 1);
     SUMOTime timeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, 0);
     const std::vector<std::string> vehicleTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, std::vector<std::string>());
@@ -1276,7 +1274,6 @@ AdditionalHandler::parseRerouterAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, timeThreshold);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);

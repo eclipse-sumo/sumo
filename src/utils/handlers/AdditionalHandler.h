@@ -326,12 +326,11 @@ public:
      * @param[in] edgeIDs The edges the rerouter is placed at
      * @param[in] prob The probability the rerouter reoutes vehicles with
      * @param[in] name Calibrator name
-     * @param[in] file The file to read the reroute definitions from
      * @param[in] parameters generic parameters
      */
     virtual void buildRerouter(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
-                               const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const std::string& file,
-                               const bool off, const SUMOTime timeThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) = 0;
+                               const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const bool off, 
+                               const SUMOTime timeThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) = 0;
 
     /**@brief builds a rerouter interval
      * @param[in] sumoBaseObject sumo base object used for build

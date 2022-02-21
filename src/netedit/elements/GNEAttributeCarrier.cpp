@@ -2458,11 +2458,6 @@ GNEAttributeCarrier::fillAdditionals() {
                                               "Name of " + toString(currentTag));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FILE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                                              "The path to the definition file (alternatively, the intervals may defined as children of the rerouter)");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PROB,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::PROBABILITY | GNEAttributeProperties::DEFAULTVALUE,
                                               "The probability for vehicle rerouting (0-1)",
