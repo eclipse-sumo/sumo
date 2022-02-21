@@ -1815,6 +1815,9 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
         maxLookAhead = (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
                         ? OPPOSITE_OVERTAKING_MAX_LOOKAHEAD_EMERGENCY
                         : OPPOSITE_OVERTAKING_MAX_LOOKAHEAD);
+        maxLookAhead = MAX2(maxLookAhead, mergeBrakeGap + 10
+                + vehicle->getVehicleType().getLengthWithGap()
+                + leader.first->getVehicleType().getLengthWithGap());
     }
 #ifdef DEBUG_CHANGE_OPPOSITE
     if (DEBUG_COND) {
@@ -1876,7 +1879,8 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
                 // maybe the columnleader is stopped before a junction or takes a different turn.
                 // try to find another columnleader on successive lanes
                 const bool allowMinor = vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY;
-                const MSLane* next = getLaneAfter(columnLeader.first->getLane(), conts, allowMinor);
+                bool contsEnd = false;
+                const MSLane* next = getLaneAfter(columnLeader.first->getLane(), conts, allowMinor, contsEnd);
 #ifdef DEBUG_CHANGE_OPPOSITE
                 if (DEBUG_COND) {
                     std::cout << "   look for another leader on lane " << Named::getIDSecure(next) << "\n";
@@ -1891,7 +1895,7 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
                             foundSpaceAhead = true;
                             break;
                         }
-                        next = getLaneAfter(next, conts, allowMinor);
+                        next = getLaneAfter(next, conts, allowMinor, contsEnd);
                     } else {
                         availableSpace += cand->getBackPositionOnLane();
                         if (availableSpace > requiredSpace) {
@@ -1907,6 +1911,10 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
                     std::cout << "      foundSpaceAhead=" << foundSpaceAhead << " availableSpace=" << availableSpace << " next=" << Named::getIDSecure(next) << " conts=" << toString(conts) << "\n";
                 }
 #endif
+                if (!foundSpaceAhead && contsEnd) {
+                    foundSpaceAhead = true;
+                    availableSpace = requiredSpace;
+                }
                 if (!foundSpaceAhead) {
                     return std::make_pair(nullptr, -1);
                 }
@@ -1971,7 +1979,7 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
 
 
 const MSLane*
-MSLaneChanger::getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts, bool allowMinor) {
+MSLaneChanger::getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts, bool allowMinor, bool& contsEnd) {
     for (auto it = conts.begin(); it != conts.end(); ++it) {
         if (*it == lane) {
             if (it + 1 != conts.end()) {
@@ -1983,6 +1991,7 @@ MSLaneChanger::getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& cont
                 }
                 return next;
             } else {
+                contsEnd = true;
                 return nullptr;
             }
         }
