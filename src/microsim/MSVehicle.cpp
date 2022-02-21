@@ -4102,8 +4102,8 @@ MSVehicle::executeMove() {
         // transform back to the opposite-direction lane
         MSLane* newOpposite = nullptr;
         const MSEdge* newOppositeEdge = myLane->getEdge().getOppositeEdge();
-        if (newOppositeEdge != nullptr && oldLaneIndex < newOppositeEdge->getNumLanes()) {
-            newOpposite = newOppositeEdge->getLanes()[oldLaneIndex];
+        if (newOppositeEdge != nullptr) {
+            newOpposite = newOppositeEdge->getLanes()[MIN2(oldLaneIndex, newOppositeEdge->getNumLanes() -1)];
         }
         if (newOpposite == nullptr) {
             if (!myLaneChangeModel->hasBlueLight()) {
