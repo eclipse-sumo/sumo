@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-11-25 21:39:18.252810 by generateParkingAreaRerouters.py v1_11_0+0102-321d333
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <rerouter id="paA0A1" edges="A0A1">
+        <interval begin="0.0" end="86400">
+            <parkingAreaReroute id="paA0A1" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="paA0A1_2" visible="true"/> <!-- dist: 182.7 -->
+        </interval>
+    </rerouter>
+
+
+</additional>
