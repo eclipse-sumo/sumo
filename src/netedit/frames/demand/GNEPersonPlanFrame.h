@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
 
 
 // ===========================================================================
@@ -57,6 +58,9 @@ public:
 
     /// @brief get path creator modul
     GNEFrameModules::PathCreator* getPathCreator() const;
+
+    /// @brief get Person Hierarchy
+    GNEFrameModules::HierarchicalElementTree* getPersonHierarchy() const;
 
 protected:
     /// @brief Tag selected in TagSelector

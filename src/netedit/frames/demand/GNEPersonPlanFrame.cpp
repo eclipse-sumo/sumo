@@ -142,6 +142,12 @@ GNEPersonPlanFrame::getPathCreator() const {
     return myPathCreator;
 }
 
+
+GNEFrameModules::HierarchicalElementTree* 
+GNEPersonPlanFrame::getPersonHierarchy() const {
+    return myPersonHierarchy;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================

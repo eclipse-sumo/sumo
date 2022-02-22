@@ -33,6 +33,7 @@
 #include <netedit/elements/network/GNEEdgeTemplate.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
@@ -2412,6 +2413,7 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     // remove it from inspected elements and HierarchicalElementTree
     myNet->getViewNet()->removeFromAttributeCarrierInspected(demandElement);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
+    myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPersonHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
     // erase it from container
     myDemandElements.at(demandElement->getTagProperty().getTag()).erase(itFind);
     // remove element from grid
