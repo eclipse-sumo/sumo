@@ -5873,7 +5873,6 @@ MSVehicle::getLaneIndex() const {
 
 void
 MSVehicle::setTentativeLaneAndPosition(MSLane* lane, double pos, double posLat) {
-    assert(lane != 0);
     myLane = lane;
     myState.myPos = pos;
     myState.myPosLat = posLat;
