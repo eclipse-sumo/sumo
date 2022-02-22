@@ -277,9 +277,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     // GNE Person Stops
     { "stopPerson: busStop",            GNE_TAG_STOPPERSON_BUSSTOP },
     { "stopPerson: edge",               GNE_TAG_STOPPERSON_EDGE },
-    // GNE Person Waypointss
-    { "waypointPerson: busStop",        GNE_TAG_WAYPOINTPERSON_BUSSTOP },
-    { "waypointPerson: edge",           GNE_TAG_WAYPOINTPERSON_EDGE },
     // GNE Transports
     { "transport: edge->edge",          GNE_TAG_TRANSPORT_EDGE },
     { "transport: edge->containerStop", GNE_TAG_TRANSPORT_CONTAINERSTOP },
@@ -290,9 +287,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     // GNE Container Stops
     { "stopContainer: containerStop",   GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
     { "stopContainer: edge",            GNE_TAG_STOPCONTAINER_EDGE },
-    // GNE Container Stops
-    { "waypointContainer: containerStop",   GNE_TAG_WAYPOINTCONTAINER_CONTAINERSTOP },
-    { "waypointContainer: edge",            GNE_TAG_WAYPOINTCONTAINER_EDGE },
     // root file
     { "rootFile",                       SUMO_TAG_ROOTFILE },
     // Last element

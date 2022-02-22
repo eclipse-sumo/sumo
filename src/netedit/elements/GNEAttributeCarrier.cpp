@@ -829,13 +829,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     fillPersonPlanTrips();
     fillPersonPlanWalks();
     fillPersonPlanRides();
-    fillWaypointPersonElements();
     // containers
     fillContainerElements();
     fillContainerTransportElements();
     fillContainerTranshipElements();
     fillContainerStopElements();
-    fillContainerWaypointElements();
     //data
     fillDataElements();
     // check integrity of all Tags (function checkTagIntegrity() throws an exception if there is an inconsistency)
@@ -4260,88 +4258,6 @@ GNEAttributeCarrier::fillContainerStopElements() {
 
 
 void
-GNEAttributeCarrier::fillContainerWaypointElements() {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties attrProperty;
-    // fill vehicle ACs
-    SumoXMLTag currentTag = GNE_TAG_WAYPOINTCONTAINER_EDGE;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::STOPCONTAINER,
-                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
-                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(0, 255, 25, 255));
-
-        // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The name of the edge the waypoint shall be located at");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ENDPOS,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
-                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
-                                              "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
-                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Minimum duration for waypointping",
-                                              "60");
-        attrProperty.setDefaultActivated(true);
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
-                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
-                                              "The time step at which the route continues",
-                                              "0.00");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Activity displayed for waypointped container in GUI and output files ");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-    }
-    currentTag = GNE_TAG_WAYPOINTCONTAINER_CONTAINERSTOP;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::STOPCONTAINER,
-                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
-                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(0, 255, 25, 255));
-
-        // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_CONTAINER_STOP,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "ContainerWaypoint associated with this waypoint");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
-                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Minimum duration for waypointping",
-                                              "60");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
-                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
-                                              "The time step at which the route continues",
-                                              "0.00");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Activity displayed for waypointped container in GUI and output files ");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-    }
-}
-
-
-void
 GNEAttributeCarrier::fillPersonPlanTrips() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
@@ -4686,89 +4602,6 @@ GNEAttributeCarrier::fillStopPersonElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
                                               "Activity displayed for stopped person in GUI and output files ");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-    }
-}
-
-
-void
-GNEAttributeCarrier::fillWaypointPersonElements() {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties attrProperty;
-    // fill vehicle ACs
-    SumoXMLTag currentTag = GNE_TAG_WAYPOINTPERSON_EDGE;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::STOPPERSON,
-                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
-                                      GUIIcon::WAYPOINT, SUMO_TAG_BUS_STOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
-
-        // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The name of the edge the waypoint shall be located at");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ENDPOS,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
-                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
-                                              "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
-                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Minimum duration for waypointping",
-                                              "60");
-        attrProperty.setDefaultActivated(true);
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
-                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
-                                              "The time step at which the route continues",
-                                              "0.00");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Activity displayed for waypointped person in GUI and output files ");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-    }
-    currentTag = GNE_TAG_WAYPOINTPERSON_BUSSTOP;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::STOPPERSON,
-                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
-                                      GUIIcon::WAYPOINT, SUMO_TAG_BUS_STOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
-
-        // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "BusWaypoint associated with this waypoint");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
-                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Minimum duration for waypointping",
-                                              "60");
-        attrProperty.setDefaultActivated(true);
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
-                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
-                                              "The time step at which the route continues",
-                                              "0.00");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Activity displayed for waypointped person in GUI and output files ");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }

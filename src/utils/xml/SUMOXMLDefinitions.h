@@ -438,9 +438,6 @@ enum SumoXMLTag {
     // @brief person stops
     GNE_TAG_STOPPERSON_BUSSTOP,
     GNE_TAG_STOPPERSON_EDGE,
-    // @brief person waypoints
-    GNE_TAG_WAYPOINTPERSON_BUSSTOP,
-    GNE_TAG_WAYPOINTPERSON_EDGE,
     // @brief person trips
     GNE_TAG_TRANSPORT_EDGE,
     GNE_TAG_TRANSPORT_CONTAINERSTOP,
@@ -451,9 +448,6 @@ enum SumoXMLTag {
     // @brief container stops
     GNE_TAG_STOPCONTAINER_CONTAINERSTOP,
     GNE_TAG_STOPCONTAINER_EDGE,
-    // @brief container stops
-    GNE_TAG_WAYPOINTCONTAINER_CONTAINERSTOP,
-    GNE_TAG_WAYPOINTCONTAINER_EDGE,
     /// @}
 };
 
