@@ -633,6 +633,18 @@ MSE3Collector::detectorUpdate(const SUMOTime step) {
 }
 
 
+const CrossSectionVector&
+MSE3Collector::getEntries() const {
+    return myEntries;
+}
+
+
+const CrossSectionVector&
+MSE3Collector::getExits() const {
+    return myExits;
+}
+
+
 double
 MSE3Collector::getCurrentMeanSpeed() const {
     return myCurrentMeanSpeed;

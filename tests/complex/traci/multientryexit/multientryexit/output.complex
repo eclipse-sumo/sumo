@@ -6,6 +6,10 @@ step 3
 multientryexits ('0',)
 multientryexit count 1
 examining 0
+entryLanes ('2fi_0',)
+exitLanes ('2fi_0',)
+entryPositions (10.0,)
+exitPositions (30.0,)
 vehNum 1
 meanSpeed 6.20637786887
 vehIDs ('horiz',)

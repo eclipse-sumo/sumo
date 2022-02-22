@@ -149,6 +149,14 @@ TraCIServer::wrapStringList(const std::string& /* objID */, const int /* variabl
 
 
 bool
+TraCIServer::wrapDoubleList(const std::string& /* objID */, const int /* variable */, const std::vector<double>& value) {
+    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_DOUBLELIST);
+    myWrapperStorage.writeDoubleList(value);
+    return true;
+}
+
+
+bool
 TraCIServer::wrapPosition(const std::string& /* objID */, const int variable, const libsumo::TraCIPosition& value) {
     const bool includeZ = variable == libsumo::VAR_POSITION3D;
     myWrapperStorage.writeUnsignedByte(includeZ ? libsumo::POSITION_3D : libsumo::POSITION_2D);

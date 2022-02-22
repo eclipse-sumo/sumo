@@ -1061,7 +1061,25 @@ TraCIAPI::MeMeScope::getLastStepHaltingNumber(const std::string& detID) const {
     return getInt(libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, detID);
 }
 
+std::vector<std::string>
+TraCIAPI::MeMeScope::getEntryLanes(const std::string& detID) const {
+    return getStringVector(libsumo::VAR_LANES, detID);
+}
 
+std::vector<std::string>
+TraCIAPI::MeMeScope::getExitLanes(const std::string& detID) const {
+    return getStringVector(libsumo::VAR_EXIT_LANES, detID);
+}
+
+std::vector<double>
+TraCIAPI::MeMeScope::getEntryPositions(const std::string& detID) const {
+    return getDoubleVector(libsumo::VAR_POSITION, detID);
+}
+
+std::vector<double>
+TraCIAPI::MeMeScope::getExitPositions(const std::string& detID) const {
+    return getDoubleVector(libsumo::VAR_EXIT_POSITIONS, detID);
+}
 
 // ---------------------------------------------------------------------------
 // TraCIAPI::POIScope-methods
@@ -3623,6 +3641,20 @@ TraCIAPI::TraCIScopeWrapper::getStringVector(int var, const std::string& id, tcp
         const int size = myParent.myInput.readInt();
         for (int i = 0; i < size; ++i) {
             r.push_back(myParent.myInput.readString());
+        }
+    }
+    return r;
+}
+
+
+std::vector<double>
+TraCIAPI::TraCIScopeWrapper::getDoubleVector(int var, const std::string& id, tcpip::Storage* add) const {
+    std::vector<double> r;
+    myParent.createCommand(myCmdGetID, var, id, add);
+    if (myParent.processGet(myCmdGetID, libsumo::TYPE_DOUBLELIST)) {
+        const int size = myParent.myInput.readInt();
+        for (int i = 0; i < size; ++i) {
+            r.push_back(myParent.myInput.readDouble());
         }
     }
     return r;

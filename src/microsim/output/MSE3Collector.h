@@ -274,6 +274,11 @@ public:
     */
     void leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet, bool isBackward = false);
 
+    /// @brief Returns the entry cross sections
+    const CrossSectionVector& getEntries() const;
+
+    /// @brief Returns the exit cross sections
+    const CrossSectionVector& getExits() const;
 
     /// @name Methods returning current values
     /// @{

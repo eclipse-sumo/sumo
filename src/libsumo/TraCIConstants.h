@@ -876,8 +876,11 @@ TRACI_CONST int VAR_SPEED_LAT = 0x32;
 // maximum allowed/possible speed (get: vehicle types, lanes, set: edges, lanes)
 TRACI_CONST int VAR_MAXSPEED = 0x41;
 
-// position (2D) (get: vehicle, poi, inductionloop, lane area detector; set: poi)
+// position (2D) (get: vehicle, poi, inductionloop, lane area detector, multi-entry/multi-exit detector; set: poi)
 TRACI_CONST int VAR_POSITION = 0x42;
+
+// position (2D) (get: multi-entry/multi-exit detector)
+TRACI_CONST int VAR_EXIT_POSITIONS = 0x43;
 
 // position (3D) (get: vehicle, poi, set: poi)
 TRACI_CONST int VAR_POSITION3D = 0x39;
@@ -951,8 +954,11 @@ TRACI_CONST int VAR_EDGES = 0x54;
 // filled? (set: vehicles)
 TRACI_CONST int VAR_STOP_PARAMETER = 0x55;
 
-// lanes (get: variablespeedsign)
+// lanes (get: variablespeedsign, multi-entry/multi-exit detector)
 TRACI_CONST int VAR_LANES = 0x30;
+
+// exit lanes (get: multi-entry/multi-exit detector)
+TRACI_CONST int VAR_EXIT_LANES = 0x31;
 
 // update bestLanes (set: vehicle)
 TRACI_CONST int VAR_UPDATE_BESTLANES = 0x6a;

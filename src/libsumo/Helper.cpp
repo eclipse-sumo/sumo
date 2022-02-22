@@ -1815,6 +1815,15 @@ Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int 
 
 
 bool
+Helper::SubscriptionWrapper::wrapDoubleList(const std::string& objID, const int variable, const std::vector<double>& value) {
+    auto sl = std::make_shared<TraCIDoubleList>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
 Helper::SubscriptionWrapper::wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value) {
     (*myActiveResults)[objID][variable] = std::make_shared<TraCIPosition>(value);
     return true;

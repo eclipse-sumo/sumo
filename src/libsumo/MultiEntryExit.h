@@ -40,6 +40,11 @@ class MSE3Collector;
 namespace LIBSUMO_NAMESPACE {
 class MultiEntryExit {
 public:
+    static std::vector<std::string> getEntryLanes(const std::string& detID);
+    static std::vector<std::string> getExitLanes(const std::string& detID);
+    static std::vector<double> getEntryPositions(const std::string& detID);
+    static std::vector<double> getExitPositions(const std::string& detID);
+
     static int getLastStepVehicleNumber(const std::string& detID);
     static double getLastStepMeanSpeed(const std::string& detID);
     static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
