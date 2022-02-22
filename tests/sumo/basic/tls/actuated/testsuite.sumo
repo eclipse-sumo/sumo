@@ -68,3 +68,6 @@ joined_tls_controlling_detectors
 
 # test detector usage
 controlling_detectors
+
+# if minDur is set, interpret missing maxDur as unlimited
+maxDur_missing
