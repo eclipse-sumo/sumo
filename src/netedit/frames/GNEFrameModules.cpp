@@ -456,6 +456,7 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
         case GNE_TAG_FLOW_JUNCTIONS:
             myAC = new GNEVehicle(tagProperty.getTag(), net);
             break;
+        // stops
         case SUMO_TAG_STOP_LANE:
         case SUMO_TAG_STOP_BUSSTOP:
         case SUMO_TAG_STOP_CONTAINERSTOP:
@@ -465,6 +466,16 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
         case GNE_TAG_STOPPERSON_BUSSTOP:
         case GNE_TAG_STOPCONTAINER_EDGE:
         case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
+        // waypoints
+        case GNE_TAG_WAYPOINT_LANE:
+        case GNE_TAG_WAYPOINT_BUSSTOP:
+        case GNE_TAG_WAYPOINT_CONTAINERSTOP:
+        case GNE_TAG_WAYPOINT_CHARGINGSTATION:
+        case GNE_TAG_WAYPOINT_PARKINGAREA:
+        case GNE_TAG_WAYPOINTPERSON_EDGE:
+        case GNE_TAG_WAYPOINTPERSON_BUSSTOP:
+        case GNE_TAG_WAYPOINTCONTAINER_EDGE:
+        case GNE_TAG_WAYPOINTCONTAINER_CONTAINERSTOP:
             myAC = new GNEStop(tagProperty.getTag(), net);
             break;
         case SUMO_TAG_PERSON:
