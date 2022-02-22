@@ -54,7 +54,7 @@ public:
         VTYPE =             1 << 8,  // Vehicle types (vType and vTypeDistribution)
         VEHICLE =           1 << 9,  // Vehicles (Vehicles, trips, flows...)
         ROUTE =             1 << 10, // Routes and embedded routes
-        STOP =              1 << 11, // Stops
+        STOP =              1 << 11, // Stops (and waypoints)
         FLOW =              1 << 12, // Flows
         // persons
         PERSON =            1 << 13, // Persons (Persons and personFlows)

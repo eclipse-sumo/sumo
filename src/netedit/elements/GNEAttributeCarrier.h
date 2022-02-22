@@ -320,6 +320,9 @@ private:
     /// @brief fill stop elements
     static void fillStopElements();
 
+    /// @brief fill waypoint elements
+    static void fillWaypointElements();
+
     /// @brief fill person elements
     static void fillPersonElements();
 
@@ -334,6 +337,9 @@ private:
 
     /// @brief fill stopPerson elements
     static void fillStopPersonElements();
+
+    /// @brief fill waypointPerson elements
+    static void fillWaypointPersonElements();
 
     /// @brief fill container elements
     static void fillContainerElements();
@@ -369,7 +375,7 @@ private:
     static void fillCommonContainerAttributes(SumoXMLTag currentTag);
 
     /// @brief fill stop person attributes
-    static void fillCommonStopAttributes(SumoXMLTag currentTag);
+    static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool waypoint);
 
     /// @brief fill Data elements
     static void fillDataElements();
