@@ -1161,15 +1161,15 @@ GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
-    if (!opendialog.execute() || !FXStat::exists(opendialog.getFilename())) {
-        return 1;
-    }
-    const std::string file = opendialog.getFilename().text();
-    try {
-        MSNet::getInstance()->loadState(file);
-        setStatusBarText("Simulation loaded from '" + file + "'");
-    } catch (ProcessError& e) {
-        setStatusBarText("Failed to load state from '" + file + "' (" + e.what() + ")");
+    if (opendialog.execute() && FXStat::exists(opendialog.getFilename())) {
+        gCurrentFolder = opendialog.getDirectory();
+        const std::string file = opendialog.getFilename().text();
+        try {
+            MSNet::getInstance()->loadState(file);
+            setStatusBarText("Simulation loaded from '" + file + "'");
+        } catch (ProcessError& e) {
+            setStatusBarText("Failed to load state from '" + file + "' (" + e.what() + ")");
+        }
     }
     return 1;
 }
