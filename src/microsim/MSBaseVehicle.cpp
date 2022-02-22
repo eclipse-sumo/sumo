@@ -494,12 +494,11 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
             }
 #endif
             if (iter->edge == edges.end()) {
-                if (removeStops) {
-                    iter = myStops.erase(iter);
-                    continue;
-                } else {
-                    assert(false);
+                if (!removeStops) {
+                    WRITE_ERROR("Vehicle '" + getID() + "' could not assign stop '" + iter->getDescription() + "' after rerouting (" + info + ") at time=" + time2string(SIMSTEP) + ".");
                 }
+                iter = myStops.erase(iter);
+                continue;
             } else {
                 searchStart = iter->edge;
             }
