@@ -131,11 +131,11 @@ def import_gtfs(options, gtfsZip):
     extra_stop_times.loc[:, 'departure_fixed'] = extra_stop_times.loc[:, 'departure_fixed'] % full_day
     extra_trips_id = extra_stop_times.trip_id.values.tolist()
     extra_stop_times.loc[:, 'trip_id'] = extra_stop_times.loc[:, 'trip_id'] + ".trimmed"
-    stop_times = stop_times.append(extra_stop_times)
+    stop_times = pd.concat((stop_times, extra_stop_times))
 
     extra_trips = trips.loc[trips.trip_id.isin(extra_trips_id), :]
     extra_trips.loc[:, 'trip_id'] = extra_trips.loc[:, 'trip_id'] + ".trimmed"
-    trips = trips.append(extra_trips)
+    trips = pd.concat((trips, extra_trips))
 
     time_interval = options.end - options.begin
     start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
