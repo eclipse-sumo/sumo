@@ -290,6 +290,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     // GNE Container Stops
     { "stopContainer: containerStop",   GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
     { "stopContainer: edge",            GNE_TAG_STOPCONTAINER_EDGE },
+    // GNE Container Stops
+    { "waypointContainer: containerStop",   GNE_TAG_WAYPOINTCONTAINER_CONTAINERSTOP },
+    { "waypointContainer: edge",            GNE_TAG_WAYPOINTCONTAINER_EDGE },
     // root file
     { "rootFile",                       SUMO_TAG_ROOTFILE },
     // Last element

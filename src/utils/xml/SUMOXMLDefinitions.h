@@ -451,6 +451,9 @@ enum SumoXMLTag {
     // @brief container stops
     GNE_TAG_STOPCONTAINER_CONTAINERSTOP,
     GNE_TAG_STOPCONTAINER_EDGE,
+    // @brief container stops
+    GNE_TAG_WAYPOINTCONTAINER_CONTAINERSTOP,
+    GNE_TAG_WAYPOINTCONTAINER_EDGE,
     /// @}
 };
 
