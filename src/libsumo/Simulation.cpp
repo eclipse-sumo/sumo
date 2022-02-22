@@ -797,22 +797,15 @@ Simulation::saveState(const std::string& fileName) {
 double
 Simulation::loadState(const std::string& fileName) {
     long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + fileName + "'");
-    // XXX reset transportable state
-    // load time only
-    const SUMOTime newTime = MSStateHandler::MSStateTimeHandler::getTime(fileName);
-    // clean up state
-    MSNet::getInstance()->clearState(newTime);
-    // load state
-    MSStateHandler h(fileName, 0);
-    XMLSubSys::runParser(h, fileName);
-    if (MsgHandler::getErrorInstance()->wasInformed()) {
+    try {
+        const SUMOTime newTime = MSNet::getInstance()->loadState(fileName);
+        Helper::clearStateChanges();
+        Helper::clearSubscriptions();
+        PROGRESS_TIME_MESSAGE(before);
+        return STEPS2TIME(newTime);
+    } catch (ProcessError& e) {
         throw TraCIException("Loading state from '" + fileName + "' failed.");
     }
-    Helper::clearStateChanges();
-    Helper::clearSubscriptions();
-    PROGRESS_TIME_MESSAGE(before);
-    MSNet::getInstance()->updateGUI();
-    return STEPS2TIME(newTime);
 }
 
 void

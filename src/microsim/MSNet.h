@@ -587,6 +587,9 @@ public:
     /// @brief update view after simulation.loadState
     virtual void updateGUI() const { }
 
+    /// @brief load state from file and return new time
+    SUMOTime loadState(const std::string& fileName);
+
     /// @name Notification about vehicle state changes
     /// @{
 
