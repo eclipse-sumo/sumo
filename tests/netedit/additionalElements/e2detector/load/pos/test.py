@@ -31,20 +31,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# recompute
-netedit.rebuildNetwork()
-
-# Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
-
 # save network
 netedit.saveNetwork(referencePosition)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
 
-# type space (for dialog)
+# save
 netedit.typeSpace()
 
 # quit netedit
