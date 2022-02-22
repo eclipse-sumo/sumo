@@ -448,8 +448,7 @@ The following elements are permitted in an expression for attributes
 - parentheses (,)
 - pre-defined functions:
   - 'z:DETID': returns the time gap since the last vehicle detection for inductionLoop detector with id 'DETID' or id 'TLSID_PROGRAMID_DETID' (DETID may omit the the [prefix 'TLSID_PROGRAMID_'](#detectors))
-  - 'a:DETID': returns true (1) if a vehicle is on detector with id 'DETID' and
-    false (0) otherwise. Supports inductionLoop and laneAreaDetectors. Also supports omitting the prefix of the detector id. (see 'z:')
+  - 'a:DETID': returns number of vehicles on detector with id 'DETID'. Supports inductionLoop and laneAreaDetectors. Also supports omitting the prefix of the detector id. (see 'z:')
   - 'g:TLSINDEX': returns current green duration in seconds for link with the given index
   - 'r:TLSINDEX': returns current red duration in seconds for link with the given index
   - 'c:': returns the time within the current cycle
