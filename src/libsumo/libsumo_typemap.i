@@ -134,6 +134,16 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             }
         }
         if (pyVal == nullptr) {
+            const libsumo::TraCIDoubleList* const theDoubleList = dynamic_cast<const libsumo::TraCIDoubleList*>(traciVal);
+            if (theDoubleList != nullptr) {
+                const Py_ssize_t size = theDoubleList->value.size();
+                pyVal = PyTuple_New(size);
+                for (Py_ssize_t i = 0; i < size; i++) {
+                    PyTuple_SetItem(pyVal, i, PyFloat_FromDouble(theDoubleList->value[i]));
+                }
+            }
+        }
+        if (pyVal == nullptr) {
             const libsumo::TraCIPosition* const thePosition = dynamic_cast<const libsumo::TraCIPosition*>(traciVal);
             if (thePosition != nullptr) {
                 if (thePosition->z != libsumo::INVALID_DOUBLE_VALUE) {
@@ -353,6 +363,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %shared_ptr(libsumo::TraCIDouble)
 %shared_ptr(libsumo::TraCIString)
 %shared_ptr(libsumo::TraCIStringList)
+%shared_ptr(libsumo::TraCIDoubleList)
 %shared_ptr(libsumo::TraCINextStopData)
 %shared_ptr(libsumo::TraCINextStopDataVector)
 #endif
