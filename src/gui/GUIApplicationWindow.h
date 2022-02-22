@@ -208,6 +208,9 @@ public:
     /// @brief Called on "save state"
     long onCmdSaveState(FXObject*, FXSelector, void*);
 
+    /// @brief Called on "save state"
+    long onCmdLoadState(FXObject*, FXSelector, void*);
+
     /// @brief Called on "time toggle"
     long onCmdTimeToggle(FXObject*, FXSelector, void*);
 

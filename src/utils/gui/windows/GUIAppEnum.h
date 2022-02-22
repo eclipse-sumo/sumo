@@ -278,6 +278,8 @@ enum {
 
     /// @brief Save state to file
     MID_SIMSAVE,
+    /// @brief (quick)-load state from file
+    MID_SIMLOAD,
 
     /// @}
 
