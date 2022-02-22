@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-02-21 13:47:53.470211 by routeSampler.py v1_12_0+0705-8766bb8ceab
+<!-- generated on 2022-02-21 19:06:42.473862 by routeSampler.py v1_12_0+0744-bdcac826e5c
 <configuration>
     <edgedata-attribute value="count"/>
     <edgedata-files value="input_edgedata.xml"/>
@@ -12,29 +12,31 @@
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="150.0" -->
-    <route id="0_0" edges="-3 -3.180.00 11"/> <!-- 6 (route_2) -->
-    <route id="0_1" edges="-3 -3.180.00 15"/> <!-- 8 (route_1) -->
-    <route id="0_2" edges="-3 -3.180.00 5"/> <!-- 36 (route_0) -->
+    <route id="0_0" edges="-3 -3.180.00 11"/> <!-- 5 (route_2) -->
+    <route id="0_1" edges="-3 -3.180.00 15"/> <!-- 7 (route_1) -->
+    <route id="0_2" edges="-3 -3.180.00 5"/> <!-- 38 (route_0) -->
 
-    <flow id="0_2" begin="0.00" end="147.00" number="36" route="0_2"/>
-    <flow id="0_1" begin="9.00" end="120.00" number="8" route="0_1"/>
-    <flow id="0_0" begin="48.00" end="117.00" number="6" route="0_0"/>
+    <flow id="0_2" begin="0.00" end="147.00" number="38" route="0_2"/>
+    <flow id="0_0" begin="3.00" end="123.00" number="5" route="0_0"/>
+    <flow id="0_1" begin="6.00" end="141.00" number="7" route="0_1"/>
 <!-- begin="150.0" end="300.0" -->
-    <route id="150_0" edges="-3 -3.180.00 11"/> <!-- 6 (route_2) -->
-    <route id="150_1" edges="-3 -3.180.00 15"/> <!-- 10 (route_1) -->
-    <route id="150_2" edges="-3 -3.180.00 5"/> <!-- 34 (route_0) -->
+    <route id="150_0" edges="-3 -3.180.00 11"/> <!-- 5 (route_2) -->
+    <route id="150_1" edges="-3 -3.180.00 15"/> <!-- 8 (route_1) -->
+    <route id="150_2" edges="-3 -3.180.00 5"/> <!-- 37 (route_0) -->
 
-    <flow id="150_2" begin="150.00" end="297.00" number="34" route="150_2"/>
-    <flow id="150_1" begin="168.00" end="291.00" number="10" route="150_1"/>
-    <flow id="150_0" begin="225.00" end="282.00" number="6" route="150_0"/>
+    <flow id="150_2" begin="150.00" end="297.00" number="37" route="150_2"/>
+    <flow id="150_0" begin="159.00" end="294.00" number="5" route="150_0"/>
+    <flow id="150_1" begin="171.00" end="270.00" number="8" route="150_1"/>
 <!-- begin="300.0" end="450.0" -->
     <route id="300_0" edges="-3 -3.180.00 11"/> <!-- 4 (route_2) -->
 
     <flow id="300_0" begin="300.00" end="412.50" number="4" route="300_0"/>
 <!-- begin="450.0" end="600.0" -->
-    <route id="450_0" edges="-3 -3.180.00 11"/> <!-- 3 (route_2) -->
+    <route id="450_0" edges="-3 -3.180.00 11"/> <!-- 2 (route_2) -->
+    <route id="450_1" edges="-3 -3.180.00 15"/> <!-- 1 (route_1) -->
     <route id="450_2" edges="-3 -3.180.00 5"/> <!-- 1 (route_0) -->
 
-    <flow id="450_2" begin="450.00" end="451.00" number="1" route="450_2"/>
-    <flow id="450_0" begin="487.50" end="562.50" number="3" route="450_0"/>
+    <flow id="450_0" begin="450.00" end="487.50" number="2" route="450_0"/>
+    <flow id="450_2" begin="525.00" end="526.00" number="1" route="450_2"/>
+    <flow id="450_1" begin="562.50" end="563.50" number="1" route="450_1"/>
 </routes>

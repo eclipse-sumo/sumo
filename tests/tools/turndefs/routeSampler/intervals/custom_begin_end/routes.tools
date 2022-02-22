@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-02-21 13:47:52.851236 by routeSampler.py v1_12_0+0705-8766bb8ceab
+<!-- generated on 2022-02-21 19:06:41.564086 by routeSampler.py v1_12_0+0744-bdcac826e5c
 <configuration>
     <begin value="150"/>
     <edgedata-attribute value="count"/>
@@ -14,14 +14,16 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="150.0" end="450.0" -->
     <route id="150_0" edges="-3 -3.180.00 11"/> <!-- 4 (route_2) -->
-    <route id="150_1" edges="-3 -3.180.00 15"/> <!-- 10 (route_1) -->
-    <route id="150_2" edges="-3 -3.180.00 5"/> <!-- 40 (route_0) -->
+    <route id="150_1" edges="-3 -3.180.00 15"/> <!-- 9 (route_1) -->
+    <route id="150_2" edges="-3 -3.180.00 5"/> <!-- 41 (route_0) -->
 
-    <flow id="150_2" begin="150.00" end="444.44" number="40" route="150_2"/>
-    <flow id="150_0" begin="161.11" end="333.33" number="4" route="150_0"/>
-    <flow id="150_1" begin="166.67" end="433.33" number="10" route="150_1"/>
+    <flow id="150_2" begin="150.00" end="438.89" number="41" route="150_2"/>
+    <flow id="150_0" begin="155.56" end="394.44" number="4" route="150_0"/>
+    <flow id="150_1" begin="161.11" end="444.44" number="9" route="150_1"/>
 <!-- begin="450.0" end="750.0" -->
-    <route id="450_0" edges="-3 -3.180.00 11"/> <!-- 4 (route_2) -->
+    <route id="450_1" edges="-3 -3.180.00 15"/> <!-- 2 (route_1) -->
+    <route id="450_2" edges="-3 -3.180.00 5"/> <!-- 2 (route_0) -->
 
-    <flow id="450_0" begin="450.00" end="675.00" number="4" route="450_0"/>
+    <flow id="450_1" begin="450.00" end="600.00" number="2" route="450_1"/>
+    <flow id="450_2" begin="525.00" end="675.00" number="2" route="450_2"/>
 </routes>
