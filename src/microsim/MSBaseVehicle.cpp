@@ -469,7 +469,7 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
         }
 #ifdef DEBUG_REPLACE_ROUTE
         if (DEBUG_COND) {
-            std::cout << "  replaceRoute on " << (*myCurrEdge)->getID() << " lane=" << Named::getIDSecure(getLane()) << " stopsFromScratch=" << stopsFromScratch << "\n";
+            std::cout << SIMTIME << " replaceRoute info=" << info << " on " << (*myCurrEdge)->getID() << " lane=" << Named::getIDSecure(getLane()) << " stopsFromScratch=" << stopsFromScratch << "\n";
         }
 #endif
         for (std::list<MSStop>::iterator iter = myStops.begin(); iter != myStops.end();) {
