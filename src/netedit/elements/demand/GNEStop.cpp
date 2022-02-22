@@ -1015,8 +1015,12 @@ GNEStop::canDrawVehicleStop() const {
 
 void
 GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const {
+    // check if  this is a waypoint
+    const bool waypoint = (myTagProperty.getTag() == GNE_TAG_WAYPOINT) || (myTagProperty.getTag() == GNE_TAG_WAYPOINT_BUSSTOP) ||
+        (myTagProperty.getTag() == GNE_TAG_WAYPOINT_CHARGINGSTATION) || (myTagProperty.getTag() == GNE_TAG_WAYPOINT_CONTAINERSTOP) ||
+        (myTagProperty.getTag() == GNE_TAG_WAYPOINT_PARKINGAREA) || (myTagProperty.getTag() == GNE_TAG_WAYPOINT_LANE);
     // declare value to save stop color
-    const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : s.colorSettings.stopColor;
+    const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : waypoint? s.colorSettings.waypointColor : s.colorSettings.stopColor;
     // get lane
     const auto& stopLane = getParentLanes().size() > 0 ? getParentLanes().front() : nullptr;
     // get lane width
@@ -1060,7 +1064,7 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (s.drawDetail(s.detailSettings.stopsText, exaggeration)) {
             // draw "S" symbol
-            GLHelper::drawText("S", Position(), .1, 2.8, stopColor);
+            GLHelper::drawText(waypoint? "W" : "S", Position(), .1, 2.8, stopColor, 180);
             // move to subtitle positin
             glTranslated(0, 1.4, 0);
             // draw subtitle depending of tag
