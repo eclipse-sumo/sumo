@@ -255,12 +255,12 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "flowRoute",                      GNE_TAG_FLOW_ROUTE },
     { "flowWithRoute",                  GNE_TAG_FLOW_WITHROUTE },
     // GNE waypoints
-    { "waypoint",                       SUMO_TAG_WAYPOINT },
-    { "waypointLane",                   SUMO_TAG_WAYPOINT_LANE },
-    { "waypointBusStop",                SUMO_TAG_WAYPOINT_BUSSTOP },
-    { "waypointContainerStop",          SUMO_TAG_WAYPOINT_CONTAINERSTOP },
-    { "waypointChargingStation",        SUMO_TAG_WAYPOINT_CHARGINGSTATION },
-    { "waypointParkingArea",            SUMO_TAG_WAYPOINT_PARKINGAREA },
+    { "waypoint",                       GNE_TAG_WAYPOINT },
+    { "waypointLane",                   GNE_TAG_WAYPOINT_LANE },
+    { "waypointBusStop",                GNE_TAG_WAYPOINT_BUSSTOP },
+    { "waypointContainerStop",          GNE_TAG_WAYPOINT_CONTAINERSTOP },
+    { "waypointChargingStation",        GNE_TAG_WAYPOINT_CHARGINGSTATION },
+    { "waypointParkingArea",            GNE_TAG_WAYPOINT_PARKINGAREA },
     // GNE Person trips
     { "personTrip: edge->edge",         GNE_TAG_PERSONTRIP_EDGE },
     { "personTrip: edge->busStop",      GNE_TAG_PERSONTRIP_BUSSTOP },

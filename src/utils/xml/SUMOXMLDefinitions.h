@@ -415,17 +415,17 @@ enum SumoXMLTag {
     GNE_TAG_PERSONTRIP_BUSSTOP,
     GNE_TAG_PERSONTRIP_JUNCTIONS,
     /// @brief waypoint for vehicles (used in netedit)
-    SUMO_TAG_WAYPOINT,
+    GNE_TAG_WAYPOINT,
     /// @brief waypoint placed over a lane (used in netedit)
-    SUMO_TAG_WAYPOINT_LANE,
+    GNE_TAG_WAYPOINT_LANE,
     /// @brief waypoint placed over a busStop (used in netedit)
-    SUMO_TAG_WAYPOINT_BUSSTOP,
+    GNE_TAG_WAYPOINT_BUSSTOP,
     /// @brief waypoint placed over a containerStop (used in netedit)
-    SUMO_TAG_WAYPOINT_CONTAINERSTOP,
+    GNE_TAG_WAYPOINT_CONTAINERSTOP,
     /// @brief waypoint placed over a charging station (used in netedit)
-    SUMO_TAG_WAYPOINT_CHARGINGSTATION,
+    GNE_TAG_WAYPOINT_CHARGINGSTATION,
     /// @brief waypoint placed over a parking area (used in netedit)
-    SUMO_TAG_WAYPOINT_PARKINGAREA,
+    GNE_TAG_WAYPOINT_PARKINGAREA,
     // @brief walks
     GNE_TAG_WALK_EDGE,
     GNE_TAG_WALK_BUSSTOP,
