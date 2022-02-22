@@ -40,8 +40,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
         {}, {}, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
-    // enable parking for stops in parkingAreas
-    if (tag == SUMO_TAG_STOP_PARKINGAREA) {
+    // enable parking for stops in parkin)gAreas
+    if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
     // set flags
@@ -54,7 +54,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
         {}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
     // enable parking for stops in parkingAreas
-    if (tag == SUMO_TAG_STOP_PARKINGAREA) {
+    if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
     // set flags
@@ -65,8 +65,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
 }
 
 
-GNEStop::GNEStop(GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(stopParent, net, GLO_STOP, SUMO_TAG_STOP_LANE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter) :
+    GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
     // set flags
@@ -82,7 +82,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEE
         {}, {edge}, {}, {}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
     // enable parking for stops in parkingAreas
-    if (tag == SUMO_TAG_STOP_PARKINGAREA) {
+    if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
     // set flags
@@ -922,7 +922,13 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_EXPECTED:
             return (parametersSet & STOP_TRIGGER_SET) != 0;
         case SUMO_ATTR_PARKING:
-            return (myTagProperty.getTag() != SUMO_TAG_STOP_PARKINGAREA);
+            if (myTagProperty.getTag() != SUMO_TAG_STOP_PARKINGAREA) {
+                return true;
+            } else if (myTagProperty.getTag() != GNE_TAG_WAYPOINT_PARKINGAREA) {
+                return true;
+            } else {
+                return false;
+            }
         default:
             return true;
     }

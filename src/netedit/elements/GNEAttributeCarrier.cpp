@@ -829,6 +829,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     fillPersonPlanTrips();
     fillPersonPlanWalks();
     fillPersonPlanRides();
+    fillStopPersonElements();
     // containers
     fillContainerElements();
     fillContainerTransportElements();
