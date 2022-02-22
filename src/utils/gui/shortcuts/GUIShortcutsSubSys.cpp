@@ -29,9 +29,15 @@
 // member definitions
 // ===========================================================================
 
+void
+GUIShortcutsSubSys::alterSUMOAccelerator(GUIApplicationWindow* GUIApp, GUIShortcut keysym, long msg) {
+    GUIApp->getAccelTable()->addAccel(parseKey(keysym), GUIApp, FXSEL(SEL_COMMAND, msg));
+}
 
 void
 GUIShortcutsSubSys::buildSUMOAccelerators(GUIApplicationWindow* GUIApp) {
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_SPACE), GUIApp, FXSEL(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS));
 
     // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
 
@@ -334,7 +340,7 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_BACKSPACE),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_BACKSPACE));
 }
 
-
+// beware!: xx in the key - xx + yy expression may change when the content of enum GUIShortcut is changed (e.g. addition of space key)
 int
 GUIShortcutsSubSys::parseKey(GUIShortcut key) {
     if ((key >= KEY_0) &&  key <= KEY_9) {
@@ -343,8 +349,10 @@ GUIShortcutsSubSys::parseKey(GUIShortcut key) {
         return (key - 10 + 97); // 97 is 'a' in ASCII
     } else if ((key >= KEY_A) &&  key <= KEY_Z) {
         return (key - 36 + 65); // 65 is 'A' in ASCII
+    } else if ((key == KEY_SPACE)) {
+        return (key - 62 + 32); // 32 is SPACE  in ASCII
     } else if ((key >= KEY_F1) &&  key <= KEY_F12) {
-        return (key - 62 + 65470); // 65470 is 'F1' in ASCII
+        return (key - 63 + 65470); // 65470 is 'F1' in ASCII
     } else if (key == KEY_ESC) {
         return parseAccel("Esc");
     } else if (key == KEY_ENTER) {

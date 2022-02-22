@@ -36,7 +36,7 @@ class GUIShortcutsSubSys {
 public:
     /// @brief build SUMO Accelerators
     static void buildSUMOAccelerators(GUIApplicationWindow* GUIApp);
-
+    static void alterSUMOAccelerator(GUIApplicationWindow* GUIApp, GUIShortcut keysym, long);
     /// @brief build NETEDIT Accelerators
     static void buildNETEDITAccelerators(GNEApplicationWindow* GNEApp);
 
