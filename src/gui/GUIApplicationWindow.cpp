@@ -30,6 +30,7 @@
 #include <sstream>
 #include <algorithm>
 #include <iomanip>
+#include <fxkeys.h>
 
 #include <guisim/GUINet.h>
 #include <guisim/GUILane.h>
@@ -132,6 +133,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,          GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,               GUIApplicationWindow::onCmdStop),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,  GUIApplicationWindow::onCmdStep),
+    FXMAPFUNC(SEL_COMMAND,  MID_DELAY_INC,                                              GUIApplicationWindow::onCmdDelayInc),
+    FXMAPFUNC(SEL_COMMAND,  MID_DELAY_DEC,                                              GUIApplicationWindow::onCmdDelayDec),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMSAVE,                                                GUIApplicationWindow::onCmdSaveState),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMLOAD,                                                GUIApplicationWindow::onCmdLoadState),
     FXMAPFUNC(SEL_COMMAND,  MID_TIME_TOGGLE,                                            GUIApplicationWindow::onCmdTimeToggle),
@@ -545,6 +548,10 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
                                            "Step", "D", "Perform one simulation step.",
                                            GUIIconSubSys::getIcon(GUIIcon::STEP), this, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS);
+    GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
+                                           "Delay+", "PgUp", "Increase simulation step delay", nullptr, this, MID_DELAY_INC);
+    GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
+                                           "Delay-", "PgDn", "Decrease simulation step delay", nullptr, this, MID_DELAY_DEC);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
                                            "Save", "", "Save the current simulation state to a file.",
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SIMSAVE);
@@ -1181,6 +1188,34 @@ GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
     if (myRunThread->simulationAvailable()) {
         updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
     }
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdDelayInc(FXObject*, FXSelector, void*) {
+    if (mySimDelay < 10) {
+        mySimDelay = 10;
+    } else if (mySimDelay < 50) {
+        mySimDelay = 50;
+    } else {
+        mySimDelay *= 2;
+    }
+    getApp()->refresh();
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdDelayDec(FXObject*, FXSelector, void*) {
+    if (mySimDelay <= 10) {
+        mySimDelay = 0;
+    } else if (mySimDelay <= 50) {
+        mySimDelay = 10;
+    } else {
+        mySimDelay /= 2;
+    }
+    getApp()->refresh();
     return 1;
 }
 
@@ -1981,16 +2016,24 @@ GUIApplicationWindow::addHotkey(int key, Command* press, Command* release) {
 
 long
 GUIApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
-    const long handled = FXMainWindow::onKeyPress(o, sel, ptr);
-    if (handled == 0 && myMDIClient->numChildren() > 0) {
-        FXEvent* e = (FXEvent*) ptr;
-        auto it = myHotkeyPress.find(e->code);
-        if (it != myHotkeyPress.end()) {
-            it->second->execute(SIMSTEP);
-        }
-        GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
-        if (w != nullptr) {
-            w->onKeyPress(nullptr, sel, ptr);
+    FXEvent* e = (FXEvent*) ptr;
+    // PgUp and PgDown switch between widgets by default and binding them via menu shortcuts does not work reliably
+    // so we must intercept them before FXMainWindow can handle it
+    if (e->code == FX::KEY_Page_Up) {
+        onCmdDelayInc(nullptr, 0, nullptr);
+    } else if (e->code == FX::KEY_Page_Down) {
+        onCmdDelayDec(nullptr, 0, nullptr);
+    } else {
+        const long handled = FXMainWindow::onKeyPress(o, sel, ptr);
+        if (handled == 0 && myMDIClient->numChildren() > 0) {
+            auto it = myHotkeyPress.find(e->code);
+            if (it != myHotkeyPress.end()) {
+                it->second->execute(SIMSTEP);
+            }
+            GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+            if (w != nullptr) {
+                w->onKeyPress(nullptr, sel, ptr);
+            }
         }
     }
     return 0;

@@ -377,6 +377,10 @@ enum {
     MID_ZOOM_STYLE,
     /// @brief toggle time display mode
     MID_TIME_TOGGLE,
+    /// @brief increase sim delay
+    MID_DELAY_INC,
+    /// @brief decrease sim delay
+    MID_DELAY_DEC,
     /// @brief toggle delay between alternative value
     MID_DELAY_TOGGLE,
     /// @brief scale traffic

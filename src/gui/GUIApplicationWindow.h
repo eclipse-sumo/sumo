@@ -214,6 +214,12 @@ public:
     /// @brief Called on "time toggle"
     long onCmdTimeToggle(FXObject*, FXSelector, void*);
 
+    /// @brief Called on "delay inc"
+    long onCmdDelayInc(FXObject*, FXSelector, void*);
+
+    /// @brief Called on "delay dec"
+    long onCmdDelayDec(FXObject*, FXSelector, void*);
+
     /// @brief Called on "delay toggle"
     long onCmdDelayToggle(FXObject*, FXSelector, void*);
 
