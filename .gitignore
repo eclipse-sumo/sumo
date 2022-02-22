@@ -18,6 +18,7 @@
 /cmake_build*
 /build/cmake-build*
 /build/cmake_build*
+/build/CMAKE*
 /build/cmake-codeblocks*
 /build/cmake-clang*
 /build/cmake-mingw*
