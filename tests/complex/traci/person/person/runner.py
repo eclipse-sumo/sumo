@@ -234,16 +234,16 @@ for i in range(5):
 traci.person.add("p3", "1fi", -10)
 stage = traci.simulation.Stage(
     type=traci.constants.STAGE_WALKING,
-    edges=["1fi", "1si"], departPos=-20, arrivalPos=10, description="foo")
+    edges=["1fi", "1si"], departPos=-20, arrivalPos=10)
 stage2 = traci.simulation.Stage(
     type=traci.constants.STAGE_WALKING,
-    vType="car", edges=["1fi", "1o"], departPos=-20, arrivalPos=10, description="foo")
+    vType="car", edges=["1fi", "1o"], departPos=-20, arrivalPos=10)
 stage3 = traci.simulation.Stage(
     type=traci.constants.STAGE_WALKING,
-    vType="car", edges=["1o", "3o"], departPos=-20, arrivalPos=10, description="foo")
+    vType="car", edges=["1o", "3o"], departPos=-20, arrivalPos=10)
 stage4 = traci.simulation.Stage(
     type=traci.constants.STAGE_WALKING,
-    vType="car", edges=["1o", "4o"], departPos=-20, arrivalPos=10, description="foo")
+    vType="car", edges=["1o", "4o"], departPos=-20, arrivalPos=10)
 
 traci.person.appendStage("p3", stage)
 for i in range(10):
