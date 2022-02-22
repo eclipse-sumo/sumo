@@ -200,7 +200,7 @@ class CountData:
         cands = list(self.routeSet.intersection(openRoutes))
         assert (cands)
         probs = [routeCounts[i] for i in cands]
-        x = rng.random() * sum(probs)
+        x = rng.rand() * sum(probs)
         seen = 0
         for route, prob in zip(cands, probs):
             seen += prob
@@ -307,11 +307,11 @@ def hasCapacity(dataIndices, countData):
 
 
 def updateOpenRoutes(openRoutes, routeUsage, countData):
-    return set(filter(lambda r: hasCapacity(routeUsage[r], countData), openRoutes))
+    return list(filter(lambda r: hasCapacity(routeUsage[r], countData), openRoutes))
 
 
 def updateOpenCounts(openCounts, countData, openRoutes):
-    return set(filter(lambda i: countData[i].routeSet.intersection(openRoutes), openCounts))
+    return list(filter(lambda i: countData[i].routeSet.intersection(openRoutes), openCounts))
 
 
 def optimize(options, countData, routes, usedRoutes, routeUsage):
@@ -479,7 +479,7 @@ def getRouteUsage(routes, countData):
 
 
 def main(options):
-    rng = np.random.default_rng(options.seed)
+    rng = np.random.RandomState(options.seed)
 
     routes = Routes(options.routeFiles)
 
@@ -568,13 +568,13 @@ def _sample_skewed(sampleSet, rng, probabilityMap):
         total += probabilityMap[element]
         cdf.append(total)
 
-    value = rng.random() * total
+    value = rng.rand() * total
     return population[np.searchsorted(cdf, value)]
 
 
 def _solveIntervalMP(options, routes, interval, cpuIndex):
     output_list = []
-    rng = np.random.default_rng(seed=options.seed + cpuIndex)
+    rng = np.random.RandomState(options.seed + cpuIndex)
     for begin, end in interval:
         local_outf = StringIO()
         local_mismatch_outf = StringIO() if options.mismatchOut else None
@@ -610,11 +610,9 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
 
     # pick a random counting location and select a new route that passes it until
     # all counts are satisfied or no routes can be used anymore
-    openRoutes = set(range(0, routes.number))
-    openCounts = set(range(0, len(countData)))
-    openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
-    openCounts = updateOpenCounts(openCounts, countData, openRoutes)
-    openRoutes = openRoutes.difference(unrestricted)
+    openRoutes = updateOpenRoutes(range(0, routes.number), routeUsage, countData)
+    openCounts = updateOpenCounts(range(0, len(countData)), countData, openRoutes)
+    openRoutes = [r for r in openRoutes if r not in unrestricted]
 
     usedRoutes = []
     if options.optimizeInput:
@@ -628,8 +626,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 # sampling equally among open counting locations appears to
                 # improve GEH but it would also introduce a bias in the loaded
                 # route probabilities
-                cd = countData[rng.choice(tuple(openCounts))]
-                routeIndex = rng.choice(tuple(cd.routeSet.intersection(openRoutes)))
+                cd = countData[rng.choice(openCounts)]
+                routeIndex = rng.choice([r for r in openRoutes if r in cd.routeSet])
             usedRoutes.append(routeIndex)
             for dataIndex in routeUsage[routeIndex]:
                 countData[dataIndex].count -= 1
