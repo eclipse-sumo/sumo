@@ -53,7 +53,6 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.shape.poly "$@" &
   texttest -a netedit.daily.TAZ.basic "$@" &
   texttest -a netedit.daily.TAZ.taz "$@" &
-  wait
   texttest -a netedit.daily.net.connections "$@" &
   texttest -a netedit.daily.net.crossings "$@" &
   texttest -a netedit.daily.net.edges "$@" &
@@ -117,7 +116,6 @@ else
   texttest.py -a netedit.daily.shape.poly "$@" &
   texttest.py -a netedit.daily.TAZ.basic "$@" &
   texttest.py -a netedit.daily.TAZ.taz "$@" &
-  wait
   texttest.py -a netedit.daily.net.connections "$@" &
   texttest.py -a netedit.daily.net.crossings "$@" &
   texttest.py -a netedit.daily.net.edges "$@" &
