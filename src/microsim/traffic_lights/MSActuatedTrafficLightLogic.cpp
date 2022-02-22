@@ -1174,7 +1174,7 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                 try {
                     return retrieveDetExpression<MSInductLoop, SUMO_TAG_INDUCTION_LOOP>(arg, expr, true)->getTimeSinceLastDetection() == 0;
                 } catch (ProcessError&) {
-                    return retrieveDetExpression<MSE2Collector, SUMO_TAG_LANE_AREA_DETECTOR>(arg, expr, true)->getCurrentVehicleNumber() > 0;
+                    return retrieveDetExpression<MSE2Collector, SUMO_TAG_LANE_AREA_DETECTOR>(arg, expr, true)->getCurrentVehicleNumber();
                 }
             } else if (fun == "g" || fun == "r") {
                 try {
