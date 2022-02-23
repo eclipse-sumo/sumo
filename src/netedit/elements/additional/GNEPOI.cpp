@@ -362,14 +362,14 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             Position GEOPosition(x(), y());
             GeoConvHelper::getFinal().cartesian2geo(GEOPosition);
             // return lon
-            return toString(GEOPosition.x());
+            return toString(GEOPosition.x(), 8);
         }
         case SUMO_ATTR_LAT: {
             // calculate geo position
             Position GEOPosition(x(), y());
             GeoConvHelper::getFinal().cartesian2geo(GEOPosition);
             // return lat
-            return toString(GEOPosition.y());
+            return toString(GEOPosition.y(), 8);
         }
         case SUMO_ATTR_TYPE:
             return getShapeType();
