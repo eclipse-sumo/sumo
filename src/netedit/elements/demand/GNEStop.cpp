@@ -952,11 +952,21 @@ GNEStop::getPopUpID() const {
 std::string
 GNEStop::getHierarchyName() const {
     if (getParentAdditionals().size() > 0) {
-        return getTagProperty().getTagStr() + " stop: " + getParentAdditionals().front()->getTagStr();
+        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+            return "BusStop: " + getParentAdditionals().front()->getID();
+        } else if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP) {
+            return "containerStop: " + getParentAdditionals().front()->getID();
+        } else if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION) {
+            return "chargingStation: " + getParentAdditionals().front()->getID();
+        } else {
+            return "parkingArea: " + getParentAdditionals().front()->getID();
+        }
     } else if (getParentEdges().size() > 0) {
-        return getTagProperty().getTagStr() + " stop: edge";
+        return "edge: " + getParentEdges().front()->getID();
+    } else if (getParentLanes().size() > 0) {
+        return "lane: " + getParentLanes().front()->getID();
     } else {
-        return getTagProperty().getTagStr() + " stop: lane";
+        return "";
     }
 }
 
