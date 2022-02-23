@@ -349,7 +349,7 @@ GUIShortcutsSubSys::parseKey(GUIShortcut key) {
         return (key - 10 + 97); // 97 is 'a' in ASCII
     } else if ((key >= KEY_A) &&  key <= KEY_Z) {
         return (key - 36 + 65); // 65 is 'A' in ASCII
-    } else if ((key == KEY_SPACE)) {
+    } else if (key == KEY_SPACE) {
         return (key - 62 + 32); // 32 is SPACE  in ASCII
     } else if ((key >= KEY_F1) &&  key <= KEY_F12) {
         return (key - 63 + 65470); // 65470 is 'F1' in ASCII
