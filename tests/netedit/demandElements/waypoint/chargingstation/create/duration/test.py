@@ -34,46 +34,46 @@ netedit.supermodeDemand()
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# go to stop mode
+# go to waypoint mode
 netedit.stopMode()
 
-# change stop type with a valid value
-netedit.changeStopType("stopChargingStation")
+# change waypoint type with a valid value
+netedit.changeStopType("waypointChargingStation")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stop.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.waypoint.create.durationEnable)
 
-# create stop
+# create waypoint
 netedit.leftClick(referencePosition, 290, 195)
 
 # enable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stop.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.waypoint.create.durationEnable)
 
-# create stop
+# create waypoint
 netedit.leftClick(referencePosition, 290, 195)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.duration, "dummyValue")
+netedit.changeDefaultValue(netedit.attrs.waypoint.create.duration, "dummyValue")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 290, 195)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.duration, "-20")
+netedit.changeDefaultValue(netedit.attrs.waypoint.create.duration, "-20")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 290, 195)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.duration, "0")
+netedit.changeDefaultValue(netedit.attrs.waypoint.create.duration, "0")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 290, 195)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.duration, "22.33")
+netedit.changeDefaultValue(netedit.attrs.waypoint.create.duration, "22.33")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 290, 195)
 
 # Check undo redo

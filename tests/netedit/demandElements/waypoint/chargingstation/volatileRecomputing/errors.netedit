@@ -21,15 +21,15 @@ Debug: Adding chargingStation 'chargingStationG' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStationH' in GNEChange_Additional
 Debug: Adding vType 'id' in GNEChange_DemandElement
 Debug: Adding trip 'trip0' in GNEChange_DemandElement
-Debug: Adding stopChargingStation 'trip0' in GNEChange_DemandElement
-Debug: Adding stopChargingStation 'trip0' in GNEChange_DemandElement
-Debug: Adding stopChargingStation 'trip0' in GNEChange_DemandElement
-Debug: Adding stopChargingStation 'trip0' in GNEChange_DemandElement
-Debug: Adding stopChargingStation 'trip0' in GNEChange_DemandElement
-Debug: Adding stopChargingStation 'trip0' in GNEChange_DemandElement
+Debug: Adding waypointChargingStation 'trip0' in GNEChange_DemandElement
+Debug: Adding waypointChargingStation 'trip0' in GNEChange_DemandElement
+Debug: Adding waypointChargingStation 'trip0' in GNEChange_DemandElement
+Debug: Adding waypointChargingStation 'trip0' in GNEChange_DemandElement
+Debug: Adding waypointChargingStation 'trip0' in GNEChange_DemandElement
+Debug: Adding waypointChargingStation 'trip0' in GNEChange_DemandElement
 Debug: Adding trip 'trip1' in GNEChange_DemandElement
-Debug: Adding stopChargingStation 'trip1' in GNEChange_DemandElement
-Debug: Adding stopChargingStation 'trip1' in GNEChange_DemandElement
+Debug: Adding waypointChargingStation 'trip1' in GNEChange_DemandElement
+Debug: Adding waypointChargingStation 'trip1' in GNEChange_DemandElement
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -49,15 +49,15 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,6
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Deleting unreferenced stopChargingStation 'trip1'
-Debug: Deleting unreferenced stopChargingStation 'trip1'
+Debug: Deleting unreferenced waypointChargingStation 'trip1'
+Debug: Deleting unreferenced waypointChargingStation 'trip1'
 Debug: Deleting unreferenced trip 'trip1'
-Debug: Deleting unreferenced stopChargingStation 'trip0'
-Debug: Deleting unreferenced stopChargingStation 'trip0'
-Debug: Deleting unreferenced stopChargingStation 'trip0'
-Debug: Deleting unreferenced stopChargingStation 'trip0'
-Debug: Deleting unreferenced stopChargingStation 'trip0'
-Debug: Deleting unreferenced stopChargingStation 'trip0'
+Debug: Deleting unreferenced waypointChargingStation 'trip0'
+Debug: Deleting unreferenced waypointChargingStation 'trip0'
+Debug: Deleting unreferenced waypointChargingStation 'trip0'
+Debug: Deleting unreferenced waypointChargingStation 'trip0'
+Debug: Deleting unreferenced waypointChargingStation 'trip0'
+Debug: Deleting unreferenced waypointChargingStation 'trip0'
 Debug: Deleting unreferenced trip 'trip0'
 Debug: Deleting unreferenced vType 'id'
 Debug: Deleting unreferenced chargingStation 'chargingStationH'
@@ -193,13 +193,13 @@ Debug: Deleting unreferenced chargingStation in AttributeCarriers destructor
 Debug: Deleting unreferenced trip in AttributeCarriers destructor
 Debug: Deleting unreferenced trip in AttributeCarriers destructor
 Debug: Deleting unreferenced vType in AttributeCarriers destructor
-Debug: Deleting unreferenced stopChargingStation in AttributeCarriers destructor
-Debug: Deleting unreferenced stopChargingStation in AttributeCarriers destructor
-Debug: Deleting unreferenced stopChargingStation in AttributeCarriers destructor
-Debug: Deleting unreferenced stopChargingStation in AttributeCarriers destructor
-Debug: Deleting unreferenced stopChargingStation in AttributeCarriers destructor
-Debug: Deleting unreferenced stopChargingStation in AttributeCarriers destructor
-Debug: Deleting unreferenced stopChargingStation in AttributeCarriers destructor
-Debug: Deleting unreferenced stopChargingStation in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointChargingStation in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointChargingStation in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointChargingStation in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointChargingStation in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointChargingStation in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointChargingStation in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointChargingStation in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointChargingStation in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 12

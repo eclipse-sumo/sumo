@@ -34,26 +34,26 @@ netedit.supermodeDemand()
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# go to stop mode
+# go to waypoint mode
 netedit.stopMode()
 
-# change stop type with a valid value
-netedit.changeStopType("stopChargingStation")
+# change waypoint type with a valid value
+netedit.changeStopType("waypointChargingStation")
 
-# create stop
+# create waypoint
 netedit.leftClick(referencePosition, 290, 195)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect stop
+# inspect waypoint
 netedit.leftClick(referencePosition, 290, 195)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypoint.inspect.triggered, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspect.triggered, "join", False)
+netedit.modifyAttribute(netedit.attrs.waypoint.inspect.triggered, "join", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
