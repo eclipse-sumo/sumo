@@ -930,12 +930,12 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_EXPECTED:
             return (parametersSet & STOP_TRIGGER_SET) != 0;
         case SUMO_ATTR_PARKING:
-            if (myTagProperty.getTag() != SUMO_TAG_STOP_PARKINGAREA) {
-                return true;
-            } else if (myTagProperty.getTag() != GNE_TAG_WAYPOINT_PARKINGAREA) {
-                return true;
-            } else {
+            if (myTagProperty.getTag() == SUMO_TAG_STOP_PARKINGAREA) {
                 return false;
+            } else if (myTagProperty.getTag() == GNE_TAG_WAYPOINT_PARKINGAREA) {
+                return false;
+            } else {
+                return true;
             }
         default:
             return true;
