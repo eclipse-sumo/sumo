@@ -227,6 +227,9 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     } else if ((stopTag == SUMO_TAG_STOP_LANE) || (stopTag == GNE_TAG_WAYPOINT_LANE)) {
         if (lane) {
             stop.lane = lane->getID();
+            if (stop.speed == 0) {
+                stop.speed = lane->getSpeed();
+            }
         } else {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_LANE) + " to create a stop placed in a " + toString(SUMO_TAG_LANE));
             return false;
@@ -245,6 +248,9 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 return false;
             } else {
                 stop.busstop = stoppingPlace->getID();
+                if (stop.speed == 0) {
+                    stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
+                }
                 stop.startPos = 0;
                 stop.endPos = 0;
             }
@@ -254,6 +260,9 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 return false;
             } else {
                 stop.containerstop = stoppingPlace->getID();
+                if (stop.speed == 0) {
+                    stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
+                }
                 stop.startPos = 0;
                 stop.endPos = 0;
             }
@@ -263,6 +272,9 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 return false;
             } else {
                 stop.chargingStation = stoppingPlace->getID();
+                if (stop.speed == 0) {
+                    stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
+                }
                 stop.startPos = 0;
                 stop.endPos = 0;
             }
@@ -272,6 +284,9 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 return false;
             } else {
                 stop.parkingarea = stoppingPlace->getID();
+                if (stop.speed == 0) {
+                    stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
+                }
                 stop.startPos = 0;
                 stop.endPos = 0;
             }
