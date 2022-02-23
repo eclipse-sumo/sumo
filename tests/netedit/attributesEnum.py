@@ -1623,6 +1623,159 @@ class stop:
         actType = 16
         tripID = 17
         line = 18
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 2
+        until = 3
+        extensionEnable = 3
+        extension = 4
+        triggered = 5
+        expected = 7
+        permitted = 7
+        parking = 8
+        actType = 9
+        tripID = 10
+        line = 11
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        triggered = 7
+        expected = 8
+        permitted = 9
+        parking = 10
+        actType = 11
+        tripID = 12
+        line = 13
+
+# stop (over parkings)
+
+
+class stopParking:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
+        triggered = 12
+        expected = 14
+        permitted = 14
+        actType = 15
+        tripID = 16
+        line = 17
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 2
+        until = 3
+        extensionEnable = 3
+        extension = 4
+        triggered = 5
+        expected = 7
+        permitted = 7
+        actType = 8
+        tripID = 9
+        line = 10
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        triggered = 7
+        expected = 8
+        permitted = 9
+        actType = 10
+        tripID = 11
+        line = 12
+
+# stop (over lane)
+
+
+class stopLane:
+    class create:
+        friendlyPos = 8
+        posLat = 9
+        durationEnable = 10
+        duration = 11
+        untilEnable = 11
+        until = 12
+        extensionEnable = 12
+        extension = 13
+        triggered = 14
+        expected = 16
+        permitted = 16
+        parking = 17
+        actType = 18
+        tripID = 19
+        line = 20
+
+    class inspect:
+        lane = 1
+        startPos = 2
+        endPos = 3
+        friendlyPos = 4
+        posLat = 5
+        durationEnable = 6
+        duration = 7
+        untilEnable = 7
+        until = 8
+        extensionEnable = 8
+        extension = 9
+        triggered = 10
+        expected = 12
+        permitted = 12
+        parking = 13
+        actType = 14
+        tripID = 15
+        line = 16
+
+    class inspectSelection:
+        friendlyPos = 1
+        posLat = 2
+        durationEnable = 3
+        duration = 4
+        untilEnable = 5
+        until = 6
+        extensionEnable = 7
+        extension = 8
+        triggered = 9
+        expected = 10
+        permitted = 11
+        parking = 12
+        actType = 13
+        tripID = 14
+        line = 15
+
+# waypoint (over busStop/containerStop/chargingStation)
+
+
+class waypoint:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
+        triggered = 12
+        expected = 14
+        permitted = 14
+        parking = 15
+        actType = 16
+        tripID = 17
+        line = 18
         speed = 19
 
     class inspect:
@@ -1657,10 +1810,10 @@ class stop:
         line = 13
         speed = 14
 
-# stop (over parkings)
+# waypoint (over parkings)
 
 
-class stopParking:
+class waypointParking:
     class create:
         durationEnable = 8
         duration = 9
@@ -1706,10 +1859,10 @@ class stopParking:
         line = 12
         speed = 13
 
-# stop (over lane)
+# waypoint (over lane)
 
 
-class stopLane:
+class waypointLane:
     class create:
         friendlyPos = 8
         posLat = 9
