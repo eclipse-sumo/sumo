@@ -20,23 +20,23 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'trip' in DemandElementSelector
-Debug: Selected item 'stopContainerStop' in TagSelector
-Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
+Debug: Selected item 'waypointContainerStop' in TagSelector
+Debug: Adding waypointContainerStop 'trip' in GNEChange_DemandElement
+Debug: Adding waypointContainerStop 'trip' in GNEChange_DemandElement
+Debug: Adding waypointContainerStop 'trip' in GNEChange_DemandElement
+Debug: Adding waypointContainerStop 'trip' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing stopContainerStop 'trip' in GNEChange_DemandElement
+Debug: Removing waypointContainerStop 'trip' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing stopContainerStop 'trip' in GNEChange_DemandElement
+Debug: Removing waypointContainerStop 'trip' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
+Debug: Adding waypointContainerStop 'trip' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
+Debug: Adding waypointContainerStop 'trip' in GNEChange_DemandElement
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
@@ -51,10 +51,10 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 15.00,-13.20,35.0
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
-Debug: Deleting unreferenced stopContainerStop 'trip'
-Debug: Deleting unreferenced stopContainerStop 'trip'
-Debug: Deleting unreferenced stopContainerStop 'trip'
-Debug: Deleting unreferenced stopContainerStop 'trip'
+Debug: Deleting unreferenced waypointContainerStop 'trip'
+Debug: Deleting unreferenced waypointContainerStop 'trip'
+Debug: Deleting unreferenced waypointContainerStop 'trip'
+Debug: Deleting unreferenced waypointContainerStop 'trip'
 Debug: Deleting unreferenced trip 'trip'
 Debug: Deleting unreferenced containerStop 'containerStopB'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

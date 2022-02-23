@@ -34,13 +34,13 @@ netedit.supermodeDemand()
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# go to stop mode
+# go to waypoint mode
 netedit.stopMode()
 
-# change stop type with a valid value
-netedit.changeStopType("stopContainerStop")
+# change waypoint type with a valid value
+netedit.changeStopType("waypointContainerStop")
 
-# create stop
+# create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # Check undo redo

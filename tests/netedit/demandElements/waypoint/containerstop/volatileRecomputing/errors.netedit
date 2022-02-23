@@ -21,15 +21,15 @@ Debug: Adding containerStop 'containerStopG' in GNEChange_Additional
 Debug: Adding containerStop 'containerStopH' in GNEChange_Additional
 Debug: Adding vType 'id' in GNEChange_DemandElement
 Debug: Adding trip 'trip0' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip0' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip0' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip0' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip0' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip0' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip0' in GNEChange_DemandElement
+Debug: Adding waypointContainerStop 'trip0' in GNEChange_DemandElement
+Debug: Adding waypointContainerStop 'trip0' in GNEChange_DemandElement
+Debug: Adding waypointContainerStop 'trip0' in GNEChange_DemandElement
+Debug: Adding waypointContainerStop 'trip0' in GNEChange_DemandElement
+Debug: Adding waypointContainerStop 'trip0' in GNEChange_DemandElement
+Debug: Adding waypointContainerStop 'trip0' in GNEChange_DemandElement
 Debug: Adding trip 'trip1' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip1' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip1' in GNEChange_DemandElement
+Debug: Adding waypointContainerStop 'trip1' in GNEChange_DemandElement
+Debug: Adding waypointContainerStop 'trip1' in GNEChange_DemandElement
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -49,15 +49,15 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,6
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Deleting unreferenced stopContainerStop 'trip1'
-Debug: Deleting unreferenced stopContainerStop 'trip1'
+Debug: Deleting unreferenced waypointContainerStop 'trip1'
+Debug: Deleting unreferenced waypointContainerStop 'trip1'
 Debug: Deleting unreferenced trip 'trip1'
-Debug: Deleting unreferenced stopContainerStop 'trip0'
-Debug: Deleting unreferenced stopContainerStop 'trip0'
-Debug: Deleting unreferenced stopContainerStop 'trip0'
-Debug: Deleting unreferenced stopContainerStop 'trip0'
-Debug: Deleting unreferenced stopContainerStop 'trip0'
-Debug: Deleting unreferenced stopContainerStop 'trip0'
+Debug: Deleting unreferenced waypointContainerStop 'trip0'
+Debug: Deleting unreferenced waypointContainerStop 'trip0'
+Debug: Deleting unreferenced waypointContainerStop 'trip0'
+Debug: Deleting unreferenced waypointContainerStop 'trip0'
+Debug: Deleting unreferenced waypointContainerStop 'trip0'
+Debug: Deleting unreferenced waypointContainerStop 'trip0'
 Debug: Deleting unreferenced trip 'trip0'
 Debug: Deleting unreferenced vType 'id'
 Debug: Deleting unreferenced containerStop 'containerStopH'
@@ -193,13 +193,13 @@ Debug: Deleting unreferenced containerStop in AttributeCarriers destructor
 Debug: Deleting unreferenced trip in AttributeCarriers destructor
 Debug: Deleting unreferenced trip in AttributeCarriers destructor
 Debug: Deleting unreferenced vType in AttributeCarriers destructor
-Debug: Deleting unreferenced stopContainerStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopContainerStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopContainerStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopContainerStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopContainerStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopContainerStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopContainerStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopContainerStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointContainerStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointContainerStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointContainerStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointContainerStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointContainerStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointContainerStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointContainerStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointContainerStop in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 12
