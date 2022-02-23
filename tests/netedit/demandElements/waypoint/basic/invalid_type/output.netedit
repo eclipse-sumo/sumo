@@ -3,7 +3,7 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 dummyType
 TestFunctions: Clicked over position 550 - 423
-stopLane
+waypointLane
 TestFunctions: Clicked over position 550 - 423
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

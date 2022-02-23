@@ -31,19 +31,19 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to stop mode
+# go to waypoint mode
 netedit.stopMode()
 
-# change stop parent with an invalid value
+# change waypoint parent with an invalid value
 netedit.changeStopParent("dummyParent")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 246, 255)
 
-# change stop parent with a valid value
+# change waypoint parent with a valid value
 netedit.changeStopParent("route_0")
 
-# create stop
+# create waypoint
 netedit.leftClick(referencePosition, 246, 255)
 
 # Check undo redo
