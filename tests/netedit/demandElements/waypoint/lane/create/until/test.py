@@ -34,43 +34,43 @@ netedit.supermodeDemand()
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# go to stop mode
+# go to waypoint mode
 netedit.stopMode()
 
-# change stop type with a valid value
-netedit.changeStopType("stopLane")
+# change waypoint type with a valid value
+netedit.changeStopType("waypointLane")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stopLane.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.waypointLane.create.durationEnable)
 
 # enable until
-netedit.changeDefaultBoolValue(netedit.attrs.stopLane.create.untilEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.waypointLane.create.untilEnable)
 
-# create stop
+# create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.until, "dummyValue")
+netedit.changeDefaultValue(netedit.attrs.waypointLane.create.until, "dummyValue")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.until, "-20")
+netedit.changeDefaultValue(netedit.attrs.waypointLane.create.until, "-20")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.until, "0")
+netedit.changeDefaultValue(netedit.attrs.waypointLane.create.until, "0")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.until, "22.33")
+netedit.changeDefaultValue(netedit.attrs.waypointLane.create.until, "22.33")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # Check undo redo

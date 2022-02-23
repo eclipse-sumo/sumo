@@ -34,35 +34,35 @@ netedit.supermodeDemand()
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# go to stop mode
+# go to waypoint mode
 netedit.stopMode()
 
-# change stop type with a valid value
-netedit.changeStopType("stopLane")
+# change waypoint type with a valid value
+netedit.changeStopType("waypointLane")
 
-# create stop
+# create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect stop
+# inspect waypoint
 netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.startPos, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.startPos, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "500", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.startPos, "500", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "-600", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.startPos, "-600", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "16", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.startPos, "16", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

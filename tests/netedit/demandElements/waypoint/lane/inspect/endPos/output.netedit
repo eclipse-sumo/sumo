@@ -4,11 +4,11 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 waypointLane
 TestFunctions: Clicked over position 704 - 353
 TestFunctions: Clicked over position 567 - 353
-dummyValue
+dummy
 
--5
-0
-3.5
+-500
+600
+20
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
