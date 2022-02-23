@@ -6,37 +6,47 @@ Checking closing rerouting
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '0' entering at 23.0 was not rerouted; times (0, 0, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '0' entering at 23.0 was not rerouted; times (0, 0, 86400)
   Checking for simulation begin=0, rerouter starts at 100, ends at 86400
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '4' entering at 103.0 was not rerouted; times (0, 100, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '4' entering at 103.0 was not rerouted; times (0, 100, 86400)
   Checking for simulation begin=100, rerouter starts at 0, ends at 86400
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 123.0 was not rerouted; times (100, 0, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 123.0 was not rerouted; times (100, 0, 86400)
   Checking for simulation begin=0, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '2' entering at 63.0 was not rerouted; times (0, 50, 100)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '2' entering at 63.0 was not rerouted; times (0, 50, 100)
   Checking for simulation begin=50, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 83.0 was not rerouted; times (50, 50, 100)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 83.0 was not rerouted; times (50, 50, 100)
   Checking for simulation begin=100, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
@@ -49,37 +59,47 @@ Checking closing rerouting
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '0' entering at 0.0 was not rerouted; times (0, 0, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '0' entering at 0.0 was not rerouted; times (0, 0, 86400)
   Checking for simulation begin=0, rerouter starts at 100, ends at 86400
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 100.0 was not rerouted; times (0, 100, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 100.0 was not rerouted; times (0, 100, 86400)
   Checking for simulation begin=100, rerouter starts at 0, ends at 86400
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 100.0 was not rerouted; times (100, 0, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 100.0 was not rerouted; times (100, 0, 86400)
   Checking for simulation begin=0, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 60.0 was not rerouted; times (0, 50, 100)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 60.0 was not rerouted; times (0, 50, 100)
   Checking for simulation begin=50, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 60.0 was not rerouted; times (50, 50, 100)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 60.0 was not rerouted; times (50, 50, 100)
   Checking for simulation begin=100, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
@@ -93,37 +113,47 @@ Checking destProb rerouting
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '0' entering at 23.0 was not rerouted; times (0, 0, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '0' entering at 23.0 was not rerouted; times (0, 0, 86400)
   Checking for simulation begin=0, rerouter starts at 100, ends at 86400
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '4' entering at 103.0 was not rerouted; times (0, 100, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '4' entering at 103.0 was not rerouted; times (0, 100, 86400)
   Checking for simulation begin=100, rerouter starts at 0, ends at 86400
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 123.0 was not rerouted; times (100, 0, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 123.0 was not rerouted; times (100, 0, 86400)
   Checking for simulation begin=0, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '2' entering at 63.0 was not rerouted; times (0, 50, 100)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '2' entering at 63.0 was not rerouted; times (0, 50, 100)
   Checking for simulation begin=50, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 83.0 was not rerouted; times (50, 50, 100)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 83.0 was not rerouted; times (50, 50, 100)
   Checking for simulation begin=100, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
@@ -136,37 +166,47 @@ Checking destProb rerouting
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '0' entering at 0.0 was not rerouted; times (0, 0, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '0' entering at 0.0 was not rerouted; times (0, 0, 86400)
   Checking for simulation begin=0, rerouter starts at 100, ends at 86400
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 100.0 was not rerouted; times (0, 100, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 100.0 was not rerouted; times (0, 100, 86400)
   Checking for simulation begin=100, rerouter starts at 0, ends at 86400
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 100.0 was not rerouted; times (100, 0, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 100.0 was not rerouted; times (100, 0, 86400)
   Checking for simulation begin=0, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 60.0 was not rerouted; times (0, 50, 100)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 60.0 was not rerouted; times (0, 50, 100)
   Checking for simulation begin=50, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 60.0 was not rerouted; times (50, 50, 100)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 60.0 was not rerouted; times (50, 50, 100)
   Checking for simulation begin=100, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
@@ -180,37 +220,47 @@ Checking routeProb rerouting
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '0' entering at 23.0 was not rerouted; times (0, 0, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '0' entering at 23.0 was not rerouted; times (0, 0, 86400)
   Checking for simulation begin=0, rerouter starts at 100, ends at 86400
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '4' entering at 103.0 was not rerouted; times (0, 100, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '4' entering at 103.0 was not rerouted; times (0, 100, 86400)
   Checking for simulation begin=100, rerouter starts at 0, ends at 86400
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 123.0 was not rerouted; times (100, 0, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 123.0 was not rerouted; times (100, 0, 86400)
   Checking for simulation begin=0, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '2' entering at 63.0 was not rerouted; times (0, 50, 100)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '2' entering at 63.0 was not rerouted; times (0, 50, 100)
   Checking for simulation begin=50, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 83.0 was not rerouted; times (50, 50, 100)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 83.0 was not rerouted; times (50, 50, 100)
   Checking for simulation begin=100, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
@@ -223,37 +273,47 @@ Checking routeProb rerouting
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '0' entering at 0.0 was not rerouted; times (0, 0, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '0' entering at 0.0 was not rerouted; times (0, 0, 86400)
   Checking for simulation begin=0, rerouter starts at 100, ends at 86400
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 100.0 was not rerouted; times (0, 100, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 100.0 was not rerouted; times (0, 100, 86400)
   Checking for simulation begin=100, rerouter starts at 0, ends at 86400
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 100.0 was not rerouted; times (100, 0, 86400)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '5' entering at 100.0 was not rerouted; times (100, 0, 86400)
   Checking for simulation begin=0, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 60.0 was not rerouted; times (0, 50, 100)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 60.0 was not rerouted; times (0, 50, 100)
   Checking for simulation begin=50, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 60.0 was not rerouted; times (50, 50, 100)
     Checking with multi-referenced routes: False
      Checking with embedded rerouter definition: True
      Checking with embedded rerouter definition: False
+Vehicle '3' entering at 60.0 was not rerouted; times (50, 50, 100)
   Checking for simulation begin=100, rerouter starts at 50, ends at 100
     Checking with multi-referenced routes: True
      Checking with embedded rerouter definition: True

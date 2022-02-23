@@ -138,9 +138,9 @@ def verify(vehroutes, edge):
             entryTime, leaveTime = getTimeOnEdge(
                 fr.edges.split(), fr.exitTimes.split(), edge, float(v.depart))
         if entryTime >= t[1] and entryTime < t[2] and not wasRerouted:
-            print("Vehicle '%s' entering at %s was not rerouted; times (%s, %s, %s, %s)" % (
+            print("Vehicle '%s' entering at %s was not rerouted; times (%s, %s, %s)" % (
                 v.id, entryTime, t[0], t[1], t[2]))
-            sys.exit()
+            return
         if wasRerouted and (entryTime < t[1] and entryTime >= t[2]):
             print("Vehicle '%s' entering at %s was rerouted though the rerouter was off; times (%s, %s, %s)" % (
                 v.id, entryTime, t[0], t[1], t[2]))
