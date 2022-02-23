@@ -803,7 +803,7 @@ Simulation::loadState(const std::string& fileName) {
         Helper::clearSubscriptions();
         PROGRESS_TIME_MESSAGE(before);
         return STEPS2TIME(newTime);
-    } catch (ProcessError& e) {
+    } catch (ProcessError&) {
         throw TraCIException("Loading state from '" + fileName + "' failed.");
     }
 }
