@@ -343,6 +343,12 @@ GNETagProperties::isStop() const {
 
 
 bool
+GNETagProperties::isWaypoint() const {
+    return (myTagType & WAYPOINT) != 0;
+}
+
+
+bool
 GNETagProperties::isFlow() const {
     return (myTagType & FLOW) != 0;
 }

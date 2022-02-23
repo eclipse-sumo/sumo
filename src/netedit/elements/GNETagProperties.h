@@ -54,26 +54,27 @@ public:
         VTYPE =             1 << 8,  // Vehicle types (vType and vTypeDistribution)
         VEHICLE =           1 << 9,  // Vehicles (Vehicles, trips, flows...)
         ROUTE =             1 << 10, // Routes and embedded routes
-        STOP =              1 << 11, // Stops (and waypoints)
-        FLOW =              1 << 12, // Flows
+        STOP =              1 << 11, // Stops
+        WAYPOINT =          1 << 12, // Waypoints (note: All waypoints are also Stops)
+        FLOW =              1 << 13, // Flows
         // persons
-        PERSON =            1 << 13, // Persons (Persons and personFlows)
-        PERSONPLAN =        1 << 14, // Person plans (Walks, rides, personTrips and stopPersons)
-        PERSONTRIP =        1 << 15, // Person Trips
-        WALK =              1 << 16, // Walks
-        RIDE =              1 << 17, // Rides
-        STOPPERSON =        1 << 18, // Person stops
+        PERSON =            1 << 14, // Persons (Persons and personFlows)
+        PERSONPLAN =        1 << 15, // Person plans (Walks, rides, personTrips and stopPersons)
+        PERSONTRIP =        1 << 16, // Person Trips
+        WALK =              1 << 17, // Walks
+        RIDE =              1 << 18, // Rides
+        STOPPERSON =        1 << 19, // Person stops
         // containers
-        CONTAINER =         1 << 19, // Containers (Containers and personFlows)
-        CONTAINERPLAN =     1 << 20, // Container plans (tranship and transport)
-        TRANSPORT =         1 << 21, // Transport
-        TRANSHIP =          1 << 22, // Tranship
-        STOPCONTAINER =     1 << 23, // Container stops
+        CONTAINER =         1 << 20, // Containers (Containers and personFlows)
+        CONTAINERPLAN =     1 << 21, // Container plans (tranship and transport)
+        TRANSPORT =         1 << 22, // Transport
+        TRANSHIP =          1 << 23, // Tranship
+        STOPCONTAINER =     1 << 24, // Container stops
         // sub data elements
-        GENERICDATA =       1 << 24, // Generic data (GNEEdgeData, GNELaneData...)
+        GENERICDATA =       1 << 25, // Generic data (GNEEdgeData, GNELaneData...)
         // other
-        SYMBOL =            1 << 25, // Symbol elements (VSSSymbols, RerouterSymbols...)
-        INTERNALLANE =      1 << 26, // Internal Lane
+        SYMBOL =            1 << 26, // Symbol elements (VSSSymbols, RerouterSymbols...)
+        INTERNALLANE =      1 << 27, // Internal Lane
     };
 
     enum TagProperty {
@@ -195,6 +196,9 @@ public:
 
     /// @brief return true if tag correspond to a stop element
     bool isStop() const;
+
+    /// @brief return true if tag correspond to a waypoint element
+    bool isWaypoint() const;
 
     /// @brief return true if tag correspond to a flow element
     bool isFlow() const;
