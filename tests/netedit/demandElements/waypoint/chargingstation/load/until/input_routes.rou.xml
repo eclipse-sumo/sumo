@@ -39,23 +39,23 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
 	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_0">
-		<stop chargingStation="chargingStation" until="dummyDuration"/>
+		<stop chargingStation="chargingStation" until="dummyDuration" speed="10"/>
 	</flow>
 
 	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_1">
-		<stop chargingStation="chargingStation" until=""/>
+		<stop chargingStation="chargingStation" until="" speed="10"/>
 	</flow>
 
 	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_2">
-		<stop chargingStation="chargingStation" until="-4"/>
+		<stop chargingStation="chargingStation" until="-4" speed="10"/>
 	</flow>
 
 	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_3">
-		<stop chargingStation="chargingStation" until="0"/>
+		<stop chargingStation="chargingStation" until="0" speed="10"/>
 	</flow>
 
 	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_4">
-		<stop chargingStation="chargingStation" until="2.3"/>
+		<stop chargingStation="chargingStation" until="2.3" speed="10"/>
 	</flow>
 
 </routes>
