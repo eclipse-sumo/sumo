@@ -1,0 +1,6 @@
+Warning: parkingArea 'parkingAreaB' for vehicle 'vehicle_0' on lane 'gneE1_0' set to end at 0.00 earlier than previous stop at 22.33.
+Warning: Teleporting vehicle 'vehicle_0'; waited too long (jam), lane='gneE1_0', time=310.00.
+Warning: Vehicle 'vehicle_0' teleports beyond arrival edge 'gneE1', time=310.00.
+Warning: Vehicle 'vehicle_0' skips stop on lane 'gneE1_0' time=310.00.
+Warning: Vehicle 'vehicle_0' skips stop on lane 'gneE1_0' time=310.00.
+Warning: Vehicle 'vehicle_0' skips stop on lane 'gneE1_0' time=310.00.

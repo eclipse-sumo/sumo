@@ -1,0 +1,12 @@
+Warning: Teleporting vehicle 'flow_0.2'; waited too long (wrong lane), lane='gneE0_0', time=310.00.
+Warning: Vehicle 'flow_0.2' skips stop on lane 'gneE0_0' time=310.00.
+Warning: Vehicle 'flow_0.2' ends teleporting on edge 'gneE1', time=310.00.
+Warning: Teleporting vehicle 'flow_0.3'; waited too long (wrong lane), lane='gneE0_0', time=611.00.
+Warning: Vehicle 'flow_0.3' skips stop on lane 'gneE0_0' time=611.00.
+Warning: Vehicle 'flow_0.3' ends teleporting on edge 'gneE1', time=611.00.
+Warning: Teleporting vehicle 'flow_0.4'; waited too long (wrong lane), lane='gneE0_0', time=912.00.
+Warning: Vehicle 'flow_0.4' skips stop on lane 'gneE0_0' time=912.00.
+Warning: Vehicle 'flow_0.4' ends teleporting on edge 'gneE1', time=912.00.
+Warning: Teleporting vehicle 'flow_0.5'; waited too long (wrong lane), lane='gneE0_0', time=1213.00.
+Warning: Vehicle 'flow_0.5' skips stop on lane 'gneE0_0' time=1213.00.
+Warning: Vehicle 'flow_0.5' ends teleporting on edge 'gneE1', time=1213.00.

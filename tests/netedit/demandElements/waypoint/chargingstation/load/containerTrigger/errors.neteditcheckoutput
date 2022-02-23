@@ -1,0 +1,13 @@
+Warning: Vehicle 'flow_5.0' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
+Warning: Teleporting vehicle 'flow_5.1'; waited too long (wrong lane), lane='gneE0_0', time=346.00.
+Warning: Vehicle 'flow_5.1' skips stop on lane 'gneE0_0' time=346.00.
+Warning: Vehicle 'flow_5.1' ends teleporting on edge 'gneE1', time=346.00.
+Warning: Teleporting vehicle 'flow_3.2'; waited too long (wrong lane), lane='gneE0_0', time=657.00.
+Warning: Vehicle 'flow_3.2' skips stop on lane 'gneE0_0' time=657.00.
+Warning: Vehicle 'flow_3.2' ends teleporting on edge 'gneE1', time=657.00.
+Warning: Teleporting vehicle 'flow_5.2'; waited too long (wrong lane), lane='gneE0_0', time=961.00.
+Warning: Vehicle 'flow_5.2' skips stop on lane 'gneE0_0' time=961.00.
+Warning: Vehicle 'flow_5.2' ends teleporting on edge 'gneE1', time=961.00.
+Warning: Teleporting vehicle 'flow_3.3'; waited too long (wrong lane), lane='gneE0_0', time=1272.00.
+Warning: Vehicle 'flow_3.3' skips stop on lane 'gneE0_0' time=1272.00.
+Warning: Vehicle 'flow_3.3' ends teleporting on edge 'gneE1', time=1272.00.
