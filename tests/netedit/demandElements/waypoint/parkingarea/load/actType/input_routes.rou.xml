@@ -40,17 +40,17 @@
 
     <vehicle id="vehicle_0" depart="0.00">
 	    <route edges="gneE0 gneE1" color="yellow"/>
-		<stop parkingArea="parkingArea" actType=""/>
+		<stop parkingArea="parkingArea" actType="" speed="10"/>
 	</vehicle>
 
     <vehicle id="vehicle_1" depart="0.00">
 	    <route edges="gneE0 gneE1" color="yellow"/>
-		<stop parkingArea="parkingArea" actType=";;;;"/>
+		<stop parkingArea="parkingArea" actType=";;;;" speed="10"/>
 	</vehicle>
 
     <vehicle id="vehicle_2" depart="0.00">
 	    <route edges="gneE0 gneE1" color="yellow"/>
-		<stop parkingArea="parkingArea" actType="waiting"/>
+		<stop parkingArea="parkingArea" actType="waiting" speed="10"/>
 	</vehicle>
 	
 </routes>

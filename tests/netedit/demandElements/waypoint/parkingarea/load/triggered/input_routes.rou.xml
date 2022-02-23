@@ -40,32 +40,32 @@
 
     <vehicle id="vehicle_0" depart="0.00">
 	    <route edges="gneE0 gneE1" color="yellow"/>
-		<stop parkingArea="parkingArea" triggered="dummy"/>
+		<stop parkingArea="parkingArea" triggered="dummy" speed="10"/>
 	</vehicle>
 
     <vehicle id="vehicle_1" depart="0.00">
 	    <route edges="gneE0 gneE1" color="yellow"/>
-		<stop parkingArea="parkingArea" triggered=""/>
+		<stop parkingArea="parkingArea" triggered="" speed="10"/>
 	</vehicle>
 
     <vehicle id="vehicle_2" depart="0.00">
 	    <route edges="gneE0 gneE1" color="yellow"/>
-		<stop parkingArea="parkingArea" triggered="-4"/>
+		<stop parkingArea="parkingArea" triggered="-4" speed="10"/>
 	</vehicle>
 
     <vehicle id="vehicle_3" depart="0.00">
 	    <route edges="gneE0 gneE1" color="yellow"/>
-		<stop parkingArea="parkingArea" triggered="0"/>
+		<stop parkingArea="parkingArea" triggered="0" speed="10"/>
 	</vehicle>
 
     <vehicle id="vehicle_4" depart="0.00">
 	    <route edges="gneE0 gneE1" color="yellow"/>
-		<stop parkingArea="parkingArea" triggered="2.3"/>
+		<stop parkingArea="parkingArea" triggered="2.3" speed="10"/>
 	</vehicle>
 
     <vehicle id="vehicle_5" depart="0.00">
 	    <route edges="gneE0 gneE1" color="yellow"/>
-		<stop parkingArea="parkingArea" triggered="true"/>
+		<stop parkingArea="parkingArea" triggered="true" speed="10"/>
 	</vehicle>
 
 </routes>
