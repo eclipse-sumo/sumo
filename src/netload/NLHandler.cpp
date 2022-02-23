@@ -808,7 +808,7 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     //  the minimum and maximum durations
     phase->minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, id.c_str(), ok, duration);
     // if minDur is set but not maxDur, assume high maxDur (avoid using the absolute max in case we do some arithmetic later)
-    const double defaultMaxDur = attrs.hasAttribute(SUMO_ATTR_MINDURATION) ? std::numeric_limits<int>::max() : duration;
+    SUMOTime defaultMaxDur = attrs.hasAttribute(SUMO_ATTR_MINDURATION) ? std::numeric_limits<int>::max() : duration;
     phase->maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, id.c_str(), ok, defaultMaxDur);
     phase->earliestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_EARLIEST_END, id.c_str(), ok, tDefault);
     phase->latestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_LATEST_END, id.c_str(), ok, tDefault);
