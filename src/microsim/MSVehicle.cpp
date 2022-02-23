@@ -1722,7 +1722,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     // let the container stop know the vehicle
                     stop.containerstop->enter(this, stop.pars.parking);
                 }
-                if (stop.parkingarea != nullptr) {
+                if (stop.parkingarea != nullptr && stop.pars.speed <= 0) {
                     // let the parking area know the vehicle
                     stop.parkingarea->enter(this);
                 }
@@ -5027,10 +5027,7 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
                         // let the container stop know the vehicle
                         stop.containerstop->enter(this, stop.pars.parking);
                     }
-                    if (stop.parkingarea != nullptr) {
-                        // let the parking area know the vehicle
-                        stop.parkingarea->enter(this);
-                    }
+                    // do not enter parkingarea!
                     if (stop.chargingStation != nullptr) {
                         // let the container stop know the vehicle
                         stop.chargingStation->enter(this, stop.pars.parking);
@@ -6339,7 +6336,7 @@ MSVehicle::resumeFromStopping() {
             // inform container stop about leaving it
             myStops.front().containerstop->leaveFrom(this);
         }
-        if (myStops.front().parkingarea != nullptr) {
+        if (myStops.front().parkingarea != nullptr && myStops.front().pars.speed <= 0) {
             // inform parking area about leaving it
             myStops.front().parkingarea->leaveFrom(this);
         }
