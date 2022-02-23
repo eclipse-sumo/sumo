@@ -74,13 +74,10 @@ std::map<std::string, MSTriggeredRerouter*> MSTriggeredRerouter::myInstances;
 // method definitions
 // ===========================================================================
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
-        const MSEdgeVector& edges,
-        double prob, const std::string& file, bool off,
-        SUMOTime timeThreshold,
-        const std::string& vTypes) :
+        const MSEdgeVector& edges, double prob, bool off,
+        SUMOTime timeThreshold, const std::string& vTypes) :
     MSTrigger(id),
     MSMoveReminder(id),
-    SUMOSAXHandler(file),
     myEdges(edges),
     myProbability(prob),
     myUserProbability(prob),

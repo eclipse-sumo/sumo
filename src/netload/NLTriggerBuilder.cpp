@@ -669,8 +669,6 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     if (!ok) {
         throw ProcessError();
     }
-    // get the file name to read further definitions from
-    std::string file = getFileName(attrs, base, true);
     MSEdgeVector edges;
     for (const std::string& edgeID : attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), ok)) {
         MSEdge* edge = MSEdge::dictionary(edgeID);
@@ -692,13 +690,9 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     if (!ok) {
         throw InvalidArgument("Could not parse MSTriggeredRerouter '" + id + "'.");
     }
-    MSTriggeredRerouter* trigger = buildRerouter(net, id, edges, prob, file, off, timeThreshold, vTypes);
+    MSTriggeredRerouter* trigger = buildRerouter(net, id, edges, prob, off, timeThreshold, vTypes);
     // read in the trigger description
-    if (file == "") {
-        trigger->registerParent(SUMO_TAG_REROUTER, myHandler);
-    } else if (!XMLSubSys::runParser(*trigger, file)) {
-        throw ProcessError();
-    }
+    trigger->registerParent(SUMO_TAG_REROUTER, myHandler);
 }
 
 
@@ -744,11 +738,9 @@ NLTriggerBuilder::buildCalibrator(MSNet& /*net*/, const std::string& id,
 
 MSTriggeredRerouter*
 NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
-                                MSEdgeVector& edges,
-                                double prob, const std::string& file, bool off,
-                                SUMOTime timeThreshold,
-                                const std::string& vTypes) {
-    return new MSTriggeredRerouter(id, edges, prob, file, off, timeThreshold, vTypes);
+                                MSEdgeVector& edges, double prob, bool off,
+                                SUMOTime timeThreshold, const std::string& vTypes) {
+    return new MSTriggeredRerouter(id, edges, prob, off, timeThreshold, vTypes);
 }
 
 
