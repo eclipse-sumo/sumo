@@ -310,6 +310,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.colorSettings.selectedVehicleColor = parseColor(attrs, "selectedVehicleColor", mySettings.colorSettings.selectedVehicleColor);
             mySettings.colorSettings.selectionColor = parseColor(attrs, "selectionColor", mySettings.colorSettings.selectionColor);
             mySettings.colorSettings.stopColor = parseColor(attrs, "stopColor", mySettings.colorSettings.stopColor);
+            mySettings.colorSettings.waypointColor = parseColor(attrs, "waypointColor", mySettings.colorSettings.waypointColor);
             mySettings.colorSettings.stopContainerColor = parseColor(attrs, "stopContainerColor", mySettings.colorSettings.stopContainerColor);
             mySettings.colorSettings.stopPersonColor = parseColor(attrs, "stopPersonColor", mySettings.colorSettings.stopPersonColor);
             mySettings.colorSettings.trainStopColor = parseColor(attrs, "trainStopColor", mySettings.colorSettings.trainStopColor);

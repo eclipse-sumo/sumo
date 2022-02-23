@@ -1825,7 +1825,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("selectedVehicleColor", colorSettings.selectedVehicleColor);
     dev.writeAttr("selectionColor", colorSettings.selectionColor);
     dev.writeAttr("stopColor", colorSettings.stopColor);
-    dev.writeAttr("stopColor", colorSettings.waypointColor);
+    dev.writeAttr("waypointColor", colorSettings.waypointColor);
     dev.writeAttr("stopContainerColor", colorSettings.stopContainerColor);
     dev.writeAttr("stopPersonColor", colorSettings.stopPersonColor);
     dev.writeAttr("trainStopColor", colorSettings.trainStopColor);
