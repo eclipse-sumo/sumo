@@ -22,16 +22,16 @@ Debug: Adding parkingArea 'parkingAreaH' in GNEChange_Additional
 Debug: Adding vType 'id' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Adding waypointParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Adding waypointParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Adding waypointParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Adding waypointParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Adding waypointParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Adding waypointParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_1' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_1' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_1' in GNEChange_DemandElement
+Debug: Adding waypointParkingArea 'vehicle_1' in GNEChange_DemandElement
+Debug: Adding waypointParkingArea 'vehicle_1' in GNEChange_DemandElement
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -51,16 +51,16 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,6
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Deleting unreferenced stopParkingArea 'vehicle_1'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_1'
+Debug: Deleting unreferenced waypointParkingArea 'vehicle_1'
+Debug: Deleting unreferenced waypointParkingArea 'vehicle_1'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_1'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_1'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
+Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
+Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
+Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
+Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
+Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
+Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_0'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_0'
 Debug: Deleting unreferenced vType 'id'
@@ -203,13 +203,13 @@ Error: Attempt to delete instance of GNEReferenceCounter with count -1
 Debug: Deleting unreferenced vType in AttributeCarriers destructor
 Debug: Deleting unreferenced routeEmbedded in AttributeCarriers destructor
 Debug: Deleting unreferenced routeEmbedded in AttributeCarriers destructor
-Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointParkingArea in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 12

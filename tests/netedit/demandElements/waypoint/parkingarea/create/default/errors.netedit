@@ -21,11 +21,11 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -18.20,-18.40,38.20,2
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'vehicle_0' in DemandElementSelector
-Debug: Selected item 'stopParkingArea' in TagSelector
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Selected item 'waypointParkingArea' in TagSelector
+Debug: Adding waypointParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing stopParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Removing waypointParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'vehicle_0' in GNEChange_DemandElement
@@ -36,7 +36,7 @@ Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Adding waypointParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
@@ -51,7 +51,7 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 15.00,-13.20,35.0
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -18.20,-18.40,38.20,28.00
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
+Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_0'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_0'
 Debug: Deleting unreferenced parkingArea 'parkingAreaB'

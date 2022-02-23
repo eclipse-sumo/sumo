@@ -14,14 +14,14 @@ Debug: Adding vehicleWithRoute 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_2' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_2' in GNEChange_DemandElement
+Debug: Adding waypointParkingArea 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_3' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_3' in GNEChange_DemandElement
+Debug: Adding waypointParkingArea 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_4' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_4' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_4' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_18Feb084411.5816\netedit.gui\demandElements\stop\parkingarea\load\extension\input_routes.rou.xml failed.
+Debug: Adding waypointParkingArea 'vehicle_4' in GNEChange_DemandElement
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Feb132033.2776\netedit.gui\demandElements\waypoint\parkingarea\load\extension\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00
@@ -52,13 +52,13 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 15.00,-13.20,35.0
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -13.20,-28.00,43.20,18.40
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
-Debug: Deleting unreferenced stopParkingArea 'vehicle_4'
+Debug: Deleting unreferenced waypointParkingArea 'vehicle_4'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_4'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_4'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_3'
+Debug: Deleting unreferenced waypointParkingArea 'vehicle_3'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_3'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_3'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_2'
+Debug: Deleting unreferenced waypointParkingArea 'vehicle_2'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_2'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_2'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_1'

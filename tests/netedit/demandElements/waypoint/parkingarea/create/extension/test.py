@@ -34,43 +34,43 @@ netedit.supermodeDemand()
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# go to stop mode
+# go to waypoint mode
 netedit.stopMode()
 
-# change stop type with a valid value
-netedit.changeStopType("stopParkingArea")
+# change waypoint type with a valid value
+netedit.changeStopType("waypointParkingArea")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stopParking.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.waypointParking.create.durationEnable)
 
 # enable until
-netedit.changeDefaultBoolValue(netedit.attrs.stopParking.create.extensionEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.waypointParking.create.extensionEnable)
 
-# create stop
+# create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.extension, "dummyValue")
+netedit.changeDefaultValue(netedit.attrs.waypointParking.create.extension, "dummyValue")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.extension, "-20")
+netedit.changeDefaultValue(netedit.attrs.waypointParking.create.extension, "-20")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.extension, "0")
+netedit.changeDefaultValue(netedit.attrs.waypointParking.create.extension, "0")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.extension, "22.33")
+netedit.changeDefaultValue(netedit.attrs.waypointParking.create.extension, "22.33")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # Check undo redo

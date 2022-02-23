@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-11 11:15:31 by Eclipse SUMO netedit Version v1_12_0+0477-3b2e3ab6c51
+<!-- generated on 2022-02-23 14:14:32 by Eclipse SUMO netedit Version v1_12_0+0813-27420f9e819
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="vehicle_0" depart="0.00">
         <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingAreaA" duration="70.00" until="12.00" extension="10.00" triggered="person" parking="1" expected="perA perB" permitted="A B" actType="singing"/>
-        <stop parkingArea="parkingAreaB" duration="60.00" until="20.00" extension="20.00" triggered="container" parking="1" expected="conA conB" permitted="C D" actType="singing"/>
+        <stop parkingArea="parkingAreaA" duration="70.00" until="12.00" extension="10.00" triggered="person" parking="1" expected="perA perB" permitted="A B" speed="10.00" actType="singing"/>
+        <stop parkingArea="parkingAreaB" duration="60.00" until="20.00" extension="20.00" triggered="container" parking="1" expected="conA conB" permitted="C D" speed="20.50" actType="singing"/>
     </vehicle>
 </routes>

@@ -6,7 +6,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,1
 Debug: Adding parkingArea 'parkingArea' in GNEChange_Additional
 Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Adding waypointParkingArea 'vehicle_0' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00
@@ -37,7 +37,7 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 15.00,-13.20,35.0
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -13.20,-28.00,43.20,18.40
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
+Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_0'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_0'
 Debug: Deleting unreferenced parkingArea 'parkingArea'

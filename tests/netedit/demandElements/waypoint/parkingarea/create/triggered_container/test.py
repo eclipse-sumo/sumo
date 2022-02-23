@@ -34,34 +34,34 @@ netedit.supermodeDemand()
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# go to stop mode
+# go to waypoint mode
 netedit.stopMode()
 
-# change stop type with a valid value
-netedit.changeStopType("stopParkingArea")
+# change waypoint type with a valid value
+netedit.changeStopType("waypointParkingArea")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.triggered, "container")
+netedit.changeDefaultValue(netedit.attrs.waypointParking.create.triggered, "container")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.waypointParking.create.expected, ";;;;;;;;;;")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, "")
+netedit.changeDefaultValue(netedit.attrs.waypointParking.create.expected, "")
 
-# try to create stop
+# try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, "containerID1 containerID2 containerID3")
+netedit.changeDefaultValue(netedit.attrs.waypointParking.create.expected, "containerID1 containerID2 containerID3")
 
-# create stop
+# create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # Check undo redo
