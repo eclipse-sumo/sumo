@@ -39,15 +39,15 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
 	<route edges="gneE0 gneE1" color="yellow" id="route_0">
-		<stop busStop="busStop" actType=""/>
+		<stop busStop="busStop" actType="" speed="10"/>
 	</route>
 
 	<route edges="gneE0 gneE1" color="yellow" id="route_1">
-		<stop busStop="busStop" actType=";;;;"/>
+		<stop busStop="busStop" actType=";;;;" speed="10"/>
 	</route>
 
 	<route edges="gneE0 gneE1" color="yellow" id="route_2">
-		<stop busStop="busStop" actType="waiting"/>
+		<stop busStop="busStop" actType="waiting" speed="10"/>
 	</route>
 	
 </routes>
