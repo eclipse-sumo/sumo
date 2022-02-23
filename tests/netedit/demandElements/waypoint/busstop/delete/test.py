@@ -34,19 +34,19 @@ netedit.supermodeDemand()
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# go to stop mode
+# go to waypoint mode
 netedit.stopMode()
 
-# change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+# change waypoint type with a valid value
+netedit.changeStopType("waypointBusStop")
 
-# create stop
+# create waypoint
 netedit.leftClick(referencePosition, 290, 175)
 
 # go to delete mode
 netedit.deleteMode()
 
-# delete stop
+# delete waypoint
 netedit.leftClick(referencePosition, 290, 175)
 
 # check undo
@@ -66,7 +66,7 @@ netedit.redo(referencePosition, 1)
 # go to delete mode
 netedit.deleteMode()
 
-# delete stop
+# delete waypoint
 netedit.leftClick(referencePosition, 290, 175)
 
 # Check undo redo

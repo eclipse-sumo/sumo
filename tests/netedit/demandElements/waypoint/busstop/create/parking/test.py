@@ -34,19 +34,19 @@ netedit.supermodeDemand()
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# go to stop mode
+# go to waypoint mode
 netedit.stopMode()
 
-# change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+# change waypoint type with a valid value
+netedit.changeStopType("waypointBusStop")
 
-# create stop
+# create waypoint
 netedit.leftClick(referencePosition, 290, 175)
 
 # change parking
-netedit.changeDefaultBoolValue(netedit.attrs.stop.create.parking)
+netedit.changeDefaultBoolValue(netedit.attrs.waypoint.create.parking)
 
-# create stop
+# create waypoint
 netedit.leftClick(referencePosition, 290, 175)
 
 # Check undo redo

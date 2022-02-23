@@ -16,15 +16,15 @@ Debug: Adding busStop 'busStopF' in GNEChange_Additional
 Debug: Adding busStop 'busStopG' in GNEChange_Additional
 Debug: Adding busStop 'busStopH' in GNEChange_Additional
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_0' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_0' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_0' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_0' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_0' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_0' in GNEChange_DemandElement
+Debug: Adding waypointBusStop 'route_0' in GNEChange_DemandElement
+Debug: Adding waypointBusStop 'route_0' in GNEChange_DemandElement
+Debug: Adding waypointBusStop 'route_0' in GNEChange_DemandElement
+Debug: Adding waypointBusStop 'route_0' in GNEChange_DemandElement
+Debug: Adding waypointBusStop 'route_0' in GNEChange_DemandElement
+Debug: Adding waypointBusStop 'route_0' in GNEChange_DemandElement
 Debug: Adding route 'route_1' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1' in GNEChange_DemandElement
+Debug: Adding waypointBusStop 'route_1' in GNEChange_DemandElement
+Debug: Adding waypointBusStop 'route_1' in GNEChange_DemandElement
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -40,15 +40,15 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,6
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Deleting unreferenced stopBusStop 'route_1'
-Debug: Deleting unreferenced stopBusStop 'route_1'
+Debug: Deleting unreferenced waypointBusStop 'route_1'
+Debug: Deleting unreferenced waypointBusStop 'route_1'
 Debug: Deleting unreferenced route 'route_1'
-Debug: Deleting unreferenced stopBusStop 'route_0'
-Debug: Deleting unreferenced stopBusStop 'route_0'
-Debug: Deleting unreferenced stopBusStop 'route_0'
-Debug: Deleting unreferenced stopBusStop 'route_0'
-Debug: Deleting unreferenced stopBusStop 'route_0'
-Debug: Deleting unreferenced stopBusStop 'route_0'
+Debug: Deleting unreferenced waypointBusStop 'route_0'
+Debug: Deleting unreferenced waypointBusStop 'route_0'
+Debug: Deleting unreferenced waypointBusStop 'route_0'
+Debug: Deleting unreferenced waypointBusStop 'route_0'
+Debug: Deleting unreferenced waypointBusStop 'route_0'
+Debug: Deleting unreferenced waypointBusStop 'route_0'
 Debug: Deleting unreferenced route 'route_0'
 Debug: Deleting unreferenced busStop 'busStopH'
 Debug: Deleting unreferenced busStop 'busStopG'
@@ -126,13 +126,13 @@ Debug: Deleting unreferenced busStop in AttributeCarriers destructor
 Debug: Deleting unreferenced busStop in AttributeCarriers destructor
 Debug: Deleting unreferenced route in AttributeCarriers destructor
 Debug: Deleting unreferenced route in AttributeCarriers destructor
-Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
-Debug: Deleting unreferenced stopBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointBusStop in AttributeCarriers destructor
+Debug: Deleting unreferenced waypointBusStop in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 8

@@ -34,41 +34,41 @@ netedit.supermodeDemand()
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# go to stop mode
+# go to waypoint mode
 netedit.stopMode()
 
-# change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+# change waypoint type with a valid value
+netedit.changeStopType("waypointBusStop")
 
-# create stop
+# create waypoint
 netedit.leftClick(referencePosition, 290, 175)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect stop
+# inspect waypoint
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stop.inspect.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypoint.inspect.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stop.inspect.untilEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypoint.inspect.untilEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspect.until, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.waypoint.inspect.until, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspect.until, "", False)
+netedit.modifyAttribute(netedit.attrs.waypoint.inspect.until, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspect.until, "-5", False)
+netedit.modifyAttribute(netedit.attrs.waypoint.inspect.until, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspect.until, "0", False)
+netedit.modifyAttribute(netedit.attrs.waypoint.inspect.until, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspect.until, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.waypoint.inspect.until, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
