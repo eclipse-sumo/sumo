@@ -112,7 +112,7 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myStopParentBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create Stop parent selector
-    myStopParentSelector = new GNEFrameModules::DemandElementSelector(this, {GNETagProperties::TagType::PERSON, GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
+    myStopParentSelector = new GNEFrameModules::DemandElementSelector(this, {GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
 
     // Create item Selector modul for Stops
     myStopTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::STOP, SUMO_TAG_STOP_LANE);
