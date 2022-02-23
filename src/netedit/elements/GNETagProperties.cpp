@@ -154,9 +154,7 @@ GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
 
 void
 GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) {
-    if (isAttributeDeprecated(attributeProperty.getAttr())) {
-        throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' is deprecated and cannot be inserted");
-    } else if ((myAttributeProperties.size() + 1) >= MAXNUMBEROFATTRIBUTES) {
+    if ((myAttributeProperties.size() + 1) >= MAXNUMBEROFATTRIBUTES) {
         throw ProcessError("Maximum number of attributes for tag " + attributeProperty.getAttrStr() + " exceeded");
     } else {
         // Check that attribute wasn't already inserted
@@ -169,19 +167,6 @@ GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) 
         myAttributeProperties.push_back(attributeProperty);
         myAttributeProperties.back().setTagPropertyParent(this);
     }
-}
-
-
-void
-GNETagProperties::addDeprecatedAttribute(SumoXMLAttr attr) {
-    // Check that attribute wasn't already inserted
-    for (const auto& attributeProperty : myAttributeProperties) {
-        if (attributeProperty.getAttr() == attr) {
-            throw ProcessError("Attribute '" + toString(attr) + "' is deprecated but was inserted in list of attributes");
-        }
-    }
-    // add it into myDeprecatedAttributes
-    myDeprecatedAttributes.push_back(attr);
 }
 
 
@@ -521,12 +506,6 @@ GNETagProperties::requireProj() const {
 bool
 GNETagProperties::vClassIcon() const {
     return (myTagProperty & VCLASS_ICON) != 0;
-}
-
-
-bool
-GNETagProperties::isAttributeDeprecated(SumoXMLAttr attr) const {
-    return (std::find(myDeprecatedAttributes.begin(), myDeprecatedAttributes.end(), attr) != myDeprecatedAttributes.end());
 }
 
 /****************************************************************************/

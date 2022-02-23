@@ -119,9 +119,6 @@ public:
     /// @brief add attribute (duplicated attributed aren't allowed)
     void addAttribute(const GNEAttributeProperties& attributeProperty);
 
-    /// @brief add deprecated Attribute
-    void addDeprecatedAttribute(SumoXMLAttr attr);
-
     /// @brief get field string (by default tag in string format)
     const std::string& getFieldString() const;
 
@@ -287,9 +284,6 @@ public:
     /// @brief return true if tag correspond to an element that has vClass icons
     bool vClassIcon() const;
 
-    /// @brief return true if attribute of this tag is deprecated
-    bool isAttributeDeprecated(SumoXMLAttr attr) const;
-
 private:
     /// @brief Sumo XML Tag vinculated wit this tag Property
     SumoXMLTag myTag;
@@ -314,9 +308,6 @@ private:
 
     /// @brief vector with master tags (used by child elements)
     std::vector<SumoXMLTag> myParentTags;
-
-    /// @brief List with the deprecated Attributes
-    std::vector<SumoXMLAttr> myDeprecatedAttributes;
 
     /// @brief field string
     std::string myFieldString;
