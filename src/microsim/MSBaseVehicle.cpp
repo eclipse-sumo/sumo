@@ -1027,7 +1027,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     }
 #ifdef DEBUG_ADD_STOP
     if (DEBUG_COND) {
-        std::cout << " stopEdge=" << stopEdge->getID() << " searchStart=" << (**searchStart)->getID() << " index=" << (int)((*searchStart) - myRoute->begin()) << " route=" << toString(myRoute->getEdges()) << "\n";
+        std::cout << "addStop desc=" << stop.getDescription() << " stopEdge=" << stopEdge->getID() << " searchStart=" << (**searchStart)->getID() << " index=" << (int)((*searchStart) - myRoute->begin()) << " route=" << toString(myRoute->getEdges()) << "\n";
     }
 #endif
     stop.edge = std::find(*searchStart, myRoute->end(), stopEdge);
@@ -1348,6 +1348,12 @@ MSBaseVehicle::abortNextStop(int nextStopIndex) {
             auto stopIt = myStops.begin();
             std::advance(stopIt, nextStopIndex);
             myStops.erase(stopIt);
+        }
+        if (!hasDeparted() && (int)myParameter->stops.size() > nextStopIndex) {
+            // stops will be rebuilt from scratch on rerouting so we must patch the stops in myParameter
+            auto stopIt2 = myParameter->stops.begin();
+            std::advance(stopIt2, nextStopIndex);
+            const_cast<SUMOVehicleParameter*>(myParameter)->stops.erase(stopIt2);
         }
         return true;
     } else {
