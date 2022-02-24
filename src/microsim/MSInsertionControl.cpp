@@ -74,7 +74,7 @@ MSInsertionControl::add(SUMOVehicle* veh) {
 
 
 bool
-MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index, double scale) {
+MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index) {
     const bool loadingFromState = index >= 0;
     if (myFlowIDs.count(pars->id) > 0) {
         return false;
@@ -82,7 +82,7 @@ MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index, double 
         Flow flow;
         flow.pars = pars;
         flow.index = loadingFromState ? index : 0;
-        flow.scale = scale == -1 ? initScale(pars->vtypeid) : scale;
+        flow.scale = initScale(pars->vtypeid);
         myFlows.push_back(flow);
         myFlowIDs.insert(pars->id);
         return true;
@@ -375,7 +375,6 @@ MSInsertionControl::saveState(OutputDevice& out) {
         out.writeAttr(SUMO_ATTR_ROUTE, flow.pars->routeid);
         out.writeAttr(SUMO_ATTR_DONE, flow.pars->repetitionsDone);
         out.writeAttr(SUMO_ATTR_INDEX, flow.index);
-        out.writeAttr(SUMO_ATTR_SCALE, flow.scale);
         if (flow.pars->wasSet(VEHPARS_FORCE_REROUTE)) {
             out.writeAttr(SUMO_ATTR_REROUTE, true);
         }

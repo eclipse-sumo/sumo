@@ -106,7 +106,7 @@ public:
      * @param[in] index The current index when loading this flow from a simulation state
      * @return whether it could be added (no other flow with the same id was present)
      */
-    bool addFlow(SUMOVehicleParameter* const pars, int index = -1, double scale = -1);
+    bool addFlow(SUMOVehicleParameter* const pars, int index = -1);
 
 
     /** @brief Returns the number of waiting vehicles

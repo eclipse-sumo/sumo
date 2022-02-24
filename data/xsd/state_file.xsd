@@ -75,7 +75,6 @@
             <xsd:extension base="flowType">
                 <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="required"/>
                 <xsd:attribute name="done" type="xsd:nonNegativeInteger" use="required"/>
-                <xsd:attribute name="scale" type="xsd:float" use="required"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>

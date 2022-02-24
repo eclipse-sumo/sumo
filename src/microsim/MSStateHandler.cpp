@@ -132,8 +132,8 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
         saveRNGs(out);
     }
     MSRoute::dict_saveState(out);
-    MSNet::getInstance()->getInsertionControl().saveState(out);
     MSNet::getInstance()->getVehicleControl().saveState(out);
+    MSNet::getInstance()->getInsertionControl().saveState(out);
     if (OptionsCont::getOptions().getBool("save-state.transportables")) {
         if (MSNet::getInstance()->hasPersons()) {
             out.openTag(SUMO_TAG_TRANSPORTABLES).writeAttr(SUMO_ATTR_TYPE, "person");
@@ -224,8 +224,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             pars->repetitionNumber = attrs.getOpt<int>(SUMO_ATTR_NUMBER, pars->id.c_str(), ok, std::numeric_limits<int>::max());
             pars->repetitionProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, pars->id.c_str(), ok, -1);
             int index = attrs.getInt(SUMO_ATTR_INDEX);
-            double scale = attrs.getOpt<double>(SUMO_ATTR_SCALE, pars->id.c_str(), ok, 0);
-            MSNet::getInstance()->getInsertionControl().addFlow(pars, index, scale);
+            MSNet::getInstance()->getInsertionControl().addFlow(pars, index);
             break;
         }
         case SUMO_TAG_VTYPE: {
