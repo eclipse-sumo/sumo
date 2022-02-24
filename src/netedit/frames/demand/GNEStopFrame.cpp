@@ -227,7 +227,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     } else if ((stopTag == SUMO_TAG_STOP_LANE) || (stopTag == GNE_TAG_WAYPOINT_LANE)) {
         if (lane) {
             stop.lane = lane->getID();
-            if (stop.speed == 0) {
+            if ((stopTag == GNE_TAG_WAYPOINT_LANE) && (stop.speed == 0)) {
                 stop.speed = lane->getSpeed();
             }
         } else {
@@ -248,7 +248,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 return false;
             } else {
                 stop.busstop = stoppingPlace->getID();
-                if (stop.speed == 0) {
+                if ((stopTag == GNE_TAG_WAYPOINT_BUSSTOP) && (stop.speed == 0)) {
                     stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
                 }
                 stop.startPos = 0;
@@ -260,7 +260,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 return false;
             } else {
                 stop.containerstop = stoppingPlace->getID();
-                if (stop.speed == 0) {
+                if ((stopTag == GNE_TAG_WAYPOINT_CONTAINERSTOP) && (stop.speed == 0)) {
                     stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
                 }
                 stop.startPos = 0;
@@ -272,7 +272,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 return false;
             } else {
                 stop.chargingStation = stoppingPlace->getID();
-                if (stop.speed == 0) {
+                if ((stopTag == GNE_TAG_WAYPOINT_CHARGINGSTATION) && (stop.speed == 0)) {
                     stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
                 }
                 stop.startPos = 0;
@@ -284,7 +284,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 return false;
             } else {
                 stop.parkingarea = stoppingPlace->getID();
-                if (stop.speed == 0) {
+                if ((stopTag == GNE_TAG_WAYPOINT_PARKINGAREA) && (stop.speed == 0)) {
                     stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
                 }
                 stop.startPos = 0;
@@ -292,13 +292,13 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
             }
         }
     } else {
-        if ((stopTag != SUMO_TAG_STOP_BUSSTOP) && (stopTag != GNE_TAG_WAYPOINT_BUSSTOP)) {
+        if ((stopTag == SUMO_TAG_STOP_BUSSTOP) || (stopTag == GNE_TAG_WAYPOINT_BUSSTOP)) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_STOP_BUSSTOP) + " to create a stop placed in a " + toString(SUMO_TAG_STOP_BUSSTOP));
-        } else if ((stopTag != SUMO_TAG_STOP_CONTAINERSTOP) && (stopTag != GNE_TAG_WAYPOINT_CONTAINERSTOP)) {
+        } else if ((stopTag == SUMO_TAG_STOP_CONTAINERSTOP) || (stopTag == GNE_TAG_WAYPOINT_CONTAINERSTOP)) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_CONTAINER_STOP) + " to create a stop placed in a " + toString(SUMO_TAG_CONTAINER_STOP));
-        } else if ((stopTag != SUMO_TAG_STOP_CHARGINGSTATION) && (stopTag != GNE_TAG_WAYPOINT_CHARGINGSTATION)) {
+        } else if ((stopTag == SUMO_TAG_STOP_CHARGINGSTATION) || (stopTag == GNE_TAG_WAYPOINT_CHARGINGSTATION)) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_CHARGING_STATION) + " to create a stop placed in a " + toString(SUMO_TAG_CHARGING_STATION));
-        } else if ((stopTag != SUMO_TAG_STOP_PARKINGAREA) && (stopTag != GNE_TAG_WAYPOINT_PARKINGAREA)) {
+        } else if ((stopTag == SUMO_TAG_STOP_PARKINGAREA) || (stopTag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_PARKING_AREA) + " to create a stop placed in a " + toString(SUMO_TAG_PARKING_AREA));
         } else if (stopTag == GNE_TAG_STOPPERSON_BUSSTOP) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_STOP_BUSSTOP) + " to create a person stop placed in a " + toString(SUMO_TAG_STOP_BUSSTOP));
