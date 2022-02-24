@@ -7,7 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
-  - Fixed deadlock at on-off-ramp despite relief connection. Issue #10037 (regression in 1.6.0)
+  - Fixed deadlock at on-off-ramp despite relief connection. Issue #10037 (regression in 1.6.0)  
   - Fixed preventable deadlock in weaving situation by applying stronger braking. Issue #10028
   - Fixed lane-changing related deadlock in sublane simulation. Issue #10054
   - Fixed invalid switching for actuated traffic light in coordinated mode. Issue #10055
@@ -19,6 +19,13 @@ title: ChangeLog
   - Fixed invalid error message when using mismatched parentheses in traffic light switching conditions
   - Fixed sub-optimal insertion flow with departLane="best". Issue #10137
   - Scaling vehicles with vTypeDistribution now resamples the type for each added vehicle. Issue #10155
+  - Fixed crash when defining a trip between junctions and triggered departure. Issue #10188  
+  - Fixed crash on parkingAreaReroute. Issue #10201
+  - Fixed crash with waypoint on 0-capacity parkingArea #10211
+  - opposite-direction driving
+    - Can now overtake stoppepd vehicle when there is only a short gap afterwards. Issue #9994
+    - Fixed failure to overtake fast vehicles. Issue #10194
+    - Fixed error "unexpected end of opposite lane" when the number of lanes changes during overtaking. Issue #10193
 
 - sumo-gui
   - Fixed crash when opening phase tracker window on invalid switching conditions. Issue #10121
@@ -33,9 +40,14 @@ title: ChangeLog
 
 - netedit
   - Fixed invalid geometry when loading geo-polygons. Issue #10101 (regression in 1.10.0)
+  - Fixed crash when deleting last (or only) personTrip-element. Issue #10192 (regression in 1.12.0)  
+  - Fixed crash when changing departSpeed for flow. Issue #10165 (regression in 1.12.0)
+  - Fixed inconsistent behavior of attributes in flow creation frame. Issue #10075 (regression in 1.12.0)  
+  - Fixed invalid error when loading shapes with location element. Issue #10112 (regression in 1.12.0)
   - Fixed invalid junction color after creating a trip (from/to). Issue #9980 (regression in 1.12.0)
   - Fixed invalid route when creating flow (embedded route) with via edges. Issue #10120
-  
+  - Vehicles and flows with embedded routes and junctions now appear in locate dialog. Issue #10173
+    
 - sumo-gui
   - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069
   - GUI-defined traffic scaling is now preserved on reload. Issue #10096
@@ -47,6 +59,11 @@ title: ChangeLog
   - Fixed invalid length value in TraCI response for context subscription. Issue #10108
   - Fixed crash when calling 'vehicle.replaceStop' to replace stop that was added from a named route before a vehicle departed. Issue #10135
   - libsumo and traci no longer differ on context subscriptions to TRACI_ID_LIST. Issue #7288
+  - Fixed superfluous simulation step after traci.load. Issue #10164
+  - traci.person.setSpeed is now working. Issue #10166
+  - Added missing vType related functions from person domain (i.e. traci.person.getMaxSpeed). Issue #10169
+  - Fixed invalid route and errors after removing stops with replaceStop on departure and rerouting. Issue #10209
+  - Fixed inconsistent lane change state (left+right at the same time). Issue #10212
 
 - tools
   - generateTurnRatios.py now writes correct closing tag. Issue #10140 (regression in 1.11.0)
@@ -70,13 +87,22 @@ title: ChangeLog
   - Added option **--save-configuration.relative** to write config-relative file paths when saving configuration. Issue #6578
   - Smoothed the effect size curve of vehicle impatience. Previously, most of the effect occured at low impatience values and larger values did not matter. To compensate for the reduced gradient, the default of option **--time-to-impatience** was reduced from 300s to 180s. Issue #8507
   - Vehicle flows with equidistant spacing (i.e. `period="x"`) now remain equidistant when the flow is increased via option **--scale**. Issue #10126
-  - Added vType attribute 'scale' to allow type-specific demand scaling. Issue #1478
+  - Added vType attribute 'scale' to allow type-specific demand scaling. Issue #1478 
+  - Actuated traffic lights may not omit phase attribute 'maxDur' which defaults to ~24days as long as attribute minDur is set. Issue #10204
 
 - sumo-gui
   - Enabled dpi awareness. Issue #9985
   - Traffic light type 'actuated' now supports parameters 'show-conditions' and 'hide-conditions' to customize visulization in the [Phase Tracker Window](Simulation/Traffic_Lights.md#track_phases) Issue #10046
   - Detectors can now be triggered from the context menu even if there are no vehicles on it. Issue #10067
   - Saved configuration now always contains relative file paths. Issue #6578
+  - Added menu entry 'Simulation->Load' to quick-load a saved state for the current networ. Issue #2443 (Caution: state must contain all vehicles to ensure proper functioning as outlined in #7471)
+  - The keys pgdup/pgdown can now be used to change simulation delay.  (their former functionality of quick-panning the view was taken up by alt+arrows). Issue #10199
+
+- netedit
+  - Can now set stop attributes "tripID" and "line". Issue #6011
+  - Hierarchy view now contains object ids. Issue #10076
+  - Defining waypoints is now supported. Issue #10111
+  - Improved accuracy of POI geo-positions. Issue #9353
 
 - netconvert
   - Improved speed of OSM import. Isse #8147
@@ -85,13 +111,20 @@ title: ChangeLog
 - polyconvert
   - Shapefile with geometry encoded as linestring2D is now supported. Issue #10100
 
+- duarouter
+  - Option **--randomize-flows** now applies to personFlow. Issue #10182
+
 - traci
   - Added function 'traci.inductionloop.overrideTimeSinceDetection' and 'traci.lanearea.overrideVehicleNumber' to trigger the detector without the need for vehicles and facilitate traffic light testing. Issue #10045, #10048
   - function 'traci.vehicle.setPreviousSpeed' now supports an optional parameter to set the previous acceleration. Issue #10097
   - function `traci.simulation.subscribeContext' can now be used to subscribe to all objects in the simulation networ. Issue #8388
   - Added function 'vehicle.insertStop' to add stops anywhere in the stop list and reroute automatically. Issue #10132
   - Added function 'vehicle.setStopParameter' to set any possible attribute for any upcoming stop. Issue #7981
-
+  - Added function 'vehicle.getStopParameter' to retrieve any possible attribute for any past or upcoming stop. Issue #10160
+  - Added functions 'simulation.getScale' and 'simulation.setScale' to access the global traffic scaling factor. Issue #10161
+  - Added functions 'vehicletype.getScale' and 'vehicletype.setScale' to access the type-specific traffic scaling factor. Issue #10161
+  - Added functions 'getDetEntryLanes, getDetExitLanes, getDetEntryPositions, getDetExitPositions' to 'multientryexit' domain. Issue #10083
+  
 - tools
   - routeStats.py: Can use measures "speed", "speedKmh", "routeLength", the fast XML parser and filter by route length . Issue #10044
   - tls_csv2SUMO.py now supports the same signal states as the simulation. Issue #10063
@@ -99,10 +132,12 @@ title: ChangeLog
   - osmWebWizard.py: can now select desired road types to reduce download size. Issue #7585
   - route2OD.py: added new option **--edge-relations** to write edge-based OD relations (without the need for a TAZ  file). This type of output can be usd with routeSampler.py. Issue #10058
   - randomTrips.py: When settiong option **--random-depart**, with a fractional value for option **--period**, the depart times now have sub-second resolution. Issue #10122
+  - randomTrips.py: now supports option **--random-routing-factor** to increase the variance of generated routes. Issue #10172
 
 ### miscellaneous
 
 - simulation
+  - Rerouter attribute 'file' is no longer supported. Intervals should be child elements of rerouters. Alternatively XML-native file embedding may be used. Issue #9579
   - Improved error message when using stops and via in an inconsistent manner. Issue #10110
   - limit internal precision of random variables (i.e. sampled speedFactor or random departSpeed) to 4 decimal digits and enforced the same minimum output precision. This avoids problems when replicating a scenarion based on **vehroute-output**. Issue #10091
   
