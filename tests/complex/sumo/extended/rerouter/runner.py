@@ -72,23 +72,29 @@ def writeRerouterDefinition(fdo, edge, t, rerouter):
 
 def writeRerouter(edge, t, rerouter, embedded):
     fdo = open("rerouter.xml", "w")
-    fdo.write(
-        '<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation=' +
-        '"http://sumo.dlr.de/xsd/additional_file.xsd">\n\n')
+    fdo.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+    if not embedded:
+        fdo.write('''<!DOCTYPE additional [
+<!ENTITY inputDefinition SYSTEM "input_definition.def.xml">
+]>
+''')
+    fdo.write('''<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+''')
+
     if embedded:
         fdo.write('<rerouter id="rerouter" edges="%s">\n' % (edge))
         writeRerouterDefinition(fdo, edge, t, rerouter)
         fdo.write('</rerouter>\n')
     else:
-        fdo.write(
-            '<rerouter id="rerouter" edges="%s" file="input_definition.def.xml"/>\n' % (edge))
+        fdo.write('<rerouter id="rerouter" edges="%s">\n' % (edge))
+        fdo.write('  &inputDefinition;\n')
+        fdo.write('</rerouter>\n')
+
     fdo.write('</additional>\n')
     fdo.close()
     if not embedded:
         fdo = open("input_definition.def.xml", "w")
-        fdo.write('<rerouter>\n\n')
         writeRerouterDefinition(fdo, edge, t, rerouter)
-        fdo.write('</rerouter>\n\n')
         fdo.close()
 
 

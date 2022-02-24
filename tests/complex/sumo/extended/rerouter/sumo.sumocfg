@@ -13,7 +13,8 @@
     </output>
 
     <report>
-        <xml-validation value="never"/>
+        <!-- xml-validation is needed for resolving XML entities -->
+        <xml-validation value="auto"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
