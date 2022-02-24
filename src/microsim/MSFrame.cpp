@@ -128,6 +128,8 @@ MSFrame::fillOptions() {
     oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle");
     oc.doRegister("emission-output.precision", new Option_Integer(2));
     oc.addDescription("emission-output.precision", "Output", "Write emission values with the given precision (default 2)");
+    oc.doRegister("emission-output.geo", new Option_Bool(false));
+    oc.addDescription("emission-output.geo", "Output", "Save the positions in emission output using geo-coordinates (lon/lat)");
 
     oc.doRegister("emission-output.step-scaled", new Option_Bool(false));
     oc.addDescription("emission-output.step-scaled", "Output", "Write emission values scaled to the step length rather than as per-second values");
