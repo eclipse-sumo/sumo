@@ -1,6 +1,2 @@
-Warning: Teleporting vehicle 'vehicle_3'; waited too long (wrong lane), lane='gneE0_0', time=313.00.
-Warning: Vehicle 'vehicle_3' skips stop on lane 'gneE0_0' time=313.00.
-Warning: Vehicle 'vehicle_3' ends teleporting on edge 'gneE1', time=313.00.
-Warning: Teleporting vehicle 'vehicle_5'; waited too long (wrong lane), lane='gneE0_0', time=618.00.
-Warning: Vehicle 'vehicle_5' skips stop on lane 'gneE0_0' time=618.00.
-Warning: Vehicle 'vehicle_5' ends teleporting on edge 'gneE1', time=618.00.
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop at 'parkingArea' in vehicle 'vehicle_3'.
