@@ -853,6 +853,9 @@ SUMOVehicleParameter::getDepartSpeed() const {
         case DepartSpeedDefinition::LAST:
             val = "last";
             break;
+        case DepartSpeedDefinition::AVG:
+            val = "avg";
+            break;
         case DepartSpeedDefinition::DEFAULT:
         default:
             break;
