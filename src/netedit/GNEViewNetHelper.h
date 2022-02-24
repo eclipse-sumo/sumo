@@ -814,8 +814,8 @@ struct GNEViewNetHelper {
         /// @brief set end
         void setEnd();
 
-        /// @brief set attribute
-        void setAttribute();
+        /// @brief set parameter
+        void setParameter();
 
         /// @}
 
@@ -844,13 +844,13 @@ struct GNEViewNetHelper {
         /// @brief combo box for filtered parameters
         FXComboBox* myParametersComboBox;
 
-        /// @brief set for attribuets
-        std::set<std::string> myFilteredAttributes;
+        /// @brief current dataSets
+        std::vector<std::string> myDataSets;
+
+        /// @brief current parameters
+        std::set<std::string> myParameters;
 
     private:
-        /// @brief update combo box attributes
-        void updateComboBoxAttributes();
-
         /// @brief Invalidated copy constructor.
         IntervalBar(const IntervalBar&) = delete;
 

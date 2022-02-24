@@ -788,8 +788,8 @@ enum {
     MID_GNE_INTERVALBAR_BEGIN,
     /// @brief end changed in InterbalBar
     MID_GNE_INTERVALBAR_END,
-    /// @brief attribute changed in InterbalBar
-    MID_GNE_INTERVALBAR_ATTRIBUTE,
+    /// @brief parameter changed in InterbalBar
+    MID_GNE_INTERVALBAR_PARAMETER,
 
     /// @}
 

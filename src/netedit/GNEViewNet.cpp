@@ -201,7 +201,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_LIMITED,                     GNEViewNet::onCmdIntervalBarLimit),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_BEGIN,                       GNEViewNet::onCmdIntervalBarSetBegin),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_END,                         GNEViewNet::onCmdIntervalBarSetEnd),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_ATTRIBUTE,                   GNEViewNet::onCmdIntervalBarSetAttribute)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_PARAMETER,                   GNEViewNet::onCmdIntervalBarSetParameter)
 };
 
 // Object implementation
@@ -3685,8 +3685,8 @@ GNEViewNet::onCmdIntervalBarSetEnd(FXObject*, FXSelector, void*) {
 
 
 long
-GNEViewNet::onCmdIntervalBarSetAttribute(FXObject*, FXSelector, void*) {
-    myIntervalBar.setAttribute();
+GNEViewNet::onCmdIntervalBarSetParameter(FXObject*, FXSelector, void*) {
+    myIntervalBar.setParameter();
     return 1;
 }
 
