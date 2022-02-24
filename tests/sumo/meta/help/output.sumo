@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_12_0+0179-34fe5c8
+Eclipse SUMO sumo Version v1_12_0+0843-cd07ae6
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -52,6 +52,8 @@ Output Options:
   --emission-output FILE               Save the emission values of each vehicle
   --emission-output.precision INT      Write emission values with the given
                                         precision (default 2)
+  --emission-output.geo                Save the positions in emission output
+                                        using geo-coordinates (lon/lat)
   --emission-output.step-scaled        Write emission values scaled to the step
                                         length rather than as per-second values
   --battery-output FILE                Save the battery values of each vehicle

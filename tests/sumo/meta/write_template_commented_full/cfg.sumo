@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-10 00:06:46 by Eclipse SUMO sumo Version v1_12_0+0426-579bba2
+<!-- generated on 2022-02-24 10:15:21 by Eclipse SUMO sumo Version v1_12_0+0843-cd07ae6
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -86,6 +86,9 @@
 
         <!-- Write emission values with the given precision (default 2) -->
         <emission-output.precision value="2" type="INT"/>
+
+        <!-- Save the positions in emission output using geo-coordinates (lon/lat) -->
+        <emission-output.geo value="false" type="BOOL"/>
 
         <!-- Write emission values scaled to the step length rather than as per-second values -->
         <emission-output.step-scaled value="false" type="BOOL"/>
