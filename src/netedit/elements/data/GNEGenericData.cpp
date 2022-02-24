@@ -230,23 +230,23 @@ GNEGenericData::isVisibleInspectDeleteSelect() const {
     // declare flag
     bool draw = true;
     // check filter by generic data type
-    if ((toolBar.getGenericDataTypeStr().size() > 0) && (toolBar.getGenericDataTypeStr() != myTagProperty.getTagStr())) {
+    if ((toolBar.getGenericDataType() != SUMO_ATTR_NOTHING) && (toolBar.getGenericDataType() != myTagProperty.getTag())) {
         draw = false;
     }
     // check filter by data set
-    if ((toolBar.getDataSetStr().size() > 0) && (toolBar.getDataSetStr() != myDataIntervalParent->getID())) {
+    if (toolBar.getDataSet() && (toolBar.getDataSet() != myDataIntervalParent->getDataSetParent())) {
         draw = false;
     }
     // check filter by begin
-    if ((toolBar.getBeginStr().size() > 0) && (parse<double>(toolBar.getBeginStr()) > myDataIntervalParent->getAttributeDouble(SUMO_ATTR_BEGIN))) {
+    if ((toolBar.getBegin() != INVALID_DOUBLE) && (toolBar.getBegin() > myDataIntervalParent->getAttributeDouble(SUMO_ATTR_BEGIN))) {
         draw = false;
     }
     // check filter by end
-    if ((toolBar.getEndStr().size() > 0) && (parse<double>(toolBar.getEndStr()) < myDataIntervalParent->getAttributeDouble(SUMO_ATTR_END))) {
+    if ((toolBar.getEnd() != INVALID_DOUBLE) && (toolBar.getEnd() < myDataIntervalParent->getAttributeDouble(SUMO_ATTR_END))) {
         draw = false;
     }
     // check filter by attribute
-    if ((toolBar.getAttributeStr().size() > 0) && (getParametersMap().count(toolBar.getAttributeStr()) == 0)) {
+    if ((toolBar.getParameter().size() > 0) && (getParametersMap().count(toolBar.getParameter()) == 0)) {
         draw = false;
     }
     // return flag

@@ -142,6 +142,7 @@ class GNETAZ;
 // demand elements
 class GNEDemandElement;
 // data elements
+class GNEDataSet;
 class GNEGenericData;
 class GNEEdgeData;
 class GNEEdgeRelData;
@@ -779,19 +780,19 @@ struct GNEViewNetHelper {
         /// @{
 
         /// @brief get generic data type
-        std::string getGenericDataTypeStr() const;
+        SumoXMLTag getGenericDataType() const;
 
         /// @brief get dataSet
-        std::string getDataSetStr() const;
+        GNEDataSet *getDataSet() const;
 
         /// @brief get begin
-        std::string getBeginStr() const;
+        double getBegin() const;
 
         /// @brief get end
-        std::string getEndStr() const;
+        double getEnd() const;
 
-        /// @brief set attribute
-        std::string getAttributeStr() const;
+        /// @brief get parameter
+        std::string getParameter() const;
 
         /// @}
 

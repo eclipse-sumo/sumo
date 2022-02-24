@@ -2893,48 +2893,55 @@ GNEViewNetHelper::IntervalBar::markForUpdate() {
 }
 
 
-std::string
-GNEViewNetHelper::IntervalBar::getGenericDataTypeStr() const {
-    if (!myGenericDataTypesComboBox->isEnabled() || (myGenericDataTypesComboBox->getCurrentItem() == 0)) {
-        return "";
+SumoXMLTag
+GNEViewNetHelper::IntervalBar::getGenericDataType() const {
+    if (myGenericDataTypesComboBox->isEnabled()) {
+        if (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_MEANDATA_EDGE).c_str()) {
+            return SUMO_TAG_MEANDATA_EDGE;
+        } else if (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_EDGEREL).c_str()) {
+            return SUMO_TAG_EDGEREL;
+        } else if (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_TAZREL).c_str()) {
+            return SUMO_TAG_TAZREL;
+        }
+    }
+    return SUMO_TAG_NOTHING;
+}
+
+
+GNEDataSet*
+GNEViewNetHelper::IntervalBar::getDataSet() const {
+    if (!myDataSetsComboBox->isEnabled()) {
+        return nullptr;
+    } else if (myDataSetsComboBox->getCurrentItem() == 0) {
+        return nullptr;
     } else {
-        return myGenericDataTypesComboBox->getText().text();
+        return myViewNet->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSetsComboBox->getText().text());
+    }
+}
+
+
+double
+GNEViewNetHelper::IntervalBar::getBegin() const {
+    if (!myIntervalCheckBox->isEnabled() || (myIntervalCheckBox->getCheck() == FALSE)) {
+        return INVALID_DOUBLE;
+    } else {
+        return GNEAttributeCarrier::parse<double>(myBeginTextField->getText().text());
+    }
+}
+
+
+double
+GNEViewNetHelper::IntervalBar::getEnd() const {
+    if (!myIntervalCheckBox->isEnabled() || (myIntervalCheckBox->getCheck() == FALSE)) {
+        return INVALID_DOUBLE;
+    } else {
+        return GNEAttributeCarrier::parse<double>(myEndTextField->getText().text());
     }
 }
 
 
 std::string
-GNEViewNetHelper::IntervalBar::getDataSetStr() const {
-    if (!myDataSetsComboBox->isEnabled() || (myDataSetsComboBox->getCurrentItem() == 0)) {
-        return "";
-    } else {
-        return myDataSetsComboBox->getText().text();
-    }
-}
-
-
-std::string
-GNEViewNetHelper::IntervalBar::getBeginStr() const {
-    if (myIntervalCheckBox->getCheck() == TRUE) {
-        return myBeginTextField->getText().text();
-    } else {
-        return "";
-    }
-}
-
-
-std::string
-GNEViewNetHelper::IntervalBar::getEndStr() const {
-    if (myIntervalCheckBox->getCheck() == TRUE) {
-        return myEndTextField->getText().text();
-    } else {
-        return "";
-    }
-}
-
-
-std::string
-GNEViewNetHelper::IntervalBar::getAttributeStr() const {
+GNEViewNetHelper::IntervalBar::getParameter() const {
     if (!myParametersComboBox->isEnabled() || (myParametersComboBox->getCurrentItem() == 0)) {
         return "";
     } else {
