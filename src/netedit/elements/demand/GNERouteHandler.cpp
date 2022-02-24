@@ -895,7 +895,11 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     // check if stopParent exist
     if (stopParent) {
         // flag for waypoint (is like a stop, but with extra attribute speed)
-        const bool waypoint = (sumoBaseObject->getStopParameter().parametersSet & STOP_SPEED_SET) || (sumoBaseObject->getStopParameter().speed > 0);
+        bool waypoint = false;
+        // avoid waypoints for person and containers
+        if (stopParent->getTagProperty().isPerson() && stopParent->getTagProperty().isContainer()) {
+            waypoint = (sumoBaseObject->getStopParameter().parametersSet & STOP_SPEED_SET) || (sumoBaseObject->getStopParameter().speed > 0);
+        }
         // declare pointers to parent elements
         GNEAdditional* stoppingPlace = nullptr;
         GNELane* lane = nullptr;
