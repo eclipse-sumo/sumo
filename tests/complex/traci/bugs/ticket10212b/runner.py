@@ -26,11 +26,11 @@ import traci  # noqa
 import sumolib  # noqa
 
 cmd = [sumolib.checkBinary("sumo"),
-    '-n', 'net.net.xml',
-    '-r', 'input_routes.rou.xml',
-    '--lateral-resolution', '0.2',
-    '--default.speeddev', '0',
-    '--no-step-log',]
+       '-n', 'net.net.xml',
+       '-r', 'input_routes.rou.xml',
+       '--lateral-resolution', '0.2',
+       '--default.speeddev', '0',
+       '--no-step-log']
 
 vehID = "blocker2"
 
