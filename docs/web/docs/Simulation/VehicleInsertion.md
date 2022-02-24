@@ -62,6 +62,9 @@ congested network with lots of vehicles which cannot be inserted variant
 could switch to 2) using the option **--sloppy-insert** Since version 0.18.0, variant 2) is
 the default and one may switch to 1) using the option **--eager-insert**.
 
+!!! caution
+    If there are many edges with delayed insertion, the additional insertion attemps in every simulation step can slow down a simulation
+
 ## Investigating insertion delay
 
 Using [sumo-gui](../sumo-gui.md) several options exist for showing
