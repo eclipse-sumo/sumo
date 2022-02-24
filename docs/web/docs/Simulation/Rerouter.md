@@ -52,34 +52,41 @@ The {{AdditionalFile}} looks like this:
 
 ### definitions in a separate file
 
+This uses the standard XML file inclusion mechanism.
+
 The {{AdditionalFile}} looks like this:
 
 ```
-<additional>
-   <rerouter id="<REROUTER_ID>" edges="<EDGE_ID>[;<EDGE_ID>]*" file="<DEFINITION_FILE>" [probability="<PROBABILITY>"]/>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE additional [
+<!ENTITY otherFile SYSTEM "definitionFile.xml">
+]>
+<additional>   
+   <rerouter id="<REROUTER_ID>" edges="<EDGE_ID>[;<EDGE_ID>]*" [probability="<PROBABILITY>"]>
+      &definitionFile;
+   </rerouter>
 
    ... further rerouters ...
 </additional>
 ```
 
-And the <DEFINITION_FILE\> (which describes the actions over time) looks
+And the `definitionfile (which describes the actions over time) looks
 like this:
 
 ```
-<rerouter>
    <interval begin="<BEGIN_TIME>" end="<END_TIME>">
       ... action description ...
    </interval>
 
    ... further intervals ...
-
-</rerouter>
 ```
 
-Note, that the name of the root-level element (`<rerouter>` in this case) is
-arbitrary.
+Note, that the definition file has no root-level element
 
-All the following examples use the separate file syntax.
+All the following examples use the [everything-in-one-file](#everything_in_one_file)-syntax.
+
+!!! caution
+    Support for rerouter attribute `file` to include additional defintions was removed in version 1.13.0 
 
 ## Closing a Street
 
