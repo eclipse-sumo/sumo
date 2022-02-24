@@ -79,8 +79,11 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
         dev.writeAttr(SUMO_ATTR_TYPE, typeID);
     }
     // write depart depending of tag
-    if ((altTag == SUMO_TAG_FLOW) || (altTag == SUMO_TAG_PERSONFLOW) ||
-            (altTag == GNE_TAG_FLOW_ROUTE) || (altTag == GNE_TAG_FLOW_WITHROUTE)) {
+    if (altTag == SUMO_TAG_FLOW
+            || altTag == SUMO_TAG_PERSONFLOW
+            || altTag == GNE_TAG_FLOW_ROUTE
+            || altTag == GNE_TAG_FLOW_WITHROUTE
+            || altTag == SUMO_TAG_FLOWSTATE) {
         dev.writeAttr(SUMO_ATTR_BEGIN, getDepart());
     } else {
         dev.writeAttr(SUMO_ATTR_DEPART, getDepart());

@@ -218,14 +218,14 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_FLOWSTATE: {
-            SUMOVehicleParameter* pars = new SUMOVehicleParameter();
-            pars->id = attrs.getString(SUMO_ATTR_ID);
             bool ok;
-            if (attrs.getOpt<bool>(SUMO_ATTR_REROUTE, nullptr, ok, false)) {
-                pars->parametersSet |= VEHPARS_FORCE_REROUTE;
-            }
-            MSNet::getInstance()->getInsertionControl().addFlow(pars,
-                    attrs.getInt(SUMO_ATTR_INDEX));
+            SUMOVehicleParameter* pars = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOWSTATE, attrs, true, true, -1, -1);
+            pars->repetitionsDone = attrs.get<int>(SUMO_ATTR_DONE, pars->id.c_str(), ok);
+            pars->repetitionNumber = attrs.getOpt<int>(SUMO_ATTR_NUMBER, pars->id.c_str(), ok, std::numeric_limits<int>::max());
+            pars->repetitionProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, pars->id.c_str(), ok, -1);
+            int index = attrs.getInt(SUMO_ATTR_INDEX);
+            double scale = attrs.getOpt<double>(SUMO_ATTR_SCALE, pars->id.c_str(), ok, 0);
+            MSNet::getInstance()->getInsertionControl().addFlow(pars, index, scale);
             break;
         }
         case SUMO_TAG_VTYPE: {

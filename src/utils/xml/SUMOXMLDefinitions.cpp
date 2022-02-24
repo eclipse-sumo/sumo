@@ -747,6 +747,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "personsPerHour",         SUMO_ATTR_PERSONSPERHOUR },
     { "containersPerHour",		SUMO_ATTR_CONTAINERSPERHOUR },
     { "perHour",				SUMO_ATTR_PERHOUR },
+    { "done",	  			    SUMO_ATTR_DONE },
     { "output",                 SUMO_ATTR_OUTPUT },
     { "height",                 SUMO_ATTR_HEIGHT },
     { "guiShape",               SUMO_ATTR_GUISHAPE },

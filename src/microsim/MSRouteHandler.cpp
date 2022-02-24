@@ -966,7 +966,11 @@ MSRouteHandler::closeFlow() {
         if (MSNet::getInstance()->getInsertionControl().addFlow(myVehicleParameter)) {
             registerLastDepart();
         } else {
-            throw ProcessError("Another flow with the id '" + myVehicleParameter->id + "' exists.");
+            if (MSGlobals::gStateLoaded) {
+                delete myVehicleParameter;
+            } else {
+                throw ProcessError("Another flow with the id '" + myVehicleParameter->id + "' exists.");
+            }
         }
     }
     myVehicleParameter = nullptr;

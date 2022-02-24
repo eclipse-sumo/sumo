@@ -74,33 +74,15 @@ MSInsertionControl::add(SUMOVehicle* veh) {
 
 
 bool
-MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index) {
+MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index, double scale) {
     const bool loadingFromState = index >= 0;
     if (myFlowIDs.count(pars->id) > 0) {
-        if (loadingFromState) {
-            // flows loaded from simulation state must be unique
-            return false;
-        }
-        // set actual parameters for a state-loaded flow (for which only index is known)
-        for (Flow& flow : myFlows) {
-            // if the flow was loaded from state this is recognizable by having
-            // neither repetitionNumber nor repetitionProbability
-            if (flow.pars->id == pars->id && flow.pars->repetitionNumber == -1 && flow.pars->repetitionProbability == -1) {
-                if (flow.pars->wasSet(VEHPARS_FORCE_REROUTE)) {
-                    pars->parametersSet |= VEHPARS_FORCE_REROUTE;
-                }
-                delete flow.pars;
-                flow.pars = pars;
-                flow.scale = initScale(pars->vtypeid);
-                return true;
-            }
-        }
         return false;
     } else {
         Flow flow;
         flow.pars = pars;
         flow.index = loadingFromState ? index : 0;
-        flow.scale = initScale(pars->vtypeid);
+        flow.scale = scale == -1 ? initScale(pars->vtypeid) : scale;
         myFlows.push_back(flow);
         myFlowIDs.insert(pars->id);
         return true;
@@ -379,9 +361,21 @@ void
 MSInsertionControl::saveState(OutputDevice& out) {
     // save flow states
     for (const Flow& flow : myFlows) {
-        out.openTag(SUMO_TAG_FLOWSTATE);
-        out.writeAttr(SUMO_ATTR_ID, flow.pars->id);
+        flow.pars->write(out, OptionsCont::getOptions(), SUMO_TAG_FLOWSTATE,
+                flow.pars->vtypeid == DEFAULT_VTYPE_ID ? "" : flow.pars->vtypeid);
+        if (flow.pars->repetitionProbability <= 0 || flow.pars->repetitionEnd == SUMOTime_MAX) {
+            out.writeAttr(SUMO_ATTR_NUMBER, flow.pars->repetitionNumber);
+        }
+        if (flow.pars->repetitionProbability > 0) {
+            out.writeAttr(SUMO_ATTR_PROB, flow.pars->repetitionProbability);
+        }
+        if (flow.pars->repetitionEnd != SUMOTime_MAX) {
+            out.writeAttr(SUMO_ATTR_END, STEPS2TIME(flow.pars->repetitionEnd));
+        };
+        out.writeAttr(SUMO_ATTR_ROUTE, flow.pars->routeid);
+        out.writeAttr(SUMO_ATTR_DONE, flow.pars->repetitionsDone);
         out.writeAttr(SUMO_ATTR_INDEX, flow.index);
+        out.writeAttr(SUMO_ATTR_SCALE, flow.scale);
         if (flow.pars->wasSet(VEHPARS_FORCE_REROUTE)) {
             out.writeAttr(SUMO_ATTR_REROUTE, true);
         }
