@@ -4380,12 +4380,53 @@ GNEViewNet::deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> 
 
 void
 GNEViewNet::updateControls() {
-    switch (myEditModes.networkEditMode) {
-        case NetworkEditMode::NETWORK_INSPECT:
-            myViewParent->getInspectorFrame()->update();
-            break;
-        default:
-            break;
+    if (myEditModes.isCurrentSupermodeNetwork()) {
+        switch (myEditModes.networkEditMode) {
+            case NetworkEditMode::NETWORK_INSPECT:
+                myViewParent->getInspectorFrame()->update();
+                break;
+            default:
+                break;
+        }
+    }
+    if (myEditModes.isCurrentSupermodeDemand()) {
+        switch (myEditModes.demandEditMode) {
+            case DemandEditMode::DEMAND_INSPECT:
+                myViewParent->getInspectorFrame()->update();
+                break;
+            case DemandEditMode::DEMAND_VEHICLE:
+                myViewParent->getVehicleFrame()->show();
+                break;
+            case DemandEditMode::DEMAND_TYPE:
+                myViewParent->getTypeFrame()->show();
+                break;
+            case DemandEditMode::DEMAND_STOP:
+                myViewParent->getStopFrame()->show();
+                break;
+            case DemandEditMode::DEMAND_PERSON:
+                myViewParent->getPersonFrame()->show();
+                break;
+            case DemandEditMode::DEMAND_PERSONPLAN:
+                myViewParent->getPersonPlanFrame()->show();
+                break;
+            case DemandEditMode::DEMAND_CONTAINER:
+                myViewParent->getContainerFrame()->show();
+                break;
+            case DemandEditMode::DEMAND_CONTAINERPLAN:
+                myViewParent->getContainerPlanFrame()->show();
+                break;
+            default:
+                break;
+        }
+    }
+    if (myEditModes.isCurrentSupermodeData()) {
+        switch (myEditModes.dataEditMode) {
+            case DataEditMode::DATA_INSPECT:
+                myViewParent->getInspectorFrame()->update();
+                break;
+            default:
+                break;
+        }
     }
     // update view
     updateViewNet();

@@ -21,7 +21,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEStopFrame.h"
@@ -148,14 +147,15 @@ GNEStopFrame::show() {
     }
     // show or hidde moduls depending of validStopParent
     if (validStopParent) {
-        myStopParentSelector->showDemandElementSelector();
-        myStopTagSelector->showTagSelector();
         // refresh tag selector
         myStopTagSelector->refreshTagSelector();
         // refresh vType selector
         myStopParentSelector->refreshDemandElementSelector();
         // refresh tag selector
         myStopTagSelector->refreshTagSelector();
+        // show
+        myStopParentSelector->showDemandElementSelector();
+        myStopTagSelector->showTagSelector();
     } else {
         // hide moduls (except help creation)
         myStopParentSelector->hideDemandElementSelector();

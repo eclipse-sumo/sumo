@@ -647,7 +647,7 @@ GNEFrameModules::DemandElementSelector::refreshDemandElementSelector() {
     }
     // Set number of  items (maximum 10)
     if (myDemandElementsMatchBox->getNumItems() < 10) {
-        myDemandElementsMatchBox->setNumVisible((int)myDemandElementsMatchBox->getNumItems());
+        myDemandElementsMatchBox->setNumVisible((int)myDemandElementsMatchBox->getNumItems() + 1);
     } else {
         myDemandElementsMatchBox->setNumVisible(10);
     }

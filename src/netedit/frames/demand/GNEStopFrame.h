@@ -22,6 +22,7 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
 
 // ===========================================================================
 // class definitions
