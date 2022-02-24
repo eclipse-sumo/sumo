@@ -846,21 +846,6 @@ struct GNEViewNetHelper {
         /// @brief set for attribuets
         std::set<std::string> myFilteredAttributes;
 
-        /// @brief string with wildcard for no generic datas
-        const FXString myNoGenericDatas;
-
-        /// @brief string with wildcard for all generic datas
-        const FXString myAllGenericDatas;
-
-        /// @brief string with wildcard for no dataSets
-        const FXString myNoDataSets;
-
-        /// @brief string with wildcard for all dataSets
-        const FXString myAllDataSets;
-
-        /// @brief string with wildcard for all attributes
-        const FXString myAllAttributes;
-
     private:
         /// @brief update combo box attributes
         void updateComboBoxAttributes();
