@@ -86,7 +86,7 @@ Note, that the definition file has no root-level element
 All the following examples use the [everything-in-one-file](#everything_in_one_file)-syntax.
 
 !!! caution
-    Support for rerouter attribute `file` to include additional defintions was removed in version 1.13.0 
+    Support for rerouter attribute `file` to include additional definitions was removed in version 1.13.0 
 
 ## Closing a Street
 
