@@ -832,7 +832,7 @@ struct GNEViewNetHelper {
         FXComboBox* myDataSetsComboBox;
 
         /// @brief checkbox for limit data elements by interval
-        FXCheckButton* myLimitByIntervalCheckBox;
+        FXCheckButton* myIntervalCheckBox;
 
         /// @brief text field for interval begin
         FXTextField* myBeginTextField;
@@ -840,8 +840,8 @@ struct GNEViewNetHelper {
         /// @brief text field for interval end
         FXTextField* myEndTextField;
 
-        /// @brief combo box for filtered attributes
-        FXComboBox* myFilteredAttributesComboBox;
+        /// @brief combo box for filtered parameters
+        FXComboBox* myParametersComboBox;
 
         /// @brief set for attribuets
         std::set<std::string> myFilteredAttributes;

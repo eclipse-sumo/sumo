@@ -4429,6 +4429,8 @@ GNEViewNet::updateControls() {
             default:
                 break;
         }
+        // update data interval
+        myIntervalBar.markForUpdate();
     }
     // update view
     updateViewNet();

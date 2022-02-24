@@ -275,11 +275,8 @@ class FXMenuCheckIcon;
 /// @brief Combo box static     (cannot be edited) extended over the matrix column
 #define GUIDesignComboBoxAttribute          (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief comboBox with thick frame, width 180 (Used in GNEVType)
+/// @brief comboBox with thick frame, width 180
 #define GUIDesignComboBoxWidth180           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief comboBox with thick frame, width 120
-#define GUIDesignComboBoxWidth120           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 120, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief number of column of every combo box
 #define GUIDesignComboBoxNCol               1
