@@ -1902,6 +1902,8 @@ GNENetHelper::AttributeCarriers::insertDataInterval(GNEDataInterval* dataInterva
     if (myDataIntervals.insert(dataInterval).second == false) {
         throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' already exist");
     }
+    // mark interval toolbar for update
+    myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
 
 
@@ -1913,6 +1915,8 @@ GNENetHelper::AttributeCarriers::deleteDataInterval(GNEDataInterval* dataInterva
     } else {
         myDataIntervals.erase(finder);
     }
+    // mark interval toolbar for update
+    myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
 
 
@@ -2011,6 +2015,8 @@ GNENetHelper::AttributeCarriers::insertGenericData(GNEGenericData* genericData) 
     if (myGenericDatas.at(genericData->getTagProperty().getTag()).insert(genericData).second == false) {
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' already exist");
     }
+    // mark interval toolbar for update
+    myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
 
 
@@ -2022,6 +2028,8 @@ GNENetHelper::AttributeCarriers::deleteGenericData(GNEGenericData* genericData) 
     } else {
         myGenericDatas.at(genericData->getTagProperty().getTag()).erase(finder);
     }
+    // mark interval toolbar for update
+    myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
 
 
@@ -2448,8 +2456,8 @@ GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
     }
     // dataSets has to be saved
     myNet->requireSaveDataElements(true);
-    // update interval toolbar
-    myNet->getViewNet()->getIntervalBar().updateIntervalBar();
+    // mark interval toolbar for update
+    myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
 
 
@@ -2468,8 +2476,8 @@ GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
     myDataSets.erase(itFind);
     // dataSets has to be saved
     myNet->requireSaveDataElements(true);
-    // update interval toolbar
-    myNet->getViewNet()->getIntervalBar().updateIntervalBar();
+    // mark interval toolbar for update
+    myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
 
 // ---------------------------------------------------------------------------

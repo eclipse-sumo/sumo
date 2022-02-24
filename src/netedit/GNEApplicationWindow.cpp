@@ -1106,8 +1106,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (oc.isSet("data-files") && !oc.getString("data-files").empty() && myNet) {
         // obtain vector of data files
         std::vector<std::string> dataElementsFiles = oc.getStringVector("data-files");
-        // disable interval bar update
-        myViewNet->getIntervalBar().disableIntervalBarUpdate();
         // disable update data
         myViewNet->getNet()->disableUpdateData();
         // begin undolist
@@ -1130,8 +1128,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myNet->requireSaveDataElements(false);
         // enable update data
         myViewNet->getNet()->enableUpdateData();
-        // enable interval bar update
-        myViewNet->getIntervalBar().enableIntervalBarUpdate();
     }
     // check if additionals output must be changed
     if (oc.isSet("additionals-output")) {
@@ -3501,8 +3497,6 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // udpate current folder
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        // disable interval bar update
-        myViewNet->getIntervalBar().disableIntervalBarUpdate();
         // disable update data
         myViewNet->getNet()->disableUpdateData();
         // disable validation for data elements
@@ -3521,8 +3515,6 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         myUndoList->end();
         // enable update data
         myViewNet->getNet()->enableUpdateData();
-        // enable interval bar update
-        myViewNet->getIntervalBar().enableIntervalBarUpdate();
         // update
         update();
     } else {
@@ -3537,8 +3529,6 @@ long
 GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // get file
     const std::string file = OptionsCont::getOptions().getString("data-files");
-    // disable interval bar update
-    myViewNet->getIntervalBar().disableIntervalBarUpdate();
     // disable update data
     myViewNet->getNet()->disableUpdateData();
     // disable validation for additionals
@@ -3559,8 +3549,6 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     myUndoList->end();
     // enable update data
     myViewNet->getNet()->enableUpdateData();
-    // enable interval bar update
-    myViewNet->getIntervalBar().enableIntervalBarUpdate();
     // update
     update();
     return 1;

@@ -928,6 +928,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     }
     // pop draw matrix
     GLHelper::popMatrix();
+    // update interval bar
+    myIntervalBar.markForUpdate();
     return hits2;
 }
 

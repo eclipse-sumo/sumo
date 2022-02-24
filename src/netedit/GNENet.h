@@ -498,7 +498,7 @@ public:
 
     /// @}
 
-    /// @name Functions related to Enable or disable update data of elements after insertio
+    /// @name Functions related to Enable or disable update data of elements after insertion
     /// @{
     /// @brief enable update data elements after inserting or removing an element in net
     void enableUpdateData();

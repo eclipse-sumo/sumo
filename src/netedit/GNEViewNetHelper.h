@@ -763,12 +763,6 @@ struct GNEViewNetHelper {
         /// @brief disable interval bar
         void disableIntervalBar();
 
-        /// @brief enable interval bar update
-        void enableIntervalBarUpdate();
-
-        /// @brief enable interval bar update
-        void disableIntervalBarUpdate();
-
         /// @brief show interval option bar
         void showIntervalBar();
 
@@ -777,6 +771,9 @@ struct GNEViewNetHelper {
 
         /// @brief update interval bar
         void updateIntervalBar();
+
+        // @brief mark for update
+        void markForUpdate();
 
         /// @name get functions (called by GNEViewNet)
         /// @{
@@ -825,8 +822,8 @@ struct GNEViewNetHelper {
         /// @brief pointer to net
         GNEViewNet* myViewNet;
 
-        /// @brief flag to enable or disable update interval bar
-        bool myIntervalBarUpdate;
+        /// @brief flag for update interval bar
+        bool myUpdateInterval;
 
         /// @brief combo box for generic data types
         FXComboBox* myGenericDataTypesComboBox;

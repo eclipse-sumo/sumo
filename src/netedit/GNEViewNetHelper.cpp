@@ -2688,7 +2688,7 @@ GNEViewNetHelper::DataViewOptions::TAZRelOnlyTo() const {
 
 GNEViewNetHelper::IntervalBar::IntervalBar(GNEViewNet* viewNet) :
     myViewNet(viewNet),
-    myIntervalBarUpdate(true),
+    myUpdateInterval(true),
     myGenericDataTypesComboBox(nullptr),
     myDataSetsComboBox(nullptr),
     myLimitByIntervalCheckBox(nullptr),
@@ -2775,20 +2775,6 @@ GNEViewNetHelper::IntervalBar::disableIntervalBar() {
 
 
 void
-GNEViewNetHelper::IntervalBar::enableIntervalBarUpdate() {
-    myIntervalBarUpdate = true;
-    // now update interval bar
-    updateIntervalBar();
-}
-
-
-void
-GNEViewNetHelper::IntervalBar::disableIntervalBarUpdate() {
-    myIntervalBarUpdate = false;
-}
-
-
-void
 GNEViewNetHelper::IntervalBar::showIntervalBar() {
     // check if begin and end textFields has to be updated (only once)
     if (myBeginTextField->getText().empty()) {
@@ -2813,7 +2799,7 @@ GNEViewNetHelper::IntervalBar::hideIntervalBar() {
 
 void
 GNEViewNetHelper::IntervalBar::updateIntervalBar() {
-    if (myIntervalBarUpdate) {
+    if (true) {
         // first save current data set
         const std::string previousDataSet = myDataSetsComboBox->getNumItems() > 0 ? myDataSetsComboBox->getItem(myDataSetsComboBox->getCurrentItem()).text() : "";
         // first clear items
@@ -2861,6 +2847,12 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
             setInterval();
         }
     }
+}
+
+
+void
+GNEViewNetHelper::IntervalBar::markForUpdate() {
+    myUpdateInterval = true;
 }
 
 
