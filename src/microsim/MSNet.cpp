@@ -98,6 +98,7 @@
 #include <microsim/trigger/MSOverheadWire.h>
 #include <microsim/trigger/MSTrigger.h>
 #include <utils/router/FareModul.h>
+#include <netload/NLBuilder.h>
 
 #include "MSEdgeControl.h"
 #include "MSJunctionControl.h"
@@ -1527,6 +1528,12 @@ MSNet::loadState(const std::string& fileName) {
     if (MsgHandler::getErrorInstance()->wasInformed()) {
         throw ProcessError("Loading state from '" + fileName + "' failed.");
     }
+    // reset route loaders
+    delete myRouteLoaders;
+    myRouteLoaders = NLBuilder::buildRouteLoaderControl(OptionsCont::getOptions());
+    // prevent loading errors on rewound route file
+    MSGlobals::gStateLoaded = true;
+
     updateGUI();
     return newTime;
 }
