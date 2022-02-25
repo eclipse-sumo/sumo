@@ -324,18 +324,23 @@ const RGBColor&
 GNEStop::getColor() const {
     if (getTagProperty().isPersonPlan() || getTagProperty().isContainerPlan()) {
         return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopPersonColor;
-    } else {
-        // check if parent is being inspected
-        if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front()) || 
-            myNet->getViewNet()->getFrontAttributeCarrier() == getParentDemandElements().front() || 
-            (myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->isDemandElementSelectorShown() &&
-            myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->getCurrentDemandElement() == getParentDemandElements().front())) {
-            return myTagProperty.isWaypoint()? myNet->getViewNet()->getVisualisationSettings().colorSettings.waypointColorCurrent :
-                   myNet->getViewNet()->getVisualisationSettings().colorSettings.stopColorCurrent;
-        } else {
-            return myTagProperty.isWaypoint()? myNet->getViewNet()->getVisualisationSettings().colorSettings.waypointColor :
-                   myNet->getViewNet()->getVisualisationSettings().colorSettings.stopColor;
+    } else if (myNet->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+        // get inspected AC
+        const auto AC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // check if is a route or a vehicle
+        if ((AC->getTagProperty().isRoute() || AC->getTagProperty().isVehicle()) && (AC != getParentDemandElements().front())) {
+            return RGBColor::GREY;
         }
+    } else if (myNet->getViewNet()->getViewParent()->getStopFrame()->shown()) {
+        if (myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->getCurrentDemandElement() != getParentDemandElements().front()) {
+            return RGBColor::GREY;
+        }
+    }
+    // return default color
+    if (myTagProperty.isWaypoint()) {
+        return myNet->getViewNet()->getVisualisationSettings().colorSettings.waypointColor;
+    } else {
+        return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopColor;
     }
 }
 
