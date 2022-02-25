@@ -1198,8 +1198,14 @@ GUIApplicationWindow::onCmdDelayInc(FXObject*, FXSelector, void*) {
         mySimDelay = 10;
     } else if (mySimDelay < 50) {
         mySimDelay = 50;
+    } else if (mySimDelay >= 200 && mySimDelay < 500) {
+        mySimDelay = 500;
     } else {
         mySimDelay *= 2;
+    }
+    if (mySimDelay > 1000) {
+        // setting high delay by pressing the key too often is hard to recover from
+        mySimDelay = 1000;
     }
     getApp()->refresh();
     return 1;
@@ -1212,6 +1218,8 @@ GUIApplicationWindow::onCmdDelayDec(FXObject*, FXSelector, void*) {
         mySimDelay = 0;
     } else if (mySimDelay <= 50) {
         mySimDelay = 10;
+    } else if (mySimDelay > 200 && mySimDelay <= 500) {
+        mySimDelay = 200;
     } else {
         mySimDelay /= 2;
     }
