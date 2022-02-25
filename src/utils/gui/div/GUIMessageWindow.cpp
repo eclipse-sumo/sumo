@@ -214,6 +214,7 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
                         breakpoints.push_back(t);
                         std::sort(breakpoints.begin(), breakpoints.end());
                         myMainWindow->setBreakpoints(breakpoints);
+                        myMainWindow->setStatusBarText("Set breakpoint at " + time2string(t));
                     }
                 }
             }
