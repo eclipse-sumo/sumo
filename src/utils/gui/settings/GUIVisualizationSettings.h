@@ -213,14 +213,8 @@ struct GUIVisualizationColorSettings {
     /// @brief color for Stops
     RGBColor stopColor;
 
-    /// @brief color for Stops when their parent is inspected
-    RGBColor stopColorCurrent;
-
     /// @brief color for Waypoints
     RGBColor waypointColor;
-
-    /// @brief color for Waypoints when their parent is inspected
-    RGBColor waypointColorCurrent;
 
     /// @brief color for vehicle trips
     RGBColor vehicleTripColor;

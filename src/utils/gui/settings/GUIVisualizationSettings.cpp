@@ -364,9 +364,7 @@ GUIVisualizationColorSettings::GUIVisualizationColorSettings() :
     parkingSpaceColorContour(0, 255, 0),
     parkingSpaceColor(255, 200, 200),
     stopColor(220, 20, 30),
-    stopColorCurrent(220, 120, 130),
     waypointColor(0, 127, 14),
-    waypointColorCurrent(0, 127, 114),
     vehicleTripColor(255, 128, 0),
     stopPersonColor(255, 0, 0),
     personTripColor(200, 0, 255),
@@ -407,9 +405,7 @@ GUIVisualizationColorSettings::operator==(const GUIVisualizationColorSettings& v
            (parkingSpaceColorContour == v2.parkingSpaceColorContour) &&
            (parkingSpaceColor == v2.parkingSpaceColor) &&
            (stopColor == v2.stopColor) &&
-           (stopColorCurrent == v2.stopColorCurrent) &&
            (waypointColor == v2.waypointColor) &&
-           (waypointColorCurrent == v2.waypointColorCurrent) &&
            (vehicleTripColor == v2.vehicleTripColor) &&
            (stopPersonColor == v2.stopPersonColor) &&
            (personTripColor == v2.personTripColor) &&
@@ -450,9 +446,7 @@ GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v
            (parkingSpaceColorContour != v2.parkingSpaceColorContour) ||
            (parkingSpaceColor != v2.parkingSpaceColor) ||
            (stopColor != v2.stopColor) ||
-           (stopColorCurrent != v2.stopColorCurrent) ||
            (waypointColor != v2.waypointColor) ||
-           (waypointColorCurrent != v2.waypointColorCurrent) ||
            (vehicleTripColor != v2.vehicleTripColor) ||
            (stopPersonColor != v2.stopPersonColor) ||
            (personTripColor != v2.personTripColor) ||
@@ -1831,9 +1825,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("selectedVehicleColor", colorSettings.selectedVehicleColor);
     dev.writeAttr("selectionColor", colorSettings.selectionColor);
     dev.writeAttr("stopColor", colorSettings.stopColor);
-    dev.writeAttr("stopColorCurrent", colorSettings.stopColorCurrent);
     dev.writeAttr("waypointColor", colorSettings.waypointColor);
-    dev.writeAttr("waypointColorCurrent", colorSettings.waypointColorCurrent);
     dev.writeAttr("stopContainerColor", colorSettings.stopContainerColor);
     dev.writeAttr("stopPersonColor", colorSettings.stopPersonColor);
     dev.writeAttr("trainStopColor", colorSettings.trainStopColor);

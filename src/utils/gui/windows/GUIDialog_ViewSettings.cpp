@@ -230,9 +230,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myChargingStationColorSign->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColorSign));
     if (mySettings->netedit) {
         myStopColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopColor));
-        myStopColorCurrent->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopColorCurrent));
         myWaypointColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.waypointColor));
-        myWaypointColorCurrent->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.waypointColorCurrent));
         myVehicleTripsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.vehicleTripColor));
         myStopPersonsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopPersonColor));
         myPersonTripColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.personTripColor));
@@ -488,9 +486,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.colorSettings.chargingStationColorSign = MFXUtils::getRGBColor(myChargingStationColorSign->getRGBA());
     if (mySettings->netedit) {
         tmpSettings.colorSettings.stopColor = MFXUtils::getRGBColor(myStopColor->getRGBA());
-        tmpSettings.colorSettings.stopColorCurrent = MFXUtils::getRGBColor(myStopColorCurrent->getRGBA());
         tmpSettings.colorSettings.waypointColor = MFXUtils::getRGBColor(myWaypointColor->getRGBA());
-        tmpSettings.colorSettings.waypointColorCurrent = MFXUtils::getRGBColor(myWaypointColorCurrent->getRGBA());
         tmpSettings.colorSettings.vehicleTripColor = MFXUtils::getRGBColor(myVehicleTripsColor->getRGBA());
         tmpSettings.colorSettings.stopPersonColor = MFXUtils::getRGBColor(myStopPersonsColor->getRGBA());
         tmpSettings.colorSettings.personTripColor = MFXUtils::getRGBColor(myPersonTripColor->getRGBA());
@@ -2121,12 +2117,8 @@ GUIDialog_ViewSettings::buildDemandFrame(FXTabBook* tabbook) {
     FXMatrix* stopMatrix = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
     new FXLabel(stopMatrix, "stop", nullptr, GUIDesignViewSettingsLabel1);
     myStopColor = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.stopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-    new FXLabel(stopMatrix, "stop (current)", nullptr, GUIDesignViewSettingsLabel1);
-    myStopColorCurrent = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.stopColorCurrent), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     new FXLabel(stopMatrix, "waypoint", nullptr, GUIDesignViewSettingsLabel1);
     myWaypointColor = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.waypointColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-    new FXLabel(stopMatrix, "waypoint(current)", nullptr, GUIDesignViewSettingsLabel1);
-    myWaypointColorCurrent = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.waypointColorCurrent), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     new FXLabel(stopMatrix, "stop (persons)", nullptr, GUIDesignViewSettingsLabel1);
     myStopPersonsColor = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.stopPersonColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     new FXLabel(stopMatrix, "stop (containers)", nullptr, GUIDesignViewSettingsLabel1);

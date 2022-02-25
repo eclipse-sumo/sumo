@@ -250,9 +250,7 @@ protected:
     FXColorWell* myChargingStationColor;
     FXColorWell* myChargingStationColorSign;
     FXColorWell* myStopColor;
-    FXColorWell* myStopColorCurrent;
     FXColorWell* myWaypointColor;
-    FXColorWell* myWaypointColorCurrent;
     FXColorWell* myVehicleTripsColor;
     FXColorWell* myStopPersonsColor;
     FXColorWell* myPersonTripColor;
