@@ -2749,35 +2749,6 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
 
 
 void
-GNEViewNetHelper::IntervalBar::enableIntervalBar() {
-    // enable elements
-    myGenericDataTypesComboBox->enable();
-    myDataSetsComboBox->enable();
-    myIntervalCheckBox->enable();
-    if (myIntervalCheckBox->getCheck() == TRUE) {
-        myBeginTextField->enable();
-        myEndTextField->enable();
-    } else {
-        myBeginTextField->disable();
-        myEndTextField->disable();
-    }
-    myParametersComboBox->enable();
-}
-
-
-void
-GNEViewNetHelper::IntervalBar::disableIntervalBar() {
-    // disable all elements
-    myGenericDataTypesComboBox->disable();
-    myDataSetsComboBox->disable();
-    myIntervalCheckBox->disable();
-    myBeginTextField->disable();
-    myEndTextField->disable();
-    myParametersComboBox->disable();
-}
-
-
-void
 GNEViewNetHelper::IntervalBar::showIntervalBar() {
     // first update interval bar
     updateIntervalBar();
@@ -2873,6 +2844,14 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
             myParametersComboBox->setNumVisible(myParametersComboBox->getNumItems());
         } else {
             myParametersComboBox->setNumVisible(10);
+        }
+        // check if enable or disable
+        if ((myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) || 
+            (myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_SELECT) ||
+            (myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_DELETE)) {
+            enableIntervalBar();
+        } else {
+            disableIntervalBar();
         }
         // intervalBar updated, then change flag
         myUpdateInterval = false;
@@ -3028,6 +3007,36 @@ GNEViewNetHelper::IntervalBar::setParameter() {
     }
     // update view net
     myViewNet->updateViewNet();
+}
+
+
+
+void
+GNEViewNetHelper::IntervalBar::enableIntervalBar() {
+    // enable elements
+    myGenericDataTypesComboBox->enable();
+    myDataSetsComboBox->enable();
+    myIntervalCheckBox->enable();
+    if (myIntervalCheckBox->getCheck() == TRUE) {
+        myBeginTextField->enable();
+        myEndTextField->enable();
+    } else {
+        myBeginTextField->disable();
+        myEndTextField->disable();
+    }
+    myParametersComboBox->enable();
+}
+
+
+void
+GNEViewNetHelper::IntervalBar::disableIntervalBar() {
+    // disable all elements
+    myGenericDataTypesComboBox->disable();
+    myDataSetsComboBox->disable();
+    myIntervalCheckBox->disable();
+    myBeginTextField->disable();
+    myEndTextField->disable();
+    myParametersComboBox->disable();
 }
 
 // ---------------------------------------------------------------------------

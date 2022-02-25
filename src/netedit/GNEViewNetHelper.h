@@ -758,12 +758,6 @@ struct GNEViewNetHelper {
         /// @brief build interval bar elements
         void buildIntervalBarElements();
 
-        /// @brief enable interval bar
-        void enableIntervalBar();
-
-        /// @brief disable interval bar
-        void disableIntervalBar();
-
         /// @brief show interval option bar
         void showIntervalBar();
 
@@ -818,6 +812,13 @@ struct GNEViewNetHelper {
         void setParameter();
 
         /// @}
+
+    protected:
+        /// @brief enable interval bar
+        void enableIntervalBar();
+
+        /// @brief disable interval bar
+        void disableIntervalBar();
 
     private:
         /// @brief pointer to net

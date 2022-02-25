@@ -4192,8 +4192,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             menuChecks.menuCheckToogleTAZDrawFill->show();
             menuChecks.menuCheckToogleTAZRelOnlyFrom->show();
             menuChecks.menuCheckToogleTAZRelOnlyTo->show();
-            // enable IntervalBar
-            myIntervalBar.enableIntervalBar();
             break;
         case DataEditMode::DATA_DELETE:
             myViewParent->getDeleteFrame()->show();
@@ -4205,8 +4203,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
             // show toogle TAZRel drawing menu check
             menuChecks.menuCheckToogleTAZRelDrawing->show();
-            // enable IntervalBar
-            myIntervalBar.enableIntervalBar();
             break;
         case DataEditMode::DATA_SELECT:
             myViewParent->getSelectorFrame()->show();
@@ -4218,8 +4214,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
             // show toogle TAZRel drawing menu check
             menuChecks.menuCheckToogleTAZRelDrawing->show();
-            // enable IntervalBar
-            myIntervalBar.enableIntervalBar();
             break;
         case DataEditMode::DATA_EDGEDATA:
             myViewParent->getEdgeDataFrame()->show();
@@ -4227,8 +4221,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCurrentFrame = myViewParent->getEdgeDataFrame();
             // set checkable button
             myDataCheckableButtons.edgeDataButton->setChecked(true);
-            // disable IntervalBar
-            myIntervalBar.disableIntervalBar();
             break;
         case DataEditMode::DATA_EDGERELDATA:
             myViewParent->getEdgeRelDataFrame()->show();
@@ -4236,8 +4228,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCurrentFrame = myViewParent->getEdgeRelDataFrame();
             // set checkable button
             myDataCheckableButtons.edgeRelDataButton->setChecked(true);
-            // disable IntervalBar
-            myIntervalBar.disableIntervalBar();
             break;
         case DataEditMode::DATA_TAZRELDATA:
             myViewParent->getTAZRelDataFrame()->show();
@@ -4251,8 +4241,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             // show menu check
             menuChecks.menuCheckToogleTAZRelDrawing->show();
             menuChecks.menuCheckToogleTAZDrawFill->show();
-            // disable IntervalBar
-            myIntervalBar.disableIntervalBar();
             break;
         default:
             break;
