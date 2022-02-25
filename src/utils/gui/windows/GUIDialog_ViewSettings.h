@@ -249,7 +249,10 @@ protected:
     FXColorWell* myContainerStopColorSign;
     FXColorWell* myChargingStationColor;
     FXColorWell* myChargingStationColorSign;
-    FXColorWell* myStopsColor;
+    FXColorWell* myStopColor;
+    FXColorWell* myStopColorCurrent;
+    FXColorWell* myWaypointColor;
+    FXColorWell* myWaypointColorCurrent;
     FXColorWell* myVehicleTripsColor;
     FXColorWell* myStopPersonsColor;
     FXColorWell* myPersonTripColor;
