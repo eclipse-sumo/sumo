@@ -78,8 +78,8 @@ def writeRerouter(edge, t, rerouter, embedded):
 <!ENTITY inputDefinition SYSTEM "input_definition.def.xml">
 ]>
 ''')
-    fdo.write('''<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-''')
+    fdo.write('<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
+            + ' xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
 
     if embedded:
         fdo.write('<rerouter id="rerouter" edges="%s">\n' % (edge))
