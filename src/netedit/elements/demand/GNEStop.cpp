@@ -25,6 +25,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_EnableAttribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
+#include <netedit/frames/demand/GNEStopFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/vehicle/SUMORouteHandler.h>
@@ -322,9 +323,19 @@ GNEStop::getVClass() const {
 const RGBColor&
 GNEStop::getColor() const {
     if (getTagProperty().isPersonPlan() || getTagProperty().isContainerPlan()) {
-        return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopColor;
-    } else {
         return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopPersonColor;
+    } else {
+        // check if parent is being inspected
+        if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front()) || 
+            myNet->getViewNet()->getFrontAttributeCarrier() == getParentDemandElements().front() || 
+            (myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->isDemandElementSelectorShown() &&
+            myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->getCurrentDemandElement() == getParentDemandElements().front())) {
+            return myTagProperty.isWaypoint()? myNet->getViewNet()->getVisualisationSettings().colorSettings.waypointColorCurrent :
+                   myNet->getViewNet()->getVisualisationSettings().colorSettings.stopColorCurrent;
+        } else {
+            return myTagProperty.isWaypoint()? myNet->getViewNet()->getVisualisationSettings().colorSettings.waypointColor :
+                   myNet->getViewNet()->getVisualisationSettings().colorSettings.stopColor;
+        }
     }
 }
 
@@ -1034,7 +1045,7 @@ GNEStop::canDrawVehicleStop() const {
 void
 GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const {;
     // declare value to save stop color
-    const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : myTagProperty.isWaypoint()? s.colorSettings.waypointColor : s.colorSettings.stopColor;
+    const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
     // get lane
     const auto& stopLane = getParentLanes().size() > 0 ? getParentLanes().front() : nullptr;
     // get lane width

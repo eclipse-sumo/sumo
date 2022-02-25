@@ -475,6 +475,12 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     return true;
 }
 
+
+GNEFrameModules::DemandElementSelector*
+GNEStopFrame::getStopParentSelector() const {
+    return myStopParentSelector;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================
