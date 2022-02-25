@@ -1039,6 +1039,13 @@ GNEStop::canDrawVehicleStop() const {
         return true;
     } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
         return true;
+    } else if ((getParentDemandElements().front()->getTagProperty().getTag() == GNE_TAG_VEHICLE_WITHROUTE) ||
+               (getParentDemandElements().front()->getTagProperty().getTag() == GNE_TAG_FLOW_WITHROUTE)) {
+        if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front()->getChildDemandElements().front())) {
+            return true;
+        } else {
+            return false;
+        }
     } else if (myNet->getViewNet()->getDemandViewOptions().showAllTrips()) {
         return true;
     } else {
