@@ -1075,7 +1075,7 @@ MSActuatedTrafficLightLogic::evalTernaryExpression(double a, const std::string& 
     } else if (o == "+") {
         return a + b;
     } else if (o == "-") {
-        return a + b;
+        return a - b;
     } else if (o == "*") {
         return a * b;
     } else if (o == "/") {
