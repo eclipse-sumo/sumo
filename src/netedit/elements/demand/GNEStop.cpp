@@ -112,7 +112,7 @@ GNEStop::getMoveOperation() {
     if ((myTagProperty.getTag() == GNE_TAG_STOPPERSON_EDGE) || (myTagProperty.getTag() == GNE_TAG_STOPCONTAINER_EDGE)) {
         // return move operation for additional placed over shape
         return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), endPos, false);
-    } else if (myTagProperty.getTag() == SUMO_TAG_STOP_LANE) {
+    } else if ((myTagProperty.getTag() == SUMO_TAG_STOP_LANE) || (myTagProperty.getTag() == GNE_TAG_WAYPOINT_LANE)) {
         // get allow change lane
         const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
         // fist check if we're moving only extremes
