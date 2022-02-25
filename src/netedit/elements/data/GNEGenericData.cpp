@@ -230,7 +230,7 @@ GNEGenericData::isVisibleInspectDeleteSelect() const {
     // declare flag
     bool draw = true;
     // check filter by generic data type
-    if ((toolBar.getGenericDataType() != SUMO_ATTR_NOTHING) && (toolBar.getGenericDataType() != myTagProperty.getTag())) {
+    if ((toolBar.getGenericDataType() != SUMO_TAG_NOTHING) && (toolBar.getGenericDataType() != myTagProperty.getTag())) {
         draw = false;
     }
     // check filter by data set
