@@ -492,7 +492,7 @@ GNETagProperties::canCenterCameraAfterCreation() const {
 
 
 bool
-GNETagProperties::embebbedRoute() const {
+GNETagProperties::hasEmbebbedRoute() const {
     return (myTagProperty & EMBEDDED_ROUTE) != 0;
 }
 

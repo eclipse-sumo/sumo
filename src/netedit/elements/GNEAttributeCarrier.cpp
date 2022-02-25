@@ -3502,7 +3502,7 @@ GNEAttributeCarrier::fillVehicleElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE | GNETagProperties::EMBEDDED_ROUTE,
                                       GNETagProperties::EMBEDDED_ROUTE,
                                       GUIIcon::VEHICLE, SUMO_TAG_VEHICLE, {}, FXRGBA(240, 238, 249, 255));
         myTagProperties[currentTag].setFieldString("vehicle (embedded route)");
@@ -3663,7 +3663,7 @@ GNEAttributeCarrier::fillVehicleElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE | GNETagProperties::FLOW,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE | GNETagProperties::FLOW | GNETagProperties::EMBEDDED_ROUTE,
                                       GNETagProperties::EMBEDDED_ROUTE,
                                       GUIIcon::ROUTEFLOW, SUMO_TAG_FLOW, {}, FXRGBA(210, 233, 255, 255));
         myTagProperties[currentTag].setFieldString("flow (embedded route)");

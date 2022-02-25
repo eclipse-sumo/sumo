@@ -1398,7 +1398,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         routeEdges = originalVehicle->getParentDemandElements().back()->getParentEdges();
         // get original route color
         routeColor = originalVehicle->getParentDemandElements().back()->getColor();
-    } else if ((tag == GNE_TAG_VEHICLE_WITHROUTE) || (tag == GNE_TAG_FLOW_WITHROUTE)) {
+    } else if (originalVehicle->getTagProperty().hasEmbebbedRoute()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
@@ -1481,7 +1481,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         routeEdges = originalVehicle->getParentDemandElements().back()->getParentEdges();
         // get original route color
         routeColor = originalVehicle->getParentDemandElements().back()->getColor();
-    } else if ((tag == GNE_TAG_VEHICLE_WITHROUTE) || (tag == GNE_TAG_FLOW_WITHROUTE)) {
+    } else if (originalVehicle->getTagProperty().hasEmbebbedRoute()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
@@ -1574,7 +1574,7 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         route = originalVehicle->getParentDemandElements().back();
         // get route edges
         edges = route->getParentEdges();
-    } else if ((tag == GNE_TAG_VEHICLE_WITHROUTE) || (tag == GNE_TAG_FLOW_WITHROUTE)) {
+    } else if (originalVehicle->getTagProperty().hasEmbebbedRoute()) {
         // get embedded route edges
         edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
@@ -1632,7 +1632,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         route = originalVehicle->getParentDemandElements().back();
         // get route edges
         edges = route->getParentEdges();
-    } else if ((tag == GNE_TAG_VEHICLE_WITHROUTE) || (tag == GNE_TAG_FLOW_WITHROUTE)) {
+    } else if (originalVehicle->getTagProperty().hasEmbebbedRoute()) {
         // get embedded route edges
         edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {

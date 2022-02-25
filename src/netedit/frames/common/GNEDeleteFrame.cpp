@@ -265,6 +265,9 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                 } else {
                     myViewNet->getNet()->deleteDemandElement(objectsUnderCursor.getDemandElementFront(), myViewNet->getUndoList());
                 }
+            } else if (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+                // remove parent demand element
+                myViewNet->getNet()->deleteDemandElement(objectsUnderCursor.getDemandElementFront()->getParentDemandElements().front(), myViewNet->getUndoList());
             } else {
                 // just remove demand element
                 myViewNet->getNet()->deleteDemandElement(objectsUnderCursor.getDemandElementFront(), myViewNet->getUndoList());

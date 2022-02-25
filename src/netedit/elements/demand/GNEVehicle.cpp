@@ -1026,7 +1026,7 @@ GNEVehicle::getFirstPathLane() const {
             // use first route edge
             firstEdge = getParentDemandElements().at(1)->getParentEdges().front();
         }
-    } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
+    } else if (originalVehicle->getTagProperty().hasEmbebbedRoute()) {
         // check if embebbed route exist (due during loading embedded route doesn't exist
         if (getChildDemandElements().empty()) {
             return nullptr;
@@ -1072,7 +1072,7 @@ GNEVehicle::getLastPathLane() const {
             // use last route edge
             lastEdge = getParentDemandElements().at(1)->getParentEdges().back();
         }
-    } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
+    } else if (originalVehicle->getTagProperty().hasEmbebbedRoute()) {
         // check if embebbed route exist (due during loading embedded route doesn't exist)
         if (getChildDemandElements().empty()) {
             return nullptr;
