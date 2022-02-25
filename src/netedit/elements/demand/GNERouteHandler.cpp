@@ -897,7 +897,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         // flag for waypoint (is like a stop, but with extra attribute speed)
         bool waypoint = false;
         // avoid waypoints for person and containers
-        if (stopParent->getTagProperty().isPerson() && stopParent->getTagProperty().isContainer()) {
+        if (!stopParent->getTagProperty().isPerson() && !stopParent->getTagProperty().isContainer()) {
             waypoint = (sumoBaseObject->getStopParameter().parametersSet & STOP_SPEED_SET) || (sumoBaseObject->getStopParameter().speed > 0);
         }
         // declare pointers to parent elements
