@@ -306,8 +306,7 @@ class crossing:
 
 class busStop:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         name = 6
         friendlyPos = 7
         lines = 8
@@ -347,8 +346,7 @@ class busStop:
 
 class trainStop:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         name = 6
         friendlyPos = 7
         lines = 8
@@ -388,8 +386,7 @@ class trainStop:
 
 class containerStop:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         name = 6
         friendlyPos = 7
         lines = 8
@@ -429,8 +426,7 @@ class containerStop:
 
 class chargingStation:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         name = 6
         friendlyPos = 7
         power = 8
@@ -486,8 +482,7 @@ class access:
 
 class parkingArea:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         departPos = 6
         name = 7
         roadSideCapacity = 8
@@ -561,8 +556,7 @@ class parkingSpace:
 
 class E1:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         freq = 6
         name = 7
         file = 8
@@ -593,8 +587,7 @@ class E1:
 
 class E2:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         length = 6
         freq = 7
         tl = 8
@@ -640,8 +633,7 @@ class E2:
 
 class E2Multilane:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         freq = 6
         tl = 7
         name = 8
@@ -685,8 +677,7 @@ class E2Multilane:
 
 class E3:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         freq = 6
         name = 7
         file = 8
@@ -739,8 +730,7 @@ class entryExit:
 
 class E1Instant:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         name = 6
         file = 7
         vTypes = 8
@@ -768,8 +758,7 @@ class E1Instant:
 
 class calibrator:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         pos = 6
         frequency = 7
         name = 8
@@ -806,8 +795,7 @@ class calibrator:
 
 class routeProbe:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         frequency = 6
         name = 7
         file = 8
@@ -862,8 +850,7 @@ class vaporizer:
 
 class Poly:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         colorButton = 6
         color = 7
         fill = 8
@@ -914,8 +901,7 @@ class Poly:
 
 class POI:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         colorButton = 6
         color = 7
         type = 8
@@ -960,8 +946,7 @@ class POI:
 
 class POIGEO:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         colorButton = 6
         color = 7
         type = 8
@@ -1008,8 +993,7 @@ class POIGEO:
 
 class POILane:
     class create:
-        idEnable = 5
-        id = 6
+        id = 5
         friendlyPos = 6
         posLat = 7
         colorButton = 8
@@ -1099,8 +1083,7 @@ class TAZ:
 
 class route:
     class create:
-        idEnable = 7
-        id = 8
+        id = 7
         colorButton = 8
         color = 9
         repeat = 10
@@ -1128,8 +1111,7 @@ class route:
 class tripFromToEdge:
     class create:
         type = 5
-        idEnable = 8
-        id = 9
+        id = 8
         colorButton = 9
         color = 10
         departLane = 11
@@ -1191,8 +1173,7 @@ class tripFromToEdge:
 class tripFromToJunction:
     class create:
         type = 5
-        idEnable = 8
-        id = 9
+        id = 8
         colorButton = 9
         color = 10
         departLane = 11
@@ -1253,8 +1234,7 @@ class tripFromToJunction:
 class vehicle:
     class create:
         type = 5
-        idEnable = 8
-        id = 9
+        id = 8
         colorButton = 9
         color = 10
         departLane = 11
@@ -1316,8 +1296,7 @@ class vehicle:
 class vehicleEmbedded:
     class create:
         type = 5
-        idEnable = 8
-        id = 9
+        id = 8
         colorButton = 9
         color = 10
         departLane = 11
@@ -1378,8 +1357,7 @@ class vehicleEmbedded:
 class flowFromToEdge:
     class create:
         type = 5
-        idEnable = 8
-        id = 9
+        id = 8
         colorButton = 9
         color = 10
         departLane = 11
@@ -1456,8 +1434,7 @@ class flowFromToEdge:
 class routeflow:
     class create:
         type = 5
-        idEnable = 8
-        id = 9
+        id = 8
         colorButton = 9
         color = 10
         departLane = 11
@@ -1534,8 +1511,7 @@ class routeflow:
 class flowEmbedded:
     class create:
         type = 5
-        idEnable = 8
-        id = 9
+        id = 8
         colorButton = 9
         color = 10
         departLane = 11

@@ -3,7 +3,6 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 poi
 TestFunctions: Clicked over position 404 - 218
-TestFunctions: Clicked over position 424 - 218
 ;;;;;;
 TestFunctions: Clicked over position 444 - 218
 poi_0

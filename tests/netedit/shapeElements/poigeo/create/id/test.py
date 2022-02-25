@@ -37,12 +37,6 @@ netedit.changeElement("poiGeo")
 # create poi
 netedit.leftClick(referencePosition, 100, 50)
 
-# enable ID
-netedit.changeDefaultBoolValue(netedit.attrs.POIGEO.create.idEnable)
-
-# create poi
-netedit.leftClick(referencePosition, 120, 50)
-
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.POIGEO.create.id, ";;;;;;")
 

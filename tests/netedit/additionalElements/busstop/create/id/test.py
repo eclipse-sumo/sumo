@@ -37,9 +37,6 @@ netedit.changeElement("busStop")
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
-# enable ID
-netedit.changeDefaultBoolValue(netedit.attrs.busStop.create.idEnable)
-
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.busStop.create.id, ";;;;;;;;;;;;;;;;")
 

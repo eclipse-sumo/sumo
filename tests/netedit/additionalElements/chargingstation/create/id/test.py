@@ -34,13 +34,8 @@ netedit.additionalMode()
 # select chargingStation
 netedit.changeElement("chargingStation")
 
-# enable ID
-netedit.changeDefaultBoolValue(netedit.attrs.chargingStation.create.idEnable)
-
 # create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
-
-netedit.changeDefaultBoolValue(netedit.attrs.chargingStation.create.idEnable)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.id, ";;;;;;;;;;;;;;;;")

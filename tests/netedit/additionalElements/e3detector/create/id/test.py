@@ -37,9 +37,6 @@ netedit.additionalMode()
 # select E3
 netedit.changeElement("e3Detector")
 
-# enable name
-netedit.changeDefaultBoolValue(netedit.attrs.E3.create.idEnable)
-
 # set invalid id
 netedit.changeDefaultValue(netedit.attrs.E3.create.id, ";;;;;;")
 

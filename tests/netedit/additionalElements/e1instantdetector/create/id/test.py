@@ -38,7 +38,6 @@ netedit.changeElement("instantInductionLoop")
 netedit.leftClick(referencePosition, 140, 245)
 
 # set a invalid  id (duplicated)
-netedit.changeDefaultBoolValue(netedit.attrs.E1Instant.create.idEnable)
 netedit.changeDefaultValue(netedit.attrs.E1Instant.create.id, "e1i_0")
 
 # try to create E1 with invalid id

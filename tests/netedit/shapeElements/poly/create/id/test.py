@@ -37,9 +37,6 @@ netedit.changeElement("poly")
 # create polygon
 netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
-# enable ID
-netedit.changeDefaultBoolValue(netedit.attrs.Poly.create.idEnable)
-
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.Poly.create.id, ";;;;;;")
 

@@ -37,9 +37,6 @@ netedit.changeElement("containerStop")
 # create containerStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
-# enable ID
-netedit.changeDefaultBoolValue(netedit.attrs.containerStop.create.idEnable)
-
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, ";;;;;;;;;;;;;;;;")
 
