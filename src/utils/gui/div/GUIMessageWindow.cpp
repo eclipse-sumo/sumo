@@ -37,6 +37,15 @@
 bool GUIMessageWindow::myLocateLinks = true;
 SUMOTime GUIMessageWindow::myBreakPointOffset = TIME2STEPS(-5);
 
+/* -------------------------------------------------------------------------
+ * GUISUMOAbstractView - FOX callback mapping
+ * ----------------------------------------------------------------------- */
+FXDEFMAP(GUIMessageWindow) GUIMessageWindowMap[] = {
+    FXMAPFUNC(SEL_KEYPRESS,             0,      GUIMessageWindow::onKeyPress),
+};
+
+
+FXIMPLEMENT_ABSTRACT(GUIMessageWindow, FXText, GUIMessageWindowMap, ARRAYNUMBER(GUIMessageWindowMap))
 
 // ===========================================================================
 // method definitions
@@ -344,5 +353,14 @@ GUIMessageWindow::unregisterMsgHandlers() {
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
 }
 
+long
+GUIMessageWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
+    FXEvent* e = (FXEvent*) ptr;
+    // permit ctrl+a, ctrl+c
+    if (e->state & CONTROLMASK) {
+        return FXText::onKeyPress(o, sel, ptr);
+    }
+    return 0;
+}
 
 /****************************************************************************/
