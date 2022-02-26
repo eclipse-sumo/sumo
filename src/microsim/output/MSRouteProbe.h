@@ -133,6 +133,9 @@ public:
     void clearState() override;
 
 private:
+    void initDistributions();
+
+private:
     std::string myDistID;
     std::string myLastID;
 
