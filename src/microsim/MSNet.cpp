@@ -843,11 +843,12 @@ MSNet::clearState(const SUMOTime step) {
     myInserter->clearState();
     myVehicleControl->clearState(true);
     MSVehicleTransfer::getInstance()->clearState();
-    MSRoute::dict_clearState(); // delete all routes after vehicles are deleted
     myLogics->clearState();
     myDetectorControl->updateDetectors(myStep);
     myDetectorControl->writeOutput(myStep, true);
     myDetectorControl->clearState();
+    // delete all routes after vehicles and detector output is done
+    MSRoute::dict_clearState();
     for (auto& item : myStoppingPlaces) {
         for (auto& item2 : item.second) {
             item2.second->clearState();
@@ -1515,6 +1516,25 @@ MSNet::warnOnce(const std::string& typeAndID) {
     return false;
 }
 
+void
+MSNet::quickReload() {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    clearState(string2time(oc.getString("begin")));
+    NLBuilder::initRandomness();
+    // load traffic from additional files
+    for (std::string file : oc.getStringVector("additional-files")) {
+        // ignore failure on parsing calibrator flow
+        MSRouteHandler rh(file, true);
+        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading traffic from '" + file + "'");
+        if (!XMLSubSys::runParser(rh, file, false)) {
+            throw ProcessError("Loading of " + file + " failed.");
+        }
+        PROGRESS_TIME_MESSAGE(before);
+    }
+    delete myRouteLoaders;
+    myRouteLoaders = NLBuilder::buildRouteLoaderControl(OptionsCont::getOptions());
+    updateGUI();
+}
 
 SUMOTime
 MSNet::loadState(const std::string& fileName) {

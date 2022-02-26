@@ -82,6 +82,7 @@ SUMORouteHandler::registerLastDepart() {
 
 void
 SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    myElementStack.push_back(element);
     switch (element) {
         case SUMO_TAG_VEHICLE:
             // delete if myVehicleParameter isn't null
@@ -113,9 +114,14 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             // delete if myVehicleParameter isn't null
             if (myVehicleParameter) {
                 delete myVehicleParameter;
+                myVehicleParameter = nullptr;
             }
             // parse vehicle parameters
-            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, true, myBeginDefault, myEndDefault);
+            // might be called to parse vehicles from additional file in the
+            // context of quickReload. In this case, rerouter flows must be ignored
+            if (myElementStack.size() == 1 || myElementStack[myElementStack.size() - 2] != SUMO_TAG_CALIBRATOR) {;
+                myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, true, myBeginDefault, myEndDefault);
+            }
             // check if myVehicleParameter was sucesfully created
             if (myVehicleParameter) {
                 // check tag
@@ -268,8 +274,10 @@ SUMORouteHandler::myEndElement(int element) {
                 break;
             }
         case SUMO_TAG_FLOW:
-            closeFlow();
-            delete myVehicleParameter;
+            if (myVehicleParameter) {
+                closeFlow();
+                delete myVehicleParameter;
+            }
             myVehicleParameter = nullptr;
             myInsertStopEdgesAt = -1;
             break;
@@ -292,6 +300,7 @@ SUMORouteHandler::myEndElement(int element) {
         default:
             break;
     }
+    myElementStack.pop_back();
 }
 
 

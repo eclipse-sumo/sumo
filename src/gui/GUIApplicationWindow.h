@@ -140,6 +140,9 @@ public:
     /// @brief Called on reload
     long onCmdReload(FXObject*, FXSelector, void*);
 
+    /// @brief Called on quick-reload
+    long onCmdQuickReload(FXObject*, FXSelector, void*);
+
     /// @brief Called on opening a recent file
     long onCmdOpenRecent(FXObject*, FXSelector, void*);
 

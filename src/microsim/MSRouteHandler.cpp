@@ -199,7 +199,9 @@ MSRouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 addContainer(attrs);
                 break;
             case SUMO_TAG_FLOW:
-                parseFromViaTo((SumoXMLTag)element, attrs);
+                if (myVehicleParameter) {
+                    parseFromViaTo((SumoXMLTag)element, attrs);
+                }
                 break;
             case SUMO_TAG_TRIP:
                 parseFromViaTo((SumoXMLTag)element, attrs);

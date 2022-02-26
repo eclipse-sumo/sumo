@@ -590,6 +590,9 @@ public:
     /// @brief load state from file and return new time
     SUMOTime loadState(const std::string& fileName);
 
+    /// @brief reset state to the beginning without reloading the network
+    void quickReload();
+
     /// @name Notification about vehicle state changes
     /// @{
 

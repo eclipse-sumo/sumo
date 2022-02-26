@@ -105,6 +105,8 @@ enum {
     MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,
     /// @brief Reload the previously loaded simulation
     MID_HOTKEY_CTRL_R_RELOAD,
+    /// @brief Quick-Reload the previously loaded simulation (keep the net)
+    MID_HOTKEY_CTRL_QUICK_RELOAD,
     /// @brief Open current network in SUMO or in NETEDIT
     MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,
     /// @brief paste the current selection / element

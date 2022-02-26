@@ -111,6 +111,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_EDGEDATA,                                  GUIApplicationWindow::onCmdOpenEdgeData),
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                                     GUIApplicationWindow::onCmdOpenRecent),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R_RELOAD,                           GUIApplicationWindow::onCmdReload),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_QUICK_RELOAD,                       GUIApplicationWindow::onCmdQuickReload),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,             GUIApplicationWindow::onCmdSaveConfig),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_W_CLOSESIMULATION,                  GUIApplicationWindow::onCmdClose),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITCHOSEN,                                     GUIApplicationWindow::onCmdEditChosen),
@@ -155,6 +156,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_P,          GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_EDGEDATA,          GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,   GUIApplicationWindow::onUpdReload),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_QUICK_RELOAD, GUIApplicationWindow::onUpdReload),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,             GUIApplicationWindow::onUpdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,          GUIApplicationWindow::onUpdAddView),
 #ifdef HAVE_OSG
@@ -419,6 +421,9 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            "&Reload", "Ctrl+R", "Reloads the simulation / the network.",
                                            GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_HOTKEY_CTRL_R_RELOAD);
+    GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
+                                           "Quick-Reload", "Ctrl+0", "Reloads the simulation (but not network).",
+                                           GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_HOTKEY_CTRL_QUICK_RELOAD);
     new FXMenuSeparator(myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            "Save Configuration", "Ctrl+Shift+S", "Save current options as a configuration file.",
@@ -1004,6 +1009,16 @@ GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
         myLoadThread->start();
         setStatusBarText("Reloading.");
         update();
+    }
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdQuickReload(FXObject*, FXSelector, void*) {
+    if (!myAmLoading) {
+        setStatusBarText("Quick-Reloading.");
+        MSNet::getInstance()->quickReload();
     }
     return 1;
 }

@@ -270,6 +270,8 @@ protected:
      */
     virtual void myEndElement(int element);
 
+    /// @brief signal endElement to the parent handler (special case for MSCalibrator)
+    void callParentEnd(int element);
 
 private:
     /**

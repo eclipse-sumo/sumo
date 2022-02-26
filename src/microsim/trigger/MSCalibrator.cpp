@@ -221,6 +221,8 @@ MSCalibrator::myEndElement(int element) {
         if (!myDidInit) {
             init();
         }
+        // ensure correct state of SUMORouteHandler::myElementStack
+        callParentEnd(element);
     } else if (element != SUMO_TAG_FLOW) {
         MSRouteHandler::myEndElement(element);
     }

@@ -243,5 +243,11 @@ GenericSAXHandler::myCharacters(int, const std::string&) {}
 void
 GenericSAXHandler::myEndElement(int) {}
 
+void
+GenericSAXHandler::callParentEnd(int element) {
+    if (myParentHandler) {
+        myParentHandler->myEndElement(element);
+    }
+}
 
 /****************************************************************************/
