@@ -1,0 +1,13 @@
+sumo: /home/erdm_ja/scr1/sumoD/src/microsim/MSVehicleControl.cpp:337: void MSVehicleControl::removeVType(const MSVehicleType*): Assertion `myVTypeDict.find(vehType->getID()) != myVTypeDict.end()' failed.
+Traceback (most recent call last):
+  File "/home/erdm_ja/scr1/sumoD/tests/../tests/complex/traci/simulation/loadState/persons2/runner.py", line 40, in <module>
+    traci.simulation.loadState("state.xml")
+  File "/scr1/sumoD/tools/traci/_simulation.py", line 646, in loadState
+    self._setCmd(tc.CMD_LOAD_SIMSTATE, "", "s", fileName)
+  File "/scr1/sumoD/tools/traci/domain.py", line 189, in _setCmd
+    self._connection._sendCmd(self._cmdSetID, varID, objectID, format, *values)
+  File "/scr1/sumoD/tools/traci/connection.py", line 185, in _sendCmd
+    return self._sendExact()
+  File "/scr1/sumoD/tools/traci/connection.py", line 95, in _sendExact
+    raise FatalTraCIError("connection closed by SUMO")
+traci.exceptions.FatalTraCIError: connection closed by SUMO

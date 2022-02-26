@@ -25,5 +25,6 @@ tlProgramOnline
 # load persons but do not include them in the state
 persons
 
-# route files must be rewound when loading state to ensure that all vehicles will be present
-reset_routeFiles
+# save state while the simulation has persons, but do not load them, 
+# then load the state 
+persons2
