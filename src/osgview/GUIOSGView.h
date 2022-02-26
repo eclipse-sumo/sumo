@@ -110,6 +110,7 @@ public:
     struct OSGMovable {
         osg::ref_ptr<osg::PositionAttitudeTransform> pos;
         osg::ref_ptr<osg::ShapeDrawable> geom;
+        osg::ref_ptr<osg::Material> mat;
         osg::ref_ptr<osg::Switch> lights;
         bool active;
     };
