@@ -130,12 +130,17 @@ public:
         return myEdge;
     }
 
+    void clearState() override;
+
 private:
+    std::string myDistID;
+    std::string myLastID;
+
     /// @brief The previous distribution of routes (probability->route)
-    std::pair<std::string, RandomDistributor<const MSRoute*>*> myLastRouteDistribution;
+    RandomDistributor<const MSRoute*>* myLastRouteDistribution;
 
     /// @brief The current distribution of routes (probability->route)
-    std::pair<std::string, RandomDistributor<const MSRoute*>*> myCurrentRouteDistribution;
+    RandomDistributor<const MSRoute*>* myCurrentRouteDistribution;
 
     /// @brief the edge of this route probe
     const MSEdge* myEdge;
