@@ -1408,4 +1408,11 @@ MSEdge::inferEdgeType() {
     }
 }
 
+
+void
+MSEdge::clearState() {
+    myPersons.clear();
+    myContainers.clear();
+}
+
 /****************************************************************************/

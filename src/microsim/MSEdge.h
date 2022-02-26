@@ -746,6 +746,9 @@ public:
      */
     SUMOVehicle* getWaitingVehicle(MSTransportable* transportable, const double position) const;
 
+    /** @brief Remove all transportables before quick-loading state */
+    void clearState();
+
     /// @brief update meso segment parameters
     void updateMesoType();
 

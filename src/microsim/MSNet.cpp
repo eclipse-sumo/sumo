@@ -838,9 +838,17 @@ MSNet::clearState(const SUMOTime step) {
                 lane->clearState();
                 lane->releaseVehicles();
             }
+            edge->clearState();
         }
     }
     myInserter->clearState();
+    if (myPersonControl != nullptr) {
+        myPersonControl->clearState();
+    }
+    if (myContainerControl != nullptr) {
+        myContainerControl->clearState();
+    }
+    // delete vtypes after transportables have removed their types
     myVehicleControl->clearState(true);
     MSVehicleTransfer::getInstance()->clearState();
     myLogics->clearState();
@@ -858,12 +866,6 @@ MSNet::clearState(const SUMOTime step) {
     myBeginOfTimestepEvents->clearState(myStep, step);
     myEndOfTimestepEvents->clearState(myStep, step);
     myInsertionEvents->clearState(myStep, step);
-    if (myPersonControl != nullptr) {
-        myPersonControl->clearState();
-    }
-    if (myContainerControl != nullptr) {
-        myContainerControl->clearState();
-    }
     myStep = step;
     MSGlobals::gClearState = false;
 }
