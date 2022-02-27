@@ -363,8 +363,11 @@ MSInsertionControl::saveState(OutputDevice& out) {
     for (const Flow& flow : myFlows) {
         flow.pars->write(out, OptionsCont::getOptions(), SUMO_TAG_FLOWSTATE,
                 flow.pars->vtypeid == DEFAULT_VTYPE_ID ? "" : flow.pars->vtypeid);
-        if (flow.pars->repetitionProbability <= 0 || flow.pars->repetitionEnd == SUMOTime_MAX) {
+        if (flow.pars->repetitionEnd == SUMOTime_MAX) {
             out.writeAttr(SUMO_ATTR_NUMBER, flow.pars->repetitionNumber);
+        }
+        if (flow.pars->repetitionProbability <= 0) {
+            out.writeAttr(SUMO_ATTR_PERIOD, STEPS2TIME(flow.pars->repetitionOffset));
         }
         if (flow.pars->repetitionProbability > 0) {
             out.writeAttr(SUMO_ATTR_PROB, flow.pars->repetitionProbability);

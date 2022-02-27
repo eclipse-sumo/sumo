@@ -221,8 +221,6 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             bool ok;
             SUMOVehicleParameter* pars = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOWSTATE, attrs, true, true, -1, -1);
             pars->repetitionsDone = attrs.get<int>(SUMO_ATTR_DONE, pars->id.c_str(), ok);
-            pars->repetitionNumber = attrs.getOpt<int>(SUMO_ATTR_NUMBER, pars->id.c_str(), ok, std::numeric_limits<int>::max());
-            pars->repetitionProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, pars->id.c_str(), ok, -1);
             int index = attrs.getInt(SUMO_ATTR_INDEX);
             MSNet::getInstance()->getInsertionControl().addFlow(pars, index);
             break;
