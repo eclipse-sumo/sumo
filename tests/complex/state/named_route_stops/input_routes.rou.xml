@@ -1,0 +1,13 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <route id="r0" edges="beg middle end">
+        <stop busStop="busstop" duration="20" parking="true"/>
+    </route>
+
+    <vehicle id="v0" type="t0" route="r0" depart="0"/>
+
+    <vehicle id="v1" type="t0" route="r0" depart="23"/>
+
+    <vehicle id="v2" type="t0" route="r0" depart="303"/>
+
+</routes>

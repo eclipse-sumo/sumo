@@ -58,6 +58,9 @@ save_stopped
 # like save_stopped but the input already containts started/ended information
 save_stopped_started_ended
 
+# save stops in named routes
+named_route_stops
+
 # restore further lanes according to previous route when loading state
 rail_furtherLane
 
