@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-25 07:32:44 by Eclipse SUMO sumo Version v1_12_0+0861-d8492c4
+<!-- generated on 2022-02-27 23:23:57 by Eclipse SUMO sumo Version v1_12_0+0913-90078b0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -33,7 +33,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+0861-d8492c4" time="10.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+0913-90078b0" time="10.00" type="meso">
     <route id="!flowFromTo" state="1" edges="beg end"/>
     <route id="!flowFromTo.0!var#1" state="0" edges="beg middle end"/>
     <route id="r0" state="1" edges="beg middle end"/>
@@ -48,9 +48,9 @@
     </vehicle>
     <vehicle id="flowNumber.1" type="t0" depart="8.00" route="r0" distance="0 0" speedFactor="1.00" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807"/>
     <vehicle id="flowPeriod.0" type="t0" depart="5.00" route="r0" distance="0 0" speedFactor="1.00" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807"/>
-    <flowState id="flowNumber" type="t0" begin="0.00" number="5" end="40.00" route="r0" done="2" index="2"/>
-    <flowState id="flowFromTo" type="t0" begin="0.00" number="2" end="20.00" route="!flowFromTo" done="1" index="1" reroute="1"/>
-    <flowState id="flowPeriod" type="t0" begin="5.00" number="10" end="55.00" route="r0" done="1" index="1"/>
+    <flowState id="flowNumber" type="t0" begin="0.00" period="8.00" end="40.00" route="r0" done="2" index="2"/>
+    <flowState id="flowFromTo" type="t0" begin="0.00" period="10.00" end="20.00" route="!flowFromTo" done="1" index="1" reroute="1"/>
+    <flowState id="flowPeriod" type="t0" begin="5.00" period="5.00" end="55.00" route="r0" done="1" index="1"/>
     <flowState id="flowProb" type="t0" begin="20.00" probability="0.10" end="100.00" route="r0" done="0" index="0"/>
     <segment id="beg:0">
         <vehicles time="15630" value="flowFromTo.0"/>
