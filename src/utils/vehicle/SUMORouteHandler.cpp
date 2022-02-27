@@ -70,7 +70,7 @@ SUMORouteHandler::checkLastDepart() {
 void
 SUMORouteHandler::registerLastDepart() {
     // register only non public transport to parse all public transport lines in advance
-    if (myVehicleParameter->line == "" && myVehicleParameter->departProcedure == DEPART_GIVEN) {
+    if (myVehicleParameter && myVehicleParameter->line == "" && myVehicleParameter->departProcedure == DEPART_GIVEN) {
         myLastDepart = myVehicleParameter->depart;
         if (myFirstDepart == -1) {
             myFirstDepart = myLastDepart;

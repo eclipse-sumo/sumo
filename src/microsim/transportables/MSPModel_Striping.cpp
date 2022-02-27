@@ -143,15 +143,16 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
 
 MSPModel_Striping::~MSPModel_Striping() {
     clearState();
+    myWalkingAreaPaths.clear(); // need to recompute when lane pointers change
+    myWalkingAreaFoes.clear();
+    myMinNextLengths.clear();
 }
 
 void
 MSPModel_Striping::clearState() {
     myActiveLanes.clear();
     myNumActivePedestrians = 0;
-    myWalkingAreaPaths.clear(); // need to recompute when lane pointers change
-    myWalkingAreaFoes.clear();
-    myMinNextLengths.clear();
+    myAmActive = false;
 }
 
 MSTransportableStateAdapter*
@@ -1596,7 +1597,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, std::i
 
         if (wapLaneFrom != "null") {
             MSLane* from = MSLane::dictionary(wapLaneFrom);
-            MSLane* to = MSLane::dictionary(wapLaneFrom);
+            MSLane* to = MSLane::dictionary(wapLaneTo);
             if (from == nullptr) {
                 throw ProcessError("Unknown walkingAreaPath origin lane '" + wapLaneFrom + "' when loading walk for person '" + myPerson->getID() + "' from state.");
             }
@@ -1607,7 +1608,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, std::i
             if (pathIt != myWalkingAreaPaths.end()) {
                 myWalkingAreaPath = &pathIt->second;
             } else {
-                throw ProcessError("Unknown walkingAreaPath from lane '" + wapLaneFrom + "' to lane '" + wapLaneFrom + "' wawhen loading walk for person '" + myPerson->getID() + "' from state.");
+                throw ProcessError("Unknown walkingAreaPath from lane '" + wapLaneFrom + "' to lane '" + wapLaneTo + "' when loading walk for person '" + myPerson->getID() + "' from state.");
             }
         }
     }

@@ -463,7 +463,8 @@ MSTransportable::saveState(OutputDevice& out) {
     std::ostringstream state;
     int stepIdx = (int)(myStep - myPlan->begin());
     for (auto it = myPlan->begin(); it != myStep; ++it) {
-        if ((*it)->getStageType() == MSStageType::TRIP) {
+        const MSStageType st = (*it)->getStageType();
+        if (st == MSStageType::TRIP || st == MSStageType::ACCESS) {
             stepIdx--;
         }
     }
