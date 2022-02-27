@@ -25,6 +25,10 @@ tlProgramOnline
 # load persons but do not include them in the state
 persons
 
-# save state while the simulation has persons, but do not load them, 
+# save state while the simulation has persons, but do not save them, 
 # then load the state 
 persons2
+
+# save state while the simulation has persons, and include the min the state.
+# then load the state 
+persons_include
