@@ -11,5 +11,5 @@
 -a input_additional.add.xml
 --vehroute-output vehroutes2.xml
 --default.speeddev 0
---compare vehroutes:9:3
+--compare vehroutes:31:34
 tests/complex/state/runner.py
