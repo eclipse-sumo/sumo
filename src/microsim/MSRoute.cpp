@@ -264,9 +264,18 @@ MSRoute::dict_saveState(OutputDevice& out) {
     FXMutexLock f(myDictMutex);
 #endif
     for (RouteDict::iterator it = myDict.begin(); it != myDict.end(); ++it) {
-        out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_ID, (*it).second->getID());
-        out.writeAttr(SUMO_ATTR_STATE, (*it).second->myAmPermanent);
-        out.writeAttr(SUMO_ATTR_EDGES, (*it).second->myEdges).closeTag();
+        const MSRoute* r = (*it).second;
+        out.openTag(SUMO_TAG_ROUTE);
+        out.writeAttr(SUMO_ATTR_ID, r->getID());
+        out.writeAttr(SUMO_ATTR_STATE, r->myAmPermanent);
+        out.writeAttr(SUMO_ATTR_EDGES, r->myEdges);
+        if (r->myColor != nullptr) {
+            out.writeAttr(SUMO_ATTR_COLOR, *r->myColor);
+        }
+        for (auto stop : r->getStops()) {
+            stop.write(out);
+        }
+        out.closeTag();
     }
     for (const auto& item : myDistDict) {
         if (item.second.first->getVals().size() > 0) {

@@ -613,7 +613,7 @@ MSRouteHandler::closeVehicle() {
     SUMOVehicle* vehicle = nullptr;
     if (vehControl.getVehicle(myVehicleParameter->id) == nullptr) {
         try {
-            vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype, !MSGlobals::gCheckRoutes);
+            vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype, !MSGlobals::gCheckRoutes, true, !myAmLoadingState);
         } catch (const ProcessError& e) {
             if (!MSGlobals::gCheckRoutes) {
                 WRITE_WARNING(e.what());
@@ -663,7 +663,7 @@ MSRouteHandler::closeVehicle() {
                     // resample type
                     vtype = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
                 }
-                vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes);
+                vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes, true, !myAmLoadingState);
                 vehControl.addVehicle(newPars->id, vehicle);
             }
             myVehicleParameter = nullptr;

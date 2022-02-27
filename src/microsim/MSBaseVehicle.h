@@ -585,7 +585,7 @@ public:
      *
      * @param[in] ignoreStopErrors whether invalid stops trigger a warning only
      */
-    void addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart = nullptr);
+    void addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart = nullptr, bool addRouteStops = true);
 
     /// @brief check whether all stop.edge MSRouteIterators are valid and in order
     bool haveValidStopEdges() const;

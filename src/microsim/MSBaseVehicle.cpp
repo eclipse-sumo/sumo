@@ -1152,14 +1152,16 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
 
 
 void
-MSBaseVehicle::addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart) {
-    for (const SUMOVehicleParameter::Stop& stop : myRoute->getStops()) {
-        std::string errorMsg;
-        if (!addStop(stop, errorMsg, myParameter->depart, stop.startPos == stop.endPos, searchStart) && !ignoreStopErrors) {
-            throw ProcessError(errorMsg);
-        }
-        if (errorMsg != "") {
-            WRITE_WARNING(errorMsg);
+MSBaseVehicle::addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart, bool addRouteStops) {
+    if (addRouteStops) {
+        for (const SUMOVehicleParameter::Stop& stop : myRoute->getStops()) {
+            std::string errorMsg;
+            if (!addStop(stop, errorMsg, myParameter->depart, stop.startPos == stop.endPos, searchStart) && !ignoreStopErrors) {
+                throw ProcessError(errorMsg);
+            }
+            if (errorMsg != "") {
+                WRITE_WARNING(errorMsg);
+            }
         }
     }
     const SUMOTime untilOffset = myParameter->repetitionOffset > 0 ? myParameter->repetitionsDone * myParameter->repetitionOffset : 0;

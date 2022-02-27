@@ -61,7 +61,8 @@ public:
      */
     SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs,
                               const MSRoute* route, MSVehicleType* type,
-                              const bool ignoreStopErrors, const bool fromRouteFile = true);
+                              const bool ignoreStopErrors, const bool fromRouteFile = true,
+                              bool addRouteStops = true) override;
     /// @}
 
     /** @brief Tries to insert the vehicle into the internal vehicle container

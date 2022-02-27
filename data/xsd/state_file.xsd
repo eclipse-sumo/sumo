@@ -150,9 +150,14 @@
     </xsd:complexType>
 
     <xsd:complexType name="routeStateType">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="stop" type="stopType"/>
+            <xsd:element name="param" type="paramType"/>
+        </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="state" type="xsd:string" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="required"/>
+        <xsd:attribute name="color" type="colorType"/>
     </xsd:complexType>
 
     <xsd:complexType name="laneStateType">

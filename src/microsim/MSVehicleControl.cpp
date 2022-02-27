@@ -102,19 +102,19 @@ MSVehicleControl::initDefaultTypes() {
 SUMOVehicle*
 MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                const MSRoute* route, MSVehicleType* type,
-                               const bool ignoreStopErrors, const bool fromRouteFile) {
+                               const bool ignoreStopErrors, const bool fromRouteFile, bool addRouteStops) {
     MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : nullptr));
-    initVehicle(built, ignoreStopErrors);
+    initVehicle(built, ignoreStopErrors, addRouteStops);
     return built;
 }
 
 
 void
-MSVehicleControl::initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors) {
+MSVehicleControl::initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors, bool addRouteStops) {
     myLoadedVehNo++;
     try {
         built->initDevices();
-        built->addStops(ignoreStopErrors);
+        built->addStops(ignoreStopErrors, nullptr, addRouteStops);
     } catch (ProcessError&) {
         delete built;
         throw;
