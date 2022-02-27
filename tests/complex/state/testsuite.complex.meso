@@ -33,6 +33,13 @@ multique
 
 save_cyclic_stops
 save_flow
+
+# flow saving with already ended vehicles
+save_flow50
+
+# save and load flow but do not load the original route file
+load_flow_state_only
+
 save_parking
 save_parking_busStop
 save_rng
