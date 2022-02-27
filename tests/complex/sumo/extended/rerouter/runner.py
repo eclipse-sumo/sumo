@@ -79,7 +79,7 @@ def writeRerouter(edge, t, rerouter, embedded):
 ]>
 ''')
     fdo.write('<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
-            + ' xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
+              + ' xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
 
     if embedded:
         fdo.write('<rerouter id="rerouter" edges="%s">\n' % (edge))
