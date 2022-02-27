@@ -30,6 +30,8 @@ set(utils_foxtools_STAT_SRCS
    MFXCheckableButton.h
    MFXRealSpinner.cpp
    MFXRealSpinner.h
+   MFXComboBox.cpp
+   MFXComboBox.h
    MFXEditableTable.cpp
    MFXEditableTable.h
    MFXIconComboBox.cpp
