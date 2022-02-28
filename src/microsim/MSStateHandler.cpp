@@ -387,8 +387,9 @@ MSStateHandler::myEndElement(int element) {
         case SUMO_TAG_PERSON:
         case SUMO_TAG_CONTAINER: {
             MSTransportableControl& tc = (element == SUMO_TAG_PERSON ? MSNet::getInstance()->getPersonControl() : MSNet::getInstance()->getContainerControl());
-            tc.get(myAttrs->getString(SUMO_ATTR_ID))->loadState(myAttrs->getString(SUMO_ATTR_STATE));
-            tc.fixLoadCount();
+            MSTransportable* transportable = tc.get(myAttrs->getString(SUMO_ATTR_ID));
+            transportable->loadState(myAttrs->getString(SUMO_ATTR_STATE));
+            tc.fixLoadCount(transportable);
             delete myAttrs;
             myAttrs = nullptr;
             break;

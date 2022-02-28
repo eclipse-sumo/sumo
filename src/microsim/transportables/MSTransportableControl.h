@@ -174,9 +174,7 @@ public:
     }
 
     /// @brief decrement counter to avoid double counting transportables loaded from state
-    void fixLoadCount() {
-        myLoadedNumber--;
-    }
+    void fixLoadCount(const MSTransportable* transportable);
 
     /// @name Retrieval of transportable statistics (always accessible)
     /// @{

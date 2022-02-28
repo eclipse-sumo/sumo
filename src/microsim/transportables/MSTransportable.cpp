@@ -333,7 +333,7 @@ MSTransportable::hasArrived() const {
 
 bool
 MSTransportable::hasDeparted() const {
-    return myPlan->size() > 0 && myPlan->front()->getDeparted() >= 0;
+    return myPlan->size() > 0 && (myPlan->front()->getDeparted() >= 0 || myStep > myPlan->begin());
 }
 
 

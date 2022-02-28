@@ -94,6 +94,22 @@ MSTransportableControl::add(MSTransportable* transportable) {
     return false;
 }
 
+void
+MSTransportableControl::fixLoadCount(const MSTransportable* transportable) {
+    myLoadedNumber--;
+    if (transportable->hasDeparted()) {
+        const SUMOVehicleParameter& param = transportable->getParameter();
+        const SUMOTime step = param.depart % DELTA_T == 0 ? param.depart : (param.depart / DELTA_T + 1) * DELTA_T;
+        TransportableVector& waiting = myWaiting4Departure[step];
+        auto it = std::find(waiting.begin(), waiting.end(), transportable);
+        if (it != waiting.end()) {
+            waiting.erase(it);
+            if (waiting.size() == 0) {
+                myWaiting4Departure.erase(step);
+            }
+        }
+    }
+}
 
 MSTransportable*
 MSTransportableControl::get(const std::string& id) const {
