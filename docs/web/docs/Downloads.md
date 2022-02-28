@@ -175,7 +175,7 @@ see [the notes below](Downloads.md#note_on_licensing). The following packages ca
 </ul>
 
 The nightly builds are also available from the [Python packaging index test instance](https://test.pypi.org/project/eclipse-sumo/).
-To install the latest nightly version use:
+To install the latest nightly version (it is strongly encouraged to do this in a virtual environment) use [the instructions above](#python_packages_virtual_environments) replacing the install line with:
 ```
 pip install -i https://test.pypi.org/simple/ eclipse-sumo
 ```
