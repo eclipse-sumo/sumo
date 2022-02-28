@@ -42,6 +42,18 @@
 //#define GUIPolygon_DEBUG_DRAW_VERTICES
 
 // ===========================================================================
+// static members
+// ===========================================================================
+
+// minimum number of extra vertices per shape before tesselation artefacts occur
+// (new vertices are needed for some concave polygons)
+#define MAX_COMBINE_INDEX 1024
+// ring buffer to store temporary vertices (x,y,z) needed by combineCallback
+GLdouble myCombineVertices[MAX_COMBINE_INDEX][3];
+// array index for above array; incremented inside combineCallback
+int myCombineIndex = 0;
+
+// ===========================================================================
 // callbacks definitions
 // ===========================================================================
 
@@ -74,14 +86,11 @@ void CALLBACK combineCallback(GLdouble coords[3],
                               GLfloat weight[4], GLdouble** dataOut) {
     UNUSED_PARAMETER(weight);
     UNUSED_PARAMETER(*vertex_data);
-    GLdouble* vertex;
-
-    vertex = (GLdouble*) malloc(7 * sizeof(GLdouble));
-
-    vertex[0] = coords[0];
-    vertex[1] = coords[1];
-    vertex[2] = coords[2];
-    *dataOut = vertex;
+    myCombineIndex = (myCombineIndex + 1) % MAX_COMBINE_INDEX;
+    myCombineVertices[myCombineIndex][0] = coords[0];
+    myCombineVertices[myCombineIndex][1] = coords[1];
+    myCombineVertices[myCombineIndex][2] = coords[2];
+    *dataOut = myCombineVertices[myCombineIndex];
 }
 
 static const GLdouble INV_POLY_TEX_DIM = 1.0 / 256.0;
