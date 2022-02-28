@@ -33,6 +33,8 @@ def parse_args(args=None):
     parser = sumolib.options.ArgumentParser(description="Extract fraction of vehicls that changed their route per iteration")
     parser.add_argument("-d", "--base-directory", dest="baseDir", default=".",
                         help="Base directory of duaIterate run")
+    parser.add_argument("-v", "--verbose", action="store_true", default=False,
+                        help="Give more details for every iteration")
     options = parser.parse_args(args=args)
     return options
 
@@ -42,20 +44,24 @@ def main():
     lastRoutes = {}  # vehID -> edges
     for step, file in enumerate(sorted(glob.glob(os.path.join(options.baseDir, "**/*.rou.alt.xml")))):
         vehs = 0.0
-        changed = 0.0
+        changed = [ ]
         for veh in sumolib.xml.parse(file, 'vehicle'):
             vehs += 1
             last = int(veh.routeDistribution[0].last)
             lastEdges = veh.routeDistribution[0].route[last].edges
             if veh.id in lastRoutes and lastRoutes[veh.id] != lastEdges:
-                changed += 1;
+                changed.append(veh.id)
             lastRoutes[veh.id] = lastEdges
-        #print("file=%s vehs=%s changed=%s frac=%s" % (file, vehs, changed, changed / vehs))
-        if step > 0:
+        numChanged = len(changed)
+        if options.verbose:
+            print("file=%s vehs=%s changed=%s frac=%s ids=%s" % (
+                file, vehs, numChanged, numChanged / vehs, ' '.join(changed)))
+
+        if step > 0 and not options.verbose:
             if vehs == 0:
                 print("no vehicles in file '%s'" % file)
             else:
-                print(changed / vehs)
+                print(numChanged / vehs)
 
 
 ##################
