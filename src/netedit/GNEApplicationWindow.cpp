@@ -256,8 +256,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onCmdLoadDemandInSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLIFY_NETWORK,                           GNEApplicationWindow::onCmdSimplifyNetwork),
-    FXMAPFUNC(SEL_UPDATE,   MID_SIMPLIFY_NETWORK,                           GNEApplicationWindow::onUpdNeedsNetworkSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F4_SIMPLIFY_NETWORK,           GNEApplicationWindow::onCmdSimplifyNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F4_SIMPLIFY_NETWORK,           GNEApplicationWindow::onUpdNeedsNetworkSelection),
 
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,              GNEApplicationWindow::onCmdOpenSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,              GNEApplicationWindow::onUpdNeedsNetwork),
@@ -2129,7 +2129,40 @@ GNEApplicationWindow::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSimplifyNetwork(FXObject*, FXSelector, void*) {
     if (myViewNet) {
-
+        // split edges and junctions in two groups depending of their selection
+        std::vector<GNEAttributeCarrier*> selected, unselected;
+        // reserve both
+        selected.reserve(myViewNet->getNet()->getAttributeCarriers()->getJunctions().size() + myViewNet->getNet()->getAttributeCarriers()->getEdges().size());
+        unselected.reserve(myViewNet->getNet()->getAttributeCarriers()->getJunctions().size() + myViewNet->getNet()->getAttributeCarriers()->getEdges().size());
+        // iterate over junction and edges
+        for (const auto &junction : myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+            if (junction.second->isAttributeCarrierSelected()) {
+                selected.push_back(junction.second);
+            } else {
+                unselected.push_back(junction.second);
+            }
+        }
+        for (const auto &edges : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+            if (edges.second->isAttributeCarrierSelected()) {
+                selected.push_back(edges.second);
+            } else {
+                unselected.push_back(edges.second);
+            }
+        }
+        // now unselect and delete elements
+        myUndoList->begin(Supermode::NETWORK, GUIIcon::SIMPLIFYNETWORK, "simplify network");
+        for (const auto &AC : selected) {
+            AC->setAttribute(GNE_ATTR_SELECTED, "false", myUndoList);
+        }
+        for (const auto &AC : unselected) {
+            if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+                myViewNet->getNet()->deleteJunction(dynamic_cast<GNEJunction*>(AC), myUndoList);
+            } else if (myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(AC->getID(), false)) {
+                myViewNet->getNet()->deleteEdge(dynamic_cast<GNEEdge*>(AC), myUndoList, false);
+            }
+        }
+        // end undoList operation
+        myUndoList->end();
     }
     return 1;
 }

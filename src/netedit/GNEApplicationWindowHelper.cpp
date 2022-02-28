@@ -960,10 +960,10 @@ GNEApplicationWindowHelper::EditMenuCommands::buildFrontElementMenuCommand(FXMen
 
 void
 GNEApplicationWindowHelper::EditMenuCommands::buildNetworkReductionMenuCommand(FXMenuPane* editMenu) {
-    // add clear front element
-    networkReduction = GUIDesigns::buildFXMenuCommand(editMenu,
-                       "Reduce network to selection", GUIIconSubSys::getIcon(GUIIcon::SIMPLIFYNETWORK), 
-                       myGNEApp, MID_SIMPLIFY_NETWORK);
+    // add network reduction
+    networkReduction = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
+                       "Reduce network to selection", "Shift+F4", "Reduce network to selection", 
+                       GUIIconSubSys::getIcon(GUIIcon::SIMPLIFYNETWORK), myGNEApp, MID_HOTKEY_SHIFT_F4_SIMPLIFY_NETWORK);
 }
 
 

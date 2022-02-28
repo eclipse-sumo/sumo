@@ -218,6 +218,8 @@ enum {
     MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY,
     /// @brief clear template
     MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR,
+    /// @brief simplify network reduction
+    MID_HOTKEY_SHIFT_F4_SIMPLIFY_NETWORK,
     /// @brief compute junctions with volatile options
     MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,
     /// @brief Adjust person plans (start und end positions, arrival positions, etc.)
@@ -314,8 +316,6 @@ enum {
     MID_EDITCHOSEN,
     /// @brief Open in netedit
     MID_NETEDIT,
-    /// @brief simplify network reduction
-    MID_SIMPLIFY_NETWORK,
 
     /// @}
 
