@@ -256,6 +256,9 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onCmdLoadDemandInSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLIFY_NETWORK,                           GNEApplicationWindow::onCmdSimplifyNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_SIMPLIFY_NETWORK,                           GNEApplicationWindow::onUpdNeedsNetworkSelection),
+
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,              GNEApplicationWindow::onCmdOpenSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,              GNEApplicationWindow::onUpdNeedsNetwork),
     /* Prepared for #6042
@@ -1220,6 +1223,10 @@ GNEApplicationWindow::fillMenuBar() {
     myEditMenuCommands.buildFrontElementMenuCommand(myEditMenu);
     // build separator
     new FXMenuSeparator(myEditMenu);
+    // build network reduction menu commands
+    myEditMenuCommands.buildNetworkReductionMenuCommand(myEditMenu);
+    // build separator
+    new FXMenuSeparator(myEditMenu);
     // build open in sumo menu commands
     myEditMenuCommands.buildOpenSUMOMenuCommands(myEditMenu);
     // build lock menu
@@ -2099,7 +2106,7 @@ GNEApplicationWindow::onCmdToggleGrid(FXObject* obj, FXSelector sel, void* ptr) 
 
 
 long
-GNEApplicationWindow::onCmdSetFrontElement(FXObject* /*obj*/, FXSelector /*sel*/, void* /*ptr*/) {
+GNEApplicationWindow::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
     if (myViewNet) {
         if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
             // get inspected AC
@@ -2118,6 +2125,14 @@ GNEApplicationWindow::onCmdSetFrontElement(FXObject* /*obj*/, FXSelector /*sel*/
     return 1;
 }
 
+
+long
+GNEApplicationWindow::onCmdSimplifyNetwork(FXObject*, FXSelector, void*) {
+    if (myViewNet) {
+
+    }
+    return 1;
+}
 
 long
 GNEApplicationWindow::onCmdToggleEditOptions(FXObject* obj, FXSelector sel, void* /* ptr */) {
@@ -2500,9 +2515,26 @@ GNEApplicationWindow::onUpdNeedsFrontElement(FXObject* sender, FXSelector, void*
 }
 
 
+long 
+GNEApplicationWindow::onUpdNeedsNetworkSelection(FXObject* sender, FXSelector, void*) {
+    // check if net, viewnet and front attribute exist
+    if (myNet && myViewNet && myViewNet->getEditModes().isCurrentSupermodeNetwork() && 
+        (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
+    return 1;
+}
+
+
 long
 GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, ((myNet == nullptr) || !OptionsCont::getOptions().isSet("sumo-net-file")) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    if ((myNet == nullptr) || !OptionsCont::getOptions().isSet("sumo-net-file")) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
     return 1;
 }
 

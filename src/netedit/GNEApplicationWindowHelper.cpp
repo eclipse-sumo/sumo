@@ -914,6 +914,7 @@ GNEApplicationWindowHelper::EditMenuCommands::EditMenuCommands(GNEApplicationWin
     editViewScheme(nullptr),
     editViewPort(nullptr),
     clearFrontElement(nullptr),
+    networkReduction(nullptr),
     loadAdditionalsInSUMOGUI(nullptr),
     loadDemandInSUMOGUI(nullptr),
     openInSUMOGUI(nullptr),
@@ -954,6 +955,15 @@ GNEApplicationWindowHelper::EditMenuCommands::buildFrontElementMenuCommand(FXMen
     clearFrontElement = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
                         "Clear front element", "F11", "Clear current front element",
                         GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), myGNEApp, MID_HOTKEY_F11_FRONTELEMENT);
+}
+
+
+void
+GNEApplicationWindowHelper::EditMenuCommands::buildNetworkReductionMenuCommand(FXMenuPane* editMenu) {
+    // add clear front element
+    networkReduction = GUIDesigns::buildFXMenuCommand(editMenu,
+                       "Reduce network to selection", GUIIconSubSys::getIcon(GUIIcon::SIMPLIFYNETWORK), 
+                       myGNEApp, MID_SIMPLIFY_NETWORK);
 }
 
 

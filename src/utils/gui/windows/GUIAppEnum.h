@@ -314,6 +314,8 @@ enum {
     MID_EDITCHOSEN,
     /// @brief Open in netedit
     MID_NETEDIT,
+    /// @brief simplify network reduction
+    MID_SIMPLIFY_NETWORK,
 
     /// @}
 
