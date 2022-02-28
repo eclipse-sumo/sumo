@@ -250,25 +250,17 @@ GUI::start(const std::vector<std::string>& cmd) {
     }
     try {
         bool needStart = false;
-        bool needQuit = false;
         if (std::getenv("LIBSUMO_GUI") != nullptr) {
             needStart = true;
-            needQuit = true;
             for (const std::string& a: cmd) {
                 if (a == "-S" || a == "--start") {
                     needStart = false;
-                }
-                if (a == "-Q" || a == "--quit") {
-                    needQuit = false;
                 }
             }
         }
         int origArgc = (int)cmd.size();
         int argc = origArgc;
         if (needStart) {
-            argc++;
-        }
-        if (needQuit) {
             argc++;
         }
         char** argv = new char* [argc];
@@ -279,9 +271,6 @@ GUI::start(const std::vector<std::string>& cmd) {
         }
         if (needStart) {
             argv[i++] = (char*)"-S";
-        }
-        if (needQuit) {
-            argv[i++] = (char*)"-Q";
         }
         // make the output aware of threading
         MsgHandler::setFactory(&MsgHandlerSynchronized::create);
@@ -313,6 +302,13 @@ GUI::start(const std::vector<std::string>& cmd) {
         throw TraCIException(e.what());
     }
     return true;
+}
+
+
+bool
+GUI::load(const std::vector<std::string>& /* cmd */) {
+    WRITE_ERROR("libsumo.load is not implemented for the GUI.")
+    return myWindow != nullptr;
 }
 
 

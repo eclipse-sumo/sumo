@@ -120,10 +120,10 @@ GUIRunThread::run() {
     while (!myQuit) {
         if (myAmLibsumo) {
             myApp->run();
-            return 0;
+        } else {
+            // if the simulation shall be performed, do it
+            tryStep();
         }
-        // if the simulation shall be performed, do it
-        tryStep();
     }
     // delete a maybe existing simulation at the end
     deleteSim();

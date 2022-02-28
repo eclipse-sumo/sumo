@@ -85,6 +85,11 @@ Simulation::start(const std::vector<std::string>& cmd, int /* port */, int /* nu
 
 void
 Simulation::load(const std::vector<std::string>& args) {
+#ifdef HAVE_LIBSUMOGUI
+    if (GUI::load(args)) {
+        return;
+    }
+#endif
     close("Libsumo issued load command.");
     try {
         gSimulation = true;

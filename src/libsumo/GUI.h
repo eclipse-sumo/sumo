@@ -68,6 +68,8 @@ public:
 #ifndef SWIG
     static bool start(const std::vector<std::string>& cmd);
 
+    static bool load(const std::vector<std::string>& cmd);
+
     static bool hasInstance();
 
     static bool step(SUMOTime t);
