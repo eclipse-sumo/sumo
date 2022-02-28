@@ -352,6 +352,12 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
 }
 
 
+void 
+RouteHandler::writeErrorInvalidID(const SumoXMLTag tag, const std::string& id) const {   
+    WRITE_ERROR("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; ID contains invalid characters.");
+}
+
+
 void
 RouteHandler::parseVType(const SUMOSAXAttributes& attrs) {
     // parse vehicleType
@@ -372,15 +378,19 @@ RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string ID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     // optional attributes
-    const std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, ID.c_str(), parsedOk);
+    const std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk);
     if (parsedOk) {
-        // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE_DISTRIBUTION);
-        // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, ID);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vTypes);
+        if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
+            writeErrorInvalidID(SUMO_TAG_ROUTE, id);
+        } else {
+            // set tag
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE_DISTRIBUTION);
+            // add all attributes
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vTypes);
+        }
     }
 }
 
@@ -405,7 +415,9 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
         const int repeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, id.c_str(), parsedOk, 0);
         const SUMOTime cycleTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, id.c_str(), parsedOk, 0);
         if (parsedOk) {
-            if (cycleTime < 0) {
+            if (!id.empty() && !SUMOXMLDefinitions::isValidVehicleID(id)) {
+                writeErrorInvalidID(SUMO_TAG_ROUTE, id);
+            } else if (cycleTime < 0) {
                 WRITE_ERROR("cycleTime of " + toString(SUMO_TAG_DEST_PROB_REROUTE) + " must be equal or greater than 0");
             } else {
                 // set tag
@@ -428,12 +440,16 @@ RouteHandler::parseRouteDistribution(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string ID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     if (parsedOk) {
-        // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-        // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, ID);
+        if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
+            writeErrorInvalidID(SUMO_TAG_ROUTE, id);
+        } else {
+            // set tag
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_DISTRIBUTION);
+            // add all attributes
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        }
     }
 }
 

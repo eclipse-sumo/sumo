@@ -149,6 +149,9 @@ private:
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
 
+    /// @brief write error "invalid id"
+    void writeErrorInvalidID(const SumoXMLTag tag, const std::string& id) const;
+
     /// @name parse route element attributes
     /// @{
     /// @brief parse vType
