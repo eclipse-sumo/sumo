@@ -57,6 +57,7 @@ vehroutes2:vehroutes2.xml
 state:state.xml
 state2:state2.xml
 tripinfo:tripinfo.xml
+tripinfo2:tripinfo2.xml
 net:net.net.xml
 vss:vss.xml
 rawdump:rawdump.xml
@@ -107,6 +108,7 @@ net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 vehroutes2:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
+tripinfo2:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 fcd:<!--{[->]}-->
 stops:<!--{[->]}-->

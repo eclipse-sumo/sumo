@@ -7,6 +7,9 @@ walk_nonInteracting
 # test riding person
 ride
 
+# test riding person, car doesn't come
+ride_aborted
+
 # test riding person
 ride_carTriggered
 
