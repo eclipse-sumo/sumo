@@ -137,7 +137,7 @@ GNEDetectorE2::isAdditionalValid() const {
         }
     } else {
         // first check if there is connection between all consecutive lanes
-        if (areLaneConsecutives()) {
+        if (areLaneConsecutives(getParentLanes())) {
             // with friendly position enabled position are "always fixed"
             if (myFriendlyPosition) {
                 return true;
@@ -169,7 +169,7 @@ GNEDetectorE2::getAdditionalProblem() const {
         }
     } else {
         // abort if lanes aren't consecutives
-        if (!areLaneConsecutives()) {
+        if (!areLaneConsecutives(getParentLanes())) {
             return "lanes aren't consecutives";
         }
         // check positions over first lane
@@ -208,7 +208,7 @@ GNEDetectorE2::fixAdditionalProblem() {
         setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
         setAttribute(SUMO_ATTR_LENGTH, toString(newLength), myNet->getViewNet()->getUndoList());
     } else {
-        if (!areLaneConsecutives()) {
+        if (!areLaneConsecutives(getParentLanes())) {
             // build connections between all consecutive lanes
             bool foundConnection = true;
             int i = 0;
@@ -277,7 +277,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             if (drawUsingSelectColor()) {
                 E2Color = s.colorSettings.selectedAdditionalColor;
                 textColor = E2Color.changedBrightness(-32);
-            } else if (areLaneConsecutives()) {
+            } else if (areLaneConsecutives(getParentLanes())) {
                 E2Color = s.detectorSettings.E2Color;
                 textColor = RGBColor::BLACK;
             }
@@ -614,32 +614,6 @@ GNEDetectorE2::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* und
     }
     // end change attribute
     undoList->end();
-}
-
-
-bool
-GNEDetectorE2::areLaneConsecutives() const {
-    // declare lane iterator
-    int i = 0;
-    // iterate over all lanes, and stop if myE2valid is false
-    while (i < ((int)getParentLanes().size() - 1)) {
-        // we assume that E2 is invalid
-        bool connectionFound = false;
-        // if there is a connection betwen "from" lane and "to" lane of connection, change connectionFound to true
-        for (auto j : getParentLanes().at(i)->getParentEdge()->getGNEConnections()) {
-            if (j->getLaneFrom() == getParentLanes().at(i) && j->getLaneTo() == getParentLanes().at(i + 1)) {
-                connectionFound = true;
-            }
-        }
-        // abort if connectionFound is false
-        if (!connectionFound) {
-            return false;
-        }
-        // update iterator
-        i++;
-    }
-    // there are connections between all lanes, then return true
-    return true;
 }
 
 

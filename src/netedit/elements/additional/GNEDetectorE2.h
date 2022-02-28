@@ -169,9 +169,6 @@ private:
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
-    /// @brief check if lanes are consecutives
-    bool areLaneConsecutives() const;
-
     /// @brief get start position over lane that is applicable to the shape
     double getStartGeometryPositionOverLane() const;
 

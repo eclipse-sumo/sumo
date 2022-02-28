@@ -509,7 +509,10 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
         std::vector<GNELane*> lanes = parseLanes(SUMO_TAG_E2DETECTOR, laneIDs);
         // chek lanes
         if (lanes.size() > 0) {
-            if (!checkE2MultiLanePosition(
+            // calculate path
+            if (!GNEAdditional::areLaneConsecutives(lanes)) {
+                WRITE_ERROR("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with ID '" + id + "' in netedit; Lanes aren't consecutives.");
+            } else if (!checkE2MultiLanePosition(
                         pos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(),
                         endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
                 writeErrorInvalidPosition(SUMO_TAG_E2DETECTOR, id);

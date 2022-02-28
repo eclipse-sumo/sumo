@@ -22,6 +22,7 @@
 #include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/elements/network/GNEConnection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -843,6 +844,32 @@ GNEAdditional::getDrawPositionIndex() const {
         }
     }
     return 0;
+}
+
+
+bool 
+GNEAdditional::areLaneConsecutives(const std::vector<GNELane*>& lanes) {
+    // declare lane iterator
+    int laneIt = 0;
+    // iterate over all lanes, and stop if myE2valid is false
+    while (laneIt < ((int)lanes.size() - 1)) {
+        // we assume that E2 is invalid
+        bool connectionFound = false;
+        // if there is a connection betwen "from" lane and "to" lane of connection, change connectionFound to true
+        for (const auto &connection : lanes.at(laneIt)->getParentEdge()->getNBEdge()->getConnections()) {
+            if (connection.fromLane == lanes.at(laneIt)->getIndex() && connection.toLane == lanes.at(laneIt + 1)->getIndex()) {
+                connectionFound = true;
+            }
+        }
+        // abort if connectionFound is false
+        if (!connectionFound) {
+            return false;
+        }
+        // update iterator
+        laneIt++;
+    }
+    // there are connections between all lanes, then return true
+    return true;
 }
 
 
