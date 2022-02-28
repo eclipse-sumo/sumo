@@ -234,9 +234,6 @@ public:
          */
         long onCmdReduce(FXObject*, FXSelector, void*);
 
-        /// @brief called when the update/FXCall needs network selection is executed
-        long onUpdNeedsNetworkSelection(FXObject*, FXSelector, void*);
-
         /// @}
 
     protected:
