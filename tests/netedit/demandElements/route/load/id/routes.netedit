@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-18 14:38:18 by Eclipse SUMO netedit Version v1_11_0+1211-1b1dce94384
+<!-- generated on 2022-02-28 15:35:13 by Eclipse SUMO netedit Version v1_12_0+0929-6db058170a1
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route id="%%$$$%  $$%" edges="gneE2 gneE4 gneE5" color="blue"/>
     <route id="route_0" edges="gneE2 gneE4 gneE5" color="blue"/>
 </routes>
