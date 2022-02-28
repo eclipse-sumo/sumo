@@ -8,6 +8,6 @@ input_net.net.xml -r input_routes.rou.xml --save-state.times 10
 input_net.net.xml --load-state state.xml --a input_additional.add.xml 
 --tripinfo-output tripinfo2.xml 
 --tripinfo-output.write-unfinished
---compare tripinfo:27:29
+--compare tripinfo:1:1
 
 tests/complex/state/runner.py
