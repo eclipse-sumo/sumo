@@ -857,7 +857,9 @@ GNEAdditional::areLaneConsecutives(const std::vector<GNELane*>& lanes) {
         bool connectionFound = false;
         // if there is a connection betwen "from" lane and "to" lane of connection, change connectionFound to true
         for (const auto &connection : lanes.at(laneIt)->getParentEdge()->getNBEdge()->getConnections()) {
-            if (connection.fromLane == lanes.at(laneIt)->getIndex() && connection.toLane == lanes.at(laneIt + 1)->getIndex()) {
+            if ((connection.toEdge == lanes.at(laneIt + 1)->getParentEdge()->getNBEdge()) &&
+                (connection.fromLane == lanes.at(laneIt)->getIndex()) && 
+                (connection.toLane == lanes.at(laneIt + 1)->getIndex())) {
                 connectionFound = true;
             }
         }
