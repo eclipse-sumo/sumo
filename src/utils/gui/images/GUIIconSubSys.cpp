@@ -142,6 +142,7 @@
 #include "bigarrowright.xpm"
 
 #include "frontelement.xpm"
+#include "simplifynetwork.xpm"
 #include "computepathmanager.xpm"
 
 #include "checkbox_applytoallphases.xpm"
@@ -544,6 +545,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::BIGARROWLEFT] = new FXXPMIcon(a, bigarrowleft_xpm);
     myIcons[GUIIcon::BIGARROWRIGHT] = new FXXPMIcon(a, bigarrowright_xpm);
     myIcons[GUIIcon::FRONTELEMENT] = new FXXPMIcon(a, frontelement_xpm);
+    myIcons[GUIIcon::SIMPLIFYNETWORK] = new FXXPMIcon(a, simplifynetwork_xpm);
     myIcons[GUIIcon::COMPUTEPATHMANAGER] = new FXXPMIcon(a, computepathmanager_xpm);
     myIcons[GUIIcon::COLLAPSE] = new FXXPMIcon(a, collapse_xpm);
     myIcons[GUIIcon::UNCOLLAPSE] = new FXXPMIcon(a, uncollapse_xpm);
