@@ -582,9 +582,6 @@ struct GNEApplicationWindowHelper {
         /// @brief build front element commands
         void buildFrontElementMenuCommand(FXMenuPane* editMenu);
 
-        /// @brief build network reduction commands
-        void buildNetworkReductionMenuCommand(FXMenuPane* editMenu);
-
         /// @brief build open sumo menu commands
         void buildOpenSUMOMenuCommands(FXMenuPane* editMenu);
 
@@ -614,9 +611,6 @@ struct GNEApplicationWindowHelper {
 
         /// @brief FXMenuCommand for clear Front element
         FXMenuCommand* clearFrontElement;
-
-        /// @brief FXMenuCommand for network reduction
-        FXMenuCommand* networkReduction;
 
         /// @brief menu check for load additionals in SUMO GUI
         FXMenuCheck* loadAdditionalsInSUMOGUI;

@@ -215,9 +215,6 @@ public:
     /// @brief called when the update/FXCall needs front element is executed
     long onUpdNeedsFrontElement(FXObject*, FXSelector, void*);
 
-    /// @brief called when the update/FXCall needs network selection is executed
-    long onUpdNeedsNetworkSelection(FXObject*, FXSelector, void*);
-
     /// @brief called when the update/FXCall reload is executed
     long onUpdReload(FXObject*, FXSelector, void*);
 
@@ -354,9 +351,6 @@ public:
 
     /// @brief called if the user call set front element
     long onCmdSetFrontElement(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user call simplify network
-    long onCmdSimplifyNetwork(FXObject*, FXSelector, void*);
 
     /// @brief called if the user press key combination Alt + <0-9>
     long onCmdToggleEditOptions(FXObject*, FXSelector, void*);

@@ -51,7 +51,9 @@ FXDEFMAP(GNESelectorFrame::SelectionOperation) SelectionOperationMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,   GNESelectorFrame::SelectionOperation::onCmdSave),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT, GNESelectorFrame::SelectionOperation::onCmdInvert),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,  GNESelectorFrame::SelectionOperation::onCmdClear),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_DELETE, GNESelectorFrame::SelectionOperation::onCmdDelete)
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_DELETE, GNESelectorFrame::SelectionOperation::onCmdDelete),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_REDUCE, GNESelectorFrame::SelectionOperation::onCmdReduce),
+    FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_REDUCE, GNESelectorFrame::SelectionOperation::onUpdNeedsNetworkSelection)
 };
 
 FXDEFMAP(GNESelectorFrame::SelectionHierarchy) SelectionHierarchyMap[] = {
@@ -254,6 +256,8 @@ GNESelectorFrame::SelectionOperation::SelectionOperation(GNESelectorFrame* selec
     new FXButton(col2, "Load\t\tLoad ids from a file according to the current modfication mode.", nullptr, this, MID_CHOOSEN_LOAD, GUIDesignButton);
     // Create "Delete" Button
     new FXButton(col1, "Delete\t\tDelete all selected objects (hotkey: DEL)", nullptr, this, MID_CHOOSEN_DELETE, GUIDesignButton);
+    // Create "reduce" Button
+    new FXButton(col2, "Reduce\t\tReduce network to current selection.", nullptr, this, MID_CHOOSEN_REDUCE, GUIDesignButton);
 }
 
 
@@ -398,6 +402,64 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
         }
         // finish selection operation
         mySelectorFrameParent->myViewNet->getUndoList()->end();
+    }
+    return 1;
+}
+
+
+long
+GNESelectorFrame::SelectionOperation::onCmdReduce(FXObject*, FXSelector, void*) {
+    // get net
+    const auto net = mySelectorFrameParent->getViewNet()->getNet();
+    // split edges and junctions in two groups depending of their selection
+    std::vector<GNEAttributeCarrier*> selected, unselected;
+    // reserve both
+    selected.reserve(net->getAttributeCarriers()->getJunctions().size() + net->getAttributeCarriers()->getEdges().size());
+    unselected.reserve(net->getAttributeCarriers()->getJunctions().size() + net->getAttributeCarriers()->getEdges().size());
+    // iterate over junction and edges
+    for (const auto &junction : net->getAttributeCarriers()->getJunctions()) {
+        if (junction.second->isAttributeCarrierSelected()) {
+            selected.push_back(junction.second);
+        } else {
+            unselected.push_back(junction.second);
+        }
+    }
+    for (const auto &edges : net->getAttributeCarriers()->getEdges()) {
+        if (edges.second->isAttributeCarrierSelected()) {
+            selected.push_back(edges.second);
+        } else {
+            unselected.push_back(edges.second);
+        }
+    }
+    // only continue if there is at least one selected element
+    if (selected.size() > 0) {
+        // now unselect and delete elements
+        mySelectorFrameParent->getViewNet()->getUndoList()->begin(Supermode::NETWORK, GUIIcon::SIMPLIFYNETWORK, "simplify network");
+        for (const auto &AC : selected) {
+            AC->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
+        }
+        for (const auto &AC : unselected) {
+            if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+                net->deleteJunction(dynamic_cast<GNEJunction*>(AC), mySelectorFrameParent->getViewNet()->getUndoList());
+            } else if (net->getAttributeCarriers()->retrieveEdge(AC->getID(), false)) {
+                net->deleteEdge(dynamic_cast<GNEEdge*>(AC), mySelectorFrameParent->getViewNet()->getUndoList(), false);
+            }
+        }
+        // end undoList operation
+        mySelectorFrameParent->getViewNet()->getUndoList()->end();
+    }
+    return 1;
+}
+
+
+long 
+GNESelectorFrame::SelectionOperation::onUpdNeedsNetworkSelection(FXObject* sender, FXSelector, void*) {
+    // check if net, viewnet and front attribute exist
+    if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
+        (mySelectorFrameParent->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
     return 1;
 }
