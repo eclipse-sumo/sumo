@@ -68,36 +68,30 @@ Debug: Selected item 'flow (embedded route)' in TagSelector
 Debug: Key ENTER pressed
 Debug: Adding flowWithRoute 'f_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'f_0' in GNEChange_DemandElement
-Debug: Setting new attribute into flowWithRoute 'f_0'
-Debug: Setting new attribute into flowWithRoute 'f_0'
-Debug: Setting new attribute into flowWithRoute 'f_0'
-Debug: Setting new attribute into flowWithRoute 'f_0'
-Debug: Setting new attribute into flowWithRoute 'f_0'
-Debug: Setting new attribute into flowWithRoute 'f_0'
-Debug: Setting new attribute into flowWithRoute 'f_0'
-Debug: Setting new attribute into flowWithRoute 'f_0'
-Debug: Setting new attribute into flowWithRoute 'f_0'
-Debug: Setting new attribute into flowWithRoute 'f_0'
-Debug: Setting new attribute into flowWithRoute 'f_0'
-Debug: Setting new attribute into flowWithRoute 'f_0'
+Debug: Setting new attribute
+Debug: Value 'dummmyBegin' for attribute begin of flowWithRoute isn't valid
+Debug: Value '-30' for attribute begin of flowWithRoute isn't valid
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into flowWithRoute 'f_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into flowWithRoute 'f_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into flowWithRoute 'f_0'
+Debug: Removing routeEmbedded 'f_0' in GNEChange_DemandElement
+Debug: Removing flowWithRoute 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into flowWithRoute 'f_0'
+Debug: Adding flowWithRoute 'f_0' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into flowWithRoute 'f_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into flowWithRoute 'f_0'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20

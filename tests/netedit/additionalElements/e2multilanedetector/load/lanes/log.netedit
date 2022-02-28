@@ -1,5 +1,2 @@
-Warning: Essential unique string attribute 'lane' of e2Detector with ID 'e2MultilaneDetector_0' is missing; e2Detector cannot be created
-Warning: Essential positive float attribute 'length' of e2Detector with ID 'e2MultilaneDetector_0' is missing; e2Detector cannot be created
-Warning: The list of lanes cannot be empty.
-Warning: The lanes 'gneE2_0' to use within the e2MultilaneDetector 'e2MultilaneDetector_2' aren't consecutives.
-Warning: The lanes 'gneE2_0 gneE4_0' to use within the e2MultilaneDetector 'e2MultilaneDetector_3' aren't consecutives.
+Error: Could not build e2Detector in netedit; lane doesn't exist.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Feb140910.8432\netedit.gui\additionalElements\e2multilanedetector\load\lanes\input_additionals.add.xml failed.

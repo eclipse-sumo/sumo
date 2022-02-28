@@ -1426,7 +1426,7 @@ class flowFromToEdge:
         spacing = 20
         terminateOption = 22
         spacingOption = 23
-        parameters = 25
+        parameters = 23
 
 # flow (over route)
 
@@ -1503,7 +1503,7 @@ class routeflow:
         spacing = 20
         terminateOption = 22
         spacingOption = 23
-        parameters = 25
+        parameters = 23
 
 # flow (embedded route)
 
@@ -1579,7 +1579,7 @@ class flowEmbedded:
         spacing = 20
         terminateOption = 22
         spacingOption = 23
-        parameters = 25
+        parameters = 23
 
 # stop (over busStop/containerStop/chargingStation)
 
