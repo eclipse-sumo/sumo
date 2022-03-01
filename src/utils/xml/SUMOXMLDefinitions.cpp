@@ -109,6 +109,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "flow",                           SUMO_TAG_FLOW },
     { "flowJunctions",                  GNE_TAG_FLOW_JUNCTIONS },
     { "flowState",                      SUMO_TAG_FLOWSTATE },
+    { "edgeControl",                    SUMO_TAG_EDGECONTROL },
 
     { "edgeRelation",                   SUMO_TAG_EDGEREL },
     { "tazRelation",                    SUMO_TAG_TAZREL },

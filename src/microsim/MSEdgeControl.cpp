@@ -104,6 +104,13 @@ MSEdgeControl::~MSEdgeControl() {
 #endif
 }
 
+void
+MSEdgeControl::setActiveLanes(std::list<MSLane*> lanes) {
+    myActiveLanes = lanes;
+    for (MSLane* lane : lanes) {
+        myLanes[lane->getNumericalID()].amActive = true;
+    }
+}
 
 void
 MSEdgeControl::patchActiveLanes() {
@@ -372,5 +379,11 @@ MSEdgeControl::setMesoTypes() {
     }
 }
 
+void
+MSEdgeControl::saveState(OutputDevice& out) {
+    out.openTag(SUMO_TAG_EDGECONTROL);
+    out.writeAttr(SUMO_ATTR_LANES, myActiveLanes);
+    out.closeTag();
+}
 
 /****************************************************************************/

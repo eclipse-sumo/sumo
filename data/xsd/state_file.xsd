@@ -8,6 +8,7 @@
         <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">
                 <xsd:element name="rngState" type="rngStateType" minOccurs="0"/>
+                <xsd:element name="edgeControl" type="edgeControlState" minOccurs="0"/>
                 <xsd:element name="delay" type="delayStateType" minOccurs="1"/>
                 <xsd:element name="vTypeDistribution" type="vTypeDistributionStateType" minOccurs="0"/>
                 <xsd:element name="routeDistribution" type="routeDistributionStateType" minOccurs="0"/>
@@ -41,6 +42,10 @@
         <xsd:attribute name="device.btreceiver" type="xsd:string" use="optional"/>
         <xsd:attribute name="device.toc" type="xsd:string" use="optional"/>
         <xsd:attribute name="driverState" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="edgeControlState">
+        <xsd:attribute name="lanes" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="rngLaneType">

@@ -48,6 +48,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSInsertionControl.h>
+#include <microsim/MSEdgeControl.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSDriverState.h>
@@ -130,6 +131,7 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
     }
     if (OptionsCont::getOptions().getBool("save-state.rng")) {
         saveRNGs(out);
+        MSNet::getInstance()->getEdgeControl().saveState(out);
     }
     MSRoute::dict_saveState(out);
     MSNet::getInstance()->getVehicleControl().saveState(out);
@@ -208,6 +210,20 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             const int index = attrs.getInt(SUMO_ATTR_INDEX);
             const std::string state = attrs.getString(SUMO_ATTR_STATE);
             MSLane::loadRNGState(index, state);
+            break;
+        }
+        case SUMO_TAG_EDGECONTROL: {
+            bool ok;
+            std::list<MSLane*> activeLanes;
+            const std::vector<std::string>& laneIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, nullptr, ok, false);
+            for (const std::string& laneID : laneIDs) {
+                MSLane* lane = MSLane::dictionary(laneID);
+                if (lane == nullptr) {
+                    throw ProcessError("Unknown lane '" + laneID + "' in loaded state.");
+                }
+                activeLanes.push_back(lane);
+            }
+            MSNet::getInstance()->getEdgeControl().setActiveLanes(activeLanes);
             break;
         }
         case SUMO_TAG_DELAY: {
