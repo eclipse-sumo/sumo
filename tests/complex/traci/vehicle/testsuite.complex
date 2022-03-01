@@ -1,4 +1,3 @@
-
 # test accessing the ssm device
 ssm
 
@@ -89,6 +88,9 @@ slowDown
 
 # test timing of slowDown command
 slowDown_subsecond
+
+# test timing of setAcceleration command
+setAcceleration
 getFollower
 getLeader
 
