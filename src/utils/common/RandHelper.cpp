@@ -23,15 +23,22 @@
 #include <ctime>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/SysUtils.h>
+#include "StdDefs.h"
 #include "RandHelper.h"
 
+
+// debug vehicle movement randomness (dawdling in finalizeSpeed)
+//#define DEBUG_FLAG1
+//#define DEBUG_RANDCALLS
 
 // ===========================================================================
 // static member variables
 // ===========================================================================
 SumoRNG RandHelper::myRandomNumberGenerator("default");
+
 #ifdef DEBUG_RANDCALLS
-unsigned long long int RandHelper::myDebugIndex(7);
+unsigned long long int myDebugIndex(7);
+std::string myDebugId("lane_10");
 #endif
 
 
@@ -73,6 +80,32 @@ RandHelper::initRandGlobal(SumoRNG* which) {
     initRand(which, oc.getBool("random"), oc.getInt("seed"));
 }
 
+
+double
+RandHelper::rand(SumoRNG* rng) {
+    if (rng == nullptr) {
+        rng = &myRandomNumberGenerator;
+    }
+    const double res = double((*rng)() / 4294967296.0);
+    rng->count++;
+#ifdef DEBUG_RANDCALLS
+    if (rng->count == myDebugIndex &&
+            (myDebugId == "" || rng->id == myDebugId)) {
+        std::cout << "DEBUG\n"; // for setting breakpoint
+    }
+    std::stringstream stream; // to reduce output interleaving from different threads
+    stream << "rng " << rng->id << " call=" << rng->count << " val=" << res << "\n";
+    std::cout << stream.str();
+#endif
+#ifdef DEBUG_FLAG1
+    if (gDebugFlag1) {
+        std::stringstream stream; // to reduce output interleaving from different threads
+        stream << "rng " << rng->id << " call=" << rng->count << " val=" << res << "\n";
+        std::cout << stream.str();
+    }
+#endif
+    return res;
+}
 
 double
 RandHelper::randNorm(double mean, double variance, SumoRNG* rng) {
