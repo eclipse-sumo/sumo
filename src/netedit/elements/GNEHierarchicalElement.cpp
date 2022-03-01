@@ -228,13 +228,6 @@ GNEHierarchicalElement::addParentElement(GNEAdditional* element) {
 
 
 template<> void
-GNEHierarchicalElement::addParentElement(GNEShape* element) {
-    // add parent element into container
-    myHierarchicalContainer.addParentElement(this, element);
-}
-
-
-template<> void
 GNEHierarchicalElement::addParentElement(GNETAZElement* element) {
     // add parent element into container
     myHierarchicalContainer.addParentElement(this, element);
@@ -278,13 +271,6 @@ GNEHierarchicalElement::removeParentElement(GNELane* element) {
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNEAdditional* element) {
-    // remove parent element from container
-    myHierarchicalContainer.removeParentElement(this, element);
-}
-
-
-template<> void
-GNEHierarchicalElement::removeParentElement(GNEShape* element) {
     // remove parent element from container
     myHierarchicalContainer.removeParentElement(this, element);
 }
@@ -340,13 +326,6 @@ GNEHierarchicalElement::addChildElement(GNEAdditional* element) {
 
 
 template<> void
-GNEHierarchicalElement::addChildElement(GNEShape* element) {
-    // add child element into container
-    myHierarchicalContainer.addChildElement(this, element);
-}
-
-
-template<> void
 GNEHierarchicalElement::addChildElement(GNETAZElement* element) {
     // add child element into container
     myHierarchicalContainer.addChildElement(this, element);
@@ -390,13 +369,6 @@ GNEHierarchicalElement::removeChildElement(GNELane* element) {
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEAdditional* element) {
-    // remove child element from container
-    myHierarchicalContainer.removeChildElement(this, element);
-}
-
-
-template<> void
-GNEHierarchicalElement::removeChildElement(GNEShape* element) {
     // remove child element from container
     myHierarchicalContainer.removeChildElement(this, element);
 }
