@@ -6,14 +6,14 @@ Debug: Adding e1Detector 'detector5' in GNEChange_Additional
 Debug: Adding e1Detector 'detector6' in GNEChange_Additional
 Debug: Adding e1Detector 'detector7' in GNEChange_Additional
 Debug: Adding e1Detector 'detector8' in GNEChange_Additional
-Debug: Adding poly 'poly_0' into viewNet
+Debug: Adding poly 'poly_0' in GNEChange_Additional
 Debug: Adding taz 'TAZ' into viewNet
-Debug: Adding poi 'POI_0' into viewNet
-Debug: Adding poi 'POI_1' into viewNet
-Debug: Adding poi 'POI_2' into viewNet
-Debug: Adding poi 'POI_3' into viewNet
-Debug: Adding poiLane 'POI_4' into viewNet
-Debug: Adding poiLane 'POI_5' into viewNet
+Debug: Adding poi 'POI_0' in GNEChange_Additional
+Debug: Adding poi 'POI_1' in GNEChange_Additional
+Debug: Adding poi 'POI_2' in GNEChange_Additional
+Debug: Adding poi 'POI_3' in GNEChange_Additional
+Debug: Adding poiLane 'POI_4' in GNEChange_Additional
+Debug: Adding poiLane 'POI_5' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from5_1to4_1' in retrieveGNEConnection()
 Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
@@ -512,14 +512,14 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing poiLane 'POI_5' from viewNet
-Debug: Removing poiLane 'POI_4' from viewNet
-Debug: Removing poi 'POI_3' from viewNet
-Debug: Removing poi 'POI_2' from viewNet
-Debug: Removing poi 'POI_1' from viewNet
-Debug: Removing poi 'POI_0' from viewNet
+Debug: Removing poiLane 'POI_5' in GNEChange_Additional
+Debug: Removing poiLane 'POI_4' in GNEChange_Additional
+Debug: Removing poi 'POI_3' in GNEChange_Additional
+Debug: Removing poi 'POI_2' in GNEChange_Additional
+Debug: Removing poi 'POI_1' in GNEChange_Additional
+Debug: Removing poi 'POI_0' in GNEChange_Additional
 Debug: Removing taz 'TAZ' from viewNet
-Debug: Removing poly 'poly_0' from viewNet
+Debug: Removing poly 'poly_0' in GNEChange_Additional
 Debug: Removing e1Detector 'detector8' in GNEChange_Additional
 Debug: Removing e1Detector 'detector7' in GNEChange_Additional
 Debug: Removing e1Detector 'detector6' in GNEChange_Additional
@@ -538,14 +538,14 @@ Debug: Adding e1Detector 'detector5' in GNEChange_Additional
 Debug: Adding e1Detector 'detector6' in GNEChange_Additional
 Debug: Adding e1Detector 'detector7' in GNEChange_Additional
 Debug: Adding e1Detector 'detector8' in GNEChange_Additional
-Debug: Adding poly 'poly_0' into viewNet
+Debug: Adding poly 'poly_0' in GNEChange_Additional
 Debug: Adding taz 'TAZ' into viewNet
-Debug: Adding poi 'POI_0' into viewNet
-Debug: Adding poi 'POI_1' into viewNet
-Debug: Adding poi 'POI_2' into viewNet
-Debug: Adding poi 'POI_3' into viewNet
-Debug: Adding poiLane 'POI_4' into viewNet
-Debug: Adding poiLane 'POI_5' into viewNet
+Debug: Adding poi 'POI_0' in GNEChange_Additional
+Debug: Adding poi 'POI_1' in GNEChange_Additional
+Debug: Adding poi 'POI_2' in GNEChange_Additional
+Debug: Adding poi 'POI_3' in GNEChange_Additional
+Debug: Adding poiLane 'POI_4' in GNEChange_Additional
+Debug: Adding poiLane 'POI_5' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -789,22 +789,15 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Additionals saved
-Debug: Removing poiLane 'POI_5' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_5' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_4' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_4' in ~GNEChange_Shape()
-Debug: Removing poi 'POI_3' from net in ~GNEChange_Shape()
-Debug: delete poi 'POI_3' in ~GNEChange_Shape()
-Debug: Removing poi 'POI_2' from net in ~GNEChange_Shape()
-Debug: delete poi 'POI_2' in ~GNEChange_Shape()
-Debug: Removing poi 'POI_1' from net in ~GNEChange_Shape()
-Debug: delete poi 'POI_1' in ~GNEChange_Shape()
-Debug: Removing poi 'POI_0' from net in ~GNEChange_Shape()
-Debug: delete poi 'POI_0' in ~GNEChange_Shape()
+Debug: Deleting unreferenced poiLane 'POI_5'
+Debug: Deleting unreferenced poiLane 'POI_4'
+Debug: Deleting unreferenced poi 'POI_3'
+Debug: Deleting unreferenced poi 'POI_2'
+Debug: Deleting unreferenced poi 'POI_1'
+Debug: Deleting unreferenced poi 'POI_0'
 Debug: Removing taz 'TAZ' from net in ~GNEChange_TAZElement()
 Debug: delete taz 'TAZ' in ~GNEChange_TAZElement()
-Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
-Debug: delete poly 'poly_0' in ~GNEChange_Shape()
+Debug: Deleting unreferenced poly 'poly_0'
 Debug: Deleting unreferenced e1Detector 'detector8'
 Debug: Deleting unreferenced e1Detector 'detector7'
 Debug: Deleting unreferenced e1Detector 'detector6'
