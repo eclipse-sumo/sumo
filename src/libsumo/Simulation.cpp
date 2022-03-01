@@ -154,7 +154,6 @@ Simulation::close(const std::string& reason) {
          MSNet::hasInstance()) {
         MSNet::getInstance()->closeSimulation(0, reason);
         delete MSNet::getInstance();
-        XMLSubSys::close();
         SystemFrame::close();
     }
 }

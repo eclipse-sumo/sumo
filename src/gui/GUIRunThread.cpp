@@ -193,7 +193,7 @@ GUIRunThread::makeStep() {
         myEventThrow.signal();
 
         e = nullptr;
-        MSNet::SimulationState state = myNet->adaptToState(myNet->simulationState(mySimEndTime));
+        MSNet::SimulationState state = myNet->adaptToState(myNet->simulationState(mySimEndTime), myAmLibsumo);
         switch (state) {
             case MSNet::SIMSTATE_LOADING:
             case MSNet::SIMSTATE_END_STEP_REACHED:

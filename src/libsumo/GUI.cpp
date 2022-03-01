@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
+#include <utils/common/SystemFrame.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/foxtools/MsgHandlerSynchronized.h>
@@ -274,10 +275,12 @@ GUI::start(const std::vector<std::string>& cmd) {
         }
         // make the output aware of threading
         MsgHandler::setFactory(&MsgHandlerSynchronized::create);
+        gSimulation = true;
         XMLSubSys::init();
         MSFrame::fillOptions();
         OptionsIO::setArgs(argc, argv);
         OptionsIO::getOptions(true);
+        OptionsCont::getOptions().processMetaOptions(false);
         // Open display
         myApp.init(argc, argv);
         int minor, major;
@@ -339,6 +342,7 @@ GUI::close() {
         myApp.stop();
         delete myWindow;
         myWindow = nullptr;
+        SystemFrame::close();
         return true;
     }
     return false;
