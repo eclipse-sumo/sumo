@@ -1253,12 +1253,16 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
         for (InductLoopInfo& loopInfo : myInductLoops) {
             loopInfo.maxGap = myMaxGap;
         }
+        Parameterised::setParameter(key, value);
     } else if (key == "show-detectors") {
         myShowDetectors = StringUtils::toBool(value);
+        Parameterised::setParameter(key, value);
     } else if (key == "inactive-threshold") {
         myInactiveThreshold = string2time(value);
+        Parameterised::setParameter(key, value);
+    } else {
+        MSSimpleTrafficLightLogic::setParameter(key, value);
     }
-    Parameterised::setParameter(key, value);
 }
 
 

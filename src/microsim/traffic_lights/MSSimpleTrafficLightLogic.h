@@ -198,6 +198,12 @@ public:
 
     virtual SUMOTime mapTimeInCycle(SUMOTime t) const;
 
+    /**@brief gets a parameter */
+    virtual const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;
+
+    /**@brief Sets a parameter and updates internal constants */
+    virtual void setParameter(const std::string& key, const std::string& value) override;
+
 protected:
 
     /// @brief the minimum duration for keeping the current phase when considering 'earliestEnd'

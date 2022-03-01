@@ -49,7 +49,8 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol
         const std::map<std::string, std::string>& parameters) :
     MSTrafficLightLogic(tlcontrol, id, programID, offset, logicType, delay, parameters),
     myPhases(phases),
-    myStep(step) {
+    myStep(step)
+{
     for (const MSPhaseDefinition* phase : myPhases) {
         myDefaultCycleTime += phase->duration;
     }
@@ -58,9 +59,9 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol
     }
     // the following initializations are only used by 'actuated' and 'delay_based' but do not affect 'static'
     if (knowsParameter(toString(SUMO_ATTR_CYCLETIME))) {
-        myDefaultCycleTime = TIME2STEPS(StringUtils::toDouble(getParameter(toString(SUMO_ATTR_CYCLETIME), "")));
+        myDefaultCycleTime = TIME2STEPS(StringUtils::toDouble(Parameterised::getParameter(toString(SUMO_ATTR_CYCLETIME), "")));
     }
-    myCoordinated = StringUtils::toBool(getParameter("coordinated", "false"));
+    myCoordinated = StringUtils::toBool(Parameterised::getParameter("coordinated", "false"));
     if (myPhases.size() > 0) {
         SUMOTime earliest = SIMSTEP + getEarliest(-1);
         if (earliest > getNextSwitchTime()) {
@@ -328,5 +329,35 @@ MSSimpleTrafficLightLogic::saveState(OutputDevice& out) const {
     out.closeTag();
 }
 
+const std::string
+MSSimpleTrafficLightLogic::getParameter(const std::string& key, const std::string defaultValue) const {
+    if (key == "cycleTime") {
+        return toString(STEPS2TIME(myDefaultCycleTime));
+    } else if (key == "offset") {
+        return toString(STEPS2TIME(myOffset));
+    } else if (key == "coordinated") {
+        return toString(myCoordinated);
+    } else if (key == "cycleSecond") {
+        return toString(STEPS2TIME(getTimeInCycle()));
+    }
+    return Parameterised::getParameter(key, defaultValue);
+}
+
+void
+MSSimpleTrafficLightLogic::setParameter(const std::string& key, const std::string& value) {
+    if (key == "cycleTime") {
+        myDefaultCycleTime = string2time(value);
+        Parameterised::setParameter(key, value);
+    } else if (key == "cycleSecond") {
+        throw InvalidArgument(key + " cannot be changed dynamically for traffic light '" + getID() + "'");
+    } else if (key == "offset") {
+        myOffset = string2time(value);
+     } else if (key == "coordinated") {
+        myCoordinated = StringUtils::toBool(value);
+        Parameterised::setParameter(key, value);
+    } else {
+        Parameterised::setParameter(key, value);
+    }
+}
 
 /****************************************************************************/
