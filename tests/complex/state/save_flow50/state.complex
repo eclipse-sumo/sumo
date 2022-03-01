@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-27 23:16:17 by Eclipse SUMO sumo Version v1_12_0+0913-90078b0
+<!-- generated on 2022-03-01 18:10:05 by Eclipse SUMO sumo Version v1_12_0+0989-3711dc5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,7 +29,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+0913-90078b0" time="50.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+0989-3711dc5" time="50.00" type="micro">
     <rngState default="0" routeHandler="0" insertionControl="30" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="25"/>
         <rngLane index="1" state="50"/>
@@ -96,6 +96,7 @@
         <rngLane index="62" state="0"/>
         <rngLane index="63" state="0"/>
     </rngState>
+    <edgeControl lanes="middle_0 end_0 beg_0"/>
     <route id="!flowFromTo" state="1" edges="beg end"/>
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="7" begin="21" end="6" depart="132.00" time="156.00"/>
