@@ -237,24 +237,6 @@ GNEViewNetHelper::ObjectsUnderCursor::getAdditionalFront() const {
 }
 
 
-GNEShape*
-GNEViewNetHelper::ObjectsUnderCursor::getShapeFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.shapes.size() > 0) {
-            return myEdgeObjects.shapes.front();
-        } else {
-            return nullptr;
-        }
-    } else {
-        if (myLaneObjects.shapes.size() > 0) {
-            return myLaneObjects.shapes.front();
-        } else {
-            return nullptr;
-        }
-    }
-}
-
-
 GNETAZElement*
 GNEViewNetHelper::ObjectsUnderCursor::getTAZElementFront() const {
     if (mySwapLane2edge) {
@@ -537,7 +519,6 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
     attributeCarriers.clear();
     networkElements.clear();
     additionals.clear();
-    shapes.clear();
     TAZElements.clear();
     demandElements.clear();
     junctions.clear();
@@ -748,15 +729,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(ObjectsContainer& contai
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get shape element
-    GNEShape* shapeElement = myViewNet->getNet()->getAttributeCarriers()->retrieveShape(AC);
-    // insert depending if is the front attribute carrier
-    if (shapeElement == myViewNet->getFrontAttributeCarrier()) {
-        // insert at front
-        container.shapes.insert(container.shapes.begin(), shapeElement);
-    } else {
-        // insert at back
-        container.shapes.push_back(shapeElement);
-    }
+    GNEAdditional* shapeElement = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(AC);
     // cast specific shape
     if (AC->getGUIGlObject()->getType() == GLO_POI) {
         // cast POI

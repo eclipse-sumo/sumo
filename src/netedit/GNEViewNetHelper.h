@@ -135,7 +135,6 @@ class GNEInternalLane;
 // additional elements
 class GNEAdditional;
 class GNETAZElement;
-class GNEShape;
 class GNEPoly;
 class GNEPOI;
 class GNETAZ;
@@ -183,9 +182,6 @@ struct GNEViewNetHelper {
 
         /// @brief get front additional element or a pointer to nullptr
         GNEAdditional* getAdditionalFront() const;
-
-        /// @brief get front shape element or a pointer to nullptr
-        GNEShape* getShapeFront() const;
 
         /// @brief get front TAZElement or a pointer to nullptr
         GNETAZElement* getTAZElementFront() const;
@@ -257,9 +253,6 @@ struct GNEViewNetHelper {
 
             /// @brief vector with the clicked additional elements
             std::vector<GNEAdditional*> additionals;
-
-            /// @brief vector with the clicked shape elements (Poly and POIs)
-            std::vector<GNEShape*> shapes;
 
             /// @brief vector with the clicked TAZ elements
             std::vector<GNETAZElement*> TAZElements;
