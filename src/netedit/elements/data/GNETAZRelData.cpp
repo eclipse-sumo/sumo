@@ -48,8 +48,8 @@
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* fromTAZ, GNETAZElement* toTAZ,
                              const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-{}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
-myLastWidth(0) {
+        {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
+    myLastWidth(0) {
     // update geometry
     updateGeometry();
 }
@@ -58,8 +58,8 @@ myLastWidth(0) {
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* TAZ,
                              const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-{}, {}, {}, {}, {}, {TAZ}, {}, {}),
-myLastWidth(0) {
+        {}, {}, {}, {}, {TAZ}, {}, {}),
+    myLastWidth(0) {
     // update geometry
     updateGeometry();
 }

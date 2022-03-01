@@ -43,10 +43,10 @@
 // ---------------------------------------------------------------------------
 
 GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, const double end) :
-    GNEHierarchicalElement(dataSetParent->getNet(), SUMO_TAG_DATAINTERVAL, {}, {}, {}, {}, {}, {}, {}, {}),
-                       myDataSetParent(dataSetParent),
-                       myBegin(begin),
-myEnd(end) {
+    GNEHierarchicalElement(dataSetParent->getNet(), SUMO_TAG_DATAINTERVAL, {}, {}, {}, {}, {}, {}, {}),
+    myDataSetParent(dataSetParent),
+    myBegin(begin),
+    myEnd(end) {
 }
 
 
