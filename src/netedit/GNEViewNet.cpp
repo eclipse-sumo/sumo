@@ -2135,7 +2135,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
                 POIBaseObject->addDoubleAttribute(SUMO_ATTR_POSITION_LAT, 0);
                 // remove POI
                 myUndoList->begin(GUIIcon::POI, "attach POI into " + toString(SUMO_TAG_LANE));
-                myNet->deleteShape(POI, myUndoList);
+                myNet->deleteAdditional(POI, myUndoList);
                 // add new POI use route handler
                 additionalHanlder.parseSumoBaseObject(POIBaseObject);
                 myUndoList->end();
@@ -2148,7 +2148,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
             POIBaseObject->addDoubleAttribute(SUMO_ATTR_Y, POI->y());
             // remove POI
             myUndoList->begin(GUIIcon::POI, "release POI from " + toString(SUMO_TAG_LANE));
-            myNet->deleteShape(POI, myUndoList);
+            myNet->deleteAdditional(POI, myUndoList);
             // add new POI use route handler
             additionalHanlder.parseSumoBaseObject(POIBaseObject);
             myUndoList->end();
@@ -4304,13 +4304,6 @@ GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier
             // if exist, remove it
             if (additionalElement) {
                 myNet->deleteAdditional(additionalElement, myUndoList);
-            }
-        } else if (AC->getTagProperty().isShape()) {
-            // get shape Element (note: could be already removed if is a child, then hardfail=false)
-            GNEShape* shapeElement = myNet->getAttributeCarriers()->retrieveShape(AC, false);
-            // if exist, remove it
-            if (shapeElement) {
-                myNet->deleteShape(shapeElement, myUndoList);
             }
         } else if (AC->getTagProperty().isTAZElement()) {
             // get TAZ Element (note: could be already removed if is a child, then hardfail=false)
