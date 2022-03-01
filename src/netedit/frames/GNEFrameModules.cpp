@@ -800,7 +800,6 @@ GNEFrameModules::HierarchicalElementTree::HierarchicalElementTree(GNEFrame* fram
     myClickedLane(nullptr),
     myClickedCrossing(nullptr),
     myClickedConnection(nullptr),
-    myClickedShape(nullptr),
     myClickedTAZElement(nullptr),
     myClickedAdditional(nullptr),
     myClickedDemandElement(nullptr),
@@ -841,7 +840,6 @@ GNEFrameModules::HierarchicalElementTree::hideHierarchicalElementTree() {
     myClickedLane = nullptr;
     myClickedCrossing = nullptr;
     myClickedConnection = nullptr;
-    myClickedShape = nullptr;
     myClickedTAZElement = nullptr;
     myClickedAdditional = nullptr;
     myClickedDemandElement = nullptr;
@@ -906,8 +904,6 @@ GNEFrameModules::HierarchicalElementTree::onCmdCenterItem(FXObject*, FXSelector,
         myFrameParent->myViewNet->centerTo(myClickedConnection->getGlID(), true, -1);
     } else if (myClickedAdditional) {
         myFrameParent->myViewNet->centerTo(myClickedAdditional->getGlID(), true, -1);
-    } else if (myClickedShape) {
-        myFrameParent->myViewNet->centerTo(myClickedShape->getGlID(), true, -1);
     } else if (myClickedTAZElement) {
         myFrameParent->myViewNet->centerTo(myClickedTAZElement->getGlID(), true, -1);
     } else if (myClickedDemandElement) {
@@ -945,8 +941,6 @@ GNEFrameModules::HierarchicalElementTree::onCmdDeleteItem(FXObject*, FXSelector,
         myFrameParent->myViewNet->getNet()->deleteConnection(myClickedConnection, myFrameParent->myViewNet->getUndoList());
     } else if (myClickedAdditional) {
         myFrameParent->myViewNet->getNet()->deleteAdditional(myClickedAdditional, myFrameParent->myViewNet->getUndoList());
-    } else if (myClickedShape) {
-        myFrameParent->myViewNet->getNet()->deleteShape(myClickedShape, myFrameParent->myViewNet->getUndoList());
     } else if (myClickedTAZElement) {
         myFrameParent->myViewNet->getNet()->deleteTAZElement(myClickedTAZElement, myFrameParent->myViewNet->getUndoList());
     } else if (myClickedDemandElement) {
@@ -1045,7 +1039,6 @@ GNEFrameModules::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttri
         myClickedLane = attributeCarriers->retrieveLane(clickedAC, false);
         myClickedCrossing = attributeCarriers->retrieveCrossing(clickedAC, false);
         myClickedConnection = attributeCarriers->retrieveConnection(clickedAC, false);
-        myClickedShape = attributeCarriers->retrieveShape(clickedAC, false);
         myClickedTAZElement = attributeCarriers->retrieveTAZElement(clickedAC, false);
         myClickedAdditional = attributeCarriers->retrieveAdditional(clickedAC, false);
         myClickedDemandElement = attributeCarriers->retrieveDemandElement(clickedAC, false);
@@ -1118,7 +1111,6 @@ GNEFrameModules::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttri
         myClickedLane = nullptr;
         myClickedCrossing = nullptr;
         myClickedConnection = nullptr;
-        myClickedShape = nullptr;
         myClickedTAZElement = nullptr;
         myClickedAdditional = nullptr;
         myClickedDemandElement = nullptr;
@@ -1216,7 +1208,7 @@ GNEFrameModules::HierarchicalElementTree::showAttributeCarrierParents() {
         }
     } else if (myHE->getTagProperty().getTag() == GNE_TAG_POILANE) {
         // Obtain POILane
-        const GNEShape* POILane = myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveShape(myHE);
+        const auto* POILane = myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(myHE);
         // obtain parent lane
         GNELane* lane = attributeCarriers->retrieveLane(POILane->getParentLanes().at(0)->getID());
         // obtain parent edge
@@ -1553,10 +1545,6 @@ GNEFrameModules::HierarchicalElementTree::showHierarchicalElementChildren(GNEHie
                     for (const auto& additional : edge->getChildAdditionals()) {
                         showHierarchicalElementChildren(additional, edgeItem);
                     }
-                    // insert child shapes
-                    for (const auto& shape : edge->getChildShapes()) {
-                        showHierarchicalElementChildren(shape, edgeItem);
-                    }
                     // insert child TAZElements
                     for (const auto& TAZElement : edge->getChildTAZElements()) {
                         // use addListItem because TAZElement doesn't have children
@@ -1596,10 +1584,6 @@ GNEFrameModules::HierarchicalElementTree::showHierarchicalElementChildren(GNEHie
                     // insert child additional
                     for (const auto& additional : lane->getChildAdditionals()) {
                         showHierarchicalElementChildren(additional, laneItem);
-                    }
-                    // insert child shapes
-                    for (const auto& shape : lane->getChildShapes()) {
-                        showHierarchicalElementChildren(shape, laneItem);
                     }
                     // insert child TAZElements
                     for (const auto& TAZElement : lane->getChildTAZElements()) {
@@ -1676,10 +1660,6 @@ GNEFrameModules::HierarchicalElementTree::showHierarchicalElementChildren(GNEHie
             if (!additional->getTagProperty().isSymbol()) {
                 showHierarchicalElementChildren(additional, treeItem);
             }
-        }
-        // insert child shapes
-        for (const auto& shape : HE->getChildShapes()) {
-            showHierarchicalElementChildren(shape, treeItem);
         }
         // insert TAZElements children
         for (const auto& TAZElement : HE->getChildTAZElements()) {
