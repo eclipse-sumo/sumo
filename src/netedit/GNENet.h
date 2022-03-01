@@ -182,12 +182,6 @@ public:
      */
     void deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList);
 
-    /**@brief remove shape
-     * @param[in] shape The Shape to be removed
-     * @param[in] undoList The undolist in which to mark changes
-     */
-    void deleteShape(GNEShape* shape, GNEUndoList* undoList);
-
     /**@brief remove TAZElement
      * @param[in] TAZElement The TAZElement to be removed
      * @param[in] undoList The undolist in which to mark changes

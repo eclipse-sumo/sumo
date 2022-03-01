@@ -39,7 +39,6 @@
 #include <netedit/changes/GNEChange_Edge.h>
 #include <netedit/changes/GNEChange_Junction.h>
 #include <netedit/changes/GNEChange_Lane.h>
-#include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/dialogs/GNEFixAdditionalElements.h>
 #include <netedit/dialogs/GNEFixDemandElements.h>
 #include <netedit/elements/GNEGeneralHandler.h>
@@ -375,10 +374,6 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);
         }
-        // delete lane shapes
-        while (lane->getChildShapes().size() > 0) {
-            deleteShape(lane->getChildShapes().front(), undoList);
-        }
         // delete lane demand elements
         while (lane->getChildDemandElements().size() > 0) {
             deleteDemandElement(lane->getChildDemandElements().front(), undoList);
@@ -391,10 +386,6 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     // delete edge child additionals
     while (edge->getChildAdditionals().size() > 0) {
         deleteAdditional(edge->getChildAdditionals().front(), undoList);
-    }
-    // delete edge child shapes
-    while (edge->getChildShapes().size() > 0) {
-        deleteShape(edge->getChildShapes().front(), undoList);
     }
     // delete edge child demand elements
     while (edge->getChildDemandElements().size() > 0) {
@@ -448,11 +439,6 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
         for (const auto& additional : copyOfLaneAdditionals) {
             undoList->changeAttribute(new GNEChange_Attribute(additional, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(lane->getIndex())));
         }
-        // replace in shapes
-        std::vector<GNEShape*> copyOfLaneShapes = lane->getChildShapes();
-        for (const auto& shape : copyOfLaneShapes) {
-            undoList->changeAttribute(new GNEChange_Attribute(shape, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(lane->getIndex())));
-        }
         // replace in demand elements
         std::vector<GNEDemandElement*> copyOfLaneDemandElements = lane->getChildDemandElements();
         for (const auto& demandElement : copyOfLaneDemandElements) {
@@ -467,10 +453,6 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
     // replace in edge additionals children
     while (which->getChildAdditionals().size() > 0) {
         undoList->changeAttribute(new GNEChange_Attribute(which->getChildAdditionals().front(), SUMO_ATTR_EDGE, by->getID()));
-    }
-    // replace in edge shapes children
-    while (which->getChildShapes().size() > 0) {
-        undoList->changeAttribute(new GNEChange_Attribute(which->getChildShapes().front(), SUMO_ATTR_EDGE, by->getID()));
     }
     // replace in edge demand elements children
     while (which->getChildDemandElements().size() > 0) {
@@ -516,10 +498,6 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         // delete lane additional children
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);
-        }
-        // delete lane shape children
-        while (lane->getChildShapes().size() > 0) {
-            deleteShape(lane->getChildShapes().front(), undoList);
         }
         // delete lane demand element children
         while (lane->getChildDemandElements().size() > 0) {
@@ -597,15 +575,6 @@ GNENet::deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList) {
     }
     // remove additional
     undoList->add(new GNEChange_Additional(additional, false), true);
-    undoList->end();
-}
-
-
-void
-GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::MODEDELETE, "delete " + shape->getTagStr());
-    // delete shape
-    undoList->add(new GNEChange_Shape(shape, false), true);
     undoList->end();
 }
 
@@ -1916,12 +1885,6 @@ GNENet::clearAdditionalElements(GNEUndoList* undoList) {
             deleteAdditional(*additionalMap.second.begin(), undoList);
         }
     }
-    // clear shapes
-    for (const auto& shapeMap : myAttributeCarriers->getShapes()) {
-        while (shapeMap.second.size() > 0) {
-            deleteShape(*shapeMap.second.begin(), undoList);
-        }
-    }
     // clear TAZs
     for (const auto& TAZMap : myAttributeCarriers->getTAZElements()) {
         while (TAZMap.second.size() > 0) {
@@ -2285,6 +2248,20 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     for (const auto& vaporizer : myAttributeCarriers->getAdditionals().at(SUMO_TAG_VAPORIZER)) {
         sortedAdditionals.back()[vaporizer->getID()] = vaporizer;
     }
+    // Polygons
+    for (const auto& poly : myAttributeCarriers->getAdditionals().at(SUMO_TAG_POLY)) {
+        sortedAdditionals.back()[poly->getID()] = poly;
+    }
+    // POIs
+    for (const auto& POI : myAttributeCarriers->getAdditionals().at(SUMO_TAG_POI)) {
+        sortedAdditionals.back()[POI->getID()] = POI;
+    }
+    for (const auto& POILane : myAttributeCarriers->getAdditionals().at(GNE_TAG_POILANE)) {
+        sortedAdditionals.back()[POILane->getID()] = POILane;
+    }
+    for (const auto& POIGEO : myAttributeCarriers->getAdditionals().at(GNE_TAG_POIGEO)) {
+        sortedAdditionals.back()[POIGEO->getID()] = POIGEO;
+    }
     // now write additionals
     for (const auto& additionalTag : sortedAdditionals) {
         for (const auto& additional : additionalTag) {
@@ -2298,28 +2275,6 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     }
     for (const auto& TAZElement : sortedTAZs) {
         TAZElement.second->writeTAZElement(device);
-    }
-    // write Polygons
-    std::map<std::string, GNEShape*> sortedShapes;
-    for (const auto& poly : myAttributeCarriers->getShapes().at(SUMO_TAG_POLY)) {
-        sortedShapes[poly->getID()] = poly;
-    }
-    for (const auto& shape : sortedShapes) {
-        shape.second->writeShape(device);
-    }
-    sortedShapes.clear();
-    // write POIs
-    for (const auto& POI : myAttributeCarriers->getShapes().at(SUMO_TAG_POI)) {
-        sortedShapes[POI->getID()] = POI;
-    }
-    for (const auto& POILane : myAttributeCarriers->getShapes().at(GNE_TAG_POILANE)) {
-        sortedShapes[POILane->getID()] = POILane;
-    }
-    for (const auto& POIGEO : myAttributeCarriers->getShapes().at(GNE_TAG_POIGEO)) {
-        sortedShapes[POIGEO->getID()] = POIGEO;
-    }
-    for (const auto& shape : sortedShapes) {
-        shape.second->writeShape(device);
     }
     device.close();
 }
@@ -2603,7 +2558,6 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         myAttributeCarriers->clearJunctions();
         myAttributeCarriers->clearEdges();
         myAttributeCarriers->clearAdditionals();
-        myAttributeCarriers->clearShapes();
         myAttributeCarriers->clearTAZElements();
         myAttributeCarriers->clearDemandElements();
         // enable update geometry again
