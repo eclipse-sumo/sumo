@@ -7,8 +7,6 @@ set(netedit_elements_additional_SRCS
    GNEAdditionalHandler.cpp
    GNEAdditional.h
    GNEAdditional.cpp
-   GNEShape.h
-   GNEShape.cpp
    GNEChargingStation.h
    GNEChargingStation.cpp
    GNEStoppingPlace.h
