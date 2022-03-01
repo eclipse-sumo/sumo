@@ -38,12 +38,11 @@ GNEHierarchicalElement::GNEHierarchicalElement(GNENet* net, SumoXMLTag tag,
         const std::vector<GNEEdge*>& parentEdges,
         const std::vector<GNELane*>& parentLanes,
         const std::vector<GNEAdditional*>& parentAdditionals,
-        const std::vector<GNEShape*>& parentShapes,
         const std::vector<GNETAZElement*>& parentTAZElements,
         const std::vector<GNEDemandElement*>& ParentDemandElements,
         const std::vector<GNEGenericData*>& parentGenericDatas) :
     GNEAttributeCarrier(tag, net),
-    myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, parentShapes, parentTAZElements, ParentDemandElements, parentGenericDatas) {
+    myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, parentTAZElements, ParentDemandElements, parentGenericDatas) {
 }
 
 
@@ -81,9 +80,6 @@ GNEHierarchicalElement::getAllHierarchicalElements() const {
     for (const auto& element : getParentAdditionals()) {
         result.push_back(element);
     }
-    for (const auto& element : getParentShapes()) {
-        result.push_back(element);
-    }
     for (const auto& element : getParentTAZElements()) {
         result.push_back(element);
     }
@@ -104,9 +100,6 @@ GNEHierarchicalElement::getAllHierarchicalElements() const {
         result.push_back(element);
     }
     for (const auto& element : getChildAdditionals()) {
-        result.push_back(element);
-    }
-    for (const auto& element : getChildShapes()) {
         result.push_back(element);
     }
     for (const auto& element : getChildTAZElements()) {
@@ -143,12 +136,6 @@ GNEHierarchicalElement::getParentLanes() const {
 const std::vector<GNEAdditional*>&
 GNEHierarchicalElement::getParentAdditionals() const {
     return myHierarchicalContainer.getParents<std::vector<GNEAdditional*> >();
-}
-
-
-const std::vector<GNEShape*>&
-GNEHierarchicalElement::getParentShapes() const {
-    return myHierarchicalContainer.getParents<std::vector<GNEShape*> >();
 }
 
 
@@ -191,12 +178,6 @@ GNEHierarchicalElement::getChildLanes() const {
 const std::vector<GNEAdditional*>&
 GNEHierarchicalElement::getChildAdditionals() const {
     return myHierarchicalContainer.getChildren<std::vector<GNEAdditional*> >();
-}
-
-
-const std::vector<GNEShape*>&
-GNEHierarchicalElement::getChildShapes() const {
-    return myHierarchicalContainer.getChildren<std::vector<GNEShape*> >();
 }
 
 
