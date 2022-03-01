@@ -555,7 +555,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     }
     // invert polygons
     if (ignoreLocking || !locks.isObjectLocked(GLO_POLYGON, false)) {
-        for (const auto& polygon : ACs->getShapes().at(SUMO_TAG_POLY)) {
+        for (const auto& polygon : ACs->getAdditionals().at(SUMO_TAG_POLY)) {
             if (onlyCount) {
                 return true;
             } else if (onlyUnselect || polygon->isAttributeCarrierSelected()) {
@@ -585,20 +585,31 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     }
     // invert POIs and POILanes
     if (ignoreLocking || !locks.isObjectLocked(GLO_POI, false)) {
-        for (const auto& shapeTag : ACs->getShapes()) {
-            if (shapeTag.first != SUMO_TAG_POLY) {
-                for (const auto& POI : shapeTag.second) {
-                    if (onlyCount) {
-                        return true;
-                    } else if (onlyUnselect || POI->isAttributeCarrierSelected()) {
-                        POI->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        POI->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            } else if (onlyCount) {
-                ignoreLocking = askContinueIfLock();
+        for (const auto& polygon : ACs->getAdditionals().at(SUMO_TAG_POI)) {
+            if (onlyCount) {
                 return true;
+            } else if (onlyUnselect || polygon->isAttributeCarrierSelected()) {
+                polygon->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                polygon->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& polygon : ACs->getAdditionals().at(GNE_TAG_POILANE)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || polygon->isAttributeCarrierSelected()) {
+                polygon->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                polygon->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& polygon : ACs->getAdditionals().at(GNE_TAG_POIGEO)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || polygon->isAttributeCarrierSelected()) {
+                polygon->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                polygon->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
     }
@@ -1147,10 +1158,6 @@ GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, vo
             if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::ADDITIONAL)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getParentAdditionals().begin(), HE->getParentAdditionals().end());
             }
-            // shape
-            if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::SHAPE)) {
-                HEToSelect.insert(HEToSelect.end(), HE->getParentShapes().begin(), HE->getParentShapes().end());
-            }
             // demand
             if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::DEMAND)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getParentDemandElements().begin(), HE->getParentDemandElements().end());
@@ -1225,10 +1232,6 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
                         HEToSelect.push_back(additionalChild);
                     }
                 }
-            }
-            // shape
-            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::SHAPE)) {
-                HEToSelect.insert(HEToSelect.end(), HE->getChildShapes().begin(), HE->getChildShapes().end());
             }
             // demand
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::DEMAND)) {

@@ -561,7 +561,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
     const Position shiftValue(shiftValueX, shiftValueY);
     // get selected polygons and POIs
     const auto selectedShapes = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedShapes();
-    std::vector<GNEShape*> polygons, POIs;
+    std::vector<GNEAdditional*> polygons, POIs;
     for (const auto& shape : selectedShapes) {
         if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
             polygons.push_back(shape);
@@ -569,7 +569,6 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
             POIs.push_back(shape);
         }
     }
-
     // begin undo-redo
     myMoveFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::POLY, "shift shape geometries");
     // iterate over shapes
