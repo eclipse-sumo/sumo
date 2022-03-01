@@ -145,7 +145,8 @@ const GUIGlID GUIGlObject::INVALID_ID = 0;
 GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
     myGlID(GUIGlObjectStorage::gIDStorage.registerObject(this)),
     myGLObjectType(type),
-    myMicrosimID(microsimID) {
+    myMicrosimID(microsimID),
+    myAmBlocked(false) {
     // make sure that reserved GLO_ADDITIONALELEMENT isn't used
     assert(myGLObjectType != GLO_ADDITIONALELEMENT);
     myFullName = createFullName();

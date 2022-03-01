@@ -39,8 +39,6 @@ public:
 
     static bool isLibsumo();
 
-    static bool hasGUI();
-
     // we cannot call this switch because it is a reserved word in C++
     static void switchConnection(const std::string& label);
 
@@ -56,6 +54,9 @@ public:
 
     /// @brief load a simulation with the given arguments
     static void load(const std::vector<std::string>& args);
+
+    /// @brief whether we run with graphical user interface (sumo-gui)
+    static bool hasGUI();
 
     /// @brief return whether a simulation (network) is present
     static bool isLoaded();

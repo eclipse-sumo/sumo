@@ -751,12 +751,12 @@ MSNet::simulationState(SUMOTime stopTime) const {
 
 
 MSNet::SimulationState
-MSNet::adaptToState(MSNet::SimulationState state) const {
+MSNet::adaptToState(MSNet::SimulationState state, const bool isLibsumo) const {
     if (state == SIMSTATE_LOADING) {
         OptionsIO::setArgs(TraCIServer::getInstance()->getLoadArgs());
         TraCIServer::getInstance()->getLoadArgs().clear();
-    } else if (state != SIMSTATE_RUNNING && TraCIServer::getInstance() != nullptr && !TraCIServer::wasClosed()) {
-        // overrides SIMSTATE_END_STEP_REACHED, e.g. (TraCI ignore SUMO's --end option)
+    } else if (state != SIMSTATE_RUNNING && ((TraCIServer::getInstance() != nullptr && !TraCIServer::wasClosed()) || isLibsumo)) {
+        // overrides SIMSTATE_END_STEP_REACHED, e.g. (TraCI / Libsumo ignore SUMO's --end option)
         return SIMSTATE_RUNNING;
     } else if (state == SIMSTATE_NO_FURTHER_VEHICLES) {
         if (myPersonControl != nullptr) {

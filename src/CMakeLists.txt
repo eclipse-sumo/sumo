@@ -4,6 +4,16 @@ set(netconvertlibs
 set(sumolibs
         traciserver netload microsim_cfmodels microsim_engine microsim_lcmodels microsim_devices microsim_trigger microsim_output microsim_transportables microsim_actions
         microsim_traffic_lights microsim mesosim ${commonvehiclelibs} ${PYTHON_LIBRARIES})
+if (OPENSCENEGRAPH_FOUND)
+    set(osgviewlib osgview)
+endif ()
+set(sumoguilibs
+        gui guinetload guisim gui gui_dialogs utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
+        utils_gui_images utils_gui_cursors utils_gui_shortcuts utils_gui_tracker utils_foxtools utils_traction_wire ${osgviewlib} microsim traciserver libsumostatic ${sumolibs} mesogui
+        ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
+if (MSVC)
+    set(sumoguilibs ${sumoguilibs} opengl32 glu32)
+endif ()
 
 add_subdirectory(activitygen)
 add_subdirectory(dfrouter)
@@ -26,7 +36,6 @@ add_subdirectory(netwrite)
 add_subdirectory(od)
 if (OPENSCENEGRAPH_FOUND)
     add_subdirectory(osgview)
-    set(osgviewlib osgview)
 endif ()
 add_subdirectory(polyconvert)
 add_subdirectory(router)
@@ -55,10 +64,7 @@ if (FOX_FOUND)
     add_executable(sumo-gui guisim_main.cpp sumo-gui.rc)
     set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME sumo-gui${BINARY_SUFFIX})
     set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME_DEBUG sumo-gui${BINARY_SUFFIX}D)
-    target_link_libraries(sumo-gui gui guinetload guisim gui gui_dialogs
-        utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
-        utils_gui_images utils_gui_cursors utils_gui_shortcuts utils_gui_tracker utils_foxtools utils_traction_wire ${osgviewlib} microsim traciserver libsumostatic ${sumolibs} mesogui
-        ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
+    target_link_libraries(sumo-gui ${sumoguilibs})
     if (MSVC)
         if (CONSOLE_RELEASE)
             set_target_properties(sumo-gui PROPERTIES LINK_FLAGS_RELEASE "/ENTRY:mainCRTStartup")
@@ -73,7 +79,6 @@ if (FOX_FOUND)
         else ()
             set_target_properties(sumo-gui PROPERTIES VS_DPI_AWARE "ON")
         endif ()
-        target_link_libraries(sumo-gui opengl32 glu32)
     endif ()
     add_dependencies(sumo-gui generate-version-h install_dll)
     install(TARGETS sumo-gui RUNTIME DESTINATION bin)
