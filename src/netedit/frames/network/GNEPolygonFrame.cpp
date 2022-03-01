@@ -180,7 +180,7 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
             myPolygonFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(myPolygonFrameParent->myBaseShape, nullptr);
             // Check if ID has to be generated
             if (!myPolygonFrameParent->myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-                myPolygonFrameParent->myBaseShape->addStringAttribute(SUMO_ATTR_ID, myPolygonFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateShapeID(SUMO_TAG_POI));
+                myPolygonFrameParent->myBaseShape->addStringAttribute(SUMO_ATTR_ID, myPolygonFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_POI));
             }
             // force GEO attribute to true and obain position
             myPolygonFrameParent->myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, true);
@@ -271,7 +271,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
             myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, objectsUnderCursor.getLaneFront());
             // Check if ID has to be generated
             if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-                myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateShapeID(SUMO_TAG_POI));
+                myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_POI));
             }
             // add X-Y
             myBaseShape->addDoubleAttribute(SUMO_ATTR_X, clickedPosition.x());
@@ -298,7 +298,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
             myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, objectsUnderCursor.getLaneFront());
             // Check if ID has to be generated
             if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-                myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateShapeID(SUMO_TAG_POI));
+                myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_POI));
             }
             // convert position to cartesian
             Position GEOPos = clickedPosition;
@@ -333,7 +333,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
             myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, objectsUnderCursor.getLaneFront());
             // Check if ID has to be generated
             if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-                myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateShapeID(SUMO_TAG_POI));
+                myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_POI));
             }
             // obtain Lane
             myBaseShape->addStringAttribute(SUMO_ATTR_LANE, objectsUnderCursor.getLaneFront()->getID());
@@ -420,7 +420,7 @@ GNEPolygonFrame::shapeDrawed() {
         myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, nullptr);
         // Check if ID has to be generated
         if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-            myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateShapeID(SUMO_TAG_POLY));
+            myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_POLY));
         }
         // obtain shape and check if has to be closed
         PositionVector temporalShape = myDrawingShape->getTemporalShape();
