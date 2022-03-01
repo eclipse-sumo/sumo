@@ -84,12 +84,12 @@ GNELane::LaneDrawingConstants::LaneDrawingConstants() :
 
 GNELane::GNELane(GNEEdge* edge, const int index) :
     GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE,
-{}, {}, {}, {}, {}, {}, {}, {}),
-myParentEdge(edge),
-myIndex(index),
-mySpecialColor(nullptr),
-mySpecialColorValue(-1),
-myLane2laneConnections(this) {
+        {}, {}, {}, {}, {}, {}, {}),
+    myParentEdge(edge),
+    myIndex(index),
+    mySpecialColor(nullptr),
+    mySpecialColorValue(-1),
+    myLane2laneConnections(this) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -97,12 +97,12 @@ myLane2laneConnections(this) {
 
 GNELane::GNELane() :
     GNENetworkElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE,
-{}, {}, {}, {}, {}, {}, {}, {}),
-myParentEdge(nullptr),
-myIndex(-1),
-mySpecialColor(nullptr),
-mySpecialColorValue(-1),
-myLane2laneConnections(this) {
+        {}, {}, {}, {}, {}, {}, {}),
+    myParentEdge(nullptr),
+    myIndex(-1),
+    mySpecialColor(nullptr),
+    mySpecialColorValue(-1),
+    myLane2laneConnections(this) {
 }
 
 
@@ -163,14 +163,6 @@ GNELane::updateGeometry() {
     myLaneGeometry.updateGeometry(laneShape);
     // update connections
     myLane2laneConnections.updateLane2laneConnection();
-    // update shapes parents associated with this lane
-    for (const auto& shape : getParentShapes()) {
-        shape->updateGeometry();
-    }
-    // update child shapes associated with this lane
-    for (const auto& shape : getChildShapes()) {
-        shape->updateGeometry();
-    }
     // update additionals children associated with this lane
     for (const auto& additional : getParentAdditionals()) {
         additional->updateGeometry();
@@ -628,10 +620,6 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GNELane::drawChildren(const GUIVisualizationSettings& s) const {
-    // draw child shapes
-    for (const auto& POILane : getChildShapes()) {
-        POILane->drawGL(s);
-    }
     // draw child additional
     for (const auto& additional : getChildAdditionals()) {
         // check that ParkingAreas aren't draw two times
