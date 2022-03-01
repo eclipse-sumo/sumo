@@ -48,12 +48,11 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
                                    const std::vector<GNEEdge*>& edgeParents,
                                    const std::vector<GNELane*>& laneParents,
                                    const std::vector<GNEAdditional*>& additionalParents,
-                                   const std::vector<GNEShape*>& shapeParents,
                                    const std::vector<GNETAZElement*>& TAZElementParents,
                                    const std::vector<GNEDemandElement*>& demandElementParents,
                                    const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
-    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(options),
     myStackedLabelNumber(0) {
     // check if is template
@@ -66,12 +65,11 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet
                                    const std::vector<GNEEdge*>& edgeParents,
                                    const std::vector<GNELane*>& laneParents,
                                    const std::vector<GNEAdditional*>& additionalParents,
-                                   const std::vector<GNEShape*>& shapeParents,
                                    const std::vector<GNETAZElement*>& TAZElementParents,
                                    const std::vector<GNEDemandElement*>& demandElementParents,
                                    const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, demandElementParent->getID()),
-    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(options),
     myStackedLabelNumber(0) {
 }

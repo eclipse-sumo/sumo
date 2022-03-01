@@ -162,7 +162,7 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_CONTAINER, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
@@ -170,7 +170,7 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters) :
     GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {pType}, {}),
+        {}, {}, {}, {}, {}, {pType}, {}),
     SUMOVehicleParameter(containerparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
