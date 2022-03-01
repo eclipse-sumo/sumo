@@ -637,8 +637,8 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
     if (tagPropertyCategory & GNETagProperties::ADDITIONALELEMENT) {
         // fill additional tags
         for (const auto& tagProperty : myTagProperties) {
-            // avoid symbols (It will be implemented in #7355)
-            if (!tagProperty.second.isSymbol() && tagProperty.second.isAdditionalElement()) {
+            // avoid symbols and shapes (It will be implemented in #7355)
+            if (!tagProperty.second.isSymbol() && !tagProperty.second.isShape() && tagProperty.second.isAdditionalElement()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
