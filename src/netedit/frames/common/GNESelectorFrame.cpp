@@ -537,7 +537,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     if (ignoreLocking || !locks.isObjectLocked(GLO_ADDITIONALELEMENT, false)) {
         for (const auto& additionalTag : ACs->getAdditionals()) {
             // first check if additional is selectable
-            if (GNEAttributeCarrier::getTagProperty(additionalTag.first).isSelectable()) {
+            if (!GNEAttributeCarrier::getTagProperty(additionalTag.first).isShape() && GNEAttributeCarrier::getTagProperty(additionalTag.first).isSelectable()) {
                 for (const auto& additional : additionalTag.second) {
                     if (onlyCount) {
                         return true;
@@ -585,31 +585,31 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     }
     // invert POIs and POILanes
     if (ignoreLocking || !locks.isObjectLocked(GLO_POI, false)) {
-        for (const auto& polygon : ACs->getAdditionals().at(SUMO_TAG_POI)) {
+        for (const auto& POI : ACs->getAdditionals().at(SUMO_TAG_POI)) {
             if (onlyCount) {
                 return true;
-            } else if (onlyUnselect || polygon->isAttributeCarrierSelected()) {
-                polygon->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else if (onlyUnselect || POI->isAttributeCarrierSelected()) {
+                POI->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
-                polygon->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                POI->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
-        for (const auto& polygon : ACs->getAdditionals().at(GNE_TAG_POILANE)) {
+        for (const auto& POILane : ACs->getAdditionals().at(GNE_TAG_POILANE)) {
             if (onlyCount) {
                 return true;
-            } else if (onlyUnselect || polygon->isAttributeCarrierSelected()) {
-                polygon->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else if (onlyUnselect || POILane->isAttributeCarrierSelected()) {
+                POILane->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
-                polygon->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                POILane->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
-        for (const auto& polygon : ACs->getAdditionals().at(GNE_TAG_POIGEO)) {
+        for (const auto& POIGeo : ACs->getAdditionals().at(GNE_TAG_POIGEO)) {
             if (onlyCount) {
                 return true;
-            } else if (onlyUnselect || polygon->isAttributeCarrierSelected()) {
-                polygon->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else if (onlyUnselect || POIGeo->isAttributeCarrierSelected()) {
+                POIGeo->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
-                polygon->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                POIGeo->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
     }
