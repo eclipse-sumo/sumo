@@ -192,11 +192,6 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
             for (const auto& selectedCrossing : selectedCrossings) {
                 myViewNet->getNet()->deleteCrossing(selectedCrossing, myViewNet->getUndoList());
             }
-            // shapes
-            const auto selectedShapes = attributeCarriers->getSelectedShapes();
-            for (const auto& selectedShape : selectedShapes) {
-                myViewNet->getNet()->deleteShape(selectedShape, myViewNet->getUndoList());
-            }
             // additionals
             while (attributeCarriers->getNumberOfSelectedAdditionals() > 0) {
                 myViewNet->getNet()->deleteAdditional(attributeCarriers->getSelectedAdditionals().front(), myViewNet->getUndoList());
@@ -250,8 +245,6 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
             myViewNet->getNet()->deleteConnection(objectsUnderCursor.getConnectionFront(), myViewNet->getUndoList());
         } else if (objectsUnderCursor.getAttributeCarrierFront() && (objectsUnderCursor.getAdditionalFront() == objectsUnderCursor.getAttributeCarrierFront())) {
             myViewNet->getNet()->deleteAdditional(objectsUnderCursor.getAdditionalFront(), myViewNet->getUndoList());
-        } else if (objectsUnderCursor.getShapeFront() && (objectsUnderCursor.getShapeFront() == objectsUnderCursor.getAttributeCarrierFront())) {
-            myViewNet->getNet()->deleteShape(objectsUnderCursor.getShapeFront(), myViewNet->getUndoList());
         } else if (objectsUnderCursor.getTAZElementFront() && (objectsUnderCursor.getTAZElementFront() == objectsUnderCursor.getAttributeCarrierFront())) {
             myViewNet->getNet()->deleteTAZElement(objectsUnderCursor.getTAZElementFront(), myViewNet->getUndoList());
         } else if (objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront() == objectsUnderCursor.getAttributeCarrierFront())) {
@@ -335,11 +328,6 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAdditional* 
 }
 
 
-GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEShape* shape) :
-    SubordinatedElements(shape, shape->getNet()->getViewNet()) {
-}
-
-
 GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEDemandElement* demandElement) :
     SubordinatedElements(demandElement, demandElement->getNet()->getViewNet()) {
 }
@@ -408,8 +396,6 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
     myAdditionalChilds(hierarchicalElement->getChildAdditionals().size()),
     myTAZParents(hierarchicalElement->getParentTAZElements().size()),
     myTAZChilds(hierarchicalElement->getChildTAZElements().size()),
-    myShapeParents(hierarchicalElement->getParentShapes().size()),
-    myShapeChilds(hierarchicalElement->getChildShapes().size()),
     myDemandElementParents(hierarchicalElement->getParentDemandElements().size()),
     myDemandElementChilds(hierarchicalElement->getChildDemandElements().size()),
     myGenericDataParents(hierarchicalElement->getParentGenericDatas().size()),
@@ -417,9 +403,6 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
     // add the number of subodinated elements of additionals, shapes, demand elements and generic datas
     for (const auto& additional : hierarchicalElement->getParentAdditionals()) {
         addValuesFromSubordinatedElements(this, additional);
-    }
-    for (const auto& shape : hierarchicalElement->getParentShapes()) {
-        addValuesFromSubordinatedElements(this, shape);
     }
     for (const auto& demandElement : hierarchicalElement->getParentDemandElements()) {
         addValuesFromSubordinatedElements(this, demandElement);
@@ -429,9 +412,6 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
     }
     for (const auto& additional : hierarchicalElement->getChildAdditionals()) {
         addValuesFromSubordinatedElements(this, additional);
-    }
-    for (const auto& shape : hierarchicalElement->getChildShapes()) {
-        addValuesFromSubordinatedElements(this, shape);
     }
     for (const auto& additional : hierarchicalElement->getChildDemandElements()) {
         addValuesFromSubordinatedElements(this, additional);
@@ -517,14 +497,6 @@ GNEDeleteFrame::selectedACsToDelete() const {
             // check crossings
             for (const auto& crossing : junction.second->getGNECrossings()) {
                 if (crossing->isAttributeCarrierSelected()) {
-                    return true;
-                }
-            }
-        }
-        // check shapes
-        for (const auto& shapeTag : myViewNet->getNet()->getAttributeCarriers()->getShapes()) {
-            for (const auto& shape : shapeTag.second) {
-                if (shape->isAttributeCarrierSelected()) {
                     return true;
                 }
             }

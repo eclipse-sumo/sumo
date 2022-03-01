@@ -165,9 +165,6 @@ protected:
         /// @brief constructor (for additionals)
         SubordinatedElements(const GNEAdditional* additional);
 
-        /// @brief constructor (for shapes)
-        SubordinatedElements(const GNEShape* shape);
-
         /// @brief constructor (for demandElements)
         SubordinatedElements(const GNEDemandElement* demandElement);
 
