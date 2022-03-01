@@ -170,7 +170,7 @@ NLHandler::myStartElement(int element,
                 myTriggerBuilder.parseAndBuildCalibrator(myNet, attrs, getFileName());
                 break;
             case SUMO_TAG_REROUTER:
-                myTriggerBuilder.parseAndBuildRerouter(myNet, attrs, getFileName());
+                myTriggerBuilder.parseAndBuildRerouter(myNet, attrs);
                 break;
             case SUMO_TAG_BUS_STOP:
             case SUMO_TAG_TRAIN_STOP:

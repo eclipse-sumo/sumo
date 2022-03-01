@@ -114,11 +114,9 @@ public:
      *
      * @param[in] net The network the rerouter belongs to
      * @param[in] attrs SAX-attributes which define the trigger
-     * @param[in] base The base path
      * @exception InvalidArgument If a parameter (edge) is not valid
      */
-    void parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& attrs,
-                               const std::string& base);
+    void parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& attrs);
 
 
     /** @brief Parses the values and builds a stopping places for busses, trains or container vehicles

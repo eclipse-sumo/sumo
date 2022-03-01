@@ -87,7 +87,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+    bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0) override;
     /// @}
 
 
@@ -107,8 +107,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLOutput
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice& dev,
-                        SUMOTime startTime, SUMOTime stopTime);
+    void writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) override;
 
 
     /** @brief Opens the XML-output using "detector" as root element
@@ -118,7 +117,7 @@ public:
      * @todo What happens with the additional information if several detectors use the same output?
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice& dev) const;
+    void writeXMLDetectorProlog(OutputDevice& dev) const override;
     /// @}
 
     /* @brief sample a route from the routeDistribution
