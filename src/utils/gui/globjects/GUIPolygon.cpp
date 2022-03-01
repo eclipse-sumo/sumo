@@ -107,7 +107,6 @@ GUIPolygon::GUIPolygon(const std::string& id, const std::string& type, const RGB
                        bool relativePath, const std::string& name):
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name),
     GUIGlObject_AbstractAdd(GLO_POLYGON, id),
-    myDisplayList(0),
     myRotatedShape(nullptr) {
     if (angle != 0.) {
         setShape(shape);
@@ -170,9 +169,6 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     // first check if polygon can be drawn
     if (checkDraw(s, this, this)) {
         FXMutexLock locker(myLock);
-        //if (myDisplayList == 0 || (!getFill() && myLineWidth != getExaggeration(s))) {
-        //    storeTesselation(getExaggeration(s));
-        //}
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         GLHelper::pushName(getGlID());
         // draw inner polygon
@@ -204,13 +200,16 @@ GUIPolygon::setShape(const PositionVector& shape) {
         delete myRotatedShape;
         myRotatedShape = nullptr;
     }
-    //storeTesselation(myLineWidth);
+    for (GLPrimitive& p : myTesselation) {
+        delete [] p.vert;
+    }
+    myTesselation.clear();
 }
 
 
 void
-GUIPolygon::performTesselation(const bool fill, const PositionVector& shape, const double lineWidth) {
-    if (fill) {
+GUIPolygon::drawTesselation(const PositionVector& shape) {
+    //if (myTesselation.empty()) {
         // draw the tesselated shape
         double* points = new double[shape.size() * 3];
         GLUtesselator* tobj = gluNewTess();
@@ -241,26 +240,19 @@ GUIPolygon::performTesselation(const bool fill, const PositionVector& shape, con
         gluDeleteTess(tobj);
         delete[] points;
 
-    } else {
-        GLHelper::drawLine(shape);
-        GLHelper::drawBoxLines(shape, lineWidth);
+    /*
     }
+    for (GLPrimitive& p : myTesselation) {
+        // XXX change to glDrawArrays
+        glBegin(p.type);
+        for (int i = 0; i < p.length; i+= 3) {
+            glVertex3dv(&p.vert[i]);
+        }
+        glEnd();
+    }
+    */
 }
 
-
-void
-GUIPolygon::storeTesselation(const bool fill, const PositionVector& shape, double lineWidth) const {
-    if (myDisplayList > 0) {
-        glDeleteLists(myDisplayList, 1);
-    }
-    myDisplayList = glGenLists(1);
-    if (myDisplayList == 0) {
-        throw ProcessError("GUIPolygon::storeTesselation() could not create display list");
-    }
-    glNewList(myDisplayList, GL_COMPILE);
-    performTesselation(fill, shape, lineWidth);
-    glEndList();
-}
 
 
 void
@@ -343,9 +335,14 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygo
         glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
         glTexGendv(GL_T, GL_OBJECT_PLANE, yPlane);
     }
-    // recall tesselation
-    //glCallList(myDisplayList);
-    performTesselation(drawFill, shape, polygon->getLineWidth() * o->getExaggeration(s));
+    if (drawFill) {
+        //polygon->drawTesselation(shape);
+        drawTesselation(shape);
+    } else {
+        GLHelper::drawLine(shape);
+        GLHelper::drawBoxLines(shape, polygon->getLineWidth() * o->getExaggeration(s));
+    }
+
     // de-init generation of texture coordinates
     if (textureID >= 0) {
         glEnable(GL_DEPTH_TEST);

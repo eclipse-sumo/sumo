@@ -126,9 +126,6 @@ private:
     /// The mutex used to avoid concurrent updates of the shape
     mutable FXMutex myLock;
 
-    /// @brief id of the display list for the cached tesselation
-    mutable GLuint myDisplayList;
-
     /// @brief shape rotated on the centroid, if rotation is needed, nullptr otherwise
     PositionVector* myRotatedShape;
 
@@ -136,6 +133,16 @@ private:
     void storeTesselation(const bool fill, const PositionVector& shape, double lineWidth) const;
 
     // @brief perform the tesselation / drawing
-    static void performTesselation(const bool fill, const PositionVector& shape, const double lineWidth);
+    static void drawTesselation(const PositionVector& shape);
+
+    /// @brief most likely I'm reinventing the wheel here
+    struct GLPrimitive {
+        GLenum type;
+        GLdouble* vert;
+        int length;
+    };
+    /// @brief id of the display list for the cached tesselation
+    mutable std::vector<GLPrimitive> myTesselation;
+
 
 };
