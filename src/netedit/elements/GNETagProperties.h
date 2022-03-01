@@ -43,13 +43,13 @@ public:
         // basic types
         NETWORKELEMENT =    1 << 0,  // Network elements (Edges, Junctions, Lanes...)
         ADDITIONALELEMENT = 1 << 1,  // Additional elements (Bus Stops, Charging Stations, Detectors...)
-        SHAPE =             1 << 2,  // Shapes (Polygons and POIs)
-        TAZELEMENT =        1 << 3,  // Traffic Assignment Zones
-        DEMANDELEMENT =     1 << 4,  // Demand elements (Routes, Vehicles, Trips...)
-        DATAELEMENT =       1 << 5,  // Data elements (DataSets, Data Intervals, EdgeData...)
+        TAZELEMENT =        1 << 2,  // Traffic Assignment Zones
+        DEMANDELEMENT =     1 << 3,  // Demand elements (Routes, Vehicles, Trips...)
+        DATAELEMENT =       1 << 4,  // Data elements (DataSets, Data Intervals, EdgeData...)
         // sub additional elements
-        STOPPINGPLACE =     1 << 6,  // StoppingPlaces (BusStops, ChargingStations...)
-        DETECTOR =          1 << 7,  // Detectors (E1, E2...)
+        STOPPINGPLACE =     1 << 5,  // StoppingPlaces (BusStops, ChargingStations...)
+        DETECTOR =          1 << 6,  // Detectors (E1, E2...)
+        SHAPE =             1 << 7,  // Shapes (Polygons and POIs)
         // sub demand elements
         VTYPE =             1 << 8,  // Vehicle types (vType and vTypeDistribution)
         VEHICLE =           1 << 9,  // Vehicles (Vehicles, trips, flows...)
@@ -164,9 +164,6 @@ public:
     /// @brief return true if tag correspond to an additional element
     bool isAdditionalElement() const;
 
-    /// @brief return true if tag correspond to a shape
-    bool isShape() const;
-
     /// @brief return true if tag correspond to a TAZ element
     bool isTAZElement() const;
 
@@ -181,6 +178,9 @@ public:
 
     /// @brief return true if tag correspond to a shape (Only used to group all detectors in the XML)
     bool isDetector() const;
+
+    /// @brief return true if tag correspond to a shape
+    bool isShape() const;
 
     /// @brief return true if tag correspond to a vehicle type element
     bool isVehicleType() const;

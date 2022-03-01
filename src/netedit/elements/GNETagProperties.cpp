@@ -90,12 +90,12 @@ GNETagProperties::getTagStr() const {
 void
 GNETagProperties::checkTagIntegrity() const {
     // check that element must ist at least networkElement, Additional, or shape
-    if (!isNetworkElement() && !isAdditionalElement() && !isShape() && !isTAZElement() && !isDemandElement() && !isDataElement() && !isInternalLane()) {
-        throw ProcessError("element must be at leas networkElement, additional, TAZ, shape, demandElement or dataElement");
+    if (!isNetworkElement() && !isAdditionalElement() && !isTAZElement() && !isDemandElement() && !isDataElement() && !isInternalLane()) {
+        throw ProcessError("element must be at leas networkElement, additional, TAZ, demandElement or dataElement");
     }
     // check that element only is networkElement, Additional, or shape at the same time
-    if ((isNetworkElement() + isAdditionalElement() + isShape() + isTAZElement() + isDemandElement() + isDataElement()) > 1) {
-        throw ProcessError("element can be only a networkElement, additional, TAZ, shape, demandElement or dataElement at the same time");
+    if ((isNetworkElement() + isAdditionalElement() + isTAZElement() + isDemandElement() + isDataElement()) > 1) {
+        throw ProcessError("element can be only a networkElement, additional, TAZ, demandElement or dataElement at the same time");
     }
     // if element can mask the start and end position, check that bot attributes exist
     if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
@@ -268,12 +268,6 @@ GNETagProperties::isAdditionalElement() const {
 
 
 bool
-GNETagProperties::isShape() const {
-    return (myTagType & SHAPE) != 0;
-}
-
-
-bool
 GNETagProperties::isTAZElement() const {
     return (myTagType & TAZELEMENT) != 0;
 }
@@ -300,6 +294,12 @@ GNETagProperties::isStoppingPlace() const {
 bool
 GNETagProperties::isDetector() const {
     return (myTagType & DETECTOR) != 0;
+}
+
+
+bool
+GNETagProperties::isShape() const {
+    return (myTagType & SHAPE) != 0;
 }
 
 

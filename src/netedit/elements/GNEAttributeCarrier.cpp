@@ -2700,7 +2700,7 @@ GNEAttributeCarrier::fillShapes() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::SHAPE,
+                                      GNETagProperties::ADDITIONALELEMENT | GNETagProperties::SHAPE,
                                       GNETagProperties::RTREE | GNETagProperties::CLOSESHAPE | GNETagProperties::GEOSHAPE,
                                       GUIIcon::POLY, currentTag);
         // set values of attributes
@@ -2771,7 +2771,7 @@ GNEAttributeCarrier::fillShapes() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::SHAPE,
+                                      GNETagProperties::ADDITIONALELEMENT | GNETagProperties::SHAPE,
                                       GNETagProperties::RTREE,
                                       GUIIcon::POI, currentTag);
         // set values of attributes
@@ -2842,7 +2842,7 @@ GNEAttributeCarrier::fillShapes() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::SHAPE,
+                                      GNETagProperties::ADDITIONALELEMENT | GNETagProperties::SHAPE,
                                       0,
                                       GUIIcon::POILANE, SUMO_TAG_POI);
         // set values of attributes
@@ -2930,7 +2930,7 @@ GNEAttributeCarrier::fillShapes() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::SHAPE,
+                                      GNETagProperties::ADDITIONALELEMENT | GNETagProperties::SHAPE,
                                       GNETagProperties::RTREE | GNETagProperties::REQUIERE_PROJ,
                                       GUIIcon::POIGEO, SUMO_TAG_POI);
         // set values of attributes
