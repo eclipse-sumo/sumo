@@ -127,12 +127,6 @@ GNEPoly::generateChildID(SumoXMLTag /*childTag*/) {
 
 
 void
-GNEPoly::setParameter(const std::string& key, const std::string& value) {
-    Parameterised::setParameter(key, value);
-}
-
-
-void
 GNEPoly::updateGeometry() {
     // just update geometry
     myPolygonGeometry.updateGeometry(myShape);
