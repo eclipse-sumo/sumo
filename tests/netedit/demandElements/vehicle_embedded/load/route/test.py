@@ -28,50 +28,21 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
-# go to additional mode
-netedit.additionalMode()
+# go to demand mode (For undo-redo)
+netedit.supermodeDemand()
 
-# select containerStop
-netedit.changeElement("containerStop")
+# force save demand elements
+netedit.forceSaveDemandElements()
 
-# create containerStop in mode "reference left"
-netedit.leftClick(referencePosition, 250, 240)
+# Check undo redo
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
-# Change to delete
-netedit.deleteMode()
+# save routes
+netedit.saveRoutes(referencePosition)
 
-# enable 'Automatically delete additionals'
-netedit.changeProtectAdditionalElements(referencePosition)
-
-# delete created containerStop
-netedit.leftClick(referencePosition, 260, 250)
-
-# delete first loaded containerStop
-netedit.leftClick(referencePosition, 450, 250)
-
-# delete lane with the second loaded containerStop
-netedit.leftClick(referencePosition, 200, 200)
-
-# Check undo
-netedit.undo(referencePosition, 3)
-
-# Change to delete
-netedit.deleteMode()
-
-# disable 'Automatically delete additionals'
-netedit.changeProtectAdditionalElements(referencePosition)
-
-# try to delete lane with the second loaded containerStop (doesn't allowed)
-netedit.leftClick(referencePosition, 200, 200)
-
-# wait warning
-netedit.waitDeleteWarning()
-
-# check redo
-netedit.redo(referencePosition, 3)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
+# save routes
+netedit.typeSpace()
 
 # save network
 netedit.saveNetwork(referencePosition)

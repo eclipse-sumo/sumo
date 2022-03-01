@@ -1,45 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05.07.2018 16:00:46 by Eclipse SUMO netedit Version 88bb7b0b92
+<!-- generated on 2022-03-01 15:07:56 by Eclipse SUMO netedit Version v1_12_0+0966-ce1c6e965cc
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-shapes-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jul133359.2372/netedit.gui/shapeElements/poi/volatileRecomputing\input_shapes.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jul133359.2372/netedit.gui/shapeElements/poi/volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Mar141458.7056\netedit.gui\shapeElements\poigeo\volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jul133359.2372/netedit.gui/shapeElements/poi/volatileRecomputing\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jul133359.2372/netedit.gui/shapeElements/poi/volatileRecomputing\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jul133359.2372/netedit.gui/shapeElements/poi/volatileRecomputing\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Mar141458.7056\netedit.gui\shapeElements\poigeo\volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
         <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
         <sidewalks.guess value="true"/>
         <crossings.guess value="true"/>
         <walkingareas value="false"/>
-    </processing>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Mar141458.7056\netedit.gui\shapeElements\poigeo\volatileRecomputing\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Mar141458.7056\netedit.gui\shapeElements\poigeo\volatileRecomputing\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Mar141458.7056\netedit.gui\shapeElements\poigeo\volatileRecomputing\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Mar141458.7056\netedit.gui\shapeElements\poigeo\volatileRecomputing\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Mar141458.7056\netedit.gui\shapeElements\poigeo\volatileRecomputing\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Mar141458.7056\netedit.gui\shapeElements\poigeo\volatileRecomputing\datas.xml"/>
+    </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jul133359.2372/netedit.gui/shapeElements/poi/volatileRecomputing\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Mar141458.7056\netedit.gui\shapeElements\poigeo\volatileRecomputing\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Mar141458.7056\netedit.gui\shapeElements\poigeo\volatileRecomputing\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jul133359.2372/netedit.gui/shapeElements/poi/volatileRecomputing\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Mar141458.7056\netedit.gui\shapeElements\poigeo\volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poi id="POI_0" color="red" layer="0.00" lon="0.000000" lat="10.000000" width="0.00" height="0.00"/>
+    <poi id="POI_1" color="green" layer="0.00" lon="10.000000" lat="10.000000" width="0.00" height="0.00"/>
+    <poi id="POI_10" color="orange" layer="0.00" lon="10.000000" lat="-10.000000" width="0.00" height="0.00"/>
+    <poi id="POI_11" color="black" layer="0.00" lon="0.000000" lat="-10.000000" width="0.00" height="0.00"/>
+    <poi id="POI_2" color="blue" layer="0.00" lon="20.000000" lat="10.000000" width="0.00" height="0.00"/>
+    <poi id="POI_3" color="yellow" layer="0.00" lon="30.000000" lat="10.000000" width="0.00" height="0.00"/>
+    <poi id="POI_4" color="orange" layer="0.00" lon="40.000000" lat="10.000000" width="0.00" height="0.00"/>
+    <poi id="POI_5" color="black" layer="0.00" lon="50.000000" lat="10.000000" width="0.00" height="0.00"/>
+    <poi id="POI_6" color="red" layer="0.00" lon="50.000000" lat="-10.000000" width="0.00" height="0.00"/>
+    <poi id="POI_7" color="green" layer="0.00" lon="40.000000" lat="-10.000000" width="0.00" height="0.00"/>
+    <poi id="POI_8" color="blue" layer="0.00" lon="30.000000" lat="-10.000000" width="0.00" height="0.00"/>
+    <poi id="POI_9" color="yellow" layer="0.00" lon="20.000000" lat="-10.000000" width="0.00" height="0.00"/>
 </additional>

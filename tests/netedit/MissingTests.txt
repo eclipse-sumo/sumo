@@ -93,7 +93,7 @@ D:\SUMO\tests\netedit\neteditTestFunctions.py:1389: unused function 'changePerso
 D:\SUMO\tests\netedit\neteditTestFunctions.py:1403: unused function 'changePersonVClass' (60% confidence)
 D:\SUMO\tests\netedit\neteditTestFunctions.py:1533: unused function 'changeRemoveOnlyGeometryPoint' (60% confidence)
 D:\SUMO\tests\netedit\neteditTestFunctions.py:1558: unused function 'changeProtectTAZElements' (60% confidence)
-D:\SUMO\tests\netedit\neteditTestFunctions.py:1571: unused function 'changeProtectShapeElements' (60% confidence)
+D:\SUMO\tests\netedit\neteditTestFunctions.py:1571: unused function 'changeProtectAdditionalElements' (60% confidence)
 D:\SUMO\tests\netedit\neteditTestFunctions.py:1597: unused function 'changeProtectDataElements' (60% confidence)
 D:\SUMO\tests\netedit\neteditTestFunctions.py:1633: unused function 'abortSelection' (60% confidence)
 D:\SUMO\tests\netedit\neteditTestFunctions.py:1975: unused function 'createGEOPOI' (60% confidence)
