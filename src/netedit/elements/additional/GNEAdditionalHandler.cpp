@@ -21,7 +21,6 @@
 #include <utils/xml/XMLSubSys.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_TAZElement.h>
-#include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/GNEViewNet.h>
@@ -1284,7 +1283,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
         writeInvalidID(SUMO_TAG_TAZ, id);
     } else if (myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
         writeErrorDuplicated(SUMO_TAG_TAZ, id);
-    } else if (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POLY, id, false) != nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POLY, id, false) != nullptr) {
         writeErrorDuplicated(SUMO_TAG_TAZ, id);
     } else if (TAZShape.size() == 0) {
         WRITE_ERROR("Could not build " + toString(SUMO_TAG_TAZ) + " with ID '" + id + "' in netedit; Invalid Shape.");
@@ -1477,7 +1476,7 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POLY, id);
-    } else if (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POLY, id, false) != nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POLY, id, false) != nullptr) {
         writeErrorDuplicated(SUMO_TAG_TAZ, id);
     } else if (myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
         writeErrorDuplicated(SUMO_TAG_TAZ, id);
@@ -1491,11 +1490,11 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::POLY, "add " + toString(SUMO_TAG_POLY));
-            myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(poly, true), true);
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(poly, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
             // insert shape without allowing undo/redo
-            myNet->getAttributeCarriers()->insertShape(poly);
+            myNet->getAttributeCarriers()->insertAdditional(poly);
             poly->incRef("addPolygon");
         }
     }
@@ -1515,7 +1514,9 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT);
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
-    } else if (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
+    } else if ((myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POI, id, false) == nullptr) ||
+               (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POILANE, id, false) == nullptr) ||
+               (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POIGEO, id, false) == nullptr)) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POI
@@ -1523,11 +1524,11 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::POI, "add " + POI->getTagStr());
-            myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(POI, true), true);
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(POI, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
             // insert shape without allowing undo/redo
-            myNet->getAttributeCarriers()->insertShape(POI);
+            myNet->getAttributeCarriers()->insertAdditional(POI);
             POI->incRef("addPOI");
         }
     } else {
@@ -1549,7 +1550,9 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT);
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
-    } else if (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
+    } else if ((myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POI, id, false) == nullptr) ||
+               (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POILANE, id, false) == nullptr) ||
+               (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POIGEO, id, false) == nullptr)) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -1565,11 +1568,11 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::POILANE, "add " + POILane->getTagStr());
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(POILane, true), true);
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(POILane, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 // insert shape without allowing undo/redo
-                myNet->getAttributeCarriers()->insertShape(POILane);
+                myNet->getAttributeCarriers()->insertAdditional(POILane);
                 lane->addChildElement(POILane);
                 POILane->incRef("buildPOILane");
             }
@@ -1595,7 +1598,9 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
     } else if (GeoConvHelper::getFinal().getProjString() == "!") {
         WRITE_ERROR("Could not build " + toString(SUMO_TAG_POI) + " with ID '" + id + "' in netedit; Networ requieres a geo projection.");
-    } else if (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
+    } else if ((myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POI, id, false) == nullptr) ||
+               (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POILANE, id, false) == nullptr) ||
+               (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POIGEO, id, false) == nullptr)) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POIGEO
@@ -1603,11 +1608,11 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::POIGEO, "add " + POIGEO->getTagStr());
-            myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(POIGEO, true), true);
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(POIGEO, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
             // insert shape without allowing undo/redo
-            myNet->getAttributeCarriers()->insertShape(POIGEO);
+            myNet->getAttributeCarriers()->insertAdditional(POIGEO);
             POIGEO->incRef("buildPOIGeo");
         }
     } else {
