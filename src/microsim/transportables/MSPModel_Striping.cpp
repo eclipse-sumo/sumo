@@ -208,7 +208,7 @@ MSPModel_Striping::loadState(MSTransportable* transportable, MSStageMoving* stag
     if (!myAmActive) {
         // MSNet instance hasn't set the new time at this point
         SUMOTime time = string2time(OptionsCont::getOptions().getString("begin"));
-        net->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(this), time + DELTA_T);
+        net->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(this), time);
         myAmActive = true;
     }
     PState* ped = new PState(person, stage, &in);
