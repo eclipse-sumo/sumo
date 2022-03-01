@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 01Mar18:44:11]
+search_string:Error: Vehicle '2' has no valid route
+search_file:errors
+ignore_other_errors:1
+full_description:consistent handling of unreachable arrivalPos
+brief_description:see #10246
