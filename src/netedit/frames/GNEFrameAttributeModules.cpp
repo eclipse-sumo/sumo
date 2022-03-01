@@ -464,9 +464,7 @@ GNEFrameAttributeModules::AttributesCreatorRow::generateID() const {
     // get attribute carriers
     const auto& GNEAttributeCarriers = myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
     // continue depending of type
-    if (myAttrProperties.getTagPropertyParent().isShape()) {
-        return GNEAttributeCarriers->generateShapeID(myAttrProperties.getTagPropertyParent().getXMLTag());
-    } else if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
+    if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
         return GNEAttributeCarriers->generateAdditionalID(myAttrProperties.getTagPropertyParent().getTag());
     } else if (myAttrProperties.getTagPropertyParent().isDemandElement()) {
         return GNEAttributeCarriers->generateDemandElementID(myAttrProperties.getTagPropertyParent().getTag());
