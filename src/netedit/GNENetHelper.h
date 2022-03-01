@@ -58,7 +58,6 @@ class GNELane;
 class GNENetworkElement;
 class GNEPOI;
 class GNEPoly;
-class GNEShape;
 class GNETAZElement;
 class GNEUndoList;
 class GNEViewNet;
@@ -342,43 +341,11 @@ struct GNENetHelper {
         /// @brief clear additionals
         void clearAdditionals();
 
-        /// @brief get number of selected additionals
+        /// @brief get number of selected additionals (except POIs and Polygons)
         int getNumberOfSelectedAdditionals() const;
 
         /// @brief generate additional id
         std::string generateAdditionalID(SumoXMLTag type) const;
-
-        /// @}
-
-        /// @name function for shapes
-        /// @{
-        /**@brief Returns the named shape
-         * @param[in] type tag with the type of shape
-         * @param[in] id The id of the shape to return.
-         * @param[in] hardFail Whether attempts to retrieve a nonexisting shape should result in an exception
-         */
-        GNEShape* retrieveShape(SumoXMLTag, const std::string& id, bool hardFail = true) const;
-
-        /**@brief Returns the named shape
-         * @param[in] id The attribute carrier related with the additional element
-         * @param[in] hardFail Whether attempts to retrieve a nonexisting shape should result in an exception
-         */
-        GNEShape* retrieveShape(GNEAttributeCarrier* AC, bool hardFail = true) const;
-
-        /// @brief get selected shapes
-        std::vector<GNEShape*> getSelectedShapes();
-
-        /// @brief get shapes
-        const std::map<SumoXMLTag, std::set<GNEShape*> >& getShapes() const;
-
-        /// @brief generate Shape ID
-        std::string generateShapeID(SumoXMLTag shapeTag) const;
-
-        /// @brief Returns the number of shapes
-        int getNumberOfShapes() const;
-
-        /// @brief clear shapes
-        void clearShapes();
 
         /// @brief get number of selected polygons
         int getNumberOfSelectedPolygons() const;
@@ -635,22 +602,6 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name Insertion and erasing of GNEShapes items
-        /// @{
-
-        /// @brief return true if given shape exist
-        bool shapeExist(const GNEShape* shape) const;
-
-        /**@brief Insert a shape element int GNENet container.
-         * @throw processError if route was already inserted
-         */
-        void insertShape(GNEShape* shape);
-
-        /**@brief delete shape element of GNENet container
-         * @throw processError if shape wasn't previously inserted
-         */
-        void deleteShape(GNEShape* shape);
-
         /// @name Insertion and erasing of GNETAZElements items
         /// @{
 
@@ -726,9 +677,6 @@ struct GNENetHelper {
 
         /// @brief map with the tag and pointer to additional elements of net
         std::map<SumoXMLTag, std::set<GNEAdditional*> > myAdditionals;
-
-        /// @brief map with the tag and pointer to shape elements of net
-        std::map<SumoXMLTag, std::set<GNEShape*> > myShapes;
 
         /// @brief map with the tag and pointer to TAZElement elements of net
         std::map<SumoXMLTag, std::set<GNETAZElement*> > myTAZElements;
