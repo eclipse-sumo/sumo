@@ -31,10 +31,10 @@
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNENet* net):
     GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
     myProbability(0),
-myVisible(0) {
+    myVisible(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -42,10 +42,10 @@ myVisible(0) {
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, "",
-{}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
-myProbability(probability),
-myVisible(visible) {
+        {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    myProbability(probability),
+    myVisible(visible) {
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }

@@ -31,9 +31,9 @@
 
 GNERouteProbReroute::GNERouteProbReroute(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
-myProbability(0) {
+        {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    myProbability(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -41,9 +41,9 @@ myProbability(0) {
 
 GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement* route, double probability) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE, "",
-{}, {}, {}, {rerouterIntervalParent}, {}, {}, {route}, {},
-std::map<std::string, std::string>()),
-myProbability(probability) {
+        {}, {}, {}, {rerouterIntervalParent}, {}, {route}, {},
+    std::map<std::string, std::string>()),
+    myProbability(probability) {
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }

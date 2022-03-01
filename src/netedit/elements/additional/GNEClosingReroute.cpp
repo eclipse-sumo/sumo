@@ -32,10 +32,10 @@
 
 GNEClosingReroute::GNEClosingReroute(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
     myClosedEdge(nullptr),
-myPermissions(0) {
+    myPermissions(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -43,10 +43,10 @@ myPermissions(0) {
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, "",
-{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
-myClosedEdge(closedEdge),
-myPermissions(permissions) {
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    myClosedEdge(closedEdge),
+    myPermissions(permissions) {
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }

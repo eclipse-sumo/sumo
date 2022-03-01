@@ -39,11 +39,11 @@
 
 GNEAccess::GNEAccess(GNENet* net) :
     GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
     myPositionOverLane(0),
     myLength(0),
-myFriendlyPosition(false) {
+    myFriendlyPosition(false) {
     // reset default values
     resetDefaultValues();
 }
@@ -52,11 +52,11 @@ myFriendlyPosition(false) {
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
                      const std::map<std::string, std::string>& parameters) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
-{}, {}, {lane}, {busStop}, {}, {}, {}, {},
-parameters),
-myPositionOverLane(pos),
-myLength(length),
-myFriendlyPosition(friendlyPos) {
+        {}, {}, {lane}, {busStop}, {}, {}, {},
+    parameters),
+    myPositionOverLane(pos),
+    myLength(length),
+    myFriendlyPosition(friendlyPos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
