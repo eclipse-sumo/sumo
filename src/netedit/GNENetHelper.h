@@ -335,7 +335,10 @@ struct GNENetHelper {
         /// @brief get selected additionals
         std::vector<GNEAdditional*> getSelectedAdditionals() const;
 
-        /// @brief get number of additonals
+        /// @brief get selected shapes
+        std::vector<GNEAdditional*> getSelectedShapes() const;
+
+        /// @brief get number of additionals
         int getNumberOfAdditionals() const;
 
         /// @brief clear additionals

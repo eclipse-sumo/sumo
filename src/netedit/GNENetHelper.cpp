@@ -982,6 +982,21 @@ GNENetHelper::AttributeCarriers::getSelectedAdditionals() const {
 }
 
 
+std::vector<GNEAdditional*>
+GNENetHelper::AttributeCarriers::getSelectedShapes() const {
+    std::vector<GNEAdditional*> result;
+    // returns additionals depending of selection
+    for (const auto& additionalsTags : myAdditionals) {
+        for (const auto& additional : additionalsTags.second) {
+            if (additional->getTagProperty().isShape() && additional->isAttributeCarrierSelected()) {
+                result.push_back(additional);
+            }
+        }
+    }
+    return result;
+}
+
+
 int
 GNENetHelper::AttributeCarriers::getNumberOfAdditionals() const {
     int counter = 0;
