@@ -20,17 +20,16 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import re
 import glob
-from optparse import OptionParser
-from collections import defaultdict
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-import sumolib
+import sumolib  # noqa
 
 
 def parse_args(args=None):
     USAGE = "Usage: " + sys.argv[0] + " [options]"
-    parser = sumolib.options.ArgumentParser(description="Extract fraction of vehicls that changed their route per iteration")
+    parser = sumolib.options.ArgumentParser(
+            usage=USAGE,
+            description="Extract fraction of vehicls that changed their route per iteration")
     parser.add_argument("-d", "--base-directory", dest="baseDir", default=".",
                         help="Base directory of duaIterate run")
     parser.add_argument("-v", "--verbose", action="store_true", default=False,
@@ -44,7 +43,7 @@ def main():
     lastRoutes = {}  # vehID -> edges
     for step, file in enumerate(sorted(glob.glob(os.path.join(options.baseDir, "**/*.rou.alt.xml")))):
         vehs = 0.0
-        changed = [ ]
+        changed = []
         for veh in sumolib.xml.parse(file, 'vehicle'):
             vehs += 1
             last = int(veh.routeDistribution[0].last)
