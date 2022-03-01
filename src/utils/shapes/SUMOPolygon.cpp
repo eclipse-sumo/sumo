@@ -85,7 +85,7 @@ SUMOPolygon::setShape(const PositionVector& shape) {
 
 
 void
-SUMOPolygon::writeXML(OutputDevice& out, bool geo) {
+SUMOPolygon::writeXML(OutputDevice& out, bool geo) const {
     out.openTag(SUMO_TAG_POLY);
     out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
     if (getShapeType().size() > 0) {
