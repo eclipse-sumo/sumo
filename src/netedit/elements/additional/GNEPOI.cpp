@@ -42,7 +42,9 @@
 
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, 0, 0, "", false, 0, 0, "", std::map<std::string, std::string>()),
-    GNEShape("", net, GLO_POI, tag, {}, {}, {}, {}, {}, {}, {}, {}) {
+    GNEAdditional("", net, GLO_POI, tag, "", 
+        {}, {}, {}, {}, {}, {}, {}, 
+    std::map<std::string, std::string>()) {
     // reset default values
     resetDefaultValues();
 }
@@ -53,7 +55,9 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const bool relativePath, const double width, const double height, const std::string& name,
                const std::map<std::string, std::string>& parameters) :
     PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
-    GNEShape(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, {}, {}, {}, {}, {}, {}, {}, {}) {
+    GNEAdditional(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, "", 
+        {}, {}, {}, {}, {}, {}, {}, 
+    std::map<std::string, std::string>()) {
     // update position depending of GEO
     if (geo) {
         Position cartesian(x(), y());
@@ -69,9 +73,9 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const bool friendlyPos, const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
                const double height, const std::string& name, const std::map<std::string, std::string>& parameters) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
-    GNEShape(id, net, GLO_POI, GNE_TAG_POILANE,
-{}, {}, {lane}, {}, {}, {}, {}, {}
-        ) {
+    GNEAdditional(id, net, GLO_POI, GNE_TAG_POILANE, "", 
+        {}, {}, {lane}, {}, {}, {}, {}, 
+    std::map<std::string, std::string>()) {
     // update geometry (needed for POILanes)
     updateGeometry();
     // update centering boundary without updating grid
@@ -158,7 +162,7 @@ GNEPOI::getSumoBaseObject() const {
 
 
 void
-GNEPOI::writeShape(OutputDevice& device) {
+GNEPOI::writeAdditional(OutputDevice& device) const {
     if (getParentLanes().size() > 0) {
         // obtain fixed position over lane
         double fixedPositionOverLane = myPosOverLane > getParentLanes().at(0)->getLaneShape().length() ? getParentLanes().at(0)->getLaneShape().length() : myPosOverLane < 0 ? 0 : myPosOverLane;
@@ -216,15 +220,21 @@ GNEPOI::updateCenteringBoundary(const bool updateGrid) {
         myNet->removeGLObjectFromGrid(this);
     }
     // reset boundary
-    myBoundary.reset();
+    myAdditionalBoundary.reset();
     // add position (this POI)
-    myBoundary.add(*this);
+    myAdditionalBoundary.add(*this);
     // grow boundary
-    myBoundary.grow(10 + std::max(getWidth() * 0.5, getHeight() * 0.5));
+    myAdditionalBoundary.grow(10 + std::max(getWidth() * 0.5, getHeight() * 0.5));
     // add object into net
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
     }
+}
+
+
+void 
+GNEPOI::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+    // nothing to split
 }
 
 
@@ -266,24 +276,13 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
-GUIParameterTableWindow*
-GNEPOI::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /*parent*/) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
-    // add items
-    ret->mkItem("type", false, getShapeType());
-    ret->mkItem("layer", false, getShapeLayer());
-    ret->closeBuilding(this);
-    return ret;
-}
-
-
 void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     // first check if POI can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes()) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
-            GLHelper::drawBoundary(myBoundary);
+            GLHelper::drawBoundary(myAdditionalBoundary);
         }
         // check if POI can be drawn
         if (GUIPointOfInterest::checkDraw(s, this)) {
@@ -394,12 +393,18 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+            return PointOfInterest::getParametersStr();
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
             throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
     }
+}
+
+
+double
+GNEPOI::getAttributeDouble(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
 }
 
 
@@ -441,9 +446,9 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
                 if (value == getID()) {
                     return true;
                 } else {
-                    return (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
-                           (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POILANE, value, false) == nullptr) &&
-                           (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POIGEO, value, false) == nullptr);
+                    return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POI, value, false) == nullptr) &&
+                           (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POILANE, value, false) == nullptr) &&
+                           (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POIGEO, value, false) == nullptr);
                 }
             } else {
                 // invalid id
@@ -513,9 +518,21 @@ GNEPOI::isAttributeEnabled(SumoXMLAttr /* key */) const {
 }
 
 
+std::string
+GNEPOI::getPopUpID() const {
+    return getTagStr() + ": " + getID();
+}
+
+
+std::string
+GNEPOI::getHierarchyName() const {
+    return getTagStr();
+}
+
+
 const std::map<std::string, std::string>&
 GNEPOI::getACParametersMap() const {
-    return getParametersMap();
+    return PointOfInterest::getParametersMap();
 }
 
 // ===========================================================================
@@ -537,7 +554,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LANE:
             myLane = value;
-            replaceShapeParentLanes(value);
+            replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_POSITION: {
             if (getParentLanes().size() > 0) {
@@ -646,7 +663,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
+            PointOfInterest::setParametersStr(value);
             break;
         case GNE_ATTR_SHIFTLANEINDEX:
             shiftLaneIndex();
