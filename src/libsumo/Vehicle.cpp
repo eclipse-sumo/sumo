@@ -1608,6 +1608,24 @@ Vehicle::setSpeed(const std::string& vehID, double speed) {
 }
 
 void
+Vehicle::setAcceleration(const std::string& vehID, double accel, double duration) {
+    MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
+    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
+    if (veh == nullptr) {
+        WRITE_WARNING("setAcceleration not yet implemented for meso");
+        return;
+    }
+
+    double targetSpeed = veh->getSpeed() + accel * duration;
+    std::vector<std::pair<SUMOTime, double>> speedTimeLine;
+    if (accel >= 0) {
+        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), veh->getSpeed()));
+        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), targetSpeed));
+    }
+    veh->getInfluencer().setSpeedTimeLine(speedTimeLine);
+}
+
+void
 Vehicle::setPreviousSpeed(const std::string& vehID, double prevSpeed, double prevAcceleration) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);

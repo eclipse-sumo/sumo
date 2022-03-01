@@ -181,6 +181,7 @@ public:
     static void deactivateGapControl(const std::string& vehID);
     static void requestToC(const std::string& vehID, double leadTime);
     static void setSpeed(const std::string& vehID, double speed);
+    static void setAcceleration(const std::string& vehID, double accel, double duration);
     static void setPreviousSpeed(const std::string& vehID, double prevSpeed, double prevAcceleration = libsumo::INVALID_DOUBLE_VALUE);
     static void setSpeedMode(const std::string& vehID, int speedMode);
     static void setLaneChangeMode(const std::string& vehID, int laneChangeMode);

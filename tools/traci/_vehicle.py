@@ -1219,6 +1219,13 @@ class VehicleDomain(VTypeDomain):
         """
         self._setCmd(tc.VAR_SPEED, vehID, "d", speed)
 
+    def setAcceleration(self, vehID, acceleration, duration):
+        """setAcceleration(string, double, double) -> None
+
+        Sets the acceleration in m/s^2 for the named vehicle and the given duration.
+        """
+        self._setCmd(tc.VAR_ACCELERATION, vehID, "tdd", 2, acceleration, duration)
+
     def setPreviousSpeed(self, vehID, speed, acceleration=tc.INVALID_DOUBLE_VALUE):
         """setPreviousSpeed(string, double, double) -> None
 

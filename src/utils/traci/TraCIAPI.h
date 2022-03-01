@@ -678,6 +678,7 @@ public:
         void slowDown(const std::string& vehicleID, double speed, double duration) const;
         void openGap(const std::string& vehicleID, double newTau, double duration, double changeRate, double maxDecel) const;
         void setSpeed(const std::string& vehicleID, double speed) const;
+        void setAcceleration(const std::string& vehicleID, double accel, double duration) const;
         void setPreviousSpeed(const std::string& vehicleID, double prevSpeed, double prevAcceleration = std::numeric_limits<int>::min()) const;
         void setLaneChangeMode(const std::string& vehicleID, int mode) const;
         void setSpeedMode(const std::string& vehicleID, int mode) const;

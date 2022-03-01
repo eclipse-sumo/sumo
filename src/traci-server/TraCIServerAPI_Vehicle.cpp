@@ -404,7 +404,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != libsumo::VAR_APPARENT_DECEL && variable != libsumo::VAR_EMERGENCY_DECEL
             && variable != libsumo::VAR_ACTIONSTEPLENGTH
             && variable != libsumo::VAR_TAU && variable != libsumo::VAR_LANECHANGE_MODE
-            && variable != libsumo::VAR_SPEED && variable != libsumo::VAR_PREV_SPEED && variable != libsumo::VAR_SPEEDSETMODE && variable != libsumo::VAR_COLOR
+            && variable != libsumo::VAR_SPEED && variable != libsumo::VAR_ACCELERATION && variable != libsumo::VAR_PREV_SPEED && variable != libsumo::VAR_SPEEDSETMODE && variable != libsumo::VAR_COLOR
             && variable != libsumo::ADD && variable != libsumo::ADD_FULL && variable != libsumo::REMOVE
             && variable != libsumo::VAR_HEIGHT
             && variable != libsumo::VAR_ROUTING_MODE
@@ -860,6 +860,34 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting speed requires a double.", outputStorage);
                 }
                 libsumo::Vehicle::setSpeed(id, speed);
+            }
+            break;
+            case libsumo::VAR_ACCELERATION: {
+                double accel = 0;
+                double duration = 0;
+                int inputtype = inputStorage.readUnsignedByte();
+                if (inputtype == libsumo::TYPE_COMPOUND) {
+                    int parameterCount = inputStorage.readInt();
+                    if (parameterCount == 2) {
+                        if (!server.readTypeCheckingDouble(inputStorage, accel)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting acceleration requires the acceleration as first parameter given as a double.", outputStorage);
+                        }
+                        if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting acceleration requires the duration as second parameter given as a double.", outputStorage);
+                        }
+                    } else {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting acceleration requires 2 parameters.", outputStorage);
+                    }
+                } else {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting acceleration requires 2 parameters as compound object description.", outputStorage);
+                }
+                if (accel < 0) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Acceleration must not be negative.", outputStorage);
+                }
+                if (duration < 0) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Duration must not be negative.", outputStorage);
+                }
+                libsumo::Vehicle::setAcceleration(id, accel, duration);
             }
             break;
             case libsumo::VAR_PREV_SPEED: {
