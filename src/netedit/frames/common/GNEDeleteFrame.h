@@ -89,9 +89,6 @@ public:
         /// @brief check if protect TAZ elements checkbox is enabled
         bool protectTAZs() const;
 
-        /// @brief check if protect shapes elements checkbox is enabled
-        bool protectShapes() const;
-
         /// @brief check if protect demand elements checkbox is enabled
         bool protectDemandElements() const;
 
@@ -104,9 +101,6 @@ public:
 
         /// @brief checkbox for enable/disable protect TAZs
         FXCheckButton* myProtectTAZs;
-
-        /// @brief checkbox for enable/disable protect shapes
-        FXCheckButton* myProtectShapes;
 
         /// @brief checkbox for enable/disable protect demand elements
         FXCheckButton* myProtectDemandElements;
@@ -195,12 +189,6 @@ protected:
 
         /// @brief child TAZ
         size_t myTAZChilds;
-
-        /// @brief parent shapes
-        size_t myShapeParents;
-
-        /// @brief child shape
-        size_t myShapeChilds;
 
         /// @brief parent demand elements
         size_t myDemandElementParents;

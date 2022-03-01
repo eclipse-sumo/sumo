@@ -84,9 +84,6 @@ GNEDeleteFrame::ProtectElements::ProtectElements(GNEDeleteFrame* deleteFramePare
     myProtectTAZs = new FXCheckButton(getCollapsableFrame(), "Protect TAZ elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectTAZs->setCheck(TRUE);
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectShapes = new FXCheckButton(getCollapsableFrame(), "Protect shape elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myProtectShapes->setCheck(TRUE);
-    // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
     myProtectDemandElements = new FXCheckButton(getCollapsableFrame(), "Protect demand elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectDemandElements->setCheck(TRUE);
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
@@ -107,12 +104,6 @@ GNEDeleteFrame::ProtectElements::protectAdditionals() const {
 bool
 GNEDeleteFrame::ProtectElements::protectTAZs() const {
     return (myProtectTAZs->getCheck() == TRUE);
-}
-
-
-bool
-GNEDeleteFrame::ProtectElements::protectShapes() const {
-    return (myProtectShapes->getCheck() == TRUE);
 }
 
 
@@ -352,10 +343,6 @@ GNEDeleteFrame::SubordinatedElements::checkElements(const ProtectElements* prote
         openWarningDialog("TAZ", myTAZParents, false);
     } else if ((myTAZChilds > 0) && protectElements->protectTAZs()) {
         openWarningDialog("TAZ", myTAZChilds, true);
-    } else if ((myShapeParents > 0) && protectElements->protectShapes()) {
-        openWarningDialog("shape", myShapeParents, false);
-    } else if ((myShapeChilds > 0) && protectElements->protectShapes()) {
-        openWarningDialog("shape", myShapeChilds, true);
     } else if ((myDemandElementParents > 0) && protectElements->protectDemandElements()) {
         openWarningDialog("demand", myDemandElementParents, false);
     } else if ((myDemandElementChilds > 0) && protectElements->protectDemandElements()) {
@@ -379,8 +366,6 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
     myAdditionalChilds(0),
     myTAZParents(0),
     myTAZChilds(0),
-    myShapeParents(0),
-    myShapeChilds(0),
     myDemandElementParents(0),
     myDemandElementChilds(0),
     myGenericDataParents(0),
@@ -400,24 +385,24 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
     myDemandElementChilds(hierarchicalElement->getChildDemandElements().size()),
     myGenericDataParents(hierarchicalElement->getParentGenericDatas().size()),
     myGenericDataChilds(hierarchicalElement->getChildGenericDatas().size()) {
-    // add the number of subodinated elements of additionals, shapes, demand elements and generic datas
-    for (const auto& additional : hierarchicalElement->getParentAdditionals()) {
-        addValuesFromSubordinatedElements(this, additional);
+    // add the number of subodinated elements of additionals, demand elements and generic datas
+    for (const auto& additionalParent : hierarchicalElement->getParentAdditionals()) {
+        addValuesFromSubordinatedElements(this, additionalParent);
     }
-    for (const auto& demandElement : hierarchicalElement->getParentDemandElements()) {
-        addValuesFromSubordinatedElements(this, demandElement);
+    for (const auto& demandParent : hierarchicalElement->getParentDemandElements()) {
+        addValuesFromSubordinatedElements(this, demandParent);
     }
-    for (const auto& genericData : hierarchicalElement->getParentGenericDatas()) {
-        addValuesFromSubordinatedElements(this, genericData);
+    for (const auto& genericDataParent : hierarchicalElement->getParentGenericDatas()) {
+        addValuesFromSubordinatedElements(this, genericDataParent);
     }
-    for (const auto& additional : hierarchicalElement->getChildAdditionals()) {
-        addValuesFromSubordinatedElements(this, additional);
+    for (const auto& additionalChild : hierarchicalElement->getChildAdditionals()) {
+        addValuesFromSubordinatedElements(this, additionalChild);
     }
-    for (const auto& additional : hierarchicalElement->getChildDemandElements()) {
-        addValuesFromSubordinatedElements(this, additional);
+    for (const auto& demandChild : hierarchicalElement->getChildDemandElements()) {
+        addValuesFromSubordinatedElements(this, demandChild);
     }
-    for (const auto& genericData : hierarchicalElement->getChildGenericDatas()) {
-        addValuesFromSubordinatedElements(this, genericData);
+    for (const auto& genericDataChild : hierarchicalElement->getChildGenericDatas()) {
+        addValuesFromSubordinatedElements(this, genericDataChild);
     }
 }
 
@@ -428,8 +413,6 @@ GNEDeleteFrame::SubordinatedElements::addValuesFromSubordinatedElements(Subordin
     originalSE->myAdditionalChilds += newSE.myAdditionalChilds;
     originalSE->myTAZParents += newSE.myTAZParents;
     originalSE->myTAZChilds += newSE.myTAZChilds;
-    originalSE->myShapeParents += newSE.myShapeParents;
-    originalSE->myShapeChilds += newSE.myShapeChilds;
     originalSE->myDemandElementParents += newSE.myDemandElementParents;
     originalSE->myDemandElementChilds += newSE.myDemandElementChilds;
     originalSE->myGenericDataParents += newSE.myGenericDataParents;
