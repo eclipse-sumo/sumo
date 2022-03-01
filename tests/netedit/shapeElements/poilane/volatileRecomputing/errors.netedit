@@ -3,28 +3,29 @@ GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,-12.00,12.
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.00,12.00
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Adding poiLane 'POI_0' into viewNet
-Debug: Adding poiLane 'POI_1' into viewNet
+Debug: Adding poiLane 'POI_0' in GNEChange_Additional
+Debug: Adding poiLane 'POI_1' in GNEChange_Additional
 Error: Could not build poi with ID 'POI_10' in netedit; attribute height cannot be negative.
-Debug: Adding poiLane 'POI_11' into viewNet
-Debug: Adding poiLane 'POI_12' into viewNet
-Debug: Adding poiLane 'POI_13' into viewNet
-Debug: Adding poiLane 'POI_14' into viewNet
-Debug: Adding poiLane 'POI_15' into viewNet
-Debug: Adding poiLane 'POI_16' into viewNet
-Debug: Adding poiLane 'POI_17' into viewNet
-Debug: Adding poiLane 'POI_2' into viewNet
-Debug: Adding poiLane 'POI_3' into viewNet
-Debug: Adding poiLane 'POI_4' into viewNet
-Debug: Adding poiLane 'POI_5' into viewNet
-Debug: Adding poiLane 'POI_6' into viewNet
-Debug: Adding poiLane 'POI_7' into viewNet
+Debug: Adding poiLane 'POI_11' in GNEChange_Additional
+Debug: Adding poiLane 'POI_12' in GNEChange_Additional
+Debug: Adding poiLane 'POI_13' in GNEChange_Additional
+Debug: Adding poiLane 'POI_14' in GNEChange_Additional
+Debug: Adding poiLane 'POI_15' in GNEChange_Additional
+Debug: Adding poiLane 'POI_16' in GNEChange_Additional
+Debug: Adding poiLane 'POI_17' in GNEChange_Additional
+Debug: Adding poiLane 'POI_2' in GNEChange_Additional
+Debug: Adding poiLane 'POI_3' in GNEChange_Additional
+Debug: Adding poiLane 'POI_4' in GNEChange_Additional
+Debug: Adding poiLane 'POI_5' in GNEChange_Additional
+Debug: Adding poiLane 'POI_6' in GNEChange_Additional
+Debug: Adding poiLane 'POI_7' in GNEChange_Additional
 Error: Could not build poi with ID 'POI_8' in netedit; attribute width cannot be negative.
-Debug: Adding poiLane 'POI_9' into viewNet
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Feb114731.1612\netedit.gui\shapeElements\poilane\volatileRecomputing\input_additionals.add.xml failed.
+Debug: Adding poiLane 'POI_9' in GNEChange_Additional
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Mar135832.2916\netedit.gui\shapeElements\poilane\volatileRecomputing\input_additionals.add.xml failed.
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
+Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -32,38 +33,22 @@ GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.0
 GLDebug: Removing edges during recomputing
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Removing poiLane 'POI_9' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_9' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_7' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_7' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_6' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_6' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_5' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_5' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_4' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_4' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_3' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_3' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_2' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_2' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_17' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_17' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_16' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_16' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_15' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_15' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_14' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_14' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_13' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_13' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_12' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_12' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_11' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_11' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_1' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_1' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_0' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_0' in ~GNEChange_Shape()
+Debug: Deleting unreferenced poiLane 'POI_9'
+Debug: Deleting unreferenced poiLane 'POI_7'
+Debug: Deleting unreferenced poiLane 'POI_6'
+Debug: Deleting unreferenced poiLane 'POI_5'
+Debug: Deleting unreferenced poiLane 'POI_4'
+Debug: Deleting unreferenced poiLane 'POI_3'
+Debug: Deleting unreferenced poiLane 'POI_2'
+Debug: Deleting unreferenced poiLane 'POI_17'
+Debug: Deleting unreferenced poiLane 'POI_16'
+Debug: Deleting unreferenced poiLane 'POI_15'
+Debug: Deleting unreferenced poiLane 'POI_14'
+Debug: Deleting unreferenced poiLane 'POI_13'
+Debug: Deleting unreferenced poiLane 'POI_12'
+Debug: Deleting unreferenced poiLane 'POI_11'
+Debug: Deleting unreferenced poiLane 'POI_1'
+Debug: Deleting unreferenced poiLane 'POI_0'
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-15.20,10.00,15.20
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-15.20,60.00,15.20
@@ -95,5 +80,21 @@ Debug: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_1togneE0_1' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
+Debug: Deleting unreferenced poiLane in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

@@ -4,24 +4,24 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'poiLane' in TagSelector
-Debug: Adding poiLane 'poi_0' into viewNet
+Debug: Adding poiLane 'poi_0' in GNEChange_Additional
 Debug: Invalid input parameter of poiLane
 Debug: Invalid input parameter of poiLane
-Debug: Adding poiLane 'customID' into viewNet
+Debug: Adding poiLane 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing poiLane 'customID' from viewNet
+Debug: Removing poiLane 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing poiLane 'poi_0' from viewNet
+Debug: Removing poiLane 'poi_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding poiLane 'poi_0' into viewNet
+Debug: Adding poiLane 'poi_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding poiLane 'customID' into viewNet
+Debug: Adding poiLane 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 GLDebug: Removing junctions during recomputing
@@ -51,10 +51,8 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-13.20,60.0
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Removing poiLane 'customID' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'customID' in ~GNEChange_Shape()
-Debug: Removing poiLane 'poi_0' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'poi_0' in ~GNEChange_Shape()
+Debug: Deleting unreferenced poiLane 'customID'
+Debug: Deleting unreferenced poiLane 'poi_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
