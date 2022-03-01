@@ -30,6 +30,7 @@ won't be affected by further changes to the original type.
 | resume (0x19) | compound (), see below | Resumes from a stop  | [resume](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-resume) |
 | change target (0x31) | string (destination edge id)  | The vehicle's destination edge is set to the given. The route is rebuilt. | [changeTarget](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-changeTarget) |
 | speed (0x40) | double (new speed) | Sets the vehicle speed to the given value. The speed will be followed according to the current [speed mode](../TraCI/Change_Vehicle_State.md#speed_mode_0xb3). By default the vehicle may drive slower than the set speed according to the safety rules of the car-follow model. When sending a value of -1 the vehicle will revert to its original behavior (using the *maxSpeed* of its vehicle type and following all safety rules).  | [setSpeed](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setSpeed) |
+| acceleration (0x72) | compound (double, double), see below | Changes the acceleration to the given value for the given amount of time in seconds (must be greater than zero). | [setAcceleration](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setAcceleration) |
 | previous speed (0x3c) | double (previous speed) | Retroactively sets the vehicle speed for the previous simulation step to the given value and also updates the previous acceleration. This speed value will be used when computing [ballistic position updates](../Simulation/Basic_Definition.md#defining_the_integration_method). Also, other vehicles will react to ego in the current step as if it had driven with the given speed in the previous step. | [setPreviousSpeed](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setPreviousSpeed) |
 | color (0x45)  | ubyte,ubyte,ubyte,ubyte (RGBA) |  Sets the vehicle's color.  | [setColor](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setColor) |
 | change route by id (0x53) | string (route id)  | Assigns the named route to the vehicle, assuming a) the named route exists, and b) it starts on the edge the vehicle is currently at<sup>(1)(2)</sup>.  | [setRouteID](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setRouteID) |
@@ -124,6 +125,12 @@ After the vehicle has sucessfully performed the lane change(s) the vehicle conti
 |         byte          |        integer         |        byte         | double |        byte         |       double        |
 | :-------------------: | :--------------------: | :-----------------: | :----: | :-----------------: | :-----------------: |
 | value type *compound* | item number (always 2) | value type *double* | Speed  | value type *double* | Duration in seconds |
+
+### set acceleration (0x72)
+
+|         byte          |        integer         |        byte         |    double    |        byte         |       double        |
+| :-------------------: | :--------------------: | :-----------------: | :----------: | :-----------------: | :-----------------: |
+| value type *compound* | item number (always 2) | value type *double* | Acceleration | value type *double* | Duration in seconds |
 
 ### open gap (0x16)
 
