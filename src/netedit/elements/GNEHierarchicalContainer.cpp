@@ -39,7 +39,6 @@ GNEHierarchicalContainer::GNEHierarchicalContainer(
     const std::vector<GNEEdge*>& parentEdges,
     const std::vector<GNELane*>& parentLanes,
     const std::vector<GNEAdditional*>& parentAdditionals,
-    const std::vector<GNEShape*>& parentShapes,
     const std::vector<GNETAZElement*>& parentTAZElements,
     const std::vector<GNEDemandElement*>& ParentDemandElements,
     const std::vector<GNEGenericData*>& parentGenericDatas):
@@ -47,7 +46,6 @@ GNEHierarchicalContainer::GNEHierarchicalContainer(
     myParentEdges(parentEdges),
     myParentLanes(parentLanes),
     myParentAdditionals(parentAdditionals),
-    myParentShapes(parentShapes),
     myParentTAZElements(parentTAZElements),
     myParentDemandElements(ParentDemandElements),
     myParentGenericDatas(parentGenericDatas) {
@@ -61,7 +59,6 @@ GNEHierarchicalContainer::getContainerSize() const {
                myParentEdges.size() +
                myParentLanes.size() +
                myParentAdditionals.size() +
-               myParentShapes.size() +
                myParentTAZElements.size() +
                myParentDemandElements.size() +
                myParentGenericDatas.size() +
@@ -69,7 +66,6 @@ GNEHierarchicalContainer::getContainerSize() const {
                myChildEdges.size() +
                myChildLanes.size() +
                myChildAdditionals.size() +
-               myChildShapes.size() +
                myChildTAZElements.size() +
                myChildDemandElements.size() +
                myChildGenericDatas.size()
@@ -117,17 +113,6 @@ GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarc
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentAdditionals.push_back(additional);
-    }
-}
-
-
-template <> void
-GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEShape* shape) {
-    // check shape
-    if (checkContainer && (std::find(myParentShapes.begin(), myParentShapes.end(), shape) != myParentShapes.end())) {
-        throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
-    } else {
-        myParentShapes.push_back(shape);
     }
 }
 
@@ -214,18 +199,6 @@ GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hier
 
 
 template <> void
-GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEShape* shape) {
-    // check shape
-    auto it = std::find(myParentShapes.begin(), myParentShapes.end(), shape);
-    if (checkContainer && (it == myParentShapes.end())) {
-        throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
-    } else {
-        myParentShapes.erase(it);
-    }
-}
-
-
-template <> void
 GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hierarchicalElement, GNETAZElement* TAZElement) {
     // check TAZElement
     auto it = std::find(myParentTAZElements.begin(), myParentTAZElements.end(), TAZElement);
@@ -301,17 +274,6 @@ GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarch
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildAdditionals.push_back(additional);
-    }
-}
-
-
-template <> void
-GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEShape* shape) {
-    // check shape
-    if (checkContainer && (std::find(myChildShapes.begin(), myChildShapes.end(), shape) != myChildShapes.end())) {
-        throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
-    } else {
-        myChildShapes.push_back(shape);
     }
 }
 
@@ -403,18 +365,6 @@ GNEHierarchicalContainer::removeChildElement(const GNEHierarchicalElement* hiera
 
 
 template <> void
-GNEHierarchicalContainer::removeChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEShape* shape) {
-    // check shape
-    auto it = std::find(myChildShapes.begin(), myChildShapes.end(), shape);
-    if (checkContainer && (it == myChildShapes.end())) {
-        throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
-    } else {
-        myChildShapes.erase(it);
-    }
-}
-
-
-template <> void
 GNEHierarchicalContainer::removeChildElement(const GNEHierarchicalElement* hierarchicalElement, GNETAZElement* TAZElement) {
     // check TAZElement
     auto it = std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement);
@@ -474,12 +424,6 @@ GNEHierarchicalContainer::getParents() const {
 }
 
 
-template<> const std::vector<GNEShape*>&
-GNEHierarchicalContainer::getParents() const {
-    return myParentShapes;
-}
-
-
 template<> const std::vector<GNETAZElement*>&
 GNEHierarchicalContainer::getParents() const {
     return myParentTAZElements;
@@ -519,12 +463,6 @@ GNEHierarchicalContainer::setParents(const std::vector<GNELane*>& newParents) {
 template<> void
 GNEHierarchicalContainer::setParents(const std::vector<GNEAdditional*>& newParents) {
     myParentAdditionals = newParents;
-}
-
-
-template<> void
-GNEHierarchicalContainer::setParents(const std::vector<GNEShape*>& newParents) {
-    myParentShapes = newParents;
 }
 
 
@@ -570,12 +508,6 @@ GNEHierarchicalContainer::getChildren() const {
 }
 
 
-template<> const std::vector<GNEShape*>&
-GNEHierarchicalContainer::getChildren() const {
-    return myChildShapes;
-}
-
-
 template<> const std::vector<GNETAZElement*>&
 GNEHierarchicalContainer::getChildren() const {
     return myChildTAZElements;
@@ -615,12 +547,6 @@ GNEHierarchicalContainer::setChildren(const std::vector<GNELane*>& newChildren) 
 template<> void
 GNEHierarchicalContainer::setChildren(const std::vector<GNEAdditional*>& newChildren) {
     myChildAdditionals = newChildren;
-}
-
-
-template<> void
-GNEHierarchicalContainer::setChildren(const std::vector<GNEShape*>& newChildren) {
-    myChildShapes = newChildren;
 }
 
 
