@@ -245,6 +245,8 @@ MSPerson::MSPersonStage_Walking::routeOutput(const bool /* isPerson */, OutputDe
         if (myDestinationStop->getMyName() != "") {
             comment =  " <!-- " + StringUtils::escapeXML(myDestinationStop->getMyName(), true) + " -->";
         }
+    } else {
+        os.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPos);
     }
     if (myWalkingTime > 0) {
         os.writeAttr(SUMO_ATTR_DURATION, time2string(myWalkingTime));

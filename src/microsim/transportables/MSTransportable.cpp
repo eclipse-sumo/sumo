@@ -465,7 +465,6 @@ MSTransportable::saveState(OutputDevice& out) {
         out.writeAttr(SUMO_ATTR_SPEEDFACTOR, getSpeedFactor());
         out.setPrecision(gPrecision);
     }
-    std::ostringstream state;
     int stepIdx = (int)(myStep - myPlan->begin());
     for (auto it = myPlan->begin(); it != myStep; ++it) {
         const MSStageType st = (*it)->getStageType();
@@ -473,6 +472,7 @@ MSTransportable::saveState(OutputDevice& out) {
             stepIdx--;
         }
     }
+    std::ostringstream state;
     state << myParameter->parametersSet << " " << stepIdx;
     (*myStep)->saveState(state);
     out.writeAttr(SUMO_ATTR_STATE, state.str());
