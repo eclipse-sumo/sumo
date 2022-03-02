@@ -546,10 +546,10 @@ GUIApplicationWindow::fillMenuBar() {
     myControlMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, "Simulation", nullptr, myControlMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
-                                           "Run", "A or Spacebar", "Start/ Resume the simulation.",
+                                           "Run", "A,space", "Start/ Resume the simulation.",
                                            GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
-                                           "Stop", "S or Spacebar", "Halt the simulation.",
+                                           "Stop", "S,space", "Halt the simulation.",
                                            GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
                                            "Step", "D", "Perform one simulation step.",
