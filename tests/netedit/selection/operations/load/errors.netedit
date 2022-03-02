@@ -2,7 +2,7 @@ Debug: Adding busStop 'busStop_gneE0_0_1' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Debug: Adding poly 'poly_0' in GNEChange_Additional
 Debug: Adding poly 'poly_1' in GNEChange_Additional
-Debug: Adding taz 'TAZ' into viewNet
+Debug: Adding taz 'TAZ' in GNEChange_Additional
 Debug: Adding poiLane 'POI_0' in GNEChange_Additional
 Debug: Adding poiLane 'POI_1' in GNEChange_Additional
 Debug: Adding poi 'POI_2' in GNEChange_Additional
@@ -24,8 +24,7 @@ Debug: Deleting unreferenced poi 'POI_3'
 Debug: Deleting unreferenced poi 'POI_2'
 Debug: Deleting unreferenced poiLane 'POI_1'
 Debug: Deleting unreferenced poiLane 'POI_0'
-Debug: Removing taz 'TAZ' from net in ~GNEChange_TAZElement()
-Debug: delete taz 'TAZ' in ~GNEChange_TAZElement()
+Debug: Deleting unreferenced taz 'TAZ'
 Debug: Deleting unreferenced poly 'poly_1'
 Debug: Deleting unreferenced poly 'poly_0'
 Debug: Deleting unreferenced busStop 'busStop_gneE1_0_0'

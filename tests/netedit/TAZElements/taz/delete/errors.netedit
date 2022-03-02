@@ -1,35 +1,35 @@
-Debug: Adding taz 'TAZ_1' into viewNet
-Debug: Adding taz 'TAZ_2' into viewNet
+Debug: Adding taz 'TAZ_1' in GNEChange_Additional
+Debug: Adding taz 'TAZ_2' in GNEChange_Additional
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
-Debug: Adding taz 'taz_0' into viewNet
-Debug: Removing taz 'taz_0' from viewNet
-Debug: Removing taz 'TAZ_1' from viewNet
-Debug: Removing taz 'TAZ_2' from viewNet
+Debug: Adding taz 'taz_0' in GNEChange_Additional
+Debug: Removing taz 'taz_0' in GNEChange_Additional
+Debug: Removing taz 'TAZ_1' in GNEChange_Additional
+Debug: Removing taz 'TAZ_2' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding taz 'TAZ_2' into viewNet
+Debug: Adding taz 'TAZ_2' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding taz 'TAZ_1' into viewNet
+Debug: Adding taz 'TAZ_1' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding taz 'taz_0' into viewNet
+Debug: Adding taz 'taz_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing taz 'taz_0' from viewNet
+Debug: Removing taz 'taz_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing taz 'TAZ_1' from viewNet
+Debug: Removing taz 'TAZ_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing taz 'TAZ_2' from viewNet
+Debug: Removing taz 'TAZ_2' in GNEChange_Additional
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: delete taz 'taz_0' in ~GNEChange_TAZElement()
-Debug: delete taz 'TAZ_2' in ~GNEChange_TAZElement()
-Debug: delete taz 'TAZ_1' in ~GNEChange_TAZElement()
+Debug: Deleting unreferenced taz 'taz_0'
+Debug: Deleting unreferenced taz 'TAZ_2'
+Debug: Deleting unreferenced taz 'TAZ_1'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
