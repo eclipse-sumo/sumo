@@ -420,7 +420,11 @@ MSStageTrip::getStageSummary(const bool) const {
 void
 MSStageTrip::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool /*withRouteLength*/, const MSStage* const previous) const {
     if (myArrived < 0) {
-        os.openTag(SUMO_TAG_PERSONTRIP);
+        const bool walkFactorSet = myWalkFactor != OptionsCont::getOptions().getFloat("persontrip.walkfactor");
+        const bool groupSet = myGroup != OptionsCont::getOptions().getString("persontrip.default.group");
+        // could still be a persontrip but most likely it was a walk in the input
+        SumoXMLTag tag = myModeSet == 0 && !walkFactorSet && !groupSet ? SUMO_TAG_WALK : SUMO_TAG_PERSONTRIP;
+        os.openTag(tag);
         if (previous == nullptr || previous->getStageType() == MSStageType::WAITING_FOR_DEPART) {
             os.writeAttr(SUMO_ATTR_FROM, myOrigin->getID());
         }
@@ -451,10 +455,10 @@ MSStageTrip::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool /
         if (myVTypes.size() > 0) {
             os.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
         }
-        if (myGroup != OptionsCont::getOptions().getString("persontrip.default.group")) {
+        if (groupSet) {
             os.writeAttr(SUMO_ATTR_GROUP, myGroup);
         }
-        if (myWalkFactor != OptionsCont::getOptions().getFloat("persontrip.walkfactor")) {
+        if (walkFactorSet) {
             os.writeAttr(SUMO_ATTR_WALKFACTOR, myWalkFactor);
         }
         os.closeTag();
