@@ -331,12 +331,7 @@ public:
     * @param[in] os The stream to write the information into
     * @exception IOError not yet implemented
     */
-    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const {
-        UNUSED_PARAMETER(isPerson);
-        UNUSED_PARAMETER(os);
-        UNUSED_PARAMETER(withRouteLength);
-        UNUSED_PARAMETER(previous);
-    }
+    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
 private:
     /// the origin edge

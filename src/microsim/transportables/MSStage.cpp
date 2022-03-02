@@ -417,6 +417,49 @@ MSStageTrip::getStageSummary(const bool) const {
     return "trip from '" + myOrigin->getID() + "' to '" + getDestination()->getID() + "'";
 }
 
+void
+MSStageTrip::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool /*withRouteLength*/, const MSStage* const previous) const {
+    if (myArrived < 0) {
+        os.openTag(SUMO_TAG_PERSONTRIP);
+        if (previous == nullptr || previous->getStageType() == MSStageType::WAITING_FOR_DEPART) {
+            os.writeAttr(SUMO_ATTR_FROM, myOrigin->getID());
+        }
+        if (myDestinationStop == nullptr) {
+            os.writeAttr(SUMO_ATTR_TO, myDestination->getID());
+            if (wasSet(VEHPARS_ARRIVALPOS_SET)) {
+                os.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPos);
+            }
+        } else {
+            os.writeAttr(toString(myDestinationStop->getElement()), myDestinationStop->getID());
+        }
+        std::vector<std::string> modes;
+        if ((myModeSet & SVC_PASSENGER) != 0) {
+            modes.push_back("car");
+        }
+        if ((myModeSet & SVC_BICYCLE) != 0) {
+            modes.push_back("bicycle");
+        }
+        if ((myModeSet & SVC_TAXI) != 0) {
+            modes.push_back("taxi");
+        }
+        if ((myModeSet & SVC_BUS) != 0) {
+            modes.push_back("public");
+        }
+        if (modes.size() > 0) {
+            os.writeAttr(SUMO_ATTR_MODES, modes);
+        }
+        if (myVTypes.size() > 0) {
+            os.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
+        }
+        if (myGroup != OptionsCont::getOptions().getString("persontrip.default.group")) {
+            os.writeAttr(SUMO_ATTR_GROUP, myGroup);
+        }
+        if (myWalkFactor != OptionsCont::getOptions().getFloat("persontrip.walkfactor")) {
+            os.writeAttr(SUMO_ATTR_WALKFACTOR, myWalkFactor);
+        }
+        os.closeTag();
+    }
+}
 
 /* -------------------------------------------------------------------------
 * MSStageWaiting - methods

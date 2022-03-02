@@ -315,7 +315,7 @@ MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const tr
 
 void
 MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const {
-    os.openTag(isPerson ? "ride" : "transport");
+    os.openTag(isPerson ? SUMO_TAG_RIDE: SUMO_TAG_TRANSPORT);
     if (getFromEdge() != nullptr) {
         os.writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID());
     } else if (previous != nullptr && previous->getStageType() == MSStageType::WAITING_FOR_DEPART) {
