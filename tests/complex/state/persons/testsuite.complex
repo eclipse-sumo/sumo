@@ -7,6 +7,12 @@ walk_nonInteracting
 # test walking person saved on junction
 walk_junction
 
+# state contains person that hasn't yet departed
+walk_undeparted
+
+# state contains person that hasn't yet departed
+walk_trip_undeparted
+
 # test riding person
 ride
 
