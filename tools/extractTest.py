@@ -184,25 +184,28 @@ for d, p in [
             appOptions = []
             optFiles = optionsFiles[app] + ([] if variant == app else optionsFiles[variant])
             for f in sorted(optFiles, key=lambda o: o.count(os.sep)):
-                for o in shlex.split(open(f).read()):
-                    if skip:
-                        skip = False
-                        continue
-                    if o == "--xml-validation" and options.skip_validation:
-                        skip = True
-                        continue
-                    if o == "{CLEAR}":
-                        appOptions = []
-                        continue
-                    if o[0] == "-" and o in appOptions:
-                        idx = appOptions.index(o)
-                        if idx < len(appOptions) - 1 and appOptions[idx + 1][0] != "-":
-                            del appOptions[idx:idx+2]
-                    appOptions.append(o)
-                    if "=" in o:
-                        o = o.split("=")[-1]
-                    if o[-8:] == ".net.xml":
-                        net = o
+                newOptions = []
+                with open(f) as oFile:
+                    for o in shlex.split(oFile.read()):
+                        if skip:
+                            skip = False
+                            continue
+                        if o == "--xml-validation" and options.skip_validation:
+                            skip = True
+                            continue
+                        if o == "{CLEAR}":
+                            appOptions = []
+                            continue
+                        if o[0] == "-" and o in appOptions:
+                            idx = appOptions.index(o)
+                            if idx < len(appOptions) - 1 and appOptions[idx + 1][0] != "-":
+                                del appOptions[idx:idx+2]
+                        newOptions.append(o)
+                        if "=" in o:
+                            o = o.split("=")[-1]
+                        if o[-8:] == ".net.xml":
+                            net = o
+                appOptions += newOptions
             nameBase = "test"
             if options.names:
                 nameBase = os.path.basename(target)
@@ -297,9 +300,12 @@ for d, p in [
                     print("generating shell scripts for testPath '%s' with call '%s'" %
                           (testPath, " ".join(appOptions)))
                 cmd = [o if " " not in o else "'%s'" % o for o in appOptions]
-                open(nameBase + ".sh", "w").write(" ".join(cmd))
+                with open(nameBase + ".sh", "w") as sh:
+                    sh.write(" ".join(cmd))
+                os.chmod(nameBase + ".sh", 0o775)
                 cmd = [o.replace("$SUMO_HOME", "%SUMO_HOME%") if " " not in o else '"%s"' % o for o in appOptions]
-                open(nameBase + ".bat", "w").write(" ".join(cmd))
+                with open(nameBase + ".bat", "w") as bat:
+                    bat.write(" ".join(cmd))
             os.chdir(oldWorkDir)
         if not haveVariant:
             print("No suitable variant found for %s." % source, file=sys.stderr)
