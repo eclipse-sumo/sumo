@@ -62,6 +62,7 @@ net:net.net.xml
 vss:vss.xml
 rawdump:rawdump.xml
 fcd:fcd.xml
+fcd2:fcd2.xml
 lanechanges:lanechanges.xml
 results:results.csv
 tls_state:tls_state.xml
@@ -111,6 +112,7 @@ tripinfo:<!--{[->]}-->
 tripinfo2:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 fcd:<!--{[->]}-->
+fcd2:<!--{[->]}-->
 stops:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 collisions:<!--{[->]}-->

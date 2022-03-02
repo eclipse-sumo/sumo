@@ -4,6 +4,9 @@ walk
 # test pedestrian model 'nonInteracting'
 walk_nonInteracting
 
+# test walking person saved on junction
+walk_junction
+
 # test riding person
 ride
 
