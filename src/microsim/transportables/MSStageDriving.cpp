@@ -535,10 +535,10 @@ MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& st
                     : previous->getDestinationStop());
         if (myOriginStop != nullptr) {
             // the arrival stop may have an access point
+            myOriginStop->addTransportable(transportable);
             myWaitingEdge = &myOriginStop->getLane().getEdge();
             myStopWaitPos = myOriginStop->getWaitPosition(transportable);
             myWaitingPos = myOriginStop->getWaitingPositionOnLane(transportable);
-            myOriginStop->addTransportable(transportable);
         } else {
             myWaitingEdge = previous->getEdge();
             myStopWaitPos = Position::INVALID;
