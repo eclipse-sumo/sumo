@@ -36,7 +36,7 @@
 
 GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_TRANSHIP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}),
     mySpeed(0),
     myDepartPosition(0),
     myArrivalPosition(0) {
@@ -48,7 +48,7 @@ GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
 GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                          const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {containerParent}, {}),
+        {}, {fromEdge, toEdge}, {}, {}, {containerParent}, {}),
     mySpeed(speed),
     myDepartPosition(departPosition),
     myArrivalPosition(arrivalPosition) {
@@ -58,7 +58,7 @@ GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge
 GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop,
                          const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_CONTAINERSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {fromEdge}, {}, {toContainerStop}, {}, {containerParent}, {}),
+        {}, {fromEdge}, {}, {toContainerStop}, {containerParent}, {}),
     mySpeed(speed),
     myDepartPosition(departPosition),
     myArrivalPosition(arrivalPosition) {
@@ -68,7 +68,7 @@ GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge
 GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, std::vector<GNEEdge*> edges,
                          const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGES, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {edges}, {}, {}, {}, {containerParent}, {}),
+        {}, {edges}, {}, {}, {containerParent}, {}),
     mySpeed(speed),
     myDepartPosition(departPosition),
     myArrivalPosition(arrivalPosition) {

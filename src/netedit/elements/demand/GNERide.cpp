@@ -35,7 +35,7 @@
 
 GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_RIDE, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}),
     myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
@@ -45,7 +45,7 @@ GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                  double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}),
+        {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myLines(lines) {
 }
@@ -54,7 +54,7 @@ GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
                  double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {fromEdge}, {}, {toBusStop}, {}, {personParent}, {}),
+        {}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myLines(lines) {
 }

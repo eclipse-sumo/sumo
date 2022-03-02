@@ -73,7 +73,7 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_ROUTE, tag,
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-        {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myColor(RGBColor::YELLOW),
     myCustomColor(false),
@@ -88,7 +88,7 @@ GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
 GNERoute::GNERoute(GNENet* net) :
     GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-    {}, {}, {}, {}, {}, {}, {}),
+    {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myColor(RGBColor::YELLOW),
     myCustomColor(false),
@@ -104,7 +104,7 @@ GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, 
                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string>& parameters) :
     GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE,
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-    {}, edges, {}, {}, {}, {}, {}),
+    {}, edges, {}, {}, {}, {}),
     Parameterised(parameters),
     myColor(color),
     myCustomColor(color != RGBColor(false)),
@@ -118,7 +118,7 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vect
                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string>& parameters) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED,
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-    {}, edges, {}, {}, {}, {vehicleParent}, {}),
+    {}, edges, {}, {}, {vehicleParent}, {}),
     Parameterised(parameters),
     myColor(color),
     myCustomColor(color != RGBColor::INVISIBLE),
@@ -131,7 +131,7 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vect
 GNERoute::GNERoute(GNEDemandElement* route) :
     GNEDemandElement(route, route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-    {}, route->getParentEdges(), {}, {}, {}, {}, {}),
+    {}, route->getParentEdges(), {}, {}, {}, {}),
     Parameterised(),
     myColor(route->getColor()),
     myCustomColor(!route->getAttribute(SUMO_ATTR_COLOR).empty()),

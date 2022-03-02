@@ -36,7 +36,7 @@
 
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_WALK, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}),
     myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
@@ -45,35 +45,35 @@ GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}),
+        {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_BUSSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {fromEdge}, {}, {toBusStop}, {}, {personParent}, {}),
+        {}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGES, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {edges}, {}, {}, {}, {personParent}, {}),
+        {}, {edges}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_ROUTE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {personParent, route}, {}),
+        {}, {}, {}, {}, {personParent, route}, {}),
     myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_JUNCTIONS, GNEPathManager::PathElement::Options::DEMAND_ELEMENT, 
-        {fromJunction, toJunction}, {}, {}, {}, {}, {personParent}, {}),
+        {fromJunction, toJunction}, {}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
 }
 
