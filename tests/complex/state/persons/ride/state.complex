@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-07 18:46:03 by Eclipse SUMO sumo Version v1_11_0+0377-337d5b1
+<!-- generated on 2022-03-02 08:02:28 by Eclipse SUMO sumo Version v1_12_0+1002-3e66868
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_11_0+0377-337d5b1" time="10.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1002-3e66868" time="10.00" type="micro">
     <route id="!v0" state="0" edges="3/1to2/1 3/1to2/1 1/1to0/1"/>
     <route id="!v0!var#1" state="0" edges="3/1to2/1 2/1to1/1 1/1to0/1"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
@@ -36,7 +36,7 @@
         <device id="person_v0" state="1"/>
     </vehicle>
     <transportables type="person" state="1 1 0 0 0 0 0 0 0 0">
-        <person id="persontrip_car" type="DEFAULT_PEDTYPE" depart="2.00" departPos="10.00" state="8 1 2000 5310 -1 1 -1 v0 16.9">
+        <person id="persontrip_car" type="DEFAULT_PEDTYPE" depart="2.00" departPos="10.00" speedFactor="0.9383" state="8 1 2000 5310 -1 1 -1 v0 16.9">
             <ride from="3/1to2/1" to="1/1to0/1" lines="v0"/>
         </person>
     </transportables>

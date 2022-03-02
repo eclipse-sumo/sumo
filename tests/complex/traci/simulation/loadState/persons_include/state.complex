@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-27 12:35:51 by Eclipse SUMO sumo Version v1_12_0+0907-1e7dfa9
+<!-- generated on 2022-03-02 08:00:40 by Eclipse SUMO sumo Version v1_12_0+1002-3e66868
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -9,7 +9,7 @@
     </input>
 
     <output>
-        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output value="tripinfo.xml"/>
         <save-state.transportables value="true"/>
     </output>
 
@@ -18,13 +18,13 @@
     </report>
 
     <traci_server>
-        <remote-port value="57138"/>
+        <remote-port value="43318"/>
     </traci_server>
 
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+0907-1e7dfa9" time="1.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1002-3e66868" time="1.00" type="micro">
     <route id="!0" state="0" edges="WC CE"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="car" sigma="0"/>
@@ -34,7 +34,7 @@
         <device id="routing_0" state="0"/>
     </vehicle>
     <transportables type="person" state="1 1 0 0 0 0 0 0 0 0">
-        <person id="p1" type="ped" depart="0.00" state="131074 1 0 0 0 WC_0 0 2.56 -1 0 0 1 0 null null 0 CW_0 null null -1">
+        <person id="p1" type="ped" depart="0.00" speedFactor="0.9383" state="131074 1 0 0 0 WC_0 0 2.56 -1 0 0 1 0 null null 0 CW_0 null null -1">
             <walk edges="WC CW CE"/>
         </person>
     </transportables>
