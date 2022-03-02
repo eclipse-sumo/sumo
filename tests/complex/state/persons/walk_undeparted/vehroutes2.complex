@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-02 11:24:05 by Eclipse SUMO sumo Version v1_12_0+1018-7558949
+<!-- generated on 2022-03-02 12:00:27 by Eclipse SUMO sumo Version v1_12_0+1020-bb2d224
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -9,6 +9,7 @@
     </input>
 
     <output>
+        <fcd-output value="fcd2.xml"/>
         <vehroute-output value="vehroutes2.xml"/>
     </output>
 
@@ -25,12 +26,8 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0" depart="0.00" arrival="187.00">
-        <walk edges="2/1to1/1 3/1to2/1"/>
-    </person>
-
-    <person id="p2" depart="100.00" arrival="272.00">
-        <walk edges="2/1to1/1 3/1to2/1"/>
+    <person id="p2" depart="100.00" departPos="10.00" arrival="108.00">
+        <walk edges="2/1to1/1" arrivalPos="20.00"/>
     </person>
 
 </routes>
