@@ -62,7 +62,7 @@ GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, {
         net->getAttributeCarriers()->retrieveJunction(nbe->getFromNode()->getID()),
         net->getAttributeCarriers()->retrieveJunction(nbe->getToNode()->getID())},
-        {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}),
     myNBEdge(nbe),
     myLanes(0),
     myAmResponsible(false),

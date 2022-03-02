@@ -49,7 +49,7 @@
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
-        {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}),
     myNBNode(nbn),
     myMaxDrawingSize(1),
     myAmCreateEdgeSource(false),
@@ -370,7 +370,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         drawBubble = true;
     }
     if ((myNBNode->getShape().area() < 4) && (mySourceCandidate || myTargetCandidate ||
-            mySpecialCandidate | myPossibleCandidate || myConflictedCandidate)) {
+            mySpecialCandidate || myPossibleCandidate || myConflictedCandidate)) {
         // force draw if this junction is a candidate
         drawBubble = true;
     }
