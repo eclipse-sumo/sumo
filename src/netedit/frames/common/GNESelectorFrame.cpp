@@ -570,7 +570,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     }
     // invert TAZs
     if (ignoreLocking || !locks.isObjectLocked(GLO_TAZ, false)) {
-        for (const auto& TAZ : ACs->getTAZElements().at(SUMO_TAG_TAZ)) {
+        for (const auto& TAZ : ACs->getAdditionals().at(SUMO_TAG_TAZ)) {
             if (onlyCount) {
                 return true;
             } else if (onlyUnselect || TAZ->isAttributeCarrierSelected()) {

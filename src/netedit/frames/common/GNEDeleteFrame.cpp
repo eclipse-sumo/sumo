@@ -236,8 +236,6 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
             myViewNet->getNet()->deleteConnection(objectsUnderCursor.getConnectionFront(), myViewNet->getUndoList());
         } else if (objectsUnderCursor.getAttributeCarrierFront() && (objectsUnderCursor.getAdditionalFront() == objectsUnderCursor.getAttributeCarrierFront())) {
             myViewNet->getNet()->deleteAdditional(objectsUnderCursor.getAdditionalFront(), myViewNet->getUndoList());
-        } else if (objectsUnderCursor.getTAZElementFront() && (objectsUnderCursor.getTAZElementFront() == objectsUnderCursor.getAttributeCarrierFront())) {
-            myViewNet->getNet()->deleteTAZElement(objectsUnderCursor.getTAZElementFront(), myViewNet->getUndoList());
         } else if (objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront() == objectsUnderCursor.getAttributeCarrierFront())) {
             // we need an special check for person plans
             if (objectsUnderCursor.getDemandElementFront()->getTagProperty().isPersonPlan()) {
@@ -339,10 +337,6 @@ GNEDeleteFrame::SubordinatedElements::checkElements(const ProtectElements* prote
         openWarningDialog("additional", myAdditionalParents, false);
     } else if ((myAdditionalChilds > 0) && protectElements->protectAdditionals()) {
         openWarningDialog("additional", myAdditionalChilds, true);
-    } else if ((myTAZParents > 0) && protectElements->protectTAZs()) {
-        openWarningDialog("TAZ", myTAZParents, false);
-    } else if ((myTAZChilds > 0) && protectElements->protectTAZs()) {
-        openWarningDialog("TAZ", myTAZChilds, true);
     } else if ((myDemandElementParents > 0) && protectElements->protectDemandElements()) {
         openWarningDialog("demand", myDemandElementParents, false);
     } else if ((myDemandElementChilds > 0) && protectElements->protectDemandElements()) {
@@ -364,8 +358,6 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
     myViewNet(viewNet),
     myAdditionalParents(0),
     myAdditionalChilds(0),
-    myTAZParents(0),
-    myTAZChilds(0),
     myDemandElementParents(0),
     myDemandElementChilds(0),
     myGenericDataParents(0),
@@ -379,8 +371,6 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
     myViewNet(viewNet),
     myAdditionalParents(hierarchicalElement->getParentAdditionals().size()),
     myAdditionalChilds(hierarchicalElement->getChildAdditionals().size()),
-    myTAZParents(hierarchicalElement->getParentTAZElements().size()),
-    myTAZChilds(hierarchicalElement->getChildTAZElements().size()),
     myDemandElementParents(hierarchicalElement->getParentDemandElements().size()),
     myDemandElementChilds(hierarchicalElement->getChildDemandElements().size()),
     myGenericDataParents(hierarchicalElement->getParentGenericDatas().size()),
@@ -411,8 +401,6 @@ void
 GNEDeleteFrame::SubordinatedElements::addValuesFromSubordinatedElements(SubordinatedElements* originalSE, const SubordinatedElements& newSE) {
     originalSE->myAdditionalParents += newSE.myAdditionalParents;
     originalSE->myAdditionalChilds += newSE.myAdditionalChilds;
-    originalSE->myTAZParents += newSE.myTAZParents;
-    originalSE->myTAZChilds += newSE.myTAZChilds;
     originalSE->myDemandElementParents += newSE.myDemandElementParents;
     originalSE->myDemandElementChilds += newSE.myDemandElementChilds;
     originalSE->myGenericDataParents += newSE.myGenericDataParents;

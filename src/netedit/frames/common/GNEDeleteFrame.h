@@ -184,12 +184,6 @@ protected:
         /// @brief child additional (except TAZs)
         size_t myAdditionalChilds;
 
-        /// @brief parent TAZs
-        size_t myTAZParents;
-
-        /// @brief child TAZ
-        size_t myTAZChilds;
-
         /// @brief parent demand elements
         size_t myDemandElementParents;
 
