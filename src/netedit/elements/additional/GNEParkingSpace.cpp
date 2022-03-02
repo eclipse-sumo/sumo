@@ -33,8 +33,7 @@
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net) :
     GNEAdditional("", net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "",
-    {}, {}, {}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
+    {}, {}, {}, {}, {}, {}, {}),
     mySlope(0) {
     // reset default values
     resetDefaultValues();
@@ -45,8 +44,8 @@ GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, 
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
                                  const std::string& name, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
-    {}, {}, {}, {parkingAreaParent}, {}, {}, {},
-    parameters),
+    {}, {}, {}, {parkingAreaParent}, {}, {}, {}),
+    Parameterised(parameters),
     myPosition(pos),
     myWidth(width),
     myLength(length),
@@ -293,6 +292,12 @@ GNEParkingSpace::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const std::map<std::string, std::string>& 
+GNEParkingSpace::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -336,7 +341,7 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

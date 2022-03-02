@@ -33,7 +33,7 @@ class GNEDetectorE3;
  * @class GNEDetectorEntryExit
  * Class for detector of type Entry
  */
-class GNEDetectorEntryExit  : public GNEDetector {
+class GNEDetectorEntryExit : public GNEDetector {
 
 public:
     /// @brief default Constructor

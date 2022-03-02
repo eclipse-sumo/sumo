@@ -36,7 +36,7 @@ class GNERoute;
  * @class GNECalibrator
  * class for represent Calibratos in netedit
  */
-class GNECalibrator : public GNEAdditional {
+class GNECalibrator : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief Default constructor
@@ -162,6 +162,9 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
+
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

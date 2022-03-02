@@ -34,7 +34,7 @@ class GNEParkingArea;
  * @class GNEParkingSpace
  * @brief vehicle space used by GNEParkingAreas
  */
-class GNEParkingSpace : public GNEAdditional {
+class GNEParkingSpace : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief Constructor
@@ -109,6 +109,9 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
+
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

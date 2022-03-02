@@ -34,8 +34,7 @@
 
 GNERerouter::GNERerouter(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_REROUTER, "",
-        {}, {}, {}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}, {}),
     myProbability(0),
     myOff(false),
     myTimeThreshold(0) {
@@ -48,8 +47,8 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos
                          double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                          const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name,
-        {}, {}, {}, {}, {}, {}, {},
-    parameters),
+        {}, {}, {}, {}, {}, {}, {}),
+    Parameterised(parameters),
     myPosition(pos),
     myProbability(probability),
     myOff(off),
@@ -247,6 +246,12 @@ GNERerouter::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const std::map<std::string, std::string>&
+GNERerouter::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -301,7 +306,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

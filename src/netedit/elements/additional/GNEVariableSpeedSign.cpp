@@ -36,8 +36,7 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
     GNEAdditional("", net, GLO_VSS, SUMO_TAG_VSS, "",
-        {}, {}, {}, {}, {}, {}, {},
-    std::map<std::string, std::string>()) {
+        {}, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
@@ -46,8 +45,8 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
         const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name,
-        {}, {}, {}, {}, {}, {}, {},
-    parameters),
+        {}, {}, {}, {}, {}, {}, {}),
+    Parameterised(parameters),
     myPosition(pos),
     myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
@@ -206,6 +205,12 @@ GNEVariableSpeedSign::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const std::map<std::string, std::string>& 
+GNEVariableSpeedSign::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -251,7 +256,7 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

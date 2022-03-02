@@ -34,7 +34,7 @@ class GNEVariableSpeedSignStep;
  * @class GNEVariableSpeedSign
  * allows the simulation of variable speed signs
  */
-class GNEVariableSpeedSign : public GNEAdditional {
+class GNEVariableSpeedSign : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default Constructor
@@ -109,6 +109,9 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
+
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

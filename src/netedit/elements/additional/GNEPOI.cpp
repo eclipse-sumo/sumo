@@ -43,8 +43,7 @@
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, 0, 0, "", false, 0, 0, "", std::map<std::string, std::string>()),
     GNEAdditional("", net, GLO_POI, tag, "", 
-        {}, {}, {}, {}, {}, {}, {}, 
-    std::map<std::string, std::string>()) {
+        {}, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
@@ -56,8 +55,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const std::map<std::string, std::string>& parameters) :
     PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEAdditional(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, "", 
-        {}, {}, {}, {}, {}, {}, {}, 
-    std::map<std::string, std::string>()) {
+        {}, {}, {}, {}, {}, {}, {}) {
     // update position depending of GEO
     if (geo) {
         Position cartesian(x(), y());
@@ -74,8 +72,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const double height, const std::string& name, const std::map<std::string, std::string>& parameters) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEAdditional(id, net, GLO_POI, GNE_TAG_POILANE, "", 
-        {}, {}, {lane}, {}, {}, {}, {}, 
-    std::map<std::string, std::string>()) {
+        {}, {}, {lane}, {}, {}, {}, {}) {
     // update geometry (needed for POILanes)
     updateGeometry();
     // update centering boundary without updating grid
@@ -402,6 +399,12 @@ GNEPOI::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const std::map<std::string, std::string>&
+GNEPOI::getACParametersMap() const {
+    return PointOfInterest::getParametersMap();
+}
+
+
 void
 GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
@@ -494,7 +497,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -521,12 +524,6 @@ GNEPOI::getPopUpID() const {
 std::string
 GNEPOI::getHierarchyName() const {
     return getTagStr();
-}
-
-
-const std::map<std::string, std::string>&
-GNEPOI::getACParametersMap() const {
-    return PointOfInterest::getParametersMap();
 }
 
 // ===========================================================================

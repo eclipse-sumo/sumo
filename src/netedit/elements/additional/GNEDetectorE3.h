@@ -29,7 +29,7 @@
  * @class GNEDetectorE3
  * Class for multy Entry/multy Exits detectors
  */
-class GNEDetectorE3 : public GNEAdditional {
+class GNEDetectorE3 : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default constructor
@@ -104,6 +104,9 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
+
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

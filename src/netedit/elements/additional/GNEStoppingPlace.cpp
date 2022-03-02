@@ -49,8 +49,8 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObje
                                    GNELane* lane, const double startPos, const double endPos, const std::string& name,
                                    bool friendlyPosition, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, type, tag, name,
-        {}, {}, {lane}, {}, {}, {}, {},
-    parameters),
+        {}, {}, {lane}, {}, {}, {}, {}),
+    Parameterised(parameters),
     myStartPosition(startPos),
     myEndPosition(endPos),
     myFriendlyPosition(friendlyPosition) {
@@ -267,6 +267,12 @@ GNEStoppingPlace::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
+}
+
+
+const std::map<std::string, std::string>& 
+GNEStoppingPlace::getACParametersMap() const {
+    return getParametersMap();
 }
 
 

@@ -33,8 +33,7 @@
 
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
     GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
-        {}, {}, {}, {}, {}, {}, {},
-    std::map<std::string, std::string>()) {
+        {}, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
     // set VPH and speed enabled
@@ -45,8 +44,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
-        {}, {}, {}, {calibratorParent}, {}, {vehicleType, route}, {},
-    std::map<std::string, std::string>()),
+        {}, {}, {}, {calibratorParent}, {}, {vehicleType, route}, {}),
     SUMOVehicleParameter() {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -55,8 +53,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
-        {}, {}, {}, {calibratorParent}, {}, {vehicleType, route}, {},
-    std::map<std::string, std::string>()),
+        {}, {}, {}, {calibratorParent}, {}, {vehicleType, route}, {}),
     SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -288,6 +285,12 @@ GNECalibratorFlow::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const std::map<std::string, std::string>& 
+GNECalibratorFlow::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
+}
+
+
 void
 GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -426,7 +429,7 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

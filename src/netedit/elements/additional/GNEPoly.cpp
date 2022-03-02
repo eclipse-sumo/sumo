@@ -42,8 +42,7 @@
 GNEPoly::GNEPoly(GNENet* net) :
     SUMOPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", std::map<std::string, std::string>()),
     GNEAdditional("", net, GLO_POLYGON, SUMO_TAG_POLY, "", 
-        {}, {}, {}, {}, {}, {}, {}, 
-    std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}, {}),
     mySimplifiedShape(false) {
     // reset default values
     resetDefaultValues();
@@ -55,8 +54,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const std::map<std::string, std::string>& parameters) :
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
     GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, "", 
-        {}, {}, {}, {}, {}, {}, {}, 
-    std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}, {}),
     mySimplifiedShape(false) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
@@ -578,6 +576,12 @@ GNEPoly::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const std::map<std::string, std::string>&
+GNEPoly::getACParametersMap() const {
+    return SUMOPolygon::getParametersMap();
+}
+
+
 void
 GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -670,7 +674,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -696,12 +700,6 @@ GNEPoly::getPopUpID() const {
 std::string
 GNEPoly::getHierarchyName() const {
     return getTagStr();
-}
-
-
-const std::map<std::string, std::string>&
-GNEPoly::getACParametersMap() const {
-    return SUMOPolygon::getParametersMap();
 }
 
 // ===========================================================================

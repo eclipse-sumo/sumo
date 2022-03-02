@@ -28,7 +28,7 @@
  * @class GNEdetector
  * @briefA abstract class to define common parameters and functions of detectors
  */
-class GNEDetector : public GNEAdditional {
+class GNEDetector : public GNEAdditional, public Parameterised {
 
 public:
     /**@brief Constructor.
@@ -142,6 +142,9 @@ public:
      * @return double with the value associated to key
      */
     virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
+
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

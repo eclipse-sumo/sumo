@@ -40,6 +40,7 @@ const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
 const size_t GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES = 128;
+const std::map<std::string, std::string> GNEAttributeCarrier::PARAMETERS_EMPTY;
 
 
 // ===========================================================================

@@ -36,8 +36,7 @@
 
 GNERouteProbe::GNERouteProbe(GNENet* net) :
     GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, "",
-        {}, {}, {}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}, {}),
     myFrequency(0),
     myBegin(0) {
     // reset default values
@@ -50,8 +49,8 @@ GNERouteProbe::GNERouteProbe(GNENet* net) :
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime frequency, const std::string& name,
                              const std::string& filename, SUMOTime begin, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name,
-        {}, {edge}, {}, {}, {}, {}, {},
-    parameters),
+        {}, {edge}, {}, {}, {}, {}, {}),
+    Parameterised(parameters),
     myFrequency(frequency),
     myFilename(filename),
     myBegin(begin) {
@@ -238,6 +237,12 @@ GNERouteProbe::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const std::map<std::string, std::string>& 
+GNERouteProbe::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -307,7 +312,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

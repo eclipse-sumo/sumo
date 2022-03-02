@@ -273,6 +273,9 @@ public:
     /// @brief max number of attributes allowed for every tag
     static const size_t MAXNUMBEROFATTRIBUTES;
 
+    /// @brief empty parameter maps (used by ACs without parameters)
+    static const std::map<std::string, std::string> PARAMETERS_EMPTY;
+
 protected:
     /// @brief reference to tagProperty associated with this attribute carrier
     const GNETagProperties& myTagProperty;

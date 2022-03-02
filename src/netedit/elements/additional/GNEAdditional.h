@@ -45,7 +45,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEAdditional
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEAdditional : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement, public Parameterised {
+class GNEAdditional : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement {
 
 public:
     /**@brief Constructor
@@ -70,8 +70,7 @@ public:
                   const std::vector<GNEAdditional*>& additionalParents,
                   const std::vector<GNETAZElement*>& TAZElementParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,
-                  const std::vector<GNEGenericData*>& genericDataParents,
-                  const std::map<std::string, std::string>& parameters);
+                  const std::vector<GNEGenericData*>& genericDataParents);
 
     /**@brief Constructor for additional with parents
      * @param[in] net pointer to GNENet of this additional element belongs
@@ -94,8 +93,7 @@ public:
                   const std::vector<GNEAdditional*>& additionalParents,
                   const std::vector<GNETAZElement*>& TAZElementParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,
-                  const std::vector<GNEGenericData*>& genericDataParents,
-                  const std::map<std::string, std::string>& parameters);
+                  const std::vector<GNEGenericData*>& genericDataParents);
 
     /// @brief Destructor
     ~GNEAdditional();
@@ -251,6 +249,9 @@ public:
      */
     virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
 
+    /// @brief get parameters map
+    virtual const std::map<std::string, std::string>& getACParametersMap() const = 0;
+
     /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -295,9 +296,6 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     virtual std::string getHierarchyName() const = 0;
     /// @}
-
-    /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
 
     /// @brief draw parent and child lines
     void drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor& color, const bool onlySymbols = false) const;

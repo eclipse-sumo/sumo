@@ -173,6 +173,9 @@ public:
      */
     double getAttributeDouble(SumoXMLAttr key) const;
 
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
     /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -198,9 +201,6 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
-
-    /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
 
 protected:
     /// @brief shape width of POI

@@ -32,8 +32,7 @@
 
 GNEClosingReroute::GNEClosingReroute(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, "",
-        {}, {}, {}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}, {}),
     myClosedEdge(nullptr),
     myPermissions(0) {
     // reset default values
@@ -43,8 +42,7 @@ GNEClosingReroute::GNEClosingReroute(GNENet* net) :
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, "",
-        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {},
-    std::map<std::string, std::string>()),
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}),
     myClosedEdge(closedEdge),
     myPermissions(permissions) {
     // update boundary of rerouter parent
@@ -152,6 +150,12 @@ GNEClosingReroute::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const std::map<std::string, std::string>& 
+GNEClosingReroute::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
+}
+
+
 void
 GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -182,8 +186,6 @@ GNEClosingReroute::isValid(SumoXMLAttr key, const std::string& value) {
             return canParseVehicleClasses(value);
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
-        case GNE_ATTR_SELECTED:
-            return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

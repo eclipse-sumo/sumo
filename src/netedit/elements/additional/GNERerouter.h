@@ -34,7 +34,7 @@ class GNEEdge;
  * @class GNERerouter
  * Rerouter changes the route of a vehicle as soon as the vehicle moves onto a specified edge.
  */
-class GNERerouter : public GNEAdditional {
+class GNERerouter : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default Constructor
@@ -110,6 +110,9 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
+
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

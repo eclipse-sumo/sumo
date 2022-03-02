@@ -32,8 +32,7 @@
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE, "",
-        {}, {}, {}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}, {}),
     myClosedLane(nullptr),
     myPermissions(0) {
     // reset default values
@@ -43,8 +42,7 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNENet* net) :
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE, "",
-        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {},
-    std::map<std::string, std::string>()),
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}),
     myClosedLane(closedLane),
     myPermissions(permissions) {
     // update boundary of rerouter parent
@@ -151,6 +149,12 @@ GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
 double
 GNEClosingLaneReroute::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+}
+
+
+const std::map<std::string, std::string>& 
+GNEClosingLaneReroute::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
 }
 
 

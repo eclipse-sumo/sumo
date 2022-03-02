@@ -43,12 +43,10 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
                              const std::vector<GNEAdditional*>& additionalParents,
                              const std::vector<GNETAZElement*>& TAZElementParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEGenericData*>& genericDataParents,
-                             const std::map<std::string, std::string>& parameters) :
+                             const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
-    Parameterised(parameters),
     myAdditionalName(additionalName) {
     // check if is template
     myIsTemplate = (id == "");
@@ -62,12 +60,10 @@ GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
                              const std::vector<GNEAdditional*>& additionalParents,
                              const std::vector<GNETAZElement*>& TAZElementParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEGenericData*>& genericDataParents,
-                             const std::map<std::string, std::string>& parameters) :
+                             const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, additionalParents.front()->getID()),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
-    Parameterised(parameters),
     myAdditionalName(additionalName) {
 }
 
@@ -735,12 +731,6 @@ GNEAdditional::getPathElementArrivalValue() const {
 Position
 GNEAdditional::getPathElementArrivalPos() const {
     return Position();  /// CHECK
-}
-
-
-const std::map<std::string, std::string>&
-GNEAdditional::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
