@@ -1,0 +1,3 @@
+<add>
+    <busStop id="bs0" lane="3/1to2/1_0" startPos="0" endPos="20"/>
+</add>
