@@ -61,7 +61,8 @@ MSStage::MSStage(const MSEdge* destination, MSStoppingPlace* toStop, const doubl
     myDeparted(-1),
     myArrived(-1),
     myType(type),
-    myGroup(group)
+    myGroup(group),
+    myParametersSet(0)
 {}
 
 MSStage::~MSStage() {}
@@ -377,6 +378,10 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                         transportable->appendStage(previous, stageIndex++);
                     }
                 }
+            }
+            if (wasSet(VEHPARS_ARRIVALPOS_SET) && stageIndex > 1) {
+                // mark the last stage
+                transportable->getNextStage(stageIndex - 1)->markSet(VEHPARS_ARRIVALPOS_SET);
             }
         } else {
             // append stage so the GUI won't crash due to inconsistent state

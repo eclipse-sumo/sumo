@@ -1412,6 +1412,9 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             myActiveTransportablePlan->push_back(new MSStageTrip(from, fromStop, to == nullptr ? &stoppingPlace->getLane().getEdge() : to,
                                                  stoppingPlace, duration, modeSet, types, speed, walkFactor, group,
                                                  departPosLat, attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS), arrivalPos));
+            if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+                myActiveTransportablePlan->back()->markSet(VEHPARS_ARRIVALPOS_SET);
+            }
         }
         myActiveRoute.clear();
     } catch (ProcessError&) {
@@ -1472,6 +1475,9 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, nullptr, ok, 0);
             const int departLane =  attrs.getOpt<int>(SUMO_ATTR_DEPARTLANE, nullptr, ok, -1);
             myActiveTransportablePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat, departLane));
+            if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+                myActiveTransportablePlan->back()->markSet(VEHPARS_ARRIVALPOS_SET);
+            }
             myActiveRoute.clear();
         } catch (ProcessError&) {
             deleteActivePlanAndVehicleParameter();

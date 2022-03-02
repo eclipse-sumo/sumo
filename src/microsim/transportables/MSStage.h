@@ -216,6 +216,15 @@ public:
         UNUSED_PARAMETER(state);
     }
 
+    bool wasSet(int what) const {
+        return (myParametersSet & what) != 0;
+    }
+
+    void markSet(int what) {
+        myParametersSet |= what;
+    }
+
+
 protected:
     /// the next edge to reach by getting transported
     const MSEdge* myDestination;
@@ -237,6 +246,9 @@ protected:
 
     /// The id of the group of transportables traveling together
     const std::string myGroup;
+
+    /// @brief Information on which parameter were set (mainly for vehroute output)
+    int myParametersSet;
 
     /// @brief the offset for computing positions when standing at an edge
     static const double ROADSIDE_OFFSET;
