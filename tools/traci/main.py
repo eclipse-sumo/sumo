@@ -41,7 +41,8 @@ from sumolib.miscutils import getFreeSocketPort  # noqa
 
 from .domain import _defaultDomains  # noqa
 # StepListener needs to be imported for backwards compatibility
-from .connection import Connection, StepListener  # noqa
+from .step import StepListener  # noqa
+from .connection import Connection  # noqa
 from .exceptions import FatalTraCIError, TraCIException  # noqa
 from . import _inductionloop, _lanearea, _multientryexit, _trafficlight  # noqa
 from . import _variablespeedsign, _meandata  # noqa
