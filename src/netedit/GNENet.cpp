@@ -35,7 +35,7 @@
 #include <netedit/changes/GNEChange_DataInterval.h>
 #include <netedit/changes/GNEChange_GenericData.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/changes/GNEChange_TAZElement.h>
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Edge.h>
 #include <netedit/changes/GNEChange_Junction.h>
 #include <netedit/changes/GNEChange_Lane.h>
@@ -575,27 +575,6 @@ GNENet::deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList) {
     }
     // remove additional
     undoList->add(new GNEChange_Additional(additional, false), true);
-    undoList->end();
-}
-
-
-void
-GNENet::deleteTAZElement(GNETAZElement* TAZElement, GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::MODEDELETE, "delete " + TAZElement->getTagStr());
-    // remove all demand element children of this TAZElement deleteDemandElement this function recursively
-    while (TAZElement->getChildDemandElements().size() > 0) {
-        deleteDemandElement(TAZElement->getChildDemandElements().front(), undoList);
-    }
-    // remove all generic data children of this TAZElement deleteGenericData this function recursively
-    while (TAZElement->getChildGenericDatas().size() > 0) {
-        deleteGenericData(TAZElement->getChildGenericDatas().front(), undoList);
-    }
-    // remove all TAZElement children of this TAZElement calling this function recursively
-    while (TAZElement->getChildTAZElements().size() > 0) {
-        deleteTAZElement(TAZElement->getChildTAZElements().front(), undoList);
-    }
-    // remove TAZElement
-    undoList->add(new GNEChange_TAZElement(TAZElement, false), true);
     undoList->end();
 }
 
@@ -1885,12 +1864,6 @@ GNENet::clearAdditionalElements(GNEUndoList* undoList) {
             deleteAdditional(*additionalMap.second.begin(), undoList);
         }
     }
-    // clear TAZs
-    for (const auto& TAZMap : myAttributeCarriers->getTAZElements()) {
-        while (TAZMap.second.size() > 0) {
-            deleteTAZElement(*TAZMap.second.begin(), undoList);
-        }
-    }
     undoList->end();
 }
 
@@ -2262,19 +2235,15 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     for (const auto& POIGEO : myAttributeCarriers->getAdditionals().at(GNE_TAG_POIGEO)) {
         sortedAdditionals.back()[POIGEO->getID()] = POIGEO;
     }
+    // TAZs
+    for (const auto& TAZ : myAttributeCarriers->getAdditionals().at(SUMO_TAG_TAZ)) {
+        sortedAdditionals.back()[TAZ->getID()] = TAZ;
+    }
     // now write additionals
     for (const auto& additionalTag : sortedAdditionals) {
         for (const auto& additional : additionalTag) {
             additional.second->writeAdditional(device);
         }
-    }
-    // write TAZs
-    std::map<std::string, GNETAZElement*> sortedTAZs;
-    for (const auto& TAZ : myAttributeCarriers->getTAZElements().at(SUMO_TAG_TAZ)) {
-        sortedTAZs[TAZ->getID()] = TAZ;
-    }
-    for (const auto& TAZElement : sortedTAZs) {
-        TAZElement.second->writeTAZElement(device);
     }
     device.close();
 }
@@ -2558,7 +2527,6 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         myAttributeCarriers->clearJunctions();
         myAttributeCarriers->clearEdges();
         myAttributeCarriers->clearAdditionals();
-        myAttributeCarriers->clearTAZElements();
         myAttributeCarriers->clearDemandElements();
         // enable update geometry again
         myUpdateGeometryEnabled = true;
