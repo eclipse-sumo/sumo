@@ -58,7 +58,6 @@ class GNELane;
 class GNENetworkElement;
 class GNEPOI;
 class GNEPoly;
-class GNETAZElement;
 class GNEUndoList;
 class GNEViewNet;
 
@@ -356,46 +355,8 @@ struct GNENetHelper {
         /// @brief get number of selected POIs
         int getNumberOfSelectedPOIs() const;
 
-        /// @}
-
-        /// @name function for TAZElements
-        /// @{
-        /**@brief Returns the named TAZElement
-         * @param[in] type tag with the type of TAZElement
-         * @param[in] id The id of the TAZElement to return.
-         * @param[in] hardFail Whether attempts to retrieve a nonexisting TAZElement should result in an exception
-         */
-        GNETAZElement* retrieveTAZElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
-
-        /**@brief Returns the named TAZElement
-         * @param[in] id The attribute carrier related with the additional element
-         * @param[in] hardFail Whether attempts to retrieve a nonexisting TAZElement should result in an exception
-         */
-        GNETAZElement* retrieveTAZElement(GNEAttributeCarrier* AC, bool hardFail = true) const;
-
-        /// @brief get selected TAZElements
-        std::vector<GNETAZElement*> getSelectedTAZElements() const;
-
-        /// @brief get TAZElements
-        const std::map<SumoXMLTag, std::set<GNETAZElement*> >& getTAZElements() const;
-
-        /// @brief clear TAZElements
-        void clearTAZElements();
-
-        /**@brief Returns the number of TAZElements of the net
-         * @param[in] type type of TAZElement to count. SUMO_TAG_NOTHING will count all TAZElements
-         * @return Number of TAZElements of the net
-         */
-        int getNumberOfTAZElements() const;
-
         /// @brief get number of selected TAZs
         int getNumberOfSelectedTAZs() const;
-
-        /// @brief return true if given TAZElement exist
-        bool TAZElementExist(const GNETAZElement* TAZElement) const;
-
-        /// @brief generate TAZElement ID
-        std::string generateTAZElementID(SumoXMLTag TAZElementTag) const;
 
         /// @}
 
@@ -605,21 +566,6 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name Insertion and erasing of GNETAZElements items
-        /// @{
-
-        /**@brief Insert a TAZElement element int GNENet container.
-         * @throw processError if route was already inserted
-         */
-        void insertTAZElement(GNETAZElement* TAZElement);
-
-        /**@brief delete TAZElement element of GNENet container
-         * @throw processError if TAZElement wasn't previously inserted
-         */
-        void deleteTAZElement(GNETAZElement* TAZElement);
-
-        /// @}
-
         /// @name Insertion and erasing of GNEDemandElements items
         /// @{
 
@@ -680,9 +626,6 @@ struct GNENetHelper {
 
         /// @brief map with the tag and pointer to additional elements of net
         std::map<SumoXMLTag, std::set<GNEAdditional*> > myAdditionals;
-
-        /// @brief map with the tag and pointer to TAZElement elements of net
-        std::map<SumoXMLTag, std::set<GNETAZElement*> > myTAZElements;
 
         /// @brief map with the tag and pointer to demand elements of net
         std::map<SumoXMLTag, std::set<GNEDemandElement*> > myDemandElements;
