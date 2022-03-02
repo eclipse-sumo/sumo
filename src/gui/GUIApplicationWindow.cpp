@@ -546,18 +546,18 @@ GUIApplicationWindow::fillMenuBar() {
     myControlMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, "Simulation", nullptr, myControlMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
-                                           "Run", "A,space", "Start/ Resume the simulation.",
+                                           "Run", "A or Spacebar", "Start/ Resume the simulation.",
                                            GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
-                                           "Stop", "S,space", "Halt the simulation.",
+                                           "Stop", "S or Spacebar", "Halt the simulation.",
                                            GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
                                            "Step", "D", "Perform one simulation step.",
                                            GUIIconSubSys::getIcon(GUIIcon::STEP), this, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
-                                           "Delay+", "PgUp", "Increase simulation step delay", nullptr, this, MID_DELAY_INC);
+                                           "Delay+", "PgUp", "Increase simulation step delay.", nullptr, this, MID_DELAY_INC);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
-                                           "Delay-", "PgDn", "Decrease simulation step delay", nullptr, this, MID_DELAY_DEC);
+                                           "Delay-", "PgDn", "Decrease simulation step delay.", nullptr, this, MID_DELAY_DEC);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
                                            "Save", "", "Save the current simulation state to a file.",
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SIMSAVE);
