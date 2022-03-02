@@ -66,6 +66,7 @@ fcd2:fcd2.xml
 lanechanges:lanechanges.xml
 results:results.csv
 tls_state:tls_state.xml
+tls_state2:tls_state2.xml
 log:log.txt
 log2:log2.txt
 cadytslog:cadySumo-log.txt
@@ -124,6 +125,7 @@ lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 state2:<!--{[->]}-->
 tls_state:<!--{[->]}-->
+tls_state2:<!--{[->]}-->
 state:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 state2:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 detector:<!--{[->]}-->

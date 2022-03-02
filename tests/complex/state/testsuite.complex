@@ -84,3 +84,6 @@ teleporting
 
 # teleporting vehicles
 teleporting_highbegin
+
+# load actuated tls
+actuated
