@@ -612,6 +612,21 @@ MSActuatedTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
     }
 }
 
+
+void
+MSActuatedTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration) {
+    const SUMOTime lastSwitch = t - spentDuration;
+    myStep = step;
+    myPhases[myStep]->myLastSwitch = lastSwitch;
+    const SUMOTime nextSwitch = t + getPhase(step).minDuration - spentDuration;
+    mySwitchCommand->deschedule(this);
+    mySwitchCommand = new SwitchCommand(tlcontrol, this, nextSwitch);
+    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent( mySwitchCommand, nextSwitch);
+    setTrafficLightSignals(lastSwitch);
+    tlcontrol.get(getID()).executeOnSwitchActions();
+}
+
+
 SUMOTime
 MSActuatedTrafficLightLogic::trySwitch() {
     // checks if the actual phase should be continued
