@@ -86,12 +86,15 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
             } else if (AC->getTagProperty().isAdditionalElement()) {
                 // update additional elements
                 updateAdditionalElements(myEdgeObjects, AC);
-            } else if (AC->getTagProperty().isTAZElement()) {
-                // update TAZ elements
-                updateTAZElements(myEdgeObjects, AC);
-            } else if (AC->getTagProperty().isShape()) {
-                // update shape elements
-                updateShapeElements(myEdgeObjects, AC);
+                // update shapes and TAZs
+                if (AC->getTagProperty().isShape()) {
+                    // update shape elements
+                    updateShapeElements(myEdgeObjects, AC);
+                }
+                if (AC->getTagProperty().isTAZElement()) {
+                    // update TAZ elements
+                    updateTAZElements(myEdgeObjects, AC);
+                }
             } else if (AC->getTagProperty().isDemandElement()) {
                 // update demand elements
                 updateDemandElements(myEdgeObjects, AC);
@@ -118,9 +121,6 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
             } else if (AC->getTagProperty().isAdditionalElement()) {
                 // update additional elements
                 updateAdditionalElements(myLaneObjects, AC);
-            } else if (AC->getTagProperty().isTAZElement()) {
-                // update TAZ elements
-                updateTAZElements(myLaneObjects, AC);
             } else if (AC->getTagProperty().isShape()) {
                 // update shape elements
                 updateShapeElements(myLaneObjects, AC);
@@ -230,24 +230,6 @@ GNEViewNetHelper::ObjectsUnderCursor::getAdditionalFront() const {
     } else {
         if (myLaneObjects.additionals.size() > 0) {
             return myLaneObjects.additionals.front();
-        } else {
-            return nullptr;
-        }
-    }
-}
-
-
-GNETAZElement*
-GNEViewNetHelper::ObjectsUnderCursor::getTAZElementFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.TAZElements.size() > 0) {
-            return myEdgeObjects.TAZElements.front();
-        } else {
-            return nullptr;
-        }
-    } else {
-        if (myLaneObjects.TAZElements.size() > 0) {
-            return myLaneObjects.TAZElements.front();
         } else {
             return nullptr;
         }
@@ -519,7 +501,6 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
     attributeCarriers.clear();
     networkElements.clear();
     additionals.clear();
-    TAZElements.clear();
     demandElements.clear();
     junctions.clear();
     edges.clear();
@@ -697,43 +678,11 @@ GNEViewNetHelper::ObjectsUnderCursor::updateAdditionalElements(ObjectsContainer&
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
-    // get TAZ element
-    GNETAZElement* TAZElement = myViewNet->getNet()->getAttributeCarriers()->retrieveTAZElement(AC);
-    // insert depending if is the front attribute carrier
-    if (TAZElement == myViewNet->getFrontAttributeCarrier()) {
-        // insert at front
-        container.TAZElements.insert(container.TAZElements.begin(), TAZElement);
-    } else {
-        // insert at back
-        container.TAZElements.push_back(TAZElement);
-    }
-    // cast specific TAZ
-    if (AC->getGUIGlObject()->getType() == GLO_TAZ) {
-        // cast TAZ
-        GNETAZ* TAZ = dynamic_cast<GNETAZ*>(TAZElement);
-        if (TAZ) {
-            // check front element
-            if (AC == myViewNet->getFrontAttributeCarrier()) {
-                // insert at front
-                container.TAZs.insert(container.TAZs.begin(), TAZ);
-            } else {
-                // insert at back
-                container.TAZs.push_back(TAZ);
-            }
-        }
-    }
-}
-
-
-void
 GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
-    // get shape element
-    GNEAdditional* shapeElement = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(AC);
     // cast specific shape
     if (AC->getGUIGlObject()->getType() == GLO_POI) {
         // cast POI
-        GNEPOI* POI = dynamic_cast<GNEPOI*>(shapeElement);
+        GNEPOI* POI = dynamic_cast<GNEPOI*>(AC);
         if (POI) {
             // check front element
             if (AC == myViewNet->getFrontAttributeCarrier()) {
@@ -746,7 +695,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& cont
         }
     } else if (AC->getGUIGlObject()->getType() == GLO_POLYGON) {
         // cast poly
-        GNEPoly* poly = dynamic_cast<GNEPoly*>(shapeElement);
+        GNEPoly* poly = dynamic_cast<GNEPoly*>(AC);
         if (poly) {
             // check front element
             if (AC == myViewNet->getFrontAttributeCarrier()) {
@@ -755,6 +704,26 @@ GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& cont
             } else {
                 // insert at back
                 container.polys.push_back(poly);
+            }
+        }
+    }
+}
+
+
+void
+GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
+    // cast specific TAZ
+    if (AC->getGUIGlObject()->getType() == GLO_TAZ) {
+        // cast TAZ
+        GNETAZ* TAZ = dynamic_cast<GNETAZ*>(AC);
+        if (TAZ) {
+            // check front element
+            if (AC == myViewNet->getFrontAttributeCarrier()) {
+                // insert at front
+                container.TAZs.insert(container.TAZs.begin(), TAZ);
+            } else {
+                // insert at back
+                container.TAZs.push_back(TAZ);
             }
         }
     }
@@ -992,16 +961,6 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     } else if (myViewNet->myObjectsUnderCursor.getAdditionalFront() && (frontAC == myViewNet->myObjectsUnderCursor.getAdditionalFront())) {
         // get move operation
         GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getAdditionalFront()->getMoveOperation();
-        // continue if move operation is valid
-        if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
-            return true;
-        } else {
-            return false;
-        }
-    } else if (myViewNet->myObjectsUnderCursor.getTAZFront() && (frontAC == myViewNet->myObjectsUnderCursor.getTAZFront())) {
-        // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);

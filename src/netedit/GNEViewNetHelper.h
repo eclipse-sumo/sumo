@@ -134,7 +134,6 @@ class GNECrossing;
 class GNEInternalLane;
 // additional elements
 class GNEAdditional;
-class GNETAZElement;
 class GNEPoly;
 class GNEPOI;
 class GNETAZ;
@@ -182,9 +181,6 @@ struct GNEViewNetHelper {
 
         /// @brief get front additional element or a pointer to nullptr
         GNEAdditional* getAdditionalFront() const;
-
-        /// @brief get front TAZElement or a pointer to nullptr
-        GNETAZElement* getTAZElementFront() const;
 
         /// @brief get front demand element or a pointer to nullptr
         GNEDemandElement* getDemandElementFront() const;
@@ -253,9 +249,6 @@ struct GNEViewNetHelper {
 
             /// @brief vector with the clicked additional elements
             std::vector<GNEAdditional*> additionals;
-
-            /// @brief vector with the clicked TAZ elements
-            std::vector<GNETAZElement*> TAZElements;
 
             /// @brief vector with the clicked demand elements
             std::vector<GNEDemandElement*> demandElements;
@@ -329,11 +322,11 @@ struct GNEViewNetHelper {
         /// @brief update additional elements
         void updateAdditionalElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
 
-        /// @brief update TAZ elements
-        void updateTAZElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
-
         /// @brief update shape elements
         void updateShapeElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
+
+        /// @brief update TAZ elements
+        void updateTAZElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
 
         /// @brief update demand elements
         void updateDemandElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
