@@ -547,4 +547,11 @@ MSTrafficLightLogic::getLatestEnd(int step) const {
 }
 
 
+void
+MSTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration) {
+    const SUMOTime remaining = getPhase(step).duration - spentDuration;
+    changeStepAndDuration(tlcontrol, t, step, remaining);
+    setTrafficLightSignals(t - spentDuration);
+}
+
 /****************************************************************************/

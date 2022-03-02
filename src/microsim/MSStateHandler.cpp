@@ -384,10 +384,8 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             if (phase >= tl->getPhaseNumber()) {
                 throw ProcessError("Invalid phase '" + toString(phase) + "' for traffic light '" + tlID + "'");
             }
-            const SUMOTime remaining = tl->getPhase(phase).duration - spentDuration;
-            tl->changeStepAndDuration(tlc, myTime, phase, remaining);
             // might not be set if the phase happens to match and there are multiple programs
-            tl->setTrafficLightSignals(myTime - spentDuration);
+            tl->loadState(tlc, myTime, phase, spentDuration);
             break;
         }
         default:

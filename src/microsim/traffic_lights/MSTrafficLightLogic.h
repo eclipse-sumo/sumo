@@ -406,6 +406,10 @@ public:
     virtual void saveState(OutputDevice& /*out*/) const {};
 
 
+    /** @brief restores the tls state */
+    virtual void loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration);
+
+
 protected:
     /**
      * @class SwitchCommand
