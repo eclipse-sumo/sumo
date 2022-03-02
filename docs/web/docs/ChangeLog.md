@@ -95,7 +95,7 @@ title: ChangeLog
   - Traffic light type 'actuated' now supports parameters 'show-conditions' and 'hide-conditions' to customize visulization in the [Phase Tracker Window](Simulation/Traffic_Lights.md#track_phases) Issue #10046
   - Detectors can now be triggered from the context menu even if there are no vehicles on it. Issue #10067
   - Saved configuration now always contains relative file paths. Issue #6578
-  - Added menu entry 'Simulation->Load' to quick-load a saved state for the current networ. Issue #2443 (Caution: state must contain all vehicles to ensure proper functioning as outlined in #7471)
+  - Added menu entry 'Simulation->Load' to quick-load a saved state for the current network.
   - The keys pgdup/pgdown can now be used to change simulation delay.  (their former functionality of quick-panning the view was taken up by alt+arrows). Issue #10199
 
 - netedit
