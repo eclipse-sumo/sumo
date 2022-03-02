@@ -232,6 +232,11 @@ OutputDevice::setPrecision(int precision) {
     getOStream() << std::setprecision(precision);
 }
 
+int
+OutputDevice::precision() {
+    return getOStream().precision();
+}
+
 
 bool
 OutputDevice::writeXMLHeader(const std::string& rootElement,

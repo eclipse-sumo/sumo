@@ -166,6 +166,9 @@ public:
      */
     void setPrecision(int precision = gPrecision);
 
+    /// @brief return precision set on the device
+    int precision();
+
     /** @brief Returns the precision of the underlying stream
      */
     int getPrecision() {
