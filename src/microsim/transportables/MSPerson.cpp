@@ -442,8 +442,9 @@ MSPerson::MSPersonStage_Access::ProceedCmd::execute(SUMOTime currentTime) {
  * ----------------------------------------------------------------------- */
 MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor) :
     MSTransportable(pars, vtype, plan, true),
-    myInfluencer(nullptr), myChosenSpeedFactor(speedFactor) {
-}
+    myInfluencer(nullptr),
+    myChosenSpeedFactor(pars->speedFactor < 0 ? speedFactor : pars->speedFactor)
+{ }
 
 
 MSPerson::~MSPerson() {

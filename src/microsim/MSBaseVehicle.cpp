@@ -861,7 +861,9 @@ MSBaseVehicle::saveState(OutputDevice& out) {
     os << myOdometer << " " << myNumberReroutes;
     out.writeAttr(SUMO_ATTR_DISTANCE, os.str());
     if (!myParameter->wasSet(VEHPARS_SPEEDFACTOR_SET)) {
+        //out.setPrecision(MAX2(gPrecisionRandom, gPrecision));
         out.writeAttr(SUMO_ATTR_SPEEDFACTOR, myChosenSpeedFactor);
+        //out.setPrecision(gPrecision);
     }
     if (myParameter->wasSet(VEHPARS_FORCE_REROUTE)) {
         out.writeAttr(SUMO_ATTR_REROUTE, true);

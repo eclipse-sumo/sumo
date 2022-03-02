@@ -970,6 +970,7 @@
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="modes" type="xsd:string"/>
         <xsd:attribute name="vTypes" type="xsd:string"/>
+        <xsd:attribute name="speedFactor" type="positiveFloatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="containerType">

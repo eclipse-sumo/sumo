@@ -460,6 +460,11 @@ MSTransportable::saveState(OutputDevice& out) {
     // this saves lots of departParameters which are only needed for transportables that did not yet depart
     // the parameters may hold the name of a vTypeDistribution but we are interested in the actual type
     myParameter->write(out, OptionsCont::getOptions(), myAmPerson ? SUMO_TAG_PERSON : SUMO_TAG_CONTAINER, getVehicleType().getID());
+    if (!myParameter->wasSet(VEHPARS_SPEEDFACTOR_SET) && getSpeedFactor() != 1) {
+        out.setPrecision(MAX2(gPrecisionRandom, gPrecision));
+        out.writeAttr(SUMO_ATTR_SPEEDFACTOR, getSpeedFactor());
+        out.setPrecision(gPrecision);
+    }
     std::ostringstream state;
     int stepIdx = (int)(myStep - myPlan->begin());
     for (auto it = myPlan->begin(); it != myStep; ++it) {
