@@ -48,12 +48,11 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type,
                                const std::vector<GNEEdge*>& edgeParents,
                                const std::vector<GNELane*>& laneParents,
                                const std::vector<GNEAdditional*>& additionalParents,
-                               const std::vector<GNETAZElement*>& TAZElementParents,
                                const std::vector<GNEDemandElement*>& demandElementParents,
                                const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, dataIntervalParent->getID()),
     Parameterised(parameters),
-    GNEHierarchicalElement(dataIntervalParent->getNet(), tag, junctionParents, edgeParents, laneParents, additionalParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(dataIntervalParent->getNet(), tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::DATA_ELEMENT),
     myDataIntervalParent(dataIntervalParent) {
 }
@@ -272,8 +271,8 @@ GNEGenericData::replaceLastParentEdge(const std::string& value) {
 
 void
 GNEGenericData::replaceFirstParentTAZElement(SumoXMLTag tag, const std::string& value) {
-    std::vector<GNETAZElement*> parentTAZElements = getParentTAZElements();
-    parentTAZElements[0] = myNet->getAttributeCarriers()->retrieveTAZElement(tag, value);
+    std::vector<GNEAdditional*> parentTAZElements = getParentAdditionals();
+    parentTAZElements[0] = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
     // replace parent TAZElements
     replaceParentElements(this, parentTAZElements);
 }
@@ -281,13 +280,13 @@ GNEGenericData::replaceFirstParentTAZElement(SumoXMLTag tag, const std::string& 
 
 void
 GNEGenericData::replaceSecondParentTAZElement(SumoXMLTag tag, const std::string& value) {
-    std::vector<GNETAZElement*> parentTAZElements = getParentTAZElements();
+    std::vector<GNEAdditional*> parentTAZElements = getParentAdditionals();
     if (value.empty()) {
         parentTAZElements.pop_back();
     } else if (parentTAZElements.size() == 1) {
-        parentTAZElements.push_back(myNet->getAttributeCarriers()->retrieveTAZElement(tag, value));
+        parentTAZElements.push_back(myNet->getAttributeCarriers()->retrieveAdditional(tag, value));
     } else {
-        parentTAZElements.at(1) = myNet->getAttributeCarriers()->retrieveTAZElement(tag, value);
+        parentTAZElements.at(1) = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
     }
     // replace parent TAZElements
     replaceParentElements(this, parentTAZElements);

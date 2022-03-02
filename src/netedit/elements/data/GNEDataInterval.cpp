@@ -43,7 +43,7 @@
 // ---------------------------------------------------------------------------
 
 GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, const double end) :
-    GNEHierarchicalElement(dataSetParent->getNet(), SUMO_TAG_DATAINTERVAL, {}, {}, {}, {}, {}, {}, {}),
+    GNEHierarchicalElement(dataSetParent->getNet(), SUMO_TAG_DATAINTERVAL, {}, {}, {}, {}, {}, {}),
     myDataSetParent(dataSetParent),
     myBegin(begin),
     myEnd(end) {
@@ -220,12 +220,12 @@ GNEDataInterval::getGenericDataChildren() const {
 
 
 bool
-GNEDataInterval::TAZRelExists(const GNETAZElement* TAZ) const {
+GNEDataInterval::TAZRelExists(const GNEAdditional* TAZ) const {
     // interate over all generic datas and check TAZ parents
     for (const auto& genericData : myGenericDataChildren) {
         if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
-                (genericData->getParentTAZElements().size() == 1) &&
-                (genericData->getParentTAZElements().front() == TAZ)) {
+                (genericData->getParentAdditionals().size() == 1) &&
+                (genericData->getParentAdditionals().front() == TAZ)) {
             return true;
         }
     }
@@ -234,13 +234,13 @@ GNEDataInterval::TAZRelExists(const GNETAZElement* TAZ) const {
 
 
 bool
-GNEDataInterval::TAZRelExists(const GNETAZElement* fromTAZ, const GNETAZElement* toTAZ) const {
+GNEDataInterval::TAZRelExists(const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ) const {
     // interate over all generic datas and check TAZ parents
     for (const auto& genericData : myGenericDataChildren) {
         if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
-                (genericData->getParentTAZElements().size() == 2) &&
-                (genericData->getParentTAZElements().front() == fromTAZ) &&
-                (genericData->getParentTAZElements().back() == toTAZ)) {
+                (genericData->getParentAdditionals().size() == 2) &&
+                (genericData->getParentAdditionals().front() == fromTAZ) &&
+                (genericData->getParentAdditionals().back() == toTAZ)) {
             return true;
         }
     }

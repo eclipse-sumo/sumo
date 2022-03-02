@@ -44,7 +44,7 @@ public:
      * @param[in] toTAZ pointer to to TAZ
      * @param[in] parameters parameters map
      */
-    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* fromTAZ, GNETAZElement* toTAZ,
+    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ,
                   const std::map<std::string, std::string>& parameters);
 
     /**@brief Constructor for one TAZ
@@ -52,7 +52,7 @@ public:
      * @param[in] TAZ pointer to TAZ
      * @param[in] parameters parameters map
      */
-    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* TAZ,
+    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* TAZ,
                   const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor

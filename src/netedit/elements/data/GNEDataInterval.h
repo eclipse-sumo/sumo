@@ -113,10 +113,10 @@ public:
     const std::vector<GNEGenericData*>& getGenericDataChildren() const;
 
     /// @brief check if there is already a TAZRel defined in one TAZ
-    bool TAZRelExists(const GNETAZElement* TAZ) const;
+    bool TAZRelExists(const GNEAdditional* TAZ) const;
 
     /// @brief check if there is already a TAZRel defined between two TAZs
-    bool TAZRelExists(const GNETAZElement* fromTAZ, const GNETAZElement* toTAZ) const;
+    bool TAZRelExists(const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ) const;
 
     /// @}
 

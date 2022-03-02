@@ -194,8 +194,8 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
                                             sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
         if (dataInterval != nullptr) {
             // get from TAZs
-            GNETAZElement* fromTAZ = myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, fromTAZID, false);
-            GNETAZElement* toTAZ = myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, toTAZID, false);
+            GNEAdditional* fromTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, fromTAZID, false);
+            GNEAdditional* toTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, toTAZID, false);
             if (fromTAZ == nullptr) {
                 writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, fromTAZID);
             } else if (toTAZ == nullptr) {
