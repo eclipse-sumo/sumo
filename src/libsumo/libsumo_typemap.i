@@ -346,6 +346,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 // ignore uninitialized fields for typeobject::tp_vectorcall and typeobject::tp_print
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 #endif
+#define SWIG_PYTHON_2_UNICODE
 
 #include <iostream>
 %}
