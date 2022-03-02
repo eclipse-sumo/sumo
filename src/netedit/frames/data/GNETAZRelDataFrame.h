@@ -47,7 +47,7 @@ public:
         ~Legend();
 
         /// @brief set labels
-        void setLabels(const GNETAZElement* fromTAZ, const GNETAZElement* toTAZ);
+        void setLabels(const GNETAZ* fromTAZ, const GNETAZ* toTAZ);
 
     private:
         /// @brief from TAZ label
@@ -73,20 +73,20 @@ public:
     void buildTAZRelationData();
 
     /// @brief get first selected TAZ Element
-    GNETAZElement* getFirstTAZ() const;
+    GNEAdditional* getFirstTAZ() const;
 
     /// @brief get first selected TAZ Element
-    GNETAZElement* getSecondTAZ() const;
+    GNEAdditional* getSecondTAZ() const;
 
     /// @brief clear TAZ selection
     void clearTAZSelection();
 
 protected:
     /// @brief first selected TAZ Element
-    GNETAZElement* myFirstTAZ;
+    GNETAZ* myFirstTAZ;
 
     /// @brief first selected TAZ Element
-    GNETAZElement* mySecondTAZ;
+    GNETAZ* mySecondTAZ;
 
     /// @brief TAZRel legend
     GNETAZRelDataFrame::Legend* myLegend;
