@@ -42,7 +42,7 @@
 GNEPoly::GNEPoly(GNENet* net) :
     SUMOPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", std::map<std::string, std::string>()),
     GNEAdditional("", net, GLO_POLYGON, SUMO_TAG_POLY, "", 
-        {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}),
     mySimplifiedShape(false) {
     // reset default values
     resetDefaultValues();
@@ -54,7 +54,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const std::map<std::string, std::string>& parameters) :
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
     GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, "", 
-        {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}),
     mySimplifiedShape(false) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
@@ -617,7 +617,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return SUMOXMLDefinitions::isValidAdditionalID(value) &&
-                   (myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, value, false) == nullptr) &&
+                   (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, value, false) == nullptr) &&
                    (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POLY, value, false) == nullptr);
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_GEOSHAPE:

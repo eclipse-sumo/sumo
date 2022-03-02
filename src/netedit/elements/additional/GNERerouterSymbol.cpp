@@ -32,7 +32,7 @@
 
 GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge) :
     GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, "",
-        {}, {edge}, {}, {rerouterParent}, {}, {}, {}) {
+        {}, {edge}, {}, {rerouterParent}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

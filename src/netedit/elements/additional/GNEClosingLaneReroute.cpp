@@ -32,7 +32,7 @@
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE, "",
-        {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}),
     myClosedLane(nullptr),
     myPermissions(0) {
     // reset default values
@@ -42,7 +42,7 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNENet* net) :
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE, "",
-        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}),
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}),
     myClosedLane(closedLane),
     myPermissions(permissions) {
     // update boundary of rerouter parent

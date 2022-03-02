@@ -34,7 +34,7 @@
 
 GNERerouter::GNERerouter(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_REROUTER, "",
-        {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}),
     myProbability(0),
     myOff(false),
     myTimeThreshold(0) {
@@ -47,7 +47,7 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos
                          double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                          const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name,
-        {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}),
     Parameterised(parameters),
     myPosition(pos),
     myProbability(probability),

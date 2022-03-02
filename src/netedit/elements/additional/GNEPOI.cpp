@@ -43,7 +43,7 @@
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, 0, 0, "", false, 0, 0, "", std::map<std::string, std::string>()),
     GNEAdditional("", net, GLO_POI, tag, "", 
-        {}, {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
@@ -55,7 +55,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const std::map<std::string, std::string>& parameters) :
     PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEAdditional(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, "", 
-        {}, {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {}, {}, {}) {
     // update position depending of GEO
     if (geo) {
         Position cartesian(x(), y());
@@ -72,7 +72,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const double height, const std::string& name, const std::map<std::string, std::string>& parameters) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEAdditional(id, net, GLO_POI, GNE_TAG_POILANE, "", 
-        {}, {}, {lane}, {}, {}, {}, {}) {
+        {}, {}, {lane}, {}, {}, {}) {
     // update geometry (needed for POILanes)
     updateGeometry();
     // update centering boundary without updating grid

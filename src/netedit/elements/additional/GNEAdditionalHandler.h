@@ -31,7 +31,6 @@ class GNENet;
 class GNEEdge;
 class GNELane;
 class GNEAdditional;
-class GNETAZElement;
 
 // ===========================================================================
 // class definitions
@@ -635,9 +634,6 @@ protected:
 
     /// @brief get rerouter interval parent
     GNEAdditional* getRerouterIntervalParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
-
-    /// @brief get TAZ parent
-    GNETAZElement* getTAZParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
     /// @brief parse edges
     std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs) const;

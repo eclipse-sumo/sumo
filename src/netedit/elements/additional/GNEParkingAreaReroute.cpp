@@ -31,7 +31,7 @@
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNENet* net):
     GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, "",
-        {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}),
     myProbability(0),
     myVisible(0) {
     // reset default values
@@ -41,7 +41,7 @@ GNEParkingAreaReroute::GNEParkingAreaReroute(GNENet* net):
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, "",
-        {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}),
+        {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}),
     myProbability(probability),
     myVisible(visible) {
     // update boundary of rerouter parent

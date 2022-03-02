@@ -20,7 +20,6 @@
 #include <config.h>
 #include <utils/xml/XMLSubSys.h>
 #include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/changes/GNEChange_TAZElement.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/GNEViewNet.h>
@@ -1281,7 +1280,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
     // check TAZ
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_TAZ, id);
-    } else if (myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, id, false) != nullptr) {
         writeErrorDuplicated(SUMO_TAG_TAZ, id);
     } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POLY, id, false) != nullptr) {
         writeErrorDuplicated(SUMO_TAG_TAZ, id);
@@ -1291,33 +1290,33 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // build TAZ with the given shape
-        GNETAZElement* TAZ = new GNETAZ(id, myNet, TAZShape, center, fill, color, name, parameters);
+        GNEAdditional* TAZ = new GNETAZ(id, myNet, TAZShape, center, fill, color, name, parameters);
         // disable updating geometry of TAZ children during insertion (because in large nets provokes slowdowns)
         myNet->disableUpdateGeometry();
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZ, "add " + toString(SUMO_TAG_TAZ));
-            myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZ, true), true);
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZ, true), true);
             // create TAZEdges
             for (const auto& edge : edges) {
                 // create TAZ Source using GNEChange_Additional
-                GNETAZElement* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
+                GNEAdditional* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
                 // create TAZ Sink using GNEChange_Additional
-                GNETAZElement* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
+                GNEAdditional* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
             }
             myNet->getViewNet()->getUndoList()->end();
         } else {
-            myNet->getAttributeCarriers()->insertTAZElement(TAZ);
+            myNet->getAttributeCarriers()->insertAdditional(TAZ);
             TAZ->incRef("buildTAZ");
             for (const auto& edge : edges) {
                 // create TAZ Source
-                GNETAZElement* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
+                GNEAdditional* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
                 TAZSource->incRef("buildTAZ");
                 TAZ->addChildElement(TAZSource);
                 // create TAZ Sink
-                GNETAZElement* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
+                GNEAdditional* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
                 TAZSink->incRef("buildTAZ");
                 TAZ->addChildElement(TAZSink);
             }
@@ -1333,11 +1332,11 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
 void
 GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const double departWeight) {
     // get TAZ parent
-    GNETAZElement* TAZ = getTAZParent(sumoBaseObject);
+    GNEAdditional* TAZ = getAdditionalParent(sumoBaseObject, SUMO_TAG_TAZ);
     // get edge
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
     // declare TAZ Sink
-    GNETAZElement* TAZSink = nullptr;
+    GNEAdditional* TAZSink = nullptr;
     // check parents
     if (TAZ == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_SOURCE, SUMO_TAG_TAZ);
@@ -1345,7 +1344,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
         writeErrorInvalidParent(SUMO_TAG_SOURCE, SUMO_TAG_EDGE);
     } else {
         // first check if a TAZSink in the same edge for the same TAZ
-        for (const auto& TAZElement : TAZ->getChildTAZElements()) {
+        for (const auto& TAZElement : TAZ->getChildAdditionals()) {
             if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
                 TAZSink = TAZElement;
             }
@@ -1357,17 +1356,17 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZ, "add " + toString(SUMO_TAG_TAZSINK));
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
-                myNet->getAttributeCarriers()->insertTAZElement(TAZSink);
+                myNet->getAttributeCarriers()->insertAdditional(TAZSink);
                 TAZSink->incRef("buildTAZSource");
             }
         }
         // now check check if TAZSource exist
-        GNETAZElement* TAZSource = nullptr;
+        GNEAdditional* TAZSource = nullptr;
         // first check if a TAZSink in the same edge for the same TAZ
-        for (const auto& TAZElement : TAZ->getChildTAZElements()) {
+        for (const auto& TAZElement : TAZ->getChildAdditionals()) {
             if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
                 TAZSource = TAZElement;
             }
@@ -1379,10 +1378,10 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZ, "add " + toString(SUMO_TAG_TAZSOURCE));
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
-                myNet->getAttributeCarriers()->insertTAZElement(TAZSource);
+                myNet->getAttributeCarriers()->insertAdditional(TAZSource);
                 TAZSource->incRef("buildTAZSource");
             }
         } else {
@@ -1403,7 +1402,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
 void
 GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const double arrivalWeight) {
     // get TAZ parent
-    GNETAZElement* TAZ = getTAZParent(sumoBaseObject);
+    GNEAdditional* TAZ = getAdditionalParent(sumoBaseObject, SUMO_TAG_TAZ);
     // get edge
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
     // check parents
@@ -1413,9 +1412,9 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
         writeErrorInvalidParent(SUMO_TAG_SINK, SUMO_TAG_EDGE);
     } else {
         // declare TAZ source
-        GNETAZElement* TAZSource = nullptr;
+        GNEAdditional* TAZSource = nullptr;
         // first check if a TAZSink in the same edge for the same TAZ
-        for (const auto& TAZElement : TAZ->getChildTAZElements()) {
+        for (const auto& TAZElement : TAZ->getChildAdditionals()) {
             if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
                 TAZSource = TAZElement;
             }
@@ -1427,16 +1426,16 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZ, "add " + toString(SUMO_TAG_TAZSOURCE));
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
-                myNet->getAttributeCarriers()->insertTAZElement(TAZSource);
+                myNet->getAttributeCarriers()->insertAdditional(TAZSource);
                 TAZSource->incRef("buildTAZSink");
             }
         }
-        GNETAZElement* TAZSink = nullptr;
+        GNEAdditional* TAZSink = nullptr;
         // first check if a TAZSink in the same edge for the same TAZ
-        for (const auto& TAZElement : TAZ->getChildTAZElements()) {
+        for (const auto& TAZElement : TAZ->getChildAdditionals()) {
             if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
                 TAZSink = TAZElement;
             }
@@ -1448,10 +1447,10 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZ, "add " + toString(SUMO_TAG_TAZSINK));
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
-                myNet->getAttributeCarriers()->insertTAZElement(TAZSink);
+                myNet->getAttributeCarriers()->insertAdditional(TAZSink);
                 TAZSink->incRef("buildTAZSink");
             }
         } else {
@@ -1478,7 +1477,7 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
         writeInvalidID(SUMO_TAG_POLY, id);
     } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POLY, id, false) != nullptr) {
         writeErrorDuplicated(SUMO_TAG_TAZ, id);
-    } else if (myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, id, false) != nullptr) {
         writeErrorDuplicated(SUMO_TAG_TAZ, id);
     } else if (lineWidth < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_POLY, id, SUMO_ATTR_LINEWIDTH);
@@ -1902,18 +1901,6 @@ GNEAdditionalHandler::getRerouterIntervalParent(const CommonXMLStructure::SumoBa
                    sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID),
                    sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN),
                    sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
-    }
-}
-
-
-GNETAZElement*
-GNEAdditionalHandler::getTAZParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
-    if (sumoBaseObject->getParentSumoBaseObject() == nullptr) {
-        return nullptr;
-    } else if (!sumoBaseObject->getParentSumoBaseObject()->hasStringAttribute(SUMO_ATTR_ID)) {
-        return nullptr;
-    } else {
-        return myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     }
 }
 

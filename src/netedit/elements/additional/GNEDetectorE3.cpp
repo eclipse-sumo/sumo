@@ -30,7 +30,7 @@
 
 GNEDetectorE3::GNEDetectorE3(GNENet* net) :
     GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, "",
-        {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}),
     myFreq(0),
     myFilename(""),
     myTimeThreshold(0),
@@ -44,7 +44,7 @@ GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, const Position 
                              const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
                              const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name,
-        {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}),
     Parameterised(parameters),
     myPosition(pos),
     myFreq(freq),
