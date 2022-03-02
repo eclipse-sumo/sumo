@@ -32,8 +32,8 @@ below. Each person must have at least one stage in its plan.
 | depart              | float(s)  | ≥0 or 'triggered'  | -               | See [ride](#rides) for an explanation of 'triggered'|
 | departPos           | float(s)  | ≥0                 | -               | the distance along the departure edge where the person is created      |
 | type                | string    | any declared vType | DEFAULT_PEDTYPE | the type should have vClass pedestrian              |
-| speedFactor         | float     | > 0                | Sets custom speedFactor (factor on maxSpeed of vType) and overrides the speedFactor distribution of the vType |
-| color               | [RGB-color](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#colors)   | "1,1,0" (yellow)    | This person color       |
+| speedFactor         | float     | > 0                | 1.0 | Sets custom speedFactor (factor on maxSpeed of vType) and overrides the speedFactor distribution of the vType |
+| color               | [RGB-color](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#colors) | | "1,1,0" (yellow)    | This person color       |
 
 
 ## Available vType Attributes
