@@ -38,11 +38,10 @@ GNEHierarchicalElement::GNEHierarchicalElement(GNENet* net, SumoXMLTag tag,
         const std::vector<GNEEdge*>& parentEdges,
         const std::vector<GNELane*>& parentLanes,
         const std::vector<GNEAdditional*>& parentAdditionals,
-        const std::vector<GNETAZElement*>& parentTAZElements,
         const std::vector<GNEDemandElement*>& ParentDemandElements,
         const std::vector<GNEGenericData*>& parentGenericDatas) :
     GNEAttributeCarrier(tag, net),
-    myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, parentTAZElements, ParentDemandElements, parentGenericDatas) {
+    myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, ParentDemandElements, parentGenericDatas) {
 }
 
 
@@ -80,9 +79,6 @@ GNEHierarchicalElement::getAllHierarchicalElements() const {
     for (const auto& element : getParentAdditionals()) {
         result.push_back(element);
     }
-    for (const auto& element : getParentTAZElements()) {
-        result.push_back(element);
-    }
     for (const auto& element : getParentDemandElements()) {
         result.push_back(element);
     }
@@ -100,9 +96,6 @@ GNEHierarchicalElement::getAllHierarchicalElements() const {
         result.push_back(element);
     }
     for (const auto& element : getChildAdditionals()) {
-        result.push_back(element);
-    }
-    for (const auto& element : getChildTAZElements()) {
         result.push_back(element);
     }
     for (const auto& element : getChildDemandElements()) {
@@ -136,12 +129,6 @@ GNEHierarchicalElement::getParentLanes() const {
 const std::vector<GNEAdditional*>&
 GNEHierarchicalElement::getParentAdditionals() const {
     return myHierarchicalContainer.getParents<std::vector<GNEAdditional*> >();
-}
-
-
-const std::vector<GNETAZElement*>&
-GNEHierarchicalElement::getParentTAZElements() const {
-    return myHierarchicalContainer.getParents<std::vector<GNETAZElement*> >();
 }
 
 
@@ -181,12 +168,6 @@ GNEHierarchicalElement::getChildAdditionals() const {
 }
 
 
-const std::vector<GNETAZElement*>&
-GNEHierarchicalElement::getChildTAZElements() const {
-    return myHierarchicalContainer.getChildren<std::vector<GNETAZElement*> >();
-}
-
-
 const std::vector<GNEDemandElement*>&
 GNEHierarchicalElement::getChildDemandElements() const {
     return myHierarchicalContainer.getChildren<std::vector<GNEDemandElement*> >();
@@ -222,13 +203,6 @@ GNEHierarchicalElement::addParentElement(GNELane* element) {
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNEAdditional* element) {
-    // add parent element into container
-    myHierarchicalContainer.addParentElement(this, element);
-}
-
-
-template<> void
-GNEHierarchicalElement::addParentElement(GNETAZElement* element) {
     // add parent element into container
     myHierarchicalContainer.addParentElement(this, element);
 }
@@ -277,13 +251,6 @@ GNEHierarchicalElement::removeParentElement(GNEAdditional* element) {
 
 
 template<> void
-GNEHierarchicalElement::removeParentElement(GNETAZElement* element) {
-    // remove parent element from container
-    myHierarchicalContainer.removeParentElement(this, element);
-}
-
-
-template<> void
 GNEHierarchicalElement::removeParentElement(GNEDemandElement* element) {
     // remove parent element from container
     myHierarchicalContainer.removeParentElement(this, element);
@@ -326,13 +293,6 @@ GNEHierarchicalElement::addChildElement(GNEAdditional* element) {
 
 
 template<> void
-GNEHierarchicalElement::addChildElement(GNETAZElement* element) {
-    // add child element into container
-    myHierarchicalContainer.addChildElement(this, element);
-}
-
-
-template<> void
 GNEHierarchicalElement::addChildElement(GNEDemandElement* element) {
     // add child element into container
     myHierarchicalContainer.addChildElement(this, element);
@@ -369,13 +329,6 @@ GNEHierarchicalElement::removeChildElement(GNELane* element) {
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEAdditional* element) {
-    // remove child element from container
-    myHierarchicalContainer.removeChildElement(this, element);
-}
-
-
-template<> void
-GNEHierarchicalElement::removeChildElement(GNETAZElement* element) {
     // remove child element from container
     myHierarchicalContainer.removeChildElement(this, element);
 }

@@ -48,7 +48,6 @@ public:
      * @param[in] parentEdges vector of parent edges
      * @param[in] parentLanes vector of parent lanes
      * @param[in] parentAdditionals vector of parent additionals
-     * @param[in] parentTAZElements vector of parent TAZs
      * @param[in] parentDemandElements vector of parent demand elements
      * @param[in] parentGenericData vector of parent generic data elements
      */
@@ -57,7 +56,6 @@ public:
                            const std::vector<GNEEdge*>& parentEdges,
                            const std::vector<GNELane*>& parentLanes,
                            const std::vector<GNEAdditional*>& parentAdditionals,
-                           const std::vector<GNETAZElement*>& parentTAZElements,
                            const std::vector<GNEDemandElement*>& parentDemandElements,
                            const std::vector<GNEGenericData*>& parentGenericDatas);
 
@@ -102,9 +100,6 @@ public:
     /// @brief get parent additionals
     const std::vector<GNEAdditional*>& getParentAdditionals() const;
 
-    /// @brief get parent TAZElements
-    const std::vector<GNETAZElement*>& getParentTAZElements() const;
-
     /// @brief get parent demand elements
     const std::vector<GNEDemandElement*>& getParentDemandElements() const;
 
@@ -122,9 +117,6 @@ public:
 
     /// @brief return child additionals
     const std::vector<GNEAdditional*>& getChildAdditionals() const;
-
-    /// @brief get child TAZElements
-    const std::vector<GNETAZElement*>& getChildTAZElements() const;
 
     /// @brief return child demand elements
     const std::vector<GNEDemandElement*>& getChildDemandElements() const;
