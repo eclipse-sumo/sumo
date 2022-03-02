@@ -2153,6 +2153,12 @@ MSLane::isInternal() const {
 }
 
 
+bool
+MSLane::isNormal() const {
+    return myEdge->isNormal();
+}
+
+
 MSVehicle*
 MSLane::getLastFullVehicle() const {
     if (myVehicles.size() == 0) {

@@ -356,7 +356,12 @@ MSPerson::MSPersonStage_Walking::loadState(MSTransportable* transportable, std::
     state >> myDeparted >> stepIdx >> myLastEdgeEntryTime;
     myRouteStep = myRoute.begin() + stepIdx;
     myState = MSNet::getInstance()->getPersonControl().getMovementModel()->loadState(transportable, this, state);
-    (*myRouteStep)->addPerson(transportable);
+    if (myState->getLane() && !myState->getLane()->isNormal()) {
+        myCurrentInternalEdge = &myState->getLane()->getEdge();
+        myCurrentInternalEdge->addPerson(transportable);
+    } else {
+        (*myRouteStep)->addPerson(transportable);
+    }
 }
 
 
