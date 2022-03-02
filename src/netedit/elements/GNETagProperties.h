@@ -43,13 +43,13 @@ public:
         // basic types
         NETWORKELEMENT =    1 << 0,  // Network elements (Edges, Junctions, Lanes...)
         ADDITIONALELEMENT = 1 << 1,  // Additional elements (Bus Stops, Charging Stations, Detectors...)
-        TAZELEMENT =        1 << 2,  // Traffic Assignment Zones
-        DEMANDELEMENT =     1 << 3,  // Demand elements (Routes, Vehicles, Trips...)
-        DATAELEMENT =       1 << 4,  // Data elements (DataSets, Data Intervals, EdgeData...)
+        DEMANDELEMENT =     1 << 2,  // Demand elements (Routes, Vehicles, Trips...)
+        DATAELEMENT =       1 << 3,  // Data elements (DataSets, Data Intervals, EdgeData...)
         // sub additional elements
-        STOPPINGPLACE =     1 << 5,  // StoppingPlaces (BusStops, ChargingStations...)
-        DETECTOR =          1 << 6,  // Detectors (E1, E2...)
-        SHAPE =             1 << 7,  // Shapes (Polygons and POIs)
+        STOPPINGPLACE =     1 << 4,  // StoppingPlaces (BusStops, ChargingStations...)
+        DETECTOR =          1 << 5,  // Detectors (E1, E2...)
+        SHAPE =             1 << 6,  // Shapes (Polygons and POIs)
+        TAZELEMENT =        1 << 7,  // Traffic Assignment Zones
         // sub demand elements
         VTYPE =             1 << 8,  // Vehicle types (vType and vTypeDistribution)
         VEHICLE =           1 << 9,  // Vehicles (Vehicles, trips, flows...)
@@ -164,9 +164,6 @@ public:
     /// @brief return true if tag correspond to an additional element
     bool isAdditionalElement() const;
 
-    /// @brief return true if tag correspond to a TAZ element
-    bool isTAZElement() const;
-
     /// @brief return true if tag correspond to a demand element
     bool isDemandElement() const;
 
@@ -181,6 +178,9 @@ public:
 
     /// @brief return true if tag correspond to a shape
     bool isShape() const;
+
+    /// @brief return true if tag correspond to a TAZ element
+    bool isTAZElement() const;
 
     /// @brief return true if tag correspond to a vehicle type element
     bool isVehicleType() const;

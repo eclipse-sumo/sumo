@@ -268,12 +268,6 @@ GNETagProperties::isAdditionalElement() const {
 
 
 bool
-GNETagProperties::isTAZElement() const {
-    return (myTagType & TAZELEMENT) != 0;
-}
-
-
-bool
 GNETagProperties::isDemandElement() const {
     return (myTagType & DEMANDELEMENT) != 0;
 }
@@ -300,6 +294,12 @@ GNETagProperties::isDetector() const {
 bool
 GNETagProperties::isShape() const {
     return (myTagType & SHAPE) != 0;
+}
+
+
+bool
+GNETagProperties::isTAZElement() const {
+    return (myTagType & TAZELEMENT) != 0;
 }
 
 

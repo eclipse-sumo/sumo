@@ -95,7 +95,7 @@ GNEAttributeCarrier::isAttributeCarrierSelected() const {
 bool
 GNEAttributeCarrier::drawUsingSelectColor() const {
     // get flag for network element
-    const bool networkElement = myTagProperty.isNetworkElement() || myTagProperty.isAdditionalElement() || myTagProperty.isShape() || myTagProperty.isTAZElement();
+    const bool networkElement = myTagProperty.isNetworkElement() || myTagProperty.isAdditionalElement();
     // check supermode network
     if ((networkElement && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) ||
             (myTagProperty.isDemandElement() && myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) ||
@@ -638,8 +638,9 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
     if (tagPropertyCategory & GNETagProperties::ADDITIONALELEMENT) {
         // fill additional tags
         for (const auto& tagProperty : myTagProperties) {
-            // avoid symbols and shapes (It will be implemented in #7355)
-            if (!tagProperty.second.isSymbol() && !tagProperty.second.isShape() && tagProperty.second.isAdditionalElement()) {
+            // avoid symbols, shapes and TAZs (It will be implemented in #7355)
+            if (!tagProperty.second.isSymbol() && !tagProperty.second.isShape() && 
+                !tagProperty.second.isTAZElement() && tagProperty.second.isAdditionalElement()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
@@ -3016,7 +3017,7 @@ GNEAttributeCarrier::fillTAZElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TAZELEMENT,
+                                      GNETagProperties::ADDITIONALELEMENT | GNETagProperties::TAZELEMENT,
                                       GNETagProperties::RTREE,
                                       GUIIcon::TAZ, currentTag);
         // set values of attributes
@@ -3056,7 +3057,7 @@ GNEAttributeCarrier::fillTAZElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TAZELEMENT,
+                                      GNETagProperties::ADDITIONALELEMENT | GNETagProperties::TAZELEMENT,
                                       GNETagProperties::CHILD,
                                       GUIIcon::TAZEDGE, currentTag, {SUMO_TAG_TAZ});
         // set values of attributes
@@ -3076,7 +3077,7 @@ GNEAttributeCarrier::fillTAZElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TAZELEMENT,
+                                      GNETagProperties::ADDITIONALELEMENT | GNETagProperties::TAZELEMENT,
                                       GNETagProperties::CHILD,
                                       GUIIcon::TAZEDGE, currentTag, {SUMO_TAG_TAZ});
         // set values of attributes
