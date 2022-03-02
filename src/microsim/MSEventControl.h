@@ -102,9 +102,7 @@ public:
 
 protected:
     /// @brief compares two events
-    static bool eventCompare(const Event& e1, const Event& e2) {
-        return e1.second > e2.second;
-    }
+    static bool eventCompare(const Event& e1, const Event& e2);
 
 
 private:

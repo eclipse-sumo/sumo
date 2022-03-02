@@ -50,9 +50,12 @@ const MSTrafficLightLogic::LaneVector MSTrafficLightLogic::myEmptyLaneVector;
  * member method definitions
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::SwitchCommand::SwitchCommand(MSTLLogicControl& tlcontrol,
-        MSTrafficLightLogic* tlLogic, SUMOTime nextSwitch)
-    : myTLControl(tlcontrol), myTLLogic(tlLogic),
-      myAssumedNextSwitch(nextSwitch), myAmValid(true) {}
+        MSTrafficLightLogic* tlLogic, SUMOTime nextSwitch) :
+    myTLControl(tlcontrol), myTLLogic(tlLogic),
+    myAssumedNextSwitch(nextSwitch), myAmValid(true) {
+    // higher than default command priority of 0
+    priority = 1;
+}
 
 
 MSTrafficLightLogic::SwitchCommand::~SwitchCommand() {}
