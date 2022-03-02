@@ -2221,7 +2221,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         }
     } else if (TAZ != nullptr) {
         // make a copy of TAZ geometry
-        PositionVector TAZGeometry = TAZ->getTAZElementShape();
+        PositionVector TAZGeometry = TAZ->getAdditionalGeometry().getShape();
         // get index position
         const int index = TAZGeometry.indexOfClosest(getPositionInformation(), true);
         // get new position
@@ -4304,13 +4304,6 @@ GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier
             // if exist, remove it
             if (additionalElement) {
                 myNet->deleteAdditional(additionalElement, myUndoList);
-            }
-        } else if (AC->getTagProperty().isTAZElement()) {
-            // get TAZ Element (note: could be already removed if is a child, then hardfail=false)
-            GNETAZElement* TAZElement = myNet->getAttributeCarriers()->retrieveTAZElement(AC, false);
-            // if exist, remove it
-            if (TAZElement) {
-                myNet->deleteTAZElement(TAZElement, myUndoList);
             }
         }
     }
