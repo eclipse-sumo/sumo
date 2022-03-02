@@ -800,7 +800,6 @@ GNEFrameModules::HierarchicalElementTree::HierarchicalElementTree(GNEFrame* fram
     myClickedLane(nullptr),
     myClickedCrossing(nullptr),
     myClickedConnection(nullptr),
-    myClickedTAZElement(nullptr),
     myClickedAdditional(nullptr),
     myClickedDemandElement(nullptr),
     myClickedDataSet(nullptr),
@@ -840,7 +839,6 @@ GNEFrameModules::HierarchicalElementTree::hideHierarchicalElementTree() {
     myClickedLane = nullptr;
     myClickedCrossing = nullptr;
     myClickedConnection = nullptr;
-    myClickedTAZElement = nullptr;
     myClickedAdditional = nullptr;
     myClickedDemandElement = nullptr;
     myClickedDataSet = nullptr;
@@ -904,8 +902,6 @@ GNEFrameModules::HierarchicalElementTree::onCmdCenterItem(FXObject*, FXSelector,
         myFrameParent->myViewNet->centerTo(myClickedConnection->getGlID(), true, -1);
     } else if (myClickedAdditional) {
         myFrameParent->myViewNet->centerTo(myClickedAdditional->getGlID(), true, -1);
-    } else if (myClickedTAZElement) {
-        myFrameParent->myViewNet->centerTo(myClickedTAZElement->getGlID(), true, -1);
     } else if (myClickedDemandElement) {
         myFrameParent->myViewNet->centerTo(myClickedDemandElement->getGlID(), true, -1);
     } else if (myClickedGenericData) {
@@ -941,8 +937,6 @@ GNEFrameModules::HierarchicalElementTree::onCmdDeleteItem(FXObject*, FXSelector,
         myFrameParent->myViewNet->getNet()->deleteConnection(myClickedConnection, myFrameParent->myViewNet->getUndoList());
     } else if (myClickedAdditional) {
         myFrameParent->myViewNet->getNet()->deleteAdditional(myClickedAdditional, myFrameParent->myViewNet->getUndoList());
-    } else if (myClickedTAZElement) {
-        myFrameParent->myViewNet->getNet()->deleteTAZElement(myClickedTAZElement, myFrameParent->myViewNet->getUndoList());
     } else if (myClickedDemandElement) {
         // check that default VTypes aren't removed
         if ((myClickedDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myClickedDemandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
@@ -1039,7 +1033,6 @@ GNEFrameModules::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttri
         myClickedLane = attributeCarriers->retrieveLane(clickedAC, false);
         myClickedCrossing = attributeCarriers->retrieveCrossing(clickedAC, false);
         myClickedConnection = attributeCarriers->retrieveConnection(clickedAC, false);
-        myClickedTAZElement = attributeCarriers->retrieveTAZElement(clickedAC, false);
         myClickedAdditional = attributeCarriers->retrieveAdditional(clickedAC, false);
         myClickedDemandElement = attributeCarriers->retrieveDemandElement(clickedAC, false);
         myClickedDataSet = attributeCarriers->retrieveDataSet(clickedAC, false);
@@ -1111,7 +1104,6 @@ GNEFrameModules::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttri
         myClickedLane = nullptr;
         myClickedCrossing = nullptr;
         myClickedConnection = nullptr;
-        myClickedTAZElement = nullptr;
         myClickedAdditional = nullptr;
         myClickedDemandElement = nullptr;
         myClickedDataSet = nullptr;
@@ -1295,22 +1287,22 @@ GNEFrameModules::HierarchicalElementTree::showAttributeCarrierParents() {
         return root;
     } else if (myHE->getTagProperty().isTAZElement()) {
         // Obtain TAZElement
-        const GNETAZElement* TAZElement = myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveTAZElement(myHE);
+        const GNEAdditional* TAZElement = myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(myHE);
         // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
         FXTreeItem* root = nullptr;
         // check if there is demand elements parents
-        if (TAZElement->getParentTAZElements().size() > 0) {
+        if (TAZElement->getParentAdditionals().size() > 0) {
             // check if we have more than one edge
-            if (TAZElement->getParentTAZElements().size() > 1) {
+            if (TAZElement->getParentAdditionals().size() > 1) {
                 // insert first item
-                addListItem(TAZElement->getParentTAZElements().front());
+                addListItem(TAZElement->getParentAdditionals().front());
                 // insert "spacer"
-                if (TAZElement->getParentTAZElements().size() > 2) {
-                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentTAZElements().size() - 2) + " TAZElements...").c_str(), 0, false);
+                if (TAZElement->getParentAdditionals().size() > 2) {
+                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentAdditionals().size() - 2) + " TAZElements...").c_str(), 0, false);
                 }
             }
             // return last inserted item
-            root = addListItem(TAZElement->getParentTAZElements().back());
+            root = addListItem(TAZElement->getParentAdditionals().back());
         }
         // check if there is parent demand elements
         if (TAZElement->getParentDemandElements().size() > 0) {
@@ -1545,11 +1537,6 @@ GNEFrameModules::HierarchicalElementTree::showHierarchicalElementChildren(GNEHie
                     for (const auto& additional : edge->getChildAdditionals()) {
                         showHierarchicalElementChildren(additional, edgeItem);
                     }
-                    // insert child TAZElements
-                    for (const auto& TAZElement : edge->getChildTAZElements()) {
-                        // use addListItem because TAZElement doesn't have children
-                        addListItem(TAZElement, edgeItem);
-                    }
                     // insert child demand elements
                     for (const auto& demandElement : edge->getChildDemandElements()) {
                         showHierarchicalElementChildren(demandElement, edgeItem);
@@ -1584,11 +1571,6 @@ GNEFrameModules::HierarchicalElementTree::showHierarchicalElementChildren(GNEHie
                     // insert child additional
                     for (const auto& additional : lane->getChildAdditionals()) {
                         showHierarchicalElementChildren(additional, laneItem);
-                    }
-                    // insert child TAZElements
-                    for (const auto& TAZElement : lane->getChildTAZElements()) {
-                        // use addListItem because TAZElement doesn't have children
-                        addListItem(TAZElement, laneItem);
                     }
                     // insert demand elements children
                     for (const auto& demandElement : lane->getChildDemandElements()) {
@@ -1660,11 +1642,6 @@ GNEFrameModules::HierarchicalElementTree::showHierarchicalElementChildren(GNEHie
             if (!additional->getTagProperty().isSymbol()) {
                 showHierarchicalElementChildren(additional, treeItem);
             }
-        }
-        // insert TAZElements children
-        for (const auto& TAZElement : HE->getChildTAZElements()) {
-            // use addListItem because TAZElement doesn't have children
-            addListItem(TAZElement, treeItem);
         }
         // insert child demand elements
         for (const auto& demandElement : HE->getChildDemandElements()) {
