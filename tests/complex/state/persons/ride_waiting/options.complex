@@ -1,5 +1,5 @@
 --vehroute-output=vehroutes.xml --no-step-log --no-duration-log -n
-input_net.net.xml -r input_routes.rou.xml --save-state.times 10
+input_net.net.xml -r input_routes.rou.xml --save-state.times 3
 --save-state.files state.xml  --save-state.transportables
 :
 --vehroute-output=vehroutes.xml --no-step-log --no-duration-log -n

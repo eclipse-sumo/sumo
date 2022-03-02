@@ -16,6 +16,9 @@ walk_trip_undeparted
 # test riding person
 ride
 
+# test riding person (saved while waiting for vehicle)
+ride_waiting
+
 # test riding person, car doesn't come
 ride_aborted
 
