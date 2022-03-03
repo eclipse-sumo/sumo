@@ -15,6 +15,8 @@ set(netedit_frames_network_SRCS
    GNECreateEdgeFrame.cpp
    GNEProhibitionFrame.h
    GNEProhibitionFrame.cpp
+   GNEWireFrame.h
+   GNEWireFrame.cpp
    )
 
 add_library(netedit_frames_network STATIC ${netedit_frames_network_SRCS})

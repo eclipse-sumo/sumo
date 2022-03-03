@@ -67,6 +67,8 @@ set(netedit_elements_additional_SRCS
    GNERouteProbReroute.cpp
    GNERerouterInterval.h
    GNERerouterInterval.cpp
+   GNETractionSubstation.h
+   GNETractionSubstation.cpp
    )
 
 add_library(netedit_elements_additional STATIC ${netedit_elements_additional_SRCS})
