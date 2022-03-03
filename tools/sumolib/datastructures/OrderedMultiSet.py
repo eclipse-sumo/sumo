@@ -23,10 +23,14 @@ based on OrderedSet by Raymond Hettinger (c) , MIT-License
 from __future__ import absolute_import
 
 import collections
+try:
+    from collections.abc import MutableSet
+except ImportError:
+    from collections import MutableSet
 KEY, PREV, NEXT = range(3)
 
 
-class OrderedMultiSet(collections.MutableSet):
+class OrderedMultiSet(MutableSet):
 
     def __init__(self, iterable=None):
         self.end = end = []
