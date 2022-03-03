@@ -315,13 +315,13 @@ GNEApplicationWindowHelper::ModesMenuCommands::CommonMenuCommands::buildCommonMe
     // build every FXMenuCommand giving it a shortcut
     inspectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                   "&Inspect mode", "I", "Inspect elements and change their attributes.",
-                  GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_I_MODES_INSPECT);
+                  GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_I_MODE_INSPECT);
     deleteMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                  "&Delete mode", "D", "Delete elements.",
-                 GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_D_MODES_DELETE);
+                 GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_D_MODE_DELETE);
     selectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                  "&Select mode", "S", "Select elements.",
-                 GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_S_MODES_SELECT);
+                 GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_S_MODE_SELECT);
 }
 
 // ---------------------------------------------------------------------------
@@ -338,6 +338,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::NetworkMenuC
     crossingMode(nullptr),
     TAZMode(nullptr),
     shapeMode(nullptr),
+    wireMode(nullptr),
     myModesMenuCommandsParent(modesMenuCommandsParent) {
 }
 
@@ -353,6 +354,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::showNetworkM
     crossingMode->show();
     TAZMode->show();
     shapeMode->show();
+    wireMode->show();
 }
 
 
@@ -367,6 +369,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::hideNetworkM
     crossingMode->hide();
     TAZMode->hide();
     shapeMode->hide();
+    wireMode->hide();
 }
 
 
@@ -374,32 +377,35 @@ void
 GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* modesMenu) {
     // build every FXMenuCommand giving it a shortcut
     moveMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-               "&Move mode", "M", "Move elements.",
-               GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MODES_MOVE);
+        "&Move mode", "M", "Move elements.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MODE_MOVE);
     createEdgeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                     "&Edge mode", "E", "Create junction and edges.",
-                     GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_E_MODES_EDGE_EDGEDATA);
+        "&Edge mode", "E", "Create junction and edges.",
+        GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_E_MODE_EDGE_EDGEDATA);
     connectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                  "&Connection mode", "C", "Modes connections between lanes.",
-                  GUIIconSubSys::getIcon(GUIIcon::MODECONNECTION), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN);
+        "&Connection mode", "C", "Modes connections between lanes.",
+        GUIIconSubSys::getIcon(GUIIcon::MODECONNECTION), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN);
     prohibitionMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                      "Pro&hibition mode", "W", "Modes connection prohibitions.",
-                      GUIIconSubSys::getIcon(GUIIcon::MODEPROHIBITION), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_W_MODES_PROHIBITION);
+        "Pro&hibition mode", "H", "Modes connection prohibitions.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEPROHIBITION), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN);
     TLSMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-              "&Traffic light mode", "T", "Modes traffic lights over junctions.",
-              GUIIconSubSys::getIcon(GUIIcon::MODETLS), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_T_MODES_TLS_TYPE);
+        "&Traffic light mode", "T", "Modes traffic lights over junctions.",
+        GUIIconSubSys::getIcon(GUIIcon::MODETLS), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_T_MODE_TLS_TYPE);
     additionalMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                     "&Additional mode", "A", "Create additional elements.",
-                     GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODES_ADDITIONAL_STOP);
+        "&Additional mode", "A", "Create additional elements.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODE_ADDITIONAL_STOP);
     crossingMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                   "C&rossing mode", "R", "Create crossings between edges.",
-                   GUIIconSubSys::getIcon(GUIIcon::MODECROSSING), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA);
+        "C&rossing mode", "R", "Create crossings between edges.",
+        GUIIconSubSys::getIcon(GUIIcon::MODECROSSING), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA);
     TAZMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-              "TA&Z mode", "Z", "Create Traffic Assignment Zones.",
-              GUIIconSubSys::getIcon(GUIIcon::MODETAZ), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_Z_MODES_TAZ_TAZREL);
+        "TA&Z mode", "Z", "Create Traffic Assignment Zones.",
+        GUIIconSubSys::getIcon(GUIIcon::MODETAZ), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_Z_MODE_TAZ_TAZREL);
     shapeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                "&POI-Poly mode", "P", "Create Points-Of-Interest and polygons.",
-                GUIIconSubSys::getIcon(GUIIcon::MODEPOLYGON), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_P_MODES_POLYGON_PERSON);
+        "&POI-Poly mode", "P", "Create Points-Of-Interest and polygons.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEPOLYGON), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_P_MODE_POLYGON_PERSON);
+    wireMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+        "&Wire mode", "W", "Create wires.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEWIRE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_W_MODE_WIRE);
 }
 
 // ---------------------------------------------------------------------------
@@ -452,32 +458,32 @@ void
 GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* modesMenu) {
     // build every FXMenuCommand giving it a shortcut
     moveMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-               "&Move mode", "M", "Move elements.",
-               GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MODES_MOVE);
+        "&Move mode", "M", "Move elements.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MODE_MOVE);
     routeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                "Route mode", "R", "Create Routes.",
-                GUIIconSubSys::getIcon(GUIIcon::MODEROUTE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA);
+        "Route mode", "R", "Create Routes.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEROUTE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA);
     vehicleMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                  "Vehicle mode", "V", "Create vehicles.",
-                  GUIIconSubSys::getIcon(GUIIcon::MODEVEHICLE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_V_MODES_VEHICLE);
+        "Vehicle mode", "V", "Create vehicles.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEVEHICLE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_V_MODE_VEHICLE);
     typeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-               "Type mode", "T", "Create types (vehicles, person an containers).",
-               GUIIconSubSys::getIcon(GUIIcon::MODETYPE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_T_MODES_TLS_TYPE);
+        "Type mode", "T", "Create types (vehicles, person an containers).",
+        GUIIconSubSys::getIcon(GUIIcon::MODETYPE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_T_MODE_TLS_TYPE);
     stopMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-               "Stop mode", "A", "Create stops.",
-               GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODES_ADDITIONAL_STOP);
+        "Stop mode", "A", "Create stops.",
+        GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODE_ADDITIONAL_STOP);
     personMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                 "Person mode", "P", "Create persons.",
-                 GUIIconSubSys::getIcon(GUIIcon::MODEPERSON), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_P_MODES_POLYGON_PERSON);
+        "Person mode", "P", "Create persons.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEPERSON), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_P_MODE_POLYGON_PERSON);
     personPlanMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                     "Person plan mode", "C", "Create person plans.",
-                     GUIIconSubSys::getIcon(GUIIcon::MODEPERSONPLAN), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN);
+        "Person plan mode", "C", "Create person plans.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEPERSONPLAN), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN);
     containerMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                    "Container mode", "G", "Create containers.",
-                    GUIIconSubSys::getIcon(GUIIcon::MODECONTAINER), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_G_MODE_CONTAINER);
+        "Container mode", "G", "Create containers.",
+        GUIIconSubSys::getIcon(GUIIcon::MODECONTAINER), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_G_MODE_CONTAINER);
     containerPlanMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                        "Container plan mode", "H", "Create container plans.",
-                        GUIIconSubSys::getIcon(GUIIcon::MODECONTAINERPLAN), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_H_MODE_CONTAINERDATA);
+        "Container plan mode", "H", "Create container plans.",
+        GUIIconSubSys::getIcon(GUIIcon::MODECONTAINERPLAN), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN);
 }
 
 // ---------------------------------------------------------------------------
@@ -512,14 +518,14 @@ void
 GNEApplicationWindowHelper::ModesMenuCommands::DataMenuCommands::buildDataMenuCommands(FXMenuPane* modesMenu) {
     // build every FXMenuCommand giving it a shortcut
     edgeData = GUIDesigns::buildFXMenuCommand(modesMenu,
-               "EdgeData Mode\tE\tCreate edgeData elements.",
-               GUIIconSubSys::getIcon(GUIIcon::MODEEDGEDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_E_MODES_EDGE_EDGEDATA);
+        "EdgeData Mode\tE\tCreate edgeData elements.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEEDGEDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_E_MODE_EDGE_EDGEDATA);
     edgeRelData = GUIDesigns::buildFXMenuCommand(modesMenu,
-                  "EdgeRelation Mode\tR\tCreate edgeRelation elements.",
-                  GUIIconSubSys::getIcon(GUIIcon::MODEEDGERELDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA);
+        "EdgeRelation Mode\tR\tCreate edgeRelation elements.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEEDGERELDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA);
     TAZRelData = GUIDesigns::buildFXMenuCommand(modesMenu,
-                 "TAZRelation Mode\tZ\tCreate TAZRelation elements.",
-                 GUIIconSubSys::getIcon(GUIIcon::MODETAZRELDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_Z_MODES_TAZ_TAZREL);
+        "TAZRelation Mode\tZ\tCreate TAZRelation elements.",
+        GUIIconSubSys::getIcon(GUIIcon::MODETAZRELDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_Z_MODE_TAZ_TAZREL);
 }
 
 // ---------------------------------------------------------------------------
