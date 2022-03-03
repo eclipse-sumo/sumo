@@ -2137,39 +2137,35 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     writeRoutes(device, true);
     // routeProbes
     writeRouteProbeComment(device);
-    writeAdditionalByType(device, SUMO_TAG_ROUTEPROBE);
+    writeAdditionalByType(device, {SUMO_TAG_ROUTEPROBE});
     // calibrator
     writeCalibratorComment(device);
-    writeAdditionalByType(device, SUMO_TAG_CALIBRATOR);
-    writeAdditionalByType(device, GNE_TAG_CALIBRATOR_LANE);
+    writeAdditionalByType(device, {SUMO_TAG_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE});
     // stoppingPlaces
     writeStoppingPlaceComment(device);
-    writeAdditionalByType(device, SUMO_TAG_BUS_STOP);
-    writeAdditionalByType(device, SUMO_TAG_TRAIN_STOP);
-    writeAdditionalByType(device, SUMO_TAG_CONTAINER_STOP);
-    writeAdditionalByType(device, SUMO_TAG_CHARGING_STATION);
-    writeAdditionalByType(device, SUMO_TAG_PARKING_AREA);
+    writeAdditionalByType(device, {SUMO_TAG_BUS_STOP});
+    writeAdditionalByType(device, {SUMO_TAG_TRAIN_STOP});
+    writeAdditionalByType(device, {SUMO_TAG_CONTAINER_STOP});
+    writeAdditionalByType(device, {SUMO_TAG_CHARGING_STATION});
+    writeAdditionalByType(device, {SUMO_TAG_PARKING_AREA});
     // detectors
     writeDetectorComment(device);
-    writeAdditionalByType(device, SUMO_TAG_E1DETECTOR);
-    writeAdditionalByType(device, SUMO_TAG_INSTANT_INDUCTION_LOOP);
-    writeAdditionalByType(device, SUMO_TAG_E2DETECTOR);
-    writeAdditionalByType(device, GNE_TAG_E2DETECTOR_MULTILANE);
-    writeAdditionalByType(device, SUMO_TAG_E3DETECTOR);
+    writeAdditionalByType(device, {SUMO_TAG_E1DETECTOR});
+    writeAdditionalByType(device, {SUMO_TAG_INSTANT_INDUCTION_LOOP});
+    writeAdditionalByType(device, {SUMO_TAG_E2DETECTOR, GNE_TAG_E2DETECTOR_MULTILANE});
+    writeAdditionalByType(device, {SUMO_TAG_E3DETECTOR});
     // Other additionals
     writeOtherAdditionalsComment(device);
-    writeAdditionalByType(device, SUMO_TAG_REROUTER);
-    writeAdditionalByType(device, SUMO_TAG_VSS);
-    writeAdditionalByType(device, SUMO_TAG_VAPORIZER);
+    writeAdditionalByType(device, {SUMO_TAG_REROUTER});
+    writeAdditionalByType(device, {SUMO_TAG_VSS});
+    writeAdditionalByType(device, {SUMO_TAG_VAPORIZER});
     // shapes
     writeShapesComment(device);
-    writeAdditionalByType(device, SUMO_TAG_POLY);
-    writeAdditionalByType(device, SUMO_TAG_POI);
-    writeAdditionalByType(device, GNE_TAG_POILANE);
-    writeAdditionalByType(device, GNE_TAG_POIGEO);
+    writeAdditionalByType(device, {SUMO_TAG_POLY});
+    writeAdditionalByType(device, {SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO});
     // TAZs
     writeTAZComment(device);
-    writeAdditionalByType(device, SUMO_TAG_TAZ);
+    writeAdditionalByType(device, {SUMO_TAG_TAZ});
     // close device
     device.close();
 }
@@ -2225,10 +2221,16 @@ GNENet::saveDataElementsConfirmed(const std::string& filename) {
 
 
 void
-GNENet::writeAdditionalByType(OutputDevice& device, SumoXMLTag tag) const {
+GNENet::writeAdditionalByType(OutputDevice& device, const std::vector<SumoXMLTag> tags) const {
     std::map<std::string, GNEAdditional*> sortedAdditionals;
-    for (const auto& additional : myAttributeCarriers->getAdditionals().at(tag)) {
-        sortedAdditionals[additional->getID()] = additional;
+    for (const auto &tag : tags) {
+        for (const auto& additional : myAttributeCarriers->getAdditionals().at(tag)) {
+            if (sortedAdditionals.count(additional->getID()) == 0) {
+                sortedAdditionals[additional->getID()] = additional;
+            } else {
+                throw ProcessError("Duplicated ID");
+            }
+        }
     }
     for (const auto& additional : sortedAdditionals) {
         additional.second->writeAdditional(device);

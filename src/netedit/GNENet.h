@@ -565,7 +565,7 @@ private:
     void saveDataElementsConfirmed(const std::string& filename);
 
     /// @brief write additional element by type and sorted by ID
-    void writeAdditionalByType(OutputDevice& device, SumoXMLTag tag) const;
+    void writeAdditionalByType(OutputDevice& device, const std::vector<SumoXMLTag> tags) const;
 
     /// @brief write demand element by type and sorted by ID
     void writeDemandByType(OutputDevice& device, SumoXMLTag tag) const;
