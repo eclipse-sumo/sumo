@@ -29,14 +29,12 @@ import subprocess
 import warnings
 import sys
 import os
-from functools import wraps
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 else:
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import sumolib  # noqa
 from sumolib.miscutils import getFreeSocketPort  # noqa
 
 from .domain import _defaultDomains  # noqa
@@ -78,16 +76,9 @@ routeprobe = _routeprobe.RouteProbeDomain()
 rerouter = _rerouter.RerouterDomain()
 
 _connections = {}
-_traceFile = {}
-_traceGetters = {}
 # cannot use immutable type as global variable
 _currentLabel = [""]
 _connectHook = None
-
-
-def _STEPS2TIME(step):
-    """Conversion from time steps in milliseconds to seconds as float"""
-    return step / 1000.
 
 
 def setConnectHook(hookFunc):
@@ -95,17 +86,8 @@ def setConnectHook(hookFunc):
     _connectHook = hookFunc
 
 
-def _addTracing(method):
-    @wraps(method)
-    def tracingWrapper(*args, **kwargs):
-        _traceFile[_currentLabel[0]].write("traci.%s(%s)\n" % (
-            method.__name__,
-            ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n, v in kwargs.items()])))
-        return method(*args, **kwargs)
-    return tracingWrapper
-
-
-def connect(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", proc=None, waitBetweenRetries=1):
+def connect(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", proc=None, waitBetweenRetries=1,
+            traceFile=None, traceGetters=True):
     """
     Establish a connection to a TraCI-Server and return the
     connection object. The connection is not saved in the pool and not
@@ -114,7 +96,7 @@ def connect(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", proc
     """
     for retry in range(1, numRetries + 2):
         try:
-            conn = Connection(host, port, proc)
+            conn = Connection(host, port, proc, traceFile, traceGetters)
             if _connectHook is not None:
                 _connectHook(conn)
             return conn
@@ -129,13 +111,14 @@ def connect(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", proc
     raise FatalTraCIError("Could not connect in %s tries" % (numRetries + 1))
 
 
-def init(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", label="default", proc=None, doSwitch=True):
+def init(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", label="default", proc=None, doSwitch=True,
+         traceFile=None, traceGetters=True):
     """
     Establish a connection to a TraCI-Server and store it under the given
     label. This method is not thread-safe. It accesses the connection
     pool concurrently.
     """
-    _connections[label] = connect(port, numRetries, host, proc)
+    _connections[label] = connect(port, numRetries, host, proc, 1, traceFile, traceGetters)
     if doSwitch:
         switch(label)
     return _connections[label].getVersion()
@@ -159,16 +142,17 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
     """
     if label in _connections:
         raise TraCIException("Connection '%s' is already active." % label)
-    if traceFile is not None:
-        _startTracing(traceFile, cmd, port, label, traceGetters)
     while numRetries >= 0 and label not in _connections:
-        sumoPort = sumolib.miscutils.getFreeSocketPort() if port is None else port
+        sumoPort = getFreeSocketPort() if port is None else port
         cmd2 = cmd + ["--remote-port", str(sumoPort)]
         if verbose:
             print("Calling " + ' '.join(cmd2))
         sumoProcess = subprocess.Popen(cmd2, stdout=stdout)
         try:
-            return init(sumoPort, numRetries, "localhost", label, sumoProcess, doSwitch)
+            result = init(sumoPort, numRetries, "localhost", label, sumoProcess, doSwitch, traceFile, traceGetters)
+            if traceFile is not None:
+                _connections[label].write("start", "%s, port=%s, label=%s" % (repr(cmd), repr(port), repr(label)))
+            return result
         except TraCIException as e:
             if port is not None:
                 break
@@ -176,13 +160,6 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
                            " Retrying with different port.") % (sumoPort, e))
             numRetries -= 1
     raise FatalTraCIError("Could not connect.")
-
-
-def _startTracing(traceFile, cmd, port, label, traceGetters):
-    _traceFile[label] = open(traceFile, 'w')
-    _traceFile[label].write("traci.start(%s, port=%s, label=%s)\n" % (
-        repr(cmd), repr(port), repr(label)))
-    _traceGetters[label] = traceGetters
 
 
 def isLibsumo():
@@ -286,8 +263,6 @@ def close(wait=True):
     _connections[""].simulation._setConnection(None)
     del _connections[_currentLabel[0]]
     del _connections[""]
-    if _currentLabel[0] in _traceFile:
-        del _traceFile[_currentLabel[0]]
 
 
 def switch(label):
@@ -296,11 +271,6 @@ def switch(label):
     _currentLabel[0] = label
     for domain in _defaultDomains:
         domain._setConnection(con)
-        if label in _traceFile:
-            domain._setTraceFile(_traceFile[label], _traceGetters[label])
-            # connection holds a copy of each domain
-            getattr(con, domain._name)._setTraceFile(_traceFile[label], _traceGetters[label])
-            con._traceFile = _traceFile[label]
 
 
 def getLabel():

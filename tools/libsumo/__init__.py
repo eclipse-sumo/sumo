@@ -132,21 +132,14 @@ def isLibtraci():
     return False
 
 
-def hasGUI():
-    return simulation.hasGUI()
-
-
 def init(port):
     print("Warning! To make your code usable with traci and libsumo, please use traci.start instead of traci.init.")
 
 
-def load(args):
-    simulation.load(args)
-
-
-def isLoaded():
-    return simulation.isLoaded()
-
+hasGUI = simulation.hasGUI
+load = simulation.load
+isLoaded = simulation.isLoaded
+getVersion = simulation.getVersion
 
 _libsumo_step = simulation.step
 
@@ -164,10 +157,6 @@ def simulationStep(step=0):
 simulation.step = simulationStep
 
 
-def getVersion():
-    return simulation.getVersion()
-
-
 def close():
     simulation.close()
     _stepManager.close()
@@ -176,10 +165,11 @@ def close():
 def start(args, traceFile=None, traceGetters=True):
     version = simulation.start(args)
     if traceFile is not None:
-        if _stepManager.startTracing(traceFile, args, traceGetters, _DOMAINS):
+        if _stepManager.startTracing(traceFile, traceGetters, _DOMAINS):
             # simulationStep shows up as simulation.step
             global _libsumo_step
             _libsumo_step = _stepManager._addTracing(_libsumo_step, "simulation")
+        _stepManager.write("start", repr(args))
     return version
 
 

@@ -77,7 +77,7 @@ class StepManager:
         warnings.warn("Cannot remove unknown listener %s.\nlisteners:%s" % (listenerID, self._stepListeners))
         return False
 
-    def startTracing(self, traceFile, cmd, traceGetters, domains):
+    def startTracing(self, traceFile, traceGetters, domains):
         result = False
         if self._traceFile is None:
             result = True
@@ -93,9 +93,13 @@ class StepManager:
                         ]
                                 and not attrName.endswith('makeWrapper')
                                 and (traceGetters or not attrName.startswith("get"))):
-                            setattr(domain, attrName, self._addTracing(attr, domain.__name__))
+                            domainName = None
+                            if hasattr(domain, "__name__"):
+                                domainName = domain.__name__
+                            if hasattr(domain, "_name"):
+                                domainName = domain._name
+                            setattr(domain, attrName, self._addTracing(attr, domainName))
         self._traceFile = open(traceFile, 'w')
-        self._traceFile.write("traci.start(%s)\n" % repr(cmd))
         return result
 
     def _addTracing(self, method, domain=None):
@@ -107,14 +111,18 @@ class StepManager:
         @wraps(method)
         def tracingWrapper(*args, **kwargs):
             if self._traceFile is not None and not self._traceFile.closed:
-                self._traceFile.write("traci.%s(%s)\n" % (
-                    name,
-                    ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n, v in kwargs.items()])))
+                kwargRepr = ["%s=%s" % (n, repr(v)) for n, v in kwargs.items()]
+                self.write(name, ', '.join(list(map(repr, args)) + kwargRepr))
             return method(*args, **kwargs)
         return tracingWrapper
 
-    def close(self):
-        if self._traceFile:
+    def write(self, method, args=""):
+        self._traceFile.write("traci.%s(%s)\n" % (method, args))
+
+    def close(self, write=False):
+        if self._traceFile is not None and not self._traceFile.closed:
+            if write:
+                self.write("close")
             self._traceFile.close()
 
 

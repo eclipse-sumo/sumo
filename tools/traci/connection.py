@@ -42,7 +42,7 @@ class Connection(StepManager):
     together with a list of TraCI commands which are inside.
     """
 
-    def __init__(self, host, port, process):
+    def __init__(self, host, port, process, traceFile, traceGetters):
         StepManager.__init__(self)
         if sys.platform.startswith('java'):
             # working around jython 2.7.0 bug #2273
@@ -55,6 +55,8 @@ class Connection(StepManager):
         self._string = bytes()
         self._queue = []
         self._subscriptionMapping = {}
+        if traceFile is not None:
+            self.startTracing(traceFile, traceGetters, _defaultDomains)
         for domain in _defaultDomains:
             domain._register(self, self._subscriptionMapping)
 
@@ -342,11 +344,7 @@ class Connection(StepManager):
         self._sendCmd(tc.CMD_SETORDER, None, None, "I", order)
 
     def close(self, wait=True):
-        if self._traceFile:
-            self._traceFile.write("traci.close()\n")
-            self._traceFile.close()
-            for domain in _defaultDomains:
-                domain._setTraceFile(None, False)
+        StepManager.close(self, True)
         for listenerID in list(self._stepListeners.keys()):
             self.removeStepListener(listenerID)
         if self._socket is not None:
