@@ -160,6 +160,8 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
             return toString(myDepartWeight);
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         case GNE_ATTR_TAZCOLOR: {
@@ -222,6 +224,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         switch (key) {
             case SUMO_ATTR_ID:
             case SUMO_ATTR_WEIGHT:
+            case GNE_ATTR_SELECTED:
             case GNE_ATTR_PARAMETERS:
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
                 break;
@@ -240,6 +243,8 @@ GNETAZSourceSink::isValid(SumoXMLAttr key, const std::string& value) {
                    (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), value, false) == nullptr);
         case SUMO_ATTR_WEIGHT:
             return canParse<double>(value) && (parse<double>(value) >= 0);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return areParametersValid(value);
         default:
@@ -284,6 +289,13 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_WEIGHT:
             myDepartWeight = parse<double>(value);
+            break;
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
