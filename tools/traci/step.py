@@ -77,8 +77,6 @@ class StepManager:
         warnings.warn("Cannot remove unknown listener %s.\nlisteners:%s" % (listenerID, self._stepListeners))
         return False
 
-
-
     def startTracing(self, traceFile, cmd, traceGetters, domains):
         result = False
         if self._traceFile is None:
@@ -99,7 +97,6 @@ class StepManager:
         self._traceFile = open(traceFile, 'w')
         self._traceFile.write("traci.start(%s)\n" % repr(cmd))
         return result
-
 
     def _addTracing(self, method, domain=None):
         if domain:
