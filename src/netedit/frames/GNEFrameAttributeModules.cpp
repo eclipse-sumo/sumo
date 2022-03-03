@@ -2600,11 +2600,8 @@ GNEFrameAttributeModules::NeteditAttributes::setEndPosition(double positionOfThe
 
 bool
 GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC) {
-    if (viewNet->getEditModes().isCurrentSupermodeNetwork() && (
-                AC->getTagProperty().isNetworkElement() ||
-                AC->getTagProperty().isAdditionalElement() ||
-                AC->getTagProperty().isShape() ||
-                AC->getTagProperty().isTAZElement())) {
+    if (viewNet->getEditModes().isCurrentSupermodeNetwork() && 
+        (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
         return true;
     } else if (viewNet->getEditModes().isCurrentSupermodeDemand() &&
                AC->getTagProperty().isDemandElement()) {
@@ -2620,8 +2617,7 @@ GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEA
 
 bool
 GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties& ACAttr) {
-    if (ACAttr.getTagPropertyParent().isNetworkElement() || ACAttr.getTagPropertyParent().isAdditionalElement() ||
-            ACAttr.getTagPropertyParent().isShape() || ACAttr.getTagPropertyParent().isTAZElement()) {
+    if (ACAttr.getTagPropertyParent().isNetworkElement() || ACAttr.getTagPropertyParent().isAdditionalElement()) {
         return (viewNet->getEditModes().isCurrentSupermodeNetwork());
     } else if (ACAttr.getTagPropertyParent().isDemandElement()) {
         return (viewNet->getEditModes().isCurrentSupermodeDemand());

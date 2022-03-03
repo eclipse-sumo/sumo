@@ -74,7 +74,7 @@ GNEChange_EnableAttribute::undo() {
     // check if networkElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetworkElement()) {
         myAC->getNet()->requireSaveNet(true);
-    } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape()) {
+    } else if (myAC->getTagProperty().isAdditionalElement()) {
         myAC->getNet()->requireSaveAdditionals(true);
     } else if (myAC->getTagProperty().isDemandElement()) {
         myAC->getNet()->requireSaveDemandElements(true);
@@ -91,7 +91,7 @@ GNEChange_EnableAttribute::redo() {
     // check if networkElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetworkElement()) {
         myAC->getNet()->requireSaveNet(true);
-    } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape()) {
+    } else if (myAC->getTagProperty().isAdditionalElement()) {
         myAC->getNet()->requireSaveAdditionals(true);
     } else if (myAC->getTagProperty().isDemandElement()) {
         myAC->getNet()->requireSaveDemandElements(true);

@@ -1118,10 +1118,12 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             headerString = "Net: ";
         } else if (ACs.front()->getTagProperty().isAdditionalElement()) {
             headerString = "Additional: ";
-        } else if (ACs.front()->getTagProperty().isShape()) {
+        } else if (ACs.front()->getTagProperty().isShapeElement()) {
             headerString = "Shape: ";
         } else if (ACs.front()->getTagProperty().isTAZElement()) {
             headerString = "TAZ: ";
+        } else if (ACs.front()->getTagProperty().isWireElement()) {
+            headerString = "WIRE: ";
         } else if (ACs.front()->getTagProperty().isVehicle()) {
             headerString = "Vehicle: ";
         } else if (ACs.front()->getTagProperty().isRoute()) {

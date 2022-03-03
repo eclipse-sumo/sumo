@@ -1608,7 +1608,7 @@ GNEFrameModules::HierarchicalElementTree::showHierarchicalElementChildren(GNEHie
             default:
                 break;
         }
-    } else if (HE->getTagProperty().isAdditionalElement() || HE->getTagProperty().isShape() || HE->getTagProperty().isTAZElement() || HE->getTagProperty().isDemandElement()) {
+    } else if (HE->getTagProperty().isAdditionalElement() || HE->getTagProperty().isDemandElement()) {
         // insert additional item
         FXTreeItem* treeItem = addListItem(HE, itemParent);
         // insert child edges

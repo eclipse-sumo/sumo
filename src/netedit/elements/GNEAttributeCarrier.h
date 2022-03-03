@@ -306,13 +306,16 @@ private:
     static void fillNetworkElements();
 
     /// @brief fill additional elements
-    static void fillAdditionals();
+    static void fillAdditionalElements();
 
     /// @brief fill shape elements
-    static void fillShapes();
+    static void fillShapeElements();
 
     /// @brief fill TAZ elements
     static void fillTAZElements();
+
+    /// @brief fill Wire elements
+    static void fillWireElements();
 
     /// @brief fill demand elements
     static void fillDemandElements();

@@ -341,8 +341,7 @@ GNENetHelper::AttributeCarriers::getSelectedAttributeCarriers(const bool ignoreC
             bool insert = false;
             if (ignoreCurrentSupermode) {
                 insert = true;
-            } else if (editModes.isCurrentSupermodeNetwork() && (AC->getTagProperty().isNetworkElement() ||
-                       AC->getTagProperty().isAdditionalElement() || AC->getTagProperty().isShape() || AC->getTagProperty().isTAZElement())) {
+            } else if (editModes.isCurrentSupermodeNetwork() && (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
                 insert = true;
             } else if (editModes.isCurrentSupermodeDemand() && AC->getTagProperty().isDemandElement()) {
                 insert = true;
@@ -951,7 +950,7 @@ GNENetHelper::AttributeCarriers::getSelectedShapes() const {
     // returns additionals depending of selection
     for (const auto& additionalsTags : myAdditionals) {
         for (const auto& additional : additionalsTags.second) {
-            if (additional->getTagProperty().isShape() && additional->isAttributeCarrierSelected()) {
+            if (additional->getTagProperty().isShapeElement() && additional->isAttributeCarrierSelected()) {
                 result.push_back(additional);
             }
         }

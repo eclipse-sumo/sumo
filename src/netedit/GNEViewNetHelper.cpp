@@ -87,7 +87,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                 // update additional elements
                 updateAdditionalElements(myEdgeObjects, AC);
                 // update shapes and TAZs
-                if (AC->getTagProperty().isShape()) {
+                if (AC->getTagProperty().isShapeElement()) {
                     // update shape elements
                     updateShapeElements(myEdgeObjects, AC);
                 }
@@ -118,12 +118,18 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
             if (AC->getTagProperty().isNetworkElement()) {
                 // update network elements
                 updateNetworkElements(myLaneObjects, AC);
-            } else if (AC->getTagProperty().isAdditionalElement()) {
+            } else if (AC->getTagProperty().isAdditionalPureElement()) {
                 // update additional elements
                 updateAdditionalElements(myLaneObjects, AC);
-            } else if (AC->getTagProperty().isShape()) {
-                // update shape elements
-                updateShapeElements(myLaneObjects, AC);
+                // update shapes and TAZs
+                if (AC->getTagProperty().isShapeElement()) {
+                    // update shape elements
+                    updateShapeElements(myLaneObjects, AC);
+                }
+                if (AC->getTagProperty().isTAZElement()) {
+                    // update TAZ elements
+                    updateTAZElements(myLaneObjects, AC);
+                }
             } else if (AC->getTagProperty().isDemandElement()) {
                 // update demand elements
                 updateDemandElements(myLaneObjects, AC);
@@ -1413,8 +1419,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundaryFiltered;
         for (const auto& AC : ACsInBoundary) {
             if (myViewNet->myEditModes.isCurrentSupermodeNetwork()) {
-                if (AC.second->getTagProperty().isNetworkElement() || AC.second->getTagProperty().isAdditionalElement() ||
-                        AC.second->getTagProperty().isTAZElement() || AC.second->getTagProperty().isShape()) {
+                if (AC.second->getTagProperty().isNetworkElement() || AC.second->getTagProperty().isAdditionalElement()) {
                     ACsInBoundaryFiltered.insert(AC);
                 }
             } else if (myViewNet->myEditModes.isCurrentSupermodeDemand() && AC.second->getTagProperty().isDemandElement()) {
@@ -3468,10 +3473,7 @@ GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, GUIGlObj
     }
     // check supermodes
     if (viewNet->getEditModes().isCurrentSupermodeNetwork() &&
-            !(AC->getTagProperty().isNetworkElement() ||
-              AC->getTagProperty().isAdditionalElement() ||
-              AC->getTagProperty().isShape() ||
-              AC->getTagProperty().isTAZElement())) {
+            !(AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
         return false;
     }
     if (viewNet->getEditModes().isCurrentSupermodeDemand() && (!AC->getTagProperty().isDemandElement())) {

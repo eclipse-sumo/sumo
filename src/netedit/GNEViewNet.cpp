@@ -4630,8 +4630,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             }
             // check that we have clicked over network element element
             if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) &&
-                    (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement() ||
-                     AC->getTagProperty().isShape() || AC->getTagProperty().isTAZElement())) {
+                    (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
                 // now check if we want only delete geometry points
                 if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints()) {
                     // only remove geometry point

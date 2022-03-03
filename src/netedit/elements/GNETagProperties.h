@@ -162,8 +162,11 @@ public:
     /// @brief return true if tag correspond to a network element
     bool isNetworkElement() const;
 
-    /// @brief return true if tag correspond to an additional element
+    /// @brief return true if tag correspond to an additional element (note: this include TAZ, shapes and wires)
     bool isAdditionalElement() const;
+
+    /// @brief return true if tag correspond to a pure additional element
+    bool isAdditionalPureElement() const;
 
     /// @brief return true if tag correspond to a demand element
     bool isDemandElement() const;
@@ -178,7 +181,7 @@ public:
     bool isDetector() const;
 
     /// @brief return true if tag correspond to a shape
-    bool isShape() const;
+    bool isShapeElement() const;
 
     /// @brief return true if tag correspond to a TAZ element
     bool isTAZElement() const;
