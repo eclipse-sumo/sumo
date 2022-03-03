@@ -1023,15 +1023,20 @@ MSEdge::setMaxSpeed(double val) const {
 
 
 void
-MSEdge::addPerson(MSTransportable* p) const {
-    myPersons.insert(p);
+MSEdge::addTransportable(MSTransportable* t) const {
+    if (t->isPerson()) {
+        myPersons.insert(t);
+    } else {
+        myContainers.insert(t);
+    }
 }
 
 void
-MSEdge::removePerson(MSTransportable* p) const {
-    std::set<MSTransportable*>::iterator i = myPersons.find(p);
-    if (i != myPersons.end()) {
-        myPersons.erase(i);
+MSEdge::removeTransportable(MSTransportable* t) const {
+    std::set<MSTransportable*>& tc = t->isPerson() ? myPersons : myContainers;
+    auto it = tc.find(t);
+    if (it != tc.end()) {
+        tc.erase(it);
     }
 }
 

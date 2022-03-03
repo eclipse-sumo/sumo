@@ -524,11 +524,11 @@ MSStageWaiting::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
         myDestinationStop->addTransportable(transportable);
         myStopWaitPos = myDestinationStop->getWaitPosition(transportable);
     }
-    if (dynamic_cast<MSPerson*>(transportable) != nullptr) {
-        previous->getEdge()->addPerson(transportable);
+
+    previous->getEdge()->addTransportable(transportable);
+    if (transportable->isPerson()) {
         net->getPersonControl().setWaitEnd(myStopEndTime, transportable);
     } else {
-        previous->getEdge()->addContainer(transportable);
         net->getContainerControl().setWaitEnd(myStopEndTime, transportable);
     }
 }
@@ -630,16 +630,13 @@ MSStageWaiting::loadState(MSTransportable* transportable, std::istringstream& st
         myDestinationStop->addTransportable(transportable);
         myStopWaitPos = myDestinationStop->getWaitPosition(transportable);
     }
+    if (myDeparted >= 0) {
+        myDestination->addTransportable(transportable);
+    }
     MSNet* net = MSNet::getInstance();
-    if (dynamic_cast<MSPerson*>(transportable) != nullptr) {
-        if (myDeparted >= 0) {
-            myDestination->addPerson(transportable);
-        }
+    if (transportable->isPerson()) {
         net->getPersonControl().setWaitEnd(until, transportable);
     } else {
-        if (myDeparted >= 0) {
-            myDestination->addContainer(transportable);
-        }
         net->getContainerControl().setWaitEnd(until, transportable);
     }
 }
@@ -711,19 +708,19 @@ void
 MSStageMoving::setRouteIndex(MSTransportable* const transportable, int routeOffset) {
     assert(routeOffset >= 0);
     assert(routeOffset < (int)myRoute.size());
-    getEdge()->removePerson(transportable);
+    getEdge()->removeTransportable(transportable);
     myRouteStep = myRoute.begin() + routeOffset;
-    getEdge()->addPerson(transportable);
+    getEdge()->addTransportable(transportable);
 }
 
 void
 MSStageMoving::replaceRoute(MSTransportable* const transportable, const ConstMSEdgeVector& edges, int routeOffset) {
     assert(routeOffset >= 0);
     assert(routeOffset < (int)edges.size());
-    getEdge()->removePerson(transportable);
+    getEdge()->removeTransportable(transportable);
     myRoute = edges;
     myRouteStep = myRoute.begin() + routeOffset;
-    getEdge()->addPerson(transportable);
+    getEdge()->addTransportable(transportable);
 }
 
 /****************************************************************************/

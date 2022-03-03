@@ -142,26 +142,14 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
-
-    void addPerson(MSTransportable* p) const {
+    void addTransportable(MSTransportable* t) const override {
         FXMutexLock locker(myLock);
-        MSEdge::addPerson(p);
+        MSEdge::addTransportable(t);
     }
 
-    void removePerson(MSTransportable* p) const {
+    void removeTransportable(MSTransportable* t) const override {
         FXMutexLock locker(myLock);
-        MSEdge::removePerson(p);
-    }
-
-
-    void addContainer(MSTransportable* c) const {
-        FXMutexLock locker(myLock);
-        MSEdge::addContainer(c);
-    }
-
-    void removeContainer(MSTransportable* c) const {
-        FXMutexLock locker(myLock);
-        MSEdge::removeContainer(c);
+        MSEdge::removeTransportable(t);
     }
 
     double getAllowedSpeed() const;

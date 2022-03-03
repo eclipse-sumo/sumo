@@ -67,6 +67,10 @@ public:
         return !myAmPerson;
     }
 
+    std::string getObjectType() {
+        return myAmPerson ? "Person" : "Container";
+    }
+
     bool isStopped() const {
         return getCurrentStageType() == MSStageType::WAITING;
     }

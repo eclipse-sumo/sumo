@@ -289,11 +289,10 @@ MSStageDriving::registerWaiting(MSTransportable* transportable, SUMOTime now) {
     }
     if (transportable->isPerson()) {
         MSNet::getInstance()->getPersonControl().addWaiting(myWaitingEdge, transportable);
-        myWaitingEdge->addPerson(transportable);
     } else {
         MSNet::getInstance()->getContainerControl().addWaiting(myWaitingEdge, transportable);
-        myWaitingEdge->addContainer(transportable);
     }
+    myWaitingEdge->addTransportable(transportable);
 }
 
 void

@@ -665,22 +665,9 @@ public:
     double getVehicleMaxSpeed(const SUMOTrafficObject* const veh) const;
 
 
-    virtual void addPerson(MSTransportable* p) const;
+    virtual void addTransportable(MSTransportable* t) const;
 
-    virtual void removePerson(MSTransportable* p) const;
-
-    /// @brief Add a container to myContainers
-    virtual void addContainer(MSTransportable* container) const {
-        myContainers.insert(container);
-    }
-
-    /// @brief Remove container from myContainers
-    virtual void removeContainer(MSTransportable* container) const {
-        std::set<MSTransportable*>::iterator i = myContainers.find(container);
-        if (i != myContainers.end()) {
-            myContainers.erase(i);
-        }
-    }
+    virtual void removeTransportable(MSTransportable* t) const;
 
     inline bool isRoundabout() const {
         return myAmRoundabout;

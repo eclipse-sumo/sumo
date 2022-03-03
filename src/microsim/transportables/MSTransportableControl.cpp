@@ -226,7 +226,7 @@ MSTransportableControl::boardAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle
                     && vehicle->allowsBoarding(*i)
                     && timeToBoardNextPerson - DELTA_T <= currentTime
                     && vehicle->isStoppedInRange((*i)->getEdgePos(), MSGlobals::gStopTolerance)) {
-                edge->removePerson(*i);
+                edge->removeTransportable(*i);
                 vehicle->addTransportable(*i);
                 if (timeToBoardNextPerson >= 0) { // meso does not have boarding times
                     const SUMOTime boardingDuration = vehicle->getVehicleType().getBoardingDuration();
@@ -273,7 +273,7 @@ MSTransportableControl::loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle,
                     && vehicle->allowsBoarding(*i)
                     && timeToLoadNextContainer - DELTA_T <= currentTime
                     && vehicle->isStoppedInRange((*i)->getEdgePos(), MSGlobals::gStopTolerance)) {
-                edge->removeContainer(*i);
+                edge->removeTransportable(*i);
                 vehicle->addTransportable(*i);
                 if (timeToLoadNextContainer >= 0) { // meso does not have loading times
                     //if the time a person needs to enter the vehicle extends the duration of the stop of the vehicle extend
@@ -349,17 +349,10 @@ MSTransportableControl::abortAnyWaitingForVehicle() {
     for (std::map<const MSEdge*, TransportableVector>::iterator i = myWaiting4Vehicle.begin(); i != myWaiting4Vehicle.end(); ++i) {
         const MSEdge* edge = (*i).first;
         for (MSTransportable* const p : i->second) {
-            std::string transportableType;
-            if (p->isPerson()) {
-                edge->removePerson(p);
-                transportableType = "Person";
-            } else {
-                transportableType = "Container";
-                edge->removeContainer(p);
-            }
+            edge->removeTransportable(p);
             MSStageDriving* stage = dynamic_cast<MSStageDriving*>(p->getCurrentStage());
             const std::string waitDescription = stage == nullptr ? "waiting" : stage->getWaitingDescription();
-            WRITE_WARNING(transportableType + " '" + p->getID() + "' aborted " + waitDescription + ".");
+            WRITE_WARNING(p->getObjectType()+ " '" + p->getID() + "' aborted " + waitDescription + ".");
             erase(p);
         }
     }

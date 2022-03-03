@@ -85,11 +85,7 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
     MSStage* prior = *myStep;
     const std::string& error = prior->setArrived(net, this, time, vehicleArrived);
     // must be done before increasing myStep to avoid invalid state for rendering
-    if (myAmPerson) {
-        prior->getEdge()->removePerson(this);
-    } else {
-        prior->getEdge()->removeContainer(this);
-    }
+    prior->getEdge()->removeTransportable(this);
     myStep++;
     if (error != "") {
         throw ProcessError(error);
