@@ -81,7 +81,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "variableSpeedSign",              SUMO_TAG_VSS },
     { "routeProbe",                     SUMO_TAG_ROUTEPROBE },
     { "vaporizer",                      SUMO_TAG_VAPORIZER },
-    { "overheadWireSegment",            SUMO_TAG_OVERHEAD_WIRE_SEGMENT },
+    { "overheadWireSegment",            SUMO_TAG_OVERHEAD_WIRE_SEGMENT },   // <- Deprecate
     { "overheadWire",                   SUMO_TAG_OVERHEAD_WIRE_SECTION },
     { "tractionSubstation",             SUMO_TAG_TRACTION_SUBSTATION },
     { "overheadWireClamp",              SUMO_TAG_OVERHEAD_WIRE_CLAMP },
@@ -441,16 +441,20 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "overheadWireChargingPower",      SUMO_ATTR_OVERHEADWIRECHARGINGPOWER },
     // OverheadWire
     { "overheadWireSegment",    SUMO_ATTR_OVERHEAD_WIRE_SEGMENT },
-    { "segments",               SUMO_ATTR_OVERHEAD_WIRE_SECTION },
+    { "segments",               SUMO_ATTR_OVERHEAD_WIRE_SEGMENTS },     // <- deprecate
     { "voltage",                SUMO_ATTR_VOLTAGE },
     { "voltageSource",          SUMO_ATTR_VOLTAGESOURCE },
     { "currentLimit",           SUMO_ATTR_CURRENTLIMIT },
     { "substationId",           SUMO_ATTR_SUBSTATIONID },
     { "wireResistivity",        SUMO_ATTR_OVERHEAD_WIRE_RESISTIVITY },
     { "forbiddenInnerLanes",    SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN },
-    { "clamps",                  SUMO_ATTR_OVERHEAD_WIRE_CLAMPS },
-    { "idSegmentStartClamp",    SUMO_ATTR_OVERHEAD_WIRE_CLAMP_START },
-    { "idSegmentEndClamp",      SUMO_ATTR_OVERHEAD_WIRE_CLAMP_END },
+    { "clamps",                 SUMO_ATTR_OVERHEAD_WIRE_CLAMPS },       // <- deprecate
+    { "idSegmentStartClamp",    SUMO_ATTR_OVERHEAD_WIRE_CLAMP_START },  // <- deprecate
+    { "idSegmentEndClamp",      SUMO_ATTR_OVERHEAD_WIRE_CLAMP_END },    // <- deprecate
+    { "wireClampStart",         SUMO_ATTR_OVERHEAD_WIRECLAMP_START },
+    { "wireClampEnd",           SUMO_ATTR_OVERHEAD_WIRECLAMP_END },
+    { "wireClampLaneStart",     SUMO_ATTR_OVERHEAD_WIRECLAMP_LANESTART },
+    { "wireClampLaneEnd",       SUMO_ATTR_OVERHEAD_WIRECLAMP_LANEEND },
     // Charging Station
     { "power",                  SUMO_ATTR_CHARGINGPOWER },
     { "efficiency",             SUMO_ATTR_EFFICIENCY },

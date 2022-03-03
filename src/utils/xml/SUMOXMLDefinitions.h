@@ -633,7 +633,7 @@ enum SumoXMLAttr {
     /// @name overheadWire attributes
     /// @{
     SUMO_ATTR_OVERHEAD_WIRE_SEGMENT,
-    SUMO_ATTR_OVERHEAD_WIRE_SECTION,
+    SUMO_ATTR_OVERHEAD_WIRE_SEGMENTS,
     /// @brief voltage of the traction substation [V]
     SUMO_ATTR_VOLTAGE,
     /// @brief a voltage source on the overhead wire segment [bool]
@@ -652,6 +652,14 @@ enum SumoXMLAttr {
     SUMO_ATTR_OVERHEAD_WIRE_CLAMP_START,
     /// @brief id of the overhead wire segment, to the end of which the overhead wire clamp is connected
     SUMO_ATTR_OVERHEAD_WIRE_CLAMP_END,
+    /// @brief id of the overhead wire, to the start of which the overhead wire clamp is connected
+    SUMO_ATTR_OVERHEAD_WIRECLAMP_START,
+    /// @brief id of the overhead wire, to the end of which the overhead wire clamp is connected
+    SUMO_ATTR_OVERHEAD_WIRECLAMP_END,
+    /// @brief id of the overhead wire lane, to the start of which the overhead wire clamp is connected
+    SUMO_ATTR_OVERHEAD_WIRECLAMP_LANESTART,
+    /// @brief id of the overhead wire lane, to the end of which the overhead wire clamp is connected
+    SUMO_ATTR_OVERHEAD_WIRECLAMP_LANEEND,
     /// @}
 
     /// @name charging stations attributes
