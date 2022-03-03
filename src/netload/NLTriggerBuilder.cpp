@@ -233,7 +233,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
     }
 
     // @todo This may be a relict of older approach to processing the attributes ...
-    std::string segmentStrings = attrs.get<std::string>(SUMO_ATTR_OVERHEAD_WIRE_SECTION, substationId.c_str(), ok);
+    std::string segmentStrings = attrs.get<std::string>(SUMO_ATTR_OVERHEAD_WIRE_SEGMENTS, substationId.c_str(), ok);
     if (!ok) {
         throw InvalidArgument("Segments referenced by Traction substation '" + substationId + "' are not declared .");
     }
