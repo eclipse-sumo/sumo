@@ -364,13 +364,14 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, enc
     @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
     """
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
-    for line in _comment_filter(_open(xmlfile, encoding)):
-        m = reprog.search(line)
-        if m:
-            if optional:
-                yield Record(**m.groupdict())
-            else:
-                yield Record(*m.groups())
+    with _open(xmlfile, encoding) as xml_in:
+        for line in _comment_filter(xml_in):
+            m = reprog.search(line)
+            if m:
+                if optional:
+                    yield Record(**m.groupdict())
+                else:
+                    yield Record(*m.groups())
 
 
 def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames2,
@@ -385,22 +386,23 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
     record = None
-    for line in _comment_filter(_open(xmlfile, encoding)):
-        m2 = reprog2.search(line)
-        if record and m2:
-            if optional:
-                yield record, Record2(**m2.groupdict())
-            else:
-                yield record, Record2(*m2.groups())
-        else:
-            m = reprog.search(line)
-            if m:
+    with _open(xmlfile, encoding) as xml_in:
+        for line in _comment_filter(xml_in):
+            m2 = reprog2.search(line)
+            if record and m2:
                 if optional:
-                    record = Record(**m.groupdict())
+                    yield record, Record2(**m2.groupdict())
                 else:
-                    record = Record(*m.groups())
-            elif element_name in line:
-                record = None
+                    yield record, Record2(*m2.groups())
+            else:
+                m = reprog.search(line)
+                if m:
+                    if optional:
+                        record = Record(**m.groupdict())
+                    else:
+                        record = Record(*m.groups())
+                elif element_name in line:
+                    record = None
 
 
 def parse_fast_structured(xmlfile, element_name, attrnames, nested,
@@ -418,34 +420,35 @@ def parse_fast_structured(xmlfile, element_name, attrnames, nested,
     re2 = [(elem,) + _createRecordAndPattern(elem, attr, warn, optional) for elem, attr in nested.items()]
     finalizer = "</%s>" % element_name
     record = None
-    for line in _comment_filter(_open(xmlfile, encoding)):
-        if record:
-            for name2, Record2, reprog2 in re2:
-                m2 = reprog2.search(line)
-                if m2:
-                    if optional:
-                        inner = Record2(**m2.groupdict())
-                    else:
-                        inner = Record2(*m2.groups())
-                    getattr(record, name2).append(inner)
-                    break
-            else:
-                if finalizer in line:
-                    yield record
-                    record = None
-        else:
-            m = reprog.search(line)
-            if m:
-                if optional:
-                    args = dict(m.groupdict())
-                    for name, _, __ in re2:
-                        args[name] = []
-                    record = Record(**args)
+    with _open(xmlfile, encoding) as xml_in:
+        for line in _comment_filter(xml_in):
+            if record:
+                for name2, Record2, reprog2 in re2:
+                    m2 = reprog2.search(line)
+                    if m2:
+                        if optional:
+                            inner = Record2(**m2.groupdict())
+                        else:
+                            inner = Record2(*m2.groups())
+                        getattr(record, name2).append(inner)
+                        break
                 else:
-                    args = list(m.groups())
-                    for _ in range(len(re2)):
-                        args.append([])
-                    record = Record(*args)
+                    if finalizer in line:
+                        yield record
+                        record = None
+            else:
+                m = reprog.search(line)
+                if m:
+                    if optional:
+                        args = dict(m.groupdict())
+                        for name, _, __ in re2:
+                            args[name] = []
+                        record = Record(**args)
+                    else:
+                        args = list(m.groups())
+                        for _ in range(len(re2)):
+                            args.append([])
+                        record = Record(*args)
 
 
 def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", options=None):
