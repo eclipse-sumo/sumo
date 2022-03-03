@@ -2130,122 +2130,47 @@ GNENet::getDataSetIntervalMaximumEnd() const {
 void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
+    // open header
     device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
-    // declare map for saving additional sorted by ID
-    std::vector<std::map<std::string, GNEAdditional*> > sortedAdditionals;
     // first write routes with additional children (due route prob reroutes)
-    std::map<std::string, GNEDemandElement*> sortedRoutes;
-    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        if (route->getChildAdditionals().size() > 0) {
-            sortedRoutes[route->getID()] = route;
-        }
-    }
-    for (const auto& route : sortedRoutes) {
-        route.second->writeDemandElement(device);
-    }
+    writeRouteComment(device, true);
+    writeRoutes(device, true);
     // routeProbes
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& routeProbe : myAttributeCarriers->getAdditionals().at(SUMO_TAG_ROUTEPROBE)) {
-        sortedAdditionals.back()[routeProbe->getID()] = routeProbe;
-    }
+    writeRouteProbeComment(device);
+    writeAdditionalByType(device, SUMO_TAG_ROUTEPROBE);
     // calibrator
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& calibrator : myAttributeCarriers->getAdditionals().at(SUMO_TAG_CALIBRATOR)) {
-        sortedAdditionals.back()[calibrator->getID()] = calibrator;
-    }
-    // calibratorLane
-    for (const auto& calibratorLane : myAttributeCarriers->getAdditionals().at(GNE_TAG_CALIBRATOR_LANE)) {
-        sortedAdditionals.back()[calibratorLane->getID()] = calibratorLane;
-    }
-    // busStop
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& busStop : myAttributeCarriers->getAdditionals().at(SUMO_TAG_BUS_STOP)) {
-        sortedAdditionals.back()[busStop->getID()] = busStop;
-    }
-    // trainStop
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& trainStop : myAttributeCarriers->getAdditionals().at(SUMO_TAG_TRAIN_STOP)) {
-        sortedAdditionals.back()[trainStop->getID()] = trainStop;
-    }
-    // containerStop
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& containerStop : myAttributeCarriers->getAdditionals().at(SUMO_TAG_CONTAINER_STOP)) {
-        sortedAdditionals.back()[containerStop->getID()] = containerStop;
-    }
-    // chargingStation
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& chargingStation : myAttributeCarriers->getAdditionals().at(SUMO_TAG_CHARGING_STATION)) {
-        sortedAdditionals.back()[chargingStation->getID()] = chargingStation;
-    }
-    // parkingArea
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& parkingArea : myAttributeCarriers->getAdditionals().at(SUMO_TAG_PARKING_AREA)) {
-        sortedAdditionals.back()[parkingArea->getID()] = parkingArea;
-    }
-    // E1
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& E1 : myAttributeCarriers->getAdditionals().at(SUMO_TAG_E1DETECTOR)) {
-        sortedAdditionals.back()[E1->getID()] = E1;
-    }
-    // E1Instant
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& E1Instant : myAttributeCarriers->getAdditionals().at(SUMO_TAG_INSTANT_INDUCTION_LOOP)) {
-        sortedAdditionals.back()[E1Instant->getID()] = E1Instant;
-    }
-    // E2
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& E2 : myAttributeCarriers->getAdditionals().at(SUMO_TAG_E2DETECTOR)) {
-        sortedAdditionals.back()[E2->getID()] = E2;
-    }
-    // E2Multilane
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& E2Multilane : myAttributeCarriers->getAdditionals().at(GNE_TAG_E2DETECTOR_MULTILANE)) {
-        sortedAdditionals.back()[E2Multilane->getID()] = E2Multilane;
-    }
-    // E3
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& E3 : myAttributeCarriers->getAdditionals().at(SUMO_TAG_E3DETECTOR)) {
-        sortedAdditionals.back()[E3->getID()] = E3;
-    }
-    // rerouters
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& rerouter : myAttributeCarriers->getAdditionals().at(SUMO_TAG_REROUTER)) {
-        sortedAdditionals.back()[rerouter->getID()] = rerouter;
-    }
-    // VSS
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& VSS : myAttributeCarriers->getAdditionals().at(SUMO_TAG_VSS)) {
-        sortedAdditionals.back()[VSS->getID()] = VSS;
-    }
-    // Vaporizers
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& vaporizer : myAttributeCarriers->getAdditionals().at(SUMO_TAG_VAPORIZER)) {
-        sortedAdditionals.back()[vaporizer->getID()] = vaporizer;
-    }
-    // Polygons
-    for (const auto& poly : myAttributeCarriers->getAdditionals().at(SUMO_TAG_POLY)) {
-        sortedAdditionals.back()[poly->getID()] = poly;
-    }
-    // POIs
-    for (const auto& POI : myAttributeCarriers->getAdditionals().at(SUMO_TAG_POI)) {
-        sortedAdditionals.back()[POI->getID()] = POI;
-    }
-    for (const auto& POILane : myAttributeCarriers->getAdditionals().at(GNE_TAG_POILANE)) {
-        sortedAdditionals.back()[POILane->getID()] = POILane;
-    }
-    for (const auto& POIGEO : myAttributeCarriers->getAdditionals().at(GNE_TAG_POIGEO)) {
-        sortedAdditionals.back()[POIGEO->getID()] = POIGEO;
-    }
+    writeCalibratorComment(device);
+    writeAdditionalByType(device, SUMO_TAG_CALIBRATOR);
+    writeAdditionalByType(device, GNE_TAG_CALIBRATOR_LANE);
+    // stoppingPlaces
+    writeStoppingPlaceComment(device);
+    writeAdditionalByType(device, SUMO_TAG_BUS_STOP);
+    writeAdditionalByType(device, SUMO_TAG_TRAIN_STOP);
+    writeAdditionalByType(device, SUMO_TAG_CONTAINER_STOP);
+    writeAdditionalByType(device, SUMO_TAG_CHARGING_STATION);
+    writeAdditionalByType(device, SUMO_TAG_PARKING_AREA);
+    // detectors
+    writeDetectorComment(device);
+    writeAdditionalByType(device, SUMO_TAG_E1DETECTOR);
+    writeAdditionalByType(device, SUMO_TAG_INSTANT_INDUCTION_LOOP);
+    writeAdditionalByType(device, SUMO_TAG_E2DETECTOR);
+    writeAdditionalByType(device, GNE_TAG_E2DETECTOR_MULTILANE);
+    writeAdditionalByType(device, SUMO_TAG_E3DETECTOR);
+    // Other additionals
+    writeOtherAdditionalsComment(device);
+    writeAdditionalByType(device, SUMO_TAG_REROUTER);
+    writeAdditionalByType(device, SUMO_TAG_VSS);
+    writeAdditionalByType(device, SUMO_TAG_VAPORIZER);
+    // shapes
+    writeShapesComment(device);
+    writeAdditionalByType(device, SUMO_TAG_POLY);
+    writeAdditionalByType(device, SUMO_TAG_POI);
+    writeAdditionalByType(device, GNE_TAG_POILANE);
+    writeAdditionalByType(device, GNE_TAG_POIGEO);
     // TAZs
-    for (const auto& TAZ : myAttributeCarriers->getAdditionals().at(SUMO_TAG_TAZ)) {
-        sortedAdditionals.back()[TAZ->getID()] = TAZ;
-    }
-    // now write additionals
-    for (const auto& additionalTag : sortedAdditionals) {
-        for (const auto& additional : additionalTag) {
-            additional.second->writeAdditional(device);
-        }
-    }
+    writeTAZComment(device);
+    writeAdditionalByType(device, SUMO_TAG_TAZ);
+    // close device
     device.close();
 }
 
@@ -2253,36 +2178,15 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
 void
 GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
+    // open header
     device.writeXMLHeader("routes", "routes_file.xsd", EMPTY_HEADER, false);
-    // declare map for saving demand elements sorted by ID
-    std::map<std::string, GNEDemandElement*> sortedDemandElements;
     // first  write all vTypeDistributions (and their vTypes)
-    for (const auto& vTypeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-        sortedDemandElements[vTypeDistribution->getID()] = vTypeDistribution;
-    }
-    for (const auto& demandElement : sortedDemandElements) {
-        demandElement.second->writeDemandElement(device);
-    }
-    sortedDemandElements.clear();
-    // now write all vType without vTypeDistributions
-    for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        if (vType->getParentDemandElements().empty()) {
-            sortedDemandElements[vType->getID()] = vType;
-        }
-    }
-    for (const auto& demandElement : sortedDemandElements) {
-        demandElement.second->writeDemandElement(device);
-    }
-    sortedDemandElements.clear();
+    writeVTypeComment(device);
+    writeDemandByType(device, SUMO_TAG_VTYPE_DISTRIBUTION);
+    writeDemandByType(device, SUMO_TAG_VTYPE);
     // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
-    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        if (route->getChildAdditionals().empty()) {
-            sortedDemandElements[route->getID()] = route;
-        }
-    }
-    for (const auto& demandElement : sortedDemandElements) {
-        demandElement.second->writeDemandElement(device);
-    }
+    writeRouteComment(device, false);
+    writeRoutes(device, false);
     // sort vehicles/persons by depart
     std::map<double, std::map<std::string, GNEDemandElement*> > vehiclesSortedByDepart;
     for (const auto& demandElementTag : myAttributeCarriers->getDemandElements()) {
@@ -2294,11 +2198,15 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
         }
     }
     // finally write all vehicles, persons and containers sorted by depart time (and their associated stops, personPlans, etc.)
-    for (const auto& vehicleTag : vehiclesSortedByDepart) {
-        for (const auto& vehicle : vehicleTag.second) {
-            vehicle.second->writeDemandElement(device);
+    if (vehiclesSortedByDepart.size() > 0) {
+        device.writePadding("    <!-- Vehicles, persons and containers (sorted by depart) -->\n");
+        for (const auto& vehicleTag : vehiclesSortedByDepart) {
+            for (const auto& vehicle : vehicleTag.second) {
+                vehicle.second->writeDemandElement(device);
+            }
         }
     }
+    // close device
     device.close();
 }
 
@@ -2313,6 +2221,152 @@ GNENet::saveDataElementsConfirmed(const std::string& filename) {
     }
     // close device
     device.close();
+}
+
+
+void
+GNENet::writeAdditionalByType(OutputDevice& device, SumoXMLTag tag) const {
+    std::map<std::string, GNEAdditional*> sortedAdditionals;
+    for (const auto& additional : myAttributeCarriers->getAdditionals().at(tag)) {
+        sortedAdditionals[additional->getID()] = additional;
+    }
+    for (const auto& additional : sortedAdditionals) {
+        additional.second->writeAdditional(device);
+    }
+}
+
+
+void
+GNENet::writeDemandByType(OutputDevice& device, SumoXMLTag tag) const {
+    std::map<std::string, GNEDemandElement*> sortedDemandElements;
+    for (const auto& demandElement : myAttributeCarriers->getDemandElements().at(tag)) {
+        sortedDemandElements[demandElement->getID()] = demandElement;
+    }
+    for (const auto& demandElement : sortedDemandElements) {
+        demandElement.second->writeDemandElement(device);
+    }
+}
+
+
+void 
+GNENet::writeRoutes(OutputDevice& device, const bool additionalFile) const {
+    std::map<std::string, GNEDemandElement*> sortedRoutes;
+    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
+        if ((additionalFile && (route->getChildAdditionals().size() > 0)) || 
+            (!additionalFile && (route->getChildAdditionals().size() == 0))) {
+            sortedRoutes[route->getID()] = route;
+        }
+    }
+    for (const auto& route : sortedRoutes) {
+        route.second->writeDemandElement(device);
+    }
+}
+
+
+bool 
+GNENet::writeVTypeComment(OutputDevice& device) const {
+    if ((myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION).size() > 0) ||
+        (myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE).size() > 0)) {
+        device.writePadding("    <!-- VTypes -->\n");
+        return true;
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeRouteComment(OutputDevice& device, const bool additionalFile) const {
+    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
+        if (additionalFile && (route->getChildAdditionals().size() > 0)) {
+            device.writePadding("    <!-- Routes (used in RouteProbReroutes) -->\n");
+            return true;
+        } else if (!additionalFile && (route->getChildAdditionals().size() > 0)) {
+            device.writePadding("    <!-- Routes -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeRouteProbeComment(OutputDevice& device) const {
+    if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_ROUTEPROBE).size() > 0) {
+        device.writePadding("    <!-- RouteProbes -->\n");
+        return true;
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeCalibratorComment(OutputDevice& device) const {
+    if ((myAttributeCarriers->getAdditionals().at(SUMO_TAG_CALIBRATOR).size() > 0) ||
+        (myAttributeCarriers->getAdditionals().at(GNE_TAG_CALIBRATOR_LANE).size() > 0)) {
+        device.writePadding("    <!-- Calibrators -->\n");
+        return true;
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeStoppingPlaceComment(OutputDevice& device) const {
+    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isStoppingPlace() && (additionals.second.size() > 0)) {
+            device.writePadding("    <!-- StoppingPlaces -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeDetectorComment(OutputDevice& device) const {
+    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isStoppingPlace() && (additionals.second.size() > 0)) {
+            device.writePadding("    <!-- Detectors -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
+    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isAdditionalPureElement() && 
+            (additionals.first != SUMO_TAG_ROUTEPROBE) && (additionals.first != SUMO_TAG_CALIBRATOR) &&
+            (additionals.first != GNE_TAG_CALIBRATOR_LANE) && (additionals.second.size() > 0)) {
+            device.writePadding("    <!-- Other additionals -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeShapesComment(OutputDevice& device) const {
+    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isShapeElement() && (additionals.second.size() > 0)) {
+            device.writePadding("    <!-- Shapes -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeTAZComment(OutputDevice& device) const {
+    if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_TAZ).size() > 0) {
+        device.writePadding("    <!-- TAZs -->\n");
+        return true;
+    }
+    return false;
 }
 
 

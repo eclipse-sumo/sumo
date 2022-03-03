@@ -564,6 +564,43 @@ private:
     /// @brief save data elements after confirming invalid objects
     void saveDataElementsConfirmed(const std::string& filename);
 
+    /// @brief write additional element by type and sorted by ID
+    void writeAdditionalByType(OutputDevice& device, SumoXMLTag tag) const;
+
+    /// @brief write demand element by type and sorted by ID
+    void writeDemandByType(OutputDevice& device, SumoXMLTag tag) const;
+
+    /// @brief write route sorted by ID
+    void writeRoutes(OutputDevice& device, const bool additionalFile) const;
+
+    /// @brief write vType comment
+    bool writeVTypeComment(OutputDevice& device) const;
+
+    /// @brief write route comment
+    bool writeRouteComment(OutputDevice& device, const bool additionalFile) const;
+
+    /// @brief write routeProbe comment
+    bool writeRouteProbeComment(OutputDevice& device) const;
+
+    /// @brief write calibrator comment
+    bool writeCalibratorComment(OutputDevice& device) const;
+
+    /// @brief write stoppingPlace comment
+    bool writeStoppingPlaceComment(OutputDevice& device) const;
+
+    /// @brief write detector comment
+    bool writeDetectorComment(OutputDevice& device) const;
+
+    /// @brief write other additional comment
+    bool writeOtherAdditionalsComment(OutputDevice& device) const;
+
+    /// @brief write shape comment
+    bool writeShapesComment(OutputDevice& device) const;
+
+    /// @brief write TAZ comment
+    bool writeTAZComment(OutputDevice& device) const;
+
+    /// @brief replace in list attribute
     static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);
 
     /// @brief the z boundary (stored in the x-coordinate), values of 0 are ignored
