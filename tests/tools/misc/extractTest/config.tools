@@ -1,0 +1,6 @@
+[run_dependent_text]
+output:ignoring variant (.*) for '.*[\\/]sumo[\\/]tests[\\/]{REPLACE ignoring variant \1 for 'sumo/tests/}
+output:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+output:calling .*[\\/]sumo(.*){REPLACE calling sumo\1}
+output:python2{REPLACE python}
+output:python3{REPLACE python}

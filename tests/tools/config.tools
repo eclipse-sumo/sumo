@@ -217,9 +217,6 @@ output:00000 *${REPLACE 00000}
 output:Cache: hits
 output:function .* called at .*
 output:function .* finished after .*
-output:ignoring variant (.*) for '.*[\\/]sumo[\\/]tests[\\/]{REPLACE ignoring variant \1 for 'sumo/tests/}
-output:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
-output:calling .*[\\/]sumo(.*){REPLACE calling sumo\1}
 dualog:uration:.*ms
 dualog:uration:.*s
 dualog:Real time factor
