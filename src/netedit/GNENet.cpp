@@ -2195,7 +2195,7 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     }
     // finally write all vehicles, persons and containers sorted by depart time (and their associated stops, personPlans, etc.)
     if (vehiclesSortedByDepart.size() > 0) {
-        device.writePadding("    <!-- Vehicles, persons and containers (sorted by depart) -->\n");
+        device << ("    <!-- Vehicles, persons and containers (sorted by depart) -->\n");
         for (const auto& vehicleTag : vehiclesSortedByDepart) {
             for (const auto& vehicle : vehicleTag.second) {
                 vehicle.second->writeDemandElement(device);
@@ -2269,7 +2269,7 @@ bool
 GNENet::writeVTypeComment(OutputDevice& device) const {
     if ((myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION).size() > 0) ||
         (myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE).size() > 0)) {
-        device.writePadding("    <!-- VTypes -->\n");
+        device << ("    <!-- VTypes -->\n");
         return true;
     }
     return false;
@@ -2280,10 +2280,10 @@ bool
 GNENet::writeRouteComment(OutputDevice& device, const bool additionalFile) const {
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         if (additionalFile && (route->getChildAdditionals().size() > 0)) {
-            device.writePadding("    <!-- Routes (used in RouteProbReroutes) -->\n");
+            device << ("    <!-- Routes (used in RouteProbReroutes) -->\n");
             return true;
         } else if (!additionalFile && (route->getChildAdditionals().size() > 0)) {
-            device.writePadding("    <!-- Routes -->\n");
+            device << ("    <!-- Routes -->\n");
             return true;
         }
     }
@@ -2294,7 +2294,7 @@ GNENet::writeRouteComment(OutputDevice& device, const bool additionalFile) const
 bool 
 GNENet::writeRouteProbeComment(OutputDevice& device) const {
     if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_ROUTEPROBE).size() > 0) {
-        device.writePadding("    <!-- RouteProbes -->\n");
+        device << ("    <!-- RouteProbes -->\n");
         return true;
     }
     return false;
@@ -2305,7 +2305,7 @@ bool
 GNENet::writeCalibratorComment(OutputDevice& device) const {
     if ((myAttributeCarriers->getAdditionals().at(SUMO_TAG_CALIBRATOR).size() > 0) ||
         (myAttributeCarriers->getAdditionals().at(GNE_TAG_CALIBRATOR_LANE).size() > 0)) {
-        device.writePadding("    <!-- Calibrators -->\n");
+        device << ("    <!-- Calibrators -->\n");
         return true;
     }
     return false;
@@ -2316,7 +2316,7 @@ bool
 GNENet::writeStoppingPlaceComment(OutputDevice& device) const {
     for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
         if (GNEAttributeCarrier::getTagProperty(additionals.first).isStoppingPlace() && (additionals.second.size() > 0)) {
-            device.writePadding("    <!-- StoppingPlaces -->\n");
+            device << ("    <!-- StoppingPlaces -->\n");
             return true;
         }
     }
@@ -2328,7 +2328,7 @@ bool
 GNENet::writeDetectorComment(OutputDevice& device) const {
     for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
         if (GNEAttributeCarrier::getTagProperty(additionals.first).isDetector() && (additionals.second.size() > 0)) {
-            device.writePadding("    <!-- Detectors -->\n");
+            device << ("    <!-- Detectors -->\n");
             return true;
         }
     }
@@ -2344,7 +2344,7 @@ GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
             !GNEAttributeCarrier::getTagProperty(additionals.first).isDetector() &&
             (additionals.first != SUMO_TAG_ROUTEPROBE) && (additionals.first != SUMO_TAG_CALIBRATOR) &&
             (additionals.first != GNE_TAG_CALIBRATOR_LANE) && (additionals.second.size() > 0)) {
-            device.writePadding("    <!-- Other additionals -->\n");
+            device << ("    <!-- Other additionals -->\n");
             return true;
         }
     }
@@ -2356,7 +2356,7 @@ bool
 GNENet::writeShapesComment(OutputDevice& device) const {
     for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
         if (GNEAttributeCarrier::getTagProperty(additionals.first).isShapeElement() && (additionals.second.size() > 0)) {
-            device.writePadding("    <!-- Shapes -->\n");
+            device << ("    <!-- Shapes -->\n");
             return true;
         }
     }
@@ -2367,7 +2367,7 @@ GNENet::writeShapesComment(OutputDevice& device) const {
 bool 
 GNENet::writeTAZComment(OutputDevice& device) const {
     if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_TAZ).size() > 0) {
-        device.writePadding("    <!-- TAZs -->\n");
+        device << ("    <!-- TAZs -->\n");
         return true;
     }
     return false;
