@@ -638,9 +638,10 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
     if (tagPropertyCategory & GNETagProperties::ADDITIONALELEMENT) {
         // fill additional tags
         for (const auto& tagProperty : myTagProperties) {
-            // avoid symbols, shapes and TAZs (It will be implemented in #7355)
+            // avoid symbols (It will be implemented in #7355)
             if (!tagProperty.second.isSymbol() && !tagProperty.second.isShape() && 
-                !tagProperty.second.isTAZElement() && tagProperty.second.isAdditionalElement()) {
+                !tagProperty.second.isTAZElement() && !tagProperty.second.isWireElement() &&
+                tagProperty.second.isAdditionalElement()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
@@ -665,6 +666,14 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
         // fill taz tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isTAZElement()) {
+                allowedTags.push_back(tagProperty.second);
+            }
+        }
+    }
+    if (tagPropertyCategory & GNETagProperties::WIRE) {
+        // fill wire tags
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isWireElement()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
@@ -2695,7 +2704,7 @@ GNEAttributeCarrier::fillAdditionals() {
     {
         // set tag properties
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::WIRE,
+                                      GNETagProperties::ADDITIONALELEMENT | GNETagProperties::WIRE,
                                       0,
                                       GUIIcon::TRACTION_SUBSTATION, currentTag);
         // set attribute properties
@@ -2720,7 +2729,7 @@ GNEAttributeCarrier::fillAdditionals() {
     {
         // set tag properties
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::WIRE,
+                                      GNETagProperties::ADDITIONALELEMENT | GNETagProperties::WIRE,
                                       0,
                                       GUIIcon::OVERHEADWIRE, currentTag);
         // set attribute properties
@@ -2768,7 +2777,7 @@ GNEAttributeCarrier::fillAdditionals() {
     {
         // set tag properties
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::WIRE,
+                                      GNETagProperties::ADDITIONALELEMENT | GNETagProperties::WIRE,
                                       0,
                                       GUIIcon::OVERHEADWIRE_CLAMP, currentTag);
         // set attribute properties
