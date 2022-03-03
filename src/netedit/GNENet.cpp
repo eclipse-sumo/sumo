@@ -74,6 +74,7 @@ FXIMPLEMENT_ABSTRACT(GNENetHelper::GNEChange_ReplaceEdgeInTLS, GNEChange, nullpt
 // ===========================================================================
 
 const double GNENet::Z_INITIALIZED = 1;
+const std::map<SumoXMLAttr, std::string> GNENet::EMPTY_HEADER;
 
 // ===========================================================================
 // member method definitions
@@ -2129,7 +2130,7 @@ GNENet::getDataSetIntervalMaximumEnd() const {
 void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("additional", "additional_file.xsd");
+    device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
     // declare map for saving additional sorted by ID
     std::vector<std::map<std::string, GNEAdditional*> > sortedAdditionals;
     // first write routes with additional children (due route prob reroutes)
@@ -2252,7 +2253,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
 void
 GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("routes", "routes_file.xsd", std::map<SumoXMLAttr, std::string>(), false);
+    device.writeXMLHeader("routes", "routes_file.xsd", EMPTY_HEADER, false);
     // declare map for saving demand elements sorted by ID
     std::map<std::string, GNEDemandElement*> sortedDemandElements;
     // first  write all vTypeDistributions (and their vTypes)
@@ -2305,7 +2306,7 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
 void
 GNENet::saveDataElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("data", "datamode_file.xsd", std::map<SumoXMLAttr, std::string>(), false);
+    device.writeXMLHeader("data", "datamode_file.xsd", EMPTY_HEADER, false);
     // write all data sets
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         dataSet->writeDataSet(device);

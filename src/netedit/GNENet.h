@@ -569,11 +569,14 @@ private:
     /// @brief the z boundary (stored in the x-coordinate), values of 0 are ignored
     Boundary myZBoundary;
 
+    /// @brief map with the Edges and their number of lanes
+    std::map<std::string, int> myEdgesAndNumberOfLanes;
+
     /// @brief marker for whether the z-boundary is initialized
     static const double Z_INITIALIZED;
 
-    /// @brief map with the Edges and their number of lanes
-    std::map<std::string, int> myEdgesAndNumberOfLanes;
+    /// @brief variable used for write headers in additional, demand and data elements
+    static const std::map<SumoXMLAttr, std::string> EMPTY_HEADER;
 
     /// @brief Invalidated copy constructor.
     GNENet(const GNENet&) = delete;
