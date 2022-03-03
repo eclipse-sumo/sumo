@@ -40,35 +40,35 @@ enum {
     /// @{
 
     /// @brief hotkey for mode editing additionals AND stops
-    MID_HOTKEY_A_MODES_ADDITIONAL_STOP,
-    /// @brief hotkey for mode connecting lanes
-    MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN,
+    MID_HOTKEY_A_MODE_ADDITIONAL_STOP,
+    /// @brief hotkey for mode connecting lanes ABD person plan
+    MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN,
     /// @brief hotkey for mode deleting things
-    MID_HOTKEY_D_MODES_DELETE,
+    MID_HOTKEY_D_MODE_DELETE,
     /// @brief hotkey for mode adding edges AND edgeDatas
-    MID_HOTKEY_E_MODES_EDGE_EDGEDATA,
+    MID_HOTKEY_E_MODE_EDGE_EDGEDATA,
     /// @brief hotkey for mode container
     MID_HOTKEY_G_MODE_CONTAINER,
-    /// @brief hotkey for mode containerData
-    MID_HOTKEY_H_MODE_CONTAINERDATA,
+    /// @brief hotkey for mode prohibition AND container plan
+    MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,
     /// @brief hotkey for mode inspecting object attributes
-    MID_HOTKEY_I_MODES_INSPECT,
+    MID_HOTKEY_I_MODE_INSPECT,
     /// @brief hotkey for mode moving element
-    MID_HOTKEY_M_MODES_MOVE,
+    MID_HOTKEY_M_MODE_MOVE,
     /// @brief hotkey for mode creating polygons
-    MID_HOTKEY_P_MODES_POLYGON_PERSON,
+    MID_HOTKEY_P_MODE_POLYGON_PERSON,
     /// @brief hotkey for mode selecting objects
-    MID_HOTKEY_S_MODES_SELECT,
+    MID_HOTKEY_S_MODE_SELECT,
     /// @brief hotkey for mode editing crossing, routes and edge rel datas
-    MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA,
-    /// @brief hotkey for mode editing TLS AND types
-    MID_HOTKEY_T_MODES_TLS_TYPE,
+    MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,
+    /// @brief hotkey for mode editing TLS AND Vehicle Types
+    MID_HOTKEY_T_MODE_TLS_TYPE,
     /// @brief hotkey for mode create vehicles
-    MID_HOTKEY_V_MODES_VEHICLE,
-    /// @brief hotkey for mode editing connection prohibitions
-    MID_HOTKEY_W_MODES_PROHIBITION,
+    MID_HOTKEY_V_MODE_VEHICLE,
+    /// @brief hotkey for mode editing overhead wires
+    MID_HOTKEY_W_MODE_WIRE,
     /// @brief hotkey for mode editing TAZ and TAZRel
-    MID_HOTKEY_Z_MODES_TAZ_TAZREL,
+    MID_HOTKEY_Z_MODE_TAZ_TAZREL,
 
     /// @}
 
