@@ -544,9 +544,7 @@ MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& st
             myStopWaitPos = Position::INVALID;
             myWaitingPos = previous->getArrivalPos();
         }
-        /// MSNet time isn't updated at this point
-        SUMOTime now = string2time(OptionsCont::getOptions().getString("begin"));
-        registerWaiting(transportable, now);
+        registerWaiting(transportable, SIMSTEP);
     }
 }
 
