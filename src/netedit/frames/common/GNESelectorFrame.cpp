@@ -537,7 +537,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     if (ignoreLocking || !locks.isObjectLocked(GLO_ADDITIONALELEMENT, false)) {
         for (const auto& additionalTag : ACs->getAdditionals()) {
             // first check if additional is selectable
-            if (!GNEAttributeCarrier::getTagProperty(additionalTag.first).isAdditionalPureElement() && GNEAttributeCarrier::getTagProperty(additionalTag.first).isSelectable()) {
+            if (GNEAttributeCarrier::getTagProperty(additionalTag.first).isAdditionalPureElement() && GNEAttributeCarrier::getTagProperty(additionalTag.first).isSelectable()) {
                 for (const auto& additional : additionalTag.second) {
                     if (onlyCount) {
                         return true;
