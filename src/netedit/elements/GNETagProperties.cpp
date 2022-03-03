@@ -97,6 +97,10 @@ GNETagProperties::checkTagIntegrity() const {
     if ((isNetworkElement() + isAdditionalElement() + isDemandElement() + isDataElement()) > 1) {
         throw ProcessError("element can be only a networkElement, additional, demandElement or dataElement at the same time");
     }
+    // check that element only is shape, TAZ, or wire at the same time
+    if ((isShape() + isTAZElement() + isWireElement()) > 1) {
+        throw ProcessError("element can be only a shape, TAZ or wire element at the same time");
+    }
     // if element can mask the start and end position, check that bot attributes exist
     if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
         throw ProcessError("If attribute mask the start and end position, bot attribute has to be defined");
@@ -300,6 +304,12 @@ GNETagProperties::isShape() const {
 bool
 GNETagProperties::isTAZElement() const {
     return (myTagType & TAZELEMENT) != 0;
+}
+
+
+bool
+GNETagProperties::isWireElement() const {
+    return (myTagType & WIRE) != 0;
 }
 
 

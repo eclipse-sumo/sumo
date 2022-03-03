@@ -50,31 +50,32 @@ public:
         DETECTOR =          1 << 5,  // Detectors (E1, E2...)
         SHAPE =             1 << 6,  // Shapes (Polygons and POIs)
         TAZELEMENT =        1 << 7,  // Traffic Assignment Zones
+        WIRE =              1 << 8,  // Wire elements
         // sub demand elements
-        VTYPE =             1 << 8,  // Vehicle types (vType and vTypeDistribution)
-        VEHICLE =           1 << 9,  // Vehicles (Vehicles, trips, flows...)
-        ROUTE =             1 << 10, // Routes and embedded routes
-        STOP =              1 << 11, // Stops
-        WAYPOINT =          1 << 12, // Waypoints (note: All waypoints are also Stops)
-        FLOW =              1 << 13, // Flows
+        VTYPE =             1 << 9,  // Vehicle types (vType and vTypeDistribution)
+        VEHICLE =           1 << 10, // Vehicles (Vehicles, trips, flows...)
+        ROUTE =             1 << 11, // Routes and embedded routes
+        STOP =              1 << 12, // Stops
+        WAYPOINT =          1 << 13, // Waypoints (note: All waypoints are also Stops)
+        FLOW =              1 << 14, // Flows
         // persons
-        PERSON =            1 << 14, // Persons (Persons and personFlows)
-        PERSONPLAN =        1 << 15, // Person plans (Walks, rides, personTrips and stopPersons)
-        PERSONTRIP =        1 << 16, // Person Trips
-        WALK =              1 << 17, // Walks
-        RIDE =              1 << 18, // Rides
-        STOPPERSON =        1 << 19, // Person stops
+        PERSON =            1 << 15, // Persons (Persons and personFlows)
+        PERSONPLAN =        1 << 16, // Person plans (Walks, rides, personTrips and stopPersons)
+        PERSONTRIP =        1 << 17, // Person Trips
+        WALK =              1 << 18, // Walks
+        RIDE =              1 << 19, // Rides
+        STOPPERSON =        1 << 20, // Person stops
         // containers
-        CONTAINER =         1 << 20, // Containers (Containers and personFlows)
-        CONTAINERPLAN =     1 << 21, // Container plans (tranship and transport)
-        TRANSPORT =         1 << 22, // Transport
-        TRANSHIP =          1 << 23, // Tranship
-        STOPCONTAINER =     1 << 24, // Container stops
+        CONTAINER =         1 << 21, // Containers (Containers and personFlows)
+        CONTAINERPLAN =     1 << 22, // Container plans (tranship and transport)
+        TRANSPORT =         1 << 23, // Transport
+        TRANSHIP =          1 << 24, // Tranship
+        STOPCONTAINER =     1 << 25, // Container stops
         // sub data elements
-        GENERICDATA =       1 << 25, // Generic data (GNEEdgeData, GNELaneData...)
+        GENERICDATA =       1 << 26, // Generic data (GNEEdgeData, GNELaneData...)
         // other
-        SYMBOL =            1 << 26, // Symbol elements (VSSSymbols, RerouterSymbols...)
-        INTERNALLANE =      1 << 27, // Internal Lane
+        SYMBOL =            1 << 27, // Symbol elements (VSSSymbols, RerouterSymbols...)
+        INTERNALLANE =      1 << 28, // Internal Lane
     };
 
     enum TagProperty {
@@ -181,6 +182,9 @@ public:
 
     /// @brief return true if tag correspond to a TAZ element
     bool isTAZElement() const;
+
+    /// @brief return true if tag correspond to a Wire element
+    bool isWireElement() const;
 
     /// @brief return true if tag correspond to a vehicle type element
     bool isVehicleType() const;
