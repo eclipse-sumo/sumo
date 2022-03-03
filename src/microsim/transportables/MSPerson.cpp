@@ -164,6 +164,7 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
                     fromPos = from->getShape().front();
                     toPos = to->getShape().back();
                 }
+                //std::cout << " from=" << from->getID() << " to=" << to->getID() << " junctionLength=" << fromPos.distanceTo2D(toPos) << "\n";
                 length += fromPos.distanceTo2D(toPos);
             }
         }
@@ -181,6 +182,7 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
                                   departBwdArrivalDir == MSPModel::BACKWARD
                                   ? myArrivalPos
                                   : myRoute.back()->getLength() - myArrivalPos));
+    //std::cout << " length=" << length << " lengthFwd=" << lengthFwd << " lengthBwd=" << lengthBwd << " mayStartForward=" << mayStartForward << " mayStartBackward=" << mayStartBackward << "\n";
 
     if (myRoute.size() == 1) {
         if (myDepartPos > myArrivalPos) {

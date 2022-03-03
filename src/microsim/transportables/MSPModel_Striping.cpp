@@ -280,7 +280,7 @@ MSPModel_Striping::usingInternalLanes() {
 
 bool
 MSPModel_Striping::usingInternalLanesStatic() {
-    return MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
+    return MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks() && MSNet::getInstance()->hasPedestrianNetwork();
 }
 
 PersonDist
@@ -663,7 +663,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                 if DEBUGCOND(ped) {
                     std::cout << SIMTIME << " no next lane found for " << currentLane->getID() << " dir=" << ped.myDir << "\n";
                 }
-                if (usingInternalLanesStatic() && currentLane->getLinkCont().size() > 0 && MSNet::getInstance()->hasPedestrianNetwork()) {
+                if (usingInternalLanesStatic() && currentLane->getLinkCont().size() > 0) {
                     WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID()
                                   + "' from edge '" + currentEdge->getID()
                                   + "' to edge '" + nextRouteEdge->getID() + "', time=" +
