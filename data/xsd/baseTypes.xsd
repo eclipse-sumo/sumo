@@ -423,4 +423,8 @@
         </xsd:restriction>
     </xsd:simpleType>
 
+    <xsd:complexType name="includeType">
+        <xsd:attribute name="href" type="xsd:string"/>
+    </xsd:complexType>
+
 </xsd:schema>

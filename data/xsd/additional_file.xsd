@@ -59,11 +59,7 @@
 
             <xsd:element name="type" type="typeType" minOccurs="0"/>
 
-            <xsd:element name="include" minOccurs="0">
-                <xsd:complexType>
-                    <xsd:attribute name="href" type="xsd:string"/>
-                </xsd:complexType>
-            </xsd:element>
+            <xsd:element name="include" type="includeType" minOccurs="0"/>
         </xsd:choice>
     </xsd:complexType>
 
@@ -307,6 +303,7 @@
 
     <xsd:complexType name="rerouterType">
         <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="include" type="includeType" minOccurs="0"/>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="interval" minOccurs="1" maxOccurs="unbounded">
                 <xsd:complexType>
@@ -512,6 +509,7 @@
 
     <xsd:complexType name="calibratorType">
         <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="include" type="includeType" minOccurs="0"/>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="route" type="routeType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="flow" type="flowCalibratorType" minOccurs="0" maxOccurs="unbounded"/>
