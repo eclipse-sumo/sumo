@@ -656,6 +656,15 @@ public:
     bool replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, bool teleport, std::string& errorMsg);
 
     /**
+     * reroute between stops nextStopIndex - 1 and nextStopIndex (defaults to current position / final edge) if the respective stops do not exist
+     * @param[in] nextStopIndex The replacement index
+     * @param[in] info The rerouting info
+     * @param[in] teleport Whether to cover the route between stops via teleporting
+     * @param[out] errorMsg returned error message
+     */
+    bool rerouteBetweenStops(int nextStopIndex, const std::string& info, bool teleport, std::string& errorMsg);
+
+    /**
      * insert stop at the given index with the given stop parameters
      * will wait for the given duration before continuing on its route
      * The route will be adapted to pass the new stop edge but only from the previous stop (or start) to the new stop and only up to the next stop (or end).

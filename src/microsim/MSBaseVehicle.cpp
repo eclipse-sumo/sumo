@@ -1472,6 +1472,60 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
 
 
 bool
+MSBaseVehicle::rerouteBetweenStops(int nextStopIndex, const std::string& info, bool teleport, std::string& errorMsg) {
+    const int n = (int)myStops.size();
+    if (nextStopIndex < 0 || nextStopIndex > n) {
+        errorMsg = ("Invalid nextStopIndex '" + toString(nextStopIndex) + "' for " + toString(n) + " remaining stops");
+        return false;
+    }
+    if (nextStopIndex == 0 && isStopped()) {
+        errorMsg = "Cannot reroute towards reached stop";
+        return false;
+    }
+    const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
+
+    const ConstMSEdgeVector& oldEdges = getRoute().getEdges();
+    std::vector<MSStop> stops(myStops.begin(), myStops.end());
+    const int junctionOffset = getLane() != nullptr && getLane()->isInternal() ? 1 : 0;
+    MSRouteIterator itStart = nextStopIndex == 0 ? getCurrentRouteEdge() + junctionOffset : stops[nextStopIndex - 1].edge;
+    double startPos = nextStopIndex == 0 ? getPositionOnLane() : stops[nextStopIndex - 1].pars.endPos;
+    MSRouteIterator itEnd = nextStopIndex == n ? oldEdges.end() - 1 : stops[nextStopIndex].edge;
+    auto endPos = nextStopIndex == n ? getArrivalPos() : stops[nextStopIndex].pars.endPos;
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getBaseInfluencer().getRouterTT(getRNGIndex(), getVClass());
+
+    ConstMSEdgeVector newBetween;
+    if (!teleport) {
+        router.compute(*itStart, startPos, *itEnd, endPos, this, t, newBetween, true);
+        if (newBetween.size() == 0) {
+            errorMsg = "No route found from edge '" + (*itStart)->getID() + "' to stop edge '" + (*itEnd)->getID() + "'";
+            return false;
+        }
+    }
+
+    ConstMSEdgeVector oldRemainingEdges(myCurrEdge, getRoute().end());
+    ConstMSEdgeVector newEdges; // only remaining
+    newEdges.insert(newEdges.end(), myCurrEdge, itStart);
+    if (!teleport) {
+        newEdges.insert(newEdges.end(), newBetween.begin(), newBetween.end() - 1);
+    } else {
+        newEdges.push_back(*itStart);
+    }
+    newEdges.insert(newEdges.end(), itEnd, oldEdges.end());
+    //std::cout << SIMTIME << " rerouteBetweenStops veh=" << getID()
+    //    << " oldEdges=" << oldRemainingEdges.size()
+    //    << " newEdges=" << newEdges.size()
+    //    << " toNewStop=" << toNewStop.size()
+    //    << " fromNewStop=" << fromNewStop.size()
+    //    << "\n";
+
+    const double routeCost = router.recomputeCosts(newEdges, this, t);
+    const double previousCost = router.recomputeCosts(oldRemainingEdges, this, t);
+    const double savings = previousCost - routeCost;
+    return replaceRouteEdges(newEdges, routeCost, savings, info, !hasDeparted(), false, false, &errorMsg);
+}
+
+
+bool
 MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, bool teleport, std::string& errorMsg) {
     const int n = (int)myStops.size();
     if (nextStopIndex < 0 || nextStopIndex > n) {

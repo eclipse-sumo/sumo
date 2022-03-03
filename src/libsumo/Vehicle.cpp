@@ -943,10 +943,15 @@ Vehicle::replaceStop(const std::string& vehID,
                      double until,
                      int teleport) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
+    std::string error;
     if (edgeID == "") {
         // only remove stop
         const bool ok = vehicle->abortNextStop(nextStopIndex);
-        if (teleport != 0) {
+        if ((teleport & 2) != 0) {
+            if (!vehicle->rerouteBetweenStops(nextStopIndex, "traci:replaceStop", (teleport & 1), error)) {
+                throw TraCIException("Stop replacement failed for vehicle '" + vehID + "' (" + error + ").");
+            }
+        } else if (teleport != 0) {
             WRITE_WARNING("Stop replacement parameter 'teleport=" + toString(teleport) + "' ignored for vehicle '" + vehID + "' when only removing stop.");
         }
         if (!ok) {
@@ -956,7 +961,6 @@ Vehicle::replaceStop(const std::string& vehID,
         SUMOVehicleParameter::Stop stopPars = Helper::buildStopParameters(edgeID,
                                               pos, laneIndex, startPos, flags, duration, until);
 
-        std::string error;
         if (!vehicle->replaceStop(nextStopIndex, stopPars, "traci:replaceStop", teleport != 0, error)) {
             throw TraCIException("Stop replacement failed for vehicle '" + vehID + "' (" + error + ").");
         }
