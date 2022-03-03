@@ -26,7 +26,7 @@
 // class definitions
 // ===========================================================================
 
-class GNETractionSubstation : public GNEAdditional {
+class GNETractionSubstation : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default Constructor

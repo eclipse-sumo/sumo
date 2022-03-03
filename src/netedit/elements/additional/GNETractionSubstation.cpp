@@ -32,8 +32,7 @@
 
 GNETractionSubstation::GNETractionSubstation(GNENet* net) :
     GNEAdditional("", net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, "",
-        {}, {}, {}, {}, {}, {}, {}, {},
-    std::map<std::string, std::string>()) {
+        {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
@@ -43,8 +42,8 @@ GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net,
                          const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                          const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, name,
-        {}, {}, {}, {}, {}, {}, {}, {},
-    parameters),
+        {}, {}, {}, {}, {}, {}),
+    Parameterised(parameters),
     myPosition(pos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
