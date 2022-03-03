@@ -52,6 +52,8 @@
 #include "GNETexture_StopPersonSelected.cpp"
 #include "GNETexture_StopSelected.cpp"
 #include "GNETexture_TLS.cpp"
+#include "GNETexture_TractionSubstation.cpp"
+#include "GNETexture_TractionSubstationSelected.cpp"
 #include "GNETexture_Vaporizer.cpp"
 #include "GNETexture_VaporizerSelected.cpp"
 #include "GNETexture_VariableSpeedSign.cpp"
@@ -74,32 +76,34 @@ GUITextureSubSys::GUITextureSubSys(FXApp* a) :
     // Fill map of textures
     myTextures[GUITexture::E3] = 0;
     myTextures[GUITexture::E3_SELECTED] = 0;
+    myTextures[GUITexture::LANE_BIKE] = 0;
+    myTextures[GUITexture::LANE_BUS] = 0;
+    myTextures[GUITexture::LANE_PEDESTRIAN] = 0;
     myTextures[GUITexture::LOCK] = 0;
     myTextures[GUITexture::NOTMOVING] = 0;
     myTextures[GUITexture::NOTMOVING_SELECTED] = 0;
     myTextures[GUITexture::REROUTER] = 0;
-    myTextures[GUITexture::REROUTER_SELECTED] = 0;
-    myTextures[GUITexture::REROUTER_INTERVAL] = 0;
-    myTextures[GUITexture::REROUTER_CLOSINGREROUTE] = 0;
     myTextures[GUITexture::REROUTER_CLOSINGLANEREROUTE] = 0;
-    myTextures[GUITexture::REROUTER_ROUTEPROBREROUTE] = 0;
+    myTextures[GUITexture::REROUTER_CLOSINGREROUTE] = 0;
     myTextures[GUITexture::REROUTER_DESTPROBREROUTE] = 0;
+    myTextures[GUITexture::REROUTER_INTERVAL] = 0;
     myTextures[GUITexture::REROUTER_PARKINGAREAREROUTE] = 0;
+    myTextures[GUITexture::REROUTER_ROUTEPROBREROUTE] = 0;
+    myTextures[GUITexture::REROUTER_SELECTED] = 0;
     myTextures[GUITexture::ROUTEPROBE] = 0;
     myTextures[GUITexture::ROUTEPROBE_SELECTED] = 0;
+    myTextures[GUITexture::STOPPERSON] = 0;
+    myTextures[GUITexture::STOPPERSON_SELECTED] = 0;
+    myTextures[GUITexture::STOP] = 0;
+    myTextures[GUITexture::STOP_SELECTED] = 0;
     myTextures[GUITexture::TLS] = 0;
+    myTextures[GUITexture::TRACTIONSUBSTATION] = 0;
+    myTextures[GUITexture::TRACTIONSUBSTATION_SELECTED] = 0;
     myTextures[GUITexture::VAPORIZER] = 0;
     myTextures[GUITexture::VAPORIZER_SELECTED] = 0;
     myTextures[GUITexture::VARIABLESPEEDSIGN] = 0;
     myTextures[GUITexture::VARIABLESPEEDSIGN_SELECTED] = 0;
     myTextures[GUITexture::VARIABLESPEEDSIGN_STEP] = 0;
-    myTextures[GUITexture::LANE_BIKE] = 0;
-    myTextures[GUITexture::LANE_BUS] = 0;
-    myTextures[GUITexture::LANE_PEDESTRIAN] = 0;
-    myTextures[GUITexture::STOP] = 0;
-    myTextures[GUITexture::STOP_SELECTED] = 0;
-    myTextures[GUITexture::STOPPERSON] = 0;
-    myTextures[GUITexture::STOPPERSON_SELECTED] = 0;
 }
 
 
@@ -208,6 +212,12 @@ GUITextureSubSys::getTexture(GUITexture which) {
                 break;
             case GUITexture::STOPCONTAINER_SELECTED:
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_StopContainerSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::TRACTIONSUBSTATION:
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_TractionSubstation, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::TRACTIONSUBSTATION_SELECTED:
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_TractionSubstationSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
             default:
                 throw ProcessError("Undefined texture");
