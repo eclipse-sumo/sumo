@@ -22,6 +22,12 @@ routeStop_init
 # replace second stop with "" after the vehicle has departed
 second_remove
 
+# replace all stops with "" after the vehicle has departed
+remove_reroute
+
+# replace all stops with "" after the vehicle has departed and teleport to destination
+remove_teleport
+
 # replace second stop with "" after the vehicle has departed before the vehicle has departed
 second_remove_init
 
