@@ -44,6 +44,7 @@
 #include <netedit/frames/network/GNECrossingFrame.h>
 #include <netedit/frames/network/GNEPolygonFrame.h>
 #include <netedit/frames/network/GNEProhibitionFrame.h>
+#include <netedit/frames/network/GNEWireFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -246,6 +247,12 @@ GNEViewParent::getProhibitionFrame() const {
 }
 
 
+GNEWireFrame*
+GNEViewParent::getWireFrame() const {
+    return myNetworkFrames.wireFrame;
+}
+
+
 GNECreateEdgeFrame*
 GNEViewParent::getCreateEdgeFrame() const {
     return myNetworkFrames.createEdgeFrame;
@@ -384,6 +391,8 @@ GNEViewParent::eraseACChooserDialog(GNEDialogACChooser* chooserDialog) {
         myACChoosers.ACChooserPolygon = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserProhibition) {
         myACChoosers.ACChooserProhibition = nullptr;
+    } else if (chooserDialog == myACChoosers.ACChooserWire) {
+        myACChoosers.ACChooserWire = nullptr;
     } else {
         throw ProcessError("Unregistered chooserDialog");
     }
@@ -805,6 +814,7 @@ GNEViewParent::NetworkFrames::NetworkFrames() :
     TAZFrame(nullptr),
     polygonFrame(nullptr),
     prohibitionFrame(nullptr),
+    wireFrame(nullptr),
     createEdgeFrame(nullptr) {
 }
 
@@ -813,6 +823,7 @@ void
 GNEViewParent::NetworkFrames::buildNetworkFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
     connectorFrame = new GNEConnectorFrame(viewParent->myFramesArea, viewNet);
     prohibitionFrame = new GNEProhibitionFrame(viewParent->myFramesArea, viewNet);
+    wireFrame = new GNEWireFrame(viewParent->myFramesArea, viewNet);
     TLSEditorFrame = new GNETLSEditorFrame(viewParent->myFramesArea, viewNet);
     additionalFrame = new GNEAdditionalFrame(viewParent->myFramesArea, viewNet);
     crossingFrame = new GNECrossingFrame(viewParent->myFramesArea, viewNet);
@@ -831,6 +842,7 @@ GNEViewParent::NetworkFrames::hideNetworkFrames() {
     TAZFrame->hide();
     polygonFrame->hide();
     prohibitionFrame->hide();
+    wireFrame->hide();
     createEdgeFrame->hide();
 }
 
@@ -845,6 +857,7 @@ GNEViewParent::NetworkFrames::setNetworkFramesWidth(int frameWidth) {
     TAZFrame->setFrameWidth(frameWidth);
     polygonFrame->setFrameWidth(frameWidth);
     prohibitionFrame->setFrameWidth(frameWidth);
+    wireFrame->setFrameWidth(frameWidth);
     createEdgeFrame->setFrameWidth(frameWidth);
 }
 
@@ -865,6 +878,8 @@ GNEViewParent::NetworkFrames::isNetworkFrameShown() const {
     } else if (polygonFrame->shown()) {
         return true;
     } else if (prohibitionFrame->shown()) {
+        return true;
+    } else if (wireFrame->shown()) {
         return true;
     } else if (createEdgeFrame->shown()) {
         return true;
@@ -891,6 +906,8 @@ GNEViewParent::NetworkFrames::getCurrentShownFrame() const {
         return polygonFrame;
     } else if (prohibitionFrame->shown()) {
         return prohibitionFrame;
+    } else if (wireFrame->shown()) {
+        return wireFrame;
     } else if (createEdgeFrame->shown()) {
         return createEdgeFrame;
     } else {
@@ -1083,7 +1100,8 @@ GNEViewParent::ACChoosers::ACChoosers() :
     ACChooserAdditional(nullptr),
     ACChooserPOI(nullptr),
     ACChooserPolygon(nullptr),
-    ACChooserProhibition(nullptr) {
+    ACChooserProhibition(nullptr),
+    ACChooserWire(nullptr) {
 }
 
 
@@ -1121,6 +1139,9 @@ GNEViewParent::ACChoosers::~ACChoosers() {
     }
     if (ACChooserProhibition) {
         delete ACChooserProhibition;
+    }
+    if (ACChooserWire) {
+        delete ACChooserWire;
     }
 }
 
