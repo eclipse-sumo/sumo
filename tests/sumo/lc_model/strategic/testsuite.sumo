@@ -3,3 +3,6 @@ towards_left
 
 # vehicle should change right in advance
 towards_right
+
+# test effect of internal lanes on strategic changing
+internal_lanes
