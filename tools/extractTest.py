@@ -165,7 +165,7 @@ for d, p in [
                     app = v
                     break
         haveVariant = False
-        for variant in set(optionsFiles.keys()) | set(configFiles.keys()):
+        for variant in sorted(set(optionsFiles.keys()) | set(configFiles.keys())):
             if options.application not in (None, "ALL", variant, variant.split(".")[-1]):
                 continue
             if options.application is None and len(glob.glob(os.path.join(source, "*" + variant))) == 0:
@@ -185,6 +185,7 @@ for d, p in [
             optFiles = optionsFiles[app] + ([] if variant == app else optionsFiles[variant])
             for f in sorted(optFiles, key=lambda o: o.count(os.sep)):
                 newOptions = []
+                clearOptions = None
                 with open(f) as oFile:
                     for o in shlex.split(oFile.read()):
                         if skip:
@@ -195,6 +196,21 @@ for d, p in [
                             continue
                         if o == "{CLEAR}":
                             appOptions = []
+                            continue
+                        if o == "{CLEAR":
+                            clearOptions = []
+                            continue
+                        if clearOptions is not None:
+                            if o[-1] == "}":
+                                clearOptions.append(o[:-1])
+                                numClear = len(clearOptions)
+                                for idx in range(len(appOptions) - numClear + 1):
+                                    if appOptions[idx:idx+numClear] == clearOptions:
+                                        del appOptions[idx:idx+numClear]
+                                        clearOptions = None
+                                        break
+                            else:
+                                clearOptions.append(o)
                             continue
                         if o[0] == "-" and o in appOptions:
                             idx = appOptions.index(o)
@@ -213,25 +229,27 @@ for d, p in [
                 nameBase += variant.split(".")[-1]
             exclude = []
             # gather copy_test_path exclusions
-            for config in cfg:
-                for line in open(config):
-                    entry = line.strip().split(':')
-                    if entry and entry[0] == "test_data_ignore":
-                        exclude.append(entry[1])
+            for configFile in cfg:
+                with open(configFile) as config:
+                    for line in config:
+                        entry = line.strip().split(':')
+                        if entry and entry[0] == "test_data_ignore":
+                            exclude.append(entry[1])
             # copy test data from the tree
-            for config in cfg:
-                for line in open(config):
-                    entry = line.strip().split(':')
-                    if entry and "copy_test_path" in entry[0] and entry[1] in potentials:
-                        if "net" in app or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
-                            toCopy = potentials[entry[1]][0]
-                            if os.path.isdir(toCopy):
-                                # copy from least specific to most specific
-                                merge = entry[0] == "copy_test_path_merge"
-                                for toCopy in reversed(potentials[entry[1]]):
-                                    copy_merge(toCopy, join(testPath, os.path.basename(toCopy)), merge, exclude)
-                            else:
-                                shutil.copy2(toCopy, testPath)
+            for configFile in cfg:
+                with open(configFile) as config:
+                    for line in config:
+                        entry = line.strip().split(':')
+                        if entry and "copy_test_path" in entry[0] and entry[1] in potentials:
+                            if "net" in app or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
+                                toCopy = potentials[entry[1]][0]
+                                if os.path.isdir(toCopy):
+                                    # copy from least specific to most specific
+                                    merge = entry[0] == "copy_test_path_merge"
+                                    for toCopy in reversed(potentials[entry[1]]):
+                                        copy_merge(toCopy, join(testPath, os.path.basename(toCopy)), merge, exclude)
+                                else:
+                                    shutil.copy2(toCopy, testPath)
             if options.python_script:
                 if app == "netgen":
                     call = ['join(SUMO_HOME, "bin", "netgenerate")'] + ['"%s"' % a for a in appOptions]
