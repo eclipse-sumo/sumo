@@ -2325,7 +2325,7 @@ GNENet::writeStoppingPlaceComment(OutputDevice& device) const {
 bool 
 GNENet::writeDetectorComment(OutputDevice& device) const {
     for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperty(additionals.first).isStoppingPlace() && (additionals.second.size() > 0)) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isDetector() && (additionals.second.size() > 0)) {
             device.writePadding("    <!-- Detectors -->\n");
             return true;
         }
@@ -2337,7 +2337,9 @@ GNENet::writeDetectorComment(OutputDevice& device) const {
 bool
 GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
     for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperty(additionals.first).isAdditionalPureElement() && 
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isAdditionalPureElement() &&
+            !GNEAttributeCarrier::getTagProperty(additionals.first).isStoppingPlace() &&
+            !GNEAttributeCarrier::getTagProperty(additionals.first).isDetector() &&
             (additionals.first != SUMO_TAG_ROUTEPROBE) && (additionals.first != SUMO_TAG_CALIBRATOR) &&
             (additionals.first != GNE_TAG_CALIBRATOR_LANE) && (additionals.second.size() > 0)) {
             device.writePadding("    <!-- Other additionals -->\n");
