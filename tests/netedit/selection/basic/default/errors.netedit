@@ -5,11 +5,16 @@ Debug: Adding poiLane 'POI_0' in GNEChange_Additional
 Debug: Adding poiLane 'POI_1' in GNEChange_Additional
 Debug: Adding poi 'POI_2' in GNEChange_Additional
 Debug: Adding poi 'POI_3' in GNEChange_Additional
-Debug: Key ENTER pressed
+Debug: Setting new attribute
 Debug: Key DEL (delete) pressed
-Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Removing poiLane 'POI_0' in GNEChange_Additional
+Debug: Removing poiLane 'POI_1' in GNEChange_Additional
+Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
+Debug: Removing edge 'gneE1' from net
 Debug: Additionals saved
+Debug: Deleting unreferenced edge 'gneE1' in GNEChange_Attribute
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced poi 'POI_3'
 Debug: Deleting unreferenced poi 'POI_2'
 Debug: Deleting unreferenced poiLane 'POI_1'
@@ -19,10 +24,6 @@ Debug: Deleting unreferenced poly 'poly_1'
 Debug: Deleting unreferenced poly 'poly_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
-Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

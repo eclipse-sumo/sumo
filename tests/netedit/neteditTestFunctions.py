@@ -1630,7 +1630,7 @@ def selectDefault():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(20):
+    for _ in range(15):
         typeTab()
     # type enter to select it
     typeEnter()
