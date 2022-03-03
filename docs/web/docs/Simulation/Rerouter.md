@@ -52,25 +52,19 @@ The {{AdditionalFile}} looks like this:
 
 ### definitions in a separate file
 
-This uses the standard XML file inclusion mechanism.
-
 The {{AdditionalFile}} looks like this:
 
 ```
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE additional [
-<!ENTITY otherFile SYSTEM "definitionFile.xml">
-]>
 <additional>   
    <rerouter id="<REROUTER_ID>" edges="<EDGE_ID>[;<EDGE_ID>]*" [probability="<PROBABILITY>"]>
-      &definitionFile;
+     <include href="definitions.xml"/>      
    </rerouter>
 
    ... further rerouters ...
 </additional>
 ```
 
-And the `definitionfile (which describes the actions over time) looks
+And the file `definitions.xml` (which describes the actions over time) looks
 like this:
 
 ```
