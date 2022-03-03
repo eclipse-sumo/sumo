@@ -312,6 +312,7 @@ enum class GUIIcon {
     MODETLS,
     MODEPOLYGON,
     MODEPROHIBITION,
+    MODEWIRE,
     /// @}
 
     /// @name NETEDIT Demand modes icons
@@ -345,7 +346,7 @@ enum class GUIIcon {
     OPTIONS,
     /// @}
 
-    /// @name NETEDIT network elements icons
+    /// @name network elements icons
     /// @{
     JUNCTION,
     EDGETYPE,
@@ -357,7 +358,7 @@ enum class GUIIcon {
     CROSSING,
     /// @}
 
-    /// @name NETEDIT additional elements icons
+    /// @name additional elements icons
     /// @{
     BUSSTOP,
     TRAINSTOP,
@@ -384,13 +385,29 @@ enum class GUIIcon {
     DESTPROBREROUTE,
     PARKINGZONEREROUTE,
     ROUTEPROBREROUTE,
+    /// @}
+
+    /// @name poly elements icons
+    /// @{
+    TRACTION_SUBSTATION,
+    OVERHEADWIRE,
+    OVERHEADWIRE_CLAMP,
+    /// @}
+
+    /// @name poly elements icons
+    /// @{
     POLY,
     POI,
     POILANE,
     POIGEO,
+    /// @}
+
+    /// @name TAZ elements icons
+    /// @{
     TAZ,
     TAZEDGE,
     /// @}
+
 
     /// @name NETEDIT Demand elements icons
     /// @{
