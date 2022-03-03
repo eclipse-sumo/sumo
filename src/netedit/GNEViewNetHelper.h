@@ -66,7 +66,9 @@ enum class NetworkEditMode {
     ///@brief Mode for editing Polygons
     NETWORK_POLYGON,
     ///@brief Mode for editing connection prohibitions
-    NETWORK_PROHIBITION
+    NETWORK_PROHIBITION,
+    ///@brief Mode for editing wires
+    NETWORK_WIRE
 };
 
 /// @brie enum for demand edit modes
@@ -1126,8 +1128,11 @@ struct GNEViewNetHelper {
         /// @brief chekable button for edit mode shape
         MFXCheckableButton* shapeButton;
 
-        /// @brief checkable button for edit mode polygon
+        /// @brief checkable button for edit mode prohibition
         MFXCheckableButton* prohibitionButton;
+
+        /// @brief checkable button for edit mode wires
+        MFXCheckableButton* wireButton;
 
     private:
         /// @brief pointer to net
