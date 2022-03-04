@@ -244,6 +244,9 @@ protected:
     /// @brief draw stopPerson over busStop
     void drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const double exaggeration) const;
 
+    /// @brief draw index
+    bool drawIndex() const;
+
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);

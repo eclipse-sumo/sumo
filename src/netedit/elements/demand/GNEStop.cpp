@@ -615,6 +615,22 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARENT:
             return getParentDemandElements().front()->getID();
+        case SUMO_ATTR_INDEX: {
+            // extract all stops of demandElement parent
+            std::vector<GNEDemandElement*> stops;
+            for (const auto &parent : getParentDemandElements().front()->getChildDemandElements()) {
+                if (parent->getTagProperty().isStop()) {
+                    stops.push_back(parent);
+                }
+            }
+            // find index in stops
+            for (int i = 0; i < (int)stops.size(); i++) {
+                if (stops.at(i) == this) {
+                    return toString(i);
+                }
+            }
+            return "invalid index";
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1102,10 +1118,18 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
         } else if (s.drawDetail(s.detailSettings.stopsText, exaggeration)) {
             // draw "S" symbol
             GLHelper::drawText(myTagProperty.isWaypoint()? "W" : "S", Position(), .1, 2.8, stopColor, 180);
-            // move to subtitle positin
+            // move to subtitle position
             glTranslated(0, 1.4, 0);
             // draw subtitle depending of tag
             GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
+            // check if draw index
+            if (drawIndex()) {
+                // move to index position
+                glTranslated(-2.1, -2.4, 0);
+                glRotated(-90, 0, 0, 1);
+                // draw index
+                GLHelper::drawText(getAttribute(SUMO_ATTR_INDEX), Position(), .1, 1, stopColor, 180);
+            }
         }
         // pop detail matrix
         GLHelper::popMatrix();
@@ -1114,6 +1138,24 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
     } else {
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration taked from stoppingPlace parent
         GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, width);
+        // only draw text if isn't being drawn for selecting
+        if (s.drawDetail(s.detailSettings.stopsText, exaggeration) && drawIndex()) {
+            // Add a detail matrix
+            GLHelper::pushMatrix();
+            // move to geometry front
+            glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), 0.1);
+            // rotate
+            if (myDemandElementGeometry.getShapeRotations().size() > 0) {
+                glRotated(myDemandElementGeometry.getShapeRotations().back(), 0, 0, 1);
+            }
+            // move to index position
+            glTranslated(-1.4, exaggeration * 0.5, 0.1);
+            glRotated(-90, 0, 0, 1);
+            // draw index
+            GLHelper::drawText(getAttribute(SUMO_ATTR_INDEX), Position(), .1, 1, stopColor, 180);
+        }
+        // pop detail matrix
+        GLHelper::popMatrix();
     }
     // pop layer matrix
     GLHelper::popMatrix();
@@ -1257,6 +1299,21 @@ GNEStop::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const doub
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
         GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3,
                 exaggeration, 1, 1);
+    }
+}
+
+
+bool 
+GNEStop::drawIndex() const {
+    // get stop frame
+    const auto stopFrame = myNet->getViewNet()->getViewParent()->getStopFrame();
+    // check conditions
+    if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
+        return true;
+    } else if (stopFrame->shown() && (stopFrame->getStopParentSelector()->getCurrentDemandElement() == getParentDemandElements().front())) {
+        return true;
+    } else {
+        return false;    
     }
 }
 
