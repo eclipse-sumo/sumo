@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-09 14:55:42 by Eclipse SUMO netedit Version v1_9_2+0429-8218a3ee18
+<!-- generated on 2022-03-04 10:58:21 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
     <e2Detector id="E2_04" lane="gneE0_0" pos="13.00" length="10.00" freq="120.50" file="fileA.txt"/>
 </additional>

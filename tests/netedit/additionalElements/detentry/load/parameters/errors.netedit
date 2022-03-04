@@ -15,7 +15,7 @@ Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 12.97,-3.64,32.97,16.36
 Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
-Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.18Jan114657.13884\netedit.gui\additionalElements\detentry\load\parameters\input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detentry.1_from_04Mär105016.88128/netedit.daily.additional.detentry/additionalElements/detentry/load/parameters/input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

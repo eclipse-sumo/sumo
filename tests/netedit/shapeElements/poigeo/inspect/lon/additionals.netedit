@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-04 15:14:34 by Eclipse SUMO netedit Version v1_12_0+0260-107ade780a5
+<!-- generated on 2022-03-04 10:25:05 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="poi_0" color="red" layer="202.00" lon="10.510000" lat="20.400000"/>
+    <!-- Shapes -->
+    <poi id="poi_0" color="red" layer="202.00" lon="10.511050" lat="20.400000"/>
 </additional>

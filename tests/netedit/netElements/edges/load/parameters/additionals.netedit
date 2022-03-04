@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07.12.2018 15:19:36 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
+<!-- generated on 2022-03-04 11:10:17 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
     <e3Detector id="e3Detector_0" pos="20.00,-10.00" freq="900.00" file="e3Detector_0.xml">
         <detEntry lane="gneE12_0" pos="20.00"/>
         <detExit lane="gneE13_0" pos="20.00"/>
