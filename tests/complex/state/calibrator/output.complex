@@ -3,8 +3,4 @@
 >         <route edges="SC CN"/>
 >     </vehicle>
 > 
->     <vehicle id="cali.0.1" type="car" depart="31.00" departPos="68.5137" departSpeed="20.6565" speedFactor="0.8392" arrival="42.00">
->         <route edges="SC CN"/>
->     </vehicle>
-> 
 > </routes>
