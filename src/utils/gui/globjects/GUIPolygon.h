@@ -32,11 +32,53 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
+/// @brief most likely I'm reinventing the wheel here
+struct GLPrimitive {
+    GLenum type;
+    std::vector<Position> vert;
+};
+
+
+class TesselatedPolygon : public SUMOPolygon {
+
+public:
+
+    /** @brief Constructor
+     * @param[in] id The name of the polygon
+     * @param[in] type The (abstract) type of the polygon
+     * @param[in] color The color of the polygon
+     * @param[in] layer The layer of the polygon
+     * @param[in] angle The rotation of the polygon
+     * @param[in] imgFile The raster image of the polygon
+     * @param[in] relativePath set image file as relative path
+     * @param[in] shape The shape of the polygon
+     * @param[in] geo specifiy if shape was loaded as GEO
+     * @param[in] fill Whether the polygon shall be filled
+     * @param[in] lineWidth Line width when drawing unfilled polygon
+     */
+    TesselatedPolygon(const std::string& id, const std::string& type, const RGBColor& color, const PositionVector& shape,
+               bool geo, bool fill, double lineWidth, double layer = 0, double angle = 0, const std::string& imgFile = "",
+               bool relativePath = false, const std::string& name = DEFAULT_NAME,
+               const std::map<std::string, std::string>& parameters = DEFAULT_PARAMETERS):
+        SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters)
+    {}
+
+    /// @brief Destructor
+    ~TesselatedPolygon() {}
+
+    // @brief perform the tesselation / drawing
+    void drawTesselation(const PositionVector& shape) const;
+
+    /// @brief id of the display list for the cached tesselation
+    mutable std::vector<GLPrimitive> myTesselation;
+};
+
 /*
  * @class GUIPolygon
  * @brief The GUI-version of a polygon
  */
-class GUIPolygon : public SUMOPolygon, public GUIGlObject_AbstractAdd {
+class GUIPolygon : public TesselatedPolygon, public GUIGlObject_AbstractAdd {
 
 public:
     /** @brief Constructor
@@ -119,7 +161,7 @@ public:
     static bool checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o);
 
     /// @brief draw inner Polygon (before pushName() )
-    static void drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o,
+    static void drawInnerPolygon(const GUIVisualizationSettings& s, const TesselatedPolygon* polygon, const GUIGlObject* o,
                                  const PositionVector shape, bool disableSelectionColor = false, int alphaOverride = -1);
 
 private:
@@ -131,18 +173,5 @@ private:
 
     /// @brief store the drawing commands in a display list
     void storeTesselation(const bool fill, const PositionVector& shape, double lineWidth) const;
-
-    // @brief perform the tesselation / drawing
-    static void drawTesselation(const PositionVector& shape);
-
-    /// @brief most likely I'm reinventing the wheel here
-    struct GLPrimitive {
-        GLenum type;
-        GLdouble* vert;
-        int length;
-    };
-    /// @brief id of the display list for the cached tesselation
-    mutable std::vector<GLPrimitive> myTesselation;
-
 
 };

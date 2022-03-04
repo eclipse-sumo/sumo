@@ -20,7 +20,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include <utils/shapes/SUMOPolygon.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 
 #include "GNEAdditional.h"
 
@@ -40,7 +40,7 @@ class GNENetworkElement;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEPoly : public SUMOPolygon, public GNEAdditional {
+class GNEPoly : public TesselatedPolygon, public GNEAdditional {
 
 public:
     /// @brief needed to avoid diamond problem between SUMOPolygon and GNEAdditional

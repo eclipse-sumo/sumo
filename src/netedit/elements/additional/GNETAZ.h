@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 #include <netedit/GNEMoveElement.h>
-#include <utils/shapes/SUMOPolygon.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 
 #include "GNEAdditional.h"
 
@@ -31,7 +31,7 @@
  * @class GNETAZ
  * Class for Traffic Assign Zones (TAZs)
  */
-class GNETAZ : public GNEAdditional, private SUMOPolygon {
+class GNETAZ : public GNEAdditional, private TesselatedPolygon {
 
 public:
     /// @brief needed to avoid diamond Problem between GUIPolygon and GNEAdditional

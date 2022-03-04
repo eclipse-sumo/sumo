@@ -49,7 +49,7 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 GNETAZ::GNETAZ(GNENet* net) :
     GNEAdditional("", net, GLO_TAZ, SUMO_TAG_TAZ, "",
         {}, {}, {}, {}, {}, {}),
-    SUMOPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, ""),
+    TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, ""),
     myMaxWeightSource(0),
     myMinWeightSource(0),
     myAverageWeightSource(0),
@@ -65,7 +65,7 @@ GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, 
                const RGBColor& color, const std::string& name, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_TAZ, SUMO_TAG_TAZ, "",
         {}, {}, {}, {}, {}, {}),
-    SUMOPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name, parameters),
+    TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name, parameters),
     myTAZCenter(center),
     myMaxWeightSource(0),
     myMinWeightSource(0),
@@ -192,6 +192,7 @@ GNETAZ::updateGeometry() {
     for (const auto& TAZRelData : getChildGenericDatas()) {
         TAZRelData->updateGeometry();
     }
+    myTesselation.clear();
 }
 
 
@@ -778,6 +779,7 @@ GNETAZ::setMoveShape(const GNEMoveResult& moveResult) {
         // update geometry
         myAdditionalGeometry.updateGeometry(myShape);
     }
+    myTesselation.clear();
 }
 
 
