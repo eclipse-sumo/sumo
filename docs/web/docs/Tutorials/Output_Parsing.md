@@ -196,7 +196,7 @@ With all input files (network, routes, rerouters) completed, we can create a SUM
 ```
 
 Note that the routes file `circular.rou.xml` is declared as an additionals file here to prevent a referencing error due to the [loading order of input files](../sumo.md#loading_order_of_input_files).
-Since we want to analyze the output from the simulation later on, we also define the output file `dump.xml` storing the complete network state (cf. [Output Options](../sumo.md#output)).
+Since we want to analyze the output from the simulation later on, we also define the output file `dump.xml` storing the complete network state (cf. [Output Options](../sumo.md#output) and [RawDump](../Simulation/Output/RawDump.md)).
 
 ## Analyzing the output
 
