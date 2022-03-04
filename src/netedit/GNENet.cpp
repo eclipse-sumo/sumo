@@ -2268,7 +2268,7 @@ GNENet::writeRoutes(OutputDevice& device, const bool additionalFile) const {
 bool 
 GNENet::writeVTypeComment(OutputDevice& device) const {
     if ((myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION).size() > 0) ||
-        (myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE).size() > 0)) {
+        (myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE).size() > DEFAULT_VTYPES.size())) {
         device << ("    <!-- VTypes -->\n");
         return true;
     }
