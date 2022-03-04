@@ -4,6 +4,9 @@ plain
 # the first route the vehicles have is longer than the best
 initial_longer
 
+# test effect of attribute arrivalEdge
+initial_longer_arrivalEdge
+
 # keeping the stop after reroute
 stop
 
