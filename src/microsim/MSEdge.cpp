@@ -1420,6 +1420,7 @@ void
 MSEdge::clearState() {
     myPersons.clear();
     myContainers.clear();
+    myWaiting.clear();
 }
 
 /****************************************************************************/
