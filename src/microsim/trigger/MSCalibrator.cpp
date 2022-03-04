@@ -56,6 +56,20 @@ std::vector<SUMOVehicleParameter*> MSCalibrator::LeftoverVehicleParameters;
 std::map<std::string, MSCalibrator*> MSCalibrator::myInstances;
 
 // ===========================================================================
+// CalibratorCommand method definitions
+// ===========================================================================
+
+SUMOTime
+MSCalibrator::CalibratorCommand::shiftTime(SUMOTime currentTime, SUMOTime execTime, SUMOTime newTime) {
+    UNUSED_PARAMETER(currentTime);
+    UNUSED_PARAMETER(execTime);
+    UNUSED_PARAMETER(newTime);
+    myCalibrator->myCurrentStateInterval = myCalibrator->myIntervals.begin();
+    return 0;
+}
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 MSCalibrator::MSCalibrator(const std::string& id,
@@ -404,8 +418,14 @@ MSCalibrator::execute(SUMOTime currentTime) {
             MSVehicleType* vtype = vc.getVType(pars->vtypeid);
             assert(route != 0 && vtype != 0);
             // build the vehicle
+            const std::string newID = getNewVehicleID();
+            if (vc.getVehicle(newID) != nullptr) {;
+                // duplicate ids could come from loading state
+                myInserted++;
+                break;
+            }
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
-            newPars->id = getNewVehicleID();
+            newPars->id = newID;
             newPars->depart = currentTime;
             newPars->routeid = route->getID();
             newPars->departLaneProcedure = DepartLaneDefinition::FIRST_ALLOWED; // ensure successful vehicle creation
@@ -427,9 +447,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
             }
 #endif
             vehicle->resetRoutePosition(routeIndex, pars->departLaneProcedure);
-            const bool duplicate = vc.getVehicle(newPars->id) != nullptr;
-            // duplicate ids could come from loading state
-            if (!duplicate && myEdge->insertVehicle(*vehicle, currentTime)) {
+            if (myEdge->insertVehicle(*vehicle, currentTime)) {
                 if (!MSNet::getInstance()->getVehicleControl().addVehicle(vehicle->getID(), vehicle)) {
                     throw ProcessError("Emission of vehicle '" + vehicle->getID() + "' in calibrator '" + getID() + "'failed!");
                 }
