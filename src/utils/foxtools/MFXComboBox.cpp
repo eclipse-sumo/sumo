@@ -43,10 +43,10 @@ MFXComboBox::~MFXComboBox() {}
 long
 MFXComboBox::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
     FXEvent* e = (FXEvent*) ptr;
-    if (e->code >= FX::KEY_a && e->code <= FX::KEY_z) {
-        return 0;
+    if (e->code == FX::KEY_uparrow || e->code == FX::KEY_downarrow) {
+        return FXComboBox::onKeyPress(o, sel, ptr);
     }
-    return FXComboBox::onKeyPress(o, sel, ptr);
+    return 0;
 }
 
 /****************************************************************************/
