@@ -1453,7 +1453,7 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s, double exagg
             glRotated(myLaneGeometry.getShapeRotations()[i], 0, 0, 1);
             // calculate subwidth
             for (double subWidth = 0; subWidth < myLaneGeometry.getShapeLengths()[i]; subWidth += width) {
-                // calculate lenght
+                // calculate length
                 const double length = MIN2(width * 0.5, myLaneGeometry.getShapeLengths()[i] - subWidth);
                 // draw tiangle
                 glBegin(GL_TRIANGLES);

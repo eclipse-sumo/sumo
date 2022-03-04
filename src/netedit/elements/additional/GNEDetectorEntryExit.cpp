@@ -75,7 +75,7 @@ GNEDetectorEntryExit::isAdditionalValid() const {
 
 std::string
 GNEDetectorEntryExit::getAdditionalProblem() const {
-    // obtain final lenght
+    // obtain final length
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // check if detector has a problem
     if (GNEAdditionalHandler::checkSinglePositionOverLane(myPositionOverLane, len, myFriendlyPosition)) {

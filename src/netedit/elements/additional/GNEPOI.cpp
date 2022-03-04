@@ -176,7 +176,7 @@ GNEPOI::updateGeometry() {
     }
     // check if update width and height shapes
     if ((getWidth() > 0) && (getHeight() > 0)) {
-        // calculate shape lenght
+        // calculate shape length
         myShapeHeight.clear();
         myShapeHeight.push_back(Position(0, getHeight() * -0.5));
         myShapeHeight.push_back(Position(0, getHeight() * 0.5));

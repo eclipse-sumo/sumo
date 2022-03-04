@@ -70,7 +70,7 @@ GNEParkingSpace::getMoveOperation() {
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         // check if we're editing width or height
         if (myShapeLength.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // edit lenght
+            // edit length
             return new GNEMoveOperation(this, myShapeLength, false, GNEMoveOperation::OperationType::LENGTH);
         } else if (myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
             // edit width
@@ -119,13 +119,13 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
 
 void
 GNEParkingSpace::updateGeometry() {
-    // get width an lenght
+    // get width an length
     const double width = getAttributeDouble(SUMO_ATTR_WIDTH) <= 0 ? POSITION_EPS : getAttributeDouble(SUMO_ATTR_WIDTH);
-    const double lenght = getAttributeDouble(SUMO_ATTR_LENGTH) <= 0 ? POSITION_EPS : getAttributeDouble(SUMO_ATTR_LENGTH);
-    // calculate shape lenght
+    const double length = getAttributeDouble(SUMO_ATTR_LENGTH) <= 0 ? POSITION_EPS : getAttributeDouble(SUMO_ATTR_LENGTH);
+    // calculate shape length
     myShapeLength.clear();
     myShapeLength.push_back(Position(0, 0));
-    myShapeLength.push_back(Position(0, lenght));
+    myShapeLength.push_back(Position(0, length));
     // rotate
     myShapeLength.rotate2D(DEG2RAD(getAttributeDouble(SUMO_ATTR_ANGLE)));
     // move
@@ -157,7 +157,7 @@ GNEParkingSpace::updateCenteringBoundary(const bool updateGrid) {
     myAdditionalBoundary.reset();
     // add position
     myAdditionalBoundary.add(myPosition);
-    // grow width and lenght
+    // grow width and length
     myAdditionalBoundary.grow(myShapeLength.length2D());
     myAdditionalBoundary.grow(myShapeWidth.length2D());
     // grow

@@ -139,7 +139,7 @@ GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, Position
         for (auto& segment : myDottedGeometrySegments) {
             segment.shape = segment.shape.resample(segmentLength, true);
         }
-        // calculate shape rotations and lenghts
+        // calculate shape rotations and lengths
         calculateShapeRotationsAndLengths();
     }
 }
@@ -176,7 +176,7 @@ GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s,
     for (auto& segment : myDottedGeometrySegments) {
         segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
     }
-    // calculate shape rotations and lenghts
+    // calculate shape rotations and lengths
     calculateShapeRotationsAndLengths();
 }
 
@@ -195,7 +195,7 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const
     for (auto& segment : myDottedGeometrySegments) {
         segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
     }
-    // calculate shape rotations and lenghts
+    // calculate shape rotations and lengths
     calculateShapeRotationsAndLengths();
 }
 
@@ -219,7 +219,7 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, Posit
         for (auto& segment : myDottedGeometrySegments) {
             segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
         }
-        // calculate shape rotations and lenghts
+        // calculate shape rotations and lengths
         calculateShapeRotationsAndLengths();
     }
 }

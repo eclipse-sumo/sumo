@@ -619,15 +619,15 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Posi
         // check if draw middle lane
         if (drawPositionIndex != 0) {
             // calculate length
-            const double lenght = std::abs(positionLineA_Y - positionLineB_Y);
+            const double length = std::abs(positionLineA_Y - positionLineB_Y);
             // push middle lane matrix
             GLHelper::pushMatrix();
             //move and rotate
             glTranslated(positionLineA.x() + lineOffset, positionLineA.y(), 0);
             glRotated(90, 0, 0, 1);
-            glTranslated((lenght * -0.5), 0, 0);
+            glTranslated((length * -0.5), 0, 0);
             // draw line
-            GLHelper::drawBoxLine(Position(0, 0), 0, 0.1, lenght * 0.5);
+            GLHelper::drawBoxLine(Position(0, 0), 0, 0.1, length * 0.5);
             // pop middle lane matrix
             GLHelper::popMatrix();
         }

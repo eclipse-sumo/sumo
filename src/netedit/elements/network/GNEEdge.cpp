@@ -1175,26 +1175,26 @@ GNEEdge::updateVehicleSpreadGeometries() {
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > laneVehiclesMap = getVehiclesOverEdgeMap();
     // iterate over every lane
     for (const auto& laneVehicle : laneVehiclesMap) {
-        // obtain total lenght
+        // obtain total length
         double totalLength = 0;
         for (const auto& vehicle : laneVehicle.second) {
             totalLength += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH) + VEHICLE_GAP;
         }
         // calculate multiplier for vehicle positions
         double multiplier = 1;
-        const double laneShapeLenght = laneVehicle.first->getLaneShape().length();
-        if (laneShapeLenght == 0) {
+        const double laneShapeLength = laneVehicle.first->getLaneShape().length();
+        if (laneShapeLength == 0) {
             multiplier = 0;
-        } else if (totalLength > laneShapeLenght) {
-            multiplier = (laneShapeLenght / totalLength);
+        } else if (totalLength > laneShapeLength) {
+            multiplier = (laneShapeLength / totalLength);
         }
-        // declare current lenght
-        double lenght = 0;
+        // declare current length
+        double length = 0;
         // iterate over vehicles to calculate position and rotations
         for (const auto& vehicle : laneVehicle.second) {
-            vehicle->updateDemandElementSpreadGeometry(laneVehicle.first, lenght * multiplier);
-            // update lenght
-            lenght += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH) + VEHICLE_GAP;
+            vehicle->updateDemandElementSpreadGeometry(laneVehicle.first, length * multiplier);
+            // update length
+            length += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH) + VEHICLE_GAP;
         }
     }
 }
@@ -1206,13 +1206,13 @@ GNEEdge::updateVehicleStackLabels() {
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > laneVehiclesMap = getVehiclesOverEdgeMap();
     // iterate over laneVehiclesMap and obtain a vector with
     for (const auto& vehicleMap : laneVehiclesMap) {
-        // declare map for sprt vehicles using their departpos+lenght position (StackPosition)
+        // declare map for sprt vehicles using their departpos+length position (StackPosition)
         std::vector<std::pair<GNEEdge::StackPosition, GNEDemandElement*> > departPosVehicles;
         // declare vector of stack demand elements
         std::vector<GNEEdge::StackDemandElements> stackedVehicles;
         // iterate over vehicles
         for (const auto& vehicle : vehicleMap.second) {
-            // get vehicle's depart pos and lenght
+            // get vehicle's depart pos and length
             const double departPos = vehicle->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
             const double length = vehicle->getAttributeDouble(SUMO_ATTR_LENGTH);
             double posOverLane = vehicle->getAttributeDouble(SUMO_ATTR_DEPARTPOS);

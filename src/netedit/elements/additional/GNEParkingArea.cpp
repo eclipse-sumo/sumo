@@ -113,7 +113,7 @@ GNEParkingArea::updateGeometry() {
     const double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
     // calculate spaceDim
     const double spaceDim = myRoadSideCapacity > 0 ? (getAttributeDouble(SUMO_ATTR_ENDPOS) - getAttributeDouble(SUMO_ATTR_STARTPOS)) / myRoadSideCapacity * getParentLanes().front()->getLengthGeometryFactor() : 7.5;
-    // calculate lenght
+    // calculate length
     const double length = (myLength > 0) ? myLength : spaceDim;
     // Update common geometry of stopping place
     setStoppingPlaceGeometry(myWidth);

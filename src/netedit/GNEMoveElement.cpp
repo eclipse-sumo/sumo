@@ -262,7 +262,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
                 calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset,
                                     0, moveOperation->secondPosition);
             } else if (moveOperation->operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
-                // move first position around [firstPosition, laneLenght]
+                // move first position around [firstPosition, laneLength]
                 calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->secondPosition, offset,
                                     moveOperation->firstPosition, moveOperation->firstLane->getLaneShapeLength());
             } else {
@@ -370,7 +370,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
                 calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset,
                                     0, moveOperation->secondPosition);
             } else if (moveOperation->operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
-                // move first position around [firstPosition, laneLenght]
+                // move first position around [firstPosition, laneLength]
                 calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->secondPosition, offset,
                                     moveOperation->firstPosition, moveOperation->firstLane->getLaneShapeLength());
             } else {
@@ -452,8 +452,8 @@ GNEMoveElement::calculateLaneOffset(const GNEViewNet* viewNet, const GNELane* la
     double laneOffset = 0;
     // calculate central position between two given positions
     const double offsetCentralPosition = (firstPosition + secondPosition) * 0.5;
-    // calculate middle lenght between two given positions
-    const double middleLenght = std::abs(secondPosition - firstPosition) * 0.5;
+    // calculate middle length between two given positions
+    const double middleLength = std::abs(secondPosition - firstPosition) * 0.5;
     // calculate lane position at offset given by offsetCentralPosition
     Position laneCentralPosition = lane->getLaneShape().positionAtOffset2D(offsetCentralPosition);
     // apply offset to positionAtCentralPosition
@@ -473,10 +473,10 @@ GNEMoveElement::calculateLaneOffset(const GNEViewNet* viewNet, const GNELane* la
             laneOffset = secondPosition - lane->getLaneShape().length2D();
         }
     } else {
-        // laneCentralPosition is within of lane shapen, then calculate offset using middlelenght
-        if ((offsetLaneCentralPositionPerpendicular - middleLenght) < extremFrom) {
+        // laneCentralPosition is within of lane shapen, then calculate offset using middlelength
+        if ((offsetLaneCentralPositionPerpendicular - middleLength) < extremFrom) {
             laneOffset = firstPosition + extremFrom;
-        } else if ((offsetLaneCentralPositionPerpendicular + middleLenght) > extremTo) {
+        } else if ((offsetLaneCentralPositionPerpendicular + middleLength) > extremTo) {
             laneOffset = secondPosition - extremTo;
         } else {
             laneOffset = (offsetCentralPosition - offsetLaneCentralPositionPerpendicular);
@@ -553,8 +553,8 @@ GNEMoveElement::calculateNewLane(const GNEViewNet* viewNet, const GNELane* origi
 
 PositionVector
 GNEMoveElement::calculateExtrapolatedVector(const GNEMoveOperation* moveOperation, const GNEMoveResult& moveResult) {
-    // get original shape half lenght
-    const double halfLenght = moveOperation->originalShape.length2D() * -0.5;
+    // get original shape half length
+    const double halfLength = moveOperation->originalShape.length2D() * -0.5;
     // get original shape and extrapolate
     PositionVector extendedShape = moveOperation->originalShape;
     extendedShape.extrapolate2D(10e5);
@@ -566,12 +566,12 @@ GNEMoveElement::calculateExtrapolatedVector(const GNEMoveOperation* moveOperatio
     double extrapolateValue = (10e5 - offset);
     // adjust extrapolation
     if (moveOperation->firstGeometryPoint) {
-        if (extrapolateValue < halfLenght) {
-            extrapolateValue = (halfLenght - POSITION_EPS);
+        if (extrapolateValue < halfLength) {
+            extrapolateValue = (halfLength - POSITION_EPS);
         }
     } else {
-        if (extrapolateValue > halfLenght) {
-            extrapolateValue = (halfLenght - POSITION_EPS);
+        if (extrapolateValue > halfLength) {
+            extrapolateValue = (halfLength - POSITION_EPS);
         }
     }
     // restore shape in in moveResult

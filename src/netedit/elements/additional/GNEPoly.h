@@ -208,7 +208,7 @@ protected:
     /// @brief flag to indicate if polygon is simplified
     bool mySimplifiedShape;
 
-    /// @brief geometry for lenghts/rotations
+    /// @brief geometry for lengths/rotations
     GUIGeometry myPolygonGeometry;
 
 private:
