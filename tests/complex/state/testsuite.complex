@@ -88,3 +88,6 @@ teleporting_highbegin
 
 # load actuated tls
 actuated
+
+# test saving and load vehicles added by calibrator
+calibrator

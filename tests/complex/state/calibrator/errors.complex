@@ -1,0 +1,5 @@
+Error: attribute 'speed' is already specified for element 'vehicle'
+ In file 'state.xml'
+ At line/column 35/304.
+
+Quitting (on error).
