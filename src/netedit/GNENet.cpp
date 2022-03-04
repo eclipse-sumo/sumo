@@ -2342,9 +2342,9 @@ GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
         if (GNEAttributeCarrier::getTagProperty(additionals.first).isAdditionalPureElement() &&
             !GNEAttributeCarrier::getTagProperty(additionals.first).isStoppingPlace() &&
             !GNEAttributeCarrier::getTagProperty(additionals.first).isDetector() &&
-            (additionals.first != SUMO_TAG_ROUTEPROBE) && (additionals.first != SUMO_TAG_ACCESS) &&
             (additionals.first != SUMO_TAG_CALIBRATOR) && (additionals.first != GNE_TAG_CALIBRATOR_LANE) &&
-            (additionals.second.size() > 0)) {
+            (additionals.first != SUMO_TAG_ROUTEPROBE) && (additionals.first != SUMO_TAG_ACCESS) &&
+            (additionals.first != SUMO_TAG_PARKING_SPACE) && (additionals.second.size() > 0)) {
             device << ("    <!-- Other additionals -->\n");
             return true;
         }
