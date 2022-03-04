@@ -56,7 +56,8 @@ class XmlElement:
 class XsdStructure():
 
     def __init__(self, xsdFile):
-        xmlDoc = minidom.parse(open(xsdFile))
+        with open(xsdFile) as xsdIn:
+            xmlDoc = minidom.parse(xsdIn)
         self.root = None
         self._namedElements = {}
         self._namedTypes = {}

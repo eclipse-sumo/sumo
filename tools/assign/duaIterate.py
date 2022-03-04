@@ -171,7 +171,7 @@ def initOptions():
     argParser.add_argument("--gzip", action="store_true", default=False,
                            help="writing intermediate and resulting route files in gzipped format")
     argParser.add_argument("--dualog", default="dua.log", help="log file path (default 'dua.log')")
-    argParser.add_argument("--log", default="stdout.log", help="log file path (default 'dua.log')")
+    argParser.add_argument("--log", default="stdout.log", help="stdout log file path (default 'stdout.log')")
     argParser.add_argument("--marginal-cost", action="store_true", default=False,
                            help="use marginal cost to perform system optimal traffic assignment")
     argParser.add_argument("--marginal-cost.exp", type=float, default=0, dest="mcExp",

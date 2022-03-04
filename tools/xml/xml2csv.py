@@ -203,6 +203,9 @@ class CSVWriter(NestingHandler):
                 for a in self.attrFinder.tagAttrs[name]:
                     a2 = self.attrFinder.renamedAttrs.get((name, a), a)
                     del self.currentValues[a2]
+        if self.depth() == 0:
+            for f in self.outfiles.values():
+                f.close()
         NestingHandler.endElement(self, name)
 
 
