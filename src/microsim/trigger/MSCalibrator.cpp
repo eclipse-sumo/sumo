@@ -171,6 +171,7 @@ MSCalibrator::myStartElement(int element,
             }
             state.end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, getID().c_str(), ok, -1);
             state.vehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, true, true, true);
+            state.vehicleParameter->parametersSet &= ~VEHPARS_CALIBRATORSPEED_SET;
             LeftoverVehicleParameters.push_back(state.vehicleParameter);
             // vehicles should be inserted with max speed unless stated otherwise
             if (state.vehicleParameter->departSpeedProcedure == DepartSpeedDefinition::DEFAULT) {
