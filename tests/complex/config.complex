@@ -150,6 +150,7 @@ errors:Warning: Overhead wire solver (Eigen) not compiled in, expect errors in o
 errors:Error: Overhead wire solver is on, but the Eigen library has not been compiled in!
 errors:Network contains internal links which are ignored.
 errors:Matplotlib is building the font cache; this may take a moment.
+errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 ps:%%CreationDate
 
 [unordered_text]
