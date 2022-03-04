@@ -28,8 +28,14 @@ Lanes with a geometrical length of 0 have an assigned minimum length of 0.1m.
 
 ## Lane curvature
 By design, all lanes of an edge are assigned the same length value (corresponding to driving distance and maximum lanePosition).
+The assigned length is set to the average length of all lanes of that edge.
 For curved edges, this introduces a mismatch between geometrical length and driving distance because outer
 lanes in a curve are longer than inner lanes.
+
+The main architectural reason for enforcing the same length for all lanes is the great simplificaiton this brings to lane-changing computation.
+
+!!! note
+    since version 1.9.0 internal lanes for multi-lane turning connections (linkDir != 's') permit different lengths. Lane changing is forbidden while a vehicle is on such lanes.
 
 ## No-internal-links (meso)
 When running a simulation with option **--no-internal-links** or **--mesosim**
