@@ -80,7 +80,8 @@ MSCalibrator::MSCalibrator(const std::string& id,
     myEdgeMeanData(nullptr, length, false, &myMeanDataParent),
     myCurrentStateInterval(myIntervals.begin()),
     myOutput(nullptr), myFrequency(freq), myRemoved(0),
-    myInserted(0), myClearedInJam(0),
+    myInserted(0),
+    myClearedInJam(0),
     mySpeedIsDefault(true), myDidSpeedAdaption(false), myDidInit(false),
     myDefaultSpeed(myLane == nullptr ? myEdge->getSpeedLimit() : myLane->getSpeedLimit()),
     myHaveWarnedAboutClearingJam(false),
@@ -383,6 +384,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
                       << "\n";
         }
 #endif
+        MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
         while (wishedNum > adaptedNum + insertionSlack) {
             SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
             const MSRoute* route = myProbe != nullptr ? myProbe->sampleRoute() : nullptr;
@@ -399,7 +401,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
             }
             const int routeIndex = (int)std::distance(route->begin(),
                                    std::find(route->begin(), route->end(), myEdge));
-            MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
+            MSVehicleType* vtype = vc.getVType(pars->vtypeid);
             assert(route != 0 && vtype != 0);
             // build the vehicle
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
@@ -409,8 +411,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
             newPars->departLaneProcedure = DepartLaneDefinition::FIRST_ALLOWED; // ensure successful vehicle creation
             MSVehicle* vehicle;
             try {
-                vehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(
-                                                       newPars, route, vtype, true, false));
+                vehicle = dynamic_cast<MSVehicle*>(vc.buildVehicle(newPars, route, vtype, true, false));
             } catch (const ProcessError& e) {
                 if (!MSGlobals::gCheckRoutes) {
                     WRITE_WARNING(e.what());
@@ -426,7 +427,9 @@ MSCalibrator::execute(SUMOTime currentTime) {
             }
 #endif
             vehicle->resetRoutePosition(routeIndex, pars->departLaneProcedure);
-            if (myEdge->insertVehicle(*vehicle, currentTime)) {
+            const bool duplicate = vc.getVehicle(newPars->id) != nullptr;
+            // duplicate ids could come from loading state
+            if (!duplicate && myEdge->insertVehicle(*vehicle, currentTime)) {
                 if (!MSNet::getInstance()->getVehicleControl().addVehicle(vehicle->getID(), vehicle)) {
                     throw ProcessError("Emission of vehicle '" + vehicle->getID() + "' in calibrator '" + getID() + "'failed!");
                 }

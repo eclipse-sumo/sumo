@@ -166,6 +166,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
             const int insertionSlack = MAX2(0, adaptedNum + relaxedInsertion - totalWishedNum);
             // increase number of vehicles
             //std::cout << "time:" << STEPS2TIME(currentTime) << " w:" << wishedNum << " s:" << insertionSlack << " before:" << adaptedNum;
+            MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
             while (wishedNum > adaptedNum + insertionSlack && remainingVehicleCapacity() > maximumInflow()) {
                 SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
                 const MSRoute* route = myProbe != nullptr ? myProbe->sampleRoute() : nullptr;
@@ -180,7 +181,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                     WRITE_WARNING("Route '" + route->getID() + "' in calibrator '" + getID() + "' does not contain edge '" + myEdge->getID() + "'.");
                     break;
                 }
-                MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
+                MSVehicleType* vtype = vc.getVType(pars->vtypeid);
                 assert(route != 0 && vtype != 0);
                 // build the vehicle
                 const SUMOTime depart = mySegment->getNextInsertionTime(currentTime);
@@ -190,8 +191,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                 newPars->routeid = route->getID();
                 MEVehicle* vehicle;
                 try {
-                    vehicle = static_cast<MEVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(
-                                                          newPars, route, vtype, false, false));
+                    vehicle = static_cast<MEVehicle*>(vc.buildVehicle(newPars, route, vtype, false, false));
                 } catch (const ProcessError& e) {
                     if (!MSGlobals::gCheckRoutes) {
                         WRITE_WARNING(e.what());
@@ -200,6 +200,12 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                     } else {
                         throw e;
                     }
+                }
+                const bool duplicate = vc.getVehicle(newPars->id) != nullptr;
+                // duplicate ids could come from loading state
+                if (duplicate) {
+                    vc.deleteVehicle(vehicle, true);
+                    continue;
                 }
                 vehicle->setSegment(mySegment); // needed or vehicle will not be registered (XXX why?)
                 vehicle->setEventTime(currentTime); // XXX superfluous?
@@ -213,7 +219,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                 // insert vehicle into the net
                 if (atDest || !tryEmit(mySegment, vehicle)) {
                     //std::cout << "F ";
-                    MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
+                    vc.deleteVehicle(vehicle, true);
                     break;
                 }
                 //std::cout << "I ";
