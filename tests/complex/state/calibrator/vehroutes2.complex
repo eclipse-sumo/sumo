@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-04 17:05:39 by Eclipse SUMO sumo Version v1_12_0+1159-e09374b
+<!-- generated on 2022-03-04 17:16:08 by Eclipse SUMO sumo Version v1_12_0+1159-9647977
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,4 +22,8 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="cali.0.0" type="car" depart="18.00" departPos="4.18" departSpeed="33.19" speedFactor="1.0600" arrival="30.00">
+        <route edges="SC CN"/>
+    </vehicle>
+
 </routes>
