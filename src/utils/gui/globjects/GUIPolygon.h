@@ -120,7 +120,7 @@ public:
 
     /// @brief draw inner Polygon (before pushName() )
     static void drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o,
-                                 const PositionVector shape, const bool drawFill, double layer, bool disableSelectionColor, int alphaOverride = -1);
+                                 const PositionVector shape, bool disableSelectionColor = false, int alphaOverride = -1);
 
 private:
     /// The mutex used to avoid concurrent updates of the shape

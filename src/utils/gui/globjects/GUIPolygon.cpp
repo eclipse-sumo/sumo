@@ -173,9 +173,9 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushName(getGlID());
         // draw inner polygon
         if (myRotatedShape) {
-            drawInnerPolygon(s, this, this, *myRotatedShape, getFill(), getShapeLayer(), false);
+            drawInnerPolygon(s, this, this, *myRotatedShape);
         } else {
-            drawInnerPolygon(s, this, this, myShape, getFill(), getShapeLayer(), false);
+            drawInnerPolygon(s, this, this, myShape);
         }
         // pop name
         GLHelper::popName();
@@ -301,12 +301,12 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* poly
 
 void
 GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o,
-                             const PositionVector shape, const bool drawFill, double layer, bool disableSelectionColor, int alphaOverride) {
+                             const PositionVector shape, bool disableSelectionColor, int alphaOverride) {
     GLHelper::pushMatrix();
-    glTranslated(0, 0, layer);
+    glTranslated(0, 0, polygon->getShapeLayer());
     setColor(s, polygon, o, disableSelectionColor, alphaOverride);
     int textureID = -1;
-    if (drawFill) {
+    if (polygon->getFill()) {
         const std::string& file = polygon->getShapeImgFile();
         if (file != "") {
             textureID = GUITexturesHelper::getTextureID(file, true);
@@ -335,7 +335,7 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygo
         glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
         glTexGendv(GL_T, GL_OBJECT_PLANE, yPlane);
     }
-    if (drawFill) {
+    if (polygon->getFill()) {
         //polygon->drawTesselation(shape);
         drawTesselation(shape);
     } else {

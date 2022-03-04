@@ -309,7 +309,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             } else {
                 // draw inner polygon
                 const int alphaOverride = myNet->getViewNet()->getDataViewOptions().TAZDrawFill() ? 128 : -1;
-                GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), true, 0, drawUsingSelectColor(), alphaOverride);
+                GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), drawUsingSelectColor(), alphaOverride);
             }
         } else {
             // push matrix
