@@ -1034,6 +1034,9 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
         edges.push_back(myAttributeCarriers->retrieveEdge(nbEdge->getID()));
     }
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+    if (lefthand) {
+        std::reverse(edges.begin(), edges.end());
+    }
     const double lefthandSign = lefthand ? -1 : 1;
     std::vector<GNEJunction*> newJunctions;
     GNEEdge* prevOpposite = nullptr;
