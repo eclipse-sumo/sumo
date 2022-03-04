@@ -44,16 +44,16 @@ netedit.leftClick(referencePosition, 275, 250)
 netedit.changeElement("access")
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 
-# set invalid lenght
+# set invalid length
 netedit.changeDefaultValue(netedit.attrs.access.create.length, "dummyLenght")
 
-# set invalid lenght
+# set invalid length
 netedit.changeDefaultValue(netedit.attrs.access.create.length, "-4")
 
 # Try to create Access
 netedit.leftClick(referencePosition, 50, 200)
 
-# set valid lenght
+# set valid length
 netedit.changeDefaultValue(netedit.attrs.access.create.length, "3.5")
 
 # Create access

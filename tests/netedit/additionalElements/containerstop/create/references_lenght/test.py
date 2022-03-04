@@ -34,16 +34,16 @@ netedit.additionalMode()
 # select containerStop
 netedit.changeElement("containerStop")
 
-# set invalid lenght (dummy)
+# set invalid length (dummy)
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.length, "dummyLenght")
 
-# try to create containerstop with invalid lenght
+# try to create containerstop with invalid length
 netedit.leftClick(referencePosition, 500, 250)
 
-# set invalid lenght (negative)
+# set invalid length (negative)
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.length, "-20")
 
-# try to create containerstop with invalid lenght
+# try to create containerstop with invalid length
 netedit.leftClick(referencePosition, 500, 250)
 
 # Change length

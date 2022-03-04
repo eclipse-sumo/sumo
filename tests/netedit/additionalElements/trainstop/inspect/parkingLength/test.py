@@ -46,16 +46,16 @@ netedit.inspectMode()
 # inspect first trainStop
 netedit.leftClick(referencePosition, 250, 190)
 
-# Change parameter lenght with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.trainStop.inspect.parkingLength, "dummylenght", True)
+# Change parameter length with a non valid value (throw warning)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.parkingLength, "dummylength", True)
 
-# Change parameter lenght with a valid value
+# Change parameter length with a valid value
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.parkingLength, "-7", True)
 
-# Change parameter lenght with a valid value
+# Change parameter length with a valid value
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.parkingLength, "2.5", True)
 
-# Change parameter lenght with a valid value
+# Change parameter length with a valid value
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.parkingLength, "10", True)
 
 # Check undos and redos

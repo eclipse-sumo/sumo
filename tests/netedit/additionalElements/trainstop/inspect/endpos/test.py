@@ -49,7 +49,7 @@ netedit.leftClick(referencePosition, 250, 190)
 # Change parameter endpos with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.endPos, "", True)
 
-# Change parameter endpos with a valid value (> lanelenght)
+# Change parameter endpos with a valid value (> lanelength)
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.endPos, "5000", True)
 
 # Change parameter endpos with a non valid value (< startPos)

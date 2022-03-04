@@ -40,19 +40,19 @@ netedit.inspectMode()
 # inspect E2s
 netedit.leftClick(referencePosition, 350, 310)
 
-# Change parameter lenght with a non valid value(dummy)
+# Change parameter length with a non valid value(dummy)
 netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.length, "dummyLength", True)
 
-# Change parameter lenght with a non valid value (negative)
+# Change parameter length with a non valid value (negative)
 netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.length, "-5", True)
 
-# Change parameter lenght with a non valid value (0)
+# Change parameter length with a non valid value (0)
 netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.length, "0", True)
 
-# Change parameter lenght with a valid value (> lane lenght)
+# Change parameter length with a valid value (> lane length)
 netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.length, "500", True)
 
-# Change parameter lenght with a valid value
+# Change parameter length with a valid value
 netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.length, "5", True)
 
 # Check undos and redos

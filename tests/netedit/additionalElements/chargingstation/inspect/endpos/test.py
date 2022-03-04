@@ -49,7 +49,7 @@ netedit.leftClick(referencePosition, 250, 173)
 # Change parameter endpos with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.efficiency, "", True)
 
-# Change parameter endpos with a valid value (> lanelenght)
+# Change parameter endpos with a valid value (> lanelength)
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.efficiency, "5000", True)
 
 # Change parameter endpos with a non valid value (< startPos)

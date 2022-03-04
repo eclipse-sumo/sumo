@@ -34,16 +34,16 @@ netedit.additionalMode()
 # select trainStop
 netedit.changeElement("trainStop")
 
-# set invalid lenght (dummy)
+# set invalid length (dummy)
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.length, "dummyLenght")
 
-# try to create trainstop with invalid lenght
+# try to create trainstop with invalid length
 netedit.leftClick(referencePosition, 500, 250)
 
-# set invalid lenght (negative)
+# set invalid length (negative)
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.length, "-20")
 
-# try to create trainstop with invalid lenght
+# try to create trainstop with invalid length
 netedit.leftClick(referencePosition, 500, 250)
 
 # Change length

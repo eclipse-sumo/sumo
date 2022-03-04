@@ -527,7 +527,7 @@ class parkingSpace:
     class create:
         name = 5
         width = 6
-        lenght = 7
+        length = 7
         angle = 8
         slope = 9
         parent = 12
@@ -536,7 +536,7 @@ class parkingSpace:
         pos = 1
         name = 2
         width = 3
-        lenght = 4
+        length = 4
         angle = 5
         slope = 6
         parameters = 9
@@ -545,7 +545,7 @@ class parkingSpace:
     class inspectSelection:
         name = 1
         width = 2
-        lenght = 3
+        length = 3
         angle = 4
         slope = 5
         parameters = 8

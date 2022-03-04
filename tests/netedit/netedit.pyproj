@@ -23,7 +23,7 @@
     <Compile Include="additionalElements\access\create\default\test.py" />
     <Compile Include="additionalElements\access\create\duplicated\test.py" />
     <Compile Include="additionalElements\access\create\friendlypos\test.py" />
-    <Compile Include="additionalElements\access\create\lenght\test.py" />
+    <Compile Include="additionalElements\access\create\length\test.py" />
     <Compile Include="additionalElements\access\create\no_parent\test.py" />
     <Compile Include="additionalElements\access\delete\test.py" />
     <Compile Include="additionalElements\access\inspect\friendlypos\test.py" />
@@ -48,7 +48,7 @@
     <Compile Include="additionalElements\busstop\create\parkingLength\test.py" />
     <Compile Include="additionalElements\busstop\create\personcapacity\test.py" />
     <Compile Include="additionalElements\busstop\create\references\test.py" />
-    <Compile Include="additionalElements\busstop\create\references_lenght\test.py" />
+    <Compile Include="additionalElements\busstop\create\references_length\test.py" />
     <Compile Include="additionalElements\busstop\delete\test.py" />
     <Compile Include="additionalElements\busstop\fix\fix_positions\test.py" />
     <Compile Include="additionalElements\busstop\fix\friendlypos\test.py" />
@@ -131,7 +131,7 @@
     <Compile Include="additionalElements\chargingstation\create\name\test.py" />
     <Compile Include="additionalElements\chargingstation\create\power\test.py" />
     <Compile Include="additionalElements\chargingstation\create\references\test.py" />
-    <Compile Include="additionalElements\chargingstation\create\references_lenght\test.py" />
+    <Compile Include="additionalElements\chargingstation\create\references_length\test.py" />
     <Compile Include="additionalElements\chargingstation\delete\test.py" />
     <Compile Include="additionalElements\chargingstation\fix\fix_positions\test.py" />
     <Compile Include="additionalElements\chargingstation\fix\friendlypos\test.py" />
@@ -167,7 +167,7 @@
     <Compile Include="additionalElements\containerstop\create\name\test.py" />
     <Compile Include="additionalElements\containerstop\create\parkingLength\test.py" />
     <Compile Include="additionalElements\containerstop\create\references\test.py" />
-    <Compile Include="additionalElements\containerstop\create\references_lenght\test.py" />
+    <Compile Include="additionalElements\containerstop\create\references_length\test.py" />
     <Compile Include="additionalElements\containerstop\delete\test.py" />
     <Compile Include="additionalElements\containerstop\fix\fix_positions\test.py" />
     <Compile Include="additionalElements\containerstop\fix\friendlypos\test.py" />
@@ -385,7 +385,7 @@
     <Compile Include="additionalElements\parkingarea\create\name\test.py" />
     <Compile Include="additionalElements\parkingarea\create\onroad\test.py" />
     <Compile Include="additionalElements\parkingarea\create\references\test.py" />
-    <Compile Include="additionalElements\parkingarea\create\references_lenght\test.py" />
+    <Compile Include="additionalElements\parkingarea\create\references_length\test.py" />
     <Compile Include="additionalElements\parkingarea\create\roadsidecapacity\test.py" />
     <Compile Include="additionalElements\parkingarea\create\width\test.py" />
     <Compile Include="additionalElements\parkingarea\delete\test.py" />
@@ -398,7 +398,7 @@
     <Compile Include="additionalElements\parkingarea\inspect\friendlypos\test.py" />
     <Compile Include="additionalElements\parkingarea\inspect\id\test.py" />
     <Compile Include="additionalElements\parkingarea\inspect\lane\test.py" />
-    <Compile Include="additionalElements\parkingarea\inspect\lenght\test.py" />
+    <Compile Include="additionalElements\parkingarea\inspect\length\test.py" />
     <Compile Include="additionalElements\parkingarea\inspect\name\test.py" />
     <Compile Include="additionalElements\parkingarea\inspect\onroad\test.py" />
     <Compile Include="additionalElements\parkingarea\inspect\parameters\test.py" />
@@ -407,7 +407,7 @@
     <Compile Include="additionalElements\parkingarea\inspect\width\test.py" />
     <Compile Include="additionalElements\parkingarea\inspect_selection\angle\test.py" />
     <Compile Include="additionalElements\parkingarea\inspect_selection\friendlypos\test.py" />
-    <Compile Include="additionalElements\parkingarea\inspect_selection\lenght\test.py" />
+    <Compile Include="additionalElements\parkingarea\inspect_selection\length\test.py" />
     <Compile Include="additionalElements\parkingarea\inspect_selection\name\test.py" />
     <Compile Include="additionalElements\parkingarea\inspect_selection\onroad\test.py" />
     <Compile Include="additionalElements\parkingarea\inspect_selection\parameters\test.py" />
@@ -423,13 +423,13 @@
     <Compile Include="additionalElements\parkingspace\create\width\test.py" />
     <Compile Include="additionalElements\parkingspace\delete\test.py" />
     <Compile Include="additionalElements\parkingspace\inspect\angle\test.py" />
-    <Compile Include="additionalElements\parkingspace\inspect\lenght\test.py" />
+    <Compile Include="additionalElements\parkingspace\inspect\length\test.py" />
     <Compile Include="additionalElements\parkingspace\inspect\parameters\test.py" />
     <Compile Include="additionalElements\parkingspace\inspect\parent\test.py" />
     <Compile Include="additionalElements\parkingspace\inspect\pos\test.py" />
     <Compile Include="additionalElements\parkingspace\inspect\width\test.py" />
     <Compile Include="additionalElements\parkingspace\inspect_selection\angle\test.py" />
-    <Compile Include="additionalElements\parkingspace\inspect_selection\lenght\test.py" />
+    <Compile Include="additionalElements\parkingspace\inspect_selection\length\test.py" />
     <Compile Include="additionalElements\parkingspace\inspect_selection\parameters\test.py" />
     <Compile Include="additionalElements\parkingspace\inspect_selection\parent\test.py" />
     <Compile Include="additionalElements\parkingspace\inspect_selection\width\test.py" />
@@ -473,7 +473,7 @@
     <Compile Include="additionalElements\trainstop\create\parkingLength\test.py" />
     <Compile Include="additionalElements\trainstop\create\personcapacity\test.py" />
     <Compile Include="additionalElements\trainstop\create\references\test.py" />
-    <Compile Include="additionalElements\trainstop\create\references_lenght\test.py" />
+    <Compile Include="additionalElements\trainstop\create\references_length\test.py" />
     <Compile Include="additionalElements\trainstop\delete\test.py" />
     <Compile Include="additionalElements\trainstop\fix\fix_positions\test.py" />
     <Compile Include="additionalElements\trainstop\fix\friendlypos\test.py" />
@@ -2402,7 +2402,7 @@
     <Folder Include="additionalElements\access\create\default" />
     <Folder Include="additionalElements\access\create\duplicated" />
     <Folder Include="additionalElements\access\create\friendlypos" />
-    <Folder Include="additionalElements\access\create\lenght" />
+    <Folder Include="additionalElements\access\create\length" />
     <Folder Include="additionalElements\access\create\no_parent" />
     <Folder Include="additionalElements\access\delete" />
     <Folder Include="additionalElements\access\inspect\" />
@@ -2432,7 +2432,7 @@
     <Folder Include="additionalElements\busstop\create\parkingLength" />
     <Folder Include="additionalElements\busstop\create\personcapacity" />
     <Folder Include="additionalElements\busstop\create\references" />
-    <Folder Include="additionalElements\busstop\create\references_lenght" />
+    <Folder Include="additionalElements\busstop\create\references_length" />
     <Folder Include="additionalElements\busstop\delete" />
     <Folder Include="additionalElements\busstop\fix\" />
     <Folder Include="additionalElements\busstop\fix\fix_positions" />
@@ -2529,7 +2529,7 @@
     <Folder Include="additionalElements\chargingstation\create\name" />
     <Folder Include="additionalElements\chargingstation\create\power" />
     <Folder Include="additionalElements\chargingstation\create\references" />
-    <Folder Include="additionalElements\chargingstation\create\references_lenght" />
+    <Folder Include="additionalElements\chargingstation\create\references_length" />
     <Folder Include="additionalElements\chargingstation\delete" />
     <Folder Include="additionalElements\chargingstation\fix\" />
     <Folder Include="additionalElements\chargingstation\fix\fix_positions" />
@@ -2570,7 +2570,7 @@
     <Folder Include="additionalElements\containerstop\create\name" />
     <Folder Include="additionalElements\containerstop\create\parkingLength" />
     <Folder Include="additionalElements\containerstop\create\references" />
-    <Folder Include="additionalElements\containerstop\create\references_lenght" />
+    <Folder Include="additionalElements\containerstop\create\references_length" />
     <Folder Include="additionalElements\containerstop\delete" />
     <Folder Include="additionalElements\containerstop\fix\" />
     <Folder Include="additionalElements\containerstop\fix\fix_positions" />
@@ -2822,7 +2822,7 @@
     <Folder Include="additionalElements\parkingarea\create\name" />
     <Folder Include="additionalElements\parkingarea\create\onroad" />
     <Folder Include="additionalElements\parkingarea\create\references" />
-    <Folder Include="additionalElements\parkingarea\create\references_lenght" />
+    <Folder Include="additionalElements\parkingarea\create\references_length" />
     <Folder Include="additionalElements\parkingarea\create\roadsidecapacity" />
     <Folder Include="additionalElements\parkingarea\create\width" />
     <Folder Include="additionalElements\parkingarea\delete" />
@@ -2837,7 +2837,7 @@
     <Folder Include="additionalElements\parkingarea\inspect\friendlypos" />
     <Folder Include="additionalElements\parkingarea\inspect\id" />
     <Folder Include="additionalElements\parkingarea\inspect\lane" />
-    <Folder Include="additionalElements\parkingarea\inspect\lenght" />
+    <Folder Include="additionalElements\parkingarea\inspect\length" />
     <Folder Include="additionalElements\parkingarea\inspect\name" />
     <Folder Include="additionalElements\parkingarea\inspect\onroad" />
     <Folder Include="additionalElements\parkingarea\inspect\parameters" />
@@ -2847,7 +2847,7 @@
     <Folder Include="additionalElements\parkingarea\inspect_selection\" />
     <Folder Include="additionalElements\parkingarea\inspect_selection\angle" />
     <Folder Include="additionalElements\parkingarea\inspect_selection\friendlypos" />
-    <Folder Include="additionalElements\parkingarea\inspect_selection\lenght" />
+    <Folder Include="additionalElements\parkingarea\inspect_selection\length" />
     <Folder Include="additionalElements\parkingarea\inspect_selection\name" />
     <Folder Include="additionalElements\parkingarea\inspect_selection\onroad" />
     <Folder Include="additionalElements\parkingarea\inspect_selection\parameters" />
@@ -2866,14 +2866,14 @@
     <Folder Include="additionalElements\parkingspace\delete" />
     <Folder Include="additionalElements\parkingspace\inspect\" />
     <Folder Include="additionalElements\parkingspace\inspect\angle" />
-    <Folder Include="additionalElements\parkingspace\inspect\lenght" />
+    <Folder Include="additionalElements\parkingspace\inspect\length" />
     <Folder Include="additionalElements\parkingspace\inspect\parameters" />
     <Folder Include="additionalElements\parkingspace\inspect\parent" />
     <Folder Include="additionalElements\parkingspace\inspect\pos" />
     <Folder Include="additionalElements\parkingspace\inspect\width" />
     <Folder Include="additionalElements\parkingspace\inspect_selection\" />
     <Folder Include="additionalElements\parkingspace\inspect_selection\angle" />
-    <Folder Include="additionalElements\parkingspace\inspect_selection\lenght" />
+    <Folder Include="additionalElements\parkingspace\inspect_selection\length" />
     <Folder Include="additionalElements\parkingspace\inspect_selection\parameters" />
     <Folder Include="additionalElements\parkingspace\inspect_selection\parent" />
     <Folder Include="additionalElements\parkingspace\inspect_selection\width" />
@@ -2930,7 +2930,7 @@
     <Folder Include="additionalElements\trainstop\create\parkingLength" />
     <Folder Include="additionalElements\trainstop\create\personcapacity" />
     <Folder Include="additionalElements\trainstop\create\references" />
-    <Folder Include="additionalElements\trainstop\create\references_lenght" />
+    <Folder Include="additionalElements\trainstop\create\references_length" />
     <Folder Include="additionalElements\trainstop\delete" />
     <Folder Include="additionalElements\trainstop\fix\" />
     <Folder Include="additionalElements\trainstop\fix\fix_positions" />

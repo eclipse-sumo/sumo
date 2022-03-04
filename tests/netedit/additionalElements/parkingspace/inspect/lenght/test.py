@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 230, 275)
 
 # Change parameter Lenght with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.lenght, "dummyLenght", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.length, "dummyLenght", False)
 
 # Change parameter Lenght with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.lenght, "-6", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.length, "-6", False)
 
 # Change parameter Lenght with a non valid value (0)
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.lenght, "0", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.length, "0", False)
 
 # Change parameter Lenght with a valid value
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.lenght, "3.4", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.length, "3.4", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)
