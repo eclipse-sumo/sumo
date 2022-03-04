@@ -1041,4 +1041,32 @@ GNEDemandElement::adjustDefaultFlowAttributes(SUMOVehicleParameter *vehicleParam
     }
 }
 
+
+void
+GNEDemandElement::buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const {
+    std::vector<GNEEdge*> edges;
+    if (myTagProperty.isRoute()) {
+        edges = getParentEdges();
+    } else if ((getParentDemandElements().size() > 0) && getParentDemandElements().front()->getTagProperty().isRoute()) {
+        edges = getParentDemandElements().front()->getParentEdges();
+    } else if ((getChildDemandElements().size() > 0) && getChildDemandElements().front()->getTagProperty().isRoute()) {
+        edges = getParentDemandElements().front()->getParentEdges();
+    } else if (getParentEdges().size() > 0) {
+        edges = getParentEdges();
+    }
+    // calculate path
+    const auto path = myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getVClass(), edges);
+    // check path size
+    if (path.size() > 0) {
+        double length = 0;
+        for (const auto &edge : path) {
+            length += edge->getNBEdge()->getFinalLength();
+        }
+        for (int i = 0; i < ((int)path.size() -1); i++) {
+            length += path.at(i)->getLanes().front()->getLane2laneConnections().getLane2laneGeometry(path.at(i+1)->getLanes().front()).getShape().length();
+        }
+        GUIDesigns::buildFXMenuCommand(ret, "Route length: " + toString(length), nullptr, ret, MID_COPY_NAME);
+    }
+}
+
 /****************************************************************************/

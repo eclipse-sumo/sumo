@@ -448,6 +448,9 @@ protected:
     /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)
     void adjustDefaultFlowAttributes(SUMOVehicleParameter *vehicleParameters);
 
+    /// @brief build menu command route length
+    void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;
+
 private:
     /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class
