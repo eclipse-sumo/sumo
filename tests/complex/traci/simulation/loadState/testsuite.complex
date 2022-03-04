@@ -35,3 +35,6 @@ persons2
 # save state while the simulation has persons, and include the min the state.
 # then load the state 
 persons_include
+
+# test that calibrator is reset when loading a simulation state	
+calibrator
