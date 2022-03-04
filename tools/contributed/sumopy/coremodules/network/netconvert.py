@@ -586,7 +586,7 @@ class NetConvertMixin(CmlMixin, Process):
                         is_enabled=lambda self: self.is_import_ptstops,
                         )
 
-        self.add_option('lenght_default_ptstops', kwargs.get('lenght_default_ptstops', 20.0),
+        self.add_option('length_default_ptstops', kwargs.get('length_default_ptstops', 20.0),
                         groupnames=['options', 'ptstops'],
                         cml='--osm.stop-output.length',
                         perm='rw',
@@ -596,7 +596,7 @@ class NetConvertMixin(CmlMixin, Process):
                         is_enabled=lambda self: self.is_import_ptstops,
                         )
 
-        self.add_option('lenght_default_busstops', kwargs.get('lenght_default_busstops', 20.0),
+        self.add_option('length_default_busstops', kwargs.get('length_default_busstops', 20.0),
                         groupnames=['options', 'ptstops'],
                         cml='--osm.stop-output.length.bus',
                         perm='rw',
@@ -606,7 +606,7 @@ class NetConvertMixin(CmlMixin, Process):
                         is_enabled=lambda self: self.is_import_ptstops,
                         )
 
-        self.add_option('lenght_default_tramstops', kwargs.get('lenght_default_tramstops', 50.0),
+        self.add_option('length_default_tramstops', kwargs.get('length_default_tramstops', 50.0),
                         groupnames=['options', 'ptstops'],
                         cml='--osm.stop-output.length.tram',
                         perm='rw',
@@ -616,7 +616,7 @@ class NetConvertMixin(CmlMixin, Process):
                         is_enabled=lambda self: self.is_import_ptstops,
                         )
 
-        self.add_option('lenght_default_trainstops', kwargs.get('lenght_default_trainstops', 100.0),
+        self.add_option('length_default_trainstops', kwargs.get('length_default_trainstops', 100.0),
                         groupnames=['options', 'ptstops'],
                         cml='--osm.stop-output.length.train',
                         perm='rw',
