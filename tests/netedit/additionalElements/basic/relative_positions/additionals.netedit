@@ -1,59 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 2021-11-17 16:06:52 by Eclipse SUMO netedit Version v1_10_0+2369-be805626ae7
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\net.net.xml"/>
-    </output>
-
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-    <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\datas.xml"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\gui-settings.xml"/>
-        <window-size value="936,697"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\log.txt"/>
-    </report>
-
-</configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">

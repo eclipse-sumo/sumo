@@ -43,13 +43,13 @@ errorScreenshot:errorScreenshot.png
 
 [run_dependent_text]
 net:<!--{[->]}-->
-additionals:<!--{ generated[->]}-->
+additionals:<!-- generated{[->]}-->
 additionals:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 additionals:\\{REPLACE /}
-routes:<!--{[->]}-->
+routes:<!-- generated{[->]}-->
 routes:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 routes:\\{REPLACE /}
-datas:<!--{[->]}-->
+datas:<!-- generated{[->]}-->
 datas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 datas:\\{REPLACE /}
 netcon:<!--{[->]}-->
