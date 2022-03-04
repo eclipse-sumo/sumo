@@ -732,7 +732,12 @@ MSBaseVehicle::calculateArrivalParams(bool onInit) {
     if (myRoute->getLastEdge()->isTazConnector()) {
         return;
     }
-    const MSEdge* arrivalEdge = myParameter->arrivalEdge >= 0 ? myRoute->getEdges()[myParameter->arrivalEdge] : myRoute->getLastEdge();
+    double arrivalEdgeIndex = MIN2(myParameter->arrivalEdge, (int)myRoute->getEdges().size() - 1);
+    if (arrivalEdgeIndex != myParameter->arrivalEdge) {
+        WRITE_WARNINGF("Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=%",
+                getID(), myParameter->arrivalEdge, time2string(SIMSTEP));
+    }
+    const MSEdge* arrivalEdge = myParameter->arrivalEdge >= 0 ? myRoute->getEdges()[arrivalEdgeIndex] : myRoute->getLastEdge();
     if (!onInit) {
         arrivalEdge = myRoute->getLastEdge();
         // ignore arrivalEdge parameter after rerouting
