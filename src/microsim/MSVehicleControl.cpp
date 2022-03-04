@@ -246,6 +246,19 @@ MSVehicleControl::clearState(const bool reinit) {
     if (reinit) {
         initDefaultTypes();
     }
+    myLoadedVehNo = 0;
+    myRunningVehNo = 0;
+    myEndedVehNo = 0;
+    myDiscarded = 0;
+    myCollisions = 0;
+    myTeleportsCollision = 0;
+    myTeleportsJam = 0;
+    myTeleportsYield = 0;
+    myTeleportsWrongLane = 0;
+    myEmergencyStops = 0;
+    myStoppedVehicles = 0;
+    myTotalDepartureDelay = 0;
+    myTotalTravelTime = 0;
 }
 
 
