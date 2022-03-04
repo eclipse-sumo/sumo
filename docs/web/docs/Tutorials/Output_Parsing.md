@@ -94,6 +94,12 @@ netconvert configuration file (circular.netccfg):
 </configuration>
 ```
 
+Call netconvert again using this configuration file:
+
+```
+netconvert -c circular.netcfg
+```
+
 Try
 
 ```
@@ -104,6 +110,8 @@ for a look at the final network.
 
 ## Route and flow setup
 
+Next, we define routes and traffic flows. Open a new file called `circular.rou.xml` and insert the following vehicle type definitions for cars and trucks:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -111,10 +119,23 @@ for a look at the final network.
   xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <vType accel="1.5" decel="4.5" id="car" length="5" maxSpeed="36.1"/>
     <vType accel="0.4" decel="4.5" id="truck" length="12" maxSpeed="22.2"/>
+</routes>
+```
+
+For further details, see the [vehicle type attributes description](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types).
+Since our network's edges are uni-directional, we want to define corresponding circular routes, i.e., counter-clockwise, as follows:
+
+```xml
     <route id="routeRight" edges="bottom right top left"/>
     <route id="routeLeft" edges="top left bottom right"/>
-    <route id="routeTop" edges="left bottom right top"/>
-    <route id="routeBottom" edges="bottom right top left"/>
+    <route id="routeTop" edges="right top left bottom"/>
+    <route id="routeBottom" edges="left bottom right top"/>
+```
+
+Add these lines just before the closing `</routes>` element. More information on defining your own routes can be found [here](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#routes).
+Finally, we define traffic flows on these routes. For each route, we want a flow for cars as well as for trucks:
+
+```xml
     <flow begin="0" departPos="free" id="carRight" period="1" number="70" route="routeRight" type="car"/>
     <flow begin="0" departPos="free" id="carTop" period="1" number="70" route="routeTop" type="car"/>
     <flow begin="0" departPos="free" id="carLeft" period="1" number="70" route="routeLeft" type="car"/>
@@ -123,19 +144,20 @@ for a look at the final network.
     <flow begin="0" departPos="free" id="truckTop" period="1" number="30" route="routeTop" type="truck"/>
     <flow begin="0" departPos="free" id="truckLeft" period="1" number="30" route="routeLeft" type="truck"/>
     <flow begin="0" departPos="free" id="truckBottom" period="1" number="30" route="routeBottom" type="truck"/>
-</routes>
 ```
 
+These lines can be inserted just after the route definitions. More on the attributes of the `flow` element can be found [here](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#repeated_vehicles_flows).
+
 ## Rerouters
+
+Currently, all flows taking one of the defined routes leave the simulation as soon as they reach their route's destination.
+In order to obtain endlessly driving vehicles, we need to define rerouters.
+Thus, we create a file called `circular.add.xml` which defines a [rerouter](../Simulation/Rerouter.md#assigning_a_new_route) on the edges `bottom` and `top` each, such that vehicles continue on routes `routeRight` and `routeLeft`, respectively.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/additional_file.xsd">
-    <route id="routeRight" edges="bottom right top left"/>
-    <route id="routeLeft" edges="top left bottom right"/>
-    <route id="routeTop" edges="left bottom right top"/>
-    <route id="routeBottom" edges="bottom right top left"/>
     <rerouter id="rerouterBottom" edges="bottom">
         <interval begin="0" end="100000">
             <routeProbReroute id="routeRight" />
@@ -151,26 +173,30 @@ for a look at the final network.
 
 ## Putting it all together
 
+With all input files (network, routes, rerouters) completed, we can create a SUMO configuration file `circular.sumocfg`:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
     <input>
         <net-file value="circular.net.xml"/>
-        <route-files value="circular.rou.xml"/>
-        <additional-files value="circular.add.xml"/>
+        <additional-files value="circular.rou.xml,circular.add.xml"/>
     </input>
 
-<output>
+    <output>
         <netstate-dump value="dump.xml"/>
-</output>
+    </output>
 
     <time>
         <begin value="0"/>
-        <end value="10000"/>
+        <end value="1000"/>
     </time>
 </configuration>
 ```
+
+Note that the routes file `circular.rou.xml` is declared as an additionals file here to prevent a referencing error due to the [loading order of input files](../sumo.md#loading_order_of_input_files).
+Since we want to analyze the output from the simulation later on, we also define the output file `dump.xml` storing the complete network state (cf. [Output Options](../sumo.md#output)).
 
 ## Analyzing the output
 
