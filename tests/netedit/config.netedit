@@ -43,7 +43,7 @@ errorScreenshot:errorScreenshot.png
 
 [run_dependent_text]
 net:<!--{[->]}-->
-additionals:<!--{[->]}-->
+additionals:<!--{ generated[->]}-->
 additionals:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 additionals:\\{REPLACE /}
 routes:<!--{[->]}-->
