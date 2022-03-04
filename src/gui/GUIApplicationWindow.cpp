@@ -1122,7 +1122,6 @@ GUIApplicationWindow::onCmdStart(FXObject*, FXSelector, void*) {
     }
     myRunThread->resume();
     getApp()->forceRefresh(); // only callking myToolBar2->forceRefresh somehow loses keyboard focus
-    GUIShortcutsSubSys::alterSUMOAccelerator(this, KEY_SPACE, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     return 1;
 }
 
@@ -1131,7 +1130,6 @@ long
 GUIApplicationWindow::onCmdStop(FXObject*, FXSelector, void*) {
     myRunThread->stop();
     getApp()->forceRefresh(); // only callking myToolBar2->forceRefresh somehow loses keyboard focus
-    GUIShortcutsSubSys::alterSUMOAccelerator(this, KEY_SPACE, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
     return 1;
 }
 
@@ -1277,6 +1275,9 @@ GUIApplicationWindow::onUpdStart(FXObject* sender, FXSelector, void* ptr) {
                    !myRunThread->simulationIsStartable() || myAmLoading
                    ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
                    ptr);
+    if (myRunThread->simulationIsStartable() && !myAmLoading) {
+        GUIShortcutsSubSys::alterSUMOAccelerator(this, KEY_SPACE, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
+    }
     return 1;
 }
 
@@ -1287,6 +1288,9 @@ GUIApplicationWindow::onUpdStop(FXObject* sender, FXSelector, void* ptr) {
                    !myRunThread->simulationIsStopable() || myAmLoading
                    ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
                    ptr);
+    if (myRunThread->simulationIsStopable() && !myAmLoading) {
+        GUIShortcutsSubSys::alterSUMOAccelerator(this, KEY_SPACE, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
+    }
     return 1;
 }
 
