@@ -1,10 +1,10 @@
-<     <vehicle id="cali.0.2" type="car" depart="24.00" departPos="50.1381" departSpeed="27.656" speedFactor="1.0827" arrival="34.00">
-> </routes>
-<         <route edges="SC CN"/>
-<     </vehicle>
-< 
-<     <vehicle id="cali.0.1" type="car" depart="24.00" departPos="4.0101" departSpeed="31.632" speedFactor="0.9752" arrival="36.00">
-<         <route edges="SC CN"/>
-<     </vehicle>
-< 
 < </routes>
+>     <vehicle id="cali.0.0" type="car" depart="30.00" departPos="4.1818" departSpeed="30.7856" speedFactor="1.0600" arrival="42.00">
+>         <route edges="SC CN"/>
+>     </vehicle>
+> 
+>     <vehicle id="cali.0.1" type="car" depart="31.00" departPos="68.5137" departSpeed="20.6565" speedFactor="0.8392" arrival="42.00">
+>         <route edges="SC CN"/>
+>     </vehicle>
+> 
+> </routes>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-04 17:16:08 by Eclipse SUMO sumo Version v1_12_0+1159-9647977
+<!-- generated on 2022-03-04 17:43:54 by Eclipse SUMO sumo Version v1_12_0+1161-aca0840
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -23,6 +23,22 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="cali.0.0" type="car" depart="18.00" departPos="4.18" departSpeed="33.19" speedFactor="1.0600" arrival="30.00">
+        <route edges="SC CN"/>
+    </vehicle>
+
+    <vehicle id="cali.0.2" type="car" depart="24.00" departPos="50.14" departSpeed="27.66" speedFactor="1.0827" arrival="34.00">
+        <route edges="SC CN"/>
+    </vehicle>
+
+    <vehicle id="cali.0.1" type="car" depart="24.00" departPos="4.01" departSpeed="31.63" speedFactor="0.9752" arrival="36.00">
+        <route edges="SC CN"/>
+    </vehicle>
+
+    <vehicle id="cali.0.0" type="car" depart="30.00" departPos="4.1818" departSpeed="30.7856" speedFactor="1.0600" arrival="42.00">
+        <route edges="SC CN"/>
+    </vehicle>
+
+    <vehicle id="cali.0.1" type="car" depart="31.00" departPos="68.5137" departSpeed="20.6565" speedFactor="0.8392" arrival="42.00">
         <route edges="SC CN"/>
     </vehicle>
 
