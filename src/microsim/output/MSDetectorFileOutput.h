@@ -151,7 +151,7 @@ public:
     }
 
     /** @brief Remove all vehicles before quick-loading state */
-    virtual void clearState() {};
+    virtual void clearState(SUMOTime /*step*/) {};
 
 protected:
     /// @brief The vehicle types to look for (empty means all)

@@ -822,7 +822,7 @@ MSNet::clearAll() {
 
 
 void
-MSNet::clearState(const SUMOTime step) {
+MSNet::clearState(const SUMOTime step, bool quickReload) {
     MSGlobals::gClearState = true;
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->clearState();
@@ -851,10 +851,10 @@ MSNet::clearState(const SUMOTime step) {
     // delete vtypes after transportables have removed their types
     myVehicleControl->clearState(true);
     MSVehicleTransfer::getInstance()->clearState();
-    myLogics->clearState();
+    myLogics->clearState(step, quickReload);
     myDetectorControl->updateDetectors(myStep);
     myDetectorControl->writeOutput(myStep, true);
-    myDetectorControl->clearState();
+    myDetectorControl->clearState(step);
     // delete all routes after vehicles and detector output is done
     MSRoute::dict_clearState();
     for (auto& item : myStoppingPlaces) {
@@ -1521,7 +1521,7 @@ MSNet::warnOnce(const std::string& typeAndID) {
 void
 MSNet::quickReload() {
     const OptionsCont& oc = OptionsCont::getOptions();
-    clearState(string2time(oc.getString("begin")));
+    clearState(string2time(oc.getString("begin")), true);
     NLBuilder::initRandomness();
     // load traffic from additional files
     for (std::string file : oc.getStringVector("additional-files")) {

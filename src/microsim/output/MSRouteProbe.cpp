@@ -68,7 +68,8 @@ MSRouteProbe::~MSRouteProbe() {
 }
 
 void
-MSRouteProbe::clearState() {
+MSRouteProbe::clearState(SUMOTime step) {
+    UNUSED_PARAMETER(step);
     myCurrentRouteDistribution = nullptr;
     myLastRouteDistribution = nullptr;
 }

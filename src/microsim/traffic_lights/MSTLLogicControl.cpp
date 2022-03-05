@@ -836,8 +836,34 @@ MSTLLogicControl::saveState(OutputDevice& out) {
 
 
 void
-MSTLLogicControl::clearState() {
+MSTLLogicControl::clearState(SUMOTime time, bool quickReload) {
     MSRailSignalConstraint::clearState();
+    if (quickReload) {
+        for (const auto& variants : myLogics) {
+            for (auto& logic : variants.second->getAllLogics()) {
+                if (logic->getLogicType() == TrafficLightType::OFF
+                        || logic->getLogicType() == TrafficLightType::RAIL_SIGNAL
+                        || logic->getLogicType() == TrafficLightType::RAIL_CROSSING) {
+                    continue;
+                }
+                int step = 0;
+                const SUMOTime cycleTime = logic->getDefaultCycleTime();
+                auto& phases = logic->getPhases();
+                SUMOTime offset = logic->getOffset();
+                if (offset >= 0) {
+                    offset = (time + cycleTime - (offset % cycleTime)) % cycleTime;
+                } else {
+                    offset = (time + ((-offset) % cycleTime)) % cycleTime;
+                }
+
+                while (offset >= phases[step]->duration) {
+                    offset -= phases[step]->duration;
+                    step++;
+                }
+                logic->loadState(*this, time, step, offset);
+            }
+        }
+    }
 }
 
 

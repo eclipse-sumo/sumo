@@ -305,7 +305,7 @@ public:
     virtual void setVisible(bool /*show*/) {};
 
     /** @brief Remove all vehicles before quick-loading state */
-    virtual void clearState();
+    virtual void clearState(SUMOTime time);
 
 protected:
     /// @name Function for summing up values

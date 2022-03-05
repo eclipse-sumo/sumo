@@ -129,7 +129,7 @@ public:
         return myEdge;
     }
 
-    void clearState() override;
+    void clearState(SUMOTime step) override;
 
 private:
     void initDistributions();
