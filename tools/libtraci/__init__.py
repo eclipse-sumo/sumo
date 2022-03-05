@@ -14,7 +14,6 @@
 # @author  Michael Behrisch
 # @date    2020-10-08
 
-import sys
 import os
 if hasattr(os, "add_dll_directory"):
     # since Python 3.8 the DLL search path has to be set explicitly see https://bugs.python.org/issue43173

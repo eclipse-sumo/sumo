@@ -24,10 +24,10 @@ import subprocess
 from collections import namedtuple
 import re
 from xml.sax import parse, parseString, handler, saxutils
+import optparse
 import argparse
 import io
 from argparse import RawDescriptionHelpFormatter  # noqa
-from optparse import OptionGroup, Option
 
 _OPTIONS = [None]
 
@@ -44,17 +44,16 @@ class ConfigurationReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if len(attrs) == 0:
-            self._group = OptionGroup(self._opts, name)
+            self._group = optparse.OptionGroup(self._opts, name)
         if self._group != self._opts and self._groups and self._group.title not in self._groups:
             return
         if 'type' in attrs and name != "help":
             if self._options and name not in self._options:
                 return
             help = attrs.get("help", "")
-            option = Option("--" + name, help=help)
+            option = optparse.Option("--" + name, help=help)
             if attrs["type"] == "BOOL":
-                option = Option(
-                    "--" + name, action="store_true", default=False, help=help)
+                option = optparse.Option("--" + name, action="store_true", default=False, help=help)
             elif attrs["type"] in ["FLOAT", "TIME"]:
                 option.type = "float"
                 if attrs["value"]:

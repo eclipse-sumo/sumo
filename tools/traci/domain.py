@@ -23,7 +23,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import copy
 import warnings
-from functools import wraps
 
 from . import constants as tc
 from .exceptions import FatalTraCIError
