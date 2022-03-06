@@ -24,6 +24,7 @@ import gzip
 import base64
 import ssl
 import json
+import collections
 
 try:
     import httplib
@@ -46,30 +47,8 @@ THIS_DIR = os.path.abspath(os.path.dirname(__file__))
 TYPEMAP_DIR = os.path.join(THIS_DIR, "..", "data", "typemap")
 
 
-def readBuildingShapeKeysFromXML(keyValueDict, pathToXML):
-    with open(pathToXML, 'r') as osmPolyconvert:
-        kvd = keyValueDict
-        for polygon in sumolib.xml.parse(osmPolyconvert, 'polygonType'):
-            keyValue = polygon.id.split('.')
-            try:
-                key = keyValue[0]
-                value = keyValue[1]                             # key without value throws IndexError
-                kvd[key] = list(set(kvd[key] + [value]))        # kyd[key] could throw KeyError
-            except KeyError:
-                kvd[key] = [value]
-            except IndexError:
-                try:
-                    kvd[key] = list(set(kvd[key] + ['.']))      # kyd[key] could throw KeyError
-                except KeyError:
-                    kvd[key] = ['.']
-    return kvd
-
-
 def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
     # generate query string for each road-type category
-    commonQueryStringKeyPart = "<has-kv k=\"%s\" "
-    commonQueryStringRegvPart = "modv=\"\" regv=\"%s\"/>"
-    commonQueryStringOnlyKey = "/>"
     queryStringNode = []
 
     commonQueryStringNode = """
@@ -79,44 +58,31 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
         </query>"""
 
     for category in roadTypesJSON:
-        keyQueryString = commonQueryStringKeyPart % category
-        typeList = []
         if len(roadTypesJSON[category]) > 0:
-            for type in roadTypesJSON[category]:
-                typeList.append(type)
-            separator = "|"
-            typeListStringPerCategory = separator.join(typeList)
-            regvQueryString = commonQueryStringRegvPart % typeListStringPerCategory
-            finalQueryStringPerCategory = keyQueryString + regvQueryString
-            queryStringNode.append(commonQueryStringNode % (finalQueryStringPerCategory, query))
+            typeList = "|".join(roadTypesJSON[category])
+            regvQueryString = '<has-kv k="%s" modv="" regv="%s"/>' % (category, typeList)
+            queryStringNode.append(commonQueryStringNode % (regvQueryString, query))
 
     if getShapes:
-        keyValueDict = {}
+        keyValueDict = collections.defaultdict(set)
         for typemap in ["osmPolyconvert.typ.xml", "osmPolyconvertRail.typ.xml"]:
-            keyValueDict = readBuildingShapeKeysFromXML(keyValueDict, os.path.join(TYPEMAP_DIR, typemap))
+            with open(os.path.join(TYPEMAP_DIR, typemap), 'r') as osmPolyconvert:
+                for polygon in sumolib.xml.parse(osmPolyconvert, 'polygonType'):
+                    keyValue = polygon.id.split('.') + ["."]
+                    keyValueDict[keyValue[0]].add(keyValue[1])
 
         for category, value in keyValueDict.items():
             if category in roadTypesJSON:
                 continue
-            valuePerCategory = []
-            keyQueryString = commonQueryStringKeyPart % category
-            if ('.' in value):
-                finalQueryStringPerCategory = keyQueryString + commonQueryStringOnlyKey
+            if '.' in value:
+                regvQueryString = '<has-kv k="%s"/>' % category
             else:
-                for val in value:
-                    valuePerCategory.append(val)
-                separator = "|"
-                valueStringPerCategory = separator.join(valuePerCategory)
-                regvQueryString = commonQueryStringRegvPart % valueStringPerCategory
-                finalQueryStringPerCategory = keyQueryString + regvQueryString
+                typeList = "|".join(value)
+                regvQueryString = '<has-kv k="%s" modv="" regv="%s"/>' % (category, typeList)
+            queryStringNode.append(commonQueryStringNode % (regvQueryString, query))
 
-            queryStringNode.append(commonQueryStringNode % (finalQueryStringPerCategory, query))
-
-    separator = "\n"
-    unionQueryString = separator.join(queryStringNode)
-
-    conn.request("POST", "/" + urlpath, """
-    <osm-script timeout="240" element-limit="1073741824">
+    if queryStringNode:
+        unionQueryString = """
     <union>
        %s
     </union>
@@ -125,7 +91,23 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
        <recurse type="way-node"/>
        <recurse type="node-relation"/>
        <recurse type="way-relation"/>
-    </union>
+    </union>""" % "\n".join(queryStringNode)
+    else:
+        unionQueryString = """
+    <union>
+       %s
+       <recurse type="node-relation" into="rels"/>
+       <recurse type="node-way"/>
+       <recurse type="way-relation"/>
+     </union>
+     <union>
+        <item/>
+        <recurse type="way-node"/>
+     </union>""" % query
+
+    conn.request("POST", "/" + urlpath, """
+    <osm-script timeout="240" element-limit="1073741824">
+       %s
     <print mode="body"/>
     </osm-script>""" % unionQueryString, headers={'Accept-Encoding': 'gzip'})
 
@@ -211,16 +193,15 @@ def get(args=None):
         else:
             conn = httplib.HTTPConnection(url.hostname, url.port)
 
-    if options.roadTypes:
-        roadTypesJSON = json.loads(options.roadTypes.replace("\'", "\"").lower())
+    roadTypesJSON = json.loads(options.roadTypes.replace("\'", "\"").lower()) if options.roadTypes else {}
 
     suffix = ".osm.xml.gz" if options.gzip else ".osm.xml"
-    if (options.area and options.roadTypes):
+    if options.area:
         if options.area < 3600000000:
             options.area += 3600000000
         readCompressed(conn, url.path, '<area-query ref="%s"/>' %
                        options.area, roadTypesJSON, options.shapes, options.prefix + "_city" + suffix)
-    if ((options.bbox or options.polygon) and options.roadTypes):
+    if options.bbox or options.polygon:
         if options.tiles == 1:
             readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' %
                            (north, south, west, east), roadTypesJSON,
