@@ -187,7 +187,7 @@ class Builder(object):
         else:
             self.report("Downloading map data")
             osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp, "-z",
-                       "-r=" + str(self.data["roadTypes"])]
+                       "-r", json.dumps(self.data["roadTypes"])]
             if self.data["poly"]:
                 osmArgs.append("--shapes")
             if 'osmMirror' in self.data:
