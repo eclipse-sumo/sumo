@@ -32,19 +32,20 @@
 
 GNETractionSubstation::GNETractionSubstation(GNENet* net) :
     GNEAdditional("", net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, "",
-        {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {}, {}, {}),
+    myVoltage(0),
+    myCurrentLimit(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
-                         const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
-                         const std::map<std::string, std::string>& parameters) :
-    GNEAdditional(id, net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, name,
+GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage, const double currentLimit) :
+    GNEAdditional(id, net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, "",
         {}, {}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myPosition(pos) {
+    myPosition(pos),
+    myVoltage(voltage),
+    myCurrentLimit(currentLimit) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -56,17 +57,15 @@ GNETractionSubstation::~GNETractionSubstation() {
 
 void
 GNETractionSubstation::writeAdditional(OutputDevice& device) const {
-    device.openTag(SUMO_TAG_REROUTER);
+    device.openTag(SUMO_TAG_TRACTION_SUBSTATION);
     device.writeAttr(SUMO_ATTR_ID, getID());
-
     device.writeAttr(SUMO_ATTR_POSITION, myPosition);
-
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    if (getAttribute(SUMO_ATTR_VOLTAGE) != myTagProperty.getDefaultValue(SUMO_ATTR_VOLTAGE)) {
+        device.writeAttr(SUMO_ATTR_VOLTAGE, myVoltage);
     }
-
-    // write parameters (Always after children to avoid problems with additionals.xsd)
-    writeParams(device);
+    if (getAttribute(SUMO_ATTR_CURRENTLIMIT) != myTagProperty.getDefaultValue(SUMO_ATTR_CURRENTLIMIT)) {
+        device.writeAttr(SUMO_ATTR_CURRENTLIMIT, myCurrentLimit);
+    }
     device.closeTag();
 }
 
@@ -82,13 +81,6 @@ void
 GNETractionSubstation::updateGeometry() {
     // update additional geometry
     myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
-    // update geometries (boundaries of all children)
-    for (const auto& additionalChildren : getChildAdditionals()) {
-        additionalChildren->updateGeometry();
-        for (const auto& tractionSubstationElement : additionalChildren->getChildAdditionals()) {
-            tractionSubstationElement->updateGeometry();
-        }
-    }
 }
 
 
@@ -146,24 +138,6 @@ GNETractionSubstation::drawGL(const GUIVisualizationSettings& s) const {
     drawParentChildLines(s, s.additionalSettings.connectionColor, true);
     // draw TractionSubstation
     drawSquaredAdditional(s, myPosition, s.additionalSettings.tractionSubstationSize, GUITexture::TRACTIONSUBSTATION, GUITexture::TRACTIONSUBSTATION_SELECTED);
-    // iterate over additionals and check if drawn
-    for (const auto& interval : getChildAdditionals()) {
-        // if tractionSubstation or their intevals are selected, then draw
-        if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
-                isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-                interval->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(interval) ||
-                (myNet->getViewNet()->getFrontAttributeCarrier() == interval)) {
-            interval->drawGL(s);
-        } else {
-            // if tractionSubstationElements are inspected or selected, then draw
-            for (const auto& tractionSubstationElement : interval->getChildAdditionals()) {
-                if (tractionSubstationElement->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(tractionSubstationElement) ||
-                        (myNet->getViewNet()->getFrontAttributeCarrier() == tractionSubstationElement)) {
-                    interval->drawGL(s);
-                }
-            }
-        }
-    }
 }
 
 
@@ -183,12 +157,10 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
         }
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
-        case SUMO_ATTR_NAME:
-            return myAdditionalName;
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+        case SUMO_ATTR_VOLTAGE:
+            return toString(myVoltage);
+        case SUMO_ATTR_CURRENTLIMIT:
+            return toString(myCurrentLimit);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -198,6 +170,12 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
 double
 GNETractionSubstation::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+}
+
+
+const 
+std::map<std::string, std::string>& GNETractionSubstation::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
 }
 
 
@@ -211,14 +189,9 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value, G
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_ID:
         case SUMO_ATTR_POSITION:
-        case SUMO_ATTR_NAME:
-        case SUMO_ATTR_FILE:
-        case SUMO_ATTR_PROB:
-        case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-        case SUMO_ATTR_VTYPES:
-        case SUMO_ATTR_OFF:
+        case SUMO_ATTR_VOLTAGE:
+        case SUMO_ATTR_CURRENTLIMIT:
         case GNE_ATTR_SELECTED:
-        case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -236,26 +209,15 @@ GNETractionSubstation::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<std::vector<GNEEdge*> >(myNet, value, false);
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
-        case SUMO_ATTR_NAME:
-            return SUMOXMLDefinitions::isValidAttribute(value);
-        case SUMO_ATTR_FILE:
-            return SUMOXMLDefinitions::isValidFilename(value);
-        case SUMO_ATTR_PROB:
-            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
-        case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return canParse<SUMOTime>(value);
-        case SUMO_ATTR_VTYPES:
-            if (value.empty()) {
-                return true;
+        case SUMO_ATTR_VOLTAGE:
+        case SUMO_ATTR_CURRENTLIMIT:
+            if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
             } else {
-                return SUMOXMLDefinitions::isValidListOfTypeID(value);
+                return false;
             }
-        case SUMO_ATTR_OFF:
-            return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -299,8 +261,11 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value) {
                 updateCenteringBoundary(true);
             }
             break;
-        case SUMO_ATTR_NAME:
-            myAdditionalName = value;
+        case SUMO_ATTR_VOLTAGE:
+            myVoltage = parse<double>(value);
+            break;
+        case SUMO_ATTR_CURRENTLIMIT:
+            myCurrentLimit = parse<double>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
@@ -308,9 +273,6 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 unselectAttributeCarrier();
             }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -329,7 +291,7 @@ GNETractionSubstation::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNETractionSubstation::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::REROUTER, "position of " + getTagStr());
+    undoList->begin(GUIIcon::TRACTION_SUBSTATION, "position of " + getTagStr());
     undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
     undoList->end();
 }

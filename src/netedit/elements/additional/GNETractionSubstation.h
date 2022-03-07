@@ -26,7 +26,7 @@
 // class definitions
 // ===========================================================================
 
-class GNETractionSubstation : public GNEAdditional, public Parameterised {
+class GNETractionSubstation : public GNEAdditional {
 
 public:
     /// @brief default Constructor
@@ -36,15 +36,10 @@ public:
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] pos position (center) of the tractionSubstation in the map
-     * @param[in] name TractionSubstation name
-     * @param[in] filename The path to the definition file
-     * @param[in] probability The probability for vehicle rerouting
-     * @param[in] off Whether the router should be inactive initially
-     * @param[in] parameters generic parameters
+     * @param[in] voltage tractionSubstation voltage
+     * @param[in] currentLimit tractionSubstation currentLimit
      */
-    GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const std::string& name, const std::string& filename,
-                double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
-                const std::map<std::string, std::string>& parameters);
+    GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage, const double currentLimit);
 
     /// @brief Destructor
     ~GNETractionSubstation();
@@ -101,6 +96,9 @@ public:
      */
     double getAttributeDouble(SumoXMLAttr key) const;
 
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -130,6 +128,12 @@ public:
 protected:
     /// @brief position of tractionSubstation in view
     Position myPosition;
+
+    /// @brief voltage
+    double myVoltage;
+
+    /// @brief current limit
+    double myCurrentLimit;
 
 private:
     /// @brief set attribute after validation

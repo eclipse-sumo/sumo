@@ -55,6 +55,7 @@
 #include "GNERouteProbe.h"
 #include "GNETAZ.h"
 #include "GNETAZSourceSink.h"
+#include "GNETractionSubstation.h"
 #include "GNEVaporizer.h"
 #include "GNEVariableSpeedSign.h"
 #include "GNEVariableSpeedSignStep.h"
@@ -1471,7 +1472,30 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
 void 
 GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
                                               const double voltage, const double currentLimit) {
-    //
+    // check conditions
+    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_TRACTION_SUBSTATION, id);
+    } else if (voltage < 0) {
+        writeErrorInvalidNegativeValue(SUMO_TAG_TRACTION_SUBSTATION, id, SUMO_ATTR_VOLTAGE);
+    } else if (currentLimit < 0) {
+        writeErrorInvalidNegativeValue(SUMO_TAG_TRACTION_SUBSTATION, id, SUMO_ATTR_CURRENTLIMIT);
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRACTION_SUBSTATION, id, false) == nullptr) {
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // build traction substation
+        GNEAdditional* tractionSubstation = new GNETractionSubstation(id, myNet, pos, voltage, currentLimit);
+        // insert depending of allowUndoRedo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::TRACTION_SUBSTATION, "add " + toString(SUMO_TAG_TRACTION_SUBSTATION));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(tractionSubstation, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            myNet->getAttributeCarriers()->insertAdditional(tractionSubstation);
+            tractionSubstation->incRef("buildTractionSubstation");
+        }
+    } else {
+        writeErrorDuplicated(SUMO_TAG_TRACTION_SUBSTATION, id);
+    }
 }
 
 
