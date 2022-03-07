@@ -47,7 +47,7 @@ netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
 netedit.selectionClear()
 
 # lock junctions
-netedit.lockSelection(6)
+netedit.lockSelection(netedit.attrs.Selection.LockSelectionNetwork.crossings)
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
@@ -59,7 +59,7 @@ netedit.selectionClear()
 netedit.typeTwoKeys('alt', 'o')
 
 # lock junctions
-netedit.lockSelection(6)
+netedit.lockSelection(netedit.attrs.Selection.LockSelectionNetwork.crossings)
 
 # check undo and redo
 netedit.undo(referencePosition, 5)

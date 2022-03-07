@@ -16,6 +16,22 @@
 # @date    2022-01-31
 
 # --------------------------------
+# GENERAL
+# --------------------------------
+
+class Selection:
+    class LockSelectionNetwork:
+        junctions = 1
+        edges = 2
+        lanes = 3
+        connections = 4
+        crossings = 5
+        additionals = 6
+        TAZs = 7
+        polygons = 8
+        POIs = 9
+        
+# --------------------------------
 # NETWORK
 # --------------------------------
 
