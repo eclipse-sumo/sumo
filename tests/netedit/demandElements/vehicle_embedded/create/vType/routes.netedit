@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-08 14:25:40 by Eclipse SUMO netedit Version v1_12_0+0377-6919bded5c6
+<!-- generated on 2022-03-07 09:15:21 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
     <vType id="custom_vType" length="20.00" vClass="bus" width="5.00" height="12.00" color="cyan"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="v_0" type="custom_vType" depart="0.00">
         <route edges="gneE2 gneE4 gneE5"/>
     </vehicle>

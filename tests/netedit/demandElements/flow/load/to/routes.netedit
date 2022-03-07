@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-30 09:50:03 by Eclipse SUMO netedit Version v1_10_0+0371-5db31c4b66
+<!-- generated on 2022-03-07 12:29:32 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
     <flow id="flow_3" begin="20.00" from="gneE2" to="gneE2" end="50.00" number="100"/>
     <flow id="flow_4" begin="20.00" from="gneE2" to="gneE5" end="50.00" number="100"/>
 </routes>

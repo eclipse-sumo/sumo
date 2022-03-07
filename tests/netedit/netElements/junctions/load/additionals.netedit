@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 19.08.2020 10:18:34 by Eclipse SUMO netedit Version v1_6_0+1660-ed095fdb90
+<!-- generated on 2022-03-07 10:59:32 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
     <busStop id="busStop_-gneE3_0_1" lane="-gneE3_0" startPos="2.50" endPos="7.50"/>
     <busStop id="busStop_-gneE4_0_2" lane="-gneE4_0" startPos="2.50" endPos="7.50"/>
     <busStop id="busStop_-gneE5_0_3" lane="-gneE5_0" startPos="2.50" endPos="7.50"/>
@@ -14,6 +15,7 @@
     <busStop id="busStop_gneE5_0_8" lane="gneE5_0" startPos="2.50" endPos="7.50"/>
     <busStop id="busStop_gneE6_0_9" lane="gneE6_0" startPos="2.50" endPos="7.50"/>
     <busStop id="busStop_gneE7_0_6" lane="gneE7_0" startPos="2.50" endPos="7.50"/>
+    <!-- Detectors -->
     <e3Detector id="e3Detector_0" pos="60.00,50.00" freq="100.00" file="e3Detector_0.txt">
         <detEntry lane="-gneE17_0" pos="5.00"/>
         <detExit lane="-gneE17_0" pos="5.00"/>

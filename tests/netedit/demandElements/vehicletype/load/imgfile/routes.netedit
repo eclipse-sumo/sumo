@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-16 12:52:24 by Eclipse SUMO netedit Version v1_10_0+0721-94326db740
+<!-- generated on 2022-03-07 09:22:24 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="vType0" imgFile="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\imgfile\dummyImgFile"/>
-    <vType id="vType2" imgFile="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\imgfile\berlin_icon"/>
+    <!-- VTypes -->
+    <vType id="vType0" imgFile="/home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.07Mar091221.30338/netedit.daily.demand.vehicletype/demandElements/vehicletype/load/imgfile/dummyImgFile"/>
+    <vType id="vType2" imgFile="/home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.07Mar091221.30338/netedit.daily.demand.vehicletype/demandElements/vehicletype/load/imgfile/berlin_icon"/>
 </routes>
