@@ -1267,6 +1267,8 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
 
 void
 AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
     // check parent
     if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() &&
             myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() != SUMO_TAG_ROOTFILE) {
@@ -1275,16 +1277,25 @@ AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs)
             WRITE_ERROR("CalibratorFlows need either the attribute vehsPerHour or speed or type (or any combination of these)");
         }
         // first parse flow
-        SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, false, false,
-                                              string2time(OptionsCont::getOptions().getString("begin")),
-                                              string2time(OptionsCont::getOptions().getString("end")));
+        SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_FLOW, attrs, false, true, true);
         if (flowParameter) {
-            // set tag
-            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
-            // set vehicle parameters
-            myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
-            // delete flow parameter (because in XMLStructure we have a copy)
-            delete flowParameter;
+            // set VPH and speed
+            if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
+                flowParameter->repetitionOffset = TIME2STEPS(3600. / attrs.get<double>(SUMO_ATTR_VEHSPERHOUR, "", parsedOk));
+                flowParameter->parametersSet |= VEHPARS_VPH_SET;
+            }
+            if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+                flowParameter->calibratorSpeed = attrs.get<double>(SUMO_ATTR_SPEED, "", parsedOk);
+                flowParameter->parametersSet |= VEHPARS_CALIBRATORSPEED_SET;
+            }
+            if (parsedOk) {
+                // set tag
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+                // set vehicle parameters
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
+                // delete flow parameter (because in XMLStructure we have a copy)
+                delete flowParameter;
+            }
         }
     }
 }

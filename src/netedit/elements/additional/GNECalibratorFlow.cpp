@@ -157,9 +157,17 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ROUTE:
             return getParentDemandElements().at(1)->getID();
         case SUMO_ATTR_VEHSPERHOUR:
-            return toString(3600 / STEPS2TIME(repetitionOffset));
+            if (parametersSet & VEHPARS_VPH_SET) {
+                return toString(3600 / STEPS2TIME(repetitionOffset));
+            } else {
+                return "";
+            }
         case SUMO_ATTR_SPEED:
-            return toString(calibratorSpeed);
+            if (parametersSet & VEHPARS_CALIBRATORSPEED_SET) {
+                return toString(calibratorSpeed);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_COLOR:
             if (wasSet(VEHPARS_COLOR_SET)) {
                 return toString(color);
@@ -490,14 +498,22 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
             break;
         case SUMO_ATTR_VEHSPERHOUR:
-            repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
-            // set parameters
-            parametersSet |= VEHPARS_VPH_SET;
+            if (value.empty()) {
+                parametersSet &= ~VEHPARS_VPH_SET;
+            } else {
+                repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
+                // set parameters
+                parametersSet |= VEHPARS_VPH_SET;
+            }
             break;
         case SUMO_ATTR_SPEED:
-            calibratorSpeed = parse<double>(value);
-            // mark parameter as set
-            parametersSet |= VEHPARS_CALIBRATORSPEED_SET;
+            if (value.empty()) {
+                parametersSet &= ~VEHPARS_CALIBRATORSPEED_SET;
+            } else {
+                calibratorSpeed = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VEHPARS_CALIBRATORSPEED_SET;
+            }
             break;
         case SUMO_ATTR_COLOR:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
