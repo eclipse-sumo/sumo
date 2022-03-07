@@ -53,6 +53,7 @@
 #include <netedit/elements/additional/GNEVaporizer.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
 #include <netedit/elements/additional/GNEVariableSpeedSignStep.h>
+#include <netedit/elements/additional/GNETractionSubstation.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/demand/GNEContainer.h>
 #include <netedit/elements/demand/GNEPerson.h>
@@ -212,6 +213,9 @@ GNEFrameModules::TagSelector::setCurrentTagType(GNETagProperties::TagType tagTyp
             break;
         case GNETagProperties::TagType::TAZELEMENT:
             setText("TAZ elements");
+            break;
+        case GNETagProperties::TagType::WIRE:
+            setText("Wire elements");
             break;
         case GNETagProperties::TagType::VEHICLE:
             setText("Vehicles");
@@ -434,6 +438,16 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
         case SUMO_TAG_TAZSOURCE:
         case SUMO_TAG_TAZSINK:
             myAC = new GNETAZSourceSink(tagProperty.getTag(), net);
+            break;
+        // wires
+        case SUMO_TAG_TRACTION_SUBSTATION:
+            myAC = new GNETractionSubstation(net);
+            break;
+        case SUMO_TAG_OVERHEAD_WIRE_SECTION:
+            myAC = nullptr; // TMP
+            break;
+        case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
+            myAC = nullptr; // TMP
             break;
         // Demand elements
         case SUMO_TAG_ROUTE:

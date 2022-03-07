@@ -1139,8 +1139,6 @@ GNEViewNet::abortOperation(bool clearSelection) {
             myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortConsecutiveLaneSelector();
             // abort path
             myViewParent->getAdditionalFrame()->getE2MultilaneLaneSelector()->abortPathCreation();
-        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_WIRE) {
-            myViewParent->getWireFrame()->onCmdCancel(nullptr, 0, nullptr);
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         // abort operation depending of current mode
@@ -4866,10 +4864,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_WIRE: {
-            // avoid create additionals if control key is pressed
+            // avoid create wires if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                myViewParent->getWireFrame()->handleWireClick(myObjectsUnderCursor);
-                // update view to show the new additional
+                myViewParent->getWireFrame()->addWire(myObjectsUnderCursor);
+                // update view to show the new wire
                 updateViewNet();
             }
             // process click
