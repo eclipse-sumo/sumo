@@ -233,21 +233,17 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         if (s.drawAdditionals(exaggeration)) {
-            // begin push name
-            GLHelper::pushName(getGlID());
             // draw first symbol
             drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front() + 90);
             // continue with the other symbols
             for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
                 drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front() + 90);
             }
-            // pop name
-            GLHelper::popName();
             // draw additional ID
             drawAdditionalID(s);
             // iterate over additionals and check if drawn
             for (const auto& calibratorFlow : getChildAdditionals()) {
-                // if rerouter or their intevals are selected, then draw
+                // if calibrator is bein inspected or selected, then draw
                 if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
                         isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
                         calibratorFlow->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(calibratorFlow) ||
@@ -428,7 +424,10 @@ GNECalibrator::getHierarchyName() const {
 // private
 // ===========================================================================
 
-void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const {
+void 
+GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const {
+    // begin push name
+    GLHelper::pushName(getGlID());
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to front
@@ -473,6 +472,8 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     }
     // pop layer matrix
     GLHelper::popMatrix();
+    // pop name
+    GLHelper::popName();
     // check if dotted contours has to be drawn
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, pos,

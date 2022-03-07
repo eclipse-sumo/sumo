@@ -536,7 +536,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         // Add layer matrix
         GLHelper::pushMatrix();
         // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR);
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
         // translate to position
         glTranslated(pos.x(), pos.y(), 0);
         // scale
