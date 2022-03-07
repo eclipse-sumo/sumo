@@ -1047,10 +1047,10 @@ GNEDemandElement::buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const {
     std::vector<GNEEdge*> edges;
     if (myTagProperty.isRoute()) {
         edges = getParentEdges();
-    } else if ((getParentDemandElements().size() > 0) && getParentDemandElements().front()->getTagProperty().isRoute()) {
-        edges = getParentDemandElements().front()->getParentEdges();
+    } else if ((getParentDemandElements().size() > 1) && getParentDemandElements().at(1)->getTagProperty().isRoute()) {
+        edges = getParentDemandElements().at(1)->getParentEdges();
     } else if ((getChildDemandElements().size() > 0) && getChildDemandElements().front()->getTagProperty().isRoute()) {
-        edges = getParentDemandElements().front()->getParentEdges();
+        edges = getChildDemandElements().front()->getParentEdges();
     } else if (getParentEdges().size() > 0) {
         edges = getParentEdges();
     }
