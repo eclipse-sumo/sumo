@@ -589,7 +589,7 @@ MSBaseVehicle::addTransportable(MSTransportable* transportable) {
         if (myPersonDevice == nullptr) {
             myPersonDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, false);
             myMoveReminders.push_back(std::make_pair(myPersonDevice, 0.));
-            if (myParameter->departProcedure == DEPART_TRIGGERED && myParameter->depart == -1) {
+            if (myParameter->departProcedure == DepartDefinition::TRIGGERED && myParameter->depart == -1) {
                 const_cast<SUMOVehicleParameter*>(myParameter)->depart = MSNet::getInstance()->getCurrentTimeStep();
             }
         }
@@ -598,7 +598,7 @@ MSBaseVehicle::addTransportable(MSTransportable* transportable) {
         if (myContainerDevice == nullptr) {
             myContainerDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, true);
             myMoveReminders.push_back(std::make_pair(myContainerDevice, 0.));
-            if (myParameter->departProcedure == DEPART_CONTAINER_TRIGGERED && myParameter->depart == -1) {
+            if (myParameter->departProcedure == DepartDefinition::CONTAINER_TRIGGERED && myParameter->depart == -1) {
                 const_cast<SUMOVehicleParameter*>(myParameter)->depart = MSNet::getInstance()->getCurrentTimeStep();
             }
         }

@@ -234,7 +234,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             } else {
                 flowParameter->parametersSet |= VEHPARS_END_SET;
             }
-        } else if (flowParameter->departProcedure == DEPART_TRIGGERED) {
+        } else if (flowParameter->departProcedure == DepartDefinition::TRIGGERED) {
             if (!hasNumber) {
                 return handleVehicleError(hardFail, flowParameter, toString(tag) + " '" + id + "' with triggered begin must define 'number'.");
             } else {

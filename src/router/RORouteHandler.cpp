@@ -178,9 +178,9 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
 void
 RORouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
-    if (myActivePlan != nullptr && myActivePlan->empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED && element != SUMO_TAG_RIDE) {
+    if (myActivePlan != nullptr && myActivePlan->empty() && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED && element != SUMO_TAG_RIDE) {
         throw ProcessError("Triggered departure for person '" + myVehicleParameter->id + "' requires starting with a ride.");
-    } else if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DEPART_TRIGGERED && element != SUMO_TAG_TRANSPORT) {
+    } else if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED && element != SUMO_TAG_TRANSPORT) {
         throw ProcessError("Triggered departure for container '" + myVehicleParameter->id + "' requires starting with a transport.");
     }
     SUMORouteHandler::myStartElement(element, attrs);
@@ -505,7 +505,7 @@ void
 RORouteHandler::closeVehicle() {
     checkLastDepart();
     // get the vehicle id
-    if (myVehicleParameter->departProcedure == DEPART_GIVEN && myVehicleParameter->depart < myBegin) {
+    if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN && myVehicleParameter->depart < myBegin) {
         return;
     }
     // get vehicle type
@@ -942,7 +942,7 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
     const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
     const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, pid.c_str(), ok, "");
 
-    if (plan.empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
+    if (plan.empty() && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED) {
         StringTokenizer st(desc);
         if (st.size() != 1) {
             throw ProcessError("Triggered departure for person '" + pid + "' requires a unique lines value.");
@@ -963,7 +963,7 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
 
 void
 RORouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
-    if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
+    if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED) {
         bool ok = true;
         const std::string pid = myVehicleParameter->id;
         const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);

@@ -1361,10 +1361,10 @@ Vehicle::add(const std::string& vehID,
     if (!SUMOVehicleParameter::parseDepart(depart, "vehicle", vehID, vehicleParams.depart, vehicleParams.departProcedure, error)) {
         throw TraCIException(error);
     }
-    if (vehicleParams.departProcedure == DEPART_GIVEN && vehicleParams.depart < MSNet::getInstance()->getCurrentTimeStep()) {
+    if (vehicleParams.departProcedure == DepartDefinition::GIVEN && vehicleParams.depart < MSNet::getInstance()->getCurrentTimeStep()) {
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
         WRITE_WARNING("Departure time for vehicle '" + vehID + "' is in the past; using current time instead.");
-    } else if (vehicleParams.departProcedure == DEPART_NOW) {
+    } else if (vehicleParams.departProcedure == DepartDefinition::NOW) {
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
     }
     if (!SUMOVehicleParameter::parseDepartLane(departLane, "vehicle", vehID, vehicleParams.departLane, vehicleParams.departLaneProcedure, error)) {
@@ -1405,7 +1405,7 @@ Vehicle::add(const std::string& vehID,
             throw TraCIException("Vehicle '" + vehID + "' has no valid route (" + msg + "). ");
         }
         MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams.id, vehicle);
-        if (vehicleParams.departProcedure != DEPART_TRIGGERED && vehicleParams.departProcedure != DEPART_CONTAINER_TRIGGERED) {
+        if (vehicleParams.departProcedure != DepartDefinition::TRIGGERED && vehicleParams.departProcedure != DepartDefinition::CONTAINER_TRIGGERED) {
             MSNet::getInstance()->getInsertionControl().add(vehicle);
         }
     } catch (ProcessError& e) {

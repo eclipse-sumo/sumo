@@ -104,19 +104,19 @@ const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
  * @enum DepartDefinition
  * @brief Possible ways to depart
  */
-enum DepartDefinition {
+enum class DepartDefinition {
     /// @brief The time is given
-    DEPART_GIVEN,
+    GIVEN,
     /// @brief The departure is person triggered
-    DEPART_TRIGGERED,
+    TRIGGERED,
     /// @brief The departure is container triggered
-    DEPART_CONTAINER_TRIGGERED,
+    CONTAINER_TRIGGERED,
     /// @brief The vehicle is discarded if emission fails (not fully implemented yet)
-    DEPART_NOW,
+    NOW,
     /// @brief The departure is triggered by a train split
-    DEPART_SPLIT,
+    SPLIT,
     /// @brief Tag for the last element in the enum for safe int casting
-    DEPART_DEF_MAX
+    DEF_MAX
 };
 
 

@@ -1270,8 +1270,8 @@ MSEdge::getWaitingVehicle(MSTransportable* transportable, const double position)
         if (transportable->isWaitingFor(vehicle)) {
             if (vehicle->isStoppedInRange(position, MSGlobals::gStopTolerance) ||
                     (!vehicle->hasDeparted() &&
-                     (vehicle->getParameter().departProcedure == DEPART_TRIGGERED ||
-                      vehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED))) {
+                     (vehicle->getParameter().departProcedure == DepartDefinition::TRIGGERED ||
+                      vehicle->getParameter().departProcedure == DepartDefinition::CONTAINER_TRIGGERED))) {
                 return vehicle;
             }
             if (!vehicle->isLineStop(position) && vehicle->allowsBoarding(transportable)) {

@@ -179,7 +179,7 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
 void
 MSRouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     try {
-        if (myActiveTransportablePlan != nullptr && myActiveTransportablePlan->empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED
+        if (myActiveTransportablePlan != nullptr && myActiveTransportablePlan->empty() && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED
                 && element != SUMO_TAG_RIDE && element != SUMO_TAG_TRANSPORT) {
             const std::string mode = myActiveType == ObjectTypeEnum::PERSON ? "ride" : "transport";
             throw ProcessError("Triggered departure for " + myActiveTypeName + " '" + myVehicleParameter->id + "' requires starting with a " + mode + ".");
@@ -538,7 +538,7 @@ MSRouteHandler::closeVehicle() {
         route = MSRoute::dictionary(embeddedRouteID, &myParsingRNG);
     }
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
-    if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
+    if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN) {
         // let's check whether this vehicle had to depart before the simulation starts
         if (!(myAddVehiclesDirectly || checkLastDepart()) || (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
             if (route != nullptr) {
@@ -649,7 +649,7 @@ MSRouteHandler::closeVehicle() {
             }
             int offset = 0;
             for (int i = 1; i < quota; i++) {
-                if (vehicle->getParameter().departProcedure == DEPART_GIVEN) {
+                if (vehicle->getParameter().departProcedure == DepartDefinition::GIVEN) {
                     MSNet::getInstance()->getInsertionControl().add(vehicle);
                 }
                 SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*myVehicleParameter);
@@ -692,7 +692,7 @@ MSRouteHandler::closeVehicle() {
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer
     if (vehicle != nullptr) {
-        if (vehicle->getParameter().departProcedure == DEPART_GIVEN) {
+        if (vehicle->getParameter().departProcedure == DepartDefinition::GIVEN) {
             MSNet::getInstance()->getInsertionControl().add(vehicle);
         }
     }
@@ -821,7 +821,7 @@ MSRouteHandler::closeTransportableFlow() {
             SUMOTime depart = myVehicleParameter->depart;
             for (; i < myVehicleParameter->repetitionNumber; i++) {
                 addFlowTransportable(depart, type, baseID, i);
-                if (myVehicleParameter->departProcedure != DEPART_TRIGGERED) {
+                if (myVehicleParameter->departProcedure != DepartDefinition::TRIGGERED) {
                     depart += myVehicleParameter->repetitionOffset;
                 }
             }
@@ -1025,7 +1025,7 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
                             s == nullptr ? std::numeric_limits<double>::infinity() : s->getEndLanePosition());
 
         SUMOVehicle* startVeh = nullptr;
-        if (myActiveTransportablePlan->empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
+        if (myActiveTransportablePlan->empty() && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED) {
             if (st.size() != 1) {
                 throw ProcessError("Triggered departure for " + agent + " '" + aid + "' requires a unique lines value.");
             }
@@ -1036,7 +1036,7 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
             if (startVeh == nullptr) {
                 throw ProcessError("Unknown vehicle '" + vehID + "' in triggered departure for " + agent + " '" + aid + "'.");
             }
-            if (startVeh->getParameter().departProcedure == DEPART_TRIGGERED) {
+            if (startVeh->getParameter().departProcedure == DepartDefinition::TRIGGERED) {
                 throw ProcessError("Cannot use triggered vehicle '" + vehID + "' in triggered departure for " + agent + " '" + aid + "'.");
             }
             myVehicleParameter->depart = startVeh->getParameter().depart;

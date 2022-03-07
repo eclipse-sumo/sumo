@@ -269,7 +269,7 @@ MSVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
         // id not in myVehicleDict.
         myVehicleDict[id] = v;
         const SUMOVehicleParameter& pars = v->getParameter();
-        if (pars.departProcedure == DEPART_TRIGGERED || pars.departProcedure == DEPART_CONTAINER_TRIGGERED || pars.departProcedure == DEPART_SPLIT) {
+        if (pars.departProcedure == DepartDefinition::TRIGGERED || pars.departProcedure == DepartDefinition::CONTAINER_TRIGGERED || pars.departProcedure == DepartDefinition::SPLIT) {
             const MSEdge* const firstEdge = v->getRoute().getEdges()[0];
             if (!MSGlobals::gUseMesoSim) {
                 // position will be checked against person position later
@@ -440,7 +440,7 @@ void
 MSVehicleControl::abortWaiting() {
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
         WRITE_WARNINGF("Vehicle '%' aborted waiting for a % that will never come.", i->first,
-                       i->second->getParameter().departProcedure == DEPART_SPLIT ? "split" : "person or container")
+                       i->second->getParameter().departProcedure == DepartDefinition::SPLIT ? "split" : "person or container")
     }
 }
 

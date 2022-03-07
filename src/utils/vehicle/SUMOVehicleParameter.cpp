@@ -35,7 +35,7 @@
 
 SUMOVehicleParameter::SUMOVehicleParameter()
     : tag(SUMO_TAG_NOTHING), vtypeid(DEFAULT_VTYPE_ID), color(RGBColor::DEFAULT_COLOR),
-      depart(-1), departProcedure(DEPART_GIVEN),
+      depart(-1), departProcedure(DepartDefinition::GIVEN),
       departLane(0), departLaneProcedure(DepartLaneDefinition::DEFAULT),
       departPos(0), departPosProcedure(DepartPosDefinition::DEFAULT),
       departPosLat(0), departPosLatProcedure(DepartPosLatDefinition::DEFAULT),
@@ -297,18 +297,18 @@ bool
 SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& element, const std::string& id,
                                   SUMOTime& depart, DepartDefinition& dd, std::string& error, const std::string& attr) {
     if (val == "triggered") {
-        dd = DEPART_TRIGGERED;
+        dd = DepartDefinition::TRIGGERED;
     } else if (val == "containerTriggered") {
-        dd = DEPART_CONTAINER_TRIGGERED;
+        dd = DepartDefinition::CONTAINER_TRIGGERED;
     } else if (val == "split") {
-        dd = DEPART_SPLIT;
+        dd = DepartDefinition::SPLIT;
     } else if (val == "now") {
         // only used via TraCI. depart must be set by the calling code
-        dd = DEPART_NOW;
+        dd = DepartDefinition::NOW;
     } else {
         try {
             depart = string2time(val);
-            dd = DEPART_GIVEN;
+            dd = DepartDefinition::GIVEN;
             if (depart < 0) {
                 error = "Negative " + attr + " time in the definition of " + element + " '" + id + "'.";
                 return false;
@@ -719,11 +719,11 @@ SUMOVehicleParameter::Stop::getFlags() const {
 
 std::string
 SUMOVehicleParameter::getDepart() const {
-    if (departProcedure == DEPART_TRIGGERED) {
+    if (departProcedure == DepartDefinition::TRIGGERED) {
         return "triggered";
-    } else if (departProcedure == DEPART_CONTAINER_TRIGGERED) {
+    } else if (departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
         return "containerTriggered";
-    } else if (departProcedure == DEPART_SPLIT) {
+    } else if (departProcedure == DepartDefinition::SPLIT) {
         return "split";
     } else {
         return time2string(depart);

@@ -975,11 +975,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Third parameter (depart) requires an integer.", outputStorage);
                 }
                 std::string depart = toString(STEPS2TIME(departCode));
-                if (-departCode == DEPART_TRIGGERED) {
+                if (-departCode == static_cast<int>(DepartDefinition::TRIGGERED)) {
                     depart = "triggered";
-                } else if (-departCode == DEPART_CONTAINER_TRIGGERED) {
+                } else if (-departCode == static_cast<int>(DepartDefinition::CONTAINER_TRIGGERED)) {
                     depart = "containerTriggered";
-                } else if (-departCode == DEPART_NOW) {
+                } else if (-departCode == static_cast<int>(DepartDefinition::NOW)) {
                     depart = "now";
                 }
 

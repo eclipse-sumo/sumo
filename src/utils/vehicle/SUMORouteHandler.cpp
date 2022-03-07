@@ -57,7 +57,7 @@ SUMORouteHandler::~SUMORouteHandler() {
 
 bool
 SUMORouteHandler::checkLastDepart() {
-    if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
+    if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN) {
         if (myVehicleParameter->depart < myLastDepart) {
             WRITE_WARNINGF("Route file should be sorted by departure time, ignoring '%'!", myVehicleParameter->id);
             return false;
@@ -70,7 +70,7 @@ SUMORouteHandler::checkLastDepart() {
 void
 SUMORouteHandler::registerLastDepart() {
     // register only non public transport to parse all public transport lines in advance
-    if (myVehicleParameter && myVehicleParameter->line == "" && myVehicleParameter->departProcedure == DEPART_GIVEN) {
+    if (myVehicleParameter && myVehicleParameter->line == "" && myVehicleParameter->departProcedure == DepartDefinition::GIVEN) {
         myLastDepart = myVehicleParameter->depart;
         if (myFirstDepart == -1) {
             myFirstDepart = myLastDepart;

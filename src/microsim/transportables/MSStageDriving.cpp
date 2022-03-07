@@ -198,7 +198,7 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
                     : previous->getDestinationStop());
     myWaitingSince = now;
     const bool isPerson = transportable->isPerson();
-    if (transportable->getParameter().departProcedure == DEPART_TRIGGERED
+    if (transportable->getParameter().departProcedure == DepartDefinition::TRIGGERED
             && transportable->getNumRemainingStages() == transportable->getNumStages() - 1) {
         // we are the first real stage (stage 0 is WAITING_FOR_DEPART)
         const std::string vehID = *myLines.begin();
@@ -234,8 +234,8 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
     }
     SUMOVehicle* const availableVehicle = myWaitingEdge->getWaitingVehicle(transportable, myWaitingPos);
     const bool triggered = availableVehicle != nullptr &&
-                           ((isPerson && availableVehicle->getParameter().departProcedure == DEPART_TRIGGERED) ||
-                            (!isPerson && availableVehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED));
+                           ((isPerson && availableVehicle->getParameter().departProcedure == DepartDefinition::TRIGGERED) ||
+                            (!isPerson && availableVehicle->getParameter().departProcedure == DepartDefinition::CONTAINER_TRIGGERED));
     if (triggered && !availableVehicle->hasDeparted()) {
         setVehicle(availableVehicle);
         if (myOriginStop != nullptr) {

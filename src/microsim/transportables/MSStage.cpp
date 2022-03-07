@@ -240,14 +240,14 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
         pars.push_back(new SUMOVehicleParameter());
         pars.back()->vtypeid = st.next();
         pars.back()->parametersSet |= VEHPARS_VTYPE_SET;
-        pars.back()->departProcedure = DEPART_TRIGGERED;
+        pars.back()->departProcedure = DepartDefinition::TRIGGERED;
         pars.back()->id = transportable->getID() + "_" + toString(pars.size() - 1);
     }
     if (pars.empty()) {
         if ((myModeSet & SVC_PASSENGER) != 0) {
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->id = transportable->getID() + "_0";
-            pars.back()->departProcedure = DEPART_TRIGGERED;
+            pars.back()->departProcedure = DepartDefinition::TRIGGERED;
         } else if ((myModeSet & SVC_TAXI) != 0) {
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->vtypeid = DEFAULT_TAXITYPE_ID;
@@ -257,7 +257,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->vtypeid = DEFAULT_BIKETYPE_ID;
             pars.back()->id = transportable->getID() + "_b0";
-            pars.back()->departProcedure = DEPART_TRIGGERED;
+            pars.back()->departProcedure = DepartDefinition::TRIGGERED;
         } else {
             // allow shortcut via busStop even when not intending to ride
             pars.push_back(nullptr);

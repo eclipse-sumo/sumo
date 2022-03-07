@@ -421,7 +421,7 @@ RONet::addVTypeDistribution(const std::string& id, RandomDistributor<SUMOVTypePa
 bool
 RONet::addVehicle(const std::string& id, ROVehicle* veh) {
     if (myVehIDs.find(id) == myVehIDs.end()) {
-        myVehIDs[id] = veh->getParameter().departProcedure == DEPART_TRIGGERED ? -1 : veh->getDepartureTime();
+        myVehIDs[id] = veh->getParameter().departProcedure == DepartDefinition::TRIGGERED ? -1 : veh->getDepartureTime();
 
         if (veh->isPublicTransport()) {
             if (!veh->isPartOfFlow()) {
