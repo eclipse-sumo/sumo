@@ -2285,7 +2285,7 @@ GNENet::writeRouteComment(OutputDevice& device, const bool additionalFile) const
         if (additionalFile && (route->getChildAdditionals().size() > 0)) {
             device << ("    <!-- Routes (used in RouteProbReroutes) -->\n");
             return true;
-        } else if (!additionalFile && (route->getChildAdditionals().size() > 0)) {
+        } else if (!additionalFile && (route->getChildAdditionals().size() == 0)) {
             device << ("    <!-- Routes -->\n");
             return true;
         }

@@ -597,7 +597,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // check if shape dotted contour has to be drawn
         if (dottedElement) {
             // declare trim geometry to draw
-            const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? personPlanGeometry.getShape() : lane->getLaneShape());
+            const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? personPlanGeometry.getShape() : lane->getLaneShape();
             // draw inspected dotted contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
