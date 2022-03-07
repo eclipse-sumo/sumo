@@ -35,8 +35,6 @@ class GNEAttributeCarrier;
  * The Widget for editing connection foes
  */
 class GNEWireFrame : public GNEFrame {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEWireFrame)
 
 public:
     /**@brief Constructor
@@ -48,28 +46,41 @@ public:
     /// @brief Destructor
     ~GNEWireFrame();
 
-    /**@brief handle wires and set the relative colouring
+    /**@brief add wire element
      * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @return true if wire was sucesfully added
      */
-    void handleWireClick(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief show wire frame
     void show();
 
-    /// @brief hide wire frame
-    void hide();
-
-    /// @name FOX-callbacks
-    /// @{
-    /// @brief Called when the user presses the OK-Button saves any wire modifications
-    long onCmdOK(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user presses the Cancel-button discards any wire modifications
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @}
-
 protected:
-    FOX_CONSTRUCTOR(GNEWireFrame)
+    /// @brief SumoBaseObject used for create wire
+    CommonXMLStructure::SumoBaseObject* myBaseWire = nullptr;
+
+    /// @brief Tag selected in TagSelector
+    void tagSelected();
+
 private:
+    // @brief create baseWireObject
+    bool createBaseWireObject(const GNETagProperties& tagProperty);
+
+    /// @brief build wire over lanes
+    bool buildWireOverLanes(GNELane* lane, const GNETagProperties& tagValues);
+
+    /// @brief build wire over view
+    bool buildWireOverView(const GNETagProperties& tagValues);
+
+    /// @brief item selector
+    GNEFrameModules::TagSelector* myWireTagSelector = nullptr;
+
+    /// @brief internal wire attributes
+    GNEFrameAttributeModules::AttributesCreator* myWireAttributes = nullptr;
+
+    /// @brief Netedit parameter
+    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes = nullptr;
+
+    /// @brief Module for select a single parent wire
+    GNEFrameModules::SelectorParent* mySelectorWireParent = nullptr;
 };

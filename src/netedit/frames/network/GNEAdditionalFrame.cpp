@@ -1211,7 +1211,7 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
         // just create a base additional
         myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr);
     }
-    // set baseAdditionalTag
+    // set baseAdditional tag
     myBaseAdditional->setTag(baseAdditionalTag);
     // BaseAdditional created, then return true
     return true;
