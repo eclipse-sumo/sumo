@@ -1,0 +1,5 @@
+--no-step-log --net-file=net2.net.xml
+-r input_routes.rou.xml
+--extrapolate-departpos
+--fcd-output fcd.xml
+--step-length 0.1
