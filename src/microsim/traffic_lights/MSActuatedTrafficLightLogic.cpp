@@ -157,7 +157,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     MSEdge* prevDetEdge = nullptr;
     for (LaneVector& lanes : myLanes) {
         for (MSLane* lane : lanes) {
-            if (noVehicles(lane->getPermissions())) {
+            const std::string customID = getParameter(lane->getID());
+            if (noVehicles(lane->getPermissions()) && customID == "") {
                 // do not build detectors on green verges or sidewalks
                 continue;
             }
@@ -166,11 +167,10 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 continue;
             }
             const SUMOTime minDur = getMinimumMinDuration(lane);
-            if (minDur == std::numeric_limits<SUMOTime>::max()) {
+            if (minDur == std::numeric_limits<SUMOTime>::max() && customID == "") {
                 // only build detector if this lane is relevant for an actuated phase
                 continue;
             }
-            const std::string customID = getParameter(lane->getID());
             double length = lane->getLength();
             double ilpos;
             double inductLoopPosition;
