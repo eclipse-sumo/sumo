@@ -72,7 +72,7 @@ with Phases:
     
 # Setting Traffic light parameters (0x7e)
 
-Trafficl lights support setting of additinal parameters using the [generic
+Traffic lights support setting of additinal parameters using the [generic
 parameter setting call](../TraCI/GenericParameters.md#set_parameter).
 
 |      key        | value type (expressed as string) | supported by tlType |  description |
