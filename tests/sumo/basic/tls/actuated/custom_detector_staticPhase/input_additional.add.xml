@@ -3,6 +3,7 @@
 
     <inductionLoop id="customLoop1" lane="1si_2" pos="235" file="detector.xml" freq="120"/>
     <inductionLoop id="customLoop2" lane="2si_2" pos="240" file="detector.xml" freq="120"/>
+    <inductionLoop id="customLoop3" lane="2si_2" pos="220" file="detector.xml" freq="120"/>
 
     <tlLogic id="0" type="actuated" programID="aa" offset="0">
         <phase duration="31" state="GGggrrrrGGggrrrr" minDur="5" maxDur="30"/>
@@ -15,5 +16,6 @@
         <phase duration="4" state="rrrrrryyrrrrrryy"/>
         <param key="1si_2" value="customLoop1"/>
         <param key="2si_2" value="customLoop2"/>
+        <param key="extra-detectors" value="customLoop3"/>
     </tlLogic>
 </additional>
