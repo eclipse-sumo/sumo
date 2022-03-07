@@ -69,3 +69,17 @@ with Phases:
 
 !!! note
     For more information about what value should be put in each of the fields mentioned above, see [Tutorials/TraCI4Traffic_Lights#Further_Notes](../Tutorials/TraCI4Traffic_Lights.md#further_notes). Remember that you can check which integer value is associated with particular value type [here](../TraCI/Protocol.md#data_types).
+    
+# Setting Traffic light parameters (0x7e)
+
+Trafficl lights support setting of additinal parameters using the [generic
+parameter setting call](../TraCI/GenericParameters.md#set_parameter).
+
+|      key        | value type (expressed as string) | supported by tlType |  description |
+| :----------------: | :------------------------------: | :-----------------: | :----------: |
+| cycleTime          | double (s)  | static, actuated, delay_based | default cycle duration (has no effect for static tls) |
+| offset             | double (s)  | static, actuated, delay_based | offset for cycle start relative to simulation start |
+| coordinated        | bool        | static, actuated, delay_based | whether time in cycle is computed relative to simulation time |
+| max-gap            | double (s)  | actuated                      | detector time-out for abandoning phase
+| show-detectors     | bool        | actuated                      | show/hide detectors in view
+| inactive-threshold | double (s)  | actuated                      | time-out for switching to an unserved phase when running with the default phase-skipping logic
