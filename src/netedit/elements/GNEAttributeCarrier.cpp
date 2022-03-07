@@ -3119,7 +3119,7 @@ GNEAttributeCarrier::fillWireElements() {
                                       GUIIcon::TRACTION_SUBSTATION, currentTag);
         // set attribute properties
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
                                               "Traction substation ID");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
