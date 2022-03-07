@@ -81,9 +81,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "variableSpeedSign",              SUMO_TAG_VSS },
     { "routeProbe",                     SUMO_TAG_ROUTEPROBE },
     { "vaporizer",                      SUMO_TAG_VAPORIZER },
+    { "tractionSubstation",             SUMO_TAG_TRACTION_SUBSTATION },
     { "overheadWireSegment",            SUMO_TAG_OVERHEAD_WIRE_SEGMENT },   // <- Deprecate
     { "overheadWire",                   SUMO_TAG_OVERHEAD_WIRE_SECTION },
-    { "tractionSubstation",             SUMO_TAG_TRACTION_SUBSTATION },
     { "overheadWireClamp",              SUMO_TAG_OVERHEAD_WIRE_CLAMP },
     { "vTypeProbe",                     SUMO_TAG_VTYPEPROBE },
     { "routes",                         SUMO_TAG_ROUTES },

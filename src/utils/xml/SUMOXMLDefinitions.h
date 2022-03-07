@@ -129,12 +129,12 @@ enum SumoXMLTag {
     SUMO_TAG_ROUTEPROBE,
     /// @brief vaporizer of vehicles
     SUMO_TAG_VAPORIZER,
+    /// @brief  A traction substation
+    SUMO_TAG_TRACTION_SUBSTATION,
     /// @brief  An overhead wire segment
     SUMO_TAG_OVERHEAD_WIRE_SEGMENT,
     /// @brief  An overhead wire section
     SUMO_TAG_OVERHEAD_WIRE_SECTION,
-    /// @brief  A traction substation
-    SUMO_TAG_TRACTION_SUBSTATION,
     /// @brief  An overhead wire clamp (connection of wires in opposite directions)
     SUMO_TAG_OVERHEAD_WIRE_CLAMP,
     /// @brief a vtypeprobe detector

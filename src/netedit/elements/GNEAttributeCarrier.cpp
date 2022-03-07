@@ -3115,7 +3115,7 @@ GNEAttributeCarrier::fillWireElements() {
         // set tag properties
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::WIRE,
-                                      0,
+                                      GNETagProperties::RTREE,
                                       GUIIcon::TRACTION_SUBSTATION, currentTag);
         // set attribute properties
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,

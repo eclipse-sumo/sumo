@@ -88,6 +88,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"calibrator",              GLO_CALIBRATOR},
     {"routeProbe",              GLO_ROUTEPROBE},
     {"vaporizer",               GLO_VAPORIZER},
+    {"wire",                    GLO_WIRE},
     {"tractionsubstation",      GLO_TRACTIONSUBSTATION},
     //
     {"shape",                   GLO_SHAPE},

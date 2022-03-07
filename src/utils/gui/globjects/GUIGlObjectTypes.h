@@ -66,7 +66,7 @@ enum GUIGlObjectType {
     /// @name additional elements
     /// @{
 
-    /// @brief reserved GLO type to pack all additionals elements
+    /// @brief reserved GLO type for packing all additionals elements
     GLO_ADDITIONALELEMENT = 100,
     /// @brief a busStop
     GLO_BUS_STOP = 101,
@@ -120,10 +120,12 @@ enum GUIGlObjectType {
     GLO_VAPORIZER = 125,
     /// @brief a Acces
     GLO_ACCESS = 126,
+    /// @brief reserved GLO type for packing all wire elements
+    GLO_WIRE = 140,
     /// @brief a segment of an overhead line
-    GLO_OVERHEAD_WIRE_SEGMENT = 127,
+    GLO_OVERHEAD_WIRE_SEGMENT = 141,
     /// @brief a segment of an overhead line
-    GLO_TRACTIONSUBSTATION = 128,
+    GLO_TRACTIONSUBSTATION = 142,
 
     /// @}
 
