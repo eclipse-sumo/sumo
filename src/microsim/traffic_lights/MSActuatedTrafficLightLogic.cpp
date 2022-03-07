@@ -111,6 +111,17 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
             }
         }
     }
+    if (knowsParameter("extra-detectors")) {
+        std::vector<std::string> extraIDs = StringTokenizer(getParameter("extra-detectors", "")).getVector();
+        for (std::string customID : extraIDs) {
+            MSInductLoop* loop = dynamic_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(customID));
+            if (loop == nullptr) {
+                WRITE_ERROR("Unknown inductionLoop '" + customID + "' given as extra detector for actuated tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                continue;
+            }
+            myExtraLoops.push_back(loop);
+        }
+    }
     myStack.push_back(std::map<std::string, double>());
 }
 
@@ -1236,6 +1247,9 @@ MSActuatedTrafficLightLogic::getDetectorStates() const {
     std::map<std::string, double> result;
     for (auto li : myInductLoops) {
         result[li.loop->getID()] = li.loop->getOccupancy() > 0 ? 1 : 0;
+    }
+    for (auto loop : myExtraLoops) {
+        result[loop->getID()] = loop->getOccupancy() > 0 ? 1 : 0;
     }
     return result;
 }

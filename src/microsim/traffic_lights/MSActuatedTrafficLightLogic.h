@@ -246,6 +246,9 @@ protected:
 
     std::vector<InductLoopInfo> myInductLoops;
 
+    /// @brief extra loops for output/tracking
+    std::vector<MSInductLoop*> myExtraLoops;
+
     /// The maximum gap to check in seconds
     double myMaxGap;
 
