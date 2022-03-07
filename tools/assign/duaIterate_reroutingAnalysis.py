@@ -41,7 +41,9 @@ def parse_args(args=None):
 def main():
     options = parse_args()
     lastRoutes = {}  # vehID -> edges
-    for step, file in enumerate(sorted(glob.glob(os.path.join(options.baseDir, "**/*.rou.alt.xml")))):
+    files = glob.glob(os.path.join(options.baseDir, "**/*.rou.alt.xml"))
+    files = [(int(os.path.basename(os.path.dirname(f))), f)  for f in files]
+    for index, (step, file) in enumerate(sorted(files)):
         vehs = 0.0
         changed = []
         for veh in sumolib.xml.parse(file, 'vehicle'):
@@ -56,7 +58,7 @@ def main():
             print("file=%s vehs=%s changed=%s frac=%s ids=%s" % (
                 file, vehs, numChanged, numChanged / vehs, ' '.join(changed)))
 
-        if step > 0 and not options.verbose:
+        if index > 0 and not options.verbose:
             if vehs == 0:
                 print("no vehicles in file '%s'" % file)
             else:
