@@ -368,7 +368,13 @@ By assigning the special value `NO_DETECTOR`, the detector for a given lane key 
 !!! caution
     Custom detectors only work when the 'tlLogic' is loaded from an additional file.
     
-Custom detector activation states can optionally be written to the [TLS output](Output/Traffic_Lights.md#optional_output).    
+Custom detector activation states can optionally be written to the [TLS output](Output/Traffic_Lights.md#optional_output).
+
+To include further detectors in the output and in the [phase tracker dialog](#track_phases) (i.e. when a custom logic uses laneArea detectors or multiple detectors on the same lane) the following declaration can be used to list all extra detectors:
+
+```
+   <param key="extra-detectors" value="customDetector1 customDetector2 ..."/>
+```
     
 ### Lane-specific max-gap
 To define a max-gap value that differs from the default you can use a param with `key="max-gap:<LANE_ID>"` where LANE_ID is a lane incoming to the traffic light (the detector might lie further upstream).
