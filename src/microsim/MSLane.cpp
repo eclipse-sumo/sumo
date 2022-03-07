@@ -647,7 +647,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
         SUMOTime relevantDelay = MIN2(DELTA_T, veh.getDepartDelay());
         // try to compensate sub-step depart delay by moving the vehicle forward
         speed = veh.getSpeed(); // may have been adapted in isInsertionSuccess
-        double dist = speed * relevantDelay / (double)DELTA_T;
+        double dist = speed * STEPS2TIME(relevantDelay);
         std::pair<MSVehicle* const, double> leaderInfo = getLeader(&veh, pos, veh.getBestLanesContinuation());
         if (leaderInfo.first != nullptr) {
             MSVehicle* leader = leaderInfo.first;
