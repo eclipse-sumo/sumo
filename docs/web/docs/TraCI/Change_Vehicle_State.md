@@ -229,6 +229,7 @@ Replaces stop at the given index with a new stop. Automatically modifies the rou
 
 - For edgeID a stopping place id may be given if the flag marks this stop as stopping on busStop, parkingArea, containerStop etc.
 - If edgeID is "", the stop at the given index will be removed without replacement and the route will not be modified.
+   - if teleport is set to 2, the vehicle will rerouting in the section of the removed stop (i.e. from the previous to the successive stop).
 - If teleport is set to 1, the route to the replacement stop will be disconnected (forcing a teleport). 
   - If stopIndex is 0 the gap will be between the current edge and the new stop.
   - Otherwise the gap will be between the stop edge for nextStopIndex - 1 and the new stop.
