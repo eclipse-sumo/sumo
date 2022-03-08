@@ -70,41 +70,41 @@ def parse_dualog(dualog, limit):
     waiting = None
     haveMicrosim = None
     counts = defaultdict(lambda: 0)
-    for line in open(dualog):
-        try:
-            if "Warning: Teleporting vehicle" in line:
-                if haveMicrosim is None:
-                    if "lane='" in line:
-                        haveMicrosim = True
-                        reFrom = re.compile("lane='([^']*)'")
+    with open(dualog) as dualogIn:
+        for line in dualogIn:
+            try:
+                if "Warning: Teleporting vehicle" in line:
+                    if haveMicrosim is None:
+                        if "lane='" in line:
+                            haveMicrosim = True
+                            reFrom = re.compile("lane='([^']*)'")
+                        else:
+                            haveMicrosim = False
+                    teleports += 1
+                    edge = reFrom.search(line).group(1)
+                    if ':' in edge:  # mesosim output
+                        edge = edge.split(':')[0]
+                    counts[edge] += 1
+                elif "Inserted:" in line:
+                    inserted = reInserted.search(line).group(1)
+                    if "Loaded:" in line:  # optional output
+                        loaded = reLoaded.search(line).group(1)
                     else:
-                        haveMicrosim = False
-                teleports += 1
-                edge = reFrom.search(line).group(1)
-                if ':' in edge:  # mesosim output
-                    edge = edge.split(':')[0]
-                counts[edge] += 1
-            elif "Inserted:" in line:
-                inserted = reInserted.search(line).group(1)
-                if "Loaded:" in line:  # optional output
-                    loaded = reLoaded.search(line).group(1)
-                else:
-                    loaded = inserted
-            elif "Running:" in line:
-                running = reRunning.search(line).group(1)
-            elif "Waiting:" in line:
-                iteration = len(step_values)
-                if iteration > limit:
-                    break
-                waiting = reWaiting.search(line).group(1)
-                teleStats.add(teleports, iteration)
-                step_values.append(
-                    [inserted, running, waiting, teleports, loaded])
-                teleports = 0
-                step_counts.append(counts)
-                counts = defaultdict(lambda: 0)
-        except Exception:
-            sys.exit("error when parsing line '%s'" % line)
+                        loaded = inserted
+                elif "Running:" in line:
+                    running = reRunning.search(line).group(1)
+                elif "Waiting:" in line:
+                    iteration = len(step_values)
+                    if iteration > limit:
+                        break
+                    waiting = reWaiting.search(line).group(1)
+                    teleStats.add(teleports, iteration)
+                    step_values.append([inserted, running, waiting, teleports, loaded])
+                    teleports = 0
+                    step_counts.append(counts)
+                    counts = defaultdict(lambda: 0)
+            except Exception:
+                sys.exit("error when parsing line '%s'" % line)
 
     print("  parsed %s steps" % len(step_values))
     print(teleStats)

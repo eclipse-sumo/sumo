@@ -149,8 +149,7 @@ class RouteReader(handler.ContentHandler):
             pythonOut.close()
 
 
-def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
-               safactor, sufactor):
+def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID, safactor, sufactor):
     if verbose:
         print("Writing types to file", os.path.basename(typesFile))
         print("... in dir", os.path.dirname(typesFile), "TEXTTEST_IGNORE")
@@ -222,6 +221,8 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
             out[day].close()
     print("</vtypes>", file=vtypes)
     vtypes.close()
+    for f in files:
+        f.close()
 
 
 class DepartChanger(handler.ContentHandler):
@@ -297,7 +298,7 @@ def main(args=None):
             print("Reading detectors")
         reader = RouteReader(options.collectfile, options.edgecount, options.pickleedge)
         detReader = DetectorReader(options.detfile, laneMap=LaneMap())
-        for edge, group in detReader.getGroups():
+        for edge, _ in detReader.getGroups():
             reader.addEdge(edge)
     elif options.collectfile:
         reader = RouteReader(options.collectfile, options.edgecount, options.pickleedge, True)
