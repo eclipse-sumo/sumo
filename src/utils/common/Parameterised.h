@@ -41,13 +41,16 @@ class OutputDevice;
 class Parameterised {
 
 public:
-    /// @brief Default constructor (for Strings)
+    /// @brief parameters map
+    typedef std::map<std::string, std::string> Map;
+
+    /// @brief Default constructor
     Parameterised();
 
     /**@brief Constructor with parameters (for Strings)
      * @param[in] mapArg Pre-given parameter
      */
-    Parameterised(const std::map<std::string, std::string>& mapArg);
+    Parameterised(const Parameterised::Map& mapArg);
 
     /// @brief Destructor
     ~Parameterised();
@@ -66,7 +69,7 @@ public:
     /**@brief Adds or updates all given parameters from the map
      * @param[in] mapArg The keys/values to insert
      */
-    void updateParameters(const std::map<std::string, std::string>& mapArg);
+    void updateParameters(const Parameterised::Map& mapArg);
 
     /**@brief Returns whether the parameter is known
      * @param[in] key The key to ask for
@@ -99,7 +102,7 @@ public:
     void clearParameter();
 
     /// @brief Returns the inner key/value map
-    const std::map<std::string, std::string>& getParametersMap() const;
+    const Parameterised::Map& getParametersMap() const;
 
     /// @brief Returns the inner key/value map in string format "key1=value1|key2=value2|...|keyN=valueN"
     std::string getParametersStr(const std::string kvsep = "=", const std::string sep = "|") const;
@@ -108,7 +111,7 @@ public:
     void setParameters(const Parameterised& params);
 
     /// @brief set the inner key/value map in map<string, string> format
-    void setParametersMap(const std::map<std::string, std::string>& paramsMap);
+    void setParametersMap(const Parameterised::Map& paramsMap);
 
     /**@brief set the inner key/value map in string format "key1=value1|key2=value2|...|keyN=valueN"
      * @param[in] paramsString A serialized key-value map
@@ -128,5 +131,5 @@ private:
     static bool isParameterValid(const std::string& value, const std::string& kvsep, const std::string& sep);
 
     /// @brief The key->value map
-    std::map<std::string, std::string> myMap;
+    Parameterised::Map myMap;
 };
