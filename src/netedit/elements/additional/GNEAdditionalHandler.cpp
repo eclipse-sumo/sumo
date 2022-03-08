@@ -43,6 +43,7 @@
 #include "GNEDetectorE2.h"
 #include "GNEDetectorE3.h"
 #include "GNEDetectorEntryExit.h"
+#include "GNEOverheadWire.h"
 #include "GNEPOI.h"
 #include "GNEParkingArea.h"
 #include "GNEParkingAreaReroute.h"
@@ -505,7 +506,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lanes
-        std::vector<GNELane*> lanes = parseLanes(SUMO_TAG_E2DETECTOR, laneIDs);
+        const auto lanes = parseLanes(SUMO_TAG_E2DETECTOR, laneIDs);
         // chek lanes
         if (lanes.size() > 0) {
             // calculate path
@@ -546,6 +547,8 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                     detectorE2->incRef("buildDetectorE2Multilane");
                 }
             }
+        } else {
+            writeErrorInvalidLanes(SUMO_TAG_E2DETECTOR, id);
         }
     } else {
         writeErrorDuplicated(SUMO_TAG_E2DETECTOR, id);
@@ -1501,9 +1504,51 @@ GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBase
 
 void 
 GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& substationId, 
-                                        const std::vector<std::string>& laneIDs, const double startPos, const double endPos, 
+                                        const std::vector<std::string>& laneIDs, const double startPos, const double endPos, const bool friendlyPos,
                                         const std::vector<std::string>& forbiddenInnerLanes, const Parameterised::Map& parameters) {
-    //
+    // check conditions
+    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_OVERHEAD_WIRE_SECTION, id);
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_OVERHEAD_WIRE_SECTION, id, false) == nullptr) {
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // get lanes
+        const auto lanes = parseLanes(SUMO_TAG_OVERHEAD_WIRE_SECTION, laneIDs);
+        // get traction substation
+        const auto tractionSubstation = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_OVERHEAD_WIRE_SECTION, id, false);
+        // chek lanes
+        if (lanes.size() > 0) {
+            // calculate path
+            if (!GNEAdditional::areLaneConsecutives(lanes)) {
+                WRITE_ERROR("Could not build " + toString(SUMO_TAG_OVERHEAD_WIRE_SECTION) + " with ID '" + id + "' in netedit; Lanes aren't consecutives.");
+            } else if (!checkE2MultiLanePosition(
+                        startPos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(),
+                        endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
+                writeErrorInvalidPosition(SUMO_TAG_OVERHEAD_WIRE_SECTION, id);
+            } else if (tractionSubstation == nullptr) {
+                writeErrorInvalidParent(SUMO_TAG_OVERHEAD_WIRE_SECTION, SUMO_TAG_TRACTION_SUBSTATION);
+            } else {
+                // build Overhead Wire
+                GNEAdditional* overheadWire = new GNEOverheadWire(id, lanes, tractionSubstation, myNet, startPos, endPos, friendlyPos, forbiddenInnerLanes, parameters);
+                // insert depending of allowUndoRedo
+                if (myAllowUndoRedo) {
+                    myNet->getViewNet()->getUndoList()->begin(GUIIcon::OVERHEADWIRE, "add " + toString(SUMO_TAG_OVERHEAD_WIRE_SECTION));
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(overheadWire, true), true);
+                    myNet->getViewNet()->getUndoList()->end();
+                } else {
+                    myNet->getAttributeCarriers()->insertAdditional(overheadWire);
+                    for (const auto& lane : lanes) {
+                        lane->addChildElement(overheadWire);
+                    }
+                    overheadWire->incRef("buildOverheadWire");
+                }
+            }
+        } else {
+            writeErrorInvalidLanes(SUMO_TAG_E2DETECTOR, id);
+        }
+    } else {
+        writeErrorDuplicated(SUMO_TAG_OVERHEAD_WIRE_SECTION, id);
+    }
 }
    
 
@@ -1905,6 +1950,12 @@ GNEAdditionalHandler::writeErrorInvalidVTypes(const SumoXMLTag tag, const std::s
 void
 GNEAdditionalHandler::writeErrorInvalidFilename(const SumoXMLTag tag, const std::string& id) const {
     WRITE_ERROR("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; filename is invalid.");
+}
+
+
+void 
+GNEAdditionalHandler::writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id) const {
+    WRITE_ERROR("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; list of lanes isn't valid.");
 }
 
 

@@ -466,11 +466,12 @@ public:
      * @param[in] laneIDs list of consecutive lanes of the circuit
      * @param[in] startPos Starting position in the specified lane
      * @param[in] endPos Ending position in the specified lane
+     * @param[in] friendlyPos enable or disable friendly position
      * @param[in] forbiddenInnerLanes Inner lanes, where placing of overhead wire is restricted
      * @param[in] parameters generic parameters
      */
     void buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& substationId, 
-                           const std::vector<std::string>& laneIDs, const double startPos, const double endPos, 
+                           const std::vector<std::string>& laneIDs, const double startPos, const double endPos, const bool friendlyPos, 
                            const std::vector<std::string>& forbiddenInnerLanes, const Parameterised::Map& parameters);
    
     /** @brief build overhead wire clamp
@@ -661,6 +662,9 @@ protected:
 
     /// @brief write error "invalid filename"
     void writeErrorInvalidFilename(const SumoXMLTag tag, const std::string& id) const;
+
+    /// @brief write error "invalid list of lanes"
+    void writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id) const;
 
     /// @brief check list of IDs
     bool checkListOfVehicleTypes(const std::vector<std::string>& vTypeIDs) const;
