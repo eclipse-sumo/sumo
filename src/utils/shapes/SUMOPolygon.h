@@ -69,7 +69,7 @@ public:
                 const std::string& imgFile = DEFAULT_IMG_FILE,
                 bool relativePath = DEFAULT_RELATIVEPATH,
                 const std::string& name = DEFAULT_NAME,
-                const std::map<std::string, std::string>& parameters = DEFAULT_PARAMETERS);
+                const Parameterised::Map& parameters = DEFAULT_PARAMETERS);
 
     /// @brief Destructor
     ~SUMOPolygon();
