@@ -42,7 +42,7 @@ def main():
     options = parse_args()
     lastRoutes = {}  # vehID -> edges
     files = glob.glob(os.path.join(options.baseDir, "**/*.rou.alt.xml"))
-    files = [(int(os.path.basename(os.path.dirname(f))), f)  for f in files]
+    files = [(int(os.path.basename(os.path.dirname(f))), f) for f in files]
     for index, (step, file) in enumerate(sorted(files)):
         vehs = 0.0
         changed = []
