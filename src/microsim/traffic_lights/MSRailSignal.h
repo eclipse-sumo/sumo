@@ -54,7 +54,7 @@ public:
      */
     MSRailSignal(MSTLLogicControl& tlcontrol,
                  const std::string& id, const std::string& programID, SUMOTime delay,
-                 const std::map<std::string, std::string>& parameters);
+                 const Parameterised::Map& parameters);
 
 
     /** @brief Initialises the rail signal with information about adjacent rail signals

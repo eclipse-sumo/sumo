@@ -70,7 +70,7 @@ public:
     MSSOTLTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
                             const std::string& programID, const TrafficLightType logicType, const Phases& phases, int step,
                             SUMOTime delay,
-                            const std::map<std::string, std::string>& parameters);
+                            const Parameterised::Map& parameters);
 
     /**
      * @brief Constructor with sensors passed
@@ -87,7 +87,7 @@ public:
     MSSOTLTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
                             const std::string& programID, const TrafficLightType logicType, const Phases& phases, int step,
                             SUMOTime delay,
-                            const std::map<std::string, std::string>& parameters,
+                            const Parameterised::Map& parameters,
                             MSSOTLSensors* sensors);
 
     /// @brief Destructor

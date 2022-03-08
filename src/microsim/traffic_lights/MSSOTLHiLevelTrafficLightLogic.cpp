@@ -21,7 +21,7 @@
 MSSOTLHiLevelTrafficLightLogic::MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& programID, const TrafficLightType logicType, const Phases& phases,
         int step, SUMOTime delay,
-        const std::map<std::string, std::string>& parameters) :
+        const Parameterised::Map& parameters) :
     MSSOTLTrafficLightLogic(tlcontrol, id, programID, logicType, phases, step, delay,
                             parameters) {
     // Setting default values
@@ -31,7 +31,7 @@ MSSOTLHiLevelTrafficLightLogic::MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl&
 MSSOTLHiLevelTrafficLightLogic::MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& programID, const TrafficLightType logicType, const Phases& phases,
         int step, SUMOTime delay,
-        const std::map<std::string, std::string>& parameters,
+        const Parameterised::Map& parameters,
         MSSOTLSensors* sensors) :
     MSSOTLTrafficLightLogic(tlcontrol, id, programID, logicType, phases, step, delay,
                             parameters, sensors) {

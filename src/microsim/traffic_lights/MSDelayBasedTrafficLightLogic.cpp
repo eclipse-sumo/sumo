@@ -46,7 +46,7 @@ MSDelayBasedTrafficLightLogic::MSDelayBasedTrafficLightLogic(MSTLLogicControl& t
         const SUMOTime offset,
         const Phases& phases,
         int step, SUMOTime delay,
-        const std::map<std::string, std::string>& parameter,
+        const Parameterised::Map& parameter,
         const std::string& basePath) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, offset, TrafficLightType::DELAYBASED, phases, step, delay, parameter) {
 #ifdef DEBUG_TIMELOSS_CONTROL

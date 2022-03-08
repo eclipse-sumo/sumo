@@ -112,7 +112,7 @@ MSTrafficLightLogic::SwitchCommand::shiftTime(SUMOTime currentTime, SUMOTime exe
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
         const std::string& programID, const SUMOTime offset, const TrafficLightType logicType, const SUMOTime delay,
-        const std::map<std::string, std::string>& parameters) :
+        const Parameterised::Map& parameters) :
     Named(id), Parameterised(parameters),
     myProgramID(programID),
     myOffset(offset),

@@ -44,7 +44,7 @@ private:
     stimDivInDVal, stimDivOutDVal, stimDivDispersionInDVal, stimDivDispersionOutDVal,
     stimCoxExpInDVal, stimCoxExpOutDVal, stimCoxExpDispersionInDVal, stimCoxExpDispersionOutDVal;*/
 
-    std::map<std::string, std::string> default_values;
+    Parameterised::Map default_values;
     std::vector<std::string> params_names;
     std::vector<MSSOTLPolicy5DStimulus*> family;
 
@@ -52,7 +52,7 @@ private:
 
 public:
 
-    MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix, const std::map<std::string, std::string>& parameters);
+    MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix, const Parameterised::Map& parameters);
 
     std::string getMessage();
 

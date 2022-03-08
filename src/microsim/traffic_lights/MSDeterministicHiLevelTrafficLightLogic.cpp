@@ -28,7 +28,7 @@
 MSDeterministicHiLevelTrafficLightLogic::MSDeterministicHiLevelTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
     const std::string& programID, const Phases& phases, int step,
-    SUMOTime delay, const std::map<std::string, std::string>& parameters) :
+    SUMOTime delay, const Parameterised::Map& parameters) :
     MSSOTLHiLevelTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::HILVL_DETERMINISTIC, phases, step,
                                    delay, parameters) {
 

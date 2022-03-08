@@ -36,7 +36,7 @@ public:
     MSSOTLWaveTrafficLightLogic(MSTLLogicControl& tlcontrol,
                                 const std::string& id, const std::string& programID,
                                 const Phases& phases, int step, SUMOTime delay,
-                                const std::map<std::string, std::string>& parameters);
+                                const Parameterised::Map& parameters);
 
     /**
      * @brief Constructor with sensors passed
@@ -50,7 +50,7 @@ public:
     MSSOTLWaveTrafficLightLogic(MSTLLogicControl& tlcontrol,
                                 const std::string& id, const std::string& programID,
                                 const Phases& phases, int step, SUMOTime delay,
-                                const std::map<std::string, std::string>& parameters,
+                                const Parameterised::Map& parameters,
                                 MSSOTLSensors* sensors);
 
     /** @brief Returns the type of the logic as a string

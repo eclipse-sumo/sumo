@@ -177,7 +177,7 @@ MSTLLogicControl::TLSLogicVariants::setStateInstantiatingOnline(MSTLLogicControl
         phases.push_back(phase);
         logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), TRACI_PROGRAM, 0, TrafficLightType::STATIC, phases, 0,
                                               MSNet::getInstance()->getCurrentTimeStep() + DELTA_T,
-                                              std::map<std::string, std::string>());
+                                              Parameterised::Map());
         addLogic(TRACI_PROGRAM, logic, true, true);
         MSNet::getInstance()->createTLWrapper(logic);
     } else {

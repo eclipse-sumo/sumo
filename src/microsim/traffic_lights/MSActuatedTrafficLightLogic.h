@@ -48,7 +48,7 @@ class NLDetectorBuilder;
 class MSActuatedTrafficLightLogic : public MSSimpleTrafficLightLogic {
 public:
 
-    typedef std::map<std::string, std::string> ConditionMap;
+    typedef Parameterised::Map ConditionMap;
     typedef std::vector<std::tuple<std::string, std::string, std::string> > AssignmentMap;
 
     struct Function {
@@ -76,7 +76,7 @@ public:
                                 const SUMOTime offset,
                                 const MSSimpleTrafficLightLogic::Phases& phases,
                                 int step, SUMOTime delay,
-                                const std::map<std::string, std::string>& parameter,
+                                const Parameterised::Map& parameter,
                                 const std::string& basePath,
                                 const ConditionMap& conditions = ConditionMap(),
                                 const AssignmentMap& assignments = AssignmentMap(),

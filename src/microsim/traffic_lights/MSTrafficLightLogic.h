@@ -92,7 +92,7 @@ public:
                         const SUMOTime offset,
                         const TrafficLightType logicType,
                         const SUMOTime delay,
-                        const std::map<std::string, std::string>& parameters);
+                        const Parameterised::Map& parameters);
 
 
     /** @brief Initialises the tls with information about incoming lanes

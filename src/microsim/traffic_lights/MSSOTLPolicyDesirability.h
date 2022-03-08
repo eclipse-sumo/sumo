@@ -37,7 +37,7 @@ private:
 public:
 
     MSSOTLPolicyDesirability(std::string keyPrefix,
-                             const std::map<std::string, std::string>& parameters);
+                             const Parameterised::Map& parameters);
     virtual ~MSSOTLPolicyDesirability();
 
     /**

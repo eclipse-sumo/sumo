@@ -36,7 +36,7 @@
 MSPhasedTrafficLightLogic::MSPhasedTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& programID, const SUMOTime offset, const TrafficLightType logicType, const Phases& phases,
         int step, SUMOTime delay,
-        const std::map<std::string, std::string>& parameters)
+        const Parameterised::Map& parameters)
     : MSTrafficLightLogic(tlcontrol, id, programID, offset, logicType, delay, parameters), myPhases(phases),
       myStep(step) {
     for (int i = 0; i < (int)myPhases.size(); i++) {

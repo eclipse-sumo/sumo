@@ -21,7 +21,7 @@
 #include "MSSOTLPolicy3DStimulus.h"
 
 MSSOTLPolicy3DStimulus::MSSOTLPolicy3DStimulus(std::string keyPrefix,
-        const std::map<std::string, std::string>& parameters) :
+        const Parameterised::Map& parameters) :
     MSSOTLPolicy5DStimulus(keyPrefix, parameters) {
 
     setStimCoxExpDispersionInDefVal(0);

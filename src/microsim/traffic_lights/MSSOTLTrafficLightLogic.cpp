@@ -38,7 +38,7 @@ MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
     const Phases& phases,
     int step,
     SUMOTime delay,
-    const std::map<std::string, std::string>& parameters)
+    const Parameterised::Map& parameters)
     : MSPhasedTrafficLightLogic(tlcontrol, id, programID, 0, logicType, phases, step, delay, parameters) {
     this->mySensors = nullptr;
     this->myCountSensors = nullptr;
@@ -56,7 +56,7 @@ MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
     const Phases& phases,
     int step,
     SUMOTime delay,
-    const std::map<std::string, std::string>& parameters,
+    const Parameterised::Map& parameters,
     MSSOTLSensors* sensors)
     : MSPhasedTrafficLightLogic(tlcontrol, id, programID, 0, logicType, phases, step, delay, parameters) {
     this->mySensors = sensors;

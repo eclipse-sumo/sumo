@@ -72,7 +72,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const SUMOTime offset,
         const Phases& phases,
         int step, SUMOTime delay,
-        const std::map<std::string, std::string>& parameter,
+        const Parameterised::Map& parameter,
         const std::string& basePath,
         const ConditionMap& conditions,
         const AssignmentMap& assignments,
