@@ -89,7 +89,7 @@ and committing the changes after careful inspection
     [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end
     to update the [download links](../Downloads.md)
   - add the new version and the release date [to sumo.metainfo.xml]({{Source}}build/package/sumo.metainfo.xml)
-    to update the [download links](../Downloads.md)
+    for correct flatpak info
 - update the eclipse.org/sumo website
   - modify the version number (Version) [in config.toml](https://github.com/eclipse/sumo.website/blob/master/config.toml) in the **Default Parameters** section at the beginning
 - If it is the first release of the year, create a new Eclipse release at https://projects.eclipse.org/projects/automotive.sumo (after login there should be a "Create Release" button)
