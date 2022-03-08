@@ -37,10 +37,5 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- default route -->
-	<route id="CRoute" edges="gneE0 gneE1"/>
 
-	<!-- default vehicle type -->
-	<vType id="CType"/>
-	
 </routes>

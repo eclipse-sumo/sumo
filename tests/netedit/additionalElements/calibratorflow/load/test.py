@@ -31,8 +31,14 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # force save additionals
 netedit.forceSaveAdditionals()
 
+# force save demand elements
+netedit.forceSaveDemandElements()
+
 # save additionals
 netedit.saveAdditionals(referencePosition)
+
+# save routes
+netedit.saveRoutes(referencePosition)
 
 # save network
 netedit.saveNetwork(referencePosition)
