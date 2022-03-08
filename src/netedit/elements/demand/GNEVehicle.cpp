@@ -449,8 +449,8 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
     }
     // write parameters
     writeParams(device);
-    // write route elements associated to this vehicle
-    if (getChildDemandElements().size() > 0) {
+    // write route elements associated to this vehicle (except for calibrator FLows)
+    if ((getChildDemandElements().size() > 0) && !myTagProperty.isCalibrator()) {
         if (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
             // write embedded route
             getChildDemandElements().front()->writeDemandElement(device);

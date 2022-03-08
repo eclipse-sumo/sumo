@@ -2283,7 +2283,7 @@ bool
 GNENet::writeRouteComment(OutputDevice& device, const bool additionalFile) const {
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         if (additionalFile && (route->getChildAdditionals().size() > 0)) {
-            device << ("    <!-- Routes (used in RouteProbReroutes) -->\n");
+            device << ("    <!-- Routes (used in RouteProbReroutes and calibratorFlows) -->\n");
             return true;
         } else if (!additionalFile && (route->getChildAdditionals().size() == 0)) {
             device << ("    <!-- Routes -->\n");
@@ -2306,10 +2306,11 @@ GNENet::writeRouteProbeComment(OutputDevice& device) const {
 
 bool 
 GNENet::writeCalibratorComment(OutputDevice& device) const {
-    if ((myAttributeCarriers->getAdditionals().at(SUMO_TAG_CALIBRATOR).size() > 0) ||
-        (myAttributeCarriers->getAdditionals().at(GNE_TAG_CALIBRATOR_LANE).size() > 0)) {
-        device << ("    <!-- Calibrators -->\n");
-        return true;
+    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isCalibrator() && (additionals.second.size() > 0)) {
+            device << ("    <!-- Calibrators -->\n");
+            return true;
+        }
     }
     return false;
 }
@@ -2345,7 +2346,7 @@ GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
         if (GNEAttributeCarrier::getTagProperty(additionals.first).isAdditionalPureElement() &&
             !GNEAttributeCarrier::getTagProperty(additionals.first).isStoppingPlace() &&
             !GNEAttributeCarrier::getTagProperty(additionals.first).isDetector() &&
-            (additionals.first != SUMO_TAG_CALIBRATOR) && (additionals.first != GNE_TAG_CALIBRATOR_LANE) &&
+            !GNEAttributeCarrier::getTagProperty(additionals.first).isCalibrator() &&
             (additionals.first != SUMO_TAG_ROUTEPROBE) && (additionals.first != SUMO_TAG_ACCESS) &&
             (additionals.first != SUMO_TAG_PARKING_SPACE) && (additionals.second.size() > 0)) {
             device << ("    <!-- Other additionals -->\n");

@@ -39,6 +39,8 @@ GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
     // set VPH and speed enabled
     toogleAttribute(SUMO_ATTR_VEHSPERHOUR, true);
     toogleAttribute(SUMO_ATTR_SPEED, true);
+    // reset ID
+    id.clear();
 }
 
 
@@ -48,6 +50,8 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
     SUMOVehicleParameter() {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
+    // reset ID
+    id.clear();
 }
 
 
@@ -57,6 +61,8 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
     SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
+    // reset ID
+    id.clear();
 }
 
 
@@ -68,10 +74,10 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
     if (isAttributeEnabled(SUMO_ATTR_TYPE) || isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR) || isAttributeEnabled(SUMO_ATTR_SPEED)) {
         // open tag
         device.openTag(SUMO_TAG_FLOW);
+        // write vehicle attributes
+        write(device, OptionsCont::getOptions(), SUMO_TAG_FLOW, getParentDemandElements().at(0)->getID());
         // write route
         device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
-        // write vehicle attributes
-        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().at(0)->getID());
         // VPH
         if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
             device.writeAttr(SUMO_ATTR_VEHSPERHOUR, getAttribute(SUMO_ATTR_VEHSPERHOUR));

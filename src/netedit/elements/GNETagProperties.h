@@ -48,34 +48,35 @@ public:
         // sub additional elements
         STOPPINGPLACE =     1 << 4,  // StoppingPlaces (BusStops, ChargingStations...)
         DETECTOR =          1 << 5,  // Detectors (E1, E2...)
-        SHAPE =             1 << 6,  // Shapes (Polygons and POIs)
-        TAZELEMENT =        1 << 7,  // Traffic Assignment Zones
-        WIRE =              1 << 8,  // Wire elements
+        CALIBRATOR =        1 << 6,  // Calibrators
+        SHAPE =             1 << 7,  // Shapes (Polygons and POIs)
+        TAZELEMENT =        1 << 8,  // Traffic Assignment Zones
+        WIRE =              1 << 9,  // Wire elements
         // sub demand elements
-        VTYPE =             1 << 9,  // Vehicle types (vType and vTypeDistribution)
-        VEHICLE =           1 << 10, // Vehicles (Vehicles, trips, flows...)
-        ROUTE =             1 << 11, // Routes and embedded routes
-        STOP =              1 << 12, // Stops
-        WAYPOINT =          1 << 13, // Waypoints (note: All waypoints are also Stops)
-        FLOW =              1 << 14, // Flows
+        VTYPE =             1 << 10, // Vehicle types (vType and vTypeDistribution)
+        VEHICLE =           1 << 11, // Vehicles (Vehicles, trips, flows...)
+        ROUTE =             1 << 12, // Routes and embedded routes
+        STOP =              1 << 13, // Stops
+        WAYPOINT =          1 << 14, // Waypoints (note: All waypoints are also Stops)
+        FLOW =              1 << 15, // Flows
         // persons
-        PERSON =            1 << 15, // Persons (Persons and personFlows)
-        PERSONPLAN =        1 << 16, // Person plans (Walks, rides, personTrips and stopPersons)
-        PERSONTRIP =        1 << 17, // Person Trips
-        WALK =              1 << 18, // Walks
-        RIDE =              1 << 19, // Rides
-        STOPPERSON =        1 << 20, // Person stops
+        PERSON =            1 << 16, // Persons (Persons and personFlows)
+        PERSONPLAN =        1 << 17, // Person plans (Walks, rides, personTrips and stopPersons)
+        PERSONTRIP =        1 << 18, // Person Trips
+        WALK =              1 << 19, // Walks
+        RIDE =              1 << 20, // Rides
+        STOPPERSON =        1 << 21, // Person stops
         // containers
-        CONTAINER =         1 << 21, // Containers (Containers and personFlows)
-        CONTAINERPLAN =     1 << 22, // Container plans (tranship and transport)
-        TRANSPORT =         1 << 23, // Transport
-        TRANSHIP =          1 << 24, // Tranship
-        STOPCONTAINER =     1 << 25, // Container stops
+        CONTAINER =         1 << 22, // Containers (Containers and personFlows)
+        CONTAINERPLAN =     1 << 23, // Container plans (tranship and transport)
+        TRANSPORT =         1 << 24, // Transport
+        TRANSHIP =          1 << 25, // Tranship
+        STOPCONTAINER =     1 << 26, // Container stops
         // sub data elements
-        GENERICDATA =       1 << 26, // Generic data (GNEEdgeData, GNELaneData...)
+        GENERICDATA =       1 << 27, // Generic data (GNEEdgeData, GNELaneData...)
         // other
-        SYMBOL =            1 << 27, // Symbol elements (VSSSymbols, RerouterSymbols...)
-        INTERNALLANE =      1 << 28, // Internal Lane
+        SYMBOL =            1 << 28, // Symbol elements (VSSSymbols, RerouterSymbols...)
+        INTERNALLANE =      1 << 29, // Internal Lane
     };
 
     enum TagProperty {
@@ -179,6 +180,9 @@ public:
 
     /// @brief return true if tag correspond to a shape (Only used to group all detectors in the XML)
     bool isDetector() const;
+    
+    /// @brief return true if tag correspond to a calibrator (Only used to group all detectors in the XML)
+    bool isCalibrator() const;
 
     /// @brief return true if tag correspond to a shape
     bool isShapeElement() const;

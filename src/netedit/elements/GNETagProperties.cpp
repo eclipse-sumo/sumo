@@ -302,6 +302,12 @@ GNETagProperties::isDetector() const {
 
 
 bool
+GNETagProperties::isCalibrator() const {
+    return (myTagType & CALIBRATOR) != 0;
+}
+
+
+bool
 GNETagProperties::isShapeElement() const {
     return (myTagType & SHAPE) != 0;
 }
