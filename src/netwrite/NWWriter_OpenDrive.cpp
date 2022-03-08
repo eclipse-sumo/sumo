@@ -688,6 +688,7 @@ NWWriter_OpenDrive::writeGeomPP3(
     device.writeAttr("bV", bV);
     device.writeAttr("cV", cV);
     device.writeAttr("dV", dV);
+    device.writeAttr("pRange", "normalized");
     device.closeTag();
     device.closeTag();
 
