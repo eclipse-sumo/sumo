@@ -572,6 +572,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                               obj->getStringListAttribute(SUMO_ATTR_LANES),
                               obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
                               obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                              obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
                               obj->getStringListAttribute(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN),
                               obj->getParameters());
             break;
@@ -1557,10 +1558,11 @@ AdditionalHandler::parseOverheadWire(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const std::string substationID = attrs.get<std::string>(SUMO_ATTR_SUBSTATIONID, id.c_str(), parsedOk);
     const std::vector<std::string> laneIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk);
-    const std::vector<std::string> forbiddenInnerLanes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN, "", parsedOk);
     // optional attributes
     const double startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), parsedOk, 0);
     const double endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, INVALID_DOUBLE);
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    const std::vector<std::string> forbiddenInnerLanes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN, "", parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1569,9 +1571,10 @@ AdditionalHandler::parseOverheadWire(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id),
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_SUBSTATIONID, substationID),
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LANES, laneIDs),
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_STARTPOS, startPos),
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN, forbiddenInnerLanes);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_STARTPOS, startPos),
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_ENDPOS, endPos);
     }
 }
 

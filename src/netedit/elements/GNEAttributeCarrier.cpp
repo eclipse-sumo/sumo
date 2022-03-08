@@ -3175,13 +3175,11 @@ GNEAttributeCarrier::fillWireElements() {
                                               "Inner lanes, where placing of overhead wire is restricted");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-/*
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_VOLTAGESOURCE,
-                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUESTATIC,
-                                              "If true, the beginning point of the segment is connected to a substation",
-                                              "false");
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
-*/
     }
     currentTag = SUMO_TAG_OVERHEAD_WIRE_CLAMP;
     {
