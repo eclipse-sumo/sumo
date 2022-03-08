@@ -45,7 +45,7 @@ public:
      * @param[in] parameters parameters map
      */
     GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ,
-                  const std::map<std::string, std::string>& parameters);
+                  const Parameterised::Map& parameters);
 
     /**@brief Constructor for one TAZ
      * @param[in] dataIntervalParent pointer to data interval parent
@@ -53,7 +53,7 @@ public:
      * @param[in] parameters parameters map
      */
     GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* TAZ,
-                  const std::map<std::string, std::string>& parameters);
+                  const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNETAZRelData();

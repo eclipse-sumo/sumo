@@ -623,7 +623,7 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         myAttributeCarrier->getNet()->getViewNet()->getUndoList()->end();
     } else if (myTLDef) {
         // declare parametersMap
-        std::map<std::string, std::string> parametersMap;
+        Parameterised::Map parametersMap;
         // Generate an string using the following structure: "key1=value1|key2=value2|...
         for (const auto& parameter : parameters) {
             parametersMap[parameter.first] = parameter.second;

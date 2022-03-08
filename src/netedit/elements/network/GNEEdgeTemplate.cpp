@@ -139,7 +139,7 @@ GNEEdgeTemplate::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEEdgeTemplate::getACParametersMap() const {
     return myEdge->getACParametersMap();
 }

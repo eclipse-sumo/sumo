@@ -114,7 +114,7 @@ GNELaneTemplate::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNELaneTemplate::getACParametersMap() const {
     return myLane->getACParametersMap();
 }

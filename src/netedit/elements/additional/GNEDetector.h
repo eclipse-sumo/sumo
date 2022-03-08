@@ -47,7 +47,7 @@ public:
      */
     GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime freq,
                 const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-                const std::string& name, const bool friendlyPos, const std::map<std::string, std::string>& parameters);
+                const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
 
     /**@brief Constructor.
      * @param[in] additionalParent parent additional of this detector (ID will be generated automatically)
@@ -64,7 +64,7 @@ public:
      */
     GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime freq,
                 const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, const bool friendlyPos,
-                const std::map<std::string, std::string>& parameters);
+                const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEDetector();
@@ -144,7 +144,7 @@ public:
     virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

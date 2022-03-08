@@ -33,14 +33,14 @@
 // ===========================================================================
 
 GNEDetectorE1::GNEDetectorE1(GNENet* net) :
-    GNEDetector("", net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, 0, 0, {}, "", {}, "", false, std::map<std::string, std::string>()) {
+    GNEDetector("", net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, 0, 0, {}, "", {}, "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, const double pos, const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-                             const std::string& name, bool friendlyPos, const std::map<std::string, std::string>& parameters) :
+                             const std::string& name, bool friendlyPos, const Parameterised::Map& parameters) :
     GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, pos, freq, {
     lane
 }, filename, vehicleTypes, name, friendlyPos, parameters) {

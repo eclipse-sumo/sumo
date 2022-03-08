@@ -197,7 +197,7 @@ GNELaneType::isAttributeComputed(SumoXMLAttr /*key*/) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNELaneType::getACParametersMap() const {
     return getParametersMap();
 }

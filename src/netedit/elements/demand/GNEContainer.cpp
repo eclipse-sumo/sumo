@@ -751,7 +751,7 @@ GNEContainer::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEContainer::getACParametersMap() const {
     return getParametersMap();
 }

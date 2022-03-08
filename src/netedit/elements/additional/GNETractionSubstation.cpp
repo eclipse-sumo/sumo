@@ -41,7 +41,7 @@ GNETractionSubstation::GNETractionSubstation(GNENet* net) :
 
 
 GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage, 
-        const double currentLimit, const std::map<std::string, std::string>& parameters) :
+        const double currentLimit, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, "",
         {}, {}, {}, {}, {}, {}),
     Parameterised(parameters),
@@ -180,7 +180,7 @@ GNETractionSubstation::getAttributeDouble(SumoXMLAttr key) const {
 
 
 const 
-std::map<std::string, std::string>& GNETractionSubstation::getACParametersMap() const {
+Parameterised::Map& GNETractionSubstation::getACParametersMap() const {
     return PARAMETERS_EMPTY;
 }
 

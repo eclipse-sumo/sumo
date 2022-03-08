@@ -477,7 +477,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNECrossing::getACParametersMap() const {
     return getNBCrossing()->getParametersMap();
 }

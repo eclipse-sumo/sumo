@@ -33,14 +33,14 @@
 // ===========================================================================
 
 GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net) :
-    GNEDetector("", net, GLO_DET_ENTRY, entryExitTag, 0, 0, {}, "", {}, "", false, std::map<std::string, std::string>()) {
+    GNEDetector("", net, GLO_DET_ENTRY, entryExitTag, 0, 0, {}, "", {}, "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos,
-        const bool friendlyPos, const std::map<std::string, std::string>& parameters) :
+        const bool friendlyPos, const Parameterised::Map& parameters) :
     GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, 0, {lane}, "", "", friendlyPos, parameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);

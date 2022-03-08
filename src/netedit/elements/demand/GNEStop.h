@@ -208,7 +208,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /// @brief get start position over lane that is applicable to the shape
     double getStartGeometryPositionOverLane() const;

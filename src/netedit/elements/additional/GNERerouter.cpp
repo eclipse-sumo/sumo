@@ -45,7 +45,7 @@ GNERerouter::GNERerouter(GNENet* net) :
 
 GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
                          double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
-                         const std::map<std::string, std::string>& parameters) :
+                         const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name,
         {}, {}, {}, {}, {}, {}),
     Parameterised(parameters),
@@ -246,7 +246,7 @@ GNERerouter::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNERerouter::getACParametersMap() const {
     return getParametersMap();
 }

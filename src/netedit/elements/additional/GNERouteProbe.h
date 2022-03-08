@@ -46,7 +46,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime frequency, const std::string& name,
-                  const std::string& filename, SUMOTime begin, const std::map<std::string, std::string>& parameters);
+                  const std::string& filename, SUMOTime begin, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNERouteProbe();
@@ -104,7 +104,7 @@ public:
     double getAttributeDouble(SumoXMLAttr key) const;
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

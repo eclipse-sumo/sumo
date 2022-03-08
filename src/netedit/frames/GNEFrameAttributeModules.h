@@ -507,7 +507,7 @@ public:
         void refreshGenericDataAttributes();
 
         /// @brief get parameters as map
-        const std::map<std::string, std::string>& getParametersMap() const;
+        const Parameterised::Map& getParametersMap() const;
 
         /// @brief get parameters as string
         std::string getParametersStr() const;
@@ -538,7 +538,7 @@ public:
         GNEFrame* myFrameParent = nullptr;
 
         /// @brief pointer to current map of parameters
-        std::map<std::string, std::string> myParameters;
+        Parameterised::Map myParameters;
 
         /// @brief text field for write parameters
         FXTextField* myTextFieldParameters = nullptr;

@@ -252,7 +252,7 @@ public:
     virtual Position getAttributePosition(SumoXMLAttr key) const;
 
     /// @brief get parameters map
-    virtual const std::map<std::string, std::string>& getACParametersMap() const = 0;
+    virtual const Parameterised::Map& getACParametersMap() const = 0;
 
     /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

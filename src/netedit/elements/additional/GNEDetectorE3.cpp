@@ -42,7 +42,7 @@ GNEDetectorE3::GNEDetectorE3(GNENet* net) :
 
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
                              const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
-                             const std::map<std::string, std::string>& parameters) :
+                             const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name,
         {}, {}, {}, {}, {}, {}),
     Parameterised(parameters),
@@ -205,7 +205,7 @@ GNEDetectorE3::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEDetectorE3::getACParametersMap() const {
     return getParametersMap();
 }

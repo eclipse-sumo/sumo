@@ -52,7 +52,7 @@ public:
      */
     GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                      const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength,
-                     const RGBColor& color, bool friendlyPosition, const std::map<std::string, std::string>& parameters);
+                     const RGBColor& color, bool friendlyPosition, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEContainerStop();

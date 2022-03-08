@@ -46,7 +46,7 @@
 // ---------------------------------------------------------------------------
 
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ,
-                             const std::map<std::string, std::string>& parameters) :
+                             const Parameterised::Map& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
         {}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
     myLastWidth(0) {
@@ -56,7 +56,7 @@ GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional*
 
 
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* TAZ,
-                             const std::map<std::string, std::string>& parameters) :
+                             const Parameterised::Map& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
         {}, {}, {}, {TAZ}, {}, {}),
     myLastWidth(0) {

@@ -48,7 +48,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEDetectorE3(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-                  const std::string& name, SUMOTime timeThreshold, double speedThreshold, const std::map<std::string, std::string>& parameters);
+                  const std::string& name, SUMOTime timeThreshold, double speedThreshold, const Parameterised::Map& parameters);
 
     /// @brief GNEDetectorE3 Destructor
     ~GNEDetectorE3();
@@ -106,7 +106,7 @@ public:
     double getAttributeDouble(SumoXMLAttr key) const;
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

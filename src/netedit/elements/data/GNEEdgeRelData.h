@@ -45,7 +45,7 @@ public:
      * @param[in] parameters parameters map
      */
     GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                   const std::map<std::string, std::string>& parameters);
+                   const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEEdgeRelData();

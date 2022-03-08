@@ -40,7 +40,7 @@
 // ===========================================================================
 
 GNEPoly::GNEPoly(GNENet* net) :
-    TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", std::map<std::string, std::string>()),
+    TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", Parameterised::Map()),
     GNEAdditional("", net, GLO_POLYGON, SUMO_TAG_POLY, "", 
         {}, {}, {}, {}, {}, {}),
     mySimplifiedShape(false) {
@@ -51,7 +51,7 @@ GNEPoly::GNEPoly(GNENet* net) :
 
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::string& name,
-                 const std::map<std::string, std::string>& parameters) :
+                 const Parameterised::Map& parameters) :
     TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
     GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, "", 
         {}, {}, {}, {}, {}, {}),
@@ -578,7 +578,7 @@ GNEPoly::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEPoly::getACParametersMap() const {
     return SUMOPolygon::getParametersMap();
 }

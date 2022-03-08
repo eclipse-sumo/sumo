@@ -49,7 +49,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos, const bool friendlyPos,
-                         const std::map<std::string, std::string>& parameters);
+                         const Parameterised::Map& parameters);
 
     /// @brief destructor
     ~GNEDetectorEntryExit();

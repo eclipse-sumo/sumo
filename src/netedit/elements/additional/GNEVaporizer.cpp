@@ -43,7 +43,7 @@ GNEVaporizer::GNEVaporizer(GNENet* net) :
 
 
 GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name,
-                           const std::map<std::string, std::string>& parameters) :
+                           const Parameterised::Map& parameters) :
     GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name,
         {}, {edge}, {}, {}, {}, {}),
     Parameterised(parameters),
@@ -225,7 +225,7 @@ GNEVaporizer::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEVaporizer::getACParametersMap() const {
     return getParametersMap();
 }

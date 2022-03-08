@@ -67,7 +67,7 @@ public:
      * @param[in] genericDataParents vector of generic data parents
      */
     GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-                   const std::map<std::string, std::string>& parameters,
+                   const Parameterised::Map& parameters,
                    const std::vector<GNEJunction*>& junctionParents,
                    const std::vector<GNEEdge*>& edgeParents,
                    const std::vector<GNELane*>& laneParents,
@@ -256,7 +256,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief dataInterval Parent

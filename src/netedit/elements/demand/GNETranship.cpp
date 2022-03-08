@@ -564,7 +564,7 @@ GNETranship::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNETranship::getACParametersMap() const {
     return getParametersMap();
 }

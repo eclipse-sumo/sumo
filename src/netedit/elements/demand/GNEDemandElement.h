@@ -334,7 +334,7 @@ public:
     bool isAttributeComputed(SumoXMLAttr key) const;
 
     /// @brief get parameters map
-    virtual const std::map<std::string, std::string>& getACParametersMap() const = 0;
+    virtual const Parameterised::Map& getACParametersMap() const = 0;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;

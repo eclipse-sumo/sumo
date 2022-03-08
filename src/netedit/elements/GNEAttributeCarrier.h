@@ -153,7 +153,7 @@ public:
     /// @name Function related with parameters
     /// @{
     /// @brief get parameters map
-    virtual const std::map<std::string, std::string>& getACParametersMap() const = 0;
+    virtual const Parameterised::Map& getACParametersMap() const = 0;
 
     /// @brief get parameters
     template<typename T>
@@ -166,7 +166,7 @@ public:
     void setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters, GNEUndoList* undoList);
 
     /// @brief set parameters (string vector)
-    void setACParameters(const std::map<std::string, std::string>& parameters, GNEUndoList* undoList);
+    void setACParameters(const Parameterised::Map& parameters, GNEUndoList* undoList);
 
     /// @brief add (or update attribute) key and attribute
     void addACParameters(const std::string& key, const std::string& attribute, GNEUndoList* undoList);
@@ -274,7 +274,7 @@ public:
     static const size_t MAXNUMBEROFATTRIBUTES;
 
     /// @brief empty parameter maps (used by ACs without parameters)
-    static const std::map<std::string, std::string> PARAMETERS_EMPTY;
+    static const Parameterised::Map PARAMETERS_EMPTY;
 
 protected:
     /// @brief reference to tagProperty associated with this attribute carrier

@@ -478,7 +478,7 @@ GNERide::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNERide::getACParametersMap() const {
     return getParametersMap();
 }

@@ -254,7 +254,7 @@ GNEVTypeDistribution::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEVTypeDistribution::getACParametersMap() const {
     throw InvalidArgument(getTagStr() + " doesn't have parameters");
 }

@@ -49,7 +49,7 @@ GNEAccess::GNEAccess(GNENet* net) :
 
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
-                     const std::map<std::string, std::string>& parameters) :
+                     const Parameterised::Map& parameters) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
         {}, {}, {lane}, {busStop}, {}, {}),
     Parameterised(parameters),
@@ -245,7 +245,7 @@ GNEAccess::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const Parameterised::Map& 
 GNEAccess::getACParametersMap() const {
     return getParametersMap();
 }

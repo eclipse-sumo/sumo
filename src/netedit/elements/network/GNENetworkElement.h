@@ -176,7 +176,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    virtual const std::map<std::string, std::string>& getACParametersMap() const = 0;
+    virtual const Parameterised::Map& getACParametersMap() const = 0;
 
 protected:
     /// @brief object boundary

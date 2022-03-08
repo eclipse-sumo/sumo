@@ -53,7 +53,7 @@ public:
      */
     GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, const std::string& width,
                     const std::string& length, const std::string& angle, double slope, const std::string& name,
-                    const std::map<std::string, std::string>& parameters);
+                    const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEParkingSpace();
@@ -111,7 +111,7 @@ public:
     double getAttributeDouble(SumoXMLAttr key) const;
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

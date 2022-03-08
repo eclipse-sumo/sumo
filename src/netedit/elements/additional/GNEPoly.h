@@ -67,7 +67,7 @@ public:
      */
     GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill,
             double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath,
-            const std::string& name, const std::map<std::string, std::string>& parameters);
+            const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEPoly();
@@ -148,7 +148,7 @@ public:
     double getAttributeDouble(SumoXMLAttr key) const;
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

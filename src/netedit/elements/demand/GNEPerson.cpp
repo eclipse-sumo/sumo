@@ -742,7 +742,7 @@ GNEPerson::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEPerson::getACParametersMap() const {
     return getParametersMap();
 }

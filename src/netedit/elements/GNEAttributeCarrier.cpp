@@ -40,7 +40,7 @@ const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
 const size_t GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES = 128;
-const std::map<std::string, std::string> GNEAttributeCarrier::PARAMETERS_EMPTY;
+const Parameterised::Map GNEAttributeCarrier::PARAMETERS_EMPTY;
 
 
 // ===========================================================================
@@ -389,7 +389,7 @@ GNEAttributeCarrier::getACParameters() const {
 void
 GNEAttributeCarrier::setACParameters(const std::string& parameters, GNEUndoList* undoList) {
     // declare map
-    std::map<std::string, std::string> parametersMap;
+    Parameterised::Map parametersMap;
     // separate value in a vector of string using | as separator
     StringTokenizer parametersTokenizer(parameters, "|", true);
     // iterate over all values
@@ -408,7 +408,7 @@ GNEAttributeCarrier::setACParameters(const std::string& parameters, GNEUndoList*
 void
 GNEAttributeCarrier::setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters, GNEUndoList* undoList) {
     // declare parametersMap
-    std::map<std::string, std::string> parametersMap;
+    Parameterised::Map parametersMap;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
     for (const auto& parameter : parameters) {
         parametersMap[parameter.first] = parameter.second;
@@ -419,7 +419,7 @@ GNEAttributeCarrier::setACParameters(const std::vector<std::pair<std::string, st
 
 
 void
-GNEAttributeCarrier::setACParameters(const std::map<std::string, std::string>& parameters, GNEUndoList* undoList) {
+GNEAttributeCarrier::setACParameters(const Parameterised::Map& parameters, GNEUndoList* undoList) {
     // declare result string
     std::string paramsStr;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -438,7 +438,7 @@ GNEAttributeCarrier::setACParameters(const std::map<std::string, std::string>& p
 void
 GNEAttributeCarrier::addACParameters(const std::string& key, const std::string& attribute, GNEUndoList* undoList) {
     // get parametersMap
-    std::map<std::string, std::string> parametersMap = getACParametersMap();
+    Parameterised::Map parametersMap = getACParametersMap();
     // add (or update) attribute
     parametersMap[key] = attribute;
     // set attribute
@@ -449,7 +449,7 @@ GNEAttributeCarrier::addACParameters(const std::string& key, const std::string& 
 void
 GNEAttributeCarrier::removeACParametersKeys(const std::vector<std::string>& keepKeys, GNEUndoList* undoList) {
     // declare parametersMap
-    std::map<std::string, std::string> newParametersMap;
+    Parameterised::Map newParametersMap;
     // iterate over parameters map
     for (const auto& parameter : getACParametersMap()) {
         // copy to newParametersMap if key is in keepKeys

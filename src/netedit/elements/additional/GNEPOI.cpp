@@ -41,7 +41,7 @@
 // ===========================================================================
 
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
-    PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, 0, 0, "", false, 0, 0, "", std::map<std::string, std::string>()),
+    PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, 0, 0, "", false, 0, 0, "", Parameterised::Map()),
     GNEAdditional("", net, GLO_POI, tag, "", 
         {}, {}, {}, {}, {}, {}) {
     // reset default values
@@ -52,7 +52,7 @@ GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
                const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile,
                const bool relativePath, const double width, const double height, const std::string& name,
-               const std::map<std::string, std::string>& parameters) :
+               const Parameterised::Map& parameters) :
     PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEAdditional(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, "", 
         {}, {}, {}, {}, {}, {}) {
@@ -69,7 +69,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
                const bool friendlyPos, const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
-               const double height, const std::string& name, const std::map<std::string, std::string>& parameters) :
+               const double height, const std::string& name, const Parameterised::Map& parameters) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEAdditional(id, net, GLO_POI, GNE_TAG_POILANE, "", 
         {}, {}, {lane}, {}, {}, {}) {
@@ -399,7 +399,7 @@ GNEPOI::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEPOI::getACParametersMap() const {
     return PointOfInterest::getParametersMap();
 }

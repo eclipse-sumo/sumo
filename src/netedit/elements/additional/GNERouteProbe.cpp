@@ -47,7 +47,7 @@ GNERouteProbe::GNERouteProbe(GNENet* net) :
 
 
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime frequency, const std::string& name,
-                             const std::string& filename, SUMOTime begin, const std::map<std::string, std::string>& parameters) :
+                             const std::string& filename, SUMOTime begin, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name,
         {}, {edge}, {}, {}, {}, {}),
     Parameterised(parameters),
@@ -237,7 +237,7 @@ GNERouteProbe::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const Parameterised::Map& 
 GNERouteProbe::getACParametersMap() const {
     return getParametersMap();
 }

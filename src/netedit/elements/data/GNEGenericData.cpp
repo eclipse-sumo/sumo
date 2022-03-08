@@ -43,7 +43,7 @@
 // ---------------------------------------------------------------------------
 
 GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-                               const std::map<std::string, std::string>& parameters,
+                               const Parameterised::Map& parameters,
                                const std::vector<GNEJunction*>& junctionParents,
                                const std::vector<GNEEdge*>& edgeParents,
                                const std::vector<GNELane*>& laneParents,
@@ -197,7 +197,7 @@ GNEGenericData::isAttributeComputed(SumoXMLAttr /*key*/) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEGenericData::getACParametersMap() const {
     return getParametersMap();
 }

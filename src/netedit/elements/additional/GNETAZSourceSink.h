@@ -118,7 +118,7 @@ public:
     double getAttributeDouble(SumoXMLAttr key) const;
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for getting the Attribute of an XML key in position format (to avoid unnecessary parse<position>(...) for certain attributes)
      * @param[in] key The attribute key

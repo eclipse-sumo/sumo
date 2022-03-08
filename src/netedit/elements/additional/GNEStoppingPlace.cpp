@@ -47,7 +47,7 @@ const double GNEStoppingPlace::myCircleInText = 1.6;
 
 GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
                                    GNELane* lane, const double startPos, const double endPos, const std::string& name,
-                                   bool friendlyPosition, const std::map<std::string, std::string>& parameters) :
+                                   bool friendlyPosition, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, type, tag, name,
         {}, {}, {lane}, {}, {}, {}),
     Parameterised(parameters),
@@ -270,7 +270,7 @@ GNEStoppingPlace::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const Parameterised::Map& 
 GNEStoppingPlace::getACParametersMap() const {
     return getParametersMap();
 }

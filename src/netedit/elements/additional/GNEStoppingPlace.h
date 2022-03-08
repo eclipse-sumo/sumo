@@ -44,7 +44,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, const double startPos,
-                     const double endPos, const std::string& name, bool friendlyPosition, const std::map<std::string, std::string>& parameters);
+                     const double endPos, const std::string& name, bool friendlyPosition, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEStoppingPlace();
@@ -114,7 +114,7 @@ public:
     virtual double getAttributeDouble(SumoXMLAttr key) const;
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

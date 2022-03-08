@@ -34,7 +34,7 @@
 // ===========================================================================
 
 GNEContainerStop::GNEContainerStop(GNENet* net) :
-    GNEStoppingPlace("", net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, nullptr, 0, 0, "", false, std::map<std::string, std::string>()),
+    GNEStoppingPlace("", net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, nullptr, 0, 0, "", false, Parameterised::Map()),
     myContainerCapacity(0),
     myParkingLength(0),
     myColor(RGBColor::BLACK) {
@@ -45,7 +45,7 @@ GNEContainerStop::GNEContainerStop(GNENet* net) :
 
 GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                    const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength, const RGBColor& color,
-                                   bool friendlyPosition, const std::map<std::string, std::string>& parameters) :
+                                   bool friendlyPosition, const Parameterised::Map& parameters) :
     GNEStoppingPlace(id, net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, parameters),
     myLines(lines),
     myContainerCapacity(containerCapacity),

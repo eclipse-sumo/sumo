@@ -43,7 +43,7 @@ public:
      * @param[in] edgeParent poinetr to Edge parent
      * @param[in] parameters parameters map
      */
-    GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const std::map<std::string, std::string>& parameters);
+    GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEEdgeData();

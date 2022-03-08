@@ -69,7 +69,7 @@ public:
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
            const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile,
            const bool relativePath, const double width, const double height, const std::string& name,
-           const std::map<std::string, std::string>& parameters);
+           const Parameterised::Map& parameters);
 
     /**@brief Constructor
      * @param[in] net net in which this polygon is placed
@@ -90,7 +90,7 @@ public:
      */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane, const bool friendlyPos,
            const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
-           const double height, const std::string& name, const std::map<std::string, std::string>& parameters);
+           const double height, const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEPOI();
@@ -174,7 +174,7 @@ public:
     double getAttributeDouble(SumoXMLAttr key) const;
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

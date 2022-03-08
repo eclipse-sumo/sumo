@@ -526,7 +526,7 @@ GNEPersonTrip::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEPersonTrip::getACParametersMap() const {
     return getParametersMap();
 }

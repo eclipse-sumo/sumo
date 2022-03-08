@@ -43,7 +43,7 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
 
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
-        const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) :
+        const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name,
         {}, {}, {}, {}, {}, {}),
     Parameterised(parameters),
@@ -205,7 +205,7 @@ GNEVariableSpeedSign::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const Parameterised::Map& 
 GNEVariableSpeedSign::getACParametersMap() const {
     return getParametersMap();
 }

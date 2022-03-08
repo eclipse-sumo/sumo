@@ -380,7 +380,7 @@ GNEDataSet::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEDataSet::getACParametersMap() const {
     return getParametersMap();
 }

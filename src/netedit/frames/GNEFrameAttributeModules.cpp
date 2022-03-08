@@ -2089,7 +2089,7 @@ GNEFrameAttributeModules::GenericDataAttributes::refreshGenericDataAttributes() 
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEFrameAttributeModules::GenericDataAttributes::getParametersMap() const {
     return myParameters;
 }

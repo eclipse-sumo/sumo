@@ -200,7 +200,7 @@ GNETAZSourceSink::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const Parameterised::Map& 
 GNETAZSourceSink::getACParametersMap() const {
     return PARAMETERS_EMPTY;
 }

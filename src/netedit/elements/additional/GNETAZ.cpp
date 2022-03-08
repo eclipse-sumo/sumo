@@ -62,7 +62,7 @@ GNETAZ::GNETAZ(GNENet* net) :
 
 
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, const Position& center, const bool fill,
-               const RGBColor& color, const std::string& name, const std::map<std::string, std::string>& parameters) :
+               const RGBColor& color, const std::string& name, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_TAZ, SUMO_TAG_TAZ, "",
         {}, {}, {}, {}, {}, {}),
     TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name, parameters),
@@ -492,7 +492,7 @@ GNETAZ::getAttributePosition(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNETAZ::getACParametersMap() const {
     return getParametersMap();
 }

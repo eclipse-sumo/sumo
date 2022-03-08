@@ -55,7 +55,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output,
-                  const double jamThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters);
+                  const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
 
     /**@brief Constructor using edge and routeProbe
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -71,7 +71,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output,
-                  GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters);
+                  GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
 
     /**@brief Constructor using lane
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -86,7 +86,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output,
-                  const double jamThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters);
+                  const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
 
     /**@brief Constructor using lane and routeProbe
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -102,7 +102,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output,
-                  GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters);
+                  GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNECalibrator();
@@ -164,7 +164,7 @@ public:
     double getAttributeDouble(SumoXMLAttr key) const;
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

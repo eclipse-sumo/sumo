@@ -42,7 +42,7 @@ GNEParkingSpace::GNEParkingSpace(GNENet* net) :
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos,
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
-                                 const std::string& name, const std::map<std::string, std::string>& parameters) :
+                                 const std::string& name, const Parameterised::Map& parameters) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
     {}, {}, {}, {parkingAreaParent}, {}, {}),
     Parameterised(parameters),
@@ -292,7 +292,7 @@ GNEParkingSpace::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const Parameterised::Map& 
 GNEParkingSpace::getACParametersMap() const {
     return getParametersMap();
 }
