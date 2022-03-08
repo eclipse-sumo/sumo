@@ -1925,15 +1925,30 @@ class edgeData:
         parameters = 12
 
     class inspect:
-        parameters = 7
+        parameters = 3
 
     class inspectSelection:
-        parameters = 7
+        parameters = 3
 
 # edgeRelData
 
 
 class edgeRelData:
+    class create:
+        parameters = 12
+
+    class inspect:
+        fromEdge = 1
+        toEdge = 2
+        parameters = 5
+
+    class inspectSelection:
+        parameters = 3
+
+# TAZRelData
+
+
+class TAZRelData:
     class create:
         parameters = 12
 

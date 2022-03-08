@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit waiting 2 seconds to reference (will not be found)
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, [])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, [], makeScrenshot=False)
 
 # quit netedit
 netedit.quit(neteditProcess)

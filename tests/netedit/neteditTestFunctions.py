@@ -370,7 +370,7 @@ def Popen(extraParameters, debugInformation):
     return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
 
-def getReferenceMatch(neProcess):
+def getReferenceMatch(neProcess, makeScrenshot):
     """
     @brief obtain reference referencePosition (pink square)
     """
@@ -387,6 +387,8 @@ def getReferenceMatch(neProcess):
         # we cannot specify the exception here because some versions of pyautogui use one and some don't
         print(e)
         positionOnScreen = None
+        # make a screenshot
+        errorScreenshot = pyautogui.screenshot()
     # check if pos was found
     if positionOnScreen:
         # adjust position to center
@@ -396,8 +398,7 @@ def getReferenceMatch(neProcess):
               str(referencePosition[0]) + " - " + str(referencePosition[1]))
         # check that position is consistent (due scaling)
         if referencePosition != (304, 168):
-            print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
-                  "is 100% (See #3746)")
+            print("TestFunctions: Position of 'reference.png' isn't consistent")
         # click over position
         pyautogui.moveTo(referencePosition)
         # wait
@@ -411,14 +412,15 @@ def getReferenceMatch(neProcess):
         # return reference position
         return referencePosition
     # referente not found, then write screenshot
-    errorScreenshot.save("errorScreenshot.png")
+    if (makeScrenshot):
+        errorScreenshot.save("errorScreenshot.png")
     # kill netedit process
     neProcess.kill()
     # print debug information
     sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
 
 
-def setupAndStart(testRoot, extraParameters=[], debugInformation=True):
+def setupAndStart(testRoot, extraParameters=[], debugInformation=True, makeScrenshot=True):
     """
     @brief setup and start netedit
     """
@@ -435,7 +437,7 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True):
     typeKeyUp("control")
     typeKeyUp("alt")
     # Wait for Netedit reference
-    return neteditProcess, getReferenceMatch(neteditProcess)
+    return neteditProcess, getReferenceMatch(neteditProcess, makeScrenshot)
 
 
 def supermodeNetwork():
@@ -1816,6 +1818,20 @@ def selectionInvert():
     # focus current frame
     focusOnFrame()
     for _ in range(24):
+        typeTab()
+    # type space to select invert operation
+    typeSpace()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
+
+
+def selectionInvertData():
+    """
+    @brief invert selection
+    """
+    # focus current frame
+    focusOnFrame()
+    for _ in range(27):
         typeTab()
     # type space to select invert operation
     typeSpace()
