@@ -252,7 +252,7 @@ GUI::start(const std::vector<std::string>& cmd) {
 #ifdef WIN32
     WRITE_WARNING("Libsumo on Windows does not work with GUI, falling back to plain libsumo.");
     return false;
-#endif
+#else
     try {
         bool needStart = false;
         if (std::getenv("LIBSUMO_GUI") != nullptr) {
@@ -309,6 +309,7 @@ GUI::start(const std::vector<std::string>& cmd) {
         throw TraCIException(e.what());
     }
     return true;
+#endif
 }
 
 
