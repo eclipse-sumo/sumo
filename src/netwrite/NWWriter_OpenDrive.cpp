@@ -1005,7 +1005,7 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
                 device.writeAttr("zOffset", 5);
                 device.writeAttr("country", "OpenDRIVE");
                 device.writeAttr("type", type);
-                device.writeAttr("subType", subType);
+                device.writeAttr("subtype", subType);
                 device.writeAttr("height", 0.78);
                 device.writeAttr("width", 0.26);
             }
