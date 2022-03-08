@@ -562,7 +562,8 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                     obj->getStringAttribute(SUMO_ATTR_ID),
                                     obj->getPositionAttribute(SUMO_ATTR_POSITION),
                                     obj->getDoubleAttribute(SUMO_ATTR_VOLTAGE),
-                                    obj->getDoubleAttribute(SUMO_ATTR_CURRENTLIMIT));
+                                    obj->getDoubleAttribute(SUMO_ATTR_CURRENTLIMIT),
+                                    obj->getParameters());
             break;
         case SUMO_TAG_OVERHEAD_WIRE_SECTION:
             buildOverheadWire(obj,
@@ -571,7 +572,8 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                               obj->getStringListAttribute(SUMO_ATTR_LANES),
                               obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
                               obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                              obj->getStringListAttribute(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN));
+                              obj->getStringListAttribute(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN),
+                              obj->getParameters());
             break;
         case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
             buildOverheadWireClamp(obj,
@@ -579,7 +581,8 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                    obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_START),
                                    obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANESTART),
                                    obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_END),
-                                   obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANEEND));
+                                   obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANEEND),
+                                   obj->getParameters());
             break;
         // Polygon
         case SUMO_TAG_POLY:

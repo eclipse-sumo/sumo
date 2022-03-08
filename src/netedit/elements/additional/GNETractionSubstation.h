@@ -26,7 +26,7 @@
 // class definitions
 // ===========================================================================
 
-class GNETractionSubstation : public GNEAdditional {
+class GNETractionSubstation : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default Constructor
@@ -38,8 +38,10 @@ public:
      * @param[in] pos position (center) of the tractionSubstation in the map
      * @param[in] voltage tractionSubstation voltage
      * @param[in] currentLimit tractionSubstation currentLimit
+     * @param[in] parameters generic parameters
      */
-    GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage, const double currentLimit);
+    GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage, 
+                          const double currentLimit, const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     ~GNETractionSubstation();

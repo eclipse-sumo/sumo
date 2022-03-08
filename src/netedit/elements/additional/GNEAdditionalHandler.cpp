@@ -1471,7 +1471,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
 
 void 
 GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
-                                              const double voltage, const double currentLimit) {
+                                              const double voltage, const double currentLimit, const std::map<std::string, std::string>& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_TRACTION_SUBSTATION, id);
@@ -1483,7 +1483,7 @@ GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBase
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // build traction substation
-        GNEAdditional* tractionSubstation = new GNETractionSubstation(id, myNet, pos, voltage, currentLimit);
+        GNEAdditional* tractionSubstation = new GNETractionSubstation(id, myNet, pos, voltage, currentLimit, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::TRACTION_SUBSTATION, "add " + toString(SUMO_TAG_TRACTION_SUBSTATION));
@@ -1501,14 +1501,16 @@ GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBase
 
 void 
 GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& substationId, 
-                                        const std::vector<std::string>& laneIDs, const double startPos, const double endPos, const std::vector<std::string>& forbiddenInnerLanes) {
+                                        const std::vector<std::string>& laneIDs, const double startPos, const double endPos, 
+                                        const std::vector<std::string>& forbiddenInnerLanes, const std::map<std::string, std::string>& parameters) {
     //
 }
    
 
 void
 GNEAdditionalHandler::buildOverheadWireClamp(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& overheadWireIDStartClamp, 
-                                             const std::string& laneIDStartClamp, const std::string& overheadWireIDEndClamp, const std::string& laneIDEndClamp) {
+                                             const std::string& laneIDStartClamp, const std::string& overheadWireIDEndClamp, const std::string& laneIDEndClamp,
+                                             const std::map<std::string, std::string>& parameters) {
     //
 }
 

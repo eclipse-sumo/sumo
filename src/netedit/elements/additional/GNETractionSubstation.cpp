@@ -40,9 +40,11 @@ GNETractionSubstation::GNETractionSubstation(GNENet* net) :
 }
 
 
-GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage, const double currentLimit) :
+GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage, 
+        const double currentLimit, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, "",
         {}, {}, {}, {}, {}, {}),
+    Parameterised(parameters),
     myPosition(pos),
     myVoltage(voltage),
     myCurrentLimit(currentLimit) {
@@ -66,6 +68,8 @@ GNETractionSubstation::writeAdditional(OutputDevice& device) const {
     if (getAttribute(SUMO_ATTR_CURRENTLIMIT) != myTagProperty.getDefaultValue(SUMO_ATTR_CURRENTLIMIT)) {
         device.writeAttr(SUMO_ATTR_CURRENTLIMIT, myCurrentLimit);
     }
+    // write parameters
+    writeParams(device);
     device.closeTag();
 }
 
@@ -161,6 +165,8 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
             return toString(myVoltage);
         case SUMO_ATTR_CURRENTLIMIT:
             return toString(myCurrentLimit);
+        case GNE_ATTR_PARAMETERS:
+            return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -192,6 +198,7 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value, G
         case SUMO_ATTR_VOLTAGE:
         case SUMO_ATTR_CURRENTLIMIT:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -218,6 +225,8 @@ GNETractionSubstation::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
+        case GNE_ATTR_PARAMETERS:
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -273,6 +282,9 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 unselectAttributeCarrier();
             }
+            break;
+        case GNE_ATTR_PARAMETERS:
+            setParametersStr(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -454,9 +454,10 @@ public:
      * @param[in] pos Position of traction substation in view (optional)
      * @param[in] voltage Voltage of at connection point for the overhead wire
      * @param[in] currentLimit Current limit of the feeder line
+     * @param[in] parameters generic parameters
      */
     void buildTractionSubstation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
-                                 const double voltage, const double currentLimit);
+                                 const double voltage, const double currentLimit, const std::map<std::string, std::string>& parameters);
 
     /** @brief build overhead wire
      * @param[in] id Overhead wire ID
@@ -466,9 +467,11 @@ public:
      * @param[in] startPos Starting position in the specified lane
      * @param[in] endPos Ending position in the specified lane
      * @param[in] forbiddenInnerLanes Inner lanes, where placing of overhead wire is restricted
+     * @param[in] parameters generic parameters
      */
     void buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& substationId, 
-                           const std::vector<std::string>& laneIDs, const double startPos, const double endPos, const std::vector<std::string>& forbiddenInnerLanes);
+                           const std::vector<std::string>& laneIDs, const double startPos, const double endPos, 
+                           const std::vector<std::string>& forbiddenInnerLanes, const std::map<std::string, std::string>& parameters);
    
     /** @brief build overhead wire clamp
      * @param[in] id Overhead wire clamp ID
@@ -476,9 +479,11 @@ public:
      * @param[in] laneIDStartClamp ID of the overhead wire segment lane of overheadWireIDStartClamp
      * @param[in] overheadWireIDEndClamp ID of the overhead wire segment, to the end of which the overhead wire clamp is connected
      * @param[in] laneIDEndClamp ID of the overhead wire segment lane of overheadWireIDEndClamp
+     * @param[in] parameters generic parameters
      */
     void buildOverheadWireClamp(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& overheadWireIDStartClamp, 
-                                const std::string& laneIDStartClamp, const std::string& overheadWireIDEndClamp, const std::string& laneIDEndClamp);
+                                const std::string& laneIDStartClamp, const std::string& overheadWireIDEndClamp, const std::string& laneIDEndClamp,
+                                const std::map<std::string, std::string>& parameters);
 
     /**@brief Builds a polygon using the given values
      * @param[in] sumoBaseObject sumo base object used for build
