@@ -64,6 +64,13 @@ GNEOverheadWire::~GNEOverheadWire() {
 }
 
 
+GNEMoveOperation* 
+GNEOverheadWire::getMoveOperation() {
+    //
+    return nullptr;
+}
+
+
 void
 GNEOverheadWire::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_OVERHEAD_WIRE_SECTION);
@@ -184,6 +191,25 @@ GNEOverheadWire::updateGeometry() {
 }
 
 
+Position 
+GNEOverheadWire::getPositionInView() const {
+    //
+    return Position(); 
+}
+
+
+void 
+GNEOverheadWire::updateCenteringBoundary(const bool updateGrid) {
+    //
+}
+
+
+void
+GNEOverheadWire::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
+    //
+}
+
+
 void
 GNEOverheadWire::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // nothing to draw
@@ -227,6 +253,12 @@ GNEOverheadWire::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+const Parameterised::Map& 
+GNEOverheadWire::getACParametersMap() const {
+    return getParametersMap();
 }
 
 
@@ -290,6 +322,18 @@ GNEOverheadWire::isValid(SumoXMLAttr key, const std::string& value) {
 bool
 GNEOverheadWire::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
+}
+
+
+std::string
+GNEOverheadWire::getPopUpID() const {
+    return getTagStr() + ": " + getID();
+}
+
+
+std::string
+GNEOverheadWire::getHierarchyName() const {
+    return getTagStr();
 }
 
 // ===========================================================================
