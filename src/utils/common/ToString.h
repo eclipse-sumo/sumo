@@ -390,6 +390,6 @@ inline std::string joinToString(const std::map<KEY, VAL>& s, const T_BETWEEN& be
 
 
 template <>
-inline std::string toString(const std::map<std::string, std::string>& v, std::streamsize) {
+inline std::string toString(const Parameterised::Map& v, std::streamsize) {
     return joinToString(v, ", ", ":");
 }

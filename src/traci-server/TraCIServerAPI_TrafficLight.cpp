@@ -215,9 +215,9 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     }
                     MSTrafficLightLogic* tls = MSNet::getInstance()->getTLSControl().get(id).getActive();
                     const std::string& state = tls->getCurrentPhaseDef().getState();
-                    const std::map<std::string, std::string>& params = tls->getParametersMap();
+                    const Parameterised::Map& params = tls->getParametersMap();
                     int num = 0;
-                    for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
+                    for (Parameterised::Map::const_iterator i = params.begin(); i != params.end(); ++i) {
                         if ("connection:" == (*i).first.substr(0, 11)) {
                             ++num;
                         }
@@ -226,7 +226,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                     server.getWrapperStorage().writeInt(num * 2);
-                    for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
+                    for (Parameterised::Map::const_iterator i = params.begin(); i != params.end(); ++i) {
                         if ("connection:" != (*i).first.substr(0, 11)) {
                             continue;
                         }

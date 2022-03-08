@@ -411,7 +411,7 @@ protected:
 
 
     /// @brief Definition of a parameter map (key->value)
-    typedef std::map<std::string, std::string> StringParameterMap;
+    typedef Parameterised::Map StringParameterMap;
 
     /// @brief Parameter map (key->value)
     StringParameterMap myAdditionalParameter;

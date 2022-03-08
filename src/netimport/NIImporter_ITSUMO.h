@@ -121,7 +121,7 @@ private:
         NBNetBuilder& myNetBuilder;
 
         /// @brief A temporary parameter map
-        std::map<std::string, std::string> myParameter;
+        Parameterised::Map myParameter;
 
 
         struct Lane {
