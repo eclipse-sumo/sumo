@@ -35,7 +35,7 @@
  */
 class MSDispatch_RouteExtension : public MSDispatch_Greedy {
 public:
-    MSDispatch_RouteExtension(const std::map<std::string, std::string>& params) :
+    MSDispatch_RouteExtension(const Parameterised::Map& params) :
         MSDispatch_Greedy(params)
     {}
 

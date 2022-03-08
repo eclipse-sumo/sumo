@@ -34,7 +34,7 @@
  */
 class MSDispatch_GreedyShared : public MSDispatch_Greedy {
 public:
-    MSDispatch_GreedyShared(const std::map<std::string, std::string>& params) :
+    MSDispatch_GreedyShared(const Parameterised::Map& params) :
         MSDispatch_Greedy(params),
         myAbsoluteLossThreshold(StringUtils::toDouble(getParameter("absLossThreshold", "300"))),
         myRelativeLossThreshold(StringUtils::toDouble(getParameter("relLossThreshold", "0.2")))
