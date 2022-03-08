@@ -47,7 +47,7 @@ double FirstOrderLagModel::getRealAcceleration(double speed_mps, double accel_mp
            );
 }
 
-void FirstOrderLagModel::loadParameters(const ParMap& parameters) {
+void FirstOrderLagModel::loadParameters(const Parameterised::Map& parameters) {
     parseParameter(parameters, std::string(FOLM_PAR_TAU), tau_s);
     parseParameter(parameters, std::string(FOLM_PAR_DT), dt_s);
     computeParameters();
