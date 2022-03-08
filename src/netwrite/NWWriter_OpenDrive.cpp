@@ -190,9 +190,6 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         }
     }
     device.lf();
-    // write junctions (junction)
-    device << junctionOSS.getString();
-
     // write controllers
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
@@ -206,13 +203,15 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 if (ids.count(id) == 0) {
                     ids.insert(id);
                     device.openTag("control");
-                    device.writeAttr("signalID", id);
+                    device.writeAttr("signalId", id);
                     device.closeTag();
                 }
             }
             device.closeTag();
         }
     }
+    // write junctions (junction)
+    device << junctionOSS.getString();
 
     device.closeTag();
     device.close();
