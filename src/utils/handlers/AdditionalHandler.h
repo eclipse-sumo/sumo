@@ -407,6 +407,25 @@ public:
      */
     virtual void buildVariableSpeedSignStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const std::string& speed) = 0;
 
+    /**@brief Builds a VariableSpeedSign (lane speed additional)
+ * @param[in] sumoBaseObject sumo base object used for build
+ * @param[in] id The id of the lane speed additional
+ * @param[in] destLanes List of lanes affected by this speed additional
+ * @param[in] name VSS name
+ * @param[in] vtypes list of vehicle types to be affected
+ * @param[in] parameters generic parameters
+ */
+    virtual void buildVariableFrictionCoefficient(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
+        const std::vector<std::string>& laneIDs, const std::string& name, const std::vector<std::string>& vTypes,
+        const std::map<std::string, std::string>& parameters) = 0;
+
+    /**@brief Builds a VariableSpeedSign Step
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] time step's time
+     * @param[in] speed new step's speed
+     */
+    virtual void buildVariableFrictionCoefficientStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const std::string& friction) = 0;
+
     /**@brief Builds a vaporizer (lane speed additional)
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] edgeID edge in which this vaporizer is placed
@@ -595,6 +614,12 @@ private:
 
     /// @brief parse variable speed sign step attributes
     void parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse variable speed sign attributes
+    void parseVariableFrictionCoefficientAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse variable speed sign step attributes
+    void parseVariableFrictionCoefficientStepAttributes(const SUMOSAXAttributes& attrs);
 
     /// @brief parse calibrator attributes
     void parseCalibratorAttributes(const SUMOSAXAttributes& attrs);

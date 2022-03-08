@@ -29,6 +29,7 @@
 #include <libsumo/Helper.h>
 #include <microsim/devices/MSDevice_FCD.h>
 #include <microsim/devices/MSTransportableDevice_FCD.h>
+#include <microsim/devices/MSDevice_Seeroad.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -112,6 +113,11 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             } else {
                 of.writeOptionalAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID(), mask);
             }
+            if (static_cast<MSDevice_Seeroad*>(veh->getDevice(typeid(MSDevice_Seeroad))) != 0) {
+				MSDevice_Seeroad* dev = static_cast<MSDevice_Seeroad*>(veh->getDevice(typeid(MSDevice_Seeroad)));
+				//get it from the device -> might only work with microsim anyway... alternative: microVeh->hasDevice("Seeroad") and move up;
+				of.writeOptionalAttr(SUMO_ATTR_FRICTION, dev->getParameter("frictionCoefficient"), mask);
+			}
             of.writeOptionalAttr(SUMO_ATTR_SLOPE, veh->getSlope(), mask);
             if (microVeh != nullptr) {
                 if (signals) {

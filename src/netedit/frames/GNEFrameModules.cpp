@@ -53,6 +53,8 @@
 #include <netedit/elements/additional/GNEVaporizer.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
 #include <netedit/elements/additional/GNEVariableSpeedSignStep.h>
+#include <netedit/elements/additional/GNEFrictionCoefficient.h>
+#include <netedit/elements/additional/GNEFrictionCoefficientStep.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/demand/GNEContainer.h>
 #include <netedit/elements/demand/GNEPerson.h>
@@ -383,6 +385,12 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
             break;
         case SUMO_TAG_STEP:
             myAC = new GNEVariableSpeedSignStep(net);
+            break;
+        case SUMO_TAG_COF:
+            myAC = new GNEFrictionCoefficient(net);
+            break;
+        case SUMO_TAG_STEP_COF: //TODO FSTEP??
+            myAC = new GNEFrictionCoefficientStep(net);
             break;
         case SUMO_TAG_CALIBRATOR:
         case GNE_TAG_CALIBRATOR_LANE:

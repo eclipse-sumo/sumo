@@ -244,6 +244,13 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     if (myOptions.getBool("speed-in-kmh") && myCurrentSpeed != NBEdge::UNSPECIFIED_SPEED) {
         myCurrentSpeed = myCurrentSpeed / (double) 3.6;
     }
+	// try to read the friction value from file
+	if (attrs.hasAttribute(SUMO_ATTR_FRICTION)) {
+		myCurrentFriction = attrs.get<double>(SUMO_ATTR_FRICTION, myCurrentID.c_str(), ok);
+	} // !! TODO !!
+	if (myOptions.getBool("friction-in-percent") && myCurrentFriction != NBEdge::UNSPECIFIED_FRICTION) {
+        myCurrentFriction = myCurrentFriction / (double) 100.0;
+    }
     // try to get the number of lanes
     if (attrs.hasAttribute(SUMO_ATTR_NUMLANES)) {
         myCurrentLaneNo = attrs.get<int>(SUMO_ATTR_NUMLANES, myCurrentID.c_str(), ok);
@@ -299,7 +306,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     // check whether a previously defined edge shall be overwritten
     const bool applyLaneType = myCurrentEdge == nullptr;
     if (myCurrentEdge != nullptr) {
-        myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
+        myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed, myCurrentFriction,
                               myCurrentLaneNo, myCurrentPriority, myShape,
                               myCurrentWidth, myCurrentEndOffset,
                               myCurrentStreetName, myLanesSpread,
@@ -307,11 +314,11 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     } else {
         // the edge must be allocated in dependence to whether a shape is given
         if (myShape.size() == 0) {
-            myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
+            myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed, myCurrentFriction,
                                        myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentEndOffset,
                                        myLanesSpread, myCurrentStreetName);
         } else {
-            myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
+            myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed, myCurrentFriction,
                                        myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentEndOffset,
                                        myShape, myLanesSpread, myCurrentStreetName, "",
                                        myKeepEdgeShape);
@@ -405,6 +412,10 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
         myCurrentEdge->setSpeed(lane, attrs.get<double>(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok));
     }
+	// try to get lane specific friction
+	if (attrs.hasAttribute(SUMO_ATTR_FRICTION)) {
+		myCurrentEdge->setFriction(lane, attrs.get<double>(SUMO_ATTR_FRICTION, myCurrentID.c_str(), ok));
+	}
     // check whether this is an acceleration lane
     if (attrs.hasAttribute(SUMO_ATTR_ACCELERATION)) {
         myCurrentEdge->setAcceleration(lane, attrs.get<bool>(SUMO_ATTR_ACCELERATION, myCurrentID.c_str(), ok));

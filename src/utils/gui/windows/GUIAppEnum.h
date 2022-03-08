@@ -1216,6 +1216,15 @@ enum {
 
     /// @}
 
+	/// @name Friction Coefficient Dialog messages
+	/// @{
+	/// @brief add row
+    MID_GNE_FRICTIONCOEFFICIENT_ADDROW,
+    /// @brief Click over Table
+    MID_GNE_FRICTIONCOEFFICIENT_TABLE,
+    /// @brief sort table values
+    MID_GNE_FRICTIONCOEFFICIENT_SORT,
+
     /// @name Rerouter Dialog messages
     /// @{
 

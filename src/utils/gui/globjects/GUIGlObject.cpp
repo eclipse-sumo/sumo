@@ -85,6 +85,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"rerouterEdge",            GLO_REROUTER_EDGE},
     {"variableSpeedSign",       GLO_VSS},
     {"variableSpeedSignStep",   GLO_VSS_STEP},
+    {"variableFrictionSign",    GLO_COF},
+    {"variableFrictionStep",    GLO_COF_STEP},
     {"calibrator",              GLO_CALIBRATOR},
     {"routeProbe",              GLO_ROUTEPROBE},
     {"vaporizer",               GLO_VAPORIZER},

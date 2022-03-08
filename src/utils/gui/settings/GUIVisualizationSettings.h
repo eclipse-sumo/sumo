@@ -334,6 +334,12 @@ struct GUIVisualizationAdditionalSettings {
     /// @brief VSS size
     static const double VSSSize;
 
+    // @brief color for COF
+    static const RGBColor COFColor;
+
+    /// @brief COF size
+    static const double COFSize;
+
     /// @brief color for Calibrators
     static const RGBColor calibratorColor;
 

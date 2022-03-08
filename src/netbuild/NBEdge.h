@@ -149,6 +149,9 @@ public:
         /// @brief The speed allowed on this lane
         double speed;
 
+		/// @brief The friction on this lane
+		double friction;
+
         /// @brief List of vehicle types that are allowed on this lane
         SVCPermissions permissions;
 
@@ -208,6 +211,7 @@ public:
                    double contPos_ = UNSPECIFIED_CONTPOS,
                    double visibility_ = UNSPECIFIED_VISIBILITY_DISTANCE,
                    double speed_ = UNSPECIFIED_SPEED,
+                   double friction_ = UNSPECIFIED_FRICTION,
                    double length_ = myDefaultConnectionLength,
                    bool haveVia_ = false,
                    bool uncontrolled_ = false,
@@ -251,6 +255,9 @@ public:
         /// @brief custom speed for connection
         double speed;
 
+		/// @brief custom friction for connection
+		double friction;
+		
         /// @brief custom length for connection
         double customLength;
 
@@ -354,6 +361,9 @@ public:
     /// @brief unspecified lane speed
     static const double UNSPECIFIED_SPEED;
 
+	/// @brief unspecified lane friction
+	static const double UNSPECIFIED_FRICTION;
+
     /// @brief unspecified internal junction position
     static const double UNSPECIFIED_CONTPOS;
 
@@ -396,6 +406,32 @@ public:
      * @param[in] to The node the edge ends at
      * @param[in] type The type of the edge (my be =="")
      * @param[in] speed The maximum velocity allowed on this edge
+	 * @param[in] friction The current friction coefficient on this edge
+     * @param[in] nolanes The number of lanes this edge has
+     * @param[in] priority This edge's priority
+     * @param[in] width This edge's lane width
+     * @param[in] endOffset Additional offset to the destination node
+     * @param[in] spread How the lateral offset of the lanes shall be computed
+     * @param[in] streetName The street name (need not be unique)
+     * @see init
+     * @see LaneSpreadFunction
+     */
+    NBEdge(const std::string& id,
+           NBNode* from, NBNode* to, std::string type,
+           double speed, double friction, int nolanes, int priority,
+           double width, double endOffset,
+           LaneSpreadFunction spread,
+           const std::string& streetName = "");
+
+        /** @brief Constructor
+     *
+     * Use this if no edge geometry is given.
+     *
+     * @param[in] id The id of the edge
+     * @param[in] from The node the edge starts at
+     * @param[in] to The node the edge ends at
+     * @param[in] type The type of the edge (my be =="")
+     * @param[in] speed The maximum velocity allowed on this edge
      * @param[in] nolanes The number of lanes this edge has
      * @param[in] priority This edge's priority
      * @param[in] width This edge's lane width
@@ -416,6 +452,38 @@ public:
     /** @brief Constructor
      *
      * Use this if the edge's geometry is given.
+     *
+     * @param[in] id The id of the edge
+     * @param[in] from The node the edge starts at
+     * @param[in] to The node the edge ends at
+     * @param[in] type The type of the edge (may be =="")
+     * @param[in] speed The maximum velocity allowed on this edge
+     * @param[in] friction The current friction coefficient on this edge
+     * @param[in] nolanes The number of lanes this edge has
+     * @param[in] priority This edge's priority
+     * @param[in] width This edge's lane width
+     * @param[in] endOffset Additional offset to the destination node
+     * @param[in] geom The edge's geomatry
+     * @param[in] spread How the lateral offset of the lanes shall be computed
+     * @param[in] streetName The street name (need not be unique)
+     * @param[in] origID The original ID in the source network (need not be unique)
+     * @param[in] spread How the lateral offset of the lanes shall be computed
+     * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
+     * @see init
+     */
+    NBEdge(const std::string& id,
+           NBNode* from, NBNode* to, std::string type,
+           double speed, double friction, int nolanes, int priority,
+           double width, double endOffset,
+           PositionVector geom,
+           LaneSpreadFunction spread,
+           const std::string& streetName = "",
+           const std::string& origID = "",
+           bool tryIgnoreNodePositions = false);
+
+    /** @brief Constructor
+     *
+     * Use this if the edge's geometry is given but no friction
      *
      * @param[in] id The id of the edge
      * @param[in] from The node the edge starts at
@@ -443,7 +511,6 @@ public:
            const std::string& streetName = "",
            const std::string& origID = "",
            bool tryIgnoreNodePositions = false);
-
     /** @brief Constructor
      *
      * Use this to copy attribuets from another edge
@@ -482,7 +549,7 @@ public:
      * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
      */
     void reinit(NBNode* from, NBNode* to, const std::string& type,
-                double speed, int nolanes, int priority,
+                double speed, double friction, int nolanes, int priority,
                 PositionVector geom, double width, double endOffset,
                 const std::string& streetName,
                 LaneSpreadFunction spread,
@@ -614,6 +681,13 @@ public:
     double getSpeed() const {
         return mySpeed;
     }
+
+	/** @brief Returns the friction on this edge
+	* @return The friction on this edge
+	*/
+	double getFriction() const {
+		return myFriction;
+	}
 
     /** @brief The building step of this edge
      * @return The current building step for this edge
@@ -897,6 +971,7 @@ public:
                                 double contPos = UNSPECIFIED_CONTPOS,
                                 double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                                 double speed = UNSPECIFIED_SPEED,
+                                double friction = UNSPECIFIED_FRICTION,
                                 double length = myDefaultConnectionLength,
                                 const PositionVector& customShape = PositionVector::EMPTY,
                                 const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
@@ -948,6 +1023,7 @@ public:
                        double contPos = UNSPECIFIED_CONTPOS,
                        double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                        double speed = UNSPECIFIED_SPEED,
+                       double friction = UNSPECIFIED_FRICTION,
                        double length = myDefaultConnectionLength,
                        const PositionVector& customShape = PositionVector::EMPTY,
                        const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
@@ -1159,6 +1235,9 @@ public:
     /// @brief whether lanes differ in speed
     bool hasLaneSpecificSpeed() const;
 
+	/// @brief whether lanes differ friction
+	bool hasLaneSpecificFriction() const;
+
     /// @brief whether lanes differ in width
     bool hasLaneSpecificWidth() const;
 
@@ -1252,6 +1331,9 @@ public:
     /// @brief get lane speed
     double getLaneSpeed(int lane) const;
 
+	/// @brief get lane friction
+	double getLaneFriction(int lane) const;
+
     /// @brief Check if edge is near enought to be joined to another edge
     bool isNearEnough2BeJoined2(NBEdge* e, double threshold) const;
 
@@ -1333,6 +1415,9 @@ public:
 
     /// @brief set lane specific speed (negative lane implies set for all lanes)
     void setSpeed(int lane, double speed);
+
+	/// @brief set lane specific friction (negative lane implies set for all lanes)
+	void setFriction(int lane, double friction);
 
     /// @brief set lane and vehicle class specific stopOffset (negative lane implies set for all lanes)
     /// @return Whether given stop offset was applied.
@@ -1689,6 +1774,9 @@ private:
 
     /// @brief The maximal speed
     double mySpeed;
+    
+    /// @brief The current friction
+	double myFriction;
 
     /// @brief The mileage/kilometrage at the start of this edge in a linear coordination system
     double myDistance;

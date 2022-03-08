@@ -35,6 +35,7 @@
 class MSTrigger;
 class MSNet;
 class MSLaneSpeedTrigger;
+class MSFrictionCoefficientTrigger;
 class MSCalibrator;
 class MSTriggerControl;
 
@@ -78,6 +79,20 @@ protected:
             const std::string& id, const std::vector<MSLane*>& destLanes,
             const std::string& file) override;
 
+	/** @brief Builds a lane friction coefficient trigger
+	*
+	* Simply calls the GUIFrictionCoefficientTrigger constructor.
+	*
+	* @param[in] net The net the lane friction trigger belongs to
+	* @param[in] id The id of the lane friction trigger
+	* @param[in] destLanes List of lanes affected by this friction trigger
+	* @param[in] file Name of the file to read the friction to set from
+	* @see MSLaneSpeedTrigger
+	* @exception ProcessError If the XML definition file is errornous
+	*/
+	virtual MSFrictionCoefficientTrigger* buildFrictionCoefficientTrigger(MSNet& net,
+		const std::string& id, const std::vector<MSLane*>& destLanes,
+		const std::string& file) override;
 
     /** @brief builds an rerouter
      *

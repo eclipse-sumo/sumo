@@ -200,6 +200,8 @@ private:
         SVCPermissions changeRight;
         /// @brief custom speed for connection
         double speed;
+        /// @brief custom friction for connection
+        double friction;
         /// @brief custom length for connection
         double customLength;
         /// @brief custom shape connection
@@ -220,6 +222,8 @@ private:
     public:
         /// @brief The maximum velocity allowed on this lane
         double maxSpeed;
+		/// @brief The friction on this lane
+		double friction;
         /// @brief This lane's shape (may be custom)
         PositionVector shape;
         /// @brief This lane's connections
@@ -274,6 +278,8 @@ private:
         int priority;
         /// @brief The maximum velocity allowed on this edge (!!!)
         double maxSpeed;
+        /// @brief The friction on this edge
+        //double friction;
         /// @brief This edge's lanes
         std::vector<LaneAttrs*> lanes;
         /// @brief The built edge

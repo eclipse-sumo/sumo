@@ -958,6 +958,12 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               "The maximum speed allowed on the edge in m/s",
                                               toString(oc.getFloat("default.speed")));
         myTagProperties[currentTag].addAttribute(attrProperty);
+		
+		attrProperty = GNEAttributeProperties(SUMO_ATTR_FRICTION,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                              "The friction coefficient on the edge in percent",
+                                              toString(oc.getFloat("default.friction")));
+        myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ALLOW,
                                               GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::VCLASSES,
@@ -1015,6 +1021,12 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               "The maximum speed allowed on the lane in m/s",
                                               toString(oc.getFloat("default.speed")));
         myTagProperties[currentTag].addAttribute(attrProperty);
+		
+		attrProperty = GNEAttributeProperties(SUMO_ATTR_FRICTION,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                              "The friction coefficient on the lane",
+                                              toString(oc.getFloat("default.friction")));
+        myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ALLOW,
                                               GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::VCLASSES,
@@ -1060,6 +1072,12 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                                               "The maximum speed allowed on the edge in m/s",
                                               toString(oc.getFloat("default.speed")));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+		
+				attrProperty = GNEAttributeProperties(SUMO_ATTR_FRICTION,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                              "The friction coefficient on the lane",
+                                              toString(oc.getFloat("default.friction")));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PRIORITY,
@@ -1180,6 +1198,12 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                                               "Speed in meters per second",
                                               "13.89");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+		
+		attrProperty = GNEAttributeProperties(SUMO_ATTR_FRICTION,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                              "Friction in percent",
+                                              "100");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ALLOW,
@@ -1385,6 +1409,12 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                                               "sets custom speed limit for the connection",
                                               toString(NBEdge::UNSPECIFIED_SPEED));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+		
+		attrProperty = GNEAttributeProperties(SUMO_ATTR_FRICTION,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                              "sets custom friction for the connection",
+                                              toString(NBEdge::UNSPECIFIED_FRICTION)); //TODO
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LENGTH,
@@ -2254,19 +2284,82 @@ GNEAttributeCarrier::fillAdditionals() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
+            GNETagProperties::ADDITIONALELEMENT,
+            GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+            GUIIcon::VSSSTEP, currentTag, { SUMO_TAG_VSS }, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TIME,
+            GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::UNIQUE,
+            "Time");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+            "Speed",
+            "13.89");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+	currentTag = SUMO_TAG_COF;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::ADDITIONALELEMENT,
+                                      GNETagProperties::RTREE | GNETagProperties::DIALOG,
+                                      GUIIcon::FRICTIONCOEFFICIENT, currentTag, {}, FXRGBA(0, 133, 127, 255));
+        // set "file" as deprecated attribute
+        myTagProperties[currentTag].addDeprecatedAttribute(SUMO_ATTR_FILE);
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
+                                              "The id of Variable Friction Coefficient");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_POSITION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "X-Y position of detector in editor (Only used in NETEDIT)",
+                                              "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LANES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "List of Variable Friction Coefficient lanes");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              "Name of " + toString(currentTag));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              "Space separated list of vehicle type ids to consider (empty to affect all types)");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = GNE_TAG_COF_SYMBOL;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::ADDITIONALELEMENT | GNETagProperties::SYMBOL,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS | GNETagProperties::NOTSELECTABLE,
+                                      GUIIcon::LANE, currentTag, {SUMO_TAG_COF}, FXRGBA(0, 133, 127, 255));
+    }
+    currentTag = SUMO_TAG_STEP_COF;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT,
                                       GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
-                                      GUIIcon::VSSSTEP, currentTag, {SUMO_TAG_VSS}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::COFSTEP, currentTag, {SUMO_TAG_COF}, FXRGBA(0, 133, 127, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TIME,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::UNIQUE,
                                               "Time");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FRICTION,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Speed",
-                                              "13.89");
+                                              "Friction",
+                                              "1.0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_CALIBRATOR;

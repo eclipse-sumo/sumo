@@ -326,6 +326,12 @@ Edge::setMaxSpeed(const std::string& edgeID, double speed) {
     }
 }
 
+void
+Edge::setFriction(const std::string& edgeID, double value) {
+	for (MSLane* lane : getEdge(edgeID)->getLanes()) {
+		lane->setFrictionCoefficient(value);
+	}
+}
 
 void
 Edge::setParameter(const std::string& edgeID, const std::string& name, const std::string& value) {

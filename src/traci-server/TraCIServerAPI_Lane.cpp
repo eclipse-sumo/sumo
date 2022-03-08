@@ -119,7 +119,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable != libsumo::VAR_MAXSPEED && variable != libsumo::VAR_LENGTH && variable != libsumo::LANE_ALLOWED && variable != libsumo::LANE_DISALLOWED
+    if (variable != libsumo::VAR_MAXSPEED && variable != libsumo::VAR_FRICTION && variable != libsumo::VAR_LENGTH && variable != libsumo::LANE_ALLOWED && variable != libsumo::LANE_DISALLOWED
             && variable != libsumo::VAR_PARAMETER) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_LANE_VARIABLE, "Change Lane State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -136,6 +136,11 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 const double value = StoHelp::readTypedDouble(inputStorage, "The speed must be given as a double.");
                 libsumo::Lane::setMaxSpeed(id, value);
                 break;
+            }
+            case libsumo::VAR_FRICTION: {
+            	const double value = StoHelp::readTypedDouble(inputStorage, "The friction must be given as a double.");
+            	libsumo::Lane::setFriction(id, value);
+            	break;
             }
             case libsumo::VAR_LENGTH: {
                 const double value = StoHelp::readTypedDouble(inputStorage, "The length must be given as a double.");

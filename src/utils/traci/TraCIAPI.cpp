@@ -16,7 +16,9 @@
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
-/// @date    30.05.2012
+/// @author  Thomas Weber
+/// @date    28.05.2018
+/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
@@ -833,6 +835,12 @@ double
 TraCIAPI::LaneScope::getMaxSpeed(const std::string& laneID) const {
     return getDouble(libsumo::VAR_MAXSPEED, laneID);
 }
+
+double
+TraCIAPI::LaneScope::getFriction(const std::string& laneID) const {
+	return getDouble(libsumo::VAR_FRICTION, laneID);
+}
+
 
 double
 TraCIAPI::LaneScope::getWidth(const std::string& laneID) const {

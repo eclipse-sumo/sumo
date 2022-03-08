@@ -59,6 +59,12 @@ set(netedit_elements_additional_SRCS
    GNEVariableSpeedSignSymbol.cpp
    GNEVariableSpeedSignStep.h
    GNEVariableSpeedSignStep.cpp
+   GNEFrictionCoefficient.h
+   GNEFrictionCoefficient.cpp
+   GNEFrictionCoefficientSymbol.h
+   GNEFrictionCoefficientSymbol.cpp
+   GNEFrictionCoefficientStep.h
+   GNEFrictionCoefficientStep.cpp
    GNEClosingLaneReroute.h
    GNEClosingLaneReroute.cpp
    GNEParkingAreaReroute.h

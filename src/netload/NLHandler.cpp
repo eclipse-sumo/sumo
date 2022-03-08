@@ -160,6 +160,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_VSS:
                 myTriggerBuilder.parseAndBuildLaneSpeedTrigger(myNet, attrs, getFileName());
                 break;
+			case SUMO_TAG_COF:
+				myTriggerBuilder.parseAndBuildFrictionCoefficientTrigger(myNet, attrs, getFileName());
+				break;
             case SUMO_TAG_CALIBRATOR:
                 myTriggerBuilder.parseAndBuildCalibrator(myNet, attrs, getFileName());
                 break;
@@ -497,6 +500,7 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     const double maxSpeed = attrs.get<double>(SUMO_ATTR_SPEED, id.c_str(), ok);
+	const double friction = attrs.getOpt<double>(SUMO_ATTR_FRICTION, id.c_str(), ok, (double)(1.), false);
     const double length = attrs.get<double>(SUMO_ATTR_LENGTH, id.c_str(), ok);
     const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "", false);
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
@@ -526,7 +530,7 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     myCurrentIsBroken |= !ok;
     if (!myCurrentIsBroken) {
         try {
-            MSLane* lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type);
+            MSLane* lane = myEdgeControlBuilder.addLane(id, maxSpeed, friction, length, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type);
             // insert the lane into the lane-dictionary, checking
             if (!MSLane::dictionary(id, lane)) {
                 delete lane;

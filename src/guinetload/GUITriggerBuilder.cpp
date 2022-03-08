@@ -26,6 +26,7 @@
 #include <fstream>
 #include <utils/common/RGBColor.h>
 #include <guisim/GUILaneSpeedTrigger.h>
+#include <guisim/GUIFrictionCoefficientTrigger.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUITriggeredRerouter.h>
 #include <guisim/GUIBusStop.h>
@@ -55,6 +56,14 @@ GUITriggerBuilder::buildLaneSpeedTrigger(MSNet& net,
     return lst;
 }
 
+MSFrictionCoefficientTrigger*
+GUITriggerBuilder::buildFrictionCoefficientTrigger(MSNet& net,
+	const std::string& id, const std::vector<MSLane*>& destLanes,
+	const std::string& file) {
+	GUIFrictionCoefficientTrigger* lst = new GUIFrictionCoefficientTrigger(id, destLanes, file);
+	static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(lst);
+	return lst;
+}
 
 MSTriggeredRerouter*
 GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,

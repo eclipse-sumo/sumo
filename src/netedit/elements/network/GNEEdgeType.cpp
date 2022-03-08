@@ -216,6 +216,13 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(speed);
             }
+        case SUMO_ATTR_FRICTION:
+            if (attrs.count(key) == 0) {
+                return toString(oc.getFloat("default.friction"));
+            }
+            else {
+                return toString(friction);
+            }
         case SUMO_ATTR_ALLOW:
             if ((permissions == SVCAll) || (permissions == -1)) {
                 return "all";

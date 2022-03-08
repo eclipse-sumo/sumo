@@ -176,6 +176,7 @@ Edge::getStreetName(const std::string& edgeID) {
     return Dom::getString(libsumo::VAR_NAME, edgeID);
 }
 
+
 const std::vector<std::string>
 Edge::getPendingVehicles(const std::string& edgeID) {
     return Dom::getStringVector(libsumo::VAR_PENDING_VEHICLES, edgeID);
@@ -238,6 +239,11 @@ Edge::setEffort(const std::string& edgeID, double effort, double beginSeconds, d
 void
 Edge::setMaxSpeed(const std::string& edgeID, double speed) {
     Dom::setDouble(libsumo::VAR_MAXSPEED, edgeID, speed);
+}
+
+void
+Edge::setFriction(const std::string& edgeID, double friction) {
+    Dom::setDouble(libsumo::VAR_MAXSPEED, edgeID, friction);
 }
 
 }

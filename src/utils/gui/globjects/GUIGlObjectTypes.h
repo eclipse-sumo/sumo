@@ -122,6 +122,10 @@ enum GUIGlObjectType {
     GLO_ACCESS = 126,
     /// @brief a segment of an overhead line
     GLO_OVERHEAD_WIRE_SEGMENT = 127,
+    /// @brief a Variable Coefficient Of Friction Sign
+    GLO_COF = 128,
+    /// @brief a Variable Coefficient Of Friction Sign step
+    GLO_COF_STEP = 129,
 
     /// @}
 

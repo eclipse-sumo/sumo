@@ -73,6 +73,9 @@ public:
         /// @brief The maximal velocity on a lane in m/s
         double speed;
 
+        /// @brief The default friction on a lane
+        double friction;
+
         /// @brief List of vehicle edgeTypes that are allowed on this lane
         SVCPermissions permissions;
 
@@ -106,6 +109,9 @@ public:
 
         /// @brief The maximal velocity on an edge in m/s
         double speed;
+
+        /// @brief The default friction on an edge
+        double friction;
 
         /// @brief The priority of an edge
         int priority;

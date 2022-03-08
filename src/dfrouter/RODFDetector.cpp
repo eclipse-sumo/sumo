@@ -463,13 +463,6 @@ RODFDetector::writeSingleSpeedTrigger(const std::string& file,
 
 
 
-
-
-
-
-
-
-
 RODFDetectorCon::RODFDetectorCon() {}
 
 

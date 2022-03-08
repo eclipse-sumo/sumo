@@ -1004,6 +1004,11 @@ MSEdge::getVehicleMaxSpeed(const SUMOTrafficObject* const veh) const {
     return myLanes->empty() ? 1 : getLanes()[0]->getVehicleMaxSpeed(veh);
 }
 
+double
+MSEdge::getFrictionCoefficient() const {
+	// @note lanes might have different friction coefficients in theory, only returnin lane[0]
+	return myLanes->empty() ? 1 : getLanes()[0]->getFrictionCoefficient();
+}
 
 void
 MSEdge::setMaxSpeed(double val) const {
@@ -1014,6 +1019,14 @@ MSEdge::setMaxSpeed(double val) const {
     }
 }
 
+void
+MSEdge::setFrictionCoefficient(double val) const {
+	if (myLanes != 0) {
+		for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+			(*i)->setFrictionCoefficient(val);
+		}
+	}
+}
 
 void
 MSEdge::addPerson(MSTransportable* p) const {
