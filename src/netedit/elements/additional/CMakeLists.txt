@@ -69,6 +69,8 @@ set(netedit_elements_additional_SRCS
    GNERerouterInterval.cpp
    GNETractionSubstation.h
    GNETractionSubstation.cpp
+   GNEOverheadWire.h
+   GNEOverheadWire.cpp
    )
 
 add_library(netedit_elements_additional STATIC ${netedit_elements_additional_SRCS})
