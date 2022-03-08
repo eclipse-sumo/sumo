@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-08 18:58:29 by Eclipse SUMO netconvert Version v1_12_0+1239-e5b52c1
+<!-- generated on 2022-03-08 19:04:34 by Eclipse SUMO netconvert Version v1_12_0+1241-fe440a4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Mar  8 18:58:29 2022" north="200.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Mar  8 19:04:34 2022" north="200.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="89.60000000" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -1250,6 +1250,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <signals/>
     </road>
 
+    <controller id="C">
+        <control signalId="C_2"/>
+        <control signalId="C_3"/>
+        <control signalId="C_0"/>
+        <control signalId="C_1"/>
+        <control signalId="C_4"/>
+        <control signalId="C_5"/>
+        <control signalId="C_6"/>
+        <control signalId="C_7"/>
+    </controller>
     <junction name="C" id="1">
         <connection id="0" incomingRoad="55" connectingRoad="58" contactPoint="start">
             <laneLink from="-2" to="-1"/>
@@ -1324,14 +1334,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <laneLink from="-1" to="-1"/>
         </connection>
     </junction>
-    <controller id="C">
-        <control signalID="C_2"/>
-        <control signalID="C_3"/>
-        <control signalID="C_0"/>
-        <control signalID="C_1"/>
-        <control signalID="C_4"/>
-        <control signalID="C_5"/>
-        <control signalID="C_6"/>
-        <control signalID="C_7"/>
-    </controller>
 </OpenDRIVE>
