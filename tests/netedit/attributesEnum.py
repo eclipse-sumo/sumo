@@ -19,6 +19,7 @@
 # GENERAL
 # --------------------------------
 
+
 class Selection:
     class LockSelectionNetwork:
         junctions = 1
@@ -30,7 +31,7 @@ class Selection:
         TAZs = 7
         polygons = 8
         POIs = 9
-        
+
 # --------------------------------
 # NETWORK
 # --------------------------------
