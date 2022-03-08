@@ -63,6 +63,20 @@ Fedora can be found at these [repositories for binary Linux versions](http://dow
 These repositories contain nightly builds as well. In the case your
 system is not listed here or you need to modify the sources, [you have to build SUMO from sources](Linux_Build.md).
 
+SUMO's precompiled binary is also available as a Flatpak and is hosted on [Flathub](https://flathub.org/apps/details/org.eclipse.sumo). Any system that supports Flatpak should be able to run SUMO this way. Install Flatpak and add the Flathub repository as [directed here](https://flatpak.org/setup/).
+
+To install SUMO:
+```
+flatpak install flathub org.eclipse.sumo
+```
+There should be a SUMO launcher in your menu.
+
+To uninstall SUMO:
+```
+flatpak remove org.eclipse.sumo
+```
+Send bug reports regarding SUMO packaged as Flatpak [here](https://github.com/flathub/org.eclipse.sumo/issues).
+
 # macOS
 
 SUMO can be easily installed on macOS by using [Homebrew](http://brew.sh). If you did not already install homebrew, you can do so by invoking te following command in a macOS Terminal:
