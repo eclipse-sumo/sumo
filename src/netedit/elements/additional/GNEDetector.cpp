@@ -67,13 +67,15 @@ GNEDetector::~GNEDetector() {}
 
 GNEMoveOperation*
 GNEDetector::getMoveOperation() {
-    // check detector type
-    if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
+    // check modes and detector type
+    if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() || (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE)) {
+        return nullptr;
+    } else if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
         return getMoveOperationE2SingleLane();
     } else if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
         return getMoveOperationE2MultiLane();
     } else {
-        // return move operation for detectors with single position placed over shape
+        // return move operation for detectors with single position placed over shape (E1, EntryExits..)
         return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     }
@@ -265,9 +267,7 @@ GNEDetector::getMoveOperationE2SingleLane() {
     // get allow change lane
     const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
     // fist check if we're moving only extremes
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+    if (myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // get snap radius
         const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
         // get mouse position
@@ -294,36 +294,29 @@ GNEDetector::getMoveOperationE2SingleLane() {
 
 GNEMoveOperation*
 GNEDetector::getMoveOperationE2MultiLane() {
-    // fist check if we're moving only extremes
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-        // get snap radius
-        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
-        // get mouse position
-        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-        // calculate both geometries
-        GUIGeometry fromGeometry, toGeometry;
-        fromGeometry.updateGeometry(getParentLanes().front()->getLaneGeometry().getShape(), myPositionOverLane, 0);
-        toGeometry.updateGeometry(getParentLanes().back()->getLaneGeometry().getShape(), getAttributeDouble(SUMO_ATTR_ENDPOS), 0);
-        // check if we clicked over start or end position
-        if (fromGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // move only start position
-            return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
-                                        getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
-                                        false, GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST);
-        } else if (toGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // move only end position
-            return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
-                                        getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
-                                        false, GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND);
-        } else {
-            return nullptr;
-        }
+    // check if shift is pressed
+    const bool shift = myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed();
+    // get snap radius
+    const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+    // get mouse position
+    const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+    // calculate both geometries
+    GUIGeometry fromGeometry, toGeometry;
+    fromGeometry.updateGeometry(getParentLanes().front()->getLaneGeometry().getShape(), myPositionOverLane, 0);
+    toGeometry.updateGeometry(getParentLanes().back()->getLaneGeometry().getShape(), getAttributeDouble(SUMO_ATTR_ENDPOS), 0);
+    // check if we clicked over start or end position
+    if (fromGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+        // move using start position
+        return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
+                                    getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
+                                    false, shift? GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST : GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_FIRST);
+    } else if (toGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+        // move using end position
+        return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
+                                    getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
+                                    false, shift? GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND : GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_SECOND);
     } else {
-        // move both start and end positions
-        return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
-                                    false, GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH);
+        return nullptr;
     }
 }
 
