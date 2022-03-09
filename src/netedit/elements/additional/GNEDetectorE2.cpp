@@ -323,11 +323,8 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GNEDetectorE2::computePathElement() {
-    // currently onle for E2 multilane detectors
-    if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
-        // calculate path
-        myNet->getPathManager()->calculateConsecutivePathLanes(this, getParentLanes());
-    }
+    // calculate path
+    myNet->getPathManager()->calculateConsecutivePathLanes(this, getParentLanes());
 }
 
 
@@ -585,12 +582,11 @@ bool
 GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (isValidDetectorID(value)) {
-                if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
-                    return (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, value, false) == nullptr);
-                } else {
-                    return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E2DETECTOR, value, false) == nullptr);
-                }
+            if (value == getID()) {
+                return true;
+            } else if (isValidDetectorID(value)) {
+                return (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, value, false) == nullptr) &&
+                        (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E2DETECTOR, value, false) == nullptr);
             } else {
                 return false;
             }
