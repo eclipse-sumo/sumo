@@ -232,18 +232,37 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
     if (moveOperation->firstLane) {
         // calculate movement over lane
         if (moveOperation->secondLane) {
+            // get lane shape lengths
+            const double firstLaneLength = moveOperation->firstLane->getLaneShapeLength();
+            const double secondLaneLength = moveOperation->secondLane->getLaneShapeLength();
+            // continue depending of operationType
             if (moveOperation->operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST) {
                 // move only first position
-                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset,
-                                    0, moveOperation->firstLane->getLaneShapeLength());
+                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset, 0, firstLaneLength);
             } else if (moveOperation->operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND) {
-                // move only two position
-                calculateMoveResult(moveResult, viewNet, moveOperation->secondLane, moveOperation->secondPosition, offset,
-                                    0, moveOperation->secondLane->getLaneShapeLength());
+                // move only second position
+                calculateMoveResult(moveResult, viewNet, moveOperation->secondLane, moveOperation->secondPosition, offset, 0, secondLaneLength);
+            } else if (moveOperation->operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_FIRST) {
+                // move only first position
+                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset, 0, firstLaneLength);
+                // calculate second position
+                moveResult.newSecondPos = (moveOperation->secondPosition - (moveOperation->firstPosition - moveResult.newFirstPos));
+                // adjust positions
+                if (moveResult.newSecondPos < 0) {
+                    moveResult.newFirstPos = (moveOperation->firstPosition - moveOperation->secondPosition);
+                    moveResult.newSecondPos = 0;
+                } else if (moveResult.newSecondPos > secondLaneLength) {
+                    moveResult.newFirstPos = (moveOperation->firstPosition + (secondLaneLength - moveOperation->secondPosition));
+                    moveResult.newSecondPos = secondLaneLength;
+                }
+            } else if (moveOperation->operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_SECOND) {
+                // move only second position
+                calculateMoveResult(moveResult, viewNet, moveOperation->secondLane, moveOperation->secondPosition, offset, 0, secondLaneLength);
+                // restore first position
+                moveResult.newFirstPos = moveOperation->firstPosition;
+
             } else {
-                // move both first and second positions
-                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition,
-                                    moveOperation->secondLane, moveOperation->secondPosition, offset);
+                throw ProcessError("Invalid move operationType");
             }
             // calculate new lane
             if (moveOperation->allowChangeLane) {
