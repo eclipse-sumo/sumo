@@ -115,6 +115,8 @@ const double GUIVisualizationAdditionalSettings::vaporizerSize(1);
 const RGBColor GUIVisualizationAdditionalSettings::connectionColor(255, 216, 0, 255);
 const RGBColor GUIVisualizationAdditionalSettings::connectionColorSelected(0, 0, 150, 255);
 const double GUIVisualizationAdditionalSettings::tractionSubstationSize(1);
+const RGBColor GUIVisualizationAdditionalSettings::overheadWireColor(255, 0, 0);
+const RGBColor GUIVisualizationAdditionalSettings::overheadWireColorSelected(0, 0, 150, 255);
 const double GUIVisualizationAdditionalSettings::arrowWidth(1);
 const double GUIVisualizationAdditionalSettings::arrowLength(0.25);
 const double GUIVisualizationAdditionalSettings::arrowOffset(0.1);

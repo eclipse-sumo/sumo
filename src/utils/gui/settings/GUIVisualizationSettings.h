@@ -367,6 +367,12 @@ struct GUIVisualizationAdditionalSettings {
     /// @brief tractionSubstation size
     static const double tractionSubstationSize;
 
+    /// @brief overhead wire color
+    static const RGBColor overheadWireColor;
+
+    /// @brief overhead wire color selected
+    static const RGBColor overheadWireColorSelected;
+
     /// @brief arrow width
     static const double arrowWidth;
 
