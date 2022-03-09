@@ -65,6 +65,7 @@ std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSRoutingEngin
 double MSRoutingEngine::myPriorityFactor(0);
 double MSRoutingEngine::myMinEdgePriority(std::numeric_limits<double>::max());
 double MSRoutingEngine::myEdgePriorityRange(0);
+std::map<std::thread::id, SumoRNG*> MSRoutingEngine::myThreadRNGs;
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc = &MSRoutingEngine::getEffort;
 #ifdef HAVE_FOX
@@ -175,6 +176,17 @@ MSRoutingEngine::getEffortBike(const MSEdge* const e, const SUMOVehicle* const v
     return e->getMinimumTravelTime(v);
 }
 
+SumoRNG*
+MSRoutingEngine::getThreadRNG() {
+    if (myThreadRNGs.size() > 0) {
+        auto it = myThreadRNGs.find(std::this_thread::get_id());
+        if (it != myThreadRNGs.end()) {
+            return it->second;
+        }
+        std::cout << " something bad happended\n";
+    }
+    return nullptr;
+}
 
 
 double
@@ -183,7 +195,7 @@ MSRoutingEngine::getEffortExtra(const MSEdge* const e, const SUMOVehicle* const 
                      ? getEffort(e, v, t)
                      : getEffortBike(e, v, t));
     if (gWeightsRandomFactor != 1.) {
-        effort *= RandHelper::rand(1., gWeightsRandomFactor);
+        effort *= RandHelper::rand(1., gWeightsRandomFactor, getThreadRNG());
     }
     if (myPriorityFactor != 0) {
         // lower priority should result in higher effort (and the edge with
@@ -425,6 +437,10 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             for (std::vector<FXWorkerThread*>::const_iterator t = threads.begin() + 1; t != threads.end(); ++t) {
                 static_cast<MSEdgeControl::WorkerThread*>(*t)->setRouterProvider(myRouterProvider->clone());
             }
+        }
+        int i = 0;
+        for (FXWorkerThread* t : threads) {
+            myThreadRNGs[(std::thread::id)t->id()] = new SumoRNG("routing_" + toString(i++));
         }
     }
 #endif
