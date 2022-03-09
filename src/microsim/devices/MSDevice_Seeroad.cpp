@@ -83,9 +83,10 @@ MSDevice_Seeroad::cleanup() {
 // MSDevice_Seeroad-methods
 // ---------------------------------------------------------------------------
 MSDevice_Seeroad::MSDevice_Seeroad(SUMOVehicle& holder, const std::string& id,
-                                   double frictionCoefficient, double stdev, double offset) :
-    MSVehicleDevice(holder, id),
-    myMeasuredFrictionCoefficient(frictionCoefficient),
+	double frictionCoefficient, double stdev, double offset) :
+	MSVehicleDevice(holder, id),
+	myMeasuredFrictionCoefficient(frictionCoefficient),
+	myRawFriction(0.0),
 	myStdDeviation(stdev),
     myOffset(offset){
 	
@@ -228,7 +229,7 @@ double MSDevice_Seeroad::getOffset(const SUMOVehicle & v)
 double MSDevice_Seeroad::applyModel(const double raw)
 {
 	std::mt19937 rng;
-	uint32_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+	uint32_t timeSeed = (uint32_t)std::chrono::high_resolution_clock::now().time_since_epoch().count();
 	std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 31) };
 	rng.seed(ss);
 	double noiseFriction = raw;

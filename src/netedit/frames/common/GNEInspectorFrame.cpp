@@ -907,7 +907,7 @@ GNEInspectorFrame::AdditionalDialog::onCmdOpenAdditionalDialog(FXObject*, FXSele
             // Open VSS dialog
             GNEVariableSpeedSignDialog(dynamic_cast<GNEVariableSpeedSign*>(AC));
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_COF) {
-            // Open VSS dialog
+            // Open COF dialog
             GNEFrictionCoefficientDialog(dynamic_cast<GNEFrictionCoefficient*>(AC));
         }
 

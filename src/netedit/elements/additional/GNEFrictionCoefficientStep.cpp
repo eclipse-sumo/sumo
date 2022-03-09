@@ -118,7 +118,7 @@ GNEFrictionCoefficientStep::drawGL(const GUIVisualizationSettings& s) const {
     // draw rerouter interval as listed attribute
     drawListedAddtional(s, getParentAdditionals().front()->getPositionInView(),
                         0, 0, RGBColor::WHITE, RGBColor::BLACK, GUITexture::FRICTIONCOEFFICIENT_STEP,
-                        getAttribute(SUMO_ATTR_TIME) + ": " + getAttribute(SUMO_ATTR_FRICTION) + "-");
+                        getAttribute(SUMO_ATTR_TIME) + ": " + getAttribute(SUMO_ATTR_FRICTION) + "%");
 }
 
 

@@ -3607,7 +3607,7 @@ bool
 GNEViewNetHelper::LockManager::isObjectLocked(GUIGlObjectType objectType, const bool selected) const {
     if (selected && (myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands().menuCheckLockSelectedElements->getCheck() == TRUE)) {
         return true;
-    } else if ((objectType >= GLO_ADDITIONALELEMENT) && (objectType <= GLO_ACCESS)) {
+    } else if ((objectType >= GLO_ADDITIONALELEMENT) && (objectType < GLO_SHAPE)) {
         // additionals
         return myLockedElements.at(GLO_ADDITIONALELEMENT).lock;
     } else if ((objectType >= GLO_VEHICLE) && (objectType <= GLO_ROUTEFLOW)) {
@@ -3623,6 +3623,7 @@ GNEViewNetHelper::LockManager::isObjectLocked(GUIGlObjectType objectType, const 
         // stops
         return myLockedElements.at(GLO_ADDITIONALELEMENT).lock;
     } else {
+        // TODO issue nullptr due to unknown mapping (i.e. subtypes!!!)
         return myLockedElements.at(objectType).lock;
     }
 }

@@ -119,7 +119,8 @@ GNEFrictionCoefficientSymbol::drawGL(const GUIVisualizationSettings& s) const {
         if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(RGBColor::RED);
+            //GLHelper::setColor(RGBColor::RED);
+            GLHelper::setColor(RGBColor::RGBColor(0,102,122,255U));
         }
         // draw circle
         GLHelper::drawFilledCircle((double) 1.3, s.getCircleResolution());

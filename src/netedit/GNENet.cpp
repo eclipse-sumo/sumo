@@ -2275,6 +2275,11 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     for (const auto& VSS : myAttributeCarriers->getAdditionals().at(SUMO_TAG_VSS)) {
         sortedAdditionals.back()[VSS->getID()] = VSS;
     }
+    // COF
+    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
+    for (const auto& COF : myAttributeCarriers->getAdditionals().at(SUMO_TAG_COF)) {
+        sortedAdditionals.back()[COF->getID()] = COF;
+    }
     // Vaporizers
     sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
     for (const auto& vaporizer : myAttributeCarriers->getAdditionals().at(SUMO_TAG_VAPORIZER)) {

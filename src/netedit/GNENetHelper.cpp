@@ -1078,6 +1078,8 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = oc.getString("routeProbe-prefix");
     } else if (tag == SUMO_TAG_VSS) {
         prefix = oc.getString("vss-prefix");
+    } else if (tag == SUMO_TAG_COF) {
+        prefix = oc.getString("cof-prefix");
     }
     int counter = 0;
     // special case for calibrators

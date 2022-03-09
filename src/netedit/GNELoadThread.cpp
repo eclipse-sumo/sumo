@@ -302,6 +302,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("vss-prefix", new Option_String("vs"));
     oc.addDescription("vss-prefix", "Netedit", "prefix for vss naming");
 
+    oc.doRegister("cof-prefix", new Option_String("cof"));
+    oc.addDescription("cof-prefix", "Netedit", "prefix for cof naming");
+
     oc.doRegister("polygon-prefix", new Option_String("po"));
     oc.addDescription("polygon-prefix", "Netedit", "prefix for polygon naming");
 

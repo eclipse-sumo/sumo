@@ -708,7 +708,7 @@ MESegment::setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh) {
 }
 
 void
-MESegment::setFrictionCoefficient(double newFriction, SUMOTime currentTime) {
+MESegment::setFrictionCoefficient(double /*newFriction*/, SUMOTime /*currentTime*/) {
 	// emptpty dummy -> MSFrictionCoefficientTrigger::set
 }
 

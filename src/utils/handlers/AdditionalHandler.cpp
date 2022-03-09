@@ -201,6 +201,8 @@ AdditionalHandler::endParseAttributes() {
         case SUMO_TAG_TAZ:
         // Variable Speed Sign
         case SUMO_TAG_VSS:
+        // Variable Coefficient of Friction
+        case SUMO_TAG_COF:
         // Calibrator
         case SUMO_TAG_CALIBRATOR:
         case GNE_TAG_CALIBRATOR_LANE:

@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    GNEVariableSpeedSign.cpp
 /// @author  Pablo Alvarez Lopez
+/// 
 /// @date    Nov 2015
 ///
 //
