@@ -4180,11 +4180,24 @@ MSVehicle::executeFractionalMove(double dist) {
     processLaneAdvances(passedLanes, emergencyReason);
 #ifdef DEBUG_EXTRAPOLATE_DEPARTPOS
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " veh=" << getID() << " executeFractionalMove dist=" << dist << " passedLanes=" << toString(passedLanes) << " lanes=" << toString(lanes) << "\n";
+        std::cout << SIMTIME << " veh=" << getID() << " executeFractionalMove dist=" << dist
+            << " passedLanes=" << toString(passedLanes) << " lanes=" << toString(lanes)
+            << " finalPos=" << myState.myPos
+            << " speed=" << getSpeed()
+            << " myFurtherLanes=" << toString(myFurtherLanes)
+            << "\n";
     }
 #endif
     workOnMoveReminders(myState.myPos - myState.myLastCoveredDist, myState.myPos, myState.mySpeed);
     if (lanes.size() > 1) {
+        for (std::vector<MSLane*>::iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
+#ifdef DEBUG_FURTHER
+            if (DEBUG_COND) { std::cout << SIMTIME << " leaveLane \n"; }
+#endif
+            (*i)->resetPartialOccupation(this);
+        }
+        myFurtherLanes.clear();
+        myFurtherLanesPosLat.clear();
         myLane->forceVehicleInsertion(this, getPositionOnLane(), MSMoveReminder::NOTIFICATION_JUNCTION, getLateralPositionOnLane());
     }
 }
