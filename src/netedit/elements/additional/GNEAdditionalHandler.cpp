@@ -1503,7 +1503,7 @@ GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBase
 
 
 void 
-GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& substationId, 
+GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& /* substationId */, 
                                         const std::vector<std::string>& laneIDs, const double startPos, const double endPos, const bool friendlyPos,
                                         const std::vector<std::string>& forbiddenInnerLanes, const Parameterised::Map& parameters) {
     // check conditions
@@ -1553,9 +1553,9 @@ GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject
    
 
 void
-GNEAdditionalHandler::buildOverheadWireClamp(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& overheadWireIDStartClamp, 
-                                             const std::string& laneIDStartClamp, const std::string& overheadWireIDEndClamp, const std::string& laneIDEndClamp,
-                                             const Parameterised::Map& parameters) {
+GNEAdditionalHandler::buildOverheadWireClamp(const CommonXMLStructure::SumoBaseObject* /* sumoBaseObject */, const std::string& /* id */, const std::string& /* overheadWireIDStartClamp */,
+                                             const std::string& /* laneIDStartClamp */, const std::string& /* overheadWireIDEndClamp */, const std::string& /* laneIDEndClamp */,
+                                             const Parameterised::Map& /* parameters */) {
     //
 }
 

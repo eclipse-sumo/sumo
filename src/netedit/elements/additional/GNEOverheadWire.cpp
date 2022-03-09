@@ -34,7 +34,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEOverheadWire::GNEOverheadWire(SumoXMLTag tag, GNENet* net) :
+GNEOverheadWire::GNEOverheadWire(SumoXMLTag /* tag */, GNENet* net) :
     GNEAdditional("", net, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, "",
         {}, {}, {}, {}, {}, {}),
     myStartPos(0),
@@ -45,7 +45,7 @@ GNEOverheadWire::GNEOverheadWire(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNEOverheadWire::GNEOverheadWire(const std::string& id, std::vector<GNELane*> lanes, GNEAdditional *substation, GNENet* net, 
+GNEOverheadWire::GNEOverheadWire(const std::string& id, std::vector<GNELane*> /* lanes */, GNEAdditional* /* substation */, GNENet* net, 
         const double startPos, const double endPos, const bool friendlyPos, const std::vector<std::string>& forbiddenInnerLanes, 
         const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, "",
@@ -191,13 +191,13 @@ GNEOverheadWire::getPositionInView() const {
 
 
 void 
-GNEOverheadWire::updateCenteringBoundary(const bool updateGrid) {
+GNEOverheadWire::updateCenteringBoundary(const bool /* updateGrid */) {
     //
 }
 
 
 void
-GNEOverheadWire::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
+GNEOverheadWire::splitEdgeGeometry(const double /* splitPosition */, const GNENetworkElement* /* originalElement */, const GNENetworkElement* /* newElement */, GNEUndoList* /* undoList */) {
     //
 }
 
