@@ -258,9 +258,19 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
             } else if (moveOperation->operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_SECOND) {
                 // move only second position
                 calculateMoveResult(moveResult, viewNet, moveOperation->secondLane, moveOperation->secondPosition, offset, 0, secondLaneLength);
-                // restore first position
-                moveResult.newFirstPos = moveOperation->firstPosition;
-
+                // swap (because move results is always stored in newFirstPos)
+                moveResult.newSecondPos = moveResult.newFirstPos;
+                moveResult.newFirstPos = 0;
+                // calculate first position
+                moveResult.newFirstPos = (moveOperation->firstPosition - (moveOperation->secondPosition - moveResult.newSecondPos));
+                // adjust positions
+                if (moveResult.newFirstPos < 0) {
+                    moveResult.newSecondPos = (moveOperation->secondPosition - moveOperation->firstPosition);
+                    moveResult.newFirstPos = 0;
+                } else if (moveResult.newFirstPos > firstLaneLength) {
+                    moveResult.newSecondPos = (moveOperation->secondPosition + (firstLaneLength - moveOperation->firstPosition));
+                    moveResult.newFirstPos = firstLaneLength;
+                }
             } else {
                 throw ProcessError("Invalid move operationType");
             }
