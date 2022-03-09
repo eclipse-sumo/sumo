@@ -166,7 +166,7 @@ GNEOverheadWire::fixAdditionalProblem() {
         double newPositionOverLane = myStartPos;
         double newEndPositionOverLane = myEndPos;
         // fix pos and length checkAndFixDetectorPosition
-        GNEAdditionalHandler::fixE2MultiLanePosition(
+        GNEAdditionalHandler::fixMultiLanePosition(
             newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(),
             newEndPositionOverLane, getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
         // set new position and endPosition

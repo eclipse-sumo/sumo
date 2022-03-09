@@ -36,10 +36,10 @@
 
 GNEDetectorE2::GNEDetectorE2(SumoXMLTag tag, GNENet* net) :
     GNEDetector("", net, GLO_E2DETECTOR, tag, 0, 0, {}, "", {}, "", false, Parameterised::Map()),
-            myEndPositionOverLane(0),
-            myTimeThreshold(0),
-            mySpeedThreshold(0),
-myJamThreshold(0) {
+    myEndPositionOverLane(0),
+    myTimeThreshold(0),
+    mySpeedThreshold(0),
+    myJamThreshold(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -49,14 +49,12 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, 
                              const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
                              SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos,
                              const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {
-    lane
-}, filename, vehicleTypes, name, friendlyPos, parameters),
-myEndPositionOverLane(pos + length),
-myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold),
-myJamThreshold(jamThreshold),
-myTrafficLight(trafficLight) {
+    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {lane}, filename, vehicleTypes, name, friendlyPos, parameters),
+    myEndPositionOverLane(pos + length),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold),
+    myJamThreshold(jamThreshold),
+    myTrafficLight(trafficLight) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -142,8 +140,9 @@ GNEDetectorE2::isAdditionalValid() const {
             if (myFriendlyPosition) {
                 return true;
             } else {
-                return (myPositionOverLane >= 0) && ((myPositionOverLane) <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength() &&
-                                                     myEndPositionOverLane >= 0) && ((myEndPositionOverLane) <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
+                return (myPositionOverLane >= 0) && (myEndPositionOverLane >= 0) &&
+                       (myPositionOverLane <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) &&
+                       (myEndPositionOverLane <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
             }
         } else {
             return false;
@@ -163,9 +162,6 @@ GNEDetectorE2::getAdditionalProblem() const {
         }
         if (myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
             errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
-        }
-        if ((myEndPositionOverLane) > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " + " + toString(SUMO_ATTR_LENGTH) + " > lanes's length");
         }
     } else {
         // abort if lanes aren't consecutives
@@ -203,7 +199,7 @@ GNEDetectorE2::fixAdditionalProblem() {
         double newPositionOverLane = myPositionOverLane;
         double newLength = (myEndPositionOverLane - myPositionOverLane);
         // fix pos and length using fixE2DetectorPosition
-        GNEAdditionalHandler::fixE2SingleLanePosition(newPositionOverLane, newLength, getParentLanes().at(0)->getParentEdge()->getNBEdge()->getFinalLength());
+        GNEAdditionalHandler::fixLanePosition(newPositionOverLane, newLength, getParentLanes().at(0)->getParentEdge()->getNBEdge()->getFinalLength());
         // set new position and length
         setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
         setAttribute(SUMO_ATTR_LENGTH, toString(newLength), myNet->getViewNet()->getUndoList());
@@ -237,7 +233,7 @@ GNEDetectorE2::fixAdditionalProblem() {
             double newPositionOverLane = myPositionOverLane;
             double newEndPositionOverLane = myEndPositionOverLane;
             // fix pos and length checkAndFixDetectorPosition
-            GNEAdditionalHandler::fixE2MultiLanePosition(
+            GNEAdditionalHandler::fixMultiLanePosition(
                 newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(),
                 newEndPositionOverLane, getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
             // set new position and endPosition
