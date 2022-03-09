@@ -303,16 +303,16 @@ public:
     void drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor& color, const bool onlySymbols = false) const;
 
     /// @brief draw up geometry point
-    static void drawUpGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor);
+    static void drawUpGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift = false);
 
     /// @brief draw down geometry point
-    static void drawDownGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor);
+    static void drawDownGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift = false);
 
     /// @brief draw left geometry point
-    static void drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor);
+    static void drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift = false);
 
     /// @brief draw right geometry point
-    static void drawRightGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor);
+    static void drawRightGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift = false);
 
     /// @brief get draw position index (used in rerouters and VSS)
     int getDrawPositionIndex() const;
@@ -401,7 +401,7 @@ private:
 
     /// @brief draw geometry point
     static void drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor,
-                                            const double fromAngle, const double toAngle);
+                                            const double fromAngle, const double toAngle, const bool ignoreShift);
 
     /// @brief adjust listed addtitional text
     std::string adjustListedAdditionalText(const std::string& text) const;

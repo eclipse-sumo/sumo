@@ -260,12 +260,12 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), E2Geometry, E2DetectorWidth);
         // draw geometry points
         if (segment->isFirstSegment() && segment->isLastSegment()) {
-            drawLeftGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().front(),  E2Geometry.getShapeRotations().front(), E2Color);
-            drawRightGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color);
+            drawLeftGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().front(),  E2Geometry.getShapeRotations().front(), E2Color, true);
+            drawRightGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color, true);
         } else if (segment->isFirstSegment()) {
-            drawLeftGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color);
+            drawLeftGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color, true);
         } else if (segment->isLastSegment()) {
-            drawRightGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color);
+            drawRightGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color, true);
         }
         // Pop layer matrix
         GLHelper::popMatrix();
@@ -797,26 +797,26 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
 
 
 void
-GNEAdditional::drawUpGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor) {
-    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, -90, 90);
+GNEAdditional::drawUpGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift) {
+    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, -90, 90, ignoreShift);
 }
 
 
 void
-GNEAdditional::drawDownGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor) {
-    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, 90, 270);
+GNEAdditional::drawDownGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift) {
+    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, 90, 270, ignoreShift);
 }
 
 
 void
-GNEAdditional::drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor) {
-    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, -90, 90);
+GNEAdditional::drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift) {
+    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, -90, 90, ignoreShift);
 }
 
 
 void
-GNEAdditional::drawRightGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor) {
-    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, 270, 90);
+GNEAdditional::drawRightGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift) {
+    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, 270, 90, ignoreShift);
 }
 
 
@@ -882,10 +882,10 @@ GNEAdditional::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
 
 void
 GNEAdditional::drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor,
-        const double fromAngle, const double toAngle) {
+        const double fromAngle, const double toAngle, const bool ignoreShift) {
     // first check that we're in move mode and shift key is pressed
     if (viewNet->getEditModes().isCurrentSupermodeNetwork() && (viewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-            viewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        (viewNet->getMouseButtonKeyPressed().shiftKeyPressed() || ignoreShift)) {
         // calculate new color
         const RGBColor color = baseColor.changedBrightness(-50);
         // push matrix
