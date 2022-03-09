@@ -80,6 +80,7 @@
 //#define DEBUG_LANE_SORTER
 //#define DEBUG_NO_CONNECTION
 //#define DEBUG_SURROUNDING
+//#define DEBUG_EXTRAPOLATE_DEPARTPOS
 
 //#define DEBUG_COND (false)
 //#define DEBUG_COND (true)
@@ -642,7 +643,11 @@ MSLane::insertVehicle(MSVehicle& veh) {
     }
     // try to insert
     const bool success = isInsertionSuccess(&veh, speed, pos, posLat, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED);
-    //std::cout << SIMTIME << " veh=" << veh.getID() << " success=" << success << " extrapolate=" << myExtrapolateSubstepDepart << " delay=" << veh.getDepartDelay() << "\n";
+#ifdef DEBUG_EXTRAPOLATE_DEPARTPOS
+    if (DEBUG_COND2(&veh)) {
+        std::cout << SIMTIME << " veh=" << veh.getID() << " success=" << success << " extrapolate=" << myExtrapolateSubstepDepart << " delay=" << veh.getDepartDelay() << " speed=" << speed << "\n";
+    }
+#endif
     if (success && myExtrapolateSubstepDepart && veh.getDepartDelay() > 0) {
         SUMOTime relevantDelay = MIN2(DELTA_T, veh.getDepartDelay());
         // try to compensate sub-step depart delay by moving the vehicle forward

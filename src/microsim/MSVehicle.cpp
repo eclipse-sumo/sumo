@@ -98,11 +98,13 @@
 //#define DEBUG_TRACI
 //#define DEBUG_REVERSE_BIDI
 //#define DEBUG_REPLACE_ROUTE
-//#define DEBUG_COND (getID() == "v0")
+//#define DEBUG_EXTRAPOLATE_DEPARTPOS
+//#define DEBUG_COND (getID() == "ego")
 //#define DEBUG_COND (true)
 #define DEBUG_COND (isSelected())
-//#define DEBUG_COND2(obj) (obj->getID() == "follower")
+//#define DEBUG_COND2(obj) (obj->getID() == "ego")
 #define DEBUG_COND2(obj) (obj->isSelected())
+
 //#define PARALLEL_STOPWATCH
 
 
@@ -4148,7 +4150,6 @@ MSVehicle::executeMove() {
 
 void
 MSVehicle::executeFractionalMove(double dist) {
-    //std::cout << SIMTIME << " veh=" << getID() << " executeFractionalMove dist=" << dist << "\n";
     myState.myPos += dist;
     myState.myLastCoveredDist = dist;
     myCachedPosition = Position::INVALID;
@@ -4177,6 +4178,11 @@ MSVehicle::executeFractionalMove(double dist) {
         myLane->removeVehicle(this, MSMoveReminder::NOTIFICATION_JUNCTION, false);
     }
     processLaneAdvances(passedLanes, emergencyReason);
+#ifdef DEBUG_EXTRAPOLATE_DEPARTPOS
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << getID() << " executeFractionalMove dist=" << dist << " passedLanes=" << toString(passedLanes) << " lanes=" << toString(lanes) << "\n";
+    }
+#endif
     workOnMoveReminders(myState.myPos - myState.myLastCoveredDist, myState.myPos, myState.mySpeed);
     if (lanes.size() > 1) {
         myLane->forceVehicleInsertion(this, getPositionOnLane(), MSMoveReminder::NOTIFICATION_JUNCTION, getLateralPositionOnLane());
@@ -4906,12 +4912,17 @@ MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos, bool collision) 
             leftLength -= clane->getLength();
         }
         myState.myBackPos = -leftLength;
+#ifdef DEBUG_SETFURTHER
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " computeFurtherLanes veh=" << getID() << " pos=" << pos << " myFurtherLanes=" << toString(myFurtherLanes) << " backPos=" << myState.myBackPos << "\n";
+        }
+#endif
     } else {
         // clear partial occupation
         for (std::vector<MSLane*>::iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
-#ifdef DEBUG_FURTHER
+#ifdef DEBUG_SETFURTHER
             if (DEBUG_COND) {
-                std::cout << SIMTIME << " enterLaneAtInsertion \n";
+                std::cout << SIMTIME << " opposite: resetPartialOccupation " << (*i)->getID() << " \n";
             }
 #endif
             (*i)->resetPartialOccupation(this);
