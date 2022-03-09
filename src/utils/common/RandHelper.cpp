@@ -30,6 +30,8 @@
 // debug vehicle movement randomness (dawdling in finalizeSpeed)
 //#define DEBUG_FLAG1
 //#define DEBUG_RANDCALLS
+//#define DEBUG_RANDCALLS_PARALLEL
+
 
 // ===========================================================================
 // static member variables
@@ -38,7 +40,14 @@ SumoRNG RandHelper::myRandomNumberGenerator("default");
 
 #ifdef DEBUG_RANDCALLS
 unsigned long long int myDebugIndex(7);
-std::string myDebugId("lane_10");
+std::string myDebugId("");
+#endif
+
+#ifdef DEBUG_RANDCALLS_PARALLEL
+#include <thread>
+#include <utils/iodevices/OutputDevice.h>
+std::map<std::thread::id, int> threadIndices;
+std::map<std::string, int> lastThreadIndex; // by rng
 #endif
 
 
@@ -89,13 +98,29 @@ RandHelper::rand(SumoRNG* rng) {
     const double res = double((*rng)() / 4294967296.0);
     rng->count++;
 #ifdef DEBUG_RANDCALLS
-    if (rng->count == myDebugIndex &&
-            (myDebugId == "" || rng->id == myDebugId)) {
+    if (rng->count == myDebugIndex
+            && (myDebugId == "" || rng->id == myDebugId)) {
         std::cout << "DEBUG\n"; // for setting breakpoint
     }
     std::stringstream stream; // to reduce output interleaving from different threads
+#ifdef DEBUG_RANDCALLS_PARALLEL
+    auto threadID = std::this_thread::get_id();
+    if (threadIndices.count(threadID) == 0) {
+        threadIndices[threadID] = threadIndices.size();
+    }
+    int threadIndex = threadIndices[threadID];
+    auto it = lastThreadIndex.find(rng->id);
+    if ((it == lastThreadIndex.end() || it->second != threadIndex)
+            && (myDebugId == "" || rng->id == myDebugId)) {
+        std::cout << "DEBUG rng " << rng->id << " change thread old=" << (it == lastThreadIndex.end() ? -1 : it->second) << " new=" << threadIndex << " (" << std::this_thread::get_id() << ")\n"; // for setting breakpoint
+    }
+    lastThreadIndex[rng->id] = threadIndex;
+    stream << "rng " << rng->id << " call=" << rng->count << " thread=" << threadIndex << " val=" << res << "\n";
+    OutputDevice::getDevice(rng->id) << stream.str();
+#else
     stream << "rng " << rng->id << " call=" << rng->count << " val=" << res << "\n";
     std::cout << stream.str();
+#endif
 #endif
 #ifdef DEBUG_FLAG1
     if (gDebugFlag1) {
