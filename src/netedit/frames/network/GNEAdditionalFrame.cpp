@@ -52,9 +52,6 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     // Create Netedit parameter
     myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
-    // Create consecutive Lane Selector
-    mySelectorLaneParents = new GNECommonNetworkModules::SelectorParentLanes(this);
-
     // Create selector parent
     mySelectorAdditionalParent = new GNEFrameModules::SelectorParent(this);
 
@@ -134,12 +131,6 @@ GNEAdditionalFrame::showSelectorChildLanesModule() {
 }
 
 
-GNECommonNetworkModules::SelectorParentLanes*
-GNEAdditionalFrame::getConsecutiveLaneSelector() const {
-    return mySelectorLaneParents;
-}
-
-
 GNECommonNetworkModules::E2MultilaneLaneSelector*
 GNEAdditionalFrame::getE2MultilaneLaneSelector() const {
     return myE2MultilaneLaneSelector;
@@ -197,54 +188,6 @@ GNEAdditionalFrame::createPath() {
 }
 
 
-void 
-GNEAdditionalFrame::stopConsecutiveLaneSelector() {
-    // obtain tagproperty (only for improve code legibility)
-    const auto& tagProperty = myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
-    // abort if there isn't at least two lanes
-    if (mySelectorLaneParents->getSelectedLanes().size() < 2) {
-        WRITE_WARNING(tagProperty.getTagStr() + " requires at least two lanes.");
-        // abort consecutive lane selector
-        mySelectorLaneParents->abortConsecutiveLaneSelector();
-    } else if (createBaseAdditionalObject(tagProperty)) {
-        // get attributes and values
-        myAdditionalAttributes->getAttributesAndValues(myBaseAdditional, true);
-        // fill valuesOfElement with Netedit attributes from Frame
-        myNeteditAttributes->getNeteditAttributesAndValues(myBaseAdditional, nullptr);
-        // Check if ID has to be generated
-        if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
-            myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, getViewNet()->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperty.getTag()));
-        }
-        // obtain lane IDs
-        std::vector<std::string> laneIDs;
-        for (const auto& selectedlane : mySelectorLaneParents->getSelectedLanes()) {
-            laneIDs.push_back(selectedlane.first->getID());
-        }
-        myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, laneIDs);
-        // Obtain clicked position over first lane
-        myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, mySelectorLaneParents->getSelectedLanes().front().second);
-        // Obtain clicked position over last lane
-        myBaseAdditional->addDoubleAttribute(SUMO_ATTR_ENDPOS, mySelectorLaneParents->getSelectedLanes().back().second);
-        // parse common attributes
-        if (buildAdditionalCommonAttributes(tagProperty)) {
-            // show warning dialogbox and stop check if input parameters are valid
-            if (myAdditionalAttributes->areValuesValid() == false) {
-                myAdditionalAttributes->showWarningMessage();
-            } else {
-                // declare additional handler
-                GNEAdditionalHandler additionalHandler(getViewNet()->getNet(), true);
-                // build additional
-                additionalHandler.parseSumoBaseObject(myBaseAdditional);
-                // abort consecutive lane selector
-                mySelectorLaneParents->abortConsecutiveLaneSelector();
-                // refresh additional attributes
-                myAdditionalAttributes->refreshAttributesCreator();
-            }
-        }
-    }
-}
-
-
 void
 GNEAdditionalFrame::tagSelected() {
     if (myAdditionalTagSelector->getCurrentTemplateAC()) {
@@ -273,17 +216,14 @@ GNEAdditionalFrame::tagSelected() {
             if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().isChild() &&
                     (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getParentTags().front() == SUMO_TAG_LANE)) {
                 // show selector parent lane and hide selector child lane
-                mySelectorLaneParents->showSelectorParentLanesModule();
                 mySelectorChildLanes->hideSelectorChildLanesModule();
             } else {
                 // show selector child lane and hide selector parent lane
                 mySelectorChildLanes->showSelectorChildLanesModule();
-                mySelectorLaneParents->hideSelectorParentLanesModule();
             }
         } else {
             myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModule();
             mySelectorChildLanes->hideSelectorChildLanesModule();
-            mySelectorLaneParents->hideSelectorParentLanesModule();
         }
     } else {
         // hide all moduls if additional isn't valid
@@ -292,7 +232,6 @@ GNEAdditionalFrame::tagSelected() {
         mySelectorAdditionalParent->hideSelectorParentModule();
         mySelectorChildEdges->hideSelectorChildEdgesModule();
         mySelectorChildLanes->hideSelectorChildLanesModule();
-        mySelectorLaneParents->hideSelectorParentLanesModule();
         myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModule();
     }
 }

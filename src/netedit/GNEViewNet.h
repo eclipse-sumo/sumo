@@ -671,7 +671,7 @@ private:
     void drawLaneCandidates() const;
 
     /// @brief draw temporal polygon shape in Polygon Mode
-    void drawTemporalDrawShape() const;
+    void drawTemporalDrawingShape() const;
 
     /// @brief draw temporal junction in create edge mode
     void drawTemporalJunction() const;

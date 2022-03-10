@@ -101,9 +101,6 @@ public:
     /// @brief create path
     virtual void createPath();
 
-    /// @brief stop consecutive path selector
-    virtual void stopConsecutiveLaneSelector();
-
     /// @}
 
 protected:

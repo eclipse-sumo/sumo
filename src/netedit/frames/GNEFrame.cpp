@@ -272,13 +272,6 @@ GNEFrame::createPath() {
 }
 
 
-void 
-GNEFrame::stopConsecutiveLaneSelector() {
-    // this function has to be reimplemente in all child frames that uses a consecutive lane selector
-
-}
-
-
 const std::vector<std::string>&
 GNEFrame::getPredefinedTagsMML() const {
     return myPredefinedTagsMML;

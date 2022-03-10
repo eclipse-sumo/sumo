@@ -54,17 +54,11 @@ public:
     /// @brief show selector child lane and update use selected edges/lanes
     void showSelectorChildLanesModule();
 
-    /// @brief get consecutive Lane Selector
-    GNECommonNetworkModules::SelectorParentLanes* getConsecutiveLaneSelector() const;
-
     /// @brief getConsecutive Lane Selector
     GNECommonNetworkModules::E2MultilaneLaneSelector* getE2MultilaneLaneSelector() const;
 
     /// @brief create path
     void createPath();
-
-    /// @brief stop consecutive path selector
-    void stopConsecutiveLaneSelector();
 
 protected:
     /// @brief SumoBaseObject used for create additional
@@ -97,9 +91,6 @@ private:
 
     /// @brief Netedit parameter
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
-
-    /// @brief Module for select parent lanes (currently only consecutives)
-    GNECommonNetworkModules::SelectorParentLanes* mySelectorLaneParents;
 
     /// @brief Module for select a single parent additional
     GNEFrameModules::SelectorParent* mySelectorAdditionalParent;

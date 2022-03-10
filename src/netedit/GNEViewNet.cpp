@@ -875,8 +875,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     drawTemporalJunction();
     // draw temporal elements
     if (!myVisualizationSettings->drawForRectangleSelection) {
-        drawTemporalDrawShape();
-        drawLaneCandidates();
+        // draw temporal drawing shape
+        drawTemporalDrawingShape();
         // draw testing elements
         myTestingMode.drawTestingElements(myApp);
         // draw temporal E2 multilane detectors
@@ -1135,8 +1135,6 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_PROHIBITION) {
             myViewParent->getProhibitionFrame()->onCmdCancel(nullptr, 0, nullptr);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
-            // abort select lanes
-            myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortConsecutiveLaneSelector();
             // abort path
             myViewParent->getAdditionalFrame()->getE2MultilaneLaneSelector()->abortPathCreation();
         }
@@ -1275,11 +1273,7 @@ GNEViewNet::hotkeyEnter() {
                 myViewParent->getTAZFrame()->getTAZSaveChangesModule()->onCmdSaveChanges(0, 0, 0);
             }
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
-            if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
-                // stop select lanes to create additional
-                myViewParent->getAdditionalFrame()->stopConsecutiveLaneSelector();
-            }
-            // create E2
+            // create path element
             myViewParent->getAdditionalFrame()->createPath();
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
@@ -4425,79 +4419,7 @@ GNEViewNet::updateControls() {
 // ---------------------------------------------------------------------------
 
 void
-GNEViewNet::drawLaneCandidates() const {
-    if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
-        // draw first point
-        if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() > 0) {
-            // Push draw matrix
-            GLHelper::pushMatrix();
-            // obtain first clicked point
-            const Position& firstLanePoint = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().front().first->getLaneShape().positionAtOffset(
-                                                 myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().front().second);
-            // must draw on top of other connections
-            glTranslated(firstLanePoint.x(), firstLanePoint.y(), GLO_JUNCTION + 0.3);
-            GLHelper::setColor(RGBColor::RED);
-            // draw first point
-            GLHelper::drawFilledCircle((double) 1.3, myVisualizationSettings->getCircleResolution());
-            GLHelper::drawText("S", Position(), .1, 1.3, RGBColor::CYAN);
-            // pop draw matrix
-            GLHelper::popMatrix();
-        }
-        // draw connections between lanes
-        if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() > 1) {
-            // iterate over all current selected lanes
-            for (int i = 0; i < (int)myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() - 1; i++) {
-                // declare position vector for shape
-                PositionVector shape;
-                // declare vectors for shape rotation and lengths
-                std::vector<double> shapeRotations, shapeLengths;
-                // obtain GNELanes
-                GNELane* from = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().at(i).first;
-                GNELane* to = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().at(i + 1).first;
-                // Push draw matrix
-                GLHelper::pushMatrix();
-                // must draw on top of other connections
-                glTranslated(0, 0, GLO_JUNCTION + 0.2);
-                // obtain connection shape
-                shape = from->getParentEdge()->getNBEdge()->getConnection(from->getIndex(), to->getParentEdge()->getNBEdge(), to->getIndex()).shape;
-                // set special color
-                GLHelper::setColor(myVisualizationSettings->candidateColorSettings.possible);
-                // Obtain lengths and shape rotations
-                int segments = (int) shape.size() - 1;
-                if (segments >= 0) {
-                    shapeRotations.reserve(segments);
-                    shapeLengths.reserve(segments);
-                    for (int j = 0; j < segments; j++) {
-                        shapeLengths.push_back(GUIGeometry::calculateLength(shape[j], shape[j + 1]));
-                        shapeRotations.push_back(GUIGeometry::calculateRotation(shape[j], shape[j + 1]));
-                    }
-                }
-                // draw a list of lines
-                GLHelper::drawBoxLines(shape, shapeRotations, shapeLengths, 0.2);
-                // pop draw matrix
-                GLHelper::popMatrix();
-            }
-            // draw last point
-            GLHelper::pushMatrix();
-            // obtain last clicked point
-            const Position& lastLanePoint = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().back().first->getLaneShape().positionAtOffset(
-                                                myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().back().second);
-            // must draw on top of other connections
-            glTranslated(lastLanePoint.x(), lastLanePoint.y(), GLO_JUNCTION + 0.3);
-            GLHelper::setColor(RGBColor::RED);
-            // draw last point
-            GLHelper::drawFilledCircle((double) 1.3, 8);
-            GLHelper::drawText("E", Position(), .1, 1.3, RGBColor::CYAN);
-            // pop draw matrix
-            GLHelper::popMatrix();
-        }
-
-    }
-}
-
-
-void
-GNEViewNet::drawTemporalDrawShape() const {
+GNEViewNet::drawTemporalDrawingShape() const {
     PositionVector temporalShape;
     bool deleteLastCreatedPoint = false;
     // obtain temporal shape and delete last created point flag
@@ -4781,15 +4703,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_ADDITIONAL: {
             // avoid create additionals if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isShown()) {
-                    // check if we need to start select lanes
-                    if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
-                        // select getLaneFront() to create an additional with consecutive lanes
-                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->addSelectedLane(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
-                    } else if (myObjectsUnderCursor.getLaneFront()) {
-                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->startConsecutiveLaneSelector(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
-                    }
-                } else if (myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor)) {
+                if (myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor)) {
                     // update view to show the new additional
                     updateViewNet();
                 }
