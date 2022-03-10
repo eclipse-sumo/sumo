@@ -60,18 +60,18 @@ public:
     /// @brief getConsecutive Lane Selector
     GNECommonNetworkModules::E2MultilaneLaneSelector* getE2MultilaneLaneSelector() const;
 
+    /// @brief create path
+    void createPath();
+
+    /// @brief stop consecutive path selector
+    void stopConsecutiveLaneSelector();
+
 protected:
     /// @brief SumoBaseObject used for create additional
     CommonXMLStructure::SumoBaseObject* myBaseAdditional;
 
     /// @brief Tag selected in TagSelector
     void tagSelected();
-
-    /// @brief create path
-    void createPath();
-
-    /// @brief stop consecutive path selector
-    void stopConsecutiveLaneSelector();
 
 private:
     // @brief create baseAdditionalObject

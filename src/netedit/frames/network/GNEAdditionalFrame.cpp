@@ -147,59 +147,6 @@ GNEAdditionalFrame::getE2MultilaneLaneSelector() const {
 
 
 void
-GNEAdditionalFrame::tagSelected() {
-    if (myAdditionalTagSelector->getCurrentTemplateAC()) {
-        // show additional attributes modul
-        myAdditionalAttributes->showAttributesCreatorModule(myAdditionalTagSelector->getCurrentTemplateAC(), {});
-        // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModule(myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty());
-        // Show myAdditionalFrameParent if we're adding an slave element
-        if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().isChild()) {
-            mySelectorAdditionalParent->showSelectorParentModule(myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getParentTags());
-        } else {
-            mySelectorAdditionalParent->hideSelectorParentModule();
-        }
-        // Show SelectorChildEdges if we're adding an additional that own the attribute SUMO_ATTR_EDGES
-        if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
-            mySelectorChildEdges->showSelectorChildEdgesModule();
-        } else {
-            mySelectorChildEdges->hideSelectorChildEdgesModule();
-        }
-        // check if we must show E2 multilane lane selector
-        if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
-            myE2MultilaneLaneSelector->showE2MultilaneLaneSelectorModule();
-        } else if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_LANES)) {
-            myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModule();
-            // Show SelectorChildLanes or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
-            if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().isChild() &&
-                    (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getParentTags().front() == SUMO_TAG_LANE)) {
-                // show selector parent lane and hide selector child lane
-                mySelectorLaneParents->showSelectorParentLanesModule();
-                mySelectorChildLanes->hideSelectorChildLanesModule();
-            } else {
-                // show selector child lane and hide selector parent lane
-                mySelectorChildLanes->showSelectorChildLanesModule();
-                mySelectorLaneParents->hideSelectorParentLanesModule();
-            }
-        } else {
-            myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModule();
-            mySelectorChildLanes->hideSelectorChildLanesModule();
-            mySelectorLaneParents->hideSelectorParentLanesModule();
-        }
-    } else {
-        // hide all moduls if additional isn't valid
-        myAdditionalAttributes->hideAttributesCreatorModule();
-        myNeteditAttributes->hideNeteditAttributesModule();
-        mySelectorAdditionalParent->hideSelectorParentModule();
-        mySelectorChildEdges->hideSelectorChildEdgesModule();
-        mySelectorChildLanes->hideSelectorChildLanesModule();
-        mySelectorLaneParents->hideSelectorParentLanesModule();
-        myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModule();
-    }
-}
-
-
-void
 GNEAdditionalFrame::createPath() {
     // obtain tagproperty (only for improve code legibility)
     const auto& tagProperty = myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
@@ -294,6 +241,59 @@ GNEAdditionalFrame::stopConsecutiveLaneSelector() {
                 myAdditionalAttributes->refreshAttributesCreator();
             }
         }
+    }
+}
+
+
+void
+GNEAdditionalFrame::tagSelected() {
+    if (myAdditionalTagSelector->getCurrentTemplateAC()) {
+        // show additional attributes modul
+        myAdditionalAttributes->showAttributesCreatorModule(myAdditionalTagSelector->getCurrentTemplateAC(), {});
+        // show netedit attributes
+        myNeteditAttributes->showNeteditAttributesModule(myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty());
+        // Show myAdditionalFrameParent if we're adding an slave element
+        if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().isChild()) {
+            mySelectorAdditionalParent->showSelectorParentModule(myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getParentTags());
+        } else {
+            mySelectorAdditionalParent->hideSelectorParentModule();
+        }
+        // Show SelectorChildEdges if we're adding an additional that own the attribute SUMO_ATTR_EDGES
+        if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
+            mySelectorChildEdges->showSelectorChildEdgesModule();
+        } else {
+            mySelectorChildEdges->hideSelectorChildEdgesModule();
+        }
+        // check if we must show E2 multilane lane selector
+        if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
+            myE2MultilaneLaneSelector->showE2MultilaneLaneSelectorModule();
+        } else if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_LANES)) {
+            myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModule();
+            // Show SelectorChildLanes or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
+            if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().isChild() &&
+                    (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getParentTags().front() == SUMO_TAG_LANE)) {
+                // show selector parent lane and hide selector child lane
+                mySelectorLaneParents->showSelectorParentLanesModule();
+                mySelectorChildLanes->hideSelectorChildLanesModule();
+            } else {
+                // show selector child lane and hide selector parent lane
+                mySelectorChildLanes->showSelectorChildLanesModule();
+                mySelectorLaneParents->hideSelectorParentLanesModule();
+            }
+        } else {
+            myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModule();
+            mySelectorChildLanes->hideSelectorChildLanesModule();
+            mySelectorLaneParents->hideSelectorParentLanesModule();
+        }
+    } else {
+        // hide all moduls if additional isn't valid
+        myAdditionalAttributes->hideAttributesCreatorModule();
+        myNeteditAttributes->hideNeteditAttributesModule();
+        mySelectorAdditionalParent->hideSelectorParentModule();
+        mySelectorChildEdges->hideSelectorChildEdgesModule();
+        mySelectorChildLanes->hideSelectorChildLanesModule();
+        mySelectorLaneParents->hideSelectorParentLanesModule();
+        myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModule();
     }
 }
 

@@ -13,9 +13,9 @@
 /****************************************************************************/
 /// @file    GNECommonNetworkModules.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Dec 2015
+/// @date    Mar 2022
 ///
-// The Widget for add additional elements
+// Common network modules
 /****************************************************************************/
 #include <config.h>
 
@@ -40,31 +40,31 @@
 // ===========================================================================
 
 FXDEFMAP(GNECommonNetworkModules::SelectorParentLanes) ConsecutiveLaneSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_STOPSELECTION,  GNECommonNetworkModules::SelectorParentLanes::onCmdStopSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_ABORTSELECTION, GNECommonNetworkModules::SelectorParentLanes::onCmdAbortSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STOPSELECTION,  GNECommonNetworkModules::SelectorParentLanes::onCmdStopSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTSELECTION, GNECommonNetworkModules::SelectorParentLanes::onCmdAbortSelection),
 };
 
 FXDEFMAP(GNECommonNetworkModules::SelectorChildEdges) SelectorParentEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTED,        GNECommonNetworkModules::SelectorChildEdges::onCmdUseSelectedEdges),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARSELECTION,     GNECommonNetworkModules::SelectorChildEdges::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTSELECTION,    GNECommonNetworkModules::SelectorChildEdges::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED,  MID_GNE_ADDITIONALFRAME_SEARCH,             GNECommonNetworkModules::SelectorChildEdges::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECT,             GNECommonNetworkModules::SelectorChildEdges::onCmdSelectEdge),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNECommonNetworkModules::SelectorChildEdges::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNECommonNetworkModules::SelectorChildEdges::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INVERTSELECTION,    GNECommonNetworkModules::SelectorChildEdges::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SEARCH,             GNECommonNetworkModules::SelectorChildEdges::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,             GNECommonNetworkModules::SelectorChildEdges::onCmdSelectEdge),
 };
 
 FXDEFMAP(GNECommonNetworkModules::SelectorChildLanes) SelectorParentLanesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTED,        GNECommonNetworkModules::SelectorChildLanes::onCmdUseSelectedLanes),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARSELECTION,     GNECommonNetworkModules::SelectorChildLanes::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTSELECTION,    GNECommonNetworkModules::SelectorChildLanes::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED,  MID_GNE_ADDITIONALFRAME_SEARCH,             GNECommonNetworkModules::SelectorChildLanes::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECT,             GNECommonNetworkModules::SelectorChildLanes::onCmdSelectLane),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNECommonNetworkModules::SelectorChildLanes::onCmdUseSelectedLanes),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNECommonNetworkModules::SelectorChildLanes::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INVERTSELECTION,    GNECommonNetworkModules::SelectorChildLanes::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SEARCH,             GNECommonNetworkModules::SelectorChildLanes::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,             GNECommonNetworkModules::SelectorChildLanes::onCmdSelectLane),
 };
 
 FXDEFMAP(GNECommonNetworkModules::E2MultilaneLaneSelector) E2MultilaneLaneSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANEPATH_ABORT,          GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdAbortPathCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANEPATH_FINISH,         GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdCreatePath),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANEPATH_REMOVELAST,     GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdRemoveLastElement),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANEPATH_SHOWCANDIDATES, GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdShowCandidateLanes)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ABORT,          GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdAbortPathCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_FINISH,         GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdCreatePath),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVELAST,     GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdRemoveLastElement),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOWCANDIDATES, GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdShowCandidateLanes)
 };
 
 // Object implementation
@@ -82,8 +82,8 @@ GNECommonNetworkModules::SelectorParentLanes::SelectorParentLanes(GNEFrame* fram
     FXGroupBoxModule(frameParent->getContentFrame(), "Lane Selector"),
     myFrameParent(frameParent) {
     // create start and stop buttons
-    myStopSelectingButton = new FXButton(getCollapsableFrame(), "Stop selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_STOPSELECTION, GUIDesignButton);
-    myAbortSelectingButton = new FXButton(getCollapsableFrame(), "Abort selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_ABORTSELECTION, GUIDesignButton);
+    myStopSelectingButton = new FXButton(getCollapsableFrame(), "Stop selecting", nullptr, this, MID_GNE_STOPSELECTION, GUIDesignButton);
+    myAbortSelectingButton = new FXButton(getCollapsableFrame(), "Abort selecting", nullptr, this, MID_GNE_ABORTSELECTION, GUIDesignButton);
     // disable stop and abort functions as init
     myStopSelectingButton->disable();
     myAbortSelectingButton->disable();
@@ -254,22 +254,22 @@ GNECommonNetworkModules::SelectorChildEdges::SelectorChildEdges(GNEFrame* frameP
     FXGroupBoxModule(frameParent->getContentFrame(), "Edges"),
     myFrameParent(frameParent) {
     // Create menuCheck for selected edges
-    myUseSelectedEdgesCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignCheckButton);
+    myUseSelectedEdgesCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_USESELECTED, GUIDesignCheckButton);
 
     // Create search box
-    myEdgesSearch = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_SEARCH, GUIDesignTextField);
+    myEdgesSearch = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SEARCH, GUIDesignTextField);
 
     // Create list
-    myList = new FXList(getCollapsableFrame(), this, MID_GNE_ADDITIONALFRAME_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
+    myList = new FXList(getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
 
     // Create horizontal frame
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
 
     // Create button for clear selection
-    myClearEdgesSelection = new FXButton(buttonsFrame, "Clear", nullptr, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButtonRectangular);
+    myClearEdgesSelection = new FXButton(buttonsFrame, "Clear", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButtonRectangular);
 
     // Create button for invert selection
-    myInvertEdgesSelection = new FXButton(buttonsFrame, "Invert", nullptr, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButtonRectangular);
+    myInvertEdgesSelection = new FXButton(buttonsFrame, "Invert", nullptr, this, MID_GNE_INVERTSELECTION, GUIDesignButtonRectangular);
 
     // Hide List
     hideSelectorChildEdgesModule();
@@ -406,22 +406,22 @@ GNECommonNetworkModules::SelectorChildLanes::SelectorChildLanes(GNEFrame* frameP
     FXGroupBoxModule(frameParent->getContentFrame(), "Lanes"),
     myFrameParent(frameParent) {
     // Create CheckBox for selected lanes
-    myUseSelectedLanesCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignCheckButton);
+    myUseSelectedLanesCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_USESELECTED, GUIDesignCheckButton);
 
     // Create search box
-    myLanesSearch = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_SEARCH, GUIDesignTextField);
+    myLanesSearch = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SEARCH, GUIDesignTextField);
 
     // Create list
-    myList = new FXList(getCollapsableFrame(), this, MID_GNE_ADDITIONALFRAME_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
+    myList = new FXList(getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
 
     // Create horizontal frame
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
 
     // Create button for clear selection
-    clearLanesSelection = new FXButton(buttonsFrame, "clear", nullptr, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButtonRectangular);
+    clearLanesSelection = new FXButton(buttonsFrame, "clear", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButtonRectangular);
 
     // Create button for invert selection
-    invertLanesSelection = new FXButton(buttonsFrame, "invert", nullptr, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButtonRectangular);
+    invertLanesSelection = new FXButton(buttonsFrame, "invert", nullptr, this, MID_GNE_INVERTSELECTION, GUIDesignButtonRectangular);
 
     // Hide List
     hideSelectorChildLanesModule();
@@ -554,16 +554,16 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::E2MultilaneLaneSelector(GNEFra
     // create label for route info
     myInfoRouteLabel = new FXLabel(getCollapsableFrame(), "No lanes selected", 0, GUIDesignLabelFrameThicked);
     // create button for finish route creation
-    myFinishCreationButton = new FXButton(getCollapsableFrame(), "Finish route creation", nullptr, this, MID_GNE_LANEPATH_FINISH, GUIDesignButton);
+    myFinishCreationButton = new FXButton(getCollapsableFrame(), "Finish route creation", nullptr, this, MID_GNE_FINISH, GUIDesignButton);
     myFinishCreationButton->disable();
     // create button for abort route creation
-    myAbortCreationButton = new FXButton(getCollapsableFrame(), "Abort route creation", nullptr, this, MID_GNE_LANEPATH_ABORT, GUIDesignButton);
+    myAbortCreationButton = new FXButton(getCollapsableFrame(), "Abort route creation", nullptr, this, MID_GNE_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted lane
-    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), "Remove last inserted lane", nullptr, this, MID_GNE_LANEPATH_REMOVELAST, GUIDesignButton);
+    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), "Remove last inserted lane", nullptr, this, MID_GNE_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedElement->disable();
     // create check button
-    myShowCandidateLanes = new FXCheckButton(getCollapsableFrame(), "Show candidate lanes", this, MID_GNE_LANEPATH_SHOWCANDIDATES, GUIDesignCheckButton);
+    myShowCandidateLanes = new FXCheckButton(getCollapsableFrame(), "Show candidate lanes", this, MID_GNE_SHOWCANDIDATES, GUIDesignCheckButton);
     myShowCandidateLanes->setCheck(TRUE);
     // create backspace label (always shown)
     new FXLabel(this,

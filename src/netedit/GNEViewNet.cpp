@@ -1277,10 +1277,10 @@ GNEViewNet::hotkeyEnter() {
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
             if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
                 // stop select lanes to create additional
-                myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->stopConsecutiveLaneSelector();
+                myViewParent->getAdditionalFrame()->stopConsecutiveLaneSelector();
             }
             // create E2
-            myViewParent->getAdditionalFrame()->getE2MultilaneLaneSelector()->createPath();
+            myViewParent->getAdditionalFrame()->createPath();
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {

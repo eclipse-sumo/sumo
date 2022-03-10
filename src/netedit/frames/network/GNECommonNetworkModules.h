@@ -13,9 +13,9 @@
 /****************************************************************************/
 /// @file    GNECommonNetworkModules.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Dec 2015
+/// @date    Mar 2022
 ///
-// The Widget for add additional elements
+// Common network modules
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -27,11 +27,9 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNECommonNetworkModules
- * The Widget for setting internal attributes of additional elements
- */
-class GNECommonNetworkModules : public GNEFrame {
+
+
+class GNECommonNetworkModules {
 
 public:
     // ===========================================================================

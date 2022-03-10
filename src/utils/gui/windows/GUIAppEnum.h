@@ -854,13 +854,13 @@ enum {
     /// @brief enable or disable show path candidates
     MID_GNE_EDGEPATH_SHOWCANDIDATES,
     /// @brief abort lane path creation
-    MID_GNE_LANEPATH_ABORT,
+    MID_GNE_ABORT,
     /// @brief finish lane path creation
-    MID_GNE_LANEPATH_FINISH,
+    MID_GNE_FINISH,
     /// @brief remove last inserted element in path
-    MID_GNE_LANEPATH_REMOVELAST,
+    MID_GNE_REMOVELAST,
     /// @brief enable or disable show path candidates
-    MID_GNE_LANEPATH_SHOWCANDIDATES,
+    MID_GNE_SHOWCANDIDATES,
     /// @brief In HierarchicalElementTree list, show child menu
     MID_GNE_ACHIERARCHY_SHOWCHILDMENU,
     /// @brief In HierarchicalElementTree list, move element to up
@@ -1002,26 +1002,18 @@ enum {
     /// @name GNEAdditionalFrame messages
     /// @{
 
-    /// @brief add row
-    MID_GNE_ADDITIONALFRAME_ADDROW,
-    /// @brief remove row
-    MID_GNE_ADDITIONALFRAME_REMOVEROW,
     /// @brief search element
-    MID_GNE_ADDITIONALFRAME_SEARCH,
+    MID_GNE_SEARCH,
     /// @brief use selected elements
-    MID_GNE_ADDITIONALFRAME_USESELECTED,
-    /// @brief select element
-    MID_GNE_ADDITIONALFRAME_SELECT,
+    MID_GNE_USESELECTED,
     /// @brief clear selection of elements
-    MID_GNE_ADDITIONALFRAME_CLEARSELECTION,
+    MID_GNE_CLEARSELECTION,
     /// @brief invert selection of eleents
-    MID_GNE_ADDITIONALFRAME_INVERTSELECTION,
-    /// @brief start selection of consecutive egdes/lanes
-    MID_GNE_ADDITIONALFRAME_STARTSELECTION,
+    MID_GNE_INVERTSELECTION,
     /// @brief stop selection of consecutive egdes/lanes
-    MID_GNE_ADDITIONALFRAME_STOPSELECTION,
+    MID_GNE_STOPSELECTION,
     /// @brief abort selection of consecutive egdes/lanes
-    MID_GNE_ADDITIONALFRAME_ABORTSELECTION,
+    MID_GNE_ABORTSELECTION,
 
     /// @}
 
