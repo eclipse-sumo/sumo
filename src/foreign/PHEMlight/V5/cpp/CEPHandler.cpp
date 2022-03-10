@@ -76,6 +76,14 @@ namespace PHEMlightdllV5 {
         return true;
     }
 
+    double json2double(const nlohmann::json& vd, const std::string& key) {
+        double value = 0.;
+        if (vd.contains(key)) {
+            vd.at(key).get_to(value);
+        }
+        return value;
+    }
+
     bool CEPHandler::ReadVehicleFile(const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, bool fleetMix, VEHPHEMLightJSON::VEH*& Vehicle) {
         std::string path = "";
         Vehicle = new VEHPHEMLightJSON::VEH();
@@ -112,12 +120,12 @@ namespace PHEMlightdllV5 {
         Vehicle->getVehicleData()->setMassType(vd.contains("MassType") ? vd["MassType"] : "LV");
         Vehicle->getVehicleData()->setFuelType(vd.contains("FuelType") ? vd["FuelType"] : "D");
         Vehicle->getVehicleData()->setCalcType(vd.contains("CalcType") ? vd["CalcType"] : "Conv");
-        Vehicle->getVehicleData()->setMass(vd.contains("Mass") ? vd["Mass"] : 0);
-        Vehicle->getVehicleData()->setLoading(vd.contains("Loading") ? vd["Loading"] : 0);
-        Vehicle->getVehicleData()->setRedMassWheel(vd.contains("RedMassWheel") ? vd["RedMassWheel"] : 0);
-        Vehicle->getVehicleData()->setWheelDiameter(vd.contains("WheelDiameter") ? vd["WheelDiameter"] : 0);
-        Vehicle->getVehicleData()->setCw(vd.contains("Cw") ? vd["Cw"] : 0);
-        Vehicle->getVehicleData()->setA(vd.contains("A") ? vd["A"] : 0);
+        Vehicle->getVehicleData()->setMass(json2double(vd, "Mass"));
+        Vehicle->getVehicleData()->setLoading(json2double(vd, "Loading"));
+        Vehicle->getVehicleData()->setRedMassWheel(json2double(vd, "RedMassWheel"));
+        Vehicle->getVehicleData()->setWheelDiameter(json2double(vd, "WheelDiameter"));
+        Vehicle->getVehicleData()->setCw(json2double(vd, "Cw"));
+        Vehicle->getVehicleData()->setA(json2double(vd, "A"));
 
         // Auxiliaries
         nlohmann::json::iterator auxDataIt = json.find("AuxiliariesData");
@@ -135,11 +143,11 @@ namespace PHEMlightdllV5 {
         }
         const nlohmann::json& iced = (*engDataIt)["ICEData"];
         const nlohmann::json& emd = (*engDataIt)["EMData"];
-        Vehicle->getEngineData()->getICEData()->setPrated(iced.contains("Prated") ? iced["Prated"] : 0);
-        Vehicle->getEngineData()->getICEData()->setnrated(iced.contains("nrated") ? iced["nrated"] : 0);
-        Vehicle->getEngineData()->getICEData()->setIdling(iced.contains("Idling") ? iced["Idling"] : 0);
-        Vehicle->getEngineData()->getEMData()->setPrated(emd.contains("Prated") ? emd["Prated"] : 0);
-        Vehicle->getEngineData()->getEMData()->setnrated(emd.contains("nrated") ? emd["nrated"] : 0);
+        Vehicle->getEngineData()->getICEData()->setPrated(json2double(iced, "Prated"));
+        Vehicle->getEngineData()->getICEData()->setnrated(json2double(iced, "nrated"));
+        Vehicle->getEngineData()->getICEData()->setIdling(json2double(iced, "Idling"));
+        Vehicle->getEngineData()->getEMData()->setPrated(json2double(emd, "Prated"));
+        Vehicle->getEngineData()->getEMData()->setnrated(json2double(emd, "nrated"));
 
         // Rolling resistance
         nlohmann::json::iterator rrDataIt = json.find("RollingResData");
@@ -148,11 +156,11 @@ namespace PHEMlightdllV5 {
             return false;
         }
         const nlohmann::json& rrd = *rrDataIt;
-        Vehicle->getRollingResData()->setFr0(rrd.contains("Fr0") ? rrd["Fr0"] : 0);
-        Vehicle->getRollingResData()->setFr1(rrd.contains("Fr1") ? rrd["Fr1"] : 0);
-        Vehicle->getRollingResData()->setFr2(rrd.contains("Fr2") ? rrd["Fr2"] : 0);
-        Vehicle->getRollingResData()->setFr3(rrd.contains("Fr3") ? rrd["Fr3"] : 0);
-        Vehicle->getRollingResData()->setFr4(rrd.contains("Fr4") ? rrd["Fr4"] : 0);
+        Vehicle->getRollingResData()->setFr0(json2double(rrd, "Fr0"));
+        Vehicle->getRollingResData()->setFr1(json2double(rrd, "Fr1"));
+        Vehicle->getRollingResData()->setFr2(json2double(rrd, "Fr2"));
+        Vehicle->getRollingResData()->setFr3(json2double(rrd, "Fr3"));
+        Vehicle->getRollingResData()->setFr4(json2double(rrd, "Fr4"));
 
         // Transmission
         nlohmann::json::iterator trDataIt = json.find("TransmissionData");
@@ -160,7 +168,7 @@ namespace PHEMlightdllV5 {
             Helper->setErrMsg("No TransmissionData in " + emissionClass + ".PHEMLight.veh!");
             return false;
         }
-        Vehicle->getTransmissionData()->setAxelRatio(trDataIt->contains("AxelRatio") ? (*trDataIt)["AxelRatio"] : 0);
+        Vehicle->getTransmissionData()->setAxelRatio(json2double(*trDataIt, "AxelRatio"));
         nlohmann::json::iterator transmIt = trDataIt->find("Transm");
         if (transmIt == trDataIt->end()) {
             Helper->setErrMsg(std::string("Transmission ratios missing in vehicle file! Calculation stopped! (") + path + std::string(")"));
@@ -188,10 +196,10 @@ namespace PHEMlightdllV5 {
             return false;
         }
         const nlohmann::json& fld = *fldDataIt;
-        Vehicle->getFLDData()->setP_n_max_v0(fld.contains("P_n_max_v0") ? fld["P_n_max_v0"] : 0);
-        Vehicle->getFLDData()->setP_n_max_p0(fld.contains("P_n_max_p0") ? fld["P_n_max_p0"] : 0);
-        Vehicle->getFLDData()->setP_n_max_v1(fld.contains("P_n_max_v1") ? fld["P_n_max_v1"] : 0);
-        Vehicle->getFLDData()->setP_n_max_p1(fld.contains("P_n_max_p1") ? fld["P_n_max_p1"] : 0);
+        Vehicle->getFLDData()->setP_n_max_v0(json2double(fld, "P_n_max_v0"));
+        Vehicle->getFLDData()->setP_n_max_p0(json2double(fld, "P_n_max_p0"));
+        Vehicle->getFLDData()->setP_n_max_v1(json2double(fld, "P_n_max_v1"));
+        Vehicle->getFLDData()->setP_n_max_p1(json2double(fld, "P_n_max_p1"));
         nlohmann::json::iterator dragIt = fldDataIt->find("DragCurve");
         if (dragIt == fldDataIt->end()) {
             Helper->setErrMsg(std::string("Drag curve missing in vehicle file! Calculation stopped! (") + path + std::string(")"));
@@ -240,7 +248,7 @@ namespace PHEMlightdllV5 {
         if ((line = ReadLine(fileReader)) != "") {
             const std::vector<std::string>& entries = split(line, ',');
             // skip first entry "Pe"
-            for (int i = 1; i < entries.size(); i++) {
+            for (int i = 1; i < (int)entries.size(); i++) {
                 header.push_back(entries[i]);
             }
         }
@@ -274,10 +282,10 @@ namespace PHEMlightdllV5 {
     }
 
     bool CEPHandler::CorrectEmissionData(Correction* DataCor, std::vector<std::string>& header, std::vector<std::vector<double> >& matrix, std::vector<double>& idlingValues) {
-        for (int i = 0; i < header.size(); i++) {
+        for (int i = 0; i < (int)header.size(); i++) {
             double CorF = GetDetTempCor(DataCor, header[i]);
             if (CorF != 1) {
-                for (int j = 0; j < matrix.size(); j++) {
+                for (int j = 0; j < (int)matrix.size(); j++) {
                     matrix[j][i + 1] *= CorF;
                 }
                 idlingValues[i] *= CorF;
