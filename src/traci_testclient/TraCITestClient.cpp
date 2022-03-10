@@ -281,13 +281,30 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string& objID,
 void
 TraCITestClient::commandSubscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime, int varNo, std::ifstream& defFile) {
     std::vector<int> vars;
+    bool param = false;
+    std::stringstream msg;
+    tcpip::Storage tmp;
+
     for (int i = 0; i < varNo; ++i) {
         int var;
         defFile >> var;
         // variable id
         vars.push_back(var);
+        if (var == libsumo::VAR_PARAMETER) { //only works for 1 Parameter Subscription as last requested Variable --> send multiple single subscription requests for workaround for VAR_PARAMETER
+            param = true;
+            setValueTypeDependant(tmp, defFile, msg);
+            std::string msgS = msg.str();
+            if (msgS != "") {
+                errorMsg(msg);
+            }
+        }
     }
-    send_commandSubscribeObjectVariable(domID, objID, beginTime, endTime, vars);
+    if (!param) {
+        send_commandSubscribeObjectVariable(domID, objID, beginTime, endTime, vars);
+    }
+    else {
+        send_commandSubscribeObjectVariable(domID, objID, beginTime, endTime, vars, &tmp);
+    }
     answerLog << std::endl << "-> Command sent: <SubscribeVariable>:" << std::endl
               << "  domID=" << domID << " objID=" << objID << " with " << varNo << " variables" << std::endl;
     tcpip::Storage inMsg;

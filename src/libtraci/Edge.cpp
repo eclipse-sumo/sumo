@@ -146,6 +146,10 @@ Edge::getLastStepMeanSpeed(const std::string& edgeID) {
     return Dom::getDouble(libsumo::LAST_STEP_MEAN_SPEED, edgeID);
 }
 
+double
+Edge::getMeanFriction(const std::string& edgeID) {
+    return Dom::getDouble(libsumo::VAR_FRICTION, edgeID);
+}
 
 double
 Edge::getLastStepOccupancy(const std::string& edgeID) {

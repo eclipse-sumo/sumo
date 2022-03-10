@@ -209,7 +209,7 @@ TraCIAPI::createFilterCommand(int cmdID, int varID, tcpip::Storage* add) const {
 
 void
 TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime,
-        const std::vector<int>& vars) const {
+        const std::vector<int>& vars, tcpip::Storage* add) const {
     if (mySocket == nullptr) {
         throw tcpip::SocketException("Socket is not initialised");
     }
@@ -217,7 +217,14 @@ TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objI
     // command length (domID, objID, beginTime, endTime, length, vars)
     int varNo = (int) vars.size();
     outMsg.writeUnsignedByte(0);
-    outMsg.writeInt(5 + 1 + 8 + 8 + 4 + (int) objID.length() + 1 + varNo);
+    // libsumo::VAR_PARAM
+    if (add != nullptr) {
+        outMsg.writeInt(5 + 1 + 8 + 8 + 4 + (int)objID.length() + 1 + varNo + (int)add->size());
+    }
+    else {
+        outMsg.writeInt(5 + 1 + 8 + 8 + 4 + (int)objID.length() + 1 + varNo);
+    }
+    
     // command id
     outMsg.writeUnsignedByte(domID);
     // time
@@ -229,6 +236,10 @@ TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objI
     outMsg.writeUnsignedByte((int)vars.size());
     for (int i = 0; i < varNo; ++i) {
         outMsg.writeUnsignedByte(vars[i]);
+    }
+    // additional values
+    if (add != nullptr) {
+        outMsg.writeStorage(*add);
     }
     // send message
     mySocket->sendExact(outMsg);

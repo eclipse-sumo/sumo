@@ -1237,16 +1237,16 @@ AdditionalHandler::parseVariableFrictionCoefficientStepAttributes(const SUMOSAXA
     // needed attributes
     const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "", parsedOk);
     // optional attributes
-    const std::string speed = attrs.getOpt<std::string>(SUMO_ATTR_FRICTION, "", parsedOk, "");
+    const std::string friction = attrs.getOpt<std::string>(SUMO_ATTR_FRICTION, "", parsedOk, ""); //TODO check percent
     // check parent
     checkParent(SUMO_TAG_STEP_COF, { SUMO_TAG_COF }, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_STEP);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_STEP_COF);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_TIME, time);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_SPEED, speed);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FRICTION, friction);
     }
 }
 

@@ -414,6 +414,8 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapDouble(objID, variable, getLength(objID));
         case VAR_MAXSPEED:
             return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
+        case VAR_FRICTION:
+            return wrapper->wrapDouble(objID, variable, getFriction(objID));
         case LANE_ALLOWED:
             return wrapper->wrapStringList(objID, variable, getAllowed(objID));
         case LANE_DISALLOWED:

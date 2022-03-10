@@ -81,7 +81,7 @@ GNEFrictionCoefficientDialog::~GNEFrictionCoefficientDialog() {}
 long
 GNEFrictionCoefficientDialog::onCmdAddStep(FXObject*, FXSelector, void*) {
     // create step
-    GNEFrictionCoefficientStep* step = new GNEFrictionCoefficientStep(myEditedAdditional, 0, "100");
+    GNEFrictionCoefficientStep* step = new GNEFrictionCoefficientStep(myEditedAdditional, 0, "1.0");
     // add it using GNEChange_additional
     myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(step, true), true);
     // Update table
@@ -218,7 +218,7 @@ GNEFrictionCoefficientDialog::updateTableSteps() {
     myStepsTable->setColumnWidth(2, GUIDesignHeight);
     myStepsTable->setColumnWidth(3, GUIDesignHeight);
     myStepsTable->setColumnText(0, "timeStep");
-    myStepsTable->setColumnText(1, "friction (%)");
+    myStepsTable->setColumnText(1, "friction (-)");
     myStepsTable->setColumnText(2, "");
     myStepsTable->setColumnText(3, "");
     myStepsTable->getRowHeader()->setWidth(0);

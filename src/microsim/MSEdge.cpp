@@ -847,6 +847,29 @@ MSEdge::getMeanSpeed() const {
 }
 
 double
+MSEdge::getMeanFriction() const {
+    double f = 0;
+    double no = 0;
+    if (MSGlobals::gUseMesoSim) {
+        //return get
+    }
+    else {
+        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+            const double fLane = (double)(*i)->getFrictionCoefficient();
+            f += fLane;
+            no++;
+        }
+        if (no != 0) {
+            return f / no;
+        }
+        else
+        {
+            return 1.0;
+        }
+    }
+}
+
+double
 MSEdge::getMeanSpeedBike() const {
     if (MSGlobals::gUseMesoSim) {
         // no separate bicycle speeds in meso

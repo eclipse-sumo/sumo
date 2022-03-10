@@ -173,7 +173,7 @@ GUIFrictionCoefficientTrigger::GUIManip_FrictionCoefficientTrigger::onCmdClose(F
 
 long
 GUIFrictionCoefficientTrigger::GUIManip_FrictionCoefficientTrigger::onCmdUserDef(FXObject*, FXSelector, void*) {
-    myFriction = (double)(myUserDefinedFriction->getValue() / 100); // Friction in %
+    myFriction = (double)(myUserDefinedFriction->getValue() / 100); // TODO Friction in %
     static_cast<GUIFrictionCoefficientTrigger*>(myObject)->setOverridingValue(myFriction);
     myParent->updateChildren();
     return 1;
@@ -335,7 +335,7 @@ GUIFrictionCoefficientTrigger::drawGL(const GUIVisualizationSettings& s) const {
                 noPoints = 36;
             }
         }
-        glColor3d(1, 0, 0);
+        glColor3d(0, 0.4, 0.478); //
         GLHelper::drawFilledCircle((double) 1.3, noPoints);
         if (s.scale >= 5) {
             glTranslated(0, 0, .1);

@@ -723,6 +723,9 @@ public:
     /// @brief get the mean speed
     double getMeanSpeed() const;
 
+    /// @brief get the mean friction over the lanes
+    double getMeanFriction() const;
+
     /// @brief get the mean speed of all bicycles on this edge
     double getMeanSpeedBike() const;
 

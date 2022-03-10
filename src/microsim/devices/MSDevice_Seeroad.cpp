@@ -100,28 +100,28 @@ MSDevice_Seeroad::~MSDevice_Seeroad() {
 
 bool
 MSDevice_Seeroad::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
-                             double /* newPos */, double newSpeed) {
-    std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
+                             double /* newPos */, double /*newFriction*/) {
     if (tObject.isVehicle()) {
         SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
       	//Update the myFrictionCoeficient
 		myRawFriction = veh.getLane()->getFrictionCoefficient();
 		myMeasuredFrictionCoefficient = applyModel(myRawFriction);
+		//std::cout << "device '" << getID() << "' notifyMove: newRaw=" << myRawFriction << "  -- newMeasured=" << myMeasuredFrictionCoefficient <<"\n";
     }
     return true; // keep the device
 }
 
 
 bool
-MSDevice_Seeroad::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    std::cout << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
+MSDevice_Seeroad::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notification /*reason*/, const MSLane* /* enteredLane */) {
+    //std::cout << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
     return true; // keep the device
 }
 
 
 bool
-MSDevice_Seeroad::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    std::cout << "device '" << getID() << "' notifyLeave: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
+MSDevice_Seeroad::notifyLeave(SUMOTrafficObject& /*veh*/, double /*lastPos*/, MSMoveReminder::Notification /*reason*/, const MSLane* /* enteredLane */) {
+    //std::cout << "device '" << getID() << "' notifyLeave: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
     return true; // keep the device
 }
 
@@ -130,9 +130,10 @@ void
 MSDevice_Seeroad::generateOutput(OutputDevice* tripinfoOut) const {
     if (tripinfoOut != nullptr) {
         tripinfoOut->openTag("seeroad_device");
-        tripinfoOut->writeAttr("Measured Friction", toString(myMeasuredFrictionCoefficient));
-        //tripinfoOut->writeAttr("customValue2", toString(stdev));
-        //tripinfoOut->writeAttr("customValue1", toString(offset));
+        tripinfoOut->writeAttr("MeasuredFriction", toString(myMeasuredFrictionCoefficient));
+		tripinfoOut->writeAttr("TrueFriction", toString(myRawFriction));
+        //tripinfoOut->writeAttr("StandardDeveation", toString(stdev));
+        //tripinfoOut->writeAttr("FixedOffset", toString(offset));
         tripinfoOut->closeTag();
     }
 }

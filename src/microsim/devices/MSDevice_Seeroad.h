@@ -79,12 +79,12 @@ public:
      * @param[in] veh Vehicle that asks this reminder.
      * @param[in] oldPos Position before move.
      * @param[in] newPos Position after move with newSpeed.
-     * @param[in] newSpeed Moving speed.
+     * @param[in] newFriction friction update.
      *
      * @return True (always).
      */
     bool notifyMove(SUMOTrafficObject& veh, double oldPos,
-                    double newPos, double newSpeed);
+                    double newPos, double newFriction);
 
 
     /** @brief Saves departure info on insertion
