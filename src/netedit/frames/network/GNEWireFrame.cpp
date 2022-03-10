@@ -110,7 +110,7 @@ GNEWireFrame::addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
         return false;
     }
     // check if wire element has lanes
-    if (/*tagProperties.hasAttribute(SUMO_ATTR_LANES)*/ false) {
+    if (tagProperties.hasAttribute(SUMO_ATTR_LANES)) {
         return buildWireOverLanes(objectsUnderCursor.getLaneFront(), tagProperties);
     } else {
         return buildWireOverView(tagProperties);

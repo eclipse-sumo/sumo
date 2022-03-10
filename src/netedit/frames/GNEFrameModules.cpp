@@ -54,6 +54,7 @@
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
 #include <netedit/elements/additional/GNEVariableSpeedSignStep.h>
 #include <netedit/elements/additional/GNETractionSubstation.h>
+#include <netedit/elements/additional/GNEOverheadWire.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/demand/GNEContainer.h>
 #include <netedit/elements/demand/GNEPerson.h>
@@ -444,7 +445,7 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
             myAC = new GNETractionSubstation(net);
             break;
         case SUMO_TAG_OVERHEAD_WIRE_SECTION:
-            myAC = nullptr; // TMP
+            myAC = new GNEOverheadWire(net);
             break;
         case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
             myAC = nullptr; // TMP

@@ -33,7 +33,7 @@ class GNEOverheadWire : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default Constructor
-    GNEOverheadWire(SumoXMLTag tag, GNENet* net);
+    GNEOverheadWire(GNENet* net);
 
     /**@brief Constructor for Multi-Lane detectors
      * @param[in] net pointer to GNENet of this additional element belongs

@@ -34,7 +34,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEOverheadWire::GNEOverheadWire(SumoXMLTag /* tag */, GNENet* net) :
+GNEOverheadWire::GNEOverheadWire(GNENet* net) :
     GNEAdditional("", net, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, "",
         {}, {}, {}, {}, {}, {}),
     myStartPos(0),
