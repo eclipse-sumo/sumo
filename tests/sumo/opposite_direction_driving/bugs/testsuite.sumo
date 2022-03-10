@@ -15,5 +15,8 @@ ticket9721
 # avoid unrealistic overtaking speed estimation
 ticket10194
 
+# rerouting while opposite direction driving
+ticket10312
+
 # occupancy after overtaking
 ticket10314
