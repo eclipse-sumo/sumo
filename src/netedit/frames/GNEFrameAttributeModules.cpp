@@ -492,13 +492,13 @@ GNEFrameAttributeModules::AttributesCreatorRow::isValidID() const {
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Internal attributes"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Internal attributes"),
     myFrameParent(frameParent),
     myTemplateAC(nullptr) {
     // resize myAttributesCreatorRows
     myAttributesCreatorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // create myFlowEditor
-    myFlowEditor = new FlowEditor(frameParent->getViewNet(), frameParent->myContentFrame);
+    myFlowEditor = new FlowEditor(frameParent->getViewNet(), frameParent->getContentFrame());
     // create reset and help button
     myFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myResetButton = new FXButton(myFrameButtons, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
@@ -623,7 +623,7 @@ GNEFrameAttributeModules::AttributesCreator::showWarningMessage(std::string extr
         errorMessage = "Invalid input parameter of " + myTemplateAC->getTagProperty().getTagStr() + ": " + extra;
     }
     // set message in status bar
-    myFrameParent->myViewNet->setStatusBarText(errorMessage);
+    myFrameParent->getViewNet()->setStatusBarText(errorMessage);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG(errorMessage);
 }
@@ -1316,7 +1316,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         }
         // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
         if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
-            if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->myViewNet, myACAttr)) {
+            if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr)) {
                 myAttributeButtonCombinableChoices->enable();
                 myAttributeColorButton->enable();
                 myAttributeCheckButton->enable();
@@ -1486,7 +1486,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
     }
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
     if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
-        if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->myViewNet, myACAttr)) {
+        if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr)) {
             myAttributeButtonCombinableChoices->enable();
             myAttributeColorButton->enable();
             myAttributeCheckButton->enable();
@@ -1569,15 +1569,15 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
             if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->isValid(myACAttr.getAttr(), newValue)) {
                 // if its valid for the first AC than its valid for all (of the same type)
                 if (ACs.size() > 1) {
-                    myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+                    myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
                 }
                 // Set new value of attribute in all selected ACs
                 for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-                    inspectedAC->setAttribute(myACAttr.getAttr(), newValue, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
+                    inspectedAC->setAttribute(myACAttr.getAttr(), newValue, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
                 }
                 // finish change multiple attributes
                 if (ACs.size() > 1) {
-                    myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->end();
+                    myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
                 }
                 // If previously value was incorrect, change font color to black
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
@@ -1588,24 +1588,24 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
     } else if (obj == myAttributeButtonCombinableChoices) {
         // if its valid for the first AC than its valid for all (of the same type)
         if (ACs.size() > 1) {
-            myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+            myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
         }
         // get attribute to modify
         SumoXMLAttr modifiedAttr = myACAttr.getAttr() == SUMO_ATTR_DISALLOW ? SUMO_ATTR_ALLOW : myACAttr.getAttr();
         // declare accept changes
         bool acceptChanges = false;
         // open GNEAllowDisallow (also used to modify SUMO_ATTR_CHANGE_LEFT etc
-        GNEAllowDisallow(myAttributesEditorParent->getFrameParent()->myViewNet, myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front(), modifiedAttr, &acceptChanges).execute();
+        GNEAllowDisallow(myAttributesEditorParent->getFrameParent()->getViewNet(), myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front(), modifiedAttr, &acceptChanges).execute();
         // continue depending of acceptChanges
         if (acceptChanges) {
             std::string allowed = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(modifiedAttr);
             // Set new value of attribute in all selected ACs
             for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-                inspectedAC->setAttribute(modifiedAttr, allowed, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
+                inspectedAC->setAttribute(modifiedAttr, allowed, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
             }
             // finish change multiple attributes
             if (ACs.size() > 1) {
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->end();
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
             }
             // update frame parent after attribute sucesfully set
             myAttributesEditorParent->getFrameParent()->attributeUpdated();
@@ -1691,20 +1691,20 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         if (!mergeJunction(myACAttr.getAttr(), inspectedACs, newVal)) {
             // if its valid for the first AC than its valid for all (of the same type)
             if (inspectedACs.size() > 1) {
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
             } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
                 // IDs attribute has to be encapsulated
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), "change " + myACAttr.getTagPropertyParent().getTagStr() + " attribute");
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), "change " + myACAttr.getTagPropertyParent().getTagStr() + " attribute");
             }
             // Set new value of attribute in all selected ACs
             for (const auto& inspectedAC : inspectedACs) {
-                inspectedAC->setAttribute(myACAttr.getAttr(), newVal, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
+                inspectedAC->setAttribute(myACAttr.getAttr(), newVal, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
             }
             // finish change multiple attributes or ID Attributes
             if (inspectedACs.size() > 1) {
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->end();
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
             } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->end();
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
             }
             // If previously value was incorrect, change font color to black
             if (myACAttr.isVClasses()) {
@@ -1744,7 +1744,7 @@ long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
     const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // obtain undoList (To improve code legibly)
-    GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
+    GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList();
     // check if we have to enable or disable
     if (myAttributeCheckButton->getCheck()) {
         // enable input values
@@ -1809,13 +1809,13 @@ GNEFrameAttributeModules::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, c
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::AttributesEditor::AttributesEditor(GNEFrame* FrameParent) :
-    FXGroupBoxModule(FrameParent->myContentFrame, "Internal attributes"),
+    FXGroupBoxModule(FrameParent->getContentFrame(), "Internal attributes"),
     myFrameParent(FrameParent),
     myIncludeExtended(true) {
     // resize myAttributesEditorRows
     myAttributesEditorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // create myAttributesFlowEditor
-    myAttributesEditorFlow = new FlowEditor(FrameParent->getViewNet(), FrameParent->myContentFrame);
+    myAttributesEditorFlow = new FlowEditor(FrameParent->getViewNet(), FrameParent->getContentFrame());
     // leave it hidden
     myAttributesEditorFlow->hideFlowEditor();
     // Create help button
@@ -2021,7 +2021,7 @@ GNEFrameAttributeModules::AttributesEditor::onCmdAttributesEditorHelp(FXObject*,
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::AttributesEditorExtended::AttributesEditorExtended(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Extended attributes"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Extended attributes"),
     myFrameParent(frameParent) {
     // Create open dialog button
     new FXButton(getCollapsableFrame(), "Open attributes editor", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
@@ -2055,7 +2055,7 @@ GNEFrameAttributeModules::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::GenericDataAttributes::GenericDataAttributes(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Attributes"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Attributes"),
     myFrameParent(frameParent) {
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -2192,7 +2192,7 @@ GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::DrawingShape::DrawingShape(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Drawing"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Drawing"),
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
     // create start and stop buttons
@@ -2254,7 +2254,7 @@ GNEFrameAttributeModules::DrawingShape::stopDrawing() {
     if (myFrameParent->shapeDrawed()) {
         // clear created points
         myTemporalShapeShape.clear();
-        myFrameParent->myViewNet->updateViewNet();
+        myFrameParent->getViewNet()->update();
         // change buttons
         myStartDrawingButton->enable();
         myStopDrawingButton->disable();
@@ -2270,7 +2270,7 @@ void
 GNEFrameAttributeModules::DrawingShape::abortDrawing() {
     // clear created points
     myTemporalShapeShape.clear();
-    myFrameParent->myViewNet->updateViewNet();
+    myFrameParent->getViewNet()->updateViewNet();
     // change buttons
     myStartDrawingButton->enable();
     myStopDrawingButton->disable();
@@ -2343,7 +2343,7 @@ GNEFrameAttributeModules::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector,
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Netedit attributes"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Netedit attributes"),
     myFrameParent(frameParent),
     myCurrentLengthValid(true),
     myActualAdditionalReferencePoint(AdditionalReferencePoint::LEFT) {
@@ -2428,11 +2428,11 @@ GNEFrameAttributeModules::NeteditAttributes::getNeteditAttributesAndValues(Commo
             return false;
         } else if (myCurrentLengthValid) {
             // Obtain position of the mouse over lane (limited over grid)
-            double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->myViewNet->snapToActiveGrid(myFrameParent->myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
+            double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->getViewNet()->snapToActiveGrid(myFrameParent->getViewNet()->getPositionInformation())) / lane->getLengthGeometryFactor();
             // check if current reference point is valid
             if (myActualAdditionalReferencePoint == AdditionalReferencePoint::INVALID) {
                 std::string errorMessage = "Current selected reference point isn't valid";
-                myFrameParent->myViewNet->setStatusBarText(errorMessage);
+                myFrameParent->getViewNet()->setStatusBarText(errorMessage);
                 // Write Warning in console if we're in testing mode
                 WRITE_DEBUG(errorMessage);
                 return false;

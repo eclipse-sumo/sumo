@@ -79,7 +79,7 @@ FXIMPLEMENT(GNECommonNetworkModules::E2MultilaneLaneSelector,    FXGroupBoxModul
 // ---------------------------------------------------------------------------
 
 GNECommonNetworkModules::SelectorParentLanes::SelectorParentLanes(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Lane Selector"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Lane Selector"),
     myFrameParent(frameParent) {
     // create start and stop buttons
     myStopSelectingButton = new FXButton(getCollapsableFrame(), "Stop selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_STOPSELECTION, GUIDesignButton);
@@ -309,7 +309,7 @@ GNECommonNetworkModules::SelectorParentLanes::isLaneSelected(GNELane* lane) cons
 // ---------------------------------------------------------------------------
 
 GNECommonNetworkModules::SelectorChildEdges::SelectorChildEdges(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Edges"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Edges"),
     myFrameParent(frameParent) {
     // Create menuCheck for selected edges
     myUseSelectedEdgesCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignCheckButton);
@@ -461,7 +461,7 @@ GNECommonNetworkModules::SelectorChildEdges::onCmdInvertSelection(FXObject*, FXS
 // ---------------------------------------------------------------------------
 
 GNECommonNetworkModules::SelectorChildLanes::SelectorChildLanes(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Lanes"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Lanes"),
     myFrameParent(frameParent) {
     // Create CheckBox for selected lanes
     myUseSelectedLanesCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignCheckButton);
@@ -607,7 +607,7 @@ GNECommonNetworkModules::SelectorChildLanes::onCmdInvertSelection(FXObject*, FXS
 // ---------------------------------------------------------------------------
 
 GNECommonNetworkModules::E2MultilaneLaneSelector::E2MultilaneLaneSelector(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "E2Multilane lane selector"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "E2Multilane lane selector"),
     myFrameParent(frameParent) {
     // create label for route info
     myInfoRouteLabel = new FXLabel(getCollapsableFrame(), "No lanes selected", 0, GUIDesignLabelFrameThicked);
