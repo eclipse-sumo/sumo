@@ -1545,7 +1545,6 @@ GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
         }
         //std::cout << " fixed: view=" << getWidth() << ", " << getHeight() << " app=" << mainWindow->getWidth() << ", " << mainWindow->getHeight() << "\n";
         // draw pink square in the upper left corner on top of everything
-        GLHelper::pushMatrix();
         const double size = myViewNet->p2m(32);
         Position center = myViewNet->screenPos2NetPos(8, 8);
         // magenta
