@@ -152,31 +152,6 @@ NLBuilder::build() {
         }
     }
 
-    // load additional net elements (sources, detectors, ...)
-    if (myOptions.isSet("additional-files")) {
-        if (!load("additional-files")) {
-            return false;
-        }
-        // load shapes with separate handler
-        NLShapeHandler sh("", myNet.getShapeContainer());
-        if (!ShapeHandler::loadFiles(myOptions.getStringVector("additional-files"), sh)) {
-            return false;
-        }
-        if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
-            myNet.getEdgeControl().setAdditionalRestrictions();
-        }
-        if (MSGlobals::gUseMesoSim && myXMLHandler.haveSeenMesoEdgeType()) {
-            myNet.getEdgeControl().setMesoTypes();
-            for (MSTrafficLightLogic* tll : myNet.getTLSControl().getAllLogics()) {
-                tll->initMesoTLSPenalties();
-            }
-        }
-        MSTriggeredRerouter::checkParkingRerouteConsistency();
-    }
-    if (stateBeginMismatch && myNet.getVehicleControl().getLoadedVehicleNo() > 0) {
-        throw ProcessError("Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files");
-    }
-
     if (myOptions.getBool("junction-taz")) {
         // create a TAZ for every junction
         const MSJunctionControl& junctions = myNet.getJunctionControl();
@@ -209,6 +184,32 @@ NLBuilder::build() {
             }
         }
     }
+
+    // load additional net elements (sources, detectors, ...)
+    if (myOptions.isSet("additional-files")) {
+        if (!load("additional-files")) {
+            return false;
+        }
+        // load shapes with separate handler
+        NLShapeHandler sh("", myNet.getShapeContainer());
+        if (!ShapeHandler::loadFiles(myOptions.getStringVector("additional-files"), sh)) {
+            return false;
+        }
+        if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
+            myNet.getEdgeControl().setAdditionalRestrictions();
+        }
+        if (MSGlobals::gUseMesoSim && myXMLHandler.haveSeenMesoEdgeType()) {
+            myNet.getEdgeControl().setMesoTypes();
+            for (MSTrafficLightLogic* tll : myNet.getTLSControl().getAllLogics()) {
+                tll->initMesoTLSPenalties();
+            }
+        }
+        MSTriggeredRerouter::checkParkingRerouteConsistency();
+    }
+    if (stateBeginMismatch && myNet.getVehicleControl().getLoadedVehicleNo() > 0) {
+        throw ProcessError("Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files");
+    }
+
     // load weights if wished
     if (myOptions.isSet("weight-files")) {
         if (!myOptions.isUsableFileList("weight-files")) {
