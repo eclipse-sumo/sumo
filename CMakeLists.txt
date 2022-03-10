@@ -402,7 +402,7 @@ if (PPROF)
     set(commonlibs ${commonlibs} profiler)
 endif ()
 set(commonvehiclelibs
-        utils_emissions foreign_phemlight utils_vehicle ${commonlibs} ${FOX_LIBRARY})
+        utils_emissions foreign_phemlight foreign_phemlight_V5 utils_vehicle ${commonlibs} ${FOX_LIBRARY})
 
 # set custom name and folder for ALL_BUILD and ZERO_CHECK in visual studio solutions
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)

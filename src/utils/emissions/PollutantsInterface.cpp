@@ -31,6 +31,7 @@
 #include "HelpersPHEMlight.h"
 #include "HelpersEnergy.h"
 #include "HelpersMMPEVEM.h"
+#include "HelpersPHEMlight5.h"
 #include "PollutantsInterface.h"
 
 
@@ -44,11 +45,12 @@ HelpersHBEFA3 PollutantsInterface::myHBEFA3Helper;
 HelpersPHEMlight PollutantsInterface::myPHEMlightHelper;
 HelpersEnergy PollutantsInterface::myEnergyHelper;
 HelpersMMPEVEM PollutantsInterface::myMMPEVEMHelper;
+HelpersPHEMlight5 PollutantsInterface::myPHEMlight5Helper;
 PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {
     &PollutantsInterface::myZeroHelper,
     &PollutantsInterface::myHBEFA2Helper, &PollutantsInterface::myHBEFA3Helper,
     &PollutantsInterface::myPHEMlightHelper, &PollutantsInterface::myEnergyHelper,
-    &PollutantsInterface::myMMPEVEMHelper
+    &PollutantsInterface::myMMPEVEMHelper, &PollutantsInterface::myPHEMlight5Helper
 };
 std::vector<std::string> PollutantsInterface::myAllClassesStr;
 
@@ -201,7 +203,7 @@ SUMOEmissionClass
 PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     const std::string::size_type sep = eClass.find("/");
     const std::string model = eClass.substr(0, sep); // this includes the case of no separator
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 7; i++) {
         if (myHelpers[i]->getName() == model) {
             if (sep != std::string::npos) {
                 const std::string subClass = eClass.substr(sep + 1);
