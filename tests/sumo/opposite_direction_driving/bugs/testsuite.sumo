@@ -14,3 +14,6 @@ ticket9721
 
 # avoid unrealistic overtaking speed estimation
 ticket10194
+
+# occupancy after overtaking
+ticket10314
