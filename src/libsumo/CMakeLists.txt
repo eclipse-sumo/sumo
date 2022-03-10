@@ -9,6 +9,8 @@ endif()
 set(libsumostatic_STAT_SRCS
     Edge.cpp
     Edge.h
+    FrictionCoefficientSign.h
+    FrictionCoefficientSign.cpp
     GUI.h
     Helper.cpp
     Helper.h
