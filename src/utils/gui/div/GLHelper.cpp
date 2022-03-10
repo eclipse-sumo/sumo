@@ -152,6 +152,7 @@ GLHelper::checkCounterMatrix() {
     if (myMatrixCounter != 0) {
         WRITE_WARNING("invalid matrix counter. Check that number of pushMatrix and popMatrix functions calls are the same");
     }
+    myMatrixCounter = 0;
 #endif
 }
 
@@ -162,6 +163,7 @@ GLHelper::checkCounterName() {
     if (myNameCounter != 0) {
         WRITE_WARNING("invalid Name counter. Check that number of pushName and popName functions calls are the same");
     }
+    myNameCounter = 0;
 #endif
 }
 
