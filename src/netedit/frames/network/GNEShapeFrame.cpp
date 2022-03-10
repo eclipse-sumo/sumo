@@ -29,7 +29,7 @@
 #include <netedit/GNEUndoList.h>
 #include <utils/geom/GeoConvHelper.h>
 
-#include "GNEPolygonFrame.h"
+#include "GNEShapeFrame.h"
 
 
 // ===========================================================================

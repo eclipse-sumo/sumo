@@ -9,8 +9,8 @@ set(netedit_frames_network_SRCS
    GNECrossingFrame.cpp
    GNETAZFrame.h
    GNETAZFrame.cpp
-   GNEPolygonFrame.h
-   GNEPolygonFrame.cpp
+   GNEShapeFrame.h
+   GNEShapeFrame.cpp
    GNECreateEdgeFrame.h
    GNECreateEdgeFrame.cpp
    GNEProhibitionFrame.h
