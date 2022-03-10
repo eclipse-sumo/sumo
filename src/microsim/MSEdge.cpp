@@ -149,6 +149,29 @@ void MSEdge::recalcCache() {
 
 
 void
+MSEdge::resetTAZ(MSJunction* junction) {
+    mySuccessors.clear();
+    myPredecessors.clear();
+    for (const MSEdge* edge : junction->getIncoming()) {
+        if (!edge->isInternal()) {
+            MSEdgeVector& succ = const_cast<MSEdgeVector&>(edge->mySuccessors);
+            MSConstEdgePairVector& succVia = const_cast<MSConstEdgePairVector&>(edge->myViaSuccessors);
+            MSEdgeVector& pred = const_cast<MSEdgeVector&>(edge->myPredecessors);
+            auto it = std::find(succ.begin(), succ.end(), this);
+            auto it2 = std::find(succVia.begin(), succVia.end(), std::make_pair(const_cast<const MSEdge*>(this), (const MSEdge*)nullptr));
+            auto it3 = std::find(pred.begin(), pred.end(), this);
+            if (it != succ.end()) {
+                succ.erase(it);
+                succVia.erase(it2);
+            }
+            if (it3 != pred.end()) {
+                pred.erase(it3);
+            }
+        }
+    }
+}
+
+void
 MSEdge::closeBuilding() {
     for (MSLane* const lane : *myLanes) {
         for (MSLink* const link : lane->getLinkCont()) {

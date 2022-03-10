@@ -1527,15 +1527,32 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
         MSEdge* sink = myEdgeControlBuilder.buildEdge(sinkID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
         if (!MSEdge::dictionary(sinkID, sink)) {
             delete sink;
-            throw InvalidArgument("Another edge with the id '" + sinkID + "' exists.");
+            if (OptionsCont::getOptions().getBool("junction-taz")
+                    && myNet.getJunctionControl().get(myCurrentDistrictID) != nullptr) {
+                // overwrite junction taz
+                sink = MSEdge::dictionary(sinkID);
+                sink->resetTAZ(myNet.getJunctionControl().get(myCurrentDistrictID));
+                WRITE_WARNINGF("Replacing junction-taz '%' with loaded TAZ.", myCurrentDistrictID);
+            } else {
+                throw InvalidArgument("Another edge with the id '" + sinkID + "' exists.");
+            }
+        } else {
+            sink->initialize(new std::vector<MSLane*>());
         }
-        sink->initialize(new std::vector<MSLane*>());
         MSEdge* source = myEdgeControlBuilder.buildEdge(sourceID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
         if (!MSEdge::dictionary(sourceID, source)) {
             delete source;
-            throw InvalidArgument("Another edge with the id '" + sourceID + "' exists.");
+            if (OptionsCont::getOptions().getBool("junction-taz")
+                    && myNet.getJunctionControl().get(myCurrentDistrictID) != nullptr) {
+                // overwrite junction taz
+                source = MSEdge::dictionary(sourceID);
+                source->resetTAZ(myNet.getJunctionControl().get(myCurrentDistrictID));
+            } else {
+                throw InvalidArgument("Another edge with the id '" + sourceID + "' exists.");
+            }
+        } else {
+            source->initialize(new std::vector<MSLane*>());
         }
-        source->initialize(new std::vector<MSLane*>());
         sink->setOtherTazConnector(source);
         source->setOtherTazConnector(sink);
         const std::vector<std::string>& desc = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, myCurrentDistrictID.c_str(), ok);

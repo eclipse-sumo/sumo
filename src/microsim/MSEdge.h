@@ -356,6 +356,8 @@ public:
      */
     void addSuccessor(MSEdge* edge, const MSEdge* via = nullptr);
 
+    void resetTAZ(MSJunction* junction);
+
     /** @brief Returns the number of edges that may be reached from this edge
      * @return The number of following edges
      */
