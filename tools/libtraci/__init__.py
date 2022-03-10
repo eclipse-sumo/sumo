@@ -52,6 +52,7 @@ _DOMAINS = [
     simulation,
     trafficlight,
     variablespeedsign,  # noqa
+	frictioncoefficientsign, # noqa
     vehicle,
     vehicletype,  # noqa
 ]
