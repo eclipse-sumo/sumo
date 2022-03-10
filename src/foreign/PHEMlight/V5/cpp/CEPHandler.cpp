@@ -22,6 +22,7 @@
 /****************************************************************************/
 #include <fstream>
 #include <sstream>
+#define JSON_USE_IMPLICIT_CONVERSIONS 0
 #include <foreign/nlohmann/json.hpp>
 #include "CEPHandler.h"
 #include "CEP.h"
@@ -77,11 +78,10 @@ namespace PHEMlightdllV5 {
     }
 
     double json2double(const nlohmann::json& vd, const std::string& key) {
-        double value = 0.;
         if (vd.contains(key)) {
-            vd.at(key).get_to(value);
+            return vd.at(key).get<double>();
         }
-        return value;
+        return 0.;
     }
 
     bool CEPHandler::ReadVehicleFile(const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, bool fleetMix, VEHPHEMLightJSON::VEH*& Vehicle) {
@@ -117,9 +117,9 @@ namespace PHEMlightdllV5 {
             return false;
         }
         const nlohmann::json& vd = *vehDataIt;
-        Vehicle->getVehicleData()->setMassType(vd.contains("MassType") ? vd["MassType"] : "LV");
-        Vehicle->getVehicleData()->setFuelType(vd.contains("FuelType") ? vd["FuelType"] : "D");
-        Vehicle->getVehicleData()->setCalcType(vd.contains("CalcType") ? vd["CalcType"] : "Conv");
+        Vehicle->getVehicleData()->setMassType(vd.contains("MassType") ? vd.at("MassType").get<std::string>() : "LV");
+        Vehicle->getVehicleData()->setFuelType(vd.contains("FuelType") ? vd.at("FuelType").get<std::string>() : "D");
+        Vehicle->getVehicleData()->setCalcType(vd.contains("CalcType") ? vd.at("CalcType").get<std::string>() : "Conv");
         Vehicle->getVehicleData()->setMass(json2double(vd, "Mass"));
         Vehicle->getVehicleData()->setLoading(json2double(vd, "Loading"));
         Vehicle->getVehicleData()->setRedMassWheel(json2double(vd, "RedMassWheel"));
@@ -130,9 +130,9 @@ namespace PHEMlightdllV5 {
         // Auxiliaries
         nlohmann::json::iterator auxDataIt = json.find("AuxiliariesData");
         if (auxDataIt == json.end() || !auxDataIt->contains("Pauxnorm")) {
-            Vehicle->getAuxiliariesData()->setPauxnorm(0);
+            Vehicle->getAuxiliariesData()->setPauxnorm(0.);
         } else {
-            Vehicle->getAuxiliariesData()->setPauxnorm((*auxDataIt)["Pauxnorm"]);
+            Vehicle->getAuxiliariesData()->setPauxnorm(auxDataIt->at("Pauxnorm").get<double>());
         }
 
         // Engine Data
@@ -187,7 +187,7 @@ namespace PHEMlightdllV5 {
                 return false;
             }
         }
-        Vehicle->getTransmissionData()->setTransm(*transmIt);
+        Vehicle->getTransmissionData()->setTransm(transmIt->get<std::map<std::string, std::vector<double> > >());
 
         // Full load and drag
         nlohmann::json::iterator fldDataIt = json.find("FLDData");
@@ -214,7 +214,7 @@ namespace PHEMlightdllV5 {
                 return false;
             }
         }
-        Vehicle->getFLDData()->setDragCurve(*dragIt);
+        Vehicle->getFLDData()->setDragCurve(dragIt->get<std::map<std::string, std::vector<double> > >());
 
         return true;
     }
