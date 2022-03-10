@@ -211,7 +211,7 @@
 #include "modemove.xpm"
 #include "modeselect.xpm"
 #include "modetrafficlight.xpm"
-#include "modepolygon.xpm"
+#include "modeshape.xpm"
 #include "modeprohibition.xpm"
 #include "modewire.xpm"
 
@@ -623,7 +623,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::MODEMOVE] = new FXXPMIcon(a, modemove_xpm);
     myIcons[GUIIcon::MODESELECT] = new FXXPMIcon(a, modeselect_xpm);
     myIcons[GUIIcon::MODETLS] = new FXXPMIcon(a, modetrafficlight_xpm);
-    myIcons[GUIIcon::MODEPOLYGON] = new FXXPMIcon(a, modepolygon_xpm);
+    myIcons[GUIIcon::MODESHAPE] = new FXXPMIcon(a, modeshape_xpm);
     myIcons[GUIIcon::MODEPROHIBITION] = new FXXPMIcon(a, modeprohibition_xpm);
     myIcons[GUIIcon::MODEWIRE] = new FXXPMIcon(a, modewire_xpm);
 

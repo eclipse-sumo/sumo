@@ -142,7 +142,7 @@ public:
     /// @brief get frame for NETWORK_TAZ
     GNETAZFrame* getTAZFrame() const;
 
-    /// @brief get frame for NETWORK_POLYGON
+    /// @brief get frame for NETWORK_SHAPE
     GNEShapeFrame* getShapeFrame() const;
 
     /// @brief get frame for NETWORK_PROHIBITION
@@ -303,7 +303,7 @@ protected:
         /// @brief frame for NETWORK_TAZ
         GNETAZFrame* TAZFrame;
 
-        /// @brief frame for NETWORK_POLYGON
+        /// @brief frame for NETWORK_SHAPE
         GNEShapeFrame* polygonFrame;
 
         /// @brief frame for NETWORK_PROHIBITION

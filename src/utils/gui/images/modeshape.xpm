@@ -1,5 +1,5 @@
 /* XPM */
-static const char *modepolygon_xpm[] = {
+static const char *modeshape_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 23 1",
 ". c #1E136F",

@@ -64,7 +64,7 @@ enum class NetworkEditMode {
     ///@brief Mode for editing TAZ
     NETWORK_TAZ,
     ///@brief Mode for editing Polygons
-    NETWORK_POLYGON,
+    NETWORK_SHAPE,
     ///@brief Mode for editing connection prohibitions
     NETWORK_PROHIBITION,
     ///@brief Mode for editing wires

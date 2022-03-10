@@ -310,7 +310,7 @@ enum class GUIIcon {
     MODEMOVE,
     MODESELECT,
     MODETLS,
-    MODEPOLYGON,
+    MODESHAPE,
     MODEPROHIBITION,
     MODEWIRE,
     /// @}
