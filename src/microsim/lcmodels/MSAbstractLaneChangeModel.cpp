@@ -341,8 +341,8 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
         }
     } else {
         myVehicle.enterLaneAtLaneChange(target);
+        target->enteredByLaneChange(&myVehicle);
     }
-    target->enteredByLaneChange(&myVehicle);
     // Assure that the drive items are up to date (even if the following step is no actionstep for the vehicle).
     // This is necessary because the lane advance uses the target lane from the corresponding drive item.
     myVehicle.updateDriveItems();
