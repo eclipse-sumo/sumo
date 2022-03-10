@@ -439,10 +439,12 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             }
         }
 #ifndef WIN32
+        /*
         int i = 0;
         for (FXWorkerThread* t : threads) {
             myThreadRNGs[(std::thread::id)t->id()] = new SumoRNG("routing_" + toString(i++));
         }
+        */
 #endif
     }
 #endif
