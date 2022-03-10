@@ -1521,16 +1521,19 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink", SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
-        if (!MSEdge::dictionary(myCurrentDistrictID + "-sink", sink)) {
+        const std::string sinkID = myCurrentDistrictID + "-sink";
+        const std::string sourceID = myCurrentDistrictID + "-source";
+
+        MSEdge* sink = myEdgeControlBuilder.buildEdge(sinkID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
+        if (!MSEdge::dictionary(sinkID, sink)) {
             delete sink;
-            throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-sink' exists.");
+            throw InvalidArgument("Another edge with the id '" + sinkID + "' exists.");
         }
         sink->initialize(new std::vector<MSLane*>());
-        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source", SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
-        if (!MSEdge::dictionary(myCurrentDistrictID + "-source", source)) {
+        MSEdge* source = myEdgeControlBuilder.buildEdge(sourceID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
+        if (!MSEdge::dictionary(sourceID, source)) {
             delete source;
-            throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-source' exists.");
+            throw InvalidArgument("Another edge with the id '" + sourceID + "' exists.");
         }
         source->initialize(new std::vector<MSLane*>());
         sink->setOtherTazConnector(source);
