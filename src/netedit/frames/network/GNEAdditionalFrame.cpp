@@ -655,6 +655,11 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::hideE2MultilaneLaneSelectorModule()
     hide();
 }
 
+const std::vector<std::pair<GNELane*, double> >&
+GNEAdditionalFrame::E2MultilaneLaneSelector::getLanePath() const {
+    return myLanePath;
+}
+
 
 bool
 GNEAdditionalFrame::E2MultilaneLaneSelector::addLane(GNELane* lane) {
@@ -1159,6 +1164,105 @@ GNEAdditionalFrame::tagSelected() {
         mySelectorChildLanes->hideSelectorChildLanesModule();
         mySelectorLaneParents->hideSelectorParentLanesModule();
         myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModule();
+    }
+}
+
+
+void
+GNEAdditionalFrame::createPath() {
+    // obtain tagproperty (only for improve code legibility)
+    const auto& tagProperty = myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
+    // first check that current tag is valid (currently only for E2 multilane detectors)
+    if (tagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
+        // now check number of lanes
+        if (myE2MultilaneLaneSelector->getLanePath().size() < 2) {
+            WRITE_WARNING("E2 multilane detectors need at least two consecutive lanes");
+        } else if (createBaseAdditionalObject(tagProperty)) {
+            // get attributes and values
+            myAdditionalAttributes->getAttributesAndValues(myBaseAdditional, true);
+            // fill netedit attributes
+            if (myNeteditAttributes->getNeteditAttributesAndValues(myBaseAdditional, nullptr)) {
+                // Check if ID has to be generated
+                if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
+                    myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperty.getTag()));
+                }
+                // obtain lane IDs
+                std::vector<std::string> laneIDs;
+                for (const auto& lane : myE2MultilaneLaneSelector->getLanePath()) {
+                    laneIDs.push_back(lane.first->getID());
+                }
+                myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, laneIDs);
+                // set positions
+                myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, myE2MultilaneLaneSelector->getLanePath().front().second);
+                myBaseAdditional->addDoubleAttribute(SUMO_ATTR_ENDPOS, myE2MultilaneLaneSelector->getLanePath().back().second);
+                // parse common attributes
+                if (buildAdditionalCommonAttributes(tagProperty)) {
+                    // show warning dialogbox and stop check if input parameters are valid
+                    if (myAdditionalAttributes->areValuesValid() == false) {
+                        myAdditionalAttributes->showWarningMessage();
+                    } else {
+                        // declare additional handler
+                        GNEAdditionalHandler additionalHandler(getViewNet()->getNet(), true);
+                        // build additional
+                        additionalHandler.parseSumoBaseObject(myBaseAdditional);
+                        // Refresh additional Parent Selector (For additionals that have a limited number of children)
+                        mySelectorAdditionalParent->refreshSelectorParentModule();
+                        // abort E2 creation
+                        myE2MultilaneLaneSelector->abortPathCreation();
+                        // refresh additional attributes
+                        myAdditionalAttributes->refreshAttributesCreator();
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+void 
+GNEAdditionalFrame::stopConsecutiveLaneSelector() {
+    // obtain tagproperty (only for improve code legibility)
+    const auto& tagProperty = myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
+    // abort if there isn't at least two lanes
+    if (mySelectorLaneParents->getSelectedLanes().size() < 2) {
+        WRITE_WARNING(tagProperty.getTagStr() + " requires at least two lanes.");
+        // abort consecutive lane selector
+        mySelectorLaneParents->abortConsecutiveLaneSelector();
+    } else if (createBaseAdditionalObject(tagProperty)) {
+        // get attributes and values
+        myAdditionalAttributes->getAttributesAndValues(myBaseAdditional, true);
+        // fill valuesOfElement with Netedit attributes from Frame
+        myNeteditAttributes->getNeteditAttributesAndValues(myBaseAdditional, nullptr);
+        // Check if ID has to be generated
+        if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
+            myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, getViewNet()->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperty.getTag()));
+        }
+        // obtain lane IDs
+        std::vector<std::string> laneIDs;
+        for (const auto& selectedlane : mySelectorLaneParents->getSelectedLanes()) {
+            laneIDs.push_back(selectedlane.first->getID());
+        }
+        myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, laneIDs);
+        // Obtain clicked position over first lane
+        myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, mySelectorLaneParents->getSelectedLanes().front().second);
+        // Obtain clicked position over last lane
+        myBaseAdditional->addDoubleAttribute(SUMO_ATTR_ENDPOS, mySelectorLaneParents->getSelectedLanes().back().second);
+        // parse common attributes
+        if (buildAdditionalCommonAttributes(tagProperty)) {
+            // show warning dialogbox and stop check if input parameters are valid
+            if (myAdditionalAttributes->areValuesValid() == false) {
+                myAdditionalAttributes->showWarningMessage();
+            } else {
+                // declare additional handler
+                GNEAdditionalHandler additionalHandler(getViewNet()->getNet(), true);
+                // build additional
+                additionalHandler.parseSumoBaseObject(myBaseAdditional);
+                // abort consecutive lane selector
+                mySelectorLaneParents->abortConsecutiveLaneSelector();
+                // refresh additional attributes
+                myAdditionalAttributes->refreshAttributesCreator();
+            }
+        }
     }
 }
 

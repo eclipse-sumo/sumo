@@ -268,6 +268,9 @@ public:
         /// @brief show E2MultilaneLaneSelector
         void hideE2MultilaneLaneSelectorModule();
 
+        /// @brief get vector with lanes and clicked positions
+        const std::vector<std::pair<GNELane*, double> > &getLanePath() const;
+
         /// @brief add lane
         bool addLane(GNELane* lane);
 
@@ -317,9 +320,6 @@ public:
         /// @brief current additional frame parent
         GNEAdditionalFrame* myAdditionalFrameParent;
 
-        /// @brief vector with lanes and clicked positions
-        std::vector<std::pair<GNELane*, double> > myLanePath;
-
         /// @brief label with route info
         FXLabel* myInfoRouteLabel;
 
@@ -334,6 +334,9 @@ public:
 
         /// @brief CheckBox for show candidate lanes
         FXCheckButton* myShowCandidateLanes;
+
+        /// @brief vector with lanes and clicked positions
+        std::vector<std::pair<GNELane*, double> > myLanePath;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -376,6 +379,12 @@ protected:
 
     /// @brief Tag selected in TagSelector
     void tagSelected();
+
+    /// @brief create path
+    void createPath();
+
+    /// @brief stop consecutive path selector
+    void stopConsecutiveLaneSelector();
 
 private:
     // @brief create baseAdditionalObject
