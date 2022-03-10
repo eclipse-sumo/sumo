@@ -997,7 +997,7 @@ GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
     myMouseButtonKeyPressed.update(eventData);
     // update cursor
     updateCursor();
-    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModule()->isDrawing()) {
+    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
         // disable right button press during drawing polygon
         return 1;
     } else {
@@ -1013,7 +1013,7 @@ GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // update cursor
     updateCursor();
     // disable right button release during drawing polygon
-    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModule()->isDrawing()) {
+    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
         return 1;
     } else {
         return GUISUMOAbstractView::onRightBtnRelease(obj, sel, eventData);
@@ -1053,9 +1053,9 @@ GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
     if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) {
         // update viewNet (for temporal junction)
         updateViewNet();
-    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModule()->isDrawing()) {
+    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
         // change "delete last created point" depending of shift key
-        myViewParent->getPolygonFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
+        myViewParent->getShapeFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
         updateViewNet();
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModule()->isDrawing()) {
         // change "delete last created point" depending of shift key
@@ -1078,9 +1078,9 @@ GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
     if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) {
         // update viewNet (for temporal junction)
         updateViewNet();
-    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModule()->isDrawing()) {
+    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
         // change "delete last created point" depending of shift key
-        myViewParent->getPolygonFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
+        myViewParent->getShapeFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
         updateViewNet();
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModule()->isDrawing()) {
         // change "delete last created point" depending of shift key
@@ -1123,7 +1123,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
             myEditNetworkElementShapes.stopEditCustomShape();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) {
             // abort current drawing
-            myViewParent->getPolygonFrame()->getDrawingShapeModule()->abortDrawing();
+            myViewParent->getShapeFrame()->getDrawingShapeModule()->abortDrawing();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) {
             if (myViewParent->getTAZFrame()->getDrawingShapeModule()->isDrawing()) {
                 // abort current drawing
@@ -1254,12 +1254,12 @@ GNEViewNet::hotkeyEnter() {
         } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myEditNetworkElementShapes.getEditedNetworkElement() != nullptr)) {
             myEditNetworkElementShapes.commitEditedShape();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) {
-            if (myViewParent->getPolygonFrame()->getDrawingShapeModule()->isDrawing()) {
+            if (myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
                 // stop current drawing
-                myViewParent->getPolygonFrame()->getDrawingShapeModule()->stopDrawing();
+                myViewParent->getShapeFrame()->getDrawingShapeModule()->stopDrawing();
             } else {
                 // start drawing
-                myViewParent->getPolygonFrame()->getDrawingShapeModule()->startDrawing();
+                myViewParent->getShapeFrame()->getDrawingShapeModule()->startDrawing();
             }
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CROSSING) {
             myViewParent->getCrossingFrame()->createCrossingHotkey();
@@ -3962,9 +3962,9 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkCheckableButtons.TAZButton->setChecked(true);
             break;
         case NetworkEditMode::NETWORK_POLYGON:
-            myViewParent->getPolygonFrame()->show();
-            myViewParent->getPolygonFrame()->focusUpperElement();
-            myCurrentFrame = myViewParent->getPolygonFrame();
+            myViewParent->getShapeFrame()->show();
+            myViewParent->getShapeFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getShapeFrame();
             myNetworkCheckableButtons.shapeButton->setChecked(true);
             break;
         case NetworkEditMode::NETWORK_PROHIBITION:
@@ -4501,9 +4501,9 @@ GNEViewNet::drawTemporalDrawShape() const {
     PositionVector temporalShape;
     bool deleteLastCreatedPoint = false;
     // obtain temporal shape and delete last created point flag
-    if (myViewParent->getPolygonFrame()->getDrawingShapeModule()->isDrawing()) {
-        temporalShape = myViewParent->getPolygonFrame()->getDrawingShapeModule()->getTemporalShape();
-        deleteLastCreatedPoint = myViewParent->getPolygonFrame()->getDrawingShapeModule()->getDeleteLastCreatedPoint();
+    if (myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
+        temporalShape = myViewParent->getShapeFrame()->getDrawingShapeModule()->getTemporalShape();
+        deleteLastCreatedPoint = myViewParent->getShapeFrame()->getDrawingShapeModule()->getDeleteLastCreatedPoint();
     } else if (myViewParent->getTAZFrame()->getDrawingShapeModule()->isDrawing()) {
         temporalShape = myViewParent->getTAZFrame()->getDrawingShapeModule()->getTemporalShape();
         deleteLastCreatedPoint = myViewParent->getTAZFrame()->getDrawingShapeModule()->getDeleteLastCreatedPoint();
@@ -4838,7 +4838,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     // declare processClick flag
                     bool updateTemporalShape = false;
                     // process click
-                    myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor, updateTemporalShape);
+                    myViewParent->getShapeFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor, updateTemporalShape);
                     // view net must be always update
                     updateViewNet();
                     // process click depending of the result of "process click"
@@ -4926,8 +4926,8 @@ GNEViewNet::processLeftButtonReleaseNetwork() {
 void
 GNEViewNet::processMoveMouseNetwork(const bool mouseLeftButtonPressed) {
     // change "delete last created point" depending if during movement shift key is pressed
-    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModule()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
+    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
+        myViewParent->getShapeFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModule()->isDrawing()) {
         myViewParent->getTAZFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
     }

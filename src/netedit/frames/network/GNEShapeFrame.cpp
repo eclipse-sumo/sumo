@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEPolygonFrame.cpp
+/// @file    GNEShapeFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2017
 ///
@@ -36,14 +36,14 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEPolygonFrame::GEOPOICreator) GEOPOICreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,      GNEPolygonFrame::GEOPOICreator::onCmdSetFormat),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,             GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI),
+FXDEFMAP(GNEShapeFrame::GEOPOICreator) GEOPOICreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNEShapeFrame::GEOPOICreator::onCmdSetCoordinates),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,      GNEShapeFrame::GEOPOICreator::onCmdSetFormat),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,             GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPolygonFrame::GEOPOICreator,     FXGroupBoxModule,     GEOPOICreatorMap,   ARRAYNUMBER(GEOPOICreatorMap))
+FXIMPLEMENT(GNEShapeFrame::GEOPOICreator,     FXGroupBoxModule,     GEOPOICreatorMap,   ARRAYNUMBER(GEOPOICreatorMap))
 
 
 // ===========================================================================
@@ -51,12 +51,12 @@ FXIMPLEMENT(GNEPolygonFrame::GEOPOICreator,     FXGroupBoxModule,     GEOPOICrea
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEPolygonFrame::GEOPOICreator - methods
+// GNEShapeFrame::GEOPOICreator - methods
 // ---------------------------------------------------------------------------
 
-GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParent) :
+GNEShapeFrame::GEOPOICreator::GEOPOICreator(GNEShapeFrame* polygonFrameParent) :
     FXGroupBoxModule(polygonFrameParent->myContentFrame, "GEO POI Creator"),
-    myPolygonFrameParent(polygonFrameParent) {
+    myShapeFrameParent(polygonFrameParent) {
     // create RadioButtons for formats
     myLonLatRadioButton = new FXRadioButton(getCollapsableFrame(), "Format: Lon-Lat", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myLatLonRadioButton = new FXRadioButton(getCollapsableFrame(), "Format: Lat-Lon", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
@@ -73,11 +73,11 @@ GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParen
 }
 
 
-GNEPolygonFrame::GEOPOICreator::~GEOPOICreator() {}
+GNEShapeFrame::GEOPOICreator::~GEOPOICreator() {}
 
 
 void
-GNEPolygonFrame::GEOPOICreator::showGEOPOICreatorModule() {
+GNEShapeFrame::GEOPOICreator::showGEOPOICreatorModule() {
     // check if there is an GEO Proj string is defined
     if (GeoConvHelper::getFinal().getProjString() != "!") {
         myCoordinatesTextField->enable();
@@ -94,13 +94,13 @@ GNEPolygonFrame::GEOPOICreator::showGEOPOICreatorModule() {
 
 
 void
-GNEPolygonFrame::GEOPOICreator::hideGEOPOICreatorModule() {
+GNEShapeFrame::GEOPOICreator::hideGEOPOICreatorModule() {
     hide();
 }
 
 
 long
-GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*) {
+GNEShapeFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*) {
     // check if input contains spaces
     std::string input = myCoordinatesTextField->getText().text();
     std::string inputWithoutSpaces;
@@ -140,7 +140,7 @@ GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*
 
 
 long
-GNEPolygonFrame::GEOPOICreator::onCmdSetFormat(FXObject* obj, FXSelector, void*) {
+GNEShapeFrame::GEOPOICreator::onCmdSetFormat(FXObject* obj, FXSelector, void*) {
     //disable other radio button depending of selected option
     if (obj == myLonLatRadioButton) {
         myLonLatRadioButton->setCheck(TRUE);
@@ -156,9 +156,9 @@ GNEPolygonFrame::GEOPOICreator::onCmdSetFormat(FXObject* obj, FXSelector, void*)
 
 
 long
-GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
+GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
     // first check if current GEO Position is valid
-    if (myPolygonFrameParent->myShapeAttributes->areValuesValid()) {
+    if (myShapeFrameParent->myShapeAttributes->areValuesValid()) {
         std::string geoPosStr = myCoordinatesTextField->getText().text();
         if (geoPosStr.empty()) {
             // use clipboard
@@ -173,47 +173,47 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
         }
         if (GNEAttributeCarrier::canParse<Position>(geoPosStr)) {
             // create baseShape object
-            myPolygonFrameParent->createBaseShapeObject(SUMO_TAG_POI);
+            myShapeFrameParent->createBaseShapeObject(SUMO_TAG_POI);
             // obtain shape attributes and values
-            myPolygonFrameParent->myShapeAttributes->getAttributesAndValues(myPolygonFrameParent->myBaseShape, true);
+            myShapeFrameParent->myShapeAttributes->getAttributesAndValues(myShapeFrameParent->myBaseShape, true);
             // obtain netedit attributes and values
-            myPolygonFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(myPolygonFrameParent->myBaseShape, nullptr);
+            myShapeFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(myShapeFrameParent->myBaseShape, nullptr);
             // Check if ID has to be generated
-            if (!myPolygonFrameParent->myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-                myPolygonFrameParent->myBaseShape->addStringAttribute(SUMO_ATTR_ID, myPolygonFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_POI));
+            if (!myShapeFrameParent->myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
+                myShapeFrameParent->myBaseShape->addStringAttribute(SUMO_ATTR_ID, myShapeFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_POI));
             }
             // force GEO attribute to true and obain position
-            myPolygonFrameParent->myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, true);
+            myShapeFrameParent->myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, true);
             Position geoPos = GNEAttributeCarrier::parse<Position>(geoPosStr);
             // convert coordinates into lon-lat
             if (myLatLonRadioButton->getCheck() == TRUE) {
                 geoPos.swapXY();
             }
             GeoConvHelper::getFinal().x2cartesian_const(geoPos);
-            myPolygonFrameParent->myBaseShape->addPositionAttribute(SUMO_ATTR_POSITION, geoPos);
+            myShapeFrameParent->myBaseShape->addPositionAttribute(SUMO_ATTR_POSITION, geoPos);
             // add shape
-            myPolygonFrameParent->addShape();
+            myShapeFrameParent->addShape();
             // check if view has to be centered over created GEO POI
             if (myCenterViewAfterCreationCheckButton->getCheck() == TRUE) {
                 // create a boundary over given GEO Position and center view over it
                 Boundary centerPosition;
                 centerPosition.add(geoPos);
                 centerPosition = centerPosition.grow(10);
-                myPolygonFrameParent->myViewNet->getViewParent()->getView()->centerTo(centerPosition);
+                myShapeFrameParent->myViewNet->getViewParent()->getView()->centerTo(centerPosition);
             }
         }
         // refresh shape attributes
-        myPolygonFrameParent->myShapeAttributes->refreshAttributesCreator();
+        myShapeFrameParent->myShapeAttributes->refreshAttributesCreator();
     }
     return 1;
 }
 
 
 // ---------------------------------------------------------------------------
-// GNEPolygonFrame - methods
+// GNEShapeFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
+GNEShapeFrame::GNEShapeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Shapes"),
     myBaseShape(nullptr) {
 
@@ -234,7 +234,7 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
 }
 
 
-GNEPolygonFrame::~GNEPolygonFrame() {
+GNEShapeFrame::~GNEShapeFrame() {
     // check if we have to delete base additional object
     if (myBaseShape) {
         delete myBaseShape;
@@ -243,7 +243,7 @@ GNEPolygonFrame::~GNEPolygonFrame() {
 
 
 void
-GNEPolygonFrame::show() {
+GNEShapeFrame::show() {
     // refresh tag selector
     myShapeTagSelector->refreshTagSelector();
     // show frame
@@ -252,7 +252,7 @@ GNEPolygonFrame::show() {
 
 
 bool
-GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool& updateTemporalShape) {
+GNEShapeFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool& updateTemporalShape) {
     // reset updateTemporalShape
     updateTemporalShape = false;
     // check if current selected shape is valid
@@ -367,7 +367,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
 
 
 std::string
-GNEPolygonFrame::getIdsSelected(const FXList* list) {
+GNEShapeFrame::getIdsSelected(const FXList* list) {
     // Obtain Id's of list
     std::string vectorOfIds;
     for (int i = 0; i < list->getNumItems(); i++) {
@@ -383,13 +383,13 @@ GNEPolygonFrame::getIdsSelected(const FXList* list) {
 
 
 GNEFrameModules::DrawingShape*
-GNEPolygonFrame::getDrawingShapeModule() const {
+GNEShapeFrame::getDrawingShapeModule() const {
     return myDrawingShape;
 }
 
 
 void
-GNEPolygonFrame::createBaseShapeObject(const SumoXMLTag shapeTag) {
+GNEShapeFrame::createBaseShapeObject(const SumoXMLTag shapeTag) {
     // check if baseShape exist, and if yes, delete it
     if (myBaseShape) {
         // delete baseShape (and all children)
@@ -403,7 +403,7 @@ GNEPolygonFrame::createBaseShapeObject(const SumoXMLTag shapeTag) {
 
 
 bool
-GNEPolygonFrame::shapeDrawed() {
+GNEShapeFrame::shapeDrawed() {
     // show warning dialogbox and stop check if input parameters are valid
     if (!myShapeAttributes->areValuesValid()) {
         myShapeAttributes->showWarningMessage();
@@ -441,7 +441,7 @@ GNEPolygonFrame::shapeDrawed() {
 
 
 void
-GNEPolygonFrame::tagSelected() {
+GNEShapeFrame::tagSelected() {
     if (myShapeTagSelector->getCurrentTemplateAC()) {
         // if there are parmeters, show and Recalc groupBox
         myShapeAttributes->showAttributesCreatorModule(myShapeTagSelector->getCurrentTemplateAC(), {});
@@ -470,7 +470,7 @@ GNEPolygonFrame::tagSelected() {
 
 
 void
-GNEPolygonFrame::addShape() {
+GNEShapeFrame::addShape() {
     // declare additional handler
     GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true);
     // build shape

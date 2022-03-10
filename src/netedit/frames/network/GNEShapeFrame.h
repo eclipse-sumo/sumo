@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEPolygonFrame.h
+/// @file    GNEShapeFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2017
 ///
@@ -25,10 +25,10 @@
 // class definitions
 // ===========================================================================
 /**
-* @class GNEPolygonFrame
+* @class GNEShapeFrame
 * The Widget for setting internal attributes of shape elements
 */
-class GNEPolygonFrame : public GNEFrame {
+class GNEShapeFrame : public GNEFrame {
 
 public:
 
@@ -38,11 +38,11 @@ public:
 
     class GEOPOICreator : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEPolygonFrame::GEOPOICreator)
+        FXDECLARE(GNEShapeFrame::GEOPOICreator)
 
     public:
         /// @brief constructor
-        GEOPOICreator(GNEPolygonFrame* polygonFrameParent);
+        GEOPOICreator(GNEShapeFrame* polygonFrameParent);
 
         /// @brief destructor
         ~GEOPOICreator();
@@ -70,7 +70,7 @@ public:
 
     private:
         /// @brief pointer to Shape frame parent
-        GNEPolygonFrame* myPolygonFrameParent;
+        GNEShapeFrame* myShapeFrameParent;
 
         /// @brief radio button for the configuration lon-lat
         FXRadioButton* myLonLatRadioButton;
@@ -95,10 +95,10 @@ public:
     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
     * @brief viewNet viewNet that uses this GNEFrame
     */
-    GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEShapeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
-    ~GNEPolygonFrame();
+    ~GNEShapeFrame();
 
     /// @brief show Frame
     void show();

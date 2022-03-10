@@ -46,7 +46,7 @@ class GNEAdditionalFrame;
 class GNEConnectorFrame;
 class GNECreateEdgeFrame;
 class GNECrossingFrame;
-class GNEPolygonFrame;
+class GNEShapeFrame;
 class GNEProhibitionFrame;
 class GNEWireFrame;
 class GNETAZFrame;
@@ -143,7 +143,7 @@ public:
     GNETAZFrame* getTAZFrame() const;
 
     /// @brief get frame for NETWORK_POLYGON
-    GNEPolygonFrame* getPolygonFrame() const;
+    GNEShapeFrame* getShapeFrame() const;
 
     /// @brief get frame for NETWORK_PROHIBITION
     GNEProhibitionFrame* getProhibitionFrame() const;
@@ -228,9 +228,6 @@ public:
     long onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*);
     /// @}
 
-    std::vector<GUIGlID> getObjectIDs(int messageId) const;
-
-
 protected:
     FOX_CONSTRUCTOR(GNEViewParent)
 
@@ -307,7 +304,7 @@ protected:
         GNETAZFrame* TAZFrame;
 
         /// @brief frame for NETWORK_POLYGON
-        GNEPolygonFrame* polygonFrame;
+        GNEShapeFrame* polygonFrame;
 
         /// @brief frame for NETWORK_PROHIBITION
         GNEProhibitionFrame* prohibitionFrame;

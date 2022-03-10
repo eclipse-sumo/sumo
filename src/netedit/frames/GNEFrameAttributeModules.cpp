@@ -2554,7 +2554,7 @@ GNEFrameAttributeModules::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, vo
     WRITE_DEBUG("Closing NeteditAttributes help dialog");
     return 1;
     /**********
-    help from PolygonFrame
+    help from ShapeFrame
             << "- Block movement: If enabled, the created polygon element will be blocked. i.e. cannot be moved with\n"
             << "  the mouse. This option can be modified inspecting element.\n"
             << "\n"

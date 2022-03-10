@@ -235,8 +235,8 @@ GNEViewParent::getTAZFrame() const {
 }
 
 
-GNEPolygonFrame*
-GNEViewParent::getPolygonFrame() const {
+GNEShapeFrame*
+GNEViewParent::getShapeFrame() const {
     return myNetworkFrames.polygonFrame;
 }
 
@@ -450,12 +450,6 @@ GNEViewParent::onCmdClose(FXObject*, FXSelector /* sel */, void*) {
     return 1;
 }
 
-std::vector<GUIGlID>
-GNEViewParent::getObjectIDs(int messageId) const {
-    UNUSED_PARAMETER(messageId);
-    std::vector<GUIGlID> result;
-    return result;
-}
 
 long
 GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
@@ -828,7 +822,7 @@ GNEViewParent::NetworkFrames::buildNetworkFrames(GNEViewParent* viewParent, GNEV
     additionalFrame = new GNEAdditionalFrame(viewParent->myFramesArea, viewNet);
     crossingFrame = new GNECrossingFrame(viewParent->myFramesArea, viewNet);
     TAZFrame = new GNETAZFrame(viewParent->myFramesArea, viewNet);
-    polygonFrame = new GNEPolygonFrame(viewParent->myFramesArea, viewNet);
+    polygonFrame = new GNEShapeFrame(viewParent->myFramesArea, viewNet);
     createEdgeFrame = new GNECreateEdgeFrame(viewParent->myFramesArea, viewNet);
 }
 
