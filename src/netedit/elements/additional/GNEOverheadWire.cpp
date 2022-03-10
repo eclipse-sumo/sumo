@@ -75,11 +75,14 @@ void
 GNEOverheadWire::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_OVERHEAD_WIRE_SECTION);
     device.writeAttr(SUMO_ATTR_ID, getID());
-
-    ///
-
+    device.writeAttr(SUMO_ATTR_LANES, getAttribute(SUMO_ATTR_LANES));
+    device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
+    device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
     if (myFriendlyPosition) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
+    }
+    if (!myForbiddenInnerLanes.empty()) {
+        device.writeAttr(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN, myForbiddenInnerLanes);
     }
     // write parameters
     writeParams(device);
@@ -185,20 +188,28 @@ GNEOverheadWire::updateGeometry() {
 
 Position 
 GNEOverheadWire::getPositionInView() const {
-    //
-    return Position(); 
+    return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
 void 
 GNEOverheadWire::updateCenteringBoundary(const bool /* updateGrid */) {
-    //
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
+    // grow
+    myAdditionalBoundary.grow(10);
 }
 
 
 void
-GNEOverheadWire::splitEdgeGeometry(const double /* splitPosition */, const GNENetworkElement* /* originalElement */, const GNENetworkElement* /* newElement */, GNEUndoList* /* undoList */) {
-    //
+GNEOverheadWire::splitEdgeGeometry(const double /* splitPosition */, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
+    // obtain new list of lanes
+    std::string newLanes = getNewListOfParents(originalElement, newElement);
+    // update Lanes
+    if (newLanes.size() > 0) {
+        setAttribute(SUMO_ATTR_LANES, newLanes, undoList);
+    }
 }
 
 
@@ -362,6 +373,8 @@ GNEOverheadWire::getAttribute(SumoXMLAttr key) const {
             return toString(myEndPos);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
+        case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
+            return toString(myForbiddenInnerLanes);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -403,9 +416,9 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_FRIENDLY_POS:
+        case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -440,6 +453,8 @@ GNEOverheadWire::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
+        case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
+            return true;
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -497,6 +512,9 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
+            break;
+        case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
+            myForbiddenInnerLanes = parse<std::vector<std::string> >(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
