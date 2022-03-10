@@ -39,40 +39,40 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNECommonNetworkModules::SelectorChildEdges) SelectorParentEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNECommonNetworkModules::SelectorChildEdges::onCmdUseSelectedEdges),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNECommonNetworkModules::SelectorChildEdges::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INVERTSELECTION,    GNECommonNetworkModules::SelectorChildEdges::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SEARCH,             GNECommonNetworkModules::SelectorChildEdges::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,             GNECommonNetworkModules::SelectorChildEdges::onCmdSelectEdge),
+FXDEFMAP(GNECommonNetworkModules::EdgesSelector) SelectorParentEdgesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNECommonNetworkModules::EdgesSelector::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNECommonNetworkModules::EdgesSelector::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INVERTSELECTION,    GNECommonNetworkModules::EdgesSelector::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SEARCH,             GNECommonNetworkModules::EdgesSelector::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,             GNECommonNetworkModules::EdgesSelector::onCmdSelectEdge),
 };
 
-FXDEFMAP(GNECommonNetworkModules::SelectorChildLanes) SelectorParentLanesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNECommonNetworkModules::SelectorChildLanes::onCmdUseSelectedLanes),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNECommonNetworkModules::SelectorChildLanes::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INVERTSELECTION,    GNECommonNetworkModules::SelectorChildLanes::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SEARCH,             GNECommonNetworkModules::SelectorChildLanes::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,             GNECommonNetworkModules::SelectorChildLanes::onCmdSelectLane),
+FXDEFMAP(GNECommonNetworkModules::LanesSelector) SelectorParentLanesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNECommonNetworkModules::LanesSelector::onCmdUseSelectedLanes),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNECommonNetworkModules::LanesSelector::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INVERTSELECTION,    GNECommonNetworkModules::LanesSelector::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SEARCH,             GNECommonNetworkModules::LanesSelector::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,             GNECommonNetworkModules::LanesSelector::onCmdSelectLane),
 };
 
-FXDEFMAP(GNECommonNetworkModules::E2MultilaneLaneSelector) E2MultilaneLaneSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ABORT,          GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdAbortPathCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_FINISH,         GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdCreatePath),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVELAST,     GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdRemoveLastElement),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOWCANDIDATES, GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdShowCandidateLanes)
+FXDEFMAP(GNECommonNetworkModules::ConsecutiveLaneSelector) ConsecutiveLaneSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ABORT,          GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdAbortPathCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_FINISH,         GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdCreatePath),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVELAST,     GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdRemoveLastElement),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOWCANDIDATES, GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdShowCandidateLanes)
 };
 
 // Object implementation
-FXIMPLEMENT(GNECommonNetworkModules::SelectorChildEdges,         FXGroupBoxModule,     SelectorParentEdgesMap,         ARRAYNUMBER(SelectorParentEdgesMap))
-FXIMPLEMENT(GNECommonNetworkModules::SelectorChildLanes,         FXGroupBoxModule,     SelectorParentLanesMap,         ARRAYNUMBER(SelectorParentLanesMap))
-FXIMPLEMENT(GNECommonNetworkModules::E2MultilaneLaneSelector,    FXGroupBoxModule,     E2MultilaneLaneSelectorMap,     ARRAYNUMBER(E2MultilaneLaneSelectorMap))
+FXIMPLEMENT(GNECommonNetworkModules::EdgesSelector,         FXGroupBoxModule,     SelectorParentEdgesMap,         ARRAYNUMBER(SelectorParentEdgesMap))
+FXIMPLEMENT(GNECommonNetworkModules::LanesSelector,         FXGroupBoxModule,     SelectorParentLanesMap,         ARRAYNUMBER(SelectorParentLanesMap))
+FXIMPLEMENT(GNECommonNetworkModules::ConsecutiveLaneSelector,    FXGroupBoxModule,     ConsecutiveLaneSelectorMap,     ARRAYNUMBER(ConsecutiveLaneSelectorMap))
 
 
 // ---------------------------------------------------------------------------
-// GNECommonNetworkModules::SelectorChildEdges - methods
+// GNECommonNetworkModules::EdgesSelector - methods
 // ---------------------------------------------------------------------------
 
-GNECommonNetworkModules::SelectorChildEdges::SelectorChildEdges(GNEFrame* frameParent) :
+GNECommonNetworkModules::EdgesSelector::EdgesSelector(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Edges"),
     myFrameParent(frameParent) {
     // Create menuCheck for selected edges
@@ -94,15 +94,15 @@ GNECommonNetworkModules::SelectorChildEdges::SelectorChildEdges(GNEFrame* frameP
     myInvertEdgesSelection = new FXButton(buttonsFrame, "Invert", nullptr, this, MID_GNE_INVERTSELECTION, GUIDesignButtonRectangular);
 
     // Hide List
-    hideSelectorChildEdgesModule();
+    hideEdgesSelectorModule();
 }
 
 
-GNECommonNetworkModules::SelectorChildEdges::~SelectorChildEdges() {}
+GNECommonNetworkModules::EdgesSelector::~EdgesSelector() {}
 
 
 std::vector<std::string>
-GNECommonNetworkModules::SelectorChildEdges::getEdgeIdsSelected() const {
+GNECommonNetworkModules::EdgesSelector::getEdgeIdsSelected() const {
     std::vector<std::string> vectorOfIds;
     if (myUseSelectedEdgesCheckButton->getCheck()) {
         // get Selected edges
@@ -124,7 +124,7 @@ GNECommonNetworkModules::SelectorChildEdges::getEdgeIdsSelected() const {
 
 
 void
-GNECommonNetworkModules::SelectorChildEdges::showSelectorChildEdgesModule(std::string search) {
+GNECommonNetworkModules::EdgesSelector::showEdgesSelectorModule(std::string search) {
     // clear list of egdge ids
     myList->clearItems();
     // iterate over edges of net
@@ -146,13 +146,13 @@ GNECommonNetworkModules::SelectorChildEdges::showSelectorChildEdgesModule(std::s
 
 
 void
-GNECommonNetworkModules::SelectorChildEdges::hideSelectorChildEdgesModule() {
+GNECommonNetworkModules::EdgesSelector::hideEdgesSelectorModule() {
     FXGroupBoxModule::hide();
 }
 
 
 void
-GNECommonNetworkModules::SelectorChildEdges::updateUseSelectedEdges() {
+GNECommonNetworkModules::EdgesSelector::updateUseSelectedEdges() {
     // Enable or disable use selected edges
     if (myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getNumberOfSelectedEdges() > 0) {
         myUseSelectedEdgesCheckButton->enable();
@@ -163,7 +163,7 @@ GNECommonNetworkModules::SelectorChildEdges::updateUseSelectedEdges() {
 
 
 long
-GNECommonNetworkModules::SelectorChildEdges::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::EdgesSelector::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
     if (myUseSelectedEdgesCheckButton->getCheck()) {
         myEdgesSearch->hide();
         myList->hide();
@@ -184,21 +184,21 @@ GNECommonNetworkModules::SelectorChildEdges::onCmdUseSelectedEdges(FXObject*, FX
 
 
 long
-GNECommonNetworkModules::SelectorChildEdges::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
-    // Show only Id's of SelectorChildEdges that contains the searched string
-    showSelectorChildEdgesModule(myEdgesSearch->getText().text());
+GNECommonNetworkModules::EdgesSelector::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
+    // Show only Id's of EdgesSelector that contains the searched string
+    showEdgesSelectorModule(myEdgesSearch->getText().text());
     return 1;
 }
 
 
 long
-GNECommonNetworkModules::SelectorChildEdges::onCmdSelectEdge(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::EdgesSelector::onCmdSelectEdge(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 
 long
-GNECommonNetworkModules::SelectorChildEdges::onCmdClearSelection(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::EdgesSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->isSelected()) {
             myList->deselectItem(i);
@@ -209,7 +209,7 @@ GNECommonNetworkModules::SelectorChildEdges::onCmdClearSelection(FXObject*, FXSe
 
 
 long
-GNECommonNetworkModules::SelectorChildEdges::onCmdInvertSelection(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::EdgesSelector::onCmdInvertSelection(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->isSelected()) {
             myList->deselectItem(i);
@@ -221,10 +221,10 @@ GNECommonNetworkModules::SelectorChildEdges::onCmdInvertSelection(FXObject*, FXS
 }
 
 // ---------------------------------------------------------------------------
-// GNECommonNetworkModules::SelectorChildLanes - methods
+// GNECommonNetworkModules::LanesSelector - methods
 // ---------------------------------------------------------------------------
 
-GNECommonNetworkModules::SelectorChildLanes::SelectorChildLanes(GNEFrame* frameParent) :
+GNECommonNetworkModules::LanesSelector::LanesSelector(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Lanes"),
     myFrameParent(frameParent) {
     // Create CheckBox for selected lanes
@@ -246,15 +246,15 @@ GNECommonNetworkModules::SelectorChildLanes::SelectorChildLanes(GNEFrame* frameP
     invertLanesSelection = new FXButton(buttonsFrame, "invert", nullptr, this, MID_GNE_INVERTSELECTION, GUIDesignButtonRectangular);
 
     // Hide List
-    hideSelectorChildLanesModule();
+    hideLanesSelectorModule();
 }
 
 
-GNECommonNetworkModules::SelectorChildLanes::~SelectorChildLanes() {}
+GNECommonNetworkModules::LanesSelector::~LanesSelector() {}
 
 
 std::vector<std::string>
-GNECommonNetworkModules::SelectorChildLanes::getLaneIdsSelected() const {
+GNECommonNetworkModules::LanesSelector::getLaneIdsSelected() const {
     std::vector<std::string> vectorOfIds;
     if (myUseSelectedLanesCheckButton->getCheck()) {
         // get Selected lanes
@@ -276,7 +276,7 @@ GNECommonNetworkModules::SelectorChildLanes::getLaneIdsSelected() const {
 
 
 void
-GNECommonNetworkModules::SelectorChildLanes::showSelectorChildLanesModule(std::string search) {
+GNECommonNetworkModules::LanesSelector::showLanesSelectorModule(std::string search) {
     myList->clearItems();
     // add all network lanes
     for (const auto& lane : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getLanes()) {
@@ -292,13 +292,13 @@ GNECommonNetworkModules::SelectorChildLanes::showSelectorChildLanesModule(std::s
 
 
 void
-GNECommonNetworkModules::SelectorChildLanes::hideSelectorChildLanesModule() {
+GNECommonNetworkModules::LanesSelector::hideLanesSelectorModule() {
     FXGroupBoxModule::hide();
 }
 
 
 void
-GNECommonNetworkModules::SelectorChildLanes::updateUseSelectedLanes() {
+GNECommonNetworkModules::LanesSelector::updateUseSelectedLanes() {
     // Enable or disable use selected Lanes
     if (myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getNumberOfSelectedLanes() > 0) {
         myUseSelectedLanesCheckButton->enable();
@@ -309,7 +309,7 @@ GNECommonNetworkModules::SelectorChildLanes::updateUseSelectedLanes() {
 
 
 long
-GNECommonNetworkModules::SelectorChildLanes::onCmdUseSelectedLanes(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::LanesSelector::onCmdUseSelectedLanes(FXObject*, FXSelector, void*) {
     if (myUseSelectedLanesCheckButton->getCheck()) {
         myLanesSearch->hide();
         myList->hide();
@@ -330,21 +330,21 @@ GNECommonNetworkModules::SelectorChildLanes::onCmdUseSelectedLanes(FXObject*, FX
 
 
 long
-GNECommonNetworkModules::SelectorChildLanes::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
-    // Show only Id's of SelectorChildLanes that contains the searched string
-    showSelectorChildLanesModule(myLanesSearch->getText().text());
+GNECommonNetworkModules::LanesSelector::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
+    // Show only Id's of LanesSelector that contains the searched string
+    showLanesSelectorModule(myLanesSearch->getText().text());
     return 1;
 }
 
 
 long
-GNECommonNetworkModules::SelectorChildLanes::onCmdSelectLane(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::LanesSelector::onCmdSelectLane(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 
 long
-GNECommonNetworkModules::SelectorChildLanes::onCmdClearSelection(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::LanesSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->isSelected()) {
             myList->deselectItem(i);
@@ -355,7 +355,7 @@ GNECommonNetworkModules::SelectorChildLanes::onCmdClearSelection(FXObject*, FXSe
 
 
 long
-GNECommonNetworkModules::SelectorChildLanes::onCmdInvertSelection(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::LanesSelector::onCmdInvertSelection(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->isSelected()) {
             myList->deselectItem(i);
@@ -367,10 +367,10 @@ GNECommonNetworkModules::SelectorChildLanes::onCmdInvertSelection(FXObject*, FXS
 }
 
 // ---------------------------------------------------------------------------
-// GNECommonNetworkModules::E2MultilaneLaneSelector - methods
+// GNECommonNetworkModules::ConsecutiveLaneSelector - methods
 // ---------------------------------------------------------------------------
 
-GNECommonNetworkModules::E2MultilaneLaneSelector::E2MultilaneLaneSelector(GNEFrame* frameParent) :
+GNECommonNetworkModules::ConsecutiveLaneSelector::ConsecutiveLaneSelector(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->getContentFrame(), "E2Multilane lane selector"),
     myFrameParent(frameParent) {
     // create label for route info
@@ -394,11 +394,11 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::E2MultilaneLaneSelector(GNEFra
 }
 
 
-GNECommonNetworkModules::E2MultilaneLaneSelector::~E2MultilaneLaneSelector() {}
+GNECommonNetworkModules::ConsecutiveLaneSelector::~ConsecutiveLaneSelector() {}
 
 
 void
-GNECommonNetworkModules::E2MultilaneLaneSelector::showE2MultilaneLaneSelectorModule() {
+GNECommonNetworkModules::ConsecutiveLaneSelector::showConsecutiveLaneSelectorModule() {
     // first abort creation
     abortPathCreation();
     // disable buttons
@@ -415,7 +415,7 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::showE2MultilaneLaneSelectorMod
 
 
 void
-GNECommonNetworkModules::E2MultilaneLaneSelector::hideE2MultilaneLaneSelectorModule() {
+GNECommonNetworkModules::ConsecutiveLaneSelector::hideConsecutiveLaneSelectorModule() {
     // clear path
     clearPath();
     // hide modul
@@ -424,13 +424,13 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::hideE2MultilaneLaneSelectorMod
 
 
 const std::vector<std::pair<GNELane*, double> >&
-GNECommonNetworkModules::E2MultilaneLaneSelector::getLanePath() const {
+GNECommonNetworkModules::ConsecutiveLaneSelector::getLanePath() const {
     return myLanePath;
 }
 
 
 bool
-GNECommonNetworkModules::E2MultilaneLaneSelector::addLane(GNELane* lane) {
+GNECommonNetworkModules::ConsecutiveLaneSelector::addLane(GNELane* lane) {
     // first check if lane is valid
     if (lane == nullptr) {
         return false;
@@ -478,13 +478,13 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::addLane(GNELane* lane) {
 
 
 bool
-GNECommonNetworkModules::E2MultilaneLaneSelector::drawCandidateLanesWithSpecialColor() const {
+GNECommonNetworkModules::ConsecutiveLaneSelector::drawCandidateLanesWithSpecialColor() const {
     return (myShowCandidateLanes->getCheck() == TRUE);
 }
 
 
 void
-GNECommonNetworkModules::E2MultilaneLaneSelector::updateLaneColors() {
+GNECommonNetworkModules::ConsecutiveLaneSelector::updateLaneColors() {
     // reset all flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {
@@ -526,7 +526,7 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::updateLaneColors() {
 
 
 void
-GNECommonNetworkModules::E2MultilaneLaneSelector::drawTemporalE2Multilane(const GUIVisualizationSettings& s) const {
+GNECommonNetworkModules::ConsecutiveLaneSelector::drawTemporalConsecutiveLane(const GUIVisualizationSettings& s) const {
     if (myLanePath.size() > 0) {
         // check if draw start und end
         const bool drawExtremeSymbols = myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
@@ -586,8 +586,7 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::drawTemporalE2Multilane(const 
         const Position secondPosition = myLanePath.back().first->getLaneShape().positionAtOffset2D(myLanePath.back().second);
         // draw geometry points
         GUIGeometry::drawGeometryPoints(s, myFrameParent->getViewNet()->getPositionInformation(), {firstPosition, secondPosition},
-                                        pointColor, darkerColor, s.neteditSizeSettings.polylineWidth, 1,
-                                        myFrameParent->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
+                                        pointColor, darkerColor, s.neteditSizeSettings.polylineWidth, 1, false, drawExtremeSymbols);
         // Pop last matrix
         GLHelper::popMatrix();
     }
@@ -595,7 +594,7 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::drawTemporalE2Multilane(const 
 
 
 void
-GNECommonNetworkModules::E2MultilaneLaneSelector::abortPathCreation() {
+GNECommonNetworkModules::ConsecutiveLaneSelector::abortPathCreation() {
     // first check that there is elements
     if (myLanePath.size() > 0) {
         // unblock undo/redo
@@ -617,7 +616,7 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::abortPathCreation() {
 
 
 void
-GNECommonNetworkModules::E2MultilaneLaneSelector::removeLastElement() {
+GNECommonNetworkModules::ConsecutiveLaneSelector::removeLastElement() {
     if (myLanePath.size() > 1) {
         // remove special color of last selected lane
         myLanePath.back().first->resetCandidateFlags();
@@ -645,14 +644,14 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::removeLastElement() {
 
 
 long
-GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdCreatePath(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdCreatePath(FXObject*, FXSelector, void*) {
     myFrameParent->createPath();
     return 1;
 }
 
 
 long
-GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
     // just call abort path creation
     abortPathCreation();
     return 1;
@@ -660,7 +659,7 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdAbortPathCreation(FXObjec
 
 
 long
-GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
     // just call remove last element
     removeLastElement();
     return 1;
@@ -668,7 +667,7 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdRemoveLastElement(FXObjec
 
 
 long
-GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdShowCandidateLanes(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdShowCandidateLanes(FXObject*, FXSelector, void*) {
     // recalc frame
     recalc();
     // update lane colors (view will be updated within function)
@@ -678,7 +677,7 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdShowCandidateLanes(FXObje
 
 
 void
-GNECommonNetworkModules::E2MultilaneLaneSelector::updateInfoRouteLabel() {
+GNECommonNetworkModules::ConsecutiveLaneSelector::updateInfoRouteLabel() {
     if (myLanePath.size() > 0) {
         // declare variables for route info
         double length = 0;
@@ -699,7 +698,7 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::updateInfoRouteLabel() {
 
 
 void
-GNECommonNetworkModules::E2MultilaneLaneSelector::clearPath() {
+GNECommonNetworkModules::ConsecutiveLaneSelector::clearPath() {
     // reset all flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {

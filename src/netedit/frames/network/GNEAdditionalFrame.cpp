@@ -56,13 +56,13 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     mySelectorAdditionalParent = new GNEFrameModules::SelectorParent(this);
 
     // Create selector child edges
-    mySelectorChildEdges = new GNECommonNetworkModules::SelectorChildEdges(this);
+    myEdgesSelector = new GNECommonNetworkModules::EdgesSelector(this);
 
     // Create selector child lanes
-    mySelectorChildLanes = new GNECommonNetworkModules::SelectorChildLanes(this);
+    myLanesSelector = new GNECommonNetworkModules::LanesSelector(this);
 
     // Create list for E2Multilane lane selector
-    myE2MultilaneLaneSelector = new GNECommonNetworkModules::E2MultilaneLaneSelector(this);
+    myConsecutiveLaneSelector = new GNECommonNetworkModules::ConsecutiveLaneSelector(this);
 }
 
 
@@ -113,7 +113,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
     } else if (tagProperties.hasAttribute(SUMO_ATTR_LANE)) {
         return buildAdditionalOverLane(objectsUnderCursor.getLaneFront(), tagProperties);
     } else if (tagProperties.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
-        return myE2MultilaneLaneSelector->addLane(objectsUnderCursor.getLaneFront());
+        return myConsecutiveLaneSelector->addLane(objectsUnderCursor.getLaneFront());
     } else {
         return buildAdditionalOverView(tagProperties);
     }
@@ -121,19 +121,19 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
 
 
 void
-GNEAdditionalFrame::showSelectorChildLanesModule() {
+GNEAdditionalFrame::showLanesSelectorModule() {
     // Show frame
     GNEFrame::show();
     // Update UseSelectedLane CheckBox
-    mySelectorChildEdges->updateUseSelectedEdges();
+    myEdgesSelector->updateUseSelectedEdges();
     // Update UseSelectedLane CheckBox
-    mySelectorChildLanes->updateUseSelectedLanes();
+    myLanesSelector->updateUseSelectedLanes();
 }
 
 
-GNECommonNetworkModules::E2MultilaneLaneSelector*
-GNEAdditionalFrame::getE2MultilaneLaneSelector() const {
-    return myE2MultilaneLaneSelector;
+GNECommonNetworkModules::ConsecutiveLaneSelector*
+GNEAdditionalFrame::getConsecutiveLaneSelector() const {
+    return myConsecutiveLaneSelector;
 }
 
 
@@ -144,7 +144,7 @@ GNEAdditionalFrame::createPath() {
     // first check that current tag is valid (currently only for E2 multilane detectors)
     if (tagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
         // now check number of lanes
-        if (myE2MultilaneLaneSelector->getLanePath().size() < 2) {
+        if (myConsecutiveLaneSelector->getLanePath().size() < 2) {
             WRITE_WARNING("E2 multilane detectors need at least two consecutive lanes");
         } else if (createBaseAdditionalObject(tagProperty)) {
             // get attributes and values
@@ -157,13 +157,13 @@ GNEAdditionalFrame::createPath() {
                 }
                 // obtain lane IDs
                 std::vector<std::string> laneIDs;
-                for (const auto& lane : myE2MultilaneLaneSelector->getLanePath()) {
+                for (const auto& lane : myConsecutiveLaneSelector->getLanePath()) {
                     laneIDs.push_back(lane.first->getID());
                 }
                 myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, laneIDs);
                 // set positions
-                myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, myE2MultilaneLaneSelector->getLanePath().front().second);
-                myBaseAdditional->addDoubleAttribute(SUMO_ATTR_ENDPOS, myE2MultilaneLaneSelector->getLanePath().back().second);
+                myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, myConsecutiveLaneSelector->getLanePath().front().second);
+                myBaseAdditional->addDoubleAttribute(SUMO_ATTR_ENDPOS, myConsecutiveLaneSelector->getLanePath().back().second);
                 // parse common attributes
                 if (buildAdditionalCommonAttributes(tagProperty)) {
                     // show warning dialogbox and stop check if input parameters are valid
@@ -177,7 +177,7 @@ GNEAdditionalFrame::createPath() {
                         // Refresh additional Parent Selector (For additionals that have a limited number of children)
                         mySelectorAdditionalParent->refreshSelectorParentModule();
                         // abort E2 creation
-                        myE2MultilaneLaneSelector->abortPathCreation();
+                        myConsecutiveLaneSelector->abortPathCreation();
                         // refresh additional attributes
                         myAdditionalAttributes->refreshAttributesCreator();
                     }
@@ -201,38 +201,38 @@ GNEAdditionalFrame::tagSelected() {
         } else {
             mySelectorAdditionalParent->hideSelectorParentModule();
         }
-        // Show SelectorChildEdges if we're adding an additional that own the attribute SUMO_ATTR_EDGES
+        // Show EdgesSelector if we're adding an additional that own the attribute SUMO_ATTR_EDGES
         if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
-            mySelectorChildEdges->showSelectorChildEdgesModule();
+            myEdgesSelector->showEdgesSelectorModule();
         } else {
-            mySelectorChildEdges->hideSelectorChildEdgesModule();
+            myEdgesSelector->hideEdgesSelectorModule();
         }
         // check if we must show E2 multilane lane selector
         if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
-            myE2MultilaneLaneSelector->showE2MultilaneLaneSelectorModule();
+            myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
         } else if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_LANES)) {
-            myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModule();
-            // Show SelectorChildLanes or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
+            myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
+            // Show LanesSelector or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
             if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().isChild() &&
                     (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getParentTags().front() == SUMO_TAG_LANE)) {
                 // show selector parent lane and hide selector child lane
-                mySelectorChildLanes->hideSelectorChildLanesModule();
+                myLanesSelector->hideLanesSelectorModule();
             } else {
                 // show selector child lane and hide selector parent lane
-                mySelectorChildLanes->showSelectorChildLanesModule();
+                myLanesSelector->showLanesSelectorModule();
             }
         } else {
-            myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModule();
-            mySelectorChildLanes->hideSelectorChildLanesModule();
+            myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
+            myLanesSelector->hideLanesSelectorModule();
         }
     } else {
         // hide all moduls if additional isn't valid
         myAdditionalAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
         mySelectorAdditionalParent->hideSelectorParentModule();
-        mySelectorChildEdges->hideSelectorChildEdgesModule();
-        mySelectorChildLanes->hideSelectorChildLanesModule();
-        myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModule();
+        myEdgesSelector->hideEdgesSelectorModule();
+        myLanesSelector->hideLanesSelectorModule();
+        myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
     }
 }
 
@@ -313,7 +313,7 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(const GNETagProperties& tagP
     // check edge children
     if (tagProperties.hasAttribute(SUMO_ATTR_EDGES) && (!myBaseAdditional->hasStringListAttribute(SUMO_ATTR_EDGES) || myBaseAdditional->getStringListAttribute(SUMO_ATTR_EDGES).empty())) {
         // obtain edge IDs
-        myBaseAdditional->addStringListAttribute(SUMO_ATTR_EDGES, mySelectorChildEdges->getEdgeIdsSelected());
+        myBaseAdditional->addStringListAttribute(SUMO_ATTR_EDGES, myEdgesSelector->getEdgeIdsSelected());
         // check if attribute has at least one edge
         if (myBaseAdditional->getStringListAttribute(SUMO_ATTR_EDGES).empty()) {
             myAdditionalAttributes->showWarningMessage("List of " + toString(SUMO_TAG_EDGE) + "s cannot be empty");
@@ -323,7 +323,7 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(const GNETagProperties& tagP
     // check lane children
     if (tagProperties.hasAttribute(SUMO_ATTR_LANES) && (!myBaseAdditional->hasStringListAttribute(SUMO_ATTR_LANES) || myBaseAdditional->getStringListAttribute(SUMO_ATTR_LANES).empty())) {
         // obtain lane IDs
-        myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, mySelectorChildLanes->getLaneIdsSelected());
+        myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, myLanesSelector->getLaneIdsSelected());
         // check if attribute has at least one lane
         if (myBaseAdditional->getStringListAttribute(SUMO_ATTR_LANES).empty()) {
             myAdditionalAttributes->showWarningMessage("List of " + toString(SUMO_TAG_LANE) + "s cannot be empty");
@@ -366,8 +366,8 @@ GNEAdditionalFrame::buildAdditionalOverEdge(GNELane* lane, const GNETagPropertie
         // Refresh additional Parent Selector (For additionals that have a limited number of children)
         mySelectorAdditionalParent->refreshSelectorParentModule();
         // clear selected eddges and lanes
-        mySelectorChildEdges->onCmdClearSelection(nullptr, 0, nullptr);
-        mySelectorChildLanes->onCmdClearSelection(nullptr, 0, nullptr);
+        myEdgesSelector->onCmdClearSelection(nullptr, 0, nullptr);
+        myLanesSelector->onCmdClearSelection(nullptr, 0, nullptr);
         // refresh additional attributes
         myAdditionalAttributes->refreshAttributesCreator();
         return true;
@@ -408,8 +408,8 @@ GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagPropertie
         // Refresh additional Parent Selector (For additionals that have a limited number of children)
         mySelectorAdditionalParent->refreshSelectorParentModule();
         // clear selected eddges and lanes
-        mySelectorChildEdges->onCmdClearSelection(nullptr, 0, nullptr);
-        mySelectorChildLanes->onCmdClearSelection(nullptr, 0, nullptr);
+        myEdgesSelector->onCmdClearSelection(nullptr, 0, nullptr);
+        myLanesSelector->onCmdClearSelection(nullptr, 0, nullptr);
         // refresh additional attributes
         myAdditionalAttributes->refreshAttributesCreator();
         return true;
@@ -480,8 +480,8 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         // Refresh additional Parent Selector (For additionals that have a limited number of children)
         mySelectorAdditionalParent->refreshSelectorParentModule();
         // clear selected eddges and lanes
-        mySelectorChildEdges->onCmdClearSelection(nullptr, 0, nullptr);
-        mySelectorChildLanes->onCmdClearSelection(nullptr, 0, nullptr);
+        myEdgesSelector->onCmdClearSelection(nullptr, 0, nullptr);
+        myLanesSelector->onCmdClearSelection(nullptr, 0, nullptr);
         // refresh additional attributes
         myAdditionalAttributes->refreshAttributesCreator();
         return true;

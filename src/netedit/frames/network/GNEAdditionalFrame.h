@@ -51,11 +51,11 @@ public:
      */
     bool addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief show selector child lane and update use selected edges/lanes
-    void showSelectorChildLanesModule();
+    /// @brief show lanes selector
+    void showLanesSelectorModule();
 
-    /// @brief getConsecutive Lane Selector
-    GNECommonNetworkModules::E2MultilaneLaneSelector* getE2MultilaneLaneSelector() const;
+    /// @brief get consecutive lane selector
+    GNECommonNetworkModules::ConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
 
     /// @brief create path
     void createPath();
@@ -95,12 +95,12 @@ private:
     /// @brief Module for select a single parent additional
     GNEFrameModules::SelectorParent* mySelectorAdditionalParent;
 
-    /// @brief Module for select child edges
-    GNECommonNetworkModules::SelectorChildEdges* mySelectorChildEdges;
+    /// @brief Module for select edges
+    GNECommonNetworkModules::EdgesSelector* myEdgesSelector;
 
-    /// @brief Module for select child lanes
-    GNECommonNetworkModules::SelectorChildLanes* mySelectorChildLanes;
+    /// @brief Module for select lanes
+    GNECommonNetworkModules::LanesSelector* myLanesSelector;
 
-    /// @brief Module for E2Multilane lane selector
-    GNECommonNetworkModules::E2MultilaneLaneSelector* myE2MultilaneLaneSelector;
+    /// @brief Module for select consecutive lanes
+    GNECommonNetworkModules::ConsecutiveLaneSelector* myConsecutiveLaneSelector;
 };

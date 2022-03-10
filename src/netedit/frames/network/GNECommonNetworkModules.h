@@ -34,28 +34,28 @@ class GNECommonNetworkModules {
 public:
 
     // ===========================================================================
-    // class SelectorChildEdges
+    // class EdgesSelector
     // ===========================================================================
 
-    class SelectorChildEdges : public FXGroupBoxModule {
+    class EdgesSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNECommonNetworkModules::SelectorChildEdges)
+        FXDECLARE(GNECommonNetworkModules::EdgesSelector)
 
     public:
         /// @brief constructor
-        SelectorChildEdges(GNEFrame* frameParent);
+        EdgesSelector(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~SelectorChildEdges();
+        ~EdgesSelector();
 
         /// @brief get list of selecte id's in string format
         std::vector<std::string> getEdgeIdsSelected() const;
 
-        /// @brief Show SelectorChildEdges Module
-        void showSelectorChildEdgesModule(std::string search = "");
+        /// @brief Show EdgesSelector Module
+        void showEdgesSelectorModule(std::string search = "");
 
-        /// @brief hide SelectorChildEdges Module
-        void hideSelectorChildEdgesModule();
+        /// @brief hide EdgesSelector Module
+        void hideEdgesSelectorModule();
 
         /// @brief Update use selectedEdges
         void updateUseSelectedEdges();
@@ -80,7 +80,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(SelectorChildEdges)
+        FOX_CONSTRUCTOR(EdgesSelector)
 
     private:
         /// @brief pointer to frame parent
@@ -89,7 +89,7 @@ public:
         /// @brief CheckBox for selected edges
         FXCheckButton* myUseSelectedEdgesCheckButton;
 
-        /// @brief List of SelectorChildEdges
+        /// @brief List of EdgesSelector
         FXList* myList;
 
         /// @brief text field for search edge IDs
@@ -103,28 +103,28 @@ public:
     };
 
     // ===========================================================================
-    // class SelectorChildLanes
+    // class LanesSelector
     // ===========================================================================
 
-    class SelectorChildLanes : public FXGroupBoxModule {
+    class LanesSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNECommonNetworkModules::SelectorChildLanes)
+        FXDECLARE(GNECommonNetworkModules::LanesSelector)
 
     public:
         /// @brief constructor
-        SelectorChildLanes(GNEFrame* frameParent);
+        LanesSelector(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~SelectorChildLanes();
+        ~LanesSelector();
 
         /// @brief get list of selecte lane ids in string format
         std::vector<std::string> getLaneIdsSelected() const;
 
-        /// @brief Show list of SelectorChildLanes Module
-        void showSelectorChildLanesModule(std::string search = "");
+        /// @brief Show list of LanesSelector Module
+        void showLanesSelectorModule(std::string search = "");
 
-        /// @brief hide SelectorChildLanes Module
-        void hideSelectorChildLanesModule();
+        /// @brief hide LanesSelector Module
+        void hideLanesSelectorModule();
 
         // @brief Update use selectedLanes
         void updateUseSelectedLanes();
@@ -149,7 +149,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(SelectorChildLanes)
+        FOX_CONSTRUCTOR(LanesSelector)
 
     private:
         /// @brief pointer to frame parent
@@ -158,7 +158,7 @@ public:
         /// @brief CheckBox for selected lanes
         FXCheckButton* myUseSelectedLanesCheckButton;
 
-        /// @brief List of SelectorChildLanes
+        /// @brief List of LanesSelector
         FXList* myList;
 
         /// @brief text field for search lane IDs
@@ -172,25 +172,25 @@ public:
     };
 
     // ===========================================================================
-    // class E2MultilaneLaneSelector
+    // class ConsecutiveLaneSelector
     // ===========================================================================
 
-    class E2MultilaneLaneSelector : public FXGroupBoxModule {
+    class ConsecutiveLaneSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNECommonNetworkModules::E2MultilaneLaneSelector)
+        FXDECLARE(GNECommonNetworkModules::ConsecutiveLaneSelector)
 
     public:
         /// @brief default constructor
-        E2MultilaneLaneSelector(GNEFrame* frameParent);
+        ConsecutiveLaneSelector(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~E2MultilaneLaneSelector();
+        ~ConsecutiveLaneSelector();
 
-        /// @brief show E2MultilaneLaneSelector
-        void showE2MultilaneLaneSelectorModule();
+        /// @brief show ConsecutiveLaneSelector
+        void showConsecutiveLaneSelectorModule();
 
-        /// @brief show E2MultilaneLaneSelector
-        void hideE2MultilaneLaneSelectorModule();
+        /// @brief show ConsecutiveLaneSelector
+        void hideConsecutiveLaneSelectorModule();
 
         /// @brief get vector with lanes and clicked positions
         const std::vector<std::pair<GNELane*, double> > &getLanePath() const;
@@ -204,8 +204,8 @@ public:
         /// @brief update lane colors
         void updateLaneColors();
 
-        /// @brief draw temporal E2Multilane
-        void drawTemporalE2Multilane(const GUIVisualizationSettings& s) const;
+        /// @brief draw temporal consecutive lane
+        void drawTemporalConsecutiveLane(const GUIVisualizationSettings& s) const;
 
         /// @brief abort path creation
         void abortPathCreation();
@@ -230,7 +230,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(E2MultilaneLaneSelector)
+        FOX_CONSTRUCTOR(ConsecutiveLaneSelector)
 
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
@@ -262,9 +262,9 @@ public:
 
     private:
         /// @brief Invalidated copy constructor.
-        E2MultilaneLaneSelector(E2MultilaneLaneSelector*) = delete;
+        ConsecutiveLaneSelector(ConsecutiveLaneSelector*) = delete;
 
         /// @brief Invalidated assignment operator.
-        E2MultilaneLaneSelector& operator=(E2MultilaneLaneSelector*) = delete;
+        ConsecutiveLaneSelector& operator=(ConsecutiveLaneSelector*) = delete;
     };
 };

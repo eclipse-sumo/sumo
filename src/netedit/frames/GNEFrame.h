@@ -98,7 +98,7 @@ public:
     /// @brief open AttributesCreator extended dialog
     virtual void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
-    /// @brief create path
+    /// @brief create path between two elements
     virtual void createPath();
 
     /// @}
