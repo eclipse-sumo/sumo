@@ -86,20 +86,23 @@ public:
     /// @brief selected demand element in DemandElementSelector
     virtual void demandElementSelected();
 
-    /// @brief build a shaped element using the drawed shape (can be reimplemented in frame children)
+    /// @brief build a shaped element using the drawed shape
     virtual bool shapeDrawed();
 
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
     virtual void attributeUpdated();
 
-    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
+    /// @brief open AttributesCreator extended dialog
     virtual void attributesEditorExtendedDialogOpened();
 
-    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
+    /// @brief open AttributesCreator extended dialog
     virtual void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
-    /// @brief create path (can be reimplemented in frame children)
+    /// @brief create path
     virtual void createPath();
+
+    /// @brief stop consecutive path selector
+    virtual void stopConsecutiveLaneSelector();
 
     /// @}
 
