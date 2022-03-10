@@ -1,4 +1,6 @@
 set(netedit_frames_network_SRCS
+   GNECommonNetworkModules.h
+   GNECommonNetworkModules.cpp
    GNEConnectorFrame.h
    GNEConnectorFrame.cpp
    GNETLSEditorFrame.h
