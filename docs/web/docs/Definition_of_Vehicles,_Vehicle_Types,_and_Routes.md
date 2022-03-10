@@ -1087,6 +1087,7 @@ Stops can be childs of vehicles, routes, persons or containers.
 | tripId             | string            | arbitrary |  | parameter to be applied to the vehicle to track the trip id within a cyclical public transport route  |
 | line               | string            | arbitrary |  | new line attribute to be set on the vehicle when reaching this stop (for cyclical public transport route)  |
 | speed              | float            | positive | - | speed to be kept while driving between startPos and endPos. This turns the stop into a waypoint. |
+| posLat             | float            |  | - | lateral offset while stopped |
 
 - If "duration" *and* "until" are given, the vehicle will stop for at least "duration" seconds.
 - If "duration" is 0 the vehicle will decelerate to reach velocity 0 and then start to accelerate again.
