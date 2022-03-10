@@ -712,7 +712,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     }
 
 #ifdef DEBUG_INSERTION
-    if (DEBUG_COND2(aVehicle)) {
+    if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
         std::cout << "\nIS_INSERTION_SUCCESS\n"
                   << SIMTIME  << " lane=" << getID()
                   << " veh '" << aVehicle->getID()
@@ -789,7 +789,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             if (MSRailSignal::hasInsertionConstraint(*link, aVehicle, constraintInfo)) {
                 setParameter("insertionConstraint:" + aVehicle->getID(), constraintInfo);
 #ifdef DEBUG_INSERTION
-                if DEBUG_COND2(aVehicle) {
+                if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
                     std::cout << " insertion constraint at link " << (*link)->getDescription() << " not cleared \n";
                 }
 #endif
@@ -821,7 +821,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 return false;
             }
 #ifdef DEBUG_INSERTION
-            if DEBUG_COND2(aVehicle) {
+            if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
                 std::cout << "trying insertion before minor link: "
                           << "insertion speed = " << speed << " dist=" << dist
                           << "\n";
@@ -830,7 +830,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             if (currentLane == this && notification == MSMoveReminder::NOTIFICATION_DEPARTED && MSRailSignal::hasOncomingRailTraffic(*link)) {
                 // allow guarding bidirectional tracks at the network border with railSignal
 #ifdef DEBUG_INSERTION
-                if DEBUG_COND2(aVehicle) {
+                if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
                     std::cout << " oncoming rail traffic at link " << (*link)->getDescription() << "\n";
                 }
 #endif
@@ -873,24 +873,25 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             if (leaders.hasVehicles()) {
                 const double nspeed = nextLane->safeInsertionSpeed(aVehicle, seen, leaders, speed);
 #ifdef DEBUG_INSERTION
-                if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                                                         << " leader on lane '" << nextLane->getID() << "': " << leaders.toString() << " nspeed=" << nspeed << "\n";
+                if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                    std::cout << SIMTIME << " leader on lane '" << nextLane->getID() << "': " << leaders.toString() << " nspeed=" << nspeed << "\n";
+                }
 #endif
                 if (nspeed == INVALID_SPEED || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "", InsertionCheck::LEADER_GAP)) {
                     // we may not drive with the given velocity - we crash into the leader
 #ifdef DEBUG_INSERTION
-                    if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                                                             << " isInsertionSuccess lane=" << getID()
-                                                             << " veh=" << aVehicle->getID()
-                                                             << " pos=" << pos
-                                                             << " posLat=" << posLat
-                                                             << " patchSpeed=" << patchSpeed
-                                                             << " speed=" << speed
-                                                             << " nspeed=" << nspeed
-                                                             << " nextLane=" << nextLane->getID()
-                                                             << " lead=" << leaders.toString()
-//                                                             << " gap=" << gap
-                                                             << " failed (@641)!\n";
+                    if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                        std::cout << " isInsertionSuccess lane=" << getID()
+                                  << " veh=" << aVehicle->getID()
+                                  << " pos=" << pos
+                                  << " posLat=" << posLat
+                                  << " patchSpeed=" << patchSpeed
+                                  << " speed=" << speed
+                                  << " nspeed=" << nspeed
+                                  << " nextLane=" << nextLane->getID()
+                                  << " lead=" << leaders.toString()
+                                  << " failed (@641)!\n";
+                    }
 #endif
                     return false;
                 }
@@ -946,25 +947,25 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     if (nspeed == INVALID_SPEED || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "", InsertionCheck::LEADER_GAP)) {
         // we may not drive with the given velocity - we crash into the leader
 #ifdef DEBUG_INSERTION
-        if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                                                 << " isInsertionSuccess lane=" << getID()
-                                                 << " veh=" << aVehicle->getID()
-                                                 << " pos=" << pos
-                                                 << " posLat=" << posLat
-                                                 << " patchSpeed=" << patchSpeed
-                                                 << " speed=" << speed
-                                                 << " nspeed=" << nspeed
-                                                 << " nextLane=" << nextLane->getID()
-                                                 << " leaders=" << leaders.toString()
-                                                 << " failed (@700)!\n";
+        if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+            std::cout << SIMTIME << " isInsertionSuccess lane=" << getID()
+                                 << " veh=" << aVehicle->getID()
+                                 << " pos=" << pos
+                                 << " posLat=" << posLat
+                                 << " patchSpeed=" << patchSpeed
+                                 << " speed=" << speed
+                                 << " nspeed=" << nspeed
+                                 << " nextLane=" << nextLane->getID()
+                                 << " leaders=" << leaders.toString()
+                                 << " failed (@700)!\n";
+        }
 #endif
         return false;
     }
 #ifdef DEBUG_INSERTION
-    if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                                             << " speed = " << speed
-                                             << " nspeed = " << nspeed
-                                             << std::endl;
+    if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+        std::cout << SIMTIME << " speed = " << speed << " nspeed = " << nspeed << std::endl;
+    }
 #endif
 
     const MSLeaderDistanceInfo& followers = getFollowersOnConsecutive(aVehicle, aVehicle->getBackPositionOnLane(), false);
@@ -977,18 +978,19 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                         || (followers[i].second < 0 && (aVehicle->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0))) {
                 // too close to the follower on this lane
 #ifdef DEBUG_INSERTION
-                if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                                                         << " isInsertionSuccess lane=" << getID()
-                                                         << " veh=" << aVehicle->getID()
-                                                         << " pos=" << pos
-                                                         << " posLat=" << posLat
-                                                         << " patchSpeed=" << patchSpeed
-                                                         << " speed=" << speed
-                                                         << " nspeed=" << nspeed
-                                                         << " follower=" << follower->getID()
-                                                         << " backGapNeeded=" << backGapNeeded
-                                                         << " gap=" << followers[i].second
-                                                         << " failure (@719)!\n";
+                if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                    std::cout << SIMTIME << " isInsertionSuccess lane=" << getID()
+                                         << " veh=" << aVehicle->getID()
+                                         << " pos=" << pos
+                                         << " posLat=" << posLat
+                                         << " patchSpeed=" << patchSpeed
+                                         << " speed=" << speed
+                                         << " nspeed=" << nspeed
+                                         << " follower=" << follower->getID()
+                                         << " backGapNeeded=" << backGapNeeded
+                                         << " gap=" << followers[i].second
+                                         << " failure (@719)!\n";
+                }
 #endif
                 return false;
             }
@@ -1001,7 +1003,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 
     MSLane* shadowLane = aVehicle->getLaneChangeModel().getShadowLane(this);
 #ifdef DEBUG_INSERTION
-    if (DEBUG_COND2(aVehicle)) {
+    if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
         std::cout << "    shadowLane=" << Named::getIDSecure(shadowLane) << "\n";
     }
 #endif
@@ -1016,18 +1018,20 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                         || (shadowFollowers[i].second < 0 && (aVehicle->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0))) {
                     // too close to the follower on this lane
 #ifdef DEBUG_INSERTION
-                    if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                                                             << " isInsertionSuccess shadowlane=" << shadowLane->getID()
-                                                             << " veh=" << aVehicle->getID()
-                                                             << " pos=" << pos
-                                                             << " posLat=" << posLat
-                                                             << " patchSpeed=" << patchSpeed
-                                                             << " speed=" << speed
-                                                             << " nspeed=" << nspeed
-                                                             << " follower=" << follower->getID()
-                                                             << " backGapNeeded=" << backGapNeeded
-                                                             << " gap=" << shadowFollowers[i].second
-                                                             << " failure (@812)!\n";
+                    if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                        std::cout << SIMTIME
+                                  << " isInsertionSuccess shadowlane=" << shadowLane->getID()
+                                  << " veh=" << aVehicle->getID()
+                                  << " pos=" << pos
+                                  << " posLat=" << posLat
+                                  << " patchSpeed=" << patchSpeed
+                                  << " speed=" << speed
+                                  << " nspeed=" << nspeed
+                                  << " follower=" << follower->getID()
+                                  << " backGapNeeded=" << backGapNeeded
+                                  << " gap=" << shadowFollowers[i].second
+                                  << " failure (@812)!\n";
+                    }
 #endif
                     return false;
                 }
@@ -1044,18 +1048,20 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                         || (gap < 0 && (aVehicle->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0))) {
                     // too close to the shadow leader
 #ifdef DEBUG_INSERTION
-                    if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                                                             << " isInsertionSuccess shadowlane=" << shadowLane->getID()
-                                                             << " veh=" << aVehicle->getID()
-                                                             << " pos=" << pos
-                                                             << " posLat=" << posLat
-                                                             << " patchSpeed=" << patchSpeed
-                                                             << " speed=" << speed
-                                                             << " nspeed=" << nspeed
-                                                             << " leader=" << veh->getID()
-                                                             << " gapNeeded=" << gapNeeded
-                                                             << " gap=" << gap
-                                                             << " failure (@842)!\n";
+                    if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                        std::cout << SIMTIME
+                                  << " isInsertionSuccess shadowlane=" << shadowLane->getID()
+                                  << " veh=" << aVehicle->getID()
+                                  << " pos=" << pos
+                                  << " posLat=" << posLat
+                                  << " patchSpeed=" << patchSpeed
+                                  << " speed=" << speed
+                                  << " nspeed=" << nspeed
+                                  << " leader=" << veh->getID()
+                                  << " gapNeeded=" << gapNeeded
+                                  << " gap=" << gap
+                                  << " failure (@842)!\n";
+                    }
 #endif
                     return false;
                 }
@@ -1070,16 +1076,18 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 && (aVehicle->getParameter().insertionChecks & (int)InsertionCheck::LEADER_GAP) != 0) {
             // too close to a follower
 #ifdef DEBUG_INSERTION
-            if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                                                     << " isInsertionSuccess lane=" << getID()
-                                                     << " veh=" << aVehicle->getID()
-                                                     << " pos=" << pos
-                                                     << " posLat=" << posLat
-                                                     << " patchSpeed=" << patchSpeed
-                                                     << " speed=" << speed
-                                                     << " nspeed=" << nspeed
-                                                     << " missingRearGap=" << missingRearGap
-                                                     << " failure (@728)!\n";
+            if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                std::cout << SIMTIME
+                          << " isInsertionSuccess lane=" << getID()
+                          << " veh=" << aVehicle->getID()
+                          << " pos=" << pos
+                          << " posLat=" << posLat
+                          << " patchSpeed=" << patchSpeed
+                          << " speed=" << speed
+                          << " nspeed=" << nspeed
+                          << " missingRearGap=" << missingRearGap
+                          << " failure (@728)!\n";
+            }
 #endif
             return false;
         }
@@ -1090,15 +1098,17 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     // may got negative while adaptation
     if (speed < 0) {
 #ifdef DEBUG_INSERTION
-        if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                                                 << " isInsertionSuccess lane=" << getID()
-                                                 << " veh=" << aVehicle->getID()
-                                                 << " pos=" << pos
-                                                 << " posLat=" << posLat
-                                                 << " patchSpeed=" << patchSpeed
-                                                 << " speed=" << speed
-                                                 << " nspeed=" << nspeed
-                                                 << " failed (@733)!\n";
+        if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+            std::cout << SIMTIME
+                      << " isInsertionSuccess lane=" << getID()
+                      << " veh=" << aVehicle->getID()
+                      << " pos=" << pos
+                      << " posLat=" << posLat
+                      << " patchSpeed=" << patchSpeed
+                      << " speed=" << speed
+                      << " nspeed=" << nspeed
+                      << " failed (@733)!\n";
+        }
 #endif
         return false;
     }
@@ -1107,19 +1117,21 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         return v->getPositionOnLane() >= pos;
     }), notification);
 #ifdef DEBUG_INSERTION
-    if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                                             << " isInsertionSuccess lane=" << getID()
-                                             << " veh=" << aVehicle->getID()
-                                             << " pos=" << pos
-                                             << " posLat=" << posLat
-                                             << " patchSpeed=" << patchSpeed
-                                             << " speed=" << speed
-                                             << " nspeed=" << nspeed
-                                             << "\n myVehicles=" << toString(myVehicles)
-                                             << " myPartial=" << toString(myPartialVehicles)
-                                             << " myManeuverReservations=" << toString(myManeuverReservations)
-                                             << "\n leaders=" << leaders.toString()
-                                             << "\n success!\n";
+    if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+        std::cout << SIMTIME
+                  << " isInsertionSuccess lane=" << getID()
+                  << " veh=" << aVehicle->getID()
+                  << " pos=" << pos
+                  << " posLat=" << posLat
+                  << " patchSpeed=" << patchSpeed
+                  << " speed=" << speed
+                  << " nspeed=" << nspeed
+                  << "\n myVehicles=" << toString(myVehicles)
+                  << " myPartial=" << toString(myPartialVehicles)
+                  << " myManeuverReservations=" << toString(myManeuverReservations)
+                  << "\n leaders=" << leaders.toString()
+                  << "\n success!\n";
+    }
 #endif
     if (isRail) {
         unsetParameter("insertionConstraint:" + aVehicle->getID());
