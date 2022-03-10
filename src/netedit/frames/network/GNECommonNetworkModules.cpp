@@ -124,64 +124,6 @@ GNECommonNetworkModules::SelectorParentLanes::startConsecutiveLaneSelector(GNELa
 }
 
 
-bool
-GNECommonNetworkModules::SelectorParentLanes::stopConsecutiveLaneSelector() {
-/*
-    // obtain tagproperty (only for improve code legibility)
-    const auto& tagProperties = myFrameParent->myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
-    // abort if there isn't at least two lanes
-    if (mySelectedLanes.size() < 2) {
-        WRITE_WARNING(myFrameParent->myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " requires at least two lanes.");
-        // abort consecutive lane selector
-        abortConsecutiveLaneSelector();
-        return false;
-    }
-    // create base additional
-    if (!myFrameParent->createBaseAdditionalObject(tagProperties)) {
-        return false;
-    }
-    // get attributes and values
-    myFrameParent->myAdditionalAttributes->getAttributesAndValues(myFrameParent->myBaseAdditional, true);
-    // fill valuesOfElement with Netedit attributes from Frame
-    myFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(myFrameParent->myBaseAdditional, nullptr);
-    // Check if ID has to be generated
-    if (!myFrameParent->myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
-        myFrameParent->myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
-    }
-    // obtain lane IDs
-    std::vector<std::string> laneIDs;
-    for (const auto& selectedlane : mySelectedLanes) {
-        laneIDs.push_back(selectedlane.first->getID());
-    }
-    myFrameParent->myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, laneIDs);
-    // Obtain clicked position over first lane
-    myFrameParent->myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, mySelectedLanes.front().second);
-    // Obtain clicked position over last lane
-    myFrameParent->myBaseAdditional->addDoubleAttribute(SUMO_ATTR_ENDPOS, mySelectedLanes.back().second);
-    // parse common attributes
-    if (!myFrameParent->buildAdditionalCommonAttributes(tagProperties)) {
-        return false;
-    }
-    // show warning dialogbox and stop check if input parameters are valid
-    if (myFrameParent->myAdditionalAttributes->areValuesValid() == false) {
-        myFrameParent->myAdditionalAttributes->showWarningMessage();
-        return false;
-    } else {
-        // declare additional handler
-        GNEAdditionalHandler additionalHandler(myFrameParent->getViewNet()->getNet(), true);
-        // build additional
-        additionalHandler.parseSumoBaseObject(myFrameParent->myBaseAdditional);
-        // abort consecutive lane selector
-        abortConsecutiveLaneSelector();
-        // refresh additional attributes
-        myFrameParent->myAdditionalAttributes->refreshAttributesCreator();
-        return true;
-    }
-*/
-    return true;
-}
-
-
 void
 GNECommonNetworkModules::SelectorParentLanes::abortConsecutiveLaneSelector() {
     // reset color of all candidate lanes
@@ -282,7 +224,7 @@ GNECommonNetworkModules::SelectorParentLanes::getSelectedLanes() const {
 
 long
 GNECommonNetworkModules::SelectorParentLanes::onCmdStopSelection(FXObject*, FXSelector, void*) {
-    stopConsecutiveLaneSelector();
+    myFrameParent->stopConsecutiveLaneSelector();
     return 0;
 }
 
@@ -659,6 +601,12 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::hideE2MultilaneLaneSelectorMod
 }
 
 
+const std::vector<std::pair<GNELane*, double> >&
+GNECommonNetworkModules::E2MultilaneLaneSelector::getLanePath() const {
+    return myLanePath;
+}
+
+
 bool
 GNECommonNetworkModules::E2MultilaneLaneSelector::addLane(GNELane* lane) {
     // first check if lane is valid
@@ -824,68 +772,6 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::drawTemporalE2Multilane(const 
 }
 
 
-bool
-GNECommonNetworkModules::E2MultilaneLaneSelector::createPath() {
-/*
-
-    // obtain tagproperty (only for improve code legibility)
-    const auto& tagProperties = myFrameParent->myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
-    // first check that current tag is valid
-    if (tagProperties.getTag() != GNE_TAG_E2DETECTOR_MULTILANE) {
-        return false;
-    }
-    // now check number of lanes
-    if (myLanePath.size() < 2) {
-        WRITE_WARNING("E2 multilane detectors need at least two consecutive lanes");
-        return false;
-    }
-    // create base additional
-    if (!myFrameParent->createBaseAdditionalObject(tagProperties)) {
-        return false;
-    }
-    // get attributes and values
-    myFrameParent->myAdditionalAttributes->getAttributesAndValues(myFrameParent->myBaseAdditional, true);
-    // fill netedit attributes
-    if (!myFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(myFrameParent->myBaseAdditional, nullptr)) {
-        return false;
-    }
-    // Check if ID has to be generated
-    if (!myFrameParent->myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
-        myFrameParent->myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(GNE_TAG_E2DETECTOR_MULTILANE));
-    }
-    // obtain lane IDs
-    std::vector<std::string> laneIDs;
-    for (const auto& lane : myLanePath) {
-        laneIDs.push_back(lane.first->getID());
-    }
-    myFrameParent->myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, laneIDs);
-    // set positions
-    myFrameParent->myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, myLanePath.front().second);
-    myFrameParent->myBaseAdditional->addDoubleAttribute(SUMO_ATTR_ENDPOS, myLanePath.back().second);
-    // parse common attributes
-    if (!myFrameParent->buildAdditionalCommonAttributes(myFrameParent->myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty())) {
-        return false;
-    }
-    // show warning dialogbox and stop check if input parameters are valid
-    if (myFrameParent->myAdditionalAttributes->areValuesValid() == false) {
-        myFrameParent->myAdditionalAttributes->showWarningMessage();
-        return false;
-    }
-    // declare additional handler
-    GNEAdditionalHandler additionalHandler(myFrameParent->getViewNet()->getNet(), true);
-    // build additional
-    additionalHandler.parseSumoBaseObject(myFrameParent->myBaseAdditional);
-    // Refresh additional Parent Selector (For additionals that have a limited number of children)
-    myFrameParent->mySelectorAdditionalParent->refreshSelectorParentModule();
-    // abort E2 creation
-    abortPathCreation();
-    // refresh additional attributes
-    myFrameParent->myAdditionalAttributes->refreshAttributesCreator();
-*/
-    return true;
-}
-
-
 void
 GNECommonNetworkModules::E2MultilaneLaneSelector::abortPathCreation() {
     // first check that there is elements
@@ -938,8 +824,7 @@ GNECommonNetworkModules::E2MultilaneLaneSelector::removeLastElement() {
 
 long
 GNECommonNetworkModules::E2MultilaneLaneSelector::onCmdCreatePath(FXObject*, FXSelector, void*) {
-    // just call create path
-    createPath();
+    myFrameParent->createPath();
     return 1;
 }
 

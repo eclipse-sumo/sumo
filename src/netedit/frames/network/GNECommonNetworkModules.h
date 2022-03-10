@@ -34,7 +34,6 @@
 class GNECommonNetworkModules : public GNEFrame {
 
 public:
-
     // ===========================================================================
     // class SelectorParentLanes
     // ===========================================================================
@@ -57,9 +56,6 @@ public:
 
         /// @brief start selection of consecutive lanes
         void startConsecutiveLaneSelector(GNELane* lane, const Position& clickedPosition);
-
-        /// @brief stop selection of consecutive lanes
-        bool stopConsecutiveLaneSelector();
 
         /// @brief abort selection of consecutive lanes
         void abortConsecutiveLaneSelector();
@@ -89,6 +85,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectorParentLanes)
 
     private:
@@ -157,6 +154,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectorChildEdges)
 
     private:
@@ -225,6 +223,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectorChildLanes)
 
     private:
@@ -268,6 +267,9 @@ public:
         /// @brief show E2MultilaneLaneSelector
         void hideE2MultilaneLaneSelectorModule();
 
+        /// @brief get vector with lanes and clicked positions
+        const std::vector<std::pair<GNELane*, double> > &getLanePath() const;
+
         /// @brief add lane
         bool addLane(GNELane* lane);
 
@@ -279,9 +281,6 @@ public:
 
         /// @brief draw temporal E2Multilane
         void drawTemporalE2Multilane(const GUIVisualizationSettings& s) const;
-
-        /// @brief create path
-        bool createPath();
 
         /// @brief abort path creation
         void abortPathCreation();
@@ -305,7 +304,7 @@ public:
         /// @}
 
     protected:
-        /// @brief fox need this
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(E2MultilaneLaneSelector)
 
         /// @brief update InfoRouteLabel
