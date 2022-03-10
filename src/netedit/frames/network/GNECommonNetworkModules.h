@@ -204,8 +204,8 @@ public:
         /// @brief update lane colors
         void updateLaneColors();
 
-        /// @brief draw temporal consecutive lane
-        void drawTemporalConsecutiveLane(const GUIVisualizationSettings& s) const;
+        /// @brief draw temporal consecutive lane path
+        void drawTemporalConsecutiveLanePath(const GUIVisualizationSettings& s) const;
 
         /// @brief abort path creation
         void abortPathCreation();

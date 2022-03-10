@@ -880,7 +880,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // draw testing elements
         myTestingMode.drawTestingElements(myApp);
         // draw temporal E2 multilane detectors
-        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLane(*myVisualizationSettings);
+        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLanePath(*myVisualizationSettings);
         // draw temporal trip/flow route
         myViewParent->getVehicleFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
         // draw temporal person plan route

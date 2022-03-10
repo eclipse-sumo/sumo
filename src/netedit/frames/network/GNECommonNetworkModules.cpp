@@ -522,61 +522,59 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::updateLaneColors() {
     }
     // update view net
     myFrameParent->getViewNet()->updateViewNet();
-}
+}  
 
 
 void
-GNECommonNetworkModules::ConsecutiveLaneSelector::drawTemporalConsecutiveLane(const GUIVisualizationSettings& s) const {
+GNECommonNetworkModules::ConsecutiveLaneSelector::drawTemporalConsecutiveLanePath(const GUIVisualizationSettings& s) const {
+    // Only draw if there is at least one lane
     if (myLanePath.size() > 0) {
-        // check if draw start und end
-        const bool drawExtremeSymbols = myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                                        myFrameParent->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
         // get widths
         const double lineWidth = 0.35;
         const double lineWidthin = 0.25;
-        // Add a draw matrix
-        GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, GLO_TEMPORALSHAPE);
-        // set first color
-        GLHelper::setColor(RGBColor::GREY);
-        // iterate over path
+        // declare vector with shapes
+        std::vector<PositionVector> shapes;
+            // iterate lanes
         for (int i = 0; i < (int)myLanePath.size(); i++) {
             // get lane
             const GNELane* lane = myLanePath.at(i).first;
-            // draw box lines
-            GLHelper::drawBoxLines(lane->getLaneShape(), lineWidth);
+            // add lane shape
+            shapes.push_back(lane->getLaneShape());
             // draw connection between lanes
             if ((i + 1) < (int)myLanePath.size()) {
                 // get next lane
                 const GNELane* nextLane = myLanePath.at(i + 1).first;
                 if (lane->getLane2laneConnections().exist(nextLane)) {
-                    GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidth);
+                    shapes.push_back(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape());
                 } else {
-                    GLHelper::drawBoxLines({lane->getLaneShape().back(), nextLane->getLaneShape().front()}, lineWidth);
+                    shapes.push_back({lane->getLaneShape().back(), nextLane->getLaneShape().front()});
                 }
             }
         }
-        // move to front
-        glTranslated(0, 0, 0.1);
-        // set color
-        GLHelper::setColor(RGBColor::ORANGE);
-        // iterate over path again
-        for (int i = 0; i < (int)myLanePath.size(); i++) {
-            // get lane
-            const GNELane* lane = myLanePath.at(i).first;
-            // draw box lines
-            GLHelper::drawBoxLines(lane->getLaneShape(), lineWidthin);
-            // draw connection between lanes
-            if ((i + 1) < (int)myLanePath.size()) {
-                // get next lane
-                const GNELane* nextLane = myLanePath.at(i + 1).first;
-                if (lane->getLane2laneConnections().exist(nextLane)) {
-                    GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidthin);
-                } else {
-                    GLHelper::drawBoxLines({lane->getLaneShape().back(), nextLane->getLaneShape().front()}, lineWidthin);
-                }
-            }
+        // check if adjust first and last shape
+        if (shapes.size() > 1) {
+            ;
+        }
+        // Add a draw matrix
+        GLHelper::pushMatrix();
+        // move to temporal shape
+        glTranslated(0, 0, GLO_TEMPORALSHAPE);
+        // iterate over shapes
+        for (const auto &shape : shapes) {
+            // set extern
+            GLHelper::setColor(RGBColor::GREY);
+            // draw extern shape
+            GLHelper::drawBoxLines(shape, lineWidth);
+            // push matrix
+            GLHelper::pushMatrix();
+            // move to front
+            glTranslated(0, 0, 0.1);
+            // set orange color
+            GLHelper::setColor(RGBColor::ORANGE);
+            // draw intern shape
+            GLHelper::drawBoxLines(shape, lineWidthin);
+            // Pop matrix
+            GLHelper::popMatrix();
         }
         // draw points
         const RGBColor pointColor = RGBColor::RED;
@@ -586,7 +584,7 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::drawTemporalConsecutiveLane(co
         const Position secondPosition = myLanePath.back().first->getLaneShape().positionAtOffset2D(myLanePath.back().second);
         // draw geometry points
         GUIGeometry::drawGeometryPoints(s, myFrameParent->getViewNet()->getPositionInformation(), {firstPosition, secondPosition},
-                                        pointColor, darkerColor, s.neteditSizeSettings.polylineWidth, 1, false, drawExtremeSymbols);
+                                        pointColor, darkerColor, s.neteditSizeSettings.polylineWidth, 1, false, true);
         // Pop last matrix
         GLHelper::popMatrix();
     }
