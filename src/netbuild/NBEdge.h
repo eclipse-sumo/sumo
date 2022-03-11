@@ -1278,6 +1278,13 @@ public:
      */
     double getAngleAtNode(const NBNode* const node) const;
 
+    /** @brief Returns the angle of the edge's geometry at the given node
+     * and disregards edge direction
+     * @param[in] node The node for which the edge's angle shall be returned
+     * @return This edge's angle at the given node (normalized to point towards the node)
+     */
+    double getAngleAtNodeNormalized(const NBNode* const node) const;
+
     /** @brief Returns the angle of from the node shape center to where the edge meets
      * the node shape
      *

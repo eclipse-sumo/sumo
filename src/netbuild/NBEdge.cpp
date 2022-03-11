@@ -2066,6 +2066,22 @@ NBEdge::getAngleAtNode(const NBNode* const atNode) const {
     }
 }
 
+double
+NBEdge::getAngleAtNodeNormalized(const NBNode* const atNode) const {
+    // myStartAngle, myEndAngle are in [0,360] and this returns results in [-180,180]
+    double res;
+    if (atNode == myFrom) {
+        res = GeomHelper::legacyDegree(myGeom.angleAt2D(0)) - 180;
+    } else {
+        assert(atNode == myTo);
+        res = GeomHelper::legacyDegree(myGeom.angleAt2D(-2));
+    }
+    if (res < 0) {
+        res += 360;
+    }
+    return res;
+}
+
 
 double
 NBEdge::getAngleAtNodeToCenter(const NBNode* const atNode) const {
