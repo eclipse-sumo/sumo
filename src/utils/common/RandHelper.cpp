@@ -145,5 +145,9 @@ RandHelper::randNorm(double mean, double variance, SumoRNG* rng) {
     return mean + variance * u * sqrt(-2 * logRounded / q);
 }
 
+double
+RandHelper::randExp(double rate, SumoRNG* rng) {
+    return -log(rand(rng)) / rate;
+}
 
 /****************************************************************************/

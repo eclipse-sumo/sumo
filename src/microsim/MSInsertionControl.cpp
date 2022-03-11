@@ -220,7 +220,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
         bool tryEmitByProb = pars->repetitionProbability > 0;
         while ((pars->repetitionProbability < 0
                 && pars->repetitionsDone < pars->repetitionNumber * scale
-                && pars->depart + pars->repetitionsDone * pars->repetitionOffset / scale <= time)
+                && pars->depart + pars->repetitionTotalOffset <= time)
                 || (tryEmitByProb
                     && pars->depart <= time
                     && pars->repetitionEnd > time
@@ -230,8 +230,9 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             tryEmitByProb = false; // only emit one per step
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(i->index);
-            newPars->depart = pars->repetitionProbability > 0 ? time : (SUMOTime)(pars->depart + pars->repetitionsDone * pars->repetitionOffset / scale) + computeRandomDepartOffset();
-            pars->repetitionsDone++;
+            newPars->depart = pars->repetitionProbability > 0 ? time : pars->depart + pars->repetitionTotalOffset + computeRandomDepartOffset();
+            pars->incrementFlow(scale, &myFlowRNG);
+            //std::cout << SIMTIME << " flow=" << pars->id << " done=" << pars->repetitionsDone << " totalOffset=" << STEPS2TIME(pars->repetitionTotalOffset) << "\n";
             // try to build the vehicle
             if (vehControl.getVehicle(newPars->id) == nullptr) {
                 const MSRoute* const route = MSRoute::dictionary(pars->routeid);
@@ -251,7 +252,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                         SUMOVehicleParameter* const quotaPars = new SUMOVehicleParameter(*pars);
                         quotaPars->id = pars->id + "." + toString(i->index);
                         quotaPars->depart = pars->repetitionProbability > 0 ? time :
-                                            (SUMOTime)(pars->depart + pars->repetitionsDone * pars->repetitionOffset) + computeRandomDepartOffset();
+                                            pars->depart + pars->repetitionsDone * pars->repetitionTotalOffset + computeRandomDepartOffset();
                         SUMOVehicle* const quotaVehicle = vehControl.buildVehicle(quotaPars, route, vtype, !MSGlobals::gCheckRoutes);
                         vehControl.addVehicle(quotaPars->id, quotaVehicle);
                         add(quotaVehicle);

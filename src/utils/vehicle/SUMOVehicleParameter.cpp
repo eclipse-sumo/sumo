@@ -24,6 +24,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
+#include <utils/common/RandHelper.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 
@@ -46,7 +47,12 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       arrivalPosLat(0), arrivalPosLatProcedure(ArrivalPosLatDefinition::DEFAULT),
       arrivalSpeed(-1), arrivalSpeedProcedure(ArrivalSpeedDefinition::DEFAULT),
       arrivalEdge(-1), arrivalEdgeProcedure(RouteIndexDefinition::DEFAULT),
-      repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1), repetitionProbability(-1), repetitionEnd(-1),
+      repetitionNumber(-1),
+      repetitionsDone(-1),
+      repetitionOffset(0),
+      repetitionTotalOffset(0),
+      repetitionProbability(-1),
+      repetitionEnd(-1),
       line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0),
       speedFactor(-1),
       calibratorSpeed(-1),
@@ -995,5 +1001,13 @@ SUMOVehicleParameter::getArrivalSpeed() const {
     return val;
 }
 
+void
+SUMOVehicleParameter::incrementFlow(double scale, SumoRNG* rng) {
+    repetitionsDone++;
+    // equidistant or exponential offset (for poisson distributed arrivals)
+    repetitionTotalOffset += (repetitionOffset >= 0
+            ? repetitionOffset
+            : TIME2STEPS(RandHelper::randExp(-STEPS2TIME(repetitionOffset), rng))) / scale;
+}
 
 /****************************************************************************/

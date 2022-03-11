@@ -917,8 +917,8 @@ MSRouteHandler::closeFlow() {
     myVehicleParameter->repetitionsDone = 0;
     if (myVehicleParameter->repetitionProbability < 0) {
         const SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
-        while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
-            myVehicleParameter->repetitionsDone++;
+        while (myVehicleParameter->repetitionTotalOffset < offsetToBegin) {
+            myVehicleParameter->incrementFlow(1, &myParsingRNG);
             if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {
                 delete myVehicleParameter;
                 myVehicleParameter = nullptr;

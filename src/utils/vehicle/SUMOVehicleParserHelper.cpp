@@ -164,9 +164,17 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             }
         }
         // parse period
+        bool poissonFlow = false;
         if (hasPeriod) {
             bool ok = true;
-            flowParameter->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
+            const std::string description = attrs.get<std::string>(SUMO_ATTR_PERIOD, id.c_str(), ok);
+            const std::string distName = description.substr(0, description.find('('));
+            if (distName == "exp") {
+                flowParameter->repetitionOffset = -TIME2STEPS(StringUtils::toDouble(description.substr(distName.size() + 1, description.size() - distName.size() - 2)));
+                poissonFlow = true;
+            } else {
+                flowParameter->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
+            }
             if (!ok) {
                 return handleVehicleError(hardFail, flowParameter);
             } else {
@@ -265,7 +273,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                     if (flowParameter->repetitionNumber < 0) {
                         return handleVehicleError(hardFail, flowParameter, "Negative repetition number in the definition of " + toString(tag) + " '" + id + "'.");
                     }
-                    if (flowParameter->repetitionOffset < 0) {
+                    if (flowParameter->repetitionOffset <= 0) {
                         flowParameter->repetitionOffset = (flowParameter->repetitionEnd - flowParameter->depart) / flowParameter->repetitionNumber;
                     }
                 }
@@ -277,13 +285,19 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                 flowParameter->repetitionNumber = std::numeric_limits<int>::max();
             } else {
                 if (flowParameter->repetitionOffset <= 0) {
-                    return handleVehicleError(hardFail, flowParameter, "Invalid repetition rate in the definition of " + toString(tag) + " '" + id + "'.");
-                }
-                if (flowParameter->repetitionEnd == SUMOTime_MAX) {
-                    flowParameter->repetitionNumber = std::numeric_limits<int>::max();
+                    if (poissonFlow) {
+                        // number is random but flow has a fixed end time
+                        flowParameter->repetitionNumber = std::numeric_limits<int>::max();
+                    } else {
+                        return handleVehicleError(hardFail, flowParameter, "Invalid repetition rate in the definition of " + toString(tag) + " '" + id + "'.");
+                    }
                 } else {
-                    const double repLength = (double)(flowParameter->repetitionEnd - flowParameter->depart);
-                    flowParameter->repetitionNumber = (int)ceil(repLength / flowParameter->repetitionOffset);
+                    if (flowParameter->repetitionEnd == SUMOTime_MAX) {
+                        flowParameter->repetitionNumber = std::numeric_limits<int>::max();
+                    } else {
+                        const double repLength = (double)(flowParameter->repetitionEnd - flowParameter->depart);
+                        flowParameter->repetitionNumber = (int)ceil(repLength / flowParameter->repetitionOffset);
+                    }
                 }
             }
         }

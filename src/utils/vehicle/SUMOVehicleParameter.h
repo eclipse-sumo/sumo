@@ -722,6 +722,9 @@ public:
     /// @brief The time offset between vehicle reinsertions
     SUMOTime repetitionOffset;
 
+    /// @brief The offset between depart and the time for the next vehicle insertions
+    SUMOTime repetitionTotalOffset;
+
     /// @brief The probability for emitting a vehicle per second
     double repetitionProbability;
 
@@ -762,6 +765,9 @@ public:
 
     /// @brief Information for the router which parameter were set, TraCI may modify this (when changing color)
     mutable int parametersSet;
+
+public:
+    void incrementFlow(double scale, SumoRNG* rng);
 
 protected:
     /// @brief obtain depart parameter in string format

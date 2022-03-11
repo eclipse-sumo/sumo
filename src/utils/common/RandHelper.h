@@ -189,6 +189,9 @@ public:
     /// @brief Access to a random number from a normal distribution
     static double randNorm(double mean, double variance, SumoRNG* rng = nullptr);
 
+    /// @brief Access to a random number from an exponential distribution
+    static double randExp(double rate, SumoRNG* rng = nullptr);
+
     /// @brief Returns a random element from the given vector
     template<class T>
     static inline const T&
