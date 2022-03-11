@@ -86,5 +86,11 @@ with_vehtype_keepdist
 # Test whether public transport flows are handled correctly even if there are no persons
 ptflow_nopersons
 
+# define poisson-distributed flow
+poisson_0.1
+
+# define poisson-distributed flow with number instead of end
+poisson_0.1_number
+
 # Tests with false user input
 errors
