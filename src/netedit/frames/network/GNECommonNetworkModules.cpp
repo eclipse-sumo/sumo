@@ -371,7 +371,7 @@ GNECommonNetworkModules::LanesSelector::onCmdInvertSelection(FXObject*, FXSelect
 // ---------------------------------------------------------------------------
 
 GNECommonNetworkModules::ConsecutiveLaneSelector::ConsecutiveLaneSelector(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "E2Multilane lane selector"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Consecutive lane selector"),
     myFrameParent(frameParent) {
     // create label for route info
     myInfoRouteLabel = new FXLabel(getCollapsableFrame(), "No lanes selected", 0, GUIDesignLabelFrameThicked);
@@ -426,6 +426,16 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::hideConsecutiveLaneSelectorMod
 const std::vector<std::pair<GNELane*, double> >&
 GNECommonNetworkModules::ConsecutiveLaneSelector::getLanePath() const {
     return myLanePath;
+}
+
+
+const std::vector<std::string> 
+GNECommonNetworkModules::ConsecutiveLaneSelector::getLaneIDPath() const {
+    std::vector<std::string> laneIDs;
+    for (const auto& lane : myLanePath) {
+        laneIDs.push_back(lane.first->getID());
+    }
+    return laneIDs;
 }
 
 

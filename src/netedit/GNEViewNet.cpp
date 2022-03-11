@@ -881,6 +881,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         myTestingMode.drawTestingElements(myApp);
         // draw temporal E2 multilane detectors
         myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLanePath(*myVisualizationSettings);
+        // draw temporal overwhead wires
+        myViewParent->getWireFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLanePath(*myVisualizationSettings);
         // draw temporal trip/flow route
         myViewParent->getVehicleFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
         // draw temporal person plan route
@@ -1137,6 +1139,9 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
             // abort path
             myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortPathCreation();
+            } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_WIRE) {
+            // abort path
+            myViewParent->getWireFrame()->getConsecutiveLaneSelector()->abortPathCreation();
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         // abort operation depending of current mode
@@ -1275,6 +1280,9 @@ GNEViewNet::hotkeyEnter() {
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
             // create path element
             myViewParent->getAdditionalFrame()->createPath();
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_WIRE) {
+            // create path element
+            myViewParent->getWireFrame()->createPath();
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {

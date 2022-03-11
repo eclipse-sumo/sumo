@@ -19,13 +19,9 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include <netedit/frames/GNEFrame.h>
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEConnection;
-class GNEAttributeCarrier;
+#include "GNECommonNetworkModules.h"
+
 
 // ===========================================================================
 // class definitions
@@ -46,14 +42,20 @@ public:
     /// @brief Destructor
     ~GNEWireFrame();
 
+    /// @brief show wire frame
+    void show();
+
     /**@brief add wire element
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @return true if wire was sucesfully added
      */
     bool addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief show wire frame
-    void show();
+    /// @brief get consecutive lane selector
+    GNECommonNetworkModules::ConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
+
+    /// @brief create path
+    void createPath();
 
 protected:
     /// @brief SumoBaseObject used for create wire
@@ -65,9 +67,6 @@ protected:
 private:
     // @brief create baseWireObject
     bool createBaseWireObject(const GNETagProperties& tagProperty);
-
-    /// @brief build wire over lanes
-    bool buildWireOverLanes(GNELane* lane, const GNETagProperties& tagValues);
 
     /// @brief build wire over view
     bool buildWireOverView(const GNETagProperties& tagValues);
@@ -83,4 +82,7 @@ private:
 
     /// @brief Module for select a single parent wire
     GNEFrameModules::SelectorParent* mySelectorWireParent = nullptr;
+
+    /// @brief Module for select consecutive lanes
+    GNECommonNetworkModules::ConsecutiveLaneSelector* myConsecutiveLaneSelector;
 };
