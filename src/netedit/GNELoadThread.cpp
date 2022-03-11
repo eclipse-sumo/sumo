@@ -300,7 +300,10 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addDescription("routeProbe-prefix", "Netedit", "prefix for routeProbe naming");
 
     oc.doRegister("vss-prefix", new Option_String("vs"));
-    oc.addDescription("vss-prefix", "Netedit", "prefix for vss naming");
+    oc.addDescription("vss-prefix", "Netedit", "prefix for variable speed sign naming");
+
+    oc.doRegister("tractionSubstation-prefix", new Option_String("tr"));
+    oc.addDescription("tractionSubstation-prefix", "Netedit", "prefix for traction substation naming");
 
     oc.doRegister("polygon-prefix", new Option_String("po"));
     oc.addDescription("polygon-prefix", "Netedit", "prefix for polygon naming");
