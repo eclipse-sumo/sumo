@@ -170,7 +170,11 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             const std::string description = attrs.get<std::string>(SUMO_ATTR_PERIOD, id.c_str(), ok);
             const std::string distName = description.substr(0, description.find('('));
             if (distName == "exp") {
-                flowParameter->repetitionOffset = -TIME2STEPS(StringUtils::toDouble(description.substr(distName.size() + 1, description.size() - distName.size() - 2)));
+                const double rate = StringUtils::toDouble(description.substr(distName.size() + 1, description.size() - distName.size() - 2));
+                if (rate <= 0) {
+                    return handleVehicleError(hardFail, flowParameter, "Invalid rate parameter for exponentially distributed period in the definition of " + toString(tag) + " '" + id + "'.");
+                }
+                flowParameter->repetitionOffset = -TIME2STEPS(rate);
                 poissonFlow = true;
             } else {
                 flowParameter->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
