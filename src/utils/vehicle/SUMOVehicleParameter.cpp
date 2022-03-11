@@ -49,7 +49,7 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       arrivalEdge(-1), arrivalEdgeProcedure(RouteIndexDefinition::DEFAULT),
       repetitionNumber(-1),
       repetitionsDone(-1),
-      repetitionOffset(0),
+      repetitionOffset(-1),
       repetitionTotalOffset(0),
       repetitionProbability(-1),
       repetitionEnd(-1),
@@ -1005,9 +1005,11 @@ void
 SUMOVehicleParameter::incrementFlow(double scale, SumoRNG* rng) {
     repetitionsDone++;
     // equidistant or exponential offset (for poisson distributed arrivals)
-    repetitionTotalOffset += (repetitionOffset >= 0
-            ? repetitionOffset
-            : TIME2STEPS(RandHelper::randExp(-STEPS2TIME(repetitionOffset), rng))) / scale;
+    if (repetitionProbability < 0) {
+        repetitionTotalOffset += (repetitionOffset >= 0
+                ? repetitionOffset
+                : TIME2STEPS(RandHelper::randExp(-STEPS2TIME(repetitionOffset), rng))) / scale;
+    }
 }
 
 /****************************************************************************/
