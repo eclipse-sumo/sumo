@@ -64,7 +64,7 @@ namespace PHEMlightdllV5 {
         }
 
         _effectiveWheelDiameter = Vehicle->getVehicleData()->getWheelDiameter();
-        // const bool HeavyVehicle = Vehicle->getVehicleData()->getMassType() == Constants::HeavyVehicle;
+        privateHeavyVehicle = Vehicle->getVehicleData()->getMassType() == Constants::HeavyVehicle;
         setFuelType(Vehicle->getVehicleData()->getFuelType());
         _axleRatio = Vehicle->getTransmissionData()->getAxelRatio();
         _auxPower = Vehicle->getAuxiliariesData()->getPauxnorm();
