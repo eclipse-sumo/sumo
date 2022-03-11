@@ -305,6 +305,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("tractionSubstation-prefix", new Option_String("tr"));
     oc.addDescription("tractionSubstation-prefix", "Netedit", "prefix for traction substation naming");
 
+    oc.doRegister("overheadWire-prefix", new Option_String("ow"));
+    oc.addDescription("overheadWire-prefix", "Netedit", "prefix for overhead wire naming");
+
     oc.doRegister("polygon-prefix", new Option_String("po"));
     oc.addDescription("polygon-prefix", "Netedit", "prefix for polygon naming");
 

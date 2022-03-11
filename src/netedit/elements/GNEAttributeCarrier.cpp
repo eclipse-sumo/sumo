@@ -3144,7 +3144,7 @@ GNEAttributeCarrier::fillWireElements() {
                                       GUIIcon::OVERHEADWIRE, currentTag);
         // set attribute properties
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
                                               "Overhead wire segment ID");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
