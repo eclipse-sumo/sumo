@@ -2169,6 +2169,11 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     // TAZs
     writeTAZComment(device);
     writeAdditionalByType(device, {SUMO_TAG_TAZ});
+    // Wire element
+    writeWireComment(device);
+    writeAdditionalByType(device, {SUMO_TAG_TRACTION_SUBSTATION});
+    writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_SECTION});
+    writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
     // close device
     device.close();
 }
@@ -2373,6 +2378,16 @@ bool
 GNENet::writeTAZComment(OutputDevice& device) const {
     if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_TAZ).size() > 0) {
         device << ("    <!-- TAZs -->\n");
+        return true;
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeWireComment(OutputDevice& device) const {
+    if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_TRACTION_SUBSTATION).size() > 0) {
+        device << ("    <!-- Wires -->\n");
         return true;
     }
     return false;

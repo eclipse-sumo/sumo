@@ -600,6 +600,9 @@ private:
     /// @brief write TAZ comment
     bool writeTAZComment(OutputDevice& device) const;
 
+    /// @brief write Wire comment
+    bool writeWireComment(OutputDevice& device) const;
+
     /// @brief replace in list attribute
     static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);
 
