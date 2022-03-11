@@ -1865,7 +1865,7 @@ GNEFrameModules::SelectorParent::SelectorParent(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Parent selector"),
     myFrameParent(frameParent) {
     // Create label with the type of SelectorParent
-    myParentsLabel = new FXLabel(getCollapsableFrame(), "No additional selected", nullptr, GUIDesignLabelLeftThick);
+    myParentsLabel = new FXLabel(getCollapsableFrame(), "No element selected", nullptr, GUIDesignLabelLeftThick);
     // Create list
     myParentsList = new FXList(getCollapsableFrame(), this, MID_GNE_SET_TYPE, GUIDesignListSingleElementFixedHeight);
     // Hide List
@@ -1904,20 +1904,17 @@ GNEFrameModules::SelectorParent::setIDSelected(const std::string& id) {
 }
 
 
-bool
-GNEFrameModules::SelectorParent::showSelectorParentModule(const std::vector<SumoXMLTag>& additionalTypeParents) {
-    // make sure that we're editing an additional tag
-    const auto listOfTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT);
-    for (const auto& tagIt : listOfTags) {
-        if (std::find(additionalTypeParents.begin(), additionalTypeParents.end(), tagIt.getTag()) != additionalTypeParents.end()) {
-            myParentTags = additionalTypeParents;
-            myParentsLabel->setText(("Parent type: " + tagIt.getFieldString()).c_str());
-            refreshSelectorParentModule();
-            show();
-            return true;
-        }
+void
+GNEFrameModules::SelectorParent::showSelectorParentModule(const std::vector<SumoXMLTag>& parentTags) {
+    if (parentTags.size() > 0) {
+        myParentTags = parentTags;
+        myParentsLabel->setText(("Parent type: " + toString(parentTags.front())).c_str());
+        refreshSelectorParentModule();
+        show();
+    } else {
+        myParentTags.clear();
+        hide();
     }
-    return false;
 }
 
 
@@ -1941,13 +1938,18 @@ GNEFrameModules::SelectorParent::refreshSelectorParentModule() {
     if (myParentTags.size() > 0) {
         // insert additionals sorted
         std::set<std::string> IDs;
-        // fill list with IDs of additionals
+        // fill list with IDs
         for (const auto& parentTag : myParentTags) {
-            for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(parentTag)) {
-                IDs.insert(additional->getID().c_str());
+            // check type
+            const auto tagProperty = GNEAttributeCarrier::getTagProperty(parentTag);
+            // additionals
+            if (tagProperty.isAdditionalElement()) {
+                for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(parentTag)) {
+                    IDs.insert(additional->getID().c_str());
+                }
             }
         }
-        // fill list with IDs of additionals
+        // fill list with IDs
         for (const auto& ID : IDs) {
             const int item = myParentsList->appendItem(ID.c_str());
             if (selectedItems.find(ID) != selectedItems.end()) {
