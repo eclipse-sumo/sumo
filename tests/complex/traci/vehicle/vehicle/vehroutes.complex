@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-10-21 13:13:42 by Eclipse SUMO sumo Version v1_10_0+1583-640f571
+<!-- generated on 2022-03-11 13:41:20 by Eclipse SUMO sumo Version v1_12_0+1336-a87ef3e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,7 +28,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="51443"/>
+        <remote-port value="38672"/>
     </traci_server>
 
     <gui_only>
@@ -40,7 +40,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="1" depart="6.00" arrival="19.00">
+    <vehicle id="1" depart="6.00" departPos="0.00" arrival="19.00">
         <routeDistribution>
             <route replacedOnEdge="" reason="traci:changeTarget" replacedAtTime="6.00" probability="0" edges="2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si"/>
             <route edges="2fi 2si 4o 4fi"/>
@@ -48,7 +48,7 @@
         <stop lane="2fi_0" startPos="49.90" endPos="50.00" duration="1.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="movedVeh" depart="125.00" arrival="130.00">
+    <vehicle id="movedVeh" depart="125.00" departPos="0.00" arrival="130.00">
         <routeDistribution>
             <route replacedOnEdge="1si" reason="traci:moveToXY" replacedAtTime="126.00" probability="0" edges="3fi 3si 4o"/>
             <route edges="1si"/>
