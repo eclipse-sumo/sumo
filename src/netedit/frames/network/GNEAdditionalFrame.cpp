@@ -175,31 +175,33 @@ GNEAdditionalFrame::createPath() {
 
 void
 GNEAdditionalFrame::tagSelected() {
-    if (myAdditionalTagSelector->getCurrentTemplateAC()) {
+    // get template AC
+    const auto templateAC = myAdditionalTagSelector->getCurrentTemplateAC();
+    if (templateAC) {
         // show additional attributes modul
-        myAdditionalAttributes->showAttributesCreatorModule(myAdditionalTagSelector->getCurrentTemplateAC(), {});
+        myAdditionalAttributes->showAttributesCreatorModule(templateAC, {});
         // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModule(myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty());
+        myNeteditAttributes->showNeteditAttributesModule(templateAC->getTagProperty());
         // Show myAdditionalFrameParent if we're adding an slave element
-        if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().isChild()) {
-            mySelectorAdditionalParent->showSelectorParentModule(myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getParentTags());
+        if (templateAC->getTagProperty().isChild()) {
+            mySelectorAdditionalParent->showSelectorParentModule(templateAC->getTagProperty().getParentTags());
         } else {
             mySelectorAdditionalParent->hideSelectorParentModule();
         }
         // Show EdgesSelector if we're adding an additional that own the attribute SUMO_ATTR_EDGES
-        if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
+        if (templateAC->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
             myEdgesSelector->showEdgesSelectorModule();
         } else {
             myEdgesSelector->hideEdgesSelectorModule();
         }
         // check if we must show consecutive lane selector
-        if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
+        if (templateAC->getTagProperty().getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
-        } else if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_LANES)) {
+        } else if (templateAC->getTagProperty().hasAttribute(SUMO_ATTR_LANES)) {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
             // Show LanesSelector or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
-            if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().isChild() &&
-                    (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getParentTags().front() == SUMO_TAG_LANE)) {
+            if (templateAC->getTagProperty().isChild() &&
+                    (templateAC->getTagProperty().getParentTags().front() == SUMO_TAG_LANE)) {
                 // show selector parent lane and hide selector child lane
                 myLanesSelector->hideLanesSelectorModule();
             } else {
