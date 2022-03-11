@@ -767,7 +767,7 @@ public:
     mutable int parametersSet;
 
 public:
-    void incrementFlow(double scale, SumoRNG* rng);
+    void incrementFlow(double scale, SumoRNG* rng = nullptr);
 
 protected:
     /// @brief obtain depart parameter in string format

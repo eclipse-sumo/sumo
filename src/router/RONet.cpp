@@ -534,9 +534,10 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                 pars->depart += DELTA_T;
             }
         } else {
-            while (pars->repetitionsDone < pars->repetitionNumber) {
+            SUMOTime depart = static_cast<SUMOTime>(pars->depart + pars->repetitionTotalOffset);
+            while (pars->repetitionsDone < pars->repetitionNumber && pars->repetitionEnd >= depart) {
                 myHaveActiveFlows = true;
-                SUMOTime depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
+                depart = static_cast<SUMOTime>(pars->depart + pars->repetitionTotalOffset);
                 if (myDepartures.find(pars->id) != myDepartures.end()) {
                     depart = myDepartures[pars->id].back();
                 }
@@ -554,7 +555,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                         stop->until += depart - pars->depart;
                     }
                 }
-                pars->repetitionsDone++;
+                pars->incrementFlow(1);
                 // try to build the vehicle
                 SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
                 if (type == nullptr) {

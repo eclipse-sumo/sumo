@@ -697,8 +697,8 @@ RORouteHandler::closeFlow() {
     // let's check whether vehicles had to depart before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
     const SUMOTime offsetToBegin = myBegin - myVehicleParameter->depart;
-    while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
-        myVehicleParameter->repetitionsDone++;
+    while (myVehicleParameter->repetitionTotalOffset < offsetToBegin) {
+        myVehicleParameter->incrementFlow(1);
         if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {
             delete myVehicleParameter;
             myVehicleParameter = nullptr;
