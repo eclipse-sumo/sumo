@@ -1385,6 +1385,38 @@ Vehicle::add(const std::string& vehID,
     if (!SUMOVehicleParameter::parseArrivalSpeed(arrivalSpeed, "vehicle", vehID, vehicleParams.arrivalSpeed, vehicleParams.arrivalSpeedProcedure, error)) {
         throw TraCIException(error);
     }
+    // mark non-default attributes
+    if (departLane != "first") {
+        vehicleParams.parametersSet |= VEHPARS_DEPARTLANE_SET;
+    }
+    if (departPos != "base") {
+        vehicleParams.parametersSet |= VEHPARS_DEPARTPOS_SET;
+    }
+    if (departSpeed != "0") {
+        vehicleParams.parametersSet |= VEHPARS_DEPARTSPEED_SET;
+    }
+    if (arrivalLane != "current") {
+        vehicleParams.parametersSet |= VEHPARS_ARRIVALLANE_SET;
+    }
+    if (arrivalPos != "max") {
+        vehicleParams.parametersSet |= VEHPARS_ARRIVALPOS_SET;
+    }
+    if (arrivalSpeed != "current") {
+        vehicleParams.parametersSet |= VEHPARS_ARRIVALSPEED_SET;
+    }
+    if (fromTaz != "") {
+        vehicleParams.parametersSet |= VEHPARS_FROM_TAZ_SET;
+    }
+    if (toTaz != "") {
+        vehicleParams.parametersSet |= VEHPARS_TO_TAZ_SET;
+    }
+    if (line != "") {
+        vehicleParams.parametersSet |= VEHPARS_LINE_SET;
+    }
+    if (personNumber != 0) {
+        vehicleParams.parametersSet |= VEHPARS_PERSON_NUMBER_SET;
+    }
+    // build vehicle
     vehicleParams.fromTaz = fromTaz;
     vehicleParams.toTaz = toTaz;
     vehicleParams.line = line;
