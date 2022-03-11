@@ -84,7 +84,7 @@ namespace PHEMlightdllV5 {
         return 0.;
     }
 
-    bool CEPHandler::ReadVehicleFile(const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, bool fleetMix, VEHPHEMLightJSON::VEH*& Vehicle) {
+    bool CEPHandler::ReadVehicleFile(const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, bool /* fleetMix */, VEHPHEMLightJSON::VEH*& Vehicle) {
         std::string path = "";
         Vehicle = new VEHPHEMLightJSON::VEH();
 
@@ -219,7 +219,7 @@ namespace PHEMlightdllV5 {
         return true;
     }
 
-    bool CEPHandler::ReadEmissionData(bool readFC, const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, bool fleetMix, Correction* DataCor, std::vector<std::string>& header, std::vector<std::vector<double> >& matrix, std::vector<double>& idlingValues) {
+    bool CEPHandler::ReadEmissionData(bool readFC, const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, bool /* fleetMix */, Correction* DataCor, std::vector<std::string>& header, std::vector<std::vector<double> >& matrix, std::vector<double>& idlingValues) {
         // declare file stream
         std::string line;
         std::string path = "";
@@ -296,7 +296,7 @@ namespace PHEMlightdllV5 {
         return true;
     }
 
-    double CEPHandler::GetDetTempCor(Correction* DataCor, const std::string& Emi) {
+    double CEPHandler::GetDetTempCor(Correction* DataCor, const std::string& /* Emi */) {
         //Initialisation
         double CorF = 1;
 

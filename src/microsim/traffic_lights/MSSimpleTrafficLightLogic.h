@@ -81,7 +81,7 @@ public:
      * @return The time of the next switch
      * @see MSTrafficLightLogic::trySwitch
      */
-    virtual SUMOTime trySwitch();
+    virtual SUMOTime trySwitch() override;
     /// @}
 
 
@@ -93,14 +93,14 @@ public:
      * @return The number of this tls program's phases
      * @see MSTrafficLightLogic::getPhaseNumber
      */
-    int getPhaseNumber() const;
+    int getPhaseNumber() const override;
 
 
     /** @brief Returns the phases of this tls program
      * @return The phases of this tls program
      * @see MSTrafficLightLogic::getPhases
      */
-    const Phases& getPhases() const;
+    const Phases& getPhases() const override;
 
 
     /** @brief Returns the phases of this tls program
@@ -115,7 +115,7 @@ public:
      * @return The definition of the phase at the given position
      * @see MSTrafficLightLogic::getPhase
      */
-    const MSPhaseDefinition& getPhase(int givenstep) const;
+    const MSPhaseDefinition& getPhase(int givenstep) const override;
 
     /** @brief Returns the type of the logic as a string
      * @return The type of the logic
@@ -134,14 +134,14 @@ public:
      * @return The index of the current phase within the tls
      * @see MSTrafficLightLogic::getCurrentPhaseIndex
      */
-    int getCurrentPhaseIndex() const;
+    int getCurrentPhaseIndex() const override;
 
 
     /** @brief Returns the definition of the current phase
      * @return The current phase
      * @see MSTrafficLightLogic::getCurrentPhaseDef
      */
-    const MSPhaseDefinition& getCurrentPhaseDef() const;
+    const MSPhaseDefinition& getCurrentPhaseDef() const override;
     /// @}
 
 
@@ -153,7 +153,7 @@ public:
      * @return The (estimated) index of the tls at the given simulation time step
      * @see MSTrafficLightLogic::getPhaseIndexAtTime
      */
-    SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const;
+    SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const override;
 
 
     /** @brief Returns the position (start of a phase during a cycle) from of a given step
@@ -161,7 +161,7 @@ public:
      * @return The begin time of the phase
      * @see MSTrafficLightLogic::getOffsetFromIndex
      */
-    SUMOTime getOffsetFromIndex(int index) const;
+    SUMOTime getOffsetFromIndex(int index) const override;
 
 
     /** @brief Returns the step (the phasenumber) of a given position of the cycle
@@ -169,7 +169,7 @@ public:
      * @return The according phase
      * @see MSTrafficLightLogic::getIndexFromOffset
      */
-    int getIndexFromOffset(SUMOTime offset) const;
+    int getIndexFromOffset(SUMOTime offset) const override;
     /// @}
 
 
@@ -185,7 +185,7 @@ public:
      * @see MSTrafficLightLogic::changeStepAndDuration
      */
     virtual void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep,
-                                       int step, SUMOTime stepDuration);
+                                       int step, SUMOTime stepDuration) override;
 
     /** @brief Replaces the phases and set the phase index
      */
@@ -194,9 +194,9 @@ public:
 
     /** @brief Saves the current tls states into the given stream
         */
-    virtual void saveState(OutputDevice& /*out*/) const;
+    virtual void saveState(OutputDevice& out) const override;
 
-    virtual SUMOTime mapTimeInCycle(SUMOTime t) const;
+    virtual SUMOTime mapTimeInCycle(SUMOTime t) const override;
 
     /**@brief gets a parameter */
     virtual const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;

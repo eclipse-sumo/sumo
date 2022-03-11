@@ -372,7 +372,7 @@ public:
     void detectorUpdate(const SUMOTime step);
 
     /** @brief Remove all vehicles before quick-loading state */
-    virtual void clearState();
+    virtual void clearState(SUMOTime step);
 
 protected:
     void notifyMovePerson(MSTransportable* p, MSMoveReminder* rem, double detPos, int dir, double pos);

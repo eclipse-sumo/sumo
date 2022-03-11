@@ -64,7 +64,7 @@ namespace PHEMlightdllV5 {
         }
 
         _effectiveWheelDiameter = Vehicle->getVehicleData()->getWheelDiameter();
-        const bool HeavyVehicle = Vehicle->getVehicleData()->getMassType() == Constants::HeavyVehicle;
+        // const bool HeavyVehicle = Vehicle->getVehicleData()->getMassType() == Constants::HeavyVehicle;
         setFuelType(Vehicle->getVehicleData()->getFuelType());
         _axleRatio = Vehicle->getTransmissionData()->getAxelRatio();
         _auxPower = Vehicle->getAuxiliariesData()->getPauxnorm();
@@ -78,7 +78,7 @@ namespace PHEMlightdllV5 {
         std::vector<std::string> FCvaluesIdentifier;
         std::vector<std::vector<double> > FCvaluesMeasures;
         std::vector<std::vector<double> > normalizedFCvaluesMeasures;
-        for (int i = 0; i < headerLineFCvalues.size(); i++) {
+        for (int i = 0; i < (int)headerLineFCvalues.size(); i++) {
             FCvaluesIdentifier.push_back(headerLineFCvalues[i]);
             FCvaluesMeasures.push_back(std::vector<double>());
             normalizedFCvaluesMeasures.push_back(std::vector<double>());
@@ -88,7 +88,7 @@ namespace PHEMlightdllV5 {
         std::vector<std::string> pollutantIdentifier;
         std::vector<std::vector<double> > pollutantMeasures;
         std::vector<std::vector<double> > normalizedPollutantMeasures;
-        for (int i = 0; i < headerLinePollutants.size(); i++) {
+        for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
             pollutantIdentifier.push_back(headerLinePollutants[i]);
             pollutantMeasures.push_back(std::vector<double>());
             normalizedPollutantMeasures.push_back(std::vector<double>());
@@ -96,7 +96,7 @@ namespace PHEMlightdllV5 {
 
         // Assigning values for speed rotational table
         _speedPatternRotational = std::vector<double>();
-        for (int i = 0; i < Vehicle->getTransmissionData()->getTransm()["Speed"].size(); i++) {
+        for (int i = 0; i < (int)Vehicle->getTransmissionData()->getTransm()["Speed"].size(); i++) {
             _speedPatternRotational.push_back(Vehicle->getTransmissionData()->getTransm()["Speed"][i] / 3.6);
         }
 
@@ -114,7 +114,7 @@ namespace PHEMlightdllV5 {
         int headerFCCount = (int)headerLineFCvalues.size();
         for (int i = 0; i < (int)matrixFCvalues.size(); i++) {
             for (int j = 0; j < (int)matrixFCvalues[i].size(); j++) {
-                if (matrixFCvalues[i].size() != headerFCCount + 1) {
+                if ((int)matrixFCvalues[i].size() != headerFCCount + 1) {
                     return;
                 }
 
@@ -133,7 +133,7 @@ namespace PHEMlightdllV5 {
         _idlingValueFCvalues = std::map<std::string, double>();
         _normedCepCurveFCvalues = std::map<std::string, std::vector<double> >();
 
-        for (int i = 0; i < headerLineFCvalues.size(); i++) {
+        for (int i = 0; i < (int)headerLineFCvalues.size(); i++) {
             _cepCurveFCvalues.insert(std::make_pair(FCvaluesIdentifier[i], FCvaluesMeasures[i]));
             _normedCepCurveFCvalues.insert(std::make_pair(FCvaluesIdentifier[i], normalizedFCvaluesMeasures[i]));
             _idlingValueFCvalues.insert(std::make_pair(FCvaluesIdentifier[i], idlingFCvalues[i] * getRatedPower()));
@@ -160,7 +160,7 @@ namespace PHEMlightdllV5 {
         int headerCount = (int)headerLinePollutants.size();
         for (int i = 0; i < (int)matrixPollutants.size(); i++) {
             for (int j = 0; j < (int)matrixPollutants[i].size(); j++) {
-                if (matrixPollutants[i].size() != headerCount + 1) {
+                if ((int)matrixPollutants[i].size() != headerCount + 1) {
                     return;
                 }
 
@@ -178,7 +178,7 @@ namespace PHEMlightdllV5 {
         _cepCurvePollutants = std::map<std::string, std::vector<double> >();
         _idlingValuesPollutants = std::map<std::string, double>();
 
-        for (int i = 0; i < headerLinePollutants.size(); i++) {
+        for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
             _cepCurvePollutants.insert(std::make_pair(pollutantIdentifier[i], pollutantMeasures[i]));
             _cepNormalizedCurvePollutants.insert(std::make_pair(pollutantIdentifier[i], normalizedPollutantMeasures[i]));
             _idlingValuesPollutants.insert(std::make_pair(pollutantIdentifier[i], idlingPollutants[i] * pollutantMultiplyer));
@@ -301,7 +301,7 @@ namespace PHEMlightdllV5 {
         int lowerIndex;
 
         if (std::abs(speed) <= Constants::ZERO_SPEED_ACCURACY) {
-            if (_cepCurvePollutants.find(pollutant) == _cepCurvePollutants.end() & _cepCurveFCvalues.find(pollutant) == _cepCurveFCvalues.end()) {
+            if (_cepCurvePollutants.find(pollutant) == _cepCurvePollutants.end() && _cepCurveFCvalues.find(pollutant) == _cepCurveFCvalues.end()) {
                 VehicleClass->setErrMsg(std::string("Emission pollutant or fuel value ") + pollutant + std::string(" not found!"));
                 return 0;
             }
@@ -314,7 +314,7 @@ namespace PHEMlightdllV5 {
             }
         }
 
-        if (_cepCurvePollutants.find(pollutant) == _cepCurvePollutants.end() & _cepCurveFCvalues.find(pollutant) == _cepCurveFCvalues.end()) {
+        if (_cepCurvePollutants.find(pollutant) == _cepCurvePollutants.end() && _cepCurveFCvalues.find(pollutant) == _cepCurveFCvalues.end()) {
             VehicleClass->setErrMsg(std::string("Emission pollutant or fuel value ") + pollutant + std::string(" not found!"));
             return 0;
         }

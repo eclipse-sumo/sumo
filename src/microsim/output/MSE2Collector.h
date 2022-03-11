@@ -515,7 +515,7 @@ public:
     virtual void setVisible(bool /*show*/) {};
 
     /** @brief Remove all vehicles before quick-loading state */
-    virtual void clearState();
+    virtual void clearState(SUMOTime step);
 
     /** @brief Persistently overrides the number of vehicles on top of the detector 
      * Setting a negative value removes the override

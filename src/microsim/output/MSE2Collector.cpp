@@ -321,7 +321,7 @@ MSE2Collector::recalculateDetectorLength() {
 
 MSE2Collector::~MSE2Collector() {
     // clear move notifications
-    clearState();
+    clearState(SUMOTime_MAX);
 }
 
 
@@ -1572,7 +1572,7 @@ MSE2Collector::getEstimateQueueLength() const {
 
 
 void
-MSE2Collector::clearState() {
+MSE2Collector::clearState(SUMOTime /* step */) {
     for (std::vector<MoveNotificationInfo*>::iterator j = myMoveNotifications.begin(); j != myMoveNotifications.end(); ++j) {
         delete *j;
     }

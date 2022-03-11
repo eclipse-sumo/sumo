@@ -674,7 +674,7 @@ MSE3Collector::getCurrentVehicleIDs() const {
 }
 
 void
-MSE3Collector::clearState() {
+MSE3Collector::clearState(SUMOTime /* step */) {
     myEnteredContainer.clear();
 }
 
