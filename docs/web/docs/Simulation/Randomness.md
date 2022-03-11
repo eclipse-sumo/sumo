@@ -77,20 +77,39 @@ interval of the flow. (By default vehicles of a flow are spaced equally
 in time).
 
 # Flows with a random number of vehicles
+The following features for random flows apply to [duarouter](../duarouter.md) and [sumo](../sumo.md)
 
-Both [duarouter](../duarouter.md) and [sumo](../sumo.md)
-support loading of `<flow>` elements with attribute `probability`. When this attribute is
-used (instead of `vehsPerHour,number`, or `period`), a vehicle will be emitted randomly with the
-given probability each second. This results in a [binomially
-distributed](https://en.wikipedia.org/wiki/Binomial_distribution) flow
-(which approximates a [Poisson
-Distribution](https://en.wikipedia.org/wiki/Poisson_distribution) for
-small probabilities). When modeling such a flow on a multi-lane road it
-is recommended to define a `<flow>` for each individual lane.
+## Binomial distribution
+By definining a `<flow>` with attributes `end` and `probability` (instead of `vehsPerHour,number`, or `period`), 
+a vehicle will be emitted randomly with the given probability each second until the end time is reached. 
+The number of vehicles inserted this way will be [binomially distributed](https://en.wikipedia.org/wiki/Binomial_distribution).
+When modeling such a flow on a multi-lane road it is recommended to define a `<flow>` for each individual lane because the insertion rate is limited to at most 1 vehicle per second.
 
-When simulating with subsecond time resolution, the random decision for insertion is take in every simulation step and the probability for insertion is scaled with step-length so that the per-second probability of insertion is independent of the step-length. 
+When simulating with subsecond time resolution, the random decision for insertion is taken in every simulation step and the probability for insertion is scaled with step-length so that the per-second probability of insertion is independent of the step-length. 
 !!! note
-    The effective flow may be higher at lower step-length because the discretization error is reduced (vehicles usually cannot be inserted in subsequent seconds due to safety constraints and insertion in every other second does not achieve maximum flow).
+    The effective flow may be higher at lower step-length because the discretization error is reduced (vehicles usually cannot be inserted in subsequent seconds due to safety constraints and insertion in [every other second does not achieve maximum flow](VehicleInsertion.md#effect_of_simulation_step-length)).
+    
+For low probability the distribution of inserted vehicles approximates a [Poisson
+Distribution](https://en.wikipedia.org/wiki/Poisson_distribution)
+
+## Poisson distribution
+Since version 1.13.0 flow can also be defined with attribute `end` and `probability="exp(X)"` where `X` is a positive value.
+This will cause the time gaps between vehicle insertions to follow an [exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution) with rate parameter `X`. Effectively insertion an expected value of `X` vehicles per second.
+The number of vehicles inserted this way will follow the [Poisson distribution](https://en.wikipedia.org/wiki/Poisson_distribution).
+
+!!! note
+    The effective [insertion rate](VehicleInsertion.md#forcing_insertion_avoiding_depart_delay) is limited by network capacity and other flow attributes such as `departSpeed` and `departLane`
+    
+# Flows with a fixed number of vehicles and random departure times 
+The following features for random flows apply to [duarouter](../duarouter.md) and [sumo](../sumo.md). They are quite similar to #flows_with_a_random_number_of_vehicles but substitute the `number` attribute for the `end` attribute.
+
+## Bernoulli Process
+By definining a `<flow>` with attributes `number` and `probability` (instead of `vehsPerHour,number`, or `period`),
+a vehicle will be emitted randomly with the given probability each second until the specified number is reached.
+
+## Poisson Process
+By definining a `<flow>` with attributes `number` and `period="exp(X")` (instead of `vehsPerHour,number`, or `period`),
+vehicles will emitted with random time-gaps that follow an exponential distribution until the specified number is reached.
 
 # Departure and arrival attributes
 
