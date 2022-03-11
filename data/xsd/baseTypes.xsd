@@ -40,6 +40,16 @@
         </xsd:union>
     </xsd:simpleType>
 
+    <xsd:simpleType name="periodType">
+        <xsd:union memberTypes="timeType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="(exp)\(&FloatPattern;\)"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:union>
+    </xsd:simpleType>
+
     <xsd:simpleType name="positiveIntType">
         <xsd:restriction base="xsd:int">
             <xsd:minExclusive value="0"/>
