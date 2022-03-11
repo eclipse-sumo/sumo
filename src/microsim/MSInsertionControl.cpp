@@ -367,11 +367,11 @@ MSInsertionControl::saveState(OutputDevice& out) {
         if (flow.pars->repetitionEnd == SUMOTime_MAX) {
             out.writeAttr(SUMO_ATTR_NUMBER, flow.pars->repetitionNumber);
         }
-        if (flow.pars->repetitionProbability <= 0) {
-            out.writeAttr(SUMO_ATTR_PERIOD, STEPS2TIME(flow.pars->repetitionOffset));
-        }
         if (flow.pars->repetitionProbability > 0) {
             out.writeAttr(SUMO_ATTR_PROB, flow.pars->repetitionProbability);
+        } else {
+            out.writeAttr(SUMO_ATTR_PERIOD, STEPS2TIME(flow.pars->repetitionOffset));
+            out.writeAttr(SUMO_ATTR_NEXT, STEPS2TIME(flow.pars->repetitionTotalOffset));
         }
         if (flow.pars->repetitionEnd != SUMOTime_MAX) {
             out.writeAttr(SUMO_ATTR_END, STEPS2TIME(flow.pars->repetitionEnd));
