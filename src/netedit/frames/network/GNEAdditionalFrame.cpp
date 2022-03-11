@@ -120,17 +120,6 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
 }
 
 
-void
-GNEAdditionalFrame::showLanesSelectorModule() {
-    // Show frame
-    GNEFrame::show();
-    // Update UseSelectedLane CheckBox
-    myEdgesSelector->updateUseSelectedEdges();
-    // Update UseSelectedLane CheckBox
-    myLanesSelector->updateUseSelectedLanes();
-}
-
-
 GNECommonNetworkModules::ConsecutiveLaneSelector*
 GNEAdditionalFrame::getConsecutiveLaneSelector() const {
     return myConsecutiveLaneSelector;
@@ -155,12 +144,8 @@ GNEAdditionalFrame::createPath() {
                 if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
                     myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperty.getTag()));
                 }
-                // obtain lane IDs
-                std::vector<std::string> laneIDs;
-                for (const auto& lane : myConsecutiveLaneSelector->getLanePath()) {
-                    laneIDs.push_back(lane.first->getID());
-                }
-                myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, laneIDs);
+                // add lane IDs
+                myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, myConsecutiveLaneSelector->getLaneIDPath());
                 // set positions
                 myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, myConsecutiveLaneSelector->getLanePath().front().second);
                 myBaseAdditional->addDoubleAttribute(SUMO_ATTR_ENDPOS, myConsecutiveLaneSelector->getLanePath().back().second);
@@ -207,7 +192,7 @@ GNEAdditionalFrame::tagSelected() {
         } else {
             myEdgesSelector->hideEdgesSelectorModule();
         }
-        // check if we must show E2 multilane lane selector
+        // check if we must show consecutive lane selector
         if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
         } else if (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_LANES)) {

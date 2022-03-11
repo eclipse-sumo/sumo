@@ -51,9 +51,6 @@ public:
      */
     bool addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief show lanes selector
-    void showLanesSelectorModule();
-
     /// @brief get consecutive lane selector
     GNECommonNetworkModules::ConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
 
