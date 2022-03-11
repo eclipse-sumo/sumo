@@ -534,26 +534,28 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::drawTemporalConsecutiveLanePat
         const double lineWidthin = 0.25;
         // declare vector with shapes
         std::vector<PositionVector> shapes;
-            // iterate lanes
-        for (int i = 0; i < (int)myLanePath.size(); i++) {
-            // get lane
-            const GNELane* lane = myLanePath.at(i).first;
-            // add lane shape
-            shapes.push_back(lane->getLaneShape());
-            // draw connection between lanes
-            if ((i + 1) < (int)myLanePath.size()) {
-                // get next lane
-                const GNELane* nextLane = myLanePath.at(i + 1).first;
-                if (lane->getLane2laneConnections().exist(nextLane)) {
-                    shapes.push_back(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape());
-                } else {
-                    shapes.push_back({lane->getLaneShape().back(), nextLane->getLaneShape().front()});
+        // iterate over lanes (only if there is more than one)
+        if (myLanePath.size() > 1) {
+            // get shapes
+            for (int i = 0; i < (int)myLanePath.size(); i++) {
+                // get lane
+                const GNELane* lane = myLanePath.at(i).first;
+                // add lane shape
+                shapes.push_back(lane->getLaneShape());
+                // draw connection between lanes
+                if ((i + 1) < (int)myLanePath.size()) {
+                    // get next lane
+                    const GNELane* nextLane = myLanePath.at(i + 1).first;
+                    if (lane->getLane2laneConnections().exist(nextLane)) {
+                        shapes.push_back(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape());
+                    } else {
+                        shapes.push_back({lane->getLaneShape().back(), nextLane->getLaneShape().front()});
+                    }
                 }
             }
-        }
-        // check if adjust first and last shape
-        if (shapes.size() > 1) {
-            ;
+            // adjust first and last shape
+            shapes.front() = shapes.front().splitAt(myLanePath.front().second).second;
+            shapes.back() = shapes.back().splitAt(myLanePath.back().second).first;
         }
         // Add a draw matrix
         GLHelper::pushMatrix();
@@ -578,13 +580,12 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::drawTemporalConsecutiveLanePat
         }
         // draw points
         const RGBColor pointColor = RGBColor::RED;
-        const RGBColor darkerColor = pointColor.changedBrightness(-32);
         // positions
         const Position firstPosition = myLanePath.front().first->getLaneShape().positionAtOffset2D(myLanePath.front().second);
         const Position secondPosition = myLanePath.back().first->getLaneShape().positionAtOffset2D(myLanePath.back().second);
         // draw geometry points
         GUIGeometry::drawGeometryPoints(s, myFrameParent->getViewNet()->getPositionInformation(), {firstPosition, secondPosition},
-                                        pointColor, darkerColor, s.neteditSizeSettings.polylineWidth, 1, false, true);
+                                        pointColor, RGBColor::WHITE, s.neteditSizeSettings.polylineWidth, 1, false, true);
         // Pop last matrix
         GLHelper::popMatrix();
     }
