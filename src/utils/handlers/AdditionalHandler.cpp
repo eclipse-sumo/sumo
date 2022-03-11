@@ -152,7 +152,7 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
             case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
                 parseOverheadWireClamp(attrs);
                 break;
-            case SUMO_TAG_OVERHEAD_WIRE_SEGMENT:
+            case SUMO_TAG_OVERHEAD_WIRE_SECTION:
                 parseOverheadWire(attrs);
                 break;
             // Poly
