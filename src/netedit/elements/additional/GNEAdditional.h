@@ -379,6 +379,13 @@ protected:
     void drawListedAddtional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
                              const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const;
 
+                             
+    /// @brief get moveOperation for an element over single lane
+    GNEMoveOperation* getMoveOperationSingleLane(const double startPos, const double endPos);
+
+    /// @brief get moveOperation for an element over multi lane
+    GNEMoveOperation* getMoveOperationMultiLane(const double startPos, const double endPos);
+
 private:
     /**@brief check restriction with the number of children
      * @throw ProcessError if is called without be reimplemented in child class

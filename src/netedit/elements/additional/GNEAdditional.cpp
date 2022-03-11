@@ -22,7 +22,9 @@
 #include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/elements/network/GNEConnection.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -521,6 +523,63 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Posi
         if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, signPosition, 0.56, 2.75, 0, -2.3, 0, 1);
         }
+    }
+}
+
+
+GNEMoveOperation*
+GNEAdditional::getMoveOperationSingleLane(const double startPos, const double endPos) {
+    // get allow change lane
+    const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
+    // fist check if we're moving only extremes
+    if (myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        // get snap radius
+        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+        // get mouse position
+        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+        // check if we clicked over start or end position
+        if (myAdditionalGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // move only start position
+            return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
+                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST);
+        } else if (myAdditionalGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // move only end position
+            return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
+                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND);
+        } else {
+            return nullptr;
+        }
+    } else {
+        // move both start and end positions
+        return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
+                                    allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEBOTH);
+    }
+}
+
+
+GNEMoveOperation*
+GNEAdditional::getMoveOperationMultiLane(const double startPos, const double endPos) {
+    // check if shift is pressed
+    const bool shift = myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed();
+    // get snap radius
+    const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+    // get mouse position
+    const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+    // calculate both geometries
+    GUIGeometry fromGeometry, toGeometry;
+    fromGeometry.updateGeometry(getParentLanes().front()->getLaneGeometry().getShape(), startPos, 0);
+    toGeometry.updateGeometry(getParentLanes().back()->getLaneGeometry().getShape(), endPos, 0);
+    // check if we clicked over start or end position
+    if (fromGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+        // move using start position
+        return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
+                                    false, shift? GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST : GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_FIRST);
+    } else if (toGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+        // move using end position
+        return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
+                                    false, shift? GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND : GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_SECOND);
+    } else {
+        return nullptr;
     }
 }
 

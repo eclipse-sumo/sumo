@@ -205,12 +205,6 @@ private:
     /// @brief commit move shape
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
-    /// @brief get moveOperation for E2 single lane
-    GNEMoveOperation* getMoveOperationE2SingleLane();
-
-    /// @brief get moveOperation for E2 multi lane
-    GNEMoveOperation* getMoveOperationE2MultiLane();
-
     /// @brief Invalidate return position of additional
     const Position& getPosition() const = delete;
 

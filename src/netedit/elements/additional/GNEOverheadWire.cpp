@@ -45,11 +45,11 @@ GNEOverheadWire::GNEOverheadWire(GNENet* net) :
 }
 
 
-GNEOverheadWire::GNEOverheadWire(const std::string& id, std::vector<GNELane*> /* lanes */, GNEAdditional* /* substation */, GNENet* net, 
+GNEOverheadWire::GNEOverheadWire(const std::string& id, std::vector<GNELane*> lanes, GNEAdditional* substation, GNENet* net, 
         const double startPos, const double endPos, const bool friendlyPos, const std::vector<std::string>& forbiddenInnerLanes, 
         const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, "",
-        {}, {}, {}, {}, {}, {}),
+        {}, {}, lanes, {substation}, {}, {}),
     Parameterised(parameters),
     myStartPos(startPos),
     myEndPos(endPos),
@@ -66,8 +66,13 @@ GNEOverheadWire::~GNEOverheadWire() {
 
 GNEMoveOperation* 
 GNEOverheadWire::getMoveOperation() {
-    //
-    return nullptr;
+    // check modes and detector type
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
+        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+        return getMoveOperationMultiLane(myStartPos, myEndPos);
+    } else {
+        return nullptr;
+    }
 }
 
 
@@ -233,7 +238,7 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
     // check if E2 can be drawn
     if (s.drawAdditionals(overheadWireWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // calculate startPos
-        const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_POSITION);
+        const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_STARTPOS);
         // get endPos
         const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ENDPOS);
         // declare path geometry
@@ -365,6 +370,8 @@ GNEOverheadWire::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getID();
+        case SUMO_ATTR_SUBSTATIONID:
+            return getParentAdditionals().front()->getID();
         case SUMO_ATTR_LANES:
             return parseIDs(getParentLanes());
         case SUMO_ATTR_STARTPOS:
@@ -392,10 +399,8 @@ GNEOverheadWire::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_STARTPOS:
             return myStartPos;
-        case SUMO_ATTR_LENGTH:
-            return (myEndPos - myStartPos);
         case SUMO_ATTR_ENDPOS:
-            return myEndPos;
+            return myStartPos;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -412,6 +417,7 @@ void
 GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_ID:
+        case SUMO_ATTR_SUBSTATIONID:
         case SUMO_ATTR_LANES:
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
@@ -437,6 +443,12 @@ GNEOverheadWire::isValid(SumoXMLAttr key, const std::string& value) {
                 return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_OVERHEAD_WIRE_SECTION, value, false) == nullptr);
             } else {
                 return false;
+            }
+        case SUMO_ATTR_SUBSTATIONID:
+            if (value.empty()) {
+                return false;
+            } else {
+                return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRACTION_SUBSTATION, value, false) != nullptr);
             }
         case SUMO_ATTR_LANES:
             if (value.empty()) {
@@ -492,6 +504,9 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // update microsimID
             setMicrosimID(value);
+            break;
+        case SUMO_ATTR_SUBSTATIONID:
+            replaceAdditionalParent(SUMO_TAG_TRACTION_SUBSTATION, value, 0);
             break;
         case SUMO_ATTR_LANES:
             replaceAdditionalParentLanes(value);
@@ -562,14 +577,14 @@ GNEOverheadWire::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* u
     if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) ||
         (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
         // set only start position
-        setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
+        setAttribute(SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
     } else if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||
                (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND)) {
         // set only end position
         setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
     } else {
         // set both positions
-        setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
+        setAttribute(SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
         setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos), undoList);
     }
     // end change attribute
