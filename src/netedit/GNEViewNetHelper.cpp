@@ -118,7 +118,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
             if (AC->getTagProperty().isNetworkElement()) {
                 // update network elements
                 updateNetworkElements(myLaneObjects, AC);
-            } else if (AC->getTagProperty().isAdditionalPureElement()) {
+            } else if (AC->getTagProperty().isAdditionalElement()) {
                 // update additional elements
                 updateAdditionalElements(myLaneObjects, AC);
                 // update shapes and TAZs
