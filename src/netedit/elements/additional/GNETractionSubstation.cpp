@@ -104,17 +104,6 @@ GNETractionSubstation::updateCenteringBoundary(const bool updateGrid) {
     updateGeometry();
     // add shape boundary
     myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // add positions of all childrens (intervals and symbols)
-    for (const auto& additionalChildren : getChildAdditionals()) {
-        myAdditionalBoundary.add(additionalChildren->getPositionInView());
-        for (const auto& tractionSubstationElement : additionalChildren->getChildAdditionals()) {
-            myAdditionalBoundary.add(tractionSubstationElement->getPositionInView());
-            // special case for parking area tractionSubstation
-            if (tractionSubstationElement->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
-                myAdditionalBoundary.add(tractionSubstationElement->getParentAdditionals().at(1)->getPositionInView());
-            }
-        }
-    }
     // grow
     myAdditionalBoundary.grow(10);
     // add additional into RTREE again
