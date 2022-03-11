@@ -163,13 +163,22 @@ GNEWireFrame::createPath() {
 
 void
 GNEWireFrame::tagSelected() {
-    if (myWireTagSelector->getCurrentTemplateAC()) {
+    // get template AC
+    const auto templateAC = myWireTagSelector->getCurrentTemplateAC();
+    // check if templateAC Exist
+    if (templateAC) {
         // show wire attributes modul
-        myWireAttributes->showAttributesCreatorModule(myWireTagSelector->getCurrentTemplateAC(), {});
+        myWireAttributes->showAttributesCreatorModule(templateAC, {});
         // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModule(myWireTagSelector->getCurrentTemplateAC()->getTagProperty());
+        myNeteditAttributes->showNeteditAttributesModule(templateAC->getTagProperty());
+        // Show mySelectorWireParent if we're adding an slave element
+        if (templateAC->getTagProperty().isChild()) {
+            mySelectorWireParent->showSelectorParentModule(templateAC->getTagProperty().getParentTags());
+        } else {
+            mySelectorWireParent->hideSelectorParentModule();
+        }
         // check if we must show consecutive lane selector
-        if (myWireTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
+        if (templateAC->getTagProperty().getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
         } else {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();

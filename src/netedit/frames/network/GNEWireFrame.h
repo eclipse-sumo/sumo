@@ -80,7 +80,7 @@ private:
     /// @brief Netedit parameter
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes = nullptr;
 
-    /// @brief Module for select a single parent wire
+    /// @brief Select wire parent
     GNEFrameModules::SelectorParent* mySelectorWireParent = nullptr;
 
     /// @brief Module for select consecutive lanes
