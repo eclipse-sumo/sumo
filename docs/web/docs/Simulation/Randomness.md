@@ -67,15 +67,6 @@ The departure times of all vehicles may be varied randomly by using the
 option **--random-depart-offset** {{DT_TIME}}. When this option is used each vehicle receives a random offset
 to its departure time, equidistributed on \[0, {{DT_TIME}}\].
 
-# Flows with a fixed number of vehicles
-
-The [duarouter](../duarouter.md), [dfrouter](../dfrouter.md)
-and [jtrrouter](../jtrrouter.md) applications support the option **--randomize-flows**.
-When this option is used, each vehicle defined by a `<flow>`-element will be
-given a random departure time which is equidistributed within the time
-interval of the flow. (By default vehicles of a flow are spaced equally
-in time).
-
 # Flows with a random number of vehicles
 The following features for random flows apply to [duarouter](../duarouter.md) and [sumo](../sumo.md)
 
@@ -100,8 +91,9 @@ The number of vehicles inserted this way will follow the [Poisson distribution](
 !!! note
     The effective [insertion rate](VehicleInsertion.md#forcing_insertion_avoiding_depart_delay) is limited by network capacity and other flow attributes such as `departSpeed` and `departLane`
     
-# Flows with a fixed number of vehicles and random departure times 
-The following features for random flows apply to [duarouter](../duarouter.md) and [sumo](../sumo.md). They are quite similar to #flows_with_a_random_number_of_vehicles but substitute the `number` attribute for the `end` attribute.
+# Flows with a fixed number of vehicles
+
+The following 2 sections describe attributes for random flows that apply to [duarouter](../duarouter.md) and [sumo](../sumo.md). They are quite similar to #flows_with_a_random_number_of_vehicles but substitute the `number` attribute for the `end` attribute.
 
 ## Bernoulli Process
 By definining a `<flow>` with attributes `number` and `probability` (instead of `vehsPerHour,number`, or `period`),
@@ -110,6 +102,16 @@ a vehicle will be emitted randomly with the given probability each second until 
 ## Poisson Process
 By definining a `<flow>` with attributes `number` and `period="exp(X")` (instead of `vehsPerHour,number`, or `period`),
 vehicles will emitted with random time-gaps that follow an exponential distribution until the specified number is reached.
+
+## Router options
+
+The [duarouter](../duarouter.md), [dfrouter](../dfrouter.md)
+and [jtrrouter](../jtrrouter.md) applications support the option **--randomize-flows**.
+
+When this option is used, each vehicle defined by a `<flow>`-element will be
+given a random departure time which is equidistributed within the time
+interval of the flow. (By default vehicles of a flow are spaced equally
+in time). The departure times computed this way also achieve a [Poisson process](Poisson_point_process#Simulation)
 
 # Departure and arrival attributes
 
