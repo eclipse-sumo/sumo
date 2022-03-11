@@ -269,15 +269,19 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                     std::string flow = toString(tag);
                     flow[0] = (char)::toupper((char)flow[0]);
                     WRITE_WARNING(flow + " '" + id + "' has no instances; will skip it.");
+                    flowParameter->repetitionEnd = flowParameter->depart;
                 } else {
                     if (flowParameter->repetitionNumber < 0) {
                         return handleVehicleError(hardFail, flowParameter, "Negative repetition number in the definition of " + toString(tag) + " '" + id + "'.");
                     }
                     if (flowParameter->repetitionOffset <= 0) {
-                        flowParameter->repetitionOffset = (flowParameter->repetitionEnd - flowParameter->depart) / flowParameter->repetitionNumber;
+                        if (poissonFlow) {
+                            flowParameter->repetitionEnd = SUMOTime_MAX;
+                        } else {
+                            flowParameter->repetitionOffset = (flowParameter->repetitionEnd - flowParameter->depart) / flowParameter->repetitionNumber;
+                        }
                     }
                 }
-                flowParameter->repetitionEnd = flowParameter->depart + flowParameter->repetitionNumber * flowParameter->repetitionOffset;
             }
         } else {
             // interpret repetitionNumber
