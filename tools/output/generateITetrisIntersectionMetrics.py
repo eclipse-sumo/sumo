@@ -83,7 +83,7 @@ def getStatisticsOutput(tlsInfo, outputfile):
                 opfile.write('mean fuel consumption: %s\n' % tlsInfo[tl]['fuel'])
             opfile.write('number of stops: %s\n' % tlsInfo[tl]['nbStops'])
             opfile.write('total waiting time at junction: %s\n\n' %
-                        tlsInfo[tl]['tWaitTime'])
+                         tlsInfo[tl]['tWaitTime'])
 
 
 def tlsIDToNodeID(net):
