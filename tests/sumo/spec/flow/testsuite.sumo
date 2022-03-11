@@ -25,4 +25,6 @@ probability_0.5_start_1000
 # test different begin time for the flow
 probability_0.1_begin_100
 number_no_end
+poisson_0.1
+poisson_1
 errors
