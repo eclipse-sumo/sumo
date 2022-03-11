@@ -93,7 +93,7 @@ The number of vehicles inserted this way will follow the [Poisson distribution](
     
 # Flows with a fixed number of vehicles
 
-The following 2 sections describe attributes for random flows that apply to [duarouter](../duarouter.md) and [sumo](../sumo.md). They are quite similar to #flows_with_a_random_number_of_vehicles but substitute the `number` attribute for the `end` attribute.
+The following 2 sections describe attributes for random flows that apply to [duarouter](../duarouter.md) and [sumo](../sumo.md). They are quite similar to [flows with a random number of vehicles](#flows_with_a_random_number_of_vehicles) but substitute the `number` attribute for the `end` attribute.
 
 ## Bernoulli Process
 By definining a `<flow>` with attributes `number` and `probability` (instead of `vehsPerHour,number`, or `period`),
