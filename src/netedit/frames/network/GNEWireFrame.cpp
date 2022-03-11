@@ -171,23 +171,20 @@ GNEWireFrame::tagSelected() {
         myWireAttributes->showAttributesCreatorModule(templateAC, {});
         // show netedit attributes
         myNeteditAttributes->showNeteditAttributesModule(templateAC->getTagProperty());
-        // Show mySelectorWireParent if we're adding an slave element
-        if (templateAC->getTagProperty().isChild()) {
-            mySelectorWireParent->showSelectorParentModule(templateAC->getTagProperty().getParentTags());
-        } else {
-            mySelectorWireParent->hideSelectorParentModule();
-        }
-        // check if we must show consecutive lane selector
+        // check if we're creating a overhead wire section
         if (templateAC->getTagProperty().getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
+            mySelectorWireParent->showSelectorParentModule({SUMO_TAG_TRACTION_SUBSTATION});
         } else {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
+            mySelectorWireParent->hideSelectorParentModule();
         }
     } else {
         // hide all moduls if wire isn't valid
         myWireAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
         myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
+        mySelectorWireParent->hideSelectorParentModule();
     }
 }
 
@@ -205,32 +202,25 @@ GNEWireFrame::createBaseWireObject(const GNETagProperties& tagProperty) {
         // reset baseWire
         myBaseWire = nullptr;
     }
-    // check if wire is child
-    if (tagProperty.isChild()) {
+    // create a base wire object
+    myBaseWire = new CommonXMLStructure::SumoBaseObject(nullptr);
+    // check if wire is a overheadWIre
+    if (tagProperty.getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
         // get wire under cursor
         const GNEAdditional* wireUnderCursor = myViewNet->getObjectsUnderCursor().getAdditionalFront();
-        // if user click over an wire element parent, mark int in ParentWireSelector
-        if (wireUnderCursor && (wireUnderCursor->getTagProperty().getTag() == tagProperty.getParentTags().front())) {
+        // if user click over a traction substation, mark int in ParentWireSelector
+        if (wireUnderCursor && (wireUnderCursor->getTagProperty().getTag() == SUMO_TAG_TRACTION_SUBSTATION)) {
             // update parent wire selected
             mySelectorWireParent->setIDSelected(wireUnderCursor->getID());
         }
         // stop if currently there isn't a valid selected parent
         if (mySelectorWireParent->getIdSelected().empty()) {
-            myWireAttributes->showWarningMessage("A " + toString(tagProperty.getParentTags().front()) + " must be selected before insertion of " + myWireTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + ".");
+            myWireAttributes->showWarningMessage("A " + toString(SUMO_TAG_TRACTION_SUBSTATION) + " must be selected before insertion of " + toString(SUMO_TAG_TRACTION_SUBSTATION) + ".");
             return false;
         } else {
-            // create baseWire parent
-            myBaseWire = new CommonXMLStructure::SumoBaseObject(nullptr);
-            // set parent tag
-            myBaseWire->setTag(tagProperty.getParentTags().front());
-            // add ID
-            myBaseWire->addStringAttribute(SUMO_ATTR_ID, mySelectorWireParent->getIdSelected());
-            // create baseWire again as child of current myBaseWire
-            myBaseWire = new CommonXMLStructure::SumoBaseObject(myBaseWire);
+            // add tractionsubstation id
+            myBaseWire->addStringAttribute(SUMO_ATTR_SUBSTATIONID, mySelectorWireParent->getIdSelected());
         }
-    } else {
-        // just create a base wire
-        myBaseWire = new CommonXMLStructure::SumoBaseObject(nullptr);
     }
     // set baseWire tag
     myBaseWire->setTag(tagProperty.getTag());
