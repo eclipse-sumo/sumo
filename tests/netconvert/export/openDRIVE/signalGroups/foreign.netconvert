@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-08 19:04:34 by Eclipse SUMO netconvert Version v1_12_0+1241-fe440a4
+<!-- generated on 2022-03-12 20:04:43 by Eclipse SUMO netconvert Version v1_12_0+1350-5f742b5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Mar  8 19:04:34 2022" north="200.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Sat Mar 12 20:04:43 2022" north="200.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="89.60000000" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -265,10 +265,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
         <objects/>
         <signals>
-            <signal id="C_2" s="89.60" t="-4.80" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000010" subtype="20" height="0.78" width="0.26">
+            <signal id="C_2" s="89.60" t="-4.80" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="50" height="0.78" width="0.26">
                 <validity fromLane="0" toLane="0" fromLane="1" toLane="1"/>
             </signal>
-            <signal id="C_3" s="89.60" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subtype="10" height="0.78" width="0.26">
+            <signal id="C_3" s="89.60" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78" width="0.26">
                 <validity fromLane="1" toLane="1"/>
             </signal>
         </signals>
@@ -315,10 +315,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
         <objects/>
         <signals>
-            <signal id="C_0" s="89.60" t="-4.80" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000010" subtype="20" height="0.78" width="0.26">
+            <signal id="C_0" s="89.60" t="-4.80" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="50" height="0.78" width="0.26">
                 <validity fromLane="0" toLane="0" fromLane="1" toLane="1"/>
             </signal>
-            <signal id="C_1" s="89.60" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subtype="10" height="0.78" width="0.26">
+            <signal id="C_1" s="89.60" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78" width="0.26">
                 <validity fromLane="1" toLane="1"/>
             </signal>
         </signals>
@@ -365,10 +365,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
         <objects/>
         <signals>
-            <signal id="C_4" s="89.60" t="-4.80" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000010" subtype="20" height="0.78" width="0.26">
+            <signal id="C_4" s="89.60" t="-4.80" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="50" height="0.78" width="0.26">
                 <validity fromLane="0" toLane="0" fromLane="1" toLane="1"/>
             </signal>
-            <signal id="C_5" s="89.60" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subtype="10" height="0.78" width="0.26">
+            <signal id="C_5" s="89.60" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78" width="0.26">
                 <validity fromLane="1" toLane="1"/>
             </signal>
         </signals>
@@ -415,10 +415,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
         <objects/>
         <signals>
-            <signal id="C_6" s="89.60" t="-4.80" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000010" subtype="20" height="0.78" width="0.26">
+            <signal id="C_6" s="89.60" t="-4.80" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="50" height="0.78" width="0.26">
                 <validity fromLane="0" toLane="0" fromLane="1" toLane="1"/>
             </signal>
-            <signal id="C_7" s="89.60" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000009" subtype="10" height="0.78" width="0.26">
+            <signal id="C_7" s="89.60" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78" width="0.26">
                 <validity fromLane="1" toLane="1"/>
             </signal>
         </signals>
