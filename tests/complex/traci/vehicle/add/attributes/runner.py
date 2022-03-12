@@ -38,14 +38,14 @@ cmd = [
 traci.start(cmd)
 traci.route.add("trip", ["SC", "NC"])
 traci.vehicle.add("tripTest", "trip",
-        departLane="random",
-        departPos="3",
-        departSpeed="5",
-        arrivalLane="1",
-        arrivalPos="20",
-        arrivalSpeed="8",
-        line="testLine",
-        personCapacity=5)
+                  departLane="random",
+                  departPos="3",
+                  departSpeed="5",
+                  arrivalLane="1",
+                  arrivalPos="20",
+                  arrivalSpeed="8",
+                  line="testLine",
+                  personCapacity=5)
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
