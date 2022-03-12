@@ -985,20 +985,20 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
                 int type = 1000001;
                 int subType = -1;
                 if (l && !s && !r) {
-                    type = 1000009;
+                    type = 1000011;
                     subType = 10;
                 } else if (!l && !s && r) {
-                    type = 1000009;
+                    type = 1000011;
                     subType = 20;
                 } else if (!l && s && !r) {
-                    type = 1000009;
+                    type = 1000011;
                     subType = 30;
                 } else if (l && s && !r) {
-                    type = 1000010;
-                    subType = 10;
+                    type = 1000011;
+                    subType = 40;
                 } else if (!l && s && r) {
-                    type = 1000010;
-                    subType = 20;
+                    type = 1000011;
+                    subType = 50;
                 }
                 device.writeAttr("dynamic", "yes");
                 device.writeAttr("zOffset", 5);
