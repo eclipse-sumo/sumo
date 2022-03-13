@@ -63,3 +63,6 @@ attributes
 
 # filter written attributes, using those that must otherwise be activated by extra options
 extended_attributes
+
+# filter written attributes with "all"
+all_attributes
