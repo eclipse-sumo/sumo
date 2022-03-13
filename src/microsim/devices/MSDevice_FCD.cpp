@@ -111,7 +111,11 @@ MSDevice_FCD::initOnce() {
         myWrittenAttributes = 0;
         for (std::string attrName : oc.getStringVector("fcd-output.attributes")) {
             if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
-                WRITE_ERROR("Unknown attribute '" + attrName + "' to write in fcd output.");
+                if (attrName == "all") {
+                    myWrittenAttributes = std::numeric_limits<long long int>::max() - 1;
+                } else {
+                    WRITE_ERROR("Unknown attribute '" + attrName + "' to write in fcd output.");
+                }
                 continue;
             }
             int attr = SUMOXMLDefinitions::Attrs.get(attrName);
