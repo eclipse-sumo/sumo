@@ -64,7 +64,7 @@ public:
     ~GUIEdge();
 
     /// Has to be called after all edges were built and all connections were set
-    virtual void closeBuilding();
+    virtual void closeBuilding() override;
 
     /* @brief Returns the gl-ids of all known edges
      * @param[in] includeInternal Whether to include ids of internal edges
@@ -100,8 +100,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-            GUISUMOAbstractView& parent);
+    virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
 
     /** @brief Returns an own parameter window
@@ -111,8 +110,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent);
+    virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own type parameter window
      *
@@ -120,26 +118,26 @@ public:
      * @param[in] parent The parent window needed to build the parameter window
      * @return The built parameter window
      */
-    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /// @brief return exaggeration asociated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const override;
 
     /// @brief Returns the street name
-    const std::string getOptionalName() const;
+    const std::string getOptionalName() const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
     //@}
 
     void addTransportable(MSTransportable* t) const override {
@@ -166,7 +164,7 @@ public:
     bool setMultiColor(const GUIColorer& c) const;
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
     /// @brief gets the scaling value according to the current scheme index
     double getScaleValue(int activeScheme) const;
@@ -177,12 +175,12 @@ public:
     void drawMesoVehicles(const GUIVisualizationSettings& s) const;
 
     /// @brief grant exclusive access to the mesoscopic state
-    void lock() const {
+    void lock() const override {
         myLock.lock();
     }
 
     /// @brief release exclusive access to the mesoscopic state
-    void unlock() const {
+    void unlock() const override {
         myLock.unlock();
     }
 
@@ -206,7 +204,7 @@ public:
     }
 
     /// @brief whether this lane is selected in the GUI
-    bool isSelected() const;
+    bool isSelected() const override;
 
     /// The color of the segments (cached)
     mutable std::vector<RGBColor> mySegmentColors;
