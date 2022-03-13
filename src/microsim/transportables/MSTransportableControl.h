@@ -25,8 +25,9 @@
 
 #include <vector>
 #include <map>
-#include <microsim/transportables/MSTransportable.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/transportables/MSTransportable.h>
+#include <microsim/devices/MSDevice_Vehroutes.h>
 
 
 // ===========================================================================
@@ -319,6 +320,9 @@ private:
     MSPModel* myMovementModel;
 
     MSPModel* myNonInteractingModel;
+
+    /// @brief Information needed to sort transportable output by departure time
+    MSDevice_Vehroutes::SortedRouteInfo myRouteInfos;
 
 private:
     /// @brief invalidated assignment operator

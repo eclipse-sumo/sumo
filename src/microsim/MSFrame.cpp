@@ -256,6 +256,10 @@ MSFrame::fillOptions() {
     oc.doRegister("vehroute-output.speedfactor", new Option_Bool(false));
     oc.addDescription("vehroute-output.speedfactor", "Output", "Write the vehicle speedFactor (defaults to 'true' if departSpeed is written)");
 
+    oc.doRegister("personroute-output", new Option_FileName());
+    oc.addSynonyme("personroute-output", "personroutes");
+    oc.addDescription("personroute-output", "Output", "Save person and container routes to separate FILE");
+
     oc.doRegister("link-output", new Option_FileName());
     oc.addDescription("link-output", "Output", "Save links states into FILE");
 

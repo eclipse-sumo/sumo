@@ -68,6 +68,13 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
     } else {
         myMovementModel = myNonInteractingModel = new MSPModel_NonInteracting(oc, net);
     }
+    if (oc.isSet("vehroute-output")) {
+        myRouteInfos.routeOut = &OutputDevice::getDeviceByOption("vehroute-output");
+    }
+    if (oc.isSet("personroute-output")) {
+        OutputDevice::createDeviceByOption("personroute-output", "routes", "routes_file.xsd");
+        myRouteInfos.routeOut = &OutputDevice::getDeviceByOption("personroute-output");
+    }
 }
 
 
@@ -94,6 +101,7 @@ MSTransportableControl::add(MSTransportable* transportable) {
     return false;
 }
 
+
 void
 MSTransportableControl::fixLoadCount(const MSTransportable* transportable) {
     myLoadedNumber--;
@@ -110,6 +118,7 @@ MSTransportableControl::fixLoadCount(const MSTransportable* transportable) {
         }
     }
 }
+
 
 MSTransportable*
 MSTransportableControl::get(const std::string& id) const {
@@ -131,14 +140,15 @@ MSTransportableControl::erase(MSTransportable* transportable) {
         OutputDevice_String dev;
         transportable->tripInfoOutput(dev);
     }
-    if (oc.isSet("vehroute-output")) {
+    if (oc.isSet("vehroute-output") || oc.isSet("personroute-output")) {
         if (oc.getBool("vehroute-output.sorted")) {
+            const SUMOTime departure = oc.getBool("vehroute-output.intended-depart") ? transportable->getParameter().depart : transportable->getDeparture();
             OutputDevice_String od(1);
             transportable->routeOutput(od, oc.getBool("vehroute-output.route-length"));
-            MSDevice_Vehroutes::writeSortedOutput(OutputDevice::getDeviceByOption("vehroute-output"),
-                                                  transportable->getDeparture(), transportable->getID(), od.getString());
+            MSDevice_Vehroutes::writeSortedOutput(&myRouteInfos,
+                                                  departure, transportable->getID(), od.getString());
         } else {
-            transportable->routeOutput(OutputDevice::getDeviceByOption("vehroute-output"), oc.getBool("vehroute-output.route-length"));
+            transportable->routeOutput(*myRouteInfos.routeOut, oc.getBool("vehroute-output.route-length"));
         }
     }
     const std::map<std::string, MSTransportable*>::iterator i = myTransportables.find(transportable->getID());
@@ -180,8 +190,14 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
                 myRunningNumber++;
                 MSNet::getInstance()->informTransportableStateListener(t,
                         isPerson ? MSNet::TransportableState::PERSON_DEPARTED : MSNet::TransportableState::CONTAINER_DEPARTED);
-                if (OptionsCont::getOptions().getBool("vehroute-output.sorted")) {
-                    MSDevice_Vehroutes::registerTransportableDepart(time);
+                const OptionsCont& oc = OptionsCont::getOptions();
+                if (oc.getBool("vehroute-output.sorted")) {
+                    const SUMOTime departure = oc.getBool("vehroute-output.intended-depart") ? t->getParameter().depart : time;
+                    if (oc.isSet("personroute-output")) {
+                        myRouteInfos.departureCounts[departure]++;
+                    } else {
+                        MSDevice_Vehroutes::registerTransportableDepart(departure);
+                    }
                 }
             } else {
                 erase(t);

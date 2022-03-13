@@ -134,8 +134,10 @@ MSTransportable::setDeparted(SUMOTime now) {
 
 SUMOTime
 MSTransportable::getDeparture() const {
-    if (myPlan->size() > 1 && (*myPlan)[1]->getDeparted() >= 0) {
-        return (*myPlan)[1]->getDeparted();
+    for (const MSStage* const stage : *myPlan) {
+        if (stage->getDeparted() >= 0) {
+            return stage->getDeparted();
+        }
     }
     return -1;
 }
