@@ -532,6 +532,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_LEADER_SPEED       = 58,
     SUMO_ATTR_LEADER_GAP         = 59,
     SUMO_ATTR_VEHICLE            = 60,
+    SUMO_ATTR_ODOMETER           = 61,
     /// @}
 
     /// @name common attributes

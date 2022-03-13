@@ -33,14 +33,17 @@
 #include "MSDevice_FCD.h"
 
 // some attributes are not written by default and must be enabled via option fcd-output.attributes
-#define DEFAULT_MASK (~((long long int)1 << SUMO_ATTR_VEHICLE))
+const long long int MSDevice_FCD::myDefaultMask(~(
+            ((long long int)1 << SUMO_ATTR_VEHICLE)
+            | ((long long int)1 << SUMO_ATTR_ODOMETER)
+            ));
 
 // ===========================================================================
 // static members
 // ===========================================================================
 std::set<const MSEdge*> MSDevice_FCD::myEdgeFilter;
 bool MSDevice_FCD::myEdgeFilterInitialized(false);
-long long int MSDevice_FCD::myWrittenAttributes(DEFAULT_MASK);
+long long int MSDevice_FCD::myWrittenAttributes(myDefaultMask);
 
 // ===========================================================================
 // method definitions
@@ -131,7 +134,7 @@ void
 MSDevice_FCD::cleanup() {
     myEdgeFilter.clear();
     myEdgeFilterInitialized = false;
-    myWrittenAttributes = DEFAULT_MASK;
+    myWrittenAttributes = myDefaultMask;
 }
 
 
