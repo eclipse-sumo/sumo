@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-24 10:15:21 by Eclipse SUMO sumo Version v1_12_0+0843-cd07ae6
+<!-- generated on 2022-03-12 18:53:51 by Eclipse SUMO sumo Version v1_12_0+1349-1dd90ff9023
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -81,6 +81,7 @@
         <vehroute-output.incomplete value="false" type="BOOL" help="Include invalid routes and route stubs in vehroute output"/>
         <vehroute-output.stop-edges value="false" type="BOOL" help="Include information about edges between stops"/>
         <vehroute-output.speedfactor value="false" type="BOOL" help="Write the vehicle speedFactor (defaults to &apos;true&apos; if departSpeed is written)"/>
+        <personroute-output value="" synonymes="personroutes" type="FILE" help="Save person and container routes to separate FILE"/>
         <link-output value="" type="FILE" help="Save links states into FILE"/>
         <railsignal-block-output value="" type="FILE" help="Save railsignal-blocks into FILE"/>
         <bt-output value="" type="FILE" help="Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)"/>

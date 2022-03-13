@@ -44,6 +44,7 @@ statistic:statistic.xml
 stopinfos:stopinfos.xml
 collisions:collisions.xml
 vtypeprobe:vtypeprobe.xml
+personroutes:personroutes.xml
 vehroutes:vehroutes.xml
 vehroutes_ignore_arrival:vehroutes_ignore_arrival.xml
 tls_state:tls_state.xml

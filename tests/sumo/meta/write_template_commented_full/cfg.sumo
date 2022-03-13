@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-24 10:15:21 by Eclipse SUMO sumo Version v1_12_0+0843-cd07ae6
+<!-- generated on 2022-03-12 18:53:51 by Eclipse SUMO sumo Version v1_12_0+1349-1dd90ff9023
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -218,6 +218,9 @@
 
         <!-- Write the vehicle speedFactor (defaults to &apos;true&apos; if departSpeed is written) -->
         <vehroute-output.speedfactor value="false" type="BOOL"/>
+
+        <!-- Save person and container routes to separate FILE -->
+        <personroute-output value="" synonymes="personroutes" type="FILE"/>
 
         <!-- Save links states into FILE -->
         <link-output value="" type="FILE"/>

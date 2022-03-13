@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_12_0+0843-cd07ae6
+Eclipse SUMO sumo Version v1_12_0+1349-1dd90ff9023
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -130,6 +130,8 @@ Output Options:
                                         stops
   --vehroute-output.speedfactor        Write the vehicle speedFactor (defaults
                                         to 'true' if departSpeed is written)
+  --personroute-output FILE            Save person and container routes to
+                                        separate FILE
   --link-output FILE                   Save links states into FILE
   --railsignal-block-output FILE       Save railsignal-blocks into FILE
   --bt-output FILE                     Save bluetooth visibilities into FILE
