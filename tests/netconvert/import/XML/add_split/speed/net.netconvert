@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:19 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:20:31 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,30 +31,30 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
     <edge id=":1.10_0" function="internal">
-        <lane id=":1.10_0_0" index="0" speed="11.95" length="0.10" shape="10.00,-8.00 10.00,-8.00"/>
-        <lane id=":1.10_0_1" index="1" speed="11.95" length="0.10" shape="10.00,-4.80 10.00,-4.80"/>
-        <lane id=":1.10_0_2" index="2" speed="11.95" length="0.10" shape="10.00,-1.60 10.00,-1.60"/>
+        <lane id=":1.10_0_0" index="0" speed="11.95" friction="1.00" length="0.10" shape="10.00,-8.00 10.00,-8.00"/>
+        <lane id=":1.10_0_1" index="1" speed="11.95" friction="1.00" length="0.10" shape="10.00,-4.80 10.00,-4.80"/>
+        <lane id=":1.10_0_2" index="2" speed="11.95" friction="1.00" length="0.10" shape="10.00,-1.60 10.00,-1.60"/>
     </edge>
     <edge id=":1.50_0" function="internal">
-        <lane id=":1.50_0_0" index="0" speed="11.95" length="0.10" shape="50.00,-8.00 50.00,-8.00"/>
-        <lane id=":1.50_0_1" index="1" speed="11.95" length="0.10" shape="50.00,-4.80 50.00,-4.80"/>
-        <lane id=":1.50_0_2" index="2" speed="11.95" length="0.10" shape="50.00,-1.60 50.00,-1.60"/>
+        <lane id=":1.50_0_0" index="0" speed="11.95" friction="1.00" length="0.10" shape="50.00,-8.00 50.00,-8.00"/>
+        <lane id=":1.50_0_1" index="1" speed="11.95" friction="1.00" length="0.10" shape="50.00,-4.80 50.00,-4.80"/>
+        <lane id=":1.50_0_2" index="2" speed="11.95" friction="1.00" length="0.10" shape="50.00,-1.60 50.00,-1.60"/>
     </edge>
 
     <edge id="1" from="0" to="1.10" priority="-1">
-        <lane id="1_0" index="0" speed="13.89" length="10.00" shape="0.00,-8.00 10.00,-8.00"/>
-        <lane id="1_1" index="1" speed="13.89" length="10.00" shape="0.00,-4.80 10.00,-4.80"/>
-        <lane id="1_2" index="2" speed="13.89" length="10.00" shape="0.00,-1.60 10.00,-1.60"/>
+        <lane id="1_0" index="0" speed="13.89" friction="1.00" length="10.00" shape="0.00,-8.00 10.00,-8.00"/>
+        <lane id="1_1" index="1" speed="13.89" friction="1.00" length="10.00" shape="0.00,-4.80 10.00,-4.80"/>
+        <lane id="1_2" index="2" speed="13.89" friction="1.00" length="10.00" shape="0.00,-1.60 10.00,-1.60"/>
     </edge>
     <edge id="1.10" from="1.10" to="1.50" priority="-1">
-        <lane id="1.10_0" index="0" speed="10.00" length="40.00" shape="10.00,-8.00 50.00,-8.00"/>
-        <lane id="1.10_1" index="1" speed="10.00" length="40.00" shape="10.00,-4.80 50.00,-4.80"/>
-        <lane id="1.10_2" index="2" speed="10.00" length="40.00" shape="10.00,-1.60 50.00,-1.60"/>
+        <lane id="1.10_0" index="0" speed="10.00" friction="1.00" length="40.00" shape="10.00,-8.00 50.00,-8.00"/>
+        <lane id="1.10_1" index="1" speed="10.00" friction="1.00" length="40.00" shape="10.00,-4.80 50.00,-4.80"/>
+        <lane id="1.10_2" index="2" speed="10.00" friction="1.00" length="40.00" shape="10.00,-1.60 50.00,-1.60"/>
     </edge>
     <edge id="1.50" from="1.50" to="1" priority="-1">
-        <lane id="1.50_0" index="0" speed="13.89" length="50.00" shape="50.00,-8.00 100.00,-8.00"/>
-        <lane id="1.50_1" index="1" speed="13.89" length="50.00" shape="50.00,-4.80 100.00,-4.80"/>
-        <lane id="1.50_2" index="2" speed="13.89" length="50.00" shape="50.00,-1.60 100.00,-1.60"/>
+        <lane id="1.50_0" index="0" speed="13.89" friction="1.00" length="50.00" shape="50.00,-8.00 100.00,-8.00"/>
+        <lane id="1.50_1" index="1" speed="13.89" friction="1.00" length="50.00" shape="50.00,-4.80 100.00,-4.80"/>
+        <lane id="1.50_2" index="2" speed="13.89" friction="1.00" length="50.00" shape="50.00,-1.60 100.00,-1.60"/>
     </edge>
 
     <junction id="0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-9.60"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:34 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:20:40 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,8 +57,8 @@ SPDX-License-Identifier: EPL-2.0
     <type id="d" priority="1" numLanes="1" speed="2.90" allow="pedestrian"/>
 
     <edge id="1fi" from="1" to="0" priority="-1" type="b">
-        <lane id="1fi_0" index="0" speed="11.11" length="500.00" shape="0.00,495.20 500.00,495.20"/>
-        <lane id="1fi_1" index="1" speed="11.11" length="500.00" shape="0.00,498.40 500.00,498.40"/>
+        <lane id="1fi_0" index="0" speed="11.11" friction="1.00" length="500.00" shape="0.00,495.20 500.00,495.20"/>
+        <lane id="1fi_1" index="1" speed="11.11" friction="1.00" length="500.00" shape="0.00,498.40 500.00,498.40"/>
     </edge>
 
     <junction id="0" type="dead_end" x="500.00" y="500.00" incLanes="1fi_0 1fi_1" intLanes="" shape="500.00,493.60 500.00,500.00"/>

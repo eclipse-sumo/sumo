@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:21:19 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-03-14 15:24:49 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -58,86 +58,86 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="0.00,0.00" convBoundary="-100.00,-140.72,300.00,-61.12" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":1_0" function="internal">
-        <lane id=":1_0_0" index="0" allow="rail_urban" speed="0.10" length="0.10" shape="-100.00,-100.00 -100.00,-100.00"/>
+        <lane id=":1_0_0" index="0" allow="rail_urban" speed="0.10" friction="1.00" length="0.10" shape="-100.00,-100.00 -100.00,-100.00"/>
     </edge>
     <edge id=":2_0" function="internal" bidi=":2_1">
-        <lane id=":2_0_0" index="0" allow="rail_urban" speed="27.78" length="8.97" shape="7.00,-100.00 -1.97,-100.00"/>
+        <lane id=":2_0_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="8.97" shape="7.00,-100.00 -1.97,-100.00"/>
     </edge>
     <edge id=":2_1" function="internal" bidi=":2_0">
-        <lane id=":2_1_0" index="0" allow="rail_urban" speed="27.78" length="8.97" shape="-1.97,-100.00 7.00,-100.00"/>
+        <lane id=":2_1_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="8.97" shape="-1.97,-100.00 7.00,-100.00"/>
     </edge>
     <edge id=":2_2" function="internal">
-        <lane id=":2_2_0" index="0" allow="rail_urban" speed="27.78" length="8.97" shape="-1.97,-100.00 0.59,-99.74 2.23,-99.00 3.74,-97.82 5.91,-96.25"/>
+        <lane id=":2_2_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="8.97" shape="-1.97,-100.00 0.59,-99.74 2.23,-99.00 3.74,-97.82 5.91,-96.25"/>
     </edge>
     <edge id=":3_0" function="internal" bidi=":3_5">
-        <lane id=":3_0_0" index="0" allow="rail_urban" speed="27.78" length="13.62" shape="105.91,-96.24 102.82,-97.96 99.76,-99.13 96.55,-99.79 93.02,-100.00"/>
+        <lane id=":3_0_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="13.62" shape="105.91,-96.24 102.82,-97.96 99.76,-99.13 96.55,-99.79 93.02,-100.00"/>
     </edge>
     <edge id=":3_1" function="internal">
-        <lane id=":3_1_0" index="0" allow="rail_urban" speed="27.78" length="13.98" shape="105.91,-96.24 94.12,-103.76"/>
+        <lane id=":3_1_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="13.98" shape="105.91,-96.24 94.12,-103.76"/>
     </edge>
     <edge id=":3_2" function="internal" bidi=":3_4">
-        <lane id=":3_2_0" index="0" allow="rail_urban" speed="27.78" length="13.98" shape="107.00,-100.00 93.02,-100.00"/>
+        <lane id=":3_2_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="13.98" shape="107.00,-100.00 93.02,-100.00"/>
     </edge>
     <edge id=":3_3" function="internal">
-        <lane id=":3_3_0" index="0" allow="rail_urban" speed="27.78" length="13.62" shape="107.00,-100.00 103.47,-100.21 100.26,-100.87 97.21,-102.03 94.12,-103.76"/>
+        <lane id=":3_3_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="13.62" shape="107.00,-100.00 103.47,-100.21 100.26,-100.87 97.21,-102.03 94.12,-103.76"/>
     </edge>
     <edge id=":3_4" function="internal" bidi=":3_2">
-        <lane id=":3_4_0" index="0" allow="rail_urban" speed="27.78" length="13.98" shape="93.02,-100.00 107.00,-100.00"/>
+        <lane id=":3_4_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="13.98" shape="93.02,-100.00 107.00,-100.00"/>
     </edge>
     <edge id=":3_5" function="internal" bidi=":3_0">
-        <lane id=":3_5_0" index="0" allow="rail_urban" speed="27.78" length="13.62" shape="93.02,-100.00 96.55,-99.79 99.76,-99.13 102.82,-97.96 105.91,-96.24"/>
+        <lane id=":3_5_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="13.62" shape="93.02,-100.00 96.55,-99.79 99.76,-99.13 102.82,-97.96 105.91,-96.24"/>
     </edge>
     <edge id=":4_0" function="internal" bidi=":4_2">
-        <lane id=":4_0_0" index="0" allow="rail_urban" speed="27.78" length="8.96" shape="201.97,-100.00 193.00,-100.00"/>
+        <lane id=":4_0_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="8.96" shape="201.97,-100.00 193.00,-100.00"/>
     </edge>
     <edge id=":4_1" function="internal">
-        <lane id=":4_1_0" index="0" allow="rail_urban" speed="27.78" length="8.96" shape="194.10,-103.76 196.27,-102.18 197.78,-101.00 199.41,-100.26 201.97,-100.00"/>
+        <lane id=":4_1_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="8.96" shape="194.10,-103.76 196.27,-102.18 197.78,-101.00 199.41,-100.26 201.97,-100.00"/>
     </edge>
     <edge id=":4_2" function="internal" bidi=":4_0">
-        <lane id=":4_2_0" index="0" allow="rail_urban" speed="27.78" length="8.96" shape="193.00,-100.00 201.97,-100.00"/>
+        <lane id=":4_2_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="8.96" shape="193.00,-100.00 201.97,-100.00"/>
     </edge>
     <edge id=":5_0" function="internal">
-        <lane id=":5_0_0" index="0" allow="rail_urban" speed="0.10" length="0.10" shape="300.00,-100.00 300.00,-100.00"/>
+        <lane id=":5_0_0" index="0" allow="rail_urban" speed="0.10" friction="1.00" length="0.10" shape="300.00,-100.00 300.00,-100.00"/>
     </edge>
 
     <edge id="-a" from="2" to="1" priority="-1" spreadType="center" bidi="a">
-        <lane id="-a_0" index="0" allow="rail_urban" speed="27.78" length="98.03" shape="-1.97,-100.00 -100.00,-100.00"/>
+        <lane id="-a_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="98.03" shape="-1.97,-100.00 -100.00,-100.00"/>
     </edge>
     <edge id="-b" from="2" to="3" priority="-1" spreadType="center" bidi="b">
-        <lane id="-b_0" index="0" allow="rail_urban" speed="27.78" length="86.02" shape="7.00,-100.00 93.02,-100.00"/>
+        <lane id="-b_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="86.02" shape="7.00,-100.00 93.02,-100.00"/>
     </edge>
     <edge id="-c" from="3" to="4" priority="-1" spreadType="center" bidi="c">
-        <lane id="-c_0" index="0" allow="rail_urban" speed="27.78" length="86.01" shape="107.00,-100.00 193.00,-100.00"/>
+        <lane id="-c_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="86.01" shape="107.00,-100.00 193.00,-100.00"/>
     </edge>
     <edge id="-d" from="5" to="4" priority="-1" spreadType="center" bidi="d">
-        <lane id="-d_0" index="0" allow="rail_urban" speed="27.78" length="98.03" shape="300.00,-100.00 201.97,-100.00"/>
+        <lane id="-d_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="98.03" shape="300.00,-100.00 201.97,-100.00"/>
     </edge>
     <edge id="-p" from="3" to="23" priority="-1" spreadType="center" bidi="p">
-        <lane id="-p_0" index="0" allow="rail_urban" speed="27.78" length="60.21" shape="105.91,-96.24 156.71,-63.94"/>
+        <lane id="-p_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="60.21" shape="105.91,-96.24 156.71,-63.94"/>
     </edge>
     <edge id="a" from="1" to="2" priority="-1" spreadType="center" bidi="-a">
-        <lane id="a_0" index="0" allow="rail_urban" speed="27.78" length="98.03" shape="-100.00,-100.00 -1.97,-100.00"/>
+        <lane id="a_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="98.03" shape="-100.00,-100.00 -1.97,-100.00"/>
     </edge>
     <edge id="b" from="3" to="2" priority="-1" spreadType="center" bidi="-b">
-        <lane id="b_0" index="0" allow="rail_urban" speed="27.78" length="86.02" shape="93.02,-100.00 7.00,-100.00"/>
+        <lane id="b_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="86.02" shape="93.02,-100.00 7.00,-100.00"/>
     </edge>
     <edge id="c" from="4" to="3" priority="-1" spreadType="center" bidi="-c">
-        <lane id="c_0" index="0" allow="rail_urban" speed="27.78" length="86.01" shape="193.00,-100.00 107.00,-100.00"/>
+        <lane id="c_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="86.01" shape="193.00,-100.00 107.00,-100.00"/>
     </edge>
     <edge id="d" from="4" to="5" priority="-1" spreadType="center" bidi="-d">
-        <lane id="d_0" index="0" allow="rail_urban" speed="27.78" length="98.03" shape="201.97,-100.00 300.00,-100.00"/>
+        <lane id="d_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="98.03" shape="201.97,-100.00 300.00,-100.00"/>
     </edge>
     <edge id="m" from="2" to="20" priority="-1" spreadType="center">
-        <lane id="m_0" index="0" allow="rail_urban" speed="27.78" length="65.53" shape="5.91,-96.25 61.23,-61.12"/>
+        <lane id="m_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="65.53" shape="5.91,-96.25 61.23,-61.12"/>
     </edge>
     <edge id="n" from="3" to="21" priority="-1" spreadType="center">
-        <lane id="n_0" index="0" allow="rail_urban" speed="27.78" length="66.61" shape="94.12,-103.76 37.98,-139.60"/>
+        <lane id="n_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="66.61" shape="94.12,-103.76 37.98,-139.60"/>
     </edge>
     <edge id="o" from="22" to="4" priority="-1" spreadType="center">
-        <lane id="o_0" index="0" allow="rail_urban" speed="27.78" length="68.86" shape="136.00,-140.72 194.10,-103.76"/>
+        <lane id="o_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="68.86" shape="136.00,-140.72 194.10,-103.76"/>
     </edge>
     <edge id="p" from="23" to="3" priority="-1" spreadType="center" bidi="-p">
-        <lane id="p_0" index="0" allow="rail_urban" speed="27.78" length="60.21" shape="156.71,-63.94 105.91,-96.24"/>
+        <lane id="p_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="60.21" shape="156.71,-63.94 105.91,-96.24"/>
     </edge>
 
     <junction id="1" type="priority" x="-100.00" y="-100.00" incLanes="-a_0" intLanes=":1_0_0" shape="-100.00,-98.40 -100.00,-101.60 -100.00,-98.40 -100.00,-101.60">

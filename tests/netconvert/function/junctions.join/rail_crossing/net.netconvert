@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:51 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:24:43 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,41 +35,41 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="0.00,40.00" convBoundary="0.00,0.00,200.00,90.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":cluster_C1_C2_0" function="internal">
-        <lane id=":cluster_C1_C2_0_0" index="0" allow="passenger" speed="13.89" length="16.20" shape="98.40,53.10 98.40,36.90"/>
+        <lane id=":cluster_C1_C2_0_0" index="0" allow="passenger" speed="13.89" friction="1.00" length="16.20" shape="98.40,53.10 98.40,36.90"/>
     </edge>
     <edge id=":cluster_C1_C2_1" function="internal">
-        <lane id=":cluster_C1_C2_1_0" index="0" allow="passenger" speed="13.89" length="16.20" shape="101.60,36.90 101.60,53.10"/>
+        <lane id=":cluster_C1_C2_1_0" index="0" allow="passenger" speed="13.89" friction="1.00" length="16.20" shape="101.60,36.90 101.60,53.10"/>
     </edge>
     <edge id=":cluster_C1_C2_2" function="internal">
-        <lane id=":cluster_C1_C2_2_0" index="0" allow="rail" speed="27.78" length="9.40" shape="95.30,40.00 104.70,40.00"/>
+        <lane id=":cluster_C1_C2_2_0" index="0" allow="rail" speed="27.78" friction="1.00" length="9.40" shape="95.30,40.00 104.70,40.00"/>
     </edge>
     <edge id=":cluster_C1_C2_3" function="internal">
-        <lane id=":cluster_C1_C2_3_0" index="0" allow="rail" speed="27.78" length="9.40" shape="95.30,50.00 104.70,50.00"/>
+        <lane id=":cluster_C1_C2_3_0" index="0" allow="rail" speed="27.78" friction="1.00" length="9.40" shape="95.30,50.00 104.70,50.00"/>
     </edge>
 
     <edge id="-gneE4" from="cluster_C1_C2" to="S" priority="-1" shape="100.00,40.00 100.00,0.00">
-        <lane id="-gneE4_0" index="0" allow="passenger" speed="13.89" length="36.90" shape="98.40,36.90 98.40,0.00"/>
+        <lane id="-gneE4_0" index="0" allow="passenger" speed="13.89" friction="1.00" length="36.90" shape="98.40,36.90 98.40,0.00"/>
     </edge>
     <edge id="-gneE6" from="N" to="cluster_C1_C2" priority="-1" shape="100.00,90.00 100.00,50.00">
-        <lane id="-gneE6_0" index="0" allow="passenger" speed="13.89" length="36.90" shape="98.40,90.00 98.40,53.10"/>
+        <lane id="-gneE6_0" index="0" allow="passenger" speed="13.89" friction="1.00" length="36.90" shape="98.40,90.00 98.40,53.10"/>
     </edge>
     <edge id="gneE0" from="W2" to="cluster_C1_C2" priority="-1" spreadType="center" shape="0.00,40.00 100.00,40.00">
-        <lane id="gneE0_0" index="0" allow="rail" speed="27.78" length="95.30" shape="0.00,40.00 95.30,40.00"/>
+        <lane id="gneE0_0" index="0" allow="rail" speed="27.78" friction="1.00" length="95.30" shape="0.00,40.00 95.30,40.00"/>
     </edge>
     <edge id="gneE1" from="cluster_C1_C2" to="E2" priority="-1" spreadType="center" shape="100.00,40.00 200.00,40.00">
-        <lane id="gneE1_0" index="0" allow="rail" speed="27.78" length="95.30" shape="104.70,40.00 200.00,40.00"/>
+        <lane id="gneE1_0" index="0" allow="rail" speed="27.78" friction="1.00" length="95.30" shape="104.70,40.00 200.00,40.00"/>
     </edge>
     <edge id="gneE2" from="W1" to="cluster_C1_C2" priority="-1" spreadType="center" shape="0.00,50.00 100.00,50.00">
-        <lane id="gneE2_0" index="0" allow="rail" speed="27.78" length="95.30" shape="0.00,50.00 95.30,50.00"/>
+        <lane id="gneE2_0" index="0" allow="rail" speed="27.78" friction="1.00" length="95.30" shape="0.00,50.00 95.30,50.00"/>
     </edge>
     <edge id="gneE3" from="cluster_C1_C2" to="E1" priority="-1" spreadType="center" shape="100.00,50.00 200.00,50.00">
-        <lane id="gneE3_0" index="0" allow="rail" speed="27.78" length="95.30" shape="104.70,50.00 200.00,50.00"/>
+        <lane id="gneE3_0" index="0" allow="rail" speed="27.78" friction="1.00" length="95.30" shape="104.70,50.00 200.00,50.00"/>
     </edge>
     <edge id="gneE4" from="S" to="cluster_C1_C2" priority="-1" shape="100.00,0.00 100.00,40.00">
-        <lane id="gneE4_0" index="0" allow="passenger" speed="13.89" length="36.90" shape="101.60,0.00 101.60,36.90"/>
+        <lane id="gneE4_0" index="0" allow="passenger" speed="13.89" friction="1.00" length="36.90" shape="101.60,0.00 101.60,36.90"/>
     </edge>
     <edge id="gneE6" from="cluster_C1_C2" to="N" priority="-1" shape="100.00,50.00 100.00,90.00">
-        <lane id="gneE6_0" index="0" allow="passenger" speed="13.89" length="36.90" shape="101.60,53.10 101.60,90.00"/>
+        <lane id="gneE6_0" index="0" allow="passenger" speed="13.89" friction="1.00" length="36.90" shape="101.60,53.10 101.60,90.00"/>
     </edge>
 
     <junction id="E1" type="dead_end" x="200.00" y="50.00" incLanes="gneE3_0" intLanes="" shape="200.00,48.40 200.00,51.60"/>

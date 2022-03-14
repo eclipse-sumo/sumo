@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:08 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:19:34 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,16 +31,16 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="CE" from="C" to="E" priority="-1">
-        <lane id="CE_0" index="0" allow="pedestrian" speed="13.89" length="98.50" shape="101.50,98.40 200.00,98.40"/>
+        <lane id="CE_0" index="0" allow="pedestrian" speed="13.89" friction="1.00" length="98.50" shape="101.50,98.40 200.00,98.40"/>
     </edge>
     <edge id="CS" from="C" to="S" priority="-1">
-        <lane id="CS_0" index="0" allow="pedestrian" speed="13.89" length="95.30" shape="98.40,95.30 98.40,0.00"/>
+        <lane id="CS_0" index="0" allow="pedestrian" speed="13.89" friction="1.00" length="95.30" shape="98.40,95.30 98.40,0.00"/>
     </edge>
     <edge id="NC" from="N" to="C" priority="-1">
-        <lane id="NC_0" index="0" allow="pedestrian" speed="13.89" length="98.50" shape="98.40,200.00 98.40,101.50"/>
+        <lane id="NC_0" index="0" allow="pedestrian" speed="13.89" friction="1.00" length="98.50" shape="98.40,200.00 98.40,101.50"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="-1">
-        <lane id="WC_0" index="0" allow="pedestrian" speed="13.89" length="95.30" shape="0.00,98.40 95.30,98.40"/>
+        <lane id="WC_0" index="0" allow="pedestrian" speed="13.89" friction="1.00" length="95.30" shape="0.00,98.40 95.30,98.40"/>
     </edge>
 
     <junction id="C" type="dead_end" x="100.00" y="100.00" incLanes="NC_0 WC_0" intLanes="" shape="96.80,101.50 100.00,101.50 100.17,100.67 100.38,100.38 100.67,100.17 101.04,100.04 101.50,100.00 101.50,96.80 100.67,96.63 100.38,96.43 100.17,96.13 100.04,95.76 100.00,95.30 96.80,95.30 96.63,96.13 96.43,96.42 96.13,96.63 95.76,96.76 95.30,96.80 95.30,100.00 96.13,100.17 96.43,100.38 96.63,100.67 96.76,101.04"/>

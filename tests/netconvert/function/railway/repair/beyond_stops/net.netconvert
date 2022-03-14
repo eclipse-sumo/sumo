@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:00 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:24:49 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -58,35 +58,35 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="0.00,0.00" convBoundary="-100.00,-200.00,200.00,-200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ45_0" function="internal" bidi=":gneJ45_1">
-        <lane id=":gneJ45_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-200.00 0.00,-200.00"/>
+        <lane id=":gneJ45_0_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="0.10" shape="0.00,-200.00 0.00,-200.00"/>
     </edge>
     <edge id=":gneJ45_1" function="internal" bidi=":gneJ45_0">
-        <lane id=":gneJ45_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-200.00 0.00,-200.00"/>
+        <lane id=":gneJ45_1_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="0.10" shape="0.00,-200.00 0.00,-200.00"/>
     </edge>
     <edge id=":gneJ46_0" function="internal" bidi=":gneJ46_1">
-        <lane id=":gneJ46_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="100.00,-200.00 100.00,-200.00"/>
+        <lane id=":gneJ46_0_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="0.10" shape="100.00,-200.00 100.00,-200.00"/>
     </edge>
     <edge id=":gneJ46_1" function="internal" bidi=":gneJ46_0">
-        <lane id=":gneJ46_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="100.00,-200.00 100.00,-200.00"/>
+        <lane id=":gneJ46_1_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="0.10" shape="100.00,-200.00 100.00,-200.00"/>
     </edge>
 
     <edge id="-a" from="gneJ44" to="gneJ45" priority="-1" spreadType="center" bidi="a">
-        <lane id="-a_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="-100.00,-200.00 0.00,-200.00"/>
+        <lane id="-a_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="100.00" shape="-100.00,-200.00 0.00,-200.00"/>
     </edge>
     <edge id="-b" from="gneJ45" to="gneJ46" priority="-1" spreadType="center" bidi="b">
-        <lane id="-b_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="0.00,-200.00 100.00,-200.00"/>
+        <lane id="-b_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="100.00" shape="0.00,-200.00 100.00,-200.00"/>
     </edge>
     <edge id="-c" from="gneJ46" to="gneJ47" priority="-1" spreadType="center" bidi="c">
-        <lane id="-c_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="100.00,-200.00 200.00,-200.00"/>
+        <lane id="-c_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="100.00" shape="100.00,-200.00 200.00,-200.00"/>
     </edge>
     <edge id="a" from="gneJ45" to="gneJ44" priority="-1" spreadType="center" bidi="-a">
-        <lane id="a_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="0.00,-200.00 -100.00,-200.00"/>
+        <lane id="a_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="100.00" shape="0.00,-200.00 -100.00,-200.00"/>
     </edge>
     <edge id="b" from="gneJ46" to="gneJ45" priority="-1" spreadType="center" bidi="-b">
-        <lane id="b_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="100.00,-200.00 0.00,-200.00"/>
+        <lane id="b_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="100.00" shape="100.00,-200.00 0.00,-200.00"/>
     </edge>
     <edge id="c" from="gneJ47" to="gneJ46" priority="-1" spreadType="center" bidi="-c">
-        <lane id="c_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="200.00,-200.00 100.00,-200.00"/>
+        <lane id="c_0" index="0" allow="rail_urban" speed="27.78" friction="1.00" length="100.00" shape="200.00,-200.00 100.00,-200.00"/>
     </edge>
 
     <junction id="gneJ44" type="dead_end" x="-100.00" y="-200.00" incLanes="a_0" intLanes="" shape="-100.00,-198.40 -100.00,-201.60 -100.00,-198.40 -100.00,-201.60"/>

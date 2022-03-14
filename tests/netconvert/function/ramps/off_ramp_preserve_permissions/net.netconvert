@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:47 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:24:41 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,34 +40,34 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,100.00" origBoundary="-1000.00,0.00,1000.00,100.00" projParameter="!"/>
 
     <edge id="off" from="2" to="2a" priority="-1" shape="500.00,9.60 200.00,100.00">
-        <lane id="off_0" index="0" disallow="bicycle" speed="30.00" length="321.70" shape="498.57,11.70 200.46,101.53"/>
+        <lane id="off_0" index="0" disallow="bicycle" speed="30.00" friction="1.00" length="321.70" shape="498.57,11.70 200.46,101.53"/>
     </edge>
     <edge id="s1" from="5" to="4" priority="-1">
-        <lane id="s1_0" index="0" disallow="bicycle" speed="30.00" length="500.00" shape="2000.00,8.00 1500.00,8.00"/>
-        <lane id="s1_1" index="1" disallow="bicycle" speed="30.00" length="500.00" shape="2000.00,4.80 1500.00,4.80"/>
-        <lane id="s1_2" index="2" disallow="bicycle" speed="30.00" length="500.00" shape="2000.00,1.60 1500.00,1.60"/>
+        <lane id="s1_0" index="0" disallow="bicycle" speed="30.00" friction="1.00" length="500.00" shape="2000.00,8.00 1500.00,8.00"/>
+        <lane id="s1_1" index="1" disallow="bicycle" speed="30.00" friction="1.00" length="500.00" shape="2000.00,4.80 1500.00,4.80"/>
+        <lane id="s1_2" index="2" disallow="bicycle" speed="30.00" friction="1.00" length="500.00" shape="2000.00,1.60 1500.00,1.60"/>
     </edge>
     <edge id="s2" from="4" to="s2-AddedOffRampNode" priority="-1">
-        <lane id="s2_0" index="0" disallow="bicycle" speed="30.00" length="499.00" shape="1500.00,8.00 1005.00,8.00"/>
-        <lane id="s2_1" index="1" disallow="bicycle" speed="30.00" length="499.00" shape="1500.00,4.80 1005.00,4.80"/>
-        <lane id="s2_2" index="2" disallow="bicycle" speed="30.00" length="499.00" shape="1500.00,1.60 1005.00,1.60"/>
+        <lane id="s2_0" index="0" disallow="bicycle" speed="30.00" friction="1.00" length="499.00" shape="1500.00,8.00 1005.00,8.00"/>
+        <lane id="s2_1" index="1" disallow="bicycle" speed="30.00" friction="1.00" length="499.00" shape="1500.00,4.80 1005.00,4.80"/>
+        <lane id="s2_2" index="2" disallow="bicycle" speed="30.00" friction="1.00" length="499.00" shape="1500.00,1.60 1005.00,1.60"/>
     </edge>
     <edge id="s2-AddedOffRampEdge" from="s2-AddedOffRampNode" to="3" priority="-1">
-        <lane id="s2-AddedOffRampEdge_0" index="0" disallow="bicycle" speed="30.00" length="4.20" shape="998.60,11.20 998.40,11.20"/>
-        <lane id="s2-AddedOffRampEdge_1" index="1" disallow="bicycle" speed="30.00" length="4.20" shape="998.60,8.00 998.40,8.00"/>
-        <lane id="s2-AddedOffRampEdge_2" index="2" disallow="bicycle" speed="30.00" length="4.20" shape="998.60,4.80 998.40,4.80"/>
-        <lane id="s2-AddedOffRampEdge_3" index="3" disallow="bicycle" speed="30.00" length="4.20" shape="998.60,1.60 998.40,1.60"/>
+        <lane id="s2-AddedOffRampEdge_0" index="0" disallow="bicycle" speed="30.00" friction="1.00" length="4.20" shape="998.60,11.20 998.40,11.20"/>
+        <lane id="s2-AddedOffRampEdge_1" index="1" disallow="bicycle" speed="30.00" friction="1.00" length="4.20" shape="998.60,8.00 998.40,8.00"/>
+        <lane id="s2-AddedOffRampEdge_2" index="2" disallow="bicycle" speed="30.00" friction="1.00" length="4.20" shape="998.60,4.80 998.40,4.80"/>
+        <lane id="s2-AddedOffRampEdge_3" index="3" disallow="bicycle" speed="30.00" friction="1.00" length="4.20" shape="998.60,1.60 998.40,1.60"/>
     </edge>
     <edge id="s3" from="3" to="2" priority="-1">
-        <lane id="s3_0" index="0" disallow="bicycle" speed="30.00" length="500.00" shape="1000.00,11.20 501.97,11.20"/>
-        <lane id="s3_1" index="1" disallow="bicycle" speed="30.00" length="500.00" shape="1000.00,8.00 501.97,8.00"/>
-        <lane id="s3_2" index="2" disallow="bicycle" speed="30.00" length="500.00" shape="1000.00,4.80 501.97,4.80"/>
-        <lane id="s3_3" index="3" disallow="bicycle" speed="30.00" length="500.00" shape="1000.00,1.60 501.97,1.60"/>
+        <lane id="s3_0" index="0" disallow="bicycle" speed="30.00" friction="1.00" length="500.00" shape="1000.00,11.20 501.97,11.20"/>
+        <lane id="s3_1" index="1" disallow="bicycle" speed="30.00" friction="1.00" length="500.00" shape="1000.00,8.00 501.97,8.00"/>
+        <lane id="s3_2" index="2" disallow="bicycle" speed="30.00" friction="1.00" length="500.00" shape="1000.00,4.80 501.97,4.80"/>
+        <lane id="s3_3" index="3" disallow="bicycle" speed="30.00" friction="1.00" length="500.00" shape="1000.00,1.60 501.97,1.60"/>
     </edge>
     <edge id="s4" from="2" to="1" priority="-1">
-        <lane id="s4_0" index="0" disallow="bicycle" speed="30.00" length="500.00" shape="498.50,8.00 0.00,8.00"/>
-        <lane id="s4_1" index="1" disallow="bicycle" speed="30.00" length="500.00" shape="498.50,4.80 0.00,4.80"/>
-        <lane id="s4_2" index="2" disallow="bicycle" speed="30.00" length="500.00" shape="498.50,1.60 0.00,1.60"/>
+        <lane id="s4_0" index="0" disallow="bicycle" speed="30.00" friction="1.00" length="500.00" shape="498.50,8.00 0.00,8.00"/>
+        <lane id="s4_1" index="1" disallow="bicycle" speed="30.00" friction="1.00" length="500.00" shape="498.50,4.80 0.00,4.80"/>
+        <lane id="s4_2" index="2" disallow="bicycle" speed="30.00" friction="1.00" length="500.00" shape="498.50,1.60 0.00,1.60"/>
     </edge>
 
     <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="0.00,9.60 0.00,0.00"/>

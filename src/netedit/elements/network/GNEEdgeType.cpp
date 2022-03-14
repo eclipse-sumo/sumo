@@ -67,6 +67,7 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::E
     }
     // copy parameters
     speed = edgeType->speed;
+    friction = edgeType->friction;
     priority = edgeType->priority;
     permissions = edgeType->permissions;
     spreadType = edgeType->spreadType;
@@ -371,6 +372,15 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 attrs.insert(key);
                 speed = parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_FRICTION:
+            if (value.empty()) {
+                attrs.erase(key);
+            }
+            else {
+                attrs.insert(key);
+                friction = parse<double>(value);
             }
             break;
         case SUMO_ATTR_ALLOW:

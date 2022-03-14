@@ -171,6 +171,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         // update existing edge. only update lane-specific settings when explicitly requested
         myIsUpdate = true;
         myCurrentSpeed = NBEdge::UNSPECIFIED_SPEED;
+        myCurrentFriction = NBEdge::UNSPECIFIED_FRICTION;
         myPermissions = SVC_UNSPECIFIED;
         myCurrentWidth = NBEdge::UNSPECIFIED_WIDTH;
         myCurrentType = myCurrentEdge->getTypeID();
@@ -178,6 +179,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     } else {
         // this is a completely new edge. get the type specific defaults
         myCurrentSpeed = myTypeCont.getEdgeTypeSpeed(myCurrentType);
+        myCurrentFriction = myTypeCont.getEdgeTypeFriction(myCurrentType);
         myPermissions = myTypeCont.getEdgeTypePermissions(myCurrentType);
         myCurrentWidth = myTypeCont.getEdgeTypeWidth(myCurrentType);
         myLanesSpread = myTypeCont.getEdgeTypeSpreadType(myCurrentType);

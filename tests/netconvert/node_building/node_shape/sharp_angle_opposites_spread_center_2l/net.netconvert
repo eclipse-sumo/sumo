@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:08 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:19:34 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,20 +35,20 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,400.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="gneE0" from="gneJ1" to="gneJ2" priority="1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="100.00" shape="0.00,-4.80 99.87,-4.80"/>
-        <lane id="gneE0_1" index="1" speed="13.89" length="100.00" shape="0.00,-1.60 99.87,-1.60"/>
+        <lane id="gneE0_0" index="0" speed="13.89" friction="1.00" length="100.00" shape="0.00,-4.80 99.87,-4.80"/>
+        <lane id="gneE0_1" index="1" speed="13.89" friction="1.00" length="100.00" shape="0.00,-1.60 99.87,-1.60"/>
     </edge>
     <edge id="gneE1" from="gneJ2" to="gneJ1" priority="1">
-        <lane id="gneE1_0" index="0" speed="13.89" length="100.00" shape="99.87,4.80 0.00,4.80"/>
-        <lane id="gneE1_1" index="1" speed="13.89" length="100.00" shape="99.87,1.60 0.00,1.60"/>
+        <lane id="gneE1_0" index="0" speed="13.89" friction="1.00" length="100.00" shape="99.87,4.80 0.00,4.80"/>
+        <lane id="gneE1_1" index="1" speed="13.89" friction="1.00" length="100.00" shape="99.87,1.60 0.00,1.60"/>
     </edge>
     <edge id="gneE2" from="gneJ2" to="gneJ4" priority="1" spreadType="center" shape="100.00,-3.20 400.00,0.00">
-        <lane id="gneE2_0" index="0" speed="13.89" length="303.03" shape="100.21,-4.80 400.02,-1.60"/>
-        <lane id="gneE2_1" index="1" speed="13.89" length="303.03" shape="100.17,-1.60 399.98,1.60"/>
+        <lane id="gneE2_0" index="0" speed="13.89" friction="1.00" length="303.03" shape="100.21,-4.80 400.02,-1.60"/>
+        <lane id="gneE2_1" index="1" speed="13.89" friction="1.00" length="303.03" shape="100.17,-1.60 399.98,1.60"/>
     </edge>
     <edge id="gneE3" from="gneJ3" to="gneJ2" priority="1" spreadType="center" shape="400.00,20.00 99.79,3.19">
-        <lane id="gneE3_0" index="0" speed="13.89" length="303.56" shape="399.91,21.60 100.10,4.81"/>
-        <lane id="gneE3_1" index="1" speed="13.89" length="303.56" shape="400.09,18.40 100.14,1.61"/>
+        <lane id="gneE3_0" index="0" speed="13.89" friction="1.00" length="303.56" shape="399.91,21.60 100.10,4.81"/>
+        <lane id="gneE3_1" index="1" speed="13.89" friction="1.00" length="303.56" shape="400.09,18.40 100.14,1.61"/>
     </edge>
 
     <junction id="gneJ1" type="dead_end" x="0.00" y="0.00" incLanes="gneE1_0 gneE1_1" intLanes="" shape="0.00,0.00 0.00,6.40 0.00,0.00"/>

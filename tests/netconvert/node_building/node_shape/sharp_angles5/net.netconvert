@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:08 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:19:34 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,16 +35,16 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-446255.54,-4331944.81" convBoundary="0.00,0.00,464.05,304.70" origBoundary="-75.760074,38.829851,-75.138461,39.387555" projParameter="+proj=utm +zone=18 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="1" from="C" to="407629006" priority="0" spreadType="center">
-        <lane id="1_0" index="0" speed="13.90" length="72.35" shape="301.36,107.12 330.95,165.77"/>
+        <lane id="1_0" index="0" speed="13.90" friction="1.00" length="72.35" shape="301.36,107.12 330.95,165.77"/>
     </edge>
     <edge id="2" from="408672323" to="C" priority="0" spreadType="center">
-        <lane id="2_0" index="0" speed="13.90" length="262.44" shape="464.05,304.70 302.49,106.25"/>
+        <lane id="2_0" index="0" speed="13.90" friction="1.00" length="262.44" shape="464.05,304.70 302.49,106.25"/>
     </edge>
     <edge id="3" from="407629005" to="C" priority="0" spreadType="center" shape="0.00,0.00 66.87,9.53 218.84,24.92 271.20,47.43 298.36,101.18">
-        <lane id="3_0" index="0" speed="13.90" length="337.51" shape="-0.00,-0.00 66.87,9.53 218.84,24.92 271.20,47.43 296.16,96.83"/>
+        <lane id="3_0" index="0" speed="13.90" friction="1.00" length="337.51" shape="-0.00,-0.00 66.87,9.53 218.84,24.92 271.20,47.43 296.16,96.83"/>
     </edge>
     <edge id="4" from="C" to="408672330" priority="0" spreadType="center">
-        <lane id="4_0" index="0" speed="13.90" length="34.95" shape="294.86,107.18 280.76,131.37"/>
+        <lane id="4_0" index="0" speed="13.90" friction="1.00" length="34.95" shape="294.86,107.18 280.76,131.37"/>
     </edge>
 
     <junction id="407629005" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.23,1.58 0.23,-1.58"/>

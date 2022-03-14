@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:57 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:24:47 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,26 +37,26 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,80.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":B_w0" function="walkingarea">
-        <lane id=":B_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="3.20" shape="20.00,0.00 20.00,-3.20 20.00,-3.20 20.00,0.00"/>
+        <lane id=":B_w0_0" index="0" allow="pedestrian" speed="1.00" friction="1.00" length="0.10" width="3.20" shape="20.00,0.00 20.00,-3.20 20.00,-3.20 20.00,0.00"/>
     </edge>
     <edge id=":C_0" function="internal">
-        <lane id=":C_0_0" index="0" allow="pedestrian" speed="13.89" length="0.10" shape="40.00,-1.60 40.00,-1.60"/>
+        <lane id=":C_0_0" index="0" allow="pedestrian" speed="13.89" friction="1.00" length="0.10" shape="40.00,-1.60 40.00,-1.60"/>
     </edge>
     <edge id=":D_w0" function="walkingarea">
-        <lane id=":D_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="3.20" shape="60.00,0.00 60.00,-3.20 60.00,-3.20 60.00,0.00"/>
+        <lane id=":D_w0_0" index="0" allow="pedestrian" speed="1.00" friction="1.00" length="0.10" width="3.20" shape="60.00,0.00 60.00,-3.20 60.00,-3.20 60.00,0.00"/>
     </edge>
 
     <edge id="AB" from="A" to="B" priority="1">
-        <lane id="AB_0" index="0" allow="pedestrian" speed="13.89" length="20.00" shape="0.00,-1.60 20.00,-1.60"/>
+        <lane id="AB_0" index="0" allow="pedestrian" speed="13.89" friction="1.00" length="20.00" shape="0.00,-1.60 20.00,-1.60"/>
     </edge>
     <edge id="BC" from="B" to="C" priority="1">
-        <lane id="BC_0" index="0" allow="pedestrian" speed="13.89" length="20.00" shape="20.00,-1.60 40.00,-1.60"/>
+        <lane id="BC_0" index="0" allow="pedestrian" speed="13.89" friction="1.00" length="20.00" shape="20.00,-1.60 40.00,-1.60"/>
     </edge>
     <edge id="CD" from="C" to="D" priority="1">
-        <lane id="CD_0" index="0" allow="pedestrian" speed="13.89" length="20.00" shape="40.00,-1.60 60.00,-1.60"/>
+        <lane id="CD_0" index="0" allow="pedestrian" speed="13.89" friction="1.00" length="20.00" shape="40.00,-1.60 60.00,-1.60"/>
     </edge>
     <edge id="DE" from="D" to="E" priority="1">
-        <lane id="DE_0" index="0" allow="pedestrian" speed="13.89" length="20.00" shape="60.00,-1.60 80.00,-1.60"/>
+        <lane id="DE_0" index="0" allow="pedestrian" speed="13.89" friction="1.00" length="20.00" shape="60.00,-1.60 80.00,-1.60"/>
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">

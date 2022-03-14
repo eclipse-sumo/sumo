@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-29 08:31:02 by Eclipse SUMO netconvert Version v1_11_0+0165-4261a27
+<!-- generated on 2022-03-14 15:20:40 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -68,8 +68,8 @@ SPDX-License-Identifier: EPL-2.0
     <type id="tram" priority="2" speed="13.89" allow="tram" width="3.65"/>
 
     <edge id="1" from="1.end" to="1.begin" priority="1" type="driving">
-        <lane id="1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.00" width="3.00" shape="50.00,4.50 0.00,4.50" type="driving"/>
-        <lane id="1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.00" width="3.00" shape="50.00,1.50 0.00,1.50" type="driving"/>
+        <lane id="1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" friction="1.00" length="50.00" width="3.00" shape="50.00,4.50 0.00,4.50" type="driving"/>
+        <lane id="1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" friction="1.00" length="50.00" width="3.00" shape="50.00,1.50 0.00,1.50" type="driving"/>
     </edge>
 
     <junction id="1.begin" type="dead_end" x="0.00" y="0.00" incLanes="1_0 1_1" intLanes="" shape="0.00,6.00 0.00,0.00"/>

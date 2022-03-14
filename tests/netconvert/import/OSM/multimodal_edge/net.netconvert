@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:40 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:20:42 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -72,31 +72,31 @@ SPDX-License-Identifier: EPL-2.0
     <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id=":1_0" function="internal">
-        <lane id=":1_0_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="-0.76,1.41 -1.44,0.13 -1.41,-0.76 -0.67,-1.28 0.76,-1.41"/>
+        <lane id=":1_0_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="3.65" friction="1.00" length="4.67" shape="-0.76,1.41 -1.44,0.13 -1.41,-0.76 -0.67,-1.28 0.76,-1.41"/>
     </edge>
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" allow="tram" speed="10.48" length="4.85" shape="651.95,351.48 653.20,351.81 654.13,351.47 655.11,350.91 656.51,350.59"/>
+        <lane id=":2_0_0" index="0" allow="tram" speed="10.48" friction="1.00" length="4.85" shape="651.95,351.48 653.20,351.81 654.13,351.47 655.11,350.91 656.51,350.59"/>
     </edge>
     <edge id=":2_1" function="internal">
-        <lane id=":2_1_0" index="0" allow="tram" speed="10.49" length="4.85" shape="651.95,351.48 653.20,351.81 654.13,351.47 655.11,350.91 656.51,350.60"/>
+        <lane id=":2_1_0" index="0" allow="tram" speed="10.49" friction="1.00" length="4.85" shape="651.95,351.48 653.20,351.81 654.13,351.47 655.11,350.91 656.51,350.60"/>
     </edge>
     <edge id=":2_2" function="internal">
-        <lane id=":2_2_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="651.95,351.48 652.62,352.75 652.59,353.65 651.86,354.16 650.42,354.29"/>
+        <lane id=":2_2_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="3.65" friction="1.00" length="4.67" shape="651.95,351.48 652.62,352.75 652.59,353.65 651.86,354.16 650.42,354.29"/>
     </edge>
 
     <edge id="-10860201" from="2" to="1" name="Sterndamm" priority="17" type="highway.secondary|railway.tram">
-        <lane id="-10860201_0" index="0" allow="pedestrian" speed="27.78" length="740.66" width="2.00" shape="649.19,356.58 -2.00,3.69"/>
-        <lane id="-10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="740.66" shape="650.42,354.29 -0.76,1.41"/>
+        <lane id="-10860201_0" index="0" allow="pedestrian" speed="27.78" friction="1.00" length="740.66" width="2.00" shape="649.19,356.58 -2.00,3.69"/>
+        <lane id="-10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" friction="1.00" length="740.66" shape="650.42,354.29 -0.76,1.41"/>
     </edge>
     <edge id="10860201" from="1" to="2" name="Sterndamm" priority="17" type="highway.secondary|railway.tram">
-        <lane id="10860201_0" index="0" allow="pedestrian" speed="27.78" length="740.66" width="2.00" shape="2.00,-3.69 653.19,349.19"/>
-        <lane id="10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="740.66" shape="0.76,-1.41 651.95,351.48"/>
+        <lane id="10860201_0" index="0" allow="pedestrian" speed="27.78" friction="1.00" length="740.66" width="2.00" shape="2.00,-3.69 653.19,349.19"/>
+        <lane id="10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" friction="1.00" length="740.66" shape="0.76,-1.41 651.95,351.48"/>
     </edge>
     <edge id="10860202" from="2" to="3" name="Sterndamm" priority="17" type="railway.tram" spreadType="center">
-        <lane id="10860202_0" index="0" allow="tram" speed="13.89" length="6798.65" shape="656.51,350.59 7454.01,225.32"/>
+        <lane id="10860202_0" index="0" allow="tram" speed="13.89" friction="1.00" length="6798.65" shape="656.51,350.59 7454.01,225.32"/>
     </edge>
     <edge id="10860203" from="2" to="4" name="Sterndamm" priority="17" type="railway.tram" spreadType="center">
-        <lane id="10860203_0" index="0" allow="tram" speed="13.89" length="13606.43" shape="656.51,350.60 14260.81,109.28"/>
+        <lane id="10860203_0" index="0" allow="tram" speed="13.89" friction="1.00" length="13606.43" shape="656.51,350.60 14260.81,109.28"/>
     </edge>
 
     <junction id="1" type="priority" x="0.00" y="0.00" incLanes="-10860201_0 -10860201_1" intLanes=":1_0_0" shape="-0.00,0.00 -2.48,4.57 -0.00,-0.00">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:59 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:24:48 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -54,119 +54,119 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="0.00,0.00" convBoundary="-2.59,-200.00,502.64,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ39_0" function="internal">
-        <lane id=":gneJ39_0_0" index="0" allow="rail" speed="27.78" length="1.60" shape="100.00,-100.00 100.00,-98.40"/>
+        <lane id=":gneJ39_0_0" index="0" allow="rail" speed="27.78" friction="1.00" length="1.60" shape="100.00,-100.00 100.00,-98.40"/>
     </edge>
     <edge id=":gneJ39_1" function="internal">
-        <lane id=":gneJ39_1_0" index="0" allow="rail" speed="27.78" length="1.60" shape="100.00,-101.60 100.00,-100.00"/>
+        <lane id=":gneJ39_1_0" index="0" allow="rail" speed="27.78" friction="1.00" length="1.60" shape="100.00,-101.60 100.00,-100.00"/>
     </edge>
     <edge id=":gneJ40_0" function="internal">
-        <lane id=":gneJ40_0_0" index="0" allow="rail" speed="27.78" length="1.60" shape="200.00,-98.40 200.00,-100.00"/>
+        <lane id=":gneJ40_0_0" index="0" allow="rail" speed="27.78" friction="1.00" length="1.60" shape="200.00,-98.40 200.00,-100.00"/>
     </edge>
     <edge id=":gneJ40_1" function="internal">
-        <lane id=":gneJ40_1_0" index="0" allow="rail" speed="27.78" length="1.60" shape="200.00,-100.00 200.00,-101.60"/>
+        <lane id=":gneJ40_1_0" index="0" allow="rail" speed="27.78" friction="1.00" length="1.60" shape="200.00,-100.00 200.00,-101.60"/>
     </edge>
     <edge id=":gneJ45_0" function="internal" bidi=":gneJ45_1">
-        <lane id=":gneJ45_0_0" index="0" allow="rail" speed="27.78" length="0.10" shape="100.00,0.00 100.00,0.00"/>
+        <lane id=":gneJ45_0_0" index="0" allow="rail" speed="27.78" friction="1.00" length="0.10" shape="100.00,0.00 100.00,0.00"/>
     </edge>
     <edge id=":gneJ45_1" function="internal" bidi=":gneJ45_0">
-        <lane id=":gneJ45_1_0" index="0" allow="rail" speed="27.78" length="0.10" shape="100.00,0.00 100.00,0.00"/>
+        <lane id=":gneJ45_1_0" index="0" allow="rail" speed="27.78" friction="1.00" length="0.10" shape="100.00,0.00 100.00,0.00"/>
     </edge>
     <edge id=":gneJ46_0" function="internal" bidi=":gneJ46_1">
-        <lane id=":gneJ46_0_0" index="0" allow="rail" speed="27.78" length="0.10" shape="200.00,0.00 200.00,0.00"/>
+        <lane id=":gneJ46_0_0" index="0" allow="rail" speed="27.78" friction="1.00" length="0.10" shape="200.00,0.00 200.00,0.00"/>
     </edge>
     <edge id=":gneJ46_1" function="internal" bidi=":gneJ46_0">
-        <lane id=":gneJ46_1_0" index="0" allow="rail" speed="27.78" length="0.10" shape="200.00,0.00 200.00,0.00"/>
+        <lane id=":gneJ46_1_0" index="0" allow="rail" speed="27.78" friction="1.00" length="0.10" shape="200.00,0.00 200.00,0.00"/>
     </edge>
     <edge id=":gneJ49_0" function="internal">
-        <lane id=":gneJ49_0_0" index="0" allow="rail" speed="27.78" length="0.49" shape="100.25,-200.00 100.10,-200.00 100.00,-199.99 99.91,-199.97 99.77,-199.93"/>
+        <lane id=":gneJ49_0_0" index="0" allow="rail" speed="27.78" friction="1.00" length="0.49" shape="100.25,-200.00 100.10,-200.00 100.00,-199.99 99.91,-199.97 99.77,-199.93"/>
     </edge>
     <edge id=":gneJ49_1" function="internal">
-        <lane id=":gneJ49_1_0" index="0" allow="rail" speed="27.78" length="0.51" shape="99.74,-200.00 100.25,-200.00"/>
+        <lane id=":gneJ49_1_0" index="0" allow="rail" speed="27.78" friction="1.00" length="0.51" shape="99.74,-200.00 100.25,-200.00"/>
     </edge>
     <edge id=":gneJ50_0" function="internal" bidi=":gneJ50_1">
-        <lane id=":gneJ50_0_0" index="0" allow="rail" speed="27.78" length="0.10" shape="200.00,-200.00 200.00,-200.00"/>
+        <lane id=":gneJ50_0_0" index="0" allow="rail" speed="27.78" friction="1.00" length="0.10" shape="200.00,-200.00 200.00,-200.00"/>
     </edge>
     <edge id=":gneJ50_1" function="internal" bidi=":gneJ50_0">
-        <lane id=":gneJ50_1_0" index="0" allow="rail" speed="27.78" length="0.10" shape="200.00,-200.00 200.00,-200.00"/>
+        <lane id=":gneJ50_1_0" index="0" allow="rail" speed="27.78" friction="1.00" length="0.10" shape="200.00,-200.00 200.00,-200.00"/>
     </edge>
     <edge id=":gneJ51_0" function="internal" bidi=":gneJ51_1">
-        <lane id=":gneJ51_0_0" index="0" allow="rail" speed="27.78" length="0.10" shape="300.00,-200.00 300.00,-200.00"/>
+        <lane id=":gneJ51_0_0" index="0" allow="rail" speed="27.78" friction="1.00" length="0.10" shape="300.00,-200.00 300.00,-200.00"/>
     </edge>
     <edge id=":gneJ51_1" function="internal" bidi=":gneJ51_0">
-        <lane id=":gneJ51_1_0" index="0" allow="rail" speed="27.78" length="0.10" shape="300.00,-200.00 300.00,-200.00"/>
+        <lane id=":gneJ51_1_0" index="0" allow="rail" speed="27.78" friction="1.00" length="0.10" shape="300.00,-200.00 300.00,-200.00"/>
     </edge>
     <edge id=":gneJ55_0" function="internal">
-        <lane id=":gneJ55_0_0" index="0" allow="rail" speed="27.78" length="10.63" shape="407.94,-196.32 405.20,-197.78 403.22,-198.95 401.15,-199.72 398.15,-200.00"/>
+        <lane id=":gneJ55_0_0" index="0" allow="rail" speed="27.78" friction="1.00" length="10.63" shape="407.94,-196.32 405.20,-197.78 403.22,-198.95 401.15,-199.72 398.15,-200.00"/>
     </edge>
     <edge id=":gneJ55_1" function="internal">
-        <lane id=":gneJ55_1_0" index="0" allow="rail" speed="27.78" length="10.60" shape="398.15,-200.00 408.75,-200.00"/>
+        <lane id=":gneJ55_1_0" index="0" allow="rail" speed="27.78" friction="1.00" length="10.60" shape="398.15,-200.00 408.75,-200.00"/>
     </edge>
 
     <edge id="-gneE31" from="gneJ39" to="gneJ38" priority="-1">
-        <lane id="-gneE31_0" index="0" allow="rail" speed="27.78" length="100.00" shape="100.00,-98.40 0.00,-98.40"/>
+        <lane id="-gneE31_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="100.00,-98.40 0.00,-98.40"/>
     </edge>
     <edge id="-gneE32" from="gneJ40" to="gneJ39" priority="-1" spreadType="center" bidi="gneE32">
-        <lane id="-gneE32_0" index="0" allow="rail" speed="27.78" length="100.00" shape="200.00,-100.00 100.00,-100.00"/>
+        <lane id="-gneE32_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="200.00,-100.00 100.00,-100.00"/>
     </edge>
     <edge id="-gneE33" from="gneJ41" to="gneJ40" priority="-1">
-        <lane id="-gneE33_0" index="0" allow="rail" speed="27.78" length="100.00" shape="300.00,-98.40 200.00,-98.40"/>
+        <lane id="-gneE33_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="300.00,-98.40 200.00,-98.40"/>
     </edge>
     <edge id="-gneE35" from="gneJ45" to="gneJ44" priority="-1" spreadType="center" bidi="gneE35">
-        <lane id="-gneE35_0" index="0" allow="rail" speed="27.78" length="100.00" shape="100.00,0.00 0.00,0.00"/>
+        <lane id="-gneE35_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="100.00,0.00 0.00,0.00"/>
     </edge>
     <edge id="-gneE37" from="gneJ47" to="gneJ46" priority="-1" spreadType="center" bidi="gneE37">
-        <lane id="-gneE37_0" index="0" allow="rail" speed="27.78" length="100.00" shape="300.00,0.00 200.00,0.00"/>
+        <lane id="-gneE37_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="300.00,0.00 200.00,0.00"/>
     </edge>
     <edge id="-gneE40" from="gneJ50" to="gneJ49" priority="-1" spreadType="center" bidi="gneE40">
-        <lane id="-gneE40_0" index="0" allow="rail" speed="27.78" length="99.75" shape="200.00,-200.00 100.25,-200.00"/>
+        <lane id="-gneE40_0" index="0" allow="rail" speed="27.78" friction="1.00" length="99.75" shape="200.00,-200.00 100.25,-200.00"/>
     </edge>
     <edge id="-gneE45" from="gneJ55" to="gneJ51" priority="-1" spreadType="center" bidi="gneE45">
-        <lane id="-gneE45_0" index="0" allow="rail" speed="27.78" length="98.15" shape="398.15,-200.00 300.00,-200.00"/>
+        <lane id="-gneE45_0" index="0" allow="rail" speed="27.78" friction="1.00" length="98.15" shape="398.15,-200.00 300.00,-200.00"/>
     </edge>
     <edge id="gneE31" from="gneJ38" to="gneJ39" priority="-1">
-        <lane id="gneE31_0" index="0" allow="rail" speed="27.78" length="100.00" shape="0.00,-101.60 100.00,-101.60"/>
+        <lane id="gneE31_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="0.00,-101.60 100.00,-101.60"/>
     </edge>
     <edge id="gneE32" from="gneJ39" to="gneJ40" priority="-1" spreadType="center" bidi="-gneE32">
-        <lane id="gneE32_0" index="0" allow="rail" speed="27.78" length="100.00" shape="100.00,-100.00 200.00,-100.00"/>
+        <lane id="gneE32_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="100.00,-100.00 200.00,-100.00"/>
     </edge>
     <edge id="gneE33" from="gneJ40" to="gneJ41" priority="-1">
-        <lane id="gneE33_0" index="0" allow="rail" speed="27.78" length="100.00" shape="200.00,-101.60 300.00,-101.60"/>
+        <lane id="gneE33_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="200.00,-101.60 300.00,-101.60"/>
     </edge>
     <edge id="gneE35" from="gneJ44" to="gneJ45" priority="-1" spreadType="center" bidi="-gneE35">
-        <lane id="gneE35_0" index="0" allow="rail" speed="27.78" length="100.00" shape="0.00,0.00 100.00,0.00"/>
+        <lane id="gneE35_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="0.00,0.00 100.00,0.00"/>
     </edge>
     <edge id="gneE36" from="gneJ45" to="gneJ46" priority="-1" spreadType="center" bidi="gneE38">
-        <lane id="gneE36_0" index="0" allow="rail" speed="27.78" length="100.00" shape="100.00,0.00 200.00,0.00"/>
+        <lane id="gneE36_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="100.00,0.00 200.00,0.00"/>
     </edge>
     <edge id="gneE37" from="gneJ46" to="gneJ47" priority="-1" spreadType="center" bidi="-gneE37">
-        <lane id="gneE37_0" index="0" allow="rail" speed="27.78" length="100.00" shape="200.00,0.00 300.00,0.00"/>
+        <lane id="gneE37_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="200.00,0.00 300.00,0.00"/>
     </edge>
     <edge id="gneE38" from="gneJ46" to="gneJ45" priority="-1" spreadType="center" bidi="gneE36">
-        <lane id="gneE38_0" index="0" allow="rail" speed="27.78" length="100.00" shape="200.00,0.00 100.00,0.00"/>
+        <lane id="gneE38_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="200.00,0.00 100.00,0.00"/>
     </edge>
     <edge id="gneE39" from="gneJ48" to="gneJ49" priority="-1" spreadType="center">
-        <lane id="gneE39_0" index="0" allow="rail" speed="27.78" length="99.74" shape="0.00,-200.00 99.74,-200.00"/>
+        <lane id="gneE39_0" index="0" allow="rail" speed="27.78" friction="1.00" length="99.74" shape="0.00,-200.00 99.74,-200.00"/>
     </edge>
     <edge id="gneE40" from="gneJ49" to="gneJ50" priority="-1" spreadType="center" bidi="-gneE40">
-        <lane id="gneE40_0" index="0" allow="rail" speed="27.78" length="99.75" shape="100.25,-200.00 200.00,-200.00"/>
+        <lane id="gneE40_0" index="0" allow="rail" speed="27.78" friction="1.00" length="99.75" shape="100.25,-200.00 200.00,-200.00"/>
     </edge>
     <edge id="gneE41" from="gneJ50" to="gneJ51" priority="-1" spreadType="center" bidi="gneE48">
-        <lane id="gneE41_0" index="0" allow="rail" speed="27.78" length="100.00" shape="200.00,-200.00 300.00,-200.00"/>
+        <lane id="gneE41_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="200.00,-200.00 300.00,-200.00"/>
     </edge>
     <edge id="gneE45" from="gneJ51" to="gneJ55" priority="-1" spreadType="center" bidi="-gneE45">
-        <lane id="gneE45_0" index="0" allow="rail" speed="27.78" length="98.15" shape="300.00,-200.00 398.15,-200.00"/>
+        <lane id="gneE45_0" index="0" allow="rail" speed="27.78" friction="1.00" length="98.15" shape="300.00,-200.00 398.15,-200.00"/>
     </edge>
     <edge id="gneE46" from="gneJ55" to="gneJ56" priority="-1" spreadType="center">
-        <lane id="gneE46_0" index="0" allow="rail" speed="27.78" length="91.25" shape="408.75,-200.00 500.00,-200.00"/>
+        <lane id="gneE46_0" index="0" allow="rail" speed="27.78" friction="1.00" length="91.25" shape="408.75,-200.00 500.00,-200.00"/>
     </edge>
     <edge id="gneE47" from="gneJ57" to="gneJ55" priority="-1" spreadType="center">
-        <lane id="gneE47_0" index="0" allow="rail" speed="27.78" length="104.40" shape="502.64,-152.37 407.94,-196.32"/>
+        <lane id="gneE47_0" index="0" allow="rail" speed="27.78" friction="1.00" length="104.40" shape="502.64,-152.37 407.94,-196.32"/>
     </edge>
     <edge id="gneE48" from="gneJ51" to="gneJ50" priority="-1" spreadType="center" bidi="gneE41">
-        <lane id="gneE48_0" index="0" allow="rail" speed="27.78" length="100.00" shape="300.00,-200.00 200.00,-200.00"/>
+        <lane id="gneE48_0" index="0" allow="rail" speed="27.78" friction="1.00" length="100.00" shape="300.00,-200.00 200.00,-200.00"/>
     </edge>
     <edge id="gneE49" from="gneJ49" to="gneJ58" priority="-1" spreadType="center">
-        <lane id="gneE49_0" index="0" allow="rail" speed="27.78" length="107.49" shape="99.77,-199.93 -2.59,-167.10"/>
+        <lane id="gneE49_0" index="0" allow="rail" speed="27.78" friction="1.00" length="107.49" shape="99.77,-199.93 -2.59,-167.10"/>
     </edge>
 
     <junction id="gneJ38" type="dead_end" x="0.00" y="-100.00" incLanes="-gneE31_0" intLanes="" shape="0.00,-100.00 0.00,-96.80 0.00,-100.00"/>

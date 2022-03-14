@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-17 08:05:15 by Eclipse SUMO netconvert Version v1_11_0+1195-b4aa5f6
+<!-- generated on 2022-03-14 15:24:42 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,17 +52,17 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="-VODUGES_beg" from="E" to="W" priority="1">
-        <lane id="-VODUGES_beg_0" index="0" speed="13.89" length="200.00" shape="200.00,1.60 0.00,1.60">
+        <lane id="-VODUGES_beg_0" index="0" speed="13.89" friction="1.00" length="200.00" shape="200.00,1.60 0.00,1.60">
             <neigh lane="VODUGES_beg_0"/>
         </lane>
     </edge>
     <edge id="VODUGES_beg" from="W" to="E" priority="1">
-        <lane id="VODUGES_beg_0" index="0" speed="13.89" length="200.00" shape="0.00,-1.60 200.00,-1.60">
+        <lane id="VODUGES_beg_0" index="0" speed="13.89" friction="1.00" length="200.00" shape="0.00,-1.60 200.00,-1.60">
             <neigh lane="anotherone_0"/>
         </lane>
     </edge>
     <edge id="anotherone" from="E" to="W" priority="1">
-        <lane id="anotherone_0" index="0" speed="13.89" length="200.00" shape="200.00,1.60 0.00,1.60">
+        <lane id="anotherone_0" index="0" speed="13.89" friction="1.00" length="200.00" shape="200.00,1.60 0.00,1.60">
             <neigh lane="VODUGES_beg_0"/>
         </lane>
     </edge>

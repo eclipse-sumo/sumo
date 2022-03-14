@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:33 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:20:39 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,25 +51,25 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="100.00,-200.00,42.00" convBoundary="100.00,-200.00,140.00,-180.00" origBoundary="0.00,0.00,40.00,20.00" projParameter="!"/>
 
     <edge id=":node_left_0" function="internal">
-        <lane id=":node_left_0_0" index="0" allow="bus" speed="13.90" length="12.95" shape="94.34,-194.34,42.00 90.64,-199.88,42.00 90.34,-204.00,42.00 93.46,-206.71,42.00 100.00,-208.00,42.00"/>
-        <lane id=":node_left_0_1" index="1" disallow="bicycle rail_fast" speed="13.90" length="12.95" shape="96.61,-196.61,42.00 94.38,-199.93,42.00 94.21,-202.40,42.00 96.08,-204.02,42.00 100.00,-204.80,42.00"/>
-        <lane id=":node_left_0_2" index="2" speed="13.90" length="12.95" shape="98.87,-198.87,42.00 98.13,-199.98,42.00 98.07,-200.80,42.00 98.69,-201.34,42.00 100.00,-201.60,42.00"/>
+        <lane id=":node_left_0_0" index="0" allow="bus" speed="13.90" friction="1.00" length="12.95" shape="94.34,-194.34,42.00 90.64,-199.88,42.00 90.34,-204.00,42.00 93.46,-206.71,42.00 100.00,-208.00,42.00"/>
+        <lane id=":node_left_0_1" index="1" disallow="bicycle rail_fast" speed="13.90" friction="1.00" length="12.95" shape="96.61,-196.61,42.00 94.38,-199.93,42.00 94.21,-202.40,42.00 96.08,-204.02,42.00 100.00,-204.80,42.00"/>
+        <lane id=":node_left_0_2" index="2" speed="13.90" friction="1.00" length="12.95" shape="98.87,-198.87,42.00 98.13,-199.98,42.00 98.07,-200.80,42.00 98.69,-201.34,42.00 100.00,-201.60,42.00"/>
     </edge>
     <edge id=":node_right_0" function="internal">
-        <lane id=":node_right_0_0" index="0" allow="bus" speed="13.90" length="13.95" shape="140.00,-208.00,42.00 146.54,-206.71,42.00 149.66,-204.00,42.00 149.36,-199.88,42.00 145.66,-194.34,42.00"/>
-        <lane id=":node_right_0_1" index="1" disallow="bicycle rail_fast" speed="13.90" length="13.95" shape="137.00,-204.80,42.00 140.00,-204.80,42.00 143.92,-204.02,42.00 145.79,-202.40,42.00 145.62,-199.93,42.00 143.39,-196.61,42.00"/>
-        <lane id=":node_right_0_2" index="2" speed="13.90" length="13.95" shape="140.00,-201.60,42.00 141.31,-201.34,42.00 141.93,-200.80,42.00 141.87,-199.98,42.00 141.13,-198.87,42.00"/>
+        <lane id=":node_right_0_0" index="0" allow="bus" speed="13.90" friction="1.00" length="13.95" shape="140.00,-208.00,42.00 146.54,-206.71,42.00 149.66,-204.00,42.00 149.36,-199.88,42.00 145.66,-194.34,42.00"/>
+        <lane id=":node_right_0_1" index="1" disallow="bicycle rail_fast" speed="13.90" friction="1.00" length="13.95" shape="137.00,-204.80,42.00 140.00,-204.80,42.00 143.92,-204.02,42.00 145.79,-202.40,42.00 145.62,-199.93,42.00 143.39,-196.61,42.00"/>
+        <lane id=":node_right_0_2" index="2" speed="13.90" friction="1.00" length="13.95" shape="140.00,-201.60,42.00 141.31,-201.34,42.00 141.93,-200.80,42.00 141.87,-199.98,42.00 141.13,-198.87,42.00"/>
     </edge>
 
     <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" shape="140.00,-200.00,42.00 120.00,-180.00,42.00 100.00,-200.00,42.00">
-        <lane id="edge_with_shape_0" index="0" allow="bus" speed="13.90" length="66.17" shape="145.66,-194.34,42.00 120.00,-168.69,42.00 94.34,-194.34,42.00"/>
-        <lane id="edge_with_shape_1" index="1" disallow="bicycle rail_fast" speed="13.90" length="66.17" shape="143.39,-196.61,42.00 120.00,-173.21,42.00 96.61,-196.61,42.00"/>
-        <lane id="edge_with_shape_2" index="2" speed="13.90" length="66.17" shape="141.13,-198.87,42.00 120.00,-177.74,42.00 98.87,-198.87,42.00"/>
+        <lane id="edge_with_shape_0" index="0" allow="bus" speed="13.90" friction="1.00" length="66.17" shape="145.66,-194.34,42.00 120.00,-168.69,42.00 94.34,-194.34,42.00"/>
+        <lane id="edge_with_shape_1" index="1" disallow="bicycle rail_fast" speed="13.90" friction="1.00" length="66.17" shape="143.39,-196.61,42.00 120.00,-173.21,42.00 96.61,-196.61,42.00"/>
+        <lane id="edge_with_shape_2" index="2" speed="13.90" friction="1.00" length="66.17" shape="141.13,-198.87,42.00 120.00,-177.74,42.00 98.87,-198.87,42.00"/>
     </edge>
     <edge id="reverse_edge" from="node_left" to="node_right" priority="-1">
-        <lane id="reverse_edge_0" index="0" speed="13.90" length="39.00" shape="100.00,-208.00,42.00 140.00,-208.00,42.00"/>
-        <lane id="reverse_edge_1" index="1" speed="13.90" length="39.00" endOffset="3.00" shape="100.00,-204.80,42.00 137.00,-204.80,42.00"/>
-        <lane id="reverse_edge_2" index="2" speed="13.90" length="39.00" shape="100.00,-201.60,42.00 140.00,-201.60,42.00"/>
+        <lane id="reverse_edge_0" index="0" speed="13.90" friction="1.00" length="39.00" shape="100.00,-208.00,42.00 140.00,-208.00,42.00"/>
+        <lane id="reverse_edge_1" index="1" speed="13.90" friction="1.00" length="39.00" endOffset="3.00" shape="100.00,-204.80,42.00 137.00,-204.80,42.00"/>
+        <lane id="reverse_edge_2" index="2" speed="13.90" friction="1.00" length="39.00" shape="100.00,-201.60,42.00 140.00,-201.60,42.00"/>
     </edge>
 
     <junction id="node_left" type="priority" x="100.00" y="-200.00" z="42.00" incLanes="edge_with_shape_0 edge_with_shape_1 edge_with_shape_2" intLanes=":node_left_0_0 :node_left_0_1 :node_left_0_2" shape="100.00,-200.00,42.00 100.00,-209.60,42.00 93.21,-193.21,42.00">

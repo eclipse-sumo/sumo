@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:01 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:26:38 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,9 +35,9 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-500.00,0.00" convBoundary="0.00,0.00,500.00,0.00" origBoundary="500.00,0.00,1000.00,0.00" projParameter="!"/>
 
     <edge id="1" from="1" to="2" priority="-1" length="500.00">
-        <lane id="1_0" index="0" speed="30.00" length="500.00" shape="500.00,8.00 0.00,8.00"/>
-        <lane id="1_1" index="1" speed="30.00" length="500.00" shape="500.00,4.80 0.00,4.80"/>
-        <lane id="1_2" index="2" speed="30.00" length="500.00" shape="500.00,1.60 0.00,1.60"/>
+        <lane id="1_0" index="0" speed="30.00" friction="1.00" length="500.00" shape="500.00,8.00 0.00,8.00"/>
+        <lane id="1_1" index="1" speed="30.00" friction="1.00" length="500.00" shape="500.00,4.80 0.00,4.80"/>
+        <lane id="1_2" index="2" speed="30.00" friction="1.00" length="500.00" shape="500.00,1.60 0.00,1.60"/>
     </edge>
 
     <junction id="1" type="dead_end" x="500.00" y="0.00" incLanes="" intLanes="" shape="500.00,0.00 500.00,9.60"/>

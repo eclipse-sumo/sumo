@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:09 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:19:34 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,17 +35,17 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-600080.40,-5798393.93" convBoundary="0.00,0.00,197.72,120.04" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-1" from="C" to="858738599" priority="-4" shape="40.18,103.61 50.93,111.62 59.01,116.23 67.83,118.64 75.30,119.90 82.12,120.04 88.27,119.05 97.86,117.02 106.10,113.85 113.69,109.56 122.73,100.84 133.88,88.83 197.72,0.00">
-        <lane id="-1_0" index="0" speed="13.89" length="218.17" shape="43.80,104.31 51.81,110.28 59.63,114.74 68.17,117.08 75.45,118.30 82.01,118.44 87.98,117.48 97.40,115.48 105.42,112.40 112.73,108.27 121.59,99.72 132.64,87.81 196.42,-0.93"/>
+        <lane id="-1_0" index="0" speed="13.89" friction="1.00" length="218.17" shape="43.80,104.31 51.81,110.28 59.63,114.74 68.17,117.08 75.45,118.30 82.01,118.44 87.98,117.48 97.40,115.48 105.42,112.40 112.73,108.27 121.59,99.72 132.64,87.81 196.42,-0.93"/>
     </edge>
     <edge id="1" from="858738599" to="C" priority="-4" shape="197.72,0.00 133.88,88.83 122.73,100.84 113.69,109.56 106.10,113.85 97.86,117.02 88.27,119.05 82.12,120.04 75.30,119.90 67.83,118.64 59.01,116.23 50.93,111.62 40.18,103.61">
-        <lane id="1_0" index="0" speed="13.89" length="218.17" shape="199.02,0.93 135.12,89.85 123.87,101.96 114.65,110.85 106.78,115.30 98.32,118.56 88.56,120.62 82.23,121.64 75.15,121.50 67.49,120.20 58.39,117.72 50.05,112.96 41.88,106.88"/>
+        <lane id="1_0" index="0" speed="13.89" friction="1.00" length="218.17" shape="199.02,0.93 135.12,89.85 123.87,101.96 114.65,110.85 106.78,115.30 98.32,118.56 88.56,120.62 82.23,121.64 75.15,121.50 67.49,120.20 58.39,117.72 50.05,112.96 41.88,106.88"/>
     </edge>
     <edge id="2" from="cluster_54545919_54545920" to="C" priority="-4" spreadType="center" shape="6.27,61.76 30.94,88.96 41.58,102.73">
-        <lane id="2_0" index="0" speed="13.89" length="58.45" shape="6.49,62.00 30.94,88.96 38.68,98.97"/>
+        <lane id="2_0" index="0" speed="13.89" friction="1.00" length="58.45" shape="6.49,62.00 30.94,88.96 38.68,98.97"/>
     </edge>
     <edge id="3" from="C" to="cluster_54545919_54545920" priority="-4" spreadType="center" shape="38.60,106.51 25.35,95.52 0.00,68.30">
-        <lane id="3_0" index="0" speed="13.89" length="59.64" shape="33.86,104.65 24.25,96.69 -1.34,69.21"/>
-        <lane id="3_1" index="1" speed="13.89" length="59.64" shape="35.93,102.21 26.45,94.35 1.01,67.04"/>
+        <lane id="3_0" index="0" speed="13.89" friction="1.00" length="59.64" shape="33.86,104.65 24.25,96.69 -1.34,69.21"/>
+        <lane id="3_1" index="1" speed="13.89" friction="1.00" length="59.64" shape="35.93,102.21 26.45,94.35 1.01,67.04"/>
     </edge>
 
     <junction id="858738599" type="dead_end" x="197.72" y="0.00" incLanes="-1_0" intLanes="" shape="197.72,0.00 195.12,-1.87 197.72,-0.00"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:44 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-14 15:24:37 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,70 +40,70 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="137.50,109.44" convBoundary="0.00,0.00,1881.25,1141.27" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="-gneE10" from="gneJ13" to="gneJ12" priority="1">
-        <lane id="-gneE10_0" index="0" speed="13.89" length="122.60" shape="0.91,-1.31 100.51,67.85"/>
+        <lane id="-gneE10_0" index="0" speed="13.89" friction="1.00" length="122.60" shape="0.91,-1.31 100.51,67.85"/>
     </edge>
     <edge id="-gneE29" from="gneJ42" to="gneJ41" priority="1">
-        <lane id="-gneE29_0" index="0" speed="13.89" length="215.38" shape="1881.56,965.34 1762.94,1140.50"/>
+        <lane id="-gneE29_0" index="0" speed="13.89" friction="1.00" length="215.38" shape="1881.56,965.34 1762.94,1140.50"/>
     </edge>
     <edge id="-gneE30" from="gneJ43" to="gneJ42" priority="1">
-        <lane id="-gneE30_0" index="0" speed="13.89" length="208.27" shape="1795.60,774.86 1881.94,960.62"/>
+        <lane id="-gneE30_0" index="0" speed="13.89" friction="1.00" length="208.27" shape="1795.60,774.86 1881.94,960.62"/>
     </edge>
     <edge id="-gneE31" from="gneJ44" to="gneJ43" priority="1">
-        <lane id="-gneE31_0" index="0" speed="13.89" length="205.25" shape="1593.84,731.63 1792.21,772.18"/>
+        <lane id="-gneE31_0" index="0" speed="13.89" friction="1.00" length="205.25" shape="1593.84,731.63 1792.21,772.18"/>
     </edge>
     <edge id="-gneE32" from="gneJ45" to="gneJ44" priority="1">
-        <lane id="-gneE32_0" index="0" speed="13.89" length="168.03" shape="1445.83,810.47 1590.59,732.11"/>
+        <lane id="-gneE32_0" index="0" speed="13.89" friction="1.00" length="168.03" shape="1445.83,810.47 1590.59,732.11"/>
     </edge>
     <edge id="-gneE33" from="gneJ46" to="gneJ45" priority="1">
-        <lane id="-gneE33_0" index="0" speed="13.89" length="196.73" shape="1472.88,1006.66 1443.37,815.42"/>
+        <lane id="-gneE33_0" index="0" speed="13.89" friction="1.00" length="196.73" shape="1472.88,1006.66 1443.37,815.42"/>
     </edge>
     <edge id="-gneE34" from="gneJ47" to="gneJ46" priority="1">
-        <lane id="-gneE34_0" index="0" speed="13.89" length="143.87" shape="1570.44,1113.19 1474.10,1009.19"/>
+        <lane id="-gneE34_0" index="0" speed="13.89" friction="1.00" length="143.87" shape="1570.44,1113.19 1474.10,1009.19"/>
     </edge>
     <edge id="-gneE35" from="gneJ41" to="gneJ47" priority="1">
-        <lane id="-gneE35_0" index="0" speed="13.89" length="190.22" shape="1758.25,1142.55 1573.25,1114.68"/>
+        <lane id="-gneE35_0" index="0" speed="13.89" friction="1.00" length="190.22" shape="1758.25,1142.55 1573.25,1114.68"/>
     </edge>
     <edge id="-gneE7" from="gneJ10" to="gneJ9" priority="1" shape="337.50,209.44 337.60,209.54">
-        <lane id="-gneE7_0" index="0" speed="13.89" length="0.28" shape="338.63,208.31 338.73,208.41"/>
+        <lane id="-gneE7_0" index="0" speed="13.89" friction="1.00" length="0.28" shape="338.63,208.31 338.73,208.41"/>
     </edge>
     <edge id="-gneE8" from="gneJ11" to="gneJ10" priority="1">
-        <lane id="-gneE8_0" index="0" speed="13.89" length="214.47" shape="128.60,213.70 338.83,207.80"/>
+        <lane id="-gneE8_0" index="0" speed="13.89" friction="1.00" length="214.47" shape="128.60,213.70 338.83,207.80"/>
     </edge>
     <edge id="-gneE9" from="gneJ12" to="gneJ11" priority="1">
-        <lane id="-gneE9_0" index="0" speed="13.89" length="147.61" shape="102.50,70.98 126.97,212.38"/>
+        <lane id="-gneE9_0" index="0" speed="13.89" friction="1.00" length="147.61" shape="102.50,70.98 126.97,212.38"/>
     </edge>
     <edge id="gneE10" from="gneJ12" to="gneJ13" priority="1">
-        <lane id="gneE10_0" index="0" speed="13.89" length="122.60" shape="98.69,70.48 -0.91,1.31"/>
+        <lane id="gneE10_0" index="0" speed="13.89" friction="1.00" length="122.60" shape="98.69,70.48 -0.91,1.31"/>
     </edge>
     <edge id="gneE29" from="gneJ41" to="gneJ42" priority="1">
-        <lane id="gneE29_0" index="0" speed="13.89" length="215.38" shape="1760.29,1138.70 1878.91,963.54"/>
+        <lane id="gneE29_0" index="0" speed="13.89" friction="1.00" length="215.38" shape="1760.29,1138.70 1878.91,963.54"/>
     </edge>
     <edge id="gneE30" from="gneJ42" to="gneJ43" priority="1">
-        <lane id="gneE30_0" index="0" speed="13.89" length="208.27" shape="1879.04,961.97 1792.70,776.21"/>
+        <lane id="gneE30_0" index="0" speed="13.89" friction="1.00" length="208.27" shape="1879.04,961.97 1792.70,776.21"/>
     </edge>
     <edge id="gneE31" from="gneJ43" to="gneJ44" priority="1">
-        <lane id="gneE31_0" index="0" speed="13.89" length="205.25" shape="1791.57,775.31 1593.20,734.76"/>
+        <lane id="gneE31_0" index="0" speed="13.89" friction="1.00" length="205.25" shape="1791.57,775.31 1593.20,734.76"/>
     </edge>
     <edge id="gneE32" from="gneJ44" to="gneJ45" priority="1">
-        <lane id="gneE32_0" index="0" speed="13.89" length="168.03" shape="1592.12,734.92 1447.35,813.28"/>
+        <lane id="gneE32_0" index="0" speed="13.89" friction="1.00" length="168.03" shape="1592.12,734.92 1447.35,813.28"/>
     </edge>
     <edge id="gneE33" from="gneJ45" to="gneJ46" priority="1">
-        <lane id="gneE33_0" index="0" speed="13.89" length="196.73" shape="1446.54,814.93 1476.04,1006.17"/>
+        <lane id="gneE33_0" index="0" speed="13.89" friction="1.00" length="196.73" shape="1446.54,814.93 1476.04,1006.17"/>
     </edge>
     <edge id="gneE34" from="gneJ46" to="gneJ47" priority="1">
-        <lane id="gneE34_0" index="0" speed="13.89" length="143.87" shape="1476.45,1007.01 1572.79,1111.02"/>
+        <lane id="gneE34_0" index="0" speed="13.89" friction="1.00" length="143.87" shape="1476.45,1007.01 1572.79,1111.02"/>
     </edge>
     <edge id="gneE35" from="gneJ47" to="gneJ41" priority="1">
-        <lane id="gneE35_0" index="0" speed="13.89" length="190.22" shape="1573.73,1111.51 1758.72,1139.39"/>
+        <lane id="gneE35_0" index="0" speed="13.89" friction="1.00" length="190.22" shape="1573.73,1111.51 1758.72,1139.39"/>
     </edge>
     <edge id="gneE7" from="gneJ9" to="gneJ10" priority="1" shape="337.50,209.44 337.60,209.54">
-        <lane id="gneE7_0" index="0" speed="13.89" length="0.28" shape="338.63,208.31 338.73,208.41"/>
+        <lane id="gneE7_0" index="0" speed="13.89" friction="1.00" length="0.28" shape="338.63,208.31 338.73,208.41"/>
     </edge>
     <edge id="gneE8" from="gneJ10" to="gneJ11" priority="1">
-        <lane id="gneE8_0" index="0" speed="13.89" length="214.47" shape="338.92,211.00 128.69,216.90"/>
+        <lane id="gneE8_0" index="0" speed="13.89" friction="1.00" length="214.47" shape="338.92,211.00 128.69,216.90"/>
     </edge>
     <edge id="gneE9" from="gneJ11" to="gneJ12" priority="1">
-        <lane id="gneE9_0" index="0" speed="13.89" length="147.61" shape="123.82,212.92 99.35,71.52"/>
+        <lane id="gneE9_0" index="0" speed="13.89" friction="1.00" length="147.61" shape="123.82,212.92 99.35,71.52"/>
     </edge>
 
     <junction id="gneJ10" type="priority" x="337.50" y="209.44" incLanes="gneE7_0 -gneE8_0" intLanes="" shape="339.86,207.28 337.60,209.54 337.50,209.44 339.76,207.18 339.45,206.70 339.35,206.50 339.24,206.34 339.07,206.23 338.79,206.20 338.97,212.60 341.76,211.93 342.22,211.18 342.05,210.16 341.27,208.86">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:20:38 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-03-14 15:20:16 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,299 +36,299 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="100.00,200.00" convBoundary="0.00,0.00,2125.42,400.00" origBoundary="-100.00,-200.00,2025.42,200.00" projParameter="!"/>
 
     <edge id=":AltglienickerBreit_0" function="internal">
-        <lane id=":AltglienickerBreit_0_0" index="0" speed="14.00" length="8.00" shape="1906.87,184.00 1906.87,176.00"/>
+        <lane id=":AltglienickerBreit_0_0" index="0" speed="14.00" friction="1.00" length="8.00" shape="1906.87,184.00 1906.87,176.00"/>
     </edge>
     <edge id=":AltglienickerBreit_1" function="internal">
-        <lane id=":AltglienickerBreit_1_0" index="0" speed="14.00" length="8.40" shape="1910.07,176.00 1910.57,178.46 1911.67,180.00 1912.77,181.54 1913.27,184.00"/>
-        <lane id=":AltglienickerBreit_1_1" index="1" speed="14.00" length="8.40" shape="1910.07,176.00 1910.07,184.00"/>
+        <lane id=":AltglienickerBreit_1_0" index="0" speed="14.00" friction="1.00" length="8.40" shape="1910.07,176.00 1910.57,178.46 1911.67,180.00 1912.77,181.54 1913.27,184.00"/>
+        <lane id=":AltglienickerBreit_1_1" index="1" speed="14.00" friction="1.00" length="8.40" shape="1910.07,176.00 1910.07,184.00"/>
     </edge>
     <edge id=":AltglienickerEnd_0" function="internal">
-        <lane id=":AltglienickerEnd_0_0" index="0" speed="14.00" length="0.10" shape="1906.87,100.00 1906.87,100.00"/>
+        <lane id=":AltglienickerEnd_0_0" index="0" speed="14.00" friction="1.00" length="0.10" shape="1906.87,100.00 1906.87,100.00"/>
     </edge>
     <edge id=":AltglienickerEnd_1" function="internal">
-        <lane id=":AltglienickerEnd_1_0" index="0" speed="14.00" length="0.10" shape="1910.07,100.00 1910.07,100.00"/>
+        <lane id=":AltglienickerEnd_1_0" index="0" speed="14.00" friction="1.00" length="0.10" shape="1910.07,100.00 1910.07,100.00"/>
     </edge>
     <edge id=":EinsteinEnd_0" function="internal">
-        <lane id=":EinsteinEnd_0_0" index="0" speed="14.00" length="0.10" shape="293.31,300.00 293.31,300.00"/>
+        <lane id=":EinsteinEnd_0_0" index="0" speed="14.00" friction="1.00" length="0.10" shape="293.31,300.00 293.31,300.00"/>
     </edge>
     <edge id=":EinsteinEnd_1" function="internal">
-        <lane id=":EinsteinEnd_1_0" index="0" speed="14.00" length="0.10" shape="296.51,300.00 296.51,300.00"/>
+        <lane id=":EinsteinEnd_1_0" index="0" speed="14.00" friction="1.00" length="0.10" shape="296.51,300.00 296.51,300.00"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_0" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_0_0" index="0" speed="19.00" length="17.98" shape="1918.87,208.00 1913.60,207.50 1910.07,206.40 1906.54,205.30 1901.27,204.80"/>
-        <lane id=":ErnstRuskaAltglienicker_0_1" index="1" speed="19.00" length="17.98" shape="1918.87,204.80 1913.60,204.30 1910.07,203.20 1906.54,202.10 1901.27,201.60"/>
+        <lane id=":ErnstRuskaAltglienicker_0_0" index="0" speed="19.00" friction="1.00" length="17.98" shape="1918.87,208.00 1913.60,207.50 1910.07,206.40 1906.54,205.30 1901.27,204.80"/>
+        <lane id=":ErnstRuskaAltglienicker_0_1" index="1" speed="19.00" friction="1.00" length="17.98" shape="1918.87,204.80 1913.60,204.30 1910.07,203.20 1906.54,202.10 1901.27,201.60"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_2" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_2_0" index="0" speed="9.26" length="5.01" shape="1918.87,201.60 1913.91,200.89"/>
+        <lane id=":ErnstRuskaAltglienicker_2_0" index="0" speed="9.26" friction="1.00" length="5.01" shape="1918.87,201.60 1913.91,200.89"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_8" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_8_0" index="0" speed="9.26" length="14.34" shape="1913.91,200.89 1913.62,200.85 1909.87,198.60 1907.62,194.85 1906.87,189.60"/>
+        <lane id=":ErnstRuskaAltglienicker_8_0" index="0" speed="9.26" friction="1.00" length="14.34" shape="1913.91,200.89 1913.62,200.85 1909.87,198.60 1907.62,194.85 1906.87,189.60"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_3" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_3_0" index="0" speed="6.51" length="9.03" shape="1913.27,189.60 1913.62,192.05 1914.67,193.80 1916.42,194.85 1918.87,195.20"/>
+        <lane id=":ErnstRuskaAltglienicker_3_0" index="0" speed="6.51" friction="1.00" length="9.03" shape="1913.27,189.60 1913.62,192.05 1914.67,193.80 1916.42,194.85 1918.87,195.20"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_4" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_4_0" index="0" speed="8.67" length="16.85" shape="1910.07,189.60 1909.52,194.85 1907.87,198.60 1905.12,200.85 1901.27,201.60"/>
+        <lane id=":ErnstRuskaAltglienicker_4_0" index="0" speed="8.67" friction="1.00" length="16.85" shape="1910.07,189.60 1909.52,194.85 1907.87,198.60 1905.12,200.85 1901.27,201.60"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_5" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_5_0" index="0" speed="6.51" length="9.03" shape="1901.27,195.20 1903.72,194.85 1905.47,193.80 1906.52,192.05 1906.87,189.60"/>
+        <lane id=":ErnstRuskaAltglienicker_5_0" index="0" speed="6.51" friction="1.00" length="9.03" shape="1901.27,195.20 1903.72,194.85 1905.47,193.80 1906.52,192.05 1906.87,189.60"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_6" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_6_0" index="0" speed="19.00" length="17.60" shape="1901.27,195.20 1918.87,195.20"/>
-        <lane id=":ErnstRuskaAltglienicker_6_1" index="1" speed="19.00" length="17.60" shape="1901.27,198.40 1918.87,198.40"/>
+        <lane id=":ErnstRuskaAltglienicker_6_0" index="0" speed="19.00" friction="1.00" length="17.60" shape="1901.27,195.20 1918.87,195.20"/>
+        <lane id=":ErnstRuskaAltglienicker_6_1" index="1" speed="19.00" friction="1.00" length="17.60" shape="1901.27,198.40 1918.87,198.40"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_0" function="internal">
-        <lane id=":ErnstRuskaEinstein_0_0" index="0" speed="6.51" length="9.03" shape="293.31,210.40 292.96,207.95 291.91,206.20 290.16,205.15 287.71,204.80"/>
+        <lane id=":ErnstRuskaEinstein_0_0" index="0" speed="6.51" friction="1.00" length="9.03" shape="293.31,210.40 292.96,207.95 291.91,206.20 290.16,205.15 287.71,204.80"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_1" function="internal">
-        <lane id=":ErnstRuskaEinstein_1_0" index="0" speed="8.67" length="16.85" shape="293.31,210.40 293.86,205.15 295.51,201.40 298.26,199.15 302.12,198.40"/>
+        <lane id=":ErnstRuskaEinstein_1_0" index="0" speed="8.67" friction="1.00" length="16.85" shape="293.31,210.40 293.86,205.15 295.51,201.40 298.26,199.15 302.12,198.40"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_2" function="internal">
-        <lane id=":ErnstRuskaEinstein_2_0" index="0" speed="6.51" length="9.03" shape="302.12,204.80 299.67,205.15 297.91,206.20 296.87,207.95 296.51,210.40"/>
+        <lane id=":ErnstRuskaEinstein_2_0" index="0" speed="6.51" friction="1.00" length="9.03" shape="302.12,204.80 299.67,205.15 297.91,206.20 296.87,207.95 296.51,210.40"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_3" function="internal">
-        <lane id=":ErnstRuskaEinstein_3_0" index="0" speed="19.00" length="14.40" shape="302.12,204.80 287.71,204.80"/>
-        <lane id=":ErnstRuskaEinstein_3_1" index="1" speed="19.00" length="14.40" shape="302.12,201.60 287.71,201.60"/>
+        <lane id=":ErnstRuskaEinstein_3_0" index="0" speed="19.00" friction="1.00" length="14.40" shape="302.12,204.80 287.71,204.80"/>
+        <lane id=":ErnstRuskaEinstein_3_1" index="1" speed="19.00" friction="1.00" length="14.40" shape="302.12,201.60 287.71,201.60"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_5" function="internal">
-        <lane id=":ErnstRuskaEinstein_5_0" index="0" speed="19.00" length="14.40" shape="287.71,195.20 302.12,195.20"/>
-        <lane id=":ErnstRuskaEinstein_5_1" index="1" speed="19.00" length="14.40" shape="287.71,198.40 302.12,198.40"/>
+        <lane id=":ErnstRuskaEinstein_5_0" index="0" speed="19.00" friction="1.00" length="14.40" shape="287.71,195.20 302.12,195.20"/>
+        <lane id=":ErnstRuskaEinstein_5_1" index="1" speed="19.00" friction="1.00" length="14.40" shape="287.71,198.40 302.12,198.40"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_7" function="internal">
-        <lane id=":ErnstRuskaEinstein_7_0" index="0" speed="8.67" length="3.71" shape="287.71,198.40 291.36,199.11"/>
+        <lane id=":ErnstRuskaEinstein_7_0" index="0" speed="8.67" friction="1.00" length="3.71" shape="287.71,198.40 291.36,199.11"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_8" function="internal">
-        <lane id=":ErnstRuskaEinstein_8_0" index="0" speed="8.67" length="13.14" shape="291.36,199.11 291.56,199.15 294.31,201.40 295.96,205.15 296.51,210.40"/>
+        <lane id=":ErnstRuskaEinstein_8_0" index="0" speed="8.67" friction="1.00" length="13.14" shape="291.36,199.11 291.56,199.15 294.31,201.40 295.96,205.15 296.51,210.40"/>
     </edge>
     <edge id=":ErnstRuskaEnd1_0" function="internal">
-        <lane id=":ErnstRuskaEnd1_0_0" index="0" speed="19.00" length="0.10" shape="100.00,204.80 100.00,204.80"/>
-        <lane id=":ErnstRuskaEnd1_0_1" index="1" speed="19.00" length="0.10" shape="100.00,201.60 100.00,201.60"/>
+        <lane id=":ErnstRuskaEnd1_0_0" index="0" speed="19.00" friction="1.00" length="0.10" shape="100.00,204.80 100.00,204.80"/>
+        <lane id=":ErnstRuskaEnd1_0_1" index="1" speed="19.00" friction="1.00" length="0.10" shape="100.00,201.60 100.00,201.60"/>
     </edge>
     <edge id=":ErnstRuskaEnd1_2" function="internal">
-        <lane id=":ErnstRuskaEnd1_2_0" index="0" speed="19.00" length="0.10" shape="100.00,195.20 100.00,195.20"/>
-        <lane id=":ErnstRuskaEnd1_2_1" index="1" speed="19.00" length="0.10" shape="100.00,198.40 100.00,198.40"/>
+        <lane id=":ErnstRuskaEnd1_2_0" index="0" speed="19.00" friction="1.00" length="0.10" shape="100.00,195.20 100.00,195.20"/>
+        <lane id=":ErnstRuskaEnd1_2_1" index="1" speed="19.00" friction="1.00" length="0.10" shape="100.00,198.40 100.00,198.40"/>
     </edge>
     <edge id=":ErnstRuskaEnd2_0" function="internal">
-        <lane id=":ErnstRuskaEnd2_0_0" index="0" speed="19.00" length="8.54" shape="2029.42,204.80 2026.96,205.30 2025.42,206.40 2023.88,207.50 2021.42,208.00"/>
-        <lane id=":ErnstRuskaEnd2_0_1" index="1" speed="19.00" length="8.54" shape="2029.42,201.60 2026.96,202.10 2025.42,203.20 2023.88,204.30 2021.42,204.80"/>
-        <lane id=":ErnstRuskaEnd2_0_2" index="2" speed="19.00" length="8.54" shape="2029.42,201.60 2021.42,201.60"/>
+        <lane id=":ErnstRuskaEnd2_0_0" index="0" speed="19.00" friction="1.00" length="8.54" shape="2029.42,204.80 2026.96,205.30 2025.42,206.40 2023.88,207.50 2021.42,208.00"/>
+        <lane id=":ErnstRuskaEnd2_0_1" index="1" speed="19.00" friction="1.00" length="8.54" shape="2029.42,201.60 2026.96,202.10 2025.42,203.20 2023.88,204.30 2021.42,204.80"/>
+        <lane id=":ErnstRuskaEnd2_0_2" index="2" speed="19.00" friction="1.00" length="8.54" shape="2029.42,201.60 2021.42,201.60"/>
     </edge>
     <edge id=":ErnstRuskaEnd2_3" function="internal">
-        <lane id=":ErnstRuskaEnd2_3_0" index="0" speed="19.00" length="8.00" shape="2021.42,195.20 2029.42,195.20"/>
-        <lane id=":ErnstRuskaEnd2_3_1" index="1" speed="19.00" length="8.00" shape="2021.42,198.40 2029.42,198.40"/>
+        <lane id=":ErnstRuskaEnd2_3_0" index="0" speed="19.00" friction="1.00" length="8.00" shape="2021.42,195.20 2029.42,195.20"/>
+        <lane id=":ErnstRuskaEnd2_3_1" index="1" speed="19.00" friction="1.00" length="8.00" shape="2021.42,198.40 2029.42,198.40"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_0" function="internal">
-        <lane id=":ErnstRuskaHavestadt_0_0" index="0" speed="6.51" length="9.03" shape="1010.45,210.40 1010.10,207.95 1009.05,206.20 1007.30,205.15 1004.85,204.80"/>
+        <lane id=":ErnstRuskaHavestadt_0_0" index="0" speed="6.51" friction="1.00" length="9.03" shape="1010.45,210.40 1010.10,207.95 1009.05,206.20 1007.30,205.15 1004.85,204.80"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_1" function="internal">
-        <lane id=":ErnstRuskaHavestadt_1_0" index="0" speed="9.84" length="21.99" shape="1013.65,210.40 1014.40,203.75 1016.65,199.00 1020.40,196.15 1025.65,195.20"/>
-        <lane id=":ErnstRuskaHavestadt_1_1" index="1" speed="9.26" length="19.35" shape="1013.65,210.40 1014.40,205.15 1016.65,201.40 1020.40,199.15 1025.65,198.40"/>
+        <lane id=":ErnstRuskaHavestadt_1_0" index="0" speed="9.84" friction="1.00" length="21.99" shape="1013.65,210.40 1014.40,203.75 1016.65,199.00 1020.40,196.15 1025.65,195.20"/>
+        <lane id=":ErnstRuskaHavestadt_1_1" index="1" speed="9.26" friction="1.00" length="19.35" shape="1013.65,210.40 1014.40,205.15 1016.65,201.40 1020.40,199.15 1025.65,198.40"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_3" function="internal">
-        <lane id=":ErnstRuskaHavestadt_3_0" index="0" speed="6.51" length="9.03" shape="1025.65,204.80 1023.20,205.15 1021.45,206.20 1020.40,207.95 1020.05,210.40"/>
+        <lane id=":ErnstRuskaHavestadt_3_0" index="0" speed="6.51" friction="1.00" length="9.03" shape="1025.65,204.80 1023.20,205.15 1021.45,206.20 1020.40,207.95 1020.05,210.40"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_4" function="internal">
-        <lane id=":ErnstRuskaHavestadt_4_0" index="0" speed="19.00" length="20.80" shape="1025.65,204.80 1004.85,204.80"/>
-        <lane id=":ErnstRuskaHavestadt_4_1" index="1" speed="19.00" length="20.80" shape="1025.65,201.60 1004.85,201.60"/>
+        <lane id=":ErnstRuskaHavestadt_4_0" index="0" speed="19.00" friction="1.00" length="20.80" shape="1025.65,204.80 1004.85,204.80"/>
+        <lane id=":ErnstRuskaHavestadt_4_1" index="1" speed="19.00" friction="1.00" length="20.80" shape="1025.65,201.60 1004.85,201.60"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_6" function="internal">
-        <lane id=":ErnstRuskaHavestadt_6_0" index="0" speed="19.00" length="20.80" shape="1004.85,192.00 1025.65,192.00"/>
-        <lane id=":ErnstRuskaHavestadt_6_1" index="1" speed="19.00" length="20.80" shape="1004.85,195.20 1025.65,195.20"/>
+        <lane id=":ErnstRuskaHavestadt_6_0" index="0" speed="19.00" friction="1.00" length="20.80" shape="1004.85,192.00 1025.65,192.00"/>
+        <lane id=":ErnstRuskaHavestadt_6_1" index="1" speed="19.00" friction="1.00" length="20.80" shape="1004.85,195.20 1025.65,195.20"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_8" function="internal">
-        <lane id=":ErnstRuskaHavestadt_8_0" index="0" speed="9.26" length="5.01" shape="1004.85,198.40 1009.81,199.11"/>
+        <lane id=":ErnstRuskaHavestadt_8_0" index="0" speed="9.26" friction="1.00" length="5.01" shape="1004.85,198.40 1009.81,199.11"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_9" function="internal">
-        <lane id=":ErnstRuskaHavestadt_9_0" index="0" speed="9.26" length="14.34" shape="1009.81,199.11 1010.10,199.15 1013.85,201.40 1016.10,205.15 1016.85,210.40"/>
+        <lane id=":ErnstRuskaHavestadt_9_0" index="0" speed="9.26" friction="1.00" length="14.34" shape="1009.81,199.11 1010.10,199.15 1013.85,201.40 1016.10,205.15 1016.85,210.40"/>
     </edge>
     <edge id=":ErnstRuskaHavestadtDiv1_0" function="internal">
-        <lane id=":ErnstRuskaHavestadtDiv1_0_0" index="0" speed="19.00" length="8.00" shape="989.25,204.80 981.25,204.80"/>
-        <lane id=":ErnstRuskaHavestadtDiv1_0_1" index="1" speed="19.00" length="8.00" shape="989.25,201.60 981.25,201.60"/>
+        <lane id=":ErnstRuskaHavestadtDiv1_0_0" index="0" speed="19.00" friction="1.00" length="8.00" shape="989.25,204.80 981.25,204.80"/>
+        <lane id=":ErnstRuskaHavestadtDiv1_0_1" index="1" speed="19.00" friction="1.00" length="8.00" shape="989.25,201.60 981.25,201.60"/>
     </edge>
     <edge id=":ErnstRuskaHavestadtDiv1_2" function="internal">
-        <lane id=":ErnstRuskaHavestadtDiv1_2_0" index="0" speed="19.00" length="8.54" shape="981.25,195.20 983.71,194.70 985.25,193.60 986.79,192.50 989.25,192.00"/>
-        <lane id=":ErnstRuskaHavestadtDiv1_2_1" index="1" speed="19.00" length="8.54" shape="981.25,198.40 983.71,197.90 985.25,196.80 986.79,195.70 989.25,195.20"/>
-        <lane id=":ErnstRuskaHavestadtDiv1_2_2" index="2" speed="19.00" length="8.54" shape="981.25,198.40 989.25,198.40"/>
+        <lane id=":ErnstRuskaHavestadtDiv1_2_0" index="0" speed="19.00" friction="1.00" length="8.54" shape="981.25,195.20 983.71,194.70 985.25,193.60 986.79,192.50 989.25,192.00"/>
+        <lane id=":ErnstRuskaHavestadtDiv1_2_1" index="1" speed="19.00" friction="1.00" length="8.54" shape="981.25,198.40 983.71,197.90 985.25,196.80 986.79,195.70 989.25,195.20"/>
+        <lane id=":ErnstRuskaHavestadtDiv1_2_2" index="2" speed="19.00" friction="1.00" length="8.54" shape="981.25,198.40 989.25,198.40"/>
     </edge>
     <edge id=":ErnstRuskaHavestadtDiv2_0" function="internal">
-        <lane id=":ErnstRuskaHavestadtDiv2_0_0" index="0" speed="19.00" length="8.00" shape="1049.25,204.80 1041.25,204.80"/>
-        <lane id=":ErnstRuskaHavestadtDiv2_0_1" index="1" speed="19.00" length="8.00" shape="1049.25,201.60 1041.25,201.60"/>
+        <lane id=":ErnstRuskaHavestadtDiv2_0_0" index="0" speed="19.00" friction="1.00" length="8.00" shape="1049.25,204.80 1041.25,204.80"/>
+        <lane id=":ErnstRuskaHavestadtDiv2_0_1" index="1" speed="19.00" friction="1.00" length="8.00" shape="1049.25,201.60 1041.25,201.60"/>
     </edge>
     <edge id=":ErnstRuskaHavestadtDiv2_2" function="internal">
-        <lane id=":ErnstRuskaHavestadtDiv2_2_0" index="0" speed="19.00" length="8.81" shape="1041.25,192.00 1043.71,192.50 1045.25,193.60 1046.79,194.70 1049.25,195.20"/>
-        <lane id=":ErnstRuskaHavestadtDiv2_2_1" index="1" speed="19.00" length="8.81" shape="1041.25,195.20 1043.71,195.70 1045.25,196.80 1046.79,197.90 1049.25,198.40"/>
+        <lane id=":ErnstRuskaHavestadtDiv2_2_0" index="0" speed="19.00" friction="1.00" length="8.81" shape="1041.25,192.00 1043.71,192.50 1045.25,193.60 1046.79,194.70 1049.25,195.20"/>
+        <lane id=":ErnstRuskaHavestadtDiv2_2_1" index="1" speed="19.00" friction="1.00" length="8.81" shape="1041.25,195.20 1043.71,195.70 1045.25,196.80 1046.79,197.90 1049.25,198.40"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_0" function="internal">
-        <lane id=":ErnstRuskaVolmer_0_0" index="0" speed="6.51" length="9.03" shape="1583.15,210.40 1582.80,207.95 1581.75,206.20 1580.00,205.15 1577.55,204.80"/>
+        <lane id=":ErnstRuskaVolmer_0_0" index="0" speed="6.51" friction="1.00" length="9.03" shape="1583.15,210.40 1582.80,207.95 1581.75,206.20 1580.00,205.15 1577.55,204.80"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_1" function="internal">
-        <lane id=":ErnstRuskaVolmer_1_0" index="0" speed="8.67" length="16.85" shape="1583.15,210.40 1583.70,205.15 1585.35,201.40 1588.10,199.15 1591.95,198.40"/>
+        <lane id=":ErnstRuskaVolmer_1_0" index="0" speed="8.67" friction="1.00" length="16.85" shape="1583.15,210.40 1583.70,205.15 1585.35,201.40 1588.10,199.15 1591.95,198.40"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_2" function="internal">
-        <lane id=":ErnstRuskaVolmer_2_0" index="0" speed="6.51" length="9.03" shape="1591.95,204.80 1589.50,205.15 1587.75,206.20 1586.70,207.95 1586.35,210.40"/>
+        <lane id=":ErnstRuskaVolmer_2_0" index="0" speed="6.51" friction="1.00" length="9.03" shape="1591.95,204.80 1589.50,205.15 1587.75,206.20 1586.70,207.95 1586.35,210.40"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_3" function="internal">
-        <lane id=":ErnstRuskaVolmer_3_0" index="0" speed="19.00" length="14.40" shape="1591.95,204.80 1577.55,204.80"/>
-        <lane id=":ErnstRuskaVolmer_3_1" index="1" speed="19.00" length="14.40" shape="1591.95,201.60 1577.55,201.60"/>
+        <lane id=":ErnstRuskaVolmer_3_0" index="0" speed="19.00" friction="1.00" length="14.40" shape="1591.95,204.80 1577.55,204.80"/>
+        <lane id=":ErnstRuskaVolmer_3_1" index="1" speed="19.00" friction="1.00" length="14.40" shape="1591.95,201.60 1577.55,201.60"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_5" function="internal">
-        <lane id=":ErnstRuskaVolmer_5_0" index="0" speed="19.00" length="14.40" shape="1577.55,195.20 1591.95,195.20"/>
-        <lane id=":ErnstRuskaVolmer_5_1" index="1" speed="19.00" length="14.40" shape="1577.55,198.40 1591.95,198.40"/>
+        <lane id=":ErnstRuskaVolmer_5_0" index="0" speed="19.00" friction="1.00" length="14.40" shape="1577.55,195.20 1591.95,195.20"/>
+        <lane id=":ErnstRuskaVolmer_5_1" index="1" speed="19.00" friction="1.00" length="14.40" shape="1577.55,198.40 1591.95,198.40"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_7" function="internal">
-        <lane id=":ErnstRuskaVolmer_7_0" index="0" speed="8.67" length="3.71" shape="1577.55,198.40 1581.19,199.11"/>
+        <lane id=":ErnstRuskaVolmer_7_0" index="0" speed="8.67" friction="1.00" length="3.71" shape="1577.55,198.40 1581.19,199.11"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_8" function="internal">
-        <lane id=":ErnstRuskaVolmer_8_0" index="0" speed="8.67" length="13.14" shape="1581.19,199.11 1581.40,199.15 1584.15,201.40 1585.80,205.15 1586.35,210.40"/>
+        <lane id=":ErnstRuskaVolmer_8_0" index="0" speed="8.67" friction="1.00" length="13.14" shape="1581.19,199.11 1581.40,199.15 1584.15,201.40 1585.80,205.15 1586.35,210.40"/>
     </edge>
     <edge id=":HavestadtEnd_0" function="internal">
-        <lane id=":HavestadtEnd_0_0" index="0" speed="14.00" length="0.10" shape="1010.45,300.00 1010.45,300.00"/>
-        <lane id=":HavestadtEnd_0_1" index="1" speed="14.00" length="0.10" shape="1013.65,300.00 1013.65,300.00"/>
+        <lane id=":HavestadtEnd_0_0" index="0" speed="14.00" friction="1.00" length="0.10" shape="1010.45,300.00 1010.45,300.00"/>
+        <lane id=":HavestadtEnd_0_1" index="1" speed="14.00" friction="1.00" length="0.10" shape="1013.65,300.00 1013.65,300.00"/>
     </edge>
     <edge id=":HavestadtEnd_2" function="internal">
-        <lane id=":HavestadtEnd_2_0" index="0" speed="14.00" length="0.10" shape="1020.05,300.00 1020.05,300.00"/>
-        <lane id=":HavestadtEnd_2_1" index="1" speed="14.00" length="0.10" shape="1016.85,300.00 1016.85,300.00"/>
+        <lane id=":HavestadtEnd_2_0" index="0" speed="14.00" friction="1.00" length="0.10" shape="1020.05,300.00 1020.05,300.00"/>
+        <lane id=":HavestadtEnd_2_1" index="1" speed="14.00" friction="1.00" length="0.10" shape="1016.85,300.00 1016.85,300.00"/>
     </edge>
     <edge id=":VolmerEnd_0" function="internal">
-        <lane id=":VolmerEnd_0_0" index="0" speed="14.00" length="0.10" shape="1583.15,300.00 1583.15,300.00"/>
+        <lane id=":VolmerEnd_0_0" index="0" speed="14.00" friction="1.00" length="0.10" shape="1583.15,300.00 1583.15,300.00"/>
     </edge>
     <edge id=":VolmerEnd_1" function="internal">
-        <lane id=":VolmerEnd_1_0" index="0" speed="14.00" length="0.10" shape="1586.35,300.00 1586.35,300.00"/>
+        <lane id=":VolmerEnd_1_0" index="0" speed="14.00" friction="1.00" length="0.10" shape="1586.35,300.00 1586.35,300.00"/>
     </edge>
 
     <edge id="AltglienickerBreitN" from="AltglienickerBreit" to="ErnstRuskaAltglienicker" priority="-1">
-        <lane id="AltglienickerBreitN_0" index="0" speed="14.00" length="5.60" shape="1913.27,184.00 1913.27,189.60"/>
-        <lane id="AltglienickerBreitN_1" index="1" speed="14.00" length="5.60" shape="1910.07,184.00 1910.07,189.60"/>
+        <lane id="AltglienickerBreitN_0" index="0" speed="14.00" friction="1.00" length="5.60" shape="1913.27,184.00 1913.27,189.60"/>
+        <lane id="AltglienickerBreitN_1" index="1" speed="14.00" friction="1.00" length="5.60" shape="1910.07,184.00 1910.07,189.60"/>
     </edge>
     <edge id="AltglienickerBreitS" from="ErnstRuskaAltglienicker" to="AltglienickerBreit" priority="-1">
-        <lane id="AltglienickerBreitS_0" index="0" speed="14.00" length="5.60" shape="1906.87,189.60 1906.87,184.00"/>
+        <lane id="AltglienickerBreitS_0" index="0" speed="14.00" friction="1.00" length="5.60" shape="1906.87,189.60 1906.87,184.00"/>
     </edge>
     <edge id="AltglienickerN" from="AltglienickerEnd" to="AltglienickerBreit" priority="-1">
-        <lane id="AltglienickerN_0" index="0" speed="14.00" length="76.00" shape="1910.07,100.00 1910.07,176.00"/>
+        <lane id="AltglienickerN_0" index="0" speed="14.00" friction="1.00" length="76.00" shape="1910.07,100.00 1910.07,176.00"/>
     </edge>
     <edge id="AltglienickerS" from="AltglienickerBreit" to="AltglienickerEnd" priority="-1">
-        <lane id="AltglienickerS_0" index="0" speed="14.00" length="76.00" shape="1906.87,176.00 1906.87,100.00"/>
+        <lane id="AltglienickerS_0" index="0" speed="14.00" friction="1.00" length="76.00" shape="1906.87,176.00 1906.87,100.00"/>
     </edge>
     <edge id="AltglienickerSinkN" from="AltglienickerSinkEnd" to="AltglienickerEnd" priority="-1">
-        <lane id="AltglienickerSinkN_0" index="0" speed="14.00" length="100.00" shape="1910.07,0.00 1910.07,100.00"/>
+        <lane id="AltglienickerSinkN_0" index="0" speed="14.00" friction="1.00" length="100.00" shape="1910.07,0.00 1910.07,100.00"/>
     </edge>
     <edge id="AltglienickerSinkS" from="AltglienickerEnd" to="AltglienickerSinkEnd" priority="-1">
-        <lane id="AltglienickerSinkS_0" index="0" speed="14.00" length="100.00" shape="1906.87,100.00 1906.87,0.00"/>
+        <lane id="AltglienickerSinkS_0" index="0" speed="14.00" friction="1.00" length="100.00" shape="1906.87,100.00 1906.87,0.00"/>
     </edge>
     <edge id="EinsteinN" from="ErnstRuskaEinstein" to="EinsteinEnd" priority="-1">
-        <lane id="EinsteinN_0" index="0" speed="14.00" length="89.60" shape="296.51,210.40 296.51,300.00"/>
+        <lane id="EinsteinN_0" index="0" speed="14.00" friction="1.00" length="89.60" shape="296.51,210.40 296.51,300.00"/>
     </edge>
     <edge id="EinsteinS" from="EinsteinEnd" to="ErnstRuskaEinstein" priority="-1">
-        <lane id="EinsteinS_0" index="0" speed="14.00" length="89.60" shape="293.31,300.00 293.31,210.40"/>
+        <lane id="EinsteinS_0" index="0" speed="14.00" friction="1.00" length="89.60" shape="293.31,300.00 293.31,210.40"/>
     </edge>
     <edge id="EinsteinSinkN" from="EinsteinEnd" to="EinsteinSinkEnd" priority="-1">
-        <lane id="EinsteinSinkN_0" index="0" speed="14.00" length="100.00" shape="296.51,300.00 296.51,400.00"/>
+        <lane id="EinsteinSinkN_0" index="0" speed="14.00" friction="1.00" length="100.00" shape="296.51,300.00 296.51,400.00"/>
     </edge>
     <edge id="EinsteinSinkS" from="EinsteinSinkEnd" to="EinsteinEnd" priority="-1">
-        <lane id="EinsteinSinkS_0" index="0" speed="14.00" length="100.00" shape="293.31,400.00 293.31,300.00"/>
+        <lane id="EinsteinSinkS_0" index="0" speed="14.00" friction="1.00" length="100.00" shape="293.31,400.00 293.31,300.00"/>
     </edge>
     <edge id="ErnstRuska1O" from="ErnstRuskaEnd1" to="ErnstRuskaEinstein" priority="1">
-        <lane id="ErnstRuska1O_0" index="0" speed="19.00" length="187.71" shape="100.00,195.20 287.71,195.20"/>
-        <lane id="ErnstRuska1O_1" index="1" speed="19.00" length="187.71" shape="100.00,198.40 287.71,198.40"/>
+        <lane id="ErnstRuska1O_0" index="0" speed="19.00" friction="1.00" length="187.71" shape="100.00,195.20 287.71,195.20"/>
+        <lane id="ErnstRuska1O_1" index="1" speed="19.00" friction="1.00" length="187.71" shape="100.00,198.40 287.71,198.40"/>
     </edge>
     <edge id="ErnstRuska1W" from="ErnstRuskaEinstein" to="ErnstRuskaEnd1" priority="1">
-        <lane id="ErnstRuska1W_0" index="0" speed="19.00" length="187.71" shape="287.71,204.80 100.00,204.80"/>
-        <lane id="ErnstRuska1W_1" index="1" speed="19.00" length="187.71" shape="287.71,201.60 100.00,201.60"/>
+        <lane id="ErnstRuska1W_0" index="0" speed="19.00" friction="1.00" length="187.71" shape="287.71,204.80 100.00,204.80"/>
+        <lane id="ErnstRuska1W_1" index="1" speed="19.00" friction="1.00" length="187.71" shape="287.71,201.60 100.00,201.60"/>
     </edge>
     <edge id="ErnstRuska231O" from="ErnstRuskaHavestadtDiv1" to="ErnstRuskaHavestadt" priority="1">
-        <lane id="ErnstRuska231O_0" index="0" speed="19.00" length="15.60" shape="989.25,192.00 1004.85,192.00"/>
-        <lane id="ErnstRuska231O_1" index="1" speed="19.00" length="15.60" shape="989.25,195.20 1004.85,195.20"/>
-        <lane id="ErnstRuska231O_2" index="2" speed="19.00" length="15.60" shape="989.25,198.40 1004.85,198.40"/>
+        <lane id="ErnstRuska231O_0" index="0" speed="19.00" friction="1.00" length="15.60" shape="989.25,192.00 1004.85,192.00"/>
+        <lane id="ErnstRuska231O_1" index="1" speed="19.00" friction="1.00" length="15.60" shape="989.25,195.20 1004.85,195.20"/>
+        <lane id="ErnstRuska231O_2" index="2" speed="19.00" friction="1.00" length="15.60" shape="989.25,198.40 1004.85,198.40"/>
     </edge>
     <edge id="ErnstRuska231W" from="ErnstRuskaHavestadt" to="ErnstRuskaHavestadtDiv1" priority="1">
-        <lane id="ErnstRuska231W_0" index="0" speed="19.00" length="15.60" shape="1004.85,204.80 989.25,204.80"/>
-        <lane id="ErnstRuska231W_1" index="1" speed="19.00" length="15.60" shape="1004.85,201.60 989.25,201.60"/>
+        <lane id="ErnstRuska231W_0" index="0" speed="19.00" friction="1.00" length="15.60" shape="1004.85,204.80 989.25,204.80"/>
+        <lane id="ErnstRuska231W_1" index="1" speed="19.00" friction="1.00" length="15.60" shape="1004.85,201.60 989.25,201.60"/>
     </edge>
     <edge id="ErnstRuska232O" from="ErnstRuskaHavestadt" to="ErnstRuskaHavestadtDiv2" priority="1">
-        <lane id="ErnstRuska232O_0" index="0" speed="19.00" length="15.60" shape="1025.65,192.00 1041.25,192.00"/>
-        <lane id="ErnstRuska232O_1" index="1" speed="19.00" length="15.60" shape="1025.65,195.20 1041.25,195.20"/>
-        <lane id="ErnstRuska232O_2" index="2" speed="19.00" length="15.60" shape="1025.65,198.40 1041.25,198.40"/>
+        <lane id="ErnstRuska232O_0" index="0" speed="19.00" friction="1.00" length="15.60" shape="1025.65,192.00 1041.25,192.00"/>
+        <lane id="ErnstRuska232O_1" index="1" speed="19.00" friction="1.00" length="15.60" shape="1025.65,195.20 1041.25,195.20"/>
+        <lane id="ErnstRuska232O_2" index="2" speed="19.00" friction="1.00" length="15.60" shape="1025.65,198.40 1041.25,198.40"/>
     </edge>
     <edge id="ErnstRuska232W" from="ErnstRuskaHavestadtDiv2" to="ErnstRuskaHavestadt" priority="1">
-        <lane id="ErnstRuska232W_0" index="0" speed="19.00" length="15.60" shape="1041.25,204.80 1025.65,204.80"/>
-        <lane id="ErnstRuska232W_1" index="1" speed="19.00" length="15.60" shape="1041.25,201.60 1025.65,201.60"/>
+        <lane id="ErnstRuska232W_0" index="0" speed="19.00" friction="1.00" length="15.60" shape="1041.25,204.80 1025.65,204.80"/>
+        <lane id="ErnstRuska232W_1" index="1" speed="19.00" friction="1.00" length="15.60" shape="1041.25,201.60 1025.65,201.60"/>
     </edge>
     <edge id="ErnstRuska2O" from="ErnstRuskaEinstein" to="ErnstRuskaHavestadtDiv1" priority="1">
-        <lane id="ErnstRuska2O_0" index="0" speed="19.00" length="679.13" shape="302.12,195.20 981.25,195.20"/>
-        <lane id="ErnstRuska2O_1" index="1" speed="19.00" length="679.13" shape="302.12,198.40 981.25,198.40"/>
+        <lane id="ErnstRuska2O_0" index="0" speed="19.00" friction="1.00" length="679.13" shape="302.12,195.20 981.25,195.20"/>
+        <lane id="ErnstRuska2O_1" index="1" speed="19.00" friction="1.00" length="679.13" shape="302.12,198.40 981.25,198.40"/>
     </edge>
     <edge id="ErnstRuska2W" from="ErnstRuskaHavestadtDiv1" to="ErnstRuskaEinstein" priority="1">
-        <lane id="ErnstRuska2W_0" index="0" speed="19.00" length="679.13" shape="981.25,204.80 302.12,204.80"/>
-        <lane id="ErnstRuska2W_1" index="1" speed="19.00" length="679.13" shape="981.25,201.60 302.12,201.60"/>
+        <lane id="ErnstRuska2W_0" index="0" speed="19.00" friction="1.00" length="679.13" shape="981.25,204.80 302.12,204.80"/>
+        <lane id="ErnstRuska2W_1" index="1" speed="19.00" friction="1.00" length="679.13" shape="981.25,201.60 302.12,201.60"/>
     </edge>
     <edge id="ErnstRuska3O" from="ErnstRuskaHavestadtDiv2" to="ErnstRuskaVolmer" priority="1">
-        <lane id="ErnstRuska3O_0" index="0" speed="19.00" length="528.30" shape="1049.25,195.20 1577.55,195.20"/>
-        <lane id="ErnstRuska3O_1" index="1" speed="19.00" length="528.30" shape="1049.25,198.40 1577.55,198.40"/>
+        <lane id="ErnstRuska3O_0" index="0" speed="19.00" friction="1.00" length="528.30" shape="1049.25,195.20 1577.55,195.20"/>
+        <lane id="ErnstRuska3O_1" index="1" speed="19.00" friction="1.00" length="528.30" shape="1049.25,198.40 1577.55,198.40"/>
     </edge>
     <edge id="ErnstRuska3W" from="ErnstRuskaVolmer" to="ErnstRuskaHavestadtDiv2" priority="1">
-        <lane id="ErnstRuska3W_0" index="0" speed="19.00" length="528.30" shape="1577.55,204.80 1049.25,204.80"/>
-        <lane id="ErnstRuska3W_1" index="1" speed="19.00" length="528.30" shape="1577.55,201.60 1049.25,201.60"/>
+        <lane id="ErnstRuska3W_0" index="0" speed="19.00" friction="1.00" length="528.30" shape="1577.55,204.80 1049.25,204.80"/>
+        <lane id="ErnstRuska3W_1" index="1" speed="19.00" friction="1.00" length="528.30" shape="1577.55,201.60 1049.25,201.60"/>
     </edge>
     <edge id="ErnstRuska4O" from="ErnstRuskaVolmer" to="ErnstRuskaAltglienicker" priority="1">
-        <lane id="ErnstRuska4O_0" index="0" speed="19.00" length="309.32" shape="1591.95,195.20 1901.27,195.20"/>
-        <lane id="ErnstRuska4O_1" index="1" speed="19.00" length="309.32" shape="1591.95,198.40 1901.27,198.40"/>
+        <lane id="ErnstRuska4O_0" index="0" speed="19.00" friction="1.00" length="309.32" shape="1591.95,195.20 1901.27,195.20"/>
+        <lane id="ErnstRuska4O_1" index="1" speed="19.00" friction="1.00" length="309.32" shape="1591.95,198.40 1901.27,198.40"/>
     </edge>
     <edge id="ErnstRuska4W" from="ErnstRuskaAltglienicker" to="ErnstRuskaVolmer" priority="1">
-        <lane id="ErnstRuska4W_0" index="0" speed="19.00" length="309.32" shape="1901.27,204.80 1591.95,204.80"/>
-        <lane id="ErnstRuska4W_1" index="1" speed="19.00" length="309.32" shape="1901.27,201.60 1591.95,201.60"/>
+        <lane id="ErnstRuska4W_0" index="0" speed="19.00" friction="1.00" length="309.32" shape="1901.27,204.80 1591.95,204.80"/>
+        <lane id="ErnstRuska4W_1" index="1" speed="19.00" friction="1.00" length="309.32" shape="1901.27,201.60 1591.95,201.60"/>
     </edge>
     <edge id="ErnstRuska5O" from="ErnstRuskaAltglienicker" to="ErnstRuskaEnd2" priority="1">
-        <lane id="ErnstRuska5O_0" index="0" speed="19.00" length="102.55" shape="1918.87,195.20 2021.42,195.20"/>
-        <lane id="ErnstRuska5O_1" index="1" speed="19.00" length="102.55" shape="1918.87,198.40 2021.42,198.40"/>
+        <lane id="ErnstRuska5O_0" index="0" speed="19.00" friction="1.00" length="102.55" shape="1918.87,195.20 2021.42,195.20"/>
+        <lane id="ErnstRuska5O_1" index="1" speed="19.00" friction="1.00" length="102.55" shape="1918.87,198.40 2021.42,198.40"/>
     </edge>
     <edge id="ErnstRuska5W" from="ErnstRuskaEnd2" to="ErnstRuskaAltglienicker" priority="1">
-        <lane id="ErnstRuska5W_0" index="0" speed="19.00" length="102.55" shape="2021.42,208.00 1918.87,208.00"/>
-        <lane id="ErnstRuska5W_1" index="1" speed="19.00" length="102.55" shape="2021.42,204.80 1918.87,204.80"/>
-        <lane id="ErnstRuska5W_2" index="2" speed="19.00" length="102.55" shape="2021.42,201.60 1918.87,201.60"/>
+        <lane id="ErnstRuska5W_0" index="0" speed="19.00" friction="1.00" length="102.55" shape="2021.42,208.00 1918.87,208.00"/>
+        <lane id="ErnstRuska5W_1" index="1" speed="19.00" friction="1.00" length="102.55" shape="2021.42,204.80 1918.87,204.80"/>
+        <lane id="ErnstRuska5W_2" index="2" speed="19.00" friction="1.00" length="102.55" shape="2021.42,201.60 1918.87,201.60"/>
     </edge>
     <edge id="ErnstRuskaSink1O" from="ErnstRuskaSink1" to="ErnstRuskaEnd1" priority="1">
-        <lane id="ErnstRuskaSink1O_0" index="0" speed="19.00" length="100.00" shape="0.00,195.20 100.00,195.20"/>
-        <lane id="ErnstRuskaSink1O_1" index="1" speed="19.00" length="100.00" shape="0.00,198.40 100.00,198.40"/>
+        <lane id="ErnstRuskaSink1O_0" index="0" speed="19.00" friction="1.00" length="100.00" shape="0.00,195.20 100.00,195.20"/>
+        <lane id="ErnstRuskaSink1O_1" index="1" speed="19.00" friction="1.00" length="100.00" shape="0.00,198.40 100.00,198.40"/>
     </edge>
     <edge id="ErnstRuskaSink1W" from="ErnstRuskaEnd1" to="ErnstRuskaSink1" priority="1">
-        <lane id="ErnstRuskaSink1W_0" index="0" speed="19.00" length="100.00" shape="100.00,204.80 0.00,204.80"/>
-        <lane id="ErnstRuskaSink1W_1" index="1" speed="19.00" length="100.00" shape="100.00,201.60 0.00,201.60"/>
+        <lane id="ErnstRuskaSink1W_0" index="0" speed="19.00" friction="1.00" length="100.00" shape="100.00,204.80 0.00,204.80"/>
+        <lane id="ErnstRuskaSink1W_1" index="1" speed="19.00" friction="1.00" length="100.00" shape="100.00,201.60 0.00,201.60"/>
     </edge>
     <edge id="ErnstRuskaSink5O" from="ErnstRuskaEnd2" to="ErnstRuskaSink2" priority="1">
-        <lane id="ErnstRuskaSink5O_0" index="0" speed="19.00" length="96.00" shape="2029.42,195.20 2125.42,195.20"/>
-        <lane id="ErnstRuskaSink5O_1" index="1" speed="19.00" length="96.00" shape="2029.42,198.40 2125.42,198.40"/>
+        <lane id="ErnstRuskaSink5O_0" index="0" speed="19.00" friction="1.00" length="96.00" shape="2029.42,195.20 2125.42,195.20"/>
+        <lane id="ErnstRuskaSink5O_1" index="1" speed="19.00" friction="1.00" length="96.00" shape="2029.42,198.40 2125.42,198.40"/>
     </edge>
     <edge id="ErnstRuskaSink5W" from="ErnstRuskaSink2" to="ErnstRuskaEnd2" priority="1">
-        <lane id="ErnstRuskaSink5W_0" index="0" speed="19.00" length="96.00" shape="2125.42,204.80 2029.42,204.80"/>
-        <lane id="ErnstRuskaSink5W_1" index="1" speed="19.00" length="96.00" shape="2125.42,201.60 2029.42,201.60"/>
+        <lane id="ErnstRuskaSink5W_0" index="0" speed="19.00" friction="1.00" length="96.00" shape="2125.42,204.80 2029.42,204.80"/>
+        <lane id="ErnstRuskaSink5W_1" index="1" speed="19.00" friction="1.00" length="96.00" shape="2125.42,201.60 2029.42,201.60"/>
     </edge>
     <edge id="HavestadtN" from="ErnstRuskaHavestadt" to="HavestadtEnd" priority="-1">
-        <lane id="HavestadtN_0" index="0" speed="14.00" length="89.60" shape="1020.05,210.40 1020.05,300.00"/>
-        <lane id="HavestadtN_1" index="1" speed="14.00" length="89.60" shape="1016.85,210.40 1016.85,300.00"/>
+        <lane id="HavestadtN_0" index="0" speed="14.00" friction="1.00" length="89.60" shape="1020.05,210.40 1020.05,300.00"/>
+        <lane id="HavestadtN_1" index="1" speed="14.00" friction="1.00" length="89.60" shape="1016.85,210.40 1016.85,300.00"/>
     </edge>
     <edge id="HavestadtS" from="HavestadtEnd" to="ErnstRuskaHavestadt" priority="-1">
-        <lane id="HavestadtS_0" index="0" speed="14.00" length="89.60" shape="1010.45,300.00 1010.45,210.40"/>
-        <lane id="HavestadtS_1" index="1" speed="14.00" length="89.60" shape="1013.65,300.00 1013.65,210.40"/>
+        <lane id="HavestadtS_0" index="0" speed="14.00" friction="1.00" length="89.60" shape="1010.45,300.00 1010.45,210.40"/>
+        <lane id="HavestadtS_1" index="1" speed="14.00" friction="1.00" length="89.60" shape="1013.65,300.00 1013.65,210.40"/>
     </edge>
     <edge id="HavestadtSinkN" from="HavestadtEnd" to="HavestadtSinkEnd" priority="-1">
-        <lane id="HavestadtSinkN_0" index="0" speed="14.00" length="100.00" shape="1020.05,300.00 1020.05,400.00"/>
-        <lane id="HavestadtSinkN_1" index="1" speed="14.00" length="100.00" shape="1016.85,300.00 1016.85,400.00"/>
+        <lane id="HavestadtSinkN_0" index="0" speed="14.00" friction="1.00" length="100.00" shape="1020.05,300.00 1020.05,400.00"/>
+        <lane id="HavestadtSinkN_1" index="1" speed="14.00" friction="1.00" length="100.00" shape="1016.85,300.00 1016.85,400.00"/>
     </edge>
     <edge id="HavestadtSinkS" from="HavestadtSinkEnd" to="HavestadtEnd" priority="-1">
-        <lane id="HavestadtSinkS_0" index="0" speed="14.00" length="100.00" shape="1010.45,400.00 1010.45,300.00"/>
-        <lane id="HavestadtSinkS_1" index="1" speed="14.00" length="100.00" shape="1013.65,400.00 1013.65,300.00"/>
+        <lane id="HavestadtSinkS_0" index="0" speed="14.00" friction="1.00" length="100.00" shape="1010.45,400.00 1010.45,300.00"/>
+        <lane id="HavestadtSinkS_1" index="1" speed="14.00" friction="1.00" length="100.00" shape="1013.65,400.00 1013.65,300.00"/>
     </edge>
     <edge id="VolmerN" from="ErnstRuskaVolmer" to="VolmerEnd" priority="-1">
-        <lane id="VolmerN_0" index="0" speed="14.00" length="89.60" shape="1586.35,210.40 1586.35,300.00"/>
+        <lane id="VolmerN_0" index="0" speed="14.00" friction="1.00" length="89.60" shape="1586.35,210.40 1586.35,300.00"/>
     </edge>
     <edge id="VolmerS" from="VolmerEnd" to="ErnstRuskaVolmer" priority="-1">
-        <lane id="VolmerS_0" index="0" speed="14.00" length="89.60" shape="1583.15,300.00 1583.15,210.40"/>
+        <lane id="VolmerS_0" index="0" speed="14.00" friction="1.00" length="89.60" shape="1583.15,300.00 1583.15,210.40"/>
     </edge>
     <edge id="VolmerSinkN" from="VolmerEnd" to="VolmerSinkEnd" priority="-1">
-        <lane id="VolmerSinkN_0" index="0" speed="14.00" length="100.00" shape="1586.35,300.00 1586.35,400.00"/>
+        <lane id="VolmerSinkN_0" index="0" speed="14.00" friction="1.00" length="100.00" shape="1586.35,300.00 1586.35,400.00"/>
     </edge>
     <edge id="VolmerSinkS" from="VolmerSinkEnd" to="VolmerEnd" priority="-1">
-        <lane id="VolmerSinkS_0" index="0" speed="14.00" length="100.00" shape="1583.15,400.00 1583.15,300.00"/>
+        <lane id="VolmerSinkS_0" index="0" speed="14.00" friction="1.00" length="100.00" shape="1583.15,400.00 1583.15,300.00"/>
     </edge>
 
     <tlLogic id="ErnstRuskaAltglienicker" type="static" programID="0" offset="0">
