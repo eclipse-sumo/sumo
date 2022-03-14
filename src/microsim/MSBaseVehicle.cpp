@@ -258,7 +258,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         }
     } else {
         // via takes precedence over stop edges
-        // XXX check for inconsistencies #2275
+        // there is a consistency check in MSRouteHandler::addStop that warns when a stop edge is not part of the via edges
         for (std::vector<std::string>::const_iterator it = myParameter->via.begin(); it != myParameter->via.end(); ++it) {
             MSEdge* viaEdge = MSEdge::dictionary(*it);
             if (viaEdge == source || viaEdge == sink) {
