@@ -180,26 +180,15 @@ MSDevice_Routing::~MSDevice_Routing() {
 bool
 MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
-        // clean up pre depart rerouting
-        if (myRerouteCommand != nullptr) {
-            myRerouteCommand->deschedule();
-        } else if (myPreInsertionPeriod > 0 && myHolder.getDepartDelay() > myPreInsertionPeriod && enteredLane != nullptr) {
+        if (myRerouteCommand == nullptr && myPreInsertionPeriod > 0 && myHolder.getDepartDelay() > myPreInsertionPeriod && enteredLane != nullptr) {
             // pre-insertion rerouting was disabled. Reroute once if insertion was delayed
             // this is happening in the run thread (not inbeginOfTimestepEvents) so we cannot safely use the threadPool
             myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), "device.rerouting",
                              MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass()),
                              false, MSRoutingEngine::withTaz(), false);
         }
-        myRerouteCommand = nullptr;
         // build repetition trigger if routing shall be done more often
-        if (myPeriod > 0) {
-            myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::wrappedRerouteCommandExecute);
-            SUMOTime start = MSNet::getInstance()->getCurrentTimeStep();
-            if (OptionsCont::getOptions().getBool("device.rerouting.synchronize")) {
-                start -= start % myPeriod;
-            }
-            MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myRerouteCommand, myPeriod + start);
-        }
+        rebuildRerouteCommand();
     }
     if (MSGlobals::gWeightsSeparateTurns > 0) {
         if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
@@ -213,6 +202,23 @@ MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifi
         return true;
     } else {
         return false;
+    }
+}
+
+
+void
+MSDevice_Routing::rebuildRerouteCommand() {
+    if (myRerouteCommand != nullptr) {
+        myRerouteCommand->deschedule();
+        myRerouteCommand = nullptr;
+    }
+    if (myPeriod > 0) {
+        myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::wrappedRerouteCommandExecute);
+        SUMOTime start = MSNet::getInstance()->getCurrentTimeStep();
+        if (OptionsCont::getOptions().getBool("device.rerouting.synchronize")) {
+            start -= start % myPeriod;
+        }
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myRerouteCommand, myPeriod + start);
     }
 }
 
@@ -307,7 +313,7 @@ MSDevice_Routing::setParameter(const std::string& key, const std::string& value)
     } else if (key == "period") {
         myPeriod = TIME2STEPS(doubleValue);
         // re-schedule routing command
-        notifyEnter(myHolder, MSMoveReminder::NOTIFICATION_DEPARTED, nullptr);
+        rebuildRerouteCommand();
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
