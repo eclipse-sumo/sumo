@@ -399,9 +399,21 @@ double
 GNEOverheadWire::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_STARTPOS:
-            return myStartPos;
+            if (myStartPos < 0) {
+                return 0;
+            } else if (myStartPos > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
+                return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+            } else {
+                return myStartPos;
+            }
         case SUMO_ATTR_ENDPOS:
-            return myStartPos;
+            if (myEndPos < 0) {
+                return 0;
+            } else if (myEndPos > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
+                return getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
+            } else {
+                return myEndPos;
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
