@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-28 11:30:23 by Eclipse SUMO netconvert Version v1_12_0+0087-1185162ac9e
+<!-- generated on 2022-03-14 09:40:00 by Eclipse SUMO netconvert Version v1_12_0+1365-3a20817167f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -116,7 +116,7 @@
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
         <roundabouts.visibility-distance value="9" type="FLOAT" help="Default visibility when approaching a roundabout"/>
         <opposites.guess value="false" type="BOOL" help="Enable guessing of opposite direction lanes usable for overtaking"/>
-        <opposites.guess.fix-lengths value="false" type="BOOL" help="Ensure that opposite edges have the same length"/>
+        <opposites.guess.fix-lengths value="true" type="BOOL" help="Ensure that opposite edges have the same length"/>
         <fringe.guess value="false" type="BOOL" help="Enable guessing of network fringe nodes"/>
         <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
         <edges.join value="false" type="BOOL" help="Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)"/>
