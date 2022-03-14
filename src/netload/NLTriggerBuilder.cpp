@@ -254,7 +254,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
     // Original version from 2018
     // std::vector<std::string> segmentIDs;
     // SUMOSAXAttributes::parseStringVector(segmentStrings, segmentIDs);
-    const std::vector<std::string>& segmentIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_OVERHEAD_WIRE_SEGMENT, substationId.c_str(), ok);
+    const std::vector<std::string>& segmentIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_OVERHEAD_WIRE_SEGMENTS, substationId.c_str(), ok);
     std::vector<MSOverheadWire*> segments;
 
     // ----------------------------------------------
