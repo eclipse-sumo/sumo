@@ -260,26 +260,37 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
         } else {
             overheadWireGeometry = lane->getLaneGeometry();
         }
+        // get both geometries
+        auto overheadWireGeometryTop = overheadWireGeometry;
+        auto overheadWireGeometryBot = overheadWireGeometry;
+        // move to sides
+        overheadWireGeometryTop.moveGeometryToSide(overheadWireWidth * 0.5);
+        overheadWireGeometryBot.moveGeometryToSide(overheadWireWidth * -0.5);
         // obtain color
-        const RGBColor overheadWireColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColor;
+        const RGBColor overheadWireColorTop = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorTop;
+        const RGBColor overheadWireColorBot = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorBot;
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // push layer matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, getType() + offsetFront);
-        // Set color
-        GLHelper::setColor(overheadWireColor);
-        // draw geometry
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometry, overheadWireWidth);
+        // Set top color
+        GLHelper::setColor(overheadWireColorTop);
+        // draw top geometry
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometryTop, 0.2);
+        // Set bot color
+        GLHelper::setColor(overheadWireColorBot);
+        // draw bot geometry
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometryBot, 0.2);
         // draw geometry points
         if (segment->isFirstSegment() && segment->isLastSegment()) {
-            drawLeftGeometryPoint(myNet->getViewNet(), overheadWireGeometry.getShape().front(),  overheadWireGeometry.getShapeRotations().front(), overheadWireColor, true);
-            drawRightGeometryPoint(myNet->getViewNet(), overheadWireGeometry.getShape().back(), overheadWireGeometry.getShapeRotations().back(), overheadWireColor, true);
+            drawLeftGeometryPoint(myNet->getViewNet(), overheadWireGeometry.getShape().front(),  overheadWireGeometry.getShapeRotations().front(), overheadWireColorTop, true);
+            drawRightGeometryPoint(myNet->getViewNet(), overheadWireGeometry.getShape().back(), overheadWireGeometry.getShapeRotations().back(), overheadWireColorTop, true);
         } else if (segment->isFirstSegment()) {
-            drawLeftGeometryPoint(myNet->getViewNet(), overheadWireGeometry.getShape().front(), overheadWireGeometry.getShapeRotations().front(), overheadWireColor, true);
+            drawLeftGeometryPoint(myNet->getViewNet(), overheadWireGeometry.getShape().front(), overheadWireGeometry.getShapeRotations().front(), overheadWireColorTop, true);
         } else if (segment->isLastSegment()) {
-            drawRightGeometryPoint(myNet->getViewNet(), overheadWireGeometry.getShape().back(), overheadWireGeometry.getShapeRotations().back(), overheadWireColor, true);
+            drawRightGeometryPoint(myNet->getViewNet(), overheadWireGeometry.getShape().back(), overheadWireGeometry.getShapeRotations().back(), overheadWireColorTop, true);
         }
         // Pop layer matrix
         GLHelper::popMatrix();
@@ -308,41 +319,35 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
     const double overheadWireWidth = s.addSize.getExaggeration(s, fromLane);
     // check if E2 can be drawn
     if (s.drawAdditionals(overheadWireWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // get flag for show only contour
-        const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() ? myNet->getViewNet()->getNetworkViewOptions().showConnections() : false;
+        // obtain color
+        const RGBColor overheadWireColorTop = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorTop;
+        const RGBColor overheadWireColorBot = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorBot;
+        // declare geometry
+        GUIGeometry overheadWireGeometry({fromLane->getLaneShape().back(), toLane->getLaneShape().front()});
+        // check if exist connection
+        if (fromLane->getLane2laneConnections().exist(toLane)) {
+            overheadWireGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
+        }
+        // get both geometries
+        auto overheadWireGeometryTop = overheadWireGeometry;
+        auto overheadWireGeometryBot = overheadWireGeometry;
+        // move to sides
+        overheadWireGeometryTop.moveGeometryToSide(overheadWireWidth * 0.5);
+        overheadWireGeometryBot.moveGeometryToSide(overheadWireWidth * -0.5);
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, getType() + offsetFront);
-        // Set color of the base
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-        } else {
-            GLHelper::setColor(s.additionalSettings.overheadWireColor);
-        }
-        // draw lane2lane
-        if (fromLane->getLane2laneConnections().exist(toLane)) {
-            // check if draw only contour
-            if (onlyContour) {
-                GUIGeometry::drawContourGeometry(fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), overheadWireWidth);
-            } else {
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), overheadWireWidth);
-            }
-        } else {
-            // Set invalid person plan color
-            GLHelper::setColor(RGBColor::RED);
-            // calculate invalid geometry
-            const GUIGeometry invalidGeometry({fromLane->getLaneShape().back(), toLane->getLaneShape().front()});
-            // check if draw only contour
-            if (onlyContour) {
-                GUIGeometry::drawContourGeometry(invalidGeometry, (0.5 * overheadWireWidth));
-            } else {
-                // draw invalid geometry
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), invalidGeometry, (0.5 * overheadWireWidth));
-            }
-        }
+        // Set top color
+        GLHelper::setColor(overheadWireColorTop);
+        // draw top geometry
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometryTop, 0.2);
+        // Set bot color
+        GLHelper::setColor(overheadWireColorBot);
+        // draw bot geometry
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometryBot, 0.2);
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name

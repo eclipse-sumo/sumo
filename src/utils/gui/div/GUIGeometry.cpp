@@ -180,6 +180,13 @@ GUIGeometry::updateSinglePosGeometry(const Position& position, const double rota
 }
 
 
+void 
+GUIGeometry::moveGeometryToSide(const double amount) {
+    // move shape
+    myShape.move2side(amount);
+}
+
+
 void
 GUIGeometry::scaleGeometry(const double scale) {
     // scale shape and lengths

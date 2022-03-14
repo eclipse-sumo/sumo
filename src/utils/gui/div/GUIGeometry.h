@@ -56,6 +56,9 @@ public:
     /// @brief update position and rotation
     void updateSinglePosGeometry(const Position& position, const double rotation);
 
+    /// @brief move current shape to side
+    void moveGeometryToSide(const double amount);
+
     /// @brief scale geometry
     void scaleGeometry(const double scale);
 
