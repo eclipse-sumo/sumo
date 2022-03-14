@@ -7,8 +7,7 @@ title: Statistic Output
 Statistic output is activated by setting the simulation option **--statistic-output** {{DT_FILE}} on the command line or in a *.sumocfg* file.
 
 !!! note
-    The elements `vehicleTripStatistics`, `pedestrianStatistics`, `rideStatistics` and `transportStatistics` are only generated when either of the options
-**--duration-log.statistics** or **--tripinfo-output** are set.
+    The elements `vehicleTripStatistics`, `pedestrianStatistics`, `rideStatistics` and `transportStatistics` are only generated when either of the options **--duration-log.statistics** or **--tripinfo-output** are set.
 
 # Generated Output
 
