@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-14 12:02:26 by Eclipse SUMO netgenerate Version v1_12_0+1368-52ddeb4
+<!-- generated on 2022-03-14 14:35:21 by Eclipse SUMO netgenerate Version v1_12_0+1373-449ea4e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -160,7 +160,7 @@
         <output-file value="" synonymes="o output sumo-output" type="FILE"/>
 
         <!-- Prefix of files to write plain xml nodes, edges and connections to -->
-        <plain-output-prefix value="" synonymes="plain plain-output" type="FILE"/>
+        <plain-output-prefix value="" synonymes="p plain plain-output" type="FILE"/>
 
         <!-- Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins -->
         <junctions.join-output value="" type="FILE"/>

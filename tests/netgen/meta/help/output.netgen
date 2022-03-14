@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_12_0+0087-1185162ac9e
+Eclipse SUMO netgenerate Version v1_12_0+1373-449ea4e
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -103,7 +103,7 @@ Output Options:
                                         readability when possible
   -o, --output-file FILE               The generated net will be written to
                                         FILE
-  --plain-output-prefix FILE           Prefix of files to write plain xml
+  -p, --plain-output-prefix FILE       Prefix of files to write plain xml
                                         nodes, edges and connections to
   --junctions.join-output FILE         Writes information about joined
                                         junctions to FILE (can be loaded as
