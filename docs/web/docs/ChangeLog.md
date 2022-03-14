@@ -25,10 +25,14 @@ title: ChangeLog
   - Fixed crash with waypoint on 0-capacity parkingArea #10211
   - Fixed negative timeloss in person-walk tripinfo. Issue #10270
   - Fixed crash when using arrivalEdge and rerouting. Issue #10276
+  - Fixed emergency braking / crashing when using **--extrapolate-departpos**. Issue #10294, #10298
+  - Trips with fromJunction, toJunction can now be loaded from additional file. Issue #10306
   - opposite-direction driving
     - Can now overtake stoppepd vehicle when there is only a short gap afterwards. Issue #9994
     - Fixed failure to overtake fast vehicles. Issue #10194
     - Fixed error "unexpected end of opposite lane" when the number of lanes changes during overtaking. Issue #10193
+    - Fixed invalid lane occupancy after opposite change (could lead to insertion failure). Issue #10314
+    - Fixed crash after rerouting during opposite direction driving. Issue #10312
   - state loading
     - flows are now fully restored from a state file (without also loading the original route file). Issue #7471
     - route files are now fully reset when loading a state file. Issue #7471
@@ -46,6 +50,7 @@ title: ChangeLog
 - sumo-gui
   - Fixed crash when opening phase tracker window on invalid switching conditions. Issue #10121
   - Vehicles in the 3D-view are no longer hidden beneath a colored bubble. Issue #5735
+  - Fixed frozen GUI after interactively removing vehicle. Issue #10291
     
 - netconvert
   - Fixed crash when using option **--railway.topology.extend-priority**. Issue #10043
@@ -54,6 +59,8 @@ title: ChangeLog
   - removed obsolete multiple-connections warnings. Issue #10089
   - Fixed invalid junction shape when patching node positions to create zero-length edge (also affected netedit). Issue #10150
   - Now importing all types of traffic light signals from OpenDRIVE. Issue #10153
+  - Fixed missing attribute in OpenDRIVE export. Issue #10301
+  - Improve default shape for diagonal pedstrian crossings. Issue #10287
 
 - netedit
   - Fixed invalid geometry when loading geo-polygons. Issue #10101 (regression in 1.10.0)
@@ -70,6 +77,7 @@ title: ChangeLog
   - Vehicles and flows with embedded routes and junctions now appear in locate dialog. Issue #10173
   - Now validating route IDs. Issue #10235
   - Fixed conversion of junction to roundabout in lefthand network. Issue #10258
+  - Fixed inconsistent move-mode behavior of E2Detector. Issue #10305
     
 - sumo-gui
   - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069
@@ -80,6 +88,9 @@ title: ChangeLog
 - duarouter
   - route errors are now detected when using option **--skip-new-routes**. Issue #6113
 
+- meso
+  - Fixed missing rerouting after delayed insertion. Issue #10328
+
 - traci
   - Fixed invalid length value in TraCI response for context subscription. Issue #10108
   - Fixed crash when calling 'vehicle.replaceStop' to replace stop that was added from a named route before a vehicle departed. Issue #10135
@@ -89,6 +100,7 @@ title: ChangeLog
   - Added missing vType related functions from person domain (i.e. traci.person.getMaxSpeed). Issue #10169
   - Fixed invalid route and errors after removing stops with replaceStop on departure and rerouting. Issue #10209
   - Fixed inconsistent lane change state (left+right at the same time). Issue #10212
+  - Fixed missing attributes in vehroute output after adding vehicle. Issue #10282
 
 - tools
   - generateTurnRatios.py now writes correct closing tag. Issue #10140 (regression in 1.11.0)
@@ -117,10 +129,14 @@ title: ChangeLog
   - Actuated traffic lights may not omit phase attribute 'maxDur' which defaults to ~24days as long as attribute minDur is set. Issue #10204
   - Option **--emission-output.geo** can be used to switch emission location data to lon,lat. Issue  #10216
   - Person attribute 'speedFactor' can now be used to override speed distribution. Issue #10254
+  - Added support for [poisson distributed flows](Simulation/Randomness.md#poisson_distribution) #10302
+  - Added option **--personroute-output** to separate vehroute output for persons/containers from vehicle routes. Issue #10317
+  - Option **--fcd-output.attributes** now supports value 'odometer' to include the odometer value and 'all' to include all values. Issue #10323
 
 - sumo-gui
   - Enabled dpi awareness. Issue #9985
   - Traffic light type 'actuated' now supports parameters 'show-conditions' and 'hide-conditions' to customize visulization in the [Phase Tracker Window](Simulation/Traffic_Lights.md#track_phases) Issue #10046
+  - Traffic light type 'actuated' now supports parameters 'extra-detectors' to included additional detectors in the [Phase Tracker Window](Simulation/Traffic_Lights.md#track_phases) Issue #10290
   - Detectors can now be triggered from the context menu even if there are no vehicles on it. Issue #10067
   - Saved configuration now always contains relative file paths. Issue #6578
   - Added menu entry 'Simulation->Load' to quick-load a saved state for the current network.
@@ -137,10 +153,12 @@ title: ChangeLog
   - Reducing a network to a selection now works with the new "Reduce" button (instead of the less intuitive Invert+Delete). Issue #10084
   - Writing shortened xml header for additional files. Issue #10247
   - Vehicle stops and waypoints are now annoted with an index when inspecting the vehicle (and zooming in). Issue #10077
+  - The context menu for vehicles and routes now includes the current route length. Issue #9354
 
 - netconvert
   - Improved speed of OSM import. Isse #8147
   - OpenDRIVE export now includes `<signal>` and `<controller>` information. Issue #2367
+  - Option **--opposites.guess.fix-lengths** is now enabled by default. Issue #10326
 
 - polyconvert
   - Shapefile with geometry encoded as linestring2D is now supported. Issue #10100
