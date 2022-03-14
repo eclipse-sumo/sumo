@@ -382,7 +382,7 @@ MSInductLoop::VehicleData::VehicleData(const SUMOTrafficObject& v, double entryT
 
 void
 MSInductLoop::clearState(SUMOTime time) {
-    myLastLeaveTime = time;
+    myLastLeaveTime = STEPS2TIME(time);
     myEnteredVehicleNumber = 0;
     myLastVehicleDataCont.clear();
     myVehicleDataCont.clear();
