@@ -29,6 +29,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSEventControl.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
@@ -225,6 +226,29 @@ MSTransportable::routeOutput(OutputDevice& os, const bool withRouteLength) const
 
 
 void
+MSTransportable::setAbortWaiting(const SUMOTime timeout) {
+    if (timeout < 0 && myAbortCommand != nullptr) {
+        myAbortCommand->deschedule();
+        myAbortCommand = nullptr;
+        return;
+    }
+    myAbortCommand = new WrappingCommand<MSTransportable>(this, &MSTransportable::abortStage);
+    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myAbortCommand, SIMSTEP + timeout);
+}
+
+
+SUMOTime
+MSTransportable::abortStage(SUMOTime step) {
+    (*myStep)->abort(this);
+    if (!proceed(MSNet::getInstance(), step)) {
+        MSNet::getInstance()->getPersonControl().erase(this);
+    }
+    return 0;
+}
+
+
+
+void
 MSTransportable::appendStage(MSStage* stage, int next) {
     // myStep is invalidated upon modifying myPlan
     const int stepIndex = (int)(myStep - myPlan->begin());
@@ -255,10 +279,7 @@ MSTransportable::removeStage(int next, bool stayInSim) {
             // stay in the simulation until the start of simStep to allow appending new stages (at the correct position)
             appendStage(new MSStageWaiting(getEdge(), nullptr, 0, 0, getEdgePos(), "last stage removed", false));
         }
-        (*myStep)->abort(this);
-        if (!proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
-            MSNet::getInstance()->getPersonControl().erase(this);
-        };
+        abortStage(MSNet::getInstance()->getCurrentTimeStep());
     }
 }
 

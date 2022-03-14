@@ -324,6 +324,8 @@ private:
     /// @brief Information needed to sort transportable output by departure time
     MSDevice_Vehroutes::SortedRouteInfo myRouteInfos;
 
+    SUMOTime myAbortWaitingTimeout;
+
 private:
     /// @brief invalidated assignment operator
     MSTransportableControl& operator=(const MSTransportableControl& src) = delete;

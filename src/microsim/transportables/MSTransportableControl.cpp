@@ -75,6 +75,7 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
         OutputDevice::createDeviceByOption("personroute-output", "routes", "routes_file.xsd");
         myRouteInfos.routeOut = &OutputDevice::getDeviceByOption("personroute-output");
     }
+    myAbortWaitingTimeout = string2time(oc.getString("time-to-teleport.waiting-for-vehicle"));
 }
 
 
@@ -228,6 +229,9 @@ MSTransportableControl::addWaiting(const MSEdge* const edge, MSTransportable* tr
     myWaiting4Vehicle[edge].push_back(transportable);
     myWaitingForVehicleNumber++;
     myHaveNewWaiting = true;
+    if (myAbortWaitingTimeout >= 0) {
+        transportable->setAbortWaiting(myAbortWaitingTimeout);
+    }
 }
 
 
@@ -244,6 +248,9 @@ MSTransportableControl::boardAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle
                     && vehicle->isStoppedInRange((*i)->getEdgePos(), MSGlobals::gStopTolerance)) {
                 edge->removeTransportable(*i);
                 vehicle->addTransportable(*i);
+                if (myAbortWaitingTimeout >= 0) {
+                    (*i)->setAbortWaiting(-1);
+                }
                 if (timeToBoardNextPerson >= 0) { // meso does not have boarding times
                     const SUMOTime boardingDuration = vehicle->getVehicleType().getBoardingDuration();
                     //update the time point at which the next person can board the vehicle
@@ -291,6 +298,9 @@ MSTransportableControl::loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle,
                     && vehicle->isStoppedInRange((*i)->getEdgePos(), MSGlobals::gStopTolerance)) {
                 edge->removeTransportable(*i);
                 vehicle->addTransportable(*i);
+                if (myAbortWaitingTimeout >= 0) {
+                    (*i)->setAbortWaiting(-1);
+                }
                 if (timeToLoadNextContainer >= 0) { // meso does not have loading times
                     //if the time a person needs to enter the vehicle extends the duration of the stop of the vehicle extend
                     //the duration by setting it to the boarding duration of the person
