@@ -616,6 +616,9 @@ public:
     */
     MSStop& getNextStop();
 
+    /// @brief get remaining stop duration or 0 if the vehicle isn't stopped
+    SUMOTime getStopDuration() const;
+
     /**
     * returns the upcoming stop with the given index in the stop queue
     * @return an upcoming stop

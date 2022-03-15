@@ -1289,6 +1289,8 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
                           << " veh=" << vehicle->getID()
                           << " changeOpposite opposite=" << opposite->getID()
                           << " lead=" << Named::getIDSecure(leader.first)
+                          << " maxSpaceToOvertake=" << maxSpaceToOvertake
+                          << " vMax=" << vMax
                           << " timeToOvertake=" << timeToOvertake
                           << " spaceToOvertake=" << spaceToOvertake
                           << "\n";
@@ -1794,11 +1796,14 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, double vMax, cons
     }
     const double safetyFactor = OPPOSITE_OVERTAKING_SAFETY_FACTOR * vehicle->getLaneChangeModel().getOppositeSafetyFactor();
     timeToOvertake *= safetyFactor;
-    spaceToOvertake *= safetyFactor;
+    if (STEPS2TIME(leader->getStopDuration()) < timeToOvertake) {
+        spaceToOvertake *= safetyFactor;
+    }
 #ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
     if (DEBUG_COND) {
         if (safetyFactor != 1) {
             std::cout << "    applying safetyFactor=" << safetyFactor
+                      << " leaderStopTime=" << STEPS2TIME(leader->getStopDuration())
                       << " tto=" << timeToOvertake << " sto=" << spaceToOvertake << "\n";
         }
     }

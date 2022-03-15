@@ -1300,6 +1300,15 @@ MSBaseVehicle::getNextStop() {
     return myStops.front();
 }
 
+SUMOTime
+MSBaseVehicle::getStopDuration() const {
+    if (isStopped()) {
+        return myStops.front().duration;
+    } else {
+        return 0;
+    }
+}
+
 
 MSStop&
 MSBaseVehicle::getStop(int nextStopIndex) {
