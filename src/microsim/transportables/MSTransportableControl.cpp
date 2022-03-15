@@ -75,7 +75,7 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
         OutputDevice::createDeviceByOption("personroute-output", "routes", "routes_file.xsd");
         myRouteInfos.routeOut = &OutputDevice::getDeviceByOption("personroute-output");
     }
-    myAbortWaitingTimeout = string2time(oc.getString("time-to-teleport.waiting-for-vehicle"));
+    myAbortWaitingTimeout = string2time(oc.getString("time-to-teleport.ride"));
 }
 
 
@@ -372,13 +372,16 @@ MSTransportableControl::getDepartedNumber() const {
 
 void
 MSTransportableControl::abortAnyWaitingForVehicle() {
-    for (std::map<const MSEdge*, TransportableVector>::iterator i = myWaiting4Vehicle.begin(); i != myWaiting4Vehicle.end(); ++i) {
-        const MSEdge* edge = (*i).first;
-        for (MSTransportable* const p : i->second) {
+    for (const auto& it : myWaiting4Vehicle) {
+        const MSEdge* edge = it.first;
+        for (MSTransportable* const p : it.second) {
             edge->removeTransportable(p);
             MSStageDriving* stage = dynamic_cast<MSStageDriving*>(p->getCurrentStage());
             const std::string waitDescription = stage == nullptr ? "waiting" : stage->getWaitingDescription();
             WRITE_WARNING(p->getObjectType()+ " '" + p->getID() + "' aborted " + waitDescription + ".");
+            if (myAbortWaitingTimeout >= 0) {
+                p->setAbortWaiting(-1);
+            }
             erase(p);
         }
     }
@@ -394,6 +397,9 @@ MSTransportableControl::abortWaitingForVehicle(MSTransportable* t) {
         TransportableVector& waiting = it->second;
         auto it2 = std::find(waiting.begin(), waiting.end(), t);
         if (it2 != waiting.end()) {
+            if (myAbortWaitingTimeout >= 0) {
+                (*it2)->setAbortWaiting(-1);
+            }
             waiting.erase(it2);
         }
     }

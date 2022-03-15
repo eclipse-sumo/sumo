@@ -398,8 +398,8 @@ MSFrame::fillOptions() {
     oc.doRegister("time-to-teleport.remove", new Option_Bool(false));
     oc.addDescription("time-to-teleport.remove", "Processing", "Whether vehicles shall be removed after waiting too long instead of being teleported");
 
-    oc.doRegister("time-to-teleport.waiting-for-vehicle", new Option_String("-1", "TIME"));
-    oc.addDescription("time-to-teleport.waiting-for-vehicle", "Processing", "The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting");
+    oc.doRegister("time-to-teleport.ride", new Option_String("-1", "TIME"));
+    oc.addDescription("time-to-teleport.ride", "Processing", "The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting");
 
     oc.doRegister("waiting-time-memory", new Option_String("100", "TIME"));
     oc.addDescription("waiting-time-memory", "Processing", "Length of time interval, over which accumulated waiting time is taken into account (default is 100s.)");

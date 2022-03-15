@@ -239,6 +239,8 @@ MSTransportable::setAbortWaiting(const SUMOTime timeout) {
 
 SUMOTime
 MSTransportable::abortStage(SUMOTime step) {
+    WRITE_WARNINGF("Teleporting % '%'; waited too long, from edge '%', time=%.",
+                   isPerson() ? "person" : "container", getID(), (*myStep)->getEdge()->getID(), time2string(step));
     (*myStep)->abort(this);
     if (!proceed(MSNet::getInstance(), step)) {
         MSNet::getInstance()->getPersonControl().erase(this);
@@ -279,7 +281,10 @@ MSTransportable::removeStage(int next, bool stayInSim) {
             // stay in the simulation until the start of simStep to allow appending new stages (at the correct position)
             appendStage(new MSStageWaiting(getEdge(), nullptr, 0, 0, getEdgePos(), "last stage removed", false));
         }
-        abortStage(MSNet::getInstance()->getCurrentTimeStep());
+        (*myStep)->abort(this);
+        if (!proceed(MSNet::getInstance(), SIMSTEP)) {
+            MSNet::getInstance()->getPersonControl().erase(this);
+        }
     }
 }
 
