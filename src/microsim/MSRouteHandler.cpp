@@ -1294,7 +1294,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
                                    double& departPos, double& arrivalPos, MSStoppingPlace*& bs,
                                    const MSStage* const lastStage, bool& ok) {
     try {
-        const std::string description = "person '" + personID + "' walking from " + fromEdge->getID();
+        const std::string description = "person '" + personID + "' walking from edge '" + fromEdge->getID() + "'";
 
         if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
             WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
