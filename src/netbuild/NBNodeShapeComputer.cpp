@@ -660,7 +660,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
                       << " isOpposite=" << (differentDirs && foundOpposite.count(*i) == 0)
                       << " angleDiff=" << angleDiff
                       << " ambiguousGeometry=" << ambiguousGeometry
-                      << badIntersection(*i, *j, EXT)
+                      << " badInsersection=" << badIntersection(*i, *j, EXT)
                       << "\n";
 
         }
