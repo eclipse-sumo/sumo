@@ -90,6 +90,16 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
         myViewNet->setStatusBarText("Current selected additional isn't valid.");
         return false;
     }
+    // check if add or remove edge
+    if (myEdgesSelector->edgesSelectorModuleShown() && objectsUnderCursor.getEdgeFront()) {
+        myEdgesSelector->toogleSelectedEdge(objectsUnderCursor.getEdgeFront());
+        return true;
+    }
+    // check if add or remove lane
+    if (myLanesSelector->lanesSelectorModuleShown() && objectsUnderCursor.getLaneFront()) {
+        myLanesSelector->toogleSelectedLane(objectsUnderCursor.getLaneFront());
+            return true;
+    }
     // show warning dialogbox and stop check if input parameters are valid
     if (!myAdditionalAttributes->areValuesValid()) {
         myAdditionalAttributes->showWarningMessage();

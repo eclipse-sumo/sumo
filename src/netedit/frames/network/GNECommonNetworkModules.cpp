@@ -161,7 +161,28 @@ GNECommonNetworkModules::EdgesSelector::showEdgesSelectorModule(std::string sear
 
 void
 GNECommonNetworkModules::EdgesSelector::hideEdgesSelectorModule() {
-    FXGroupBoxModule::hide();
+    hide();
+}
+
+
+bool 
+GNECommonNetworkModules::EdgesSelector::edgesSelectorModuleShown() const {
+    return shown();
+}
+
+
+void 
+GNECommonNetworkModules::EdgesSelector::toogleSelectedEdge(const GNEEdge *edge) {
+    // Obtain Id's of list
+    for (int i = 0; i < myList->getNumItems(); i++) {
+        if (myList->getItem(i)->getText().text() == edge->getID()) {
+            if (myList->isItemSelected(i)) {
+                myList->getItem(i)->setSelected(FALSE);
+            } else {
+                myList->getItem(i)->setSelected(TRUE);
+            }
+        }
+    }
 }
 
 
@@ -325,7 +346,28 @@ GNECommonNetworkModules::LanesSelector::showLanesSelectorModule(std::string sear
 
 void
 GNECommonNetworkModules::LanesSelector::hideLanesSelectorModule() {
-    FXGroupBoxModule::hide();
+    hide();
+}
+
+
+bool 
+GNECommonNetworkModules::LanesSelector::lanesSelectorModuleShown() const {
+    return shown();
+}
+
+
+void 
+GNECommonNetworkModules::LanesSelector::toogleSelectedLane(const GNELane *lane) {
+    // Obtain Id's of list
+    for (int i = 0; i < myList->getNumItems(); i++) {
+        if (myList->getItem(i)->getText().text() == lane->getID()) {
+            if (myList->isItemSelected(i)) {
+                myList->getItem(i)->setSelected(FALSE);
+            } else {
+                myList->getItem(i)->setSelected(TRUE);
+            }
+        }
+    }
 }
 
 

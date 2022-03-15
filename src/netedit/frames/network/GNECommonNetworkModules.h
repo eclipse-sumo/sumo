@@ -60,6 +60,12 @@ public:
         /// @brief hide EdgesSelector Module
         void hideEdgesSelectorModule();
 
+        /// @brief return true if modul is shown
+        bool edgesSelectorModuleShown() const;
+
+        /// @brief toogle selected edge
+        void toogleSelectedEdge(const GNEEdge *edge);
+
         /// @brief Update use selectedEdges
         void updateUseSelectedEdges();
 
@@ -131,6 +137,12 @@ public:
 
         /// @brief hide LanesSelector Module
         void hideLanesSelectorModule();
+
+        /// @brief return true if modul is shown
+        bool lanesSelectorModuleShown() const;
+
+        /// @brief toogle selected lane
+        void toogleSelectedLane(const GNELane *lane);
 
         // @brief Update use selectedLanes
         void updateUseSelectedLanes();
