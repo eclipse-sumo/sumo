@@ -120,6 +120,18 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
 }
 
 
+GNECommonNetworkModules::EdgesSelector*
+GNEAdditionalFrame::getEdgesSelector() const {
+    return myEdgesSelector;
+}
+
+
+GNECommonNetworkModules::LanesSelector* 
+GNEAdditionalFrame::getLanesSelector() const {
+    return myLanesSelector;
+}
+
+
 GNECommonNetworkModules::ConsecutiveLaneSelector*
 GNEAdditionalFrame::getConsecutiveLaneSelector() const {
     return myConsecutiveLaneSelector;

@@ -227,6 +227,7 @@ GNECommonNetworkModules::EdgesSelector::onCmdInvertSelection(FXObject*, FXSelect
 GNECommonNetworkModules::LanesSelector::LanesSelector(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Lanes"),
     myFrameParent(frameParent) {
+
     // Create CheckBox for selected lanes
     myUseSelectedLanesCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_USESELECTED, GUIDesignCheckButton);
 
@@ -272,6 +273,20 @@ GNECommonNetworkModules::LanesSelector::getLaneIdsSelected() const {
         }
     }
     return vectorOfIds;
+}
+
+
+bool
+GNECommonNetworkModules::LanesSelector::isLaneSelected(const GNELane* lane) const {
+    if (myFrameParent->shown() && shown()) {
+        // check if id is selected
+        for (int i = 0; i < myList->getNumItems(); i++) {
+            if (myList->isItemSelected(i) && (myList->getItem(i)->getText().text() == lane->getID())) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 
@@ -339,6 +354,7 @@ GNECommonNetworkModules::LanesSelector::onCmdTypeInSearchBox(FXObject*, FXSelect
 
 long
 GNECommonNetworkModules::LanesSelector::onCmdSelectLane(FXObject*, FXSelector, void*) {
+    myFrameParent->getViewNet()->update();
     return 1;
 }
 
@@ -350,6 +366,7 @@ GNECommonNetworkModules::LanesSelector::onCmdClearSelection(FXObject*, FXSelecto
             myList->deselectItem(i);
         }
     }
+    myFrameParent->getViewNet()->update();
     return 1;
 }
 
@@ -363,6 +380,7 @@ GNECommonNetworkModules::LanesSelector::onCmdInvertSelection(FXObject*, FXSelect
             myList->selectItem(i);
         }
     }
+    myFrameParent->getViewNet()->update();
     return 1;
 }
 

@@ -120,6 +120,9 @@ public:
         /// @brief get list of selecte lane ids in string format
         std::vector<std::string> getLaneIdsSelected() const;
 
+        /// @brief check if the given lane is being selected
+        bool isLaneSelected(const GNELane* lane) const;
+
         /// @brief Show list of LanesSelector Module
         void showLanesSelectorModule(std::string search = "");
 

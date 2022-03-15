@@ -75,6 +75,14 @@ GUIDottedGeometry::DottedGeometryColor::getColor(DottedContourType type) {
             myColorFlag = true;
             return RGBColor::MAGENTA.changedBrightness(-30);
         }
+    } else if (type == DottedContourType::ORANGE) {
+        if (myColorFlag) {
+            myColorFlag = false;
+            return RGBColor::ORANGE;
+        } else {
+            myColorFlag = true;
+            return RGBColor::ORANGE.changedBrightness(-30);
+        }
     } else {
         return RGBColor::BLACK;
     }
