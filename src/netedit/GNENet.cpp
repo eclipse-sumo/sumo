@@ -2295,7 +2295,7 @@ GNENet::writeVTypes(OutputDevice& device, const bool additionalFile) const {
         const bool defaultVType = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE));
         const bool defaultVTypeModified = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED));
         // only write defaul vType modified
-        if (!defaultVType || (defaultVType && defaultVTypeModified)) {
+        if ((vType->getParentDemandElements().size() == 0) && (!defaultVType || (defaultVType && defaultVTypeModified))) {
             if ((additionalFile && (vType->getChildAdditionals().size() > 0)) || 
                 (!additionalFile && (vType->getChildAdditionals().size() == 0))) {
                 sortedElements[vType->getID()] = vType;
@@ -2326,7 +2326,7 @@ GNENet::writeVTypeComment(OutputDevice& device, const bool additionalFile) const
         const bool defaultVType = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE));
         const bool defaultVTypeModified = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED));
         // only write defaul vType modified
-        if (!defaultVType || (defaultVType && defaultVTypeModified)) {
+        if ((vType->getParentDemandElements().size() == 0) && (!defaultVType || (defaultVType && defaultVTypeModified))) {
             if (additionalFile && (vType->getChildAdditionals().size() > 0)) {
                 device << ("    <!-- VTypes (used in calibratorFlows) -->\n");
                 return true;
