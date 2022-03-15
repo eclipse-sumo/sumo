@@ -476,9 +476,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             return getParametersStr();
         // other
         case GNE_ATTR_DEFAULT_VTYPE:
-            return toString((getID() == DEFAULT_VTYPE_ID) ||
-                            (getID() == DEFAULT_PEDTYPE_ID) ||
-                            (getID() == DEFAULT_BIKETYPE_ID));
+            return toString(myDefaultVehicleType);
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
                 return toString(myDefaultVehicleTypeModified);

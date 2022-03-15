@@ -2135,7 +2135,10 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     // open header
     device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
-    // first write routes with additional children (due route prob reroutes)
+    // write vTypes with additional childrens (due calibrators)
+    writeVTypeComment(device, true);
+    writeVTypes(device, true);
+    // write routes with additional children (due route prob reroutes)
     writeRouteComment(device, true);
     writeRoutes(device, true);
     // routeProbes
@@ -2185,9 +2188,8 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     // open header
     device.writeXMLHeader("routes", "routes_file.xsd", EMPTY_HEADER, false);
     // first  write all vTypeDistributions (and their vTypes)
-    writeVTypeComment(device);
-    writeDemandByType(device, SUMO_TAG_VTYPE_DISTRIBUTION);
-    writeDemandByType(device, SUMO_TAG_VTYPE);
+    writeVTypeComment(device, false);
+    writeVTypes(device, false);
     // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
     writeRouteComment(device, false);
     writeRoutes(device, false);
@@ -2273,12 +2275,66 @@ GNENet::writeRoutes(OutputDevice& device, const bool additionalFile) const {
 }
 
 
+void 
+GNENet::writeVTypes(OutputDevice& device, const bool additionalFile) const {
+    std::map<std::string, GNEDemandElement*> sortedElements;
+    // write vType Distributions
+    for (const auto& vTypeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
+        if ((additionalFile && (vTypeDistribution->getChildAdditionals().size() > 0)) || 
+            (!additionalFile && (vTypeDistribution->getChildAdditionals().size() == 0))) {
+            sortedElements[vTypeDistribution->getID()] = vTypeDistribution;
+        }
+    }
+    for (const auto& element : sortedElements) {
+        element.second->writeDemandElement(device);
+    }
+    sortedElements.clear();
+    // write vTypes
+    for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
+        // special case for default vTypes
+        const bool defaultVType = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE));
+        const bool defaultVTypeModified = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED));
+        // only write defaul vType modified
+        if (!defaultVType || (defaultVType && defaultVTypeModified)) {
+            if ((additionalFile && (vType->getChildAdditionals().size() > 0)) || 
+                (!additionalFile && (vType->getChildAdditionals().size() == 0))) {
+                sortedElements[vType->getID()] = vType;
+            }
+        }
+    }
+    for (const auto& element : sortedElements) {
+        element.second->writeDemandElement(device);
+    }
+}
+
+
 bool 
-GNENet::writeVTypeComment(OutputDevice& device) const {
-    if ((myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION).size() > 0) ||
-        (myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE).size() > DEFAULT_VTYPES.size())) {
-        device << ("    <!-- VTypes -->\n");
-        return true;
+GNENet::writeVTypeComment(OutputDevice& device, const bool additionalFile) const {
+    // vType Distributions
+    for (const auto& vTypeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
+        if (additionalFile && (vTypeDistribution->getChildAdditionals().size() > 0)) {
+            device << ("    <!-- VTypes (used in calibratorFlows) -->\n");
+            return true;
+        } else if (!additionalFile && (vTypeDistribution->getChildAdditionals().size() == 0)) {
+            device << ("    <!-- VTypes -->\n");
+            return true;
+        }
+    }
+    // vTypes
+    for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
+        // special case for default vTypes
+        const bool defaultVType = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE));
+        const bool defaultVTypeModified = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED));
+        // only write defaul vType modified
+        if (!defaultVType || (defaultVType && defaultVTypeModified)) {
+            if (additionalFile && (vType->getChildAdditionals().size() > 0)) {
+                device << ("    <!-- VTypes (used in calibratorFlows) -->\n");
+                return true;
+            } else if (!additionalFile && (vType->getChildAdditionals().size() == 0)) {
+                device << ("    <!-- VTypes -->\n");
+                return true;
+            }
+        }
     }
     return false;
 }

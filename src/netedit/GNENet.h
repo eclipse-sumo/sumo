@@ -573,8 +573,11 @@ private:
     /// @brief write route sorted by ID
     void writeRoutes(OutputDevice& device, const bool additionalFile) const;
 
+    /// @brief write vTypes sorted by ID
+    void writeVTypes(OutputDevice& device, const bool additionalFile) const;
+
     /// @brief write vType comment
-    bool writeVTypeComment(OutputDevice& device) const;
+    bool writeVTypeComment(OutputDevice& device, const bool additionalFile) const;
 
     /// @brief write route comment
     bool writeRouteComment(OutputDevice& device, const bool additionalFile) const;
