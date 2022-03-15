@@ -491,14 +491,14 @@ GNEVehicle::isDemandElementValid() const {
         }
     } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
         // get sorted stops and check number
-        std::vector<GNEDemandElement*> embeddedRouteStops;
+        std::vector<GNEDemandElement*> embeddedRouteStopWaypoints;
         for (const auto& routeChild : getChildDemandElements()) {
-            if (routeChild->getTagProperty().isStop()) {
-                embeddedRouteStops.push_back(routeChild);
+            if (routeChild->getTagProperty().isStop() || routeChild->getTagProperty().isWaypoint()) {
+                embeddedRouteStopWaypoints.push_back(routeChild);
             }
         }
         const auto sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
-        if (sortedStops.size() != embeddedRouteStops.size()) {
+        if (sortedStops.size() != embeddedRouteStopWaypoints.size()) {
             return Problem::STOP_DOWNSTREAM;
         }
         // check if exist a valid path using embebbed route edges
@@ -537,16 +537,16 @@ GNEVehicle::getDemandElementProblem() const {
         // there is connections bewteen all edges, then all ok
         return "";
     } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
-        // get sorted stops and check number
-        std::vector<GNEDemandElement*> embeddedRouteStops;
+        // get sorted stops and check number 
+        std::vector<GNEDemandElement*> embeddedRouteStopWaypoints;
         for (const auto& routeChild : getChildDemandElements()) {
-            if (routeChild->getTagProperty().isStop()) {
-                embeddedRouteStops.push_back(routeChild);
+            if (routeChild->getTagProperty().isStop() || routeChild->getTagProperty().isWaypoint()) {
+                embeddedRouteStopWaypoints.push_back(routeChild);
             }
         }
         const auto sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
-        if (sortedStops.size() != embeddedRouteStops.size()) {
-            return toString(embeddedRouteStops.size() - sortedStops.size()) + " stops are outside of embedded route (downstream)";
+        if (sortedStops.size() != embeddedRouteStopWaypoints.size()) {
+            return toString(embeddedRouteStopWaypoints.size() - embeddedRouteStopWaypoints.size()) + " stops are outside of embedded route (downstream)";
         }
         // get embebbed route edges
         const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().front()->getParentEdges();
@@ -805,14 +805,16 @@ GNEVehicle::computePathElement() {
         // currently disabled
     } else if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
         // declare lane stops
-        std::vector<GNELane*> laneStops;
+        std::vector<GNELane*> laneStopWaypoints;
         // iterate over child demand elements
         for (const auto& demandElement : getChildDemandElements()) {
             // extract lanes
-            if (demandElement->getTagProperty().getTag() == SUMO_TAG_STOP_LANE) {
-                laneStops.push_back(demandElement->getParentLanes().front());
-            } else if (demandElement->getTagProperty().getTag() == SUMO_TAG_STOP_BUSSTOP) {
-                laneStops.push_back(demandElement->getParentAdditionals().front()->getParentLanes().front());
+            if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+                if (demandElement->getParentAdditionals().size() > 0) {
+                    laneStopWaypoints.push_back(demandElement->getParentAdditionals().front()->getParentLanes().front());
+                } else {
+                    laneStopWaypoints.push_back(demandElement->getParentLanes().front());
+                }
             }
         }
         // declare lane vector
@@ -825,9 +827,9 @@ GNEVehicle::computePathElement() {
             // add first lane
             lanes.push_back(getFirstPathLane());
             // noch check if there are lane Stops
-            if (laneStops.size() > 0) {
+            if (laneStopWaypoints.size() > 0) {
                 // add stop lanes
-                for (const auto& laneStop : laneStops) {
+                for (const auto& laneStop : laneStopWaypoints) {
                     lanes.push_back(laneStop);
                 }
             } else {
