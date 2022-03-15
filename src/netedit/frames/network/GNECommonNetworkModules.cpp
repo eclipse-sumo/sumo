@@ -40,9 +40,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNECommonNetworkModules::NetworkElementsSelector) SelectorParentNetworkElementsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNECommonNetworkModules::NetworkElementsSelector::onCmdUseSelectedNetworkElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNECommonNetworkModules::NetworkElementsSelector::onCmdUseSelectedElements),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNECommonNetworkModules::NetworkElementsSelector::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,             GNECommonNetworkModules::NetworkElementsSelector::onCmdSelectNetworkElement),
 };
 
 
@@ -66,30 +65,30 @@ GNECommonNetworkModules::NetworkElementsSelector::NetworkElementsSelector(GNEFra
     FXGroupBoxModule(frameParent->getContentFrame(), "NetworkElements"),
     myNetworkElementType(networkElementType),
     myFrameParent(frameParent) {
-    // set modul name
+     // Create horizontal frame
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    // Create buttons
+    myClearSelection = new FXButton(buttonsFrame, "Clear", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButtonRectangular100);
+    myUseSelected = new FXButton(buttonsFrame, "Use selected", nullptr, this, MID_GNE_USESELECTED, GUIDesignButtonRectangular100);
+    // Create list
+    myList = new FXList(getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
+    // create information label and update modul name
     switch (myNetworkElementType) {
         case NetworkElementType::EDGE:
+            new FXLabel(this, 
+                "-Click over an edge to select\n-ESC to clear selection", 
+                0, GUIDesignLabelFrameInformation);
             setText("Edges");
             break;
         case NetworkElementType::LANE:
+            new FXLabel(this, 
+                "-Click over a lane to select\n-ESC to clear selection", 
+                0, GUIDesignLabelFrameInformation);
             setText("Lanes");
             break;
         default:
             throw ProcessError("Invalid NetworkElementType");
     }
-
-    // Create menuCheck for selected networkElements
-    myUseSelectedNetworkElementsCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_USESELECTED, GUIDesignCheckButton);
-
-    // Create list
-    myList = new FXList(getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
-
-    // Create horizontal frame
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-
-    // Create button for clear selection
-    myClearNetworkElementsSelection = new FXButton(buttonsFrame, "Clear", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButtonRectangular);
-
     // Hide List
     hide();
 }
@@ -117,7 +116,7 @@ GNECommonNetworkModules::NetworkElementsSelector::isNetworkElementSelected(const
     if (myFrameParent->shown() && shown()) {
         // check if id is selected
         for (int i = 0; i < myList->getNumItems(); i++) {
-            if (myList->isItemSelected(i) && (myList->getItem(i)->getText().text() == networkElement->getID())) {
+            if (myList->getItem(i)->getText().text() == networkElement->getID()) {
                 return true;
             }
         }
@@ -130,15 +129,6 @@ void
 GNECommonNetworkModules::NetworkElementsSelector::showNetworkElementsSelector() {
     // clear list of egdge ids
     myList->clearItems();
-
-    //
-
-    // By default, CheckBox for useSelectedNetworkElements isn't checked
-    myUseSelectedNetworkElementsCheckButton->setCheck(false);
-    // Recalc Frame
-    recalc();
-    // Update Frame
-    update();
     // Show dialog
     show();
 }
@@ -161,26 +151,53 @@ GNECommonNetworkModules::NetworkElementsSelector::toogleSelectedElement(const GN
     // Obtain Id's of list
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->getText().text() == networkElement->getID()) {
+            // unselect element
             myList->removeItem(i);
+            // update viewNet
+            myFrameParent->getViewNet()->update();
             return true;
         }
     }
+    // select element
     myList->appendItem(networkElement->getID().c_str(), networkElement->getIcon());
+    // update viewNet
+    myFrameParent->getViewNet()->update();
     return true;
 }
 
 
+void 
+GNECommonNetworkModules::NetworkElementsSelector::clearSelection() {
+    // clear list of egdge ids
+    myList->clearItems();
+    // update viewNet
+    myFrameParent->getViewNet()->update();
+}
+
+
 long
-GNECommonNetworkModules::NetworkElementsSelector::onCmdUseSelectedNetworkElements(FXObject*, FXSelector, void*) {
-    if (myUseSelectedNetworkElementsCheckButton->getCheck()) {
-        myList->hide();
-        myClearNetworkElementsSelection->hide();
-    } else {
-        myList->show();
-        myClearNetworkElementsSelection->show();
+GNECommonNetworkModules::NetworkElementsSelector::onCmdUseSelectedElements(FXObject*, FXSelector, void*) {
+    // clear list of egdge ids
+    myList->clearItems();
+    // set modul name
+    switch (myNetworkElementType) {
+        case NetworkElementType::EDGE:
+            for (const auto &edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+                if (edge.second->isAttributeCarrierSelected()) {
+                    myList->appendItem(edge.first.c_str(), edge.second->getIcon());
+                }
+            }
+            break;
+        case NetworkElementType::LANE:
+            for (const auto &lane : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getLanes()) {
+                if (lane->isAttributeCarrierSelected()) {
+                    myList->appendItem(lane->getID().c_str(), lane->getIcon());
+                }
+            }
+            break;
+        default:
+            throw ProcessError("Invalid NetworkElementType");
     }
-    // Recalc Frame
-    recalc();
     // Update Frame
     update();
     return 1;
@@ -188,25 +205,14 @@ GNECommonNetworkModules::NetworkElementsSelector::onCmdUseSelectedNetworkElement
 
 
 long
-GNECommonNetworkModules::NetworkElementsSelector::onCmdSelectNetworkElement(FXObject*, FXSelector, void*) {
-    myFrameParent->getViewNet()->update();
-    return 1;
-}
-
-
-long
 GNECommonNetworkModules::NetworkElementsSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
-    for (int i = 0; i < myList->getNumItems(); i++) {
-        if (myList->getItem(i)->isSelected()) {
-            myList->deselectItem(i);
-        }
-    }
-    myFrameParent->getViewNet()->update();
+    clearSelection();
     return 1;
 }
 
 
 GNECommonNetworkModules::NetworkElementsSelector::NetworkElementsSelector() :
+    myFrameParent(nullptr),
     myNetworkElementType(NetworkElementType::EDGE) {
 }
 
@@ -232,9 +238,7 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::ConsecutiveLaneSelector(GNEFra
     myShowCandidateLanes = new FXCheckButton(getCollapsableFrame(), "Show candidate lanes", this, MID_GNE_SHOWCANDIDATES, GUIDesignCheckButton);
     myShowCandidateLanes->setCheck(TRUE);
     // create backspace label (always shown)
-    new FXLabel(this,
-                "BACKSPACE: undo click",
-                0, GUIDesignLabelFrameInformation);
+    new FXLabel(this, "BACKSPACE: undo click", 0, GUIDesignLabelFrameInformation);
 }
 
 

@@ -1137,6 +1137,9 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_PROHIBITION) {
             myViewParent->getProhibitionFrame()->onCmdCancel(nullptr, 0, nullptr);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
+            // abort both network elements selections
+            myViewParent->getAdditionalFrame()->getEdgesSelector()->clearSelection();
+            myViewParent->getAdditionalFrame()->getLanesSelector()->clearSelection();
             // abort path
             myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortPathCreation();
             } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_WIRE) {

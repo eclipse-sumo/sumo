@@ -59,7 +59,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myEdgesSelector = new GNECommonNetworkModules::NetworkElementsSelector(this, GNECommonNetworkModules::NetworkElementsSelector::NetworkElementType::EDGE);
 
     // Create selector child lanes
-    myLanesSelector = new GNECommonNetworkModules::NetworkElementsSelector(this, GNECommonNetworkModules::NetworkElementsSelector::NetworkElementType::EDGE);
+    myLanesSelector = new GNECommonNetworkModules::NetworkElementsSelector(this, GNECommonNetworkModules::NetworkElementsSelector::NetworkElementType::LANE);
 
     // Create list for E2Multilane lane selector
     myConsecutiveLaneSelector = new GNECommonNetworkModules::ConsecutiveLaneSelector(this);
@@ -219,17 +219,10 @@ GNEAdditionalFrame::tagSelected() {
         // check if we must show consecutive lane selector
         if (templateAC->getTagProperty().getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
+            myLanesSelector->hideNetworkElementsSelector();
         } else if (templateAC->getTagProperty().hasAttribute(SUMO_ATTR_LANES)) {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
-            // Show LanesSelector or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
-            if (templateAC->getTagProperty().isChild() &&
-                    (templateAC->getTagProperty().getParentTags().front() == SUMO_TAG_LANE)) {
-                // show selector parent lane and hide selector child lane
-                myLanesSelector->hideNetworkElementsSelector();
-            } else {
-                // show selector child lane and hide selector parent lane
-                myLanesSelector->showNetworkElementsSelector();
-            }
+            myLanesSelector->showNetworkElementsSelector();
         } else {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
             myLanesSelector->hideNetworkElementsSelector();

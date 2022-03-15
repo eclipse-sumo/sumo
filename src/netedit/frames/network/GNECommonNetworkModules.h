@@ -71,13 +71,13 @@ public:
         /// @brief toogle selected networkElement
         bool toogleSelectedElement(const GNENetworkElement *networkElement);
 
+        /// @brief clear selection
+        void clearSelection();
+
         /// @name FOX-callbacks
         /// @{
-        /// @brief called when user trigger checkBox of useSelectedNetworkElements
-        long onCmdUseSelectedNetworkElements(FXObject*, FXSelector, void*);
-
-        /// @brief called when user select a networkElement of the list
-        long onCmdSelectNetworkElement(FXObject*, FXSelector, void*);
+        /// @brief called when user pres button use selected edges
+        long onCmdUseSelectedElements(FXObject*, FXSelector, void*);
 
         /// @brief called when clear selection button is pressed
         long onCmdClearSelection(FXObject*, FXSelector, void*);
@@ -91,14 +91,14 @@ public:
         /// @brief pointer to frame parent
         GNEFrame* myFrameParent;
 
-        /// @brief CheckBox for selected networkElements
-        FXCheckButton* myUseSelectedNetworkElementsCheckButton = nullptr;
+        /// @brief button for use selected edges
+        FXButton* myUseSelected = nullptr;
 
         /// @brief List of NetworkElementsSelector
         FXList* myList = nullptr;
 
         /// @brief button for clear selection
-        FXButton* myClearNetworkElementsSelection = nullptr;
+        FXButton* myClearSelection = nullptr;
 
         /// @brrief network element type
         const NetworkElementType myNetworkElementType;
