@@ -78,6 +78,9 @@ no_overtaking_across_minor_link2
 # allow overtaking if there is enough space before the minor link
 overtake_before_minor
 
+# allow overtaking a stopped queue if there is enough space before the minor link
+overtake_4_before_minor
+
 # return from overtaking if there is no opposite leader
 return_no_opposite_leader
 
