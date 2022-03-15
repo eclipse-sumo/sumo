@@ -28,165 +28,80 @@
 // class definitions
 // ===========================================================================
 
-
 class GNECommonNetworkModules {
 
 public:
 
     // ===========================================================================
-    // class EdgesSelector
+    // class NetworkElementSelector
     // ===========================================================================
 
-    class EdgesSelector : public FXGroupBoxModule {
+    class NetworkElementsSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNECommonNetworkModules::EdgesSelector)
+        FXDECLARE(GNECommonNetworkModules::NetworkElementsSelector)
 
     public:
+        /// @brief network element selector type
+        enum class NetworkElementType {
+            EDGE,
+            LANE,
+        };
+
         /// @brief constructor
-        EdgesSelector(GNEFrame* frameParent);
+        NetworkElementsSelector(GNEFrame* frameParent, const NetworkElementType networkElementType);
 
         /// @brief destructor
-        ~EdgesSelector();
+        ~NetworkElementsSelector();
 
-        /// @brief get list of selecte id's in string format
-        std::vector<std::string> getEdgeIdsSelected() const;
+        /// @brief get selected IDs
+        std::vector<std::string> getSelectedIDs() const;
 
-        /// @brief check if the given edge is being selected
-        bool isEdgeSelected(const GNEEdge* edge) const;
+        /// @brief check if the given networkElement is being selected
+        bool isNetworkElementSelected(const GNENetworkElement* networkElement) const;
 
-        /// @brief Show EdgesSelector Module
-        void showEdgesSelectorModule(std::string search = "");
+        /// @brief show NetworkElementsSelector Module
+        void showNetworkElementsSelector();
 
-        /// @brief hide EdgesSelector Module
-        void hideEdgesSelectorModule();
+        /// @brief hide NetworkElementsSelector Module
+        void hideNetworkElementsSelector();
 
         /// @brief return true if modul is shown
-        bool edgesSelectorModuleShown() const;
+        bool isShown() const;
 
-        /// @brief toogle selected edge
-        void toogleSelectedEdge(const GNEEdge *edge);
-
-        /// @brief Update use selectedEdges
-        void updateUseSelectedEdges();
+        /// @brief toogle selected networkElement
+        bool toogleSelectedElement(const GNENetworkElement *networkElement);
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief called when user trigger checkBox of useSelectedEdges
-        long onCmdUseSelectedEdges(FXObject*, FXSelector, void*);
+        /// @brief called when user trigger checkBox of useSelectedNetworkElements
+        long onCmdUseSelectedNetworkElements(FXObject*, FXSelector, void*);
 
-        /// @brief called when user type in search box
-        long onCmdTypeInSearchBox(FXObject*, FXSelector, void*);
-
-        /// @brief called when user select a edge of the list
-        long onCmdSelectEdge(FXObject*, FXSelector, void*);
+        /// @brief called when user select a networkElement of the list
+        long onCmdSelectNetworkElement(FXObject*, FXSelector, void*);
 
         /// @brief called when clear selection button is pressed
         long onCmdClearSelection(FXObject*, FXSelector, void*);
-
-        /// @brief called when invert selection button is pressed
-        long onCmdInvertSelection(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(EdgesSelector)
+        NetworkElementsSelector();
 
     private:
         /// @brief pointer to frame parent
         GNEFrame* myFrameParent;
 
-        /// @brief CheckBox for selected edges
-        FXCheckButton* myUseSelectedEdgesCheckButton;
+        /// @brief CheckBox for selected networkElements
+        FXCheckButton* myUseSelectedNetworkElementsCheckButton = nullptr;
 
-        /// @brief List of EdgesSelector
-        FXList* myList;
-
-        /// @brief text field for search edge IDs
-        FXTextField* myEdgesSearch;
+        /// @brief List of NetworkElementsSelector
+        FXList* myList = nullptr;
 
         /// @brief button for clear selection
-        FXButton* myClearEdgesSelection;
+        FXButton* myClearNetworkElementsSelection = nullptr;
 
-        /// @brief button for invert selection
-        FXButton* myInvertEdgesSelection;
-    };
-
-    // ===========================================================================
-    // class LanesSelector
-    // ===========================================================================
-
-    class LanesSelector : public FXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNECommonNetworkModules::LanesSelector)
-
-    public:
-        /// @brief constructor
-        LanesSelector(GNEFrame* frameParent);
-
-        /// @brief destructor
-        ~LanesSelector();
-
-        /// @brief get list of selecte lane ids in string format
-        std::vector<std::string> getLaneIdsSelected() const;
-
-        /// @brief check if the given lane is being selected
-        bool isLaneSelected(const GNELane* lane) const;
-
-        /// @brief Show list of LanesSelector Module
-        void showLanesSelectorModule(std::string search = "");
-
-        /// @brief hide LanesSelector Module
-        void hideLanesSelectorModule();
-
-        /// @brief return true if modul is shown
-        bool lanesSelectorModuleShown() const;
-
-        /// @brief toogle selected lane
-        void toogleSelectedLane(const GNELane *lane);
-
-        // @brief Update use selectedLanes
-        void updateUseSelectedLanes();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief called when user trigger checkBox of useSelectedLanes
-        long onCmdUseSelectedLanes(FXObject*, FXSelector, void*);
-
-        /// @brief called when user type in search box
-        long onCmdTypeInSearchBox(FXObject*, FXSelector, void*);
-
-        /// @brief called when user select a lane of the list
-        long onCmdSelectLane(FXObject*, FXSelector, void*);
-
-        /// @brief called when clear selection button is pressed
-        long onCmdClearSelection(FXObject*, FXSelector, void*);
-
-        /// @brief called when invert selection button is pressed
-        long onCmdInvertSelection(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(LanesSelector)
-
-    private:
-        /// @brief pointer to frame parent
-        GNEFrame* myFrameParent;
-
-        /// @brief CheckBox for selected lanes
-        FXCheckButton* myUseSelectedLanesCheckButton;
-
-        /// @brief List of LanesSelector
-        FXList* myList;
-
-        /// @brief text field for search lane IDs
-        FXTextField* myLanesSearch;
-
-        /// @brief button for clear selection
-        FXButton* clearLanesSelection;
-
-        /// @brief button for invert selection
-        FXButton* invertLanesSelection;
+        /// @brrief network element type
+        const NetworkElementType myNetworkElementType;
     };
 
     // ===========================================================================

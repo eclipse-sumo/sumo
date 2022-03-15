@@ -52,10 +52,10 @@ public:
     bool addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get edges selector
-    GNECommonNetworkModules::EdgesSelector* getEdgesSelector() const;
+    GNECommonNetworkModules::NetworkElementsSelector* getEdgesSelector() const;
 
     /// @brief get edges selector
-    GNECommonNetworkModules::LanesSelector* getLanesSelector() const;
+    GNECommonNetworkModules::NetworkElementsSelector* getLanesSelector() const;
 
     /// @brief get consecutive lane selector
     GNECommonNetworkModules::ConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
@@ -99,10 +99,10 @@ private:
     GNEFrameModules::SelectorParent* mySelectorAdditionalParent;
 
     /// @brief Module for select edges
-    GNECommonNetworkModules::EdgesSelector* myEdgesSelector;
+    GNECommonNetworkModules::NetworkElementsSelector* myEdgesSelector;
 
     /// @brief Module for select lanes
-    GNECommonNetworkModules::LanesSelector* myLanesSelector;
+    GNECommonNetworkModules::NetworkElementsSelector* myLanesSelector;
 
     /// @brief Module for select consecutive lanes
     GNECommonNetworkModules::ConsecutiveLaneSelector* myConsecutiveLaneSelector;

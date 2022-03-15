@@ -427,7 +427,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             drawDottedContourEdge(GUIDottedGeometry::DottedContourType::FRONT, s, this, true, true);
         }
-        if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getEdgesSelector()->isEdgeSelected(this)) {
+        if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getEdgesSelector()->isNetworkElementSelected(this)) {
             drawDottedContourEdge(GUIDottedGeometry::DottedContourType::ORANGE, s, this, true, true);
         }
     }

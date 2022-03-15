@@ -39,21 +39,12 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNECommonNetworkModules::EdgesSelector) SelectorParentEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNECommonNetworkModules::EdgesSelector::onCmdUseSelectedEdges),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNECommonNetworkModules::EdgesSelector::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INVERTSELECTION,    GNECommonNetworkModules::EdgesSelector::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SEARCH,             GNECommonNetworkModules::EdgesSelector::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,             GNECommonNetworkModules::EdgesSelector::onCmdSelectEdge),
+FXDEFMAP(GNECommonNetworkModules::NetworkElementsSelector) SelectorParentNetworkElementsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNECommonNetworkModules::NetworkElementsSelector::onCmdUseSelectedNetworkElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNECommonNetworkModules::NetworkElementsSelector::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,             GNECommonNetworkModules::NetworkElementsSelector::onCmdSelectNetworkElement),
 };
 
-FXDEFMAP(GNECommonNetworkModules::LanesSelector) SelectorParentLanesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNECommonNetworkModules::LanesSelector::onCmdUseSelectedLanes),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNECommonNetworkModules::LanesSelector::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INVERTSELECTION,    GNECommonNetworkModules::LanesSelector::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SEARCH,             GNECommonNetworkModules::LanesSelector::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,             GNECommonNetworkModules::LanesSelector::onCmdSelectLane),
-};
 
 FXDEFMAP(GNECommonNetworkModules::ConsecutiveLaneSelector) ConsecutiveLaneSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_ABORT,          GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdAbortPathCreation),
@@ -63,23 +54,32 @@ FXDEFMAP(GNECommonNetworkModules::ConsecutiveLaneSelector) ConsecutiveLaneSelect
 };
 
 // Object implementation
-FXIMPLEMENT(GNECommonNetworkModules::EdgesSelector,         FXGroupBoxModule,     SelectorParentEdgesMap,         ARRAYNUMBER(SelectorParentEdgesMap))
-FXIMPLEMENT(GNECommonNetworkModules::LanesSelector,         FXGroupBoxModule,     SelectorParentLanesMap,         ARRAYNUMBER(SelectorParentLanesMap))
-FXIMPLEMENT(GNECommonNetworkModules::ConsecutiveLaneSelector,    FXGroupBoxModule,     ConsecutiveLaneSelectorMap,     ARRAYNUMBER(ConsecutiveLaneSelectorMap))
+FXIMPLEMENT(GNECommonNetworkModules::NetworkElementsSelector,   FXGroupBoxModule,   SelectorParentNetworkElementsMap,   ARRAYNUMBER(SelectorParentNetworkElementsMap))
+FXIMPLEMENT(GNECommonNetworkModules::ConsecutiveLaneSelector,   FXGroupBoxModule,   ConsecutiveLaneSelectorMap,         ARRAYNUMBER(ConsecutiveLaneSelectorMap))
 
 
 // ---------------------------------------------------------------------------
-// GNECommonNetworkModules::EdgesSelector - methods
+// GNECommonNetworkModules::NetworkElementsSelector - methods
 // ---------------------------------------------------------------------------
 
-GNECommonNetworkModules::EdgesSelector::EdgesSelector(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Edges"),
+GNECommonNetworkModules::NetworkElementsSelector::NetworkElementsSelector(GNEFrame* frameParent, const NetworkElementType networkElementType) :
+    FXGroupBoxModule(frameParent->getContentFrame(), "NetworkElements"),
+    myNetworkElementType(networkElementType),
     myFrameParent(frameParent) {
-    // Create menuCheck for selected edges
-    myUseSelectedEdgesCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_USESELECTED, GUIDesignCheckButton);
+    // set modul name
+    switch (myNetworkElementType) {
+        case NetworkElementType::EDGE:
+            setText("Edges");
+            break;
+        case NetworkElementType::LANE:
+            setText("Lanes");
+            break;
+        default:
+            throw ProcessError("Invalid NetworkElementType");
+    }
 
-    // Create search box
-    myEdgesSearch = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SEARCH, GUIDesignTextField);
+    // Create menuCheck for selected networkElements
+    myUseSelectedNetworkElementsCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_USESELECTED, GUIDesignCheckButton);
 
     // Create list
     myList = new FXList(getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
@@ -88,47 +88,36 @@ GNECommonNetworkModules::EdgesSelector::EdgesSelector(GNEFrame* frameParent) :
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
 
     // Create button for clear selection
-    myClearEdgesSelection = new FXButton(buttonsFrame, "Clear", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButtonRectangular);
-
-    // Create button for invert selection
-    myInvertEdgesSelection = new FXButton(buttonsFrame, "Invert", nullptr, this, MID_GNE_INVERTSELECTION, GUIDesignButtonRectangular);
+    myClearNetworkElementsSelection = new FXButton(buttonsFrame, "Clear", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButtonRectangular);
 
     // Hide List
-    hideEdgesSelectorModule();
+    hide();
 }
 
 
-GNECommonNetworkModules::EdgesSelector::~EdgesSelector() {}
+GNECommonNetworkModules::NetworkElementsSelector::~NetworkElementsSelector() {}
 
 
 std::vector<std::string>
-GNECommonNetworkModules::EdgesSelector::getEdgeIdsSelected() const {
-    std::vector<std::string> vectorOfIds;
-    if (myUseSelectedEdgesCheckButton->getCheck()) {
-        // get Selected edges
-        const auto selectedEdges = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedEdges();
-        // Iterate over selectedEdges and getId
-        for (const auto& edge : selectedEdges) {
-            vectorOfIds.push_back(edge->getID());
-        }
-    } else {
-        // Obtain Id's of list
-        for (int i = 0; i < myList->getNumItems(); i++) {
-            if (myList->isItemSelected(i)) {
-                vectorOfIds.push_back(myList->getItem(i)->getText().text());
-            }
-        }
+GNECommonNetworkModules::NetworkElementsSelector::getSelectedIDs() const {
+    // declare solution
+    std::vector<std::string> solution;
+    // reserve
+    solution.reserve(myList->getNumItems());
+    // fill IDs
+    for (int i = 0; i < myList->getNumItems(); i++) {
+        solution.push_back(myList->getItem(i)->getText().text());
     }
-    return vectorOfIds;
+    return solution;
 }
 
 
 bool
-GNECommonNetworkModules::EdgesSelector::isEdgeSelected(const GNEEdge* edge) const {
+GNECommonNetworkModules::NetworkElementsSelector::isNetworkElementSelected(const GNENetworkElement* networkElement) const {
     if (myFrameParent->shown() && shown()) {
         // check if id is selected
         for (int i = 0; i < myList->getNumItems(); i++) {
-            if (myList->isItemSelected(i) && (myList->getItem(i)->getText().text() == edge->getID())) {
+            if (myList->isItemSelected(i) && (myList->getItem(i)->getText().text() == networkElement->getID())) {
                 return true;
             }
         }
@@ -138,18 +127,14 @@ GNECommonNetworkModules::EdgesSelector::isEdgeSelected(const GNEEdge* edge) cons
 
 
 void
-GNECommonNetworkModules::EdgesSelector::showEdgesSelectorModule(std::string search) {
+GNECommonNetworkModules::NetworkElementsSelector::showNetworkElementsSelector() {
     // clear list of egdge ids
     myList->clearItems();
-    // iterate over edges of net
-    for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        // If search criterium is correct, then append ittem
-        if (edge.second->getID().find(search) != std::string::npos) {
-            myList->appendItem(edge.second->getID().c_str());
-        }
-    }
-    // By default, CheckBox for useSelectedEdges isn't checked
-    myUseSelectedEdgesCheckButton->setCheck(false);
+
+    //
+
+    // By default, CheckBox for useSelectedNetworkElements isn't checked
+    myUseSelectedNetworkElementsCheckButton->setCheck(false);
     // Recalc Frame
     recalc();
     // Update Frame
@@ -160,55 +145,39 @@ GNECommonNetworkModules::EdgesSelector::showEdgesSelectorModule(std::string sear
 
 
 void
-GNECommonNetworkModules::EdgesSelector::hideEdgesSelectorModule() {
+GNECommonNetworkModules::NetworkElementsSelector::hideNetworkElementsSelector() {
     hide();
 }
 
 
 bool 
-GNECommonNetworkModules::EdgesSelector::edgesSelectorModuleShown() const {
+GNECommonNetworkModules::NetworkElementsSelector::isShown() const {
     return shown();
 }
 
 
-void 
-GNECommonNetworkModules::EdgesSelector::toogleSelectedEdge(const GNEEdge *edge) {
+bool 
+GNECommonNetworkModules::NetworkElementsSelector::toogleSelectedElement(const GNENetworkElement *networkElement) {
     // Obtain Id's of list
     for (int i = 0; i < myList->getNumItems(); i++) {
-        if (myList->getItem(i)->getText().text() == edge->getID()) {
-            if (myList->isItemSelected(i)) {
-                myList->getItem(i)->setSelected(FALSE);
-            } else {
-                myList->getItem(i)->setSelected(TRUE);
-            }
+        if (myList->getItem(i)->getText().text() == networkElement->getID()) {
+            myList->removeItem(i);
+            return true;
         }
     }
-}
-
-
-void
-GNECommonNetworkModules::EdgesSelector::updateUseSelectedEdges() {
-    // Enable or disable use selected edges
-    if (myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getNumberOfSelectedEdges() > 0) {
-        myUseSelectedEdgesCheckButton->enable();
-    } else {
-        myUseSelectedEdgesCheckButton->disable();
-    }
+    myList->appendItem(networkElement->getID().c_str(), networkElement->getIcon());
+    return true;
 }
 
 
 long
-GNECommonNetworkModules::EdgesSelector::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
-    if (myUseSelectedEdgesCheckButton->getCheck()) {
-        myEdgesSearch->hide();
+GNECommonNetworkModules::NetworkElementsSelector::onCmdUseSelectedNetworkElements(FXObject*, FXSelector, void*) {
+    if (myUseSelectedNetworkElementsCheckButton->getCheck()) {
         myList->hide();
-        myClearEdgesSelection->hide();
-        myInvertEdgesSelection->hide();
+        myClearNetworkElementsSelection->hide();
     } else {
-        myEdgesSearch->show();
         myList->show();
-        myClearEdgesSelection->show();
-        myInvertEdgesSelection->show();
+        myClearNetworkElementsSelection->show();
     }
     // Recalc Frame
     recalc();
@@ -219,22 +188,14 @@ GNECommonNetworkModules::EdgesSelector::onCmdUseSelectedEdges(FXObject*, FXSelec
 
 
 long
-GNECommonNetworkModules::EdgesSelector::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
-    // Show only Id's of EdgesSelector that contains the searched string
-    showEdgesSelectorModule(myEdgesSearch->getText().text());
-    return 1;
-}
-
-
-long
-GNECommonNetworkModules::EdgesSelector::onCmdSelectEdge(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::NetworkElementsSelector::onCmdSelectNetworkElement(FXObject*, FXSelector, void*) {
     myFrameParent->getViewNet()->update();
     return 1;
 }
 
 
 long
-GNECommonNetworkModules::EdgesSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
+GNECommonNetworkModules::NetworkElementsSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->isSelected()) {
             myList->deselectItem(i);
@@ -245,202 +206,8 @@ GNECommonNetworkModules::EdgesSelector::onCmdClearSelection(FXObject*, FXSelecto
 }
 
 
-long
-GNECommonNetworkModules::EdgesSelector::onCmdInvertSelection(FXObject*, FXSelector, void*) {
-    for (int i = 0; i < myList->getNumItems(); i++) {
-        if (myList->getItem(i)->isSelected()) {
-            myList->deselectItem(i);
-        } else {
-            myList->selectItem(i);
-        }
-    }
-    myFrameParent->getViewNet()->update();
-    return 1;
-}
-
-// ---------------------------------------------------------------------------
-// GNECommonNetworkModules::LanesSelector - methods
-// ---------------------------------------------------------------------------
-
-GNECommonNetworkModules::LanesSelector::LanesSelector(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Lanes"),
-    myFrameParent(frameParent) {
-
-    // Create CheckBox for selected lanes
-    myUseSelectedLanesCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_USESELECTED, GUIDesignCheckButton);
-
-    // Create search box
-    myLanesSearch = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SEARCH, GUIDesignTextField);
-
-    // Create list
-    myList = new FXList(getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
-
-    // Create horizontal frame
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-
-    // Create button for clear selection
-    clearLanesSelection = new FXButton(buttonsFrame, "clear", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButtonRectangular);
-
-    // Create button for invert selection
-    invertLanesSelection = new FXButton(buttonsFrame, "invert", nullptr, this, MID_GNE_INVERTSELECTION, GUIDesignButtonRectangular);
-
-    // Hide List
-    hideLanesSelectorModule();
-}
-
-
-GNECommonNetworkModules::LanesSelector::~LanesSelector() {}
-
-
-std::vector<std::string>
-GNECommonNetworkModules::LanesSelector::getLaneIdsSelected() const {
-    std::vector<std::string> vectorOfIds;
-    if (myUseSelectedLanesCheckButton->getCheck()) {
-        // get Selected lanes
-        const auto selectedLanes = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedLanes();
-        // Iterate over selectedLanes and getId
-        for (const auto& lane : selectedLanes) {
-            vectorOfIds.push_back(lane->getID());
-        }
-    } else {
-        // Obtain Id's of list
-        for (int i = 0; i < myList->getNumItems(); i++) {
-            if (myList->isItemSelected(i)) {
-                vectorOfIds.push_back(myList->getItem(i)->getText().text());
-            }
-        }
-    }
-    return vectorOfIds;
-}
-
-
-bool
-GNECommonNetworkModules::LanesSelector::isLaneSelected(const GNELane* lane) const {
-    if (myFrameParent->shown() && shown()) {
-        // check if id is selected
-        for (int i = 0; i < myList->getNumItems(); i++) {
-            if (myList->isItemSelected(i) && (myList->getItem(i)->getText().text() == lane->getID())) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-
-void
-GNECommonNetworkModules::LanesSelector::showLanesSelectorModule(std::string search) {
-    myList->clearItems();
-    // add all network lanes
-    for (const auto& lane : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getLanes()) {
-        if (lane->getID().find(search) != std::string::npos) {
-            myList->appendItem(lane->getID().c_str());
-        }
-    }
-    // By default, CheckBox for useSelectedLanes isn't checked
-    myUseSelectedLanesCheckButton->setCheck(false);
-    // Show list
-    show();
-}
-
-
-void
-GNECommonNetworkModules::LanesSelector::hideLanesSelectorModule() {
-    hide();
-}
-
-
-bool 
-GNECommonNetworkModules::LanesSelector::lanesSelectorModuleShown() const {
-    return shown();
-}
-
-
-void 
-GNECommonNetworkModules::LanesSelector::toogleSelectedLane(const GNELane *lane) {
-    // Obtain Id's of list
-    for (int i = 0; i < myList->getNumItems(); i++) {
-        if (myList->getItem(i)->getText().text() == lane->getID()) {
-            if (myList->isItemSelected(i)) {
-                myList->getItem(i)->setSelected(FALSE);
-            } else {
-                myList->getItem(i)->setSelected(TRUE);
-            }
-        }
-    }
-}
-
-
-void
-GNECommonNetworkModules::LanesSelector::updateUseSelectedLanes() {
-    // Enable or disable use selected Lanes
-    if (myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getNumberOfSelectedLanes() > 0) {
-        myUseSelectedLanesCheckButton->enable();
-    } else {
-        myUseSelectedLanesCheckButton->disable();
-    }
-}
-
-
-long
-GNECommonNetworkModules::LanesSelector::onCmdUseSelectedLanes(FXObject*, FXSelector, void*) {
-    if (myUseSelectedLanesCheckButton->getCheck()) {
-        myLanesSearch->hide();
-        myList->hide();
-        clearLanesSelection->hide();
-        invertLanesSelection->hide();
-    } else {
-        myLanesSearch->show();
-        myList->show();
-        clearLanesSelection->show();
-        invertLanesSelection->show();
-    }
-    // Recalc Frame
-    recalc();
-    // Update Frame
-    update();
-    return 1;
-}
-
-
-long
-GNECommonNetworkModules::LanesSelector::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
-    // Show only Id's of LanesSelector that contains the searched string
-    showLanesSelectorModule(myLanesSearch->getText().text());
-    return 1;
-}
-
-
-long
-GNECommonNetworkModules::LanesSelector::onCmdSelectLane(FXObject*, FXSelector, void*) {
-    myFrameParent->getViewNet()->update();
-    return 1;
-}
-
-
-long
-GNECommonNetworkModules::LanesSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
-    for (int i = 0; i < myList->getNumItems(); i++) {
-        if (myList->getItem(i)->isSelected()) {
-            myList->deselectItem(i);
-        }
-    }
-    myFrameParent->getViewNet()->update();
-    return 1;
-}
-
-
-long
-GNECommonNetworkModules::LanesSelector::onCmdInvertSelection(FXObject*, FXSelector, void*) {
-    for (int i = 0; i < myList->getNumItems(); i++) {
-        if (myList->getItem(i)->isSelected()) {
-            myList->deselectItem(i);
-        } else {
-            myList->selectItem(i);
-        }
-    }
-    myFrameParent->getViewNet()->update();
-    return 1;
+GNECommonNetworkModules::NetworkElementsSelector::NetworkElementsSelector() :
+    myNetworkElementType(NetworkElementType::EDGE) {
 }
 
 // ---------------------------------------------------------------------------
