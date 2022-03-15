@@ -51,6 +51,9 @@ public:
         /// @brief get list of selecte id's in string format
         std::vector<std::string> getEdgeIdsSelected() const;
 
+        /// @brief check if the given edge is being selected
+        bool isEdgeSelected(const GNEEdge* edge) const;
+
         /// @brief Show EdgesSelector Module
         void showEdgesSelectorModule(std::string search = "");
 

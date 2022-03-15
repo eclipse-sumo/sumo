@@ -30,6 +30,7 @@
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
+#include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
@@ -425,6 +426,9 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
         if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             drawDottedContourEdge(GUIDottedGeometry::DottedContourType::FRONT, s, this, true, true);
+        }
+        if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getEdgesSelector()->isEdgeSelected(this)) {
+            drawDottedContourEdge(GUIDottedGeometry::DottedContourType::ORANGE, s, this, true, true);
         }
     }
 }

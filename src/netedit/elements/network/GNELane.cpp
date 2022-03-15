@@ -603,14 +603,15 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // check if dotted contours has to be drawn
         if (!drawRailway) {
             if (myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-                    (myNet->getViewNet()->isAttributeCarrierInspected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
+                    ((myNet->getViewNet()->isAttributeCarrierInspected(myParentEdge) && (myParentEdge->getLanes().size() == 1)))) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
             }
             if ((myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
                     ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
             }
-            if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getLanesSelector()->isLaneSelected(this)) {
+            if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getLanesSelector()->isLaneSelected(this) ||
+                    (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getEdgesSelector()->isEdgeSelected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
             }
         }

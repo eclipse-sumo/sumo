@@ -123,6 +123,20 @@ GNECommonNetworkModules::EdgesSelector::getEdgeIdsSelected() const {
 }
 
 
+bool
+GNECommonNetworkModules::EdgesSelector::isEdgeSelected(const GNEEdge* edge) const {
+    if (myFrameParent->shown() && shown()) {
+        // check if id is selected
+        for (int i = 0; i < myList->getNumItems(); i++) {
+            if (myList->isItemSelected(i) && (myList->getItem(i)->getText().text() == edge->getID())) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 void
 GNECommonNetworkModules::EdgesSelector::showEdgesSelectorModule(std::string search) {
     // clear list of egdge ids
@@ -193,6 +207,7 @@ GNECommonNetworkModules::EdgesSelector::onCmdTypeInSearchBox(FXObject*, FXSelect
 
 long
 GNECommonNetworkModules::EdgesSelector::onCmdSelectEdge(FXObject*, FXSelector, void*) {
+    myFrameParent->getViewNet()->update();
     return 1;
 }
 
@@ -204,6 +219,7 @@ GNECommonNetworkModules::EdgesSelector::onCmdClearSelection(FXObject*, FXSelecto
             myList->deselectItem(i);
         }
     }
+    myFrameParent->getViewNet()->update();
     return 1;
 }
 
@@ -217,6 +233,7 @@ GNECommonNetworkModules::EdgesSelector::onCmdInvertSelection(FXObject*, FXSelect
             myList->selectItem(i);
         }
     }
+    myFrameParent->getViewNet()->update();
     return 1;
 }
 
