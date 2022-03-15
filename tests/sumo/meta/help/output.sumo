@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_12_0+1355-ad9ecd011a5
+Eclipse SUMO sumo Version v1_12_0+1381-802d85a9a91
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -231,10 +231,10 @@ Processing Options:
   --time-to-teleport.remove            Whether vehicles shall be removed after
                                         waiting too long instead of being
                                         teleported
-  --time-to-teleport.waiting-for-vehicle TIME  The waiting time after which
-                                        persons / containers waiting for a
-                                        pickup are teleported. Negative values
-                                        disable teleporting
+  --time-to-teleport.ride TIME         The waiting time after which persons /
+                                        containers waiting for a pickup are
+                                        teleported. Negative values disable
+                                        teleporting
   --waiting-time-memory TIME           Length of time interval, over which
                                         accumulated waiting time is taken into
                                         account (default is 100s.)

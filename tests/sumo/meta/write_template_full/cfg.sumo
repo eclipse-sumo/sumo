@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-14 07:56:33 by Eclipse SUMO sumo Version v1_12_0+1355-ad9ecd011a5
+<!-- generated on 2022-03-15 07:54:37 by Eclipse SUMO sumo Version v1_12_0+1381-802d85a9a91
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -134,7 +134,7 @@
         <time-to-teleport.highways value="0" type="TIME" help="The waiting time after which vehicles on a fast road (speed &gt; 69km/h) are teleported if they are on a non-continuing lane"/>
         <time-to-teleport.disconnected value="-1" type="TIME" help="The waiting time after which vehicles with a disconnected route are teleported. Negative values disable teleporting"/>
         <time-to-teleport.remove value="false" type="BOOL" help="Whether vehicles shall be removed after waiting too long instead of being teleported"/>
-        <time-to-teleport.waiting-for-vehicle value="-1" type="TIME" help="The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting"/>
+        <time-to-teleport.ride value="-1" type="TIME" help="The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting"/>
         <waiting-time-memory value="100" type="TIME" help="Length of time interval, over which accumulated waiting time is taken into account (default is 100s.)"/>
         <max-depart-delay value="-1" type="TIME" help="How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped"/>
         <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed"/>
