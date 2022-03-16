@@ -22,6 +22,8 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEM_ConsecutiveLaneSelector.h>
+#include <netedit/frames/GNEM_SelectorParent.h>
+#include <netedit/frames/GNEM_TagSelector.h>
 
 
 // ===========================================================================
@@ -73,7 +75,7 @@ private:
     bool buildWireOverView(const GNETagProperties& tagValues);
 
     /// @brief item selector
-    GNEFrameModules::TagSelector* myWireTagSelector = nullptr;
+    TagSelector* myWireTagSelector = nullptr;
 
     /// @brief internal wire attributes
     GNEFrameAttributeModules::AttributesCreator* myWireAttributes = nullptr;
@@ -82,7 +84,7 @@ private:
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes = nullptr;
 
     /// @brief Select wire parent
-    GNEFrameModules::SelectorParent* mySelectorWireParent = nullptr;
+    SelectorParent* mySelectorWireParent = nullptr;
 
     /// @brief Module for select consecutive lanes
     GNEM_ConsecutiveLaneSelector* myConsecutiveLaneSelector;

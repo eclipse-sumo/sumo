@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/frames/GNEFrameModules.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -512,7 +513,7 @@ GNEGenericDataFrame::getAttributeSelector() const {
 }
 
 
-GNEFrameModules::PathCreator*
+PathCreator*
 GNEGenericDataFrame::getPathCreator() const {
     return myPathCreator;
 }
@@ -568,7 +569,7 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
     myGenericDataAttributes = new GNEFrameAttributeModules::GenericDataAttributes(this);
     // create PathCreator modul
     if (pathCreator) {
-        myPathCreator = new GNEFrameModules::PathCreator(this);
+        myPathCreator = new PathCreator(this);
     }
 }
 

@@ -22,6 +22,9 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEM_HierarchicalElementTree.h>
+#include <netedit/frames/GNEM_DemandElementSelector.h>
+#include <netedit/frames/GNEM_TagSelector.h>
 
 
 // ===========================================================================
@@ -57,10 +60,10 @@ public:
     bool addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get path creator modul
-    GNEFrameModules::PathCreator* getPathCreator() const;
+    PathCreator* getPathCreator() const;
 
     /// @brief get Person Hierarchy
-    GNEFrameModules::HierarchicalElementTree* getPersonHierarchy() const;
+    HierarchicalElementTree* getPersonHierarchy() const;
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -77,17 +80,17 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief Person selectors
-    GNEFrameModules::DemandElementSelector* myPersonSelector;
+    DemandElementSelector* myPersonSelector;
 
     /// @brief personPlan selector
-    GNEFrameModules::TagSelector* myPersonPlanTagSelector;
+    TagSelector* myPersonPlanTagSelector;
 
     /// @brief internal vehicle attributes
     GNEFrameAttributeModules::AttributesCreator* myPersonPlanAttributes;
 
     /// @brief Path Creator
-    GNEFrameModules::PathCreator* myPathCreator;
+    PathCreator* myPathCreator;
 
     /// @brief Person Hierarchy
-    GNEFrameModules::HierarchicalElementTree* myPersonHierarchy;
+    HierarchicalElementTree* myPersonHierarchy;
 };

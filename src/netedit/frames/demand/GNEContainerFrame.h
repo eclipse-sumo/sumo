@@ -22,6 +22,9 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEM_TagSelector.h>
+#include <netedit/frames/GNEM_DemandElementSelector.h>
+#include <netedit/frames/GNEM_PathCreator.h>
 
 
 // ===========================================================================
@@ -55,7 +58,7 @@ public:
     bool addContainer(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get PathCreator modul
-    GNEFrameModules::PathCreator* getPathCreator() const;
+    PathCreator* getPathCreator() const;
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -75,13 +78,13 @@ private:
     CommonXMLStructure::SumoBaseObject* myContainerBaseObject;
 
     /// @brief container tag selector (used to select diffent kind of containers)
-    GNEFrameModules::TagSelector* myContainerTagSelector;
+    TagSelector* myContainerTagSelector;
 
     /// @brief Container Type selectors
-    GNEFrameModules::DemandElementSelector* myTypeSelector;
+    DemandElementSelector* myTypeSelector;
 
     /// @brief container plan selector (used to select diffent kind of container plan)
-    GNEFrameModules::TagSelector* myContainerPlanTagSelector;
+    TagSelector* myContainerPlanTagSelector;
 
     /// @brief internal vehicle attributes
     GNEFrameAttributeModules::AttributesCreator* myContainerAttributes;
@@ -93,7 +96,7 @@ private:
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
-    GNEFrameModules::PathCreator* myPathCreator;
+    PathCreator* myPathCreator;
 
     /// @brief build container and return it (note: function includes a call to begin(...), but NOT a call to end(...))
     GNEDemandElement* buildContainer();

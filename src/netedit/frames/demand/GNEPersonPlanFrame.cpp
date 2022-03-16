@@ -39,19 +39,19 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     myRouteHandler("", viewNet->getNet(), true) {
 
     // create person types selector modul
-    myPersonSelector = new GNEFrameModules::DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
+    myPersonSelector = new DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
 
     // Create tag selector for person plan
-    myPersonPlanTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
+    myPersonPlanTagSelector = new TagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
 
     // Create person parameters
     myPersonPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create myPathCreator Module
-    myPathCreator = new GNEFrameModules::PathCreator(this);
+    myPathCreator = new PathCreator(this);
 
     // Create HierarchicalElementTree modul
-    myPersonHierarchy = new GNEFrameModules::HierarchicalElementTree(this);
+    myPersonHierarchy = new HierarchicalElementTree(this);
 }
 
 
@@ -137,13 +137,13 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
 }
 
 
-GNEFrameModules::PathCreator*
+PathCreator*
 GNEPersonPlanFrame::getPathCreator() const {
     return myPathCreator;
 }
 
 
-GNEFrameModules::HierarchicalElementTree* 
+HierarchicalElementTree* 
 GNEPersonPlanFrame::getPersonHierarchy() const {
     return myPersonHierarchy;
 }

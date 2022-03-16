@@ -19,7 +19,10 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEM_TagSelector.h>
+#include <netedit/frames/GNEM_DrawingShape.h>
 
 // ===========================================================================
 // class definitions
@@ -114,7 +117,7 @@ public:
     static std::string getIdsSelected(const FXList* list);
 
     /// @brief get drawing mode editor
-    GNEFrameModules::DrawingShape* getDrawingShapeModule() const;
+    DrawingShape* getDrawingShapeModule() const;
 
 protected:
     /// @brief SumoBaseObject used for create shape
@@ -137,7 +140,7 @@ protected:
 
 private:
     /// @brief shape tag selector
-    GNEFrameModules::TagSelector* myShapeTagSelector;
+    TagSelector* myShapeTagSelector;
 
     /// @brief shape internal attributes
     GNEFrameAttributeModules::AttributesCreator* myShapeAttributes;
@@ -146,7 +149,7 @@ private:
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Drawing shape
-    GNEFrameModules::DrawingShape* myDrawingShape;
+    DrawingShape* myDrawingShape;
 
     /// @brief GEOPOICreator
     GEOPOICreator* myGEOPOICreator;

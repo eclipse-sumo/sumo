@@ -21,6 +21,9 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEM_DemandElementSelector.h>
+#include <netedit/frames/GNEM_TagSelector.h>
+#include <netedit/frames/GNEM_HierarchicalElementTree.h>
 
 
 // ===========================================================================
@@ -55,7 +58,7 @@ public:
     bool addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get path creator modul
-    GNEFrameModules::PathCreator* getPathCreator() const;
+    PathCreator* getPathCreator() const;
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -72,17 +75,17 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief Container selectors
-    GNEFrameModules::DemandElementSelector* myContainerSelector;
+    DemandElementSelector* myContainerSelector;
 
     /// @brief containerPlan selector
-    GNEFrameModules::TagSelector* myContainerPlanTagSelector;
+    TagSelector* myContainerPlanTagSelector;
 
     /// @brief internal vehicle attributes
     GNEFrameAttributeModules::AttributesCreator* myContainerPlanAttributes;
 
     /// @brief Path Creator
-    GNEFrameModules::PathCreator* myPathCreator;
+    PathCreator* myPathCreator;
 
     /// @brief Container Hierarchy
-    GNEFrameModules::HierarchicalElementTree* myContainerHierarchy;
+    HierarchicalElementTree* myContainerHierarchy;
 };

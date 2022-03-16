@@ -97,7 +97,7 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myEditedDef(nullptr) {
 
     // Create Overlapped Inspection modul
-    myOverlappedInspection = new GNEFrameModules::OverlappedInspection(this, SUMO_TAG_JUNCTION);
+    myOverlappedInspection = new OverlappedInspection(this, SUMO_TAG_JUNCTION);
 
     // create TLSJunction modul
     myTLSJunction = new GNETLSEditorFrame::TLSJunction(this);

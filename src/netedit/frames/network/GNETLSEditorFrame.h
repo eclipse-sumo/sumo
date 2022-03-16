@@ -22,6 +22,8 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netbuild/NBTrafficLightLogic.h>
+#include <netedit/frames/GNEM_OverlappedInspection.h>
+
 
 // ===========================================================================
 // class declarations
@@ -445,7 +447,7 @@ protected:
 
 private:
     /// @brief Overlapped Inspection
-    GNEFrameModules::OverlappedInspection* myOverlappedInspection;
+    OverlappedInspection* myOverlappedInspection;
 
     /// @brief modul for TLS Junction
     GNETLSEditorFrame::TLSJunction* myTLSJunction;

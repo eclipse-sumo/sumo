@@ -23,6 +23,9 @@
 #include <netedit/frames/GNEFrame.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEM_DemandElementSelector.h>
+#include <netedit/frames/GNEM_TagSelector.h>
+
 
 // ===========================================================================
 // class definitions
@@ -87,7 +90,7 @@ public:
     bool getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, const GNEAdditional* stoppingPlace);
 
     /// @brief get stop parent selector
-    GNEFrameModules::DemandElementSelector* getStopParentSelector() const;
+    DemandElementSelector* getStopParentSelector() const;
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -104,10 +107,10 @@ private:
     CommonXMLStructure::SumoBaseObject* myStopParentBaseObject;
 
     /// @brief Stop parent selectors
-    GNEFrameModules::DemandElementSelector* myStopParentSelector;
+    DemandElementSelector* myStopParentSelector;
 
     /// @brief stop tag selector selector (used to select diffent kind of Stops)
-    GNEFrameModules::TagSelector* myStopTagSelector;
+    TagSelector* myStopTagSelector;
 
     /// @brief internal Stop attributes
     GNEFrameAttributeModules::AttributesCreator* myStopAttributes;

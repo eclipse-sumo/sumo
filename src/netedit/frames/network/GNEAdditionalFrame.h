@@ -23,6 +23,8 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEM_NetworkElementSelector.h>
 #include <netedit/frames/GNEM_ConsecutiveLaneSelector.h>
+#include <netedit/frames/GNEM_TagSelector.h>
+#include <netedit/frames/GNEM_SelectorParent.h>
 
 
 // ===========================================================================
@@ -89,7 +91,7 @@ private:
     bool buildAdditionalOverView(const GNETagProperties& tagValues);
 
     /// @brief item selector
-    GNEFrameModules::TagSelector* myAdditionalTagSelector;
+    TagSelector* myAdditionalTagSelector;
 
     /// @brief internal additional attributes
     GNEFrameAttributeModules::AttributesCreator* myAdditionalAttributes;
@@ -98,7 +100,7 @@ private:
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Module for select a single parent additional
-    GNEFrameModules::SelectorParent* mySelectorAdditionalParent;
+    SelectorParent* mySelectorAdditionalParent;
 
     /// @brief Module for select edges
     GNEM_NetworkElementSelector* myEdgesSelector;

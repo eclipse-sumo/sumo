@@ -44,7 +44,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myBaseAdditional(nullptr) {
 
     // create item Selector modul for additionals
-    myAdditionalTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);
+    myAdditionalTagSelector = new TagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);
 
     // Create additional parameters
     myAdditionalAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
@@ -53,7 +53,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
     // Create selector parent
-    mySelectorAdditionalParent = new GNEFrameModules::SelectorParent(this);
+    mySelectorAdditionalParent = new SelectorParent(this);
 
     // Create selector child edges
     myEdgesSelector = new GNEM_NetworkElementSelector(this, GNEM_NetworkElementSelector::NetworkElementType::EDGE);

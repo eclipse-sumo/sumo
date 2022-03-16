@@ -22,6 +22,8 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEM_OverlappedInspection.h>
+#include <netedit/frames/GNEM_HierarchicalElementTree.h>
 
 // ===========================================================================
 // class declaration
@@ -396,10 +398,10 @@ public:
     TemplateEditor* getTemplateEditor() const;
 
     /// @brief get OverlappedInspection modul
-    GNEFrameModules::OverlappedInspection* getOverlappedInspection() const;
+    OverlappedInspection* getOverlappedInspection() const;
 
     /// @brief get HierarchicalElementTree modul
-    GNEFrameModules::HierarchicalElementTree* getHierarchicalElementTree() const;
+    HierarchicalElementTree* getHierarchicalElementTree() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -426,7 +428,7 @@ protected:
 
 private:
     /// @brief Overlapped Inspection
-    GNEFrameModules::OverlappedInspection* myOverlappedInspection;
+    OverlappedInspection* myOverlappedInspection;
 
     /// @brief Attribute editor
     GNEFrameAttributeModules::AttributesEditor* myAttributesEditor;
@@ -447,7 +449,7 @@ private:
     TemplateEditor* myTemplateEditor;
 
     /// @brief Attribute Carrier Hierarchy
-    GNEFrameModules::HierarchicalElementTree* myHierarchicalElementTree;
+    HierarchicalElementTree* myHierarchicalElementTree;
 
     /// @brief Back Button
     FXButton* myBackButton;

@@ -103,16 +103,16 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myVehicleBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create item Selector modul for vehicles
-    myVehicleTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::VEHICLE, SUMO_TAG_TRIP);
+    myVehicleTagSelector = new TagSelector(this, GNETagProperties::TagType::VEHICLE, SUMO_TAG_TRIP);
 
     // Create vehicle type selector and set DEFAULT_VTYPE_ID as default element
-    myTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
+    myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
 
     // Create vehicle parameters
     myVehicleAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create PathCreator Module
-    myPathCreator = new GNEFrameModules::PathCreator(this);
+    myPathCreator = new PathCreator(this);
 
     // Create Help Creation Module
     myHelpCreation = new HelpCreation(this);
@@ -275,13 +275,13 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
 }
 
 
-GNEFrameModules::TagSelector*
+TagSelector*
 GNEVehicleFrame::getVehicleTagSelector() const {
     return myVehicleTagSelector;
 }
 
 
-GNEFrameModules::PathCreator*
+PathCreator*
 GNEVehicleFrame::getPathCreator() const {
     return myPathCreator;
 }

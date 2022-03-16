@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEM_DrawingShape.h>
 
 
 // ===========================================================================
@@ -530,7 +531,7 @@ public:
     void processEdgeSelection(const std::vector<GNEEdge*>& edges);
 
     /// @brief get drawing mode modul
-    GNEFrameModules::DrawingShape* getDrawingShapeModule() const;
+    DrawingShape* getDrawingShapeModule() const;
 
     /// @brief get Current TAZ modul
     CurrentTAZ* getCurrentTAZModule() const;
@@ -571,7 +572,7 @@ private:
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Drawing shape
-    GNEFrameModules::DrawingShape* myDrawingShape;
+    DrawingShape* myDrawingShape;
 
     /// @brief save TAZ Edges
     TAZSaveChanges* myTAZSaveChanges;

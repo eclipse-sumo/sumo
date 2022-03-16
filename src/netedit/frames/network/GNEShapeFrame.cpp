@@ -218,7 +218,7 @@ GNEShapeFrame::GNEShapeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     myBaseShape(nullptr) {
 
     // create item Selector modul for shapes
-    myShapeTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::SHAPE, SUMO_TAG_POLY);
+    myShapeTagSelector = new TagSelector(this, GNETagProperties::TagType::SHAPE, SUMO_TAG_POLY);
 
     // Create shape parameters
     myShapeAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
@@ -227,7 +227,7 @@ GNEShapeFrame::GNEShapeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
     // Create drawing controls
-    myDrawingShape = new GNEFrameModules::DrawingShape(this);
+    myDrawingShape = new DrawingShape(this);
 
     /// @brief create GEOPOICreator
     myGEOPOICreator = new GEOPOICreator(this);
@@ -382,7 +382,7 @@ GNEShapeFrame::getIdsSelected(const FXList* list) {
 }
 
 
-GNEFrameModules::DrawingShape*
+DrawingShape*
 GNEShapeFrame::getDrawingShapeModule() const {
     return myDrawingShape;
 }

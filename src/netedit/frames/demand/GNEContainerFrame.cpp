@@ -42,16 +42,16 @@ GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, G
     myContainerBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector modul for containers
-    myContainerTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::CONTAINER, SUMO_TAG_CONTAINER);
+    myContainerTagSelector = new TagSelector(this, GNETagProperties::TagType::CONTAINER, SUMO_TAG_CONTAINER);
 
     // create container types selector modul and set DEFAULT_CONTAINERTYPE_ID as default element
-    myTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_CONTAINERTYPE_ID));
+    myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_CONTAINERTYPE_ID));
 
     // create container attributes
     myContainerAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create tag Selector modul for container plans
-    myContainerPlanTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
+    myContainerPlanTagSelector = new TagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
 
     // create container plan attributes
     myContainerPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
@@ -60,7 +60,7 @@ GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, G
     myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
     // create PathCreator Module
-    myPathCreator = new GNEFrameModules::PathCreator(this);
+    myPathCreator = new PathCreator(this);
 
     // limit path creator to pedestrians
     myPathCreator->setVClass(SVC_PEDESTRIAN);
@@ -137,7 +137,7 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ObjectsUnderCursor& obje
 }
 
 
-GNEFrameModules::PathCreator*
+PathCreator*
 GNEContainerFrame::getPathCreator() const {
     return myPathCreator;
 }

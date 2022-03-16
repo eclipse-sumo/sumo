@@ -919,7 +919,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myBackButton->hide();
 
     // Create Overlapped Inspection modul
-    myOverlappedInspection = new GNEFrameModules::OverlappedInspection(this);
+    myOverlappedInspection = new OverlappedInspection(this);
 
     // Create Attributes Editor modul
     myAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
@@ -940,7 +940,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myTemplateEditor = new TemplateEditor(this);
 
     // Create HierarchicalElementTree modul
-    myHierarchicalElementTree = new GNEFrameModules::HierarchicalElementTree(this);
+    myHierarchicalElementTree = new HierarchicalElementTree(this);
 }
 
 
@@ -1234,13 +1234,13 @@ GNEInspectorFrame::getTemplateEditor() const {
 }
 
 
-GNEFrameModules::OverlappedInspection*
+OverlappedInspection*
 GNEInspectorFrame::getOverlappedInspection() const {
     return myOverlappedInspection;
 }
 
 
-GNEFrameModules::HierarchicalElementTree*
+HierarchicalElementTree*
 GNEInspectorFrame::getHierarchicalElementTree() const {
     return myHierarchicalElementTree;
 }
