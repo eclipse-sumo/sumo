@@ -2885,19 +2885,24 @@ MSLane::getMeanSpeed() const {
         return myMaxSpeed;
     }
     double v = 0;
-    const MSLane::VehCont& vehs = getVehiclesSecure();
-    for (VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        v += (*i)->getSpeed();
+    int numVehs = 0;
+    for (const MSVehicle* const veh : getVehiclesSecure()) {
+//        if (!veh->isStopped() || !myEdge->hasLaneChanger()) {
+            v += veh->getSpeed();
+            numVehs++;
+//        }
     }
-    double ret = v / (double) myVehicles.size();
     releaseVehicles();
-    return ret;
+    if (numVehs == 0) {
+        return myMaxSpeed;
+    }
+    return v / numVehs;
 }
 
 
 double
 MSLane::getMeanSpeedBike() const {
-    // @note: redudant code with getMeanSpeed to avoid extra checks in a function that is called very often
+    // @note: redundant code with getMeanSpeed to avoid extra checks in a function that is called very often
     if (myVehicles.size() == 0) {
         return myMaxSpeed;
     }

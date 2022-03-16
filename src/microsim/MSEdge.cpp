@@ -837,37 +837,41 @@ MSEdge::getNormalSuccessor() const {
 double
 MSEdge::getMeanSpeed() const {
     double v = 0;
-    double no = 0;
+    double totalNumVehs = 0;
     if (MSGlobals::gUseMesoSim) {
         for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
-            const int vehNo = segment->getCarNumber();
-            if (vehNo > 0) {
-                v += vehNo * segment->getMeanSpeed();
-                no += vehNo;
+            const int numVehs = segment->getCarNumber();
+            if (numVehs > 0) {
+                v += numVehs * segment->getMeanSpeed();
+                totalNumVehs += numVehs;
             }
         }
-        if (no == 0) {
+        if (totalNumVehs == 0) {
             return getLength() / myEmptyTraveltime; // may include tls-penalty
         }
     } else {
-        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-            const double vehNo = (double)(*i)->getVehicleNumber();
-            v += vehNo * (*i)->getMeanSpeed();
-            no += vehNo;
+        for (const MSLane* const lane : *myLanes) {
+            int numVehs = lane->getVehicleNumber();
+            /* if (numVehs == 0) {
+                // take speed limit but with lowest possible weight
+                numVehs = 1;
+            } */
+            v += numVehs * lane->getMeanSpeed();
+            totalNumVehs += numVehs;
         }
         if (myBidiEdge != nullptr) {
-            for (const MSLane* lane : myBidiEdge->getLanes()) {
+            for (const MSLane* const lane : myBidiEdge->getLanes()) {
                 if (lane->getVehicleNumber() > 0) {
                     // do not route across edges which are already occupied in reverse direction
                     return 0;
                 }
             }
         }
-        if (no == 0) {
+        if (totalNumVehs == 0) {
             return getSpeedLimit();
         }
     }
-    return v / no;
+    return v / totalNumVehs;
 }
 
 double
@@ -877,16 +881,16 @@ MSEdge::getMeanSpeedBike() const {
         return getMeanSpeed();
     }
     double v = 0;
-    double no = 0;
-    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-        const double vehNo = (double)(*i)->getVehicleNumber();
-        v += vehNo * (*i)->getMeanSpeedBike();
-        no += vehNo;
+    double totalNumVehs = 0;
+    for (const MSLane* const lane : *myLanes) {
+        const int numVehs = lane->getVehicleNumber();
+        v += numVehs * lane->getMeanSpeedBike();
+        totalNumVehs += numVehs;
     }
-    if (no == 0) {
+    if (totalNumVehs == 0) {
         return getSpeedLimit();
     }
-    return v / no;
+    return v / totalNumVehs;
 }
 
 double
