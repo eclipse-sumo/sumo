@@ -489,7 +489,7 @@ class Net:
                             for p in l.getShape3D()]
             e.rebuildShape()
 
-    def getInternalPath(self, conn):
+    def getInternalPath(self, conn, fastest=False):
         minInternalCost = 1e400
         minPath = None
         for c in conn:
@@ -499,7 +499,7 @@ class Net:
                 viaPath = []
                 while viaID != "":
                     viaLane = self.getLane(viaID)
-                    viaCost += viaLane.getLength()
+                    viaCost += viaLane.getLength() if not fastest else viaLane.getLength() / viaLane.getSpeed()
                     viaID = viaLane.getOutgoing()[0].getViaLaneID()
                     viaPath.append(viaLane.getEdge())
                 if viaCost < minInternalCost:
@@ -564,6 +564,72 @@ class Net:
                     minPath = (e2,)
                     if self.hasInternal:
                         viaPath, minInternalCost = self.getInternalPath(conn)
+                        if viaPath is not None:
+                            newCost += minInternalCost
+                            if withInternal:
+                                minPath = tuple(viaPath + [e2])
+                    if e2 not in dist or newCost < dist[e2]:
+                        dist[e2] = newCost
+                        heapq.heappush(q, (newCost, e2.getID(), minPath, path))
+        return None, 1e400
+
+    def getFastestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0,
+                       includeFromToCost=True, withInternal=False, ignoreDirection=False,
+                       fromPos=0, toPos=0):
+        """
+        Finds the fastest path from fromEdge to toEdge respecting vClass, using Dijkstra's algorithm.
+        It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.
+        The cost for the returned path is equal to the sum of all edge costs in the path,
+        including the internal connectors, if they are present in the network.
+        The path itself does not include internal edges except for the case
+        when the start or end edge are internal edges.
+        The search may be limited using the given threshold.
+        """
+
+        if self.hasInternal:
+            appendix = ()
+            appendixCost = 0.
+            while toEdge.getFunction() == "internal":
+                appendix = (toEdge,) + appendix
+                appendixCost += toEdge.getLength() / toEdge.getSpeed()
+                toEdge = list(toEdge.getIncoming().keys())[0]
+        q = [(fromEdge.getLength() / fromEdge.getSpeed() if includeFromToCost else 0, fromEdge.getID(), (fromEdge, ), ())]
+        if fromEdge == toEdge and fromPos > toPos and not ignoreDirection:
+            # start search on successors of fromEdge
+            q = []
+            startCost = (fromEdge.getLength() - fromPos) / fromEdge.getSpeed() if includeFromToCost else 0
+            for e2, conn in fromEdge.getAllowedOutgoing(vClass).items():
+                q.append((startCost + e2.getLength() / e2.getSpeed(), e2.getID(), (fromEdge, e2), ()))
+
+        seen = set()
+        dist = {fromEdge: fromEdge.getLength() / fromEdge.getSpeed()}
+        while q:
+            cost, _, e1via, path = heapq.heappop(q)
+            e1 = e1via[-1]
+            if e1 in seen:
+                continue
+            seen.add(e1)
+            path += e1via
+            if e1 == toEdge:
+                if self.hasInternal:
+                    return path + appendix, cost + appendixCost
+                if includeFromToCost and toPos == 0:
+                    # assume toPos=0 is the default value
+                    return path, cost
+                return path, cost - (toEdge.getLength() + toPos) / toEdge.getSpeed()
+            if cost > maxCost:
+                return None, cost
+
+            for e2, conn in chain(e1.getAllowedOutgoing(vClass).items(),
+                                  e1.getIncoming().items() if ignoreDirection else []):
+                # print(cost, e1.getID(), e2.getID(), e2 in seen)
+                if e2 not in seen:
+                    newCost = cost + e2.getLength() / e2.getSpeed()
+                    if e2 == e1.getBidi():
+                        newCost += reversalPenalty
+                    minPath = (e2,)
+                    if self.hasInternal:
+                        viaPath, minInternalCost = self.getInternalPath(conn, fastest=True)
                         if viaPath is not None:
                             newCost += minInternalCost
                             if withInternal:
