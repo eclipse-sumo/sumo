@@ -58,10 +58,10 @@ GNEFrictionCoefficientDialog::GNEFrictionCoefficientDialog(GNEFrictionCoefficien
     FXHorizontalFrame* myAddStepFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Button and Label for adding new Wors
     myAddStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_FRICTIONCOEFFICIENT_ADDROW, GUIDesignButtonIcon);
-    new FXLabel(myAddStepFrame, ("Add new " + toString(SUMO_TAG_STEP)).c_str(), nullptr, GUIDesignLabelThick);
+    new FXLabel(myAddStepFrame, ("Add new " + toString(SUMO_TAG_STEP_COF)).c_str(), nullptr, GUIDesignLabelThick);
     // create Button and Label for sort intervals
     mySortStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_FRICTIONCOEFFICIENT_SORT, GUIDesignButtonIcon);
-    new FXLabel(myAddStepFrame, ("Sort " + toString(SUMO_TAG_STEP) + "s").c_str(), nullptr, GUIDesignLabelThick);
+    new FXLabel(myAddStepFrame, ("Sort " + toString(SUMO_TAG_STEP_COF) + "s").c_str(), nullptr, GUIDesignLabelThick);
     // create List with the data
     myStepsTable = new FXTable(myContentFrame, this, MID_GNE_FRICTIONCOEFFICIENT_TABLE, GUIDesignTableAdditionals);
     myStepsTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
@@ -163,8 +163,8 @@ GNEFrictionCoefficientDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, ("Error updating " + toString(SUMO_TAG_COF) + " " + toString(SUMO_TAG_STEP)).c_str(), "%s",
-                              (toString(SUMO_TAG_COF) + " " + toString(SUMO_TAG_STEP) + "cannot be updated because there are invalid values").c_str());
+        FXMessageBox::warning(getApp(), MBOX_OK, ("Error updating " + toString(SUMO_TAG_COF) + " " + toString(SUMO_TAG_STEP_COF)).c_str(), "%s",
+                              (toString(SUMO_TAG_COF) + " " + toString(SUMO_TAG_STEP_COF) + "cannot be updated because there are invalid values").c_str());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
