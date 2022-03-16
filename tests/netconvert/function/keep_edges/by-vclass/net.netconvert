@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:44 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-16 08:21:01 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -54,19 +59,19 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="500.00,0.00" convBoundary="0.00,0.00,2500.00,0.00" origBoundary="-500.00,0.00,2000.00,500.00" projParameter="!"/>
 
     <edge id="beg" from="absBeg" to="beg" priority="-1">
-        <lane id="beg_0" index="0" speed="27.80" length="500.00" shape="0.00,-4.80 496.00,-4.80"/>
-        <lane id="beg_1" index="1" speed="27.80" length="500.00" shape="0.00,-1.60 496.00,-1.60"/>
+        <lane id="beg_0" index="0" speed="27.80" friction="1.00" length="500.00" shape="0.00,-4.80 496.00,-4.80"/>
+        <lane id="beg_1" index="1" speed="27.80" friction="1.00" length="500.00" shape="0.00,-1.60 496.00,-1.60"/>
     </edge>
     <edge id="end" from="end" to="absEnd" priority="-1">
-        <lane id="end_0" index="0" speed="27.80" length="500.00" shape="1504.00,-4.80 2000.00,-4.80"/>
-        <lane id="end_1" index="1" speed="27.80" length="500.00" shape="1504.00,-1.60 2000.00,-1.60"/>
+        <lane id="end_0" index="0" speed="27.80" friction="1.00" length="500.00" shape="1504.00,-4.80 2000.00,-4.80"/>
+        <lane id="end_1" index="1" speed="27.80" friction="1.00" length="500.00" shape="1504.00,-1.60 2000.00,-1.60"/>
     </edge>
     <edge id="middle" from="beg" to="end" priority="-1">
-        <lane id="middle_0" index="0" speed="13.90" length="1000.00" shape="504.00,-1.60 1496.00,-1.60"/>
+        <lane id="middle_0" index="0" speed="13.90" friction="1.00" length="1000.00" shape="504.00,-1.60 1496.00,-1.60"/>
     </edge>
     <edge id="rend" from="absEnd" to="rabsEnd" priority="-1">
-        <lane id="rend_0" index="0" speed="27.80" length="500.00" shape="2000.00,-4.80 2500.00,-4.80"/>
-        <lane id="rend_1" index="1" speed="27.80" length="500.00" shape="2000.00,-1.60 2500.00,-1.60"/>
+        <lane id="rend_0" index="0" speed="27.80" friction="1.00" length="500.00" shape="2000.00,-4.80 2500.00,-4.80"/>
+        <lane id="rend_1" index="1" speed="27.80" friction="1.00" length="500.00" shape="2000.00,-1.60 2500.00,-1.60"/>
     </edge>
 
     <tlLogic id="end" type="static" programID="0" offset="0">

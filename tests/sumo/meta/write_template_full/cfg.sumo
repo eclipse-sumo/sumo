@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-15 07:54:37 by Eclipse SUMO sumo Version v1_12_0+1381-802d85a9a91
+<!-- generated on 2022-03-16 10:18:32 by Eclipse SUMO sumo Version v1_12_0+1393-6c843c74b2b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -375,6 +375,14 @@
         <device.vehroute.deterministic value="false" type="BOOL" help="The &apos;vehroute&apos; devices are set deterministic using a fraction of 1000"/>
     </vehroutes_device>
 
+    <seeroad_device>
+        <device.Seeroad.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;Seeroad&apos; device"/>
+        <device.Seeroad.explicit value="" synonymes="device.Seeroad.knownveh" type="STR[]" help="Assign a &apos;Seeroad&apos; device to named vehicles"/>
+        <device.Seeroad.deterministic value="false" type="BOOL" help="The &apos;Seeroad&apos; devices are set deterministic using a fraction of 1000"/>
+        <device.Seeroad.stdev value="0.1" type="FLOAT" help="The measurement noise parameter which can be applied to the Seeroad device"/>
+        <device.Seeroad.offset value="0" type="FLOAT" help="The measurement offset parameter which can be applied to the Seeroad device -&gt; e.g. to force false measurements"/>
+    </seeroad_device>
+
     <traci_server>
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
         <num-clients value="1" type="INT" help="Expected number of connecting clients"/>
@@ -421,6 +429,7 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>

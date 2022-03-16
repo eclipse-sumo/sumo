@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:21:10 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-03-16 08:21:03 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -49,98 +54,98 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-593345.09,-5779253.43" convBoundary="4215.39,2341.00,4331.69,2716.03" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":54525860_0" function="internal">
-        <lane id=":54525860_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="15.17" shape="4228.28,2540.89 4223.04,2541.45 4220.22,2540.51 4219.81,2538.05 4221.81,2534.09"/>
+        <lane id=":54525860_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" friction="1.00" length="15.17" shape="4228.28,2540.89 4223.04,2541.45 4220.22,2540.51 4219.81,2538.05 4221.81,2534.09"/>
     </edge>
     <edge id=":54525860_1" function="internal">
-        <lane id=":54525860_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="4.75" shape="4226.62,2536.68 4222.43,2538.91"/>
+        <lane id=":54525860_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" friction="1.00" length="4.75" shape="4226.62,2536.68 4222.43,2538.91"/>
     </edge>
     <edge id=":54525860_2" function="internal">
-        <lane id=":54525860_2_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="8.62" shape="4222.43,2538.91 4222.11,2539.08 4219.80,2539.45 4219.70,2537.79 4221.81,2534.09"/>
+        <lane id=":54525860_2_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" friction="1.00" length="8.62" shape="4222.43,2538.91 4222.11,2539.08 4219.80,2539.45 4219.70,2537.79 4221.81,2534.09"/>
     </edge>
     <edge id=":54525871_0" function="internal">
-        <lane id=":54525871_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="8.91" shape="4252.60,2511.70 4254.83,2510.42 4256.06,2509.11 4257.04,2507.50 4258.50,2505.28"/>
+        <lane id=":54525871_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" friction="1.00" length="8.91" shape="4252.60,2511.70 4254.83,2510.42 4256.06,2509.11 4257.04,2507.50 4258.50,2505.28"/>
     </edge>
     <edge id=":54525871_1" function="internal">
-        <lane id=":54525871_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="8.90" shape="4252.60,2511.70 4260.87,2508.39"/>
+        <lane id=":54525871_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" friction="1.00" length="8.90" shape="4252.60,2511.70 4260.87,2508.39"/>
     </edge>
     <edge id=":54525873_0" function="internal">
-        <lane id=":54525873_0_0" index="0" speed="19.44" length="13.32" shape="4282.99,2462.83 4281.27,2449.62"/>
+        <lane id=":54525873_0_0" index="0" speed="19.44" friction="1.00" length="13.32" shape="4282.99,2462.83 4281.27,2449.62"/>
     </edge>
     <edge id=":54525873_1" function="internal">
-        <lane id=":54525873_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="16.66" length="13.32" shape="4279.36,2462.72 4280.14,2459.30 4280.91,2456.19 4281.38,2453.07 4281.27,2449.62"/>
+        <lane id=":54525873_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="16.66" friction="1.00" length="13.32" shape="4279.36,2462.72 4280.14,2459.30 4280.91,2456.19 4281.38,2453.07 4281.27,2449.62"/>
     </edge>
     <edge id=":54525875_0" function="internal">
-        <lane id=":54525875_0_0" index="0" speed="19.44" length="9.54" shape="4288.60,2505.84 4287.36,2496.38"/>
+        <lane id=":54525875_0_0" index="0" speed="19.44" friction="1.00" length="9.54" shape="4288.60,2505.84 4287.36,2496.38"/>
     </edge>
     <edge id=":54525875_1" function="internal">
-        <lane id=":54525875_1_0" index="0" speed="16.66" length="5.71" shape="4288.60,2505.84 4288.58,2504.05 4289.09,2502.96 4290.13,2502.59 4291.70,2502.91"/>
+        <lane id=":54525875_1_0" index="0" speed="16.66" friction="1.00" length="5.71" shape="4288.60,2505.84 4288.58,2504.05 4289.09,2502.96 4290.13,2502.59 4291.70,2502.91"/>
     </edge>
     <edge id=":54525875_2" function="internal">
-        <lane id=":54525875_2_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="16.66" length="8.76" shape="4282.70,2502.64 4284.99,2501.84 4286.53,2500.53 4287.32,2498.71 4287.36,2496.38"/>
+        <lane id=":54525875_2_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="16.66" friction="1.00" length="8.76" shape="4282.70,2502.64 4284.99,2501.84 4286.53,2500.53 4287.32,2498.71 4287.36,2496.38"/>
     </edge>
     <edge id=":54525875_3" function="internal">
-        <lane id=":54525875_3_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="9.22" shape="4282.70,2502.64 4285.38,2502.08 4287.28,2501.85 4289.14,2502.08 4291.70,2502.91"/>
+        <lane id=":54525875_3_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" friction="1.00" length="9.22" shape="4282.70,2502.64 4285.38,2502.08 4287.28,2501.85 4289.14,2502.08 4291.70,2502.91"/>
     </edge>
     <edge id=":54525876_0" function="internal">
-        <lane id=":54525876_0_0" index="0" speed="19.44" length="10.33" shape="4289.93,2516.29 4288.63,2506.04"/>
+        <lane id=":54525876_0_0" index="0" speed="19.44" friction="1.00" length="10.33" shape="4289.93,2516.29 4288.63,2506.04"/>
     </edge>
     <edge id=":54525876_1" function="internal">
-        <lane id=":54525876_1_0" index="0" speed="16.66" length="5.95" shape="4292.56,2508.31 4291.06,2508.98 4289.91,2508.83 4289.10,2507.85 4288.63,2506.04"/>
+        <lane id=":54525876_1_0" index="0" speed="16.66" friction="1.00" length="5.95" shape="4292.56,2508.31 4291.06,2508.98 4289.91,2508.83 4289.10,2507.85 4288.63,2506.04"/>
     </edge>
     <edge id=":54525877_0" function="internal">
-        <lane id=":54525877_0_0" index="0" speed="19.44" length="14.79" shape="4298.10,2497.40 4300.13,2512.05"/>
-        <lane id=":54525877_0_1" index="1" speed="19.44" length="14.79" shape="4294.93,2497.84 4296.96,2512.49"/>
+        <lane id=":54525877_0_0" index="0" speed="19.44" friction="1.00" length="14.79" shape="4298.10,2497.40 4300.13,2512.05"/>
+        <lane id=":54525877_0_1" index="1" speed="19.44" friction="1.00" length="14.79" shape="4294.93,2497.84 4296.96,2512.49"/>
     </edge>
     <edge id=":54525877_2" function="internal">
-        <lane id=":54525877_2_0" index="0" speed="16.66" length="11.09" shape="4294.93,2497.84 4295.22,2501.56 4294.94,2504.53 4294.12,2506.74 4292.73,2508.20"/>
+        <lane id=":54525877_2_0" index="0" speed="16.66" friction="1.00" length="11.09" shape="4294.93,2497.84 4295.22,2501.56 4294.94,2504.53 4294.12,2506.74 4292.73,2508.20"/>
     </edge>
     <edge id=":54525877_3" function="internal">
-        <lane id=":54525877_3_0" index="0" speed="16.66" length="11.25" shape="4291.89,2502.98 4293.69,2504.13 4295.13,2506.09 4296.22,2508.88 4296.96,2512.49"/>
+        <lane id=":54525877_3_0" index="0" speed="16.66" friction="1.00" length="11.25" shape="4291.89,2502.98 4293.69,2504.13 4295.13,2506.09 4296.22,2508.88 4296.96,2512.49"/>
     </edge>
     <edge id=":54525877_4" function="internal">
-        <lane id=":54525877_4_0" index="0" speed="13.89" length="7.69" shape="4291.89,2502.98 4294.06,2504.10 4294.93,2505.34 4294.48,2506.70 4292.73,2508.20"/>
+        <lane id=":54525877_4_0" index="0" speed="13.89" friction="1.00" length="7.69" shape="4291.89,2502.98 4294.06,2504.10 4294.93,2505.34 4294.48,2506.70 4292.73,2508.20"/>
     </edge>
 
     <edge id="-51800054" from="54525876" to="54525875" priority="-1" spreadType="center">
-        <lane id="-51800054_0" index="0" speed="19.44" length="0.20" shape="4288.63,2506.04 4288.60,2505.84"/>
+        <lane id="-51800054_0" index="0" speed="19.44" friction="1.00" length="0.20" shape="4288.63,2506.04 4288.60,2505.84"/>
     </edge>
     <edge id="-51800056" from="54525875" to="54525873" priority="-1" spreadType="center">
-        <lane id="-51800056_0" index="0" speed="19.44" length="33.84" shape="4287.36,2496.38 4282.99,2462.83"/>
+        <lane id="-51800056_0" index="0" speed="19.44" friction="1.00" length="33.84" shape="4287.36,2496.38 4282.99,2462.83"/>
     </edge>
     <edge id="-51800057" from="54525873" to="54525842" priority="-1" spreadType="center" shape="4281.50,2451.36 4270.17,2366.58 4269.07,2340.97">
-        <lane id="-51800057_0" index="0" speed="19.44" length="109.41" shape="4281.27,2449.62 4270.17,2366.58 4269.07,2340.97"/>
+        <lane id="-51800057_0" index="0" speed="19.44" friction="1.00" length="109.41" shape="4281.27,2449.62 4270.17,2366.58 4269.07,2340.97"/>
     </edge>
     <edge id="-51800058" from="54525871" to="54525873" priority="-1" spreadType="center" shape="4254.33,2510.90 4269.79,2490.07 4276.91,2475.75 4281.50,2451.36">
-        <lane id="-51800058_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="48.19" shape="4258.50,2505.28 4269.79,2490.07 4276.91,2475.75 4279.36,2462.72"/>
+        <lane id="-51800058_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" friction="1.00" length="48.19" shape="4258.50,2505.28 4269.79,2490.07 4276.91,2475.75 4279.36,2462.72"/>
     </edge>
     <edge id="-51800059" from="54525871" to="54525875" priority="-1" spreadType="center" shape="4254.33,2510.90 4268.12,2505.61 4288.03,2501.55">
-        <lane id="-51800059_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="22.65" shape="4260.87,2508.39 4268.12,2505.61 4282.70,2502.64"/>
+        <lane id="-51800059_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" friction="1.00" length="22.65" shape="4260.87,2508.39 4268.12,2505.61 4282.70,2502.64"/>
     </edge>
     <edge id="-51800060" from="54525860" to="54525871" priority="-1" spreadType="center" shape="4215.39,2543.52 4227.36,2525.95 4240.53,2517.31 4254.33,2510.90">
-        <lane id="-51800060_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="38.91" shape="4221.81,2534.09 4227.36,2525.95 4240.53,2517.31 4252.60,2511.70"/>
+        <lane id="-51800060_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" friction="1.00" length="38.91" shape="4221.81,2534.09 4227.36,2525.95 4240.53,2517.31 4252.60,2511.70"/>
     </edge>
     <edge id="-51800062" from="54525882" to="54525860" priority="-1" spreadType="center" shape="4296.89,2572.94 4280.87,2552.59 4261.95,2541.09 4235.30,2539.46 4215.39,2543.52">
-        <lane id="-51800062_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="74.68" shape="4292.42,2567.26 4280.87,2552.59 4261.95,2541.09 4235.30,2539.46 4228.28,2540.89"/>
+        <lane id="-51800062_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" friction="1.00" length="74.68" shape="4292.42,2567.26 4280.87,2552.59 4261.95,2541.09 4235.30,2539.46 4228.28,2540.89"/>
     </edge>
     <edge id="-51800063" from="54525882" to="54525876" priority="-1" spreadType="center">
-        <lane id="-51800063_0" index="0" speed="19.44" length="49.85" shape="4296.01,2565.77 4289.93,2516.29"/>
+        <lane id="-51800063_0" index="0" speed="19.44" friction="1.00" length="49.85" shape="4296.01,2565.77 4289.93,2516.29"/>
     </edge>
     <edge id="51800052" from="54525842" to="54525877" priority="-1" spreadType="center" shape="4273.72,2340.04 4278.40,2365.63 4297.54,2505.08">
-        <lane id="51800052_0" index="0" speed="19.44" length="158.85" shape="4275.37,2340.14 4279.98,2365.38 4298.10,2497.40"/>
-        <lane id="51800052_1" index="1" speed="19.44" length="158.85" shape="4272.22,2340.72 4276.82,2365.88 4294.93,2497.84"/>
+        <lane id="51800052_0" index="0" speed="19.44" friction="1.00" length="158.85" shape="4275.37,2340.14 4279.98,2365.38 4298.10,2497.40"/>
+        <lane id="51800052_1" index="1" speed="19.44" friction="1.00" length="158.85" shape="4272.22,2340.72 4276.82,2365.88 4294.93,2497.84"/>
     </edge>
     <edge id="51800053" from="54525875" to="54525877" priority="-1" spreadType="center">
-        <lane id="51800053_0" index="0" speed="13.89" length="0.20" shape="4291.70,2502.91 4291.89,2502.98"/>
+        <lane id="51800053_0" index="0" speed="13.89" friction="1.00" length="0.20" shape="4291.70,2502.91 4291.89,2502.98"/>
     </edge>
     <edge id="51800055" from="54525877" to="54525876" priority="-1" spreadType="center">
-        <lane id="51800055_0" index="0" speed="13.89" length="0.20" shape="4292.73,2508.20 4292.56,2508.31"/>
+        <lane id="51800055_0" index="0" speed="13.89" friction="1.00" length="0.20" shape="4292.73,2508.20 4292.56,2508.31"/>
     </edge>
     <edge id="51800061" from="54525876" to="54525860" priority="-1" spreadType="center" shape="4289.22,2510.48 4266.53,2516.71 4247.23,2524.12 4215.39,2543.52">
-        <lane id="51800061_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="62.48" shape="4283.58,2512.03 4266.53,2516.71 4247.23,2524.12 4226.62,2536.68"/>
+        <lane id="51800061_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" friction="1.00" length="62.48" shape="4283.58,2512.03 4266.53,2516.71 4247.23,2524.12 4226.62,2536.68"/>
     </edge>
     <edge id="51800087" from="54525877" to="54525903" priority="-1" spreadType="center" shape="4297.54,2505.08 4316.13,2637.85 4318.56,2653.47 4331.69,2716.03">
-        <lane id="51800087_0" index="0" speed="19.44" length="206.54" shape="4300.13,2512.05 4317.71,2637.62 4320.13,2653.18 4333.26,2715.70"/>
-        <lane id="51800087_1" index="1" speed="19.44" length="206.54" shape="4296.96,2512.49 4314.55,2638.08 4316.99,2653.76 4330.12,2716.36"/>
+        <lane id="51800087_0" index="0" speed="19.44" friction="1.00" length="206.54" shape="4300.13,2512.05 4317.71,2637.62 4320.13,2653.18 4333.26,2715.70"/>
+        <lane id="51800087_1" index="1" speed="19.44" friction="1.00" length="206.54" shape="4296.96,2512.49 4314.55,2638.08 4316.99,2653.76 4330.12,2716.36"/>
     </edge>
 
     <junction id="54525842" type="dead_end" x="4270.67" y="2341.00" incLanes="-51800057_0" intLanes="" shape="4276.94,2339.85 4267.48,2341.14 4270.67,2341.00"/>

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-10-05 11:43:08 by Eclipse SUMO netconvert Version v1_10_0+1263-edb8ddf
+<!-- generated on 2022-03-16 08:18:24 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -71,34 +76,34 @@ SPDX-License-Identifier: EPL-2.0
     <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id=":1_0" function="internal">
-        <lane id=":1_0_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="-0.76,1.41 -1.44,0.13 -1.41,-0.76 -0.67,-1.28 0.76,-1.41"/>
+        <lane id=":1_0_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="3.65" friction="1.00" length="4.67" shape="-0.76,1.41 -1.44,0.13 -1.41,-0.76 -0.67,-1.28 0.76,-1.41"/>
     </edge>
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="7.36" length="17.34" shape="639.68,344.83 643.75,347.83 644.93,350.85 643.20,353.89 638.58,356.95"/>
+        <lane id=":2_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="7.36" friction="1.00" length="17.34" shape="639.68,344.83 643.75,347.83 644.93,350.85 643.20,353.89 638.58,356.95"/>
     </edge>
     <edge id=":2_1" function="internal">
-        <lane id=":2_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="5.56" length="9.25" shape="637.13,354.09 639.71,352.42 640.73,350.79 640.22,349.20 638.16,347.64"/>
+        <lane id=":2_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="5.56" friction="1.00" length="9.25" shape="637.13,354.09 639.71,352.42 640.73,350.79 640.22,349.20 638.16,347.64"/>
     </edge>
     <edge id=":3_0" function="internal">
-        <lane id=":3_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="13.64,672.40 12.21,672.22 11.49,671.69 11.49,670.79 12.20,669.54"/>
+        <lane id=":3_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" friction="1.00" length="4.67" shape="13.64,672.40 12.21,672.22 11.49,671.69 11.49,670.79 12.20,669.54"/>
     </edge>
 
     <edge id="-10860201" from="2" to="1" priority="17" type="highway.secondary|railway.tram">
-        <lane id="-10860201_0" index="0" allow="pedestrian" speed="27.78" length="726.70" width="2.00" shape="636.92,349.93 -2.00,3.69"/>
-        <lane id="-10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="726.70" shape="638.16,347.64 -0.76,1.41"/>
+        <lane id="-10860201_0" index="0" allow="pedestrian" speed="27.78" friction="1.00" length="726.70" width="2.00" shape="636.92,349.93 -2.00,3.69"/>
+        <lane id="-10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" friction="1.00" length="726.70" shape="638.16,347.64 -0.76,1.41"/>
     </edge>
     <edge id="-10860203" from="3" to="2" priority="11" type="highway.secondary">
-        <lane id="-10860203_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="700.04" shape="12.20,669.54 637.13,354.09"/>
+        <lane id="-10860203_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" friction="1.00" length="700.04" shape="12.20,669.54 637.13,354.09"/>
     </edge>
     <edge id="10860201" from="1" to="2" priority="17" type="highway.secondary|railway.tram">
-        <lane id="10860201_0" index="0" allow="pedestrian" speed="27.78" length="726.70" width="2.00" shape="2.00,-3.69 640.92,342.54"/>
-        <lane id="10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="726.70" shape="0.76,-1.41 639.68,344.83"/>
+        <lane id="10860201_0" index="0" allow="pedestrian" speed="27.78" friction="1.00" length="726.70" width="2.00" shape="2.00,-3.69 640.92,342.54"/>
+        <lane id="10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" friction="1.00" length="726.70" shape="0.76,-1.41 639.68,344.83"/>
     </edge>
     <edge id="10860203" from="2" to="3" priority="11" type="highway.secondary">
-        <lane id="10860203_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="700.04" shape="638.58,356.95 13.64,672.40"/>
+        <lane id="10860203_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" friction="1.00" length="700.04" shape="638.58,356.95 13.64,672.40"/>
     </edge>
 
-    <junction id="1" type="priority" x="0.00" y="0.00" incLanes="-10860201_0 -10860201_1" intLanes=":1_0_0" shape="-0.00,-0.00 -2.48,4.57 -0.00,-0.00">
+    <junction id="1" type="priority" x="0.00" y="0.00" incLanes="-10860201_0 -10860201_1" intLanes=":1_0_0" shape="-0.00,0.00 -2.48,4.57 -0.00,-0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="2" type="priority" x="647.27" y="350.76" incLanes="10860201_0 10860201_1 -10860203_0" intLanes=":2_0_0 :2_1_0" shape="641.40,341.66 636.44,350.81 637.22,351.44 637.31,351.75 637.21,352.06 636.91,352.36 636.41,352.66 639.30,358.38 644.09,355.52 647.11,352.69 648.35,349.89 647.81,347.12 645.49,344.38">

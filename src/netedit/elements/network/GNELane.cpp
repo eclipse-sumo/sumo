@@ -840,6 +840,8 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             return getID();
         case SUMO_ATTR_SPEED:
             return toString(edge->getLaneSpeed(myIndex));
+	case SUMO_ATTR_FRICTION:
+		return toString(edge->getLaneFriction(myIndex));
         case SUMO_ATTR_ALLOW:
             return getVehicleClassNames(edge->getPermissions(myIndex));
         case SUMO_ATTR_DISALLOW:
@@ -901,6 +903,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ID:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
         case SUMO_ATTR_SPEED:
+	case SUMO_ATTR_FRICTION:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
         case SUMO_ATTR_CHANGE_LEFT:
@@ -933,6 +936,8 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
             return false;
         case SUMO_ATTR_SPEED:
             return canParse<double>(value);
+	case SUMO_ATTR_FRICTION:
+		return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_FRICTION));
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
         case SUMO_ATTR_CHANGE_LEFT:
@@ -1044,6 +1049,9 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEED:
             edge->setSpeed(myIndex, parse<double>(value));
             break;
+	case SUMO_ATTR_FRICTION:
+            edge->setFriction(myIndex, parse<double>(value));
+	    break;
         case SUMO_ATTR_ALLOW:
             edge->setPermissions(parseVehicleClasses(value), myIndex);
             break;

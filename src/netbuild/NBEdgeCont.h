@@ -208,6 +208,8 @@ public:
         double pos = INVALID_DOUBLE;
         /// @brief The speed after this change
         double speed = INVALID_DOUBLE;
+        /// @brief The speed after this change
+        double friction = INVALID_DOUBLE;
         /// @brief The new node that is created for this split
         NBNode* node = nullptr;
         /// @brief The id for the edge before the split
@@ -259,6 +261,7 @@ public:
      * @param[in] noLanesFirstEdge The number of lanes the second part of the split edge shall have
      * @param[in] noLanesSecondEdge The number of lanes the second part of the split edge shall have
      * @param[in] speed The speed for the edge after the split
+     * @param[in] friction The friction for the edge after the split
      * @param[in] changedLeft The number of lanes that is added or removed on the left side of the edge
      *            (By default all added/removed lanes are assumed to be on the right when computing connections)
      * @return Whether the edge could be split
@@ -268,7 +271,7 @@ public:
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
                  int noLanesFirstEdge, int noLanesSecondEdge,
-                 const double speed = -1., const int changedLeft = 0);
+                 const double speed = -1., const double friction = 1., const int changedLeft = 0);
 
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications
@@ -289,7 +292,7 @@ public:
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, double edgepos, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
                  int noLanesFirstEdge, int noLanesSecondEdge,
-                 const double speed = -1., const int changedLeft = 0);
+                 const double speed = -1., const double friction = 1., const int changedLeft = 0);
     /// @}
 
 
@@ -688,6 +691,8 @@ private:
         double visibility;
         /// @brief custom speed for connection
         double speed;
+        /// @brief custom friction for connection
+        double friction;
         /// @brief custom length for connection
         double customLength;
         /// @brief custom shape for connection

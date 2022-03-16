@@ -628,7 +628,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
     // compute same (edges where an intersection doesn't work well
     // (always check an edge and its cw neighbor)
     const double angleChangeLookahead = 35; // distance to look ahead for a misleading angle
-    const bool isXodr = OptionsCont::getOptions().isSet("opendrive-files");
+    const bool isXodr = OptionsCont::getOptions().exists("opendrive-files") && OptionsCont::getOptions().isSet("opendrive-files");
     EdgeSet foundOpposite;
     for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); i++) {
         EdgeVector::const_iterator j;

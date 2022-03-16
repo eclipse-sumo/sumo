@@ -61,6 +61,7 @@ public:
     static double getElectricityConsumption(const std::string& edgeID);
     static int getLastStepVehicleNumber(const std::string& edgeID);
     static double getLastStepMeanSpeed(const std::string& edgeID);
+    static double getMeanFriction(const std::string& edgeID);
     static double getLastStepOccupancy(const std::string& edgeID);
     static int getLastStepHaltingNumber(const std::string& edgeID);
     static double getLastStepLength(const std::string& edgeID);
@@ -76,7 +77,8 @@ public:
     static void adaptTraveltime(const std::string& edgeID, double time, double beginSeconds = 0., double endSeconds = std::numeric_limits<double>::max());
     static void setEffort(const std::string& edgeID, double effort, double beginSeconds = 0., double endSeconds = std::numeric_limits<double>::max());
     static void setMaxSpeed(const std::string& edgeID, double speed);
-
+	static void setFriction(const std::string& edgeID, double value);
+	
 #ifndef LIBTRACI
 #ifndef SWIG
     /** @brief Saves the shape of the requested object in the given container

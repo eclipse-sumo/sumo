@@ -1030,6 +1030,8 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = oc.getString("routeProbe-prefix");
     } else if (tag == SUMO_TAG_VSS) {
         prefix = oc.getString("vss-prefix");
+    } else if (tag == SUMO_TAG_COF) {
+        prefix = oc.getString("cof-prefix");
     } else if (tag == SUMO_TAG_TRACTION_SUBSTATION) {
         prefix = oc.getString("tractionSubstation-prefix");
     } else if (tag == SUMO_TAG_OVERHEAD_WIRE_SECTION) {

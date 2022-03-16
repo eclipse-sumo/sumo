@@ -1,6 +1,8 @@
 set(netedit_dialogs_SRCS
    GNEVariableSpeedSignDialog.h
    GNEVariableSpeedSignDialog.cpp
+   GNEFrictionCoefficientDialog.h
+   GNEFrictionCoefficientDialog.cpp
    GNEAbout.h
    GNEAbout.cpp
    GNEAllowDisallow.h

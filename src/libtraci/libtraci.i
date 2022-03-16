@@ -34,6 +34,7 @@
 #include <libsumo/Rerouter.h>
 #include <libsumo/MeanData.h>
 #include <libsumo/VariableSpeedSign.h>
+#include <libsumo/FrictionCoefficientSign.h>
 #include <libsumo/RouteProbe.h>
 %}
 
@@ -82,4 +83,5 @@
 %include "../libsumo/Rerouter.h"
 %include "../libsumo/MeanData.h"
 %include "../libsumo/VariableSpeedSign.h"
+%include "../libsumo/FrictionCoefficientSign.h"
 %include "../libsumo/RouteProbe.h"
