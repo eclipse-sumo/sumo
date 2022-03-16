@@ -20,7 +20,9 @@
 #pragma once
 #include <config.h>
 
-#include "GNECommonNetworkModules.h"
+#include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEMNetworkElementSelector.h>
+#include <netedit/frames/GNEMConsecutiveLaneSelector.h>
 
 
 // ===========================================================================
@@ -52,13 +54,13 @@ public:
     bool addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get edges selector
-    GNECommonNetworkModules::NetworkElementsSelector* getEdgesSelector() const;
+    GNEMNetworkElementSelector* getEdgesSelector() const;
 
     /// @brief get edges selector
-    GNECommonNetworkModules::NetworkElementsSelector* getLanesSelector() const;
+    GNEMNetworkElementSelector* getLanesSelector() const;
 
     /// @brief get consecutive lane selector
-    GNECommonNetworkModules::ConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
+    GNEMConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
 
     /// @brief create path
     void createPath();
@@ -99,11 +101,11 @@ private:
     GNEFrameModules::SelectorParent* mySelectorAdditionalParent;
 
     /// @brief Module for select edges
-    GNECommonNetworkModules::NetworkElementsSelector* myEdgesSelector;
+    GNEMNetworkElementSelector* myEdgesSelector;
 
     /// @brief Module for select lanes
-    GNECommonNetworkModules::NetworkElementsSelector* myLanesSelector;
+    GNEMNetworkElementSelector* myLanesSelector;
 
     /// @brief Module for select consecutive lanes
-    GNECommonNetworkModules::ConsecutiveLaneSelector* myConsecutiveLaneSelector;
+    GNEMConsecutiveLaneSelector* myConsecutiveLaneSelector;
 };
