@@ -13,9 +13,9 @@
 /****************************************************************************/
 /// @file    GNEFrameModules.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2019
+/// @date    Mar 2022
 ///
-// Auxiliar class for GNEFrame Modules
+// Frame for overlapped elements
 /****************************************************************************/
 #include <config.h>
 

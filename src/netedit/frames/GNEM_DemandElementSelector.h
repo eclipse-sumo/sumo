@@ -13,18 +13,14 @@
 /****************************************************************************/
 /// @file    GNEFrameModules.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2019
+/// @date    Mar 2022
 ///
-// Auxiliar class for GNEFrame Modules
+// Frame for select demand elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <netedit/GNEViewNetHelper.h>
-#include <netedit/elements/GNEAttributeCarrier.h>
 #include <utils/foxtools/FXGroupBoxModule.h>
-#include <utils/foxtools/FXTreeListDinamic.h>
-#include <utils/foxtools/MFXIconComboBox.h>
 
 // ===========================================================================
 // class declaration
