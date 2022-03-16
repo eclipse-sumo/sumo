@@ -176,17 +176,20 @@ class Builder(object):
     def build(self):
         # output name for the osm file, will be used by osmBuild, can be
         # deleted after the process
-        self.filename("osm", "_bbox.osm.xml")
+        self.filename("osm", "_bbox.osm.xml.gz")
         # output name for the net file, will be used by osmBuild, randomTrips and
         # sumo-gui
         self.filename("net", ".net.xml")
 
         if 'osm' in self.data:
             # testing mode
-            shutil.copy(data['osm'], self.files["osm"])
+            self.files["osm"] = data['osm']
         else:
             self.report("Downloading map data")
-            osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp]
+            osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp, "-z",
+                       "-r", json.dumps(self.data["roadTypes"])]
+            if self.data["poly"]:
+                osmArgs.append("--shapes")
             if 'osmMirror' in self.data:
                 osmArgs += ["-u", self.data["osmMirror"]]
             osmGet.get(osmArgs)
@@ -325,10 +328,8 @@ class Builder(object):
             else:
                 SUMO_HOME_VAR = "%SUMO_HOME%"
 
-            randomTripsPath = os.path.join(
-                SUMO_HOME_VAR, "tools", "randomTrips.py")
-            ptlines2flowsPath = os.path.join(
-                SUMO_HOME_VAR, "tools", "ptlines2flows.py")
+            randomTripsPath = os.path.join(SUMO_HOME_VAR, "tools", "randomTrips.py")
+            ptlines2flowsPath = os.path.join(SUMO_HOME_VAR, "tools", "ptlines2flows.py")
 
             self.filename("build.bat", "build.bat", False)
             batchFile = self.files["build.bat"]
@@ -341,6 +342,7 @@ class Builder(object):
                 for opts in sorted(randomTripsCalls):
                     f.write('python "%s" %s\n' %
                             (randomTripsPath, " ".join(map(quoted_str, self.getRelative(opts)))))
+            os.chmod(batchFile, BATCH_MODE)
 
     def parseTripOpts(self, vehicle, options, publicTransport):
         "Return an option list for randomTrips.py for a given vehicle"

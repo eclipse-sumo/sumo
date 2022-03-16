@@ -76,10 +76,10 @@ MSStageTranship::proceed(MSNet* net, MSTransportable* transportable, SUMOTime no
     myDepartPos = previous->getEdgePos(now);
     if (transportable->isPerson()) {
         myState = net->getPersonControl().getNonInteractingModel()->add(transportable, this, now);
-        (*myRouteStep)->addPerson(transportable);
+        (*myRouteStep)->addTransportable(transportable);
     } else {
         myState = net->getContainerControl().getNonInteractingModel()->add(transportable, this, now);
-        (*myRouteStep)->addContainer(transportable);
+        (*myRouteStep)->addTransportable(transportable);
     }
 }
 
@@ -133,11 +133,7 @@ MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bo
 
 bool
 MSStageTranship::moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int /*prevDir*/, MSEdge* /* nextInternal */) {
-    if (transportable->isPerson()) {
-        getEdge()->removePerson(transportable);
-    } else {
-        getEdge()->removeContainer(transportable);
-    }
+    getEdge()->removeTransportable(transportable);
     // transship does a direct move so we are already at our destination
     if (myDestinationStop != nullptr) {
         myDestinationStop->addTransportable(transportable);    //jakob

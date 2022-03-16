@@ -33,7 +33,7 @@ class GNEBusStop;
  * @class GNEAccess
  * class for busStop acces
  */
-class GNEAccess : public GNEAdditional {
+class GNEAccess : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief Default constructor
@@ -50,7 +50,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length,
-              bool friendlyPos, const std::map<std::string, std::string>& parameters);
+              bool friendlyPos, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEAccess();
@@ -112,6 +112,9 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
+
+    /// @brief get parameters map
+    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

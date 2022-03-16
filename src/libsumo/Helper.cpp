@@ -241,7 +241,16 @@ Helper::addSubscriptionFilter(SubscriptionFilterType filter) {
     if (myLastContextSubscription != nullptr) {
         myLastContextSubscription->activeFilters |= filter;
     } else {
-        WRITE_WARNING("addSubscriptionFilter: No previous vehicle context subscription exists to apply the context filter.");
+        // The following code relies on the fact that the filter is 2^(filterType-1),
+        // see Subscription.h and the corresponding TraCIConstants.h.
+        // It is only for getting similar error messages with libsumo and traci.
+        int index = (int)filter;
+        int filterType = 0;
+        if (index != 0) {
+            ++filterType;
+            while (index >>= 1) ++filterType;
+        }
+        throw TraCIException("No previous vehicle context subscription exists to apply filter type " + toHex(filterType, 2));
     }
     return myLastContextSubscription;
 }
@@ -289,25 +298,32 @@ Helper::handleSingleSubscription(const Subscription& s) {
             throw TraCIException("Unsupported domain specified");
         }
         container = containerWrapper->second.get();
-        container->setContext(s.id);
+        container->setContext(&s.id);
     } else {
-        container->setContext("");
+        container->setContext(nullptr);
     }
     for (const std::string& objID : objIDs) {
         if (!s.variables.empty()) {
             std::vector<std::shared_ptr<tcpip::Storage> >::const_iterator k = s.parameters.begin();
             for (const int variable : s.variables) {
-                (*k)->resetPos();
-                handler->handle(objID, variable, container, k->get());
-                ++k;
+                if (s.contextDomain > 0 && variable == libsumo::TRACI_ID_LIST) {
+                    container->empty(objID);
+                } else {
+                    (*k)->resetPos();
+                    handler->handle(objID, variable, container, k->get());
+                    ++k;
+                }
             }
         } else {
             if (s.contextDomain == 0 && getCommandId == libsumo::CMD_GET_VEHICLE_VARIABLE) {
                 // default for vehicles is edge id and lane position
                 handler->handle(objID, VAR_ROAD_ID, container, nullptr);
                 handler->handle(objID, VAR_LANEPOSITION, container, nullptr);
-            } else if (s.contextDomain > 0 || !handler->handle(objID, libsumo::LAST_STEP_VEHICLE_NUMBER, container, nullptr)) {
-                // default for detectors is vehicle number, for all others (and contexts) id list
+            } else if (s.contextDomain > 0) {
+                // default for contexts is an empty map (similar to id list)
+                container->empty(objID);
+            } else if (!handler->handle(objID, libsumo::LAST_STEP_VEHICLE_NUMBER, container, nullptr)) {
+                // default for detectors is vehicle number, for all others id list
                 handler->handle(objID, libsumo::TRACI_ID_LIST, container, nullptr);
             }
         }
@@ -639,21 +655,12 @@ Helper::buildStopData(const SUMOVehicleParameter::Stop& stopPar) {
     if (stopPar.overheadWireSegment != "") {
         stoppingPlaceID = stopPar.overheadWireSegment;
     }
-    int stopFlags = (
-                        (stopPar.parking ? 1 : 0) +
-                        (stopPar.triggered ? 2 : 0) +
-                        (stopPar.containerTriggered ? 4 : 0) +
-                        (stopPar.busstop != "" ? 8 : 0) +
-                        (stopPar.containerstop != "" ? 16 : 0) +
-                        (stopPar.chargingStation != "" ? 32 : 0) +
-                        (stopPar.parkingarea != "" ? 64 : 0) +
-                        (stopPar.overheadWireSegment != "" ? 128 : 0));
 
     return TraCINextStopData(stopPar.lane,
                              stopPar.startPos,
                              stopPar.endPos,
                              stoppingPlaceID,
-                             stopFlags,
+                             stopPar.getFlags(),
                              // negative duration is permitted to indicate that a vehicle cannot
                              // re-enter traffic after parking
                              stopPar.duration != -1 ? STEPS2TIME(stopPar.duration) : INVALID_DOUBLE_VALUE,
@@ -677,8 +684,7 @@ Helper::cleanup() {
     POI::cleanup();
     InductionLoop::cleanup();
     Junction::cleanup();
-    Helper::clearVehicleStates();
-    Helper::clearTransportableStates();
+    Helper::clearStateChanges();
     Helper::clearSubscriptions();
     delete myLaneTree;
     myLaneTree = nullptr;
@@ -686,9 +692,10 @@ Helper::cleanup() {
 
 
 void
-Helper::registerVehicleStateListener() {
+Helper::registerStateListener() {
     if (MSNet::hasInstance()) {
         MSNet::getInstance()->addVehicleStateListener(&myVehicleStateListener);
+        MSNet::getInstance()->addTransportableStateListener(&myTransportableStateListener);
     }
 }
 
@@ -699,22 +706,6 @@ Helper::getVehicleStateChanges(const MSNet::VehicleState state) {
 }
 
 
-void
-Helper::clearVehicleStates() {
-    for (auto& i : myVehicleStateListener.myVehicleStateChanges) {
-        i.second.clear();
-    }
-}
-
-
-void
-Helper::registerTransportableStateListener() {
-    if (MSNet::hasInstance()) {
-        MSNet::getInstance()->addTransportableStateListener(&myTransportableStateListener);
-    }
-}
-
-
 const std::vector<std::string>&
 Helper::getTransportableStateChanges(const MSNet::TransportableState state) {
     return myTransportableStateListener.myTransportableStateChanges[state];
@@ -722,7 +713,10 @@ Helper::getTransportableStateChanges(const MSNet::TransportableState state) {
 
 
 void
-Helper::clearTransportableStates() {
+Helper::clearStateChanges() {
+    for (auto& i : myVehicleStateListener.myVehicleStateChanges) {
+        i.second.clear();
+    }
     for (auto& i : myTransportableStateListener.myTransportableStateChanges) {
         i.second.clear();
     }
@@ -755,6 +749,9 @@ Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape
             break;
         case libsumo::CMD_SUBSCRIBE_EDGE_CONTEXT:
             Edge::storeShape(id, shape);
+            break;
+        case libsumo::CMD_SUBSCRIBE_SIM_CONTEXT:
+            Simulation::storeShape(shape);
             break;
         default:
             break;
@@ -804,6 +801,7 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
         }
         break;
         default:
+            throw TraCIException("Infeasible context domain (" + toString(domain) + ")");
             break;
     }
 }
@@ -1773,8 +1771,8 @@ Helper::SubscriptionWrapper::SubscriptionWrapper(VariableWrapper::SubscriptionHa
 
 
 void
-Helper::SubscriptionWrapper::setContext(const std::string& refID) {
-    myActiveResults = refID == "" ? &myResults : &myContextResults[refID];
+Helper::SubscriptionWrapper::setContext(const std::string* const refID) {
+    myActiveResults = refID == nullptr ? &myResults : &myContextResults[*refID];
 }
 
 
@@ -1817,6 +1815,15 @@ Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int 
 
 
 bool
+Helper::SubscriptionWrapper::wrapDoubleList(const std::string& objID, const int variable, const std::vector<double>& value) {
+    auto sl = std::make_shared<TraCIDoubleList>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
 Helper::SubscriptionWrapper::wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value) {
     (*myActiveResults)[objID][variable] = std::make_shared<TraCIPosition>(value);
     return true;
@@ -1851,6 +1858,12 @@ Helper::SubscriptionWrapper::wrapStringPair(const std::string& objID, const int 
     sl->value.push_back(value.second);
     (*myActiveResults)[objID][variable] = sl;
     return true;
+}
+
+
+void
+Helper::SubscriptionWrapper::empty(const std::string& objID) {
+    (*myActiveResults)[objID]; // initiate the empty map to track the objectID for TRACI_ID_LIST context subscriptions
 }
 
 

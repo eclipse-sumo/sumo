@@ -34,5 +34,6 @@ if tool[0].endswith(".jar"):
     tool = ["java", "-jar"] + tool
 
 if tool[0].endswith(".py"):
-    tool = [os.environ.get('PYTHON', 'python')] + tool
+#    tool = [os.environ.get('PYTHON', 'python'), "-W", "default::DeprecationWarning", "-W", "default::ResourceWarning"] + tool
+    tool = [os.environ.get('PYTHON', 'python'), "-W", "default::DeprecationWarning"] + tool
 subprocess.call(tool + sys.argv[1:], env=os.environ, stdout=sys.stdout, stderr=sys.stderr)

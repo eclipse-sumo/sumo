@@ -216,6 +216,7 @@ enum class GUIIcon {
     BIGARROWLEFT,
     BIGARROWRIGHT,
     FRONTELEMENT,
+    SIMPLIFYNETWORK,
     COMPUTEPATHMANAGER,
     COLLAPSE,
     UNCOLLAPSE,
@@ -309,8 +310,9 @@ enum class GUIIcon {
     MODEMOVE,
     MODESELECT,
     MODETLS,
-    MODEPOLYGON,
+    MODESHAPE,
     MODEPROHIBITION,
+    MODEWIRE,
     /// @}
 
     /// @name NETEDIT Demand modes icons
@@ -344,7 +346,7 @@ enum class GUIIcon {
     OPTIONS,
     /// @}
 
-    /// @name NETEDIT network elements icons
+    /// @name network elements icons
     /// @{
     JUNCTION,
     EDGETYPE,
@@ -356,7 +358,7 @@ enum class GUIIcon {
     CROSSING,
     /// @}
 
-    /// @name NETEDIT additional elements icons
+    /// @name additional elements icons
     /// @{
     BUSSTOP,
     TRAINSTOP,
@@ -373,23 +375,41 @@ enum class GUIIcon {
     ROUTEPROBE,
     VAPORIZER,
     VARIABLESPEEDSIGN,
+    FRICTIONCOEFFICIENT,
     CALIBRATOR,
     PARKINGAREA,
     PARKINGSPACE,
     REROUTERINTERVAL,
     VSSSTEP,
+    COFSTEP,
     CLOSINGREROUTE,
     CLOSINGLANEREROUTE,
     DESTPROBREROUTE,
     PARKINGZONEREROUTE,
     ROUTEPROBREROUTE,
+    /// @}
+
+    /// @name poly elements icons
+    /// @{
+    TRACTION_SUBSTATION,
+    OVERHEADWIRE,
+    OVERHEADWIRE_CLAMP,
+    /// @}
+
+    /// @name poly elements icons
+    /// @{
     POLY,
     POI,
     POILANE,
     POIGEO,
+    /// @}
+
+    /// @name TAZ elements icons
+    /// @{
     TAZ,
     TAZEDGE,
     /// @}
+
 
     /// @name NETEDIT Demand elements icons
     /// @{
@@ -403,6 +423,7 @@ enum class GUIIcon {
     FLOW_JUNCTIONS,
     ROUTEFLOW,
     STOPELEMENT,
+    WAYPOINT,
     PERSON,
     PERSONFLOW,
     PERSONTRIP_FROMTO,

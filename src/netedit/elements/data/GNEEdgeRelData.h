@@ -45,7 +45,7 @@ public:
      * @param[in] parameters parameters map
      */
     GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                   const std::map<std::string, std::string>& parameters);
+                   const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEEdgeRelData();
@@ -185,7 +185,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
+    void toogleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief Invalidated copy constructor.
     GNEEdgeRelData(const GNEEdgeRelData&) = delete;

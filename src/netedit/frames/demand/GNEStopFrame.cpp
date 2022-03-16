@@ -21,7 +21,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEStopFrame.h"
@@ -112,7 +111,7 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myStopParentBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create Stop parent selector
-    myStopParentSelector = new GNEFrameModules::DemandElementSelector(this, {GNETagProperties::TagType::PERSON, GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
+    myStopParentSelector = new GNEFrameModules::DemandElementSelector(this, {GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
 
     // Create item Selector modul for Stops
     myStopTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::STOP, SUMO_TAG_STOP_LANE);
@@ -148,14 +147,15 @@ GNEStopFrame::show() {
     }
     // show or hidde moduls depending of validStopParent
     if (validStopParent) {
-        myStopParentSelector->showDemandElementSelector();
-        myStopTagSelector->showTagSelector();
         // refresh tag selector
         myStopTagSelector->refreshTagSelector();
         // refresh vType selector
         myStopParentSelector->refreshDemandElementSelector();
         // refresh tag selector
         myStopTagSelector->refreshTagSelector();
+        // show
+        myStopParentSelector->showDemandElementSelector();
+        myStopTagSelector->showTagSelector();
     } else {
         // hide moduls (except help creation)
         myStopParentSelector->hideDemandElementSelector();
@@ -172,6 +172,11 @@ GNEStopFrame::show() {
 
 bool
 GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
+    // first check stop type
+    if (myStopTagSelector->getCurrentTemplateAC() == nullptr) {
+        WRITE_WARNING("Selected Stop type isn't valid.");
+        return false;
+    }
     // check if we're selecting a new stop parent
     if (mouseButtonKeyPressed.shiftKeyPressed()) {
         if (objectsUnderCursor.getDemandElementFront() &&
@@ -183,7 +188,6 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
             WRITE_WARNING("Selected Stop parent isn't valid.");
             return false;
         }
-
     } else {
         // now check if stop parent selector is valid
         if (myStopParentSelector->getCurrentDemandElement() == nullptr) {
@@ -220,9 +224,12 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     if (stopTag == SUMO_TAG_NOTHING) {
         WRITE_WARNING("Current selected Stop type isn't valid.");
         return false;
-    } else if (stopTag == SUMO_TAG_STOP_LANE) {
+    } else if ((stopTag == SUMO_TAG_STOP_LANE) || (stopTag == GNE_TAG_WAYPOINT_LANE)) {
         if (lane) {
             stop.lane = lane->getID();
+            if ((stopTag == GNE_TAG_WAYPOINT_LANE) && (stop.speed == 0)) {
+                stop.speed = lane->getSpeed();
+            }
         } else {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_LANE) + " to create a stop placed in a " + toString(SUMO_TAG_LANE));
             return false;
@@ -236,52 +243,64 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         }
     } else if (stoppingPlace) {
         if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
-            if ((stopTag != SUMO_TAG_STOP_BUSSTOP) && (stopTag != GNE_TAG_STOPPERSON_BUSSTOP)) {
+            if ((stopTag != SUMO_TAG_STOP_BUSSTOP) && (stopTag != GNE_TAG_WAYPOINT_BUSSTOP) && (stopTag != GNE_TAG_STOPPERSON_BUSSTOP)) {
                 WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty().getTagStr());
                 return false;
             } else {
                 stop.busstop = stoppingPlace->getID();
+                if ((stopTag == GNE_TAG_WAYPOINT_BUSSTOP) && (stop.speed == 0)) {
+                    stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
+                }
                 stop.startPos = 0;
                 stop.endPos = 0;
             }
         } else if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP) {
-            if (stopTag != SUMO_TAG_STOP_CONTAINERSTOP) {
+            if ((stopTag != SUMO_TAG_STOP_CONTAINERSTOP) && (stopTag != GNE_TAG_WAYPOINT_CONTAINERSTOP)) {
                 WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty().getTagStr());
                 return false;
             } else {
                 stop.containerstop = stoppingPlace->getID();
+                if ((stopTag == GNE_TAG_WAYPOINT_CONTAINERSTOP) && (stop.speed == 0)) {
+                    stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
+                }
                 stop.startPos = 0;
                 stop.endPos = 0;
             }
         } else if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION) {
-            if (stopTag != SUMO_TAG_STOP_CHARGINGSTATION) {
+            if ((stopTag != SUMO_TAG_STOP_CHARGINGSTATION) && (stopTag != GNE_TAG_WAYPOINT_CHARGINGSTATION)) {
                 WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty().getTagStr());
                 return false;
             } else {
                 stop.chargingStation = stoppingPlace->getID();
+                if ((stopTag == GNE_TAG_WAYPOINT_CHARGINGSTATION) && (stop.speed == 0)) {
+                    stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
+                }
                 stop.startPos = 0;
                 stop.endPos = 0;
             }
         } else if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA) {
-            if (stopTag != SUMO_TAG_STOP_PARKINGAREA) {
+            if ((stopTag != SUMO_TAG_STOP_PARKINGAREA) && (stopTag != GNE_TAG_WAYPOINT_PARKINGAREA)) {
                 WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty().getTagStr());
                 return false;
             } else {
                 stop.parkingarea = stoppingPlace->getID();
+                if ((stopTag == GNE_TAG_WAYPOINT_PARKINGAREA) && (stop.speed == 0)) {
+                    stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
+                }
                 stop.startPos = 0;
                 stop.endPos = 0;
             }
         }
     } else {
-        if (stopTag == SUMO_TAG_STOP_BUSSTOP) {
+        if ((stopTag == SUMO_TAG_STOP_BUSSTOP) || (stopTag == GNE_TAG_WAYPOINT_BUSSTOP)) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_STOP_BUSSTOP) + " to create a stop placed in a " + toString(SUMO_TAG_STOP_BUSSTOP));
-        } else if (stopTag == SUMO_TAG_STOP_CONTAINERSTOP) {
+        } else if ((stopTag == SUMO_TAG_STOP_CONTAINERSTOP) || (stopTag == GNE_TAG_WAYPOINT_CONTAINERSTOP)) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_CONTAINER_STOP) + " to create a stop placed in a " + toString(SUMO_TAG_CONTAINER_STOP));
-        } else if (stopTag == SUMO_TAG_CHARGING_STATION) {
+        } else if ((stopTag == SUMO_TAG_STOP_CHARGINGSTATION) || (stopTag == GNE_TAG_WAYPOINT_CHARGINGSTATION)) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_CHARGING_STATION) + " to create a stop placed in a " + toString(SUMO_TAG_CHARGING_STATION));
-        } else if (stopTag == SUMO_TAG_STOP_PARKINGAREA) {
+        } else if ((stopTag == SUMO_TAG_STOP_PARKINGAREA) || (stopTag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_PARKING_AREA) + " to create a stop placed in a " + toString(SUMO_TAG_PARKING_AREA));
-        } else if (stopTag == GNE_TAG_PERSONTRIP_BUSSTOP) {
+        } else if (stopTag == GNE_TAG_STOPPERSON_BUSSTOP) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_STOP_BUSSTOP) + " to create a person stop placed in a " + toString(SUMO_TAG_STOP_BUSSTOP));
         }
         return false;
@@ -354,6 +373,15 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS)) {
         stop.friendlyPos = stopBaseObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS);
     }
+    // obtain posLat
+    if (stopBaseObject->hasStringAttribute(SUMO_ATTR_POSITION_LAT)) {
+        if (GNEAttributeCarrier::canParse<double>(stopBaseObject->getStringAttribute(SUMO_ATTR_POSITION_LAT))) {
+            stop.posLat = GNEAttributeCarrier::parse<double>(stopBaseObject->getStringAttribute(SUMO_ATTR_POSITION_LAT));
+            stop.parametersSet |= STOP_POSLAT_SET;
+        } else {
+            stop.posLat = INVALID_DOUBLE;
+        }
+    }
     // obtain actType
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_ACTTYPE)) {
         stop.actType = stopBaseObject->getStringAttribute(SUMO_ATTR_ACTTYPE);
@@ -364,52 +392,67 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         stop.parametersSet |= STOP_DURATION_SET;
     } else {
         stop.duration = -1;
-        stop.parametersSet &= ~STOP_DURATION_SET;
     }
     if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
         stop.until = stopBaseObject->getTimeAttribute(SUMO_ATTR_UNTIL);
         stop.parametersSet |= STOP_UNTIL_SET;
     } else {
         stop.until = -1;
-        stop.parametersSet &= ~STOP_UNTIL_SET;
     }
     if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_EXTENSION)) {
         stop.extension = stopBaseObject->getTimeAttribute(SUMO_ATTR_EXTENSION);
         stop.parametersSet |= STOP_EXTENSION_SET;
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIGGERED)) {
-        if ((stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "true") || (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "person")) {
-            stop.triggered = true;
+        if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "person") {
             stop.parametersSet |= STOP_TRIGGER_SET;
-        } else {
-            stop.parametersSet &= ~STOP_TRIGGER_SET;
+            stop.triggered = true;
+        } else if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "container") {
+            stop.parametersSet |= STOP_TRIGGER_SET;
+            stop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+            stop.containerTriggered = true;
+        } else if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "join") {
+            stop.parametersSet |= STOP_TRIGGER_SET;
+            stop.joinTriggered = true;
         }
-    }
-    if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
-        stop.containerTriggered = stopBaseObject->getBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED);
-        stop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
-    }
-    if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_PARKING)) {
-        stop.parking = stopBaseObject->getBoolAttribute(SUMO_ATTR_PARKING);
-        stop.parametersSet |= STOP_PARKING_SET;
     }
     if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED)) {
         const auto expected = stopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED);
-        for (const auto& id : expected) {
-            stop.awaitedPersons.insert(id);
+        if (expected.size() > 0) {
+            if (stop.triggered) {
+                for (const auto& id : expected) {
+                    stop.awaitedPersons.insert(id);
+                }
+                stop.parametersSet |= STOP_EXPECTED_SET;
+            } else if (stop.containerTriggered) {
+                for (const auto& id : expected) {
+                    stop.awaitedContainers.insert(id);
+                }
+                stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
+            } 
         }
-        stop.parametersSet |= STOP_EXPECTED_SET;
     }
-    if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED_CONTAINERS)) {
-        const auto expected = stopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED_CONTAINERS);
-        for (const auto& id : expected) {
-            stop.awaitedPersons.insert(id);
+    if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_PERMITTED)) {
+        const auto permitted = stopBaseObject->getStringListAttribute(SUMO_ATTR_PERMITTED);
+        if (permitted.size() > 0) {
+            stop.parametersSet |= STOP_PERMITTED_SET;
+            for (const auto& permit : permitted) {
+                stop.permitted.insert(permit);
+            }
         }
-        stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
+    }
+    if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_PARKING)) {
+        if (stopBaseObject->getBoolAttribute(SUMO_ATTR_PARKING)) {
+            stop.parametersSet |= STOP_PARKING_SET;
+        }
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIP_ID)) {
         stop.tripId = stopBaseObject->getStringAttribute(SUMO_ATTR_TRIP_ID);
         stop.parametersSet |= STOP_TRIP_ID_SET;
+    }
+    if (stopBaseObject->hasStringAttribute(SUMO_ATTR_LINE)) {
+        stop.line = stopBaseObject->getStringAttribute(SUMO_ATTR_LINE);
+        stop.parametersSet |= STOP_LINE_SET;
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_INDEX)) {
         if (stopBaseObject->getStringAttribute(SUMO_ATTR_INDEX) == "fit") {
@@ -430,6 +473,12 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     stopBaseObject->setTag(stopTag);
     stopBaseObject->setStopParameter(stop);
     return true;
+}
+
+
+GNEFrameModules::DemandElementSelector*
+GNEStopFrame::getStopParentSelector() const {
+    return myStopParentSelector;
 }
 
 // ===========================================================================

@@ -35,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # change color using dialog
-netedit.changeColorUsingDialog(5, 5)
+netedit.changeColorUsingDialog(netedit.attrs.POILane.create.colorButton, 5)
 
 # create poi
 netedit.leftClick(referencePosition, 150, 210)
 
 # change color manually (invalid)
-netedit.changeDefaultValue(6, "Vlue")
+netedit.changeDefaultValue(netedit.attrs.POILane.create.color, "Vlue")
 
 # try to create POI
 netedit.leftClick(referencePosition, 200, 210)
 
 # change color manually (valid)
-netedit.changeDefaultValue(6, "blue")
+netedit.changeDefaultValue(netedit.attrs.POILane.create.color, "blue")
 
 # create POI
 netedit.leftClick(referencePosition, 250, 210)

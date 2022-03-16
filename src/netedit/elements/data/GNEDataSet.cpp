@@ -380,7 +380,7 @@ GNEDataSet::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEDataSet::getACParametersMap() const {
     return getParametersMap();
 }
@@ -399,11 +399,13 @@ GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // mark interval toolbar for update
+    myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
 
 
 void
-GNEDataSet::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNEDataSet::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     throw InvalidArgument("Nothing to enable");
 }
 

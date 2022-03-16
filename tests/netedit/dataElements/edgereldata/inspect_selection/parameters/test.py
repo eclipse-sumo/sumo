@@ -54,7 +54,7 @@ netedit.typeEnter()
 netedit.selectMode()
 
 # select all using invert
-netedit.selectionInvert()
+netedit.selectionInvertData()
 
 # go to inspect mode
 netedit.inspectMode()
@@ -63,7 +63,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 285, 120)
 
 # check double parameters
-netedit.checkDoubleParameters(referencePosition, 1, False, 0, 30)
+netedit.checkDoubleParameters(referencePosition, netedit.attrs.edgeRelData.inspectSelection.parameters, False, 0, 30)
 
 # save data elements
 netedit.saveDatas(referencePosition, True, 0, 30)

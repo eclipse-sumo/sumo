@@ -69,7 +69,7 @@ motorways). This should be modelled as described here:
 
 ## Lane-changing prohibitions
 
-Lane-changing prohibtions can be modelled using the lane attributes 'changeLeft' and 'changeRight' with a list of vehicle classes that may change.
+Lane-changing prohibitions can be modelled using the lane attributes 'changeLeft' and 'changeRight' with a list of vehicle classes that may change.
 To disable changing right for normal passenger traffic, set 'changeRight="authority"`.
 
 # Defining Motorway Traffic

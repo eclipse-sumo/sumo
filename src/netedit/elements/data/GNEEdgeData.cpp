@@ -45,9 +45,9 @@
 // GNEEdgeData - methods
 // ---------------------------------------------------------------------------
 
-GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const std::map<std::string, std::string>& parameters) :
+GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const Parameterised::Map& parameters) :
     GNEGenericData(SUMO_TAG_MEANDATA_EDGE, GLO_EDGEDATA, dataIntervalParent, parameters,
-{}, {edgeParent}, {}, {}, {}, {}, {}, {}) {
+        {}, {edgeParent}, {}, {}, {}, {}) {
 }
 
 
@@ -354,7 +354,7 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEEdgeData::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNEEdgeData::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     throw InvalidArgument("Nothing to enable");
 }
 

@@ -1,0 +1,4 @@
+{CLEAR --route-files=input_routes.rou.xml}
+--route-files input_routes.rou.xml,input_routes2.rou.xml
+--tripinfo-output tripinfos.xml
+--tripinfo-output.write-unfinished

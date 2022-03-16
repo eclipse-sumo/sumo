@@ -50,8 +50,47 @@ MultiEntryExit::getIDList() {
 
 int
 MultiEntryExit::getIDCount() {
-    std::vector<std::string> ids;
     return (int)MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).size();
+}
+
+
+std::vector<std::string>
+MultiEntryExit::getEntryLanes(const std::string& detID) {
+    std::vector<std::string> ids;
+    for (auto cs : getDetector(detID)->getEntries()) {
+        ids.push_back(cs.myLane->getID());
+    }
+    return ids;
+}
+
+
+std::vector<std::string>
+MultiEntryExit::getExitLanes(const std::string& detID) {
+    std::vector<std::string> ids;
+    for (auto cs : getDetector(detID)->getExits()) {
+        ids.push_back(cs.myLane->getID());
+    }
+    return ids;
+}
+
+
+std::vector<double>
+MultiEntryExit::getEntryPositions(const std::string& detID) {
+    std::vector<double> pos;
+    for (auto cs : getDetector(detID)->getEntries()) {
+        pos.push_back(cs.myPosition);
+    }
+    return pos;
+}
+
+
+std::vector<double>
+MultiEntryExit::getExitPositions(const std::string& detID) {
+    std::vector<double> pos;
+    for (auto cs : getDetector(detID)->getExits()) {
+        pos.push_back(cs.myPosition);
+    }
+    return pos;
 }
 
 
@@ -160,6 +199,14 @@ MultiEntryExit::handleVariable(const std::string& objID, const int variable, Var
             return wrapper->wrapDouble(objID, variable, getLastIntervalMeanTimeLoss(objID));
         case VAR_LAST_INTERVAL_VEHICLE_NUMBER:
             return wrapper->wrapInt(objID, variable, getLastIntervalVehicleSum(objID));
+        case VAR_LANES:
+            return wrapper->wrapStringList(objID, variable, getEntryLanes(objID));
+        case VAR_EXIT_LANES:
+            return wrapper->wrapStringList(objID, variable, getExitLanes(objID));
+        case VAR_POSITION:
+            return wrapper->wrapDoubleList(objID, variable, getEntryPositions(objID));
+        case VAR_EXIT_POSITIONS:
+            return wrapper->wrapDoubleList(objID, variable, getExitPositions(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

@@ -273,7 +273,7 @@ MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lca
 
 bool
 MSLCHelper::canSaveBlockerLength(const MSVehicle& veh, double requested, double leftSpace) {
-    const double potential = leftSpace - veh.getCarFollowModel().brakeGap(veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), veh.getActionStepLength());
+    const double potential = leftSpace - veh.getCarFollowModel().brakeGap(veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), veh.getActionStepLengthSecs());
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
     if (DEBUG_COND) std::cout << SIMTIME << " canSaveBlockerLength veh=" << veh.getID() << " requested=" << requested << " leftSpace=" << leftSpace << " potential=" << potential << "\n";
 #endif

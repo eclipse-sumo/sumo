@@ -15,12 +15,12 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Error: Attribute 'boardingDuration' in definition of vType 'vType0' is not a time value.
+Error: Attribute 'boardingDuration' in definition of vType 'vType0' is not a valid time value.
 Error: boardingDuration must be equal or greater than 0
 Debug: Adding vType 'vType2' in GNEChange_DemandElement
 Debug: Adding vType 'vType3' in GNEChange_DemandElement
 Debug: Adding vType 'vType4' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Nov152742.6512\netedit.gui\demandElements\vehicletype\load\boardingduration\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\demandElements\vehicletype\load\boardingduration\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00

@@ -511,7 +511,7 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
 
     if (departInSecs < 0.) {
         const int proc = (int) - departInSecs;
-        if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
+        if (proc >= static_cast<int>(DepartDefinition::DEF_MAX)) {
             throw TraCIException("Invalid departure time." + toString(depart) + " " + toString(proc));
         }
         vehicleParams.departProcedure = (DepartDefinition)proc;

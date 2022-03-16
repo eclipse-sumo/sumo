@@ -1,8 +1,12 @@
+lane
+
 startPos
 
 endPos
 
 friendlyPos
+
+posLat
 
 duration
 
@@ -10,16 +14,14 @@ until
 
 extension
 
-triggered
+triggered_person
 
-expected
+triggered_container
 
-containerTrigger
+triggered_join
 
-expectedContainer
+permitted
 
 parking
 
 actType
-
-#tripID

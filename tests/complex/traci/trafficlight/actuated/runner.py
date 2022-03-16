@@ -75,4 +75,14 @@ for i in range(180):
         prolonged = True
     traci.simulationStep()
 
+print("cycleSecond (before):", traci.trafficlight.getParameter(tlsID, "cycleSecond"))
+for key, value in [
+        ("cycleTime", "55"),
+        ("coordinated", "true"),
+        ("offset", "12")]:
+    print("%s (before):" % key, traci.trafficlight.getParameter(tlsID, key))
+    traci.trafficlight.setParameter(tlsID, key, value)
+    print("%s (after):" % key, traci.trafficlight.getParameter(tlsID, key))
+print("cycleSecond (after):", traci.trafficlight.getParameter(tlsID, "cycleSecond"))
+
 traci.close()

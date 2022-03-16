@@ -35,11 +35,10 @@
 #include <netedit/changes/GNEChange_DataInterval.h>
 #include <netedit/changes/GNEChange_GenericData.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/changes/GNEChange_TAZElement.h>
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Edge.h>
 #include <netedit/changes/GNEChange_Junction.h>
 #include <netedit/changes/GNEChange_Lane.h>
-#include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/dialogs/GNEFixAdditionalElements.h>
 #include <netedit/dialogs/GNEFixDemandElements.h>
 #include <netedit/elements/GNEGeneralHandler.h>
@@ -75,6 +74,7 @@ FXIMPLEMENT_ABSTRACT(GNENetHelper::GNEChange_ReplaceEdgeInTLS, GNEChange, nullpt
 // ===========================================================================
 
 const double GNENet::Z_INITIALIZED = 1;
+const std::map<SumoXMLAttr, std::string> GNENet::EMPTY_HEADER;
 
 // ===========================================================================
 // member method definitions
@@ -375,10 +375,6 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);
         }
-        // delete lane shapes
-        while (lane->getChildShapes().size() > 0) {
-            deleteShape(lane->getChildShapes().front(), undoList);
-        }
         // delete lane demand elements
         while (lane->getChildDemandElements().size() > 0) {
             deleteDemandElement(lane->getChildDemandElements().front(), undoList);
@@ -392,13 +388,14 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     while (edge->getChildAdditionals().size() > 0) {
         deleteAdditional(edge->getChildAdditionals().front(), undoList);
     }
-    // delete edge child shapes
-    while (edge->getChildShapes().size() > 0) {
-        deleteShape(edge->getChildShapes().front(), undoList);
-    }
     // delete edge child demand elements
     while (edge->getChildDemandElements().size() > 0) {
-        deleteDemandElement(edge->getChildDemandElements().front(), undoList);
+        // special case for embedded routes
+        if (edge->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+            deleteDemandElement(edge->getChildDemandElements().front()->getParentDemandElements().front(), undoList);
+        } else {
+            deleteDemandElement(edge->getChildDemandElements().front(), undoList);
+        }
     }
     // delete edge child generic datas
     while (edge->getChildGenericDatas().size() > 0) {
@@ -443,11 +440,6 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
         for (const auto& additional : copyOfLaneAdditionals) {
             undoList->changeAttribute(new GNEChange_Attribute(additional, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(lane->getIndex())));
         }
-        // replace in shapes
-        std::vector<GNEShape*> copyOfLaneShapes = lane->getChildShapes();
-        for (const auto& shape : copyOfLaneShapes) {
-            undoList->changeAttribute(new GNEChange_Attribute(shape, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(lane->getIndex())));
-        }
         // replace in demand elements
         std::vector<GNEDemandElement*> copyOfLaneDemandElements = lane->getChildDemandElements();
         for (const auto& demandElement : copyOfLaneDemandElements) {
@@ -462,10 +454,6 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
     // replace in edge additionals children
     while (which->getChildAdditionals().size() > 0) {
         undoList->changeAttribute(new GNEChange_Attribute(which->getChildAdditionals().front(), SUMO_ATTR_EDGE, by->getID()));
-    }
-    // replace in edge shapes children
-    while (which->getChildShapes().size() > 0) {
-        undoList->changeAttribute(new GNEChange_Attribute(which->getChildShapes().front(), SUMO_ATTR_EDGE, by->getID()));
     }
     // replace in edge demand elements children
     while (which->getChildDemandElements().size() > 0) {
@@ -511,10 +499,6 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         // delete lane additional children
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);
-        }
-        // delete lane shape children
-        while (lane->getChildShapes().size() > 0) {
-            deleteShape(lane->getChildShapes().front(), undoList);
         }
         // delete lane demand element children
         while (lane->getChildDemandElements().size() > 0) {
@@ -592,36 +576,6 @@ GNENet::deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList) {
     }
     // remove additional
     undoList->add(new GNEChange_Additional(additional, false), true);
-    undoList->end();
-}
-
-
-void
-GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::MODEDELETE, "delete " + shape->getTagStr());
-    // delete shape
-    undoList->add(new GNEChange_Shape(shape, false), true);
-    undoList->end();
-}
-
-
-void
-GNENet::deleteTAZElement(GNETAZElement* TAZElement, GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::MODEDELETE, "delete " + TAZElement->getTagStr());
-    // remove all demand element children of this TAZElement deleteDemandElement this function recursively
-    while (TAZElement->getChildDemandElements().size() > 0) {
-        deleteDemandElement(TAZElement->getChildDemandElements().front(), undoList);
-    }
-    // remove all generic data children of this TAZElement deleteGenericData this function recursively
-    while (TAZElement->getChildGenericDatas().size() > 0) {
-        deleteGenericData(TAZElement->getChildGenericDatas().front(), undoList);
-    }
-    // remove all TAZElement children of this TAZElement calling this function recursively
-    while (TAZElement->getChildTAZElements().size() > 0) {
-        deleteTAZElement(TAZElement->getChildTAZElements().front(), undoList);
-    }
-    // remove TAZElement
-    undoList->add(new GNEChange_TAZElement(TAZElement, false), true);
     undoList->end();
 }
 
@@ -1080,6 +1034,9 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
         edges.push_back(myAttributeCarriers->retrieveEdge(nbEdge->getID()));
     }
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+    if (lefthand) {
+        std::reverse(edges.begin(), edges.end());
+    }
     const double lefthandSign = lefthand ? -1 : 1;
     std::vector<GNEJunction*> newJunctions;
     GNEEdge* prevOpposite = nullptr;
@@ -1911,18 +1868,6 @@ GNENet::clearAdditionalElements(GNEUndoList* undoList) {
             deleteAdditional(*additionalMap.second.begin(), undoList);
         }
     }
-    // clear shapes
-    for (const auto& shapeMap : myAttributeCarriers->getShapes()) {
-        while (shapeMap.second.size() > 0) {
-            deleteShape(*shapeMap.second.begin(), undoList);
-        }
-    }
-    // clear TAZs
-    for (const auto& TAZMap : myAttributeCarriers->getTAZElements()) {
-        while (TAZMap.second.size() > 0) {
-            deleteTAZElement(*TAZMap.second.begin(), undoList);
-        }
-    }
     undoList->end();
 }
 
@@ -2188,134 +2133,52 @@ GNENet::getDataSetIntervalMaximumEnd() const {
 void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("additional", "additional_file.xsd");
-    // declare map for saving additional sorted by ID
-    std::vector<std::map<std::string, GNEAdditional*> > sortedAdditionals;
-    // first write routes with additional children (due route prob reroutes)
-    std::map<std::string, GNEDemandElement*> sortedRoutes;
-    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        if (route->getChildAdditionals().size() > 0) {
-            sortedRoutes[route->getID()] = route;
-        }
-    }
-    for (const auto& route : sortedRoutes) {
-        route.second->writeDemandElement(device);
-    }
+    // open header
+    device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
+    // write vTypes with additional childrens (due calibrators)
+    writeVTypeComment(device, true);
+    writeVTypes(device, true);
+    // write routes with additional children (due route prob reroutes)
+    writeRouteComment(device, true);
+    writeRoutes(device, true);
     // routeProbes
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& routeProbe : myAttributeCarriers->getAdditionals().at(SUMO_TAG_ROUTEPROBE)) {
-        sortedAdditionals.back()[routeProbe->getID()] = routeProbe;
-    }
+    writeRouteProbeComment(device);
+    writeAdditionalByType(device, {SUMO_TAG_ROUTEPROBE});
     // calibrator
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& calibrator : myAttributeCarriers->getAdditionals().at(SUMO_TAG_CALIBRATOR)) {
-        sortedAdditionals.back()[calibrator->getID()] = calibrator;
-    }
-    // calibratorLane
-    for (const auto& calibratorLane : myAttributeCarriers->getAdditionals().at(GNE_TAG_CALIBRATOR_LANE)) {
-        sortedAdditionals.back()[calibratorLane->getID()] = calibratorLane;
-    }
-    // busStop
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& busStop : myAttributeCarriers->getAdditionals().at(SUMO_TAG_BUS_STOP)) {
-        sortedAdditionals.back()[busStop->getID()] = busStop;
-    }
-    // trainStop
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& trainStop : myAttributeCarriers->getAdditionals().at(SUMO_TAG_TRAIN_STOP)) {
-        sortedAdditionals.back()[trainStop->getID()] = trainStop;
-    }
-    // containerStop
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& containerStop : myAttributeCarriers->getAdditionals().at(SUMO_TAG_CONTAINER_STOP)) {
-        sortedAdditionals.back()[containerStop->getID()] = containerStop;
-    }
-    // chargingStation
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& chargingStation : myAttributeCarriers->getAdditionals().at(SUMO_TAG_CHARGING_STATION)) {
-        sortedAdditionals.back()[chargingStation->getID()] = chargingStation;
-    }
-    // parkingArea
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& parkingArea : myAttributeCarriers->getAdditionals().at(SUMO_TAG_PARKING_AREA)) {
-        sortedAdditionals.back()[parkingArea->getID()] = parkingArea;
-    }
-    // E1
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& E1 : myAttributeCarriers->getAdditionals().at(SUMO_TAG_E1DETECTOR)) {
-        sortedAdditionals.back()[E1->getID()] = E1;
-    }
-    // E1Instant
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& E1Instant : myAttributeCarriers->getAdditionals().at(SUMO_TAG_INSTANT_INDUCTION_LOOP)) {
-        sortedAdditionals.back()[E1Instant->getID()] = E1Instant;
-    }
-    // E2
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& E2 : myAttributeCarriers->getAdditionals().at(SUMO_TAG_E2DETECTOR)) {
-        sortedAdditionals.back()[E2->getID()] = E2;
-    }
-    // E2Multilane
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& E2Multilane : myAttributeCarriers->getAdditionals().at(GNE_TAG_E2DETECTOR_MULTILANE)) {
-        sortedAdditionals.back()[E2Multilane->getID()] = E2Multilane;
-    }
-    // E3
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& E3 : myAttributeCarriers->getAdditionals().at(SUMO_TAG_E3DETECTOR)) {
-        sortedAdditionals.back()[E3->getID()] = E3;
-    }
-    // rerouters
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& rerouter : myAttributeCarriers->getAdditionals().at(SUMO_TAG_REROUTER)) {
-        sortedAdditionals.back()[rerouter->getID()] = rerouter;
-    }
-    // VSS
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& VSS : myAttributeCarriers->getAdditionals().at(SUMO_TAG_VSS)) {
-        sortedAdditionals.back()[VSS->getID()] = VSS;
-    }
-    // Vaporizers
-    sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());
-    for (const auto& vaporizer : myAttributeCarriers->getAdditionals().at(SUMO_TAG_VAPORIZER)) {
-        sortedAdditionals.back()[vaporizer->getID()] = vaporizer;
-    }
-    // now write additionals
-    for (const auto& additionalTag : sortedAdditionals) {
-        for (const auto& additional : additionalTag) {
-            additional.second->writeAdditional(device);
-        }
-    }
-    // write TAZs
-    std::map<std::string, GNETAZElement*> sortedTAZs;
-    for (const auto& TAZ : myAttributeCarriers->getTAZElements().at(SUMO_TAG_TAZ)) {
-        sortedTAZs[TAZ->getID()] = TAZ;
-    }
-    for (const auto& TAZElement : sortedTAZs) {
-        TAZElement.second->writeTAZElement(device);
-    }
-    // write Polygons
-    std::map<std::string, GNEShape*> sortedShapes;
-    for (const auto& poly : myAttributeCarriers->getShapes().at(SUMO_TAG_POLY)) {
-        sortedShapes[poly->getID()] = poly;
-    }
-    for (const auto& shape : sortedShapes) {
-        shape.second->writeShape(device);
-    }
-    sortedShapes.clear();
-    // write POIs
-    for (const auto& POI : myAttributeCarriers->getShapes().at(SUMO_TAG_POI)) {
-        sortedShapes[POI->getID()] = POI;
-    }
-    for (const auto& POILane : myAttributeCarriers->getShapes().at(GNE_TAG_POILANE)) {
-        sortedShapes[POILane->getID()] = POILane;
-    }
-    for (const auto& POIGEO : myAttributeCarriers->getShapes().at(GNE_TAG_POIGEO)) {
-        sortedShapes[POIGEO->getID()] = POIGEO;
-    }
-    for (const auto& shape : sortedShapes) {
-        shape.second->writeShape(device);
-    }
+    writeCalibratorComment(device);
+    writeAdditionalByType(device, {SUMO_TAG_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE});
+    // stoppingPlaces
+    writeStoppingPlaceComment(device);
+    writeAdditionalByType(device, {SUMO_TAG_BUS_STOP});
+    writeAdditionalByType(device, {SUMO_TAG_TRAIN_STOP});
+    writeAdditionalByType(device, {SUMO_TAG_CONTAINER_STOP});
+    writeAdditionalByType(device, {SUMO_TAG_CHARGING_STATION});
+    writeAdditionalByType(device, {SUMO_TAG_PARKING_AREA});
+    // detectors
+    writeDetectorComment(device);
+    writeAdditionalByType(device, {SUMO_TAG_E1DETECTOR});
+    writeAdditionalByType(device, {SUMO_TAG_INSTANT_INDUCTION_LOOP});
+    writeAdditionalByType(device, {SUMO_TAG_E2DETECTOR, GNE_TAG_E2DETECTOR_MULTILANE});
+    writeAdditionalByType(device, {SUMO_TAG_E3DETECTOR});
+    // Other additionals
+    writeOtherAdditionalsComment(device);
+    writeAdditionalByType(device, {SUMO_TAG_REROUTER});
+    writeAdditionalByType(device, {SUMO_TAG_VSS});
+    writeAdditionalByType(device, {SUMO_TAG_COF});
+    writeAdditionalByType(device, {SUMO_TAG_VAPORIZER});
+    // shapes
+    writeShapesComment(device);
+    writeAdditionalByType(device, {SUMO_TAG_POLY});
+    writeAdditionalByType(device, {SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO});
+    // TAZs
+    writeTAZComment(device);
+    writeAdditionalByType(device, {SUMO_TAG_TAZ});
+    // Wire element
+    writeWireComment(device);
+    writeAdditionalByType(device, {SUMO_TAG_TRACTION_SUBSTATION});
+    writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_SECTION});
+    writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
+    // close device
     device.close();
 }
 
@@ -2323,36 +2186,14 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
 void
 GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("routes", "routes_file.xsd", std::map<SumoXMLAttr, std::string>(), false);
-    // declare map for saving demand elements sorted by ID
-    std::map<std::string, GNEDemandElement*> sortedDemandElements;
+    // open header
+    device.writeXMLHeader("routes", "routes_file.xsd", EMPTY_HEADER, false);
     // first  write all vTypeDistributions (and their vTypes)
-    for (const auto& vTypeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-        sortedDemandElements[vTypeDistribution->getID()] = vTypeDistribution;
-    }
-    for (const auto& demandElement : sortedDemandElements) {
-        demandElement.second->writeDemandElement(device);
-    }
-    sortedDemandElements.clear();
-    // now write all vType without vTypeDistributions
-    for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        if (vType->getParentDemandElements().empty()) {
-            sortedDemandElements[vType->getID()] = vType;
-        }
-    }
-    for (const auto& demandElement : sortedDemandElements) {
-        demandElement.second->writeDemandElement(device);
-    }
-    sortedDemandElements.clear();
+    writeVTypeComment(device, false);
+    writeVTypes(device, false);
     // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
-    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        if (route->getChildAdditionals().empty()) {
-            sortedDemandElements[route->getID()] = route;
-        }
-    }
-    for (const auto& demandElement : sortedDemandElements) {
-        demandElement.second->writeDemandElement(device);
-    }
+    writeRouteComment(device, false);
+    writeRoutes(device, false);
     // sort vehicles/persons by depart
     std::map<double, std::map<std::string, GNEDemandElement*> > vehiclesSortedByDepart;
     for (const auto& demandElementTag : myAttributeCarriers->getDemandElements()) {
@@ -2364,11 +2205,15 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
         }
     }
     // finally write all vehicles, persons and containers sorted by depart time (and their associated stops, personPlans, etc.)
-    for (const auto& vehicleTag : vehiclesSortedByDepart) {
-        for (const auto& vehicle : vehicleTag.second) {
-            vehicle.second->writeDemandElement(device);
+    if (vehiclesSortedByDepart.size() > 0) {
+        device << ("    <!-- Vehicles, persons and containers (sorted by depart) -->\n");
+        for (const auto& vehicleTag : vehiclesSortedByDepart) {
+            for (const auto& vehicle : vehicleTag.second) {
+                vehicle.second->writeDemandElement(device);
+            }
         }
     }
+    // close device
     device.close();
 }
 
@@ -2376,13 +2221,233 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
 void
 GNENet::saveDataElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("data", "datamode_file.xsd", std::map<SumoXMLAttr, std::string>(), false);
+    device.writeXMLHeader("data", "datamode_file.xsd", EMPTY_HEADER, false);
     // write all data sets
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         dataSet->writeDataSet(device);
     }
     // close device
     device.close();
+}
+
+
+void
+GNENet::writeAdditionalByType(OutputDevice& device, const std::vector<SumoXMLTag> tags) const {
+    std::map<std::string, GNEAdditional*> sortedAdditionals;
+    for (const auto &tag : tags) {
+        for (const auto& additional : myAttributeCarriers->getAdditionals().at(tag)) {
+            if (sortedAdditionals.count(additional->getID()) == 0) {
+                sortedAdditionals[additional->getID()] = additional;
+            } else {
+                throw ProcessError("Duplicated ID");
+            }
+        }
+    }
+    for (const auto& additional : sortedAdditionals) {
+        additional.second->writeAdditional(device);
+    }
+}
+
+
+void
+GNENet::writeDemandByType(OutputDevice& device, SumoXMLTag tag) const {
+    std::map<std::string, GNEDemandElement*> sortedDemandElements;
+    for (const auto& demandElement : myAttributeCarriers->getDemandElements().at(tag)) {
+        sortedDemandElements[demandElement->getID()] = demandElement;
+    }
+    for (const auto& demandElement : sortedDemandElements) {
+        demandElement.second->writeDemandElement(device);
+    }
+}
+
+
+void 
+GNENet::writeRoutes(OutputDevice& device, const bool additionalFile) const {
+    std::map<std::string, GNEDemandElement*> sortedRoutes;
+    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
+        if ((additionalFile && (route->getChildAdditionals().size() > 0)) || 
+            (!additionalFile && (route->getChildAdditionals().size() == 0))) {
+            sortedRoutes[route->getID()] = route;
+        }
+    }
+    for (const auto& route : sortedRoutes) {
+        route.second->writeDemandElement(device);
+    }
+}
+
+
+void 
+GNENet::writeVTypes(OutputDevice& device, const bool additionalFile) const {
+    std::map<std::string, GNEDemandElement*> sortedElements;
+    // write vType Distributions
+    for (const auto& vTypeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
+        if ((additionalFile && (vTypeDistribution->getChildAdditionals().size() > 0)) || 
+            (!additionalFile && (vTypeDistribution->getChildAdditionals().size() == 0))) {
+            sortedElements[vTypeDistribution->getID()] = vTypeDistribution;
+        }
+    }
+    for (const auto& element : sortedElements) {
+        element.second->writeDemandElement(device);
+    }
+    sortedElements.clear();
+    // write vTypes
+    for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
+        // special case for default vTypes
+        const bool defaultVType = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE));
+        const bool defaultVTypeModified = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED));
+        // only write defaul vType modified
+        if ((vType->getParentDemandElements().size() == 0) && (!defaultVType || (defaultVType && defaultVTypeModified))) {
+            if ((additionalFile && (vType->getChildAdditionals().size() > 0)) || 
+                (!additionalFile && (vType->getChildAdditionals().size() == 0))) {
+                sortedElements[vType->getID()] = vType;
+            }
+        }
+    }
+    for (const auto& element : sortedElements) {
+        element.second->writeDemandElement(device);
+    }
+}
+
+
+bool 
+GNENet::writeVTypeComment(OutputDevice& device, const bool additionalFile) const {
+    // vType Distributions
+    for (const auto& vTypeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
+        if (additionalFile && (vTypeDistribution->getChildAdditionals().size() > 0)) {
+            device << ("    <!-- VTypes (used in calibratorFlows) -->\n");
+            return true;
+        } else if (!additionalFile && (vTypeDistribution->getChildAdditionals().size() == 0)) {
+            device << ("    <!-- VTypes -->\n");
+            return true;
+        }
+    }
+    // vTypes
+    for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
+        // special case for default vTypes
+        const bool defaultVType = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE));
+        const bool defaultVTypeModified = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED));
+        // only write defaul vType modified
+        if ((vType->getParentDemandElements().size() == 0) && (!defaultVType || (defaultVType && defaultVTypeModified))) {
+            if (additionalFile && (vType->getChildAdditionals().size() > 0)) {
+                device << ("    <!-- VTypes (used in calibratorFlows) -->\n");
+                return true;
+            } else if (!additionalFile && (vType->getChildAdditionals().size() == 0)) {
+                device << ("    <!-- VTypes -->\n");
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeRouteComment(OutputDevice& device, const bool additionalFile) const {
+    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
+        if (additionalFile && (route->getChildAdditionals().size() > 0)) {
+            device << ("    <!-- Routes (used in RouteProbReroutes and calibratorFlows) -->\n");
+            return true;
+        } else if (!additionalFile && (route->getChildAdditionals().size() == 0)) {
+            device << ("    <!-- Routes -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeRouteProbeComment(OutputDevice& device) const {
+    if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_ROUTEPROBE).size() > 0) {
+        device << ("    <!-- RouteProbes -->\n");
+        return true;
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeCalibratorComment(OutputDevice& device) const {
+    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isCalibrator() && (additionals.second.size() > 0)) {
+            device << ("    <!-- Calibrators -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeStoppingPlaceComment(OutputDevice& device) const {
+    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isStoppingPlace() && (additionals.second.size() > 0)) {
+            device << ("    <!-- StoppingPlaces -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeDetectorComment(OutputDevice& device) const {
+    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isDetector() && (additionals.second.size() > 0)) {
+            device << ("    <!-- Detectors -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
+    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isAdditionalPureElement() &&
+            !GNEAttributeCarrier::getTagProperty(additionals.first).isStoppingPlace() &&
+            !GNEAttributeCarrier::getTagProperty(additionals.first).isDetector() &&
+            !GNEAttributeCarrier::getTagProperty(additionals.first).isCalibrator() &&
+            (additionals.first != SUMO_TAG_ROUTEPROBE) && (additionals.first != SUMO_TAG_ACCESS) &&
+            (additionals.first != SUMO_TAG_PARKING_SPACE) && (additionals.second.size() > 0)) {
+            device << ("    <!-- Other additionals -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeShapesComment(OutputDevice& device) const {
+    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isShapeElement() && (additionals.second.size() > 0)) {
+            device << ("    <!-- Shapes -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeTAZComment(OutputDevice& device) const {
+    if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_TAZ).size() > 0) {
+        device << ("    <!-- TAZs -->\n");
+        return true;
+    }
+    return false;
+}
+
+
+bool 
+GNENet::writeWireComment(OutputDevice& device) const {
+    if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_TRACTION_SUBSTATION).size() > 0) {
+        device << ("    <!-- Wires -->\n");
+        return true;
+    }
+    return false;
 }
 
 
@@ -2598,8 +2663,6 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         myAttributeCarriers->clearJunctions();
         myAttributeCarriers->clearEdges();
         myAttributeCarriers->clearAdditionals();
-        myAttributeCarriers->clearShapes();
-        myAttributeCarriers->clearTAZElements();
         myAttributeCarriers->clearDemandElements();
         // enable update geometry again
         myUpdateGeometryEnabled = true;

@@ -29,9 +29,15 @@
 // member definitions
 // ===========================================================================
 
+void
+GUIShortcutsSubSys::alterSUMOAccelerator(GUIApplicationWindow* GUIApp, GUIShortcut keysym, long msg) {
+    GUIApp->getAccelTable()->addAccel(parseKey(keysym), GUIApp, FXSEL(SEL_COMMAND, msg));
+}
 
 void
 GUIShortcutsSubSys::buildSUMOAccelerators(GUIApplicationWindow* GUIApp) {
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_SPACE), GUIApp, FXSEL(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS));
 
     // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
 
@@ -123,50 +129,50 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
 
     // initialize single hotkeys using upper and lower Keys (to avoid problems in Linux)
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_a), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODES_ADDITIONAL_STOP));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_A), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODES_ADDITIONAL_STOP));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_a), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_ADDITIONAL_STOP));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_A), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_ADDITIONAL_STOP));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_c), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_C), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_c), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_C), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_d), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODES_DELETE));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_D), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODES_DELETE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_d), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODE_DELETE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_D), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODE_DELETE));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_e), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODES_EDGE_EDGEDATA));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_E), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODES_EDGE_EDGEDATA));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_e), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_E), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA));
 
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_g), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_G_MODE_CONTAINER));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_G), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_G_MODE_CONTAINER));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_h), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_H_MODE_CONTAINERDATA));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_H), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_H_MODE_CONTAINERDATA));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_h), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_H), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_i), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_I_MODES_INSPECT));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_I), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_I_MODES_INSPECT));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_i), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_I), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_m), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MODES_MOVE));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_M), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MODES_MOVE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_m), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_M), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_p), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_MODES_POLYGON_PERSON));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_P), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_MODES_POLYGON_PERSON));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_p), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_MODE_POLYGON_PERSON));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_P), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_MODE_POLYGON_PERSON));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_r), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_R), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_r), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_R), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_s), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_S_MODES_SELECT));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_S), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_S_MODES_SELECT));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_s), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_S_MODE_SELECT));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_S), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_S_MODE_SELECT));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_t), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODES_TLS_TYPE));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_T), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODES_TLS_TYPE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_t), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_T), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_v), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_V_MODES_VEHICLE));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_V), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_V_MODES_VEHICLE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_v), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_V_MODE_VEHICLE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_V), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_V_MODE_VEHICLE));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_w), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_W), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_w), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_W), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_z), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_MODES_TAZ_TAZREL));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_Z), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_MODES_TAZ_TAZREL));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_z), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_Z), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL));
 
     // Control Keys
 
@@ -334,7 +340,7 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_BACKSPACE),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_BACKSPACE));
 }
 
-
+// beware!: xx in the key - xx + yy expression may change when the content of enum GUIShortcut is changed (e.g. addition of space key)
 int
 GUIShortcutsSubSys::parseKey(GUIShortcut key) {
     if ((key >= KEY_0) &&  key <= KEY_9) {
@@ -343,8 +349,10 @@ GUIShortcutsSubSys::parseKey(GUIShortcut key) {
         return (key - 10 + 97); // 97 is 'a' in ASCII
     } else if ((key >= KEY_A) &&  key <= KEY_Z) {
         return (key - 36 + 65); // 65 is 'A' in ASCII
+    } else if (key == KEY_SPACE) {
+        return (key - 62 + 32); // 32 is SPACE  in ASCII
     } else if ((key >= KEY_F1) &&  key <= KEY_F12) {
-        return (key - 62 + 65470); // 65470 is 'F1' in ASCII
+        return (key - 63 + 65470); // 65470 is 'F1' in ASCII
     } else if (key == KEY_ESC) {
         return parseAccel("Esc");
     } else if (key == KEY_ENTER) {

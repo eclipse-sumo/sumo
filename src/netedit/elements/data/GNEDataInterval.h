@@ -113,10 +113,10 @@ public:
     const std::vector<GNEGenericData*>& getGenericDataChildren() const;
 
     /// @brief check if there is already a TAZRel defined in one TAZ
-    bool TAZRelExists(const GNETAZElement* TAZ) const;
+    bool TAZRelExists(const GNEAdditional* TAZ) const;
 
     /// @brief check if there is already a TAZRel defined between two TAZs
-    bool TAZRelExists(const GNETAZElement* fromTAZ, const GNETAZElement* toTAZ) const;
+    bool TAZRelExists(const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ) const;
 
     /// @}
 
@@ -180,7 +180,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief all attribute colors
@@ -206,7 +206,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
+    void toogleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief Invalidated copy constructor.
     GNEDataInterval(const GNEDataInterval&) = delete;

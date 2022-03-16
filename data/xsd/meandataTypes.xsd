@@ -24,6 +24,7 @@
 
     <xsd:complexType name="edgeLaneDataType">
         <xsd:attribute name="id" use="required" type="xsd:string"/>
+        <xsd:attribute name="numEdges" use="optional" type="nonNegativeIntType"/>
         <xsd:attribute name="sampledSeconds" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="traveltime" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="overlapTraveltime" use="optional" type="nonNegativeFloatType"/>

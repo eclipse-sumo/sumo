@@ -41,7 +41,7 @@ GUIGeometry::GUIGeometry() {
 
 GUIGeometry::GUIGeometry(const PositionVector& shape) :
     myShape(shape) {
-    // calculate shape rotation and lenghts
+    // calculate shape rotation and lengths
     calculateShapeRotationsAndLengths();
 }
 
@@ -60,7 +60,7 @@ GUIGeometry::updateGeometry(const PositionVector& shape) {
     clearGeometry();
     // update shape
     myShape = shape;
-    // calculate shape rotation and lenghts
+    // calculate shape rotation and lengths
     calculateShapeRotationsAndLengths();
 }
 
@@ -95,7 +95,7 @@ GUIGeometry::updateGeometry(const PositionVector& shape, double starPosOverShape
     myShape = shape;
     // set lateral offset
     myShape.move2side(lateralOffset);
-    // get shape lenght
+    // get shape length
     const double shapeLength = myShape.length2D();
     // set initial beginTrim value
     if (starPosOverShape < 0) {
@@ -119,7 +119,7 @@ GUIGeometry::updateGeometry(const PositionVector& shape, double starPosOverShape
     }
     // trim shape
     myShape = myShape.getSubpart2D(starPosOverShape, endPosOverShape);
-    // calculate shape rotation and lenghts
+    // calculate shape rotation and lengths
     calculateShapeRotationsAndLengths();
 }
 
@@ -133,7 +133,7 @@ GUIGeometry::updateGeometry(const PositionVector& shape, double beginTrimPositio
     myShape = shape;
     // check trim values
     if ((beginTrimPosition != -1) || (endTrimPosition != -1)) {
-        // get shape lenght
+        // get shape length
         const double shapeLength = myShape.length2D();
         // set initial beginTrim value
         if (beginTrimPosition < 0) {
@@ -165,7 +165,7 @@ GUIGeometry::updateGeometry(const PositionVector& shape, double beginTrimPositio
             myShape.push_back_noDoublePos(extraLastPosition);
         }
     }
-    // calculate shape rotation and lenghts
+    // calculate shape rotation and lengths
     calculateShapeRotationsAndLengths();
 }
 
@@ -180,11 +180,18 @@ GUIGeometry::updateSinglePosGeometry(const Position& position, const double rota
 }
 
 
+void 
+GUIGeometry::moveGeometryToSide(const double amount) {
+    // move shape
+    myShape.move2side(amount);
+}
+
+
 void
 GUIGeometry::scaleGeometry(const double scale) {
-    // scale shape and lenghts
+    // scale shape and lengths
     myShape.scaleRelative(scale);
-    // scale lenghts
+    // scale lengths
     for (auto& shapeLength : myShapeLengths) {
         shapeLength *= scale;
     }
@@ -471,11 +478,11 @@ GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position& p
             GLHelper::setColor(color);
             GLHelper::drawBoxLine(parent, rot, sqrt(distanceSquared), .04);
         } else if (distanceSquared > 25) {
-            // draw first box line with lenght 4.9
+            // draw first box line with length 4.9
             GLHelper::setColor(color.changedBrightness(-50));
             GLHelper::drawBoxLine(parent, rot, 4.9, .05);
             glTranslated(0, 0, 0.1);
-            // draw second box line with lenght 4.9
+            // draw second box line with length 4.9
             GLHelper::setColor(color);
             GLHelper::drawBoxLine(parent, rot, 4.9, .04);
             // draw arrow depending of distanceSquared (10*10)
@@ -533,11 +540,11 @@ GUIGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position& ch
             GLHelper::setColor(color);
             GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), .04);
         } else {
-            // draw first box line with lenght 4.9
+            // draw first box line with length 4.9
             GLHelper::setColor(color.changedBrightness(-50));
             GLHelper::drawBoxLine(child, rot, 4.9, .05);
             glTranslated(0, 0, 0.1);
-            // draw second box line with lenght
+            // draw second box line with length
             GLHelper::setColor(color);
             GLHelper::drawBoxLine(child, rot, 4.9, .04);
             // draw arrow depending of distanceSquared (10*10)

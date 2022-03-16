@@ -50,6 +50,7 @@ class GUIGlObject;
  * Each time a new message is passed, the window is reopened.
  */
 class GUIMessageWindow : public FXText {
+    FXDECLARE(GUIMessageWindow)
 public:
     /** @brief Constructor
      *
@@ -104,6 +105,12 @@ public:
     static SUMOTime getBreakPointOffset() {
         return myBreakPointOffset;
     }
+
+    /// @brief handle keys
+    long onKeyPress(FXObject* o, FXSelector sel, void* data);
+
+protected:
+    FOX_CONSTRUCTOR(GUIMessageWindow)
 
 private:
     /// @brief class MsgOutputDevice

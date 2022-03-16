@@ -26,7 +26,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSSOTLPlatoonPolicy::MSSOTLPlatoonPolicy(const std::map<std::string, std::string>& parameters) :
+MSSOTLPlatoonPolicy::MSSOTLPlatoonPolicy(const Parameterised::Map& parameters) :
     MSSOTLPolicy("Platoon", parameters) {
     init();
 }
@@ -38,7 +38,7 @@ MSSOTLPlatoonPolicy::MSSOTLPlatoonPolicy(MSSOTLPolicyDesirability* desirabilityA
 }
 
 MSSOTLPlatoonPolicy::MSSOTLPlatoonPolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm,
-        const std::map<std::string, std::string>& parameters) :
+        const Parameterised::Map& parameters) :
     MSSOTLPolicy("Platoon", desirabilityAlgorithm, parameters) {
     getDesirabilityAlgorithm()->setKeyPrefix("PLATOON");
     init();

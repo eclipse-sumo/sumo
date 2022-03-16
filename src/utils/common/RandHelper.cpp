@@ -23,16 +23,31 @@
 #include <ctime>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/SysUtils.h>
+#include "StdDefs.h"
 #include "RandHelper.h"
+
+
+// debug vehicle movement randomness (dawdling in finalizeSpeed)
+//#define DEBUG_FLAG1
+//#define DEBUG_RANDCALLS
+//#define DEBUG_RANDCALLS_PARALLEL
 
 
 // ===========================================================================
 // static member variables
 // ===========================================================================
-SumoRNG RandHelper::myRandomNumberGenerator;
+SumoRNG RandHelper::myRandomNumberGenerator("default");
+
 #ifdef DEBUG_RANDCALLS
-std::map<SumoRNG*, int> RandHelper::myRngId;
-int RandHelper::myDebugIndex(7);
+unsigned long long int myDebugIndex(7);
+std::string myDebugId("");
+#endif
+
+#ifdef DEBUG_RANDCALLS_PARALLEL
+#include <thread>
+#include <utils/iodevices/OutputDevice.h>
+std::map<std::thread::id, int> threadIndices;
+std::map<std::string, int> lastThreadIndex; // by rng
 #endif
 
 
@@ -60,9 +75,6 @@ RandHelper::initRand(SumoRNG* which, const bool random, const int seed) {
     if (which == nullptr) {
         which = &myRandomNumberGenerator;
     }
-#ifdef DEBUG_RANDCALLS
-    myRngId[which] = myRngId.size();
-#endif
     if (random) {
         which->seed((unsigned long)time(nullptr));
     } else {
@@ -79,6 +91,48 @@ RandHelper::initRandGlobal(SumoRNG* which) {
 
 
 double
+RandHelper::rand(SumoRNG* rng) {
+    if (rng == nullptr) {
+        rng = &myRandomNumberGenerator;
+    }
+    const double res = double((*rng)() / 4294967296.0);
+    rng->count++;
+#ifdef DEBUG_RANDCALLS
+    if (rng->count == myDebugIndex
+            && (myDebugId == "" || rng->id == myDebugId)) {
+        std::cout << "DEBUG\n"; // for setting breakpoint
+    }
+    std::stringstream stream; // to reduce output interleaving from different threads
+#ifdef DEBUG_RANDCALLS_PARALLEL
+    auto threadID = std::this_thread::get_id();
+    if (threadIndices.count(threadID) == 0) {
+        threadIndices[threadID] = threadIndices.size();
+    }
+    int threadIndex = threadIndices[threadID];
+    auto it = lastThreadIndex.find(rng->id);
+    if ((it == lastThreadIndex.end() || it->second != threadIndex)
+            && (myDebugId == "" || rng->id == myDebugId)) {
+        std::cout << "DEBUG rng " << rng->id << " change thread old=" << (it == lastThreadIndex.end() ? -1 : it->second) << " new=" << threadIndex << " (" << std::this_thread::get_id() << ")\n"; // for setting breakpoint
+    }
+    lastThreadIndex[rng->id] = threadIndex;
+    stream << "rng " << rng->id << " call=" << rng->count << " thread=" << threadIndex << " val=" << res << "\n";
+    OutputDevice::getDevice(rng->id) << stream.str();
+#else
+    stream << "rng " << rng->id << " call=" << rng->count << " val=" << res << "\n";
+    std::cout << stream.str();
+#endif
+#endif
+#ifdef DEBUG_FLAG1
+    if (gDebugFlag1) {
+        std::stringstream stream; // to reduce output interleaving from different threads
+        stream << "rng " << rng->id << " call=" << rng->count << " val=" << res << "\n";
+        std::cout << stream.str();
+    }
+#endif
+    return res;
+}
+
+double
 RandHelper::randNorm(double mean, double variance, SumoRNG* rng) {
     // Polar method to avoid cosine
     double u, q;
@@ -91,5 +145,9 @@ RandHelper::randNorm(double mean, double variance, SumoRNG* rng) {
     return mean + variance * u * sqrt(-2 * logRounded / q);
 }
 
+double
+RandHelper::randExp(double rate, SumoRNG* rng) {
+    return -log(rand(rng)) / rate;
+}
 
 /****************************************************************************/

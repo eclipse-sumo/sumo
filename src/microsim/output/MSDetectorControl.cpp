@@ -181,10 +181,10 @@ MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
 }
 
 void
-MSDetectorControl::clearState() {
+MSDetectorControl::clearState(SUMOTime step) {
     for (const auto& i : myDetectors) {
         for (const auto& j : getTypedDetectors(i.first)) {
-            j.second->clearState();
+            j.second->clearState(step);
         }
     }
 }

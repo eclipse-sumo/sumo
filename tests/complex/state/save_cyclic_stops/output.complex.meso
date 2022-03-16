@@ -1,9 +1,5 @@
-<     <stopinfo id="v0" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="0.00" ended="67.00" delay="7.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-> </stops>
-<     <stopinfo id="v0" type="DEFAULT_VEHTYPE" edge="CN" pos="0.00" parking="0" started="66.62" ended="127.00" delay="7.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-<     <stopinfo id="v0" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="139.86" ended="247.00" delay="7.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-<     <stopinfo id="v0" type="DEFAULT_VEHTYPE" edge="CN" pos="0.00" parking="0" started="246.62" ended="307.00" delay="7.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 <     <stopinfo id="v0" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="319.86" ended="367.00" delay="7.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+> </stops>
 <     <stopinfo id="v0" type="DEFAULT_VEHTYPE" edge="CN" pos="0.00" parking="0" started="366.62" ended="427.00" delay="7.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 <     <stopinfo id="v0" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="439.86" ended="487.00" delay="7.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 <     <stopinfo id="v0" type="DEFAULT_VEHTYPE" edge="CN" pos="0.00" parking="0" started="486.62" ended="547.00" delay="7.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>

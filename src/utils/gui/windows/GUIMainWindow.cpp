@@ -184,15 +184,21 @@ GUIMainWindow::getGLVisual() const {
 }
 
 
-FXLabel&
+FXLabel*
 GUIMainWindow::getCartesianLabel() {
-    return *myCartesianCoordinate;
+    return myCartesianCoordinate;
 }
 
 
-FXLabel&
+FXLabel*
 GUIMainWindow::getGeoLabel() {
-    return *myGeoCoordinate;
+    return myGeoCoordinate;
+}
+
+
+FXLabel*
+GUIMainWindow::getTestLabel() {
+    return myTestCoordinate;
 }
 
 

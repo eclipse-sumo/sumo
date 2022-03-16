@@ -1,2 +1,2 @@
-Error: Attribute 'fill' in definition of poly 'poly_1' is not of type bool.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun110455.16372\netedit.gui\shapeElements\poly\load\fill\input_additionals.add.xml failed.
+Error: Attribute 'fill' in definition of poly 'poly_1' Invalid Bool Format dummy.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\shapeElements\poly\load\fill\input_additionals.add.xml failed.

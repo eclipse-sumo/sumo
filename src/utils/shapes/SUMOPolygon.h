@@ -69,7 +69,7 @@ public:
                 const std::string& imgFile = DEFAULT_IMG_FILE,
                 bool relativePath = DEFAULT_RELATIVEPATH,
                 const std::string& name = DEFAULT_NAME,
-                const std::map<std::string, std::string>& parameters = DEFAULT_PARAMETERS);
+                const Parameterised::Map& parameters = DEFAULT_PARAMETERS);
 
     /// @brief Destructor
     ~SUMOPolygon();
@@ -114,7 +114,7 @@ public:
     /* @brief polygon definition to the given device
      * @param[in] geo  Whether to write the output in geo-coordinates
      */
-    void writeXML(OutputDevice& out, bool geo = false);
+    void writeXML(OutputDevice& out, bool geo = false) const;
 
 protected:
     /// @brief The positions of the polygon

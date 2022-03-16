@@ -34,7 +34,7 @@
 // ===========================================================================
 
 GNEBusStop::GNEBusStop(SumoXMLTag tag, GNENet* net) :
-    GNEStoppingPlace("", net, GLO_BUS_STOP, tag, nullptr, 0, 0, "", false, std::map<std::string, std::string>()),
+    GNEStoppingPlace("", net, GLO_BUS_STOP, tag, nullptr, 0, 0, "", false, Parameterised::Map()),
     myPersonCapacity(0),
     myParkingLength(0),
     myColor(RGBColor::BLACK) {
@@ -45,7 +45,7 @@ GNEBusStop::GNEBusStop(SumoXMLTag tag, GNENet* net) :
 
 GNEBusStop::GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                        const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, const RGBColor& color,
-                       bool friendlyPosition, const std::map<std::string, std::string>& parameters) :
+                       bool friendlyPosition, const Parameterised::Map& parameters) :
     GNEStoppingPlace(id, net, GLO_BUS_STOP, tag, lane, startPos, endPos, name, friendlyPosition, parameters),
     myLines(lines),
     myPersonCapacity(personCapacity),
@@ -319,7 +319,7 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

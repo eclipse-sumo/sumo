@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-20 10:57:48 by Eclipse SUMO netedit Version v1_11_0+1305-0448234e9dc
+<!-- generated on 2022-01-31 15:06:41 by Eclipse SUMO netedit Version v1_12_0+0133-215f4205d78
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Jan150551.2636\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Jan150551.2636\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,28 +31,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Jan150551.2636\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Jan150551.2636\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Jan150551.2636\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Jan150551.2636\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Jan150551.2636\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Jan150551.2636\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Jan150551.2636\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Jan150551.2636\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Jan150551.2636\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\bikelane\log.txt"/>
     </report>
 
 </configuration>
@@ -115,7 +115,7 @@
         <lane id=":gneJ3_0_0" index="0" speed="7.79" length="13.40" shape="51.60,12.80 51.11,16.65 49.65,19.40 47.21,21.05 43.80,21.60"/>
     </edge>
     <edge id=":gneJ3_1" function="internal">
-        <lane id=":gneJ3_1_0" index="0" allow="bicycle" speed="5.01" length="5.64" shape="43.80,16.30 45.33,16.08 46.42,15.43 47.08,14.33 47.30,12.80"/>
+        <lane id=":gneJ3_1_0" index="0" allow="bicycle" speed="5.01" length="5.64" width="1.00" shape="43.80,16.30 45.33,16.08 46.42,15.43 47.08,14.33 47.30,12.80"/>
         <lane id=":gneJ3_1_1" index="1" speed="6.25" length="8.24" shape="43.80,18.40 45.81,18.05 47.25,17.00 48.11,15.25 48.40,12.80"/>
     </edge>
     <edge id=":gneJ3_c1" function="crossing" crossingEdges="-gneE2 gneE2">

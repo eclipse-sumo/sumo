@@ -19,7 +19,6 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDemandElement.h"
@@ -343,7 +342,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief sets the color according to the currente settings
@@ -357,7 +356,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
+    void toogleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);

@@ -24,6 +24,7 @@
 #include <cassert>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/WrappingCommand.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
@@ -65,6 +66,10 @@ public:
 
     bool isContainer() const {
         return !myAmPerson;
+    }
+
+    std::string getObjectType() {
+        return myAmPerson ? "Person" : "Container";
     }
 
     bool isStopped() const {
@@ -261,6 +266,11 @@ public:
         return (*myStep)->isWaiting4Vehicle();
     }
 
+    void setAbortWaiting(const SUMOTime timeout);
+
+    /// @brief Abort current stage (used for aborting waiting for a vehicle)
+    SUMOTime abortStage(SUMOTime step);
+
     /// @brief The vehicle associated with this transportable
     SUMOVehicle* getVehicle() const {
         return (*myStep)->getVehicle();
@@ -272,7 +282,7 @@ public:
     /// @brief removes the nth next stage
     void removeStage(int next, bool stayInSim = true);
 
-    /// sets the walking speed (ignored in other stages)
+    /// @brief set the speed for all present and future (walking) stages and modify the vType so that stages added later are also affected
     void setSpeed(double speed);
 
     /// @brief returns the final arrival pos
@@ -367,6 +377,8 @@ protected:
 
 private:
     const bool myAmPerson;
+
+    WrappingCommand<MSTransportable>* myAbortCommand;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -107,6 +107,10 @@ LaneArea::getLastStepHaltingNumber(const std::string& detID) {
     return Dom::getInt(libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, detID);
 }
 
+void
+LaneArea::overrideVehicleNumber(const std::string& detID, int num) {
+    Dom::setInt(libsumo::VAR_VIRTUAL_DETECTION, detID, num);
+}
 
 LIBTRACI_PARAMETER_IMPLEMENTATION(LaneArea, LANEAREA)
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(LaneArea, LANEAREA)

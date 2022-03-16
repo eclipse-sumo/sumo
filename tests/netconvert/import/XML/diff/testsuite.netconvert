@@ -42,3 +42,6 @@ change_tlType
 
 # remove neight information for some lanes
 remove_opposite
+
+# ensure there are no NANs in a junction shape
+from_to_samePos

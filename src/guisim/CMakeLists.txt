@@ -28,6 +28,8 @@ SET(guisim_STAT_SRCS
    GUILane.h
    GUILaneSpeedTrigger.cpp
    GUILaneSpeedTrigger.h
+   GUIFrictionCoefficientTrigger.cpp
+   GUIFrictionCoefficientTrigger.h
    GUIPerson.cpp
    GUIPerson.h
    GUINet.cpp
@@ -50,6 +52,8 @@ SET(guisim_STAT_SRCS
    GUIVehicleControl.h
    GUITransportableControl.cpp
    GUITransportableControl.h
+   Command_Hotkey_InductionLoop.h
+   Command_Hotkey_InductionLoop.cpp
 )
 
 add_library(guisim STATIC ${guisim_STAT_SRCS})
@@ -78,6 +82,7 @@ set_property(TARGET guisim PROPERTY PROJECT_LABEL "z_guisim")
 #GUIJunctionWrapper.cpp GUIJunctionWrapper.h \
 #GUILane.cpp GUILane.h \
 #GUILaneSpeedTrigger.cpp GUILaneSpeedTrigger.h \
+#GUIFrictionCoefficientTrigger.cpp GUIFrictionCoefficientTrigger.h \
 #GUIPerson.cpp GUIPerson.h \
 #GUINet.cpp GUINet.h \
 #GUITrafficLightLogicWrapper.cpp GUITrafficLightLogicWrapper.h \

@@ -93,7 +93,7 @@ std::string MSRailSignal::myConstraintInfo;
 // ===========================================================================
 MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
                            const std::string& id, const std::string& programID, SUMOTime delay,
-                           const std::map<std::string, std::string>& parameters) :
+                           const Parameterised::Map& parameters) :
     MSTrafficLightLogic(tlcontrol, id, programID, 0, TrafficLightType::RAIL_SIGNAL, delay, parameters),
     myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X')), // dummy phase
     myPhaseIndex(0) {

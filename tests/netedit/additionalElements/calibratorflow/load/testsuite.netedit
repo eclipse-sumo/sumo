@@ -1,5 +1,7 @@
 default
 
+invalid
+
 type
 
 id
@@ -35,8 +37,6 @@ personnumber
 containernumber
 
 reroute
-
-via
 
 departposlat
 

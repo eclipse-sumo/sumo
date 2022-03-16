@@ -42,6 +42,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class Command;
 class GUILoadThread;
 class GUIRunThread;
 class GUIMessageWindow;
@@ -90,6 +91,9 @@ public:
 
     void loadOnStartup();
 
+    GUIRunThread* getRunner() {
+        return myRunThread;
+    }
 
     void dependentBuild();
 
@@ -138,6 +142,9 @@ public:
 
     /// @brief Called on reload
     long onCmdReload(FXObject*, FXSelector, void*);
+
+    /// @brief Called on quick-reload
+    long onCmdQuickReload(FXObject*, FXSelector, void*);
 
     /// @brief Called on opening a recent file
     long onCmdOpenRecent(FXObject*, FXSelector, void*);
@@ -207,8 +214,17 @@ public:
     /// @brief Called on "save state"
     long onCmdSaveState(FXObject*, FXSelector, void*);
 
+    /// @brief Called on "save state"
+    long onCmdLoadState(FXObject*, FXSelector, void*);
+
     /// @brief Called on "time toggle"
     long onCmdTimeToggle(FXObject*, FXSelector, void*);
+
+    /// @brief Called on "delay inc"
+    long onCmdDelayInc(FXObject*, FXSelector, void*);
+
+    /// @brief Called on "delay dec"
+    long onCmdDelayDec(FXObject*, FXSelector, void*);
 
     /// @brief Called on "delay toggle"
     long onCmdDelayToggle(FXObject*, FXSelector, void*);
@@ -299,6 +315,9 @@ public:
     virtual void sendBlockingEvent(GUIEvent* event);
 
     const std::vector<SUMOTime> retrieveBreakpoints() const;
+
+    /// @brief register custom hotkey action
+    void addHotkey(int key, Command* press, Command* release);
 
 protected:
     virtual void addToWindowsMenu(FXMenuPane*) { }
@@ -455,4 +474,7 @@ protected:
     /// last time the simulation view was redrawn due to a simStep
     long myLastStepEventMillis;
 
+    /// @brief custom hotkeys
+    std::map<int, Command*> myHotkeyPress;
+    std::map<int, Command*> myHotkeyRelease;
 };

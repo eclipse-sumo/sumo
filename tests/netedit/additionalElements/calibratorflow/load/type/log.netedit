@@ -1,4 +1,5 @@
-Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'CFlow01'.
-Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'CFlow02'.
-Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'CFlow03'.
-Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.18Jan114657.13884\netedit.gui\additionalElements\calibratorflow\load\type\input_additionals.add.xml failed.
+Error: Attribute 'type' in definition of flow 'CFlow01' is empty.
+Error: Could not build flow in netedit; vType doesn't exist.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Mar111800.388\netedit.gui\additionalElements\calibratorflow\load\type\input_additionals.add.xml failed.
+Error: routes cannot be processed either with additional handler nor with demand handler
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Mar111800.388\netedit.gui\additionalElements\calibratorflow\load\type\input_routes.rou.xml failed.

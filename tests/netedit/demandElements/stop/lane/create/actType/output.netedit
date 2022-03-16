@@ -3,13 +3,13 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 stopLane
 ;;;;;;;;;;
-TestFunctions: Clicked over position 631 - 388
+TestFunctions: Clicked over position 704 - 353
 
-TestFunctions: Clicked over position 631 - 388
-ID1
-TestFunctions: Clicked over position 631 - 388
-ID1 ID2 ID3
-TestFunctions: Clicked over position 631 - 388
+TestFunctions: Clicked over position 704 - 353
+dummy Act
+TestFunctions: Clicked over position 704 - 353
+singing
+TestFunctions: Clicked over position 704 - 353
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

@@ -24,7 +24,7 @@
 #include "utils/common/RandHelper.h"
 
 
-MSSOTLPhasePolicy::MSSOTLPhasePolicy(const std::map<std::string, std::string>& parameters) :
+MSSOTLPhasePolicy::MSSOTLPhasePolicy(const Parameterised::Map& parameters) :
     MSSOTLPolicy("Phase", parameters) {
     init();
 }
@@ -36,7 +36,7 @@ MSSOTLPhasePolicy::MSSOTLPhasePolicy(MSSOTLPolicyDesirability* desirabilityAlgor
 }
 
 MSSOTLPhasePolicy::MSSOTLPhasePolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm,
-                                     const std::map<std::string, std::string>& parameters) :
+                                     const Parameterised::Map& parameters) :
     MSSOTLPolicy("Phase", desirabilityAlgorithm, parameters) {
     getDesirabilityAlgorithm()->setKeyPrefix("PHASE");
     init();

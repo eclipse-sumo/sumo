@@ -61,13 +61,13 @@ const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
 GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* junctionParent,
                                  const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
     GNENetworkElement(junctionParent->getNet(), id, GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-{}, {}, {}, {}, {}, {}, {}, {}),
-myJunctionParent(junctionParent),
-myState(state),
-myStateTarget(myState),
-myEditor(editor),
-myTlIndex(tlIndex),
-myPopup(nullptr) {
+        {}, {}, {}, {}, {}, {}),
+    myJunctionParent(junctionParent),
+    myState(state),
+    myStateTarget(myState),
+    myEditor(editor),
+    myTlIndex(tlIndex),
+    myPopup(nullptr) {
     // calculate internal lane geometry
     myInternalLaneGeometry.updateGeometry(shape);
     // update centering boundary without updating grid
@@ -77,12 +77,12 @@ myPopup(nullptr) {
 
 GNEInternalLane::GNEInternalLane() :
     GNENetworkElement(nullptr, "dummyInternalLane", GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-{}, {}, {}, {}, {}, {}, {}, {}),
-myJunctionParent(nullptr),
-myState(0),
-myEditor(0),
-myTlIndex(0),
-myPopup(nullptr) {
+        {}, {}, {}, {}, {}, {}),
+    myJunctionParent(nullptr),
+    myState(0),
+    myEditor(0),
+    myTlIndex(0),
+    myPopup(nullptr) {
 }
 
 
@@ -265,7 +265,7 @@ GNEInternalLane::isAttributeComputed(SumoXMLAttr /*key*/) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEInternalLane::getACParametersMap() const {
     throw InvalidArgument(getTagStr() + " doesn't have parameters");
 }

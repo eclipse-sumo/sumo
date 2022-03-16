@@ -79,11 +79,13 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "parkingAreaReroute",             SUMO_TAG_PARKING_AREA_REROUTE },
     { "step",                           SUMO_TAG_STEP },
     { "variableSpeedSign",              SUMO_TAG_VSS },
+    { "frictionCoefficient",            SUMO_TAG_COF },
+    { "frictionStep",                   SUMO_TAG_STEP_COF },
     { "routeProbe",                     SUMO_TAG_ROUTEPROBE },
     { "vaporizer",                      SUMO_TAG_VAPORIZER },
-    { "overheadWireSegment",            SUMO_TAG_OVERHEAD_WIRE_SEGMENT },
-    { "overheadWire",                   SUMO_TAG_OVERHEAD_WIRE_SECTION },
     { "tractionSubstation",             SUMO_TAG_TRACTION_SUBSTATION },
+    { "overheadWireSegment",            SUMO_TAG_OVERHEAD_WIRE_SEGMENT },   // <- Deprecate
+    { "overheadWire",                   SUMO_TAG_OVERHEAD_WIRE_SECTION },
     { "overheadWireClamp",              SUMO_TAG_OVERHEAD_WIRE_CLAMP },
     { "vTypeProbe",                     SUMO_TAG_VTYPEPROBE },
     { "routes",                         SUMO_TAG_ROUTES },
@@ -103,10 +105,13 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "tlLogic",                        SUMO_TAG_TLLOGIC },
     { "phase",                          SUMO_TAG_PHASE },
     { "condition",                      SUMO_TAG_CONDITION },
+    { "assignment",                     SUMO_TAG_ASSIGNMENT },
+    { "function",                       SUMO_TAG_FUNCTION },
     { "tripTAZ",                        SUMO_TAG_TRIP_TAZ },
     { "flow",                           SUMO_TAG_FLOW },
     { "flowJunctions",                  GNE_TAG_FLOW_JUNCTIONS },
     { "flowState",                      SUMO_TAG_FLOWSTATE },
+    { "edgeControl",                    SUMO_TAG_EDGECONTROL },
 
     { "edgeRelation",                   SUMO_TAG_EDGEREL },
     { "tazRelation",                    SUMO_TAG_TAZREL },
@@ -192,6 +197,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "carFollowing-KraussPS",          SUMO_TAG_CF_KRAUSS_PLUS_SLOPE },
     { "carFollowing-KraussOrig1",       SUMO_TAG_CF_KRAUSS_ORIG1 },
     { "carFollowing-KraussX",           SUMO_TAG_CF_KRAUSSX },
+    { "carFollowing-KraussFric",        SUMO_TAG_CF_KRAUSS_FRICTION },
     { "carFollowing-EIDM",              SUMO_TAG_CF_EIDM },
     { "carFollowing-SmartSK",           SUMO_TAG_CF_SMART_SK },
     { "carFollowing-Daniel1",           SUMO_TAG_CF_DANIEL1 },
@@ -201,6 +207,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "carFollowing-W99",               SUMO_TAG_CF_W99 },
     { "carFollowing-Rail",              SUMO_TAG_CF_RAIL },
     { "carFollowing-ACC",               SUMO_TAG_CF_ACC },
+    { "carFollowing-ACCFric",           SUMO_TAG_CF_ACC_FRICTION },
     { "carFollowing-CACC",              SUMO_TAG_CF_CACC },
     { "carFollowing-CC",                SUMO_TAG_CF_CC },
     // Person
@@ -250,8 +257,16 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "poiGeo",                         GNE_TAG_POIGEO },
     { "rerouterSymbol",                 GNE_TAG_REROUTER_SYMBOL },
     { "variableSpeedSignSymbol",        GNE_TAG_VSS_SYMBOL },
+    { "variableFrictionSymbol",         GNE_TAG_COF_SYMBOL },
     { "flowRoute",                      GNE_TAG_FLOW_ROUTE },
     { "flowWithRoute",                  GNE_TAG_FLOW_WITHROUTE },
+    // GNE waypoints
+    { "waypoint",                       GNE_TAG_WAYPOINT },
+    { "waypointLane",                   GNE_TAG_WAYPOINT_LANE },
+    { "waypointBusStop",                GNE_TAG_WAYPOINT_BUSSTOP },
+    { "waypointContainerStop",          GNE_TAG_WAYPOINT_CONTAINERSTOP },
+    { "waypointChargingStation",        GNE_TAG_WAYPOINT_CHARGINGSTATION },
+    { "waypointParkingArea",            GNE_TAG_WAYPOINT_PARKINGAREA },
     // GNE Person trips
     { "personTrip: edge->edge",         GNE_TAG_PERSONTRIP_EDGE },
     { "personTrip: edge->busStop",      GNE_TAG_PERSONTRIP_BUSSTOP },
@@ -265,17 +280,17 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     // GNE Rides
     { "ride: edge->edge",               GNE_TAG_RIDE_EDGE },
     { "ride: edge->busStop",            GNE_TAG_RIDE_BUSSTOP },
-    // GNE person Stops
+    // GNE Person Stops
     { "stopPerson: busStop",            GNE_TAG_STOPPERSON_BUSSTOP },
     { "stopPerson: edge",               GNE_TAG_STOPPERSON_EDGE },
-    // GNE transports
+    // GNE Transports
     { "transport: edge->edge",          GNE_TAG_TRANSPORT_EDGE },
     { "transport: edge->containerStop", GNE_TAG_TRANSPORT_CONTAINERSTOP },
-    // GNE tranships
+    // GNE Tranships
     { "tranship: edge->edge",           GNE_TAG_TRANSHIP_EDGE },
     { "tranship: edge->containerStop",  GNE_TAG_TRANSHIP_CONTAINERSTOP },
     { "tranship: edges",                GNE_TAG_TRANSHIP_EDGES },
-    // GNE container Stops
+    // GNE Container Stops
     { "stopContainer: containerStop",   GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
     { "stopContainer: edge",            GNE_TAG_STOPCONTAINER_EDGE },
     // root file
@@ -349,6 +364,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "leaderSpeed",            SUMO_ATTR_LEADER_SPEED },
     { "leaderGap",              SUMO_ATTR_LEADER_GAP },
     { "vehicle",                SUMO_ATTR_VEHICLE },
+    { "odometer",               SUMO_ATTR_ODOMETER },
 
     // Edge
     { "id",                     SUMO_ATTR_ID },
@@ -357,6 +373,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "version",                SUMO_ATTR_VERSION },
     { "priority",               SUMO_ATTR_PRIORITY },
     { "numLanes",               SUMO_ATTR_NUMLANES },
+    { "friction",               SUMO_ATTR_FRICTION },
     { "oneway",                 SUMO_ATTR_ONEWAY },
     { "width",                  SUMO_ATTR_WIDTH },
     { "widthResolution",        SUMO_ATTR_WIDTHRESOLUTION },
@@ -424,21 +441,27 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "collisionMinGapFactor",  SUMO_ATTR_COLLISION_MINGAP_FACTOR },
     { "boardingDuration",       SUMO_ATTR_BOARDING_DURATION },
     { "loadingDuration",        SUMO_ATTR_LOADING_DURATION },
+    { "scale",                  SUMO_ATTR_SCALE },
+    { "insertionChecks",        SUMO_ATTR_INSERTIONCHECKS },
     { "maneuverAngleTimes",     SUMO_ATTR_MANEUVER_ANGLE_TIMES },
     // MSDevice_ElecHybrid
     { "overheadWireChargingPower",      SUMO_ATTR_OVERHEADWIRECHARGINGPOWER },
     // OverheadWire
     { "overheadWireSegment",    SUMO_ATTR_OVERHEAD_WIRE_SEGMENT },
-    { "segments",               SUMO_ATTR_OVERHEAD_WIRE_SECTION },
+    { "segments",               SUMO_ATTR_OVERHEAD_WIRE_SEGMENTS },     // <- deprecate
     { "voltage",                SUMO_ATTR_VOLTAGE },
     { "voltageSource",          SUMO_ATTR_VOLTAGESOURCE },
     { "currentLimit",           SUMO_ATTR_CURRENTLIMIT },
     { "substationId",           SUMO_ATTR_SUBSTATIONID },
     { "wireResistivity",        SUMO_ATTR_OVERHEAD_WIRE_RESISTIVITY },
     { "forbiddenInnerLanes",    SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN },
-    { "clamps",                  SUMO_ATTR_OVERHEAD_WIRE_CLAMPS },
-    { "idSegmentStartClamp",    SUMO_ATTR_OVERHEAD_WIRE_CLAMP_START },
-    { "idSegmentEndClamp",      SUMO_ATTR_OVERHEAD_WIRE_CLAMP_END },
+    { "clamps",                 SUMO_ATTR_OVERHEAD_WIRE_CLAMPS },       // <- deprecate
+    { "idSegmentStartClamp",    SUMO_ATTR_OVERHEAD_WIRE_CLAMP_START },  // <- deprecate
+    { "idSegmentEndClamp",      SUMO_ATTR_OVERHEAD_WIRE_CLAMP_END },    // <- deprecate
+    { "wireClampStart",         SUMO_ATTR_OVERHEAD_WIRECLAMP_START },
+    { "wireClampEnd",           SUMO_ATTR_OVERHEAD_WIRECLAMP_END },
+    { "wireClampLaneStart",     SUMO_ATTR_OVERHEAD_WIRECLAMP_LANESTART },
+    { "wireClampLaneEnd",       SUMO_ATTR_OVERHEAD_WIRECLAMP_LANEEND },
     // Charging Station
     { "power",                  SUMO_ATTR_CHARGINGPOWER },
     { "efficiency",             SUMO_ATTR_EFFICIENCY },
@@ -587,6 +610,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "savings",                SUMO_ATTR_SAVINGS },
     { "exitTimes",              SUMO_ATTR_EXITTIMES },
     { "probability",            SUMO_ATTR_PROB },
+    { "replacedAtTime",         SUMO_ATTR_REPLACED_AT_TIME },
+    { "replacedOnIndex",        SUMO_ATTR_REPLACED_ON_INDEX },
     { "count",                  SUMO_ATTR_COUNT },
     { "probabilities",          SUMO_ATTR_PROBS },
     { "routes",                 SUMO_ATTR_ROUTES },
@@ -673,12 +698,19 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "latestEnd",              SUMO_ATTR_LATEST_END },
     { "earlyTarget",            SUMO_ATTR_EARLY_TARGET },
     { "finalTarget",            SUMO_ATTR_FINAL_TARGET },
+    { "check",                  SUMO_ATTR_CHECK },
+    { "nArgs",                  SUMO_ATTR_NARGS },
     { "vehext",                 SUMO_ATTR_VEHICLEEXTENSION },
     { "yellow",                 SUMO_ATTR_YELLOW },
     { "red",                    SUMO_ATTR_RED },
     { "next",                   SUMO_ATTR_NEXT },
     { "foes",                   SUMO_ATTR_FOES },
     { "constraints",            SUMO_ATTR_CONSTRAINTS },
+    { "detectors",              SUMO_ATTR_DETECTORS },
+    { "conditions",             SUMO_ATTR_CONDITIONS },
+    { "saveDetectors",          SUMO_ATTR_SAVE_DETECTORS },
+    { "saveConditions",         SUMO_ATTR_SAVE_CONDITIONS },
+
     // E2 detector
     { "cont",                   SUMO_ATTR_CONT },
     { "contPos",                SUMO_ATTR_CONTPOS },
@@ -727,6 +759,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "personsPerHour",         SUMO_ATTR_PERSONSPERHOUR },
     { "containersPerHour",		SUMO_ATTR_CONTAINERSPERHOUR },
     { "perHour",				SUMO_ATTR_PERHOUR },
+    { "done",	  			    SUMO_ATTR_DONE },
     { "output",                 SUMO_ATTR_OUTPUT },
     { "height",                 SUMO_ATTR_HEIGHT },
     { "guiShape",               SUMO_ATTR_GUISHAPE },
@@ -753,9 +786,13 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "maxTraveltime",          SUMO_ATTR_MAX_TRAVELTIME },
     { "minSamples",             SUMO_ATTR_MIN_SAMPLES },
     { "writeAttributes",        SUMO_ATTR_WRITE_ATTRIBUTES },
+    { "edgesFile",              SUMO_ATTR_EDGESFILE },
+    { "aggregate",              SUMO_ATTR_AGGREGATE },
+    { "numEdges",               SUMO_ATTR_NUMEDGES },
 
     { "lon",                    SUMO_ATTR_LON },
     { "lat",                    SUMO_ATTR_LAT },
+    { "action",                 SUMO_ATTR_ACTION },
     { "geo",                    SUMO_ATTR_GEO },
     { "geoShape",               SUMO_ATTR_GEOSHAPE },
     { "k",                      SUMO_ATTR_K },
@@ -1063,6 +1100,19 @@ StringBijection<TrafficLightLayout>::Entry SUMOXMLDefinitions::trafficLightLayou
     { "",                TrafficLightLayout::DEFAULT } //< must be the last one
 };
 
+StringBijection<InsertionCheck>::Entry SUMOXMLDefinitions::insertionCheckValues[] = {
+    { "none",          InsertionCheck::NONE },
+    { "collision",     InsertionCheck::COLLISION },
+    { "leaderGap",     InsertionCheck::LEADER_GAP },
+    { "followerGap",   InsertionCheck::FOLLOWER_GAP },
+    { "junction",      InsertionCheck::JUNCTION },
+    { "stop",          InsertionCheck::STOP },
+    { "arrivalSpeed",  InsertionCheck::ARRIVAL_SPEED },
+    { "oncomingTrain", InsertionCheck::ONCOMING_TRAIN },
+    { "speedLimit",    InsertionCheck::SPEED_LIMIT },
+    { "pedestrian",    InsertionCheck::PEDESTRIAN },
+    { "all",           InsertionCheck::ALL } //< must be the last one
+};
 
 StringBijection<LaneChangeModel>::Entry SUMOXMLDefinitions::laneChangeModelValues[] = {
     { "DK2008",     LaneChangeModel::DK2008 },
@@ -1078,6 +1128,7 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = 
     { "KraussPS",    SUMO_TAG_CF_KRAUSS_PLUS_SLOPE },
     { "KraussOrig1", SUMO_TAG_CF_KRAUSS_ORIG1 },
     { "KraussX",     SUMO_TAG_CF_KRAUSSX }, // experimental extensions to the Krauss model
+    { "KraussFric",  SUMO_TAG_CF_KRAUSS_FRICTION },
     { "EIDM",        SUMO_TAG_CF_EIDM },
     { "SmartSK",     SUMO_TAG_CF_SMART_SK },
     { "Daniel1",     SUMO_TAG_CF_DANIEL1 },
@@ -1086,6 +1137,7 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = 
     { "Rail",        SUMO_TAG_CF_RAIL },
     { "CC",          SUMO_TAG_CF_CC },
     { "ACC",         SUMO_TAG_CF_ACC },
+    { "ACCFric",     SUMO_TAG_CF_ACC_FRICTION },
     { "CACC",        SUMO_TAG_CF_CACC },
     { "W99",         SUMO_TAG_CF_W99 },
     { "Wiedemann",   SUMO_TAG_CF_WIEDEMANN } //< must be the last one
@@ -1161,6 +1213,9 @@ StringBijection<TrafficLightType> SUMOXMLDefinitions::TrafficLightTypes(
 
 StringBijection<TrafficLightLayout> SUMOXMLDefinitions::TrafficLightLayouts(
     SUMOXMLDefinitions::trafficLightLayoutValues, TrafficLightLayout::DEFAULT);
+
+StringBijection<InsertionCheck> SUMOXMLDefinitions::InsertionChecks(
+    SUMOXMLDefinitions::insertionCheckValues, InsertionCheck::ALL);
 
 StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
     SUMOXMLDefinitions::laneChangeModelValues, LaneChangeModel::DEFAULT);

@@ -171,6 +171,10 @@ public:
         return get(var, id, add, libsumo::TYPE_STRINGLIST).readStringList();
     }
 
+    static std::vector<double> getDoubleVector(int var, const std::string& id, tcpip::Storage* add = nullptr) {
+        return get(var, id, add, libsumo::TYPE_DOUBLELIST).readDoubleList();
+    }
+
     static libsumo::TraCIColor getCol(int var, const std::string& id, tcpip::Storage* add = nullptr) {
         tcpip::Storage& result = get(var, id, add, libsumo::TYPE_COLOR);
         libsumo::TraCIColor c;

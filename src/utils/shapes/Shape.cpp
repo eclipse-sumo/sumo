@@ -36,7 +36,7 @@ const bool Shape::DEFAULT_RELATIVEPATH = false;
 const double Shape::DEFAULT_IMG_WIDTH = 1;
 const double Shape::DEFAULT_IMG_HEIGHT = 1;
 const std::string Shape::DEFAULT_NAME = "";
-const std::map<std::string, std::string> Shape::DEFAULT_PARAMETERS = std::map<std::string, std::string>();
+const Parameterised::Map Shape::DEFAULT_PARAMETERS = Parameterised::Map();
 
 // ===========================================================================
 // member definitions

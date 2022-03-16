@@ -152,17 +152,19 @@ public:
     typedef bool(*SubscriptionHandler)(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
     VariableWrapper(SubscriptionHandler handler = nullptr) : handle(handler) {}
     SubscriptionHandler handle;
-    virtual void setContext(const std::string& /* refID */) {}
+    virtual void setContext(const std::string* const /* refID */) {}
     virtual void clear() {}
     virtual bool wrapDouble(const std::string& objID, const int variable, const double value) = 0;
     virtual bool wrapInt(const std::string& objID, const int variable, const int value) = 0;
     virtual bool wrapString(const std::string& objID, const int variable, const std::string& value) = 0;
     virtual bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value) = 0;
+    virtual bool wrapDoubleList(const std::string& objID, const int variable, const std::vector<double>& value) = 0;
     virtual bool wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value) = 0;
     virtual bool wrapPositionVector(const std::string& objID, const int variable, const TraCIPositionVector& value) = 0;
     virtual bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value) = 0;
     virtual bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value) = 0;
     virtual bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) = 0;
+    virtual void empty(const std::string& /* objID */) {}
 };
 
 

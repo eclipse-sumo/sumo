@@ -1,63 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-16 09:40:07 by Eclipse SUMO netedit Version v1_10_0+2302-18d2c1dce6e
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Nov093849.17760\netedit.gui\additionalElements\e3detector\move\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Nov093849.17760\netedit.gui\additionalElements\e3detector\move\net.net.xml"/>
-    </output>
-
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-    <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Nov093849.17760\netedit.gui\additionalElements\e3detector\move\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Nov093849.17760\netedit.gui\additionalElements\e3detector\move\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Nov093849.17760\netedit.gui\additionalElements\e3detector\move\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Nov093849.17760\netedit.gui\additionalElements\e3detector\move\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Nov093849.17760\netedit.gui\additionalElements\e3detector\move\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Nov093849.17760\netedit.gui\additionalElements\e3detector\move\datas.xml"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Nov093849.17760\netedit.gui\additionalElements\e3detector\move\gui-settings.xml"/>
-        <window-size value="936,697"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Nov093849.17760\netedit.gui\additionalElements\e3detector\move\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Nov093849.17760\netedit.gui\additionalElements\e3detector\move\log.txt"/>
-    </report>
-
-</configuration>
+<!-- generated on 2022-03-04 11:00:29 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e3Detector id="e3Detector_0" pos="26.00,5.00" freq="300.00" file="e3Detector_0.xml">
+    <!-- Detectors -->
+    <e3Detector id="e3_0" pos="26.00,5.00" freq="300.00" file="e3_0.xml">
         <detEntry lane="gneE0_0" pos="28.00"/>
         <detExit lane="gneE0_0" pos="35.00"/>
     </e3Detector>

@@ -8,7 +8,7 @@ specify_lcm
 lcSigma
 
 # change towards the best continuation lane if the current lane does not continue
-change_towards_best
+strategic
 
 # overtaking a slower vehicle
 overtaking

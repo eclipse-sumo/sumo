@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # disable 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+netedit.changeProtectAdditionalElements(referencePosition)
 
 # remove one way edge
 netedit.leftClick(referencePosition, 50, 60)

@@ -68,14 +68,10 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'flow (from-to edges)' in TagSelector
 Debug: Key ENTER pressed
 Debug: Adding flow 'f_0' in GNEChange_DemandElement
-Debug: Setting new attribute
+Debug: Value 'bicycle' for attribute to of flow isn't valid
 Debug: Value '' for attribute to of flow isn't valid
 Debug: Value 'dummyEdge' for attribute to of flow isn't valid
-Debug: Value 'gneJ7' for attribute to of flow isn't valid
 Debug: Setting new attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -85,9 +81,6 @@ Debug: Removing flow 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding flow 'f_0' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

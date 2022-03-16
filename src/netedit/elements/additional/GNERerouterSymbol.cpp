@@ -32,8 +32,7 @@
 
 GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge) :
     GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, "",
-{}, {edge}, {}, {rerouterParent}, {}, {}, {}, {},
-std::map<std::string, std::string>()) {
+        {}, {edge}, {}, {rerouterParent}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -208,6 +207,12 @@ GNERerouterSymbol::getAttribute(SumoXMLAttr key) const {
 double
 GNERerouterSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
     throw InvalidArgument("Symbols cannot be edited");
+}
+
+
+const Parameterised::Map& 
+GNERerouterSymbol::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
 }
 
 

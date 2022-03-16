@@ -41,37 +41,34 @@ netedit.stopMode()
 netedit.changeStopType("stopChargingStation")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 200)
+netedit.leftClick(referencePosition, 290, 195)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 290, 200)
+netedit.leftClick(referencePosition, 290, 195)
 
 # change value
-netedit.modifyBoolAttribute(3, False)
+netedit.modifyBoolAttribute(netedit.attrs.stop.inspect.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(3, False)
+netedit.modifyBoolAttribute(netedit.attrs.stop.inspect.extensionEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(3, False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.extension, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(4, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.extension, "", False)
 
 # change value
-netedit.modifyAttribute(4, "", False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.extension, "-5", False)
 
 # change value
-netedit.modifyAttribute(4, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.extension, "0", False)
 
 # change value
-netedit.modifyAttribute(4, "0", False)
-
-# change value
-netedit.modifyAttribute(4, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.extension, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -34,15 +34,15 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select flow
+# select flow with embedded route
 netedit.changeElement("flow (embedded route)")
 
-# create flow
+# create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 
 # Check undo redo

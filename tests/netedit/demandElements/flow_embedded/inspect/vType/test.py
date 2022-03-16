@@ -37,7 +37,7 @@ netedit.vehicleMode()
 # change vehicle
 netedit.changeElement("flow (embedded route)")
 
-# create flow using two edges
+# create flow with embedded route using two edges
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change vType with an invalid value
-netedit.modifyAttribute(1, "", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.type, "", False)
 
 # change vType with an invalid value
-netedit.modifyAttribute(1, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.type, ";;;;", False)
 
 # change vType with an invalid value
-netedit.modifyAttribute(1, "dummyVType", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.type, "dummyVType", False)
 
 # change vType with a valid value
-netedit.modifyAttribute(1, "custom_vType", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.type, "custom_vType", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

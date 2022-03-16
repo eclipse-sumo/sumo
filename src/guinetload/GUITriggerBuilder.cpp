@@ -26,6 +26,7 @@
 #include <fstream>
 #include <utils/common/RGBColor.h>
 #include <guisim/GUILaneSpeedTrigger.h>
+#include <guisim/GUIFrictionCoefficientTrigger.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUITriggeredRerouter.h>
 #include <guisim/GUIBusStop.h>
@@ -55,14 +56,20 @@ GUITriggerBuilder::buildLaneSpeedTrigger(MSNet& net,
     return lst;
 }
 
+MSFrictionCoefficientTrigger*
+GUITriggerBuilder::buildFrictionCoefficientTrigger(MSNet& net,
+	const std::string& id, const std::vector<MSLane*>& destLanes,
+	const std::string& file) {
+	GUIFrictionCoefficientTrigger* lst = new GUIFrictionCoefficientTrigger(id, destLanes, file);
+	static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(lst);
+	return lst;
+}
 
 MSTriggeredRerouter*
 GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
-                                 MSEdgeVector& edges,
-                                 double prob, const std::string& file, bool off,
-                                 SUMOTime timeThreshold,
-                                 const std::string& vTypes) {
-    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, file, off, timeThreshold, vTypes,
+                                 MSEdgeVector& edges, double prob, bool off,
+                                 SUMOTime timeThreshold, const std::string& vTypes) {
+    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, off, timeThreshold, vTypes,
             dynamic_cast<GUINet&>(net).getVisualisationSpeedUp());
     return rr;
 }

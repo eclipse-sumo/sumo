@@ -411,7 +411,10 @@ speed after moveToXY 20.0
 step 22.0
 {80: '1o', 86: 26.30307991404888}
 speed 20.0
-speed 19.0
+speed 18.0
+acceleration -2.0
+speed 17.0
+acceleration 0.5
 step 23.0
 vehicles ('2', 'departInThePast', 'horiz')
 step 24.0

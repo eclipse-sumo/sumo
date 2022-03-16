@@ -104,19 +104,19 @@ const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
  * @enum DepartDefinition
  * @brief Possible ways to depart
  */
-enum DepartDefinition {
+enum class DepartDefinition {
     /// @brief The time is given
-    DEPART_GIVEN,
+    GIVEN,
     /// @brief The departure is person triggered
-    DEPART_TRIGGERED,
+    TRIGGERED,
     /// @brief The departure is container triggered
-    DEPART_CONTAINER_TRIGGERED,
+    CONTAINER_TRIGGERED,
     /// @brief The vehicle is discarded if emission fails (not fully implemented yet)
-    DEPART_NOW,
+    NOW,
     /// @brief The departure is triggered by a train split
-    DEPART_SPLIT,
+    SPLIT,
     /// @brief Tag for the last element in the enum for safe int casting
-    DEPART_DEF_MAX
+    DEF_MAX
 };
 
 
@@ -151,7 +151,9 @@ enum class DepartPosDefinition {
     DEFAULT,
     /// @brief The position is given
     GIVEN,
-    /// @brief The position is chosen randomly
+    /// @brief The position is given
+    GIVEN_VEHROUTE,
+    /// @brief The position is set by the vehroute device
     RANDOM,
     /// @brief A free position is chosen
     FREE,
@@ -175,6 +177,8 @@ enum class DepartPosLatDefinition {
     DEFAULT,
     /// @brief The position is given
     GIVEN,
+    /// @brief The position is set by the vehroute device
+    GIVEN_VEHROUTE,
     /// @brief At the rightmost side of the lane
     RIGHT,
     /// @brief At the center of the lane
@@ -199,6 +203,8 @@ enum class DepartSpeedDefinition {
     DEFAULT,
     /// @brief The speed is given
     GIVEN,
+    /// @brief The speed is set by the vehroute device
+    GIVEN_VEHROUTE,
     /// @brief The speed is chosen randomly
     RANDOM,
     /// @brief The maximum safe speed is used
@@ -338,7 +344,7 @@ public:
         void write(OutputDevice& dev, const bool close = true, const bool writeTagAndParents = true) const;
 
         /// @brief write trigger attribute
-        void writeTriggers(OutputDevice& dev) const;
+        std::vector<std::string> getTriggers() const;
 
         /// @brief The edge to stop at (used only in NETEDIT)
         std::string edge;
@@ -439,6 +445,8 @@ public:
         /// @brief Information for the output which parameter were set
         int parametersSet = 0;
 
+        /// @brief return flags as per Vehicle::getStops
+        int getFlags() const;
     };
 
 
@@ -714,6 +722,9 @@ public:
     /// @brief The time offset between vehicle reinsertions
     SUMOTime repetitionOffset;
 
+    /// @brief The offset between depart and the time for the next vehicle insertions
+    SUMOTime repetitionTotalOffset;
+
     /// @brief The probability for emitting a vehicle per second
     double repetitionProbability;
 
@@ -749,8 +760,14 @@ public:
     /// @brief speed (used by calibrator flows
     double calibratorSpeed;
 
+    /// @brief bitset of InsertionCheck
+    int insertionChecks;
+
     /// @brief Information for the router which parameter were set, TraCI may modify this (when changing color)
     mutable int parametersSet;
+
+public:
+    void incrementFlow(double scale, SumoRNG* rng = nullptr);
 
 protected:
     /// @brief obtain depart parameter in string format

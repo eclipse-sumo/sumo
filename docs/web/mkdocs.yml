@@ -17,7 +17,6 @@ nav:
   - Publications: Publications.md
   - Developer: Developer/index.md
   - ChangeLog: ChangeLog.md
-  - Recent Changes: https://github.com/eclipse/sumo/commits/main/docs/web
   - Contact: https://eclipse.org/sumo/contact/
 
 theme:
@@ -34,6 +33,7 @@ plugins:
   - macros
 
 markdown_extensions:
+  - attr_list
   - admonition
   - pymdownx.tilde
   - meta

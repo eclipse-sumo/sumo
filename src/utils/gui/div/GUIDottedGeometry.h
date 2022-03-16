@@ -36,7 +36,8 @@ public:
         FRONT,
         MOVE,
         GREEN,
-        MAGENTA
+        MAGENTA,
+        ORANGE
     };
 
     /// @brief class for pack all variables related with GUIDottedGeometry color

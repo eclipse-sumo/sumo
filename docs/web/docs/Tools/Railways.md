@@ -17,14 +17,14 @@ the following constraints are generated in different cases:
 
 ### 1. `<predecessor>`
 
-When two vehices stop subsequently at the same busStop (trainStop) and they reach that stop
+When two vehicles stop subsequently at the same busStop (trainStop) and they reach that stop
 via different routes, the switch where both routes merge is identified and a
 constraint is created for the rail signals that guard this merging switch:
     The vehicle B that arrives at the stop later, must wait (at its signal Y)
     for the vehicle A that arrives first (to pass it's respective signal X)
     This uses the 'arrival' attribute of the vehicle stops
 
-A complication arrises if the signal of the first vehicle is passed by other
+A complication arises if the signal of the first vehicle is passed by other
 trains which are en route to another stop. This makes it necessary to record a
 larger number of passing vehicles within the simulation (controlled by the
 limit attribute). The script attempts to determine the necessary limit value by
@@ -50,7 +50,7 @@ stop.
 
 ## Inconsistencies ##
 
-Inconsistent contraints may arise from inconsistent input and cause simulation
+Inconsistent constraints may arise from inconsistent input and cause simulation
 deadlock. To avoid this, the option --abort-unordered can be used to avoid
 generating constraints that are likely to be inconsistent.
 When the option is set the ordering of vehicles is cross-checked with regard to
@@ -70,7 +70,7 @@ enforce an order in this case (and local desired order is ambiguous).
 When simulating the past (i.e. to predict the future), additional timing data
 besides the scheduled arrival and until times may be available and included in
 the 'started' and 'ended' attributes for each stop.
-They can be used to detect changes in train order that occured during the actual
+They can be used to detect changes in train order that occurred during the actual
 train operation and which must be taken into account during constraint
 generation to avoid deadlock.
 If train A has 'started' information for a
@@ -112,7 +112,7 @@ Options:
   - 's' : stop duration difference
   
 - **--group-by** (**-g**): group results by one or more attributes (vehID,tripId,stopID,priorStop)
-- **--group-statistic-type** (**-T**): select among statistics over the group values (i.e. to compore the groups by their mean depart delay). permitted values are mean, median, min, max
+- **--group-statistic-type** (**-T**): select among statistics over the group values (i.e. to compare the groups by their mean depart delay). permitted values are mean, median, min, max
 - **--histogram FLOAT** (**-i**): add a histogram with the given bin width
 - **--group-histogram FLOAT** (**-I**): add a histogram over the group values (when using **-g**) with the given bin width
 

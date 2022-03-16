@@ -26,6 +26,7 @@
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
@@ -153,21 +154,21 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F4_SUPERMODE_DATA,       GNEApplicationWindow::onCmdSetSuperMode),
 
     // Toolbar modes
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODES_ADDITIONAL_STOP,             GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN,          GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_D_MODES_DELETE,                      GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_E_MODES_EDGE_EDGEDATA,               GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_ADDITIONAL_STOP,              GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN,           GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_D_MODE_DELETE,                       GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_E_MODE_EDGE_EDGEDATA,                GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_G_MODE_CONTAINER,                    GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_H_MODE_CONTAINERDATA,                GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_I_MODES_INSPECT,                     GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_M_MODES_MOVE,                        GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_P_MODES_POLYGON_PERSON,              GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA,  GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_MODES_SELECT,                      GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_T_MODES_TLS_TYPE,                    GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_V_MODES_VEHICLE,                     GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_W_MODES_PROHIBITION,                 GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_Z_MODES_TAZ_TAZREL,                  GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,    GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_I_MODE_INSPECT,                      GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_M_MODE_MOVE,                         GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_P_MODE_POLYGON_PERSON,               GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,   GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_MODE_SELECT,                       GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_T_MODE_TLS_TYPE,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_V_MODE_VEHICLE,                      GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_W_MODE_WIRE,                         GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_Z_MODE_TAZ_TAZREL,                   GNEApplicationWindow::onCmdSetMode),
 
     // Toolbar edit
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Z_UNDO,                         GNEApplicationWindow::onCmdUndo),
@@ -256,6 +257,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onCmdLoadDemandInSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onUpdNeedsNetwork),
+
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,              GNEApplicationWindow::onCmdOpenSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,              GNEApplicationWindow::onUpdNeedsNetwork),
     /* Prepared for #6042
@@ -420,13 +422,16 @@ GNEApplicationWindow::dependentBuild() {
     myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
     // build the status bar
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
-    {
-        myGeoFrame =
-            new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)", nullptr, LAYOUT_CENTER_Y);
-        myCartesianFrame =
-            new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", nullptr, LAYOUT_CENTER_Y);
+    // build geo coordinates label
+    myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
+    myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)", nullptr, LAYOUT_CENTER_Y);
+    // build cartesian coordinates label
+    myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
+    myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", nullptr, LAYOUT_CENTER_Y);
+    // build test coordinates label (only if gui-testing is enabled)
+    if (OptionsCont::getOptions().getBool("gui-testing")) {
+        myTestFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
+        myTestCoordinate = new FXLabel(myTestFrame, "N/A\t\tTest coordinate", nullptr, LAYOUT_CENTER_Y);
     }
     // make the window a mdi-window
     myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);
@@ -1103,8 +1108,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (oc.isSet("data-files") && !oc.getString("data-files").empty() && myNet) {
         // obtain vector of data files
         std::vector<std::string> dataElementsFiles = oc.getStringVector("data-files");
-        // disable interval bar update
-        myViewNet->getIntervalBar().disableIntervalBarUpdate();
         // disable update data
         myViewNet->getNet()->disableUpdateData();
         // begin undolist
@@ -1127,8 +1130,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myNet->requireSaveDataElements(false);
         // enable update data
         myViewNet->getNet()->enableUpdateData();
-        // enable interval bar update
-        myViewNet->getIntervalBar().enableIntervalBarUpdate();
     }
     // check if additionals output must be changed
     if (oc.isSet("additionals-output")) {
@@ -1219,6 +1220,8 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myEditMenu);
     // build front element menu commands
     myEditMenuCommands.buildFrontElementMenuCommand(myEditMenu);
+    // build separator
+    new FXMenuSeparator(myEditMenu);
     // build separator
     new FXMenuSeparator(myEditMenu);
     // build open in sumo menu commands
@@ -1350,6 +1353,9 @@ GNEApplicationWindow::closeAllWindows() {
     // remove coordinate information
     myGeoCoordinate->setText("N/A");
     myCartesianCoordinate->setText("N/A");
+    if (myTestCoordinate) {
+        myTestCoordinate->setText("N/A");
+    }
     // check if net can be deleted
     if (myNet != nullptr) {
         delete myNet;
@@ -2097,7 +2103,7 @@ GNEApplicationWindow::onCmdToggleGrid(FXObject* obj, FXSelector sel, void* ptr) 
 
 
 long
-GNEApplicationWindow::onCmdSetFrontElement(FXObject* /*obj*/, FXSelector /*sel*/, void* /*ptr*/) {
+GNEApplicationWindow::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
     if (myViewNet) {
         if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
             // get inspected AC
@@ -2500,7 +2506,11 @@ GNEApplicationWindow::onUpdNeedsFrontElement(FXObject* sender, FXSelector, void*
 
 long
 GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, ((myNet == nullptr) || !OptionsCont::getOptions().isSet("sumo-net-file")) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    if ((myNet == nullptr) || !OptionsCont::getOptions().isSet("sumo-net-file")) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
     return 1;
 }
 
@@ -3495,8 +3505,6 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // udpate current folder
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        // disable interval bar update
-        myViewNet->getIntervalBar().disableIntervalBarUpdate();
         // disable update data
         myViewNet->getNet()->disableUpdateData();
         // disable validation for data elements
@@ -3515,8 +3523,6 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         myUndoList->end();
         // enable update data
         myViewNet->getNet()->enableUpdateData();
-        // enable interval bar update
-        myViewNet->getIntervalBar().enableIntervalBarUpdate();
         // update
         update();
     } else {
@@ -3531,8 +3537,6 @@ long
 GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // get file
     const std::string file = OptionsCont::getOptions().getString("data-files");
-    // disable interval bar update
-    myViewNet->getIntervalBar().disableIntervalBarUpdate();
     // disable update data
     myViewNet->getNet()->disableUpdateData();
     // disable validation for additionals
@@ -3553,8 +3557,6 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     myUndoList->end();
     // enable update data
     myViewNet->getNet()->enableUpdateData();
-    // enable interval bar update
-    myViewNet->getIntervalBar().enableIntervalBarUpdate();
     // update
     update();
     return 1;

@@ -38,16 +38,16 @@ netedit.crossingMode()
 netedit.leftClick(referencePosition, 325, 225)
 
 # select edges 3 and 7
-netedit.modifyCrossingDefaultValue(2, "3 7")
+netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.create.edges, "3 7")
 
 # check invalid width
-netedit.modifyCrossingDefaultValue(4, "dummyWidth")
+netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.create.width, "dummyWidth")
 
 # check negative width
-netedit.modifyCrossingDefaultValue(4, "-7")
+netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.create.width, "-7")
 
 # set invalid width
-netedit.modifyCrossingDefaultValue(4, "5.2")
+netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.create.width, "5.2")
 netedit.createCrossing(False)
 
 # Check undo redo

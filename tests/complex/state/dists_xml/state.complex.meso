@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 23 20:41:01 2020 by Eclipse SUMO sumo Version v1_7_0+1213-669ca66b46
+<!-- generated on 2022-02-25 07:32:44 by Eclipse SUMO sumo Version v1_12_0+0861-d8492c4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,7 +30,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+1213-669ca66b46" time="50.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+0861-d8492c4" time="50.00" type="meso">
     <route id="r#0" state="1" edges="3/1to2/1 2/1to1/1 1/1to0/1"/>
     <route id="r#1" state="1" edges="2/1to1/1 1/1to0/1"/>
     <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
@@ -61,4 +61,19 @@
     <segment id="4/1to3/1:3">
         <vehicles time="46630" value=""/>
     </segment>
+    <tlLogic id="0/0" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="0/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="0/2" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="1/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="1/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="1/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="4/0" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="4/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="4/2" programID="0" phase="2" duration="16000"/>
 </snapshot>

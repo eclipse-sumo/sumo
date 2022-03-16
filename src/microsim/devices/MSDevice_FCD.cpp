@@ -33,14 +33,17 @@
 #include "MSDevice_FCD.h"
 
 // some attributes are not written by default and must be enabled via option fcd-output.attributes
-#define DEFAULT_MASK (~((long long int)1 << SUMO_ATTR_VEHICLE))
+const long long int MSDevice_FCD::myDefaultMask(~(
+            ((long long int)1 << SUMO_ATTR_VEHICLE)
+            | ((long long int)1 << SUMO_ATTR_ODOMETER)
+            ));
 
 // ===========================================================================
 // static members
 // ===========================================================================
 std::set<const MSEdge*> MSDevice_FCD::myEdgeFilter;
 bool MSDevice_FCD::myEdgeFilterInitialized(false);
-long long int MSDevice_FCD::myWrittenAttributes(DEFAULT_MASK);
+long long int MSDevice_FCD::myWrittenAttributes(myDefaultMask);
 
 // ===========================================================================
 // method definitions
@@ -111,7 +114,11 @@ MSDevice_FCD::initOnce() {
         myWrittenAttributes = 0;
         for (std::string attrName : oc.getStringVector("fcd-output.attributes")) {
             if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
-                WRITE_ERROR("Unknown attribute '" + attrName + "' to write in fcd output.");
+                if (attrName == "all") {
+                    myWrittenAttributes = std::numeric_limits<long long int>::max() - 1;
+                } else {
+                    WRITE_ERROR("Unknown attribute '" + attrName + "' to write in fcd output.");
+                }
                 continue;
             }
             int attr = SUMOXMLDefinitions::Attrs.get(attrName);
@@ -127,7 +134,7 @@ void
 MSDevice_FCD::cleanup() {
     myEdgeFilter.clear();
     myEdgeFilterInitialized = false;
-    myWrittenAttributes = DEFAULT_MASK;
+    myWrittenAttributes = myDefaultMask;
 }
 
 

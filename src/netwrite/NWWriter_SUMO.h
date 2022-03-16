@@ -139,7 +139,8 @@ private:
      * @param[in] customShape whether this lane has a custom shape
      */
     static void writeLane(OutputDevice& into, const std::string& lID,
-                          double speed, SVCPermissions permissions, SVCPermissions preferred,
+                          double speed, double friction,
+                          SVCPermissions permissions, SVCPermissions preferred,
                           SVCPermissions changeLeft, SVCPermissions changeRight,
                           double startOffset, double endOffset,
                           const StopOffset& stopOffset, double width, PositionVector shape,

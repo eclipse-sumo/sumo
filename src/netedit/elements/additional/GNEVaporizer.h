@@ -30,7 +30,7 @@
  * @class GNEVaporizer
  * @brief Representation of a vaporizer in netedit
  */
-class GNEVaporizer : public GNEAdditional {
+class GNEVaporizer : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default Constructor
@@ -45,7 +45,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name,
-                 const std::map<std::string, std::string>& parameters);
+                 const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEVaporizer();
@@ -101,6 +101,9 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
+
+    /// @brief get parameters map
+    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

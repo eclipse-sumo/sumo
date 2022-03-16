@@ -50,9 +50,12 @@ const MSTrafficLightLogic::LaneVector MSTrafficLightLogic::myEmptyLaneVector;
  * member method definitions
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::SwitchCommand::SwitchCommand(MSTLLogicControl& tlcontrol,
-        MSTrafficLightLogic* tlLogic, SUMOTime nextSwitch)
-    : myTLControl(tlcontrol), myTLLogic(tlLogic),
-      myAssumedNextSwitch(nextSwitch), myAmValid(true) {}
+        MSTrafficLightLogic* tlLogic, SUMOTime nextSwitch) :
+    myTLControl(tlcontrol), myTLLogic(tlLogic),
+    myAssumedNextSwitch(nextSwitch), myAmValid(true) {
+    // higher than default command priority of 0
+    priority = 1;
+}
 
 
 MSTrafficLightLogic::SwitchCommand::~SwitchCommand() {}
@@ -109,7 +112,7 @@ MSTrafficLightLogic::SwitchCommand::shiftTime(SUMOTime currentTime, SUMOTime exe
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
         const std::string& programID, const SUMOTime offset, const TrafficLightType logicType, const SUMOTime delay,
-        const std::map<std::string, std::string>& parameters) :
+        const Parameterised::Map& parameters) :
     Named(id), Parameterised(parameters),
     myProgramID(programID),
     myOffset(offset),
@@ -383,13 +386,7 @@ MSTrafficLightLogic::getSpentDuration(SUMOTime simStep) const {
     if (simStep == -1) {
         simStep = SIMSTEP;
     }
-    const SUMOTime nextSwitch = getNextSwitchTime();
-    if (nextSwitch == -1) {
-        return -1;
-    } else {
-        const SUMOTime remaining = nextSwitch - simStep;
-        return getCurrentPhaseDef().duration - remaining;
-    }
+    return simStep - getCurrentPhaseDef().myLastSwitch;
 }
 
 
@@ -546,5 +543,12 @@ MSTrafficLightLogic::getLatestEnd(int step) const {
     return p.latestEnd;
 }
 
+
+void
+MSTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration) {
+    const SUMOTime remaining = getPhase(step).duration - spentDuration;
+    changeStepAndDuration(tlcontrol, t, step, remaining);
+    setTrafficLightSignals(t - spentDuration);
+}
 
 /****************************************************************************/

@@ -50,7 +50,7 @@ netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
 netedit.selectionClear()
 
 # lock lanes
-netedit.lockSelection(3)
+netedit.lockSelection(netedit.attrs.Selection.LockSelectionNetwork.lanes)
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
@@ -62,7 +62,7 @@ netedit.selectionClear()
 netedit.typeTwoKeys('alt', 'o')
 
 # lock lanes
-netedit.lockSelection(3)
+netedit.lockSelection(netedit.attrs.Selection.LockSelectionNetwork.lanes)
 
 # check undo and redo
 netedit.undo(referencePosition, 5)

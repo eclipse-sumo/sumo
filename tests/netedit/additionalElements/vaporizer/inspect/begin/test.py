@@ -50,16 +50,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 227)
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummy", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.begin, "dummy", True)
 
 # Change parameter 1 with a non valid value (negative)
-netedit.modifyAttribute(1, "-10", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.begin, "-10", True)
 
 # Change parameter 1 with a non valid value (greather than end)
-netedit.modifyAttribute(1, "50", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.begin, "50", True)
 
 # Change parameter 1 with a valid value
-netedit.modifyAttribute(1, "5", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.begin, "5", True)
 
 # click over an empty area
 netedit.leftClick(referencePosition, 0, 0)

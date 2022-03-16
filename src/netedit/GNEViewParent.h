@@ -46,8 +46,9 @@ class GNEAdditionalFrame;
 class GNEConnectorFrame;
 class GNECreateEdgeFrame;
 class GNECrossingFrame;
-class GNEPolygonFrame;
+class GNEShapeFrame;
 class GNEProhibitionFrame;
+class GNEWireFrame;
 class GNETAZFrame;
 class GNETLSEditorFrame;
 // demand frames
@@ -141,11 +142,14 @@ public:
     /// @brief get frame for NETWORK_TAZ
     GNETAZFrame* getTAZFrame() const;
 
-    /// @brief get frame for NETWORK_POLYGON
-    GNEPolygonFrame* getPolygonFrame() const;
+    /// @brief get frame for NETWORK_SHAPE
+    GNEShapeFrame* getShapeFrame() const;
 
     /// @brief get frame for NETWORK_PROHIBITION
     GNEProhibitionFrame* getProhibitionFrame() const;
+
+    /// @brief get frame for NETWORK_WIRE
+    GNEWireFrame* getWireFrame() const;
 
     /// @brief get frame for NETWORK_CREATEEDGE
     GNECreateEdgeFrame* getCreateEdgeFrame() const;
@@ -224,9 +228,6 @@ public:
     long onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*);
     /// @}
 
-    std::vector<GUIGlID> getObjectIDs(int messageId) const;
-
-
 protected:
     FOX_CONSTRUCTOR(GNEViewParent)
 
@@ -302,11 +303,14 @@ protected:
         /// @brief frame for NETWORK_TAZ
         GNETAZFrame* TAZFrame;
 
-        /// @brief frame for NETWORK_POLYGON
-        GNEPolygonFrame* polygonFrame;
+        /// @brief frame for NETWORK_SHAPE
+        GNEShapeFrame* polygonFrame;
 
         /// @brief frame for NETWORK_PROHIBITION
         GNEProhibitionFrame* prohibitionFrame;
+
+        /// @brief frame for NETWORK_WIRE
+        GNEWireFrame* wireFrame;
 
         /// @brief frame for NETWORK_CREATEDGE
         GNECreateEdgeFrame* createEdgeFrame;
@@ -433,6 +437,9 @@ protected:
 
         /// @brief pointer to ACChooser dialog used for locate Prohibitions
         GNEDialogACChooser* ACChooserProhibition;
+
+        /// @brief pointer to ACChooser dialog used for locate Wires
+        GNEDialogACChooser* ACChooserWire;
     };
 
 private:

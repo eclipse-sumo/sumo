@@ -4,13 +4,7 @@ Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov091513.1800\netedit.gui\shapeElements\poigeo\inspect_selected\parameters\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb153236.2456\netedit.gui\shapeElements\poigeo\inspect_selected\parameters\input_additionals.add.xml failed.
 Warning: Invalid format of parameter (dummyGenericParameters)
 Warning: Invalid format of parameter (key1)
 Warning: Invalid format of parameter (keyInvalid.;%>%$$=value1)

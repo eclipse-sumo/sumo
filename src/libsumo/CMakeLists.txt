@@ -9,7 +9,9 @@ endif()
 set(libsumostatic_STAT_SRCS
     Edge.cpp
     Edge.h
-    GUI.h
+    FrictionCoefficientSign.h
+    FrictionCoefficientSign.cpp
+
     Helper.cpp
     Helper.h
     InductionLoop.cpp
@@ -66,9 +68,23 @@ add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
 add_dependencies(libsumostatic generate-version-h install_dll)
 set_property(TARGET libsumostatic PROPERTY FOLDER "libsumo")
 
+if (FOX_FOUND)
+    add_library(libsumoguistatic STATIC ${libsumostatic_STAT_SRCS} GUI.cpp GUI.h)
+    add_dependencies(libsumoguistatic generate-version-h install_dll)
+    set_property(TARGET libsumoguistatic PROPERTY FOLDER "libsumo")
+    target_compile_definitions(libsumoguistatic PUBLIC HAVE_LIBSUMOGUI)
+    add_library(libsumocpp SHARED ${libsumostatic_STAT_SRCS} GUI.cpp GUI.h)
+    target_compile_definitions(libsumocpp PUBLIC HAVE_LIBSUMOGUI)
+    set(libsumo_link_library libsumoguistatic)
+    set(sumo_link_libraries ${sumoguilibs})
+else ()
+    add_library(libsumocpp SHARED ${libsumostatic_STAT_SRCS})
+    set(libsumo_link_library libsumostatic)
+    set(sumo_link_libraries ${sumolibs})
+endif()
+
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
-add_library(libsumocpp SHARED ${libsumostatic_STAT_SRCS})
 set_property(TARGET libsumocpp PROPERTY FOLDER "libsumo")
 set_target_properties(libsumocpp PROPERTIES PREFIX "")
 set_target_properties(libsumocpp PROPERTIES OUTPUT_NAME libsumocpp${BINARY_SUFFIX})
@@ -89,6 +105,7 @@ elseif (MSVC OR APPLE)
 else ()
     target_link_libraries(libsumocpp PRIVATE -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive)
 endif()
+target_link_libraries(libsumocpp PRIVATE ${sumo_link_libraries})
 
 set(ENABLE_PYTHON_BINDINGS ON CACHE BOOL "Build Python Bindings")
 set(ENABLE_JAVA_BINDINGS ON CACHE BOOL "Build Java Bindings")
@@ -113,24 +130,26 @@ if(SWIG_FOUND)
             endif()
             if (CLANG_COMPILER AND WIN32)
                 set_source_files_properties(${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "-Wno-strict-aliasing")
-                swig_link_libraries(libsumojni -Wl,--whole-archive libsumostatic ${sumolibs} -Wl,--no-whole-archive)
+                swig_link_libraries(libsumojni -Wl,--whole-archive ${libsumo_link_library} ${sumolibs} -Wl,--no-whole-archive)
             elseif (MSVC OR APPLE)
-                swig_link_libraries(libsumojni libsumostatic ${sumolibs})
+                swig_link_libraries(libsumojni ${libsumo_link_library} ${sumolibs})
             else()
                 set_source_files_properties(${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "-Wno-strict-aliasing")
-                swig_link_libraries(libsumojni -Wl,--whole-archive libsumostatic ${sumolibs} -Wl,--no-whole-archive)
+                swig_link_libraries(libsumojni -Wl,--whole-archive ${libsumo_link_library} ${sumolibs} -Wl,--no-whole-archive)
             endif()
+            swig_link_libraries(libsumojni ${sumo_link_libraries})
             if (MVN_EXECUTABLE)
                 ADD_CUSTOM_COMMAND(TARGET libsumojni POST_BUILD
                     COMMAND ${CMAKE_COMMAND} -E make_directory src/main/java/org/eclipse/sumo/libsumo
                     COMMAND ${CMAKE_COMMAND} -E copy_directory java src/main/java/org/eclipse/sumo/libsumo
                     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/pom.py libsumo
-                    COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode package source:jar
+                    COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} --batch-mode package source:jar
                 )
             else()
                 message(WARNING "Could not build libsumo jar, maven was not found.")
             endif()
             set_property(TARGET libsumojni PROPERTY FOLDER "libsumo")
+            install(TARGETS libsumojni DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
         else()
             message(WARNING "ENABLE_JAVA_BINDINGS is set but Java or JNI was not found.")
         endif()
@@ -178,13 +197,14 @@ if(SWIG_FOUND)
                 SWIG_ADD_MODULE(libsumo python libsumo.i)
             endif()
             if (CLANG_COMPILER AND WIN32)
-                swig_link_libraries(libsumo -Wl,--whole-archive libsumostatic ${sumolibs} -Wl,--no-whole-archive)
+                swig_link_libraries(libsumo -Wl,--whole-archive ${libsumo_link_library} ${sumolibs} -Wl,--no-whole-archive)
             elseif (MSVC OR APPLE)
                 set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY FOLDER "libsumo")
-                swig_link_libraries(libsumo libsumostatic ${sumolibs} ${PYTHON_LIBRARIES})
+                swig_link_libraries(libsumo ${libsumo_link_library} ${sumolibs} ${PYTHON_LIBRARIES})
             else()
-                swig_link_libraries(libsumo -Wl,--whole-archive libsumostatic ${sumolibs} -Wl,--no-whole-archive)
+                swig_link_libraries(libsumo -Wl,--whole-archive ${libsumo_link_library} ${sumolibs} -Wl,--no-whole-archive)
             endif()
+            swig_link_libraries(libsumo ${sumo_link_libraries})
             if (NOT ${SETUPTOOLS_MISSING})
                 install(
                     CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-libsumo.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"

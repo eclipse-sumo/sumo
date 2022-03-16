@@ -112,7 +112,7 @@ flows:out.flows.xml
 routes:out.rou.xml
 routesA:outA.rou.xml
 routesB:outB.rou.xml
-tripinfos:4/tripinfo_004.xml
+tripinfos:004/tripinfo_004.xml
 additional:out.add.xml
 diff_nod:diff.nod.xml
 diff_edg:diff.edg.xml
@@ -259,6 +259,7 @@ errors:D:
 errors:unknown url type{REPLACE [Errno 2] No such file or directory}
 errors::ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element
 errors:Matplotlib is building the font cache; this may take a moment.
+errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 omnet:<!-- generated on
 shawn:<!-- generated on
 gpsdat:r[0-9]
@@ -308,6 +309,7 @@ ptroutes:0.0101
 summary:0.0001
 routes:0.0001
 output:0.0001
+xml:0.0001
 csv:0.0101
 
 [unordered_text]

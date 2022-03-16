@@ -42,13 +42,13 @@ netedit.leftClick(referencePosition, 190, 240)
 netedit.leftClick(referencePosition, 440, 240)
 
 # set invalid speed threshold
-netedit.changeDefaultValue(9, "-14")
+netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.speedThreshold, "-14")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # set valid speed threshold
-netedit.changeDefaultValue(9, "2.5")
+netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.speedThreshold, "2.5")
 
 # create E2 with default parameters
 netedit.typeEnter()

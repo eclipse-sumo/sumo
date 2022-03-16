@@ -403,8 +403,8 @@ public:
     PositionVector interpolateZ(double zStart, double zEnd) const;
 
     /**@brief resample shape (i.e. transform to segments, equal spacing)
-     * @param[in] maxLength lenght of every segment
-     * @param[in] adjustEnd enable or disable adjust end (i.e. result has the same original lenght, last segment could be short)
+     * @param[in] maxLength length of every segment
+     * @param[in] adjustEnd enable or disable adjust end (i.e. result has the same original length, last segment could be short)
      */
     PositionVector resample(double maxLength, const bool adjustEnd) const;
 

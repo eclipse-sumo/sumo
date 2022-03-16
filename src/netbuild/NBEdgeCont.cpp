@@ -597,7 +597,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                     const std::string& firstEdgeName,
                     const std::string& secondEdgeName,
                     int noLanesFirstEdge, int noLanesSecondEdge,
-                    const double speed,
+                    const double speed, const double friction,
                     const int changedLeft) {
     double pos;
     pos = edge->getGeometry().nearest_offset_to_point2D(node->getPosition());
@@ -610,7 +610,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
         return false;
     }
     return splitAt(dc, edge, pos, node, firstEdgeName, secondEdgeName,
-                   noLanesFirstEdge, noLanesSecondEdge, speed, changedLeft);
+                   noLanesFirstEdge, noLanesSecondEdge, speed, friction, changedLeft);
 }
 
 
@@ -620,7 +620,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
                     const std::string& firstEdgeName,
                     const std::string& secondEdgeName,
                     int noLanesFirstEdge, int noLanesSecondEdge,
-                    const double speed,
+                    const double speed, const double friction,
                     const int changedLeft
                    ) {
     // there must be at least some overlap between first and second edge
@@ -645,6 +645,9 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     two->copyConnectionsFrom(edge);
     if (speed != -1.) {
         two->setSpeed(-1, speed);
+    }
+    if (friction != -1.) {
+        two->setFriction(-1, friction);
     }
     // replace information about this edge within the nodes
     edge->myFrom->replaceOutgoing(edge, one, 0);
@@ -842,9 +845,9 @@ NBEdgeCont::recheckLanes() {
                 if (oppositeID != "" && oppositeID != "-") {
                     if (edge->getLanes().back().oppositeID == "" && oppEdge != nullptr) {
                         edge->getLaneStruct(leftmostLane).oppositeID = oppositeID;
-                        WRITE_WARNING("Moving opposite lane '" + oppositeID + "' from invalid lane '" + edge->getLaneID(i) + "' to lane " + toString(leftmostLane) + ".");
+                        WRITE_WARNINGF("Moving opposite lane '%' from invalid lane '%' to lane %.", oppositeID, edge->getLaneID(i), leftmostLane);
                     } else {
-                        WRITE_WARNING("Removing opposite lane '" + oppositeID + "' for invalid lane '" + edge->getLaneID(i) + "'.");
+                        WRITE_WARNINGF("Removing opposite lane '%' for invalid lane '%'.", oppositeID, edge->getLaneID(i));
                     }
                     edge->getLaneStruct(i).oppositeID = "";
                 }
@@ -853,19 +856,19 @@ NBEdgeCont::recheckLanes() {
             if (oppositeID != "" && oppositeID != "-") {
                 NBEdge* oppEdge = retrieve(oppositeID.substr(0, oppositeID.rfind("_")));
                 if (oppEdge == nullptr) {
-                    WRITE_WARNING("Removing unknown opposite lane '" + oppositeID + "' for edge '" + edge->getID() + "'.");
+                    WRITE_WARNINGF("Removing unknown opposite lane '%' for edge '%'.", oppositeID, edge->getID());
                     edge->getLaneStruct(leftmostLane).oppositeID = "";
                     continue;
                 } else if (oppEdge->getLaneID(oppEdge->getNumLanes() - 1) != oppositeID) {
                     const std::string oppEdgeLeftmost = oppEdge->getLaneID(oppEdge->getNumLanes() - 1);
-                    WRITE_WARNING("Adapting invalid opposite lane '" + oppositeID + "' for edge '" + edge->getID() + "' to '" + oppEdgeLeftmost + "'");
+                    WRITE_WARNINGF("Adapting invalid opposite lane '%' for edge '%' to '%'", oppositeID, edge->getID(), oppEdgeLeftmost);
                     edge->getLaneStruct(leftmostLane).oppositeID = oppEdgeLeftmost;
                 }
                 if (fabs(oppEdge->getLoadedLength() - edge->getLoadedLength()) > NUMERICAL_EPS) {
                     if (fixOppositeLengths) {
                         const double avgLength = 0.5 * (edge->getFinalLength() + oppEdge->getFinalLength());
-                        WRITE_WARNING("Averaging edge lengths for lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) + ") and edge '" + edge->getID() + "' (length "
-                                      + toString(edge->getLoadedLength()) + ").");
+                        WRITE_WARNINGF("Averaging edge lengths for lane '%' (length %) and edge '%' (length %).",
+                                       oppositeID, oppEdge->getLoadedLength(), edge->getID(), edge->getLoadedLength());
                         edge->setLoadedLength(avgLength);
                         oppEdge->setLoadedLength(avgLength);
                     } else {
@@ -1127,7 +1130,7 @@ NBEdgeCont::recheckPostProcessConnections() {
             NBEdge* to = retrievePossiblySplit((*i).to, false);
             if (from == nullptr || to == nullptr ||
                     !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::Lane2LaneInfoType::USER, true, (*i).mayDefinitelyPass,
-                                                  (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).customLength, (*i).customShape,
+                                                  (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).friction, (*i).customLength, (*i).customShape,
                                                   (*i).uncontrolled, (*i).permissions, (*i).indirectLeft, (*i).edgeType, (*i).changeLeft, (*i).changeRight,
                                                   true)) {
                 const std::string msg = "Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.";

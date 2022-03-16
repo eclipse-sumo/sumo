@@ -1,2 +1,2 @@
-Error: Attribute 'shape' in definition of taz 'TAZ_02' is not of type PositionVector.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov101118.17024\netedit.gui\TAZElements\taz\load\shape\input_additionals.add.xml failed.
+Error: Attribute 'shape' in definition of taz 'TAZ_02' is not a valid list of positions.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\TAZElements\taz\load\shape\input_additionals.add.xml failed.

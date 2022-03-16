@@ -16,8 +16,20 @@ first_teleport
 # replace second stop after the vehicle has departed
 second
 
+# replace stop that was added from a named route before the vehicle has departed	
+routeStop_init
+
 # replace second stop with "" after the vehicle has departed
 second_remove
+
+# replace all stops with "" after the vehicle has departed
+remove_reroute
+
+# replace all stops with "" after the vehicle has departed and teleport to destination
+remove_teleport
+
+# replace second stop with "" after the vehicle has departed before the vehicle has departed
+second_remove_init
 
 # replace second stop after the vehicle has departed
 second_teleport
@@ -56,5 +68,18 @@ reached_invalid
 # test replaceStop failure
 unreachable
 
+# replace second stop with "" after the vehicle has departed.
+# riders with "ANY" from the first stop to the second stop should be aware
+second_remove_rider
+
 # replace first stop while on a junction leading away from the new stop
 on_junction
+
+# replace first stop after the vehicle has departed using setStopParameter
+first_parameter
+
+# replace first stop after the vehicle has departed using setStopParameter
+first_parameter_edge
+
+# replace parameters of first stop (but keep the location)
+first_parameter_only

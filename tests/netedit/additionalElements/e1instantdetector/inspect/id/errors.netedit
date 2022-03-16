@@ -1,8 +1,7 @@
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'instantInductionLoop' in TagSelector
-Debug: Adding instantInductionLoop 'instantInductionLoop_gneE1_0_0' in GNEChange_Additional
-Debug: Adding instantInductionLoop 'instantInductionLoop_gneE1_0_1' in GNEChange_Additional
-Debug: Setting new attribute
+Debug: Adding instantInductionLoop 'e1i_0' in GNEChange_Additional
+Debug: Adding instantInductionLoop 'e1i_1' in GNEChange_Additional
+Debug: Value 'e1i_1' for attribute id of instantInductionLoop isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -13,10 +12,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
+Debug: Removing instantInductionLoop 'e1i_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
+Debug: Adding instantInductionLoop 'e1i_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -26,7 +25,7 @@ Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE1_0_1'
+Debug: Deleting unreferenced instantInductionLoop 'e1i_1'
 Debug: Deleting unreferenced instantInductionLoop 'correctID'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

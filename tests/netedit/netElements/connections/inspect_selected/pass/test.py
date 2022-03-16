@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 228, 170)
 
 # Change pass
-netedit.modifyBoolAttribute(0, True)
+netedit.modifyBoolAttribute(netedit.attrs.connection.inspectSelection.passC, True)
 
 # rebuild
 netedit.rebuildNetwork()

@@ -1,6 +1,6 @@
 Debug: Selected item 'busStop' in TagSelector
 Debug: Adding busStop 'bs_0' in GNEChange_Additional
-Debug: Value 'dummylenght' for attribute parkingLength of busStop isn't valid
+Debug: Value 'dummylength' for attribute parkingLength of busStop isn't valid
 Debug: Value '-7' for attribute parkingLength of busStop isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute

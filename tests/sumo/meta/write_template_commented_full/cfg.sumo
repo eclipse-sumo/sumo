@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-18 08:48:15 by Eclipse SUMO sumo Version v1_11_0+1222-4acc24c9a7b
+<!-- generated on 2022-03-16 10:18:32 by Eclipse SUMO sumo Version v1_12_0+1393-6c843c74b2b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -11,6 +11,9 @@
 
         <!-- Saves current configuration into FILE -->
         <save-configuration value="" synonymes="C save-config" type="FILE"/>
+
+        <!-- Enforce relative paths when saving the configuration -->
+        <save-configuration.relative value="false" synonymes="save-config.relative" type="BOOL"/>
 
         <!-- Saves a configuration template (empty) into FILE -->
         <save-template value="" type="FILE"/>
@@ -83,6 +86,9 @@
 
         <!-- Write emission values with the given precision (default 2) -->
         <emission-output.precision value="2" type="INT"/>
+
+        <!-- Save the positions in emission output using geo-coordinates (lon/lat) -->
+        <emission-output.geo value="false" type="BOOL"/>
 
         <!-- Write emission values scaled to the step length rather than as per-second values -->
         <emission-output.step-scaled value="false" type="BOOL"/>
@@ -213,6 +219,9 @@
         <!-- Write the vehicle speedFactor (defaults to &apos;true&apos; if departSpeed is written) -->
         <vehroute-output.speedfactor value="false" type="BOOL"/>
 
+        <!-- Save person and container routes to separate FILE -->
+        <personroute-output value="" synonymes="personroutes" type="FILE"/>
+
         <!-- Save links states into FILE -->
         <link-output value="" type="FILE"/>
 
@@ -245,12 +254,6 @@
 
         <!-- Write overall statistics into FILE -->
         <statistic-output value="" synonymes="statistics-output" type="FILE"/>
-
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR[]"/>
 
         <!-- Use TIME[] as times at which a network state written -->
         <save-state.times value="" type="STR[]"/>
@@ -363,6 +366,9 @@
         <!-- Whether vehicles shall be removed after waiting too long instead of being teleported -->
         <time-to-teleport.remove value="false" type="BOOL"/>
 
+        <!-- The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting -->
+        <time-to-teleport.ride value="-1" type="TIME"/>
+
         <!-- Length of time interval, over which accumulated waiting time is taken into account (default is 100s.) -->
         <waiting-time-memory value="100" type="TIME"/>
 
@@ -400,7 +406,7 @@
         <railsignal-moving-block value="false" type="BOOL"/>
 
         <!-- Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth -->
-        <time-to-impatience value="300" type="TIME"/>
+        <time-to-impatience value="180" type="TIME"/>
 
         <!-- Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length. -->
         <default.action-step-length value="0" type="FLOAT"/>
@@ -512,6 +518,9 @@
 
         <!-- Use FLOAT as a maximum train length when initializing the railway router -->
         <railway.max-train-length value="1000" type="FLOAT"/>
+
+        <!-- Replay exact rerouting sequence from vehroute-output -->
+        <replay-rerouting value="false" type="BOOL"/>
 
         <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
         <device.rerouting.probability value="-1" type="FLOAT"/>
@@ -979,6 +988,24 @@
         <device.vehroute.deterministic value="false" type="BOOL"/>
 
     </vehroutes_device>
+
+    <seeroad_device>
+        <!-- The probability for a vehicle to have a &apos;Seeroad&apos; device -->
+        <device.Seeroad.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;Seeroad&apos; device to named vehicles -->
+        <device.Seeroad.explicit value="" synonymes="device.Seeroad.knownveh" type="STR[]"/>
+
+        <!-- The &apos;Seeroad&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.Seeroad.deterministic value="false" type="BOOL"/>
+
+        <!-- The measurement noise parameter which can be applied to the Seeroad device -->
+        <device.Seeroad.stdev value="0.1" type="FLOAT"/>
+
+        <!-- The measurement offset parameter which can be applied to the Seeroad device -&gt; e.g. to force false measurements -->
+        <device.Seeroad.offset value="0" type="FLOAT"/>
+
+    </seeroad_device>
 
     <traci_server>
         <!-- Enables TraCI Server if set -->

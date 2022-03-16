@@ -50,28 +50,25 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 155)
 
 # change value
-netedit.modifyBoolAttribute(2, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopParking.inspect.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(2, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopParking.inspect.untilEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(2, False)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspect.until, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(3, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspect.until, "", False)
 
 # change value
-netedit.modifyAttribute(3, "", False)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspect.until, "-5", False)
 
 # change value
-netedit.modifyAttribute(3, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspect.until, "0", False)
 
 # change value
-netedit.modifyAttribute(3, "0", False)
-
-# change value
-netedit.modifyAttribute(3, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspect.until, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

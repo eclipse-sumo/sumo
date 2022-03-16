@@ -162,7 +162,7 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_CONTAINER, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
@@ -170,10 +170,12 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters) :
     GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}, {pType}, {}),
-SUMOVehicleParameter(containerparameters) {
+        {}, {}, {}, {}, {pType}, {}),
+    SUMOVehicleParameter(containerparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
+    // adjust default flow attributes
+    adjustDefaultFlowAttributes(this);
 }
 
 
@@ -749,7 +751,7 @@ GNEContainer::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEContainer::getACParametersMap() const {
     return getParametersMap();
 }
@@ -919,12 +921,9 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEContainer::toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) {
-    if (value) {
-        GNERouteHandler::setFlowParameters(key, parametersSet);
-    } else {
-        parametersSet = previousParameters;
-    }
+GNEContainer::toogleAttribute(SumoXMLAttr key, const bool value) {
+    // set flow parameters
+    setFlowParameters(this, key, value);
 }
 
 

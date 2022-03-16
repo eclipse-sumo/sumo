@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 165)
 
 # Change parameter 3 with a non valid value (dummy)
-netedit.modifyAttribute(5, "dummyWidth", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.width, "dummyWidth", True)
 
 # Change parameter 3 with a non valid value (empty)
-netedit.modifyAttribute(5, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.width, "", True)
 
 # Change parameter 3 with a non valid value (negative)
-netedit.modifyAttribute(5, "-2", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.width, "-2", True)
 
 # Change parameter 3 with a valid value (default)
-netedit.modifyAttribute(5, "default", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.width, "default", True)
 
 # Change parameter 3 with a valid value (default)
-netedit.modifyAttribute(5, "4", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.width, "4", True)
 
 # recompute
 netedit.rebuildNetwork()

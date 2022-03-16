@@ -34,6 +34,9 @@
 #include <mesosim/MESegment.h>
 #include "MSRouteProbe.h"
 
+// ===========================================================================
+// static members
+// ===========================================================================
 
 // ===========================================================================
 // method definitions
@@ -41,13 +44,12 @@
 MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, const std::string& distID, const std::string& lastID,
                            const std::string& vTypes) :
     MSDetectorFileOutput(id, vTypes), MSMoveReminder(id),
-    myEdge(edge) {
-    myCurrentRouteDistribution = std::make_pair(distID, MSRoute::distDictionary(distID));
-    if (myCurrentRouteDistribution.second == 0) {
-        myCurrentRouteDistribution.second = new RandomDistributor<const MSRoute*>();
-        MSRoute::dictionary(distID, myCurrentRouteDistribution.second, false);
-    }
-    myLastRouteDistribution = std::make_pair(lastID, MSRoute::distDictionary(lastID));
+    myDistID(distID),
+    myLastID(lastID),
+    myLastRouteDistribution(nullptr),
+    myCurrentRouteDistribution(nullptr),
+    myEdge(edge)
+{
     if (MSGlobals::gUseMesoSim) {
         MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
         while (seg != nullptr) {
@@ -65,6 +67,24 @@ MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, const std:
 MSRouteProbe::~MSRouteProbe() {
 }
 
+void
+MSRouteProbe::clearState(SUMOTime step) {
+    UNUSED_PARAMETER(step);
+    myCurrentRouteDistribution = nullptr;
+    myLastRouteDistribution = nullptr;
+}
+
+void
+MSRouteProbe::initDistributions() {
+    if (myCurrentRouteDistribution == nullptr) {
+        myCurrentRouteDistribution = MSRoute::distDictionary(myDistID);
+        if (myCurrentRouteDistribution == 0) {
+            myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
+            MSRoute::dictionary(myDistID, myCurrentRouteDistribution, false);
+        }
+        myLastRouteDistribution = MSRoute::distDictionary(myLastID);
+    }
+}
 
 bool
 MSRouteProbe::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
@@ -74,7 +94,8 @@ MSRouteProbe::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification r
     if (reason != MSMoveReminder::NOTIFICATION_SEGMENT && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         SUMOVehicle* vehicle = dynamic_cast<SUMOVehicle*>(&veh);
         if (vehicle != nullptr) {
-            if (myCurrentRouteDistribution.second->add(&vehicle->getRoute(), 1.)) {
+            initDistributions();
+            if (myCurrentRouteDistribution->add(&vehicle->getRoute(), 1.)) {
                 vehicle->getRoute().addReference();
             }
         }
@@ -86,10 +107,10 @@ MSRouteProbe::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification r
 void
 MSRouteProbe::writeXMLOutput(OutputDevice& dev,
                              SUMOTime startTime, SUMOTime stopTime) {
-    if (myCurrentRouteDistribution.second->getOverallProb() > 0) {
+    if (myCurrentRouteDistribution && myCurrentRouteDistribution->getOverallProb() > 0) {
         dev.openTag("routeDistribution") << " id=\"" << getID() + "_" + time2string(startTime) << "\"";
-        const std::vector<const MSRoute*>& routes = myCurrentRouteDistribution.second->getVals();
-        const std::vector<double>& probs = myCurrentRouteDistribution.second->getProbs();
+        const std::vector<const MSRoute*>& routes = myCurrentRouteDistribution->getVals();
+        const std::vector<double>& probs = myCurrentRouteDistribution->getProbs();
         for (int j = 0; j < (int)routes.size(); ++j) {
             const MSRoute* r = routes[j];
             dev.openTag("route") << " id=\"" << r->getID() + "_" + time2string(startTime) << "\" edges=\"";
@@ -103,13 +124,14 @@ MSRouteProbe::writeXMLOutput(OutputDevice& dev,
             dev.closeTag();
         }
         dev.closeTag();
-        if (myLastRouteDistribution.second != 0) {
-            MSRoute::checkDist(myLastRouteDistribution.first);
+        if (myLastRouteDistribution != 0) {
+            MSRoute::checkDist(myLastID);
         }
         myLastRouteDistribution = myCurrentRouteDistribution;
-        myCurrentRouteDistribution.first = getID() + "_" + toString(stopTime);
-        myCurrentRouteDistribution.second = new RandomDistributor<const MSRoute*>();
-        MSRoute::dictionary(myCurrentRouteDistribution.first, myCurrentRouteDistribution.second, false);
+        myLastID = myDistID;
+        myDistID = getID() + "_" + toString(stopTime);
+        myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
+        MSRoute::dictionary(myDistID, myCurrentRouteDistribution, false);
     }
 }
 
@@ -122,11 +144,11 @@ MSRouteProbe::writeXMLDetectorProlog(OutputDevice& dev) const {
 
 const MSRoute*
 MSRouteProbe::sampleRoute(bool last) const {
-    if (myLastRouteDistribution.second == 0 || !last) {
-        if (myCurrentRouteDistribution.second->getOverallProb() > 0) {
-            return myCurrentRouteDistribution.second->get();
+    if (myLastRouteDistribution == 0 || !last) {
+        if (myCurrentRouteDistribution && myCurrentRouteDistribution->getOverallProb() > 0) {
+            return myCurrentRouteDistribution->get();
         }
         return nullptr;
     }
-    return myLastRouteDistribution.second->get();
+    return myLastRouteDistribution->get();
 }

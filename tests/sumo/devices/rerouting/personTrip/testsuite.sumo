@@ -84,6 +84,9 @@ intermodal_car_walk_input
 # car and walk in one trip but no stop for changing modes
 intermodal_car_walk_no_place
 
+# car and walk in one trip
+intermodal_car_walk_junctionTaz
+
 # train access
 access
 

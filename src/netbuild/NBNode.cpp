@@ -2813,6 +2813,7 @@ NBNode::buildCrossings() {
             std::cout << " sortedEdges=" << toString(edges) << "\n";
         };
         // rotate the edges so that the largest relative angle difference comes at the end
+        std::vector<double> rawAngleDiffs;
         double maxAngleDiff = 0;
         int maxAngleDiffIndex = 0; // index before maxDist
         for (int i = 0; i < (int) edges.size(); i++) {
@@ -2821,6 +2822,11 @@ NBNode::buildCrossings() {
             if (diff < 0) {
                 diff += 360;
             }
+            const double rawDiff = NBHelpers::relAngle(
+                    edges[i]->getAngleAtNodeNormalized(this),
+                    edges[(i + 1) % edges.size()]->getAngleAtNodeNormalized(this));
+            rawAngleDiffs.push_back(fabs(rawDiff));
+
             if (gDebugFlag1) {
                 std::cout << "   i=" << i << " a1=" << edges[i]->getAngleAtNodeToCenter(this) << " a2=" << edges[(i + 1) % edges.size()]->getAngleAtNodeToCenter(this) << " diff=" << diff << "\n";
             }
@@ -2834,6 +2840,21 @@ NBNode::buildCrossings() {
             std::rotate(edges.begin(), edges.begin() + (maxAngleDiffIndex + 1) % edges.size(), edges.end());
             if (gDebugFlag1) {
                 std::cout << " rotatedEdges=" << toString(edges);
+            }
+        }
+        bool diagonalCrossing = false;
+        std::sort(rawAngleDiffs.begin(), rawAngleDiffs.end());
+        if (rawAngleDiffs.size() >= 2 && rawAngleDiffs[rawAngleDiffs.size() - 2] > 30) {
+            diagonalCrossing = true;
+            if (gDebugFlag1) {
+                std::cout << " detected pedScramble " << c->id << " edges=" << toString(edges) << " rawDiffs=" << toString(rawAngleDiffs) << "\n";
+                for (auto e : edges) {
+                    std::cout << "  e=" << e->getID()
+                        << " aC=" << e->getAngleAtNodeToCenter(this)
+                        << " a=" << e->getAngleAtNode(this)
+                        << " aN=" << e->getAngleAtNodeNormalized(this)
+                        << "\n";
+                }
             }
         }
         // reverse to get them in CCW order (walking direction around the node)
@@ -2868,6 +2889,9 @@ NBNode::buildCrossings() {
             } else {
                 c->shape.push_back(crossingBeg.shape[begDir == FORWARD ? 0 : -1]);
                 c->shape.push_back(crossingEnd.shape[endDir == FORWARD ? -1 : 0]);
+            }
+            if (diagonalCrossing) {
+                c->shape.move2side(-c->width);
             }
         }
     }

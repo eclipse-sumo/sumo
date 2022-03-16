@@ -265,6 +265,9 @@ struct GNEApplicationWindowHelper {
             /// @brief menu command for shape mode
             FXMenuCommand* shapeMode;
 
+            /// @brief menu command for wire mode
+            FXMenuCommand* wireMode;
+
         private:
             /// @brief reference to ModesMenuCommands
             const ModesMenuCommands* myModesMenuCommandsParent;

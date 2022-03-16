@@ -43,7 +43,7 @@ public:
      * @param[in] edgeParent poinetr to Edge parent
      * @param[in] parameters parameters map
      */
-    GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const std::map<std::string, std::string>& parameters);
+    GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEEdgeData();
@@ -183,7 +183,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
+    void toogleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief Invalidated copy constructor.
     GNEEdgeData(const GNEEdgeData&) = delete;

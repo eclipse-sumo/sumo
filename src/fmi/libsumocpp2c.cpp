@@ -19,14 +19,13 @@
 // Implementation of the libsumo c++ to c wrapper
 /****************************************************************************/
 
+#include <sstream>
+#include <iostream>
 #include <stdlib.h>
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/Simulation.h>
-#include <utils/common/StringUtils.h>
-#include <utils/geom/PositionVector.h>
 #include <libsumo/Vehicle.h>
-#include <sstream>
 
 #include "libsumocpp2c.h"
 
@@ -42,10 +41,6 @@ allocateAndCopyString(ModelInstance* comp, const std::string& s) {
 
 void
 libsumo_load(char* callOptions) {
-
-    std::cout << "Calling libsumo with the following options:" << std::endl;
-    std::cout << "\"" << callOptions << "\"" << std::endl;
-
     // Tokenize the string, because Simulation::load expects a vector
     std::vector<std::string> options;
     std::stringstream ss(callOptions);
@@ -86,15 +81,15 @@ libsumo_vehicle_moveToXY(const char* paramString) {
         while (std::getline(ss, temp_str, DELIMITER)) {
             params.push_back(temp_str);
         }
-
+        char* pEnd;
         const std::string vehID = params[0];
         const std::string edgeID = params[1];
-        int laneIndex = StringUtils::toInt(params[2]);
-        double x = StringUtils::toDouble(params[3]);
-        double y = StringUtils::toDouble(params[4]);
-        double angle = params.size() >= 6 ? StringUtils::toDouble(params[5]) : libsumo::INVALID_DOUBLE_VALUE;
-        int keepRoute = params.size() >= 7 ? StringUtils::toInt(params[6]) : 1;
-        double matchThreshold = params.size() >= 8 ? StringUtils::toDouble(params[7]) : 100;
+        int laneIndex = strtol(params[2].c_str(), &pEnd, 10);
+        double x = strtod(params[3].c_str(), &pEnd);
+        double y = strtod(params[4].c_str(), &pEnd);
+        double angle = params.size() >= 6 ? strtod(params[5].c_str(), &pEnd) : libsumo::INVALID_DOUBLE_VALUE;
+        int keepRoute = params.size() >= 7 ? strtol(params[6].c_str(), &pEnd, 10) : 1;
+        double matchThreshold = params.size() >= 8 ? strtod(params[7].c_str(), &pEnd) : 100;
         libsumo::Vehicle::moveToXY(vehID, edgeID, laneIndex, x, y, angle, keepRoute, matchThreshold);
     } catch (const std::runtime_error& e) {
         std::cerr << "libsumo::Vehicle::moveToXY() failed - reason: " << e.what() << std::endl;

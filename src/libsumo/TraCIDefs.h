@@ -272,6 +272,20 @@ struct TraCIStringList : TraCIResult {
 };
 
 
+struct TraCIDoubleList : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "[";
+        for (double v : value) {
+            os << v << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+    std::vector<double> value;
+};
+
+
 /// @brief {variable->value}
 typedef std::map<int, std::shared_ptr<libsumo::TraCIResult> > TraCIResults;
 /// @brief {object->{variable->value}}

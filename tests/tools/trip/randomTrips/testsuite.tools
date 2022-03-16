@@ -6,6 +6,9 @@ begin_end_human_readable
 # randomize departure times
 random-depart
 
+# randomize subsecond departure times
+random-depart_subsecond
+
 # fractional depart times
 fractional
 
@@ -25,6 +28,9 @@ fringe_factor_turnarounds
 
 # use junction attribute 'fringe' for fringe classification
 fringe-junctions
+
+# disturb fastest-path-search
+random-routing-factor
 
 # modify the edge probability based on the edge position relative to the network center to promote a given direction of travel
 angle

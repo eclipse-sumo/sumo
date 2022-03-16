@@ -25,8 +25,9 @@
 
 #include <vector>
 #include <map>
-#include <microsim/transportables/MSTransportable.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/transportables/MSTransportable.h>
+#include <microsim/devices/MSDevice_Vehroutes.h>
 
 
 // ===========================================================================
@@ -174,9 +175,7 @@ public:
     }
 
     /// @brief decrement counter to avoid double counting transportables loaded from state
-    void fixLoadCount() {
-        myLoadedNumber--;
-    }
+    void fixLoadCount(const MSTransportable* transportable);
 
     /// @name Retrieval of transportable statistics (always accessible)
     /// @{
@@ -321,6 +320,11 @@ private:
     MSPModel* myMovementModel;
 
     MSPModel* myNonInteractingModel;
+
+    /// @brief Information needed to sort transportable output by departure time
+    MSDevice_Vehroutes::SortedRouteInfo myRouteInfos;
+
+    SUMOTime myAbortWaitingTimeout;
 
 private:
     /// @brief invalidated assignment operator

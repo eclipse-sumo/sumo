@@ -64,7 +64,7 @@ public:
     virtual void buildBusStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                               const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                               const int personCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
-                              const std::map<std::string, std::string>& parameters) = 0;
+                              const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a train stop
      * @param[in] sumoBaseObject sumo base object used for build
@@ -83,7 +83,7 @@ public:
     virtual void buildTrainStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                 const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                                 const int personCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
-                                const std::map<std::string, std::string>& parameters) = 0;
+                                const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds an Access
      * @param[in] sumoBaseObject sumo base object used for build
@@ -95,7 +95,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildAccess(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& laneID, const double pos,
-                             const double length, const bool friendlyPos, const std::map<std::string, std::string>& parameters) = 0;
+                             const double length, const bool friendlyPos, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a container stop
      * @param[in] sumoBaseObject sumo base object used for build
@@ -114,7 +114,7 @@ public:
     virtual void buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                     const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                                     const int containerCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
-                                    const std::map<std::string, std::string>& parameters) = 0;
+                                    const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a charging Station
      * @param[in] sumoBaseObject sumo base object used for build
@@ -133,7 +133,7 @@ public:
     virtual void buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                       const double startPos, const double endPos, const std::string& name, const double chargingPower,
                                       const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const bool friendlyPosition,
-                                      const std::map<std::string, std::string>& parameters) = 0;
+                                      const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a Parking Area
      * @param[in] sumoBaseObject sumo base object used for build
@@ -153,7 +153,7 @@ public:
     virtual void buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                   const double startPos, const double endPos, const std::string& departPos, const std::string& name,
                                   const bool friendlyPosition, const int roadSideCapacity, const bool onRoad, const double width,
-                                  const double length, const double angle, const std::map<std::string, std::string>& parameters) = 0;
+                                  const double length, const double angle, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a Parking Space
      * @param[in] sumoBaseObject sumo base object used for build
@@ -169,7 +169,7 @@ public:
      */
     virtual void buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const double x, const double y, const double z,
                                    const std::string& name, const std::string& width, const std::string& length, const std::string& angle,
-                                   const double slope, const std::map<std::string, std::string>& parameters) = 0;
+                                   const double slope, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a induction loop detector (E1)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -185,7 +185,7 @@ public:
      */
     virtual void buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                  const double position, const SUMOTime frequency, const std::string& file, const std::vector<std::string>& vehicleTypes,
-                                 const std::string& name, const bool friendlyPos, const std::map<std::string, std::string>& parameters) = 0;
+                                 const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a single-lane Area Detector (E2)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -207,7 +207,7 @@ public:
     virtual void buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                            const double pos, const double length, const SUMOTime freq, const std::string& trafficLight, const std::string& filename,
                                            const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
-                                           const double jamThreshold, const bool friendlyPos, const std::map<std::string, std::string>& parameters) = 0;
+                                           const double jamThreshold, const bool friendlyPos, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a multi-lane Area Detector (E2)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -229,7 +229,7 @@ public:
     virtual void buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& lanes,
                                           const double pos, const double endPos, const SUMOTime freq, const std::string& trafficLight, const std::string& filename,
                                           const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
-                                          const bool friendlyPos, const std::map<std::string, std::string>& parameters) = 0;
+                                          const bool friendlyPos, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a multi entry exit detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -245,7 +245,7 @@ public:
      */
     virtual void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime freq,
                                  const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold,
-                                 const double speedThreshold, const std::map<std::string, std::string>& parameters) = 0;
+                                 const double speedThreshold, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a entry detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -255,7 +255,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildDetectorEntry(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& laneID, const double pos, const bool friendlyPos,
-                                    const std::map<std::string, std::string>& parameters) = 0;
+                                    const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a exit detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -265,7 +265,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildDetectorExit(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& laneID, const double pos, const bool friendlyPos,
-                                   const std::map<std::string, std::string>& parameters) = 0;
+                                   const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a Instant Induction Loop Detector (E1Instant)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -280,7 +280,7 @@ public:
      */
     virtual void buildDetectorE1Instant(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                         const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
-                                        const bool friendlyPos, const std::map<std::string, std::string>& parameters) = 0;
+                                        const bool friendlyPos, const Parameterised::Map& parameters) = 0;
 
     /**@brief builds a microscopic calibrator over a lane
      * @param[in] id The id of the calibrator
@@ -294,7 +294,7 @@ public:
      */
     virtual void buildLaneCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                      const double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe,
-                                     const double jamThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) = 0;
+                                     const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) = 0;
 
     /**@brief builds a microscopic calibrator over an edge
      * @param[in] sumoBaseObject sumo base object used for build
@@ -311,7 +311,7 @@ public:
      */
     virtual void buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& edgeID,
                                      const double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe,
-                                     const double jamThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) = 0;
+                                     const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) = 0;
 
     /**@brief builds a calibrator flow
      * @param[in] sumoBaseObject sumo base object used for build
@@ -326,12 +326,11 @@ public:
      * @param[in] edgeIDs The edges the rerouter is placed at
      * @param[in] prob The probability the rerouter reoutes vehicles with
      * @param[in] name Calibrator name
-     * @param[in] file The file to read the reroute definitions from
      * @param[in] parameters generic parameters
      */
     virtual void buildRerouter(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
-                               const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const std::string& file,
-                               const bool off, const SUMOTime timeThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) = 0;
+                               const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const bool off, 
+                               const SUMOTime timeThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) = 0;
 
     /**@brief builds a rerouter interval
      * @param[in] sumoBaseObject sumo base object used for build
@@ -386,7 +385,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildRouteProbe(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& edgeID, const SUMOTime freq,
-                                 const std::string& name, const std::string& file, const SUMOTime begin, const std::map<std::string, std::string>& parameters) = 0;
+                                 const std::string& name, const std::string& file, const SUMOTime begin, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a VariableSpeedSign (lane speed additional)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -398,7 +397,7 @@ public:
      */
     virtual void buildVariableSpeedSign(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
                                         const std::vector<std::string>& laneIDs, const std::string& name, const std::vector<std::string>& vTypes,
-                                        const std::map<std::string, std::string>& parameters) = 0;
+                                        const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a VariableSpeedSign Step
      * @param[in] sumoBaseObject sumo base object used for build
@@ -406,6 +405,25 @@ public:
      * @param[in] speed new step's speed
      */
     virtual void buildVariableSpeedSignStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const std::string& speed) = 0;
+
+    /**@brief Builds a FrictionCoefficientSign (lane speed additional)
+ * @param[in] sumoBaseObject sumo base object used for build
+ * @param[in] id The id of the lane speed additional
+ * @param[in] destLanes List of lanes affected by this speed additional
+ * @param[in] name VSS name
+ * @param[in] vtypes list of vehicle types to be affected
+ * @param[in] parameters generic parameters
+ */
+    virtual void buildVariableFrictionCoefficient(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
+        const std::vector<std::string>& laneIDs, const std::string& name, const std::vector<std::string>& vTypes,
+        const Parameterised::Map& parameters) = 0;
+
+    /**@brief Builds a VariableSpeedSign Step
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] time step's time
+     * @param[in] speed new step's speed
+     */
+    virtual void buildVariableFrictionCoefficientStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const std::string& friction) = 0;
 
     /**@brief Builds a vaporizer (lane speed additional)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -416,7 +434,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildVaporizer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const SUMOTime from,
-                                const SUMOTime endTime, const std::string& name, const std::map<std::string, std::string>& parameters) = 0;
+                                const SUMOTime endTime, const std::string& name, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a TAZ (Traffic Assignment Zone)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -430,7 +448,7 @@ public:
      */
     virtual void buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                           const Position& center, const bool fill, const RGBColor& color, const std::vector<std::string>& edgeIDs,
-                          const std::string& name, const std::map<std::string, std::string>& parameters) = 0;
+                          const std::string& name, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a TAZSource (Traffic Assignment Zone)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -448,6 +466,43 @@ public:
      * @param[in] arrivalWeight arrival weight of TAZSink
      */
     virtual void buildTAZSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const double arrivalWeight) = 0;
+
+    /**@brief build traction substation
+     * @param[in] id Traction substation ID
+     * @param[in] pos Position of traction substation in view (optional)
+     * @param[in] voltage Voltage of at connection point for the overhead wire
+     * @param[in] currentLimit Current limit of the feeder line
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildTractionSubstation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
+                                         const double voltage, const double currentLimit, const Parameterised::Map& parameters) = 0;
+
+    /**@brief build overhead wire
+     * @param[in] id Overhead wire ID
+     * @param[in] lane Lane over which the segment is placed
+     * @param[in] substationId Substation to which the circuit is connected
+     * @param[in] laneIDs list of consecutive lanes of the circuit
+     * @param[in] startPos Starting position in the specified lane
+     * @param[in] endPos Ending position in the specified lane
+     * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] forbiddenInnerLanes Inner lanes, where placing of overhead wire is restricted
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& substationId, 
+                                   const std::vector<std::string>& laneIDs, const double startPos, const double endPos, const bool friendlyPos,
+                                   const std::vector<std::string>& forbiddenInnerLanes, const Parameterised::Map& parameters) = 0;
+   
+    /**@brief build overhead wire clamp
+     * @param[in] id Overhead wire clamp ID
+     * @param[in] overheadWireIDStartClamp ID of the overhead wire segment, to the start of which the overhead wire clamp is connected
+     * @param[in] laneIDStartClamp ID of the overhead wire segment lane of overheadWireIDStartClamp
+     * @param[in] overheadWireIDEndClamp ID of the overhead wire segment, to the end of which the overhead wire clamp is connected
+     * @param[in] laneIDEndClamp ID of the overhead wire segment lane of overheadWireIDEndClamp
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildOverheadWireClamp(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& overheadWireIDStartClamp, 
+                                        const std::string& laneIDStartClamp, const std::string& overheadWireIDEndClamp, const std::string& laneIDEndClamp,
+                                        const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a polygon using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -468,7 +523,7 @@ public:
     virtual void buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
                               const RGBColor& color, const double layer, const double angle, const std::string& imgFile, const bool relativePath,
                               const PositionVector& shape, const bool geo, const bool fill, const double lineWidth, const std::string& name,
-                              const std::map<std::string, std::string>& parameters) = 0;
+                              const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a POI using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -489,7 +544,7 @@ public:
     virtual void buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
                           const RGBColor& color, const double x, const double y, const double layer, const double angle, const std::string& imgFile,
                           bool relativePath, const double width, const double height, const std::string& name,
-                          const std::map<std::string, std::string>& parameters) = 0;
+                          const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a POI over lane using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -512,7 +567,7 @@ public:
     virtual void buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, const RGBColor& color,
                               const std::string& laneID, const double posOverLane, const bool friendlyPosition, const double posLat, const double layer,
                               const double angle, const std::string& imgFile, const bool relativePath, const double width, const double height, const std::string& name,
-                              const std::map<std::string, std::string>& parameters) = 0;
+                              const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a POI in GEO coordinaten using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -533,7 +588,7 @@ public:
     virtual void buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
                              const RGBColor& color, const double lon, const double lat, const double layer, const double angle, const std::string& imgFile,
                              bool relativePath, const double width, const double height, const std::string& name,
-                             const std::map<std::string, std::string>& parameters) = 0;
+                             const Parameterised::Map& parameters) = 0;
     /// @}
 
 private:
@@ -596,6 +651,12 @@ private:
     /// @brief parse variable speed sign step attributes
     void parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes& attrs);
 
+    /// @brief parse variable friction coefficient attributes
+    void parseVariableFrictionCoefficientAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse friction coefficient sign step attributes
+    void parseVariableFrictionCoefficientStepAttributes(const SUMOSAXAttributes& attrs);
+
     /// @brief parse calibrator attributes
     void parseCalibratorAttributes(const SUMOSAXAttributes& attrs);
 
@@ -628,6 +689,15 @@ private:
 
     /// @brief parse vaporizer attributes
     void parseVaporizerAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse traction substation
+    void parseTractionSubstation(const SUMOSAXAttributes& attrs);
+    
+    /// @brief parse overhead wire segment
+    void parseOverheadWire(const SUMOSAXAttributes& attrs);
+    
+    /// @brief parse overhead wire clamp
+    void parseOverheadWireClamp(const SUMOSAXAttributes& attrs);
 
     // @brief parse poly attributes
     void parsePolyAttributes(const SUMOSAXAttributes& attrs);

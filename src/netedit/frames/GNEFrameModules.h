@@ -286,12 +286,6 @@ public:
         /// @brief junction (casted from myClickedAC)
         GNEConnection* myClickedConnection;
 
-        /// @brief shape (casted from myClickedAC)
-        GNEShape* myClickedShape;
-
-        /// @brief TAZElement (casted from myClickedAC)
-        GNETAZElement* myClickedTAZElement;
-
         /// @brief additional (casted from myClickedAC)
         GNEAdditional* myClickedAdditional;
 
@@ -422,7 +416,7 @@ public:
         void setIDSelected(const std::string& id);
 
         /// @brief Show list of SelectorParent Module
-        bool showSelectorParentModule(const std::vector<SumoXMLTag>& additionalTypeParents);
+        void showSelectorParentModule(const std::vector<SumoXMLTag>& parentTags);
 
         /// @brief hide SelectorParent Module
         void hideSelectorParentModule();

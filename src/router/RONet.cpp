@@ -421,7 +421,7 @@ RONet::addVTypeDistribution(const std::string& id, RandomDistributor<SUMOVTypePa
 bool
 RONet::addVehicle(const std::string& id, ROVehicle* veh) {
     if (myVehIDs.find(id) == myVehIDs.end()) {
-        myVehIDs[id] = veh->getParameter().departProcedure == DEPART_TRIGGERED ? -1 : veh->getDepartureTime();
+        myVehIDs[id] = veh->getParameter().departProcedure == DepartDefinition::TRIGGERED ? -1 : veh->getDepartureTime();
 
         if (veh->isPublicTransport()) {
             if (!veh->isPartOfFlow()) {
@@ -534,9 +534,10 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                 pars->depart += DELTA_T;
             }
         } else {
-            while (pars->repetitionsDone < pars->repetitionNumber) {
+            SUMOTime depart = static_cast<SUMOTime>(pars->depart + pars->repetitionTotalOffset);
+            while (pars->repetitionsDone < pars->repetitionNumber && pars->repetitionEnd >= depart) {
                 myHaveActiveFlows = true;
-                SUMOTime depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
+                depart = static_cast<SUMOTime>(pars->depart + pars->repetitionTotalOffset);
                 if (myDepartures.find(pars->id) != myDepartures.end()) {
                     depart = myDepartures[pars->id].back();
                 }
@@ -554,7 +555,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                         stop->until += depart - pars->depart;
                     }
                 }
-                pars->repetitionsDone++;
+                pars->incrementFlow(1);
                 // try to build the vehicle
                 SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
                 if (type == nullptr) {
@@ -593,7 +594,9 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
             }
         }
     }
+#ifdef HAVE_FOX
     int workerIndex = 0;
+#endif
     for (std::map<const int, std::vector<RORoutable*> >::const_iterator i = bulkVehs.begin(); i != bulkVehs.end(); ++i) {
 #ifdef HAVE_FOX
         if (myThreadPool.size() > 0) {
@@ -632,7 +635,9 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
     }
     SUMOTime lastTime = -1;
     const bool removeLoops = options.getBool("remove-loops");
+#ifdef HAVE_FOX
     const int maxNumThreads = options.getInt("routing-threads");
+#endif
     if (myRoutables.size() != 0) {
         if (options.getBool("bulk-routing")) {
 #ifdef HAVE_FOX

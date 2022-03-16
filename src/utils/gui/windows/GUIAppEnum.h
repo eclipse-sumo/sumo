@@ -40,35 +40,35 @@ enum {
     /// @{
 
     /// @brief hotkey for mode editing additionals AND stops
-    MID_HOTKEY_A_MODES_ADDITIONAL_STOP,
-    /// @brief hotkey for mode connecting lanes
-    MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN,
+    MID_HOTKEY_A_MODE_ADDITIONAL_STOP,
+    /// @brief hotkey for mode connecting lanes ABD person plan
+    MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN,
     /// @brief hotkey for mode deleting things
-    MID_HOTKEY_D_MODES_DELETE,
+    MID_HOTKEY_D_MODE_DELETE,
     /// @brief hotkey for mode adding edges AND edgeDatas
-    MID_HOTKEY_E_MODES_EDGE_EDGEDATA,
+    MID_HOTKEY_E_MODE_EDGE_EDGEDATA,
     /// @brief hotkey for mode container
     MID_HOTKEY_G_MODE_CONTAINER,
-    /// @brief hotkey for mode containerData
-    MID_HOTKEY_H_MODE_CONTAINERDATA,
+    /// @brief hotkey for mode prohibition AND container plan
+    MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,
     /// @brief hotkey for mode inspecting object attributes
-    MID_HOTKEY_I_MODES_INSPECT,
+    MID_HOTKEY_I_MODE_INSPECT,
     /// @brief hotkey for mode moving element
-    MID_HOTKEY_M_MODES_MOVE,
+    MID_HOTKEY_M_MODE_MOVE,
     /// @brief hotkey for mode creating polygons
-    MID_HOTKEY_P_MODES_POLYGON_PERSON,
+    MID_HOTKEY_P_MODE_POLYGON_PERSON,
     /// @brief hotkey for mode selecting objects
-    MID_HOTKEY_S_MODES_SELECT,
+    MID_HOTKEY_S_MODE_SELECT,
     /// @brief hotkey for mode editing crossing, routes and edge rel datas
-    MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA,
-    /// @brief hotkey for mode editing TLS AND types
-    MID_HOTKEY_T_MODES_TLS_TYPE,
+    MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,
+    /// @brief hotkey for mode editing TLS AND Vehicle Types
+    MID_HOTKEY_T_MODE_TLS_TYPE,
     /// @brief hotkey for mode create vehicles
-    MID_HOTKEY_V_MODES_VEHICLE,
-    /// @brief hotkey for mode editing connection prohibitions
-    MID_HOTKEY_W_MODES_PROHIBITION,
+    MID_HOTKEY_V_MODE_VEHICLE,
+    /// @brief hotkey for mode editing overhead wires
+    MID_HOTKEY_W_MODE_WIRE,
     /// @brief hotkey for mode editing TAZ and TAZRel
-    MID_HOTKEY_Z_MODES_TAZ_TAZREL,
+    MID_HOTKEY_Z_MODE_TAZ_TAZREL,
 
     /// @}
 
@@ -105,6 +105,8 @@ enum {
     MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,
     /// @brief Reload the previously loaded simulation
     MID_HOTKEY_CTRL_R_RELOAD,
+    /// @brief Quick-Reload the previously loaded simulation (keep the net)
+    MID_HOTKEY_CTRL_QUICK_RELOAD,
     /// @brief Open current network in SUMO or in NETEDIT
     MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,
     /// @brief paste the current selection / element
@@ -278,6 +280,8 @@ enum {
 
     /// @brief Save state to file
     MID_SIMSAVE,
+    /// @brief (quick)-load state from file
+    MID_SIMLOAD,
 
     /// @}
 
@@ -375,6 +379,10 @@ enum {
     MID_ZOOM_STYLE,
     /// @brief toggle time display mode
     MID_TIME_TOGGLE,
+    /// @brief increase sim delay
+    MID_DELAY_INC,
+    /// @brief decrease sim delay
+    MID_DELAY_DEC,
     /// @brief toggle delay between alternative value
     MID_DELAY_TOGGLE,
     /// @brief scale traffic
@@ -569,6 +577,8 @@ enum {
     MID_CHOOSEN_INVERT,
     /// @brief Deselect selected items
     MID_CHOOSEN_NAME,
+    /// @brief simplify network reduction
+    MID_CHOOSEN_REDUCE,
 
     /// @}
 
@@ -608,6 +618,8 @@ enum {
     MID_CLOSE_EDGE,
     /// @brief add rerouter
     MID_ADD_REROUTER,
+    /// @brief toggle detector override
+    MID_VIRTUAL_DETECTOR,
 
     /// @}
 
@@ -780,8 +792,8 @@ enum {
     MID_GNE_INTERVALBAR_BEGIN,
     /// @brief end changed in InterbalBar
     MID_GNE_INTERVALBAR_END,
-    /// @brief attribute changed in InterbalBar
-    MID_GNE_INTERVALBAR_ATTRIBUTE,
+    /// @brief parameter changed in InterbalBar
+    MID_GNE_INTERVALBAR_PARAMETER,
 
     /// @}
 
@@ -842,13 +854,13 @@ enum {
     /// @brief enable or disable show path candidates
     MID_GNE_EDGEPATH_SHOWCANDIDATES,
     /// @brief abort lane path creation
-    MID_GNE_LANEPATH_ABORT,
+    MID_GNE_ABORT,
     /// @brief finish lane path creation
-    MID_GNE_LANEPATH_FINISH,
+    MID_GNE_FINISH,
     /// @brief remove last inserted element in path
-    MID_GNE_LANEPATH_REMOVELAST,
+    MID_GNE_REMOVELAST,
     /// @brief enable or disable show path candidates
-    MID_GNE_LANEPATH_SHOWCANDIDATES,
+    MID_GNE_SHOWCANDIDATES,
     /// @brief In HierarchicalElementTree list, show child menu
     MID_GNE_ACHIERARCHY_SHOWCHILDMENU,
     /// @brief In HierarchicalElementTree list, move element to up
@@ -990,26 +1002,18 @@ enum {
     /// @name GNEAdditionalFrame messages
     /// @{
 
-    /// @brief add row
-    MID_GNE_ADDITIONALFRAME_ADDROW,
-    /// @brief remove row
-    MID_GNE_ADDITIONALFRAME_REMOVEROW,
     /// @brief search element
-    MID_GNE_ADDITIONALFRAME_SEARCH,
+    MID_GNE_SEARCH,
     /// @brief use selected elements
-    MID_GNE_ADDITIONALFRAME_USESELECTED,
-    /// @brief select element
-    MID_GNE_ADDITIONALFRAME_SELECT,
+    MID_GNE_USESELECTED,
     /// @brief clear selection of elements
-    MID_GNE_ADDITIONALFRAME_CLEARSELECTION,
+    MID_GNE_CLEARSELECTION,
     /// @brief invert selection of eleents
-    MID_GNE_ADDITIONALFRAME_INVERTSELECTION,
-    /// @brief start selection of consecutive egdes/lanes
-    MID_GNE_ADDITIONALFRAME_STARTSELECTION,
+    MID_GNE_INVERTSELECTION,
     /// @brief stop selection of consecutive egdes/lanes
-    MID_GNE_ADDITIONALFRAME_STOPSELECTION,
+    MID_GNE_STOPSELECTION,
     /// @brief abort selection of consecutive egdes/lanes
-    MID_GNE_ADDITIONALFRAME_ABORTSELECTION,
+    MID_GNE_ABORTSELECTION,
 
     /// @}
 
@@ -1215,6 +1219,14 @@ enum {
     MID_GNE_VARIABLESPEEDSIGN_SORT,
 
     /// @}
+    /// @name Friction Coefficient Dialog messages
+    /// @{
+    /// @brief add row
+    MID_GNE_FRICTIONCOEFFICIENT_ADDROW,
+    /// @brief Click over Table
+    MID_GNE_FRICTIONCOEFFICIENT_TABLE,
+    /// @brief sort table values
+    MID_GNE_FRICTIONCOEFFICIENT_SORT,
 
     /// @name Rerouter Dialog messages
     /// @{

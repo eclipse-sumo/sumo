@@ -44,10 +44,10 @@ netedit.leftClick(referencePosition, 275, 250)
 netedit.changeElement("access")
 
 # change friendly position
-netedit.changeDefaultBoolValue(3)
+netedit.changeDefaultBoolValue(netedit.attrs.access.create.friendlyPos)
 
 # Create access
-netedit.selectAdditionalChild(9, 0)
+netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 netedit.leftClick(referencePosition, 50, 200)
 
 # Check undo redo

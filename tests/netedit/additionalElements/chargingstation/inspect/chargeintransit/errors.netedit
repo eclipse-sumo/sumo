@@ -1,16 +1,15 @@
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'chargingStation' in TagSelector
-Debug: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
+Debug: Adding chargingStation 'cs_0' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
+Debug: Removing chargingStation 'cs_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
+Debug: Adding chargingStation 'cs_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -23,7 +22,7 @@ Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Debug: Additionals saved
-Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_1_0'
+Debug: Deleting unreferenced chargingStation 'cs_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

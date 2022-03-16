@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(12, "", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.departPosLat, "", True)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(12, "dummyPosLat", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.departPosLat, "dummyPosLat", True)
 
 # change departPosLat with an valid value
-netedit.modifyAttribute(12, "random_free", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.departPosLat, "random_free", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

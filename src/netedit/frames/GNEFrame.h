@@ -32,10 +32,6 @@
  */
 class GNEFrame : public FXVerticalFrame {
 
-    /// @brief friend class
-    friend class GNEFrameModules;
-    friend class GNEFrameAttributeModules;
-
 public:
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
@@ -66,19 +62,22 @@ public:
     /// @brief get view net
     GNEViewNet* getViewNet() const;
 
+    /// @brief get vertical frame that holds all widgets of frame
+    FXVerticalFrame* getContentFrame() const;
+
     /// @brief get the label for the frame's header
     FXLabel* getFrameHeaderLabel() const;
 
     /// @brief get font of the header's frame
     FXFont* getFrameHeaderFont() const;
 
+    /// @brief Open help attributes dialog
+    void openHelpAttributesDialog(const GNEAttributeCarrier* AC) const;
+
     /// @brief function called after undo/redo in the current frame (can be reimplemented in frame children)
     virtual void updateFrameAfterUndoRedo();
 
-protected:
-    FOX_CONSTRUCTOR(GNEFrame)
-
-    /// @name functions called by moduls that can be reimplemented in frame children
+    /// @name functions called by moduls that can be reimplemented in frame children (note: reimplement as protected, just for safety)
     /// @{
 
     /// @brief Tag selected in TagSelector
@@ -87,28 +86,26 @@ protected:
     /// @brief selected demand element in DemandElementSelector
     virtual void demandElementSelected();
 
-    /// @brief build a shaped element using the drawed shape (can be reimplemented in frame children)
+    /// @brief build a shaped element using the drawed shape
     virtual bool shapeDrawed();
 
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
     virtual void attributeUpdated();
 
-    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
+    /// @brief open AttributesCreator extended dialog
     virtual void attributesEditorExtendedDialogOpened();
 
-    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
+    /// @brief open AttributesCreator extended dialog
     virtual void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
-    /// @brief create path (can be reimplemented in frame children)
+    /// @brief create path between two elements
     virtual void createPath();
 
     /// @}
 
-    /// @brief Open help attributes dialog
-    void openHelpAttributesDialog(const GNEAttributeCarrier* AC) const;
-
-    /// @brief get predefinedTagsMML
-    const std::vector<std::string>& getPredefinedTagsMML() const;
+protected:
+    /// @brief FOX need this
+    FOX_CONSTRUCTOR(GNEFrame)
 
     /// @brief View Net
     GNEViewNet* myViewNet = nullptr;
@@ -124,6 +121,9 @@ protected:
 
     /// @brief fame for right header elements
     FXHorizontalFrame* myHeaderRightFrame = nullptr;
+
+    /// @brief get predefinedTagsMML
+    const std::vector<std::string>& getPredefinedTagsMML() const;
 
 private:
     /// @brief scroll windows that holds the content frame

@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 375, 250)
 netedit.changeElement("access")
 
 # Create Access
-netedit.selectAdditionalChild(9, 0)
+netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 netedit.leftClick(referencePosition, 200, 280)
 
 # go to inspect mode
@@ -53,14 +53,14 @@ netedit.inspectMode()
 # delete Access
 netedit.leftClick(referencePosition, 208, 280)
 
-# Change lenght (invalid)
-netedit.modifyAttribute(2, "dummyLenght", True)
+# Change length (invalid)
+netedit.modifyAttribute(netedit.attrs.access.inspect.length, "dummyLenght", True)
 
-# Change lenght (invalid, negative)
-netedit.modifyAttribute(2, "-30", True)
+# Change length (invalid, negative)
+netedit.modifyAttribute(netedit.attrs.access.inspect.length, "-30", True)
 
-# Change lenght (valid, positive)
-netedit.modifyAttribute(2, "5", True)
+# Change length (valid, positive)
+netedit.modifyAttribute(netedit.attrs.access.inspect.length, "5", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

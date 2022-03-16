@@ -5,8 +5,9 @@ title: Statistic Output
 # Instantiating within the Simulation
 
 Statistic output is activated by setting the simulation option **--statistic-output** {{DT_FILE}} on the command line or in a *.sumocfg* file.
-The elements `vehicleTripStatistics`, `pedestrianStatistics`, `rideStatistics` and `transportStatistics` are only generated when either of the options
-**--duration-log.statistics** or **--tripinfo-output** are set.
+
+!!! note
+    The elements `vehicleTripStatistics`, `pedestrianStatistics`, `rideStatistics` and `transportStatistics` are only generated when either of the options **--duration-log.statistics** or **--tripinfo-output** are set.
 
 # Generated Output
 
@@ -75,6 +76,8 @@ The following output attributes are generated:
 | **timeLoss**           | s          | The average time lost due to driving slower than desired (includes waitingTime)             |
 | **departDelay**        | s          | The average time vehicles had to wait before starting their journeys                        |
 | **departDelayWaiting** | s          | The average waiting time of vehicles which could not be inserted due to lack of road space  |
+| **totalTravelTime**    | s          | The total travel time of all vehicles |
+| **totalDepartDelay**   | s          | The total depart delay of all vehicles  |
 
 
 ## pedestrianStatistics
@@ -118,13 +121,15 @@ The following output attributes are generated:
 
 ## Fair Traveltime comparison between simulations
 When comparing simulations with a fixed end-time, those simulations may differ in the number of departed and arrived vehicles. In this case, care must be taken to include the "missing" vehicles in a comparison, since many outputs only include arrived vehicles by default.
-The include statistics for these vehicles, the options **--tripinfo-output.write-unfinished --duration-log.statistics** must be set.
+To include statistics for these vehicles, the options **--tripinfo-output.write-unfinished --duration-log.statistics** must be set.
 The general idea is to add up the travel time (duration) and the time that was spent waiting for departure (departDelay) for all vehicles that were defined in the input.
 
-Since the statistic output only provides averages, we must multiply those values with the corresponding counts:
+To simplify comparison between simulations that have the same number of vehiclles, the attributes 'totalTravelTime' and 'totalDepartDelay' are provided.
+
+An alternative way to compute the sum of travel time and delays is to multiply the averages:
 
 ```
-totalTravelTime = 
+totalTravelTimeAndDelay = 
      vehicles.inserted * (vehicleTripStatistics.duration + vehicleTripStatistics.departDelay)
    + vehicles.waiting * vehicleTripStatistics.departDelayWaiting
 ```

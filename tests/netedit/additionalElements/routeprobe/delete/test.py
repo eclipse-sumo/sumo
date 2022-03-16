@@ -44,7 +44,7 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # disable 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+netedit.changeProtectAdditionalElements(referencePosition)
 
 # delete loaded routeProbe
 netedit.leftClick(referencePosition, 326, 205)
@@ -62,7 +62,7 @@ netedit.undo(referencePosition, 3)
 netedit.deleteMode()
 
 # enable 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+netedit.changeProtectAdditionalElements(referencePosition)
 
 # try to delete lane with the second loaded routeProbe (doesn't allowed)
 netedit.leftClick(referencePosition, 280, 265)

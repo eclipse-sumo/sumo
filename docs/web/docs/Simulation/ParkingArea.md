@@ -98,7 +98,7 @@ see
 
 # Modelling Maneuvering Times when Entering and Leaving the Parking Space
 
-When setting the (boolean) option **--parking.maneuver**, vehicles will spend extra time on the road when leaving and entering a parkingArea. This time depends on the angle of the parking lot relative to the road lane and can be configured with the vType attribute *maneuverAngleTimes*. This is a comma-separated list of numer-triplets of the form *ANGLE ENTERINGTIME LEAVINGTIME*:
+When setting the (boolean) option **--parking.maneuver**, vehicles will spend extra time on the road when leaving and entering a parkingArea. This time depends on the angle of the parking lot relative to the road lane and can be configured with the vType attribute *maneuverAngleTimes*. This is a comma-separated list of number-triplets of the form *ANGLE ENTERINGTIME LEAVINGTIME*:
 
 ```
 <vType id="example" maneuverAngleTimes="10 3.0 4.0,80 1.6 11.0,110 11.0 2.0,170 8.1 3.0,181 3.0 4.0"/>

@@ -1,5 +1,5 @@
-Debug: Adding poiLane 'POI_1' into viewNet
-Debug: Adding poiLane 'POI_2' into viewNet
+Debug: Adding poiLane 'POI_1' in GNEChange_Additional
+Debug: Adding poiLane 'POI_2' in GNEChange_Additional
 Error: Could not load '%$$%%%%%'.
 Unknown file extension '' for image '%$$%%%%%'!
 Debug: Value '%$$%%%%%' for attribute imgFile of poiLane isn't valid
@@ -14,12 +14,12 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing poiLane 'POI_2' from viewNet
-Debug: Removing poiLane 'POI_1' from viewNet
+Debug: Removing poiLane 'POI_2' in GNEChange_Additional
+Debug: Removing poiLane 'POI_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding poiLane 'POI_1' into viewNet
-Debug: Adding poiLane 'POI_2' into viewNet
+Debug: Adding poiLane 'POI_1' in GNEChange_Additional
+Debug: Adding poiLane 'POI_2' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -27,10 +27,8 @@ Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Removing poiLane 'POI_2' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_2' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_1' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_1' in ~GNEChange_Shape()
+Debug: Deleting unreferenced poiLane 'POI_2'
+Debug: Deleting unreferenced poiLane 'POI_1'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

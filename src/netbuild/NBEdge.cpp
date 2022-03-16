@@ -64,6 +64,7 @@
 const double NBEdge::UNSPECIFIED_WIDTH = -1;
 const double NBEdge::UNSPECIFIED_OFFSET = 0;
 const double NBEdge::UNSPECIFIED_SPEED = -1;
+const double NBEdge::UNSPECIFIED_FRICTION = 1.0;
 const double NBEdge::UNSPECIFIED_CONTPOS = -1;
 const double NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE = -1;
 
@@ -105,6 +106,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     contPos(UNSPECIFIED_CONTPOS),
     visibility(UNSPECIFIED_VISIBILITY_DISTANCE),
     speed(UNSPECIFIED_SPEED),
+    friction(UNSPECIFIED_FRICTION),
     customLength(myDefaultConnectionLength),
     permissions(SVC_UNSPECIFIED),
     changeLeft(SVC_UNSPECIFIED),
@@ -118,7 +120,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
 
 
 NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, KeepClear keepClear_, double contPos_,
-                               double visibility_, double speed_, double length_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_,
+                               double visibility_, double speed_, double friction_, double length_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_,
                                SVCPermissions permissions_, bool indirectLeft_, const std::string& edgeType_,
                                SVCPermissions changeLeft_, SVCPermissions changeRight_) :
     fromLane(fromLane_),
@@ -131,6 +133,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     contPos(contPos_),
     visibility(visibility_),
     speed(speed_),
+    friction(friction_),
     customLength(length_),
     customShape(customShape_),
     permissions(permissions_),
@@ -148,6 +151,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
 
 NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
     speed(e->getSpeed()),
+	friction(e->getFriction()),
     permissions(SVCAll),
     preferred(0),
     changeLeft(SVCAll),
@@ -282,7 +286,7 @@ NBEdge::connections_relative_edgelane_sorter::operator()(const Connection& c1, c
  * NBEdge-methods
  * ----------------------------------------------------------------------- */
 NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
-               std::string type, double speed, int nolanes,
+               std::string type, double speed, double friction, int nolanes,
                int priority, double laneWidth, double endOffset,
                LaneSpreadFunction spread, const std::string& streetName) :
     Named(StringUtils::convertUmlaute(id)),
@@ -290,7 +294,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myType(StringUtils::convertUmlaute(type)),
     myFrom(from), myTo(to),
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
-    myPriority(priority), mySpeed(speed),
+    myPriority(priority), mySpeed(speed), myFriction(friction),
     myDistance(0),
     myTurnDestination(nullptr),
     myPossibleTurnDestination(nullptr),
@@ -307,6 +311,61 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     init(nolanes, false, "");
 }
 
+NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
+            std::string type, double speed, int nolanes,
+            int priority, double laneWidth, double endOffset,
+            LaneSpreadFunction spread, const std::string& streetName) :
+    Named(StringUtils::convertUmlaute(id)),
+    myStep(EdgeBuildingStep::INIT),
+    myType(StringUtils::convertUmlaute(type)),
+    myFrom(from), myTo(to),
+    myStartAngle(0), myEndAngle(0), myTotalAngle(0),
+    myPriority(priority), mySpeed(speed), myFriction(1.0),
+    myDistance(0),
+    myTurnDestination(nullptr),
+    myPossibleTurnDestination(nullptr),
+    myFromJunctionPriority(-1), myToJunctionPriority(-1),
+    myLaneSpreadFunction(spread), myEndOffset(endOffset),
+    myLaneWidth(laneWidth),
+    myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
+    myAmInTLS(false), myAmMacroscopicConnector(false),
+    myStreetName(streetName),
+    mySignalPosition(Position::INVALID),
+    mySignalNode(nullptr),
+    myIsOffRamp(false),
+    myIndex(-1) {
+    init(nolanes, false, "");
+}
+
+NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
+               std::string type, double speed, double friction, int nolanes,
+               int priority, double laneWidth, double endOffset,
+               PositionVector geom,
+               LaneSpreadFunction spread,
+               const std::string& streetName,
+               const std::string& origID,
+               bool tryIgnoreNodePositions) :
+    Named(StringUtils::convertUmlaute(id)),
+    myStep(EdgeBuildingStep::INIT),
+    myType(StringUtils::convertUmlaute(type)),
+    myFrom(from), myTo(to),
+    myStartAngle(0), myEndAngle(0), myTotalAngle(0),
+    myPriority(priority), mySpeed(speed), myFriction(friction),
+    myDistance(0),
+    myTurnDestination(nullptr),
+    myPossibleTurnDestination(nullptr),
+    myFromJunctionPriority(-1), myToJunctionPriority(-1),
+    myGeom(geom), myLaneSpreadFunction(spread), myEndOffset(endOffset),
+    myLaneWidth(laneWidth),
+    myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
+    myAmInTLS(false), myAmMacroscopicConnector(false),
+    myStreetName(streetName),
+    mySignalPosition(Position::INVALID),
+    mySignalNode(nullptr),
+    myIsOffRamp(false),
+    myIndex(-1) {
+    init(nolanes, tryIgnoreNodePositions, origID);
+}
 
 NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
                std::string type, double speed, int nolanes,
@@ -321,7 +380,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myType(StringUtils::convertUmlaute(type)),
     myFrom(from), myTo(to),
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
-    myPriority(priority), mySpeed(speed),
+    myPriority(priority), mySpeed(speed), myFriction(1.0),
     myDistance(0),
     myTurnDestination(nullptr),
     myPossibleTurnDestination(nullptr),
@@ -346,6 +405,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     myFrom(from), myTo(to),
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
     myPriority(tpl->getPriority()), mySpeed(tpl->getSpeed()),
+    myFriction(tpl->getFriction()),
     myDistance(0),
     myTurnDestination(nullptr),
     myPossibleTurnDestination(nullptr),
@@ -365,6 +425,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     for (int i = 0; i < getNumLanes(); i++) {
         const int tplIndex = MIN2(i, tpl->getNumLanes() - 1);
         setSpeed(i, tpl->getLaneSpeed(tplIndex));
+		setFriction(i, tpl->getLaneFriction(tplIndex));
         setPermissions(tpl->getPermissions(tplIndex), i);
         setLaneWidth(i, tpl->myLanes[tplIndex].width);
         myLanes[i].updateParameters(tpl->myLanes[tplIndex].getParametersMap());
@@ -385,7 +446,7 @@ NBEdge::NBEdge() :
     myStep(EdgeBuildingStep::INIT),
     myFrom(nullptr), myTo(nullptr),
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
-    myPriority(0), mySpeed(0),
+    myPriority(0), mySpeed(0), myFriction(0),
     myDistance(0),
     myTurnDestination(nullptr),
     myPossibleTurnDestination(nullptr),
@@ -404,7 +465,7 @@ NBEdge::NBEdge() :
 
 void
 NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
-               double speed, int nolanes, int priority,
+               double speed, double friction, int nolanes, int priority,
                PositionVector geom, double laneWidth, double endOffset,
                const std::string& streetName,
                LaneSpreadFunction spread,
@@ -447,6 +508,9 @@ NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
     if (speed != UNSPECIFIED_SPEED) {
         setSpeed(-1, speed);
     }
+	if (friction != UNSPECIFIED_FRICTION) {
+		setFriction(-1, friction);
+	}
 }
 
 
@@ -637,6 +701,12 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
     if (inner) {
         myGeom.insert(myGeom.begin(), begin);
         myGeom.push_back(end);
+    }
+    // ensure non-zero length (see ::init)
+    if (myGeom.size() == 2 && myGeom[0] == myGeom[1]) {
+        WRITE_WARNINGF("Edge's '%' from- and to-node are at the same position.", myID);
+        int patchIndex = myFrom->getID() < myTo->getID() ? 1 : 0;
+        myGeom[patchIndex].add(Position(POSITION_EPS, POSITION_EPS));
     }
     computeLaneShapes();
     computeAngle();
@@ -1065,6 +1135,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                double contPos,
                                double visibility,
                                double speed,
+                               double friction,
                                double length,
                                const PositionVector& customShape,
                                bool uncontrolled,
@@ -1086,7 +1157,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, length,
+    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, friction, length,
                          customShape, uncontrolled, permissions, indirectLeft, edgeType, changeLeft, changeRight, postProcess);
 }
 
@@ -1117,6 +1188,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       double contPos,
                       double visibility,
                       double speed,
+                      double friction,
                       double length,
                       const PositionVector& customShape,
                       bool uncontrolled,
@@ -1169,6 +1241,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     myConnections.back().changeLeft = changeLeft;
     myConnections.back().changeRight = changeRight;
     myConnections.back().speed = speed;
+    myConnections.back().friction = friction;
     myConnections.back().customLength = length;
     myConnections.back().customShape = customShape;
     myConnections.back().uncontrolled = uncontrolled;
@@ -1557,7 +1630,7 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
         }
 #endif
         setConnection(toUse, i->toEdge, i->toLane, Lane2LaneInfoType::COMPUTED, false, i->mayDefinitelyPass, i->keepClear,
-                      i->contPos, i->visibility, i->speed, i->customLength, i->customShape, i->uncontrolled);
+                      i->contPos, i->visibility, i->speed, i->friction, i->customLength, i->customShape, i->uncontrolled);
     }
     // remove the remapped edge from connections
     removeFromConnections(which);
@@ -1882,6 +1955,12 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         } else {
             con.vmax = con.speed;
         }
+	if (con.friction == UNSPECIFIED_FRICTION) {
+		con.friction = (myLanes[con.fromLane].friction + con.toEdge->getLanes()[con.toLane].friction) / (double) 2.0;
+	}
+	else {
+		//con.friction = con.friction;
+	}
         //
         assert(shape.size() >= 2);
         // get internal splits if any
@@ -2060,6 +2139,22 @@ NBEdge::getAngleAtNode(const NBNode* const atNode) const {
     }
 }
 
+double
+NBEdge::getAngleAtNodeNormalized(const NBNode* const atNode) const {
+    // myStartAngle, myEndAngle are in [0,360] and this returns results in [-180,180]
+    double res;
+    if (atNode == myFrom) {
+        res = GeomHelper::legacyDegree(myGeom.angleAt2D(0)) - 180;
+    } else {
+        assert(atNode == myTo);
+        res = GeomHelper::legacyDegree(myGeom.angleAt2D(-2));
+    }
+    if (res < 0) {
+        res += 360;
+    }
+    return res;
+}
+
 
 double
 NBEdge::getAngleAtNodeToCenter(const NBNode* const atNode) const {
@@ -2088,6 +2183,11 @@ NBEdge::setTurningDestination(NBEdge* e, bool onlyPossible) {
 double
 NBEdge::getLaneSpeed(int lane) const {
     return myLanes[lane].speed;
+}
+
+double
+NBEdge::getLaneFriction(int lane) const {
+	return myLanes[lane].friction;
 }
 
 void
@@ -2331,6 +2431,15 @@ NBEdge::hasLaneSpecificSpeed() const {
     return false;
 }
 
+bool
+NBEdge::hasLaneSpecificFriction() const {
+	for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
+		if (i->friction != getFriction()) {
+			return true;
+		}
+	}
+	return false;
+}
 
 bool
 NBEdge::hasLaneSpecificWidth() const {
@@ -3711,6 +3820,7 @@ NBEdge::addLane(int index, bool recomputeShape, bool recomputeConnections, bool 
     if (myLanes.size() > 1) {
         int templateIndex = index > 0 ? index - 1 : index + 1;
         myLanes[index].speed = myLanes[templateIndex].speed;
+	myLanes[index].friction = myLanes[templateIndex].friction;
         myLanes[index].permissions = myLanes[templateIndex].permissions;
         myLanes[index].preferred = myLanes[templateIndex].preferred;
         myLanes[index].endOffset = myLanes[templateIndex].endOffset;
@@ -3871,6 +3981,20 @@ NBEdge::getLaneWidth(int lane) const {
            : getLaneWidth() != UNSPECIFIED_WIDTH ? getLaneWidth() : SUMO_const_laneWidth;
 }
 
+double
+NBEdge::getInternalLaneWidth(
+    const NBNode& node,
+    const NBEdge::Connection& connection,
+    const NBEdge::Lane& successor,
+    bool isVia) const {
+
+    if (!isVia && node.isConstantWidthTransition() && getNumLanes() > connection.toEdge->getNumLanes())
+        return getLaneWidth(connection.fromLane);
+
+    return (isBikepath(getPermissions(connection.fromLane)) && (
+            getLaneWidth(connection.fromLane) < successor.width || successor.width == UNSPECIFIED_WIDTH)) ?
+            myLanes[connection.fromLane].width : successor.width; // getLaneWidth(connection.fromLane) never returns -1 (UNSPECIFIED_WIDTH)
+}
 
 double
 NBEdge::getTotalWidth() const {
@@ -3964,6 +4088,20 @@ NBEdge::setSpeed(int lane, double speed) {
     myLanes[lane].speed = speed;
 }
 
+void
+NBEdge::setFriction(int lane, double friction) {
+	if (lane < 0) {
+		// all lanes are meant...
+		myFriction = friction;
+		for (int i = 0; i < (int)myLanes.size(); i++) {
+			// ... do it for each lane
+			setFriction(i, friction);
+		}
+		return;
+	}
+	assert(lane < (int)myLanes.size());
+	myLanes[lane].friction = friction;
+}
 
 void
 NBEdge::setAcceleration(int lane, bool accelRamp) {

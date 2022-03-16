@@ -356,6 +356,8 @@ public:
      */
     void addSuccessor(MSEdge* edge, const MSEdge* via = nullptr);
 
+    void resetTAZ(MSJunction* junction);
+
     /** @brief Returns the number of edges that may be reached from this edge
      * @return The number of following edges
      */
@@ -618,7 +620,7 @@ public:
         return mySublaneSides;
     }
 
-    void rebuildAllowedLanes();
+    void rebuildAllowedLanes(const bool onInit=false);
 
     void rebuildAllowedTargets(const bool updateVehicles = true);
 
@@ -649,6 +651,12 @@ public:
      */
     double getSpeedLimit() const;
 
+	/** @brief Returns the friction coefficient of the edge
+	* @caution The COF of the first lane is retured; should probably be the worst lane
+	* @return The maximum speed allowed on this edge
+	*/
+	double getFrictionCoefficient() const;
+
     /// @brief return shape.length() / myLength
     double getLengthGeometryFactor() const;
 
@@ -656,6 +664,11 @@ public:
      * @param[in] val the new speed in m/s
      */
     void setMaxSpeed(double val) const;
+
+	/** @brief Sets a new friction coefficient COF for all lanes [*later to be (used by TraCI and MSCalibrator)*]
+	* @param[in] val the new coefficient in [0..1]
+	*/
+	void setFrictionCoefficient(double val) const;
 
     /** @brief Returns the maximum speed the vehicle may use on this edge
      *
@@ -665,22 +678,9 @@ public:
     double getVehicleMaxSpeed(const SUMOTrafficObject* const veh) const;
 
 
-    virtual void addPerson(MSTransportable* p) const;
+    virtual void addTransportable(MSTransportable* t) const;
 
-    virtual void removePerson(MSTransportable* p) const;
-
-    /// @brief Add a container to myContainers
-    virtual void addContainer(MSTransportable* container) const {
-        myContainers.insert(container);
-    }
-
-    /// @brief Remove container from myContainers
-    virtual void removeContainer(MSTransportable* container) const {
-        std::set<MSTransportable*>::iterator i = myContainers.find(container);
-        if (i != myContainers.end()) {
-            myContainers.erase(i);
-        }
-    }
+    virtual void removeTransportable(MSTransportable* t) const;
 
     inline bool isRoundabout() const {
         return myAmRoundabout;
@@ -711,6 +711,9 @@ public:
 
     /// @brief get the mean speed
     double getMeanSpeed() const;
+
+    /// @brief get the mean friction over the lanes
+    double getMeanFriction() const;
 
     /// @brief get the mean speed of all bicycles on this edge
     double getMeanSpeedBike() const;
@@ -746,6 +749,9 @@ public:
      */
     SUMOVehicle* getWaitingVehicle(MSTransportable* transportable, const double position) const;
 
+    /** @brief Remove all transportables before quick-loading state */
+    void clearState();
+
     /// @brief update meso segment parameters
     void updateMesoType();
 
@@ -754,11 +760,11 @@ public:
         returns false. */
     static bool dictionary(const std::string& id, MSEdge* edge);
 
-    /** @brief Returns the MSEdge associated to the key id if exists, otherwise returns 0. */
+    /** @brief Returns the MSEdge associated to the key id if it exists, otherwise returns nullptr. */
     static MSEdge* dictionary(const std::string& id);
 
-    /// @brief Returns the number of edges
-    static int dictSize();
+    /** @brief Returns the MSEdge associated to the key id giving a hint with a numerical id. */
+    static MSEdge* dictionaryHint(const std::string& id, const int startIdx);
 
     /// @brief Returns all edges with a numerical id
     static const MSEdgeVector& getAllEdges();

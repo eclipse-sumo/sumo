@@ -127,9 +127,11 @@ When not all vehicles are equipped with an **fcd**-device, other ehicles and per
 - **--fcd-output.acceleration** will add acceleration data to the output (also lateral acceleration when using the [sublane model](../SublaneModel.md)
 - **--fcd-output.max-leader-distance FLOAT** will add attributes leaderGap, leaderSpeed, leaderID whenever a vehicle has a leader within the given distance. Otherwise, leaderID will be "" and leaderGap, leaderSpeed will be -1.
 - **--fcd-output.params KEY1,KEY2,...** adds [generic parameters](../GenericParameters.md) to the output (supports device and carfollowmodel parameters as well as arbitrary user-define values)
-- **--fcd-output.attributes ATTR1,ATTR2,...** restricts written attributes to the given list (to reduce output).
-  - The special attribute `vehicle` may be given to add a vehicle attribute to each person (and thereby distinguish riding from walking persons).
-
+- **--fcd-output.attributes ATTR1,ATTR2,...** restricts written attributes to the given list (to reduce output). The following attributes are special:
+  - **all**: enables all attributes
+  - **vehicle**: add a vehicle attribute to each person (and thereby distinguish riding from walking persons).
+  - **odomoeter**: write odometer value for eache vehicle (distance driven since departure)
+  
 ## NOTES
 
 In combination with the given geometry of the vehicles (shapes) you can

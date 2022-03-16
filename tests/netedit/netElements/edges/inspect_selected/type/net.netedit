@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-20 09:17:10 by Eclipse SUMO netedit Version v1_11_0+1305-0448234e9dc
+<!-- generated on 2022-02-02 10:39:01 by Eclipse SUMO netedit Version v1_12_0+0185-324357a1d93
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect_selected\type\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb103423.7108\netedit.gui\netElements\edges\inspect_selected\type\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect_selected\type\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb103423.7108\netedit.gui\netElements\edges\inspect_selected\type\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,27 +30,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect_selected\type\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect_selected\type\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect_selected\type\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect_selected\type\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect_selected\type\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect_selected\type\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb103423.7108\netedit.gui\netElements\edges\inspect_selected\type\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb103423.7108\netedit.gui\netElements\edges\inspect_selected\type\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb103423.7108\netedit.gui\netElements\edges\inspect_selected\type\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb103423.7108\netedit.gui\netElements\edges\inspect_selected\type\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb103423.7108\netedit.gui\netElements\edges\inspect_selected\type\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb103423.7108\netedit.gui\netElements\edges\inspect_selected\type\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect_selected\type\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb103423.7108\netedit.gui\netElements\edges\inspect_selected\type\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect_selected\type\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb103423.7108\netedit.gui\netElements\edges\inspect_selected\type\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect_selected\type\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb103423.7108\netedit.gui\netElements\edges\inspect_selected\type\log.txt"/>
     </report>
 
 </configuration>

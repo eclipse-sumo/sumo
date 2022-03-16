@@ -23,7 +23,7 @@
 #include "MSSOTLMarchingPolicy.h"
 
 MSSOTLMarchingPolicy::MSSOTLMarchingPolicy(
-    const std::map<std::string, std::string>& parameters) :
+    const Parameterised::Map& parameters) :
     MSSOTLPolicy("Marching", parameters) {
     init();
 }
@@ -37,7 +37,7 @@ MSSOTLMarchingPolicy::MSSOTLMarchingPolicy(
 
 MSSOTLMarchingPolicy::MSSOTLMarchingPolicy(
     MSSOTLPolicyDesirability* desirabilityAlgorithm,
-    const std::map<std::string, std::string>& parameters) :
+    const Parameterised::Map& parameters) :
     MSSOTLPolicy("Marching", desirabilityAlgorithm, parameters) {
     getDesirabilityAlgorithm()->setKeyPrefix("MARCHING");
     init();

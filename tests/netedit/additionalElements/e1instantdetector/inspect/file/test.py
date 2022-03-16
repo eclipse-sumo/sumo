@@ -31,7 +31,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select E1
+# select E1Instant
 netedit.changeElement("instantInductionLoop")
 
 # create E1
@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 210)
 
 # Change parameter file with an non valid value
-netedit.modifyAttribute(4, "%%%;:..&&%$%$", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.file, "%%%;:..&&%$%$", True)
 
 # Change parameter file with a valid value
-netedit.modifyAttribute(4, "myOwnOutput.txt", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.file, "myOwnOutput.txt", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

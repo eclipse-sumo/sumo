@@ -59,11 +59,7 @@
 
             <xsd:element name="type" type="typeType" minOccurs="0"/>
 
-            <xsd:element name="include" minOccurs="0">
-                <xsd:complexType>
-                    <xsd:attribute name="href" type="xsd:string"/>
-                </xsd:complexType>
-            </xsd:element>
+            <xsd:element name="include" type="includeType" minOccurs="0"/>
         </xsd:choice>
     </xsd:complexType>
 
@@ -230,6 +226,9 @@
         <xsd:attribute name="detectPersons" type="xsd:string" use="optional"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="writeAttributes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="edges" type="xsd:string" use="optional"/>
+        <xsd:attribute name="edgesFile" type="xsd:string" use="optional"/>
+        <xsd:attribute name="aggregate" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="timedEventType">
@@ -245,6 +244,8 @@
         </xsd:attribute>
         <xsd:attribute name="source" type="xsd:string" use="required"/>
         <xsd:attribute name="dest" type="xsd:string" use="required"/>
+        <xsd:attribute name="saveDetectors" type="boolType" use="optional"/>
+        <xsd:attribute name="saveConditions" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="WAUTType">
@@ -302,6 +303,7 @@
 
     <xsd:complexType name="rerouterType">
         <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="include" type="includeType" minOccurs="0"/>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="interval" minOccurs="1" maxOccurs="unbounded">
                 <xsd:complexType>
@@ -347,13 +349,13 @@
         </xsd:choice>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
-        <xsd:attribute name="file" type="xsd:string" use="optional"/>
         <xsd:attribute name="probability" type="nonNegativeFloatType"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="timeThreshold" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="pos" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="visible" type="boolType" use="optional"/>
+		<xsd:attribute name="off" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="instantInductionLoopType">
@@ -507,6 +509,7 @@
 
     <xsd:complexType name="calibratorType">
         <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="include" type="includeType" minOccurs="0"/>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="route" type="routeType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="flow" type="flowCalibratorType" minOccurs="0" maxOccurs="unbounded"/>
@@ -603,6 +606,8 @@
             <xsd:element name="phase" type="phaseType"/>
             <xsd:element name="param" type="paramType"/>
             <xsd:element name="condition" type="conditionType"/>
+            <xsd:element name="assignment" type="assignmentType"/>
+            <xsd:element name="function" type="functionType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>

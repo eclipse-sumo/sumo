@@ -35,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # change layer (invalid)
-netedit.changeDefaultValue(7, "dummyLayer")
+netedit.changeDefaultValue(netedit.attrs.POI.create.layer, "dummyLayer")
 
 # try to create poi
 netedit.leftClick(referencePosition, 100, 50)
 
 # change layer (valid, negative)
-netedit.changeDefaultValue(7, "-2")
+netedit.changeDefaultValue(netedit.attrs.POI.create.layer, "-2")
 
 # create poi
 netedit.leftClick(referencePosition, 150, 50)
 
 # change layer (valid, positive)
-netedit.changeDefaultValue(7, "6.5")
+netedit.changeDefaultValue(netedit.attrs.POI.create.layer, "6.5")
 
 # create poi
 netedit.leftClick(referencePosition, 200, 50)

@@ -40,23 +40,23 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
+# inspect flow over route
 netedit.leftClick(referencePosition, 330, 150)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(10, "", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.personNumber, "", True)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(10, "dummyNumber", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.personNumber, "dummyNumber", True)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(10, "-5", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.personNumber, "-5", True)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(10, "2.5", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.personNumber, "2.5", True)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(10, "3", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.personNumber, "3", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

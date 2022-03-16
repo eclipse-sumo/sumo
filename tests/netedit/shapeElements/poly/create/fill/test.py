@@ -34,8 +34,8 @@ netedit.shapeMode()
 # go to shape mode
 netedit.changeElement("poly")
 
-# change fill7
-netedit.changeDefaultBoolValue(7)
+# change fill
+netedit.changeDefaultBoolValue(netedit.attrs.Poly.create.fill)
 
 # create polygon with default values
 netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)

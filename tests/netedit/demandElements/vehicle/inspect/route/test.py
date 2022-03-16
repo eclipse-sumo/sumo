@@ -58,16 +58,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change route with an invalid value
-netedit.modifyAttribute(2, "", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspect.route, "", True)
 
 # change route with an invalid value
-netedit.modifyAttribute(2, ";;;;", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspect.route, ";;;;", True)
 
 # change route with an invalid value
-netedit.modifyAttribute(2, "dummyRoute", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspect.route, "dummyRoute", True)
 
 # change route with a valid value
-netedit.modifyAttribute(2, "secondRoute", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspect.route, "secondRoute", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

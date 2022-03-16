@@ -8,7 +8,7 @@ The controller modules in [Traffic Lights](./Traffic_Lights.md) use a stage-base
 ![NEMA_phases.png](../images/NEMA_phases.png
 "NEMA_phases.png")
 
-Example: The movements at an intersection are numbered. The right turns usually go with the associated through movements. The left turn movements are usually odd numbers and the through and right turn movements are usually labled with even number. Phase 2 and 6 are usually on the main streat. An intersection does not need to have all 8 phases.
+Example: The movements at an intersection are numbered. The right turns usually go with the associated through movements. The left turn movements are usually odd numbers and the through and right turn movements are usually labeled with even number. Phase 2 and 6 are usually on the main street. An intersection does not need to have all 8 phases.
 
 SUMO now includes a controller module that is compatible with NEMA phases. The NEMA-phase controller can perform actuated or coordinated actuated control. This module is developed by Tianxin Li and [Qichao Wang](mailto:Qichao.Wang@nrel.gov) at the National Renewable Energy Laboratory and funded by U.S. Department of Energy Vehicle Technology Office.
 
@@ -102,13 +102,13 @@ The following parameters are used to set the NEMA diagram:
 | **detector-length**  | int    | The length (in meters) of the stop bar detectors for non-left-turn lane. Note that the detectors can be replaced by customized detectors. This parameter is for quick generation of a stop bar detector setting.|
 | **detector-length-leftTurnLane**  | int    | The length (in meters) of the stop bar detectors for left-turn lane. Note that the detectors can be replaced by customized detectors. This parameter is for quick generation of a stop bar detector setting. We have this parameter here because typically the stop bar detectors on the left-turn lanes have different lengths from the through lanes.|
 | **total-cycle-length**  | int    | The cycle length in seconds.|
-| **ring1**  | string    | The phase numbers in ring 1 seperated by comma (','). Fill *0* if a phase does not exist.|
-| **ring2**  | string    | The phase numbers in ring 2 seperated by comma (','). Fill *0* if a phase does not exist. Repeat the ring 1 phases of the side of barrier if that side of barrier does not have any phases.|
-| **barrierPhases**  | string    | One set of phases, seperated by comma (','), that need to end together. This defines a barrier. Usually phase 4 and 8, i.e., "4,8".|
+| **ring1**  | string    | The phase numbers in ring 1 separated by comma (','). Fill *0* if a phase does not exist.|
+| **ring2**  | string    | The phase numbers in ring 2 separated by comma (','). Fill *0* if a phase does not exist. Repeat the ring 1 phases of the side of barrier if that side of barrier does not have any phases.|
+| **barrierPhases**  | string    | One set of phases, separated by comma (','), that need to end together. This defines a barrier. Usually phase 4 and 8, i.e., "4,8".|
 | **coordinate-mode**  | bool (true or false)    | Default to *false*. True if the controller is in coordinated mode.|
-| **barrier2Phases**  | string    | One set of phases, seperated by comma (','), that need to end together. This defines another barrier. If in coordinated mode, this set of phases are the coordinated phases. Usually phase 2 and 6, i.e., "2,6".|
-| **minRecall**  | string    | One set of phases, seperated by comma (','), that will get activated no matter if the corresponding detectors will be activated or not. The duration of the phase activation will be between minDur and maxDur of the phase. E.g., "2,6". The value will be default to "1,2,3,4,5,6,7,8" if not set (all the existing phases will be called).|
-| **maxRecall**  | string    | One set of phases, seperated by comma (','), that will get activated no matter if the corresponding detectors will be activated or not. The duration of the phase activation will be the maxDur of the phase. If you set all the phases to have maxRecall, the controller will behave as a fixed time controller with the green times being the maxDur of the phases. The value will be default to empty ("") if not set.|
+| **barrier2Phases**  | string    | One set of phases, separated by comma (','), that need to end together. This defines another barrier. If in coordinated mode, this set of phases are the coordinated phases. Usually phase 2 and 6, i.e., "2,6".|
+| **minRecall**  | string    | One set of phases, separated by comma (','), that will get activated no matter if the corresponding detectors will be activated or not. The duration of the phase activation will be between minDur and maxDur of the phase. E.g., "2,6". The value will be default to "1,2,3,4,5,6,7,8" if not set (all the existing phases will be called).|
+| **maxRecall**  | string    | One set of phases, separated by comma (','), that will get activated no matter if the corresponding detectors will be activated or not. The duration of the phase activation will be the maxDur of the phase. If you set all the phases to have maxRecall, the controller will behave as a fixed time controller with the green times being the maxDur of the phases. The value will be default to empty ("") if not set.|
 |**fixForceOff**  | bool (true or false)    | If true, the controller will be in fixed force-off mode. This permits non-coordinated phases to use the unused time of previous phases. If false, the controller will be in floating force-off mode. default *false*|
 |**whetherOutputState**  | bool (true or false)    | Whether record the signal phase change events. This could be used for generating Automated Traffic Signal Performance Measures (ATSPM). The value will be default to false if not set.|
 |**show-detectors**  | bool (true or false)    | It controls whether generated detectors will be visible or hidden in sumo-gui. The default for all traffic lights can be set with option --tls.actuated.show-detectors. It is also possible to toggle this value from within the GUI by right-clicking on a traffic light.
@@ -131,9 +131,9 @@ Each phase is defined using the following attributes:
 
 
 # Change the timings during the simulation
-Certain signal timing parameters can be udpated during the simulation through TraCI.
+Certain signal timing parameters can be updated during the simulation through TraCI.
 
-- **traci.trafficlight.setNemaOffset(tlsID, offset)**: The offset will be adjusted by shortening or extending the green time of the coordinated phase so that the end of the coordianted phase will match the offset. It is recommended to change the offset gradually to mimic a transition time.
+- **traci.trafficlight.setNemaOffset(tlsID, offset)**: The offset will be adjusted by shortening or extending the green time of the coordinated phase so that the end of the coordinated phase will match the offset. It is recommended to change the offset gradually to mimic a transition time.
 - **traci.trafficlight.setNemaMaxGreens(tlsID, maxGreens)**: sets maximum green times for each NEMA phase by giving 8 numbers. Time 0 must be used for each phase that does not exists
 - **traci.trafficlight.setNemaSplits(tlsID, splits)**: works like setNemaMaxGreens but subtracts the red- and yellow-times before setting maximum green time for each phase
 - **traci.trafficlight.setNemaCycleLength(tlsID, cycleLength)**: the cycle length may change when you update the splits/max green. You need to set the new cycle length to make the new timing work without problems.

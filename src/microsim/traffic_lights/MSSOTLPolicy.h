@@ -84,7 +84,7 @@ public:
      * @param[in] parameters Parameters defined for the policy
      */
     MSSOTLPolicy(std::string name,
-                 const std::map<std::string, std::string>& parameters);
+                 const Parameterised::Map& parameters);
     /** @brief Constructor when the policy is a low-level policy used by an high level policy
      * @param[in] name The name of the policy
      * @param[in] desirabilityAlgorithm The desirability algorithm to be used for this policy
@@ -96,7 +96,7 @@ public:
      * @param[in] parameters Parameters defined for the policy
      */
     MSSOTLPolicy(std::string name, MSSOTLPolicyDesirability* desirabilityAlgorithm,
-                 const std::map<std::string, std::string>& parameters);
+                 const Parameterised::Map& parameters);
     virtual ~MSSOTLPolicy();
 
     virtual bool canRelease(SUMOTime elapsed, bool thresholdPassed, bool pushButtonPressed,

@@ -197,7 +197,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /// @brief set responsibility for deleting internal structures
     void setResponsible(bool newVal);

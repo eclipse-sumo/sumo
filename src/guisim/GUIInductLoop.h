@@ -83,6 +83,7 @@ public:
      * @brief A MSInductLoop-visualiser
      */
     class MyWrapper : public GUIDetectorWrapper {
+
     public:
         /// @brief Constructor
         MyWrapper(GUIInductLoop& detector, double pos);
@@ -100,30 +101,33 @@ public:
          * @return The built parameter window
          * @see GUIGlObject::getParameterWindow
          */
-        GUIParameterTableWindow* getParameterWindow(
-            GUIMainWindow& app, GUISUMOAbstractView& parent);
-
-        /// @brief return exaggeration asociated with this GLObject
-        double getExaggeration(const GUIVisualizationSettings& s) const;
+        GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
          *
          * @return The boundary the object is within
          * @see GUIGlObject::getCenteringBoundary
          */
-        Boundary getCenteringBoundary() const;
+        Boundary getCenteringBoundary() const override;
 
         /** @brief Draws the object
          * @param[in] s The settings for the current view (may influence drawing)
          * @see GUIGlObject::drawGL
          */
-        void drawGL(const GUIVisualizationSettings& s) const;
+        void drawGL(const GUIVisualizationSettings& s) const override;
         //@}
 
-        /// @brief set (outline) color for extra visualiaztion
+        /// @brief set (outline) color for extra visualization
         void setSpecialColor(const RGBColor* color) {
             mySpecialColor = color;
         }
+
+    protected:
+        /// @brief whether this detector has an active virtual detector call
+        bool haveOverride() const override;
+
+        /// @brief toggle virtual detector call
+        void toggleOverride() const override;
 
     private:
         /// @brief The wrapped detector

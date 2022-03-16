@@ -34,7 +34,7 @@
 // ===========================================================================
 
 GNEChargingStation::GNEChargingStation(GNENet* net) :
-    GNEStoppingPlace("", net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, nullptr, 0, 0, "", false, std::map<std::string, std::string>()),
+    GNEStoppingPlace("", net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, nullptr, 0, 0, "", false, Parameterised::Map()),
     myChargingPower(0),
     myEfficiency(0),
     myChargeInTransit(0),
@@ -46,7 +46,7 @@ GNEChargingStation::GNEChargingStation(GNENet* net) :
 
 GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, bool friendlyPosition,
-                                       const std::map<std::string, std::string>& parameters) :
+                                       const Parameterised::Map& parameters) :
     GNEStoppingPlace(id, net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, lane, startPos, endPos, name, friendlyPosition, parameters),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
@@ -300,7 +300,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

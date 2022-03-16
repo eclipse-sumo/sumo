@@ -384,7 +384,7 @@ public:
     void saveState(OutputDevice& out);
 
     /** @brief Clear all tls states before quick-loading state */
-    void clearState();
+    void clearState(SUMOTime time, bool quickReload = false);
 
 
 

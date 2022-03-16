@@ -1,4 +1,4 @@
-Eclipse SUMO activitygen Version v1_8_0+0635-4f1a99aa91
+Eclipse SUMO activitygen Version v1_12_0+0087-1185162ac9e
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
 Generates trips of persons throughout a day for the microscopic, multi-modal
@@ -8,6 +8,8 @@ Usage: activitygen [OPTION]*
 Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup
   -C, --save-configuration FILE    Saves current configuration into FILE
+  --save-configuration.relative    Enforce relative paths when saving the
+                                    configuration
   --save-template FILE             Saves a configuration template (empty) into
                                     FILE
   --save-schema FILE               Saves the configuration schema into FILE

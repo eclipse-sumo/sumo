@@ -201,6 +201,12 @@ value is also shown in the table.
 <td><p><a href="#Generic_Parameter_Retrieval_0x7e" title="wikilink">Returns the value for the given string parameter</a></p></td>
 <td><p><a href="http://sumo.dlr.de/daily/pydoc/traci._simulation.html#SimulationDomain-getParameter">getParameter</a></p></td>
 </tr>
+<tr class="odd">
+<td><p>scale (id 0x8e)</p></td>
+<td><p>double</p></td>
+<td><p>Returns the traffic scaling factor.</p></td>
+<td><p><a href="http://sumo.dlr.de/daily/pydoc/traci._simulation.html#SimulationDomain-getScale">getScale</a></p></td>
+</tr>
 </tbody>
 </table>
 

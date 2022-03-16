@@ -31,16 +31,18 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to person mode
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("person trips", "personTrip: edge->busStop")
+netedit.changePersonPlan("personTrip: edge->busStop")
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
-netedit.leftClick(referencePosition, 280, 54)
+netedit.leftClick(referencePosition, 270, 43)
 
 # press enter to create route
 netedit.typeEnter()

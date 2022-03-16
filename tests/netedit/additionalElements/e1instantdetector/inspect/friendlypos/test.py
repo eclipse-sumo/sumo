@@ -31,7 +31,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select E1
+# select E1Instant
 netedit.changeElement("instantInductionLoop")
 
 # create E1
@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 210)
 
 # Change boolean parameter friendlyPos
-netedit.modifyBoolAttribute(6, True)
+netedit.modifyBoolAttribute(netedit.attrs.E1Instant.inspect.friendlyPos, True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

@@ -38,9 +38,9 @@ netedit.crossingMode()
 netedit.leftClick(referencePosition, 325, 225)
 
 # create split crossing
-netedit.modifyCrossingDefaultValue(2, "4")
+netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.createTLS.edges, "4")
 netedit.createCrossing(True)
-netedit.modifyCrossingDefaultValue(2, "8")
+netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.createTLS.edges, "8")
 netedit.createCrossing(True)
 netedit.rebuildNetwork()
 

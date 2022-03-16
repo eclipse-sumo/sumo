@@ -44,5 +44,5 @@ collisions
 # test for using option --max-num-vehicles
 max_num_vehicles
 
-# prevent id collision by using another suffix
-scale-suffix
+# tests for scaling traffic
+scale

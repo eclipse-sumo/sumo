@@ -183,3 +183,11 @@ jumping from phase 2 to 5
 178.0 phase=4
 179.0 phase=4
 max-gap: 10
+cycleSecond (before): 52.00
+cycleTime (before): 90.00
+cycleTime (after): 55.00
+coordinated (before): 0
+coordinated (after): 1
+offset (before): 0.00
+offset (after): 12.00
+cycleSecond (after): 18.00

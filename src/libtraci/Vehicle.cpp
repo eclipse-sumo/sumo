@@ -379,6 +379,14 @@ Vehicle::getStops(const std::string& vehID, int limit) {
     return result;
 }
 
+std::string
+Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std::string& param) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedInt(content, nextStopIndex);
+    StoHelp::writeTypedString(content, param);
+    return Dom::getString(libsumo::VAR_STOP_PARAMETER, vehID, &content);
+}
 
 int
 Vehicle::getStopState(const std::string& vehID) {
@@ -710,6 +718,44 @@ Vehicle::replaceStop(const std::string& vehID,
 
 
 void
+Vehicle::insertStop(const std::string& vehID,
+                     int nextStopIndex,
+                     const std::string& edgeID,
+                     double pos,
+                     int laneIndex,
+                     double duration,
+                     int flags,
+                     double startPos,
+                     double until,
+                     int teleport) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 9);
+    StoHelp::writeTypedString(content, edgeID);
+    StoHelp::writeTypedDouble(content, pos);
+    StoHelp::writeTypedByte(content, laneIndex);
+    StoHelp::writeTypedDouble(content, duration);
+    StoHelp::writeTypedInt(content, flags);
+    StoHelp::writeTypedDouble(content, startPos);
+    StoHelp::writeTypedDouble(content, until);
+    StoHelp::writeTypedInt(content, nextStopIndex);
+    StoHelp::writeTypedByte(content, teleport);
+    Dom::set(libsumo::CMD_INSERT_STOP, vehID, &content);
+}
+
+
+void
+Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
+                                 const std::string& param, const std::string& value) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 3);
+    StoHelp::writeTypedInt(content, nextStopIndex);
+    StoHelp::writeTypedString(content, param);
+    StoHelp::writeTypedString(content, value);
+    Dom::set(libsumo::VAR_STOP_PARAMETER, vehID, &content);
+}
+
+
+void
 Vehicle::rerouteParkingArea(const std::string& vehID, const std::string& parkingAreaID) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 1);
@@ -857,8 +903,21 @@ Vehicle::setSpeed(const std::string& vehID, double speed) {
 }
 
 void
-Vehicle::setPreviousSpeed(const std::string& vehID, double prevspeed) {
-    Dom::setDouble(libsumo::VAR_PREV_SPEED, vehID, prevspeed);
+Vehicle::setAcceleration(const std::string& vehID, double accel, double duration) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedDouble(content, accel);
+    StoHelp::writeTypedDouble(content, duration);
+    Dom::set(libsumo::VAR_ACCELERATION, vehID, &content);
+}
+
+void
+Vehicle::setPreviousSpeed(const std::string& vehID, double prevSpeed, double prevAcceleration) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedDouble(content, prevSpeed);
+    StoHelp::writeTypedDouble(content, prevAcceleration);
+    Dom::set(libsumo::VAR_PREV_SPEED, vehID, &content);
 }
 
 void

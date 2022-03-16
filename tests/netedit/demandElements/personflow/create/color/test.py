@@ -38,7 +38,7 @@ netedit.personMode()
 netedit.changeElement("personFlow")
 
 # change person plan
-netedit.changePersonFlowPlan("walks", "walk: edges")
+netedit.changePersonFlowPlan("walk: edges")
 
 # set invalid color
 netedit.changeDefaultValue(6, "dummyColor")

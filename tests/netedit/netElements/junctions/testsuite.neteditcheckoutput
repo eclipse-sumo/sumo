@@ -10,6 +10,12 @@ inspect
 # inspect selected
 inspect_selected
 
+# inspect
+inspectTLS
+
+# inspect selected
+inspectTLS_selected
+
 # load
 load
 

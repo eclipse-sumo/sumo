@@ -33,12 +33,12 @@ class MSSOTLCongestionPolicy: public MSSOTLPolicy {
 
 public:
     MSSOTLCongestionPolicy(
-        const std::map<std::string, std::string>& parameters);
+        const Parameterised::Map& parameters);
 
     MSSOTLCongestionPolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm);
 
     MSSOTLCongestionPolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm,
-                           const std::map<std::string, std::string>& parameters);
+                           const Parameterised::Map& parameters);
 
     int decideNextPhase(SUMOTime elapsed, const MSPhaseDefinition* stage,
                         int currentPhaseIndex, int phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed,

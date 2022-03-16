@@ -4,6 +4,9 @@ walk_unconnected
 # person with a single walk
 walk
 
+# person with a single walk
+walk_speedFactor
+
 # person with a single walk defined by route-id
 walk_routeID
 

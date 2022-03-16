@@ -33,11 +33,11 @@ class MSSOTLMarchingPolicy: public MSSOTLPolicy, public PushButtonLogic {
 
 
 public:
-    MSSOTLMarchingPolicy(const std::map<std::string, std::string>& parameters);
+    MSSOTLMarchingPolicy(const Parameterised::Map& parameters);
     MSSOTLMarchingPolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm);
 
     MSSOTLMarchingPolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm,
-                         const std::map<std::string, std::string>& parameters);
+                         const Parameterised::Map& parameters);
 
     bool canRelease(SUMOTime elapsed, bool thresholdPassed, bool pushButtonPressed,
                     const MSPhaseDefinition* stage, int vehicleCount);

@@ -49,7 +49,7 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (over route)")
 
 # set bike type
-netedit.changeDefaultValue(2, "DEFAULT_BIKETYPE")
+netedit.changeDefaultValue(netedit.attrs.vehicle.create.type, "DEFAULT_BIKETYPE")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

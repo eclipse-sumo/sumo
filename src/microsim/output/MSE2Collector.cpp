@@ -85,7 +85,8 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myCurrentMaxJamLengthInMeters(0),
     myCurrentJamLengthInMeters(0),
     myCurrentJamLengthInVehicles(0),
-    myCurrentHaltingsNumber(0) {
+    myCurrentHaltingsNumber(0),
+    myOverrideVehNumber(-1) {
     reset();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
@@ -183,7 +184,8 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myCurrentJamNo(0),
     myCurrentJamLengthInMeters(0),
     myCurrentJamLengthInVehicles(0),
-    myCurrentHaltingsNumber(0) {
+    myCurrentHaltingsNumber(0),
+    myOverrideVehNumber(-1) {
     reset();
 
     for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
@@ -319,7 +321,7 @@ MSE2Collector::recalculateDetectorLength() {
 
 MSE2Collector::~MSE2Collector() {
     // clear move notifications
-    clearState();
+    clearState(SUMOTime_MAX);
 }
 
 
@@ -1459,12 +1461,21 @@ MSE2Collector::reset() {
 int
 MSE2Collector::getCurrentVehicleNumber() const {
     int result = 0;
-    for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin(); it != myVehicleInfos.end(); it++) {
-        if (it->second->onDetector) {
-            result++;
+    if (myOverrideVehNumber >= 0){
+        result = myOverrideVehNumber;
+    } else {
+        for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin(); it != myVehicleInfos.end(); it++) {
+            if (it->second->onDetector) {
+                result++;
+            }
         }
     }
     return result;
+}
+
+void
+MSE2Collector::overrideVehicleNumber(int num){
+    myOverrideVehNumber = num;
 }
 
 
@@ -1561,7 +1572,7 @@ MSE2Collector::getEstimateQueueLength() const {
 
 
 void
-MSE2Collector::clearState() {
+MSE2Collector::clearState(SUMOTime /* step */) {
     for (std::vector<MoveNotificationInfo*>::iterator j = myMoveNotifications.begin(); j != myMoveNotifications.end(); ++j) {
         delete *j;
     }

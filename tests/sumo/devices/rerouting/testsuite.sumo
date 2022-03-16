@@ -39,3 +39,6 @@ invalid_pre_period
 
 # faulty routes
 disconnected
+
+# faulty routes with a single edge
+single_edge

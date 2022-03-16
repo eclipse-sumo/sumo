@@ -34,10 +34,10 @@
 
 GNEVType::GNEVType(GNENet* net) :
     GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(""),
-myDefaultVehicleType(true),
-myDefaultVehicleTypeModified(false) {
+        {}, {}, {}, {}, {}, {}),
+    SUMOVTypeParameter(""),
+    myDefaultVehicleType(true),
+    myDefaultVehicleTypeModified(false) {
     // reset default values
     resetDefaultValues();
     // init Rail Visualization Parameters
@@ -47,10 +47,10 @@ myDefaultVehicleTypeModified(false) {
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(vTypeID),
-myDefaultVehicleType(true),
-myDefaultVehicleTypeModified(false) {
+        {}, {}, {}, {}, {}, {}),
+    SUMOVTypeParameter(vTypeID),
+    myDefaultVehicleType(true),
+    myDefaultVehicleTypeModified(false) {
     // set default vehicle class
     vehicleClass = defaultVClass;
     parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
@@ -61,10 +61,10 @@ myDefaultVehicleTypeModified(false) {
 
 GNEVType::GNEVType(GNENet* net, const SUMOVTypeParameter& vTypeParameter) :
     GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(vTypeParameter),
-myDefaultVehicleType(false),
-myDefaultVehicleTypeModified(false) {
+        {}, {}, {}, {}, {}, {}),
+    SUMOVTypeParameter(vTypeParameter),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false) {
     // init Rail Visualization Parameters
     initRailVisualizationParameters();
 }
@@ -72,10 +72,10 @@ myDefaultVehicleTypeModified(false) {
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, GNEVType* vTypeOriginal) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(*vTypeOriginal),
-myDefaultVehicleType(false),
-myDefaultVehicleTypeModified(false) {
+        {}, {}, {}, {}, {}, {}),
+    SUMOVTypeParameter(*vTypeOriginal),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false) {
     // change manually the ID (to avoid to use the ID of vTypeOriginal)
     id = vTypeID;
     // init Rail Visualization Parameters
@@ -476,9 +476,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             return getParametersStr();
         // other
         case GNE_ATTR_DEFAULT_VTYPE:
-            return toString((getID() == DEFAULT_VTYPE_ID) ||
-                            (getID() == DEFAULT_PEDTYPE_ID) ||
-                            (getID() == DEFAULT_BIKETYPE_ID));
+            return toString(myDefaultVehicleType);
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
                 return toString(myDefaultVehicleTypeModified);
@@ -925,7 +923,7 @@ GNEVType::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEVType::getACParametersMap() const {
     return getParametersMap();
 }
@@ -1836,7 +1834,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVType::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNEVType::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     // nothing to toogle
 }
 

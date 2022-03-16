@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # change reference to center
-netedit.changeDefaultValue(12, "reference center")
+netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference center")
 
 # create parkingArea in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 200)
 
 # Change parameter lane with a non valid value (dummy lane)
-netedit.modifyAttribute(1, "dummy lane", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.lane, "dummy lane", True)
 
 # Change parameter lane with a valid value (different edge)
-netedit.modifyAttribute(1, "gneE0_0", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.lane, "gneE0_0", True)
 
 # Change parameter lane with a valid value (original edge, same lane)
-netedit.modifyAttribute(1, "gneE2_1", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.lane, "gneE2_1", True)
 
 # Change parameter lane with a valid value (original edge, different lane)
-netedit.modifyAttribute(1, "gneE2_0", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.lane, "gneE2_0", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

@@ -44,22 +44,28 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 290, 130)
+netedit.leftClick(referencePosition, 290, 155)
 
 # change value
-netedit.modifyAttribute(5, "dummyValue", True)
+netedit.modifyBoolAttribute(netedit.attrs.stopParking.inspectSelection.extensionEnable, False)
 
 # change value
-netedit.modifyAttribute(5, "", True)
+netedit.modifyBoolAttribute(netedit.attrs.stopParking.inspectSelection.extensionEnable, False)
 
 # change value
-netedit.modifyAttribute(5, "-5", True)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.extension, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(5, "0", True)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.extension, "", False)
 
 # change value
-netedit.modifyAttribute(5, "3.5", True)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.extension, "-5", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.extension, "0", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.extension, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

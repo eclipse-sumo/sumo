@@ -43,6 +43,10 @@ right-corner of the window.
   , coordinates can be transformed between network-coordinates (m,m)
   and geo-coordinates (lon,lat) and vice versa. Converting back and forth between lon,lat and raw UTM (m,m) is also supported.
 
+# Using geo-coordinates in XML-inputs
+
+The [duarouter](duarouter.md) application supports attributes [fromLonLat, toLonLat, viaLonLat]((Demand/Shortest_or_Optimal_Path_Routing.md#trip_definitions) to map trips directly onto the closest network [edge or junction](Demand/Shortest_or_Optimal_Path_Routing.md#mapmatching) for the given coordinates.
+
 # Obtaining output with geo-coordinates
 
 - A network can be exported as *plain-xml* in geo-coordinates using
@@ -54,3 +58,9 @@ netconvert --sumo-net-file myNet.net.xml --plain-output-prefix plain --proj
 
 - [FCD-output](Simulation/Output/FCDOutput.md) can be obtained
   in geo-coordinates by adding the option **--fcd-output.geo**
+  
+- [duarouter](duarouter.md) supports option **--write-trips.geo** to create trip definitions with geo-coordinates (see above)
+  
+
+
+

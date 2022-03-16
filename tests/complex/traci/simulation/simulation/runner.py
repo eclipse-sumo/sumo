@@ -24,8 +24,8 @@ from __future__ import absolute_import
 import os
 import sys
 
-SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+SUMO_HOME = os.path.abspath(os.environ['SUMO_HOME'])
+sys.path.append(os.path.join(SUMO_HOME, "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
@@ -178,10 +178,13 @@ traci.vehicle.setSpeed("emergencyStopper", 100)
 try:
     traci.simulation.subscribeContext("",
                                       traci.constants.CMD_GET_VEHICLE_VARIABLE, 42,
-                                      [traci.constants.VAR_SPEED])
+                                      [traci.constants.VAR_POSITION])
     print("contextSubscriptions:", traci.simulation.getAllContextSubscriptionResults())
 except traci.TraCIException:
     pass
+
+traci.simulation.setScale(1.5)
+print("scale", traci.simulation.getScale())
 
 for step in range(12):
     print("step", step)

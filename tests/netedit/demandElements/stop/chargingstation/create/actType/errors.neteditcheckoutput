@@ -1,24 +1,6 @@
-Warning: Teleporting vehicle 'flow.2'; waited too long (jam), lane='gneE1_0', time=319.00.
-Warning: Vehicle 'flow.2' teleports beyond arrival edge 'gneE1', time=319.00.
-Warning: Vehicle 'flow.2' skips stop on lane 'gneE1_0' time=319.00.
-Warning: Vehicle 'flow.2' skips stop on lane 'gneE1_0' time=319.00.
-Warning: Vehicle 'flow.2' skips stop on lane 'gneE1_0' time=319.00.
-Warning: Vehicle 'flow.2' skips stop on lane 'gneE1_0' time=319.00.
-Warning: Teleporting vehicle 'flow.3'; waited too long (jam), lane='gneE1_0', time=625.00.
-Warning: Vehicle 'flow.3' teleports beyond arrival edge 'gneE1', time=625.00.
-Warning: Vehicle 'flow.3' skips stop on lane 'gneE1_0' time=625.00.
-Warning: Vehicle 'flow.3' skips stop on lane 'gneE1_0' time=625.00.
-Warning: Vehicle 'flow.3' skips stop on lane 'gneE1_0' time=625.00.
-Warning: Vehicle 'flow.3' skips stop on lane 'gneE1_0' time=625.00.
-Warning: Teleporting vehicle 'flow.4'; waited too long (jam), lane='gneE1_0', time=930.00.
-Warning: Vehicle 'flow.4' teleports beyond arrival edge 'gneE1', time=930.00.
-Warning: Vehicle 'flow.4' skips stop on lane 'gneE1_0' time=930.00.
-Warning: Vehicle 'flow.4' skips stop on lane 'gneE1_0' time=930.00.
-Warning: Vehicle 'flow.4' skips stop on lane 'gneE1_0' time=930.00.
-Warning: Vehicle 'flow.4' skips stop on lane 'gneE1_0' time=930.00.
-Warning: Teleporting vehicle 'flow.5'; waited too long (jam), lane='gneE1_0', time=1235.00.
-Warning: Vehicle 'flow.5' teleports beyond arrival edge 'gneE1', time=1235.00.
-Warning: Vehicle 'flow.5' skips stop on lane 'gneE1_0' time=1235.00.
-Warning: Vehicle 'flow.5' skips stop on lane 'gneE1_0' time=1235.00.
-Warning: Vehicle 'flow.5' skips stop on lane 'gneE1_0' time=1235.00.
-Warning: Vehicle 'flow.5' skips stop on lane 'gneE1_0' time=1235.00.
+Warning: Vehicle 'flow.0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.99), time=194.00.
+Warning: Vehicle 'flow.2' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.45), time=452.00.
+Warning: Vehicle 'flow.4' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.47), time=707.00.
+Warning: Vehicle 'flow.6' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.70), time=962.00.
+Warning: Vehicle 'flow.8' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.91), time=1215.00.
+Warning: Vehicle 'flow.10' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.05), time=1468.00.

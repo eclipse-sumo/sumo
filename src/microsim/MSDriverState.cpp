@@ -52,7 +52,7 @@
  * ----------------------------------------------------------------------- */
 // hash function
 //std::hash<std::string> MSDriverState::MSTrafficItem::hash = std::hash<std::string>();
-SumoRNG OUProcess::myRNG;
+SumoRNG OUProcess::myRNG("driverstate");
 
 // ===========================================================================
 // Default value definitions

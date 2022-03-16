@@ -143,15 +143,16 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
 
 MSPModel_Striping::~MSPModel_Striping() {
     clearState();
+    myWalkingAreaPaths.clear(); // need to recompute when lane pointers change
+    myWalkingAreaFoes.clear();
+    myMinNextLengths.clear();
 }
 
 void
 MSPModel_Striping::clearState() {
     myActiveLanes.clear();
     myNumActivePedestrians = 0;
-    myWalkingAreaPaths.clear(); // need to recompute when lane pointers change
-    myWalkingAreaFoes.clear();
-    myMinNextLengths.clear();
+    myAmActive = false;
 }
 
 MSTransportableStateAdapter*
@@ -205,7 +206,7 @@ MSPModel_Striping::loadState(MSTransportable* transportable, MSStageMoving* stag
     MSPerson* person = static_cast<MSPerson*>(transportable);
     MSNet* net = MSNet::getInstance();
     if (!myAmActive) {
-        net->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(this), net->getCurrentTimeStep() + DELTA_T);
+        net->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(this), SIMSTEP);
         myAmActive = true;
     }
     PState* ped = new PState(person, stage, &in);
@@ -279,7 +280,7 @@ MSPModel_Striping::usingInternalLanes() {
 
 bool
 MSPModel_Striping::usingInternalLanesStatic() {
-    return MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
+    return MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks() && MSNet::getInstance()->hasPedestrianNetwork();
 }
 
 PersonDist
@@ -662,7 +663,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                 if DEBUGCOND(ped) {
                     std::cout << SIMTIME << " no next lane found for " << currentLane->getID() << " dir=" << ped.myDir << "\n";
                 }
-                if (usingInternalLanesStatic() && currentLane->getLinkCont().size() > 0 && MSNet::getInstance()->hasPedestrianNetwork()) {
+                if (usingInternalLanesStatic() && currentLane->getLinkCont().size() > 0) {
                     WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID()
                                   + "' from edge '" + currentEdge->getID()
                                   + "' to edge '" + nextRouteEdge->getID() + "', time=" +
@@ -1596,7 +1597,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, std::i
 
         if (wapLaneFrom != "null") {
             MSLane* from = MSLane::dictionary(wapLaneFrom);
-            MSLane* to = MSLane::dictionary(wapLaneFrom);
+            MSLane* to = MSLane::dictionary(wapLaneTo);
             if (from == nullptr) {
                 throw ProcessError("Unknown walkingAreaPath origin lane '" + wapLaneFrom + "' when loading walk for person '" + myPerson->getID() + "' from state.");
             }
@@ -1607,7 +1608,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, std::i
             if (pathIt != myWalkingAreaPaths.end()) {
                 myWalkingAreaPath = &pathIt->second;
             } else {
-                throw ProcessError("Unknown walkingAreaPath from lane '" + wapLaneFrom + "' to lane '" + wapLaneFrom + "' wawhen loading walk for person '" + myPerson->getID() + "' from state.");
+                throw ProcessError("Unknown walkingAreaPath from lane '" + wapLaneFrom + "' to lane '" + wapLaneTo + "' when loading walk for person '" + myPerson->getID() + "' from state.");
             }
         }
     }

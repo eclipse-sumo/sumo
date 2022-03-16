@@ -37,21 +37,21 @@
 // ===========================================================================
 
 GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame) :
-    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
+    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}) {
     // create laneType
     myLaneTypes.push_back(new GNELaneType(this));
 }
 
 
 GNEEdgeType::GNEEdgeType(const GNEEdgeType* edgeType) :
-    GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
+    GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}),
                   Parameterised(edgeType->getParametersMap()),
 NBTypeCont::EdgeTypeDefinition(edgeType) {
 }
 
 
 GNEEdgeType::GNEEdgeType(GNENet* net) :
-    GNENetworkElement(net, net->getAttributeCarriers()->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
+    GNENetworkElement(net, net->getAttributeCarriers()->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}) {
     // create laneType
     GNELaneType* laneType = new GNELaneType(this);
     myLaneTypes.push_back(laneType);
@@ -59,7 +59,7 @@ GNEEdgeType::GNEEdgeType(GNENet* net) :
 
 
 GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::EdgeTypeDefinition* edgeType) :
-    GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
+    GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}) {
     // create  laneTypes
     for (const auto& laneTypeDef : edgeType->laneTypeDefinitions) {
         GNELaneType* laneType = new GNELaneType(this, laneTypeDef);
@@ -67,6 +67,7 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::E
     }
     // copy parameters
     speed = edgeType->speed;
+    friction = edgeType->friction;
     priority = edgeType->priority;
     permissions = edgeType->permissions;
     spreadType = edgeType->spreadType;
@@ -216,6 +217,13 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(speed);
             }
+        case SUMO_ATTR_FRICTION:
+            if (attrs.count(key) == 0) {
+                return toString(oc.getFloat("default.friction"));
+            }
+            else {
+                return toString(friction);
+            }
         case SUMO_ATTR_ALLOW:
             if ((permissions == SVCAll) || (permissions == -1)) {
                 return "all";
@@ -326,7 +334,7 @@ GNEEdgeType::isAttributeComputed(SumoXMLAttr /*key*/) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEEdgeType::getACParametersMap() const {
     return getParametersMap();
 }
@@ -364,6 +372,15 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 attrs.insert(key);
                 speed = parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_FRICTION:
+            if (value.empty()) {
+                attrs.erase(key);
+            }
+            else {
+                attrs.insert(key);
+                friction = parse<double>(value);
             }
             break;
         case SUMO_ATTR_ALLOW:

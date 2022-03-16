@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # change reference to center
-netedit.changeDefaultValue(15, "reference center")
+netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "reference center")
 
 # create containerStop in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter endpos with a valid value (empty)
-netedit.modifyAttribute(3, "", True)
+netedit.modifyAttribute(netedit.attrs.containerStop.inspect.endPos, "", True)
 
-# Change parameter endpos with a valid value (> lanelenght)
-netedit.modifyAttribute(3, "5000", True)
+# Change parameter endpos with a valid value (> lanelength)
+netedit.modifyAttribute(netedit.attrs.containerStop.inspect.endPos, "5000", True)
 
 # Change parameter endpos with a non valid value (< startPos)
-netedit.modifyAttribute(3, "2", True)
+netedit.modifyAttribute(netedit.attrs.containerStop.inspect.endPos, "2", True)
 
 # Change parameter endpos with a valid value
-netedit.modifyAttribute(3, "30", True)
+netedit.modifyAttribute(netedit.attrs.containerStop.inspect.endPos, "30", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

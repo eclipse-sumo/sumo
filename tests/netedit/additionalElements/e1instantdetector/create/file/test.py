@@ -31,20 +31,20 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select E1
+# select E1Instant
 netedit.changeElement("instantInductionLoop")
 
 # set invalid filename
-netedit.changeDefaultValue(4, "&&&&&&&&")
+netedit.changeDefaultValue(netedit.attrs.E1Instant.create.file, "&&&&&&&&")
 
 # try to create E1 with invalid filename
-netedit.leftClick(referencePosition, 350, 210)
+netedit.leftClick(referencePosition, 350, 245)
 
 # set valid filename
-netedit.changeDefaultValue(4, "myOwnFilename.txt")
+netedit.changeDefaultValue(netedit.attrs.E1Instant.create.file, "myOwnFilename.txt")
 
 # try to create E1 with invalid filename
-netedit.leftClick(referencePosition, 350, 210)
+netedit.leftClick(referencePosition, 350, 245)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

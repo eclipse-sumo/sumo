@@ -133,6 +133,9 @@ bulk_parallel_warn
 # test whether CHRouter detects vClass specific connectivity issues
 CHWrapper_lane_connectivity
 
+# test handling of input attributes
+departSpeed
+
 # test attributes fromJunction toJunction and viaJunctions
 junctionTaz
 

@@ -35,6 +35,7 @@
 #include "cfmodels/MSCFModel_Kerner.h"
 #include "cfmodels/MSCFModel_Krauss.h"
 #include "cfmodels/MSCFModel_KraussOrig1.h"
+#include "cfmodels/MSCFModel_KraussFric.h"
 #include "cfmodels/MSCFModel_KraussPS.h"
 #include "cfmodels/MSCFModel_KraussX.h"
 #include "cfmodels/MSCFModel_EIDM.h"
@@ -44,6 +45,7 @@
 #include "cfmodels/MSCFModel_Wiedemann.h"
 #include "cfmodels/MSCFModel_W99.h"
 #include "cfmodels/MSCFModel_ACC.h"
+#include "cfmodels/MSCFModel_ACCFric.h"
 #include "cfmodels/MSCFModel_CACC.h"
 #include "MSVehicleControl.h"
 #include "cfmodels/MSCFModel_CC.h"
@@ -85,7 +87,7 @@ MSVehicleType::~MSVehicleType() {
 
 double
 MSVehicleType::computeChosenSpeedDeviation(SumoRNG* rng, const double minDev) const {
-    return MAX2(minDev, myParameter.speedFactor.sample(rng));
+    return roundDecimal(MAX2(minDev, myParameter.speedFactor.sample(rng)), gPrecisionRandom);
 }
 
 
@@ -170,6 +172,10 @@ MSVehicleType::setPreferredLateralAlignment(const LatAlignmentDefinition& latAli
     myParameter.parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
 }
 
+void
+MSVehicleType::setScale(double value) {
+    myParameter.scale = value;
+}
 
 void
 MSVehicleType::setDefaultProbability(const double& prob) {
@@ -315,6 +321,9 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
         case SUMO_TAG_CF_KRAUSS_PLUS_SLOPE:
             vtype->myCarFollowModel = new MSCFModel_KraussPS(vtype);
             break;
+		case SUMO_TAG_CF_KRAUSS_FRICTION:
+			vtype->myCarFollowModel = new MSCFModel_KraussFric(vtype);
+			break;
         case SUMO_TAG_CF_KRAUSSX:
             vtype->myCarFollowModel = new MSCFModel_KraussX(vtype);
             break;
@@ -342,6 +351,9 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
         case SUMO_TAG_CF_ACC:
             vtype->myCarFollowModel = new MSCFModel_ACC(vtype);
             break;
+	case SUMO_TAG_CF_ACC_FRICTION:
+		vtype->myCarFollowModel = new MSCFModel_ACCFric(vtype);
+		break;
         case SUMO_TAG_CF_CACC:
             vtype->myCarFollowModel = new MSCFModel_CACC(vtype);
             break;

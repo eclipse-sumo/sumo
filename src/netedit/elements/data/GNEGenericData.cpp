@@ -43,18 +43,16 @@
 // ---------------------------------------------------------------------------
 
 GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-                               const std::map<std::string, std::string>& parameters,
+                               const Parameterised::Map& parameters,
                                const std::vector<GNEJunction*>& junctionParents,
                                const std::vector<GNEEdge*>& edgeParents,
                                const std::vector<GNELane*>& laneParents,
                                const std::vector<GNEAdditional*>& additionalParents,
-                               const std::vector<GNEShape*>& shapeParents,
-                               const std::vector<GNETAZElement*>& TAZElementParents,
                                const std::vector<GNEDemandElement*>& demandElementParents,
                                const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, dataIntervalParent->getID()),
     Parameterised(parameters),
-    GNEHierarchicalElement(dataIntervalParent->getNet(), tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(dataIntervalParent->getNet(), tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::DATA_ELEMENT),
     myDataIntervalParent(dataIntervalParent) {
 }
@@ -199,7 +197,7 @@ GNEGenericData::isAttributeComputed(SumoXMLAttr /*key*/) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEGenericData::getACParametersMap() const {
     return getParametersMap();
 }
@@ -230,23 +228,23 @@ GNEGenericData::isVisibleInspectDeleteSelect() const {
     // declare flag
     bool draw = true;
     // check filter by generic data type
-    if ((toolBar.getGenericDataTypeStr().size() > 0) && (toolBar.getGenericDataTypeStr() != myTagProperty.getTagStr())) {
+    if ((toolBar.getGenericDataType() != SUMO_TAG_NOTHING) && (toolBar.getGenericDataType() != myTagProperty.getTag())) {
         draw = false;
     }
     // check filter by data set
-    if ((toolBar.getDataSetStr().size() > 0) && (toolBar.getDataSetStr() != myDataIntervalParent->getID())) {
+    if (toolBar.getDataSet() && (toolBar.getDataSet() != myDataIntervalParent->getDataSetParent())) {
         draw = false;
     }
     // check filter by begin
-    if ((toolBar.getBeginStr().size() > 0) && (parse<double>(toolBar.getBeginStr()) > myDataIntervalParent->getAttributeDouble(SUMO_ATTR_BEGIN))) {
+    if ((toolBar.getBegin() != INVALID_DOUBLE) && (toolBar.getBegin() > myDataIntervalParent->getAttributeDouble(SUMO_ATTR_BEGIN))) {
         draw = false;
     }
     // check filter by end
-    if ((toolBar.getEndStr().size() > 0) && (parse<double>(toolBar.getEndStr()) < myDataIntervalParent->getAttributeDouble(SUMO_ATTR_END))) {
+    if ((toolBar.getEnd() != INVALID_DOUBLE) && (toolBar.getEnd() < myDataIntervalParent->getAttributeDouble(SUMO_ATTR_END))) {
         draw = false;
     }
     // check filter by attribute
-    if ((toolBar.getAttributeStr().size() > 0) && (getParametersMap().count(toolBar.getAttributeStr()) == 0)) {
+    if ((toolBar.getParameter().size() > 0) && (getParametersMap().count(toolBar.getParameter()) == 0)) {
         draw = false;
     }
     // return flag
@@ -273,8 +271,8 @@ GNEGenericData::replaceLastParentEdge(const std::string& value) {
 
 void
 GNEGenericData::replaceFirstParentTAZElement(SumoXMLTag tag, const std::string& value) {
-    std::vector<GNETAZElement*> parentTAZElements = getParentTAZElements();
-    parentTAZElements[0] = myNet->getAttributeCarriers()->retrieveTAZElement(tag, value);
+    std::vector<GNEAdditional*> parentTAZElements = getParentAdditionals();
+    parentTAZElements[0] = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
     // replace parent TAZElements
     replaceParentElements(this, parentTAZElements);
 }
@@ -282,13 +280,13 @@ GNEGenericData::replaceFirstParentTAZElement(SumoXMLTag tag, const std::string& 
 
 void
 GNEGenericData::replaceSecondParentTAZElement(SumoXMLTag tag, const std::string& value) {
-    std::vector<GNETAZElement*> parentTAZElements = getParentTAZElements();
+    std::vector<GNEAdditional*> parentTAZElements = getParentAdditionals();
     if (value.empty()) {
         parentTAZElements.pop_back();
     } else if (parentTAZElements.size() == 1) {
-        parentTAZElements.push_back(myNet->getAttributeCarriers()->retrieveTAZElement(tag, value));
+        parentTAZElements.push_back(myNet->getAttributeCarriers()->retrieveAdditional(tag, value));
     } else {
-        parentTAZElements.at(1) = myNet->getAttributeCarriers()->retrieveTAZElement(tag, value);
+        parentTAZElements.at(1) = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
     }
     // replace parent TAZElements
     replaceParentElements(this, parentTAZElements);

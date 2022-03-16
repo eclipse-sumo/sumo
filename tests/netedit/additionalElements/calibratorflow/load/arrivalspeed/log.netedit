@@ -1,6 +1,0 @@
-Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'CFlow01'.
-Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'CFlow02'.
-Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'CFlow03'.
-Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'CFlow04'.
-Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'CFlow05'.
-Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.18Jan114657.13884\netedit.gui\additionalElements\calibratorflow\load\arrivalspeed\input_additionals.add.xml failed.

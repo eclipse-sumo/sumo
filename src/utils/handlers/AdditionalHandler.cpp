@@ -106,6 +106,13 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
             case SUMO_TAG_STEP:
                 parseVariableSpeedSignStepAttributes(attrs);
                 break;
+            // Variable Friction
+            case SUMO_TAG_COF:
+                parseVariableFrictionCoefficientAttributes(attrs);
+                break;
+            case SUMO_TAG_STEP_COF:
+                parseVariableFrictionCoefficientStepAttributes(attrs);
+                break;
             // Calibrator
             case SUMO_TAG_CALIBRATOR:
             case GNE_TAG_CALIBRATOR_LANE:
@@ -144,6 +151,16 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
             // Vaporizer (deprecated)
             case SUMO_TAG_VAPORIZER:
                 parseVaporizerAttributes(attrs);
+                break;
+            // wires
+            case SUMO_TAG_TRACTION_SUBSTATION:
+                parseTractionSubstation(attrs);
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
+                parseOverheadWireClamp(attrs);
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_SECTION:
+                parseOverheadWire(attrs);
                 break;
             // Poly
             case SUMO_TAG_POLY:
@@ -194,6 +211,8 @@ AdditionalHandler::endParseAttributes() {
         case SUMO_TAG_TAZ:
         // Variable Speed Sign
         case SUMO_TAG_VSS:
+        // Variable Coefficient of Friction
+        case SUMO_TAG_COF:
         // Calibrator
         case SUMO_TAG_CALIBRATOR:
         case GNE_TAG_CALIBRATOR_LANE:
@@ -203,6 +222,10 @@ AdditionalHandler::endParseAttributes() {
         case SUMO_TAG_ROUTEPROBE:
         // Vaporizer (deprecated)
         case SUMO_TAG_VAPORIZER:
+        // wires
+        case SUMO_TAG_TRACTION_SUBSTATION:
+        case SUMO_TAG_OVERHEAD_WIRE_SECTION:
+        case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
         // Shapes
         case SUMO_TAG_POLY:
         case SUMO_TAG_POI:
@@ -440,6 +463,21 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                        obj->getTimeAttribute(SUMO_ATTR_TIME),
                                        obj->getStringAttribute(SUMO_ATTR_SPEED));
             break;
+        // Variable Friction Sign
+        case SUMO_TAG_COF:
+            buildVariableFrictionCoefficient(obj,
+                obj->getStringAttribute(SUMO_ATTR_ID),
+                obj->getPositionAttribute(SUMO_ATTR_POSITION),
+                obj->getStringListAttribute(SUMO_ATTR_LANES),
+                obj->getStringAttribute(SUMO_ATTR_NAME),
+                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                obj->getParameters());
+            break;
+        case SUMO_TAG_STEP_COF:
+            buildVariableFrictionCoefficientStep(obj,
+                obj->getTimeAttribute(SUMO_ATTR_TIME),
+                obj->getStringAttribute(SUMO_ATTR_FRICTION));
+            break;
         // Calibrator
         case SUMO_TAG_CALIBRATOR:
             buildEdgeCalibrator(obj,
@@ -479,7 +517,6 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                           obj->getStringListAttribute(SUMO_ATTR_EDGES),
                           obj->getDoubleAttribute(SUMO_ATTR_PROB),
                           obj->getStringAttribute(SUMO_ATTR_NAME),
-                          obj->getStringAttribute(SUMO_ATTR_FILE),
                           obj->getBoolAttribute(SUMO_ATTR_OFF),
                           obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
                           obj->getStringListAttribute(SUMO_ATTR_VTYPES),
@@ -542,6 +579,35 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                            obj->getTimeAttribute(SUMO_ATTR_END),
                            obj->getStringAttribute(SUMO_ATTR_NAME),
                            obj->getParameters());
+            break;
+        // wire elements
+        case SUMO_TAG_TRACTION_SUBSTATION:
+            buildTractionSubstation(obj,
+                                    obj->getStringAttribute(SUMO_ATTR_ID),
+                                    obj->getPositionAttribute(SUMO_ATTR_POSITION),
+                                    obj->getDoubleAttribute(SUMO_ATTR_VOLTAGE),
+                                    obj->getDoubleAttribute(SUMO_ATTR_CURRENTLIMIT),
+                                    obj->getParameters());
+            break;
+        case SUMO_TAG_OVERHEAD_WIRE_SECTION:
+            buildOverheadWire(obj,
+                              obj->getStringAttribute(SUMO_ATTR_ID),
+                              obj->getStringAttribute(SUMO_ATTR_SUBSTATIONID),
+                              obj->getStringListAttribute(SUMO_ATTR_LANES),
+                              obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
+                              obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                              obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                              obj->getStringListAttribute(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN),
+                              obj->getParameters());
+            break;
+        case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
+            buildOverheadWireClamp(obj,
+                                   obj->getStringAttribute(SUMO_ATTR_ID),
+                                   obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_START),
+                                   obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANESTART),
+                                   obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_END),
+                                   obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANEEND),
+                                   obj->getParameters());
             break;
         // Polygon
         case SUMO_TAG_POLY:
@@ -1181,6 +1247,50 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
     }
 }
 
+void
+AdditionalHandler::parseVariableFrictionCoefficientAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const std::vector<std::string> lanes = attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk);
+    // optional attributes
+    const Position pos = attrs.getOpt<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, Position());
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
+    const std::vector<std::string> vehicleTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, std::vector<std::string>());
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_COF);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LANES, lanes);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
+    }
+}
+
+
+void
+AdditionalHandler::parseVariableFrictionCoefficientStepAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "", parsedOk);
+    // optional attributes
+    const std::string friction = attrs.getOpt<std::string>(SUMO_ATTR_FRICTION, "", parsedOk, ""); //TODO check percent
+    // check parent
+    checkParent(SUMO_TAG_STEP_COF, { SUMO_TAG_COF }, parsedOk);
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_STEP_COF);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_TIME, time);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FRICTION, friction);
+    }
+}
 
 void
 AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
@@ -1229,6 +1339,8 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
 
 void
 AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
     // check parent
     if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() &&
             myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() != SUMO_TAG_ROOTFILE) {
@@ -1237,16 +1349,25 @@ AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs)
             WRITE_ERROR("CalibratorFlows need either the attribute vehsPerHour or speed or type (or any combination of these)");
         }
         // first parse flow
-        SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, false, false,
-                                              string2time(OptionsCont::getOptions().getString("begin")),
-                                              string2time(OptionsCont::getOptions().getString("end")));
+        SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_FLOW, attrs, false, true, true);
         if (flowParameter) {
-            // set tag
-            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
-            // set vehicle parameters
-            myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
-            // delete flow parameter (because in XMLStructure we have a copy)
-            delete flowParameter;
+            // set VPH and speed
+            if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
+                flowParameter->repetitionOffset = TIME2STEPS(3600. / attrs.get<double>(SUMO_ATTR_VEHSPERHOUR, "", parsedOk));
+                flowParameter->parametersSet |= VEHPARS_VPH_SET;
+            }
+            if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+                flowParameter->calibratorSpeed = attrs.get<double>(SUMO_ATTR_SPEED, "", parsedOk);
+                flowParameter->parametersSet |= VEHPARS_CALIBRATORSPEED_SET;
+            }
+            if (parsedOk) {
+                // set tag
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+                // set vehicle parameters
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
+                // delete flow parameter (because in XMLStructure we have a copy)
+                delete flowParameter;
+            }
         }
     }
 }
@@ -1262,7 +1383,6 @@ AdditionalHandler::parseRerouterAttributes(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const Position pos = attrs.getOpt<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, Position::INVALID);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
-    const std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, "");
     const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, id.c_str(), parsedOk, 1);
     SUMOTime timeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, 0);
     const std::vector<std::string> vehicleTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, std::vector<std::string>());
@@ -1276,7 +1396,6 @@ AdditionalHandler::parseRerouterAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, timeThreshold);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
@@ -1434,8 +1553,8 @@ AdditionalHandler::parseRouteProbeAttributes(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const std::string edge = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), parsedOk);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk);
-    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk);
-    SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), parsedOk, -1);
+    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk);
+    const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), parsedOk, -1);
     // optional attributes
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
     // continue if flag is ok
@@ -1472,6 +1591,84 @@ AdditionalHandler::parseVaporizerAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_BEGIN, begin);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_END, end);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+    }
+}
+
+
+void
+AdditionalHandler::parseTractionSubstation(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    // optional attributes
+    const Position pos = attrs.getOpt<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, Position::INVALID);
+    const double voltage = attrs.getOpt<double>(SUMO_ATTR_VOLTAGE, id.c_str(), parsedOk, 600);
+    const double currentLimit = attrs.getOpt<double>(SUMO_ATTR_CURRENTLIMIT, id.c_str(), parsedOk, 400);
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_TRACTION_SUBSTATION);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_VOLTAGE, voltage);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_CURRENTLIMIT, currentLimit);
+    }
+}
+
+
+void
+AdditionalHandler::parseOverheadWire(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const std::string substationID = attrs.get<std::string>(SUMO_ATTR_SUBSTATIONID, id.c_str(), parsedOk);
+    const std::vector<std::string> laneIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk);
+    // optional attributes
+    const double startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), parsedOk, 0);
+    const double endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, INVALID_DOUBLE);
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    const std::vector<std::string> forbiddenInnerLanes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN, "", parsedOk);
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_OVERHEAD_WIRE_SECTION);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id),
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_SUBSTATIONID, substationID),
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LANES, laneIDs),
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_STARTPOS, startPos),
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN, forbiddenInnerLanes);
+    }
+}
+
+
+void
+AdditionalHandler::parseOverheadWireClamp(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const std::string substationId = attrs.get<std::string>(SUMO_ATTR_SUBSTATIONID, id.c_str(), parsedOk);
+    const std::string wireClampStart = attrs.get<std::string>(SUMO_ATTR_OVERHEAD_WIRECLAMP_START, id.c_str(), parsedOk);
+    const std::string wireClampLaneStart = attrs.get<std::string>(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANESTART, id.c_str(), parsedOk);
+    const std::string wireClampEnd = attrs.get<std::string>(SUMO_ATTR_OVERHEAD_WIRECLAMP_END, id.c_str(), parsedOk);
+    const std::string wireClampLaneEnd = attrs.get<std::string>(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANEEND, id.c_str(), parsedOk);
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_OVERHEAD_WIRE_CLAMP);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id),
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_SUBSTATIONID, substationId),
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_START, wireClampStart),
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANESTART, wireClampLaneStart),
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_END, wireClampEnd);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANEEND, wireClampLaneEnd);
     }
 }
 

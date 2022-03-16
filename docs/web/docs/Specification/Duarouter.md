@@ -78,6 +78,6 @@ and "via" are
   - alternative: keep "via" only if necessary (if it cannot be
     reconstructed from the stops)
 
-## vehroutes
+## Vehroutes
 
 Should basically generate a usable route file as well.

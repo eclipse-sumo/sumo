@@ -474,8 +474,9 @@ public:
 
     /** @brief Sets the influenced previous speed
      * @param[in] A double value with the speed that overwrites the previous speed
+     * @param[in] A double value with the acceleration that overwrites the previous acceleration
      */
-    void setPreviousSpeed(double prevspeed);
+    void setPreviousSpeed(double prevSpeed, double prevAcceleration);
 
 
     /** @brief Returns the vehicle's acceleration in m/s
@@ -1677,7 +1678,7 @@ public:
 
     void loadPreviousApproaching(MSLink* link, bool setRequest,
                                  SUMOTime arrivalTime, double arrivalSpeed,
-                                 SUMOTime arrivalTimeBraking, double arrivalSpeedBraking,
+                                 double arrivalSpeedBraking,
                                  double dist, double leaveSpeed);
     //@}
 
@@ -1898,7 +1899,6 @@ protected:
         bool mySetRequest;
         SUMOTime myArrivalTime;
         double myArrivalSpeed;
-        SUMOTime myArrivalTimeBraking;
         double myArrivalSpeedBraking;
         double myDistance;
         double accelV;
@@ -1907,12 +1907,12 @@ protected:
 
         DriveProcessItem(MSLink* link, double vPass, double vWait, bool setRequest,
                          SUMOTime arrivalTime, double arrivalSpeed,
-                         SUMOTime arrivalTimeBraking, double arrivalSpeedBraking,
+                         double arrivalSpeedBraking,
                          double distance,
                          double leaveSpeed = -1.) :
             myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),
             myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed),
-            myArrivalTimeBraking(arrivalTimeBraking), myArrivalSpeedBraking(arrivalSpeedBraking),
+            myArrivalSpeedBraking(arrivalSpeedBraking),
             myDistance(distance),
             accelV(leaveSpeed), hadStoppedVehicle(false), availableSpace(0) {
             assert(vWait >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
@@ -1924,7 +1924,7 @@ protected:
         DriveProcessItem(double vWait, double distance, double _availableSpace = 0) :
             myLink(0), myVLinkPass(vWait), myVLinkWait(vWait), mySetRequest(false),
             myArrivalTime(0), myArrivalSpeed(0),
-            myArrivalTimeBraking(0), myArrivalSpeedBraking(0),
+            myArrivalSpeedBraking(0),
             myDistance(distance),
             accelV(-1), hadStoppedVehicle(false), availableSpace(_availableSpace) {
             assert(vWait >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);

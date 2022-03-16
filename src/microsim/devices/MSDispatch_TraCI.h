@@ -39,7 +39,7 @@
  */
 class MSDispatch_TraCI : public MSDispatch {
 public:
-    MSDispatch_TraCI(const std::map<std::string, std::string>& params) :
+    MSDispatch_TraCI(const Parameterised::Map& params) :
         MSDispatch(params)
     { }
 

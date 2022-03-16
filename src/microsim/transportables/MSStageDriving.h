@@ -210,6 +210,10 @@ protected:
     SUMOTime myIntendedDepart;
 
 private:
+    /// brief register waiting person (on proceed or loadState)
+    void registerWaiting(MSTransportable* transportable, SUMOTime now);
+
+private:
     /// @brief Invalidated copy constructor.
     MSStageDriving(const MSStageDriving&);
 

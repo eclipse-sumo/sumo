@@ -16,11 +16,11 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Error: Attribute 'end' in definition of flow 'flow_0' is empty.
-Error: Attribute 'end' in definition of flow 'flow_1' is not a time value.
+Error: Attribute 'end' in definition of flow 'flow_1' is not a valid time value.
 Error: Flow 'flow_2' ends before its begin time.
 Debug: Adding flow 'flow_3' in GNEChange_DemandElement
 Debug: Adding flow 'flow_4' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov142201.2208\netedit.gui\demandElements\flow\load\end\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\demandElements\flow\load\end\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00

@@ -151,7 +151,7 @@ GUIPerson::GUIPersonPopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*) {
     GUIPerson* person = static_cast<GUIPerson*>(myObject);
     MSStage* stage = person->getCurrentStage();
     stage->abort(person);
-    stage->getEdge()->removePerson(person);
+    stage->getEdge()->removeTransportable(person);
     if (stage->getDestinationStop() != nullptr) {
         stage->getDestinationStop()->removeTransportable(person);
     }

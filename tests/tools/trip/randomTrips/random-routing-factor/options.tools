@@ -1,0 +1,2 @@
+-n net2.net.xml -s 42 --fringe-factor 1000 -e 10 -r out.rou.xml
+--random-routing-factor 2

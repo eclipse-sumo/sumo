@@ -27,3 +27,6 @@ frustration_10
 
 # parking search must not stall when all alternatives are visibly occupied
 all_visible
+
+# handle brakeGap when using random occupied parkingArea (#10201)
+all_visible_brakeGap

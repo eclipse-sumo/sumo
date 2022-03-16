@@ -3,40 +3,32 @@ GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,-12.00,12.
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.00,12.00
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poiGeo' in TagSelector
-Debug: Adding poiGeo 'poi_0' into viewNet
+Debug: Adding poiGeo 'poi_0' in GNEChange_Additional
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
-Debug: Invalid input parameter of poiGeo: invalid id used in id
-Debug: Adding poiGeo 'POI_0' into viewNet
-GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -2.50,7.50,18.50,28.50
-Debug: Adding poiGeo 'customID' into viewNet
+Debug: Invalid input parameter of poiGeo
+Debug: Invalid input parameter of poiGeo
+Debug: Adding poiGeo 'customID' in GNEChange_Additional
 GLDebug: 	Inserted poi:customID into SUMORTree with boundary -0.50,7.50,20.50,28.50
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing poiGeo 'customID' from viewNet
+Debug: Removing poiGeo 'customID' in GNEChange_Additional
 GLDebug: 	Removed object poi:customID from SUMORTree with boundary -0.50,7.50,20.50,28.50
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing poiGeo 'POI_0' from viewNet
-GLDebug: 	Removed object poi:POI_0 from SUMORTree with boundary -2.50,7.50,18.50,28.50
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing poiGeo 'poi_0' from viewNet
+Debug: Removing poiGeo 'poi_0' in GNEChange_Additional
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -8.50,7.50,12.50,28.50
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding poiGeo 'poi_0' into viewNet
+Debug: Adding poiGeo 'poi_0' in GNEChange_Additional
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding poiGeo 'POI_0' into viewNet
-GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -2.50,7.50,18.50,28.50
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding poiGeo 'customID' into viewNet
+Debug: Adding poiGeo 'customID' in GNEChange_Additional
 GLDebug: 	Inserted poi:customID into SUMORTree with boundary -0.50,7.50,20.50,28.50
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -65,15 +57,10 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-13.20,60.0
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Removing poiGeo 'customID' from net in ~GNEChange_Shape()
+Debug: Deleting unreferenced poiGeo 'customID'
 GLDebug: 	Removed object poi:customID from SUMORTree with boundary -0.50,7.50,20.50,28.50
-Debug: delete poiGeo 'customID' in ~GNEChange_Shape()
-Debug: Removing poiGeo 'POI_0' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object poi:POI_0 from SUMORTree with boundary -2.50,7.50,18.50,28.50
-Debug: delete poiGeo 'POI_0' in ~GNEChange_Shape()
-Debug: Removing poiGeo 'poi_0' from net in ~GNEChange_Shape()
+Debug: Deleting unreferenced poiGeo 'poi_0'
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -8.50,7.50,12.50,28.50
-Debug: delete poiGeo 'poi_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

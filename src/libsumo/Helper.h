@@ -210,17 +210,13 @@ public:
 
     static void cleanup();
 
-    static void registerVehicleStateListener();
+    static void registerStateListener();
 
     static const std::vector<std::string>& getVehicleStateChanges(const MSNet::VehicleState state);
 
-    static void clearVehicleStates();
-
-    static void registerTransportableStateListener();
-
     static const std::vector<std::string>& getTransportableStateChanges(const MSNet::TransportableState state);
 
-    static void clearTransportableStates();
+    static void clearStateChanges();
 
     /// @name functions for moveToXY
     /// @{
@@ -259,17 +255,19 @@ public:
     class SubscriptionWrapper final : public VariableWrapper {
     public:
         SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context);
-        void setContext(const std::string& refID);
+        void setContext(const std::string* const refID);
         void clear();
         bool wrapDouble(const std::string& objID, const int variable, const double value);
         bool wrapInt(const std::string& objID, const int variable, const int value);
         bool wrapString(const std::string& objID, const int variable, const std::string& value);
         bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value);
+        bool wrapDoubleList(const std::string& objID, const int variable, const std::vector<double>& value);
         bool wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value);
         bool wrapPositionVector(const std::string& objID, const int variable, const TraCIPositionVector& value);
         bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value);
         bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value);
         bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
+        void empty(const std::string& objID);
     private:
         SubscriptionResults& myResults;
         ContextSubscriptionResults& myContextResults;

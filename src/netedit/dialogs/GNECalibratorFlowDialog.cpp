@@ -72,11 +72,9 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* editedCalibrator
     // 3 create textfield for vehs per hour
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), nullptr, GUIDesignLabelThick);
     myTextFieldVehsPerHour = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myTextFieldVehsPerHour->setTextColor(FXRGB(255, 0, 0));
     // 4 create textfield for vehs per hour
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_SPEED).c_str(), nullptr, GUIDesignLabelThick);
     myTextFieldSpeed = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myTextFieldSpeed->setTextColor(FXRGB(255, 0, 0));
     // 5 create textfield for color
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_COLOR).c_str(), nullptr, GUIDesignLabelThick);
     myTextFieldColor = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -180,6 +178,19 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                               ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
                               (parentTagString + "'s " + tagString + " cannot be " + operation2 +
                                " because there is overlapping with another " + tagString + ".").c_str());
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
+        return 0;
+    } else if ((myEditedAdditional->getAttribute(SUMO_ATTR_VEHSPERHOUR).empty() && myEditedAdditional->getAttribute(SUMO_ATTR_SPEED).empty()) ||
+               (!myEditedAdditional->getAttribute(SUMO_ATTR_VEHSPERHOUR).empty() && !myEditedAdditional->getAttribute(SUMO_ATTR_SPEED).empty())) {
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+        // open warning dialog box
+        FXMessageBox::warning(getApp(), MBOX_OK,
+                              ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
+                              (parentTagString + "'s " + tagString + " cannot be " + operation2 +
+                               " because parameters " + toString(SUMO_ATTR_VEHSPERHOUR) + " and " + toString(SUMO_ATTR_SPEED) +
+                               " cannot be defined together.").c_str());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;

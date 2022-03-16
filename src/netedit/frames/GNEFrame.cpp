@@ -135,6 +135,12 @@ GNEFrame::getViewNet() const {
 }
 
 
+FXVerticalFrame* 
+GNEFrame::getContentFrame() const {
+    return myContentFrame;
+}
+
+
 FXLabel*
 GNEFrame::getFrameHeaderLabel() const {
     return myFrameHeaderLabel;
@@ -146,57 +152,6 @@ GNEFrame::getFrameHeaderFont() const {
     return myFrameHeaderFont;
 }
 
-
-void
-GNEFrame::updateFrameAfterUndoRedo() {
-    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
-}
-
-// ---------------------------------------------------------------------------
-// GNEFrame - protected methods
-// ---------------------------------------------------------------------------
-
-void
-GNEFrame::tagSelected() {
-    // this function has to be reimplemente in all child frames that uses a TagSelector modul
-}
-
-
-void
-GNEFrame::demandElementSelected() {
-    // this function has to be reimplemente in all child frames that uses a DemandElementSelector
-}
-
-
-bool
-GNEFrame::shapeDrawed() {
-    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
-    return false;
-}
-
-
-void
-GNEFrame::attributeUpdated() {
-    // this function has to be reimplemente in all child frames that uses a TagSelector modul
-}
-
-
-void
-GNEFrame::attributesEditorExtendedDialogOpened()  {
-    // this function has to be reimplemente in all child frames that uses a AttributesCreator editor with extended attributes
-}
-
-
-void
-GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
-    // this function has to be reimplemente in all child frames that uses a OverlappedInspection
-}
-
-
-void
-GNEFrame::createPath() {
-    // this function has to be reimplemente in all child frames that uses a path
-}
 
 void
 GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
@@ -262,6 +217,58 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     getApp()->runModalFor(attributesHelpDialog);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Closing HelpAttributes dialog for tag '" + AC->getTagProperty().getTagStr() + "'");
+}
+
+
+void
+GNEFrame::updateFrameAfterUndoRedo() {
+    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrame - protected methods
+// ---------------------------------------------------------------------------
+
+void
+GNEFrame::tagSelected() {
+    // this function has to be reimplemente in all child frames that uses a TagSelector modul
+}
+
+
+void
+GNEFrame::demandElementSelected() {
+    // this function has to be reimplemente in all child frames that uses a DemandElementSelector
+}
+
+
+bool
+GNEFrame::shapeDrawed() {
+    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
+    return false;
+}
+
+
+void
+GNEFrame::attributeUpdated() {
+    // this function has to be reimplemente in all child frames that uses a TagSelector modul
+}
+
+
+void
+GNEFrame::attributesEditorExtendedDialogOpened()  {
+    // this function has to be reimplemente in all child frames that uses a AttributesCreator editor with extended attributes
+}
+
+
+void
+GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
+    // this function has to be reimplemente in all child frames that uses a OverlappedInspection
+}
+
+
+void
+GNEFrame::createPath() {
+    // this function has to be reimplemente in all child frames that uses a path or consecutiveLanePath
 }
 
 

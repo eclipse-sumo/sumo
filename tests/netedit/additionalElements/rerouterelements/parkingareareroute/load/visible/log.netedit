@@ -1,2 +1,2 @@
-Error: Attribute 'visible' in definition of a parkingAreaReroute is not of type bool.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_18Nov151727.18936\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\input_additionals.add.xml failed.
+Error: Attribute 'visible' in definition of a parkingAreaReroute Invalid Bool Format dummyvisible.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\input_additionals.add.xml failed.

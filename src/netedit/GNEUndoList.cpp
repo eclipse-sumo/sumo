@@ -269,10 +269,6 @@ GNEUndoList::end() {
 
 void
 GNEUndoList::clear() {
-    // disable updating of interval bar (check viewNet due #7252)
-    if (myGNEApplicationWindowParent->getViewNet()) {
-        myGNEApplicationWindowParent->getViewNet()->getIntervalBar().disableIntervalBarUpdate();
-    }
     // abort all change groups
     abortAllChangeGroups();
     // clear
@@ -291,10 +287,6 @@ GNEUndoList::clear() {
     redoList = nullptr;
     undoList = nullptr;
     group = nullptr;
-    // enable updating of interval bar again (check viewNet due #7252)
-    if (myGNEApplicationWindowParent->getViewNet()) {
-        myGNEApplicationWindowParent->getViewNet()->getIntervalBar().enableIntervalBarUpdate();
-    }
 }
 
 

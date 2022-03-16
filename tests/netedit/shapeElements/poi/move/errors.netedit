@@ -1,8 +1,6 @@
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poi' in TagSelector
-Debug: Adding poi 'poi_0' into viewNet
-Debug: Adding poi 'poi_1' into viewNet
+Debug: Adding poi 'poi_0' in GNEChange_Additional
+Debug: Adding poi 'poi_1' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -17,13 +15,11 @@ Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
-Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Removing poi 'poi_1' from net in ~GNEChange_Shape()
-Debug: delete poi 'poi_1' in ~GNEChange_Shape()
-Debug: Removing poi 'poi_0' from net in ~GNEChange_Shape()
-Debug: delete poi 'poi_0' in ~GNEChange_Shape()
+Debug: Additionals saved
+Debug: Deleting unreferenced poi 'poi_1'
+Debug: Deleting unreferenced poi 'poi_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -32,7 +28,4 @@ Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

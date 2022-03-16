@@ -557,13 +557,14 @@ MSLCM_SL2015::informLeader(int blocked,
                                      + nv->getCarFollowModel().getSecureGap( // save gap to follower
                                          nv, &myVehicle, nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()));
 
-        if (dv < NUMERICAL_EPS
+        if ((dv < NUMERICAL_EPS
                 // overtaking on the right on an uncongested highway is forbidden (noOvertakeLCLeft)
                 || (dir == LCA_MLEFT && !myVehicle.congested() && !myAllowOvertakingRight)
                 // not enough space to overtake? (we will start to brake when approaching a dead end)
                 || myLeftSpace - myLeadingBlockerLength - myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed()) < overtakeDist
                 // not enough time to overtake?
-                || dv * remainingSeconds < overtakeDist) {
+                || dv * remainingSeconds < overtakeDist)
+              && (!neighLead.first->isStopped() || (isOpposite() && neighLead.second >= 0))) {
             // cannot overtake
             msg(neighLead, -1, dir | LCA_AMBLOCKINGLEADER);
             // slow down smoothly to follow leader

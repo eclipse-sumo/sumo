@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-29 12:56:57 by Eclipse SUMO netconvert Version v1_11_0+0177-db90c06e318
+<!-- generated on 2022-03-08 16:43:25 by Eclipse SUMO netconvert Version v1_12_0+1230-1e9008d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -46,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Nov 29 12:56:57 2021" north="0.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Mar  8 16:43:25 2022" north="0.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="94.00000000" id="30" junction="-1">
         <link>
             <successor elementType="junction" elementId="1"/>
@@ -164,7 +169,7 @@ SPDX-License-Identifier: EPL-2.0
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="94.00000000" y="4.20000000" hdg="0.00000000" length="12.58701754">
-                <paramPoly3 aU="0.00000000" bU="18.62900964" cU="-19.88702891" dU="13.25801927" aV="0.00000000" bV="0.00000000" cV="-9.60000000" dV="6.40000000"/>
+                <paramPoly3 aU="0.00000000" bU="18.62900964" cU="-19.88702891" dU="13.25801927" aV="0.00000000" bV="0.00000000" cV="-9.60000000" dV="6.40000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -260,7 +265,7 @@ SPDX-License-Identifier: EPL-2.0
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="94.00000000" y="4.20000000" hdg="0.00000000" length="12.58701754">
-                <paramPoly3 aU="0.00000000" bU="18.62900964" cU="-19.88702891" dU="13.25801927" aV="0.00000000" bV="0.00000000" cV="9.60000000" dV="-6.40000000"/>
+                <paramPoly3 aU="0.00000000" bU="18.62900964" cU="-19.88702891" dU="13.25801927" aV="0.00000000" bV="0.00000000" cV="9.60000000" dV="-6.40000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>

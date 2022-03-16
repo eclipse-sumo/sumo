@@ -15,3 +15,6 @@ load_taz
 
 # trip with fromJunction and toJunction using option --junction-taz and  loaded taz
 load_some_taz
+
+# trip with fromJunction in additional file
+fromJunction_add

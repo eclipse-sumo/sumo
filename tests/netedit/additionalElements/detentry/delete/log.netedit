@@ -1,7 +1,3 @@
-Warning: An e3Detector need at least one detEntry detector
-Warning: e3Detector with ID='e3Detector_1' cannot be written
-Warning: An e3Detector need at least one detEntry detector
-Warning: e3Detector with ID='e3Detector_4' cannot be written
-Warning: An e3Detector need at least one detEntry detector
-Warning: An e3Detector need at least one detExit detector
-Warning: e3Detector with ID='e3Detector_5' cannot be written
+Warning: e3Detector 'e3Detector_1' needs at least one entry and one exit
+Warning: e3Detector 'e3Detector_4' needs at least one entry and one exit
+Warning: e3Detector 'e3_1' needs at least one entry and one exit

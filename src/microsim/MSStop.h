@@ -105,6 +105,9 @@ public:
 
     const MSEdge* getEdge() const;
 
+    /// @brief return flags as used by Vehicle::getStopState
+    int getStateFlagsOld() const;
+
 private:
     /// @brief Invalidated assignment operator
     MSStop& operator=(const MSStop& src) = delete;

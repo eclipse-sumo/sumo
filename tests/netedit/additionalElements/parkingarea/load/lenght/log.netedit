@@ -1,3 +1,0 @@
-Error: Attribute 'length' in definition of parkingArea 'parkingArea_1' is not of type float.
-Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; attribute length cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.29Jun113700.7052\netedit.gui\additionalElements\parkingarea\load\lenght\input_additionals.add.xml failed.

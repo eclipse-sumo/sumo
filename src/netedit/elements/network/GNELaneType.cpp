@@ -34,15 +34,15 @@
 // ===========================================================================
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent) :
-    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-myEdgeTypeParent(edgeTypeParent) {
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}),
+    myEdgeTypeParent(edgeTypeParent) {
 }
 
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType) :
-    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-NBTypeCont::LaneTypeDefinition(laneType),
-myEdgeTypeParent(edgeTypeParent) {
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}),
+    NBTypeCont::LaneTypeDefinition(laneType),
+    myEdgeTypeParent(edgeTypeParent) {
 }
 
 
@@ -129,6 +129,13 @@ GNELaneType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(speed);
             }
+        case SUMO_ATTR_FRICTION:
+            if (attrs.count(key) == 0) {
+                return "";
+            }
+            else {
+                return toString(friction);
+            }
         case SUMO_ATTR_ALLOW:
             if ((permissions == SVCAll) || (permissions == -1)) {
                 return "all";
@@ -197,7 +204,7 @@ GNELaneType::isAttributeComputed(SumoXMLAttr /*key*/) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNELaneType::getACParametersMap() const {
     return getParametersMap();
 }

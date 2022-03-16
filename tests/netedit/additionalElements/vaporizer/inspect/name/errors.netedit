@@ -1,4 +1,3 @@
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'vaporizer' in TagSelector
 Debug: Adding vaporizer 'gneE3' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
@@ -11,17 +10,17 @@ Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Debug: Key F5 (Compute) pressed
-Debug: Value '%%$$$' for attribute name of vaporizer isn't valid
+Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing vaporizer 'gneE3' in GNEChange_Additional
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding vaporizer 'gneE3' in GNEChange_Additional
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

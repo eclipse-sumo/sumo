@@ -31,7 +31,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select E1
+# select E1Instant
 netedit.changeElement("instantInductionLoop")
 
 # create E1 1
@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 210)
 
 # Change parameter name with an non valid value
-netedit.modifyAttribute(3, "%%%;:..&&%$%$", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.name, "%%%;:..&&%$%$", True)
 
 # Change parameter name with a duplicated value
-netedit.modifyAttribute(3, "customName", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.name, "customName", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

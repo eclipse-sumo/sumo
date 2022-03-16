@@ -1,9 +1,19 @@
 set(netconvertlibs
-        netwrite netimport netbuild foreign_eulerspiral ${GDAL_LIBRARY} netimport_vissim netimport_vissim_typeloader netimport_vissim_tempstructs ${commonlibs})
+        netwrite netimport netbuild foreign_eulerspiral ${GDAL_LIBRARY} netimport_vissim netimport_vissim_typeloader netimport_vissim_tempstructs ${commonlibs} ${TCMALLOC_LIBRARY})
 
 set(sumolibs
         traciserver netload microsim_cfmodels microsim_engine microsim_lcmodels microsim_devices microsim_trigger microsim_output microsim_transportables microsim_actions
-        microsim_traffic_lights microsim mesosim ${commonvehiclelibs} ${PYTHON_LIBRARIES})
+        microsim_traffic_lights microsim mesosim ${commonvehiclelibs})
+if (OPENSCENEGRAPH_FOUND)
+    set(osgviewlib osgview)
+endif ()
+set(sumoguilibs
+        gui guinetload guisim gui gui_dialogs utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
+        utils_gui_images utils_gui_cursors utils_gui_shortcuts utils_gui_tracker utils_foxtools utils_traction_wire ${osgviewlib} microsim traciserver libsumostatic ${sumolibs} mesogui
+        ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
+if (MSVC)
+    set(sumoguilibs ${sumoguilibs} opengl32 glu32)
+endif ()
 
 add_subdirectory(activitygen)
 add_subdirectory(dfrouter)
@@ -26,7 +36,6 @@ add_subdirectory(netwrite)
 add_subdirectory(od)
 if (OPENSCENEGRAPH_FOUND)
     add_subdirectory(osgview)
-    set(osgviewlib osgview)
 endif ()
 add_subdirectory(polyconvert)
 add_subdirectory(router)
@@ -45,7 +54,7 @@ endif ()
 add_executable(sumo sumo_main.cpp)
 set_target_properties(sumo PROPERTIES OUTPUT_NAME sumo${BINARY_SUFFIX})
 set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumo${BINARY_SUFFIX}D)
-target_link_libraries(sumo microsim traciserver libsumostatic ${sumolibs})
+target_link_libraries(sumo microsim traciserver libsumostatic ${sumolibs} ${TCMALLOC_LIBRARY})
 if (JPS_FOUND)
     target_link_libraries(sumo jps)
 endif()
@@ -55,10 +64,7 @@ if (FOX_FOUND)
     add_executable(sumo-gui guisim_main.cpp sumo-gui.rc)
     set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME sumo-gui${BINARY_SUFFIX})
     set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME_DEBUG sumo-gui${BINARY_SUFFIX}D)
-    target_link_libraries(sumo-gui gui guinetload guisim gui gui_dialogs
-        utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
-        utils_gui_images utils_gui_cursors utils_gui_shortcuts utils_gui_tracker utils_foxtools utils_traction_wire ${osgviewlib} microsim traciserver libsumostatic ${sumolibs} mesogui
-        ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
+    target_link_libraries(sumo-gui ${sumoguilibs} ${TCMALLOC_LIBRARY})
     if (MSVC)
         if (CONSOLE_RELEASE)
             set_target_properties(sumo-gui PROPERTIES LINK_FLAGS_RELEASE "/ENTRY:mainCRTStartup")
@@ -73,7 +79,6 @@ if (FOX_FOUND)
         else ()
             set_target_properties(sumo-gui PROPERTIES VS_DPI_AWARE "ON")
         endif ()
-        target_link_libraries(sumo-gui opengl32 glu32)
     endif ()
     add_dependencies(sumo-gui generate-version-h install_dll)
     install(TARGETS sumo-gui RUNTIME DESTINATION bin)
@@ -88,7 +93,7 @@ add_dependencies(netconvert generate-version-h install_dll)
 add_executable(od2trips od2trips_main.cpp)
 set_target_properties(od2trips PROPERTIES OUTPUT_NAME od2trips${BINARY_SUFFIX})
 set_target_properties(od2trips PROPERTIES OUTPUT_NAME_DEBUG od2trips${BINARY_SUFFIX}D)
-target_link_libraries(od2trips od router ${commonvehiclelibs})
+target_link_libraries(od2trips od router ${commonvehiclelibs} ${TCMALLOC_LIBRARY})
 add_dependencies(od2trips generate-version-h install_dll)
 
 install(TARGETS sumo netconvert od2trips RUNTIME DESTINATION bin)

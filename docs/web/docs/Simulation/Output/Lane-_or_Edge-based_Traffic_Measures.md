@@ -5,12 +5,12 @@ title: Lane- or Edge-based Traffic Measures
 Values within this output describe the situation within the network in
 terms of traffic science by giving macroscopic values such as the mean
 vehicle speed, the mean density, etc. This output can be generated
-either for lanes, or for edges.
+either for lanes, edges or groups of edges.
 
 In the following, it is described how both outputs are generated and
 which values they contain. Then, the meanings of the values are given as
 well as a description of intervals. At last, some additional
-possibilities to constraint the outputs are given.
+possibilities to constrain the outputs are given.
 
 !!! note
     Please remark that these outputs are also called "aggregated lane/edge states", "meandata", or "edge/lane-dumps".
@@ -57,6 +57,9 @@ For additional attributes see the table below.
 | trackVehicles  | bool                           | whether aggregation should be performed over all vehicles that entered the edge/lane in the aggregation interval                                                                                                                            |
 | detectPersons  | string list                    | whether pedestrians shall be recorded instead of vehicles. Allowed value is *walk*.<br>**Note:** further modes are planned           |
 | writeAttributes  | string list                  | list of attribute names that shall be written (defaults to all attribute)         |
+| edges  | string list                  | restrict output to the given list of edge ids        |
+| edgesFile  | filename                 | restrict output to the given the list of edges given in file (either one edgeID per line or an id prefixed with 'edge:' as in a [selection file](../../Netedit/editModesCommon.md#selection_operations)        |
+| aggregate  | bool    | Whether the traffic statistic of all edges shall be aggregated into a single value (edge id will be `AGGREGATED`).  |
 
 ## Generated Output
 

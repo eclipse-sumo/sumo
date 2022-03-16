@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:20:35 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-03-16 08:16:41 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -8,6 +8,7 @@
     <configuration>
         <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
         <save-configuration value="" synonymes="C save-config" type="FILE" help="Saves current configuration into FILE"/>
+        <save-configuration.relative value="false" synonymes="save-config.relative" type="BOOL" help="Enforce relative paths when saving the configuration"/>
         <save-template value="" type="FILE" help="Saves a configuration template (empty) into FILE"/>
         <save-schema value="" type="FILE" help="Saves the configuration schema into FILE"/>
         <save-commented value="false" synonymes="save-template.commented" type="BOOL" help="Adds comments to saved template, configuration, or schema"/>
@@ -43,7 +44,7 @@
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
         <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
         <output-file value="" synonymes="o output sumo-output" type="FILE" help="The generated net will be written to FILE"/>
-        <plain-output-prefix value="" synonymes="plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
+        <plain-output-prefix value="" synonymes="p plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
         <prefix value="" type="STR" help="Defines a prefix for edge and junction names"/>
         <amitran-output value="" type="FILE" help="The generated net will be written to FILE using Amitran format"/>
@@ -77,6 +78,7 @@
 
     <processing>
         <speed-in-kmh value="false" type="BOOL" help="vmax is parsed as given in km/h (some)"/>
+        <friction-in-percent value="false" type="BOOL" help="friction is parsed as given in percent (some)"/>
         <construction-date value="" type="STR" help="Use YYYY-MM-DD date to determine the readiness of features under construction"/>
         <flatten value="false" type="BOOL" help="Remove all z-data"/>
         <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>
@@ -115,7 +117,7 @@
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
         <roundabouts.visibility-distance value="9" type="FLOAT" help="Default visibility when approaching a roundabout"/>
         <opposites.guess value="false" type="BOOL" help="Enable guessing of opposite direction lanes usable for overtaking"/>
-        <opposites.guess.fix-lengths value="false" type="BOOL" help="Ensure that opposite edges have the same length"/>
+        <opposites.guess.fix-lengths value="true" type="BOOL" help="Ensure that opposite edges have the same length"/>
         <fringe.guess value="false" type="BOOL" help="Enable guessing of network fringe nodes"/>
         <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
         <edges.join value="false" type="BOOL" help="Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)"/>
@@ -130,6 +132,7 @@
         <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT" help="The default width of lanes"/>
         <default.spreadtype value="right" type="STR" help="The default method for computing lane shapes from edge shapes"/>
         <default.speed value="13.89" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
+        <default.friction value="1" synonymes="F friction" type="FLOAT" help="The default friction on an edge"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
         <default.type value="" type="STR" help="The default edge type"/>
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>

@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to stop mode
 netedit.stopMode()
 
@@ -38,59 +41,38 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 220)
-
-# go to inspect mode
-netedit.inspectMode()
-
-# inspect pedestrian
-netedit.leftClick(referencePosition, 88, 254)
-
-# lock pedestrian
-netedit.changeEditMode("4")
+netedit.leftClick(referencePosition, 400, 185)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete stop
-netedit.leftClick(referencePosition, 229, 215)
+netedit.leftClick(referencePosition, 263, 185)
 
 # check undo
-netedit.undo(referencePosition, 2)
-
-# compute demand
-netedit.rebuildNetwork
+netedit.undo(referencePosition, 1)
 
 # go to delete mode
 netedit.deleteMode()
 
-# delete walk
-netedit.leftClick(referencePosition, 303, 255)
+# delete route
+netedit.leftClick(referencePosition, 400, 195)
 
 # check undo
-netedit.undo(referencePosition, 2)
-
-# compute demand
-netedit.rebuildNetwork
+netedit.undo(referencePosition, 1)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete stop
-netedit.leftClick(referencePosition, 229, 215)
-
-# delete walk
-netedit.leftClick(referencePosition, 303, 255)
-
-# compute demand
-netedit.rebuildNetwork
+netedit.leftClick(referencePosition, 263, 185)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
-# compute demand
-netedit.rebuildNetwork
+# save additionals
+netedit.saveAdditionals(referencePosition)
 
 # save routes
 netedit.saveRoutes(referencePosition)

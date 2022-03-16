@@ -92,7 +92,7 @@ public:
                         const SUMOTime offset,
                         const TrafficLightType logicType,
                         const SUMOTime delay,
-                        const std::map<std::string, std::string>& parameters);
+                        const Parameterised::Map& parameters);
 
 
     /** @brief Initialises the tls with information about incoming lanes
@@ -404,6 +404,10 @@ public:
     /** @brief Saves the current tls states into the given stream
         */
     virtual void saveState(OutputDevice& /*out*/) const {};
+
+
+    /** @brief restores the tls state */
+    virtual void loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration);
 
 
 protected:

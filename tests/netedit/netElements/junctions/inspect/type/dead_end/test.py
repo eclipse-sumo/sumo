@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change type of junction
-netedit.modifyAttribute(2, "dead_end", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.type, "dead_end", False)
 
 # rebuild network
 netedit.rebuildNetwork()

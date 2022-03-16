@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to select mode
 netedit.selectMode()
 
@@ -41,16 +44,16 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 244, 220)
+netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyAttribute(14, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.actType, "dummy", False)
 
 # change value
-netedit.modifyAttribute(14, "", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.actType, "", False)
 
 # change value
-netedit.modifyAttribute(14, "reading", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.actType, "singing", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

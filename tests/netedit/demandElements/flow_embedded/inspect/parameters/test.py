@@ -37,7 +37,7 @@ netedit.vehicleMode()
 # change vehicle
 netedit.changeElement("flow (embedded route)")
 
-# create flow using two edges
+# create flow with embedded route using two edges
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
@@ -51,7 +51,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # check parameters
-netedit.checkParameters(referencePosition, 24, False)
+netedit.checkParameters(referencePosition, netedit.attrs.flowEmbedded.inspect.parameters, False)
 
 # save routes
 netedit.saveRoutes(referencePosition)

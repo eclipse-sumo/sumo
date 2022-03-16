@@ -31,7 +31,7 @@ Two versions of LiSuM are provided: A graphical version called
 [\#LiSuM-GUI](#lisum-gui) and a command line version suitable
 for batch processing called [\#LiSuM-Core](#lisum-core)
 The graphical interface needs at least Java 11 to run,
-LiSuM-Core (the commad line version) works with Java 8 as well.
+LiSuM-Core (the command line version) works with Java 8 as well.
 
 # LiSuM-GUI
 

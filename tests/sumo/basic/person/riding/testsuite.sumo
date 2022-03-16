@@ -1,6 +1,9 @@
 # person with a single ride
 ride
 
+# person with a single ride aborted
+ride_teleport
+
 # person with a triggered vehicles ride specified using the exact vehicle id rather than the line attribute
 ride_ignore_line
 

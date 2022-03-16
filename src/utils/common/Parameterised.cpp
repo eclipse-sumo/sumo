@@ -33,7 +33,7 @@
 Parameterised::Parameterised() {}
 
 
-Parameterised::Parameterised(const std::map<std::string, std::string>& mapArg) :
+Parameterised::Parameterised(const Parameterised::Map& mapArg) :
     myMap(mapArg) {
 }
 
@@ -54,7 +54,7 @@ Parameterised::unsetParameter(const std::string& key) {
 
 
 void
-Parameterised::updateParameters(const std::map<std::string, std::string>& mapArg) {
+Parameterised::updateParameters(const Parameterised::Map& mapArg) {
     for (const auto& keyValue : mapArg) {
         setParameter(keyValue.first, keyValue.second);
     }
@@ -122,7 +122,7 @@ Parameterised::clearParameter() {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 Parameterised::getParametersMap() const {
     return myMap;
 }
@@ -156,7 +156,7 @@ Parameterised::setParameters(const Parameterised& params) {
 
 
 void
-Parameterised::setParametersMap(const std::map<std::string, std::string>& paramsMap) {
+Parameterised::setParametersMap(const Parameterised::Map& paramsMap) {
     // first clear map
     myMap.clear();
     // set parameter

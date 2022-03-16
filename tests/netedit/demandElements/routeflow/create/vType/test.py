@@ -45,17 +45,17 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# change vehicle
+# select flow over route
 netedit.changeElement("flow (over route)")
 
 # set invalid vType
-netedit.changeDefaultValue(2, "blue")
+netedit.changeDefaultValue(netedit.attrs.routeflow.create.type, "blue")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid vType
-netedit.changeDefaultValue(2, "custom_vType")
+netedit.changeDefaultValue(netedit.attrs.routeflow.create.type, "custom_vType")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

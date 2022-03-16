@@ -8,13 +8,10 @@ Debug: Adding detEntry 'e3_1' in GNEChange_Additional
 Debug: Selected item 'detExit' in TagSelector
 Debug: Adding detExit 'e3_0' in GNEChange_Additional
 Debug: Adding detExit 'e3_1' in GNEChange_Additional
-Debug: Setting new attribute
+Debug: Value 'e3_1' for attribute id of e3Detector isn't valid
 Debug: Value ';;;;;;;;;;;;;;;;;' for attribute id of e3Detector isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -36,6 +33,12 @@ Debug: Removing detEntry 'e3_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e3Detector 'e3_1' in GNEChange_Additional
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing e3Detector 'e3_0' in GNEChange_Additional
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding e3Detector 'e3_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding e3Detector 'e3_1' in GNEChange_Additional
@@ -51,9 +54,6 @@ Debug: Adding detExit 'e3_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding detExit 'e3_1' in GNEChange_Additional
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

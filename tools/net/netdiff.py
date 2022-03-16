@@ -623,31 +623,32 @@ def handle_children(xmlfile, handle_parsenode):
     schema = None
     version = ""
     level = 0
-    xml_doc = pulldom.parse(xmlfile)
-    for event, parsenode in xml_doc:
-        if event == pulldom.START_ELEMENT:
-            # print level, parsenode.getAttribute(ID_ATTR)
-            if level == 0:
-                # since we did not expand root_open contains the closing slash
-                root = parsenode.localName
-                if root == "edges":
-                    schema = "edgediff_file.xsd"
-                elif root == "tlLogics":
-                    schema = "tllogic_file.xsd"
-                if parsenode.hasAttribute("version"):
-                    version = ' version="%s"' % parsenode.getAttribute("version")
-                if root not in ("edges", "nodes", "connections", "tlLogics"):
-                    # do not write schema information
-                    version = None
-            if level == 1:
-                # consumes END_ELEMENT, no level increase
-                xml_doc.expandNode(parsenode)
-                handle_parsenode(parsenode)
-            else:
-                level += 1
-        elif event == pulldom.END_ELEMENT:
-            level -= 1
-    return root, schema, version
+    with open(xmlfile, 'rb') as in_xml:
+        xml_doc = pulldom.parse(in_xml)
+        for event, parsenode in xml_doc:
+            if event == pulldom.START_ELEMENT:
+                # print level, parsenode.getAttribute(ID_ATTR)
+                if level == 0:
+                    # since we did not expand root_open contains the closing slash
+                    root = parsenode.localName
+                    if root == "edges":
+                        schema = "edgediff_file.xsd"
+                    elif root == "tlLogics":
+                        schema = "tllogic_file.xsd"
+                    if parsenode.hasAttribute("version"):
+                        version = ' version="%s"' % parsenode.getAttribute("version")
+                    if root not in ("edges", "nodes", "connections", "tlLogics"):
+                        # do not write schema information
+                        version = None
+                if level == 1:
+                    # consumes END_ELEMENT, no level increase
+                    xml_doc.expandNode(parsenode)
+                    handle_parsenode(parsenode)
+                else:
+                    level += 1
+            elif event == pulldom.END_ELEMENT:
+                level -= 1
+        return root, schema, version
 
 
 # run

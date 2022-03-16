@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 17.02.2021 01:30:41 by Eclipse SUMO netedit Version v1_8_0+1229-2e951a2dc5
+<!-- generated on 2022-02-04 14:13:28 by Eclipse SUMO netedit Version v1_12_0+0260-107ade780a5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\demandElements\route\volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb140855.7232\netedit.gui\demandElements\route\volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\demandElements\route\volatileRecomputing\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb140855.7232\netedit.gui\demandElements\route\volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
@@ -33,28 +33,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\demandElements\route\volatileRecomputing\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\demandElements\route\volatileRecomputing\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\demandElements\route\volatileRecomputing\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\demandElements\route\volatileRecomputing\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\demandElements\route\volatileRecomputing\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\demandElements\route\volatileRecomputing\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb140855.7232\netedit.gui\demandElements\route\volatileRecomputing\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb140855.7232\netedit.gui\demandElements\route\volatileRecomputing\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb140855.7232\netedit.gui\demandElements\route\volatileRecomputing\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb140855.7232\netedit.gui\demandElements\route\volatileRecomputing\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb140855.7232\netedit.gui\demandElements\route\volatileRecomputing\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb140855.7232\netedit.gui\demandElements\route\volatileRecomputing\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\demandElements\route\volatileRecomputing\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb140855.7232\netedit.gui\demandElements\route\volatileRecomputing\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\demandElements\route\volatileRecomputing\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb140855.7232\netedit.gui\demandElements\route\volatileRecomputing\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\demandElements\route\volatileRecomputing\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb140855.7232\netedit.gui\demandElements\route\volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>
@@ -103,10 +103,10 @@
         <lane id=":gneJ7_0_0" index="0" allow="bicycle" speed="7.25" length="11.47" width="2.00" shape="15.50,61.00 12.66,60.52 10.63,59.08 9.41,56.67 9.00,53.30"/>
     </edge>
     <edge id=":gneJ7_1" function="internal">
-        <lane id=":gneJ7_1_0" index="0" allow="bicycle" speed="5.77" length="2.41" shape="11.00,53.30 11.28,55.27 11.50,55.63"/>
+        <lane id=":gneJ7_1_0" index="0" allow="bicycle" speed="5.77" length="2.41" width="2.00" shape="11.00,53.30 11.28,55.27 11.50,55.63"/>
     </edge>
     <edge id=":gneJ7_2" function="internal">
-        <lane id=":gneJ7_2_0" index="0" allow="bicycle" speed="5.77" length="4.84" shape="11.50,55.63 12.13,56.67 13.53,57.52 15.50,57.80"/>
+        <lane id=":gneJ7_2_0" index="0" allow="bicycle" speed="5.77" length="4.84" width="2.00" shape="11.50,55.63 12.13,56.67 13.53,57.52 15.50,57.80"/>
     </edge>
     <edge id=":gneJ7_c0" function="crossing" crossingEdges="gneE6 gneE5">
         <lane id=":gneJ7_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="13.50,56.80 13.50,63.20"/>
@@ -118,7 +118,7 @@
         <lane id=":gneJ7_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.10" width="4.00" shape="15.50,56.80 15.50,54.80 14.00,53.30 12.00,53.30 12.10,54.37 12.39,55.24 12.88,55.92 13.56,56.41 14.43,56.70"/>
     </edge>
     <edge id=":gneJ8_0" function="internal">
-        <lane id=":gneJ8_0_0" index="0" allow="bicycle" speed="7.43" length="12.48" shape="9.00,46.70 9.41,42.81 10.63,40.02 12.66,38.36 15.50,37.80"/>
+        <lane id=":gneJ8_0_0" index="0" allow="bicycle" speed="7.43" length="12.48" width="2.00" shape="9.00,46.70 9.41,42.81 10.62,40.02 12.66,38.36 15.50,37.80"/>
     </edge>
     <edge id=":gneJ8_1" function="internal">
         <lane id=":gneJ8_1_0" index="0" allow="bicycle" speed="5.91" length="2.41" width="2.00" shape="15.50,42.20 13.53,42.48 13.17,42.70"/>
@@ -235,10 +235,10 @@
     <connection from=":gneJ6_1" to="gneE3" fromLane="1" toLane="2" dir="r" state="M"/>
     <connection from=":gneJ7_0" to="gneE10" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":gneJ7_1" to="gneE6" fromLane="0" toLane="1" via=":gneJ7_2_0" dir="r" state="m"/>
-    <connection from=":gneJ7_2" to="gneE6" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":gneJ7_2" to="gneE6" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":gneJ8_0" to="gneE8" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":gneJ8_1" to="gneE11" fromLane="0" toLane="1" via=":gneJ8_2_0" dir="r" state="m"/>
-    <connection from=":gneJ8_2" to="gneE11" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":gneJ8_2" to="gneE11" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":gneJ9_0" to="gneE9" fromLane="0" toLane="1" dir="t" state="M"/>
 
     <connection from=":gneJ4_w0" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>

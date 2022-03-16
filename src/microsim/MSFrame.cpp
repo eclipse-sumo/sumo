@@ -128,6 +128,8 @@ MSFrame::fillOptions() {
     oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle");
     oc.doRegister("emission-output.precision", new Option_Integer(2));
     oc.addDescription("emission-output.precision", "Output", "Write emission values with the given precision (default 2)");
+    oc.doRegister("emission-output.geo", new Option_Bool(false));
+    oc.addDescription("emission-output.geo", "Output", "Save the positions in emission output using geo-coordinates (lon/lat)");
 
     oc.doRegister("emission-output.step-scaled", new Option_Bool(false));
     oc.addDescription("emission-output.step-scaled", "Output", "Write emission values scaled to the step length rather than as per-second values");
@@ -253,6 +255,10 @@ MSFrame::fillOptions() {
 
     oc.doRegister("vehroute-output.speedfactor", new Option_Bool(false));
     oc.addDescription("vehroute-output.speedfactor", "Output", "Write the vehicle speedFactor (defaults to 'true' if departSpeed is written)");
+
+    oc.doRegister("personroute-output", new Option_FileName());
+    oc.addSynonyme("personroute-output", "personroutes");
+    oc.addDescription("personroute-output", "Output", "Save person and container routes to separate FILE");
 
     oc.doRegister("link-output", new Option_FileName());
     oc.addDescription("link-output", "Output", "Save links states into FILE");
@@ -392,6 +398,9 @@ MSFrame::fillOptions() {
     oc.doRegister("time-to-teleport.remove", new Option_Bool(false));
     oc.addDescription("time-to-teleport.remove", "Processing", "Whether vehicles shall be removed after waiting too long instead of being teleported");
 
+    oc.doRegister("time-to-teleport.ride", new Option_String("-1", "TIME"));
+    oc.addDescription("time-to-teleport.ride", "Processing", "The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting");
+
     oc.doRegister("waiting-time-memory", new Option_String("100", "TIME"));
     oc.addDescription("waiting-time-memory", "Processing", "Length of time interval, over which accumulated waiting time is taken into account (default is 100s.)");
 
@@ -428,7 +437,7 @@ MSFrame::fillOptions() {
     oc.doRegister("railsignal-moving-block", new Option_Bool(false));
     oc.addDescription("railsignal-moving-block", "Processing", "Let railsignals operate in moving-block mode by default");
 
-    oc.doRegister("time-to-impatience", new Option_String("300", "TIME"));
+    oc.doRegister("time-to-impatience", new Option_String("180", "TIME"));
     oc.addDescription("time-to-impatience", "Processing", "Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth");
 
     oc.doRegister("default.action-step-length", new Option_Float(0.0));
@@ -541,6 +550,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("railway.max-train-length", new Option_Float(1000.0));
     oc.addDescription("railway.max-train-length", "Routing", "Use FLOAT as a maximum train length when initializing the railway router");
+
+    oc.doRegister("replay-rerouting", new Option_Bool(false));
+    oc.addDescription("replay-rerouting", "Routing", "Replay exact rerouting sequence from vehroute-output");
 
     // devices
     oc.addOptionSubTopic("Emissions");

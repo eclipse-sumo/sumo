@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-02-07 21:20:41 by Eclipse SUMO sumo Version v1_12_0+0333-f5adefa
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <end value="90"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tlsStates conditions="a00 a01 c g0 g1 g2 g3 r0 r1 r2 r3 z00 z01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
+    <tlsState time="0.00" id="C" programID="P1" phase="0" state="GgrrGgrr" conditions="-1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00"/>
+    <tlsState time="1.00" id="C" programID="P1" phase="0" state="GgrrGgrr" conditions="-1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00"/>
+    <tlsState time="2.00" id="C" programID="P1" phase="0" state="GgrrGgrr" conditions="-1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00"/>
+    <tlsState time="3.00" id="C" programID="P1" phase="0" state="GgrrGgrr" conditions="-1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00"/>
+    <tlsState time="4.00" id="C" programID="P1" phase="0" state="GgrrGgrr" conditions="-1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00"/>
+    <tlsState time="5.00" id="C" programID="P1" phase="1" state="ygrrygrr" conditions="0.00 0.00 5.00 5.00 5.00 0.00 0.00 0.00 0.00 5.00 5.00 5.00 5.00"/>
+    <tlsState time="6.00" id="C" programID="P1" phase="1" state="ygrrygrr" conditions="0.00 0.00 5.00 5.00 5.00 0.00 0.00 0.00 0.00 5.00 5.00 5.00 5.00"/>
+    <tlsState time="7.00" id="C" programID="P1" phase="1" state="ygrrygrr" conditions="0.00 0.00 5.00 5.00 5.00 0.00 0.00 0.00 0.00 5.00 5.00 5.00 5.00"/>
+    <tlsState time="8.00" id="C" programID="P1" phase="2" state="rGrrrGrr" conditions="0.00 0.00 8.00 0.00 8.00 0.00 0.00 0.00 0.00 8.00 8.00 8.00 8.00"/>
+    <tlsState time="9.00" id="C" programID="P1" phase="2" state="rGrrrGrr" conditions="0.00 0.00 8.00 0.00 8.00 0.00 0.00 0.00 0.00 8.00 8.00 8.00 8.00"/>
+    <tlsState time="10.00" id="C" programID="P1" phase="2" state="rGrrrGrr" conditions="0.00 0.00 8.00 0.00 8.00 0.00 0.00 0.00 0.00 8.00 8.00 8.00 8.00"/>
+    <tlsState time="11.00" id="C" programID="P1" phase="2" state="rGrrrGrr" conditions="0.00 0.00 8.00 0.00 8.00 0.00 0.00 0.00 0.00 8.00 8.00 8.00 8.00"/>
+    <tlsState time="12.00" id="C" programID="P1" phase="2" state="rGrrrGrr" conditions="0.00 0.00 8.00 0.00 8.00 0.00 0.00 0.00 0.00 8.00 8.00 8.00 8.00"/>
+    <tlsState time="13.00" id="C" programID="P1" phase="3" state="ryrrryrr" conditions="0.00 0.00 13.00 0.00 13.00 0.00 0.00 5.00 0.00 13.00 13.00 13.00 13.00"/>
+    <tlsState time="14.00" id="C" programID="P1" phase="3" state="ryrrryrr" conditions="0.00 0.00 13.00 0.00 13.00 0.00 0.00 5.00 0.00 13.00 13.00 13.00 13.00"/>
+    <tlsState time="15.00" id="C" programID="P1" phase="3" state="ryrrryrr" conditions="0.00 0.00 13.00 0.00 13.00 0.00 0.00 5.00 0.00 13.00 13.00 13.00 13.00"/>
+    <tlsState time="16.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 16.00 0.00 0.00 0.00 0.00 8.00 0.00 16.00 16.00 16.00 16.00"/>
+    <tlsState time="17.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 16.00 0.00 0.00 0.00 0.00 8.00 0.00 16.00 16.00 16.00 16.00"/>
+    <tlsState time="18.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 16.00 0.00 0.00 0.00 0.00 8.00 0.00 16.00 16.00 16.00 16.00"/>
+    <tlsState time="19.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 16.00 0.00 0.00 0.00 0.00 8.00 0.00 16.00 16.00 16.00 16.00"/>
+    <tlsState time="20.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 16.00 0.00 0.00 0.00 0.00 8.00 0.00 16.00 16.00 16.00 16.00"/>
+    <tlsState time="21.00" id="C" programID="P1" phase="5" state="rrygrryg" conditions="0.00 0.00 21.00 0.00 0.00 5.00 5.00 13.00 5.00 0.00 0.00 21.00 21.00"/>
+    <tlsState time="22.00" id="C" programID="P1" phase="5" state="rrygrryg" conditions="0.00 0.00 21.00 0.00 0.00 5.00 5.00 13.00 5.00 0.00 0.00 21.00 21.00"/>
+    <tlsState time="23.00" id="C" programID="P1" phase="5" state="rrygrryg" conditions="0.00 0.00 21.00 0.00 0.00 5.00 5.00 13.00 5.00 0.00 0.00 21.00 21.00"/>
+    <tlsState time="24.00" id="C" programID="P1" phase="6" state="rrrGrrrG" conditions="0.00 0.00 24.00 0.00 0.00 0.00 8.00 16.00 8.00 0.00 0.00 1.60 24.00"/>
+    <tlsState time="25.00" id="C" programID="P1" phase="6" state="rrrGrrrG" conditions="0.00 0.00 24.00 0.00 0.00 0.00 8.00 16.00 8.00 0.00 0.00 1.60 24.00"/>
+    <tlsState time="26.00" id="C" programID="P1" phase="6" state="rrrGrrrG" conditions="0.00 0.00 24.00 0.00 0.00 0.00 8.00 16.00 8.00 0.00 0.00 1.60 24.00"/>
+    <tlsState time="27.00" id="C" programID="P1" phase="6" state="rrrGrrrG" conditions="0.00 0.00 24.00 0.00 0.00 0.00 8.00 16.00 8.00 0.00 0.00 1.60 24.00"/>
+    <tlsState time="28.00" id="C" programID="P1" phase="6" state="rrrGrrrG" conditions="0.00 0.00 24.00 0.00 0.00 0.00 8.00 16.00 8.00 0.00 0.00 1.60 24.00"/>
+    <tlsState time="29.00" id="C" programID="P1" phase="7" state="rrryrrry" conditions="0.00 0.00 29.00 0.00 0.00 0.00 13.00 21.00 13.00 5.00 0.00 6.60 29.00"/>
+    <tlsState time="30.00" id="C" programID="P1" phase="7" state="rrryrrry" conditions="0.00 0.00 29.00 0.00 0.00 0.00 13.00 21.00 13.00 5.00 0.00 6.60 29.00"/>
+    <tlsState time="31.00" id="C" programID="P1" phase="7" state="rrryrrry" conditions="0.00 0.00 29.00 0.00 0.00 0.00 13.00 21.00 13.00 5.00 0.00 6.60 29.00"/>
+    <tlsState time="32.00" id="C" programID="P1" phase="0" state="GgrrGgrr" conditions="0.00 0.00 32.00 0.00 0.00 0.00 0.00 24.00 16.00 8.00 0.00 9.60 32.00"/>
+    <tlsState time="33.00" id="C" programID="P1" phase="0" state="GgrrGgrr" conditions="0.00 0.00 32.00 0.00 0.00 0.00 0.00 24.00 16.00 8.00 0.00 9.60 32.00"/>
+    <tlsState time="34.00" id="C" programID="P1" phase="0" state="GgrrGgrr" conditions="0.00 0.00 32.00 0.00 0.00 0.00 0.00 24.00 16.00 8.00 0.00 9.60 32.00"/>
+    <tlsState time="35.00" id="C" programID="P1" phase="0" state="GgrrGgrr" conditions="0.00 0.00 32.00 0.00 0.00 0.00 0.00 24.00 16.00 8.00 0.00 9.60 32.00"/>
+    <tlsState time="36.00" id="C" programID="P1" phase="0" state="GgrrGgrr" conditions="0.00 0.00 32.00 0.00 0.00 0.00 0.00 24.00 16.00 8.00 0.00 9.60 32.00"/>
+    <tlsState time="37.00" id="C" programID="P1" phase="1" state="ygrrygrr" conditions="0.00 0.00 5.00 5.00 5.00 0.00 0.00 0.00 0.00 13.00 5.00 14.60 37.00"/>
+    <tlsState time="38.00" id="C" programID="P1" phase="1" state="ygrrygrr" conditions="0.00 0.00 5.00 5.00 5.00 0.00 0.00 0.00 0.00 13.00 5.00 14.60 37.00"/>
+    <tlsState time="39.00" id="C" programID="P1" phase="1" state="ygrrygrr" conditions="0.00 0.00 5.00 5.00 5.00 0.00 0.00 0.00 0.00 13.00 5.00 14.60 37.00"/>
+    <tlsState time="40.00" id="C" programID="P1" phase="2" state="rGrrrGrr" conditions="0.00 0.00 8.00 0.00 8.00 0.00 0.00 0.00 0.00 16.00 8.00 17.60 40.00"/>
+    <tlsState time="41.00" id="C" programID="P1" phase="2" state="rGrrrGrr" conditions="0.00 0.00 8.00 0.00 8.00 0.00 0.00 0.00 0.00 16.00 8.00 17.60 40.00"/>
+    <tlsState time="42.00" id="C" programID="P1" phase="2" state="rGrrrGrr" conditions="0.00 0.00 8.00 0.00 8.00 0.00 0.00 0.00 0.00 16.00 8.00 17.60 40.00"/>
+    <tlsState time="43.00" id="C" programID="P1" phase="2" state="rGrrrGrr" conditions="0.00 0.00 8.00 0.00 8.00 0.00 0.00 0.00 0.00 16.00 8.00 17.60 40.00"/>
+    <tlsState time="44.00" id="C" programID="P1" phase="2" state="rGrrrGrr" conditions="0.00 0.00 8.00 0.00 8.00 0.00 0.00 0.00 0.00 16.00 8.00 17.60 40.00"/>
+    <tlsState time="45.00" id="C" programID="P1" phase="3" state="ryrrryrr" conditions="0.00 0.00 13.00 0.00 13.00 0.00 0.00 5.00 0.00 21.00 13.00 22.60 45.00"/>
+    <tlsState time="46.00" id="C" programID="P1" phase="3" state="ryrrryrr" conditions="0.00 0.00 13.00 0.00 13.00 0.00 0.00 5.00 0.00 21.00 13.00 22.60 45.00"/>
+    <tlsState time="47.00" id="C" programID="P1" phase="3" state="ryrrryrr" conditions="0.00 0.00 13.00 0.00 13.00 0.00 0.00 5.00 0.00 21.00 13.00 22.60 45.00"/>
+    <tlsState time="48.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 16.00 0.00 0.00 0.00 0.00 8.00 0.00 24.00 16.00 25.60 48.00"/>
+    <tlsState time="49.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 16.00 0.00 0.00 0.00 0.00 8.00 0.00 24.00 16.00 25.60 48.00"/>
+    <tlsState time="50.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 16.00 0.00 0.00 0.00 0.00 8.00 0.00 24.00 16.00 25.60 48.00"/>
+    <tlsState time="51.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 16.00 0.00 0.00 0.00 0.00 8.00 0.00 24.00 16.00 25.60 48.00"/>
+    <tlsState time="52.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 16.00 0.00 0.00 0.00 0.00 8.00 0.00 24.00 16.00 25.60 48.00"/>
+    <tlsState time="53.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 21.00 0.00 0.00 5.00 5.00 13.00 5.00 0.00 0.00 30.60 53.00"/>
+    <tlsState time="54.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 21.00 0.00 0.00 5.00 5.00 13.00 5.00 0.00 0.00 30.60 53.00"/>
+    <tlsState time="55.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 23.00 0.00 0.00 7.00 7.00 15.00 7.00 0.00 0.00 32.60 55.00"/>
+    <tlsState time="56.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 23.00 0.00 0.00 7.00 7.00 15.00 7.00 0.00 0.00 32.60 55.00"/>
+    <tlsState time="57.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 25.00 0.00 0.00 9.00 9.00 17.00 9.00 0.00 0.00 34.60 57.00"/>
+    <tlsState time="58.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 25.00 0.00 0.00 9.00 9.00 17.00 9.00 0.00 0.00 34.60 57.00"/>
+    <tlsState time="59.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 27.00 0.00 0.00 11.00 11.00 19.00 11.00 0.00 0.00 36.60 59.00"/>
+    <tlsState time="60.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 27.00 0.00 0.00 11.00 11.00 19.00 11.00 0.00 0.00 36.60 59.00"/>
+    <tlsState time="61.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 29.00 0.00 0.00 13.00 13.00 21.00 13.00 0.00 0.00 38.60 61.00"/>
+    <tlsState time="62.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 29.00 0.00 0.00 13.00 13.00 21.00 13.00 0.00 0.00 38.60 61.00"/>
+    <tlsState time="63.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 31.00 0.00 0.00 15.00 15.00 23.00 15.00 0.00 0.00 0.60 63.00"/>
+    <tlsState time="64.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 31.00 0.00 0.00 15.00 15.00 23.00 15.00 0.00 0.00 0.60 63.00"/>
+    <tlsState time="65.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 33.00 0.00 0.00 17.00 17.00 25.00 17.00 0.00 0.00 2.60 65.00"/>
+    <tlsState time="66.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 33.00 0.00 0.00 17.00 17.00 25.00 17.00 0.00 0.00 2.60 65.00"/>
+    <tlsState time="67.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 35.00 0.00 0.00 19.00 19.00 27.00 19.00 0.00 0.00 4.60 67.00"/>
+    <tlsState time="68.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 35.00 0.00 0.00 19.00 19.00 27.00 19.00 0.00 0.00 4.60 67.00"/>
+    <tlsState time="69.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 37.00 0.00 0.00 21.00 21.00 29.00 21.00 0.00 0.00 6.60 69.00"/>
+    <tlsState time="70.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 38.00 0.00 0.00 22.00 22.00 30.00 22.00 0.00 0.00 7.60 70.00"/>
+    <tlsState time="71.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 38.00 0.00 0.00 22.00 22.00 30.00 22.00 0.00 0.00 7.60 70.00"/>
+    <tlsState time="72.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 40.00 0.00 0.00 24.00 24.00 32.00 24.00 0.00 0.00 9.60 72.00"/>
+    <tlsState time="73.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 41.00 0.00 0.00 25.00 25.00 33.00 25.00 0.00 0.00 10.60 73.00"/>
+    <tlsState time="74.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 42.00 0.00 0.00 26.00 26.00 34.00 26.00 0.00 0.00 11.60 74.00"/>
+    <tlsState time="75.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 42.00 0.00 0.00 26.00 26.00 34.00 26.00 0.00 0.00 11.60 74.00"/>
+    <tlsState time="76.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 44.00 0.00 0.00 28.00 28.00 36.00 28.00 0.00 0.00 13.60 76.00"/>
+    <tlsState time="77.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 45.00 0.00 0.00 29.00 29.00 37.00 29.00 0.00 0.00 14.60 77.00"/>
+    <tlsState time="78.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 46.00 0.00 0.00 30.00 30.00 38.00 30.00 0.00 0.00 15.60 78.00"/>
+    <tlsState time="79.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 46.00 0.00 0.00 30.00 30.00 38.00 30.00 0.00 0.00 15.60 78.00"/>
+    <tlsState time="80.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 48.00 0.00 0.00 32.00 32.00 40.00 32.00 0.00 0.00 17.60 80.00"/>
+    <tlsState time="81.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 49.00 0.00 0.00 33.00 33.00 41.00 33.00 0.00 0.00 18.60 81.00"/>
+    <tlsState time="82.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 50.00 0.00 0.00 34.00 34.00 42.00 34.00 0.00 0.00 19.60 82.00"/>
+    <tlsState time="83.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 50.00 0.00 0.00 34.00 34.00 42.00 34.00 0.00 0.00 19.60 82.00"/>
+    <tlsState time="84.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 52.00 0.00 0.00 36.00 36.00 44.00 36.00 0.00 0.00 21.60 84.00"/>
+    <tlsState time="85.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 53.00 0.00 0.00 37.00 37.00 45.00 37.00 0.00 0.00 22.60 85.00"/>
+    <tlsState time="86.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 54.00 0.00 0.00 38.00 38.00 46.00 38.00 0.00 0.00 23.60 86.00"/>
+    <tlsState time="87.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 54.00 0.00 0.00 38.00 38.00 46.00 38.00 0.00 0.00 23.60 86.00"/>
+    <tlsState time="88.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 56.00 0.00 0.00 40.00 40.00 48.00 40.00 0.00 0.00 25.60 88.00"/>
+    <tlsState time="89.00" id="C" programID="P1" phase="4" state="rrGgrrGg" conditions="0.00 0.00 57.00 0.00 0.00 41.00 41.00 49.00 41.00 0.00 0.00 26.60 89.00"/>
+</tlsStates>

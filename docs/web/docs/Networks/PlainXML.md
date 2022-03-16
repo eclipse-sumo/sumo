@@ -219,28 +219,18 @@ error and will yield in a program stop:
 
 The right-of-way computation at each intersection is based on the `type` of
 the node. For the types *priority* and *priority_stop*, the
-right-of-way also depends on the `priority`-values of the incoming and outgoing
-edges. The [edge priorities are also influenced by speed and lane count](#edge_priorities). Generally, the traffic direction
-with the highest edge priorities will get the right of way.
+right-of-way also depends on the `importance` of the incoming and outgoing
+edges as explained in the following. Generally, the traffic direction
+with the edges of highest importance will get the right of way.
 
 !!! note
     Right-of-way computation also influences connection-guessing and the generated traffic light program.
 
-### Modifying Right-of-Way
-
-The right-of-way can be customized by specifying [additional prohibitions](#setting_connection_priorities) and by
-specifying the [connection attribute](#explicitly_setting_which_edge_lane_is_connected_to_which)
-`pass="true"`.
-
-Since version 1.1.0, the algorithm for computing right-of-way from the
-edge priorities can be switched between two modes using `<node>`-attribute
-*rightOfWay*.
-
 ### rightOfWay="default"
-This mode is useful if the *priority*
+This mode is the default and it is useful if the *priority*
 attribute of the edges cannot be relied on to determine right-of-way all
-by itself. It sorts edges according to *priority*, *speed* and
-*laneNumber*. The 2 incoming edges with the highest position are
+by itself. It sorts edges according to attributes *priority*, *speed* and
+*laneNumber*. The two incoming edges with the highest position are
 determined and will receive right-of-way. All other edges will be
 classified as minor.
 
@@ -279,6 +269,16 @@ If a vehicle is braking in the simulation, the responsible foe vehicle
 
 !!! caution
     Never attempt to modify the junction logic within a ***.net.xml*** file manually as there are subtle inter-dependencies with other data structures in the network. Nevertheless, it may be useful to [look into the .net.xml to understand right-of-way](../Networks/SUMO_Road_Networks.md#requests)
+    
+### Modifying Right-of-Way
+
+The right-of-way can be customized by specifying [additional prohibitions](#setting_connection_priorities) and by
+specifying the [connection attribute](#explicitly_setting_which_edge_lane_is_connected_to_which)
+`pass="true"`.
+
+Since version 1.1.0, the algorithm for computing right-of-way from the
+edge priorities can be switched between two modes using `<node>`-attribute
+*rightOfWay*.    
 
 ## Fringe
 

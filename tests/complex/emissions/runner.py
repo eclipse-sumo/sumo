@@ -42,6 +42,9 @@ fd = open("classes.txt")
 emissionClasses = fd.readlines()
 fd.close()
 
+if emissionClasses[0].startswith("PHEMlight5"):
+    PHEMLIGHTp = os.path.join(PHEMLIGHTp, "V5")
+
 fdo = open("results.csv", "w")
 for i, ec in enumerate(emissionClasses):
     ec = ec.strip()

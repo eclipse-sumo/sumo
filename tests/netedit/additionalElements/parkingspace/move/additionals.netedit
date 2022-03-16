@@ -1,63 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-18 10:43:37 by Eclipse SUMO netedit Version v1_10_0+2392-e12c4deaa57
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov104230.21496\netedit.gui\additionalElements\parkingspace\move\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov104230.21496\netedit.gui\additionalElements\parkingspace\move\net.net.xml"/>
-    </output>
-
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-    <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov104230.21496\netedit.gui\additionalElements\parkingspace\move\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov104230.21496\netedit.gui\additionalElements\parkingspace\move\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov104230.21496\netedit.gui\additionalElements\parkingspace\move\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov104230.21496\netedit.gui\additionalElements\parkingspace\move\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov104230.21496\netedit.gui\additionalElements\parkingspace\move\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov104230.21496\netedit.gui\additionalElements\parkingspace\move\datas.xml"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov104230.21496\netedit.gui\additionalElements\parkingspace\move\gui-settings.xml"/>
-        <window-size value="936,697"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov104230.21496\netedit.gui\additionalElements\parkingspace\move\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov104230.21496\netedit.gui\additionalElements\parkingspace\move\log.txt"/>
-    </report>
-
-</configuration>
+<!-- generated on 2022-03-04 10:42:41 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="pa_0" lane="gneE0_0" startPos="16.00" endPos="26.00">
-        <space x="-4.00" y="18.00"/>
+    <!-- StoppingPlaces -->
+    <parkingArea id="pa_0" lane="gneE0_0" startPos="15.00" endPos="25.00">
+        <space x="10.00" y="0.00"/>
     </parkingArea>
 </additional>

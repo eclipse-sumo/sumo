@@ -46,7 +46,7 @@ static libsumo::TraCIColor getColor(const std::string& typeID); \
 static double getMinGapLat(const std::string& typeID); \
 static double getMaxSpeedLat(const std::string& typeID); \
 static std::string getLateralAlignment(const std::string& typeID); \
-static int getPersonCapacity(const std::string& typeID);
+static int getPersonCapacity(const std::string& typeID); \
 
 #define LIBSUMO_VEHICLE_TYPE_SETTER \
 static void setLength(const std::string& typeID, double length); \
@@ -68,7 +68,7 @@ static void setColor(const std::string& typeID, const libsumo::TraCIColor& color
 static void setMinGapLat(const std::string& typeID, double minGapLat); \
 static void setMaxSpeedLat(const std::string& typeID, double speed); \
 static void setLateralAlignment(const std::string& typeID, const std::string& latAlignment); \
-static void setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset=true);
+static void setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset=true); \
 
 // ===========================================================================
 // class declarations
@@ -95,6 +95,8 @@ public:
     static void copy(const std::string& origTypeID, const std::string& newTypeID);
 
     static void setSpeedDeviation(const std::string& typeID, double deviation);
+    static double getScale(const std::string& typeID);
+    static void setScale(const std::string& typeID, double value);
 
     LIBSUMO_SUBSCRIPTION_API
 

@@ -31,14 +31,17 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to person mode
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("stops", "personStop: busStop")
+netedit.changePersonPlan("stopPerson: busStop")
 
 # create route clicking over busStop
-netedit.leftClick(referencePosition, 270, 54)
+netedit.leftClick(referencePosition, 270, 43)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

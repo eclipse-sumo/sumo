@@ -34,27 +34,27 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select flow
+# select flow with embedded route
 netedit.changeElement("flow (embedded route)")
 
 # set invalid vType
-netedit.changeDefaultValue(2, "blue")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.type, "blue")
 
-# try to create flow
+# try to create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 
 # set valid vType
-netedit.changeDefaultValue(2, "custom_vType")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.type, "custom_vType")
 
-# create flow
+# create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 
 # Check undo redo

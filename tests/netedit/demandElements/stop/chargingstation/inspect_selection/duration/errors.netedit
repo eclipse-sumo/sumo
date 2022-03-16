@@ -3,7 +3,6 @@ GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,-12.00,12.
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 13.00,-12.00,37.00,12.00
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding chargingStation 'chargingStationA' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStationB' in GNEChange_Additional
 Debug: Adding flow 'flow' in GNEChange_DemandElement
@@ -26,6 +25,8 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Setting new attribute into stopChargingStation 'flow'
+Debug: Setting new attribute into stopChargingStation 'flow'
 Debug: Value 'dummyValue' for attribute duration of stopChargingStation isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -42,34 +43,6 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing stopChargingStation 'flow' in GNEChange_DemandElement
-Debug: Removing stopChargingStation 'flow' in GNEChange_DemandElement
-Debug: Removing flow 'flow' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding flow 'flow' in GNEChange_DemandElement
-Debug: Adding stopChargingStation 'flow' in GNEChange_DemandElement
-Debug: Adding stopChargingStation 'flow' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -105,8 +78,5 @@ Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

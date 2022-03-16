@@ -58,7 +58,7 @@ public:
                                   const SUMOTime offset,
                                   const MSSimpleTrafficLightLogic::Phases& phases,
                                   int step, SUMOTime delay,
-                                  const std::map<std::string, std::string>& parameter,
+                                  const Parameterised::Map& parameter,
                                   const std::string& basePath);
 
 

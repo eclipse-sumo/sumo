@@ -1,2 +1,2 @@
-Error: Attribute 'probability' in definition of route '1' is not of type float.
+Error: Attribute 'probability' in definition of route '1' Invalid Number Format (double) xxx.
 Quitting (on error).

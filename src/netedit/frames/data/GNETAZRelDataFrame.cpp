@@ -21,7 +21,8 @@
 
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/additional/GNETAZElement.h>
+#include <netedit/elements/additional/GNEAdditional.h>
+#include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIDesigns.h>
 
@@ -54,7 +55,7 @@ GNETAZRelDataFrame::Legend::~Legend() {}
 
 
 void
-GNETAZRelDataFrame::Legend::setLabels(const GNETAZElement* fromTAZ, const GNETAZElement* toTAZ) {
+GNETAZRelDataFrame::Legend::setLabels(const GNETAZ* fromTAZ, const GNETAZ* toTAZ) {
     // from TAZ
     if (fromTAZ) {
         myFromTAZLabel->setText(("From TAZ: " + fromTAZ->getID()).c_str());
@@ -93,13 +94,15 @@ GNETAZRelDataFrame::setTAZ(const GNEViewNetHelper::ObjectsUnderCursor& objectsUn
         if (mySecondTAZ) {
             // both already defined
             return false;
-        } else {
-            mySecondTAZ = objectsUnderCursor.getTAZElementFront();
+        } else if (objectsUnderCursor.getTAZFront()) {
+            mySecondTAZ = objectsUnderCursor.getTAZFront();
             myLegend->setLabels(myFirstTAZ, mySecondTAZ);
             return true;
+        } else {
+            return false;
         }
-    } else if (objectsUnderCursor.getTAZElementFront()) {
-        myFirstTAZ = objectsUnderCursor.getTAZElementFront();
+    } else if (objectsUnderCursor.getTAZFront()) {
+        myFirstTAZ = objectsUnderCursor.getTAZFront();
         myLegend->setLabels(myFirstTAZ, mySecondTAZ);
         return true;
     } else {
@@ -118,7 +121,7 @@ GNETAZRelDataFrame::buildTAZRelationData() {
             WRITE_WARNING("There is already a " + toString(SUMO_TAG_TAZREL) + " defined in TAZ'" + myFirstTAZ->getID() + "'.");
         } else if ((myFirstTAZ != mySecondTAZ) && myIntervalSelector->getDataInterval()->TAZRelExists(myFirstTAZ, mySecondTAZ)) {
             WRITE_WARNING("There is already a " + toString(SUMO_TAG_TAZREL) + " defined between TAZ'" + myFirstTAZ->getID() + "' and '" + mySecondTAZ->getID() + "'.");
-        } else {
+        } else if (Parameterised::areParametersValid(myGenericDataAttributes->getParametersStr())) {
             // declare data handler
             GNEDataHandler dataHandler(myViewNet->getNet(), "", true);
             // build data interval object and fill it
@@ -140,13 +143,13 @@ GNETAZRelDataFrame::buildTAZRelationData() {
 }
 
 
-GNETAZElement*
+GNEAdditional*
 GNETAZRelDataFrame::getFirstTAZ() const {
     return myFirstTAZ;
 }
 
 
-GNETAZElement*
+GNEAdditional*
 GNETAZRelDataFrame::getSecondTAZ() const {
     return mySecondTAZ;
 }

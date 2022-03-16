@@ -509,6 +509,10 @@ public:
     /** @brief Set vehicle's preferred lateral alignment
      */
     void setPreferredLateralAlignment(const LatAlignmentDefinition& latAlignment, double latAlignmentOffset = 0.0);
+
+    /** @brief Set traffic scaling factor
+     */
+    void setScale(double value);
     /// @}
 
 

@@ -38,7 +38,7 @@ netedit.vehicleMode()
 # netedit.changeElement("trip")
 
 # set invalid personNumber
-netedit.changeDefaultValue(14, "dummycontainerNumber")
+netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.containerNumber, "dummycontainerNumber")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(14, "-12")
+netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.containerNumber, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(14, "3.5")
+netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.containerNumber, "3.5")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid personNumber
-netedit.changeDefaultValue(14, "13")
+netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.containerNumber, "13")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)

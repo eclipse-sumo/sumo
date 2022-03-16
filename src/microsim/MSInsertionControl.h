@@ -193,6 +193,10 @@ private:
     void checkCandidates(SUMOTime time, const bool preCheck);
 
 
+private:
+
+    /// @brief init scale value of flow
+    static double initScale(const std::string vtypeid);
 
 private:
     /// @brief The assigned vehicle control (needed for vehicle re-insertion and deletion)
@@ -218,6 +222,8 @@ private:
         SUMOVehicleParameter* pars;
         /// @brief the running index
         int index;
+        /// @brief the type scaling of this flow. Negative value indicates inhomogenous type distribution
+        double scale;
     };
 
     /// @brief Container for periodical vehicle parameters

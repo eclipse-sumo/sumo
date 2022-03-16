@@ -25,7 +25,7 @@ following properties:
 
 The following things currently do not work (or work differently than with the TraCI Python client):
 
-- running with [sumo-gui](sumo-gui.md)
+- running with [sumo-gui](sumo-gui.md) does not work on Windows and is still highly experimental on other platforms
 - subscriptions that require additional arguments (except for *vehicle.getLeader*)
 - stricter type checking
   - the TraCI client sometimes accepts any iterable object where Libsumo wants a list

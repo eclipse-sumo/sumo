@@ -31,10 +31,6 @@ set(netedit_changes_SRCS
    GNEChange_DataInterval.cpp
    GNEChange_GenericData.h
    GNEChange_GenericData.cpp
-   GNEChange_Shape.h
-   GNEChange_Shape.cpp
-   GNEChange_TAZElement.h
-   GNEChange_TAZElement.cpp
    GNEChange_Children.h
    GNEChange_Children.cpp
    )

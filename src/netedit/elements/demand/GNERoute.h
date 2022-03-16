@@ -81,7 +81,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges, const RGBColor& color,
-             const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string>& parameters);
+             const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
 
     /**@brief parameter constructor for embedded routes
      * @param[in] viewNet view in which this Route is placed
@@ -93,7 +93,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
-             const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string>& parameters);
+             const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
 
     /// @brief copy constructor (used to create a route based on the parameters of other GNERoute)
     GNERoute(GNEDemandElement* route);
@@ -267,7 +267,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /** @brief check if a route is valid
      * @param[in] edges vector with the route's edges
@@ -296,7 +296,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
+    void toogleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);

@@ -34,28 +34,26 @@
 
 GNERerouter::GNERerouter(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_REROUTER, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}),
     myProbability(0),
     myOff(false),
-myTimeThreshold(0) {
+    myTimeThreshold(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
-                         const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
-                         const std::map<std::string, std::string>& parameters) :
+                         double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
+                         const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name,
-{}, {}, {}, {}, {}, {}, {}, {},
-parameters),
-myPosition(pos),
-myFilename(filename),
-myProbability(probability),
-myOff(off),
-myTimeThreshold(timeThreshold),
-myVTypes(vTypes) {
+        {}, {}, {}, {}, {}, {}),
+    Parameterised(parameters),
+    myPosition(pos),
+    myProbability(probability),
+    myOff(off),
+    myTimeThreshold(timeThreshold),
+    myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -73,9 +71,6 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_POSITION, myPosition);
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
-    if (!myFilename.empty()) {
-        device.writeAttr(SUMO_ATTR_FILE, StringUtils::escapeXML(myFilename));
     }
     if (myProbability != 1.0) {
         device.writeAttr(SUMO_ATTR_PROB, myProbability);
@@ -222,8 +217,6 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             return toString(myPosition);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
-        case SUMO_ATTR_FILE:
-            return myFilename;
         case SUMO_ATTR_PROB:
             return toString(myProbability);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
@@ -253,6 +246,12 @@ GNERerouter::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Parameterised::Map&
+GNERerouter::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -267,7 +266,6 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_ID:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:
-        case SUMO_ATTR_FILE:
         case SUMO_ATTR_PROB:
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_VTYPES:
@@ -293,8 +291,6 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<Position>(value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
-        case SUMO_ATTR_FILE:
-            return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
@@ -310,7 +306,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -356,9 +352,6 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
-            break;
-        case SUMO_ATTR_FILE:
-            myFilename = value;
             break;
         case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);

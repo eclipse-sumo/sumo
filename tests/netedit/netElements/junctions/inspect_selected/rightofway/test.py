@@ -41,7 +41,7 @@ netedit.selectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # select select second junction
-netedit.leftClick(referencePosition, 7, 238)
+netedit.leftClick(referencePosition, 10, 230)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -50,10 +50,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # set invalid right of way
-netedit.modifyAttribute(3, "dummyRightOfWays", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.rightOfWay, "dummyRightOfWays", False)
 
 # set invalid right of way
-netedit.modifyAttribute(3, "edgePriority", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.rightOfWay, "edgePriority", False)
 
 # rebuild network
 netedit.rebuildNetwork()

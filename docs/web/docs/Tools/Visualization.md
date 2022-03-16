@@ -77,9 +77,10 @@ Input is [edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Meas
 
 Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density -y left -s  --scatterplot --yfactor 60 --ylabel vehs/hour`
 
-Each color gives encodes a different edge-id
+Each color gives encodes a different edge-id. Option **--factor 60** is used to convert from vehicles per 60s (edgeData-freq 60) to vehicles per hour.
 
 ![plotAttrs_fundamental.png](../images/plotAttrs_fundamental.png "plotAttrs_fundamental.png")
+
 
 
 ## plot_trajectories.py
@@ -97,7 +98,7 @@ The option **-t (--trajectory-type)** supports different attributes that can be 
 ### Available Attributes
 
 - **t**: Time in s
-- **d**: Distance driven (starts with 0 at the first fcd datapoint for each vehicle). Distance is computed based on speed using Euler-integration. Set optin **--ballistic** for [ballistic integration](../Simulation/Basic_Definition.md#defining_the_integration_method).
+- **d**: Distance driven (starts with 0 at the first fcd datapoint for each vehicle). Distance is computed based on speed using Euler-integration. Set option **--ballistic** for [ballistic integration](../Simulation/Basic_Definition.md#defining_the_integration_method).
 - **a**: Acceleration
 - **s**: Speed (m/s)
 - **i**: Vehicle angle (navigational degrees)

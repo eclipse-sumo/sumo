@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-17 19:52:41 by Eclipse SUMO sumo Version v1_11_0+1223-fb0f78147da
+<!-- generated on 2022-02-10 14:18:33 by Eclipse SUMO sumo Version v1_12_0+0453-348ab90
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -119,10 +124,10 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="21.00" state="GGGGGrrrrrrr" name="4+4"/>
         <phase duration="5.00"  state="yyyyyrrrrrrr" name="4+4"/>
         <phase duration="1.00"  state="rrrrrrrrrrrr" name="4+4"/>
-        <phase duration="15.00" state="srrrrGGGGrrr" name="1+6"/>
+        <phase duration="16.00" state="srrrrGGGGrrr" name="1+6"/>
         <phase duration="4.00"  state="srrrrGGyyrrr" name="1+6"/>
         <phase duration="1.00"  state="srrrrGGrrrrr" name="1+6"/>
-        <phase duration="68.00" state="srrrrGGrrGGG" name="2+6"/>
+        <phase duration="67.00" state="srrrrGGrrGGG" name="2+6"/>
         <phase duration="4.00"  state="srrrryyrryyy" name="2+6"/>
         <phase duration="1.00"  state="rrrrrrrrrrrr" name="2+6"/>
         <phase duration="21.00" state="GGGGGrrrrrrr" name="4+4"/>
@@ -263,10 +268,10 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="21.00" state="GGGGGrrrrrrr" name="4+4"/>
         <phase duration="5.00"  state="yyyyyrrrrrrr" name="4+4"/>
         <phase duration="1.00"  state="rrrrrrrrrrrr" name="4+4"/>
-        <phase duration="15.00" state="srrrrGGGGrrr" name="1+6"/>
+        <phase duration="13.00" state="srrrrGGGGrrr" name="1+6"/>
         <phase duration="4.00"  state="srrrrGGyyrrr" name="1+6"/>
         <phase duration="1.00"  state="srrrrGGrrrrr" name="1+6"/>
-        <phase duration="68.00" state="srrrrGGrrGGG" name="2+6"/>
+        <phase duration="70.00" state="srrrrGGrrGGG" name="2+6"/>
         <phase duration="4.00"  state="srrrryyrryyy" name="2+6"/>
         <phase duration="1.00"  state="rrrrrrrrrrrr" name="2+6"/>
         <phase duration="21.00" state="GGGGGrrrrrrr" name="4+4"/>

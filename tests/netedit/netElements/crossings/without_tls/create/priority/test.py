@@ -38,8 +38,8 @@ netedit.crossingMode()
 netedit.leftClick(referencePosition, 325, 225)
 
 # create manual crossing with different priority and width
-netedit.modifyCrossingDefaultValue(2, "3 7")
-netedit.modifyCrossingDefaultBoolValue(3)
+netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.create.edges, "3 7")
+netedit.modifyCrossingDefaultBoolValue(netedit.attrs.crossing.create.priority)
 netedit.createCrossing(False)
 netedit.rebuildNetwork()
 

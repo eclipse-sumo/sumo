@@ -117,7 +117,7 @@ def parse_length(xmldoc):
     """parses the vehicle type lengths from the VISSIM data
     :param xmldoc:  input VISSIM xml
     :type xmldoc:   xml.dom.minidom.Document
-    :return:    map of lenghts by str(numeric type)
+    :return:    map of lengths by str(numeric type)
     :rtype:     dict
     """
     len_d = dict()

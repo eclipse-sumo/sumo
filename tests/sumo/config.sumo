@@ -44,6 +44,7 @@ statistic:statistic.xml
 stopinfos:stopinfos.xml
 collisions:collisions.xml
 vtypeprobe:vtypeprobe.xml
+personroutes:personroutes.xml
 vehroutes:vehroutes.xml
 vehroutes_ignore_arrival:vehroutes_ignore_arrival.xml
 tls_state:tls_state.xml
@@ -52,6 +53,7 @@ tls_state_switch:tls_state_switch.xml
 tls_program:tls_program.xml
 physstates:physstates.xml
 cfg:config.cfg
+cfg:data/config.cfg
 fcd:fcd.xml
 full:full.xml
 vtk:vtk.txt
@@ -126,6 +128,7 @@ collisions:<!--{[->]}-->
 tripinfosPrefix:<!--{[->]}-->
 vtypeprobe:<!--{[->]}-->
 vehroutes:^<!--{[->]}-->
+personroutes:^<!--{[->]}-->
 fcd:<!--{[->]}-->
 full:<!--{[->]}-->
 queue:<!--{[->]}-->

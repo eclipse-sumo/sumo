@@ -144,7 +144,7 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
 void
 GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, SUMOVehicleClass vClass,
                             const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                            const std::map<std::string, std::string>& routeParameters) {
+                            const Parameterised::Map& routeParameters) {
     // parse edges
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
     // check conditions
@@ -170,7 +170,7 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBase
 
 void
 GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string>& edgeIDs,
-                                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string>& routeParameters) {
+                                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& routeParameters) {
     // first create vehicle/flow
     const SUMOVehicleParameter& vehicleParameters = sumoBaseObject->getParentSumoBaseObject()->getVehicleParameter();
     const SumoXMLTag vehicleTag = (sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_VEHICLE) ? GNE_TAG_VEHICLE_WITHROUTE :
@@ -585,6 +585,8 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     GNEAdditional* toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
     GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false);
     std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
+    // avoid consecutive duplicated edges
+    edges.erase(std::unique(edges.begin(), edges.end()), edges.end());
     // check conditions
     if (personParent) {
         if (edges.size() > 0) {
@@ -884,10 +886,20 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             tag = GNE_TAG_FLOW_WITHROUTE;
         }
     }
+    // special case for flows over route
+    if (objParent->hasStringAttribute(SUMO_ATTR_ROUTE) && (objParent->getTag() == SUMO_TAG_FLOW)) {
+        tag = GNE_TAG_FLOW_ROUTE;
+    }
     // get stop parent
     GNEDemandElement* stopParent = myNet->getAttributeCarriers()->retrieveDemandElement(tag, objParent->getStringAttribute(SUMO_ATTR_ID), false);
     // check if stopParent exist
     if (stopParent) {
+        // flag for waypoint (is like a stop, but with extra attribute speed)
+        bool waypoint = false;
+        // avoid waypoints for person and containers
+        if (!stopParent->getTagProperty().isPerson() && !stopParent->getTagProperty().isContainer()) {
+            waypoint = (sumoBaseObject->getStopParameter().parametersSet & STOP_SPEED_SET) || (sumoBaseObject->getStopParameter().speed > 0);
+        }
         // declare pointers to parent elements
         GNEAdditional* stoppingPlace = nullptr;
         GNELane* lane = nullptr;
@@ -898,7 +910,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         // check conditions
         if (stopParameters.busstop.size() > 0) {
             stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, stopParameters.busstop, false);
-            stopTagType = SUMO_TAG_STOP_BUSSTOP;
+            stopTagType = waypoint? GNE_TAG_WAYPOINT_BUSSTOP : SUMO_TAG_STOP_BUSSTOP;
             // containers cannot stops in busStops
             if (stopParent->getTagProperty().isContainer()) {
                 WRITE_ERROR("Containers don't support stops at busStops");
@@ -906,7 +918,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             }
         } else if (stopParameters.containerstop.size() > 0) {
             stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stopParameters.containerstop, false);
-            stopTagType = SUMO_TAG_STOP_CONTAINERSTOP;
+            stopTagType = waypoint? GNE_TAG_WAYPOINT_CONTAINERSTOP : SUMO_TAG_STOP_CONTAINERSTOP;
             // persons cannot stops in containerStops
             if (stopParent->getTagProperty().isPerson()) {
                 WRITE_ERROR("Persons don't support stops at containerStops");
@@ -914,7 +926,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             }
         } else if (stopParameters.chargingStation.size() > 0) {
             stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stopParameters.chargingStation, false);
-            stopTagType = SUMO_TAG_STOP_CHARGINGSTATION;
+            stopTagType = waypoint? GNE_TAG_WAYPOINT_CHARGINGSTATION : SUMO_TAG_STOP_CHARGINGSTATION;
             // check person and containers
             if (stopParent->getTagProperty().isPerson()) {
                 WRITE_ERROR("Persons don't support stops at chargingStations");
@@ -925,7 +937,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             }
         } else if (stopParameters.parkingarea.size() > 0) {
             stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, stopParameters.parkingarea, false);
-            stopTagType = SUMO_TAG_STOP_PARKINGAREA;
+            stopTagType = waypoint? GNE_TAG_WAYPOINT_PARKINGAREA : SUMO_TAG_STOP_PARKINGAREA;
             // check person and containers
             if (stopParent->getTagProperty().isPerson()) {
                 WRITE_ERROR("Persons don't support stops at parkingAreas");
@@ -936,7 +948,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             }
         } else if (stopParameters.lane.size() > 0) {
             lane = myNet->getAttributeCarriers()->retrieveLane(stopParameters.lane, false);
-            stopTagType = SUMO_TAG_STOP_LANE;
+            stopTagType = waypoint? GNE_TAG_WAYPOINT_LANE : SUMO_TAG_STOP_LANE;
         } else if (stopParameters.edge.size() > 0) {
             edge = myNet->getAttributeCarriers()->retrieveEdge(stopParameters.edge, false);
             // check vehicles
@@ -956,7 +968,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             if (stoppingPlace && lane && edge) {
                 WRITE_ERROR("A stop must be defined either over a stoppingPlace, a edge or a lane");
             } else if (!stoppingPlace && !lane && !edge) {
-                WRITE_ERROR("A stop requires only a stoppingPlace, edge or lane lane");
+                WRITE_ERROR("A stop requires only a stoppingPlace, edge or lane");
             } else if (stoppingPlace) {
                 // create stop using stopParameters and stoppingPlace
                 GNEDemandElement* stop = nullptr;
@@ -980,7 +992,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 }
             } else if (lane) {
                 // create stop using stopParameters and lane (only for vehicles)
-                GNEDemandElement* stop = new GNEStop(myNet, stopParent, lane, stopParameters);
+                GNEDemandElement* stop = new GNEStop(stopTagType, myNet, stopParent, lane, stopParameters);
                 // add it depending of undoDemandElements
                 if (myUndoDemandElements) {
                     myNet->getViewNet()->getUndoList()->begin(stop->getTagProperty().getGUIIcon(), "add " + stop->getTagStr());
@@ -1386,7 +1398,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         routeEdges = originalVehicle->getParentDemandElements().back()->getParentEdges();
         // get original route color
         routeColor = originalVehicle->getParentDemandElements().back()->getColor();
-    } else if ((tag == GNE_TAG_VEHICLE_WITHROUTE) || (tag == GNE_TAG_FLOW_WITHROUTE)) {
+    } else if (originalVehicle->getTagProperty().hasEmbebbedRoute()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
@@ -1469,7 +1481,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         routeEdges = originalVehicle->getParentDemandElements().back()->getParentEdges();
         // get original route color
         routeColor = originalVehicle->getParentDemandElements().back()->getColor();
-    } else if ((tag == GNE_TAG_VEHICLE_WITHROUTE) || (tag == GNE_TAG_FLOW_WITHROUTE)) {
+    } else if (originalVehicle->getTagProperty().hasEmbebbedRoute()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
@@ -1562,7 +1574,7 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         route = originalVehicle->getParentDemandElements().back();
         // get route edges
         edges = route->getParentEdges();
-    } else if ((tag == GNE_TAG_VEHICLE_WITHROUTE) || (tag == GNE_TAG_FLOW_WITHROUTE)) {
+    } else if (originalVehicle->getTagProperty().hasEmbebbedRoute()) {
         // get embedded route edges
         edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
@@ -1620,7 +1632,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         route = originalVehicle->getParentDemandElements().back();
         // get route edges
         edges = route->getParentEdges();
-    } else if ((tag == GNE_TAG_VEHICLE_WITHROUTE) || (tag == GNE_TAG_FLOW_WITHROUTE)) {
+    } else if (originalVehicle->getTagProperty().hasEmbebbedRoute()) {
         // get embedded route edges
         edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
@@ -1691,66 +1703,6 @@ GNERouteHandler::transformToContainer(GNEContainer* /*originalContainer*/) {
 void
 GNERouteHandler::transformToContainerFlow(GNEContainer* /*originalContainer*/) {
     //
-}
-
-
-void
-GNERouteHandler::setFlowParameters(const SumoXMLAttr attribute, int& parameters) {
-    // modify parameters depending of given Flow attribute
-    switch (attribute) {
-        case SUMO_ATTR_END: {
-            // give more priority to end
-            parameters = VEHPARS_END_SET | VEHPARS_NUMBER_SET;
-            break;
-        }
-        case SUMO_ATTR_NUMBER:
-            parameters ^= VEHPARS_END_SET;
-            parameters |= VEHPARS_NUMBER_SET;
-            break;
-        case SUMO_ATTR_VEHSPERHOUR:
-        case SUMO_ATTR_PERSONSPERHOUR:
-        case SUMO_ATTR_CONTAINERSPERHOUR: {
-            // give more priority to end
-            if ((parameters & VEHPARS_END_SET) && (parameters & VEHPARS_NUMBER_SET)) {
-                parameters = VEHPARS_END_SET;
-            } else if (parameters & VEHPARS_END_SET) {
-                parameters = VEHPARS_END_SET;
-            } else if (parameters & VEHPARS_NUMBER_SET) {
-                parameters = VEHPARS_NUMBER_SET;
-            }
-            // set VehsPerHour
-            parameters |= VEHPARS_VPH_SET;
-            break;
-        }
-        case SUMO_ATTR_PERIOD: {
-            // give more priority to end
-            if ((parameters & VEHPARS_END_SET) && (parameters & VEHPARS_NUMBER_SET)) {
-                parameters = VEHPARS_END_SET;
-            } else if (parameters & VEHPARS_END_SET) {
-                parameters = VEHPARS_END_SET;
-            } else if (parameters & VEHPARS_NUMBER_SET) {
-                parameters = VEHPARS_NUMBER_SET;
-            }
-            // set period
-            parameters |= VEHPARS_PERIOD_SET;
-            break;
-        }
-        case SUMO_ATTR_PROB: {
-            // give more priority to end
-            if ((parameters & VEHPARS_END_SET) && (parameters & VEHPARS_NUMBER_SET)) {
-                parameters = VEHPARS_END_SET;
-            } else if (parameters & VEHPARS_END_SET) {
-                parameters = VEHPARS_END_SET;
-            } else if (parameters & VEHPARS_NUMBER_SET) {
-                parameters = VEHPARS_NUMBER_SET;
-            }
-            // set probability
-            parameters |= VEHPARS_PROB_SET;
-            break;
-        }
-        default:
-            break;
-    }
 }
 
 // ===========================================================================

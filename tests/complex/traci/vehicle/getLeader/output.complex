@@ -29,37 +29,37 @@
 6.75: egoLane=A1B1_0 leaderAuto=None leaderHigh=None leaderLane=None
 7.0: egoLane=A1B1_0 leaderAuto=('lead', 0.0) leaderHigh=('lead', 0.0) leaderLane=:B1_9_0
 7.25: egoLane=A1B1_0 leaderAuto=('lead', 0.0) leaderHigh=('lead', 0.0) leaderLane=:B1_9_0
-7.5: egoLane=A1B1_0 leaderAuto=('lead', 1.6590850022079442) leaderHigh=('lead', 1.6590850022079442) leaderLane=:B1_9_0
+7.5: egoLane=A1B1_0 leaderAuto=('lead', 1.658390365384581) leaderHigh=('lead', 1.658390365384581) leaderLane=:B1_9_0
 7.75: egoLane=A1B1_0 leaderAuto=None leaderHigh=None leaderLane=None
 8.0: egoLane=A1B1_0 leaderAuto=None leaderHigh=None leaderLane=None
 8.25: egoLane=A1B1_0 leaderAuto=('lead2', 0.0) leaderHigh=('lead2', 0.0) leaderLane=:B1_8_0
-8.5: egoLane=A1B1_0 leaderAuto=('lead2', 0.5694009494552073) leaderHigh=('lead2', 0.5694009494552073) leaderLane=:B1_8_0
-8.75: egoLane=:B1_13_0 leaderAuto=('lead2', 3.9154901956446446) leaderHigh=('lead2', 3.9154901956446446) leaderLane=B1C1_0
-9.0: egoLane=:B1_13_0 leaderAuto=('lead2', 7.102033147994435) leaderHigh=('lead2', 7.102033147994435) leaderLane=B1C1_0
-9.25: egoLane=:B1_13_0 leaderAuto=('lead2', 10.123122394183866) leaderHigh=('lead2', 10.123122394183866) leaderLane=B1C1_0
-9.5: egoLane=:B1_13_0 leaderAuto=('lead2', 12.981711640373298) leaderHigh=('lead2', 12.981711640373298) leaderLane=B1C1_0
-9.75: egoLane=:B1_13_0 leaderAuto=('lead2', 15.677800886562729) leaderHigh=('lead2', 15.677800886562729) leaderLane=B1C1_0
-10.0: egoLane=:B1_13_0 leaderAuto=('lead2', 18.211390132752157) leaderHigh=('lead2', 18.211390132752157) leaderLane=B1C1_0
-10.25: egoLane=:B1_13_0 leaderAuto=('lead2', 20.58247937894159) leaderHigh=('lead2', 20.58247937894159) leaderLane=B1C1_0
-10.5: egoLane=:B1_13_0 leaderAuto=('lead2', 22.791068625131018) leaderHigh=('lead2', 22.791068625131018) leaderLane=B1C1_0
-10.75: egoLane=:B1_13_0 leaderAuto=('lead2', 24.83715787132045) leaderHigh=('lead2', 24.83715787132045) leaderLane=B1C1_0
-11.0: egoLane=:B1_13_0 leaderAuto=('lead2', 26.72074711750988) leaderHigh=('lead2', 26.72074711750988) leaderLane=B1C1_0
-11.25: egoLane=B1C1_0 leaderAuto=('lead2', 28.44183636369931) leaderHigh=('lead2', 28.44183636369931) leaderLane=B1C1_0
-11.5: egoLane=B1C1_0 leaderAuto=('lead2', 30.000425609888744) leaderHigh=('lead2', 30.000425609888744) leaderLane=B1C1_0
-11.75: egoLane=B1C1_0 leaderAuto=('lead2', 31.39651485607817) leaderHigh=('lead2', 31.39651485607817) leaderLane=B1C1_0
-12.0: egoLane=B1C1_0 leaderAuto=('lead2', 32.6301041022676) leaderHigh=('lead2', 32.6301041022676) leaderLane=B1C1_0
-12.25: egoLane=B1C1_0 leaderAuto=('lead2', 33.70119334845703) leaderHigh=('lead2', 33.70119334845703) leaderLane=B1C1_0
-12.5: egoLane=B1C1_0 leaderAuto=('lead2', 34.60978259464646) leaderHigh=('lead2', 34.60978259464646) leaderLane=B1C1_0
-12.75: egoLane=B1C1_0 leaderAuto=('lead2', 35.35587184083589) leaderHigh=('lead2', 35.35587184083589) leaderLane=B1C1_0
-13.0: egoLane=B1C1_0 leaderAuto=('lead2', 35.93946108702532) leaderHigh=('lead2', 35.93946108702532) leaderLane=B1C1_0
-13.25: egoLane=B1C1_0 leaderAuto=('lead2', 36.36055033321476) leaderHigh=('lead2', 36.36055033321476) leaderLane=B1C1_0
-13.5: egoLane=B1C1_0 leaderAuto=('lead2', 36.61913957940419) leaderHigh=('lead2', 36.61913957940419) leaderLane=B1C1_0
-13.75: egoLane=B1C1_0 leaderAuto=('lead2', 36.71522882559361) leaderHigh=('lead2', 36.71522882559361) leaderLane=B1C1_0
-14.0: egoLane=B1C1_0 leaderAuto=('lead2', 36.64881807178305) leaderHigh=('lead2', 36.64881807178305) leaderLane=B1C1_0
-14.25: egoLane=B1C1_0 leaderAuto=('lead2', 36.47663554968243) leaderHigh=('lead2', 36.47663554968243) leaderLane=B1C1_0
-14.5: egoLane=B1C1_0 leaderAuto=('lead2', 36.30445302758181) leaderHigh=('lead2', 36.30445302758181) leaderLane=B1C1_0
-14.75: egoLane=B1C1_0 leaderAuto=('lead2', 36.13227050548119) leaderHigh=('lead2', 36.13227050548119) leaderLane=B1C1_0
-15.0: egoLane=B1C1_0 leaderAuto=('lead2', 35.96008798338057) leaderHigh=('lead2', 35.96008798338057) leaderLane=B1C1_0
+8.5: egoLane=A1B1_0 leaderAuto=('lead2', 0.5688402351475728) leaderHigh=('lead2', 0.5688402351475728) leaderLane=:B1_8_0
+8.75: egoLane=:B1_13_0 leaderAuto=('lead2', 3.9149542351475786) leaderHigh=('lead2', 3.9149542351475786) leaderLane=B1C1_0
+9.0: egoLane=:B1_13_0 leaderAuto=('lead2', 7.101521941307938) leaderHigh=('lead2', 7.101521941307938) leaderLane=B1C1_0
+9.25: egoLane=:B1_13_0 leaderAuto=('lead2', 10.122635941307937) leaderHigh=('lead2', 10.122635941307937) leaderLane=B1C1_0
+9.5: egoLane=:B1_13_0 leaderAuto=('lead2', 12.981249941307937) leaderHigh=('lead2', 12.981249941307937) leaderLane=B1C1_0
+9.75: egoLane=:B1_13_0 leaderAuto=('lead2', 15.677363941307938) leaderHigh=('lead2', 15.677363941307938) leaderLane=B1C1_0
+10.0: egoLane=:B1_13_0 leaderAuto=('lead2', 18.210977941307938) leaderHigh=('lead2', 18.210977941307938) leaderLane=B1C1_0
+10.25: egoLane=:B1_13_0 leaderAuto=('lead2', 20.58209194130794) leaderHigh=('lead2', 20.58209194130794) leaderLane=B1C1_0
+10.5: egoLane=:B1_13_0 leaderAuto=('lead2', 22.79070594130794) leaderHigh=('lead2', 22.79070594130794) leaderLane=B1C1_0
+10.75: egoLane=:B1_13_0 leaderAuto=('lead2', 24.836819941307944) leaderHigh=('lead2', 24.836819941307944) leaderLane=B1C1_0
+11.0: egoLane=:B1_13_0 leaderAuto=('lead2', 26.720433941307945) leaderHigh=('lead2', 26.720433941307945) leaderLane=B1C1_0
+11.25: egoLane=B1C1_0 leaderAuto=('lead2', 28.441547941307945) leaderHigh=('lead2', 28.441547941307945) leaderLane=B1C1_0
+11.5: egoLane=B1C1_0 leaderAuto=('lead2', 30.00016194130795) leaderHigh=('lead2', 30.00016194130795) leaderLane=B1C1_0
+11.75: egoLane=B1C1_0 leaderAuto=('lead2', 31.396275941307948) leaderHigh=('lead2', 31.396275941307948) leaderLane=B1C1_0
+12.0: egoLane=B1C1_0 leaderAuto=('lead2', 32.62988994130795) leaderHigh=('lead2', 32.62988994130795) leaderLane=B1C1_0
+12.25: egoLane=B1C1_0 leaderAuto=('lead2', 33.70100394130795) leaderHigh=('lead2', 33.70100394130795) leaderLane=B1C1_0
+12.5: egoLane=B1C1_0 leaderAuto=('lead2', 34.60961794130795) leaderHigh=('lead2', 34.60961794130795) leaderLane=B1C1_0
+12.75: egoLane=B1C1_0 leaderAuto=('lead2', 35.35573194130795) leaderHigh=('lead2', 35.35573194130795) leaderLane=B1C1_0
+13.0: egoLane=B1C1_0 leaderAuto=('lead2', 35.939345941307955) leaderHigh=('lead2', 35.939345941307955) leaderLane=B1C1_0
+13.25: egoLane=B1C1_0 leaderAuto=('lead2', 36.36045994130795) leaderHigh=('lead2', 36.36045994130795) leaderLane=B1C1_0
+13.5: egoLane=B1C1_0 leaderAuto=('lead2', 36.619073941307946) leaderHigh=('lead2', 36.619073941307946) leaderLane=B1C1_0
+13.75: egoLane=B1C1_0 leaderAuto=('lead2', 36.71518794130793) leaderHigh=('lead2', 36.71518794130793) leaderLane=B1C1_0
+14.0: egoLane=B1C1_0 leaderAuto=('lead2', 36.64880194130793) leaderHigh=('lead2', 36.64880194130793) leaderLane=B1C1_0
+14.25: egoLane=B1C1_0 leaderAuto=('lead2', 36.476565941307925) leaderHigh=('lead2', 36.476565941307925) leaderLane=B1C1_0
+14.5: egoLane=B1C1_0 leaderAuto=('lead2', 36.30432994130792) leaderHigh=('lead2', 36.30432994130792) leaderLane=B1C1_0
+14.75: egoLane=B1C1_0 leaderAuto=('lead2', 36.132093941307915) leaderHigh=('lead2', 36.132093941307915) leaderLane=B1C1_0
+15.0: egoLane=B1C1_0 leaderAuto=('lead2', 35.95985794130791) leaderHigh=('lead2', 35.95985794130791) leaderLane=B1C1_0
 15.25: egoLane=B1C1_0 leaderAuto=None leaderHigh=None leaderLane=None
 15.5: egoLane=B1C1_0 leaderAuto=None leaderHigh=None leaderLane=None
 15.75: egoLane=B1C1_0 leaderAuto=None leaderHigh=None leaderLane=None

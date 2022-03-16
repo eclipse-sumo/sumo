@@ -29,7 +29,7 @@
 MSSOTLPolicyBasedTrafficLightLogic::MSSOTLPolicyBasedTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
     const std::string& programID, const TrafficLightType logicType, const Phases& phases, int step,
-    SUMOTime delay, const std::map<std::string, std::string>& parameters,
+    SUMOTime delay, const Parameterised::Map& parameters,
     MSSOTLPolicy* policy) :
     MSSOTLTrafficLightLogic(tlcontrol, id, programID, logicType, phases, step, delay,
                             parameters), myPolicy(policy) {
@@ -43,7 +43,7 @@ MSSOTLPolicyBasedTrafficLightLogic::MSSOTLPolicyBasedTrafficLightLogic(
 MSSOTLPolicyBasedTrafficLightLogic::MSSOTLPolicyBasedTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
     const std::string& programID, const TrafficLightType logicType, const Phases& phases, int step,
-    SUMOTime delay, const std::map<std::string, std::string>& parameters,
+    SUMOTime delay, const Parameterised::Map& parameters,
     MSSOTLPolicy* policy, MSSOTLSensors* sensors) :
     MSSOTLTrafficLightLogic(tlcontrol, id, programID, logicType, phases, step, delay,
                             parameters, sensors), myPolicy(policy) {

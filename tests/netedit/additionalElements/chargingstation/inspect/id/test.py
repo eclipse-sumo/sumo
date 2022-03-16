@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("chargingStation")
 
 # change reference to center
-netedit.changeDefaultValue(10, "reference center")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "reference center")
 
 # create chargingStation 1 in mode "reference center"
 netedit.leftClick(referencePosition, 250, 172)
@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 173)
 
 # Change parameter id with a non valid value (Duplicated ID)
-netedit.modifyAttribute(0, "chargingStation_gneE2_1_1", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.id, "cs_1", True)
 
 # Change parameter id with a non valid value (Invalid ID)
-netedit.modifyAttribute(0, "Id with spaces", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.id, "Id with spaces", True)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(0, "correctID", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.id, "correctID", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

@@ -20,13 +20,14 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEHierarchicalElement.h>
-#include <utils/gui/div/GUIGeometry.h>
 #include <netedit/GNEMoveElement.h>
 #include <netedit/GNEPathManager.h>
+#include <netedit/elements/GNEHierarchicalElement.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/gui/div/GUIGeometry.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 
 // ===========================================================================
 // class declarations
@@ -75,8 +76,6 @@ public:
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
      * @param[in] additionalParents vector of additional parents
-     * @param[in] shapeParents vector of shape parents
-     * @param[in] TAZElementParents vector of TAZElement parents
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
@@ -85,8 +84,6 @@ public:
                      const std::vector<GNEEdge*>& edgeParents,
                      const std::vector<GNELane*>& laneParents,
                      const std::vector<GNEAdditional*>& additionalParents,
-                     const std::vector<GNEShape*>& shapeParents,
-                     const std::vector<GNETAZElement*>& TAZElementParents,
                      const std::vector<GNEDemandElement*>& demandElementParents,
                      const std::vector<GNEGenericData*>& genericDataParents);
 
@@ -100,8 +97,6 @@ public:
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
      * @param[in] additionalParents vector of additional parents
-     * @param[in] shapeParents vector of shape parents
-     * @param[in] TAZElementParents vector of TAZElement parents
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
@@ -110,8 +105,6 @@ public:
                      const std::vector<GNEEdge*>& edgeParents,
                      const std::vector<GNELane*>& laneParents,
                      const std::vector<GNEAdditional*>& additionalParents,
-                     const std::vector<GNEShape*>& shapeParents,
-                     const std::vector<GNETAZElement*>& TAZElementParents,
                      const std::vector<GNEDemandElement*>& demandElementParents,
                      const std::vector<GNEGenericData*>& genericDataParents);
 
@@ -341,7 +334,7 @@ public:
     bool isAttributeComputed(SumoXMLAttr key) const;
 
     /// @brief get parameters map
-    virtual const std::map<std::string, std::string>& getACParametersMap() const = 0;
+    virtual const Parameterised::Map& getACParametersMap() const = 0;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;
@@ -449,6 +442,15 @@ protected:
     /// @brief get sorted stops
     std::vector<const GNEDemandElement*> getSortedStops(const std::vector<GNEEdge*>& edges) const;
 
+    /// @brief set flow parameters (used in toogleAttribute(...) function of vehicles, persons and containers
+    void setFlowParameters(SUMOVehicleParameter *vehicleParameters, const SumoXMLAttr attribute, const bool value);
+
+    /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)
+    void adjustDefaultFlowAttributes(SUMOVehicleParameter *vehicleParameters);
+
+    /// @brief build menu command route length
+    void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;
+
 private:
     /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class
@@ -459,7 +461,7 @@ private:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    virtual void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) = 0;
+    virtual void toogleAttribute(SumoXMLAttr key, const bool value) = 0;
 
     /// @brief set move shape
     virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;

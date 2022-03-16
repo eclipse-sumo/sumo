@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-11 13:40:50 by Eclipse SUMO sumo Version v1_12_0+1336-a87ef3e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="46609"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="tripTest" depart="0.00" departLane="1" departPos="3.00" departSpeed="5.00" arrivalLane="1" arrivalPos="20.00" arrivalSpeed="8.00" line="testLine" speedFactor="1.0600" arrival="19.00">
+        <route edges="SC CN NC"/>
+    </vehicle>
+
+</routes>

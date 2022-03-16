@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v1" type="type2" depart="7.00" speedFactor="1.00" arrival="38.00">
+    <vehicle id="v1" type="type2" depart="7.00" speedFactor="1.0000" arrival="38.00">
         <route edges="beg middle end"/>
     </vehicle>
 

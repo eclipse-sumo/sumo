@@ -175,7 +175,9 @@ fmi2Status
 fmi2ExitInitializationMode(fmi2Component c) {
     ModelInstance *comp = (ModelInstance *)c;
 
+    sumo2fmi_logEvent(comp, "Calling libsumo with the following options: \"%s\"", comp->libsumoCallOptions);
     libsumo_load(comp->libsumoCallOptions);
+
     return fmi2OK;
 }
 
@@ -262,7 +264,7 @@ fmi2GetString(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2St
     }
     comp->freeMemory((void *)comp->bufferArray);
     comp->bufferArray = (fmi2String *)comp->allocateMemory(nvr, sizeof(fmi2String));
-    comp->bufferArrayLength = nvr;
+    comp->bufferArrayLength = (int)nvr;
 
     // Go through the list of arrays and save all requested values
     for (int i = 0; i < nvr; i++) {

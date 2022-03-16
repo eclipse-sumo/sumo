@@ -47,19 +47,25 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyAttribute(1, "dummyValue", True)
+netedit.modifyBoolAttribute(netedit.attrs.stop.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyAttribute(1, "", True)
+netedit.modifyBoolAttribute(netedit.attrs.stop.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyAttribute(1, "-5", True)
+netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.duration, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(1, "0", True)
+netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.duration, "", False)
 
 # change value
-netedit.modifyAttribute(1, "3.5", True)
+netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.duration, "-5", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.duration, "0", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.duration, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

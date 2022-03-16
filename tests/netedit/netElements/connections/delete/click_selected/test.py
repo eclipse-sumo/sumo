@@ -26,25 +26,25 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'], False)
 
 # Rebuild network
 netedit.rebuildNetwork()
 
 # show connections
-netedit.changeEditMode('3')
+netedit.changeEditMode('5')
 
 # set select mode
 netedit.selectMode()
 
 # select all connections
-netedit.selectItems("network element", "connection", "speed", "")
+netedit.selectItems("Network", "connection", "speed", "")
 
 # set delete mode
 netedit.deleteMode()
 
 # delete selected connections
-netedit.leftClick(referencePosition, 250, 138)
+netedit.leftClick(referencePosition, 228, 140)
 
 # rebuild
 netedit.rebuildNetwork()

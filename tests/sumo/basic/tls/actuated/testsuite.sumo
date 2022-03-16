@@ -14,6 +14,9 @@ parameters
 # test using custom detectors
 custom_detector
 
+# custom detectors should be included in the output even "their" phase has fixed duration
+custom_detector_staticPhase
+
 # set custom max-gap value for a single detector
 custom_detector_maxGap
 
@@ -68,3 +71,6 @@ joined_tls_controlling_detectors
 
 # test detector usage
 controlling_detectors
+
+# if minDur is set, interpret missing maxDur as unlimited
+maxDur_missing

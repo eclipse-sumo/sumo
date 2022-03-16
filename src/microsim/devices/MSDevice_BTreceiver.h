@@ -215,6 +215,9 @@ public:
      */
     static void cleanUp(std::map<std::string, SeenDevice*>& c, std::map<std::string, std::vector<SeenDevice*> >& s);
 
+    static SumoRNG* getRecognitionRNG() {
+        return &sRecognitionRNG;
+    }
 
 
 protected:

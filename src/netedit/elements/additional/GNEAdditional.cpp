@@ -22,6 +22,9 @@
 #include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/elements/network/GNEConnection.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -40,16 +43,13 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
                              const std::vector<GNEEdge*>& edgeParents,
                              const std::vector<GNELane*>& laneParents,
                              const std::vector<GNEAdditional*>& additionalParents,
-                             const std::vector<GNEShape*>& shapeParents,
-                             const std::vector<GNETAZElement*>& TAZElementParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEGenericData*>& genericDataParents,
-                             const std::map<std::string, std::string>& parameters) :
+                             const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
-    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
-    Parameterised(parameters),
     myAdditionalName(additionalName) {
+    // check if is template
     myIsTemplate = (id == "");
 }
 
@@ -59,15 +59,11 @@ GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
                              const std::vector<GNEEdge*>& edgeParents,
                              const std::vector<GNELane*>& laneParents,
                              const std::vector<GNEAdditional*>& additionalParents,
-                             const std::vector<GNEShape*>& shapeParents,
-                             const std::vector<GNETAZElement*>& TAZElementParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEGenericData*>& genericDataParents,
-                             const std::map<std::string, std::string>& parameters) :
+                             const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, additionalParents.front()->getID()),
-    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
-    Parameterised(parameters),
     myAdditionalName(additionalName) {
 }
 
@@ -104,108 +100,6 @@ GNEAdditional::setSpecialColor(const RGBColor* color) {
     mySpecialColor = color;
 }
 
-/*
-void
-GNEAdditional::writeAdditional(OutputDevice& device) const {
-    // first check if minimum number of children is correct
-    if ((myTagProperty.hasMinimumNumberOfChildren() || myTagProperty.hasMinimumNumberOfChildren()) && !checkChildAdditionalRestriction()) {
-        WRITE_WARNING(getTagStr() + " with ID='" + getID() + "' cannot be written");
-    } else {
-        // Open XML Tag or synonym Tag
-        device.openTag(myTagProperty.getXMLTag());
-        // iterate over attribute properties
-        for (const auto& attrProperty : myTagProperty) {
-            // obtain attribute value
-            const std::string attributeValue = getAttribute(attrProperty.getAttr());
-            //  first check if attribute is optional but not vehicle classes
-            if (attrProperty.isOptional() && !attrProperty.isVClasses()) {
-                // Only write attributes with default value if is different from original
-                if (attrProperty.getDefaultValue() != attributeValue) {
-                    // check if attribute must be written using a synonim
-                    if (attrProperty.hasAttrSynonym()) {
-                        device.writeAttr(attrProperty.getAttrSynonym(), attributeValue);
-                    } else {
-                        // SVC permissions uses their own writting function
-                        if (attrProperty.isSVCPermission()) {
-                            // disallow attribute musn't be written
-                            if (attrProperty.getAttr() != SUMO_ATTR_DISALLOW) {
-                                writePermissions(device, parseVehicleClasses(attributeValue));
-                            }
-                        } else if (myTagProperty.canMaskXYZPositions() && (attrProperty.getAttr() == SUMO_ATTR_POSITION)) {
-                            // get position attribute and write it separate
-                            Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
-                            device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
-                            device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
-                            // write 0 only if is different from 0 (the default value)
-                            if (pos.z() != 0) {
-                                device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
-                            }
-                        } else {
-                            device.writeAttr(attrProperty.getAttr(), attributeValue);
-                        }
-                    }
-                }
-            } else {
-                // Attributes without default values are always writted
-                if (attrProperty.hasAttrSynonym()) {
-                    device.writeAttr(attrProperty.getAttrSynonym(), attributeValue);
-                } else {
-                    // SVC permissions uses their own writting function
-                    if (attrProperty.isSVCPermission()) {
-                        // disallow attribute musn't be written
-                        if (attrProperty.getAttr() != SUMO_ATTR_DISALLOW) {
-                            writePermissions(device, parseVehicleClasses(attributeValue));
-                        }
-                    } else if (myTagProperty.canMaskXYZPositions() && (attrProperty.getAttr() == SUMO_ATTR_POSITION)) {
-                        // get position attribute and write it separate
-                        Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
-                        device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
-                        device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
-                        // write 0 only if is different from 0 (the default value)
-                        if (pos.z() != 0) {
-                            device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
-                        }
-                    } else {
-                        device.writeAttr(attrProperty.getAttr(), attributeValue);
-                    }
-                }
-            }
-        }
-        // iterate over children and write it in XML (or in a different file)
-        if (myTagProperty.canWriteChildrenSeparate() && myTagProperty.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
-            // we assume that rerouter values files is placed in the same folder as the additional file
-            OutputDevice& deviceChildren = OutputDevice::getDevice(FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files")) + getAttribute(SUMO_ATTR_FILE));
-            deviceChildren.writeXMLHeader("rerouterValue", "additional_file.xsd");
-            // save children in a different filename
-            for (const auto& additionalChild : getChildAdditionals()) {
-                // avoid to write two times additionals that haben two parents (Only write as child of first parent)
-                if (additionalChild->getParentAdditionals().size() < 1) {
-                    additionalChild->writeAdditional(deviceChildren);
-                } else if (myTagProperty.getTag() == additionalChild->getTagProperty().getParentTags().front()) {
-                    additionalChild->writeAdditional(deviceChildren);
-                }
-            }
-            deviceChildren.close();
-        } else {
-            for (const auto& additionalChild : getChildAdditionals()) {
-                // avoid write symbols
-                if (!additionalChild->getTagProperty().isSymbol()) {
-                    // avoid to write two times additionals that haben two parents (Only write as child of first parent)
-                    if (additionalChild->getParentAdditionals().size() < 2) {
-                        additionalChild->writeAdditional(device);
-                    } else if (myTagProperty.getTag() == additionalChild->getTagProperty().getParentTags().front()) {
-                        additionalChild->writeAdditional(device);
-                    }
-                }
-            }
-        }
-        // write parameters (Always after children to avoid problems with additionals.xsd)
-        writeParams(device);
-        // Close tag
-        device.closeTag();
-    }
-}
-*/
 
 bool
 GNEAdditional::isAdditionalValid() const {
@@ -318,172 +212,19 @@ GNEAdditional::getOptionalAdditionalName() const {
 
 void
 GNEAdditional::computePathElement() {
-    // currently onle for E2 multilane detectors
-    if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
-        // calculate path
-        myNet->getPathManager()->calculateConsecutivePathLanes(this, getParentLanes());
-    }
+    // Nothing to compute
 }
 
 
 void
-GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // calculate E2Detector width
-    const double E2DetectorWidth = s.addSize.getExaggeration(s, lane);
-    // check if E2 can be drawn
-    if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // calculate startPos
-        const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_POSITION);
-        // get endPos
-        const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ENDPOS);
-        // declare path geometry
-        GUIGeometry E2Geometry;
-        // update pathGeometry depending of first and last segment
-        if (segment->isFirstSegment() && segment->isLastSegment()) {
-            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                      geometryDepartPos, geometryEndPos,      // extrem positions
-                                      Position::INVALID, Position::INVALID);  // extra positions
-        } else if (segment->isFirstSegment()) {
-            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                      geometryDepartPos, -1,                  // extrem positions
-                                      Position::INVALID, Position::INVALID);  // extra positions
-        } else if (segment->isLastSegment()) {
-            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                      -1, geometryEndPos,                     // extrem positions
-                                      Position::INVALID, Position::INVALID);  // extra positions
-        } else {
-            E2Geometry = lane->getLaneGeometry();
-        }
-        // obtain color
-        const RGBColor E2Color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType() + offsetFront);
-        // Set color
-        GLHelper::setColor(E2Color);
-        // draw geometry
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), E2Geometry, E2DetectorWidth);
-        // draw geometry points
-        if (segment->isFirstSegment() && segment->isLastSegment()) {
-            drawLeftGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().front(),  E2Geometry.getShapeRotations().front(), E2Color);
-            drawRightGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color);
-        } else if (segment->isFirstSegment()) {
-            drawLeftGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color);
-        } else if (segment->isLastSegment()) {
-            drawRightGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color);
-        }
-        // Pop layer matrix
-        GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
-        // draw additional ID
-        if (!s.drawForRectangleSelection) {
-            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-            // check if this is the label segment
-            if (segment->isLabelSegment()) {
-                // calculate middle point
-                const double middlePoint = (E2Geometry.getShape().length2D() * 0.5);
-                // calculate position
-                const Position pos = E2Geometry.getShape().positionAtOffset2D(middlePoint);
-                // calculate rotation
-                const double rot = E2Geometry.getShape().rotationDegreeAtOffset(middlePoint);
-                // Start pushing matrix
-                GLHelper::pushMatrix();
-                // Traslate to position
-                glTranslated(pos.x(), pos.y(), getType() + offsetFront + 0.1);
-                // rotate over lane
-                GUIGeometry::rotateOverLane(rot);
-                // move
-                glTranslated(-1, 0, 0);
-                // scale text
-                glScaled(E2DetectorWidth, E2DetectorWidth, 1);
-                // draw E1 logo
-                GLHelper::drawText("E2 Multilane", Position(), .1, 1.5, RGBColor::BLACK);
-                // pop matrix
-                GLHelper::popMatrix();
-            }
-        }
-        // check if shape dotted contour has to be drawn
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            // declare trim geometry to draw
-            const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? E2Geometry.getShape() : lane->getLaneShape();
-            // draw inspected dotted contour
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-            }
-            // draw front dotted contour
-            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-            }
-        }
-    }
+GNEAdditional::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // Nothing to draw
 }
 
 
 void
-GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
-    // calculate E2Detector width
-    const double E2DetectorWidth = s.addSize.getExaggeration(s, fromLane);
-    // check if E2 can be drawn
-    if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // get flag for show only contour
-        const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() ? myNet->getViewNet()->getNetworkViewOptions().showConnections() : false;
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // Add a draw matrix
-        GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType() + offsetFront);
-        // Set color of the base
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-        } else {
-            GLHelper::setColor(s.detectorSettings.E2Color);
-        }
-        // draw lane2lane
-        if (fromLane->getLane2laneConnections().exist(toLane)) {
-            // check if draw only contour
-            if (onlyContour) {
-                GUIGeometry::drawContourGeometry(fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
-            } else {
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
-            }
-        } else {
-            // Set invalid person plan color
-            GLHelper::setColor(RGBColor::RED);
-            // calculate invalid geometry
-            const GUIGeometry invalidGeometry({fromLane->getLaneShape().back(), toLane->getLaneShape().front()});
-            // check if draw only contour
-            if (onlyContour) {
-                GUIGeometry::drawContourGeometry(invalidGeometry, (0.5 * E2DetectorWidth));
-            } else {
-                // draw invalid geometry
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), invalidGeometry, (0.5 * E2DetectorWidth));
-            }
-        }
-        // Pop last matrix
-        GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
-        // check if shape dotted contour has to be drawn
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            // draw lane2lane dotted geometry
-            if (fromLane->getLane2laneConnections().exist(toLane)) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                        E2DetectorWidth, 1, false, false);
-            }
-        }
-        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            // draw lane2lane dotted geometry
-            if (fromLane->getLane2laneConnections().exist(toLane)) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                        E2DetectorWidth, 1, false, false);
-            }
-        }
-    }
+GNEAdditional::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // Nothing to draw
 }
 
 // ---------------------------------------------------------------------------
@@ -644,7 +385,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         // Add layer matrix
         GLHelper::pushMatrix();
         // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR);
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
         // translate to position
         glTranslated(pos.x(), pos.y(), 0);
         // scale
@@ -727,15 +468,15 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Posi
         // check if draw middle lane
         if (drawPositionIndex != 0) {
             // calculate length
-            const double lenght = std::abs(positionLineA_Y - positionLineB_Y);
+            const double length = std::abs(positionLineA_Y - positionLineB_Y);
             // push middle lane matrix
             GLHelper::pushMatrix();
             //move and rotate
             glTranslated(positionLineA.x() + lineOffset, positionLineA.y(), 0);
             glRotated(90, 0, 0, 1);
-            glTranslated((lenght * -0.5), 0, 0);
+            glTranslated((length * -0.5), 0, 0);
             // draw line
-            GLHelper::drawBoxLine(Position(0, 0), 0, 0.1, lenght * 0.5);
+            GLHelper::drawBoxLine(Position(0, 0), 0, 0.1, length * 0.5);
             // pop middle lane matrix
             GLHelper::popMatrix();
         }
@@ -786,6 +527,63 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Posi
 }
 
 
+GNEMoveOperation*
+GNEAdditional::getMoveOperationSingleLane(const double startPos, const double endPos) {
+    // get allow change lane
+    const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
+    // fist check if we're moving only extremes
+    if (myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        // get snap radius
+        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+        // get mouse position
+        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+        // check if we clicked over start or end position
+        if (myAdditionalGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // move only start position
+            return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
+                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST);
+        } else if (myAdditionalGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // move only end position
+            return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
+                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND);
+        } else {
+            return nullptr;
+        }
+    } else {
+        // move both start and end positions
+        return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
+                                    allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEBOTH);
+    }
+}
+
+
+GNEMoveOperation*
+GNEAdditional::getMoveOperationMultiLane(const double startPos, const double endPos) {
+    // check if shift is pressed
+    const bool shift = myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed();
+    // get snap radius
+    const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+    // get mouse position
+    const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+    // calculate both geometries
+    GUIGeometry fromGeometry, toGeometry;
+    fromGeometry.updateGeometry(getParentLanes().front()->getLaneGeometry().getShape(), startPos, 0);
+    toGeometry.updateGeometry(getParentLanes().back()->getLaneGeometry().getShape(), endPos, 0);
+    // check if we clicked over start or end position
+    if (fromGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+        // move using start position
+        return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
+                                    false, shift? GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST : GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_FIRST);
+    } else if (toGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+        // move using end position
+        return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
+                                    false, shift? GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND : GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_SECOND);
+    } else {
+        return nullptr;
+    }
+}
+
+
 void
 GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
@@ -818,31 +616,31 @@ GNEAdditional::getLastPathLane() const {
 
 double
 GNEAdditional::getPathElementDepartValue() const {
-    return 0;   // CHECK
+    return getAttributeDouble(SUMO_ATTR_STARTPOS);
 }
 
 
 Position
 GNEAdditional::getPathElementDepartPos() const {
-    return Position();  // CHECK
+    return getFirstPathLane()->getLaneShape().positionAtOffset2D(getPathElementDepartValue());
 }
 
 
 double
 GNEAdditional::getPathElementArrivalValue() const {
-    return 0;   // CHECK
+    return getAttributeDouble(SUMO_ATTR_ENDPOS);
 }
 
 
 Position
 GNEAdditional::getPathElementArrivalPos() const {
-    return Position();  /// CHECK
+    return getLastPathLane()->getLaneShape().positionAtOffset2D(getPathElementArrivalValue());
 }
 
 
-const std::map<std::string, std::string>&
-GNEAdditional::getACParametersMap() const {
-    return getParametersMap();
+Position 
+GNEAdditional::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
 }
 
 
@@ -905,26 +703,26 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
 
 
 void
-GNEAdditional::drawUpGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor) {
-    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, -90, 90);
+GNEAdditional::drawUpGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift) {
+    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, -90, 90, ignoreShift);
 }
 
 
 void
-GNEAdditional::drawDownGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor) {
-    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, 90, 270);
+GNEAdditional::drawDownGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift) {
+    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, 90, 270, ignoreShift);
 }
 
 
 void
-GNEAdditional::drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor) {
-    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, -90, 90);
+GNEAdditional::drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift) {
+    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, -90, 90, ignoreShift);
 }
 
 
 void
-GNEAdditional::drawRightGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor) {
-    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, 270, 90);
+GNEAdditional::drawRightGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift) {
+    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, 270, 90, ignoreShift);
 }
 
 
@@ -947,6 +745,34 @@ GNEAdditional::getDrawPositionIndex() const {
 }
 
 
+bool 
+GNEAdditional::areLaneConsecutives(const std::vector<GNELane*>& lanes) {
+    // declare lane iterator
+    int laneIt = 0;
+    // iterate over all lanes, and stop if myE2valid is false
+    while (laneIt < ((int)lanes.size() - 1)) {
+        // we assume that E2 is invalid
+        bool connectionFound = false;
+        // if there is a connection betwen "from" lane and "to" lane of connection, change connectionFound to true
+        for (const auto &connection : lanes.at(laneIt)->getParentEdge()->getNBEdge()->getConnections()) {
+            if ((connection.toEdge == lanes.at(laneIt + 1)->getParentEdge()->getNBEdge()) &&
+                (connection.fromLane == lanes.at(laneIt)->getIndex()) && 
+                (connection.toLane == lanes.at(laneIt + 1)->getIndex())) {
+                connectionFound = true;
+            }
+        }
+        // abort if connectionFound is false
+        if (!connectionFound) {
+            return false;
+        }
+        // update iterator
+        laneIt++;
+    }
+    // there are connections between all lanes, then return true
+    return true;
+}
+
+
 bool
 GNEAdditional::checkChildAdditionalRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
@@ -955,17 +781,17 @@ GNEAdditional::checkChildAdditionalRestriction() const {
 
 
 void
-GNEAdditional::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNEAdditional::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     // nothing to toogle in Additionals
 }
 
 
 void
 GNEAdditional::drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor,
-        const double fromAngle, const double toAngle) {
+        const double fromAngle, const double toAngle, const bool ignoreShift) {
     // first check that we're in move mode and shift key is pressed
     if (viewNet->getEditModes().isCurrentSupermodeNetwork() && (viewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-            viewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        (viewNet->getMouseButtonKeyPressed().shiftKeyPressed() || ignoreShift)) {
         // calculate new color
         const RGBColor color = baseColor.changedBrightness(-50);
         // push matrix

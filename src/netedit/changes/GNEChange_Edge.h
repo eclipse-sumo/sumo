@@ -65,9 +65,6 @@ protected:
     /// @brief remove given lane from parents and children
     void removeEdgeLanes();
 
-    /// @brief vector of references to vector of parent shapes (used by edge lanes)
-    std::vector<std::vector<GNEShape*> > myLaneParentShapes;
-
     /// @brief vector of references to vector of parent additionals (used by edge lanes)
     std::vector<std::vector<GNEAdditional*> > myLaneParentAdditionals;
 
@@ -76,9 +73,6 @@ protected:
 
     /// @brief vector of references to vector of parent generic datas (used by edge lanes)
     std::vector<std::vector<GNEGenericData*> > myLaneParentGenericData;
-
-    /// @brief vector of references to vector of child shapes (used by edge lanes)
-    std::vector<std::vector<GNEShape*> > myChildLaneShapes;
 
     /// @brief vector of references to vector of child additional (used by edge lanes)
     std::vector<std::vector<GNEAdditional*> > myChildLaneAdditionals;

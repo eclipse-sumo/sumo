@@ -28,8 +28,6 @@
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/additional/GNEShape.h>
-#include <netedit/elements/additional/GNETAZElement.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/data/GNEGenericData.h>
 #include <utils/foxtools/fxheader.h>
@@ -49,8 +47,6 @@ class GNEGenericData;
 class GNEDataInterval;
 class GNEEdge;
 class GNELane;
-class GNEShape;
-class GNETAZElement;
 class GNENet;
 class GNEViewNet;
 
@@ -143,12 +139,6 @@ protected:
         for (const auto& additional : myOriginalHierarchicalContainer.getParents<std::vector<GNEAdditional*> >()) {
             additional->addChildElement(element);
         }
-        for (const auto& shape : myOriginalHierarchicalContainer.getParents<std::vector<GNEShape*> >()) {
-            shape->addChildElement(element);
-        }
-        for (const auto& TAZElement : myOriginalHierarchicalContainer.getParents<std::vector<GNETAZElement*> >()) {
-            TAZElement->addChildElement(element);
-        }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getParents<std::vector<GNEDemandElement*> >()) {
             demandElement->addChildElement(element);
         }
@@ -167,12 +157,6 @@ protected:
         }
         for (const auto& additional : myOriginalHierarchicalContainer.getChildren<std::vector<GNEAdditional*> >()) {
             additional->addParentElement(element);
-        }
-        for (const auto& shape : myOriginalHierarchicalContainer.getChildren<std::vector<GNEShape*> >()) {
-            shape->addParentElement(element);
-        }
-        for (const auto& TAZElement : myOriginalHierarchicalContainer.getChildren<std::vector<GNETAZElement*> >()) {
-            TAZElement->addParentElement(element);
         }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getChildren<std::vector<GNEDemandElement*> >()) {
             demandElement->addParentElement(element);
@@ -198,12 +182,6 @@ protected:
         for (const auto& additional : myOriginalHierarchicalContainer.getParents<std::vector<GNEAdditional*> >()) {
             additional->removeChildElement(element);
         }
-        for (const auto& shape : myOriginalHierarchicalContainer.getParents<std::vector<GNEShape*> >()) {
-            shape->removeChildElement(element);
-        }
-        for (const auto& TAZElement : myOriginalHierarchicalContainer.getParents<std::vector<GNETAZElement*> >()) {
-            TAZElement->removeChildElement(element);
-        }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getParents<std::vector<GNEDemandElement*> >()) {
             demandElement->removeChildElement(element);
         }
@@ -222,12 +200,6 @@ protected:
         }
         for (const auto& additional : myOriginalHierarchicalContainer.getChildren<std::vector<GNEAdditional*> >()) {
             additional->removeParentElement(element);
-        }
-        for (const auto& shape : myOriginalHierarchicalContainer.getChildren<std::vector<GNEShape*> >()) {
-            shape->removeParentElement(element);
-        }
-        for (const auto& TAZElement : myOriginalHierarchicalContainer.getChildren<std::vector<GNETAZElement*> >()) {
-            TAZElement->removeParentElement(element);
         }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getChildren<std::vector<GNEDemandElement*> >()) {
             demandElement->removeParentElement(element);

@@ -29,6 +29,34 @@ class MultiEntryExitDomain(Domain):
                         tc.CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT, tc.RESPONSE_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT,
                         subscriptionDefault=(tc.LAST_STEP_VEHICLE_NUMBER,))
 
+    def getEntryLanes(self, detID):
+        """getEntryLanes(string) -> list(string)
+
+        Returns the list of ids of the detector's entry lanes.
+        """
+        return self._getUniversal(tc.VAR_LANES, detID)
+
+    def getExitLanes(self, detID):
+        """getExitLanes(string) -> list(string)
+
+        Returns the list of ids of the detector's exit lanes.
+        """
+        return self._getUniversal(tc.VAR_EXIT_LANES, detID)
+
+    def getEntryPositions(self, detID):
+        """getEntryPositions(string) -> list(double)
+
+        Returns the list of positions of the detector's entry lanes.
+        """
+        return self._getUniversal(tc.VAR_POSITION, detID)
+
+    def getExitPositions(self, detID):
+        """getExitPositions(string) -> list(double)
+
+        Returns the list of positions of the detector's exit lanes.
+        """
+        return self._getUniversal(tc.VAR_EXIT_POSITIONS, detID)
+
     def getLastStepVehicleNumber(self, detID):
         """getLastStepVehicleNumber(string) -> integer
 

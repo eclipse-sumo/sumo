@@ -1,0 +1,7 @@
+# 4 traffic flows that start in each corner of a grid and move to the diagonal corner.
+# Running the vehroutes (last-route) improves travel times
+grid_flows
+
+# randomTrips on grid network with partubations and roundabouts.
+# Running the vehroutes (last-route) creates additional jams and makes travel times worse
+grid2_random

@@ -74,13 +74,10 @@ std::map<std::string, MSTriggeredRerouter*> MSTriggeredRerouter::myInstances;
 // method definitions
 // ===========================================================================
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
-        const MSEdgeVector& edges,
-        double prob, const std::string& file, bool off,
-        SUMOTime timeThreshold,
-        const std::string& vTypes) :
+        const MSEdgeVector& edges, double prob, bool off,
+        SUMOTime timeThreshold, const std::string& vTypes) :
     MSTrigger(id),
     MSMoveReminder(id),
-    SUMOSAXHandler(file),
     myEdges(edges),
     myProbability(prob),
     myUserProbability(prob),
@@ -719,6 +716,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                       << " rerouteParkingArea dest=" << destParkArea->getID()
                       << " onDestEdge=" << (&(destParkArea->getLane().getEdge()) == veh.getEdge())
                       << " newDest=" << newDestination
+                      << " onTheWay=" << Named::getIDSecure(onTheWay)
                       << "\n";
         }
 #endif
@@ -854,6 +852,11 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                 // prefering one or the other based on estimated occupancy
                 double paOccupancy = RandHelper::rand((double)pa->getCapacity());
                 if (addParkValues(veh, brakeGap, newDestination, pa, paOccupancy, prob, router, parkAreas, newRoutes, parkApproaches, maxValues)) {
+#ifdef DEBUG_PARKING
+                    if (DEBUGCOND) {
+                        std::cout << "    altPA=" << pa->getID() << " targeting occupied pa based on blockTime " << STEPS2TIME(std::get<0>(item)) << " among " << blockedTimes.size() << " alternatives\n";
+                    }
+#endif
                     numAlternatives = 1;
                     break;
                 }
@@ -881,6 +884,11 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                 for (auto item : candidates) {
                     MSParkingArea* pa = item.second;
                     if (addParkValues(veh, brakeGap, newDestination, pa, 0, 1, router, parkAreas, newRoutes, parkApproaches, maxValues)) {
+#ifdef DEBUG_PARKING
+                        if (DEBUGCOND) {
+                            std::cout << "    altPA=" << pa->getID() << " targeting occupied pa (based on pure randomness) among " << candidates.size() << " alternatives\n";
+                        }
+#endif
                         numAlternatives = 1;
                         break;
                     }
@@ -1093,20 +1101,25 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
                 WRITE_WARNINGF("Invalid distance computation for vehicle '%' to parkingArea '%' at time=%.",
                                veh.getID(), pa->getID(), time2string(SIMSTEP));
             }
-
+             const double endPos = pa->getOccupancy() == pa->getCapacity()
+                 ? pa->getLastFreePos(veh, veh.getPositionOnLane() + brakeGap)
+                 : pa->getEndLanePosition();
+             const double distToEnd = parkValues["distanceto"] - toPos + endPos;
 #ifdef DEBUG_PARKING
             if (DEBUGCOND) {
                 std::cout << "      " << veh.getID() << " candidate=" << pa->getID()
                           << " distanceTo=" << parkValues["distanceto"]
                           << " brakeGap=" << brakeGap
                           << " routeToPark=" << toString(edgesToPark)
-                          << " fromPos=" << veh.getPositionOnLane()
-                          << " tPos=" << pa->getBeginLanePosition()
+                          << " vehPos=" << veh.getPositionOnLane()
+                          << " begPos=" << pa->getBeginLanePosition()
+                          << " toPos=" << toPos
+                          << " endPos=" << pa->getEndLanePosition()
+                          << " distToEnd=" << distToEnd
                           << "\n";
             }
 #endif
 
-            const double distToEnd = parkValues["distanceto"] - toPos + pa->getEndLanePosition();
             if (distToEnd < brakeGap) {
                 veh.rememberParkingAreaScore(pa, "tooClose");
 #ifdef DEBUG_PARKING

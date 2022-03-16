@@ -37,8 +37,8 @@
 
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_PERSONTRIP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}, {}, {}),
-myArrivalPosition(0) {
+        {}, {}, {}, {}, {}, {}),
+    myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -47,31 +47,30 @@ myArrivalPosition(0) {
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes) {
+        {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes) {
 }
 
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes) {
+        {}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes) {
 }
 
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_JUNCTIONS, GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {
-    fromJunction, toJunction
-}, {}, {}, {}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes) {
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_JUNCTIONS, GNEPathManager::PathElement::Options::DEMAND_ELEMENT, 
+        {fromJunction, toJunction}, {}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes) {
 }
 
 
@@ -527,7 +526,7 @@ GNEPersonTrip::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEPersonTrip::getACParametersMap() const {
     return getParametersMap();
 }
@@ -601,7 +600,7 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEPersonTrip::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNEPersonTrip::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     // nothing to toogle
 }
 

@@ -64,9 +64,11 @@ enum class NetworkEditMode {
     ///@brief Mode for editing TAZ
     NETWORK_TAZ,
     ///@brief Mode for editing Polygons
-    NETWORK_POLYGON,
+    NETWORK_SHAPE,
     ///@brief Mode for editing connection prohibitions
-    NETWORK_PROHIBITION
+    NETWORK_PROHIBITION,
+    ///@brief Mode for editing wires
+    NETWORK_WIRE
 };
 
 /// @brie enum for demand edit modes
@@ -134,14 +136,13 @@ class GNECrossing;
 class GNEInternalLane;
 // additional elements
 class GNEAdditional;
-class GNETAZElement;
-class GNEShape;
 class GNEPoly;
 class GNEPOI;
 class GNETAZ;
 // demand elements
 class GNEDemandElement;
 // data elements
+class GNEDataSet;
 class GNEGenericData;
 class GNEEdgeData;
 class GNEEdgeRelData;
@@ -182,12 +183,6 @@ struct GNEViewNetHelper {
 
         /// @brief get front additional element or a pointer to nullptr
         GNEAdditional* getAdditionalFront() const;
-
-        /// @brief get front shape element or a pointer to nullptr
-        GNEShape* getShapeFront() const;
-
-        /// @brief get front TAZElement or a pointer to nullptr
-        GNETAZElement* getTAZElementFront() const;
 
         /// @brief get front demand element or a pointer to nullptr
         GNEDemandElement* getDemandElementFront() const;
@@ -256,12 +251,6 @@ struct GNEViewNetHelper {
 
             /// @brief vector with the clicked additional elements
             std::vector<GNEAdditional*> additionals;
-
-            /// @brief vector with the clicked shape elements (Poly and POIs)
-            std::vector<GNEShape*> shapes;
-
-            /// @brief vector with the clicked TAZ elements
-            std::vector<GNETAZElement*> TAZElements;
 
             /// @brief vector with the clicked demand elements
             std::vector<GNEDemandElement*> demandElements;
@@ -335,11 +324,11 @@ struct GNEViewNetHelper {
         /// @brief update additional elements
         void updateAdditionalElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
 
-        /// @brief update TAZ elements
-        void updateTAZElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
-
         /// @brief update shape elements
         void updateShapeElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
+
+        /// @brief update TAZ elements
+        void updateTAZElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
 
         /// @brief update demand elements
         void updateDemandElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
@@ -757,18 +746,6 @@ struct GNEViewNetHelper {
         /// @brief build interval bar elements
         void buildIntervalBarElements();
 
-        /// @brief enable interval bar
-        void enableIntervalBar();
-
-        /// @brief disable interval bar
-        void disableIntervalBar();
-
-        /// @brief enable interval bar update
-        void enableIntervalBarUpdate();
-
-        /// @brief enable interval bar update
-        void disableIntervalBarUpdate();
-
         /// @brief show interval option bar
         void showIntervalBar();
 
@@ -778,23 +755,26 @@ struct GNEViewNetHelper {
         /// @brief update interval bar
         void updateIntervalBar();
 
+        // @brief mark for update
+        void markForUpdate();
+
         /// @name get functions (called by GNEViewNet)
         /// @{
 
         /// @brief get generic data type
-        std::string getGenericDataTypeStr() const;
+        SumoXMLTag getGenericDataType() const;
 
         /// @brief get dataSet
-        std::string getDataSetStr() const;
+        GNEDataSet *getDataSet() const;
 
         /// @brief get begin
-        std::string getBeginStr() const;
+        double getBegin() const;
 
         /// @brief get end
-        std::string getEndStr() const;
+        double getEnd() const;
 
-        /// @brief set attribute
-        std::string getAttributeStr() const;
+        /// @brief get parameter
+        std::string getParameter() const;
 
         /// @}
 
@@ -816,17 +796,24 @@ struct GNEViewNetHelper {
         /// @brief set end
         void setEnd();
 
-        /// @brief set attribute
-        void setAttribute();
+        /// @brief set parameter
+        void setParameter();
 
         /// @}
+
+    protected:
+        /// @brief enable interval bar
+        void enableIntervalBar();
+
+        /// @brief disable interval bar
+        void disableIntervalBar();
 
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
 
-        /// @brief flag to enable or disable update interval bar
-        bool myIntervalBarUpdate;
+        /// @brief flag for update interval bar
+        bool myUpdateInterval;
 
         /// @brief combo box for generic data types
         FXComboBox* myGenericDataTypesComboBox;
@@ -835,7 +822,7 @@ struct GNEViewNetHelper {
         FXComboBox* myDataSetsComboBox;
 
         /// @brief checkbox for limit data elements by interval
-        FXCheckButton* myLimitByIntervalCheckBox;
+        FXCheckButton* myIntervalCheckBox;
 
         /// @brief text field for interval begin
         FXTextField* myBeginTextField;
@@ -843,31 +830,16 @@ struct GNEViewNetHelper {
         /// @brief text field for interval end
         FXTextField* myEndTextField;
 
-        /// @brief combo box for filtered attributes
-        FXComboBox* myFilteredAttributesComboBox;
+        /// @brief combo box for filtered parameters
+        FXComboBox* myParametersComboBox;
 
-        /// @brief set for attribuets
-        std::set<std::string> myFilteredAttributes;
+        /// @brief current dataSets
+        std::vector<std::string> myDataSets;
 
-        /// @brief string with wildcard for no generic datas
-        const FXString myNoGenericDatas;
-
-        /// @brief string with wildcard for all generic datas
-        const FXString myAllGenericDatas;
-
-        /// @brief string with wildcard for no dataSets
-        const FXString myNoDataSets;
-
-        /// @brief string with wildcard for all dataSets
-        const FXString myAllDataSets;
-
-        /// @brief string with wildcard for all attributes
-        const FXString myAllAttributes;
+        /// @brief current parameters
+        std::set<std::string> myParameters;
 
     private:
-        /// @brief update combo box attributes
-        void updateComboBoxAttributes();
-
         /// @brief Invalidated copy constructor.
         IntervalBar(const IntervalBar&) = delete;
 
@@ -1156,8 +1128,11 @@ struct GNEViewNetHelper {
         /// @brief chekable button for edit mode shape
         MFXCheckableButton* shapeButton;
 
-        /// @brief checkable button for edit mode polygon
+        /// @brief checkable button for edit mode prohibition
         MFXCheckableButton* prohibitionButton;
+
+        /// @brief checkable button for edit mode wires
+        MFXCheckableButton* wireButton;
 
     private:
         /// @brief pointer to net

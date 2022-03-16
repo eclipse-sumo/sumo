@@ -24,7 +24,7 @@ edges are identified heuristically.
 
 Adjacency can be declared explicitly in an *.edg.xml* file [as described
 here](../Networks/PlainXML.md#neighboring_opposite-direction_lanes).
-Explicity definitions take precedence over heuristic computation of
+Explicit definitions take precedence over heuristic computation of
 adjacency.
 
 # Model Description

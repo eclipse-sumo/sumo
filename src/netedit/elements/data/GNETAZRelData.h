@@ -44,16 +44,16 @@ public:
      * @param[in] toTAZ pointer to to TAZ
      * @param[in] parameters parameters map
      */
-    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* fromTAZ, GNETAZElement* toTAZ,
-                  const std::map<std::string, std::string>& parameters);
+    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ,
+                  const Parameterised::Map& parameters);
 
     /**@brief Constructor for one TAZ
      * @param[in] dataIntervalParent pointer to data interval parent
      * @param[in] TAZ pointer to TAZ
      * @param[in] parameters parameters map
      */
-    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* TAZ,
-                  const std::map<std::string, std::string>& parameters);
+    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* TAZ,
+                  const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNETAZRelData();
@@ -210,7 +210,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
+    void toogleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief Invalidated copy constructor.
     GNETAZRelData(const GNETAZRelData&) = delete;

@@ -68,7 +68,7 @@ public:
      * @param[in] parameters a map of strings (from parameter name to parameter
      * value) including configuration parameters
      */
-    virtual void loadParameters(const ParMap& parameters);
+    virtual void loadParameters(const Parameterised::Map& parameters);
 
     /**
      * Sets a single parameter value

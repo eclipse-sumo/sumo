@@ -85,9 +85,13 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"rerouterEdge",            GLO_REROUTER_EDGE},
     {"variableSpeedSign",       GLO_VSS},
     {"variableSpeedSignStep",   GLO_VSS_STEP},
+    {"variableFrictionSign",    GLO_COF},
+    {"variableFrictionStep",    GLO_COF_STEP},
     {"calibrator",              GLO_CALIBRATOR},
     {"routeProbe",              GLO_ROUTEPROBE},
     {"vaporizer",               GLO_VAPORIZER},
+    {"wire",                    GLO_WIRE},
+    {"tractionsubstation",      GLO_TRACTIONSUBSTATION},
     //
     {"shape",                   GLO_SHAPE},
     {"polygon",                 GLO_POLYGON},
@@ -143,13 +147,14 @@ const GUIGlID GUIGlObject::INVALID_ID = 0;
 // ===========================================================================
 
 GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
+    myGlID(GUIGlObjectStorage::gIDStorage.registerObject(this)),
     myGLObjectType(type),
-    myMicrosimID(microsimID) {
+    myMicrosimID(microsimID),
+    myAmBlocked(false) {
     // make sure that reserved GLO_ADDITIONALELEMENT isn't used
     assert(myGLObjectType != GLO_ADDITIONALELEMENT);
     myFullName = createFullName();
-    // register object
-    myGlID = GUIGlObjectStorage::gIDStorage.registerObject(this, myFullName);
+    GUIGlObjectStorage::gIDStorage.changeName(this, myFullName);
 }
 
 
@@ -164,21 +169,9 @@ GUIGlObject::~GUIGlObject() {
 }
 
 
-const std::string&
-GUIGlObject::getFullName() const {
-    return myFullName;
-}
-
-
 std::string
 GUIGlObject::getParentName() const {
     return StringUtils::emptyString;
-}
-
-
-GUIGlID
-GUIGlObject::getGlID() const {
-    return myGlID;
 }
 
 
@@ -190,31 +183,17 @@ GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& par
 }
 
 
-const std::string&
-GUIGlObject::getMicrosimID() const {
-    return myMicrosimID;
-}
-
 const std::string
 GUIGlObject::getOptionalName() const {
     return "";
 }
 
+
 void
 GUIGlObject::setMicrosimID(const std::string& newID) {
-    // first remove objects from GUIGlObjectStorage
-    GUIGlObjectStorage::gIDStorage.remove(myGlID);
-    // set new microsimID and fullName
     myMicrosimID = newID;
+    GUIGlObjectStorage::gIDStorage.changeName(this, createFullName());
     myFullName = createFullName();
-    // register object again
-    myGlID = GUIGlObjectStorage::gIDStorage.registerObject(this, myFullName);
-}
-
-
-GUIGlObjectType
-GUIGlObject::getType() const {
-    return myGLObjectType;
 }
 
 

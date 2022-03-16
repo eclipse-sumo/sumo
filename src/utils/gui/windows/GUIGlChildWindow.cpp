@@ -24,6 +24,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/foxtools/MFXCheckableButton.h>
+#include <utils/foxtools/MFXComboBox.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIMainWindow.h>
@@ -140,7 +141,7 @@ GUIGlChildWindow::buildColoringToolBar() {
     // Create Vertical separator
     new FXVerticalSeparator(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, GUIDesignVerticalSeparator);
     // build coloring tools
-    myColoringSchemes = new FXComboBox(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+    myColoringSchemes = new MFXComboBox(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
                                        GUIDesignComboBoxNCol, this, MID_COLOURSCHEMECHANGE, GUIDesignComboBoxStatic);
     // editor
     new FXButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,

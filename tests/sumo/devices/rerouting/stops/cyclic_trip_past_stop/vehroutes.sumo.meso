@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Oct 13 13:26:00 2020 by Eclipse SUMO sumo Version v1_7_0+0594-1f29e2c600
+<!-- generated on 2022-02-11 11:28:56 by Eclipse SUMO sumo Version v1_12_0+0490-00f3a0f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -49,7 +54,7 @@ SPDX-License-Identifier: EPL-2.0
     <vehicle id="bus" type="bus" depart="0.00" departPos="0.00" arrival="268.00">
         <routeDistribution>
             <route replacedOnEdge="a" reason="device.rerouting" replacedAtTime="2.00" probability="0" edges="a b c -c -b -a a b c"/>
-            <route replacedOnEdge="b" reason="device.rerouting" replacedAtTime="28.00" probability="0" edges="a b c"/>
+            <route replacedOnEdge="b" replacedOnIndex="1" reason="device.rerouting" replacedAtTime="28.00" probability="0" edges="a b c"/>
             <route edges="a b c -c -b -a a b c"/>
         </routeDistribution>
         <stop busStop="busStop_a" duration="10.00"/>

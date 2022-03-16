@@ -53,16 +53,16 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 14 with a non valid value (dummy)
-netedit.modifyAttribute(14, "dummyShapeStart", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeStart, "dummyShapeStart", False)
 
 # Change parameter 14 with a non valid value (incomplete)
-netedit.modifyAttribute(14, "34", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeStart, "34", False)
 
 # Change parameter 14 with a valid value (empty)
-netedit.modifyAttribute(14, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeStart, "", False)
 
 # Change parameter 14 with a valid value
-netedit.modifyAttribute(14, "14,15.5", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeStart, "14,15.5", False)
 
 # recompute
 netedit.rebuildNetwork()

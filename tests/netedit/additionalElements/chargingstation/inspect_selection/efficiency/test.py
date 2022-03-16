@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 320)
 
 # Try to set invalid efficiency
-netedit.modifyAttribute(3, "dummyEfficiency", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.efficiency, "dummyEfficiency", True)
 
 # Try to set invalid efficiency
-netedit.modifyAttribute(3, "2", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.efficiency, "2", True)
 
 # set efficiency
-netedit.modifyAttribute(3, "0.5", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.efficiency, "0.5", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

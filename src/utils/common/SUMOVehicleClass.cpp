@@ -273,7 +273,7 @@ StopOffset::operator!=(StopOffset const& other) const {
 
 const std::string&
 getVehicleClassNames(SVCPermissions permissions, bool expand) {
-    if (permissions == SVCAll && !expand) {
+    if ((permissions & SVCAll) == SVCAll && !expand) {
         return vehicleClassNameAll;
     }
     // check if previously was cached

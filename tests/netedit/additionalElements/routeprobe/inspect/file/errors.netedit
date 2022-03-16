@@ -1,4 +1,3 @@
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'routeProbe' in TagSelector
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
@@ -9,7 +8,7 @@ Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
-Debug: Adding routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
+Debug: Adding routeProbe 'rp_0' in GNEChange_Additional
 Debug: Value '$$$$$$$$' for attribute file of routeProbe isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -17,15 +16,15 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
+Debug: Removing routeProbe 'rp_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
+Debug: Adding routeProbe 'rp_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Additionals saved
-Debug: Deleting unreferenced routeProbe 'routeProbe_gneE3_0'
+Debug: Deleting unreferenced routeProbe 'rp_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

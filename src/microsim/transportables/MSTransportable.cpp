@@ -29,6 +29,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSEventControl.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
@@ -85,11 +86,7 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
     MSStage* prior = *myStep;
     const std::string& error = prior->setArrived(net, this, time, vehicleArrived);
     // must be done before increasing myStep to avoid invalid state for rendering
-    if (myAmPerson) {
-        prior->getEdge()->removePerson(this);
-    } else {
-        prior->getEdge()->removeContainer(this);
-    }
+    prior->getEdge()->removeTransportable(this);
     myStep++;
     if (error != "") {
         throw ProcessError(error);
@@ -138,8 +135,10 @@ MSTransportable::setDeparted(SUMOTime now) {
 
 SUMOTime
 MSTransportable::getDeparture() const {
-    if (myPlan->size() > 1 && (*myPlan)[1]->getDeparted() >= 0) {
-        return (*myPlan)[1]->getDeparted();
+    for (const MSStage* const stage : *myPlan) {
+        if (stage->getDeparted() >= 0) {
+            return stage->getDeparted();
+        }
     }
     return -1;
 }
@@ -227,6 +226,31 @@ MSTransportable::routeOutput(OutputDevice& os, const bool withRouteLength) const
 
 
 void
+MSTransportable::setAbortWaiting(const SUMOTime timeout) {
+    if (timeout < 0 && myAbortCommand != nullptr) {
+        myAbortCommand->deschedule();
+        myAbortCommand = nullptr;
+        return;
+    }
+    myAbortCommand = new WrappingCommand<MSTransportable>(this, &MSTransportable::abortStage);
+    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myAbortCommand, SIMSTEP + timeout);
+}
+
+
+SUMOTime
+MSTransportable::abortStage(SUMOTime step) {
+    WRITE_WARNINGF("Teleporting % '%'; waited too long, from edge '%', time=%.",
+                   isPerson() ? "person" : "container", getID(), (*myStep)->getEdge()->getID(), time2string(step));
+    (*myStep)->abort(this);
+    if (!proceed(MSNet::getInstance(), step)) {
+        MSNet::getInstance()->getPersonControl().erase(this);
+    }
+    return 0;
+}
+
+
+
+void
 MSTransportable::appendStage(MSStage* stage, int next) {
     // myStep is invalidated upon modifying myPlan
     const int stepIndex = (int)(myStep - myPlan->begin());
@@ -258,18 +282,19 @@ MSTransportable::removeStage(int next, bool stayInSim) {
             appendStage(new MSStageWaiting(getEdge(), nullptr, 0, 0, getEdgePos(), "last stage removed", false));
         }
         (*myStep)->abort(this);
-        if (!proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
+        if (!proceed(MSNet::getInstance(), SIMSTEP)) {
             MSNet::getInstance()->getPersonControl().erase(this);
-        };
+        }
     }
 }
 
 
 void
 MSTransportable::setSpeed(double speed) {
-    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
+    for (MSTransportablePlan::const_iterator i = myStep; i != myPlan->end(); ++i) {
         (*i)->setSpeed(speed);
     }
+    getSingularType().setMaxSpeed(speed);
 }
 
 
@@ -332,7 +357,7 @@ MSTransportable::hasArrived() const {
 
 bool
 MSTransportable::hasDeparted() const {
-    return myPlan->size() > 0 && myPlan->front()->getDeparted() >= 0;
+    return myPlan->size() > 0 && (myPlan->front()->getDeparted() >= 0 || myStep > myPlan->begin());
 }
 
 
@@ -459,13 +484,19 @@ MSTransportable::saveState(OutputDevice& out) {
     // this saves lots of departParameters which are only needed for transportables that did not yet depart
     // the parameters may hold the name of a vTypeDistribution but we are interested in the actual type
     myParameter->write(out, OptionsCont::getOptions(), myAmPerson ? SUMO_TAG_PERSON : SUMO_TAG_CONTAINER, getVehicleType().getID());
-    std::ostringstream state;
+    if (!myParameter->wasSet(VEHPARS_SPEEDFACTOR_SET) && getSpeedFactor() != 1) {
+        out.setPrecision(MAX2(gPrecisionRandom, gPrecision));
+        out.writeAttr(SUMO_ATTR_SPEEDFACTOR, getSpeedFactor());
+        out.setPrecision(gPrecision);
+    }
     int stepIdx = (int)(myStep - myPlan->begin());
     for (auto it = myPlan->begin(); it != myStep; ++it) {
-        if ((*it)->getStageType() == MSStageType::TRIP) {
+        const MSStageType st = (*it)->getStageType();
+        if (st == MSStageType::TRIP || st == MSStageType::ACCESS) {
             stepIdx--;
         }
     }
+    std::ostringstream state;
     state << myParameter->parametersSet << " " << stepIdx;
     (*myStep)->saveState(state);
     out.writeAttr(SUMO_ATTR_STATE, state.str());

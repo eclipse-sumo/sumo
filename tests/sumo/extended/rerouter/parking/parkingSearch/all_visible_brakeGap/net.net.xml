@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-02-22 17:49:21 by Eclipse SUMO netedit Version v1_12_0+0772-88a3f93
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-34.80,-0.07,0.00,100.00" origBoundary="0.00,0.00,300.00,300.00" projParameter="!"/>
+
+    <edge id=":A0_0" function="internal">
+        <lane id=":A0_0_0" index="0" speed="13.89" length="2.58" shape="0.00,-1.60 0.70,-1.50 1.20,-1.20 1.50,-0.70 1.60,0.00"/>
+    </edge>
+    <edge id=":A1_0" function="internal">
+        <lane id=":A1_0_0" index="0" speed="13.89" length="2.61" shape="1.60,100.00 1.50,100.71 1.19,101.21 0.69,101.51 -0.02,101.60"/>
+    </edge>
+
+    <edge id="A0A1" from="A0" to="A1" priority="-1">
+        <lane id="A0A1_0" index="0" speed="13.89" length="100.00" shape="1.60,0.00 1.60,100.00"/>
+    </edge>
+    <edge id="A1A0" from="A1" to="A0" priority="-1" shape="0.00,100.00 -34.80,99.52 -34.75,-0.07 0.00,0.00">
+        <lane id="A1A0_0" index="0" speed="13.89" length="175.51" shape="-0.02,101.60 -36.40,101.10 -36.35,-1.67 0.00,-1.60"/>
+    </edge>
+
+    <junction id="A0" type="priority" x="0.00" y="0.00" incLanes="A1A0_0" intLanes=":A0_0_0" shape="0.00,0.00 3.20,0.00 0.01,-3.20">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="A1" type="priority" x="0.00" y="100.00" incLanes="A0A1_0" intLanes=":A1_0_0" shape="3.20,100.00 0.00,100.00 -0.04,103.20">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="A0A1" to="A1A0" fromLane="0" toLane="0" via=":A1_0_0" dir="l" state="M"/>
+    <connection from="A1A0" to="A0A1" fromLane="0" toLane="0" via=":A0_0_0" dir="l" state="M"/>
+
+    <connection from=":A0_0" to="A0A1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":A1_0" to="A1A0" fromLane="0" toLane="0" dir="l" state="M"/>
+
+</net>

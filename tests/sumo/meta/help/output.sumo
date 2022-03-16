@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_11_0+1222-4acc24c9a7b
+Eclipse SUMO sumo Version v1_12_0+1393-6c843c74b2b
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -6,6 +6,8 @@ Usage: sumo [OPTION]*
 Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
   -C, --save-configuration FILE        Saves current configuration into FILE
+  --save-configuration.relative        Enforce relative paths when saving the
+                                        configuration
   --save-template FILE                 Saves a configuration template (empty)
                                         into FILE
   --save-schema FILE                   Saves the configuration schema into FILE
@@ -50,6 +52,8 @@ Output Options:
   --emission-output FILE               Save the emission values of each vehicle
   --emission-output.precision INT      Write emission values with the given
                                         precision (default 2)
+  --emission-output.geo                Save the positions in emission output
+                                        using geo-coordinates (lon/lat)
   --emission-output.step-scaled        Write emission values scaled to the step
                                         length rather than as per-second values
   --battery-output FILE                Save the battery values of each vehicle
@@ -126,6 +130,8 @@ Output Options:
                                         stops
   --vehroute-output.speedfactor        Write the vehicle speedFactor (defaults
                                         to 'true' if departSpeed is written)
+  --personroute-output FILE            Save person and container routes to
+                                        separate FILE
   --link-output FILE                   Save links states into FILE
   --railsignal-block-output FILE       Save railsignal-blocks into FILE
   --bt-output FILE                     Save bluetooth visibilities into FILE
@@ -144,10 +150,6 @@ Output Options:
                                         not ended at simulation end
   --collision-output FILE              Write collision information into FILE
   --statistic-output FILE              Write overall statistics into FILE
-  --movereminder-output FILE           Save movereminder states of selected
-                                        vehicles into FILE
-  --movereminder-output.vehicles STR[]  List of vehicle ids which shall save
-                                        their movereminder states
   --save-state.times STR[]             Use TIME[] as times at which a network
                                         state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -229,6 +231,10 @@ Processing Options:
   --time-to-teleport.remove            Whether vehicles shall be removed after
                                         waiting too long instead of being
                                         teleported
+  --time-to-teleport.ride TIME         The waiting time after which persons /
+                                        containers waiting for a pickup are
+                                        teleported. Negative values disable
+                                        teleporting
   --waiting-time-memory TIME           Length of time interval, over which
                                         accumulated waiting time is taken into
                                         account (default is 100s.)
@@ -367,6 +373,8 @@ Routing Options:
   --persontrip.taxi.waiting-time TIME  Estimated time for taxi pickup
   --railway.max-train-length FLOAT     Use FLOAT as a maximum train length when
                                         initializing the railway router
+  --replay-rerouting                   Replay exact rerouting sequence from
+                                        vehroute-output
   --device.rerouting.probability FLOAT  The probability for a vehicle to have a
                                         'rerouting' device
   --device.rerouting.explicit STR[]    Assign a 'rerouting' device to named
@@ -689,6 +697,19 @@ Vehroutes Device Options:
                                         vehicles
   --device.vehroute.deterministic      The 'vehroute' devices are set
                                         deterministic using a fraction of 1000
+
+Seeroad Device Options:
+  --device.Seeroad.probability FLOAT   The probability for a vehicle to have a
+                                        'Seeroad' device
+  --device.Seeroad.explicit STR[]      Assign a 'Seeroad' device to named
+                                        vehicles
+  --device.Seeroad.deterministic       The 'Seeroad' devices are set
+                                        deterministic using a fraction of 1000
+  --device.Seeroad.stdev FLOAT         The measurement noise parameter which
+                                        can be applied to the Seeroad device
+  --device.Seeroad.offset FLOAT        The measurement offset parameter which
+                                        can be applied to the Seeroad device ->
+                                        e.g. to force false measurements
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set

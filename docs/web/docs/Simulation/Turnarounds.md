@@ -28,7 +28,7 @@ with
     When loading trips with `fromJunction` or `toJunction` attributes with [sumo](../sumo.md) or [duarouter](../duarouter.md), the option **--junction-taz** must be set or an equivalent TAZ-file must be loaded.
 
 ## Trips between TAZ
-Instead of departing as junctions (which internally use specialised TAZ), the
+Instead of departing as junctions (which internally use specialized TAZ), the
 user may define traffic larger assignment zones (TAZ / districts) as origins and
 destinations of travel. This will also cause vehicles to pick a suitable
 direction. If the main goal of these zones is to avoid turnarounds, then the

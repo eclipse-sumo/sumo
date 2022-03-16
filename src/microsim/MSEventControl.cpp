@@ -94,6 +94,10 @@ MSEventControl::isEmpty() {
     return myEvents.empty();
 }
 
+bool
+MSEventControl::eventCompare(const Event& e1, const Event& e2) {
+    return e1.second == e2.second ? e1.first->priority < e2.first->priority : e1.second > e2.second;
+}
 
 void
 MSEventControl::clearState(SUMOTime currentTime, SUMOTime newTime) {

@@ -183,6 +183,11 @@ VehicleType::getPersonCapacity(const std::string& typeID) {
 }
 
 
+double
+VehicleType::getScale(const std::string& typeID) {
+    return Dom::getDouble(libsumo::VAR_SCALE, typeID);
+}
+
 void
 VehicleType::setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset) {
     //if (actionStepLength < 0) {
@@ -313,6 +318,11 @@ VehicleType::setMaxSpeedLat(const std::string& typeID, double speed) {
 void
 VehicleType::setLateralAlignment(const std::string& typeID, const std::string& latAlignment) {
     Dom::setString(libsumo::VAR_LATALIGNMENT, typeID, latAlignment);
+}
+
+void
+VehicleType::setScale(const std::string& typeID, double value) {
+    Dom::setDouble(libsumo::VAR_SCALE, typeID, value);
 }
 
 }
