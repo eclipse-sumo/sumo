@@ -42,16 +42,16 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     myPersonSelector = new DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
 
     // Create tag selector for person plan
-    myPersonPlanTagSelector = new TagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
+    myPersonPlanTagSelector = new GNEM_TagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
 
     // Create person parameters
     myPersonPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create myPathCreator Module
-    myPathCreator = new PathCreator(this);
+    myPathCreator = new GNEM_PathCreator(this);
 
-    // Create HierarchicalElementTree modul
-    myPersonHierarchy = new HierarchicalElementTree(this);
+    // Create GNEM_HierarchicalElementTree modul
+    myPersonHierarchy = new GNEM_HierarchicalElementTree(this);
 }
 
 
@@ -137,13 +137,13 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
 }
 
 
-PathCreator*
+GNEM_PathCreator*
 GNEPersonPlanFrame::getPathCreator() const {
     return myPathCreator;
 }
 
 
-HierarchicalElementTree* 
+GNEM_HierarchicalElementTree* 
 GNEPersonPlanFrame::getPersonHierarchy() const {
     return myPersonHierarchy;
 }
@@ -230,7 +230,7 @@ GNEPersonPlanFrame::createPath() {
                     myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
                     myPersonSelector->getCurrentDemandElement(),
                     myPersonPlanAttributes, myPathCreator, false)) {
-            // refresh HierarchicalElementTree
+            // refresh GNEM_HierarchicalElementTree
             myPersonHierarchy->refreshHierarchicalElementTree();
             // abort path creation
             myPathCreator->abortPathCreation();

@@ -36,9 +36,9 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class PathCreator : public FXGroupBoxModule {
+class GNEM_PathCreator : public FXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(PathCreator)
+    FXDECLARE(GNEM_PathCreator)
 
 public:
     /// @brief class for path
@@ -94,15 +94,15 @@ public:
     };
 
     /// @brief default constructor
-    PathCreator(GNEFrame* frameParent);
+    GNEM_PathCreator(GNEFrame* frameParent);
 
     /// @brief destructor
-    ~PathCreator();
+    ~GNEM_PathCreator();
 
-    /// @brief show PathCreator for the given tag
+    /// @brief show GNEM_PathCreator for the given tag
     void showPathCreatorModule(SumoXMLTag element, const bool firstElement, const bool consecutives);
 
-    /// @brief show PathCreator
+    /// @brief show GNEM_PathCreator
     void hidePathCreatorModule();
 
     /// @brief get vClass
@@ -184,7 +184,7 @@ public:
     /// @}
 
 protected:
-    FOX_CONSTRUCTOR(PathCreator)
+    FOX_CONSTRUCTOR(GNEM_PathCreator)
 
     // @brief creation mode
     enum Mode {
@@ -265,8 +265,8 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    PathCreator(PathCreator*) = delete;
+    GNEM_PathCreator(GNEM_PathCreator*) = delete;
 
     /// @brief Invalidated assignment operator.
-    PathCreator& operator=(PathCreator*) = delete;
+    GNEM_PathCreator& operator=(GNEM_PathCreator*) = delete;
 };

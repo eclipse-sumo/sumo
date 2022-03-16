@@ -84,7 +84,7 @@
 // method definitions
 // ===========================================================================
 
-PathLegend::PathLegend(GNEFrame* frameParent) :
+GNEM_PathLegend::GNEM_PathLegend(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Information") {
     // declare label
     FXLabel* legendLabel = nullptr;
@@ -107,16 +107,16 @@ PathLegend::PathLegend(GNEFrame* frameParent) :
 }
 
 
-PathLegend::~PathLegend() {}
+GNEM_PathLegend::~GNEM_PathLegend() {}
 
 
 void
-PathLegend::showPathLegendModule() {
+GNEM_PathLegend::showPathLegendModule() {
     show();
 }
 
 void
-PathLegend::hidePathLegendModule() {
+GNEM_PathLegend::hidePathLegendModule() {
     hide();
 }
 

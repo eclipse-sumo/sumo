@@ -64,7 +64,7 @@ protected:
     /// @brief SumoBaseObject used for create wire
     CommonXMLStructure::SumoBaseObject* myBaseWire = nullptr;
 
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNEM_TagSelector
     void tagSelected();
 
 private:
@@ -75,7 +75,7 @@ private:
     bool buildWireOverView(const GNETagProperties& tagValues);
 
     /// @brief item selector
-    TagSelector* myWireTagSelector = nullptr;
+    GNEM_TagSelector* myWireTagSelector = nullptr;
 
     /// @brief internal wire attributes
     GNEFrameAttributeModules::AttributesCreator* myWireAttributes = nullptr;
@@ -84,7 +84,7 @@ private:
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes = nullptr;
 
     /// @brief Select wire parent
-    SelectorParent* mySelectorWireParent = nullptr;
+    GNEM_SelectorParent* mySelectorWireParent = nullptr;
 
     /// @brief Module for select consecutive lanes
     GNEM_ConsecutiveLaneSelector* myConsecutiveLaneSelector;

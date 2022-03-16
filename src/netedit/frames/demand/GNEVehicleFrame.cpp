@@ -103,7 +103,7 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myVehicleBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create item Selector modul for vehicles
-    myVehicleTagSelector = new TagSelector(this, GNETagProperties::TagType::VEHICLE, SUMO_TAG_TRIP);
+    myVehicleTagSelector = new GNEM_TagSelector(this, GNETagProperties::TagType::VEHICLE, SUMO_TAG_TRIP);
 
     // Create vehicle type selector and set DEFAULT_VTYPE_ID as default element
     myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
@@ -111,8 +111,8 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     // Create vehicle parameters
     myVehicleAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
-    // create PathCreator Module
-    myPathCreator = new PathCreator(this);
+    // create GNEM_PathCreator Module
+    myPathCreator = new GNEM_PathCreator(this);
 
     // Create Help Creation Module
     myHelpCreation = new HelpCreation(this);
@@ -264,10 +264,10 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             return false;
         }
     } else if (addEdge && objectsUnderCursor.getEdgeFront()) {
-        // add clicked edge in PathCreator
+        // add clicked edge in GNEM_PathCreator
         return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (addJunction && objectsUnderCursor.getJunctionFront()) {
-        // add clicked junction in PathCreator
+        // add clicked junction in GNEM_PathCreator
         return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else {
         return false;
@@ -275,13 +275,13 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
 }
 
 
-TagSelector*
+GNEM_TagSelector*
 GNEVehicleFrame::getVehicleTagSelector() const {
     return myVehicleTagSelector;
 }
 
 
-PathCreator*
+GNEM_PathCreator*
 GNEVehicleFrame::getPathCreator() const {
     return myPathCreator;
 }

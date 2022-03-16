@@ -513,7 +513,7 @@ GNEGenericDataFrame::getAttributeSelector() const {
 }
 
 
-PathCreator*
+GNEM_PathCreator*
 GNEGenericDataFrame::getPathCreator() const {
     return myPathCreator;
 }
@@ -567,9 +567,9 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
     myAttributeSelector = new AttributeSelector(this, tag);
     // create parameter editor modul
     myGenericDataAttributes = new GNEFrameAttributeModules::GenericDataAttributes(this);
-    // create PathCreator modul
+    // create GNEM_PathCreator modul
     if (pathCreator) {
-        myPathCreator = new PathCreator(this);
+        myPathCreator = new GNEM_PathCreator(this);
     }
 }
 
@@ -585,7 +585,7 @@ GNEGenericDataFrame::intervalSelected() {
 
 void
 GNEGenericDataFrame::createPath() {
-    // this function has to be reimplemente in all child frames that uses a PathCreator
+    // this function has to be reimplemente in all child frames that uses a GNEM_PathCreator
 }
 
 /****************************************************************************/

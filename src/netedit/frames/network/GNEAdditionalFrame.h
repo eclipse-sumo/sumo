@@ -71,7 +71,7 @@ protected:
     /// @brief SumoBaseObject used for create additional
     CommonXMLStructure::SumoBaseObject* myBaseAdditional;
 
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNEM_TagSelector
     void tagSelected();
 
 private:
@@ -91,7 +91,7 @@ private:
     bool buildAdditionalOverView(const GNETagProperties& tagValues);
 
     /// @brief item selector
-    TagSelector* myAdditionalTagSelector;
+    GNEM_TagSelector* myAdditionalTagSelector;
 
     /// @brief internal additional attributes
     GNEFrameAttributeModules::AttributesCreator* myAdditionalAttributes;
@@ -100,7 +100,7 @@ private:
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Module for select a single parent additional
-    SelectorParent* mySelectorAdditionalParent;
+    GNEM_SelectorParent* mySelectorAdditionalParent;
 
     /// @brief Module for select edges
     GNEM_NetworkElementSelector* myEdgesSelector;

@@ -42,7 +42,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myPersonBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector modul for persons
-    myPersonTagSelector = new TagSelector(this, GNETagProperties::TagType::PERSON, SUMO_TAG_PERSON);
+    myPersonTagSelector = new GNEM_TagSelector(this, GNETagProperties::TagType::PERSON, SUMO_TAG_PERSON);
 
     // create person types selector modul and set DEFAULT_PEDTYPE_ID as default element
     myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_PEDTYPE_ID));
@@ -51,7 +51,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myPersonAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create tag Selector modul for person plans
-    myPersonPlanTagSelector = new TagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
+    myPersonPlanTagSelector = new GNEM_TagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
 
     // create person plan attributes
     myPersonPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
@@ -59,8 +59,8 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     // Create Netedit parameter
     myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
-    // create PathCreator Module
-    myPathCreator = new PathCreator(this);
+    // create GNEM_PathCreator Module
+    myPathCreator = new GNEM_PathCreator(this);
 
     // limit path creator to pedestrians
     myPathCreator->setVClass(SVC_PEDESTRIAN);
@@ -156,7 +156,7 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
 }
 
 
-PathCreator*
+GNEM_PathCreator*
 GNEPersonFrame::getPathCreator() const {
     return myPathCreator;
 }

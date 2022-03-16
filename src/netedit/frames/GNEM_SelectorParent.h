@@ -36,14 +36,14 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class SelectorParent : public FXGroupBoxModule {
+class GNEM_SelectorParent : public FXGroupBoxModule {
 
 public:
     /// @brief constructor
-    SelectorParent(GNEFrame* frameParent);
+    GNEM_SelectorParent(GNEFrame* frameParent);
 
     /// @brief destructor
-    ~SelectorParent();
+    ~GNEM_SelectorParent();
 
     /// @brief get currently parent additional selected
     std::string getIdSelected() const;
@@ -51,10 +51,10 @@ public:
     /// @brief select manually a element of the list
     void setIDSelected(const std::string& id);
 
-    /// @brief Show list of SelectorParent Module
+    /// @brief Show list of GNEM_SelectorParent Module
     void showSelectorParentModule(const std::vector<SumoXMLTag>& parentTags);
 
-    /// @brief hide SelectorParent Module
+    /// @brief hide GNEM_SelectorParent Module
     void hideSelectorParentModule();
 
     /// @brief Refresh list of Additional Parents Module

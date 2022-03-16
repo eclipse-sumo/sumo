@@ -57,11 +57,11 @@ public:
      */
     bool addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
-    /// @brief get PathCreator modul
-    PathCreator* getPathCreator() const;
+    /// @brief get GNEM_PathCreator modul
+    GNEM_PathCreator* getPathCreator() const;
 
 protected:
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNEM_TagSelector
     void tagSelected();
 
     /// @brief selected demand element in DemandElementSelector
@@ -78,13 +78,13 @@ private:
     CommonXMLStructure::SumoBaseObject* myPersonBaseObject;
 
     /// @brief person tag selector (used to select diffent kind of persons)
-    TagSelector* myPersonTagSelector;
+    GNEM_TagSelector* myPersonTagSelector;
 
     /// @brief Person Type selectors
     DemandElementSelector* myTypeSelector;
 
     /// @brief person plan selector (used to select diffent kind of person plan)
-    TagSelector* myPersonPlanTagSelector;
+    GNEM_TagSelector* myPersonPlanTagSelector;
 
     /// @brief internal vehicle attributes
     GNEFrameAttributeModules::AttributesCreator* myPersonAttributes;
@@ -96,7 +96,7 @@ private:
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
-    PathCreator* myPathCreator;
+    GNEM_PathCreator* myPathCreator;
 
     /// @brief build person and return it (note: function includes a call to begin(...), but NOT a call to end(...))
     GNEDemandElement* buildPerson();

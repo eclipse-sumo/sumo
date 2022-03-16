@@ -397,11 +397,11 @@ public:
     /// @brief get template editor
     TemplateEditor* getTemplateEditor() const;
 
-    /// @brief get OverlappedInspection modul
-    OverlappedInspection* getOverlappedInspection() const;
+    /// @brief get GNEM_OverlappedInspection modul
+    GNEM_OverlappedInspection* getOverlappedInspection() const;
 
-    /// @brief get HierarchicalElementTree modul
-    HierarchicalElementTree* getHierarchicalElementTree() const;
+    /// @brief get GNEM_HierarchicalElementTree modul
+    GNEM_HierarchicalElementTree* getHierarchicalElementTree() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -428,7 +428,7 @@ protected:
 
 private:
     /// @brief Overlapped Inspection
-    OverlappedInspection* myOverlappedInspection;
+    GNEM_OverlappedInspection* myOverlappedInspection;
 
     /// @brief Attribute editor
     GNEFrameAttributeModules::AttributesEditor* myAttributesEditor;
@@ -449,7 +449,7 @@ private:
     TemplateEditor* myTemplateEditor;
 
     /// @brief Attribute Carrier Hierarchy
-    HierarchicalElementTree* myHierarchicalElementTree;
+    GNEM_HierarchicalElementTree* myHierarchicalElementTree;
 
     /// @brief Back Button
     FXButton* myBackButton;

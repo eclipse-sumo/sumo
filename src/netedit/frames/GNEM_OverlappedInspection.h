@@ -36,19 +36,19 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class OverlappedInspection : public FXGroupBoxModule {
+class GNEM_OverlappedInspection : public FXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(OverlappedInspection)
+    FXDECLARE(GNEM_OverlappedInspection)
 
 public:
     /// @brief constructor
-    OverlappedInspection(GNEFrame* frameParent);
+    GNEM_OverlappedInspection(GNEFrame* frameParent);
 
     /// @brief constructor (used for filter objects under cusor
-    OverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag);
+    GNEM_OverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag);
 
     /// @brief destructor
-    ~OverlappedInspection();
+    ~GNEM_OverlappedInspection();
 
     /// @brief show template editor
     void showOverlappedInspection(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition);
@@ -92,7 +92,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    OverlappedInspection();
+    GNEM_OverlappedInspection();
 
     /// @brief build Fox Toolkit elemements
     void buildFXElements();

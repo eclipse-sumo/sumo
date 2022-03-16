@@ -231,8 +231,8 @@ public:
     /// @brief getattribute selector modul
     const AttributeSelector* getAttributeSelector() const;
 
-    /// @brief get PathCreator modul
-    PathCreator* getPathCreator() const;
+    /// @brief get GNEM_PathCreator modul
+    GNEM_PathCreator* getPathCreator() const;
 
     /// @bried get element type of this data frame
     SumoXMLTag getTag() const;
@@ -274,7 +274,7 @@ protected:
     GNEFrameAttributeModules::GenericDataAttributes* myGenericDataAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
-    PathCreator* myPathCreator;
+    GNEM_PathCreator* myPathCreator;
 
     /// @brief generic data tag
     SumoXMLTag myGenericDataTag;

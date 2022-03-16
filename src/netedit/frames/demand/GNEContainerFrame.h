@@ -57,11 +57,11 @@ public:
      */
     bool addContainer(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
-    /// @brief get PathCreator modul
-    PathCreator* getPathCreator() const;
+    /// @brief get GNEM_PathCreator modul
+    GNEM_PathCreator* getPathCreator() const;
 
 protected:
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNEM_TagSelector
     void tagSelected();
 
     /// @brief selected demand element in DemandElementSelector
@@ -78,13 +78,13 @@ private:
     CommonXMLStructure::SumoBaseObject* myContainerBaseObject;
 
     /// @brief container tag selector (used to select diffent kind of containers)
-    TagSelector* myContainerTagSelector;
+    GNEM_TagSelector* myContainerTagSelector;
 
     /// @brief Container Type selectors
     DemandElementSelector* myTypeSelector;
 
     /// @brief container plan selector (used to select diffent kind of container plan)
-    TagSelector* myContainerPlanTagSelector;
+    GNEM_TagSelector* myContainerPlanTagSelector;
 
     /// @brief internal vehicle attributes
     GNEFrameAttributeModules::AttributesCreator* myContainerAttributes;
@@ -96,7 +96,7 @@ private:
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
-    PathCreator* myPathCreator;
+    GNEM_PathCreator* myPathCreator;
 
     /// @brief build container and return it (note: function includes a call to begin(...), but NOT a call to end(...))
     GNEDemandElement* buildContainer();

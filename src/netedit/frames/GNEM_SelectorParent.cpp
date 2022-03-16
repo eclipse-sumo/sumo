@@ -85,10 +85,10 @@
 // method definitions
 // ===========================================================================
 
-SelectorParent::SelectorParent(GNEFrame* frameParent) :
+GNEM_SelectorParent::GNEM_SelectorParent(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Parent selector"),
     myFrameParent(frameParent) {
-    // Create label with the type of SelectorParent
+    // Create label with the type of GNEM_SelectorParent
     myParentsLabel = new FXLabel(getCollapsableFrame(), "No element selected", nullptr, GUIDesignLabelLeftThick);
     // Create list
     myParentsList = new FXList(getCollapsableFrame(), this, MID_GNE_SET_TYPE, GUIDesignListSingleElementFixedHeight);
@@ -97,11 +97,11 @@ SelectorParent::SelectorParent(GNEFrame* frameParent) :
 }
 
 
-SelectorParent::~SelectorParent() {}
+GNEM_SelectorParent::~GNEM_SelectorParent() {}
 
 
 std::string
-SelectorParent::getIdSelected() const {
+GNEM_SelectorParent::getIdSelected() const {
     for (int i = 0; i < myParentsList->getNumItems(); i++) {
         if (myParentsList->isItemSelected(i)) {
             return myParentsList->getItem(i)->getText().text();
@@ -112,7 +112,7 @@ SelectorParent::getIdSelected() const {
 
 
 void
-SelectorParent::setIDSelected(const std::string& id) {
+GNEM_SelectorParent::setIDSelected(const std::string& id) {
     // first unselect all
     for (int i = 0; i < myParentsList->getNumItems(); i++) {
         myParentsList->getItem(i)->setSelected(false);
@@ -129,7 +129,7 @@ SelectorParent::setIDSelected(const std::string& id) {
 
 
 void
-SelectorParent::showSelectorParentModule(const std::vector<SumoXMLTag>& parentTags) {
+GNEM_SelectorParent::showSelectorParentModule(const std::vector<SumoXMLTag>& parentTags) {
     if (parentTags.size() > 0) {
         myParentTags = parentTags;
         myParentsLabel->setText(("Parent type: " + toString(parentTags.front())).c_str());
@@ -143,14 +143,14 @@ SelectorParent::showSelectorParentModule(const std::vector<SumoXMLTag>& parentTa
 
 
 void
-SelectorParent::hideSelectorParentModule() {
+GNEM_SelectorParent::hideSelectorParentModule() {
     myParentTags.clear();
     hide();
 }
 
 
 void
-SelectorParent::refreshSelectorParentModule() {
+GNEM_SelectorParent::refreshSelectorParentModule() {
     // save current edited elements
     std::set<std::string> selectedItems;
     for (int i = 0; i < myParentsList->getNumItems(); i++) {

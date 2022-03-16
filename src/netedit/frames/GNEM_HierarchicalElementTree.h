@@ -36,24 +36,24 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class HierarchicalElementTree : public FXGroupBoxModule {
+class GNEM_HierarchicalElementTree : public FXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(HierarchicalElementTree)
+    FXDECLARE(GNEM_HierarchicalElementTree)
 
 public:
     /// @brief constructor
-    HierarchicalElementTree(GNEFrame* frameParent);
+    GNEM_HierarchicalElementTree(GNEFrame* frameParent);
 
     /// @brief destructor
-    ~HierarchicalElementTree();
+    ~GNEM_HierarchicalElementTree();
 
-    /// @brief show HierarchicalElementTree
+    /// @brief show GNEM_HierarchicalElementTree
     void showHierarchicalElementTree(GNEAttributeCarrier* AC);
 
-    /// @brief hide HierarchicalElementTree
+    /// @brief hide GNEM_HierarchicalElementTree
     void hideHierarchicalElementTree();
 
-    /// @brief refresh HierarchicalElementTree
+    /// @brief refresh GNEM_HierarchicalElementTree
     void refreshHierarchicalElementTree();
 
     /// @brief if given AttributeCarrier is the same of myHE, set it as nullptr
@@ -81,7 +81,7 @@ public:
     /// @}
 
 protected:
-    FOX_CONSTRUCTOR(HierarchicalElementTree)
+    FOX_CONSTRUCTOR(GNEM_HierarchicalElementTree)
 
     // @brief create pop-up menu in the positions X-Y for the clicked attribute carrier
     void createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC);

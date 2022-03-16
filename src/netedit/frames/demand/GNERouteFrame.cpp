@@ -198,10 +198,10 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     myRouteAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create consecutive edges modul
-    myPathCreator = new PathCreator(this);
+    myPathCreator = new GNEM_PathCreator(this);
 
     // create legend label
-    myPathLegend = new PathLegend(this);
+    myPathLegend = new GNEM_PathLegend(this);
 }
 
 
@@ -244,7 +244,7 @@ GNERouteFrame::addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::MouseB
 }
 
 
-PathCreator*
+GNEM_PathCreator*
 GNERouteFrame::getPathCreator() const {
     return myPathCreator;
 }

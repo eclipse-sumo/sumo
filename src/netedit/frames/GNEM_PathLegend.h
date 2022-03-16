@@ -36,14 +36,14 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class PathLegend : public FXGroupBoxModule {
+class GNEM_PathLegend : public FXGroupBoxModule {
 
 public:
     /// @brief constructor
-    PathLegend(GNEFrame* frameParent);
+    GNEM_PathLegend(GNEFrame* frameParent);
 
     /// @brief destructor
-    ~PathLegend();
+    ~GNEM_PathLegend();
 
     /// @brief show Legend modul
     void showPathLegendModule();

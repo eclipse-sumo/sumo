@@ -85,19 +85,19 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(TagSelector) TagSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAG_SELECTED,        TagSelector::onCmdSelectTag)
+FXDEFMAP(GNEM_TagSelector) TagSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAG_SELECTED,        GNEM_TagSelector::onCmdSelectTag)
 };
 
 // Object implementation
-FXIMPLEMENT(TagSelector,                FXGroupBoxModule,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
+FXIMPLEMENT(GNEM_TagSelector,                FXGroupBoxModule,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables) :
+GNEM_TagSelector::GNEM_TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Element"),
     myFrameParent(frameParent),
     myTagType(type),
@@ -108,12 +108,12 @@ TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, 
     setCurrentTagType(myTagType, onlyDrawables, false);
     // set current tag without notifying
     setCurrentTag(tag, false);
-    // TagSelector is always shown
+    // GNEM_TagSelector is always shown
     show();
 }
 
 
-TagSelector::~TagSelector() {
+GNEM_TagSelector::~GNEM_TagSelector() {
     // clear myACTemplates and myTagsMatchBox
     for (const auto& ACTemplate : myACTemplates) {
         delete ACTemplate;
@@ -123,19 +123,19 @@ TagSelector::~TagSelector() {
 
 
 void
-TagSelector::showTagSelector() {
+GNEM_TagSelector::showTagSelector() {
     show();
 }
 
 
 void
-TagSelector::hideTagSelector() {
+GNEM_TagSelector::hideTagSelector() {
     hide();
 }
 
 
 GNEAttributeCarrier*
-TagSelector::getTemplateAC(SumoXMLTag ACTag) const {
+GNEM_TagSelector::getTemplateAC(SumoXMLTag ACTag) const {
     // clear myACTemplates and myTagsMatchBox
     for (const auto& ACTemplate : myACTemplates) {
         if (ACTemplate->getAC()->getTagProperty().getTag() == ACTag) {
@@ -147,18 +147,18 @@ TagSelector::getTemplateAC(SumoXMLTag ACTag) const {
 
 
 GNEAttributeCarrier*
-TagSelector::getCurrentTemplateAC() const {
+GNEM_TagSelector::getCurrentTemplateAC() const {
     return myCurrentTemplateAC;
 }
 
 
 void
-TagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool onlyDrawables, const bool notifyFrameParent) {
+GNEM_TagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool onlyDrawables, const bool notifyFrameParent) {
     // check if net has proj
     const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
     // set new tagType
     myTagType = tagType;
-    // change TagSelector text
+    // change GNEM_TagSelector text
     switch (myTagType) {
         case GNETagProperties::TagType::NETWORKELEMENT:
             setText("network elements");
@@ -237,7 +237,7 @@ TagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool onl
 
 
 void
-TagSelector::setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent) {
+GNEM_TagSelector::setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent) {
     // first reset myCurrentTemplateAC
     myCurrentTemplateAC = nullptr;
     // iterate over all myTagsMatchBox
@@ -258,14 +258,14 @@ TagSelector::setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent) {
 
 
 void
-TagSelector::refreshTagSelector() {
+GNEM_TagSelector::refreshTagSelector() {
     // call tag selected function
     myFrameParent->tagSelected();
 }
 
 
 long
-TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
+GNEM_TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // iterate over all myTagsMatchBox
     for (int i = 0; i < (int)myACTemplates.size(); i++) {
         if (myACTemplates.at(i)->getAC() && myACTemplates.at(i)->getAC()->getTagProperty().getFieldString() == myTagsMatchBox->getText().text()) {
@@ -277,7 +277,7 @@ TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
             // call tag selected function
             myFrameParent->tagSelected();
             // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTagsMatchBox->getText() + "' in TagSelector").text());
+            WRITE_DEBUG(("Selected item '" + myTagsMatchBox->getText() + "' in GNEM_TagSelector").text());
             return 1;
         }
     }
@@ -286,7 +286,7 @@ TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // set color of myTypeMatchBox to red (invalid)
     myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in TagSelector");
+    WRITE_DEBUG("Selected invalid item in GNEM_TagSelector");
     // call tag selected function
     myFrameParent->tagSelected();
     return 1;
@@ -294,12 +294,12 @@ TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
 
 
 GNEAttributeCarrier*
-TagSelector::ACTemplate::getAC() const {
+GNEM_TagSelector::ACTemplate::getAC() const {
     return myAC;
 }
 
 
-TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagProperty) :
+GNEM_TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagProperty) :
     myAC(nullptr) {
     // create attribute carrier depending of
     switch (tagProperty.getTag()) {
@@ -486,7 +486,7 @@ TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPrope
 }
 
 
-TagSelector::ACTemplate::~ACTemplate() {
+GNEM_TagSelector::ACTemplate::~ACTemplate() {
     delete myAC;
 }
 

@@ -36,16 +36,16 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class TagSelector : public FXGroupBoxModule {
+class GNEM_TagSelector : public FXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(TagSelector)
+    FXDECLARE(GNEM_TagSelector)
 
 public:
     /// @brief constructor
-    TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables = true);
+    GNEM_TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables = true);
 
     /// @brief destructor
-    ~TagSelector();
+    ~GNEM_TagSelector();
 
     /// @brief show item selector
     void showTagSelector();
@@ -76,7 +76,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FOX_CONSTRUCTOR(TagSelector)
+    FOX_CONSTRUCTOR(GNEM_TagSelector)
 
 private:
     class ACTemplate {

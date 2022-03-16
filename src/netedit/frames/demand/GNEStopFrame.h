@@ -93,7 +93,7 @@ public:
     DemandElementSelector* getStopParentSelector() const;
 
 protected:
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNEM_TagSelector
     void tagSelected();
 
     /// @brief selected demand element in DemandElementSelector
@@ -110,7 +110,7 @@ private:
     DemandElementSelector* myStopParentSelector;
 
     /// @brief stop tag selector selector (used to select diffent kind of Stops)
-    TagSelector* myStopTagSelector;
+    GNEM_TagSelector* myStopTagSelector;
 
     /// @brief internal Stop attributes
     GNEFrameAttributeModules::AttributesCreator* myStopAttributes;

@@ -447,7 +447,7 @@ protected:
 
 private:
     /// @brief Overlapped Inspection
-    OverlappedInspection* myOverlappedInspection;
+    GNEM_OverlappedInspection* myOverlappedInspection;
 
     /// @brief modul for TLS Junction
     GNETLSEditorFrame::TLSJunction* myTLSJunction;

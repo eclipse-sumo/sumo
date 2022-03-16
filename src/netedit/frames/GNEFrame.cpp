@@ -231,7 +231,7 @@ GNEFrame::updateFrameAfterUndoRedo() {
 
 void
 GNEFrame::tagSelected() {
-    // this function has to be reimplemente in all child frames that uses a TagSelector modul
+    // this function has to be reimplemente in all child frames that uses a GNEM_TagSelector modul
 }
 
 
@@ -250,7 +250,7 @@ GNEFrame::shapeDrawed() {
 
 void
 GNEFrame::attributeUpdated() {
-    // this function has to be reimplemente in all child frames that uses a TagSelector modul
+    // this function has to be reimplemente in all child frames that uses a GNEM_TagSelector modul
 }
 
 
@@ -262,7 +262,7 @@ GNEFrame::attributesEditorExtendedDialogOpened()  {
 
 void
 GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
-    // this function has to be reimplemente in all child frames that uses a OverlappedInspection
+    // this function has to be reimplemente in all child frames that uses a GNEM_OverlappedInspection
 }
 
 
