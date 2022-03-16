@@ -72,12 +72,6 @@ FXDEFMAP(GNEFrameAttributeModules::GenericDataAttributes) GenericDataAttributesM
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters)
 };
 
-FXDEFMAP(GNEFrameAttributeModules::DrawingShape) DrawingShapeMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STARTDRAWING,   GNEFrameAttributeModules::DrawingShape::onCmdStartDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STOPDRAWING,    GNEFrameAttributeModules::DrawingShape::onCmdStopDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTDRAWING,   GNEFrameAttributeModules::DrawingShape::onCmdAbortDrawing)
-};
-
 FXDEFMAP(GNEFrameAttributeModules::NeteditAttributes) NeteditAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEFrameAttributeModules::NeteditAttributes::onCmdSetNeteditAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEFrameAttributeModules::NeteditAttributes::onCmdHelp)
@@ -91,7 +85,6 @@ FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorRow,          FXHorizontal
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditor,             FXGroupBoxModule,       AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorExtended,     FXGroupBoxModule,       AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
 FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,        FXGroupBoxModule,       GenericDataAttributesMap,       ARRAYNUMBER(GenericDataAttributesMap))
-FXIMPLEMENT(GNEFrameAttributeModules::DrawingShape,                 FXGroupBoxModule,       DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 FXIMPLEMENT(GNEFrameAttributeModules::NeteditAttributes,            FXGroupBoxModule,       NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
 
 
@@ -2185,157 +2178,6 @@ GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters(FXObject*, F
         myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
     }
     return 1;
-}
-
-// ---------------------------------------------------------------------------
-// GNEFrameAttributeModules::DrawingShape - methods
-// ---------------------------------------------------------------------------
-
-GNEFrameAttributeModules::DrawingShape::DrawingShape(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Drawing"),
-    myFrameParent(frameParent),
-    myDeleteLastCreatedPoint(false) {
-    // create start and stop buttons
-    myStartDrawingButton = new FXButton(getCollapsableFrame(), "Start drawing", 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
-    myStopDrawingButton = new FXButton(getCollapsableFrame(), "Stop drawing", 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
-    myAbortDrawingButton = new FXButton(getCollapsableFrame(), "Abort drawing", 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
-    // create information label
-    std::ostringstream information;
-    information
-            << "- 'Start drawing' or ENTER\n"
-            << "  draws shape boundary.\n"
-            << "- 'Stop drawing' or ENTER\n"
-            << "  creates shape.\n"
-            << "- 'Shift + Click'removes\n"
-            << "  last created point.\n"
-            << "- 'Abort drawing' or ESC\n"
-            << "  removes drawed shape.";
-    myInformationLabel = new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
-    // disable stop and abort functions as init
-    myStopDrawingButton->disable();
-    myAbortDrawingButton->disable();
-}
-
-
-GNEFrameAttributeModules::DrawingShape::~DrawingShape() {}
-
-
-void GNEFrameAttributeModules::DrawingShape::showDrawingShape() {
-    // abort current drawing before show
-    abortDrawing();
-    // show FXGroupBoxModule
-    FXGroupBoxModule::show();
-}
-
-
-void GNEFrameAttributeModules::DrawingShape::hideDrawingShape() {
-    // abort current drawing before hide
-    abortDrawing();
-    // show FXGroupBoxModule
-    FXGroupBoxModule::hide();
-}
-
-
-void
-GNEFrameAttributeModules::DrawingShape::startDrawing() {
-    // Only start drawing if DrawingShape modul is shown
-    if (shown()) {
-        // change buttons
-        myStartDrawingButton->disable();
-        myStopDrawingButton->enable();
-        myAbortDrawingButton->enable();
-    }
-}
-
-
-void
-GNEFrameAttributeModules::DrawingShape::stopDrawing() {
-    // try to build shape
-    if (myFrameParent->shapeDrawed()) {
-        // clear created points
-        myTemporalShapeShape.clear();
-        myFrameParent->getViewNet()->update();
-        // change buttons
-        myStartDrawingButton->enable();
-        myStopDrawingButton->disable();
-        myAbortDrawingButton->disable();
-    } else {
-        // abort drawing if shape cannot be created
-        abortDrawing();
-    }
-}
-
-
-void
-GNEFrameAttributeModules::DrawingShape::abortDrawing() {
-    // clear created points
-    myTemporalShapeShape.clear();
-    myFrameParent->getViewNet()->updateViewNet();
-    // change buttons
-    myStartDrawingButton->enable();
-    myStopDrawingButton->disable();
-    myAbortDrawingButton->disable();
-}
-
-
-void
-GNEFrameAttributeModules::DrawingShape::addNewPoint(const Position& P) {
-    if (myStopDrawingButton->isEnabled()) {
-        myTemporalShapeShape.push_back(P);
-    } else {
-        throw ProcessError("A new point cannot be added if drawing wasn't started");
-    }
-}
-
-
-void
-GNEFrameAttributeModules::DrawingShape::removeLastPoint() {
-
-}
-
-
-const PositionVector&
-GNEFrameAttributeModules::DrawingShape::getTemporalShape() const {
-    return myTemporalShapeShape;
-}
-
-
-bool
-GNEFrameAttributeModules::DrawingShape::isDrawing() const {
-    return myStopDrawingButton->isEnabled();
-}
-
-
-void
-GNEFrameAttributeModules::DrawingShape::setDeleteLastCreatedPoint(bool value) {
-    myDeleteLastCreatedPoint = value;
-}
-
-
-bool
-GNEFrameAttributeModules::DrawingShape::getDeleteLastCreatedPoint() {
-    return myDeleteLastCreatedPoint;
-}
-
-
-long
-GNEFrameAttributeModules::DrawingShape::onCmdStartDrawing(FXObject*, FXSelector, void*) {
-    startDrawing();
-    return 0;
-}
-
-
-long
-GNEFrameAttributeModules::DrawingShape::onCmdStopDrawing(FXObject*, FXSelector, void*) {
-    stopDrawing();
-    return 0;
-}
-
-
-long
-GNEFrameAttributeModules::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
-    abortDrawing();
-    return 0;
 }
 
 // ---------------------------------------------------------------------------
