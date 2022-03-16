@@ -22,14 +22,19 @@
 
 #include <utils/foxtools/FXGroupBoxModule.h>
 
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEFrame;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEMNetworkElementSelector : public FXGroupBoxModule {
+class GNEM_NetworkElementSelector : public FXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(GNEMNetworkElementSelector)
+    FXDECLARE(GNEM_NetworkElementSelector)
 
 public:
     /// @brief network element selector type
@@ -39,10 +44,10 @@ public:
     };
 
     /// @brief constructor
-    GNEMNetworkElementSelector(GNEFrame* frameParent, const NetworkElementType networkElementType);
+    GNEM_NetworkElementSelector(GNEFrame* frameParent, const NetworkElementType networkElementType);
 
     /// @brief destructor
-    ~GNEMNetworkElementSelector();
+    ~GNEM_NetworkElementSelector();
 
     /// @brief get selected IDs
     std::vector<std::string> getSelectedIDs() const;
@@ -50,10 +55,10 @@ public:
     /// @brief check if the given networkElement is being selected
     bool isNetworkElementSelected(const GNENetworkElement* networkElement) const;
 
-    /// @brief show GNEMNetworkElementSelector Module
+    /// @brief show GNEM_NetworkElementSelector Module
     void showNetworkElementsSelector();
 
-    /// @brief hide GNEMNetworkElementSelector Module
+    /// @brief hide GNEM_NetworkElementSelector Module
     void hideNetworkElementsSelector();
 
     /// @brief return true if modul is shown
@@ -76,7 +81,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    GNEMNetworkElementSelector();
+    GNEM_NetworkElementSelector();
 
 private:
     /// @brief pointer to frame parent
@@ -85,7 +90,7 @@ private:
     /// @brief button for use selected edges
     FXButton* myUseSelected = nullptr;
 
-    /// @brief List of GNEMNetworkElementSelector
+    /// @brief List of GNEM_NetworkElementSelector
     FXList* myList = nullptr;
 
     /// @brief button for clear selection

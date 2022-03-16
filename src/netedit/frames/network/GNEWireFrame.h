@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEMConsecutiveLaneSelector.h>
+#include <netedit/frames/GNEM_ConsecutiveLaneSelector.h>
 
 
 // ===========================================================================
@@ -53,7 +53,7 @@ public:
     bool addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get consecutive lane selector
-    GNEMConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
+    GNEM_ConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
 
     /// @brief create path
     void createPath();
@@ -85,5 +85,5 @@ private:
     GNEFrameModules::SelectorParent* mySelectorWireParent = nullptr;
 
     /// @brief Module for select consecutive lanes
-    GNEMConsecutiveLaneSelector* myConsecutiveLaneSelector;
+    GNEM_ConsecutiveLaneSelector* myConsecutiveLaneSelector;
 };

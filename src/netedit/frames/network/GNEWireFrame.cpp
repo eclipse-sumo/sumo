@@ -60,7 +60,7 @@ GNEWireFrame::GNEWireFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     mySelectorWireParent = new GNEFrameModules::SelectorParent(this);
 
     // Create list for E2Multilane lane selector
-    myConsecutiveLaneSelector = new GNEMConsecutiveLaneSelector(this, true);
+    myConsecutiveLaneSelector = new GNEM_ConsecutiveLaneSelector(this, true);
 }
 
 
@@ -114,7 +114,7 @@ GNEWireFrame::addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 }
 
 
-GNEMConsecutiveLaneSelector*
+GNEM_ConsecutiveLaneSelector*
 GNEWireFrame::getConsecutiveLaneSelector() const {
     return myConsecutiveLaneSelector;
 }

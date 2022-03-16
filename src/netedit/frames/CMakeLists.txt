@@ -10,10 +10,10 @@ set(netedit_frames_SRCS
    GNEFrameModules.cpp
    GNEFrameAttributeModules.h
    GNEFrameAttributeModules.cpp
-   GNEMConsecutiveLaneSelector.h
-   GNEMConsecutiveLaneSelector.cpp
-   GNEMNetworkElementSelector.h
-   GNEMNetworkElementSelector.cpp
+   GNEM_ConsecutiveLaneSelector.h
+   GNEM_ConsecutiveLaneSelector.cpp
+   GNEM_NetworkElementSelector.h
+   GNEM_NetworkElementSelector.cpp
    )
 
 add_library(netedit_frames STATIC ${netedit_frames_SRCS})

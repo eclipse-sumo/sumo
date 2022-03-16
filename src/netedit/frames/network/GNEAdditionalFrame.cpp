@@ -56,13 +56,13 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     mySelectorAdditionalParent = new GNEFrameModules::SelectorParent(this);
 
     // Create selector child edges
-    myEdgesSelector = new GNEMNetworkElementSelector(this, GNEMNetworkElementSelector::NetworkElementType::EDGE);
+    myEdgesSelector = new GNEM_NetworkElementSelector(this, GNEM_NetworkElementSelector::NetworkElementType::EDGE);
 
     // Create selector child lanes
-    myLanesSelector = new GNEMNetworkElementSelector(this, GNEMNetworkElementSelector::NetworkElementType::LANE);
+    myLanesSelector = new GNEM_NetworkElementSelector(this, GNEM_NetworkElementSelector::NetworkElementType::LANE);
 
     // Create list for E2Multilane lane selector
-    myConsecutiveLaneSelector = new GNEMConsecutiveLaneSelector(this, false);
+    myConsecutiveLaneSelector = new GNEM_ConsecutiveLaneSelector(this, false);
 }
 
 
@@ -130,19 +130,19 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
 }
 
 
-GNEMNetworkElementSelector*
+GNEM_NetworkElementSelector*
 GNEAdditionalFrame::getEdgesSelector() const {
     return myEdgesSelector;
 }
 
 
-GNEMNetworkElementSelector* 
+GNEM_NetworkElementSelector* 
 GNEAdditionalFrame::getLanesSelector() const {
     return myLanesSelector;
 }
 
 
-GNEMConsecutiveLaneSelector*
+GNEM_ConsecutiveLaneSelector*
 GNEAdditionalFrame::getConsecutiveLaneSelector() const {
     return myConsecutiveLaneSelector;
 }

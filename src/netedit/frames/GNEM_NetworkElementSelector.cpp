@@ -32,7 +32,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
-#include "GNEMNetworkElementSelector.h"
+#include "GNEM_NetworkElementSelector.h"
 #include "GNEFrame.h"
 
 
@@ -40,20 +40,20 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEMNetworkElementSelector) SelectorParentNetworkElementsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNEMNetworkElementSelector::onCmdUseSelectedElements),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNEMNetworkElementSelector::onCmdClearSelection),
+FXDEFMAP(GNEM_NetworkElementSelector) SelectorParentNetworkElementsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNEM_NetworkElementSelector::onCmdUseSelectedElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNEM_NetworkElementSelector::onCmdClearSelection),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMNetworkElementSelector, FXGroupBoxModule, SelectorParentNetworkElementsMap, ARRAYNUMBER(SelectorParentNetworkElementsMap))
+FXIMPLEMENT(GNEM_NetworkElementSelector, FXGroupBoxModule, SelectorParentNetworkElementsMap, ARRAYNUMBER(SelectorParentNetworkElementsMap))
 
 
 // ---------------------------------------------------------------------------
-// GNEMNetworkElementSelector - methods
+// GNEM_NetworkElementSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEMNetworkElementSelector::GNEMNetworkElementSelector(GNEFrame* frameParent, const NetworkElementType networkElementType) :
+GNEM_NetworkElementSelector::GNEM_NetworkElementSelector(GNEFrame* frameParent, const NetworkElementType networkElementType) :
     FXGroupBoxModule(frameParent->getContentFrame(), "NetworkElements"),
     myNetworkElementType(networkElementType),
     myFrameParent(frameParent) {
@@ -86,11 +86,11 @@ GNEMNetworkElementSelector::GNEMNetworkElementSelector(GNEFrame* frameParent, co
 }
 
 
-GNEMNetworkElementSelector::~GNEMNetworkElementSelector() {}
+GNEM_NetworkElementSelector::~GNEM_NetworkElementSelector() {}
 
 
 std::vector<std::string>
-GNEMNetworkElementSelector::getSelectedIDs() const {
+GNEM_NetworkElementSelector::getSelectedIDs() const {
     // declare solution
     std::vector<std::string> solution;
     // reserve
@@ -104,7 +104,7 @@ GNEMNetworkElementSelector::getSelectedIDs() const {
 
 
 bool
-GNEMNetworkElementSelector::isNetworkElementSelected(const GNENetworkElement* networkElement) const {
+GNEM_NetworkElementSelector::isNetworkElementSelected(const GNENetworkElement* networkElement) const {
     if (myFrameParent->shown() && shown()) {
         // check if id is selected
         for (int i = 0; i < myList->getNumItems(); i++) {
@@ -118,7 +118,7 @@ GNEMNetworkElementSelector::isNetworkElementSelected(const GNENetworkElement* ne
 
 
 void
-GNEMNetworkElementSelector::showNetworkElementsSelector() {
+GNEM_NetworkElementSelector::showNetworkElementsSelector() {
     // clear list of egdge ids
     myList->clearItems();
     // Show dialog
@@ -127,19 +127,19 @@ GNEMNetworkElementSelector::showNetworkElementsSelector() {
 
 
 void
-GNEMNetworkElementSelector::hideNetworkElementsSelector() {
+GNEM_NetworkElementSelector::hideNetworkElementsSelector() {
     hide();
 }
 
 
 bool 
-GNEMNetworkElementSelector::isShown() const {
+GNEM_NetworkElementSelector::isShown() const {
     return shown();
 }
 
 
 bool 
-GNEMNetworkElementSelector::toogleSelectedElement(const GNENetworkElement *networkElement) {
+GNEM_NetworkElementSelector::toogleSelectedElement(const GNENetworkElement *networkElement) {
     // Obtain Id's of list
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->getText().text() == networkElement->getID()) {
@@ -159,7 +159,7 @@ GNEMNetworkElementSelector::toogleSelectedElement(const GNENetworkElement *netwo
 
 
 void 
-GNEMNetworkElementSelector::clearSelection() {
+GNEM_NetworkElementSelector::clearSelection() {
     // clear list of egdge ids
     myList->clearItems();
     // update viewNet
@@ -168,7 +168,7 @@ GNEMNetworkElementSelector::clearSelection() {
 
 
 long
-GNEMNetworkElementSelector::onCmdUseSelectedElements(FXObject*, FXSelector, void*) {
+GNEM_NetworkElementSelector::onCmdUseSelectedElements(FXObject*, FXSelector, void*) {
     // clear list of egdge ids
     myList->clearItems();
     // set modul name
@@ -197,13 +197,13 @@ GNEMNetworkElementSelector::onCmdUseSelectedElements(FXObject*, FXSelector, void
 
 
 long
-GNEMNetworkElementSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
+GNEM_NetworkElementSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
     clearSelection();
     return 1;
 }
 
 
-GNEMNetworkElementSelector::GNEMNetworkElementSelector() :
+GNEM_NetworkElementSelector::GNEM_NetworkElementSelector() :
     myFrameParent(nullptr),
     myNetworkElementType(NetworkElementType::EDGE) {
 }

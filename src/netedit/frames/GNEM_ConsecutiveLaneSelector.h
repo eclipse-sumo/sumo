@@ -22,26 +22,31 @@
 
 #include <utils/foxtools/FXGroupBoxModule.h>
 
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEFrame;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEMConsecutiveLaneSelector : public FXGroupBoxModule {
+class GNEM_ConsecutiveLaneSelector : public FXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(GNEMConsecutiveLaneSelector)
+    FXDECLARE(GNEM_ConsecutiveLaneSelector)
 
 public:
     /// @brief default constructor
-    GNEMConsecutiveLaneSelector(GNEFrame* frameParent, const bool allowOneLane);
+    GNEM_ConsecutiveLaneSelector(GNEFrame* frameParent, const bool allowOneLane);
 
     /// @brief destructor
-    ~GNEMConsecutiveLaneSelector();
+    ~GNEM_ConsecutiveLaneSelector();
 
-    /// @brief show GNEMConsecutiveLaneSelector
+    /// @brief show GNEM_ConsecutiveLaneSelector
     void showConsecutiveLaneSelectorModule();
 
-    /// @brief show GNEMConsecutiveLaneSelector
+    /// @brief show GNEM_ConsecutiveLaneSelector
     void hideConsecutiveLaneSelectorModule();
 
     /// @brief get vector with lanes and clicked positions
@@ -85,7 +90,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    GNEMConsecutiveLaneSelector();
+    GNEM_ConsecutiveLaneSelector();
 
     /// @brief update InfoRouteLabel
     void updateInfoRouteLabel();
@@ -120,8 +125,8 @@ private:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEMConsecutiveLaneSelector(GNEMConsecutiveLaneSelector*) = delete;
+    GNEM_ConsecutiveLaneSelector(GNEM_ConsecutiveLaneSelector*) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEMConsecutiveLaneSelector& operator=(GNEMConsecutiveLaneSelector*) = delete;
+    GNEM_ConsecutiveLaneSelector& operator=(GNEM_ConsecutiveLaneSelector*) = delete;
 };
