@@ -19,7 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEFrameModules.h"
+
 #include "GNEFrameAttributeModules.h"
 
 // ===========================================================================
@@ -124,6 +124,9 @@ protected:
 
     /// @brief get predefinedTagsMML
     const std::vector<std::string>& getPredefinedTagsMML() const;
+
+    /// @brief build rainbow in frame modul
+    static FXLabel* buildRainbow(FXComposite* parent);
 
 private:
     /// @brief scroll windows that holds the content frame

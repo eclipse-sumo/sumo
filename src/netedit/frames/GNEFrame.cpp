@@ -277,4 +277,19 @@ GNEFrame::getPredefinedTagsMML() const {
     return myPredefinedTagsMML;
 }
 
+
+FXLabel*
+GNEFrame::buildRainbow(FXComposite* parent) {
+    // create label for color information
+    FXLabel* label = new FXLabel(parent, "Scale: Min -> Max", nullptr, GUIDesignLabelCenterThick);
+    // create frame for color scale
+    FXHorizontalFrame* horizontalFrameColors = new FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame);
+    for (const auto& color : GNEViewNetHelper::getRainbowScaledColors()) {
+        FXLabel* colorLabel = new FXLabel(horizontalFrameColors, "", nullptr, GUIDesignLabelLeft);
+        colorLabel->setBackColor(MFXUtils::getFXColor(color));
+    }
+    // return label
+    return label;
+}
+
 /****************************************************************************/

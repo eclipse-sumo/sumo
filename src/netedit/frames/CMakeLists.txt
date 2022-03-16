@@ -6,8 +6,6 @@ add_subdirectory(data)
 set(netedit_frames_SRCS
    GNEFrame.h
    GNEFrame.cpp
-   GNEFrameModules.h
-   GNEFrameModules.cpp
    GNEFrameAttributeModules.h
    GNEFrameAttributeModules.cpp
    GNEM_ConsecutiveLaneSelector.cpp

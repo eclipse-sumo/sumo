@@ -21,12 +21,15 @@
 #include <config.h>
 
 #include <utils/foxtools/FXGroupBoxModule.h>
+#include <utils/foxtools/FXTreeListDinamic.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
 class GNEFrame;
+class GNEDataSet;
+class GNEDataInterval;
 
 // ===========================================================================
 // class definitions
