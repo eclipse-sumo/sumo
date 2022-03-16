@@ -60,7 +60,7 @@ GNEWireFrame::GNEWireFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     mySelectorWireParent = new GNEFrameModules::SelectorParent(this);
 
     // Create list for E2Multilane lane selector
-    myConsecutiveLaneSelector = new GNECommonNetworkModules::ConsecutiveLaneSelector(this);
+    myConsecutiveLaneSelector = new GNECommonNetworkModules::ConsecutiveLaneSelector(this, true);
 }
 
 
@@ -126,7 +126,9 @@ GNEWireFrame::createPath() {
     const auto& tagProperty = myWireTagSelector->getCurrentTemplateAC()->getTagProperty();
     // first check that current tag is valid (currently only for overhead wires)
     if (tagProperty.getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
-        if (createBaseWireObject(tagProperty)) {
+        if (myConsecutiveLaneSelector->getLanePath().size() == 1) {
+            WRITE_WARNING("A " + toString(SUMO_TAG_OVERHEAD_WIRE_SECTION) + " needs at least two lane positions");
+        } else if (createBaseWireObject(tagProperty)) {
             // get attributes and values
             myWireAttributes->getAttributesAndValues(myBaseWire, true);
             // fill netedit attributes

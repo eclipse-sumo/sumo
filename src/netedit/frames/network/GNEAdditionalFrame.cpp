@@ -62,7 +62,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myLanesSelector = new GNECommonNetworkModules::NetworkElementsSelector(this, GNECommonNetworkModules::NetworkElementsSelector::NetworkElementType::LANE);
 
     // Create list for E2Multilane lane selector
-    myConsecutiveLaneSelector = new GNECommonNetworkModules::ConsecutiveLaneSelector(this);
+    myConsecutiveLaneSelector = new GNECommonNetworkModules::ConsecutiveLaneSelector(this, false);
 }
 
 

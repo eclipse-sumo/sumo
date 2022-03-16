@@ -220,16 +220,17 @@ GNECommonNetworkModules::NetworkElementsSelector::NetworkElementsSelector() :
 // GNECommonNetworkModules::ConsecutiveLaneSelector - methods
 // ---------------------------------------------------------------------------
 
-GNECommonNetworkModules::ConsecutiveLaneSelector::ConsecutiveLaneSelector(GNEFrame* frameParent) :
+GNECommonNetworkModules::ConsecutiveLaneSelector::ConsecutiveLaneSelector(GNEFrame* frameParent, const bool allowOneLane) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Consecutive lane selector"),
-    myFrameParent(frameParent) {
+    myFrameParent(frameParent),
+    myAllowOneLane(allowOneLane){
     // create label for route info
-    myInfoRouteLabel = new FXLabel(getCollapsableFrame(), "No lanes selected", 0, GUIDesignLabelFrameThicked);
+    myInfoPathLabel = new FXLabel(getCollapsableFrame(), "No lanes selected", 0, GUIDesignLabelFrameThicked);
     // create button for finish route creation
-    myFinishCreationButton = new FXButton(getCollapsableFrame(), "Finish route creation", nullptr, this, MID_GNE_FINISH, GUIDesignButton);
+    myFinishCreationButton = new FXButton(getCollapsableFrame(), "Finish path creation", nullptr, this, MID_GNE_FINISH, GUIDesignButton);
     myFinishCreationButton->disable();
     // create button for abort route creation
-    myAbortCreationButton = new FXButton(getCollapsableFrame(), "Abort route creation", nullptr, this, MID_GNE_ABORT, GUIDesignButton);
+    myAbortCreationButton = new FXButton(getCollapsableFrame(), "Abort path creation", nullptr, this, MID_GNE_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted lane
     myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), "Remove last inserted lane", nullptr, this, MID_GNE_REMOVELAST, GUIDesignButton);
@@ -237,8 +238,8 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::ConsecutiveLaneSelector(GNEFra
     // create check button
     myShowCandidateLanes = new FXCheckButton(getCollapsableFrame(), "Show candidate lanes", this, MID_GNE_SHOWCANDIDATES, GUIDesignCheckButton);
     myShowCandidateLanes->setCheck(TRUE);
-    // create backspace label (always shown)
-    new FXLabel(this, "BACKSPACE: undo click", 0, GUIDesignLabelFrameInformation);
+    // create information label
+    new FXLabel(this, "-BACKSPACE: undo click\n-ESC: Abort path creation", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -281,7 +282,9 @@ const std::vector<std::string>
 GNECommonNetworkModules::ConsecutiveLaneSelector::getLaneIDPath() const {
     std::vector<std::string> laneIDs;
     for (const auto& lane : myLanePath) {
-        laneIDs.push_back(lane.first->getID());
+        if (laneIDs.empty() || (laneIDs.back() != lane.first->getID())) {
+            laneIDs.push_back(lane.first->getID());
+        }
     }
     return laneIDs;
 }
@@ -291,13 +294,6 @@ bool
 GNECommonNetworkModules::ConsecutiveLaneSelector::addLane(GNELane* lane) {
     // first check if lane is valid
     if (lane == nullptr) {
-        return false;
-    }
-    // continue depending of number of selected eges
-    if ((myLanePath.size() > 0) && (myLanePath.back().first == lane)) {
-        // Write warning
-        WRITE_WARNING("Double lanes aren't allowed");
-        // abort add lane
         return false;
     }
     // check candidate lane
@@ -312,9 +308,30 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::addLane(GNELane* lane) {
     // get mouse position
     const Position mousePos = myFrameParent->getViewNet()->snapToActiveGrid(myFrameParent->getViewNet()->getPositionInformation());
     // calculate lane offset
-    const double offset = lane->getLaneShape().nearest_offset_to_point2D(mousePos);
+    const double posOverLane = lane->getLaneShape().nearest_offset_to_point2D(mousePos);
     // All checks ok, then add it in selected elements
-    myLanePath.push_back(std::make_pair(lane, offset));
+    if (myLanePath.empty()) {
+        myLanePath.push_back(std::make_pair(lane, posOverLane));
+    } else if ((myLanePath.size() == 1) && (myLanePath.front().first == lane)) {
+        if (myAllowOneLane) {
+            myLanePath.push_back(std::make_pair(lane, posOverLane));
+        } else {
+            // Write warning
+            WRITE_WARNING("Lane path needs at least two lanes");
+            // abort add lane
+            return false;
+        }
+    } else if (myLanePath.back().first == lane) {
+        // only change last position
+        myLanePath.back().second = posOverLane;
+    } else {
+        myLanePath.push_back(std::make_pair(lane, posOverLane));
+        // special case if we clicked over a new lane after a previous double lane
+        if ((myLanePath.size() == 3) && (myLanePath.at(0).first == myLanePath.at(1).first)) {
+            // remove second lane
+            myLanePath.erase(myLanePath.begin() + 1);
+        }
+    }
     // enable abort route button
     myAbortCreationButton->enable();
     // enable finish button
@@ -393,7 +410,12 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::drawTemporalConsecutiveLanePat
         // declare vector with shapes
         std::vector<PositionVector> shapes;
         // iterate over lanes (only if there is more than one)
-        if (myLanePath.size() > 1) {
+        if ((myLanePath.size() == 2) &&  (myLanePath.front().first == myLanePath.back().first)) {
+            // only add first lane shape
+            shapes.push_back(myLanePath.front().first->getLaneShape());
+            // adjust shape
+            shapes.front() = shapes.front().getSubpart(myLanePath.front().second, myLanePath.back().second);
+        } else if (myLanePath.size() > 1) {
             // get shapes
             for (int i = 0; i < (int)myLanePath.size(); i++) {
                 // get lane
@@ -533,6 +555,12 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdShowCandidateLanes(FXObje
 }
 
 
+GNECommonNetworkModules::ConsecutiveLaneSelector::ConsecutiveLaneSelector() :
+    myFrameParent(nullptr),
+    myAllowOneLane(false) {
+}
+
+
 void
 GNECommonNetworkModules::ConsecutiveLaneSelector::updateInfoRouteLabel() {
     if (myLanePath.size() > 0) {
@@ -547,9 +575,9 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::updateInfoRouteLabel() {
                 << "- Selected lanes: " << toString(myLanePath.size()) << "\n"
                 << "- Length: " << toString(length);
         // set new label
-        myInfoRouteLabel->setText(information.str().c_str());
+        myInfoPathLabel->setText(information.str().c_str());
     } else {
-        myInfoRouteLabel->setText("No lanes selected");
+        myInfoPathLabel->setText("No lanes selected");
     }
 }
 

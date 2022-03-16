@@ -114,7 +114,7 @@ public:
 
     public:
         /// @brief default constructor
-        ConsecutiveLaneSelector(GNEFrame* frameParent);
+        ConsecutiveLaneSelector(GNEFrame* frameParent, const bool allowOneLane);
 
         /// @brief destructor
         ~ConsecutiveLaneSelector();
@@ -166,7 +166,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(ConsecutiveLaneSelector)
+        ConsecutiveLaneSelector();
 
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
@@ -181,20 +181,23 @@ public:
         /// @brief vector with lanes and clicked positions
         std::vector<std::pair<GNELane*, double> > myLanePath;
 
-        /// @brief label with route info
-        FXLabel* myInfoRouteLabel;
+        /// @brief label with path info
+        FXLabel* myInfoPathLabel = nullptr;
 
         /// @brief button for finish route creation
-        FXButton* myFinishCreationButton;
+        FXButton* myFinishCreationButton = nullptr;
 
         /// @brief button for abort route creation
-        FXButton* myAbortCreationButton;
+        FXButton* myAbortCreationButton = nullptr;
 
         /// @brief button for removing last inserted element
-        FXButton* myRemoveLastInsertedElement;
+        FXButton* myRemoveLastInsertedElement = nullptr;
 
         /// @brief CheckBox for show candidate lanes
-        FXCheckButton* myShowCandidateLanes;
+        FXCheckButton* myShowCandidateLanes = nullptr;
+
+        /// @brief allow one lane
+        const bool myAllowOneLane;
 
     private:
         /// @brief Invalidated copy constructor.
