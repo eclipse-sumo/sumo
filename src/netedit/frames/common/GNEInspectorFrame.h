@@ -86,14 +86,17 @@ public:
         /// @brief pointer to inspector frame parent
         GNEInspectorFrame* myInspectorFrameParent;
 
-        /// @frame horizontal frame for replace the parent additional
-        FXHorizontalFrame* myHorizontalFrameParentAdditional;
+        /// @brief button for set element as front button
+        FXButton* myMarkFrontElementButton;
 
         /// @brief Label for parent additional
         FXLabel* myLabelParentAdditional;
 
         /// @brief pointer for replace the parent additional
         FXTextField* myTextFieldParentAdditional;
+
+        /// @brief button for set new parent
+        MFXCheckableButton* mySetNewParentButton;
 
         /// @frame horizontal frame for close shape
         FXHorizontalFrame* myHorizontalFrameCloseShape;
@@ -103,9 +106,6 @@ public:
 
         /// @brief pointer to check box "Block movement"
         FXCheckButton* myCheckBoxCloseShape;
-
-        /// @brief button for set element as front button
-        FXButton* myMarkFrontElementButton;
 
         /// @brief button for help
         FXButton* myHelpButton;
