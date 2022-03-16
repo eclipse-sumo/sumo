@@ -23,9 +23,9 @@
 #include <netedit/frames/GNEFrame.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNEM_DemandElementSelector.h>
-#include <netedit/frames/GNEM_TagSelector.h>
 
+class DemandElementSelector;
+class GNEM_TagSelector;
 
 // ===========================================================================
 // class definitions
