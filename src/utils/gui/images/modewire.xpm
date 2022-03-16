@@ -6,7 +6,7 @@ static const char *modewire_xpm[] = {
 ". c #FF6E00",
 "X c #FFBF00",
 "o c #FFEE00",
-"+ c none",
+"+ c None",
 /* pixels */
 "                ",
 "++++++++++++++++",
