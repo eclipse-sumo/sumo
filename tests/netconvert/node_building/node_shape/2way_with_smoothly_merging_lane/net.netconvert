@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:08 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-16 08:17:41 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -35,25 +40,25 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-596212.17,-5782161.13" convBoundary="0.00,0.00,286.51,110.26" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="CE" from="C" to="E" priority="-2" shape="166.22,31.04 206.73,22.92 247.96,12.60 286.51,0.00">
-        <lane id="CE_0" index="0" speed="19.44" length="95.56" shape="198.21,19.73 205.67,18.24 246.63,7.98 285.02,-4.56"/>
-        <lane id="CE_1" index="1" speed="19.44" length="95.56" shape="198.84,22.87 206.38,21.36 247.52,11.06 286.01,-1.52"/>
+        <lane id="CE_0" index="0" speed="19.44" friction="1.00" length="95.56" shape="198.21,19.73 205.67,18.24 246.63,7.98 285.02,-4.56"/>
+        <lane id="CE_1" index="1" speed="19.44" friction="1.00" length="95.56" shape="198.84,22.87 206.38,21.36 247.52,11.06 286.01,-1.52"/>
     </edge>
     <edge id="CW" from="C" to="W" priority="-2" shape="166.22,31.04 96.97,39.70 87.38,40.63 54.56,39.99 0.00,32.26">
-        <lane id="CW_0" index="0" speed="27.78" length="200.29" shape="192.60,35.80 97.85,47.65 87.69,48.64 53.92,47.98 -1.12,40.18"/>
-        <lane id="CW_1" index="1" speed="27.78" length="200.29" shape="192.21,32.63 97.50,44.47 87.57,45.43 54.18,44.78 -0.67,37.01"/>
-        <lane id="CW_2" index="2" speed="27.78" length="200.29" shape="191.81,29.45 97.15,41.29 87.44,42.23 54.43,41.59 -0.22,33.84"/>
+        <lane id="CW_0" index="0" speed="27.78" friction="1.00" length="200.29" shape="192.60,35.80 97.85,47.65 87.69,48.64 53.92,47.98 -1.12,40.18"/>
+        <lane id="CW_1" index="1" speed="27.78" friction="1.00" length="200.29" shape="192.21,32.63 97.50,44.47 87.57,45.43 54.18,44.78 -0.67,37.01"/>
+        <lane id="CW_2" index="2" speed="27.78" friction="1.00" length="200.29" shape="191.81,29.45 97.15,41.29 87.44,42.23 54.43,41.59 -0.22,33.84"/>
     </edge>
     <edge id="EC" from="E" to="C" priority="-2" shape="286.51,0.00 247.96,12.60 206.73,22.92 166.22,31.04">
-        <lane id="EC_0" index="0" speed="19.44" length="95.56" shape="288.00,4.56 249.29,17.22 207.79,27.60 200.10,29.15"/>
-        <lane id="EC_1" index="1" speed="19.44" length="95.56" shape="287.01,1.52 248.40,14.14 207.08,24.48 199.47,26.01"/>
+        <lane id="EC_0" index="0" speed="19.44" friction="1.00" length="95.56" shape="288.00,4.56 249.29,17.22 207.79,27.60 200.10,29.15"/>
+        <lane id="EC_1" index="1" speed="19.44" friction="1.00" length="95.56" shape="287.01,1.52 248.40,14.14 207.08,24.48 199.47,26.01"/>
     </edge>
     <edge id="NC" from="N" to="C" priority="-2" spreadType="center" shape="235.12,110.26 233.53,86.86 227.85,62.28 221.91,51.03 216.62,42.03 205.81,35.14 188.78,31.48 166.22,31.04">
-        <lane id="NC_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="13.89" length="93.81" shape="235.12,110.26 233.53,86.86 227.85,62.28 221.91,51.03 216.62,42.03 206.64,35.67"/>
+        <lane id="NC_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="13.89" friction="1.00" length="93.81" shape="235.12,110.26 233.53,86.86 227.85,62.28 221.91,51.03 216.62,42.03 206.64,35.67"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="-2" shape="0.00,32.26 54.56,39.99 87.38,40.63 96.97,39.70 166.22,31.04">
-        <lane id="WC_0" index="0" speed="27.78" length="200.29" shape="1.12,24.34 55.20,32.00 87.07,32.62 96.09,31.75 190.62,19.93"/>
-        <lane id="WC_1" index="1" speed="27.78" length="200.29" shape="0.67,27.51 54.94,35.20 87.19,35.83 96.44,34.93 191.01,23.10"/>
-        <lane id="WC_2" index="2" speed="27.78" length="200.29" shape="0.22,30.68 54.69,38.39 87.32,39.03 96.79,38.11 191.41,26.28"/>
+        <lane id="WC_0" index="0" speed="27.78" friction="1.00" length="200.29" shape="1.12,24.34 55.20,32.00 87.07,32.62 96.09,31.75 190.62,19.93"/>
+        <lane id="WC_1" index="1" speed="27.78" friction="1.00" length="200.29" shape="0.67,27.51 54.94,35.20 87.19,35.83 96.44,34.93 191.01,23.10"/>
+        <lane id="WC_2" index="2" speed="27.78" friction="1.00" length="200.29" shape="0.22,30.68 54.69,38.39 87.32,39.03 96.79,38.11 191.41,26.28"/>
     </edge>
 
     <junction id="C" type="priority" x="166.22" y="31.04" incLanes="NC_0 EC_0 EC_1 WC_0 WC_1 WC_2" intLanes="" shape="206.53,37.50 206.76,33.85 203.72,32.01 202.54,31.39 201.60,30.97 200.89,30.74 200.41,30.71 197.89,18.16 195.15,18.43 194.17,18.35 193.19,18.25 192.01,18.22 190.42,18.34 192.80,37.39 195.78,36.85 198.10,36.22 200.05,35.74 201.91,35.64 203.98,36.15">

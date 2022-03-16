@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:37 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-16 08:18:23 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -67,15 +72,15 @@ SPDX-License-Identifier: EPL-2.0
     <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id="-50495070" from="245981493" to="245981495" priority="20" type="railway.rail" shape="178.56,46.39 87.96,30.54 42.79,16.97 0.00,0.00">
-        <lane id="-50495070_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="185.50" shape="178.28,47.96 87.59,32.10 42.27,18.49 -0.59,1.49"/>
+        <lane id="-50495070_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" friction="1.00" length="185.50" shape="178.28,47.96 87.59,32.10 42.27,18.49 -0.59,1.49"/>
         <param key="railway:track_ref" value="1"/>
     </edge>
     <edge id="50495070" from="245981495" to="245981493" priority="20" type="railway.rail" shape="0.00,0.00 42.79,16.97 87.96,30.54 178.56,46.39">
-        <lane id="50495070_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="184.84" shape="0.59,-1.49 43.32,15.46 88.33,28.99 178.83,44.81"/>
+        <lane id="50495070_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" friction="1.00" length="184.84" shape="0.59,-1.49 43.32,15.46 88.33,28.99 178.83,44.81"/>
         <param key="railway:track_ref" value="1"/>
     </edge>
 
     <junction id="245981493" type="dead_end" x="178.56" y="46.39" incLanes="50495070_0" intLanes="" shape="178.56,46.39 179.11,43.23 178.56,46.39"/>
-    <junction id="245981495" type="dead_end" x="0.00" y="0.00" incLanes="-50495070_0" intLanes="" shape="0.00,0.00 -1.18,2.97 -0.00,-0.00"/>
+    <junction id="245981495" type="dead_end" x="0.00" y="0.00" incLanes="-50495070_0" intLanes="" shape="0.00,0.00 -1.18,2.97 0.00,0.00"/>
 
 </net>

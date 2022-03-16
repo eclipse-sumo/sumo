@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-02 20:22:47 by Eclipse SUMO netgenerate Version v1_10_0+1799-3994fee9d71
+<!-- generated on 2022-03-16 10:17:13 by Eclipse SUMO netgenerate Version v1_12_0+1393-6c843c74b2b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <spider_network>
@@ -41,284 +46,284 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="163.40,191.15" convBoundary="0.00,0.00,364.70,382.88" origBoundary="-161.80,-190.21,200.00,190.21" projParameter="!"/>
 
     <edge id="A1B1" from="A1" to="A1B1.60.00" priority="-1" shape="163.40,189.55 223.40,189.55">
-        <lane id="A1B1_0" index="0" speed="13.89" length="60.43" shape="174.01,187.95 219.40,187.95"/>
+        <lane id="A1B1_0" index="0" speed="13.89" friction="1.00" length="60.43" shape="174.01,187.95 219.40,187.95"/>
     </edge>
     <edge id="A1B1.60.00" from="A1B1.60.00" to="B1" priority="-1" shape="223.40,192.75 263.40,192.75">
-        <lane id="A1B1.60.00_0" index="0" speed="13.89" length="40.40" shape="227.40,187.95 249.98,187.95"/>
-        <lane id="A1B1.60.00_1" index="1" speed="13.89" length="40.40" shape="227.40,191.15 249.98,191.15"/>
+        <lane id="A1B1.60.00_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="227.40,187.95 249.98,187.95"/>
+        <lane id="A1B1.60.00_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="227.40,191.15 249.98,191.15"/>
     </edge>
     <edge id="A1B2" from="A1" to="A1B2.60.00" priority="-1" shape="164.93,190.66 183.47,247.72">
-        <lane id="A1B2_0" index="0" speed="13.89" length="60.43" shape="169.72,200.25 183.75,243.42"/>
+        <lane id="A1B2_0" index="0" speed="13.89" friction="1.00" length="60.43" shape="169.72,200.25 183.75,243.42"/>
     </edge>
     <edge id="A1B2.60.00" from="A1B2.60.00" to="B2" priority="-1" shape="180.42,248.71 192.78,286.75">
-        <lane id="A1B2.60.00_0" index="0" speed="13.89" length="40.40" shape="186.22,251.03 193.20,272.50"/>
-        <lane id="A1B2.60.00_1" index="1" speed="13.89" length="40.40" shape="183.18,252.02 190.16,273.49"/>
+        <lane id="A1B2.60.00_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="186.22,251.03 193.20,272.50"/>
+        <lane id="A1B2.60.00_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="183.18,252.02 190.16,273.49"/>
     </edge>
     <edge id="A1B3" from="A1" to="A1B3.60.00" priority="-1" shape="164.34,192.45 115.80,227.71">
-        <lane id="A1B3_0" index="0" speed="13.89" length="60.43" shape="156.70,199.98 119.98,226.66"/>
+        <lane id="A1B3_0" index="0" speed="13.89" friction="1.00" length="60.43" shape="156.70,199.98 119.98,226.66"/>
     </edge>
     <edge id="A1B3.60.00" from="A1B3.60.00" to="B3" priority="-1" shape="113.92,225.12 81.56,248.64">
-        <lane id="A1B3.60.00_0" index="0" speed="13.89" length="40.40" shape="113.51,231.36 95.24,244.63"/>
-        <lane id="A1B3.60.00_1" index="1" speed="13.89" length="40.40" shape="111.63,228.77 93.36,242.04"/>
+        <lane id="A1B3.60.00_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="113.51,231.36 95.24,244.63"/>
+        <lane id="A1B3.60.00_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="111.63,228.77 93.36,242.04"/>
     </edge>
     <edge id="A1B4" from="A1" to="A1B4.60.00" priority="-1" shape="162.46,192.45 113.92,157.18">
-        <lane id="A1B4_0" index="0" speed="13.89" length="60.43" shape="152.94,187.51 116.22,160.82"/>
+        <lane id="A1B4_0" index="0" speed="13.89" friction="1.00" length="60.43" shape="152.94,187.51 116.22,160.82"/>
     </edge>
     <edge id="A1B4.60.00" from="A1B4.60.00" to="B4" priority="-1" shape="115.80,154.59 83.44,131.08">
-        <lane id="A1B4.60.00_0" index="0" speed="13.89" length="40.40" shape="109.75,156.12 91.48,142.85"/>
-        <lane id="A1B4.60.00_1" index="1" speed="13.89" length="40.40" shape="111.63,153.53 93.36,140.26"/>
+        <lane id="A1B4.60.00_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="109.75,156.12 91.48,142.85"/>
+        <lane id="A1B4.60.00_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="111.63,153.53 93.36,140.26"/>
     </edge>
     <edge id="A1B5" from="A1" to="A1B5.60.00" priority="-1" shape="161.88,190.66 180.42,133.59">
-        <lane id="A1B5_0" index="0" speed="13.89" length="60.43" shape="163.64,180.08 177.66,136.90"/>
+        <lane id="A1B5_0" index="0" speed="13.89" friction="1.00" length="60.43" shape="163.64,180.08 177.66,136.90"/>
     </edge>
     <edge id="A1B5.60.00" from="A1B5.60.00" to="B5" priority="-1" shape="183.47,134.58 195.83,96.54">
-        <lane id="A1B5.60.00_0" index="0" speed="13.89" length="40.40" shape="180.14,129.30 187.11,107.82"/>
-        <lane id="A1B5.60.00_1" index="1" speed="13.89" length="40.40" shape="183.18,130.28 190.16,108.81"/>
+        <lane id="A1B5.60.00_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="180.14,129.30 187.11,107.82"/>
+        <lane id="A1B5.60.00_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="183.18,130.28 190.16,108.81"/>
     </edge>
     <edge id="B1A1" from="B1" to="B1A1.60.00" priority="-1" shape="263.40,192.75 203.40,192.75">
-        <lane id="B1A1_0" index="0" speed="13.89" length="60.40" shape="249.98,194.35 207.40,194.35"/>
+        <lane id="B1A1_0" index="0" speed="13.89" friction="1.00" length="60.40" shape="249.98,194.35 207.40,194.35"/>
     </edge>
     <edge id="B1A1.60.00" from="B1A1.60.00" to="A1" priority="-1" shape="203.40,189.55 163.40,189.55">
-        <lane id="B1A1.60.00_0" index="0" speed="13.89" length="40.43" shape="199.40,194.35 174.01,194.35"/>
-        <lane id="B1A1.60.00_1" index="1" speed="13.89" length="40.43" shape="199.40,191.15 174.01,191.15"/>
+        <lane id="B1A1.60.00_0" index="0" speed="13.89" friction="1.00" length="40.43" shape="199.40,194.35 174.01,194.35"/>
+        <lane id="B1A1.60.00_1" index="1" speed="13.89" friction="1.00" length="40.43" shape="199.40,191.15 174.01,191.15"/>
     </edge>
     <edge id="B1B2" from="B1" to="B1B2.77.56" priority="-1" shape="264.70,192.09 219.11,254.84">
-        <lane id="B1B2_0" index="0" speed="13.89" length="77.96" shape="258.10,203.89 222.76,252.54"/>
+        <lane id="B1B2_0" index="0" speed="13.89" friction="1.00" length="77.96" shape="258.10,203.89 222.76,252.54"/>
     </edge>
     <edge id="B1B2.77.56" from="B1B2.77.56" to="B2" priority="-1" shape="216.52,252.96 193.01,285.32">
-        <lane id="B1B2.77.56_0" index="0" speed="13.89" length="40.40" shape="218.05,259.01 204.78,277.28"/>
-        <lane id="B1B2.77.56_1" index="1" speed="13.89" length="40.40" shape="215.47,257.13 202.19,275.40"/>
+        <lane id="B1B2.77.56_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="218.05,259.01 204.78,277.28"/>
+        <lane id="B1B2.77.56_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="215.47,257.13 202.19,275.40"/>
     </edge>
     <edge id="B1B5" from="B1" to="B1B5.77.56" priority="-1" shape="262.11,192.09 216.52,129.35">
-        <lane id="B1B5_0" index="0" speed="13.89" length="77.96" shape="252.93,182.18 217.58,133.52"/>
+        <lane id="B1B5_0" index="0" speed="13.89" friction="1.00" length="77.96" shape="252.93,182.18 217.58,133.52"/>
     </edge>
     <edge id="B1B5.77.56" from="B1B5.77.56" to="B5" priority="-1" shape="219.11,127.47 195.60,95.11">
-        <lane id="B1B5.77.56_0" index="0" speed="13.89" length="40.40" shape="212.88,127.05 199.60,108.78"/>
-        <lane id="B1B5.77.56_1" index="1" speed="13.89" length="40.40" shape="215.47,125.17 202.19,106.90"/>
+        <lane id="B1B5.77.56_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="212.88,127.05 199.60,108.78"/>
+        <lane id="B1B5.77.56_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="215.47,125.17 202.19,106.90"/>
     </edge>
     <edge id="B1C1" from="B1" to="B1C1.60.00" priority="-1" shape="263.40,189.55 323.40,189.55">
-        <lane id="B1C1_0" index="0" speed="13.89" length="60.50" shape="269.85,187.95 319.40,187.95"/>
+        <lane id="B1C1_0" index="0" speed="13.89" friction="1.00" length="60.50" shape="269.85,187.95 319.40,187.95"/>
     </edge>
     <edge id="B1C1.60.00" from="B1C1.60.00" to="C1" priority="-1" shape="323.40,192.75 363.40,192.75">
-        <lane id="B1C1.60.00_0" index="0" speed="13.89" length="40.40" shape="327.40,187.95 349.98,187.95"/>
-        <lane id="B1C1.60.00_1" index="1" speed="13.89" length="40.40" shape="327.40,191.15 349.98,191.15"/>
+        <lane id="B1C1.60.00_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="327.40,187.95 349.98,187.95"/>
+        <lane id="B1C1.60.00_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="327.40,191.15 349.98,191.15"/>
     </edge>
     <edge id="B2A1" from="B2" to="B2A1.60.00" priority="-1" shape="192.78,286.75 174.24,229.69">
-        <lane id="B2A1_0" index="0" speed="13.89" length="60.40" shape="187.11,274.48 173.96,233.99"/>
+        <lane id="B2A1_0" index="0" speed="13.89" friction="1.00" length="60.40" shape="187.11,274.48 173.96,233.99"/>
     </edge>
     <edge id="B2A1.60.00" from="B2A1.60.00" to="A1" priority="-1" shape="177.29,228.70 164.93,190.66">
-        <lane id="B2A1.60.00_0" index="0" speed="13.89" length="40.43" shape="171.48,226.38 163.64,202.23"/>
-        <lane id="B2A1.60.00_1" index="1" speed="13.89" length="40.43" shape="174.53,225.39 166.68,201.24"/>
+        <lane id="B2A1.60.00_0" index="0" speed="13.89" friction="1.00" length="40.43" shape="171.48,226.38 163.64,202.23"/>
+        <lane id="B2A1.60.00_1" index="1" speed="13.89" friction="1.00" length="40.43" shape="174.53,225.39 166.68,201.24"/>
     </edge>
     <edge id="B2B1" from="B2" to="B2B1.77.56" priority="-1" shape="193.01,285.32 238.60,222.57">
-        <lane id="B2B1_0" index="0" speed="13.89" length="77.96" shape="199.60,273.52 234.95,224.87"/>
+        <lane id="B2B1_0" index="0" speed="13.89" friction="1.00" length="77.96" shape="199.60,273.52 234.95,224.87"/>
     </edge>
     <edge id="B2B1.77.56" from="B2B1.77.56" to="B1" priority="-1" shape="241.19,224.45 264.70,192.09">
-        <lane id="B2B1.77.56_0" index="0" speed="13.89" length="40.40" shape="239.65,218.40 252.93,200.13"/>
-        <lane id="B2B1.77.56_1" index="1" speed="13.89" length="40.40" shape="242.24,220.28 255.52,202.01"/>
+        <lane id="B2B1.77.56_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="239.65,218.40 252.93,200.13"/>
+        <lane id="B2B1.77.56_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="242.24,220.28 255.52,202.01"/>
     </edge>
     <edge id="B2B3" from="B2" to="B2B3.77.56" priority="-1" shape="193.81,287.78 120.05,263.81">
-        <lane id="B2B3_0" index="0" speed="13.89" length="77.96" shape="180.55,285.15 123.36,266.57"/>
+        <lane id="B2B3_0" index="0" speed="13.89" friction="1.00" length="77.96" shape="180.55,285.15 123.36,266.57"/>
     </edge>
     <edge id="B2B3.77.56" from="B2B3.77.56" to="B3" priority="-1" shape="121.04,260.77 83.00,248.41">
-        <lane id="B2B3.77.56_0" index="0" speed="13.89" length="40.40" shape="115.75,264.10 94.28,257.12"/>
-        <lane id="B2B3.77.56_1" index="1" speed="13.89" length="40.40" shape="116.74,261.05 95.27,254.08"/>
+        <lane id="B2B3.77.56_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="115.75,264.10 94.28,257.12"/>
+        <lane id="B2B3.77.56_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="116.74,261.05 95.27,254.08"/>
     </edge>
     <edge id="B2C2" from="B2" to="B2C2.60.00" priority="-1" shape="195.83,285.76 214.37,342.83">
-        <lane id="B2C2_0" index="0" speed="13.89" length="60.50" shape="199.34,291.40 214.65,338.53"/>
+        <lane id="B2C2_0" index="0" speed="13.89" friction="1.00" length="60.50" shape="199.34,291.40 214.65,338.53"/>
     </edge>
     <edge id="B2C2.60.00" from="B2C2.60.00" to="C2" priority="-1" shape="211.32,343.82 223.69,381.86">
-        <lane id="B2C2.60.00_0" index="0" speed="13.89" length="40.40" shape="217.13,346.14 224.10,367.61"/>
-        <lane id="B2C2.60.00_1" index="1" speed="13.89" length="40.40" shape="214.08,347.13 221.06,368.60"/>
+        <lane id="B2C2.60.00_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="217.13,346.14 224.10,367.61"/>
+        <lane id="B2C2.60.00_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="214.08,347.13 221.06,368.60"/>
     </edge>
     <edge id="B3A1" from="B3" to="B3A1.60.00" priority="-1" shape="81.56,248.64 130.10,213.37">
-        <lane id="B3A1_0" index="0" speed="13.89" length="60.40" shape="91.48,239.45 125.93,214.43"/>
+        <lane id="B3A1_0" index="0" speed="13.89" friction="1.00" length="60.40" shape="91.48,239.45 125.93,214.43"/>
     </edge>
     <edge id="B3A1.60.00" from="B3A1.60.00" to="A1" priority="-1" shape="131.98,215.96 164.34,192.45">
-        <lane id="B3A1.60.00_0" index="0" speed="13.89" length="40.43" shape="132.40,209.72 152.94,194.80"/>
-        <lane id="B3A1.60.00_1" index="1" speed="13.89" length="40.43" shape="134.28,212.31 154.82,197.39"/>
+        <lane id="B3A1.60.00_0" index="0" speed="13.89" friction="1.00" length="40.43" shape="132.40,209.72 152.94,194.80"/>
+        <lane id="B3A1.60.00_1" index="1" speed="13.89" friction="1.00" length="40.43" shape="134.28,212.31 154.82,197.39"/>
     </edge>
     <edge id="B3B2" from="B3" to="B3B2.77.56" priority="-1" shape="83.00,248.41 156.76,272.38">
-        <lane id="B3B2_0" index="0" speed="13.89" length="77.96" shape="96.25,251.03 153.45,269.62"/>
+        <lane id="B3B2_0" index="0" speed="13.89" friction="1.00" length="77.96" shape="96.25,251.03 153.45,269.62"/>
     </edge>
     <edge id="B3B2.77.56" from="B3B2.77.56" to="B2" priority="-1" shape="155.77,275.42 193.81,287.78">
-        <lane id="B3B2.77.56_0" index="0" speed="13.89" length="40.40" shape="161.06,272.09 182.53,279.07"/>
-        <lane id="B3B2.77.56_1" index="1" speed="13.89" length="40.40" shape="160.07,275.13 181.54,282.11"/>
+        <lane id="B3B2.77.56_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="161.06,272.09 182.53,279.07"/>
+        <lane id="B3B2.77.56_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="160.07,275.13 181.54,282.11"/>
     </edge>
     <edge id="B3B4" from="B3" to="B3B4.77.56" priority="-1" shape="80.90,249.93 80.90,172.37">
-        <lane id="B3B4_0" index="0" speed="13.89" length="77.96" shape="79.30,236.51 79.30,176.37"/>
+        <lane id="B3B4_0" index="0" speed="13.89" friction="1.00" length="77.96" shape="79.30,236.51 79.30,176.37"/>
     </edge>
     <edge id="B3B4.77.56" from="B3B4.77.56" to="B4" priority="-1" shape="84.10,172.37 84.10,132.37">
-        <lane id="B3B4.77.56_0" index="0" speed="13.89" length="40.40" shape="79.30,168.37 79.30,145.79"/>
-        <lane id="B3B4.77.56_1" index="1" speed="13.89" length="40.40" shape="82.50,168.37 82.50,145.79"/>
+        <lane id="B3B4.77.56_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="79.30,168.37 79.30,145.79"/>
+        <lane id="B3B4.77.56_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="82.50,168.37 82.50,145.79"/>
     </edge>
     <edge id="B3C3" from="B3" to="B3C3.60.00" priority="-1" shape="83.44,251.22 34.90,286.49">
-        <lane id="B3C3_0" index="0" speed="13.89" length="60.50" shape="79.17,256.31 39.08,285.44"/>
+        <lane id="B3C3_0" index="0" speed="13.89" friction="1.00" length="60.50" shape="79.17,256.31 39.08,285.44"/>
     </edge>
     <edge id="B3C3.60.00" from="B3C3.60.00" to="C3" priority="-1" shape="33.02,283.90 0.66,307.41">
-        <lane id="B3C3.60.00_0" index="0" speed="13.89" length="40.40" shape="32.61,290.14 14.34,303.41"/>
-        <lane id="B3C3.60.00_1" index="1" speed="13.89" length="40.40" shape="30.72,287.55 12.46,300.82"/>
+        <lane id="B3C3.60.00_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="32.61,290.14 14.34,303.41"/>
+        <lane id="B3C3.60.00_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="30.72,287.55 12.46,300.82"/>
     </edge>
     <edge id="B4A1" from="B4" to="B4A1.60.00" priority="-1" shape="83.44,131.08 131.98,166.35">
-        <lane id="B4A1_0" index="0" speed="13.89" length="60.40" shape="95.24,137.67 129.69,162.70"/>
+        <lane id="B4A1_0" index="0" speed="13.89" friction="1.00" length="60.40" shape="95.24,137.67 129.69,162.70"/>
     </edge>
     <edge id="B4A1.60.00" from="B4A1.60.00" to="A1" priority="-1" shape="130.10,168.93 162.46,192.45">
-        <lane id="B4A1.60.00_0" index="0" speed="13.89" length="40.43" shape="136.16,167.40 156.70,182.33"/>
-        <lane id="B4A1.60.00_1" index="1" speed="13.89" length="40.43" shape="134.28,169.99 154.82,184.92"/>
+        <lane id="B4A1.60.00_0" index="0" speed="13.89" friction="1.00" length="40.43" shape="136.16,167.40 156.70,182.33"/>
+        <lane id="B4A1.60.00_1" index="1" speed="13.89" friction="1.00" length="40.43" shape="134.28,169.99 154.82,184.92"/>
     </edge>
     <edge id="B4B3" from="B4" to="B4B3.77.56" priority="-1" shape="84.10,132.37 84.10,209.93">
-        <lane id="B4B3_0" index="0" speed="13.89" length="77.96" shape="85.70,145.79 85.70,205.93"/>
+        <lane id="B4B3_0" index="0" speed="13.89" friction="1.00" length="77.96" shape="85.70,145.79 85.70,205.93"/>
     </edge>
     <edge id="B4B3.77.56" from="B4B3.77.56" to="B3" priority="-1" shape="80.90,209.93 80.90,249.93">
-        <lane id="B4B3.77.56_0" index="0" speed="13.89" length="40.40" shape="85.70,213.93 85.70,236.51"/>
-        <lane id="B4B3.77.56_1" index="1" speed="13.89" length="40.40" shape="82.50,213.93 82.50,236.51"/>
+        <lane id="B4B3.77.56_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="85.70,213.93 85.70,236.51"/>
+        <lane id="B4B3.77.56_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="82.50,213.93 82.50,236.51"/>
     </edge>
     <edge id="B4B5" from="B4" to="B4B5.77.56" priority="-1" shape="82.01,130.85 155.77,106.89">
-        <lane id="B4B5_0" index="0" speed="13.89" length="77.96" shape="94.28,125.18 151.47,106.60"/>
+        <lane id="B4B5_0" index="0" speed="13.89" friction="1.00" length="77.96" shape="94.28,125.18 151.47,106.60"/>
     </edge>
     <edge id="B4B5.77.56" from="B4B5.77.56" to="B5" priority="-1" shape="156.76,109.93 194.80,97.57">
-        <lane id="B4B5.77.56_0" index="0" speed="13.89" length="40.40" shape="159.08,104.13 180.55,97.15"/>
-        <lane id="B4B5.77.56_1" index="1" speed="13.89" length="40.40" shape="160.07,107.17 181.54,100.19"/>
+        <lane id="B4B5.77.56_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="159.08,104.13 180.55,97.15"/>
+        <lane id="B4B5.77.56_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="160.07,107.17 181.54,100.19"/>
     </edge>
     <edge id="B4C4" from="B4" to="B4C4.60.00" priority="-1" shape="81.56,133.67 33.02,98.40">
-        <lane id="B4C4_0" index="0" speed="13.89" length="60.50" shape="75.41,131.17 35.32,102.05"/>
+        <lane id="B4C4_0" index="0" speed="13.89" friction="1.00" length="60.50" shape="75.41,131.17 35.32,102.05"/>
     </edge>
     <edge id="B4C4.60.00" from="B4C4.60.00" to="C4" priority="-1" shape="34.90,95.81 2.54,72.30">
-        <lane id="B4C4.60.00_0" index="0" speed="13.89" length="40.40" shape="28.84,97.34 10.58,84.07"/>
-        <lane id="B4C4.60.00_1" index="1" speed="13.89" length="40.40" shape="30.72,94.75 12.46,81.48"/>
+        <lane id="B4C4.60.00_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="28.84,97.34 10.58,84.07"/>
+        <lane id="B4C4.60.00_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="30.72,94.75 12.46,81.48"/>
     </edge>
     <edge id="B5A1" from="B5" to="B5A1.60.00" priority="-1" shape="195.83,96.54 177.29,153.60">
-        <lane id="B5A1_0" index="0" speed="13.89" length="60.40" shape="193.20,109.80 180.04,150.29"/>
+        <lane id="B5A1_0" index="0" speed="13.89" friction="1.00" length="60.40" shape="193.20,109.80 180.04,150.29"/>
     </edge>
     <edge id="B5A1.60.00" from="B5A1.60.00" to="A1" priority="-1" shape="174.24,152.62 161.88,190.66">
-        <lane id="B5A1.60.00_0" index="0" speed="13.89" length="40.43" shape="177.57,157.90 169.72,182.05"/>
-        <lane id="B5A1.60.00_1" index="1" speed="13.89" length="40.43" shape="174.53,156.91 166.68,181.06"/>
+        <lane id="B5A1.60.00_0" index="0" speed="13.89" friction="1.00" length="40.43" shape="177.57,157.90 169.72,182.05"/>
+        <lane id="B5A1.60.00_1" index="1" speed="13.89" friction="1.00" length="40.43" shape="174.53,156.91 166.68,181.06"/>
     </edge>
     <edge id="B5B1" from="B5" to="B5B1.77.56" priority="-1" shape="195.60,95.11 241.19,157.85">
-        <lane id="B5B1_0" index="0" speed="13.89" length="77.96" shape="204.78,105.02 240.13,153.67"/>
+        <lane id="B5B1_0" index="0" speed="13.89" friction="1.00" length="77.96" shape="204.78,105.02 240.13,153.67"/>
     </edge>
     <edge id="B5B1.77.56" from="B5B1.77.56" to="B1" priority="-1" shape="238.60,159.73 262.11,192.09">
-        <lane id="B5B1.77.56_0" index="0" speed="13.89" length="40.40" shape="244.83,160.15 258.10,178.41"/>
-        <lane id="B5B1.77.56_1" index="1" speed="13.89" length="40.40" shape="242.24,162.03 255.52,180.29"/>
+        <lane id="B5B1.77.56_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="244.83,160.15 258.10,178.41"/>
+        <lane id="B5B1.77.56_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="242.24,162.03 255.52,180.29"/>
     </edge>
     <edge id="B5B4" from="B5" to="B5B4.77.56" priority="-1" shape="194.80,97.57 121.04,121.53">
-        <lane id="B5B4_0" index="0" speed="13.89" length="77.96" shape="182.53,103.24 125.34,121.82"/>
+        <lane id="B5B4_0" index="0" speed="13.89" friction="1.00" length="77.96" shape="182.53,103.24 125.34,121.82"/>
     </edge>
     <edge id="B5B4.77.56" from="B5B4.77.56" to="B4" priority="-1" shape="120.05,118.49 82.01,130.85">
-        <lane id="B5B4.77.56_0" index="0" speed="13.89" length="40.40" shape="117.73,124.29 96.25,131.27"/>
-        <lane id="B5B4.77.56_1" index="1" speed="13.89" length="40.40" shape="116.74,121.25 95.27,128.23"/>
+        <lane id="B5B4.77.56_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="117.73,124.29 96.25,131.27"/>
+        <lane id="B5B4.77.56_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="116.74,121.25 95.27,128.23"/>
     </edge>
     <edge id="B5C5" from="B5" to="B5C5.60.00" priority="-1" shape="192.78,95.55 211.32,38.49">
-        <lane id="B5C5_0" index="0" speed="13.89" length="60.50" shape="193.25,88.93 208.57,41.80"/>
+        <lane id="B5C5_0" index="0" speed="13.89" friction="1.00" length="60.50" shape="193.25,88.93 208.57,41.80"/>
     </edge>
     <edge id="B5C5.60.00" from="B5C5.60.00" to="C5" priority="-1" shape="214.37,39.48 226.73,1.43">
-        <lane id="B5C5.60.00_0" index="0" speed="13.89" length="40.40" shape="211.04,34.19 218.02,12.72"/>
-        <lane id="B5C5.60.00_1" index="1" speed="13.89" length="40.40" shape="214.08,35.18 221.06,13.70"/>
+        <lane id="B5C5.60.00_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="211.04,34.19 218.02,12.72"/>
+        <lane id="B5C5.60.00_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="214.08,35.18 221.06,13.70"/>
     </edge>
     <edge id="C1B1" from="C1" to="C1B1.60.00" priority="-1" shape="363.40,192.75 303.40,192.75">
-        <lane id="C1B1_0" index="0" speed="13.89" length="60.40" shape="349.98,194.35 307.40,194.35"/>
+        <lane id="C1B1_0" index="0" speed="13.89" friction="1.00" length="60.40" shape="349.98,194.35 307.40,194.35"/>
     </edge>
     <edge id="C1B1.60.00" from="C1B1.60.00" to="B1" priority="-1" shape="303.40,189.55 263.40,189.55">
-        <lane id="C1B1.60.00_0" index="0" speed="13.89" length="40.50" shape="299.40,194.35 269.85,194.35"/>
-        <lane id="C1B1.60.00_1" index="1" speed="13.89" length="40.50" shape="299.40,191.15 269.85,191.15"/>
+        <lane id="C1B1.60.00_0" index="0" speed="13.89" friction="1.00" length="40.50" shape="299.40,194.35 269.85,194.35"/>
+        <lane id="C1B1.60.00_1" index="1" speed="13.89" friction="1.00" length="40.50" shape="299.40,191.15 269.85,191.15"/>
     </edge>
     <edge id="C1C2" from="C1" to="C1C2.195.11" priority="-1" shape="364.70,192.09 250.01,349.94">
-        <lane id="C1C2_0" index="0" speed="13.89" length="195.52" shape="358.10,203.89 253.66,347.65"/>
+        <lane id="C1C2_0" index="0" speed="13.89" friction="1.00" length="195.52" shape="358.10,203.89 253.66,347.65"/>
     </edge>
     <edge id="C1C2.195.11" from="C1C2.195.11" to="C2" priority="-1" shape="247.42,348.06 223.91,380.42">
-        <lane id="C1C2.195.11_0" index="0" speed="13.89" length="40.40" shape="248.96,354.12 235.68,372.39"/>
-        <lane id="C1C2.195.11_1" index="1" speed="13.89" length="40.40" shape="246.37,352.24 233.10,370.51"/>
+        <lane id="C1C2.195.11_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="248.96,354.12 235.68,372.39"/>
+        <lane id="C1C2.195.11_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="246.37,352.24 233.10,370.51"/>
     </edge>
     <edge id="C1C5" from="C1" to="C1C5.195.11" priority="-1" shape="362.11,192.09 247.42,34.24">
-        <lane id="C1C5_0" index="0" speed="13.89" length="195.52" shape="352.93,182.18 248.48,38.42"/>
+        <lane id="C1C5_0" index="0" speed="13.89" friction="1.00" length="195.52" shape="352.93,182.18 248.48,38.42"/>
     </edge>
     <edge id="C1C5.195.11" from="C1C5.195.11" to="C5" priority="-1" shape="250.01,32.36 226.50,0.00">
-        <lane id="C1C5.195.11_0" index="0" speed="13.89" length="40.40" shape="243.78,31.95 230.51,13.68"/>
-        <lane id="C1C5.195.11_1" index="1" speed="13.89" length="40.40" shape="246.37,30.07 233.10,11.80"/>
+        <lane id="C1C5.195.11_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="243.78,31.95 230.51,13.68"/>
+        <lane id="C1C5.195.11_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="246.37,30.07 233.10,11.80"/>
     </edge>
     <edge id="C2B2" from="C2" to="C2B2.60.00" priority="-1" shape="223.69,381.86 205.14,324.79">
-        <lane id="C2B2_0" index="0" speed="13.89" length="60.40" shape="218.02,369.59 204.86,329.09"/>
+        <lane id="C2B2_0" index="0" speed="13.89" friction="1.00" length="60.40" shape="218.02,369.59 204.86,329.09"/>
     </edge>
     <edge id="C2B2.60.00" from="C2B2.60.00" to="B2" priority="-1" shape="208.19,323.81 195.83,285.76">
-        <lane id="C2B2.60.00_0" index="0" speed="13.89" length="40.50" shape="202.39,321.48 193.25,293.38"/>
-        <lane id="C2B2.60.00_1" index="1" speed="13.89" length="40.50" shape="205.43,320.50 196.30,292.39"/>
+        <lane id="C2B2.60.00_0" index="0" speed="13.89" friction="1.00" length="40.50" shape="202.39,321.48 193.25,293.38"/>
+        <lane id="C2B2.60.00_1" index="1" speed="13.89" friction="1.00" length="40.50" shape="205.43,320.50 196.30,292.39"/>
     </edge>
     <edge id="C2C1" from="C2" to="C2C1.195.11" priority="-1" shape="223.91,380.42 338.60,222.57">
-        <lane id="C2C1_0" index="0" speed="13.89" length="195.52" shape="230.51,368.62 334.95,224.87"/>
+        <lane id="C2C1_0" index="0" speed="13.89" friction="1.00" length="195.52" shape="230.51,368.62 334.95,224.87"/>
     </edge>
     <edge id="C2C1.195.11" from="C2C1.195.11" to="C1" priority="-1" shape="341.19,224.45 364.70,192.09">
-        <lane id="C2C1.195.11_0" index="0" speed="13.89" length="40.40" shape="339.65,218.40 352.93,200.13"/>
-        <lane id="C2C1.195.11_1" index="1" speed="13.89" length="40.40" shape="342.24,220.28 355.52,202.01"/>
+        <lane id="C2C1.195.11_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="339.65,218.40 352.93,200.13"/>
+        <lane id="C2C1.195.11_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="342.24,220.28 355.52,202.01"/>
     </edge>
     <edge id="C2C3" from="C2" to="C2C3.195.11" priority="-1" shape="224.71,382.88 39.15,322.59">
-        <lane id="C2C3_0" index="0" speed="13.89" length="195.52" shape="211.45,380.26 42.46,325.35"/>
+        <lane id="C2C3_0" index="0" speed="13.89" friction="1.00" length="195.52" shape="211.45,380.26 42.46,325.35"/>
     </edge>
     <edge id="C2C3.195.11" from="C2C3.195.11" to="C3" priority="-1" shape="40.14,319.55 2.09,307.19">
-        <lane id="C2C3.195.11_0" index="0" speed="13.89" length="40.40" shape="34.85,322.88 13.37,315.90"/>
-        <lane id="C2C3.195.11_1" index="1" speed="13.89" length="40.40" shape="35.84,319.83 14.36,312.86"/>
+        <lane id="C2C3.195.11_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="34.85,322.88 13.37,315.90"/>
+        <lane id="C2C3.195.11_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="35.84,319.83 14.36,312.86"/>
     </edge>
     <edge id="C3B3" from="C3" to="C3B3.60.00" priority="-1" shape="0.66,307.41 49.20,272.15">
-        <lane id="C3B3_0" index="0" speed="13.89" length="60.40" shape="10.58,298.23 45.02,273.20"/>
+        <lane id="C3B3_0" index="0" speed="13.89" friction="1.00" length="60.40" shape="10.58,298.23 45.02,273.20"/>
     </edge>
     <edge id="C3B3.60.00" from="C3B3.60.00" to="B3" priority="-1" shape="51.08,274.74 83.44,251.22">
-        <lane id="C3B3.60.00_0" index="0" speed="13.89" length="40.50" shape="51.50,268.50 75.41,251.13"/>
-        <lane id="C3B3.60.00_1" index="1" speed="13.89" length="40.50" shape="53.38,271.09 77.29,253.72"/>
+        <lane id="C3B3.60.00_0" index="0" speed="13.89" friction="1.00" length="40.50" shape="51.50,268.50 75.41,251.13"/>
+        <lane id="C3B3.60.00_1" index="1" speed="13.89" friction="1.00" length="40.50" shape="53.38,271.09 77.29,253.72"/>
     </edge>
     <edge id="C3C2" from="C3" to="C3C2.195.11" priority="-1" shape="2.09,307.19 187.66,367.48">
-        <lane id="C3C2_0" index="0" speed="13.89" length="195.52" shape="15.35,309.81 184.35,364.72"/>
+        <lane id="C3C2_0" index="0" speed="13.89" friction="1.00" length="195.52" shape="15.35,309.81 184.35,364.72"/>
     </edge>
     <edge id="C3C2.195.11" from="C3C2.195.11" to="C2" priority="-1" shape="186.67,370.52 224.71,382.88">
-        <lane id="C3C2.195.11_0" index="0" speed="13.89" length="40.40" shape="191.96,367.20 213.43,374.17"/>
-        <lane id="C3C2.195.11_1" index="1" speed="13.89" length="40.40" shape="190.97,370.24 212.44,377.22"/>
+        <lane id="C3C2.195.11_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="191.96,367.20 213.43,374.17"/>
+        <lane id="C3C2.195.11_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="190.97,370.24 212.44,377.22"/>
     </edge>
     <edge id="C3C4" from="C3" to="C3C4.195.11" priority="-1" shape="0.00,308.71 0.00,113.59">
-        <lane id="C3C4_0" index="0" speed="13.89" length="195.52" shape="-1.60,295.29 -1.60,117.59"/>
+        <lane id="C3C4_0" index="0" speed="13.89" friction="1.00" length="195.52" shape="-1.60,295.29 -1.60,117.59"/>
     </edge>
     <edge id="C3C4.195.11" from="C3C4.195.11" to="C4" priority="-1" shape="3.20,113.59 3.20,73.59">
-        <lane id="C3C4.195.11_0" index="0" speed="13.89" length="40.40" shape="-1.60,109.59 -1.60,87.02"/>
-        <lane id="C3C4.195.11_1" index="1" speed="13.89" length="40.40" shape="1.60,109.59 1.60,87.02"/>
+        <lane id="C3C4.195.11_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="-1.60,109.59 -1.60,87.02"/>
+        <lane id="C3C4.195.11_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="1.60,109.59 1.60,87.02"/>
     </edge>
     <edge id="C4B4" from="C4" to="C4B4.60.00" priority="-1" shape="2.54,72.30 51.08,107.57">
-        <lane id="C4B4_0" index="0" speed="13.89" length="60.40" shape="14.34,78.89 48.79,103.92"/>
+        <lane id="C4B4_0" index="0" speed="13.89" friction="1.00" length="60.40" shape="14.34,78.89 48.79,103.92"/>
     </edge>
     <edge id="C4B4.60.00" from="C4B4.60.00" to="B4" priority="-1" shape="49.20,110.16 81.56,133.67">
-        <lane id="C4B4.60.00_0" index="0" speed="13.89" length="40.50" shape="55.26,108.62 79.17,126.00"/>
-        <lane id="C4B4.60.00_1" index="1" speed="13.89" length="40.50" shape="53.38,111.21 77.29,128.58"/>
+        <lane id="C4B4.60.00_0" index="0" speed="13.89" friction="1.00" length="40.50" shape="55.26,108.62 79.17,126.00"/>
+        <lane id="C4B4.60.00_1" index="1" speed="13.89" friction="1.00" length="40.50" shape="53.38,111.21 77.29,128.58"/>
     </edge>
     <edge id="C4C3" from="C4" to="C4C3.195.11" priority="-1" shape="3.20,73.59 3.20,268.71">
-        <lane id="C4C3_0" index="0" speed="13.89" length="195.52" shape="4.80,87.02 4.80,264.71"/>
+        <lane id="C4C3_0" index="0" speed="13.89" friction="1.00" length="195.52" shape="4.80,87.02 4.80,264.71"/>
     </edge>
     <edge id="C4C3.195.11" from="C4C3.195.11" to="C3" priority="-1" shape="0.00,268.71 0.00,308.71">
-        <lane id="C4C3.195.11_0" index="0" speed="13.89" length="40.40" shape="4.80,272.71 4.80,295.29"/>
-        <lane id="C4C3.195.11_1" index="1" speed="13.89" length="40.40" shape="1.60,272.71 1.60,295.29"/>
+        <lane id="C4C3.195.11_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="4.80,272.71 4.80,295.29"/>
+        <lane id="C4C3.195.11_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="1.60,272.71 1.60,295.29"/>
     </edge>
     <edge id="C4C5" from="C4" to="C4C5.195.11" priority="-1" shape="1.11,72.07 186.67,11.78">
-        <lane id="C4C5_0" index="0" speed="13.89" length="195.52" shape="13.37,66.40 182.37,11.49"/>
+        <lane id="C4C5_0" index="0" speed="13.89" friction="1.00" length="195.52" shape="13.37,66.40 182.37,11.49"/>
     </edge>
     <edge id="C4C5.195.11" from="C4C5.195.11" to="C5" priority="-1" shape="187.66,14.82 225.70,2.46">
-        <lane id="C4C5.195.11_0" index="0" speed="13.89" length="40.40" shape="189.98,9.02 211.45,2.04"/>
-        <lane id="C4C5.195.11_1" index="1" speed="13.89" length="40.40" shape="190.97,12.07 212.44,5.09"/>
+        <lane id="C4C5.195.11_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="189.98,9.02 211.45,2.04"/>
+        <lane id="C4C5.195.11_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="190.97,12.07 212.44,5.09"/>
     </edge>
     <edge id="C5B5" from="C5" to="C5B5.60.00" priority="-1" shape="226.73,1.43 208.19,58.50">
-        <lane id="C5B5_0" index="0" speed="13.89" length="60.40" shape="224.10,14.69 210.95,55.19"/>
+        <lane id="C5B5_0" index="0" speed="13.89" friction="1.00" length="60.40" shape="224.10,14.69 210.95,55.19"/>
     </edge>
     <edge id="C5B5.60.00" from="C5B5.60.00" to="B5" priority="-1" shape="205.14,57.51 192.78,95.55">
-        <lane id="C5B5.60.00_0" index="0" speed="13.89" length="40.50" shape="208.47,62.80 199.34,90.90"/>
-        <lane id="C5B5.60.00_1" index="1" speed="13.89" length="40.50" shape="205.43,61.81 196.30,89.92"/>
+        <lane id="C5B5.60.00_0" index="0" speed="13.89" friction="1.00" length="40.50" shape="208.47,62.80 199.34,90.90"/>
+        <lane id="C5B5.60.00_1" index="1" speed="13.89" friction="1.00" length="40.50" shape="205.43,61.81 196.30,89.92"/>
     </edge>
     <edge id="C5C1" from="C5" to="C5C1.195.11" priority="-1" shape="226.50,0.00 341.19,157.85">
-        <lane id="C5C1_0" index="0" speed="13.89" length="195.52" shape="235.68,9.92 340.13,153.67"/>
+        <lane id="C5C1_0" index="0" speed="13.89" friction="1.00" length="195.52" shape="235.68,9.92 340.13,153.67"/>
     </edge>
     <edge id="C5C1.195.11" from="C5C1.195.11" to="C1" priority="-1" shape="338.60,159.73 362.11,192.09">
-        <lane id="C5C1.195.11_0" index="0" speed="13.89" length="40.40" shape="344.83,160.15 358.10,178.41"/>
-        <lane id="C5C1.195.11_1" index="1" speed="13.89" length="40.40" shape="342.24,162.03 355.52,180.29"/>
+        <lane id="C5C1.195.11_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="344.83,160.15 358.10,178.41"/>
+        <lane id="C5C1.195.11_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="342.24,162.03 355.52,180.29"/>
     </edge>
     <edge id="C5C4" from="C5" to="C5C4.195.11" priority="-1" shape="225.70,2.46 40.14,62.76">
-        <lane id="C5C4_0" index="0" speed="13.89" length="195.52" shape="213.43,8.13 44.44,63.04"/>
+        <lane id="C5C4_0" index="0" speed="13.89" friction="1.00" length="195.52" shape="213.43,8.13 44.44,63.04"/>
     </edge>
     <edge id="C5C4.195.11" from="C5C4.195.11" to="C4" priority="-1" shape="39.15,59.71 1.11,72.07">
-        <lane id="C5C4.195.11_0" index="0" speed="13.89" length="40.40" shape="36.83,65.51 15.35,72.49"/>
-        <lane id="C5C4.195.11_1" index="1" speed="13.89" length="40.40" shape="35.84,62.47 14.36,69.45"/>
+        <lane id="C5C4.195.11_0" index="0" speed="13.89" friction="1.00" length="40.40" shape="36.83,65.51 15.35,72.49"/>
+        <lane id="C5C4.195.11_1" index="1" speed="13.89" friction="1.00" length="40.40" shape="35.84,62.47 14.36,69.45"/>
     </edge>
 
     <junction id="A1" type="unregulated" x="163.40" y="191.15" incLanes="B2A1.60.00_0 B2A1.60.00_1 B1A1.60.00_0 B1A1.60.00_1 B5A1.60.00_0 B5A1.60.00_1 B4A1.60.00_0 B4A1.60.00_1 B3A1.60.00_0 B3A1.60.00_1" intLanes="" shape="162.12,202.72 171.25,199.76 171.00,197.64 171.32,196.90 171.93,196.37 172.82,196.06 174.01,195.95 174.01,186.35 171.93,185.93 171.32,185.40 171.00,184.66 170.98,183.71 171.25,182.55 162.12,179.58 161.07,181.43 160.38,181.85 159.58,181.92 158.67,181.65 157.64,181.03 152.00,188.80 153.44,190.37 153.62,191.15 153.44,191.94 152.90,192.72 152.00,193.50 157.64,201.27 159.58,200.39 160.38,200.46 161.07,200.87 161.65,201.63"/>

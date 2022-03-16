@@ -597,7 +597,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                     const std::string& firstEdgeName,
                     const std::string& secondEdgeName,
                     int noLanesFirstEdge, int noLanesSecondEdge,
-                    const double speed,
+                    const double speed, const double friction,
                     const int changedLeft) {
     double pos;
     pos = edge->getGeometry().nearest_offset_to_point2D(node->getPosition());
@@ -610,7 +610,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
         return false;
     }
     return splitAt(dc, edge, pos, node, firstEdgeName, secondEdgeName,
-                   noLanesFirstEdge, noLanesSecondEdge, speed, changedLeft);
+                   noLanesFirstEdge, noLanesSecondEdge, speed, friction, changedLeft);
 }
 
 
@@ -620,7 +620,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
                     const std::string& firstEdgeName,
                     const std::string& secondEdgeName,
                     int noLanesFirstEdge, int noLanesSecondEdge,
-                    const double speed,
+                    const double speed, const double friction,
                     const int changedLeft
                    ) {
     // there must be at least some overlap between first and second edge
@@ -645,6 +645,9 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     two->copyConnectionsFrom(edge);
     if (speed != -1.) {
         two->setSpeed(-1, speed);
+    }
+    if (friction != -1.) {
+        two->setFriction(-1, friction);
     }
     // replace information about this edge within the nodes
     edge->myFrom->replaceOutgoing(edge, one, 0);
@@ -1127,7 +1130,7 @@ NBEdgeCont::recheckPostProcessConnections() {
             NBEdge* to = retrievePossiblySplit((*i).to, false);
             if (from == nullptr || to == nullptr ||
                     !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::Lane2LaneInfoType::USER, true, (*i).mayDefinitelyPass,
-                                                  (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).customLength, (*i).customShape,
+                                                  (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).friction, (*i).customLength, (*i).customShape,
                                                   (*i).uncontrolled, (*i).permissions, (*i).indirectLeft, (*i).edgeType, (*i).changeLeft, (*i).changeRight,
                                                   true)) {
                 const std::string msg = "Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.";

@@ -62,6 +62,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("default.speed", "speed", true);
     oc.addDescription("default.speed", "Building Defaults", "The default speed on an edge (in m/s)");
 
+    oc.doRegister("default.friction", 'F', new Option_Float((double) 1.0));
+    oc.addSynonyme("default.friction", "friction", true);
+    oc.addDescription("default.friction", "Building Defaults", "The default friction on an edge");
+
     oc.doRegister("default.priority", 'P', new Option_Integer(-1));
     oc.addSynonyme("default.priority", "priority", true);
     oc.addDescription("default.priority", "Building Defaults", "The default priority of an edge");

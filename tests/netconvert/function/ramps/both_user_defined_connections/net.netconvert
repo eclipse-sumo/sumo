@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:48 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-16 08:21:03 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -40,28 +45,28 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="47.30,4.42" convBoundary="0.00,0.00,276.09,34.95" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="A" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="A_0" index="0" speed="30.00" length="77.48" shape="-0.01,30.15 75.93,29.94"/>
-        <lane id="A_1" index="1" speed="30.00" length="77.48" shape="-0.00,33.35 75.94,33.14"/>
+        <lane id="A_0" index="0" speed="30.00" friction="1.00" length="77.48" shape="-0.01,30.15 75.93,29.94"/>
+        <lane id="A_1" index="1" speed="30.00" friction="1.00" length="77.48" shape="-0.00,33.35 75.94,33.14"/>
     </edge>
     <edge id="B" from="B-AddedOnRampNode" to="gneJ2" priority="1">
-        <lane id="B_0" index="0" speed="30.00" length="52.72" shape="177.40,25.85 228.36,25.40"/>
-        <lane id="B_1" index="1" speed="30.00" length="52.72" shape="177.43,29.05 228.38,28.60"/>
-        <lane id="B_2" index="2" speed="30.00" length="52.72" shape="177.46,32.25 228.41,31.80"/>
+        <lane id="B_0" index="0" speed="30.00" friction="1.00" length="52.72" shape="177.40,25.85 228.36,25.40"/>
+        <lane id="B_1" index="1" speed="30.00" friction="1.00" length="52.72" shape="177.43,29.05 228.38,28.60"/>
+        <lane id="B_2" index="2" speed="30.00" friction="1.00" length="52.72" shape="177.46,32.25 228.41,31.80"/>
     </edge>
     <edge id="B-AddedOnRampEdge" from="gneJ1" to="B-AddedOnRampNode" priority="1">
-        <lane id="B-AddedOnRampEdge_0" index="0" speed="30.00" length="100.00" acceleration="1" shape="79.75,26.72 177.40,25.85"/>
-        <lane id="B-AddedOnRampEdge_1" index="1" speed="30.00" length="100.00" shape="79.77,29.92 177.43,29.05"/>
-        <lane id="B-AddedOnRampEdge_2" index="2" speed="30.00" length="100.00" shape="79.80,33.12 177.46,32.25"/>
+        <lane id="B-AddedOnRampEdge_0" index="0" speed="30.00" friction="1.00" length="100.00" acceleration="1" shape="79.75,26.72 177.40,25.85"/>
+        <lane id="B-AddedOnRampEdge_1" index="1" speed="30.00" friction="1.00" length="100.00" shape="79.77,29.92 177.43,29.05"/>
+        <lane id="B-AddedOnRampEdge_2" index="2" speed="30.00" friction="1.00" length="100.00" shape="79.80,33.12 177.46,32.25"/>
     </edge>
     <edge id="C" from="gneJ2" to="gneJ3" priority="1">
-        <lane id="C_0" index="0" speed="30.00" length="45.90" shape="231.76,28.60 276.16,29.21"/>
-        <lane id="C_1" index="1" speed="30.00" length="45.90" shape="231.71,31.80 276.11,32.41"/>
+        <lane id="C_0" index="0" speed="30.00" friction="1.00" length="45.90" shape="231.76,28.60 276.16,29.21"/>
+        <lane id="C_1" index="1" speed="30.00" friction="1.00" length="45.90" shape="231.71,31.80 276.11,32.41"/>
     </edge>
     <edge id="off" from="gneJ2" to="gneJ5" priority="1" shape="230.13,26.98 274.20,19.27">
-        <lane id="off_0" index="0" speed="30.00" length="49.88" shape="231.59,25.10 273.92,17.69"/>
+        <lane id="off_0" index="0" speed="30.00" friction="1.00" length="49.88" shape="231.59,25.10 273.92,17.69"/>
     </edge>
     <edge id="on" from="gneJ4" to="gneJ1" priority="1" shape="25.90,0.00 77.42,28.34">
-        <lane id="on_0" index="0" speed="30.00" length="64.28" shape="26.67,-1.40 76.15,25.81"/>
+        <lane id="on_0" index="0" speed="30.00" friction="1.00" length="64.28" shape="26.67,-1.40 76.15,25.81"/>
     </edge>
 
     <junction id="B-AddedOnRampNode" type="priority" x="177.48" y="33.85" incLanes="B-AddedOnRampEdge_0 B-AddedOnRampEdge_1 B-AddedOnRampEdge_2" intLanes="" shape="177.48,33.85 177.39,24.25 177.48,33.85">

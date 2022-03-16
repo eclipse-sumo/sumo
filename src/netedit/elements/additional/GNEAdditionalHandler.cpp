@@ -61,6 +61,9 @@
 #include "GNEVariableSpeedSign.h"
 #include "GNEVariableSpeedSignStep.h"
 #include "GNEVariableSpeedSignSymbol.h"
+#include "GNEFrictionCoefficient.h"
+#include "GNEFrictionCoefficientStep.h"
+#include "GNEFrictionCoefficientSymbol.h"
 
 
 // ===========================================================================
@@ -1208,6 +1211,84 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(const CommonXMLStructure::SumoB
         } else {
             VSS->addChildElement(variableSpeedSignStep);
             variableSpeedSignStep->incRef("buildVariableSpeedSignStep");
+        }
+    }
+}
+
+
+void
+GNEAdditionalHandler::buildVariableFrictionCoefficient(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
+    const std::vector<std::string>& laneIDs, const std::string& name, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) {
+    /// check conditions
+    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_COF, id);
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_COF, id, false) == nullptr) {
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // parse lanes
+        std::vector<GNELane*> lanes = parseLanes(SUMO_TAG_COF, laneIDs);
+        // check lane
+        if (lanes.size() > 0) {
+            // check vTypes
+            if (!vTypes.empty() && !checkListOfVehicleTypes(vTypes)) {
+                writeErrorInvalidVTypes(SUMO_TAG_COF, id);
+            } else {
+                // create COF
+                GNEAdditional* frictionCoefficient = new GNEFrictionCoefficient(id, myNet, pos, name, vTypes, parameters);
+                // create COF Symbols
+                std::vector<GNEAdditional*> COFSymbols;
+                for (const auto& lane : lanes) {
+                    COFSymbols.push_back(new GNEFrictionCoefficientSymbol(frictionCoefficient, lane));
+                }
+                // insert depending of allowUndoRedo
+                if (myAllowUndoRedo) {
+                    myNet->getViewNet()->getUndoList()->begin(GUIIcon::FRICTIONCOEFFICIENT, "add " + toString(SUMO_TAG_COF));
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(frictionCoefficient, true), true);
+                    for (const auto& COFSymbol : COFSymbols) {
+                        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(COFSymbol, true), true);
+                    }
+                    myNet->getViewNet()->getUndoList()->end();
+                } else {
+                    myNet->getAttributeCarriers()->insertAdditional(frictionCoefficient);
+                    // add symbols
+                    for (int i = 0; i < (int)lanes.size(); i++) {
+                        lanes.at(i)->addChildElement(COFSymbols.at(i));
+                        COFSymbols.at(i)->incRef("buildFrictionCoefficientSymbol");
+                    }
+                    frictionCoefficient->incRef("buildFrictionCoefficient");
+                }
+            }
+        }
+    } else {
+        writeErrorDuplicated(SUMO_TAG_COF, id);
+    }
+}
+
+
+void
+GNEAdditionalHandler::buildVariableFrictionCoefficientStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const std::string& friction) {
+    // get COF parent
+    GNEAdditional* COF = getAdditionalParent(sumoBaseObject, SUMO_TAG_COF);
+    // check lane
+    if (COF == nullptr) {
+        writeErrorInvalidParent(SUMO_TAG_STEP_COF, SUMO_TAG_COF);
+    } else if (time < 0) {
+        writeErrorInvalidNegativeValue(SUMO_TAG_STEP_COF, COF->getID(), SUMO_ATTR_BEGIN);
+        /*
+            } else if (friction < 0) {
+                writeErrorInvalidNegativeValue(SUMO_TAG_STEP, COF->getID(), SUMO_ATTR_SPEED);
+        */
+    } else {
+        // create Variable Friction Sign
+        GNEAdditional* frictionCoefficientStep = new GNEFrictionCoefficientStep(COF, time, friction);
+        // add it depending of allow undoRedo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::COFSTEP, "add " + frictionCoefficientStep->getTagStr());
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(frictionCoefficientStep, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            COF->addChildElement(frictionCoefficientStep);
+            frictionCoefficientStep->incRef("buildFrictionCoefficientStep");
         }
     }
 }

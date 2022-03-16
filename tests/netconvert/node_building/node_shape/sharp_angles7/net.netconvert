@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:08 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-03-16 08:17:42 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -35,13 +40,13 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-447725.01,-4348391.58" convBoundary="0.00,0.00,108.08,149.18" origBoundary="-75.760074,38.829851,-75.138461,39.387555" projParameter="+proj=utm +zone=18 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="1" from="C" to="415082951" priority="0" spreadType="center" shape="42.10,115.19 71.30,149.18">
-        <lane id="1_0" index="0" speed="13.90" length="46.46" shape="42.10,115.19 71.30,149.18"/>
+        <lane id="1_0" index="0" speed="13.90" friction="1.00" length="46.46" shape="42.10,115.19 71.30,149.18"/>
     </edge>
     <edge id="2" from="C" to="414958322" priority="0" spreadType="center" shape="40.89,116.31 21.18,83.37 108.08,0.00">
-        <lane id="2_0" index="0" speed="13.90" length="158.81" shape="40.04,114.89 21.18,83.37 108.08,-0.00"/>
+        <lane id="2_0" index="0" speed="13.90" friction="1.00" length="158.81" shape="40.04,114.89 21.18,83.37 108.08,-0.00"/>
     </edge>
     <edge id="3" from="100797353" to="C" priority="0" spreadType="center" shape="0.00,141.22 41.67,117.75 39.44,117.10">
-        <lane id="3_0" index="0" speed="13.90" length="49.52" shape="0.00,141.22 41.67,117.75 41.51,117.70"/>
+        <lane id="3_0" index="0" speed="13.90" friction="1.00" length="49.52" shape="0.00,141.22 41.67,117.75 41.51,117.70"/>
     </edge>
 
     <junction id="100797353" type="dead_end" x="0.00" y="141.22" incLanes="" intLanes="" shape="0.79,142.61 -0.79,139.83"/>

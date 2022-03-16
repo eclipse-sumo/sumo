@@ -436,6 +436,11 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         WRITE_WARNING("Currently unsuported. Create VSS steps elements using VSS dialog");
         return false;
     }
+    // disable intervals (temporal)
+    if (tagProperties.getTag() == SUMO_TAG_STEP_COF) {
+        WRITE_WARNING("Currently unsuported. Create COF steps elements using COF dialog");
+        return false;
+    }
     // Check if ID has to be generated
     if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
         myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
@@ -467,6 +472,26 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         if (step) {
             myBaseAdditional->addTimeAttribute(SUMO_ATTR_TIME, string2time(step->getAttribute(SUMO_ATTR_TIME)) + TIME2STEPS(900));
         } else {
+            myBaseAdditional->addTimeAttribute(SUMO_ATTR_TIME, 0);
+        }
+    }
+    // special case for COF Steps
+    if (myBaseAdditional->getTag() == SUMO_TAG_STEP_COF) {
+        // get COF parent
+        const auto COFParent = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_COF,
+            myBaseAdditional->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
+        // get last step
+        GNEAdditional* step = nullptr;
+        for (const auto& additionalChild : COFParent->getChildAdditionals()) {
+            if (!additionalChild->getTagProperty().isSymbol()) {
+                step = additionalChild;
+            }
+        }
+        // set time
+        if (step) {
+            myBaseAdditional->addTimeAttribute(SUMO_ATTR_TIME, string2time(step->getAttribute(SUMO_ATTR_TIME)) + TIME2STEPS(900));
+        }
+        else {
             myBaseAdditional->addTimeAttribute(SUMO_ATTR_TIME, 0);
         }
     }

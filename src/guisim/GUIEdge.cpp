@@ -184,6 +184,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("street name", false, getStreetName());
     ret->mkItem("pending insertions [#]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getPendingEmits));
+	ret->mkItem("Friction Coefficient [%]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getFrictionCoefficient, 100.));
     ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getMeanSpeed));
     ret->mkItem("routing speed [m/s]", true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getRoutingSpeed));
     ret->mkItem("brutto occupancy [%]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getBruttoOccupancy, 100.));
@@ -423,6 +424,10 @@ GUIEdge::getAllowedSpeed() const {
     return (*myLanes)[0]->getSpeedLimit();
 }
 
+double
+GUIEdge::getFrictionCoefficient() const {
+	return (*myLanes)[0]->getFrictionCoefficient();
+}
 
 double
 GUIEdge::getRelativeSpeed() const {

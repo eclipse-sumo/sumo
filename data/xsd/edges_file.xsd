@@ -45,6 +45,7 @@
         <xsd:attribute name="endOffset" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="numLanes" type="xsd:positiveInteger" use="optional"/>
         <xsd:attribute name="speed" type="positiveFloatType" use="optional"/>
+	<xsd:attribute name="friction" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="priority" type="xsd:int" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
@@ -70,6 +71,7 @@
         </xsd:choice>
         <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="required"/>
         <xsd:attribute name="speed" type="positiveFloatType" use="optional"/>
+	<xsd:attribute name="friction" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="allow" type="xsd:string" use="optional"/>
         <xsd:attribute name="disallow" type="xsd:string" use="optional"/>
