@@ -19,12 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_Children.h>
 #include <netedit/elements/additional/GNEAccess.h>
 #include <netedit/elements/additional/GNEBusStop.h>
 #include <netedit/elements/additional/GNECalibrator.h>
@@ -55,7 +50,6 @@
 #include <netedit/elements/additional/GNEVariableSpeedSignStep.h>
 #include <netedit/elements/additional/GNETractionSubstation.h>
 #include <netedit/elements/additional/GNEOverheadWire.h>
-#include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/demand/GNEContainer.h>
 #include <netedit/elements/demand/GNEPerson.h>
 #include <netedit/elements/demand/GNEPersonTrip.h>
@@ -68,17 +62,11 @@
 #include <netedit/elements/demand/GNEVType.h>
 #include <netedit/elements/demand/GNEVTypeDistribution.h>
 #include <netedit/elements/demand/GNEWalk.h>
-#include <netedit/elements/network/GNEConnection.h>
-#include <netedit/elements/network/GNECrossing.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-#include <utils/foxtools/MFXMenuHeader.h>
-#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEM_TagSelector.h"
-#include "GNEFrame.h"
 
 
 // ===========================================================================
