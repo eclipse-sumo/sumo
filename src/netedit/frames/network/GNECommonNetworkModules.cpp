@@ -63,8 +63,8 @@ FXIMPLEMENT(GNECommonNetworkModules::ConsecutiveLaneSelector,   FXGroupBoxModule
 
 GNECommonNetworkModules::NetworkElementsSelector::NetworkElementsSelector(GNEFrame* frameParent, const NetworkElementType networkElementType) :
     FXGroupBoxModule(frameParent->getContentFrame(), "NetworkElements"),
-    myNetworkElementType(networkElementType),
-    myFrameParent(frameParent) {
+    myFrameParent(frameParent),
+    myNetworkElementType(networkElementType) {
      // Create horizontal frame
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create buttons
