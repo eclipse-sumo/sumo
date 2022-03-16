@@ -54,7 +54,7 @@ GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent,
     FXSingleEventThread(app, parent),
     myNet(nullptr), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true), myHaveSignaledEnd(false),
     mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev),
-    myLastBreakMillis(0) {
+    myLastEndMillis(-1), myLastBreakMillis(0), myAmLibsumo(false) {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_MESSAGE);
     myWarningRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_WARNING);
@@ -116,55 +116,62 @@ GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
 
 FXint
 GUIRunThread::run() {
-    long beg = 0;
-    long end = -1;
     // perform an endless loop
     while (!myQuit) {
-        // if the simulation shall be perfomed, do it
-        if (!myHalting && myNet != nullptr && myOk) {
-            beg = SysUtils::getCurrentMillis();
-            if (end != -1) {
-                getNet().setIdleDuration((int)(beg - end));
-            }
-            // check whether we shall stop at this step
-            myBreakpointLock.lock();
-            const bool haltAfter = std::find(myBreakpoints.begin(), myBreakpoints.end(), myNet->getCurrentTimeStep()) != myBreakpoints.end();
-            myBreakpointLock.unlock();
-            // stop after this step if wished
-            if (haltAfter) {
-                stop();
-            }
-            // stop the execution when only a single step should have
-            //  been performed
-            if (mySingle) {
-                myHalting = true;
-            }
-            // do the step
-            makeStep();
-            waitForSnapshots(myNet->getCurrentTimeStep() - DELTA_T);
-            // wait if wanted (delay is per simulated second)
-            long wait = (long)(mySimDelay * TS);
-            end = SysUtils::getCurrentMillis();
-            getNet().setSimDuration((int)(end - beg));
-            wait -= (end - beg);
-            if (wait > 0) {
-                myLastBreakMillis = end;
-                sleep(wait);
-#ifndef WIN32
-            } else if (end - myLastBreakMillis > 1000) {
-                // ensure redraw event is successfull at least once per second (#9028)
-                sleep(100);
-                myLastBreakMillis = end;
-#endif
-            }
+        if (myAmLibsumo) {
+            myApp->run();
         } else {
-            // sleep if the simulation is not running
-            sleep(50);
+            // if the simulation shall be performed, do it
+            tryStep();
         }
     }
     // delete a maybe existing simulation at the end
     deleteSim();
     return 0;
+}
+
+
+void
+GUIRunThread::tryStep() {
+    if (!myHalting && myNet != nullptr && myOk) {
+        const long beg = SysUtils::getCurrentMillis();
+        if (myLastEndMillis != -1) {
+            getNet().setIdleDuration((int)(beg - myLastEndMillis));
+        }
+        // check whether we shall stop at this step
+        myBreakpointLock.lock();
+        const bool haltAfter = std::find(myBreakpoints.begin(), myBreakpoints.end(), myNet->getCurrentTimeStep()) != myBreakpoints.end();
+        myBreakpointLock.unlock();
+        // stop after this step if wished
+        if (haltAfter) {
+            stop();
+        }
+        // stop the execution when only a single step should have been performed
+        if (mySingle) {
+            myHalting = true;
+        }
+        // do the step
+        makeStep();
+        waitForSnapshots(myNet->getCurrentTimeStep() - DELTA_T);
+        // wait if wanted (delay is per simulated second)
+        long wait = (long)(mySimDelay * TS);
+        myLastEndMillis = SysUtils::getCurrentMillis();
+        getNet().setSimDuration((int)(myLastEndMillis - beg));
+        wait -= (myLastEndMillis - beg);
+        if (wait > 0) {
+            myLastBreakMillis = myLastEndMillis;
+            sleep(wait);
+#ifndef WIN32
+        } else if (myLastEndMillis - myLastBreakMillis > 1000) {
+            // ensure redraw event is successfull at least once per second (#9028)
+            sleep(100);
+            myLastBreakMillis = myLastEndMillis;
+#endif
+        }
+    } else {
+        // sleep if the simulation is not running
+        sleep(50);
+    }
 }
 
 
@@ -186,7 +193,7 @@ GUIRunThread::makeStep() {
         myEventThrow.signal();
 
         e = nullptr;
-        MSNet::SimulationState state = myNet->adaptToState(myNet->simulationState(mySimEndTime));
+        MSNet::SimulationState state = myNet->adaptToState(myNet->simulationState(mySimEndTime), myAmLibsumo);
         switch (state) {
             case MSNet::SIMSTATE_LOADING:
             case MSNet::SIMSTATE_END_STEP_REACHED:
@@ -285,7 +292,9 @@ GUIRunThread::deleteSim() {
     if (myNet != nullptr) {
         myNet->closeSimulation(mySimStartTime, MSNet::getStateMessage(myNet->simulationState(mySimEndTime)));
     }
-    while (mySimulationInProgress);
+    while (mySimulationInProgress) {
+        sleep(50);
+    }
     delete myNet;
     GUIGlObjectStorage::gIDStorage.clear();
     myNet = nullptr;

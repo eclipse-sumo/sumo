@@ -143,8 +143,20 @@ public:
     */
     void loadState(const SUMOSAXAttributes& attrs);
 
+    /// @brief Information needed to sort vehicle / transportable output by departure time
+    struct SortedRouteInfo {
+        /// @brief route output device
+        OutputDevice* routeOut = nullptr;
+
+        /// @brief Map needed to sort vehicles by departure time
+        std::map<const SUMOTime, int> departureCounts;
+
+        /// @brief pregenerated route output sorted by time
+        std::map<const SUMOTime, std::map<const std::string, std::string> > routeXML;
+    };
+
     static void registerTransportableDepart(SUMOTime depart);
-    static void writeSortedOutput(OutputDevice& routeOut, SUMOTime depart, const std::string& id, const std::string& xmlOutput);
+    static void writeSortedOutput(SortedRouteInfo* routeInfo, SUMOTime depart, const std::string& id, const std::string& xmlOutput);
 
 private:
     /** @brief Constructor
@@ -174,9 +186,6 @@ private:
     /** @brief Called on route change
      */
     void addRoute(const std::string& info);
-
-
-
 
 private:
     /// @brief A shortcut for the Option "vehroute-output.exit-times"
@@ -232,11 +241,8 @@ private:
     /// @brief A class that is notified about reroutings
     static StateListener myStateListener;
 
-    /// @brief Map needed to sort vehicles by departure time
-    static std::map<const SUMOTime, int> myDepartureCounts;
-
-    /// @todo: describe
-    static std::map<const SUMOTime, std::map<const std::string, std::string> > myRouteInfos;
+    /// @brief Information needed to sort vehicles by departure time
+    static SortedRouteInfo myRouteInfos;
 
 
     /**

@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 210)
 
 # Change parameter friendlyPos with a non valid value (dummy)
-netedit.modifyAttribute(2, "dummyFriendlyPos", True)
+netedit.modifyAttribute(netedit.attrs.E1.inspect.pos, "dummyPos", True)
 
 # Change parameter friendlyPos with a valid value (negative)
-netedit.modifyAttribute(2, "-5", True)
+netedit.modifyAttribute(netedit.attrs.E1.inspect.pos, "-5", True)
 
-# Change parameter friendlyPos with a valid value (> lane lenght)
-netedit.modifyAttribute(2, "400", True)
+# Change parameter friendlyPos with a valid value (> lane length)
+netedit.modifyAttribute(netedit.attrs.E1.inspect.pos, "400", True)
 
 # Change parameter friendlyPos with a valid value
-netedit.modifyAttribute(2, "20", True)
+netedit.modifyAttribute(netedit.attrs.E1.inspect.pos, "20", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

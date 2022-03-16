@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-14 15:24:44 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
+<!-- generated on 2022-03-16 08:21:06 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -56,7 +61,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_8_0" index="0" allow="bicycle" speed="8.08" friction="1.00" length="4.68" width="1.00" shape="100.70,98.36 101.94,97.01 104.70,96.30"/>
     </edge>
     <edge id=":C_2" function="internal">
-        <lane id=":C_2_0" index="0" allow="bicycle" speed="5.05" friction="1.00" length="5.74" shape="104.70,103.70 103.34,103.95 102.38,104.70 101.79,105.95 101.60,107.70"/>
+        <lane id=":C_2_0" index="0" allow="bicycle" speed="5.05" friction="1.00" length="5.74" width="1.00" shape="104.70,103.70 103.34,103.95 102.38,104.70 101.79,105.95 101.60,107.70"/>
     </edge>
     <edge id=":C_3" function="internal">
         <lane id=":C_3_0" index="0" allow="bicycle" speed="13.89" friction="1.00" length="9.40" width="1.00" shape="104.70,103.70 95.30,103.70"/>
@@ -66,13 +71,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_5_0" index="0" allow="bicycle" speed="13.89" friction="1.00" length="9.40" width="1.00" shape="95.30,96.30 104.70,96.30"/>
     </edge>
     <edge id=":C_6" function="internal">
-        <lane id=":C_6_0" index="0" allow="bicycle" speed="7.90" friction="1.00" length="5.97" shape="95.30,96.30 98.06,97.01 100.03,99.15 100.09,99.36"/>
+        <lane id=":C_6_0" index="0" allow="bicycle" speed="7.90" friction="1.00" length="5.97" width="1.00" shape="95.30,96.30 98.06,97.01 100.03,99.15 100.09,99.36"/>
     </edge>
     <edge id=":C_7" function="internal">
         <lane id=":C_7_0" index="0" allow="passenger" speed="13.89" friction="1.00" length="9.40" shape="95.30,98.40 104.70,98.40"/>
     </edge>
     <edge id=":C_9" function="internal">
-        <lane id=":C_9_0" index="0" allow="bicycle" speed="7.90" friction="1.00" length="8.54" shape="100.09,99.36 101.21,102.71 101.60,107.70"/>
+        <lane id=":C_9_0" index="0" allow="bicycle" speed="7.90" friction="1.00" length="8.54" width="1.00" shape="100.09,99.36 101.21,102.71 101.60,107.70"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CE">
         <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" friction="1.00" length="1.00" width="4.00" shape="102.70,95.80 102.70,96.80"/>

@@ -40,7 +40,7 @@
 // ===========================================================================
 MSRailCrossing::MSRailCrossing(MSTLLogicControl& tlcontrol,
                                const std::string& id, const std::string& programID, SUMOTime delay,
-                               const std::map<std::string, std::string>& parameters) :
+                               const Parameterised::Map& parameters) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, 0, TrafficLightType::RAIL_CROSSING, Phases(), 0, delay, parameters) {
     // dummy phase, used to avoid crashing in MSTrafficLightLogic::setTrafficLightSignals()
     myPhases.push_back(new MSPhaseDefinition(1, std::string(SUMO_MAX_CONNECTIONS, 'X')));
@@ -53,7 +53,7 @@ MSRailCrossing::~MSRailCrossing() {}
 
 void
 MSRailCrossing::init(NLDetectorBuilder&) {
-    const std::map<std::string, std::string> test = getParametersMap();
+    const Parameterised::Map test = getParametersMap();
     myTimeGap = string2time(getParameter("time-gap", "15"));
     //use time-gap by default
     mySpaceGap = StringUtils::toDouble(getParameter("space-gap", "-1"));

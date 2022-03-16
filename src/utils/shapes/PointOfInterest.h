@@ -72,7 +72,7 @@ public:
                     double width = DEFAULT_IMG_WIDTH,
                     double height = DEFAULT_IMG_HEIGHT,
                     const std::string& name = DEFAULT_NAME,
-                    const std::map<std::string, std::string>& parameters = DEFAULT_PARAMETERS) :
+                    const Parameterised::Map& parameters = DEFAULT_PARAMETERS) :
         Shape(id, type, color, layer, angle, imgFile, name, relativePath),
         Position(pos),
         Parameterised(parameters),
@@ -135,7 +135,7 @@ public:
     /* @brief POI definition to the given device
      * @param[in] geo  Whether to write the output in geo-coordinates
      */
-    void writeXML(OutputDevice& out, const bool geo = false, const double zOffset = 0., const std::string laneID = "", const double pos = 0., const bool friendlyPos = false, const double posLat = 0.) {
+    void writeXML(OutputDevice& out, const bool geo = false, const double zOffset = 0., const std::string laneID = "", const double pos = 0., const bool friendlyPos = false, const double posLat = 0.) const {
         out.openTag(SUMO_TAG_POI);
         out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
         if (getShapeType().size() > 0) {

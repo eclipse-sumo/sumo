@@ -1,62 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-17 13:49:16 by Eclipse SUMO netedit Version v1_11_0+1211-1b1dce94384
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.2_from_17Jan125654.4740\netedit.gui\basic\quit\save_network\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.2_from_17Jan125654.4740\netedit.gui\basic\quit\save_network\net.net.xml"/>
-    </output>
-
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-    <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.2_from_17Jan125654.4740\netedit.gui\basic\quit\save_network\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.2_from_17Jan125654.4740\netedit.gui\basic\quit\save_network\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.2_from_17Jan125654.4740\netedit.gui\basic\quit\save_network\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.2_from_17Jan125654.4740\netedit.gui\basic\quit\save_network\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.2_from_17Jan125654.4740\netedit.gui\basic\quit\save_network\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.2_from_17Jan125654.4740\netedit.gui\basic\quit\save_network\datas.xml"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.2_from_17Jan125654.4740\netedit.gui\basic\quit\save_network\gui-settings.xml"/>
-        <window-size value="936,697"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.2_from_17Jan125654.4740\netedit.gui\basic\quit\save_network\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.2_from_17Jan125654.4740\netedit.gui\basic\quit\save_network\log.txt"/>
-    </report>
-
-</configuration>
+<!-- generated on 2022-03-03 17:06:19 by Eclipse SUMO netedit Version v1_12_0+1120-8ddf4e10651
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
     <busStop id="bs_0" lane="gneE0_0" startPos="16.00" endPos="26.00"/>
+    <!-- Shapes -->
     <poly id="po_0" color="red" fill="0" layer="0.00" shape="2.000000,18.000000 2.000000,24.000000 -4.000000,24.000000 -4.000000,18.000000 2.000000,18.000000"/>
 </additional>

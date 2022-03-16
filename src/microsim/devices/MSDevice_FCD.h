@@ -109,6 +109,7 @@ private:
 
     /// @brief bit mask for checking attributes to be written
     static long long int myWrittenAttributes;
+    static const long long int myDefaultMask;
 
 private:
     /// @brief Invalidated copy constructor.

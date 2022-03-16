@@ -161,10 +161,8 @@ make -j $(grep -c ^processor /proc/cpuinfo)
 
 Other useful cmake options:
 
-- `-D PROFILING=ON` enable profiling instrumentation for gprof (gcc
-  build only)
-- `-D COVERAGE=ON` enable coverage instrumentation for lcov (gcc build
-  only)
+- `-D PROFILING=ON` enable profiling instrumentation for gprof (gcc build only)
+- `-D COVERAGE=ON` enable coverage instrumentation for lcov (gcc build only)
 - `-D CHECK_OPTIONAL_LIBS=OFF` disable all optional libraries (only
   include EPL compatible licensed code)
 - `-D CMAKE_BUILD_TYPE=RelWithDebInfo` enable debug symbols for
@@ -172,6 +170,7 @@ Other useful cmake options:
 - `-D PROJ_LIBRARY=` disable PROJ
 - `-D FOX_CONFIG=` disable FOX toolkit (GUI and multithreading)
 - `-D PYTHON_EXECUTABLE=/usr/bin/python3` select a different python version (also for libsumo / libtraci)
+- `-D MVN_EXECUTABLE=` disable maven packaging (especially useful if you have no network connection)
 
 
 ## Building with clang
@@ -198,14 +197,14 @@ CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Debug ../..
 ```
 
 The clang-debug-build will detect memory leaks (among other things)
-If the errors are reported as
+If the errors are reported with cryptic hexadecimal numbers as
 
 ```
 Indirect leak of 72 byte(s) in 1 object(s) allocated from:
     #0 0xa4ee2d  (.../sumo/bin/netconvertD+0xa4ee2d) 
 ```
 
-Set, the following environment variable to pinot at the llvm-symoblizer executable:
+set the following environment variable to point to the llvm-symbolizer executable:
 `export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer` before running the executable.
 
 ## Installing the SUMO binaries
@@ -242,7 +241,7 @@ sudo xargs rm -r $SUMO_HOME
 ## (Frequent) Rebuilds
 
 If you did a repository clone you can simply update it by doing `git pull`
-from inside the SUMO_HOME folder. Then change to the buil directory and run
+from inside the SUMO_HOME folder. Then change to the build directory and run
 `make -j $(nproc)` again.
 
 If your underlying system changed (updated libraries) or you experience other

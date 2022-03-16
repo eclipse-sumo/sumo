@@ -104,7 +104,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief pointer to original lane
@@ -115,7 +115,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
+    void toogleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief invalidated copy constructor
     GNELaneTemplate(const GNELaneTemplate& s) = delete;

@@ -1,9 +1,8 @@
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'parkingArea' in TagSelector
-Debug: Invalid input parameter of parkingArea: 'roadsideCapacity' doesn't have a valid 'int' format
-Debug: Invalid input parameter of parkingArea: 'roadsideCapacity' doesn't have a valid 'int' format
-Debug: Invalid input parameter of parkingArea: 'roadsideCapacity' cannot be negative
-Debug: Invalid input parameter of parkingArea: 'roadsideCapacity' doesn't have a valid 'int' format
+Debug: Invalid input parameter of parkingArea
+Debug: Invalid input parameter of parkingArea
+Debug: Invalid input parameter of parkingArea
+Debug: Invalid input parameter of parkingArea
 Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

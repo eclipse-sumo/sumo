@@ -63,19 +63,15 @@ public:
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
      * @param[in] additionalParents vector of additional parents
-     * @param[in] shapeParents vector of shape parents
-     * @param[in] TAZElementParents vector of TAZElement parents
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
     GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-                   const std::map<std::string, std::string>& parameters,
+                   const Parameterised::Map& parameters,
                    const std::vector<GNEJunction*>& junctionParents,
                    const std::vector<GNEEdge*>& edgeParents,
                    const std::vector<GNELane*>& laneParents,
                    const std::vector<GNEAdditional*>& additionalParents,
-                   const std::vector<GNEShape*>& shapeParents,
-                   const std::vector<GNETAZElement*>& TAZElementParents,
                    const std::vector<GNEDemandElement*>& demandElementParents,
                    const std::vector<GNEGenericData*>& genericDataParents);
 
@@ -260,7 +256,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief dataInterval Parent
@@ -289,7 +285,7 @@ private:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    virtual void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) = 0;
+    virtual void toogleAttribute(SumoXMLAttr key, const bool value) = 0;
 
     /// @brief Invalidated copy constructor.
     GNEGenericData(const GNEGenericData&) = delete;

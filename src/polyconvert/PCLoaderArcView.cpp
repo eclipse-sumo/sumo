@@ -182,7 +182,9 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 }
             }
             break;
-            case wkbLineString: {
+            case wkbLineString:
+            case wkbLineString25D:
+            {
                 OGRLineString* cgeom = (OGRLineString*) poGeometry;
                 PositionVector shape;
                 for (int j = 0; j < cgeom->getNumPoints(); j++) {

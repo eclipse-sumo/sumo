@@ -167,9 +167,11 @@ MSMeanData_Emissions::MSMeanData_Emissions(const std::string& id,
         const double maxTravelTime,
         const double minSamples,
         const std::string& vTypes,
-        const std::string& writeAttributes) :
+        const std::string& writeAttributes,
+        const std::vector<MSEdge*>& edges,
+        bool aggregate) :
     MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
-               withInternal, trackVehicles, 0, maxTravelTime, minSamples, vTypes, writeAttributes)
+               withInternal, trackVehicles, 0, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate)
 { }
 
 

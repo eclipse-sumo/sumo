@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change type of junction
-netedit.modifyAttribute(2, "traffic_light_unregulated", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.type, "traffic_light_unregulated", False)
 
 # rebuild network
 netedit.rebuildNetwork()

@@ -40,23 +40,23 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
+# inspect flow over route
 netedit.leftClick(referencePosition, 330, 150)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(5, "", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departSpeed, "", True)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(5, "dummySpeed", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departSpeed, "dummySpeed", True)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(5, "500", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departSpeed, "500", True)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(5, "-10", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departSpeed, "-10", True)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(5, "20", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departSpeed, "20", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# set position
+netedit.setZoom(25, 0, 75)
+
 # go to select mode
 netedit.selectMode()
 
@@ -38,10 +41,10 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, 150, 245)
+netedit.leftClick(referencePosition, 150, 240)
 
 # check parameters
-netedit.checkParameters(referencePosition, 5, True)
+netedit.checkParameters(referencePosition, netedit.attrs.E1Instant.inspectSelection.parameters, True)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

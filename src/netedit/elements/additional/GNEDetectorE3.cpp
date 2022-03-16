@@ -30,12 +30,11 @@
 
 GNEDetectorE3::GNEDetectorE3(GNENet* net) :
     GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}),
     myFreq(0),
     myFilename(""),
     myTimeThreshold(0),
-mySpeedThreshold(0) {
+    mySpeedThreshold(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -43,16 +42,16 @@ mySpeedThreshold(0) {
 
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
                              const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
-                             const std::map<std::string, std::string>& parameters) :
+                             const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name,
-{}, {}, {}, {}, {}, {}, {}, {},
-parameters),
-myPosition(pos),
-myFreq(freq),
-myFilename(filename),
-myVehicleTypes(vehicleTypes),
-myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold) {
+        {}, {}, {}, {}, {}, {}),
+    Parameterised(parameters),
+    myPosition(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -70,32 +69,47 @@ GNEDetectorE3::getMoveOperation() {
 
 void
 GNEDetectorE3::writeAdditional(OutputDevice& device) const {
-    device.openTag(getTagProperty().getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    bool entry = false;
+    bool exit = false;
+    // first check if E3 has at least one entry and one exit
+    for (const auto &additionalChild : getChildAdditionals()) {
+        if (additionalChild->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
+            entry = true;
+        } else if (additionalChild->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
+            exit = true;
+        }
     }
-    device.writeAttr(SUMO_ATTR_POSITION, myPosition);
-    device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFreq));
-    if (myFilename.size() > 0) {
-        device.writeAttr(SUMO_ATTR_FILE, myFilename);
+    // check entry/exits
+    if (entry && exit) {
+        device.openTag(getTagProperty().getTag());
+        device.writeAttr(SUMO_ATTR_ID, getID());
+        if (!myAdditionalName.empty()) {
+            device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+        }
+        device.writeAttr(SUMO_ATTR_POSITION, myPosition);
+        device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFreq));
+        if (myFilename.size() > 0) {
+            device.writeAttr(SUMO_ATTR_FILE, myFilename);
+        }
+        if (myVehicleTypes.size() > 0) {
+            device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
+        }
+        if (getAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
+            device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
+        }
+        if (getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
+            device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
+        }
+        // write all entry/exits
+        for (const auto& access : getChildAdditionals()) {
+            access->writeAdditional(device);
+        }
+        // write parameters (Always after children to avoid problems with additionals.xsd)
+        writeParams(device);
+        device.closeTag();
+    } else {
+        WRITE_WARNING(myTagProperty.getTagStr() + " '" + getID() + "' needs at least one entry and one exit");
     }
-    if (myVehicleTypes.size() > 0) {
-        device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
-    }
-    if (getAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
-        device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
-    }
-    if (getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
-        device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
-    }
-    // write all entry/exits
-    for (const auto& access : getChildAdditionals()) {
-        access->writeAdditional(device);
-    }
-    // write parameters (Always after children to avoid problems with additionals.xsd)
-    writeParams(device);
-    device.closeTag();
 }
 
 
@@ -191,6 +205,12 @@ GNEDetectorE3::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Parameterised::Map&
+GNEDetectorE3::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -241,7 +261,7 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

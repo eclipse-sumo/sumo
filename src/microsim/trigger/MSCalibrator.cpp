@@ -56,6 +56,20 @@ std::vector<SUMOVehicleParameter*> MSCalibrator::LeftoverVehicleParameters;
 std::map<std::string, MSCalibrator*> MSCalibrator::myInstances;
 
 // ===========================================================================
+// CalibratorCommand method definitions
+// ===========================================================================
+
+SUMOTime
+MSCalibrator::CalibratorCommand::shiftTime(SUMOTime currentTime, SUMOTime execTime, SUMOTime newTime) {
+    UNUSED_PARAMETER(currentTime);
+    UNUSED_PARAMETER(execTime);
+    UNUSED_PARAMETER(newTime);
+    myCalibrator->myCurrentStateInterval = myCalibrator->myIntervals.begin();
+    return 0;
+}
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 MSCalibrator::MSCalibrator(const std::string& id,
@@ -75,11 +89,13 @@ MSCalibrator::MSCalibrator(const std::string& id,
     myEdge(edge),
     myLane(lane),
     myPos(pos), myProbe(probe),
-    myMeanDataParent(id + "_dummyMeanData", 0, 0, false, false, false, false, false, false, 1, 0, 0, vTypes, ""),
+    myMeanDataParent(id + "_dummyMeanData", 0, 0, false, false, false, false, false, false, 1, 0, 0, vTypes, "",
+            std::vector<MSEdge*>(), false),
     myEdgeMeanData(nullptr, length, false, &myMeanDataParent),
     myCurrentStateInterval(myIntervals.begin()),
     myOutput(nullptr), myFrequency(freq), myRemoved(0),
-    myInserted(0), myClearedInJam(0),
+    myInserted(0),
+    myClearedInJam(0),
     mySpeedIsDefault(true), myDidSpeedAdaption(false), myDidInit(false),
     myDefaultSpeed(myLane == nullptr ? myEdge->getSpeedLimit() : myLane->getSpeedLimit()),
     myHaveWarnedAboutClearingJam(false),
@@ -170,6 +186,7 @@ MSCalibrator::myStartElement(int element,
             }
             state.end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, getID().c_str(), ok, -1);
             state.vehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, true, true, true);
+            state.vehicleParameter->parametersSet &= ~VEHPARS_CALIBRATORSPEED_SET;
             LeftoverVehicleParameters.push_back(state.vehicleParameter);
             // vehicles should be inserted with max speed unless stated otherwise
             if (state.vehicleParameter->departSpeedProcedure == DepartSpeedDefinition::DEFAULT) {
@@ -220,6 +237,8 @@ MSCalibrator::myEndElement(int element) {
         if (!myDidInit) {
             init();
         }
+        // ensure correct state of SUMORouteHandler::myElementStack
+        callParentEnd(element);
     } else if (element != SUMO_TAG_FLOW) {
         MSRouteHandler::myEndElement(element);
     }
@@ -379,6 +398,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
                       << "\n";
         }
 #endif
+        MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
         while (wishedNum > adaptedNum + insertionSlack) {
             SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
             const MSRoute* route = myProbe != nullptr ? myProbe->sampleRoute() : nullptr;
@@ -395,18 +415,23 @@ MSCalibrator::execute(SUMOTime currentTime) {
             }
             const int routeIndex = (int)std::distance(route->begin(),
                                    std::find(route->begin(), route->end(), myEdge));
-            MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
+            MSVehicleType* vtype = vc.getVType(pars->vtypeid);
             assert(route != 0 && vtype != 0);
             // build the vehicle
+            const std::string newID = getNewVehicleID();
+            if (vc.getVehicle(newID) != nullptr) {;
+                // duplicate ids could come from loading state
+                myInserted++;
+                break;
+            }
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
-            newPars->id = getNewVehicleID();
+            newPars->id = newID;
             newPars->depart = currentTime;
             newPars->routeid = route->getID();
             newPars->departLaneProcedure = DepartLaneDefinition::FIRST_ALLOWED; // ensure successful vehicle creation
             MSVehicle* vehicle;
             try {
-                vehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(
-                                                       newPars, route, vtype, true, false));
+                vehicle = dynamic_cast<MSVehicle*>(vc.buildVehicle(newPars, route, vtype, true, false));
             } catch (const ProcessError& e) {
                 if (!MSGlobals::gCheckRoutes) {
                     WRITE_WARNING(e.what());

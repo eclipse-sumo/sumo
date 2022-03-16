@@ -27,7 +27,7 @@
 // method definitions
 // ===========================================================================
 MSSOTLPolicy5DStimulus::MSSOTLPolicy5DStimulus(std::string keyPrefix,
-        const std::map<std::string, std::string>& parameters) :
+        const Parameterised::Map& parameters) :
     MSSOTLPolicyDesirability(keyPrefix, parameters) {
 
     stimCoxDVal = 1;

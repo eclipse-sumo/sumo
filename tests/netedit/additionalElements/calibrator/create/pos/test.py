@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("calibrator")
 
 # change position with an invalid value (dummy)
-netedit.changeDefaultValue(3, "dummyValue")
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.pos, "dummyValue")
 
 # try to create calibrator with an invalid parameter
 netedit.leftClick(referencePosition, 240, 250)
 
 # change position with an invalid value (negative)
-netedit.changeDefaultValue(3, "-5")
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.pos, "-5")
 
 # try to create calibrator with an invalid parameter
 netedit.leftClick(referencePosition, 240, 250)
 
 # change position with a valid value
-netedit.changeDefaultValue(3, "10")
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.pos, "10")
 
 # create calibrator with an invalid parameter
 netedit.leftClick(referencePosition, 240, 250)

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-14 15:20:42 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
+<!-- generated on 2022-03-16 08:18:24 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -126,13 +131,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":28095228_16_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" friction="1.00" length="4.67" shape="1398.15,169.01 1399.09,167.91 1399.93,167.61 1400.68,168.10 1401.33,169.39"/>
     </edge>
     <edge id=":28095233_0" function="internal">
-        <lane id=":28095233_0_0" index="0" allow="bicycle" speed="4.89" friction="1.00" length="5.40" shape="1402.87,184.49 1401.81,184.60 1400.99,185.29 1400.41,186.56 1400.08,188.40"/>
+        <lane id=":28095233_0_0" index="0" allow="bicycle" speed="4.89" friction="1.00" length="5.40" width="1.50" shape="1402.87,184.49 1401.81,184.60 1400.99,185.29 1400.41,186.56 1400.08,188.40"/>
     </edge>
     <edge id=":28095233_1" function="internal">
-        <lane id=":28095233_1_0" index="0" allow="bicycle" speed="8.33" friction="1.00" length="16.79" shape="1402.87,184.49 1397.48,183.58 1393.27,182.90 1389.72,182.77 1386.29,183.49"/>
+        <lane id=":28095233_1_0" index="0" allow="bicycle" speed="8.33" friction="1.00" length="16.79" width="1.50" shape="1402.87,184.49 1397.48,183.58 1393.27,182.90 1389.72,182.77 1386.29,183.49"/>
     </edge>
     <edge id=":28095233_2" function="internal">
-        <lane id=":28095233_2_0" index="0" allow="bicycle" speed="13.89" friction="1.00" length="17.99" shape="1402.87,184.49 1397.66,183.42 1394.19,182.25 1390.74,180.98 1385.58,179.64"/>
+        <lane id=":28095233_2_0" index="0" allow="bicycle" speed="13.89" friction="1.00" length="17.99" width="1.50" shape="1402.87,184.49 1397.66,183.42 1394.19,182.25 1390.74,180.98 1385.58,179.64"/>
     </edge>
     <edge id=":28095233_3" function="internal">
         <lane id=":28095233_3_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric ship" speed="6.12" friction="1.00" length="3.10" shape="1403.22,182.17 1401.73,182.37 1400.57,183.46"/>

@@ -88,14 +88,15 @@ def get_options(args=None):
     if options.depart_edges_file is not None:
         if options.depart_edges is None:
             options.depart_edges = []
-        for line in open(options.depart_edges_file):
-            line = line.strip()
-            if line.startswith("edge:"):
-                options.depart_edges.append(line[5:])
-            elif line.startswith("lane:"):
-                options.depart_edges.append(line[5:-2])
-            else:
-                options.depart_edges.append(line)
+        with open(options.depart_edges_file) as depart_edges:
+            for line in depart_edges:
+                line = line.strip()
+                if line.startswith("edge:"):
+                    options.depart_edges.append(line[5:])
+                elif line.startswith("lane:"):
+                    options.depart_edges.append(line[5:-2])
+                else:
+                    options.depart_edges.append(line)
 
     if options.arrival_edges is not None:
         options.arrival_edges = options.arrival_edges.split(',')

@@ -164,9 +164,21 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             }
         }
         // parse period
+        bool poissonFlow = false;
         if (hasPeriod) {
             bool ok = true;
-            flowParameter->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
+            const std::string description = attrs.get<std::string>(SUMO_ATTR_PERIOD, id.c_str(), ok);
+            const std::string distName = description.substr(0, description.find('('));
+            if (distName == "exp") {
+                const double rate = StringUtils::toDouble(description.substr(distName.size() + 1, description.size() - distName.size() - 2));
+                if (rate <= 0) {
+                    return handleVehicleError(hardFail, flowParameter, "Invalid rate parameter for exponentially distributed period in the definition of " + toString(tag) + " '" + id + "'.");
+                }
+                flowParameter->repetitionOffset = -TIME2STEPS(rate);
+                poissonFlow = true;
+            } else {
+                flowParameter->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
+            }
             if (!ok) {
                 return handleVehicleError(hardFail, flowParameter);
             } else {
@@ -234,7 +246,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             } else {
                 flowParameter->parametersSet |= VEHPARS_END_SET;
             }
-        } else if (flowParameter->departProcedure == DEPART_TRIGGERED) {
+        } else if (flowParameter->departProcedure == DepartDefinition::TRIGGERED) {
             if (!hasNumber) {
                 return handleVehicleError(hardFail, flowParameter, toString(tag) + " '" + id + "' with triggered begin must define 'number'.");
             } else {
@@ -261,15 +273,19 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                     std::string flow = toString(tag);
                     flow[0] = (char)::toupper((char)flow[0]);
                     WRITE_WARNING(flow + " '" + id + "' has no instances; will skip it.");
+                    flowParameter->repetitionEnd = flowParameter->depart;
                 } else {
                     if (flowParameter->repetitionNumber < 0) {
                         return handleVehicleError(hardFail, flowParameter, "Negative repetition number in the definition of " + toString(tag) + " '" + id + "'.");
                     }
                     if (flowParameter->repetitionOffset < 0) {
-                        flowParameter->repetitionOffset = (flowParameter->repetitionEnd - flowParameter->depart) / flowParameter->repetitionNumber;
+                        if (poissonFlow) {
+                            flowParameter->repetitionEnd = SUMOTime_MAX;
+                        } else {
+                            flowParameter->repetitionOffset = (flowParameter->repetitionEnd - flowParameter->depart) / flowParameter->repetitionNumber;
+                        }
                     }
                 }
-                flowParameter->repetitionEnd = flowParameter->depart + flowParameter->repetitionNumber * flowParameter->repetitionOffset;
             }
         } else {
             // interpret repetitionNumber
@@ -277,13 +293,19 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                 flowParameter->repetitionNumber = std::numeric_limits<int>::max();
             } else {
                 if (flowParameter->repetitionOffset <= 0) {
-                    return handleVehicleError(hardFail, flowParameter, "Invalid repetition rate in the definition of " + toString(tag) + " '" + id + "'.");
-                }
-                if (flowParameter->repetitionEnd == SUMOTime_MAX) {
-                    flowParameter->repetitionNumber = std::numeric_limits<int>::max();
+                    if (poissonFlow) {
+                        // number is random but flow has a fixed end time
+                        flowParameter->repetitionNumber = std::numeric_limits<int>::max();
+                    } else {
+                        return handleVehicleError(hardFail, flowParameter, "Invalid repetition rate in the definition of " + toString(tag) + " '" + id + "'.");
+                    }
                 } else {
-                    const double repLength = (double)(flowParameter->repetitionEnd - flowParameter->depart);
-                    flowParameter->repetitionNumber = (int)ceil(repLength / flowParameter->repetitionOffset);
+                    if (flowParameter->repetitionEnd == SUMOTime_MAX) {
+                        flowParameter->repetitionNumber = std::numeric_limits<int>::max();
+                    } else {
+                        const double repLength = (double)(flowParameter->repetitionEnd - flowParameter->depart);
+                        flowParameter->repetitionNumber = (int)ceil(repLength / flowParameter->repetitionOffset);
+                    }
                 }
             }
         }
@@ -642,6 +664,22 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
             handleVehicleError(true, ret, toString(SUMO_ATTR_SPEEDFACTOR) + " must be positive");
         }
     }
+    // parse insertion checks
+    if (attrs.hasAttribute(SUMO_ATTR_INSERTIONCHECKS)) {
+        ret->insertionChecks = 0;
+        bool ok = true;
+        std::vector<std::string> checks = attrs.get<std::vector<std::string> >(SUMO_ATTR_INSERTIONCHECKS, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(true, ret);
+        } else { 
+            for (std::string check : checks) {
+                if (!SUMOXMLDefinitions::InsertionChecks.hasString(check)) {
+                    handleVehicleError(true, ret, "Unknown value '" + check + "' in " + toString(SUMO_ATTR_INSERTIONCHECKS));
+                }
+                ret->insertionChecks |= (int)SUMOXMLDefinitions::InsertionChecks.get(check);
+            }
+        }
+    }
     // parse speed (only used by calibrators flow)
     // also used by vehicle in saved state but this is parsed elsewhere
     if (tag == SUMO_TAG_FLOW && attrs.hasAttribute(SUMO_ATTR_SPEED)) {
@@ -942,6 +980,18 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 vType->parametersSet |= VTYPEPARS_LOADING_DURATION;
             }
         }
+        if (attrs.hasAttribute(SUMO_ATTR_SCALE)) {
+            bool ok = true;
+            const double scale = attrs.get<double>(SUMO_ATTR_SCALE, id.c_str(), ok);
+            if (!ok) {
+                return handleVehicleTypeError(hardFail, vType);
+            } else if (scale < 0) {
+                return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_SCALE) + " may be not be negative");
+            } else {
+                vType->scale = scale;
+                vType->parametersSet |= VTYPEPARS_SCALE_SET;
+            }
+        }
         if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED_LAT)) {
             bool ok = true;
             const double maxSpeedLat = attrs.get<double>(SUMO_ATTR_MAXSPEED_LAT, vType->id.c_str(), ok);
@@ -1164,7 +1214,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS] = kraussParams;
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_ORIG1] = kraussParams;
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_PLUS_SLOPE] = kraussParams;
-		allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_FRICTION] = kraussParams;
+	allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_FRICTION] = kraussParams;
         std::set<SumoXMLAttr> allParams(kraussParams);
         // KraussX
         std::set<SumoXMLAttr> kraussXParams(kraussParams);
@@ -1328,7 +1378,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         ACCParams.insert(SUMO_ATTR_CA_GAIN_SPACE);
         ACCParams.insert(SUMO_ATTR_APPLYDRIVERSTATE);
         allowedCFModelAttrs[SUMO_TAG_CF_ACC] = ACCParams;
-		allowedCFModelAttrs[SUMO_TAG_CF_ACC_FRICTION] = ACCParams;
+	allowedCFModelAttrs[SUMO_TAG_CF_ACC_FRICTION] = ACCParams;
         allParams.insert(ACCParams.begin(), ACCParams.end());
         // CACC
         std::set<SumoXMLAttr> CACCParams;

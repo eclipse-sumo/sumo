@@ -6,3 +6,4 @@ generateParkingAreas
 generateParkingLots
 generateParkingAreaRerouters
 generateContinuousRerouters
+extractTest

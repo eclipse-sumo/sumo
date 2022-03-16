@@ -88,6 +88,7 @@ def write_xml(toptag, tag, options, printer=row2xml):
             orderedRow = OrderedDict([(key, row[key]) for key in reader.fieldnames])
             outputf.write(printer(orderedRow, tag))
         outputf.write(u'</%s>\n' % toptag)
+        inputf.close()
 
 
 def checkAttributes(out, old, new, ele, tagStack, depth):
@@ -175,6 +176,7 @@ def writeHierarchicalXml(struct, options):
         outputf.write(u"/>\n")
         for idx in range(len(tagStack) - 2, -1, -1):
             outputf.write(u"%s</%s>\n" % (idx * '    ', tagStack[idx]))
+        inputf.close()
 
 
 def main():

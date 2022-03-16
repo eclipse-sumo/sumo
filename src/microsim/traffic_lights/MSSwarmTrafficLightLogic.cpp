@@ -29,7 +29,7 @@
 // ===========================================================================
 MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
         const std::string& programID, const Phases& phases, int step, SUMOTime delay,
-        const std::map<std::string, std::string>& parameters) :
+        const Parameterised::Map& parameters) :
     MSSOTLHiLevelTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::SWARM_BASED, phases, step, delay, parameters) {
 
     std::string pols = getPoliciesParam();

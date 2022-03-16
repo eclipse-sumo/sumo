@@ -465,6 +465,8 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
         const double maxTravelTime, const double minSamples,
         const double haltSpeed, const std::string& vTypes,
         const std::string& writeAttributes,
+        std::vector<MSEdge*> edges,
+        bool aggregate,
         const std::string& device) {
     if (begin < 0) {
         throw InvalidArgument("Negative begin time for meandata dump '" + id + "'.");
@@ -479,19 +481,19 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
     MSMeanData* det = nullptr;
     if (type == "" || type == "performance" || type == "traffic") {
         det = new MSMeanData_Net(id, begin, end, useLanes, withEmpty,
-                                 printDefaults, withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes, writeAttributes);
+                                 printDefaults, withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes, writeAttributes, edges, aggregate);
     } else if (type == "emissions" || type == "hbefa") {
         if (type == "hbefa") {
             WRITE_WARNING("The netstate type 'hbefa' is deprecated. Please use the type 'emissions' instead.");
         }
         det = new MSMeanData_Emissions(id, begin, end, useLanes, withEmpty,
-                                       printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes, writeAttributes);
+                                       printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate);
     } else if (type == "harmonoise") {
         det = new MSMeanData_Harmonoise(id, begin, end, useLanes, withEmpty,
-                                        printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes, writeAttributes);
+                                        printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate);
     } else if (type == "amitran") {
         det = new MSMeanData_Amitran(id, begin, end, useLanes, withEmpty,
-                                     printDefaults, withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes, writeAttributes);
+                                     printDefaults, withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes, writeAttributes, edges, aggregate);
     } else {
         throw InvalidArgument("Invalid type '" + type + "' for meandata dump '" + id + "'.");
     }

@@ -40,14 +40,14 @@ netedit.inspectMode()
 # inspect first POI
 netedit.leftClick(referencePosition, 149, 53)
 
-# Change parameter 7 with a non valid value (invalid)
-netedit.modifyAttribute(7, "%$$%%%%%", True)
+# Change parameter 8 with a non valid value (invalid)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.imgFile, "%$$%%%%%", True)
 
-# Change parameter 7 with a non valid value (no exist)
-netedit.modifyAttribute(7, "paris.ico", True)
+# Change parameter 8 with a non valid value (no exist)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.imgFile, "paris.ico", True)
 
-# Change parameter 7 with a valid value (valid)
-netedit.modifyAttribute(7, "berlin_icon.ico", True)
+# Change parameter 8 with a valid value (valid)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.imgFile, "berlin_icon.ico", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

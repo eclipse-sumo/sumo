@@ -55,7 +55,8 @@ class GUIRunThread : public FXSingleEventThread {
 public:
     /// constructor
     GUIRunThread(FXApp* app, MFXInterThreadEventClient* mw,
-                 double& simDelay, FXSynchQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev);
+                 double& simDelay, FXSynchQue<GUIEvent*>& eq,
+                 FXEX::FXThreadEvent& ev);
 
     /// destructor
     virtual ~GUIRunThread();
@@ -111,6 +112,12 @@ public:
         return myBreakpointLock;
     }
 
+    void enableLibsumo() {
+        myAmLibsumo = true;
+    }
+
+    void tryStep();
+
 protected:
     void makeStep();
 
@@ -161,7 +168,13 @@ protected:
     /// @brief Lock for modifying the list of breakpoints
     FXMutex myBreakpointLock;
 
+    /// end of the last simulation step
+    long myLastEndMillis;
+
     /// last time the simulation took a microsecond break for the fox event loop to catch up (#9028)
     long myLastBreakMillis;
+
+    /// whether we are running in libsumo
+    bool myAmLibsumo;
 
 };

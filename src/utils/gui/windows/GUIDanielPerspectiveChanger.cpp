@@ -297,13 +297,13 @@ GUIDanielPerspectiveChanger::onKeyPress(void* data) {
     double moveX = 0;
     double moveY = 0;
     double moveFactor = 1;
-    bool pageVertical = true;
     if (e->state & CONTROLMASK) {
         zoomDiff /= 2;
         moveFactor /= 10;
     } else if (e->state & SHIFTMASK) {
-        pageVertical = false;
         zoomDiff *= 2;
+    } else if (e->state & ALTMASK) {
+        moveFactor *= 10;
     }
     switch (e->code) {
         case FX::KEY_Left:
@@ -321,20 +321,6 @@ GUIDanielPerspectiveChanger::onKeyPress(void* data) {
         case FX::KEY_Down:
             moveY = 1;
             moveFactor /= 10;
-            break;
-        case FX::KEY_Page_Up:
-            if (pageVertical) {
-                moveY = -1;
-            } else {
-                moveX = -1;
-            }
-            break;
-        case FX::KEY_Page_Down:
-            if (pageVertical) {
-                moveY = 1;
-            } else {
-                moveX = 1;
-            }
             break;
         case FX::KEY_plus:
         case FX::KEY_KP_Add:

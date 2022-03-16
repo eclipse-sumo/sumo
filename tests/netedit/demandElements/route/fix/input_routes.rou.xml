@@ -38,6 +38,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE2 gneE4" color="yellow" id="route_0"/>
 	<route edges="gneE4 gneE5" color="orange" id="route_1"/>
-	<route edges="gneE2 gneE4 gneE5" color="pink" id="route_2"/>
+	<route edges="gneE2 gneE4 gneE5" color="magenta" id="route_2"/>
 	<route edges="gneE5 gneE8" color="white" id="route_3"/>
 </routes>

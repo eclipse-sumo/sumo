@@ -49,19 +49,19 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (over route)")
 
 # set invalid color
-netedit.changeDefaultValue(6, "dummyColor")
+netedit.changeDefaultValue(netedit.attrs.vehicle.create.color, "dummyColor")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid color
-netedit.changeDefaultValue(6, "cyan")
+netedit.changeDefaultValue(netedit.attrs.vehicle.create.color, "cyan")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid color
-netedit.changeDefaultValue(6, "12,13,14")
+netedit.changeDefaultValue(netedit.attrs.vehicle.create.color, "12,13,14")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

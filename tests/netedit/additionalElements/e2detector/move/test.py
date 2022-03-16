@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("e2Detector")
 
 # create E2
-netedit.leftClick(referencePosition, 240, 240)
+netedit.leftClick(referencePosition, 232, 240)
 
 # change to move mode
 netedit.moveMode()
 
 # move E2 to right
-netedit.moveElement(referencePosition, 270, 240, 400, 240)
+netedit.moveElement(referencePosition, 277, 240, 418, 240)
 
 # move E2 to left
-netedit.moveElement(referencePosition, 400, 240, 200, 240)
+netedit.moveElement(referencePosition, 418, 240, 182, 240)
 
 # move E2 to right
-netedit.moveElement(referencePosition, 200, 240, 300, 240)
+netedit.moveElement(referencePosition, 182, 240, 373, 240)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

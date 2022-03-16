@@ -702,6 +702,12 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
         myGeom.insert(myGeom.begin(), begin);
         myGeom.push_back(end);
     }
+    // ensure non-zero length (see ::init)
+    if (myGeom.size() == 2 && myGeom[0] == myGeom[1]) {
+        WRITE_WARNINGF("Edge's '%' from- and to-node are at the same position.", myID);
+        int patchIndex = myFrom->getID() < myTo->getID() ? 1 : 0;
+        myGeom[patchIndex].add(Position(POSITION_EPS, POSITION_EPS));
+    }
     computeLaneShapes();
     computeAngle();
 }
@@ -1949,14 +1955,12 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         } else {
             con.vmax = con.speed;
         }
-
-		if (con.friction == UNSPECIFIED_FRICTION) {
-			con.friction = (myLanes[con.fromLane].friction + con.toEdge->getLanes()[con.toLane].friction) / (double) 2.0;
-		}
-		else {
-			//con.friction = con.friction;
-		}
-
+	if (con.friction == UNSPECIFIED_FRICTION) {
+		con.friction = (myLanes[con.fromLane].friction + con.toEdge->getLanes()[con.toLane].friction) / (double) 2.0;
+	}
+	else {
+		//con.friction = con.friction;
+	}
         //
         assert(shape.size() >= 2);
         // get internal splits if any
@@ -2133,6 +2137,22 @@ NBEdge::getAngleAtNode(const NBNode* const atNode) const {
         assert(atNode == myTo);
         return GeomHelper::legacyDegree(myGeom.angleAt2D(-2));
     }
+}
+
+double
+NBEdge::getAngleAtNodeNormalized(const NBNode* const atNode) const {
+    // myStartAngle, myEndAngle are in [0,360] and this returns results in [-180,180]
+    double res;
+    if (atNode == myFrom) {
+        res = GeomHelper::legacyDegree(myGeom.angleAt2D(0)) - 180;
+    } else {
+        assert(atNode == myTo);
+        res = GeomHelper::legacyDegree(myGeom.angleAt2D(-2));
+    }
+    if (res < 0) {
+        res += 360;
+    }
+    return res;
 }
 
 
@@ -3800,7 +3820,7 @@ NBEdge::addLane(int index, bool recomputeShape, bool recomputeConnections, bool 
     if (myLanes.size() > 1) {
         int templateIndex = index > 0 ? index - 1 : index + 1;
         myLanes[index].speed = myLanes[templateIndex].speed;
-		myLanes[index].friction = myLanes[templateIndex].friction;
+	myLanes[index].friction = myLanes[templateIndex].friction;
         myLanes[index].permissions = myLanes[templateIndex].permissions;
         myLanes[index].preferred = myLanes[templateIndex].preferred;
         myLanes[index].endOffset = myLanes[templateIndex].endOffset;
@@ -3961,6 +3981,20 @@ NBEdge::getLaneWidth(int lane) const {
            : getLaneWidth() != UNSPECIFIED_WIDTH ? getLaneWidth() : SUMO_const_laneWidth;
 }
 
+double
+NBEdge::getInternalLaneWidth(
+    const NBNode& node,
+    const NBEdge::Connection& connection,
+    const NBEdge::Lane& successor,
+    bool isVia) const {
+
+    if (!isVia && node.isConstantWidthTransition() && getNumLanes() > connection.toEdge->getNumLanes())
+        return getLaneWidth(connection.fromLane);
+
+    return (isBikepath(getPermissions(connection.fromLane)) && (
+            getLaneWidth(connection.fromLane) < successor.width || successor.width == UNSPECIFIED_WIDTH)) ?
+            myLanes[connection.fromLane].width : successor.width; // getLaneWidth(connection.fromLane) never returns -1 (UNSPECIFIED_WIDTH)
+}
 
 double
 NBEdge::getTotalWidth() const {

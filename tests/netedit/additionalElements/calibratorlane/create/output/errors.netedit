@@ -1,25 +1,16 @@
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'calibratorLane' in TagSelector
-Debug: Invalid input parameter of calibratorLane: input contains invalid characters for a filename
-Debug: Adding calibratorLane 'calibratorLane_gneE0_0_0' in GNEChange_Additional
+Debug: Invalid input parameter of calibratorLane
+Debug: Adding calibratorLane 'ca_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing calibratorLane 'calibratorLane_gneE0_0_0' in GNEChange_Additional
+Debug: Removing calibratorLane 'ca_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding calibratorLane 'calibratorLane_gneE0_0_0' in GNEChange_Additional
+Debug: Adding calibratorLane 'ca_0' in GNEChange_Additional
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced calibratorLane 'calibratorLane_gneE0_0_0'
+Debug: Deleting unreferenced calibratorLane 'ca_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

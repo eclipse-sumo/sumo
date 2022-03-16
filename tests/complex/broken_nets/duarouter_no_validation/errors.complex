@@ -26,12 +26,12 @@ Warning: Skipping isolated junction '3'.
 Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@function:a
-Error: Edge '1' has an unknown type.
+Error: Attribute 'function' in definition of edge '1' is not a valid edge function.
 Warning: Skipping isolated junction '1'.
 Error: unknown from-edge '1' in connection
 Quitting (on error).
 ------------------ net/edge[1]@function:a
-Error: Edge '2' has an unknown type.
+Error: Attribute 'function' in definition of edge '2' is not a valid edge function.
 Warning: Skipping isolated junction '3'.
 Error: unknown to-edge '2' in connection
 Quitting (on error).
@@ -171,19 +171,19 @@ Error: Attribute 'length' in definition of lane '2_1' is empty.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@length:a
-Error: Attribute 'length' in definition of lane '1_0' is not of type float.
+Error: Attribute 'length' in definition of lane '1_0' Invalid Number Format (double) a.
 Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@length:a
-Error: Attribute 'length' in definition of lane '1_1' is not of type float.
+Error: Attribute 'length' in definition of lane '1_1' Invalid Number Format (double) a.
 Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@length:a
-Error: Attribute 'length' in definition of lane '2_0' is not of type float.
+Error: Attribute 'length' in definition of lane '2_0' Invalid Number Format (double) a.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@length:a
-Error: Attribute 'length' in definition of lane '2_1' is not of type float.
+Error: Attribute 'length' in definition of lane '2_1' Invalid Number Format (double) a.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@length:<remove>
@@ -219,19 +219,19 @@ Error: Ignoring lane '2_1' with broken shape.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:a
-Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '1_0' is not a valid list of positions.
 Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:a
-Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '1_1' is not a valid list of positions.
 Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:a
-Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '2_0' is not a valid list of positions.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:a
-Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '2_1' is not a valid list of positions.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:<remove>
@@ -251,67 +251,67 @@ Error: Attribute 'shape' is missing in definition of lane '2_1'.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:a,-4.95 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '1_0' Invalid Number Format (double) a.
 Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:a,-4.95 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '1_1' Invalid Number Format (double) a.
 Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:a,-4.95 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '2_0' Invalid Number Format (double) a.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:a,-4.95 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '2_1' Invalid Number Format (double) a.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '1_0' Invalid Number Format (double) a.
 Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '1_1' Invalid Number Format (double) a.
 Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '2_0' Invalid Number Format (double) a.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '2_1' Invalid Number Format (double) a.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a,-4.95
-Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '1_0' Invalid Number Format (double) a.
 Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a,-4.95
-Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '1_1' Invalid Number Format (double) a.
 Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a,-4.95
-Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '2_0' Invalid Number Format (double) a.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a,-4.95
-Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '2_1' Invalid Number Format (double) a.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '1_0' is not a valid list of positions.
 Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '1_1' is not a valid list of positions.
 Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '2_0' is not a valid list of positions.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: Attribute 'shape' in definition of lane '2_1' is not a valid list of positions.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:100.00,-4.95
@@ -387,23 +387,32 @@ Error: Attribute 'id' is missing in definition of a junction.
 Error: Unknown node '3'.
 Quitting (on error).
 ------------------ net/junction[0]@type:
- Wrong error code returned (0)!
+Error: Attribute 'type' in definition of junction '1' is not a valid node type.
+Quitting (on error).
 ------------------ net/junction[1]@type:
- Wrong error code returned (0)!
+Error: Attribute 'type' in definition of junction '2' is not a valid node type.
+Quitting (on error).
 ------------------ net/junction[2]@type:
- Wrong error code returned (0)!
+Error: Attribute 'type' in definition of junction '3' is not a valid node type.
+Quitting (on error).
 ------------------ net/junction[0]@type:a
- Wrong error code returned (0)!
+Error: Attribute 'type' in definition of junction '1' is not a valid node type.
+Quitting (on error).
 ------------------ net/junction[1]@type:a
- Wrong error code returned (0)!
+Error: Attribute 'type' in definition of junction '2' is not a valid node type.
+Quitting (on error).
 ------------------ net/junction[2]@type:a
- Wrong error code returned (0)!
+Error: Attribute 'type' in definition of junction '3' is not a valid node type.
+Quitting (on error).
 ------------------ net/junction[0]@type:<remove>
- Wrong error code returned (0)!
+Error: Attribute 'type' is missing in definition of junction '1'.
+Quitting (on error).
 ------------------ net/junction[1]@type:<remove>
- Wrong error code returned (0)!
+Error: Attribute 'type' is missing in definition of junction '2'.
+Quitting (on error).
 ------------------ net/junction[2]@type:<remove>
- Wrong error code returned (0)!
+Error: Attribute 'type' is missing in definition of junction '3'.
+Quitting (on error).
 ------------------ net/junction[1]@incLanes:a_0 1_1
  Wrong error code returned (0)!
 ------------------ net/junction[1]@incLanes:1_0 a_1

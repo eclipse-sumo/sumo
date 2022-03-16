@@ -158,7 +158,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     // reset all vehicles that were in myInfluencedVehicles in the previous step but not in the current step todo refactor
     for (std::string vehID : lastStepInfluencedVehicles) {
         myInfluencedVehicles.erase(vehID);
-        std::map<std::string, std::string>::iterator it = myInfluencedTypes.find(vehID);
+        Parameterised::Map::iterator it = myInfluencedTypes.find(vehID);
         MSVehicle* veh2 = dynamic_cast<MSVehicle*>(vc.getVehicle(vehID));
         if (veh2 != nullptr && it != myInfluencedTypes.end()) {
             // The vehicle gets back its old VehicleType after the emergency vehicle have passed them
@@ -250,7 +250,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
                 if (distanceDelta > myReactionDist && veh.getID() != veh2->getID()) {
                     myInfluencedVehicles.erase(veh2->getID());
-                    std::map<std::string, std::string>::iterator it = myInfluencedTypes.find(veh2->getID());
+                    Parameterised::Map::iterator it = myInfluencedTypes.find(veh2->getID());
                     if (it != myInfluencedTypes.end()) {
                         // The vehicle gets back its old VehicleType after the emergency vehicle have passed them
                         resetVehicle(veh2, it->second);

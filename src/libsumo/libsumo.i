@@ -4,6 +4,7 @@
 // Add necessary symbols to generated header
 %{
 #include <libsumo/Edge.h>
+#include <libsumo/GUI.h>
 #include <libsumo/InductionLoop.h>
 #include <libsumo/Junction.h>
 #include <libsumo/LaneArea.h>
@@ -51,6 +52,7 @@
 %template(ContextSubscriptionResults) std::map<std::string, std::map<std::string, std::map<int, std::shared_ptr<libsumo::TraCIResult> > > >;
 #endif
 %include "Edge.h"
+%include "GUI.h"
 %include "InductionLoop.h"
 %include "Junction.h"
 %include "LaneArea.h"

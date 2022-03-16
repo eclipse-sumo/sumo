@@ -100,12 +100,13 @@ if(SWIG_FOUND)
                     COMMAND ${CMAKE_COMMAND} -E make_directory src/main/java/org/eclipse/sumo/libtraci
                     COMMAND ${CMAKE_COMMAND} -E copy_directory java src/main/java/org/eclipse/sumo/libtraci
                     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/pom.py libtraci
-                    COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode package source:jar
+                    COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} --batch-mode package source:jar
                 )
             else()
                 message(WARNING "Could not build libtraci jar, maven was not found.")
             endif()
             set_property(TARGET libtracijni PROPERTY FOLDER "libtraci")
+            install(TARGETS libtracijni DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
         else()
             message(WARNING "ENABLE_JAVA_BINDINGS is set but Java or JNI was not found.")
         endif()

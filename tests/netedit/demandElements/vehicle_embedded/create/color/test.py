@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (embedded route)")
 
 # set invalid color
-netedit.changeDefaultValue(6, "dummyColor")
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.color, "dummyColor")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(6, "cyan")
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.color, "cyan")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(6, "12,13,14")
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.color, "12,13,14")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)

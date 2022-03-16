@@ -845,9 +845,9 @@ NBEdgeCont::recheckLanes() {
                 if (oppositeID != "" && oppositeID != "-") {
                     if (edge->getLanes().back().oppositeID == "" && oppEdge != nullptr) {
                         edge->getLaneStruct(leftmostLane).oppositeID = oppositeID;
-                        WRITE_WARNING("Moving opposite lane '" + oppositeID + "' from invalid lane '" + edge->getLaneID(i) + "' to lane " + toString(leftmostLane) + ".");
+                        WRITE_WARNINGF("Moving opposite lane '%' from invalid lane '%' to lane %.", oppositeID, edge->getLaneID(i), leftmostLane);
                     } else {
-                        WRITE_WARNING("Removing opposite lane '" + oppositeID + "' for invalid lane '" + edge->getLaneID(i) + "'.");
+                        WRITE_WARNINGF("Removing opposite lane '%' for invalid lane '%'.", oppositeID, edge->getLaneID(i));
                     }
                     edge->getLaneStruct(i).oppositeID = "";
                 }
@@ -856,19 +856,19 @@ NBEdgeCont::recheckLanes() {
             if (oppositeID != "" && oppositeID != "-") {
                 NBEdge* oppEdge = retrieve(oppositeID.substr(0, oppositeID.rfind("_")));
                 if (oppEdge == nullptr) {
-                    WRITE_WARNING("Removing unknown opposite lane '" + oppositeID + "' for edge '" + edge->getID() + "'.");
+                    WRITE_WARNINGF("Removing unknown opposite lane '%' for edge '%'.", oppositeID, edge->getID());
                     edge->getLaneStruct(leftmostLane).oppositeID = "";
                     continue;
                 } else if (oppEdge->getLaneID(oppEdge->getNumLanes() - 1) != oppositeID) {
                     const std::string oppEdgeLeftmost = oppEdge->getLaneID(oppEdge->getNumLanes() - 1);
-                    WRITE_WARNING("Adapting invalid opposite lane '" + oppositeID + "' for edge '" + edge->getID() + "' to '" + oppEdgeLeftmost + "'");
+                    WRITE_WARNINGF("Adapting invalid opposite lane '%' for edge '%' to '%'", oppositeID, edge->getID(), oppEdgeLeftmost);
                     edge->getLaneStruct(leftmostLane).oppositeID = oppEdgeLeftmost;
                 }
                 if (fabs(oppEdge->getLoadedLength() - edge->getLoadedLength()) > NUMERICAL_EPS) {
                     if (fixOppositeLengths) {
                         const double avgLength = 0.5 * (edge->getFinalLength() + oppEdge->getFinalLength());
-                        WRITE_WARNING("Averaging edge lengths for lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) + ") and edge '" + edge->getID() + "' (length "
-                                      + toString(edge->getLoadedLength()) + ").");
+                        WRITE_WARNINGF("Averaging edge lengths for lane '%' (length %) and edge '%' (length %).",
+                                       oppositeID, oppEdge->getLoadedLength(), edge->getID(), edge->getLoadedLength());
                         edge->setLoadedLength(avgLength);
                         oppEdge->setLoadedLength(avgLength);
                     } else {

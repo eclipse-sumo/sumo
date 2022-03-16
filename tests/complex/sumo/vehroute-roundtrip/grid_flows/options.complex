@@ -1,0 +1,20 @@
+ -n input_net.net.xml
+ -r input_routes.rou.xml
+ --no-step-log
+ --vehroute-output=vr.xml
+ --vehroute-output.sorted
+ --vehroute-output.intended-depart false
+ --device.rerouting.period 60
+ -t
+ --statistic-output statistics.xml
+:
+ -n input_net.net.xml
+ -r vr.xml
+ --no-step-log
+ -t
+ --statistic-output statistics2.xml
+ --replay-rerouting
+
+--compare statistics
+
+tests/complex/state/runner.py

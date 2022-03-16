@@ -53,111 +53,6 @@ Please see the [TraCI Protocol Specification](TraCI/Protocol.md)
 [Messages](TraCI/Protocol.md#messages), [Data
 Types](TraCI/Protocol.md#data_types)).
 
-### TraCI Commands
-
-- [Control-related
-  commands](TraCI/Control-related_commands.md): perform a
-  simulation step, close the connection, reload the simulation.
-
-For the following APIs, the ID is equal to the ID defined in
-[sumo](sumo.md)'s input files. Here, you find their [general
-structure](TraCI/SUMO_ID_Commands_Structure.md).
-
-- Value Retrieval
-  - [Induction Loop Value
-    Retrieval](TraCI/Induction_Loop_Value_Retrieval.md)
-    retrieve information about induction loops
-  - [Lane Area Detector Value
-    Retrieval](TraCI/Lane_Area_Detector_Value_Retrieval.md)
-    retrieve information about lane area detectors
-  - [Multi-Entry-Exit Detectors Value
-    Retrieval](TraCI/Multi-Entry-Exit_Detectors_Value_Retrieval.md)
-    retrieve information about multi-entry/multi-exit detectors
-  - [Calibrator Value
-    Retrieval](TraCI/Calibrator.md)
-    retrieve information about calibrators
-  - [Traffic Lights Value
-    Retrieval](TraCI/Traffic_Lights_Value_Retrieval.md)
-    retrieve information about traffic lights
-  - [Lane Value Retrieval](TraCI/Lane_Value_Retrieval.md)
-    retrieve information about lanes
-  - [Vehicle Value
-    Retrieval](TraCI/Vehicle_Value_Retrieval.md) retrieve
-    information about vehicles
-  - [Person Value
-    Retrieval](TraCI/Person_Value_Retrieval.md) retrieve
-    information about persons
-  - [Vehicle Type Value
-    Retrieval](TraCI/VehicleType_Value_Retrieval.md)
-    retrieve information about vehicle types
-  - [Route Value Retrieval](TraCI/Route_Value_Retrieval.md)
-    retrieve information about routes
-  - [PoI Value Retrieval](TraCI/POI_Value_Retrieval.md)
-    retrieve information about points-of-interest
-  - [Polygon Value
-    Retrieval](TraCI/Polygon_Value_Retrieval.md) retrieve
-    information about polygons
-  - [BusStop Value
-    Retrieval](TraCI/BusStop.md)
-    retrieve information about BusStops
-  - [Charging Station Value
-    Retrieval](TraCI/ChargingStation.md)
-    retrieve information about charging stations
-  - [Parking Area Value
-    Retrieval](TraCI/ParkingArea.md)
-    retrieve information about parking areas
-  - [Overhead Wire Value
-    Retrieval](TraCI/OverheadWire.md)
-    retrieve information about overhead wires
-  - [Junction Value
-    Retrieval](TraCI/Junction_Value_Retrieval.md) retrieve
-    information about junctions
-  - [Edge Value Retrieval](TraCI/Edge_Value_Retrieval.md)
-    retrieve information about edges
-  - [Simulation Value
-    Retrieval](TraCI/Simulation_Value_Retrieval.md) retrieve
-    information about the simulation
-  - [GUI Value Retrieval](TraCI/GUI_Value_Retrieval.md)
-    retrieve information about the simulation visualization
-  - [Rerouter](TraCI/Rerouter.md)
-    retrieve information about the rerouter
-  - [RouteProbe](TraCI/RouteProbe.md)
-    retrieve information about the RouteProbe
-- State Changing
-  - [Change Lane State](TraCI/Change_Lane_State.md) change a
-    lane's state
-  - [Change Traffic Lights
-    State](TraCI/Change_Traffic_Lights_State.md) change a
-    traffic lights' state
-  - [Change Vehicle State](TraCI/Change_Vehicle_State.md)
-    change a vehicle's state
-  - [Change Person State](TraCI/Change_Person_State.md)
-    change a persons state
-  - [Change Vehicle Type
-    State](TraCI/Change_VehicleType_State.md) change a
-    vehicle type's state
-  - [Change Route State](TraCI/Change_Route_State.md) change
-    a route's state
-  - [Change PoI State](TraCI/Change_PoI_State.md) change a
-    point-of-interest's state (or add/remove one)
-  - [Change Polygon State](TraCI/Change_Polygon_State.md)
-    change a polygon's state (or add/remove one)
-  - [Change Edge State](TraCI/Change_Edge_State.md) change
-    an edge's state
-  - [Change Simulation
-    State](TraCI/Change_Simulation_State.md) change the
-    simulation
-  - [Change GUI State](TraCI/Change_GUI_State.md) change the
-    simulation visualization
-  - [Change Calibrator State](TraCI/Change_Calibrator_State.md) change the
-    calibrator state 
-- Subscriptions
-  - [TraCI/Object Variable
-    Subscription](TraCI/Object_Variable_Subscription.md)
-  - [TraCI/Object Context
-    Subscription](TraCI/Object_Context_Subscription.md)
-- Accessing [Generic Parameters](TraCI/GenericParameters.md)
-
 ### Shutdown
 
 When using TraCI, the **--end** option of [sumo](sumo.md) is ignored.
@@ -172,6 +67,130 @@ returns 0. The simulation will end as soon as all clients have sent the
 It is also possible to reload the simulation with a new list of
 arguments by using the
 [*load*-command](TraCI/Control-related_commands.md#command_0x01_load).
+
+## TraCI Commands
+
+- [Control-related commands](TraCI/Control-related_commands.md): perform a
+  simulation step, close the connection, reload the simulation.
+- [Generic Parameters](TraCI/GenericParameters.md)  
+
+For the following APIs, the ID is equal to the ID defined in
+[sumo](sumo.md)'s input files. Here, you find their [general
+structure](TraCI/SUMO_ID_Commands_Structure.md).
+
+### Value Retrieval
+
+- Traffic Objects
+  - [Vehicle Value
+    Retrieval](TraCI/Vehicle_Value_Retrieval.md) retrieve
+    information about vehicles
+  - [Person Value
+    Retrieval](TraCI/Person_Value_Retrieval.md) retrieve
+    information about persons
+  - [Vehicle Type Value
+    Retrieval](TraCI/VehicleType_Value_Retrieval.md)
+    retrieve information about vehicle types
+  - [Route Value Retrieval](TraCI/Route_Value_Retrieval.md)
+    retrieve information about routes
+- Detectors and Outputs
+  - [Induction Loop Value
+    Retrieval](TraCI/Induction_Loop_Value_Retrieval.md)
+    retrieve information about induction loops
+  - [Lane Area Detector Value
+    Retrieval](TraCI/Lane_Area_Detector_Value_Retrieval.md)
+    retrieve information about lane area detectors
+  - [Multi-Entry-Exit Detectors Value
+    Retrieval](TraCI/Multi-Entry-Exit_Detectors_Value_Retrieval.md)
+    retrieve information about multi-entry/multi-exit detectors
+  - [Calibrator Value
+    Retrieval](TraCI/Calibrator.md)
+    retrieve information about calibrators
+  - [RouteProbe](TraCI/RouteProbe.md)
+    retrieve information about the RouteProbe
+- Network
+  - [Junction Value
+    Retrieval](TraCI/Junction_Value_Retrieval.md) retrieve
+    information about junctions
+  - [Edge Value Retrieval](TraCI/Edge_Value_Retrieval.md)
+    retrieve information about edges
+  - [Lane Value Retrieval](TraCI/Lane_Value_Retrieval.md)
+    retrieve information about lanes
+- Infrastructure    
+  - [Traffic Lights Value
+    Retrieval](TraCI/Traffic_Lights_Value_Retrieval.md)
+    retrieve information about traffic lights
+  - [BusStop Value
+    Retrieval](TraCI/BusStop.md)
+    retrieve information about BusStops
+  - [Charging Station Value
+    Retrieval](TraCI/ChargingStation.md)
+    retrieve information about charging stations
+  - [Parking Area Value
+    Retrieval](TraCI/ParkingArea.md)
+    retrieve information about parking areas
+  - [Overhead Wire Value
+    Retrieval](TraCI/OverheadWire.md)
+    retrieve information about overhead wires
+   - [Rerouter](TraCI/Rerouter.md)
+    retrieve information about the rerouter
+ - Misc     
+  - [Simulation Value
+    Retrieval](TraCI/Simulation_Value_Retrieval.md) retrieve
+    information about the simulation
+  - [GUI Value Retrieval](TraCI/GUI_Value_Retrieval.md)
+    retrieve information about the simulation visualization
+  - [PoI Value Retrieval](TraCI/POI_Value_Retrieval.md)
+    retrieve information about points-of-interest
+  - [Polygon Value
+    Retrieval](TraCI/Polygon_Value_Retrieval.md) retrieve information about polygons
+ 
+   
+###  State Changing
+
+- Traffic Objects
+  - [Change Vehicle State](TraCI/Change_Vehicle_State.md)
+    change a vehicle's state
+  - [Change Person State](TraCI/Change_Person_State.md)
+    change a persons state
+  - [Change Vehicle Type
+    State](TraCI/Change_VehicleType_State.md) change a
+    vehicle type's state
+  - [Change Route State](TraCI/Change_Route_State.md) change
+    a route's state
+- Detectors and Outputs
+  - [Change Calibrator State](TraCI/Change_Calibrator_State.md) change a
+    calibrator state 
+  - [Change Inductionloop State](TraCI/Change_Inductionloop_State.md) change a
+    inductionloop state
+  - [Change Lane Area Detector State](TraCI/Change_Lane_Area_Detector_State.md) change a
+    lane area detector state
+- Network
+  - [Change Edge State](TraCI/Change_Edge_State.md) change
+    an edge's state
+  - [Change Lane State](TraCI/Change_Lane_State.md) change a
+    lane's state
+- Infrastructure
+  - [Change Traffic Lights
+    State](TraCI/Change_Traffic_Lights_State.md) change a
+    traffic lights' state
+- Misc
+  - [Change Simulation
+    State](TraCI/Change_Simulation_State.md) change the
+    simulation
+  - [Change GUI State](TraCI/Change_GUI_State.md) change the
+    simulation visualization
+  - [Change PoI State](TraCI/Change_PoI_State.md) change a
+    point-of-interest's state (or add/remove one)
+  - [Change Polygon State](TraCI/Change_Polygon_State.md)
+    change a polygon's state (or add/remove one)
+    
+### Subscriptions
+
+- [TraCI/Object Variable
+    Subscription](TraCI/Object_Variable_Subscription.md)
+- [TraCI/Object Context
+    Subscription](TraCI/Object_Context_Subscription.md)
+
 
 ## Using SUMO as a library
 
@@ -278,9 +297,6 @@ while traci.simulation.getMinExpectedNumber() > 0:
 ```
 
 - This script is able to process about 25000 vehicles per second.
-- Using [embedded
-  python](TraCI/Interfacing_TraCI_from_Python.md#embedded_python)
-  increases this to about 50000 vehicles per second
 - The same value retrieval can also be sped up to 50000 vehicles per
   second by using
   [subscriptions](TraCI/Object_Variable_Subscription.md):
@@ -300,8 +316,6 @@ simulation steps) the following running times were recorded:
 - without TraCI 8s
 - plain position retrieval 90s
 - retrieval using subscriptions 42s
-- retrieval using embedded python 46s
-- retrieval using subscriptions and embedded python 34s
 
 The C++ client performance is higher:
 
@@ -315,7 +329,7 @@ domain (induction loops, vehicle etc.) where the more significant half
 of the byte denotes the command (get, set, subscribe, ...) and the
 lesser significant the domain itself. To allow more than the 16 domains
 resulting from this split, the most significant bit (which was unused
-until now because there were only 7 commands) is now used for the domain
+until version 1.7.0 because there were only 7 commands) is now used for the domain
 as well (and only three for the command). This allows for 28 domains 
 because four general commands (like SIMSTEP) block some available combinations.
 Currently there are only four possible domains left.

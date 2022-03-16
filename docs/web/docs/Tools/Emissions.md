@@ -19,7 +19,7 @@ The tool obtains parameter that describe the ranges and the emission classes to 
 
 The tool is located in {{SUMO}}/bin.
 
-The image shows the visualisation of CO2 emission of the [HBEFA v2.1-based](../Models/Emissions/HBEFA-based.md) "P_7_6" emission class. 
+The image shows the visualization of CO2 emission of the [HBEFA v2.1-based](../Models/Emissions/HBEFA-based.md) "P_7_6" emission class. 
 
 
 ## Options

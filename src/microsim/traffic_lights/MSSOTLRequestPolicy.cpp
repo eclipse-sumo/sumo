@@ -22,7 +22,7 @@
 #include "MSSOTLRequestPolicy.h"
 
 MSSOTLRequestPolicy::MSSOTLRequestPolicy(
-    const std::map<std::string, std::string>& parameters) :
+    const Parameterised::Map& parameters) :
     MSSOTLPolicy("Request", parameters) {
 }
 
@@ -34,7 +34,7 @@ MSSOTLRequestPolicy::MSSOTLRequestPolicy(
 
 MSSOTLRequestPolicy::MSSOTLRequestPolicy(
     MSSOTLPolicyDesirability* desirabilityAlgorithm,
-    const std::map<std::string, std::string>& parameters) :
+    const Parameterised::Map& parameters) :
     MSSOTLPolicy("Request", desirabilityAlgorithm, parameters) {
     getDesirabilityAlgorithm()->setKeyPrefix("REQUEST");
 

@@ -67,11 +67,9 @@ GUITriggerBuilder::buildFrictionCoefficientTrigger(MSNet& net,
 
 MSTriggeredRerouter*
 GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
-                                 MSEdgeVector& edges,
-                                 double prob, const std::string& file, bool off,
-                                 SUMOTime timeThreshold,
-                                 const std::string& vTypes) {
-    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, file, off, timeThreshold, vTypes,
+                                 MSEdgeVector& edges, double prob, bool off,
+                                 SUMOTime timeThreshold, const std::string& vTypes) {
+    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, off, timeThreshold, vTypes,
             dynamic_cast<GUINet&>(net).getVisualisationSpeedUp());
     return rr;
 }

@@ -134,7 +134,8 @@ if __name__ == "__main__":
                 sumolib.xml.writeHeader(polyOut, root='additional')
                 colorgen = sumolib.miscutils.Colorgen(('random', 1, 1))
             # determine file type by reading the first 10000 bytes
-            head = open(t).read(10000)
+            with open(t) as peek:
+                head = peek.read(10000)
             if "<poi" in head:
                 traces = readPOI(t, net)
             elif "<fcd" in head:

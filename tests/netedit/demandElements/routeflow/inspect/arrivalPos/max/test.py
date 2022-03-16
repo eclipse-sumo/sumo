@@ -45,7 +45,7 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# change vehicle
+# select flow over route
 netedit.changeElement("flow (over route)")
 
 # create vehicle
@@ -54,17 +54,17 @@ netedit.leftClick(referencePosition, 274, 392)
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
+# inspect flow over route
 netedit.leftClick(referencePosition, 91, 392)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(11, "", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.arrivalPos, "", True)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(11, "dummyPos", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.arrivalPos, "dummyPos", True)
 
 # change arrivalPos with a valid value
-netedit.modifyAttribute(11, "max", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.arrivalPos, "max", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -222,8 +222,8 @@ private:
     public:
         /// @brief The maximum velocity allowed on this lane
         double maxSpeed;
-		/// @brief The friction on this lane
-		double friction;
+        /// @brief The friction on this lane
+        double friction;
         /// @brief This lane's shape (may be custom)
         PositionVector shape;
         /// @brief This lane's connections

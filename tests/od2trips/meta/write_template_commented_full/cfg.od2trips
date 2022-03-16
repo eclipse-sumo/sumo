@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-30 11:26:30 by Eclipse SUMO od2trips Version v1_10_0+1103-00b9b6a4ecb
+<!-- generated on 2022-01-28 11:30:23 by Eclipse SUMO od2trips Version v1_12_0+0087-1185162ac9e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -11,6 +11,9 @@
 
         <!-- Saves current configuration into FILE -->
         <save-configuration value="" synonymes="C save-config" type="FILE"/>
+
+        <!-- Enforce relative paths when saving the configuration -->
+        <save-configuration.relative value="false" synonymes="save-config.relative" type="BOOL"/>
 
         <!-- Saves a configuration template (empty) into FILE -->
         <save-template value="" type="FILE"/>

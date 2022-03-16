@@ -394,8 +394,8 @@ public:
     /// @brief change end in interval bar
     long onCmdIntervalBarSetEnd(FXObject*, FXSelector, void*);
 
-    /// @brief change attribute in interval bar
-    long onCmdIntervalBarSetAttribute(FXObject*, FXSelector, void*);
+    /// @brief change parameter in interval bar
+    long onCmdIntervalBarSetParameter(FXObject*, FXSelector, void*);
 
     /// @}
 
@@ -671,7 +671,7 @@ private:
     void drawLaneCandidates() const;
 
     /// @brief draw temporal polygon shape in Polygon Mode
-    void drawTemporalDrawShape() const;
+    void drawTemporalDrawingShape() const;
 
     /// @brief draw temporal junction in create edge mode
     void drawTemporalJunction() const;

@@ -211,6 +211,20 @@ private:
         return oss.str();
     }
 
+    inline std::string joinToString(const std::vector<double>& v, const std::string& between) {
+        std::ostringstream oss;
+        bool connect = false;
+        for (double it : v) {
+            if (connect) {
+                oss << between;
+            } else {
+                connect = true;
+            }
+            oss << it;
+        }
+        return oss.str();
+    }
+
 private:
     /// @brief The name of the file to write the results log into
     std::string outputFileName;

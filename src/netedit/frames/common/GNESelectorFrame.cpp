@@ -51,7 +51,8 @@ FXDEFMAP(GNESelectorFrame::SelectionOperation) SelectionOperationMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,   GNESelectorFrame::SelectionOperation::onCmdSave),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT, GNESelectorFrame::SelectionOperation::onCmdInvert),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,  GNESelectorFrame::SelectionOperation::onCmdClear),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_DELETE, GNESelectorFrame::SelectionOperation::onCmdDelete)
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_DELETE, GNESelectorFrame::SelectionOperation::onCmdDelete),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_REDUCE, GNESelectorFrame::SelectionOperation::onCmdReduce)
 };
 
 FXDEFMAP(GNESelectorFrame::SelectionHierarchy) SelectionHierarchyMap[] = {
@@ -254,6 +255,8 @@ GNESelectorFrame::SelectionOperation::SelectionOperation(GNESelectorFrame* selec
     new FXButton(col2, "Load\t\tLoad ids from a file according to the current modfication mode.", nullptr, this, MID_CHOOSEN_LOAD, GUIDesignButton);
     // Create "Delete" Button
     new FXButton(col1, "Delete\t\tDelete all selected objects (hotkey: DEL)", nullptr, this, MID_CHOOSEN_DELETE, GUIDesignButton);
+    // Create "reduce" Button
+    new FXButton(col2, "Reduce\t\tReduce network to current selection.", nullptr, this, MID_CHOOSEN_REDUCE, GUIDesignButton);
 }
 
 
@@ -403,6 +406,19 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
 }
 
 
+long
+GNESelectorFrame::SelectionOperation::onCmdReduce(FXObject*, FXSelector, void*) {
+    // begin undoList operation
+    mySelectorFrameParent->getViewNet()->getUndoList()->begin(Supermode::NETWORK, GUIIcon::SIMPLIFYNETWORK, "simplify network");
+    // invert and clear
+    onCmdInvert(0, 0, 0);
+    onCmdDelete(0, 0, 0);
+    // end undoList operation
+    mySelectorFrameParent->getViewNet()->getUndoList()->end();
+    return 1;
+}
+
+
 bool
 GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking) {
     // obtan locks (only for improve code legibly)
@@ -521,7 +537,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     if (ignoreLocking || !locks.isObjectLocked(GLO_ADDITIONALELEMENT, false)) {
         for (const auto& additionalTag : ACs->getAdditionals()) {
             // first check if additional is selectable
-            if (GNEAttributeCarrier::getTagProperty(additionalTag.first).isSelectable()) {
+            if (GNEAttributeCarrier::getTagProperty(additionalTag.first).isAdditionalPureElement() && GNEAttributeCarrier::getTagProperty(additionalTag.first).isSelectable()) {
                 for (const auto& additional : additionalTag.second) {
                     if (onlyCount) {
                         return true;
@@ -539,7 +555,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     }
     // invert polygons
     if (ignoreLocking || !locks.isObjectLocked(GLO_POLYGON, false)) {
-        for (const auto& polygon : ACs->getShapes().at(SUMO_TAG_POLY)) {
+        for (const auto& polygon : ACs->getAdditionals().at(SUMO_TAG_POLY)) {
             if (onlyCount) {
                 return true;
             } else if (onlyUnselect || polygon->isAttributeCarrierSelected()) {
@@ -554,7 +570,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     }
     // invert TAZs
     if (ignoreLocking || !locks.isObjectLocked(GLO_TAZ, false)) {
-        for (const auto& TAZ : ACs->getTAZElements().at(SUMO_TAG_TAZ)) {
+        for (const auto& TAZ : ACs->getAdditionals().at(SUMO_TAG_TAZ)) {
             if (onlyCount) {
                 return true;
             } else if (onlyUnselect || TAZ->isAttributeCarrierSelected()) {
@@ -569,22 +585,36 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     }
     // invert POIs and POILanes
     if (ignoreLocking || !locks.isObjectLocked(GLO_POI, false)) {
-        for (const auto& shapeTag : ACs->getShapes()) {
-            if (shapeTag.first != SUMO_TAG_POLY) {
-                for (const auto& POI : shapeTag.second) {
-                    if (onlyCount) {
-                        return true;
-                    } else if (onlyUnselect || POI->isAttributeCarrierSelected()) {
-                        POI->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        POI->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            } else if (onlyCount) {
-                ignoreLocking = askContinueIfLock();
+        for (const auto& POI : ACs->getAdditionals().at(SUMO_TAG_POI)) {
+            if (onlyCount) {
                 return true;
+            } else if (onlyUnselect || POI->isAttributeCarrierSelected()) {
+                POI->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                POI->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
+        for (const auto& POILane : ACs->getAdditionals().at(GNE_TAG_POILANE)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || POILane->isAttributeCarrierSelected()) {
+                POILane->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                POILane->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& POIGeo : ACs->getAdditionals().at(GNE_TAG_POIGEO)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || POIGeo->isAttributeCarrierSelected()) {
+                POIGeo->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                POIGeo->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     return false;
 }
@@ -680,6 +710,24 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
             }
         }
         for (const auto& routeFlow : demandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || routeFlow->isAttributeCarrierSelected()) {
+                routeFlow->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                routeFlow->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& routeFlow : demandElements.at(GNE_TAG_TRIP_JUNCTIONS)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || routeFlow->isAttributeCarrierSelected()) {
+                routeFlow->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                routeFlow->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& routeFlow : demandElements.at(GNE_TAG_FLOW_JUNCTIONS)) {
             if (onlyCount) {
                 return true;
             } else if (onlyUnselect || routeFlow->isAttributeCarrierSelected()) {
@@ -1113,10 +1161,6 @@ GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, vo
             if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::ADDITIONAL)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getParentAdditionals().begin(), HE->getParentAdditionals().end());
             }
-            // shape
-            if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::SHAPE)) {
-                HEToSelect.insert(HEToSelect.end(), HE->getParentShapes().begin(), HE->getParentShapes().end());
-            }
             // demand
             if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::DEMAND)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getParentDemandElements().begin(), HE->getParentDemandElements().end());
@@ -1191,10 +1235,6 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
                         HEToSelect.push_back(additionalChild);
                     }
                 }
-            }
-            // shape
-            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::SHAPE)) {
-                HEToSelect.insert(HEToSelect.end(), HE->getChildShapes().begin(), HE->getChildShapes().end());
             }
             // demand
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::DEMAND)) {

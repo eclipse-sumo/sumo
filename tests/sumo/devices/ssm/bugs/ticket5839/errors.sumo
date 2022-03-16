@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'flow_1.117'; frontal collision with vehicle 'flow_0.150', lane='Link2_0', gap=-3.48, time=534.00 stage=move.
+Warning: Vehicle 'flow_1.117' teleports beyond arrival edge 'Link43', time=534.00.

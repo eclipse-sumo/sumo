@@ -33,14 +33,14 @@
 // ===========================================================================
 
 GNEDetectorE1::GNEDetectorE1(GNENet* net) :
-    GNEDetector("", net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, 0, 0, {}, "", {}, "", false, std::map<std::string, std::string>()) {
+    GNEDetector("", net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, 0, 0, {}, "", {}, "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, const double pos, const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-                             const std::string& name, bool friendlyPos, const std::map<std::string, std::string>& parameters) :
+                             const std::string& name, bool friendlyPos, const Parameterised::Map& parameters) :
     GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, pos, freq, {
     lane
 }, filename, vehicleTypes, name, friendlyPos, parameters) {
@@ -91,10 +91,10 @@ GNEDetectorE1::isAdditionalValid() const {
 
 std::string
 GNEDetectorE1::getAdditionalProblem() const {
-    // obtain final lenght
+    // obtain final length
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // check if detector has a problem
-    if (GNEAdditionalHandler::checkSinglePositionOverLane(myPositionOverLane, len, myFriendlyPosition)) {
+    if (GNEAdditionalHandler::checkLanePosition(myPositionOverLane, 0, len, myFriendlyPosition)) {
         return "";
     } else {
         // declare variable for error position
@@ -116,7 +116,8 @@ GNEDetectorE1::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
     // fix pos and length checkAndFixDetectorPosition
-    GNEAdditionalHandler::fixSinglePositionOverLane(newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
+    double length = 0;
+    GNEAdditionalHandler::fixLanePosition(newPositionOverLane, length, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
     // set new position
     setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
 }
@@ -284,7 +285,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

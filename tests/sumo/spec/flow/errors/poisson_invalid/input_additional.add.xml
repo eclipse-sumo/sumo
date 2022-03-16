@@ -1,0 +1,4 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<flow id="f1" begin="10" end="110" period="exp(0)" route="1" departSpeed="max" departLane="free"/>
+	<flow id="f2" begin="10" end="110" period="exp(-1)" route="1" departSpeed="max" departLane="free"/>
+</routes>

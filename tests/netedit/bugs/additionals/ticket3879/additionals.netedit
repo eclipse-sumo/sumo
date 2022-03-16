@@ -1,64 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-20 11:18:46 by Eclipse SUMO netedit Version v1_11_0+1305-0448234e9dc
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\additionals\ticket3879\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\additionals\ticket3879\net.net.xml"/>
-    </output>
-
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <sidewalks.guess value="true"/>
-        <crossings.guess value="true"/>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-    <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\additionals\ticket3879\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\additionals\ticket3879\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\additionals\ticket3879\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\additionals\ticket3879\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\additionals\ticket3879\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\additionals\ticket3879\datas.xml"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\additionals\ticket3879\gui-settings.xml"/>
-        <window-size value="936,697"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\additionals\ticket3879\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\additionals\ticket3879\log.txt"/>
-    </report>
-
-</configuration>
+<!-- generated on 2022-03-03 17:12:36 by Eclipse SUMO netedit Version v1_12_0+1120-8ddf4e10651
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
     <busStop id="busStop_gneE1_0_0" lane="gneE1_0" startPos="42.01" endPos="50.00" friendlyPos="true"/>
     <containerStop id="containerStop_gneE1_0_0" lane="gneE1_0" startPos="31.87" endPos="41.87" friendlyPos="true"/>
     <chargingStation id="chargingStation_gneE1_0_0" lane="gneE1_0" startPos="21.94" endPos="31.94" friendlyPos="true"/>
@@ -67,6 +13,7 @@
         <space x="32.71" y="10.95" width="3.20" length="5.00" angle="0.00"/>
         <space x="36.82" y="10.96" width="3.20" length="5.00" angle="0.00"/>
     </parkingArea>
+    <!-- Detectors -->
     <e1Detector id="e1Detector_gneE1_0_0" lane="gneE1_0" pos="19.68" freq="100.00" file="e1Detector_gneE1_0_0.txt"/>
     <instantInductionLoop id="instantInductionLoop_0" lane="gneE1_0" pos="22.00" file="instantInductionLoop_0.txt"/>
     <e2Detector id="e2Detector_gneE1_0_0" lane="gneE1_0" pos="7.17" length="10.00" freq="100.00" file="e2Detector_gneE1_0_0.txt"/>
@@ -74,6 +21,7 @@
         <detEntry lane="gneE0_0" pos="5.45"/>
         <detExit lane="gneE0_0" pos="12.65"/>
     </e3Detector>
+    <!-- Other additionals -->
     <rerouter id="rerouter_0" edges="" pos="15.59,-7.40"/>
     <variableSpeedSign id="variableSpeedSign_0" lanes="" pos="20.22,-7.28"/>
 </additional>

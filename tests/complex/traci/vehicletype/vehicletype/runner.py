@@ -64,6 +64,8 @@ for step in range(3, 6):
     print(traci.vehicletype.getSubscriptionResults(typeID))
 traci.vehicletype.setLength(typeID, 1.0)
 print("length", traci.vehicletype.getLength(typeID))
+traci.vehicletype.setScale(typeID, 1.4)
+print("scale", traci.vehicletype.getScale(typeID))
 traci.vehicletype.setMaxSpeed(typeID, 1.0)
 print("maxSpeed", traci.vehicletype.getMaxSpeed(typeID))
 traci.vehicletype.setSpeedFactor(typeID, 1.1)

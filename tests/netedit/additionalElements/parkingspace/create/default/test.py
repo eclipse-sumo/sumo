@@ -41,10 +41,10 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeElement("space")
 
 # select parent
-netedit.selectAdditionalChild(8, 0)
+netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
 
 # create space
-netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 231, 83)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

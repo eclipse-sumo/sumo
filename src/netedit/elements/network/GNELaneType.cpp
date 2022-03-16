@@ -34,15 +34,15 @@
 // ===========================================================================
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent) :
-    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-myEdgeTypeParent(edgeTypeParent) {
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}),
+    myEdgeTypeParent(edgeTypeParent) {
 }
 
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType) :
-    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-NBTypeCont::LaneTypeDefinition(laneType),
-myEdgeTypeParent(edgeTypeParent) {
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}),
+    NBTypeCont::LaneTypeDefinition(laneType),
+    myEdgeTypeParent(edgeTypeParent) {
 }
 
 
@@ -204,7 +204,7 @@ GNELaneType::isAttributeComputed(SumoXMLAttr /*key*/) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNELaneType::getACParametersMap() const {
     return getParametersMap();
 }

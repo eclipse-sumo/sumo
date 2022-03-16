@@ -474,7 +474,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         if (e.pos < 0) {
             e.pos += myCurrentEdge->getGeometry().length();
         }
-        for (const std::string& id : attrs.getOptStringVector(SUMO_ATTR_LANES, myCurrentID.c_str(), ok)) {
+        for (const std::string& id : attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LANES, myCurrentID.c_str(), ok)) {
             try {
                 int lane = StringUtils::toInt(id);
                 e.lanes.push_back(lane);
@@ -666,22 +666,21 @@ NIXMLEdgesHandler::myEndElement(int element) {
 
 void
 NIXMLEdgesHandler::addRoundabout(const SUMOSAXAttributes& attrs) {
-    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        std::vector<std::string> edgeIDs = attrs.getStringVector(SUMO_ATTR_EDGES);
+    bool ok = true;
+    const std::vector<std::string>& edgeIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, nullptr, ok);
+    if (ok) {
         EdgeSet roundabout;
-        for (std::vector<std::string>::iterator it = edgeIDs.begin(); it != edgeIDs.end(); ++it) {
-            NBEdge* edge = myEdgeCont.retrieve(*it);
+        for (const std::string& eID : edgeIDs) {
+            NBEdge* edge = myEdgeCont.retrieve(eID);
             if (edge == nullptr) {
-                if (!myEdgeCont.wasIgnored(*it)) {
-                    WRITE_ERROR("Unknown edge '" + (*it) + "' in roundabout");
+                if (!myEdgeCont.wasIgnored(eID)) {
+                    WRITE_ERROR("Unknown edge '" + eID + "' in roundabout.");
                 }
             } else {
                 roundabout.insert(edge);
             }
         }
         myEdgeCont.addRoundabout(roundabout);
-    } else {
-        WRITE_ERROR("Empty edges in roundabout.");
     }
 }
 

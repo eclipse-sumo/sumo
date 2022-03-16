@@ -70,8 +70,8 @@ netedit.changeProtectDemandElements(referencePosition)
 netedit.leftClick(referencePosition, 274, 396)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save routes
 netedit.saveRoutes(referencePosition)

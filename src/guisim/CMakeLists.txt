@@ -52,6 +52,8 @@ SET(guisim_STAT_SRCS
    GUIVehicleControl.h
    GUITransportableControl.cpp
    GUITransportableControl.h
+   Command_Hotkey_InductionLoop.h
+   Command_Hotkey_InductionLoop.cpp
 )
 
 add_library(guisim STATIC ${guisim_STAT_SRCS})

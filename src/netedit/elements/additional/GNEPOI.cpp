@@ -41,8 +41,9 @@
 // ===========================================================================
 
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
-    PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, 0, 0, "", false, 0, 0, "", std::map<std::string, std::string>()),
-    GNEShape("", net, GLO_POI, tag, {}, {}, {}, {}, {}, {}, {}, {}) {
+    PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, 0, 0, "", false, 0, 0, "", Parameterised::Map()),
+    GNEAdditional("", net, GLO_POI, tag, "", 
+        {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
@@ -51,9 +52,10 @@ GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
                const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile,
                const bool relativePath, const double width, const double height, const std::string& name,
-               const std::map<std::string, std::string>& parameters) :
+               const Parameterised::Map& parameters) :
     PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
-    GNEShape(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, {}, {}, {}, {}, {}, {}, {}, {}) {
+    GNEAdditional(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, "", 
+        {}, {}, {}, {}, {}, {}) {
     // update position depending of GEO
     if (geo) {
         Position cartesian(x(), y());
@@ -67,11 +69,10 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
                const bool friendlyPos, const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
-               const double height, const std::string& name, const std::map<std::string, std::string>& parameters) :
+               const double height, const std::string& name, const Parameterised::Map& parameters) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
-    GNEShape(id, net, GLO_POI, GNE_TAG_POILANE,
-{}, {}, {lane}, {}, {}, {}, {}, {}
-        ) {
+    GNEAdditional(id, net, GLO_POI, GNE_TAG_POILANE, "", 
+        {}, {}, {lane}, {}, {}, {}) {
     // update geometry (needed for POILanes)
     updateGeometry();
     // update centering boundary without updating grid
@@ -132,12 +133,6 @@ GNEPOI::generateChildID(SumoXMLTag /*childTag*/) {
 }
 
 
-void
-GNEPOI::setParameter(const std::string& key, const std::string& value) {
-    Parameterised::setParameter(key, value);
-}
-
-
 CommonXMLStructure::SumoBaseObject*
 GNEPOI::getSumoBaseObject() const {
     CommonXMLStructure::SumoBaseObject* POIBaseObject = new CommonXMLStructure::SumoBaseObject(nullptr);
@@ -158,7 +153,7 @@ GNEPOI::getSumoBaseObject() const {
 
 
 void
-GNEPOI::writeShape(OutputDevice& device) {
+GNEPOI::writeAdditional(OutputDevice& device) const {
     if (getParentLanes().size() > 0) {
         // obtain fixed position over lane
         double fixedPositionOverLane = myPosOverLane > getParentLanes().at(0)->getLaneShape().length() ? getParentLanes().at(0)->getLaneShape().length() : myPosOverLane < 0 ? 0 : myPosOverLane;
@@ -181,7 +176,7 @@ GNEPOI::updateGeometry() {
     }
     // check if update width and height shapes
     if ((getWidth() > 0) && (getHeight() > 0)) {
-        // calculate shape lenght
+        // calculate shape length
         myShapeHeight.clear();
         myShapeHeight.push_back(Position(0, getHeight() * -0.5));
         myShapeHeight.push_back(Position(0, getHeight() * 0.5));
@@ -216,15 +211,21 @@ GNEPOI::updateCenteringBoundary(const bool updateGrid) {
         myNet->removeGLObjectFromGrid(this);
     }
     // reset boundary
-    myBoundary.reset();
+    myAdditionalBoundary.reset();
     // add position (this POI)
-    myBoundary.add(*this);
+    myAdditionalBoundary.add(*this);
     // grow boundary
-    myBoundary.grow(10 + std::max(getWidth() * 0.5, getHeight() * 0.5));
+    myAdditionalBoundary.grow(10 + std::max(getWidth() * 0.5, getHeight() * 0.5));
     // add object into net
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
     }
+}
+
+
+void 
+GNEPOI::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+    // nothing to split
 }
 
 
@@ -266,24 +267,13 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
-GUIParameterTableWindow*
-GNEPOI::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /*parent*/) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
-    // add items
-    ret->mkItem("type", false, getShapeType());
-    ret->mkItem("layer", false, getShapeLayer());
-    ret->closeBuilding(this);
-    return ret;
-}
-
-
 void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     // first check if POI can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes()) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
-            GLHelper::drawBoundary(myBoundary);
+            GLHelper::drawBoundary(myAdditionalBoundary);
         }
         // check if POI can be drawn
         if (GUIPointOfInterest::checkDraw(s, this)) {
@@ -362,14 +352,14 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             Position GEOPosition(x(), y());
             GeoConvHelper::getFinal().cartesian2geo(GEOPosition);
             // return lon
-            return toString(GEOPosition.x());
+            return toString(GEOPosition.x(), 8);
         }
         case SUMO_ATTR_LAT: {
             // calculate geo position
             Position GEOPosition(x(), y());
             GeoConvHelper::getFinal().cartesian2geo(GEOPosition);
             // return lat
-            return toString(GEOPosition.y());
+            return toString(GEOPosition.y(), 8);
         }
         case SUMO_ATTR_TYPE:
             return getShapeType();
@@ -394,12 +384,24 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+            return PointOfInterest::getParametersStr();
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
             throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
     }
+}
+
+
+double
+GNEPOI::getAttributeDouble(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
+}
+
+
+const Parameterised::Map&
+GNEPOI::getACParametersMap() const {
+    return PointOfInterest::getParametersMap();
 }
 
 
@@ -438,21 +440,12 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             if (SUMOXMLDefinitions::isValidTypeID(value)) {
-                if (myTagProperty.getTag() == SUMO_TAG_POI) {
-                    // POI
-                    return (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POILANE, value, false) == nullptr) &&
-                           (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POIGEO, value, false) == nullptr);
-                } else if (myTagProperty.getTag() == GNE_TAG_POILANE) {
-                    // POILane
-                    return (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
-                           (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POIGEO, value, false) == nullptr);
-                } else if (myTagProperty.getTag() == GNE_TAG_POIGEO) {
-                    // POI Geo
-                    return (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
-                           (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POILANE, value, false) == nullptr);
+                if (value == getID()) {
+                    return true;
                 } else {
-                    // invalid POI tag
-                    return false;
+                    return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POI, value, false) == nullptr) &&
+                           (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POILANE, value, false) == nullptr) &&
+                           (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POIGEO, value, false) == nullptr);
                 }
             } else {
                 // invalid id
@@ -504,7 +497,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -522,9 +515,15 @@ GNEPOI::isAttributeEnabled(SumoXMLAttr /* key */) const {
 }
 
 
-const std::map<std::string, std::string>&
-GNEPOI::getACParametersMap() const {
-    return getParametersMap();
+std::string
+GNEPOI::getPopUpID() const {
+    return getTagStr() + ": " + getID();
+}
+
+
+std::string
+GNEPOI::getHierarchyName() const {
+    return getTagStr();
 }
 
 // ===========================================================================
@@ -546,7 +545,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LANE:
             myLane = value;
-            replaceShapeParentLanes(value);
+            replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_POSITION: {
             if (getParentLanes().size() > 0) {
@@ -655,7 +654,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
+            PointOfInterest::setParametersStr(value);
             break;
         case GNE_ATTR_SHIFTLANEINDEX:
             shiftLaneIndex();

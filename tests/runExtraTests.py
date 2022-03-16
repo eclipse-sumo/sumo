@@ -38,18 +38,20 @@ def run(suffix, args, guiTests=False, chrouter=True):
                    "od2trips", "polyconvert", "sumo"):
         env[binary.upper() + "_BINARY"] = os.path.join(root, "..", "bin", binary + suffix)
     env["GUISIM_BINARY"] = os.path.join(root, "..", "bin", "sumo-gui" + suffix)
-    apps = "sumo.extra,sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,sumo.astar,sumo.parallel"
-    apps += ",netconvert.gdal,polyconvert.gdal,complex.meso,duarouter.astar"
+    apps = "sumo.extra,sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,sumo.astar,sumo.parallel,"
+    apps += "netconvert.gdal,polyconvert.gdal,complex.meso,duarouter.astar,complex.libsumo,complex.libtraci"
     if chrouter:
         apps += ",duarouter.chrouter,duarouter.chwrapper"
     try:
         if os.name == "posix":
-            subprocess.call(['python3', '-V'], stdout=open(os.devnull, "w"))
-        apps += ',complex.python2,tools.python2,complex.libsumo,complex.libtraci'
+            subprocess.call(['python2', '-V'], stdout=open(os.devnull, "w"))
+        apps += ',complex.python2,tools.python2'
     except Exception:
         pass
     if guiTests:
         apps += ",sumo.meso.gui,sumo.gui.osg"
+#        if os.name == "posix":
+#            apps += ",complex.libsumogui"
     process = subprocess.Popen("%s %s -a %s" % ("texttest", args, apps), env=env, 
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
     with process.stdout:

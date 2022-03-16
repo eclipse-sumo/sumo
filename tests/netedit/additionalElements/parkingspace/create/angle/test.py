@@ -41,35 +41,35 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeElement("space")
 
 # set invalid Angle (dummy)
-netedit.selectAdditionalChild(8, 0)
-netedit.changeDefaultValue(5, "dummyAngle")
+netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
+netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.angle, "dummyAngle")
 
 # try to create area
-netedit.leftClick(referencePosition, 300, 100)
+netedit.leftClick(referencePosition, 231, 83)
 
 # set invalid angle (empty)
-netedit.changeDefaultValue(5, "")
+netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.angle, "")
 
 # try to create area
-netedit.leftClick(referencePosition, 300, 100)
+netedit.leftClick(referencePosition, 231, 83)
 
 # set valid angle (negative)
-netedit.changeDefaultValue(5, "-4")
+netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.angle, "-4")
 
 # create area
-netedit.leftClick(referencePosition, 300, 100)
+netedit.leftClick(referencePosition, 231, 83)
 
 # set valid angle (>360)
-netedit.changeDefaultValue(5, "500")
+netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.angle, "500")
 
 # create area
-netedit.leftClick(referencePosition, 320, 100)
+netedit.leftClick(referencePosition, 231, 83)
 
 # set valid angle
-netedit.changeDefaultValue(5, "120")
+netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.angle, "120")
 
 # create area
-netedit.leftClick(referencePosition, 340, 100)
+netedit.leftClick(referencePosition, 231, 83)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

@@ -139,7 +139,7 @@ GNEEdgeTemplate::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEEdgeTemplate::getACParametersMap() const {
     return myEdge->getACParametersMap();
 }
@@ -154,7 +154,7 @@ GNEEdgeTemplate::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/)
 }
 
 void
-GNEEdgeTemplate::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNEEdgeTemplate::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     throw InvalidArgument("cannot be called in templates");
 }
 

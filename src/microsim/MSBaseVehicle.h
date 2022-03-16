@@ -585,7 +585,7 @@ public:
      *
      * @param[in] ignoreStopErrors whether invalid stops trigger a warning only
      */
-    void addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart = nullptr);
+    void addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart = nullptr, bool addRouteStops = true);
 
     /// @brief check whether all stop.edge MSRouteIterators are valid and in order
     bool haveValidStopEdges() const;
@@ -616,6 +616,15 @@ public:
     */
     MSStop& getNextStop();
 
+    /// @brief get remaining stop duration or 0 if the vehicle isn't stopped
+    SUMOTime getStopDuration() const;
+
+    /**
+    * returns the upcoming stop with the given index in the stop queue
+    * @return an upcoming stop
+    */
+    MSStop& getStop(int nextStopIndex);
+
     /// @brief return parameters for the next stop (SUMOVehicle Interface)
     const SUMOVehicleParameter::Stop* getNextStopParameter() const;
 
@@ -641,12 +650,34 @@ public:
      * will wait for the given duration before continuing on its route
      * The route between start other stops and destination will be kept unchanged and
      * only the part around the replacement index will be adapted according to the new stop location
-     * @param[in] nextStopDist The replacement index
+     * @param[in] nextStopIndex The replacement index
      * @param[in] stop Stop parameters
+     * @param[in] info The rerouting info
      * @param[in] teleport Whether to cover the route to the replacement stop via teleporting
      * @param[out] errorMsg returned error message
      */
     bool replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, bool teleport, std::string& errorMsg);
+
+    /**
+     * reroute between stops nextStopIndex - 1 and nextStopIndex (defaults to current position / final edge) if the respective stops do not exist
+     * @param[in] nextStopIndex The replacement index
+     * @param[in] info The rerouting info
+     * @param[in] teleport Whether to cover the route between stops via teleporting
+     * @param[out] errorMsg returned error message
+     */
+    bool rerouteBetweenStops(int nextStopIndex, const std::string& info, bool teleport, std::string& errorMsg);
+
+    /**
+     * insert stop at the given index with the given stop parameters
+     * will wait for the given duration before continuing on its route
+     * The route will be adapted to pass the new stop edge but only from the previous stop (or start) to the new stop and only up to the next stop (or end).
+     * @param[in] nextStopIndex The replacement index
+     * @param[in] stop Stop parameters
+     * @param[in] info The rerouting info
+     * @param[in] teleport Whether to cover the route to the new stop via teleporting
+     * @param[out] errorMsg returned error message
+     */
+    bool insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, bool teleport, std::string& errorMsg);
 
 
     /// @brief whether this vehicle is selected in the GUI

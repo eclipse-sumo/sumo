@@ -68,12 +68,9 @@ public:
      * @param[in] id The id of the rerouter
      * @param[in] edges The edges the rerouter is placed at
      * @param[in] prob The probability the rerouter reoutes vehicles with
-     * @param[in] file The file to read the reroute definitions from
      */
-    MSTriggeredRerouter(const std::string& id,
-                        const MSEdgeVector& edges,
-                        double prob, const std::string& file, bool off,
-                        SUMOTime timeThreshold,
+    MSTriggeredRerouter(const std::string& id, const MSEdgeVector& edges,
+                        double prob, bool off, SUMOTime timeThreshold,
                         const std::string& vTypes);
 
 

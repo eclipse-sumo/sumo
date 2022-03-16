@@ -30,6 +30,7 @@ won't be affected by further changes to the original type.
 | resume (0x19) | compound (), see below | Resumes from a stop  | [resume](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-resume) |
 | change target (0x31) | string (destination edge id)  | The vehicle's destination edge is set to the given. The route is rebuilt. | [changeTarget](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-changeTarget) |
 | speed (0x40) | double (new speed) | Sets the vehicle speed to the given value. The speed will be followed according to the current [speed mode](../TraCI/Change_Vehicle_State.md#speed_mode_0xb3). By default the vehicle may drive slower than the set speed according to the safety rules of the car-follow model. When sending a value of -1 the vehicle will revert to its original behavior (using the *maxSpeed* of its vehicle type and following all safety rules).  | [setSpeed](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setSpeed) |
+| acceleration (0x72) | compound (double, double), see below | Changes the acceleration to the given value for the given amount of time in seconds (must be greater than zero). | [setAcceleration](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setAcceleration) |
 | previous speed (0x3c) | double (previous speed) | Retroactively sets the vehicle speed for the previous simulation step to the given value and also updates the previous acceleration. This speed value will be used when computing [ballistic position updates](../Simulation/Basic_Definition.md#defining_the_integration_method). Also, other vehicles will react to ego in the current step as if it had driven with the given speed in the previous step. | [setPreviousSpeed](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setPreviousSpeed) |
 | color (0x45)  | ubyte,ubyte,ubyte,ubyte (RGBA) |  Sets the vehicle's color.  | [setColor](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setColor) |
 | change route by id (0x53) | string (route id)  | Assigns the named route to the vehicle, assuming a) the named route exists, and b) it starts on the edge the vehicle is currently at<sup>(1)(2)</sup>.  | [setRouteID](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setRouteID) |
@@ -43,6 +44,8 @@ won't be affected by further changes to the original type.
 | move to (0x5c)  | compound (lane ID, position along lane)  | Moves the vehicle to a new position along the current route <sup>(3)</sup>.  | [moveTo](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-moveTo) |
 | move to XY (0xb4) | compound (edgeID, laneIndex, x, y, angle, keepRoute) (see below)  | Moves the vehicle to a new position after normal vehicle movements have taken place. Also forces the angle of the vehicle to the given value (navigational angle in degree). [See below for additional details](../TraCI/Change_Vehicle_State.md#move_to_xy_0xb4) | [moveToXY](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-moveToXY) |
 | replaceStop (0x17) | compound (edgeID, vehID, nextStopIndex, edgeID, pos, laneIndex, duration, flags, startPos, until, teleport) (see below)  | Replaces stop at the given index with a new stop. Automatically modifies the route if the replacement stop is at another location. [See below for additional details](../TraCI/Change_Vehicle_State.md#replaceStop-0x17) | [replaceStop](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-replaceStop) |
+| insertStop (0x18) | compound (edgeID, vehID, nextStopIndex, edgeID, pos, laneIndex, duration, flags, startPos, until, teleport) (see below)  | inserts stop at the given index. Automatically modifies the route to accomodate the new stop. [See below for additional details](../TraCI/Change_Vehicle_State.md#insertStop-0x18) | [insertStop](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-insertStop) |
+| setStopParameter (0x55) | compound (nextStopIndex, param, value) (see below)  | modifies attribute of stop at the given index. Changing location ('edge', 'busStop', etc.) behave like replaceRoute. [See below for additional details](../TraCI/Change_Vehicle_State.md#setStopParameter-0x55) | [setStopParameter](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setStopParameter) |
 | reroute (compute new route) by travel time (0x90)  | compound (<empty\>), see below  | Computes a new route to the current destination that minimizes travel time. The assumed values for each edge in the network can be customized in various ways. See [Simulation/Routing#Travel-time_values_for_routing](../Simulation/Routing.md#travel-time_values_for_routing). Replaces the current route by the found<sup>(2)</sup>.  | [rerouteTraveltime](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-rerouteTraveltime) |
 | reroute (compute new route) by effort (0x91) | compound (<empty\>), see below  | Computes a new route using the vehicle's internal and the global edge effort information. Replaces the current route by the found<sup(2)</sup>. | [rerouteEffort](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-rerouteEffort) |
 | speed mode (0xb3) | int bitset (see below)  | Sets how the values set by speed (0x40) and slowdown (0x14) shall be treated. Also allows to configure the behavior at junctions. [See below](#speed_mode_0xb3).  | [setSpeedMode](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setSpeedMode) |
@@ -122,6 +125,12 @@ After the vehicle has sucessfully performed the lane change(s) the vehicle conti
 |         byte          |        integer         |        byte         | double |        byte         |       double        |
 | :-------------------: | :--------------------: | :-----------------: | :----: | :-----------------: | :-----------------: |
 | value type *compound* | item number (always 2) | value type *double* | Speed  | value type *double* | Duration in seconds |
+
+### set acceleration (0x72)
+
+|         byte          |        integer         |        byte         |    double    |        byte         |       double        |
+| :-------------------: | :--------------------: | :-----------------: | :----------: | :-----------------: | :-----------------: |
+| value type *compound* | item number (always 2) | value type *double* | Acceleration | value type *double* | Duration in seconds |
 
 ### open gap (0x16)
 
@@ -220,11 +229,38 @@ Replaces stop at the given index with a new stop. Automatically modifies the rou
 
 - For edgeID a stopping place id may be given if the flag marks this stop as stopping on busStop, parkingArea, containerStop etc.
 - If edgeID is "", the stop at the given index will be removed without replacement and the route will not be modified.
+   - if teleport is set to 2, the vehicle will rerouting in the section of the removed stop (i.e. from the previous to the successive stop).
 - If teleport is set to 1, the route to the replacement stop will be disconnected (forcing a teleport). 
   - If stopIndex is 0 the gap will be between the current edge and the new stop.
   - Otherwise the gap will be between the stop edge for nextStopIndex - 1 and the new stop.
   - It is recommended to also set sumo option **--time-to-teleport.disconnected** when using this
 
+### insertStop (0x18)
+
+| string | int           | string | double  | integer     | double                 | integer | double                 | double              | int        |
+| :----: | :-----------: | :----: | :-----: | :---------: | :--------------------: | :-----: | :--------------------: | :-----------------: | :--------: |
+| vehID  | nextStopIndex | edgeID | pos=1.0 | laneIndex=0 | duration=-1073741824.0 | flags=0 | startPos=-1073741824.0 | until=-1073741824.0 | teleport=0 |
+
+Inserts stop at the given index. Automatically modifies the route to accomodate the new stop
+
+- For edgeID a stopping place id may be given if the flag marks this stop as stopping on busStop, parkingArea, containerStop etc.
+- if nextStopIndex is equal to the number of upcoming stops, the new stop will be added after all other stops
+- If teleport is set to 1, the route to the new stop will be disconnected (forcing a teleport). 
+  - If stopIndex is 0 the gap will be between the current edge and the new stop.
+  - Otherwise the gap will be between the stop edge for nextStopIndex - 1 and the new stop.
+  - It is recommended to also set sumo option **--time-to-teleport.disconnected** when using this
+
+### setStopParameter (0x55)
+
+| string | int           | string | string  |
+| :----: | :-----------: | :----: | :-----: |
+| vehID  | nextStopIndex | param  | value   |
+
+Updates stop parameter at the given index.
+
+- nextStopIndex must be a non-negative number smaller than the number of remaining stops
+- param may be [any value permitted as xml-attribute for stops](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops) (except `index`)
+- if param changes the location ('edge', 'busStop', ...), the function behaves like [replaceStop](#replacestop_0x17)
 
 ### resume (0x19)
 

@@ -172,7 +172,7 @@ public:
             FXComboBox* myComboBox;
 
             /// @brief pointer to current parameter map
-            std::map<std::string, std::string> myParameters;
+            Parameterised::Map myParameters;
 
             /// @brief filter attribute name
             FXString filterAttributeName(const SumoXMLAttr attr) const;

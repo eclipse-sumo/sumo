@@ -224,7 +224,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the special color of the lane
      * @param[in] color Pointer to new special color

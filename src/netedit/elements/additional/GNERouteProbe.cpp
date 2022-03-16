@@ -36,23 +36,24 @@
 
 GNERouteProbe::GNERouteProbe(GNENet* net) :
     GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}),
     myFrequency(0),
-myBegin(0) {
+    myBegin(0) {
+    // reset default values
+    resetDefaultValues();
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime frequency, const std::string& name,
-                             const std::string& filename, SUMOTime begin, const std::map<std::string, std::string>& parameters) :
+                             const std::string& filename, SUMOTime begin, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name,
-{}, {edge}, {}, {}, {}, {}, {}, {},
-parameters),
-myFrequency(frequency),
-myFilename(filename),
-myBegin(begin) {
+        {}, {edge}, {}, {}, {}, {}),
+    Parameterised(parameters),
+    myFrequency(frequency),
+    myFilename(filename),
+    myBegin(begin) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -236,6 +237,12 @@ GNERouteProbe::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Parameterised::Map& 
+GNERouteProbe::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -295,17 +302,17 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_FREQUENCY:
-            if (value.empty()) {
-                return true;
+            if (canParse<SUMOTime>(value)) {
+                return (parse<SUMOTime>(value) > 0);
             } else {
-                return canParse<SUMOTime>(value);
+                return false;
             }
         case SUMO_ATTR_BEGIN:
             return canParse<SUMOTime>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

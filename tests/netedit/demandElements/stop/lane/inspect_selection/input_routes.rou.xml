@@ -30,7 +30,7 @@
     </pedestrian>
 
     <netedit>
-        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopLane\inspect_selection\input_routes.rou.xml"/>
+        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\inspect_selection\input_routes.rou.xml"/>
     </netedit>
 
 </configuration>
@@ -38,11 +38,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE0 gneE1" color="yellow" id="route_0">
-
-        <stop lane="gneE0_0" startPos="5.00" endPos="8.00" friendlyPos="1" duration="70.00" extension="10" until="12.00" triggered="1" containerTriggered="1" parking="1" expected="IDA" expectedContainers="IDB" tripId="IDC"/>
-		        
-		<stop lane="gneE1_0" startPos="12.00" endPos="16.00" friendlyPos="0" duration="60.00" extension="20" />
-		
+        <stop lane="gneE1_0" startPos="7.00" friendlyPos="0" posLat="10.00" endPos="17.00" duration="70.00" until="12.00" extension="10.00" expected="perA perB" parking="1" permitted="A B" actType="walking" triggered="person"/>
+        <stop lane="gneE0_0" startPos="7.00" friendlyPos="1" posLat="20.00" endPos="17.00" duration="60.00" until="20.00" extension="20.00" expected="conA conB" parking="0" permitted="C D" actType="singing" triggered="container"/>
     </route>
-	<flow id="routeFlow" begin="0.00" route="route_0" end="3600.00" number="1800"/>
 </routes>

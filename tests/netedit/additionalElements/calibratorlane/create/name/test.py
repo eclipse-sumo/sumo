@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("calibratorLane")
 
 # set invalid name
-netedit.changeDefaultValue(5, ";;\"\"\"")
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.name, ";;\"\"\"")
 
 # try to create calibrator with invalid name
 netedit.leftClick(referencePosition, 240, 250)
 
 # set valid name
-netedit.changeDefaultValue(5, "customName")
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.name, "customName")
 
 # create calibrator with valid name
 netedit.leftClick(referencePosition, 240, 250)

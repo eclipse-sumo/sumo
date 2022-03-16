@@ -27,60 +27,13 @@ try:
     from urllib.request import urlopen
 except ImportError:
     from urllib import urlopen
-from xml.sax import parseString, handler
-from optparse import OptionParser, OptionGroup, Option
+from optparse import OptionParser
 
 from . import files, net, output, sensors, shapes, statistics, fpdiff  # noqa
 from . import color, geomhelper, miscutils, options, route, vehicletype, version  # noqa
+from .options import pullOptions
 from .xml import writeHeader as writeXMLHeader  # noqa
 # the visualization submodule is not imported to avoid an explicit matplotlib dependency
-
-
-class ConfigurationReader(handler.ContentHandler):
-
-    """Reads a configuration template, storing the options in an OptionParser"""
-
-    def __init__(self, optParse, groups, configoptions):
-        self._opts = optParse
-        self._groups = groups
-        self._options = configoptions
-        self._group = self._opts
-
-    def startElement(self, name, attrs):
-        if len(attrs) == 0:
-            self._group = OptionGroup(self._opts, name)
-        if self._group != self._opts and self._groups and self._group.title not in self._groups:
-            return
-        if 'type' in attrs and name != "help":
-            if self._options and name not in self._options:
-                return
-            help = attrs.get("help", "")
-            option = Option("--" + name, help=help)
-            if attrs["type"] == "BOOL":
-                option = Option(
-                    "--" + name, action="store_true", default=False, help=help)
-            elif attrs["type"] in ["FLOAT", "TIME"]:
-                option.type = "float"
-                if attrs["value"]:
-                    option.default = float(attrs["value"])
-            elif attrs["type"] == "INT":
-                option.type = "int"
-                if attrs["value"]:
-                    option.default = int(attrs["value"])
-            else:
-                option.default = attrs["value"]
-            self._group.add_option(option)
-
-    def endElement(self, name):
-        if self._group != self._opts and name == self._group.title:
-            self._opts.add_option_group(self._group)
-            self._group = self._opts
-
-
-def pullOptions(executable, optParse, groups=None, configoptions=None):
-    optoutput = subprocess.Popen(
-        [executable, "--save-template", "-"], stdout=subprocess.PIPE).communicate()[0]
-    parseString(optoutput, ConfigurationReader(optParse, groups, configoptions))
 
 
 def saveConfiguration(executable, configoptions, filename):

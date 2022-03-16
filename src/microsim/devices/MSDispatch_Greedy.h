@@ -39,7 +39,7 @@
  */
 class MSDispatch_Greedy : public MSDispatch {
 public:
-    MSDispatch_Greedy(const std::map<std::string, std::string>& params) :
+    MSDispatch_Greedy(const Parameterised::Map& params) :
         MSDispatch(params),
         myRoutingMode(StringUtils::toInt(getParameter("routingMode", "1"))),
         myMaximumWaitingTime(TIME2STEPS(StringUtils::toInt(getParameter("maxWaitingTime", "300")))),
@@ -76,7 +76,7 @@ private:
  */
 class MSDispatch_GreedyClosest : public MSDispatch_Greedy {
 public:
-    MSDispatch_GreedyClosest(const std::map<std::string, std::string>& params) :
+    MSDispatch_GreedyClosest(const Parameterised::Map& params) :
         MSDispatch_Greedy(params)
     {}
 

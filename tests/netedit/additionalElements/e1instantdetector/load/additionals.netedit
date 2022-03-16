@@ -1,42 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 11.07.2018 10:44:40 by Eclipse SUMO netedit Version 88bb7b0b92
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Jul104048.2968/netedit.gui/additionalElements/e1detector/load\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Jul104048.2968/netedit.gui/additionalElements/e1detector/load\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Jul104048.2968/netedit.gui/additionalElements/e1detector/load\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Jul104048.2968/netedit.gui/additionalElements/e1detector/load\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Jul104048.2968/netedit.gui/additionalElements/e1detector/load\net.net.xml"/>
-    </output>
-
-    <processing>
-        <no-turnarounds value="true"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-        <junctions.corner-detail value="5"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
-    </processing>
-
-    <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Jul104048.2968/netedit.gui/additionalElements/e1detector/load\gui-settings.xml"/>
-        <window-size value="700,500"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Jul104048.2968/netedit.gui/additionalElements/e1detector/load\log.txt"/>
-    </report>
-
-</configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">

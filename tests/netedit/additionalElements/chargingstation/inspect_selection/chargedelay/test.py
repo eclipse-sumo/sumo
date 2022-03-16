@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 320)
 
 # Set invalid charge delay
-netedit.modifyAttribute(5, "dummyChargeDelay", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.chargeDelay, "dummyChargeDelay", True)
 
 # Set invalid charge delay
-netedit.modifyAttribute(5, "-2", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.chargeDelay, "-2", True)
 
 # Set valid charge delay
-netedit.modifyAttribute(5, "6.3", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.chargeDelay, "6.3", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

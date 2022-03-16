@@ -40,8 +40,8 @@ netedit.inspectMode()
 # inspect containerstops
 netedit.leftClick(referencePosition, 160, 270)
 
-# Set person capacity
-netedit.modifyAttribute(4, "50", False)
+# Set container capacity
+netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.parkingLength, "50", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

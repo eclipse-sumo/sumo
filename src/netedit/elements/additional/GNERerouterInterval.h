@@ -108,6 +108,9 @@ public:
      */
     double getAttributeDouble(SumoXMLAttr key) const;
 
+    /// @brief get parameters map
+    const Parameterised::Map& getACParametersMap() const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value

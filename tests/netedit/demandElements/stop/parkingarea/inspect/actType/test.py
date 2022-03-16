@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 155)
 
 # change value
-netedit.modifyAttribute(6, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspect.actType, "dummy", False)
 
 # change value
-netedit.modifyAttribute(6, "", False)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspect.actType, "", False)
 
 # change value
-netedit.modifyAttribute(6, "singing", False)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspect.actType, "singing", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

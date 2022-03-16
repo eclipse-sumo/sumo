@@ -251,6 +251,9 @@ protected:
     /// @brief where stop edges can be inserted into the current route (-1 means no insertion)
     int myInsertStopEdgesAt;
 
+    /// @brief hierachy of elements being parsed
+    std::vector<int> myElementStack;
+
 private:
     /// @brief Invalidated copy constructor
     SUMORouteHandler(const SUMORouteHandler& s) = delete;

@@ -23,12 +23,58 @@ import sys
 import subprocess
 from collections import namedtuple
 import re
-from xml.sax import parse, handler, saxutils
+from xml.sax import parse, parseString, handler, saxutils
+import optparse
 import argparse
 import io
 from argparse import RawDescriptionHelpFormatter  # noqa
 
 _OPTIONS = [None]
+
+
+class ConfigurationReader(handler.ContentHandler):
+
+    """Reads a configuration template, storing the options in an OptionParser"""
+
+    def __init__(self, optParse, groups, configoptions):
+        self._opts = optParse
+        self._groups = groups
+        self._options = configoptions
+        self._group = self._opts
+
+    def startElement(self, name, attrs):
+        if len(attrs) == 0:
+            self._group = optparse.OptionGroup(self._opts, name)
+        if self._group != self._opts and self._groups and self._group.title not in self._groups:
+            return
+        if 'type' in attrs and name != "help":
+            if self._options and name not in self._options:
+                return
+            help = attrs.get("help", "")
+            option = optparse.Option("--" + name, help=help)
+            if attrs["type"] == "BOOL":
+                option = optparse.Option("--" + name, action="store_true", default=False, help=help)
+            elif attrs["type"] in ["FLOAT", "TIME"]:
+                option.type = "float"
+                if attrs["value"]:
+                    option.default = float(attrs["value"])
+            elif attrs["type"] == "INT":
+                option.type = "int"
+                if attrs["value"]:
+                    option.default = int(attrs["value"])
+            else:
+                option.default = attrs["value"]
+            self._group.add_option(option)
+
+    def endElement(self, name):
+        if self._group != self._opts and name == self._group.title:
+            self._opts.add_option_group(self._group)
+            self._group = self._opts
+
+
+def pullOptions(executable, optParse, groups=None, configoptions=None):
+    optoutput = subprocess.check_output([executable, "--save-template", "-"])
+    parseString(optoutput, ConfigurationReader(optParse, groups, configoptions))
 
 
 def get_long_option_names(application):

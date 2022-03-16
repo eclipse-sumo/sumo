@@ -60,6 +60,7 @@ MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
     myPosition(positionInMeters),
     myNeedLock(needLocking || MSGlobals::gNumSimThreads > 1),
     myLastLeaveTime(SIMTIME),
+    myOverrideTime(-1),
     myVehicleDataCont(),
     myVehiclesOnDet() {
     assert(myPosition >= 0 && myPosition <= myLane->getLength());
@@ -197,6 +198,9 @@ MSInductLoop::getVehicleLength(const int offset) const {
 
 double
 MSInductLoop::getOccupancy() const {
+    if (myOverrideTime >= 0) {
+        return myOverrideTime < TS ? (TS - myOverrideTime) / TS * 100 : 0;
+    }
     const SUMOTime tbeg = SIMSTEP - DELTA_T;
     double occupancy = 0;
     const double csecond = SIMTIME;
@@ -211,6 +215,9 @@ MSInductLoop::getOccupancy() const {
 
 double
 MSInductLoop::getEnteredNumber(const int offset) const {
+    if (myOverrideTime >= 0) {
+        return myOverrideTime < TS ? 1 : 0;
+    }
     return (double)collectVehiclesOnDet(SIMSTEP - offset, true, true).size();
 }
 
@@ -227,6 +234,9 @@ MSInductLoop::getVehicleIDs(const int offset) const {
 
 double
 MSInductLoop::getTimeSinceLastDetection() const {
+    if (myOverrideTime >= 0) {
+        return myOverrideTime;
+    }
     if (myVehiclesOnDet.size() != 0) {
         // detector is occupied
         return 0;
@@ -237,12 +247,20 @@ MSInductLoop::getTimeSinceLastDetection() const {
 
 SUMOTime
 MSInductLoop::getLastDetectionTime() const {
+    if (myOverrideTime >= 0) {
+        return SIMSTEP - TIME2STEPS(myOverrideTime);
+    }
     if (myVehiclesOnDet.size() != 0) {
         return MSNet::getInstance()->getCurrentTimeStep();
     }
     return TIME2STEPS(myLastLeaveTime);
 }
 
+
+void
+MSInductLoop::overrideTimeSinceDetection(double time) {
+    myOverrideTime = time;
+}
 
 void
 MSInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const {
@@ -363,7 +381,8 @@ MSInductLoop::VehicleData::VehicleData(const SUMOTrafficObject& v, double entryT
 
 
 void
-MSInductLoop::clearState() {
+MSInductLoop::clearState(SUMOTime time) {
+    myLastLeaveTime = STEPS2TIME(time);
     myEnteredVehicleNumber = 0;
     myLastVehicleDataCont.clear();
     myVehicleDataCont.clear();

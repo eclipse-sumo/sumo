@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 290)
 
 # check parameters
-netedit.checkParameters(referencePosition, 9, False)
+netedit.checkParameters(referencePosition, netedit.attrs.parkingArea.inspectSelection.parameters, False)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

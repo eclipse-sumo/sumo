@@ -14,7 +14,6 @@
 # @author  Michael Behrisch
 # @date    2020-10-08
 
-import sys
 import os
 if hasattr(os, "add_dll_directory"):
     # since Python 3.8 the DLL search path has to be set explicitly see https://bugs.python.org/issue43173
@@ -23,7 +22,7 @@ if hasattr(os, "add_dll_directory"):
     os.add_dll_directory(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "bin")))
 
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation, _gui  # noqa
-from traci.connection import StepListener  # noqa
+from traci.step import StepManager, StepListener  # noqa
 from .libtraci import vehicle, simulation, person, trafficlight, gui  # noqa
 from .libtraci import *  # noqa
 from .libtraci import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException  # noqa
@@ -52,21 +51,11 @@ _DOMAINS = [
     simulation,
     trafficlight,
     variablespeedsign,  # noqa
-	frictioncoefficientsign, # noqa
     vehicle,
     vehicletype,  # noqa
 ]
 
-hasGUI = simulation.hasGUI
-init = simulation.init
-load = simulation.load
-isLoaded = simulation.isLoaded
-getVersion = simulation.getVersion
-close = simulation.close
-start = simulation.start
-setOrder = simulation.setOrder
-_stepListeners = {}
-_nextStepListenerID = 0
+_stepManager = StepManager()
 
 
 def wrapAsClassMethod(func, module):
@@ -108,7 +97,9 @@ vehicle.isStoppedTriggered = wrapAsClassMethod(_vehicle.VehicleDomain.isStoppedT
 vehicle.isAtBusStop = wrapAsClassMethod(_vehicle.VehicleDomain.isAtBusStop, vehicle)
 vehicle.isAtContainerStop = wrapAsClassMethod(_vehicle.VehicleDomain.isAtContainerStop, vehicle)
 vehicle.setBusStop = wrapAsClassMethod(_vehicle.VehicleDomain.setBusStop, vehicle)
+vehicle.setContainerStop = wrapAsClassMethod(_vehicle.VehicleDomain.setContainerStop, vehicle)
 vehicle.setParkingAreaStop = wrapAsClassMethod(_vehicle.VehicleDomain.setParkingAreaStop, vehicle)
+vehicle.setChargingStationStop = wrapAsClassMethod(_vehicle.VehicleDomain.setChargingStationStop, vehicle)
 vehicle.getRightFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getRightFollowers, vehicle)
 vehicle.getRightLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getRightLeaders, vehicle)
 vehicle.getLeftFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftFollowers, vehicle)
@@ -117,11 +108,17 @@ vehicle.getLaneChangeStatePretty = wrapAsClassMethod(_vehicle.VehicleDomain.getL
 person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
 _trafficlight.TraCIException = TraCIException
 trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
+trafficlight.getNemaPhaseCalls = wrapAsClassMethod(_trafficlight.TrafficLightDomain.getNemaPhaseCalls, trafficlight)
 trafficlight.setNemaSplits = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setNemaSplits, trafficlight)
 trafficlight.setNemaOffset = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setNemaOffset, trafficlight)
-addStepListener = wrapAsClassMethod(connection.Connection.addStepListener, sys.modules[__name__])
-removeStepListener = wrapAsClassMethod(connection.Connection.removeStepListener, sys.modules[__name__])
-_manageStepListeners = wrapAsClassMethod(connection.Connection._manageStepListeners, sys.modules[__name__])
+
+
+def addStepListener(listener):
+    return _stepManager.addStepListener(listener)
+
+
+def removeStepListener(listenerID):
+    return _stepManager.removeStepListener(listenerID)
 
 
 def isLibsumo():
@@ -139,6 +136,13 @@ def setLegacyGetLeader(enabled):
     _vehicle._legacyGetLeader = enabled
 
 
+hasGUI = simulation.hasGUI
+init = simulation.init
+load = simulation.load
+isLoaded = simulation.isLoaded
+getVersion = simulation.getVersion
+setOrder = simulation.setOrder
+
 _libtraci_step = simulation.step
 
 
@@ -148,9 +152,27 @@ def simulationStep(step=0):
     for domain in _DOMAINS:
         result += [(k, v) for k, v in domain.getAllSubscriptionResults().items()]
         result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items()]
-    _manageStepListeners(step)
+    _stepManager.manageStepListeners(step)
     return result
 
 
 simulation.step = simulationStep
+
+
+def close():
+    simulation.close()
+    _stepManager.close()
+
+
+def start(args, traceFile=None, traceGetters=True):
+    version = simulation.start(args)
+    if traceFile is not None:
+        if _stepManager.startTracing(traceFile, traceGetters, _DOMAINS):
+            # simulationStep shows up as simulation.step
+            global _libtraci_step
+            _libtraci_step = _stepManager._addTracing(_libtraci_step, "simulation")
+        _stepManager.write("start", repr(args))
+    return version
+
+
 gui.DEFAULT_VIEW = _gui.GuiDomain.DEFAULT_VIEW

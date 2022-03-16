@@ -40,11 +40,11 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
+# inspect flow over route
 netedit.leftClick(referencePosition, 330, 150)
 
 # check parameters
-netedit.checkParameters(referencePosition, 23, True)
+netedit.checkParameters(referencePosition, netedit.attrs.routeflow.inspectSelection.parameters, True)
 
 # save routes
 netedit.saveRoutes(referencePosition)

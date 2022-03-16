@@ -15,6 +15,8 @@ set(utils_emissions_STAT_SRCS
    HelpersMMPEVEM.h
    HelpersPHEMlight.cpp
    HelpersPHEMlight.h
+   HelpersPHEMlight5.cpp
+   HelpersPHEMlight5.h
    PHEMCEP.h
    PHEMCEP.cpp
    PHEMCEPHandler.h

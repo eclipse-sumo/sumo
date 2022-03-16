@@ -119,7 +119,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable != libsumo::VAR_MAXSPEED && variable != libsumo::VAR_FRICTION && variable != libsumo::VAR_LENGTH && variable != libsumo::LANE_ALLOWED && variable != libsumo::LANE_DISALLOWED
+    if (variable != libsumo::VAR_MAXSPEED && variable != libsumo::VAR_LENGTH && variable != libsumo::LANE_ALLOWED && variable != libsumo::LANE_DISALLOWED
             && variable != libsumo::VAR_PARAMETER) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_LANE_VARIABLE, "Change Lane State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }

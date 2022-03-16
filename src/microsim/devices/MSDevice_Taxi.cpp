@@ -238,7 +238,7 @@ MSDevice_Taxi::MSDevice_Taxi(SUMOVehicle& holder, const std::string& id) :
         myIdleAlgorithm = new MSIdling_RandomCircling();
         // make sure simulation terminates
         defaultServiceEnd = toString(STEPS2TIME(
-                                         myHolder.getParameter().departProcedure == DEPART_GIVEN
+                                         myHolder.getParameter().departProcedure == DepartDefinition::GIVEN
                                          ? myHolder.getParameter().depart
                                          : MSNet::getInstance()->getCurrentTimeStep()) + (3600 * 8));
     } else {

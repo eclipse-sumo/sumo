@@ -69,9 +69,9 @@ def main(options):
     if options.seed:
         random.seed(options.seed)
 
-    with open(options.out, 'w') as outf:
+    with open(options.routeFile) as routes, open(options.out, 'w') as outf:
         pat = re.compile(r'(.* duration=")([^"]*)(".*)')
-        for line in open(options.routeFile):
+        for line in routes:
             if "<stop" in line and "duration" in line:
                 if random.random() < options.probability:
                     if options.min == options.max:

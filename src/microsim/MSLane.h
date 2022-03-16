@@ -179,9 +179,31 @@ public:
     };
 
     /** @brief Constructor
+    *
+    * @param[in] id The lane's id
+    * @param[in] maxSpeed The speed allowed on this lane
+    * @param[in] length The lane's length
+    * @param[in] edge The edge this lane belongs to
+    * @param[in] numericalID The numerical id of the lane
+    * @param[in] shape The shape of the lane
+    * @param[in] width The width of the lane
+    * @param[in] permissions Encoding of the Vehicle classes that may drive on this lane
+    * @param[in] index The index of this lane within its parent edge
+    * @param[in] isRampAccel Whether this lane is an acceleration lane
+    * @see SUMOVehicleClass
+    */
+    MSLane(const std::string& id, double maxSpeed, double length, MSEdge* const edge,
+        int numericalID, const PositionVector& shape, double width,
+        SVCPermissions permissions,
+        SVCPermissions changeLeft, SVCPermissions changeRight,
+        int index, bool isRampAccel,
+        const std::string& type);
+
+    /** @brief Constructor
      *
      * @param[in] id The lane's id
      * @param[in] maxSpeed The speed allowed on this lane
+     * @param[in] friction The friction of this lane
      * @param[in] length The lane's length
      * @param[in] edge The edge this lane belongs to
      * @param[in] numericalID The numerical id of the lane
@@ -316,7 +338,7 @@ public:
                             MSMoveReminder::Notification notification);
 
     // XXX: Documentation?
-    bool checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, const double nspeed, const bool patchSpeed, const std::string errorMsg) const;
+    bool checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, const double nspeed, const bool patchSpeed, const std::string errorMsg, InsertionCheck check) const;
 
     /** @brief inserts vehicle as close as possible to the last vehicle on this
      * lane (or at the end of the lane if there is no leader)
@@ -789,6 +811,9 @@ public:
 
     /** Returns whether the lane pertains to an internal edge*/
     bool isInternal() const;
+
+    /** Returns whether the lane pertains to a normal edge*/
+    bool isNormal() const;
 
     /// @brief returns the last vehicle for which this lane is responsible or 0
     MSVehicle* getLastFullVehicle() const;
@@ -1395,9 +1420,8 @@ protected:
 
     /// Lane-wide speedlimit [m/s]
     double myMaxSpeed;
-
-	/// Lane-wide friction coefficient [0..1]
-	double myFrictionCoefficient;
+    /// Lane-wide friction coefficient [0..1]
+    double myFrictionCoefficient;
 
     /// The vClass permissions for this lane
     SVCPermissions myPermissions;

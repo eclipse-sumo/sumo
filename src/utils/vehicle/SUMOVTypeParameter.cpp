@@ -256,6 +256,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       containerCapacity(0),
       boardingDuration(500),
       loadingDuration(90000),
+      scale(1),
       width(1.8),
       height(1.5),
       shape(SUMOVehicleShape::UNKNOWN),
@@ -464,6 +465,9 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     }
     if (wasSet(VTYPEPARS_MANEUVER_ANGLE_TIMES_SET)) {
         dev.writeAttr(SUMO_ATTR_MANEUVER_ANGLE_TIMES, getManoeuverAngleTimesS());
+    }
+    if (wasSet(VTYPEPARS_SCALE_SET)) {
+        dev.writeAttr(SUMO_ATTR_SCALE, scale);
     }
     if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);

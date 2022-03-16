@@ -1,2 +1,2 @@
-Error: Attribute 'friendlyPos' in definition of a access is not of type bool.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun101725.18492\netedit.gui\additionalElements\access\load\friendlypos\input_additionals.add.xml failed.
+Error: Attribute 'friendlyPos' in definition of a access Invalid Bool Format dummyfriendlypos.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\access\load\friendlypos\input_additionals.add.xml failed.

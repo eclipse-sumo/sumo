@@ -41,25 +41,25 @@ netedit.stopMode()
 netedit.changeStopType("stopBusStop")
 
 # set invalid value
-netedit.changeDefaultValue(13, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stop.create.actType, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # set invalid value
-netedit.changeDefaultValue(13, "")
+netedit.changeDefaultValue(netedit.attrs.stop.create.actType, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # set valid value
-netedit.changeDefaultValue(13, "dummy Act")
+netedit.changeDefaultValue(netedit.attrs.stop.create.actType, "dummy Act")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # set valid value
-netedit.changeDefaultValue(13, "singing")
+netedit.changeDefaultValue(netedit.attrs.stop.create.actType, "singing")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 175)

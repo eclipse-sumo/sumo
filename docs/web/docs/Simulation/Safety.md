@@ -39,13 +39,16 @@ with the stopping time in seconds.
 
 ## Deliberately causing collisions
 
-To force collisions at a set time, TraCI must be used. Besides setting
-the speed, it is also necessary to disable safety checks using [the
-commands speedMode and
-laneChangeMode](../TraCI/Change_Vehicle_State.md).
+A simple way to create collisions  is by using TraCI to override save speeds (with `traci.vehicle.setSpeed`) or forcing unsafe lane changes.
+To create collisions in this way it is also necessary to disable safety checks using [the
+commands speedMode and laneChangeMode](../TraCI/Change_Vehicle_State.md).
+
+Alternatively, various models within SUMO may be configured to making driving less safe.
+This can be used to create collisions with some probability 
+(or with certainty if vehicle stops are used to force unexpected braking in a critical situation).
 
 ### Collisions during car-following
-Rear-end collisiosn during normal driving may be caused by any of the following:
+Rear-end collisions during normal driving may be caused by any of the following:
 
 - vehicles with a value of *tau* that is lower than the simulation step
 size (default 1s) when using the default Krauss model.
@@ -57,7 +60,7 @@ size (default 1s) when using the default Krauss model.
 ### Collisions related to lane-changing
 Collisions from lane-changing can be caused by unsafe lateral movements (side collisions) and by changing lanes in a way that creates unsafe following situations (rear-end collisions).
 
-Side collosions can be caused by
+Side collisions can be caused by
 - configuring lateral imperfection with vType parameter *lcSigma*
 - allowing lateral encroachment with vType parameter *lcPushy* (but this parameter itself will not cause collisions, only reduce lateral gaps in some situations, requires the sublane model)
 - *lcImpatience* (growing impatience permits lower lateral gaps when using the sublane model)
@@ -79,7 +82,7 @@ parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#junction_mod
     - vehicular foes as long as they are not in the way
     - any pedestrian foes
   - *junctionModel.ignoreIDs*: ignores all foes with the given ids  (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters))
-  - *junctionModel.ignoreTypess*: ignores all foes with the given types (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters))    
+  - *junctionModel.ignoreTypes*: ignores all foes with the given types (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters))    
 - yellow phases which are too short in relation to the vehicle speed
 (giving insufficient time to come to a stop). By default this causes
 strong braking (*Warning: emergency braking*) potentially followed
@@ -210,7 +213,7 @@ behavior. For a description see
   acceleration is assumed. (higher values cause reduced acceleration
   and thus decrease time gaps and safety)
 - jmTimegapMinor: Minimum time gap when passing a minor link ahead of
-  a prioritzed vehicle (lower values decrease safety)
+  a prioritized vehicle (lower values decrease safety)
 
 # Safety-Related Outputs
 

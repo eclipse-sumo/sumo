@@ -32,9 +32,12 @@ main(int argc, char** argv) {
     }
     libsumo::Simulation::load(options);
     std::cout << "Simulation loaded\n";
-    options.insert(options.begin(), "sumo");
+    if (options.size() == 0 || (options[0] != "sumo" && options[0] != "sumo-gui")) {
+        options.insert(options.begin(), "sumo");
+    }
     libsumo::Simulation::start(options);
     std::cout << "Simulation started\n";
+    libsumo::Simulation::close();
     /*
       std::vector<libsumo::TraCIStage> result = libsumo::Simulation::findIntermodalRoute("64455492", "-22913705", "public", 21600, 3, -1, -1, 0, 0,0,"ped");
       double cost = 0;

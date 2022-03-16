@@ -20,9 +20,9 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include <utils/shapes/SUMOPolygon.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 
-#include "GNEShape.h"
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class declarations
@@ -40,11 +40,11 @@ class GNENetworkElement;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEPoly : public SUMOPolygon, public GNEShape {
+class GNEPoly : public TesselatedPolygon, public GNEAdditional {
 
 public:
-    /// @brief needed to avoid diamond problem between SUMOPolygon and GNEShape
-    using GNEShape::getID;
+    /// @brief needed to avoid diamond problem between SUMOPolygon and GNEAdditional
+    using GNEAdditional::getID;
 
     /// @brief default Constructor
     GNEPoly(GNENet* net);
@@ -67,7 +67,7 @@ public:
      */
     GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill,
             double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath,
-            const std::string& name, const std::map<std::string, std::string>& parameters);
+            const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEPoly();
@@ -83,13 +83,7 @@ public:
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
 
-    /**@brief Sets a parameter
-     * @param[in] key The parameter's name
-     * @param[in] value The parameter's value
-     */
-    void setParameter(const std::string& key, const std::string& value);
-
-    /// @name inherited from GNEShape
+    /// @name inherited from GNEAdditional
     /// @{
     /// @brief update pre-computed geometry information
     void updateGeometry();
@@ -103,10 +97,13 @@ public:
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
-    /**@brief writte shape element into a xml file
+    /// @brief split geometry
+    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+
+    /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    void writeShape(OutputDevice& device);
+    void writeAdditional(OutputDevice& device) const;
 
     /// @brief Returns the numerical id of the object
     GUIGlID getGlID() const;
@@ -129,15 +126,6 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /**@brief Returns an own parameter window
-     *
-     * @param[in] app The application needed to build the parameter window
-     * @param[in] parent The parent window needed to build the parameter window
-     * @return The built parameter window
-     * @see GUIGlObject::getParameterWindow
-     */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
@@ -152,6 +140,15 @@ public:
      * @return string with the value associated to key
      */
     std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getAttributeDouble(SumoXMLAttr key) const;
+
+    /// @brief get parameters map
+    const Parameterised::Map& getACParametersMap() const;
 
     /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -173,8 +170,11 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 
-    /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
 
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
      * @param pos position of new/existent vertex
@@ -208,7 +208,7 @@ protected:
     /// @brief flag to indicate if polygon is simplified
     bool mySimplifiedShape;
 
-    /// @brief geometry for lenghts/rotations
+    /// @brief geometry for lengths/rotations
     GUIGeometry myPolygonGeometry;
 
 private:

@@ -49,3 +49,25 @@ TEST(FileHelpers, test_method_getFilePath) {
 }
 
 
+TEST(FileHelpers, test_method_fixRelative) {
+    EXPECT_EQ("test.net.xml", FileHelpers::fixRelative("test.net.xml", "test.sumocfg", false, "/home/user")) << "no change for two filenames without paths.";
+    EXPECT_EQ("test.net.xml", FileHelpers::fixRelative("test.net.xml", "test.sumocfg", true, "/home/user")) << "no change for two filenames without paths.";
+    EXPECT_EQ("/home/user/test.net.xml", FileHelpers::fixRelative("/home/user/test.net.xml", "/home/user/test.sumocfg", false, "/home/user")) << "absolute path is kept without force.";
+    EXPECT_EQ("test.net.xml", FileHelpers::fixRelative("/home/user/test.net.xml", "/home/user/test.sumocfg", true, "/home/user")) << "absolute path is removed with force.";
+    EXPECT_EQ("test.net.xml", FileHelpers::fixRelative("user/test.net.xml", "user/test.sumocfg", false, "/home/user")) << "relative path is removed without force.";
+    EXPECT_EQ("test.net.xml", FileHelpers::fixRelative("user/test.net.xml", "user/test.sumocfg", true, "/home/user")) << "relative path is removed with force.";
+    EXPECT_EQ("subdir/test.net.xml", FileHelpers::fixRelative("subdir/test.net.xml", "test.sumocfg", false, "/home/user")) << "config without path means no change.";
+    EXPECT_EQ("subdir/test.net.xml", FileHelpers::fixRelative("subdir/test.net.xml", "test.sumocfg", true, "/home/user")) << "config without path means no change.";
+    EXPECT_EQ("user/subdir/test.net.xml", FileHelpers::fixRelative("subdir/test.net.xml", "../test.sumocfg", false, "/home/user")) << "config in parent dir makes path different.";
+    EXPECT_EQ("user/subdir/test.net.xml", FileHelpers::fixRelative("subdir/test.net.xml", "../test.sumocfg", true, "/home/user")) << "config in parent dir makes path different.";
+    EXPECT_EQ("/home/user/subdir/test.net.xml", FileHelpers::fixRelative("/home/user/subdir/test.net.xml", "../test.sumocfg", false, "/home/user")) << "config in parent dir does not change abs path without force.";
+    EXPECT_EQ("user/subdir/test.net.xml", FileHelpers::fixRelative("/home/user/subdir/test.net.xml", "../test.sumocfg", true, "/home/user")) << "config in parent dir makes path different.";
+    EXPECT_EQ("../../test.net.xml", FileHelpers::fixRelative("../test.net.xml", "subdir/test.sumocfg", false, "/home/user")) << "file in parent dir makes path different.";
+    EXPECT_EQ("../../test.net.xml", FileHelpers::fixRelative("../test.net.xml", "subdir/test.sumocfg", true, "/home/user")) << "file in parent dir makes path different.";
+    EXPECT_EQ("../../test.net.xml", FileHelpers::fixRelative("../test.net.xml", "/home/user/subdir/test.sumocfg", false, "/home/user")) << "file in parent dir makes path different.";
+    EXPECT_EQ("../../test.net.xml", FileHelpers::fixRelative("../test.net.xml", "/home/user/subdir/test.sumocfg", true, "/home/user")) << "file in parent dir makes path different.";
+    EXPECT_EQ("../../test.net.xml", FileHelpers::fixRelative("../../test.net.xml", "test.sumocfg", false, "/home/user")) << "file in parent dir with straight cfg should stay unchanged.";
+    EXPECT_EQ("../../test.net.xml", FileHelpers::fixRelative("../../test.net.xml", "test.sumocfg", true, "/home/user")) << "file in parent dir with straight cfg should stay unchanged.";
+}
+
+

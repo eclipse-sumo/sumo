@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 108, 50)
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummyLon", False)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.lon, "dummyLon", False)
 
 # Change parameter 1 with a valid value
-netedit.modifyAttribute(1, "20.40", False)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.lat, "20.40", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

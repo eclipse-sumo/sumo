@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set invalid arrival lane
-netedit.changeDefaultValue(12, "dummySpeed")
+netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.arrivalSpeed, "dummySpeed")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid arrival speed
-netedit.changeDefaultValue(12, "-12")
+netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.arrivalSpeed, "-12")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival speed
-netedit.changeDefaultValue(12, "max")
+netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.arrivalSpeed, "max")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival speed
-netedit.changeDefaultValue(12, "20")
+netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.arrivalSpeed, "20")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)

@@ -9,7 +9,7 @@
     <!-- valid position (negative) -->
     <e1Detector id="E1_03" lane="gneE0_0" pos="-10" freq="100.00" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
     
-    <!-- valid position (overpassing lenght) -->
+    <!-- valid position (overpassing length) -->
     <e1Detector id="E1_04" lane="gneE0_0" pos="3000" freq="100.00" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
 	
 	<!-- valid position -->

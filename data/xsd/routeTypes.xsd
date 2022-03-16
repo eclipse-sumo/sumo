@@ -49,6 +49,7 @@
         <xsd:attribute name="containerCapacity" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="boardingDuration" type="nonNegativeFloatType"/>
         <xsd:attribute name="loadingDuration" type="nonNegativeFloatType"/>
+        <xsd:attribute name="scale" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcStrategic" type="xsd:float"/>
         <xsd:attribute name="lcCooperative" type="xsd:float"/>
         <xsd:attribute name="lcSpeedGain" type="xsd:float"/>
@@ -500,6 +501,7 @@
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
+        <xsd:attribute name="insertionChecks" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowWithoutIDType">
@@ -521,7 +523,7 @@
         <xsd:attribute name="type" type="xsd:string"/>
         <xsd:attribute name="begin" type="timeType"/>
         <xsd:attribute name="end" type="timeType"/>
-        <xsd:attribute name="period" type="timeType"/>
+        <xsd:attribute name="period" type="periodType"/>
         <xsd:attribute name="vehsPerHour" type="nonNegativeFloatType"/>
         <xsd:attribute name="perHour" type="nonNegativeFloatType"/>
         <xsd:attribute name="probability" type="nonNegativeFloatType"/>
@@ -539,6 +541,7 @@
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
+        <xsd:attribute name="insertionChecks" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowIntervalType">
@@ -607,6 +610,7 @@
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
+        <xsd:attribute name="insertionChecks" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeType">
@@ -786,6 +790,7 @@
         <xsd:attribute name="refId" type="xsd:string"/>
         <xsd:attribute name="reason" type="xsd:string"/>
         <xsd:attribute name="replacedOnEdge" type="xsd:string"/>
+        <xsd:attribute name="replacedOnIndex" type="nonNegativeFloatTypeWithErrorValue"/>
         <xsd:attribute name="replacedAtTime" type="nonNegativeFloatType"/>
         <xsd:attribute name="routeLength" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
@@ -867,7 +872,7 @@
             <xsd:extension base="personBaseType">
                 <xsd:attribute name="begin" type="personDepartType"/>
                 <xsd:attribute name="end" type="timeType"/>
-                <xsd:attribute name="period" type="timeType"/>
+                <xsd:attribute name="period" type="periodType"/>
                 <xsd:attribute name="personsPerHour" type="nonNegativeFloatType"/>
                 <xsd:attribute name="perHour" type="nonNegativeFloatType"/>
                 <xsd:attribute name="probability" type="nonNegativeFloatType"/>
@@ -965,6 +970,7 @@
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="modes" type="xsd:string"/>
         <xsd:attribute name="vTypes" type="xsd:string"/>
+        <xsd:attribute name="speedFactor" type="positiveFloatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="containerType">
@@ -980,7 +986,7 @@
             <xsd:extension base="containerBaseType">
                 <xsd:attribute name="begin" type="personDepartType"/>
                 <xsd:attribute name="end" type="timeType"/>
-                <xsd:attribute name="period" type="timeType"/>
+                <xsd:attribute name="period" type="periodType"/>
                 <xsd:attribute name="containersPerHour" type="nonNegativeFloatType"/>
                 <xsd:attribute name="perHour" type="nonNegativeFloatType"/>
                 <xsd:attribute name="probability" type="nonNegativeFloatType"/>

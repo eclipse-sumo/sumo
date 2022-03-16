@@ -41,7 +41,7 @@ netedit.selectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # select select second junction
-netedit.leftClick(referencePosition, 7, 238)
+netedit.leftClick(referencePosition, 10, 230)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -50,10 +50,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # set invalid value
-netedit.modifyAttribute(0, "dummyType", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.type, "dummyType", False)
 
 # change type of junction (should not be possible due is a dead_end)
-netedit.modifyAttribute(0, "unknown", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.type, "unknown", False)
 
 # rebuild network
 netedit.rebuildNetwork()

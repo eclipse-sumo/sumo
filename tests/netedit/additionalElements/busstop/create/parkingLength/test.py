@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # set invalid person number
-netedit.changeDefaultValue(9, "dummyLenght")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.parkingLength, "dummyLenght")
 
 # try to create busStop
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid person number
-netedit.changeDefaultValue(9, "-7.5")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.parkingLength, "-7.5")
 
 # try to create busStop
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid person number
-netedit.changeDefaultValue(9, "3")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.parkingLength, "3")
 
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

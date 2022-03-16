@@ -620,17 +620,18 @@ OptionsCont::processMetaOptions(bool missingOptions) {
     // check whether something has to be done with options
     // whether the current options shall be saved
     if (isSet("save-configuration", false)) { // sumo-gui does not register these
-        if (getString("save-configuration") == "-" || getString("save-configuration") == "stdout") {
+        const std::string& configPath = getString("save-configuration");
+        if (configPath == "-" || configPath == "stdout") {
             writeConfiguration(std::cout, true, false, getBool("save-commented"));
             return true;
         }
-        std::ofstream out(StringUtils::transcodeToLocal(getString("save-configuration")).c_str());
+        std::ofstream out(StringUtils::transcodeToLocal(configPath).c_str());
         if (!out.good()) {
-            throw ProcessError("Could not save configuration to '" + getString("save-configuration") + "'");
+            throw ProcessError("Could not save configuration to '" + configPath + "'");
         } else {
-            writeConfiguration(out, true, false, getBool("save-commented"));
+            writeConfiguration(out, true, false, getBool("save-commented"), configPath);
             if (getBool("verbose")) {
-                WRITE_MESSAGE("Written configuration to '" + getString("save-configuration") + "'");
+                WRITE_MESSAGE("Written configuration to '" + configPath + "'");
             }
             return true;
         }
@@ -791,8 +792,8 @@ OptionsCont::printHelpOnTopic(const std::string& topic, int tooLarge, int maxSiz
 
 void
 OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
-                                const bool complete, const bool addComments,
-                                const bool inComment) const {
+                                const bool complete, const bool addComments, const std::string& relativeTo,
+                                const bool forceRelative, const bool inComment) const {
     if (!inComment) {
         writeXMLHeader(os, false);
     }
@@ -805,14 +806,13 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
         os << myAppName;
     }
     os << "Configuration.xsd\">" << std::endl << std::endl;
-    for (std::vector<std::string>::const_iterator i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
-        std::string subtopic = *i;
+    for (std::string subtopic : mySubTopics) {
         if (subtopic == "Configuration" && !complete) {
             continue;
         }
+        const std::vector<std::string>& entries = mySubTopicEntries.find(subtopic)->second;
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
         subtopic = StringUtils::to_lower_case(subtopic);
-        const std::vector<std::string>& entries = mySubTopicEntries.find(*i)->second;
         bool hadOne = false;
         for (const std::string& name : entries) {
             Option* o = getSecure(name);
@@ -833,7 +833,16 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
             // write the option and the value (if given)
             os << "        <" << name << " value=\"";
             if (o->isSet() && (filled || o->isDefault())) {
-                os << StringUtils::escapeXML(o->getValueString(), inComment);
+                if (o->isFileName() && relativeTo != "") {
+                    StringVector fileList = StringVector(o->getStringVector());
+                    for (std::string& f : fileList) {
+                        f = FileHelpers::fixRelative(StringUtils::urlEncode(f, " ;%"), relativeTo,
+                                                     forceRelative || getBool("save-configuration.relative"));
+                    }
+                    os << StringUtils::escapeXML(joinToString(fileList, ','), inComment);
+                } else {
+                    os << StringUtils::escapeXML(o->getValueString(), inComment);
+                }
             }
             if (complete) {
                 std::vector<std::string> synonymes = getSynonymes(name);
@@ -924,14 +933,19 @@ OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
     strftime(buffer, 80, "<!-- generated on %F %T by ", localtime(&rawtime));
     os << buffer << myFullName << "\n";
     if (myWriteLicense) {
-        os << "This data file and the accompanying materials\n";
-        os << "are made available under the terms of the Eclipse Public License v2.0\n";
-        os << "which accompanies this distribution, and is available at\n";
-        os << "http://www.eclipse.org/legal/epl-v20.html\n";
-        os << "SPDX-License-Identifier: EPL-2.0\n";
+        os << "This data file and the accompanying materials\n"
+              "are made available under the terms of the Eclipse Public License v2.0\n"
+              "which accompanies this distribution, and is available at\n"
+              "http://www.eclipse.org/legal/epl-v20.html\n"
+              "This file may also be made available under the following Secondary\n"
+              "Licenses when the conditions for such availability set forth in the Eclipse\n"
+              "Public License 2.0 are satisfied: GNU General Public License, version 2\n"
+              "or later which is available at\n"
+              "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html\n"
+              "SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later\n";
     }
     if (includeConfig) {
-        writeConfiguration(os, true, false, false, true);
+        writeConfiguration(os, true, false, false, "", false, true);
     }
     os << "-->\n\n";
 }

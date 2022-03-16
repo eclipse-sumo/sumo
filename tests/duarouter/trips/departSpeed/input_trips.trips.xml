@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="given" depart="0" from="beg" to="rend" departSpeed="10"/>
+    <trip id="random" depart="0" from="beg" to="rend" departSpeed="random"/>
+    <trip id="max" depart="0" from="beg" to="rend" departSpeed="max"/>
+    <trip id="desired" depart="0" from="beg" to="rend" departSpeed="desired"/>
+    <trip id="speedLimit" depart="0" from="beg" to="rend" departSpeed="speedLimit"/>
+    <trip id="last" depart="0" from="beg" to="rend" departSpeed="last"/>
+    <trip id="avg" depart="0" from="beg" to="rend" departSpeed="avg"/>
+</routes>

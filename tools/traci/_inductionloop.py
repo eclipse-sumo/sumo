@@ -109,3 +109,10 @@ class InductionLoopDomain(Domain):
         Returns a complex structure containing several information about vehicles which passed the detector.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_DATA, loopID)
+
+    def overrideTimeSinceDetection(self, loopID, time):
+        """overrideTimeSinceDetection(string, double) -> None
+        Persistently overrides the measured time since detection with the given value.
+        Setting a negative value resets the override
+        """
+        self._setCmd(tc.VAR_VIRTUAL_DETECTION, loopID, "d", time)

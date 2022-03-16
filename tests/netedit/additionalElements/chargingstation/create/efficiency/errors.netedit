@@ -1,8 +1,7 @@
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'chargingStation' in TagSelector
-Debug: Invalid input parameter of chargingStation: 'efficiency' doesn't have a valid 'float' format
-Debug: Invalid input parameter of chargingStation: 'efficiency' takes only values between 0.00 and 1.00
-Debug: Invalid input parameter of chargingStation: 'efficiency' takes only values between 0.00 and 1.00
+Debug: Invalid input parameter of chargingStation
+Debug: Invalid input parameter of chargingStation
+Debug: Invalid input parameter of chargingStation
 Debug: Adding chargingStation 'cs_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

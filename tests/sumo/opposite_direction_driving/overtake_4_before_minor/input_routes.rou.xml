@@ -1,0 +1,25 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0.0"/>
+    <vType id="bus" vClass="bus" sigma="0.0"/>
+
+    <route id="r0" edges="VODUGES_beg VODUGES_end"/>
+    <route id="r1" edges="VODUGES_beg CS"/>
+    <route id="r2" edges="SC -VODUGES_beg"/>
+
+    <vehicle id="stopped1"  route="r0" departPos="stop" depart="0">
+        <stop lane="VODUGES_beg_0" endPos="-21" duration="100"/>
+    </vehicle>
+    <vehicle id="stopped2"  route="r0" departPos="stop" depart="0">
+        <stop lane="VODUGES_beg_0" endPos="-28.5" duration="100"/>
+    </vehicle>
+    <vehicle id="stopped3"  route="r0" departPos="stop" depart="0">
+        <stop lane="VODUGES_beg_0" endPos="-36" duration="100"/>
+    </vehicle>
+    <vehicle id="stopped4"  route="r0" departPos="stop" depart="0">
+        <stop lane="VODUGES_beg_0" endPos="-43.5" duration="100"/>
+    </vehicle>
+
+    <vehicle id="overtaking" type="bus" route="r0" departPos="0"  depart="2"/>
+
+
+</routes>

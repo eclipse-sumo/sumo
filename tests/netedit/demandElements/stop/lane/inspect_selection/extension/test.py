@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to select mode
 netedit.selectMode()
 
@@ -41,22 +44,28 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 244, 220)
+netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyAttribute(6, "dummyValue", False)
+netedit.modifyBoolAttribute(netedit.attrs.stopLane.inspectSelection.extensionEnable, False)
 
 # change value
-netedit.modifyAttribute(6, "", False)
+netedit.modifyBoolAttribute(netedit.attrs.stopLane.inspectSelection.extensionEnable, False)
 
 # change value
-netedit.modifyAttribute(6, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.extension, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(6, "0", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.extension, "", False)
 
 # change value
-netedit.modifyAttribute(6, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.extension, "-5", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.extension, "0", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.extension, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

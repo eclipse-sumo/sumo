@@ -49,9 +49,8 @@ FXDEFMAP(GNEFrameAttributeModules::AttributesCreator) AttributesCreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,       GNEFrameAttributeModules::AttributesCreator::onCmdHelp),
 };
 
-FXDEFMAP(GNEFrameAttributeModules::AttributesCreatorFlow) AttributesCreatorFlowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSetFlowAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BUTTON,   GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSelectFlowRadioButton),
+FXDEFMAP(GNEFrameAttributeModules::FlowEditor) FlowEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEFrameAttributeModules::FlowEditor::onCmdSetFlowAttribute),
 };
 
 FXDEFMAP(GNEFrameAttributeModules::AttributesEditorRow) AttributesEditorRowMap[] = {
@@ -62,11 +61,6 @@ FXDEFMAP(GNEFrameAttributeModules::AttributesEditorRow) AttributesEditorRowMap[]
 
 FXDEFMAP(GNEFrameAttributeModules::AttributesEditor) AttributesEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameAttributeModules::AttributesEditor::onCmdAttributesEditorHelp)
-};
-
-FXDEFMAP(GNEFrameAttributeModules::AttributesEditorFlow) AttributesEditorFlowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributeModules::AttributesEditorFlow::onCmdSetFlowAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BUTTON,   GNEFrameAttributeModules::AttributesEditorFlow::onCmdSelectFlowRadioButton),
 };
 
 FXDEFMAP(GNEFrameAttributeModules::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
@@ -92,10 +86,9 @@ FXDEFMAP(GNEFrameAttributeModules::NeteditAttributes) NeteditAttributesMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesCreatorRow,         FXHorizontalFrame,      RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesCreator,            FXGroupBoxModule,       AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesCreatorFlow,        FXGroupBoxModule,       AttributesCreatorFlowMap,       ARRAYNUMBER(AttributesCreatorFlowMap))
+FXIMPLEMENT(GNEFrameAttributeModules::FlowEditor,                   FXGroupBoxModule,       FlowEditorMap,                  ARRAYNUMBER(FlowEditorMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorRow,          FXHorizontalFrame,      AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditor,             FXGroupBoxModule,       AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorFlow,         FXGroupBoxModule,       AttributesEditorFlowMap,        ARRAYNUMBER(AttributesEditorFlowMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorExtended,     FXGroupBoxModule,       AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
 FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,        FXGroupBoxModule,       GenericDataAttributesMap,       ARRAYNUMBER(GenericDataAttributesMap))
 FXIMPLEMENT(GNEFrameAttributeModules::DrawingShape,                 FXGroupBoxModule,       DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
@@ -248,16 +241,13 @@ GNEFrameAttributeModules::AttributesCreatorRow::refreshRow() {
     myInvalidValue.clear();
     // special case for attribute ID
     if ((myAttrProperties.getAttr() == SUMO_ATTR_ID) && myAttrProperties.hasAutomaticID()) {
-        // show check button and disable it
-        myEnableAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
-        myEnableAttributeCheckButton->setCheck(false);
-        myEnableAttributeCheckButton->show();
-        // show text field and disable it
-        myValueTextField->setTextColor(FXRGB(0, 0, 0));
-        myValueTextField->disable();
+        // show label
+        myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
+        myAttributeLabel->show();
         // generate ID
         myValueTextField->setText(generateID().c_str());
         // show textField
+        myValueTextField->setTextColor(FXRGB(0, 0, 0));
         myValueTextField->show();
     } else {
         // left
@@ -291,8 +281,10 @@ GNEFrameAttributeModules::AttributesCreatorRow::refreshRow() {
                 myValueCheckButton->setText("false");
             }
             myValueCheckButton->show();
-            // if it's associated to a label button and is disabled, then disable myValueCheckButton
-            if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
+            // check if enable or disable
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
+                myValueCheckButton->enable();
+            } else {
                 myValueCheckButton->disable();
             }
         } else if (myAttrProperties.isDiscrete()) {
@@ -305,16 +297,20 @@ GNEFrameAttributeModules::AttributesCreatorRow::refreshRow() {
             myValueComboBox->setTextColor(FXRGB(0, 0, 0));
             myValueComboBox->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
             myValueComboBox->show();
-            // if it's associated to a label button and is disabled, then disable myValueTextField
-            if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
+            // check if enable or disable
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
+                myValueComboBox->enable();
+            } else {
                 myValueComboBox->disable();
             }
         } else {
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
             myValueTextField->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
             myValueTextField->show();
-            // if it's associated to a label button and is disabled, then disable myValueTextField
-            if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
+            // check if enable or disable
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
+                myValueTextField->enable();
+            } else {
                 myValueTextField->disable();
             }
         }
@@ -363,7 +359,7 @@ GNEFrameAttributeModules::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             if (myValueCheckButton->shown()) {
                 myValueCheckButton->enable();
             }
-            myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(myAttrProperties.getAttr(), true, -1);
+            myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(myAttrProperties.getAttr(), true);
         } else {
             // disable text field
             if (myValueTextField->shown()) {
@@ -377,7 +373,7 @@ GNEFrameAttributeModules::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             if (myValueCheckButton->shown()) {
                 myValueCheckButton->disable();
             }
-            myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(myAttrProperties.getAttr(), false, -1);
+            myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(myAttrProperties.getAttr(), false);
         }
     } else if (obj == myValueCheckButton) {
         if (myValueCheckButton->getCheck()) {
@@ -395,9 +391,14 @@ GNEFrameAttributeModules::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
                 myValueComboBox->setTextColor(FXRGB(128, 128, 128));
             } else {
                 myValueComboBox->setTextColor(FXRGB(0, 0, 0));
+                myValueComboBox->killFocus();
             }
-            myValueComboBox->killFocus();
             myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueComboBox->getText().text());
+            // special case for trigger stops (in the future will be changed)
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().isStop() && (myAttrProperties.getAttr() == SUMO_ATTR_TRIGGERED)) {
+                // refresh entire AttributesCreator
+                myAttributesCreatorParent->refreshAttributesCreator();
+            }
         } else {
             // if value of TextField isn't valid, change their color to Red
             myValueComboBox->setTextColor(FXRGB(255, 0, 0));
@@ -418,7 +419,7 @@ GNEFrameAttributeModules::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             myValueTextField->setTextColor(FXRGB(255, 0, 0));
         }
     }
-    // Update aditional frame
+    // Update row
     update();
     return 1;
 }
@@ -463,9 +464,7 @@ GNEFrameAttributeModules::AttributesCreatorRow::generateID() const {
     // get attribute carriers
     const auto& GNEAttributeCarriers = myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
     // continue depending of type
-    if (myAttrProperties.getTagPropertyParent().isShape()) {
-        return GNEAttributeCarriers->generateShapeID(myAttrProperties.getTagPropertyParent().getXMLTag());
-    } else if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
+    if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
         return GNEAttributeCarriers->generateAdditionalID(myAttrProperties.getTagPropertyParent().getTag());
     } else if (myAttrProperties.getTagPropertyParent().isDemandElement()) {
         return GNEAttributeCarriers->generateDemandElementID(myAttrProperties.getTagPropertyParent().getTag());
@@ -493,13 +492,13 @@ GNEFrameAttributeModules::AttributesCreatorRow::isValidID() const {
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Internal attributes"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Internal attributes"),
     myFrameParent(frameParent),
     myTemplateAC(nullptr) {
     // resize myAttributesCreatorRows
     myAttributesCreatorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
-    // create myAttributesCreatorFlow
-    myAttributesCreatorFlow = new AttributesCreatorFlow(this);
+    // create myFlowEditor
+    myFlowEditor = new FlowEditor(frameParent->getViewNet(), frameParent->getContentFrame());
     // create reset and help button
     myFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myResetButton = new FXButton(myFrameButtons, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
@@ -540,7 +539,7 @@ GNEFrameAttributeModules::AttributesCreator::showAttributesCreatorModule(GNEAttr
 void
 GNEFrameAttributeModules::AttributesCreator::hideAttributesCreatorModule() {
     // hide attributes creator flow
-    myAttributesCreatorFlow->hideAttributesCreatorFlowModule();
+    myFlowEditor->hideFlowEditor();
     // hide modul
     hide();
 }
@@ -564,7 +563,7 @@ GNEFrameAttributeModules::AttributesCreator::getAttributesAndValues(CommonXMLStr
             const bool hasDefaultStaticValue = !attrProperties.hasDefaultValue() || (attrProperties.getDefaultValue() != row->getValue());
             // flag for enablitables attributes
             const bool isFlowDefinitionAttribute = attrProperties.isFlowDefinition();
-            // flag for optional attributes
+            // flag for Terminatel attributes
             const bool isActivatableAttribute = attrProperties.isActivatable() && row->getAttributeCheckButtonCheck();
             // check if flags configuration allow to include values
             if (rowEnabled && (includeAll || hasDefaultStaticValue || isFlowDefinitionAttribute || isActivatableAttribute)) {
@@ -601,9 +600,9 @@ GNEFrameAttributeModules::AttributesCreator::getAttributesAndValues(CommonXMLStr
             }
         }
     }
-    // add extra flow attributes (only will updated if myAttributesCreatorFlow is shown)
-    if (myAttributesCreatorFlow->shownAttributesCreatorFlowModule()) {
-        myAttributesCreatorFlow->setFlowParameters(baseObject);
+    // add extra flow attributes (only will updated if myFlowEditor is shown)
+    if (myFlowEditor->shownFlowEditor()) {
+        myFlowEditor->getFlowAttributes(baseObject);
     }
 }
 
@@ -624,7 +623,7 @@ GNEFrameAttributeModules::AttributesCreator::showWarningMessage(std::string extr
         errorMessage = "Invalid input parameter of " + myTemplateAC->getTagProperty().getTagStr() + ": " + extra;
     }
     // set message in status bar
-    myFrameParent->myViewNet->setStatusBarText(errorMessage);
+    myFrameParent->getViewNet()->setStatusBarText(errorMessage);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG(errorMessage);
 }
@@ -660,6 +659,10 @@ GNEFrameAttributeModules::AttributesCreator::areValuesValid() const {
         if (myAttributesCreatorRows.at(attribute.getPositionListed()) && !myAttributesCreatorRows.at(attribute.getPositionListed())->isAttributeValid()) {
             return false;
         }
+    }
+    // check flow attributes
+    if (myFlowEditor->shownFlowEditor()) {
+        return myFlowEditor->areFlowValuesValid();
     }
     return true;
 }
@@ -729,245 +732,541 @@ GNEFrameAttributeModules::AttributesCreator::refreshRows(const bool createRows) 
     recalc();
     // check if flow editor has to be shown
     if (showFlowEditor) {
-        myAttributesCreatorFlow->showAttributesCreatorFlowModule();
+        myFlowEditor->showFlowEditor({myTemplateAC});
     } else {
-        myAttributesCreatorFlow->hideAttributesCreatorFlowModule();
+        myFlowEditor->hideFlowEditor();
     }
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributeModules::AttributesCreatorFlow - methods
+// GNEFrameAttributeModules::FlowEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributeModules::AttributesCreatorFlow::AttributesCreatorFlow(AttributesCreator* attributesCreatorParent) :
-    FXGroupBoxModule(attributesCreatorParent->getFrameParent()->myContentFrame, "Flow attributes"),
-    myAttributesCreatorParent(attributesCreatorParent) {
-    // declare auxiliar horizontal frame
-    FXHorizontalFrame* auxiliarHorizontalFrame = nullptr;
-    // create elements for end attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributeEndRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_END).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueEndTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create elements for number attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributeNumberRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_NUMBER).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueNumberTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create elements for vehsPerHour attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributeVehsPerHourRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueVehsPerHourTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create elements for period attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributePeriodRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PERIOD).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValuePeriodTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create elements for Probability attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributeProbabilityRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PROB).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueProbabilityTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+GNEFrameAttributeModules::FlowEditor::FlowEditor(GNEViewNet* viewNet, FXVerticalFrame* contentFrame) :
+    FXGroupBoxModule(contentFrame, "Flow attributes"),
+    myViewNet(viewNet) {
+    // create comboBox for option A
+    FXHorizontalFrame* auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(auxiliarHorizontalFrame, "terminate", nullptr, GUIDesignLabelAttribute);
+    myTerminateComboBox = new FXComboBox(auxiliarHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    // create comboBox for spacing
+    mySpacingFrameComboBox = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(mySpacingFrameComboBox, "spacing", nullptr, GUIDesignLabelAttribute);
+    mySpacingComboBox = new FXComboBox(mySpacingFrameComboBox, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    // create textField for option A
+    myTerminateFrameTextField = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    myTerminateLabel = new FXLabel(myTerminateFrameTextField, "A", nullptr, GUIDesignLabelAttribute);
+    myTerminateTextField = new FXTextField(myTerminateFrameTextField, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create textField for spacing
+    mySpacingFrameTextField = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    mySpacingLabel = new FXLabel(mySpacingFrameTextField, "B", nullptr, GUIDesignLabelAttribute);
+    mySpacingTextField = new FXTextField(mySpacingFrameTextField, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // fill terminate
+    myTerminateComboBox->appendItem(toString(SUMO_ATTR_END).c_str());
+    myTerminateComboBox->appendItem(toString(SUMO_ATTR_NUMBER).c_str());
+    myTerminateComboBox->appendItem((toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER)).c_str());
+    myTerminateComboBox->setNumVisible(3);
+    // fill comboBox B
+    mySpacingComboBox->appendItem(toString(SUMO_ATTR_VEHSPERHOUR).c_str());
+    mySpacingComboBox->appendItem(toString(SUMO_ATTR_PERIOD).c_str());
+    mySpacingComboBox->appendItem(toString(SUMO_ATTR_PROB).c_str());
+    mySpacingComboBox->setNumVisible(3);
 }
 
 
-GNEFrameAttributeModules::AttributesCreatorFlow::~AttributesCreatorFlow() {}
+GNEFrameAttributeModules::FlowEditor::~FlowEditor() {}
 
 
 void
-GNEFrameAttributeModules::AttributesCreatorFlow::showAttributesCreatorFlowModule() {
-    // update per hour attr
-    if (myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR)) {
-        myPerHourAttr = SUMO_ATTR_PERSONSPERHOUR;
-    } else if (myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR)) {
-        myPerHourAttr = SUMO_ATTR_CONTAINERSPERHOUR;
-    } else {
-        myPerHourAttr = SUMO_ATTR_VEHSPERHOUR;
+GNEFrameAttributeModules::FlowEditor::showFlowEditor(const std::vector<GNEAttributeCarrier*> editedFlows) {
+    // update flows
+    myEditedFlows = editedFlows;
+    // check number of flows
+    if (myEditedFlows.size() > 0) {
+        // update per hour attr
+        if (myEditedFlows.front()->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR)) {
+            myPerHourAttr = SUMO_ATTR_PERSONSPERHOUR;
+        } else if (myEditedFlows.front()->getTagProperty().hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR)) {
+            myPerHourAttr = SUMO_ATTR_CONTAINERSPERHOUR;
+        } else {
+            myPerHourAttr = SUMO_ATTR_VEHSPERHOUR;
+        }
+        // clear and update comboBoxB
+        mySpacingComboBox->clearItems();
+        mySpacingComboBox->appendItem(toString(myPerHourAttr).c_str());
+        mySpacingComboBox->appendItem(toString(SUMO_ATTR_PERIOD).c_str());
+        mySpacingComboBox->appendItem(toString(SUMO_ATTR_PROB).c_str());
+        mySpacingComboBox->setNumVisible(3);
+        // refresh
+        refreshFlowEditor();
+        // show
+        show();
     }
-    // refresh
-    refreshAttributesCreatorFlow();
-    // show
-    show();
 }
 
 
 void
-GNEFrameAttributeModules::AttributesCreatorFlow::hideAttributesCreatorFlowModule() {
+GNEFrameAttributeModules::FlowEditor::hideFlowEditor() {
     hide();
 }
 
 
 bool
-GNEFrameAttributeModules::AttributesCreatorFlow::shownAttributesCreatorFlowModule() const {
+GNEFrameAttributeModules::FlowEditor::shownFlowEditor() const {
     return shown();
 }
 
 
 void
-GNEFrameAttributeModules::AttributesCreatorFlow::refreshAttributesCreatorFlow() {
-    const auto flow = myAttributesCreatorParent->getCurrentTemplateAC();
-    // End
-    myValueEndTextField->setText(flow->getAttribute(SUMO_ATTR_END).c_str());
-    if (flow->isAttributeEnabled(SUMO_ATTR_END)) {
-        myAttributeEndRadioButton->setCheck(true);
-        myValueEndTextField->enable();
-    } else {
-        myAttributeEndRadioButton->setCheck(false);
-        myValueEndTextField->disable();
+GNEFrameAttributeModules::FlowEditor::refreshFlowEditor() {
+    // show both attributes
+    myTerminateFrameTextField->show();
+    mySpacingFrameTextField->show();
+    // reset colors
+    myTerminateTextField->setTextColor(FXRGB(0, 0, 0));
+    mySpacingTextField->setTextColor(FXRGB(0, 0, 0));
+    // continue depending of number of flow
+    if (myEditedFlows.size() == 1) {
+        refreshSingleFlow();
+    } else if (myEditedFlows.size() > 1) {
+        refreshMultipleFlows();
     }
-    // Number
-    myValueNumberTextField->setText(flow->getAttribute(SUMO_ATTR_NUMBER).c_str());
-    if (flow->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
-        myAttributeNumberRadioButton->setCheck(true);
-        myValueNumberTextField->enable();
-    } else {
-        myAttributeNumberRadioButton->setCheck(false);
-        myValueNumberTextField->disable();
-    }
-    // per hour
-    myAttributeVehsPerHourRadioButton->setText(toString(myPerHourAttr).c_str());
-    myValueVehsPerHourTextField->setText(flow->getAttribute(myPerHourAttr).c_str());
-    if (flow->isAttributeEnabled(myPerHourAttr)) {
-        myAttributeVehsPerHourRadioButton->setCheck(true);
-        myValueVehsPerHourTextField->enable();
-    } else {
-        myAttributeVehsPerHourRadioButton->setCheck(false);
-        myValueVehsPerHourTextField->disable();
-    }
-    // Period
-    myValuePeriodTextField->setText(flow->getAttribute(SUMO_ATTR_PERIOD).c_str());
-    if (flow->isAttributeEnabled(SUMO_ATTR_PERIOD)) {
-        myAttributePeriodRadioButton->setCheck(true);
-        myValuePeriodTextField->enable();
-    } else {
-        myAttributePeriodRadioButton->setCheck(false);
-        myValuePeriodTextField->disable();
-    }
-    // Probability
-    myValueProbabilityTextField->setText(flow->getAttribute(SUMO_ATTR_PROB).c_str());
-    if (flow->isAttributeEnabled(SUMO_ATTR_PROB)) {
-        myAttributeProbabilityRadioButton->setCheck(true);
-        myValueProbabilityTextField->enable();
-    } else {
-        myAttributeProbabilityRadioButton->setCheck(false);
-        myValueProbabilityTextField->disable();
-    }
+    // recalc
+    recalc();
 }
 
 
 void
-GNEFrameAttributeModules::AttributesCreatorFlow::setFlowParameters(CommonXMLStructure::SumoBaseObject* baseObject) {
-    // end
-    if (myValueEndTextField->isEnabled()) {
-        baseObject->addDoubleAttribute(SUMO_ATTR_END, GNEAttributeCarrier::parse<double>(myValueEndTextField->getText().text()));
+GNEFrameAttributeModules::FlowEditor::getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject) {
+    // case end-number
+    if (myTerminateLabel->getText().text() == toString(SUMO_ATTR_END)) {
+        baseObject->addDoubleAttribute(SUMO_ATTR_END, GNEAttributeCarrier::parse<double>(myTerminateTextField->getText().text()));
     }
-    // number
-    if (myValueNumberTextField->isEnabled()) {
-        baseObject->addIntAttribute(SUMO_ATTR_NUMBER, GNEAttributeCarrier::parse<int>(myValueNumberTextField->getText().text()));
+    if (mySpacingLabel->getText().text() == toString(SUMO_ATTR_NUMBER)) {
+        baseObject->addIntAttribute(SUMO_ATTR_NUMBER, GNEAttributeCarrier::parse<int>(mySpacingTextField->getText().text()));
     }
-    // per hour
-    if (myValueVehsPerHourTextField->isEnabled()) {
-        baseObject->addIntAttribute(myPerHourAttr, GNEAttributeCarrier::parse<int>(myValueNumberTextField->getText().text()));
+    // other cases
+    if (myTerminateLabel->getText().text() == toString(SUMO_ATTR_NUMBER)) {
+        baseObject->addIntAttribute(SUMO_ATTR_NUMBER, GNEAttributeCarrier::parse<int>(myTerminateTextField->getText().text()));
     }
-    if (myValuePeriodTextField->isEnabled()) {
-        baseObject->addDoubleAttribute(SUMO_ATTR_PERIOD, GNEAttributeCarrier::parse<double>(myValuePeriodTextField->getText().text()));
+    if (mySpacingLabel->getText().text() == toString(myPerHourAttr)) {
+        baseObject->addDoubleAttribute(myPerHourAttr, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
     }
-    if (myValueProbabilityTextField->isEnabled()) {
-        baseObject->addDoubleAttribute(SUMO_ATTR_PROB, GNEAttributeCarrier::parse<double>(myValueProbabilityTextField->getText().text()));
+    if (mySpacingLabel->getText().text() == toString(SUMO_ATTR_PERIOD)) {
+        baseObject->addDoubleAttribute(SUMO_ATTR_PERIOD, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
     }
-}
-
-
-void
-GNEFrameAttributeModules::AttributesCreatorFlow::showWarningMessage(std::string extra) const {
-    std::string errorMessage;
-    // show warning box if input parameters aren't invalid
-    if (extra.size() == 0) {
-        errorMessage = "Invalid input parameter of " + myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().getTagStr();
-    } else {
-        errorMessage = "Invalid input parameter of " + myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().getTagStr() + ": " + extra;
+    if (mySpacingLabel->getText().text() == toString(SUMO_ATTR_PROB)) {
+        baseObject->addDoubleAttribute(SUMO_ATTR_PROB, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
     }
-    // set message in status bar
-    myAttributesCreatorParent->getFrameParent()->myViewNet->setStatusBarText(errorMessage);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG(errorMessage);
 }
 
 
 bool
-GNEFrameAttributeModules::AttributesCreatorFlow::areValuesValid() const {
-    // check every flow attribute
-    if (myValueEndTextField->isEnabled() && (myValueEndTextField->getTextColor() == FXRGB(255, 0, 0))) {
+GNEFrameAttributeModules::FlowEditor::areFlowValuesValid() const {
+    // check text fields
+    if (myTerminateFrameTextField->shown() && (myTerminateTextField->getTextColor() == FXRGB(0, 0, 0)) &&
+        mySpacingFrameTextField->shown() && (mySpacingTextField->getTextColor() == FXRGB(0, 0, 0))) {
+        return true;
+    } else {
         return false;
     }
-    if (myValueNumberTextField->isEnabled() && (myValueNumberTextField->getTextColor() == FXRGB(255, 0, 0))) {
-        return false;
-    }
-    if (myValueVehsPerHourTextField->isEnabled() && (myValueVehsPerHourTextField->getTextColor() == FXRGB(255, 0, 0))) {
-        return false;
-    }
-    if (myValuePeriodTextField->isEnabled() && (myValuePeriodTextField->getTextColor() == FXRGB(255, 0, 0))) {
-        return false;
-    }
-    if (myValueProbabilityTextField->isEnabled() && (myValueProbabilityTextField->getTextColor() == FXRGB(255, 0, 0))) {
-        return false;
-    }
-    return true;
 }
 
 
 long
-GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
-    // obtain clicked textfield
-    FXTextField* textField = nullptr;
-    SumoXMLAttr attr = SUMO_ATTR_NOTHING;
-    // check what text field was pressed
-    if (obj == myValueEndTextField) {
-        textField = myValueEndTextField;
-        attr = SUMO_ATTR_END;
-    } else if (obj == myValueNumberTextField) {
-        textField = myValueNumberTextField;
-        attr = SUMO_ATTR_NUMBER;
-    } else if (obj == myValueVehsPerHourTextField) {
-        textField = myValueVehsPerHourTextField;
-        attr = myPerHourAttr;
-    } else if (obj == myValuePeriodTextField) {
-        textField = myValuePeriodTextField;
-        attr = SUMO_ATTR_PERIOD;
-    } else if (obj == myValueProbabilityTextField) {
-        textField = myValueProbabilityTextField;
-        attr = SUMO_ATTR_PROB;
-    } else {
-        throw ProcessError("Invalid text field");
+GNEFrameAttributeModules::FlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
+    // check number of flows
+    if (myEditedFlows.front()) {
+        // declare vectors for enable/disable attributes
+        std::vector<SumoXMLAttr> enableAttrs, disableAttrs;
+        // check if all spacing attributes are disabled
+        const bool spacingEnabled = myEditedFlows.front()->isAttributeEnabled(myPerHourAttr) || 
+                                    myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_PERIOD) || 
+                                    myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_PROB);
+        // get special case endNumber
+        const bool endNumber = (myTerminateComboBox->getText().text() == (toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER)));
+        // get terminate attribute
+        SumoXMLAttr terminateAttribute = SUMO_ATTR_NOTHING;
+        if (myTerminateComboBox->getText().text() == toString(SUMO_ATTR_END) || endNumber) {
+            terminateAttribute = SUMO_ATTR_END;
+        } else if (myTerminateComboBox->getText().text() == toString(SUMO_ATTR_NUMBER)) {
+            terminateAttribute = SUMO_ATTR_NUMBER;
+        }
+        // get spacing attribute
+        SumoXMLAttr spacingAttribute = SUMO_ATTR_NOTHING;
+        if (endNumber) {
+            spacingAttribute = SUMO_ATTR_NUMBER;
+        } else if (mySpacingComboBox->getText().text() == toString(myPerHourAttr)) {
+            spacingAttribute = myPerHourAttr;
+        } else if (mySpacingComboBox->getText().text() == toString(SUMO_ATTR_PERIOD)) {
+            spacingAttribute = SUMO_ATTR_PERIOD;
+        } else if (mySpacingComboBox->getText().text() == toString(SUMO_ATTR_PROB)) {
+            spacingAttribute = SUMO_ATTR_PROB;
+        }
+        // check if obj is a comboBox or a text field
+        if (obj == myTerminateComboBox) {
+            if (endNumber) {
+                enableAttrs.push_back(SUMO_ATTR_END);
+                enableAttrs.push_back(SUMO_ATTR_NUMBER);
+                // disable others
+                disableAttrs.push_back(myPerHourAttr);
+                disableAttrs.push_back(SUMO_ATTR_PERIOD);
+                disableAttrs.push_back(SUMO_ATTR_PROB);
+                // reset color
+                myTerminateComboBox->setTextColor(FXRGB(0, 0, 0));
+                myTerminateComboBox->killFocus();
+            } else if (terminateAttribute == SUMO_ATTR_END) {
+                enableAttrs.push_back(SUMO_ATTR_END);
+                disableAttrs.push_back(SUMO_ATTR_NUMBER);
+                // at least enable one spacing attribute
+                if (!spacingEnabled) {
+                    enableAttrs.push_back(myPerHourAttr);
+                }
+                // reset color
+                myTerminateComboBox->setTextColor(FXRGB(0, 0, 0));
+                myTerminateComboBox->killFocus();
+            } else if (terminateAttribute == SUMO_ATTR_NUMBER) {
+                disableAttrs.push_back(SUMO_ATTR_END);
+                enableAttrs.push_back(SUMO_ATTR_NUMBER);
+                // at least enable one spacing attribute
+                if (!spacingEnabled) {
+                    enableAttrs.push_back(myPerHourAttr);
+                }
+                // reset color
+                myTerminateComboBox->setTextColor(FXRGB(0, 0, 0));
+                myTerminateComboBox->killFocus();
+            } else {
+                // disable both
+                disableAttrs.push_back(SUMO_ATTR_END);
+                disableAttrs.push_back(SUMO_ATTR_NUMBER);
+                // set invalid color
+                myTerminateComboBox->setTextColor(FXRGB(255, 0, 0));
+            }
+        } else if (obj == mySpacingComboBox) {
+            if (spacingAttribute == myPerHourAttr) {
+                enableAttrs.push_back(myPerHourAttr);
+                disableAttrs.push_back(SUMO_ATTR_PERIOD);
+                disableAttrs.push_back(SUMO_ATTR_PROB);
+                // reset color
+                mySpacingComboBox->setTextColor(FXRGB(0, 0, 0));
+                mySpacingComboBox->killFocus();
+            } else if (spacingAttribute == SUMO_ATTR_PERIOD) {
+                disableAttrs.push_back(myPerHourAttr);
+                enableAttrs.push_back(SUMO_ATTR_PERIOD);
+                disableAttrs.push_back(SUMO_ATTR_PROB);
+                // reset color
+                mySpacingComboBox->setTextColor(FXRGB(0, 0, 0));
+                mySpacingComboBox->killFocus();
+            } else if (spacingAttribute == SUMO_ATTR_PROB) {
+                disableAttrs.push_back(myPerHourAttr);
+                disableAttrs.push_back(SUMO_ATTR_PERIOD);
+                enableAttrs.push_back(SUMO_ATTR_PROB);
+                // reset color
+                mySpacingComboBox->setTextColor(FXRGB(0, 0, 0));
+                mySpacingComboBox->killFocus();
+            } else {
+                // disable all
+                disableAttrs.push_back(myPerHourAttr);
+                disableAttrs.push_back(SUMO_ATTR_PERIOD);
+                disableAttrs.push_back(SUMO_ATTR_PROB);
+                // set invalid color
+                mySpacingComboBox->setTextColor(FXRGB(255, 0, 0));
+            }
+        } else if ((obj == myTerminateTextField) && (terminateAttribute != SUMO_ATTR_NOTHING)) {
+            if (myEditedFlows.front()->isValid(terminateAttribute, myTerminateTextField->getText().text())) {
+                // continue depending of flow
+                if (myEditedFlows.front()->isTemplate()) {
+                    // change attribute directly
+                    myEditedFlows.front()->setAttribute(terminateAttribute, myTerminateTextField->getText().text());
+                } else if (myEditedFlows.size() == 1) {
+                    // change using undoList
+                    myEditedFlows.front()->setAttribute(terminateAttribute, myTerminateTextField->getText().text(), myViewNet->getUndoList());
+                } else {
+                    // change all flows using undoList
+                    myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), "change multiple flow attributes");
+                    for (const auto &flow : myEditedFlows) {
+                        flow->setAttribute(terminateAttribute, myTerminateTextField->getText().text(), myViewNet->getUndoList());
+                    }
+                    myViewNet->getUndoList()->end();
+                }
+                // reset color
+                myTerminateTextField->setTextColor(FXRGB(0, 0, 0));
+                myTerminateTextField->killFocus();
+            } else {
+                // set invalid color
+                myTerminateTextField->setTextColor(FXRGB(255, 0, 0));
+                // stop
+                return 1;
+            }
+        } else if ((obj == mySpacingTextField) && (spacingAttribute != SUMO_ATTR_NOTHING)) {
+            if (myEditedFlows.front()->isValid(spacingAttribute, mySpacingTextField->getText().text())) {
+                // continue depending of flow
+                if (myEditedFlows.front()->isTemplate()) {
+                    // change attribute directly
+                    myEditedFlows.front()->setAttribute(spacingAttribute, mySpacingTextField->getText().text());
+                } else if (myEditedFlows.size() == 1) {
+                    // change using undoList
+                    myEditedFlows.front()->setAttribute(spacingAttribute, mySpacingTextField->getText().text(), myViewNet->getUndoList());
+                } else {
+                    // change all flows using undoList
+                    myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), "change multiple flow attributes");
+                    for (const auto &flow : myEditedFlows) {
+                        flow->setAttribute(spacingAttribute, mySpacingTextField->getText().text(), myViewNet->getUndoList());
+                    }
+                    myViewNet->getUndoList()->end();
+                }
+                // reset color
+                mySpacingTextField->setTextColor(FXRGB(0, 0, 0));
+                mySpacingTextField->killFocus();
+            } else {
+                // set invalid color
+                mySpacingTextField->setTextColor(FXRGB(255, 0, 0));
+                // stop
+                return 1;
+            }
+        }
+        // enable and disable attributes
+        for (const auto &attr : enableAttrs) {
+            if (myEditedFlows.front()->isTemplate()) {
+                // enable directly
+                myEditedFlows.front()->toogleAttribute(attr, true);
+            } else if (myEditedFlows.size() == 1) {
+                // enable using undoList
+                myEditedFlows.front()->enableAttribute(attr, myViewNet->getUndoList());
+            } else {
+                // enable in all flow using undoList
+                myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), "enable multiple flow attributes");
+                for (const auto &flow : myEditedFlows) {
+                    flow->enableAttribute(attr, myViewNet->getUndoList());
+                }
+                myViewNet->getUndoList()->end();
+            }
+        }
+        for (const auto &attr : disableAttrs) {
+            if (myEditedFlows.front()->isTemplate()) {
+                // disable directly
+                myEditedFlows.front()->toogleAttribute(attr, false);
+            } else if (myEditedFlows.size() == 1) {
+                // disable using undoList
+                myEditedFlows.front()->disableAttribute(attr, myViewNet->getUndoList());
+            } else {
+                // disable in all flow using undoList
+                myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), "disable multiple flow attributes");
+                for (const auto &flow : myEditedFlows) {
+                    flow->disableAttribute(attr, myViewNet->getUndoList());
+                }
+                myViewNet->getUndoList()->end();
+            }
+        }
+        // refresh flow editor
+        refreshFlowEditor();
     }
-    // check if value is valid
-    if (myAttributesCreatorParent->getCurrentTemplateAC()->isValid(attr, textField->getText().text())) {
-        textField->setTextColor(FXRGB(0, 0, 0));
-    } else {
-        textField->setTextColor(FXRGB(255, 0, 0));
-    }
-    textField->killFocus();
     return 1;
 }
 
 
-long
-GNEFrameAttributeModules::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXObject* obj, FXSelector, void*) {
-    // get previous parameters
-    const int previousParameters = GNEAttributeCarrier::parse<int>(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(GNE_ATTR_FLOWPARAMETERS));
-    // check what check button was pressed
-    if (obj == myAttributeEndRadioButton) {
-        myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(SUMO_ATTR_END, true, previousParameters);
-    } else if (obj == myAttributeNumberRadioButton) {
-        myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(SUMO_ATTR_NUMBER, true, previousParameters);
-    } else if (obj == myAttributeVehsPerHourRadioButton) {
-        myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(SUMO_ATTR_VEHSPERHOUR, true, previousParameters);
-    } else if (obj == myAttributePeriodRadioButton) {
-        myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(SUMO_ATTR_PERIOD, true, previousParameters);
-    } else if (obj == myAttributeProbabilityRadioButton) {
-        myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(SUMO_ATTR_PROB, true, previousParameters);
+void
+GNEFrameAttributeModules::FlowEditor::refreshSingleFlow() {
+    // get flow (only for code legibly)
+    const auto flow = myEditedFlows.front();
+    // continue depending of combinations
+    if (flow->isAttributeEnabled(SUMO_ATTR_END) && flow->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
+        // set first comboBox
+        myTerminateComboBox->setCurrentItem(2),
+        // hide second comboBox
+        mySpacingFrameComboBox->hide();
+        // set label
+        myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
+        mySpacingLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
+        // set text fields
+        myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_END).c_str());
+        mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_NUMBER).c_str());
     } else {
-        throw ProcessError("Invalid Radio Button");
+        // show second comboBox
+        mySpacingFrameComboBox->show();
+        // set first attribute
+        if (myTerminateComboBox->getTextColor() == FXRGB(255, 0, 0)) { 
+            // invalid combination, disable text field
+            myTerminateFrameTextField->hide();
+        } else if (flow->isAttributeEnabled(SUMO_ATTR_END)) {
+            // set first comboBox
+            myTerminateComboBox->setCurrentItem(0),
+            // set label
+            myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
+            // set text fields
+            myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_END).c_str());
+        } else if (flow->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
+            // set first comboBox
+            myTerminateComboBox->setCurrentItem(1),
+            // set label
+            myTerminateLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
+            // set text fields
+            myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_NUMBER).c_str());
+        }
+        // set second attribute
+        if (mySpacingComboBox->getTextColor() == FXRGB(255, 0, 0)) {
+            // invalid combination, disable text field
+            mySpacingFrameTextField->hide();
+        } else if (flow->isAttributeEnabled(myPerHourAttr)) {
+            // set first comboBox
+            mySpacingComboBox->setCurrentItem(0),
+            // set label
+            mySpacingLabel->setText(toString(myPerHourAttr).c_str());
+            // set text fields
+            mySpacingTextField->setText(getFlowAttribute(myPerHourAttr).c_str());
+        } else if (flow->isAttributeEnabled(SUMO_ATTR_PERIOD)) {
+            // set first comboBox
+            mySpacingComboBox->setCurrentItem(1),
+            // set label
+            mySpacingLabel->setText(toString(SUMO_ATTR_PERIOD).c_str());
+            // set text fields
+            mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PERIOD).c_str());
+        } else if (flow->isAttributeEnabled(SUMO_ATTR_PROB)) {
+            // set first comboBox
+            mySpacingComboBox->setCurrentItem(2),
+            // set label
+            mySpacingLabel->setText(toString(SUMO_ATTR_PROB).c_str());
+            // set text fields
+            mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PROB).c_str());
+        }
     }
-    // refresh attributes
-    refreshAttributesCreatorFlow();
-    return 1;
+}
+
+
+void 
+GNEFrameAttributeModules::FlowEditor::refreshMultipleFlows() {
+    // get first flow (only for code legibly)
+    const auto editedFlow = myEditedFlows.front();
+    // get values of first flow
+    const bool end = editedFlow->isAttributeEnabled(SUMO_ATTR_END);
+    const bool number = editedFlow->isAttributeEnabled(SUMO_ATTR_NUMBER);
+    const bool perhour = editedFlow->isAttributeEnabled(myPerHourAttr);
+    const bool period = editedFlow->isAttributeEnabled(SUMO_ATTR_PERIOD);
+    const bool probability = editedFlow->isAttributeEnabled(SUMO_ATTR_PROB);
+    // we need to check if attributes are defined differents in flows
+    std::vector<std::string> terminateDifferent;
+    std::vector<std::string> spacingDifferent;
+    // iterate over all flows
+    for (const auto &flow : myEditedFlows) {
+        if (flow->isAttributeEnabled(SUMO_ATTR_END) != end) {
+            terminateDifferent.push_back(toString(SUMO_ATTR_END));
+        }
+        if (flow->isAttributeEnabled(SUMO_ATTR_NUMBER) != number) {
+            terminateDifferent.push_back(toString(SUMO_ATTR_NUMBER));
+        }
+        if (flow->isAttributeEnabled(myPerHourAttr) != perhour) {
+            spacingDifferent.push_back(toString(myPerHourAttr));
+        }
+        if (flow->isAttributeEnabled(SUMO_ATTR_PERIOD) != period) {
+            spacingDifferent.push_back(toString(SUMO_ATTR_PERIOD));
+        }
+        if (flow->isAttributeEnabled(SUMO_ATTR_PROB) != probability) {
+            spacingDifferent.push_back(toString(SUMO_ATTR_PROB));
+        }
+    }
+    // special case for end and number
+    if (end && number && terminateDifferent.empty() && spacingDifferent.empty()) {
+        // set first comboBox
+        myTerminateComboBox->setCurrentItem(2),
+        // hide second comboBox
+        mySpacingFrameComboBox->hide();
+        // set label
+        myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
+        mySpacingLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
+        // set text fields
+        myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_END).c_str());
+        mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_NUMBER).c_str());
+    } else {
+        // show second comboBox
+        mySpacingFrameComboBox->show();
+        // check terminateDifferent
+        if (terminateDifferent.size() > 0) {
+            myTerminateComboBox->setText(("different: " + terminateDifferent.front() + " " + terminateDifferent.back()).c_str());
+            // hide textField
+            myTerminateFrameTextField->hide();
+        } else {
+            // show textField
+            myTerminateFrameTextField->show();
+            // set first attribute
+            if (myTerminateComboBox->getTextColor() == FXRGB(255, 0, 0)) { 
+                // invalid combination, disable text field
+                myTerminateFrameTextField->hide();
+            } else if (end) {
+                // set first comboBox
+                myTerminateComboBox->setCurrentItem(0),
+                // set label
+                myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
+                // set text fields
+                myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_END).c_str());
+            } else if (number) {
+                // set first comboBox
+                myTerminateComboBox->setCurrentItem(1),
+                // set label
+                myTerminateLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
+                // set text fields
+                myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_NUMBER).c_str());
+            }
+        }
+        // check terminateDifferent
+        if (spacingDifferent.size() > 0) {
+            mySpacingComboBox->setText(("different: " + spacingDifferent.front() + " " + spacingDifferent.back()).c_str());
+            // hide textField
+            mySpacingFrameTextField->hide();
+        } else {
+            // show textField
+            mySpacingFrameTextField->show();
+            // set second attribute
+            if (mySpacingComboBox->getTextColor() == FXRGB(255, 0, 0)) {
+                // invalid combination, disable text field
+                mySpacingFrameTextField->hide();
+            } else if (perhour) {
+                // set first comboBox
+                mySpacingComboBox->setCurrentItem(0),
+                // set label
+                mySpacingLabel->setText(toString(myPerHourAttr).c_str());
+                // set text fields
+                mySpacingTextField->setText(getFlowAttribute(myPerHourAttr).c_str());
+            } else if (period) {
+                // set first comboBox
+                mySpacingComboBox->setCurrentItem(1),
+                // set label
+                mySpacingLabel->setText(toString(SUMO_ATTR_PERIOD).c_str());
+                // set text fields
+                mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PERIOD).c_str());
+            } else if (probability) {
+                // set first comboBox
+                mySpacingComboBox->setCurrentItem(2),
+                // set label
+                mySpacingLabel->setText(toString(SUMO_ATTR_PROB).c_str());
+                // set text fields
+                mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PROB).c_str());
+            }
+        }
+    }
+}
+
+
+const std::string
+GNEFrameAttributeModules::FlowEditor::getFlowAttribute(SumoXMLAttr attr) {
+    if (myEditedFlows.size() == 1) {
+        return myEditedFlows.front()->getAttribute(attr);
+    } else {
+        std::string solution;
+        std::set<std::string> values;
+        // extract all values (avoiding duplicated)
+        for (const auto &flow : myEditedFlows) {
+            values.insert(flow->getAttribute(attr));
+        }
+        // insert value and space
+        for (const auto &value : values) {
+            solution.append(value + " ");
+        }
+        // remove last space
+        if (solution.size() > 0) {
+            solution.pop_back();
+        }
+        return solution;
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -1017,7 +1316,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         }
         // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
         if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
-            if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->myViewNet, myACAttr)) {
+            if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr)) {
                 myAttributeButtonCombinableChoices->enable();
                 myAttributeColorButton->enable();
                 myAttributeCheckButton->enable();
@@ -1187,7 +1486,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
     }
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
     if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
-        if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->myViewNet, myACAttr)) {
+        if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr)) {
             myAttributeButtonCombinableChoices->enable();
             myAttributeColorButton->enable();
             myAttributeCheckButton->enable();
@@ -1216,7 +1515,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
             }
         }
     } else if (myValueComboBoxChoices->shown()) {
-        // fill comboBox again
+        // fill terminategain
         myValueComboBoxChoices->clearItems();
         for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
             myValueComboBoxChoices->appendItem(discreteValue.c_str());
@@ -1270,11 +1569,15 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
             if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->isValid(myACAttr.getAttr(), newValue)) {
                 // if its valid for the first AC than its valid for all (of the same type)
                 if (ACs.size() > 1) {
-                    myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+                    myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
                 }
                 // Set new value of attribute in all selected ACs
                 for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-                    inspectedAC->setAttribute(myACAttr.getAttr(), newValue, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
+                    inspectedAC->setAttribute(myACAttr.getAttr(), newValue, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+                }
+                // finish change multiple attributes
+                if (ACs.size() > 1) {
+                    myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
                 }
                 // If previously value was incorrect, change font color to black
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
@@ -1285,24 +1588,24 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
     } else if (obj == myAttributeButtonCombinableChoices) {
         // if its valid for the first AC than its valid for all (of the same type)
         if (ACs.size() > 1) {
-            myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+            myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
         }
         // get attribute to modify
         SumoXMLAttr modifiedAttr = myACAttr.getAttr() == SUMO_ATTR_DISALLOW ? SUMO_ATTR_ALLOW : myACAttr.getAttr();
         // declare accept changes
         bool acceptChanges = false;
         // open GNEAllowDisallow (also used to modify SUMO_ATTR_CHANGE_LEFT etc
-        GNEAllowDisallow(myAttributesEditorParent->getFrameParent()->myViewNet, myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front(), modifiedAttr, &acceptChanges).execute();
+        GNEAllowDisallow(myAttributesEditorParent->getFrameParent()->getViewNet(), myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front(), modifiedAttr, &acceptChanges).execute();
         // continue depending of acceptChanges
         if (acceptChanges) {
             std::string allowed = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(modifiedAttr);
             // Set new value of attribute in all selected ACs
             for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-                inspectedAC->setAttribute(modifiedAttr, allowed, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
+                inspectedAC->setAttribute(modifiedAttr, allowed, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
             }
             // finish change multiple attributes
             if (ACs.size() > 1) {
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->end();
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
             }
             // update frame parent after attribute sucesfully set
             myAttributesEditorParent->getFrameParent()->attributeUpdated();
@@ -1388,20 +1691,20 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         if (!mergeJunction(myACAttr.getAttr(), inspectedACs, newVal)) {
             // if its valid for the first AC than its valid for all (of the same type)
             if (inspectedACs.size() > 1) {
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
             } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
                 // IDs attribute has to be encapsulated
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), "change " + myACAttr.getTagPropertyParent().getTagStr() + " attribute");
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), "change " + myACAttr.getTagPropertyParent().getTagStr() + " attribute");
             }
             // Set new value of attribute in all selected ACs
             for (const auto& inspectedAC : inspectedACs) {
-                inspectedAC->setAttribute(myACAttr.getAttr(), newVal, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
+                inspectedAC->setAttribute(myACAttr.getAttr(), newVal, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
             }
             // finish change multiple attributes or ID Attributes
             if (inspectedACs.size() > 1) {
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->end();
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
             } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->end();
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
             }
             // If previously value was incorrect, change font color to black
             if (myACAttr.isVClasses()) {
@@ -1441,7 +1744,7 @@ long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
     const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // obtain undoList (To improve code legibly)
-    GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
+    GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList();
     // check if we have to enable or disable
     if (myAttributeCheckButton->getCheck()) {
         // enable input values
@@ -1506,15 +1809,15 @@ GNEFrameAttributeModules::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, c
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::AttributesEditor::AttributesEditor(GNEFrame* FrameParent) :
-    FXGroupBoxModule(FrameParent->myContentFrame, "Internal attributes"),
+    FXGroupBoxModule(FrameParent->getContentFrame(), "Internal attributes"),
     myFrameParent(FrameParent),
     myIncludeExtended(true) {
     // resize myAttributesEditorRows
     myAttributesEditorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // create myAttributesFlowEditor
-    myAttributesEditorFlow = new AttributesEditorFlow(this);
+    myAttributesEditorFlow = new FlowEditor(FrameParent->getViewNet(), FrameParent->getContentFrame());
     // leave it hidden
-    myAttributesEditorFlow->hideAttributesEditorFlowModule();
+    myAttributesEditorFlow->hideFlowEditor();
     // Create help button
     myHelpButton = new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -1598,14 +1901,14 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
         }
         // check if Flow editor has to be shown
         if (showFlowEditor) {
-            myAttributesEditorFlow->showAttributeEditorFlowModule();
+            myAttributesEditorFlow->showFlowEditor(ACs);
         } else {
-            myAttributesEditorFlow->hideAttributesEditorFlowModule();
+            myAttributesEditorFlow->hideFlowEditor();
         }
         // show AttributesEditor
         show();
     } else {
-        myAttributesEditorFlow->hideAttributesEditorFlowModule();
+        myAttributesEditorFlow->hideFlowEditor();
     }
     // reparent help button (to place it at bottom)
     myHelpButton->reparent(this);
@@ -1615,7 +1918,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
 void
 GNEFrameAttributeModules::AttributesEditor::hideAttributesEditorModule() {
     // hide AttributesEditorFlowModule
-    myAttributesEditorFlow->hideAttributesEditorFlowModule();
+    myAttributesEditorFlow->hideFlowEditor();
     // hide also AttributesEditor
     hide();
 }
@@ -1690,8 +1993,8 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
             }
         }
         // check if flow editor has to be update
-        if (myAttributesEditorFlow->isAttributesEditorFlowModuleShown()) {
-            myAttributesEditorFlow->refreshAttributeEditorFlow();
+        if (myAttributesEditorFlow->shownFlowEditor()) {
+            myAttributesEditorFlow->refreshFlowEditor();
         }
     }
 }
@@ -1714,386 +2017,11 @@ GNEFrameAttributeModules::AttributesEditor::onCmdAttributesEditorHelp(FXObject*,
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributeModules::AttributesEditorFlow - methods
-// ---------------------------------------------------------------------------
-
-GNEFrameAttributeModules::AttributesEditorFlow::AttributesEditorFlow(AttributesEditor* attributesEditorParent) :
-    FXGroupBoxModule(attributesEditorParent->getFrameParent()->myContentFrame, "Flow attributes"),
-    myAttributesEditorParent(attributesEditorParent) {
-    // declare auxiliar horizontal frame
-    FXHorizontalFrame* auxiliarHorizontalFrame = nullptr;
-    // create elements for end attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributeEndRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_END).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueEndTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create elements for number attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributeNumberRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_NUMBER).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueNumberTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create elements for vehsPerHour attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributeVehsPerHourRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueVehsPerHourTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create elements for period attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributePeriodRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PERIOD).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValuePeriodTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create elements for Probability attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myAttributeProbabilityRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PROB).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueProbabilityTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-}
-
-
-void
-GNEFrameAttributeModules::AttributesEditorFlow::showAttributeEditorFlowModule() {
-    if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
-        // refresh attributeEditorFlowModule
-        refreshAttributeEditorFlow();
-        // show flow
-        show();
-    } else {
-        hide();
-    }
-}
-
-
-void
-GNEFrameAttributeModules::AttributesEditorFlow::hideAttributesEditorFlowModule() {
-    // simply hide modul
-    hide();
-}
-
-
-bool
-GNEFrameAttributeModules::AttributesEditorFlow::isAttributesEditorFlowModuleShown() const {
-    return shown();
-}
-
-
-void
-GNEFrameAttributeModules::AttributesEditorFlow::refreshAttributeEditorFlow() {
-    if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
-        // simply refresh every flow attribute
-        refreshEnd();
-        refreshNumber();
-        refreshVehsPerHour();
-        refreshPeriod();
-        refreshProbability();
-    }
-}
-
-
-long
-GNEFrameAttributeModules::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
-    const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
-    // obtain undoList (To improve code legibly)
-    GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
-    SumoXMLAttr attr = SUMO_ATTR_NOTHING;
-    std::string value;
-    // check what check button was pressed
-    if (obj == myValueEndTextField) {
-        attr = SUMO_ATTR_END;
-        value = myValueEndTextField->getText().text();
-    } else if (obj == myValueNumberTextField) {
-        attr = SUMO_ATTR_NUMBER;
-        value = myValueNumberTextField->getText().text();
-    } else if (obj == myValueVehsPerHourTextField) {
-        // check attribute
-        if (ACs.front()->getTagProperty().hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
-            attr = SUMO_ATTR_VEHSPERHOUR;
-        } else {
-            attr = SUMO_ATTR_PERSONSPERHOUR;
-        }
-        value = myValueVehsPerHourTextField->getText().text();
-    } else if (obj == myValuePeriodTextField) {
-        attr = SUMO_ATTR_PERIOD;
-        value = myValuePeriodTextField->getText().text();
-    } else if (obj == myValueProbabilityTextField) {
-        attr = SUMO_ATTR_PROB;
-        value = myValueProbabilityTextField->getText().text();
-    } else {
-        throw ProcessError("Invalid text field");
-    }
-    // write debug (for Netedit tests)
-    WRITE_DEBUG("Selected checkBox for attribute '" + toString(attr) + "'");
-    // check if we're editing multiple attributes
-    if (ACs.size() > 1) {
-        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple " + toString(attr) + " attributes");
-    }
-    // enable attribute with undo/redo
-    for (const auto& inspectedAC : ACs) {
-        inspectedAC->setAttribute(attr, value, undoList);
-    }
-    // check if we're editing multiple attributes
-    if (ACs.size() > 1) {
-        undoList->end();
-    }
-    // refresh Attributes edito parent
-    refreshAttributeEditorFlow();
-    return 1;
-}
-
-
-long
-GNEFrameAttributeModules::AttributesEditorFlow::onCmdSelectFlowRadioButton(FXObject* obj, FXSelector, void*) {
-    const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
-    // obtain undoList (To improve code legibly)
-    GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
-    SumoXMLAttr attr = SUMO_ATTR_NOTHING;
-    // check what check button was pressed
-    if (obj == myAttributeEndRadioButton) {
-        attr = SUMO_ATTR_END;
-    } else if (obj == myAttributeNumberRadioButton) {
-        attr = SUMO_ATTR_NUMBER;
-    } else if (obj == myAttributeVehsPerHourRadioButton) {
-        attr = SUMO_ATTR_VEHSPERHOUR;
-    } else if (obj == myAttributePeriodRadioButton) {
-        attr = SUMO_ATTR_PERIOD;
-    } else if (obj == myAttributeProbabilityRadioButton) {
-        attr = SUMO_ATTR_PROB;
-    } else {
-        throw ProcessError("Invalid Radio Button");
-    }
-    // write debug (for Netedit tests)
-    WRITE_DEBUG("Selected checkBox for attribute '" + toString(attr) + "'");
-    // begin undo list
-    if (ACs.size() > 1) {
-        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), "enable multiple " + toString(attr) + " attributes");
-    } else {
-        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), "enable attribute '" + toString(attr) + "'");
-    }
-    // enable attribute with undo/redo
-    for (const auto& inspectedAC : ACs) {
-        inspectedAC->enableAttribute(attr, undoList);
-    }
-    // end undoList
-    undoList->end();
-    // refresh Attributes edito parent
-    refreshAttributeEditorFlow();
-    return 1;
-}
-
-
-void
-GNEFrameAttributeModules::AttributesEditorFlow::refreshEnd() {
-    // first we need to check if all attributes are enabled or disabled
-    int allAttributesEnabledOrDisabled = 0;
-    for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-        allAttributesEnabledOrDisabled += inspectedAC->isAttributeEnabled(SUMO_ATTR_END);
-    }
-    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
-        // Declare a set of occuring values and insert attribute's values of item
-        std::set<std::string> occuringValues;
-        for (const auto& values : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-            occuringValues.insert(values->getAttribute(SUMO_ATTR_END));
-        }
-        // get current value
-        std::ostringstream endValue;
-        for (const auto& occuringValue : occuringValues) {
-            if (occuringValue != *occuringValues.begin()) {
-                endValue << " ";
-            }
-            endValue << occuringValue;
-        }
-        // set radio button and text field
-        myValueEndTextField->enable();
-        myValueEndTextField->setText(endValue.str().c_str());
-        myAttributeEndRadioButton->setCheck(TRUE);
-    } else {
-        // disable radio button and text field
-        myValueEndTextField->disable();
-        // check if we set an special value in textField
-        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1)) {
-            myValueEndTextField->setText("Different flow attributes");
-        } else if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            myValueEndTextField->setText(myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_END).c_str());
-        } else {
-            myValueEndTextField->setText("");
-        }
-        myAttributeEndRadioButton->setCheck(FALSE);
-    }
-}
-
-
-void
-GNEFrameAttributeModules::AttributesEditorFlow::refreshNumber() {
-    // first we need to check if all attributes are enabled or disabled
-    int allAttributesEnabledOrDisabled = 0;
-    for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-        allAttributesEnabledOrDisabled += inspectedAC->isAttributeEnabled(SUMO_ATTR_NUMBER);
-    }
-    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
-        // Declare a set of occuring values and insert attribute's values of item
-        std::set<std::string> occuringValues;
-        for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-            occuringValues.insert(inspectedAC->getAttribute(SUMO_ATTR_NUMBER));
-        }
-        // get current value
-        std::ostringstream numberValues;
-        for (const auto& occuringValue : occuringValues) {
-            if (occuringValue != *occuringValues.begin()) {
-                numberValues << " ";
-            }
-            numberValues << occuringValue;
-        }
-        // set radio button and text field
-        myValueNumberTextField->enable();
-        myValueNumberTextField->setText(numberValues.str().c_str());
-        myAttributeNumberRadioButton->setCheck(TRUE);
-    } else {
-        // disable radio button
-        myValueNumberTextField->disable();
-        // check if we set an special value in textField
-        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1)) {
-            myValueNumberTextField->setText("Different flow attributes");
-        } else if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            myValueNumberTextField->setText(myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_NUMBER).c_str());
-        } else {
-            myValueNumberTextField->setText("");
-        }
-        myAttributeNumberRadioButton->setCheck(FALSE);
-    }
-}
-
-
-void
-GNEFrameAttributeModules::AttributesEditorFlow::refreshVehsPerHour() {
-    // declare attribute
-    SumoXMLAttr attr = SUMO_ATTR_VEHSPERHOUR;
-    // first change attribute
-    if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR)) {
-        attr = SUMO_ATTR_PERSONSPERHOUR;
-    }
-    // update radio button
-    myAttributeVehsPerHourRadioButton->setText(toString(attr).c_str());
-    // we need to check if all attributes are enabled or disabled
-    int allAttributesEnabledOrDisabled = 0;
-    for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-        allAttributesEnabledOrDisabled += inspectedAC->isAttributeEnabled(attr);
-    }
-    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
-        // Declare a set of occuring values and insert attribute's values of item
-        std::set<std::string> occuringValues;
-        for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-            occuringValues.insert(inspectedAC->getAttribute(attr));
-        }
-        // get current value
-        std::ostringstream vehsPerHourValues;
-        for (const auto& occuringValue : occuringValues) {
-            if (occuringValue != *occuringValues.begin()) {
-                vehsPerHourValues << " ";
-            }
-            vehsPerHourValues << occuringValue;
-        }
-        // set radio button and text field
-        myValueVehsPerHourTextField->enable();
-        myValueVehsPerHourTextField->setText(vehsPerHourValues.str().c_str());
-        myAttributeVehsPerHourRadioButton->setCheck(TRUE);
-    } else {
-        // disable radio button
-        myValueVehsPerHourTextField->disable();
-        // check if we set an special value in textField
-        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1)) {
-            myValueVehsPerHourTextField->setText("Different flow attributes");
-        } else if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            myValueVehsPerHourTextField->setText(myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(attr).c_str());
-        } else {
-            myValueVehsPerHourTextField->setText("");
-        }
-        myAttributeVehsPerHourRadioButton->setCheck(FALSE);
-    }
-}
-
-
-void
-GNEFrameAttributeModules::AttributesEditorFlow::refreshPeriod() {
-    // first we need to check if all attributes are enabled or disabled
-    int allAttributesEnabledOrDisabled = 0;
-    for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-        allAttributesEnabledOrDisabled += inspectedAC->isAttributeEnabled(SUMO_ATTR_PERIOD);
-    }
-    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
-        // Declare a set of occuring values and insert attribute's values of item
-        std::set<std::string> occuringValues;
-        for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-            occuringValues.insert(inspectedAC->getAttribute(SUMO_ATTR_PERIOD));
-        }
-        // get current value
-        std::ostringstream periodValues;
-        for (const auto& occuringValue : occuringValues) {
-            if (occuringValue != *occuringValues.begin()) {
-                periodValues << " ";
-            }
-            periodValues << occuringValue;
-        }
-        // set radio button and text field
-        myValuePeriodTextField->enable();
-        myValuePeriodTextField->setText(periodValues.str().c_str());
-        myAttributePeriodRadioButton->setCheck(TRUE);
-    } else {
-        // disable radio button and text field
-        myValuePeriodTextField->disable();
-        // check if we set an special value in textField
-        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1)) {
-            myValuePeriodTextField->setText("Different flow attributes");
-        } else if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            myValuePeriodTextField->setText(myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_PERIOD).c_str());
-        } else {
-            myValuePeriodTextField->setText("");
-        }
-        myAttributePeriodRadioButton->setCheck(FALSE);
-    }
-}
-
-
-void
-GNEFrameAttributeModules::AttributesEditorFlow::refreshProbability() {
-    // first we need to check if all attributes are enabled or disabled
-    int allAttributesEnabledOrDisabled = 0;
-    for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-        allAttributesEnabledOrDisabled += inspectedAC->isAttributeEnabled(SUMO_ATTR_PROB);
-    }
-    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
-        // Declare a set of occuring values and insert attribute's values of item
-        std::set<std::string> occuringValues;
-        for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-            occuringValues.insert(inspectedAC->getAttribute(SUMO_ATTR_PROB));
-        }
-        // get current value
-        std::ostringstream probabilityValues;
-        for (const auto& occuringValue : occuringValues) {
-            if (occuringValue != *occuringValues.begin()) {
-                probabilityValues << " ";
-            }
-            probabilityValues << occuringValue;
-        }
-        // set radio button and text field
-        myValueProbabilityTextField->enable();
-        myValueProbabilityTextField->setText(probabilityValues.str().c_str());
-        myAttributeProbabilityRadioButton->enable();
-        myAttributeProbabilityRadioButton->setCheck(TRUE);
-    } else {
-        // disable radio button and text field
-        myValueProbabilityTextField->disable();
-        // check if we set an special value in textField
-        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1)) {
-            myValueProbabilityTextField->setText("Different flow attributes");
-        } else if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            myValueProbabilityTextField->setText(myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_PROB).c_str());
-        } else {
-            myValueProbabilityTextField->setText("");
-        }
-        myAttributeProbabilityRadioButton->setCheck(FALSE);
-    }
-}
-
-// ---------------------------------------------------------------------------
 // GNEFrameAttributeModules::AttributesEditorExtended- methods
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::AttributesEditorExtended::AttributesEditorExtended(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Extended attributes"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Extended attributes"),
     myFrameParent(frameParent) {
     // Create open dialog button
     new FXButton(getCollapsableFrame(), "Open attributes editor", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
@@ -2127,7 +2055,7 @@ GNEFrameAttributeModules::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::GenericDataAttributes::GenericDataAttributes(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Attributes"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Attributes"),
     myFrameParent(frameParent) {
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -2161,7 +2089,7 @@ GNEFrameAttributeModules::GenericDataAttributes::refreshGenericDataAttributes() 
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEFrameAttributeModules::GenericDataAttributes::getParametersMap() const {
     return myParameters;
 }
@@ -2264,7 +2192,7 @@ GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::DrawingShape::DrawingShape(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Drawing"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Drawing"),
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
     // create start and stop buttons
@@ -2326,7 +2254,7 @@ GNEFrameAttributeModules::DrawingShape::stopDrawing() {
     if (myFrameParent->shapeDrawed()) {
         // clear created points
         myTemporalShapeShape.clear();
-        myFrameParent->myViewNet->updateViewNet();
+        myFrameParent->getViewNet()->update();
         // change buttons
         myStartDrawingButton->enable();
         myStopDrawingButton->disable();
@@ -2342,7 +2270,7 @@ void
 GNEFrameAttributeModules::DrawingShape::abortDrawing() {
     // clear created points
     myTemporalShapeShape.clear();
-    myFrameParent->myViewNet->updateViewNet();
+    myFrameParent->getViewNet()->updateViewNet();
     // change buttons
     myStartDrawingButton->enable();
     myStopDrawingButton->disable();
@@ -2415,7 +2343,7 @@ GNEFrameAttributeModules::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector,
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Netedit attributes"),
+    FXGroupBoxModule(frameParent->getContentFrame(), "Netedit attributes"),
     myFrameParent(frameParent),
     myCurrentLengthValid(true),
     myActualAdditionalReferencePoint(AdditionalReferencePoint::LEFT) {
@@ -2500,11 +2428,11 @@ GNEFrameAttributeModules::NeteditAttributes::getNeteditAttributesAndValues(Commo
             return false;
         } else if (myCurrentLengthValid) {
             // Obtain position of the mouse over lane (limited over grid)
-            double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->myViewNet->snapToActiveGrid(myFrameParent->myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
+            double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->getViewNet()->snapToActiveGrid(myFrameParent->getViewNet()->getPositionInformation())) / lane->getLengthGeometryFactor();
             // check if current reference point is valid
             if (myActualAdditionalReferencePoint == AdditionalReferencePoint::INVALID) {
                 std::string errorMessage = "Current selected reference point isn't valid";
-                myFrameParent->myViewNet->setStatusBarText(errorMessage);
+                myFrameParent->getViewNet()->setStatusBarText(errorMessage);
                 // Write Warning in console if we're in testing mode
                 WRITE_DEBUG(errorMessage);
                 return false;
@@ -2626,7 +2554,7 @@ GNEFrameAttributeModules::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, vo
     WRITE_DEBUG("Closing NeteditAttributes help dialog");
     return 1;
     /**********
-    help from PolygonFrame
+    help from ShapeFrame
             << "- Block movement: If enabled, the created polygon element will be blocked. i.e. cannot be moved with\n"
             << "  the mouse. This option can be modified inspecting element.\n"
             << "\n"
@@ -2672,11 +2600,8 @@ GNEFrameAttributeModules::NeteditAttributes::setEndPosition(double positionOfThe
 
 bool
 GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC) {
-    if (viewNet->getEditModes().isCurrentSupermodeNetwork() && (
-                AC->getTagProperty().isNetworkElement() ||
-                AC->getTagProperty().isAdditionalElement() ||
-                AC->getTagProperty().isShape() ||
-                AC->getTagProperty().isTAZElement())) {
+    if (viewNet->getEditModes().isCurrentSupermodeNetwork() && 
+        (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
         return true;
     } else if (viewNet->getEditModes().isCurrentSupermodeDemand() &&
                AC->getTagProperty().isDemandElement()) {
@@ -2692,8 +2617,7 @@ GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEA
 
 bool
 GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties& ACAttr) {
-    if (ACAttr.getTagPropertyParent().isNetworkElement() || ACAttr.getTagPropertyParent().isAdditionalElement() ||
-            ACAttr.getTagPropertyParent().isShape() || ACAttr.getTagPropertyParent().isTAZElement()) {
+    if (ACAttr.getTagPropertyParent().isNetworkElement() || ACAttr.getTagPropertyParent().isAdditionalElement()) {
         return (viewNet->getEditModes().isCurrentSupermodeNetwork());
     } else if (ACAttr.getTagPropertyParent().isDemandElement()) {
         return (viewNet->getEditModes().isCurrentSupermodeDemand());

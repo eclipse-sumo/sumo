@@ -1,4 +1,4 @@
-Error: Attribute 'maxSpeed' in definition of vType 'vType0' is not of type float.
+Error: Attribute 'maxSpeed' in definition of vType 'vType0' Invalid Number Format (double) dummyMinGap.
 Error: maxSpeed must be greater than 0
 Error: maxSpeed must be greater than 0
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Jul141622.10940/netedit.gui/demandElements/vehicletype/load/maxspeed\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\demandElements\vehicletype\load\maxspeed\input_routes.rou.xml failed.

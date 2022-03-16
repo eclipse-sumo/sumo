@@ -30,7 +30,7 @@
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
     GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
@@ -38,7 +38,7 @@ GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net, const std::string& vTypeID) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {}, {}, {}) {
 }
 
 
@@ -254,7 +254,7 @@ GNEVTypeDistribution::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEVTypeDistribution::getACParametersMap() const {
     throw InvalidArgument(getTagStr() + " doesn't have parameters");
 }
@@ -276,7 +276,7 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVTypeDistribution::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNEVTypeDistribution::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     // nothing to toogle
 }
 

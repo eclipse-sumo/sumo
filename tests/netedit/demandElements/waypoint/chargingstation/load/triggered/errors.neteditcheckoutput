@@ -1,0 +1,8 @@
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop at 'chargingStation' in vehicle 'flow_0'.
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop at 'chargingStation' in vehicle 'flow_2'.
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop at 'chargingStation' in vehicle 'flow_3'.
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop at 'chargingStation' in vehicle 'flow_4'.

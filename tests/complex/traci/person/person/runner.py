@@ -234,16 +234,16 @@ for i in range(5):
 traci.person.add("p3", "1fi", -10)
 stage = traci.simulation.Stage(
     type=traci.constants.STAGE_WALKING,
-    edges=["1fi", "1si"], departPos=-20, arrivalPos=10, description="foo")
+    edges=["1fi", "1si"], departPos=-20, arrivalPos=10)
 stage2 = traci.simulation.Stage(
     type=traci.constants.STAGE_WALKING,
-    vType="car", edges=["1fi", "1o"], departPos=-20, arrivalPos=10, description="foo")
+    vType="car", edges=["1fi", "1o"], departPos=-20, arrivalPos=10)
 stage3 = traci.simulation.Stage(
     type=traci.constants.STAGE_WALKING,
-    vType="car", edges=["1o", "3o"], departPos=-20, arrivalPos=10, description="foo")
+    vType="car", edges=["1o", "3o"], departPos=-20, arrivalPos=10)
 stage4 = traci.simulation.Stage(
     type=traci.constants.STAGE_WALKING,
-    vType="car", edges=["1o", "4o"], departPos=-20, arrivalPos=10, description="foo")
+    vType="car", edges=["1o", "4o"], departPos=-20, arrivalPos=10)
 
 traci.person.appendStage("p3", stage)
 for i in range(10):
@@ -252,16 +252,24 @@ for i in range(10):
 remaining = traci.person.getRemainingStages("p3")
 assert(remaining == 1)
 # replace current stage
-print_remaining_plan("p3", "(before replacement of current stage")
+print_remaining_plan("p3", "(before replacement of current stage)")
 traci.person.replaceStage("p3", 0, stage2)
-print_remaining_plan("p3", "(after replacement")
+print_remaining_plan("p3", "(after replacement)")
 # replace later stage
 traci.person.appendStage("p3", stage3)
-print_remaining_plan("p3", "(before replacement of next stage")
+print_remaining_plan("p3", "(before replacement of next stage)")
 traci.person.replaceStage("p3", 1, stage4)
-print_remaining_plan("p3", "(after replacement")
+print_remaining_plan("p3", "(after replacement)")
+
+print("speed (before setSpeed)", traci.person.getSpeed("p3"))
+print("maxSpeed (before setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
+traci.person.setSpeed("p3", 4.2)
+print("speed (after setSpeed)", traci.person.getSpeed("p3"))
+print("maxSpeed (after setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
 
 for i in range(41):
     traci.simulationStep()
+print("speed (at end)", traci.person.getSpeed("p3"))
+
 
 traci.close()

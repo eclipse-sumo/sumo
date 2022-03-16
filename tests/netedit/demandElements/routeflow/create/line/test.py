@@ -45,23 +45,23 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# change vehicle
+# select flow over route
 netedit.changeElement("flow (over route)")
 
 # set invalid line
-netedit.changeDefaultValue(13, "%%%%%%")
+netedit.changeDefaultValue(netedit.attrs.routeflow.create.line, "%%%%%%")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid Line
-netedit.changeDefaultValue(13, "ownLine")
+netedit.changeDefaultValue(netedit.attrs.routeflow.create.line, "")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set empty line
-netedit.changeDefaultValue(13, "")
+netedit.changeDefaultValue(netedit.attrs.routeflow.create.line, "customLine")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

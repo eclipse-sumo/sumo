@@ -628,6 +628,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
     // compute same (edges where an intersection doesn't work well
     // (always check an edge and its cw neighbor)
     const double angleChangeLookahead = 35; // distance to look ahead for a misleading angle
+    const bool isXodr = OptionsCont::getOptions().exists("opendrive-files") && OptionsCont::getOptions().isSet("opendrive-files");
     EdgeSet foundOpposite;
     for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); i++) {
         EdgeVector::const_iterator j;
@@ -660,7 +661,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
                       << " isOpposite=" << (differentDirs && foundOpposite.count(*i) == 0)
                       << " angleDiff=" << angleDiff
                       << " ambiguousGeometry=" << ambiguousGeometry
-                      << badIntersection(*i, *j, EXT)
+                      << " badInsersection=" << badIntersection(*i, *j, EXT)
                       << "\n";
 
         }
@@ -671,7 +672,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
                 foundOpposite.insert(*i);
                 foundOpposite.insert(*j);
             }
-            if (isOpposite || ambiguousGeometry || badIntersection(*i, *j, EXT)) {
+            if (isOpposite || ambiguousGeometry || (!isXodr && badIntersection(*i, *j, EXT))) {
                 // maintain equivalence relation for all members of the equivalence class
                 for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
                     if (*j != *k) {

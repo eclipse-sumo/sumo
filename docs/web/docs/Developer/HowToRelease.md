@@ -88,6 +88,8 @@ and committing the changes after careful inspection
   - modify the version number (Version) and the release date (ReleaseDate)
     [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end
     to update the [download links](../Downloads.md)
+  - add the new version and the release date [to sumo.metainfo.xml]({{Source}}build/package/sumo.metainfo.xml)
+    for correct flatpak info
 - update the eclipse.org/sumo website
   - modify the version number (Version) [in config.toml](https://github.com/eclipse/sumo.website/blob/master/config.toml) in the **Default Parameters** section at the beginning
 - If it is the first release of the year, create a new Eclipse release at https://projects.eclipse.org/projects/automotive.sumo (after login there should be a "Create Release" button)
@@ -139,6 +141,7 @@ If everything is fine:
   - copy the debian dir one level up
   - modify the changelog, using `dch` (enter an email address which has write access to the ppa and a valid gpg key)
   - run `dpkg-buildpackage -S` in the sumo dir and `dput -f ppa:sumo/stable sumo_{{Version}}+dfsg1_source.changes` one level up
+- update the [flatpak](https://github.com/flathub/org.eclipse.sumo) (update version number and commit hash)
 - scenarios (optional)
   - add files to [the scenario folder](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/)
   - updated README.txt

@@ -40,23 +40,23 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
+# inspect flow over route
 netedit.leftClick(referencePosition, 330, 150)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(11, "", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.containerNumber, "", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(11, "dummyNumber", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.containerNumber, "dummyNumber", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(11, "-5", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.containerNumber, "-5", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(11, "2.5", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.containerNumber, "2.5", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(11, "3", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.containerNumber, "3", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

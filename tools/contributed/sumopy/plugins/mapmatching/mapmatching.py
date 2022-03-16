@@ -10797,7 +10797,7 @@ class Routesresults(am.ArrayObjman):
                                     groupnames = ['results'], 
                                     name = 'route distance',
                                     unit = 'm',
-                                    info = 'Sum of the traveled edge lenghts.',
+                                    info = 'Sum of the traveled edge lengths.',
                                     ))
                                     
         self.add_col(am.ArrayConf('lengths_within_center', default = -1.0,
@@ -10805,7 +10805,7 @@ class Routesresults(am.ArrayObjman):
                                     groupnames = ['results'], 
                                     name = 'distance within center',
                                     unit = 'm',
-                                    info = 'Sum of the traveled edge lenghts of edges that have either the starting or ending point inside the center.',
+                                    info = 'Sum of the traveled edge lengths of edges that have either the starting or ending point inside the center.',
                                     ))
                                     
         self.add_col(am.ArrayConf('distances_real', default = -1.0,
@@ -12311,7 +12311,7 @@ class CyclistsDatabase(am.ArrayObjman):
         self.add_col(am.ArrayConf('AV_lengths_within_center', default = -1.0,
                                     dtype = np.float32,
                                     groupnames = ['results'], 
-                                    name = 'Share oh lenght inside center',
+                                    name = 'Share oh length inside center',
                                     symbol = 'AV L center share',
                                     unit = '%',
                                     info = 'Share of matched route length inside the center of the city',
@@ -12806,7 +12806,7 @@ class CyclistsDatabase(am.ArrayObjman):
         self.add_col(am.ArrayConf('WL_lengths_within_center', default = -1.0,
                                     dtype = np.float32,
                                     groupnames = ['results'], 
-                                    name = 'Share oh lenght inside center',
+                                    name = 'Share oh length inside center',
                                     symbol = 'WL L center share',
                                     unit = '%',
                                     info = 'Share of matched route length inside the center of the city',
@@ -13301,7 +13301,7 @@ class CyclistsDatabase(am.ArrayObjman):
         self.add_col(am.ArrayConf('MD_lengths_within_center', default = -1.0,
                                     dtype = np.float32,
                                     groupnames = ['results'], 
-                                    name = 'Share oh lenght inside center',
+                                    name = 'Share oh length inside center',
                                     symbol = 'MD L center share',
                                     unit = '%',
                                     info = 'Share of matched route length inside the center of the city',
@@ -13797,7 +13797,7 @@ class CyclistsDatabase(am.ArrayObjman):
         self.add_col(am.ArrayConf('SD_lengths_within_center', default = -1.0,
                                     dtype = np.float32,
                                     groupnames = ['results'], 
-                                    name = 'Share oh lenght inside center',
+                                    name = 'Share oh length inside center',
                                     symbol = 'SD L center share',
                                     unit = '%',
                                     info = 'Share of matched route length inside the center of the city',
@@ -14292,7 +14292,7 @@ class CyclistsDatabase(am.ArrayObjman):
         self.add_col(am.ArrayConf('MA_lengths_within_center', default = -1.0,
                                     dtype = np.float32,
                                     groupnames = ['results'], 
-                                    name = 'Share oh lenght inside center',
+                                    name = 'Share oh length inside center',
                                     symbol = 'MA L center share',
                                     unit = '%',
                                     info = 'Share of matched route length inside the center of the city',
@@ -16180,7 +16180,7 @@ class TripsDatabase(am.ArrayObjman):
         self.add_col(am.ArrayConf('lengths_within_center', default = -1.0,
                                     dtype = np.float32,
                                     groupnames = ['results'], 
-                                    name = 'Share oh lenght inside center',
+                                    name = 'Share oh length inside center',
                                     symbol = 'L center share',
                                     unit = '%',
                                     info = 'Share of matched route length inside the center of the city',
@@ -17053,8 +17053,8 @@ class Routesanalyzer(Process):
         self.is_analyze_lengths_within_center = attrsman.add(cm.AttrConf( 'is_analyze_lengths_within_center',kwargs.get('is_analyze_lengths_within_center', False),
                             groupnames = ['options'], 
                             perm='rw', 
-                            name = 'Analyze lenghts within center', 
-                            info = 'If True, for each route will be analyzed the total lenght inside edges that start or end in the center zone.',
+                            name = 'Analyze lengths within center', 
+                            info = 'If True, for each route will be analyzed the total length inside edges that start or end in the center zone.',
                             )) 
         scenario = self.parent.get_scenario()
         self.zones = scenario.landuse.zones
@@ -17104,7 +17104,7 @@ class Routesanalyzer(Process):
                             perm='rw', 
                             name = 'Junction range', 
                             unit = 'm',
-                            info = 'This is the lenght of the last part of edges where waiting times are considered part of the intersection where this edge is directed.',
+                            info = 'This is the length of the last part of edges where waiting times are considered part of the intersection where this edge is directed.',
                             ))  
                             
         self.n_point_min = attrsman.add(cm.AttrConf( 'n_point_min',kwargs.get('n_point_min',5),
@@ -17438,7 +17438,7 @@ class Routesanalyzer(Process):
             tls_number_left_turns = 0
             tls_number_right_turns = 0
             tls_number_crossings = 0
-            lenght_inside_center = 0
+            length_inside_center = 0
             n_connections_per_intersection = 0
             for id_edge in ids_edge:
 ##                    print 'analyzing edge', id_edge
@@ -17447,8 +17447,8 @@ class Routesanalyzer(Process):
                 n_connections_per_intersection += nodes.n_connections[edges.ids_tonode[id_edge]]
                 if self.is_analyze_lengths_within_center:
                     if id_edge in zones.ids_edges_orig[zones.ids_sumo.get_id_from_index(self.center_zone)] or id_edge in zones.ids_edges_dest[zones.ids_sumo.get_id_from_index(self.center_zone)]:
-                        lenght_inside_center += distances[id_edge]
-                        #print 'lenght_inside_center', lenght_inside_center
+                        length_inside_center += distances[id_edge]
+                        #print 'length_inside_center', length_inside_center
                 if id_edge_pre != 0:
                     shape0 = edges.shapes[id_edge][0][:2]
                     shape1 = edges.shapes[id_edge_pre][-1][:2]
@@ -17666,7 +17666,7 @@ class Routesanalyzer(Process):
                     good_traces+=1
                     #Match points to edge and connections
                     cumulative_dists = np.zeros(len(cumulative_dists_initial))
-                    #Correct cumulative distances, adding a lenght to the connections from the backward
+                    #Correct cumulative distances, adding a length to the connections from the backward
                     for is_connection, i in zip(are_connection, range(len(cumulative_dists_initial))):
                         if is_connection == 0 and i < len(cumulative_dists_initial)-1:
                             if i>0:
@@ -18011,7 +18011,7 @@ class Routesanalyzer(Process):
             if self.is_speedana:
                 routesresults_matched.set_row(  id_res,
                                                 ids_route = id_route_matched,
-                                                lengths_within_center = lenght_inside_center,
+                                                lengths_within_center = length_inside_center,
                                                 numbers_left_turns = number_left_turns,
                                                 numbers_right_turns = number_right_turns,
                                                 numbers_crossings = number_crossings,
@@ -18039,7 +18039,7 @@ class Routesanalyzer(Process):
                 routesresults_matched.set_row(  id_res,
                                                 ids_route = id_route_matched,
                                                 distances = dist_matched,
-                                                lengths_within_center = lenght_inside_center,
+                                                lengths_within_center = length_inside_center,
                                                 numbers_left_turns = number_left_turns,
                                                 numbers_right_turns = number_right_turns,
                                                 numbers_crossings = number_crossings,
@@ -18080,15 +18080,15 @@ class Routesanalyzer(Process):
                 tls_number_left_turns_shortest = 0
                 tls_number_right_turns_shortest = 0
                 tls_number_crossings_shortest = 0
-                lenght_inside_center_shortest = 0
+                length_inside_center_shortest = 0
                 n_connections_per_intersection_shortest = 0
                 for id_edge_shortest in ids_edge_shortest:
     ##                    print 'analyzing edge', id_edge
                     n_connections_per_intersection_shortest += nodes.n_connections[edges.ids_tonode[id_edge_shortest]]
                     if self.is_analyze_lengths_within_center:
                         if id_edge_shortest in zones.ids_edges_orig[zones.ids_sumo.get_id_from_index(self.center_zone)] or id_edge_shortest in zones.ids_edges_dest[zones.ids_sumo.get_id_from_index(self.center_zone)]:
-                            lenght_inside_center_shortest += distances[id_edge_shortest]
-                            #print 'lenght_inside_center', lenght_inside_center
+                            length_inside_center_shortest += distances[id_edge_shortest]
+                            #print 'length_inside_center', length_inside_center
                     if id_edge_pre != 0:
 
                         #add connection attributes
@@ -18178,7 +18178,7 @@ class Routesanalyzer(Process):
                                                 numbers_tls_right_turns = tls_number_right_turns_shortest,
                                                 numbers_tls_crossings = tls_number_crossings_shortest,
                                                 av_n_connections_per_intersection = n_connections_per_intersection_shortest/np.float(n_nodes_shortest),
-                                                lengths_within_center = lenght_inside_center_shortest,
+                                                lengths_within_center = length_inside_center_shortest,
                                                 distances = dist_shortest,
                                                 durations = dist_shortest/linespeed_matched+timeloss_intersection * n_nodes_shortest + timeloss_tl * n_tls_shortest,
                                                 lengths_mixed = np.sum(distances[ids_edge_shortest[accesslevels_shortest==1]]),
@@ -18370,8 +18370,8 @@ class Routesanalyzer(Process):
         
 ##                edge_speeds[i] = -1
 ##                edge_speeds_in_motion[i] = -1
-##        edge_speeds = edge_lenghts/edge_times
-##        edge_speeds_in_motion = edge_lenghts_in_motion/edge_times_in_motion
+##        edge_speeds = edge_lengths/edge_times
+##        edge_speeds_in_motion = edge_lengths_in_motion/edge_times_in_motion
 ##        for i in range(len(edge_speeds)):
 ##            if edge_speeds[i] != float:
 ##                edge_speeds[i] = -1

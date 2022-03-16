@@ -116,6 +116,10 @@ const RGBColor GUIVisualizationAdditionalSettings::vaporizerColor(120, 216, 0, 2
 const double GUIVisualizationAdditionalSettings::vaporizerSize(1);
 const RGBColor GUIVisualizationAdditionalSettings::connectionColor(255, 216, 0, 255);
 const RGBColor GUIVisualizationAdditionalSettings::connectionColorSelected(0, 0, 150, 255);
+const double GUIVisualizationAdditionalSettings::tractionSubstationSize(1);
+const RGBColor GUIVisualizationAdditionalSettings::overheadWireColorTop(255, 0, 0);
+const RGBColor GUIVisualizationAdditionalSettings::overheadWireColorBot(0, 255, 0);
+const RGBColor GUIVisualizationAdditionalSettings::overheadWireColorSelected(0, 0, 150, 255);
 const double GUIVisualizationAdditionalSettings::arrowWidth(1);
 const double GUIVisualizationAdditionalSettings::arrowLength(0.25);
 const double GUIVisualizationAdditionalSettings::arrowOffset(0.1);
@@ -366,6 +370,7 @@ GUIVisualizationColorSettings::GUIVisualizationColorSettings() :
     parkingSpaceColorContour(0, 255, 0),
     parkingSpaceColor(255, 200, 200),
     stopColor(220, 20, 30),
+    waypointColor(0, 127, 14),
     vehicleTripColor(255, 128, 0),
     stopPersonColor(255, 0, 0),
     personTripColor(200, 0, 255),
@@ -406,6 +411,7 @@ GUIVisualizationColorSettings::operator==(const GUIVisualizationColorSettings& v
            (parkingSpaceColorContour == v2.parkingSpaceColorContour) &&
            (parkingSpaceColor == v2.parkingSpaceColor) &&
            (stopColor == v2.stopColor) &&
+           (waypointColor == v2.waypointColor) &&
            (vehicleTripColor == v2.vehicleTripColor) &&
            (stopPersonColor == v2.stopPersonColor) &&
            (personTripColor == v2.personTripColor) &&
@@ -446,6 +452,7 @@ GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v
            (parkingSpaceColorContour != v2.parkingSpaceColorContour) ||
            (parkingSpaceColor != v2.parkingSpaceColor) ||
            (stopColor != v2.stopColor) ||
+           (waypointColor != v2.waypointColor) ||
            (vehicleTripColor != v2.vehicleTripColor) ||
            (stopPersonColor != v2.stopPersonColor) ||
            (personTripColor != v2.personTripColor) ||
@@ -1824,6 +1831,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("selectedVehicleColor", colorSettings.selectedVehicleColor);
     dev.writeAttr("selectionColor", colorSettings.selectionColor);
     dev.writeAttr("stopColor", colorSettings.stopColor);
+    dev.writeAttr("waypointColor", colorSettings.waypointColor);
     dev.writeAttr("stopContainerColor", colorSettings.stopContainerColor);
     dev.writeAttr("stopPersonColor", colorSettings.stopPersonColor);
     dev.writeAttr("trainStopColor", colorSettings.trainStopColor);

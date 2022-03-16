@@ -23,7 +23,7 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/xml/CommonXMLStructure.h>
 
-#include "GNEShape.h"
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class declarations
@@ -40,11 +40,11 @@ class GNELane;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEPOI : public PointOfInterest, public GNEShape {
+class GNEPOI : public PointOfInterest, public GNEAdditional {
 
 public:
-    /// @brief needed to avoid diamond problem between PointOfInterest and GNEShape
-    using GNEShape::getID;
+    /// @brief needed to avoid diamond problem between PointOfInterest and GNEAdditional
+    using GNEAdditional::getID;
 
     /// @brief Constructor
     GNEPOI(SumoXMLTag tag, GNENet* net);
@@ -69,7 +69,7 @@ public:
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
            const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile,
            const bool relativePath, const double width, const double height, const std::string& name,
-           const std::map<std::string, std::string>& parameters);
+           const Parameterised::Map& parameters);
 
     /**@brief Constructor
      * @param[in] net net in which this polygon is placed
@@ -90,7 +90,7 @@ public:
      */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane, const bool friendlyPos,
            const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
-           const double height, const std::string& name, const std::map<std::string, std::string>& parameters);
+           const double height, const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEPOI();
@@ -106,16 +106,10 @@ public:
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
 
-    /**@brief Sets a parameter
-     * @param[in] key The parameter's name
-     * @param[in] value The parameter's value
-     */
-    void setParameter(const std::string& key, const std::string& value);
-
     /// @brief get SUMOBaseObject with all POIattributes
     CommonXMLStructure::SumoBaseObject* getSumoBaseObject() const;
 
-    /// @name inherited from GNEShape
+    /// @name inherited from GNEAdditional
     /// @{
     /// @brief update pre-computed geometry information
     void updateGeometry();
@@ -129,10 +123,13 @@ public:
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
-    /**@brief writte shape element into a xml file
+    /// @brief split geometry
+    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+
+    /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    void writeShape(OutputDevice& device);
+    void writeAdditional(OutputDevice& device) const;
 
     /// @brief Returns the numerical id of the object
     GUIGlID getGlID() const;
@@ -155,15 +152,6 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /**@brief Returns an own parameter window
-     *
-     * @param[in] app The application needed to build the parameter window
-     * @param[in] parent The parent window needed to build the parameter window
-     * @return The built parameter window
-     * @see GUIGlObject::getParameterWindow
-     */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
@@ -178,6 +166,15 @@ public:
      * @return string with the value associated to key
      */
     std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getAttributeDouble(SumoXMLAttr key) const;
+
+    /// @brief get parameters map
+    const Parameterised::Map& getACParametersMap() const;
 
     /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -199,8 +196,11 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 
-    /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
 
 protected:
     /// @brief shape width of POI

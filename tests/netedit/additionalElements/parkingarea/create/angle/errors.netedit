@@ -1,7 +1,6 @@
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'parkingArea' in TagSelector
-Debug: Invalid input parameter of parkingArea: 'angle' doesn't have a valid 'float' format between [0, 360]
-Debug: Invalid input parameter of parkingArea: 'angle' doesn't have a valid 'float' format between [0, 360]
+Debug: Invalid input parameter of parkingArea
+Debug: Invalid input parameter of parkingArea
 Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
 Debug: Adding parkingArea 'pa_1' in GNEChange_Additional
 Debug: Adding parkingArea 'pa_2' in GNEChange_Additional

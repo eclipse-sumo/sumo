@@ -24,7 +24,7 @@
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_TAZElement.h>
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/additional/GNETAZSourceSink.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
@@ -262,7 +262,7 @@ GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
         myEditedTAZ->updateTAZStadistic();
         myTAZFrameParent->myTAZCommonStatistics->updateStatistics();
         // iterate over child TAZElements and create TAZEdges
-        for (const auto& TAZElement : myEditedTAZ->getChildTAZElements()) {
+        for (const auto& TAZElement : myEditedTAZ->getChildAdditionals()) {
             addTAZChild(dynamic_cast<GNETAZSourceSink*>(TAZElement));
         }
         // update colors after add all edges
@@ -375,7 +375,7 @@ GNETAZFrame::TAZCommonStatistics::updateStatistics() {
         // declare ostringstream for statistics
         std::ostringstream information;
         information
-                << "- Number of edges: " << toString(myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildTAZElements().size() / 2) << "\n"
+                << "- Number of edges: " << toString(myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildAdditionals().size() / 2) << "\n"
                 << "- Min source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MIN_SOURCE) << "\n"
                 << "- Max source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MAX_SOURCE) << "\n"
                 << "- Average source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SOURCE) << "\n"
@@ -1415,11 +1415,11 @@ GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelpe
             myDrawingShape->addNewPoint(clickedPosition);
         }
         return true;
-    } else if ((myCurrentTAZ->getTAZ() == nullptr) || (objectsUnderCursor.getTAZElementFront() && myCurrentTAZ->getTAZ() && !myTAZSaveChanges->isChangesPending())) {
+    } else if ((myCurrentTAZ->getTAZ() == nullptr) || (objectsUnderCursor.getTAZFront() && myCurrentTAZ->getTAZ() && !myTAZSaveChanges->isChangesPending())) {
         // if user click over an TAZ and there isn't changes pending, then select a new TAZ
-        if (objectsUnderCursor.getTAZElementFront()) {
+        if (objectsUnderCursor.getTAZFront()) {
             // avoid reset of Frame if user doesn't click over an TAZ
-            myCurrentTAZ->setTAZ(dynamic_cast<GNETAZ*>(objectsUnderCursor.getTAZElementFront()));
+            myCurrentTAZ->setTAZ(objectsUnderCursor.getTAZFront());
             // update TAZStadistics
             myCurrentTAZ->getTAZ()->updateTAZStadistic();
             myTAZCommonStatistics->updateStatistics();
@@ -1530,7 +1530,7 @@ GNETAZFrame::shapeDrawed() {
         // obtain Netedit attributes
         myNeteditAttributes->getNeteditAttributesAndValues(myBaseTAZ, nullptr);
         // generate new ID
-        myBaseTAZ->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateTAZElementID(SUMO_TAG_TAZ));
+        myBaseTAZ->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_TAZ));
         // obtain shape and close it
         PositionVector shape = myDrawingShape->getTemporalShape();
         shape.closePolygon();
@@ -1575,11 +1575,11 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge* edge) {
                 // enable save changes button
                 myTAZSaveChanges->enableButtonsAndBeginUndoList();
                 // remove Source and Sinks using GNEChange_TAZElement
-                if (myViewNet->getNet()->getAttributeCarriers()->TAZElementExist(TAZEdgeColor.source)) {
-                    myViewNet->getUndoList()->add(new GNEChange_TAZElement(TAZEdgeColor.source, false), true);
+                if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.source, false)) {
+                    myViewNet->getUndoList()->add(new GNEChange_Additional(TAZEdgeColor.source, false), true);
                 }
-                if (myViewNet->getNet()->getAttributeCarriers()->TAZElementExist(TAZEdgeColor.sink)) {
-                    myViewNet->getUndoList()->add(new GNEChange_TAZElement(TAZEdgeColor.sink, false), true);
+                if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.sink, false)) {
+                    myViewNet->getUndoList()->add(new GNEChange_Additional(TAZEdgeColor.sink, false), true);
                 }
                 // always refresh TAZ Edges after removing TAZSources/Sinks
                 myCurrentTAZ->refreshTAZEdges();
@@ -1591,11 +1591,11 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge* edge) {
         // if wasn't found, then add it
         myTAZSaveChanges->enableButtonsAndBeginUndoList();
         // create TAZ Sink using GNEChange_TAZElement and value of TAZChild default parameters
-        GNETAZSourceSink* source = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, myCurrentTAZ->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSourceWeight());
-        myViewNet->getUndoList()->add(new GNEChange_TAZElement(source, true), true);
+        GNEAdditional* source = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, myCurrentTAZ->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSourceWeight());
+        myViewNet->getUndoList()->add(new GNEChange_Additional(source, true), true);
         // create TAZ Sink using GNEChange_TAZElement and value of TAZChild default parameters
-        GNETAZSourceSink* sink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, myCurrentTAZ->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSinkWeight());
-        myViewNet->getUndoList()->add(new GNEChange_TAZElement(sink, true), true);
+        GNEAdditional* sink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, myCurrentTAZ->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSinkWeight());
+        myViewNet->getUndoList()->add(new GNEChange_Additional(sink, true), true);
         // always refresh TAZ Edges after adding TAZSources/Sinks
         myCurrentTAZ->refreshTAZEdges();
         // update selected button
@@ -1614,11 +1614,11 @@ GNETAZFrame::dropTAZMembers() {
         // enable save changes button
         myTAZSaveChanges->enableButtonsAndBeginUndoList();
         // remove Source and Sinks using GNEChange_TAZElement
-        if (myViewNet->getNet()->getAttributeCarriers()->TAZElementExist(TAZEdgeColor.source)) {
-            myViewNet->getUndoList()->add(new GNEChange_TAZElement(TAZEdgeColor.source, false), true);
+        if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.source, false)) {
+            myViewNet->getUndoList()->add(new GNEChange_Additional(TAZEdgeColor.source, false), true);
         }
-        if (myViewNet->getNet()->getAttributeCarriers()->TAZElementExist(TAZEdgeColor.sink)) {
-            myViewNet->getUndoList()->add(new GNEChange_TAZElement(TAZEdgeColor.sink, false), true);
+        if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.sink, false)) {
+            myViewNet->getUndoList()->add(new GNEChange_Additional(TAZEdgeColor.sink, false), true);
         }
     }
     // always refresh TAZ Edges after removing TAZSources/Sinks

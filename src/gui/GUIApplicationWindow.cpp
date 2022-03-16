@@ -30,6 +30,7 @@
 #include <sstream>
 #include <algorithm>
 #include <iomanip>
+#include <fxkeys.h>
 
 #include <guisim/GUINet.h>
 #include <guisim/GUILane.h>
@@ -53,10 +54,12 @@
 
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/Command.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/FXLinkLabel.h>
+#include <utils/foxtools/MFXRealSpinner.h>
 
 #include <utils/xml/XMLSubSys.h>
 #include <utils/gui/images/GUITexturesHelper.h>
@@ -108,6 +111,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_EDGEDATA,                                  GUIApplicationWindow::onCmdOpenEdgeData),
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                                     GUIApplicationWindow::onCmdOpenRecent),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R_RELOAD,                           GUIApplicationWindow::onCmdReload),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_QUICK_RELOAD,                       GUIApplicationWindow::onCmdQuickReload),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,             GUIApplicationWindow::onCmdSaveConfig),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_W_CLOSESIMULATION,                  GUIApplicationWindow::onCmdClose),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITCHOSEN,                                     GUIApplicationWindow::onCmdEditChosen),
@@ -131,7 +135,10 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,          GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,               GUIApplicationWindow::onCmdStop),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,  GUIApplicationWindow::onCmdStep),
+    FXMAPFUNC(SEL_COMMAND,  MID_DELAY_INC,                                              GUIApplicationWindow::onCmdDelayInc),
+    FXMAPFUNC(SEL_COMMAND,  MID_DELAY_DEC,                                              GUIApplicationWindow::onCmdDelayDec),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMSAVE,                                                GUIApplicationWindow::onCmdSaveState),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMLOAD,                                                GUIApplicationWindow::onCmdLoadState),
     FXMAPFUNC(SEL_COMMAND,  MID_TIME_TOGGLE,                                            GUIApplicationWindow::onCmdTimeToggle),
     FXMAPFUNC(SEL_COMMAND,  MID_DELAY_TOGGLE,                                           GUIApplicationWindow::onCmdDelayToggle),
     FXMAPFUNC(SEL_COMMAND,  MID_DEMAND_SCALE,                                           GUIApplicationWindow::onCmdDemandScale),
@@ -141,12 +148,15 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWVEHSTATS,       GUIApplicationWindow::onCmdShowStats),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPERSONSTATS,    GUIApplicationWindow::onCmdShowStats),
 
+    // these functions do not assign shortcut keys to commands, but rather affect the button enable status upon other events (e.g. simulation loaded)
+    // since those events are invoked through pseudo key events (?), the same key shortcuts as in cmd must be supplied as well
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,            GUIApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,           GUIApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,           GUIApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_P,          GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_EDGEDATA,          GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,   GUIApplicationWindow::onUpdReload),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_QUICK_RELOAD, GUIApplicationWindow::onUpdReload),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,             GUIApplicationWindow::onUpdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,          GUIApplicationWindow::onUpdAddView),
 #ifdef HAVE_OSG
@@ -156,6 +166,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,               GUIApplicationWindow::onUpdStop),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,  GUIApplicationWindow::onUpdStep),
     FXMAPFUNC(SEL_UPDATE,   MID_SIMSAVE,                                                GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_SIMLOAD,                                                GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,                                             GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,          GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F9_EDIT_VIEWSCHEME,                              GUIApplicationWindow::onUpdNeedsSimulation),
@@ -326,6 +337,9 @@ GUIApplicationWindow::create() {
     FXint textWidth = getApp()->getNormalFont()->getTextWidth("8", 1) * 24;
     myCartesianFrame->setWidth(textWidth);
     myGeoFrame->setWidth(textWidth);
+    if (myTestFrame) {
+        myTestFrame->setWidth(textWidth);
+    }
 
     show(PLACEMENT_DEFAULT);
     if (!OptionsCont::getOptions().isSet("window-size")) {
@@ -366,6 +380,12 @@ GUIApplicationWindow::~GUIApplicationWindow() {
         myEvents.pop();
         delete e;
     }
+    for (auto item : myHotkeyPress) {
+        delete item.second;
+    }
+    for (auto item : myHotkeyRelease) {
+        delete item.second;
+    }
 }
 
 
@@ -401,6 +421,9 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            "&Reload", "Ctrl+R", "Reloads the simulation / the network.",
                                            GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_HOTKEY_CTRL_R_RELOAD);
+    GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
+                                           "Quick-Reload", "Ctrl+0", "Reloads the simulation (but not network).",
+                                           GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_HOTKEY_CTRL_QUICK_RELOAD);
     new FXMenuSeparator(myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            "Save Configuration", "Ctrl+Shift+S", "Save current options as a configuration file.",
@@ -518,20 +541,29 @@ GUIApplicationWindow::fillMenuBar() {
                     this, MID_LISTTELEPORTING);
 
     // build control menu
+    // the shortcut designator is not only at text in the submenu but also defines the real shortcut key assigned with it!
+    // secondary shortcuts (ctrl+A, ctrl+S, ctrl+D) are defined in GUIShortcutsSubSys::buildSUMOAccelerators
     myControlMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, "Simulation", nullptr, myControlMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
-                                           "Run", "Ctrl+A", "Start running the simulation.",
+                                           "Run", "A,space", "Start/ Resume the simulation.",
                                            GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
-                                           "Stop", "Ctrl+S", "Stop running the simulation.",
+                                           "Stop", "S,space", "Halt the simulation.",
                                            GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
-                                           "Step", "Ctrl+D", "Perform one simulation step.",
+                                           "Step", "D", "Perform one simulation step.",
                                            GUIIconSubSys::getIcon(GUIIcon::STEP), this, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS);
+    GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
+                                           "Delay+", "PgUp", "Increase simulation step delay.", nullptr, this, MID_DELAY_INC);
+    GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
+                                           "Delay-", "PgDn", "Decrease simulation step delay.", nullptr, this, MID_DELAY_DEC);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
                                            "Save", "", "Save the current simulation state to a file.",
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SIMSAVE);
+    GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
+                                           "Load", "", "Load simulation state for the current network from file.",
+                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_SIMLOAD);
 
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
@@ -611,8 +643,8 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar2 = new FXToolBar(myTopDock, myToolBarDrag2, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build simulation tools
-        new FXButton(myToolBar2, "\t\tStart the loaded simulation.", GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS, GUIDesignButtonToolbar);
-        new FXButton(myToolBar2, "\t\tStop the running simulation.", GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
+        new FXButton(myToolBar2, "\t\tStart/Resume the loaded simulation.", GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS, GUIDesignButtonToolbar);
+        new FXButton(myToolBar2, "\t\tHalt the running simulation.", GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
         new FXButton(myToolBar2, "\t\tPerform a single simulation step.", GUIIconSubSys::getIcon(GUIIcon::STEP), this, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS, GUIDesignButtonToolbar);
     }
     {
@@ -638,7 +670,7 @@ GUIApplicationWindow::buildToolBars() {
         // create spinner for delay
         mySimDelay = 0;
         mySimDelayTarget = new FXDataTarget(mySimDelay);
-        mySimDelaySpinner = new FXRealSpinner(myToolBar4, 7, mySimDelayTarget, FXDataTarget::ID_VALUE, GUIDesignSpinDial);
+        mySimDelaySpinner = new MFXRealSpinner(myToolBar4, 7, mySimDelayTarget, FXDataTarget::ID_VALUE, GUIDesignSpinDial);
         // create slider
         mySimDelaySlider = new FXSlider(myToolBar4, mySimDelayTarget, FXDataTarget::ID_VALUE, GUIDesignSlider);
         mySimDelaySlider->setRange(0, 1000);
@@ -658,7 +690,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar8 = new FXToolBar(myTopDock, myToolBarDrag8, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar8, myToolBar8, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXLabel(myToolBar8, "Scale Traffic:\t\tScale traffic from flows and vehicles that are loaded incrementally from route files", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
-        myDemandScaleSpinner = new FXRealSpinner(myToolBar8, 7, this, MID_DEMAND_SCALE, GUIDesignSpinDial);
+        myDemandScaleSpinner = new MFXRealSpinner(myToolBar8, 7, this, MID_DEMAND_SCALE, GUIDesignSpinDial);
         myDemandScaleSpinner->setIncrement(0.5);
         myDemandScaleSpinner->setRange(0, 1000);
         myDemandScaleSpinner->setValue(1);
@@ -983,6 +1015,16 @@ GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
 
 
 long
+GUIApplicationWindow::onCmdQuickReload(FXObject*, FXSelector, void*) {
+    if (!myAmLoading) {
+        setStatusBarText("Quick-Reloading.");
+        MSNet::getInstance()->quickReload();
+    }
+    return 1;
+}
+
+
+long
 GUIApplicationWindow::onCmdOpenRecent(FXObject* /* sender */, FXSelector, void* ptr) {
     if (myAmLoading) {
         myStatusbar->getStatusLine()->setText("Already loading!");
@@ -1011,10 +1053,10 @@ GUIApplicationWindow::onCmdSaveConfig(FXObject*, FXSelector, void*) {
                        opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
     std::ofstream out(StringUtils::transcodeToLocal(file));
     if (out.good()) {
-        OptionsCont::getOptions().writeConfiguration(out, true, false, false);
+        OptionsCont::getOptions().writeConfiguration(out, true, false, false, file, true);
         setStatusBarText("Configuration saved to " + file);
     } else {
-        setStatusBarText("Could not save onfiguration to " + file);
+        setStatusBarText("Could not save configuration to " + file);
     }
     out.close();
     return 1;
@@ -1130,6 +1172,29 @@ GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+long
+GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
+    // get the new file name
+    FXFileDialog opendialog(this, "Load Simulation State");
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
+    opendialog.setSelectMode(SELECTFILE_ANY);
+    opendialog.setPatternList("GZipped State (*.xml.gz)\nXML State (*.xml)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute() && FXStat::exists(opendialog.getFilename())) {
+        gCurrentFolder = opendialog.getDirectory();
+        const std::string file = opendialog.getFilename().text();
+        try {
+            MSNet::getInstance()->loadState(file);
+            setStatusBarText("Simulation loaded from '" + file + "'");
+        } catch (ProcessError& e) {
+            setStatusBarText("Failed to load state from '" + file + "' (" + e.what() + ")");
+        }
+    }
+    return 1;
+}
+
 
 long
 GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
@@ -1137,6 +1202,44 @@ GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
     if (myRunThread->simulationAvailable()) {
         updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
     }
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdDelayInc(FXObject*, FXSelector, void*) {
+    if (mySimDelay < 10) {
+        mySimDelay = 10;
+    } else if (mySimDelay >=20 && mySimDelay < 50) {
+        mySimDelay = 50;
+    } else if (mySimDelay >= 200 && mySimDelay < 500) {
+        mySimDelay = 500;
+    } else {
+        mySimDelay *= 2;
+    }
+    if (mySimDelay > 1000) {
+        // setting high delay by pressing the key too often is hard to recover from
+        mySimDelay = 1000;
+    }
+    mySimDelaySlider->setValue((int)mySimDelay);
+    mySimDelaySpinner->setValue(mySimDelay);
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdDelayDec(FXObject*, FXSelector, void*) {
+    if (mySimDelay <= 10) {
+        mySimDelay = 0;
+    } else if (mySimDelay > 20 && mySimDelay <= 50) {
+        mySimDelay = 20;
+    } else if (mySimDelay > 200 && mySimDelay <= 500) {
+        mySimDelay = 200;
+    } else {
+        mySimDelay /= 2;
+    }
+    mySimDelaySlider->setValue((int)mySimDelay);
+    mySimDelaySpinner->setValue(mySimDelay);
     return 1;
 }
 
@@ -1172,6 +1275,9 @@ GUIApplicationWindow::onUpdStart(FXObject* sender, FXSelector, void* ptr) {
                    !myRunThread->simulationIsStartable() || myAmLoading
                    ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
                    ptr);
+    if (myRunThread->simulationIsStartable() && !myAmLoading) {
+        GUIShortcutsSubSys::alterSUMOAccelerator(this, KEY_SPACE, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
+    }
     return 1;
 }
 
@@ -1182,6 +1288,9 @@ GUIApplicationWindow::onUpdStop(FXObject* sender, FXSelector, void* ptr) {
                    !myRunThread->simulationIsStopable() || myAmLoading
                    ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
                    ptr);
+    if (myRunThread->simulationIsStopable() && !myAmLoading) {
+        GUIShortcutsSubSys::alterSUMOAccelerator(this, KEY_SPACE, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
+    }
     return 1;
 }
 
@@ -1580,6 +1689,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             if (myDemandScaleSpinner->getValue() == 1 || !OptionsCont::getOptions().isDefault("scale")) {
                 myDemandScaleSpinner->setValue(OptionsCont::getOptions().getFloat("scale"));
             }
+            myRunThread->getNet().getVehicleControl().setScale(myDemandScaleSpinner->getValue());
         }
     }
     getApp()->endWaitCursor();
@@ -1844,6 +1954,9 @@ GUIApplicationWindow::closeAllWindows() {
     // remove coordinate information
     myGeoCoordinate->setText("N/A");
     myCartesianCoordinate->setText("N/A");
+    if (myTestCoordinate) {
+        myTestCoordinate->setText("N/A");
+    }
     //
     GUITexturesHelper::clearTextures();
     GLHelper::resetFont();
@@ -1921,14 +2034,36 @@ GUIApplicationWindow::updateTimeLCD(SUMOTime time) {
     myLCDLabel->setText(str.str().c_str());
 }
 
+void
+GUIApplicationWindow::addHotkey(int key, Command* press, Command* release) {
+    if (press != nullptr) {
+        myHotkeyPress[key] = press;
+    }
+    if (release != nullptr) {
+        myHotkeyRelease[key] = release;
+    }
+}
 
 long
 GUIApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
-    const long handled = FXMainWindow::onKeyPress(o, sel, ptr);
-    if (handled == 0 && myMDIClient->numChildren() > 0) {
-        GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
-        if (w != nullptr) {
-            w->onKeyPress(nullptr, sel, ptr);
+    FXEvent* e = (FXEvent*) ptr;
+    // PgUp and PgDown switch between widgets by default and binding them via menu shortcuts does not work reliably
+    // so we must intercept them before FXMainWindow can handle it
+    if (e->code == FX::KEY_Page_Up) {
+        onCmdDelayInc(nullptr, 0, nullptr);
+    } else if (e->code == FX::KEY_Page_Down) {
+        onCmdDelayDec(nullptr, 0, nullptr);
+    } else {
+        const long handled = FXMainWindow::onKeyPress(o, sel, ptr);
+        if (handled == 0 && myMDIClient->numChildren() > 0) {
+            auto it = myHotkeyPress.find(e->code);
+            if (it != myHotkeyPress.end()) {
+                it->second->execute(SIMSTEP);
+            }
+            GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+            if (w != nullptr) {
+                w->onKeyPress(nullptr, sel, ptr);
+            }
         }
     }
     return 0;
@@ -1939,6 +2074,11 @@ long
 GUIApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
     const long handled = FXMainWindow::onKeyRelease(o, sel, ptr);
     if (handled == 0 && myMDIClient->numChildren() > 0) {
+        FXEvent* e = (FXEvent*) ptr;
+        auto it = myHotkeyRelease.find(e->code);
+        if (it != myHotkeyRelease.end()) {
+            it->second->execute(SIMSTEP);
+        }
         GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
         if (w != nullptr) {
             w->onKeyRelease(nullptr, sel, ptr);

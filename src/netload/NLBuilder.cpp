@@ -48,6 +48,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/devices/MSDevice.h>
 #include <microsim/devices/MSDevice_ToC.h>
+#include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -151,31 +152,6 @@ NLBuilder::build() {
         }
     }
 
-    // load additional net elements (sources, detectors, ...)
-    if (myOptions.isSet("additional-files")) {
-        if (!load("additional-files")) {
-            return false;
-        }
-        // load shapes with separate handler
-        NLShapeHandler sh("", myNet.getShapeContainer());
-        if (!ShapeHandler::loadFiles(myOptions.getStringVector("additional-files"), sh)) {
-            return false;
-        }
-        if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
-            myNet.getEdgeControl().setAdditionalRestrictions();
-        }
-        if (MSGlobals::gUseMesoSim && myXMLHandler.haveSeenMesoEdgeType()) {
-            myNet.getEdgeControl().setMesoTypes();
-            for (MSTrafficLightLogic* tll : myNet.getTLSControl().getAllLogics()) {
-                tll->initMesoTLSPenalties();
-            }
-        }
-        MSTriggeredRerouter::checkParkingRerouteConsistency();
-    }
-    if (stateBeginMismatch && myNet.getVehicleControl().getLoadedVehicleNo() > 0) {
-        throw ProcessError("Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files");
-    }
-
     if (myOptions.getBool("junction-taz")) {
         // create a TAZ for every junction
         const MSJunctionControl& junctions = myNet.getJunctionControl();
@@ -208,6 +184,32 @@ NLBuilder::build() {
             }
         }
     }
+
+    // load additional net elements (sources, detectors, ...)
+    if (myOptions.isSet("additional-files")) {
+        if (!load("additional-files")) {
+            return false;
+        }
+        // load shapes with separate handler
+        NLShapeHandler sh("", myNet.getShapeContainer());
+        if (!ShapeHandler::loadFiles(myOptions.getStringVector("additional-files"), sh)) {
+            return false;
+        }
+        if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
+            myNet.getEdgeControl().setAdditionalRestrictions();
+        }
+        if (MSGlobals::gUseMesoSim && myXMLHandler.haveSeenMesoEdgeType()) {
+            myNet.getEdgeControl().setMesoTypes();
+            for (MSTrafficLightLogic* tll : myNet.getTLSControl().getAllLogics()) {
+                tll->initMesoTLSPenalties();
+            }
+        }
+        MSTriggeredRerouter::checkParkingRerouteConsistency();
+    }
+    if (stateBeginMismatch && myNet.getVehicleControl().getLoadedVehicleNo() > 0) {
+        throw ProcessError("Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files");
+    }
+
     // load weights if wished
     if (myOptions.isSet("weight-files")) {
         if (!myOptions.isUsableFileList("weight-files")) {
@@ -242,6 +244,7 @@ NLBuilder::build() {
     }
     // load the previous state if wished
     if (myOptions.isSet("load-state")) {
+        myNet.setCurrentTimeStep(string2time(myOptions.getString("begin")));
         const std::string& f = myOptions.getString("load-state");
         long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + f + "'");
         MSStateHandler h(f, string2time(myOptions.getString("load-state.offset")));
@@ -310,7 +313,7 @@ NLBuilder::init(const bool isLibsumo) {
     // need to init TraCI-Server before loading routes to catch VehicleState::BUILT
     TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
     if (isLibsumo) {
-        libsumo::Helper::registerVehicleStateListener();
+        libsumo::Helper::registerStateListener();
     }
 
     NLEdgeControlBuilder eb;
@@ -339,6 +342,7 @@ NLBuilder::initRandomness() {
     RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
     RandHelper::initRandGlobal(OUProcess::getRNG());
     RandHelper::initRandGlobal(MSDevice_ToC::getResponseTimeRNG());
+    RandHelper::initRandGlobal(MSDevice_BTreceiver::getRecognitionRNG());
     MSLane::initRNGs(OptionsCont::getOptions());
 }
 

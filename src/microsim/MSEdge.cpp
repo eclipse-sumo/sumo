@@ -149,6 +149,29 @@ void MSEdge::recalcCache() {
 
 
 void
+MSEdge::resetTAZ(MSJunction* junction) {
+    mySuccessors.clear();
+    myPredecessors.clear();
+    for (const MSEdge* edge : junction->getIncoming()) {
+        if (!edge->isInternal()) {
+            MSEdgeVector& succ = const_cast<MSEdgeVector&>(edge->mySuccessors);
+            MSConstEdgePairVector& succVia = const_cast<MSConstEdgePairVector&>(edge->myViaSuccessors);
+            MSEdgeVector& pred = const_cast<MSEdgeVector&>(edge->myPredecessors);
+            auto it = std::find(succ.begin(), succ.end(), this);
+            auto it2 = std::find(succVia.begin(), succVia.end(), std::make_pair(const_cast<const MSEdge*>(this), (const MSEdge*)nullptr));
+            auto it3 = std::find(pred.begin(), pred.end(), this);
+            if (it != succ.end()) {
+                succ.erase(it);
+                succVia.erase(it2);
+            }
+            if (it3 != pred.end()) {
+                pred.erase(it3);
+            }
+        }
+    }
+}
+
+void
 MSEdge::closeBuilding() {
     for (MSLane* const lane : *myLanes) {
         for (MSLink* const link : lane->getLinkCont()) {
@@ -178,12 +201,8 @@ MSEdge::closeBuilding() {
         lane->checkBufferType();
     }
     std::sort(mySuccessors.begin(), mySuccessors.end(), by_id_sorter());
-    rebuildAllowedLanes();
+    rebuildAllowedLanes(true);
     recalcCache();
-    // segment building depends on the finished list of successors (for multi-queue)
-    if (MSGlobals::gUseMesoSim && !myLanes->empty()) {
-        MSGlobals::gMesoNet->buildSegmentsFor(*this, OptionsCont::getOptions());
-    }
 
     // extend lookup table for sublane model after all edges are read
     if (myLanes->back()->getOpposite() != nullptr) {
@@ -268,7 +287,7 @@ MSEdge::getMesoPermissions(SVCPermissions p, SVCPermissions ignoreIgnored) {
 
 
 void
-MSEdge::rebuildAllowedLanes() {
+MSEdge::rebuildAllowedLanes(const bool onInit) {
     // rebuild myMinimumPermissions and myCombinedPermissions
     myMinimumPermissions = SVCAll;
     myCombinedPermissions = 0;
@@ -296,13 +315,15 @@ MSEdge::rebuildAllowedLanes() {
             }
         }
     }
-    rebuildAllowedTargets(false);
-    for (MSEdge* pred : myPredecessors) {
-        pred->rebuildAllowedTargets(false);
-    }
-    if (MSGlobals::gUseMesoSim) {
-        for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*this); s != nullptr; s = s->getNextSegment()) {
-            s->updatePermissions();
+    if (!onInit) {
+        rebuildAllowedTargets(false);
+        for (MSEdge* pred : myPredecessors) {
+            pred->rebuildAllowedTargets(false);
+        }
+        if (MSGlobals::gUseMesoSim) {
+            for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*this); s != nullptr; s = s->getNextSegment()) {
+                s->updatePermissions();
+            }
         }
     }
 }
@@ -518,6 +539,9 @@ MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
             break;
         case DepartPosDefinition::BASE:
         case DepartPosDefinition::DEFAULT:
+            if (!upper) {
+                pos = 0;
+            }
             break;
         default:
             pos = MIN2(pos, veh.getVehicleType().getLength());
@@ -851,7 +875,8 @@ MSEdge::getMeanFriction() const {
     double f = 0;
     double no = 0;
     if (MSGlobals::gUseMesoSim) {
-        //return get
+        //return get TODO
+        return 1.0;
     }
     else {
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
@@ -906,12 +931,12 @@ MSEdge::getRoutingSpeed() const {
 
 bool
 MSEdge::dictionary(const std::string& id, MSEdge* ptr) {
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict[id] = ptr;
-        while ((int)myEdges.size() < ptr->getNumericalID() + 1) {
-            myEdges.push_back(0);
+    const DictType::iterator it = myDict.lower_bound(id);
+    if (it == myDict.end() || it->first != id) {
+        // id not in myDict
+        myDict.emplace_hint(it, id, ptr);
+        while (ptr->getNumericalID() >= (int)myEdges.size()) {
+            myEdges.push_back(nullptr);
         }
         myEdges[ptr->getNumericalID()] = ptr;
         return true;
@@ -922,18 +947,24 @@ MSEdge::dictionary(const std::string& id, MSEdge* ptr) {
 
 MSEdge*
 MSEdge::dictionary(const std::string& id) {
-    DictType::iterator it = myDict.find(id);
+    const DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
-        // id not in myDict.
         return nullptr;
     }
     return it->second;
 }
 
 
-int
-MSEdge::dictSize() {
-    return (int)myDict.size();
+MSEdge*
+MSEdge::dictionaryHint(const std::string& id, const int startIdx) {
+    // this method is mainly useful when parsing connections from the net.xml which are sorted by "from" id
+    if (myEdges[startIdx] != nullptr && myEdges[startIdx]->getID() == id) {
+        return myEdges[startIdx];
+    }
+    if (startIdx + 1 < (int)myEdges.size() && myEdges[startIdx + 1] != nullptr && myEdges[startIdx + 1]->getID() == id) {
+        return myEdges[startIdx + 1];
+    }
+    return dictionary(id);
 }
 
 
@@ -1052,15 +1083,20 @@ MSEdge::setFrictionCoefficient(double val) const {
 }
 
 void
-MSEdge::addPerson(MSTransportable* p) const {
-    myPersons.insert(p);
+MSEdge::addTransportable(MSTransportable* t) const {
+    if (t->isPerson()) {
+        myPersons.insert(t);
+    } else {
+        myContainers.insert(t);
+    }
 }
 
 void
-MSEdge::removePerson(MSTransportable* p) const {
-    std::set<MSTransportable*>::iterator i = myPersons.find(p);
-    if (i != myPersons.end()) {
-        myPersons.erase(i);
+MSEdge::removeTransportable(MSTransportable* t) const {
+    std::set<MSTransportable*>& tc = t->isPerson() ? myPersons : myContainers;
+    auto it = tc.find(t);
+    if (it != tc.end()) {
+        tc.erase(it);
     }
 }
 
@@ -1191,7 +1227,9 @@ bool
 MSEdge::canChangeToOpposite() const {
     return (!myLanes->empty() && myLanes->back()->getOpposite() != nullptr &&
             // do not change on curved internal lanes
-            (!isInternal() || myLanes->back()->getIncomingLanes()[0].viaLink->getDirection() == LinkDirection::STRAIGHT));
+            (!isInternal()
+             || (MSGlobals::gUsingInternalLanes
+                 && myLanes->back()->getIncomingLanes()[0].viaLink->getDirection() == LinkDirection::STRAIGHT)));
 }
 
 
@@ -1292,8 +1330,8 @@ MSEdge::getWaitingVehicle(MSTransportable* transportable, const double position)
         if (transportable->isWaitingFor(vehicle)) {
             if (vehicle->isStoppedInRange(position, MSGlobals::gStopTolerance) ||
                     (!vehicle->hasDeparted() &&
-                     (vehicle->getParameter().departProcedure == DEPART_TRIGGERED ||
-                      vehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED))) {
+                     (vehicle->getParameter().departProcedure == DepartDefinition::TRIGGERED ||
+                      vehicle->getParameter().departProcedure == DepartDefinition::CONTAINER_TRIGGERED))) {
                 return vehicle;
             }
             if (!vehicle->isLineStop(position) && vehicle->allowsBoarding(transportable)) {
@@ -1435,6 +1473,14 @@ MSEdge::inferEdgeType() {
             }
         }
     }
+}
+
+
+void
+MSEdge::clearState() {
+    myPersons.clear();
+    myContainers.clear();
+    myWaiting.clear();
 }
 
 /****************************************************************************/

@@ -48,6 +48,30 @@ MultiEntryExit::getIDCount() {
 }
 
 
+std::vector<std::string>
+MultiEntryExit::getEntryLanes(const std::string& detID) {
+    return Dom::getStringVector(libsumo::VAR_LANES, detID);
+}
+
+
+std::vector<std::string>
+MultiEntryExit::getExitLanes(const std::string& detID) {
+    return Dom::getStringVector(libsumo::VAR_EXIT_LANES, detID);
+}
+
+
+std::vector<double>
+MultiEntryExit::getEntryPositions(const std::string& detID) {
+    return Dom::getDoubleVector(libsumo::VAR_POSITION, detID);
+}
+
+
+std::vector<double>
+MultiEntryExit::getExitPositions(const std::string& detID) {
+    return Dom::getDoubleVector(libsumo::VAR_EXIT_POSITIONS, detID);
+}
+
+
 int
 MultiEntryExit::getLastStepVehicleNumber(const std::string& detID) {
     return Dom::getInt(libsumo::LAST_STEP_VEHICLE_NUMBER, detID);

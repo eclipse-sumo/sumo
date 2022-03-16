@@ -54,6 +54,7 @@ ROMAFrame::fillOptions() {
     oc.addOptionSubTopic("Time");
 
     // insert options
+    ROFrame::fillOptions(oc, false, true);
     addImportOptions();
     addAssignmentOptions();
     // add rand options
@@ -65,13 +66,6 @@ void
 ROMAFrame::addImportOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     // register import options
-    oc.doRegister("output-file", 'o', new Option_FileName());
-    oc.addSynonyme("output-file", "output");
-    oc.addDescription("output-file", "Output", "Write flow definitions with route distributions to FILE");
-
-    oc.doRegister("vtype-output", new Option_FileName());
-    oc.addDescription("vtype-output", "Output", "Write used vehicle types into separate FILE");
-
     oc.doRegister("ignore-vehicle-type", new Option_Bool(false));
     oc.addSynonyme("ignore-vehicle-type", "no-vtype", true);
     oc.addDescription("ignore-vehicle-type", "Output", "Does not save vtype information");
@@ -81,16 +75,6 @@ ROMAFrame::addImportOptions() {
 
     oc.doRegister("all-pairs-output", new Option_FileName());
     oc.addDescription("all-pairs-output", "Output", "Writes complete distance matrix into FILE");
-
-    oc.doRegister("net-file", 'n', new Option_FileName());
-    oc.addSynonyme("net-file", "net");
-    oc.addDescription("net-file", "Input", "Use FILE as SUMO-network to route on");
-
-    oc.doRegister("additional-files", 'd', new Option_FileName());
-    oc.addSynonyme("additional-files", "additional");
-    oc.addSynonyme("additional-files", "taz-files");
-    oc.addSynonyme("additional-files", "districts", true);
-    oc.addDescription("additional-files", "Input", "Read additional network data (districts, bus stops) from FILE");
 
     oc.doRegister("od-matrix-files", 'm', new Option_FileName());
     oc.addSynonyme("od-matrix-files", "od-files");
@@ -108,79 +92,27 @@ ROMAFrame::addImportOptions() {
     oc.addSynonyme("tazrelation-attribute", "attribute");
     oc.addDescription("tazrelation-attribute", "Input", "Define data attribute for loading counts (default 'count')");
 
-    oc.doRegister("route-files", 'r', new Option_FileName());
-    oc.addSynonyme("route-files", "routes");
-    oc.addSynonyme("route-files", "trips");
-    oc.addSynonyme("route-files", "trip-files");
-    oc.addDescription("route-files", "Input", "Read sumo-routes or trips from FILE(s)");
-
-    oc.doRegister("weight-files", 'w', new Option_FileName());
-    oc.addSynonyme("weight-files", "weights");
-    oc.addDescription("weight-files", "Input", "Read network weights from FILE(s)");
-
-    oc.doRegister("lane-weight-files", new Option_FileName());
-    oc.addDescription("lane-weight-files", "Input", "Read lane-based network weights from FILE(s)");
-
-    oc.doRegister("weight-attribute", 'x', new Option_String("traveltime"));
-    oc.addSynonyme("weight-attribute", "measure", true);
-    oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
-
     oc.doRegister("weight-adaption", new Option_Float(0.));
     oc.addDescription("weight-adaption", "Input", "The travel time influence of prior intervals");
 
     oc.doRegister("taz-param", new Option_StringVector());
     oc.addDescription("taz-param", "Input", "Parameter key(s) defining source (and sink) taz");
 
-    oc.doRegister("junction-taz", new Option_Bool(false));
-    oc.addDescription("junction-taz", "Input", "Initialize a TAZ for every junction to use attributes toJunction and fromJunction");
-
     oc.doRegister("ignore-taz", new Option_Bool(false));
     oc.addDescription("ignore-taz", "Input", "Ignore attributes 'fromTaz' and 'toTaz'");
-
-    // need to do this here to be able to check for network and route input options
-    SystemFrame::addReportOptions(oc);
-
-    // register the time settings
-    oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
-    oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
-
-    oc.doRegister("end", 'e', new Option_String("-1", "TIME"));
-    oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent");
 
     // register the processing options
     oc.doRegister("aggregation-interval", new Option_String("3600", "TIME"));
     oc.addDescription("aggregation-interval", "Processing", "Defines the time interval when aggregating single vehicle input; Defaults to one hour");
 
-    oc.doRegister("ignore-errors", new Option_Bool(false));
-    oc.addSynonyme("ignore-errors", "continue-on-unbuild", true);
-    oc.addSynonyme("ignore-errors", "dismiss-loading-errors", true);
-    oc.addDescription("ignore-errors", "Report", "Continue if a route could not be build");
-
-    oc.doRegister("max-alternatives", new Option_Integer(5));
-    oc.addDescription("max-alternatives", "Processing", "Prune the number of alternatives to INT");
-
     oc.doRegister("capacities.default", new Option_Bool(false));
     oc.addDescription("capacities.default", "Processing", "Ignore edge priorities when calculating capacities and restraints");
-
-    oc.doRegister("weights.interpolate", new Option_Bool(false));
-    oc.addSynonyme("weights.interpolate", "interpolate", true);
-    oc.addDescription("weights.interpolate", "Processing", "Interpolate edge weights at interval boundaries");
-
-    oc.doRegister("weights.expand", new Option_Bool(false));
-    oc.addSynonyme("weights.expand", "expand-weights", true);
-    oc.addDescription("weights.expand", "Processing", "Expand weights behind the simulation's end");
 
     oc.doRegister("weights.priority-factor", new Option_Float(0));
     oc.addDescription("weights.priority-factor", "Processing", "Consider edge priorities in addition to travel times, weighted by factor");
 
-    oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
-    oc.addDescription("routing-algorithm", "Processing", "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
-
     oc.doRegister("bulk-routing.vtypes", new Option_Bool(false));
     oc.addDescription("bulk-routing.vtypes", "Processing", "Aggregate routing queries with the same origin for different vehicle types");
-
-    oc.doRegister("routing-threads", new Option_Integer(0));
-    oc.addDescription("routing-threads", "Processing", "The number of parallel execution threads used for routing");
 
     oc.doRegister("weight-period", new Option_String("3600", "TIME"));
     oc.addDescription("weight-period", "Processing", "Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy");

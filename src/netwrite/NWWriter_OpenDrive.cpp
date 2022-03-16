@@ -107,6 +107,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     device.closeTag();
 
+    SignalLanes signalLanes;
+
     // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         const NBEdge* e = (*i).second;
@@ -116,7 +118,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         getID(e->getID(), edgeMap, edgeID),
                         fromNodeID, toNodeID,
                         origNames, straightThresh,
-                        nb.getShapeCont());
+                        nb.getShapeCont(),
+                        signalLanes);
     }
     device.lf();
 
@@ -157,7 +160,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                                          inEdgeID,
                                                          getID(outEdge->getID(), edgeMap, edgeID),
                                                          connectionID,
-                                                         parallel, isOuterEdge, straightThresh, centerMark);
+                                                         parallel, isOuterEdge, straightThresh, centerMark, signalLanes);
                         parallel.clear();
                         isOuterEdge = false;
                     }
@@ -178,7 +181,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                                  inEdgeID,
                                                  getID(outEdge->getID(), edgeMap, edgeID),
                                                  connectionID,
-                                                 parallel, isOuterEdge, straightThresh, centerMark);
+                                                 parallel, isOuterEdge, straightThresh, centerMark, signalLanes);
                 parallel.clear();
             }
         }
@@ -187,32 +190,28 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         }
     }
     device.lf();
-    // write junctions (junction)
-    device << junctionOSS.getString();
-
+    // write controllers
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
-        const std::vector<NBEdge*>& incoming = n->getIncomingEdges();
-        // check if any connections must be written
-        int numConnections = 0;
-        for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            numConnections += (int)((*j)->getConnections().size());
-        }
-        if (numConnections == 0) {
-            continue;
-        }
-        for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            const NBEdge* inEdge = *j;
-            const std::vector<NBEdge::Connection>& elv = inEdge->getConnections();
-            for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                const NBEdge::Connection& c = *k;
-                const NBEdge* outEdge = c.toEdge;
-                if (outEdge == nullptr) {
-                    continue;
+        if (n->isTLControlled()) {
+            NBTrafficLightDefinition* tl = *n->getControllingTLS().begin();
+            std::set<std::string> ids;
+            device.openTag("controller");
+            device.writeAttr("id", tl->getID());
+            for (const NBConnection& c : tl->getControlledLinks()) {
+                const std::string id = tl->getID() + "_" + toString(c.getTLIndex());
+                if (ids.count(id) == 0) {
+                    ids.insert(id);
+                    device.openTag("control");
+                    device.writeAttr("signalId", id);
+                    device.closeTag();
                 }
             }
+            device.closeTag();
         }
     }
+    // write junctions (junction)
+    device << junctionOSS.getString();
 
     device.closeTag();
     device.close();
@@ -224,7 +223,8 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
                                     int edgeID, int fromNodeID, int toNodeID,
                                     const bool origNames,
                                     const double straightThresh,
-                                    const ShapeContainer& shc) {
+                                    const ShapeContainer& shc,
+                                    SignalLanes& signalLanes) {
     // buffer output because some fields are computed out of order
     OutputDevice_String elevationOSS(3);
     elevationOSS.setPrecision(8);
@@ -319,7 +319,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     device << "            </laneSection>\n";
     device << "        </lanes>\n";
     writeRoadObjects(device, e, shc);
-    device << "        <signals/>\n";
+    writeSignals(device, e, length, signalLanes);
     if (origNames) {
         device << "        <userData code=\"sumoId\" value=\"" << e->getID() << "\"/>\n";
     }
@@ -350,7 +350,8 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
                                       const std::vector<NBEdge::Connection>& parallel,
                                       const bool isOuterEdge,
                                       const double straightThresh,
-                                      const std::string& centerMark) {
+                                      const std::string& centerMark,
+                                      SignalLanes& signalLanes) {
     assert(parallel.size() != 0);
     const NBEdge::Connection& cLeft = parallel.back();
     const NBEdge* outEdge = cLeft.toEdge;
@@ -479,6 +480,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
     device << "            </laneSection>\n";
     device << "        </lanes>\n";
     device << "        <objects/>\n";
+    UNUSED_PARAMETER(signalLanes);
     device << "        <signals/>\n";
     device.closeTag();
     junctionDevice << "        </connection>\n";
@@ -685,6 +687,7 @@ NWWriter_OpenDrive::writeGeomPP3(
     device.writeAttr("bV", bV);
     device.writeAttr("cV", cV);
     device.writeAttr("dV", dV);
+    device.writeAttr("pRange", "normalized");
     device.closeTag();
     device.closeTag();
 
@@ -938,5 +941,83 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
     }
 }
 
+
+void
+NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double length,
+        SignalLanes& signalLanes)
+{
+    device.openTag("signals");
+    if (e->getToNode()->isTLControlled()) {
+        // try to faithfully represent the SUMO signal layout
+        // (if a realistic number of signals is needed, the user should set
+        // option --tls.group-signals)
+        NBTrafficLightDefinition* tl = *e->getToNode()->getControllingTLS().begin();
+        std::map<std::string, bool> toWrite;
+        for (const NBConnection& c : tl->getControlledLinks()) {
+            if (c.getFrom() == e) {
+                const std::string id = tl->getID() + "_" + toString(c.getTLIndex());
+                if (toWrite.count(id) == 0) {
+                    toWrite[id] = signalLanes.count(id) == 0;
+                }
+                signalLanes[id].first.insert(c.getFromLane());
+                signalLanes[id].second.insert(e->getToNode()->getDirection(e, c.getTo()));
+            }
+        }
+        for (auto item : toWrite) {
+            const std::string id = item.first;
+            const bool isNew = item.second;
+            const std::set<LinkDirection>& dirs = signalLanes[id].second;
+            const bool l = dirs.count(LinkDirection::LEFT) != 0 || dirs.count(LinkDirection::PARTLEFT) != 0;
+            const bool r = dirs.count(LinkDirection::RIGHT) != 0 || dirs.count(LinkDirection::PARTRIGHT) != 0;
+            const bool s = dirs.count(LinkDirection::STRAIGHT) != 0;
+            const std::string tag = isNew ? "signal" : "signalReference";
+            int firstLane = *signalLanes[id].first.begin();
+            double t = e->getLaneWidth(firstLane) * 0.5;
+            for (int i = firstLane + 1; i < e->getNumLanes(); i++) {
+                t += e->getLaneWidth(i);
+            }
+            device.openTag(tag);
+            device.writeAttr("id", id);
+            device.writeAttr("s", length);
+            device.writeAttr("t", -t);
+            device.writeAttr("orientation", "+");
+            if (isNew) {
+                int type = 1000001;
+                int subType = -1;
+                if (l && !s && !r) {
+                    type = 1000011;
+                    subType = 10;
+                } else if (!l && !s && r) {
+                    type = 1000011;
+                    subType = 20;
+                } else if (!l && s && !r) {
+                    type = 1000011;
+                    subType = 30;
+                } else if (l && s && !r) {
+                    type = 1000011;
+                    subType = 40;
+                } else if (!l && s && r) {
+                    type = 1000011;
+                    subType = 50;
+                }
+                device.writeAttr("dynamic", "yes");
+                device.writeAttr("zOffset", 5);
+                device.writeAttr("country", "OpenDRIVE");
+                device.writeAttr("type", type);
+                device.writeAttr("subtype", subType);
+                device.writeAttr("height", 0.78);
+                device.writeAttr("width", 0.26);
+            }
+            device.openTag("validity");
+            for (int lane : signalLanes[id].first) {
+                device.writeAttr("fromLane", lane);
+                device.writeAttr("toLane", lane);
+            }
+            device.closeTag();
+            device.closeTag();
+        }
+    }
+    device.closeTag();
+}
 
 /****************************************************************************/

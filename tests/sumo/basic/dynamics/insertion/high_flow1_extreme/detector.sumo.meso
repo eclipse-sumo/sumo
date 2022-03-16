@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb  1 15:21:42 2021 by Eclipse SUMO sumo Version v1_8_0+0859-2adf04d
+<!-- generated on 2022-02-11 11:28:37 by Eclipse SUMO sumo Version v1_12_0+0490-00f3a0f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -42,8 +47,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
-    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1834.39" density="21.09" laneDensity="21.09" occupancy="6.33" waitingTime="0.00" timeLoss="372.21" speed="28.70" departed="0" arrived="543" entered="546" left="0"/>
-    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="1925.72" density="22.14" laneDensity="22.14" occupancy="6.64" waitingTime="0.00" timeLoss="341.78" speed="29.24" departed="0" arrived="584" entered="582" left="0"/>
-    <interval begin="1800.00" end="2700.00" id="end2_0" sampledSeconds="1772.26" density="20.38" laneDensity="20.38" occupancy="6.11" waitingTime="0.00" timeLoss="294.71" speed="29.81" departed="0" arrived="547" entered="546" left="0"/>
-    <interval begin="2700.00" end="2899.00" id="end2_0" sampledSeconds="443.73" density="23.07" laneDensity="23.07" occupancy="6.92" waitingTime="0.00" timeLoss="103.53" speed="27.44" departed="0" arrived="126" entered="126" left="0"/>
+    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="2677.46" density="30.78" laneDensity="30.78" occupancy="9.23" waitingTime="0.00" timeLoss="548.45" speed="28.59" speedRelative="0.79" departed="0" arrived="790" entered="795" left="0"/>
+    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="3175.30" density="36.51" laneDensity="36.51" occupancy="10.95" waitingTime="0.00" timeLoss="711.53" speed="27.64" speedRelative="0.77" departed="0" arrived="908" entered="908" left="0"/>
+    <interval begin="1800.00" end="1898.00" id="end2_0" sampledSeconds="333.58" density="35.22" laneDensity="35.22" occupancy="10.57" waitingTime="0.00" timeLoss="62.47" speed="28.90" speedRelative="0.80" departed="0" arrived="102" entered="97" left="0"/>
 </detector>

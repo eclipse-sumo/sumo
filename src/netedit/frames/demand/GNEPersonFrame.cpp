@@ -121,7 +121,7 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
         return false;
     }
     // finally check that person plan selected is valid
-    if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == SUMO_TAG_NOTHING) {
+    if (myPersonPlanTagSelector->getCurrentTemplateAC() == nullptr) {
         myViewNet->setStatusBarText("Current selected person plan isn't valid.");
         return false;
     }
@@ -168,7 +168,7 @@ GNEPersonFrame::getPathCreator() const {
 void
 GNEPersonFrame::tagSelected() {
     // first check if person is valid
-    if (myPersonTagSelector->getCurrentTemplateAC()) {
+    if (myPersonTagSelector->getCurrentTemplateAC() && myPersonPlanTagSelector->getCurrentTemplateAC()) {
         // show PType selector and person plan selector
         myTypeSelector->showDemandElementSelector();
         // check if current person type selected is valid
@@ -229,7 +229,7 @@ GNEPersonFrame::tagSelected() {
 
 void
 GNEPersonFrame::demandElementSelected() {
-    if (myTypeSelector->getCurrentDemandElement()) {
+    if (myTypeSelector->getCurrentDemandElement() && myPersonPlanTagSelector->getCurrentTemplateAC()) {
         // show person attributes depending of myPersonPlanTagSelector
         if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
             myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
@@ -353,9 +353,6 @@ GNEPersonFrame::buildPerson() {
         // set begin and end attributes
         if (!myPersonBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myPersonBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
             myPersonBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
-        }
-        if (!myPersonBaseObject->hasStringAttribute(SUMO_ATTR_END) || myPersonBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
-            myPersonBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
         }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myPersonBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(personTag));

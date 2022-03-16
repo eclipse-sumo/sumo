@@ -67,7 +67,7 @@ ROPerson::addTrip(std::vector<PlanItem*>& plan, const std::string& id,
     PersonTrip* trip = new PersonTrip(from, to, modeSet, departPos, stopOrigin, arrivalPos, busStop, walkFactor, group);
     RONet* net = RONet::getInstance();
     SUMOVehicleParameter pars;
-    pars.departProcedure = DEPART_TRIGGERED;
+    pars.departProcedure = DepartDefinition::TRIGGERED;
     if (departPos != 0) {
         pars.departPosProcedure = DepartPosDefinition::GIVEN;
         pars.departPos = departPos;

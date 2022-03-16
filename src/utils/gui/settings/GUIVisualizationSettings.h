@@ -213,6 +213,9 @@ struct GUIVisualizationColorSettings {
     /// @brief color for Stops
     RGBColor stopColor;
 
+    /// @brief color for Waypoints
+    RGBColor waypointColor;
+
     /// @brief color for vehicle trips
     RGBColor vehicleTripColor;
 
@@ -366,6 +369,18 @@ struct GUIVisualizationAdditionalSettings {
 
     /// @brief connection color selected
     static const RGBColor connectionColorSelected;
+
+    /// @brief tractionSubstation size
+    static const double tractionSubstationSize;
+
+    /// @brief overhead wire color top
+    static const RGBColor overheadWireColorTop;
+
+    /// @brief overhead wire color bot
+    static const RGBColor overheadWireColorBot;
+
+    /// @brief overhead wire color selected
+    static const RGBColor overheadWireColorSelected;
 
     /// @brief arrow width
     static const double arrowWidth;

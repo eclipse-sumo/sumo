@@ -197,6 +197,9 @@ public:
         /// @brief destructor
         ~SelectionOperation();
 
+        /// @brief get reduce button
+        FXButton *getReduceButton() const;
+
         /// @name FOX-callbacks
         /// @{
 
@@ -225,6 +228,11 @@ public:
          * @note invert the selection and repaints itself
          */
         long onCmdInvert(FXObject*, FXSelector, void*);
+
+        /**@brief Called when the user presses the Reduce-button
+         * @note Reduce network
+         */
+        long onCmdReduce(FXObject*, FXSelector, void*);
 
         /// @}
 
@@ -408,7 +416,7 @@ public:
     /// @brief get modification mode modul
     ModificationMode* getModificationModeModule() const;
 
-    /// @brief getmodul for selection information
+    /// @brief get modul for selection information
     SelectionInformation* getSelectionInformation() const;
 
 private:

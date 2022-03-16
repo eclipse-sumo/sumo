@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\stop\stopLane\volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\sumo\tests\netedit\demandElements\stop\stopLane\volatileRecomputing\input_net.net.xml"/>
+        <output-file value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\volatileRecomputing\input_net.net.xml"/>
     </output>
 
     <processing>
@@ -30,34 +30,23 @@
     </pedestrian>
 
     <netedit>
-        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopLane\volatileRecomputing\input_routes.rou.xml"/>
+        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\volatileRecomputing\input_routes.rou.xml"/>
     </netedit>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE0 gneE1" color="yellow" id="route_0">
-		
-		<stop lane="gneE2_4" startPos="20.00" endPos="22.00" duration="60.00"/>
-		
-		<stop lane="gneE2_3" startPos="24.00" endPos="30.00" duration="60.00"/>
-		
-		<stop lane="gneE2_2" startPos="31.00" endPos="35.00" duration="60.00"/>
-		
-		<stop lane="gneE2_1" startPos="38.00" endPos="42.00" duration="60.00"/>
-		
-		<stop lane="gneE2_0" startPos="42.00" endPos="44.00" duration="60.00"/>
-		
-	</route>
-	<flow id="routeFlowA" begin="0.00" route="route_0" end="3600.00" number="1800"/>
-	
+    <route edges="gneE2 gneE4" color="yellow" id="route_0">
+        <stop busStop="busStopH" duration="60.00"/>
+        <stop busStop="busStopG" duration="60.00"/>
+        <stop busStop="busStopF" duration="60.00"/>
+        <stop busStop="busStopE" duration="60.00"/>
+        <stop busStop="busStopD" duration="60.00"/>
+        <stop busStop="busStopC" duration="60.00"/>
+    </route>
     <route edges="gneE0 gneE1" color="yellow" id="route_1">
-
-		<stop lane="gneE1_0" startPos="25.00" endPos="35.00" duration="60.00"/>
-						
-		<stop lane="gneE0_0" startPos="35.00" endPos="45.00" duration="60.00"/>
-		
-	</route>
-	<flow id="routeFlowB" begin="0.00" route="route_1" end="3600.00" number="1800"/>
+        <stop busStop="busStopB" duration="60.00"/>
+        <stop busStop="busStopA" duration="60.00"/>
+    </route>
 </routes>

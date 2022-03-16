@@ -182,8 +182,8 @@ public:
      * @param[in] inComment Whether -- in input shall be converted to &#45;&#45; (semantically equivalent but allowed in XML comments)
      */
     void writeConfiguration(std::ostream& os, const bool filled,
-                            const bool complete, const bool addComments,
-                            const bool inComment = false) const;
+                            const bool complete, const bool addComments, const std::string& relativeTo = "",
+                            const bool forceRelative = false, const bool inComment = false) const;
 
 
     /** @brief Writes the xml schema for the configuration

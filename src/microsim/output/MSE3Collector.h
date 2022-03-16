@@ -274,6 +274,11 @@ public:
     */
     void leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet, bool isBackward = false);
 
+    /// @brief Returns the entry cross sections
+    const CrossSectionVector& getEntries() const;
+
+    /// @brief Returns the exit cross sections
+    const CrossSectionVector& getExits() const;
 
     /// @name Methods returning current values
     /// @{
@@ -367,7 +372,7 @@ public:
     void detectorUpdate(const SUMOTime step);
 
     /** @brief Remove all vehicles before quick-loading state */
-    virtual void clearState();
+    virtual void clearState(SUMOTime step);
 
 protected:
     void notifyMovePerson(MSTransportable* p, MSMoveReminder* rem, double detPos, int dir, double pos);

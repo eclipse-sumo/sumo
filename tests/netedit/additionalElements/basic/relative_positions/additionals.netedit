@@ -1,68 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-17 16:06:52 by Eclipse SUMO netedit Version v1_10_0+2369-be805626ae7
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\net.net.xml"/>
-    </output>
-
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-    <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\datas.xml"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\gui-settings.xml"/>
-        <window-size value="936,697"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160614.15388\netedit.gui\additionalElements\basic\relative_positions\log.txt"/>
-    </report>
-
-</configuration>
+<!-- generated on 2022-03-04 10:13:17 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- RouteProbes -->
     <routeProbe id="routeProbe_gneE1_0" begin="0.00" freq="100.00" edge="gneE1" file="routeProbe_gneE1_0.txt"/>
+    <!-- Calibrators -->
     <calibrator id="calibrator_gneE1_0_0" lane="gneE1_0" pos="5.00" freq="100.00" output="calibrator_gneE1_0_0.txt"/>
     <calibrator id="calibrator_gneE1_1" edge="gneE1" pos="10.00" freq="100.00" output="calibrator_gneE1_1_1.txt"/>
+    <!-- StoppingPlaces -->
     <busStop id="busStop_gneE1_0_0" lane="gneE1_0" startPos="24.90" endPos="25.00"/>
     <containerStop id="containerStop_gneE1_1_0" lane="gneE1_1" startPos="24.90" endPos="25.00"/>
     <chargingStation id="chargingStation_gneE1_2_0" lane="gneE1_2" startPos="24.90" endPos="25.00"/>
+    <!-- Detectors -->
     <e1Detector id="e1Detector_gneE0_2_0" lane="gneE0_2" pos="10.00" freq="100.00" file="e1Detector_gneE0_2_0.txt" vTypes="bus taxi private"/>
     <instantInductionLoop id="instantInductionLoop_1" lane="gneE0_2" pos="12.00" file="instantInductionLoop_1.txt"/>
     <e2Detector id="e2Detector_gneE0_1_0" lane="gneE0_1" pos="5.00" length="10.00" freq="100.00" file="e2Detector_gneE0_1_0.txt"/>
@@ -70,6 +21,7 @@
         <detEntry lane="gneE0_0" pos="5.00"/>
         <detExit lane="gneE0_0" pos="15.00"/>
     </e3Detector>
+    <!-- Other additionals -->
     <rerouter id="rerouter_0" edges="gneE1" pos="15.15,-14.96"/>
     <variableSpeedSign id="variableSpeedSign_0" lanes="gneE1_0" pos="19.52,-14.87"/>
     <vaporizer id="gneE1" begin="0.00" end="10.00"/>

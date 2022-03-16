@@ -34,37 +34,37 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select flow
+# select flow with embedded route
 netedit.changeElement("flow (embedded route)")
 
 # set invalid line
-netedit.changeDefaultValue(13, "%%%%%%")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.line, "%%%%%%")
 
-# try to create flow
+# try to create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 
 # set valid Line
-netedit.changeDefaultValue(13, "ownLine")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.line, "ownLine")
 
-# create flow
+# create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 
 # set empty line
-netedit.changeDefaultValue(13, "")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.line, "")
 
-# create flow
+# create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 
 # Check undo redo

@@ -38,11 +38,14 @@ netedit.rebuildNetwork()
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
 
+# save network
+netedit.saveNetwork(referencePosition)
+
 # save additionals
 netedit.saveAdditionals(referencePosition)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# type space (for dialog)
+netedit.typeSpace()
 
 # quit netedit
 netedit.quit(neteditProcess)

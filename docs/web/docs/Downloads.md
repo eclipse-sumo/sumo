@@ -37,6 +37,8 @@ launchpad project as well as an archlinux package:
 - <https://launchpad.net/~sumo>
 - <https://aur.archlinux.org/packages/sumo/>
 
+There is also a [flatpak](https://flathub.org/apps/details/org.eclipse.sumo) available for SUMO.
+
 To add the most recent sumo to your ubuntu you will need to do:
 
 ```
@@ -175,7 +177,7 @@ see [the notes below](Downloads.md#note_on_licensing). The following packages ca
 </ul>
 
 The nightly builds are also available from the [Python packaging index test instance](https://test.pypi.org/project/eclipse-sumo/).
-To install the latest nightly version use:
+To install the latest nightly version (it is strongly encouraged to do this in a virtual environment) use [the instructions above](#python_packages_virtual_environments) replacing the install line with:
 ```
 pip install -i https://test.pypi.org/simple/ eclipse-sumo
 ```
@@ -194,10 +196,12 @@ night.
 !!! caution
     The available Windows binary packages may lag behind the [latest Git revision](https://github.com/eclipse/sumo/commits/main) due to being compiled only once per day (around midnight, Berlin time).
 
-# SUMO - Older releases and alternative download
+# Older releases and alternative download
 
-All releases can also be obtained via the [sourceforge download portal](https://sourceforge.net/projects/sumo/files/sumo/).
-If you want to try out an older version you can also use the virtual environment approach (explained above) with a fixed version, e.g.
+The [release directory](https://sumo.dlr.de/releases/) contains all release files since 1.2.0.
+Those and older releases can also be obtained via the [sourceforge download portal](https://sourceforge.net/projects/sumo/files/sumo/).
+If you want to try out an older version you can also use the virtual environment approach
+([explained above](#python_packages_virtual_environments)) with a fixed version, e.g.
 `pip install eclipse-sumo=1.9.0` (works only for 1.8.0 and later).
 
 If you need a complete zipped snapshot of the repository (including tests) for an older version have a look at the tags in your

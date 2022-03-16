@@ -30,6 +30,7 @@
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
+#include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
@@ -60,16 +61,15 @@ const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth* SUMO_cons
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, {
-    net->getAttributeCarriers()->retrieveJunction(nbe->getFromNode()->getID()),
-        net->getAttributeCarriers()->retrieveJunction(nbe->getToNode()->getID())
-},
-{}, {}, {}, {}, {}, {}, {}),
-myNBEdge(nbe),
-myLanes(0),
-myAmResponsible(false),
-myWasSplit(wasSplit),
-myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-myUpdateGeometry(true) {
+        net->getAttributeCarriers()->retrieveJunction(nbe->getFromNode()->getID()),
+        net->getAttributeCarriers()->retrieveJunction(nbe->getToNode()->getID())},
+        {}, {}, {}, {}, {}),
+    myNBEdge(nbe),
+    myLanes(0),
+    myAmResponsible(false),
+    myWasSplit(wasSplit),
+    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+    myUpdateGeometry(true) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -426,6 +426,9 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
         if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             drawDottedContourEdge(GUIDottedGeometry::DottedContourType::FRONT, s, this, true, true);
+        }
+        if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getEdgesSelector()->isNetworkElementSelected(this)) {
+            drawDottedContourEdge(GUIDottedGeometry::DottedContourType::ORANGE, s, this, true, true);
         }
     }
 }
@@ -916,7 +919,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_ENDOFFSET:
         case SUMO_ATTR_SPEED:
-		case SUMO_ATTR_FRICTION:
+	case SUMO_ATTR_FRICTION:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW: {
             undoList->begin(GUIIcon::EDGE, "change " + getTagStr() + " attribute");
@@ -1147,7 +1150,7 @@ GNEEdge::isAttributeComputed(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEEdge::getACParametersMap() const {
     return myNBEdge->getParametersMap();
 }
@@ -1195,26 +1198,26 @@ GNEEdge::updateVehicleSpreadGeometries() {
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > laneVehiclesMap = getVehiclesOverEdgeMap();
     // iterate over every lane
     for (const auto& laneVehicle : laneVehiclesMap) {
-        // obtain total lenght
+        // obtain total length
         double totalLength = 0;
         for (const auto& vehicle : laneVehicle.second) {
             totalLength += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH) + VEHICLE_GAP;
         }
         // calculate multiplier for vehicle positions
         double multiplier = 1;
-        const double laneShapeLenght = laneVehicle.first->getLaneShape().length();
-        if (laneShapeLenght == 0) {
+        const double laneShapeLength = laneVehicle.first->getLaneShape().length();
+        if (laneShapeLength == 0) {
             multiplier = 0;
-        } else if (totalLength > laneShapeLenght) {
-            multiplier = (laneShapeLenght / totalLength);
+        } else if (totalLength > laneShapeLength) {
+            multiplier = (laneShapeLength / totalLength);
         }
-        // declare current lenght
-        double lenght = 0;
+        // declare current length
+        double length = 0;
         // iterate over vehicles to calculate position and rotations
         for (const auto& vehicle : laneVehicle.second) {
-            vehicle->updateDemandElementSpreadGeometry(laneVehicle.first, lenght * multiplier);
-            // update lenght
-            lenght += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH) + VEHICLE_GAP;
+            vehicle->updateDemandElementSpreadGeometry(laneVehicle.first, length * multiplier);
+            // update length
+            length += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH) + VEHICLE_GAP;
         }
     }
 }
@@ -1226,13 +1229,13 @@ GNEEdge::updateVehicleStackLabels() {
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > laneVehiclesMap = getVehiclesOverEdgeMap();
     // iterate over laneVehiclesMap and obtain a vector with
     for (const auto& vehicleMap : laneVehiclesMap) {
-        // declare map for sprt vehicles using their departpos+lenght position (StackPosition)
+        // declare map for sprt vehicles using their departpos+length position (StackPosition)
         std::vector<std::pair<GNEEdge::StackPosition, GNEDemandElement*> > departPosVehicles;
         // declare vector of stack demand elements
         std::vector<GNEEdge::StackDemandElements> stackedVehicles;
         // iterate over vehicles
         for (const auto& vehicle : vehicleMap.second) {
-            // get vehicle's depart pos and lenght
+            // get vehicle's depart pos and length
             const double departPos = vehicle->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
             const double length = vehicle->getAttributeDouble(SUMO_ATTR_LENGTH);
             double posOverLane = vehicle->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
@@ -1582,9 +1585,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEED:
             myNBEdge->setSpeed(-1, parse<double>(value));
             break;
-		case SUMO_ATTR_FRICTION:
-			myNBEdge->setFriction(-1, parse<double>(value));
-			break;
+	case SUMO_ATTR_FRICTION:
+		myNBEdge->setFriction(-1, parse<double>(value));
+		break;
         case SUMO_ATTR_WIDTH:
             if (value.empty() || (value == "default")) {
                 myNBEdge->setLaneWidth(-1, NBEdge::UNSPECIFIED_WIDTH);

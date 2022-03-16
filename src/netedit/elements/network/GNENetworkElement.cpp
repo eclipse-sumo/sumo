@@ -33,12 +33,10 @@ GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlOb
                                      const std::vector<GNEEdge*>& edgeParents,
                                      const std::vector<GNELane*>& laneParents,
                                      const std::vector<GNEAdditional*>& additionalParents,
-                                     const std::vector<GNEShape*>& shapeParents,
-                                     const std::vector<GNETAZElement*>& TAZElementParents,
                                      const std::vector<GNEDemandElement*>& demandElementParents,
                                      const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
-    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     myShapeEdited(false) {
 }
 
@@ -132,7 +130,7 @@ GNENetworkElement::getHierarchyName() const {
 
 
 void
-GNENetworkElement::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNENetworkElement::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     throw InvalidArgument("Nothing to enable");
 }
 

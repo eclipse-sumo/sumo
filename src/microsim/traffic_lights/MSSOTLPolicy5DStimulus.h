@@ -44,7 +44,7 @@ private:
 
 public:
 
-    MSSOTLPolicy5DStimulus(std::string keyPrefix, const std::map<std::string, std::string>& parameters);
+    MSSOTLPolicy5DStimulus(std::string keyPrefix, const Parameterised::Map& parameters);
 
     double getStimCox() {
         std::string key = getKeyPrefix() + "_STIM_COX";

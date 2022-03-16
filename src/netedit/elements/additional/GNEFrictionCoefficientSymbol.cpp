@@ -33,8 +33,7 @@
 
 GNEFrictionCoefficientSymbol::GNEFrictionCoefficientSymbol(GNEAdditional* COFParent, GNELane* lane) :
     GNEAdditional(COFParent->getNet(), GLO_COF, GNE_TAG_COF_SYMBOL, "",
-{}, {}, {lane}, {COFParent}, {}, {}, {}, {},
-std::map<std::string, std::string>()) {
+        {}, {}, {lane}, {COFParent}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -176,6 +175,12 @@ GNEFrictionCoefficientSymbol::getAttribute(SumoXMLAttr key) const {
 double
 GNEFrictionCoefficientSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
     throw InvalidArgument("Symbols cannot be edited");
+}
+
+
+const Parameterised::Map& 
+GNEFrictionCoefficientSymbol::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
 }
 
 

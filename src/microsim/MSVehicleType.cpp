@@ -87,7 +87,7 @@ MSVehicleType::~MSVehicleType() {
 
 double
 MSVehicleType::computeChosenSpeedDeviation(SumoRNG* rng, const double minDev) const {
-    return MAX2(minDev, myParameter.speedFactor.sample(rng));
+    return roundDecimal(MAX2(minDev, myParameter.speedFactor.sample(rng)), gPrecisionRandom);
 }
 
 
@@ -172,6 +172,10 @@ MSVehicleType::setPreferredLateralAlignment(const LatAlignmentDefinition& latAli
     myParameter.parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
 }
 
+void
+MSVehicleType::setScale(double value) {
+    myParameter.scale = value;
+}
 
 void
 MSVehicleType::setDefaultProbability(const double& prob) {
@@ -347,9 +351,9 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
         case SUMO_TAG_CF_ACC:
             vtype->myCarFollowModel = new MSCFModel_ACC(vtype);
             break;
-		case SUMO_TAG_CF_ACC_FRICTION:
-			vtype->myCarFollowModel = new MSCFModel_ACCFric(vtype);
-			break;
+	case SUMO_TAG_CF_ACC_FRICTION:
+		vtype->myCarFollowModel = new MSCFModel_ACCFric(vtype);
+		break;
         case SUMO_TAG_CF_CACC:
             vtype->myCarFollowModel = new MSCFModel_CACC(vtype);
             break;

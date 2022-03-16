@@ -110,7 +110,7 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
 
 void
 GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
-                              const std::map<std::string, std::string>& parameters) {
+                              const Parameterised::Map& parameters) {
     // get dataSet
     GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (dataSet != nullptr) {
@@ -146,7 +146,7 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
 
 void
 GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
-                                      const std::string& toEdgeID, const std::map<std::string, std::string>& parameters) {
+                                      const std::string& toEdgeID, const Parameterised::Map& parameters) {
     // get dataSet
     GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (dataSet != nullptr) {
@@ -184,7 +184,7 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
 
 void
 GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
-                                     const std::string& toTAZID, const std::map<std::string, std::string>& parameters) {
+                                     const std::string& toTAZID, const Parameterised::Map& parameters) {
     // get dataSet
     GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (dataSet != nullptr) {
@@ -194,8 +194,8 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
                                             sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
         if (dataInterval != nullptr) {
             // get from TAZs
-            GNETAZElement* fromTAZ = myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, fromTAZID, false);
-            GNETAZElement* toTAZ = myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, toTAZID, false);
+            GNEAdditional* fromTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, fromTAZID, false);
+            GNEAdditional* toTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, toTAZID, false);
             if (fromTAZ == nullptr) {
                 writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, fromTAZID);
             } else if (toTAZ == nullptr) {

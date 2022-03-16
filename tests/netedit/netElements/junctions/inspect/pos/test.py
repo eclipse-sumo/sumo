@@ -27,7 +27,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, [])
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -42,18 +42,16 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change position with a non valid value
-netedit.modifyAttribute(1, "dummy position", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "dummy position", False)
 
 # change position with a non valid value (another junction in the same position)
-# BUG #
-# netedit.modifyAttribute(1, "0.00,50.00")
+netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "0.00,50.00", False)
 
 # avoid merging
-# BUG #
-# netedit.typeTwoKeys("n", Key.ALT)
+netedit.typeTwoKeys('n', 'alt')
 
 # change position with a valid value
-netedit.modifyAttribute(1, "40.00,40.00", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "40.00,40.00", False)
 
 # rebuild network
 netedit.rebuildNetwork()

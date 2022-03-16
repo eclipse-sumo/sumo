@@ -1,0 +1,1 @@
+$SUMO_HOME/tests/sumo/cf_model/drive_in_circles_small/circle_stop_and_go -v tools/extractTest.py

@@ -94,6 +94,8 @@ enum GUIShortcut {
     KEY_Y,
     KEY_Z,
 
+    KEY_SPACE,
+
     KEY_F1,
     KEY_F2,
     KEY_F3,

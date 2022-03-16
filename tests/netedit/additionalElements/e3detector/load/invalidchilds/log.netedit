@@ -1,6 +1,4 @@
-Error: Attribute 'pos' in definition of a detEntry is not of type float.
-Error: Attribute 'pos' in definition of a detExit is not of type float.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\invalidchilds\input_additionals.add.xml failed.
-Warning: An e3Detector need at least one detEntry detector
-Warning: An e3Detector need at least one detExit detector
-Warning: e3Detector with ID='e3Detector_0' cannot be written
+Error: Attribute 'pos' in definition of a detEntry Invalid Number Format (double) dummmyPosition.
+Error: Attribute 'pos' in definition of a detExit Invalid Number Format (double) dummmyPosition.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\e3detector\load\invalidchilds\input_additionals.add.xml failed.
+Warning: e3Detector 'e3Detector_0' needs at least one entry and one exit

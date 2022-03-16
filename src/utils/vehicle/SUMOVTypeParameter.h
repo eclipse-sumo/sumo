@@ -70,6 +70,7 @@ const int VTYPEPARS_LOCOMOTIVE_LENGTH_SET = 1 << 26;
 const int VTYPEPARS_CARRIAGE_GAP_SET = 1 << 27;
 const int VTYPEPARS_MANEUVER_ANGLE_TIMES_SET = 1 << 28;
 const int VTYPEPARS_FRONT_SEAT_POS_SET = 1 << 29;
+const int VTYPEPARS_SCALE_SET = 1 << 30;
 
 
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
@@ -287,6 +288,9 @@ public:
 
     /// @brief The time a container needs to get loaded on the vehicle
     SUMOTime loadingDuration;
+
+    /// @brief individual scaling factor (-1 for undefined)
+    double scale;
 
     /// @name Values for drawing this class' vehicles
     /// @{

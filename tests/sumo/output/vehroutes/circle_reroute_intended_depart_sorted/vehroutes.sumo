@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/24/19 08:48:04 by Eclipse SUMO Version v1_1_0+1379-f2e706eba2
+<!-- generated on 2022-02-02 12:22:07 by Eclipse SUMO sumo Version v1_12_0+0212-f27fcdc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -36,6 +41,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -46,1171 +52,1171 @@ SPDX-License-Identifier: EPL-2.0
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="0.0" type="Eissfeldt" depart="0.00" arrival="806.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="204.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="455.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="204.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="455.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.1" type="Eissfeldt" depart="0.10" arrival="808.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="207.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="457.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="207.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="457.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.2" type="Eissfeldt" depart="0.20" arrival="811.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="209.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="460.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="209.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="460.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.3" type="Eissfeldt" depart="0.30" arrival="813.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="212.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="462.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="212.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="462.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.4" type="Eissfeldt" depart="0.40" arrival="816.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="214.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="465.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="214.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="465.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.5" type="Eissfeldt" depart="0.50" arrival="818.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="217.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="467.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="217.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="467.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.6" type="Eissfeldt" depart="0.60" arrival="821.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="219.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="470.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="219.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="470.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.7" type="Eissfeldt" depart="0.70" arrival="823.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="222.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="472.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="222.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="472.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.8" type="Eissfeldt" depart="0.80" arrival="826.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="224.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="475.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="224.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="475.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.9" type="Eissfeldt" depart="0.90" arrival="828.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="227.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="477.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="227.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="477.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.10" type="Eissfeldt" depart="1.00" arrival="831.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="229.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="480.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="229.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="480.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.11" type="Eissfeldt" depart="1.10" arrival="833.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="232.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="482.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="232.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="482.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.12" type="Eissfeldt" depart="1.20" arrival="836.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="234.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="485.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="234.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="485.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.13" type="Eissfeldt" depart="1.30" arrival="838.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="237.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="487.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="237.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="487.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.14" type="Eissfeldt" depart="1.40" arrival="841.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="239.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="490.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="239.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="490.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.15" type="Eissfeldt" depart="1.50" arrival="843.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="242.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="492.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="242.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="492.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.16" type="Eissfeldt" depart="1.60" arrival="846.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="244.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="495.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="244.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="495.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.17" type="Eissfeldt" depart="1.70" arrival="848.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="247.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="497.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="247.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="497.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.18" type="Eissfeldt" depart="1.80" arrival="851.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="249.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="500.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="249.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="500.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.19" type="Eissfeldt" depart="1.90" arrival="853.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="252.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="502.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="252.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="502.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.20" type="Eissfeldt" depart="2.00" arrival="856.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="254.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="505.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="254.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="505.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.21" type="Eissfeldt" depart="2.10" arrival="858.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="257.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="507.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="257.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="507.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.22" type="Eissfeldt" depart="2.20" arrival="861.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="259.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="510.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="259.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="510.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.23" type="Eissfeldt" depart="2.30" arrival="863.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="262.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="512.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="262.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="512.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.24" type="Eissfeldt" depart="2.40" arrival="866.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="264.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="515.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="264.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="515.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.25" type="Eissfeldt" depart="2.50" arrival="868.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="267.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="517.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="267.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="517.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.26" type="Eissfeldt" depart="2.60" arrival="871.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="269.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="520.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="269.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="520.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.27" type="Eissfeldt" depart="2.70" arrival="873.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="272.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="522.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="272.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="522.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.28" type="Eissfeldt" depart="2.80" arrival="876.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="274.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="525.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="274.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="525.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.29" type="Eissfeldt" depart="2.90" arrival="878.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="277.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="527.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="277.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="527.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.30" type="Eissfeldt" depart="3.00" arrival="881.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="279.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="530.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="279.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="530.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.31" type="Eissfeldt" depart="3.10" arrival="883.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="282.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="532.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="282.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="532.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.32" type="Eissfeldt" depart="3.20" arrival="886.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="284.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="535.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="284.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="535.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.33" type="Eissfeldt" depart="3.30" arrival="888.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="287.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="537.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="287.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="537.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.34" type="Eissfeldt" depart="3.40" arrival="891.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="289.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="540.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="289.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="540.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.35" type="Eissfeldt" depart="3.50" arrival="893.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="292.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="542.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="292.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="542.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.36" type="Eissfeldt" depart="3.60" arrival="896.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="294.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="545.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="294.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="545.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.37" type="Eissfeldt" depart="3.70" arrival="898.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="297.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="547.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="297.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="547.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.38" type="Eissfeldt" depart="3.80" arrival="901.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="299.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="550.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="299.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="550.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.39" type="Eissfeldt" depart="3.90" arrival="903.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="302.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="552.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="302.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="552.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.40" type="Eissfeldt" depart="4.00" arrival="906.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="304.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="555.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="304.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="555.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.41" type="Eissfeldt" depart="4.10" arrival="908.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="307.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="557.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="307.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="557.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.42" type="Eissfeldt" depart="4.20" arrival="911.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="309.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="560.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="309.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="560.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.43" type="Eissfeldt" depart="4.30" arrival="913.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="312.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="562.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="312.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="562.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.44" type="Eissfeldt" depart="4.40" arrival="916.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="314.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="565.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="314.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="565.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.45" type="Eissfeldt" depart="4.50" arrival="918.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="317.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="567.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="317.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="567.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.46" type="Eissfeldt" depart="4.60" arrival="921.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="319.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="570.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="319.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="570.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.47" type="Eissfeldt" depart="4.70" arrival="923.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="322.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="572.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="322.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="572.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.48" type="Eissfeldt" depart="4.80" arrival="926.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="324.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="575.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="324.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="575.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.49" type="Eissfeldt" depart="4.90" arrival="928.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="327.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="577.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="327.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="577.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.50" type="Eissfeldt" depart="5.00" arrival="931.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="329.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="580.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="329.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="580.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.51" type="Eissfeldt" depart="5.10" arrival="933.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="332.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="582.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="332.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="582.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.52" type="Eissfeldt" depart="5.20" arrival="936.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="334.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="585.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="334.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="585.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.53" type="Eissfeldt" depart="5.30" arrival="938.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="337.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="587.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="337.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="587.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.54" type="Eissfeldt" depart="5.40" arrival="941.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="339.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="590.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="339.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="590.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.55" type="Eissfeldt" depart="5.50" arrival="943.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="342.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="592.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="342.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="592.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.56" type="Eissfeldt" depart="5.60" arrival="946.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="344.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="595.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="344.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="595.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.57" type="Eissfeldt" depart="5.70" arrival="948.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="347.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
-            <route replacedOnEdge="10/1to1/1" reason="rerouter10" replacedAtTime="597.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="347.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="10/1to1/1" replacedOnIndex="5" reason="rerouter10" replacedAtTime="597.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.58" type="Eissfeldt" depart="5.80" arrival="700.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="349.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="349.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.59" type="Eissfeldt" depart="5.90" arrival="702.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="352.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="352.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.60" type="Eissfeldt" depart="6.00" arrival="705.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="354.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="354.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.61" type="Eissfeldt" depart="6.10" arrival="707.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="357.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="357.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.62" type="Eissfeldt" depart="6.20" arrival="710.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="359.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="359.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.63" type="Eissfeldt" depart="6.30" arrival="712.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="362.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="362.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.64" type="Eissfeldt" depart="6.40" arrival="715.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="364.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="364.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.65" type="Eissfeldt" depart="6.50" arrival="717.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="367.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="367.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.66" type="Eissfeldt" depart="6.60" arrival="720.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="369.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="369.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.67" type="Eissfeldt" depart="6.70" arrival="722.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="372.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="372.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.68" type="Eissfeldt" depart="6.80" arrival="725.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="374.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="374.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.69" type="Eissfeldt" depart="6.90" arrival="727.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="377.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="377.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.70" type="Eissfeldt" depart="7.00" arrival="730.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="379.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="379.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.71" type="Eissfeldt" depart="7.10" arrival="732.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="382.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="382.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.72" type="Eissfeldt" depart="7.20" arrival="735.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="384.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="384.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.73" type="Eissfeldt" depart="7.30" arrival="737.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="387.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="387.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.74" type="Eissfeldt" depart="7.40" arrival="740.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="389.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="389.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.75" type="Eissfeldt" depart="7.50" arrival="742.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="392.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="392.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.76" type="Eissfeldt" depart="7.60" arrival="745.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="394.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="394.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.77" type="Eissfeldt" depart="7.70" arrival="747.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="397.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="397.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.78" type="Eissfeldt" depart="7.80" arrival="750.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="399.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="399.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.79" type="Eissfeldt" depart="7.90" arrival="752.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="402.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="402.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.80" type="Eissfeldt" depart="8.00" arrival="755.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="404.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="404.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.81" type="Eissfeldt" depart="8.10" arrival="757.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="407.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="407.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.82" type="Eissfeldt" depart="8.20" arrival="760.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="409.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="409.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.83" type="Eissfeldt" depart="8.30" arrival="762.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="412.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="412.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.84" type="Eissfeldt" depart="8.40" arrival="765.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="414.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="414.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.85" type="Eissfeldt" depart="8.50" arrival="767.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="417.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="417.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.86" type="Eissfeldt" depart="8.60" arrival="770.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="419.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="419.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.87" type="Eissfeldt" depart="8.70" arrival="772.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="422.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="422.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.88" type="Eissfeldt" depart="8.80" arrival="775.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="424.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="424.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.89" type="Eissfeldt" depart="8.90" arrival="777.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="427.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="427.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.90" type="Eissfeldt" depart="9.00" arrival="780.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="429.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="429.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.91" type="Eissfeldt" depart="9.10" arrival="782.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="432.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="432.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.92" type="Eissfeldt" depart="9.20" arrival="785.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="434.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="434.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.93" type="Eissfeldt" depart="9.30" arrival="787.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="437.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="437.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.94" type="Eissfeldt" depart="9.40" arrival="790.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="439.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="439.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.95" type="Eissfeldt" depart="9.50" arrival="792.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="442.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="442.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.96" type="Eissfeldt" depart="9.60" arrival="795.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="444.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="444.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.97" type="Eissfeldt" depart="9.70" arrival="797.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="447.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="447.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.98" type="Eissfeldt" depart="9.80" arrival="800.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="449.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="449.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.99" type="Eissfeldt" depart="9.90" arrival="802.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="452.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="452.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.100" type="Eissfeldt" depart="10.00" arrival="805.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="454.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="454.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.101" type="Eissfeldt" depart="10.10" arrival="807.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="457.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="457.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.102" type="Eissfeldt" depart="10.20" arrival="810.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="459.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="459.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.103" type="Eissfeldt" depart="10.30" arrival="812.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="462.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="462.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.104" type="Eissfeldt" depart="10.40" arrival="815.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="464.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="464.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.105" type="Eissfeldt" depart="10.50" arrival="817.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="467.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="467.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.106" type="Eissfeldt" depart="10.60" arrival="820.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="469.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="469.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.107" type="Eissfeldt" depart="10.70" arrival="822.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="472.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="472.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.108" type="Eissfeldt" depart="10.80" arrival="825.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="474.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="474.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.109" type="Eissfeldt" depart="10.90" arrival="827.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="477.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="477.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.110" type="Eissfeldt" depart="11.00" arrival="830.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="479.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="479.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.111" type="Eissfeldt" depart="11.10" arrival="832.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="482.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="482.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.112" type="Eissfeldt" depart="11.20" arrival="835.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="484.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="484.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.113" type="Eissfeldt" depart="11.30" arrival="837.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="487.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="487.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.114" type="Eissfeldt" depart="11.40" arrival="840.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="489.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="489.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.115" type="Eissfeldt" depart="11.50" arrival="842.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="492.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="492.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.116" type="Eissfeldt" depart="11.60" arrival="845.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="494.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="494.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.117" type="Eissfeldt" depart="11.70" arrival="847.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="497.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="497.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.118" type="Eissfeldt" depart="11.80" arrival="850.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="499.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="499.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.119" type="Eissfeldt" depart="11.90" arrival="852.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="502.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="502.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.120" type="Eissfeldt" depart="12.00" arrival="855.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="504.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="504.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.121" type="Eissfeldt" depart="12.10" arrival="857.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="507.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="507.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.122" type="Eissfeldt" depart="12.20" arrival="860.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="509.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="509.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.123" type="Eissfeldt" depart="12.30" arrival="862.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="512.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="512.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.124" type="Eissfeldt" depart="12.40" arrival="865.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="514.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="514.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.125" type="Eissfeldt" depart="12.50" arrival="867.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="517.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="517.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.126" type="Eissfeldt" depart="12.60" arrival="870.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="519.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="519.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.127" type="Eissfeldt" depart="12.70" arrival="872.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="522.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="522.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.128" type="Eissfeldt" depart="12.80" arrival="875.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="524.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="524.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.129" type="Eissfeldt" depart="12.90" arrival="877.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="527.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="527.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.130" type="Eissfeldt" depart="13.00" arrival="880.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="529.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="529.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.131" type="Eissfeldt" depart="13.10" arrival="882.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="532.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="532.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.132" type="Eissfeldt" depart="13.20" arrival="885.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="534.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="534.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.133" type="Eissfeldt" depart="13.30" arrival="887.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="537.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="537.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.134" type="Eissfeldt" depart="13.40" arrival="890.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="539.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="539.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.135" type="Eissfeldt" depart="13.50" arrival="892.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="542.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="542.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.136" type="Eissfeldt" depart="13.60" arrival="895.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="544.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="544.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.137" type="Eissfeldt" depart="13.70" arrival="897.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="547.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="547.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.138" type="Eissfeldt" depart="13.80" arrival="900.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="549.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="549.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.139" type="Eissfeldt" depart="13.90" arrival="902.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="552.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="552.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.140" type="Eissfeldt" depart="14.00" arrival="905.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="554.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="554.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.141" type="Eissfeldt" depart="14.10" arrival="907.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="557.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="557.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.142" type="Eissfeldt" depart="14.20" arrival="910.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="559.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="559.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.143" type="Eissfeldt" depart="14.30" arrival="912.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="562.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="562.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.144" type="Eissfeldt" depart="14.40" arrival="915.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="564.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="564.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.145" type="Eissfeldt" depart="14.50" arrival="917.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="567.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="567.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.146" type="Eissfeldt" depart="14.60" arrival="920.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="569.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="569.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.147" type="Eissfeldt" depart="14.70" arrival="922.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="572.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="572.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.148" type="Eissfeldt" depart="14.80" arrival="925.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="574.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="574.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.149" type="Eissfeldt" depart="14.90" arrival="927.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="577.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="577.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.150" type="Eissfeldt" depart="15.00" arrival="930.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="579.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="579.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.151" type="Eissfeldt" depart="15.10" arrival="932.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="582.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="582.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.152" type="Eissfeldt" depart="15.20" arrival="935.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="584.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="584.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.153" type="Eissfeldt" depart="15.30" arrival="937.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="587.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="587.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.154" type="Eissfeldt" depart="15.40" arrival="940.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="589.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="589.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.155" type="Eissfeldt" depart="15.50" arrival="942.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="592.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="592.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.156" type="Eissfeldt" depart="15.60" arrival="945.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="594.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="594.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.157" type="Eissfeldt" depart="15.70" arrival="947.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="597.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="597.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="0.158" type="Eissfeldt" depart="15.80" arrival="950.00">
         <routeDistribution>
-            <route replacedOnEdge="5/1to6/1" reason="rerouter5" replacedAtTime="599.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+            <route replacedOnEdge="5/1to6/1" replacedOnIndex="4" reason="rerouter5" replacedAtTime="599.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
         </routeDistribution>
     </vehicle>

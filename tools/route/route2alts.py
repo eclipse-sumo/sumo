@@ -112,7 +112,7 @@ parser.setContentHandler(counter)
 parser.parse(sys.argv[1])
 # build alternatives
 print("Building alternatives...")
-out = open(sys.argv[2], "w")
-parser = make_parser()
-parser.setContentHandler(RoutePatcher(counter, out))
-parser.parse(sys.argv[1])
+with open(sys.argv[2], "w") as out:
+    parser = make_parser()
+    parser.setContentHandler(RoutePatcher(counter, out))
+    parser.parse(sys.argv[1])

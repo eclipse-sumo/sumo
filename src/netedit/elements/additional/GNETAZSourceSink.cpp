@@ -35,20 +35,18 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag tag, GNENet* net) :
-    GNETAZElement("", net, GLO_TAZ, tag,
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
-myDepartWeight(0) {
+    GNEAdditional(net, GLO_TAZ, tag, "",
+        {}, {}, {}, {}, {}, {}),
+    myDepartWeight(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNETAZElement* TAZParent, GNEEdge* edge, double departWeight) :
-    GNETAZElement(TAZParent, TAZParent->getNet(), GLO_TAZ, sourceSinkTag,
-{}, {edge}, {}, {}, {}, {TAZParent}, {}, {},
-std::map<std::string, std::string>()),
-myDepartWeight(departWeight) {
+GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
+    GNEAdditional(TAZParent->getNet(), GLO_TAZ, sourceSinkTag, "",
+        {}, {edge}, {}, {TAZParent}, {}, {}),
+    myDepartWeight(departWeight) {
     //check that this is a TAZ Source OR a TAZ Sink
     if ((sourceSinkTag != SUMO_TAG_TAZSOURCE) && (sourceSinkTag != SUMO_TAG_TAZSINK)) {
         throw InvalidArgument("Invalid TAZ Child Tag");
@@ -59,14 +57,15 @@ myDepartWeight(departWeight) {
 GNETAZSourceSink::~GNETAZSourceSink() {}
 
 
-const PositionVector&
-GNETAZSourceSink::getTAZElementShape() const {
-    return getParentTAZElements().front()->getTAZElementShape();
+GNEMoveOperation*
+GNETAZSourceSink::getMoveOperation() {
+    // nothing to move
+    return nullptr;
 }
 
 
 void
-GNETAZSourceSink::writeTAZElement(OutputDevice& device) const {
+GNETAZSourceSink::writeAdditional(OutputDevice& device) const {
     // open source/sink tag
     device.openTag(myTagProperty.getTag());
     // write source/sink attributes
@@ -91,7 +90,7 @@ GNETAZSourceSink::updateGeometry() {
 
 Position
 GNETAZSourceSink::getPositionInView() const {
-    return getParentTAZElements().at(0)->getPositionInView();
+    return getParentAdditionals().at(0)->getPositionInView();
 }
 
 
@@ -108,6 +107,12 @@ GNETAZSourceSink::getCenteringBoundary() const {
 
 
 void
+GNETAZSourceSink::updateCenteringBoundary(const bool /*updateGrid*/) {
+    // nothing to update
+}
+
+
+void
 GNETAZSourceSink::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
@@ -115,7 +120,7 @@ GNETAZSourceSink::splitEdgeGeometry(const double /*splitPosition*/, const GNENet
 
 std::string
 GNETAZSourceSink::getParentName() const {
-    return getParentTAZElements().at(0)->getID();
+    return getParentAdditionals().at(0)->getID();
 }
 
 
@@ -154,13 +159,15 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_WEIGHT:
             return toString(myDepartWeight);
         case GNE_ATTR_PARENT:
-            return getParentTAZElements().at(0)->getID();
+            return getParentAdditionals().at(0)->getID();
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         case GNE_ATTR_TAZCOLOR: {
             // obtain max and min weight source
-            double maxWeightSource = getParentTAZElements().at(0)->getAttributeDouble(GNE_ATTR_MAX_SOURCE);
-            double minWeightSource = getParentTAZElements().at(0)->getAttributeDouble(GNE_ATTR_MIN_SOURCE);
+            double maxWeightSource = getParentAdditionals().at(0)->getAttributeDouble(GNE_ATTR_MAX_SOURCE);
+            double minWeightSource = getParentAdditionals().at(0)->getAttributeDouble(GNE_ATTR_MIN_SOURCE);
             // avoid division between zero
             if ((maxWeightSource - minWeightSource) == 0) {
                 return "0";
@@ -193,6 +200,12 @@ GNETAZSourceSink::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Parameterised::Map& 
+GNETAZSourceSink::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
+}
+
+
 Position
 GNETAZSourceSink::getAttributePosition(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
@@ -211,6 +224,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         switch (key) {
             case SUMO_ATTR_ID:
             case SUMO_ATTR_WEIGHT:
+            case GNE_ATTR_SELECTED:
             case GNE_ATTR_PARAMETERS:
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
                 break;
@@ -226,11 +240,13 @@ GNETAZSourceSink::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return SUMOXMLDefinitions::isValidAdditionalID(value) &&
-                   (myNet->getAttributeCarriers()->retrieveTAZElement(myTagProperty.getTag(), value, false) == nullptr);
+                   (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), value, false) == nullptr);
         case SUMO_ATTR_WEIGHT:
             return canParse<double>(value) && (parse<double>(value) >= 0);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -274,6 +290,13 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WEIGHT:
             myDepartWeight = parse<double>(value);
             break;
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
+            break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
             break;
@@ -282,5 +305,16 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+void 
+GNETAZSourceSink::setMoveShape(const GNEMoveResult& /*moveResult*/) {
+    // nothing to move
+}
+
+
+void 
+GNETAZSourceSink::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
+    // nothing to move
+}
 
 /****************************************************************************/

@@ -59,9 +59,9 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
     myWalkingTime(walkingTime),
     myExitTimes(nullptr) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(departPos, route.front()->getLength(), SUMO_ATTR_DEPARTPOS,
-                  "person '" + personID + "' walking from " + route.front()->getID());
+                  "person '" + personID + "' walking from edge '" + route.front()->getID() + "'");
     myArrivalPos = SUMOVehicleParameter::interpretEdgePos(arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
-                   "person '" + personID + "' walking to " + route.back()->getID());
+                   "person '" + personID + "' walking to edge '" + route.back()->getID() + "'");
     if (walkingTime > 0) {
         mySpeed = computeAverageSpeed();
     }
@@ -113,7 +113,7 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
     if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
         myExitTimes = new std::vector<SUMOTime>();
     }
-    (*myRouteStep)->addPerson(person);
+    (*myRouteStep)->addTransportable(person);
 }
 
 
@@ -164,6 +164,7 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
                     fromPos = from->getShape().front();
                     toPos = to->getShape().back();
                 }
+                //std::cout << " from=" << from->getID() << " to=" << to->getID() << " junctionLength=" << fromPos.distanceTo2D(toPos) << "\n";
                 length += fromPos.distanceTo2D(toPos);
             }
         }
@@ -181,6 +182,7 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
                                   departBwdArrivalDir == MSPModel::BACKWARD
                                   ? myArrivalPos
                                   : myRoute.back()->getLength() - myArrivalPos));
+    //std::cout << " length=" << length << " lengthFwd=" << lengthFwd << " lengthBwd=" << lengthBwd << " mayStartForward=" << mayStartForward << " mayStartBackward=" << mayStartBackward << "\n";
 
     if (myRoute.size() == 1) {
         if (myDepartPos > myArrivalPos) {
@@ -245,6 +247,8 @@ MSPerson::MSPersonStage_Walking::routeOutput(const bool /* isPerson */, OutputDe
         if (myDestinationStop->getMyName() != "") {
             comment =  " <!-- " + StringUtils::escapeXML(myDestinationStop->getMyName(), true) + " -->";
         }
+    } else if (wasSet(VEHPARS_ARRIVALPOS_SET)) {
+        os.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPos);
     }
     if (myWalkingTime > 0) {
         os.writeAttr(SUMO_ATTR_DURATION, time2string(myWalkingTime));
@@ -271,7 +275,7 @@ MSPerson::MSPersonStage_Walking::routeOutput(const bool /* isPerson */, OutputDe
 
 bool
 MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, int prevDir, MSEdge* nextInternal) {
-    ((MSEdge*)getEdge())->removePerson(person);
+    ((MSEdge*)getEdge())->removeTransportable(person);
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(getEdge());
     const bool arrived = myRouteStep == myRoute.end() - 1;
     if (lane != nullptr) {
@@ -298,7 +302,7 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
         MSPerson* p = dynamic_cast<MSPerson*>(person);
         if (p->hasInfluencer() && p->getInfluencer().isRemoteControlled()) {
             myCurrentInternalEdge = nextInternal;
-            ((MSEdge*) getEdge())->addPerson(person);
+            ((MSEdge*) getEdge())->addTransportable(person);
             return false;
         }
         if (myDestinationStop != nullptr) {
@@ -323,7 +327,7 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
                 }
             }
         }
-        ((MSEdge*) getEdge())->addPerson(person);
+        ((MSEdge*) getEdge())->addTransportable(person);
         return false;
     }
 }
@@ -356,7 +360,12 @@ MSPerson::MSPersonStage_Walking::loadState(MSTransportable* transportable, std::
     state >> myDeparted >> stepIdx >> myLastEdgeEntryTime;
     myRouteStep = myRoute.begin() + stepIdx;
     myState = MSNet::getInstance()->getPersonControl().getMovementModel()->loadState(transportable, this, state);
-    (*myRouteStep)->addPerson(transportable);
+    if (myState->getLane() && !myState->getLane()->isNormal()) {
+        myCurrentInternalEdge = &myState->getLane()->getEdge();
+        myCurrentInternalEdge->addTransportable(transportable);
+    } else {
+        (*myRouteStep)->addTransportable(transportable);
+    }
 }
 
 
@@ -387,7 +396,7 @@ MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUM
     myDeparted = now;
     myEstimatedArrival = now + TIME2STEPS(myDist / person->getVehicleType().getMaxSpeed());
     net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person, &myDestinationStop->getLane().getEdge()), myEstimatedArrival);
-    myDestinationStop->getLane().getEdge().addPerson(person);
+    myDestinationStop->getLane().getEdge().addTransportable(person);
 }
 
 
@@ -429,7 +438,7 @@ MSPerson::MSPersonStage_Access::tripInfoOutput(OutputDevice& os, const MSTranspo
 
 SUMOTime
 MSPerson::MSPersonStage_Access::ProceedCmd::execute(SUMOTime currentTime) {
-    myStopEdge->removePerson(myPerson);
+    myStopEdge->removeTransportable(myPerson);
     if (!myPerson->proceed(MSNet::getInstance(), currentTime)) {
         MSNet::getInstance()->getPersonControl().erase(myPerson);
     }
@@ -442,8 +451,9 @@ MSPerson::MSPersonStage_Access::ProceedCmd::execute(SUMOTime currentTime) {
  * ----------------------------------------------------------------------- */
 MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor) :
     MSTransportable(pars, vtype, plan, true),
-    myInfluencer(nullptr), myChosenSpeedFactor(speedFactor) {
-}
+    myInfluencer(nullptr),
+    myChosenSpeedFactor(pars->speedFactor < 0 ? speedFactor : pars->speedFactor)
+{ }
 
 
 MSPerson::~MSPerson() {

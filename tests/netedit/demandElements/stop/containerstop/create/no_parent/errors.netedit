@@ -20,7 +20,6 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'trip' in DemandElementSelector
-Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopContainerStop' in TagSelector
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

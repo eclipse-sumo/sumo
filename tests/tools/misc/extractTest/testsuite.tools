@@ -1,0 +1,7 @@
+option_twice
+
+# same option twice in the same file
+twice_same_file
+
+# clearing a single option
+clear_single

@@ -171,7 +171,7 @@ def initOptions():
     argParser.add_argument("--gzip", action="store_true", default=False,
                            help="writing intermediate and resulting route files in gzipped format")
     argParser.add_argument("--dualog", default="dua.log", help="log file path (default 'dua.log')")
-    argParser.add_argument("--log", default="stdout.log", help="log file path (default 'dua.log')")
+    argParser.add_argument("--log", default="stdout.log", help="stdout log file path (default 'stdout.log')")
     argParser.add_argument("--marginal-cost", action="store_true", default=False,
                            help="use marginal cost to perform system optimal traffic assignment")
     argParser.add_argument("--marginal-cost.exp", type=float, default=0, dest="mcExp",
@@ -192,21 +192,14 @@ def call(command, log):
         sys.exit(retCode)
 
 
-def prepend_relative(prefix, path):
-    if os.path.isabs(path):
-        return path
-    else:
-        return "%s/%s" % (prefix, path)
-
-
 def writeRouteConf(duarouterBinary, step, options, dua_args, file,
                    output, routesInfo):
     filename = os.path.basename(file)
     filename = filename.split('.')[0]
-    cfgname = "%s/iteration_%03i_%s.duarcfg" % (step, step, filename)
+    cfgname = "%03i/iteration_%03i_%s.duarcfg" % (step, step, filename)
     args = [
-        '--net-file', prepend_relative("..", options.net),
-        '--route-files', prepend_relative("..", file),
+        '--net-file', options.net,
+        '--route-files', file,
         '--output-file', output,
         '--exit-times', str(routesInfo == "detailed"),
         '--ignore-errors', str(options.continueOnUnbuild),
@@ -240,11 +233,11 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
     if step > 0 or options.addweights:
         weightpath = ""
         if step > 0:
-            weightpath = os.path.join('..', str(step-1), get_weightfilename(options, step - 1, "dump"))
+            weightpath = get_weightfilename(options, step - 1, "dump")
         if options.addweights and (step == 0 or not options.addweightsOnce):
             if step > 0:
                 weightpath += ","
-            weightpath += os.path.join('..', options.addweights)
+            weightpath += options.addweights
         args += ['--weight-files', weightpath]
     if options.eco_measure:
         args += ['--weight-attribute', options.eco_measure]
@@ -271,8 +264,10 @@ def get_scale(options, step):
         return options.incMax
 
 
-def get_dumpfilename(options, step, prefix):
+def get_dumpfilename(options, step, prefix, full_path=True):
     # the file to which edge costs (traveltimes) are written
+    if full_path:
+        return "%03i/%s_%03i_%s.xml" % (step, prefix, step, options.aggregation)
     return "%s_%03i_%s.xml" % (prefix, step, options.aggregation)
 
 
@@ -287,15 +282,16 @@ def get_weightfilename(options, step, prefix):
 
 
 def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
-    detectorfile = "dua_dump_%03i.add.xml" % step
+    cfgfile = "%03i/iteration_%03i.sumocfg" % (step, step)
+    detectorfile = "%03i/dua_dump_%03i.add.xml" % (step, step)
     add = [detectorfile]
     if options.additional != '':
-        add += [prepend_relative("..", f) for f in options.additional.split(',')]
+        add += options.additional.split(',')
 
     sumoCmd = [sumoBinary,
-               '--save-configuration', "%s/iteration_%03i.sumocfg" % (step, step),
-               '--log', "iteration_%03i.sumo.log" % step,
-               '--net-file', prepend_relative("..", options.net),
+               '--save-configuration', cfgfile,
+               '--log', "%03i/iteration_%03i.sumo.log" % (step, step),
+               '--net-file', options.net,
                '--route-files', route_files,
                '--additional-files', ",".join(add),
                '--no-step-log',
@@ -311,17 +307,17 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
                ] + additional_args
 
     if hasattr(options, "noSummary") and not options.noSummary:
-        sumoCmd += ['--summary-output', "summary_%03i.xml" % step]
+        sumoCmd += ['--summary-output', "%03i/summary_%03i.xml" % (step, step)]
     if hasattr(options, "noTripinfo") and not options.noTripinfo:
-        sumoCmd += ['--tripinfo-output', "tripinfo_%03i.xml" % step]
+        sumoCmd += ['--tripinfo-output', "%03i/tripinfo_%03i.xml" % (step, step)]
         if options.eco_measure:
             sumoCmd += ['--device.hbefa.probability', '1']
     if hasattr(options, "routefile"):
         if options.routefile == "routesonly":
-            sumoCmd += ['--vehroute-output', "vehroute_%03i.xml" % step,
+            sumoCmd += ['--vehroute-output', "%03i/vehroute_%03i.xml" % (step, step),
                         '--vehroute-output.route-length']
         elif options.routefile == "detailed":
-            sumoCmd += ['--vehroute-output', "vehroute_%03i.xml" % step,
+            sumoCmd += ['--vehroute-output', "%03i/vehroute_%03i.xml" % (step, step),
                         '--vehroute-output.route-length',
                         '--vehroute-output.exit-times']
     if hasattr(options, "lastroute") and options.lastroute:
@@ -353,23 +349,24 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     subprocess.call(sumoCmd, stdout=subprocess.PIPE)
 
     # write detectorfile
-    with open(os.path.join(str(step), detectorfile), 'w') as fd:
+    with open(detectorfile, 'w') as fd:
         vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
         suffix = "_%03i_%s" % (step, options.aggregation)
         print("<a>", file=fd)
         print('    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
-            suffix, options.aggregation, get_dumpfilename(options, step, "dump"), vTypes), file=fd)
+            suffix, options.aggregation, get_dumpfilename(options, step, "dump", False), vTypes), file=fd)
         if options.eco_measure:
             print(('    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml" ' +
                    'excludeEmpty="true" minSamples="1"%s/>') %
                   (suffix, options.aggregation, suffix, vTypes), file=fd)
         print("</a>", file=fd)
+    return cfgfile
 
 
 def filterTripinfo(step, attrs):
     if "id" not in attrs:
         attrs = ["id"] + attrs
-    inFile = "%s%stripinfo_%03i.xml" % (step, os.sep, step)
+    inFile = "%03i%stripinfo_%03i.xml" % (step, os.sep, step)
     if os.path.exists(inFile):
         out = open(inFile + ".filtered", 'w')
         print("<tripinfos>", file=out)
@@ -455,8 +452,8 @@ def calcMarginalCost(step, options):
     if step > 1:
         if DEBUGLOG:
             log = open("marginal_cost2.log", "w" if step == 2 else "a")
-        tree_sumo_cur = ET.parse(os.path.join(str(step - 1), get_weightfilename(options, step - 1, "dump")))
-        tree_sumo_prv = ET.parse(os.path.join(str(step - 2), get_weightfilename(options, step - 2, "dump")))
+        tree_sumo_cur = ET.parse(get_weightfilename(options, step - 1, "dump"))
+        tree_sumo_prv = ET.parse(get_weightfilename(options, step - 2, "dump"))
         for interval_cur in tree_sumo_cur.getroot():
             begin_cur = interval_cur.attrib.get("begin")
             for interval_prv in tree_sumo_prv.getroot():
@@ -487,8 +484,7 @@ def calcMarginalCost(step, options):
                                         print("step=%s beg=%s e=%s tt=%s ttprev=%s n=%s nPrev=%s mC=%s mCPrev=%s" %
                                               (step, begin_cur, edgeID, tt_cur, tt_prv, veh_cur, veh_prv,
                                                mc_cur, mc_prv), file=log)
-        tree_sumo_cur.write(
-            os.path.join(str(step - 1), get_weightfilename(options, step - 1, "dump")))
+        tree_sumo_cur.write(get_weightfilename(options, step - 1, "dump"))
 
         if DEBUGLOG:
             log.close()
@@ -525,16 +521,8 @@ def main(args=None):
             ("Error: Could not locate sumo (%s).\nMake sure its on the search path or set environment " +
              "variable SUMO_BINARY\n") % sumoBinary)
 
-    sumo_args = assign_remaining_args(
-        sumoBinary, 'sumo', options.remaining_args)
-    dua_args = assign_remaining_args(
-        duaBinary, 'duarouter', options.remaining_args)
-    index = -1
-    for i in range(len(dua_args)):
-        if dua_args[i] == '--additional-files':
-            index = i
-    if index > -1:
-        dua_args[index+1] = ','.join([prepend_relative("..", f) for f in dua_args[index+1].split(',')])
+    sumo_args = assign_remaining_args(sumoBinary, 'sumo', options.remaining_args)
+    dua_args = assign_remaining_args(duaBinary, 'duarouter', options.remaining_args)
     sys.stdout = sumolib.TeeFile(sys.stdout, open(options.log, "w+"))
     log = open(options.dualog, "w+")
     if options.zip:
@@ -571,7 +559,7 @@ def main(args=None):
     avgTT = sumolib.miscutils.Statistics()
     for step in range(options.firstStep, options.lastStep):
         current_directory = os.getcwd()
-        final_directory = os.path.join(current_directory, str(step))
+        final_directory = os.path.join(current_directory, "%03i" % step)
         if not os.path.exists(final_directory):
             os.makedirs(final_directory)
         btimeA = datetime.now()
@@ -581,11 +569,11 @@ def main(args=None):
         simulation_demands = input_demands
         # demand files have regular names based on the basename and the step
         if not (options.skipFirstRouting and step == 0):
-            simulation_demands = [
-                get_basename(f) + "_%03i.rou%s" % (step, routesSuffix) for f in input_demands]
+            simulation_demands = ["%03i/%s_%03i.rou%s" % (step, get_basename(f), step, routesSuffix)
+                                  for f in input_demands]
         if not ((options.skipFirstRouting and step == 1) or step == 0):
-            router_demands = [str(step-1) + os.sep + get_basename(
-                f) + "_%03i.rou.alt%s" % (step - 1, routesSuffix) for f in input_demands]
+            router_demands = ["%03i/%s_%03i.rou.alt%s" % (step-1, get_basename(f), step-1, routesSuffix)
+                              for f in input_demands]
 
         if not (options.skipFirstRouting and step == options.firstStep):
             # call duarouter
@@ -612,11 +600,11 @@ def main(args=None):
         print(">> Running simulation")
         btime = datetime.now()
         print(">>> Begin time: %s" % btime)
-        writeSUMOConf(sumoBinary, step, options, sumo_args,
-                      ",".join(simulation_demands))  # todo: change 'grou.xml'
+        sumocfg = writeSUMOConf(sumoBinary, step, options, sumo_args,
+                                ",".join(simulation_demands))  # todo: change 'grou.xml'
         log.flush()
         sys.stdout.flush()
-        call([sumoBinary, "-c", "%s%siteration_%03i.sumocfg" % (step, os.sep, step)], log)
+        call([sumoBinary, "-c", sumocfg], log)
         if options.tripinfoFilter:
             filterTripinfo(step, options.tripinfoFilter.split(","))
         etime = datetime.now()
@@ -626,13 +614,11 @@ def main(args=None):
 
         if options.weightmemory:
             print(">> Smoothing edge weights")
-            costmemory.load_costs(
-                str(step) + os.sep + get_dumpfilename(options, step, "dump"), step, get_scale(options, step))
-            costmemory.write_costs(str(step) + os.sep + get_weightfilename(options, step, "dump"))
+            costmemory.load_costs(get_dumpfilename(options, step, "dump"), step, get_scale(options, step))
+            costmemory.write_costs(get_weightfilename(options, step, "dump"))
             print(">>> Updated %s edges" % costmemory.loaded())
             print(">>> Decayed %s unseen edges" % costmemory.decayed())
-            print(">>> Error avg:%.12g mean:%.12g" %
-                  (costmemory.avg_error(), costmemory.mean_error()))
+            print(">>> Error avg:%.12g mean:%.12g" % (costmemory.avg_error(), costmemory.mean_error()))
             print(">>> Absolute Error avg:%.12g mean:%.12g" %
                   (costmemory.avg_abs_error(), costmemory.mean_abs_error()))
 
@@ -650,14 +636,14 @@ def main(args=None):
                     del zipProcesses[s]
             zipStep = step - 2
             zipProcesses[zipStep] = subprocess.Popen(
-                ["7z", "a", "iteration%03i.7z" % zipStep] + glob.glob("*_%03i*" % zipStep), stdout=zipLog,
+                ["7z", "a", "iteration%03i.7z" % zipStep, "%03i" % zipStep], stdout=zipLog,
                 stderr=zipLog)
 
         converged = False
         if options.convDev:
             sum = 0.
             count = 0
-            for t in sumolib.output.parse_fast(str(step) + os.sep + "tripinfo_%03i.xml" % step,
+            for t in sumolib.output.parse_fast("%03i/tripinfo_%03i.xml" % (step, step),
                                                'tripinfo', ['duration']):
                 sum += float(t.duration)
                 count += 1

@@ -1,0 +1,2 @@
+Warning: Missing green phase in tlLogic 'C', program 'P1' for tl-index 2
+Warning: At actuated tlLogic 'C', actuated phase 0 has no controlling detector.

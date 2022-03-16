@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-23 12:49:41 by Eclipse SUMO sumo Version v1_11_0+0012-279bcfd
+<!-- generated on 2022-02-10 14:18:50 by Eclipse SUMO sumo Version v1_12_0+0453-348ab90
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -41,8 +46,8 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
         <edge id="beg2">
-            <lane id="beg2_0" sampledSeconds="203.25" traveltime="83.11" overlapTraveltime="83.25" density="0.68" laneDensity="0.68" occupancy="0.34" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="1" entered="3" left="0" laneChangedFrom="0" laneChangedTo="3"/>
-            <lane id="beg2_1" sampledSeconds="91.00" traveltime="83.11" overlapTraveltime="83.25" density="0.30" laneDensity="0.30" occupancy="0.15" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="7" arrived="0" entered="0" left="0" laneChangedFrom="3" laneChangedTo="0"/>
+            <lane id="beg2_0" sampledSeconds="229.25" traveltime="83.11" overlapTraveltime="83.25" density="0.77" laneDensity="0.77" occupancy="0.38" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="3" arrived="1" entered="3" left="0" laneChangedFrom="0" laneChangedTo="1"/>
+            <lane id="beg2_1" sampledSeconds="68.00" traveltime="83.11" overlapTraveltime="83.25" density="0.23" laneDensity="0.23" occupancy="0.11" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="4" arrived="0" entered="0" left="0" laneChangedFrom="1" laneChangedTo="0"/>
         </edge>
         <edge id="end">
             <lane id="end_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
@@ -73,8 +78,8 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
         <edge id="beg2">
-            <lane id="beg2_0" sampledSeconds="1350.25" traveltime="83.11" overlapTraveltime="83.25" density="2.26" laneDensity="2.26" occupancy="1.13" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="2" arrived="12" entered="5" left="0" laneChangedFrom="0" laneChangedTo="18"/>
-            <lane id="beg2_1" sampledSeconds="498.00" traveltime="83.11" overlapTraveltime="83.25" density="0.83" laneDensity="0.83" occupancy="0.42" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="24" arrived="1" entered="0" left="0" laneChangedFrom="18" laneChangedTo="0"/>
+            <lane id="beg2_0" sampledSeconds="1441.25" traveltime="83.11" overlapTraveltime="83.25" density="2.41" laneDensity="2.41" occupancy="1.20" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="12" arrived="11" entered="5" left="0" laneChangedFrom="0" laneChangedTo="8"/>
+            <lane id="beg2_1" sampledSeconds="410.00" traveltime="83.11" overlapTraveltime="83.25" density="0.69" laneDensity="0.69" occupancy="0.34" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="14" arrived="2" entered="0" left="0" laneChangedFrom="8" laneChangedTo="0"/>
         </edge>
         <edge id="end">
             <lane id="end_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
@@ -105,8 +110,8 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
         <edge id="beg2">
-            <lane id="beg2_0" sampledSeconds="5996.25" traveltime="83.11" overlapTraveltime="83.25" density="6.68" laneDensity="6.68" occupancy="3.34" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="86" entered="9" left="0" laneChangedFrom="0" laneChangedTo="83"/>
-            <lane id="beg2_1" sampledSeconds="1973.00" traveltime="83.11" overlapTraveltime="83.25" density="2.20" laneDensity="2.20" occupancy="1.10" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="91" arrived="7" entered="0" left="0" laneChangedFrom="83" laneChangedTo="0"/>
+            <lane id="beg2_0" sampledSeconds="6626.25" traveltime="83.11" overlapTraveltime="83.25" density="7.38" laneDensity="7.38" occupancy="3.69" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="41" arrived="85" entered="9" left="0" laneChangedFrom="0" laneChangedTo="42"/>
+            <lane id="beg2_1" sampledSeconds="1340.00" traveltime="83.11" overlapTraveltime="83.25" density="1.49" laneDensity="1.49" occupancy="0.75" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="50" arrived="8" entered="0" left="0" laneChangedFrom="42" laneChangedTo="0"/>
         </edge>
         <edge id="end">
             <lane id="end_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>

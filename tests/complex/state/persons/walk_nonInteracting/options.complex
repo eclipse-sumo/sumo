@@ -4,7 +4,7 @@ input_net.net.xml -r input_routes.rou.xml --save-state.times 50
 --pedestrian.model nonInteracting
 :
 --vehroute-output=vehroutes.xml --no-step-log --no-duration-log -n
-input_net.net.xml --load-state state.xml --a input_additional.add.xml 
+input_net.net.xml --load-state state.xml 
 --pedestrian.model nonInteracting
 -e 1200
 

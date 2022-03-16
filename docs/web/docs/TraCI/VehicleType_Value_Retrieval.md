@@ -37,6 +37,7 @@ value is also shown in the table.
 | lateral alignment (0xb9)  | string              | Returns the preferred lateral alignment of the type.                                           | [getLateralAlignment](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-getLateralAlignment) |
 | action step length (0x7d) | double              | Returns the action step length for the vehicle type in s.                                      | [getActionStepLength](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-getActionStepLength) |
 | person capacity (0x38)    | int                 | Returns the total number of persons that can ride in a vehicle of this type.                   | [getPersonCapacity](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-getPersonCapacity)            |
+| scale (0x8e)    | double                 | Returns the traffic scaling factor for vehicles of this type | [getScale](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-getScale)            |
 
 **Overview Retrievable Vehicle Type Variables**
 

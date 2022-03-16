@@ -38,16 +38,16 @@ netedit.changeEditMode('5')
 netedit.leftClick(referencePosition, 228, 164)
 
 # Change constPos with an invalid value
-netedit.modifyAttribute(2, "dummyContPos", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.contPos, "dummyContPos", True)
 
 # Change constPos with an valid value
-netedit.modifyAttribute(2, "-3", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.contPos, "-3", True)
 
 # Change constPos with an valid value
-netedit.modifyAttribute(2, "0", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.contPos, "0", True)
 
 # Change constPos with an valid value
-netedit.modifyAttribute(2, "12", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.contPos, "12", True)
 
 # rebuild
 netedit.rebuildNetwork()

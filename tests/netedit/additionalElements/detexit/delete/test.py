@@ -45,19 +45,19 @@ netedit.leftClick(referencePosition, 200, 50)
 
 # Create Exit detector for E3 3
 netedit.changeElement("detExit")
-netedit.selectAdditionalChild(4, 2)
+netedit.selectAdditionalChild(netedit.attrs.entryExit.create.parent, 2)
 netedit.leftClick(referencePosition, 75, 200)
 
 # Create Exit detectors for E3 4
 netedit.changeElement("detExit")
-netedit.selectAdditionalChild(4, 3)
+netedit.selectAdditionalChild(netedit.attrs.entryExit.create.parent, 3)
 netedit.leftClick(referencePosition, 250, 200)
 
 # Change to delete
 netedit.deleteMode()
 
 # disable 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+netedit.changeProtectAdditionalElements(referencePosition)
 
 # delete created E3 1
 netedit.leftClick(referencePosition, 100, 50)
@@ -81,7 +81,7 @@ netedit.undo(referencePosition, 5)
 netedit.deleteMode()
 
 # disable 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+netedit.changeProtectAdditionalElements(referencePosition)
 
 # try to delete lane with the second loaded entry (doesn't allowed)
 netedit.leftClick(referencePosition, 400, 300)

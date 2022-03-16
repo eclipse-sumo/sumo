@@ -14,6 +14,7 @@
 /// @file    GUIOSGBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    19.01.2012
 ///
 // Builds OSG nodes from microsim objects
@@ -348,6 +349,13 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
                                   type.getHeight() / (bbox.zMax() - bbox.zMin())));
         m.pos->addChild(base);
         enlarge = type.getMinGap() / 2.;
+
+        // material for coloring the vehicle body
+        m.mat = new osg::Material();
+        osg::ref_ptr<osg::StateSet> ss = base->getOrCreateStateSet();
+        ss->setAttribute(m.mat, osg::StateAttribute::ON | osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED);
+        ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+        ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
     }
     m.lights = new osg::Switch();
     for (double offset = -0.3; offset < 0.5; offset += 0.6) {
@@ -379,11 +387,7 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
     setShapeState(brake);
     m.lights->addChild(geode);
 
-    geode = new osg::Geode();
     osg::Vec3d center(0, type.getLength() / 2., type.getHeight() / 2.);
-    m.geom = new osg::ShapeDrawable(new osg::Sphere(center, .5f));
-    geode->addDrawable(m.geom);
-    setShapeState(m.geom);
     osg::PositionAttitudeTransform* ellipse = new osg::PositionAttitudeTransform();
     ellipse->addChild(geode);
     ellipse->addChild(m.lights);

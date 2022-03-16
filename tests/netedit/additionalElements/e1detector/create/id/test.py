@@ -37,26 +37,20 @@ netedit.changeElement("e1Detector")
 # Create E1
 netedit.leftClick(referencePosition, 140, 245)
 
-# enable ID
-netedit.changeDefaultBoolValue(2)
-
-# Create E1
-netedit.leftClick(referencePosition, 160, 245)
-
 # set a invalid  id (duplicated)
-netedit.changeDefaultValue(3, "e1_0")
+netedit.changeDefaultValue(netedit.attrs.E1.create.id, "e1_0")
 
 # try to create E1 with invalid id
 netedit.leftClick(referencePosition, 180, 245)
 
 # set a invalid  id
-netedit.changeDefaultValue(3, ";;;")
+netedit.changeDefaultValue(netedit.attrs.E1.create.id, ";;;")
 
 # try to create E1 with invalid id
 netedit.leftClick(referencePosition, 200, 245)
 
 # set a valid id
-netedit.changeDefaultValue(3, "customID")
+netedit.changeDefaultValue(netedit.attrs.E1.create.id, "customID")
 
 # create E1 with valid id
 netedit.leftClick(referencePosition, 220, 245)

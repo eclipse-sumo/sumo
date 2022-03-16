@@ -1,6 +1,5 @@
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'vaporizer' in TagSelector
-Debug: Invalid input parameter of vaporizer: 'end' doesn't have a valid SUMOTime format
+Debug: Invalid input parameter of vaporizer
 Debug: Adding vaporizer 'gneE1' in GNEChange_Additional
 Debug: Adding vaporizer 'gneE0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed

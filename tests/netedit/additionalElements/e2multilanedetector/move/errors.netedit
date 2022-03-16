@@ -6,8 +6,6 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,-11.60,35.00,1
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 15.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -30,20 +28,19 @@ GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,1
 Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE4_0togneE5_0' in retrieveGNEConnection()
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e2MultilaneDetector' in TagSelector
 Debug: Key ENTER pressed
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
+Debug: Adding e2MultilaneDetector 'e2_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
+Debug: Removing e2MultilaneDetector 'e2_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
+Debug: Adding e2MultilaneDetector 'e2_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
@@ -67,7 +64,7 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,-11.60,35.00,1
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 15.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
-Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Deleting unreferenced e2MultilaneDetector 'e2_0'
 Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in GNEEdge destructor
@@ -82,8 +79,5 @@ Debug: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 7

@@ -1,62 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-16 09:48:20 by Eclipse SUMO netedit Version v1_10_0+2302-18d2c1dce6e
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov085600.4880\netedit.gui\additionalElements\routeprobe\load\freq\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov085600.4880\netedit.gui\additionalElements\routeprobe\load\freq\net.net.xml"/>
-    </output>
-
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-    <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov085600.4880\netedit.gui\additionalElements\routeprobe\load\freq\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov085600.4880\netedit.gui\additionalElements\routeprobe\load\freq\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov085600.4880\netedit.gui\additionalElements\routeprobe\load\freq\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov085600.4880\netedit.gui\additionalElements\routeprobe\load\freq\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov085600.4880\netedit.gui\additionalElements\routeprobe\load\freq\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov085600.4880\netedit.gui\additionalElements\routeprobe\load\freq\datas.xml"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov085600.4880\netedit.gui\additionalElements\routeprobe\load\freq\gui-settings.xml"/>
-        <window-size value="936,697"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov085600.4880\netedit.gui\additionalElements\routeprobe\load\freq\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov085600.4880\netedit.gui\additionalElements\routeprobe\load\freq\log.txt"/>
-    </report>
-
-</configuration>
+<!-- generated on 2022-03-04 10:36:35 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- RouteProbes -->
     <routeProbe id="routeProbe_3" begin="0.00" freq="120.30" edge="gneE1" file="routeProbe_3.txt"/>
 </additional>

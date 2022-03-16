@@ -1,10 +1,10 @@
  Retrying in 1 seconds
 t=5.0 laneIndex=2 posLat=0.0 state(-1)=(['stay', 'sublane'], ['sublane']) state(0)=(['stay', 'sublane'], ['sublane']) state(1)=([], [])
 t=6.0 laneIndex=2 posLat=-1.0 state(-1)=(['right', 'TraCI'], ['right', 'TraCI']) state(0)=(['right', 'TraCI'], ['right', 'TraCI']) state(1)=([], [])
-t=7.0 laneIndex=1 posLat=1.2 state(-1)=(['left', 'right', 'keepRight', 'TraCI', 'sublane'], ['right', 'TraCI']) state(0)=(['left', 'right', 'TraCI', 'sublane'], ['right', 'TraCI']) state(1)=([], [])
+t=7.0 laneIndex=1 posLat=1.2 state(-1)=(['left', 'right', 'keepRight', 'sublane'], ['right', 'TraCI']) state(0)=(['left', 'sublane'], ['right', 'TraCI']) state(1)=([], [])
 t=8.0 laneIndex=1 posLat=0.2 state(-1)=(['right', 'TraCI', 'sublane'], ['right', 'TraCI', 'sublane']) state(0)=(['right', 'TraCI', 'sublane'], ['right', 'TraCI', 'sublane']) state(1)=(['right', 'TraCI', 'sublane'], ['right', 'TraCI', 'sublane'])
 t=9.0 laneIndex=1 posLat=-0.8 state(-1)=(['right', 'TraCI', 'sublane'], ['right', 'TraCI', 'sublane']) state(0)=(['right', 'TraCI', 'sublane'], ['right', 'TraCI', 'sublane']) state(1)=(['right', 'TraCI', 'sublane'], ['right', 'TraCI', 'sublane'])
-t=10.0 laneIndex=0 posLat=1.4 state(-1)=(['left', 'right', 'TraCI', 'sublane'], ['right', 'TraCI']) state(0)=(['left', 'right', 'TraCI', 'sublane'], ['right', 'TraCI']) state(1)=(['left', 'right', 'TraCI', 'sublane'], ['right', 'TraCI'])
+t=10.0 laneIndex=0 posLat=1.4 state(-1)=(['left', 'sublane'], ['right', 'TraCI']) state(0)=(['left', 'sublane'], ['right', 'TraCI']) state(1)=(['left', 'sublane'], ['right', 'TraCI'])
 t=11.0 laneIndex=0 posLat=0.4 state(-1)=([], []) state(0)=(['right', 'TraCI', 'sublane'], ['right', 'TraCI', 'sublane']) state(1)=(['right', 'TraCI', 'sublane'], ['right', 'TraCI', 'sublane'])
 t=12.0 laneIndex=0 posLat=0.2 state(-1)=([], []) state(0)=(['right', 'TraCI', 'sublane'], ['right', 'TraCI', 'sublane']) state(1)=(['right', 'TraCI', 'sublane'], ['right', 'TraCI', 'sublane'])
 t=13.0 laneIndex=0 posLat=0.2 state(-1)=([], []) state(0)=(['right', 'sublane'], []) state(1)=(['right', 'sublane'], [])

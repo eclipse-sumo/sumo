@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-14 15:20:42 by Eclipse SUMO netconvert Version v1_12_0+0086-64caa9c3b39
+<!-- generated on 2022-03-16 08:18:24 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -205,10 +210,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":588394574_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" friction="1.00" length="6.36" shape="608.12,109.23 606.88,110.63 605.89,111.45 604.76,112.11 603.10,113.02"/>
     </edge>
     <edge id=":663353215_0" function="internal">
-        <lane id=":663353215_0_0" index="0" allow="pedestrian bicycle" speed="4.67" friction="1.00" length="4.53" shape="743.41,62.37 742.86,61.12 742.13,60.33 741.21,60.00 740.11,60.13"/>
+        <lane id=":663353215_0_0" index="0" allow="pedestrian bicycle" speed="4.67" friction="1.00" length="4.53" width="2.00" shape="743.41,62.37 742.86,61.12 742.13,60.33 741.21,60.00 740.11,60.13"/>
     </edge>
     <edge id=":663353215_1" function="internal">
-        <lane id=":663353215_1_0" index="0" allow="pedestrian bicycle" speed="6.29" friction="1.00" length="8.76" shape="743.41,62.37 742.87,59.66 743.10,57.53 744.10,55.98 745.86,55.03"/>
+        <lane id=":663353215_1_0" index="0" allow="pedestrian bicycle" speed="6.29" friction="1.00" length="8.76" width="2.00" shape="743.41,62.37 742.87,59.66 743.10,57.53 744.10,55.98 745.86,55.03"/>
     </edge>
     <edge id=":663353215_2" function="internal">
         <lane id=":663353215_2_0" index="0" allow="pedestrian bicycle" speed="2.78" friction="1.00" length="2.92" width="2.00" shape="743.41,62.37 743.67,61.51 744.07,61.12 744.62,61.22 745.32,61.79"/>

@@ -1,2 +1,1 @@
-Warning: An e3Detector need at least one detExit detector
-Warning: e3Detector with ID='E3_0' cannot be written
+Warning: e3Detector 'E3_0' needs at least one entry and one exit

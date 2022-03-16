@@ -196,6 +196,15 @@ public:
     /// @brief update meso edge type parameters
     void setMesoTypes();
 
+    /** @brief Saves the current state into the given stream
+     */
+    void saveState(OutputDevice& out);
+
+    /** @brief Reconstruct the current state
+     */
+    void setActiveLanes(std::list<MSLane*> lanes);
+
+
 #ifndef THREAD_POOL
 #ifdef HAVE_FOX
     FXWorkerThread::Pool& getThreadPool() {

@@ -197,8 +197,13 @@ public:
         }
     }
 
-    void saveLCState(const int dir, const int stateWithoutTraCI, const int state) {
-        const auto pair = std::make_pair(stateWithoutTraCI | getCanceledState(dir), state);
+    void saveLCState(const int dir, int stateWithoutTraCI, const int state) {
+        int canceledStrategic = getCanceledState(dir);
+        // avoid conflicting directions
+        if ((canceledStrategic & LCA_WANTS_LANECHANGE_OR_STAY) != 0) {
+            stateWithoutTraCI = canceledStrategic;
+        }
+        const auto pair = std::make_pair(stateWithoutTraCI, state);
         if (dir == -1) {
             mySavedStateRight = pair;
         } else if (dir == 0) {

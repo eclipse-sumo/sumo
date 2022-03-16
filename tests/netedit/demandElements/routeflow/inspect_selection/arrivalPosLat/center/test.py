@@ -40,17 +40,17 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
+# inspect flow over route
 netedit.leftClick(referencePosition, 330, 150)
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(13, "", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.arrivalPosLat, "", True)
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(13, "dummyPosLat", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.arrivalPosLat, "dummyPosLat", True)
 
 # change arrivalPosLat with an valid value
-netedit.modifyAttribute(13, "center", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.arrivalPosLat, "center", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

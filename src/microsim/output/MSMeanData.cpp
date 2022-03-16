@@ -418,7 +418,9 @@ MSMeanData::MSMeanData(const std::string& id,
                        const double maxTravelTime,
                        const double minSamples,
                        const std::string& vTypes,
-                       const std::string& writeAttributes) :
+                       const std::string& writeAttributes,
+                       const std::vector<MSEdge*>& edges,
+                       bool aggregate) :
     MSDetectorFileOutput(id, vTypes, detectPersons),
     myMinSamples(minSamples),
     myMaxTravelTime(maxTravelTime),
@@ -427,54 +429,61 @@ MSMeanData::MSMeanData(const std::string& id,
     myDumpBegin(dumpBegin),
     myDumpEnd(dumpEnd),
     myInitTime(SUMOTime_MAX),
+    myEdges(edges),
     myPrintDefaults(printDefaults),
     myDumpInternal(withInternal),
     myTrackVehicles(trackVehicles),
-    myWrittenAttributes(initWrittenAttributes(writeAttributes, id))
+    myWrittenAttributes(initWrittenAttributes(writeAttributes, id)),
+    myAggregate(aggregate)
 { }
 
 
 void
 MSMeanData::init() {
     myInitTime = MSNet::getInstance()->getCurrentTimeStep();
-    for (MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
-        if ((myDumpInternal || !edge->isInternal()) &&
-                ((detectPersons() && myDumpInternal) || (!edge->isCrossing() && !edge->isWalkingArea()))) {
-            myEdges.push_back(edge);
-            myMeasures.push_back(std::vector<MeanDataValues*>());
-            const std::vector<MSLane*>& lanes = edge->getLanes();
-            if (MSGlobals::gUseMesoSim) {
-                MeanDataValues* data;
-                if (myTrackVehicles) {
-                    data = new MeanDataValueTracker(nullptr, lanes[0]->getLength(), this);
-                } else {
-                    data = createValues(nullptr, lanes[0]->getLength(), false);
-                }
-                data->setDescription("meandata_" + edge->getID());
-                myMeasures.back().push_back(data);
-                MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
-                while (s != nullptr) {
-                    s->addDetector(data);
-                    s->prepareDetectorForWriting(*data);
-                    s = s->getNextSegment();
-                }
-                data->reset();
-                data->reset(true);
-                continue;
+    if (myEdges.empty()) {
+        // use all edges by default
+        for (MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
+            if ((myDumpInternal || !edge->isInternal()) &&
+                    ((detectPersons() && myDumpInternal) || (!edge->isCrossing() && !edge->isWalkingArea()))) {
+                myEdges.push_back(edge);
             }
-            if (myAmEdgeBased && myTrackVehicles) {
-                myMeasures.back().push_back(new MeanDataValueTracker(nullptr, lanes[0]->getLength(), this));
+        }
+    }
+    for (MSEdge* edge : myEdges) {
+        myMeasures.push_back(std::vector<MeanDataValues*>());
+        const std::vector<MSLane*>& lanes = edge->getLanes();
+        if (MSGlobals::gUseMesoSim) {
+            MeanDataValues* data;
+            if (myTrackVehicles) {
+                data = new MeanDataValueTracker(nullptr, lanes[0]->getLength(), this);
+            } else {
+                data = createValues(nullptr, lanes[0]->getLength(), false);
             }
-            for (MSLane* const lane : lanes) {
-                if (myTrackVehicles) {
-                    if (myAmEdgeBased) {
-                        lane->addMoveReminder(myMeasures.back().back());
-                    } else {
-                        myMeasures.back().push_back(new MeanDataValueTracker(lane, lane->getLength(), this));
-                    }
+            data->setDescription("meandata_" + edge->getID());
+            myMeasures.back().push_back(data);
+            MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
+            while (s != nullptr) {
+                s->addDetector(data);
+                s->prepareDetectorForWriting(*data);
+                s = s->getNextSegment();
+            }
+            data->reset();
+            data->reset(true);
+            continue;
+        }
+        if (myAmEdgeBased && myTrackVehicles) {
+            myMeasures.back().push_back(new MeanDataValueTracker(nullptr, lanes[0]->getLength(), this));
+        }
+        for (MSLane* const lane : lanes) {
+            if (myTrackVehicles) {
+                if (myAmEdgeBased) {
+                    lane->addMoveReminder(myMeasures.back().back());
                 } else {
-                    myMeasures.back().push_back(createValues(lane, lane->getLength(), true));
+                    myMeasures.back().push_back(new MeanDataValueTracker(lane, lane->getLength(), this));
                 }
+            } else {
+                myMeasures.back().push_back(createValues(lane, lane->getLength(), true));
             }
         }
     }
@@ -517,6 +526,47 @@ MSMeanData::resetOnly(SUMOTime stopTime) {
 std::string
 MSMeanData::getEdgeID(const MSEdge* const edge) {
     return edge->getID();
+}
+
+
+void
+MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
+    if (myTrackVehicles) {
+        throw ProcessError("aggregated meanData output not yet implemented for trackVehicles");
+    }
+
+    double edgeLengthSum = 0;
+    int laneNumber = 0;
+    double speedSum = 0;
+    double totalTT = 0;
+    for (MSEdge* edge : myEdges) {
+        edgeLengthSum += edge->getLength();
+        laneNumber += edge->getNumLanes();
+        speedSum += edge->getSpeedLimit();
+        totalTT += edge->getLength() / edge->getSpeedLimit();
+    }
+    MeanDataValues* sumData = createValues(nullptr, edgeLengthSum, false);
+    for (const std::vector<MeanDataValues*>& edgeValues : myMeasures) {
+        for (MeanDataValues* meanData : edgeValues) {
+            meanData->addTo(*sumData);
+            meanData->reset();
+        }
+    }
+    if (MSGlobals::gUseMesoSim) {
+        for (MSEdge* edge : myEdges) {
+            MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
+            while (s != nullptr) {
+                s->prepareDetectorForWriting(*sumData);
+                s = s->getNextSegment();
+            }
+        }
+    }
+
+    if (writePrefix(dev, *sumData, SUMO_TAG_EDGE, "AGGREGATED")) {
+        dev.writeAttr(SUMO_ATTR_NUMEDGES, myEdges.size());
+        sumData->write(dev, myWrittenAttributes, stopTime - startTime, (double)laneNumber, speedSum / myEdges.size(),
+                myPrintDefaults ? totalTT : -1.);
+    }
 }
 
 
@@ -643,9 +693,13 @@ MSMeanData::writeXMLOutput(OutputDevice& dev,
             myPendingIntervals.pop_front();
         }
         openInterval(dev, startTime, stopTime);
-        MSEdgeVector::iterator edge = myEdges.begin();
-        for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i, ++edge) {
-            writeEdge(dev, (*i), *edge, startTime, stopTime);
+        if (myAggregate) {
+            writeAggregated(dev, startTime, stopTime);
+        } else {
+            MSEdgeVector::iterator edge = myEdges.begin();
+            for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i, ++edge) {
+                writeEdge(dev, (*i), *edge, startTime, stopTime);
+            }
         }
         dev.closeTag();
     }

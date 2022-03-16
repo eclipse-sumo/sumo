@@ -41,7 +41,7 @@ netedit.selectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # select select second junction
-netedit.leftClick(referencePosition, 7, 238)
+netedit.leftClick(referencePosition, 10, 230)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -50,10 +50,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # set invalid value
-netedit.modifyAttribute(0, "dummyType", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.type, "dummyType", False)
 
 # change type of junction
-netedit.modifyAttribute(0, "traffic_light_right_on_red", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.type, "traffic_light_right_on_red", False)
 
 # rebuild network
 netedit.rebuildNetwork()

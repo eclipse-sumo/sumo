@@ -64,7 +64,7 @@ public:
 
     static void sleep(long ms);
 
-private:
+protected:
     FXApp* myApp;
     MFXInterThreadEventClient* myClient;
 

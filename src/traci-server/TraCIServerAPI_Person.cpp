@@ -165,10 +165,8 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 if (!server.readTypeCheckingDouble(inputStorage, speed)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Setting speed requires a double.", outputStorage);
                 }
-                // set the speed for all (walking) stages
+                // set the speed for all present and future (walking) stages and modify the vType so that stages added later are also affected
                 libsumo::Person::setSpeed(id, speed);
-                // modify the vType so that stages added later are also affected
-                TraCIServerAPI_VehicleType::setVariable(libsumo::CMD_SET_VEHICLE_VARIABLE, variable, p->getSingularType().getID(), server, inputStorage, outputStorage);
             }
             break;
             case libsumo::VAR_TYPE: {

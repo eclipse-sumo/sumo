@@ -32,8 +32,7 @@
 
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNEAdditional* VSSParent, GNELane* lane) :
     GNEAdditional(VSSParent->getNet(), GLO_VSS, GNE_TAG_VSS_SYMBOL, "",
-{}, {}, {lane}, {VSSParent}, {}, {}, {}, {},
-std::map<std::string, std::string>()) {
+        {}, {}, {lane}, {VSSParent}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -174,6 +173,12 @@ GNEVariableSpeedSignSymbol::getAttribute(SumoXMLAttr key) const {
 double
 GNEVariableSpeedSignSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
     throw InvalidArgument("Symbols cannot be edited");
+}
+
+
+const Parameterised::Map& 
+GNEVariableSpeedSignSymbol::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
 }
 
 

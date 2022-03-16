@@ -69,7 +69,9 @@ GUIE2Collector::buildDetectorGUIRepresentation() {
 
 GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
     GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID()),
-    myDetector(detector) {
+    myDetector(detector)
+{
+    mySupportsOverride = true;
     // collect detector shape into one vector (v)
     const std::vector<MSLane*> lanes = detector.getLanes();
     for (std::vector<MSLane*>::const_iterator li = lanes.begin(); li != lanes.end(); ++li) {
@@ -159,11 +161,15 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     double dwidth = 1;
     const double exaggeration = getExaggeration(s);
     if (exaggeration > 0) {
-        if (myDetector.getUsageType() == DU_TL_CONTROL) {
-            dwidth = (double) 0.3;
+        if (haveOverride()) {
+            glColor3d(1, 0, 1);
+        } else if (myDetector.getUsageType() == DU_TL_CONTROL) {
             glColor3d(0, (double) .6, (double) .8);
         } else {
             glColor3d(0, (double) .8, (double) .8);
+        }
+        if (myDetector.getUsageType() == DU_TL_CONTROL) {
+            dwidth = (double) 0.3;
         }
         double width = (double) 2.0 * s.scale;
         if (width * exaggeration > 1.0) {
@@ -184,6 +190,21 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
 GUIE2Collector&
 GUIE2Collector::MyWrapper::getDetector() {
     return myDetector;
+}
+
+bool
+GUIE2Collector::MyWrapper::haveOverride() const {
+    return myDetector.getOverrideVehNumber() >= 0;
+}
+
+
+void
+GUIE2Collector::MyWrapper::toggleOverride() const {
+    if (haveOverride()) {
+        myDetector.overrideVehicleNumber(-1);
+    } else {
+        myDetector.overrideVehicleNumber(1);
+    }
 }
 
 

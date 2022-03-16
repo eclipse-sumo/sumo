@@ -20,7 +20,6 @@ log:traci.simulation.simulation_{REPLACE traci.simulation.}
 log:traci.simulation.step(0){REPLACE traci.simulationStep()}
 log:traci.simulation.close(){REPLACE traci.close()}
 log:traci\.(.*)\.(.*)_([gs]etParameter){REPLACE traci.\1.\3}
-log:traci\.(.*)\.subscribe\((.*), \[\]\){REPLACE traci.\1.unsubscribe(\2)}
 log:traci\.(.*)\.(.*)_((un)?subscribe){REPLACE traci.\1.\3}
 log2:traci.simulation.simulation_{REPLACE traci.simulation.}
 log2:traci.simulation.step(0){REPLACE traci.simulationStep()}

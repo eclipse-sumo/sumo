@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopBusStop\create\default\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopBusStop\create\default\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,28 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopBusStop\create\default\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopBusStop\create\default\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopBusStop\create\default\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopBusStop\create\default\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopBusStop\create\default\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopBusStop\create\default\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopBusStop\create\default\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopBusStop\create\default\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopBusStop\create\default\log.txt"/>
     </report>
 
 </configuration>

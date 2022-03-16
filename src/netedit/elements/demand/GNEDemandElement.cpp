@@ -48,14 +48,14 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
                                    const std::vector<GNEEdge*>& edgeParents,
                                    const std::vector<GNELane*>& laneParents,
                                    const std::vector<GNEAdditional*>& additionalParents,
-                                   const std::vector<GNEShape*>& shapeParents,
-                                   const std::vector<GNETAZElement*>& TAZElementParents,
                                    const std::vector<GNEDemandElement*>& demandElementParents,
                                    const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
-    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(options),
     myStackedLabelNumber(0) {
+    // check if is template
+    myIsTemplate = (id == "");
 }
 
 
@@ -64,12 +64,10 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet
                                    const std::vector<GNEEdge*>& edgeParents,
                                    const std::vector<GNELane*>& laneParents,
                                    const std::vector<GNEAdditional*>& additionalParents,
-                                   const std::vector<GNEShape*>& shapeParents,
-                                   const std::vector<GNETAZElement*>& TAZElementParents,
                                    const std::vector<GNEDemandElement*>& demandElementParents,
                                    const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, demandElementParent->getID()),
-    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(options),
     myStackedLabelNumber(0) {
 }
@@ -599,7 +597,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // check if shape dotted contour has to be drawn
         if (dottedElement) {
             // declare trim geometry to draw
-            const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? personPlanGeometry.getShape() : lane->getLaneShape());
+            const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? personPlanGeometry.getShape() : lane->getLaneShape();
             // draw inspected dotted contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
@@ -967,5 +965,108 @@ GNEDemandElement::getSortedStops(const std::vector<GNEEdge*>& edges) const {
     return solution;
 }
 
+
+void
+GNEDemandElement::setFlowParameters(SUMOVehicleParameter *vehicleParameters, const SumoXMLAttr attribute, const bool value) {
+    // modify parameters depending of given Flow attribute
+    if (value) {
+        switch (attribute) {
+            case SUMO_ATTR_END:
+                vehicleParameters->parametersSet |= VEHPARS_END_SET;
+                break;
+            case SUMO_ATTR_NUMBER:
+                vehicleParameters->parametersSet |= VEHPARS_NUMBER_SET;
+                break;
+            case SUMO_ATTR_VEHSPERHOUR:
+            case SUMO_ATTR_PERSONSPERHOUR:
+            case SUMO_ATTR_CONTAINERSPERHOUR:
+                vehicleParameters->parametersSet |= VEHPARS_VPH_SET;
+                break;
+            case SUMO_ATTR_PERIOD:
+                vehicleParameters->parametersSet |= VEHPARS_PERIOD_SET;
+                break;
+            case SUMO_ATTR_PROB:
+                vehicleParameters->parametersSet |= VEHPARS_PROB_SET;
+                break;
+            default:
+                break;
+        }
+    } else {
+        switch (attribute) {
+            case SUMO_ATTR_END:
+                vehicleParameters->parametersSet &= ~VEHPARS_END_SET;
+                break;
+            case SUMO_ATTR_NUMBER:
+                vehicleParameters->parametersSet &= ~VEHPARS_NUMBER_SET;
+                break;
+            case SUMO_ATTR_VEHSPERHOUR:
+            case SUMO_ATTR_PERSONSPERHOUR:
+            case SUMO_ATTR_CONTAINERSPERHOUR:
+                vehicleParameters->parametersSet &= ~VEHPARS_VPH_SET;
+                break;
+            case SUMO_ATTR_PERIOD:
+                vehicleParameters->parametersSet &= ~VEHPARS_PERIOD_SET;
+                break;
+            case SUMO_ATTR_PROB:
+                vehicleParameters->parametersSet &= ~VEHPARS_PROB_SET;
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
+void
+GNEDemandElement::adjustDefaultFlowAttributes(SUMOVehicleParameter *vehicleParameters) {
+    // first check that this demand element is a flow
+    if (myTagProperty.isFlow()) {
+        // end
+        if ((vehicleParameters->parametersSet & VEHPARS_END_SET) == 0) {
+            setAttribute(SUMO_ATTR_END, myTagProperty.getDefaultValue(SUMO_ATTR_END));
+        }
+        // number
+        if ((vehicleParameters->parametersSet & VEHPARS_NUMBER_SET) == 0) {
+            setAttribute(SUMO_ATTR_NUMBER, myTagProperty.getDefaultValue(SUMO_ATTR_NUMBER));
+        }
+        // vehicles/person/container per hour
+        if (((vehicleParameters->parametersSet & VEHPARS_PERIOD_SET) == 0) && 
+            ((vehicleParameters->parametersSet & VEHPARS_VPH_SET) == 0)) {
+            setAttribute(SUMO_ATTR_PERIOD, myTagProperty.getDefaultValue(SUMO_ATTR_PERIOD));
+        }
+        // probability
+        if ((vehicleParameters->parametersSet & VEHPARS_PROB_SET) == 0) {
+            setAttribute(SUMO_ATTR_PROB, myTagProperty.getDefaultValue(SUMO_ATTR_PROB));
+        }
+    }
+}
+
+
+void
+GNEDemandElement::buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const {
+    std::vector<GNEEdge*> edges;
+    if (myTagProperty.isRoute()) {
+        edges = getParentEdges();
+    } else if ((getParentDemandElements().size() > 1) && getParentDemandElements().at(1)->getTagProperty().isRoute()) {
+        edges = getParentDemandElements().at(1)->getParentEdges();
+    } else if ((getChildDemandElements().size() > 0) && getChildDemandElements().front()->getTagProperty().isRoute()) {
+        edges = getChildDemandElements().front()->getParentEdges();
+    } else if (getParentEdges().size() > 0) {
+        edges = getParentEdges();
+    }
+    // calculate path
+    const auto path = myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getVClass(), edges);
+    // check path size
+    if (path.size() > 0) {
+        double length = 0;
+        for (const auto &edge : path) {
+            length += edge->getNBEdge()->getFinalLength();
+        }
+        for (int i = 0; i < ((int)path.size() -1); i++) {
+            length += path.at(i)->getLanes().front()->getLane2laneConnections().getLane2laneGeometry(path.at(i+1)->getLanes().front()).getShape().length();
+        }
+        GUIDesigns::buildFXMenuCommand(ret, "Route length: " + toString(length), nullptr, ret, MID_COPY_NAME);
+    }
+}
 
 /****************************************************************************/

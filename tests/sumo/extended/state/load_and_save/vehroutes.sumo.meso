@@ -41,13 +41,13 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v0" type="type1" depart="0.00" line="line1" speedFactor="1.00" arrival="29.00">
+    <vehicle id="v0" type="type1" depart="0.00" line="line1" speedFactor="1.0000" arrival="29.00">
         <route edges="beg middle end"/>
         <stop lane="middle_0" startPos="199.80" endPos="200.00" duration="0.00"/>
         <param key="has.rerouting.device" value="false"/>
     </vehicle>
 
-    <vehicle id="v1" type="type2" depart="7.00" speedFactor="1.00" arrival="38.00">
+    <vehicle id="v1" type="type2" depart="7.00" speedFactor="1.0000" arrival="38.00">
         <route edges="beg middle end"/>
     </vehicle>
 

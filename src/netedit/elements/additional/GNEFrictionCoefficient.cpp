@@ -37,20 +37,19 @@
 
 GNEFrictionCoefficient::GNEFrictionCoefficient(GNENet* net) :
     GNEAdditional("", net, GLO_COF, SUMO_TAG_COF, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()) {
+		{}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEFrictionCoefficient::GNEFrictionCoefficient(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
-        const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) :
+        const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_COF, SUMO_TAG_COF, name,
-{}, {}, {}, {}, {}, {}, {}, {},
-parameters),
-myPosition(pos),
-myVehicleTypes(vTypes) {
+		{}, {}, {}, {}, {}, {}),
+    Parameterised(parameters),
+    myPosition(pos),
+    myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -207,6 +206,12 @@ GNEFrictionCoefficient::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Parameterised::Map& 
+GNEFrictionCoefficient::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNEFrictionCoefficient::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -252,7 +257,7 @@ GNEFrictionCoefficient::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

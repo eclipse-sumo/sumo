@@ -16,12 +16,12 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_0'.
-Error: Attribute 'number' in definition of flow 'flow_1' is not of type int.
+Error: Attribute 'number' in definition of flow 'flow_1' Invalid Number Format (long long integer format) dummyNumber.
 Error: Attribute 'number' in definition of flow 'flow_2' is empty.
 Error: Negative repetition number in the definition of flow 'flow_3'.
-Error: Attribute 'number' in definition of flow 'flow_4' is not of type int.
+Error: Attribute 'number' in definition of flow 'flow_4' Invalid Number Format (long long integer format) 12.5.
 Debug: Adding flow 'flow_5' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov142201.2208\netedit.gui\demandElements\flow\load\number\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\demandElements\flow\load\number\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00

@@ -30,17 +30,27 @@
     </pedestrian>
 
     <netedit>
-        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopParkingArea\inspect_selection\input_routes.rou.xml"/>
+        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\inspect_selection\input_routes.rou.xml"/>
     </netedit>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
     <vehicle id="vehicle_0" depart="0.00">
 	    <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingArea" actType=""/>
+		<stop parkingArea="parkingArea" actType=""/>
+	</vehicle>
+
+    <vehicle id="vehicle_1" depart="0.00">
+	    <route edges="gneE0 gneE1" color="yellow"/>
 		<stop parkingArea="parkingArea" actType=";;;;"/>
+	</vehicle>
+
+    <vehicle id="vehicle_2" depart="0.00">
+	    <route edges="gneE0 gneE1" color="yellow"/>
 		<stop parkingArea="parkingArea" actType="waiting"/>
-    </vehicle>
+	</vehicle>
+	
 </routes>

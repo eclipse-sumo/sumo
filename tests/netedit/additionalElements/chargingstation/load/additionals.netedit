@@ -1,42 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 22.06.2018 13:50:28 by Eclipse SUMO netedit Version 7725fee923
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/additionalElements/chargingstation/load\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/additionalElements/chargingstation/load\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/additionalElements/chargingstation/load\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/additionalElements/chargingstation/load\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/additionalElements/chargingstation/load\net.net.xml"/>
-    </output>
-
-    <processing>
-        <no-turnarounds value="true"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
-    </processing>
-
-    <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/additionalElements/chargingstation/load\gui-settings.xml"/>
-        <window-size value="700,500"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/additionalElements/chargingstation/load\log.txt"/>
-    </report>
-
-</configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">

@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 270, 29)
 netedit.changeElement("detExit")
 
 # Change friendlyPos
-netedit.changeDefaultBoolValue(2)
+netedit.changeDefaultBoolValue(netedit.attrs.entryExit.create.friendlyPos)
 
 # Create Entry detector
 netedit.leftClick(referencePosition, 270, 29)

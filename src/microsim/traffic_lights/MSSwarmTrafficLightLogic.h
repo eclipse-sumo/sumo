@@ -110,7 +110,7 @@ public:
     MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
                              const std::string& programID, const Phases& phases, int step,
                              SUMOTime delay,
-                             const std::map<std::string, std::string>& parameters);
+                             const Parameterised::Map& parameters);
 
     ~MSSwarmTrafficLightLogic();
 
@@ -430,7 +430,7 @@ protected:
     std::map<std::string, std::vector<int> > m_laneIndexMap;
     std::string getLaneLightState(const std::string& laneId);
 //	store the last message logged. if equal do not log it again
-    std::map<std::string, std::string> m_pheroLevelLog;
+    Parameterised::Map m_pheroLevelLog;
 
     //derivative
     std::map<std::string, CircularBuffer<double>* > m_meanSpeedHistory;

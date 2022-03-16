@@ -39,24 +39,23 @@
 
 GNEAccess::GNEAccess(GNENet* net) :
     GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
+        {}, {}, {}, {}, {}, {}),
     myPositionOverLane(0),
     myLength(0),
-myFriendlyPosition(false) {
+    myFriendlyPosition(false) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
-                     const std::map<std::string, std::string>& parameters) :
+                     const Parameterised::Map& parameters) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
-{}, {}, {lane}, {busStop}, {}, {}, {}, {},
-parameters),
-myPositionOverLane(pos),
-myLength(length),
-myFriendlyPosition(friendlyPos) {
+        {}, {}, {lane}, {busStop}, {}, {}),
+    Parameterised(parameters),
+    myPositionOverLane(pos),
+    myLength(length),
+    myFriendlyPosition(friendlyPos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -246,6 +245,12 @@ GNEAccess::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Parameterised::Map& 
+GNEAccess::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
@@ -297,7 +302,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

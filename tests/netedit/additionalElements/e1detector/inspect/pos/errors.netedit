@@ -5,7 +5,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'e1Detector' in TagSelector
 Debug: Adding e1Detector 'e1_0' in GNEChange_Additional
-Debug: Value 'dummyFriendlyPos' for attribute pos of e1Detector isn't valid
+Debug: Value 'dummyPos' for attribute pos of e1Detector isn't valid
 Debug: Setting new attribute
 Debug: Value '400' for attribute pos of e1Detector isn't valid
 Debug: Setting new attribute

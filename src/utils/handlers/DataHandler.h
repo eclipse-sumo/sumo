@@ -69,7 +69,7 @@ public:
      * @param[in] parameters parameters map
      */
     virtual void buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
-                               const std::map<std::string, std::string>& parameters) = 0;
+                               const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds edgeRelationData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -78,7 +78,7 @@ public:
      * @param[in] parameters parameters map
      */
     virtual void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
-                                       const std::string& toEdgeID, const std::map<std::string, std::string>& parameters) = 0;
+                                       const std::string& toEdgeID, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds TAZRelationData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -87,7 +87,7 @@ public:
      * @param[in] parameters parameters map
      */
     virtual void buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
-                                      const std::string& toTAZID, const std::map<std::string, std::string>& parameters) = 0;
+                                      const std::string& toTAZID, const Parameterised::Map& parameters) = 0;
     /// @}
 
 private:

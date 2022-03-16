@@ -1,0 +1,3 @@
+Warning: Stop edge 'CE' missing in attribute 'via' for trip 'v0'
+Error: stop for vehicle 'v0' on lane 'CE_0' is not downstream the current route.
+Quitting (on error).

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-09 08:16:53 by Eclipse SUMO netedit Version v1_12_0+1216-22d05a4
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="-100.00,49.64,100.00,100.15" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":B_0" function="internal">
+        <lane id=":B_0_0" index="0" allow="pedestrian" speed="13.89" length="4.53" width="2.00" shape="-1.11,98.54 -0.01,98.35 0.77,97.77 1.24,96.80 1.41,95.44"/>
+    </edge>
+    <edge id=":B_1" function="internal">
+        <lane id=":B_1_0" index="0" speed="13.89" length="5.02" shape="-1.11,98.54 3.91,98.53"/>
+    </edge>
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" allow="pedestrian" speed="13.89" length="4.56" width="2.00" shape="6.95,98.50 8.02,98.30 8.80,97.70 9.29,96.72 9.48,95.34"/>
+    </edge>
+    <edge id=":C_1" function="internal">
+        <lane id=":C_1_0" index="0" speed="13.89" length="4.99" shape="6.95,98.50 11.94,98.47"/>
+    </edge>
+
+    <edge id="E0" from="B" to="J0" priority="-1">
+        <lane id="E0_0" index="0" allow="pedestrian" speed="13.89" length="45.81" width="2.00" shape="1.41,95.44 1.65,49.63"/>
+    </edge>
+    <edge id="E1" from="C" to="J1" priority="-1">
+        <lane id="E1_0" index="0" allow="pedestrian" speed="13.89" length="45.72" width="2.00" shape="9.48,95.34 10.70,49.64"/>
+    </edge>
+    <edge id="beg" from="A" to="B" priority="3">
+        <lane id="beg_0" index="0" speed="13.89" length="98.89" shape="-100.00,98.40 -1.11,98.54"/>
+    </edge>
+    <edge id="end" from="C" to="D" priority="3">
+        <lane id="end_0" index="0" speed="13.89" length="88.06" shape="11.94,98.47 100.00,98.40"/>
+    </edge>
+    <edge id="short" from="B" to="C" priority="3">
+        <lane id="short_0" index="0" speed="13.89" length="3.04" shape="3.91,98.53 6.95,98.50"/>
+    </edge>
+
+    <junction id="A" type="dead_end" x="-100.00" y="100.00" incLanes="" intLanes="" shape="-100.00,100.00 -100.00,96.80"/>
+    <junction id="B" type="priority" x="2.38" y="100.15" incLanes="beg_0" intLanes=":B_0_0 :B_1_0" shape="3.93,100.13 3.90,96.93 2.41,95.45 0.41,95.44 -1.10,96.94 -1.11,100.14">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="C" type="priority" x="10.35" y="100.07" incLanes="short_0" intLanes=":C_0_0 :C_1_0" shape="11.94,100.07 11.94,96.87 10.48,95.37 8.48,95.32 6.93,96.90 6.97,100.10">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="D" type="dead_end" x="100.00" y="100.00" incLanes="end_0" intLanes="" shape="100.00,96.80 100.00,100.00"/>
+    <junction id="J0" type="dead_end" x="2.65" y="49.64" incLanes="E0_0" intLanes="" shape="0.65,49.63 2.65,49.64"/>
+    <junction id="J1" type="dead_end" x="11.70" y="49.67" incLanes="E1_0" intLanes="" shape="9.70,49.62 11.70,49.67"/>
+
+    <connection from="beg" to="E0" fromLane="0" toLane="0" via=":B_0_0" dir="r" state="M"/>
+    <connection from="beg" to="short" fromLane="0" toLane="0" via=":B_1_0" dir="s" state="M"/>
+    <connection from="short" to="E1" fromLane="0" toLane="0" via=":C_0_0" dir="r" state="M"/>
+    <connection from="short" to="end" fromLane="0" toLane="0" via=":C_1_0" dir="s" state="M"/>
+
+    <connection from=":B_0" to="E0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":B_1" to="short" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_0" to="E1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":C_1" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

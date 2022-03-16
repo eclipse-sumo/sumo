@@ -1,4 +1,4 @@
-Error: Attribute 'containerCapacity' in definition of containerStop 'containerStop_02' is not of type int.
-Error: Could not build containerStop with ID 'containerStop_03' in netedit; attribute personCapacity cannot be negative.
-Error: Attribute 'containerCapacity' in definition of containerStop 'containerStop_04' is not of type int.
-Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.19Jan120901.4288\netedit.gui\additionalElements\containerstop\load\containercapacity\input_additionals.add.xml failed.
+Error: Attribute 'containerCapacity' in definition of containerStop 'containerStop_02' Invalid Number Format (long long integer format) dummyContainerCapacity.
+Error: Could not build containerStop with ID 'containerStop_03' in netedit; attribute containerCapacity cannot be negative.
+Error: Attribute 'containerCapacity' in definition of containerStop 'containerStop_04' Invalid Number Format (long long integer format) 2.5.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\containerstop\load\containercapacity\input_additionals.add.xml failed.

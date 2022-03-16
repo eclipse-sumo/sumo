@@ -316,7 +316,7 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     SUMOTime departDelay = myHolder.getDepartDelay();
     const SUMOVehicleParameter& param = myHolder.getParameter();
     if (!myHolder.hasDeparted()) {
-        assert(param.depart <= SIMSTEP || param.departProcedure != DEPART_GIVEN);
+        assert(param.depart <= SIMSTEP || param.departProcedure != DepartDefinition::GIVEN);
         departDelay = SIMSTEP - param.depart;
     }
     os.writeAttr("departDelay", time2string(departDelay));

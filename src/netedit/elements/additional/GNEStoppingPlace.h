@@ -28,7 +28,7 @@
  * @class GNEStoppingPlace
  * @briefA abstract class to define common parameters and functions of stopping places
  */
-class GNEStoppingPlace : public GNEAdditional {
+class GNEStoppingPlace : public GNEAdditional, public Parameterised {
 
 public:
     /**@brief Constructor.
@@ -44,7 +44,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, const double startPos,
-                     const double endPos, const std::string& name, bool friendlyPosition, const std::map<std::string, std::string>& parameters);
+                     const double endPos, const std::string& name, bool friendlyPosition, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEStoppingPlace();
@@ -112,6 +112,9 @@ public:
      * @return double with the value associated to key
      */
     virtual double getAttributeDouble(SumoXMLAttr key) const;
+
+    /// @brief get parameters map
+    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

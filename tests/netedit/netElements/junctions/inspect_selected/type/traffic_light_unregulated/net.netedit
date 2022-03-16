@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-21 15:06:41 by Eclipse SUMO netedit Version v1_11_0+1361-2e2855ec72d
+<!-- generated on 2022-02-08 12:46:05 by Eclipse SUMO netedit Version v1_12_0+0346-b19768f19ca
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,27 +31,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light_unregulated\log.txt"/>
     </report>
 
 </configuration>

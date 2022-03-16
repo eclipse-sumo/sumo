@@ -87,6 +87,15 @@ enclosed_sidewalk2
 # 4 arm junction with crossings on all sides and additional diagonal crossings
 pedscramble
 
+# 4 arm junction with crossings on all sides and additional diagonal crossings (no green verge)
+pedscramble2
+
+# 4 arm junction with crossings on all sides and additional diagonal crossings
+pedscramble_slanted
+
+# 4 arm junction with crossings on all sides and additional diagonal crossings (using custom shape)
+pedscramble_custom
+
 # 4 arm junction with crossings on all sides and type traffic_light_right_on_red
 right_on_red
 

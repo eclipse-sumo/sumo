@@ -44,16 +44,16 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 290, 145)
+netedit.leftClick(referencePosition, 290, 155)
 
 # change value
-netedit.modifyAttribute(9, "dummy", True)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.actType, "dummy", False)
 
 # change value
-netedit.modifyAttribute(9, "", True)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.actType, "", False)
 
 # change value
-netedit.modifyAttribute(9, "singing", True)
+netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.actType, "singing", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

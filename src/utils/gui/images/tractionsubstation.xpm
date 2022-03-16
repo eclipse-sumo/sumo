@@ -1,0 +1,27 @@
+/* XPM */
+static const char *tractionsubstation_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c black",
+". c gray59",
+"X c #C3C3C3",
+"o c #FFEE00",
+"O c None",
+/* pixels */
+"OOO OOOO OOOO OO",
+"OO   OO   OO   O",
+"OOO OOOO OOOO OO",
+"OO   OO   OO   O",
+"OOO OOOO OOOO OO",
+"O...............",
+"O...............",
+"OOOXXXXXXoXXXXOO",
+"OOOXXXXXoXXXXXOO",
+"OOOXXXXoXXXXXXOO",
+"OOOXXXoooooXXXOO",
+"OOOXXXXXXoXXXXOO",
+"OOOXXXXXoXXXXXOO",
+"OOOXXXXoXXXXXXOO",
+"O...............",
+"O..............."
+};

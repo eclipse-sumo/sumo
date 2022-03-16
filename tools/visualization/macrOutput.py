@@ -70,7 +70,7 @@ def main(args):
     counter1 = Counter(df.begin)
     _seg = counter1[0]
 
-    # calculating total lenght of network
+    # calculating total length of network
     length = df['sampledSeconds'] / (df['end']-df['begin']) / df['density']
     df['Length'] = length.replace(np.NaN, 0).replace(np.inf, 0)
     i = 0

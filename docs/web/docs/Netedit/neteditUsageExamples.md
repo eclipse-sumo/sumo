@@ -9,8 +9,7 @@ title: neteditUsageExamples
 1.  switch to [selection mode](editModesCommon.md#select)
 2.  enable the *auto-select junctions* checkbox in the top menu bar (enabled by default since version 1.9.0)
 3.  select the portion of the network you wish to keep (i.e. by holding *<SHIFT\>* and performing a rectangle-selection)
-4.  invert the selection with the *Invert* button
-5.  delete the inverted selection using the *<DELETE\>* key
+4.  press the *Reduce* button
 
 !!! caution
     If the checkbox *auto-select junctions* is not set, and connections are not visible during the rectangle selection, all connections will be removed during the *invert+delete* steps.

@@ -148,7 +148,7 @@ private:
     std::set<std::string> myInfluencedVehicles;
 
     // @brief collects all VehicleTypes of the vehicles which had to react to the emergency vehicle
-    std::map<std::string, std::string> myInfluencedTypes;
+    Parameterised::Map myInfluencedTypes;
 
     /// @brief reaction distance of other vehicle (i.e. due to different noise levels of the siren)
     double myReactionDist;

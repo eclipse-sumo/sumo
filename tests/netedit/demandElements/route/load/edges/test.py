@@ -28,19 +28,23 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
-# show demand elements in network mode
-netedit.changeEditMode('1')
+# go to demand mode (For undo-redo)
+netedit.supermodeDemand()
+
+# force save demand elements
+netedit.forceSaveDemandElements()
 
 # Recompute
 netedit.rebuildNetwork()
 
-# save network
-netedit.saveNetwork(referencePosition)
 # save routes
 netedit.saveRoutes(referencePosition)
 
 # save invalid routes
 netedit.typeSpace()
+
+# save network
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

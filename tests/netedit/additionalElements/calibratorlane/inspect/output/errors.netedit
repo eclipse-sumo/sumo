@@ -1,6 +1,5 @@
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'calibratorLane' in TagSelector
-Debug: Adding calibratorLane 'calibratorLane_gneE2_0_0' in GNEChange_Additional
+Debug: Adding calibratorLane 'ca_0' in GNEChange_Additional
 Debug: Value '///;;' for attribute output of calibratorLane isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -8,11 +7,11 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing calibratorLane 'calibratorLane_gneE2_0_0' in GNEChange_Additional
+Debug: Removing calibratorLane 'ca_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding calibratorLane 'calibratorLane_gneE2_0_0' in GNEChange_Additional
+Debug: Adding calibratorLane 'ca_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -26,7 +25,7 @@ Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Debug: Additionals saved
-Debug: Deleting unreferenced calibratorLane 'calibratorLane_gneE2_0_0'
+Debug: Deleting unreferenced calibratorLane 'ca_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

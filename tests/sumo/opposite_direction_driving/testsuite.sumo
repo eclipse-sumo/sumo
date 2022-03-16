@@ -78,11 +78,17 @@ no_overtaking_across_minor_link2
 # allow overtaking if there is enough space before the minor link
 overtake_before_minor
 
+# allow overtaking a stopped queue if there is enough space before the minor link
+overtake_4_before_minor
+
 # return from overtaking if there is no opposite leader
 return_no_opposite_leader
 
 # do not overtake long queue
 long_queue
+
+# lane number changes during opposite direction driving
+lane_drop
 
 # emergency vehicle may overtake long queue
 long_queue_emergency
@@ -95,3 +101,6 @@ emergency_redlight
 
 # test usage of SL2015
 SL2015
+
+# stopped vehicles on both sides of the road and traffic from both directions
+slalom

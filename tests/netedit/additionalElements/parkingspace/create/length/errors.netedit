@@ -1,10 +1,9 @@
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'parkingArea' in TagSelector
 Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
 Debug: Selected item 'space' in TagSelector
-Error: Could not build space' in netedit; attribute length cannot be parse to float.
+Debug: Invalid input parameter of space
 Debug: Adding space 'pa_0' in GNEChange_Additional
-Error: Could not build space with ID 'pa_0' in netedit; attribute length cannot be negative.
+Debug: Invalid input parameter of space
 Debug: Adding space 'pa_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

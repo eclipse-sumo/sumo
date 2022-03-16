@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 103, 57)
 
 # Change parameter 9 with a non valid value (dummy)
-netedit.modifyAttribute(9, "dummyAngle", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.angle, "dummyAngle", False)
 
 # Change parameter 9 with a valid value (negative)
-netedit.modifyAttribute(9, "-12", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.angle, "-12", False)
 
 # Change parameter 9 with a valid value (> 360)
-netedit.modifyAttribute(9, "500", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.angle, "500", False)
 
 # Change parameter 9 with a valid value
-netedit.modifyAttribute(9, "30", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.angle, "30", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

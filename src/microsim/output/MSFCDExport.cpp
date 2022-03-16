@@ -145,6 +145,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 // if the kilometrage runs counter to the edge direction edge->getDistance() is negative
                 of.writeOptionalAttr(SUMO_ATTR_DISTANCE, fabs(distance), mask);
             }
+            of.writeOptionalAttr(SUMO_ATTR_ODOMETER, veh->getOdometer(), mask);
             if (maxLeaderDistance >= 0 && microVeh != nullptr) {
                 std::pair<const MSVehicle* const, double> leader = microVeh->getLeader(maxLeaderDistance);
                 if (leader.first != nullptr) {

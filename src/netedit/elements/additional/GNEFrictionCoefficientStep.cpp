@@ -31,9 +31,8 @@
 
 GNEFrictionCoefficientStep::GNEFrictionCoefficientStep(GNENet* net) :
     GNEAdditional("", net, GLO_COF_STEP, SUMO_TAG_STEP_COF, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
-myTime(0) {
+        {}, {}, {}, {}, {}, {}),
+    myTime(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -41,10 +40,9 @@ myTime(0) {
 
 GNEFrictionCoefficientStep::GNEFrictionCoefficientStep(GNEAdditional* variableFrictionSignParent, SUMOTime time, const std::string& friction) :
     GNEAdditional(variableFrictionSignParent->getNet(), GLO_COF_STEP, SUMO_TAG_STEP_COF, "",
-{}, {}, {}, {variableFrictionSignParent}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
-myTime(time),
-myFriction(friction) {
+        {}, {}, {}, {variableFrictionSignParent}, {}, {}),
+    myTime(time),
+    myFriction(friction) {
     // update boundary of rerouter parent
     variableFrictionSignParent->updateCenteringBoundary(true);
 }
@@ -149,6 +147,12 @@ GNEFrictionCoefficientStep::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
+}
+
+
+const Parameterised::Map& 
+GNEFrictionCoefficientStep::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
 }
 
 

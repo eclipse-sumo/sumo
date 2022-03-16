@@ -38,13 +38,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 247, 130)
+netedit.leftClick(referencePosition, 300, 130)
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(4, "///;;", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.output, "///;;", True)
 
 # Change parameter id with valid value
-netedit.modifyAttribute(4, "myOwnFilename", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.output, "myOwnFilename", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

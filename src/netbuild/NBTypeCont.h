@@ -330,8 +330,7 @@ public:
      * @return The allowed speed on edges of this edgeType
      */
     double getEdgeTypeSpeed(const std::string& edgeType) const;
-
-    /**@brief Returns the default friction for the given edgeType [m/s]
+    /**@brief Returns the default friction for the given edgeType [-]
      *
      * If the named edgeType is not known, the default is returned
      * @param[in] edgeType The name of the edgeType to return the speed for

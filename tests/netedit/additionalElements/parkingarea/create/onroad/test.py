@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # set friendlyPos
-netedit.changeDefaultBoolValue(6)
+netedit.changeDefaultBoolValue(netedit.attrs.parkingArea.create.onRoad)
 
 # create parkingArea in mode "reference left" with different friendly pos
 netedit.leftClick(referencePosition, 220, 250)

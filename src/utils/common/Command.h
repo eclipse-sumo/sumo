@@ -84,4 +84,6 @@ public:
         return -1;
     }
 
+    int priority = 0;
+
 };

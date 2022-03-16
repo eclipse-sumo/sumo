@@ -21,6 +21,7 @@ openGap
 # add or update stops
 setStop
 replaceStop
+insertStop
 
 # test taxi API
 taxi
@@ -87,6 +88,9 @@ slowDown
 
 # test timing of slowDown command
 slowDown_subsecond
+
+# test timing of setAcceleration command
+setAcceleration
 getFollower
 getLeader
 

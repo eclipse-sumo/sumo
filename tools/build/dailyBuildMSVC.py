@@ -124,10 +124,11 @@ def main(options, platform="x64"):
     makeLog = prefix + "Release.log"
     makeAllLog = prefix + "Debug.log"
     statusLog = prefix + "status.log"
+    log_handler = status.set_rotating_log(makeLog)
 
     status.killall(("", "D"), BINARIES)
     toClean = []
-    for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.lib", "*.exp", "*.jar", "*.manifest"):
+    for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.lib", "*.exp", "*.jar", "*.manifest", "*.fmu"):
         toClean += glob.glob(os.path.join(SUMO_HOME, "bin", ext))
     toClean += glob.glob(os.path.join(SUMO_HOME, "tools", "lib*", "*lib*"))
     toClean += glob.glob(os.path.join(SUMO_HOME, "share", "*", "*"))
@@ -143,8 +144,6 @@ def main(options, platform="x64"):
         if os.path.basename(d) in ('examples', 'javadoc', 'man', 'pydoc', 'tutorial', 'userdoc'):
             shutil.rmtree(d, ignore_errors=True)
 
-    # we need to use io.open here due to http://bugs.python.org/issue16273
-    log_handler = status.set_rotating_log(makeLog)
     status.printLog("Running %s build using python %s." % (options.msvc_version, sys.version))
     gitrev = repositoryUpdate(options)
     generator = "Visual Studio " + ("12 2013" if options.msvc_version == "msvc12" else "16 2019")

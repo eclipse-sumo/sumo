@@ -30,23 +30,30 @@
     </pedestrian>
 
     <netedit>
-        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopLane\inspect_selection\input_routes.rou.xml"/>
+        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\inspect_selection\input_routes.rou.xml"/>
     </netedit>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE0 gneE1" color="yellow" id="route_0">
+    
+	<route id="route_0" edges="gneE0 gneE1" color="yellow"/>
+    
+	<flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
+		<stop lane="gneE1_0" startPos="7.00" endPos="17.00" containerTriggered="1" expectedContainers=""/>
+	</flow>
+
+	<flow id="routeFlow_1" begin="0.00" route="route_0" end="3600.00" number="18">
+		<stop lane="gneE1_0" startPos="7.00" endPos="17.00" containerTriggered="1" expectedContainers=";;;;"/>
+	</flow>
+
+	<flow id="routeFlow_2" begin="0.00" route="route_0" end="3600.00" number="18">
+		<stop lane="gneE1_0" startPos="7.00" endPos="17.00" containerTriggered="1" expectedContainers="ID1"/>
+	</flow>
+
+	<flow id="routeFlow_3" begin="0.00" route="route_0" end="3600.00" number="18">
+		<stop lane="gneE1_0" startPos="7.00" endPos="17.00" containerTriggered="1" expectedContainers="ID1 ID2"/>		
+	</flow>
 	
-        <stop lane="gneE1_0" startPos="5.00" endPos="15.00" containerTriggered="1" expectedContainers=""/>
-		
-		<stop lane="gneE1_0" startPos="5.00" endPos="15.00" containerTriggered="1" expectedContainers=";;;;"/>
-		
-		<stop lane="gneE1_0" startPos="5.00" endPos="15.00" containerTriggered="1" expectedContainers="ID1"/>
-		
-		<stop lane="gneE1_0" startPos="5.00" endPos="15.00" containerTriggered="1" expectedContainers="ID1 ID2"/>
-		
-    </route>
-	<flow id="routeFlow" begin="0.00" route="route_0" end="3600.00" number="1800"/>
 </routes>

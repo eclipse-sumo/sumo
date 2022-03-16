@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("trainStop")
 
 # change reference to center
-netedit.changeDefaultValue(15, "reference center")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference center")
 
 # create trainStop in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -46,17 +46,17 @@ netedit.inspectMode()
 # inspect first trainStop
 netedit.leftClick(referencePosition, 250, 190)
 
-# Change parameter lenght with a non valid value (throw warning)
-netedit.modifyAttribute(8, "dummylenght", True)
+# Change parameter length with a non valid value (throw warning)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.parkingLength, "dummylength", True)
 
-# Change parameter lenght with a valid value
-netedit.modifyAttribute(8, "-7", True)
+# Change parameter length with a valid value
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.parkingLength, "-7", True)
 
-# Change parameter lenght with a valid value
-netedit.modifyAttribute(8, "2.5", True)
+# Change parameter length with a valid value
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.parkingLength, "2.5", True)
 
-# Change parameter lenght with a valid value
-netedit.modifyAttribute(8, "10", True)
+# Change parameter length with a valid value
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.parkingLength, "10", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

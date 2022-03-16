@@ -149,8 +149,8 @@ public:
         /// @brief The speed allowed on this lane
         double speed;
 
-		/// @brief The friction on this lane
-		double friction;
+	/// @brief The friction on this lane
+	double friction;
 
         /// @brief List of vehicle types that are allowed on this lane
         SVCPermissions permissions;
@@ -255,9 +255,8 @@ public:
         /// @brief custom speed for connection
         double speed;
 
-		/// @brief custom friction for connection
-		double friction;
-		
+	// @brief custom friction for connection
+	double friction;		
         /// @brief custom length for connection
         double customLength;
 
@@ -681,13 +680,12 @@ public:
     double getSpeed() const {
         return mySpeed;
     }
-
-	/** @brief Returns the friction on this edge
-	* @return The friction on this edge
-	*/
-	double getFriction() const {
-		return myFriction;
-	}
+    /** @brief Returns the friction on this edge
+    * @return The friction on this edge
+    */
+    double getFriction() const {
+	return myFriction;
+    }
 
     /** @brief The building step of this edge
      * @return The current building step for this edge
@@ -709,6 +707,20 @@ public:
      * @return The width of the lane of this edge
      */
     double getLaneWidth(int lane) const;
+
+    /** @brief Returns the width of the internal lane associated with the connection
+     * @param[in] node The node for which this edge is an incoming one
+     * @param[in] connection The connection from this edge to the successor lane
+     * @param[in] successor The outgoing lane of the connection
+     * @param[in] isVia Whether it is computing the Via stage
+     * @return The width of the internal lane
+     * @todo validity checks
+     */
+    double getInternalLaneWidth(
+            const NBNode& node,
+            const NBEdge::Connection& connection,
+            const NBEdge::Lane& successor,
+            bool isVia) const;
 
     /// @brief Returns the combined width of all lanes of this edge
     double getTotalWidth() const;
@@ -1235,8 +1247,8 @@ public:
     /// @brief whether lanes differ in speed
     bool hasLaneSpecificSpeed() const;
 
-	/// @brief whether lanes differ friction
-	bool hasLaneSpecificFriction() const;
+    /// @brief whether lanes differ friction
+    bool hasLaneSpecificFriction() const;
 
     /// @brief whether lanes differ in width
     bool hasLaneSpecificWidth() const;
@@ -1330,9 +1342,8 @@ public:
 
     /// @brief get lane speed
     double getLaneSpeed(int lane) const;
-
-	/// @brief get lane friction
-	double getLaneFriction(int lane) const;
+    /// @brief get lane friction
+    double getLaneFriction(int lane) const;
 
     /// @brief Check if edge is near enought to be joined to another edge
     bool isNearEnough2BeJoined2(NBEdge* e, double threshold) const;
@@ -1345,6 +1356,13 @@ public:
      * @return This edge's angle at the given node
      */
     double getAngleAtNode(const NBNode* const node) const;
+
+    /** @brief Returns the angle of the edge's geometry at the given node
+     * and disregards edge direction
+     * @param[in] node The node for which the edge's angle shall be returned
+     * @return This edge's angle at the given node (normalized to point towards the node)
+     */
+    double getAngleAtNodeNormalized(const NBNode* const node) const;
 
     /** @brief Returns the angle of from the node shape center to where the edge meets
      * the node shape
@@ -1773,8 +1791,7 @@ private:
     int myPriority;
 
     /// @brief The maximal speed
-    double mySpeed;
-    
+    double mySpeed;    
     /// @brief The current friction
 	double myFriction;
 

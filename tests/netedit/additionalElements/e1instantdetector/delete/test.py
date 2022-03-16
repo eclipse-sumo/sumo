@@ -34,7 +34,7 @@ netedit.additionalMode()
 # go to additional mode
 netedit.additionalMode()
 
-# select E1
+# select E1Instant
 netedit.changeElement("instantInductionLoop")
 
 # create E1
@@ -43,8 +43,8 @@ netedit.leftClick(referencePosition, 250, 210)
 # Change to delete
 netedit.deleteMode()
 
-# disable 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+# enable 'Automatically delete additionals'
+netedit.changeProtectAdditionalElements(referencePosition)
 
 # delete created E1
 netedit.leftClick(referencePosition, 250, 210)
@@ -53,7 +53,7 @@ netedit.leftClick(referencePosition, 250, 210)
 netedit.leftClick(referencePosition, 430, 210)
 
 # delete lane with the second loaded E1
-netedit.leftClick(referencePosition, 200, 240)
+netedit.leftClick(referencePosition, 200, 238)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -61,11 +61,11 @@ netedit.undo(referencePosition, 3)
 # Change to delete
 netedit.deleteMode()
 
-# enable 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+# disable 'Automatically delete additionals'
+netedit.changeProtectAdditionalElements(referencePosition)
 
 # try to delete lane with the second loaded E1 (doesn't allowed)
-netedit.leftClick(referencePosition, 200, 240)
+netedit.leftClick(referencePosition, 200, 238)
 
 # wait warning
 netedit.waitDeleteWarning()

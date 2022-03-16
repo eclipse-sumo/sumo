@@ -7,7 +7,7 @@ Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 16.00,0.00,36.00,20.00
 Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
-Error: Attribute 'speedThreshold' in definition of e3Detector 'e3Detector_1' is not of type float.
+Error: Attribute 'speedThreshold' in definition of e3Detector 'e3Detector_1' Invalid Number Format (double) dummySpeedThreshold.
 Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
 Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
 Error: Could not build e3Detector with ID 'e3Detector_2' in netedit; attribute speedThreshold cannot be negative.
@@ -17,7 +17,7 @@ Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_3 into SUMORTree with boundary 22.00,0.00,42.00,20.00
 Debug: Adding detEntry 'e3Detector_3' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_3' in GNEChange_Additional
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Nov155320.31576\netedit.gui\additionalElements\e3detector\load\speedthreshold\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\e3detector\load\speedthreshold\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

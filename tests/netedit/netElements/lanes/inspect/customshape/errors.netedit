@@ -23,25 +23,15 @@ Debug: Disabled select edges throught alt + 4
 Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
 Debug: Value 'dummyShape' for attribute customShape of lane isn't valid
 Debug: Key F5 (Compute) pressed
-Debug: Value '13.112,16.22 34.19,16.11' for attribute endOffset of lane isn't valid
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing busStop 'busStop6' in GNEChange_Additional
-Debug: Removing busStop 'busStop5' in GNEChange_Additional
-Debug: Removing busStop 'busStop4' in GNEChange_Additional
-Debug: Removing busStop 'busStop3' in GNEChange_Additional
-Debug: Removing busStop 'busStop2' in GNEChange_Additional
-Debug: Removing busStop 'busStop1' in GNEChange_Additional
+Debug: Restoring previous attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding busStop 'busStop1' in GNEChange_Additional
-Debug: Adding busStop 'busStop2' in GNEChange_Additional
-Debug: Adding busStop 'busStop3' in GNEChange_Additional
-Debug: Adding busStop 'busStop4' in GNEChange_Additional
-Debug: Adding busStop 'busStop5' in GNEChange_Additional
-Debug: Adding busStop 'busStop6' in GNEChange_Additional
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced busStop 'busStop6'
 Debug: Deleting unreferenced busStop 'busStop5'

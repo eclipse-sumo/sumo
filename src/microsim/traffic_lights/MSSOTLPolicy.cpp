@@ -85,7 +85,7 @@ bool SigmoidLogic::sigmoidLogic(SUMOTime elapsed, const MSPhaseDefinition* stage
 
 
 MSSOTLPolicy::MSSOTLPolicy(std::string name,
-                           const std::map<std::string, std::string>& parameters) :
+                           const Parameterised::Map& parameters) :
     Parameterised(parameters), myName(name) {
     theta_sensitivity = 0;
 }
@@ -99,7 +99,7 @@ MSSOTLPolicy::MSSOTLPolicy(std::string name,
 
 MSSOTLPolicy::MSSOTLPolicy(std::string name,
                            MSSOTLPolicyDesirability* desirabilityAlgorithm,
-                           const std::map<std::string, std::string>& parameters) :
+                           const Parameterised::Map& parameters) :
     Parameterised(parameters), myName(name), myDesirabilityAlgorithm(
         desirabilityAlgorithm) {
     theta_sensitivity = StringUtils::toDouble(getParameter("THETA_INIT", "0.5"));

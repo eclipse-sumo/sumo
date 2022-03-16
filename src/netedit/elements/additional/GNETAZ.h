@@ -20,9 +20,9 @@
 #pragma once
 #include <config.h>
 #include <netedit/GNEMoveElement.h>
-#include <utils/shapes/SUMOPolygon.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 
-#include "GNETAZElement.h"
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
@@ -31,11 +31,11 @@
  * @class GNETAZ
  * Class for Traffic Assign Zones (TAZs)
  */
-class GNETAZ : public GNETAZElement, private SUMOPolygon, public GNEMoveElement {
+class GNETAZ : public GNEAdditional, private TesselatedPolygon {
 
 public:
-    /// @brief needed to avoid diamond Problem between GUIPolygon and GNETAZElement
-    using GNETAZElement::getID;
+    /// @brief needed to avoid diamond Problem between GUIPolygon and GNEAdditional
+    using GNEAdditional::getID;
 
     /// @default GNETAZ Constructor
     GNETAZ(GNENet* net);
@@ -51,7 +51,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, const Position& TAZ, const bool fill,
-           const RGBColor& color, const std::string& name, const std::map<std::string, std::string>& parameters);
+           const RGBColor& color, const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief GNETAZ Destructor
     ~GNETAZ();
@@ -71,13 +71,10 @@ public:
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
-    /// @brief get TAZ Shape
-    const PositionVector& getTAZElementShape() const;
-
-    /**@brief writte TAZElement element into a xml file
+    /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    void writeTAZElement(OutputDevice& device) const;
+    void writeAdditional(OutputDevice& device) const;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -90,8 +87,11 @@ public:
     /// @brief return exaggeration asociated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
-    /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
+    /// @brief update centering boundary (implies change in RTREE)
+    void updateCenteringBoundary(const bool updateGrid);
+
+    /// @brief split geometry
+    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
 
     /// @}
 
@@ -137,6 +137,9 @@ public:
      */
     Position getAttributePosition(SumoXMLAttr key) const;
 
+    /// @brief get parameters map
+    const Parameterised::Map& getACParametersMap() const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -167,12 +170,6 @@ public:
     void updateTAZStadistic();
 
 protected:
-    /// @brief boundary used during moving of elements
-    Boundary myMovingGeometryBoundary;
-
-    /// @brief geometry for lenghts/rotations
-    GUIGeometry myTAZGeometry;
-
     /// @brief TAZ center
     Position myTAZCenter;
 

@@ -1,6 +1,5 @@
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'parkingArea' in TagSelector
-Debug: Invalid input parameter of parkingArea: input contains invalid characters
+Debug: Invalid input parameter of parkingArea
 Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

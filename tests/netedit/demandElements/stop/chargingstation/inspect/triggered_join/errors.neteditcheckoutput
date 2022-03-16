@@ -1,0 +1,12 @@
+Warning: Teleporting vehicle 'flow.3'; waited too long (jam), lane=':gneJ1_0_0', time=320.00.
+Warning: Vehicle 'flow.3' teleports beyond arrival edge 'gneE1', time=346.00.
+Warning: Vehicle 'flow.3' skips stop on lane 'gneE1_0' time=346.00.
+Warning: Teleporting vehicle 'flow.4'; waited too long (jam), lane=':gneJ1_0_0', time=626.00.
+Warning: Vehicle 'flow.4' teleports beyond arrival edge 'gneE1', time=652.00.
+Warning: Vehicle 'flow.4' skips stop on lane 'gneE1_0' time=652.00.
+Warning: Teleporting vehicle 'flow.5'; waited too long (jam), lane=':gneJ1_0_0', time=932.00.
+Warning: Vehicle 'flow.5' teleports beyond arrival edge 'gneE1', time=958.00.
+Warning: Vehicle 'flow.5' skips stop on lane 'gneE1_0' time=958.00.
+Warning: Teleporting vehicle 'flow.6'; waited too long (jam), lane=':gneJ1_0_0', time=1238.00.
+Warning: Vehicle 'flow.6' teleports beyond arrival edge 'gneE1', time=1264.00.
+Warning: Vehicle 'flow.6' skips stop on lane 'gneE1_0' time=1264.00.

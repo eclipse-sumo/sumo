@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# set position
+netedit.setZoom(25, 0, 75)
+
 # go to select mode
 netedit.selectMode()
 
@@ -38,16 +41,16 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, 150, 245)
+netedit.leftClick(referencePosition, 150, 240)
 
 # Change parameter vtypes with a empty value
-netedit.modifyAttribute(2, "", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspectSelection.vTypes, "", True)
 
 # Change parameter vtypes with a invalid value
-netedit.modifyAttribute(2, "Type%%%%%1 T;;yp$2 Type3", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspectSelection.vTypes, "Type%%%%%1 T;;yp$2 Type3", True)
 
 # Change parameter vtypes with a valid value
-netedit.modifyAttribute(2, "Type1 Type2 Type3", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspectSelection.vTypes, "Type1 Type2 Type3", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

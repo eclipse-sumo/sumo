@@ -42,13 +42,58 @@
 //#define GUIPolygon_DEBUG_DRAW_VERTICES
 
 // ===========================================================================
+// static members
+// ===========================================================================
+
+// minimum number of extra vertices per shape before tesselation artefacts occur
+// (new vertices are needed for some concave polygons)
+#define MAX_COMBINE_INDEX 1024
+// ring buffer to store temporary vertices (x,y,z) needed by combineCallback
+GLdouble myCombineVertices[MAX_COMBINE_INDEX][3];
+// array index for above array; incremented inside combineCallback
+int myCombineIndex = 0;
+GLenum myCurrentType = -1;
+std::vector<Position> myCurrentPoints;
+const TesselatedPolygon* myCurrentTesselated = nullptr;
+
+// ===========================================================================
 // callbacks definitions
 // ===========================================================================
 
 void CALLBACK beginCallback(GLenum which) {
-    glBegin(which);
+    //std::cout << " beginCallback id=" << Named::getIDSecure(myCurrentTesselated) << " type=" << which << "\n";
+    myCurrentType = which;
+    myCurrentPoints.clear();
 }
 
+
+void CALLBACK endCallback(void) {
+    myCurrentTesselated->myTesselation.emplace_back(GLPrimitive());
+    GLPrimitive& glp = myCurrentTesselated->myTesselation.back();
+    glp.type = myCurrentType;
+    glp.vert = myCurrentPoints;
+    myCurrentPoints.clear();
+}
+
+
+void CALLBACK vertexCallback(GLvoid* vertex) {
+    GLdouble* p3 = (GLdouble*) vertex;
+    //std::cout << " vertexCallback id=" << Named::getIDSecure(myCurrentTesselated) << " point=" << p3 << "\n";
+    myCurrentPoints.push_back(Position(p3[0], p3[1], p3[2]));
+}
+
+
+void CALLBACK combineCallback(GLdouble coords[3],
+                              GLdouble* vertex_data[4],
+                              GLfloat weight[4], GLdouble** dataOut) {
+    UNUSED_PARAMETER(weight);
+    UNUSED_PARAMETER(*vertex_data);
+    myCombineIndex = (myCombineIndex + 1) % MAX_COMBINE_INDEX;
+    myCombineVertices[myCombineIndex][0] = coords[0];
+    myCombineVertices[myCombineIndex][1] = coords[1];
+    myCombineVertices[myCombineIndex][2] = coords[2];
+    *dataOut = myCombineVertices[myCombineIndex];
+}
 
 void CALLBACK errorCallback(GLenum errorCode) {
     const GLubyte* estring;
@@ -59,46 +104,73 @@ void CALLBACK errorCallback(GLenum errorCode) {
 }
 
 
-void CALLBACK endCallback(void) {
-    glEnd();
-}
-
-
-void CALLBACK vertexCallback(GLvoid* vertex) {
-    glVertex3dv((GLdouble*) vertex);
-}
-
-
-void CALLBACK combineCallback(GLdouble coords[3],
-                              GLdouble* vertex_data[4],
-                              GLfloat weight[4], GLdouble** dataOut) {
-    UNUSED_PARAMETER(weight);
-    UNUSED_PARAMETER(*vertex_data);
-    GLdouble* vertex;
-
-    vertex = (GLdouble*) malloc(7 * sizeof(GLdouble));
-
-    vertex[0] = coords[0];
-    vertex[1] = coords[1];
-    vertex[2] = coords[2];
-    *dataOut = vertex;
-}
 
 static const GLdouble INV_POLY_TEX_DIM = 1.0 / 256.0;
 static const GLdouble xPlane[] = {INV_POLY_TEX_DIM, 0.0, 0.0, 0.0};
 static const GLdouble yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
 
+
 // ===========================================================================
-// method definitions
+// TesselatedPolygon method definitions
+// ===========================================================================
+
+
+void
+TesselatedPolygon::drawTesselation(const PositionVector& shape) const {
+    if (myTesselation.empty()) {
+        myCurrentTesselated = this;
+        // draw the tesselated shape
+        double* points = new double[shape.size() * 3];
+        GLUtesselator* tobj = gluNewTess();
+#if defined(__GNUC__) && __GNUC__ >= 8
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-function-type"
+#endif
+        gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(CALLBACK*)()) &vertexCallback);
+        gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(CALLBACK*)()) &beginCallback);
+        gluTessCallback(tobj, GLU_TESS_END, (GLvoid(CALLBACK*)()) &endCallback);
+        //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (CALLBACK*) ()) &errorCallback);
+        gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(CALLBACK*)()) &combineCallback);
+#if defined(__GNUC__) && __GNUC__ >= 8
+#pragma GCC diagnostic pop
+#endif
+        gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
+        gluTessBeginPolygon(tobj, nullptr);
+        gluTessBeginContour(tobj);
+        for (int i = 0; i != (int)shape.size(); ++i) {
+            points[3 * i]  = shape[(int) i].x();
+            points[3 * i + 1]  = shape[(int) i].y();
+            points[3 * i + 2]  = 0;
+            gluTessVertex(tobj, points + 3 * i, points + 3 * i);
+        }
+        gluTessEndContour(tobj);
+
+        gluTessEndPolygon(tobj);
+        gluDeleteTess(tobj);
+        delete[] points;
+
+    }
+    for (GLPrimitive& pr : myTesselation) {
+        // XXX change to glDrawArrays
+        glBegin(pr.type);
+        for (const Position& p : pr.vert) {
+            glVertex3d(p.x(), p.y(), p.z());
+        }
+        glEnd();
+    }
+}
+
+
+// ===========================================================================
+// GUIPolygon method definitions
 // ===========================================================================
 
 GUIPolygon::GUIPolygon(const std::string& id, const std::string& type, const RGBColor& color,
                        const PositionVector& shape, bool geo, bool fill,
                        double lineWidth, double layer, double angle, const std::string& imgFile,
                        bool relativePath, const std::string& name):
-    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name),
+    TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name),
     GUIGlObject_AbstractAdd(GLO_POLYGON, id),
-    myDisplayList(0),
     myRotatedShape(nullptr) {
     if (angle != 0.) {
         setShape(shape);
@@ -161,16 +233,13 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     // first check if polygon can be drawn
     if (checkDraw(s, this, this)) {
         FXMutexLock locker(myLock);
-        //if (myDisplayList == 0 || (!getFill() && myLineWidth != getExaggeration(s))) {
-        //    storeTesselation(getExaggeration(s));
-        //}
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         GLHelper::pushName(getGlID());
         // draw inner polygon
         if (myRotatedShape) {
-            drawInnerPolygon(s, this, this, *myRotatedShape, getFill(), getShapeLayer(), false);
+            drawInnerPolygon(s, this, this, *myRotatedShape);
         } else {
-            drawInnerPolygon(s, this, this, myShape, getFill(), getShapeLayer(), false);
+            drawInnerPolygon(s, this, this, myShape);
         }
         // pop name
         GLHelper::popName();
@@ -195,62 +264,7 @@ GUIPolygon::setShape(const PositionVector& shape) {
         delete myRotatedShape;
         myRotatedShape = nullptr;
     }
-    //storeTesselation(myLineWidth);
-}
-
-
-void
-GUIPolygon::performTesselation(const bool fill, const PositionVector& shape, const double lineWidth) {
-    if (fill) {
-        // draw the tesselated shape
-        double* points = new double[shape.size() * 3];
-        GLUtesselator* tobj = gluNewTess();
-#if defined(__GNUC__) && __GNUC__ >= 8
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wcast-function-type"
-#endif
-        gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(CALLBACK*)()) &glVertex3dv);
-        gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(CALLBACK*)()) &beginCallback);
-        gluTessCallback(tobj, GLU_TESS_END, (GLvoid(CALLBACK*)()) &endCallback);
-        //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (CALLBACK*) ()) &errorCallback);
-        gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(CALLBACK*)()) &combineCallback);
-#if defined(__GNUC__) && __GNUC__ >= 8
-#pragma GCC diagnostic pop
-#endif
-        gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
-        gluTessBeginPolygon(tobj, nullptr);
-        gluTessBeginContour(tobj);
-        for (int i = 0; i != (int)shape.size(); ++i) {
-            points[3 * i]  = shape[(int) i].x();
-            points[3 * i + 1]  = shape[(int) i].y();
-            points[3 * i + 2]  = 0;
-            gluTessVertex(tobj, points + 3 * i, points + 3 * i);
-        }
-        gluTessEndContour(tobj);
-
-        gluTessEndPolygon(tobj);
-        gluDeleteTess(tobj);
-        delete[] points;
-
-    } else {
-        GLHelper::drawLine(shape);
-        GLHelper::drawBoxLines(shape, lineWidth);
-    }
-}
-
-
-void
-GUIPolygon::storeTesselation(const bool fill, const PositionVector& shape, double lineWidth) const {
-    if (myDisplayList > 0) {
-        glDeleteLists(myDisplayList, 1);
-    }
-    myDisplayList = glGenLists(1);
-    if (myDisplayList == 0) {
-        throw ProcessError("GUIPolygon::storeTesselation() could not create display list");
-    }
-    glNewList(myDisplayList, GL_COMPILE);
-    performTesselation(fill, shape, lineWidth);
-    glEndList();
+    myTesselation.clear();
 }
 
 
@@ -299,13 +313,13 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* poly
 
 
 void
-GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o,
-                             const PositionVector shape, const bool drawFill, double layer, bool disableSelectionColor, int alphaOverride) {
+GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const TesselatedPolygon* polygon, const GUIGlObject* o,
+                             const PositionVector shape, bool disableSelectionColor, int alphaOverride) {
     GLHelper::pushMatrix();
-    glTranslated(0, 0, layer);
+    glTranslated(0, 0, polygon->getShapeLayer());
     setColor(s, polygon, o, disableSelectionColor, alphaOverride);
     int textureID = -1;
-    if (drawFill) {
+    if (polygon->getFill()) {
         const std::string& file = polygon->getShapeImgFile();
         if (file != "") {
             textureID = GUITexturesHelper::getTextureID(file, true);
@@ -334,9 +348,13 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygo
         glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
         glTexGendv(GL_T, GL_OBJECT_PLANE, yPlane);
     }
-    // recall tesselation
-    //glCallList(myDisplayList);
-    performTesselation(drawFill, shape, polygon->getLineWidth() * o->getExaggeration(s));
+    if (polygon->getFill()) {
+        polygon->drawTesselation(shape);
+    } else {
+        GLHelper::drawLine(shape);
+        GLHelper::drawBoxLines(shape, polygon->getLineWidth() * o->getExaggeration(s));
+    }
+
     // de-init generation of texture coordinates
     if (textureID >= 0) {
         glEnable(GL_DEPTH_TEST);
@@ -356,6 +374,5 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygo
         GLHelper::drawTextSettings(s.polyType, polygon->getShapeType(), p, s.scale, s.angle);
     }
 }
-
 
 /****************************************************************************/

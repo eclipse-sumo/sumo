@@ -7,14 +7,14 @@ Debug: Adding e1Detector 'detector5' in GNEChange_Additional
 Debug: Adding e1Detector 'detector6' in GNEChange_Additional
 Debug: Adding e1Detector 'detector7' in GNEChange_Additional
 Debug: Adding e1Detector 'detector8' in GNEChange_Additional
-Debug: Adding poly 'poly' into viewNet
-Debug: Adding taz 'TAZ' into viewNet
-Debug: Adding poi 'POI_0' into viewNet
-Debug: Adding poi 'POI_1' into viewNet
-Debug: Adding poi 'POI_2' into viewNet
-Debug: Adding poi 'POI_3' into viewNet
-Debug: Adding poiLane 'POI_4' into viewNet
-Debug: Adding poiLane 'POI_5' into viewNet
+Debug: Adding poly 'poly' in GNEChange_Additional
+Debug: Adding taz 'TAZ' in GNEChange_Additional
+Debug: Adding poi 'POI_0' in GNEChange_Additional
+Debug: Adding poi 'POI_1' in GNEChange_Additional
+Debug: Adding poi 'POI_2' in GNEChange_Additional
+Debug: Adding poi 'POI_3' in GNEChange_Additional
+Debug: Adding poiLane 'POI_4' in GNEChange_Additional
+Debug: Adding poiLane 'POI_5' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from5_1to4_1' in retrieveGNEConnection()
 Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
@@ -113,7 +113,7 @@ Debug: Setting new attribute
 Debug: Removing junction 'A' from net
 Debug: Removing e1Detector 'detector1' in GNEChange_Additional
 Debug: Removing e1Detector 'detector2' in GNEChange_Additional
-Debug: Removing poiLane 'POI_4' from viewNet
+Debug: Removing poiLane 'POI_4' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '2' due it were guessed
 Debug: Setting new attribute
@@ -150,7 +150,7 @@ Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting new attribute
 Debug: Removing edge '7' from net
 Debug: Removing busStop 'busStop' in GNEChange_Additional
-Debug: Removing poiLane 'POI_5' from viewNet
+Debug: Removing poiLane 'POI_5' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting new attribute
@@ -177,12 +177,12 @@ Debug: Removing edge '4' from net
 Debug: Removing junction 'Center' from net
 Debug: Setting new attribute
 Debug: Removing junction 'D' from net
-Debug: Removing poly 'poly' from viewNet
-Debug: Removing taz 'TAZ' from viewNet
+Debug: Removing poly 'poly' in GNEChange_Additional
+Debug: Removing taz 'TAZ' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding taz 'TAZ' into viewNet
-Debug: Adding poly 'poly' into viewNet
+Debug: Adding taz 'TAZ' in GNEChange_Additional
+Debug: Adding poly 'poly' in GNEChange_Additional
 Debug: Adding junction 'D' into net
 Debug: Restoring previous attribute
 Debug: Adding junction 'Center' into net
@@ -209,7 +209,7 @@ Debug: invalidating (removing) connections of edge '3' due it were guessed
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '8' due it were guessed
-Debug: Adding poiLane 'POI_5' into viewNet
+Debug: Adding poiLane 'POI_5' in GNEChange_Additional
 Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Adding edge '7' from net
 Debug: Restoring previous attribute
@@ -246,7 +246,7 @@ Debug: invalidating (removing) connections of edge '6' due it were guessed
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '2' as loaded (It will not be removed)
-Debug: Adding poiLane 'POI_4' into viewNet
+Debug: Adding poiLane 'POI_4' in GNEChange_Additional
 Debug: Adding e1Detector 'detector2' in GNEChange_Additional
 Debug: Adding e1Detector 'detector1' in GNEChange_Additional
 Debug: Adding junction 'A' into net
@@ -369,7 +369,7 @@ Debug: Setting new attribute
 Debug: Removing junction 'A' from net
 Debug: Removing e1Detector 'detector1' in GNEChange_Additional
 Debug: Removing e1Detector 'detector2' in GNEChange_Additional
-Debug: Removing poiLane 'POI_4' from viewNet
+Debug: Removing poiLane 'POI_4' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '2' due it were guessed
 Debug: Setting new attribute
@@ -406,7 +406,7 @@ Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting new attribute
 Debug: Removing edge '7' from net
 Debug: Removing busStop 'busStop' in GNEChange_Additional
-Debug: Removing poiLane 'POI_5' from viewNet
+Debug: Removing poiLane 'POI_5' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting new attribute
@@ -433,12 +433,12 @@ Debug: Removing edge '4' from net
 Debug: Removing junction 'Center' from net
 Debug: Setting new attribute
 Debug: Removing junction 'D' from net
-Debug: Removing poly 'poly' from viewNet
-Debug: Removing taz 'TAZ' from viewNet
+Debug: Removing poly 'poly' in GNEChange_Additional
+Debug: Removing taz 'TAZ' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding taz 'TAZ' into viewNet
-Debug: Adding poly 'poly' into viewNet
+Debug: Adding taz 'TAZ' in GNEChange_Additional
+Debug: Adding poly 'poly' in GNEChange_Additional
 Debug: Adding junction 'D' into net
 Debug: Restoring previous attribute
 Debug: Adding junction 'Center' into net
@@ -465,7 +465,7 @@ Debug: invalidating (removing) connections of edge '3' due it were guessed
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '8' due it were guessed
-Debug: Adding poiLane 'POI_5' into viewNet
+Debug: Adding poiLane 'POI_5' in GNEChange_Additional
 Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Adding edge '7' from net
 Debug: Restoring previous attribute
@@ -502,7 +502,7 @@ Debug: invalidating (removing) connections of edge '6' due it were guessed
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '2' as loaded (It will not be removed)
-Debug: Adding poiLane 'POI_4' into viewNet
+Debug: Adding poiLane 'POI_4' in GNEChange_Additional
 Debug: Adding e1Detector 'detector2' in GNEChange_Additional
 Debug: Adding e1Detector 'detector1' in GNEChange_Additional
 Debug: Adding junction 'A' into net
@@ -580,22 +580,14 @@ Debug: Deleting unreferenced connection 'from5_2to3_2' in GNEChange_Attribute
 Debug: Deleting unreferenced connection 'from5_2to2_2' in GNEChange_Attribute
 Debug: Deleting unreferenced connection 'from5_1to2_1' in GNEChange_Attribute
 Debug: Deleting unreferenced connection 'from5_1to4_1' in GNEChange_Attribute
-Debug: Removing poiLane 'POI_5' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_5' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_4' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_4' in ~GNEChange_Shape()
-Debug: Removing poi 'POI_3' from net in ~GNEChange_Shape()
-Debug: delete poi 'POI_3' in ~GNEChange_Shape()
-Debug: Removing poi 'POI_2' from net in ~GNEChange_Shape()
-Debug: delete poi 'POI_2' in ~GNEChange_Shape()
-Debug: Removing poi 'POI_1' from net in ~GNEChange_Shape()
-Debug: delete poi 'POI_1' in ~GNEChange_Shape()
-Debug: Removing poi 'POI_0' from net in ~GNEChange_Shape()
-Debug: delete poi 'POI_0' in ~GNEChange_Shape()
-Debug: Removing taz 'TAZ' from net in ~GNEChange_TAZElement()
-Debug: delete taz 'TAZ' in ~GNEChange_TAZElement()
-Debug: Removing poly 'poly' from net in ~GNEChange_Shape()
-Debug: delete poly 'poly' in ~GNEChange_Shape()
+Debug: Deleting unreferenced poiLane 'POI_5'
+Debug: Deleting unreferenced poiLane 'POI_4'
+Debug: Deleting unreferenced poi 'POI_3'
+Debug: Deleting unreferenced poi 'POI_2'
+Debug: Deleting unreferenced poi 'POI_1'
+Debug: Deleting unreferenced poi 'POI_0'
+Debug: Deleting unreferenced taz 'TAZ'
+Debug: Deleting unreferenced poly 'poly'
 Debug: Deleting unreferenced e1Detector 'detector8'
 Debug: Deleting unreferenced e1Detector 'detector7'
 Debug: Deleting unreferenced e1Detector 'detector6'

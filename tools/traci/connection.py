@@ -25,23 +25,25 @@ import socket
 import struct
 import sys
 import warnings
-import abc
 
 from . import constants as tc
 from .exceptions import TraCIException, FatalTraCIError
 from .domain import _defaultDomains
 from .storage import Storage
+from .step import StepManager
 
+_DEBUG = False
 _RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
 
 
-class Connection:
+class Connection(StepManager):
 
     """Contains the socket, the composed message string
     together with a list of TraCI commands which are inside.
     """
 
-    def __init__(self, host, port, process):
+    def __init__(self, host, port, process, traceFile, traceGetters):
+        StepManager.__init__(self)
         if sys.platform.startswith('java'):
             # working around jython 2.7.0 bug #2273
             self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
@@ -53,9 +55,8 @@ class Connection:
         self._string = bytes()
         self._queue = []
         self._subscriptionMapping = {}
-        self._stepListeners = {}
-        self._nextStepListenerID = 0
-        self._traceFile = None
+        if traceFile is not None:
+            self.startTracing(traceFile, traceGetters, _defaultDomains)
         for domain in _defaultDomains:
             domain._register(self, self._subscriptionMapping)
 
@@ -82,9 +83,12 @@ class Connection:
         if self._socket is None:
             raise FatalTraCIError("Connection already closed.")
         length = struct.pack("!i", len(self._string) + 4)
-        # print("python_sendExact: '%s'" % ' '.join(map(lambda x : "%X" % ord(x), self._string)))
+        if _DEBUG:
+            print("sending", Storage(length + self._string).getDebugString())
         self._socket.send(length + self._string)
         result = self._recvExact()
+        if _DEBUG:
+            print("receiving", result.getDebugString())
         if not result:
             self._socket.close()
             del self._socket
@@ -181,8 +185,8 @@ class Connection:
         return self._sendExact()
 
     def _readSubscription(self, result):
-        # to enable this you also need to set _DEBUG to True in storage.py
-        # result.printDebug()
+        if _DEBUG:
+            print("reading subscription", result.getDebugString())
         result.readLength()
         response = result.read("!B")[0]
         isVariableSubscription = ((response >= tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and
@@ -324,49 +328,8 @@ class Connection:
         while numSubs > 0:
             responses.append(self._readSubscription(result))
             numSubs -= 1
-        self._manageStepListeners(step)
+        self.manageStepListeners(step)
         return responses
-
-    def _manageStepListeners(self, step):
-        listenersToRemove = []
-        for (listenerID, listener) in self._stepListeners.items():
-            keep = listener.step(step)
-            if not keep:
-                listenersToRemove.append(listenerID)
-        for listenerID in listenersToRemove:
-            self.removeStepListener(listenerID)
-
-    def addStepListener(self, listener):
-        """addStepListener(traci.StepListener) -> int
-
-        Append the step listener (its step function is called at the end of every call to traci.simulationStep())
-        Returns the ID assigned to the listener if it was added successfully, None otherwise.
-        """
-        if issubclass(type(listener), StepListener):
-            listener.setID(self._nextStepListenerID)
-            self._stepListeners[self._nextStepListenerID] = listener
-            self._nextStepListenerID += 1
-            # print ("traci: Added stepListener %s\nlisteners: %s"%(_nextStepListenerID - 1, _stepListeners))
-            return self._nextStepListenerID - 1
-        warnings.warn(
-            "Proposed listener's type must inherit from traci.StepListener. Not adding object of type '%s'" %
-            type(listener))
-        return None
-
-    def removeStepListener(self, listenerID):
-        """removeStepListener(traci.StepListener) -> bool
-
-        Remove the step listener from traci's step listener container.
-        Returns True if the listener was removed successfully, False if it wasn't registered.
-        """
-        # print ("traci: removeStepListener %s\nlisteners: %s"%(listenerID, _stepListeners))
-        if listenerID in self._stepListeners:
-            self._stepListeners[listenerID].cleanUp()
-            del self._stepListeners[listenerID]
-            # print ("traci: Removed stepListener %s"%(listenerID))
-            return True
-        warnings.warn("Cannot remove unknown listener %s.\nlisteners:%s" % (listenerID, self._stepListeners))
-        return False
 
     def getVersion(self):
         command = tc.CMD_GETVERSION
@@ -381,11 +344,7 @@ class Connection:
         self._sendCmd(tc.CMD_SETORDER, None, None, "I", order)
 
     def close(self, wait=True):
-        if self._traceFile:
-            self._traceFile.write("traci.close()\n")
-            self._traceFile.close()
-            for domain in _defaultDomains:
-                domain._setTraceFile(None, False)
+        StepManager.close(self, True)
         for listenerID in list(self._stepListeners.keys()):
             self.removeStepListener(listenerID)
         if self._socket is not None:
@@ -394,30 +353,3 @@ class Connection:
             self._socket = None
         if wait and self._process is not None:
             self._process.wait()
-
-
-class StepListener(object):
-    __metaclass__ = abc.ABCMeta
-
-    @abc.abstractmethod
-    def step(self, t=0):
-        """step(int) -> bool
-
-        After adding a StepListener 'listener' with traci.addStepListener(listener),
-        TraCI will call listener.step(t) after each call to traci.simulationStep(t)
-        The return value indicates whether the stepListener wants to stay active.
-        """
-        return True
-
-    def cleanUp(self):
-        """cleanUp() -> None
-
-        This method is called at removal of the stepListener, allowing to schedule some final actions
-        """
-        pass
-
-    def setID(self, ID):
-        self._ID = ID
-
-    def getID(self):
-        return self._ID

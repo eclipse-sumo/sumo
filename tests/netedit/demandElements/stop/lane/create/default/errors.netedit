@@ -21,7 +21,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'routeFlow' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
-Debug: Selected item 'stopLane' in TagSelector
 Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -37,6 +36,7 @@ Debug: Adding flowRoute 'routeFlow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
+Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20

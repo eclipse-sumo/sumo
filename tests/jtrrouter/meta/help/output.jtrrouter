@@ -1,4 +1,4 @@
-Eclipse SUMO jtrrouter Version v1_10_0+0951-b6eb60e
+Eclipse SUMO jtrrouter Version v1_12_0+0320-a562602254b
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
  junction turning ratios.
@@ -7,6 +7,8 @@ Usage: jtrrouter [OPTION]*
 Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup
   -C, --save-configuration FILE    Saves current configuration into FILE
+  --save-configuration.relative    Enforce relative paths when saving the
+                                    configuration
   --save-template FILE             Saves a configuration template (empty) into
                                     FILE
   --save-schema FILE               Saves the configuration schema into FILE
@@ -45,13 +47,15 @@ Output Options:
   --exit-times                     Write exit times (weights) for each edge
 
 Processing Options:
+  --max-alternatives INT           Prune the number of alternatives to INT
+  --with-taz                       Use origin and destination zones (districts)
+                                    for in- and output
   --unsorted-input                 Assume input is unsorted
   -s, --route-steps TIME           Load routes for the next number of seconds
                                     ahead
   --no-internal-links              Disable (junction) internal links
   --randomize-flows                generate random departure times for flow
                                     input
-  --max-alternatives INT           Prune the number of alternatives to INT
   --remove-loops                   Remove loops within the route;
                                     Remove turnarounds at start and end of the
                                     route
@@ -60,12 +64,6 @@ Processing Options:
                                     using the first usable edge instead
   --repair.to                      Tries to correct an invalid destination edge
                                     by using the last usable edge instead
-  --weights.interpolate            Interpolate edge weights at interval
-                                    boundaries
-  --weights.minor-penalty FLOAT    Apply the given time penalty when computing
-                                    routing costs for minor-link internal lanes
-  --with-taz                       Use origin and destination zones (districts)
-                                    for in- and output
   --mapmatch.distance FLOAT        Maximum distance when mapping input
                                     coordinates (fromXY etc.) to the road
                                     network
@@ -77,6 +75,8 @@ Processing Options:
                                     used for routing
   --restriction-params STR[]       Comma separated list of param keys to
                                     compare for additional restrictions
+  --weights.minor-penalty FLOAT    Apply the given time penalty when computing
+                                    routing costs for minor-link internal lanes
   --max-edges-factor FLOAT         Routes are cut off when the route edges to
                                     net edges ratio is larger than FLOAT
   -T, --turn-defaults STR[]        Use STR[] as default turn definition

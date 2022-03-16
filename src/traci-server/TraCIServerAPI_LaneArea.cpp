@@ -58,8 +58,9 @@ TraCIServerAPI_LaneArea::processSet(TraCIServer& server, tcpip::Storage& inputSt
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable != libsumo::VAR_PARAMETER
-       ) {
+    if (variable != libsumo::VAR_PARAMETER 
+            && variable != libsumo::VAR_VIRTUAL_DETECTION
+        ) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_LANEAREA_VARIABLE, "Set Lane Area Detector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
@@ -67,6 +68,14 @@ TraCIServerAPI_LaneArea::processSet(TraCIServer& server, tcpip::Storage& inputSt
     // process
     try {
         switch (variable) {
+            case libsumo::VAR_VIRTUAL_DETECTION: {
+                int vehNum = -1;
+                if (!server.readTypeCheckingInt(inputStorage, vehNum)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_LANEAREA_VARIABLE, "Overriding the number of detected vehicles requires an integer", outputStorage);
+                }
+                libsumo::LaneArea::overrideVehicleNumber(id, vehNum);
+                break;
+            }
             case libsumo::VAR_PARAMETER: {
                 StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
                 const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");

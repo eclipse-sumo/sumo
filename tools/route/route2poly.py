@@ -193,9 +193,10 @@ def parseRoutes(options):
     keep = None
     if options.filterOutputFile is not None:
         keep = set()
-        for line in open(options.filterOutputFile):
-            if line.startswith('edge:'):
-                keep.add(line.replace('edge:', '').strip())
+        with open(options.filterOutputFile) as filterOutput:
+            for line in filterOutput:
+                if line.startswith('edge:'):
+                    keep.add(line.replace('edge:', '').strip())
 
     for routefile in options.routefiles:
         print("parsing %s" % routefile)

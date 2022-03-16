@@ -30,7 +30,6 @@
 #include <utils/common/Named.h>
 #include <utils/common/Parameterised.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/FileHelpers.h>
 #include <microsim/MSNet.h>
 
 
@@ -152,7 +151,7 @@ public:
     }
 
     /** @brief Remove all vehicles before quick-loading state */
-    virtual void clearState() {};
+    virtual void clearState(SUMOTime /*step*/) {};
 
 protected:
     /// @brief The vehicle types to look for (empty means all)

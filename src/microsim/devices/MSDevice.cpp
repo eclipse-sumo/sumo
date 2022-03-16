@@ -52,7 +52,7 @@
 // static member variables
 // ===========================================================================
 std::map<std::string, std::set<std::string> > MSDevice::myExplicitIDs;
-SumoRNG MSDevice::myEquipmentRNG;
+SumoRNG MSDevice::myEquipmentRNG("deviceEquipment");
 
 // ===========================================================================
 // debug flags

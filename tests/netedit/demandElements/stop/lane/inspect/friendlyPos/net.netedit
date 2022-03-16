@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 23/10/2020 14:24:08 by Eclipse SUMO netedit Version v1_7_0+0659-2ea3cbf21a
+<!-- generated on 01.09.2020 11:40:07 by Eclipse SUMO netedit Version v1_6_0+1864-8e71d6718a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.23Oct142339.7840\netedit.gui\demandElements\stop\stopLane\inspect\friendlyPos\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep113759.9744\netedit.gui\demandElements\stop\stopBusStop\inspect\until\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.23Oct142339.7840\netedit.gui\demandElements\stop\stopLane\inspect\friendlyPos\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep113759.9744\netedit.gui\demandElements\stop\stopBusStop\inspect\until\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,28 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.23Oct142339.7840\netedit.gui\demandElements\stop\stopLane\inspect\friendlyPos\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.23Oct142339.7840\netedit.gui\demandElements\stop\stopLane\inspect\friendlyPos\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.23Oct142339.7840\netedit.gui\demandElements\stop\stopLane\inspect\friendlyPos\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.23Oct142339.7840\netedit.gui\demandElements\stop\stopLane\inspect\friendlyPos\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.23Oct142339.7840\netedit.gui\demandElements\stop\stopLane\inspect\friendlyPos\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.23Oct142339.7840\netedit.gui\demandElements\stop\stopLane\inspect\friendlyPos\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep113759.9744\netedit.gui\demandElements\stop\stopBusStop\inspect\until\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep113759.9744\netedit.gui\demandElements\stop\stopBusStop\inspect\until\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep113759.9744\netedit.gui\demandElements\stop\stopBusStop\inspect\until\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep113759.9744\netedit.gui\demandElements\stop\stopBusStop\inspect\until\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep113759.9744\netedit.gui\demandElements\stop\stopBusStop\inspect\until\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep113759.9744\netedit.gui\demandElements\stop\stopBusStop\inspect\until\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.23Oct142339.7840\netedit.gui\demandElements\stop\stopLane\inspect\friendlyPos\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep113759.9744\netedit.gui\demandElements\stop\stopBusStop\inspect\until\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.23Oct142339.7840\netedit.gui\demandElements\stop\stopLane\inspect\friendlyPos\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep113759.9744\netedit.gui\demandElements\stop\stopBusStop\inspect\until\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.23Oct142339.7840\netedit.gui\demandElements\stop\stopLane\inspect\friendlyPos\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep113759.9744\netedit.gui\demandElements\stop\stopBusStop\inspect\until\log.txt"/>
     </report>
 
 </configuration>

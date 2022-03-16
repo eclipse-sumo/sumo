@@ -143,7 +143,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /// @brief return true if a edge belongs to crossing's edges
     bool checkEdgeBelong(GNEEdge* edges) const;

@@ -7,8 +7,6 @@ set(netedit_elements_additional_SRCS
    GNEAdditionalHandler.cpp
    GNEAdditional.h
    GNEAdditional.cpp
-   GNEShape.h
-   GNEShape.cpp
    GNEChargingStation.h
    GNEChargingStation.cpp
    GNEStoppingPlace.h
@@ -23,8 +21,6 @@ set(netedit_elements_additional_SRCS
    GNEParkingArea.cpp
    GNEParkingSpace.h
    GNEParkingSpace.cpp
-   GNETAZElement.h
-   GNETAZElement.cpp 
    GNETAZ.h
    GNETAZ.cpp 
    GNETAZSourceSink.h
@@ -77,6 +73,10 @@ set(netedit_elements_additional_SRCS
    GNERouteProbReroute.cpp
    GNERerouterInterval.h
    GNERerouterInterval.cpp
+   GNETractionSubstation.h
+   GNETractionSubstation.cpp
+   GNEOverheadWire.h
+   GNEOverheadWire.cpp
    )
 
 add_library(netedit_elements_additional STATIC ${netedit_elements_additional_SRCS})

@@ -115,13 +115,13 @@ class EdgeDomain(Domain):
         Returns the average speed in m/s for the last time step on the given edge.
         """
         return self._getUniversal(tc.LAST_STEP_MEAN_SPEED, edgeID)
-	
+
     def getMeanFriction(self, edgeID):
         """getMeanFriction(string) -> double
 
         Returns the average friction [0..1] for the last time step over all lanes on the given edge.
         """
-        return self._getUniversal(tc.LAST_STEP_MEAN_SPEED, edgeID)
+        return self._getUniversal(tc.VAR_FRICTION, edgeID)
 
     def getLastStepOccupancy(self, edgeID):
         """getLastStepOccupancy(string) -> double
@@ -253,4 +253,4 @@ class EdgeDomain(Domain):
 
         Set a new friction value [0..1] for all lanes of the edge.
         """
-        self._setCmd(tc.VAR_MAXSPEED, edgeID, "d", speed)
+        self._setCmd(tc.VAR_FRICTION, edgeID, "d", friction)

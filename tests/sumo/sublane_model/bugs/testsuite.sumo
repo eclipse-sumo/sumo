@@ -60,3 +60,9 @@ ticket7925
 
 # a single sublane per lane
 ticket9051
+
+# overtake a vehicle that is 1000m long
+ticket10060
+
+# overtake a vehicle that is 500m long
+ticket10060b

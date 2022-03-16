@@ -46,9 +46,9 @@
 // ---------------------------------------------------------------------------
 
 GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                               const std::map<std::string, std::string>& parameters) :
+                               const Parameterised::Map& parameters) :
     GNEGenericData(SUMO_TAG_EDGEREL, GLO_EDGERELDATA, dataIntervalParent, parameters,
-{}, {fromEdge, toEdge}, {}, {}, {}, {}, {}, {}) {
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}) {
 }
 
 
@@ -502,11 +502,13 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // mark interval toolbar for update
+    myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
 
 
 void
-GNEEdgeRelData::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNEEdgeRelData::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     throw InvalidArgument("Nothing to enable");
 }
 

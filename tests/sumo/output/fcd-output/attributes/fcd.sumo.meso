@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-10-27 14:02:31 by Eclipse SUMO sumo Version v1_10_0+1740-a59df310fb4
+<!-- generated on 2022-03-14 11:50:05 by Eclipse SUMO sumo Version v1_12_0+1366-93498a3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -16,7 +21,7 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
-        <fcd-output.attributes value="x,y,speed"/>
+        <fcd-output.attributes value="x,y,speed,odometer"/>
     </output>
 
     <time>
@@ -44,18 +49,18 @@ SPDX-License-Identifier: EPL-2.0
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <vehicle id="0" x="1497.62" y="401.65" speed="10.00"/>
+        <vehicle id="0" x="1497.62" y="401.65" speed="10.00" odometer="0.00"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="0" x="1497.62" y="401.65" speed="10.00"/>
+        <vehicle id="0" x="1497.62" y="401.65" speed="10.00" odometer="0.00"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="0" x="1497.62" y="401.65" speed="10.00"/>
+        <vehicle id="0" x="1497.62" y="401.65" speed="10.00" odometer="0.00"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="0" x="1497.62" y="401.65" speed="10.00"/>
+        <vehicle id="0" x="1497.62" y="401.65" speed="10.00" odometer="0.00"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="0" x="1497.62" y="401.65" speed="10.00"/>
+        <vehicle id="0" x="1497.62" y="401.65" speed="10.00" odometer="0.00"/>
     </timestep>
 </fcd-export>

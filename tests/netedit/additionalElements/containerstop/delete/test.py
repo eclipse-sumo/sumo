@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 250, 240)
 netedit.deleteMode()
 
 # enable 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+netedit.changeProtectAdditionalElements(referencePosition)
 
 # delete created containerStop
 netedit.leftClick(referencePosition, 260, 250)
@@ -59,7 +59,7 @@ netedit.undo(referencePosition, 3)
 netedit.deleteMode()
 
 # disable 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+netedit.changeProtectAdditionalElements(referencePosition)
 
 # try to delete lane with the second loaded containerStop (doesn't allowed)
 netedit.leftClick(referencePosition, 200, 200)

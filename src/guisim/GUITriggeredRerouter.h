@@ -53,14 +53,10 @@ public:
      * @param[in] id The id of the rerouter
      * @param[in] edges The edges the rerouter is placed at
      * @param[in] prob The probability to reroute vehicles
-     * @param[in] aXMLFilename The file to read further definitions from
      * @param[in] off Whether the rerouter is off (not working) initially
      */
-    GUITriggeredRerouter(const std::string& id,
-                         const MSEdgeVector& edges, double prob,
-                         const std::string& aXMLFilename, bool off,
-                         SUMOTime timeThreshold,
-                         const std::string& vTypes,
+    GUITriggeredRerouter(const std::string& id, const MSEdgeVector& edges, double prob,
+                         bool off, SUMOTime timeThreshold, const std::string& vTypes,
                          SUMORTree& rtree);
 
 

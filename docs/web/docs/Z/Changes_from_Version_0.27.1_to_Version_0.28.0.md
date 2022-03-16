@@ -9,7 +9,7 @@ title: Changes from Version 0.27.1 to Version 0.28.0
 - Simulation
   - Fixed bug that was causing insufficient overtaking on a
     single-lane road when using sublane simulation (most noticeable
-    with small step-lenghts). #2518
+    with small step-lengths). #2518
   - Fixed invalid count of insertion-backlog for flows. #2535
   - Added check for possibility to stop at scheduled stops during
     insertion. #2543

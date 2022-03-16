@@ -15,7 +15,6 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
@@ -64,30 +63,22 @@ Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
-Debug: Selected item 'trip' in TagSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
-Debug: Selected item 'flow (from-to)' in TagSelector
+Debug: Selected item 'flow (from-to edges)' in TagSelector
 Debug: Key ENTER pressed
-Debug: Adding flow 'flow_0' in GNEChange_DemandElement
+Debug: Adding flow 'f_0' in GNEChange_DemandElement
 Debug: Value '' for attribute from of flow isn't valid
 Debug: Value 'dummyEdge' for attribute from of flow isn't valid
 Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing flow 'flow_0' in GNEChange_DemandElement
+Debug: Removing flow 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding flow 'flow_0' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
+Debug: Adding flow 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -129,7 +120,7 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Deleting unreferenced flow 'flow_0'
+Debug: Deleting unreferenced flow 'f_0'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
@@ -169,8 +160,5 @@ Debug: Deleting unreferenced junction 'gneJ6' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ7' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16

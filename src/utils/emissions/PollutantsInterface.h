@@ -39,6 +39,7 @@ class HelpersHBEFA3;
 class HelpersPHEMlight;
 class HelpersEnergy;
 class HelpersMMPEVEM;
+class HelpersPHEMlight5;
 
 
 // ===========================================================================
@@ -353,6 +354,9 @@ private:
 
     /// @brief Instance of HelpersMMPEVEM which gets cleaned up automatically
     static HelpersMMPEVEM myMMPEVEMHelper;
+
+    /// @brief Instance of PHEMlight5Helper which gets cleaned up automatically
+    static HelpersPHEMlight5 myPHEMlight5Helper;
 
     /// @brief the known model helpers
     static Helper* myHelpers[];

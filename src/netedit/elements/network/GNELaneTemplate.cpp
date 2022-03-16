@@ -114,7 +114,7 @@ GNELaneTemplate::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNELaneTemplate::getACParametersMap() const {
     return myLane->getACParametersMap();
 }
@@ -129,7 +129,7 @@ GNELaneTemplate::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/)
 }
 
 void
-GNELaneTemplate::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNELaneTemplate::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     throw InvalidArgument("cannot be called in templates");
 }
 

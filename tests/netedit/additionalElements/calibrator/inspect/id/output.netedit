@@ -4,8 +4,8 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 calibrator
 TestFunctions: Clicked over position 549 - 308
 TestFunctions: Clicked over position 474 - 448
-TestFunctions: Clicked over position 672 - 393
-calibrator_gneE3_0
+TestFunctions: Clicked over position 604 - 393
+ca_0
 Id with spaces
 correctID
 TestFunctions: Clicked over position 304 - 168

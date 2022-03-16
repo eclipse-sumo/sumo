@@ -41,16 +41,16 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 586, 303)
+netedit.leftClick(referencePosition, 330, 150)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(4, "", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.departPos, "", False)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(4, "dummyPos", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.departPos, "dummyPos", False)
 
 # change departLane with a valid value
-netedit.modifyAttribute(4, "free", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.departPos, "free", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

@@ -55,15 +55,25 @@ sumo2fmi_set_startValues(ModelInstance *comp) {
     snprintf(defaultCallOptions, BUFFER_SIZE * 2, "-c %s/tools/game/grid6.sumocfg", sumoHomePath);
     comp->libsumoCallOptions = (char *)comp->allocateMemory(1 + strlen(defaultCallOptions), sizeof(char));
     strcpy((char *)comp->libsumoCallOptions, (char *)defaultCallOptions);
+}
 
-    comp->freeMemory(comp->bufferArray);
-    comp->bufferArray = NULL;
-    comp->bufferArrayLength = 0;
+void
+sumo2fmi_logEvent(ModelInstance *comp, const char *message, ...) {
+    if (!comp->logEvents) {
+        return;
+    }
+
+    va_list args;
+    va_start(args, message);
+    sumo2fmi_logMessage(comp, fmi2OK, "logEvents", message, args);
+    va_end(args);
 }
 
 void
 sumo2fmi_logError(ModelInstance *comp, const char *message, ...) {
-    if (!comp->logErrors) return;
+    if (!comp->logErrors) {
+        return;
+    }
 
     va_list args;
     va_start(args, message);

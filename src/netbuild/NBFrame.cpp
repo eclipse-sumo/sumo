@@ -62,9 +62,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("default.speed", "speed", true);
     oc.addDescription("default.speed", "Building Defaults", "The default speed on an edge (in m/s)");
 
-	oc.doRegister("default.friction", 'F', new Option_Float((double) 1.0));
-	oc.addSynonyme("default.friction", "friction", true);
-	oc.addDescription("default.friction", "Building Defaults", "The default friction on an edge");
+    oc.doRegister("default.friction", 'F', new Option_Float((double) 1.0));
+    oc.addSynonyme("default.friction", "friction", true);
+    oc.addDescription("default.friction", "Building Defaults", "The default friction on an edge");
 
     oc.doRegister("default.priority", 'P', new Option_Integer(-1));
     oc.addSynonyme("default.priority", "priority", true);
@@ -286,7 +286,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("opposites.guess", new Option_Bool(false));
     oc.addDescription("opposites.guess", "Processing", "Enable guessing of opposite direction lanes usable for overtaking");
 
-    oc.doRegister("opposites.guess.fix-lengths", new Option_Bool(false));
+    oc.doRegister("opposites.guess.fix-lengths", new Option_Bool(true));
     oc.addDescription("opposites.guess.fix-lengths", "Processing", "Ensure that opposite edges have the same length");
 
     oc.doRegister("fringe.guess", new Option_Bool(false));

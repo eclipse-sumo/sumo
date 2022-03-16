@@ -54,9 +54,13 @@ save_rail_signal_constraint_include
 save_rng
 save_routeDistribution
 save_stopped
+save_stopped_until
 
 # like save_stopped but the input already containts started/ended information
 save_stopped_started_ended
+
+# save stops in named routes
+named_route_stops
 
 # restore further lanes according to previous route when loading state
 rail_furtherLane
@@ -81,3 +85,9 @@ teleporting
 
 # teleporting vehicles
 teleporting_highbegin
+
+# load actuated tls
+actuated
+
+# test saving and load vehicles added by calibrator
+calibrator

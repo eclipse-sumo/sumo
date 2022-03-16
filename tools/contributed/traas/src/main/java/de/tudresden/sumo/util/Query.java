@@ -177,8 +177,9 @@ public abstract class Query extends Observable {
         //subscription results
         for (int i = 0; i < count; i++) {
 
-            for (int i1 = 0; i1 < 5; i1++) {
-                s.readUnsignedByte();   //offset
+            int length = s.readUnsignedByte();
+            if (length == 0) {
+                length = s.readInt();
             }
 
             int response = s.readUnsignedByte();

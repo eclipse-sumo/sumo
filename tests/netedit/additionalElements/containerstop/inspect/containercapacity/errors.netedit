@@ -1,6 +1,6 @@
 Debug: Selected item 'containerStop' in TagSelector
 Debug: Adding containerStop 'ct_0' in GNEChange_Additional
-Debug: Value 'dummyPersonCapacity' for attribute containerCapacity of containerStop isn't valid
+Debug: Value 'dummyContainerCapacity' for attribute containerCapacity of containerStop isn't valid
 Debug: Value '-7' for attribute containerCapacity of containerStop isn't valid
 Debug: Value '' for attribute containerCapacity of containerStop isn't valid
 Debug: Setting new attribute

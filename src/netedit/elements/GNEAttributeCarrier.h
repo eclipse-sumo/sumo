@@ -153,7 +153,7 @@ public:
     /// @name Function related with parameters
     /// @{
     /// @brief get parameters map
-    virtual const std::map<std::string, std::string>& getACParametersMap() const = 0;
+    virtual const Parameterised::Map& getACParametersMap() const = 0;
 
     /// @brief get parameters
     template<typename T>
@@ -166,7 +166,7 @@ public:
     void setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters, GNEUndoList* undoList);
 
     /// @brief set parameters (string vector)
-    void setACParameters(const std::map<std::string, std::string>& parameters, GNEUndoList* undoList);
+    void setACParameters(const Parameterised::Map& parameters, GNEUndoList* undoList);
 
     /// @brief add (or update attribute) key and attribute
     void addACParameters(const std::string& key, const std::string& attribute, GNEUndoList* undoList);
@@ -273,6 +273,9 @@ public:
     /// @brief max number of attributes allowed for every tag
     static const size_t MAXNUMBEROFATTRIBUTES;
 
+    /// @brief empty parameter maps (used by ACs without parameters)
+    static const Parameterised::Map PARAMETERS_EMPTY;
+
 protected:
     /// @brief reference to tagProperty associated with this attribute carrier
     const GNETagProperties& myTagProperty;
@@ -291,7 +294,7 @@ private:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    virtual void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) = 0;
+    virtual void toogleAttribute(SumoXMLAttr key, const bool value) = 0;
 
     /// @brief reset attributes to their default values without undo-redo (used in GNEFrameAttributeModules)
     void resetAttributes();
@@ -303,13 +306,16 @@ private:
     static void fillNetworkElements();
 
     /// @brief fill additional elements
-    static void fillAdditionals();
+    static void fillAdditionalElements();
 
     /// @brief fill shape elements
-    static void fillShapes();
+    static void fillShapeElements();
 
     /// @brief fill TAZ elements
     static void fillTAZElements();
+
+    /// @brief fill Wire elements
+    static void fillWireElements();
 
     /// @brief fill demand elements
     static void fillDemandElements();
@@ -319,6 +325,9 @@ private:
 
     /// @brief fill stop elements
     static void fillStopElements();
+
+    /// @brief fill waypoint elements
+    static void fillWaypointElements();
 
     /// @brief fill person elements
     static void fillPersonElements();
@@ -369,7 +378,7 @@ private:
     static void fillCommonContainerAttributes(SumoXMLTag currentTag);
 
     /// @brief fill stop person attributes
-    static void fillCommonStopAttributes(SumoXMLTag currentTag);
+    static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool waypoint);
 
     /// @brief fill Data elements
     static void fillDataElements();

@@ -61,5 +61,8 @@ space_input_path
 # Tests percent in input file names
 percent
 
+# Tests relative paths
+rel_path
+
 # Tests configuration loading vebosity
 verbose

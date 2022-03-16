@@ -30,9 +30,12 @@
 // class definitions
 // ===========================================================================
 
-class GNEAttributeCarrier;
-class GNELane;
 class GNENet;
+class GNEAttributeCarrier;
+class GNEEdge;
+class GNELane;
+class GNEJunction;
+class GNEAdditional;
 
 class GNEPathManager {
 

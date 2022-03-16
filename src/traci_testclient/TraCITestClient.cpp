@@ -883,6 +883,14 @@ TraCITestClient::testAPI() {
         answerLog << "      veh=" << vd.id << " length=" << vd.length << " entered=" << vd.entryTime << " left=" << vd.leaveTime << " type=" << vd.typeID << "\n";
     }
 
+    // multi-entry/-exit detector
+    // answerLog << "  multi-entry/-exit detector:\n";
+    // answerLog << "    getLastStepVehicleIDs: " << joinToString(multientryexit.getLastStepVehicleIDs("det2"), " ") << "\n";
+    // answerLog << "    getEntryLanes: " << joinToString(multientryexit.getEntryLanes("det2"), " ") << "\n";
+    // answerLog << "    getExitLanes: " << joinToString(multientryexit.getExitLanes("det2"), " ") << "\n";
+    // answerLog << "    getEntryPositions: " << joinToString(multientryexit.getEntryPositions("det2"), " ") << "\n";
+    // answerLog << "    getExitPositions: " << joinToString(multientryexit.getExitPositions("det2"), " ") << "\n";
+
     // simulation
     answerLog << "  simulation:\n";
     answerLog << "    convert2D: " << simulation.convert2D("e_m5", 0).getString() << "\n";

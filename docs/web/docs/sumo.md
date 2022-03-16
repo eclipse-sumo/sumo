@@ -508,6 +508,14 @@ configuration:
 
 # Loading order of input files
 
+Sumo loads it's input files in the following order
+
+- net-file
+- additional-files
+- weight-files
+- state-files
+- route-files
+
 Whenever a simulation object A (such as a vehicle) defined in an input
 file refers to another simulation object B (such as a vehicle type), the
 corresponding object B must be defined before A either by being put into

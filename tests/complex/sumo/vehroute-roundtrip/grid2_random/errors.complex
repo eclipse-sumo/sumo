@@ -1,0 +1,24 @@
+Warning: Teleporting vehicle '1518'; collision with vehicle '1641', lane='A1B1_0', gap=-0.04, time=987.00 stage=move.
+Warning: Vehicle '1518' ends teleporting on edge 'E13', time=987.00.
+Warning: Teleporting vehicle '1555'; waited too long (yield), lane='E3D3_0', time=1282.00.
+Warning: Teleporting vehicle '1594'; waited too long (yield), lane='D2D3_0', time=1284.00.
+Warning: Vehicle '1594' ends teleporting on edge '-E3D3', time=1286.00.
+Warning: Vehicle '1555' ends teleporting on edge '-C3D3', time=1297.00.
+Warning: Teleporting vehicle '1590'; waited too long (yield), lane='C3D3_0', time=1307.00.
+Warning: Vehicle '1590' ends teleporting on edge '-D2D3', time=1309.00.
+Warning: Teleporting vehicle '1829'; waited too long (wrong lane), lane='E3D3_1', time=1337.00.
+Warning: Vehicle '1829' ends teleporting on edge '-D4D3', time=1339.00.
+Warning: Teleporting vehicle '1532'; waited too long (yield), lane='D2E2_1', time=1345.00.
+Warning: Vehicle '1532' ends teleporting on edge 'E2E3', time=1345.00.
+Warning: Teleporting vehicle '1518'; collision with vehicle '1641', lane='A1B1_0', gap=-0.04, time=987.00 stage=move.
+Warning: Vehicle '1518' ends teleporting on edge 'E13', time=987.00.
+Warning: Teleporting vehicle '1555'; waited too long (yield), lane='E3D3_0', time=1282.00.
+Warning: Teleporting vehicle '1594'; waited too long (yield), lane='D2D3_0', time=1284.00.
+Warning: Vehicle '1594' ends teleporting on edge '-E3D3', time=1286.00.
+Warning: Vehicle '1555' ends teleporting on edge '-C3D3', time=1297.00.
+Warning: Teleporting vehicle '1590'; waited too long (yield), lane='C3D3_0', time=1307.00.
+Warning: Vehicle '1590' ends teleporting on edge '-D2D3', time=1309.00.
+Warning: Teleporting vehicle '1829'; waited too long (wrong lane), lane='E3D3_1', time=1337.00.
+Warning: Vehicle '1829' ends teleporting on edge '-D4D3', time=1339.00.
+Warning: Teleporting vehicle '1532'; waited too long (yield), lane='D2E2_1', time=1345.00.
+Warning: Vehicle '1532' ends teleporting on edge 'E2E3', time=1345.00.

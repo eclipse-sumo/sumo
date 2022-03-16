@@ -41,28 +41,28 @@ netedit.stopMode()
 netedit.changeStopType("stopContainerStop")
 
 # set invalid value
-netedit.changeDefaultValue(13, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stop.create.actType, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(13, "")
+netedit.changeDefaultValue(netedit.attrs.stop.create.actType, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
-netedit.changeDefaultValue(13, "dummy Act")
+netedit.changeDefaultValue(netedit.attrs.stop.create.actType, "dummy Act")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
-netedit.changeDefaultValue(13, "singing")
+netedit.changeDefaultValue(netedit.attrs.stop.create.actType, "singing")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 290, 155)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

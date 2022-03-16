@@ -53,7 +53,7 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("output-file", "output");
     oc.addDescription("output-file", "Output", "The generated net will be written to FILE");
 
-    oc.doRegister("plain-output-prefix", new Option_FileName());
+    oc.doRegister("plain-output-prefix", 'p', new Option_FileName());
     oc.addSynonyme("plain-output-prefix", "plain-output");
     oc.addSynonyme("plain-output-prefix", "plain");
     oc.addDescription("plain-output-prefix", "Output", "Prefix of files to write plain xml nodes, edges and connections to");

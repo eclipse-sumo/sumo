@@ -40,30 +40,30 @@ netedit.leftClick(referencePosition, 250, 250)
 # select space
 netedit.changeElement("space")
 
-# set invalid lenght (dummy)
-netedit.selectAdditionalChild(8, 0)
-netedit.changeDefaultValue(4, "dummyLenght")
+# set invalid length (dummy)
+netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
+netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.length, "dummyLenght")
 
 # try to create area
-netedit.leftClick(referencePosition, 290, 100)
+netedit.leftClick(referencePosition, 231, 83)
 
 # set invalid height (empty)
-netedit.changeDefaultValue(4, "")
+netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.length, "")
 
 # try to create area
-netedit.leftClick(referencePosition, 290, 100)
+netedit.leftClick(referencePosition, 231, 83)
 
 # set invalid height (negative)
-netedit.changeDefaultValue(4, "-4")
+netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.length, "-4")
 
 # try to create area
-netedit.leftClick(referencePosition, 290, 100)
+netedit.leftClick(referencePosition, 231, 83)
 
 # set valid height
-netedit.changeDefaultValue(4, "3.1")
+netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.length, "3.1")
 
 # create area
-netedit.leftClick(referencePosition, 290, 100)
+netedit.leftClick(referencePosition, 231, 83)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

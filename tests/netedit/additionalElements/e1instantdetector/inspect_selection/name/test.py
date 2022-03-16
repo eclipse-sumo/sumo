@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# set position
+netedit.setZoom(25, 0, 75)
+
 # go to select mode
 netedit.selectMode()
 
@@ -38,13 +41,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, 150, 245)
+netedit.leftClick(referencePosition, 150, 240)
 
 # Change parameter name with an non valid value
-netedit.modifyAttribute(0, "%%%;:..&&%$%$", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspectSelection.name, "%%%;:..&&%$%$", True)
 
 # Change parameter name with a duplicated value
-netedit.modifyAttribute(0, "customName", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspectSelection.name, "customName", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

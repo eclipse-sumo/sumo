@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_11_0+0923-12a7c70
+Eclipse SUMO netgenerate Version v1_12_0+1393-6c843c74b2b
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -10,6 +10,8 @@ Usage: netgenerate [OPTION]*
 Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
   -C, --save-configuration FILE        Saves current configuration into FILE
+  --save-configuration.relative        Enforce relative paths when saving the
+                                        configuration
   --save-template FILE                 Saves a configuration template (empty)
                                         into FILE
   --save-schema FILE                   Saves the configuration schema into FILE
@@ -101,7 +103,7 @@ Output Options:
                                         readability when possible
   -o, --output-file FILE               The generated net will be written to
                                         FILE
-  --plain-output-prefix FILE           Prefix of files to write plain xml
+  -p, --plain-output-prefix FILE       Prefix of files to write plain xml
                                         nodes, edges and connections to
   --junctions.join-output FILE         Writes information about joined
                                         junctions to FILE (can be loaded as
@@ -178,6 +180,7 @@ Building Defaults Options:
   --default.spreadtype STR             The default method for computing lane
                                         shapes from edge shapes
   -S, --default.speed FLOAT            The default speed on an edge (in m/s)
+  -F, --default.friction FLOAT         The default friction on an edge
   -P, --default.priority INT           The default priority of an edge
   --default.type STR                   The default edge type
   --default.sidewalk-width FLOAT       The default width of added sidewalks

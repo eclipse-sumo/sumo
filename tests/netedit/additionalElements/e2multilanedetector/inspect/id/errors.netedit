@@ -7,7 +7,7 @@ Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2_0' in GNEChange_Additional
 Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2_1' in GNEChange_Additional
-Debug: Setting new attribute
+Debug: Value 'e2_1' for attribute id of e2MultilaneDetector isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -18,10 +18,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
+Debug: Removing e2MultilaneDetector 'e2_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
+Debug: Adding e2MultilaneDetector 'e2_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

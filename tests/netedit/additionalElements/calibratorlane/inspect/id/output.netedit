@@ -3,9 +3,9 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 calibratorLane
 TestFunctions: Clicked over position 549 - 308
-TestFunctions: Clicked over position 484 - 448
-TestFunctions: Clicked over position 672 - 393
-calibratorLane_gneE3_0
+TestFunctions: Clicked over position 504 - 448
+TestFunctions: Clicked over position 604 - 393
+ca_0
 Id with spaces
 correctID
 TestFunctions: Clicked over position 304 - 168

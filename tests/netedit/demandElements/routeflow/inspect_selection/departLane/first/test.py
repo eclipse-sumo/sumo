@@ -40,17 +40,17 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
+# inspect flow over route
 netedit.leftClick(referencePosition, 330, 150)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(3, "", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departLane, "", True)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(3, "dummyDepart", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departLane, "dummyDepart", True)
 
 # change departLane with a valid value
-netedit.modifyAttribute(3, "first", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departLane, "first", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

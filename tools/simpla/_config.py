@@ -172,7 +172,7 @@ def load(filename):
     global VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
 
     configDir = os.path.dirname(filename)
-    configElements = ET.parse(filename).getroot().getchildren()
+    configElements = ET.parse(filename).getroot()
     parsedTags = []
     for e in configElements:
         parsedTags.append(e.tag)

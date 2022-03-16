@@ -216,6 +216,15 @@ public:
         UNUSED_PARAMETER(state);
     }
 
+    bool wasSet(int what) const {
+        return (myParametersSet & what) != 0;
+    }
+
+    void markSet(int what) {
+        myParametersSet |= what;
+    }
+
+
 protected:
     /// the next edge to reach by getting transported
     const MSEdge* myDestination;
@@ -237,6 +246,9 @@ protected:
 
     /// The id of the group of transportables traveling together
     const std::string myGroup;
+
+    /// @brief Information on which parameter were set (mainly for vehroute output)
+    int myParametersSet;
 
     /// @brief the offset for computing positions when standing at an edge
     static const double ROADSIDE_OFFSET;
@@ -319,12 +331,7 @@ public:
     * @param[in] os The stream to write the information into
     * @exception IOError not yet implemented
     */
-    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const {
-        UNUSED_PARAMETER(isPerson);
-        UNUSED_PARAMETER(os);
-        UNUSED_PARAMETER(withRouteLength);
-        UNUSED_PARAMETER(previous);
-    }
+    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
 private:
     /// the origin edge

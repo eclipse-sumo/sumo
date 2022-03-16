@@ -31,14 +31,14 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select E1
+# select E1Instant
 netedit.changeElement("instantInductionLoop")
 
 # Change friendlyPos
-netedit.changeDefaultBoolValue(6)
+netedit.changeDefaultBoolValue(netedit.attrs.E1Instant.create.friendlyPos)
 
 # create E1 with different friendly position
-netedit.leftClick(referencePosition, 450, 210)
+netedit.leftClick(referencePosition, 450, 245)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

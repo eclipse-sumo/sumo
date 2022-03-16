@@ -166,6 +166,9 @@ public:
      */
     void setPrecision(int precision = gPrecision);
 
+    /// @brief return precision set on the device
+    int precision();
+
     /** @brief Returns the precision of the underlying stream
      */
     int getPrecision() {
@@ -334,6 +337,10 @@ public:
 
     void flush() {
         getOStream().flush();
+    }
+
+    bool wroteHeader() const {
+        return myFormatter->wroteHeader();
     }
 
 protected:

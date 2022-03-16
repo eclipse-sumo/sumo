@@ -115,7 +115,7 @@ public:
     };
 
     /// @brief Constructor;
-    MSDispatch(const std::map<std::string, std::string>& params);
+    MSDispatch(const Parameterised::Map& params);
 
     /// @brief Destructor
     virtual ~MSDispatch() { }

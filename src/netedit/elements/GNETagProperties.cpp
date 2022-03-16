@@ -90,12 +90,16 @@ GNETagProperties::getTagStr() const {
 void
 GNETagProperties::checkTagIntegrity() const {
     // check that element must ist at least networkElement, Additional, or shape
-    if (!isNetworkElement() && !isAdditionalElement() && !isShape() && !isTAZElement() && !isDemandElement() && !isDataElement() && !isInternalLane()) {
-        throw ProcessError("element must be at leas networkElement, additional, TAZ, shape, demandElement or dataElement");
+    if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isInternalLane()) {
+        throw ProcessError("element must be at leas networkElement, additional, TAZ, demandElement or dataElement");
     }
     // check that element only is networkElement, Additional, or shape at the same time
-    if ((isNetworkElement() + isAdditionalElement() + isShape() + isTAZElement() + isDemandElement() + isDataElement()) > 1) {
-        throw ProcessError("element can be only a networkElement, additional, TAZ, shape, demandElement or dataElement at the same time");
+    if ((isNetworkElement() + isAdditionalElement() + isDemandElement() + isDataElement()) > 1) {
+        throw ProcessError("element can be only a networkElement, additional, demandElement or dataElement at the same time");
+    }
+    // check that element only is shape, TAZ, or wire at the same time
+    if ((isShapeElement() + isTAZElement() + isWireElement()) > 1) {
+        throw ProcessError("element can be only a shape, TAZ or wire element at the same time");
     }
     // if element can mask the start and end position, check that bot attributes exist
     if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
@@ -154,9 +158,7 @@ GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
 
 void
 GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) {
-    if (isAttributeDeprecated(attributeProperty.getAttr())) {
-        throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' is deprecated and cannot be inserted");
-    } else if ((myAttributeProperties.size() + 1) >= MAXNUMBEROFATTRIBUTES) {
+    if ((myAttributeProperties.size() + 1) >= MAXNUMBEROFATTRIBUTES) {
         throw ProcessError("Maximum number of attributes for tag " + attributeProperty.getAttrStr() + " exceeded");
     } else {
         // Check that attribute wasn't already inserted
@@ -169,19 +171,6 @@ GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) 
         myAttributeProperties.push_back(attributeProperty);
         myAttributeProperties.back().setTagPropertyParent(this);
     }
-}
-
-
-void
-GNETagProperties::addDeprecatedAttribute(SumoXMLAttr attr) {
-    // Check that attribute wasn't already inserted
-    for (const auto& attributeProperty : myAttributeProperties) {
-        if (attributeProperty.getAttr() == attr) {
-            throw ProcessError("Attribute '" + toString(attr) + "' is deprecated but was inserted in list of attributes");
-        }
-    }
-    // add it into myDeprecatedAttributes
-    myDeprecatedAttributes.push_back(attr);
 }
 
 
@@ -282,15 +271,9 @@ GNETagProperties::isAdditionalElement() const {
 }
 
 
-bool
-GNETagProperties::isShape() const {
-    return (myTagType & SHAPE) != 0;
-}
-
-
-bool
-GNETagProperties::isTAZElement() const {
-    return (myTagType & TAZELEMENT) != 0;
+bool 
+GNETagProperties::isAdditionalPureElement() const {
+    return (isAdditionalElement() && !isShapeElement() && !isTAZElement() && !isWireElement());
 }
 
 
@@ -319,6 +302,30 @@ GNETagProperties::isDetector() const {
 
 
 bool
+GNETagProperties::isCalibrator() const {
+    return (myTagType & CALIBRATOR) != 0;
+}
+
+
+bool
+GNETagProperties::isShapeElement() const {
+    return (myTagType & SHAPE) != 0;
+}
+
+
+bool
+GNETagProperties::isTAZElement() const {
+    return (myTagType & TAZELEMENT) != 0;
+}
+
+
+bool
+GNETagProperties::isWireElement() const {
+    return (myTagType & WIRE) != 0;
+}
+
+
+bool
 GNETagProperties::isVehicleType() const {
     return (myTagType & VTYPE) != 0;
 }
@@ -339,6 +346,12 @@ GNETagProperties::isRoute() const {
 bool
 GNETagProperties::isStop() const {
     return (myTagType & STOP) != 0;
+}
+
+
+bool
+GNETagProperties::isWaypoint() const {
+    return (myTagType & WAYPOINT) != 0;
 }
 
 
@@ -470,12 +483,6 @@ GNETagProperties::hasDialog() const {
 
 
 bool
-GNETagProperties::hasMinimumNumberOfChildren() const {
-    return (myTagProperty & MINIMUMCHILDREN) != 0;
-}
-
-
-bool
 GNETagProperties::hasParameters() const {
     // note: By default all elements support parameters, except Tags with "NOPARAMETERS"
     return (myTagProperty & NOPARAMETERS) == 0;
@@ -495,12 +502,6 @@ GNETagProperties::canBeReparent() const {
 
 
 bool
-GNETagProperties::canWriteChildrenSeparate() const {
-    return (myTagProperty & WRITECHILDRENSEPARATE) != 0;
-}
-
-
-bool
 GNETagProperties::canMaskStartEndPos() const {
     return (myTagProperty & MASKSTARTENDPOS) != 0;
 }
@@ -513,7 +514,7 @@ GNETagProperties::canCenterCameraAfterCreation() const {
 
 
 bool
-GNETagProperties::embebbedRoute() const {
+GNETagProperties::hasEmbebbedRoute() const {
     return (myTagProperty & EMBEDDED_ROUTE) != 0;
 }
 
@@ -527,12 +528,6 @@ GNETagProperties::requireProj() const {
 bool
 GNETagProperties::vClassIcon() const {
     return (myTagProperty & VCLASS_ICON) != 0;
-}
-
-
-bool
-GNETagProperties::isAttributeDeprecated(SumoXMLAttr attr) const {
-    return (std::find(myDeprecatedAttributes.begin(), myDeprecatedAttributes.end(), attr) != myDeprecatedAttributes.end());
 }
 
 /****************************************************************************/

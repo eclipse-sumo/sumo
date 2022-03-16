@@ -41,17 +41,18 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 182, 130)
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummyTAZ", False)
+netedit.modifyAttribute(netedit.attrs.TAZ.inspect.shape, "dummyTAZ", False)
 
 # Change parameter 1 with a non valid value (empty)
-netedit.modifyAttribute(1, "", False)
+netedit.modifyAttribute(netedit.attrs.TAZ.inspect.shape, "", False)
 
 # Change parameter 1 with a valid value (single point)
-netedit.modifyAttribute(1, "12.00,8.00", False)
+netedit.modifyAttribute(netedit.attrs.TAZ.inspect.shape, "12.00,8.00", False)
 
 # Change parameter 1 with a valid value
-netedit.modifyAttribute(1, "12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 " +
-                           "5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00", False)
+netedit.modifyAttribute(netedit.attrs.TAZ.inspect.shape,
+                        "12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 " +
+                        "5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

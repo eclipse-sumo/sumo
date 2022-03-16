@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 19 16:01:44 2014 by SUMO Version dev-SVN-r17350ID
+<!-- generated on 2022-02-11 11:28:48 by Eclipse SUMO sumo Version v1_12_0+0490-00f3a0f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -14,12 +19,19 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <link-output value="linkstate.xml"/>
     </output>
 
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -49,17 +61,17 @@ SPDX-License-Identifier: EPL-2.0
     <timestep id="14.00"/>
     <timestep id="15.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="17.98" arrivalTimeBraking="17.98" leaveTime="18.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="17.99" leaveTime="18.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="16.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="17.98" arrivalTimeBraking="17.98" leaveTime="18.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="17.99" leaveTime="18.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="17.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="17.98" arrivalTimeBraking="17.98" leaveTime="18.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="17.99" leaveTime="18.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="18.00"/>
@@ -71,17 +83,17 @@ SPDX-License-Identifier: EPL-2.0
     <timestep id="24.00"/>
     <timestep id="25.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="27.98" arrivalTimeBraking="27.98" leaveTime="28.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="27.99" leaveTime="28.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="26.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="27.98" arrivalTimeBraking="27.98" leaveTime="28.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="27.99" leaveTime="28.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="27.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="27.98" arrivalTimeBraking="27.98" leaveTime="28.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="27.99" leaveTime="28.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="28.00"/>

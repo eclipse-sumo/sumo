@@ -142,6 +142,7 @@
 #include "bigarrowright.xpm"
 
 #include "frontelement.xpm"
+#include "simplifynetwork.xpm"
 #include "computepathmanager.xpm"
 
 #include "checkbox_applytoallphases.xpm"
@@ -210,8 +211,9 @@
 #include "modemove.xpm"
 #include "modeselect.xpm"
 #include "modetrafficlight.xpm"
-#include "modepolygon.xpm"
+#include "modeshape.xpm"
 #include "modeprohibition.xpm"
+#include "modewire.xpm"
 
 #include "modecontainer.xpm"
 #include "modecontainerplan.xpm"
@@ -271,10 +273,16 @@
 #include "destprobreroute.xpm"
 #include "parkingzonereroute.xpm"
 #include "routeprobreroute.xpm"
+
+#include "tractionsubstation.xpm"
+#include "overheadwire.xpm"
+#include "overheadwire_clamp.xpm"
+
 #include "poly.xpm"
 #include "poi.xpm"
 #include "poilane.xpm"
 #include "poigeo.xpm"
+
 #include "taz.xpm"
 #include "tazedge.xpm"
 
@@ -288,6 +296,7 @@
 #include "flowjunctions.xpm"
 #include "routeflow.xpm"
 #include "stopelement.xpm"
+#include "waypoint.xpm"
 #include "person.xpm"
 #include "personflow.xpm"
 #include "persontripfromto.xpm"
@@ -545,6 +554,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::BIGARROWLEFT] = new FXXPMIcon(a, bigarrowleft_xpm);
     myIcons[GUIIcon::BIGARROWRIGHT] = new FXXPMIcon(a, bigarrowright_xpm);
     myIcons[GUIIcon::FRONTELEMENT] = new FXXPMIcon(a, frontelement_xpm);
+    myIcons[GUIIcon::SIMPLIFYNETWORK] = new FXXPMIcon(a, simplifynetwork_xpm);
     myIcons[GUIIcon::COMPUTEPATHMANAGER] = new FXXPMIcon(a, computepathmanager_xpm);
     myIcons[GUIIcon::COLLAPSE] = new FXXPMIcon(a, collapse_xpm);
     myIcons[GUIIcon::UNCOLLAPSE] = new FXXPMIcon(a, uncollapse_xpm);
@@ -615,8 +625,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::MODEMOVE] = new FXXPMIcon(a, modemove_xpm);
     myIcons[GUIIcon::MODESELECT] = new FXXPMIcon(a, modeselect_xpm);
     myIcons[GUIIcon::MODETLS] = new FXXPMIcon(a, modetrafficlight_xpm);
-    myIcons[GUIIcon::MODEPOLYGON] = new FXXPMIcon(a, modepolygon_xpm);
+    myIcons[GUIIcon::MODESHAPE] = new FXXPMIcon(a, modeshape_xpm);
     myIcons[GUIIcon::MODEPROHIBITION] = new FXXPMIcon(a, modeprohibition_xpm);
+    myIcons[GUIIcon::MODEWIRE] = new FXXPMIcon(a, modewire_xpm);
 
     myIcons[GUIIcon::MODEROUTE] = new FXXPMIcon(a, moderoute_xpm);
     myIcons[GUIIcon::MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
@@ -677,10 +688,16 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::DESTPROBREROUTE] = new FXXPMIcon(a, destprobreroute_xpm);
     myIcons[GUIIcon::PARKINGZONEREROUTE] = new FXXPMIcon(a, parkingzonereroute_xpm);
     myIcons[GUIIcon::ROUTEPROBREROUTE] = new FXXPMIcon(a, routeprobreroute_xpm);
+
+    myIcons[GUIIcon::TRACTION_SUBSTATION] = new FXXPMIcon(a, tractionsubstation_xpm);
+    myIcons[GUIIcon::OVERHEADWIRE] = new FXXPMIcon(a, overheadwire_xpm);
+    myIcons[GUIIcon::OVERHEADWIRE_CLAMP] = new FXXPMIcon(a, overheadwire_clamp_xpm);
+
     myIcons[GUIIcon::POLY] = new FXXPMIcon(a, poly_xpm);
     myIcons[GUIIcon::POI] = new FXXPMIcon(a, poi_xpm);
     myIcons[GUIIcon::POILANE] = new FXXPMIcon(a, poilane_xpm);
     myIcons[GUIIcon::POIGEO] = new FXXPMIcon(a, poigeo_xpm);
+
     myIcons[GUIIcon::TAZ] = new FXXPMIcon(a, taz_xpm);
     myIcons[GUIIcon::TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);
 
@@ -694,6 +711,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::FLOW_JUNCTIONS] = new FXXPMIcon(a, flowjunctions_xpm);
     myIcons[GUIIcon::ROUTEFLOW] = new FXXPMIcon(a, routeflow_xpm);
     myIcons[GUIIcon::STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
+    myIcons[GUIIcon::WAYPOINT] = new FXXPMIcon(a, waypoint_xpm);
     myIcons[GUIIcon::PERSON] = new FXXPMIcon(a, person_xpm);
     myIcons[GUIIcon::PERSONFLOW] = new FXXPMIcon(a, personflow_xpm);
     myIcons[GUIIcon::PERSONTRIP_FROMTO] = new FXXPMIcon(a, persontripfromto_xpm);
