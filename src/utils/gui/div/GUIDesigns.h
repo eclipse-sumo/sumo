@@ -111,10 +111,13 @@ class FXMenuCheckIcon;
 /// @name FXButtons for toolbar
 /// @{
 /// @brief MFX Checkable Button with icon placed in navigation toolbar
-#define GUIDesignMFXCheckableButton             (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight
+#define GUIDesignMFXCheckableButtonSquare       (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight
 
 /// @brief checkable button with icon placed in navigation toolbar for supermodes
 #define GUIDesignMFXCheckableButtonSupermode    (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight
+
+/// @brief checkable button extended over frame
+#define GUIDesignMFXCheckableButton             (BUTTON_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight
 
 /// @}
 
