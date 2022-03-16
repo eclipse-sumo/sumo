@@ -21,7 +21,6 @@
 
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIDesigns.h>

@@ -21,7 +21,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
 
 #include "GNEPersonPlanFrame.h"
 

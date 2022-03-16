@@ -26,8 +26,6 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
-#include <utils/geom/GeoConvHelper.h>
 
 #include "GNEShapeFrame.h"
 

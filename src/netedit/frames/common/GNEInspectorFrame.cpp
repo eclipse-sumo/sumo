@@ -33,7 +33,6 @@
 #include <netedit/dialogs/GNECalibratorDialog.h>
 #include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>

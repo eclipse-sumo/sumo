@@ -22,10 +22,8 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/elements/demand/GNERoute.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 
 #include "GNERouteFrame.h"
 
