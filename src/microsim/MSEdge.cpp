@@ -875,7 +875,8 @@ MSEdge::getMeanFriction() const {
     double f = 0;
     double no = 0;
     if (MSGlobals::gUseMesoSim) {
-        //return get
+        //return get TODO
+        return 1.0;
     }
     else {
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
