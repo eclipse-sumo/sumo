@@ -2887,10 +2887,10 @@ MSLane::getMeanSpeed() const {
     double v = 0;
     int numVehs = 0;
     for (const MSVehicle* const veh : getVehiclesSecure()) {
-//        if (!veh->isStopped() || !myEdge->hasLaneChanger()) {
+        if (!veh->isStopped() || !myEdge->hasLaneChanger()) {
             v += veh->getSpeed();
             numVehs++;
-//        }
+        }
     }
     releaseVehicles();
     if (numVehs == 0) {
