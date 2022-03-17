@@ -104,3 +104,7 @@ SL2015
 
 # stopped vehicles on both sides of the road and traffic from both directions
 slalom
+
+# stopped vehicles on both sides of the road and traffic from both directions,
+# traffic must be anticipated beyond junctions
+slalom_junction

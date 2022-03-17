@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'fwd.15'; frontal collision with vehicle 'bwd.10', lane='-b_0', gap=-7.20, time=224.00 stage=move.
+Warning: Vehicle 'fwd.15' ends teleporting on edge 'c', time=224.00.
+Warning: Teleporting vehicle 'fwd.19'; frontal collision with vehicle 'bwd.12', lane='-b_0', gap=-5.79, time=276.00 stage=move.
+Warning: Vehicle 'fwd.19' ends teleporting on edge 'c', time=276.00.
