@@ -28,6 +28,12 @@ set(netedit_frames_SRCS
    GNESelectorParent.h
    GNETagSelector.cpp
    GNETagSelector.h
+   GNEAttributesCreator.h
+   GNEAttributesCreator.cpp
+   GNEAttributesCreatorRow.h
+   GNEAttributesCreatorRow.cpp
+   GNEFlowEditor.h
+   GNEFlowEditor.cpp
    )
 
 add_library(netedit_frames STATIC ${netedit_frames_SRCS})
