@@ -4546,8 +4546,13 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
             }
-            // process left click in Inspector Frame
-            myViewParent->getInspectorFrame()->processNetworkSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
+            // check if we're selecting a new parent for the current inspected element
+            if (myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->isSelectingParent()) {
+                myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->setNewParent(myObjectsUnderCursor.getAttributeCarrierFront());
+            } else {
+                // process left click in Inspector Frame
+                myViewParent->getInspectorFrame()->processNetworkSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
+            }
             // process click
             processClick(eventData);
             break;

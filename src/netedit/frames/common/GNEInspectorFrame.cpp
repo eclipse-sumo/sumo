@@ -246,6 +246,54 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
 }
 
 
+bool
+GNEInspectorFrame::NeteditAttributesEditor::isSelectingParent() const {
+    if (!shown()) {
+        return false;
+    } else {
+        return (mySetNewParentButton->shown() && mySetNewParentButton->amChecked());
+    }
+}
+
+
+void 
+GNEInspectorFrame::NeteditAttributesEditor::setNewParent(GNEAttributeCarrier* clickedAC) {
+    const auto& ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    // check number of inspected ACs
+    if ((ACs.size() > 0) && clickedAC) {
+        // check parent tags
+        for (const auto &tag : ACs.front()->getTagProperty().getParentTags()) {
+            if (tag == clickedAC->getTagProperty().getTag()) {
+                // check if we're changing multiple attributes
+                if (ACs.size() > 1) {
+                    myInspectorFrameParent->myViewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+                }
+                // replace the parent of all inspected elements
+                for (const auto& AC : ACs) {
+                    AC->setAttribute(GNE_ATTR_PARENT, clickedAC->getID(), myInspectorFrameParent->myViewNet->getUndoList());
+                }
+                // finish change multiple attributes
+                if (ACs.size() > 1) {
+                    myInspectorFrameParent->myViewNet->getUndoList()->end();
+                }
+                // stop select parent
+                stopSelectParent();
+                // resfresh netedit attributes editor
+                refreshNeteditAttributesEditor(true);
+            }
+        }
+    }
+}
+
+
+void 
+GNEInspectorFrame::NeteditAttributesEditor::stopSelectParent() {
+    if (mySetNewParentButton->amChecked()) {
+        onCmdSetNeteditAttribute(mySetNewParentButton, 0, nullptr);
+    }
+}
+
+
 long
 GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
     const auto& ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
@@ -968,6 +1016,9 @@ void
 GNEInspectorFrame::show() {
     // inspect a null element to reset inspector frame
     inspectSingleElement(nullptr);
+    // stop select new element
+    myNeteditAttributesEditor->stopSelectParent();
+    // show
     GNEFrame::show();
 }
 

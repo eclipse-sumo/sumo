@@ -462,9 +462,6 @@ public:
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
-    /// @brief check if lock icon should be visible
-    bool showLockIcon() const;
-
     /// @brief set staturBar text
     void setStatusBarText(const std::string& text);
 

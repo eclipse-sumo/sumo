@@ -1953,10 +1953,18 @@ GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
             // clear current selection
             myViewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModule()->clearSelectedEdges();
         } else if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
-            // show extra information for tests
-            WRITE_DEBUG("Cleaning inspected elements");
-            // clear inspected elements
-            myViewNet->getViewParent()->getInspectorFrame()->inspectSingleElement(nullptr);
+            // check if stop select parent
+            if (myViewNet->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->isSelectingParent()) {
+                // show extra information for tests
+                WRITE_DEBUG("Stop select new parent");
+                // and stop select paretn
+                myViewNet->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->stopSelectParent();
+            } else {
+                // show extra information for tests
+                WRITE_DEBUG("Cleaning inspected elements");
+                // clear inspected elements
+                myViewNet->getViewParent()->getInspectorFrame()->inspectSingleElement(nullptr);
+            }
         } else {
             // abort current operation
             myViewNet->abortOperation();

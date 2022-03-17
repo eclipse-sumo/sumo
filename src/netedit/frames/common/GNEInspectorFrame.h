@@ -66,6 +66,15 @@ public:
         /// @brief refresh netedit attributes
         void refreshNeteditAttributesEditor(bool forceRefresh);
 
+        /// @brief check if we're selecting a new parent
+        bool isSelectingParent() const;
+
+        /// @brief set new parent
+        void setNewParent(GNEAttributeCarrier* clickedAC);
+
+        /// @brief stop select new parent
+        void stopSelectParent();
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when user change the current GEO Attribute
