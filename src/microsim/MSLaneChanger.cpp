@@ -60,8 +60,8 @@
 //#define DEBUG_CONTINUE_CHANGE
 //#define DEBUG_CHECK_CHANGE
 //#define DEBUG_SURROUNDING_VEHICLES // debug getRealFollower() and getRealLeader()
-//#define DEBUG_CHANGE_OPPOSITE
-//#define DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
+#define DEBUG_CHANGE_OPPOSITE
+#define DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_STATE
 //#define DEBUG_CANDIDATE
@@ -1573,7 +1573,8 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
 
 
 std::pair<MSVehicle* const, double>
-MSLaneChanger::getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double searchDist, double& vMax, const MSVehicle* overtaken) {
+MSLaneChanger::getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*, double> oncoming,
+        double searchDist, double& vMax, const MSVehicle* overtaken, MSLane::MinorLinkMode mLinkMode) {
     double gap = oncoming.second;
     while (oncoming.first != nullptr && (oncoming.first->getLaneChangeModel().isOpposite() || oncoming.first->getLaneChangeModel().getShadowLane() == opposite)) {
         searchDist -= (oncoming.first->getVehicleType().getLengthWithGap() + MAX2(0.0, oncoming.second));
@@ -1595,7 +1596,7 @@ MSLaneChanger::getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*, 
         if (oncoming.first->getLaneChangeModel().getShadowLane() != opposite) {
             opposite = oncoming.first->getLane();
         }
-        oncoming = opposite->getFollower(oncoming.first, oncoming.first->getPositionOnLane(opposite), searchDist, true);
+        oncoming = opposite->getFollower(oncoming.first, oncoming.first->getPositionOnLane(opposite), searchDist, mLinkMode);
         if (oncoming.first != nullptr) {
             gap += oncoming.second;
         }

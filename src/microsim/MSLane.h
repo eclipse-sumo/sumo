@@ -857,9 +857,18 @@ public:
     /// @brief Set vehicle class specific stopOffsets
     void setLaneStopOffset(const StopOffset& stopOffset);
 
+    /** @enum MinorLinkMode 
+     * @brief determine whether/how getFollowers looks upstream beyond minor links
+     */
+    enum MinorLinkMode {
+        FOLLOW_NEVER = 0,
+        FOLLOW_ALWAYS = 1,
+        FOLLOW_ONCOMING = 2,
+    };
+
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
     MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
-            bool allSublanes, double searchDist = -1, bool ignoreMinorLinks = false) const;
+            bool allSublanes, double searchDist = -1, MinorLinkMode mLinkMode = FOLLOW_ALWAYS) const;
 
     /// @brief return by how much further the leader must be inserted to avoid rear end collisions
     double getMissingRearGap(const MSVehicle* leader, double backOffset, double leaderSpeed) const;
@@ -1127,7 +1136,7 @@ public:
      * @param[in] oppositeDir Whether the lane has the opposite driving direction of ego
      * @return the leader vehicle and it's gap to ego
      */
-    std::pair<MSVehicle* const, double> getOppositeLeader(const MSVehicle* ego, double dist, bool oppositeDir) const;
+    std::pair<MSVehicle* const, double> getOppositeLeader(const MSVehicle* ego, double dist, bool oppositeDir, MinorLinkMode mLinkMode = MinorLinkMode::FOLLOW_NEVER) const;
 
     /* @brief find follower for a vehicle that is located on the opposite of this lane
      * @param[in] ego The ego vehicle
@@ -1143,7 +1152,7 @@ public:
      * @param[in] ignoreMinorLinks Whether backward search should stop at minor links
      * @return the follower vehicle and it's gap to ego
      */
-    std::pair<MSVehicle* const, double> getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignoreMinorLinks) const;
+    std::pair<MSVehicle* const, double> getFollower(const MSVehicle* ego, double egoPos, double dist, MinorLinkMode mLinkMode) const;
 
 
     ///@brief add parking vehicle. This should only used during state loading

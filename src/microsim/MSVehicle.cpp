@@ -2114,7 +2114,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             // (only looking at one lane at a time)
             const double backOffset = leaderLane == myLane ? getPositionOnLane() : leaderLane->getLength();
             const double gapOffset = leaderLane == myLane ? 0 : seen - leaderLane->getLength();
-            const MSLeaderDistanceInfo cands = leaderLane->getFollowersOnConsecutive(this, backOffset, true, backOffset, true);
+            const MSLeaderDistanceInfo cands = leaderLane->getFollowersOnConsecutive(this, backOffset, true, backOffset, MSLane::MinorLinkMode::FOLLOW_NEVER);
             MSLeaderDistanceInfo oppositeLeaders(leaderLane, this, 0);
             const double minTimeToLeaveLane = MSGlobals::gSublane ? MAX2(TS, (0.5 *  myLane->getWidth() - getLateralPositionOnLane()) / getVehicleType().getMaxSpeedLat()) : 0;
             for (int i = 0; i < cands.numSublanes(); i++) {
@@ -5782,7 +5782,7 @@ MSVehicle::getFollower(double dist) const {
     if (dist == 0) {
         dist = getCarFollowModel().brakeGap(myLane->getEdge().getSpeedLimit() * 2, 4.5, 0);
     }
-    return myLane->getFollower(this, getPositionOnLane(), dist, true);
+    return myLane->getFollower(this, getPositionOnLane(), dist, MSLane::MinorLinkMode::FOLLOW_NEVER);
 }
 
 

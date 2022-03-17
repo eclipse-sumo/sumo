@@ -71,8 +71,8 @@
 //#define DEBUG_INSERTION
 //#define DEBUG_PLAN_MOVE
 //#define DEBUG_EXEC_MOVE
-//#define DEBUG_CONTEXT
-//#define DEBUG_OPPOSITE
+#define DEBUG_CONTEXT
+#define DEBUG_OPPOSITE
 //#define DEBUG_VEHICLE_CONTAINER
 //#define DEBUG_COLLISIONS
 //#define DEBUG_JUNCTION_COLLISIONS
@@ -3332,7 +3332,7 @@ MSLane::setLaneStopOffset(const StopOffset& stopOffset) {
 
 MSLeaderDistanceInfo
 MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
-                                  bool allSublanes, double searchDist, bool ignoreMinorLinks) const {
+                                  bool allSublanes, double searchDist, MinorLinkMode mLinkMode) const {
     assert(ego != 0);
     // get the follower vehicle on the lane to change to
     const double egoPos = backOffset + ego->getVehicleType().getLength();
@@ -3343,7 +3343,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
     if (DEBUG_COND2(ego)) {
         std::cout << SIMTIME << " getFollowers lane=" << getID() << " ego=" << ego->getID()
                   << " backOffset=" << backOffset << " pos=" << egoPos
-                  << " allSub=" << allSublanes << " searchDist=" << searchDist << " ignoreMinor=" << ignoreMinorLinks
+                  << " allSub=" << allSublanes << " searchDist=" << searchDist << " ignoreMinor=" << mLinkMode
                   << " egoLatDist=" << egoLatDist
                   << " getOppositeLeaders=" << getOppositeLeaders
                   << "\n";
@@ -3498,7 +3498,8 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                 if ((*it).length < searchDist) {
                     const std::vector<MSLane::IncomingLaneInfo>& followers = next->getIncomingLanes();
                     for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j = followers.begin(); j != followers.end(); ++j) {
-                        if (visited.find((*j).lane) == visited.end() && (((*j).viaLink->havePriority() && !(*j).viaLink->isTurnaround()) || !ignoreMinorLinks)) {
+                        if (visited.find((*j).lane) == visited.end() && (((*j).viaLink->havePriority() && !(*j).viaLink->isTurnaround())
+                                    || mLinkMode == MinorLinkMode::FOLLOW_ALWAYS)) {
                             visited.insert((*j).lane);
                             MSLane::IncomingLaneInfo ili;
                             ili.lane = (*j).lane;
@@ -3878,7 +3879,7 @@ MSLane::getOppositePos(double pos) const {
 }
 
 std::pair<MSVehicle* const, double>
-MSLane::getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignoreMinorLinks) const {
+MSLane::getFollower(const MSVehicle* ego, double egoPos, double dist, MinorLinkMode mLinkMode) const {
     for (AnyVehicleIterator first = anyVehiclesUpstreamBegin(); first != anyVehiclesUpstreamEnd(); ++first) {
         // XXX refactor leaderInfo to use a const vehicle all the way through the call hierarchy
         MSVehicle* pred = (MSVehicle*)*first;
@@ -3895,13 +3896,13 @@ MSLane::getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignor
     if (dist > 0 && backOffset > dist) {
         return std::make_pair(nullptr, -1);
     }
-    const MSLeaderDistanceInfo followers = getFollowersOnConsecutive(ego, backOffset, true,  dist, ignoreMinorLinks);
+    const MSLeaderDistanceInfo followers = getFollowersOnConsecutive(ego, backOffset, true,  dist, mLinkMode);
     CLeaderDist result = followers.getClosest();
     return std::make_pair(const_cast<MSVehicle*>(result.first), result.second);
 }
 
 std::pair<MSVehicle* const, double>
-MSLane::getOppositeLeader(const MSVehicle* ego, double dist, bool oppositeDir) const {
+MSLane::getOppositeLeader(const MSVehicle* ego, double dist, bool oppositeDir, MinorLinkMode mLinkMode) const {
 #ifdef DEBUG_OPPOSITE
     if (DEBUG_COND2(ego)) std::cout << SIMTIME << " getOppositeLeader lane=" << getID()
                                         << " ego=" << ego->getID()
@@ -3916,7 +3917,7 @@ MSLane::getOppositeLeader(const MSVehicle* ego, double dist, bool oppositeDir) c
     } else {
         const double egoLength = ego->getVehicleType().getLength();
         const double egoPos = ego->getLaneChangeModel().isOpposite() ? ego->getPositionOnLane() : getOppositePos(ego->getPositionOnLane());
-        std::pair<MSVehicle* const, double> result = getFollower(ego, egoPos + egoLength, dist, true);
+        std::pair<MSVehicle* const, double> result = getFollower(ego, egoPos + egoLength, dist, mLinkMode);
         if (result.first != nullptr) {
             result.second -= ego->getVehicleType().getMinGap();
             if (result.first->getLaneChangeModel().isOpposite()) {
@@ -3938,7 +3939,7 @@ MSLane::getOppositeFollower(const MSVehicle* ego) const {
                                         << "\n";
 #endif
     if (ego->getLaneChangeModel().isOpposite()) {
-        std::pair<MSVehicle* const, double> result = getFollower(ego, getOppositePos(ego->getPositionOnLane()), -1, true);
+        std::pair<MSVehicle* const, double> result = getFollower(ego, getOppositePos(ego->getPositionOnLane()), -1, MinorLinkMode::FOLLOW_NEVER);
         return result;
     } else {
         double vehPos = getOppositePos(ego->getPositionOnLane() - ego->getVehicleType().getLength());

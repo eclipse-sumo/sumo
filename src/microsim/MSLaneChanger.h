@@ -151,7 +151,8 @@ protected:
     bool changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader);
 
     std::pair<MSVehicle* const, double> getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*,
-            double> neighOncoming, double searchDist, double& vMax, const MSVehicle* overtaken = nullptr);
+            double> neighOncoming, double searchDist, double& vMax, const MSVehicle* overtaken = nullptr,
+            MSLane::MinorLinkMode mLinkMode = MSLane::MinorLinkMode::FOLLOW_NEVER);
 
     std::pair<MSVehicle* const, double> getOncomingOppositeVehicle(const MSVehicle* vehicle,
             std::pair<MSVehicle*, double> overtaken, double searchDist);
