@@ -1167,7 +1167,7 @@ GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {
 
     const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
                              opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
-    MSStateHandler::saveState(file, MSNet::getInstance()->getCurrentTimeStep());
+    MSStateHandler::saveState(file, MSNet::getInstance()->getCurrentTimeStep(), false);
     setStatusBarText("Simulation saved to " + file);
     return 1;
 }

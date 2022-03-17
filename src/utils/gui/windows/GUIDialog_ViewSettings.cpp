@@ -1002,7 +1002,7 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/
         return 1;
     }
     try {
-        OutputDevice& dev = OutputDevice::getDevice(file.text());
+        OutputDevice& dev = OutputDevice::getDevice(file.text(), false);
         dev.openTag(SUMO_TAG_VIEWSETTINGS);
         mySettings->save(dev);
         if (mySaveViewPort->getCheck()) {
