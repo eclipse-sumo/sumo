@@ -2,21 +2,51 @@
 title: Turns
 ---
 
-# jtcrouter.py
-The **J**unction**T**urn**C**ountRouter generates vehicle routes from turn-count data.
-It does so by converting the turn counts into into flows and turn-ratio files that are suitable as [jtrrouter](../jtrrouter.md) input.
-Then it calls jtrrouter in the background. The turn
+# routeSampler.py
+The script generates routes from *any combination* of turn-count data, edge-count and even origin-destination-count data. It requires a route file as input that defines possible routes. Routes are sampled (heuristically) from the input so that
+the resulting traffic fulfills the counting data.
+
+## edge counts
+The data, most frequently available takes the form of traffic counts on roads (edges). This data can be passed to routeSampler.py in an [edgeData
+file](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) using option **--edgedata-files**.
 
 ```
-python tools/jtcrouter.py -n <net-file> -t <turn-file> -o <output-file>
+python tools/routeSampler.py -r <input-route-file> --edgedata-files <edgedata-files> -o <output-file>
 ```
-There are three basic styles of converting turn-counts to routes:
 
-- Flows start at all turn-count locations in the network but end when reaching the next count location
-- Flows start at all turn-count locations in the network and are discounted when reaching the next count location (**--discount-sources**)
-- Flows only start on the fringe of the network (**--fringe-flows**)
+Only the edge attribute 'id' and another attribute for the traffic count are needed:
 
-## Turn count data format
+```
+<data>
+    <interval id="arbitrary" begin="0.0" end="300">
+        <edge id="-58" entered="4"/>
+        <edge id="45" entered="3"/>
+        <edge id="-31" entered="15"/>       
+        ...
+     </interval>
+     ...
+</data>
+```
+
+The attributes for reading the counts from edge-data file can be set with option **--edgedata-attribute** (default 'entered')
+
+!!! note
+    The default attribute is 'entered' because this attribute corresponds best to the through-traffic count in sumo-generated edgeData files.
+
+## Obtaining counting data files
+
+When using routeSampler as a replacement for [dfrouter](../dfrouter.md) or [flowrouter.py](Detector.md#flowrouterpy), the flow input files can be converted to edgeData files with the tool [edgeDataFromFlow.py](Detector.md#edgedatafromflowpy)
+
+For smaller scenarios it is often feasible to define edgeData files with [netedit edgeData mode (in the 'Data' supermode)](../Netedit/elementsData.md). Turn files can also be created with netedit using the edgeRelation mode (also part of the 'Data' supermode).
+
+In other cases it is necessary to write custom code for converting counting data into the required format.
+
+Further source for edgeData files are listed at the [visualizing edge related data](../sumo-gui.md#visualizing_edge-related_data) page.
+
+## turn counts
+
+Traffic counts related to turning traffic can be provided in the following format:
+
 The turn-count data must be provided in the format:
 
 ```xml
@@ -33,37 +63,10 @@ The turn-count data must be provided in the format:
 </data>
 ```
 
-# routeSampler.py
-The script generates routes from *any combination* of turn-count data, edge-count and even origin-destination-count data. It requires a route file as input that defines possible routes. Routes are sampled (heuristically) from the input so that
-the resulting traffic fulfills the counting data.
-
-## turn counts
-The turn-count data format is the same as as described [above](#turn_count_data_format).
 ```
 python tools/routeSampler.py -r <input-route-file> --turn-files <turn-files> -o <output-file>
 ```
 The attributes for reading the counts from the turn-data file can be set with option **--turn-attribute** (default 'count')
-
-## edge counts
-In addition to loading a turn-count file, routeSampler can also load an [edgeData
-file](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) using option **--edgedata-files**.
-
-```
-python tools/routeSampler.py -r <input-route-file> --edgedata-files <edgedata-files> -o <output-file>
-```
-
-The attributes for reading the counts from edge-data file can be set with option **--edgedata-attribute** (default 'entered')
-
-
-## Obtaining counting data files
-
-When using routeSampler as a replacement for [dfrouter](../dfrouter.md) or [flowrouter.py](Detector.md#flowrouterpy), the flow input files can be converted to edgeData files with the tool [edgeDataFromFlow.py](Detector.md#edgedatafromflowpy)
-
-For smaller scenarios it is often feasible to define edgeData files with [netedit edgeData mode (in the 'Data' supermode)](../Netedit/elementsData.md). Turn files can also be created with netedit using the edgeRelation mode (also part of the 'Data' supermode).
-
-In other cases it is necessary to write custom code for converting counting data into the required format.
-
-Further source for edgeData files are listed at the [visualizing edge related data](../sumo-gui.md#visualizing_edge-related_data) page.
 
 ## Obtaining initial routes
 Routes generated by randomTrips.py (**--route-output**) can be a good input source. The following randomTrips.py options may be helpful:
@@ -95,6 +98,7 @@ To define count restrictions on non-consecutive edges the option **--turn-max-ga
 When setting option **--turn-max-gap 2**, the edgeRelation `<edgeRelation from="A" to="D" .../>` would apply to routes containing "A B", "A X D" or "A X Y D" but not "A X Y Z D".
         
 ## Origin-Destination restrictions
+  
 When loading an edgeRelation file with the option **--od-files**, origin-destination counts will be added.
 This can be used to combine (edge-based) OD-relations with other counting data.  
   
@@ -249,3 +253,36 @@ This script converts the deprecated turn-file format into edgeRelation format
 ```
 python tools/turn-defs/turnFile2EdgeRelations.py -t <turn-file> -o <output-file>
 ```
+
+# jtcrouter.py
+The **J**unction**T**urn**C**ountRouter generates vehicle routes from turn-count data.
+It does so by converting the turn counts into into flows and turn-ratio files that are suitable as [jtrrouter](../jtrrouter.md) input.
+Then it calls jtrrouter in the background. The turn
+
+```
+python tools/jtcrouter.py -n <net-file> -t <turn-file> -o <output-file>
+```
+There are three basic styles of converting turn-counts to routes:
+
+- Flows start at all turn-count locations in the network but end when reaching the next count location
+- Flows start at all turn-count locations in the network and are discounted when reaching the next count location (**--discount-sources**)
+- Flows only start on the fringe of the network (**--fringe-flows**)
+
+## Turn count data format  
+  
+The turn-count data must be provided in the format which is the same as for [routeSampler](#routesamplerpy):
+
+```xml
+<data>
+  <interval id="generated" begin="0.0" end="99.0">
+    <edgeRelation from="-58.121.42" to="64" count="1"/>
+    <edgeRelation from="-58.121.42" to="-31" count="3"/>
+    <edgeRelation from="45" to="-68" count="3"/>
+    <edgeRelation from="-31.80.00" to="31" count="1"/>
+    <edgeRelation from="-31.80.00" to="37" count="1"/>
+    <edgeRelation from="-31.80.00" to="-23" count="13"/>
+    <edgeRelation from="-92.180.00" to="-60" count="1"/>
+  </interval>
+</data>
+```
+  
