@@ -341,6 +341,14 @@ vType](../Simulation/GenericParameters.md):
 
 When 'parking.probability.weight' is set to a positive value, a random number between 0 and attribute 'probability' is drawn for each candidate parkingArea. This value is then normalized to then range [0,1] by dividing with the maximum probability value of all parkingAreaReroute elements. The negative normalized value is then multiplied with parking.probability.weight to enter into the candidate score.
 
+### Further parameters to affect parking behavior
+
+Parameter Name         | Default value | Description                                                              | 
+| -------------------- | ------------- | ------------------------------------------------------------------------ |
+| parking.anywhere     | -1            | permit using any free parkingArea along the way after doing unsuccessful parkingAreaReroute x times (-1 disables this behavior) |
+| parking.frustration  | 100           | increases the preference for visibly free parkingAreas over time (after x unsuccessfull parkingAreaReroutes, targets with unknown occupancy will assumed to be *almost* full)                                 | 
+| parking.knowledge    | 0             | Let driver "guess" the exact occupancy of invisible parkingAreas with probability x                   |
+
 ### Destination after rerouting
 
 Generally, vehicles that reroute to a new parking area will continue to
