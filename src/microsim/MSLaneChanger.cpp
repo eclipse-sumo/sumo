@@ -1332,8 +1332,8 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
             // we keep neighLead distinct from oncoming because it determines blocking on the neigh lane
             // but also look for an oncoming leader to compute safety constraint
             double searchDist = timeToOvertake * oncomingLane->getSpeedLimit() * 2 + spaceToOvertake;
-            neighLead = oncomingLane->getOppositeLeader(vehicle, searchDist, true);
-            oncoming = getOncomingVehicle(oncomingLane, neighLead, searchDist, vMax, overtaken.first);
+            neighLead = oncomingLane->getOppositeLeader(vehicle, searchDist, true, MSLane::MinorLinkMode::FOLLOW_ONCOMING);
+            oncoming = getOncomingVehicle(oncomingLane, neighLead, searchDist, vMax, overtaken.first, MSLane::MinorLinkMode::FOLLOW_ONCOMING);
             oncomingOpposite = getOncomingOppositeVehicle(vehicle, overtaken, searchDist);
         } else {
             double searchDist = OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD;

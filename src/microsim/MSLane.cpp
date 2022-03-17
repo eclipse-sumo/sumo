@@ -3499,7 +3499,8 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                     const std::vector<MSLane::IncomingLaneInfo>& followers = next->getIncomingLanes();
                     for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j = followers.begin(); j != followers.end(); ++j) {
                         if (visited.find((*j).lane) == visited.end() && (((*j).viaLink->havePriority() && !(*j).viaLink->isTurnaround())
-                                    || mLinkMode == MinorLinkMode::FOLLOW_ALWAYS)) {
+                                    || mLinkMode == MinorLinkMode::FOLLOW_ALWAYS
+                                    || (mLinkMode == MinorLinkMode::FOLLOW_ONCOMING && (*j).viaLink->getDirection() == LinkDirection::STRAIGHT))) {
                             visited.insert((*j).lane);
                             MSLane::IncomingLaneInfo ili;
                             ili.lane = (*j).lane;
