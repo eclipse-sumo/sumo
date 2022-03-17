@@ -37,21 +37,21 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEM_ConsecutiveLaneSelector) ConsecutiveLaneSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ABORT,          GNEM_ConsecutiveLaneSelector::onCmdAbortPathCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_FINISH,         GNEM_ConsecutiveLaneSelector::onCmdCreatePath),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVELAST,     GNEM_ConsecutiveLaneSelector::onCmdRemoveLastElement),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOWCANDIDATES, GNEM_ConsecutiveLaneSelector::onCmdShowCandidateLanes)
+FXDEFMAP(GNEConsecutiveSelector) ConsecutiveLaneSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ABORT,          GNEConsecutiveSelector::onCmdAbortPathCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_FINISH,         GNEConsecutiveSelector::onCmdCreatePath),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVELAST,     GNEConsecutiveSelector::onCmdRemoveLastElement),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOWCANDIDATES, GNEConsecutiveSelector::onCmdShowCandidateLanes)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEM_ConsecutiveLaneSelector, FXGroupBoxModule, ConsecutiveLaneSelectorMap, ARRAYNUMBER(ConsecutiveLaneSelectorMap))
+FXIMPLEMENT(GNEConsecutiveSelector, FXGroupBoxModule, ConsecutiveLaneSelectorMap, ARRAYNUMBER(ConsecutiveLaneSelectorMap))
 
 // ---------------------------------------------------------------------------
-// GNEM_ConsecutiveLaneSelector - methods
+// GNEConsecutiveSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEM_ConsecutiveLaneSelector::GNEM_ConsecutiveLaneSelector(GNEFrame* frameParent, const bool allowOneLane) :
+GNEConsecutiveSelector::GNEConsecutiveSelector(GNEFrame* frameParent, const bool allowOneLane) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Consecutive lane selector"),
     myFrameParent(frameParent),
     myAllowOneLane(allowOneLane){
@@ -74,11 +74,11 @@ GNEM_ConsecutiveLaneSelector::GNEM_ConsecutiveLaneSelector(GNEFrame* frameParent
 }
 
 
-GNEM_ConsecutiveLaneSelector::~GNEM_ConsecutiveLaneSelector() {}
+GNEConsecutiveSelector::~GNEConsecutiveSelector() {}
 
 
 void
-GNEM_ConsecutiveLaneSelector::showConsecutiveLaneSelectorModule() {
+GNEConsecutiveSelector::showConsecutiveLaneSelectorModule() {
     // first abort creation
     abortPathCreation();
     // disable buttons
@@ -95,7 +95,7 @@ GNEM_ConsecutiveLaneSelector::showConsecutiveLaneSelectorModule() {
 
 
 void
-GNEM_ConsecutiveLaneSelector::hideConsecutiveLaneSelectorModule() {
+GNEConsecutiveSelector::hideConsecutiveLaneSelectorModule() {
     // clear path
     clearPath();
     // hide modul
@@ -104,13 +104,13 @@ GNEM_ConsecutiveLaneSelector::hideConsecutiveLaneSelectorModule() {
 
 
 const std::vector<std::pair<GNELane*, double> >&
-GNEM_ConsecutiveLaneSelector::getLanePath() const {
+GNEConsecutiveSelector::getLanePath() const {
     return myLanePath;
 }
 
 
 const std::vector<std::string> 
-GNEM_ConsecutiveLaneSelector::getLaneIDPath() const {
+GNEConsecutiveSelector::getLaneIDPath() const {
     std::vector<std::string> laneIDs;
     for (const auto& lane : myLanePath) {
         if (laneIDs.empty() || (laneIDs.back() != lane.first->getID())) {
@@ -122,7 +122,7 @@ GNEM_ConsecutiveLaneSelector::getLaneIDPath() const {
 
 
 bool
-GNEM_ConsecutiveLaneSelector::addLane(GNELane* lane) {
+GNEConsecutiveSelector::addLane(GNELane* lane) {
     // first check if lane is valid
     if (lane == nullptr) {
         return false;
@@ -184,13 +184,13 @@ GNEM_ConsecutiveLaneSelector::addLane(GNELane* lane) {
 
 
 bool
-GNEM_ConsecutiveLaneSelector::drawCandidateLanesWithSpecialColor() const {
+GNEConsecutiveSelector::drawCandidateLanesWithSpecialColor() const {
     return (myShowCandidateLanes->getCheck() == TRUE);
 }
 
 
 void
-GNEM_ConsecutiveLaneSelector::updateLaneColors() {
+GNEConsecutiveSelector::updateLaneColors() {
     // reset all flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {
@@ -232,7 +232,7 @@ GNEM_ConsecutiveLaneSelector::updateLaneColors() {
 
 
 void
-GNEM_ConsecutiveLaneSelector::drawTemporalConsecutiveLanePath(const GUIVisualizationSettings& s) const {
+GNEConsecutiveSelector::drawTemporalConsecutiveLanePath(const GUIVisualizationSettings& s) const {
     // Only draw if there is at least one lane
     if (myLanePath.size() > 0) {
         // get widths
@@ -304,7 +304,7 @@ GNEM_ConsecutiveLaneSelector::drawTemporalConsecutiveLanePath(const GUIVisualiza
 
 
 void
-GNEM_ConsecutiveLaneSelector::abortPathCreation() {
+GNEConsecutiveSelector::abortPathCreation() {
     // first check that there is elements
     if (myLanePath.size() > 0) {
         // unblock undo/redo
@@ -326,7 +326,7 @@ GNEM_ConsecutiveLaneSelector::abortPathCreation() {
 
 
 void
-GNEM_ConsecutiveLaneSelector::removeLastElement() {
+GNEConsecutiveSelector::removeLastElement() {
     if (myLanePath.size() > 1) {
         // remove special color of last selected lane
         myLanePath.back().first->resetCandidateFlags();
@@ -354,14 +354,14 @@ GNEM_ConsecutiveLaneSelector::removeLastElement() {
 
 
 long
-GNEM_ConsecutiveLaneSelector::onCmdCreatePath(FXObject*, FXSelector, void*) {
+GNEConsecutiveSelector::onCmdCreatePath(FXObject*, FXSelector, void*) {
     myFrameParent->createPath();
     return 1;
 }
 
 
 long
-GNEM_ConsecutiveLaneSelector::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
+GNEConsecutiveSelector::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
     // just call abort path creation
     abortPathCreation();
     return 1;
@@ -369,7 +369,7 @@ GNEM_ConsecutiveLaneSelector::onCmdAbortPathCreation(FXObject*, FXSelector, void
 
 
 long
-GNEM_ConsecutiveLaneSelector::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
+GNEConsecutiveSelector::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
     // just call remove last element
     removeLastElement();
     return 1;
@@ -377,7 +377,7 @@ GNEM_ConsecutiveLaneSelector::onCmdRemoveLastElement(FXObject*, FXSelector, void
 
 
 long
-GNEM_ConsecutiveLaneSelector::onCmdShowCandidateLanes(FXObject*, FXSelector, void*) {
+GNEConsecutiveSelector::onCmdShowCandidateLanes(FXObject*, FXSelector, void*) {
     // recalc frame
     recalc();
     // update lane colors (view will be updated within function)
@@ -386,14 +386,14 @@ GNEM_ConsecutiveLaneSelector::onCmdShowCandidateLanes(FXObject*, FXSelector, voi
 }
 
 
-GNEM_ConsecutiveLaneSelector::GNEM_ConsecutiveLaneSelector() :
+GNEConsecutiveSelector::GNEConsecutiveSelector() :
     myFrameParent(nullptr),
     myAllowOneLane(false) {
 }
 
 
 void
-GNEM_ConsecutiveLaneSelector::updateInfoRouteLabel() {
+GNEConsecutiveSelector::updateInfoRouteLabel() {
     if (myLanePath.size() > 0) {
         // declare variables for route info
         double length = 0;
@@ -414,7 +414,7 @@ GNEM_ConsecutiveLaneSelector::updateInfoRouteLabel() {
 
 
 void
-GNEM_ConsecutiveLaneSelector::clearPath() {
+GNEConsecutiveSelector::clearPath() {
     // reset all flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {

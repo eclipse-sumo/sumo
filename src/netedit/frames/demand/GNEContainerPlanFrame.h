@@ -58,10 +58,10 @@ public:
     bool addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get path creator modul
-    GNEM_PathCreator* getPathCreator() const;
+    GNEPathCreator* getPathCreator() const;
 
 protected:
-    /// @brief Tag selected in GNEM_TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
     /// @brief selected demand element in DemandElementSelector
@@ -78,14 +78,14 @@ private:
     DemandElementSelector* myContainerSelector;
 
     /// @brief containerPlan selector
-    GNEM_TagSelector* myContainerPlanTagSelector;
+    GNETagSelector* myContainerPlanTagSelector;
 
     /// @brief internal vehicle attributes
     GNEFrameAttributeModules::AttributesCreator* myContainerPlanAttributes;
 
     /// @brief Path Creator
-    GNEM_PathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator;
 
     /// @brief Container Hierarchy
-    GNEM_HierarchicalElementTree* myContainerHierarchy;
+    GNEElementTree* myContainerHierarchy;
 };

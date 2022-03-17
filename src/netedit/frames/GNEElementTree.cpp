@@ -40,25 +40,25 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEM_HierarchicalElementTree) HierarchicalElementTreeMap[] = {
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER,                     GNEM_HierarchicalElementTree::onCmdCenterItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT,                    GNEM_HierarchicalElementTree::onCmdInspectItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE,                     GNEM_HierarchicalElementTree::onCmdDeleteItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEUP,         GNEM_HierarchicalElementTree::onCmdMoveItemUp),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEDOWN,       GNEM_HierarchicalElementTree::onCmdMoveItemDown),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_ACHIERARCHY_SHOWCHILDMENU,  GNEM_HierarchicalElementTree::onCmdShowChildMenu)
+FXDEFMAP(GNEElementTree) HierarchicalElementTreeMap[] = {
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER,                     GNEElementTree::onCmdCenterItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT,                    GNEElementTree::onCmdInspectItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE,                     GNEElementTree::onCmdDeleteItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEUP,         GNEElementTree::onCmdMoveItemUp),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEDOWN,       GNEElementTree::onCmdMoveItemDown),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_ACHIERARCHY_SHOWCHILDMENU,  GNEElementTree::onCmdShowChildMenu)
 };
 
 
 // Object implementation
-FXIMPLEMENT(GNEM_HierarchicalElementTree,    FXGroupBoxModule,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
+FXIMPLEMENT(GNEElementTree,    FXGroupBoxModule,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEM_HierarchicalElementTree::GNEM_HierarchicalElementTree(GNEFrame* frameParent) :
+GNEElementTree::GNEElementTree(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Hierarchy"),
     myFrameParent(frameParent),
     myHE(nullptr),
@@ -79,15 +79,15 @@ GNEM_HierarchicalElementTree::GNEM_HierarchicalElementTree(GNEFrame* frameParent
 }
 
 
-GNEM_HierarchicalElementTree::~GNEM_HierarchicalElementTree() {}
+GNEElementTree::~GNEElementTree() {}
 
 
 void
-GNEM_HierarchicalElementTree::showHierarchicalElementTree(GNEAttributeCarrier* AC) {
+GNEElementTree::showHierarchicalElementTree(GNEAttributeCarrier* AC) {
     myHE = dynamic_cast<GNEHierarchicalElement*>(AC);
-    // show GNEM_HierarchicalElementTree and refresh GNEM_HierarchicalElementTree
+    // show GNEElementTree and refresh GNEElementTree
     if (myHE) {
-        // refresh GNEM_HierarchicalElementTree
+        // refresh GNEElementTree
         refreshHierarchicalElementTree();
         // show myTreeListDinamic
         myTreeListDinamic->show();
@@ -98,7 +98,7 @@ GNEM_HierarchicalElementTree::showHierarchicalElementTree(GNEAttributeCarrier* A
 
 
 void
-GNEM_HierarchicalElementTree::hideHierarchicalElementTree() {
+GNEElementTree::hideHierarchicalElementTree() {
     // set all pointers null
     myHE = nullptr;
     myClickedAC = nullptr;
@@ -120,7 +120,7 @@ GNEM_HierarchicalElementTree::hideHierarchicalElementTree() {
 
 
 void
-GNEM_HierarchicalElementTree::refreshHierarchicalElementTree() {
+GNEElementTree::refreshHierarchicalElementTree() {
     // clear items
     myTreeListDinamic->clearItems();
     myTreeItemToACMap.clear();
@@ -133,7 +133,7 @@ GNEM_HierarchicalElementTree::refreshHierarchicalElementTree() {
 
 
 void
-GNEM_HierarchicalElementTree::removeCurrentEditedAttributeCarrier(const GNEAttributeCarrier* AC) {
+GNEElementTree::removeCurrentEditedAttributeCarrier(const GNEAttributeCarrier* AC) {
     // simply check if AC is the same of myHE
     if (AC == myHE) {
         myHE = nullptr;
@@ -142,7 +142,7 @@ GNEM_HierarchicalElementTree::removeCurrentEditedAttributeCarrier(const GNEAttri
 
 
 long
-GNEM_HierarchicalElementTree::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
+GNEElementTree::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
     // Obtain event
     FXEvent* e = (FXEvent*)eventData;
     // obtain FXTreeItem in the given position
@@ -156,7 +156,7 @@ GNEM_HierarchicalElementTree::onCmdShowChildMenu(FXObject*, FXSelector, void* ev
 
 
 long
-GNEM_HierarchicalElementTree::onCmdCenterItem(FXObject*, FXSelector, void*) {
+GNEElementTree::onCmdCenterItem(FXObject*, FXSelector, void*) {
     // Center item
     if (myClickedJunction) {
         myFrameParent->getViewNet()->centerTo(myClickedJunction->getGlID(), true, -1);
@@ -182,7 +182,7 @@ GNEM_HierarchicalElementTree::onCmdCenterItem(FXObject*, FXSelector, void*) {
 
 
 long
-GNEM_HierarchicalElementTree::onCmdInspectItem(FXObject*, FXSelector, void*) {
+GNEElementTree::onCmdInspectItem(FXObject*, FXSelector, void*) {
     if ((myHE != nullptr) && (myClickedAC != nullptr)) {
         myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectChild(myClickedAC, myHE);
     }
@@ -191,7 +191,7 @@ GNEM_HierarchicalElementTree::onCmdInspectItem(FXObject*, FXSelector, void*) {
 
 
 long
-GNEM_HierarchicalElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
+GNEElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     // Remove Attribute Carrier
     if (myClickedJunction) {
         myFrameParent->getViewNet()->getNet()->deleteJunction(myClickedJunction, myFrameParent->getViewNet()->getUndoList());
@@ -256,7 +256,7 @@ GNEM_HierarchicalElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
 
 
 long
-GNEM_HierarchicalElementTree::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
+GNEElementTree::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
     // currently only children of demand elements can be moved
     if (myClickedDemandElement) {
         myFrameParent->getViewNet()->getUndoList()->begin(myClickedDemandElement->getTagProperty().getGUIIcon(), ("moving up " + myClickedDemandElement->getTagStr()).c_str());
@@ -272,7 +272,7 @@ GNEM_HierarchicalElementTree::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
 
 
 long
-GNEM_HierarchicalElementTree::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
+GNEElementTree::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
     // currently only children of demand elements can be moved
     if (myClickedDemandElement) {
         myFrameParent->getViewNet()->getUndoList()->begin(myClickedDemandElement->getTagProperty().getGUIIcon(), ("moving down " + myClickedDemandElement->getTagStr()).c_str());
@@ -288,7 +288,7 @@ GNEM_HierarchicalElementTree::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
 
 
 void
-GNEM_HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
+GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
     // get attributeCarrirs
     const auto& attributeCarriers = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     // first check that AC exist
@@ -382,7 +382,7 @@ GNEM_HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier*
 
 
 FXTreeItem*
-GNEM_HierarchicalElementTree::showAttributeCarrierParents() {
+GNEElementTree::showAttributeCarrierParents() {
     // get attributeCarrirs
     const auto& attributeCarriers = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     // check tags
@@ -770,7 +770,7 @@ GNEM_HierarchicalElementTree::showAttributeCarrierParents() {
 
 
 void
-GNEM_HierarchicalElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTreeItem* itemParent) {
+GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTreeItem* itemParent) {
     if (HE->getTagProperty().isNetworkElement()) {
         // Switch gl type of ac
         switch (HE->getTagProperty().getTag()) {
@@ -937,7 +937,7 @@ GNEM_HierarchicalElementTree::showHierarchicalElementChildren(GNEHierarchicalEle
 
 
 FXTreeItem*
-GNEM_HierarchicalElementTree::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std::string prefix, std::string sufix) {
+GNEElementTree::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std::string prefix, std::string sufix) {
     // insert item in Tree list
     FXTreeItem* item = myTreeListDinamic->insertItem(nullptr, itemParent, (prefix + AC->getHierarchyName() + sufix).c_str(), AC->getIcon(), AC->getIcon());
     // insert item in map
@@ -950,7 +950,7 @@ GNEM_HierarchicalElementTree::addListItem(GNEAttributeCarrier* AC, FXTreeItem* i
 
 
 FXTreeItem*
-GNEM_HierarchicalElementTree::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
+GNEElementTree::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
     // insert item in Tree list
     FXTreeItem* item = myTreeListDinamic->insertItem(nullptr, itemParent, text.c_str(), icon, icon);
     // expand item depending of flag expanded

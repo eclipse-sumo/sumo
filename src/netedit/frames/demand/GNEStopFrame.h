@@ -25,7 +25,7 @@
 #include <netedit/elements/demand/GNERouteHandler.h>
 
 class DemandElementSelector;
-class GNEM_TagSelector;
+class GNETagSelector;
 
 // ===========================================================================
 // class definitions
@@ -93,7 +93,7 @@ public:
     DemandElementSelector* getStopParentSelector() const;
 
 protected:
-    /// @brief Tag selected in GNEM_TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
     /// @brief selected demand element in DemandElementSelector
@@ -110,7 +110,7 @@ private:
     DemandElementSelector* myStopParentSelector;
 
     /// @brief stop tag selector selector (used to select diffent kind of Stops)
-    GNEM_TagSelector* myStopTagSelector;
+    GNETagSelector* myStopTagSelector;
 
     /// @brief internal Stop attributes
     GNEFrameAttributeModules::AttributesCreator* myStopAttributes;

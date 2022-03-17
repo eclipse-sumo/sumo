@@ -861,11 +861,11 @@ enum {
     MID_GNE_REMOVELAST,
     /// @brief enable or disable show path candidates
     MID_GNE_SHOWCANDIDATES,
-    /// @brief In GNEM_HierarchicalElementTree list, show child menu
+    /// @brief In GNEElementTree list, show child menu
     MID_GNE_ACHIERARCHY_SHOWCHILDMENU,
-    /// @brief In GNEM_HierarchicalElementTree list, move element to up
+    /// @brief In GNEElementTree list, move element to up
     MID_GNE_ACHIERARCHY_MOVEUP,
-    /// @brief In GNEM_HierarchicalElementTree list, move element to down
+    /// @brief In GNEElementTree list, move element to down
     MID_GNE_ACHIERARCHY_MOVEDOWN,
     /// @brief start drawing polygon
     MID_GNE_STARTDRAWING,

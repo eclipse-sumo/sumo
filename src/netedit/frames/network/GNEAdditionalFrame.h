@@ -56,13 +56,13 @@ public:
     bool addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get edges selector
-    GNEM_NetworkElementSelector* getEdgesSelector() const;
+    GNENetworkSelector* getEdgesSelector() const;
 
     /// @brief get edges selector
-    GNEM_NetworkElementSelector* getLanesSelector() const;
+    GNENetworkSelector* getLanesSelector() const;
 
     /// @brief get consecutive lane selector
-    GNEM_ConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
+    GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
 
     /// @brief create path
     void createPath();
@@ -71,7 +71,7 @@ protected:
     /// @brief SumoBaseObject used for create additional
     CommonXMLStructure::SumoBaseObject* myBaseAdditional;
 
-    /// @brief Tag selected in GNEM_TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
 private:
@@ -91,7 +91,7 @@ private:
     bool buildAdditionalOverView(const GNETagProperties& tagValues);
 
     /// @brief item selector
-    GNEM_TagSelector* myAdditionalTagSelector;
+    GNETagSelector* myAdditionalTagSelector;
 
     /// @brief internal additional attributes
     GNEFrameAttributeModules::AttributesCreator* myAdditionalAttributes;
@@ -100,14 +100,14 @@ private:
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Module for select a single parent additional
-    GNEM_SelectorParent* mySelectorAdditionalParent;
+    GNESelectorParent* mySelectorAdditionalParent;
 
     /// @brief Module for select edges
-    GNEM_NetworkElementSelector* myEdgesSelector;
+    GNENetworkSelector* myEdgesSelector;
 
     /// @brief Module for select lanes
-    GNEM_NetworkElementSelector* myLanesSelector;
+    GNENetworkSelector* myLanesSelector;
 
     /// @brief Module for select consecutive lanes
-    GNEM_ConsecutiveLaneSelector* myConsecutiveLaneSelector;
+    GNEConsecutiveSelector* myConsecutiveLaneSelector;
 };

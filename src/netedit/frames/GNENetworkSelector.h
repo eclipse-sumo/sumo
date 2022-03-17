@@ -27,27 +27,28 @@
 // ===========================================================================
 
 class GNEFrame;
+class GNENetworkElement;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEM_NetworkElementSelector : public FXGroupBoxModule {
+class GNENetworkSelector : public FXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(GNEM_NetworkElementSelector)
+    FXDECLARE(GNENetworkSelector)
 
 public:
     /// @brief network element selector type
-    enum class NetworkElementType {
+    enum class Type {
         EDGE,
         LANE,
     };
 
     /// @brief constructor
-    GNEM_NetworkElementSelector(GNEFrame* frameParent, const NetworkElementType networkElementType);
+    GNENetworkSelector(GNEFrame* frameParent, const Type networkElementType);
 
     /// @brief destructor
-    ~GNEM_NetworkElementSelector();
+    ~GNENetworkSelector();
 
     /// @brief get selected IDs
     std::vector<std::string> getSelectedIDs() const;
@@ -55,10 +56,10 @@ public:
     /// @brief check if the given networkElement is being selected
     bool isNetworkElementSelected(const GNENetworkElement* networkElement) const;
 
-    /// @brief show GNEM_NetworkElementSelector Module
+    /// @brief show GNENetworkSelector Module
     void showNetworkElementsSelector();
 
-    /// @brief hide GNEM_NetworkElementSelector Module
+    /// @brief hide GNENetworkSelector Module
     void hideNetworkElementsSelector();
 
     /// @brief return true if modul is shown
@@ -81,7 +82,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    GNEM_NetworkElementSelector();
+    GNENetworkSelector();
 
 private:
     /// @brief pointer to frame parent
@@ -90,12 +91,12 @@ private:
     /// @brief button for use selected edges
     FXButton* myUseSelected = nullptr;
 
-    /// @brief List of GNEM_NetworkElementSelector
+    /// @brief List of GNENetworkSelector
     FXList* myList = nullptr;
 
     /// @brief button for clear selection
     FXButton* myClearSelection = nullptr;
 
     /// @brrief network element type
-    const NetworkElementType myNetworkElementType;
+    const Type myNetworkElementType;
 };

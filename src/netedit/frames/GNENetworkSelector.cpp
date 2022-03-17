@@ -32,20 +32,20 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEM_NetworkElementSelector) SelectorParentNetworkElementsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNEM_NetworkElementSelector::onCmdUseSelectedElements),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNEM_NetworkElementSelector::onCmdClearSelection),
+FXDEFMAP(GNENetworkSelector) SelectorParentNetworkElementsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNENetworkSelector::onCmdUseSelectedElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNENetworkSelector::onCmdClearSelection),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEM_NetworkElementSelector, FXGroupBoxModule, SelectorParentNetworkElementsMap, ARRAYNUMBER(SelectorParentNetworkElementsMap))
+FXIMPLEMENT(GNENetworkSelector, FXGroupBoxModule, SelectorParentNetworkElementsMap, ARRAYNUMBER(SelectorParentNetworkElementsMap))
 
 
 // ---------------------------------------------------------------------------
-// GNEM_NetworkElementSelector - methods
+// GNENetworkSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEM_NetworkElementSelector::GNEM_NetworkElementSelector(GNEFrame* frameParent, const NetworkElementType networkElementType) :
+GNENetworkSelector::GNENetworkSelector(GNEFrame* frameParent, const Type networkElementType) :
     FXGroupBoxModule(frameParent->getContentFrame(), "NetworkElements"),
     myNetworkElementType(networkElementType),
     myFrameParent(frameParent) {
@@ -58,13 +58,13 @@ GNEM_NetworkElementSelector::GNEM_NetworkElementSelector(GNEFrame* frameParent, 
     myList = new FXList(getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
     // create information label and update modul name
     switch (myNetworkElementType) {
-        case NetworkElementType::EDGE:
+        case Type::EDGE:
             new FXLabel(this, 
                 "-Click over an edge to select\n-ESC to clear selection", 
                 0, GUIDesignLabelFrameInformation);
             setText("Edges");
             break;
-        case NetworkElementType::LANE:
+        case Type::LANE:
             new FXLabel(this, 
                 "-Click over a lane to select\n-ESC to clear selection", 
                 0, GUIDesignLabelFrameInformation);
@@ -78,11 +78,11 @@ GNEM_NetworkElementSelector::GNEM_NetworkElementSelector(GNEFrame* frameParent, 
 }
 
 
-GNEM_NetworkElementSelector::~GNEM_NetworkElementSelector() {}
+GNENetworkSelector::~GNENetworkSelector() {}
 
 
 std::vector<std::string>
-GNEM_NetworkElementSelector::getSelectedIDs() const {
+GNENetworkSelector::getSelectedIDs() const {
     // declare solution
     std::vector<std::string> solution;
     // reserve
@@ -96,7 +96,7 @@ GNEM_NetworkElementSelector::getSelectedIDs() const {
 
 
 bool
-GNEM_NetworkElementSelector::isNetworkElementSelected(const GNENetworkElement* networkElement) const {
+GNENetworkSelector::isNetworkElementSelected(const GNENetworkElement* networkElement) const {
     if (myFrameParent->shown() && shown()) {
         // check if id is selected
         for (int i = 0; i < myList->getNumItems(); i++) {
@@ -110,7 +110,7 @@ GNEM_NetworkElementSelector::isNetworkElementSelected(const GNENetworkElement* n
 
 
 void
-GNEM_NetworkElementSelector::showNetworkElementsSelector() {
+GNENetworkSelector::showNetworkElementsSelector() {
     // clear list of egdge ids
     myList->clearItems();
     // Show dialog
@@ -119,19 +119,19 @@ GNEM_NetworkElementSelector::showNetworkElementsSelector() {
 
 
 void
-GNEM_NetworkElementSelector::hideNetworkElementsSelector() {
+GNENetworkSelector::hideNetworkElementsSelector() {
     hide();
 }
 
 
 bool 
-GNEM_NetworkElementSelector::isShown() const {
+GNENetworkSelector::isShown() const {
     return shown();
 }
 
 
 bool 
-GNEM_NetworkElementSelector::toogleSelectedElement(const GNENetworkElement *networkElement) {
+GNENetworkSelector::toogleSelectedElement(const GNENetworkElement *networkElement) {
     // Obtain Id's of list
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->getText().text() == networkElement->getID()) {
@@ -151,7 +151,7 @@ GNEM_NetworkElementSelector::toogleSelectedElement(const GNENetworkElement *netw
 
 
 void 
-GNEM_NetworkElementSelector::clearSelection() {
+GNENetworkSelector::clearSelection() {
     // clear list of egdge ids
     myList->clearItems();
     // update viewNet
@@ -160,19 +160,19 @@ GNEM_NetworkElementSelector::clearSelection() {
 
 
 long
-GNEM_NetworkElementSelector::onCmdUseSelectedElements(FXObject*, FXSelector, void*) {
+GNENetworkSelector::onCmdUseSelectedElements(FXObject*, FXSelector, void*) {
     // clear list of egdge ids
     myList->clearItems();
     // set modul name
     switch (myNetworkElementType) {
-        case NetworkElementType::EDGE:
+        case Type::EDGE:
             for (const auto &edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
                 if (edge.second->isAttributeCarrierSelected()) {
                     myList->appendItem(edge.first.c_str(), edge.second->getIcon());
                 }
             }
             break;
-        case NetworkElementType::LANE:
+        case Type::LANE:
             for (const auto &lane : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getLanes()) {
                 if (lane->isAttributeCarrierSelected()) {
                     myList->appendItem(lane->getID().c_str(), lane->getIcon());
@@ -189,15 +189,15 @@ GNEM_NetworkElementSelector::onCmdUseSelectedElements(FXObject*, FXSelector, voi
 
 
 long
-GNEM_NetworkElementSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
+GNENetworkSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
     clearSelection();
     return 1;
 }
 
 
-GNEM_NetworkElementSelector::GNEM_NetworkElementSelector() :
+GNENetworkSelector::GNENetworkSelector() :
     myFrameParent(nullptr),
-    myNetworkElementType(NetworkElementType::EDGE) {
+    myNetworkElementType(Type::EDGE) {
 }
 
 /****************************************************************************/

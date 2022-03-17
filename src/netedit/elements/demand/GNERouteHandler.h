@@ -144,10 +144,10 @@ public:
 
     /// @brief build person plan
     bool buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEFrameAttributeModules::AttributesCreator* personPlanAttributes,
-                         GNEM_PathCreator* pathCreator, const bool centerAfterCreation);
+                         GNEPathCreator* pathCreator, const bool centerAfterCreation);
 
     /// @brief build container plan
-    bool buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEFrameAttributeModules::AttributesCreator* containerPlanAttributes, GNEM_PathCreator* pathCreator);
+    bool buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEFrameAttributeModules::AttributesCreator* containerPlanAttributes, GNEPathCreator* pathCreator);
 
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
     static bool isVehicleIdDuplicated(GNENet* net, const std::string& id);

@@ -35,7 +35,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myBaseAdditional(nullptr) {
 
     // create item Selector modul for additionals
-    myAdditionalTagSelector = new GNEM_TagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);
+    myAdditionalTagSelector = new GNETagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);
 
     // Create additional parameters
     myAdditionalAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
@@ -44,16 +44,16 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
     // Create selector parent
-    mySelectorAdditionalParent = new GNEM_SelectorParent(this);
+    mySelectorAdditionalParent = new GNESelectorParent(this);
 
     // Create selector child edges
-    myEdgesSelector = new GNEM_NetworkElementSelector(this, GNEM_NetworkElementSelector::NetworkElementType::EDGE);
+    myEdgesSelector = new GNENetworkSelector(this, GNENetworkSelector::Type::EDGE);
 
     // Create selector child lanes
-    myLanesSelector = new GNEM_NetworkElementSelector(this, GNEM_NetworkElementSelector::NetworkElementType::LANE);
+    myLanesSelector = new GNENetworkSelector(this, GNENetworkSelector::Type::LANE);
 
     // Create list for E2Multilane lane selector
-    myConsecutiveLaneSelector = new GNEM_ConsecutiveLaneSelector(this, false);
+    myConsecutiveLaneSelector = new GNEConsecutiveSelector(this, false);
 }
 
 
@@ -121,19 +121,19 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
 }
 
 
-GNEM_NetworkElementSelector*
+GNENetworkSelector*
 GNEAdditionalFrame::getEdgesSelector() const {
     return myEdgesSelector;
 }
 
 
-GNEM_NetworkElementSelector* 
+GNENetworkSelector* 
 GNEAdditionalFrame::getLanesSelector() const {
     return myLanesSelector;
 }
 
 
-GNEM_ConsecutiveLaneSelector*
+GNEConsecutiveSelector*
 GNEAdditionalFrame::getConsecutiveLaneSelector() const {
     return myConsecutiveLaneSelector;
 }

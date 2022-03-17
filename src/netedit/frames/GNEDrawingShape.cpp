@@ -30,21 +30,21 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEM_DrawingShape) DrawingShapeMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STARTDRAWING,   GNEM_DrawingShape::onCmdStartDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STOPDRAWING,    GNEM_DrawingShape::onCmdStopDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTDRAWING,   GNEM_DrawingShape::onCmdAbortDrawing)
+FXDEFMAP(GNEDrawingShape) DrawingShapeMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STARTDRAWING,   GNEDrawingShape::onCmdStartDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STOPDRAWING,    GNEDrawingShape::onCmdStopDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTDRAWING,   GNEDrawingShape::onCmdAbortDrawing)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEM_DrawingShape,               FXGroupBoxModule,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
+FXIMPLEMENT(GNEDrawingShape,               FXGroupBoxModule,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEM_DrawingShape::GNEM_DrawingShape(GNEFrame* frameParent) :
+GNEDrawingShape::GNEDrawingShape(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Drawing"),
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
@@ -70,10 +70,10 @@ GNEM_DrawingShape::GNEM_DrawingShape(GNEFrame* frameParent) :
 }
 
 
-GNEM_DrawingShape::~GNEM_DrawingShape() {}
+GNEDrawingShape::~GNEDrawingShape() {}
 
 
-void GNEM_DrawingShape::showDrawingShape() {
+void GNEDrawingShape::showDrawingShape() {
     // abort current drawing before show
     abortDrawing();
     // show FXGroupBoxModule
@@ -81,7 +81,7 @@ void GNEM_DrawingShape::showDrawingShape() {
 }
 
 
-void GNEM_DrawingShape::hideDrawingShape() {
+void GNEDrawingShape::hideDrawingShape() {
     // abort current drawing before hide
     abortDrawing();
     // show FXGroupBoxModule
@@ -90,8 +90,8 @@ void GNEM_DrawingShape::hideDrawingShape() {
 
 
 void
-GNEM_DrawingShape::startDrawing() {
-    // Only start drawing if GNEM_DrawingShape modul is shown
+GNEDrawingShape::startDrawing() {
+    // Only start drawing if GNEDrawingShape modul is shown
     if (shown()) {
         // change buttons
         myStartDrawingButton->disable();
@@ -102,7 +102,7 @@ GNEM_DrawingShape::startDrawing() {
 
 
 void
-GNEM_DrawingShape::stopDrawing() {
+GNEDrawingShape::stopDrawing() {
     // try to build shape
     if (myFrameParent->shapeDrawed()) {
         // clear created points
@@ -119,7 +119,7 @@ GNEM_DrawingShape::stopDrawing() {
 
 
 void
-GNEM_DrawingShape::abortDrawing() {
+GNEDrawingShape::abortDrawing() {
     // clear created points
     myTemporalShape.clear();
     // change buttons
@@ -130,7 +130,7 @@ GNEM_DrawingShape::abortDrawing() {
 
 
 void
-GNEM_DrawingShape::addNewPoint(const Position& P) {
+GNEDrawingShape::addNewPoint(const Position& P) {
     if (myStopDrawingButton->isEnabled()) {
         myTemporalShape.push_back(P);
     } else {
@@ -140,7 +140,7 @@ GNEM_DrawingShape::addNewPoint(const Position& P) {
 
 
 void
-GNEM_DrawingShape::removeLastPoint() {
+GNEDrawingShape::removeLastPoint() {
     if (myTemporalShape.size() > 1) {
         myTemporalShape.pop_back();
     }
@@ -148,45 +148,45 @@ GNEM_DrawingShape::removeLastPoint() {
 
 
 const PositionVector&
-GNEM_DrawingShape::getTemporalShape() const {
+GNEDrawingShape::getTemporalShape() const {
     return myTemporalShape;
 }
 
 
 bool
-GNEM_DrawingShape::isDrawing() const {
+GNEDrawingShape::isDrawing() const {
     return myStopDrawingButton->isEnabled();
 }
 
 
 void
-GNEM_DrawingShape::setDeleteLastCreatedPoint(bool value) {
+GNEDrawingShape::setDeleteLastCreatedPoint(bool value) {
     myDeleteLastCreatedPoint = value;
 }
 
 
 bool
-GNEM_DrawingShape::getDeleteLastCreatedPoint() {
+GNEDrawingShape::getDeleteLastCreatedPoint() {
     return myDeleteLastCreatedPoint;
 }
 
 
 long
-GNEM_DrawingShape::onCmdStartDrawing(FXObject*, FXSelector, void*) {
+GNEDrawingShape::onCmdStartDrawing(FXObject*, FXSelector, void*) {
     startDrawing();
     return 0;
 }
 
 
 long
-GNEM_DrawingShape::onCmdStopDrawing(FXObject*, FXSelector, void*) {
+GNEDrawingShape::onCmdStopDrawing(FXObject*, FXSelector, void*) {
     stopDrawing();
     return 0;
 }
 
 
 long
-GNEM_DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
+GNEDrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
     abortDrawing();
     return 0;
 }

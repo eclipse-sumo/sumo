@@ -458,7 +458,7 @@ GNEViewNet::setColorScheme(const std::string& name) {
 
 void
 GNEViewNet::openObjectDialogAtCursor() {
-    // reimplemented from GUISUMOAbstractView due GNEM_OverlappedInspection
+    // reimplemented from GUISUMOAbstractView due GNEOverlappedInspection
     ungrab();
     // make network current
     if (isEnabled() && myAmInitialised && makeCurrent()) {

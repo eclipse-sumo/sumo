@@ -134,7 +134,7 @@ public:
     bool addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get path creator modul
-    GNEM_PathCreator* getPathCreator() const;
+    GNEPathCreator* getPathCreator() const;
 
 protected:
     /// @brief create path
@@ -154,7 +154,7 @@ private:
     GNEFrameAttributeModules::AttributesCreator* myRouteAttributes;
 
     /// @brief path creator modul
-    GNEM_PathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator;
 
     /// @brief path legend modul
     GNEM_PathLegend* myPathLegend;

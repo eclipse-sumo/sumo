@@ -936,7 +936,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myBackButton->hide();
 
     // Create Overlapped Inspection modul
-    myOverlappedInspection = new GNEM_OverlappedInspection(this);
+    myOverlappedInspection = new GNEOverlappedInspection(this);
 
     // Create Attributes Editor modul
     myAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
@@ -956,8 +956,8 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // Create Template editor modul
     myTemplateEditor = new TemplateEditor(this);
 
-    // Create GNEM_HierarchicalElementTree modul
-    myHierarchicalElementTree = new GNEM_HierarchicalElementTree(this);
+    // Create GNEElementTree modul
+    myHierarchicalElementTree = new GNEElementTree(this);
 }
 
 
@@ -995,7 +995,7 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
                 }
             }
         } else {
-            // first check if we clicked over a GNEM_OverlappedInspection point
+            // first check if we clicked over a GNEOverlappedInspection point
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
@@ -1031,7 +1031,7 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
                 }
             }
         } else {
-            // first check if we clicked over a GNEM_OverlappedInspection point
+            // first check if we clicked over a GNEOverlappedInspection point
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
@@ -1067,7 +1067,7 @@ GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GN
                 }
             }
         } else {
-            // first check if we clicked over a GNEM_OverlappedInspection point
+            // first check if we clicked over a GNEOverlappedInspection point
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
@@ -1251,13 +1251,13 @@ GNEInspectorFrame::getTemplateEditor() const {
 }
 
 
-GNEM_OverlappedInspection*
+GNEOverlappedInspection*
 GNEInspectorFrame::getOverlappedInspection() const {
     return myOverlappedInspection;
 }
 
 
-GNEM_HierarchicalElementTree*
+GNEElementTree*
 GNEInspectorFrame::getHierarchicalElementTree() const {
     return myHierarchicalElementTree;
 }

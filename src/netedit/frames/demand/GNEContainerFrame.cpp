@@ -40,7 +40,7 @@ GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, G
     myContainerBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector modul for containers
-    myContainerTagSelector = new GNEM_TagSelector(this, GNETagProperties::TagType::CONTAINER, SUMO_TAG_CONTAINER);
+    myContainerTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINER, SUMO_TAG_CONTAINER);
 
     // create container types selector modul and set DEFAULT_CONTAINERTYPE_ID as default element
     myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_CONTAINERTYPE_ID));
@@ -49,7 +49,7 @@ GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, G
     myContainerAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create tag Selector modul for container plans
-    myContainerPlanTagSelector = new GNEM_TagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
+    myContainerPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
 
     // create container plan attributes
     myContainerPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
@@ -57,8 +57,8 @@ GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, G
     // Create Netedit parameter
     myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
-    // create GNEM_PathCreator Module
-    myPathCreator = new GNEM_PathCreator(this);
+    // create GNEPathCreator Module
+    myPathCreator = new GNEPathCreator(this);
 
     // limit path creator to pedestrians
     myPathCreator->setVClass(SVC_PEDESTRIAN);
@@ -135,7 +135,7 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ObjectsUnderCursor& obje
 }
 
 
-GNEM_PathCreator*
+GNEPathCreator*
 GNEContainerFrame::getPathCreator() const {
     return myPathCreator;
 }

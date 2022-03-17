@@ -116,7 +116,7 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myStopParentSelector = new DemandElementSelector(this, {GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
 
     // Create item Selector modul for Stops
-    myStopTagSelector = new GNEM_TagSelector(this, GNETagProperties::TagType::STOP, SUMO_TAG_STOP_LANE);
+    myStopTagSelector = new GNETagSelector(this, GNETagProperties::TagType::STOP, SUMO_TAG_STOP_LANE);
 
     // Create Stop parameters
     myStopAttributes = new GNEFrameAttributeModules::AttributesCreator(this);

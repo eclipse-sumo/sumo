@@ -35,24 +35,24 @@ class GNEDataInterval;
 // class definitions
 // ===========================================================================
 
-class GNEM_HierarchicalElementTree : public FXGroupBoxModule {
+class GNEElementTree : public FXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(GNEM_HierarchicalElementTree)
+    FXDECLARE(GNEElementTree)
 
 public:
     /// @brief constructor
-    GNEM_HierarchicalElementTree(GNEFrame* frameParent);
+    GNEElementTree(GNEFrame* frameParent);
 
     /// @brief destructor
-    ~GNEM_HierarchicalElementTree();
+    ~GNEElementTree();
 
-    /// @brief show GNEM_HierarchicalElementTree
+    /// @brief show GNEElementTree
     void showHierarchicalElementTree(GNEAttributeCarrier* AC);
 
-    /// @brief hide GNEM_HierarchicalElementTree
+    /// @brief hide GNEElementTree
     void hideHierarchicalElementTree();
 
-    /// @brief refresh GNEM_HierarchicalElementTree
+    /// @brief refresh GNEElementTree
     void refreshHierarchicalElementTree();
 
     /// @brief if given AttributeCarrier is the same of myHE, set it as nullptr
@@ -80,7 +80,7 @@ public:
     /// @}
 
 protected:
-    FOX_CONSTRUCTOR(GNEM_HierarchicalElementTree)
+    FOX_CONSTRUCTOR(GNEElementTree)
 
     // @brief create pop-up menu in the positions X-Y for the clicked attribute carrier
     void createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC);

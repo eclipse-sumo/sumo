@@ -31,24 +31,24 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEM_OverlappedInspection) OverlappedInspectionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_NEXT,            GNEM_OverlappedInspection::onCmdNextElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_PREVIOUS,        GNEM_OverlappedInspection::onCmdPreviousElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_SHOWLIST,        GNEM_OverlappedInspection::onCmdShowList),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_ITEMSELECTED,    GNEM_OverlappedInspection::onCmdListItemSelected),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                           GNEM_OverlappedInspection::onCmdOverlappingHelp)
+FXDEFMAP(GNEOverlappedInspection) OverlappedInspectionMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_NEXT,            GNEOverlappedInspection::onCmdNextElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_PREVIOUS,        GNEOverlappedInspection::onCmdPreviousElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_SHOWLIST,        GNEOverlappedInspection::onCmdShowList),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_ITEMSELECTED,    GNEOverlappedInspection::onCmdListItemSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                           GNEOverlappedInspection::onCmdOverlappingHelp)
 };
 
 
 // Object implementation
-FXIMPLEMENT(GNEM_OverlappedInspection,       FXGroupBoxModule,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
+FXIMPLEMENT(GNEOverlappedInspection,       FXGroupBoxModule,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEM_OverlappedInspection::GNEM_OverlappedInspection(GNEFrame* frameParent) :
+GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Overlapped elements"),
     myFrameParent(frameParent),
     myFilteredTag(SUMO_TAG_NOTHING),
@@ -58,7 +58,7 @@ GNEM_OverlappedInspection::GNEM_OverlappedInspection(GNEFrame* frameParent) :
 }
 
 
-GNEM_OverlappedInspection::GNEM_OverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag) :
+GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag) :
     FXGroupBoxModule(frameParent->getContentFrame(), ("Overlapped " + toString(filteredTag) + "s").c_str()),
     myFrameParent(frameParent),
     myFilteredTag(filteredTag),
@@ -68,11 +68,11 @@ GNEM_OverlappedInspection::GNEM_OverlappedInspection(GNEFrame* frameParent, cons
 }
 
 
-GNEM_OverlappedInspection::~GNEM_OverlappedInspection() {}
+GNEOverlappedInspection::~GNEOverlappedInspection() {}
 
 
 void
-GNEM_OverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
+GNEOverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
     // first clear myOverlappedACs
     myOverlappedACs.clear();
     // reserve
@@ -114,44 +114,44 @@ GNEM_OverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::Obje
         myOverlappedElementList->getItem(0)->setSelected(TRUE);
         // by default list hidden
         myOverlappedElementList->hide();
-        // show GNEM_OverlappedInspection modul
+        // show GNEOverlappedInspection modul
         show();
     } else {
-        // hide GNEM_OverlappedInspection modul
+        // hide GNEOverlappedInspection modul
         hide();
     }
 }
 
 
 void
-GNEM_OverlappedInspection::hideOverlappedInspection() {
-    // hide GNEM_OverlappedInspection modul
+GNEOverlappedInspection::hideOverlappedInspection() {
+    // hide GNEOverlappedInspection modul
     hide();
 }
 
 
 bool
-GNEM_OverlappedInspection::overlappedInspectionShown() const {
-    // show GNEM_OverlappedInspection modul
+GNEOverlappedInspection::overlappedInspectionShown() const {
+    // show GNEOverlappedInspection modul
     return shown();
 }
 
 
 int
-GNEM_OverlappedInspection::getNumberOfOverlappedACs() const {
+GNEOverlappedInspection::getNumberOfOverlappedACs() const {
     return (int)myOverlappedACs.size();
 }
 
 
 bool
-GNEM_OverlappedInspection::checkSavedPosition(const Position& clickedPosition) const {
+GNEOverlappedInspection::checkSavedPosition(const Position& clickedPosition) const {
     return (mySavedClickedPosition.distanceSquaredTo2D(clickedPosition) < 0.25);
 }
 
 
 bool
-GNEM_OverlappedInspection::nextElement(const Position& clickedPosition) {
-    // first check if GNEM_OverlappedInspection is shown
+GNEOverlappedInspection::nextElement(const Position& clickedPosition) {
+    // first check if GNEOverlappedInspection is shown
     if (shown()) {
         // check if given position is near saved position
         if (checkSavedPosition(clickedPosition)) {
@@ -168,8 +168,8 @@ GNEM_OverlappedInspection::nextElement(const Position& clickedPosition) {
 
 
 bool
-GNEM_OverlappedInspection::previousElement(const Position& clickedPosition) {
-    // first check if GNEM_OverlappedInspection is shown
+GNEOverlappedInspection::previousElement(const Position& clickedPosition) {
+    // first check if GNEOverlappedInspection is shown
     if (shown()) {
         // check if given position is near saved position
         if (checkSavedPosition(clickedPosition)) {
@@ -186,7 +186,7 @@ GNEM_OverlappedInspection::previousElement(const Position& clickedPosition) {
 
 
 long
-GNEM_OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
+GNEOverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
     // check if there is items
     if (myOverlappedElementList->getNumItems() > 0) {
         // unselect current list element
@@ -204,7 +204,7 @@ GNEM_OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
         myCurrentIndexButton->setText((toString(myItemIndex + 1) + " / " + toString(myOverlappedACs.size())).c_str());
         // inspect overlapped attribute carrier
         myFrameParent->selectedOverlappedElement(myOverlappedACs.at(myItemIndex));
-        // show GNEM_OverlappedInspection again (because it's hidden in inspectSingleElement)
+        // show GNEOverlappedInspection again (because it's hidden in inspectSingleElement)
         show();
     }
     return 1;
@@ -212,7 +212,7 @@ GNEM_OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
 
 
 long
-GNEM_OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
+GNEOverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
     // check if there is items
     if (myOverlappedElementList->getNumItems() > 0) {
         // unselect current list element
@@ -226,7 +226,7 @@ GNEM_OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
         myCurrentIndexButton->setText((toString(myItemIndex + 1) + " / " + toString(myOverlappedACs.size())).c_str());
         // inspect overlapped attribute carrier
         myFrameParent->selectedOverlappedElement(myOverlappedACs.at(myItemIndex));
-        // show GNEM_OverlappedInspection again (because it's hidden in inspectSingleElement)
+        // show GNEOverlappedInspection again (because it's hidden in inspectSingleElement)
         show();
     }
     return 1;
@@ -234,7 +234,7 @@ GNEM_OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
 
 
 long
-GNEM_OverlappedInspection::onCmdShowList(FXObject*, FXSelector, void*) {
+GNEOverlappedInspection::onCmdShowList(FXObject*, FXSelector, void*) {
     // show or hidde element list
     if (myOverlappedElementList->shown()) {
         myOverlappedElementList->hide();
@@ -253,7 +253,7 @@ GNEM_OverlappedInspection::onCmdShowList(FXObject*, FXSelector, void*) {
 }
 
 long
-GNEM_OverlappedInspection::onCmdListItemSelected(FXObject*, FXSelector, void*) {
+GNEOverlappedInspection::onCmdListItemSelected(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myOverlappedElementList->getNumItems(); i++) {
         if (myOverlappedElementList->getItem(i)->isSelected()) {
             myItemIndex = i;
@@ -261,7 +261,7 @@ GNEM_OverlappedInspection::onCmdListItemSelected(FXObject*, FXSelector, void*) {
             myCurrentIndexButton->setText((toString(myItemIndex + 1) + " / " + toString(myOverlappedACs.size())).c_str());
             // inspect overlapped attribute carrier
             myFrameParent->selectedOverlappedElement(myOverlappedACs.at(myItemIndex));
-            // show GNEM_OverlappedInspection again (because it's hidden in inspectSingleElement)
+            // show GNEOverlappedInspection again (because it's hidden in inspectSingleElement)
             show();
             return 1;
         }
@@ -271,7 +271,7 @@ GNEM_OverlappedInspection::onCmdListItemSelected(FXObject*, FXSelector, void*) {
 
 
 long
-GNEM_OverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
+GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
     FXDialogBox* helpDialog = new FXDialogBox(getCollapsableFrame(), "GEO attributes Help", GUIDesignDialogBox);
     std::ostringstream help;
     help
@@ -289,7 +289,7 @@ GNEM_OverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
 }
 
 
-GNEM_OverlappedInspection::GNEM_OverlappedInspection() :
+GNEOverlappedInspection::GNEOverlappedInspection() :
     myFrameParent(nullptr),
     myPreviousElement(nullptr),
     myCurrentIndexButton(nullptr),
@@ -302,7 +302,7 @@ GNEM_OverlappedInspection::GNEM_OverlappedInspection() :
 
 
 void
-GNEM_OverlappedInspection::buildFXElements() {
+GNEOverlappedInspection::buildFXElements() {
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create previous Item Button
     myPreviousElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_OVERLAPPED_PREVIOUS, GUIDesignButtonIconRectangular);

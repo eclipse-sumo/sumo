@@ -117,7 +117,7 @@ public:
     static std::string getIdsSelected(const FXList* list);
 
     /// @brief get drawing mode editor
-    GNEM_DrawingShape* getDrawingShapeModule() const;
+    GNEDrawingShape* getDrawingShapeModule() const;
 
 protected:
     /// @brief SumoBaseObject used for create shape
@@ -132,7 +132,7 @@ protected:
      */
     bool shapeDrawed();
 
-    /// @brief Tag selected in GNEM_TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
     /// @brief add shape (using base shape)
@@ -140,7 +140,7 @@ protected:
 
 private:
     /// @brief shape tag selector
-    GNEM_TagSelector* myShapeTagSelector;
+    GNETagSelector* myShapeTagSelector;
 
     /// @brief shape internal attributes
     GNEFrameAttributeModules::AttributesCreator* myShapeAttributes;
@@ -149,7 +149,7 @@ private:
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Drawing shape
-    GNEM_DrawingShape* myDrawingShape;
+    GNEDrawingShape* myDrawingShape;
 
     /// @brief GEOPOICreator
     GEOPOICreator* myGEOPOICreator;

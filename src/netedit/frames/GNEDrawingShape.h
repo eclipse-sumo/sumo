@@ -33,16 +33,16 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNEM_DrawingShape : public FXGroupBoxModule {
+class GNEDrawingShape : public FXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(GNEM_DrawingShape)
+    FXDECLARE(GNEDrawingShape)
 
 public:
     /// @brief constructor
-    GNEM_DrawingShape(GNEFrame* frameParent);
+    GNEDrawingShape(GNEFrame* frameParent);
 
     /// @brief destructor
-    ~GNEM_DrawingShape();
+    ~GNEDrawingShape();
 
     /// @brief show Drawing mode
     void showDrawingShape();
@@ -90,7 +90,7 @@ public:
     /// @}
 
 protected:
-    FOX_CONSTRUCTOR(GNEM_DrawingShape)
+    FOX_CONSTRUCTOR(GNEDrawingShape)
 
 private:
     /// @brief pointer to frame parent

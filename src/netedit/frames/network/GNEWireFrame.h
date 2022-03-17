@@ -55,7 +55,7 @@ public:
     bool addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get consecutive lane selector
-    GNEM_ConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
+    GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
 
     /// @brief create path
     void createPath();
@@ -64,7 +64,7 @@ protected:
     /// @brief SumoBaseObject used for create wire
     CommonXMLStructure::SumoBaseObject* myBaseWire = nullptr;
 
-    /// @brief Tag selected in GNEM_TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
 private:
@@ -75,7 +75,7 @@ private:
     bool buildWireOverView(const GNETagProperties& tagValues);
 
     /// @brief item selector
-    GNEM_TagSelector* myWireTagSelector = nullptr;
+    GNETagSelector* myWireTagSelector = nullptr;
 
     /// @brief internal wire attributes
     GNEFrameAttributeModules::AttributesCreator* myWireAttributes = nullptr;
@@ -84,8 +84,8 @@ private:
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes = nullptr;
 
     /// @brief Select wire parent
-    GNEM_SelectorParent* mySelectorWireParent = nullptr;
+    GNESelectorParent* mySelectorWireParent = nullptr;
 
     /// @brief Module for select consecutive lanes
-    GNEM_ConsecutiveLaneSelector* myConsecutiveLaneSelector;
+    GNEConsecutiveSelector* myConsecutiveLaneSelector;
 };

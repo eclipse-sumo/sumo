@@ -60,13 +60,13 @@ public:
     bool addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get path creator modul
-    GNEM_PathCreator* getPathCreator() const;
+    GNEPathCreator* getPathCreator() const;
 
     /// @brief get Person Hierarchy
-    GNEM_HierarchicalElementTree* getPersonHierarchy() const;
+    GNEElementTree* getPersonHierarchy() const;
 
 protected:
-    /// @brief Tag selected in GNEM_TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
     /// @brief selected demand element in DemandElementSelector
@@ -83,14 +83,14 @@ private:
     DemandElementSelector* myPersonSelector;
 
     /// @brief personPlan selector
-    GNEM_TagSelector* myPersonPlanTagSelector;
+    GNETagSelector* myPersonPlanTagSelector;
 
     /// @brief internal vehicle attributes
     GNEFrameAttributeModules::AttributesCreator* myPersonPlanAttributes;
 
     /// @brief Path Creator
-    GNEM_PathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator;
 
     /// @brief Person Hierarchy
-    GNEM_HierarchicalElementTree* myPersonHierarchy;
+    GNEElementTree* myPersonHierarchy;
 };

@@ -80,7 +80,7 @@ public:
     /// @name functions called by moduls that can be reimplemented in frame children (note: reimplement as protected, just for safety)
     /// @{
 
-    /// @brief Tag selected in GNEM_TagSelector
+    /// @brief Tag selected in GNETagSelector
     virtual void tagSelected();
 
     /// @brief selected demand element in DemandElementSelector

@@ -35,7 +35,7 @@ GNEWireFrame::GNEWireFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     GNEFrame(horizontalFrameParent, viewNet, "Wires") {
 
     // create item Selector modul for wires
-    myWireTagSelector = new GNEM_TagSelector(this, GNETagProperties::TagType::WIRE, SUMO_TAG_TRACTION_SUBSTATION);
+    myWireTagSelector = new GNETagSelector(this, GNETagProperties::TagType::WIRE, SUMO_TAG_TRACTION_SUBSTATION);
 
     // Create wire parameters
     myWireAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
@@ -44,10 +44,10 @@ GNEWireFrame::GNEWireFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
     // Create selector parent
-    mySelectorWireParent = new GNEM_SelectorParent(this);
+    mySelectorWireParent = new GNESelectorParent(this);
 
     // Create list for E2Multilane lane selector
-    myConsecutiveLaneSelector = new GNEM_ConsecutiveLaneSelector(this, true);
+    myConsecutiveLaneSelector = new GNEConsecutiveSelector(this, true);
 }
 
 
@@ -101,7 +101,7 @@ GNEWireFrame::addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 }
 
 
-GNEM_ConsecutiveLaneSelector*
+GNEConsecutiveSelector*
 GNEWireFrame::getConsecutiveLaneSelector() const {
     return myConsecutiveLaneSelector;
 }

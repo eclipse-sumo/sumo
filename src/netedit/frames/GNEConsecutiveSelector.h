@@ -27,26 +27,27 @@
 // ===========================================================================
 
 class GNEFrame;
+class GNELane;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEM_ConsecutiveLaneSelector : public FXGroupBoxModule {
+class GNEConsecutiveSelector : public FXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(GNEM_ConsecutiveLaneSelector)
+    FXDECLARE(GNEConsecutiveSelector)
 
 public:
     /// @brief default constructor
-    GNEM_ConsecutiveLaneSelector(GNEFrame* frameParent, const bool allowOneLane);
+    GNEConsecutiveSelector(GNEFrame* frameParent, const bool allowOneLane);
 
     /// @brief destructor
-    ~GNEM_ConsecutiveLaneSelector();
+    ~GNEConsecutiveSelector();
 
-    /// @brief show GNEM_ConsecutiveLaneSelector
+    /// @brief show GNEConsecutiveSelector
     void showConsecutiveLaneSelectorModule();
 
-    /// @brief show GNEM_ConsecutiveLaneSelector
+    /// @brief show GNEConsecutiveSelector
     void hideConsecutiveLaneSelectorModule();
 
     /// @brief get vector with lanes and clicked positions
@@ -90,7 +91,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    GNEM_ConsecutiveLaneSelector();
+    GNEConsecutiveSelector();
 
     /// @brief update InfoRouteLabel
     void updateInfoRouteLabel();
@@ -125,8 +126,8 @@ private:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEM_ConsecutiveLaneSelector(GNEM_ConsecutiveLaneSelector*) = delete;
+    GNEConsecutiveSelector(GNEConsecutiveSelector*) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEM_ConsecutiveLaneSelector& operator=(GNEM_ConsecutiveLaneSelector*) = delete;
+    GNEConsecutiveSelector& operator=(GNEConsecutiveSelector*) = delete;
 };

@@ -42,16 +42,16 @@ GNEContainerPlanFrame::GNEContainerPlanFrame(FXHorizontalFrame* horizontalFrameP
     myContainerSelector = new DemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
 
     // Create tag selector for container plan
-    myContainerPlanTagSelector = new GNEM_TagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
+    myContainerPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
 
     // Create container parameters
     myContainerPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create myPathCreator Module
-    myPathCreator = new GNEM_PathCreator(this);
+    myPathCreator = new GNEPathCreator(this);
 
-    // Create GNEM_HierarchicalElementTree modul
-    myContainerHierarchy = new GNEM_HierarchicalElementTree(this);
+    // Create GNEElementTree modul
+    myContainerHierarchy = new GNEElementTree(this);
 }
 
 
@@ -129,7 +129,7 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUn
 }
 
 
-GNEM_PathCreator*
+GNEPathCreator*
 GNEContainerPlanFrame::getPathCreator() const {
     return myPathCreator;
 }
@@ -206,7 +206,7 @@ GNEContainerPlanFrame::createPath() {
                     myContainerSelector->getCurrentDemandElement(),
                     myContainerPlanAttributes,
                     myPathCreator)) {
-            // refresh GNEM_HierarchicalElementTree
+            // refresh GNEElementTree
             myContainerHierarchy->refreshHierarchicalElementTree();
             // abort path creation
             myPathCreator->abortPathCreation();
