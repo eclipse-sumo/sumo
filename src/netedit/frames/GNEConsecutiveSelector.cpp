@@ -29,7 +29,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "GNEM_ConsecutiveLaneSelector.h"
+#include "GNEConsecutiveSelector.h"
 #include "GNEFrame.h"
 
 

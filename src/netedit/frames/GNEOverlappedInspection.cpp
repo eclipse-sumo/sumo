@@ -24,7 +24,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "GNEM_OverlappedInspection.h"
+#include "GNEOverlappedInspection.h"
 
 
 // ===========================================================================

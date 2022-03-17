@@ -22,7 +22,7 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNEM_PathLegend.h>
+#include <netedit/frames/GNEPathLegend.h>
 
 
 // ===========================================================================

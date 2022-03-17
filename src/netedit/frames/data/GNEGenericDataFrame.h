@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEM_PathCreator.h>
+#include <netedit/frames/GNEPathCreator.h>
 
 
 // ===========================================================================

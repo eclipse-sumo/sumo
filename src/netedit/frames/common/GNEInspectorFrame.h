@@ -22,8 +22,8 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEM_OverlappedInspection.h>
-#include <netedit/frames/GNEM_HierarchicalElementTree.h>
+#include <netedit/frames/GNEOverlappedInspection.h>
+#include <netedit/frames/GNEElementTree.h>
 
 // ===========================================================================
 // class declaration

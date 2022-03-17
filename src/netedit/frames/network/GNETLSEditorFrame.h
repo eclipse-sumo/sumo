@@ -22,7 +22,7 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netbuild/NBTrafficLightLogic.h>
-#include <netedit/frames/GNEM_OverlappedInspection.h>
+#include <netedit/frames/GNEOverlappedInspection.h>
 
 
 // ===========================================================================

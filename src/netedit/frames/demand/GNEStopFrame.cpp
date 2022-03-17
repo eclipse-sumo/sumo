@@ -22,8 +22,8 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <netedit/frames/GNEM_DemandElementSelector.h>
-#include <netedit/frames/GNEM_TagSelector.h>
+#include <netedit/frames/GNEDemandSelector.h>
+#include <netedit/frames/GNETagSelector.h>
 
 #include "GNEStopFrame.h"
 

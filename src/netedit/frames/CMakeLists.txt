@@ -8,26 +8,26 @@ set(netedit_frames_SRCS
    GNEFrame.cpp
    GNEFrameAttributeModules.h
    GNEFrameAttributeModules.cpp
-   GNEM_ConsecutiveLaneSelector.cpp
-   GNEM_ConsecutiveLaneSelector.h
-   GNEM_DemandElementSelector.cpp
-   GNEM_DemandElementSelector.h
-   GNEM_DrawingShape.cpp
-   GNEM_DrawingShape.h
-   GNEM_HierarchicalElementTree.cpp
-   GNEM_HierarchicalElementTree.h
-   GNEM_NetworkElementSelector.cpp
-   GNEM_NetworkElementSelector.h
-   GNEM_OverlappedInspection.cpp
-   GNEM_OverlappedInspection.h
-   GNEM_PathCreator.cpp
-   GNEM_PathCreator.h
-   GNEM_PathLegend.cpp
-   GNEM_PathLegend.h
-   GNEM_SelectorParent.cpp
-   GNEM_SelectorParent.h
-   GNEM_TagSelector.cpp
-   GNEM_TagSelector.h
+   GNEConsecutiveSelector.cpp
+   GNEConsecutiveSelector.h
+   GNEDemandSelector.cpp
+   GNEDemandSelector.h
+   GNEDrawingShape.cpp
+   GNEDrawingShape.h
+   GNEElementTree.cpp
+   GNEElementTree.h
+   GNENetworkSelector.cpp
+   GNENetworkSelector.h
+   GNEOverlappedInspection.cpp
+   GNEOverlappedInspection.h
+   GNEPathCreator.cpp
+   GNEPathCreator.h
+   GNEPathLegend.cpp
+   GNEPathLegend.h
+   GNESelectorParent.cpp
+   GNESelectorParent.h
+   GNETagSelector.cpp
+   GNETagSelector.h
    )
 
 add_library(netedit_frames STATIC ${netedit_frames_SRCS})

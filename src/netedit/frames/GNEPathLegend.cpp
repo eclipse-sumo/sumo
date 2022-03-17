@@ -23,7 +23,7 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 
-#include "GNEM_PathLegend.h"
+#include "GNEPathLegend.h"
 
 
 // ===========================================================================

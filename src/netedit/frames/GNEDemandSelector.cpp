@@ -25,7 +25,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "GNEM_DemandElementSelector.h"
+#include "GNEDemandSelector.h"
 
 
 // ===========================================================================

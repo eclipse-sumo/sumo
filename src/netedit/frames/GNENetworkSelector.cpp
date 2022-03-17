@@ -24,7 +24,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "GNEM_NetworkElementSelector.h"
+#include "GNENetworkSelector.h"
 #include "GNEFrame.h"
 
 

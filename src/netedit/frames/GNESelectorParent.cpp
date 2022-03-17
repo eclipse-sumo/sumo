@@ -25,7 +25,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "GNEM_SelectorParent.h"
+#include "GNESelectorParent.h"
 
 
 // ===========================================================================

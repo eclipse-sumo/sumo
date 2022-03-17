@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEM_DrawingShape.h>
+#include <netedit/frames/GNEDrawingShape.h>
 
 
 // ===========================================================================

@@ -21,9 +21,9 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEM_ConsecutiveLaneSelector.h>
-#include <netedit/frames/GNEM_SelectorParent.h>
-#include <netedit/frames/GNEM_TagSelector.h>
+#include <netedit/frames/GNEConsecutiveSelector.h>
+#include <netedit/frames/GNESelectorParent.h>
+#include <netedit/frames/GNETagSelector.h>
 
 
 // ===========================================================================

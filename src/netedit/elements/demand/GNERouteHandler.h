@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrameAttributeModules.h>
-#include <netedit/frames/GNEM_PathCreator.h>
+#include <netedit/frames/GNEPathCreator.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 #include <utils/xml/SUMOSAXAttributes.h>
