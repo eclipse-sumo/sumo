@@ -111,3 +111,6 @@ slalom_queue
 # stopped vehicles on both sides of the road and traffic from both directions,
 # traffic must be anticipated beyond junctions
 slalom_junction
+
+# stopped vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
+slalom_deadlock
