@@ -219,7 +219,7 @@ GNEShapeFrame::GNEShapeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     myShapeTagSelector = new GNETagSelector(this, GNETagProperties::TagType::SHAPE, SUMO_TAG_POLY);
 
     // Create shape parameters
-    myShapeAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
+    myShapeAttributes = new AttributesCreator(this);
 
     // Create Netedit parameter
     myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);

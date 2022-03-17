@@ -38,7 +38,7 @@ GNEWireFrame::GNEWireFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myWireTagSelector = new GNETagSelector(this, GNETagProperties::TagType::WIRE, SUMO_TAG_TRACTION_SUBSTATION);
 
     // Create wire parameters
-    myWireAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
+    myWireAttributes = new AttributesCreator(this);
 
     // Create Netedit parameter
     myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);

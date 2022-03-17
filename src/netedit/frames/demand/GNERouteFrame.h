@@ -151,7 +151,7 @@ private:
     RouteModeSelector* myRouteModeSelector;
 
     /// @brief internal route attributes
-    GNEFrameAttributeModules::AttributesCreator* myRouteAttributes;
+    AttributesCreator* myRouteAttributes;
 
     /// @brief path creator modul
     GNEPathCreator* myPathCreator;

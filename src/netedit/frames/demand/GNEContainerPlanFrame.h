@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEElementTree.h>
@@ -81,7 +82,7 @@ private:
     GNETagSelector* myContainerPlanTagSelector;
 
     /// @brief internal vehicle attributes
-    GNEFrameAttributeModules::AttributesCreator* myContainerPlanAttributes;
+    AttributesCreator* myContainerPlanAttributes;
 
     /// @brief Path Creator
     GNEPathCreator* myPathCreator;

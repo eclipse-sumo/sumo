@@ -1030,7 +1030,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 
 bool
-GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEFrameAttributeModules::AttributesCreator* personPlanAttributes,
+GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, AttributesCreator* personPlanAttributes,
                                  GNEPathCreator* pathCreator, const bool centerAfterCreation) {
     // clear and set person object
     myPlanObject->clear();
@@ -1225,7 +1225,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
 
 
 bool
-GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEFrameAttributeModules::AttributesCreator* containerPlanAttributes, GNEPathCreator* pathCreator) {
+GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, AttributesCreator* containerPlanAttributes, GNEPathCreator* pathCreator) {
     // clear and set planObject
     myPlanObject->clear();
     myPlanObject->setTag(containerParent->getTagProperty().getTag());

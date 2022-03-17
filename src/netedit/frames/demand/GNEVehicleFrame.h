@@ -22,6 +22,7 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEDemandSelector.h>
 
@@ -118,7 +119,7 @@ private:
     DemandElementSelector* myTypeSelector;
 
     /// @brief internal vehicle attributes
-    GNEFrameAttributeModules::AttributesCreator* myVehicleAttributes;
+    AttributesCreator* myVehicleAttributes;
 
     /// @brief edge path creator (used for trips and flows)
     GNEPathCreator* myPathCreator;

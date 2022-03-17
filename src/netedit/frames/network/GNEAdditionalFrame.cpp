@@ -38,7 +38,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myAdditionalTagSelector = new GNETagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);
 
     // Create additional parameters
-    myAdditionalAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
+    myAdditionalAttributes = new AttributesCreator(this);
 
     // Create Netedit parameter
     myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);

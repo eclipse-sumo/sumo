@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEAttributesCreator.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
 
@@ -113,7 +114,7 @@ private:
     GNETagSelector* myStopTagSelector;
 
     /// @brief internal Stop attributes
-    GNEFrameAttributeModules::AttributesCreator* myStopAttributes;
+    AttributesCreator* myStopAttributes;
 
     /// @brief Netedit parameter
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;

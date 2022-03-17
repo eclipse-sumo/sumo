@@ -119,7 +119,7 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myStopTagSelector = new GNETagSelector(this, GNETagProperties::TagType::STOP, SUMO_TAG_STOP_LANE);
 
     // Create Stop parameters
-    myStopAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
+    myStopAttributes = new AttributesCreator(this);
 
     // Create Netedit parameter
     myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);

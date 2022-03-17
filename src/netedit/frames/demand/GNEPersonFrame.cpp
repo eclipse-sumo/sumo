@@ -47,13 +47,13 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_PEDTYPE_ID));
 
     // create person attributes
-    myPersonAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
+    myPersonAttributes = new AttributesCreator(this);
 
     // create tag Selector modul for person plans
     myPersonPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
 
     // create person plan attributes
-    myPersonPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
+    myPersonPlanAttributes = new AttributesCreator(this);
 
     // Create Netedit parameter
     myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);

@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEDrawingShape.h>
 
@@ -143,7 +144,7 @@ private:
     GNETagSelector* myShapeTagSelector;
 
     /// @brief shape internal attributes
-    GNEFrameAttributeModules::AttributesCreator* myShapeAttributes;
+    AttributesCreator* myShapeAttributes;
 
     /// @brief Netedit parameter
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
