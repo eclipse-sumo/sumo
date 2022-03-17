@@ -142,16 +142,16 @@ In this example, all cars will be mapped to slower cars (type 'car' to 'car2') a
 
 # Building a scenario without knowledge of routes, based on flow measurements
 
+!!! note
+    A simpler and more robust approach is provided by the [routeSampler](../Tools/Turns.md#routesamplerpy) tool.
+
 Due to their ability of adapting higher as as well as lower flows to a
 specified value, calibrators may be used to adapt (almost) arbitrary
 traffic demand to a given set of measurements. One strategy for building
 a scenario from measurements is therefore, to [generated random
 traffic](../Tools/Trip.md#randomtripspy) and use Calibrators in
 conjunction with [route probe
-detectors](../Simulation/Output/RouteProbe.md). While this can in
-principle be done with [dfrouter](../dfrouter.md) as well, the
-method described here is more robust for highly meshed networks as found
-in cities.
+detectors](../Simulation/Output/RouteProbe.md).
 
 Each edge where measurements are given should receive a calibrator and a
 route probe detector. As soon as the first vehicle has passed the route
