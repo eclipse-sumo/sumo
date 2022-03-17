@@ -13,40 +13,35 @@
 /****************************************************************************/
 /// @file    GNEFrameAttributeModules.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2019
+/// @date    Mar 2022
 ///
-// Auxiliar class for GNEFrame Modules (only for attributes edition)
+// Row used in AttributesCreator
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEAttributeCarrier.h>
-#include <netedit/GNEViewNetHelper.h>
-#include <utils/common/Parameterised.h>
 #include <utils/foxtools/FXGroupBoxModule.h>
-#include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
 class GNEFrame;
-class AttributesCreator;
+class GNEAttributesCreator;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-
-class AttributesCreatorRow : public FXHorizontalFrame {
+class GNEAttributesCreatorRow : public FXHorizontalFrame {
     /// @brief FOX-declaration
-    FXDECLARE(AttributesCreatorRow)
+    FXDECLARE(GNEAttributesCreatorRow)
 
 public:
     /// @brief constructor
-    AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeProperties& attrProperties);
+    GNEAttributesCreatorRow(GNEAttributesCreator* AttributesCreatorParent, const GNEAttributeProperties& attrProperties);
 
-    /// @brief destroy AttributesCreatorRow (but don't delete)
+    /// @brief destroy GNEAttributesCreatorRow (but don't delete)
     void destroy();
 
     /// @brief return Attr
@@ -79,8 +74,8 @@ public:
     /// @brief check if current attribute is valid
     bool isAttributeValid() const;
 
-    /// @brief get AttributesCreator parent
-    AttributesCreator* getAttributesCreatorParent() const;
+    /// @brief get GNEAttributesCreator parent
+    GNEAttributesCreator* getAttributesCreatorParent() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -92,7 +87,7 @@ public:
     /// @}
 
 protected:
-    FOX_CONSTRUCTOR(AttributesCreatorRow)
+    FOX_CONSTRUCTOR(GNEAttributesCreatorRow)
 
     /// @brief generate ID
     std::string generateID() const;
@@ -101,8 +96,8 @@ protected:
     bool isValidID() const;
 
 private:
-    /// @brief pointer to AttributesCreator
-    AttributesCreator* myAttributesCreatorParent = nullptr;
+    /// @brief pointer to GNEAttributesCreator
+    GNEAttributesCreator* myAttributesCreatorParent = nullptr;
 
     /// @brief attribute properties
     const GNEAttributeProperties myAttrProperties;

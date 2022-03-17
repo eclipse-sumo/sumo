@@ -119,7 +119,7 @@ private:
     DemandElementSelector* myTypeSelector;
 
     /// @brief internal vehicle attributes
-    AttributesCreator* myVehicleAttributes;
+    GNEAttributesCreator* myVehicleAttributes;
 
     /// @brief edge path creator (used for trips and flows)
     GNEPathCreator* myPathCreator;

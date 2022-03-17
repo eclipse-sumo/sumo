@@ -251,13 +251,13 @@ public:
     EdgeTypeSelector* getEdgeTypeSelector() const;
 
     /// @brief get edgeType attributes
-    AttributesCreator* getEdgeTypeAttributes() const;
+    GNEAttributesCreator* getEdgeTypeAttributes() const;
 
     /// @brief get lane type selector
     LaneTypeSelector* getLaneTypeSelector();
 
     /// @brief get laneType attributes
-    AttributesCreator* getLaneTypeAttributes() const;
+    GNEAttributesCreator* getLaneTypeAttributes() const;
 
     /// @brief set default to using edge template
     void setUseEdgeTemplate();
@@ -267,13 +267,13 @@ protected:
     EdgeTypeSelector* myEdgeTypeSelector = nullptr;
 
     /// @brief internal edgeType attributes
-    AttributesCreator* myEdgeTypeAttributes = nullptr;
+    GNEAttributesCreator* myEdgeTypeAttributes = nullptr;
 
     /// @brief lane type selector
     GNECreateEdgeFrame::LaneTypeSelector* myLaneTypeSelector = nullptr;
 
     /// @brief internal laneType attributes
-    AttributesCreator* myLaneTypeAttributes = nullptr;
+    GNEAttributesCreator* myLaneTypeAttributes = nullptr;
 
     /// @brief Legend
     GNECreateEdgeFrame::Legend* myLegend = nullptr;

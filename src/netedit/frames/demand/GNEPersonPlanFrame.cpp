@@ -44,7 +44,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     myPersonPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
 
     // Create person parameters
-    myPersonPlanAttributes = new AttributesCreator(this);
+    myPersonPlanAttributes = new GNEAttributesCreator(this);
 
     // create myPathCreator Module
     myPathCreator = new GNEPathCreator(this);

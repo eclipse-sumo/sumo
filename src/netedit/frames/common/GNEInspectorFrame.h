@@ -422,7 +422,7 @@ public:
     /// @brief function called after undo/redo in the current frame (can be reimplemented in frame children)
     void updateFrameAfterUndoRedo();
 
-    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
+    /// @brief open GNEAttributesCreator extended dialog (can be reimplemented in frame children)
     void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
 protected:

@@ -618,7 +618,7 @@ GNEFrameAttributeModules::AttributesEditor::AttributesEditor(GNEFrame* FramePare
     // resize myAttributesEditorRows
     myAttributesEditorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // create myAttributesFlowEditor
-    myAttributesEditorFlow = new FlowEditor(FrameParent->getViewNet(), FrameParent->getContentFrame());
+    myAttributesEditorFlow = new GNEFlowEditor(FrameParent->getViewNet(), FrameParent->getContentFrame());
     // leave it hidden
     myAttributesEditorFlow->hideFlowEditor();
     // Create help button
@@ -848,7 +848,7 @@ GNEFrameAttributeModules::AttributesEditorExtended::hideAttributesEditorExtended
 
 long
 GNEFrameAttributeModules::AttributesEditorExtended::onCmdOpenDialog(FXObject*, FXSelector, void*) {
-    // open AttributesCreator extended dialog
+    // open GNEAttributesCreator extended dialog
     myFrameParent->attributesEditorExtendedDialogOpened();
     return 1;
 }

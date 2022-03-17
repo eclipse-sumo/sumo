@@ -144,7 +144,7 @@ private:
     GNETagSelector* myShapeTagSelector;
 
     /// @brief shape internal attributes
-    AttributesCreator* myShapeAttributes;
+    GNEAttributesCreator* myShapeAttributes;
 
     /// @brief Netedit parameter
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;

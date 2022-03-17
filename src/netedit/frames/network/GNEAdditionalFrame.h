@@ -95,7 +95,7 @@ private:
     GNETagSelector* myAdditionalTagSelector;
 
     /// @brief internal additional attributes
-    AttributesCreator* myAdditionalAttributes;
+    GNEAttributesCreator* myAdditionalAttributes;
 
     /// @brief Netedit parameter
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;

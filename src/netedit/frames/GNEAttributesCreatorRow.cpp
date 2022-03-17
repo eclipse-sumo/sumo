@@ -13,9 +13,9 @@
 /****************************************************************************/
 /// @file    GNEFrameAttributeModules.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2019
+/// @date    Mar 2022
 ///
-// Auxiliar class for GNEFrame Modules (only for attributes edition)
+// Row used in AttributesCreator
 /****************************************************************************/
 #include <config.h>
 
@@ -27,6 +27,10 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/GNEViewNetHelper.h>
+#include <utils/common/Parameterised.h>
+#include <utils/xml/CommonXMLStructure.h>
 
 #include "GNEAttributesCreatorRow.h"
 #include "GNEAttributesCreator.h"
@@ -36,20 +40,20 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(AttributesCreatorRow) RowCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          AttributesCreatorRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   AttributesCreatorRow::onCmdOpenAttributeDialog),
+FXDEFMAP(GNEAttributesCreatorRow) RowCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEAttributesCreatorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEAttributesCreatorRow::onCmdOpenAttributeDialog),
 };
 
 // Object implementation
-FXIMPLEMENT(AttributesCreatorRow,         FXHorizontalFrame,      RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
+FXIMPLEMENT(GNEAttributesCreatorRow,         FXHorizontalFrame,      RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeProperties& attrProperties) :
+GNEAttributesCreatorRow::GNEAttributesCreatorRow(GNEAttributesCreator* AttributesCreatorParent, const GNEAttributeProperties& attrProperties) :
     FXHorizontalFrame(AttributesCreatorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myAttributesCreatorParent(AttributesCreatorParent),
     myAttrProperties(attrProperties) {
@@ -69,18 +73,18 @@ AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorP
     myValueComboBox->hide();
     // only create if parent was created
     if (getParent()->id()) {
-        // create AttributesCreatorRow
+        // create GNEAttributesCreatorRow
         FXHorizontalFrame::create();
         // refresh row
         refreshRow();
-        // show AttributesCreatorRow
+        // show GNEAttributesCreatorRow
         show();
     }
 }
 
 
 void
-AttributesCreatorRow::destroy() {
+GNEAttributesCreatorRow::destroy() {
     // only destroy if parent was created
     if (getParent()->id()) {
         FXHorizontalFrame::destroy();
@@ -89,13 +93,13 @@ AttributesCreatorRow::destroy() {
 
 
 const GNEAttributeProperties&
-AttributesCreatorRow::getAttrProperties() const {
+GNEAttributesCreatorRow::getAttrProperties() const {
     return myAttrProperties;
 }
 
 
 std::string
-AttributesCreatorRow::getValue() const {
+GNEAttributesCreatorRow::getValue() const {
     if (myAttrProperties.isBool()) {
         return (myValueCheckButton->getCheck() == 1) ? "1" : "0";
     } else if (myAttrProperties.isDiscrete()) {
@@ -107,7 +111,7 @@ AttributesCreatorRow::getValue() const {
 
 
 bool
-AttributesCreatorRow::getAttributeCheckButtonCheck() const {
+GNEAttributesCreatorRow::getAttributeCheckButtonCheck() const {
     if (shown()) {
         return myEnableAttributeCheckButton->getCheck() == TRUE;
     } else {
@@ -117,7 +121,7 @@ AttributesCreatorRow::getAttributeCheckButtonCheck() const {
 
 
 void
-AttributesCreatorRow::setAttributeCheckButtonCheck(bool value) {
+GNEAttributesCreatorRow::setAttributeCheckButtonCheck(bool value) {
     if (shown()) {
         // set radio button
         myEnableAttributeCheckButton->setCheck(value);
@@ -144,7 +148,7 @@ AttributesCreatorRow::setAttributeCheckButtonCheck(bool value) {
 
 
 void
-AttributesCreatorRow::enableAttributesCreatorRow() {
+GNEAttributesCreatorRow::enableAttributesCreatorRow() {
     if (myAttrProperties.isBool()) {
         return myValueCheckButton->enable();
     } else if (myAttrProperties.isDiscrete()) {
@@ -156,7 +160,7 @@ AttributesCreatorRow::enableAttributesCreatorRow() {
 
 
 void
-AttributesCreatorRow::disableAttributesCreatorRow() {
+GNEAttributesCreatorRow::disableAttributesCreatorRow() {
     if (myAttrProperties.isBool()) {
         return myValueCheckButton->disable();
     } else if (myAttrProperties.isDiscrete()) {
@@ -168,7 +172,7 @@ AttributesCreatorRow::disableAttributesCreatorRow() {
 
 
 bool
-AttributesCreatorRow::isAttributesCreatorRowEnabled() const {
+GNEAttributesCreatorRow::isAttributesCreatorRowEnabled() const {
     if (!shown()) {
         return false;
     } else if (myAttrProperties.isBool()) {
@@ -182,7 +186,7 @@ AttributesCreatorRow::isAttributesCreatorRowEnabled() const {
 
 
 void
-AttributesCreatorRow::refreshRow() {
+GNEAttributesCreatorRow::refreshRow() {
     // reset invalid value
     myInvalidValue.clear();
     // special case for attribute ID
@@ -265,7 +269,7 @@ AttributesCreatorRow::refreshRow() {
 
 
 void
-AttributesCreatorRow::disableRow() {
+GNEAttributesCreatorRow::disableRow() {
     myAttributeLabel->disable();
     myEnableAttributeCheckButton->disable();
     myAttributeButton->disable();
@@ -276,20 +280,20 @@ AttributesCreatorRow::disableRow() {
 
 
 bool
-AttributesCreatorRow::isAttributeValid() const {
+GNEAttributesCreatorRow::isAttributeValid() const {
     return (myValueTextField->getTextColor() != FXRGB(255, 0, 0) &&
             myValueComboBox->getTextColor() != FXRGB(255, 0, 0));
 }
 
 
-AttributesCreator*
-AttributesCreatorRow::getAttributesCreatorParent() const {
+GNEAttributesCreator*
+GNEAttributesCreatorRow::getAttributesCreatorParent() const {
     return myAttributesCreatorParent;
 }
 
 
 long
-AttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     // check what object was called
     if (obj == myEnableAttributeCheckButton) {
         if (myEnableAttributeCheckButton->getCheck()) {
@@ -342,7 +346,7 @@ AttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueComboBox->getText().text());
             // special case for trigger stops (in the future will be changed)
             if (myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().isStop() && (myAttrProperties.getAttr() == SUMO_ATTR_TRIGGERED)) {
-                // refresh entire AttributesCreator
+                // refresh entire GNEAttributesCreator
                 myAttributesCreatorParent->refreshAttributesCreator();
             }
         } else {
@@ -372,7 +376,7 @@ AttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
 
 
 long
-AttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) {
+GNEAttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) {
     // continue depending of attribute
     if (myAttrProperties.getAttr() == SUMO_ATTR_COLOR) {
         // create FXColorDialog
@@ -406,7 +410,7 @@ AttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) {
 
 
 std::string
-AttributesCreatorRow::generateID() const {
+GNEAttributesCreatorRow::generateID() const {
     // get attribute carriers
     const auto& GNEAttributeCarriers = myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
     // continue depending of type
@@ -421,7 +425,7 @@ AttributesCreatorRow::generateID() const {
 
 
 bool
-AttributesCreatorRow::isValidID() const {
+GNEAttributesCreatorRow::isValidID() const {
     if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
         return (myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveAdditional(
                     myAttrProperties.getTagPropertyParent().getTag(), myValueTextField->getText().text(), false) == nullptr);

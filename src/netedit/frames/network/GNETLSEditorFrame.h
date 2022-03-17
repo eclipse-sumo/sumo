@@ -431,7 +431,7 @@ public:
     /// @brief whether the current traffic light uses fixed phase durations
     bool fixedDuration() const;
 
-    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
+    /// @brief open GNEAttributesCreator extended dialog (can be reimplemented in frame children)
     void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
 protected:

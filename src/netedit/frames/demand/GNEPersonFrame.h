@@ -88,10 +88,10 @@ private:
     GNETagSelector* myPersonPlanTagSelector;
 
     /// @brief internal vehicle attributes
-    AttributesCreator* myPersonAttributes;
+    GNEAttributesCreator* myPersonAttributes;
 
     /// @brief internal person plan attributes
-    AttributesCreator* myPersonPlanAttributes;
+    GNEAttributesCreator* myPersonPlanAttributes;
 
     /// @brief Netedit parameter
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;

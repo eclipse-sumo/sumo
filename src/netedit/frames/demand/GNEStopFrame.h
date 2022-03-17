@@ -114,7 +114,7 @@ private:
     GNETagSelector* myStopTagSelector;
 
     /// @brief internal Stop attributes
-    AttributesCreator* myStopAttributes;
+    GNEAttributesCreator* myStopAttributes;
 
     /// @brief Netedit parameter
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;

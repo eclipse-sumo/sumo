@@ -13,7 +13,6 @@
 /****************************************************************************/
 /// @file    GNEFrameModules.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2019
 /// @date    Mar 2022
 ///
 // Frame for draw shapes

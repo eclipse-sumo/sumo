@@ -13,18 +13,14 @@
 /****************************************************************************/
 /// @file    GNEFrameAttributeModules.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2019
+/// @date    Mar 2022
 ///
-// Auxiliar class for GNEFrame Modules (only for attributes edition)
+/// Flow editor
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEAttributeCarrier.h>
-#include <netedit/GNEViewNetHelper.h>
-#include <utils/common/Parameterised.h>
 #include <utils/foxtools/FXGroupBoxModule.h>
-#include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
 // class declaration
@@ -36,27 +32,27 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class FlowEditor : public FXGroupBoxModule {
+class GNEFlowEditor : public FXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(FlowEditor)
+    FXDECLARE(GNEFlowEditor)
 
 public:
     /// @brief constructor
-    FlowEditor(GNEViewNet* viewNet, FXVerticalFrame* contentFrame);
+    GNEFlowEditor(GNEViewNet* viewNet, FXVerticalFrame* contentFrame);
 
     /// @brief destructor
-    ~FlowEditor();
+    ~GNEFlowEditor();
 
-    /// @brief show FlowEditor modul
+    /// @brief show GNEFlowEditor modul
     void showFlowEditor(const std::vector<GNEAttributeCarrier*> editedFlows);
 
     /// @brief hide group box
     void hideFlowEditor();
 
-    /// @brief shown FlowEditor modul
+    /// @brief shown GNEFlowEditor modul
     bool shownFlowEditor() const;
 
-    /// @brief refresh FlowEditor
+    /// @brief refresh GNEFlowEditor
     void refreshFlowEditor();
 
     /// @brief get flow attributes
@@ -74,7 +70,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FOX_CONSTRUCTOR(FlowEditor);
+    FOX_CONSTRUCTOR(GNEFlowEditor);
 
     /// @brief refresh single flow
     void refreshSingleFlow();

@@ -565,11 +565,11 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent,
     // create custom edge selector
     myEdgeTypeSelector = new EdgeTypeSelector(this);
     // Create edgeType parameters
-    myEdgeTypeAttributes = new AttributesCreator(this);
+    myEdgeTypeAttributes = new GNEAttributesCreator(this);
     // lane type selector
     myLaneTypeSelector = new LaneTypeSelector(this);
     // Create laneType parameters
-    myLaneTypeAttributes = new AttributesCreator(this);
+    myLaneTypeAttributes = new GNEAttributesCreator(this);
     // create edge selector legend
     myLegend = new Legend(this);
 }
@@ -706,7 +706,7 @@ GNECreateEdgeFrame::getEdgeTypeSelector() const {
 }
 
 
-AttributesCreator*
+GNEAttributesCreator*
 GNECreateEdgeFrame::getEdgeTypeAttributes() const {
     return myEdgeTypeAttributes;
 }
@@ -718,7 +718,7 @@ GNECreateEdgeFrame::getLaneTypeSelector() {
 }
 
 
-AttributesCreator*
+GNEAttributesCreator*
 GNECreateEdgeFrame::getLaneTypeAttributes() const {
     return myLaneTypeAttributes;
 }

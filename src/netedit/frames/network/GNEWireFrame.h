@@ -79,7 +79,7 @@ private:
     GNETagSelector* myWireTagSelector = nullptr;
 
     /// @brief internal wire attributes
-    AttributesCreator* myWireAttributes = nullptr;
+    GNEAttributesCreator* myWireAttributes = nullptr;
 
     /// @brief Netedit parameter
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes = nullptr;

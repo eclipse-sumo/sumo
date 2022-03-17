@@ -88,10 +88,10 @@ private:
     GNETagSelector* myContainerPlanTagSelector;
 
     /// @brief internal vehicle attributes
-    AttributesCreator* myContainerAttributes;
+    GNEAttributesCreator* myContainerAttributes;
 
     /// @brief internal container plan attributes
-    AttributesCreator* myContainerPlanAttributes;
+    GNEAttributesCreator* myContainerPlanAttributes;
 
     /// @brief Netedit parameter
     GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;

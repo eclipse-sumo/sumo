@@ -31,7 +31,7 @@
 // ===========================================================================
 
 class GNEFrame;
-class FlowEditor;
+class GNEFlowEditor;
 
 // ===========================================================================
 // class definitions
@@ -60,7 +60,7 @@ public:
         AttributesEditorRow(AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value,
                             const bool attributeEnabled, const bool computed);
 
-        /// @brief destroy AttributesCreatorRow (but don't delete)
+        /// @brief destroy GNEAttributesCreatorRow (but don't delete)
         void destroy();
 
         /// @brief refresh current row
@@ -162,8 +162,8 @@ public:
         /// @brief pointer to GNEFrame parent
         GNEFrame* myFrameParent;
 
-        /// @brief FlowEditor modul
-        FlowEditor* myAttributesEditorFlow = nullptr;
+        /// @brief GNEFlowEditor modul
+        GNEFlowEditor* myAttributesEditorFlow = nullptr;
 
         /// @brief list of Attribute editor rows
         std::vector<AttributesEditorRow*> myAttributesEditorRows;

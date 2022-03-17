@@ -82,7 +82,7 @@ private:
     GNETagSelector* myContainerPlanTagSelector;
 
     /// @brief internal vehicle attributes
-    AttributesCreator* myContainerPlanAttributes;
+    GNEAttributesCreator* myContainerPlanAttributes;
 
     /// @brief Path Creator
     GNEPathCreator* myPathCreator;

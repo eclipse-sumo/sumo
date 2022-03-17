@@ -13,46 +13,39 @@
 /****************************************************************************/
 /// @file    GNEFrameAttributeModules.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2019
+/// @date    Mar 2022
 ///
-// Auxiliar class for GNEFrame Modules (only for attributes edition)
+// Attribute creator
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEAttributeCarrier.h>
-#include <netedit/GNEViewNetHelper.h>
-#include <utils/common/Parameterised.h>
 #include <utils/foxtools/FXGroupBoxModule.h>
-#include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
 class GNEFrame;
-class AttributesCreatorRow;
-class FlowEditor;
+class GNEAttributesCreatorRow;
+class GNEFlowEditor;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class AttributesCreator : public FXGroupBoxModule {
+class GNEAttributesCreator : public FXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(AttributesCreator)
-
-    // declare friend class
-    friend class Row;
+    FXDECLARE(GNEAttributesCreator)
 
 public:
     /// @brief constructor
-    AttributesCreator(GNEFrame* frameParent);
+    GNEAttributesCreator(GNEFrame* frameParent);
 
     /// @brief destructor
-    ~AttributesCreator();
+    ~GNEAttributesCreator();
 
-    /// @brief show AttributesCreator modul
+    /// @brief show GNEAttributesCreator modul
     void showAttributesCreatorModule(GNEAttributeCarrier* templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes);
 
     /// @brief hide group box
@@ -76,7 +69,7 @@ public:
     /// @brief refresh attribute creator
     void refreshAttributesCreator();
 
-    /// @brief disable AttributesCreator
+    /// @brief disable GNEAttributesCreator
     void disableAttributesCreator();
 
     /// @name FOX-callbacks
@@ -91,7 +84,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FOX_CONSTRUCTOR(AttributesCreator);
+    FOX_CONSTRUCTOR(GNEAttributesCreator);
 
     /// @brief refresh rows
     void refreshRows(const bool createRows);
@@ -101,7 +94,7 @@ private:
     GNEFrame* myFrameParent = nullptr;
 
     /// @brief pointer to myFlowEditor
-    FlowEditor* myFlowEditor = nullptr;
+    GNEFlowEditor* myFlowEditor = nullptr;
 
     /// @brief current templateAC
     GNEAttributeCarrier* myTemplateAC;
@@ -109,8 +102,8 @@ private:
     /// @brief hidden attributes
     std::vector<SumoXMLAttr> myHiddenAttributes;
 
-    /// @brief vector with the AttributesCreatorRow
-    std::vector<AttributesCreatorRow*> myAttributesCreatorRows;
+    /// @brief vector with the GNEAttributesCreatorRow
+    std::vector<GNEAttributesCreatorRow*> myAttributesCreatorRows;
 
     /// @brief frame buttons
     FXHorizontalFrame* myFrameButtons = nullptr;

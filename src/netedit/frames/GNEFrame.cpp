@@ -256,7 +256,7 @@ GNEFrame::attributeUpdated() {
 
 void
 GNEFrame::attributesEditorExtendedDialogOpened()  {
-    // this function has to be reimplemente in all child frames that uses a AttributesCreator editor with extended attributes
+    // this function has to be reimplemente in all child frames that uses a GNEAttributesCreator editor with extended attributes
 }
 
 

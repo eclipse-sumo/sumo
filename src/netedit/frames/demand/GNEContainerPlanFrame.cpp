@@ -45,7 +45,7 @@ GNEContainerPlanFrame::GNEContainerPlanFrame(FXHorizontalFrame* horizontalFrameP
     myContainerPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
 
     // Create container parameters
-    myContainerPlanAttributes = new AttributesCreator(this);
+    myContainerPlanAttributes = new GNEAttributesCreator(this);
 
     // create myPathCreator Module
     myPathCreator = new GNEPathCreator(this);

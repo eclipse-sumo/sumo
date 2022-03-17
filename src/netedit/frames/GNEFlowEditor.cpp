@@ -13,9 +13,9 @@
 /****************************************************************************/
 /// @file    GNEFrameAttributeModules.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2019
+/// @date    Mar 2022
 ///
-// Auxiliar class for GNEFrame Modules (only for attributes edition)
+/// Flow editor
 /****************************************************************************/
 #include <config.h>
 
@@ -27,6 +27,10 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/GNEViewNetHelper.h>
+#include <utils/common/Parameterised.h>
+#include <utils/xml/CommonXMLStructure.h>
 
 #include "GNEFlowEditor.h"
 
@@ -35,19 +39,19 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(FlowEditor) FlowEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  FlowEditor::onCmdSetFlowAttribute),
+FXDEFMAP(GNEFlowEditor) FlowEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEFlowEditor::onCmdSetFlowAttribute),
 };
 
 // Object implementation
-FXIMPLEMENT(FlowEditor,                   FXGroupBoxModule,       FlowEditorMap,                  ARRAYNUMBER(FlowEditorMap))
+FXIMPLEMENT(GNEFlowEditor,                   FXGroupBoxModule,       FlowEditorMap,                  ARRAYNUMBER(FlowEditorMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-FlowEditor::FlowEditor(GNEViewNet* viewNet, FXVerticalFrame* contentFrame) :
+GNEFlowEditor::GNEFlowEditor(GNEViewNet* viewNet, FXVerticalFrame* contentFrame) :
     FXGroupBoxModule(contentFrame, "Flow attributes"),
     myViewNet(viewNet) {
     // create comboBox for option A
@@ -79,11 +83,11 @@ FlowEditor::FlowEditor(GNEViewNet* viewNet, FXVerticalFrame* contentFrame) :
 }
 
 
-FlowEditor::~FlowEditor() {}
+GNEFlowEditor::~GNEFlowEditor() {}
 
 
 void
-FlowEditor::showFlowEditor(const std::vector<GNEAttributeCarrier*> editedFlows) {
+GNEFlowEditor::showFlowEditor(const std::vector<GNEAttributeCarrier*> editedFlows) {
     // update flows
     myEditedFlows = editedFlows;
     // check number of flows
@@ -111,19 +115,19 @@ FlowEditor::showFlowEditor(const std::vector<GNEAttributeCarrier*> editedFlows) 
 
 
 void
-FlowEditor::hideFlowEditor() {
+GNEFlowEditor::hideFlowEditor() {
     hide();
 }
 
 
 bool
-FlowEditor::shownFlowEditor() const {
+GNEFlowEditor::shownFlowEditor() const {
     return shown();
 }
 
 
 void
-FlowEditor::refreshFlowEditor() {
+GNEFlowEditor::refreshFlowEditor() {
     // show both attributes
     myTerminateFrameTextField->show();
     mySpacingFrameTextField->show();
@@ -142,7 +146,7 @@ FlowEditor::refreshFlowEditor() {
 
 
 void
-FlowEditor::getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject) {
+GNEFlowEditor::getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject) {
     // case end-number
     if (myTerminateLabel->getText().text() == toString(SUMO_ATTR_END)) {
         baseObject->addDoubleAttribute(SUMO_ATTR_END, GNEAttributeCarrier::parse<double>(myTerminateTextField->getText().text()));
@@ -167,7 +171,7 @@ FlowEditor::getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject) {
 
 
 bool
-FlowEditor::areFlowValuesValid() const {
+GNEFlowEditor::areFlowValuesValid() const {
     // check text fields
     if (myTerminateFrameTextField->shown() && (myTerminateTextField->getTextColor() == FXRGB(0, 0, 0)) &&
         mySpacingFrameTextField->shown() && (mySpacingTextField->getTextColor() == FXRGB(0, 0, 0))) {
@@ -179,7 +183,7 @@ FlowEditor::areFlowValuesValid() const {
 
 
 long
-FlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
+GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
     // check number of flows
     if (myEditedFlows.front()) {
         // declare vectors for enable/disable attributes
@@ -371,7 +375,7 @@ FlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
 
 
 void
-FlowEditor::refreshSingleFlow() {
+GNEFlowEditor::refreshSingleFlow() {
     // get flow (only for code legibly)
     const auto flow = myEditedFlows.front();
     // continue depending of combinations
@@ -439,7 +443,7 @@ FlowEditor::refreshSingleFlow() {
 
 
 void 
-FlowEditor::refreshMultipleFlows() {
+GNEFlowEditor::refreshMultipleFlows() {
     // get first flow (only for code legibly)
     const auto editedFlow = myEditedFlows.front();
     // get values of first flow
@@ -552,7 +556,7 @@ FlowEditor::refreshMultipleFlows() {
 
 
 const std::string
-FlowEditor::getFlowAttribute(SumoXMLAttr attr) {
+GNEFlowEditor::getFlowAttribute(SumoXMLAttr attr) {
     if (myEditedFlows.size() == 1) {
         return myEditedFlows.front()->getAttribute(attr);
     } else {

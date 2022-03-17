@@ -13,9 +13,9 @@
 /****************************************************************************/
 /// @file    GNEFrameAttributeModules.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2019
+/// @date    Mar 2022
 ///
-// Auxiliar class for GNEFrame Modules (only for attributes edition)
+// Attribute creator
 /****************************************************************************/
 #include <config.h>
 
@@ -27,6 +27,10 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/xml/CommonXMLStructure.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/GNEViewNetHelper.h>
+#include <utils/common/Parameterised.h>
 
 #include "GNEAttributesCreator.h"
 #include "GNEAttributesCreatorRow.h"
@@ -37,27 +41,27 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(AttributesCreator) AttributesCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,  AttributesCreator::onCmdReset),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,       AttributesCreator::onCmdHelp),
+FXDEFMAP(GNEAttributesCreator) AttributesCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,  GNEAttributesCreator::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,       GNEAttributesCreator::onCmdHelp),
 };
 
 // Object implementation
-FXIMPLEMENT(AttributesCreator, FXGroupBoxModule, AttributesCreatorMap, ARRAYNUMBER(AttributesCreatorMap))
+FXIMPLEMENT(GNEAttributesCreator, FXGroupBoxModule, AttributesCreatorMap, ARRAYNUMBER(AttributesCreatorMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
+GNEAttributesCreator::GNEAttributesCreator(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Internal attributes"),
     myFrameParent(frameParent),
     myTemplateAC(nullptr) {
     // resize myAttributesCreatorRows
     myAttributesCreatorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // create myFlowEditor
-    myFlowEditor = new FlowEditor(frameParent->getViewNet(), frameParent->getContentFrame());
+    myFlowEditor = new GNEFlowEditor(frameParent->getViewNet(), frameParent->getContentFrame());
     // create reset and help button
     myFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myResetButton = new FXButton(myFrameButtons, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
@@ -65,11 +69,11 @@ AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
 }
 
 
-AttributesCreator::~AttributesCreator() {}
+GNEAttributesCreator::~GNEAttributesCreator() {}
 
 
 void
-AttributesCreator::showAttributesCreatorModule(GNEAttributeCarrier* templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes) {
+GNEAttributesCreator::showAttributesCreatorModule(GNEAttributeCarrier* templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes) {
     // destroy all rows
     for (auto& row : myAttributesCreatorRows) {
         // destroy and delete all rows
@@ -97,7 +101,7 @@ AttributesCreator::showAttributesCreatorModule(GNEAttributeCarrier* templateAC, 
 
 
 void
-AttributesCreator::hideAttributesCreatorModule() {
+GNEAttributesCreator::hideAttributesCreatorModule() {
     // hide attributes creator flow
     myFlowEditor->hideFlowEditor();
     // hide modul
@@ -106,13 +110,13 @@ AttributesCreator::hideAttributesCreatorModule() {
 
 
 GNEFrame*
-AttributesCreator::getFrameParent() const {
+GNEAttributesCreator::getFrameParent() const {
     return myFrameParent;
 }
 
 
 void
-AttributesCreator::getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const {
+GNEAttributesCreator::getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const {
     // get standard parameters
     for (const auto& row : myAttributesCreatorRows) {
         if (row && row->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
@@ -176,13 +180,13 @@ AttributesCreator::getAttributesAndValues(CommonXMLStructure::SumoBaseObject* ba
 
 
 GNEAttributeCarrier*
-AttributesCreator::getCurrentTemplateAC() const {
+GNEAttributesCreator::getCurrentTemplateAC() const {
     return myTemplateAC;
 }
 
 
 void
-AttributesCreator::showWarningMessage(std::string extra) const {
+GNEAttributesCreator::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // show warning box if input parameters aren't invalid
     if (extra.size() == 0) {
@@ -199,7 +203,7 @@ AttributesCreator::showWarningMessage(std::string extra) const {
 
 
 void
-AttributesCreator::refreshAttributesCreator() {
+GNEAttributesCreator::refreshAttributesCreator() {
     // just refresh row without creating new rows
     if (shown() && myTemplateAC) {
         refreshRows(false);
@@ -208,7 +212,7 @@ AttributesCreator::refreshAttributesCreator() {
 
 
 void
-AttributesCreator::disableAttributesCreator() {
+GNEAttributesCreator::disableAttributesCreator() {
     // disable all rows
     for (const auto& row : myAttributesCreatorRows) {
         if (row) {
@@ -221,7 +225,7 @@ AttributesCreator::disableAttributesCreator() {
 
 
 bool
-AttributesCreator::areValuesValid() const {
+GNEAttributesCreator::areValuesValid() const {
     // iterate over standar parameters
     for (const auto& attribute : myTemplateAC->getTagProperty()) {
         // Return false if error message of attriuve isn't empty
@@ -238,7 +242,7 @@ AttributesCreator::areValuesValid() const {
 
 
 long
-AttributesCreator::onCmdReset(FXObject*, FXSelector, void*) {
+GNEAttributesCreator::onCmdReset(FXObject*, FXSelector, void*) {
     if (myTemplateAC) {
         myTemplateAC->resetDefaultValues();
         refreshRows(false);
@@ -248,7 +252,7 @@ AttributesCreator::onCmdReset(FXObject*, FXSelector, void*) {
 
 
 long
-AttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
+GNEAttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog
     myFrameParent->openHelpAttributesDialog(myTemplateAC);
     return 1;
@@ -256,7 +260,7 @@ AttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
 
 
 void
-AttributesCreator::refreshRows(const bool createRows) {
+GNEAttributesCreator::refreshRows(const bool createRows) {
     // declare a flag to show Flow editor
     bool showFlowEditor = false;
     // iterate over tag attributes and create AttributesCreatorRows for every attribute
@@ -289,7 +293,7 @@ AttributesCreator::refreshRows(const bool createRows) {
         if (showAttribute) {
             // check if we have to create a new row
             if (createRows) {
-                myAttributesCreatorRows.at(attribute.getPositionListed()) = new AttributesCreatorRow(this, attribute);
+                myAttributesCreatorRows.at(attribute.getPositionListed()) = new GNEAttributesCreatorRow(this, attribute);
             }
             else {
                 myAttributesCreatorRows.at(attribute.getPositionListed())->refreshRow();
