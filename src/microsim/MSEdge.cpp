@@ -852,10 +852,10 @@ MSEdge::getMeanSpeed() const {
     } else {
         for (const MSLane* const lane : *myLanes) {
             int numVehs = lane->getVehicleNumber();
-            /* if (numVehs == 0) {
+            if (numVehs == 0) {
                 // take speed limit but with lowest possible weight
                 numVehs = 1;
-            } */
+            }
             v += numVehs * lane->getMeanSpeed();
             totalNumVehs += numVehs;
         }
