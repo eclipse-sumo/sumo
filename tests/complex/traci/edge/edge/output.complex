@@ -45,23 +45,23 @@ step 4
 step 5
 {16: 1}
 {'2fi': {16: 1}}
-3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=10.26 travelTime=23.1140350877
 pending ('veh3',)
-3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=10.26 travelTime=23.1140350877
 pending ('veh3',)
-3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=10.26 travelTime=23.1140350877
 pending ('veh3',)
-3si count=2 meanSpeed=2.2495 travelTime=105.423427428
+3si count=2 meanSpeed=8.06975 travelTime=29.3875274947
 pending ()
-3si count=2 meanSpeed=2.2495 travelTime=105.423427428
+3si count=2 meanSpeed=8.06975 travelTime=29.3875274947
 pending ()
-3si count=2 meanSpeed=3.0 travelTime=79.05
+3si count=2 meanSpeed=8.445 travelTime=28.081705151
 pending ()
-3si count=2 meanSpeed=3.0 travelTime=79.05
+3si count=2 meanSpeed=8.445 travelTime=28.081705151
 pending ()
-3si count=2 meanSpeed=3.0 travelTime=79.05
+3si count=2 meanSpeed=8.445 travelTime=28.081705151
 pending ()
-3si count=2 meanSpeed=3.0 travelTime=79.05
+3si count=2 meanSpeed=8.445 travelTime=28.081705151
 pending ()
-3si count=2 meanSpeed=3.0 travelTime=79.05
+3si count=2 meanSpeed=8.445 travelTime=28.081705151
 pending ()
