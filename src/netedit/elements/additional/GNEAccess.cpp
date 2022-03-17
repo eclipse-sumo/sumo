@@ -256,6 +256,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_FRIENDLY_POS:
+        case GNE_ATTR_PARENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
@@ -297,6 +298,9 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
+        case GNE_ATTR_PARENT:
+            return ((myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr) ||
+                    (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value, false) != nullptr));
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -342,6 +346,13 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
+            break;
+        case GNE_ATTR_PARENT:
+            if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr) {
+                replaceAdditionalParent(SUMO_TAG_BUS_STOP, value, 0);
+            } else {
+                replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value, 0);
+            }
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

@@ -183,7 +183,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             // show help button
             myHelpButton->show();
             // set Label and TextField with the Tag and ID of parent
-            myLabelParentAdditional->setText((toString(ACs.front()->getTagProperty().isChild()) + " parent").c_str());
+            myLabelParentAdditional->setText((parentTagProperty.getTagStr() + " parent").c_str());
             myTextFieldParentAdditional->setText(toString(parents).c_str());
         }
         // disable all editable elements if we're in demand mode and inspected AC isn't a demand element
@@ -262,8 +262,8 @@ GNEInspectorFrame::NeteditAttributesEditor::setNewParent(GNEAttributeCarrier* cl
     // check number of inspected ACs
     if ((ACs.size() > 0) && clickedAC) {
         // check parent tags
-        for (const auto &tag : ACs.front()->getTagProperty().getParentTags()) {
-            if (tag == clickedAC->getTagProperty().getTag()) {
+        for (const auto &parentTag : ACs.front()->getTagProperty().getParentTags()) {
+            if (parentTag == clickedAC->getTagProperty().getTag()) {
                 // check if we're changing multiple attributes
                 if (ACs.size() > 1) {
                     myInspectorFrameParent->myViewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
