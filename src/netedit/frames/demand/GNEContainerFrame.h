@@ -26,6 +26,7 @@
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEPathCreator.h>
+#include <netedit/frames/GNENeteditAttributes.h>
 
 
 // ===========================================================================
@@ -94,7 +95,7 @@ private:
     GNEAttributesCreator* myContainerPlanAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
+    NeteditAttributes* myNeteditAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEPathCreator* myPathCreator;

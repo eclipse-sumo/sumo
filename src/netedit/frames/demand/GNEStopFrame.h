@@ -24,9 +24,10 @@
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNENeteditAttributes.h>
+#include <netedit/frames/GNEDemandSelector.h>
+#include <netedit/frames/GNETagSelector.h>
 
-class DemandElementSelector;
-class GNETagSelector;
 
 // ===========================================================================
 // class definitions
@@ -117,7 +118,7 @@ private:
     GNEAttributesCreator* myStopAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
+    NeteditAttributes* myNeteditAttributes;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

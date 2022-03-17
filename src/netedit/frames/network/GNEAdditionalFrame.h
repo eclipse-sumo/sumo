@@ -26,6 +26,7 @@
 #include <netedit/frames/GNEConsecutiveSelector.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNESelectorParent.h>
+#include <netedit/frames/GNENeteditAttributes.h>
 
 
 // ===========================================================================
@@ -98,7 +99,7 @@ private:
     GNEAttributesCreator* myAdditionalAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
+    NeteditAttributes* myNeteditAttributes;
 
     /// @brief Module for select a single parent additional
     GNESelectorParent* mySelectorAdditionalParent;

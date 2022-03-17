@@ -55,7 +55,7 @@ GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, G
     myContainerPlanAttributes = new GNEAttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
+    myNeteditAttributes = new NeteditAttributes(this);
 
     // create GNEPathCreator Module
     myPathCreator = new GNEPathCreator(this);

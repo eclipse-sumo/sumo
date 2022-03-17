@@ -34,6 +34,8 @@ set(netedit_frames_SRCS
    GNEAttributesCreatorRow.cpp
    GNEFlowEditor.h
    GNEFlowEditor.cpp
+   GNENeteditAttributes.h
+   GNENeteditAttributes.cpp
    )
 
 add_library(netedit_frames STATIC ${netedit_frames_SRCS})

@@ -24,6 +24,8 @@
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEDrawingShape.h>
+#include <netedit/frames/GNENeteditAttributes.h>
+
 
 // ===========================================================================
 // class definitions
@@ -147,7 +149,7 @@ private:
     GNEAttributesCreator* myShapeAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
+    NeteditAttributes* myNeteditAttributes;
 
     /// @brief Drawing shape
     GNEDrawingShape* myDrawingShape;
