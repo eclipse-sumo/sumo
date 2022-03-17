@@ -149,8 +149,12 @@ protected:
 
     /** try changing to the opposite direction edge. */
     bool changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader);
+
     std::pair<MSVehicle* const, double> getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*,
             double> neighOncoming, double searchDist, double& vMax, const MSVehicle* overtaken = nullptr);
+
+    std::pair<MSVehicle* const, double> getOncomingOppositeVehicle(const MSVehicle* vehicle,
+            std::pair<MSVehicle*, double> overtaken, double searchDist);
 
     /** Update changer for vehicles that did not change */
     void registerUnchanged(MSVehicle* vehicle);
@@ -250,7 +254,8 @@ protected:
     static bool hasOppositeStop(MSVehicle* vehicle);
 
     // @brief compute distance that can safely be driven on the opposite side
-    static double computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double timeToOvertake, double spaceToOvertake, double& oncomingSpeed);
+    static double computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double timeToOvertake,
+            double spaceToOvertake, double& oncomingSpeed, bool oncomingOpposite = false);
 
     // @brief find hilltop within searchDistance
     static bool foundHilltop(MSVehicle* vehicle, bool foundHill, double searchDist, const std::vector<MSLane*>& bestLanes, int view, double pos, double lastMax, double hilltopThreshold);
