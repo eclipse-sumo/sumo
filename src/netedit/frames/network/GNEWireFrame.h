@@ -83,7 +83,7 @@ private:
     GNEAttributesCreator* myWireAttributes = nullptr;
 
     /// @brief Netedit parameter
-    NeteditAttributes* myNeteditAttributes = nullptr;
+    GNENeteditAttributes* myNeteditAttributes = nullptr;
 
     /// @brief Select wire parent
     GNESelectorParent* mySelectorWireParent = nullptr;

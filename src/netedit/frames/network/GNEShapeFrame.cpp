@@ -222,7 +222,7 @@ GNEShapeFrame::GNEShapeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     myShapeAttributes = new GNEAttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new NeteditAttributes(this);
+    myNeteditAttributes = new GNENeteditAttributes(this);
 
     // Create drawing controls
     myDrawingShape = new GNEDrawingShape(this);

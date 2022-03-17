@@ -95,7 +95,7 @@ private:
     GNEAttributesCreator* myPersonPlanAttributes;
 
     /// @brief Netedit parameter
-    NeteditAttributes* myNeteditAttributes;
+    GNENeteditAttributes* myNeteditAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEPathCreator* myPathCreator;

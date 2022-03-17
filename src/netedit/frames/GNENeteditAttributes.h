@@ -13,9 +13,9 @@
 /****************************************************************************/
 /// @file    GNEFrameAttributeModules.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2019
+/// @date    Mar 2022
 ///
-// Auxiliar class for GNEFrame Modules (only for attributes edition)
+// Modul for edit NETEDIT attributes
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -35,16 +35,16 @@ class GNELane;
 // class definitions
 // ===========================================================================
 
-class NeteditAttributes : public FXGroupBoxModule {
+class GNENeteditAttributes : public FXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(NeteditAttributes)
+    FXDECLARE(GNENeteditAttributes)
 
 public:
     /// @brief constructor
-    NeteditAttributes(GNEFrame* frameParent);
+    GNENeteditAttributes(GNEFrame* frameParent);
 
     /// @brief destructor
-    ~NeteditAttributes();
+    ~GNENeteditAttributes();
 
     /// @brief show Netedit attributes modul
     void showNeteditAttributesModule(GNEAttributeCarrier* templateAC);
@@ -57,7 +57,7 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief Called when user changes some element of NeteditAttributes
+    /// @brief Called when user changes some element of GNENeteditAttributes
     long onCmdSetNeteditAttribute(FXObject*, FXSelector, void*);
 
     /// @brief Called when user press the help button
@@ -65,7 +65,7 @@ public:
     /// @}
 
 protected:
-    FOX_CONSTRUCTOR(NeteditAttributes)
+    FOX_CONSTRUCTOR(GNENeteditAttributes)
 
 private:
     /// @brief list of the reference points

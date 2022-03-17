@@ -149,7 +149,7 @@ private:
     GNEAttributesCreator* myShapeAttributes;
 
     /// @brief Netedit parameter
-    NeteditAttributes* myNeteditAttributes;
+    GNENeteditAttributes* myNeteditAttributes;
 
     /// @brief Drawing shape
     GNEDrawingShape* myDrawingShape;

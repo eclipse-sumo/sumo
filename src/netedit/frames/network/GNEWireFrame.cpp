@@ -41,7 +41,7 @@ GNEWireFrame::GNEWireFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myWireAttributes = new GNEAttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new NeteditAttributes(this);
+    myNeteditAttributes = new GNENeteditAttributes(this);
 
     // Create selector parent
     mySelectorWireParent = new GNESelectorParent(this);

@@ -99,7 +99,7 @@ private:
     GNEAttributesCreator* myAdditionalAttributes;
 
     /// @brief Netedit parameter
-    NeteditAttributes* myNeteditAttributes;
+    GNENeteditAttributes* myNeteditAttributes;
 
     /// @brief Module for select a single parent additional
     GNESelectorParent* mySelectorAdditionalParent;

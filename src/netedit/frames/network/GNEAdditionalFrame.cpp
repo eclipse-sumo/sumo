@@ -41,7 +41,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myAdditionalAttributes = new GNEAttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new NeteditAttributes(this);
+    myNeteditAttributes = new GNENeteditAttributes(this);
 
     // Create selector parent
     mySelectorAdditionalParent = new GNESelectorParent(this);

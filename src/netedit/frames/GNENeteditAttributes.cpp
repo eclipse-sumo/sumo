@@ -13,9 +13,9 @@
 /****************************************************************************/
 /// @file    GNEFrameAttributeModules.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2019
+/// @date    Mar 2022
 ///
-// Auxiliar class for GNEFrame Modules (only for attributes edition)
+// Modul for edit NETEDIT attributes
 /****************************************************************************/
 #include <config.h>
 
@@ -35,20 +35,20 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(NeteditAttributes) NeteditAttributesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  NeteditAttributes::onCmdSetNeteditAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               NeteditAttributes::onCmdHelp)
+FXDEFMAP(GNENeteditAttributes) NeteditAttributesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNENeteditAttributes::onCmdSetNeteditAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNENeteditAttributes::onCmdHelp)
 };
 
 // Object implementation
-FXIMPLEMENT(NeteditAttributes,  FXGroupBoxModule,   NeteditAttributesMap,   ARRAYNUMBER(NeteditAttributesMap))
+FXIMPLEMENT(GNENeteditAttributes,  FXGroupBoxModule,   NeteditAttributesMap,   ARRAYNUMBER(NeteditAttributesMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
+GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Netedit attributes"),
     myFrameParent(frameParent),
     myCurrentLengthValid(true),
@@ -79,11 +79,11 @@ NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
 }
 
 
-NeteditAttributes::~NeteditAttributes() {}
+GNENeteditAttributes::~GNENeteditAttributes() {}
 
 
 void
-NeteditAttributes::showNeteditAttributesModule(GNEAttributeCarrier* templateAC) {
+GNENeteditAttributes::showNeteditAttributesModule(GNEAttributeCarrier* templateAC) {
     // we assume that frame will not be show
     bool showFrame = false;
     // check if length text field has to be showed
@@ -120,13 +120,13 @@ NeteditAttributes::showNeteditAttributesModule(GNEAttributeCarrier* templateAC) 
 
 
 void
-NeteditAttributes::hideNeteditAttributesModule() {
+GNENeteditAttributes::hideNeteditAttributesModule() {
     hide();
 }
 
 
 bool
-NeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, const GNELane* lane) const {
+GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, const GNELane* lane) const {
     // check if we need to obtain a start and end position over an edge
     if (myReferencePointMatchBox->shown()) {
         // we need a valid lane to calculate position over lane
@@ -167,7 +167,7 @@ NeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObj
 
 
 long
-NeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
+GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
     if (obj == myCloseShapeCheckButton) {
         if (myCloseShapeCheckButton->getCheck()) {
             myCloseShapeCheckButton->setText("true");
@@ -220,7 +220,7 @@ NeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
 
 
 long
-NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
+GNENeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create dialog box
     FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(getCollapsableFrame(), "Netedit Parameters Help", GUIDesignDialogBox);
     additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
@@ -247,7 +247,7 @@ NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Opening NeteditAttributes help dialog");
+    WRITE_DEBUG("Opening GNENeteditAttributes help dialog");
     // create Dialog
     additionalNeteditAttributesHelpDialog->create();
     // show in the given position
@@ -257,7 +257,7 @@ NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Closing NeteditAttributes help dialog");
+    WRITE_DEBUG("Closing GNENeteditAttributes help dialog");
     return 1;
     /**********
     help from ShapeFrame
@@ -275,7 +275,7 @@ NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
 
 
 double
-NeteditAttributes::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const {
+GNENeteditAttributes::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const {
     switch (myActualAdditionalReferencePoint) {
         case AdditionalReferencePoint::LEFT:
             return positionOfTheMouseOverLane;
@@ -290,7 +290,7 @@ NeteditAttributes::setStartPosition(double positionOfTheMouseOverLane, double le
 
 
 double
-NeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional)  const {
+GNENeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional)  const {
     switch (myActualAdditionalReferencePoint) {
         case AdditionalReferencePoint::LEFT:
             return positionOfTheMouseOverLane + lengthOfAdditional;

@@ -122,7 +122,7 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myStopAttributes = new GNEAttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new NeteditAttributes(this);
+    myNeteditAttributes = new GNENeteditAttributes(this);
 
     // Create Help Creation Module
     myHelpCreation = new HelpCreation(this);

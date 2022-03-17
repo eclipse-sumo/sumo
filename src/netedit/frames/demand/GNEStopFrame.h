@@ -118,7 +118,7 @@ private:
     GNEAttributesCreator* myStopAttributes;
 
     /// @brief Netedit parameter
-    NeteditAttributes* myNeteditAttributes;
+    GNENeteditAttributes* myNeteditAttributes;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;
