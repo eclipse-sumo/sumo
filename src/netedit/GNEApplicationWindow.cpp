@@ -1153,6 +1153,11 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (myNet) {
         myNet->requireSaveNet(false);
     }
+    // write reload message
+    if (myReloading) {
+        WRITE_MESSAGE("Reload sucesfully");
+        myReloading = false;
+    }
     // update app
     update();
     // restore focus
@@ -1267,6 +1272,7 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
     storeWindowSizeAndPos();
     getApp()->beginWaitCursor();
     myAmLoading = true;
+    myReloading = true;
     closeAllWindows();
     if (isReload) {
         myLoadThread->start();
