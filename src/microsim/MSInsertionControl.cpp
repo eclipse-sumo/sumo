@@ -83,6 +83,11 @@ MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index) {
         flow.pars = pars;
         flow.index = loadingFromState ? index : 0;
         flow.scale = initScale(pars->vtypeid);
+        if (!loadingFromState && pars->repetitionProbability < 0 && pars->repetitionOffset < 0) {
+            // init poisson flow (but only the timing)
+            flow.pars->incrementFlow(flow.scale, &myFlowRNG);
+            flow.pars->repetitionsDone--;
+        }
         myFlows.push_back(flow);
         myFlowIDs.insert(pars->id);
         return true;
