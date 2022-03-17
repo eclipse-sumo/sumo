@@ -1625,21 +1625,26 @@ MSLaneChanger::getOncomingOppositeVehicle(const MSVehicle* vehicle, std::pair<MS
         conts.erase(conts.begin());
     }
     std::pair<MSVehicle* const, double> oncoming = front->getLane()->getLeader(front, front->getPositionOnLane(), conts, searchDist, checkTmpVehicles);
+    if (oncoming.first != nullptr) {
+        const bool isOpposite = oncoming.first->getLaneChangeModel().isOpposite();
+        const MSLane* shadowLane = oncoming.first->getLaneChangeModel().getShadowLane();
 #ifdef DEBUG_CHANGE_OPPOSITE
         if (gDebugFlag5) {
             std::cout << SIMTIME
                 << " front=" << front->getID() << " searchDist=" << searchDist
-                << " oncomingOpposite=" << Named::getIDSecure(oncoming.first) << " gap=" << oncoming.second
-                << " isOpposite=" << (oncoming.first != nullptr && oncoming.first->getLaneChangeModel().isOpposite()) << "\n";
+                << " oncomingOpposite=" << oncoming.first->getID()
+                << " gap=" << oncoming.second
+                << " isOpposite=" << isOpposite
+                << " shadowLane=" << Named::getIDSecure(shadowLane)
+                << "\n";
         }
 #endif
-    if (oncoming.first != nullptr
-            && oncoming.first->getLaneChangeModel().isOpposite()) {
-        oncoming.second += gap;
-        return oncoming;
-    } else {
-        return std::make_pair(nullptr, -1);
+        if (isOpposite && shadowLane != front->getLane()) {
+            oncoming.second += gap;
+            return oncoming;
+        }
     }
+    return std::make_pair(nullptr, -1);
 }
 
 
