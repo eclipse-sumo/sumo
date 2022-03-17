@@ -1873,6 +1873,11 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, double vMax, cons
     if (STEPS2TIME(leader->getStopDuration()) < timeToOvertake) {
         spaceToOvertake *= safetyFactor;
     }
+    double frac = fmod(timeToOvertake, TS);
+    if (frac > 0) {
+        // round to full sim step
+        timeToOvertake += TS - frac;
+    }
 #ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
     if (DEBUG_COND) {
         if (safetyFactor != 1) {
