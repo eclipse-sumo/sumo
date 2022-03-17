@@ -2735,12 +2735,12 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
             }
         }
         // get previous dataSet
-        const std::string previousDataSet = ((myDataSetsComboBox->getNumItems() > 1) && (myDataSetsComboBox->getCurrentItem() != 0)) ? myDataSetsComboBox->getItem(myDataSetsComboBox->getCurrentItem()).text() : "";
+        const std::string previousDataSet = myDataSetsComboBox->getText().text();
         // get previous interval
         const std::string previousBegin = (myIntervalCheckBox->getCheck() == TRUE)? myBeginTextField->getText().text() : "";
         const std::string previousEnd = (myIntervalCheckBox->getCheck() == TRUE)? myEndTextField->getText().text() : "";
         // get previous parameter
-        const std::string previousParameter = ((myParametersComboBox->getNumItems() > 1) && (myParametersComboBox->getCurrentItem() != 0)) ? myParametersComboBox->getItem(myParametersComboBox->getCurrentItem()).text() : "";
+        const std::string previousParameter = myParametersComboBox->getText().text();
         // clear comboBoxes
         myDataSetsComboBox->clearItems();
         myParametersComboBox->clearItems();
@@ -2759,8 +2759,11 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
             myParametersComboBox->appendItem(parameter.c_str());
         }
         // check previous dataSet
-        if (!previousDataSet.empty()) {
-            myDataSetsComboBox->setText(previousDataSet.c_str());
+        myDataSetsComboBox->setCurrentItem(0, FALSE);
+        for (int i = 0; i < myDataSetsComboBox->getNumItems(); i++) {
+            if (myDataSetsComboBox->getItem(i).text() == previousDataSet) {
+                myDataSetsComboBox->setCurrentItem(i);
+            }
         }
         // set previous interval
         if (myIntervalCheckBox->getCheck() == TRUE) {
@@ -2768,8 +2771,11 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
             myEndTextField->setText(previousEnd.c_str());
         }
         // check previous parameter
-        if (!previousParameter.empty()) {
-            myParametersComboBox->setText(previousParameter.c_str());
+        myParametersComboBox->setCurrentItem(0, FALSE);
+        for (int i = 0; i < myParametersComboBox->getNumItems(); i++) {
+            if (myParametersComboBox->getItem(i).text() == previousParameter) {
+                myParametersComboBox->setCurrentItem(i);
+            }
         }
         // set visible elements
         if (myDataSetsComboBox->getNumItems() < 10) {
