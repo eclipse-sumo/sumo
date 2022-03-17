@@ -778,6 +778,7 @@ MSLaneChanger::checkChange(
 #ifdef DEBUG_CHECK_CHANGE
         if (DEBUG_COND) {
             std::cout << SIMTIME
+                      << " follower=" << neighFollow.first->getID()
                       << " backGap=" << neighFollow.second
                       << " vNextFollower=" << vNextFollower
                       << " vNextEgo=" << vNextLeader
@@ -822,7 +823,8 @@ MSLaneChanger::checkChange(
 #ifdef DEBUG_CHECK_CHANGE
         if (DEBUG_COND) {
             std::cout << SIMTIME
-                      << " frontGap=" << neighFollow.second
+                      << " leader=" << neighLead.first->getID()
+                      << " frontGap=" << neighLead.second
                       << " vNextEgo=" << vNextFollower
                       << " vNextLeader=" << vNextLeader
                       << " secureGap=" << secureFrontGap
@@ -1518,7 +1520,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
                         // overtaking (otherwise the lane change model might abort prematurely)
                         oppositeLength += 1000;
                     } else {
-                        // return from the opposite ahead of the unpassable column leader (unless overlapping)
+                        // return from the opposite side ahead of the unpassable column (unless overlapping)
                         if (overtaken.second > 0) {
                             oppositeLength = MIN2(oppositeLength, forwardPos + overtaken.second);
                         }

@@ -575,6 +575,8 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                               << " overtakeTime=" << overtakeTime
                               << " remainingSeconds=" << remainingSeconds
                               << " currentGap=" << neighLead.second
+                              << " neighNextSpeed=" << neighNextSpeed
+                              << " neighNextGap=" << neighNextGap
                               << " targetSpeed=" << targetSpeed
                               << "\n";
                 }
