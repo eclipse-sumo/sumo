@@ -553,7 +553,7 @@ class Net:
                 if includeFromToCost and toPos == 0:
                     # assume toPos=0 is the default value
                     return path, cost
-                return path, cost - (toEdge.getLength() + toPos) / speedFunc(toEdge)
+                return path, cost + (-toEdge.getLength() + toPos) / speedFunc(toEdge)
             if cost > maxCost:
                 return None, cost
 
