@@ -177,6 +177,8 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in TypeSelector").text());
+            // update viewNet
+            myTypeFrameParent->getViewNet()->updateViewNet();
             return 1;
         }
     }
@@ -189,6 +191,8 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in TypeSelector");
+    // update viewNet
+    myTypeFrameParent->getViewNet()->updateViewNet();
     return 1;
 }
 
