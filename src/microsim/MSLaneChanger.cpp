@@ -788,7 +788,20 @@ MSLaneChanger::checkChange(
         }
 #endif
         if (neighFollow.second < secureBackGap * vehicle->getLaneChangeModel().getSafetyFactor()) {
-            blocked |= blockedByFollower;
+            if (vehicle->getLaneChangeModel().isOpposite()
+                    && neighFollow.first->getLaneChangeModel().getLastLaneChangeOffset() == laneOffset) {
+                // during opposite direction driving, the vehicle are handled in
+                // downstream rather than upstream order, the neighFollower may have
+                // been the actual follower in this simulation step and should not
+                // block changing in this case
+#ifdef DEBUG_CHECK_CHANGE
+                if (DEBUG_COND) {
+                    std::cout << "  ignoring opposite follower who changed in this step\n";
+                }
+#endif
+            } else {
+                blocked |= blockedByFollower;
+            }
         }
     }
 
