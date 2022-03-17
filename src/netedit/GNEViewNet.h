@@ -281,6 +281,9 @@ public:
     /// @brief edit connection shape
     long onCmdEditConnectionShape(FXObject*, FXSelector, void*);
 
+    /// @brief edit connection shape
+    long onCmdSmoothConnectionShape(FXObject*, FXSelector, void*);
+
     /// @brief edit crossing shape
     long onCmdEditCrossingShape(FXObject*, FXSelector, void*);
 

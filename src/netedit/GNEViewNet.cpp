@@ -149,6 +149,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_CONNECTIONS,              GNEViewNet::onCmdResetConnections),
     // Connections
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_EDIT_SHAPE,                   GNEViewNet::onCmdEditConnectionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_SMOOTH_SHAPE,                 GNEViewNet::onCmdSmoothConnectionShape),
     // Crossings
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CROSSING_EDIT_SHAPE,                     GNEViewNet::onCmdEditCrossingShape),
     // Edges
@@ -2991,6 +2992,20 @@ GNEViewNet::onCmdEditConnectionShape(FXObject*, FXSelector, void*) {
     GNEConnection* connection = getConnectionAtPopupPosition();
     if (connection) {
         myEditNetworkElementShapes.startEditCustomShape(connection);
+    }
+    // destroy pop-up and update view Net
+    destroyPopup();
+    setFocus();
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdSmoothConnectionShape(FXObject*, FXSelector, void*) {
+    // Obtain connection under mouse
+    GNEConnection* connection = getConnectionAtPopupPosition();
+    if (connection) {
+        connection->smootShape();
     }
     // destroy pop-up and update view Net
     destroyPopup();

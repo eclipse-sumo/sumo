@@ -1094,8 +1094,10 @@ enum {
     /// @name GNEConnection messages
     /// @{
 
-    /// @brief edit junction shape
+    /// @brief edit connection shape
     MID_GNE_CONNECTION_EDIT_SHAPE,
+    /// @ brief smooth connection shape
+    MID_GNE_CONNECTION_SMOOTH_SHAPE,
 
     /// @}
 
@@ -1103,7 +1105,7 @@ enum {
     /// @name GNECrossing messages
     /// @{
 
-    /// @brief edit junction shape
+    /// @brief edit crossing shape
     MID_GNE_CROSSING_EDIT_SHAPE,
 
     /// @}
