@@ -1029,11 +1029,11 @@ GNEFrameAttributeModules::NeteditAttributes::~NeteditAttributes() {}
 
 
 void
-GNEFrameAttributeModules::NeteditAttributes::showNeteditAttributesModule(const GNETagProperties& tagProperty) {
+GNEFrameAttributeModules::NeteditAttributes::showNeteditAttributesModule(GNEAttributeCarrier* templateAC) {
     // we assume that frame will not be show
     bool showFrame = false;
     // check if length text field has to be showed
-    if (tagProperty.canMaskStartEndPos()) {
+    if (templateAC->getTagProperty().canMaskStartEndPos()) {
         myLengthFrame->show();
         myReferencePointMatchBox->show();
         showFrame = true;
@@ -1042,14 +1042,14 @@ GNEFrameAttributeModules::NeteditAttributes::showNeteditAttributesModule(const G
         myReferencePointMatchBox->hide();
     }
     // check if close shape check button has to be show
-    if (tagProperty.canCloseShape()) {
+    if (templateAC->getTagProperty().canCloseShape()) {
         myCloseShapeFrame->show();
         showFrame = true;
     } else {
         myCloseShapeFrame->hide();
     }
     // check if center camera after creation check button has to be show
-    if (tagProperty.canCenterCameraAfterCreation()) {
+    if (templateAC->getTagProperty().canCenterCameraAfterCreation()) {
         myCenterViewAfterCreationFrame->show();
         showFrame = true;
     } else {

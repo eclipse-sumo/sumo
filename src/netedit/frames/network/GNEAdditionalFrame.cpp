@@ -194,7 +194,7 @@ GNEAdditionalFrame::tagSelected() {
         // show additional attributes modul
         myAdditionalAttributes->showAttributesCreatorModule(templateAC, {});
         // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModule(templateAC->getTagProperty());
+        myNeteditAttributes->showNeteditAttributesModule(templateAC);
         // Show myAdditionalFrameParent if we're adding an slave element
         if (templateAC->getTagProperty().isChild()) {
             mySelectorAdditionalParent->showSelectorParentModule(templateAC->getTagProperty().getParentTags());

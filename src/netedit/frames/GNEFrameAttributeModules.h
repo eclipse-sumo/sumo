@@ -291,7 +291,7 @@ public:
         ~NeteditAttributes();
 
         /// @brief show Netedit attributes modul
-        void showNeteditAttributesModule(const GNETagProperties& tagValue);
+        void showNeteditAttributesModule(GNEAttributeCarrier* templateAC);
 
         /// @brief hide Netedit attributes modul
         void hideNeteditAttributesModule();

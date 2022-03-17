@@ -492,7 +492,7 @@ GNEStopFrame::tagSelected() {
     if (myStopTagSelector->getCurrentTemplateAC()) {
         // show Stop type selector modul
         myStopAttributes->showAttributesCreatorModule(myStopTagSelector->getCurrentTemplateAC(), {});
-        myNeteditAttributes->showNeteditAttributesModule(myStopTagSelector->getCurrentTemplateAC()->getTagProperty());
+        myNeteditAttributes->showNeteditAttributesModule(myStopTagSelector->getCurrentTemplateAC());
         myHelpCreation->showHelpCreation();
     } else {
         // hide all moduls if stop parent isn't valid
@@ -511,7 +511,7 @@ GNEStopFrame::demandElementSelected() {
         if (myStopTagSelector->getCurrentTemplateAC()) {
             // show moduls
             myStopAttributes->showAttributesCreatorModule(myStopTagSelector->getCurrentTemplateAC(), {});
-            myNeteditAttributes->showNeteditAttributesModule(myStopTagSelector->getCurrentTemplateAC()->getTagProperty());
+            myNeteditAttributes->showNeteditAttributesModule(myStopTagSelector->getCurrentTemplateAC());
             myHelpCreation->showHelpCreation();
         } else {
             myStopAttributes->hideAttributesCreatorModule();

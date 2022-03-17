@@ -185,7 +185,7 @@ GNEPersonFrame::tagSelected() {
                 // show person plan attributes
                 myPersonPlanAttributes->showAttributesCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
                 // show Netedit attributes modul
-                myNeteditAttributes->showNeteditAttributesModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
+                myNeteditAttributes->showNeteditAttributesModule(myPersonPlanTagSelector->getCurrentTemplateAC());
                 // show path creator depending of tag
                 if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson() ||
                         (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE)) {
@@ -248,7 +248,7 @@ GNEPersonFrame::demandElementSelected() {
             // show person plan attributes
             myPersonPlanAttributes->showAttributesCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
             // show Netedit attributes modul
-            myNeteditAttributes->showNeteditAttributesModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
+            myNeteditAttributes->showNeteditAttributesModule(myPersonPlanTagSelector->getCurrentTemplateAC());
             // show edge path creator modul
             myPathCreator->showPathCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
             // show warning if we have selected a vType oriented to containers or vehicles

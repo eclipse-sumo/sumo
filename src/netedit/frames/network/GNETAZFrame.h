@@ -568,9 +568,6 @@ private:
     /// @brief TAZ parameters
     TAZParameters* myTAZParameters;
 
-    /// @brief Netedit parameter
-    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
-
     /// @brief Drawing shape
     GNEDrawingShape* myDrawingShape;
 

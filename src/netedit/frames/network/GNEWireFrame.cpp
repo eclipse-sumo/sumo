@@ -159,7 +159,7 @@ GNEWireFrame::tagSelected() {
         // show wire attributes modul
         myWireAttributes->showAttributesCreatorModule(templateAC, {});
         // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModule(templateAC->getTagProperty());
+        myNeteditAttributes->showNeteditAttributesModule(templateAC);
         // check if we're creating a overhead wire section
         if (templateAC->getTagProperty().getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();

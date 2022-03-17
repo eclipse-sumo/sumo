@@ -444,7 +444,7 @@ GNEShapeFrame::tagSelected() {
         // if there are parmeters, show and Recalc groupBox
         myShapeAttributes->showAttributesCreatorModule(myShapeTagSelector->getCurrentTemplateAC(), {});
         // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModule(myShapeTagSelector->getCurrentTemplateAC()->getTagProperty());
+        myNeteditAttributes->showNeteditAttributesModule(myShapeTagSelector->getCurrentTemplateAC());
         // Check if drawing mode has to be shown
         if (myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == SUMO_TAG_POLY) {
             myDrawingShape->showDrawingShape();
