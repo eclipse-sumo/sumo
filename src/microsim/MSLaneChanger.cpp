@@ -1339,6 +1339,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
             double searchDist = OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD;
             oncoming = oncomingLane->getOppositeLeader(vehicle, searchDist, true);
             oncoming = getOncomingVehicle(oncomingLane, oncoming, searchDist, vMax, overtaken.first);
+            oncomingOpposite = getOncomingOppositeVehicle(vehicle, overtaken, searchDist);
         }
         if (overtaken.first != nullptr && vMax != vehicle->getLane()->getVehicleMaxSpeed(vehicle)) {
             // recompute overtaking time with slow opposite leader
