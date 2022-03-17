@@ -2455,6 +2455,13 @@ MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<M
             }
 #endif
             if (pred->getPositionOnLane(this) >= vehPos) {
+                if (MSGlobals::gLaneChangeDuration > 0
+                        && pred->getLaneChangeModel().isOpposite()
+                        && !pred->getLaneChangeModel().isChangingLanes()
+                        && pred->getLaneChangeModel().getShadowLane() == this) {
+                    // skip non-overlapping shadow
+                    continue;
+                }
                 return std::pair<MSVehicle* const, double>(pred, pred->getBackPositionOnLane(this) - veh->getVehicleType().getMinGap() - vehPos);
             }
         }
