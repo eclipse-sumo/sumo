@@ -5,7 +5,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStation_1' in GNEChange_Additional
-Debug: Selected item 'chargingStation' in TagSelector
+Debug: Selected item 'chargingStation' in GNETagSelector
 Debug: Adding chargingStation 'cs_0' in GNEChange_Additional
 Debug: Removing chargingStation 'cs_0' in GNEChange_Additional
 Debug: Removing chargingStation 'chargingStation_0' in GNEChange_Additional

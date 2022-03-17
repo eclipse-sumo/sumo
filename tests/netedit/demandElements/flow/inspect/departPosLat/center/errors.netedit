@@ -64,7 +64,7 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
-Debug: Selected item 'flow (from-to edges)' in TagSelector
+Debug: Selected item 'flow (from-to edges)' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding flow 'f_0' in GNEChange_DemandElement
 Debug: Value 'dummyPosLat' for attribute departPosLat of flow isn't valid

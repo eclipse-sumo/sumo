@@ -1,4 +1,4 @@
-Debug: Selected item 'trainStop' in TagSelector
+Debug: Selected item 'trainStop' in GNETagSelector
 Debug: Adding trainStop 'ts_0' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

@@ -4,15 +4,15 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '296.00'
-Debug: Selected item 'e3Detector' in TagSelector
+Debug: Selected item 'e3Detector' in GNETagSelector
 Debug: Adding e3Detector 'e3_0' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3_0 into SUMORTree with boundary 12.00,-5.00,32.00,15.00
 Debug: Adding e3Detector 'e3_1' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3_1 into SUMORTree with boundary 18.00,-5.00,38.00,15.00
-Debug: Selected item 'detExit' in TagSelector
+Debug: Selected item 'detExit' in GNETagSelector
 Debug: Adding detExit 'e3_0' in GNEChange_Additional
 Debug: Adding detExit 'e3_1' in GNEChange_Additional
-Debug: Selected item 'detEntry' in TagSelector
+Debug: Selected item 'detEntry' in GNETagSelector
 Debug: Adding detEntry 'e3_0' in GNEChange_Additional
 Debug: Adding detEntry 'e3_1' in GNEChange_Additional
 Debug: Setting new attribute

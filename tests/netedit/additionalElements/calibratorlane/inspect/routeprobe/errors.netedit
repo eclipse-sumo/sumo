@@ -1,5 +1,5 @@
 Debug: Adding routeProbe 'routeProbe_0' in GNEChange_Additional
-Debug: Selected item 'calibratorLane' in TagSelector
+Debug: Selected item 'calibratorLane' in GNETagSelector
 Debug: Adding calibratorLane 'ca_0' in GNEChange_Additional
 Debug: Value '///;;' for attribute routeProbe of calibratorLane isn't valid
 Debug: Value 'nonExistentRouteProbe' for attribute routeProbe of calibratorLane isn't valid

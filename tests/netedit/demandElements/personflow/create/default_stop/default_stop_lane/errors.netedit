@@ -66,9 +66,9 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personFlow' in TagSelector
+Debug: Selected item 'personFlow' in GNETagSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'stopPerson: edge' in TagSelector
+Debug: Selected item 'stopPerson: edge' in GNETagSelector
 Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
 Debug: Adding stopPerson: edge 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed

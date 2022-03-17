@@ -1,4 +1,4 @@
-Debug: Selected item 'instantInductionLoop' in TagSelector
+Debug: Selected item 'instantInductionLoop' in GNETagSelector
 Debug: Adding instantInductionLoop 'e1i_0' in GNEChange_Additional
 Debug: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of instantInductionLoop isn't valid
 Debug: Setting new attribute

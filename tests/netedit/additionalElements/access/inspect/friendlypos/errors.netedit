@@ -1,7 +1,7 @@
 Debug: Current Viewport values: 25.00, 20.00, 25.00. Zoom = '296.00'
-Debug: Selected item 'busStop' in TagSelector
+Debug: Selected item 'busStop' in GNETagSelector
 Debug: Adding busStop 'bs_0' in GNEChange_Additional
-Debug: Selected item 'access' in TagSelector
+Debug: Selected item 'access' in GNETagSelector
 Debug: Adding access 'bs_0' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

@@ -1,5 +1,5 @@
 Debug: Adding routeProbe 'routeProbe_0' in GNEChange_Additional
-Debug: Selected item 'calibratorLane' in TagSelector
+Debug: Selected item 'calibratorLane' in GNETagSelector
 Debug: Invalid input parameter of calibratorLane
 Debug: Adding calibratorLane 'ca_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed

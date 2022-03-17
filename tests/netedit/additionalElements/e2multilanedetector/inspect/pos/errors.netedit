@@ -28,7 +28,7 @@ GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,1
 Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE4_0togneE5_0' in retrieveGNEConnection()
-Debug: Selected item 'e2MultilaneDetector' in TagSelector
+Debug: Selected item 'e2MultilaneDetector' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2_0' in GNEChange_Additional
 Debug: Value 'dummyPos' for attribute pos of e2MultilaneDetector isn't valid

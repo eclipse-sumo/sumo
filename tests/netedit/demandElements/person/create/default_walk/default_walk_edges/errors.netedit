@@ -66,7 +66,7 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'walk: edges' in TagSelector
+Debug: Selected item 'walk: edges' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding person 'p_0' in GNEChange_DemandElement
 Debug: Adding walk: edges 'p_0' in GNEChange_DemandElement

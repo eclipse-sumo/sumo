@@ -1,4 +1,4 @@
-Debug: Selected item 'containerStop' in TagSelector
+Debug: Selected item 'containerStop' in GNETagSelector
 Debug: Adding containerStop 'ct_0' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
