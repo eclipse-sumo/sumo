@@ -1104,7 +1104,8 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
 #ifdef DEBUG_CHANGE_OPPOSITE
     gDebugFlag5 = DEBUG_COND;
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " veh=" << vehicle->getID() << " considerChangeOpposite source=" << source->getID() << " opposite=" << Named::getIDSecure(opposite) << " lead=" << Named::getIDSecure(leader.first) << "\n";
+        std::cout << SIMTIME << " veh=" << vehicle->getID() << " considerChangeOpposite source=" << source->getID()
+            << " opposite=" << Named::getIDSecure(opposite) << " lead=" << Named::getIDSecure(leader.first) << " isOpposite=" << isOpposite << "\n";
     }
 #endif
     //There is no lane for opposite driving
@@ -1382,9 +1383,11 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
         if (oncomingOpposite.first != nullptr) {
             double oncomingSpeed2;
             double surplusGap2 = computeSurplusGap(vehicle, opposite, oncomingOpposite, timeToOvertake, spaceToOvertake, oncomingSpeed2, true);
+#ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
                 std::cout << "   oncomingOpposite=" << oncomingOpposite.first->getID() << " speed=" << oncomingSpeed2 << " gap=" << oncomingOpposite.second << " surplusGap2=" << surplusGap2 << "\n";
             }
+#endif
             surplusGap = MIN2(surplusGap, surplusGap2);
             oncomingSpeed = MAX2(oncomingSpeed, oncomingSpeed2);
         }
