@@ -1,22 +1,22 @@
 Loading net-file from 'net2.net.xml' ... done (1ms).
 Loading done.
-Simulation version v1_12_0+1472-4fc877e started with time: 0.00
+Simulation version v1_12_0+1476-e6ccb2d started with time: 0.00
 Simulation ended at time: 1480.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.14s
- Real time factor: 10571.4
- UPS: 395021.428571
+ Duration: 0.18s
+ Real time factor: 8176.8
+ UPS: 308243.093923
 Vehicles: 
  Inserted: 988
  Running: 0
  Waiting: 0
-Teleports: 29 (Collisions: 29)
+Teleports: 2 (Collisions: 2)
 Statistics (avg):
  RouteLength: 493.59
- Speed: 13.19
- Duration: 55.95
+ Speed: 12.87
+ Duration: 56.47
  WaitingTime: 15.49
- TimeLoss: 16.75
+ TimeLoss: 16.81
  DepartDelay: 244.95
 
