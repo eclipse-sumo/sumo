@@ -1375,7 +1375,8 @@ MSLane::updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPar
                 std::cout << "        partial ahead: " << (*vehPart)->getID() << " latOffset=" << latOffset << "\n";
             }
 #endif
-            if (!(MSGlobals::gLaneChangeDuration > 0 && (*vehPart)->getLaneChangeModel().isOpposite() && (*vehPart)->getLateralOverlap() < NUMERICAL_EPS)) {
+            if (!(MSGlobals::gLaneChangeDuration > 0 && (*vehPart)->getLaneChangeModel().isOpposite()
+                        && !(*vehPart)->getLaneChangeModel().isChangingLanes())) {
                 ahead.addLeader(*vehPart, false, latOffset);
             }
             ++vehPart;
