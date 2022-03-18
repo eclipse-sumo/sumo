@@ -694,6 +694,8 @@ enum {
 
     /// @brief show grid
     MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,
+    /// @brief toogle draw junction shape
+    MID_GNE_NETWORKVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief Draw vehicles in begin position or spread in lane
     MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,
     /// @brief show demand elements
@@ -740,6 +742,8 @@ enum {
 
     /// @brief show grid
     MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID,
+    /// @brief toogle draw junction shape
+    MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief Draw vehicles in begin position or spread in lane
     MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,
     /// @brief hide non-inspected demand element
@@ -763,7 +767,9 @@ enum {
 
     /// @name GNEViewNet Data view options messages
     /// @{
-
+    
+    /// @brief toogle draw junction shape
+    MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief show additionals
     MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,
     /// @brief show shapes

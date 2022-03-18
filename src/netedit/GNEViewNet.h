@@ -311,6 +311,9 @@ public:
     /// @brief toggle show grid
     long onCmdToggleShowGrid(FXObject*, FXSelector, void*);
 
+    /// @brief toggle draw junction shape
+    long onCmdToggleDrawJunctionShape(FXObject*, FXSelector, void*);
+
     /// @brief toggle draw vehicles in begin position or spread in lane
     long onCmdToggleDrawSpreadVehicles(FXObject*, FXSelector, void*);
 
