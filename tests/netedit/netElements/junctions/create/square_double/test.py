@@ -35,7 +35,7 @@ netedit.createEdgeMode()
 netedit.changeEditMode(netedit.attrs.Modes.Network.twoWayMode)
 
 # select chain mode
-netedit.changeEditMode('4')
+netedit.changeEditMode(netedit.attrs.Modes.Network.chainMode)
 
 # create square
 netedit.leftClick(referencePosition, 167, 135)
