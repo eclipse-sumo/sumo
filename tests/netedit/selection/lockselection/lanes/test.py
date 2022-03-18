@@ -41,7 +41,7 @@ netedit.selectMode()
 netedit.changeEditMode(netedit.attrs.Modes.Network.showConnections)
 
 # disable select edges
-netedit.changeEditMode('2')
+netedit.changeEditMode(netedit.attrs.Modes.Network.selectLane)
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
