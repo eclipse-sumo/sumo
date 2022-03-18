@@ -6350,43 +6350,42 @@ MSVehicle::resumeFromStopping() {
             myAmRegisteredAsWaitingForPerson = false;
             myAmRegisteredAsWaitingForContainer = false;
         }
+        MSStop& stop = myStops.front();
         // we have waited long enough and fulfilled any passenger-requirements
-        if (myStops.front().busstop != nullptr) {
+        if (stop.busstop != nullptr) {
             // inform bus stop about leaving it
-            myStops.front().busstop->leaveFrom(this);
+            stop.busstop->leaveFrom(this);
         }
         // we have waited long enough and fulfilled any container-requirements
-        if (myStops.front().containerstop != nullptr) {
+        if (stop.containerstop != nullptr) {
             // inform container stop about leaving it
-            myStops.front().containerstop->leaveFrom(this);
+            stop.containerstop->leaveFrom(this);
         }
-        if (myStops.front().parkingarea != nullptr && myStops.front().pars.speed <= 0) {
+        if (stop.parkingarea != nullptr && stop.pars.speed <= 0) {
             // inform parking area about leaving it
-            myStops.front().parkingarea->leaveFrom(this);
+            stop.parkingarea->leaveFrom(this);
         }
-        if (myStops.front().chargingStation != nullptr) {
+        if (stop.chargingStation != nullptr) {
             // inform charging station about leaving it
-            myStops.front().chargingStation->leaveFrom(this);
+            stop.chargingStation->leaveFrom(this);
         }
         // the current stop is no longer valid
         myLane->getEdge().removeWaiting(this);
-        SUMOVehicleParameter::Stop pars = myStops.front().pars;
-        pars.ended = MSNet::getInstance()->getCurrentTimeStep();
-        MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
-        if (vehroutes != nullptr) {
-            vehroutes->stopEnded(pars);
+        stop.pars.ended = MSNet::getInstance()->getCurrentTimeStep();
+        for (const auto& rem : myMoveReminders) {
+            rem.first->notifyStopEnded();
         }
         if (MSStopOut::active()) {
-            MSStopOut::getInstance()->stopEnded(this, pars, myStops.front().lane->getID());
+            MSStopOut::getInstance()->stopEnded(this, stop.pars, stop.lane->getID());
         }
-        if (myStops.front().collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
+        if (stop.collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
             myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
         }
-        if (pars.posLat != INVALID_DOUBLE && MSGlobals::gLateralResolution <= 0) {
+        if (stop.pars.posLat != INVALID_DOUBLE && MSGlobals::gLateralResolution <= 0) {
             // reset lateral position to default
             myState.myPosLat = 0;
         }
-        myPastStops.push_back(pars);
+        myPastStops.push_back(stop.pars);
         myStops.pop_front();
         // do not count the stopping time towards gridlock time.
         // Other outputs use an independent counter and are not affected.

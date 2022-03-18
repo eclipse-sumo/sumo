@@ -275,25 +275,24 @@ MEVehicle::checkStop(SUMOTime time) {
 bool
 MEVehicle::resumeFromStopping() {
     if (isStopped()) {
+        const SUMOTime now = SIMSTEP;
         MSStop& stop = myStops.front();
-        MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
-        if (vehroutes != nullptr) {
-            vehroutes->stopEnded(stop.pars);
+        stop.pars.ended = now;
+        for (const auto& rem : myMoveReminders) {
+            rem.first->notifyStopEnded();
         }
         if (MSStopOut::active()) {
             MSStopOut::getInstance()->stopEnded(this, stop.pars, mySegment->getEdge().getID());
         }
-        SUMOVehicleParameter::Stop pars = stop.pars;
-//        pars.depart = MSNet::getInstance()->getCurrentTimeStep();
-        myPastStops.emplace_back(pars);
+        myPastStops.push_back(stop.pars);
         if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
         }
         myStops.pop_front();
-        if (myEventTime > SIMSTEP) {
+        if (myEventTime > now) {
             // if this is an aborted stop we need to change the event time of the vehicle
             if (MSGlobals::gMesoNet->removeLeaderCar(this)) {
-                myEventTime = SIMSTEP + 1;
+                myEventTime = now + 1;
                 MSGlobals::gMesoNet->addLeaderCar(this, nullptr);
             }
         }

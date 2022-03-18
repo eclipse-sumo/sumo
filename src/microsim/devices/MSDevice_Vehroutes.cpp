@@ -27,6 +27,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSRoute.h>
+#include <microsim/MSStop.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -188,7 +189,8 @@ MSDevice_Vehroutes::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMo
 
 
 void
-MSDevice_Vehroutes::stopEnded(const SUMOVehicleParameter::Stop& stop) {
+MSDevice_Vehroutes::notifyStopEnded() {
+    const SUMOVehicleParameter::Stop& stop = myHolder.getStops().front().pars;
     const bool closeLater = myWriteStopPriorEdges || mySaveExits;
     stop.write(myStopOut, !closeLater);
     if (myWriteStopPriorEdges) {

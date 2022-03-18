@@ -158,7 +158,8 @@ MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
     mySkipRouting(-1),
     myRerouteCommand(nullptr),
     myRerouteRailSignal(getBoolParam(holder, OptionsCont::getOptions(), "rerouting.railsignal", true, true)),
-    myLastLaneEntryTime(-1) {
+    myLastLaneEntryTime(-1),
+    myRerouteAfterStop(false) {
     if (myPreInsertionPeriod > 0 || holder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)) {
         // we do always a pre insertion reroute for trips to fill the best lanes of the vehicle with somehow meaningful values (especially for deaprtLane="best")
         myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::preInsertionReroute);
@@ -202,6 +203,15 @@ MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifi
         return true;
     } else {
         return false;
+    }
+}
+
+
+void
+MSDevice_Routing::notifyStopEnded() {
+    if (myRerouteAfterStop) {
+        reroute(SIMSTEP);
+        myRerouteAfterStop = false;
     }
 }
 
@@ -262,7 +272,11 @@ MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
 
 SUMOTime
 MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) {
-    reroute(currentTime);
+    if (myHolder.isStopped()) {
+        myRerouteAfterStop = true;
+    } else {
+        reroute(currentTime);
+    }
     return myPeriod;
 }
 
