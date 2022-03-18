@@ -1684,6 +1684,17 @@ GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const 
         }
         // Call manually onCmdToggleShowGrid
         viewNet->onCmdToggleShowGrid(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckToggleDrawJunctionShape) {
+        // Toggle menuCheckToggleDrawJunctionShape
+        if (viewNet->getNetworkViewOptions().menuCheckToggleDrawJunctionShape->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled draw junction shape throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled draw junction shape throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleDrawJunctionShape
+        viewNet->onCmdToggleDrawJunctionShape(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckDrawSpreadVehicles) {
         // Toggle menuCheckDrawSpreadVehicles
         if (viewNet->getNetworkViewOptions().menuCheckDrawSpreadVehicles->amChecked() == TRUE) {
@@ -1847,6 +1858,17 @@ GNEApplicationWindowHelper::toggleEditOptionsDemand(GNEViewNet* viewNet, const M
         }
         // Call manually onCmdToggleShowGrid
         viewNet->onCmdToggleShowGrid(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckToggleDrawJunctionShape) {
+        // Toggle menuCheckToggleDrawJunctionShape
+        if (viewNet->getDemandViewOptions().menuCheckToggleDrawJunctionShape->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled draw junction shape throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled draw junction shape throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleDrawJunctionShape
+        viewNet->onCmdToggleDrawJunctionShape(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckDrawSpreadVehicles) {
         // Toggle menuCheckDrawSpreadVehicles
         if (viewNet->getDemandViewOptions().menuCheckDrawSpreadVehicles->amChecked() == TRUE) {
@@ -1956,7 +1978,18 @@ GNEApplicationWindowHelper::toggleEditOptionsDemand(GNEViewNet* viewNet, const M
 
 bool
 GNEApplicationWindowHelper::toggleEditOptionsData(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
-    if (menuCheck == viewNet->getDataViewOptions().menuCheckShowAdditionals) {
+    if (menuCheck == viewNet->getDataViewOptions().menuCheckToggleDrawJunctionShape) {
+        // Toggle menuCheckToggleDrawJunctionShape
+        if (viewNet->getDataViewOptions().menuCheckToggleDrawJunctionShape->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled draw junction shape throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled draw junction shape throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleDrawJunctionShape
+        viewNet->onCmdToggleDrawJunctionShape(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getDataViewOptions().menuCheckShowAdditionals) {
         // Toggle menuCheckHideShapes
         if (viewNet->getDataViewOptions().menuCheckShowAdditionals->amChecked() == TRUE) {
             // show extra information for tests
