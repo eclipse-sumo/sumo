@@ -257,6 +257,14 @@ protected:
     /// @brief decide whether to change (back or forth) for an opposite stop
     bool checkOppositeStop(MSVehicle* vehicle, const MSLane* oncomingLane, const MSLane* opposite, std::pair<MSVehicle*, double> leader);
 
+    /// @brief determine for how long the vehicle can drive safely on the opposite side
+    double computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLength, const MSLane* source, double usableDist,
+        std::pair<MSVehicle*, double> oncoming, double vMax, double oncomingSpeed,
+        std::pair<MSVehicle*, double> neighLead,
+        std::pair<MSVehicle*, double> overtaken,
+        double surplusGap, const MSLane* opposite,
+        std::pair<MSVehicle*, double>& leader);
+
     // @brief compute distance that can safely be driven on the opposite side
     static double computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double timeToOvertake,
             double spaceToOvertake, double& oncomingSpeed, bool oncomingOpposite = false);
