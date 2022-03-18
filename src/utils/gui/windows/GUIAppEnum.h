@@ -91,8 +91,8 @@ enum {
     MID_HOTKEY_CTRL_I_EDITVIEWPORT,
     /// @brief Fullscreen mode - menu entry
     MID_HOTKEY_CTRL_F_FULSCREENMODE,
-    /// @brief toogle show junction shape
-    MID_HOTKEY_CTRL_J_TOOGLESHOWJUNCTIONSHAPE,
+    /// @brief toogle draw junction shape
+    MID_HOTKEY_CTRL_J_TOOGLEDRAWJUNCTIONSHAPE,
     /// @brief Load file with TLS Programs
     MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,
     /// @brief save network as plain XML

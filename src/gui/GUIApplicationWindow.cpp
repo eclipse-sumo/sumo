@@ -122,6 +122,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
 
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,                            GUIApplicationWindow::onCmdAppSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,    GUIApplicationWindow::onCmdGaming),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_J_TOOGLEDRAWJUNCTIONSHAPE,  GUIApplicationWindow::onCmdToogleDrawJunctionShape),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_F_FULSCREENMODE,            GUIApplicationWindow::onCmdFullScreen),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTINTERNAL,                           GUIApplicationWindow::onCmdListInternal),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTPARKING,                            GUIApplicationWindow::onCmdListParking),
@@ -1408,6 +1409,22 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         }
     }
     update();
+    return 1;
+}
+
+
+long 
+GUIApplicationWindow::onCmdToogleDrawJunctionShape(FXObject*, FXSelector, void*) {
+    GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+    if (w != nullptr) {
+        // show or hidde grid depending of myNetworkViewOptions.menuCheckToggleGrid
+        if (w->getView()->getVisualisationSettings().drawJunctionShape) {
+            w->getView()->getVisualisationSettings().drawJunctionShape = false;
+        } else {
+            w->getView()->getVisualisationSettings().drawJunctionShape = true;
+        }
+        w->getView()->update();
+    }
     return 1;
 }
 
