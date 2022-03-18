@@ -1,0 +1,76 @@
+Warning: Teleporting vehicle 'fwd.14'; frontal collision with vehicle 'bwd.21', lane='-a_0', gap=-2.10, time=182.00 stage=move.
+Warning: Vehicle 'fwd.14' teleports beyond arrival edge 'a', time=182.00.
+Warning: Teleporting vehicle 'fwd.15'; frontal collision with vehicle 'bwd.26', lane='-a_0', gap=-2.10, time=207.00 stage=move.
+Warning: Vehicle 'fwd.15' teleports beyond arrival edge 'a', time=207.00.
+Warning: Teleporting vehicle 'fwd.16'; frontal collision with vehicle 'bwd.31', lane='-a_0', gap=-2.10, time=232.00 stage=move.
+Warning: Vehicle 'fwd.16' teleports beyond arrival edge 'a', time=232.00.
+Warning: Teleporting vehicle 'fwd.17'; frontal collision with vehicle 'bwd.36', lane='-a_0', gap=-2.10, time=257.00 stage=move.
+Warning: Vehicle 'fwd.17' teleports beyond arrival edge 'a', time=257.00.
+Warning: Teleporting vehicle 'fwd.18'; frontal collision with vehicle 'bwd.41', lane='-a_0', gap=-2.10, time=282.00 stage=move.
+Warning: Vehicle 'fwd.18' teleports beyond arrival edge 'a', time=282.00.
+Warning: Teleporting vehicle 'fwd.19'; frontal collision with vehicle 'bwd.43', lane='-a_0', gap=-2.10, time=315.00 stage=move.
+Warning: Vehicle 'fwd.19' teleports beyond arrival edge 'a', time=315.00.
+Warning: Teleporting vehicle 'fwd.20'; frontal collision with vehicle 'bwd.48', lane='-a_0', gap=-2.10, time=340.00 stage=move.
+Warning: Vehicle 'fwd.20' teleports beyond arrival edge 'a', time=340.00.
+Warning: Teleporting vehicle 'fwd.21'; frontal collision with vehicle 'bwd.53', lane='-a_0', gap=-2.10, time=365.00 stage=move.
+Warning: Vehicle 'fwd.21' teleports beyond arrival edge 'a', time=365.00.
+Warning: Teleporting vehicle 'fwd.22'; frontal collision with vehicle 'bwd.58', lane='-a_0', gap=-2.10, time=390.00 stage=move.
+Warning: Vehicle 'fwd.22' teleports beyond arrival edge 'a', time=390.00.
+Warning: Teleporting vehicle 'fwd.23'; frontal collision with vehicle 'bwd.63', lane='-a_0', gap=-2.10, time=415.00 stage=move.
+Warning: Vehicle 'fwd.23' teleports beyond arrival edge 'a', time=415.00.
+Warning: Teleporting vehicle 'fwd.24'; frontal collision with vehicle 'bwd.65', lane='-a_0', gap=-2.10, time=448.00 stage=move.
+Warning: Vehicle 'fwd.24' teleports beyond arrival edge 'a', time=448.00.
+Warning: Teleporting vehicle 'fwd.25'; frontal collision with vehicle 'bwd.70', lane='-a_0', gap=-2.10, time=473.00 stage=move.
+Warning: Vehicle 'fwd.25' teleports beyond arrival edge 'a', time=473.00.
+Warning: Teleporting vehicle 'fwd.26'; frontal collision with vehicle 'bwd.76', lane='-a_0', gap=-2.10, time=498.00 stage=move.
+Warning: Vehicle 'fwd.26' teleports beyond arrival edge 'a', time=498.00.
+Warning: Teleporting vehicle 'fwd.27'; frontal collision with vehicle 'bwd.84', lane='-a_0', gap=-2.10, time=523.00 stage=move.
+Warning: Vehicle 'fwd.27' teleports beyond arrival edge 'a', time=523.00.
+Warning: Teleporting vehicle 'fwd.28'; frontal collision with vehicle 'bwd.89', lane='-a_0', gap=-2.10, time=548.00 stage=move.
+Warning: Vehicle 'fwd.28' teleports beyond arrival edge 'a', time=548.00.
+Warning: Teleporting vehicle 'fwd.29'; frontal collision with vehicle 'bwd.91', lane='-a_0', gap=-2.10, time=581.00 stage=move.
+Warning: Vehicle 'fwd.29' teleports beyond arrival edge 'a', time=581.00.
+Warning: Teleporting vehicle 'fwd.30'; frontal collision with vehicle 'bwd.96', lane='-a_0', gap=-2.10, time=606.00 stage=move.
+Warning: Vehicle 'fwd.30' teleports beyond arrival edge 'a', time=606.00.
+Warning: Teleporting vehicle 'fwd.31'; frontal collision with vehicle 'bwd.101', lane='-a_0', gap=-2.10, time=631.00 stage=move.
+Warning: Vehicle 'fwd.31' teleports beyond arrival edge 'a', time=631.00.
+Warning: Teleporting vehicle 'fwd.32'; frontal collision with vehicle 'bwd.106', lane='-a_0', gap=-2.10, time=656.00 stage=move.
+Warning: Vehicle 'fwd.32' teleports beyond arrival edge 'a', time=656.00.
+Warning: Teleporting vehicle 'fwd.33'; frontal collision with vehicle 'bwd.111', lane='-a_0', gap=-2.10, time=681.00 stage=move.
+Warning: Vehicle 'fwd.33' teleports beyond arrival edge 'a', time=681.00.
+Warning: Teleporting vehicle 'fwd.34'; frontal collision with vehicle 'bwd.113', lane='-a_0', gap=-2.10, time=714.00 stage=move.
+Warning: Vehicle 'fwd.34' teleports beyond arrival edge 'a', time=714.00.
+Warning: Teleporting vehicle 'fwd.35'; frontal collision with vehicle 'bwd.118', lane='-a_0', gap=-2.10, time=739.00 stage=move.
+Warning: Vehicle 'fwd.35' teleports beyond arrival edge 'a', time=739.00.
+Warning: Teleporting vehicle 'bwd.146'; collision with vehicle 'bwd.145', lane='-a_0', gap=-2.59, time=751.00 stage=move.
+Warning: Vehicle 'bwd.146' teleports beyond arrival edge '-a', time=751.00.
+Warning: Teleporting vehicle 'fwd.36'; frontal collision with vehicle 'bwd.125', lane='-a_0', gap=-2.10, time=764.00 stage=move.
+Warning: Vehicle 'fwd.36' teleports beyond arrival edge 'a', time=764.00.
+Warning: Teleporting vehicle 'fwd.37'; frontal collision with vehicle 'bwd.130', lane='-a_0', gap=-2.10, time=789.00 stage=move.
+Warning: Vehicle 'fwd.37' teleports beyond arrival edge 'a', time=789.00.
+Warning: Teleporting vehicle 'fwd.38'; frontal collision with vehicle 'bwd.135', lane='-a_0', gap=-2.10, time=814.00 stage=move.
+Warning: Vehicle 'fwd.38' teleports beyond arrival edge 'a', time=814.00.
+Warning: Teleporting vehicle 'fwd.39'; frontal collision with vehicle 'bwd.137', lane='-a_0', gap=-2.10, time=847.00 stage=move.
+Warning: Vehicle 'fwd.39' teleports beyond arrival edge 'a', time=847.00.
+Warning: Teleporting vehicle 'fwd.40'; frontal collision with vehicle 'bwd.142', lane='-a_0', gap=-2.10, time=872.00 stage=move.
+Warning: Vehicle 'fwd.40' teleports beyond arrival edge 'a', time=872.00.
+Warning: Teleporting vehicle 'fwd.41'; frontal collision with vehicle 'bwd.148', lane='-a_0', gap=-2.10, time=897.00 stage=move.
+Warning: Vehicle 'fwd.41' teleports beyond arrival edge 'a', time=897.00.
+Warning: Teleporting vehicle 'fwd.42'; frontal collision with vehicle 'bwd.153', lane='-a_0', gap=-2.10, time=922.00 stage=move.
+Warning: Vehicle 'fwd.42' teleports beyond arrival edge 'a', time=922.00.
+Warning: Teleporting vehicle 'fwd.43'; frontal collision with vehicle 'bwd.158', lane='-a_0', gap=-2.10, time=947.00 stage=move.
+Warning: Vehicle 'fwd.43' teleports beyond arrival edge 'a', time=947.00.
+Warning: Teleporting vehicle 'fwd.44'; frontal collision with vehicle 'bwd.160', lane='-a_0', gap=-2.10, time=980.00 stage=move.
+Warning: Vehicle 'fwd.44' teleports beyond arrival edge 'a', time=980.00.
+Warning: Teleporting vehicle 'fwd.45'; frontal collision with vehicle 'bwd.165', lane='-a_0', gap=-2.10, time=1005.00 stage=move.
+Warning: Vehicle 'fwd.45' teleports beyond arrival edge 'a', time=1005.00.
+Warning: Teleporting vehicle 'fwd.47'; frontal collision with vehicle 'bwd.170', lane='-a_0', gap=-2.10, time=1030.00 stage=move.
+Warning: Vehicle 'fwd.47' teleports beyond arrival edge 'a', time=1030.00.
+Warning: Teleporting vehicle 'fwd.48'; frontal collision with vehicle 'bwd.175', lane='-a_0', gap=-2.10, time=1055.00 stage=move.
+Warning: Vehicle 'fwd.48' teleports beyond arrival edge 'a', time=1055.00.
+Warning: Teleporting vehicle 'fwd.49'; frontal collision with vehicle 'bwd.180', lane='-a_0', gap=-2.10, time=1080.00 stage=move.
+Warning: Vehicle 'fwd.49' teleports beyond arrival edge 'a', time=1080.00.
+Warning: Teleporting vehicle 'fwd.50'; frontal collision with vehicle 'bwd.182', lane='-a_0', gap=-2.10, time=1113.00 stage=move.
+Warning: Vehicle 'fwd.50' teleports beyond arrival edge 'a', time=1113.00.
+Warning: Teleporting vehicle 'fwd.51'; frontal collision with vehicle 'bwd.192', lane='-a_0', gap=-2.10, time=1138.00 stage=move.
+Warning: Vehicle 'fwd.51' teleports beyond arrival edge 'a', time=1138.00.
