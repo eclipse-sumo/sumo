@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 netedit.createEdgeMode()
 
 # select two-way mode
-netedit.changeEditMode('5')
+netedit.changeEditMode(netedit.attrs.Modes.Network.twoWayMode)
 
 # select chain mode
 netedit.changeEditMode('4')
