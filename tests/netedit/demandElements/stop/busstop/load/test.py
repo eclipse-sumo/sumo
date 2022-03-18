@@ -37,9 +37,6 @@ netedit.forceSaveDemandElements()
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# show demand elements in network mode
-netedit.changeEditMode(netedit.attrs.Modes.Network.showDemandElements)
-
 # Recompute
 netedit.rebuildNetwork()
 

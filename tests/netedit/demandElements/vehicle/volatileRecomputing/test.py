@@ -32,7 +32,6 @@ neteditProcess, referencePosition = netedit.setupAndStart(
 # show demand elements in network mode
 netedit.changeEditMode(netedit.attrs.Modes.Network.showDemandElements)
 
-
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions()
 
