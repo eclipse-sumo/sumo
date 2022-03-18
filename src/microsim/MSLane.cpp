@@ -1878,6 +1878,7 @@ void
 MSLane::executeMovements(const SUMOTime t) {
     // multithreading: there are concurrent writes to myNeedsCollisionCheck but all of them should set it to true
     myNeedsCollisionCheck = true;
+    MSVehicle* firstNotStopped = nullptr;
     // iterate over vehicles in reverse so that move reminders will be called in the correct order
     for (VehCont::reverse_iterator i = myVehicles.rbegin(); i != myVehicles.rend();) {
         MSVehicle* veh = *i;
@@ -1933,10 +1934,16 @@ MSLane::executeMovements(const SUMOTime t) {
                                veh->getID(), veh->getLane()->getID(), time2string(t));
                 MSVehicleTransfer::getInstance()->add(t, veh);
             } else {
+                if (firstNotStopped == nullptr && !(*i)->isStopped() && (*i)->getLane() == this) {
+                    firstNotStopped = *i;
+                }
                 ++i;
                 continue;
             }
         } else {
+            if (firstNotStopped == nullptr && !(*i)->isStopped() && (*i)->getLane() == this) {
+                firstNotStopped = *i;
+            }
             ++i;
             continue;
         }
@@ -1945,42 +1952,44 @@ MSLane::executeMovements(const SUMOTime t) {
         ++i;
         i = VehCont::reverse_iterator(myVehicles.erase(i.base()));
     }
-    if (myVehicles.size() > 0) {
+    if (firstNotStopped != nullptr) {
         if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0 || MSGlobals::gTimeToTeleportDisconnected >= 0) {
-            MSVehicle* const veh = myVehicles.back(); // the vehice at the front of the queue
-            if (!veh->isStopped() && veh->getLane() == this) {
-                const bool wrongLane = !veh->getLane()->appropriate(veh);
-                const bool r1 = MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock;
-                const bool r2 = MSGlobals::gTimeToGridlockHighways > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && veh->getLane()->getSpeedLimit() > 69. / 3.6 && wrongLane;
-                const bool r3 = MSGlobals::gTimeToTeleportDisconnected >= 0 && veh->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected
-                                && veh->succEdge(1) != nullptr
-                                && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr;
-                if (r1 || r2 || r3) {
-                    const std::vector<MSLink*>::const_iterator link = succLinkSec(*veh, 1, *this, veh->getBestLanesContinuation());
-                    const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
-                    const std::string reason = (wrongLane ? " (wrong lane)" : (minorLink ? " (yield)" : " (jam)"));
-                    myBruttoVehicleLengthSumToRemove += veh->getVehicleType().getLengthWithGap();
-                    myNettoVehicleLengthSumToRemove += veh->getVehicleType().getLength();
-                    myVehicles.erase(myVehicles.end() - 1);
-                    WRITE_WARNINGF("Teleporting vehicle '%'; waited too long" + reason
-                                   + (r2 ? " (highway)" : "")
-                                   + (r3 ? " (disconnected)" : "")
-                                   + ", lane='%', time=%.", veh->getID(), getID(), time2string(t));
-                    if (wrongLane) {
-                        MSNet::getInstance()->getVehicleControl().registerTeleportWrongLane();
-                    } else if (minorLink) {
-                        MSNet::getInstance()->getVehicleControl().registerTeleportYield();
-                    } else {
-                        MSNet::getInstance()->getVehicleControl().registerTeleportJam();
-                    }
-                    if (MSGlobals::gRemoveGridlocked) {
-                        veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
-                        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
-                    } else {
-                        MSVehicleTransfer::getInstance()->add(t, veh);
-                    }
+            const bool wrongLane = !appropriate(firstNotStopped);
+            const bool r1 = MSGlobals::gTimeToGridlock > 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlock;
+            const bool r2 = !r1 && MSGlobals::gTimeToGridlockHighways > 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && getSpeedLimit() > 69. / 3.6 && wrongLane;
+            const bool r3 = !r1 && !r2 && MSGlobals::gTimeToTeleportDisconnected >= 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected
+                            && firstNotStopped->succEdge(1) != nullptr
+                            && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr;
+            if (r1 || r2 || r3) {
+                const std::vector<MSLink*>::const_iterator link = succLinkSec(*firstNotStopped, 1, *this, firstNotStopped->getBestLanesContinuation());
+                const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
+                std::string reason = (wrongLane ? " (wrong lane)" : (minorLink ? " (yield)" : " (jam)"));
+                myBruttoVehicleLengthSumToRemove += firstNotStopped->getVehicleType().getLengthWithGap();
+                myNettoVehicleLengthSumToRemove += firstNotStopped->getVehicleType().getLength();
+                if (firstNotStopped == myVehicles.back()) {
+                    myVehicles.pop_back();
+                } else {
+                    myVehicles.erase(std::find(myVehicles.begin(), myVehicles.end(), firstNotStopped));
+                    reason = " (blocked)";
                 }
-            } // else look for a (waiting) vehicle that isn't stopped?
+                WRITE_WARNINGF("Teleporting vehicle '%'; waited too long" + reason
+                                + (r2 ? " (highway)" : "")
+                                + (r3 ? " (disconnected)" : "")
+                                + ", lane='%', time=%.", firstNotStopped->getID(), getID(), time2string(t));
+                if (wrongLane) {
+                    MSNet::getInstance()->getVehicleControl().registerTeleportWrongLane();
+                } else if (minorLink) {
+                    MSNet::getInstance()->getVehicleControl().registerTeleportYield();
+                } else {
+                    MSNet::getInstance()->getVehicleControl().registerTeleportJam();
+                }
+                if (MSGlobals::gRemoveGridlocked) {
+                    firstNotStopped->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
+                    MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(firstNotStopped);
+                } else {
+                    MSVehicleTransfer::getInstance()->add(t, firstNotStopped);
+                }
+            }
         }
     }
     if (MSGlobals::gSublane) {
