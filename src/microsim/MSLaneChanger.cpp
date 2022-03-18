@@ -1052,6 +1052,61 @@ MSLaneChanger::hasOppositeStop(MSVehicle* vehicle) {
 }
 
 
+bool
+MSLaneChanger::checkOppositeStop(MSVehicle* vehicle, const MSLane* oncomingLane, const MSLane* opposite, std::pair<MSVehicle*, double> leader) {
+    const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
+    double vMax = vehicle->getLane()->getVehicleMaxSpeed(vehicle);
+    std::pair<MSVehicle*, double> neighLead(nullptr, -1);
+    std::pair<MSVehicle*, double> oncoming(nullptr, -1);
+    const std::vector<MSVehicle::LaneQ> preb = getBestLanesOpposite(vehicle, vehicle->getNextStop().lane, -1);
+    const int laneIndex = vehicle->getLaneChangeModel().getNormalizedLaneIndex();
+    const int bestOffset = preb[laneIndex].bestLaneOffset;
+    //std::cout << SIMTIME << " veh=" << vehicle->getID() << " laneIndex=" << laneIndex << " bestOffset=" << bestOffset << " target=" << target->getID() << "\n";
+
+    // compute safety constraints (assume vehicle is safe once stop is reached)
+    const double spaceToStop = vehicle->nextStopDist();
+    const double timeToStopForward = spaceToStop / MAX2(vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxAccel());
+    const double timeToStopLateral = (MSGlobals::gLaneChangeDuration > 0
+            ? STEPS2TIME(MSGlobals::gLaneChangeDuration) * bestOffset
+            : (MSGlobals::gLateralResolution > 0
+                ? bestOffset * SUMO_const_laneWidth / vehicle->getVehicleType().getMaxSpeedLat()
+                : 0.));
+    const double timeToStop = MAX2(timeToStopForward, timeToStopLateral);
+    if (!isOpposite) {
+        // we keep neighLead distinct from oncoming because it determines blocking on the neigh lane
+        // but also look for an oncoming leader to compute safety constraint
+        const double searchDist = timeToStop * oncomingLane->getSpeedLimit() * 2 + spaceToStop;
+        neighLead = oncomingLane->getOppositeLeader(vehicle, searchDist, true);
+        oncoming = getOncomingVehicle(oncomingLane, neighLead, searchDist, vMax);
+    } else {
+        double searchDist = OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD;
+        oncoming = oncomingLane->getOppositeLeader(vehicle, searchDist, true);
+        oncoming = getOncomingVehicle(oncomingLane, oncoming, searchDist, vMax);
+    }
+    double oncomingSpeed;
+    const double surplusGap = computeSurplusGap(vehicle, opposite, oncoming, timeToStop, spaceToStop, oncomingSpeed);
+    if (!isOpposite && surplusGap < 0) {
+#ifdef DEBUG_CHANGE_OPPOSITE
+        if (DEBUG_COND) {
+            std::cout << "   cannot changeOppositeStop due to dangerous oncoming spaceToStop=" << spaceToStop
+                << " timeToStopForward=" << timeToStopForward << " timeToStopLateral=" << timeToStopLateral << " surplusGap=" << surplusGap << "\n";
+        }
+#endif
+        return false;
+    }
+
+    if (bestOffset > 0) {
+        MSLane* const target = preb[laneIndex + 1].lane;
+        neighLead = target->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_MAX_LOOKAHEAD, true);
+        std::pair<MSVehicle* const, double> neighFollow = target->getOppositeFollower(vehicle);
+        return checkChangeOpposite(vehicle, 1, target, leader, neighLead, neighFollow, preb);
+    } else {
+        // return prematurely (due to foe?)
+        //return checkChangeOpposite(vehicle, -1, target, leader, neighLead, neighFollow, preb);
+        return false;
+    }
+}
+
 
 std::vector<MSVehicle::LaneQ>
 MSLaneChanger::getBestLanesOpposite(MSVehicle* vehicle, const MSLane* stopLane, double oppositeLength) {
@@ -1171,52 +1226,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
 
     // check for opposite direction stop
     if (!oppositeChangeByTraci && hasOppositeStop(vehicle)) {
-        const std::vector<MSVehicle::LaneQ> preb = getBestLanesOpposite(vehicle, vehicle->getNextStop().lane, -1);
-        const int laneIndex = vehicle->getLaneChangeModel().getNormalizedLaneIndex();
-        const int bestOffset = preb[laneIndex].bestLaneOffset;
-        //std::cout << SIMTIME << " veh=" << vehicle->getID() << " laneIndex=" << laneIndex << " bestOffset=" << bestOffset << " target=" << target->getID() << "\n";
-
-        // compute safety constraints (assume vehicle is safe once stop is reached)
-        const double spaceToStop = vehicle->nextStopDist();
-        const double timeToStopForward = spaceToStop / MAX2(vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxAccel());
-        const double timeToStopLateral = (MSGlobals::gLaneChangeDuration > 0
-                                          ? STEPS2TIME(MSGlobals::gLaneChangeDuration) * bestOffset
-                                          : (MSGlobals::gLateralResolution > 0
-                                             ? bestOffset * SUMO_const_laneWidth / vehicle->getVehicleType().getMaxSpeedLat()
-                                             : 0.));
-        const double timeToStop = MAX2(timeToStopForward, timeToStopLateral);
-        if (!isOpposite) {
-            // we keep neighLead distinct from oncoming because it determines blocking on the neigh lane
-            // but also look for an oncoming leader to compute safety constraint
-            const double searchDist = timeToStop * oncomingLane->getSpeedLimit() * 2 + spaceToStop;
-            neighLead = oncomingLane->getOppositeLeader(vehicle, searchDist, true);
-            oncoming = getOncomingVehicle(oncomingLane, neighLead, searchDist, vMax);
-        } else {
-            double searchDist = OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD;
-            oncoming = oncomingLane->getOppositeLeader(vehicle, searchDist, true);
-            oncoming = getOncomingVehicle(oncomingLane, oncoming, searchDist, vMax);
-        }
-        surplusGap = computeSurplusGap(vehicle, opposite, oncoming, timeToStop, spaceToStop, oncomingSpeed);
-        if (!isOpposite && surplusGap < 0) {
-#ifdef DEBUG_CHANGE_OPPOSITE
-            if (DEBUG_COND) {
-                std::cout << "   cannot changeOppositeStop due to dangerous oncoming spaceToStop=" << spaceToStop
-                          << " timeToStopForward=" << timeToStopForward << " timeToStopLateral=" << timeToStopLateral << " surplusGap=" << surplusGap << "\n";
-            }
-#endif
-            return false;
-        }
-
-        if (bestOffset > 0) {
-            MSLane* const target = preb[laneIndex + 1].lane;
-            neighLead = target->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_MAX_LOOKAHEAD, true);
-            std::pair<MSVehicle* const, double> neighFollow = target->getOppositeFollower(vehicle);
-            return checkChangeOpposite(vehicle, 1, target, leader, neighLead, neighFollow, preb);
-        } else {
-            // return prematurely (due to foe?)
-            //return checkChangeOpposite(vehicle, -1, target, leader, neighLead, neighFollow, preb);
-            return false;
-        }
+        return checkOppositeStop(vehicle, oncomingLane, opposite, leader);
     }
 
     if (!isOpposite && leader.first == nullptr && !oppositeChangeByTraci) {

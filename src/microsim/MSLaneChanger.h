@@ -254,6 +254,9 @@ protected:
     /// @brief whether vehicle has an opposite-direction stop within relevant range
     static bool hasOppositeStop(MSVehicle* vehicle);
 
+    /// @brief decide whether to change (back or forth) for an opposite stop
+    bool checkOppositeStop(MSVehicle* vehicle, const MSLane* oncomingLane, const MSLane* opposite, std::pair<MSVehicle*, double> leader);
+
     // @brief compute distance that can safely be driven on the opposite side
     static double computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double timeToOvertake,
             double spaceToOvertake, double& oncomingSpeed, bool oncomingOpposite = false);
