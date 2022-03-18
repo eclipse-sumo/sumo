@@ -1,0 +1,14 @@
+Warning: Teleporting vehicle 'bwd.11'; waited too long (wrong lane), lane='a_0', time=444.00.
+Warning: Vehicle 'bwd.11' teleports beyond arrival edge '-a', time=444.00.
+Warning: Teleporting vehicle 'bwd.26'; waited too long (wrong lane), lane='a_0', time=764.00.
+Warning: Vehicle 'bwd.26' teleports beyond arrival edge '-a', time=764.00.
+Warning: Teleporting vehicle 'bwd.19'; waited too long (wrong lane), lane='a_0', time=765.00.
+Warning: Vehicle 'bwd.19' teleports beyond arrival edge '-a', time=765.00.
+Warning: Teleporting vehicle 'bwd.16'; waited too long (wrong lane), lane='a_0', time=766.00.
+Warning: Vehicle 'bwd.16' teleports beyond arrival edge '-a', time=766.00.
+Warning: Teleporting vehicle 'bwd.15'; waited too long (wrong lane), lane='a_0', time=767.00.
+Warning: Vehicle 'bwd.15' teleports beyond arrival edge '-a', time=767.00.
+Warning: Teleporting vehicle 'bwd.14'; waited too long (wrong lane), lane='a_0', time=768.00.
+Warning: Vehicle 'bwd.14' teleports beyond arrival edge '-a', time=768.00.
+Warning: Teleporting vehicle 'bwd.12'; waited too long (wrong lane), lane='a_0', time=769.00.
+Warning: Vehicle 'bwd.12' teleports beyond arrival edge '-a', time=769.00.

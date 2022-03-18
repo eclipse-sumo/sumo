@@ -115,8 +115,14 @@ slalom_junction
 # stopped vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
 slalom_deadlock
 
-# stopped vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
+# stopped vehicles on both sides of the road in a deadlock inducing configuration and sparse traffic from both directions
 slalom_deadlock2
 
 # stopped queued vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
 slalom_deadlock_queues
+
+# repeated groups of stopped queued vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
+slalom_deadlock_queues2
+
+# repeated groups of stopped queued vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
+slalom_deadlock_queues3
