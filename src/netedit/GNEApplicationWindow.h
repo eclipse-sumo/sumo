@@ -349,6 +349,9 @@ public:
     /// @brief called if the user press key combination Ctrl + G to toggle grid
     long onCmdToggleGrid(FXObject*, FXSelector, void*);
 
+    /// @brief called if the user press key combination Ctrl + J to toggle draw junction shape
+    long onCmdToggleDrawJunctionShape(FXObject*, FXSelector, void*);
+
     /// @brief called if the user call set front element
     long onCmdSetFrontElement(FXObject*, FXSelector, void*);
 
