@@ -41,6 +41,9 @@ class Modes:
         selectLane = '5'
         showConnections = '6'
         showSubAdditionals = '7'
+        # create edge
+        chainMode = '5'
+        twoWayMode = '6'
     class Demand:
         grid = '1'
         junctionShape = '2'
