@@ -1,2 +1,2 @@
 Error: Attribute 'expected' in definition of a stop is empty.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Feb113541.7936\netedit.gui\demandElements\waypoint\containerstop\load\expected\input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.containerstop.1_from_18Mär145707.122688/netedit.daily.demand.waypoint.containerstop/demandElements/waypoint/containerstop/load/expected/input_routes.rou.xml failed.

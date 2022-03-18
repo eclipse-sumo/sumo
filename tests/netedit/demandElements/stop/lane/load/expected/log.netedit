@@ -1,2 +1,2 @@
 Error: Attribute 'expected' in definition of a stop is empty.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb155439.7352\netedit.gui\demandElements\stop\lane\load\expected\input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.lane.1_from_18Mär134237.114281/netedit.daily.demand.stop.lane/demandElements/stop/lane/load/expected/input_routes.rou.xml failed.
