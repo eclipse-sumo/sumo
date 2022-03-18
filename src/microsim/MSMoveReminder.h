@@ -181,6 +181,12 @@ public:
         return true;
     }
 
+    /// @brief called to update state for parking vehicles
+    virtual void notifyParking() {}
+
+    /// @brief called to update state for stopped vehicles
+    virtual void notifyStopEnded() {}
+
     /** @brief Called if the vehicle leaves the reminder's lane
      *
      * Informs if vehicle leaves reminder lane (due to lane change, removal

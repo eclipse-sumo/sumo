@@ -1092,9 +1092,8 @@ MSVehicle::workOnIdleReminders() {
     updateWaitingTime(0.);   // cf issue 2233
 
     // vehicle move reminders
-    for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
-        rem->first->notifyIdle(*this);
-        ++rem;
+    for (const auto& rem : myMoveReminders) {
+        rem.first->notifyIdle(*this);
     }
 
     // lane move reminders - for aggregated values
@@ -1109,18 +1108,18 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane& enteredLane) {
     // save the old work reminders, patching the position information
     //  add the information about the new offset to the old lane reminders
     const double oldLaneLength = myLane->getLength();
-    for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end(); ++rem) {
-        rem->second += oldLaneLength;
+    for (auto& rem : myMoveReminders) {
+        rem.second += oldLaneLength;
 #ifdef _DEBUG
 //        if (rem->first==0) std::cout << "Null reminder (?!)" << std::endl;
 //        std::cout << "Adapted MoveReminder on lane " << ((rem->first->getLane()==0) ? "NULL" : rem->first->getLane()->getID()) <<" position to " << rem->second << std::endl;
         if (myTraceMoveReminders) {
-            traceMoveReminder("adaptedPos", rem->first, rem->second, true);
+            traceMoveReminder("adaptedPos", rem.first, rem.second, true);
         }
 #endif
     }
-    for (std::vector< MSMoveReminder* >::const_iterator rem = enteredLane.getMoveReminders().begin(); rem != enteredLane.getMoveReminders().end(); ++rem) {
-        addReminder(*rem);
+    for (MSMoveReminder* const rem : enteredLane.getMoveReminders()) {
+        addReminder(rem);
     }
 }
 
@@ -1572,12 +1571,6 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
             }
         } else {
-            if (isParking()) {
-                // called via MSVehicleTransfer
-                for (MSVehicleDevice* const dev : myDevices) {
-                    dev->notifyParking();
-                }
-            }
             boardTransportables(stop);
 
             if (stop.triggered && !myAmRegisteredAsWaitingForPerson) {
@@ -4272,6 +4265,9 @@ MSVehicle::updateParkingState() {
     }
     if (myContainerDevice != nullptr) {
         myContainerDevice->notifyMove(*this, getPositionOnLane(), getPositionOnLane(), 0);
+    }
+    for (MSVehicleDevice* const dev : myDevices) {
+        dev->notifyParking();
     }
 }
 
