@@ -114,3 +114,6 @@ slalom_junction
 
 # stopped vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
 slalom_deadlock
+
+# stopped vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
+slalom_deadlock2
