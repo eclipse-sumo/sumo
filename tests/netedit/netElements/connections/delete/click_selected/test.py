@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.rebuildNetwork()
 
 # show connections
-netedit.changeEditMode('5')
+netedit.changeEditMode(netedit.attrs.Modes.Network.showConnections)
 
 # set select mode
 netedit.selectMode()
