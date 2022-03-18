@@ -530,7 +530,8 @@ class Net:
                 appendix = (toEdge,) + appendix
                 appendixCost += toEdge.getLength() / speedFunc(toEdge)
                 toEdge = list(toEdge.getIncoming().keys())[0]
-        q = [(fromEdge.getLength() / speedFunc(fromEdge) if includeFromToCost else 0, fromEdge.getID(), (fromEdge, ), ())]
+        fromCost = fromEdge.getLength() / speedFunc(fromEdge) if includeFromToCost else 0
+        q = [(fromCost, fromEdge.getID(), (fromEdge, ), ())]
         if fromEdge == toEdge and fromPos > toPos and not ignoreDirection:
             # start search on successors of fromEdge
             q = []
