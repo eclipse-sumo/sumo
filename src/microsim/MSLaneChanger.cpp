@@ -1373,6 +1373,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
                 std::cout << "  oncoming=" << oncoming.first->getID() << " stopped=" << oncoming.first->isStopped()
                     << " halting=" << oncoming.first->getWaitingSeconds()
                     << " oncomingGap=" << oncomingGap
+                    << " vMaxGap=" << getMaxOvertakingSpeed(vehicle, oncomingGap)
                     << " vMax=" << vMax << "\n";
             }
 #endif
@@ -1559,9 +1560,11 @@ MSLaneChanger::avoidDeadlock(MSVehicle* vehicle,
                 || leader.first->getLaneChangeModel().isOpposite()
                 || yield)) {
 
+        // estimate required gap
         double requiredGap = MAX2(vehicle->getVehicleType().getLengthWithGap(), neighLead.first->getVehicleType().getLengthWithGap());
         requiredGap = MAX2(requiredGap, overtaken.first->getVehicleType().getLengthWithGap());
         requiredGap = MAX2(requiredGap, leader.first->getVehicleType().getLengthWithGap());
+        requiredGap += 1;
         const double distToStop = neighLead.second - requiredGap;
 
         // find the next non-stopped vehicle behind neighLead
@@ -1581,8 +1584,6 @@ MSLaneChanger::avoidDeadlock(MSVehicle* vehicle,
             }
         }
 
-        // estimate required gap
-        requiredGap += 1;
         const double gapWithEgo = leader.second - neighStoppedBack - vehicle->getVehicleType().getLengthWithGap();
 #ifdef DEBUG_CHANGE_OPPOSITE_DEADLOCK
         if (DEBUG_COND) {
