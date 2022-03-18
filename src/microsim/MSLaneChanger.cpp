@@ -1571,7 +1571,11 @@ MSLaneChanger::avoidDeadlock(MSVehicle* vehicle,
         // find the next non-stopped vehicle behind neighLead
         double neighStoppedBack = vehicle->getVehicleType().getMinGap();
         while (neighLead.first != nullptr && neighLead.first->isStopped()) {
-            neighStoppedBack += neighLead.second + neighLead.first->getVehicleType().getLengthWithGap();
+            const double nextGap = neighLead.second + neighLead.first->getVehicleType().getLengthWithGap();
+            if (neighStoppedBack + nextGap > overtaken.second) {
+                break;
+            }
+            neighStoppedBack += nextGap;
             auto neighLeadFollow = neighLead.first->getFollower();
             neighLead.second = neighLeadFollow.second;
             neighLead.first = const_cast<MSVehicle*>(neighLeadFollow.first);
@@ -1849,6 +1853,12 @@ MSLaneChanger::getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*, 
         oncoming = opposite->getFollower(oncoming.first, oncoming.first->getPositionOnLane(opposite), searchDist, mLinkMode);
         if (oncoming.first != nullptr) {
             gap += oncoming.second;
+//            gap += oncoming.second + oncoming.first->getVehicleType().getLength();
+//#ifdef DEBUG_CHANGE_OPPOSITE
+//            if (gDebugFlag5) {
+//                std::cout << SIMTIME << " oncoming=" << oncoming.first->getID() << " gap=" << oncoming.second << " totalGap=" << gap << "\n";
+//            }
+//#endif
         }
     }
     oncoming.second = gap;
