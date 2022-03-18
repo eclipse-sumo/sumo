@@ -152,6 +152,7 @@
 #include "checkbox_chain.xpm"
 #include "checkbox_elevation.xpm"
 #include "checkbox_grid.xpm"
+#include "checkbox_drawjunctionshapes.xpm"
 #include "checkbox_hideconnections.xpm"
 #include "checkbox_showsubadditionals.xpm"
 #include "checkbox_hidenoninspecteddemandelements.xpm"
@@ -558,6 +559,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::UNCOLLAPSE] = new FXXPMIcon(a, uncollapse_xpm);
 
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_TOGGLEGRID] = new FXXPMIcon(a, checkbox_grid_xpm);
+    myIcons[GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE] = new FXXPMIcon(a, checkbox_drawjunctionshapes_xpm);
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE] = new FXXPMIcon(a, checkbox_spreadvehicle_xpm);
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS] = new FXXPMIcon(a, checkbox_showdemandelements_xpm);
 
