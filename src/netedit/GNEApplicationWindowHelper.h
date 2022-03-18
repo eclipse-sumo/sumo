@@ -411,11 +411,11 @@ struct GNEApplicationWindowHelper {
             /// @brief hide all options menu checks
             void hideNetworkViewOptionsMenuChecks();
 
-            /// @brief update alt labels
-            void updateAltLabels();
-
             /// @brief menu check to show grid button
             FXMenuCheckIcon* menuCheckToggleGrid;
+
+            /// @brief menu check to toogle draw junction shape
+            FXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
 
             /// @brief menu check to draw vehicles in begin position or spread in lane
             FXMenuCheckIcon* menuCheckDrawSpreadVehicles;
@@ -485,6 +485,9 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check to show grid button
             FXMenuCheckIcon* menuCheckToggleGrid;
 
+            /// @brief menu check to toogle draw junction shape
+            FXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
+
             /// @brief menu check to draw vehicles in begin position or spread in lane
             FXMenuCheckIcon* menuCheckDrawSpreadVehicles;
 
@@ -537,6 +540,9 @@ struct GNEApplicationWindowHelper {
 
             /// @brief hide all options menu checks
             void hideDataViewOptionsMenuChecks();
+
+            /// @brief menu check to toogle draw junction shape
+            FXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
 
             /// @brief menu check to show Additionals
             FXMenuCheckIcon* menuCheckShowAdditionals;
