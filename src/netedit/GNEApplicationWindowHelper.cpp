@@ -211,8 +211,8 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
                                            "Save Plain XM&L...", "Ctrl+L", "Save plain XML representation the network.",
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_L_SAVEASPLAINXML);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           "Save &Joined Junctions...", "Ctrl+J", "Save log of joined junctions (allows reproduction of joins).",
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS);
+                                           "Save &Joined Junctions...", "", "Save log of joined junctions (allows reproduction of joins).",
+                                           GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_SAVEJOINEDJUNCTIONS);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                                            "Save All Elements", "", "Save all elements (network, additional, demand and data)",
                                            GUIIconSubSys::getIcon(GUIIcon::SAVEALLELEMENTS), myGNEApp, MID_GNE_SAVEALLELEMENTS);
