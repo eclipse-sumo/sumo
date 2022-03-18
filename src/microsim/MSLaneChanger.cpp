@@ -1251,6 +1251,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
                 std::cout << "   not overtaking leader " << leader.first->getID() << " that has blinker set\n";
             }
 #endif
+            resolveDeadlock(vehicle, leader, neighLead, overtaken.second);
             return false;
         } else if (leader.second < 0) {
             // leaders is either a junction leader (that cannot be overtaken) or something else is wrong
