@@ -1512,7 +1512,8 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
     // compute wish to change
     double oppositeLength = vehicle->getBestLanes().back().length;
     if (isOpposite) {
-        oppositeLength = computeSafeOppositeLength(vehicle, oppositeLength, source, usableDist, oncoming, vMax, oncomingSpeed, neighLead, overtaken, surplusGap, opposite, leader);
+        oppositeLength = computeSafeOppositeLength(vehicle, oppositeLength, source, usableDist, oncoming, vMax, oncomingSpeed, neighLead, overtaken, surplusGap, opposite);
+        leader.first = 0;
     }
     std::vector<MSVehicle::LaneQ> preb = getBestLanesOpposite(vehicle, nullptr, oppositeLength);
     std::pair<MSVehicle* const, double> neighFollow = opposite->getOppositeFollower(vehicle);
@@ -1724,8 +1725,7 @@ MSLaneChanger::computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLeng
         std::pair<MSVehicle*, double> oncoming, double vMax, double oncomingSpeed,
         std::pair<MSVehicle*, double> neighLead,
         std::pair<MSVehicle*, double> overtaken,
-        double surplusGap, const MSLane* opposite,
-        std::pair<MSVehicle*, double>& leader)
+        double surplusGap, const MSLane* opposite)
 {
     // compute the remaining distance that can be driven on the opposite side
     // this value will put into oppositeLength of the opposite lanes
@@ -1813,7 +1813,6 @@ MSLaneChanger::computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLeng
             }
         }
     }
-    leader.first = 0; // ignore leader after this
 #ifdef DEBUG_CHANGE_OPPOSITE
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << vehicle->getID() << " remaining dist=" << oppositeLength - forwardPos << " forwardPos=" << forwardPos << " oppositeLength=" << oppositeLength << "\n";
