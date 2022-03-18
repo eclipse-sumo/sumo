@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.selectMode()
 
 # show connections
-netedit.changeEditMode('4')
+netedit.changeEditMode(netedit.attrs.Modes.Network.showConnections)
 
 # disable select edges
 netedit.changeEditMode('2')
