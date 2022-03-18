@@ -2124,7 +2124,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                             || (!cand.first->myLaneChangeModel->isOpposite() && cand.first->getLaneChangeModel().getShadowLane() == leaderLane)) {
                         // respect leaders that also drive in the opposite direction (fully or with some overlap)
                         oppositeLeaders.addLeader(cand.first, cand.second + gapOffset - getVehicleType().getMinGap() + cand.first->getVehicleType().getMinGap() - cand.first->getVehicleType().getLength());
-                    } else if (cand.second >= 0 && cand.second - (v + cand.first->getSpeed()) * minTimeToLeaveLane < 0) {
+                    } else if (cand.second >= 0 && (cand.second - (v + cand.first->getSpeed()) * minTimeToLeaveLane < 0
+                            || cand.first->isStopped() || cand.first->getWaitingSeconds() > 1)) {
                         oppositeLeaders.addLeader(cand.first, cand.second + gapOffset - getVehicleType().getMinGap());
                     }
                 }

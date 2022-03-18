@@ -227,9 +227,9 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, const double max, con
         std::cout
                 << "\n" << SIMTIME << std::setprecision(gPrecision)
                 << " patchSpeed state=" << toString((LaneChangeAction)state) << " myLCAccelerationAdvices=" << toString(myLCAccelerationAdvices)
-                << " \nspeed=" << myVehicle.getSpeed()
-                << " min=" << min
-                << " wanted=" << wanted << std::endl;
+                << "\n  speed=" << myVehicle.getSpeed() << " min=" << min << " wanted=" << wanted
+                << "\n  myLeadingBlockerLength=" << myLeadingBlockerLength
+                << "\n";
     }
 #endif
 
@@ -242,7 +242,7 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, const double max, con
         double space = myLeftSpace - myLeadingBlockerLength - MAGIC_offset - myVehicle.getVehicleType().getMinGap();
 #ifdef DEBUG_PATCH_SPEED
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myLeftSpace=" << myLeftSpace << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
         }
 #endif
         if (space > 0) { // XXX space > -MAGIC_offset
@@ -1997,6 +1997,10 @@ MSLCM_LC2013::saveBlockerLength(double length, double foeLeftSpace) {
     const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
     if (canReserve || myLeftSpace > foeLeftSpace) {
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
+        if (myLeftSpace == 0 && foeLeftSpace < 0) {
+            // called from opposite overtaking, myLeftSpace must be initialized
+            myLeftSpace = myVehicle.getBestLanes()[myVehicle.getLane()->getIndex()].length - myVehicle.getPositionOnLane();
+        }
         return true;
     } else {
         return false;

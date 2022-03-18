@@ -3752,6 +3752,10 @@ MSLCM_SL2015::saveBlockerLength(double length, double foeLeftSpace) {
     const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
     if (canReserve || myLeftSpace > foeLeftSpace) {
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
+        if (myLeftSpace == 0 && foeLeftSpace < 0) {
+            // called from opposite overtaking, myLeftSpace must be initialized
+            myLeftSpace = myVehicle.getBestLanes()[myVehicle.getLane()->getIndex()].length - myVehicle.getPositionOnLane();
+        }
         return true;
     } else {
         return false;
