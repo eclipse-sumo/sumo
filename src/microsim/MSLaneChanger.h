@@ -264,7 +264,7 @@ protected:
         std::pair<MSVehicle*, double> leader);
 
     /// @brief keep stopping to resolve opposite-diretion deadlock while there is oncoming traffic
-    void resolveDeadlock(MSVehicle* vehicle, std::pair<MSVehicle* const, double> leader, std::pair<MSVehicle* const, double> neighLead, double deadLockZone);
+    void resolveDeadlock(MSVehicle* vehicle, std::pair<MSVehicle* const, double> leader, std::pair<MSVehicle*, double> neighLead, double deadLockZone);
 
     /// @brief check whether to keep stopping for oncoming vehicles in the deadlock zone
     bool yieldToDeadlockOncoming(const MSVehicle* vehicle, const MSVehicle* stoppedNeigh, double dist);
