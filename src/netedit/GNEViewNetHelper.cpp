@@ -1906,6 +1906,7 @@ GNEViewNetHelper::EditModes::isCurrentSupermodeData() const {
 
 GNEViewNetHelper::NetworkViewOptions::NetworkViewOptions(GNEViewNet* viewNet) :
     menuCheckToggleGrid(nullptr),
+    menuCheckToggleDrawJunctionShape(nullptr),
     menuCheckDrawSpreadVehicles(nullptr),
     menuCheckShowDemandElements(nullptr),
     menuCheckSelectEdges(nullptr),
@@ -1932,6 +1933,13 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
             myViewNet, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID, GUIDesignMFXCheckableButtonSquare);
     menuCheckToggleGrid->setChecked(false);
     menuCheckToggleGrid->create();
+
+    menuCheckToggleDrawJunctionShape = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tShow or hide junction shape. (Ctrl+J)"),
+            GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
+    menuCheckToggleDrawJunctionShape->setChecked(false);
+    menuCheckToggleDrawJunctionShape->create();
 
     menuCheckDrawSpreadVehicles = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tDraw vehicles spread in lane or in depart position."),
@@ -2032,6 +2040,7 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
 void
 GNEViewNetHelper::NetworkViewOptions::hideNetworkViewOptionsMenuChecks() {
     menuCheckToggleGrid->hide();
+    menuCheckToggleDrawJunctionShape->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckShowDemandElements->hide();
     menuCheckSelectEdges->hide();
@@ -2055,6 +2064,9 @@ GNEViewNetHelper::NetworkViewOptions::getVisibleNetworkMenuCommands(std::vector<
     // save visible menu commands in commands vector
     if (menuCheckToggleGrid->shown()) {
         commands.push_back(menuCheckToggleGrid);
+    }
+    if (menuCheckToggleDrawJunctionShape->shown()) {
+        commands.push_back(menuCheckToggleDrawJunctionShape);
     }
     if (menuCheckDrawSpreadVehicles->shown()) {
         commands.push_back(menuCheckDrawSpreadVehicles);
@@ -2170,6 +2182,7 @@ GNEViewNetHelper::NetworkViewOptions::editingElevation() const {
 
 GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
     menuCheckToggleGrid(nullptr),
+    menuCheckToggleDrawJunctionShape(nullptr),
     menuCheckDrawSpreadVehicles(nullptr),
     menuCheckHideShapes(nullptr),
     menuCheckShowAllTrips(nullptr),
@@ -2194,6 +2207,13 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
             myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID, GUIDesignMFXCheckableButtonSquare);
     menuCheckToggleGrid->setChecked(false);
     menuCheckToggleGrid->create();
+
+    menuCheckToggleDrawJunctionShape = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tShow or hide junction shape. (Ctrl+J)"),
+            GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
+    menuCheckToggleDrawJunctionShape->setChecked(false);
+    menuCheckToggleDrawJunctionShape->create();
 
     menuCheckDrawSpreadVehicles = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tDraw vehicles spread in lane or in depart position."),
@@ -2266,6 +2286,7 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
 void
 GNEViewNetHelper::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
     menuCheckToggleGrid->hide();
+    menuCheckToggleDrawJunctionShape->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckHideShapes->hide();
     menuCheckShowAllTrips->hide();
@@ -2285,6 +2306,9 @@ GNEViewNetHelper::DemandViewOptions::getVisibleDemandMenuCommands(std::vector<MF
     // save visible menu commands in commands vector
     if (menuCheckToggleGrid->shown()) {
         commands.push_back(menuCheckToggleGrid);
+    }
+    if (menuCheckToggleDrawJunctionShape->shown()) {
+        commands.push_back(menuCheckToggleDrawJunctionShape);
     }
     if (menuCheckDrawSpreadVehicles->shown()) {
         commands.push_back(menuCheckDrawSpreadVehicles);
@@ -2447,6 +2471,7 @@ GNEViewNetHelper::DemandViewOptions::getLockedContainer() const {
 
 GNEViewNetHelper::DataViewOptions::DataViewOptions(GNEViewNet* viewNet) :
     menuCheckShowAdditionals(nullptr),
+    menuCheckToggleDrawJunctionShape(nullptr),
     menuCheckShowShapes(nullptr),
     menuCheckShowDemandElements(nullptr),
     menuCheckToogleTAZRelDrawing(nullptr),
@@ -2460,6 +2485,13 @@ GNEViewNetHelper::DataViewOptions::DataViewOptions(GNEViewNet* viewNet) :
 void
 GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
     // create menu checks
+    menuCheckToggleDrawJunctionShape = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tShow or hide junction shape. (Ctrl+J)"),
+            GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
+            myViewNet, MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
+    menuCheckToggleDrawJunctionShape->setChecked(false);
+    menuCheckToggleDrawJunctionShape->create();
+
     menuCheckShowAdditionals = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tToggle show additionals."),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_SHOWADDITIONALS),
@@ -2516,6 +2548,7 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
 
 void
 GNEViewNetHelper::DataViewOptions::hideDataViewOptionsMenuChecks() {
+    menuCheckToggleDrawJunctionShape->hide();
     menuCheckShowAdditionals->hide();
     menuCheckShowShapes->hide();
     menuCheckShowDemandElements->hide();
@@ -2531,6 +2564,9 @@ GNEViewNetHelper::DataViewOptions::hideDataViewOptionsMenuChecks() {
 void
 GNEViewNetHelper::DataViewOptions::getVisibleDataMenuCommands(std::vector<MFXCheckableButton*>& commands) const {
     // save visible menu commands in commands vector
+    if (menuCheckToggleDrawJunctionShape->shown()) {
+        commands.push_back(menuCheckToggleDrawJunctionShape);
+    }
     if (menuCheckShowAdditionals->shown()) {
         commands.push_back(menuCheckShowAdditionals);
     }
