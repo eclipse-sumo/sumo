@@ -258,7 +258,7 @@ protected:
     bool checkOppositeStop(MSVehicle* vehicle, const MSLane* oncomingLane, const MSLane* opposite, std::pair<MSVehicle*, double> leader);
 
     /// @brief avoid opposite-diretion deadlock when vehicles are stopped on both sides of the road
-    void avoidDeadlock(MSVehicle* vehicle,
+    bool avoidDeadlock(MSVehicle* vehicle,
         std::pair<MSVehicle*, double> neighLead,
         std::pair<MSVehicle*, double> overtaken,
         std::pair<MSVehicle*, double> leader);

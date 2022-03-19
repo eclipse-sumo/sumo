@@ -1995,7 +1995,7 @@ MSLCM_LC2013::getOppositeSafetyFactor() const {
 double
 MSLCM_LC2013::saveBlockerLength(double length, double foeLeftSpace) {
     const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
-    if (canReserve || myLeftSpace > foeLeftSpace) {
+    if (!isOpposite() && (canReserve || myLeftSpace > foeLeftSpace)) {
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
         if (myLeftSpace == 0 && foeLeftSpace < 0) {
             // called from opposite overtaking, myLeftSpace must be initialized

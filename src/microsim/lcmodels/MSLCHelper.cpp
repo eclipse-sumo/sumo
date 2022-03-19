@@ -29,7 +29,7 @@
 // Debug flags
 // ===========================================================================
 //#define DEBUG_WANTS_CHANGE
-//#define DEBUG_SAVE_BLOCKER_LENGTH
+#define DEBUG_SAVE_BLOCKER_LENGTH
 
 #define DEBUG_COND (veh.isSelected())
 //#define DEBUG_COND (true)
@@ -275,7 +275,9 @@ bool
 MSLCHelper::canSaveBlockerLength(const MSVehicle& veh, double requested, double leftSpace) {
     const double potential = leftSpace - veh.getCarFollowModel().brakeGap(veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), veh.getActionStepLengthSecs());
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
-    if (DEBUG_COND) std::cout << SIMTIME << " canSaveBlockerLength veh=" << veh.getID() << " requested=" << requested << " leftSpace=" << leftSpace << " potential=" << potential << "\n";
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " canSaveBlockerLength veh=" << veh.getID() << " requested=" << requested << " leftSpace=" << leftSpace << " potential=" << potential << "\n";
+    }
 #endif
     return potential >= requested;
 }
