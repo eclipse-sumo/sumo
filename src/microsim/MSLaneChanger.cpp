@@ -1737,6 +1737,8 @@ MSLaneChanger::resolveDeadlock(MSVehicle* vehicle, std::pair<MSVehicle* const, d
                     << " reserved=" << reserved
                     << "\n";
             }
+#else
+            UNUSED_PARAMETER(reserved);
 #endif
         }
     }
