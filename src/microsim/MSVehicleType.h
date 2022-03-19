@@ -290,18 +290,11 @@ public:
         return myParameter.containerCapacity;
     }
 
-    /** @brief Get this vehicle type's boarding duration
-     * @return The time a person needs to board a vehicle of this type
-     */
-    SUMOTime getBoardingDuration() const {
-        return myParameter.boardingDuration;
-    }
-
     /** @brief Get this vehicle type's loading duration
-     * @return The time a container needs to get laoded on a vehicle of this type
+     * @return The time a container / person needs to get loaded on a vehicle of this type
      */
-    SUMOTime getLoadingDuration() const {
-        return myParameter.loadingDuration;
+    SUMOTime getLoadingDuration(const bool isPerson) const {
+        return isPerson ? myParameter.boardingDuration : myParameter.loadingDuration;
     }
 
     /** @brief Get vehicle's maximum lateral speed [m/s].

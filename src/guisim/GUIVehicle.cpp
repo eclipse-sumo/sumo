@@ -235,9 +235,9 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
         ret->mkItem("action step length [s]", false, myType->getActionStepLengthSecs());
     }
     ret->mkItem("person capacity", false, myType->getPersonCapacity());
-    ret->mkItem("boarding time", false, STEPS2TIME(myType->getBoardingDuration()));
+    ret->mkItem("boarding time", false, STEPS2TIME(myType->getLoadingDuration(true)));
     ret->mkItem("container capacity", false, myType->getContainerCapacity());
-    ret->mkItem("loading time", false, STEPS2TIME(myType->getLoadingDuration()));
+    ret->mkItem("loading time", false, STEPS2TIME(myType->getLoadingDuration(false)));
     if (MSGlobals::gLateralResolution > 0) {
         ret->mkItem("minGapLat", false, myType->getMinGapLat());
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());

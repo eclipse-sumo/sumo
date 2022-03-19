@@ -248,7 +248,7 @@ MEVehicle::checkStop(SUMOTime time) {
         if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
             bool wait = true;
             if (stop.triggered && net->hasPersons()) {
-                wait = !net->getPersonControl().boardAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
+                wait = !net->getPersonControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
             }
             if (stop.containerTriggered && net->hasContainers()) {
                 wait = !net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
@@ -335,7 +335,7 @@ MEVehicle::processStop() {
         MSNet* const net = MSNet::getInstance();
         SUMOTime dummy = -1; // boarding- and loading-time are not considered
         if (net->hasPersons()) {
-            net->getPersonControl().boardAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
+            net->getPersonControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
         }
         if (net->hasContainers()) {
             net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
@@ -371,7 +371,7 @@ MEVehicle::mayProceed() {
                 WRITE_WARNING("Vehicle '" + getID() + "' ignores triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
                 stop.triggered = false;
                 net->getVehicleControl().unregisterOneWaiting();
-            } else if (!net->hasPersons() || !net->getPersonControl().boardAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
+            } else if (!net->hasPersons() || !net->getPersonControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
                 return false;
             }
         }

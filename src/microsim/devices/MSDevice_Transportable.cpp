@@ -110,7 +110,7 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
         if (veh.isStopped()) {
             myStopped = true;
             MSStop& stop = veh.getNextStop();
-            const SUMOTime boardingDuration = myAmContainer ? veh.getVehicleType().getLoadingDuration() : veh.getVehicleType().getBoardingDuration();
+            const SUMOTime boardingDuration = veh.getVehicleType().getLoadingDuration(!myAmContainer);
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
                 MSTransportable* transportable = *i;
                 MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
