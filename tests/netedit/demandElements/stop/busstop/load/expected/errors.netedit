@@ -13,7 +13,7 @@ Debug: Adding route 'route_2' in GNEChange_DemandElement
 Debug: Adding stopBusStop 'route_2' in GNEChange_DemandElement
 Debug: Adding route 'route_3' in GNEChange_DemandElement
 Debug: Adding stopBusStop 'route_3' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.busstop.1_from_18Mär145717.122785/netedit.daily.demand.stop.busstop/demandElements/stop/busstop/load/expected/input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\demandElements\stop\busstop\load\expected\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00

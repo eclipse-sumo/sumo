@@ -1975,7 +1975,7 @@ class TAZRelData:
         parameters = 12
 
     class inspect:
-        parameters = 7
+        parameters = 5
 
     class inspectSelection:
-        parameters = 7
+        parameters = 5

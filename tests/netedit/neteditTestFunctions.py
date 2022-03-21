@@ -2088,6 +2088,14 @@ def edgeRelData():
     # wait for gl debug
     time.sleep(DELAY_CHANGEMODE)
 
+def TAZRelData():
+    """
+    @brief change to TAZRelData mode
+    """
+    typeKey('z')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
 
 def createDataSet(dataSetID="newDataSet"):
     """

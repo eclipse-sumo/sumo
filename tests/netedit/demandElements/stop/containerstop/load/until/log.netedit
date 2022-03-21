@@ -3,4 +3,4 @@ Error: Invalid duration or end time is given for a stop at 'containerStop'
 Error: Attribute 'until' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'containerStop'
 Error: Invalid duration or end time is given for a stop at 'containerStop'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.containerstop.1_from_18Mär145651.122878/netedit.daily.demand.stop.containerstop/demandElements/stop/containerstop/load/until/input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\demandElements\stop\containerstop\load\until\input_routes.rou.xml failed.

@@ -3,4 +3,4 @@ Error: Attribute 'triggered' in definition of a stop is empty.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation'
 Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
 Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.chargingstation.1_from_18Mär145627.123065/netedit.daily.demand.stop.chargingstation/demandElements/stop/chargingstation/load/triggered/input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\demandElements\stop\chargingstation\load\triggered\input_routes.rou.xml failed.
