@@ -357,6 +357,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
                 d.filename = attrs.getStringSecure("filename", d.filename);
                 WRITE_WARNING("The 'filename' attribute is deprecated for decals. Please use 'file'.");
             }
+            d.filename = StringUtils::substituteEnvironment(d.filename);
             if (d.filename != "" && !FileHelpers::isAbsolute(d.filename)) {
                 d.filename = FileHelpers::getConfigurationRelative(getFileName(), d.filename);
             }
