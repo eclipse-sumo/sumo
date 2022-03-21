@@ -1424,7 +1424,9 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
         surplusGap = computeSurplusGap(vehicle, opposite, oncoming, timeToOvertake, spaceToOvertake, oncomingSpeed);
         if (oncomingOpposite.first != nullptr) {
             double oncomingSpeed2;
-            const double surplusGap2 = computeSurplusGap(vehicle, opposite, oncomingOpposite, timeToOvertake, spaceToOvertake, oncomingSpeed2, true);
+            const double conservativeTime = ceil(timeToOvertake / TS) * TS;
+            const double conservativeSpace = conservativeTime * vehicle->getLane()->getVehicleMaxSpeed(vehicle);
+            const double surplusGap2 = computeSurplusGap(vehicle, opposite, oncomingOpposite, conservativeTime, conservativeSpace, oncomingSpeed2, true);
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
                 std::cout << "   oncomingOpposite=" << oncomingOpposite.first->getID() << " speed=" << oncomingSpeed2 << " gap=" << oncomingOpposite.second << " surplusGap2=" << surplusGap2 << "\n";
@@ -1437,12 +1439,18 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
                 // even if ego can change back and forth sucessfully, we have to
                 // make sure that the oncoming vehicle can also finsih it's lane
                 // change in time
+                const double oSpeed = MAX2(oncomingOpposite.first->getSpeed(), NUMERICAL_EPS);
+                // conservative estimate
+                const double closingSpeed = (vehicle->getLane()->getVehicleMaxSpeed(vehicle)
+                        + oncomingOpposite.first->getLane()->getVehicleMaxSpeed(oncomingOpposite.first));
                 const double ooSTO = oncomingOpposite.second - oncoming.second + oncomingOpposite.first->getVehicleType().getLengthWithGap();
-                const double ooTTO = ooSTO / MAX2(oncomingOpposite.first->getSpeed(), NUMERICAL_EPS);
-                const double surplusGap3 = oncomingOpposite.second - ooSTO - vMax * ooTTO;
+                double ooTTO = ooSTO / oSpeed;
+                // round to multiples of step length (TS)
+                ooTTO = ceil(ooTTO / TS) * TS;
+                const double surplusGap3 = oncomingOpposite.second - ooTTO * closingSpeed;
 #ifdef DEBUG_CHANGE_OPPOSITE
                 if (DEBUG_COND) {
-                    std::cout << "   ooSTO=" << ooSTO << " ooTTO=" << ooTTO << " surplusGap3=" << surplusGap3 << "\n";
+                    std::cout << "   oSpeed=" << oSpeed << " ooSTO=" << ooSTO << " ooTTO=" << ooTTO << " surplusGap3=" << surplusGap3 << "\n";
                 }
 #endif
                 surplusGap = MIN2(surplusGap, surplusGap3);
