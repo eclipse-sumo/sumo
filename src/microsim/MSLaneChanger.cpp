@@ -1424,7 +1424,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
         surplusGap = computeSurplusGap(vehicle, opposite, oncoming, timeToOvertake, spaceToOvertake, oncomingSpeed);
         if (oncomingOpposite.first != nullptr) {
             double oncomingSpeed2;
-            double surplusGap2 = computeSurplusGap(vehicle, opposite, oncomingOpposite, timeToOvertake, spaceToOvertake, oncomingSpeed2, true);
+            const double surplusGap2 = computeSurplusGap(vehicle, opposite, oncomingOpposite, timeToOvertake, spaceToOvertake, oncomingSpeed2, true);
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
                 std::cout << "   oncomingOpposite=" << oncomingOpposite.first->getID() << " speed=" << oncomingSpeed2 << " gap=" << oncomingOpposite.second << " surplusGap2=" << surplusGap2 << "\n";
@@ -1432,6 +1432,21 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
 #endif
             surplusGap = MIN2(surplusGap, surplusGap2);
             oncomingSpeed = MAX2(oncomingSpeed, oncomingSpeed2);
+            if (!isOpposite && surplusGap >= 0 && oncoming.first != nullptr && oncoming.first->isStopped()
+                    && oncomingOpposite.second > oncoming.second) {
+                // even if ego can change back and forth sucessfully, we have to
+                // make sure that the oncoming vehicle can also finsih it's lane
+                // change in time
+                const double ooSTO = oncomingOpposite.second - oncoming.second + oncomingOpposite.first->getVehicleType().getLengthWithGap();
+                const double ooTTO = ooSTO / MAX2(oncomingOpposite.first->getSpeed(), NUMERICAL_EPS);
+                const double surplusGap3 = oncomingOpposite.second - ooSTO - vMax * ooTTO;
+#ifdef DEBUG_CHANGE_OPPOSITE
+                if (DEBUG_COND) {
+                    std::cout << "   ooSTO=" << ooSTO << " ooTTO=" << ooTTO << " surplusGap3=" << surplusGap3 << "\n";
+                }
+#endif
+                surplusGap = MIN2(surplusGap, surplusGap3);
+            }
         }
         if (!isOpposite && surplusGap < 0) {
 #ifdef DEBUG_CHANGE_OPPOSITE
