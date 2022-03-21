@@ -6,6 +6,7 @@ slope
 
 # tests for stopping on the opposite side
 stop_opposite
+slalom
 
 # bugs specific to opposite-direction driving
 bugs
@@ -101,28 +102,3 @@ emergency_redlight
 
 # test usage of SL2015
 SL2015
-
-# stopped vehicles on both sides of the road and traffic from both directions
-slalom
-
-# queued stopped vehicles on both sides of the road and traffic from both directions
-slalom_queue
-
-# stopped vehicles on both sides of the road and traffic from both directions,
-# traffic must be anticipated beyond junctions
-slalom_junction
-
-# stopped vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
-slalom_deadlock
-
-# stopped vehicles on both sides of the road in a deadlock inducing configuration and sparse traffic from both directions
-slalom_deadlock2
-
-# stopped queued vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
-slalom_deadlock_queues
-
-# repeated groups of stopped queued vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
-slalom_deadlock_queues2
-
-# repeated groups of stopped queued vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
-slalom_deadlock_queues3
