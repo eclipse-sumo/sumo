@@ -855,7 +855,7 @@ GNEInspectorFrame::ParametersEditor::onCmdSetParameters(FXObject*, FXSelector, v
     // continue depending of frontAC
     if (frontAC && frontAC->getTagProperty().hasParameters()) {
         // check if current given string is valid
-        if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true)) {
+        if (frontAC->isValid(GNE_ATTR_PARAMETERS, myTextFieldParameters->getText().text())) {
             // parsed parameters ok, then set text field black and continue
             myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
             myTextFieldParameters->killFocus();
