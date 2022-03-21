@@ -511,8 +511,10 @@ class Net:
                        includeFromToCost=True, withInternal=False, ignoreDirection=False,
                        fromPos=0, toPos=0):
         """
-        Finds the optimal (shortest or fastest) path from fromEdge to toEdge respecting vClass, using Dijkstra's algorithm.
-        It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.
+        Finds the optimal (shortest or fastest) path for vClass from fromEdge to toEdge
+        by using using Dijkstra's algorithm.
+        It returns a pair of a tuple of edges and the cost.
+        If no path is found the first element is None.
         The cost for the returned path is equal to the sum of all edge costs in the path,
         including the internal connectors, if they are present in the network.
         The path itself does not include internal edges except for the case
