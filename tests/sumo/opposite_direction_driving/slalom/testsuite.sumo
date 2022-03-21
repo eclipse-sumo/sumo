@@ -4,6 +4,9 @@
 # queued stopped vehicles on both sides of the road and traffic from both directions
 2queues
 
+# queued and stopped vehicles on both sides of the road and traffic from both directions
+1stopped_1queue
+
 # stopped vehicles on both sides of the road and traffic from both directions,
 # traffic must be anticipated beyond junctions
 2stopped_junction
