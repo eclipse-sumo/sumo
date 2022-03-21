@@ -249,6 +249,9 @@ public:
         /// @brief pointer to frame parent
         GNEFrame* getFrameParent() const;
 
+        /// @brief check if current attributes are valid
+        bool areAttributesValid() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when user clicks over add parameter

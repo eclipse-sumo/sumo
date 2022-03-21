@@ -941,6 +941,18 @@ GNEFrameAttributeModules::GenericDataAttributes::getFrameParent() const {
 }
 
 
+bool 
+GNEFrameAttributeModules::GenericDataAttributes::areAttributesValid() const {
+    if (myTextFieldParameters->getText().empty()) {
+        return true;
+    } else if (myTextFieldParameters->getTextColor() == FXRGB(255, 0, 0)) {
+        return false;
+    } else {
+        return Parameterised::areAttributesValid(getParametersStr());
+    }
+}
+
+
 long
 GNEFrameAttributeModules::GenericDataAttributes::onCmdEditParameters(FXObject*, FXSelector, void*) {
     // write debug information
