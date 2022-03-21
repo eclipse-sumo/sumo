@@ -1534,7 +1534,11 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
     double oppositeLength = vehicle->getBestLanes().back().length;
     if (isOpposite) {
         oppositeLength = computeSafeOppositeLength(vehicle, oppositeLength, source, usableDist, oncoming, vMax, oncomingSpeed, neighLead, overtaken, surplusGap, opposite);
-        leader.first = 0;
+        leader.first = nullptr;
+        if (neighLead.first != nullptr && neighLead.first->getLaneChangeModel().isOpposite()) {
+            // ignore oncoming vehicle on the target lane (it might even change back in this step)
+            neighLead.first = nullptr;
+        }
     } else {
         if (leader.first != nullptr && leader.first->getWaitingSeconds() >= OPPOSITE_OVERTAKING_DEADLOCK_WAIT
                 && vehicle->getVehicleType().getVehicleClass() != SVC_EMERGENCY) {
