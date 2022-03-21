@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-21 15:19:56 by Eclipse SUMO netedit Version v1_12_0+1564-8bd65cf89d9
+<!-- generated on 2022-03-21 15:19:26 by Eclipse SUMO netedit Version v1_12_0+1564-8bd65cf89d9
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgereldata\load\parameters\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgedata\load\attributes\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgereldata\load\parameters\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgedata\load\attributes\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,28 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgereldata\load\parameters\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgereldata\load\parameters\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgereldata\load\parameters\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgereldata\load\parameters\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgereldata\load\parameters\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgereldata\load\parameters\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgedata\load\attributes\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgedata\load\attributes\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgedata\load\attributes\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgedata\load\attributes\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgedata\load\attributes\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgedata\load\attributes\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgereldata\load\parameters\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgedata\load\attributes\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgereldata\load\parameters\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgedata\load\attributes\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgereldata\load\parameters\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar151830.6112\netedit.gui\dataElements\edgedata\load\attributes\log.txt"/>
     </report>
 
 </configuration>

@@ -1,8 +1,8 @@
 Debug: Adding dataSet 'newDataSet' in GNEChange_DataSet
 Debug: adding dataInterval [0.00, 3600.00] in GNEChange_DataInterval
 Debug: Key ENTER pressed
-Debug: Adding edgeRelation 'newDataSet' in GNEChange_GenericData
 Debug: Key ENTER pressed
+Debug: Adding edgeRelation 'newDataSet' in GNEChange_GenericData
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15' in GNEChange_GenericData
