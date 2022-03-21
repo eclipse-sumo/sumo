@@ -211,6 +211,38 @@ Parameterised::areParametersValid(const std::string& value, bool report, const s
     return true;
 }
 
+
+bool
+Parameterised::areAttributesValid(const std::string& value, bool report, const std::string kvsep, const std::string sep) {
+    std::vector<std::string> parameters = StringTokenizer(value, sep).getVector();
+    // first check if parsed parameters are valid
+    for (const auto& keyValueStr : parameters) {
+        // check if parameter is valid
+        if (isParameterValid(keyValueStr, kvsep, sep)) {
+            // separate key and value
+            const auto attr = StringTokenizer(value, kvsep).getVector().front();
+            // get first letter
+            const auto letter = StringTokenizer(value, kvsep).getVector().front().front();
+            // check key
+            if (!((letter >= 'a') && (letter <= 'z')) && !((letter >= 'A') && (letter <= 'Z'))) {
+                // report depending of flag
+                if (report) {
+                    WRITE_WARNING("Invalid format of atribute '" + attr + "'. Attribute must start with a letter");
+                }
+                return false;
+            }
+        } else {
+            // report depending of flag
+            if (report) {
+                WRITE_WARNING("Invalid format of atribute (" + keyValueStr + ")");
+            }
+            return false;
+        }
+    }
+    // all ok, then return true
+    return true;
+}
+
 // ===========================================================================
 // private
 // ===========================================================================
