@@ -2747,9 +2747,13 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                     // ego and leader are driving in the same direction as lane (shadowlane for ego)
                     gap = predBack - (myLane->getLength() - myState.myPos) - getVehicleType().getMinGap();
                 }
-            } else if (pred->getLaneChangeModel().isOpposite() && pred->isStopped()) {
-                // must react to stopped vehicles
-                gap = pred->getPositionOnLane() - myState.myPos - MAX2(getVehicleType().getMinGap(), pred->getVehicleType().getMinGap());
+            } else if (pred->getLaneChangeModel().isOpposite() && pred->getLaneChangeModel().getShadowLane() != lane) {
+                // must react to stopped / dangerous oncoming vehicles
+                gap += -pred->getVehicleType().getLength() + getVehicleType().getMinGap() - MAX2(getVehicleType().getMinGap(), pred->getVehicleType().getMinGap());
+                // try to avoid collision in the next second
+                if (gap < pred->getSpeed() + getSpeed()) {
+                    gap -= pred->getSpeed();
+                }
             }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
