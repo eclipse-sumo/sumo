@@ -1940,6 +1940,8 @@ MSLaneChanger::getOncomingOppositeVehicle(const MSVehicle* vehicle, std::pair<MS
         }
 #endif
         if (isOpposite && shadowLane != front->getLane()) {
+            // distance was to back position (but the vehicle is oncoming)
+            oncoming.second -= oncoming.first->getVehicleType().getLength();
             oncoming.second += gap;
             return oncoming;
         }
