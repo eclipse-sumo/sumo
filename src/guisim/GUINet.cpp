@@ -598,28 +598,32 @@ GUINet::DiscoverAttributes::myStartElement(int element, const SUMOSAXAttributes&
     }
 }
 
+
 std::vector<std::string>
 GUINet::DiscoverAttributes::getEdgeAttrs() {
     edgeAttrs.erase(toString(SUMO_ATTR_ID));
     return std::vector<std::string>(edgeAttrs.begin(), edgeAttrs.end());
 }
 
+
 void
 GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeWeight(const std::string& id,
         double value, double begTime, double endTime) const {
-    MSEdge* edge = MSEdge::dictionary(id);
+    MSEdge* const edge = MSEdge::dictionary(id);
     if (edge != nullptr) {
         myWeightStorage->addEffort(edge, begTime, endTime, value);
     } else {
-        WRITE_ERROR("Trying to set the effort for the unknown edge '" + id + "'.");
+        WRITE_WARNINGF("Trying to set data value for the unknown edge '%'.", id);
     }
 }
+
 
 void
 GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeRelWeight(const std::string& from, const std::string& to,
         double val, double beg, double end) const {
-    MSEdge* fromEdge = MSEdge::dictionary(from);
-    MSEdge* toEdge = MSEdge::dictionary(to);
+    MSEdge* const fromEdge = MSEdge::dictionary(from);
+    MSEdge* const toEdge = MSEdge::dictionary(to);
+    bool haveRel = false;
     if (fromEdge != nullptr && toEdge != nullptr) {
         for (auto item : fromEdge->getViaSuccessors()) {
             if (item.first == toEdge) {
@@ -627,15 +631,16 @@ GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeRelWeight(const std::string& from
                 while (edge != nullptr && edge->isInternal()) {
                     myWeightStorage->addEffort(edge, beg, end, val);
                     edge = edge->getViaSuccessors().front().second;
+                    haveRel = true;
                 }
             }
         }
-    } else if (fromEdge == nullptr) {
-        WRITE_ERROR("Trying to set the effort for the unknown edge '" + from + "'.");
-    } else {
-        WRITE_ERROR("Trying to set the effort for the unknown edge '" + to + "'.");
+    }
+    if (!haveRel) {
+        WRITE_WARNINGF("Trying to set data value for the unknown relation from edge '%' to edge '%'.", from, to);
     }
 }
+
 
 bool
 GUINet::loadEdgeData(const std::string& file) {
@@ -650,7 +655,7 @@ GUINet::loadEdgeData(const std::string& file) {
                   + ".\n    Found " + toString(attrs.size())
                   + " attributes: " + toString(attrs));
     if (discoveryHandler.lastIntervalEnd < string2time(OptionsCont::getOptions().getString("begin"))) {
-        WRITE_WARNING("No data defined after simulation begin time");
+        WRITE_WARNING("No data defined after simulation begin time.");
     }
     myEdgeDataEndTime = MAX2(myEdgeDataEndTime, discoveryHandler.lastIntervalEnd);
     // create a retriever for each attribute
