@@ -63,9 +63,9 @@
 //#define DEBUG_CONTINUE_CHANGE
 //#define DEBUG_CHECK_CHANGE
 //#define DEBUG_SURROUNDING_VEHICLES // debug getRealFollower() and getRealLeader()
-//#define DEBUG_CHANGE_OPPOSITE
-//#define DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
-//#define DEBUG_CHANGE_OPPOSITE_DEADLOCK
+#define DEBUG_CHANGE_OPPOSITE
+#define DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
+#define DEBUG_CHANGE_OPPOSITE_DEADLOCK
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_STATE
 //#define DEBUG_CANDIDATE
@@ -1555,6 +1555,11 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
 #endif
             return false;
         }
+        if (neighLead.first != nullptr && neighLead.first->isStopped()) {
+            if (yieldToOppositeWaiting(vehicle, neighLead.first, 10)) {
+                return false;
+            }
+        }
     }
     std::vector<MSVehicle::LaneQ> preb = getBestLanesOpposite(vehicle, nullptr, oppositeLength);
     std::pair<MSVehicle* const, double> neighFollow = opposite->getOppositeFollower(vehicle);
@@ -1700,6 +1705,25 @@ MSLaneChanger::yieldToDeadlockOncoming(const MSVehicle* vehicle, const MSVehicle
         }
 #endif
         return follower.first != nullptr && followerGap < dist && !follower.first->isStopped();
+    }
+    return false;
+}
+
+
+bool
+MSLaneChanger::yieldToOppositeWaiting(const MSVehicle* vehicle, const MSVehicle* stoppedNeigh, double dist) {
+    std::pair<const MSVehicle*, double> follower = stoppedNeigh->getFollower(dist);
+    while (follower.first != nullptr && follower.second < dist && follower.first->isStopped()) {
+        follower = follower.first->getFollower(dist);
+    };
+    if (follower.first != nullptr && follower.second < dist && follower.first->getWaitingTime() > vehicle->getWaitingTime()) {
+#ifdef DEBUG_CHANGE_OPPOSITE_DEADLOCK
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh=" << vehicle->getID() << " yield for oncoming '" << follower.first->getID()
+                << " (must overtake neighLead=" << stoppedNeigh->getID() << " wait=" << follower.first->getWaitingSeconds() << ")\n";
+        }
+#endif
+        return true;
     }
     return false;
 }

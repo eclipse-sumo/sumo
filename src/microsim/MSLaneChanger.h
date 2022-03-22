@@ -257,17 +257,24 @@ protected:
     /// @brief decide whether to change (back or forth) for an opposite stop
     bool checkOppositeStop(MSVehicle* vehicle, const MSLane* oncomingLane, const MSLane* opposite, std::pair<MSVehicle*, double> leader);
 
-    /// @brief avoid opposite-diretion deadlock when vehicles are stopped on both sides of the road
+    /** @brief avoid opposite-diretion deadlock when vehicles are stopped on both sides of the road
+     * The method may call saveBlockerLength to affect vehicle speed in the next step
+     */
     bool avoidDeadlock(MSVehicle* vehicle,
         std::pair<MSVehicle*, double> neighLead,
         std::pair<MSVehicle*, double> overtaken,
         std::pair<MSVehicle*, double> leader);
 
-    /// @brief keep stopping to resolve opposite-diretion deadlock while there is oncoming traffic
+    /** @brief keep stopping to resolve opposite-diretion deadlock while there is oncoming traffic
+     * The method may call saveBlockerLength to affect vehicle speed in the next step
+     */
     void resolveDeadlock(MSVehicle* vehicle, std::pair<MSVehicle* const, double> leader, std::pair<MSVehicle*, double> neighLead, double deadLockZone);
 
     /// @brief check whether to keep stopping for oncoming vehicles in the deadlock zone
     bool yieldToDeadlockOncoming(const MSVehicle* vehicle, const MSVehicle* stoppedNeigh, double dist);
+
+    /// @brief check whether to yield for oncoming vehicles that have waited longer for opposite overtaking
+    bool yieldToOppositeWaiting(const MSVehicle* vehicle, const MSVehicle* stoppedNeigh, double dist);
 
     /// @brief determine for how long the vehicle can drive safely on the opposite side
     double computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLength, const MSLane* source, double usableDist,
