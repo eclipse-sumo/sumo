@@ -1557,13 +1557,13 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
             return false;
         }
         if (neighLead.first != nullptr && neighLead.first->isStopped()) {
+            // do not start overtaking if the opposite side has been waitin for longer
             if (yieldToOppositeWaiting(vehicle, neighLead.first, 10)) {
                 return false;
             }
         }
-        if (oncoming.first != nullptr && oncoming.first->isStopped()) {
-            // only abort overtaking column if the opposite side has been
-            // waiting long enough
+        if (oncoming.first != nullptr && oncoming.first != neighLead.first && oncoming.first->isStopped()) {
+            // only abort the current column of overtaking vehicles if the opposite side has been waiting long enough
             if (yieldToOppositeWaiting(vehicle, oncoming.first, 10, TIME2STEPS(60))) {
                 return false;
             }
@@ -1768,7 +1768,6 @@ MSLaneChanger::resolveDeadlock(MSVehicle* vehicle,
                 << " leaderGap=" << leader.second
                 << " neighLead=" << Named::getIDSecure(neighLead.first)
                 << " deadLockZone=" << deadLockZone
-                << " yield=" << yieldToDeadlockOncoming(vehicle, neighLead.first, deadLockZone)
                 << "\n";
         }
 #endif
