@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 08:18:22 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on Mon Dec 14 11:32:34 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -55,33 +50,33 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="0.00,0.00" convBoundary="-50.00,-50.00,50.00,50.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="gneE0" from="gneJ0" to="gneE0.40" priority="1" shape="-50.00,-6.40 -10.00,-6.40">
-        <lane id="gneE0_0" index="0" speed="13.89" friction="1.00" length="46.40" shape="-50.00,-8.00 -14.00,-8.00"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="46.40" shape="-50.00,-8.00 -14.00,-8.00"/>
     </edge>
     <edge id="gneE0.40" from="gneE0.40" to="gneJ1" priority="1">
-        <lane id="gneE0.40_0" index="0" speed="13.89" friction="1.00" length="13.90" shape="-6.70,-8.00 -6.50,-8.00"/>
-        <lane id="gneE0.40_1" index="1" speed="13.89" friction="1.00" length="13.90" shape="-6.70,-4.80 -6.50,-4.80"/>
-        <lane id="gneE0.40_2" index="2" speed="13.89" friction="1.00" length="13.90" shape="-6.70,-1.60 -6.50,-1.60"/>
+        <lane id="gneE0.40_0" index="0" speed="13.89" length="13.90" shape="-6.70,-8.00 -6.50,-8.00"/>
+        <lane id="gneE0.40_1" index="1" speed="13.89" length="13.90" shape="-6.70,-4.80 -6.50,-4.80"/>
+        <lane id="gneE0.40_2" index="2" speed="13.89" length="13.90" shape="-6.70,-1.60 -6.50,-1.60"/>
     </edge>
     <edge id="gneE2" from="gneJ1" to="gneJ0" priority="1">
-        <lane id="gneE2_0" index="0" speed="13.89" friction="1.00" length="50.00" shape="-7.20,1.60 -50.00,1.60"/>
+        <lane id="gneE2_0" index="0" speed="13.89" length="50.00" shape="-7.20,1.60 -50.00,1.60"/>
     </edge>
     <edge id="gneE3" from="gneJ1" to="gneJ3" priority="1">
-        <lane id="gneE3_0" index="0" speed="13.89" friction="1.00" length="50.00" shape="7.20,-1.60 50.00,-1.60"/>
+        <lane id="gneE3_0" index="0" speed="13.89" length="50.00" shape="7.20,-1.60 50.00,-1.60"/>
     </edge>
     <edge id="gneE4" from="gneJ3" to="gneJ1" priority="1">
-        <lane id="gneE4_0" index="0" speed="13.89" friction="1.00" length="50.00" shape="50.00,1.60 7.20,1.60"/>
+        <lane id="gneE4_0" index="0" speed="13.89" length="50.00" shape="50.00,1.60 7.20,1.60"/>
     </edge>
     <edge id="gneE5" from="gneJ1" to="gneJ4" priority="1">
-        <lane id="gneE5_0" index="0" speed="13.89" friction="1.00" length="50.00" shape="1.60,7.20 1.60,50.00"/>
+        <lane id="gneE5_0" index="0" speed="13.89" length="50.00" shape="1.60,7.20 1.60,50.00"/>
     </edge>
     <edge id="gneE6" from="gneJ4" to="gneJ1" priority="1">
-        <lane id="gneE6_0" index="0" speed="13.89" friction="1.00" length="50.00" shape="-1.60,50.00 -1.60,7.20"/>
+        <lane id="gneE6_0" index="0" speed="13.89" length="50.00" shape="-1.60,50.00 -1.60,7.20"/>
     </edge>
     <edge id="gneE7" from="gneJ1" to="gneJ5" priority="1">
-        <lane id="gneE7_0" index="0" speed="13.89" friction="1.00" length="50.00" shape="-1.60,-13.60 -1.60,-50.00"/>
+        <lane id="gneE7_0" index="0" speed="13.89" length="50.00" shape="-1.60,-13.60 -1.60,-50.00"/>
     </edge>
     <edge id="gneE8" from="gneJ5" to="gneJ1" priority="1">
-        <lane id="gneE8_0" index="0" speed="13.89" friction="1.00" length="50.00" shape="1.60,-50.00 1.60,-13.60"/>
+        <lane id="gneE8_0" index="0" speed="13.89" length="50.00" shape="1.60,-50.00 1.60,-13.60"/>
     </edge>
 
     <tlLogic id="gneJ1" type="static" programID="0" offset="0">

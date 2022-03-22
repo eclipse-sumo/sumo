@@ -66,7 +66,7 @@ Debug: Key ENTER pressed
 Debug: Adding route 'r_0' in GNEChange_DemandElement
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
-Debug: Selected item 'vehicle (over route)' in TagSelector
+Debug: Selected item 'vehicle (over route)' in GNETagSelector
 Debug: Adding vehicle 'v_0' in GNEChange_DemandElement
 Debug: Value 'dummyDepart' for attribute depart of vehicle isn't valid
 Debug: Setting new attribute

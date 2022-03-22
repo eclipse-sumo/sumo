@@ -32,6 +32,28 @@ class Selection:
         polygons = 8
         POIs = 9
 
+
+class Modes:
+    class Network:
+        grid = '1'
+        junctionShape = '2'
+        spreadVehicle = '3'
+        showDemandElements = '4'
+        selectLane = '5'
+        showConnections = '6'
+        showSubAdditionals = '7'
+        # create edge
+        chainMode = '5'
+        twoWayMode = '6'
+
+    class Demand:
+        grid = '1'
+        junctionShape = '2'
+
+    class Data:
+        junctionShape = '1'
+
+
 # --------------------------------
 # NETWORK
 # --------------------------------
@@ -1953,7 +1975,7 @@ class TAZRelData:
         parameters = 12
 
     class inspect:
-        parameters = 7
+        parameters = 5
 
     class inspectSelection:
-        parameters = 7
+        parameters = 5

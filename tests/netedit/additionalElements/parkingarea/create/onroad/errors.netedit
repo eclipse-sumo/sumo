@@ -1,4 +1,4 @@
-Debug: Selected item 'parkingArea' in TagSelector
+Debug: Selected item 'parkingArea' in GNETagSelector
 Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

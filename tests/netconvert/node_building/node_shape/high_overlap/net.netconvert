@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 08:17:42 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on Mon Dec 14 11:32:09 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -36,25 +31,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-57.05,0.00" convBoundary="0.00,0.00,100.98,9.03" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" speed="13.89" friction="1.00" length="3.03" shape="41.43,-1.59 44.47,-1.60"/>
-        <lane id=":gneJ1_0_1" index="1" speed="13.89" friction="1.00" length="3.03" shape="41.45,1.61 44.46,1.60"/>
+        <lane id=":gneJ1_0_0" index="0" speed="13.89" length="3.03" shape="41.43,-1.59 44.47,-1.60"/>
+        <lane id=":gneJ1_0_1" index="1" speed="13.89" length="3.03" shape="41.45,1.61 44.46,1.60"/>
     </edge>
     <edge id=":gneJ1_2" function="internal">
-        <lane id=":gneJ1_2_0" index="0" speed="13.89" friction="1.00" length="3.69" shape="41.45,1.61 44.44,-1.60"/>
-        <lane id=":gneJ1_2_1" index="1" speed="13.89" friction="1.00" length="3.69" shape="41.45,1.61 44.43,1.60"/>
+        <lane id=":gneJ1_2_0" index="0" speed="13.89" length="3.69" shape="41.45,1.61 44.44,-1.60"/>
+        <lane id=":gneJ1_2_1" index="1" speed="13.89" length="3.69" shape="41.45,1.61 44.43,1.60"/>
     </edge>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="-1" spreadType="center">
-        <lane id="gneE0_0" index="0" speed="13.89" friction="1.00" length="41.44" shape="-0.01,-1.37 41.43,-1.59"/>
-        <lane id="gneE0_1" index="1" speed="13.89" friction="1.00" length="41.44" shape="0.01,1.83 41.45,1.61"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="41.44" shape="-0.01,-1.37 41.43,-1.59"/>
+        <lane id="gneE0_1" index="1" speed="13.89" length="41.44" shape="0.01,1.83 41.45,1.61"/>
     </edge>
     <edge id="gneE1" from="gneJ1" to="gneJ2" priority="-1" spreadType="center">
-        <lane id="gneE1_0" index="0" speed="13.89" friction="1.00" length="56.52" shape="44.47,-1.60 100.98,-1.44"/>
-        <lane id="gneE1_1" index="1" speed="13.89" friction="1.00" length="56.52" shape="44.46,1.60 100.98,1.76"/>
+        <lane id="gneE1_0" index="0" speed="13.89" length="56.52" shape="44.47,-1.60 100.98,-1.44"/>
+        <lane id="gneE1_1" index="1" speed="13.89" length="56.52" shape="44.46,1.60 100.98,1.76"/>
     </edge>
     <edge id="gneE2" from="gneJ1" to="gneJ3" priority="-1" spreadType="center" shape="42.95,0.00 83.18,0.13 92.71,2.97 99.72,9.03">
-        <lane id="gneE2_0" index="0" speed="13.89" friction="1.00" length="57.95" shape="44.44,-1.60 83.42,-1.47 93.50,1.53 100.77,7.82"/>
-        <lane id="gneE2_1" index="1" speed="13.89" friction="1.00" length="57.95" shape="44.43,1.60 82.94,1.73 91.92,4.41 98.67,10.24"/>
+        <lane id="gneE2_0" index="0" speed="13.89" length="57.95" shape="44.44,-1.60 83.42,-1.47 93.50,1.53 100.77,7.82"/>
+        <lane id="gneE2_1" index="1" speed="13.89" length="57.95" shape="44.43,1.60 82.94,1.73 91.92,4.41 98.67,10.24"/>
     </edge>
 
     <junction id="gneJ0" type="dead_end" x="0.00" y="0.23" incLanes="" intLanes="" shape="0.02,3.43 -0.02,-2.97"/>

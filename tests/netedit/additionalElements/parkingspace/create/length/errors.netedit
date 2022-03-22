@@ -1,6 +1,6 @@
-Debug: Selected item 'parkingArea' in TagSelector
+Debug: Selected item 'parkingArea' in GNETagSelector
 Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
-Debug: Selected item 'space' in TagSelector
+Debug: Selected item 'space' in GNETagSelector
 Debug: Invalid input parameter of space
 Debug: Adding space 'pa_0' in GNEChange_Additional
 Debug: Invalid input parameter of space

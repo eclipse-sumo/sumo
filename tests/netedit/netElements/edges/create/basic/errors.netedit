@@ -26,7 +26,7 @@ Debug: invalidating (removing) connections of edge '-E1' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Enabled auto opposite edge throught alt + 5
+Debug: Enabled auto opposite edge throught alt + 6
 Debug: Adding junction 'J4' into net
 Debug: Adding junction 'J5' into net
 Debug: Adding edge 'E2' from net

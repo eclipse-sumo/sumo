@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 08:21:02 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on Mon Dec 14 11:32:46 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -40,20 +35,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-19859.00,-25421.00" convBoundary="0.00,0.00,257.00,608.00" origBoundary="19859.00,25421.00,20116.00,26029.00" projParameter="!"/>
 
     <edge id=":15030043_0" function="internal">
-        <lane id=":15030043_0_0" index="0" speed="6.48" friction="1.00" length="9.03" shape="127.68,69.21 125.21,68.99 123.27,69.62 121.86,71.09 120.98,73.41"/>
+        <lane id=":15030043_0_0" index="0" speed="6.48" length="9.03" shape="127.68,69.21 125.21,68.99 123.27,69.62 121.86,71.09 120.98,73.41"/>
     </edge>
     <edge id=":15030043_1" function="internal">
-        <lane id=":15030043_1_0" index="0" speed="13.89" friction="1.00" length="11.18" shape="123.38,62.49 120.98,73.41"/>
+        <lane id=":15030043_1_0" index="0" speed="13.89" length="11.18" shape="123.38,62.49 120.98,73.41"/>
     </edge>
 
     <edge id="15030608" from="15030238" to="15030043" priority="-1">
-        <lane id="15030608_0" index="0" speed="12.50" friction="1.00" length="132.48" shape="256.63,99.56 127.68,69.21"/>
+        <lane id="15030608_0" index="0" speed="12.50" length="132.48" shape="256.63,99.56 127.68,69.21"/>
     </edge>
     <edge id="15030858" from="15030435" to="15030043" priority="-1">
-        <lane id="15030858_0" index="0" speed="13.89" friction="1.00" length="63.54" shape="136.57,0.33 123.38,62.49"/>
+        <lane id="15030858_0" index="0" speed="13.89" length="63.54" shape="136.57,0.33 123.38,62.49"/>
     </edge>
     <edge id="153122148" from="15030043" to="15031475" priority="-1">
-        <lane id="153122148_0" index="0" speed="13.89" friction="1.00" length="548.11" shape="120.98,73.41 1.56,608.35"/>
+        <lane id="153122148_0" index="0" speed="13.89" length="548.11" shape="120.98,73.41 1.56,608.35"/>
     </edge>
 
     <tlLogic id="15030043" type="static" programID="0" offset="0">

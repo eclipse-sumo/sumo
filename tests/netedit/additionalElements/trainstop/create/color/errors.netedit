@@ -1,4 +1,4 @@
-Debug: Selected item 'trainStop' in TagSelector
+Debug: Selected item 'trainStop' in GNETagSelector
 Debug: Adding trainStop 'ts_0' in GNEChange_Additional
 Debug: Invalid input parameter of trainStop
 Debug: Adding trainStop 'ts_1' in GNEChange_Additional

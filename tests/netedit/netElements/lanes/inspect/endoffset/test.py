@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.forceSaveAdditionals()
 
 # toggle select lanes
-netedit.changeEditMode('4')
+netedit.changeEditMode(netedit.attrs.Modes.Network.selectLane)
 
 # go to inspect mode
 netedit.inspectMode()

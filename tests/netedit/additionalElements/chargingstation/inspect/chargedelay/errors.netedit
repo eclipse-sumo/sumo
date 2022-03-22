@@ -1,4 +1,4 @@
-Debug: Selected item 'chargingStation' in TagSelector
+Debug: Selected item 'chargingStation' in GNETagSelector
 Debug: Adding chargingStation 'cs_0' in GNEChange_Additional
 Debug: Value 'dummyChargeDelay' for attribute chargeDelay of chargingStation isn't valid
 Debug: Value '-100' for attribute chargeDelay of chargingStation isn't valid

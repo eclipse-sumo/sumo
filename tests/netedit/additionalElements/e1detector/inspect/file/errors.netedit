@@ -1,4 +1,4 @@
-Debug: Selected item 'e1Detector' in TagSelector
+Debug: Selected item 'e1Detector' in GNETagSelector
 Debug: Adding e1Detector 'e1_0' in GNEChange_Additional
 Debug: Value '%%%;:..&&%$%$' for attribute file of e1Detector isn't valid
 Debug: Setting new attribute

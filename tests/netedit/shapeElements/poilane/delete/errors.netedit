@@ -1,6 +1,6 @@
 Debug: Adding poiLane 'POI_0' in GNEChange_Additional
 Debug: Adding poiLane 'POI_nonDeleted' in GNEChange_Additional
-Debug: Selected item 'poiLane' in TagSelector
+Debug: Selected item 'poiLane' in GNETagSelector
 Debug: Adding poiLane 'poi_0' in GNEChange_Additional
 Debug: Removing poiLane 'poi_0' in GNEChange_Additional
 Debug: Removing poiLane 'POI_0' in GNEChange_Additional

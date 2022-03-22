@@ -1,4 +1,4 @@
-Debug: Selected item 'parkingArea' in TagSelector
+Debug: Selected item 'parkingArea' in GNETagSelector
 Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
 Debug: Adding parkingArea 'pa_1' in GNEChange_Additional
 Debug: Value 'pa_1' for attribute id of parkingArea isn't valid

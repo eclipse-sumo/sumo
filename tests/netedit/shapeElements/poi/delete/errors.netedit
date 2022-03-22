@@ -1,6 +1,6 @@
 Debug: Adding poi 'POI_A' in GNEChange_Additional
 Debug: Adding poi 'POI_B' in GNEChange_Additional
-Debug: Selected item 'poi' in TagSelector
+Debug: Selected item 'poi' in GNETagSelector
 Debug: Adding poi 'poi_0' in GNEChange_Additional
 Debug: Removing poi 'poi_0' in GNEChange_Additional
 Debug: Removing poi 'POI_A' in GNEChange_Additional

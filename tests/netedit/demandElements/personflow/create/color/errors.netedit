@@ -66,16 +66,16 @@ Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'person' in TagSelector
+Debug: Selected item 'person' in GNETagSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in GNETagSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personFlow' in TagSelector
+Debug: Selected item 'personFlow' in GNETagSelector
 Debug: Selected item 'walk: edge->edge' in TagTypeSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'walk: edge->edge' in TagSelector
+Debug: Selected item 'walk: edge->edge' in GNETagSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'walk: edges' in TagSelector
+Debug: Selected item 'walk: edges' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding personFlow 'personFlow_0' in GNEChange_DemandElement

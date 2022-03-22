@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 19.02.2021 09:07:18 by Eclipse SUMO netedit Version v1_8_0+1258-414af6328d
+<!-- generated on 2022-03-21 10:14:13 by Eclipse SUMO netedit Version v1_12_0+1543-06f48ec75fb
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="vehicle_embeddedA" depart="0.00" departLane="0" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5">
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>

@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 08:21:01 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on Mon Dec 14 11:32:45 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -44,10 +39,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-402262.49,-6202690.42" convBoundary="0.00,0.00,163.29,299.17" origBoundary="-4.581491,55.953333,-4.555544,55.971182" projParameter="+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-254855303#0" from="1161556696" to="2606482692" priority="2" shape="130.29,299.17 106.32,292.23 78.87,267.70 51.76,248.81">
-        <lane id="-254855303#0_0" index="0" allow="delivery" speed="5.56" friction="1.00" length="94.81" shape="129.85,300.71 105.53,293.67 77.88,268.96 51.07,250.28"/>
+        <lane id="-254855303#0_0" index="0" allow="delivery" speed="5.56" length="94.81" shape="129.85,300.71 105.53,293.67 77.88,268.96 51.07,250.28"/>
     </edge>
     <edge id="100481757#0" from="2606482692" to="1161556696" priority="2" shape="51.76,248.81 29.25,238.21 18.13,220.43 9.06,191.07 0.00,106.57 18.83,19.33 28.82,5.89 48.44,0.00 163.29,28.10 115.18,228.50 103.74,233.58 76.74,229.17 70.51,250.69 78.87,267.70 106.32,292.23 130.29,299.17">
-        <lane id="100481757#0_0" index="0" allow="delivery" speed="5.56" friction="1.00" length="755.38" shape="50.83,250.14 28.14,239.46 16.66,221.10 7.49,191.39 -1.62,106.48 17.34,18.65 27.85,4.51 48.40,-1.66 165.22,26.92 116.55,229.64 103.95,235.24 77.88,230.98 72.22,250.54 80.17,266.71 107.11,290.79 130.73,297.63"/>
+        <lane id="100481757#0_0" index="0" allow="delivery" speed="5.56" length="755.38" shape="50.83,250.14 28.14,239.46 16.66,221.10 7.49,191.39 -1.62,106.48 17.34,18.65 27.85,4.51 48.40,-1.66 165.22,26.92 116.55,229.64 103.95,235.24 77.88,230.98 72.22,250.54 80.17,266.71 107.11,290.79 130.73,297.63"/>
     </edge>
 
     <junction id="1161556696" type="dead_end" x="130.29" y="299.17" incLanes="100481757#0_0" intLanes="" shape="130.29,299.17 131.18,296.10 130.29,299.17"/>

@@ -24,6 +24,9 @@ getShortestRoute
 # finding routes in a railway network
 getShortestRoute_rail
 
+# finding fastest routes
+getFastestRoute
+
 # parsing XML and accessing objects
 xml
 

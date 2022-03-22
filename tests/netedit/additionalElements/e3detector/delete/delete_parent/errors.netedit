@@ -14,14 +14,14 @@ GLDebug: 	Inserted e3Detector:e3Detector_2 into SUMORTree with boundary 21.65,-1
 Debug: Adding detEntry 'e3Detector_2' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_2' in GNEChange_Additional
 Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '296.00'
-Debug: Selected item 'e3Detector' in TagSelector
+Debug: Selected item 'e3Detector' in GNETagSelector
 Debug: Adding e3Detector 'e3_0' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3_0 into SUMORTree with boundary 7.00,-4.00,27.00,16.00
 Debug: Adding e3Detector 'e3_1' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3_1 into SUMORTree with boundary 14.00,-4.00,34.00,16.00
-Debug: Selected item 'detEntry' in TagSelector
+Debug: Selected item 'detEntry' in GNETagSelector
 Debug: Adding detEntry 'e3_1' in GNEChange_Additional
-Debug: Selected item 'detExit' in TagSelector
+Debug: Selected item 'detExit' in GNETagSelector
 Debug: Adding detExit 'e3_1' in GNEChange_Additional
 Debug: Removing e3Detector 'e3_0' in GNEChange_Additional
 GLDebug: 	Removed object e3Detector:e3_0 from SUMORTree with boundary 7.00,-4.00,27.00,16.00

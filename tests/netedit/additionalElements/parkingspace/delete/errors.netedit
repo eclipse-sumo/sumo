@@ -17,9 +17,9 @@ GLDebug: 	Removed object parkingSpace:parkingAreaLoaded_B from SUMORTree with bo
 GLDebug: 	Inserted parkingSpace:parkingAreaLoaded_B into SUMORTree with boundary 9.80,-11.20,46.20,25.20
 GLDebug: 	Removed object parkingSpace:parkingAreaLoaded_B from SUMORTree with boundary 9.80,-11.20,46.20,25.20
 GLDebug: 	Inserted parkingSpace:parkingAreaLoaded_B into SUMORTree with boundary 9.80,-11.20,46.20,25.20
-Debug: Selected item 'parkingArea' in TagSelector
+Debug: Selected item 'parkingArea' in GNETagSelector
 Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
-Debug: Selected item 'space' in TagSelector
+Debug: Selected item 'space' in GNETagSelector
 Debug: Adding space 'pa_0' in GNEChange_Additional
 GLDebug: 	Inserted parkingSpace:pa_0 into SUMORTree with boundary 7.00,-2.00,27.00,18.00
 GLDebug: 	Removed object parkingSpace:pa_0 from SUMORTree with boundary 7.00,-2.00,27.00,18.00

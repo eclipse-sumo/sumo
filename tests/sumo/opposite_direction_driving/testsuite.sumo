@@ -6,6 +6,7 @@ slope
 
 # tests for stopping on the opposite side
 stop_opposite
+slalom
 
 # bugs specific to opposite-direction driving
 bugs
@@ -101,6 +102,3 @@ emergency_redlight
 
 # test usage of SL2015
 SL2015
-
-# stopped vehicles on both sides of the road and traffic from both directions
-slalom

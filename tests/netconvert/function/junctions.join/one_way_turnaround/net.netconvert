@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 08:21:05 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on Mon Dec 14 11:32:51 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -88,19 +83,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="railway.tram" priority="15" numLanes="1" speed="27.78" allow="tram" oneway="1"/>
 
     <edge id="gneE5" from="gneJ6" to="gneJ7" priority="-1" spreadType="center">
-        <lane id="gneE5_0" index="0" speed="13.89" friction="1.00" length="38.39" shape="4388.70,136.05 4421.88,136.15"/>
+        <lane id="gneE5_0" index="0" speed="13.89" length="38.39" shape="4388.70,136.05 4421.88,136.15"/>
     </edge>
     <edge id="gneE6" from="gneJ7" to="gneJ8" priority="-1" spreadType="center">
-        <lane id="gneE6_0" index="0" speed="13.89" friction="1.00" length="50.02" shape="4432.47,136.01 4477.09,134.66"/>
+        <lane id="gneE6_0" index="0" speed="13.89" length="50.02" shape="4432.47,136.01 4477.09,134.66"/>
     </edge>
     <edge id="gneE7" from="gneJ9" to="gneJ10" priority="-1" spreadType="center">
-        <lane id="gneE7_0" index="0" speed="13.89" friction="1.00" length="50.23" shape="4477.90,144.05 4433.18,144.57"/>
+        <lane id="gneE7_0" index="0" speed="13.89" length="50.23" shape="4477.90,144.05 4433.18,144.57"/>
     </edge>
     <edge id="gneE8" from="gneJ10" to="gneJ11" priority="-1" spreadType="center">
-        <lane id="gneE8_0" index="0" speed="13.89" friction="1.00" length="40.55" shape="4422.06,144.95 4387.19,146.95"/>
+        <lane id="gneE8_0" index="0" speed="13.89" length="40.55" shape="4422.06,144.95 4387.19,146.95"/>
     </edge>
     <edge id="gneE9" from="gneJ7" to="gneJ10" priority="-1" spreadType="center">
-        <lane id="gneE9_0" index="0" speed="13.89" friction="1.00" length="8.48" shape="4427.37,140.18 4427.38,140.38"/>
+        <lane id="gneE9_0" index="0" speed="13.89" length="8.48" shape="4427.37,140.18 4427.38,140.38"/>
     </edge>
 
     <junction id="gneJ10" type="priority" x="4427.67" y="144.63" incLanes="gneE7_0 gneE9_0" intLanes="" shape="4433.20,146.17 4433.16,142.97 4428.88,138.92 4425.69,139.13 4421.97,143.35 4422.15,146.55">

@@ -1,4 +1,4 @@
-Debug: Selected item 'e2Detector' in TagSelector
+Debug: Selected item 'e2Detector' in GNETagSelector
 Debug: Adding e2Detector 'e2_0' in GNEChange_Additional
 Debug: Value 'dummySpeedTreshold' for attribute speedThreshold of e2Detector isn't valid
 Debug: Value '-12.1' for attribute speedThreshold of e2Detector isn't valid

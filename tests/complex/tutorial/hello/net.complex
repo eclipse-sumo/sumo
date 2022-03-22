@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 10:42:04 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on Mon Dec 14 11:31:59 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -25,14 +25,14 @@
     <location netOffset="250.00,0.00" convBoundary="0.00,0.00,501.00,0.00" origBoundary="-250.00,0.00,251.00,0.00" projParameter="!"/>
 
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" speed="13.89" friction="1.00" length="0.10" shape="500.00,-1.60 500.00,-1.60"/>
+        <lane id=":2_0_0" index="0" speed="13.89" length="0.10" shape="500.00,-1.60 500.00,-1.60"/>
     </edge>
 
     <edge id="1to2" from="1" to="2" priority="-1">
-        <lane id="1to2_0" index="0" speed="13.89" friction="1.00" length="500.00" shape="0.00,-1.60 500.00,-1.60"/>
+        <lane id="1to2_0" index="0" speed="13.89" length="500.00" shape="0.00,-1.60 500.00,-1.60"/>
     </edge>
     <edge id="out" from="2" to="3" priority="-1">
-        <lane id="out_0" index="0" speed="13.89" friction="1.00" length="1.00" shape="500.00,-1.60 501.00,-1.60"/>
+        <lane id="out_0" index="0" speed="13.89" length="1.00" shape="500.00,-1.60 501.00,-1.60"/>
     </edge>
 
     <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>

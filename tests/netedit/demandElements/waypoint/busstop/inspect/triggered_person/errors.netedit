@@ -21,7 +21,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'vehicle_0' in DemandElementSelector
-Debug: Selected item 'waypointBusStop' in TagSelector
+Debug: Selected item 'waypointBusStop' in GNETagSelector
 Debug: Adding waypointBusStop 'vehicle_0' in GNEChange_DemandElement
 Debug: Value 'dummy' for attribute triggered of waypointBusStop isn't valid
 Debug: Setting new attribute
