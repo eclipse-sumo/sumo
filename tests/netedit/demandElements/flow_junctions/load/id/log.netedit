@@ -1,0 +1,7 @@
+Error: flow cannot be created
+Error: Attribute 'id' in definition of a flow is empty.
+Error: Invalid flow id ''.
+Error: flow cannot be created
+Error: Invalid flow id 'id with spaces'. Contains invalid characters.
+Error: flow cannot be created
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.22Mar152337.1832\netedit.gui\demandElements\flow_junctions\load\id\input_routes.rou.xml failed.
