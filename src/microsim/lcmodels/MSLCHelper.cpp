@@ -29,7 +29,7 @@
 // Debug flags
 // ===========================================================================
 //#define DEBUG_WANTS_CHANGE
-#define DEBUG_SAVE_BLOCKER_LENGTH
+//#define DEBUG_SAVE_BLOCKER_LENGTH
 
 #define DEBUG_COND (veh.isSelected())
 //#define DEBUG_COND (true)
