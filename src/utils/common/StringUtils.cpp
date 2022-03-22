@@ -110,16 +110,12 @@ StringUtils::convertUmlaute(std::string str) {
 }
 
 
-
 std::string
-StringUtils::replace(std::string str, const char* what,
-                     const char* by) {
-    const std::string what_tmp(what);
-    const std::string by_tmp(by);
+StringUtils::replace(std::string str, const std::string& what, const std::string& by) {
     std::string::size_type idx = str.find(what);
-    const int what_len = (int)what_tmp.length();
+    const int what_len = (int)what.length();
     if (what_len > 0) {
-        const int by_len = (int)by_tmp.length();
+        const int by_len = (int)by.length();
         while (idx != std::string::npos) {
             str = str.replace(idx, what_len, by);
             idx = str.find(what, idx + by_len);
