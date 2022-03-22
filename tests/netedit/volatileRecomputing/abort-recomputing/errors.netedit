@@ -1,16 +1,16 @@
-Debug: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
-Debug: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
-Debug: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
-Debug: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
-Debug: Adding busStop 'busStop_-gneE7_0_5' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE2_0_0' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE4_0_7' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE5_0_8' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE6_0_9' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
+Debug: Adding busStop 'bs0' in GNEChange_Additional
+Debug: Adding busStop 'bs1' in GNEChange_Additional
+Debug: Adding busStop 'bs2' in GNEChange_Additional
+Debug: Adding busStop 'bs3' in GNEChange_Additional
+Debug: Adding busStop 'bs4' in GNEChange_Additional
+Debug: Adding busStop 'bs5' in GNEChange_Additional
+Debug: Adding busStop 'bs6' in GNEChange_Additional
+Debug: Adding busStop 'bs7' in GNEChange_Additional
+Debug: Adding busStop 'bs8' in GNEChange_Additional
+Debug: Adding busStop 'bs9' in GNEChange_Additional
+Debug: Adding e3Detector 'E3' in GNEChange_Additional
+Debug: Adding detEntry 'E3' in GNEChange_Additional
+Debug: Adding detExit 'E3' in GNEChange_Additional
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'No'
@@ -71,19 +71,20 @@ Debug: Created connection 'fromgneE7_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced detEntry 'e3Detector_0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE7_0_6'
-Debug: Deleting unreferenced busStop 'busStop_gneE6_0_9'
-Debug: Deleting unreferenced busStop 'busStop_gneE5_0_8'
-Debug: Deleting unreferenced busStop 'busStop_gneE4_0_7'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_0_0'
-Debug: Deleting unreferenced busStop 'busStop_-gneE7_0_5'
-Debug: Deleting unreferenced busStop 'busStop_-gneE6_0_4'
-Debug: Deleting unreferenced busStop 'busStop_-gneE5_0_3'
-Debug: Deleting unreferenced busStop 'busStop_-gneE4_0_2'
-Debug: Deleting unreferenced busStop 'busStop_-gneE3_0_1'
+Debug: Additionals saved
+Debug: Deleting unreferenced detExit 'E3'
+Debug: Deleting unreferenced detEntry 'E3'
+Debug: Deleting unreferenced e3Detector 'E3'
+Debug: Deleting unreferenced busStop 'bs9'
+Debug: Deleting unreferenced busStop 'bs8'
+Debug: Deleting unreferenced busStop 'bs7'
+Debug: Deleting unreferenced busStop 'bs6'
+Debug: Deleting unreferenced busStop 'bs5'
+Debug: Deleting unreferenced busStop 'bs4'
+Debug: Deleting unreferenced busStop 'bs3'
+Debug: Deleting unreferenced busStop 'bs2'
+Debug: Deleting unreferenced busStop 'bs1'
+Debug: Deleting unreferenced busStop 'bs0'
 Debug: Deleting unreferenced edge '-gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE10_0to-gneE9_0' in GNEEdge destructor

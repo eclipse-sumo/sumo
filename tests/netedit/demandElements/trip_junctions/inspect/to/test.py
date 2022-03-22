@@ -51,7 +51,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.toJunction, "bicycle", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.type, "bicycle", False)
 
 # change from with an invalid value
 netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.toJunction, "", False)
