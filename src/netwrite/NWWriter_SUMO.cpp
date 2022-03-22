@@ -517,14 +517,11 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
         throw ProcessError("Negative allowed speed (" + toString(speed) + ") on lane '" + lID + "', use --speed.minimum to prevent this.");
     }
     into.writeAttr(SUMO_ATTR_SPEED, speed);
-    //never with pedestrians
-    if (permissions != SVC_PEDESTRIAN)
+    if (friction != NBEdge::UNSPECIFIED_FRICTION)
     {
-        if (friction != NBEdge::UNSPECIFIED_FRICTION)
-        {
-            into.writeAttr(SUMO_ATTR_FRICTION, friction);
-        }
+        into.writeAttr(SUMO_ATTR_FRICTION, friction);
     }
+    
     
     into.writeAttr(SUMO_ATTR_LENGTH, length);
     if (endOffset != NBEdge::UNSPECIFIED_OFFSET) {
