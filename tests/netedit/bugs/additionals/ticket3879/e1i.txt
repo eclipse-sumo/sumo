@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11.06.2018 15:06:56 by Eclipse SUMO GUI Version 8ea350efa2
+<!-- generated on 2022-03-22 10:15:10 by Eclipse SUMO GUI Version v1_12_0+1580-9c18c03b069
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="C:\Projects\sumo\tests\netedit\bugs\additionals\ticket3879\net.netedit"/>
-        <additional-files value="C:\Projects\sumo\tests\netedit\bugs\additionals\ticket3879\additionals.netedit"/>
+        <net-file value="D:\SUMO\tests\netedit\bugs\additionals\ticket3879\net.netedit"/>
+        <additional-files value="D:\SUMO\tests\netedit\bugs\additionals\ticket3879\additionals.netedit"/>
     </input>
 
 </configuration>

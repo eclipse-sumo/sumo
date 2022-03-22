@@ -1,17 +1,16 @@
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Nov152253.15048\netedit.gui\bugs\processing\ticket3071\input_additionals.add.xml failed.
+Debug: Adding busStop 'bs0' in GNEChange_Additional
+Debug: Adding busStop 'bs1' in GNEChange_Additional
+Debug: Adding busStop 'bs2' in GNEChange_Additional
+Debug: Adding busStop 'bs3' in GNEChange_Additional
+Debug: Adding busStop 'bs4' in GNEChange_Additional
+Debug: Adding busStop 'bs5' in GNEChange_Additional
+Debug: Adding busStop 'bs6' in GNEChange_Additional
+Debug: Adding busStop 'bs7' in GNEChange_Additional
+Debug: Adding busStop 'bs8' in GNEChange_Additional
+Debug: Adding busStop 'bs9' in GNEChange_Additional
+Debug: Adding e3Detector 'e3' in GNEChange_Additional
+Debug: Adding detEntry 'e3' in GNEChange_Additional
+Debug: Adding detExit 'e3' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_1to-gneE17_1' in retrieveGNEConnection()
@@ -185,11 +184,14 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Removing edge '-gneE17' from net
 Debug: Setting new attribute
+Debug: Removing busStop 'bs4' in GNEChange_Additional
 Debug: Removing edge '-gneE19' from net
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Removing busStop 'bs7' in GNEChange_Additional
 Debug: Removing edge 'gneE17' from net
 Debug: Setting new attribute
+Debug: Removing busStop 'bs8' in GNEChange_Additional
 Debug: Removing edge 'gneE19' from net
 Debug: Adding crossing into junction 'J0'
 Debug: Created crossing ':J0_c0' in retrieveGNECrossing()
@@ -259,11 +261,14 @@ Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: removing crossing from junction 'J0'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Adding edge 'gneE19' from net
+Debug: Adding busStop 'bs8' in GNEChange_Additional
 Debug: Restoring previous attribute
 Debug: Adding edge 'gneE17' from net
+Debug: Adding busStop 'bs7' in GNEChange_Additional
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Adding edge '-gneE19' from net
+Debug: Adding busStop 'bs4' in GNEChange_Additional
 Debug: Restoring previous attribute
 Debug: Adding edge '-gneE17' from net
 Debug: Restoring previous attribute
@@ -518,11 +523,14 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Removing edge '-gneE17' from net
 Debug: Setting new attribute
+Debug: Removing busStop 'bs4' in GNEChange_Additional
 Debug: Removing edge '-gneE19' from net
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Removing busStop 'bs7' in GNEChange_Additional
 Debug: Removing edge 'gneE17' from net
 Debug: Setting new attribute
+Debug: Removing busStop 'bs8' in GNEChange_Additional
 Debug: Removing edge 'gneE19' from net
 Debug: Adding crossing into junction 'J0'
 Debug: Created crossing ':J0_c0' in retrieveGNECrossing()
@@ -592,11 +600,14 @@ Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: removing crossing from junction 'J0'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Adding edge 'gneE19' from net
+Debug: Adding busStop 'bs8' in GNEChange_Additional
 Debug: Restoring previous attribute
 Debug: Adding edge 'gneE17' from net
+Debug: Adding busStop 'bs7' in GNEChange_Additional
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Adding edge '-gneE19' from net
+Debug: Adding busStop 'bs4' in GNEChange_Additional
 Debug: Restoring previous attribute
 Debug: Adding edge '-gneE17' from net
 Debug: Restoring previous attribute
@@ -844,11 +855,14 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Removing edge '-gneE17' from net
 Debug: Setting new attribute
+Debug: Removing busStop 'bs4' in GNEChange_Additional
 Debug: Removing edge '-gneE19' from net
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Removing busStop 'bs7' in GNEChange_Additional
 Debug: Removing edge 'gneE17' from net
 Debug: Setting new attribute
+Debug: Removing busStop 'bs8' in GNEChange_Additional
 Debug: Removing edge 'gneE19' from net
 Debug: Adding crossing into junction 'J0'
 Debug: Created crossing ':J0_c0' in retrieveGNECrossing()
@@ -898,6 +912,7 @@ Debug: Created connection 'fromgneE9_1togneE14_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1to-gneE13_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE18_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
+Debug: Additionals saved
 Debug: Deleting unreferenced edge '-gneE19' in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE19_1' in GNEEdge destructor
@@ -916,9 +931,19 @@ Debug: Deleting unreferenced lane 'gneE17_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE17_1' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ19' in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ19' in GNEJunction destructor
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced detEntry 'e3Detector_0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_0'
+Debug: Deleting unreferenced detExit 'e3'
+Debug: Deleting unreferenced detEntry 'e3'
+Debug: Deleting unreferenced e3Detector 'e3'
+Debug: Deleting unreferenced busStop 'bs9'
+Debug: Deleting unreferenced busStop 'bs8'
+Debug: Deleting unreferenced busStop 'bs7'
+Debug: Deleting unreferenced busStop 'bs6'
+Debug: Deleting unreferenced busStop 'bs5'
+Debug: Deleting unreferenced busStop 'bs4'
+Debug: Deleting unreferenced busStop 'bs3'
+Debug: Deleting unreferenced busStop 'bs2'
+Debug: Deleting unreferenced busStop 'bs1'
+Debug: Deleting unreferenced busStop 'bs0'
 Debug: Deleting unreferenced edge '-gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor

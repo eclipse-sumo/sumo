@@ -1,6 +1,4 @@
 -tp appdata=netedit.gui
-additionalElements\e2multilanedetector\load\pos
-additionalElements\e2multilanedetector\load\endpos
 demandElements\route\fix\save
 demandElements\trip_junctions\delete
 demandElements\trip_junctions\inspect\from
