@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-22 08:54:16 by Eclipse SUMO sumo Version v1_12_0+1573-bcf4ef9
+<!-- generated on 2022-03-22 09:10:09 by Eclipse SUMO sumo Version v1_12_0+1578-e15902c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -153,15 +153,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="23.00">
         <vehicle id="ego" x="90.00" y="2.30" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
-        <vehicle id="oncoming3" x="82.80" y="0.60" angle="274.59" type="DEFAULT_VEHTYPE" speed="7.45" pos="117.20" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="82.80" y="-0.40" angle="270.00" type="DEFAULT_VEHTYPE" speed="7.45" pos="82.80" lane="a_0" slope="0.00"/>
     </timestep>
     <timestep time="24.00">
         <vehicle id="ego" x="90.00" y="2.30" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
-        <vehicle id="oncoming3" x="72.74" y="1.60" angle="273.80" type="DEFAULT_VEHTYPE" speed="10.05" pos="127.26" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="72.74" y="0.60" angle="273.80" type="DEFAULT_VEHTYPE" speed="10.05" pos="127.26" lane="-a_0" slope="0.00"/>
     </timestep>
     <timestep time="25.00">
         <vehicle id="ego" x="90.00" y="2.30" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
-        <vehicle id="oncoming3" x="60.09" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="12.65" pos="139.91" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="60.09" y="1.60" angle="273.24" type="DEFAULT_VEHTYPE" speed="12.65" pos="139.91" lane="-a_0" slope="0.00"/>
     </timestep>
     <timestep time="26.00">
         <vehicle id="ego" x="90.00" y="2.30" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
