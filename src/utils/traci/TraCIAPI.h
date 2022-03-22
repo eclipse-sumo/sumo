@@ -264,6 +264,7 @@ public:
         double getLength(const std::string& laneID) const;
         double getMaxSpeed(const std::string& laneID) const;
         double getWidth(const std::string& laneID) const;
+	double getFriction(const std::string& laneID) const;
         std::vector<std::string> getAllowed(const std::string& laneID) const;
         std::vector<std::string> getDisallowed(const std::string& laneID) const;
         int getLinkNumber(const std::string& laneID) const;
@@ -890,8 +891,9 @@ protected:
      * @param[in] beginTime The begin time step of subscriptions
      * @param[in] endTime The end time step of subscriptions
      * @param[in] vars The variables to subscribe
+     * @param[in] add additional infos of the variables in case of libsumo::VAR_PARAM (generic)
      */
-    void send_commandSubscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime, const std::vector<int>& vars) const;
+    void send_commandSubscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime, const std::vector<int>& vars, tcpip::Storage* add = nullptr) const;
 
 
     /** @brief Sends a SubscribeContext request

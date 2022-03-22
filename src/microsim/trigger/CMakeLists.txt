@@ -3,6 +3,8 @@ set(microsim_trigger_STAT_SRCS
    MSCalibrator.h
    MSLaneSpeedTrigger.cpp
    MSLaneSpeedTrigger.h
+   MSFrictionCoefficientTrigger.cpp
+   MSFrictionCoefficientTrigger.h
    MSTrigger.h
    MSTrigger.cpp
    MSChargingStation.h

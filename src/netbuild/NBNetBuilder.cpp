@@ -63,7 +63,7 @@ NBNetBuilder::~NBNetBuilder() {}
 void
 NBNetBuilder::applyOptions(OptionsCont& oc) {
     // apply options to type control
-    myTypeCont.setEdgeTypeDefaults(oc.getInt("default.lanenumber"), oc.getFloat("default.lanewidth"), oc.getFloat("default.speed"),
+    myTypeCont.setEdgeTypeDefaults(oc.getInt("default.lanenumber"), oc.getFloat("default.lanewidth"), oc.getFloat("default.speed"), oc.getFloat("default.friction"),
                                    oc.getInt("default.priority"), parseVehicleClasses(oc.getString("default.allow"), oc.getString("default.disallow")),
                                    SUMOXMLDefinitions::LaneSpreadFunctions.get(oc.getString("default.spreadtype")));
     // apply options to edge control
@@ -418,6 +418,18 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
                 }
             }
             PROGRESS_TIME_MESSAGE(before);
+        }
+    }
+
+    // Apply Friction Modifications
+    if (oc.exists("default.friction")) {
+        const double df = oc.getFloat("default.friction");
+        for (const auto& it : myEdgeCont) {
+            NBEdge* const e = it.second;
+
+            for (int i = 0; i < e->getNumLanes(); i++) {
+                e->setFriction(i, df);
+            }
         }
     }
 

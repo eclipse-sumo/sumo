@@ -407,6 +407,25 @@ public:
      */
     void buildVariableSpeedSignStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const std::string& speed);
 
+    /**@brief Builds a VariableFrictionSign (lane speed additional)
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The id of the lane speed additional
+     * @param[in] destLanes List of lanes affected by this speed additional
+     * @param[in] name COF name
+     * @param[in] vTypes list of vehicle types to be affected
+     * @param[in] parameters generic parameters
+     */
+    void buildVariableFrictionCoefficient(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
+                                const std::vector<std::string>& laneIDs, const std::string& name, const std::vector<std::string>& vTypes,
+                                const Parameterised::Map& parameters);
+
+    /**@brief Builds a FrictionCoefficient Step
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] time step's time
+     * @param[in] friction step's friction
+     */
+    void buildVariableFrictionCoefficientStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const std::string& friction);
+
     /**@brief Builds a vaporizer (lane speed additional)
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] edgeID edge in which this vaporizer is placed

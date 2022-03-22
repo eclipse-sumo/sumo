@@ -74,6 +74,13 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_MAXSPEED, laneID)
 
+    def getFriction(self, laneID):
+        """getFriction(string) -> double
+
+        Returns the friction on the lane.
+        """
+        return self._getUniversal(tc.VAR_FRICTION, laneID)
+
     def getWidth(self, laneID):
         """getWidth(string) -> double
 
@@ -296,6 +303,13 @@ class LaneDomain(Domain):
         Sets a new maximum allowed speed on the lane in m/s.
         """
         self._setCmd(tc.VAR_MAXSPEED, laneID, "d", speed)
+
+    def setFriction(self, laneID, friction):
+        """setFriction(string, double) -> None
+
+        Sets the friction of the lane.
+        """
+        self._setCmd(tc.VAR_FRICTION, laneID, "d", friction)
 
     def setLength(self, laneID, length):
         """setLength(string, double) -> None

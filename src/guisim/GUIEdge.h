@@ -151,6 +151,7 @@ public:
     }
 
     double getAllowedSpeed() const;
+	double getFrictionCoefficient() const;
     /// @brief return meanSpead divided by allowedSpeed
     double getRelativeSpeed() const;
 

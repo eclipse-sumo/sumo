@@ -148,6 +148,9 @@ public:
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
 
+    /// @brief called to update state for parking vehicles
+    virtual void notifyParking() {}
+
 protected:
     /// @name Helper methods for device assignment
     /// @{

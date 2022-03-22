@@ -4276,7 +4276,7 @@ MSVehicle::updateParkingState() {
         myContainerDevice->notifyMove(*this, getPositionOnLane(), getPositionOnLane(), 0);
     }
     for (MSVehicleDevice* const dev : myDevices) {
-        dev->notifyParking();
+        dev->MSDevice::notifyParking();
     }
 }
 

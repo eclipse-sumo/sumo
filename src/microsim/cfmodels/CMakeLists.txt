@@ -21,6 +21,8 @@ set(microsim_cfmodels_STAT_SRCS
    MSCFModel_PWag2009.h
    MSCFModel_SmartSK.cpp
    MSCFModel_SmartSK.h
+   MSCFModel_KraussFric.cpp
+   MSCFModel_KraussFric.h
    MSCFModel_Wiedemann.cpp
    MSCFModel_Wiedemann.h
    MSCFModel_W99.cpp
@@ -29,6 +31,8 @@ set(microsim_cfmodels_STAT_SRCS
    MSCFModel_ACC.h
    MSCFModel_CACC.cpp
    MSCFModel_CACC.h
+   MSCFModel_ACCFric.cpp
+   MSCFModel_ACCFric.h
    MSCFModel_Rail.cpp
    MSCFModel_Rail.h
    CC_Const.h
