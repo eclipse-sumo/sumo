@@ -44,8 +44,6 @@
 // ===========================================================================
 // parameter defaults definitions
 // ===========================================================================
-
-
 #define INVALID_POSITION std::numeric_limits<double>::max() // tl added
 
 // #define DEBUG_NEMA
@@ -58,7 +56,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
                      const SUMOTime _offset,
                      const Phases& phases,
                      int step, SUMOTime delay,
-                     const Parameterised::Map& parameter,
+                     const std::map<std::string, std::string>& parameter,
                      const std::string& basePath) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, _offset, TrafficLightType::NEMA, phases, step, delay, parameter),
     myPhase(phases[0]->duration, phases[0]->getState()) {
@@ -207,6 +205,7 @@ NEMALogic::constructTimingAndPhaseDefs(){
         minGreen[i] = STEPS2TIME(phase->minDuration);
         maxGreen[i] = STEPS2TIME(phase->maxDuration);
         nextMaxGreen[i] = maxGreen[i];
+        maxGreenMaster[i] = maxGreen[i];
         vehExt[i] = STEPS2TIME(phase->vehext);
         yellowTime[i] = STEPS2TIME(phase->yellow);
         redTime[i] = STEPS2TIME(phase->red);
@@ -272,32 +271,28 @@ NEMALogic::constructTimingAndPhaseDefs(){
     activeRing1Phase = 0;
     activeRing2Phase = 0;
 
-    for (int i = 0; (int)rings[0].size(); i++) {
-        if (rings[0][i] != 0) {
-#ifdef DEBUG_NEMA
-            std::cout << "rings[0][" << i << "] = " << rings[0][i] << std::endl;
-#endif
-            activeRing1Index = i;
-            activeRing1Phase = rings[0][activeRing1Index];
-            break;
-        }
-    }
-    for (int i = 0; (int)rings[1].size(); i++) {
-        if (rings[1][i] != 0) {
-#ifdef DEBUG_NEMA
-            std::cout << "rings[1][" << i << "] = " << rings[1][i] << std::endl;
-#endif
-            activeRing2Index = i;
-            activeRing2Phase = rings[1][activeRing2Index];
-            break;
-        }
-    }
+    // Create the barrier to phase mapping
+    constructBarrierMap(0, myRingBarrierMapping[0]);
+    constructBarrierMap(1, myRingBarrierMapping[1]);
 
+
+    // Set the active ring1 and ring2 phases to be on the right side of the barrier
+    activeRing1Phase = myRingBarrierMapping[0][0].back() != 0? myRingBarrierMapping[0][0].back() : myRingBarrierMapping[0][0].front() ;
+    activeRing1Index = activeRing1Phase - 1;
+
+    activeRing2Phase = myRingBarrierMapping[1][0].back() != 0? myRingBarrierMapping[1][0].back() : myRingBarrierMapping[1][0].front() ;
+    activeRing2Index = activeRing2Phase - 1;
+    
+    
     // Calculate Force offs Based on Timing
     calculateForceOffs();
 
-    // Calculate the Initial Phases
-    calculateInitialPhases();
+    if (coordinateMode){
+        // Calculate the Initial Phases in coordinated operation only.
+        // Otherwise they have already been calculated above
+        calculateInitialPhases();
+    } 
+
 
 
 #ifdef DEBUG_NEMA
@@ -326,20 +321,17 @@ NEMALogic::constructTimingAndPhaseDefs(){
     // set the next phase to current for initialization
     myNextPhaseR1 = R1State;
     myNextPhaseR2 = R2State;
+    myNextPhaseR1Distance = 0;
+    myNextPhaseR2Distance = 0;
 
     // std::cout << "After init, R1State = " << R1State << std::endl;
     // std::cout << "After init, R2State = " << R2State << std::endl;
 
     R1RYG = GREEN;
     R2RYG = GREEN;
-
+    
     wait4R1Green = false;
     wait4R2Green = false;
-
-
-    // Create the barrier to phase mapping;
-    constructBarrierMap(0, myRingBarrierMapping[0]);
-    constructBarrierMap(1, myRingBarrierMapping[1]);
 
 
 #ifdef DEBUG_NEMA
@@ -749,20 +741,28 @@ std::string NEMALogic::combineStates(std::string state1, std::string state2) {
 }
 
 bool NEMALogic::isDetectorActivated(int phaseNumber, const phaseDetectorInfo &detectInfo, int depth = 0) const{
-        if ((phaseNumber != R1State) && (phaseNumber != R2State) && depth < 1){
-            // If I am not the active phase & my target is an active phase, don't report when I am called for my own phase 
-            if ((detectInfo.cpdTarget == R1State && R1RYG >= GREEN) || (detectInfo.cpdTarget == R2State && R2RYG >= GREEN)){
+        // Handle the non-reporting conditions
+        // if I am checking for myself, and my target is active while I am not, don't report as active.
+        if ((detectInfo.cpdTarget == R1State && R1RYG >= GREEN) 
+            || (detectInfo.cpdTarget == R2State && R2RYG >= GREEN)){
+            if ((phaseNumber != R1State) && (phaseNumber != R2State) && (depth < 1)){
                 return false;
-            }
+            } 
         }
+        // Normal Detector Check
         for (auto det : detectInfo.detectors) {
             if (det->getCurrentVehicleNumber() > 0) {
                 return true;
             }
         }
-        if (detectInfo.cpdSource > 0 && depth < 1){
+        // If I haven't been reported as false or true yet, check my cross-phase detector, but only if it isn't currently active
+        if ((detectInfo.cpdSource > 0 && depth < 1) 
+            && ((detectInfo.cpdSource != R1State) && (detectInfo.cpdSource != R2State))
+            && ((phaseNumber == R1State && R1RYG >= GREEN) || (phaseNumber == R2State && R2RYG >= GREEN))
+            ){
             return isDetectorActivated(detectInfo.cpdSource, phase2DetectorMap.find(detectInfo.cpdSource) -> second, depth + 1);
         }
+        // Catch All False Return
         return false;
 }
 
@@ -800,14 +800,13 @@ NEMALogic::NEMA_control() {
     //controller starts
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     double currentTimeInSecond = STEPS2TIME(now);
-
+    double currentInCycleTime = ModeCycle(currentTimeInSecond - cycleRefPoint - offset, myCycleLength);
     // Check the detectors
     checkDetectors();
 
     #ifdef DEBUG_NEMA
     //print to check
     //I didn't use getTimeInCycle(). This is because the cycle reference point may change in the future.
-    double currentInCycleTime = ModeCycle(currentTimeInSecond - cycleRefPoint - offset, myCycleLength);
     std::cout << "current time in cycle:\t" << currentInCycleTime << "\t" << "phases: " << R1State << '\t' << R2State << std::endl;
 #endif
     //int R1Phase = activeRing1Phase;
@@ -903,17 +902,68 @@ NEMALogic::NEMA_control() {
     }
 
     // catch the falling edge of green rest
-    if ((R1RYG == GREENREST && !wait4R1Green) || (R2RYG == GREENREST && !wait4R2Green)){
+    // Logic for green rest. 
+    // The maximum timer only starts when there is a car in another lane even if it is less than the minimum timer.
+    // **This could be specific to Econolite Controllers** 
+    // TODO: Remove the hardcoded phases
+    if ((R1RYG >= GREEN && R1Phase == r1coordinatePhase) && (R2RYG >= GREEN && R2Phase == r2coordinatePhase) && !coordinateMode){
         // will still allow the phase to be extended with vehicle detection
+        bool flag = false;
         for (auto &p: phase2DetectorMap){
             if (p.first != R1State && p.first != R2State && p.second.detectActive){
-                phaseStartTime[R1Index] = currentTimeInSecond - minGreen[R1Index];
-                phaseStartTime[R2Index] = currentTimeInSecond - minGreen[R2Index];
-                wait4R1Green = false;
-                wait4R2Green = false;
-                R1RYG = GREEN;
-                R2RYG = GREEN;
+                // The ring with the active detector should be set to green transfer. 
+                // The other ring is set to perpetually past the minimum timer.
+                if (!wait4R1Green || !wait4R2Green){
+                    // I am using the altered max green timer as the latching state here. 
+                    // This if statement should only be entered on a rising edge of vehicle arrival 
+                    if (!wait4R2Green && maxGreen[R2Index] <= (maxGreenMaster[R2Index]) && R2RYG != GREENTRANSFER){
+                    // R2RYG = GREEN;
+                        if (durationR2 > minGreen[R2Index]){
+                            // If I am past my minimum timer, the behavior becomes acting like I am perpetually one step past my min
+                            // BUT! the maximum timer restarts from when there is a detection. So even if I am 20 seconds past my minimum timer, 
+                            // The maximum timer only starts to take effect once a detection on another phase
+                            phaseStartTime[R2Index] = currentTimeInSecond - minGreen[R2Index];
+                            phaseExpectedDuration[R2Index] = minGreen[R2Index] + MAX2(0.0, phaseExpectedDuration[R2Index] - durationR2);
+                        }    
+                        maxGreen[R2Index] = maxGreenMaster[R2Index] + MIN2(durationR2, minGreen[R2Index]);
+                        } 
+                    if (!wait4R1Green && maxGreen[R1Index] <= (maxGreenMaster[R1Index]) && R1RYG != GREENTRANSFER){
+                    // If the phase is in Green Transfer or Green Rest, the behavior should mimic 
+                        if (durationR1 > minGreen[R1Index]){
+                            phaseStartTime[R1Index] = currentTimeInSecond - minGreen[R1Index];
+                            phaseExpectedDuration[R1Index] = minGreen[R1Index] + MAX2(0.0, phaseExpectedDuration[R1Index] - durationR1);
+                        }        
+                        maxGreen[R1Index] = maxGreenMaster[R1Index] + MIN2(durationR1, minGreen[R1Index]);
+                        }
+                    // The opposite phase goes into GREENTRANSFER mode if it is ready to transfer at this point.
+                    // This is important because GREENTRANSFER can't be extended with vehicle extension timers
+                    R2RYG = wait4R2Green? GREENTRANSFER : R2RYG;
+                    R1RYG = wait4R1Green? GREENTRANSFER : R1RYG;
+               }
+               flag = true;
+               break;
             }
+        }
+        // If a car left the detector on the side street, reset the max green to the default.
+        // This resets the timer from above. The state will reset to green rest in the algorithm below.
+        if (!flag){
+            maxGreen[R1Index] = maxGreen[R1Index] > maxGreenMaster[R1Index]? maxGreenMaster[R1Index]: maxGreen[R1Index];
+            maxGreen[R2Index] = maxGreen[R2Index] > maxGreenMaster[R2Index]? maxGreenMaster[R2Index]: maxGreen[R2Index];
+            // Green Transfer is cleared and reverted back to green rest here
+            R1RYG = R1RYG == GREENTRANSFER? GREENREST : R1RYG;
+            R2RYG = R2RYG == GREENTRANSFER? GREENREST : R2RYG;
+            if (R1RYG == GREEN && durationR1 > minGreen[R1Index]){
+                R1RYG = GREENREST;
+                // Carry over the remaining vehicle extension timer
+                phaseExpectedDuration[R1Index] = minGreen[R1Index] + MAX2(0.0, phaseExpectedDuration[R1Index] - durationR1);
+                phaseStartTime[R1Index] = currentTimeInSecond - minGreen[R1Index];
+            }
+            if (R2RYG == GREEN && durationR2 > minGreen[R2Index]){
+                R2RYG = GREENREST;
+                // Carry over the remaining vehicle extension timer
+                phaseExpectedDuration[R2Index] = minGreen[R2Index] + MAX2(0.0, phaseExpectedDuration[R2Index] - durationR2);
+                phaseStartTime[R2Index] = currentTimeInSecond - minGreen[R2Index];
+            } 
         }
     }
 
@@ -943,10 +993,19 @@ NEMALogic::NEMA_control() {
     if (((EndCurrentPhaseR1 && R1RYG >= GREEN) || (EndCurrentPhaseR2 && R2RYG >= GREEN)) && (!coordinateMode || greenTransfer)) {
         // Calculate the potential next phases.
         // Have to do it here and below because the "final" traffic light check is at the end of yellow
-        int tempR1Phase;
+        int tempR1Phase; 
         int tempR2Phase;
-        // Get the next phases, with the first option being staying in the current phase
-        std::tie(tempR1Phase, tempR2Phase) = getNextPhases(R1Phase, R2Phase, wait4R1Green, wait4R2Green, true);
+        int tempR1Distance = 0;
+        int tempR2Distance = 0;
+        // Get the next phases, with the first option being staying in the current phase. If the next phase has already been determined, use that as the reference
+        std::tie(tempR1Phase, tempR2Phase) = getNextPhases(
+            myNextPhaseR1 == 0 ? R1Phase : myNextPhaseR1, 
+            myNextPhaseR2 == 0 ? R2Phase : myNextPhaseR2,
+            tempR1Distance,
+            tempR2Distance,
+            myNextPhaseR1 == 0 ? wait4R1Green : false, 
+            myNextPhaseR2 == 0 ? wait4R2Green : false, 
+            true);
         // entry point to green rest. First check detector status, then determine if this should be up next.
         // Green rest is effectively the same as being perpetually past the minimum green timer but not changing
         // Green Rest exists in Coordinate Mode too. TS2 allows Green Rest
@@ -968,9 +1027,6 @@ NEMALogic::NEMA_control() {
             // Set my state to Green Rest
             R1RYG = GREENREST;
             R2RYG = GREENREST;
-
-            // reset the expected duration once we make it to the end of the c
-
         } else if (tempR1Phase == R1Phase && EndCurrentPhaseR1 && greenTransfer) {
             // This is the logic for green transfer on Ring 1
             // Green transfer occurs when current phase should end but there isn't a better one to go to,
@@ -988,6 +1044,7 @@ NEMALogic::NEMA_control() {
                 // Lock in the next R2 Phase
                 if (EndCurrentPhaseR2 && (tempR2Phase != R2Phase) && (myNextPhaseR2 == 0)){
                     myNextPhaseR2 = tempR2Phase;
+                    myNextPhaseR2Distance = tempR2Distance;
                 } 
             }
         } else if (tempR2Phase == R2Phase && EndCurrentPhaseR2 && greenTransfer) {
@@ -1005,33 +1062,145 @@ NEMALogic::NEMA_control() {
                 // Lock in the next R1 Phase
                 if (EndCurrentPhaseR1 && (tempR1Phase != R1Phase) && (myNextPhaseR1 == 0)){
                     myNextPhaseR1 = tempR1Phase;
+                    myNextPhaseR1Distance = tempR1Distance;
                 }
             }
         }
         // The unique cases have been caught by this point. If it makes it through the filter above, let the phase transition 
-        else if ((tempR1Phase > 0 && R1RYG > GREEN && wait4R1Green) || (tempR1Phase > 0 && R1RYG > GREEN && wait4R1Green)){
+        else if ((tempR1Phase > 0 && R1RYG >= GREEN && wait4R1Green) || (tempR2Phase > 0 && R2RYG >= GREEN && wait4R2Green)){
             myNextPhaseR1 = tempR1Phase > 0? tempR1Phase : myNextPhaseR1;
+            myNextPhaseR1Distance = tempR1Phase > 0? tempR1Distance : myNextPhaseR1Distance;
             myNextPhaseR2 = tempR2Phase > 0? tempR2Phase : myNextPhaseR2;
+            myNextPhaseR2Distance = tempR2Phase > 0? tempR2Distance : myNextPhaseR2Distance;
         } 
     }
 
 
     // Calculate the next phase with knowledge of both rings
-    // Next Phase should be calculated on the falling edge of yellow
+    // Next Phase should be calculated throughout the red phase. 
     bool calculate = false;
     if (wait4R1Green || wait4R2Green) {
-        if ((currentTimeInSecond - phaseEndTimeR1 >= yellowTime[R1Index]) && (R1RYG == YELLOW)) {
-            R1RYG = RED; //red
+        if (wait4R1Green && ((currentTimeInSecond - phaseEndTimeR1) < (yellowTime[R1Index] + redTime[R1Index]))) {
             calculate = true;
         }
-        if ((currentTimeInSecond - phaseEndTimeR2 >= yellowTime[R2Index]) && (R2RYG == YELLOW)) {
-            R2RYG = RED; //red
+        if (wait4R2Green && ((currentTimeInSecond - phaseEndTimeR2) < (yellowTime[R2Index] + redTime[R2Index]))) {
             calculate = true;
         }
         if (calculate) {
-            // This forces the decision made in the phase extension logic to stick.
-            if ((myNextPhaseR1 == 0 && wait4R1Green) || (myNextPhaseR2 == 0 && wait4R2Green)){
-                std::tie(myNextPhaseR1, myNextPhaseR2) = getNextPhases(R1Phase, R2Phase, wait4R1Green, wait4R2Green);
+            // Try to calculate the next phase again. If the new distance is shorter than the previously calculated next phase, 
+            // or if the new phase is further away but the previously calculate phase isn't active, transition to that phase. 
+            int tempR1Phase; 
+            int tempR2Phase;
+            int tempR1Distance = 0;
+            int tempR2Distance = 0;
+            std::tie(tempR1Phase, tempR2Phase) = getNextPhases(R1Phase, R2Phase, tempR1Distance, tempR2Distance, wait4R1Green, wait4R2Green);
+            if (!wait4R1Green){
+                if (((tempR2Phase != myNextPhaseR2) || (myNextPhaseR2 == 0)) && (tempR2Phase != R2Phase)){
+                    assert(findBarrier(tempR2Phase, 1) == findBarrier(R1Phase, 0));
+                    myNextPhaseR2 = tempR2Phase;
+                    myNextPhaseR2Distance = tempR2Distance;
+                }
+            } else if (!wait4R2Green) {
+               if (((tempR1Phase != myNextPhaseR1) || (myNextPhaseR1 == 0)) && (tempR1Phase != R1Phase)){
+                    assert(findBarrier(tempR1Phase, 0) == findBarrier(R2Phase, 1));
+                    myNextPhaseR1 = tempR1Phase;
+                    myNextPhaseR1Distance = tempR1Distance;
+                }
+            }
+            // Both phases are waiting a change 
+            else {
+                // If the next phase hasn't been calculated, or if it has and checking the detectors at the beginning of red yields a different result
+                // Then as long as that nextPhase is on the the same side of the barrier (only matters in coordinated mode) as the previously calculated next phase, we can transition to it 
+                
+                // Only allowed to barrier cross if they ended at the same exact time! 
+                bool okToBarrierCross = TIME2STEPS(phaseEndTimeR1) == TIME2STEPS(phaseEndTimeR2);
+                int tmpBarrier1 = findBarrier(tempR1Phase, 0);
+                int tmpBarrier2 = findBarrier(tempR2Phase, 1);;
+                // if ((tempR1Phase != myNextPhaseR1) && (tempR2Phase != myNextPhaseR2)){
+                if ((myNextPhaseR1 == 0) && (myNextPhaseR2 == 0)){
+                    myNextPhaseR1 = tempR1Phase;
+                    myNextPhaseR1Distance = tempR1Distance;
+                    myNextPhaseR2 = tempR2Phase;
+                    myNextPhaseR2Distance = tempR2Distance;
+                } else {
+                    if ((tmpBarrier1 != findBarrier(R1Phase, 0)) && (tmpBarrier2 != findBarrier(R2Phase, 1)) && okToBarrierCross){
+                        // Handle Ring 1
+                        bool tryR1Switch = false;
+                        bool tryR2Switch = false;
+                        if (myNextPhaseR1 == 0 && (tempR1Phase != R1Phase)){
+                            myNextPhaseR1 = tempR1Phase;
+                            myNextPhaseR1Distance = tempR1Distance;
+                        }
+                        else if ((tempR1Phase != R1Phase) && (tempR1Distance == 0 || (tempR1Distance < myNextPhaseR1Distance || (recall[tempR1Phase - 1] || readDetector(tempR1Phase))))){
+                            tryR1Switch = true;
+                        }
+                        if (myNextPhaseR2 == 0 && (tempR2Phase != R2Phase)){
+                            myNextPhaseR2 = tempR2Phase;
+                            myNextPhaseR2Distance = tempR2Distance;
+                        }
+                        else if ((tempR2Phase != R2Phase) && (tempR2Distance == 0 || (tempR2Distance < myNextPhaseR2Distance || (recall[tempR2Phase - 1] || readDetector(tempR2Phase))))){
+                            tryR2Switch = true;
+                        }
+
+                        if (tryR1Switch && !tryR2Switch && tmpBarrier1 == findBarrier(myNextPhaseR2, 1)){
+                            myNextPhaseR1 = tempR1Phase;
+                            myNextPhaseR1Distance = tempR1Distance;
+                        } 
+                        else if (!tryR1Switch && tryR2Switch && tmpBarrier2 == findBarrier(myNextPhaseR1, 0)){
+                            myNextPhaseR2 = tempR2Phase;
+                            myNextPhaseR2Distance = tempR2Distance;
+                        } else if (tryR1Switch && tryR2Switch){
+                            myNextPhaseR1 = tempR1Phase;
+                            myNextPhaseR1Distance = tempR1Distance;
+                            myNextPhaseR2 = tempR2Phase;
+                            myNextPhaseR2Distance = tempR2Distance;
+                        }
+                    }
+                    // Just the R1 Phase is different 
+                    else if ((tempR1Phase != myNextPhaseR1) || (myNextPhaseR1 == 0)){
+                        if ((tempR1Phase != R1Phase) && ((tmpBarrier1 == findBarrier(myNextPhaseR1, 0)) || myNextPhaseR2 == 0)){
+                            if (tempR1Distance == 0 || (tempR1Distance < myNextPhaseR1Distance || (recall[tempR1Phase - 1] || readDetector(tempR1Phase)))){
+                                myNextPhaseR1 = tempR1Phase;
+                                myNextPhaseR1Distance = tempR1Distance;
+                            } 
+                        }
+                    }
+                    // Just the R2Phase is different  
+                    else if ((tempR2Phase != myNextPhaseR2) || (myNextPhaseR2 == 0)) {
+                        if ((tempR2Phase != R2Phase) && (tmpBarrier2 == findBarrier(myNextPhaseR2, 1)) || myNextPhaseR2 == 0){
+                            if (tempR2Distance == 0 || (tempR2Distance < myNextPhaseR2Distance || (recall[tempR2Phase - 1] || readDetector(tempR2Phase)))){
+                                myNextPhaseR1 = tempR1Phase;
+                                myNextPhaseR1Distance = tempR1Distance;
+                            } 
+                        }
+                    }
+                }
+
+
+                // if ((myNextPhaseR1 == 0) || ((tempR1Phase != myNextPhaseR1))){
+                //     if (!coordinateMode || (myNextPhaseR1 > 0 && (findBarrier(myNextPhaseR1, 0) == findBarrier(tempR1Phase, 0)))){
+                //         // This captures a behaviour where the next phase was calculate as 3+8. Then at the start of yellow, the 3 vehicle leaves the detector. 
+                //         // If 4 is active, it should go to 4. If 4 is not active, even though getNextPhases will return 4, it should not go to 4 but instead serve 3 first.
+                //         if (!coordinateMode || (tempR1Distance == 0 || tempR1Distance < myNextPhaseR1Distance) 
+                //         || ((tempR1Distance > myNextPhaseR1Distance) && (recall[tempR1Phase - 1] || readDetector(tempR1Phase)))){
+                //             takeNewR1 = true;
+                //             // myNextPhaseR1 = tempR1Phase;
+                //             // myNextPhaseR1Distance = tempR1Distance;
+                //         } 
+                //     }
+                // } 
+                // if ((myNextPhaseR2 == 0) || ((tempR2Phase != myNextPhaseR2))){
+                //     if (!coordinateMode || (myNextPhaseR2 > 0 && (findBarrier(myNextPhaseR2, 1) == findBarrier(tempR2Phase, 1)))){
+                //         if (!coordinateMode || (tempR2Distance == 0 || tempR2Distance < myNextPhaseR2Distance) 
+                //         || ((tempR2Distance > myNextPhaseR2Distance) && (recall[tempR2Phase - 1] || readDetector(tempR2Phase)))){
+                //             takeNewR1 = true;
+                //             // myNextPhaseR2 = tempR2Phase;
+                //             // myNextPhaseR2Distance = tempR2Distance;
+                //         } 
+                //     }
+                // }
+
+                assert(findBarrier(myNextPhaseR2, 1) == findBarrier(myNextPhaseR1, 0));
             }
         }
     }
@@ -1039,6 +1208,8 @@ NEMALogic::NEMA_control() {
     //enter transtion phase for Ring1
     if (wait4R1Green) {
         if (currentTimeInSecond - phaseEndTimeR1 < yellowTime[R1Index]) {
+            // Debugging assertion. A phase should NEVER be served for shorter than it's minimum time
+            assert(durationR1 >= minGreen[R1Index]);
             // Not removing this if statement for clarity on the transition timing
             R1RYG = YELLOW; //yellow
         } else if (currentTimeInSecond - phaseEndTimeR1 < (yellowTime[R1Index] + redTime[R1Index])) {
@@ -1047,51 +1218,97 @@ NEMALogic::NEMA_control() {
             bool toUpdate = (currentTimeInSecond - phaseEndTimeR1) < (yellowTime[R1Index] + TS / 2) ;
             if (R1Phase == r1coordinatePhase && toUpdate) {
                 for (int i = 0; i < 8; i++) {
-                    maxGreen[i] = nextMaxGreen[i];
+                    maxGreenMaster[i] = nextMaxGreen[i];
                 }
                 offset = myNextOffset;
                 myCycleLength = myNextCycleLength;
             }
+            // Reset the closing phase's maxGreen timer to the Master
+            maxGreen[R1Phase - 1] = maxGreenMaster[R1Phase - 1]; 
         } else {
-            //next phase
-            //time 10 R1Phase = 4. Checked
-            // R1Phase = nextPhase(rings[0], R1Phase);
-            R1Phase = myNextPhaseR1;
-            //offset control not included for now
-            R1RYG = GREEN; //green
-            //update phaseStartTime
-            phaseStartTime[R1Phase - 1] = currentTimeInSecond;
-
-            R1State = R1Phase;
-            if (R1Phase == r1coordinatePhase) {
+            
+            if (myNextPhaseR1 == r1coordinatePhase) {
                 if (coordinateMode) {
-                    phaseExpectedDuration[R1Phase - 1] = coordModeCycle(currentTimeInSecond, R1Phase);
+                    phaseExpectedDuration[myNextPhaseR1 - 1] = coordModeCycle(currentTimeInSecond, myNextPhaseR1);
+                    // Assert that the coordinated phase starts at the correct time.
+                    if (myCabinetType == TS2){
+                        assert(ModeCycle(forceOffs[myNextPhaseR1 - 1] - currentInCycleTime, myCycleLength) >= maxGreen[myNextPhaseR1 - 1]); 
+                    } else {
+                        if (currentTimeInSecond > (myCycleLength + offset)){
+                            // The intial phases cause 
+                            assert(phaseExpectedDuration[myNextPhaseR1 - 1] >= maxGreen[myNextPhaseR1 - 1]);
+                        }
+                    }
+               }
+            } else {
+                if (coordinateMode && myCabinetType == TS2){
+                    // TS2 in coordinated mode allows phases to be served as long as they can achieve their minimum time.
+                    // We force them to make the split (doesn't affect fix force off) by ending the phase at it's forceOff.
+                    if (fixForceOff){
+                        // Let it use the remaining time in 
+                        maxGreen[myNextPhaseR1 - 1] = ModeCycle(forceOffs[myNextPhaseR1 - 1] - currentInCycleTime, myCycleLength);
+                        // Add the last phase's remaining time onto my max time. 
+                        maxGreen[myNextPhaseR1 - 1] += MAX2(0.0, maxGreen[R1Phase - 1] - (currentInCycleTime - ModeCycle(phaseStartTime[R1Phase - 1], myCycleLength)));
+                    } else {
+                        // I have to be off by my fix force off
+                        maxGreen[myNextPhaseR1 - 1] = MIN2(maxGreenMaster[myNextPhaseR1 - 1], ModeCycle(forceOffs[myNextPhaseR1 - 1] - currentInCycleTime, myCycleLength));
+                    }
                 }
             }
+            R1Phase = myNextPhaseR1;
+            R1RYG = GREEN;
+            phaseStartTime[R1Phase - 1] = currentTimeInSecond;
+            R1State = R1Phase;
             wait4R1Green = false;
             myNextPhaseR1 = 0;
+            myNextPhaseR1Distance = 0;
         }
     }
 
     if (wait4R2Green) {
         if ((currentTimeInSecond - phaseEndTimeR2) < yellowTime[R2Index]) {
+            // Debugging assertion. A phase should NEVER be served for shorter than it's minimum time
+            assert(durationR2 >= minGreen[R2Index]);
             R2RYG = YELLOW;
         } else if ((currentTimeInSecond - phaseEndTimeR2) < (yellowTime[R2Index] + redTime[R2Index])) {
             R2RYG = RED;
+            // Reset the maxGreen to the master maxGreen time
+            maxGreen[R2Phase - 1] = maxGreenMaster[R2Phase - 1];
         } else {
-            R2Phase = myNextPhaseR2;
-            // R2Phase = nextPhase(rings[1], R2Phase);
-            R2RYG = GREEN;
-            //update phaseStartTime
-            phaseStartTime[R2Phase - 1] = currentTimeInSecond;
-            R2State = R2Phase;
-            if (R2Phase == r2coordinatePhase) {
+            if (myNextPhaseR2 == r2coordinatePhase) {
                 if (coordinateMode) {
-                    phaseExpectedDuration[R2Phase - 1] = coordModeCycle(currentTimeInSecond, R2Phase);
+                    phaseExpectedDuration[myNextPhaseR2 - 1] = coordModeCycle(currentTimeInSecond, myNextPhaseR2);
+                    if (myCabinetType == TS2){
+                        assert(ModeCycle(forceOffs[myNextPhaseR2 - 1] - currentInCycleTime, myCycleLength) >= maxGreen[myNextPhaseR2 - 1]); 
+                    } else {
+                        if (currentTimeInSecond > (myCycleLength + offset)){
+                            // The intial phases cause 
+                            assert(phaseExpectedDuration[myNextPhaseR2 - 1] >= maxGreen[myNextPhaseR2 - 1]);
+                        }
+                    }
+                }
+            } else {
+                if (coordinateMode && myCabinetType == TS2){
+                    // TS2 in coordinated mode allows phases to be served as long as they can achieve their minimum time.
+                    // We force them to make the split (doesn't affect fix force off) by ending the phase at it's forceOff.
+                    if (fixForceOff){
+                        // Let it use the remaining time in 
+                        maxGreen[myNextPhaseR2 - 1] = ModeCycle(forceOffs[myNextPhaseR2 - 1] - currentInCycleTime, myCycleLength);
+                        // Add the last phase's remaining time onto my max time. 
+                        maxGreen[myNextPhaseR2 - 1] += MAX2(0.0, maxGreen[R2Phase - 1] - (currentInCycleTime - ModeCycle(phaseStartTime[R2Phase - 1], myCycleLength)));
+                    } else {
+                        // I have to be off by my fix force off
+                        maxGreen[myNextPhaseR2 - 1] = MIN2(maxGreenMaster[myNextPhaseR2 - 1], ModeCycle(forceOffs[myNextPhaseR2 - 1] - currentInCycleTime, myCycleLength));
+                    }
                 }
             }
+            R2Phase = myNextPhaseR2;
+            R2RYG = GREEN;
+            phaseStartTime[R2Phase - 1] = currentTimeInSecond;
+            R2State = R2Phase;
             wait4R2Green = false;
             myNextPhaseR2 = 0;
+            myNextPhaseR2Distance = 0;
         }
     }
 
@@ -1128,7 +1345,7 @@ NEMALogic::NEMA_control() {
 
     // Clear the Detectors
     clearDetectors();
-
+    assert(findBarrier(R1Phase, 0) == findBarrier(R2Phase, 1));
     myPhase.setName(toString(R1Phase) + "+" + toString(R2Phase));
     return outputState;
 }
@@ -1141,8 +1358,8 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance,
     int matching_i = 0;
     for (i = 0; i < length * 2; i++) {
         if (flag == 1) {
+            distance ++;
             if (ring[i % length] != 0) {
-                distance ++;
                 int tempPhase = ring[i % length];
                 if (recall[tempPhase-1] || readDetector(tempPhase)){
                     if (fitInCycle(tempPhase, ringNum)){
@@ -1164,14 +1381,40 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance,
         }
     }
     if (nphase != 0) {
-        return nphase;
+        if ((nphase != currentPhase) || sameAllowed){
+            return nphase;
+        } else {
+            // Get the next sequential phase.
+            // At this point, i the index for currentPhase, so start there and look for the next sequential
+            // Handle 0 in the ring with the for loop
+            int nPhaseTemp = 0;
+            for (i; i < length * 4; i++){
+                distance ++;
+                if (ring[i % length] != 0){
+                    if (ring[i % length] != currentPhase && fitInCycle(ring[matching_i % length], ringNum)){
+                        nPhaseTemp = ring[i % length];
+                        break;
+                    }
+                }
+            }
+            // There is a case where there is no other non-zero phase found
+            // This occurs when a ring is [ 0 2 | 0 4 ] for example  
+            return nPhaseTemp != 0 ? nPhaseTemp : nphase;
+        }
     } else {
         // this should only occur in the subset
-        if (sameAllowed) {
+        if (sameAllowed && (fitInCycle(ring[matching_i % length], ringNum))) {
             return ring[matching_i % length];
         } else {
-            distance = i + 1;
-            return ring[(matching_i + 1) % length];
+            matching_i++; 
+            // Handle 0 phases
+            for (matching_i; matching_i < length * 4; matching_i++){
+                if (ring[matching_i % length] != 0 && fitInCycle(ring[matching_i % length], ringNum)){
+                    distance++;
+                    break;       
+                }
+            }
+            return ring[matching_i % length];
         }
     }
 }
@@ -1207,15 +1450,15 @@ int NEMALogic::findBarrier(int phase, int ring) {
 }
 
 
-std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, bool toUpdateR1, bool toUpdateR2, bool stayOk) {
+std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, int& r1Distance, int& r2Distance, bool toUpdateR1, bool toUpdateR2, bool stayOk) {
     // If myNextPhase has already been set, pass that to the next phase logic. 
     // If it hasn't (=0) then pass in the current phase
-    R1Phase = myNextPhaseR1 == 0 ? R1Phase : myNextPhaseR1; 
-    R2Phase = myNextPhaseR2 == 0 ? R2Phase : myNextPhaseR2;                
+    // R1Phase = myNextPhaseR1 == 0 ? R1Phase : myNextPhaseR1; 
+    // R2Phase = myNextPhaseR2 == 0 ? R2Phase : myNextPhaseR2;                
     // If myNextPhase has already been set, tell the next phase algo that it CANNOT be changed
     // Aka that wait4Green is false
-    toUpdateR1 = myNextPhaseR1 == 0 ? toUpdateR1 : false; 
-    toUpdateR2 = myNextPhaseR2 == 0 ? toUpdateR2 : false; 
+    // toUpdateR1 = myNextPhaseR1 == 0 ? toUpdateR1 : false; 
+    // toUpdateR2 = myNextPhaseR2 == 0 ? toUpdateR2 : false; 
     int nextR1Phase = R1Phase;
     int nextR2Phase = R2Phase;
     int currentR1Barrier = findBarrier(R1Phase, 0);
@@ -1223,50 +1466,147 @@ std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, bool toU
     // Only 1 or both can be !toUpdate (otherwise we wouldn't be in this situation)
     if (!toUpdateR1) {
         int d = 0;
-        nextR2Phase = nextPhase(myRingBarrierMapping[1][currentR1Barrier], R2Phase, d, stayOk, 1);
+        // this adds handling for faulty initial conditions
+        int defaultPhase = (currentR2Barrier == currentR1Barrier) ? R2Phase : myRingBarrierMapping[1][currentR1Barrier].back();
+        nextR2Phase = nextPhase(myRingBarrierMapping[1][currentR1Barrier], defaultPhase, d, stayOk, 1);
         // If we aren't updating both, the search range is only the subset of values on the same side of the barrier;
     } else if (!toUpdateR2) {
         int d = 0;
-        nextR1Phase = nextPhase(myRingBarrierMapping[0][currentR2Barrier], R1Phase, d, stayOk, 0);
+        // this adds handling for faulty initial conditions
+        int defaultPhase = (currentR1Barrier == currentR2Barrier) ? R1Phase : myRingBarrierMapping[0][currentR2Barrier].back();
+        nextR1Phase = nextPhase(myRingBarrierMapping[0][currentR2Barrier], defaultPhase, d, stayOk, 0);
     } else {
         // Both can be updated. We should take the change requiring the least distance travelled around the loop,
         // and then recalculate the other ring if it is not in the same barrier
-        int r1Distance = 0;
-        int r2Distance = 0;
-        nextR1Phase = nextPhase(rings[0], R1Phase, r1Distance, stayOk, 0);
-        nextR2Phase = nextPhase(rings[1], R2Phase, r2Distance, stayOk, 1);
-        int r1Barrier = findBarrier(nextR1Phase, 0);
-        int r2Barrier = findBarrier(nextR2Phase, 1);
+        int tempR1Distance = 0;
+        int tempR2Distance = 0;
+        // TODO: Changing this stayOk to true could be the cause of issues down the line
+        nextR1Phase = nextPhase(rings[0], R1Phase, tempR1Distance, true, 0);
+        nextR2Phase = nextPhase(rings[1], R2Phase, tempR2Distance, true, 1);
+        int localR1Barrier = findBarrier(nextR1Phase, 0);
+        int localR2Barrier = findBarrier(nextR2Phase, 1);
+
+        bool atR1Barrier = (R1Phase == r1coordinatePhase || R1Phase == r1barrier);
+        bool atR2Barrier = (R2Phase == r2coordinatePhase || R2Phase == r2barrier);
+
+        // Simple Case. 1 + 6 cannot go to 2 + 5 unless in Green Rest. 
+        if (!coordinateMode && (localR1Barrier == localR2Barrier) && (localR2Barrier == currentR2Barrier)){
+            if (atR2Barrier && (R2RYG == GREEN || R2RYG == GREENTRANSFER)){
+                nextR2Phase = R2Phase; 
+            }
+            if (atR1Barrier && (R1RYG == GREEN || R1RYG == GREENTRANSFER)){
+                nextR1Phase = R1Phase; 
+            }
+        }
 
         // Barrier Check. The only time that a phase that is at the barrier can move "reverse" away from the barrier (3+8 -> 4+7)
         // Is when in "Green Rest". That has already been calculated by this point, so if 8 has gone yellow -> red, we have to go to the other barrier
         // Check this be asserting that if the R1Phase is at a barrier and it is < GREEN (YELLOW || RED) AND it's desired phase 
         // is on the same side of the barrier that it is currently, then we need to recalculate on the other side of the barrier
-        if (((R1Phase == r1coordinatePhase || R1Phase == r1barrier) || (R2Phase == r2coordinatePhase || R2Phase == r2barrier)) && (R1RYG < GREEN && R2RYG < GREEN)){
+        if (((coordinateMode && (atR1Barrier || atR2Barrier)) 
+            || (!coordinateMode && (atR1Barrier && atR2Barrier))) 
+            && (R1RYG < GREEN && R2RYG < GREEN)){
             // If either of my phase are at the barrier and have gone yellow, then both phases have to cross the barrier
-            if (r1Barrier == currentR1Barrier){
-                nextR1Phase = nextPhase(myRingBarrierMapping[0][!currentR1Barrier], myRingBarrierMapping[0][!currentR1Barrier].back(), r1Distance, true, 0);
+            if (localR1Barrier == currentR1Barrier){
+                nextR1Phase = nextPhase(myRingBarrierMapping[0][!currentR1Barrier], myRingBarrierMapping[0][!currentR1Barrier].back(), tempR1Distance, true, 0);
             } 
-            if (r2Barrier == currentR2Barrier){
-                nextR2Phase = nextPhase(myRingBarrierMapping[1][!currentR2Barrier], myRingBarrierMapping[1][!currentR2Barrier].back(), r2Distance, true, 1);
+            if (localR2Barrier == currentR2Barrier){
+                nextR2Phase = nextPhase(myRingBarrierMapping[1][!currentR2Barrier], myRingBarrierMapping[1][!currentR2Barrier].back(), tempR2Distance, true, 1);
+            }
+        }
+        // Handle the case where the distance is the same and in coordinated mode.
+        // TODO: Refactor all of this logic. 
+        else if (coordinateMode && (tempR1Distance == tempR2Distance) && (localR1Barrier != localR2Barrier)){
+            // Give preference to result on the side of the current barrier.
+            if (localR2Barrier == currentR2Barrier){
+                // recalculate phase 1
+                if (R1RYG >= GREEN && atR1Barrier){
+                    nextR1Phase = R1Phase;
+                } else {
+                    int defaultPhase = (R1RYG >= GREEN && currentR1Barrier == localR2Barrier) ? R1Phase : myRingBarrierMapping[0][localR2Barrier].back();
+                    nextR1Phase = nextPhase(myRingBarrierMapping[0][localR2Barrier], defaultPhase, tempR1Distance, true, 0);
+                }
+            } else {
+                if (R2RYG >= GREEN && atR2Barrier){
+                    nextR2Phase = R2Phase;
+                } else {
+                    int defaultPhase = (R2RYG >= GREEN && currentR2Barrier == localR1Barrier) ? R2Phase : myRingBarrierMapping[1][localR1Barrier].back();
+                    nextR2Phase = nextPhase(myRingBarrierMapping[1][localR1Barrier], defaultPhase, tempR2Distance, true, 0);
+                }
             }
         }
         // If the initially calculated next phases end up on opposite sides of a barrier, regardless of whether I am at a barrier phase or not,  
         // recalculated the one with a longer travelled distance 
-        else if ((r1Distance <= r2Distance) && (r1Barrier != r2Barrier)) {
-            // If the 
-            int defaultPhase = (R2RYG >= GREEN && currentR2Barrier == r1Barrier) ? R2Phase : myRingBarrierMapping[1][r1Barrier].back(); 
-            nextR2Phase = nextPhase(myRingBarrierMapping[1][r1Barrier], defaultPhase, r2Distance, true, 1);
-        } else if ((r1Distance > r2Distance) && (r1Barrier != r2Barrier)) {
-            int defaultPhase = (R1RYG >= GREEN && currentR1Barrier == r2Barrier) ? R1Phase : myRingBarrierMapping[0][r2Barrier].back();
-            nextR1Phase = nextPhase(myRingBarrierMapping[0][r2Barrier], defaultPhase, r1Distance, true, 0);
+        else if ((tempR1Distance <= tempR2Distance) && (localR1Barrier != localR2Barrier)) {
+            // If I am still green and already at a barrier on the side of the new R1Phase, I cannot transition away from that barrier.
+             if (!coordinateMode && localR2Barrier == currentR2Barrier && tempR2Distance <= tempR1Distance){
+                // Actually give preference to ring 2 here. If R1 is already at the barrier, it cannot move away from the barrier.
+                if (atR1Barrier && (R1RYG == GREEN || R1RYG == GREENTRANSFER)){
+                    nextR1Phase = R1Phase; 
+                } else {
+                    int tmpStartPhase  = (R1Phase == r1coordinatePhase || R1Phase == r1barrier || R1RYG > GREEN || (!stayOk && R1RYG < GREEN))? 
+                                        myRingBarrierMapping[0][localR2Barrier].front(): myRingBarrierMapping[0][localR2Barrier].back();
+                    nextR1Phase = nextPhase(myRingBarrierMapping[0][localR2Barrier], tmpStartPhase, tempR1Distance, stayOk, 0);
+                }
+            } 
+            else if (!coordinateMode && localR1Barrier == currentR1Barrier && tempR1Distance <= tempR2Distance){
+                // Actually give preference to ring 2 here. If R1 is already at the barrier, it cannot move away from the barrier.
+                if (atR2Barrier && (R2RYG == GREEN || R2RYG == GREENTRANSFER) ){
+                    nextR2Phase = R2Phase;
+                } else {
+                    int tmpStartPhase  = (R2Phase == r2coordinatePhase || R2Phase == r2barrier || R2RYG > GREEN || (!stayOk && R2RYG < GREEN))? 
+                                        myRingBarrierMapping[1][localR1Barrier].front(): myRingBarrierMapping[1][localR1Barrier].back();
+                    nextR2Phase = nextPhase(myRingBarrierMapping[1][localR1Barrier], tmpStartPhase, tempR2Distance, stayOk, 1);
+                }
+            }
+            else{
+                if (R2RYG >= GREEN && ((R2Phase == r2barrier && localR1Barrier == 1) || (R2Phase == r2coordinatePhase && localR1Barrier == 0))){
+                    nextR2Phase = R2Phase;
+                } else {
+                    int defaultPhase = ((R2RYG >= GREEN && currentR2Barrier == localR1Barrier) || (!stayOk && R2RYG < GREEN)) ? R2Phase : myRingBarrierMapping[1][localR1Barrier].back();
+                    nextR2Phase = nextPhase(myRingBarrierMapping[1][localR1Barrier], defaultPhase, tempR2Distance, stayOk, 1);
+                }
+            } 
+        } else if ((tempR1Distance > tempR2Distance) && (localR1Barrier != localR2Barrier)) {
+            if (R1RYG >= GREEN && ((R1Phase == r1barrier && localR2Barrier == 1) || (R1Phase == r1coordinatePhase && localR2Barrier == 0))){
+                nextR1Phase = R1Phase;
+            } else {
+                int defaultPhase = ((R1RYG >= GREEN && currentR1Barrier == localR2Barrier) || (!stayOk && R1RYG < GREEN)) ? R1Phase : myRingBarrierMapping[0][localR2Barrier].back();
+                nextR1Phase = nextPhase(myRingBarrierMapping[0][localR2Barrier], defaultPhase, tempR1Distance, stayOk, 0);
+            }
         }
     }
+    // Update the straightline distance
+    r1Distance = measureRingDistance(R1Phase, nextR1Phase, 0);
+    r2Distance = measureRingDistance(R2Phase, nextR2Phase, 1);
     // Only actually keep the changes if the controller wants to transition the state
     // We must do this because myNextPhaseR<1,2>Phase = 0 is special and indicates that 
     // the next phase should be calculated the next time the phase is up to be checked
-    return std::make_tuple(toUpdateR1 ? nextR1Phase : 0, toUpdateR2 ? nextR2Phase : 0);
+    return std::make_tuple(toUpdateR1 ? nextR1Phase : myNextPhaseR1, toUpdateR2 ? nextR2Phase : myNextPhaseR2);
 }
+
+
+int NEMALogic::measureRingDistance(int currentPhase, int nextPhase, int ringNum){
+        int length = (int)rings[ringNum].size();
+        int d = 0;
+        bool found = false;        
+        for (int i = 0; i < (length * 2); i++){
+            if (rings[ringNum][i % length] != 0){ 
+                if (found){
+                   d++;
+                   if (rings[ringNum][i % length] == nextPhase){
+                       break;
+                   } 
+                }
+                else if (rings[ringNum][i % length] == currentPhase){
+                   found = true;
+                } 
+            }
+        }
+        assert(d > 0);
+        return d;
+}
+
 
 //b should be the base of mode
 double NEMALogic::ModeCycle(double a, double b) {
@@ -1444,6 +1784,9 @@ NEMALogic::checkDetectors(){
         // I don't need to check again if the detector is already active
         if (!p.second.detectActive){
             p.second.detectActive = isDetectorActivated(p.first, p.second, 0);
+            #ifdef DEBUG_NEMA
+            std::cout << "TL " << myID <<" Detector  "<< p.first <<":  "<< p.second.detectActive <<std::endl;
+            #endif
         }
     }
 }
@@ -1518,7 +1861,7 @@ NEMALogic::calculateForceOffsTS2(){
 
 void
 NEMALogic::calculateInitialPhases170(){
-    int initialIndexRing [2] = { activeRing1Index, activeRing2Index};
+    int initialIndexRing [2] = {0, 0};
     // calculate initial phases based on in cycle clock
     for (int ringNumber = 0; ringNumber<2;ringNumber++){
         int length = (int)rings[ringNumber].size();
@@ -1552,36 +1895,45 @@ NEMALogic::calculateInitialPhases170(){
     double currentInCycleTime = ModeCycle(currentTimeInSecond - cycleRefPoint - offset, myCycleLength);
 
     // find the initial phases
+    bool found[2] = {false, false};
     for (int ringNumber = 0; ringNumber < 2; ringNumber++){
         int aPhaseIndex = -1;
-        bool found= false;
         // This searches sorted
         for (int p: localRings[ringNumber]) {
             if (p > 0){
                 aPhaseIndex = p - 1;
-                if (currentInCycleTime < phaseCutOffs[p - 1]){
+                // #TODO: Fix this logic intelligently.
+                if ((myCabinetType == Type170 && (currentInCycleTime + minGreen[p - 1] < phaseCutOffs[p - 1]))
+                    || (myCabinetType == TS2 && fitInCycle(p, ringNumber)))
+                    {   
                     #ifdef DEBUG_NEMA
                     std::cout<<"current in cycle time="<<currentInCycleTime<<" phase: "<<aPhaseIndex<<std::endl;
                     #endif
-                    found = true;
+                    found[ringNumber] = true;
                     break;
                 }
             }
         }
-        if (!found){
-            aPhaseIndex = rings[ringNumber][initialIndexRing[ringNumber]]-1; // if the break didn't get triggered, go back to the beginning.
-        }
-        #ifdef DEBUG_NEMA
-        std::cout<<"current in cycle time="<<currentInCycleTime<<" ring "<<ringNumber<< " aphase: "<<aPhaseIndex+1<<std::endl;
-        #endif
         if (ringNumber == 0){
-            activeRing1Index = aPhaseIndex;
-            activeRing1Phase = activeRing1Index + 1;
+            if (found[ringNumber]){
+                activeRing1Index = aPhaseIndex;
+                activeRing1Phase = activeRing1Index + 1;
+            }
         }
         else{
-            activeRing2Index = aPhaseIndex;
-            activeRing2Phase = activeRing2Index + 1;
+            if (found[ringNumber]){
+                activeRing2Index = aPhaseIndex;
+                activeRing2Phase = activeRing2Index + 1;
+            }
         }
+    }
+    if (found[0] * found[1] < 1){
+        // If one or the other phases weren't found, default to the coordinated phase.
+        // This ensures that no barriers are crossed
+        activeRing2Phase = r2coordinatePhase;
+        activeRing2Index = r2coordinatePhase - 1;
+        activeRing1Phase = r1coordinatePhase;
+        activeRing1Index = r1coordinatePhase - 1;
     }
 }
 
@@ -1613,33 +1965,101 @@ NEMALogic::coordModeCycleTS2(double currentTime, int phase){
 
 bool
 NEMALogic::fitInCycleTS2(int phase, int ringNum){
-    if (!coordinateMode || (R1RYG != GREENREST && R2RYG != GREENREST) || ((phase == r2coordinatePhase) || (phase == r1coordinatePhase))){
+    if (!coordinateMode   
+        || ((phase == r2coordinatePhase) || (phase == r1coordinatePhase))
+        // || ((ringNum == 0 && (R1State != r1coordinatePhase)) || (ringNum == 1 && (R2State != r2coordinatePhase))))
+        ){
         return true;
     } else {
         bool iFit = true;
         double currentTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
         double timeInCycle = ModeCycle(currentTime - cycleRefPoint - offset, myCycleLength);
         int length = (int)rings[ringNum].size();
-        // Find the path to the coordinate phase. There has to be a more concise way to do this.
-        // Also log the point in front of me. If it can fit, then I should not mark myself as "fitting"
-        int proceedingPhase = 0;        
-        for (int i = 0; i < (length * 2 - 1); i++){
-            if (rings[ringNum][(i + 1) % length] == phase){
-                proceedingPhase = rings[ringNum][i % length];
-                break;
+
+        // Find the path to the coordinate phase
+        // If the proceeding phase can fit, then I should not mark myself as "fitting".
+        int proceedingPhase = 0;
+        for (int j = 0; j < (length * 2); j++){
+            if (rings[ringNum][j % length] != 0){
+                if ((rings[ringNum][j % length] == phase) && (proceedingPhase != 0)){
+                    break;
+                } else {
+                    proceedingPhase = rings[ringNum][j % length];
+                }
             }
         }
-        if (proceedingPhase > 0){
-            // if the proceeding phase fits, don't say I fit
-            double minStartTimeProceeding = forceOffs[proceedingPhase - 1] - maxGreen[proceedingPhase - 1];
-            double minStartTime = forceOffs[phase - 1] - maxGreen[phase - 1];
-            if (timeInCycle <= (minStartTimeProceeding > 0? minStartTimeProceeding : myCycleLength + minStartTimeProceeding)){
-                iFit = false;
-            } else if (timeInCycle > (minStartTime > 0? minStartTime : myCycleLength + minStartTime)){
-                iFit = false;
+        
+        if (proceedingPhase != 0){
+            iFit = false;
+            // Calculate the transition time of the proceeding phase:
+            // double transitionTimes[2] = {0.0, 0.0};
+            double transitionTime = 0.0;
+            if (ringNum < 1){
+                if (R1RYG < GREEN){
+                    transitionTime = MAX2(0.0, (yellowTime[R1State - 1] + redTime[R1State - 1]) - (currentTime - phaseEndTimeR1));
+                } else {
+                    transitionTime = yellowTime[R1State - 1] + redTime[R1State - 1];
+                }
+            } else {
+                if (R2RYG < GREEN){
+                    transitionTime = MAX2(0.0, (yellowTime[R2State - 1] + redTime[R2State - 1]) - (currentTime - phaseEndTimeR2));
+                } else {
+                    transitionTime = yellowTime[R2State - 1] + redTime[R2State - 1];
+                }
+            }
+
+            // Red is given as lee-way. This is surprising but proven in tests
+            // double endTime = ModeCycle(maxGreen[phase - 1] - redTime[phase - 1] + timeInCycle,  myCycleLength);
+            double d = forceOffs[phase - 1] - timeInCycle;
+            d = d >= 0? d :  d + myCycleLength;
+            double priorD = forceOffs[proceedingPhase - 1] - timeInCycle;
+            priorD = priorD >= 0? priorD :  priorD + myCycleLength;
+            // only consider the fit cases if I fit
+            // At the coordinated phases?
+            // The logic is slightly different for coordinated phases, so the flag below is set.
+            bool coordPhasesActive = (R1State == r1coordinatePhase) && (R2State == r2coordinatePhase);
+            if (d >= (minGreen[phase - 1] + transitionTime)){
+                // If I am inside of my time chunk in the cycle, say that I fit. 
+                if (coordPhasesActive){
+                    if (d <= priorD){
+                        iFit = true;
+                    }
+                    // if the prior phase is closer to it's cutoff than I am to mine, but the prior phase doesn't fit, return that I do fit.
+                    // This al 
+                    else if (priorD <= (minGreen[proceedingPhase - 1] + transitionTime)){
+                        iFit = true;
+                    }
+                    // If the proceeding phase is already active, I can automatically go next.
+                    else if ((proceedingPhase == R1State && proceedingPhase != r1coordinatePhase) || (proceedingPhase == R2State && proceedingPhase != r2coordinatePhase)){
+                        iFit = true;
+                    }  
+                    // If the current phase is in a transition, then say that I can myself fit, even if a proceeding phase can also fit.
+                    else if ((R1RYG < GREEN) && (R2RYG < GREEN)){
+                        // Have to do an extra check here to make sure that my "distance" is not wrapped around the cycle
+                        int nextPhase = phase;
+                        for (int i = 0; i < (length * 2); i++){
+                            if (rings[ringNum][i % length] != 0){ 
+                                // Find the next phase
+                                double nextPhaseD = rings[ringNum][i % length] - timeInCycle;
+                                nextPhaseD = nextPhaseD >= 0? nextPhaseD :  nextPhaseD + myCycleLength;
+                                if (nextPhaseD < d){
+                                    nextPhase = rings[ringNum][i % length];
+                                    break;
+                                }
+                            }
+                        }
+                        if (nextPhase == phase){
+                            iFit = true;
+                        }
+                    }   
+                }
+                else {
+                    // the current phases are not the coordinated phases but I can fit, return true. Otherwise return False! 
+                    // This can happen with green transfers etc.
+                    iFit = true;
+                }
             }
         }
         return iFit;
     }
 }
-

@@ -68,7 +68,7 @@ public:
               const SUMOTime offset,
               const MSSimpleTrafficLightLogic::Phases& phases,
               int step, SUMOTime delay,
-              const Parameterised::Map& parameter,
+              const std::map<std::string, std::string>& parameter,
               const std::string& basePath);
 
 
@@ -121,7 +121,7 @@ public:
 
     int nextPhase(std::vector<int> ring, int phaseNum, int& distance,  bool sameAllowed, int ringNum);
 
-    std::tuple<int, int> getNextPhases(int currentR1Index, int currentR2Index, bool toUpdateR1, bool toUpdateR2, bool stayOk = false);
+    std::tuple<int, int> getNextPhases(int currentR1Index, int currentR2Index, int& r1Distance, int& r2Distance, bool toUpdateR1, bool toUpdateR2, bool stayOk = false);
 
     double ModeCycle(double a, double b);
 
@@ -295,7 +295,9 @@ protected:
     // myNextPhase needs to be presevered in memory because the phase is calculated at start of yellow 
     // but not implementend until the end of red 
     int myNextPhaseR1;
+    int myNextPhaseR1Distance;
     int myNextPhaseR2;
+    int myNextPhaseR2Distance;
 
     bool minRecalls[8] {};
     bool maxRecalls[8] {};
@@ -328,6 +330,7 @@ protected:
 
     double minGreen[8] {};
     double maxGreen[8] {};
+    double maxGreenMaster[8] {};
     double nextMaxGreen[8] {};
     double vehExt[8] {};
     double yellowTime[8] {};
@@ -395,6 +398,9 @@ protected:
     /// helps to construct myRingBarrierMapping
     void constructBarrierMap(int ring, std::vector<std::vector<int>>& barrierMap);
     int findBarrier(int desiredPhase, int ring);
+
+    /// @brief measures the ring distance between two phases
+    int NEMALogic::measureRingDistance(int currentPhase, int nextPhase, int ring);
 
     // Green Transfer Option
     bool greenTransfer;
