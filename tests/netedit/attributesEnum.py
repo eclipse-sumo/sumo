@@ -1467,6 +1467,83 @@ class flowFromToEdge:
         spacingOption = 23
         parameters = 23
 
+
+# flow (from-to junctions)
+
+
+class flowJunction:
+    class create:
+        type = 5
+        id = 8
+        colorButton = 9
+        color = 10
+        departLane = 11
+        departPos = 12
+        departSpeed = 13
+        arrivalLane = 14
+        arrivalPos = 15
+        arrivalSpeed = 16
+        line = 17
+        personNumber = 18
+        containerNumber = 19
+        departPosLat = 20
+        arrivalPosLat = 21
+        begin = 22
+        terminate = 26
+        end = 28
+        number = 29
+        spacing = 28
+        terminateOption = 30
+        spacingOption = 31
+
+    class inspect:
+        id = 1
+        type = 2
+        fromJunction = 3
+        toJunction = 4
+        colorButton = 5
+        color = 6
+        departLane = 7
+        departPos = 8
+        departSpeed = 9
+        arrivalLane = 10
+        arrivalPos = 11
+        arrivalSpeed = 12
+        line = 13
+        personNumber = 14
+        containerNumber = 15
+        departPosLat = 16
+        arrivalPosLat = 17
+        begin = 18
+        terminate = 21
+        spacing = 23
+        end = 24
+        terminateOption = 25
+        spacingOption = 26
+        parameters = 28
+
+    class inspectSelection:
+        type = 1
+        colorButton = 2
+        color = 3
+        departLane = 4
+        departPos = 5
+        departSpeed = 6
+        arrivalLane = 7
+        arrivalPos = 8
+        arrivalSpeed = 9
+        line = 10
+        personNumber = 11
+        containerNumber = 12
+        departPosLat = 13
+        arrivalPosLat = 14
+        begin = 15
+        terminate = 18
+        spacing = 20
+        terminateOption = 22
+        spacingOption = 23
+        parameters = 23
+
 # flow (over route)
 
 
