@@ -84,6 +84,7 @@ MSLaneChanger::ChangeElem::ChangeElem(MSLane* _lane) :
     hoppedVeh(nullptr),
     lastBlocked(nullptr),
     firstBlocked(nullptr),
+    lastStopped(nullptr),
     ahead(lane),
     aheadNext(lane, nullptr, 0) {
 }
@@ -167,6 +168,7 @@ MSLaneChanger::initChanger() {
         ce->hoppedVeh = nullptr;
         ce->lastBlocked = nullptr;
         ce->firstBlocked = nullptr;
+        ce->lastStopped = nullptr;
         ce->dens = 0;
         ce->lane->getVehiclesSecure();
 
@@ -294,6 +296,9 @@ MSLaneChanger::change() {
     vehicle->getLaneChangeModel().setSpeedLat(0);
     if (!myAllowsChanging || vehicle->getLaneChangeModel().alreadyChanged() || vehicle->isStoppedOnLane()) {
         registerUnchanged(vehicle);
+        if (vehicle->isStoppedOnLane()) {
+            myCandi->lastStopped = vehicle;
+        }
         return false;
     }
 
@@ -319,7 +324,7 @@ MSLaneChanger::change() {
     // Check for changes to the opposite lane if vehicle is active
     std::pair<MSVehicle* const, double> leader = getRealLeader(myCandi);
     if (myChanger.size() == 1 || vehicle->getLaneChangeModel().isOpposite() || (!mayChange(-1) && !mayChange(1))) {
-        if (changeOpposite(vehicle, leader)) {
+        if (changeOpposite(vehicle, leader, myCandi->lastStopped)) {
             return true;
         }
         registerUnchanged(vehicle);
@@ -377,7 +382,7 @@ MSLaneChanger::change() {
     // multi-lane road (or vehicles that need to stop on the opposite side)
     if ((vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
             || hasOppositeStop(vehicle))
-            && changeOpposite(vehicle, leader)) {
+            && changeOpposite(vehicle, leader, myCandi->lastStopped)) {
         return true;
     }
 
@@ -1151,7 +1156,7 @@ MSLaneChanger::getBestLanesOpposite(MSVehicle* vehicle, const MSLane* stopLane, 
 
 
 bool
-MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader) {
+MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader, MSVehicle* lastStopped) {
     // Evaluate lane-changing between opposite direction lanes
     if (!myChangeToOpposite) {
         return false;
@@ -1251,7 +1256,11 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
                 std::cout << "   not overtaking leader " << leader.first->getID() << " that has blinker set\n";
             }
 #endif
-            resolveDeadlock(vehicle, leader, neighLead, overtaken);
+            if (lastStopped != nullptr && vehicle->getWaitingSeconds() >= OPPOSITE_OVERTAKING_DEADLOCK_WAIT) {
+                neighLead = oncomingLane->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD, true, MSLane::MinorLinkMode::FOLLOW_ONCOMING);
+                const double lastStoppedGap = lastStopped->getBackPositionOnLane() - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap();
+                resolveDeadlock(vehicle, leader, neighLead, std::make_pair(lastStopped, lastStoppedGap));
+            }
             return false;
         } else if (leader.second < 0) {
             // leaders is either a junction leader (that cannot be overtaken) or something else is wrong
@@ -1342,9 +1351,19 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
                     std::cout << "   cannot changeOpposite (cannot overtake fast leader " << Named::getIDSecure(overtaken.first) << " v=" << overtaken.first->getSpeed() << ")\n";
                 }
 #endif
+                neighLead = oncomingLane->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD, true, MSLane::MinorLinkMode::FOLLOW_ONCOMING);
+                bool wait = false;
                 if (vehicle->getWaitingSeconds() >= OPPOSITE_OVERTAKING_DEADLOCK_WAIT) {
-                    neighLead = oncomingLane->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD, true, MSLane::MinorLinkMode::FOLLOW_ONCOMING);
-                    resolveDeadlock(vehicle, leader, neighLead, overtaken);
+                    wait = resolveDeadlock(vehicle, leader, neighLead, overtaken);
+                }
+                if (!wait && lastStopped != nullptr) {
+                    const double lastStoppedGap = lastStopped->getBackPositionOnLane() - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap();
+#ifdef DEBUG_CHANGE_OPPOSITE
+                    if (DEBUG_COND) {
+                        std::cout << "  lastStopped=" << Named::getIDSecure(lastStopped) << " gap=" << lastStoppedGap << "\n";
+                    }
+#endif
+                    avoidDeadlock(vehicle, neighLead, std::make_pair(lastStopped, lastStoppedGap), leader);
                 }
                 return false;
             }
@@ -1645,14 +1664,18 @@ MSLaneChanger::avoidDeadlock(MSVehicle* vehicle,
         }
 
         const double leaderBGap = leader.first->getBrakeGap();
-        const double gapWithEgo = leader.second + leaderBGap - neighStoppedBack - vehicle->getVehicleType().getLengthWithGap();
+        const double leaderFGap = leader.first->getLane()->getLeader(leader.first, leader.first->getPositionOnLane(), vehicle->getBestLanesContinuation(), overtaken.second, true).second;
+        const double extraGap = MAX2(leaderBGap, leaderFGap);
+        const double gapWithEgo = leader.second + extraGap - neighStoppedBack - vehicle->getVehicleType().getLengthWithGap();
 #ifdef DEBUG_CHANGE_OPPOSITE_DEADLOCK
         if (DEBUG_COND) {
             std::cout << SIMTIME << " veh=" << vehicle->getID() << " avoidDeadlock"
                 << " neighLeadGap=" << neighLead.second
                 << " leaderGap=" << leader.second
-                << " leaderBgap=" << leaderBGap
-                << " neighStoppedBack=" << vehicle->getPositionOnLane()
+                << " bGap=" << leaderBGap
+                << " fGap=" << leaderFGap
+                << " eGap=" << extraGap
+                << " neighStoppedBack=" << neighStoppedBack
                 << " neighStoppedBackPos=" << vehicle->getPositionOnLane() + neighStoppedBack
                 << " requiredGap=" << requiredGap
                 << " gapWithEgo=" << gapWithEgo
@@ -1667,10 +1690,10 @@ MSLaneChanger::avoidDeadlock(MSVehicle* vehicle,
             const double stopPos = vehicle->getPositionOnLane() + distToStop;
 #ifdef DEBUG_CHANGE_OPPOSITE_DEADLOCK
             if (DEBUG_COND) {
-                std::cout << "   currentDist=" << currentDist << " stopPos=" << stopPos << "\n";
+                std::cout << "   currentDist=" << currentDist << " stopPos=" << stopPos << " lGap+eGap=" << leader.second + extraGap << " distToStop=" << distToStop << "\n";
             }
 #endif
-            if (leader.second + leaderBGap > distToStop) {
+            if (leader.second + leaderBGap + leader.first->getLength() > distToStop) {
                 const double blockerLength = currentDist - stopPos;
                 bool reserved = vehicle->getLaneChangeModel().saveBlockerLength(blockerLength, -1);
 #ifdef DEBUG_CHANGE_OPPOSITE_DEADLOCK
