@@ -357,6 +357,9 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
                 d.filename = attrs.getStringSecure("filename", d.filename);
                 WRITE_WARNING("The 'filename' attribute is deprecated for decals. Please use 'file'.");
             }
+            if (std::getenv("${SUMO_LOGO}") == nullptr) {
+                d.filename = StringUtils::replace(d.filename, "${SUMO_LOGO}", "${SUMO_HOME}/data/logo/sumo-128x138.png");
+            }
             d.filename = StringUtils::substituteEnvironment(d.filename);
             if (d.filename != "" && !FileHelpers::isAbsolute(d.filename)) {
                 d.filename = FileHelpers::getConfigurationRelative(getFileName(), d.filename);
