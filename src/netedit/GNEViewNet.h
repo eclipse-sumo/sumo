@@ -281,6 +281,9 @@ public:
     /// @brief edit connection shape
     long onCmdEditConnectionShape(FXObject*, FXSelector, void*);
 
+    /// @brief edit connection shape
+    long onCmdSmoothConnectionShape(FXObject*, FXSelector, void*);
+
     /// @brief edit crossing shape
     long onCmdEditCrossingShape(FXObject*, FXSelector, void*);
 
@@ -307,6 +310,9 @@ public:
 
     /// @brief toggle show grid
     long onCmdToggleShowGrid(FXObject*, FXSelector, void*);
+
+    /// @brief toggle draw junction shape
+    long onCmdToggleDrawJunctionShape(FXObject*, FXSelector, void*);
 
     /// @brief toggle draw vehicles in begin position or spread in lane
     long onCmdToggleDrawSpreadVehicles(FXObject*, FXSelector, void*);
@@ -461,9 +467,6 @@ public:
 
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
-
-    /// @brief check if lock icon should be visible
-    bool showLockIcon() const;
 
     /// @brief set staturBar text
     void setStatusBarText(const std::string& text);

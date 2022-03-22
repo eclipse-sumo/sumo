@@ -22,6 +22,8 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEPathLegend.h>
+
 
 // ===========================================================================
 // class definitions
@@ -132,7 +134,7 @@ public:
     bool addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get path creator modul
-    GNEFrameModules::PathCreator* getPathCreator() const;
+    GNEPathCreator* getPathCreator() const;
 
 protected:
     /// @brief create path
@@ -149,11 +151,11 @@ private:
     RouteModeSelector* myRouteModeSelector;
 
     /// @brief internal route attributes
-    GNEFrameAttributeModules::AttributesCreator* myRouteAttributes;
+    GNEAttributesCreator* myRouteAttributes;
 
     /// @brief path creator modul
-    GNEFrameModules::PathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator;
 
     /// @brief path legend modul
-    GNEFrameModules::PathLegend* myPathLegend;
+    GNEM_PathLegend* myPathLegend;
 };

@@ -349,6 +349,9 @@ public:
     /// @brief called if the user press key combination Ctrl + G to toggle grid
     long onCmdToggleGrid(FXObject*, FXSelector, void*);
 
+    /// @brief called if the user press key combination Ctrl + J to toggle draw junction shape
+    long onCmdToggleDrawJunctionShape(FXObject*, FXSelector, void*);
+
     /// @brief called if the user call set front element
     long onCmdSetFrontElement(FXObject*, FXSelector, void*);
 
@@ -457,21 +460,24 @@ protected:
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading = false;
 
+    /// @brief information whether the gui is currently reloading
+    bool myReloading = false;
+
     /// @brief the submenus
     FXMenuPane* myFileMenu = nullptr,
                 *myFileMenuTLS = nullptr,
-                 *myFileMenuEdgeTypes = nullptr,
-                  *myFileMenuAdditionals = nullptr,
-                   *myFileMenuDemandElements = nullptr,
-                    *myFileMenuDataElements = nullptr,
-                     *myModesMenu = nullptr,
-                      *myEditMenu = nullptr,
-                       *myLockMenu = nullptr,
-                        *myProcessingMenu = nullptr,
-                         *myLocatorMenu = nullptr,
-                          *myToolsMenu = nullptr,
-                           *myWindowsMenu = nullptr,
-                            *myHelpMenu = nullptr;
+                *myFileMenuEdgeTypes = nullptr,
+                *myFileMenuAdditionals = nullptr,
+                *myFileMenuDemandElements = nullptr,
+                *myFileMenuDataElements = nullptr,
+                *myModesMenu = nullptr,
+                *myEditMenu = nullptr,
+                *myLockMenu = nullptr,
+                *myProcessingMenu = nullptr,
+                *myLocatorMenu = nullptr,
+                *myToolsMenu = nullptr,
+                *myWindowsMenu = nullptr,
+                *myHelpMenu = nullptr;
 
     /// @brief menu title for modes
     FXMenuTitle* myModesMenuTitle = nullptr;

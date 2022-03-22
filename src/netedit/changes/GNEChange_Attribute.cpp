@@ -95,7 +95,7 @@ GNEChange_Attribute::undo() {
             myAC->getNet()->requireSaveAdditionals(true);
         } else if (myAC->getTagProperty().isDemandElement()) {
             myAC->getNet()->requireSaveDemandElements(true);
-        } else if (myAC->getTagProperty().isDemandElement()) {
+        } else if (myAC->getTagProperty().isDataElement()) {
             myAC->getNet()->requireSaveDataElements(true);
         }
     }
@@ -129,7 +129,7 @@ GNEChange_Attribute::redo() {
             myAC->getNet()->requireSaveAdditionals(true);
         } else if (myAC->getTagProperty().isDemandElement()) {
             myAC->getNet()->requireSaveDemandElements(true);
-        } else if (myAC->getTagProperty().isDemandElement()) {
+        } else if (myAC->getTagProperty().isDataElement()) {
             myAC->getNet()->requireSaveDataElements(true);
         }
     }

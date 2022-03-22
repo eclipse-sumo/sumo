@@ -657,7 +657,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     } else {
         myCurrentLane->maxSpeed = attrs.get<double>(SUMO_ATTR_SPEED, id.c_str(), ok);
     }
-    myCurrentLane->friction = attrs.getOpt<double>(SUMO_ATTR_FRICTION, id.c_str(), ok, (double)(1.), false); //sets 1 on empty
+    myCurrentLane->friction = attrs.getOpt<double>(SUMO_ATTR_FRICTION, id.c_str(), ok, NBEdge::UNSPECIFIED_FRICTION, false); //sets 1 on empty
     try {
         myCurrentLane->allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "", false);
     } catch (EmptyData&) {

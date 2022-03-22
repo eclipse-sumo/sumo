@@ -227,9 +227,9 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, const double max, con
         std::cout
                 << "\n" << SIMTIME << std::setprecision(gPrecision)
                 << " patchSpeed state=" << toString((LaneChangeAction)state) << " myLCAccelerationAdvices=" << toString(myLCAccelerationAdvices)
-                << " \nspeed=" << myVehicle.getSpeed()
-                << " min=" << min
-                << " wanted=" << wanted << std::endl;
+                << "\n  speed=" << myVehicle.getSpeed() << " min=" << min << " wanted=" << wanted
+                << "\n  myLeadingBlockerLength=" << myLeadingBlockerLength
+                << "\n";
     }
 #endif
 
@@ -242,7 +242,7 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, const double max, con
         double space = myLeftSpace - myLeadingBlockerLength - MAGIC_offset - myVehicle.getVehicleType().getMinGap();
 #ifdef DEBUG_PATCH_SPEED
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myLeftSpace=" << myLeftSpace << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
         }
 #endif
         if (space > 0) { // XXX space > -MAGIC_offset
@@ -456,8 +456,11 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                            int dir,
                            const std::pair<MSVehicle*, double>& neighLead,
                            double remainingSeconds) {
-    double plannedSpeed = MIN2(myVehicle.getSpeed(),
-                               myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), myLeftSpace - myLeadingBlockerLength));
+    double plannedSpeed = myVehicle.getSpeed();
+    if (!isOpposite()) {
+        plannedSpeed = MIN2(plannedSpeed,
+                myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), myLeftSpace - myLeadingBlockerLength));
+    }
     for (std::vector<double>::const_iterator i = myLCAccelerationAdvices.begin(); i != myLCAccelerationAdvices.end(); ++i) {
         const double a = *i;
         if (a >= -myVehicle.getCarFollowModel().getMaxDecel()) {
@@ -575,6 +578,8 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                               << " overtakeTime=" << overtakeTime
                               << " remainingSeconds=" << remainingSeconds
                               << " currentGap=" << neighLead.second
+                              << " neighNextSpeed=" << neighNextSpeed
+                              << " neighNextGap=" << neighNextGap
                               << " targetSpeed=" << targetSpeed
                               << "\n";
                 }
@@ -1990,8 +1995,12 @@ MSLCM_LC2013::getOppositeSafetyFactor() const {
 double
 MSLCM_LC2013::saveBlockerLength(double length, double foeLeftSpace) {
     const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
-    if (canReserve || myLeftSpace > foeLeftSpace) {
+    if (!isOpposite() && (canReserve || myLeftSpace > foeLeftSpace)) {
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
+        if (myLeftSpace == 0 && foeLeftSpace < 0) {
+            // called from opposite overtaking, myLeftSpace must be initialized
+            myLeftSpace = myVehicle.getBestLanes()[myVehicle.getLane()->getIndex()].length - myVehicle.getPositionOnLane();
+        }
         return true;
     } else {
         return false;

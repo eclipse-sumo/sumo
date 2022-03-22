@@ -21,7 +21,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
 
 #include "GNEPersonPlanFrame.h"
 
@@ -39,19 +38,19 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     myRouteHandler("", viewNet->getNet(), true) {
 
     // create person types selector modul
-    myPersonSelector = new GNEFrameModules::DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
+    myPersonSelector = new DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
 
     // Create tag selector for person plan
-    myPersonPlanTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
+    myPersonPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
 
     // Create person parameters
-    myPersonPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
+    myPersonPlanAttributes = new GNEAttributesCreator(this);
 
     // create myPathCreator Module
-    myPathCreator = new GNEFrameModules::PathCreator(this);
+    myPathCreator = new GNEPathCreator(this);
 
-    // Create HierarchicalElementTree modul
-    myPersonHierarchy = new GNEFrameModules::HierarchicalElementTree(this);
+    // Create GNEElementTree modul
+    myPersonHierarchy = new GNEElementTree(this);
 }
 
 
@@ -137,13 +136,13 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
 }
 
 
-GNEFrameModules::PathCreator*
+GNEPathCreator*
 GNEPersonPlanFrame::getPathCreator() const {
     return myPathCreator;
 }
 
 
-GNEFrameModules::HierarchicalElementTree* 
+GNEElementTree* 
 GNEPersonPlanFrame::getPersonHierarchy() const {
     return myPersonHierarchy;
 }
@@ -230,7 +229,7 @@ GNEPersonPlanFrame::createPath() {
                     myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
                     myPersonSelector->getCurrentDemandElement(),
                     myPersonPlanAttributes, myPathCreator, false)) {
-            // refresh HierarchicalElementTree
+            // refresh GNEElementTree
             myPersonHierarchy->refreshHierarchicalElementTree();
             // abort path creation
             myPathCreator->abortPathCreation();

@@ -19,18 +19,9 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNELane2laneConnection.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
-#include <netedit/elements/network/GNEConnection.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
 #include "GNEAdditionalFrame.h"
 
@@ -44,25 +35,25 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myBaseAdditional(nullptr) {
 
     // create item Selector modul for additionals
-    myAdditionalTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);
+    myAdditionalTagSelector = new GNETagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);
 
     // Create additional parameters
-    myAdditionalAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
+    myAdditionalAttributes = new GNEAttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
+    myNeteditAttributes = new GNENeteditAttributes(this);
 
     // Create selector parent
-    mySelectorAdditionalParent = new GNEFrameModules::SelectorParent(this);
+    mySelectorAdditionalParent = new GNESelectorParent(this);
 
     // Create selector child edges
-    myEdgesSelector = new GNECommonNetworkModules::NetworkElementsSelector(this, GNECommonNetworkModules::NetworkElementsSelector::NetworkElementType::EDGE);
+    myEdgesSelector = new GNENetworkSelector(this, GNENetworkSelector::Type::EDGE);
 
     // Create selector child lanes
-    myLanesSelector = new GNECommonNetworkModules::NetworkElementsSelector(this, GNECommonNetworkModules::NetworkElementsSelector::NetworkElementType::LANE);
+    myLanesSelector = new GNENetworkSelector(this, GNENetworkSelector::Type::LANE);
 
     // Create list for E2Multilane lane selector
-    myConsecutiveLaneSelector = new GNECommonNetworkModules::ConsecutiveLaneSelector(this, false);
+    myConsecutiveLaneSelector = new GNEConsecutiveSelector(this, false);
 }
 
 
@@ -130,19 +121,19 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
 }
 
 
-GNECommonNetworkModules::NetworkElementsSelector*
+GNENetworkSelector*
 GNEAdditionalFrame::getEdgesSelector() const {
     return myEdgesSelector;
 }
 
 
-GNECommonNetworkModules::NetworkElementsSelector* 
+GNENetworkSelector* 
 GNEAdditionalFrame::getLanesSelector() const {
     return myLanesSelector;
 }
 
 
-GNECommonNetworkModules::ConsecutiveLaneSelector*
+GNEConsecutiveSelector*
 GNEAdditionalFrame::getConsecutiveLaneSelector() const {
     return myConsecutiveLaneSelector;
 }
@@ -203,7 +194,7 @@ GNEAdditionalFrame::tagSelected() {
         // show additional attributes modul
         myAdditionalAttributes->showAttributesCreatorModule(templateAC, {});
         // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModule(templateAC->getTagProperty());
+        myNeteditAttributes->showNeteditAttributesModule(templateAC);
         // Show myAdditionalFrameParent if we're adding an slave element
         if (templateAC->getTagProperty().isChild()) {
             mySelectorAdditionalParent->showSelectorParentModule(templateAC->getTagProperty().getParentTags());
@@ -436,11 +427,6 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         WRITE_WARNING("Currently unsuported. Create VSS steps elements using VSS dialog");
         return false;
     }
-    // disable intervals (temporal)
-    if (tagProperties.getTag() == SUMO_TAG_STEP_COF) {
-        WRITE_WARNING("Currently unsuported. Create COF steps elements using COF dialog");
-        return false;
-    }
     // Check if ID has to be generated
     if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
         myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
@@ -472,26 +458,6 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         if (step) {
             myBaseAdditional->addTimeAttribute(SUMO_ATTR_TIME, string2time(step->getAttribute(SUMO_ATTR_TIME)) + TIME2STEPS(900));
         } else {
-            myBaseAdditional->addTimeAttribute(SUMO_ATTR_TIME, 0);
-        }
-    }
-    // special case for COF Steps
-    if (myBaseAdditional->getTag() == SUMO_TAG_STEP_COF) {
-        // get COF parent
-        const auto COFParent = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_COF,
-            myBaseAdditional->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
-        // get last step
-        GNEAdditional* step = nullptr;
-        for (const auto& additionalChild : COFParent->getChildAdditionals()) {
-            if (!additionalChild->getTagProperty().isSymbol()) {
-                step = additionalChild;
-            }
-        }
-        // set time
-        if (step) {
-            myBaseAdditional->addTimeAttribute(SUMO_ATTR_TIME, string2time(step->getAttribute(SUMO_ATTR_TIME)) + TIME2STEPS(900));
-        }
-        else {
             myBaseAdditional->addTimeAttribute(SUMO_ATTR_TIME, 0);
         }
     }

@@ -56,7 +56,7 @@ int OutputDevice::myPrevConsoleCP = -1;
 // static method definitions
 // ===========================================================================
 OutputDevice&
-OutputDevice::getDevice(const std::string& name) {
+OutputDevice::getDevice(const std::string& name, bool usePrefix) {
 #ifdef WIN32
     // fix the windows console output on first call
     if (myPrevConsoleCP == -1) {
@@ -86,7 +86,7 @@ OutputDevice::getDevice(const std::string& name) {
         }
     } else {
         std::string name2 = (name == "nul" || name == "NUL") ? "/dev/null" : name;
-        if (OptionsCont::getOptions().isSet("output-prefix") && name2 != "/dev/null") {
+        if (usePrefix && OptionsCont::getOptions().isSet("output-prefix") && name2 != "/dev/null") {
             std::string prefix = OptionsCont::getOptions().getString("output-prefix");
             const std::string::size_type metaTimeIndex = prefix.find("TIME");
             if (metaTimeIndex != std::string::npos) {

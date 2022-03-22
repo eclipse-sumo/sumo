@@ -20,7 +20,12 @@
 #pragma once
 #include <config.h>
 
-#include "GNECommonNetworkModules.h"
+#include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEAttributesCreator.h>
+#include <netedit/frames/GNEConsecutiveSelector.h>
+#include <netedit/frames/GNESelectorParent.h>
+#include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNENeteditAttributes.h>
 
 
 // ===========================================================================
@@ -52,7 +57,7 @@ public:
     bool addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get consecutive lane selector
-    GNECommonNetworkModules::ConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
+    GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
 
     /// @brief create path
     void createPath();
@@ -61,7 +66,7 @@ protected:
     /// @brief SumoBaseObject used for create wire
     CommonXMLStructure::SumoBaseObject* myBaseWire = nullptr;
 
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
 private:
@@ -72,17 +77,17 @@ private:
     bool buildWireOverView(const GNETagProperties& tagValues);
 
     /// @brief item selector
-    GNEFrameModules::TagSelector* myWireTagSelector = nullptr;
+    GNETagSelector* myWireTagSelector = nullptr;
 
     /// @brief internal wire attributes
-    GNEFrameAttributeModules::AttributesCreator* myWireAttributes = nullptr;
+    GNEAttributesCreator* myWireAttributes = nullptr;
 
     /// @brief Netedit parameter
-    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes = nullptr;
+    GNENeteditAttributes* myNeteditAttributes = nullptr;
 
     /// @brief Select wire parent
-    GNEFrameModules::SelectorParent* mySelectorWireParent = nullptr;
+    GNESelectorParent* mySelectorWireParent = nullptr;
 
     /// @brief Module for select consecutive lanes
-    GNECommonNetworkModules::ConsecutiveLaneSelector* myConsecutiveLaneSelector;
+    GNEConsecutiveSelector* myConsecutiveLaneSelector;
 };

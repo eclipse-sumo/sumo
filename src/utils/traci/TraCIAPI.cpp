@@ -16,9 +16,7 @@
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
-/// @author  Thomas Weber
-/// @date    15.03.2022
-/// @version $Id$
+/// @date    30.05.2012
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

@@ -19,22 +19,9 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNELane2laneConnection.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
-#include <netedit/elements/network/GNEConnection.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/network/GNELane.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
 #include "GNEWireFrame.h"
 
@@ -48,19 +35,19 @@ GNEWireFrame::GNEWireFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     GNEFrame(horizontalFrameParent, viewNet, "Wires") {
 
     // create item Selector modul for wires
-    myWireTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::WIRE, SUMO_TAG_TRACTION_SUBSTATION);
+    myWireTagSelector = new GNETagSelector(this, GNETagProperties::TagType::WIRE, SUMO_TAG_TRACTION_SUBSTATION);
 
     // Create wire parameters
-    myWireAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
+    myWireAttributes = new GNEAttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
+    myNeteditAttributes = new GNENeteditAttributes(this);
 
     // Create selector parent
-    mySelectorWireParent = new GNEFrameModules::SelectorParent(this);
+    mySelectorWireParent = new GNESelectorParent(this);
 
     // Create list for E2Multilane lane selector
-    myConsecutiveLaneSelector = new GNECommonNetworkModules::ConsecutiveLaneSelector(this, true);
+    myConsecutiveLaneSelector = new GNEConsecutiveSelector(this, true);
 }
 
 
@@ -114,7 +101,7 @@ GNEWireFrame::addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 }
 
 
-GNECommonNetworkModules::ConsecutiveLaneSelector*
+GNEConsecutiveSelector*
 GNEWireFrame::getConsecutiveLaneSelector() const {
     return myConsecutiveLaneSelector;
 }
@@ -172,7 +159,7 @@ GNEWireFrame::tagSelected() {
         // show wire attributes modul
         myWireAttributes->showAttributesCreatorModule(templateAC, {});
         // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModule(templateAC->getTagProperty());
+        myNeteditAttributes->showNeteditAttributesModule(templateAC);
         // check if we're creating a overhead wire section
         if (templateAC->getTagProperty().getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();

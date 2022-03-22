@@ -231,7 +231,7 @@ GNEFrame::updateFrameAfterUndoRedo() {
 
 void
 GNEFrame::tagSelected() {
-    // this function has to be reimplemente in all child frames that uses a TagSelector modul
+    // this function has to be reimplemente in all child frames that uses a GNETagSelector modul
 }
 
 
@@ -250,19 +250,19 @@ GNEFrame::shapeDrawed() {
 
 void
 GNEFrame::attributeUpdated() {
-    // this function has to be reimplemente in all child frames that uses a TagSelector modul
+    // this function has to be reimplemente in all child frames that uses a GNETagSelector modul
 }
 
 
 void
 GNEFrame::attributesEditorExtendedDialogOpened()  {
-    // this function has to be reimplemente in all child frames that uses a AttributesCreator editor with extended attributes
+    // this function has to be reimplemente in all child frames that uses a GNEAttributesCreator editor with extended attributes
 }
 
 
 void
 GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
-    // this function has to be reimplemente in all child frames that uses a OverlappedInspection
+    // this function has to be reimplemente in all child frames that uses a GNEOverlappedInspection
 }
 
 
@@ -275,6 +275,21 @@ GNEFrame::createPath() {
 const std::vector<std::string>&
 GNEFrame::getPredefinedTagsMML() const {
     return myPredefinedTagsMML;
+}
+
+
+FXLabel*
+GNEFrame::buildRainbow(FXComposite* parent) {
+    // create label for color information
+    FXLabel* label = new FXLabel(parent, "Scale: Min -> Max", nullptr, GUIDesignLabelCenterThick);
+    // create frame for color scale
+    FXHorizontalFrame* horizontalFrameColors = new FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame);
+    for (const auto& color : GNEViewNetHelper::getRainbowScaledColors()) {
+        FXLabel* colorLabel = new FXLabel(horizontalFrameColors, "", nullptr, GUIDesignLabelLeft);
+        colorLabel->setBackColor(MFXUtils::getFXColor(color));
+    }
+    // return label
+    return label;
 }
 
 /****************************************************************************/

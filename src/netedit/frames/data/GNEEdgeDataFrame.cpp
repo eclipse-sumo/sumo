@@ -54,7 +54,7 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& object
             }
         }
         // check if parameters are valid
-        if (Parameterised::areParametersValid(myGenericDataAttributes->getParametersStr())) {
+        if (myGenericDataAttributes->areAttributesValid()) {
             // create interval base object
             CommonXMLStructure::SumoBaseObject* intervalBaseObject = new CommonXMLStructure::SumoBaseObject(nullptr);
             intervalBaseObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());

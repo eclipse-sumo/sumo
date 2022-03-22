@@ -58,6 +58,7 @@ NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(const EdgeTypeDefinition* edg
 
 NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(const double _speed, const double _width, SVCPermissions _permissions, const std::set<SumoXMLAttr>& _attrs) :
     speed(_speed),
+    friction(NBEdge::UNSPECIFIED_FRICTION),
     permissions(_permissions),
     width(_width),
     attrs(_attrs) {
@@ -86,7 +87,7 @@ NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(const LaneTypeDefinition* lan
 // ---------------------------------------------------------------------------
 
 NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition() :
-    speed((double) 13.89), friction((double) 1.0), priority(-1),
+    speed((double) 13.89), friction(NBEdge::UNSPECIFIED_FRICTION), priority(-1),
     permissions(SVC_UNSPECIFIED),
     spreadType(LaneSpreadFunction::RIGHT),
     oneWay(true), discard(false),
@@ -210,6 +211,7 @@ void
 NBTypeCont::setEdgeTypeDefaults(int defaultNumLanes,
                                 double defaultLaneWidth,
                                 double defaultSpeed,
+                                double defaultFriction,
                                 int defaultPriority,
                                 SVCPermissions defaultPermissions,
                                 LaneSpreadFunction defaultSpreadType) {
@@ -217,7 +219,7 @@ NBTypeCont::setEdgeTypeDefaults(int defaultNumLanes,
     myDefaultType->laneTypeDefinitions.resize(defaultNumLanes);
     myDefaultType->width = defaultLaneWidth;
     myDefaultType->speed = defaultSpeed;
-    myDefaultType->friction = NBEdge::UNSPECIFIED_FRICTION;
+    myDefaultType->friction = defaultFriction;
     myDefaultType->priority = defaultPriority;
     myDefaultType->permissions = defaultPermissions;
     myDefaultType->spreadType = defaultSpreadType;
@@ -417,7 +419,11 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
         }
         // write friction
         if (edgeType.second->attrs.count(SUMO_ATTR_FRICTION) > 0) {
-            into.writeAttr(SUMO_ATTR_FRICTION, edgeType.second->friction);
+            //only write if its not the default value or if its forced
+            if (edgeType.second->friction != NBEdge::UNSPECIFIED_FRICTION)
+            {
+                into.writeAttr(SUMO_ATTR_FRICTION, edgeType.second->friction);
+            }
         }
         // write permissions
         if ((edgeType.second->attrs.count(SUMO_ATTR_DISALLOW) > 0) || (edgeType.second->attrs.count(SUMO_ATTR_ALLOW) > 0)) {

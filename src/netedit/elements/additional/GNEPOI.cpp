@@ -31,7 +31,6 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
-#include <utils/gui/images/GUITexturesHelper.h>
 
 #include "GNEPOI.h"
 

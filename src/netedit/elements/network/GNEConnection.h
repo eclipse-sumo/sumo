@@ -102,6 +102,9 @@ public:
     /// @brief recompute cached myLinkState
     void updateLinkState();
 
+    /// @brief somoothShape
+    void smootShape();
+
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns an own popup-menu

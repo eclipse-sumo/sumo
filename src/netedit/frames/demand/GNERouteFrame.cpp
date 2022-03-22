@@ -22,10 +22,8 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/elements/demand/GNERoute.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 
 #include "GNERouteFrame.h"
 
@@ -195,13 +193,13 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     myRouteModeSelector = new RouteModeSelector(this);
 
     // Create route parameters
-    myRouteAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
+    myRouteAttributes = new GNEAttributesCreator(this);
 
     // create consecutive edges modul
-    myPathCreator = new GNEFrameModules::PathCreator(this);
+    myPathCreator = new GNEPathCreator(this);
 
     // create legend label
-    myPathLegend = new GNEFrameModules::PathLegend(this);
+    myPathLegend = new GNEM_PathLegend(this);
 }
 
 
@@ -244,7 +242,7 @@ GNERouteFrame::addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::MouseB
 }
 
 
-GNEFrameModules::PathCreator*
+GNEPathCreator*
 GNERouteFrame::getPathCreator() const {
     return myPathCreator;
 }

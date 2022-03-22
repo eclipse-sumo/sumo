@@ -35,7 +35,6 @@
 #include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
 #include <netedit/dialogs/GNEFrictionCoefficientDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -98,20 +97,18 @@ FXIMPLEMENT(GNEInspectorFrame::AdditionalDialog,            FXGroupBoxModule,   
 GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspectorFrame* inspectorFrameParent) :
     FXGroupBoxModule(inspectorFrameParent->myContentFrame, "Netedit attributes"),
     myInspectorFrameParent(inspectorFrameParent) {
-
     // Create mark as front element button
-    myMarkFrontElementButton = new FXButton(getCollapsableFrame(), "Mark as front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), this, MID_GNE_MARKFRONTELEMENT, GUIDesignButton);
-
+    myMarkFrontElementButton = new FXButton(getCollapsableFrame(), "Mark as front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), 
+                                            this, MID_GNE_MARKFRONTELEMENT, GUIDesignButton);
     // Create elements for parent additional
-    myHorizontalFrameParentAdditional = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myLabelParentAdditional = new FXLabel(myHorizontalFrameParentAdditional, "Block move", nullptr, GUIDesignLabelAttribute);
-    myTextFieldParentAdditional = new FXTextField(myHorizontalFrameParentAdditional, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-
+    myLabelParentAdditional = new FXLabel(getCollapsableFrame(), "Parent", nullptr, GUIDesignLabelCenterThick);
+    myTextFieldParentAdditional = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    mySetNewParentButton = new MFXCheckableButton(false, getCollapsableFrame(), ("Set new parent"), nullptr, 
+                                                  this, MID_GNE_SET_ATTRIBUTE, GUIDesignMFXCheckableButton);
     // Create elements for close shape
     myHorizontalFrameCloseShape = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myLabelCloseShape = new FXLabel(myHorizontalFrameCloseShape, "Close shape", nullptr, GUIDesignLabelAttribute);
     myCheckBoxCloseShape = new FXCheckButton(myHorizontalFrameCloseShape, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-
     // Create help button
     myHelpButton = new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -122,21 +119,23 @@ GNEInspectorFrame::NeteditAttributesEditor::~NeteditAttributesEditor() {}
 
 void
 GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
+    // get ACs
+    const auto &ACs = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers();
     // continue if there is edited ACs
-    if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+    if (ACs.size() > 0) {
         // enable all editable elements
         myTextFieldParentAdditional->enable();
         myCheckBoxCloseShape->enable();
         // obtain tag property (only for improve code legibility)
-        const auto& tagValue = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty();
+        const auto& tagValue = ACs.front()->getTagProperty();
         // check if item can be mark as front elmenet
-        if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+        if (ACs.size() == 1) {
             // show NeteditAttributesEditor
             show();
             // show button
             myMarkFrontElementButton->show();
             // enable or disable
-            if (myInspectorFrameParent->getViewNet()->getFrontAttributeCarrier() == myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()) {
+            if (myInspectorFrameParent->getViewNet()->getFrontAttributeCarrier() == ACs.front()) {
                 myMarkFrontElementButton->disable();
             } else {
                 myMarkFrontElementButton->enable();
@@ -148,8 +147,8 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             show();
             // Iterate over AC to obtain values
             bool value = true;
-            for (const auto& i : myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
-                value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_CLOSE_SHAPE));
+            for (const auto& inspectedAC : ACs) {
+                value &= GNEAttributeCarrier::parse<bool>(inspectedAC->getAttribute(GNE_ATTR_CLOSE_SHAPE));
             }
             // show close shape frame
             myHorizontalFrameCloseShape->show();
@@ -170,19 +169,27 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             show();
             // obtain additional Parent
             std::set<std::string> parents;
-            for (const auto& i : myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
-                parents.insert(i->getAttribute(GNE_ATTR_PARENT));
+            for (const auto& inspectedAC : ACs) {
+                parents.insert(inspectedAC->getAttribute(GNE_ATTR_PARENT));
             }
-            // show parent additional frame
-            myHorizontalFrameParentAdditional->show();
+            // show parent additional elements
+            myLabelParentAdditional->show();
+            myTextFieldParentAdditional->show();
+            mySetNewParentButton->show();
+            // reset new parent button
+            mySetNewParentButton->setChecked(false);
+            mySetNewParentButton->setText("Set new parent");
+            // set parent tag icon
+            const auto &parentTagProperty = GNEAttributeCarrier::getTagProperty(ACs.front()->getTagProperty().getParentTags().front());
+            mySetNewParentButton->setIcon(GUIIconSubSys::getIcon(parentTagProperty.getGUIIcon()));
             // show help button
             myHelpButton->show();
             // set Label and TextField with the Tag and ID of parent
-            myLabelParentAdditional->setText((toString(myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isChild()) + " parent").c_str());
+            myLabelParentAdditional->setText((parentTagProperty.getTagStr() + " parent").c_str());
             myTextFieldParentAdditional->setText(toString(parents).c_str());
         }
         // disable all editable elements if we're in demand mode and inspected AC isn't a demand element
-        if (GNEFrameAttributeModules::isSupermodeValid(myInspectorFrameParent->getViewNet(), myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()) == false) {
+        if (GNEFrameAttributeModules::isSupermodeValid(myInspectorFrameParent->getViewNet(), ACs.front()) == false) {
             myTextFieldParentAdditional->disable();
             myCheckBoxCloseShape->disable();
         }
@@ -193,7 +200,9 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
 void
 GNEInspectorFrame::NeteditAttributesEditor::hideNeteditAttributesEditor() {
     // hide all elements of GroupBox
-    myHorizontalFrameParentAdditional->hide();
+    myLabelParentAdditional->hide();
+    myTextFieldParentAdditional->hide();
+    mySetNewParentButton->hide();
     myHorizontalFrameCloseShape->hide();
     myMarkFrontElementButton->hide();
     myHelpButton->hide();
@@ -230,11 +239,59 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
             }
         }
         // Check if item has another item as parent (Currently only for single Additionals)
-        if (myHorizontalFrameParentAdditional->shown() && ((myTextFieldParentAdditional->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
+        if (myTextFieldParentAdditional->shown() && ((myTextFieldParentAdditional->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
             // set Label and TextField with the Tag and ID of parent
             myLabelParentAdditional->setText((toString(ACs.front()->getTagProperty().getParentTags().front()) + " parent").c_str());
             myTextFieldParentAdditional->setText(ACs.front()->getAttribute(GNE_ATTR_PARENT).c_str());
         }
+    }
+}
+
+
+bool
+GNEInspectorFrame::NeteditAttributesEditor::isSelectingParent() const {
+    if (!shown()) {
+        return false;
+    } else {
+        return (mySetNewParentButton->shown() && mySetNewParentButton->amChecked());
+    }
+}
+
+
+void 
+GNEInspectorFrame::NeteditAttributesEditor::setNewParent(GNEAttributeCarrier* clickedAC) {
+    const auto& ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    // check number of inspected ACs
+    if ((ACs.size() > 0) && clickedAC) {
+        // check parent tags
+        for (const auto &parentTag : ACs.front()->getTagProperty().getParentTags()) {
+            if (parentTag == clickedAC->getTagProperty().getTag()) {
+                // check if we're changing multiple attributes
+                if (ACs.size() > 1) {
+                    myInspectorFrameParent->myViewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+                }
+                // replace the parent of all inspected elements
+                for (const auto& AC : ACs) {
+                    AC->setAttribute(GNE_ATTR_PARENT, clickedAC->getID(), myInspectorFrameParent->myViewNet->getUndoList());
+                }
+                // finish change multiple attributes
+                if (ACs.size() > 1) {
+                    myInspectorFrameParent->myViewNet->getUndoList()->end();
+                }
+                // stop select parent
+                stopSelectParent();
+                // resfresh netedit attributes editor
+                refreshNeteditAttributesEditor(true);
+            }
+        }
+    }
+}
+
+
+void 
+GNEInspectorFrame::NeteditAttributesEditor::stopSelectParent() {
+    if (mySetNewParentButton->amChecked()) {
+        onCmdSetNeteditAttribute(mySetNewParentButton, 0, nullptr);
     }
 }
 
@@ -248,7 +305,15 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
         if (ACs.size() > 1) {
             myInspectorFrameParent->myViewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
         }
-        if (obj == myCheckBoxCloseShape) {
+        if (obj == mySetNewParentButton) {
+            if (mySetNewParentButton->amChecked()) {
+                mySetNewParentButton->setText("Set new parent");
+                mySetNewParentButton->setChecked(false);
+            } else {
+                mySetNewParentButton->setText(("Click over " + toString(ACs.front()->getTagProperty().getParentTags().front())).c_str());
+                mySetNewParentButton->setChecked(true);
+            }
+        } else if (obj == myCheckBoxCloseShape) {
             // set new values in all inspected Attribute Carriers
             for (const auto& AC : ACs) {
                 if (myCheckBoxCloseShape->getCheck() == 1) {
@@ -792,7 +857,7 @@ GNEInspectorFrame::ParametersEditor::onCmdSetParameters(FXObject*, FXSelector, v
     // continue depending of frontAC
     if (frontAC && frontAC->getTagProperty().hasParameters()) {
         // check if current given string is valid
-        if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true)) {
+        if (frontAC->isValid(GNE_ATTR_PARAMETERS, myTextFieldParameters->getText().text())) {
             // parsed parameters ok, then set text field black and continue
             myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
             myTextFieldParameters->killFocus();
@@ -930,7 +995,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myBackButton->hide();
 
     // Create Overlapped Inspection modul
-    myOverlappedInspection = new GNEFrameModules::OverlappedInspection(this);
+    myOverlappedInspection = new GNEOverlappedInspection(this);
 
     // Create Attributes Editor modul
     myAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
@@ -950,8 +1015,8 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // Create Template editor modul
     myTemplateEditor = new TemplateEditor(this);
 
-    // Create HierarchicalElementTree modul
-    myHierarchicalElementTree = new GNEFrameModules::HierarchicalElementTree(this);
+    // Create GNEElementTree modul
+    myHierarchicalElementTree = new GNEElementTree(this);
 }
 
 
@@ -962,6 +1027,9 @@ void
 GNEInspectorFrame::show() {
     // inspect a null element to reset inspector frame
     inspectSingleElement(nullptr);
+    // stop select new element
+    myNeteditAttributesEditor->stopSelectParent();
+    // show
     GNEFrame::show();
 }
 
@@ -989,7 +1057,7 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
                 }
             }
         } else {
-            // first check if we clicked over a OverlappedInspection point
+            // first check if we clicked over a GNEOverlappedInspection point
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
@@ -1025,7 +1093,7 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
                 }
             }
         } else {
-            // first check if we clicked over a OverlappedInspection point
+            // first check if we clicked over a GNEOverlappedInspection point
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
@@ -1061,7 +1129,7 @@ GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GN
                 }
             }
         } else {
-            // first check if we clicked over a OverlappedInspection point
+            // first check if we clicked over a GNEOverlappedInspection point
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
@@ -1245,13 +1313,13 @@ GNEInspectorFrame::getTemplateEditor() const {
 }
 
 
-GNEFrameModules::OverlappedInspection*
+GNEOverlappedInspection*
 GNEInspectorFrame::getOverlappedInspection() const {
     return myOverlappedInspection;
 }
 
 
-GNEFrameModules::HierarchicalElementTree*
+GNEElementTree*
 GNEInspectorFrame::getHierarchicalElementTree() const {
     return myHierarchicalElementTree;
 }

@@ -20,7 +20,13 @@
 #pragma once
 #include <config.h>
 
-#include "GNECommonNetworkModules.h"
+#include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEAttributesCreator.h>
+#include <netedit/frames/GNENetworkSelector.h>
+#include <netedit/frames/GNEConsecutiveSelector.h>
+#include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNESelectorParent.h>
+#include <netedit/frames/GNENeteditAttributes.h>
 
 
 // ===========================================================================
@@ -52,13 +58,13 @@ public:
     bool addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get edges selector
-    GNECommonNetworkModules::NetworkElementsSelector* getEdgesSelector() const;
+    GNENetworkSelector* getEdgesSelector() const;
 
     /// @brief get edges selector
-    GNECommonNetworkModules::NetworkElementsSelector* getLanesSelector() const;
+    GNENetworkSelector* getLanesSelector() const;
 
     /// @brief get consecutive lane selector
-    GNECommonNetworkModules::ConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
+    GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
 
     /// @brief create path
     void createPath();
@@ -67,7 +73,7 @@ protected:
     /// @brief SumoBaseObject used for create additional
     CommonXMLStructure::SumoBaseObject* myBaseAdditional;
 
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
 private:
@@ -87,23 +93,23 @@ private:
     bool buildAdditionalOverView(const GNETagProperties& tagValues);
 
     /// @brief item selector
-    GNEFrameModules::TagSelector* myAdditionalTagSelector;
+    GNETagSelector* myAdditionalTagSelector;
 
     /// @brief internal additional attributes
-    GNEFrameAttributeModules::AttributesCreator* myAdditionalAttributes;
+    GNEAttributesCreator* myAdditionalAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
+    GNENeteditAttributes* myNeteditAttributes;
 
     /// @brief Module for select a single parent additional
-    GNEFrameModules::SelectorParent* mySelectorAdditionalParent;
+    GNESelectorParent* mySelectorAdditionalParent;
 
     /// @brief Module for select edges
-    GNECommonNetworkModules::NetworkElementsSelector* myEdgesSelector;
+    GNENetworkSelector* myEdgesSelector;
 
     /// @brief Module for select lanes
-    GNECommonNetworkModules::NetworkElementsSelector* myLanesSelector;
+    GNENetworkSelector* myLanesSelector;
 
     /// @brief Module for select consecutive lanes
-    GNECommonNetworkModules::ConsecutiveLaneSelector* myConsecutiveLaneSelector;
+    GNEConsecutiveSelector* myConsecutiveLaneSelector;
 };

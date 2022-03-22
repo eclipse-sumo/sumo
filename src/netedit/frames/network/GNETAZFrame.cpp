@@ -21,7 +21,6 @@
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Additional.h>
@@ -176,8 +175,6 @@ GNETAZFrame::CurrentTAZ::setTAZ(GNETAZ* editedTAZ) {
         refreshTAZEdges();
         // hide TAZ parameters
         myTAZFrameParent->myTAZParameters->hideTAZParametersModule();
-        // hide Netedit parameters
-        myTAZFrameParent->myNeteditAttributes->hideNeteditAttributesModule();
         // hide drawing shape
         myTAZFrameParent->myDrawingShape->hideDrawingShape();
         // show edge common parameters
@@ -191,8 +188,6 @@ GNETAZFrame::CurrentTAZ::setTAZ(GNETAZ* editedTAZ) {
     } else {
         // show TAZ parameters
         myTAZFrameParent->myTAZParameters->showTAZParametersModule();
-        // show Netedit parameters
-        myTAZFrameParent->myNeteditAttributes->showNeteditAttributesModule(GNEAttributeCarrier::getTagProperty(SUMO_TAG_TAZ));
         // show drawing shape
         myTAZFrameParent->myDrawingShape->showDrawingShape();
         // hide edge common parameters
@@ -1242,7 +1237,7 @@ GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) :
     FXLabel* selectedTAZEdgeLabel = new FXLabel(getCollapsableFrame(), "Selected TAZ Edge", nullptr, GUIDesignLabelCenter);
     selectedTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeSelectedColor));
     // build rainbow
-    GNEFrameModules::buildRainbow(this);
+    GNEFrame::buildRainbow(this);
     // create Radio button for show edges by source weight
     myColorBySourceWeight = new FXRadioButton(getCollapsableFrame(), "Color by Source", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by sink weight
@@ -1362,11 +1357,8 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
     // Create TAZ Parameters modul
     myTAZParameters = new TAZParameters(this);
 
-    /// @brief create  Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
-
     // Create drawing controls modul
-    myDrawingShape = new GNEFrameModules::DrawingShape(this);
+    myDrawingShape = new GNEDrawingShape(this);
 
     // Create TAZ Edges Common Statistics modul
     myTAZCommonStatistics = new TAZCommonStatistics(this);
@@ -1492,7 +1484,7 @@ GNETAZFrame::processEdgeSelection(const std::vector<GNEEdge*>& edges) {
 }
 
 
-GNEFrameModules::DrawingShape*
+GNEDrawingShape*
 GNETAZFrame::getDrawingShapeModule() const {
     return myDrawingShape;
 }
@@ -1527,8 +1519,6 @@ GNETAZFrame::shapeDrawed() {
     } else {
         // get attributes and values
         myTAZParameters->getAttributesAndValues();
-        // obtain Netedit attributes
-        myNeteditAttributes->getNeteditAttributesAndValues(myBaseTAZ, nullptr);
         // generate new ID
         myBaseTAZ->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_TAZ));
         // obtain shape and close it

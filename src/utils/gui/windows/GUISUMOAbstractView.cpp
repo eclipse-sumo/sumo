@@ -1568,8 +1568,7 @@ void
 GUISUMOAbstractView::drawDecals() {
     GLHelper::pushName(0);
     myDecalsLock.lock();
-    for (std::vector<GUISUMOAbstractView::Decal>::iterator l = myDecals.begin(); l != myDecals.end(); ++l) {
-        GUISUMOAbstractView::Decal& d = *l;
+    for (GUISUMOAbstractView::Decal& d : myDecals) {
         if (d.skip2D) {
             continue;
         }

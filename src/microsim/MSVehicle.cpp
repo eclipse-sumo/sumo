@@ -1092,9 +1092,8 @@ MSVehicle::workOnIdleReminders() {
     updateWaitingTime(0.);   // cf issue 2233
 
     // vehicle move reminders
-    for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
-        rem->first->notifyIdle(*this);
-        ++rem;
+    for (const auto& rem : myMoveReminders) {
+        rem.first->notifyIdle(*this);
     }
 
     // lane move reminders - for aggregated values
@@ -1109,18 +1108,18 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane& enteredLane) {
     // save the old work reminders, patching the position information
     //  add the information about the new offset to the old lane reminders
     const double oldLaneLength = myLane->getLength();
-    for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end(); ++rem) {
-        rem->second += oldLaneLength;
+    for (auto& rem : myMoveReminders) {
+        rem.second += oldLaneLength;
 #ifdef _DEBUG
 //        if (rem->first==0) std::cout << "Null reminder (?!)" << std::endl;
 //        std::cout << "Adapted MoveReminder on lane " << ((rem->first->getLane()==0) ? "NULL" : rem->first->getLane()->getID()) <<" position to " << rem->second << std::endl;
         if (myTraceMoveReminders) {
-            traceMoveReminder("adaptedPos", rem->first, rem->second, true);
+            traceMoveReminder("adaptedPos", rem.first, rem.second, true);
         }
 #endif
     }
-    for (std::vector< MSMoveReminder* >::const_iterator rem = enteredLane.getMoveReminders().begin(); rem != enteredLane.getMoveReminders().end(); ++rem) {
-        addReminder(*rem);
+    for (MSMoveReminder* const rem : enteredLane.getMoveReminders()) {
+        addReminder(rem);
     }
 }
 
@@ -1572,12 +1571,6 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
             }
         } else {
-            if (isParking()) {
-                // called via MSVehicleTransfer
-                for (MSVehicleDevice* const dev : myDevices) {
-                    dev->notifyParking();
-                }
-            }
             boardTransportables(stop);
 
             if (stop.triggered && !myAmRegisteredAsWaitingForPerson) {
@@ -1776,7 +1769,7 @@ MSVehicle::boardTransportables(MSStop& stop) {
     MSNet* const net = MSNet::getInstance();
     const bool boarded = (time <= stop.endBoarding
                           && net->hasPersons()
-                          && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, stop.timeToBoardNextPerson, stop.duration)
+                          && net->getPersonControl().loadAnyWaiting(&myLane->getEdge(), this, stop.timeToBoardNextPerson, stop.duration)
                           && stop.numExpectedPerson == 0);
     // load containers
     const bool loaded = (time <= stop.endBoarding
@@ -2114,9 +2107,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             // (only looking at one lane at a time)
             const double backOffset = leaderLane == myLane ? getPositionOnLane() : leaderLane->getLength();
             const double gapOffset = leaderLane == myLane ? 0 : seen - leaderLane->getLength();
-            const MSLeaderDistanceInfo cands = leaderLane->getFollowersOnConsecutive(this, backOffset, true, backOffset, true);
+            const MSLeaderDistanceInfo cands = leaderLane->getFollowersOnConsecutive(this, backOffset, true, backOffset, MSLane::MinorLinkMode::FOLLOW_NEVER);
             MSLeaderDistanceInfo oppositeLeaders(leaderLane, this, 0);
-            const double minTimeToLeaveLane = MSGlobals::gSublane ? MAX2(TS, (0.5 *  myLane->getWidth() - getLateralPositionOnLane()) / getVehicleType().getMaxSpeedLat()) : 0;
+            const double minTimeToLeaveLane = MSGlobals::gSublane ? MAX2(TS, (0.5 *  myLane->getWidth() - getLateralPositionOnLane()) / getVehicleType().getMaxSpeedLat()) : TS;
             for (int i = 0; i < cands.numSublanes(); i++) {
                 CLeaderDist cand = cands[i];
                 if (cand.first != 0) {
@@ -2124,8 +2117,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                             || (!cand.first->myLaneChangeModel->isOpposite() && cand.first->getLaneChangeModel().getShadowLane() == leaderLane)) {
                         // respect leaders that also drive in the opposite direction (fully or with some overlap)
                         oppositeLeaders.addLeader(cand.first, cand.second + gapOffset - getVehicleType().getMinGap() + cand.first->getVehicleType().getMinGap() - cand.first->getVehicleType().getLength());
-                    } else if (cand.second >= 0 && cand.second - (v + cand.first->getSpeed()) * minTimeToLeaveLane < 0) {
-                        oppositeLeaders.addLeader(cand.first, cand.second + gapOffset - getVehicleType().getMinGap());
+                    } else {
+                        // avoid frontal collision
+                        const bool assumeStopped = cand.first->isStopped() || cand.first->getWaitingSeconds() > 1;
+                        const double predMaxDist = cand.first->getSpeed() + (assumeStopped ? 0 : cand.first->getCarFollowModel().getMaxAccel()) * minTimeToLeaveLane;
+                        if (cand.second >= 0 && (cand.second - v * minTimeToLeaveLane - predMaxDist < 0 || assumeStopped)) {
+                            oppositeLeaders.addLeader(cand.first, cand.second + gapOffset - predMaxDist - getVehicleType().getMinGap());
+                        }
                     }
                 }
             }
@@ -2753,9 +2751,14 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                     // ego and leader are driving in the same direction as lane (shadowlane for ego)
                     gap = predBack - (myLane->getLength() - myState.myPos) - getVehicleType().getMinGap();
                 }
-            } else if (pred->getLaneChangeModel().isOpposite() && pred->isStopped()) {
-                // must react to stopped vehicles
-                gap = pred->getPositionOnLane() - myState.myPos - MAX2(getVehicleType().getMinGap(), pred->getVehicleType().getMinGap());
+            } else if (pred->getLaneChangeModel().isOpposite() && pred->getLaneChangeModel().getShadowLane() != lane) {
+                // must react to stopped / dangerous oncoming vehicles
+                gap += -pred->getVehicleType().getLength() + getVehicleType().getMinGap() - MAX2(getVehicleType().getMinGap(), pred->getVehicleType().getMinGap());
+                // try to avoid collision in the next second
+                const double predMaxDist = pred->getSpeed() + pred->getCarFollowModel().getMaxAccel();
+                if (gap < predMaxDist + getSpeed()) {
+                    gap -= predMaxDist;
+                }
             }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
@@ -4272,6 +4275,9 @@ MSVehicle::updateParkingState() {
     if (myContainerDevice != nullptr) {
         myContainerDevice->notifyMove(*this, getPositionOnLane(), getPositionOnLane(), 0);
     }
+    for (MSVehicleDevice* const dev : myDevices) {
+        dev->MSDevice::notifyParking();
+    }
 }
 
 
@@ -5782,7 +5788,7 @@ MSVehicle::getFollower(double dist) const {
     if (dist == 0) {
         dist = getCarFollowModel().brakeGap(myLane->getEdge().getSpeedLimit() * 2, 4.5, 0);
     }
-    return myLane->getFollower(this, getPositionOnLane(), dist, true);
+    return myLane->getFollower(this, getPositionOnLane(), dist, MSLane::MinorLinkMode::FOLLOW_NEVER);
 }
 
 
@@ -6353,43 +6359,42 @@ MSVehicle::resumeFromStopping() {
             myAmRegisteredAsWaitingForPerson = false;
             myAmRegisteredAsWaitingForContainer = false;
         }
+        MSStop& stop = myStops.front();
         // we have waited long enough and fulfilled any passenger-requirements
-        if (myStops.front().busstop != nullptr) {
+        if (stop.busstop != nullptr) {
             // inform bus stop about leaving it
-            myStops.front().busstop->leaveFrom(this);
+            stop.busstop->leaveFrom(this);
         }
         // we have waited long enough and fulfilled any container-requirements
-        if (myStops.front().containerstop != nullptr) {
+        if (stop.containerstop != nullptr) {
             // inform container stop about leaving it
-            myStops.front().containerstop->leaveFrom(this);
+            stop.containerstop->leaveFrom(this);
         }
-        if (myStops.front().parkingarea != nullptr && myStops.front().pars.speed <= 0) {
+        if (stop.parkingarea != nullptr && stop.pars.speed <= 0) {
             // inform parking area about leaving it
-            myStops.front().parkingarea->leaveFrom(this);
+            stop.parkingarea->leaveFrom(this);
         }
-        if (myStops.front().chargingStation != nullptr) {
+        if (stop.chargingStation != nullptr) {
             // inform charging station about leaving it
-            myStops.front().chargingStation->leaveFrom(this);
+            stop.chargingStation->leaveFrom(this);
         }
         // the current stop is no longer valid
         myLane->getEdge().removeWaiting(this);
-        SUMOVehicleParameter::Stop pars = myStops.front().pars;
-        pars.ended = MSNet::getInstance()->getCurrentTimeStep();
-        MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
-        if (vehroutes != nullptr) {
-            vehroutes->stopEnded(pars);
+        stop.pars.ended = MSNet::getInstance()->getCurrentTimeStep();
+        for (const auto& rem : myMoveReminders) {
+            rem.first->notifyStopEnded();
         }
         if (MSStopOut::active()) {
-            MSStopOut::getInstance()->stopEnded(this, pars, myStops.front().lane->getID());
+            MSStopOut::getInstance()->stopEnded(this, stop.pars, stop.lane->getID());
         }
-        if (myStops.front().collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
+        if (stop.collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
             myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
         }
-        if (pars.posLat != INVALID_DOUBLE && MSGlobals::gLateralResolution <= 0) {
+        if (stop.pars.posLat != INVALID_DOUBLE && MSGlobals::gLateralResolution <= 0) {
             // reset lateral position to default
             myState.myPosLat = 0;
         }
-        myPastStops.push_back(pars);
+        myPastStops.push_back(stop.pars);
         myStops.pop_front();
         // do not count the stopping time towards gridlock time.
         // Other outputs use an independent counter and are not affected.

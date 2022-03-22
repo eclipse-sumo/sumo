@@ -255,8 +255,8 @@ public:
         /// @brief custom speed for connection
         double speed;
 
-	// @brief custom friction for connection
-	double friction;		
+	    // @brief custom friction for connection
+	    double friction;		
         /// @brief custom length for connection
         double customLength;
 

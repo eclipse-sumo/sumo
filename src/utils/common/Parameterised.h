@@ -126,6 +126,9 @@ public:
     /// @brief check if given string can be parsed to a parameters map "key1=value1|key2=value2|...|keyN=valueN"
     static bool areParametersValid(const std::string& value, bool report = false, const std::string kvsep = "=", const std::string sep = "|");
 
+    /// @brief check if given string can be parsed to an attributes map "key1=value1|key2=value2|...|keyN=valueN" (used in generic datas)
+    static bool areAttributesValid(const std::string& value, bool report = false, const std::string kvsep = "=", const std::string sep = "|");
+
 private:
     /// @brief check if given string can be parsed to a parameter of type "key=value"
     static bool isParameterValid(const std::string& value, const std::string& kvsep, const std::string& sep);

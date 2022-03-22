@@ -396,7 +396,7 @@ GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* g
     // Create FXComboBox
     myAttributesComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
     // build rainbow
-    myMinMaxLabel = GNEFrameModules::buildRainbow(this);
+    myMinMaxLabel = buildRainbow(this);
     // refresh interval selector
     refreshAttributeSelector();
     // AttributeSelector is always shown
@@ -512,7 +512,7 @@ GNEGenericDataFrame::getAttributeSelector() const {
 }
 
 
-GNEFrameModules::PathCreator*
+GNEPathCreator*
 GNEGenericDataFrame::getPathCreator() const {
     return myPathCreator;
 }
@@ -566,9 +566,9 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
     myAttributeSelector = new AttributeSelector(this, tag);
     // create parameter editor modul
     myGenericDataAttributes = new GNEFrameAttributeModules::GenericDataAttributes(this);
-    // create PathCreator modul
+    // create GNEPathCreator modul
     if (pathCreator) {
-        myPathCreator = new GNEFrameModules::PathCreator(this);
+        myPathCreator = new GNEPathCreator(this);
     }
 }
 
@@ -584,7 +584,7 @@ GNEGenericDataFrame::intervalSelected() {
 
 void
 GNEGenericDataFrame::createPath() {
-    // this function has to be reimplemente in all child frames that uses a PathCreator
+    // this function has to be reimplemente in all child frames that uses a GNEPathCreator
 }
 
 /****************************************************************************/

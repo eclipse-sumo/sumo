@@ -51,6 +51,8 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     friend class GNEChange_Attribute;
     friend class GNEChange_EnableAttribute;
     friend class GNEFrameAttributeModules;
+    friend class GNEAttributesCreatorRow;
+    friend class GNEFlowEditor;
 
 public:
 

@@ -230,17 +230,17 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
     const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
     if (myAdaptationSteps > 0) {
         // moving average
-        for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            if ((*i)->isDelayed()) {
-                const int id = (*i)->getNumericalID();
-                double currSpeed = (*i)->getMeanSpeed();
-                if (MSGlobals::gWeightsSeparateTurns > 0 && (*i)->getNumSuccessors() > 1) {
-                    currSpeed = patchSpeedForTurns(*i, currSpeed);
+        for (const MSEdge* const e : edges) {
+            if (e->isDelayed()) {
+                const int id = e->getNumericalID();
+                double currSpeed = e->getMeanSpeed();
+                if (MSGlobals::gWeightsSeparateTurns > 0 && e->getNumSuccessors() > 1) {
+                    currSpeed = patchSpeedForTurns(e, currSpeed);
                 }
 #ifdef DEBUG_SEPARATE_TURNS
-                if (DEBUG_COND((*i)->getLanes()[0])) {
-                    std::cout << SIMTIME << " edge=" << (*i)->getID()
-                              << " meanSpeed=" << (*i)->getMeanSpeed()
+                if (DEBUG_COND(e->getLanes()[0])) {
+                    std::cout << SIMTIME << " edge=" << e->getID()
+                              << " meanSpeed=" << e->getMeanSpeed()
                               << " currSpeed=" << currSpeed
                               << " oldestSpeed=" << myPastEdgeSpeeds[id][myAdaptationStepsIndex]
                               << " oldAvg=" << myEdgeSpeeds[id]
@@ -249,15 +249,10 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
 #endif
                 myEdgeSpeeds[id] += (currSpeed - myPastEdgeSpeeds[id][myAdaptationStepsIndex]) / myAdaptationSteps;
                 myPastEdgeSpeeds[id][myAdaptationStepsIndex] = currSpeed;
-            }
-        }
-        if (myBikeSpeeds) {
-            for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-                if ((*i)->isDelayed()) {
-                    const int id = (*i)->getNumericalID();
-                    const double currSpeed = (*i)->getMeanSpeedBike();
-                    myEdgeBikeSpeeds[id] += (currSpeed - myPastEdgeBikeSpeeds[id][myAdaptationStepsIndex]) / myAdaptationSteps;
-                    myPastEdgeBikeSpeeds[id][myAdaptationStepsIndex] = currSpeed;
+                if (myBikeSpeeds) {
+                    const double currBikeSpeed = e->getMeanSpeedBike();
+                    myEdgeBikeSpeeds[id] += (currBikeSpeed - myPastEdgeBikeSpeeds[id][myAdaptationStepsIndex]) / myAdaptationSteps;
+                    myPastEdgeBikeSpeeds[id][myAdaptationStepsIndex] = currBikeSpeed;
                 }
             }
         }
@@ -265,22 +260,17 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
     } else {
         // exponential moving average
         const double newWeightFactor = (double)(1. - myAdaptationWeight);
-        for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            if ((*i)->isDelayed()) {
-                const int id = (*i)->getNumericalID();
-                const double currSpeed = (*i)->getMeanSpeed();
+        for (const MSEdge* const e : edges) {
+            if (e->isDelayed()) {
+                const int id = e->getNumericalID();
+                const double currSpeed = e->getMeanSpeed();
                 if (currSpeed != myEdgeSpeeds[id]) {
                     myEdgeSpeeds[id] = myEdgeSpeeds[id] * myAdaptationWeight + currSpeed * newWeightFactor;
                 }
-            }
-        }
-        if (myBikeSpeeds) {
-            for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-                if ((*i)->isDelayed()) {
-                    const int id = (*i)->getNumericalID();
-                    const double currSpeed = (*i)->getMeanSpeedBike();
-                    if (currSpeed != myEdgeBikeSpeeds[id]) {
-                        myEdgeBikeSpeeds[id] = myEdgeBikeSpeeds[id] * myAdaptationWeight + currSpeed * newWeightFactor;
+                if (myBikeSpeeds) {
+                    const double currBikeSpeed = e->getMeanSpeedBike();
+                    if (currBikeSpeed != myEdgeBikeSpeeds[id]) {
+                        myEdgeBikeSpeeds[id] = myEdgeBikeSpeeds[id] * myAdaptationWeight + currBikeSpeed * newWeightFactor;
                     }
                 }
             }

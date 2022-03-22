@@ -26,8 +26,6 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
-#include <utils/geom/GeoConvHelper.h>
 
 #include "GNEShapeFrame.h"
 
@@ -218,16 +216,16 @@ GNEShapeFrame::GNEShapeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     myBaseShape(nullptr) {
 
     // create item Selector modul for shapes
-    myShapeTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::SHAPE, SUMO_TAG_POLY);
+    myShapeTagSelector = new GNETagSelector(this, GNETagProperties::TagType::SHAPE, SUMO_TAG_POLY);
 
     // Create shape parameters
-    myShapeAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
+    myShapeAttributes = new GNEAttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
+    myNeteditAttributes = new GNENeteditAttributes(this);
 
     // Create drawing controls
-    myDrawingShape = new GNEFrameModules::DrawingShape(this);
+    myDrawingShape = new GNEDrawingShape(this);
 
     /// @brief create GEOPOICreator
     myGEOPOICreator = new GEOPOICreator(this);
@@ -382,7 +380,7 @@ GNEShapeFrame::getIdsSelected(const FXList* list) {
 }
 
 
-GNEFrameModules::DrawingShape*
+GNEDrawingShape*
 GNEShapeFrame::getDrawingShapeModule() const {
     return myDrawingShape;
 }
@@ -446,7 +444,7 @@ GNEShapeFrame::tagSelected() {
         // if there are parmeters, show and Recalc groupBox
         myShapeAttributes->showAttributesCreatorModule(myShapeTagSelector->getCurrentTemplateAC(), {});
         // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModule(myShapeTagSelector->getCurrentTemplateAC()->getTagProperty());
+        myNeteditAttributes->showNeteditAttributesModule(myShapeTagSelector->getCurrentTemplateAC());
         // Check if drawing mode has to be shown
         if (myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == SUMO_TAG_POLY) {
             myDrawingShape->showDrawingShape();

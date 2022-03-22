@@ -1002,7 +1002,7 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/
         return 1;
     }
     try {
-        OutputDevice& dev = OutputDevice::getDevice(file.text());
+        OutputDevice& dev = OutputDevice::getDevice(file.text(), false);
         dev.openTag(SUMO_TAG_VIEWSETTINGS);
         mySettings->save(dev);
         if (mySaveViewPort->getCheck()) {
@@ -1144,9 +1144,7 @@ GUIDialog_ViewSettings::rebuildDecalsTable() {
     header->setItemSize(0, 150);
     // insert already known decals information into table
     FXint row = 0;
-    std::vector<GUISUMOAbstractView::Decal>::iterator j;
-    for (j = myDecals->begin(); j != myDecals->end(); ++j) {
-        GUISUMOAbstractView::Decal& d = *j;
+    for (const GUISUMOAbstractView::Decal& d : *myDecals) {
         myDecalsTable->setItemText(row, 0, d.filename.c_str());
         myDecalsTable->setItemText(row, 1, toString<double>(d.centerX).c_str());
         myDecalsTable->setItemText(row, 2, toString<double>(d.centerY).c_str());

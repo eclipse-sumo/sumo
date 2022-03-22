@@ -74,7 +74,7 @@ public:
      * @return The corresponding (built or existing) device
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
-    static OutputDevice& getDevice(const std::string& name);
+    static OutputDevice& getDevice(const std::string& name, bool usePrefix = true);
 
 
     /** @brief Creates the device using the output definition stored in the named option

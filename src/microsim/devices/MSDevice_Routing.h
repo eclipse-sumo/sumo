@@ -113,6 +113,10 @@ public:
      * @see WrappingCommand
      */
     bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+
+    /// @brief called to do the rerouting we missed whuile stopping
+    void notifyStopEnded();
+
     /// @}
 
     /// @brief return the name for this type of device
@@ -228,6 +232,9 @@ private:
 
     /// @brief the previous time that a vehicle entered a lane
     SUMOTime myLastLaneEntryTime;
+
+    /// @brief Whether the equipped vehicle missed a reroute while stopping and should do so after the stop has ended
+    bool myRerouteAfterStop;
 
 private:
     /// @brief Invalidated copy constructor.

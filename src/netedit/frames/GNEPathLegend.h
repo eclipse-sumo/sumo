@@ -11,53 +11,39 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEChange_Shape.h
+/// @file    GNEFrameModules.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Oct 2017
+/// @date    Mar 2022
 ///
-// A network change in which a single Shape is created or deleted
+// Frame for path legends
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include "GNEChange.h"
+#include <utils/foxtools/FXGroupBoxModule.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEFrame;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
-* @class GNEChange_Shape
-* A network change in which a single poly is created or deleted
-*/
-class GNEChange_Shape : public GNEChange {
-    FXDECLARE_ABSTRACT(GNEChange_Shape)
+
+class GNEM_PathLegend : public FXGroupBoxModule {
 
 public:
-    /**@brief Constructor
-     * @param[in] shape the shape to be changed
-     * @param[in] forward Whether to create/delete (true/false)
-     */
-    GNEChange_Shape(GNEShape* shape, bool forward);
+    /// @brief constructor
+    GNEM_PathLegend(GNEFrame* frameParent);
 
-    /// @brief Destructor
-    ~GNEChange_Shape();
+    /// @brief destructor
+    ~GNEM_PathLegend();
 
-    /// @name inherited from GNEChange
-    /// @{
-    /// @brief get undo Name
-    std::string undoName() const;
+    /// @brief show Legend modul
+    void showPathLegendModule();
 
-    /// @brief get Redo name
-    std::string redoName() const;
-
-    /// @brief undo action
-    void undo();
-
-    /// @brief redo action
-    void redo();
-    /// @}
-
-private:
-    /// @brief pointer to shape
-    GNEShape* myShape;
+    /// @brief hide Legend modul
+    void hidePathLegendModule();
 };

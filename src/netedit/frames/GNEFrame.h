@@ -19,7 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEFrameModules.h"
+
 #include "GNEFrameAttributeModules.h"
 
 // ===========================================================================
@@ -80,7 +80,7 @@ public:
     /// @name functions called by moduls that can be reimplemented in frame children (note: reimplement as protected, just for safety)
     /// @{
 
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNETagSelector
     virtual void tagSelected();
 
     /// @brief selected demand element in DemandElementSelector
@@ -92,10 +92,10 @@ public:
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
     virtual void attributeUpdated();
 
-    /// @brief open AttributesCreator extended dialog
+    /// @brief open GNEAttributesCreator extended dialog
     virtual void attributesEditorExtendedDialogOpened();
 
-    /// @brief open AttributesCreator extended dialog
+    /// @brief open GNEAttributesCreator extended dialog
     virtual void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
     /// @brief create path between two elements
@@ -124,6 +124,9 @@ protected:
 
     /// @brief get predefinedTagsMML
     const std::vector<std::string>& getPredefinedTagsMML() const;
+
+    /// @brief build rainbow in frame modul
+    static FXLabel* buildRainbow(FXComposite* parent);
 
 private:
     /// @brief scroll windows that holds the content frame

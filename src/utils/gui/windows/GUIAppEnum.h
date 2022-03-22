@@ -91,8 +91,8 @@ enum {
     MID_HOTKEY_CTRL_I_EDITVIEWPORT,
     /// @brief Fullscreen mode - menu entry
     MID_HOTKEY_CTRL_F_FULSCREENMODE,
-    /// @brief save joined junctions
-    MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS,
+    /// @brief toogle draw junction shape
+    MID_HOTKEY_CTRL_J_TOOGLEDRAWJUNCTIONSHAPE,
     /// @brief Load file with TLS Programs
     MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,
     /// @brief save network as plain XML
@@ -640,6 +640,8 @@ enum {
     MID_GNE_TOOLBARFILE_OPENFOREIGN,
     /// @brief save all element
     MID_GNE_SAVEALLELEMENTS,
+    /// @brief save joined junctions
+    MID_GNE_SAVEJOINEDJUNCTIONS,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
     /// @brief reload additionals
@@ -692,6 +694,8 @@ enum {
 
     /// @brief show grid
     MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,
+    /// @brief toogle draw junction shape
+    MID_GNE_NETWORKVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief Draw vehicles in begin position or spread in lane
     MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,
     /// @brief show demand elements
@@ -738,6 +742,8 @@ enum {
 
     /// @brief show grid
     MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID,
+    /// @brief toogle draw junction shape
+    MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief Draw vehicles in begin position or spread in lane
     MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,
     /// @brief hide non-inspected demand element
@@ -761,7 +767,9 @@ enum {
 
     /// @name GNEViewNet Data view options messages
     /// @{
-
+    
+    /// @brief toogle draw junction shape
+    MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief show additionals
     MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,
     /// @brief show shapes
@@ -861,11 +869,11 @@ enum {
     MID_GNE_REMOVELAST,
     /// @brief enable or disable show path candidates
     MID_GNE_SHOWCANDIDATES,
-    /// @brief In HierarchicalElementTree list, show child menu
+    /// @brief In GNEElementTree list, show child menu
     MID_GNE_ACHIERARCHY_SHOWCHILDMENU,
-    /// @brief In HierarchicalElementTree list, move element to up
+    /// @brief In GNEElementTree list, move element to up
     MID_GNE_ACHIERARCHY_MOVEUP,
-    /// @brief In HierarchicalElementTree list, move element to down
+    /// @brief In GNEElementTree list, move element to down
     MID_GNE_ACHIERARCHY_MOVEDOWN,
     /// @brief start drawing polygon
     MID_GNE_STARTDRAWING,
@@ -1094,8 +1102,10 @@ enum {
     /// @name GNEConnection messages
     /// @{
 
-    /// @brief edit junction shape
+    /// @brief edit connection shape
     MID_GNE_CONNECTION_EDIT_SHAPE,
+    /// @ brief smooth connection shape
+    MID_GNE_CONNECTION_SMOOTH_SHAPE,
 
     /// @}
 
@@ -1103,7 +1113,7 @@ enum {
     /// @name GNECrossing messages
     /// @{
 
-    /// @brief edit junction shape
+    /// @brief edit crossing shape
     MID_GNE_CROSSING_EDIT_SHAPE,
 
     /// @}

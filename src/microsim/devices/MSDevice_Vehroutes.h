@@ -114,7 +114,7 @@ public:
         return "vehroute";
     }
 
-    void stopEnded(const SUMOVehicleParameter::Stop& stop);
+    void notifyStopEnded();
 
     /** @brief Called on writing vehroutes output
      *

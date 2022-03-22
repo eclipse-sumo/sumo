@@ -31,6 +31,7 @@
 // ===========================================================================
 
 class GNEFrame;
+class GNEFlowEditor;
 
 // ===========================================================================
 // class definitions
@@ -43,281 +44,8 @@ public:
     // class declaration
     // ===========================================================================
 
-    class AttributesCreator;
     class AttributesEditor;
-    class FlowEditor;
     class AttributesEditorFlow;
-
-    // ===========================================================================
-    // class AttributesCreatorRow
-    // ===========================================================================
-
-    class AttributesCreatorRow : public FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributeModules::AttributesCreatorRow)
-
-    public:
-        /// @brief constructor
-        AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeProperties& attrProperties);
-
-        /// @brief destroy AttributesCreatorRow (but don't delete)
-        void destroy();
-
-        /// @brief return Attr
-        const GNEAttributeProperties& getAttrProperties() const;
-
-        /// @brief return value
-        std::string getValue() const;
-
-        /// @brief return status of label checkbox button
-        bool getAttributeCheckButtonCheck() const;
-
-        /// @brief enable or disable label checkbox button for Terminatel attributes
-        void setAttributeCheckButtonCheck(bool value);
-
-        /// @brief enable row
-        void enableAttributesCreatorRow();
-
-        /// @brief disable row
-        void disableAttributesCreatorRow();
-
-        /// @brief check if row is enabled
-        bool isAttributesCreatorRowEnabled() const;
-
-        /// @brief refresh row
-        void refreshRow();
-
-        /// @brief disable Rows
-        void disableRow();
-
-        /// @brief check if current attribute is valid
-        bool isAttributeValid() const;
-
-        /// @brief get AttributesCreator parent
-        AttributesCreator* getAttributesCreatorParent() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief called when user set the value of an attribute of type int/float/string/bool
-        long onCmdSetAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief called when user press the open dialog button
-        long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        FOX_CONSTRUCTOR(AttributesCreatorRow)
-
-        /// @brief generate ID
-        std::string generateID() const;
-
-        /// @brief check if current ID placed in myValueTextField is valid
-        bool isValidID() const;
-
-    private:
-        /// @brief pointer to AttributesCreator
-        AttributesCreator* myAttributesCreatorParent = nullptr;
-
-        /// @brief attribute properties
-        const GNEAttributeProperties myAttrProperties;
-
-        /// @brief string which indicates the reason due current value is invalid
-        std::string myInvalidValue;
-
-        /// @brief Label with the name of the attribute
-        FXLabel* myAttributeLabel = nullptr;
-
-        /// @brief check button to enable/disable Label attribute
-        FXCheckButton* myEnableAttributeCheckButton = nullptr;
-
-        /// @brief Button for open color or allow/disallow editor
-        FXButton* myAttributeButton = nullptr;
-
-        /// @brief textField to modify the default value of string parameters
-        FXTextField* myValueTextField = nullptr;
-
-        /// @brief check button to enable/disable the value of boolean parameters
-        FXCheckButton* myValueCheckButton = nullptr;
-
-        /// @brief comboBox for discrete vaues
-        FXComboBox* myValueComboBox = nullptr;
-    };
-
-    // ===========================================================================
-    // class AttributesCreator
-    // ===========================================================================
-
-    class AttributesCreator : public FXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributeModules::AttributesCreator)
-
-        // declare friend class
-        friend class Row;
-
-    public:
-        /// @brief constructor
-        AttributesCreator(GNEFrame* frameParent);
-
-        /// @brief destructor
-        ~AttributesCreator();
-
-        /// @brief show AttributesCreator modul
-        void showAttributesCreatorModule(GNEAttributeCarrier* templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes);
-
-        /// @brief hide group box
-        void hideAttributesCreatorModule();
-
-        /// @brief return frame parent
-        GNEFrame* getFrameParent() const;
-
-        /// @brief get attributes and their values
-        void getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const;
-
-        /// @brief get current template AC
-        GNEAttributeCarrier* getCurrentTemplateAC() const;
-
-        /// @brief check if parameters of attributes are valid
-        bool areValuesValid() const;
-
-        /// @brief show warning message with information about non-valid attributes
-        void showWarningMessage(std::string extra = "") const;
-
-        /// @brief refresh attribute creator
-        void refreshAttributesCreator();
-
-        /// @brief disable AttributesCreator
-        void disableAttributesCreator();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when reset button is pressed
-        long onCmdReset(FXObject*, FXSelector, void*);
-
-        /// @brief Called when help button is pressed
-        long onCmdHelp(FXObject*, FXSelector, void*);
-
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(AttributesCreator);
-
-        /// @brief refresh rows
-        void refreshRows(const bool createRows);
-
-    private:
-        /// @brief pointer to Frame Parent
-        GNEFrame* myFrameParent = nullptr;
-
-        /// @brief pointer to myFlowEditor
-        FlowEditor* myFlowEditor = nullptr;
-
-        /// @brief current templateAC
-        GNEAttributeCarrier* myTemplateAC;
-
-        /// @brief hidden attributes
-        std::vector<SumoXMLAttr> myHiddenAttributes;
-
-        /// @brief vector with the AttributesCreatorRow
-        std::vector<AttributesCreatorRow*> myAttributesCreatorRows;
-
-        /// @brief frame buttons
-        FXHorizontalFrame* myFrameButtons = nullptr;
-
-        /// @brief reset button
-        FXButton* myResetButton = nullptr;
-    };
-
-    // ===========================================================================
-    // class FlowEditor
-    // ===========================================================================
-
-    class FlowEditor : public FXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributeModules::FlowEditor)
-
-    public:
-        /// @brief constructor
-        FlowEditor(GNEViewNet* viewNet, FXVerticalFrame* contentFrame);
-
-        /// @brief destructor
-        ~FlowEditor();
-
-        /// @brief show FlowEditor modul
-        void showFlowEditor(const std::vector<GNEAttributeCarrier*> editedFlows);
-
-        /// @brief hide group box
-        void hideFlowEditor();
-
-        /// @brief shown FlowEditor modul
-        bool shownFlowEditor() const;
-
-        /// @brief refresh FlowEditor
-        void refreshFlowEditor();
-
-        /// @brief get flow attributes
-        void getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject);
-
-        /// @brief check if parameters of attributes are valid
-        bool areFlowValuesValid() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief called when user change flow attribute
-        long onCmdSetFlowAttribute(FXObject*, FXSelector, void*);
-
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(FlowEditor);
-
-        /// @brief refresh single flow
-        void refreshSingleFlow();
-
-        /// @brief refresh multiple flows
-        void refreshMultipleFlows();
-
-        /// @brief get flow attribute (of the current edited flows)
-        const std::string getFlowAttribute(SumoXMLAttr attr);
-
-    private:
-        /// @brief pointer to viewNet
-        GNEViewNet *myViewNet;
-
-        /// @brief ComboBox for terminate options (end, number, end/number)
-        FXComboBox* myTerminateComboBox = nullptr;
-
-        /// @brief horizontal frame for terminate definition
-        FXHorizontalFrame* myTerminateFrameTextField = nullptr;
-
-        /// @brief Label for terminate definition
-        FXLabel* myTerminateLabel = nullptr;
-
-        /// @brief textField for terminate attribute
-        FXTextField* myTerminateTextField = nullptr;
-
-        /// @brief horizontal frame for terminate options
-        FXHorizontalFrame* mySpacingFrameComboBox = nullptr;
-
-        /// @brief ComboBox for spacing comboBox (perHour, period, probability)
-        FXComboBox* mySpacingComboBox = nullptr;
-
-        /// @brief horizontal frame for spacing textField
-        FXHorizontalFrame* mySpacingFrameTextField = nullptr;
-
-        /// @brief Label for spacing
-        FXLabel* mySpacingLabel = nullptr;
-
-        /// @brief textField for spacing attribute
-        FXTextField* mySpacingTextField = nullptr;
-
-        /// @brief edited flows
-        std::vector<GNEAttributeCarrier*> myEditedFlows;
-
-        /// @brief per hours attr (vehicles/person/container)
-        SumoXMLAttr myPerHourAttr = SUMO_ATTR_NOTHING;
-    };
 
     // ===========================================================================
     // class AttributesEditorRow
@@ -332,7 +60,7 @@ public:
         AttributesEditorRow(AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value,
                             const bool attributeEnabled, const bool computed);
 
-        /// @brief destroy AttributesCreatorRow (but don't delete)
+        /// @brief destroy GNEAttributesCreatorRow (but don't delete)
         void destroy();
 
         /// @brief refresh current row
@@ -434,8 +162,8 @@ public:
         /// @brief pointer to GNEFrame parent
         GNEFrame* myFrameParent;
 
-        /// @brief FlowEditor modul
-        FlowEditor* myAttributesEditorFlow = nullptr;
+        /// @brief GNEFlowEditor modul
+        GNEFlowEditor* myAttributesEditorFlow = nullptr;
 
         /// @brief list of Attribute editor rows
         std::vector<AttributesEditorRow*> myAttributesEditorRows;
@@ -521,6 +249,9 @@ public:
         /// @brief pointer to frame parent
         GNEFrame* getFrameParent() const;
 
+        /// @brief check if current attributes are valid
+        bool areAttributesValid() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when user clicks over add parameter
@@ -545,177 +276,6 @@ public:
 
         /// @brief button for edit parameters using specific dialog
         FXButton* myButtonEditParameters = nullptr;
-    };
-
-    // ===========================================================================
-    // class DrawingShape
-    // ===========================================================================
-
-    class DrawingShape : public FXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributeModules::DrawingShape)
-
-    public:
-        /// @brief constructor
-        DrawingShape(GNEFrame* frameParent);
-
-        /// @brief destructor
-        ~DrawingShape();
-
-        /// @brief show Drawing mode
-        void showDrawingShape();
-
-        /// @brief hide Drawing mode
-        void hideDrawingShape();
-
-        /// @brief start drawing
-        void startDrawing();
-
-        /// @brief stop drawing and check if shape can be created
-        void stopDrawing();
-
-        /// @brief abort drawing
-        void abortDrawing();
-
-        /// @brief add new point to temporal shape
-        void addNewPoint(const Position& P);
-
-        /// @brief remove last added point
-        void removeLastPoint();
-
-        /// @brief get Temporal shape
-        const PositionVector& getTemporalShape() const;
-
-        /// @brief return true if currently a shape is drawed
-        bool isDrawing() const;
-
-        /// @brief enable or disable delete last created point
-        void setDeleteLastCreatedPoint(bool value);
-
-        /// @brief get flag delete last created point
-        bool getDeleteLastCreatedPoint();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user press start drawing button
-        long onCmdStartDrawing(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user press stop drawing button
-        long onCmdStopDrawing(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user press abort drawing button
-        long onCmdAbortDrawing(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        FOX_CONSTRUCTOR(DrawingShape)
-
-    private:
-        /// @brief pointer to frame parent
-        GNEFrame* myFrameParent;
-
-        /// @brief flag to enable/disable delete point mode
-        bool myDeleteLastCreatedPoint;
-
-        /// @brief current drawed shape
-        PositionVector myTemporalShapeShape;
-
-        /// @brief button for start drawing
-        FXButton* myStartDrawingButton;
-
-        /// @brief button for stop drawing
-        FXButton* myStopDrawingButton;
-
-        /// @brief button for abort drawing
-        FXButton* myAbortDrawingButton;
-
-        /// @brief Label with information
-        FXLabel* myInformationLabel;
-    };
-
-    // ===========================================================================
-    // class NeteditAttributes
-    // ===========================================================================
-
-    class NeteditAttributes : public FXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributeModules::NeteditAttributes)
-
-    public:
-        /// @brief constructor
-        NeteditAttributes(GNEFrame* frameParent);
-
-        /// @brief destructor
-        ~NeteditAttributes();
-
-        /// @brief show Netedit attributes modul
-        void showNeteditAttributesModule(const GNETagProperties& tagValue);
-
-        /// @brief hide Netedit attributes modul
-        void hideNeteditAttributesModule();
-
-        /// @brief fill valuesMap with netedit attributes
-        bool getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, const GNELane* lane) const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when user changes some element of NeteditAttributes
-        long onCmdSetNeteditAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user press the help button
-        long onCmdHelp(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        FOX_CONSTRUCTOR(NeteditAttributes)
-
-    private:
-        /// @brief list of the reference points
-        enum class AdditionalReferencePoint {
-            LEFT,
-            RIGHT,
-            CENTER,
-            INVALID
-        };
-
-        /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
-        double setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const;
-
-        /// @brief obtain the End position values of StoppingPlaces and E2 detector over the lane
-        double setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const;
-
-        /// @brief pointer to frame parent
-        GNEFrame* myFrameParent;
-
-        /// @brief match box with the list of reference points
-        FXComboBox* myReferencePointMatchBox;
-
-        /// @brief horizontal frame for length
-        FXHorizontalFrame* myLengthFrame;
-
-        /// @brief textField for length
-        FXTextField* myLengthTextField;
-
-        /// @brief horizontal frame for close polygon
-        FXHorizontalFrame* myCloseShapeFrame;
-
-        /// @brief checkbox to enable/disable close polygon
-        FXCheckButton* myCloseShapeCheckButton;
-
-        /// @brief horizontal frame for center view after creation frame
-        FXHorizontalFrame* myCenterViewAfterCreationFrame;
-
-        /// @brief checkbox to enable/disable center element after creation
-        FXCheckButton* myCenterViewAfterCreationButton;
-
-        /// @brief Button for help about the reference point
-        FXButton* helpReferencePoint;
-
-        /// @brief Flag to check if current length is valid
-        bool myCurrentLengthValid;
-
-        /// @brief actual additional reference point selected in the match Box
-        AdditionalReferencePoint myActualAdditionalReferencePoint;
     };
 
     /// @brief return true if AC can be edited in the current supermode

@@ -24,7 +24,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEMatchAttribute.h"
-#include "GNEElementSet.h"
 
 // ===========================================================================
 // FOX callback mapping

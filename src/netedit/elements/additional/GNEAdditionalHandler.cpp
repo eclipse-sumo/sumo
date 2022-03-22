@@ -18,15 +18,10 @@
 // Builds trigger objects for netedit
 /****************************************************************************/
 #include <config.h>
-#include <utils/xml/XMLSubSys.h>
 #include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/vehicle/SUMORouteHandler.h>
 
 #include "GNEAdditionalHandler.h"
 #include "GNEAccess.h"
@@ -895,30 +890,16 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(rerouter);
-                // add symbols
+                rerouter->incRef("buildRerouter");
+                // add symbols into rerouter
+                for (const auto& rerouterSymbol : rerouterSymbols) {
+                    rerouter->addChildElement(rerouterSymbol);
+                }
+                // add symbols into edges
                 for (int i = 0; i < (int)edges.size(); i++) {
                     edges.at(i)->addChildElement(rerouterSymbols.at(i));
-                    rerouterSymbols.at(i)->incRef("buildRerouterSymbol");
                 }
-                rerouter->incRef("buildRerouter");
             }
-            /*
-                        // parse rerouter children
-                        if (!file.empty()) {
-                            // we assume that rerouter values files is placed in the same folder as the additional file
-                            std::string currentAdditionalFilename = FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files"));
-                            // Create additional handler for parse rerouter values
-                            GNEAdditionalHandler rerouterValuesHandler(currentAdditionalFilename + file, net, rerouter);
-                            // disable validation for rerouters
-                            XMLSubSys::setValidation("never", "auto", "auto");
-                            // Run parser
-                            if (!XMLSubSys::runParser(rerouterValuesHandler, currentAdditionalFilename + file, false)) {
-                                WRITE_MESSAGE("Loading of " + file + " failed.");
-                            }
-                            // enable validation for rerouters
-                            XMLSubSys::setValidation("auto", "auto", "auto");
-                        }
-            */
         }
     } else {
         writeErrorDuplicated(SUMO_TAG_REROUTER, id);
@@ -1172,12 +1153,15 @@ GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseO
                     myNet->getViewNet()->getUndoList()->end();
                 } else {
                     myNet->getAttributeCarriers()->insertAdditional(variableSpeedSign);
-                    // add symbols
+                    variableSpeedSign->incRef("buildVariableSpeedSign");
+                    // add symbols into VSS
+                    for (const auto& VSSSymbol : VSSSymbols) {
+                        variableSpeedSign->addChildElement(VSSSymbol);
+                    }
+                    // add symbols into lanes
                     for (int i = 0; i < (int)lanes.size(); i++) {
                         lanes.at(i)->addChildElement(VSSSymbols.at(i));
-                        VSSSymbols.at(i)->incRef("buildVariableSpeedSignSymbol");
                     }
-                    variableSpeedSign->incRef("buildVariableSpeedSign");
                 }
             }
         }
@@ -1250,12 +1234,13 @@ GNEAdditionalHandler::buildVariableFrictionCoefficient(const CommonXMLStructure:
                     myNet->getViewNet()->getUndoList()->end();
                 } else {
                     myNet->getAttributeCarriers()->insertAdditional(frictionCoefficient);
-                    // add symbols
+					frictionCoefficient->incRef("buildFrictionCoefficient");
+                    // add symbols to lanes
                     for (int i = 0; i < (int)lanes.size(); i++) {
                         lanes.at(i)->addChildElement(COFSymbols.at(i));
-                        COFSymbols.at(i)->incRef("buildFrictionCoefficientSymbol");
+                        //COFSymbols.at(i)->incRef("buildFrictionCoefficientSymbol");
                     }
-                    frictionCoefficient->incRef("buildFrictionCoefficient");
+                    
                 }
             }
         }

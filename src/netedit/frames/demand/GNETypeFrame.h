@@ -37,7 +37,6 @@ class GNEVehicle;
 class GNETypeFrame : public GNEFrame {
 
 public:
-
     // ===========================================================================
     // class TypeSelector
     // ===========================================================================
@@ -163,7 +162,7 @@ protected:
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
     void attributeUpdated();
 
-    /// @brief open AttributesCreator extended dialog (used for editing advance attributes of Vehicle Types)
+    /// @brief open GNEAttributesCreator extended dialog (used for editing advance attributes of Vehicle Types)
     void attributesEditorExtendedDialogOpened();
 
 private:

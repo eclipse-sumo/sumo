@@ -21,7 +21,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/data/GNEDataSet.h>
-#include <netedit/GNEViewNet.h>
 
 #include "GNEChange_DataSet.h"
 

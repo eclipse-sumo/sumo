@@ -118,8 +118,8 @@ MSStateHandler::~MSStateHandler() {
 
 
 void
-MSStateHandler::saveState(const std::string& file, SUMOTime step) {
-    OutputDevice& out = OutputDevice::getDevice(file);
+MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix) {
+    OutputDevice& out = OutputDevice::getDevice(file, usePrefix);
     out.setPrecision(OptionsCont::getOptions().getInt("save-state.precision"));
     out.writeHeader<MSEdge>(SUMO_TAG_SNAPSHOT);
     out.writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/state_file.xsd");

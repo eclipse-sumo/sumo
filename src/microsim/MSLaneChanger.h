@@ -149,8 +149,13 @@ protected:
 
     /** try changing to the opposite direction edge. */
     bool changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader);
+
     std::pair<MSVehicle* const, double> getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*,
-            double> neighOncoming, double searchDist, double& vMax, const MSVehicle* overtaken = nullptr);
+            double> neighOncoming, double searchDist, double& vMax, const MSVehicle* overtaken = nullptr,
+            MSLane::MinorLinkMode mLinkMode = MSLane::MinorLinkMode::FOLLOW_NEVER);
+
+    std::pair<MSVehicle* const, double> getOncomingOppositeVehicle(const MSVehicle* vehicle,
+            std::pair<MSVehicle*, double> overtaken, double searchDist);
 
     /** Update changer for vehicles that did not change */
     void registerUnchanged(MSVehicle* vehicle);
@@ -249,8 +254,31 @@ protected:
     /// @brief whether vehicle has an opposite-direction stop within relevant range
     static bool hasOppositeStop(MSVehicle* vehicle);
 
+    /// @brief decide whether to change (back or forth) for an opposite stop
+    bool checkOppositeStop(MSVehicle* vehicle, const MSLane* oncomingLane, const MSLane* opposite, std::pair<MSVehicle*, double> leader);
+
+    /// @brief avoid opposite-diretion deadlock when vehicles are stopped on both sides of the road
+    bool avoidDeadlock(MSVehicle* vehicle,
+        std::pair<MSVehicle*, double> neighLead,
+        std::pair<MSVehicle*, double> overtaken,
+        std::pair<MSVehicle*, double> leader);
+
+    /// @brief keep stopping to resolve opposite-diretion deadlock while there is oncoming traffic
+    void resolveDeadlock(MSVehicle* vehicle, std::pair<MSVehicle* const, double> leader, std::pair<MSVehicle*, double> neighLead, double deadLockZone);
+
+    /// @brief check whether to keep stopping for oncoming vehicles in the deadlock zone
+    bool yieldToDeadlockOncoming(const MSVehicle* vehicle, const MSVehicle* stoppedNeigh, double dist);
+
+    /// @brief determine for how long the vehicle can drive safely on the opposite side
+    double computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLength, const MSLane* source, double usableDist,
+        std::pair<MSVehicle*, double> oncoming, double vMax, double oncomingSpeed,
+        std::pair<MSVehicle*, double> neighLead,
+        std::pair<MSVehicle*, double> overtaken,
+        double surplusGap, const MSLane* opposite);
+
     // @brief compute distance that can safely be driven on the opposite side
-    static double computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double timeToOvertake, double spaceToOvertake, double& oncomingSpeed);
+    static double computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double timeToOvertake,
+            double spaceToOvertake, double& oncomingSpeed, bool oncomingOpposite = false);
 
     // @brief find hilltop within searchDistance
     static bool foundHilltop(MSVehicle* vehicle, bool foundHill, double searchDist, const std::vector<MSLane*>& bestLanes, int view, double pos, double lastMax, double hilltopThreshold);

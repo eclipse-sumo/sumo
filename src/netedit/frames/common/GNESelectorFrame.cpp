@@ -22,7 +22,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -31,8 +30,6 @@
 
 #include "GNESelectorFrame.h"
 #include "GNEElementSet.h"
-#include "GNEMatchAttribute.h"
-#include "GNEMatchGenericDataAttribute.h"
 
 
 // ===========================================================================

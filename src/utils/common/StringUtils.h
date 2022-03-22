@@ -53,8 +53,7 @@ public:
 
     /** Replaces all occurences of the second string by the third
         string within the first string */
-    static std::string replace(std::string str, const char* what,
-                               const char* by);
+    static std::string replace(std::string str, const std::string& what, const std::string& by);
 
     /** Replaces an environment variable with its value (similar to bash);
         syntax for a variable is ${NAME} */

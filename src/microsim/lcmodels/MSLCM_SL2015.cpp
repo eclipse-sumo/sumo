@@ -2216,7 +2216,7 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
     }
 
     // reduce latDist to avoid blockage with overlapping vehicles (no minGapLat constraints)
-    const double center = myVehicle.getCenterOnEdge();
+    const double center = myVehicle.getCenterOnEdge() - (isOpposite() ? 2 * myVehicle.getLateralPositionOnLane() : 0);
     updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectLeadBlockers);
     updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectFollowBlockers);
     if (laneOffset != 0) {
@@ -3750,8 +3750,12 @@ MSLCM_SL2015::wantsKeepRight(double keepRightProb) const {
 double
 MSLCM_SL2015::saveBlockerLength(double length, double foeLeftSpace) {
     const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
-    if (canReserve || myLeftSpace > foeLeftSpace) {
+    if (!isOpposite() && (canReserve || myLeftSpace > foeLeftSpace)) {
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
+        if (myLeftSpace == 0 && foeLeftSpace < 0) {
+            // called from opposite overtaking, myLeftSpace must be initialized
+            myLeftSpace = myVehicle.getBestLanes()[myVehicle.getLane()->getIndex()].length - myVehicle.getPositionOnLane();
+        }
         return true;
     } else {
         return false;

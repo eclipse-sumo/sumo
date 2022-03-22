@@ -22,6 +22,8 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netbuild/NBTrafficLightLogic.h>
+#include <netedit/frames/GNEOverlappedInspection.h>
+
 
 // ===========================================================================
 // class declarations
@@ -429,7 +431,7 @@ public:
     /// @brief whether the current traffic light uses fixed phase durations
     bool fixedDuration() const;
 
-    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
+    /// @brief open GNEAttributesCreator extended dialog (can be reimplemented in frame children)
     void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
 protected:
@@ -445,7 +447,7 @@ protected:
 
 private:
     /// @brief Overlapped Inspection
-    GNEFrameModules::OverlappedInspection* myOverlappedInspection;
+    GNEOverlappedInspection* myOverlappedInspection;
 
     /// @brief modul for TLS Junction
     GNETLSEditorFrame::TLSJunction* myTLSJunction;

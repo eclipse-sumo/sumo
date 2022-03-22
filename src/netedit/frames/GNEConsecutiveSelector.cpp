@@ -11,216 +11,47 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNECommonNetworkModules.cpp
+/// @file    GNEConsecutiveLaneSelectorModule.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2022
 ///
-// Common network modules
+// Consecutive lane selector module
 /****************************************************************************/
 #include <config.h>
 
 #include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNELane2laneConnection.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
-#include "GNECommonNetworkModules.h"
+#include "GNEConsecutiveSelector.h"
+#include "GNEFrame.h"
 
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNECommonNetworkModules::NetworkElementsSelector) SelectorParentNetworkElementsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTED,        GNECommonNetworkModules::NetworkElementsSelector::onCmdUseSelectedElements),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARSELECTION,     GNECommonNetworkModules::NetworkElementsSelector::onCmdClearSelection),
-};
-
-
-FXDEFMAP(GNECommonNetworkModules::ConsecutiveLaneSelector) ConsecutiveLaneSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ABORT,          GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdAbortPathCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_FINISH,         GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdCreatePath),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVELAST,     GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdRemoveLastElement),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOWCANDIDATES, GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdShowCandidateLanes)
+FXDEFMAP(GNEConsecutiveSelector) ConsecutiveLaneSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ABORT,          GNEConsecutiveSelector::onCmdAbortPathCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_FINISH,         GNEConsecutiveSelector::onCmdCreatePath),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVELAST,     GNEConsecutiveSelector::onCmdRemoveLastElement),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOWCANDIDATES, GNEConsecutiveSelector::onCmdShowCandidateLanes)
 };
 
 // Object implementation
-FXIMPLEMENT(GNECommonNetworkModules::NetworkElementsSelector,   FXGroupBoxModule,   SelectorParentNetworkElementsMap,   ARRAYNUMBER(SelectorParentNetworkElementsMap))
-FXIMPLEMENT(GNECommonNetworkModules::ConsecutiveLaneSelector,   FXGroupBoxModule,   ConsecutiveLaneSelectorMap,         ARRAYNUMBER(ConsecutiveLaneSelectorMap))
-
+FXIMPLEMENT(GNEConsecutiveSelector, FXGroupBoxModule, ConsecutiveLaneSelectorMap, ARRAYNUMBER(ConsecutiveLaneSelectorMap))
 
 // ---------------------------------------------------------------------------
-// GNECommonNetworkModules::NetworkElementsSelector - methods
+// GNEConsecutiveSelector - methods
 // ---------------------------------------------------------------------------
 
-GNECommonNetworkModules::NetworkElementsSelector::NetworkElementsSelector(GNEFrame* frameParent, const NetworkElementType networkElementType) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "NetworkElements"),
-    myNetworkElementType(networkElementType),
-    myFrameParent(frameParent) {
-     // Create horizontal frame
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    // Create buttons
-    myClearSelection = new FXButton(buttonsFrame, "Clear", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButtonRectangular100);
-    myUseSelected = new FXButton(buttonsFrame, "Use selected", nullptr, this, MID_GNE_USESELECTED, GUIDesignButtonRectangular100);
-    // Create list
-    myList = new FXList(getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
-    // create information label and update modul name
-    switch (myNetworkElementType) {
-        case NetworkElementType::EDGE:
-            new FXLabel(this, 
-                "-Click over an edge to select\n-ESC to clear selection", 
-                0, GUIDesignLabelFrameInformation);
-            setText("Edges");
-            break;
-        case NetworkElementType::LANE:
-            new FXLabel(this, 
-                "-Click over a lane to select\n-ESC to clear selection", 
-                0, GUIDesignLabelFrameInformation);
-            setText("Lanes");
-            break;
-        default:
-            throw ProcessError("Invalid NetworkElementType");
-    }
-    // Hide List
-    hide();
-}
-
-
-GNECommonNetworkModules::NetworkElementsSelector::~NetworkElementsSelector() {}
-
-
-std::vector<std::string>
-GNECommonNetworkModules::NetworkElementsSelector::getSelectedIDs() const {
-    // declare solution
-    std::vector<std::string> solution;
-    // reserve
-    solution.reserve(myList->getNumItems());
-    // fill IDs
-    for (int i = 0; i < myList->getNumItems(); i++) {
-        solution.push_back(myList->getItem(i)->getText().text());
-    }
-    return solution;
-}
-
-
-bool
-GNECommonNetworkModules::NetworkElementsSelector::isNetworkElementSelected(const GNENetworkElement* networkElement) const {
-    if (myFrameParent->shown() && shown()) {
-        // check if id is selected
-        for (int i = 0; i < myList->getNumItems(); i++) {
-            if (myList->getItem(i)->getText().text() == networkElement->getID()) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-
-void
-GNECommonNetworkModules::NetworkElementsSelector::showNetworkElementsSelector() {
-    // clear list of egdge ids
-    myList->clearItems();
-    // Show dialog
-    show();
-}
-
-
-void
-GNECommonNetworkModules::NetworkElementsSelector::hideNetworkElementsSelector() {
-    hide();
-}
-
-
-bool 
-GNECommonNetworkModules::NetworkElementsSelector::isShown() const {
-    return shown();
-}
-
-
-bool 
-GNECommonNetworkModules::NetworkElementsSelector::toogleSelectedElement(const GNENetworkElement *networkElement) {
-    // Obtain Id's of list
-    for (int i = 0; i < myList->getNumItems(); i++) {
-        if (myList->getItem(i)->getText().text() == networkElement->getID()) {
-            // unselect element
-            myList->removeItem(i);
-            // update viewNet
-            myFrameParent->getViewNet()->update();
-            return true;
-        }
-    }
-    // select element
-    myList->appendItem(networkElement->getID().c_str(), networkElement->getIcon());
-    // update viewNet
-    myFrameParent->getViewNet()->update();
-    return true;
-}
-
-
-void 
-GNECommonNetworkModules::NetworkElementsSelector::clearSelection() {
-    // clear list of egdge ids
-    myList->clearItems();
-    // update viewNet
-    myFrameParent->getViewNet()->update();
-}
-
-
-long
-GNECommonNetworkModules::NetworkElementsSelector::onCmdUseSelectedElements(FXObject*, FXSelector, void*) {
-    // clear list of egdge ids
-    myList->clearItems();
-    // set modul name
-    switch (myNetworkElementType) {
-        case NetworkElementType::EDGE:
-            for (const auto &edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-                if (edge.second->isAttributeCarrierSelected()) {
-                    myList->appendItem(edge.first.c_str(), edge.second->getIcon());
-                }
-            }
-            break;
-        case NetworkElementType::LANE:
-            for (const auto &lane : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getLanes()) {
-                if (lane->isAttributeCarrierSelected()) {
-                    myList->appendItem(lane->getID().c_str(), lane->getIcon());
-                }
-            }
-            break;
-        default:
-            throw ProcessError("Invalid NetworkElementType");
-    }
-    // Update Frame
-    update();
-    return 1;
-}
-
-
-long
-GNECommonNetworkModules::NetworkElementsSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
-    clearSelection();
-    return 1;
-}
-
-
-GNECommonNetworkModules::NetworkElementsSelector::NetworkElementsSelector() :
-    myFrameParent(nullptr),
-    myNetworkElementType(NetworkElementType::EDGE) {
-}
-
-// ---------------------------------------------------------------------------
-// GNECommonNetworkModules::ConsecutiveLaneSelector - methods
-// ---------------------------------------------------------------------------
-
-GNECommonNetworkModules::ConsecutiveLaneSelector::ConsecutiveLaneSelector(GNEFrame* frameParent, const bool allowOneLane) :
+GNEConsecutiveSelector::GNEConsecutiveSelector(GNEFrame* frameParent, const bool allowOneLane) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Consecutive lane selector"),
     myFrameParent(frameParent),
     myAllowOneLane(allowOneLane){
@@ -243,11 +74,11 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::ConsecutiveLaneSelector(GNEFra
 }
 
 
-GNECommonNetworkModules::ConsecutiveLaneSelector::~ConsecutiveLaneSelector() {}
+GNEConsecutiveSelector::~GNEConsecutiveSelector() {}
 
 
 void
-GNECommonNetworkModules::ConsecutiveLaneSelector::showConsecutiveLaneSelectorModule() {
+GNEConsecutiveSelector::showConsecutiveLaneSelectorModule() {
     // first abort creation
     abortPathCreation();
     // disable buttons
@@ -264,7 +95,7 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::showConsecutiveLaneSelectorMod
 
 
 void
-GNECommonNetworkModules::ConsecutiveLaneSelector::hideConsecutiveLaneSelectorModule() {
+GNEConsecutiveSelector::hideConsecutiveLaneSelectorModule() {
     // clear path
     clearPath();
     // hide modul
@@ -273,13 +104,13 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::hideConsecutiveLaneSelectorMod
 
 
 const std::vector<std::pair<GNELane*, double> >&
-GNECommonNetworkModules::ConsecutiveLaneSelector::getLanePath() const {
+GNEConsecutiveSelector::getLanePath() const {
     return myLanePath;
 }
 
 
 const std::vector<std::string> 
-GNECommonNetworkModules::ConsecutiveLaneSelector::getLaneIDPath() const {
+GNEConsecutiveSelector::getLaneIDPath() const {
     std::vector<std::string> laneIDs;
     for (const auto& lane : myLanePath) {
         if (laneIDs.empty() || (laneIDs.back() != lane.first->getID())) {
@@ -291,7 +122,7 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::getLaneIDPath() const {
 
 
 bool
-GNECommonNetworkModules::ConsecutiveLaneSelector::addLane(GNELane* lane) {
+GNEConsecutiveSelector::addLane(GNELane* lane) {
     // first check if lane is valid
     if (lane == nullptr) {
         return false;
@@ -353,13 +184,13 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::addLane(GNELane* lane) {
 
 
 bool
-GNECommonNetworkModules::ConsecutiveLaneSelector::drawCandidateLanesWithSpecialColor() const {
+GNEConsecutiveSelector::drawCandidateLanesWithSpecialColor() const {
     return (myShowCandidateLanes->getCheck() == TRUE);
 }
 
 
 void
-GNECommonNetworkModules::ConsecutiveLaneSelector::updateLaneColors() {
+GNEConsecutiveSelector::updateLaneColors() {
     // reset all flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {
@@ -401,7 +232,7 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::updateLaneColors() {
 
 
 void
-GNECommonNetworkModules::ConsecutiveLaneSelector::drawTemporalConsecutiveLanePath(const GUIVisualizationSettings& s) const {
+GNEConsecutiveSelector::drawTemporalConsecutiveLanePath(const GUIVisualizationSettings& s) const {
     // Only draw if there is at least one lane
     if (myLanePath.size() > 0) {
         // get widths
@@ -473,7 +304,7 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::drawTemporalConsecutiveLanePat
 
 
 void
-GNECommonNetworkModules::ConsecutiveLaneSelector::abortPathCreation() {
+GNEConsecutiveSelector::abortPathCreation() {
     // first check that there is elements
     if (myLanePath.size() > 0) {
         // unblock undo/redo
@@ -495,7 +326,7 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::abortPathCreation() {
 
 
 void
-GNECommonNetworkModules::ConsecutiveLaneSelector::removeLastElement() {
+GNEConsecutiveSelector::removeLastElement() {
     if (myLanePath.size() > 1) {
         // remove special color of last selected lane
         myLanePath.back().first->resetCandidateFlags();
@@ -523,14 +354,14 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::removeLastElement() {
 
 
 long
-GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdCreatePath(FXObject*, FXSelector, void*) {
+GNEConsecutiveSelector::onCmdCreatePath(FXObject*, FXSelector, void*) {
     myFrameParent->createPath();
     return 1;
 }
 
 
 long
-GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
+GNEConsecutiveSelector::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
     // just call abort path creation
     abortPathCreation();
     return 1;
@@ -538,7 +369,7 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdAbortPathCreation(FXObjec
 
 
 long
-GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
+GNEConsecutiveSelector::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
     // just call remove last element
     removeLastElement();
     return 1;
@@ -546,7 +377,7 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdRemoveLastElement(FXObjec
 
 
 long
-GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdShowCandidateLanes(FXObject*, FXSelector, void*) {
+GNEConsecutiveSelector::onCmdShowCandidateLanes(FXObject*, FXSelector, void*) {
     // recalc frame
     recalc();
     // update lane colors (view will be updated within function)
@@ -555,14 +386,14 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::onCmdShowCandidateLanes(FXObje
 }
 
 
-GNECommonNetworkModules::ConsecutiveLaneSelector::ConsecutiveLaneSelector() :
+GNEConsecutiveSelector::GNEConsecutiveSelector() :
     myFrameParent(nullptr),
     myAllowOneLane(false) {
 }
 
 
 void
-GNECommonNetworkModules::ConsecutiveLaneSelector::updateInfoRouteLabel() {
+GNEConsecutiveSelector::updateInfoRouteLabel() {
     if (myLanePath.size() > 0) {
         // declare variables for route info
         double length = 0;
@@ -583,7 +414,7 @@ GNECommonNetworkModules::ConsecutiveLaneSelector::updateInfoRouteLabel() {
 
 
 void
-GNECommonNetworkModules::ConsecutiveLaneSelector::clearPath() {
+GNEConsecutiveSelector::clearPath() {
     // reset all flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {

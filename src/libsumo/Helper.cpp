@@ -891,7 +891,8 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                     if (lane != nullptr) {
                         // this is a non-opposite lane
                         MSVehicle* leader = lane->getLeader(v, v->getPositionOnLane(), v->getBestLanesContinuation(lane), downstreamDist).first;
-                        MSVehicle* follower = lane->getFollower(v, v->getPositionOnLane(), upstreamDist, false).first;
+                        MSVehicle* follower = lane->getFollower(v, v->getPositionOnLane(), upstreamDist,
+                                MSLane::MinorLinkMode::FOLLOW_ALWAYS).first;
                         vehs.insert(vehs.end(), leader);
                         vehs.insert(vehs.end(), follower);
 
@@ -925,7 +926,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                         // XXX transformations for curved geometries
                         double posOnOpposite = MAX2(0., opposite->getLength() - v->getPositionOnLane());
                         // Get leader on opposite
-                        vehs.insert(vehs.end(), lane->getFollower(v, posOnOpposite, downstreamDist, true).first);
+                        vehs.insert(vehs.end(), lane->getFollower(v, posOnOpposite, downstreamDist, MSLane::MinorLinkMode::FOLLOW_NEVER).first);
                         // Get follower (no search on consecutive lanes
                         vehs.insert(vehs.end(), lane->getLeader(v, posOnOpposite - v->getLength(), std::vector<MSLane*>()).first);
                     }

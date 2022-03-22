@@ -22,6 +22,11 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEAttributesCreator.h>
+#include <netedit/frames/GNEPathCreator.h>
+#include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEDemandSelector.h>
+#include <netedit/frames/GNENeteditAttributes.h>
 
 
 // ===========================================================================
@@ -54,11 +59,11 @@ public:
      */
     bool addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
-    /// @brief get PathCreator modul
-    GNEFrameModules::PathCreator* getPathCreator() const;
+    /// @brief get GNEPathCreator modul
+    GNEPathCreator* getPathCreator() const;
 
 protected:
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
     /// @brief selected demand element in DemandElementSelector
@@ -75,25 +80,25 @@ private:
     CommonXMLStructure::SumoBaseObject* myPersonBaseObject;
 
     /// @brief person tag selector (used to select diffent kind of persons)
-    GNEFrameModules::TagSelector* myPersonTagSelector;
+    GNETagSelector* myPersonTagSelector;
 
     /// @brief Person Type selectors
-    GNEFrameModules::DemandElementSelector* myTypeSelector;
+    DemandElementSelector* myTypeSelector;
 
     /// @brief person plan selector (used to select diffent kind of person plan)
-    GNEFrameModules::TagSelector* myPersonPlanTagSelector;
+    GNETagSelector* myPersonPlanTagSelector;
 
     /// @brief internal vehicle attributes
-    GNEFrameAttributeModules::AttributesCreator* myPersonAttributes;
+    GNEAttributesCreator* myPersonAttributes;
 
     /// @brief internal person plan attributes
-    GNEFrameAttributeModules::AttributesCreator* myPersonPlanAttributes;
+    GNEAttributesCreator* myPersonPlanAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
+    GNENeteditAttributes* myNeteditAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
-    GNEFrameModules::PathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator;
 
     /// @brief build person and return it (note: function includes a call to begin(...), but NOT a call to end(...))
     GNEDemandElement* buildPerson();

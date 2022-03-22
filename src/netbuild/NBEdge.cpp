@@ -446,7 +446,7 @@ NBEdge::NBEdge() :
     myStep(EdgeBuildingStep::INIT),
     myFrom(nullptr), myTo(nullptr),
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
-    myPriority(0), mySpeed(0), myFriction(0),
+    myPriority(0), mySpeed(0), myFriction(UNSPECIFIED_FRICTION),
     myDistance(0),
     myTurnDestination(nullptr),
     myPossibleTurnDestination(nullptr),

@@ -19,7 +19,13 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEAttributesCreator.h>
+#include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEDrawingShape.h>
+#include <netedit/frames/GNENeteditAttributes.h>
+
 
 // ===========================================================================
 // class definitions
@@ -114,7 +120,7 @@ public:
     static std::string getIdsSelected(const FXList* list);
 
     /// @brief get drawing mode editor
-    GNEFrameModules::DrawingShape* getDrawingShapeModule() const;
+    GNEDrawingShape* getDrawingShapeModule() const;
 
 protected:
     /// @brief SumoBaseObject used for create shape
@@ -129,7 +135,7 @@ protected:
      */
     bool shapeDrawed();
 
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
     /// @brief add shape (using base shape)
@@ -137,16 +143,16 @@ protected:
 
 private:
     /// @brief shape tag selector
-    GNEFrameModules::TagSelector* myShapeTagSelector;
+    GNETagSelector* myShapeTagSelector;
 
     /// @brief shape internal attributes
-    GNEFrameAttributeModules::AttributesCreator* myShapeAttributes;
+    GNEAttributesCreator* myShapeAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
+    GNENeteditAttributes* myNeteditAttributes;
 
     /// @brief Drawing shape
-    GNEFrameModules::DrawingShape* myDrawingShape;
+    GNEDrawingShape* myDrawingShape;
 
     /// @brief GEOPOICreator
     GEOPOICreator* myGEOPOICreator;

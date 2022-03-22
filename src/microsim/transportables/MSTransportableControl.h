@@ -95,22 +95,15 @@ public:
     /// register forced (traci) departure
     void forceDeparture();
 
-    /** @brief board any applicable persons
-     * Boards any people who wait on that edge for the given vehicle and removes them from myWaiting
-     * @param[in] the edge on which the boarding should take place
-     * @param[in] the vehicle which is taking on passengers / goods
-     * @param[in] the stop at which the vehicle is stopping
-     * @return Whether any transportables have been boarded
-     */
-    bool boardAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToBoardNextPerson, SUMOTime& stopDuration);
-
-    /** @brief load any applicable containers
-    * Loads any container that is waiting on that edge for the given vehicle and removes them from myWaiting
-    * @param[in] the edge on which the loading should take place
-    * @param[in] the vehicle which is taking on containers
-    * @return Whether any containers have been loaded
+    /** @brief load any applicable transportables
+    * Loads any person / container that is waiting on that edge for the given vehicle and removes them from myWaiting
+    * @param[in] edge the edge on which the loading should take place
+    * @param[in] vehicle the vehicle which is taking on containers
+    * @param[in,out] timeToLoadNext earliest time for the next loading process (gets updated)
+    * @param[in,out] stopDuration the duration of the stop where the loading takes place (might be extended)
+    * @return Whether any transportables have been loaded
     */
-    bool loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToLoadNextContainer, SUMOTime& stopDuration);
+    bool loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToLoadNext, SUMOTime& stopDuration);
 
     /// checks whether any transportable waits to finish her plan
     bool hasTransportables() const;
@@ -324,6 +317,7 @@ private:
     /// @brief Information needed to sort transportable output by departure time
     MSDevice_Vehroutes::SortedRouteInfo myRouteInfos;
 
+    /// @brief The time until waiting for a ride is aborted
     SUMOTime myAbortWaitingTimeout;
 
 private:

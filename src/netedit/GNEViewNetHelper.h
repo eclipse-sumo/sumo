@@ -517,6 +517,9 @@ struct GNEViewNetHelper {
         /// @brief checkable button to show grid button
         MFXCheckableButton* menuCheckToggleGrid;
 
+        /// @brief checkable button to show junction shapes
+        MFXCheckableButton* menuCheckToggleDrawJunctionShape;
+
         /// @brief checkable button to draw vehicles in begin position or spread in lane
         MFXCheckableButton* menuCheckDrawSpreadVehicles;
 
@@ -624,6 +627,9 @@ struct GNEViewNetHelper {
         /// @brief menu check to show grid button
         MFXCheckableButton* menuCheckToggleGrid;
 
+        /// @brief checkable button to show junction shapes
+        MFXCheckableButton* menuCheckToggleDrawJunctionShape;
+
         /// @brief menu check to draw vehicles in begin position or spread in lane
         MFXCheckableButton* menuCheckDrawSpreadVehicles;
 
@@ -703,6 +709,9 @@ struct GNEViewNetHelper {
 
         /// @brief check if toogle TAZRel only to checkbox is enabled
         bool TAZRelOnlyTo() const;
+
+        /// @brief checkable button to show junction shapes
+        MFXCheckableButton* menuCheckToggleDrawJunctionShape;
 
         /// @brief menu check to show Additionals
         MFXCheckableButton* menuCheckShowAdditionals;

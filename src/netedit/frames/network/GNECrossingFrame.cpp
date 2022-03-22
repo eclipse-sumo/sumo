@@ -185,7 +185,7 @@ GNECrossingFrame::EdgesSelector::onCmdInvertSelection(FXObject*, FXSelector, voi
 }
 
 // ---------------------------------------------------------------------------
-// GNECrossingFrame::NeteditAttributes- methods
+// GNECrossingFrame::GNENeteditAttributes- methods
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::CrossingParameters::CrossingParameters(GNECrossingFrame* crossingFrameParent) :

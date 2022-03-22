@@ -87,9 +87,9 @@
 //#define DEBUG_COND (getID() == "undefined")
 #define DEBUG_COND (isSelected())
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
-//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
+#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 //#define DEBUG_COND (getID() == "ego")
-#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "ego"))
+//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "ego"))
 //#define DEBUG_COND2(obj) (true)
 
 
@@ -181,11 +181,11 @@ MSLane::AnyVehicleIterator::nextIsMyVehicles() const {
 // member method definitions
 // ===========================================================================
 MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* const edge,
-    int numericalID, const PositionVector& shape, double width,
-    SVCPermissions permissions,
-    SVCPermissions changeLeft, SVCPermissions changeRight,
-    int index, bool isRampAccel,
-    const std::string& type) :
+               int numericalID, const PositionVector& shape, double width,
+               SVCPermissions permissions,
+               SVCPermissions changeLeft, SVCPermissions changeRight,
+               int index, bool isRampAccel,
+               const std::string& type) :
     Named(id),
     myNumericalID(numericalID), myShape(shape), myIndex(index),
     myVehicles(), myLength(length), myWidth(width),
@@ -219,7 +219,6 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
     assert(myRNGs.size() > 0);
     myRNGIndex = numericalID % myRNGs.size();
 }
-
 MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double length, MSEdge* const edge,
                int numericalID, const PositionVector& shape, double width,
                SVCPermissions permissions,
@@ -1416,7 +1415,8 @@ MSLane::updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPar
                 std::cout << "        partial ahead: " << (*vehPart)->getID() << " latOffset=" << latOffset << "\n";
             }
 #endif
-            if (!(MSGlobals::gLaneChangeDuration > 0 && (*vehPart)->getLaneChangeModel().isOpposite() && (*vehPart)->getLateralOverlap() < NUMERICAL_EPS)) {
+            if (!(MSGlobals::gLaneChangeDuration > 0 && (*vehPart)->getLaneChangeModel().isOpposite()
+                        && !(*vehPart)->getLaneChangeModel().isChangingLanes())) {
                 ahead.addLeader(*vehPart, false, latOffset);
             }
             ++vehPart;
@@ -1918,6 +1918,7 @@ void
 MSLane::executeMovements(const SUMOTime t) {
     // multithreading: there are concurrent writes to myNeedsCollisionCheck but all of them should set it to true
     myNeedsCollisionCheck = true;
+    MSVehicle* firstNotStopped = nullptr;
     // iterate over vehicles in reverse so that move reminders will be called in the correct order
     for (VehCont::reverse_iterator i = myVehicles.rbegin(); i != myVehicles.rend();) {
         MSVehicle* veh = *i;
@@ -1973,10 +1974,16 @@ MSLane::executeMovements(const SUMOTime t) {
                                veh->getID(), veh->getLane()->getID(), time2string(t));
                 MSVehicleTransfer::getInstance()->add(t, veh);
             } else {
+                if (firstNotStopped == nullptr && !(*i)->isStopped() && (*i)->getLane() == this) {
+                    firstNotStopped = *i;
+                }
                 ++i;
                 continue;
             }
         } else {
+            if (firstNotStopped == nullptr && !(*i)->isStopped() && (*i)->getLane() == this) {
+                firstNotStopped = *i;
+            }
             ++i;
             continue;
         }
@@ -1985,42 +1992,44 @@ MSLane::executeMovements(const SUMOTime t) {
         ++i;
         i = VehCont::reverse_iterator(myVehicles.erase(i.base()));
     }
-    if (myVehicles.size() > 0) {
+    if (firstNotStopped != nullptr) {
         if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0 || MSGlobals::gTimeToTeleportDisconnected >= 0) {
-            MSVehicle* const veh = myVehicles.back(); // the vehice at the front of the queue
-            if (!veh->isStopped() && veh->getLane() == this) {
-                const bool wrongLane = !veh->getLane()->appropriate(veh);
-                const bool r1 = MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock;
-                const bool r2 = MSGlobals::gTimeToGridlockHighways > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && veh->getLane()->getSpeedLimit() > 69. / 3.6 && wrongLane;
-                const bool r3 = MSGlobals::gTimeToTeleportDisconnected >= 0 && veh->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected
-                                && veh->succEdge(1) != nullptr
-                                && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr;
-                if (r1 || r2 || r3) {
-                    const std::vector<MSLink*>::const_iterator link = succLinkSec(*veh, 1, *this, veh->getBestLanesContinuation());
-                    const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
-                    const std::string reason = (wrongLane ? " (wrong lane)" : (minorLink ? " (yield)" : " (jam)"));
-                    myBruttoVehicleLengthSumToRemove += veh->getVehicleType().getLengthWithGap();
-                    myNettoVehicleLengthSumToRemove += veh->getVehicleType().getLength();
-                    myVehicles.erase(myVehicles.end() - 1);
-                    WRITE_WARNINGF("Teleporting vehicle '%'; waited too long" + reason
-                                   + (r2 ? " (highway)" : "")
-                                   + (r3 ? " (disconnected)" : "")
-                                   + ", lane='%', time=%.", veh->getID(), getID(), time2string(t));
-                    if (wrongLane) {
-                        MSNet::getInstance()->getVehicleControl().registerTeleportWrongLane();
-                    } else if (minorLink) {
-                        MSNet::getInstance()->getVehicleControl().registerTeleportYield();
-                    } else {
-                        MSNet::getInstance()->getVehicleControl().registerTeleportJam();
-                    }
-                    if (MSGlobals::gRemoveGridlocked) {
-                        veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
-                        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
-                    } else {
-                        MSVehicleTransfer::getInstance()->add(t, veh);
-                    }
+            const bool wrongLane = !appropriate(firstNotStopped);
+            const bool r1 = MSGlobals::gTimeToGridlock > 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlock;
+            const bool r2 = !r1 && MSGlobals::gTimeToGridlockHighways > 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && getSpeedLimit() > 69. / 3.6 && wrongLane;
+            const bool r3 = !r1 && !r2 && MSGlobals::gTimeToTeleportDisconnected >= 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected
+                            && firstNotStopped->succEdge(1) != nullptr
+                            && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr;
+            if (r1 || r2 || r3) {
+                const std::vector<MSLink*>::const_iterator link = succLinkSec(*firstNotStopped, 1, *this, firstNotStopped->getBestLanesContinuation());
+                const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
+                std::string reason = (wrongLane ? " (wrong lane)" : (minorLink ? " (yield)" : " (jam)"));
+                myBruttoVehicleLengthSumToRemove += firstNotStopped->getVehicleType().getLengthWithGap();
+                myNettoVehicleLengthSumToRemove += firstNotStopped->getVehicleType().getLength();
+                if (firstNotStopped == myVehicles.back()) {
+                    myVehicles.pop_back();
+                } else {
+                    myVehicles.erase(std::find(myVehicles.begin(), myVehicles.end(), firstNotStopped));
+                    reason = " (blocked)";
                 }
-            } // else look for a (waiting) vehicle that isn't stopped?
+                WRITE_WARNINGF("Teleporting vehicle '%'; waited too long" + reason
+                                + (r2 ? " (highway)" : "")
+                                + (r3 ? " (disconnected)" : "")
+                                + ", lane='%', time=%.", firstNotStopped->getID(), getID(), time2string(t));
+                if (wrongLane) {
+                    MSNet::getInstance()->getVehicleControl().registerTeleportWrongLane();
+                } else if (minorLink) {
+                    MSNet::getInstance()->getVehicleControl().registerTeleportYield();
+                } else {
+                    MSNet::getInstance()->getVehicleControl().registerTeleportJam();
+                }
+                if (MSGlobals::gRemoveGridlocked) {
+                    firstNotStopped->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
+                    MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(firstNotStopped);
+                } else {
+                    MSVehicleTransfer::getInstance()->add(t, firstNotStopped);
+                }
+            }
         }
     }
     if (MSGlobals::gSublane) {
@@ -2501,6 +2510,13 @@ MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<M
             }
 #endif
             if (pred->getPositionOnLane(this) >= vehPos) {
+                if (MSGlobals::gLaneChangeDuration > 0
+                        && pred->getLaneChangeModel().isOpposite()
+                        && !pred->getLaneChangeModel().isChangingLanes()
+                        && pred->getLaneChangeModel().getShadowLane() == this) {
+                    // skip non-overlapping shadow
+                    continue;
+                }
                 return std::pair<MSVehicle* const, double>(pred, pred->getBackPositionOnLane(this) - veh->getVehicleType().getMinGap() - vehPos);
             }
         }
@@ -2931,19 +2947,24 @@ MSLane::getMeanSpeed() const {
         return myMaxSpeed;
     }
     double v = 0;
-    const MSLane::VehCont& vehs = getVehiclesSecure();
-    for (VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        v += (*i)->getSpeed();
+    int numVehs = 0;
+    for (const MSVehicle* const veh : getVehiclesSecure()) {
+        if (!veh->isStopped() || !myEdge->hasLaneChanger()) {
+            v += veh->getSpeed();
+            numVehs++;
+        }
     }
-    double ret = v / (double) myVehicles.size();
     releaseVehicles();
-    return ret;
+    if (numVehs == 0) {
+        return myMaxSpeed;
+    }
+    return v / numVehs;
 }
 
 
 double
 MSLane::getMeanSpeedBike() const {
-    // @note: redudant code with getMeanSpeed to avoid extra checks in a function that is called very often
+    // @note: redundant code with getMeanSpeed to avoid extra checks in a function that is called very often
     if (myVehicles.size() == 0) {
         return myMaxSpeed;
     }
@@ -3373,7 +3394,7 @@ MSLane::setLaneStopOffset(const StopOffset& stopOffset) {
 
 MSLeaderDistanceInfo
 MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
-                                  bool allSublanes, double searchDist, bool ignoreMinorLinks) const {
+                                  bool allSublanes, double searchDist, MinorLinkMode mLinkMode) const {
     assert(ego != 0);
     // get the follower vehicle on the lane to change to
     const double egoPos = backOffset + ego->getVehicleType().getLength();
@@ -3384,7 +3405,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
     if (DEBUG_COND2(ego)) {
         std::cout << SIMTIME << " getFollowers lane=" << getID() << " ego=" << ego->getID()
                   << " backOffset=" << backOffset << " pos=" << egoPos
-                  << " allSub=" << allSublanes << " searchDist=" << searchDist << " ignoreMinor=" << ignoreMinorLinks
+                  << " allSub=" << allSublanes << " searchDist=" << searchDist << " ignoreMinor=" << mLinkMode
                   << " egoLatDist=" << egoLatDist
                   << " getOppositeLeaders=" << getOppositeLeaders
                   << "\n";
@@ -3539,7 +3560,9 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                 if ((*it).length < searchDist) {
                     const std::vector<MSLane::IncomingLaneInfo>& followers = next->getIncomingLanes();
                     for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j = followers.begin(); j != followers.end(); ++j) {
-                        if (visited.find((*j).lane) == visited.end() && (((*j).viaLink->havePriority() && !(*j).viaLink->isTurnaround()) || !ignoreMinorLinks)) {
+                        if (visited.find((*j).lane) == visited.end() && (((*j).viaLink->havePriority() && !(*j).viaLink->isTurnaround())
+                                    || mLinkMode == MinorLinkMode::FOLLOW_ALWAYS
+                                    || (mLinkMode == MinorLinkMode::FOLLOW_ONCOMING && (*j).viaLink->getDirection() == LinkDirection::STRAIGHT))) {
                             visited.insert((*j).lane);
                             MSLane::IncomingLaneInfo ili;
                             ili.lane = (*j).lane;
@@ -3919,7 +3942,7 @@ MSLane::getOppositePos(double pos) const {
 }
 
 std::pair<MSVehicle* const, double>
-MSLane::getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignoreMinorLinks) const {
+MSLane::getFollower(const MSVehicle* ego, double egoPos, double dist, MinorLinkMode mLinkMode) const {
     for (AnyVehicleIterator first = anyVehiclesUpstreamBegin(); first != anyVehiclesUpstreamEnd(); ++first) {
         // XXX refactor leaderInfo to use a const vehicle all the way through the call hierarchy
         MSVehicle* pred = (MSVehicle*)*first;
@@ -3936,13 +3959,13 @@ MSLane::getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignor
     if (dist > 0 && backOffset > dist) {
         return std::make_pair(nullptr, -1);
     }
-    const MSLeaderDistanceInfo followers = getFollowersOnConsecutive(ego, backOffset, true,  dist, ignoreMinorLinks);
+    const MSLeaderDistanceInfo followers = getFollowersOnConsecutive(ego, backOffset, true,  dist, mLinkMode);
     CLeaderDist result = followers.getClosest();
     return std::make_pair(const_cast<MSVehicle*>(result.first), result.second);
 }
 
 std::pair<MSVehicle* const, double>
-MSLane::getOppositeLeader(const MSVehicle* ego, double dist, bool oppositeDir) const {
+MSLane::getOppositeLeader(const MSVehicle* ego, double dist, bool oppositeDir, MinorLinkMode mLinkMode) const {
 #ifdef DEBUG_OPPOSITE
     if (DEBUG_COND2(ego)) std::cout << SIMTIME << " getOppositeLeader lane=" << getID()
                                         << " ego=" << ego->getID()
@@ -3957,7 +3980,7 @@ MSLane::getOppositeLeader(const MSVehicle* ego, double dist, bool oppositeDir) c
     } else {
         const double egoLength = ego->getVehicleType().getLength();
         const double egoPos = ego->getLaneChangeModel().isOpposite() ? ego->getPositionOnLane() : getOppositePos(ego->getPositionOnLane());
-        std::pair<MSVehicle* const, double> result = getFollower(ego, egoPos + egoLength, dist, true);
+        std::pair<MSVehicle* const, double> result = getFollower(ego, egoPos + egoLength, dist, mLinkMode);
         if (result.first != nullptr) {
             result.second -= ego->getVehicleType().getMinGap();
             if (result.first->getLaneChangeModel().isOpposite()) {
@@ -3979,7 +4002,7 @@ MSLane::getOppositeFollower(const MSVehicle* ego) const {
                                         << "\n";
 #endif
     if (ego->getLaneChangeModel().isOpposite()) {
-        std::pair<MSVehicle* const, double> result = getFollower(ego, getOppositePos(ego->getPositionOnLane()), -1, true);
+        std::pair<MSVehicle* const, double> result = getFollower(ego, getOppositePos(ego->getPositionOnLane()), -1, MinorLinkMode::FOLLOW_NEVER);
         return result;
     } else {
         double vehPos = getOppositePos(ego->getPositionOnLane() - ego->getVehicleType().getLength());

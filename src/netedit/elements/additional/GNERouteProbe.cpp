@@ -19,7 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>

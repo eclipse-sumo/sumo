@@ -52,7 +52,7 @@
 GLdouble myCombineVertices[MAX_COMBINE_INDEX][3];
 // array index for above array; incremented inside combineCallback
 int myCombineIndex = 0;
-GLenum myCurrentType = -1;
+GLenum myCurrentType = 0;
 std::vector<Position> myCurrentPoints;
 const TesselatedPolygon* myCurrentTesselated = nullptr;
 

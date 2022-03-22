@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEPathCreator.h>
 
 
 // ===========================================================================
@@ -230,8 +231,8 @@ public:
     /// @brief getattribute selector modul
     const AttributeSelector* getAttributeSelector() const;
 
-    /// @brief get PathCreator modul
-    GNEFrameModules::PathCreator* getPathCreator() const;
+    /// @brief get GNEPathCreator modul
+    GNEPathCreator* getPathCreator() const;
 
     /// @bried get element type of this data frame
     SumoXMLTag getTag() const;
@@ -273,7 +274,7 @@ protected:
     GNEFrameAttributeModules::GenericDataAttributes* myGenericDataAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
-    GNEFrameModules::PathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator;
 
     /// @brief generic data tag
     SumoXMLTag myGenericDataTag;

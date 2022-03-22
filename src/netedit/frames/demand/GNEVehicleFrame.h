@@ -22,6 +22,9 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEAttributesCreator.h>
+#include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEDemandSelector.h>
 
 
 // ===========================================================================
@@ -87,13 +90,13 @@ public:
     bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get vehicle tag selector (needed for transform vehicles)
-    GNEFrameModules::TagSelector* getVehicleTagSelector() const;
+    GNETagSelector* getVehicleTagSelector() const;
 
-    /// @brief get PathCreator modul
-    GNEFrameModules::PathCreator* getPathCreator() const;
+    /// @brief get GNEPathCreator modul
+    GNEPathCreator* getPathCreator() const;
 
 protected:
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
     /// @brief selected vehicle type in DemandElementSelector
@@ -110,16 +113,16 @@ private:
     CommonXMLStructure::SumoBaseObject* myVehicleBaseObject;
 
     /// @brief vehicle tag selector (used to select diffent kind of vehicles)
-    GNEFrameModules::TagSelector* myVehicleTagSelector;
+    GNETagSelector* myVehicleTagSelector;
 
     /// @brief Vehicle Type selectors
-    GNEFrameModules::DemandElementSelector* myTypeSelector;
+    DemandElementSelector* myTypeSelector;
 
     /// @brief internal vehicle attributes
-    GNEFrameAttributeModules::AttributesCreator* myVehicleAttributes;
+    GNEAttributesCreator* myVehicleAttributes;
 
     /// @brief edge path creator (used for trips and flows)
-    GNEFrameModules::PathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

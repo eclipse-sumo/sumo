@@ -131,6 +131,9 @@ private:
     void parseTAZRelationData(const SUMOSAXAttributes& attrs);
     /// @}
 
+    /// @brief parse attributes as parameters
+    void getAttributes(const SUMOSAXAttributes& attrs, const std::vector<SumoXMLAttr> avoidAttributes) const;
+
     /// @brief check parents
     void checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const;
 

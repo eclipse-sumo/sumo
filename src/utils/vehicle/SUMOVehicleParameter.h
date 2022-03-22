@@ -431,7 +431,7 @@ public:
         mutable SUMOTime started = -1;
 
         /// @brief the time at which this stop was ended
-        SUMOTime ended = -1;
+        mutable SUMOTime ended = -1;
 
         /// @brief the lateral offset when stopping
         double posLat = INVALID_DOUBLE;

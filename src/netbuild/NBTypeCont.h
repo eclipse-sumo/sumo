@@ -183,12 +183,13 @@ public:
      * @param[in] defaultNumLanes The default number of lanes an edge has
      * @param[in] defaultLaneWidth The default width of lanes
      * @param[in] defaultSpeed The default speed allowed on an edge
+     * @param[in] defaultFriction The default friction on an edge
      * @param[in] defaultPriority The default priority of an edge
      * @param[in] defaultPermissions The default permissions of an edge
      * @param[in] defaultSpreadType The default lane spread type of an edge
      */
     void setEdgeTypeDefaults(int defaultNumLanes, double defaultLaneWidth,
-                             double defaultSpeed, int defaultPriority,
+                             double defaultSpeed, double defaultFriction, int defaultPriority,
                              SVCPermissions defaultPermissions,
                              LaneSpreadFunction defaultSpreadType);
 
