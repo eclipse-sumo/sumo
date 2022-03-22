@@ -27,12 +27,16 @@ title: ChangeLog
   - Fixed crash when using arrivalEdge and rerouting. Issue #10276
   - Fixed emergency braking / crashing when using **--extrapolate-departpos**. Issue #10294, #10298
   - Trips with fromJunction, toJunction can now be loaded from additional file. Issue #10306
+  - Rerouting now takes empty lanes into account in mean speed calculation. Issue #10345
+  - Rerouting now ignores stopped vehicles in mean speed calculation if they can be overtaken. Issue. #10336
+  - Teleporting of blocked vehicles now works if they are blocked behind a stopping vehicles. Issue #1078
   - opposite-direction driving
-    - Can now overtake stopped vehicle when there is only a short gap afterwards. Issue #9994
-    - Fixed failure to overtake fast vehicles. Issue #10194
+    - Can now overtake stopped vehicle when there is only a short gap afterwards. Issue #9994, #10338
+    - Fixed failure to overtake fast vehicles. Issue #10194    
     - Fixed error "unexpected end of opposite lane" when the number of lanes changes during overtaking. Issue #10193
     - Fixed invalid lane occupancy after opposite change (could lead to insertion failure). Issue #10314
     - Fixed crash after rerouting during opposite direction driving. Issue #10312
+    - Fixed frontal collision. Issue #10340, #10383
   - state loading
     - flows are now fully restored from a state file (without also loading the original route file). Issue #7471
     - route files are now fully reset when loading a state file. Issue #7471
@@ -78,13 +82,21 @@ title: ChangeLog
   - Now validating route IDs. Issue #10235
   - Fixed conversion of junction to roundabout in lefthand network. Issue #10258
   - Fixed inconsistent move-mode behavior of E2Detector. Issue #10305
+  - Data elementes can no longer be given invalid attributes. Issue #10373
+  - Rerouters and VSS no longer lose their edges and lanes after recomputing with volatile options. Issue #10386
     
 - sumo-gui
   - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069
   - GUI-defined traffic scaling is now preserved on reload. Issue #10096
   - Fixed several problems when clicking on time links in the message area. Issue #10225
   - Fixed memory leak when drawing polygons. Issue #10232
-  
+  - Fixed unnecessary wide parameter dialog for lanes that prohibit all vClasses. Issue #10341
+  - Files saved via dialogs now ignore option **--output-prefix**. Issue #10347
+  - Fixed red/black GUI on MacOS. Issue #7830
+  - Fixed invalid exaggerated vehicle size when drawing vehicle as imgFile. Issue #10381
+  - Loading edge data for unknown edges is no longer an error. Issue #10379
+  - Background images (decals) now support environment variable resolution in their paths. Issue #10371
+    
 - duarouter
   - route errors are now detected when using option **--skip-new-routes**. Issue #6113
 
@@ -132,6 +144,8 @@ title: ChangeLog
   - Added support for [poisson distributed flows](Simulation/Randomness.md#poisson_distribution) #10302
   - Added option **--personroute-output** to separate vehroute output for persons/containers from vehicle routes. Issue #10317
   - Option **--fcd-output.attributes** now supports value 'odometer' to include the odometer value and 'all' to include all values. Issue #10323
+  - Option **--time-to-teleport.ride** caues persons and containers to "teleport" after waiting for too long for a ride. Issue #10281
+  - Vehicles on long stops should no longer recompute their route. Issue #8851
 
 - sumo-gui
   - Enabled dpi awareness. Issue #9985
@@ -142,6 +156,7 @@ title: ChangeLog
   - Added menu entry 'Simulation->Load' to quick-load a saved state for the current network.
   - The keys pgdup/pgdown can now be used to change simulation delay.  (their former functionality of quick-panning the view was taken up by alt+arrows). Issue #10199
   - Greatly improved rendering speed of polygons. Issue #10240
+  - Hotkey **Ctrl+j** now toggles drawing of junction shapes. Issue #10362
 
 - netedit
   - Can now set stop attributes "tripID" and "line". Issue #6011
@@ -153,11 +168,18 @@ title: ChangeLog
   - Reducing a network to a selection now works with the new "Reduce" button (instead of the less intuitive Invert+Delete). Issue #10084
   - Writing shortened xml header for additional files. Issue #10247
   - Vehicle stops and waypoints are now annotated with an index when inspecting the vehicle (and zooming in). Issue #10077
-  - The context menu for vehicles and routes now includes the current route length. Issue #9354
+  - The context menu for vehicles and routes now includes the current route length. Issue #9354v
+  - Lane members (i.e. for variableSpeedSign) can now be set by clicking in the view. Issue #9442
+  - Parent elements (i.e. the busStop of an `<access>`) can now be set by clicking in the view. Issue #9652
+  - In vType frame, an orange contour is drawn around vehicles with the current selected vType. Issue #10356
+  - Improved feedback after reloading additionals. Issue #9362
+  - Hotkey **Ctrl+j** now toggles drawing of junction shapes. Issue #10362
+  - Added 'smooth shape' to the connections context menu. Issue #10352
 
 - netconvert
   - Improved speed of OSM import. Issue #8147
   - OpenDRIVE export now includes `<signal>` and `<controller>` information. Issue #2367
+  - OpenDRIVE import now uses more information to compute junction shapes. Issue #10337
   - Option **--opposites.guess.fix-lengths** is now enabled by default. Issue #10326
 
 - polyconvert
@@ -188,6 +210,7 @@ title: ChangeLog
   - route2OD.py: added new option **--edge-relations** to write edge-based OD relations (without the need for a TAZ  file). This type of output can be usd with routeSampler.py. Issue #10058
   - randomTrips.py: When setting option **--random-depart**, with a fractional value for option **--period**, the depart times now have sub-second resolution. Issue #10122
   - randomTrips.py: now supports option **--random-routing-factor** to increase the variance of generated routes. Issue #10172
+  - added library function `sumolib.net.getFastestPath`. Issue #10318
 
 ### miscellaneous
 

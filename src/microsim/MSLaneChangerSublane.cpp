@@ -120,6 +120,9 @@ MSLaneChangerSublane::change() {
     assert(!vehicle->getLaneChangeModel().isChangingLanes());
     if (/*!myAllowsChanging*/ vehicle->getLaneChangeModel().alreadyChanged() || vehicle->isStoppedOnLane()) {
         registerUnchanged(vehicle);
+        if (vehicle->isStoppedOnLane()) {
+            myCandi->lastStopped = vehicle;
+        }
         return false;
     }
     if (!vehicle->isActive()) {
@@ -198,7 +201,7 @@ MSLaneChangerSublane::change() {
             std::pair<MSVehicle*, double> leader = findClosestLeader(leaders, vehicle);
             myCheckedChangeOpposite = false;
             if ((leader.first != nullptr || isOpposite || stopOpposite || traciRequestOpposite)
-                    && changeOpposite(vehicle, leader)) {
+                    && changeOpposite(vehicle, leader, myCandi->lastStopped)) {
                 return true;
             } else if (myCheckedChangeOpposite) {
                 registerUnchanged(vehicle);

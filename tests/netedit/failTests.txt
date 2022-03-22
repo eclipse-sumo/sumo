@@ -1,8 +1,6 @@
 -tp appdata=netedit.gui
 demandElements\route\fix\save
 demandElements\trip_junctions\delete
-demandElements\trip_junctions\inspect\from
-demandElements\trip_junctions\inspect\to
 demandElements\trip_junctions\inspect\departLane\float
 demandElements\trip_junctions\inspect_selection\departLane\float
 demandElements\routeflow\create\number
