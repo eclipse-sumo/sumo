@@ -2109,7 +2109,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             const double gapOffset = leaderLane == myLane ? 0 : seen - leaderLane->getLength();
             const MSLeaderDistanceInfo cands = leaderLane->getFollowersOnConsecutive(this, backOffset, true, backOffset, MSLane::MinorLinkMode::FOLLOW_NEVER);
             MSLeaderDistanceInfo oppositeLeaders(leaderLane, this, 0);
-            const double minTimeToLeaveLane = MSGlobals::gSublane ? MAX2(TS, (0.5 *  myLane->getWidth() - getLateralPositionOnLane()) / getVehicleType().getMaxSpeedLat()) : 0;
+            const double minTimeToLeaveLane = MSGlobals::gSublane ? MAX2(TS, (0.5 *  myLane->getWidth() - getLateralPositionOnLane()) / getVehicleType().getMaxSpeedLat()) : TS;
             for (int i = 0; i < cands.numSublanes(); i++) {
                 CLeaderDist cand = cands[i];
                 if (cand.first != 0) {
@@ -2117,9 +2117,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                             || (!cand.first->myLaneChangeModel->isOpposite() && cand.first->getLaneChangeModel().getShadowLane() == leaderLane)) {
                         // respect leaders that also drive in the opposite direction (fully or with some overlap)
                         oppositeLeaders.addLeader(cand.first, cand.second + gapOffset - getVehicleType().getMinGap() + cand.first->getVehicleType().getMinGap() - cand.first->getVehicleType().getLength());
-                    } else if (cand.second >= 0 && (cand.second - (v + cand.first->getSpeed()) * minTimeToLeaveLane < 0
-                            || cand.first->isStopped() || cand.first->getWaitingSeconds() > 1)) {
-                        oppositeLeaders.addLeader(cand.first, cand.second + gapOffset - getVehicleType().getMinGap());
+                    } else {
+                        // avoid frontal collision
+                        const bool assumeStopped = cand.first->isStopped() || cand.first->getWaitingSeconds() > 1;
+                        const double predMaxDist = cand.first->getSpeed() + (assumeStopped ? 0 : cand.first->getCarFollowModel().getMaxAccel()) * minTimeToLeaveLane;
+                        if (cand.second >= 0 && (cand.second - v * minTimeToLeaveLane - predMaxDist < 0 || assumeStopped)) {
+                            oppositeLeaders.addLeader(cand.first, cand.second + gapOffset - predMaxDist - getVehicleType().getMinGap());
+                        }
                     }
                 }
             }
@@ -2751,8 +2755,9 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                 // must react to stopped / dangerous oncoming vehicles
                 gap += -pred->getVehicleType().getLength() + getVehicleType().getMinGap() - MAX2(getVehicleType().getMinGap(), pred->getVehicleType().getMinGap());
                 // try to avoid collision in the next second
-                if (gap < pred->getSpeed() + getSpeed()) {
-                    gap -= pred->getSpeed();
+                const double predMaxDist = pred->getSpeed() + pred->getCarFollowModel().getMaxAccel();
+                if (gap < predMaxDist + getSpeed()) {
+                    gap -= predMaxDist;
                 }
             }
 #ifdef DEBUG_PLAN_MOVE
