@@ -53,7 +53,7 @@ netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.arrivalLane,
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.arrivalLane, "500", False)
 
 # change arrivalLane with a valid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.arrivalLane, "1", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.arrivalLane, "0", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

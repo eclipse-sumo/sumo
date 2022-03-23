@@ -34,40 +34,19 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# change vehicle
+# select trip over junctions
 netedit.changeElement("flow (from-to junctions)")
 
-# create trip using two junctions
+# create trip
 netedit.leftClick(referencePosition, 80, 360)
 netedit.leftClick(referencePosition, 85, 77)
 
-# press enter to create route
+# press enter to create trip
 netedit.typeEnter()
 
-# go to inspect mode
-netedit.inspectMode()
-
-# inspect vehicle
-netedit.leftClick(referencePosition, 80, 360)
-
-# change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departLane, "", False)
-
-# change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departLane, "dummyDepart", False)
-
-# change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departLane, "500", False)
-
-# change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departLane, "-10", False)
-
-# change departLane with a valid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departLane, "0", False)
-
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save routes
 netedit.saveRoutes(referencePosition)
