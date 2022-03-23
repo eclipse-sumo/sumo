@@ -19,6 +19,8 @@
 # GENERAL
 # --------------------------------
 
+class EditElements:
+    overlapped = 5
 
 class Selection:
     class LockSelectionNetwork:
@@ -295,6 +297,8 @@ class connection:
         type = 20
         parameters = 22
 
+    saveConnections = 4
+
 # crossing
 
 
@@ -336,9 +340,28 @@ class crossing:
         linkIndex2 = 4
         parameters = 7
 
+    clearEdges = 3
+    clearEdgesSelected = 4
+    firstField = 5
+
+
+# TLS
+
+
+class TLS:
+    class create:
+        TLS = 10
+        noTLS = 11
+
+
 # --------------------------------
 # ADDITIONALS
 # --------------------------------
+
+# additionals
+
+class additionals:
+    changeElement = 2
 
 # busStop
 

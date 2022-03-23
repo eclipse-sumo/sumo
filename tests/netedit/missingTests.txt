@@ -110,8 +110,6 @@ D:\SUMO\tests\netedit\attributesEnum.py:1950: unused variable 'tripID' (60% conf
 D:\SUMO\tests\netedit\attributesEnum.py:1972: unused variable 'tripID' (60% confidence)
 D:\SUMO\tests\netedit\attributesEnum.py:1993: unused variable 'tripID' (60% confidence)
 D:\SUMO\tests\netedit\attributesEnum.py:2011: unused variable 'tripID' (60% confidence)
-D:\SUMO\tests\netedit\neteditTestFunctions.py:491: unused function 'cleanJunction' (60% confidence)
-D:\SUMO\tests\netedit\neteditTestFunctions.py:767: unused function 'forceSaveNetwork' (60% confidence)
 D:\SUMO\tests\netedit\neteditTestFunctions.py:835: unused function 'fixDemandElements' (60% confidence)
 D:\SUMO\tests\netedit\neteditTestFunctions.py:1383: unused function 'changePersonMode' (60% confidence)
 D:\SUMO\tests\netedit\neteditTestFunctions.py:1397: unused function 'changePersonVClass' (60% confidence)
@@ -122,4 +120,3 @@ D:\SUMO\tests\netedit\neteditTestFunctions.py:1604: unused function 'abortSelect
 D:\SUMO\tests\netedit\neteditTestFunctions.py:1960: unused function 'createGEOPOI' (60% confidence)
 D:\SUMO\tests\netedit\neteditTestFunctions.py:1973: unused function 'GEOPOILonLat' (60% confidence)
 D:\SUMO\tests\netedit\neteditTestFunctions.py:1986: unused function 'GEOPOILatLon' (60% confidence)
-D:\SUMO\tests\netedit\neteditTestFunctions.py:2032: unused function 'createRectangledTAZ' (60% confidence)
