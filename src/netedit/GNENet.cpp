@@ -331,6 +331,10 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     undoList->begin(GUIIcon::MODEDELETE, "delete " + toString(SUMO_TAG_JUNCTION));
     // invalidate junction path elements
     myPathManager->invalidateJunctionPath(junction);
+    // delete junction child demand elements
+    while (junction->getChildDemandElements().size() > 0) {
+        deleteDemandElement(junction    ->getChildDemandElements().front(), undoList);
+    }
     // delete all crossings vinculated with junction
     while (junction->getGNECrossings().size() > 0) {
         deleteCrossing(junction->getGNECrossings().front(), undoList);
