@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # set invalid container number
-netedit.changeColorUsingDialog(netedit.attrs.containerStop.create.colorDialog, 5)
+netedit.changeColorUsingDialog(netedit.attrs.containerStop.create.colorButton, 5)
 
 # try to create containerStop
 netedit.leftClick(referencePosition, 250, 250)

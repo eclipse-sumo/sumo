@@ -374,7 +374,7 @@ class busStop:
         lines = 8
         personCapacity = 9
         parkingLength = 10
-        colorDialog = 11
+        colorButton = 11
         color = 12
         references = 16
         length = 18
@@ -389,7 +389,7 @@ class busStop:
         lines = 7
         personCapacity = 8
         parkingLength = 9
-        colorDialog = 10
+        colorButton = 10
         color = 11
         parameters = 14
 
@@ -399,7 +399,7 @@ class busStop:
         lines = 3
         personCapacity = 4
         parkingLength = 5
-        colorDialog = 6
+        colorButton = 6
         color = 7
         parameters = 10
 
@@ -414,7 +414,7 @@ class trainStop:
         lines = 8
         personCapacity = 9
         parkingLength = 10
-        colorDialog = 11
+        colorButton = 11
         color = 12
         references = 16
         length = 18
@@ -429,7 +429,7 @@ class trainStop:
         lines = 7
         personCapacity = 8
         parkingLength = 9
-        colorDialog = 10
+        colorButton = 10
         color = 11
         parameters = 14
 
@@ -439,7 +439,7 @@ class trainStop:
         lines = 3
         personCapacity = 4
         parkingLength = 5
-        colorDialog = 6
+        colorButton = 6
         color = 7
         parameters = 10
 
@@ -454,7 +454,7 @@ class containerStop:
         lines = 8
         containerCapacity = 9
         parkingLength = 10
-        colorDialog = 11
+        colorButton = 11
         color = 12
         references = 16
         length = 18
@@ -469,7 +469,7 @@ class containerStop:
         lines = 7
         containerCapacity = 8
         parkingLength = 9
-        colorDialog = 10
+        colorButton = 10
         color = 11
         parameters = 14
 
@@ -479,7 +479,7 @@ class containerStop:
         lines = 3
         containerCapacity = 4
         parkingLength = 5
-        colorDialog = 6
+        colorButton = 6
         color = 7
         parameters = 10
 
@@ -2041,7 +2041,7 @@ class waypointLane:
 class person:
     class create:
         id = 8
-        colorDialog = 9
+        colorButton = 9
         color = 10
         depart = 11
 
