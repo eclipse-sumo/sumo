@@ -907,7 +907,7 @@ MSVehicle::Influencer::implicitDeltaPosRemote(const MSVehicle* veh) {
         // (updateState) as it would result in emergency braking
         dist = veh->getDistanceToPosition(myRemotePos, &myRemoteLane->getEdge());
     }
-    if (DIST2SPEED(dist) > veh->getMaxSpeed()) {
+    if (dist == std::numeric_limits<double>::max()) {
         return 0;
     } else {
         return dist;
