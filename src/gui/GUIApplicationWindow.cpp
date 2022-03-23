@@ -224,6 +224,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     GUIMainWindow(a),
     myLoadThread(nullptr), myRunThread(nullptr),
     myAmLoading(false),
+    myIsReload(false),
     myAlternateSimDelay(0.),
     myRecentNetworksAndConfigs(a, "files"),
     myConfigPattern(configPattern),
@@ -237,7 +238,8 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myTimeLoss(0),
     myEmergencyVehicleCount(0),
     myTotalDistance(0),
-    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY) {
+    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY)
+{
     // init icons
     GUIIconSubSys::initIcons(a);
     // init cursors
@@ -1006,6 +1008,7 @@ GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
         storeWindowSizeAndPos();
         getApp()->beginWaitCursor();
         myAmLoading = true;
+        myIsReload = true;
         closeAllWindows();
         myLoadThread->start();
         setStatusBarText("Reloading.");
@@ -1617,7 +1620,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             // initialise views
             myViewNumber = 0;
             const GUISUMOViewParent::ViewType defaultType = ec->myOsgView ? GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL;
-            if (ec->mySettingsFiles.size() > 0) {
+            if (ec->mySettingsFiles.size() > 0 && !myIsReload) {
                 // open a view for each file and apply settings
                 for (std::vector<std::string>::const_iterator it = ec->mySettingsFiles.begin(); it != ec->mySettingsFiles.end(); ++it) {
                     GUISettingsHandler settings(*it);
@@ -1885,6 +1888,7 @@ GUIApplicationWindow::loadConfigOrNet(const std::string& file) {
         storeWindowSizeAndPos();
         getApp()->beginWaitCursor();
         myAmLoading = true;
+        myIsReload = false;
         closeAllWindows();
         gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
         myLoadThread->loadConfigOrNet(file);

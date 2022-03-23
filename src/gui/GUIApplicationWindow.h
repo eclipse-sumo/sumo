@@ -371,6 +371,9 @@ protected:
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading;
 
+    /// @brief whether we are reloading the simulation
+    bool myIsReload;
+
     /// @brief the submenus
     FXMenuPane* myFileMenu = nullptr, *myEditMenu = nullptr, *mySelectByPermissions = nullptr, *mySettingsMenu = nullptr,
                 *myLocatorMenu, *myControlMenu = nullptr,
@@ -480,4 +483,5 @@ protected:
     /// @brief custom hotkeys
     std::map<int, Command*> myHotkeyPress;
     std::map<int, Command*> myHotkeyRelease;
+
 };
