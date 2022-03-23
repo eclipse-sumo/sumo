@@ -1,6 +1,6 @@
 id
 
-lane
+edge
 
 pos
 
@@ -11,5 +11,9 @@ name
 routeprobe
 
 output
+
+jamtreshold
+
+vtypes
 
 parameters
