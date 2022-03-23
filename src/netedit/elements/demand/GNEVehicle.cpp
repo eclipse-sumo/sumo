@@ -1418,7 +1418,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                 } else if (isTemplate()) {
                     return true;
                 } else if (getParentJunctions().size() > 0) {
-                    return (dummyDepartLane == 1);
+                    return (dummyDepartLane == 0);
                 } else {
                     return dummyDepartLane < (int)getFirstPathLane()->getParentEdge()->getLanes().size();
                 }
@@ -1457,7 +1457,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             // if error is empty, given value is valid
             if (error.empty()) {
                 if (getParentJunctions().size() > 0) {
-                    return (dummyArrivalLane == 1);
+                    return (dummyArrivalLane == 0);
                 } else {
                     return false;
                 }
