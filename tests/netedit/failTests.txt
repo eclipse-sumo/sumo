@@ -11,9 +11,6 @@ dataElements/edgereldata/inspect_selection/parameters
 dataElements/tazreldata/delete
 dataElements/tazreldata/inspect_selection/parameters
 demandElements/flow_embedded/load/route
-demandElements/trip_junctions/delete
-demandElements/trip_junctions/inspect/departLane/float
-demandElements/trip_junctions/inspect_selection/departLane/float
 demandElements/person/create/color
 demandElements/person/create/depart
 demandElements/person/create/departPos
@@ -33,9 +30,6 @@ demandElements/stop/parkingarea/create/duration
 demandElements/stop/parkingarea/create/extension
 demandElements/stop/parkingarea/create/triggered_container
 demandElements/stop/parkingarea/create/triggered_person
-demandElements/trip_junctions/delete
-demandElements/trip_junctions/inspect/departLane/float
-demandElements/trip_junctions/inspect_selection/departLane/float
 demandElements/waypoint/chargingstation/load/until
 demandElements/waypoint/lane/volatileRecomputing
 demandElements/waypoint/parkingarea/create/actType

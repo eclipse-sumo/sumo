@@ -63,7 +63,7 @@ netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departLane, "500", Fa
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departLane, "-10", False)
 
 # change departLane with a valid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departLane, "0", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departLane, "1", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

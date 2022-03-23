@@ -53,7 +53,7 @@ netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.arriva
 netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.arrivalLane, "500", False)
 
 # change arrivalLane with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.arrivalLane, "0", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.arrivalLane, "1", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)
