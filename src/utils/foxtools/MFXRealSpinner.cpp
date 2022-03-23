@@ -43,7 +43,7 @@ MFXRealSpinner::~MFXRealSpinner() {}
 long
 MFXRealSpinner::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
     FXEvent* e = (FXEvent*) ptr;
-    if (e->code >= FX::KEY_a && e->code <= FX::KEY_z) {
+    if ((e->code >= FX::KEY_a && e->code <= FX::KEY_z) || e->code == FX::KEY_space) {
         return 0;
     }
     return FXRealSpinner::onKeyPress(o, sel, ptr);
