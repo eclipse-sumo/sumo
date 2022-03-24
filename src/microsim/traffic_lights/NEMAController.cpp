@@ -1167,7 +1167,7 @@ NEMALogic::NEMA_control() {
                     }
                     // Just the R2Phase is different  
                     else if ((tempR2Phase != myNextPhaseR2) || (myNextPhaseR2 == 0)) {
-                        if ((tempR2Phase != R2Phase) && (tmpBarrier2 == findBarrier(myNextPhaseR2, 1)) || myNextPhaseR2 == 0){
+                        if ((tempR2Phase != R2Phase) && ((tmpBarrier2 == findBarrier(myNextPhaseR2, 1)) || myNextPhaseR2 == 0)){
                             if (tempR2Distance == 0 || (tempR2Distance < myNextPhaseR2Distance || (recall[tempR2Phase - 1] || readDetector(tempR2Phase)))){
                                 myNextPhaseR1 = tempR1Phase;
                                 myNextPhaseR1Distance = tempR1Distance;
@@ -1388,7 +1388,7 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance,
             // At this point, i the index for currentPhase, so start there and look for the next sequential
             // Handle 0 in the ring with the for loop
             int nPhaseTemp = 0;
-            for (i; i < length * 4; i++){
+            for (; i < length * 4; i++){
                 distance ++;
                 if (ring[i % length] != 0){
                     if (ring[i % length] != currentPhase && fitInCycle(ring[matching_i % length], ringNum)){
@@ -1408,7 +1408,7 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance,
         } else {
             matching_i++; 
             // Handle 0 phases
-            for (matching_i; matching_i < length * 4; matching_i++){
+            for (; matching_i < length * 4; matching_i++){
                 if (ring[matching_i % length] != 0 && fitInCycle(ring[matching_i % length], ringNum)){
                     distance++;
                     break;       
@@ -1587,24 +1587,24 @@ std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, int& r1D
 
 
 int NEMALogic::measureRingDistance(int currentPhase, int nextPhase, int ringNum){
-        int length = (int)rings[ringNum].size();
-        int d = 0;
-        bool found = false;        
-        for (int i = 0; i < (length * 2); i++){
-            if (rings[ringNum][i % length] != 0){ 
-                if (found){
-                   d++;
-                   if (rings[ringNum][i % length] == nextPhase){
-                       break;
-                   } 
-                }
-                else if (rings[ringNum][i % length] == currentPhase){
-                   found = true;
+    int length = (int)rings[ringNum].size();
+    int d = 0;
+    bool found = false;        
+    for (int i = 0; i < (length * 2); i++){
+        if (rings[ringNum][i % length] != 0){ 
+            if (found){
+                d++;
+                if (rings[ringNum][i % length] == nextPhase){
+                    break;
                 } 
             }
+            else if (rings[ringNum][i % length] == currentPhase){
+                found = true;
+            } 
         }
-        assert(d > 0);
-        return d;
+    }
+    assert(d > 0);
+    return d;
 }
 
 

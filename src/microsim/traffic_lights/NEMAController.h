@@ -400,7 +400,7 @@ protected:
     int findBarrier(int desiredPhase, int ring);
 
     /// @brief measures the ring distance between two phases
-    int NEMALogic::measureRingDistance(int currentPhase, int nextPhase, int ring);
+    int measureRingDistance(int currentPhase, int nextPhase, int ring);
 
     // Green Transfer Option
     bool greenTransfer;
