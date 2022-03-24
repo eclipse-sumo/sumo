@@ -1918,18 +1918,18 @@ MSLaneChanger::computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLeng
     } else {
         if (overtaken.first == nullptr) {
             // there is no reason to stay on the opposite side
-            std::pair<MSVehicle* const, double> neighFollow = opposite->getOppositeFollower(vehicle);
-            if (neighFollow.first == nullptr) {
+            std::pair<MSVehicle* const, double> oppFollow = opposite->getOppositeFollower(vehicle);
+            if (oppFollow.first == nullptr) {
                 oppositeLength = forwardPos;
             } else {
-                const double secureGap = neighFollow.first->getCarFollowModel().getSecureGap(
-                        neighFollow.first, vehicle, neighFollow.first->getSpeed(), vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxDecel());
+                const double secureGap = oppFollow.first->getCarFollowModel().getSecureGap(
+                        oppFollow.first, vehicle, oppFollow.first->getSpeed(), vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxDecel());
 #ifdef DEBUG_CHANGE_OPPOSITE
                 if (DEBUG_COND) {
-                    std::cout << SIMTIME << " ego=" << vehicle->getID() << " neighFollow=" << neighFollow.first->getID() << " gap=" << neighFollow.second << " secureGap=" << secureGap << "\n";
+                    std::cout << SIMTIME << " ego=" << vehicle->getID() << " neighFollow=" << oppFollow.first->getID() << " gap=" << oppFollow.second << " secureGap=" << secureGap << "\n";
                 }
 #endif
-                if (neighFollow.second > secureGap) {
+                if (oppFollow.second > secureGap) {
                     // back gap is safe for immidiate return
                     oppositeLength = forwardPos;
                 }
