@@ -3,3 +3,27 @@ basic
 split_single
 
 split_multiple
+
+numlanes
+
+speed
+
+allow
+
+disallow
+
+spreadtype
+
+priority
+
+width
+
+lane
+
+lanespeed
+
+laneallow
+
+lanedisallow
+
+lanewidth
