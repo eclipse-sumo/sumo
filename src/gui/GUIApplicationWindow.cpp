@@ -225,6 +225,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myLoadThread(nullptr), myRunThread(nullptr),
     myAmLoading(false),
     myIsReload(false),
+    myGuiSettingsFileMTime(-2),
     myAlternateSimDelay(0.),
     myRecentNetworksAndConfigs(a, "files"),
     myConfigPattern(configPattern),
@@ -1620,10 +1621,17 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             // initialise views
             myViewNumber = 0;
             const GUISUMOViewParent::ViewType defaultType = ec->myOsgView ? GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL;
-            if (ec->mySettingsFiles.size() > 0 && !myIsReload) {
+            // check/record settings file modification time
+            long long mTime = myGuiSettingsFileMTime;
+            if (ec->mySettingsFiles.size() > 0) {
+                for (std::string fname : ec->mySettingsFiles) {
+                    mTime = MAX2(mTime, SysUtils::getModifiedTime(fname));
+                }
+            }
+            if (ec->mySettingsFiles.size() > 0 && (!myIsReload || myGuiSettingsFileMTime < mTime)) {
                 // open a view for each file and apply settings
-                for (std::vector<std::string>::const_iterator it = ec->mySettingsFiles.begin(); it != ec->mySettingsFiles.end(); ++it) {
-                    GUISettingsHandler settings(*it);
+                for (std::string fname : ec->mySettingsFiles) {
+                    GUISettingsHandler settings(fname);
                     GUISUMOViewParent::ViewType vt = defaultType;
                     if (settings.getViewType() == "osg" || settings.getViewType() == "3d") {
                         vt = GUISUMOViewParent::VIEW_3D_OSG;
@@ -1658,6 +1666,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             } else {
                 openNewView(defaultType);
             }
+            myGuiSettingsFileMTime = mTime;
 
             if (!OptionsCont::getOptions().isDefault("delay")) {
                 setDelay(OptionsCont::getOptions().getFloat("delay"));

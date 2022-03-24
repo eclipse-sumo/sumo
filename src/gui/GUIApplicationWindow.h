@@ -374,6 +374,9 @@ protected:
     /// @brief whether we are reloading the simulation
     bool myIsReload;
 
+    /// @brief last modification time of the gui setting file
+    long long  myGuiSettingsFileMTime;
+
     /// @brief the submenus
     FXMenuPane* myFileMenu = nullptr, *myEditMenu = nullptr, *mySelectByPermissions = nullptr, *mySettingsMenu = nullptr,
                 *myLocatorMenu, *myControlMenu = nullptr,
