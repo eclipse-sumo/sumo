@@ -154,6 +154,14 @@ public:
         return myAmFullScreen;
     }
 
+    const std::map<std::string, std::string>& getOnlineMaps() const {
+        return myOnlineMaps;
+    }
+
+    void addOnlineMap(const std::string& name, const std::string& url) {
+        myOnlineMaps[name] = url;
+    }
+
     /// @brief retrieve breakpoints if provided by the application
     virtual const std::vector<SUMOTime> retrieveBreakpoints() const {
         return std::vector<SUMOTime>();
@@ -217,6 +225,9 @@ protected:
 
     /// @brief information whether the locator should list teleporting vehicles
     bool myListTeleporting;
+
+    /// @brief online mapping services for the context menu
+    std::map<std::string, std::string> myOnlineMaps;
 
     /// @brief the singleton window instance
     static GUIMainWindow* myInstance;

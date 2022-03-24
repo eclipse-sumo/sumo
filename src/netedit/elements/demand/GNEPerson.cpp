@@ -62,7 +62,7 @@ GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson* person, GUIMainWind
     myPerson->buildPopupHeader(this, app);
     // build menu command for center button and copy cursor position to clipboard
     myPerson->buildCenterPopupEntry(this);
-    myPerson->buildPositionCopyEntry(this, false);
+    myPerson->buildPositionCopyEntry(this, app);
     // buld menu commands for names
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + myPerson->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + myPerson->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
@@ -117,7 +117,7 @@ GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson* p
     person->buildPopupHeader(this, app);
     // build menu command for center button and copy cursor position to clipboard
     person->buildCenterPopupEntry(this);
-    person->buildPositionCopyEntry(this, false);
+    person->buildPositionCopyEntry(this, app);
     // buld menu commands for names
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + person->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + person->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);

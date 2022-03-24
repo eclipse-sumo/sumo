@@ -423,7 +423,7 @@ GUINet::getPopUpMenu(GUIMainWindow& app,
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
 

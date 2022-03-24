@@ -276,14 +276,13 @@ GUIGlObject::buildShowTypeParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSe
 
 
 void
-GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
+GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWindow& app) const {
     GUIDesigns::buildFXMenuCommand(ret, "Copy cursor position to clipboard", nullptr, ret, MID_COPY_CURSOR_POSITION);
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
         GUIDesigns::buildFXMenuCommand(ret, "Copy cursor geo-position to clipboard", nullptr, ret, MID_COPY_CURSOR_GEOPOSITION);
-        GUIDesigns::buildFXMenuCommand(ret, "Show cursor geo-position in GeoHack", nullptr, ret, MID_SHOW_GEOPOSITION_ONLINE);
-    }
-    if (addSeparator) {
-        new FXMenuSeparator(ret);
+        for (const auto& mapper : app.getOnlineMaps()) {
+            GUIDesigns::buildFXMenuCommand(ret, "Show cursor geo-position in " + mapper.first, nullptr, ret, MID_SHOW_GEOPOSITION_ONLINE);
+        }
     }
 }
 
@@ -326,7 +325,7 @@ GUIGlObject::buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* re
     // build show parameters
     buildShowParamsPopupEntry(ret, false);
     // build copy cursor position to clipboard
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     // only show type if isn't empty
     if (type != "") {
         GUIDesigns::buildFXMenuCommand(ret, ("type: " + type + "").c_str(), nullptr, nullptr, 0);
@@ -349,7 +348,7 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
     // build show parameters
     buildShowParamsPopupEntry(ret, false);
     // build copy cursor position to clipboard
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     // only show type if isn't empty
     if (type != "") {
         GUIDesigns::buildFXMenuCommand(ret, ("type: " + type + "").c_str(), nullptr, nullptr, 0);

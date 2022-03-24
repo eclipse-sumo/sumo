@@ -250,7 +250,7 @@ protected:
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true);
+    void buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWindow& app) const;
 
     /** @brief Builds an entry which allows to open the manipulator window
      * @param[in, filled] ret The popup menu to add the entry to

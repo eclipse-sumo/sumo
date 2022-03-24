@@ -903,7 +903,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     const double height = myShape.positionAtOffset(pos).z();
     GUIDesigns::buildFXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), nullptr, nullptr, 0);
     new FXMenuSeparator(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     new FXMenuSeparator(ret);
     if (myAmClosed) {
         if (myPermissionChanges.empty()) {

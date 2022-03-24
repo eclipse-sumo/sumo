@@ -62,7 +62,7 @@ GNEContainer::GNEContainerPopupMenu::GNEContainerPopupMenu(GNEContainer* contain
     myContainer->buildPopupHeader(this, app);
     // build menu command for center button and copy cursor position to clipboard
     myContainer->buildCenterPopupEntry(this);
-    myContainer->buildPositionCopyEntry(this, false);
+    myContainer->buildPositionCopyEntry(this, app);
     // buld menu commands for names
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + myContainer->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + myContainer->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
@@ -117,7 +117,7 @@ GNEContainer::GNESelectedContainersPopupMenu::GNESelectedContainersPopupMenu(GNE
     container->buildPopupHeader(this, app);
     // build menu command for center button and copy cursor position to clipboard
     container->buildCenterPopupEntry(this);
-    container->buildPositionCopyEntry(this, false);
+    container->buildPositionCopyEntry(this, app);
     // buld menu commands for names
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + container->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + container->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);

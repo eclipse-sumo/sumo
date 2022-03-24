@@ -73,7 +73,7 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
     myVehicle->buildPopupHeader(this, app);
     // build menu command for center button and copy cursor position to clipboard
     myVehicle->buildCenterPopupEntry(this);
-    myVehicle->buildPositionCopyEntry(this, false);
+    myVehicle->buildPositionCopyEntry(this, app);
     // buld menu commands for names
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
@@ -164,7 +164,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
     vehicle->buildPopupHeader(this, app);
     // build menu command for center button and copy cursor position to clipboard
     vehicle->buildCenterPopupEntry(this);
-    vehicle->buildPositionCopyEntry(this, false);
+    vehicle->buildPositionCopyEntry(this, app);
     // buld menu commands for names
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
