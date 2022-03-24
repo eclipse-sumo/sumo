@@ -669,7 +669,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
 
 
 bool
-GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, const std::string& file, const GUIGlObject* o, const double width, double length) {
+GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& /* s */, const std::string& file, const GUIGlObject* o, const double width, double length) {
     if (file != "") {
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {

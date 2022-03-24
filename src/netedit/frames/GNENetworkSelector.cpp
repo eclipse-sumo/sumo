@@ -47,8 +47,8 @@ FXIMPLEMENT(GNENetworkSelector, FXGroupBoxModule, SelectorParentNetworkElementsM
 
 GNENetworkSelector::GNENetworkSelector(GNEFrame* frameParent, const Type networkElementType) :
     FXGroupBoxModule(frameParent->getContentFrame(), "NetworkElements"),
-    myNetworkElementType(networkElementType),
-    myFrameParent(frameParent) {
+    myFrameParent(frameParent),
+    myNetworkElementType(networkElementType) {
      // Create horizontal frame
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create buttons
