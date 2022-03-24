@@ -1645,6 +1645,11 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                     }
                     if (settings.getSettingName() != "") {
                         view->setColorScheme(settings.getSettingName());
+                        FXComboBox* sCombo = view->getColoringSchemesCombo();
+                        int index = sCombo->findItem(settings.getSettingName().c_str());
+                        if (index >= 0) {
+                            sCombo->setCurrentItem(index);
+                        }
                     }
                     view->addDecals(settings.getDecals());
                     settings.applyViewport(view);
