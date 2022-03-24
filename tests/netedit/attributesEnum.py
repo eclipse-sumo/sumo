@@ -116,6 +116,27 @@ class junction:
 
 
 class edge:
+    class create:
+        numLanes = 5
+        speed = 6
+        allowButton = 7
+        allow = 8
+        disallowButton = 9
+        disallow = 10
+        spreadType = 11
+        priority = 13
+        width = 14
+
+    class createLane:
+        add = 20
+        remove = 21
+        speed = 22
+        allowButton = 23
+        allow = 24
+        disallowButton = 25
+        disallow = 26
+        width = 27
+
     class inspect:
         id = 1
         fromEdge = 2

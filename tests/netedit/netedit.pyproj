@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4cc81972-ea1f-4b3c-b2a1-e0bf3e0e841e}</ProjectGuid>
+    <ProjectGuid>{c444641f-cef0-4d58-9d8f-002493376295}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -12,7 +12,8 @@
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId />
-    <TestFramework>Pytest</TestFramework>
+    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
+    <Name>netedit</Name>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -2037,9 +2038,21 @@
     <Compile Include="netElements\edges\contextual_menu\split_edge_both\test.py" />
     <Compile Include="netElements\edges\contextual_menu\straighten_elevation_edge\test.py" />
     <Compile Include="netElements\edges\contextual_menu\straigthen_edge\test.py" />
+    <Compile Include="netElements\edges\create\allow\test.py" />
     <Compile Include="netElements\edges\create\basic\test.py" />
+    <Compile Include="netElements\edges\create\disallow\test.py" />
+    <Compile Include="netElements\edges\create\laneallow\test.py" />
+    <Compile Include="netElements\edges\create\lanedisallow\test.py" />
+    <Compile Include="netElements\edges\create\lanespeed\test.py" />
+    <Compile Include="netElements\edges\create\lanewidth\test.py" />
+    <Compile Include="netElements\edges\create\lane\test.py" />
+    <Compile Include="netElements\edges\create\numlanes\test.py" />
+    <Compile Include="netElements\edges\create\priority\test.py" />
+    <Compile Include="netElements\edges\create\speed\test.py" />
     <Compile Include="netElements\edges\create\split_multiple\test.py" />
     <Compile Include="netElements\edges\create\split_single\test.py" />
+    <Compile Include="netElements\edges\create\spreadtype\test.py" />
+    <Compile Include="netElements\edges\create\width\test.py" />
     <Compile Include="netElements\edges\delete\test.py" />
     <Compile Include="netElements\edges\inspect\allow\test.py" />
     <Compile Include="netElements\edges\inspect\disallow\test.py" />
@@ -4917,9 +4930,21 @@
     <Folder Include="netElements\edges\contextual_menu\straighten_elevation_edge" />
     <Folder Include="netElements\edges\contextual_menu\straigthen_edge" />
     <Folder Include="netElements\edges\create\" />
+    <Folder Include="netElements\edges\create\allow" />
     <Folder Include="netElements\edges\create\basic" />
+    <Folder Include="netElements\edges\create\disallow" />
+    <Folder Include="netElements\edges\create\lane" />
+    <Folder Include="netElements\edges\create\laneallow" />
+    <Folder Include="netElements\edges\create\lanedisallow" />
+    <Folder Include="netElements\edges\create\lanespeed" />
+    <Folder Include="netElements\edges\create\lanewidth" />
+    <Folder Include="netElements\edges\create\numlanes" />
+    <Folder Include="netElements\edges\create\priority" />
+    <Folder Include="netElements\edges\create\speed" />
     <Folder Include="netElements\edges\create\split_multiple" />
     <Folder Include="netElements\edges\create\split_single" />
+    <Folder Include="netElements\edges\create\spreadtype" />
+    <Folder Include="netElements\edges\create\width" />
     <Folder Include="netElements\edges\delete" />
     <Folder Include="netElements\edges\inspect\" />
     <Folder Include="netElements\edges\inspect\allow" />
