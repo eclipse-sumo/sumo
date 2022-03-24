@@ -185,16 +185,14 @@ def parseSimple(outf, options):
     fromAttr, toAttr = ('fromTaz', 'toTaz') if options.taz else ('from', 'to')
     if 'trip' in options.elements:
         for trip in parse_fast(options.routefile, 'trip', ['id', fromAttr, toAttr]):
-            if options.subparts:
-                sys.stderr.write("Warning: Ignoring trips when using --subpart\n")
-                break
+            if not hasSubpart([trip[1], trip[2]], options.subparts):
+                continue
             departCounts[trip[1]] += 1
             arrivalCounts[trip[2]] += 1
     if 'walk' in options.elements:
         for walk in parse_fast(options.routefile, 'walk', ['from', 'to']):
-            if options.subparts:
-                sys.stderr.write("Warning: Ignoring walk when using --subpart\n")
-                break
+            if not hasSubpart([walk[1], walk[2]], options.subparts):
+                continue
             departCounts[walk.attr_from] += 1
             arrivalCounts[walk.to] += 1
 
