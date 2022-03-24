@@ -43,7 +43,7 @@ title: ChangeLog
     - Fixed crash on simulation.loadState with persons. Issue #10228, #10261
     - Fixed pedestrians behavior after quick-loading state. Issue #10229, #10245, #10250, #10260, #10257
     - Simulation with persons in loaded state now terminates reliably. Issue #10233
-    - stops of named routes missing are now restored when loading state. Issue #10230
+    - stops of named routes are now restored when loading state. Issue #10230
     - Fixed different randomness after loading state. Issue #10251
     - Fixed invalid fcd-output after loading persons from state. Issue #10259
     - Fixed invalid phase of actuated tls after loading state. Issue #10263
