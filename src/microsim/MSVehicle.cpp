@@ -910,6 +910,12 @@ MSVehicle::Influencer::implicitDeltaPosRemote(const MSVehicle* veh) {
     if (dist == std::numeric_limits<double>::max()) {
         return 0;
     } else {
+        if (DIST2SPEED(dist) > veh->getMaxSpeed() * 1.1) {
+            WRITE_WARNINGF("Vehicle '%' moved by by traci from % to % with implied speed of % (exceeding maximum speed %). time=%.",
+                    veh->getID(), veh->getPosition(), myRemoteXYPos, DIST2SPEED(dist), veh->getMaxSpeed(), time2string(SIMSTEP));
+            // some sanity check here
+            dist = MIN2(dist, SPEED2DIST(veh->getMaxSpeed() * 2));
+        }
         return dist;
     }
 }
