@@ -8,6 +8,9 @@ poi
 taz
 
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+taz_subpart
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 subpart
 
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
