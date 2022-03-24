@@ -14,6 +14,9 @@ taz_subpart
 subpart
 
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+subpart_trip
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 subpart_file
 
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
