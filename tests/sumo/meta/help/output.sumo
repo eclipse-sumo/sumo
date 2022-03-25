@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_12_0+1381-802d85a9a91
+Eclipse SUMO sumo Version v1_12_0+1668-49cf6e3
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -346,6 +346,10 @@ Routing Options:
   --weights.minor-penalty FLOAT        Apply the given time penalty when
                                         computing minimum routing costs for
                                         minor-link internal lanes
+  --weights.tls-penalty FLOAT          Apply scaled travel time penalties based
+                                        on green split when computing minimum
+                                        routing costs for internal lanes at
+                                        traffic lights
   --weights.priority-factor FLOAT      Consider edge priorities in addition to
                                         travel times, weighted by factor
   --weights.separate-turns FLOAT       Distinguish travel time by turn
