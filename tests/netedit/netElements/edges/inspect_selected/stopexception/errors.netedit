@@ -19,16 +19,10 @@ Debug: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
-Debug: Value 'DummyAllowed' for attribute allow of edge isn't valid
-Debug: Value 'authority  army, passenger; taxi. tram' for attribute allow of edge isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
+Debug: Value 'DummyDisallowed' for attribute stopOException of edge isn't valid
+Debug: Value 'authority  army, passenger; taxi. tram' for attribute stopOException of edge isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -38,49 +32,25 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing busStop 'busStop6' in GNEChange_Additional
-Debug: Removing busStop 'busStop5' in GNEChange_Additional
-Debug: Removing busStop 'busStop4' in GNEChange_Additional
-Debug: Removing busStop 'busStop3' in GNEChange_Additional
-Debug: Removing busStop 'busStop2' in GNEChange_Additional
-Debug: Removing busStop 'busStop1' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding busStop 'busStop1' in GNEChange_Additional
-Debug: Adding busStop 'busStop2' in GNEChange_Additional
-Debug: Adding busStop 'busStop3' in GNEChange_Additional
-Debug: Adding busStop 'busStop4' in GNEChange_Additional
-Debug: Adding busStop 'busStop5' in GNEChange_Additional
-Debug: Adding busStop 'busStop6' in GNEChange_Additional
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Additionals saved

@@ -52,36 +52,32 @@ netedit.forceSaveAdditionals()
 # inspect selected edges
 netedit.leftClick(referencePosition, 250, 180)
 
-# Change parameter 5 with an non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allowed, "DummyAllowed", False)
+# Change parameter 12 with a non valid value (dummy)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "dummyOffset", False)
 
-# Change parameter 5 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allowed, "", False)
+# Change parameter 12 with a non valid value (empty)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "", False)
 
-# Change parameter 5 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allowed, "authority  army, passenger; taxi. tram", False)
+# Change parameter 12 with a non valid value (negative)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "-2", False)
 
-# Change parameter 5 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allowed, "", False)
+# Change parameter 12 with a valid value (default)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "default", False)
 
-# Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.edge.inspectSelection.allowedButton, False)
-
-# Change parameter 5 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallowed,
-                        "authority army vip passenger hov taxi bus coach tram bicycle", False)
+# Change parameter 12 with a valid value (default)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "4", False)
 
 # recompute
 netedit.rebuildNetwork()
 
 # Check undos
-netedit.undo(referencePosition, 3)
+netedit.undo(referencePosition, 1)
 
 # recompute
 netedit.rebuildNetwork()
 
 # check redos
-netedit.redo(referencePosition, 3)
+netedit.redo(referencePosition, 1)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
