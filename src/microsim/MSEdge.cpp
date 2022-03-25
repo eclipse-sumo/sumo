@@ -1337,6 +1337,26 @@ MSEdge::getVehicleNumber() const {
 }
 
 
+bool
+MSEdge::isEmpty() const {
+    /// more efficient than retrieving vehicle number
+    if (MSGlobals::gUseMesoSim) {
+        for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
+            if (segment->getCarNumber() > 0) {
+                return false;
+            }
+        }
+    } else {
+        for (MSLane* lane : getLanes()) {
+            if (lane->getVehicleNumber() > 0) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+
 double
 MSEdge::getWaitingSeconds() const {
     double wtime = 0;
