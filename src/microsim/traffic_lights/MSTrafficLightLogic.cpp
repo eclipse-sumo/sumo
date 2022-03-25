@@ -454,7 +454,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
             link->setMesoTLSPenalty(TIME2STEPS(edgeType.tlsPenalty * penalty[j] / durationSeconds));
             link->setGreenFraction(greenFraction);
             controlledJunctions.insert(link->getLane()->getEdge().getFromJunction()); // MSLink::myJunction is not yet initialized
-            //std::cout << " tls=" << getID() << " i=" << j << " link=" << link->getViaLaneOrLane()->getID() << " penalty=" << penalty[j] / durationSeconds << " durSecs=" << durationSeconds << " greenTime=" << " gF=" << myLinks[j][k]->getGreenFraction() << "\n";
+            //std::cout << " tls=" << getID() << " i=" << j << " link=" << link->getDescription() << " p=" << penalty[j] << " r=" << redDuration[j] << " tr=" << totalRedDuration[j] << " durSecs=" << durationSeconds << " tlsPen=" << STEPS2TIME(link->getMesoTLSPenalty()) << " gF=" << myLinks[j][k]->getGreenFraction() << "\n";
         }
     }
     // initialize empty-net travel times
