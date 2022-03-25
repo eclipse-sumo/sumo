@@ -974,6 +974,34 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     typeSpace()
 
 
+def modifyAllowDisallowValue(numTabs, overlapped):
+    """
+    @brief modify allow/disallow values
+    """
+    # open dialog
+    modifyBoolAttribute(numTabs, overlapped)
+    # select vtypes
+    for _ in range(2):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(6):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(12):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(11):
+        typeTab()
+    # Change current value
+    typeSpace()
+
+
 def checkParameters(referencePosition, attributeNumber, overlapped):
     """
     @brief Check generic parameters

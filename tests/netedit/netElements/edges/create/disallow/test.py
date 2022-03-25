@@ -53,7 +53,7 @@ netedit.leftClick(referencePosition, 87, 120)
 netedit.leftClick(referencePosition, 510, 120)
 
 # set attribute
-netedit.changeDefaultAllowDisallowValue(netedit.attrs.edge.create.allowButton)
+netedit.changeDefaultAllowDisallowValue(netedit.attrs.edge.create.disallowButton)
 
 # Create two nodes
 netedit.leftClick(referencePosition, 87, 160)
