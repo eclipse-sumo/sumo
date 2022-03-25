@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-15 07:54:37 by Eclipse SUMO sumo Version v1_12_0+1381-802d85a9a91
+<!-- generated on 2022-03-25 10:13:18 by Eclipse SUMO sumo Version v1_12_0+1660-9b16f488674
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -989,6 +989,24 @@
 
     </vehroutes_device>
 
+    <seeroad_device>
+        <!-- The probability for a vehicle to have a &apos;Seeroad&apos; device -->
+        <device.Seeroad.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;Seeroad&apos; device to named vehicles -->
+        <device.Seeroad.explicit value="" synonymes="device.Seeroad.knownveh" type="STR[]"/>
+
+        <!-- The &apos;Seeroad&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.Seeroad.deterministic value="false" type="BOOL"/>
+
+        <!-- The measurement noise parameter which can be applied to the Seeroad device -->
+        <device.Seeroad.stdev value="0.1" type="FLOAT"/>
+
+        <!-- The measurement offset parameter which can be applied to the Seeroad device -&gt; e.g. to force false measurements -->
+        <device.Seeroad.offset value="0" type="FLOAT"/>
+
+    </seeroad_device>
+
     <traci_server>
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>
@@ -1106,6 +1124,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
