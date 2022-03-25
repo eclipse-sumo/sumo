@@ -37,5 +37,9 @@ shapestart
 # edit shapeend
 shapeend
 
+stopoffset
+
+stopexception
+
 # edit parameters
 parameters

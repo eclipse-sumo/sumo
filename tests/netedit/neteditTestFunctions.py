@@ -974,6 +974,34 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     typeSpace()
 
 
+def modifyAllowDisallowValue(numTabs, overlapped):
+    """
+    @brief modify allow/disallow values
+    """
+    # open dialog
+    modifyBoolAttribute(numTabs, overlapped)
+    # select vtypes
+    for _ in range(2):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(6):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(12):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(11):
+        typeTab()
+    # Change current value
+    typeSpace()
+
+
 def checkParameters(referencePosition, attributeNumber, overlapped):
     """
     @brief Check generic parameters
@@ -1242,13 +1270,39 @@ def changeDefaultValue(numTabs, length):
 
 
 def changeDefaultBoolValue(numTabs):
-    """
-    @brief modify default boolean value of an additional, shape, vehicle...
-    """
+
     # focus current frame
     focusOnFrame()
     # place cursor in check Box position
     for _ in range(numTabs):
+        typeTab()
+    # Change current value
+    typeSpace()
+
+
+def changeDefaultAllowDisallowValue(numTabs):
+    """
+    @brief modify allow/disallow values
+    """
+    # open dialog
+    changeDefaultBoolValue(numTabs)
+    # select vtypes
+    for _ in range(2):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(6):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(12):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(11):
         typeTab()
     # Change current value
     typeSpace()

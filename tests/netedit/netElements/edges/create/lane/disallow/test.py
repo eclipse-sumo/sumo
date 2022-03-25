@@ -52,9 +52,16 @@ netedit.changeDefaultValue(netedit.attrs.edge.createLane.disallow, "all")
 netedit.leftClick(referencePosition, 87, 120)
 netedit.leftClick(referencePosition, 510, 120)
 
+# set attribute
+netedit.changeDefaultAllowDisallowValue(netedit.attrs.edge.createLane.disallowButton)
+
+# Create two nodes
+netedit.leftClick(referencePosition, 87, 160)
+netedit.leftClick(referencePosition, 510, 160)
+
 # Check undo and redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # rebuild network
 netedit.rebuildNetwork()

@@ -74,14 +74,9 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Value 'dummyLane' for attribute arrivalLane of flow isn't valid
+Debug: Value '500' for attribute arrivalLane of flow isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -97,6 +92,7 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flow 'flowB' in GNEChange_DemandElement
 Debug: Removing flow 'flowA' in GNEChange_DemandElement
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding flow 'flowA' in GNEChange_DemandElement
@@ -113,9 +109,6 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20

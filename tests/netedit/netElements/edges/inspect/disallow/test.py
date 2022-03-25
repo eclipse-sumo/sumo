@@ -52,22 +52,24 @@ netedit.modifyAttribute(netedit.attrs.edge.inspect.disallowed, "authority  army,
 # Change parameter 10 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.disallowed, "", False)
 
-# Change parameter 10 with a valid value (empty)
+# Change parameter 8 with a valid value (empty)
+netedit.modifyAllowDisallowValue(netedit.attrs.edge.inspect.disallowedButton, False)
+
+# Change parameter 8 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.disallowed,
-                        "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
-                        "rail_electric motorcycle moped pedestrian custom1", False)
+                        "authority army vip passenger hov taxi bus coach tram bicycle", False)
 
 # recompute
 netedit.rebuildNetwork()
 
 # Check undos
-netedit.undo(referencePosition, 1)
+netedit.undo(referencePosition, 4)
 
 # recompute
 netedit.rebuildNetwork()
 
 # check redos
-netedit.redo(referencePosition, 1)
+netedit.redo(referencePosition, 4)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
