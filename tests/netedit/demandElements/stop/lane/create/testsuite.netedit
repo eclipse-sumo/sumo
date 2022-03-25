@@ -1,8 +1,6 @@
 default
 
-friendlyPos
-
-poslat
+no_parent
 
 duration
 
@@ -21,3 +19,7 @@ permitted
 parking
 
 actType
+
+tripID
+
+line
