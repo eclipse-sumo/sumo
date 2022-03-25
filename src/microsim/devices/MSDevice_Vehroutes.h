@@ -299,7 +299,7 @@ private:
     /// @brief Prior routes
     std::vector<RouteReplaceInfo> myReplacedRoutes;
 
-    /// @brief The times the vehicle exites an edge
+    /// @brief The times at which the vehicle exits an edge
     std::vector<SUMOTime> myExits;
 
     /// @brief The maximum number of routes to report
