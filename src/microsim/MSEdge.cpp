@@ -136,6 +136,7 @@ void MSEdge::recalcCache() {
             }
             if (minPenalty > 0) {
                 myEmptyTraveltime += STEPS2TIME(minPenalty);
+                myTimePenalty = STEPS2TIME(minPenalty);
             }
         }
     } else if (isInternal() && MSGlobals::gUsingInternalLanes) {
