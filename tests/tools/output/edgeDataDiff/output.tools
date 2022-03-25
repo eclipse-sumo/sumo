@@ -1,3 +1,2 @@
-original durations: count 1, min 150.00 (0), max 150.00 (0), mean 150.00, Q1 150.00, median 150.00, Q3 150.00
-new durations: count 1, min 150.00 (0), max 150.00 (0), mean 150.00, Q1 150.00, median 150.00, Q3 150.00
-duration differences: count 1, min 0.00 (0), max 0.00 (0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+attr: count 1, min 2.00 (1), max 2.00 (1), mean 2.00, Q1 2.00, median 2.00, Q3 2.00
+std_attr: count 1, min 5.00 (1), max 5.00 (1), mean 5.00, Q1 5.00, median 5.00, Q3 5.00

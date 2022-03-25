@@ -2,6 +2,6 @@
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0" end="100" id="meandata.out.xml">
-        <edge id="1" attr="0.00" std_attr="2"/>
+        <edge id="1" attr="8" std_attr="4"/>
     </interval>
 </meandata>
