@@ -1236,7 +1236,7 @@ NEMALogic::NEMA_control() {
                     } else {
                         if (currentTimeInSecond > (myCycleLength + offset)){
                             // The intial phases cause 
-                            assert(phaseExpectedDuration[myNextPhaseR1 - 1] >= maxGreen[myNextPhaseR1 - 1]);
+                            // assert(phaseExpectedDuration[myNextPhaseR1 - 1] >= maxGreen[myNextPhaseR1 - 1]);
                         }
                     }
                }
@@ -1283,7 +1283,8 @@ NEMALogic::NEMA_control() {
                     } else {
                         if (currentTimeInSecond > (myCycleLength + offset)){
                             // The intial phases cause 
-                            assert(phaseExpectedDuration[myNextPhaseR2 - 1] >= maxGreen[myNextPhaseR2 - 1]);
+                            // assert(phaseExpectedDuration[myNextPhaseR2 - 1] >= maxGreen[myNextPhaseR2 - 1]);
+
                         }
                     }
                 }
@@ -1861,7 +1862,7 @@ NEMALogic::calculateForceOffsTS2(){
 
 void
 NEMALogic::calculateInitialPhases170(){
-    int initialIndexRing [2] = {0, 0};
+    int initialIndexRing [2] = { activeRing1Index, activeRing2Index};
     // calculate initial phases based on in cycle clock
     for (int ringNumber = 0; ringNumber<2;ringNumber++){
         int length = (int)rings[ringNumber].size();
@@ -1895,45 +1896,36 @@ NEMALogic::calculateInitialPhases170(){
     double currentInCycleTime = ModeCycle(currentTimeInSecond - cycleRefPoint - offset, myCycleLength);
 
     // find the initial phases
-    bool found[2] = {false, false};
     for (int ringNumber = 0; ringNumber < 2; ringNumber++){
         int aPhaseIndex = -1;
+        bool found= false;
         // This searches sorted
         for (int p: localRings[ringNumber]) {
             if (p > 0){
                 aPhaseIndex = p - 1;
-                // #TODO: Fix this logic intelligently.
-                if ((myCabinetType == Type170 && (currentInCycleTime + minGreen[p - 1] < phaseCutOffs[p - 1]))
-                    || (myCabinetType == TS2 && fitInCycle(p, ringNumber)))
-                    {   
+                if (currentInCycleTime < phaseCutOffs[p - 1]){
                     #ifdef DEBUG_NEMA
                     std::cout<<"current in cycle time="<<currentInCycleTime<<" phase: "<<aPhaseIndex<<std::endl;
                     #endif
-                    found[ringNumber] = true;
+                    found = true;
                     break;
                 }
             }
         }
+        if (!found){
+            aPhaseIndex = rings[ringNumber][initialIndexRing[ringNumber]]-1; // if the break didn't get triggered, go back to the beginning.
+        }
+        #ifdef DEBUG_NEMA
+        std::cout<<"current in cycle time="<<currentInCycleTime<<" ring "<<ringNumber<< " aphase: "<<aPhaseIndex+1<<std::endl;
+        #endif
         if (ringNumber == 0){
-            if (found[ringNumber]){
-                activeRing1Index = aPhaseIndex;
-                activeRing1Phase = activeRing1Index + 1;
-            }
+            activeRing1Index = aPhaseIndex;
+            activeRing1Phase = activeRing1Index + 1;
         }
         else{
-            if (found[ringNumber]){
-                activeRing2Index = aPhaseIndex;
-                activeRing2Phase = activeRing2Index + 1;
-            }
+            activeRing2Index = aPhaseIndex;
+            activeRing2Phase = activeRing2Index + 1;
         }
-    }
-    if (found[0] * found[1] < 1){
-        // If one or the other phases weren't found, default to the coordinated phase.
-        // This ensures that no barriers are crossed
-        activeRing2Phase = r2coordinatePhase;
-        activeRing2Index = r2coordinatePhase - 1;
-        activeRing1Phase = r1coordinatePhase;
-        activeRing1Index = r1coordinatePhase - 1;
     }
 }
 
