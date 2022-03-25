@@ -410,6 +410,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
     // warning already given if not all states are used
     assert(numLinks <= (int)phases.front()->getState().size());
     SUMOTime duration = 0;
+    std::vector<double> firstRedDuration(numLinks, 0);
     std::vector<double> redDuration(numLinks, 0);
     std::vector<double> totalRedDuration(numLinks, 0);
     std::vector<double> penalty(numLinks, 0);
@@ -418,21 +419,29 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
         duration += phases[i]->duration;
         // warn about transitions from green to red without intermediate yellow
         for (int j = 0; j < numLinks; ++j) {
+            double& red = redDuration[j];
             if ((LinkState)state[j] == LINKSTATE_TL_RED
                     || (LinkState)state[j] == LINKSTATE_TL_REDYELLOW) {
-                redDuration[j] += STEPS2TIME(phases[i]->duration);
+                red += STEPS2TIME(phases[i]->duration);
                 totalRedDuration[j] += STEPS2TIME(phases[i]->duration);
-            } else if (redDuration[j] > 0) {
-                penalty[j] += 0.5 * (redDuration[j] * redDuration[j] + redDuration[j]);
-                redDuration[j] = 0;
+            } else if (red > 0) {
+                if (firstRedDuration[j] == 0) {
+                    // store for handling wrap-around
+                    firstRedDuration[j] = red;
+                } else {
+                    // vehicle may arive in any second or the red duration
+                    // compute the sum over [0,red]
+                    penalty[j] += 0.5 * (red * red + red);
+                }
+                red = 0;
             }
         }
     }
-    /// XXX penalty for wrap-around red phases is underestimated
+    // final phase and wrap-around to first phase
     for (int j = 0; j < numLinks; ++j) {
-        if (redDuration[j] > 0) {
-            penalty[j] += 0.5 * (redDuration[j] * redDuration[j] + redDuration[j]);
-            redDuration[j] = 0;
+        double red = redDuration[j] + firstRedDuration[j];
+        if (red) {
+            penalty[j] += 0.5 * (red * red + red);
         }
     }
     const double durationSeconds = STEPS2TIME(duration);
@@ -454,7 +463,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
             link->setMesoTLSPenalty(TIME2STEPS(edgeType.tlsPenalty * penalty[j] / durationSeconds));
             link->setGreenFraction(greenFraction);
             controlledJunctions.insert(link->getLane()->getEdge().getFromJunction()); // MSLink::myJunction is not yet initialized
-            //std::cout << " tls=" << getID() << " i=" << j << " link=" << link->getDescription() << " p=" << penalty[j] << " r=" << redDuration[j] << " tr=" << totalRedDuration[j] << " durSecs=" << durationSeconds << " tlsPen=" << STEPS2TIME(link->getMesoTLSPenalty()) << " gF=" << myLinks[j][k]->getGreenFraction() << "\n";
+            //std::cout << " tls=" << getID() << " i=" << j << " link=" << link->getDescription() << " p=" << penalty[j] << " fr=" << firstRedDuration[j] << " r=" << redDuration[j] << " tr=" << totalRedDuration[j] << " durSecs=" << durationSeconds << " tlsPen=" << STEPS2TIME(link->getMesoTLSPenalty()) << " gF=" << myLinks[j][k]->getGreenFraction() << "\n";
         }
     }
     // initialize empty-net travel times
