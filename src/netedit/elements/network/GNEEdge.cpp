@@ -1585,8 +1585,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEED:
             myNBEdge->setSpeed(-1, parse<double>(value));
             break;
-	case SUMO_ATTR_FRICTION:
-		myNBEdge->setFriction(-1, parse<double>(value));
+	    case SUMO_ATTR_FRICTION:
+		    myNBEdge->setFriction(-1, parse<double>(value));
 		break;
         case SUMO_ATTR_WIDTH:
             if (value.empty() || (value == "default")) {

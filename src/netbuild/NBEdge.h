@@ -149,8 +149,8 @@ public:
         /// @brief The speed allowed on this lane
         double speed;
 
-	/// @brief The friction on this lane
-	double friction;
+	    /// @brief The friction on this lane
+	    double friction;
 
         /// @brief List of vehicle types that are allowed on this lane
         SVCPermissions permissions;
@@ -684,7 +684,7 @@ public:
     * @return The friction on this edge
     */
     double getFriction() const {
-	return myFriction;
+	    return myFriction;
     }
 
     /** @brief The building step of this edge

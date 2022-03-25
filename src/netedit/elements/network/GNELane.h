@@ -170,6 +170,9 @@ public:
     /// @brief returns the current speed of lane
     double getSpeed() const;
 
+    /// @brief returns the current speed of lane
+    double getFriction() const;
+
     /* @brief method for setting the index of the lane
      * @param[in] index The new index of lane
      */
