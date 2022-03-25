@@ -75,6 +75,8 @@ public:
         MSVehicle*                lastBlocked;
         /// @brief the farthest downstream vehicle on this edge that is blocked from changing to this lane
         MSVehicle*                firstBlocked;
+        /// @brief the next vehicle downstream of the ego vehicle that is stopped (and thus an obstacle)
+        MSVehicle*                lastStopped;
 
         double dens;
 
@@ -148,7 +150,7 @@ protected:
 
 
     /** try changing to the opposite direction edge. */
-    bool changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader);
+    bool changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader, MSVehicle* lastStopped);
 
     std::pair<MSVehicle* const, double> getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*,
             double> neighOncoming, double searchDist, double& vMax, const MSVehicle* overtaken = nullptr,
@@ -257,23 +259,34 @@ protected:
     /// @brief decide whether to change (back or forth) for an opposite stop
     bool checkOppositeStop(MSVehicle* vehicle, const MSLane* oncomingLane, const MSLane* opposite, std::pair<MSVehicle*, double> leader);
 
-    /// @brief avoid opposite-diretion deadlock when vehicles are stopped on both sides of the road
+    /** @brief avoid opposite-diretion deadlock when vehicles are stopped on both sides of the road
+     * The method may call saveBlockerLength to affect vehicle speed in the next step
+     */
     bool avoidDeadlock(MSVehicle* vehicle,
         std::pair<MSVehicle*, double> neighLead,
         std::pair<MSVehicle*, double> overtaken,
         std::pair<MSVehicle*, double> leader);
 
-    /// @brief keep stopping to resolve opposite-diretion deadlock while there is oncoming traffic
-    void resolveDeadlock(MSVehicle* vehicle, std::pair<MSVehicle* const, double> leader, std::pair<MSVehicle*, double> neighLead, double deadLockZone);
+    /** @brief keep stopping to resolve opposite-diretion deadlock while there is oncoming traffic
+     * The method may call saveBlockerLength to affect vehicle speed in the next step
+     */
+    bool resolveDeadlock(MSVehicle* vehicle,
+            std::pair<MSVehicle* const, double> leader,
+            std::pair<MSVehicle*, double> neighLead,
+            std::pair<MSVehicle*, double> overtaken);
 
     /// @brief check whether to keep stopping for oncoming vehicles in the deadlock zone
     bool yieldToDeadlockOncoming(const MSVehicle* vehicle, const MSVehicle* stoppedNeigh, double dist);
+
+    /// @brief check whether to yield for oncoming vehicles that have waited longer for opposite overtaking
+    bool yieldToOppositeWaiting(const MSVehicle* vehicle, const MSVehicle* stoppedNeigh, double dist, SUMOTime deltaWait = 0);
 
     /// @brief determine for how long the vehicle can drive safely on the opposite side
     double computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLength, const MSLane* source, double usableDist,
         std::pair<MSVehicle*, double> oncoming, double vMax, double oncomingSpeed,
         std::pair<MSVehicle*, double> neighLead,
         std::pair<MSVehicle*, double> overtaken,
+        std::pair<MSVehicle*, double> neighFollow,
         double surplusGap, const MSLane* opposite);
 
     // @brief compute distance that can safely be driven on the opposite side

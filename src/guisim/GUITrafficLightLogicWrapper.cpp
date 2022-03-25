@@ -206,7 +206,7 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
     }
     new FXMenuSeparator(ret);
     buildShowParamsPopupEntry(ret, false);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
 

@@ -3820,7 +3820,7 @@ NBEdge::addLane(int index, bool recomputeShape, bool recomputeConnections, bool 
     if (myLanes.size() > 1) {
         int templateIndex = index > 0 ? index - 1 : index + 1;
         myLanes[index].speed = myLanes[templateIndex].speed;
-	myLanes[index].friction = myLanes[templateIndex].friction;
+	    myLanes[index].friction = myLanes[templateIndex].friction;
         myLanes[index].permissions = myLanes[templateIndex].permissions;
         myLanes[index].preferred = myLanes[templateIndex].preferred;
         myLanes[index].endOffset = myLanes[templateIndex].endOffset;

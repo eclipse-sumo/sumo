@@ -294,7 +294,7 @@ GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow& app,
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
 

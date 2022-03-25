@@ -342,6 +342,9 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
                 if (laneType.attrs.count(SUMO_ATTR_SPEED) > 0) {
                     myCurrentEdge->setSpeed(lane, laneType.speed);
                 }
+                if (laneType.attrs.count(SUMO_ATTR_FRICTION) > 0) {
+                    myCurrentEdge->setFriction(lane, laneType.friction);
+                }
                 if (laneType.attrs.count(SUMO_ATTR_DISALLOW) > 0 || laneType.attrs.count(SUMO_ATTR_ALLOW) > 0) {
                     myCurrentEdge->setPermissions(laneType.permissions, lane);
                 }

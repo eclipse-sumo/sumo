@@ -391,7 +391,7 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
     //
     buildShowParamsPopupEntry(ret, false);
     buildShowTypeParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     myPopup = ret;
     return ret;
 }

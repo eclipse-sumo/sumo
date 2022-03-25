@@ -224,6 +224,8 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     GUIMainWindow(a),
     myLoadThread(nullptr), myRunThread(nullptr),
     myAmLoading(false),
+    myIsReload(false),
+    myGuiSettingsFileMTime(-2),
     myAlternateSimDelay(0.),
     myRecentNetworksAndConfigs(a, "files"),
     myConfigPattern(configPattern),
@@ -237,7 +239,8 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myTimeLoss(0),
     myEmergencyVehicleCount(0),
     myTotalDistance(0),
-    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY) {
+    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY)
+{
     // init icons
     GUIIconSubSys::initIcons(a);
     // init cursors
@@ -350,6 +353,14 @@ GUIApplicationWindow::create() {
     }
     myShowTimeAsHMS = (getApp()->reg().readIntEntry("gui", "timeasHMS", 0) == 1);
     myAlternateSimDelay = getApp()->reg().readIntEntry("gui", "alternateSimDelay", 100);
+    const std::string& onlineMaps = getApp()->reg().readStringEntry("gui", "onlineMaps", "");
+    for (const std::string& entry : StringTokenizer(onlineMaps, "\n").getVector()) {
+        const std::vector<std::string> split = StringTokenizer(entry, "\t").getVector();
+        myOnlineMaps[split[0]] = split[1];
+    }
+    if (myOnlineMaps.empty()) {
+        myOnlineMaps["GeoHack"] = "https://geohack.toolforge.org/geohack.php?params=%lat;%lon_scale:1000";
+    }
 }
 
 
@@ -1006,6 +1017,7 @@ GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
         storeWindowSizeAndPos();
         getApp()->beginWaitCursor();
         myAmLoading = true;
+        myIsReload = true;
         closeAllWindows();
         myLoadThread->start();
         setStatusBarText("Reloading.");
@@ -1617,10 +1629,17 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             // initialise views
             myViewNumber = 0;
             const GUISUMOViewParent::ViewType defaultType = ec->myOsgView ? GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL;
+            // check/record settings file modification time
+            long long mTime = myGuiSettingsFileMTime;
             if (ec->mySettingsFiles.size() > 0) {
+                for (std::string fname : ec->mySettingsFiles) {
+                    mTime = MAX2(mTime, SysUtils::getModifiedTime(fname));
+                }
+            }
+            if (ec->mySettingsFiles.size() > 0 && (!myIsReload || myGuiSettingsFileMTime < mTime)) {
                 // open a view for each file and apply settings
-                for (std::vector<std::string>::const_iterator it = ec->mySettingsFiles.begin(); it != ec->mySettingsFiles.end(); ++it) {
-                    GUISettingsHandler settings(*it);
+                for (std::string fname : ec->mySettingsFiles) {
+                    GUISettingsHandler settings(fname);
                     GUISUMOViewParent::ViewType vt = defaultType;
                     if (settings.getViewType() == "osg" || settings.getViewType() == "3d") {
                         vt = GUISUMOViewParent::VIEW_3D_OSG;
@@ -1634,6 +1653,11 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                     }
                     if (settings.getSettingName() != "") {
                         view->setColorScheme(settings.getSettingName());
+                        FXComboBox* sCombo = view->getColoringSchemesCombo();
+                        int index = sCombo->findItem(settings.getSettingName().c_str());
+                        if (index >= 0) {
+                            sCombo->setCurrentItem(index);
+                        }
                     }
                     view->addDecals(settings.getDecals());
                     settings.applyViewport(view);
@@ -1655,6 +1679,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             } else {
                 openNewView(defaultType);
             }
+            myGuiSettingsFileMTime = mTime;
 
             if (!OptionsCont::getOptions().isDefault("delay")) {
                 setDelay(OptionsCont::getOptions().getFloat("delay"));
@@ -1885,6 +1910,7 @@ GUIApplicationWindow::loadConfigOrNet(const std::string& file) {
         storeWindowSizeAndPos();
         getApp()->beginWaitCursor();
         myAmLoading = true;
+        myIsReload = false;
         closeAllWindows();
         gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
         myLoadThread->loadConfigOrNet(file);

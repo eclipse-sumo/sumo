@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNECommonNetworkModules.cpp
+/// @file    GNENetworkSelector.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2022
 ///
@@ -47,8 +47,8 @@ FXIMPLEMENT(GNENetworkSelector, FXGroupBoxModule, SelectorParentNetworkElementsM
 
 GNENetworkSelector::GNENetworkSelector(GNEFrame* frameParent, const Type networkElementType) :
     FXGroupBoxModule(frameParent->getContentFrame(), "NetworkElements"),
-    myNetworkElementType(networkElementType),
-    myFrameParent(frameParent) {
+    myFrameParent(frameParent),
+    myNetworkElementType(networkElementType) {
      // Create horizontal frame
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create buttons

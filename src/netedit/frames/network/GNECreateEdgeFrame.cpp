@@ -499,6 +499,37 @@ GNECreateEdgeFrame::LaneTypeSelector::onCmdAddLaneType(FXObject*, FXSelector, vo
 
 long
 GNECreateEdgeFrame::LaneTypeSelector::onCmdDeleteLaneType(FXObject*, FXSelector, void*) {
+    // check what edgeType is being edited
+    if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
+        // add new lane in default edge type
+        myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->removeLaneType(myLaneIndex);
+        // refresh laneTypeSelector
+        refreshLaneTypeSelector();
+        // set combo box
+        myLaneTypesComboBox->setCurrentItem(0);
+    } else if (!myCreateEdgeFrameParent->myEdgeTypeSelector->useEdgeTemplate()) {
+        // get selected
+        const auto edgeType = myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected();
+        if (edgeType) {
+            // create new edgeType
+            GNEEdgeType* newEdgeType = new GNEEdgeType(edgeType);
+            // create laneTypes (except current)
+            for (int i = 0; i < edgeType->getLaneTypes().size(); i++) {
+                if (i != myLaneIndex) {
+                    newEdgeType->addLaneType(new GNELaneType(newEdgeType, edgeType->getLaneTypes().at(i)));
+                }
+            }
+            // remove old edgeTyp und and newEdgeType
+            myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::LANE, "remove laneType");
+            myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, false), true);
+            myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(newEdgeType, true), true);
+            myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
+            // update index
+            myLaneIndex = myLaneTypesComboBox->getNumItems() - 1;
+            // set current edgeType in selector
+            myCreateEdgeFrameParent->myEdgeTypeSelector->setCurrentEdgeType(newEdgeType);
+        }
+    }
     return 0;
 }
 
@@ -584,6 +615,10 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
     // first check if there is an edge template, an edge type (default or custom)
     if (!myEdgeTypeSelector->useDefaultEdgeType() && !myEdgeTypeSelector->useEdgeTemplate() && (myEdgeTypeSelector->getEdgeTypeSelected() == nullptr)) {
         WRITE_WARNING("Select either default edgeType or a custom edgeType or template");
+    } else if (!myEdgeTypeAttributes->areValuesValid()) {
+        WRITE_WARNING("Invalid edge attributes");
+    } else if (!myLaneTypeAttributes->areValuesValid()) {
+        WRITE_WARNING("Invalid lane attributes");
     } else {
         // obtain junction depending of gridEnabled
         GNEJunction* junction = nullptr;

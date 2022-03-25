@@ -422,7 +422,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
 
     // Apply Friction Modifications
-    if (oc.exists("default.friction")) {
+    if (oc.exists("default.friction") && (oc.getFullName().find("netedit") == std::string::npos)) {
         const double df = oc.getFloat("default.friction");
         for (const auto& it : myEdgeCont) {
             NBEdge* const e = it.second;

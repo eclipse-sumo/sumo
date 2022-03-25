@@ -1278,7 +1278,9 @@ MSLCM_SL2015::_wantsChangeSublane(
         //   if there is a leader and he wants to change to the opposite direction
         MSVehicle* neighLeadLongest = const_cast<MSVehicle*>(getLongest(neighLeaders).first);
         const bool canContinue = curr.bestContinuations.size() > 1;
+#ifdef DEBUG_WANTSCHANGE
         if (DEBUG_COND) std::cout << SIMTIME << " veh=" << myVehicle.getID() << " neighLeaders=" << neighLeaders.toString() << " longest=" << Named::getIDSecure(neighLeadLongest) << " firstBlocked=" << Named::getIDSecure(*firstBlocked) << "\n";
+#endif
         bool canReserve = MSLCHelper::saveBlockerLength(myVehicle, neighLeadLongest, lcaCounter, myLeftSpace, canContinue, myLeadingBlockerLength);
         if (*firstBlocked != neighLeadLongest && tieBrakeLeader(*firstBlocked)) {
             canReserve &= MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace, canContinue, myLeadingBlockerLength);

@@ -47,4 +47,6 @@ public:
 
     /// @brief run a shell command without popping up any windows (particuarly on win32)
     static unsigned long runHiddenCommand(const std::string& cmd);
+
+    static long long getModifiedTime(const std::string& fname);
 };
