@@ -705,7 +705,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         // build show parameters menu
         buildShowParamsPopupEntry(ret);
         // build position copy entry
-        buildPositionCopyEntry(ret, false);
+        buildPositionCopyEntry(ret, app);
     }
     // check if we're in supermode network
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {

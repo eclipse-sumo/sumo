@@ -73,7 +73,7 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
     myVehicle->buildPopupHeader(this, app);
     // build menu command for center button and copy cursor position to clipboard
     myVehicle->buildCenterPopupEntry(this);
-    myVehicle->buildPositionCopyEntry(this, false);
+    myVehicle->buildPositionCopyEntry(this, app);
     // buld menu commands for names
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
@@ -164,7 +164,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
     vehicle->buildPopupHeader(this, app);
     // build menu command for center button and copy cursor position to clipboard
     vehicle->buildCenterPopupEntry(this);
-    vehicle->buildPositionCopyEntry(this, false);
+    vehicle->buildPositionCopyEntry(this, app);
     // buld menu commands for names
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
@@ -1417,6 +1417,8 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                     return true;
                 } else if (isTemplate()) {
                     return true;
+                } else if (getParentJunctions().size() > 0) {
+                    return (dummyDepartLane == 0);
                 } else {
                     return dummyDepartLane < (int)getFirstPathLane()->getParentEdge()->getLanes().size();
                 }
@@ -1453,7 +1455,15 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             ArrivalLaneDefinition dummyArrivalLaneProcedure;
             parseArrivalLane(value, toString(SUMO_TAG_VEHICLE), id, dummyArrivalLane, dummyArrivalLaneProcedure, error);
             // if error is empty, given value is valid
-            return error.empty();
+            if (error.empty()) {
+                if (getParentJunctions().size() > 0) {
+                    return (dummyArrivalLane == 0);
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         }
         case SUMO_ATTR_ARRIVALPOS: {
             double dummyArrivalPos;

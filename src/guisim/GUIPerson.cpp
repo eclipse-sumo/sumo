@@ -213,7 +213,7 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowTypeParamsPopupEntry(ret);
     GUIDesigns::buildFXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPLAN);
     new FXMenuSeparator(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
 

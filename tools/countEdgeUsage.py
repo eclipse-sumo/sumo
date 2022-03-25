@@ -21,13 +21,14 @@ from optparse import OptionParser
 from collections import defaultdict
 import sumolib
 from sumolib.output import parse_fast, parse
-from sumolib.miscutils import Statistics, parseTime
+from sumolib.miscutils import Statistics, parseTime, getFlowNumber
 
+END_UNLIMITED = 1e100
 
 def parse_args():
     DEFAULT_ELEMENTS = ['trip', 'route', 'walk']
     # when departure time must be known
-    DEFAULT_ELEMENTS2 = ['vehicle']
+    DEFAULT_ELEMENTS2 = ['vehicle', 'trip', 'flow']
 
     USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
     optParser = OptionParser()
@@ -67,6 +68,11 @@ def parse_args():
         with open(options.subpart_file) as subparts:
             for line in subparts:
                 options.subparts.append(line.strip().split(','))
+    if options.taz:
+        for subpart in options.subparts:
+            if len(subpart) > 2:
+                sys.stderr.write("At most two elements can be in a subpart when using --taz (found %s)\n" % subpart)
+                sys.exit(1)
 
     options.elements = options.elements.split(',')
 
@@ -77,7 +83,7 @@ def parse_args():
         options.period = parseTime(options.period)
 
     options.elements2 = []
-    if options.begin != 0 or options.end is not None or options.period:
+    if options.begin != 0 or options.end is not None or options.period or options.taz or 'flow' in options.elements:
         if options.elements == DEFAULT_ELEMENTS:
             options.elements2 = DEFAULT_ELEMENTS2
         else:
@@ -90,7 +96,7 @@ def parse_args():
             options.elements = []
 
     if options.end is None:
-        options.end = 1e100
+        options.end = END_UNLIMITED
 
     return options
 
@@ -103,6 +109,28 @@ def hasSubpart(edges, subparts):
             if edges[i:i + len(subpart)] == subpart:
                 return True
     return False
+
+def getEdges(elem, taz):
+    edges = []
+    src = None
+    dst = None
+    if elem.edges:
+        edges =  elem.edges.split()
+    if elem.route:
+        edges = elem.route[0].edges.split()
+    if edges:
+        src = edges[0]
+        dst = edges[-1]
+    try:
+        if taz:
+            src = elem.fromTaz
+            dst = elem.toTaz
+        elif not edges:
+            src = elem.attr_from
+            dst = elem.to
+    except:
+        pass
+    return src, dst, edges
 
 
 def writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts, begin=0, end="1000000", prefix=""):
@@ -136,9 +164,8 @@ def writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts
     arrivalCounts.clear()
     intermediateCounts.clear()
 
-
 def parseSimple(outf, options):
-    """parse elements without checking time"""
+    """parse elements without checking time (uses fast parser)"""
     departCounts = defaultdict(lambda: 0)
     arrivalCounts = defaultdict(lambda: 0)
     intermediateCounts = defaultdict(lambda: 0)
@@ -158,16 +185,14 @@ def parseSimple(outf, options):
     fromAttr, toAttr = ('fromTaz', 'toTaz') if options.taz else ('from', 'to')
     if 'trip' in options.elements:
         for trip in parse_fast(options.routefile, 'trip', ['id', fromAttr, toAttr]):
-            if options.subparts:
-                sys.stderr.write("Warning: Ignoring trips when using --subpart\n")
-                break
+            if not hasSubpart([trip[1], trip[2]], options.subparts):
+                continue
             departCounts[trip[1]] += 1
             arrivalCounts[trip[2]] += 1
     if 'walk' in options.elements:
         for walk in parse_fast(options.routefile, 'walk', ['from', 'to']):
-            if options.subparts:
-                sys.stderr.write("Warning: Ignoring trips when using --subpart\n")
-                break
+            if not hasSubpart([walk[1], walk[2]], options.subparts):
+                continue
             departCounts[walk.attr_from] += 1
             arrivalCounts[walk.to] += 1
 
@@ -197,7 +222,7 @@ def parseTimed(outf, options):
     periodEnd = options.period if options.period else options.end
 
     for elem in parse(options.routefile, options.elements2):
-        depart = elem.depart
+        depart = elem.depart if elem.depart is not None else elem.begin
         if depart != "triggered":
             depart = parseTime(depart)
             lastDepart = depart
@@ -215,16 +240,19 @@ def parseTimed(outf, options):
                 begin += period
             if depart >= options.end:
                 break
-        if elem.route:
-            edges = elem.route[0].edges.split()
-            if not hasSubpart(edges, options.subparts):
-                continue
-            departCounts[edges[0]] += 1
-            arrivalCounts[edges[-1]] += 1
+        number = getFlowNumber(elem) if elem.name == 'flow' else 1
+        src, dst, edges = getEdges(elem, options.taz)
+        filterBy = [src, dst] if options.taz or not edges else edges
+        if not hasSubpart(filterBy, options.subparts):
+            continue
+        departCounts[src] += number
+        arrivalCounts[dst] += number
+        if options.intermediate:
             for e in edges:
-                intermediateCounts[e] += 1
+                intermediateCounts[e] += number
 
-    description = "%s-%s " % (begin, periodEnd)
+
+    description = "%s-%s " % (begin, periodEnd) if periodEnd != END_UNLIMITED else ""
     if len(departCounts) > 0:
         writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts, begin, lastDepart, description)
 

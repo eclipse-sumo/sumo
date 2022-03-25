@@ -67,3 +67,6 @@ apparg_negative
 
 # pass negative sumo--argument via config
 apparg_negative_config
+
+# save statistic output for each iteration
+custom_output

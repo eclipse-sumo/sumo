@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 270, 43)
 
 # set invalid person number
-netedit.changeColorUsingDialog(netedit.attrs.person.create.colorDialog, 5)
+netedit.changeColorUsingDialog(netedit.attrs.person.create.colorButton, 5)
 
 # press enter to create route
 netedit.typeEnter()

@@ -310,7 +310,7 @@ GUITriggeredRerouter::getPopUpMenu(GUIMainWindow& app,
     buildShowManipulatorPopupEntry(ret, false);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
 

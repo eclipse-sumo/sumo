@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-24 13:14:08 by Eclipse SUMO netedit Version v1_12_0+1638-32108459c31
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Mar130815.22304\netedit.gui\netElements\edges\create\spreadtype\net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <netedit>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Mar130815.22304\netedit.gui\netElements\edges\create\spreadtype\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Mar130815.22304\netedit.gui\netElements\edges\create\spreadtype\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Mar130815.22304\netedit.gui\netElements\edges\create\spreadtype\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Mar130815.22304\netedit.gui\netElements\edges\create\spreadtype\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Mar130815.22304\netedit.gui\netElements\edges\create\spreadtype\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Mar130815.22304\netedit.gui\netElements\edges\create\spreadtype\datas.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Mar130815.22304\netedit.gui\netElements\edges\create\spreadtype\gui-settings.xml"/>
+        <window-size value="936,697"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Mar130815.22304\netedit.gui\netElements\edges\create\spreadtype\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Mar130815.22304\netedit.gui\netElements\edges\create\spreadtype\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,75.00,85.00,75.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id="E0" from="J0" to="J1" priority="-1" spreadType="center">
+        <lane id="E0_0" index="0" speed="13.89" length="85.00" shape="0.00,75.00 85.00,75.00"/>
+    </edge>
+
+    <junction id="J0" type="dead_end" x="0.00" y="75.00" incLanes="" intLanes="" shape="0.00,76.60 0.00,73.40"/>
+    <junction id="J1" type="dead_end" x="85.00" y="75.00" incLanes="E0_0" intLanes="" shape="85.00,73.40 85.00,76.60"/>
+
+</net>

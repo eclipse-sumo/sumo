@@ -60,7 +60,7 @@ GUIDetectorWrapper::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     if (mySupportsOverride) {
         new FXMenuSeparator(ret);
         if (haveOverride()) {

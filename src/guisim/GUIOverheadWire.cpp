@@ -122,7 +122,7 @@ GUIOverheadWire::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
 
@@ -336,7 +336,7 @@ GUIOverheadWireClamp::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& pare
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
 

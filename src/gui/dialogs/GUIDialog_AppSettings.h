@@ -40,7 +40,7 @@ public:
      *
      * @param[in] parent The parent window
      */
-    GUIDialog_AppSettings(FXMainWindow* parent);
+    GUIDialog_AppSettings(GUIMainWindow* parent);
 
     /// @brief Destructor
     ~GUIDialog_AppSettings();
@@ -63,6 +63,9 @@ public:
 
 
 private:
+    /// @brief The main GUI window
+    GUIMainWindow* myParent;
+        
     /// @brief Information whether the application shall be quit
     bool myAppQuitOnEnd;
 
@@ -80,6 +83,9 @@ private:
 
     /// @brief Offset when adding breakpoints
     FXRealSpinner* myBreakPointOffset;
+
+    /// @brief The list that holds the URLs
+    FXTable* myTable;
 
 protected:
     FOX_CONSTRUCTOR(GUIDialog_AppSettings)

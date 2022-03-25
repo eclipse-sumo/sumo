@@ -19,6 +19,8 @@
 # GENERAL
 # --------------------------------
 
+class EditElements:
+    overlapped = 5
 
 class Selection:
     class LockSelectionNetwork:
@@ -114,6 +116,27 @@ class junction:
 
 
 class edge:
+    class create:
+        numLanes = 5
+        speed = 6
+        allowButton = 7
+        allow = 8
+        disallowButton = 9
+        disallow = 10
+        spreadType = 11
+        priority = 13
+        width = 14
+
+    class createLane:
+        add = 20
+        remove = 21
+        speed = 22
+        allowButton = 23
+        allow = 24
+        disallowButton = 25
+        disallow = 26
+        width = 27
+
     class inspect:
         id = 1
         fromEdge = 2
@@ -295,6 +318,8 @@ class connection:
         type = 20
         parameters = 22
 
+    saveConnections = 4
+
 # crossing
 
 
@@ -336,9 +361,28 @@ class crossing:
         linkIndex2 = 4
         parameters = 7
 
+    clearEdges = 3
+    clearEdgesSelected = 4
+    firstField = 5
+
+
+# TLS
+
+
+class TLS:
+    class create:
+        TLS = 10
+        noTLS = 11
+
+
 # --------------------------------
 # ADDITIONALS
 # --------------------------------
+
+# additionals
+
+class additionals:
+    changeElement = 2
 
 # busStop
 
@@ -351,7 +395,7 @@ class busStop:
         lines = 8
         personCapacity = 9
         parkingLength = 10
-        colorDialog = 11
+        colorButton = 11
         color = 12
         references = 16
         length = 18
@@ -366,7 +410,7 @@ class busStop:
         lines = 7
         personCapacity = 8
         parkingLength = 9
-        colorDialog = 10
+        colorButton = 10
         color = 11
         parameters = 14
 
@@ -376,7 +420,7 @@ class busStop:
         lines = 3
         personCapacity = 4
         parkingLength = 5
-        colorDialog = 6
+        colorButton = 6
         color = 7
         parameters = 10
 
@@ -391,7 +435,7 @@ class trainStop:
         lines = 8
         personCapacity = 9
         parkingLength = 10
-        colorDialog = 11
+        colorButton = 11
         color = 12
         references = 16
         length = 18
@@ -406,7 +450,7 @@ class trainStop:
         lines = 7
         personCapacity = 8
         parkingLength = 9
-        colorDialog = 10
+        colorButton = 10
         color = 11
         parameters = 14
 
@@ -416,7 +460,7 @@ class trainStop:
         lines = 3
         personCapacity = 4
         parkingLength = 5
-        colorDialog = 6
+        colorButton = 6
         color = 7
         parameters = 10
 
@@ -431,7 +475,7 @@ class containerStop:
         lines = 8
         containerCapacity = 9
         parkingLength = 10
-        colorDialog = 11
+        colorButton = 11
         color = 12
         references = 16
         length = 18
@@ -446,7 +490,7 @@ class containerStop:
         lines = 7
         containerCapacity = 8
         parkingLength = 9
-        colorDialog = 10
+        colorButton = 10
         color = 11
         parameters = 14
 
@@ -456,7 +500,7 @@ class containerStop:
         lines = 3
         containerCapacity = 4
         parkingLength = 5
-        colorDialog = 6
+        colorButton = 6
         color = 7
         parameters = 10
 
@@ -2014,10 +2058,11 @@ class waypointLane:
 
 # Person
 
+
 class person:
     class create:
         id = 8
-        colorDialog = 9
+        colorButton = 9
         color = 10
         depart = 11
 

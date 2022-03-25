@@ -244,3 +244,25 @@ def parseTime(t, factor=1):
 def parseBool(val):
     # see data/xsd/baseTypes:boolType
     return val in ["true", "True", "x", "1", "yes", "on"]
+
+def getFlowNumber(flow):
+    """interpret number of vehicles from a flow parsed by sumolib.xml.parse"""
+    if flow.number is not None:
+        return int(flow.number)
+    if flow.end is not None:
+        duration = parseTime(flow.end) - parseTime(flow.begin)
+        period = 0
+        if flow.period is not None:
+            if 'exp' in flow.period:
+                # use expecte value
+                period = 1 / float(flow.period[4:-2])
+            else:
+                period = float(flow.period)
+        for attr in ['perHour', 'vehsPerHour']:
+            if flow.hasAttribute(attr):
+                period = 3600 / float(flow.getAttributes(attr))
+        if period > 0:
+            return math.ceil(duration / period)
+        else:
+            return 1
+

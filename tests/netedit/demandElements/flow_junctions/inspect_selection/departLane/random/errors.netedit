@@ -15,14 +15,14 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Inserting generic parameter 'KeyA1|valueA1' into trip
-Debug: Inserting generic parameter 'KeyA3|valueA2' into trip
-Debug: Inserting generic parameter 'KeyA2|valueA3' into trip
-Debug: Adding tripJunctions 'tripA' in GNEChange_DemandElement
-Debug: Inserting generic parameter 'KeyB1|valueB1' into trip
-Debug: Inserting generic parameter 'KeyB3|valueB2' into trip
-Debug: Inserting generic parameter 'KeyB2|valueB3' into trip
-Debug: Adding tripJunctions 'tripB' in GNEChange_DemandElement
+Debug: Inserting generic parameter 'KeyA1|valueA1' into flow
+Debug: Inserting generic parameter 'KeyA3|valueA2' into flow
+Debug: Inserting generic parameter 'KeyA2|valueA3' into flow
+Debug: Adding flowJunctions 'flowA' in GNEChange_DemandElement
+Debug: Inserting generic parameter 'KeyB1|valueB1' into flow
+Debug: Inserting generic parameter 'KeyB3|valueB2' into flow
+Debug: Inserting generic parameter 'KeyB2|valueB3' into flow
+Debug: Adding flowJunctions 'flowB' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
@@ -74,7 +74,7 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Value 'dummyDepart' for attribute departLane of tripJunctions isn't valid
+Debug: Value 'dummyDepart' for attribute departLane of flowJunctions isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -91,13 +91,13 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing tripJunctions 'tripB' in GNEChange_DemandElement
-Debug: Removing tripJunctions 'tripA' in GNEChange_DemandElement
+Debug: Removing flowJunctions 'flowB' in GNEChange_DemandElement
+Debug: Removing flowJunctions 'flowA' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding tripJunctions 'tripA' in GNEChange_DemandElement
-Debug: Adding tripJunctions 'tripB' in GNEChange_DemandElement
+Debug: Adding flowJunctions 'flowA' in GNEChange_DemandElement
+Debug: Adding flowJunctions 'flowB' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -148,8 +148,8 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Deleting unreferenced tripJunctions 'tripB'
-Debug: Deleting unreferenced tripJunctions 'tripA'
+Debug: Deleting unreferenced flowJunctions 'flowB'
+Debug: Deleting unreferenced flowJunctions 'flowA'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor

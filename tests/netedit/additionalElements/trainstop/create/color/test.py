@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("trainStop")
 
 # set invalid person number
-netedit.changeColorUsingDialog(netedit.attrs.trainStop.create.colorDialog, 5)
+netedit.changeColorUsingDialog(netedit.attrs.trainStop.create.colorButton, 5)
 
 # try to create trainStop
 netedit.leftClick(referencePosition, 250, 250)

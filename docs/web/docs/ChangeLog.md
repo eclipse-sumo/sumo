@@ -43,7 +43,7 @@ title: ChangeLog
     - Fixed crash on simulation.loadState with persons. Issue #10228, #10261
     - Fixed pedestrians behavior after quick-loading state. Issue #10229, #10245, #10250, #10260, #10257
     - Simulation with persons in loaded state now terminates reliably. Issue #10233
-    - stops of named routes missing are now restored when loading state. Issue #10230
+    - stops of named routes are now restored when loading state. Issue #10230
     - Fixed different randomness after loading state. Issue #10251
     - Fixed invalid fcd-output after loading persons from state. Issue #10259
     - Fixed invalid phase of actuated tls after loading state. Issue #10263
@@ -121,27 +121,28 @@ title: ChangeLog
 ### Enhancements
 
 - Simulation
-  - The default lateral alignment of bicycles is now "right" instead of "center". Issue #9959
-  - Traffic light type 'NEMA' now supports TS1 and TS2 offsets as well as Type 170. Issue #10013
-  - Phase attributes 'minDur, maxDur, earliestEnd, latestEnd' can now be [overridden with condition-expressions](Simulation/Traffic_Lights.md#overriding_phase_attributes_with_expressions). Issue #10047
-  - Traffic lights with custom switching rules now support [custom runtime variables](Simulation/Traffic_Lights.md#storing_and_modifying_custom_data). Issue #10049
-  - Traffic lights with custom switching rules now support [user-defined functions](Simulation/Traffic_Lights.md#custom_function_definitions). Issue #10123
-  - Detector and condition states can now be included in [tls output](Simulation/Output/Traffic_Lights.md#optional_output). Issue #10065
+  - traffic lights
+    - Traffic light type 'NEMA' now supports TS1 and TS2 offsets as well as Type 170. Issue #10013
+    - Phase attributes 'minDur, maxDur, earliestEnd, latestEnd' can now be [overridden with condition-expressions](Simulation/Traffic_Lights.md#overriding_phase_attributes_with_expressions). Issue #10047
+    - Traffic lights with custom switching rules now support [custom runtime variables](Simulation/Traffic_Lights.md#storing_and_modifying_custom_data). Issue #10049
+    - Traffic lights with custom switching rules now support [user-defined functions](Simulation/Traffic_Lights.md#custom_function_definitions). Issue #10123
+    - Actuated traffic lights with custom switching rules can now retrieve the current time within the cycle using expression `c:`. Issue #10109
+    - Improved error messages for invalid switching conditions of traffic lights to better identify the faulty input.
+    - Actuated traffic lights may not omit phase attribute 'maxDur' which defaults to ~24days as long as attribute minDur is set. Issue #10204
+    - Detector and condition states can now be included in [tls output](Simulation/Output/Traffic_Lights.md#optional_output). Issue #10065
+  - Added support for [poisson distributed flows](Simulation/Randomness.md#poisson_distribution) #10302  
+  - The default lateral alignment of bicycles is now "right" instead of "center". Issue #9959    
   - edgeData output now supports attributes 'edges' and 'edgesFile' to reduce the output to a configurable list of edges. Issues #10025
   - edgeData output now supports attribute 'aggregate' to aggregate data for all (selected) edges. Issue #10026
   - Vehroute-output now includes attribute 'replacedOnIndex' for routes that were replaced after departure to resolve ambiguity for looped routes. Issue #10092
-  - Added option **--replay-rerouting** to re-run scenarios from vehroute-output in the same way as the original run. Issue #3024
-  - Actuated traffic lights with custom switching rules can now retrieve the current time within the cycle using expression `c:`. Issue #10109  
-  - Added new vehicle attribute 'insertionChecks' that allows forcing vehicle insertion in unsafe situations. #10114
-  - Improved error messages for invalid switching conditions of traffic lights to better identify the faulty input.
+  - Added option **--replay-rerouting** to re-run scenarios from vehroute-output in the same way as the original run. Issue #3024  
+  - Added new vehicle attribute 'insertionChecks' that allows forcing vehicle insertion in unsafe situations. #10114  
   - Added option **--save-configuration.relative** to write config-relative file paths when saving configuration. Issue #6578
   - Smoothed the effect size curve of vehicle impatience. Previously, most of the effect occurred at low impatience values and larger values did not matter. To compensate for the reduced gradient, the default of option **--time-to-impatience** was reduced from 300s to 180s. Issue #8507
   - Vehicle flows with equidistant spacing (i.e. `period="x"`) now remain equidistant when the flow is increased via option **--scale**. Issue #10126
-  - Added vType attribute 'scale' to allow type-specific demand scaling. Issue #1478 
-  - Actuated traffic lights may not omit phase attribute 'maxDur' which defaults to ~24days as long as attribute minDur is set. Issue #10204
+  - Added vType attribute 'scale' to allow type-specific demand scaling. Issue #1478   
   - Option **--emission-output.geo** can be used to switch emission location data to lon,lat. Issue  #10216
-  - Person attribute 'speedFactor' can now be used to override speed distribution. Issue #10254
-  - Added support for [poisson distributed flows](Simulation/Randomness.md#poisson_distribution) #10302
+  - Person attribute 'speedFactor' can now be used to override speed distribution. Issue #10254  
   - Added option **--personroute-output** to separate vehroute output for persons/containers from vehicle routes. Issue #10317
   - Option **--fcd-output.attributes** now supports value 'odometer' to include the odometer value and 'all' to include all values. Issue #10323
   - Option **--time-to-teleport.ride** caues persons and containers to "teleport" after waiting for too long for a ride. Issue #10281
@@ -203,7 +204,7 @@ title: ChangeLog
   - Function vehicle.replaceStop now supports the flag 'teleport=2' to trigger rerouting after stop removal. Issue #10131
   
 - tools
-  - routeStats.py: Can use measures "speed", "speedKmh", "routeLength", the fast XML parser and filter by route length . Issue #10044
+  - routeStats.py: Can use measures "speed", "speedKmh", "routeLength", can switch to the fast XML parser and can also filter by route length . Issue #10044
   - tls_csv2SUMO.py now supports the same signal states as the simulation. Issue #10063
   - osmGet.py: allow filtering road types and shapes in OSM API query to reduce download size. Issue #7585
   - osmWebWizard.py: can now select desired road types to reduce download size. Issue #7585
@@ -215,11 +216,11 @@ title: ChangeLog
 ### miscellaneous
 
 - simulation
-  - Rerouter attribute 'file' is no longer supported. Intervals should be child elements of rerouters. Alternatively XML-native file embedding may be used. Issue #9579
-  - Improved error message when using stops and via in an inconsistent manner. Issue #10110
+  - Rerouter attribute 'file' is no longer supported. Intervals should be child elements of rerouters. Alternatively, element `<include href="FILE"/>`  may be used. Issue #9579
+  - Improved error message when using `<stop>` elements and attribute `via` in an inconsistent manner. Issue #10110
   - limit internal precision of random variables (i.e. sampled speedFactor or random departSpeed) to 4 decimal digits and enforced the same minimum output precision. This avoids problems when replicating a scenario based on **vehroute-output**. Issue #10091
   
- - The [test extraction page](https://sumo.dlr.de/extractTest.php) now supports downloading a whole direction of tests. Issue #10105
+ - The [test extraction page](https://sumo.dlr.de/extractTest.php) now supports downloading a whole directory of tests. Issue #10105
  - The ubuntu package now includes emission tools, header files and libsumo/libtraci.so files. Issue #10136
  - Removed obsolete and broken tool 'personGenerator.py' (use personFlow instead). Issue #10143
 

@@ -2470,8 +2470,8 @@ GNEViewNetHelper::DemandViewOptions::getLockedContainer() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::DataViewOptions::DataViewOptions(GNEViewNet* viewNet) :
-    menuCheckShowAdditionals(nullptr),
     menuCheckToggleDrawJunctionShape(nullptr),
+    menuCheckShowAdditionals(nullptr),
     menuCheckShowShapes(nullptr),
     menuCheckShowDemandElements(nullptr),
     menuCheckToogleTAZRelDrawing(nullptr),

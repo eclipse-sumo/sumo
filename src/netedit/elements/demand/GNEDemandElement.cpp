@@ -172,13 +172,13 @@ GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const d
 
 void
 GNEDemandElement::openDemandElementDialog() {
-    throw InvalidArgument(getTagStr() + " doesn't have an demand element dialog");
+    throw InvalidArgument(getTagStr() + " doesn't have a demand element dialog");
 }
 
 
 std::string
 GNEDemandElement::getBegin() const {
-    throw InvalidArgument(getTagStr() + " doesn't have an begin time");
+    throw InvalidArgument(getTagStr() + " doesn't have a begin time");
 }
 
 
@@ -189,7 +189,7 @@ GNEDemandElement::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) 
     buildPopupHeader(ret, app);
     // build menu command for center button and copy cursor position to clipboard
     buildCenterPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     // buld menu commands for names
     GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
