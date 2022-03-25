@@ -15,3 +15,6 @@ exit_times
 
 # test esimated upper bound on travel speed across traffic light
 empty_trafficlight
+
+# test esimated upper bound on travel speed across traffic light
+empty_trafficlight_tlsPenalty0.5
