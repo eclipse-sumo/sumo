@@ -14,6 +14,7 @@
 
 # @file    edgeDataDiff.py
 # @author  Jakob Erdmann
+# @author  Johannes Rummel
 # @date    2015-08-14
 
 from __future__ import absolute_import
@@ -22,6 +23,7 @@ import os
 import sys
 from collections import defaultdict
 import optparse
+import math
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics, geh  # noqa
@@ -34,6 +36,8 @@ def get_options(args=None):
     optParser.add_option("--geh", action="store_true",
                          default=False, help="write geh value instead of absolute differences")
     optParser.add_option("--undefined", type="float", default=-1001, help="value to use if the difference is undefined")
+    optParser.add_option("--no-statistics", action="store_true",
+                         default=False, help="otherwise: handle attributes starting with 'std_' as standard deviation and calculate propagated error")
     (options, args) = optParser.parse_args(args=args)
 
     if len(args) == 3:
@@ -62,7 +66,7 @@ def write_diff(options):
                 if edge_new is None:
                     continue
                 assert(edge_old.id == edge_new.id)
-                f.write('    <edge id="%s"' % edge_old.id)
+                f.write('        <edge id="%s"' % edge_old.id)
                 for attr in edge_old._fields:
                     if attr == 'id':
                         continue
@@ -70,19 +74,22 @@ def write_diff(options):
                         val_new = float(getattr(edge_new, attr))
                         val_old = float(getattr(edge_old, attr))
                         delta = val_new - val_old
-                        if options.relative:
-                            if val_old != 0:
-                                delta /= abs(val_old)
-                            else:
-                                delta = options.undefined
-                        elif options.geh:
-                            delta = geh(val_new, val_old)
+                        if not options.no_statistics and attr.startswith('std_'):
+                            delta = math.sqrt(val_new**2 + val_old**2)
+                        else:
+                            if options.relative:
+                                if val_old != 0:
+                                    delta /= abs(val_old)
+                                else:
+                                    delta = options.undefined
+                            elif options.geh:
+                                delta = geh(val_new, val_old)
                         diffStats[attr].add(delta, edge_old.id)
                         f.write(' %s="%s"' % (attr, delta))
                     except Exception:
                         pass
                 f.write("/>\n")
-            f.write("</interval>\n")
+            f.write("    </interval>\n")
 
         f.write("</meandata>\n")
         for attr, stats in diffStats.items():

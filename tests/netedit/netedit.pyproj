@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{57a8b664-b86f-4ae7-ad23-0106cfd76645}</ProjectGuid>
+    <ProjectGuid>{a402be16-9f73-4dd1-a5fd-8ce92419fa3c}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -12,7 +12,7 @@
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId />
-    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
+    <Name>netedit</Name>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -1126,22 +1126,26 @@
     <Compile Include="demandElements\stop\busstop\create\default\test.py" />
     <Compile Include="demandElements\stop\busstop\create\duration\test.py" />
     <Compile Include="demandElements\stop\busstop\create\extension\test.py" />
+    <Compile Include="demandElements\stop\busstop\create\line\test.py" />
     <Compile Include="demandElements\stop\busstop\create\no_parent\test.py" />
     <Compile Include="demandElements\stop\busstop\create\parking\test.py" />
     <Compile Include="demandElements\stop\busstop\create\permitted\test.py" />
     <Compile Include="demandElements\stop\busstop\create\triggered_container\test.py" />
     <Compile Include="demandElements\stop\busstop\create\triggered_join\test.py" />
     <Compile Include="demandElements\stop\busstop\create\triggered_person\test.py" />
+    <Compile Include="demandElements\stop\busstop\create\tripID\test.py" />
     <Compile Include="demandElements\stop\busstop\create\until\test.py" />
     <Compile Include="demandElements\stop\busstop\delete\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect\actType\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect\duration\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect\extension\test.py" />
+    <Compile Include="demandElements\stop\busstop\inspect\line\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect\parking\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect\permitted\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect\triggered_container\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect\triggered_join\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect\triggered_person\test.py" />
+    <Compile Include="demandElements\stop\busstop\inspect\tripID\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect\until\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect_selection\actType\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect_selection\duration\test.py" />
@@ -1158,22 +1162,26 @@
     <Compile Include="demandElements\stop\chargingstation\create\default\test.py" />
     <Compile Include="demandElements\stop\chargingstation\create\duration\test.py" />
     <Compile Include="demandElements\stop\chargingstation\create\extension\test.py" />
+    <Compile Include="demandElements\stop\chargingstation\create\line\test.py" />
     <Compile Include="demandElements\stop\chargingstation\create\no_parent\test.py" />
     <Compile Include="demandElements\stop\chargingstation\create\parking\test.py" />
     <Compile Include="demandElements\stop\chargingstation\create\permitted\test.py" />
     <Compile Include="demandElements\stop\chargingstation\create\triggered_container\test.py" />
     <Compile Include="demandElements\stop\chargingstation\create\triggered_join\test.py" />
     <Compile Include="demandElements\stop\chargingstation\create\triggered_person\test.py" />
+    <Compile Include="demandElements\stop\chargingstation\create\tripID\test.py" />
     <Compile Include="demandElements\stop\chargingstation\create\until\test.py" />
     <Compile Include="demandElements\stop\chargingstation\delete\test.py" />
     <Compile Include="demandElements\stop\chargingstation\inspect\actType\test.py" />
     <Compile Include="demandElements\stop\chargingstation\inspect\duration\test.py" />
     <Compile Include="demandElements\stop\chargingstation\inspect\extension\test.py" />
+    <Compile Include="demandElements\stop\chargingstation\inspect\line\test.py" />
     <Compile Include="demandElements\stop\chargingstation\inspect\parking\test.py" />
     <Compile Include="demandElements\stop\chargingstation\inspect\permitted\test.py" />
     <Compile Include="demandElements\stop\chargingstation\inspect\triggered_container\test.py" />
     <Compile Include="demandElements\stop\chargingstation\inspect\triggered_join\test.py" />
     <Compile Include="demandElements\stop\chargingstation\inspect\triggered_person\test.py" />
+    <Compile Include="demandElements\stop\chargingstation\inspect\tripID\test.py" />
     <Compile Include="demandElements\stop\chargingstation\inspect\until\test.py" />
     <Compile Include="demandElements\stop\chargingstation\inspect_selection\actType\test.py" />
     <Compile Include="demandElements\stop\chargingstation\inspect_selection\duration\test.py" />
@@ -1190,22 +1198,26 @@
     <Compile Include="demandElements\stop\containerstop\create\default\test.py" />
     <Compile Include="demandElements\stop\containerstop\create\duration\test.py" />
     <Compile Include="demandElements\stop\containerstop\create\extension\test.py" />
+    <Compile Include="demandElements\stop\containerstop\create\line\test.py" />
     <Compile Include="demandElements\stop\containerstop\create\no_parent\test.py" />
     <Compile Include="demandElements\stop\containerstop\create\parking\test.py" />
     <Compile Include="demandElements\stop\containerstop\create\permitted\test.py" />
     <Compile Include="demandElements\stop\containerstop\create\triggered_container\test.py" />
     <Compile Include="demandElements\stop\containerstop\create\triggered_join\test.py" />
     <Compile Include="demandElements\stop\containerstop\create\triggered_person\test.py" />
+    <Compile Include="demandElements\stop\containerstop\create\tripID\test.py" />
     <Compile Include="demandElements\stop\containerstop\create\until\test.py" />
     <Compile Include="demandElements\stop\containerstop\delete\test.py" />
     <Compile Include="demandElements\stop\containerstop\inspect\actType\test.py" />
     <Compile Include="demandElements\stop\containerstop\inspect\duration\test.py" />
     <Compile Include="demandElements\stop\containerstop\inspect\extension\test.py" />
+    <Compile Include="demandElements\stop\containerstop\inspect\line\test.py" />
     <Compile Include="demandElements\stop\containerstop\inspect\parking\test.py" />
     <Compile Include="demandElements\stop\containerstop\inspect\permitted\test.py" />
     <Compile Include="demandElements\stop\containerstop\inspect\triggered_container\test.py" />
     <Compile Include="demandElements\stop\containerstop\inspect\triggered_join\test.py" />
     <Compile Include="demandElements\stop\containerstop\inspect\triggered_person\test.py" />
+    <Compile Include="demandElements\stop\containerstop\inspect\tripID\test.py" />
     <Compile Include="demandElements\stop\containerstop\inspect\until\test.py" />
     <Compile Include="demandElements\stop\containerstop\inspect_selection\actType\test.py" />
     <Compile Include="demandElements\stop\containerstop\inspect_selection\duration\test.py" />
@@ -1223,12 +1235,14 @@
     <Compile Include="demandElements\stop\lane\create\duration\test.py" />
     <Compile Include="demandElements\stop\lane\create\extension\test.py" />
     <Compile Include="demandElements\stop\lane\create\friendlyPos\test.py" />
+    <Compile Include="demandElements\stop\lane\create\line\test.py" />
     <Compile Include="demandElements\stop\lane\create\parking\test.py" />
     <Compile Include="demandElements\stop\lane\create\permitted\test.py" />
     <Compile Include="demandElements\stop\lane\create\poslat\test.py" />
     <Compile Include="demandElements\stop\lane\create\triggered_container\test.py" />
     <Compile Include="demandElements\stop\lane\create\triggered_join\test.py" />
     <Compile Include="demandElements\stop\lane\create\triggered_person\test.py" />
+    <Compile Include="demandElements\stop\lane\create\tripID\test.py" />
     <Compile Include="demandElements\stop\lane\create\until\test.py" />
     <Compile Include="demandElements\stop\lane\delete\test.py" />
     <Compile Include="demandElements\stop\lane\inspect\actType\test.py" />
@@ -1237,6 +1251,7 @@
     <Compile Include="demandElements\stop\lane\inspect\extension\test.py" />
     <Compile Include="demandElements\stop\lane\inspect\friendlyPos\test.py" />
     <Compile Include="demandElements\stop\lane\inspect\lane\test.py" />
+    <Compile Include="demandElements\stop\lane\inspect\line\test.py" />
     <Compile Include="demandElements\stop\lane\inspect\parking\test.py" />
     <Compile Include="demandElements\stop\lane\inspect\permitted\test.py" />
     <Compile Include="demandElements\stop\lane\inspect\posLat\test.py" />
@@ -1244,6 +1259,7 @@
     <Compile Include="demandElements\stop\lane\inspect\triggered_container\test.py" />
     <Compile Include="demandElements\stop\lane\inspect\triggered_join\test.py" />
     <Compile Include="demandElements\stop\lane\inspect\triggered_person\test.py" />
+    <Compile Include="demandElements\stop\lane\inspect\tripID\test.py" />
     <Compile Include="demandElements\stop\lane\inspect\until\test.py" />
     <Compile Include="demandElements\stop\lane\inspect_selection\actType\test.py" />
     <Compile Include="demandElements\stop\lane\inspect_selection\duration\test.py" />
@@ -1262,20 +1278,24 @@
     <Compile Include="demandElements\stop\parkingarea\create\default\test.py" />
     <Compile Include="demandElements\stop\parkingarea\create\duration\test.py" />
     <Compile Include="demandElements\stop\parkingarea\create\extension\test.py" />
+    <Compile Include="demandElements\stop\parkingarea\create\line\test.py" />
     <Compile Include="demandElements\stop\parkingarea\create\no_parent\test.py" />
     <Compile Include="demandElements\stop\parkingarea\create\permitted\test.py" />
     <Compile Include="demandElements\stop\parkingarea\create\triggered_container\test.py" />
     <Compile Include="demandElements\stop\parkingarea\create\triggered_join\test.py" />
     <Compile Include="demandElements\stop\parkingarea\create\triggered_person\test.py" />
+    <Compile Include="demandElements\stop\parkingarea\create\tripID\test.py" />
     <Compile Include="demandElements\stop\parkingarea\create\until\test.py" />
     <Compile Include="demandElements\stop\parkingarea\delete\test.py" />
     <Compile Include="demandElements\stop\parkingarea\inspect\actType\test.py" />
     <Compile Include="demandElements\stop\parkingarea\inspect\duration\test.py" />
     <Compile Include="demandElements\stop\parkingarea\inspect\extension\test.py" />
+    <Compile Include="demandElements\stop\parkingarea\inspect\line\test.py" />
     <Compile Include="demandElements\stop\parkingarea\inspect\permitted\test.py" />
     <Compile Include="demandElements\stop\parkingarea\inspect\triggered_container\test.py" />
     <Compile Include="demandElements\stop\parkingarea\inspect\triggered_join\test.py" />
     <Compile Include="demandElements\stop\parkingarea\inspect\triggered_person\test.py" />
+    <Compile Include="demandElements\stop\parkingarea\inspect\tripID\test.py" />
     <Compile Include="demandElements\stop\parkingarea\inspect\until\test.py" />
     <Compile Include="demandElements\stop\parkingarea\inspect_selection\actType\test.py" />
     <Compile Include="demandElements\stop\parkingarea\inspect_selection\duration\test.py" />
@@ -2055,6 +2075,7 @@
     <Compile Include="netElements\edges\delete\test.py" />
     <Compile Include="netElements\edges\inspect\allow\test.py" />
     <Compile Include="netElements\edges\inspect\disallow\test.py" />
+    <Compile Include="netElements\edges\inspect\distance\test.py" />
     <Compile Include="netElements\edges\inspect\endoffset\test.py" />
     <Compile Include="netElements\edges\inspect\from\test.py" />
     <Compile Include="netElements\edges\inspect\id\test.py" />
@@ -2068,6 +2089,8 @@
     <Compile Include="netElements\edges\inspect\shape\test.py" />
     <Compile Include="netElements\edges\inspect\speed\test.py" />
     <Compile Include="netElements\edges\inspect\spreadtype\test.py" />
+    <Compile Include="netElements\edges\inspect\stopexception\test.py" />
+    <Compile Include="netElements\edges\inspect\stopoffset\test.py" />
     <Compile Include="netElements\edges\inspect\to\test.py" />
     <Compile Include="netElements\edges\inspect\type\test.py" />
     <Compile Include="netElements\edges\inspect\width\test.py" />
@@ -2083,6 +2106,8 @@
     <Compile Include="netElements\edges\inspect_selected\shapestart\test.py" />
     <Compile Include="netElements\edges\inspect_selected\speed\test.py" />
     <Compile Include="netElements\edges\inspect_selected\spreadtype\test.py" />
+    <Compile Include="netElements\edges\inspect_selected\stopexception\test.py" />
+    <Compile Include="netElements\edges\inspect_selected\stopoffset\test.py" />
     <Compile Include="netElements\edges\inspect_selected\type\test.py" />
     <Compile Include="netElements\edges\inspect_selected\width\test.py" />
     <Compile Include="netElements\edges\load\test.py" />
@@ -3860,23 +3885,27 @@
     <Folder Include="demandElements\stop\busstop\create\default" />
     <Folder Include="demandElements\stop\busstop\create\duration" />
     <Folder Include="demandElements\stop\busstop\create\extension" />
+    <Folder Include="demandElements\stop\busstop\create\line" />
     <Folder Include="demandElements\stop\busstop\create\no_parent" />
     <Folder Include="demandElements\stop\busstop\create\parking" />
     <Folder Include="demandElements\stop\busstop\create\permitted" />
     <Folder Include="demandElements\stop\busstop\create\triggered_container" />
     <Folder Include="demandElements\stop\busstop\create\triggered_join" />
     <Folder Include="demandElements\stop\busstop\create\triggered_person" />
+    <Folder Include="demandElements\stop\busstop\create\tripID" />
     <Folder Include="demandElements\stop\busstop\create\until" />
     <Folder Include="demandElements\stop\busstop\delete" />
     <Folder Include="demandElements\stop\busstop\inspect\" />
     <Folder Include="demandElements\stop\busstop\inspect\actType" />
     <Folder Include="demandElements\stop\busstop\inspect\duration" />
     <Folder Include="demandElements\stop\busstop\inspect\extension" />
+    <Folder Include="demandElements\stop\busstop\inspect\line" />
     <Folder Include="demandElements\stop\busstop\inspect\parking" />
     <Folder Include="demandElements\stop\busstop\inspect\permitted" />
     <Folder Include="demandElements\stop\busstop\inspect\triggered_container" />
     <Folder Include="demandElements\stop\busstop\inspect\triggered_join" />
     <Folder Include="demandElements\stop\busstop\inspect\triggered_person" />
+    <Folder Include="demandElements\stop\busstop\inspect\tripID" />
     <Folder Include="demandElements\stop\busstop\inspect\until" />
     <Folder Include="demandElements\stop\busstop\inspect_selection\" />
     <Folder Include="demandElements\stop\busstop\inspect_selection\actType" />
@@ -3896,23 +3925,27 @@
     <Folder Include="demandElements\stop\chargingstation\create\default" />
     <Folder Include="demandElements\stop\chargingstation\create\duration" />
     <Folder Include="demandElements\stop\chargingstation\create\extension" />
+    <Folder Include="demandElements\stop\chargingstation\create\line" />
     <Folder Include="demandElements\stop\chargingstation\create\no_parent" />
     <Folder Include="demandElements\stop\chargingstation\create\parking" />
     <Folder Include="demandElements\stop\chargingstation\create\permitted" />
     <Folder Include="demandElements\stop\chargingstation\create\triggered_container" />
     <Folder Include="demandElements\stop\chargingstation\create\triggered_join" />
     <Folder Include="demandElements\stop\chargingstation\create\triggered_person" />
+    <Folder Include="demandElements\stop\chargingstation\create\tripID" />
     <Folder Include="demandElements\stop\chargingstation\create\until" />
     <Folder Include="demandElements\stop\chargingstation\delete" />
     <Folder Include="demandElements\stop\chargingstation\inspect\" />
     <Folder Include="demandElements\stop\chargingstation\inspect\actType" />
     <Folder Include="demandElements\stop\chargingstation\inspect\duration" />
     <Folder Include="demandElements\stop\chargingstation\inspect\extension" />
+    <Folder Include="demandElements\stop\chargingstation\inspect\line" />
     <Folder Include="demandElements\stop\chargingstation\inspect\parking" />
     <Folder Include="demandElements\stop\chargingstation\inspect\permitted" />
     <Folder Include="demandElements\stop\chargingstation\inspect\triggered_container" />
     <Folder Include="demandElements\stop\chargingstation\inspect\triggered_join" />
     <Folder Include="demandElements\stop\chargingstation\inspect\triggered_person" />
+    <Folder Include="demandElements\stop\chargingstation\inspect\tripID" />
     <Folder Include="demandElements\stop\chargingstation\inspect\until" />
     <Folder Include="demandElements\stop\chargingstation\inspect_selection\" />
     <Folder Include="demandElements\stop\chargingstation\inspect_selection\actType" />
@@ -3932,23 +3965,27 @@
     <Folder Include="demandElements\stop\containerstop\create\default" />
     <Folder Include="demandElements\stop\containerstop\create\duration" />
     <Folder Include="demandElements\stop\containerstop\create\extension" />
+    <Folder Include="demandElements\stop\containerstop\create\line" />
     <Folder Include="demandElements\stop\containerstop\create\no_parent" />
     <Folder Include="demandElements\stop\containerstop\create\parking" />
     <Folder Include="demandElements\stop\containerstop\create\permitted" />
     <Folder Include="demandElements\stop\containerstop\create\triggered_container" />
     <Folder Include="demandElements\stop\containerstop\create\triggered_join" />
     <Folder Include="demandElements\stop\containerstop\create\triggered_person" />
+    <Folder Include="demandElements\stop\containerstop\create\tripID" />
     <Folder Include="demandElements\stop\containerstop\create\until" />
     <Folder Include="demandElements\stop\containerstop\delete" />
     <Folder Include="demandElements\stop\containerstop\inspect\" />
     <Folder Include="demandElements\stop\containerstop\inspect\actType" />
     <Folder Include="demandElements\stop\containerstop\inspect\duration" />
     <Folder Include="demandElements\stop\containerstop\inspect\extension" />
+    <Folder Include="demandElements\stop\containerstop\inspect\line" />
     <Folder Include="demandElements\stop\containerstop\inspect\parking" />
     <Folder Include="demandElements\stop\containerstop\inspect\permitted" />
     <Folder Include="demandElements\stop\containerstop\inspect\triggered_container" />
     <Folder Include="demandElements\stop\containerstop\inspect\triggered_join" />
     <Folder Include="demandElements\stop\containerstop\inspect\triggered_person" />
+    <Folder Include="demandElements\stop\containerstop\inspect\tripID" />
     <Folder Include="demandElements\stop\containerstop\inspect\until" />
     <Folder Include="demandElements\stop\containerstop\inspect_selection\" />
     <Folder Include="demandElements\stop\containerstop\inspect_selection\actType" />
@@ -3969,12 +4006,14 @@
     <Folder Include="demandElements\stop\lane\create\duration" />
     <Folder Include="demandElements\stop\lane\create\extension" />
     <Folder Include="demandElements\stop\lane\create\friendlyPos" />
+    <Folder Include="demandElements\stop\lane\create\line" />
     <Folder Include="demandElements\stop\lane\create\parking" />
     <Folder Include="demandElements\stop\lane\create\permitted" />
     <Folder Include="demandElements\stop\lane\create\poslat" />
     <Folder Include="demandElements\stop\lane\create\triggered_container" />
     <Folder Include="demandElements\stop\lane\create\triggered_join" />
     <Folder Include="demandElements\stop\lane\create\triggered_person" />
+    <Folder Include="demandElements\stop\lane\create\tripID" />
     <Folder Include="demandElements\stop\lane\create\until" />
     <Folder Include="demandElements\stop\lane\delete" />
     <Folder Include="demandElements\stop\lane\inspect\" />
@@ -3984,6 +4023,7 @@
     <Folder Include="demandElements\stop\lane\inspect\extension" />
     <Folder Include="demandElements\stop\lane\inspect\friendlyPos" />
     <Folder Include="demandElements\stop\lane\inspect\lane" />
+    <Folder Include="demandElements\stop\lane\inspect\line" />
     <Folder Include="demandElements\stop\lane\inspect\parking" />
     <Folder Include="demandElements\stop\lane\inspect\permitted" />
     <Folder Include="demandElements\stop\lane\inspect\posLat" />
@@ -3991,6 +4031,7 @@
     <Folder Include="demandElements\stop\lane\inspect\triggered_container" />
     <Folder Include="demandElements\stop\lane\inspect\triggered_join" />
     <Folder Include="demandElements\stop\lane\inspect\triggered_person" />
+    <Folder Include="demandElements\stop\lane\inspect\tripID" />
     <Folder Include="demandElements\stop\lane\inspect\until" />
     <Folder Include="demandElements\stop\lane\inspect_selection\" />
     <Folder Include="demandElements\stop\lane\inspect_selection\actType" />
@@ -4012,21 +4053,25 @@
     <Folder Include="demandElements\stop\parkingarea\create\default" />
     <Folder Include="demandElements\stop\parkingarea\create\duration" />
     <Folder Include="demandElements\stop\parkingarea\create\extension" />
+    <Folder Include="demandElements\stop\parkingarea\create\line" />
     <Folder Include="demandElements\stop\parkingarea\create\no_parent" />
     <Folder Include="demandElements\stop\parkingarea\create\permitted" />
     <Folder Include="demandElements\stop\parkingarea\create\triggered_container" />
     <Folder Include="demandElements\stop\parkingarea\create\triggered_join" />
     <Folder Include="demandElements\stop\parkingarea\create\triggered_person" />
+    <Folder Include="demandElements\stop\parkingarea\create\tripID" />
     <Folder Include="demandElements\stop\parkingarea\create\until" />
     <Folder Include="demandElements\stop\parkingarea\delete" />
     <Folder Include="demandElements\stop\parkingarea\inspect\" />
     <Folder Include="demandElements\stop\parkingarea\inspect\actType" />
     <Folder Include="demandElements\stop\parkingarea\inspect\duration" />
     <Folder Include="demandElements\stop\parkingarea\inspect\extension" />
+    <Folder Include="demandElements\stop\parkingarea\inspect\line" />
     <Folder Include="demandElements\stop\parkingarea\inspect\permitted" />
     <Folder Include="demandElements\stop\parkingarea\inspect\triggered_container" />
     <Folder Include="demandElements\stop\parkingarea\inspect\triggered_join" />
     <Folder Include="demandElements\stop\parkingarea\inspect\triggered_person" />
+    <Folder Include="demandElements\stop\parkingarea\inspect\tripID" />
     <Folder Include="demandElements\stop\parkingarea\inspect\until" />
     <Folder Include="demandElements\stop\parkingarea\inspect_selection\" />
     <Folder Include="demandElements\stop\parkingarea\inspect_selection\actType" />
@@ -4949,6 +4994,7 @@
     <Folder Include="netElements\edges\inspect\" />
     <Folder Include="netElements\edges\inspect\allow" />
     <Folder Include="netElements\edges\inspect\disallow" />
+    <Folder Include="netElements\edges\inspect\distance" />
     <Folder Include="netElements\edges\inspect\endoffset" />
     <Folder Include="netElements\edges\inspect\from" />
     <Folder Include="netElements\edges\inspect\id" />
@@ -4962,6 +5008,8 @@
     <Folder Include="netElements\edges\inspect\shapestart" />
     <Folder Include="netElements\edges\inspect\speed" />
     <Folder Include="netElements\edges\inspect\spreadtype" />
+    <Folder Include="netElements\edges\inspect\stopexception" />
+    <Folder Include="netElements\edges\inspect\stopoffset" />
     <Folder Include="netElements\edges\inspect\to" />
     <Folder Include="netElements\edges\inspect\type" />
     <Folder Include="netElements\edges\inspect\width" />
@@ -4978,6 +5026,8 @@
     <Folder Include="netElements\edges\inspect_selected\shapestart" />
     <Folder Include="netElements\edges\inspect_selected\speed" />
     <Folder Include="netElements\edges\inspect_selected\spreadtype" />
+    <Folder Include="netElements\edges\inspect_selected\stopexception" />
+    <Folder Include="netElements\edges\inspect_selected\stopoffset" />
     <Folder Include="netElements\edges\inspect_selected\type" />
     <Folder Include="netElements\edges\inspect_selected\width" />
     <Folder Include="netElements\edges\load" />
