@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "netedit1", "netedit1.pyproj", "{A402BE16-9F73-4DD1-A5FD-8CE92419FA3C}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "netedit", "netedit.pyproj", "{A402BE16-9F73-4DD1-A5FD-8CE92419FA3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
