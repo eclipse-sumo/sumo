@@ -514,7 +514,7 @@ GNECreateEdgeFrame::LaneTypeSelector::onCmdDeleteLaneType(FXObject*, FXSelector,
             // create new edgeType
             GNEEdgeType* newEdgeType = new GNEEdgeType(edgeType);
             // create laneTypes (except current)
-            for (int i = 0; i < edgeType->getLaneTypes().size(); i++) {
+            for (int i = 0; i < (int)edgeType->getLaneTypes().size(); i++) {
                 if (i != myLaneIndex) {
                     newEdgeType->addLaneType(new GNELaneType(newEdgeType, edgeType->getLaneTypes().at(i)));
                 }
