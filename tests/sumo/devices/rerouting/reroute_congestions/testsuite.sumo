@@ -12,9 +12,3 @@ delayed_insertion_departLaneBest
 
 # all vehicles have the device due to trip def and reroute every 120s and write exit times
 exit_times
-
-# test esimated upper bound on travel speed across traffic light
-empty_trafficlight
-
-# test esimated upper bound on travel speed across traffic light
-empty_trafficlight_tlsPenalty0.5
