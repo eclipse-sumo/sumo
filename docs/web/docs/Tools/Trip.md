@@ -81,6 +81,16 @@ To let *n* vehicles depart between times *t0* and *t1* set the options
 !!! note
     The actual number of departures may be lower if the road capacity is [insufficient to accommodate that number of vehicles](../Simulation/VehicleInsertion.md#delayed_departure) or if the network is not fully connected (in this case some of the generated trips will be invalid).
 
+## Insertion Distribution
+
+The number of inserted vehicles (if all trips are valid) is fixed for a given set of randomTrips option: `(end-begin)/period`.
+Randomness appears in the insertion pattern on any given edge.
+
+By default the departures of all vehicles are equally spaced in time. Since the inserted vehicle are spread randomly over the whole network, this comes out as a binomial distribution of inserted vehicles for each individual edge which gives a good approximation to the Poisson distribution if the network is large (and hence the insertion probability of each edge is small).
+
+By setting set option **--random-depart**, the (still fixed) number of departure times are drawn from a uniform distribution over `[begin, end]`.
+This leads to an exponential distribution of insertion time headways between vehicles on all edges (which is the headway pattern of the Poisson distribution). Hence, this is useful to have a more varied insertion time pattern for small networks.
+
 ## Validated routes and trips
 
 When using the option **--route-file**, an output file with valid vehicle routes will be
