@@ -128,7 +128,7 @@ MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl& tlcontrol, const std:
 void
 MSTrafficLightLogic::init(NLDetectorBuilder&) {
     const Phases& phases = getPhases();
-    if (phases.size() > 0 && MSGlobals::gUseMesoSim) {
+    if (phases.size() > 0 && (MSGlobals::gUseMesoSim || MSGlobals::gTLSPenalty > 0)) {
         initMesoTLSPenalties();
     }
     if (phases.size() > 1) {
@@ -444,24 +444,28 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
             penalty[j] += 0.5 * (red * red + red);
         }
     }
+    double tlsPenalty = MSGlobals::gTLSPenalty;
     const double durationSeconds = STEPS2TIME(duration);
     std::set<const MSJunction*> controlledJunctions;
     for (int j = 0; j < numLinks; ++j) {
         for (int k = 0; k < (int)myLinks[j].size(); ++k) {
             MSLink* link = myLinks[j][k];
             MSEdge& edge = link->getLaneBefore()->getEdge();
-            const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(edge.getEdgeType());
-            double greenFraction = (durationSeconds - totalRedDuration[j]) / durationSeconds;
-            if (edgeType.tlsFlowPenalty == 0) {
-                greenFraction = 1;
-            } else {
-                greenFraction = MAX2(MIN2(greenFraction / edgeType.tlsFlowPenalty, 1.0), 0.01);
+            if (MSGlobals::gUseMesoSim) {
+                const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(edge.getEdgeType());
+                tlsPenalty = edgeType.tlsPenalty;
+                double greenFraction = (durationSeconds - totalRedDuration[j]) / durationSeconds;
+                if (edgeType.tlsFlowPenalty == 0) {
+                    greenFraction = 1;
+                } else {
+                    greenFraction = MAX2(MIN2(greenFraction / edgeType.tlsFlowPenalty, 1.0), 0.01);
+                }
+                if (greenFraction == 0.01) {
+                    WRITE_WARNINGF("Green fraction is only 1% for link % in tlLogic '%', program '%'.", "%", j, getID(), getProgramID());
+                }
+                link->setGreenFraction(greenFraction);
             }
-            if (greenFraction == 0.01) {
-                WRITE_WARNINGF("Green fraction is only 1% for link % in tlLogic '%', program '%'.", "%", j, getID(), getProgramID());
-            }
-            link->setMesoTLSPenalty(TIME2STEPS(edgeType.tlsPenalty * penalty[j] / durationSeconds));
-            link->setGreenFraction(greenFraction);
+            link->setMesoTLSPenalty(TIME2STEPS(tlsPenalty * penalty[j] / durationSeconds));
             controlledJunctions.insert(link->getLane()->getEdge().getFromJunction()); // MSLink::myJunction is not yet initialized
             //std::cout << " tls=" << getID() << " i=" << j << " link=" << link->getDescription() << " p=" << penalty[j] << " fr=" << firstRedDuration[j] << " r=" << redDuration[j] << " tr=" << totalRedDuration[j] << " durSecs=" << durationSeconds << " tlsPen=" << STEPS2TIME(link->getMesoTLSPenalty()) << " gF=" << myLinks[j][k]->getGreenFraction() << "\n";
         }

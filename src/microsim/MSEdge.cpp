@@ -119,14 +119,20 @@ void MSEdge::recalcCache() {
     }
     myLength = myLanes->front()->getLength();
     myEmptyTraveltime = myLength / MAX2(getSpeedLimit(), NUMERICAL_EPS);
-    if (MSGlobals::gUseMesoSim) {
-        const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(getEdgeType());
-        if (edgeType.tlsPenalty > 0 || edgeType.minorPenalty > 0) {
+    if (isNormal() && (MSGlobals::gUseMesoSim || MSGlobals::gTLSPenalty > 0)) {
+        double minorPenalty = 0;
+        bool haveTLSPenalty = MSGlobals::gTLSPenalty > 0;
+        if (MSGlobals::gUseMesoSim) {
+            const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(getEdgeType());
+            minorPenalty = edgeType.minorPenalty;
+            haveTLSPenalty = edgeType.tlsPenalty > 0;
+        }
+        if (haveTLSPenalty || minorPenalty > 0) {
             // add tls penalties to the minimum travel time
             SUMOTime minPenalty = -1;
             for (const MSLane* const l : *myLanes) {
                 for (const MSLink* const link : l->getLinkCont()) {
-                    SUMOTime linkPenalty = link->getMesoTLSPenalty() + (link->havePriority() ? 0 : edgeType.minorPenalty);
+                    SUMOTime linkPenalty = link->getMesoTLSPenalty() + (link->havePriority() ? 0 : minorPenalty);
                     if (minPenalty == -1) {
                         minPenalty = linkPenalty;
                     } else {
@@ -139,7 +145,8 @@ void MSEdge::recalcCache() {
                 myTimePenalty = STEPS2TIME(minPenalty);
             }
         }
-    } else if (isInternal() && MSGlobals::gUsingInternalLanes) {
+    }
+    if (isInternal() && MSGlobals::gUsingInternalLanes) {
         const MSLink* link = myLanes->front()->getIncomingLanes()[0].viaLink;
         if (!link->isTLSControlled() && !link->havePriority()) {
             myEmptyTraveltime += MSGlobals::gMinorPenalty;
