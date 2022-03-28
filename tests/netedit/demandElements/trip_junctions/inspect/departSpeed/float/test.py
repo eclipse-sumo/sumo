@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.departSpeed, "", False)
+netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspect.departSpeed, "", False)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.departSpeed, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspect.departSpeed, "dummySpeed", False)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.departSpeed, "500", False)
+netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspect.departSpeed, "500", False)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.departSpeed, "-10", False)
+netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspect.departSpeed, "-10", False)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.departSpeed, "20", False)
+netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspect.departSpeed, "20", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

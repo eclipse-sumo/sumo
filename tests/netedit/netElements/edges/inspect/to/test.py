@@ -41,16 +41,16 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 2 with a non valid value (dummy Junction)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "dummy_Junction", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.toEdge, "dummy_Junction", False)
 
 # Change parameter 2 with a non valid value (empty Junction)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.toEdge, "", False)
 
 # Change parameter 2 with a non valid value (same to Junction)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "gneJ3", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.toEdge, "gneJ3", False)
 
 # Change parameter 2 with a non valid value (two edges pararell)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "gneJ1", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.toEdge, "gneJ1", False)
 
 # recompute
 netedit.rebuildNetwork()

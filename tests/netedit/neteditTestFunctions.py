@@ -946,7 +946,7 @@ def modifyAttribute(attributeNumber, value, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 1 + attrs.EditElements.overlapped):
+        for _ in range(attributeNumber + 1 + attrs.enums.EditElements.overlapped):
             typeTab()
     else:
         for _ in range(attributeNumber + 1):
@@ -965,7 +965,7 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 1 + attrs.EditElements.overlapped):
+        for _ in range(attributeNumber + 1 + attrs.enums.EditElements.overlapped):
             typeTab()
     else:
         for _ in range(attributeNumber + 1):
@@ -1104,10 +1104,10 @@ def createCrossing(hasTLS):
     focusOnFrame()
     # jump to create crossing button depending of hasTLS
     if hasTLS:
-        for _ in range(attrs.TLS.create.TLS):
+        for _ in range(attrs.enums.TLS.create.TLS):
             typeTab()
     else:
-        for _ in range(attrs.TLS.create.noTLS):
+        for _ in range(attrs.enums.TLS.create.noTLS):
             typeTab()
     # type space to create crossing
     typeSpace()
@@ -1120,7 +1120,7 @@ def modifyCrossingDefaultValue(numtabs, value):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + attrs.crossing.firstField):
+    for _ in range(numtabs + attrs.enums.crossing.firstField):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -1135,7 +1135,7 @@ def modifyCrossingDefaultBoolValue(numtabs):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + attrs.crossing.firstField):
+    for _ in range(numtabs + attrs.enums.crossing.firstField):
         typeTab()
     # type space to change value
     typeSpace()
@@ -1149,11 +1149,11 @@ def crossingClearEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for _ in range(attrs.crossing.clearEdgesSelected):
+        for _ in range(attrs.enums.crossing.clearEdgesSelected):
             typeTab()
     else:
         # jump to clear button
-        for _ in range(attrs.crossing.clearEdges):
+        for _ in range(attrs.enums.crossing.clearEdges):
             typeTab()
     # type space to activate button
     typeSpace()
@@ -1167,11 +1167,11 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for _ in range(attrs.crossing.clearEdgesSelected):
+        for _ in range(attrs.enums.crossing.clearEdgesSelected):
             typeTab()
     else:
         # jump to clear button
-        for _ in range(attrs.crossing.clearEdges):
+        for _ in range(attrs.enums.crossing.clearEdges):
             typeTab()
     # type space to activate button
     typeSpace()
@@ -1218,7 +1218,7 @@ def saveConnectionEdit():
     # focus current frame
     focusOnFrame()
     # go to cancel button
-    for _ in range(attrs.connection.saveConnections):
+    for _ in range(attrs.enums.connection.saveConnections):
         typeTab()
     # type space to press button
     typeSpace()
@@ -1246,7 +1246,7 @@ def changeElement(element):
     # focus current frame
     focusOnFrame()
     # go to first editable element of frame
-    for _ in range(attrs.additionals.changeElement):
+    for _ in range(attrs.enums.additionals.changeElement):
         typeTab()
     # paste the new value
     pasteIntoTextField(element)

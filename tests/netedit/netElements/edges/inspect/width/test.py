@@ -41,19 +41,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 16 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.width, "dummyWidth", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.width, "dummyWidth", False)
 
 # Change parameter 16 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.width, "", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.width, "", False)
 
 # Change parameter 16 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.width, "-2", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.width, "-2", False)
 
 # Change parameter 16 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.width, "default", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.width, "default", False)
 
 # Change parameter 16 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.width, "4", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.width, "4", False)
 
 # recompute
 netedit.rebuildNetwork()

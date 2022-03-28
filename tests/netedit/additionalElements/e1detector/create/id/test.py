@@ -38,19 +38,19 @@ netedit.changeElement("e1Detector")
 netedit.leftClick(referencePosition, 140, 245)
 
 # set a invalid  id (duplicated)
-netedit.changeDefaultValue(netedit.attrs.E1.create.id, "e1_0")
+netedit.changeDefaultValue(netedit.attrs.enums.E1.create.id, "e1_0")
 
 # try to create E1 with invalid id
 netedit.leftClick(referencePosition, 180, 245)
 
 # set a invalid  id
-netedit.changeDefaultValue(netedit.attrs.E1.create.id, ";;;")
+netedit.changeDefaultValue(netedit.attrs.enums.E1.create.id, ";;;")
 
 # try to create E1 with invalid id
 netedit.leftClick(referencePosition, 200, 245)
 
 # set a valid id
-netedit.changeDefaultValue(netedit.attrs.E1.create.id, "customID")
+netedit.changeDefaultValue(netedit.attrs.enums.E1.create.id, "customID")
 
 # create E1 with valid id
 netedit.leftClick(referencePosition, 220, 245)

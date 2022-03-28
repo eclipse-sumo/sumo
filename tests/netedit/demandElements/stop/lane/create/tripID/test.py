@@ -41,19 +41,19 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.tripID, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.enums.stopLane.create.tripID, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 185)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.tripID, "")
+netedit.changeDefaultValue(netedit.attrs.enums.stopLane.create.tripID, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 185)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.tripID, "tripID")
+netedit.changeDefaultValue(netedit.attrs.enums.stopLane.create.tripID, "tripID")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 185)

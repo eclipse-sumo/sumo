@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to junctions)")
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departPosLat, "dummyPos")
+netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.departPosLat, "dummyPos")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departPosLat, "-12")
+netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.departPosLat, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departPosLat, "random_free")
+netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.departPosLat, "random_free")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departPosLat, "20")
+netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.departPosLat, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

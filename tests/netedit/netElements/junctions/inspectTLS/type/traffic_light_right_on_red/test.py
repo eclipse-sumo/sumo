@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change type of junction
-netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.type, "traffic_light_right_on_red", False)
+netedit.modifyAttribute(netedit.attrs.enums.junction.inspectTLS.type, "traffic_light_right_on_red", False)
 
 # rebuild network
 netedit.rebuildNetwork()

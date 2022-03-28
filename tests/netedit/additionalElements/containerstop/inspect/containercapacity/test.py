@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.enums.containerStop.create.references, "reference center")
 
 # create containerStop in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter containerCapacity with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.containerCapacity, "dummyContainerCapacity", True)
+netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.containerCapacity, "dummyContainerCapacity", True)
 
 # Change parameter containerCapacity with a valid value
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.containerCapacity, "-7", True)
+netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.containerCapacity, "-7", True)
 
 # Change parameter containerCapacity with a valid value
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.containerCapacity, "2.5", True)
+netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.containerCapacity, "2.5", True)
 
 # Change parameter containerCapacity with a valid value
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.containerCapacity, "10", True)
+netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.containerCapacity, "10", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

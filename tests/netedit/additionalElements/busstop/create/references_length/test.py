@@ -35,31 +35,31 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # set invalid length (dummy)
-netedit.changeDefaultValue(netedit.attrs.busStop.create.length, "dummyLenght")
+netedit.changeDefaultValue(netedit.attrs.enums.busStop.create.length, "dummyLenght")
 
 # try to create busstop with invalid length
 netedit.leftClick(referencePosition, 500, 250)
 
 # set invalid length (negative)
-netedit.changeDefaultValue(netedit.attrs.busStop.create.length, "-20")
+netedit.changeDefaultValue(netedit.attrs.enums.busStop.create.length, "-20")
 
 # try to create busstop with invalid length
 netedit.leftClick(referencePosition, 500, 250)
 
 # Change length
-netedit.changeDefaultValue(netedit.attrs.busStop.create.length, "5")
+netedit.changeDefaultValue(netedit.attrs.enums.busStop.create.length, "5")
 
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 500, 250)
 
 # change reference to right
-netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference right")
+netedit.changeDefaultValue(netedit.attrs.enums.busStop.create.references, "reference right")
 
 # create busStop in mode "reference right"
 netedit.leftClick(referencePosition, 230, 250)
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.enums.busStop.create.references, "reference center")
 
 # create busStop in mode "reference center"
 netedit.leftClick(referencePosition, 425, 250)

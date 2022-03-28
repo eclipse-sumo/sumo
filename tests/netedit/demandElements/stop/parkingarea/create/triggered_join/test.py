@@ -41,7 +41,7 @@ netedit.stopMode()
 netedit.changeStopType("stopParkingArea")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.triggered, "join")
+netedit.changeDefaultValue(netedit.attrs.enums.stopParking.create.triggered, "join")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 155)

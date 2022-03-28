@@ -45,12 +45,12 @@ netedit.leftClick(referencePosition, 200, 50)
 
 # Create Exit detector for E3 3
 netedit.changeElement("detExit")
-netedit.selectAdditionalChild(netedit.attrs.entryExit.create.parent, 2)
+netedit.selectAdditionalChild(netedit.attrs.enums.entryExit.create.parent, 2)
 netedit.leftClick(referencePosition, 75, 200)
 
 # Create Exit detectors for E3 4
 netedit.changeElement("detExit")
-netedit.selectAdditionalChild(netedit.attrs.entryExit.create.parent, 3)
+netedit.selectAdditionalChild(netedit.attrs.enums.entryExit.create.parent, 3)
 netedit.leftClick(referencePosition, 250, 200)
 
 # Change to delete

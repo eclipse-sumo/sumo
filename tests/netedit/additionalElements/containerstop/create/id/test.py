@@ -38,19 +38,19 @@ netedit.changeElement("containerStop")
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, ";;;;;;;;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.enums.containerStop.create.id, ";;;;;;;;;;;;;;;;")
 
 # create containerStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, "ct_0")
+netedit.changeDefaultValue(netedit.attrs.enums.containerStop.create.id, "ct_0")
 
 # create containerStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, "custom_ID")
+netedit.changeDefaultValue(netedit.attrs.enums.containerStop.create.id, "custom_ID")
 
 # create containerStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

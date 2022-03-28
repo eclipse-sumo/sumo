@@ -38,10 +38,10 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # set dummy value
-netedit.modifyAttribute(netedit.attrs.junction.inspect.rightOfWay, "dummyRightOfWay", False)
+netedit.modifyAttribute(netedit.attrs.enums.junction.inspect.rightOfWay, "dummyRightOfWay", False)
 
 # change shape of junction
-netedit.modifyAttribute(netedit.attrs.junction.inspect.rightOfWay, "edgePriority", False)
+netedit.modifyAttribute(netedit.attrs.enums.junction.inspect.rightOfWay, "edgePriority", False)
 
 # rebuild network
 netedit.rebuildNetwork()

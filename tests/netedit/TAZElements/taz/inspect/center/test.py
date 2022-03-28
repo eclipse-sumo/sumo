@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 182, 130)
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "dummyTAZ", False)
+netedit.modifyAttribute(netedit.attrs.enums.TAZ.inspect.center, "dummyTAZ", False)
 
 # Change parameter 1 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "", False)
+netedit.modifyAttribute(netedit.attrs.enums.TAZ.inspect.center, "", False)
 
 # Change parameter 1 with a valid value (single point)
-netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "12.00,8.00", False)
+netedit.modifyAttribute(netedit.attrs.enums.TAZ.inspect.center, "12.00,8.00", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

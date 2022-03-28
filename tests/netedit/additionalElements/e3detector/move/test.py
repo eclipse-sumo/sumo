@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, 250, 250)
 
 # Create Entry detector (for saving)
 netedit.changeElement("detEntry")
-netedit.selectAdditionalChild(netedit.attrs.entryExit.create.parent, 0)
+netedit.selectAdditionalChild(netedit.attrs.enums.entryExit.create.parent, 0)
 netedit.leftClick(referencePosition, 400, 250)
 
 # Create detExit detector (for saving)

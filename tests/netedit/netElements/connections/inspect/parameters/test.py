@@ -32,13 +32,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.changeEditMode(netedit.attrs.Modes.Network.showConnections)
+netedit.changeEditMode(netedit.attrs.enums.Modes.Network.showConnections)
 
 # inspect connection
 netedit.leftClick(referencePosition, 228, 164)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.connection.inspect.parameters, True)
+netedit.checkParameters(referencePosition, netedit.attrs.enums.connection.inspect.parameters, True)
 
 # save network
 netedit.saveNetwork(referencePosition)

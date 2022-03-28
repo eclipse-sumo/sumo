@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.enums.containerStop.create.references, "reference center")
 
 # create containerStop in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.color, "dummyColor", True)
+netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.color, "dummyColor", True)
 
 # Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.color, "255,255,500", True)
+netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.color, "255,255,500", True)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.color, "blue", True)
+netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.color, "blue", True)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.color, "125,60,200", True)
+netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.color, "125,60,200", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

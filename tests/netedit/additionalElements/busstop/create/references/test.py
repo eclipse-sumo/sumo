@@ -38,13 +38,13 @@ netedit.changeElement("busStop")
 netedit.leftClick(referencePosition, 240, 250)
 
 # change reference to right
-netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference right")
+netedit.changeDefaultValue(netedit.attrs.enums.busStop.create.references, "reference right")
 
 # create busStop in mode "reference right"
 netedit.leftClick(referencePosition, 230, 250)
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.enums.busStop.create.references, "reference center")
 
 # create busStop in mode "reference center"
 netedit.leftClick(referencePosition, 425, 250)

@@ -35,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # change layer (invalid)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.layer, "dummyLayer")
+netedit.changeDefaultValue(netedit.attrs.enums.POIGEO.create.layer, "dummyLayer")
 
 # try to create poi
 netedit.leftClick(referencePosition, 100, 50)
 
 # change layer (valid, negative)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.layer, "-2")
+netedit.changeDefaultValue(netedit.attrs.enums.POIGEO.create.layer, "-2")
 
 # create poi
 netedit.leftClick(referencePosition, 150, 50)
 
 # change layer (valid, positive)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.layer, "6.5")
+netedit.changeDefaultValue(netedit.attrs.enums.POIGEO.create.layer, "6.5")
 
 # create poi
 netedit.leftClick(referencePosition, 200, 50)

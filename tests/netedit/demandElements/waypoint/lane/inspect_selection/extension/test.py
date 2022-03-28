@@ -47,25 +47,25 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypointLane.inspectSelection.extensionEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.enums.waypointLane.inspectSelection.extensionEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypointLane.inspectSelection.extensionEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.enums.waypointLane.inspectSelection.extensionEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.extension, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspectSelection.extension, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.extension, "", False)
+netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspectSelection.extension, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.extension, "-5", False)
+netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspectSelection.extension, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.extension, "0", False)
+netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspectSelection.extension, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.extension, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspectSelection.extension, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

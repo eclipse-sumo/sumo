@@ -49,13 +49,13 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (over route)")
 
 # set invalid vType
-netedit.changeDefaultValue(netedit.attrs.vehicle.create.type, "blue")
+netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.type, "blue")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid vType
-netedit.changeDefaultValue(netedit.attrs.vehicle.create.type, "custom_vType")
+netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.type, "custom_vType")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

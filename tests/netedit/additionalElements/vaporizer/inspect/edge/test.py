@@ -50,10 +50,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 227)
 
 # Change parameter 0 with a non valid value (dummy edge)
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.edge, "dummyEdge", True)
+netedit.modifyAttribute(netedit.attrs.enums.vaporizer.inspect.edge, "dummyEdge", True)
 
 # Change parameter 0 with a valid value (different edge)
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.edge, "gneE0", True)
+netedit.modifyAttribute(netedit.attrs.enums.vaporizer.inspect.edge, "gneE0", True)
 
 # click over an empty area
 netedit.leftClick(referencePosition, 0, 0)

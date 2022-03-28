@@ -41,16 +41,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 18 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeStart, "dummyShapeStart", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.shapeStart, "dummyShapeStart", False)
 
 # Change parameter 18 with a non valid value (incomplete)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeStart, "34", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.shapeStart, "34", False)
 
 # Change parameter 18 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeStart, "", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.shapeStart, "", False)
 
 # Change parameter 18 with a valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeStart, "14,15.5", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.shapeStart, "14,15.5", False)
 
 # recompute
 netedit.rebuildNetwork()

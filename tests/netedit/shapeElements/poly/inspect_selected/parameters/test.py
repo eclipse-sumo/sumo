@@ -43,7 +43,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 105, 70)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.Poly.inspectSelection.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.enums.Poly.inspectSelection.parameters, False)
 
 # save shapes
 netedit.saveAdditionals(referencePosition)

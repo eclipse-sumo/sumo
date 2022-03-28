@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.forceSaveAdditionals()
 
 # toggle select lanes
-netedit.changeEditMode(netedit.attrs.Modes.Network.selectLane)
+netedit.changeEditMode(netedit.attrs.enums.Modes.Network.selectLane)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 165)
 
 # Change parameter 3 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.width, "dummyWidth", True)
+netedit.modifyAttribute(netedit.attrs.enums.lane.inspect.width, "dummyWidth", True)
 
 # Change parameter 3 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.width, "", True)
+netedit.modifyAttribute(netedit.attrs.enums.lane.inspect.width, "", True)
 
 # Change parameter 3 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.width, "-2", True)
+netedit.modifyAttribute(netedit.attrs.enums.lane.inspect.width, "-2", True)
 
 # Change parameter 3 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.width, "default", True)
+netedit.modifyAttribute(netedit.attrs.enums.lane.inspect.width, "default", True)
 
 # Change parameter 3 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.width, "4", True)
+netedit.modifyAttribute(netedit.attrs.enums.lane.inspect.width, "4", True)
 
 # recompute
 netedit.rebuildNetwork()

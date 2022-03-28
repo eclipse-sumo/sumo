@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to junctions)")
 
 # set invalid arrival lane
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.arrivalLane, "dummyLane")
+netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.arrivalLane, "dummyLane")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid arrival lane
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.arrivalLane, "-12")
+netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.arrivalLane, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival lane
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.arrivalLane, "random")
+netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.arrivalLane, "random")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival lane
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.arrivalLane, "20")
+netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.arrivalLane, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

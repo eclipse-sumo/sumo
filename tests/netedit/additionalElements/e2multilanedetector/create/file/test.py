@@ -42,13 +42,13 @@ netedit.leftClick(referencePosition, 190, 240)
 netedit.leftClick(referencePosition, 440, 240)
 
 # set invalid filename
-netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.file, "&&&&&&&&")
+netedit.changeDefaultValue(netedit.attrs.enums.E2Multilane.create.file, "&&&&&&&&")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # set valid filename
-netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.file, "myOwnFilename.txt")
+netedit.changeDefaultValue(netedit.attrs.enums.E2Multilane.create.file, "myOwnFilename.txt")
 
 # create E2 with default parameters
 netedit.typeEnter()

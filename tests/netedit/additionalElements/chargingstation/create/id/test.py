@@ -38,19 +38,19 @@ netedit.changeElement("chargingStation")
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.id, ";;;;;;;;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.enums.chargingStation.create.id, ";;;;;;;;;;;;;;;;")
 
 # create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.id, "cs_0")
+netedit.changeDefaultValue(netedit.attrs.enums.chargingStation.create.id, "cs_0")
 
 # create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.id, "custom_ID")
+netedit.changeDefaultValue(netedit.attrs.enums.chargingStation.create.id, "custom_ID")
 
 # create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

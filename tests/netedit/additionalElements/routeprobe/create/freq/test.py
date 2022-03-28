@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("routeProbe")
 
 # set invalid frequency
-netedit.changeDefaultValue(netedit.attrs.routeProbe.create.frequency, "-20")
+netedit.changeDefaultValue(netedit.attrs.enums.routeProbe.create.frequency, "-20")
 
 # try to create routeProbe
 netedit.leftClick(referencePosition, 250, 235)
 
 # set valid default frequency
-netedit.changeDefaultValue(netedit.attrs.routeProbe.create.frequency, "120")
+netedit.changeDefaultValue(netedit.attrs.enums.routeProbe.create.frequency, "120")
 
 # create routeProbe (camera will be moved)
 netedit.leftClick(referencePosition, 250, 235)

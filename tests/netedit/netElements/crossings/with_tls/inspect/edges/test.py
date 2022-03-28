@@ -41,10 +41,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 225)
 
 # set invalid edge
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "dummy Edges", True)
+netedit.modifyAttribute(netedit.attrs.enums.crossing.inspectTLS.edges, "dummy Edges", True)
 
 # Change Edges adding a new edge
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "3 7 1", True)
+netedit.modifyAttribute(netedit.attrs.enums.crossing.inspectTLS.edges, "3 7 1", True)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -54,7 +54,7 @@ netedit.leftClick(referencePosition, 320, 225)
 
 # Change Edges with the same edges as another crossing (Duplicate
 # crossings aren't allowed, see Ticket #4043
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "4 8", True)
+netedit.modifyAttribute(netedit.attrs.enums.crossing.inspectTLS.edges, "4 8", True)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -63,7 +63,7 @@ netedit.rebuildNetwork()
 netedit.leftClick(referencePosition, 320, 225)
 
 # Change Edges to a single edge
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "3", True)
+netedit.modifyAttribute(netedit.attrs.enums.crossing.inspectTLS.edges, "3", True)
 
 # rebuild network
 netedit.rebuildNetwork()

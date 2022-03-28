@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 410, 170)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.departLane, "", False)
+netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspectSelection.departLane, "", False)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.departLane, "dummyDepart", False)
+netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspectSelection.departLane, "dummyDepart", False)
 
 # change departLane with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.departLane, "best", False)
+netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspectSelection.departLane, "best", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

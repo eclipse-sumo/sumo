@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.departPos, "", True)
+netedit.modifyAttribute(netedit.attrs.enums.vehicle.inspectSelection.departPos, "", True)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.departPos, "dummyPos", True)
+netedit.modifyAttribute(netedit.attrs.enums.vehicle.inspectSelection.departPos, "dummyPos", True)
 
 # change departLane with a valid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.departPos, "last", True)
+netedit.modifyAttribute(netedit.attrs.enums.vehicle.inspectSelection.departPos, "last", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

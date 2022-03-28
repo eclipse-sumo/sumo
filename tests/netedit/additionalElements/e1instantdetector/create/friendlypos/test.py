@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("instantInductionLoop")
 
 # Change friendlyPos
-netedit.changeDefaultBoolValue(netedit.attrs.E1Instant.create.friendlyPos)
+netedit.changeDefaultBoolValue(netedit.attrs.enums.E1Instant.create.friendlyPos)
 
 # create E1 with different friendly position
 netedit.leftClick(referencePosition, 450, 245)

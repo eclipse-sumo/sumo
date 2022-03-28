@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 149, 53)
 
 # Change parameter 7 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.height, "dummyHeight", True)
+netedit.modifyAttribute(netedit.attrs.enums.POIGEO.inspectSelection.height, "dummyHeight", True)
 
 # Change parameter 7 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.height, "-3", True)
+netedit.modifyAttribute(netedit.attrs.enums.POIGEO.inspectSelection.height, "-3", True)
 
 # Change parameter 7 with a valid value
-netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.height, "5", True)
+netedit.modifyAttribute(netedit.attrs.enums.POIGEO.inspectSelection.height, "5", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)
