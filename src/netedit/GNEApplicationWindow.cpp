@@ -2308,8 +2308,8 @@ GNEApplicationWindow::onCmdOpenUndoListDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdOpenUndoListDialog(FXObject* sender, FXSelector, void*) {
-    // check if net exist
-    if (myNet) {
+    // check if net exist and there is something to undo/redo
+    if (myNet && (myEditMenuCommands.undoLastChange->isEnabled() || myEditMenuCommands.redoLastChange->isEnabled())) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
