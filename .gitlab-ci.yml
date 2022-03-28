@@ -28,4 +28,4 @@ build-job:       # This job runs in the build stage, which runs first.
 test:
   stage: test
   script:
-    - ./builds/fahrsimulator/sumo/tests/runTests.sh
+    - /builds/fahrsimulator/sumo/tests/runTests.sh
