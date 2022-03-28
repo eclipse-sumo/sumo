@@ -19,8 +19,10 @@
 # GENERAL
 # --------------------------------
 
+
 class EditElements:
     overlapped = 5
+
 
 class Selection:
     class LockSelectionNetwork:
