@@ -45,9 +45,9 @@ insertion of B until train A has passed the next signal that lies beyond the
 stop.
 
 3. <predecessor>
-Whenever a vehicle A departs at a stop (assumed to coincide with the "arrival"
+Whenever a vehicle A departs at a stop (assumed to coincide with the "until"
 attribute of it's first stop), the latter train B that enters this stop is
-identified (also based on "arrival"). Then a constraint is created that prevents
+identified (also based on "until"). Then a constraint is created that prevents
 B from entering the section with the stop until A has passed the next signal that lies beyond the
 stop.
 
@@ -1030,30 +1030,30 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
         if busStop == options.debugStop:
             print("findFoeInsertionConflicts at stop %s" % busStop)
         stopEdge = stopEdges[busStop]
-        arrivals = []
+        untils = []
         for edgesBefore, stop in stops:
             if stop.hasAttribute("until") and not options.untilFromDuration:
-                arrival = parseTime(stop.until)
+                until = parseTime(stop.until)
             elif stop.hasAttribute("arrival"):
-                arrival = parseTime(stop.arrival) + parseTime(stop.getAttributeSecure("duration", "0"))
+                until = parseTime(stop.arrival) + parseTime(stop.getAttributeSecure("duration", "0"))
             else:
                 continue
-            arrivals.append((arrival, edgesBefore, stop))
-        # only use 'arrival' for sorting and keep the result stable otherwise
-        arrivals.sort(key=itemgetter(0))
+            untils.append((until, edgesBefore, stop))
+        # only use 'until' for sorting and keep the result stable otherwise
+        untils.sort(key=itemgetter(0))
         prevDepart = None
-        for i, (nArrival, nEdges, nStop) in enumerate(arrivals):
+        for i, (nUntil, nEdges, nStop) in enumerate(untils):
             nVehStops = vehicleStopRoutes[nStop.vehID]
             nIndex = nVehStops.index((nEdges, nStop))
             nIsPassing = nIndex < len(nVehStops) - 1
             nIsDepart = len(nEdges) == 1 and nIndex == 0
             if options.verbose and busStop == options.debugStop:
                 print(i,
-                      "n:", humanReadableTime(nArrival), nStop.tripId, nStop.vehID, nIndex, len(nVehStops),
+                      "n:", humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops),
                       "passing:", nIsPassing,
                       "depart:", nIsDepart)
             if prevDepart is not None and nIsPassing and not nIsDepart:
-                pArrival, pEdges, pStop = prevDepart
+                pUntil, pEdges, pStop = prevDepart
                 pVehStops = vehicleStopRoutes[pStop.vehID]
                 pIndex = pVehStops.index((pEdges, pStop))
                 # no need to constrain subsequent passing (simulation should maintain ordering)
@@ -1061,8 +1061,8 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
                     # find edges after stop
                     if busStop == options.debugStop:
                         print(i,
-                              "p:", humanReadableTime(pArrival), pStop.tripId, pStop.vehID, pIndex, len(pVehStops),
-                              "n:", humanReadableTime(nArrival), nStop.tripId, nStop.vehID, nIndex, len(nVehStops))
+                              "p:", humanReadableTime(pUntil), pStop.tripId, pStop.vehID, pIndex, len(pVehStops),
+                              "n:", humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops))
                     # both vehicles move past the stop
                     pNextEdges = pVehStops[pIndex + 1][0]
                     limit = 1  # recheck
@@ -1094,16 +1094,16 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
                     if options.skipParking:
                         if parseBool(nStop.getAttributeSecure("parking", "false")):
                             print("ignoring stop at %s for parking vehicle %s (%s, %s)" % (
-                                busStop, nStop.vehID, humanReadableTime(nArrival),
+                                busStop, nStop.vehID, humanReadableTime(nUntil),
                                 (humanReadableTime(parseTime(nStop.until)) if nStop.hasAttribute("until") else "-")))
                             numIgnoredConflicts += 1
                             continue
                         # if parseBool(pStop.getAttributeSecure("parking", "false")):
                         #    # additional check for until times
                         #    print("ignoring stop at %s for %s (%s, %s) after parking vehicle %s (%s, %s)" % (
-                        #        busStop, nStop.vehID, humanReadableTime(nArrival),
+                        #        busStop, nStop.vehID, humanReadableTime(nUntil),
                         #        (humanReadableTime(parseTime(nStop.until)) if nStop.hasAttribute("until") else "-"),
-                        #        pStop.vehID, humanReadableTime(pArrival),
+                        #        pStop.vehID, humanReadableTime(pUntil),
                         #        (humanReadableTime(parseTime(pStop.until)) if pStop.hasAttribute("until") else "-")))
                         #    numIgnoredConflicts += 1
                         #    continue
@@ -1118,7 +1118,7 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
 
                     # predecessor tripId after stop is needed
                     pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
-                    times = "arrival=%s foeArrival=%s " % (humanReadableTime(nArrival), humanReadableTime(pArrival))
+                    times = "arrival=%s foeArrival=%s " % (humanReadableTime(nUntil), humanReadableTime(pUntil))
                     conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pTripId, limit,
                                                        # attributes for adding comments
                                                        nStop.prevLine,
@@ -1134,7 +1134,7 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
                             pSignal, nSignal, pStop.vehID, pTripId)),
 
             if nIsDepart and nIsPassing:
-                prevDepart = (nArrival, nEdges, nStop)
+                prevDepart = (nUntil, nEdges, nStop)
 
     if numConflicts > 0:
         print("Found %s foe insertion conflicts" % numConflicts)
