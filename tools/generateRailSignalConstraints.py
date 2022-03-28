@@ -1032,10 +1032,10 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
         stopEdge = stopEdges[busStop]
         arrivals = []
         for edgesBefore, stop in stops:
-            if stop.hasAttribute("arrival") and not options.untilFromDuration:
+            if stop.hasAttribute("until") and not options.untilFromDuration:
                 arrival = parseTime(stop.until)
-            elif stop.hasAttribute("until"):
-                arrival = parseTime(stop.until) - parseTime(stop.getAttributeSecure("duration", "0"))
+            elif stop.hasAttribute("arrival"):
+                arrival = parseTime(stop.arrival) + parseTime(stop.getAttributeSecure("duration", "0"))
             else:
                 continue
             arrivals.append((arrival, edgesBefore, stop))
