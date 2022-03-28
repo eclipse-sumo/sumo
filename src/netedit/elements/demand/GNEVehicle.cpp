@@ -441,12 +441,13 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
             device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
         }
-        if (isAttributeEnabled(SUMO_ATTR_PERIOD)) {
+        if (isAttributeEnabled(SUMO_ATTR_PERIOD) || isAttributeEnabled(GNE_ATTR_POISSON)) {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
         }
         if (isAttributeEnabled(SUMO_ATTR_PROB)) {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
         }
+
     }
     // write parameters
     writeParams(device);
@@ -1252,6 +1253,8 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return toString(repetitionProbability);
         case SUMO_ATTR_NUMBER:
             return toString(repetitionNumber);
+        case GNE_ATTR_POISSON:
+            return toString(repetitionOffset * -1);
         // other
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
@@ -1376,6 +1379,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_PROB:
+        case GNE_ATTR_POISSON:
         // other
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SELECTED:
@@ -1574,6 +1578,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_PERIOD:
+        case GNE_ATTR_POISSON:
             if (canParse<double>(value)) {
                 return (parse<double>(value) > 0);
             } else {
@@ -1611,6 +1616,7 @@ GNEVehicle::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_PROB:
+        case GNE_ATTR_POISSON:
             undoList->add(new GNEChange_EnableAttribute(this, key, true, parametersSet), true);
             return;
         default:
@@ -1627,6 +1633,7 @@ GNEVehicle::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_PROB:
+        case GNE_ATTR_POISSON:
             undoList->add(new GNEChange_EnableAttribute(this, key, false, parametersSet), true);
             return;
         default:
@@ -1648,6 +1655,8 @@ GNEVehicle::isAttributeEnabled(SumoXMLAttr key) const {
             return (parametersSet & VEHPARS_PERIOD_SET) != 0;
         case SUMO_ATTR_PROB:
             return (parametersSet & VEHPARS_PROB_SET) != 0;
+        case GNE_ATTR_POISSON:
+            return (repetitionOffset < 0);
         default:
             return true;
     }
@@ -2101,6 +2110,9 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_PROB:
             repetitionProbability = parse<double>(value);
+            break;
+        case GNE_ATTR_POISSON:
+            repetitionOffset = parse<double>(value) * -1;
             break;
         case SUMO_ATTR_NUMBER:
             repetitionNumber = parse<int>(value);

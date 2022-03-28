@@ -246,7 +246,7 @@ GNEContainer::writeDemandElement(OutputDevice& device) const {
         if (isAttributeEnabled(SUMO_ATTR_CONTAINERSPERHOUR)) {
             device.writeAttr(SUMO_ATTR_CONTAINERSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
         }
-        if (isAttributeEnabled(SUMO_ATTR_PERIOD)) {
+        if (isAttributeEnabled(SUMO_ATTR_PERIOD) || isAttributeEnabled(GNE_ATTR_POISSON)) {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
         }
         if (isAttributeEnabled(SUMO_ATTR_PROB)) {
@@ -502,6 +502,8 @@ GNEContainer::getAttribute(SumoXMLAttr key) const {
             return toString(repetitionProbability);
         case SUMO_ATTR_NUMBER:
             return toString(repetitionNumber);
+        case GNE_ATTR_POISSON:
+            return toString(repetitionOffset * -1);
         //
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
@@ -578,6 +580,7 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_CONTAINERSPERHOUR:
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_PROB:
+        case GNE_ATTR_POISSON:
         //
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SELECTED:
@@ -646,6 +649,7 @@ GNEContainer::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_PERIOD:
+        case GNE_ATTR_POISSON:
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
@@ -686,6 +690,7 @@ GNEContainer::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_CONTAINERSPERHOUR:
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_PROB:
+        case GNE_ATTR_POISSON:
             undoList->add(new GNEChange_EnableAttribute(this, key, true, parametersSet), true);
             return;
         default:
@@ -695,8 +700,19 @@ GNEContainer::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 
 void
-GNEContainer::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to disable
+GNEContainer::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+    switch (key) {
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_NUMBER:
+        case SUMO_ATTR_PERSONSPERHOUR:
+        case SUMO_ATTR_PERIOD:
+        case SUMO_ATTR_PROB:
+        case GNE_ATTR_POISSON:
+            undoList->add(new GNEChange_EnableAttribute(this, key, false, parametersSet), true);
+            return;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -713,6 +729,8 @@ GNEContainer::isAttributeEnabled(SumoXMLAttr key) const {
             return (parametersSet & VEHPARS_PERIOD_SET) != 0;
         case SUMO_ATTR_PROB:
             return (parametersSet & VEHPARS_PROB_SET) != 0;
+        case GNE_ATTR_POISSON:
+            return (repetitionOffset < 0);
         default:
             return true;
     }
@@ -902,6 +920,9 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_NUMBER:
             repetitionNumber = parse<int>(value);
+            break;
+        case GNE_ATTR_POISSON:
+            repetitionOffset = parse<double>(value) * -1;
             break;
         //
         case GNE_ATTR_SELECTED:
