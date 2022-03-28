@@ -56,7 +56,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
                      const SUMOTime _offset,
                      const Phases& phases,
                      int step, SUMOTime delay,
-                     const std::map<std::string, std::string>& parameter,
+                     const Parameterised::Map& parameter,
                      const std::string& basePath) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, _offset, TrafficLightType::NEMA, phases, step, delay, parameter),
     myPhase(phases[0]->duration, phases[0]->getState()) {
