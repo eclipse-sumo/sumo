@@ -1029,27 +1029,15 @@ GNEDemandElement::adjustDefaultFlowAttributes(SUMOVehicleParameter *vehicleParam
         if ((vehicleParameters->parametersSet & VEHPARS_NUMBER_SET) == 0) {
             setAttribute(SUMO_ATTR_NUMBER, myTagProperty.getDefaultValue(SUMO_ATTR_NUMBER));
         }
-        // period
-        if ((vehicleParameters->parametersSet & VEHPARS_PERIOD_SET) == 0) {
+        // vehicles/person/container per hour
+        if (((vehicleParameters->parametersSet & VEHPARS_PERIOD_SET) == 0) && 
+            ((vehicleParameters->parametersSet & VEHPARS_POISSON_SET) == 0) &&
+            ((vehicleParameters->parametersSet & VEHPARS_VPH_SET) == 0)) {
             setAttribute(SUMO_ATTR_PERIOD, myTagProperty.getDefaultValue(SUMO_ATTR_PERIOD));
-        }
-        // period and vehicles/person/container per hour
-        if ((vehicleParameters->parametersSet & VEHPARS_VPH_SET) == 0) {
-            if (myTagProperty.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
-                setAttribute(SUMO_ATTR_VEHSPERHOUR, myTagProperty.getDefaultValue(SUMO_ATTR_VEHSPERHOUR));
-            } else if (myTagProperty.hasAttribute(SUMO_ATTR_PERSONSPERHOUR)) {
-                setAttribute(SUMO_ATTR_PERSONSPERHOUR, myTagProperty.getDefaultValue(SUMO_ATTR_PERSONSPERHOUR));
-            } else if (myTagProperty.hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR)) {
-                setAttribute(SUMO_ATTR_CONTAINERSPERHOUR, myTagProperty.getDefaultValue(SUMO_ATTR_CONTAINERSPERHOUR));
-            }
         }
         // probability
         if ((vehicleParameters->parametersSet & VEHPARS_PROB_SET) == 0) {
             setAttribute(SUMO_ATTR_PROB, myTagProperty.getDefaultValue(SUMO_ATTR_PROB));
-        }
-        // poisson
-        if (vehicleParameters->repetitionOffset < 0) {
-            setAttribute(GNE_ATTR_POISSON, myTagProperty.getDefaultValue(GNE_ATTR_POISSON));
         }
     }
 }
