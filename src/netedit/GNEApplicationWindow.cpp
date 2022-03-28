@@ -1163,7 +1163,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     // write reload message
     if (myReloading) {
-        WRITE_MESSAGE("Reload sucesfully");
+        WRITE_MESSAGE("Reload successfully");
         myReloading = false;
     }
     // update app
