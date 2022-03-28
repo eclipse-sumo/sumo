@@ -157,7 +157,7 @@ public:
 
     /// @name members and functions relative to write demand elements into XML
     /// @{
-    /**@brief writte demand element element into a xml file
+    /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
     virtual void writeDemandElement(OutputDevice& device) const = 0;

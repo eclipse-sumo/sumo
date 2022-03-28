@@ -76,7 +76,7 @@ public:
 
     /// @name members and functions relative to write additionals into XML
     /// @{
-    /**@brief writte additional element into a xml file
+    /**@brief write additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
     virtual void writeAdditional(OutputDevice& device) const = 0;

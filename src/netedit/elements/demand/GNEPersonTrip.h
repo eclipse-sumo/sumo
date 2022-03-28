@@ -83,7 +83,7 @@ public:
      */
     GNEMoveOperation* getMoveOperation();
 
-    /**@brief writte demand element element into a xml file
+    /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
     void writeDemandElement(OutputDevice& device) const;

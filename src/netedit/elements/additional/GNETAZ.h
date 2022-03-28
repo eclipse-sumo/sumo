@@ -71,7 +71,7 @@ public:
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
-    /**@brief writte additional element into a xml file
+    /**@brief write additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
     void writeAdditional(OutputDevice& device) const;

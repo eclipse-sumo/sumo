@@ -674,7 +674,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 std::string value = oss.str();
                 // declare a flag for enabled attributes
                 bool attributeEnabled = ACs.front()->isAttributeEnabled(attrProperty.getAttr());
-                // overwritte value if attribute is disabled (used by LinkIndex)
+                // overwrite value if attribute is disabled (used by LinkIndex)
                 if (attributeEnabled == false) {
                     value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
@@ -763,7 +763,7 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                 std::string value = oss.str();
                 // declare a flag for enabled attributes
                 bool attributeEnabled = ACs.front()->isAttributeEnabled(attrProperty.getAttr());
-                // overwritte value if attribute is disabled (used by LinkIndex)
+                // overwrite value if attribute is disabled (used by LinkIndex)
                 if (attributeEnabled == false) {
                     value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
@@ -988,7 +988,7 @@ GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters(FXObject*, F
             // save it in myParameters
             myParameters[keyParam.front()] = keyParam.back();
         }
-        // overwritte myTextFieldParameters (to remove duplicated parameters
+        // overwrite myTextFieldParameters (to remove duplicated parameters
         myTextFieldParameters->setText(getParametersStr().c_str(), FALSE);
     } else {
         myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));

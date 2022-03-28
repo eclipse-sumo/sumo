@@ -57,7 +57,7 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /**@brief writte additional element into a xml file
+    /**@brief write additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
     void writeAdditional(OutputDevice& device) const;

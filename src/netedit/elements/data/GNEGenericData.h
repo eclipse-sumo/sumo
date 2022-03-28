@@ -104,7 +104,7 @@ public:
 
     /// @name members and functions relative to write data sets into XML
     /// @{
-    /**@brief writte data set element into a xml file
+    /**@brief write data set element into a xml file
      * @param[in] device device in which write parameters of data set element
      */
     virtual void writeGenericData(OutputDevice& device) const = 0;

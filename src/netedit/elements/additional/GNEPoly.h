@@ -100,7 +100,7 @@ public:
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
 
-    /**@brief writte additional element into a xml file
+    /**@brief write additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
     void writeAdditional(OutputDevice& device) const;
