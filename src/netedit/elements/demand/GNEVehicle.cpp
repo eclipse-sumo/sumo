@@ -2112,7 +2112,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             repetitionProbability = parse<double>(value);
             break;
         case GNE_ATTR_POISSON:
-            repetitionOffset = parse<double>(value) * -1;
+            repetitionOffset = string2time(value) * -1;
             break;
         case SUMO_ATTR_NUMBER:
             repetitionNumber = parse<int>(value);

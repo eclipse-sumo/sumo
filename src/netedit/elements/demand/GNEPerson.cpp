@@ -903,7 +903,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             repetitionNumber = parse<int>(value);
             break;
         case GNE_ATTR_POISSON:
-            repetitionOffset = parse<double>(value) * -1;
+            repetitionOffset = string2time(value) * -1;
             break;
         //
         case GNE_ATTR_SELECTED:
