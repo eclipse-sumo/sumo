@@ -1280,7 +1280,7 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
     storeWindowSizeAndPos();
     getApp()->beginWaitCursor();
     myAmLoading = true;
-    myReloading = true;
+    myReloading = isReload;
     closeAllWindows();
     if (isReload) {
         myLoadThread->start();
