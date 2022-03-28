@@ -157,7 +157,7 @@ GNEAllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
             disallowedVehicles.push_back(getVehicleClassNames(vClass.first));
         }
     }
-    // chek if all vehicles are enabled and set new allowed vehicles
+    // check if all vehicles are enabled and set new allowed vehicles
     if (myAC) {
         myAC->setAttribute(myEditedAttr, joinToString(allowedVehicles, " "), myViewNet->getUndoList());
     } else {

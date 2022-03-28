@@ -216,7 +216,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
                 // obtain vehicle parameters in vehicleParameters
                 SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
-                // check if vehicle was sucesfully created)
+                // check if vehicle was successfully created)
                 if (vehicleParameters) {
                     vehicleParameters->routeid = route->getID();
                     myVehicleBaseObject->setVehicleParameter(vehicleParameters);
@@ -239,7 +239,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
                 // obtain routeFlow parameters in routeFlowParameters
                 SUMOVehicleParameter* routeFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
-                // check if flow was sucesfully created)
+                // check if flow was successfully created)
                 if (routeFlowParameters) {
                     routeFlowParameters->routeid = route->getID();
                     myVehicleBaseObject->setVehicleParameter(routeFlowParameters);

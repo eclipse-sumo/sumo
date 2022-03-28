@@ -155,7 +155,7 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
         }
     }
-    // avoid writte arrival positions in walk to busStop
+    // avoid write arrival positions in walk to busStop
     if (!((myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP) && (myArrivalPosition == 0))) {
         // only write arrivalPos if is different of -1
         if (myArrivalPosition != -1) {

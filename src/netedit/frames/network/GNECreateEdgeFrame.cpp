@@ -514,7 +514,7 @@ GNECreateEdgeFrame::LaneTypeSelector::onCmdDeleteLaneType(FXObject*, FXSelector,
             // create new edgeType
             GNEEdgeType* newEdgeType = new GNEEdgeType(edgeType);
             // create laneTypes (except current)
-            for (int i = 0; i < edgeType->getLaneTypes().size(); i++) {
+            for (int i = 0; i < (int)edgeType->getLaneTypes().size(); i++) {
                 if (i != myLaneIndex) {
                     newEdgeType->addLaneType(new GNELaneType(newEdgeType, edgeType->getLaneTypes().at(i)));
                 }
@@ -645,7 +645,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
             if (myCreateEdgeSource != junction) {
                 // may fail to prevent double edges
                 GNEEdge* newEdge = myViewNet->getNet()->createEdge(myCreateEdgeSource, junction, nullptr, myViewNet->getUndoList());
-                // check if edge was sucesfully created
+                // check if edge was successfully created
                 if (newEdge) {
                     // set parameters
                     if (myEdgeTypeSelector->useEdgeTemplate()) {
