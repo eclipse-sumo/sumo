@@ -52,7 +52,7 @@ public:
 
     /**@brief add wire element
      * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @return true if wire was sucesfully added
+     * @return true if wire was successfully added
      */
     bool addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 

@@ -645,7 +645,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
             if (myCreateEdgeSource != junction) {
                 // may fail to prevent double edges
                 GNEEdge* newEdge = myViewNet->getNet()->createEdge(myCreateEdgeSource, junction, nullptr, myViewNet->getUndoList());
-                // check if edge was sucesfully created
+                // check if edge was successfully created
                 if (newEdge) {
                     // set parameters
                     if (myEdgeTypeSelector->useEdgeTemplate()) {

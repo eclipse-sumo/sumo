@@ -1892,7 +1892,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
                 (myViewNet->getNet()->getAttributeCarriers()->getNumberOfAdditionals() > 0)) {
             // save additionals
             onCmdSaveAdditionals(nullptr, 0, nullptr);
-            // check if additionals were sucesfully saved. If not, abort
+            // check if additionals were successfully saved. If not, abort
             if (!myViewNet->getNet()->isAdditionalsSaved()) {
                 return 0;
             }
@@ -1902,7 +1902,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
                 (myViewNet->getNet()->getAttributeCarriers()->getNumberOfDemandElements() > 0)) {
             // save additionals
             onCmdSaveDemandElements(nullptr, 0, nullptr);
-            // check if demand elements were sucesfully saved. If not, abort
+            // check if demand elements were successfully saved. If not, abort
             if (!myViewNet->getNet()->isDemandElementsSaved()) {
                 return 0;
             }
@@ -3034,7 +3034,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
             WRITE_DEBUG("Closed FXMessageBox 'error saving network' with 'OK'");
         }
         myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Network saved in " + oc.getString("output-file") + ".\n");
-        // After saveing a net sucesfully, add it into Recent Nets list.
+        // After saveing a net successfully, add it into Recent Nets list.
         myMenuBarFile.myRecentNetsAndConfigs.appendFile(oc.getString("output-file").c_str());
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
@@ -3823,7 +3823,7 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges(const std::string& op
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Save additionals before " + operation + "' with 'Yes'");
             if (onCmdSaveAdditionals(nullptr, 0, nullptr) == 1) {
-                // additionals sucesfully saved
+                // additionals successfully saved
                 return true;
             } else {
                 // error saving additionals, abort saving
@@ -3866,7 +3866,7 @@ GNEApplicationWindow::continueWithUnsavedDemandElementChanges(const std::string&
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before " + operation + "' with 'Yes'");
             if (onCmdSaveDemandElements(nullptr, 0, nullptr) == 1) {
-                // demand elements sucesfully saved
+                // demand elements successfully saved
                 return true;
             } else {
                 // error saving demand elements, abort saving
@@ -3909,7 +3909,7 @@ GNEApplicationWindow::continueWithUnsavedDataElementChanges(const std::string& o
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Save data elements before " + operation + "' with 'Yes'");
             if (onCmdSaveDataElements(nullptr, 0, nullptr) == 1) {
-                // data elements sucesfully saved
+                // data elements successfully saved
                 return true;
             } else {
                 // error saving data elements, abort saving
@@ -4062,7 +4062,7 @@ GNEApplicationWindow::getLockMenuCommands() {
 void
 GNEApplicationWindow::clearUndoList() {
     if (myViewNet) {
-        // destropy Popup (to avoid crashes)
+        // destroy Popup (to avoid crashes)
         myViewNet->destroyPopup();
     }
     // clear undo list and return true to continue with closing/reload

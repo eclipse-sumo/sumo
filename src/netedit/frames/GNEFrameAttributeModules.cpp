@@ -404,7 +404,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
             if (ACs.size() > 1) {
                 myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
             }
-            // update frame parent after attribute sucesfully set
+            // update frame parent after attribute successfully set
             myAttributesEditorParent->getFrameParent()->attributeUpdated();
         }
         return 1;
@@ -516,7 +516,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
                 myValueTextField->killFocus();
             }
-            // update frame parent after attribute sucesfully set
+            // update frame parent after attribute successfully set
             myAttributesEditorParent->getFrameParent()->attributeUpdated();
         }
     } else {
