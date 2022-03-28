@@ -23,3 +23,6 @@ remove_add
 
 # test ignoring specific foes ids and foe types
 junctionModel.ignore
+
+# test ignoring foes with a specific speed
+junctionModel.ignoreProb

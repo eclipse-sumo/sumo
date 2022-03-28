@@ -1,0 +1,2 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Error: Answered with error to command 0xc4: Vehicle 'ego' does not support junctionModel parameter 'junctionModel.ignoreIDDDDs'
