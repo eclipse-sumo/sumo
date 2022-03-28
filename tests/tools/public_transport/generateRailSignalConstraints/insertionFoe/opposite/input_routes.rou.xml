@@ -40,5 +40,6 @@
     <vehicle id="t1" type="train" depart="30.00" departSpeed="max">
         <route edges="-b2 -b -a"/>
         <stop busStop="stop_-b" arrival="50" until="80" duration="30"/>
+        <stop busStop="stop_-a" arrival="150" until="180" duration="30"/>
     </vehicle>
 </routes>
