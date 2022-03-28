@@ -229,7 +229,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // At start we assumed, that all values are valid
     myCalibratorFlowValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
-    // get pointer to undo list (Only for code legilibity)
+    // get pointer to undo list (Only for code legibility)
     GNEUndoList* undoList = myEditedAdditional->getNet()->getViewNet()->getUndoList();
     // set color of myComboBoxVehicleType, depending if current value is valid or not
     if (myEditedAdditional->isValid(SUMO_ATTR_TYPE, myComboBoxVehicleType->getText().text())) {

@@ -243,7 +243,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalID(s);
             // iterate over additionals and check if drawn
             for (const auto& calibratorFlow : getChildAdditionals()) {
-                // if calibrator is bein inspected or selected, then draw
+                // if calibrator is being inspected or selected, then draw
                 if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
                         isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
                         calibratorFlow->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(calibratorFlow) ||

@@ -502,7 +502,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lanes
         const auto lanes = parseLanes(SUMO_TAG_E2DETECTOR, laneIDs);
-        // chek lanes
+        // check lanes
         if (lanes.size() > 0) {
             // calculate path
             if (!GNEAdditional::areLaneConsecutives(lanes)) {
@@ -950,7 +950,7 @@ GNEAdditionalHandler::buildClosingLaneReroute(const CommonXMLStructure::SumoBase
     } else if (rerouterInterval == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_TAG_INTERVAL);
     } else {
-        // create closing lane reorute
+        // create closing lane reroute
         GNEAdditional* closingLaneReroute = new GNEClosingLaneReroute(rerouterInterval, lane, permissions);
         // add it to interval parent depending of allowUndoRedo
         if (myAllowUndoRedo) {
@@ -1500,7 +1500,7 @@ GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject
         const auto lanes = parseLanes(SUMO_TAG_OVERHEAD_WIRE_SECTION, laneIDs);
         // get traction substation
         const auto tractionSubstation = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRACTION_SUBSTATION, substationId, false);
-        // chek lanes
+        // check lanes
         if (lanes.size() > 0) {
             // calculate path
             if (!GNEAdditional::areLaneConsecutives(lanes)) {

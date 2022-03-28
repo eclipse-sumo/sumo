@@ -114,7 +114,7 @@ public:
 
     /* @brief method for checking if the key and their correspond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);

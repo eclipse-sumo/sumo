@@ -190,7 +190,7 @@ public:
             GUISUMOAbstractView& parent);
 
 
-    /// @brief return exaggeration asociated with this GLObject
+    /// @brief return exaggeration associated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
 
