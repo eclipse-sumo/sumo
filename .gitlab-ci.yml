@@ -22,3 +22,9 @@ build-job:       # This job runs in the build stage, which runs first.
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
+
+# run tests using the binary built before
+test:
+  stage: test
+  script:
+    - ./tests/runTests.sh
