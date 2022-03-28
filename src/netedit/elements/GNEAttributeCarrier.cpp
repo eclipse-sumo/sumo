@@ -518,43 +518,6 @@ GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key) c
                 return "undefined";
             }
         }
-        // flows
-        case SUMO_ATTR_VEHSPERHOUR:
-        case SUMO_ATTR_PERSONSPERHOUR:
-        case SUMO_ATTR_PERIOD:
-        case SUMO_ATTR_PROB:
-        case SUMO_ATTR_END:
-        case SUMO_ATTR_NUMBER:
-            if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).isFlowDefinition()) {
-                if (myTagProperty.hasAttribute(SUMO_ATTR_VEHSPERHOUR) && isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
-                    if (isAttributeEnabled(SUMO_ATTR_END)) {
-                        return "not together with number and period or probability";
-                    } else {
-                        return "not together with end and period or probability";
-                    }
-                } else if (myTagProperty.hasAttribute(SUMO_ATTR_PERSONSPERHOUR) && isAttributeEnabled(SUMO_ATTR_PERSONSPERHOUR)) {
-                    if (isAttributeEnabled(SUMO_ATTR_END)) {
-                        return "not together with number and period or probability";
-                    } else {
-                        return "not together with end and period or probability";
-                    }
-                } else if (isAttributeEnabled(SUMO_ATTR_PERIOD)) {
-                    if (isAttributeEnabled(SUMO_ATTR_END)) {
-                        return "not together with number and vehsPerHour or probability";
-                    } else {
-                        return "not together with end and vehsPerHour or probability";
-                    }
-                } else if (isAttributeEnabled(SUMO_ATTR_PROB)) {
-                    if (isAttributeEnabled(SUMO_ATTR_END)) {
-                        return "not together with number and vehsPerHour or period";
-                    } else {
-                        return "not together with end and vehsPerHour or period";
-                    }
-                } else if (isAttributeEnabled(SUMO_ATTR_END) && (isAttributeEnabled(SUMO_ATTR_NUMBER))) {
-                    return "not together with end and number";
-                }
-            }
-            return "0";
         default:
             return getAttribute(key);
     }
@@ -4831,20 +4794,26 @@ GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag, SumoXMLAttr
 
     attrProperty = GNEAttributeProperties(perHour,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
-                                          "Number of " + toString(currentTag) + "s per hour, equally spaced (not together with period or probability)",
+                                          "Number of " + toString(currentTag) + "s per hour, equally spaced (not together with period or probability or poisson)",
                                           "1800");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
-                                          "Insert equally spaced " + toString(currentTag) + "s at that period (not together with vehsPerHour or probability)",
+                                          "Insert equally spaced " + toString(currentTag) + "s at that period (not together with vehsPerHour or probability or poisson)",
                                           "2");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PROB,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
-                                          "probability for emitting a " + toString(currentTag) + " each second (not together with vehsPerHour or period)",
+                                          "probability for emitting a " + toString(currentTag) + " each second (not together with vehsPerHour or period or poisson)",
                                           "0.5");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+     attrProperty = GNEAttributeProperties(GNE_ATTR_POISSON,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
+                                          "Insert " + toString(currentTag) + "s spaciated using a poisson distribution (not together with period or vehsPerHour or probability)",
+                                          "2");
     myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
