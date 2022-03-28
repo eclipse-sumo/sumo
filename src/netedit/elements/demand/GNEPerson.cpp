@@ -249,8 +249,11 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
         if (isAttributeEnabled(SUMO_ATTR_PERSONSPERHOUR)) {
             device.writeAttr(SUMO_ATTR_PERSONSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
         }
-        if (isAttributeEnabled(SUMO_ATTR_PERIOD) || isAttributeEnabled(GNE_ATTR_POISSON)) {
+        if (isAttributeEnabled(SUMO_ATTR_PERIOD)) {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
+        }
+        if (isAttributeEnabled(GNE_ATTR_POISSON)) {
+            device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset * -1));
         }
         if (isAttributeEnabled(SUMO_ATTR_PROB)) {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
@@ -500,13 +503,12 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PERSONSPERHOUR:
             return toString(3600 / STEPS2TIME(repetitionOffset));
         case SUMO_ATTR_PERIOD:
+        case GNE_ATTR_POISSON:
             return time2string(repetitionOffset);
         case SUMO_ATTR_PROB:
             return toString(repetitionProbability);
         case SUMO_ATTR_NUMBER:
             return toString(repetitionNumber);
-        case GNE_ATTR_POISSON:
-            return toString(repetitionOffset * -1);
         //
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
@@ -586,9 +588,9 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
         case SUMO_ATTR_PERSONSPERHOUR:
-        case SUMO_ATTR_PERIOD:
-        case SUMO_ATTR_PROB:
+        case SUMO_ATTR_PERIOD:        
         case GNE_ATTR_POISSON:
+        case SUMO_ATTR_PROB:
         //
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SELECTED:
@@ -690,8 +692,8 @@ GNEPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_NUMBER:
         case SUMO_ATTR_PERSONSPERHOUR:
         case SUMO_ATTR_PERIOD:
-        case SUMO_ATTR_PROB:
         case GNE_ATTR_POISSON:
+        case SUMO_ATTR_PROB:
             undoList->add(new GNEChange_EnableAttribute(this, key, true, parametersSet), true);
             return;
         default:
@@ -707,8 +709,8 @@ GNEPerson::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_NUMBER:
         case SUMO_ATTR_PERSONSPERHOUR:
         case SUMO_ATTR_PERIOD:
-        case SUMO_ATTR_PROB:
         case GNE_ATTR_POISSON:
+        case SUMO_ATTR_PROB:
             undoList->add(new GNEChange_EnableAttribute(this, key, false, parametersSet), true);
             return;
         default:
@@ -728,10 +730,10 @@ GNEPerson::isAttributeEnabled(SumoXMLAttr key) const {
             return (parametersSet & VEHPARS_VPH_SET) != 0;
         case SUMO_ATTR_PERIOD:
             return (parametersSet & VEHPARS_PERIOD_SET) != 0;
+        case GNE_ATTR_POISSON:
+            return (parametersSet & VEHPARS_POISSON_SET) != 0;
         case SUMO_ATTR_PROB:
             return (parametersSet & VEHPARS_PROB_SET) != 0;
-        case GNE_ATTR_POISSON:
-            return (repetitionOffset < 0);
         default:
             return true;
     }
@@ -894,6 +896,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
             break;
         case SUMO_ATTR_PERIOD:
+        case GNE_ATTR_POISSON:
             repetitionOffset = string2time(value);
             break;
         case SUMO_ATTR_PROB:
@@ -901,9 +904,6 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_NUMBER:
             repetitionNumber = parse<int>(value);
-            break;
-        case GNE_ATTR_POISSON:
-            repetitionOffset = string2time(value) * -1;
             break;
         //
         case GNE_ATTR_SELECTED:
