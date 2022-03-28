@@ -217,7 +217,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         }
         if (!e->hasLaneSpecificFriction()) {
             if (e->getFriction() != NBEdge::UNSPECIFIED_FRICTION) {
-                edevice.writeAttr(SUMO_ATTR_FRICTION, e->getFriction()); //TODO
+                edevice.writeAttr(SUMO_ATTR_FRICTION, e->getFriction());
             }
         }
         // write non-default geometry
