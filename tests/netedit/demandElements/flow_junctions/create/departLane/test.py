@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to junctions)")
 
 # set invalid depart lane
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departLane, "dummyLane")
+netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.departLane, "dummyLane")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid depart lane
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departLane, "-12")
+netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.departLane, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid depart lane
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departLane, "random")
+netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.departLane, "random")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid depart lane
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departLane, "20")
+netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.departLane, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

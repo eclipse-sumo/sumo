@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspect.line, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.enums.stop.inspect.line, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspect.line, "", False)
+netedit.modifyAttribute(netedit.attrs.enums.stop.inspect.line, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspect.line, "customLine", False)
+netedit.modifyAttribute(netedit.attrs.enums.stop.inspect.line, "customLine", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

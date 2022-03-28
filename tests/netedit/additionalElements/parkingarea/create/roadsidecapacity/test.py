@@ -35,31 +35,31 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # set invalid roadSideCapacity (dummy)
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "dummyRoadSideCapacity")
+netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.roadSideCapacity, "dummyRoadSideCapacity")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set invalid roadSideCapacity (empty"
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "")
+netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.roadSideCapacity, "")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set invalid roadSideCapacity (negative)
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "-3")
+netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.roadSideCapacity, "-3")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set invalid roadSideCapacity (double)
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "2.5")
+netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.roadSideCapacity, "2.5")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set valid roadSideCapacity
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "3")
+netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.roadSideCapacity, "3")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)

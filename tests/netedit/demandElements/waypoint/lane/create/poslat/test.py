@@ -41,25 +41,25 @@ netedit.stopMode()
 netedit.changeStopType("waypointLane")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointLane.create.posLat, "dummyPosLat")
+netedit.changeDefaultValue(netedit.attrs.enums.waypointLane.create.posLat, "dummyPosLat")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointLane.create.posLat, "-15")
+netedit.changeDefaultValue(netedit.attrs.enums.waypointLane.create.posLat, "-15")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointLane.create.posLat, "7")
+netedit.changeDefaultValue(netedit.attrs.enums.waypointLane.create.posLat, "7")
 
 # create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointLane.create.posLat, "2.3")
+netedit.changeDefaultValue(netedit.attrs.enums.waypointLane.create.posLat, "2.3")
 
 # create waypoint
 netedit.leftClick(referencePosition, 400, 185)

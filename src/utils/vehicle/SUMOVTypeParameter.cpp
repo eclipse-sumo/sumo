@@ -281,7 +281,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
     }
     // obtain default values depending of vclass
     VClassDefaultValues defaultValues(vclass);
-    // overwritte SUMOVTypeParameter with VClassDefaultValues
+    // overwrite SUMOVTypeParameter with VClassDefaultValues
     length = defaultValues.length;
     minGap = defaultValues.minGap;
     maxSpeed = defaultValues.maxSpeed;

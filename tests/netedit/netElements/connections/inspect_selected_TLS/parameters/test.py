@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.changeEditMode(netedit.attrs.Modes.Network.showConnections)
+netedit.changeEditMode(netedit.attrs.enums.Modes.Network.showConnections)
 
 # go to select mode
 netedit.selectMode()
@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 228, 170)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.connection.inspectSelectionTLS.parameters, True)
+netedit.checkParameters(referencePosition, netedit.attrs.enums.connection.inspectSelectionTLS.parameters, True)
 
 # save network
 netedit.saveNetwork(referencePosition)

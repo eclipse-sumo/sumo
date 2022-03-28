@@ -32,22 +32,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.changeEditMode(netedit.attrs.Modes.Network.showConnections)
+netedit.changeEditMode(netedit.attrs.enums.Modes.Network.showConnections)
 
 # inspect connection
 netedit.leftClick(referencePosition, 228, 164)
 
 # Change visibility with an invalid value
-netedit.modifyAttribute(netedit.attrs.connection.inspect.visibility, "dummyVisibility", True)
+netedit.modifyAttribute(netedit.attrs.enums.connection.inspect.visibility, "dummyVisibility", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspect.visibility, "-4", True)
+netedit.modifyAttribute(netedit.attrs.enums.connection.inspect.visibility, "-4", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspect.visibility, "0", True)
+netedit.modifyAttribute(netedit.attrs.enums.connection.inspect.visibility, "0", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspect.visibility, "11", True)
+netedit.modifyAttribute(netedit.attrs.enums.connection.inspect.visibility, "11", True)
 
 # rebuild
 netedit.rebuildNetwork()

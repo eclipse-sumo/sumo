@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("chargingStation")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.enums.chargingStation.create.references, "reference center")
 
 # create chargingStation in mode "reference center"
 netedit.leftClick(referencePosition, 250, 172)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 173)
 
 # Change parameter startPos with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.startPos, "", True)
+netedit.modifyAttribute(netedit.attrs.enums.chargingStation.inspect.startPos, "", True)
 
 # Change parameter startPos with a valid value (< 0)
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.startPos, "-5", True)
+netedit.modifyAttribute(netedit.attrs.enums.chargingStation.inspect.startPos, "-5", True)
 
 # Change parameter startPos with a non valid value (> endPos)
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.startPos, "400", True)
+netedit.modifyAttribute(netedit.attrs.enums.chargingStation.inspect.startPos, "400", True)
 
 # Change parameter startPos with a valid value
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.startPos, "20", True)
+netedit.modifyAttribute(netedit.attrs.enums.chargingStation.inspect.startPos, "20", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

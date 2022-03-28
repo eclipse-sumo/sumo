@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("calibrator")
 
 # change vTypes with an invalid value
-netedit.changeDefaultValue(netedit.attrs.calibrator.create.vTypes, "%%%%##;;#!!!")
+netedit.changeDefaultValue(netedit.attrs.enums.calibrator.create.vTypes, "%%%%##;;#!!!")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(referencePosition, 240, 250)
 
 # change vTypes with an valid value
-netedit.changeDefaultValue(netedit.attrs.calibrator.create.vTypes, "type1 type2")
+netedit.changeDefaultValue(netedit.attrs.enums.calibrator.create.vTypes, "type1 type2")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(referencePosition, 240, 250)

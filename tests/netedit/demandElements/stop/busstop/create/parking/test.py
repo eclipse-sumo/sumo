@@ -44,7 +44,7 @@ netedit.changeStopType("stopBusStop")
 netedit.leftClick(referencePosition, 290, 175)
 
 # change parking
-netedit.changeDefaultBoolValue(netedit.attrs.stop.create.parking)
+netedit.changeDefaultBoolValue(netedit.attrs.enums.stop.create.parking)
 
 # create stop
 netedit.leftClick(referencePosition, 290, 175)

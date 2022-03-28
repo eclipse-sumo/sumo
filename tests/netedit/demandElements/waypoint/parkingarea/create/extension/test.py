@@ -41,34 +41,34 @@ netedit.stopMode()
 netedit.changeStopType("waypointParkingArea")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.waypointParking.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.enums.waypointParking.create.durationEnable)
 
 # enable until
-netedit.changeDefaultBoolValue(netedit.attrs.waypointParking.create.extensionEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.enums.waypointParking.create.extensionEnable)
 
 # create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointParking.create.extension, "dummyValue")
+netedit.changeDefaultValue(netedit.attrs.enums.waypointParking.create.extension, "dummyValue")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointParking.create.extension, "-20")
+netedit.changeDefaultValue(netedit.attrs.enums.waypointParking.create.extension, "-20")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointParking.create.extension, "0")
+netedit.changeDefaultValue(netedit.attrs.enums.waypointParking.create.extension, "0")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointParking.create.extension, "22.33")
+netedit.changeDefaultValue(netedit.attrs.enums.waypointParking.create.extension, "22.33")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)

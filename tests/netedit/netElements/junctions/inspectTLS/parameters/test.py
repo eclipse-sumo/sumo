@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.junction.inspectTLS.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.enums.junction.inspectTLS.parameters, False)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

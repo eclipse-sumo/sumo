@@ -35,10 +35,10 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # change type
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.type, "<<poi_test>>")
+netedit.changeDefaultValue(netedit.attrs.enums.POIGEO.create.type, "<<poi_test>>")
 
 # change type
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.type, "custom type")
+netedit.changeDefaultValue(netedit.attrs.enums.POIGEO.create.type, "custom type")
 
 # create poi
 netedit.leftClick(referencePosition, 100, 50)

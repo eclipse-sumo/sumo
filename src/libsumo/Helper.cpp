@@ -1732,7 +1732,7 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
     }
 
 
-    // position may be inaccurate; let's checkt the given index, too
+    // position may be inaccurate; let's check the given index, too
     // @note: this is enabled for non-internal lanes only, as otherwise the position information may ambiguous
     if (!(*lane)->getEdge().isInternal()) {
         const std::vector<MSLane*>& lanes = (*lane)->getEdge().getLanes();

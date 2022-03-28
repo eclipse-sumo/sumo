@@ -49,25 +49,25 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (over route)")
 
 # set invalid depart
-netedit.changeDefaultValue(netedit.attrs.vehicle.create.depart, "dummyDepart")
+netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.depart, "dummyDepart")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid depart
-netedit.changeDefaultValue(netedit.attrs.vehicle.create.depart, "-12")
+netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.depart, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid depart
-netedit.changeDefaultValue(netedit.attrs.vehicle.create.depart, "30")
+netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.depart, "30")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid depart (output will be changed)
-netedit.changeDefaultValue(netedit.attrs.vehicle.create.depart, "20")
+netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.depart, "20")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

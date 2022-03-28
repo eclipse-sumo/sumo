@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 278, 200)
 
 # disable friendlyPos
-netedit.modifyBoolAttribute(netedit.attrs.busStop.inspectSelection.friendlyPos, True)
+netedit.modifyBoolAttribute(netedit.attrs.enums.busStop.inspectSelection.friendlyPos, True)
 
 # go to select mode
 netedit.selectMode()

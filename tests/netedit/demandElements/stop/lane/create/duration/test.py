@@ -41,37 +41,37 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stopLane.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.enums.stopLane.create.durationEnable)
 
 # create stop
 netedit.leftClick(referencePosition, 400, 185)
 
 # enable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stopLane.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.enums.stopLane.create.durationEnable)
 
 # create stop
 netedit.leftClick(referencePosition, 400, 185)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.duration, "dummyValue")
+netedit.changeDefaultValue(netedit.attrs.enums.stopLane.create.duration, "dummyValue")
 
 # try to create stop
 netedit.leftClick(referencePosition, 400, 185)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.duration, "-20")
+netedit.changeDefaultValue(netedit.attrs.enums.stopLane.create.duration, "-20")
 
 # try to create stop
 netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.duration, "0")
+netedit.changeDefaultValue(netedit.attrs.enums.stopLane.create.duration, "0")
 
 # try to create stop
 netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.duration, "22.33")
+netedit.changeDefaultValue(netedit.attrs.enums.stopLane.create.duration, "22.33")
 
 # try to create stop
 netedit.leftClick(referencePosition, 400, 185)

@@ -191,10 +191,10 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarrier(const GUIGlID id, bool
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     // Make sure that object exists
     if (object != nullptr) {
-        // unblock and try to parse to AtributeCarrier
+        // unblock and try to parse to AttributeCarrier
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
         GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(object);
-        // If was sucesfully parsed, return it
+        // If was successfully parsed, return it
         if (ac == nullptr) {
             throw ProcessError("GUIGlObject does not match the declared type");
         } else {

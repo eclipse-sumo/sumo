@@ -41,25 +41,25 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 16 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.stopOffset, "4", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.stopOffset, "4", False)
 
 # Change parameter 8 with an non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.stopException, "dummyException", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.stopException, "dummyException", False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.stopException, "", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.stopException, "", False)
 
 # Change parameter 8 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.stopException, "authority  army, passenger; taxi. tram", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.stopException, "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.stopException, "", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.stopException, "", False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.edge.inspect.stopExceptionButton, False)
+netedit.modifyAllowDisallowValue(netedit.attrs.enums.edge.inspect.stopExceptionButton, False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.stopException,
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.stopException,
                         "authority army vip passenger hov taxi bus coach tram bicycle", False)
 
 # recompute

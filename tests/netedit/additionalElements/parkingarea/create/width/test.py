@@ -35,25 +35,25 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # set invalid width (dummy)
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.width, "dummyWidth")
+netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.width, "dummyWidth")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set invalid width (empty)
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.width, "")
+netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.width, "")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set invalid width (negative)
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.width, "-3")
+netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.width, "-3")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set valid width
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.width, "2.5")
+netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.width, "2.5")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)

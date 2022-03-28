@@ -121,7 +121,7 @@ public:
      */
     std::string getBegin() const;
 
-    /**@brief writte demand element element into a xml file
+    /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
     void writeDemandElement(OutputDevice& device) const;
@@ -170,7 +170,7 @@ public:
      */
     std::string getParentName() const;
 
-    /// @brief return exaggeration asociated with this GLObject
+    /// @brief return exaggeration associated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object

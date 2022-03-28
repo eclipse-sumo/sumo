@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # set friendlyPos
-netedit.changeDefaultBoolValue(netedit.attrs.busStop.create.friendlyPos)
+netedit.changeDefaultBoolValue(netedit.attrs.enums.busStop.create.friendlyPos)
 
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

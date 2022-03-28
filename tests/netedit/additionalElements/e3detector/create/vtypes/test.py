@@ -38,13 +38,13 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # set invalid vehicle types (invalid IDs)
-netedit.changeDefaultValue(netedit.attrs.E3.create.vTypes, "@%%;$$$ %%$$ type.3@")
+netedit.changeDefaultValue(netedit.attrs.enums.E3.create.vTypes, "@%%;$$$ %%$$ type.3@")
 
 # try to create E3 with invalid vehicle type
 netedit.leftClick(referencePosition, 100, 85)
 
 # set valid vehicle types
-netedit.changeDefaultValue(netedit.attrs.E3.create.vTypes, "type1 type2 type3")
+netedit.changeDefaultValue(netedit.attrs.enums.E3.create.vTypes, "type1 type2 type3")
 
 # create E3 with valid vehicle types
 netedit.leftClick(referencePosition, 100, 85)

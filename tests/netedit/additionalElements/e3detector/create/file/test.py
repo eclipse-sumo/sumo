@@ -38,13 +38,13 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # set invalid file
-netedit.changeDefaultValue(netedit.attrs.E3.create.file, "%%%$$%%$%")
+netedit.changeDefaultValue(netedit.attrs.enums.E3.create.file, "%%%$$%%$%")
 
 # try to create E3 with invalid file
 netedit.leftClick(referencePosition, 100, 85)
 
 # set valid file
-netedit.changeDefaultValue(netedit.attrs.E3.create.file, "myOwnFile.txt")
+netedit.changeDefaultValue(netedit.attrs.enums.E3.create.file, "myOwnFile.txt")
 
 # create E3 with valid file
 netedit.leftClick(referencePosition, 100, 85)

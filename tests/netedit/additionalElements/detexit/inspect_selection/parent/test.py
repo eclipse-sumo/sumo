@@ -41,10 +41,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 183, 240)
 
 # Change Netedit parameter parent with a non valid value (Invalid E3 ID)
-netedit.modifyAttribute(netedit.attrs.entryExit.inspectSelection.parent, "invalidE3", True)
+netedit.modifyAttribute(netedit.attrs.enums.entryExit.inspectSelection.parent, "invalidE3", True)
 
 # Change Netedit parameter parent with a non valid value (Invalid E3 ID)
-netedit.modifyAttribute(netedit.attrs.entryExit.inspectSelection.parent, "E3_1", True)
+netedit.modifyAttribute(netedit.attrs.enums.entryExit.inspectSelection.parent, "E3_1", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

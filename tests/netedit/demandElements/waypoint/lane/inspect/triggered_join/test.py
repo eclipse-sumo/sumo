@@ -50,10 +50,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspect.triggered, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.triggered, "join", False)
+netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspect.triggered, "join", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

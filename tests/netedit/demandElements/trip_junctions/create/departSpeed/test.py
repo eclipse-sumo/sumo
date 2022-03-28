@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to junctions)")
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.departSpeed, "dummySpeed")
+netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.departSpeed, "dummySpeed")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.departSpeed, "-12")
+netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.departSpeed, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.departSpeed, "max")
+netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.departSpeed, "max")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.departSpeed, "20")
+netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.departSpeed, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

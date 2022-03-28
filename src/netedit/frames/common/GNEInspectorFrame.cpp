@@ -821,7 +821,7 @@ GNEInspectorFrame::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, 
             if (GNEMultipleParametersDialog(this).execute()) {
                 // write debug information
                 WRITE_DEBUG("Close multiple parameters dialog");
-                // update frame parent after attribute sucesfully set
+                // update frame parent after attribute successfully set
                 myInspectorFrameParent->attributeUpdated();
                 // Refresh parameter EditorInspector
                 refreshParametersEditor();
@@ -835,7 +835,7 @@ GNEInspectorFrame::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, 
             if (GNESingleParametersDialog(this).execute()) {
                 // write debug information
                 WRITE_DEBUG("Close single parameters dialog");
-                // update frame parent after attribute sucesfully set
+                // update frame parent after attribute successfully set
                 myInspectorFrameParent->attributeUpdated();
                 // Refresh parameter EditorInspector
                 refreshParametersEditor();
@@ -879,7 +879,7 @@ GNEInspectorFrame::ParametersEditor::onCmdSetParameters(FXObject*, FXSelector, v
                 // end undo list
                 myInspectorFrameParent->myViewNet->getUndoList()->end();
             }
-            // update frame parent after attribute sucesfully set
+            // update frame parent after attribute successfully set
             myInspectorFrameParent->attributeUpdated();
         } else {
             myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));

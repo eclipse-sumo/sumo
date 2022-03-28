@@ -38,13 +38,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 300, 180)
 
 # Change parameter length
-netedit.modifyAttribute(netedit.attrs.edge.inspect.length, "25", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.length, "25", False)
 
 # inspect edge
 netedit.leftClick(referencePosition, 300, 280)
 
 # Change parameter length
-netedit.modifyAttribute(netedit.attrs.edge.inspect.length, "25", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.length, "25", False)
 
 # recompute
 netedit.rebuildNetwork()

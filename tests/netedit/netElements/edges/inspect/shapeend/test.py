@@ -41,19 +41,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 19 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "dummyShapeEnd", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.shapeEnd, "dummyShapeEnd", False)
 
 # Change parameter 19 with a non valid value (non valid position)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "24", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.shapeEnd, "24", False)
 
 # Change parameter 19 with a duplicated value (See #3157)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "14,15.5", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.shapeEnd, "14,15.5", False)
 
 # Change parameter 19 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.shapeEnd, "", False)
 
 # Change parameter 19 with a valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "34,15.5", False)
+netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.shapeEnd, "34,15.5", False)
 
 # recompute
 netedit.rebuildNetwork()
