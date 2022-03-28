@@ -398,7 +398,7 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
     // use a SET of pairs to obtain IDs and Pointers to attribute carriers. We need this because certain ACs can be returned many times (example: Edges)
     // Note: a map cannot be used because there is different ACs with the same ID (example: Additionals)
     std::set<std::pair<std::string, GNEAttributeCarrier*> > result;
-    // firstm make OpenGL context current prior to performing OpenGL commands
+    // first make OpenGL context current prior to performing OpenGL commands
     if (makeCurrent()) {
         // obtain GUIGLIds of all objects in the given boundary (disabling drawForRectangleSelection)
         std::vector<GUIGlID> GLIds = getObjectsInBoundary(boundary, false);
@@ -892,7 +892,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         myTestingMode.drawTestingElements(myApp);
         // draw temporal E2 multilane detectors
         myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLanePath(*myVisualizationSettings);
-        // draw temporal overwhead wires
+        // draw temporal overhead wires
         myViewParent->getWireFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLanePath(*myVisualizationSettings);
         // draw temporal trip/flow route
         myViewParent->getVehicleFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
@@ -2427,7 +2427,7 @@ GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
         const SUMOVehicleClass vClass = SumoVehicleClassStrings.get(dynamic_cast<FXMenuCommand*>(menu)->getText().text());
         // calculate reachability
         myNet->getPathManager()->getPathCalculator()->calculateReachability(vClass, laneAtPopupPosition->getParentEdge());
-        // select all lanes with reachablility greather than 0
+        // select all lanes with reachability greather than 0
         myUndoList->begin(GUIIcon::LANE, "select lane reachability");
         for (const auto& edge : myNet->getAttributeCarriers()->getEdges()) {
             for (const auto& lane : edge.second->getLanes()) {
@@ -3080,7 +3080,7 @@ GNEViewNet::onCmdToggleShowConnections(FXObject*, FXSelector sel, void*) {
     myVisualizationSettings->showLane2Lane = (myNetworkViewOptions.menuCheckShowConnections->amChecked() == TRUE);
     // Hide/show connections require recompute
     getNet()->requireRecompute();
-    // Update viewnNet to show/hide conections
+    // Update viewNet to show/hide connections
     updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS)) {
@@ -3099,7 +3099,7 @@ GNEViewNet::onCmdToggleHideConnections(FXObject*, FXSelector sel, void*) {
         myNetworkViewOptions.menuCheckHideConnections->setChecked(TRUE);
     }
     myNetworkViewOptions.menuCheckHideConnections->update();
-    // Update viewnNet to show/hide conections
+    // Update viewNet to show/hide connections
     updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS)) {
@@ -3118,7 +3118,7 @@ GNEViewNet::onCmdToggleShowAdditionalSubElements(FXObject*, FXSelector sel, void
         myNetworkViewOptions.menuCheckShowAdditionalSubElements->setChecked(TRUE);
     }
     myNetworkViewOptions.menuCheckShowAdditionalSubElements->update();
-    // Update viewnNet to show/hide sub elements
+    // Update viewNet to show/hide sub elements
     updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS)) {
@@ -3168,7 +3168,7 @@ GNEViewNet::onCmdToggleChangeAllPhases(FXObject*, FXSelector sel, void*) {
 
 long
 GNEViewNet::onCmdToggleShowGrid(FXObject*, FXSelector sel, void*) {
-    // show or hidde grid depending of myNetworkViewOptions.menuCheckToggleGrid
+    // show or hide grid depending of myNetworkViewOptions.menuCheckToggleGrid
     if (myVisualizationSettings->showGrid) {
         myVisualizationSettings->showGrid = false;
         myNetworkViewOptions.menuCheckToggleGrid->setChecked(false);
@@ -3194,7 +3194,7 @@ GNEViewNet::onCmdToggleShowGrid(FXObject*, FXSelector sel, void*) {
 
 long
 GNEViewNet::onCmdToggleDrawJunctionShape(FXObject*, FXSelector sel, void*) {
-    // show or hidde grid depending of myNetworkViewOptions.menuCheckToggleGrid
+    // show or hide grid depending of myNetworkViewOptions.menuCheckToggleGrid
     if (myVisualizationSettings->drawJunctionShape) {
         myVisualizationSettings->drawJunctionShape = false;
         myNetworkViewOptions.menuCheckToggleDrawJunctionShape->setChecked(false);
@@ -3479,7 +3479,7 @@ GNEViewNet::onCmdToggleLockPerson(FXObject*, FXSelector sel, void*) {
     myDemandViewOptions.menuCheckLockPerson->update();
     // lock or unlock current inspected person depending of menuCheckLockPerson value
     if (myDemandViewOptions.menuCheckLockPerson->amChecked()) {
-        // obtan locked person or person plan
+        // obtain locked person or person plan
         const GNEDemandElement* personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(myInspectedAttributeCarriers.front());
         if (personOrPersonPlan) {
             // lock person depending if casted demand element is either a person or a person plan
@@ -3533,7 +3533,7 @@ GNEViewNet::onCmdToggleLockContainer(FXObject*, FXSelector sel, void*) {
     myDemandViewOptions.menuCheckLockContainer->update();
     // lock or unlock current inspected container depending of menuCheckLockContainer value
     if (myDemandViewOptions.menuCheckLockContainer->amChecked()) {
-        // obtan locked container or container plan
+        // obtain locked container or container plan
         const GNEDemandElement* containerOrContainerPlan = dynamic_cast<const GNEDemandElement*>(myInspectedAttributeCarriers.front());
         if (containerOrContainerPlan) {
             // lock container depending if casted demand element is either a container or a container plan
@@ -3854,7 +3854,7 @@ GNEViewNet::buildEditModeControls() {
 
     // Create Vertical separator
     new FXVerticalSeparator(myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, GUIDesignVerticalSeparator);
-    // XXX for some reason the vertial groove is not visible. adding more spacing to emphasize the separation
+    // XXX for some reason the vertical groove is not visible. adding more spacing to emphasize the separation
     new FXVerticalSeparator(myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, GUIDesignVerticalSeparator);
     new FXVerticalSeparator(myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, GUIDesignVerticalSeparator);
 
@@ -4273,9 +4273,9 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCurrentFrame = myViewParent->getDeleteFrame();
             // set checkable button
             myCommonCheckableButtons.deleteButton->setChecked(true);
-            // show toogle TAZRel drawing view option
+            // show toggle TAZRel drawing view option
             myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
-            // show toogle TAZRel drawing menu check
+            // show toggle TAZRel drawing menu check
             menuChecks.menuCheckToogleTAZRelDrawing->show();
             break;
         case DataEditMode::DATA_SELECT:
@@ -4284,9 +4284,9 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCurrentFrame = myViewParent->getSelectorFrame();
             // set checkable button
             myCommonCheckableButtons.selectButton->setChecked(true);
-            // show toogle TAZRel drawing view option
+            // show toggle TAZRel drawing view option
             myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
-            // show toogle TAZRel drawing menu check
+            // show toggle TAZRel drawing menu check
             menuChecks.menuCheckToogleTAZRelDrawing->show();
             break;
         case DataEditMode::DATA_EDGEDATA:
@@ -4536,7 +4536,7 @@ GNEViewNet::drawTemporalJunction() const {
         const Position mousePosition = snapToActiveGrid(getPositionInformation());
         // get junction exaggeration
         const double junctionExaggeration = myVisualizationSettings->junctionSize.getExaggeration(*myVisualizationSettings, nullptr, 4);
-        // get buble color
+        // get bubble color
         RGBColor bubbleColor = myVisualizationSettings->junctionColorer.getScheme().getColor(1);
         // change alpha
         bubbleColor.setAlpha(200);
@@ -4561,27 +4561,27 @@ GNEViewNet::drawTemporalJunction() const {
             RGBColor temporalEdgeColor = RGBColor::BLACK;
             temporalEdgeColor.setAlpha(200);
             // declare temporal edge geometry
-            GUIGeometry temporalEdgeGeometery;
+            GUIGeometry temporalEdgeGeometry;
             // calculate geometry between source junction and mouse position
             PositionVector temporalEdge = {mousePosition, myViewParent->getCreateEdgeFrame()->getJunctionSource()->getPositionInView()};
             // move temporal edge 2 side
             temporalEdge.move2side(-1);
             // update geometry
-            temporalEdgeGeometery.updateGeometry(temporalEdge);
+            temporalEdgeGeometry.updateGeometry(temporalEdge);
             // push temporal edge matrix
             GLHelper::pushMatrix();
             // set color
             GLHelper::setColor(temporalEdgeColor);
             // draw temporal edge
-            GUIGeometry::drawGeometry(myVisualizationSettings, getPositionInformation(), temporalEdgeGeometery, 0.75);
+            GUIGeometry::drawGeometry(myVisualizationSettings, getPositionInformation(), temporalEdgeGeometry, 0.75);
             // check if we have to draw opposite edge
             if (myNetworkViewOptions.menuCheckAutoOppositeEdge->amChecked() == TRUE) {
                 // move temporal edge to opposite edge
                 temporalEdge.move2side(2);
                 // update geometry
-                temporalEdgeGeometery.updateGeometry(temporalEdge);
+                temporalEdgeGeometry.updateGeometry(temporalEdge);
                 // draw temporal edge
-                GUIGeometry::drawGeometry(myVisualizationSettings, getPositionInformation(), temporalEdgeGeometery, 0.75);
+                GUIGeometry::drawGeometry(myVisualizationSettings, getPositionInformation(), temporalEdgeGeometry, 0.75);
             }
             // pop temporal edge matrix
             GLHelper::popMatrix();
@@ -4806,7 +4806,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
                 } else {
-                    // check if process click was scuesfully
+                    // check if process click was successfully
                     if (myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor)) {
                         // view net must be always update
                         updateViewNet();

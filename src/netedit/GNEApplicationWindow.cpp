@@ -1244,7 +1244,7 @@ GNEApplicationWindow::fillMenuBar() {
     myLockMenuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "L&ock", nullptr, myLockMenu);
     myLockMenuTitle->setTarget(this);
     myLockMenuTitle->setSelector(MID_GNE_LOCK_MENUTITLE);
-    // build lock menu commmands
+    // build lock menu commands
     myLockMenuCommands.buildLockMenuCommands(myLockMenu);
     // build processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
@@ -1381,7 +1381,7 @@ GNEApplicationWindow::closeAllWindows() {
     GUITextureSubSys::resetTextures();
     // reset fonts
     GLHelper::resetFont();
-    // disable saving commmand
+    // disable saving command
     disableSaveAdditionalsMenu();
 }
 

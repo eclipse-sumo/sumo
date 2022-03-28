@@ -124,7 +124,7 @@ GNETagProperties::checkTagIntegrity() const {
     // check integrity of all attributes
     for (const auto& attributeProperty : myAttributeProperties) {
         attributeProperty.checkAttributeIntegrity();
-        // check that if attribute is vehicle classes, own a combination of Allow/disallow attibute
+        // check that if attribute is vehicle classes, own a combination of Allow/disallow attribute
         if (attributeProperty.isVClasses()) {
             if ((attributeProperty.getAttr() != SUMO_ATTR_ALLOW) && (attributeProperty.getAttr() != SUMO_ATTR_DISALLOW) &&
                     (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_LEFT) && (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_RIGHT) &&

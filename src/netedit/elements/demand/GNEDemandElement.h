@@ -48,7 +48,7 @@ class GNEJunction;
 
 /**
  * @class GNEDemandElement
- * @brief An Element which don't belongs to GNENet but has influency in the simulation
+ * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
 class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement {
 

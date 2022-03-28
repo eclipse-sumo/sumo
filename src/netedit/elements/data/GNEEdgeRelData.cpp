@@ -144,7 +144,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
         }
         // Add a draw matrix
         GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
+        // Start with the drawing of the area translating matrix to origin
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGERELDATA, offsetFront);
         // Set orange color
         GLHelper::setColor(RGBColor::BLACK);

@@ -1444,7 +1444,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
                 ACToUnselect.push_back(AC);
             }
         }
-        // iterate over AtributeCarriers obtained of boundary an place it in ACToSelect or ACToUnselect
+        // iterate over AttributeCarriers obtained of boundary an place it in ACToSelect or ACToUnselect
         for (const auto& AC : ACsInBoundaryFiltered) {
             switch (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModule()->getModificationMode()) {
                 case GNESelectorFrame::ModificationMode::Operation::SUB:
@@ -1537,7 +1537,7 @@ GNEViewNetHelper::TestingMode::initTestingMode() {
 
 void
 GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
-    // first check if testing mode is neabled
+    // first check if testing mode is enabled
     if (myTestingEnabled) {
         // check if main windows has to be resized
         if (myTestingWidth > 0) {

@@ -393,19 +393,19 @@ struct GNEViewNetHelper {
         /// @brief build save buttons
         void buildSaveElementsButtons();
 
-        /// @brief chekable button for save all
+        /// @brief checkable button for save all
         FXButton* saveAll;
 
-        /// @brief chekable button for save network
+        /// @brief checkable button for save network
         FXButton* saveNetwork;
 
-        /// @brief chekable button for save additional elements
+        /// @brief checkable button for save additional elements
         FXButton* saveAdditionalElements;
 
-        /// @brief chekable button for save demand elements
+        /// @brief checkable button for save demand elements
         FXButton* saveDemandElements;
 
-        /// @brief chekable button for save data elements
+        /// @brief checkable button for save data elements
         FXButton* saveDataElements;
 
     private:
@@ -461,13 +461,13 @@ struct GNEViewNetHelper {
         /// @brief the current Data edit mode
         DataEditMode dataEditMode;
 
-        /// @brief chekable button for supermode Network
+        /// @brief checkable button for supermode Network
         MFXCheckableButton* networkButton;
 
-        /// @brief chekable button for supermode Demand
+        /// @brief checkable button for supermode Demand
         MFXCheckableButton* demandButton;
 
-        /// @brief chekable button for supermode Data
+        /// @brief checkable button for supermode Data
         MFXCheckableButton* dataButton;
 
     private:
@@ -547,7 +547,7 @@ struct GNEViewNetHelper {
         /// @brief checkable button to we should warn about merging junctions
         MFXCheckableButton* menuCheckWarnAboutMerge;
 
-        /// @brief checkable button to show connection as buuble in "Move" mode.
+        /// @brief checkable button to show connection as bubble in "Move" mode.
         MFXCheckableButton* menuCheckShowJunctionBubble;
 
         /// @brief checkable button to apply movement to elevation
@@ -698,16 +698,16 @@ struct GNEViewNetHelper {
         /// @brief check if show demand elements checkbox is enabled
         bool showDemandElements() const;
 
-        /// @brief check if toogle TAZRel drawing checkbox is enabled
+        /// @brief check if toggle TAZRel drawing checkbox is enabled
         bool TAZRelDrawing() const;
 
-        /// @brief check if toogle TAZ draw fill checkbox is enabled
+        /// @brief check if toggle TAZ draw fill checkbox is enabled
         bool TAZDrawFill() const;
 
-        /// @brief check if toogle TAZRel only from checkbox is enabled
+        /// @brief check if toggle TAZRel only from checkbox is enabled
         bool TAZRelOnlyFrom() const;
 
-        /// @brief check if toogle TAZRel only to checkbox is enabled
+        /// @brief check if toggle TAZRel only to checkbox is enabled
         bool TAZRelOnlyTo() const;
 
         /// @brief checkable button to show junction shapes
@@ -722,16 +722,16 @@ struct GNEViewNetHelper {
         /// @brief menu check to show Demand Elements
         MFXCheckableButton* menuCheckShowDemandElements;
 
-        /// @brief menu check to toogle TAZ Rel drawing
+        /// @brief menu check to toggle TAZ Rel drawing
         MFXCheckableButton* menuCheckToogleTAZRelDrawing;
 
-        /// @brief menu check to toogle TAZ draw fill
+        /// @brief menu check to toggle TAZ draw fill
         MFXCheckableButton* menuCheckToogleTAZDrawFill;
 
-        /// @brief menu check to toogle TAZRel only from
+        /// @brief menu check to toggle TAZRel only from
         MFXCheckableButton* menuCheckToogleTAZRelOnlyFrom;
 
-        /// @brief menu check to toogle TAZRel only to
+        /// @brief menu check to toggle TAZRel only to
         MFXCheckableButton* menuCheckToogleTAZRelOnlyTo;
 
     private:

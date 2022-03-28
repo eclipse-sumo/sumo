@@ -43,7 +43,7 @@ class GNEDataInterval;
 class GNEDataSet : public GNEAttributeCarrier, public Parameterised {
 
 public:
-    /// @bief attribute colors
+    /// @brief attribute colors
     class AttributeColors {
 
     public:

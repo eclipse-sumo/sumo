@@ -159,7 +159,7 @@ NLBuilder::build() {
             const std::string sinkID = it->first + "-sink";
             const std::string sourceID = it->first + "-source";
             if (MSEdge::dictionary(sinkID) == nullptr && MSEdge::dictionary(sourceID) == nullptr) {
-                // sink must be built and addd before source
+                // sink must be built and added before source
                 MSEdge* sink = myEdgeBuilder.buildEdge(sinkID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
                 MSEdge* source = myEdgeBuilder.buildEdge(sourceID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
                 sink->setOtherTazConnector(source);

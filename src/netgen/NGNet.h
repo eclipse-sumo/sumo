@@ -96,7 +96,7 @@ public:
 
     /** @brief Creates a grid network
      *
-     * Performs a souble-loop over numX, then numY. Builds NGNodes
+     * Performs a double-loop over numX, then numY. Builds NGNodes
      *  at the according positions and connects them using NGNet::connect.
      * Stores both the nodes and the edges within the internal container.
      *
@@ -107,7 +107,7 @@ public:
      * @param[in] numY The number of nodes in y-direction
      * @param[in] spaceX The space between nodes in x-direction
      * @param[in] spaceY The space between nodes in y-direction
-     * @param[in] xAttachLength The length of streets attached at the border in x-direciton
+     * @param[in] xAttachLength The length of streets attached at the border in x-direction
      * @param[in] yAttachLength The length of streets attached at the border in y-direction
      * @see NGNet::connect
      */

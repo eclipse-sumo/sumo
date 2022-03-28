@@ -201,7 +201,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
                 delete crossing;
             }
         }
-        // copy retrieved (existent and created) GNECrossigns to myGNECrossings
+        // copy retrieved (existent and created) GNECrossings to myGNECrossings
         myGNECrossings = retrievedCrossings;
     }
 }
@@ -280,7 +280,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         if (handlingSelection) {
             mcResetCustomShape->setText("Reset junction shapes");
         }
-        // disable mcClearConnections if juction hasn't connections
+        // disable mcClearConnections if junction hasn't connections
         if (getGNEConnections().empty()) {
             mcClearConnections->disable();
         }
@@ -288,7 +288,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         if (myNBNode->getShape().size() == 0) {
             mcResetCustomShape->disable();
         }
-        // checkIsRemovable requiers turnarounds to be computed. This is ugly
+        // checkIsRemovable requires turnarounds to be computed. This is ugly
         if ((myNBNode->getIncomingEdges().size() == 2) && (myNBNode->getOutgoingEdges().size() == 2)) {
             NBTurningDirectionsComputer::computeTurnDirectionsForNode(myNBNode, false);
         }
