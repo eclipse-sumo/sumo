@@ -324,6 +324,10 @@ GNEContainerFrame::buildContainer() {
         if (myContainerBaseObject->hasStringAttribute(SUMO_ATTR_END) && myContainerBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
             myContainerBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
         }
+        // adjust poisson value
+        if (myContainerBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
+            myContainerBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myContainerBaseObject->getDoubleAttribute(GNE_ATTR_POISSON)) + ")");
+        }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myContainerBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(containerTag));
         // obtain containerFlow parameters
