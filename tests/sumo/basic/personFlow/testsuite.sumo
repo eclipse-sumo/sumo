@@ -1,6 +1,7 @@
 # person with a single ride
 ride
 walk_personsPerHour
+walk_poisson
 walk_probability
 walk_departPos_random
 
