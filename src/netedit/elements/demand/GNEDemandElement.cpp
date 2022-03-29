@@ -985,6 +985,9 @@ GNEDemandElement::setFlowParameters(SUMOVehicleParameter *vehicleParameters, con
             case SUMO_ATTR_PERIOD:
                 vehicleParameters->parametersSet |= VEHPARS_PERIOD_SET;
                 break;
+            case GNE_ATTR_POISSON:
+                vehicleParameters->parametersSet |= VEHPARS_POISSON_SET;
+                break;
             case SUMO_ATTR_PROB:
                 vehicleParameters->parametersSet |= VEHPARS_PROB_SET;
                 break;
@@ -1006,6 +1009,9 @@ GNEDemandElement::setFlowParameters(SUMOVehicleParameter *vehicleParameters, con
                 break;
             case SUMO_ATTR_PERIOD:
                 vehicleParameters->parametersSet &= ~VEHPARS_PERIOD_SET;
+                break;
+            case GNE_ATTR_POISSON:
+                vehicleParameters->parametersSet &= ~VEHPARS_POISSON_SET;
                 break;
             case SUMO_ATTR_PROB:
                 vehicleParameters->parametersSet &= ~VEHPARS_PROB_SET;
