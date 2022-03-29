@@ -37,6 +37,9 @@ def removeTo(line):
 # dictionary
 dic = {'dummy': 1000}
 
+# attributes
+attributes = []
+
 with open("report.txt", "r") as fp:
     lines = fp.readlines()
 
@@ -51,16 +54,24 @@ for line in lines:
         line = removeTo(line)
         # replace extra characters
         line = line.replace(')', '')
-        # check size
-        if (len(line) > 0):
-            found = False
-            for key in dic:
-                if (key == line):
-                    dic[key] += 1
-                    found = True
-            
-            if (found == False):
-                dic[line] = 0
+        # add into attributes
+        attributes.append(line)
+
+# sort
+attributes.sort()
+
+# get number of 
+for attribute in attributes:
+    # check size
+    if (len(attribute) > 0):
+        found = False
+        for key in dic:
+            if (key == attribute):
+                dic[key] += 1
+                found = True
+        
+        if (found == False):
+            dic[attribute] = 0
 # save
 with open("missingTest.txt", "w") as fp:
     for key in dic:
