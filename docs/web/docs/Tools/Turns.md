@@ -3,7 +3,7 @@ title: Turns
 ---
 
 # routeSampler.py
-The script generates routes from *any combination* of turn-count data, edge-count and even origin-destination-count data. It requires a route file as input that defines possible routes. Routes are sampled (heuristically) from the input so that
+The script generates traffic (routed vehicles or flows) from *any combination* of turn-count data, edge-count and even origin-destination-count data. It requires a route file as input that defines possible routes. Routes are sampled (heuristically) from the input so that
 the resulting traffic fulfills the counting data.
 
 ## edge counts
