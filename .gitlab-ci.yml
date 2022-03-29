@@ -15,6 +15,7 @@
 
 stages:          # List of stages for jobs, and their order of execution
   - build
+  #- test
 
 
 build-job:       # This job runs in the build stage, which runs first.
@@ -22,3 +23,9 @@ build-job:       # This job runs in the build stage, which runs first.
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
+
+# run tests using the binary built before
+#test:
+#  stage: test
+#  script:
+#    - /builds/fahrsimulator/sumo/tests/runTests.sh
