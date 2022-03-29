@@ -645,6 +645,11 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         double xv = inMsg.readDouble();
         double yv = inMsg.readDouble();
         answerLog << " position value: (" << xv << "," << yv << ")" << std::endl;
+    }
+    else if (valueDataType == libsumo::POSITION_LON_LAT) { //todo add dat 3d ding
+        double lon = inMsg.readDouble();
+        double lat = inMsg.readDouble();
+        answerLog << " lat lon position value: (" << lat << "," << lon << ")" << std::endl;
     } else if (valueDataType == libsumo::TYPE_COLOR) {
         int r = inMsg.readUnsignedByte();
         int g = inMsg.readUnsignedByte();
