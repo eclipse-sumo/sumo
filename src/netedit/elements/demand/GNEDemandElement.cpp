@@ -1045,6 +1045,12 @@ GNEDemandElement::adjustDefaultFlowAttributes(SUMOVehicleParameter *vehicleParam
         if ((vehicleParameters->parametersSet & VEHPARS_PROB_SET) == 0) {
             setAttribute(SUMO_ATTR_PROB, myTagProperty.getDefaultValue(SUMO_ATTR_PROB));
         }
+        // poisson
+        if (vehicleParameters->repetitionOffset < 0) {
+            toogleAttribute(SUMO_ATTR_PERIOD, false);
+            toogleAttribute(GNE_ATTR_POISSON, true);
+            setAttribute(GNE_ATTR_POISSON, time2string(vehicleParameters->repetitionOffset * -1));
+        }
     }
 }
 
