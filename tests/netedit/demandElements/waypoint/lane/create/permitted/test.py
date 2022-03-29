@@ -41,19 +41,19 @@ netedit.stopMode()
 netedit.changeStopType("waypointLane")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.waypointLane.create.permitted, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.Enums.waypointLane.create.permitted, ";;;;;;;;;;")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.waypointLane.create.permitted, "")
+netedit.changeDefaultValue(netedit.attrs.Enums.waypointLane.create.permitted, "")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.enums.waypointLane.create.permitted, "ID1 ID2 ID3")
+netedit.changeDefaultValue(netedit.attrs.Enums.waypointLane.create.permitted, "ID1 ID2 ID3")
 
 # create waypoint
 netedit.leftClick(referencePosition, 400, 185)

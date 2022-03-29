@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # set invalid repeat
-netedit.changeDefaultValue(netedit.attrs.enums.route.create.repeat, "dummyrepeat")
+netedit.changeDefaultValue(netedit.attrs.Enums.route.create.repeat, "dummyrepeat")
 
 # try to create route using three edges
 netedit.leftClick(referencePosition, 274, 392)
@@ -45,13 +45,13 @@ netedit.leftClick(referencePosition, 570, 250)
 netedit.typeEnter()
 
 # set valid repeat
-netedit.changeDefaultValue(netedit.attrs.enums.route.create.repeat, "15.6")
+netedit.changeDefaultValue(netedit.attrs.Enums.route.create.repeat, "15.6")
 
 # press enter to create route
 netedit.typeEnter()
 
 # set valid repeat
-netedit.changeDefaultValue(netedit.attrs.enums.route.create.repeat, "13")
+netedit.changeDefaultValue(netedit.attrs.Enums.route.create.repeat, "13")
 
 # try to create route using three edges
 netedit.leftClick(referencePosition, 280, 55)

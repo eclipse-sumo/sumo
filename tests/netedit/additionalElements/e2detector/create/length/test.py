@@ -35,25 +35,25 @@ netedit.additionalMode()
 netedit.changeElement("e2Detector")
 
 # set invalid  length (dummy)
-netedit.changeDefaultValue(netedit.attrs.enums.E2.create.length, "dummyLenght")
+netedit.changeDefaultValue(netedit.attrs.Enums.E2.create.length, "dummyLenght")
 
 # try to create E2 with invalid length
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid  length (0)
-netedit.changeDefaultValue(netedit.attrs.enums.E2.create.length, "0")
+netedit.changeDefaultValue(netedit.attrs.Enums.E2.create.length, "0")
 
 # try to create E2 with invalid length
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid  length (negative)
-netedit.changeDefaultValue(netedit.attrs.enums.E2.create.length, "-12")
+netedit.changeDefaultValue(netedit.attrs.Enums.E2.create.length, "-12")
 
 # try to create E2 with invalid length
 netedit.leftClick(referencePosition, 250, 250)
 
 # set valid length
-netedit.changeDefaultValue(netedit.attrs.enums.E2.create.length, "5")
+netedit.changeDefaultValue(netedit.attrs.Enums.E2.create.length, "5")
 
 # create E2 with valid length
 netedit.leftClick(referencePosition, 250, 250)

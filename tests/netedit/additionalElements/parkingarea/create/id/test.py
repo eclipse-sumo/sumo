@@ -38,25 +38,25 @@ netedit.changeElement("parkingArea")
 netedit.leftClick(referencePosition, 220, 245)
 
 # set invalid id (duplicated)
-netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.id, "pa_0")
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingArea.create.id, "pa_0")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 245)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.id, "")
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingArea.create.id, "")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 245)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.id, ";;;;")
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingArea.create.id, ";;;;")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 245)
 
 # set valid id
-netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.id, "custom_id")
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingArea.create.id, "custom_id")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 245)

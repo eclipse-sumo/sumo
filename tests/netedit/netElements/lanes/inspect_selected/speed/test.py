@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.forceSaveAdditionals()
 
 # toggle select lanes
-netedit.changeEditMode(netedit.attrs.enums.Modes.Network.selectLane)
+netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.selectLane)
 
 # go to select mode
 netedit.selectMode()
@@ -53,16 +53,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 95)
 
 # Change parameter 0 with a non valid value (empty speed)
-netedit.modifyAttribute(netedit.attrs.enums.lane.inspectSelection.speed, "", True)
+netedit.modifyAttribute(netedit.attrs.Enums.lane.inspectSelection.speed, "", True)
 
 # Change parameter 0 with a non valid value (dummy speed)
-netedit.modifyAttribute(netedit.attrs.enums.lane.inspectSelection.speed, "dummySpeed", True)
+netedit.modifyAttribute(netedit.attrs.Enums.lane.inspectSelection.speed, "dummySpeed", True)
 
 # Change parameter 0 with a non valid value (negative speed)
-netedit.modifyAttribute(netedit.attrs.enums.lane.inspectSelection.speed, "-13", True)
+netedit.modifyAttribute(netedit.attrs.Enums.lane.inspectSelection.speed, "-13", True)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.lane.inspectSelection.speed, "120.5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.lane.inspectSelection.speed, "120.5", True)
 
 # recompute
 netedit.rebuildNetwork()

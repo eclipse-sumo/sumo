@@ -44,7 +44,7 @@ netedit.changeStopType("waypointContainerStop")
 netedit.leftClick(referencePosition, 290, 155)
 
 # change parking
-netedit.changeDefaultBoolValue(netedit.attrs.enums.waypoint.create.parking)
+netedit.changeDefaultBoolValue(netedit.attrs.Enums.waypoint.create.parking)
 
 # create waypoint
 netedit.leftClick(referencePosition, 290, 155)

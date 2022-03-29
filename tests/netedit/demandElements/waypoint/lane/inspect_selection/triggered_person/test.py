@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspectSelection.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.Enums.waypointLane.inspectSelection.triggered, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspectSelection.triggered, "person", False)
+netedit.modifyAttribute(netedit.attrs.Enums.waypointLane.inspectSelection.triggered, "person", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspectSelection.expected, "personA personB", False)
+netedit.modifyAttribute(netedit.attrs.Enums.waypointLane.inspectSelection.expected, "personA personB", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

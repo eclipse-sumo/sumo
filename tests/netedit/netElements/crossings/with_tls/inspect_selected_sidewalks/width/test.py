@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 225)
 
 # Change shape with a non valid value
-netedit.modifyAttribute(netedit.attrs.enums.crossing.inspectSelectionTLS.width, "dummyWidth", True)
+netedit.modifyAttribute(netedit.attrs.Enums.crossing.inspectSelectionTLS.width, "dummyWidth", True)
 
 # Change shape with a non valid value
-netedit.modifyAttribute(netedit.attrs.enums.crossing.inspectSelectionTLS.width, "-5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.crossing.inspectSelectionTLS.width, "-5", True)
 
 # Change shape with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.crossing.inspectSelectionTLS.width, "8.1", True)
+netedit.modifyAttribute(netedit.attrs.Enums.crossing.inspectSelectionTLS.width, "8.1", True)
 
 # rebuild network
 netedit.rebuildNetwork()

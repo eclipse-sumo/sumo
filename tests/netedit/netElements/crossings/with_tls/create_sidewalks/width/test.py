@@ -38,18 +38,18 @@ netedit.crossingMode()
 netedit.leftClick(referencePosition, 325, 225)
 
 # select edges 3 and 7
-netedit.modifyCrossingDefaultValue(netedit.attrs.enums.crossing.createTLS.edges, "3 7")
+netedit.modifyCrossingDefaultValue(netedit.attrs.Enums.crossing.createTLS.edges, "3 7")
 
 # check invalid width
-netedit.modifyCrossingDefaultValue(netedit.attrs.enums.crossing.createTLS.width, "dummyWidth")
+netedit.modifyCrossingDefaultValue(netedit.attrs.Enums.crossing.createTLS.width, "dummyWidth")
 netedit.createCrossing(True)
 
 # check negative width
-netedit.modifyCrossingDefaultValue(netedit.attrs.enums.crossing.createTLS.width, "-7")
+netedit.modifyCrossingDefaultValue(netedit.attrs.Enums.crossing.createTLS.width, "-7")
 netedit.createCrossing(True)
 
 # set invalid width
-netedit.modifyCrossingDefaultValue(netedit.attrs.enums.crossing.createTLS.width, "5.2")
+netedit.modifyCrossingDefaultValue(netedit.attrs.Enums.crossing.createTLS.width, "5.2")
 netedit.createCrossing(True)
 
 # Check undo redo

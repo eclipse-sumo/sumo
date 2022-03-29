@@ -41,16 +41,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 290)
 
 # Change parameter Angle with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspectSelection.angle, "dummyAngle", False)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingArea.inspectSelection.angle, "dummyAngle", False)
 
 # Change parameter Angle with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspectSelection.angle, "-6", False)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingArea.inspectSelection.angle, "-6", False)
 
 # Change parameter Angle with a valid value >360
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspectSelection.angle, "500", False)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingArea.inspectSelection.angle, "500", False)
 
 # Change parameter Angle with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspectSelection.angle, "32.5", False)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingArea.inspectSelection.angle, "32.5", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

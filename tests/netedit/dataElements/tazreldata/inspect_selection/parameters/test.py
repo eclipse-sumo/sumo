@@ -66,7 +66,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 300, 208)
 
 # check double parameters
-netedit.checkDoubleParameters(referencePosition, netedit.attrs.enums.TAZRelData.inspectSelection.parameters, False, 0, 30)
+netedit.checkDoubleParameters(referencePosition, netedit.attrs.Enums.TAZRelData.inspectSelection.parameters, False, 0, 30)
 
 # save data elements
 netedit.saveDatas(referencePosition, True, 0, 30)

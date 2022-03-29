@@ -41,10 +41,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 6 with a non valid value
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.type, "%%$$&&&", False)
+netedit.modifyAttribute(netedit.attrs.Enums.edge.inspect.type, "%%$$&&&", False)
 
 # Change parameter 6 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.type, "customType", False)
+netedit.modifyAttribute(netedit.attrs.Enums.edge.inspect.type, "customType", False)
 
 # recompute
 netedit.rebuildNetwork()

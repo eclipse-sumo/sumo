@@ -41,25 +41,25 @@ netedit.stopMode()
 netedit.changeStopType("waypointLane")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.enums.waypointLane.create.triggered, "container")
+netedit.changeDefaultValue(netedit.attrs.Enums.waypointLane.create.triggered, "container")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.waypointLane.create.expected, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.Enums.waypointLane.create.expected, ";;;;;;;;;;")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.waypointLane.create.expected, "")
+netedit.changeDefaultValue(netedit.attrs.Enums.waypointLane.create.expected, "")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.enums.waypointLane.create.expected, "containerID1 containerID2 containerID3")
+netedit.changeDefaultValue(netedit.attrs.Enums.waypointLane.create.expected, "containerID1 containerID2 containerID3")
 
 # create waypoint
 netedit.leftClick(referencePosition, 400, 185)

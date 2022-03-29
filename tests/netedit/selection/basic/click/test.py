@@ -47,7 +47,7 @@ netedit.selectMode()
 netedit.leftClickControl(referencePosition, 210, 210)
 
 # toggle edges selection
-netedit.changeEditMode(netedit.attrs.enums.Modes.Network.selectLane)
+netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.selectLane)
 
 # select lane using a simple click
 netedit.leftClickControl(referencePosition, 210, 240)

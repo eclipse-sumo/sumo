@@ -49,25 +49,25 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (over route)")
 
 # set invalid arrival lane
-netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.arrivalLane, "dummyLane")
+netedit.changeDefaultValue(netedit.attrs.Enums.vehicle.create.arrivalLane, "dummyLane")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid arrival lane
-netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.arrivalLane, "-12")
+netedit.changeDefaultValue(netedit.attrs.Enums.vehicle.create.arrivalLane, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival lane
-netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.arrivalLane, "random")
+netedit.changeDefaultValue(netedit.attrs.Enums.vehicle.create.arrivalLane, "random")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival lane
-netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.arrivalLane, "20")
+netedit.changeDefaultValue(netedit.attrs.Enums.vehicle.create.arrivalLane, "20")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

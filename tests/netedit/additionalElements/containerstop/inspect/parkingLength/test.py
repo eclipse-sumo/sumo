@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.enums.containerStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.Enums.containerStop.create.references, "reference center")
 
 # create containerStop in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter length with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.parkingLength, "dummylength", True)
+netedit.modifyAttribute(netedit.attrs.Enums.containerStop.inspect.parkingLength, "dummylength", True)
 
 # Change parameter length with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.parkingLength, "-7", True)
+netedit.modifyAttribute(netedit.attrs.Enums.containerStop.inspect.parkingLength, "-7", True)
 
 # Change parameter length with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.parkingLength, "2.5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.containerStop.inspect.parkingLength, "2.5", True)
 
 # Change parameter length with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.parkingLength, "10", True)
+netedit.modifyAttribute(netedit.attrs.Enums.containerStop.inspect.parkingLength, "10", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

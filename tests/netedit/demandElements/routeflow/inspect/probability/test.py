@@ -58,22 +58,22 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.routeflow.inspect.spacing, "dummyTerminate", True)
+netedit.modifyAttribute(netedit.attrs.Enums.routeflow.inspect.spacing, "dummyTerminate", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.routeflow.inspect.spacing, "probability", True)
+netedit.modifyAttribute(netedit.attrs.Enums.routeflow.inspect.spacing, "probability", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.routeflow.inspect.spacingOption, "dummy", True)
+netedit.modifyAttribute(netedit.attrs.Enums.routeflow.inspect.spacingOption, "dummy", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.routeflow.inspect.spacingOption, "12.5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.routeflow.inspect.spacingOption, "12.5", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.routeflow.inspect.spacingOption, "26", True)
+netedit.modifyAttribute(netedit.attrs.Enums.routeflow.inspect.spacingOption, "26", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.routeflow.inspect.spacingOption, "0.3", True)
+netedit.modifyAttribute(netedit.attrs.Enums.routeflow.inspect.spacingOption, "0.3", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -41,32 +41,32 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeElement("space")
 
 # set invalid Angle (dummy)
-netedit.selectAdditionalChild(netedit.attrs.enums.parkingSpace.create.parent, 0)
-netedit.changeDefaultValue(netedit.attrs.enums.parkingSpace.create.angle, "dummyAngle")
+netedit.selectAdditionalChild(netedit.attrs.Enums.parkingSpace.create.parent, 0)
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingSpace.create.angle, "dummyAngle")
 
 # try to create area
 netedit.leftClick(referencePosition, 231, 83)
 
 # set invalid angle (empty)
-netedit.changeDefaultValue(netedit.attrs.enums.parkingSpace.create.angle, "")
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingSpace.create.angle, "")
 
 # try to create area
 netedit.leftClick(referencePosition, 231, 83)
 
 # set valid angle (negative)
-netedit.changeDefaultValue(netedit.attrs.enums.parkingSpace.create.angle, "-4")
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingSpace.create.angle, "-4")
 
 # create area
 netedit.leftClick(referencePosition, 231, 83)
 
 # set valid angle (>360)
-netedit.changeDefaultValue(netedit.attrs.enums.parkingSpace.create.angle, "500")
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingSpace.create.angle, "500")
 
 # create area
 netedit.leftClick(referencePosition, 231, 83)
 
 # set valid angle
-netedit.changeDefaultValue(netedit.attrs.enums.parkingSpace.create.angle, "120")
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingSpace.create.angle, "120")
 
 # create area
 netedit.leftClick(referencePosition, 231, 83)

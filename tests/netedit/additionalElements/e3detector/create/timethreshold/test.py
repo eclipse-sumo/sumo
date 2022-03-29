@@ -38,19 +38,19 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # set invalid timeTreshold
-netedit.changeDefaultValue(netedit.attrs.enums.E3.create.timeThreshold, "dummyTimeTreshold")
+netedit.changeDefaultValue(netedit.attrs.Enums.E3.create.timeThreshold, "dummyTimeTreshold")
 
 # try to create E3 with invalid timeTreshold
 netedit.leftClick(referencePosition, 100, 85)
 
 # set invalid timeTreshold
-netedit.changeDefaultValue(netedit.attrs.enums.E3.create.timeThreshold, "-4")
+netedit.changeDefaultValue(netedit.attrs.Enums.E3.create.timeThreshold, "-4")
 
 # try to create E3 with invalid timeTreshold
 netedit.leftClick(referencePosition, 100, 85)
 
 # set valid timeTreshold
-netedit.changeDefaultValue(netedit.attrs.enums.E3.create.timeThreshold, "5")
+netedit.changeDefaultValue(netedit.attrs.Enums.E3.create.timeThreshold, "5")
 
 # create E3 with valid timeTreshold
 netedit.leftClick(referencePosition, 100, 85)

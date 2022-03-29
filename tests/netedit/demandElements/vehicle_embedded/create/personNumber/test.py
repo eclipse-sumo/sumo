@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (embedded route)")
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.enums.vehicleEmbedded.create.personNumber, "dummycontainerNumber")
+netedit.changeDefaultValue(netedit.attrs.Enums.vehicleEmbedded.create.personNumber, "dummycontainerNumber")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.enums.vehicleEmbedded.create.personNumber, "-12")
+netedit.changeDefaultValue(netedit.attrs.Enums.vehicleEmbedded.create.personNumber, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.enums.vehicleEmbedded.create.personNumber, "3.5")
+netedit.changeDefaultValue(netedit.attrs.Enums.vehicleEmbedded.create.personNumber, "3.5")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid personNumber
-netedit.changeDefaultValue(netedit.attrs.enums.vehicleEmbedded.create.personNumber, "13")
+netedit.changeDefaultValue(netedit.attrs.Enums.vehicleEmbedded.create.personNumber, "13")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)

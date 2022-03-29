@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.enums.containerStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.Enums.containerStop.create.references, "reference center")
 
 # create containerStop in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,10 +47,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter 5 with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.lines, "line1, line2", True)
+netedit.modifyAttribute(netedit.attrs.Enums.containerStop.inspect.lines, "line1, line2", True)
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.containerStop.inspect.lines, "line1 line2", True)
+netedit.modifyAttribute(netedit.attrs.Enums.containerStop.inspect.lines, "line1 line2", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

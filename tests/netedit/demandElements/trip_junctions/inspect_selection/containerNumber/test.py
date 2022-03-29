@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 410, 170)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspectSelection.containerNumber, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspectSelection.containerNumber, "", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspectSelection.containerNumber, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspectSelection.containerNumber, "dummyNumber", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspectSelection.containerNumber, "-5", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspectSelection.containerNumber, "-5", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspectSelection.containerNumber, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspectSelection.containerNumber, "2.5", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspectSelection.containerNumber, "3", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspectSelection.containerNumber, "3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

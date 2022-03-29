@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # change fill
-netedit.changeDefaultBoolValue(netedit.attrs.enums.Poly.create.fill)
+netedit.changeDefaultBoolValue(netedit.attrs.Enums.Poly.create.fill)
 
 # create polygon with default values
 netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)

@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("chargingStation")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.enums.chargingStation.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.Enums.chargingStation.create.references, "reference center")
 
 # create chargingStation in mode "reference center"
 netedit.leftClick(referencePosition, 250, 172)
@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 173)
 
 # Change parameter chargeDelay with a non valid value
-netedit.modifyAttribute(netedit.attrs.enums.chargingStation.inspect.chargeDelay, "dummyChargeDelay", True)
+netedit.modifyAttribute(netedit.attrs.Enums.chargingStation.inspect.chargeDelay, "dummyChargeDelay", True)
 
 # Change parameter chargeDelay with a non valid value
-netedit.modifyAttribute(netedit.attrs.enums.chargingStation.inspect.chargeDelay, "-100", True)
+netedit.modifyAttribute(netedit.attrs.Enums.chargingStation.inspect.chargeDelay, "-100", True)
 
 # Change parameter chargeDelay with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.chargingStation.inspect.chargeDelay, "30.5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.chargingStation.inspect.chargeDelay, "30.5", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

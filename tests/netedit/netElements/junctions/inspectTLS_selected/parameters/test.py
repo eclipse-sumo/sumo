@@ -50,7 +50,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.enums.junction.inspectSelectionTLS.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.Enums.junction.inspectSelectionTLS.parameters, False)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

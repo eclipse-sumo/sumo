@@ -50,19 +50,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspect.posLat, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.Enums.waypointLane.inspect.posLat, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspect.posLat, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.waypointLane.inspect.posLat, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspect.posLat, "-30", False)
+netedit.modifyAttribute(netedit.attrs.Enums.waypointLane.inspect.posLat, "-30", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspect.posLat, "6", False)
+netedit.modifyAttribute(netedit.attrs.Enums.waypointLane.inspect.posLat, "6", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspect.posLat, "2.3", False)
+netedit.modifyAttribute(netedit.attrs.Enums.waypointLane.inspect.posLat, "2.3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

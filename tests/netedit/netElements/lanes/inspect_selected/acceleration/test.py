@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.forceSaveAdditionals()
 
 # toggle select lanes
-netedit.changeEditMode(netedit.attrs.enums.Modes.Network.selectLane)
+netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.selectLane)
 
 # go to select mode
 netedit.selectMode()
@@ -53,7 +53,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 95)
 
 # Change parameter 5 with a valid value
-netedit.modifyBoolAttribute(netedit.attrs.enums.lane.inspectSelection.acceleration, True)
+netedit.modifyBoolAttribute(netedit.attrs.Enums.lane.inspectSelection.acceleration, True)
 
 # recompute
 netedit.rebuildNetwork()

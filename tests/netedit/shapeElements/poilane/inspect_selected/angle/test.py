@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 140, 210)
 
 # Change parameter angle with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.POILane.inspectSelection.angle, "dummyAngle", True)
+netedit.modifyAttribute(netedit.attrs.Enums.POILane.inspectSelection.angle, "dummyAngle", True)
 
 # Change parameter angle with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.enums.POILane.inspectSelection.angle, "-12", True)
+netedit.modifyAttribute(netedit.attrs.Enums.POILane.inspectSelection.angle, "-12", True)
 
 # Change parameter angle with a valid value (> 360)
-netedit.modifyAttribute(netedit.attrs.enums.POILane.inspectSelection.angle, "500", True)
+netedit.modifyAttribute(netedit.attrs.Enums.POILane.inspectSelection.angle, "500", True)
 
 # Change parameter angle with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.POILane.inspectSelection.angle, "30", True)
+netedit.modifyAttribute(netedit.attrs.Enums.POILane.inspectSelection.angle, "30", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

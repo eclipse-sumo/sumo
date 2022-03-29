@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspect.type, "bicycle", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspect.type, "bicycle", False)
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspect.toJunction, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspect.toJunction, "", False)
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspect.toJunction, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspect.toJunction, "dummyEdge", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspect.toJunction, "gneJ9", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspect.toJunction, "gneJ9", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

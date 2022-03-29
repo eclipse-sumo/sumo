@@ -32,10 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 netedit.createEdgeMode()
 
 # select two-way mode
-netedit.changeEditMode(netedit.attrs.enums.Modes.Network.twoWayMode)
+netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.twoWayMode)
 
 # select chain mode
-netedit.changeEditMode(netedit.attrs.enums.Modes.Network.chainMode)
+netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.chainMode)
 
 # create a circular road
 netedit.leftClick(referencePosition, 300, 135)
@@ -60,13 +60,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 405, 225)
 
 # Set all Junctions as traffic lighs
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspectSelection.type, "traffic_light", True)
+netedit.modifyAttribute(netedit.attrs.Enums.junction.inspectSelection.type, "traffic_light", True)
 
 # inspect set of edges
 netedit.leftClick(referencePosition, 390, 285)
 
 # change all speed of edges
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspectSelection.speed, "20", False)
+netedit.modifyAttribute(netedit.attrs.Enums.edge.inspectSelection.speed, "20", False)
 
 # rebuild network
 netedit.rebuildNetwork()

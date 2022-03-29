@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingArea.create.references, "reference center")
 
 # create parkingArea in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,19 +47,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 200)
 
 # Change parameter StartPos with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.startPos, "dummyStartPos", True)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingArea.inspect.startPos, "dummyStartPos", True)
 
 # Change parameter StartPos with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.startPos, "", True)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingArea.inspect.startPos, "", True)
 
 # Change parameter StartPos with a valid value (< 0)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.startPos, "-5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingArea.inspect.startPos, "-5", True)
 
 # Change parameter StartPos with a non valid value (> endPos)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.startPos, "400", True)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingArea.inspect.startPos, "400", True)
 
 # Change parameter StartPos with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.startPos, "20", True)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingArea.inspect.startPos, "20", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

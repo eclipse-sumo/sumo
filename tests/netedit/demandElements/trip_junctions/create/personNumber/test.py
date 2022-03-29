@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to junctions)")
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.containerNumber, "dummycontainerNumber")
+netedit.changeDefaultValue(netedit.attrs.Enums.tripFromToJunction.create.containerNumber, "dummycontainerNumber")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.containerNumber, "-12")
+netedit.changeDefaultValue(netedit.attrs.Enums.tripFromToJunction.create.containerNumber, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.containerNumber, "3.5")
+netedit.changeDefaultValue(netedit.attrs.Enums.tripFromToJunction.create.containerNumber, "3.5")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid personNumber
-netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.containerNumber, "13")
+netedit.changeDefaultValue(netedit.attrs.Enums.tripFromToJunction.create.containerNumber, "13")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

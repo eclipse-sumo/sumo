@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 375, 250)
 netedit.changeElement("access")
 
 # Create Access
-netedit.selectAdditionalChild(netedit.attrs.enums.access.create.parent, 0)
+netedit.selectAdditionalChild(netedit.attrs.Enums.access.create.parent, 0)
 netedit.leftClick(referencePosition, 200, 90)
 
 # Create second Access

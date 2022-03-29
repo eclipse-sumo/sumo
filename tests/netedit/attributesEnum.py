@@ -15,7 +15,7 @@
 # @author  Pablo Alvarez Lopez
 # @date    2022-01-31
 
-class enums:
+class Enums:
 
     # --------------------------------
     # GENERAL

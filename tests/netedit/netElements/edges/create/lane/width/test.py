@@ -32,21 +32,21 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 netedit.createEdgeMode()
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.enums.edge.createLane.width, "dummy")
+netedit.changeDefaultValue(netedit.attrs.Enums.edge.createLane.width, "dummy")
 
 # Create two nodes
 netedit.leftClick(referencePosition, 87, 108)
 netedit.leftClick(referencePosition, 510, 108)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.enums.edge.createLane.width, "-50")
+netedit.changeDefaultValue(netedit.attrs.Enums.edge.createLane.width, "-50")
 
 # Create two nodes
 netedit.leftClick(referencePosition, 87, 108)
 netedit.leftClick(referencePosition, 510, 108)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.enums.edge.createLane.width, "23.5")
+netedit.changeDefaultValue(netedit.attrs.Enums.edge.createLane.width, "23.5")
 
 # Create two nodes
 netedit.leftClick(referencePosition, 87, 138)

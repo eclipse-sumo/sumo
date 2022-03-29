@@ -35,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # change color using dialog
-netedit.changeColorUsingDialog(netedit.attrs.enums.POI.create.colorButton, 5)
+netedit.changeColorUsingDialog(netedit.attrs.Enums.POI.create.colorButton, 5)
 
 # create poi
 netedit.leftClick(referencePosition, 100, 50)
 
 # change color manually (invalid)
-netedit.changeDefaultValue(netedit.attrs.enums.POI.create.color, "Vlue")
+netedit.changeDefaultValue(netedit.attrs.Enums.POI.create.color, "Vlue")
 
 # try to create POI
 netedit.leftClick(referencePosition, 150, 50)
 
 # change color manually (valid)
-netedit.changeDefaultValue(netedit.attrs.enums.POI.create.color, "blue")
+netedit.changeDefaultValue(netedit.attrs.Enums.POI.create.color, "blue")
 
 # create POI
 netedit.leftClick(referencePosition, 200, 50)

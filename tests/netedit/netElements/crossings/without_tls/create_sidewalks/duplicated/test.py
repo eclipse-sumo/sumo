@@ -43,7 +43,7 @@ netedit.leftClick(referencePosition, 150, 250)
 netedit.createCrossing(False)
 
 # try to create manual crossing
-netedit.modifyCrossingDefaultValue(netedit.attrs.enums.crossing.create.edges, "3 7")
+netedit.modifyCrossingDefaultValue(netedit.attrs.Enums.crossing.create.edges, "3 7")
 netedit.createCrossing(False)
 
 # save network

@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, 190, 240)
 netedit.leftClick(referencePosition, 440, 240)
 
 # Change friendlyPos
-netedit.changeDefaultBoolValue(netedit.attrs.enums.E2Multilane.create.friendlyPos)
+netedit.changeDefaultBoolValue(netedit.attrs.Enums.E2Multilane.create.friendlyPos)
 
 # create E2 with default parameters
 netedit.typeEnter()

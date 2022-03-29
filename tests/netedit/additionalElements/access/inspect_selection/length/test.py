@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 326, 308)
 
 # Change length (invalid, empty)
-netedit.modifyAttribute(netedit.attrs.enums.access.inspectSelection.length, "", True)
+netedit.modifyAttribute(netedit.attrs.Enums.access.inspectSelection.length, "", True)
 
 # Change length (invalid, dummy)
-netedit.modifyAttribute(netedit.attrs.enums.access.inspectSelection.length, "dummyLenght", True)
+netedit.modifyAttribute(netedit.attrs.Enums.access.inspectSelection.length, "dummyLenght", True)
 
 # Change length (invalid, negative)
-netedit.modifyAttribute(netedit.attrs.enums.access.inspectSelection.length, "-7", True)
+netedit.modifyAttribute(netedit.attrs.Enums.access.inspectSelection.length, "-7", True)
 
 # Change length (valid)
-netedit.modifyAttribute(netedit.attrs.enums.access.inspectSelection.length, "5.5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.access.inspectSelection.length, "5.5", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

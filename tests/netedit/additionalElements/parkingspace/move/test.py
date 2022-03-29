@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeElement("space")
 
 # select parent
-netedit.selectAdditionalChild(netedit.attrs.enums.parkingSpace.create.parent, 0)
+netedit.selectAdditionalChild(netedit.attrs.Enums.parkingSpace.create.parent, 0)
 
 # create space
 netedit.leftClick(referencePosition, 279, 131)

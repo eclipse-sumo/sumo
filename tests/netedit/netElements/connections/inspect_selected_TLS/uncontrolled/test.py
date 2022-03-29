@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.changeEditMode(netedit.attrs.enums.Modes.Network.showConnections)
+netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.showConnections)
 
 # go to select mode
 netedit.selectMode()
@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 228, 170)
 
 # Change uncontrolled
-netedit.modifyBoolAttribute(netedit.attrs.enums.connection.inspectSelectionTLS.uncontrolled, True)
+netedit.modifyBoolAttribute(netedit.attrs.Enums.connection.inspectSelectionTLS.uncontrolled, True)
 
 # rebuild
 netedit.rebuildNetwork()

@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopLane.inspect.tripID, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspect.tripID, ";;;;", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopLane.inspect.tripID, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspect.tripID, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopLane.inspect.tripID, "customID", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspect.tripID, "customID", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

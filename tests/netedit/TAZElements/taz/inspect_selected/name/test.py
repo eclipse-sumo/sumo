@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 115, 70)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.TAZ.inspectSelection.name, "custom name", False)
+netedit.modifyAttribute(netedit.attrs.Enums.TAZ.inspectSelection.name, "custom name", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

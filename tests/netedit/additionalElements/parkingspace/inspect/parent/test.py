@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, 400, 180)
 netedit.changeElement("space")
 
 # create first space
-netedit.selectAdditionalChild(netedit.attrs.enums.parkingSpace.create.parent, 0)
+netedit.selectAdditionalChild(netedit.attrs.Enums.parkingSpace.create.parent, 0)
 netedit.leftClick(referencePosition, 231, 285)
 
 # create second space
@@ -60,13 +60,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 230, 275)
 
 # Change parameter 8 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.parkingSpace.inspect.parent, "dummyParent", False)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingSpace.inspect.parent, "dummyParent", False)
 
 # Change parameter 8 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.enums.parkingSpace.inspect.parent, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingSpace.inspect.parent, "", False)
 
 # Change parameter 8 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.parkingSpace.inspect.parent, "pa_1", False)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingSpace.inspect.parent, "pa_1", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 149, 53)
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.POIGEO.inspectSelection.type, "<<myOwnType>>", True)
+netedit.modifyAttribute(netedit.attrs.Enums.POIGEO.inspectSelection.type, "<<myOwnType>>", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

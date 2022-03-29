@@ -48,16 +48,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 280, 392)
 
 # Change parameter repeat with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.enums.route.inspect.repeat, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.route.inspect.repeat, "", False)
 
 # Change parameter repeat with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.route.inspect.repeat, "dummyRepeat", False)
+netedit.modifyAttribute(netedit.attrs.Enums.route.inspect.repeat, "dummyRepeat", False)
 
 # Change parameter repeat with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.route.inspect.repeat, "-12.5", False)
+netedit.modifyAttribute(netedit.attrs.Enums.route.inspect.repeat, "-12.5", False)
 
 # Change parameter repeat with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.route.inspect.repeat, "13", False)
+netedit.modifyAttribute(netedit.attrs.Enums.route.inspect.repeat, "13", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

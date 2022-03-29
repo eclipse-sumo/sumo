@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.flowFromToEdge.inspect.terminate, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowFromToEdge.inspect.terminate, "dummyTerminate", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.flowFromToEdge.inspect.terminate, "end", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowFromToEdge.inspect.terminate, "end", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.flowFromToEdge.inspect.terminateOption, "dummyEnd", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowFromToEdge.inspect.terminateOption, "dummyEnd", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.flowFromToEdge.inspect.terminateOption, "12.5", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowFromToEdge.inspect.terminateOption, "12.5", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.flowFromToEdge.inspect.terminateOption, "23", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowFromToEdge.inspect.terminateOption, "23", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -35,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # change imgfile (invalid)
-netedit.changeDefaultValue(netedit.attrs.enums.POIGEO.create.imgFile, "%%$%$&$%$%$")
+netedit.changeDefaultValue(netedit.attrs.Enums.POIGEO.create.imgFile, "%%$%$&$%$%$")
 
 # try to create POI
 netedit.leftClick(referencePosition, 100, 50)
 
 # change imgfile (non exist)
-netedit.changeDefaultValue(netedit.attrs.enums.POIGEO.create.imgFile, "paris.ico")
+netedit.changeDefaultValue(netedit.attrs.Enums.POIGEO.create.imgFile, "paris.ico")
 
 # try to create POI
 netedit.leftClick(referencePosition, 150, 50)
 
 # change imgfile (valid)
-netedit.changeDefaultValue(netedit.attrs.enums.POIGEO.create.imgFile, "berlin_icon.ico")
+netedit.changeDefaultValue(netedit.attrs.Enums.POIGEO.create.imgFile, "berlin_icon.ico")
 
 # create POI
 netedit.leftClick(referencePosition, 200, 50)

@@ -32,19 +32,19 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.changeEditMode(netedit.attrs.enums.Modes.Network.showConnections)
+netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.showConnections)
 
 # inspect connection
 netedit.leftClick(referencePosition, 228, 164)
 
 # Change shape with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.connection.inspect.customShape, "dummyShape", True)
+netedit.modifyAttribute(netedit.attrs.Enums.connection.inspect.customShape, "dummyShape", True)
 
 # Change shape with an valid value (empty)
-netedit.modifyAttribute(netedit.attrs.enums.connection.inspect.customShape, "", True)
+netedit.modifyAttribute(netedit.attrs.Enums.connection.inspect.customShape, "", True)
 
 # Change shape with an valid value
-netedit.modifyAttribute(netedit.attrs.enums.connection.inspect.customShape,
+netedit.modifyAttribute(netedit.attrs.Enums.connection.inspect.customShape,
                         "60.40,51.60 55.33,50.28 52.69,54.99 50.24,50.37 47.60,54.75 45.30,50.40 39.60,51.60", True)
 
 # rebuild

@@ -49,25 +49,25 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (over route)")
 
 # set invalid containerNumber
-netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.containerNumber, "dummyContainerNumber")
+netedit.changeDefaultValue(netedit.attrs.Enums.vehicle.create.containerNumber, "dummyContainerNumber")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid containerNumber
-netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.containerNumber, "-12")
+netedit.changeDefaultValue(netedit.attrs.Enums.vehicle.create.containerNumber, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid containerNumber
-netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.containerNumber, "3.5")
+netedit.changeDefaultValue(netedit.attrs.Enums.vehicle.create.containerNumber, "3.5")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid containerNumber
-netedit.changeDefaultValue(netedit.attrs.enums.vehicle.create.containerNumber, "13")
+netedit.changeDefaultValue(netedit.attrs.Enums.vehicle.create.containerNumber, "13")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

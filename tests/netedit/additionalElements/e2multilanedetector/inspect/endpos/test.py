@@ -49,16 +49,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 320, 250)
 
 # Change parameter pos with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.E2Multilane.inspect.endPos, "dummyPos", True)
+netedit.modifyAttribute(netedit.attrs.Enums.E2Multilane.inspect.endPos, "dummyPos", True)
 
 # Change parameter pos with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.enums.E2Multilane.inspect.endPos, "-5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.E2Multilane.inspect.endPos, "-5", True)
 
 # Change parameter pos with a non valid value (> endPos)
-netedit.modifyAttribute(netedit.attrs.enums.E2Multilane.inspect.endPos, "400", True)
+netedit.modifyAttribute(netedit.attrs.Enums.E2Multilane.inspect.endPos, "400", True)
 
 # Change parameter pos with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.E2Multilane.inspect.endPos, "20", True)
+netedit.modifyAttribute(netedit.attrs.Enums.E2Multilane.inspect.endPos, "20", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

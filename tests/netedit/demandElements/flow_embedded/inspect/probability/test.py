@@ -51,22 +51,22 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.flowEmbedded.inspect.spacing, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowEmbedded.inspect.spacing, "dummyTerminate", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.flowEmbedded.inspect.spacing, "probability", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowEmbedded.inspect.spacing, "probability", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.flowEmbedded.inspect.spacingOption, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowEmbedded.inspect.spacingOption, "dummy", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.flowEmbedded.inspect.spacingOption, "12.5", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowEmbedded.inspect.spacingOption, "12.5", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.flowEmbedded.inspect.spacingOption, "26", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowEmbedded.inspect.spacingOption, "26", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.enums.flowEmbedded.inspect.spacingOption, "0.3", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowEmbedded.inspect.spacingOption, "0.3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -58,13 +58,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.vehicle.inspect.arrivalPosLat, "", True)
+netedit.modifyAttribute(netedit.attrs.Enums.vehicle.inspect.arrivalPosLat, "", True)
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.vehicle.inspect.arrivalPosLat, "dummyPosLat", True)
+netedit.modifyAttribute(netedit.attrs.Enums.vehicle.inspect.arrivalPosLat, "dummyPosLat", True)
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.vehicle.inspect.arrivalPosLat, "left", True)
+netedit.modifyAttribute(netedit.attrs.Enums.vehicle.inspect.arrivalPosLat, "left", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -47,25 +47,25 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.enums.stopLane.inspectSelection.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.Enums.stopLane.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.enums.stopLane.inspectSelection.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.Enums.stopLane.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopLane.inspectSelection.duration, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspectSelection.duration, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopLane.inspectSelection.duration, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspectSelection.duration, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopLane.inspectSelection.duration, "-5", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspectSelection.duration, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopLane.inspectSelection.duration, "0", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspectSelection.duration, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopLane.inspectSelection.duration, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspectSelection.duration, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -61,16 +61,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 280, 392)
 
 # Change parameter color with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.enums.route.inspectSelection.color, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.route.inspectSelection.color, "", False)
 
 # Change parameter color with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.route.inspectSelection.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.Enums.route.inspectSelection.color, "dummyColor", False)
 
 # Change parameter color with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.route.inspectSelection.color, "12,15,30", False)
+netedit.modifyAttribute(netedit.attrs.Enums.route.inspectSelection.color, "12,15,30", False)
 
 # Change parameter color with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.route.inspectSelection.color, "red", False)
+netedit.modifyAttribute(netedit.attrs.Enums.route.inspectSelection.color, "red", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

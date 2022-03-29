@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("chargingStation")
 
 # set charge in transit
-netedit.changeDefaultBoolValue(netedit.attrs.enums.chargingStation.create.chargeInTransit)
+netedit.changeDefaultBoolValue(netedit.attrs.Enums.chargingStation.create.chargeInTransit)
 
 # create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

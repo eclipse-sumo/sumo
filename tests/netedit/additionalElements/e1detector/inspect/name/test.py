@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 210)
 
 # Change parameter name with an non valid value
-netedit.modifyAttribute(netedit.attrs.enums.E1.inspect.name, "%%%;:..&&%$%$", True)
+netedit.modifyAttribute(netedit.attrs.Enums.E1.inspect.name, "%%%;:..&&%$%$", True)
 
 # Change parameter name with a duplicated value
-netedit.modifyAttribute(netedit.attrs.enums.E1.inspect.name, "customName", True)
+netedit.modifyAttribute(netedit.attrs.Enums.E1.inspect.name, "customName", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

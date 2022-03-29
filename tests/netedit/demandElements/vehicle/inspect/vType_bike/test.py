@@ -58,7 +58,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.vehicle.inspect.type, "DEFAULT_BIKETYPE", True)
+netedit.modifyAttribute(netedit.attrs.Enums.vehicle.inspect.type, "DEFAULT_BIKETYPE", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

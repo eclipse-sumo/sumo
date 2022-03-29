@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 115, 70)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.TAZ.inspectSelection.center, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.Enums.TAZ.inspectSelection.center, "dummyColor", False)
 
 # Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.enums.TAZ.inspectSelection.center, "23,24", False)
+netedit.modifyAttribute(netedit.attrs.Enums.TAZ.inspectSelection.center, "23,24", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

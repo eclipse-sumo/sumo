@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, 190, 240)
 netedit.leftClick(referencePosition, 440, 240)
 
 # set other name
-netedit.changeDefaultValue(netedit.attrs.enums.E2Multilane.create.name, "detectorName")
+netedit.changeDefaultValue(netedit.attrs.Enums.E2Multilane.create.name, "detectorName")
 
 # create E2 with default parameters
 netedit.typeEnter()

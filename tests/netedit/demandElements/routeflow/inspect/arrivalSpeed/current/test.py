@@ -58,13 +58,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.routeflow.inspect.arrivalSpeed, "", True)
+netedit.modifyAttribute(netedit.attrs.Enums.routeflow.inspect.arrivalSpeed, "", True)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.routeflow.inspect.arrivalSpeed, "dummySpeed", True)
+netedit.modifyAttribute(netedit.attrs.Enums.routeflow.inspect.arrivalSpeed, "dummySpeed", True)
 
 # change arrivalSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.routeflow.inspect.arrivalSpeed, "current", True)
+netedit.modifyAttribute(netedit.attrs.Enums.routeflow.inspect.arrivalSpeed, "current", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

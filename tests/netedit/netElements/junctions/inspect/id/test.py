@@ -38,13 +38,13 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change ID (Duplicated)
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspect.id, "gneJ1", False)
+netedit.modifyAttribute(netedit.attrs.Enums.junction.inspect.id, "gneJ1", False)
 
 # change ID empty)
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.junction.inspect.id, "", False)
 
 # change ID
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspect.id, "OwnID", False)
+netedit.modifyAttribute(netedit.attrs.Enums.junction.inspect.id, "OwnID", False)
 
 # rebuild network
 netedit.rebuildNetwork()

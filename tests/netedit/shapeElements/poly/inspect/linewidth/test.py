@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 182, 130)
 
 # Change parameter 5 with a non valid value
-netedit.modifyAttribute(netedit.attrs.enums.Poly.inspect.lineWidth, "dummyLineWidth", False)
+netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspect.lineWidth, "dummyLineWidth", False)
 
 # Change parameter 5 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.enums.Poly.inspect.lineWidth, "-2", False)
+netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspect.lineWidth, "-2", False)
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.Poly.inspect.lineWidth, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspect.lineWidth, "2.5", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

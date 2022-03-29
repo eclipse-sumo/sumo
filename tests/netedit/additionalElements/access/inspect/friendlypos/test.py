@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 375, 250)
 netedit.changeElement("access")
 
 # Create Access
-netedit.selectAdditionalChild(netedit.attrs.enums.access.create.parent, 0)
+netedit.selectAdditionalChild(netedit.attrs.Enums.access.create.parent, 0)
 netedit.leftClick(referencePosition, 200, 280)
 
 # go to inspect mode
@@ -54,7 +54,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 208, 280)
 
 # Change friendly position
-netedit.modifyBoolAttribute(netedit.attrs.enums.access.inspect.friendlyPos, True)
+netedit.modifyBoolAttribute(netedit.attrs.Enums.access.inspect.friendlyPos, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

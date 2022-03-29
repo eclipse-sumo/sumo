@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change keep clear
-netedit.modifyBoolAttribute(netedit.attrs.enums.junction.inspectTLS.keepClear, False)
+netedit.modifyBoolAttribute(netedit.attrs.Enums.junction.inspectTLS.keepClear, False)
 
 # rebuild network
 netedit.rebuildNetwork()

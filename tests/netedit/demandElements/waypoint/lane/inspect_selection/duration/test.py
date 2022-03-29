@@ -47,25 +47,25 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.enums.waypointLane.inspectSelection.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.Enums.waypointLane.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.enums.waypointLane.inspectSelection.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.Enums.waypointLane.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspectSelection.duration, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.Enums.waypointLane.inspectSelection.duration, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspectSelection.duration, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.waypointLane.inspectSelection.duration, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspectSelection.duration, "-5", False)
+netedit.modifyAttribute(netedit.attrs.Enums.waypointLane.inspectSelection.duration, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspectSelection.duration, "0", False)
+netedit.modifyAttribute(netedit.attrs.Enums.waypointLane.inspectSelection.duration, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.waypointLane.inspectSelection.duration, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.Enums.waypointLane.inspectSelection.duration, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

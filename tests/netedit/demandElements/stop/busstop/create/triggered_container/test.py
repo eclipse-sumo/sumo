@@ -41,25 +41,25 @@ netedit.stopMode()
 netedit.changeStopType("stopBusStop")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.enums.stop.create.triggered, "container")
+netedit.changeDefaultValue(netedit.attrs.Enums.stop.create.triggered, "container")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.stop.create.expected, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.Enums.stop.create.expected, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.stop.create.expected, "")
+netedit.changeDefaultValue(netedit.attrs.Enums.stop.create.expected, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.enums.stop.create.expected, "containerID1 containerID2 containerID3")
+netedit.changeDefaultValue(netedit.attrs.Enums.stop.create.expected, "containerID1 containerID2 containerID3")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 175)

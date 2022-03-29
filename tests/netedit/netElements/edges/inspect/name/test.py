@@ -41,10 +41,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 15 with a non valid value
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.name, "%%%$$$$$%", False)
+netedit.modifyAttribute(netedit.attrs.Enums.edge.inspect.name, "%%%$$$$$%", False)
 
 # Change parameter 15 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.name, "my own name", False)
+netedit.modifyAttribute(netedit.attrs.Enums.edge.inspect.name, "my own name", False)
 
 # recompute
 netedit.rebuildNetwork()

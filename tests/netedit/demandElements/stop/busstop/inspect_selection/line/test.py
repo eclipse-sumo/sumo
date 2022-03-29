@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stop.inspectSelection.line, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stop.inspectSelection.line, ";;;;", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stop.inspectSelection.line, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stop.inspectSelection.line, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stop.inspectSelection.line, "custom line", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stop.inspectSelection.line, "custom line", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

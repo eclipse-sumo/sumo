@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 298, 250)
 netedit.changeElement("access")
 
 # Create Access detector
-netedit.selectAdditionalChild(netedit.attrs.enums.access.create.parent, 0)
+netedit.selectAdditionalChild(netedit.attrs.Enums.access.create.parent, 0)
 netedit.leftClick(referencePosition, 48, 200)
 
 # go to move mode

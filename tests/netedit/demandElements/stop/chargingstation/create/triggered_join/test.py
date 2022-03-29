@@ -41,7 +41,7 @@ netedit.stopMode()
 netedit.changeStopType("stopChargingStation")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.enums.stop.create.triggered, "join")
+netedit.changeDefaultValue(netedit.attrs.Enums.stop.create.triggered, "join")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 195)

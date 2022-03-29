@@ -50,10 +50,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # set invalid value
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspectSelection.type, "dummyType", False)
+netedit.modifyAttribute(netedit.attrs.Enums.junction.inspectSelection.type, "dummyType", False)
 
 # change type of junction
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspectSelection.type, "allway_stop", False)
+netedit.modifyAttribute(netedit.attrs.Enums.junction.inspectSelection.type, "allway_stop", False)
 
 # rebuild network
 netedit.rebuildNetwork()

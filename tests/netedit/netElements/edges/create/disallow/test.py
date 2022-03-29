@@ -32,28 +32,28 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 netedit.createEdgeMode()
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.enums.edge.create.disallow, "dummy")
+netedit.changeDefaultValue(netedit.attrs.Enums.edge.create.disallow, "dummy")
 
 # Create two nodes
 netedit.leftClick(referencePosition, 87, 108)
 netedit.leftClick(referencePosition, 510, 108)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.enums.edge.create.disallow, "pedestrian bus")
+netedit.changeDefaultValue(netedit.attrs.Enums.edge.create.disallow, "pedestrian bus")
 
 # Create two nodes
 netedit.leftClick(referencePosition, 87, 108)
 netedit.leftClick(referencePosition, 510, 108)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.enums.edge.create.disallow, "all")
+netedit.changeDefaultValue(netedit.attrs.Enums.edge.create.disallow, "all")
 
 # Create two nodes
 netedit.leftClick(referencePosition, 87, 120)
 netedit.leftClick(referencePosition, 510, 120)
 
 # set attribute
-netedit.changeDefaultAllowDisallowValue(netedit.attrs.enums.edge.create.disallowButton)
+netedit.changeDefaultAllowDisallowValue(netedit.attrs.Enums.edge.create.disallowButton)
 
 # Create two nodes
 netedit.leftClick(referencePosition, 87, 160)

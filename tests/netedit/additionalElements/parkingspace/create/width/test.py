@@ -41,26 +41,26 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeElement("space")
 
 # set invalid width (dummy)
-netedit.selectAdditionalChild(netedit.attrs.enums.parkingSpace.create.parent, 0)
-netedit.changeDefaultValue(netedit.attrs.enums.parkingSpace.create.width, "dummyWidth")
+netedit.selectAdditionalChild(netedit.attrs.Enums.parkingSpace.create.parent, 0)
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingSpace.create.width, "dummyWidth")
 
 # try to create area
 netedit.leftClick(referencePosition, 231, 83)
 
 # set invalid width (empty)
-netedit.changeDefaultValue(netedit.attrs.enums.parkingSpace.create.width, "")
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingSpace.create.width, "")
 
 # try to create area
 netedit.leftClick(referencePosition, 231, 83)
 
 # set invalid width (negative)
-netedit.changeDefaultValue(netedit.attrs.enums.parkingSpace.create.width, "-3")
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingSpace.create.width, "-3")
 
 # try to create area
 netedit.leftClick(referencePosition, 231, 83)
 
 # set valid width
-netedit.changeDefaultValue(netedit.attrs.enums.parkingSpace.create.width, "2.5")
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingSpace.create.width, "2.5")
 
 # create area
 netedit.leftClick(referencePosition, 231, 83)

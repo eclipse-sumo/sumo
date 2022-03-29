@@ -49,37 +49,37 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.routeflow.create.terminate, "dummyTerminate")
+netedit.changeDefaultValue(netedit.attrs.Enums.routeflow.create.terminate, "dummyTerminate")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.routeflow.create.terminate, "end")
+netedit.changeDefaultValue(netedit.attrs.Enums.routeflow.create.terminate, "end")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.routeflow.create.terminateOption, "dummy")
+netedit.changeDefaultValue(netedit.attrs.Enums.routeflow.create.terminateOption, "dummy")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.routeflow.create.terminateOption, "-30")
+netedit.changeDefaultValue(netedit.attrs.Enums.routeflow.create.terminateOption, "-30")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.routeflow.create.terminateOption, "20.5")
+netedit.changeDefaultValue(netedit.attrs.Enums.routeflow.create.terminateOption, "20.5")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.routeflow.create.terminateOption, "22")
+netedit.changeDefaultValue(netedit.attrs.Enums.routeflow.create.terminateOption, "22")
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # change save relative path
-netedit.changeDefaultBoolValue(netedit.attrs.enums.POIGEO.create.relativePath)
+netedit.changeDefaultBoolValue(netedit.attrs.Enums.POIGEO.create.relativePath)
 
 # create poi
 netedit.leftClick(referencePosition, 100, 50)

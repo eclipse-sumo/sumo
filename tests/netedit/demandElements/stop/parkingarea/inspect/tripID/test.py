@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 155)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopParking.inspect.tripID, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stopParking.inspect.tripID, ";;;;", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopParking.inspect.tripID, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stopParking.inspect.tripID, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopParking.inspect.tripID, "customTripID", False)
+netedit.modifyAttribute(netedit.attrs.Enums.stopParking.inspect.tripID, "customTripID", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 552, 205)
 
 # Change parameter 1 with an non valid value
-netedit.modifyAttribute(netedit.attrs.enums.routeProbe.inspectSelection.name, "%%%;:..&&%$%$", True)
+netedit.modifyAttribute(netedit.attrs.Enums.routeProbe.inspectSelection.name, "%%%;:..&&%$%$", True)
 
 # Change parameter 1 with a duplicated value
-netedit.modifyAttribute(netedit.attrs.enums.routeProbe.inspectSelection.name, "customName", True)
+netedit.modifyAttribute(netedit.attrs.Enums.routeProbe.inspectSelection.name, "customName", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

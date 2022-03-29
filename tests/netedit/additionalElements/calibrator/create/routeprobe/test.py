@@ -35,22 +35,22 @@ netedit.additionalMode()
 netedit.changeElement("calibrator")
 
 # disable center view
-netedit.changeDefaultBoolValue(netedit.attrs.enums.calibrator.create.center)
+netedit.changeDefaultBoolValue(netedit.attrs.Enums.calibrator.create.center)
 
 # change routeprobe with a invalid routeProbe ID
-netedit.changeDefaultValue(netedit.attrs.enums.calibrator.create.routeProbe, ";;;;;%%;;;;")
+netedit.changeDefaultValue(netedit.attrs.Enums.calibrator.create.routeProbe, ";;;;;%%;;;;")
 
 # create calibrator with a different routeProbe in other lane
 netedit.leftClick(referencePosition, 240, 250)
 
 # change frequency with a different routeProbe (Valid, empty)
-netedit.changeDefaultValue(netedit.attrs.enums.calibrator.create.routeProbe, "")
+netedit.changeDefaultValue(netedit.attrs.Enums.calibrator.create.routeProbe, "")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(referencePosition, 240, 230)
 
 # change routeprobe with a different routeProbe
-netedit.changeDefaultValue(netedit.attrs.enums.calibrator.create.routeProbe, "routeProbe_0")
+netedit.changeDefaultValue(netedit.attrs.Enums.calibrator.create.routeProbe, "routeProbe_0")
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

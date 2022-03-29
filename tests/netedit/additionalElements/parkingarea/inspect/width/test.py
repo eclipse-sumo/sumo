@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.Enums.parkingArea.create.references, "reference center")
 
 # create parkingArea in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 200)
 
 # Change parameter Width with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.width, "dummyWidth", True)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingArea.inspect.width, "dummyWidth", True)
 
 # Change parameter Width with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.width, "-5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingArea.inspect.width, "-5", True)
 
 # Change parameter Width with a non valid value (0)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.width, "0", True)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingArea.inspect.width, "0", True)
 
 # Change parameter Width with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.width, "2.3", True)
+netedit.modifyAttribute(netedit.attrs.Enums.parkingArea.inspect.width, "2.3", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

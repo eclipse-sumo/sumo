@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 160, 270)
 
 # Set lines
-netedit.modifyAttribute(netedit.attrs.enums.trainStop.inspectSelection.lines, "commonLine1 commonLine2", False)
+netedit.modifyAttribute(netedit.attrs.Enums.trainStop.inspectSelection.lines, "commonLine1 commonLine2", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

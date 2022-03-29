@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, 100, 50)
 
 # Create Entry detector for E3
 netedit.changeElement("detEntry")
-netedit.selectAdditionalChild(netedit.attrs.enums.entryExit.create.parent, 2)
+netedit.selectAdditionalChild(netedit.attrs.Enums.entryExit.create.parent, 2)
 netedit.leftClick(referencePosition, 100, 200)
 
 # Create Exit detector for E3
@@ -64,7 +64,7 @@ netedit.leftClick(referencePosition, 100, 50)
 
 # Create Entry detector for E3
 netedit.changeElement("detEntry")
-netedit.selectAdditionalChild(netedit.attrs.enums.entryExit.create.parent, 2)
+netedit.selectAdditionalChild(netedit.attrs.Enums.entryExit.create.parent, 2)
 netedit.leftClick(referencePosition, 100, 200)
 
 # Create Exit detector for E3

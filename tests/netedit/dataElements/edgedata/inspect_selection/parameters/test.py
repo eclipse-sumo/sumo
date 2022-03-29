@@ -59,7 +59,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 366, 120)
 
 # check double parameters
-netedit.checkDoubleParameters(referencePosition, netedit.attrs.enums.edgeData.inspectSelection.parameters, False, 0, 30)
+netedit.checkDoubleParameters(referencePosition, netedit.attrs.Enums.edgeData.inspectSelection.parameters, False, 0, 30)
 
 # save data elements
 netedit.saveDatas(referencePosition, True, 0, 30)

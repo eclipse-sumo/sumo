@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 300, 230)
 
 # Change parameter id with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.calibrator.inspect.frequency, "dummyFreq", True)
+netedit.modifyAttribute(netedit.attrs.Enums.calibrator.inspect.frequency, "dummyFreq", True)
 
 # Change parameter id with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.enums.calibrator.inspect.frequency, "-12", True)
+netedit.modifyAttribute(netedit.attrs.Enums.calibrator.inspect.frequency, "-12", True)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.calibrator.inspect.frequency, "12.5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.calibrator.inspect.frequency, "12.5", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

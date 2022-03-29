@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 533, 200)
 
 # Set invalid end 1
-netedit.modifyAttribute(netedit.attrs.enums.vaporizer.inspectSelection.end, "-5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.vaporizer.inspectSelection.end, "-5", True)
 
 # Set invalid end 2
-netedit.modifyAttribute(netedit.attrs.enums.vaporizer.inspectSelection.end, "1", True)
+netedit.modifyAttribute(netedit.attrs.Enums.vaporizer.inspectSelection.end, "1", True)
 
 # Set valid begin
-netedit.modifyAttribute(netedit.attrs.enums.vaporizer.inspectSelection.end, "15.8", True)
+netedit.modifyAttribute(netedit.attrs.Enums.vaporizer.inspectSelection.end, "15.8", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

@@ -41,16 +41,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 225)
 
 # Change linkindex2 with a non valid value
-netedit.modifyAttribute(netedit.attrs.enums.crossing.inspectTLS.linkIndex2, "dummylinkIndex", True)
+netedit.modifyAttribute(netedit.attrs.Enums.crossing.inspectTLS.linkIndex2, "dummylinkIndex", True)
 
 # Change linkindex2 with a non valid value
-netedit.modifyAttribute(netedit.attrs.enums.crossing.inspectTLS.linkIndex2, "-3", True)
+netedit.modifyAttribute(netedit.attrs.Enums.crossing.inspectTLS.linkIndex2, "-3", True)
 
 # Change linkindex2 with a non valid value
-netedit.modifyAttribute(netedit.attrs.enums.crossing.inspectTLS.linkIndex2, "6", True)
+netedit.modifyAttribute(netedit.attrs.Enums.crossing.inspectTLS.linkIndex2, "6", True)
 
 # Change linkindex2 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.crossing.inspectTLS.linkIndex2, "1", True)
+netedit.modifyAttribute(netedit.attrs.Enums.crossing.inspectTLS.linkIndex2, "1", True)
 
 # rebuild network
 netedit.rebuildNetwork()

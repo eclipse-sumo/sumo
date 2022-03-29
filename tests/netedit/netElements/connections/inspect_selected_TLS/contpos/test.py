@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.changeEditMode(netedit.attrs.enums.Modes.Network.showConnections)
+netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.showConnections)
 
 # go to select mode
 netedit.selectMode()
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 228, 170)
 
 # Change constPos with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.connection.inspectSelectionTLS.contPos, "dummyContPos", True)
+netedit.modifyAttribute(netedit.attrs.Enums.connection.inspectSelectionTLS.contPos, "dummyContPos", True)
 
 # Change constPos with an valid value
-netedit.modifyAttribute(netedit.attrs.enums.connection.inspectSelectionTLS.contPos, "-3", True)
+netedit.modifyAttribute(netedit.attrs.Enums.connection.inspectSelectionTLS.contPos, "-3", True)
 
 # Change constPos with an valid value
-netedit.modifyAttribute(netedit.attrs.enums.connection.inspectSelectionTLS.contPos, "0", True)
+netedit.modifyAttribute(netedit.attrs.Enums.connection.inspectSelectionTLS.contPos, "0", True)
 
 # Change constPos with an valid value
-netedit.modifyAttribute(netedit.attrs.enums.connection.inspectSelectionTLS.contPos, "12", True)
+netedit.modifyAttribute(netedit.attrs.Enums.connection.inspectSelectionTLS.contPos, "12", True)
 
 # rebuild
 netedit.rebuildNetwork()

@@ -41,19 +41,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 350, 310)
 
 # Change parameter length with a non valid value(dummy)
-netedit.modifyAttribute(netedit.attrs.enums.E2.inspectSelection.length, "dummyLength", True)
+netedit.modifyAttribute(netedit.attrs.Enums.E2.inspectSelection.length, "dummyLength", True)
 
 # Change parameter length with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.enums.E2.inspectSelection.length, "-5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.E2.inspectSelection.length, "-5", True)
 
 # Change parameter length with a non valid value (0)
-netedit.modifyAttribute(netedit.attrs.enums.E2.inspectSelection.length, "0", True)
+netedit.modifyAttribute(netedit.attrs.Enums.E2.inspectSelection.length, "0", True)
 
 # Change parameter length with a valid value (> lane length)
-netedit.modifyAttribute(netedit.attrs.enums.E2.inspectSelection.length, "500", True)
+netedit.modifyAttribute(netedit.attrs.Enums.E2.inspectSelection.length, "500", True)
 
 # Change parameter length with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.E2.inspectSelection.length, "5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.E2.inspectSelection.length, "5", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

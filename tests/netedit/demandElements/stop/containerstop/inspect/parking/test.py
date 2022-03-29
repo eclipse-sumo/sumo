@@ -50,7 +50,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 155)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.enums.stop.inspect.parking, False)
+netedit.modifyBoolAttribute(netedit.attrs.Enums.stop.inspect.parking, False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

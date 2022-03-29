@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 410, 170)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.flowJunction.inspectSelection.color, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowJunction.inspectSelection.color, "", False)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.flowJunction.inspectSelection.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowJunction.inspectSelection.color, "dummyColor", False)
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.enums.flowJunction.inspectSelection.color, "cyan", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowJunction.inspectSelection.color, "cyan", False)
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.flowJunction.inspectSelection.color, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.Enums.flowJunction.inspectSelection.color, "12,13,14", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

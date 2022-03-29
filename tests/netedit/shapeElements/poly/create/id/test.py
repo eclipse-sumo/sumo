@@ -38,19 +38,19 @@ netedit.changeElement("poly")
 netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.enums.Poly.create.id, ";;;;;;")
+netedit.changeDefaultValue(netedit.attrs.Enums.Poly.create.id, ";;;;;;")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 382, 130, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.enums.Poly.create.id, "po_0")
+netedit.changeDefaultValue(netedit.attrs.Enums.Poly.create.id, "po_0")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 382, 130, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.enums.Poly.create.id, "custom_ID")
+netedit.changeDefaultValue(netedit.attrs.Enums.Poly.create.id, "custom_ID")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 382, 130, 200, True)

@@ -38,13 +38,13 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # set invalid id
-netedit.changeDefaultValue(netedit.attrs.enums.E3.create.id, ";;;;;;")
+netedit.changeDefaultValue(netedit.attrs.Enums.E3.create.id, ";;;;;;")
 
 # create E3 with valid frequency
 netedit.leftClick(referencePosition, 100, 85)
 
 # set valid id
-netedit.changeDefaultValue(netedit.attrs.enums.E3.create.id, "customID")
+netedit.changeDefaultValue(netedit.attrs.Enums.E3.create.id, "customID")
 
 # create E3 with valid frequency
 netedit.leftClick(referencePosition, 100, 85)

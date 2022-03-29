@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 320)
 
 # Set name
-netedit.modifyAttribute(netedit.attrs.enums.chargingStation.inspectSelection.name, "commonName", True)
+netedit.modifyAttribute(netedit.attrs.Enums.chargingStation.inspectSelection.name, "commonName", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

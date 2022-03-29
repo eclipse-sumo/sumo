@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToEdge.inspect.personNumber, "", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToEdge.inspect.personNumber, "", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToEdge.inspect.personNumber, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToEdge.inspect.personNumber, "dummyNumber", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToEdge.inspect.personNumber, "-5", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToEdge.inspect.personNumber, "-5", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToEdge.inspect.personNumber, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToEdge.inspect.personNumber, "2.5", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToEdge.inspect.personNumber, "3", False)
+netedit.modifyAttribute(netedit.attrs.Enums.tripFromToEdge.inspect.personNumber, "3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.enums.busStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.Enums.busStop.create.references, "reference center")
 
 # create busStop in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter personCapacity with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.enums.busStop.inspect.personCapacity, "dummyPersonCapacity", True)
+netedit.modifyAttribute(netedit.attrs.Enums.busStop.inspect.personCapacity, "dummyPersonCapacity", True)
 
 # Change parameter personCapacity with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.busStop.inspect.personCapacity, "-7", True)
+netedit.modifyAttribute(netedit.attrs.Enums.busStop.inspect.personCapacity, "-7", True)
 
 # Change parameter personCapacity with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.busStop.inspect.personCapacity, "2.5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.busStop.inspect.personCapacity, "2.5", True)
 
 # Change parameter personCapacity with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.busStop.inspect.personCapacity, "10", True)
+netedit.modifyAttribute(netedit.attrs.Enums.busStop.inspect.personCapacity, "10", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

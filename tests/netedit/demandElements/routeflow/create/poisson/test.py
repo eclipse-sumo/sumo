@@ -49,37 +49,37 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.routeflow.create.spacing, "dummySpacing")
+netedit.changeDefaultValue(netedit.attrs.Enums.routeflow.create.spacing, "dummySpacing")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.routeflow.create.spacing, "poisson")
+netedit.changeDefaultValue(netedit.attrs.Enums.routeflow.create.spacing, "poisson")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.routeflow.create.spacingOption, "dummy")
+netedit.changeDefaultValue(netedit.attrs.Enums.routeflow.create.spacingOption, "dummy")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.routeflow.create.spacingOption, "-30")
+netedit.changeDefaultValue(netedit.attrs.Enums.routeflow.create.spacingOption, "-30")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.routeflow.create.spacingOption, "20.5")
+netedit.changeDefaultValue(netedit.attrs.Enums.routeflow.create.spacingOption, "20.5")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.routeflow.create.spacingOption, "22")
+netedit.changeDefaultValue(netedit.attrs.Enums.routeflow.create.spacingOption, "22")
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

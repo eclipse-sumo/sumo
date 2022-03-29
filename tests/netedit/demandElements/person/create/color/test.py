@@ -45,13 +45,13 @@ netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 270, 43)
 
 # set invalid person number
-netedit.changeColorUsingDialog(netedit.attrs.enums.person.create.colorButton, 5)
+netedit.changeColorUsingDialog(netedit.attrs.Enums.person.create.colorButton, 5)
 
 # press enter to create route
 netedit.typeEnter()
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.enums.person.create.color, "Vlue")
+netedit.changeDefaultValue(netedit.attrs.Enums.person.create.color, "Vlue")
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, 274, 392)
@@ -61,7 +61,7 @@ netedit.leftClick(referencePosition, 270, 43)
 netedit.typeEnter()
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.enums.person.create.color, "red")
+netedit.changeDefaultValue(netedit.attrs.Enums.person.create.color, "red")
 
 # focus current frame
 netedit.focusOnFrame()

@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 375, 250)
 netedit.changeElement("access")
 
 # Create Access
-netedit.selectAdditionalChild(netedit.attrs.enums.access.create.parent, 0)
+netedit.selectAdditionalChild(netedit.attrs.Enums.access.create.parent, 0)
 netedit.leftClick(referencePosition, 200, 280)
 
 # go to inspect mode
@@ -54,13 +54,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 208, 280)
 
 # Change length (invalid)
-netedit.modifyAttribute(netedit.attrs.enums.access.inspect.length, "dummyLenght", True)
+netedit.modifyAttribute(netedit.attrs.Enums.access.inspect.length, "dummyLenght", True)
 
 # Change length (invalid, negative)
-netedit.modifyAttribute(netedit.attrs.enums.access.inspect.length, "-30", True)
+netedit.modifyAttribute(netedit.attrs.Enums.access.inspect.length, "-30", True)
 
 # Change length (valid, positive)
-netedit.modifyAttribute(netedit.attrs.enums.access.inspect.length, "5", True)
+netedit.modifyAttribute(netedit.attrs.Enums.access.inspect.length, "5", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

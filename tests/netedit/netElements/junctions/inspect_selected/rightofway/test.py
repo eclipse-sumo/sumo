@@ -50,10 +50,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # set invalid right of way
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspectSelection.rightOfWay, "dummyRightOfWays", False)
+netedit.modifyAttribute(netedit.attrs.Enums.junction.inspectSelection.rightOfWay, "dummyRightOfWays", False)
 
 # set invalid right of way
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspectSelection.rightOfWay, "edgePriority", False)
+netedit.modifyAttribute(netedit.attrs.Enums.junction.inspectSelection.rightOfWay, "edgePriority", False)
 
 # rebuild network
 netedit.rebuildNetwork()

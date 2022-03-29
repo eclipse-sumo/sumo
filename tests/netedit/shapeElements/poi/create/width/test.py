@@ -35,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # change width (invalid, dummy)
-netedit.changeDefaultValue(netedit.attrs.enums.POI.create.width, "dummyWidth")
+netedit.changeDefaultValue(netedit.attrs.Enums.POI.create.width, "dummyWidth")
 
 # try to create poi
 netedit.leftClick(referencePosition, 100, 50)
 
 # change width (invalid, negative)
-netedit.changeDefaultValue(netedit.attrs.enums.POI.create.width, "-2")
+netedit.changeDefaultValue(netedit.attrs.Enums.POI.create.width, "-2")
 
 # try to create poi
 netedit.leftClick(referencePosition, 150, 50)
 
 # change width (valid)
-netedit.changeDefaultValue(netedit.attrs.enums.POI.create.width, "2.5")
+netedit.changeDefaultValue(netedit.attrs.Enums.POI.create.width, "2.5")
 
 # create poi
 netedit.leftClick(referencePosition, 200, 50)

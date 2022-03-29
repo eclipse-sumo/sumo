@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 149, 53)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.enums.POIGEO.inspectSelection.parameters, True)
+netedit.checkParameters(referencePosition, netedit.attrs.Enums.POIGEO.inspectSelection.parameters, True)
 
 # save shapes
 netedit.saveAdditionals(referencePosition)
