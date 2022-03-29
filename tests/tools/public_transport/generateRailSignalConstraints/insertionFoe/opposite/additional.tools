@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-03-28 14:38:09.451010 by generateRailSignalConstraints.py v1_12_0+1697-d16fb3e
+<!-- generated on 2022-03-29 09:42:47.161307 by generateRailSignalConstraints.py v1_12_0+1722-a8d293d
 <configuration>
     <additional-file value="input_additional.add.xml"/>
     <debug-stop value="stop_b"/>
@@ -11,4 +11,7 @@
 
 -->
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <railSignalConstraints id="A">
+        <predecessor tripId="t0" tl="J2" foes="t1"/>   <!-- (foeInsertion foeStop=stop_-b)  -->
+    </railSignalConstraints>
 </additional>
