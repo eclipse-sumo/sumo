@@ -45,9 +45,9 @@ GNEStopFrame::HelpCreation::~HelpCreation() {}
 
 void
 GNEStopFrame::HelpCreation::showHelpCreation() {
-    // first update help cration
+    // first update help creation
     updateHelpCreation();
-    // show modul
+    // show module
     show();
 }
 
@@ -113,7 +113,7 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     // Create Stop parent selector
     myStopParentSelector = new DemandElementSelector(this, {GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
 
-    // Create item Selector modul for Stops
+    // Create item Selector module for Stops
     myStopTagSelector = new GNETagSelector(this, GNETagProperties::TagType::STOP, SUMO_TAG_STOP_LANE);
 
     // Create Stop parameters
@@ -137,7 +137,7 @@ GNEStopFrame::~GNEStopFrame() {
 
 void
 GNEStopFrame::show() {
-    // first check if stop frame moduls can be shown
+    // first check if stop frame modules can be shown
     bool validStopParent = false;
     // check if at least there an item that supports an stop
     for (auto i = myStopParentSelector->getAllowedTags().begin(); (i != myStopParentSelector->getAllowedTags().end()) && (validStopParent == false); i++) {
@@ -145,7 +145,7 @@ GNEStopFrame::show() {
             validStopParent = true;
         }
     }
-    // show or hidde moduls depending of validStopParent
+    // show or hide modules depending of validStopParent
     if (validStopParent) {
         // refresh tag selector
         myStopTagSelector->refreshTagSelector();
@@ -157,12 +157,12 @@ GNEStopFrame::show() {
         myStopParentSelector->showDemandElementSelector();
         myStopTagSelector->showTagSelector();
     } else {
-        // hide moduls (except help creation)
+        // hide modules (except help creation)
         myStopParentSelector->hideDemandElementSelector();
         myStopTagSelector->hideTagSelector();
         myStopAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
-        // show help creation modul
+        // show help creation module
         myHelpCreation->showHelpCreation();
     }
     // show frame
@@ -488,12 +488,12 @@ GNEStopFrame::getStopParentSelector() const {
 void
 GNEStopFrame::tagSelected() {
     if (myStopTagSelector->getCurrentTemplateAC()) {
-        // show Stop type selector modul
+        // show Stop type selector module
         myStopAttributes->showAttributesCreatorModule(myStopTagSelector->getCurrentTemplateAC(), {});
         myNeteditAttributes->showNeteditAttributesModule(myStopTagSelector->getCurrentTemplateAC());
         myHelpCreation->showHelpCreation();
     } else {
-        // hide all moduls if stop parent isn't valid
+        // hide all modules if stop parent isn't valid
         myStopAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
         myHelpCreation->hideHelpCreation();
@@ -503,11 +503,11 @@ GNEStopFrame::tagSelected() {
 
 void
 GNEStopFrame::demandElementSelected() {
-    // show or hidde moduls depending if current selected stop parent is valid
+    // show or hide modules depending if current selected stop parent is valid
     if (myStopParentSelector->getCurrentDemandElement()) {
         myStopTagSelector->showTagSelector();
         if (myStopTagSelector->getCurrentTemplateAC()) {
-            // show moduls
+            // show modules
             myStopAttributes->showAttributesCreatorModule(myStopTagSelector->getCurrentTemplateAC(), {});
             myNeteditAttributes->showNeteditAttributesModule(myStopTagSelector->getCurrentTemplateAC());
             myHelpCreation->showHelpCreation();
@@ -517,7 +517,7 @@ GNEStopFrame::demandElementSelected() {
             myHelpCreation->hideHelpCreation();
         }
     } else {
-        // hide moduls
+        // hide modules
         myStopTagSelector->hideTagSelector();
         myStopAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();

@@ -62,10 +62,10 @@ public:
     /// @brief hide GNENetworkSelector Module
     void hideNetworkElementsSelector();
 
-    /// @brief return true if modul is shown
+    /// @brief return true if module is shown
     bool isShown() const;
 
-    /// @brief toogle selected networkElement
+    /// @brief toggle selected networkElement
     bool toogleSelectedElement(const GNENetworkElement *networkElement);
 
     /// @brief clear selection
