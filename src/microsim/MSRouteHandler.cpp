@@ -819,11 +819,12 @@ MSRouteHandler::closeTransportableFlow() {
             }
         } else {
             SUMOTime depart = myVehicleParameter->depart;
+            const bool triggered = myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED;
             if (myVehicleParameter->repetitionOffset < 0) {
                 // poisson: randomize first depart
                 myVehicleParameter->incrementFlow(1, &myParsingRNG);
             }
-            for (; i < myVehicleParameter->repetitionNumber && depart + myVehicleParameter->repetitionTotalOffset < myVehicleParameter->repetitionEnd; i++) {
+            for (; i < myVehicleParameter->repetitionNumber && (triggered || depart + myVehicleParameter->repetitionTotalOffset <= myVehicleParameter->repetitionEnd); i++) {
                 addFlowTransportable(depart + myVehicleParameter->repetitionTotalOffset, type, baseID, i);
                 if (myVehicleParameter->departProcedure != DepartDefinition::TRIGGERED) {
                     myVehicleParameter->incrementFlow(1, &myParsingRNG);

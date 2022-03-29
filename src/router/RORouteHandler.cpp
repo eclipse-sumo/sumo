@@ -622,11 +622,12 @@ RORouteHandler::closePersonFlow() {
                     depart += myVehicleParameter->repetitionOffset;
                 }
             } else {
+                const bool triggered = myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED;
                 if (myVehicleParameter->repetitionOffset < 0) {
                     // poisson: randomize first depart
                     myVehicleParameter->incrementFlow(1);
                 }
-                for (; i < myVehicleParameter->repetitionNumber && depart + myVehicleParameter->repetitionTotalOffset < myVehicleParameter->repetitionEnd; i++) {
+                for (; i < myVehicleParameter->repetitionNumber && (triggered || depart + myVehicleParameter->repetitionTotalOffset <= myVehicleParameter->repetitionEnd); i++) {
                     addFlowPerson(type, depart + myVehicleParameter->repetitionTotalOffset, baseID, i);
                     if (myVehicleParameter->departProcedure != DepartDefinition::TRIGGERED) {
                         myVehicleParameter->incrementFlow(1);

@@ -250,7 +250,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             if (!hasNumber) {
                 return handleVehicleError(hardFail, flowParameter, toString(tag) + " '" + id + "' with triggered begin must define 'number'.");
             } else {
-                flowParameter->repetitionEnd = SUMOTime_MAX;
+                flowParameter->repetitionEnd = flowParameter->depart;
             }
         } else if ((endDefault == SUMOTime_MAX || endDefault < 0) && (!hasNumber || (!hasProb && !hasPeriod && !hasXPH))) {
             WRITE_WARNING("Undefined end for " + toString(tag) + " '" + id + "', defaulting to 24hour duration.");
