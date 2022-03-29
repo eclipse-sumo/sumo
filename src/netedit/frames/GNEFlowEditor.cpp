@@ -159,7 +159,7 @@ GNEFlowEditor::getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject)
     if (mySpacingLabel->getText().text() == toString(SUMO_ATTR_PERIOD)) {
         baseObject->addDoubleAttribute(SUMO_ATTR_PERIOD, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
     }
-    if (mySpacingLabel->getText().text() == toString(GNE_ATTR_POISSON)) {
+    if (mySpacingLabel->getText() == "rate") {
         baseObject->addDoubleAttribute(GNE_ATTR_POISSON, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
     }
     if (mySpacingLabel->getText().text() == toString(SUMO_ATTR_PROB)) {
@@ -448,7 +448,7 @@ GNEFlowEditor::refreshSingleFlow() {
             // set first comboBox
             mySpacingComboBox->setCurrentItem(2),
             // set label
-            mySpacingLabel->setText(toString(GNE_ATTR_POISSON).c_str());
+            mySpacingLabel->setText("rate");
             // set text fields
             mySpacingTextField->setText(getFlowAttribute(GNE_ATTR_POISSON).c_str());
         } else if (flow->isAttributeEnabled(SUMO_ATTR_PROB)) {
@@ -571,7 +571,7 @@ GNEFlowEditor::refreshMultipleFlows() {
                 // set first comboBox
                 mySpacingComboBox->setCurrentItem(2),
                 // set label
-                mySpacingLabel->setText(toString(GNE_ATTR_POISSON).c_str());
+                mySpacingLabel->setText("rate");
                 // set text fields
                 mySpacingTextField->setText(getFlowAttribute(GNE_ATTR_POISSON).c_str());
             } else if (probability) {
