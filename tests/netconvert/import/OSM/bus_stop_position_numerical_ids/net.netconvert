@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:21:01 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-03-25 13:55:40 by Eclipse SUMO netconvert Version v1_12_0+1667-b6558884177
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -262,13 +267,13 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
     </edge>
     <edge id="412820213" from="1182713755" to="18916104" priority="9" type="highway.primary">
-        <lane id="412820213_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="1.03" shape="178.08,66.60 177.05,66.62">
+        <lane id="412820213_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="1.03" shape="178.08,66.60 177.05,66.62" changeLeft="authority" changeRight="authority">
             <param key="origId" value="-412820208#0"/>
         </lane>
         <param key="ref" value="K 9659"/>
     </edge>
     <edge id="412820214" from="286475457" to="1182713755" priority="9" type="highway.primary" shape="243.50,64.26 198.67,64.74 181.28,64.93">
-        <lane id="412820214_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="59.03" shape="243.51,65.86 198.69,66.34 184.49,66.50">
+        <lane id="412820214_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="59.03" shape="243.51,65.86 198.69,66.34 184.49,66.50" changeLeft="authority" changeRight="authority">
             <param key="origId" value="-412820208#1"/>
         </lane>
         <param key="ref" value="K 9659"/>
