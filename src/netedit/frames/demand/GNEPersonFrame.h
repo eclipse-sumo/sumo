@@ -55,11 +55,11 @@ public:
 
     /**@brief add vehicle element
      * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @return true if vehicle was successfully added
+     * @return true if vehicle was sucesfully added
      */
     bool addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
-    /// @brief get GNEPathCreator module
+    /// @brief get GNEPathCreator modul
     GNEPathCreator* getPathCreator() const;
 
 protected:

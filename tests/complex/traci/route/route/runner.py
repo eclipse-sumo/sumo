@@ -50,6 +50,11 @@ try:
     traci.route.add("empty", [])
 except traci.TraCIException:
     pass
+try:
+    # duplicate
+    traci.route.add("h2", ["2o"])
+except traci.TraCIException:
+    pass
 print("routes", traci.route.getIDList())
 print("edges", traci.route.getEdges("h2"))
 print("edges", traci.route.getEdges("withTaz"))

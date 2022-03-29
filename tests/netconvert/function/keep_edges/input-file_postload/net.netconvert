@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 08:21:01 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on 2022-01-07 16:21:07 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -60,75 +55,75 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-662333.88,-5415120.05" convBoundary="0.26,18.96,493.51,822.04" origBoundary="11.213969,48.867634,11.228192,48.875956" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":-15_0" function="internal">
-        <lane id=":-15_0_0" index="0" speed="27.78" friction="1.00" length="0.49" shape="306.09,704.87 305.59,705.14"/>
-        <lane id=":-15_0_1" index="1" speed="27.78" friction="1.00" length="0.49" shape="304.52,702.08 304.16,702.27"/>
+        <lane id=":-15_0_0" index="0" speed="27.78" length="0.49" shape="306.09,704.87 305.59,705.14"/>
+        <lane id=":-15_0_1" index="1" speed="27.78" length="0.49" shape="304.52,702.08 304.16,702.27"/>
     </edge>
     <edge id=":-15_2" function="internal">
-        <lane id=":-15_2_0" index="0" speed="27.78" friction="1.00" length="2.34" shape="304.52,702.08 303.08,701.98 302.34,701.48"/>
+        <lane id=":-15_2_0" index="0" speed="27.78" length="2.34" shape="304.52,702.08 303.08,701.98 302.34,701.48"/>
     </edge>
     <edge id=":-15_6" function="internal">
-        <lane id=":-15_6_0" index="0" speed="27.78" friction="1.00" length="2.34" shape="302.34,701.48 302.29,700.58 302.94,699.30"/>
+        <lane id=":-15_6_0" index="0" speed="27.78" length="2.34" shape="302.34,701.48 302.29,700.58 302.94,699.30"/>
     </edge>
     <edge id=":-15_3" function="internal">
-        <lane id=":-15_3_0" index="0" speed="27.78" friction="1.00" length="0.16" shape="301.30,696.55 301.37,696.51"/>
-        <lane id=":-15_3_1" index="1" speed="27.78" friction="1.00" length="0.16" shape="302.73,699.41 302.94,699.30"/>
+        <lane id=":-15_3_0" index="0" speed="27.78" length="0.16" shape="301.30,696.55 301.37,696.51"/>
+        <lane id=":-15_3_1" index="1" speed="27.78" length="0.16" shape="302.73,699.41 302.94,699.30"/>
     </edge>
     <edge id=":-15_5" function="internal">
-        <lane id=":-15_5_0" index="0" speed="27.78" friction="1.00" length="2.34" shape="302.73,699.41 304.16,699.59 304.88,700.13"/>
+        <lane id=":-15_5_0" index="0" speed="27.78" length="2.34" shape="302.73,699.41 304.16,699.59 304.88,700.13"/>
     </edge>
     <edge id=":-15_7" function="internal">
-        <lane id=":-15_7_0" index="0" speed="27.78" friction="1.00" length="2.34" shape="304.88,700.13 304.87,701.02 304.16,702.27"/>
+        <lane id=":-15_7_0" index="0" speed="27.78" length="2.34" shape="304.88,700.13 304.87,701.02 304.16,702.27"/>
     </edge>
     <edge id=":-2_0" function="internal">
-        <lane id=":-2_0_0" index="0" speed="27.78" friction="1.00" length="4.67" shape="0.68,823.58 -0.69,823.13 -1.28,822.46 -1.11,821.58 -0.16,820.50"/>
+        <lane id=":-2_0_0" index="0" speed="27.78" length="4.67" shape="0.68,823.58 -0.69,823.13 -1.28,822.46 -1.11,821.58 -0.16,820.50"/>
     </edge>
     <edge id=":-26_0" function="internal">
-        <lane id=":-26_0_0" index="0" speed="27.78" friction="1.00" length="2.46" shape="498.25,407.03 498.30,407.87 498.29,408.46 498.22,409.04 498.06,409.87"/>
-        <lane id=":-26_0_1" index="1" speed="27.78" friction="1.00" length="2.46" shape="495.06,407.22 495.09,407.82 495.09,408.24 495.03,408.65 494.92,409.25"/>
+        <lane id=":-26_0_0" index="0" speed="27.78" length="2.46" shape="498.25,407.03 498.30,407.87 498.29,408.46 498.22,409.04 498.06,409.87"/>
+        <lane id=":-26_0_1" index="1" speed="27.78" length="2.46" shape="495.06,407.22 495.09,407.82 495.09,408.24 495.03,408.65 494.92,409.25"/>
     </edge>
     <edge id=":-26_2" function="internal">
-        <lane id=":-26_2_0" index="0" speed="27.78" friction="1.00" length="1.44" shape="495.06,407.22 494.33,408.46"/>
+        <lane id=":-26_2_0" index="0" speed="27.78" length="1.44" shape="495.06,407.22 494.33,408.46"/>
     </edge>
     <edge id=":-26_6" function="internal">
-        <lane id=":-26_6_0" index="0" speed="27.78" friction="1.00" length="3.23" shape="494.33,408.46 493.56,408.91 492.73,408.56 491.86,407.40"/>
+        <lane id=":-26_6_0" index="0" speed="27.78" length="3.23" shape="494.33,408.46 493.56,408.91 492.73,408.56 491.86,407.40"/>
     </edge>
     <edge id=":-26_3" function="internal">
-        <lane id=":-26_3_0" index="0" speed="27.78" friction="1.00" length="0.82" shape="488.64,408.00 488.66,407.88 488.68,407.80 488.68,407.72 488.67,407.59"/>
-        <lane id=":-26_3_1" index="1" speed="27.78" friction="1.00" length="0.82" shape="491.78,408.62 491.85,408.27 491.88,408.02 491.88,407.77 491.86,407.40"/>
+        <lane id=":-26_3_0" index="0" speed="27.78" length="0.82" shape="488.64,408.00 488.66,407.88 488.68,407.80 488.68,407.72 488.67,407.59"/>
+        <lane id=":-26_3_1" index="1" speed="27.78" length="0.82" shape="491.78,408.62 491.85,408.27 491.88,408.02 491.88,407.77 491.86,407.40"/>
     </edge>
     <edge id=":-26_5" function="internal">
-        <lane id=":-26_5_0" index="0" speed="27.78" friction="1.00" length="1.44" shape="491.78,408.62 492.80,407.60"/>
+        <lane id=":-26_5_0" index="0" speed="27.78" length="1.44" shape="491.78,408.62 492.80,407.60"/>
     </edge>
     <edge id=":-26_7" function="internal">
-        <lane id=":-26_7_0" index="0" speed="27.78" friction="1.00" length="3.23" shape="492.80,407.60 493.66,407.37 494.37,407.91 494.92,409.25"/>
+        <lane id=":-26_7_0" index="0" speed="27.78" length="3.23" shape="492.80,407.60 493.66,407.37 494.37,407.91 494.92,409.25"/>
     </edge>
     <edge id=":-29_0" function="internal">
-        <lane id=":-29_0_0" index="0" speed="27.78" friction="1.00" length="4.67" shape="490.34,18.71 491.32,17.65 492.17,17.38 492.90,17.90 493.50,19.21"/>
+        <lane id=":-29_0_0" index="0" speed="27.78" length="4.67" shape="490.34,18.71 491.32,17.65 492.17,17.38 492.90,17.90 493.50,19.21"/>
     </edge>
 
     <edge id="--33#0" from="-15" to="-2" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="303.59,700.77 133.00,786.04 0.26,822.04">
-        <lane id="--33#0_0" index="0" speed="27.78" friction="1.00" length="328.72" shape="305.59,705.14 134.72,790.55 1.52,826.67"/>
-        <lane id="--33#0_1" index="1" speed="27.78" friction="1.00" length="328.72" shape="304.16,702.27 133.57,787.54 0.68,823.58"/>
+        <lane id="--33#0_0" index="0" speed="27.78" length="328.72" shape="305.59,705.14 134.72,790.55 1.52,826.67"/>
+        <lane id="--33#0_1" index="1" speed="27.78" length="328.72" shape="304.16,702.27 133.57,787.54 0.68,823.58"/>
     </edge>
     <edge id="--33#1" from="-26" to="-15" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="493.51,408.13 473.55,508.62 426.27,583.95 339.53,680.45 303.59,700.77">
-        <lane id="--33#1_0" index="0" speed="27.78" friction="1.00" length="364.22" shape="498.06,409.87 478.09,510.42 430.12,586.85 342.58,684.24 306.09,704.87"/>
-        <lane id="--33#1_1" index="1" speed="27.78" friction="1.00" length="364.22" shape="494.92,409.25 475.06,509.22 427.55,584.92 340.55,681.71 304.52,702.08"/>
+        <lane id="--33#1_0" index="0" speed="27.78" length="364.22" shape="498.06,409.87 478.09,510.42 430.12,586.85 342.58,684.24 306.09,704.87"/>
+        <lane id="--33#1_1" index="1" speed="27.78" length="364.22" shape="494.92,409.25 475.06,509.22 427.55,584.92 340.55,681.71 304.52,702.08"/>
     </edge>
     <edge id="--33#2" from="-29" to="-26" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="491.92,18.96 476.29,117.02 493.51,408.13">
-        <lane id="--33#2_0" index="0" speed="27.78" friction="1.00" length="389.40" shape="496.66,19.72 481.11,117.26 498.25,407.03"/>
-        <lane id="--33#2_1" index="1" speed="27.78" friction="1.00" length="389.40" shape="493.50,19.21 477.90,117.10 495.06,407.22"/>
+        <lane id="--33#2_0" index="0" speed="27.78" length="389.40" shape="496.66,19.72 481.11,117.26 498.25,407.03"/>
+        <lane id="--33#2_1" index="1" speed="27.78" length="389.40" shape="493.50,19.21 477.90,117.10 495.06,407.22"/>
     </edge>
     <edge id="-33#0" from="-2" to="-15" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="0.26,822.04 133.00,786.04 303.59,700.77">
-        <lane id="-33#0_0" index="0" speed="27.78" friction="1.00" length="327.45" shape="-1.00,817.41 131.28,781.53 301.30,696.55"/>
-        <lane id="-33#0_1" index="1" speed="27.78" friction="1.00" length="327.45" shape="-0.16,820.50 132.43,784.54 302.73,699.41"/>
+        <lane id="-33#0_0" index="0" speed="27.78" length="327.45" shape="-1.00,817.41 131.28,781.53 301.30,696.55"/>
+        <lane id="-33#0_1" index="1" speed="27.78" length="327.45" shape="-0.16,820.50 132.43,784.54 302.73,699.41"/>
     </edge>
     <edge id="-33#1" from="-15" to="-26" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="303.59,700.77 339.53,680.45 426.27,583.95 473.55,508.62 493.51,408.13">
-        <lane id="-33#1_0" index="0" speed="27.78" friction="1.00" length="358.67" shape="301.37,696.51 336.48,676.66 422.42,581.05 469.01,506.82 488.64,408.00"/>
-        <lane id="-33#1_1" index="1" speed="27.78" friction="1.00" length="358.67" shape="302.94,699.30 338.51,679.19 424.99,582.98 472.04,508.02 491.78,408.62"/>
+        <lane id="-33#1_0" index="0" speed="27.78" length="358.67" shape="301.37,696.51 336.48,676.66 422.42,581.05 469.01,506.82 488.64,408.00"/>
+        <lane id="-33#1_1" index="1" speed="27.78" length="358.67" shape="302.94,699.30 338.51,679.19 424.99,582.98 472.04,508.02 491.78,408.62"/>
     </edge>
     <edge id="-33#2" from="-26" to="-29" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="493.51,408.13 476.29,117.02 491.92,18.96">
-        <lane id="-33#2_0" index="0" speed="27.78" friction="1.00" length="390.79" shape="488.67,407.59 471.47,116.78 487.18,18.20"/>
-        <lane id="-33#2_1" index="1" speed="27.78" friction="1.00" length="390.79" shape="491.86,407.40 474.68,116.94 490.34,18.71"/>
+        <lane id="-33#2_0" index="0" speed="27.78" length="390.79" shape="488.67,407.59 471.47,116.78 487.18,18.20"/>
+        <lane id="-33#2_1" index="1" speed="27.78" length="390.79" shape="491.86,407.40 474.68,116.94 490.34,18.71"/>
     </edge>
 
     <tlLogic id="-26" type="static" programID="0" offset="0">

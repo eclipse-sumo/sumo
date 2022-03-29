@@ -1194,7 +1194,7 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
             }
         }
     }
-    // all CFM successfully parsed, then return true
+    // all CFM sucesfully parsed, then return true
     return true;
 }
 
@@ -1592,7 +1592,7 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAt
             }
         }
     }
-    // all JM parameters successfully parsed, then return true
+    // all JM parameters sucesfully parsed, then return true
     return true;
 }
 

@@ -20,6 +20,7 @@ tripinfoDiff
 
 # difference of tripinfo output with personInfo elements
 tripinfoDiff_persons
+edgeDataDiff
 tripinfoByType
 tripinfoByTAZ
 attributeStats
@@ -36,5 +37,4 @@ computeStoppingPlaceUsage
 # compute number of passengers in vehicle
 computePassengerCounts
 stopOrder
-
 parkingSearchTraffic

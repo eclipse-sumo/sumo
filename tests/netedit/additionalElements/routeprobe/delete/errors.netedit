@@ -5,7 +5,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
-Debug: Selected item 'routeProbe' in TagSelector
+Debug: Selected item 'routeProbe' in GNETagSelector
 Debug: Adding routeProbe 'rp_0' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing

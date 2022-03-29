@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 08:17:42 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on Mon Dec 14 11:32:09 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -41,22 +36,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="32.30,-107.18" convBoundary="0.00,0.00,63.14,11.97" origBoundary="-32.30,-59.62,78.87,123.72" projParameter="!"/>
 
     <edge id="CE" from="C" to="E" priority="-1">
-        <lane id="CE_0" index="0" speed="13.89" friction="1.00" length="23.43" shape="46.91,-1.60 63.14,-1.60"/>
+        <lane id="CE_0" index="0" speed="13.89" length="23.43" shape="46.91,-1.60 63.14,-1.60"/>
     </edge>
     <edge id="CN" from="C" to="N" priority="-1">
-        <lane id="CN_0" index="0" speed="13.89" friction="1.00" length="11.97" shape="41.31,7.20 41.31,11.97"/>
+        <lane id="CN_0" index="0" speed="13.89" length="11.97" shape="41.31,7.20 41.31,11.97"/>
     </edge>
     <edge id="CW" from="C" to="W" priority="-1">
-        <lane id="CW_0" index="0" speed="13.89" friction="1.00" length="39.71" shape="32.51,1.60 -0.00,1.60"/>
+        <lane id="CW_0" index="0" speed="13.89" length="39.71" shape="32.51,1.60 -0.00,1.60"/>
     </edge>
     <edge id="EC" from="E" to="C" priority="-1">
-        <lane id="EC_0" index="0" speed="13.89" friction="1.00" length="23.43" shape="63.14,1.60 46.91,1.60"/>
+        <lane id="EC_0" index="0" speed="13.89" length="23.43" shape="63.14,1.60 46.91,1.60"/>
     </edge>
     <edge id="NC" from="N" to="C" priority="-1">
-        <lane id="NC_0" index="0" speed="13.89" friction="1.00" length="11.97" shape="38.11,11.97 38.11,7.20"/>
+        <lane id="NC_0" index="0" speed="13.89" length="11.97" shape="38.11,11.97 38.11,7.20"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="-1">
-        <lane id="WC_0" index="0" speed="13.89" friction="1.00" length="39.71" shape="-0.00,-1.60 32.51,-1.60"/>
+        <lane id="WC_0" index="0" speed="13.89" length="39.71" shape="-0.00,-1.60 32.51,-1.60"/>
     </edge>
 
     <junction id="C" type="priority" x="39.71" y="0.00" incLanes="NC_0 EC_0 WC_0" intLanes="" shape="36.51,7.20 42.91,7.20 43.35,4.98 43.91,4.20 44.69,3.64 45.69,3.31 46.91,3.20 46.91,-3.20 32.51,-3.20 32.51,3.20 34.73,3.64 35.51,4.20 36.07,4.98 36.40,5.98">

@@ -1,4 +1,4 @@
-Debug: Selected item 'containerStop' in TagSelector
+Debug: Selected item 'containerStop' in GNETagSelector
 Debug: Adding containerStop 'ct_0' in GNEChange_Additional
 Debug: Invalid input parameter of containerStop
 Debug: Adding containerStop 'ct_1' in GNEChange_Additional

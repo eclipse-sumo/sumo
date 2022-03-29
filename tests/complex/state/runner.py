@@ -76,8 +76,10 @@ if compare:
             loadLines = open(loadErr.name).readlines()[offsetLoad:]
             sys.stderr.write("".join(sumolib.fpdiff.diff(saveLines, loadLines, 0.01)))
         else:
-            saveLines = open(fileType + ".xml").readlines()
+            with open(fileType + ".xml") as saved:
+                saveLines = saved.readlines()
             saveLines = saveLines[saveLines.index("-->\n") + offsetSave:]
-            loadLines = open(fileType + "2.xml").readlines()
+            with open(fileType + "2.xml") as loaded:
+                loadLines = loaded.readlines()
             loadLines = loadLines[loadLines.index("-->\n") + offsetLoad:]
             sys.stdout.write("".join(sumolib.fpdiff.diff(saveLines, loadLines, 0.01)))

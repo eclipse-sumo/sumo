@@ -1,4 +1,4 @@
-Debug: Selected item 'vaporizer' in TagSelector
+Debug: Selected item 'vaporizer' in GNETagSelector
 Debug: Adding vaporizer 'gneE3' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()

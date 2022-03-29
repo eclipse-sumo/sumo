@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.selectMode()
 
 # show connections
-netedit.changeEditMode('4')
+netedit.changeEditMode(netedit.attrs.Modes.Network.showConnections)
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)

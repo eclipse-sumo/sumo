@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 08:21:05 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on 2022-01-07 16:21:12 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -39,101 +34,101 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="18.91,-4.39" convBoundary="0.00,0.00,119.19,101.64" origBoundary="-18.91,4.39,100.28,106.03" projParameter="!"/>
 
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_0" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_0_0" index="0" speed="6.83" friction="1.00" length="10.03" shape="64.33,50.01 61.33,50.20 59.14,51.13 57.77,52.81 57.21,55.23"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_0_0" index="0" speed="6.83" length="10.03" shape="64.33,50.01 61.33,50.20 59.14,51.13 57.77,52.81 57.21,55.23"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_1" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_1_0" index="0" speed="13.89" friction="1.00" length="26.20" shape="64.33,50.01 38.21,48.00"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_1_0" index="0" speed="13.89" length="26.20" shape="64.33,50.01 38.21,48.00"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_2" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_2_0" index="0" speed="11.04" friction="1.00" length="28.90" shape="64.33,50.01 57.59,48.03 51.49,43.48 47.22,37.36 45.97,30.67"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_2_0" index="0" speed="11.04" length="28.90" shape="64.33,50.01 57.59,48.03 51.49,43.48 47.22,37.36 45.97,30.67"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_3" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_3_0" index="0" speed="6.33" friction="1.00" length="18.14" shape="64.33,50.01 59.60,47.02 57.98,43.95 59.45,40.81 64.04,37.59"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_3_0" index="0" speed="6.33" length="18.14" shape="64.33,50.01 59.60,47.02 57.98,43.95 59.45,40.81 64.04,37.59"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_4" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_4_0" index="0" speed="6.19" friction="1.00" length="9.02" shape="58.91,31.97 58.96,34.48 59.83,36.26 61.52,37.30 64.04,37.59"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_4_0" index="0" speed="6.19" length="9.02" shape="58.91,31.97 58.96,34.48 59.83,36.26 61.52,37.30 64.04,37.59"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_5" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_5_0" index="0" speed="13.89" friction="1.00" length="23.32" shape="58.91,31.97 57.21,55.23"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_5_0" index="0" speed="13.89" length="23.32" shape="58.91,31.97 57.21,55.23"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_6" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_6_0" index="0" speed="11.41" friction="1.00" length="5.52" shape="58.91,31.97 56.86,37.08"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_6_0" index="0" speed="11.41" length="5.52" shape="58.91,31.97 56.86,37.08"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_7" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_7_0" index="0" speed="6.40" friction="1.00" length="15.64" shape="58.91,31.97 55.19,36.49 51.80,37.79 48.72,35.85 47.55,33.63"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_7_0" index="0" speed="6.40" length="15.64" shape="58.91,31.97 55.19,36.49 51.80,37.79 48.72,35.85 47.55,33.63"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_16" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_16_0" index="0" speed="11.41" friction="1.00" length="22.55" shape="56.86,37.08 56.45,38.08 51.43,43.29 44.97,46.84 38.21,48.00"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_16_0" index="0" speed="11.41" length="22.55" shape="56.86,37.08 56.45,38.08 51.43,43.29 44.97,46.84 38.21,48.00"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_17" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_17_0" index="0" speed="6.40" friction="1.00" length="3.35" shape="47.55,33.63 45.97,30.67"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_17_0" index="0" speed="6.40" length="3.35" shape="47.55,33.63 45.97,30.67"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_8" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_8_0" index="0" speed="6.66" friction="1.00" length="9.85" shape="38.80,35.34 41.73,35.42 43.90,34.66 45.31,33.08 45.97,30.67"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_8_0" index="0" speed="6.66" length="9.85" shape="38.80,35.34 41.73,35.42 43.90,34.66 45.31,33.08 45.97,30.67"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_9" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0" index="0" speed="13.89" friction="1.00" length="25.35" shape="38.80,35.34 44.13,36.02 51.40,36.79 58.68,37.40 64.04,37.59"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0" index="0" speed="13.89" length="25.35" shape="38.80,35.34 44.13,36.02 51.40,36.79 58.68,37.40 64.04,37.59"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_10" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_10_0" index="0" speed="11.62" friction="1.00" length="28.91" shape="38.80,35.34 45.45,37.82 51.48,42.63 55.77,48.77 57.21,55.23"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_10_0" index="0" speed="11.62" length="28.91" shape="38.80,35.34 45.45,37.82 51.48,42.63 55.77,48.77 57.21,55.23"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_11" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_11_0" index="0" speed="6.41" friction="1.00" length="18.50" shape="38.80,35.34 43.40,38.73 44.83,41.97 43.10,45.06 38.21,48.00"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_11_0" index="0" speed="6.41" length="18.50" shape="38.80,35.34 43.40,38.73 44.83,41.97 43.10,45.06 38.21,48.00"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_12" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_12_0" index="0" speed="6.34" friction="1.00" length="9.36" shape="42.93,54.39 43.04,51.69 42.29,49.73 40.68,48.50 38.21,48.00"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_12_0" index="0" speed="6.34" length="9.36" shape="42.93,54.39 43.04,51.69 42.29,49.73 40.68,48.50 38.21,48.00"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_13" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_13_0" index="0" speed="13.89" friction="1.00" length="23.92" shape="42.93,54.39 45.97,30.67"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_13_0" index="0" speed="13.89" length="23.92" shape="42.93,54.39 45.97,30.67"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_14" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_14_0" index="0" speed="12.08" friction="1.00" length="6.00" shape="42.93,54.39 45.36,48.91"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_14_0" index="0" speed="12.08" length="6.00" shape="42.93,54.39 45.36,48.91"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_15" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_15_0" index="0" speed="6.78" friction="1.00" length="17.51" shape="42.93,54.39 46.81,49.25 50.49,47.67 53.95,49.66 55.50,52.32"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_15_0" index="0" speed="6.78" length="17.51" shape="42.93,54.39 46.81,49.25 50.49,47.67 53.95,49.66 55.50,52.32"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_18" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_18_0" index="0" speed="12.08" friction="1.00" length="22.55" shape="45.36,48.91 45.58,48.39 50.69,43.05 57.19,39.18 64.04,37.59"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_18_0" index="0" speed="12.08" length="22.55" shape="45.36,48.91 45.58,48.39 50.69,43.05 57.19,39.18 64.04,37.59"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_19" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_19_0" index="0" speed="6.78" friction="1.00" length="3.37" shape="55.50,52.32 57.21,55.23"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_19_0" index="0" speed="6.78" length="3.37" shape="55.50,52.32 57.21,55.23"/>
     </edge>
     <edge id=":gneJ13_0" function="internal">
-        <lane id=":gneJ13_0_0" index="0" speed="7.78" friction="1.00" length="9.05" shape="35.32,63.64 38.10,62.73 40.17,61.57 41.54,60.16 42.20,58.50"/>
+        <lane id=":gneJ13_0_0" index="0" speed="7.78" length="9.05" shape="35.32,63.64 38.10,62.73 40.17,61.57 41.54,60.16 42.20,58.50"/>
     </edge>
     <edge id=":gneJ13_1" function="internal">
-        <lane id=":gneJ13_1_0" index="0" speed="13.89" friction="1.00" length="10.02" shape="38.27,67.61 39.84,65.07 40.86,63.29 41.58,61.39 42.20,58.50"/>
+        <lane id=":gneJ13_1_0" index="0" speed="13.89" length="10.02" shape="38.27,67.61 39.84,65.07 40.86,63.29 41.58,61.39 42.20,58.50"/>
     </edge>
 
     <edge id="gneE0" from="gneJ2" to="cluster_gneJ11_gneJ14_gneJ3_gneJ5" priority="1" spreadType="center" shape="62.89,0.71 58.18,37.74">
-        <lane id="gneE0_0" index="0" speed="13.89" friction="1.00" length="31.51" shape="62.89,0.71 58.91,31.97"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="31.51" shape="62.89,0.71 58.91,31.97"/>
     </edge>
     <edge id="gneE14" from="gneJ17" to="gneJ13" priority="1" spreadType="center">
-        <lane id="gneE14_0" index="0" speed="13.89" friction="1.00" length="32.83" shape="21.47,95.81 38.27,67.61"/>
+        <lane id="gneE14_0" index="0" speed="13.89" length="32.83" shape="21.47,95.81 38.27,67.61"/>
     </edge>
     <edge id="gneE15" from="gneJ18" to="gneJ13" priority="1" spreadType="center">
-        <lane id="gneE15_0" index="0" speed="13.89" friction="1.00" length="34.37" shape="1.99,72.04 35.32,63.64"/>
+        <lane id="gneE15_0" index="0" speed="13.89" length="34.37" shape="1.99,72.04 35.32,63.64"/>
     </edge>
     <edge id="gneE2" from="cluster_gneJ11_gneJ14_gneJ3_gneJ5" to="gneJ6" priority="1" spreadType="center" shape="58.18,37.74 110.29,36.45">
-        <lane id="gneE2_0" index="0" speed="13.89" friction="1.00" length="46.27" shape="64.04,37.59 110.29,36.45"/>
+        <lane id="gneE2_0" index="0" speed="13.89" length="46.27" shape="64.04,37.59 110.29,36.45"/>
     </edge>
     <edge id="gneE3" from="gneJ7" to="cluster_gneJ11_gneJ14_gneJ3_gneJ5" priority="1" spreadType="center" shape="1.68,29.85 45.41,36.32">
-        <lane id="gneE3_0" index="0" speed="13.89" friction="1.00" length="37.53" shape="1.68,29.85 38.80,35.34"/>
+        <lane id="gneE3_0" index="0" speed="13.89" length="37.53" shape="1.68,29.85 38.80,35.34"/>
     </edge>
     <edge id="gneE4" from="cluster_gneJ11_gneJ14_gneJ3_gneJ5" to="gneJ8" priority="1" spreadType="center" shape="45.41,36.32 49.04,0.00">
-        <lane id="gneE4_0" index="0" speed="13.89" friction="1.00" length="30.82" shape="45.97,30.67 49.04,-0.00"/>
+        <lane id="gneE4_0" index="0" speed="13.89" length="30.82" shape="45.97,30.67 49.04,-0.00"/>
     </edge>
     <edge id="gneE5" from="gneJ10" to="cluster_gneJ11_gneJ14_gneJ3_gneJ5" priority="1" spreadType="center" shape="119.19,53.02 57.52,49.64">
-        <lane id="gneE5_0" index="0" speed="13.89" friction="1.00" length="54.94" shape="119.19,53.02 64.33,50.01"/>
+        <lane id="gneE5_0" index="0" speed="13.89" length="54.94" shape="119.19,53.02 64.33,50.01"/>
     </edge>
     <edge id="gneE6" from="cluster_gneJ11_gneJ14_gneJ3_gneJ5" to="gneJ12" priority="1" spreadType="center" shape="57.52,49.64 54.61,101.64">
-        <lane id="gneE6_0" index="0" speed="13.89" friction="1.00" length="46.49" shape="57.21,55.23 54.61,101.64"/>
+        <lane id="gneE6_0" index="0" speed="13.89" length="46.49" shape="57.21,55.23 54.61,101.64"/>
     </edge>
     <edge id="gneE7" from="gneJ13" to="cluster_gneJ11_gneJ14_gneJ3_gneJ5" priority="1" spreadType="center" shape="41.57,62.07 44.02,48.26">
-        <lane id="gneE7_0" index="0" speed="13.89" friction="1.00" length="4.17" shape="42.20,58.50 42.93,54.39"/>
+        <lane id="gneE7_0" index="0" speed="13.89" length="4.17" shape="42.20,58.50 42.93,54.39"/>
     </edge>
     <edge id="gneE8" from="cluster_gneJ11_gneJ14_gneJ3_gneJ5" to="gneJ15" priority="1" spreadType="center" shape="44.02,48.26 0.00,46.27">
-        <lane id="gneE8_0" index="0" speed="13.89" friction="1.00" length="38.24" shape="38.21,48.00 -0.00,46.27"/>
+        <lane id="gneE8_0" index="0" speed="13.89" length="38.24" shape="38.21,48.00 -0.00,46.27"/>
     </edge>
 
     <junction id="cluster_gneJ11_gneJ14_gneJ3_gneJ5" type="priority" x="51.28" y="42.99" incLanes="gneE5_0 gneE0_0 gneE3_0 gneE7_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_0_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_1_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_2_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_3_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_4_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_5_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_16_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_17_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_8_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_10_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_11_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_12_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_13_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_18_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_19_0" shape="64.37,51.62 64.00,36.00 61.84,35.61 61.13,35.08 60.67,34.32 60.46,33.34 60.51,32.13 44.38,30.51 43.59,32.64 42.81,33.31 41.76,33.71 40.45,33.86 38.88,33.74 38.13,49.60 40.26,50.20 40.93,50.86 41.33,51.77 41.46,52.91 41.32,54.30 58.80,55.32 59.52,53.13 60.31,52.40 61.38,51.90 62.73,51.64">

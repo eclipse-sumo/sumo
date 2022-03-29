@@ -84,7 +84,7 @@ public:
     /**@brief add Stop element
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @param mouseButtonKeyPressed key pressed during click
-     * @return true if Stop was successfully added
+     * @return true if Stop was sucesfully added
      */
     bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 

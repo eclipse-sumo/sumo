@@ -19,8 +19,8 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'route_0' in DemandElementSelector
-Debug: Selected invalid item in TagSelector
-Debug: Selected item 'waypointLane' in TagSelector
+Debug: Selected invalid item in GNETagSelector
+Debug: Selected item 'waypointLane' in GNETagSelector
 Debug: Adding waypointLane 'route_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

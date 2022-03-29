@@ -1,4 +1,4 @@
-Debug: Selected item 'e2Detector' in TagSelector
+Debug: Selected item 'e2Detector' in GNETagSelector
 Debug: Adding e2Detector 'e2_0' in GNEChange_Additional
 Debug: Value 'dummyJamThreshold' for attribute jamThreshold of e2Detector isn't valid
 Debug: Value '-11.1' for attribute jamThreshold of e2Detector isn't valid

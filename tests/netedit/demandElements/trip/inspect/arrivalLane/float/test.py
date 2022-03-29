@@ -37,7 +37,7 @@ netedit.vehicleMode()
 # change vehicle
 # netedit.changeElement("trip")
 
-# create trip using two edges
+# create flow using two edges
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 

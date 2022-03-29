@@ -31,36 +31,42 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to person mode
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: edges")
+netedit.changePersonPlan("walk: edge->busStop")
 
-# set invalid color
-netedit.changeDefaultValue(6, "dummyColor")
-
-# try to create person
+# create route using edge and busStop
 netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
+netedit.leftClick(referencePosition, 270, 43)
 
-# press enter to create person
+# set invalid person number
+netedit.changeColorUsingDialog(netedit.attrs.person.create.colorButton, 5)
+
+# press enter to create route
 netedit.typeEnter()
 
-# set valid color
-netedit.changeDefaultValue(6, "cyan")
+# set invalid person number
+netedit.changeDefaultValue(netedit.attrs.person.create.color, "Vlue")
 
-# press enter to create person
+# create route using edge and busStop
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 270, 43)
+
+# press enter to create route
 netedit.typeEnter()
 
-# set valid color
-netedit.changeDefaultValue(6, "12,13,14")
+# set invalid person number
+netedit.changeDefaultValue(netedit.attrs.person.create.color, "red")
 
-# create person
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
+# focus current frame
+netedit.focusOnFrame()
 
-# press enter to create person
+# press enter to create route
 netedit.typeEnter()
 
 # Check undo redo

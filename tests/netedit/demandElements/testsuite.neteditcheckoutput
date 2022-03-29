@@ -12,6 +12,8 @@ vehicle_embedded
 
 trip_junctions
 
+flow_junctions
+
 flow
 
 routeflow

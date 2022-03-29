@@ -1,4 +1,4 @@
-Debug: Selected item 'e2Detector' in TagSelector
+Debug: Selected item 'e2Detector' in GNETagSelector
 Debug: Adding e2Detector 'e2_0' in GNEChange_Additional
 Debug: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of e2Detector isn't valid
 Debug: Setting new attribute

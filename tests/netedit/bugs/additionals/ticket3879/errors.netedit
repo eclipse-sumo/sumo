@@ -1,42 +1,42 @@
-Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
-Debug: Adding chargingStation 'chargingStation_gneE1_0_0' in GNEChange_Additional
-Debug: Adding containerStop 'containerStop_gneE1_0_0' in GNEChange_Additional
-Debug: Adding e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
-Debug: Adding e2Detector 'e2Detector_gneE1_0_0' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
-Debug: Adding instantInductionLoop 'instantInductionLoop_0' in GNEChange_Additional
-Debug: Adding parkingArea 'parkingArea_gneE1_0_0' in GNEChange_Additional
-Debug: Adding space 'parkingArea_gneE1_0_0' in GNEChange_Additional
-Debug: Adding space 'parkingArea_gneE1_0_0' in GNEChange_Additional
-Debug: Adding space 'parkingArea_gneE1_0_0' in GNEChange_Additional
-Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
-Debug: Adding rerouterSymbol 'rerouter_0' in GNEChange_Additional
-Debug: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
-Debug: Adding variableSpeedSignSymbol 'variableSpeedSign_0' in GNEChange_Additional
+Debug: Adding busStop 'bs' in GNEChange_Additional
+Debug: Adding chargingStation 'cs' in GNEChange_Additional
+Debug: Adding containerStop 'ct' in GNEChange_Additional
+Debug: Adding e1Detector 'e1' in GNEChange_Additional
+Debug: Adding e2Detector 'e2' in GNEChange_Additional
+Debug: Adding e3Detector 'e3' in GNEChange_Additional
+Debug: Adding detEntry 'e3' in GNEChange_Additional
+Debug: Adding detExit 'e3' in GNEChange_Additional
+Debug: Adding instantInductionLoop 'e1i' in GNEChange_Additional
+Debug: Adding parkingArea 'pa' in GNEChange_Additional
+Debug: Adding space 'pa' in GNEChange_Additional
+Debug: Adding space 'pa' in GNEChange_Additional
+Debug: Adding space 'pa' in GNEChange_Additional
+Debug: Adding rerouter 'r' in GNEChange_Additional
+Debug: Adding rerouterSymbol 'r' in GNEChange_Additional
+Debug: Adding variableSpeedSign 'v' in GNEChange_Additional
+Debug: Adding variableSpeedSignSymbol 'v' in GNEChange_Additional
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
 Debug: demand elements saved
-Debug: Deleting unreferenced variableSpeedSignSymbol 'variableSpeedSign_0'
-Debug: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
-Debug: Deleting unreferenced rerouterSymbol 'rerouter_0'
-Debug: Deleting unreferenced rerouter 'rerouter_0'
-Debug: Deleting unreferenced space 'parkingArea_gneE1_0_0'
-Debug: Deleting unreferenced space 'parkingArea_gneE1_0_0'
-Debug: Deleting unreferenced space 'parkingArea_gneE1_0_0'
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE1_0_0'
-Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_0'
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced detEntry 'e3Detector_0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-Debug: Deleting unreferenced e2Detector 'e2Detector_gneE1_0_0'
-Debug: Deleting unreferenced e1Detector 'e1Detector_gneE1_0_0'
-Debug: Deleting unreferenced containerStop 'containerStop_gneE1_0_0'
-Debug: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE1_0_0'
+Debug: Deleting unreferenced variableSpeedSignSymbol 'v'
+Debug: Deleting unreferenced variableSpeedSign 'v'
+Debug: Deleting unreferenced rerouterSymbol 'r'
+Debug: Deleting unreferenced rerouter 'r'
+Debug: Deleting unreferenced space 'pa'
+Debug: Deleting unreferenced space 'pa'
+Debug: Deleting unreferenced space 'pa'
+Debug: Deleting unreferenced parkingArea 'pa'
+Debug: Deleting unreferenced instantInductionLoop 'e1i'
+Debug: Deleting unreferenced detExit 'e3'
+Debug: Deleting unreferenced detEntry 'e3'
+Debug: Deleting unreferenced e3Detector 'e3'
+Debug: Deleting unreferenced e2Detector 'e2'
+Debug: Deleting unreferenced e1Detector 'e1'
+Debug: Deleting unreferenced containerStop 'ct'
+Debug: Deleting unreferenced chargingStation 'cs'
+Debug: Deleting unreferenced busStop 'bs'
 Error: routes cannot be processed either with additional handler nor with demand handler
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()

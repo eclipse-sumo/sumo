@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 08:21:06 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on Mon Dec 14 11:32:52 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -54,25 +49,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-277843.65,-5330206.51" convBoundary="-100.00,3400.00,200.00,4000.00" origBoundary="12.014694,48.087529,12.061386,48.121459" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-gneE1" from="gneJ1" to="0" priority="-1" shape="100.00,3900.00 50.00,3900.00 0.00,3900.00">
-        <lane id="-gneE1_0" index="0" speed="13.89" friction="1.00" length="100.00" shape="100.00,3901.60 50.00,3901.60 27.12,3901.60"/>
+        <lane id="-gneE1_0" index="0" speed="13.89" length="100.00" shape="100.00,3901.60 50.00,3901.60 27.12,3901.60"/>
     </edge>
     <edge id="-gneE2" from="gneJ2" to="0" priority="-1" shape="0.00,4000.00 0.00,3950.00 0.00,3900.00">
-        <lane id="-gneE2_0" index="0" speed="13.89" friction="1.00" length="100.00" shape="-1.60,4000.00 -1.60,3950.00 -1.60,3907.20"/>
+        <lane id="-gneE2_0" index="0" speed="13.89" length="100.00" shape="-1.60,4000.00 -1.60,3950.00 -1.60,3907.20"/>
     </edge>
     <edge id="gneE0" from="gneJ0" to="0" priority="-1" shape="-100.00,3900.00 -52.83,3883.43 -52.06,3883.16 -4.49,3898.55 0.00,3900.00">
-        <lane id="gneE0_0" index="0" speed="13.89" friction="1.00" length="105.53" shape="-100.53,3898.49 -53.36,3881.92 -52.08,3881.47 -6.43,3896.24"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="105.53" shape="-100.53,3898.49 -53.36,3881.92 -52.08,3881.47 -6.43,3896.24"/>
     </edge>
     <edge id="gneE1" from="0" to="gneJ1" priority="-1" shape="0.00,3900.00 50.00,3900.00 100.00,3900.00">
-        <lane id="gneE1_0" index="0" speed="13.89" friction="1.00" length="100.00" shape="27.15,3898.40 50.00,3898.40 100.00,3898.40"/>
+        <lane id="gneE1_0" index="0" speed="13.89" length="100.00" shape="27.15,3898.40 50.00,3898.40 100.00,3898.40"/>
     </edge>
     <edge id="gneE2" from="0" to="gneJ2" priority="-1" shape="0.00,3900.00 0.00,3950.00 0.00,4000.00">
-        <lane id="gneE2_0" index="0" speed="13.89" friction="1.00" length="100.00" shape="1.60,3907.20 1.60,3950.00 1.60,4000.00"/>
+        <lane id="gneE2_0" index="0" speed="13.89" length="100.00" shape="1.60,3907.20 1.60,3950.00 1.60,4000.00"/>
     </edge>
     <edge id="gneE3" from="0" to="gneJ0" priority="-1" shape="0.00,3900.00 -50.00,3900.00 -100.00,3900.00">
-        <lane id="gneE3_0" index="0" speed="13.89" friction="1.00" length="100.00" shape="-7.20,3901.60 -50.00,3901.60 -100.00,3901.60"/>
+        <lane id="gneE3_0" index="0" speed="13.89" length="100.00" shape="-7.20,3901.60 -50.00,3901.60 -100.00,3901.60"/>
     </edge>
     <edge id="o" from="0" to="1" priority="-1" spreadType="center" shape="0.00,3900.00 0.00,3850.00 0.00,3800.00 0.00,3750.00 0.00,3700.00 0.00,3650.00 0.00,3600.00 35.36,3564.64 70.71,3529.29 106.07,3493.93 141.42,3458.58 176.78,3423.22 200.00,3400.00">
-        <lane id="o_0" index="0" speed="13.90" friction="1.00" length="582.84" shape="0.00,3892.19 0.00,3850.00 0.00,3800.00 0.00,3750.00 0.00,3700.00 0.00,3650.00 0.00,3600.00 35.36,3564.64 70.71,3529.29 106.07,3493.93 141.42,3458.58 176.78,3423.22 200.00,3400.00"/>
+        <lane id="o_0" index="0" speed="13.90" length="582.84" shape="0.00,3892.19 0.00,3850.00 0.00,3800.00 0.00,3750.00 0.00,3700.00 0.00,3650.00 0.00,3600.00 35.36,3564.64 70.71,3529.29 106.07,3493.93 141.42,3458.58 176.78,3423.22 200.00,3400.00"/>
     </edge>
 
     <junction id="0" type="priority" x="0.00" y="3900.00" incLanes="-gneE2_0 -gneE1_0 gneE0_0" intLanes="" shape="-3.20,3907.20 3.20,3907.20 3.83,3921.09 26.92,3921.38 27.21,3892.93 2.40,3893.02 -0.62,3891.98 -7.20,3896.80 -7.20,3903.20" customShape="1">

@@ -547,7 +547,7 @@ protected:
     CommonXMLStructure::SumoBaseObject* myBaseTAZ;
 
     /**@brief build a shaped element using the drawed shape
-     * return true if was successfully created
+     * return true if was sucesfully created
      * @note called when user stop drawing shape
      */
     bool shapeDrawed();

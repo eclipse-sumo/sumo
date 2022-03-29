@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 08:18:23 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on 2021-11-29 08:31:02 by Eclipse SUMO netconvert Version v1_11_0+0165-4261a27
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -73,7 +68,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="tram" priority="2" speed="13.89" allow="tram" width="3.65"/>
 
     <edge id="1" from="1.end" to="1.begin" priority="1" type="driving">
-        <lane id="1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" friction="1.00" length="50.00" width="3.00" shape="50.00,1.50 0.00,1.50" type="driving"/>
+        <lane id="1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.00" width="3.00" shape="50.00,1.50 0.00,1.50" type="driving"/>
     </edge>
 
     <junction id="1.begin" type="dead_end" x="0.00" y="0.00" incLanes="1_0" intLanes="" shape="0.00,3.00 0.00,0.00"/>

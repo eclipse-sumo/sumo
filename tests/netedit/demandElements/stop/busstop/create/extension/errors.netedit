@@ -21,7 +21,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'vehicle_0' in DemandElementSelector
-Debug: Selected item 'stopBusStop' in TagSelector
+Debug: Selected item 'stopBusStop' in GNETagSelector
 Debug: Adding stopBusStop 'vehicle_0' in GNEChange_DemandElement
 Debug: Invalid input parameter of stopBusStop
 Debug: Invalid input parameter of stopBusStop

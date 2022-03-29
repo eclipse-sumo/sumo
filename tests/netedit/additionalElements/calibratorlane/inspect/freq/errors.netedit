@@ -1,4 +1,4 @@
-Debug: Selected item 'calibratorLane' in TagSelector
+Debug: Selected item 'calibratorLane' in GNETagSelector
 Debug: Adding calibratorLane 'ca_0' in GNEChange_Additional
 Debug: Value 'dummyFreq' for attribute freq of calibratorLane isn't valid
 Debug: Value '-12' for attribute freq of calibratorLane isn't valid

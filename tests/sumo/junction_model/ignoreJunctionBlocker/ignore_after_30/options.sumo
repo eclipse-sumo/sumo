@@ -1,2 +1,2 @@
 --no-step-log --net-file=net.net.xml -r input_routes.rou.xml --tripinfo-output=tripinfos.xml
---ignore-junction-blocker 30
+--ignore-junction-blocker 30 --time-to-teleport -1

@@ -75,7 +75,7 @@ public:
 protected:
     FOX_CONSTRUCTOR(GNEAdditionalDialog)
 
-    /// @brief pointer to edited additional
+    /// @brief pointer to edited aditional
     GNEAdditional* myEditedAdditional;
 
     /// @brief flag to indicate if additional are being created or modified (cannot be changed after open dialog)

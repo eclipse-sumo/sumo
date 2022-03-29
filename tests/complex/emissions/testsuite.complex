@@ -7,7 +7,7 @@ nefz_hbefa3_onlySpeed
 # use ',' instead of ';'
 nefz_hbefa3_separator
 nefz_phemlight
-#nefz_phemlight5
+nefz_phemlight5
 
 # Battery model
 nefz_energy

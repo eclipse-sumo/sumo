@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-07 09:23:31 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
+<!-- generated on 2022-03-25 08:56:48 by Eclipse SUMO netedit Version v1_12_0+1639-9e6c12b8944
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <flow id="f_0" begin="0.00" arrivalLane="random" from="gneE2" to="gneE5" end="3600.00" vehsPerHour="1800.00"/>
-    <flow id="f_1" begin="0.00" arrivalLane="20" from="gneE2" to="gneE5" end="3600.00" vehsPerHour="1800.00"/>
 </routes>

@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 08:21:09 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on Mon Dec 14 11:32:57 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -43,74 +38,74 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-293458.92,-5709017.82" convBoundary="0.00,0.00,1099.87,614.72" origBoundary="11.984784,51.476682,12.342589,51.531167" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":3032658464_0" function="internal">
-        <lane id=":3032658464_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" friction="1.00" length="4.67" shape="1099.64,504.30 1100.94,504.92 1101.45,505.65 1101.17,506.50 1100.10,507.46"/>
+        <lane id=":3032658464_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="1099.64,504.30 1100.94,504.92 1101.45,505.65 1101.17,506.50 1100.10,507.46"/>
     </edge>
     <edge id=":408481556_0" function="internal">
-        <lane id=":408481556_0_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" friction="1.00" length="4.67" shape="697.98,614.65 697.23,615.88 696.45,616.32 695.64,615.96 694.78,614.79"/>
+        <lane id=":408481556_0_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" length="4.67" shape="697.98,614.65 697.23,615.88 696.45,616.32 695.64,615.96 694.78,614.79"/>
     </edge>
     <edge id=":635894914_0" function="internal">
-        <lane id=":635894914_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" friction="1.00" length="4.67" shape="664.61,0.28 665.19,-1.04 665.91,-1.58 666.77,-1.32 667.77,-0.28"/>
+        <lane id=":635894914_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="664.61,0.28 665.19,-1.04 665.91,-1.58 666.77,-1.32 667.77,-0.28"/>
     </edge>
     <edge id=":C_0" function="internal">
-        <lane id=":C_0_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" friction="1.00" length="27.92" shape="692.84,572.84 693.26,544.92"/>
+        <lane id=":C_0_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="27.92" shape="692.84,572.84 693.26,544.92"/>
     </edge>
     <edge id=":C_1" function="internal">
-        <lane id=":C_1_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" friction="1.00" length="27.41" shape="692.84,572.84 693.09,563.68 694.77,556.68 697.90,551.84 702.46,549.18"/>
+        <lane id=":C_1_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="27.41" shape="692.84,572.84 693.09,563.68 694.77,556.68 697.90,551.84 702.46,549.18"/>
     </edge>
     <edge id=":C_2" function="internal">
-        <lane id=":C_2_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" friction="1.00" length="4.67" shape="692.84,572.84 693.59,571.61 694.37,571.17 695.19,571.53 696.04,572.70"/>
+        <lane id=":C_2_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" length="4.67" shape="692.84,572.84 693.59,571.61 694.37,571.17 695.19,571.53 696.04,572.70"/>
     </edge>
     <edge id=":C_3" function="internal">
-        <lane id=":C_3_0" index="0" allow="rail rail_electric" speed="16.67" friction="1.00" length="9.41" shape="699.09,569.54 689.68,569.41"/>
+        <lane id=":C_3_0" index="0" allow="rail rail_electric" speed="16.67" length="9.41" shape="699.09,569.54 689.68,569.41"/>
     </edge>
     <edge id=":C_4" function="internal">
-        <lane id=":C_4_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" friction="1.00" length="23.18" shape="703.38,552.24 699.86,554.44 697.46,558.58 696.19,564.67 696.04,572.70"/>
+        <lane id=":C_4_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="23.18" shape="703.38,552.24 699.86,554.44 697.46,558.58 696.19,564.67 696.04,572.70"/>
     </edge>
     <edge id=":C_5" function="internal">
-        <lane id=":C_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" friction="1.00" length="15.31" shape="703.38,552.24 699.05,552.89 695.93,551.89 694.00,549.23 693.26,544.92"/>
+        <lane id=":C_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="15.31" shape="703.38,552.24 699.05,552.89 695.93,551.89 694.00,549.23 693.26,544.92"/>
     </edge>
     <edge id=":C_6" function="internal">
-        <lane id=":C_6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" friction="1.00" length="4.67" shape="703.38,552.24 702.00,551.82 701.39,551.17 701.54,550.29 702.46,549.18"/>
+        <lane id=":C_6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="703.38,552.24 702.00,551.82 701.39,551.17 701.54,550.29 702.46,549.18"/>
     </edge>
     <edge id=":C_7" function="internal">
-        <lane id=":C_7_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" friction="1.00" length="9.08" shape="696.46,544.84 696.90,547.39 698.04,548.97 699.90,549.56 702.46,549.18"/>
+        <lane id=":C_7_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="9.08" shape="696.46,544.84 696.90,547.39 698.04,548.97 699.90,549.56 702.46,549.18"/>
     </edge>
     <edge id=":C_8" function="internal">
-        <lane id=":C_8_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" friction="1.00" length="27.86" shape="696.46,544.84 696.04,572.70"/>
+        <lane id=":C_8_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="27.86" shape="696.46,544.84 696.04,572.70"/>
     </edge>
     <edge id=":C_9" function="internal">
-        <lane id=":C_9_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" friction="1.00" length="4.67" shape="696.46,544.84 695.69,546.06 694.91,546.48 694.09,546.10 693.26,544.92"/>
+        <lane id=":C_9_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="696.46,544.84 695.69,546.06 694.91,546.48 694.09,546.10 693.26,544.92"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" friction="1.00" length="3.20" width="3.20" shape="691.25,572.92 694.44,572.77 694.44,572.77 697.64,572.62"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.20" width="3.20" shape="691.25,572.92 694.44,572.77 694.44,572.77 697.64,572.62"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" friction="1.00" length="7.76" width="3.20" shape="703.84,553.78 702.92,550.71 702.92,550.71 702.00,547.65 698.06,544.80 694.86,544.88 694.86,544.88 691.66,544.97"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="7.76" width="3.20" shape="703.84,553.78 702.92,550.71 702.92,550.71 702.00,547.65 698.06,544.80 694.86,544.88 694.86,544.88 691.66,544.97"/>
     </edge>
 
     <edge id="CE" from="C" to="3032658464" priority="1" type="highway.track" shape="695.08,553.06 714.13,547.35 761.31,540.32 883.86,531.99 958.43,525.11 1065.00,510.97 1099.87,505.88">
-        <lane id="CE_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" friction="1.00" length="400.10" shape="702.46,549.18 713.78,545.78 761.14,538.73 883.73,530.39 958.25,523.52 1064.78,509.39 1099.64,504.30"/>
+        <lane id="CE_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="400.10" shape="702.46,549.18 713.78,545.78 761.14,538.73 883.73,530.39 958.25,523.52 1064.78,509.39 1099.64,504.30"/>
     </edge>
     <edge id="CN" from="C" to="408481556" name="Zöberitzer Weg" priority="2" type="highway.service" shape="694.29,569.48 696.38,614.72">
-        <lane id="CN_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" friction="1.00" length="41.99" shape="696.04,572.70 697.98,614.65"/>
+        <lane id="CN_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="41.99" shape="696.04,572.70 697.98,614.65"/>
     </edge>
     <edge id="CS" from="C" to="635894914" name="Zöberitzer Weg" priority="1" type="highway.track" shape="695.08,553.06 682.90,94.79 666.19,0.00">
-        <lane id="CS_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" friction="1.00" length="546.26" shape="693.26,544.92 681.30,94.95 664.61,0.28"/>
+        <lane id="CS_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="546.26" shape="693.26,544.92 681.30,94.95 664.61,0.28"/>
     </edge>
     <edge id="CW_rail" from="C" to="1088517596" priority="15" type="railway.rail" spreadType="center" shape="694.29,569.48 616.78,568.34 558.22,567.25 433.73,565.67 372.12,564.60 340.68,564.50 310.78,565.74 282.96,566.23 263.04,567.78 225.36,571.23 189.20,575.03 132.89,585.76 74.71,596.65 25.51,606.01 0.00,610.72">
-        <lane id="CW_rail_0" index="0" allow="rail rail_electric" speed="16.67" friction="1.00" length="693.50" shape="689.68,569.41 616.78,568.34 558.22,567.25 433.73,565.67 372.12,564.60 340.68,564.50 310.78,565.74 282.96,566.23 263.04,567.78 225.36,571.23 189.20,575.03 132.89,585.76 74.71,596.65 25.51,606.01 0.00,610.72"/>
+        <lane id="CW_rail_0" index="0" allow="rail rail_electric" speed="16.67" length="693.50" shape="689.68,569.41 616.78,568.34 558.22,567.25 433.73,565.67 372.12,564.60 340.68,564.50 310.78,565.74 282.96,566.23 263.04,567.78 225.36,571.23 189.20,575.03 132.89,585.76 74.71,596.65 25.51,606.01 0.00,610.72"/>
     </edge>
     <edge id="EC" from="3032658464" to="C" priority="1" type="highway.track" shape="1099.87,505.88 1065.00,510.97 958.43,525.11 883.86,531.99 761.31,540.32 714.13,547.35 695.08,553.06">
-        <lane id="EC_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" friction="1.00" length="399.63" shape="1100.10,507.46 1065.22,512.55 958.61,526.70 883.99,533.59 761.48,541.91 714.48,548.92 703.38,552.24"/>
+        <lane id="EC_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="399.63" shape="1100.10,507.46 1065.22,512.55 958.61,526.70 883.99,533.59 761.48,541.91 714.48,548.92 703.38,552.24"/>
     </edge>
     <edge id="EC_rail" from="38891331" to="C" priority="15" type="railway.rail" spreadType="center" shape="792.26,570.79 694.29,569.48">
-        <lane id="EC_rail_0" index="0" allow="rail rail_electric" speed="16.67" friction="1.00" length="93.18" shape="792.26,570.79 699.09,569.54"/>
+        <lane id="EC_rail_0" index="0" allow="rail rail_electric" speed="16.67" length="93.18" shape="792.26,570.79 699.09,569.54"/>
     </edge>
     <edge id="NC" from="408481556" to="C" name="Zöberitzer Weg" priority="2" type="highway.service" shape="696.38,614.72 694.29,569.48">
-        <lane id="NC_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" friction="1.00" length="41.99" shape="694.78,614.79 692.84,572.84"/>
+        <lane id="NC_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="41.99" shape="694.78,614.79 692.84,572.84"/>
     </edge>
     <edge id="SC" from="635894914" to="C" name="Zöberitzer Weg" priority="1" type="highway.track" shape="666.19,0.00 682.90,94.79 695.08,553.06">
-        <lane id="SC_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" friction="1.00" length="546.74" shape="667.77,-0.28 684.50,94.63 696.46,544.84"/>
+        <lane id="SC_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="546.74" shape="667.77,-0.28 684.50,94.63 696.46,544.84"/>
     </edge>
 
     <junction id="1088517596" type="dead_end" x="0.00" y="610.72" incLanes="CW_rail_0" intLanes="" shape="0.29,612.29 -0.29,609.15"/>

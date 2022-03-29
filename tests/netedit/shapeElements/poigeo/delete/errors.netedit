@@ -1,6 +1,6 @@
 Debug: Adding poiGeo 'POI_A' in GNEChange_Additional
 Debug: Adding poiGeo 'POI_B' in GNEChange_Additional
-Debug: Selected item 'poiGeo' in TagSelector
+Debug: Selected item 'poiGeo' in GNETagSelector
 Debug: Adding poiGeo 'poi_0' in GNEChange_Additional
 Debug: Removing poiGeo 'poi_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed

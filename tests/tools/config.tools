@@ -157,6 +157,8 @@ selection2:selection.comp2.txt
 histogram:histogram.dat
 fullstats:fullstats.dat
 xmlstats:stats.xml
+xmlstats0:000/stats.xml
+xmlstats1:001/stats.xml
 osmimport:*/osm.net.xml
 osmstops:*/osm_stops.add.xml
 osmlines:*/osm_ptlines.xml
@@ -266,6 +268,8 @@ gpsdat:r[0-9]
 flows:<!-- generated on{[->]}-->
 turns:<!-- generated on{[->]}-->
 xmlstats:<!-- generated on{[->]}-->
+xmlstats0:<!-- generated on{[->]}-->
+xmlstats1:<!-- generated on{[->]}-->
 edgedata:<!-- generated on{[->]}-->
 od:<!-- generated on{[->]}-->
 net:<!--{[->]}-->

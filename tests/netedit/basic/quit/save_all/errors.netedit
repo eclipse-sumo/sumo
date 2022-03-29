@@ -7,9 +7,9 @@ Debug: invalidating (removing) connections of edge 'E0' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Selected item 'busStop' in TagSelector
+Debug: Selected item 'busStop' in GNETagSelector
 Debug: Adding busStop 'bs_0' in GNEChange_Additional
-Debug: Selected item 'poly' in TagSelector
+Debug: Selected item 'poly' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding poly 'po_0' in GNEChange_Additional

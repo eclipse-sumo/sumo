@@ -68,9 +68,9 @@ Debug: Adding route 'r_0' in GNEChange_DemandElement
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personFlow' in TagSelector
+Debug: Selected item 'personFlow' in GNETagSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'walk: route' in TagSelector
+Debug: Selected item 'walk: route' in GNETagSelector
 Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
 Debug: Adding walk: route 'f_0' in GNEChange_DemandElement
 Debug: Key ENTER pressed

@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 08:18:21 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on 2022-01-07 16:20:56 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -54,71 +49,71 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="0.00,0.00" convBoundary="-30.00,0.00,30.00,30.00" origBoundary="-30.00,0.00,30.00,30.00" projParameter="!"/>
 
     <edge id=":node_centertl_0" function="internal">
-        <lane id=":node_centertl_0_0" index="0" speed="10.00" friction="1.00" length="9.03" shape="-1.60,7.20 -1.95,4.75 -3.00,3.00 -4.75,1.95 -7.20,1.60"/>
+        <lane id=":node_centertl_0_0" index="0" speed="10.00" length="9.03" shape="-1.60,7.20 -1.95,4.75 -3.00,3.00 -4.75,1.95 -7.20,1.60"/>
     </edge>
     <edge id=":node_centertl_1" function="internal">
-        <lane id=":node_centertl_1_0" index="0" speed="10.00" friction="1.00" length="14.19" shape="-1.60,7.20 -1.05,3.35 0.60,0.60 3.35,-1.05 7.20,-1.60"/>
+        <lane id=":node_centertl_1_0" index="0" speed="10.00" length="14.19" shape="-1.60,7.20 -1.05,3.35 0.60,0.60 3.35,-1.05 7.20,-1.60"/>
     </edge>
     <edge id=":node_centertl_2" function="internal">
-        <lane id=":node_centertl_2_0" index="0" speed="10.00" friction="1.00" length="1.44" shape="-1.60,7.20 -0.80,6.00"/>
+        <lane id=":node_centertl_2_0" index="0" speed="10.00" length="1.44" shape="-1.60,7.20 -0.80,6.00"/>
     </edge>
     <edge id=":node_centertl_9" function="internal">
-        <lane id=":node_centertl_9_0" index="0" speed="10.00" friction="1.00" length="3.23" shape="-0.80,6.00 0.00,5.60 0.80,6.00 1.60,7.20"/>
+        <lane id=":node_centertl_9_0" index="0" speed="10.00" length="3.23" shape="-0.80,6.00 0.00,5.60 0.80,6.00 1.60,7.20"/>
     </edge>
     <edge id=":node_centertl_3" function="internal">
-        <lane id=":node_centertl_3_0" index="0" speed="10.00" friction="1.00" length="9.03" shape="7.20,1.60 4.75,1.95 3.00,3.00 1.95,4.75 1.60,7.20"/>
+        <lane id=":node_centertl_3_0" index="0" speed="10.00" length="9.03" shape="7.20,1.60 4.75,1.95 3.00,3.00 1.95,4.75 1.60,7.20"/>
     </edge>
     <edge id=":node_centertl_4" function="internal">
-        <lane id=":node_centertl_4_0" index="0" speed="10.00" friction="1.00" length="14.40" shape="7.20,1.60 -7.20,1.60"/>
+        <lane id=":node_centertl_4_0" index="0" speed="10.00" length="14.40" shape="7.20,1.60 -7.20,1.60"/>
     </edge>
     <edge id=":node_centertl_5" function="internal">
-        <lane id=":node_centertl_5_0" index="0" speed="10.00" friction="1.00" length="1.44" shape="7.20,1.60 6.00,0.80"/>
+        <lane id=":node_centertl_5_0" index="0" speed="10.00" length="1.44" shape="7.20,1.60 6.00,0.80"/>
     </edge>
     <edge id=":node_centertl_10" function="internal">
-        <lane id=":node_centertl_10_0" index="0" speed="10.00" friction="1.00" length="3.23" shape="6.00,0.80 5.60,0.00 6.00,-0.80 7.20,-1.60"/>
+        <lane id=":node_centertl_10_0" index="0" speed="10.00" length="3.23" shape="6.00,0.80 5.60,0.00 6.00,-0.80 7.20,-1.60"/>
     </edge>
     <edge id=":node_centertl_6" function="internal">
-        <lane id=":node_centertl_6_0" index="0" speed="10.00" friction="1.00" length="14.40" shape="-7.20,-1.60 7.20,-1.60"/>
+        <lane id=":node_centertl_6_0" index="0" speed="10.00" length="14.40" shape="-7.20,-1.60 7.20,-1.60"/>
     </edge>
     <edge id=":node_centertl_7" function="internal">
-        <lane id=":node_centertl_7_0" index="0" speed="10.00" friction="1.00" length="4.07" shape="-7.20,-1.60 -3.35,-1.05 -3.20,-0.96"/>
+        <lane id=":node_centertl_7_0" index="0" speed="10.00" length="4.07" shape="-7.20,-1.60 -3.35,-1.05 -3.20,-0.96"/>
     </edge>
     <edge id=":node_centertl_8" function="internal">
-        <lane id=":node_centertl_8_0" index="0" speed="10.00" friction="1.00" length="1.44" shape="-7.20,-1.60 -6.00,-0.80"/>
+        <lane id=":node_centertl_8_0" index="0" speed="10.00" length="1.44" shape="-7.20,-1.60 -6.00,-0.80"/>
     </edge>
     <edge id=":node_centertl_11" function="internal">
-        <lane id=":node_centertl_11_0" index="0" speed="10.00" friction="1.00" length="10.13" shape="-3.20,-0.96 -0.60,0.60 1.05,3.35 1.60,7.20"/>
+        <lane id=":node_centertl_11_0" index="0" speed="10.00" length="10.13" shape="-3.20,-0.96 -0.60,0.60 1.05,3.35 1.60,7.20"/>
     </edge>
     <edge id=":node_centertl_12" function="internal">
-        <lane id=":node_centertl_12_0" index="0" speed="10.00" friction="1.00" length="3.23" shape="-6.00,-0.80 -5.60,0.00 -6.00,0.80 -7.20,1.60"/>
+        <lane id=":node_centertl_12_0" index="0" speed="10.00" length="3.23" shape="-6.00,-0.80 -5.60,0.00 -6.00,0.80 -7.20,1.60"/>
     </edge>
     <edge id=":node_left_0" function="internal">
-        <lane id=":node_left_0_0" index="0" speed="10.00" friction="1.00" length="4.67" shape="-30.00,1.60 -31.20,0.80 -31.60,0.00 -31.20,-0.80 -30.00,-1.60"/>
+        <lane id=":node_left_0_0" index="0" speed="10.00" length="4.67" shape="-30.00,1.60 -31.20,0.80 -31.60,0.00 -31.20,-0.80 -30.00,-1.60"/>
     </edge>
     <edge id=":node_right_0" function="internal">
-        <lane id=":node_right_0_0" index="0" speed="10.00" friction="1.00" length="4.67" shape="30.00,-1.60 31.20,-0.80 31.60,0.00 31.20,0.80 30.00,1.60"/>
+        <lane id=":node_right_0_0" index="0" speed="10.00" length="4.67" shape="30.00,-1.60 31.20,-0.80 31.60,0.00 31.20,0.80 30.00,1.60"/>
     </edge>
     <edge id=":node_up_0" function="internal">
-        <lane id=":node_up_0_0" index="0" speed="10.00" friction="1.00" length="4.67" shape="1.60,30.00 0.80,31.20 0.00,31.60 -0.80,31.20 -1.60,30.00"/>
+        <lane id=":node_up_0_0" index="0" speed="10.00" length="4.67" shape="1.60,30.00 0.80,31.20 0.00,31.60 -0.80,31.20 -1.60,30.00"/>
     </edge>
 
     <edge id="-edge_left" from="node_centertl" to="node_left" priority="2">
-        <lane id="-edge_left_0" index="0" speed="10.00" friction="1.00" length="22.80" shape="-7.20,1.60 -30.00,1.60"/>
+        <lane id="-edge_left_0" index="0" speed="10.00" length="22.80" shape="-7.20,1.60 -30.00,1.60"/>
     </edge>
     <edge id="-edge_right" from="node_centertl" to="node_right" priority="2">
-        <lane id="-edge_right_0" index="0" speed="10.00" friction="1.00" length="22.80" shape="7.20,-1.60 30.00,-1.60"/>
+        <lane id="-edge_right_0" index="0" speed="10.00" length="22.80" shape="7.20,-1.60 30.00,-1.60"/>
     </edge>
     <edge id="-edge_up" from="node_centertl" to="node_up" priority="2">
-        <lane id="-edge_up_0" index="0" speed="10.00" friction="1.00" length="22.80" shape="1.60,7.20 1.60,30.00"/>
+        <lane id="-edge_up_0" index="0" speed="10.00" length="22.80" shape="1.60,7.20 1.60,30.00"/>
     </edge>
     <edge id="edge_left" from="node_left" to="node_centertl" priority="2">
-        <lane id="edge_left_0" index="0" speed="10.00" friction="1.00" length="22.80" shape="-30.00,-1.60 -7.20,-1.60"/>
+        <lane id="edge_left_0" index="0" speed="10.00" length="22.80" shape="-30.00,-1.60 -7.20,-1.60"/>
     </edge>
     <edge id="edge_right" from="node_right" to="node_centertl" priority="2">
-        <lane id="edge_right_0" index="0" speed="10.00" friction="1.00" length="22.80" shape="30.00,1.60 7.20,1.60"/>
+        <lane id="edge_right_0" index="0" speed="10.00" length="22.80" shape="30.00,1.60 7.20,1.60"/>
     </edge>
     <edge id="edge_up" from="node_up" to="node_centertl" priority="2">
-        <lane id="edge_up_0" index="0" speed="10.00" friction="1.00" length="22.80" shape="-1.60,30.00 -1.60,7.20"/>
+        <lane id="edge_up_0" index="0" speed="10.00" length="22.80" shape="-1.60,30.00 -1.60,7.20"/>
     </edge>
 
     <tlLogic id="node_centertl" type="static" programID="0" offset="10">

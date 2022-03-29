@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-16 08:17:42 by Eclipse SUMO netconvert Version v1_12_0+1393-6c843c74b2b
+<!-- generated on 2021-11-08 21:14:11 by Eclipse SUMO netconvert Version v1_10_0+1803-df23776d26b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -41,22 +36,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-391777.54,-5819454.48" convBoundary="0.00,0.00,519.81,191.11" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-1" from="3091127668" to="C" priority="13" type="waterway.river" shape="0.00,191.11 36.75,150.03 74.72,111.20 128.02,72.67 180.00,58.11">
-        <lane id="-1_0" index="0" allow="ship" speed="2.78" friction="1.00" length="229.18" width="7.00" shape="-2.61,188.78 34.19,147.64 72.43,108.54 126.48,69.47 174.56,56.00"/>
+        <lane id="-1_0" index="0" allow="ship" speed="2.78" length="229.18" width="7.00" shape="-2.61,188.78 34.19,147.64 72.43,108.54 126.48,69.47 174.56,56.00"/>
     </edge>
     <edge id="-2" from="C" to="C2" priority="13" type="waterway.river" shape="180.00,58.11 242.21,53.04 275.25,50.21 420.38,26.68 454.94,20.43 519.81,4.59">
-        <lane id="-2_0" index="0" allow="ship" speed="2.78" friction="1.00" length="344.50" width="7.00" shape="228.17,50.67 241.92,49.55 274.82,46.73 419.79,23.23 454.21,17.00 475.11,11.90"/>
+        <lane id="-2_0" index="0" allow="ship" speed="2.78" length="344.50" width="7.00" shape="228.17,50.67 241.92,49.55 274.82,46.73 419.79,23.23 454.21,17.00 475.11,11.90"/>
     </edge>
     <edge id="-3" from="C" to="C2" priority="13" type="waterway.river" shape="180.00,58.11 238.25,33.99 270.71,29.36 417.99,5.45 452.49,0.00 519.81,4.59">
-        <lane id="-3_0" index="0" allow="ship" speed="2.78" friction="1.00" length="347.45" width="7.00" shape="223.58,36.28 237.32,30.59 270.18,25.90 417.44,1.99 452.33,-3.52 474.99,-1.97"/>
+        <lane id="-3_0" index="0" allow="ship" speed="2.78" length="347.45" width="7.00" shape="223.58,36.28 237.32,30.59 270.18,25.90 417.44,1.99 452.33,-3.52 474.99,-1.97"/>
     </edge>
     <edge id="1" from="C" to="3091127668" priority="13" type="waterway.river" shape="180.00,58.11 128.02,72.67 74.72,111.20 36.75,150.03 0.00,191.11">
-        <lane id="1_0" index="0" allow="ship" speed="2.78" friction="1.00" length="229.18" width="7.00" shape="176.44,62.74 129.56,75.87 77.01,113.86 39.31,152.42 2.61,193.44"/>
+        <lane id="1_0" index="0" allow="ship" speed="2.78" length="229.18" width="7.00" shape="176.44,62.74 129.56,75.87 77.01,113.86 39.31,152.42 2.61,193.44"/>
     </edge>
     <edge id="2" from="C2" to="C" priority="13" type="waterway.river" shape="519.81,4.59 454.94,20.43 420.38,26.68 275.25,50.21 242.21,53.04 180.00,58.11">
-        <lane id="2_0" index="0" allow="ship" speed="2.78" friction="1.00" length="344.50" width="7.00" shape="476.77,18.70 455.67,23.86 420.97,30.13 275.68,53.69 242.50,56.53 228.74,57.65"/>
+        <lane id="2_0" index="0" allow="ship" speed="2.78" length="344.50" width="7.00" shape="476.77,18.70 455.67,23.86 420.97,30.13 275.68,53.69 242.50,56.53 228.74,57.65"/>
     </edge>
     <edge id="3" from="C2" to="C" priority="13" type="waterway.river" shape="519.81,4.59 452.49,0.00 417.99,5.45 270.71,29.36 238.25,33.99 180.00,58.11">
-        <lane id="3_0" index="0" allow="ship" speed="2.78" friction="1.00" length="347.45" width="7.00" shape="474.52,5.01 452.65,3.52 418.54,8.91 271.24,32.82 239.18,37.39 226.25,42.75"/>
+        <lane id="3_0" index="0" allow="ship" speed="2.78" length="347.45" width="7.00" shape="474.52,5.01 452.65,3.52 418.54,8.91 271.24,32.82 239.18,37.39 226.25,42.75"/>
     </edge>
 
     <junction id="3091127668" type="dead_end" x="0.00" y="191.11" incLanes="1_0" intLanes="" shape="-0.00,191.11 5.22,195.78 0.00,191.11"/>

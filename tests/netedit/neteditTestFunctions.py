@@ -488,13 +488,6 @@ def rebuildNetworkWithVolatileOptions(question=True):
         waitQuestion('n')
 
 
-def cleanJunction():
-    """
-    @brief clean junction
-    """
-    typeKey('F6')
-
-
 def joinSelectedJunctions():
     """
     @brief join selected junctions
@@ -764,14 +757,6 @@ def saveNetworkAs(waitTime=2):
     time.sleep(DELAY_RECOMPUTE)
 
 
-def forceSaveNetwork():
-    """
-    @brief force save network
-    """
-    # change network save flag using hotkey
-    typeThreeKeys('ctrl', 'shift', 't')
-
-
 def forceSaveAdditionals():
     """
     @brief force save additionals
@@ -961,7 +946,7 @@ def modifyAttribute(attributeNumber, value, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 6):
+        for _ in range(attributeNumber + 1 + attrs.EditElements.overlapped):
             typeTab()
     else:
         for _ in range(attributeNumber + 1):
@@ -980,12 +965,40 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 6):
+        for _ in range(attributeNumber + 1 + attrs.EditElements.overlapped):
             typeTab()
     else:
         for _ in range(attributeNumber + 1):
             typeTab()
     # type SPACE to change value
+    typeSpace()
+
+
+def modifyAllowDisallowValue(numTabs, overlapped):
+    """
+    @brief modify allow/disallow values
+    """
+    # open dialog
+    modifyBoolAttribute(numTabs, overlapped)
+    # select vtypes
+    for _ in range(2):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(6):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(12):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(11):
+        typeTab()
+    # Change current value
     typeSpace()
 
 
@@ -1091,10 +1104,10 @@ def createCrossing(hasTLS):
     focusOnFrame()
     # jump to create crossing button depending of hasTLS
     if hasTLS:
-        for _ in range(10):
+        for _ in range(attrs.TLS.create.TLS):
             typeTab()
     else:
-        for _ in range(11):
+        for _ in range(attrs.TLS.create.noTLS):
             typeTab()
     # type space to create crossing
     typeSpace()
@@ -1107,7 +1120,7 @@ def modifyCrossingDefaultValue(numtabs, value):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + 5):
+    for _ in range(numtabs + attrs.crossing.firstField):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -1122,7 +1135,7 @@ def modifyCrossingDefaultBoolValue(numtabs):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + 5):
+    for _ in range(numtabs + attrs.crossing.firstField):
         typeTab()
     # type space to change value
     typeSpace()
@@ -1136,11 +1149,11 @@ def crossingClearEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for _ in range(4):
+        for _ in range(attrs.crossing.clearEdgesSelected):
             typeTab()
     else:
         # jump to clear button
-        for _ in range(3):
+        for _ in range(attrs.crossing.clearEdges):
             typeTab()
     # type space to activate button
     typeSpace()
@@ -1154,11 +1167,11 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for _ in range(4):
+        for _ in range(attrs.crossing.clearEdgesSelected):
             typeTab()
     else:
         # jump to clear button
-        for _ in range(3):
+        for _ in range(attrs.crossing.clearEdges):
             typeTab()
     # type space to activate button
     typeSpace()
@@ -1205,7 +1218,7 @@ def saveConnectionEdit():
     # focus current frame
     focusOnFrame()
     # go to cancel button
-    for _ in range(4):
+    for _ in range(attrs.connection.saveConnections):
         typeTab()
     # type space to press button
     typeSpace()
@@ -1233,7 +1246,7 @@ def changeElement(element):
     # focus current frame
     focusOnFrame()
     # go to first editable element of frame
-    for _ in range(2):
+    for _ in range(attrs.additionals.changeElement):
         typeTab()
     # paste the new value
     pasteIntoTextField(element)
@@ -1257,13 +1270,39 @@ def changeDefaultValue(numTabs, length):
 
 
 def changeDefaultBoolValue(numTabs):
-    """
-    @brief modify default boolean value of an additional, shape, vehicle...
-    """
+
     # focus current frame
     focusOnFrame()
     # place cursor in check Box position
     for _ in range(numTabs):
+        typeTab()
+    # Change current value
+    typeSpace()
+
+
+def changeDefaultAllowDisallowValue(numTabs):
+    """
+    @brief modify allow/disallow values
+    """
+    # open dialog
+    changeDefaultBoolValue(numTabs)
+    # select vtypes
+    for _ in range(2):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(6):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(12):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(11):
         typeTab()
     # Change current value
     typeSpace()
@@ -2029,26 +2068,6 @@ def createSquaredTAZ(referencePosition, positionx, positiony, size, close):
     typeEnter()
 
 
-def createRectangledTAZ(referencePosition, positionx, positiony, sizex, sizey, close):
-    """
-    @brief Create rectangle TAZ in position with a certain size
-    """
-    # focus current frame
-    focusOnFrame()
-    # start draw
-    typeEnter()
-    # create TAZ
-    leftClick(referencePosition, positionx, positiony)
-    leftClick(referencePosition, positionx, positiony - (sizey / 2))
-    leftClick(referencePosition, positionx - (sizex / 2), positiony - (sizey / 2))
-    leftClick(referencePosition, positionx - (sizex / 2), positiony)
-    # check if TAZ has to be closed
-    if (close is True):
-        leftClick(referencePosition, positionx, positiony)
-    # finish draw
-    typeEnter()
-
-
 def createLineTAZ(referencePosition, positionx, positiony, sizex, sizey, close):
     """
     @brief Create line TAZ in position with a certain size
@@ -2085,6 +2104,15 @@ def edgeRelData():
     @brief change to edgeRelData mode
     """
     typeKey('r')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+
+def TAZRelData():
+    """
+    @brief change to TAZRelData mode
+    """
+    typeKey('z')
     # wait for gl debug
     time.sleep(DELAY_CHANGEMODE)
 

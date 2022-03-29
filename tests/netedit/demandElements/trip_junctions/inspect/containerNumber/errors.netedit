@@ -64,7 +64,7 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
-Debug: Selected item 'trip (from-to junctions)' in TagSelector
+Debug: Selected item 'trip (from-to junctions)' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding tripJunctions 't_0' in GNEChange_DemandElement
 Debug: Value 'dummyNumber' for attribute containerNumber of tripJunctions isn't valid

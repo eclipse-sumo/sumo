@@ -5,7 +5,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding containerStop 'containerStop_0' in GNEChange_Additional
 Debug: Adding containerStop 'containerStop_1' in GNEChange_Additional
-Debug: Selected item 'containerStop' in TagSelector
+Debug: Selected item 'containerStop' in GNETagSelector
 Debug: Adding containerStop 'ct_0' in GNEChange_Additional
 Debug: Removing containerStop 'ct_0' in GNEChange_Additional
 Debug: Removing containerStop 'containerStop_0' in GNEChange_Additional

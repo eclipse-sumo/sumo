@@ -28,4 +28,10 @@ shapestart
 
 shapeend
 
+distance
+
+stopoffset
+
+stopexception
+
 parameters

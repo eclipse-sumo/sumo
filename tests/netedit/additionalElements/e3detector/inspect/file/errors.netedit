@@ -1,9 +1,9 @@
 Debug: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '296.00'
-Debug: Selected item 'e3Detector' in TagSelector
+Debug: Selected item 'e3Detector' in GNETagSelector
 Debug: Adding e3Detector 'e3_0' in GNEChange_Additional
-Debug: Selected item 'detEntry' in TagSelector
+Debug: Selected item 'detEntry' in GNETagSelector
 Debug: Adding detEntry 'e3_0' in GNEChange_Additional
-Debug: Selected item 'detExit' in TagSelector
+Debug: Selected item 'detExit' in GNETagSelector
 Debug: Adding detExit 'e3_0' in GNEChange_Additional
 Debug: Value '%%%%%&%&&' for attribute file of e3Detector isn't valid
 Debug: Setting new attribute
