@@ -253,7 +253,7 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
         }
         if (isAttributeEnabled(GNE_ATTR_POISSON)) {
-            device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset * -1));
+            device.writeAttr(SUMO_ATTR_PERIOD, "exp(" + time2string(repetitionOffset) + ")");
         }
         if (isAttributeEnabled(SUMO_ATTR_PROB)) {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
