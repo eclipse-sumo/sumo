@@ -25,7 +25,6 @@ from sumolib.miscutils import Statistics, parseTime, getFlowNumber
 
 END_UNLIMITED = 1e100
 
-
 def parse_args():
     DEFAULT_ELEMENTS = ['trip', 'route', 'walk']
     # when departure time must be known
@@ -111,13 +110,12 @@ def hasSubpart(edges, subparts):
                 return True
     return False
 
-
 def getEdges(elem, taz):
     edges = []
     src = None
     dst = None
     if elem.edges:
-        edges = elem.edges.split()
+        edges =  elem.edges.split()
     if elem.route:
         edges = elem.route[0].edges.split()
     if edges:
@@ -130,7 +128,7 @@ def getEdges(elem, taz):
         elif not edges:
             src = elem.attr_from
             dst = elem.to
-    except AttributeError:
+    except:
         pass
     return src, dst, edges
 
@@ -165,7 +163,6 @@ def writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts
     departCounts.clear()
     arrivalCounts.clear()
     intermediateCounts.clear()
-
 
 def parseSimple(outf, options):
     """parse elements without checking time (uses fast parser)"""
@@ -253,6 +250,7 @@ def parseTimed(outf, options):
         if options.intermediate:
             for e in edges:
                 intermediateCounts[e] += number
+
 
     description = "%s-%s " % (begin, periodEnd) if periodEnd != END_UNLIMITED else ""
     if len(departCounts) > 0:

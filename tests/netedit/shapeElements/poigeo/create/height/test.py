@@ -35,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # change height (invalid, dummy)
-netedit.changeDefaultValue(netedit.attrs.enums.POIGEO.create.height, "dummyHeight")
+netedit.changeDefaultValue(netedit.attrs.POIGEO.create.height, "dummyHeight")
 
 # try to create poi
 netedit.leftClick(referencePosition, 100, 50)
 
 # change height (invalid, negative)
-netedit.changeDefaultValue(netedit.attrs.enums.POIGEO.create.height, "-3")
+netedit.changeDefaultValue(netedit.attrs.POIGEO.create.height, "-3")
 
 # try to create poi
 netedit.leftClick(referencePosition, 150, 50)
 
 # change height (valid)
-netedit.changeDefaultValue(netedit.attrs.enums.POIGEO.create.height, "4.4")
+netedit.changeDefaultValue(netedit.attrs.POIGEO.create.height, "4.4")
 
 # create poi
 netedit.leftClick(referencePosition, 200, 50)

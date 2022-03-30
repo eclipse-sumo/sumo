@@ -215,6 +215,11 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         if (!e->hasLaneSpecificSpeed()) {
             edevice.writeAttr(SUMO_ATTR_SPEED, e->getSpeed());
         }
+        if (!e->hasLaneSpecificFriction()) {
+            if (e->getFriction() != NBEdge::UNSPECIFIED_FRICTION) {
+                edevice.writeAttr(SUMO_ATTR_FRICTION, e->getFriction());
+            }//
+        }
         // write non-default geometry
         if (!e->hasDefaultGeometry()) {
             writeShape(edevice, gch, e->getGeometry(), SUMO_ATTR_SHAPE, useGeo, geoAccuracy);

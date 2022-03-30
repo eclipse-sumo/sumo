@@ -75,7 +75,7 @@ private:
     // @brief Operation to be apply
     const Operation myOperation;
 
-    /// @brief copy of child demand elements before apply operation
+    /// @brief copy of child demand elementss before apply operation
     const std::vector<GNEDemandElement*> myOriginalChildElements;
 
     /// @brief element children after apply operation

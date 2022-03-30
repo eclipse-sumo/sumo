@@ -170,7 +170,7 @@ GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     } else {
         // accept changes before closing dialog
         acceptChanges();
-        // stop dialog successfully
+        // stop dialgo sucesfully
         getApp()->stopModal(this, TRUE);
         return 1;
     }

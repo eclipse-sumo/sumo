@@ -1461,14 +1461,10 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             parseArrivalLane(value, toString(SUMO_TAG_VEHICLE), id, dummyArrivalLane, dummyArrivalLaneProcedure, error);
             // if error is empty, given value is valid
             if (error.empty()) {
-                if (dummyArrivalLaneProcedure != ArrivalLaneDefinition::GIVEN) {
-                    return true;
-                } else if (isTemplate()) {
-                    return true;
-                } else if (getParentJunctions().size() > 0) {
+                if (getParentJunctions().size() > 0) {
                     return (dummyArrivalLane == 0);
                 } else {
-                    return dummyArrivalLane < (int)getLastPathLane()->getParentEdge()->getLanes().size();
+                    return false;
                 }
             } else {
                 return false;

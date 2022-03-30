@@ -42,16 +42,16 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change position with a non valid value
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspectTLS.pos, "dummy position", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.pos, "dummy position", False)
 
 # change position with a non valid value (another junction in the same position)
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspectTLS.pos, "0.00,50.00", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.pos, "0.00,50.00", False)
 
 # avoid merging
 netedit.typeTwoKeys('n', 'alt')
 
 # change position with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspectTLS.pos, "40.00,40.00", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.pos, "40.00,40.00", False)
 
 # rebuild network
 netedit.rebuildNetwork()

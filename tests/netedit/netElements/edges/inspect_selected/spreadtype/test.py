@@ -53,13 +53,13 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 9 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspectSelection.spreadType, "dummySpread", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.spreadType, "dummySpread", False)
 
 # Change parameter 9 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspectSelection.spreadType, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.spreadType, "", False)
 
 # Change parameter 9 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspectSelection.spreadType, "center", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.spreadType, "center", False)
 
 # recompute
 netedit.rebuildNetwork()

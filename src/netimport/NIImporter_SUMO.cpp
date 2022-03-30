@@ -204,7 +204,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 nbe->addLane2LaneConnection(
                     fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::Lane2LaneInfoType::VALIDATED,
                     true, c.mayDefinitelyPass, c.keepClear ? KEEPCLEAR_TRUE : KEEPCLEAR_FALSE,
-                    c.contPos, c.visibility, c.speed, c.customLength, c.customShape, uncontrolled, c.permissions, c.indirectLeft, c.edgeType, c.changeLeft, c.changeRight);
+                    c.contPos, c.visibility, c.speed, c.friction, c.customLength, c.customShape, uncontrolled, c.permissions, c.indirectLeft, c.edgeType, c.changeLeft, c.changeRight);
                 if (c.getParametersMap().size() > 0) {
                     nbe->getConnectionRef(fromLaneIndex, toEdge, c.toLaneIdx).updateParameters(c.getParametersMap());
                 }
@@ -235,6 +235,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             nbe->setLaneWidth(fromLaneIndex, lane->width);
             nbe->setEndOffset(fromLaneIndex, lane->endOffset);
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
+            nbe->setFriction(fromLaneIndex, lane->friction);
             nbe->setAcceleration(fromLaneIndex, lane->accelRamp);
             nbe->getLaneStruct(fromLaneIndex).oppositeID = lane->oppositeID;
             nbe->getLaneStruct(fromLaneIndex).type = lane->type;
@@ -656,6 +657,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     } else {
         myCurrentLane->maxSpeed = attrs.get<double>(SUMO_ATTR_SPEED, id.c_str(), ok);
     }
+    myCurrentLane->friction = attrs.getOpt<double>(SUMO_ATTR_FRICTION, id.c_str(), ok, NBEdge::UNSPECIFIED_FRICTION, false); //sets 1 on empty
     try {
         myCurrentLane->allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "", false);
     } catch (EmptyData&) {
@@ -804,6 +806,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
         std::swap(conn.changeLeft, conn.changeRight);
     }
     conn.speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, NBEdge::UNSPECIFIED_SPEED);
+    conn.friction = attrs.getOpt<double>(SUMO_ATTR_FRICTION, nullptr, ok, NBEdge::UNSPECIFIED_FRICTION);
     conn.customLength = attrs.getOpt<double>(SUMO_ATTR_LENGTH, nullptr, ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);
     conn.customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);
     NBNetBuilder::transformCoordinates(conn.customShape, false, myLocation);

@@ -35,7 +35,7 @@ netedit.TAZMode()
 netedit.createSquaredTAZ(referencePosition, 370, 318, 400, True)
 
 # change edgesWithin
-netedit.changeDefaultBoolValue(netedit.attrs.enums.TAZ.create.edgesWithin)
+netedit.changeDefaultBoolValue(netedit.attrs.TAZ.create.edgesWithin)
 
 # create TAZ with default values
 netedit.createSquaredTAZ(referencePosition, 370, 318, 400, True)

@@ -41,34 +41,34 @@ netedit.stopMode()
 netedit.changeStopType("stopParkingArea")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.enums.stopParking.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopParking.create.durationEnable)
 
 # enable until
-netedit.changeDefaultBoolValue(netedit.attrs.enums.stopParking.create.untilEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopParking.create.untilEnable)
 
 # create stop
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.stopParking.create.until, "dummyValue")
+netedit.changeDefaultValue(netedit.attrs.stopParking.create.until, "dummyValue")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.stopParking.create.until, "-20")
+netedit.changeDefaultValue(netedit.attrs.stopParking.create.until, "-20")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.enums.stopParking.create.until, "0")
+netedit.changeDefaultValue(netedit.attrs.stopParking.create.until, "0")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.enums.stopParking.create.until, "22.33")
+netedit.changeDefaultValue(netedit.attrs.stopParking.create.until, "22.33")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 155)

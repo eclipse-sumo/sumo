@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 320)
 
 # Set charge in transit
-netedit.modifyAttribute(netedit.attrs.enums.chargingStation.inspectSelection.chargeInTrainsit, "true", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.chargeInTrainsit, "true", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

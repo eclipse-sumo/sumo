@@ -32,22 +32,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.changeEditMode(netedit.attrs.enums.Modes.Network.showConnections)
+netedit.changeEditMode(netedit.attrs.Modes.Network.showConnections)
 
 # inspect connection
 netedit.leftClick(referencePosition, 228, 164)
 
 # Change speed with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.connection.inspect.speed, "dummySpeed", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspect.speed, "dummySpeed", True)
 
 # Change speed with an valid value
-netedit.modifyAttribute(netedit.attrs.enums.connection.inspect.speed, "-3", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspect.speed, "-3", True)
 
 # Change speed with an valid value
-netedit.modifyAttribute(netedit.attrs.enums.connection.inspect.speed, "0", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspect.speed, "0", True)
 
 # Change speed with an valid value
-netedit.modifyAttribute(netedit.attrs.enums.connection.inspect.speed, "15.5", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspect.speed, "15.5", True)
 
 # rebuild
 netedit.rebuildNetwork()

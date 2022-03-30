@@ -41,19 +41,19 @@ netedit.stopMode()
 netedit.changeStopType("waypointParkingArea")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.waypointParking.create.permitted, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.waypointParking.create.permitted, ";;;;;;;;;;")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.waypointParking.create.permitted, "")
+netedit.changeDefaultValue(netedit.attrs.waypointParking.create.permitted, "")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.enums.waypointParking.create.permitted, "ID1 ID2 ID3")
+netedit.changeDefaultValue(netedit.attrs.waypointParking.create.permitted, "ID1 ID2 ID3")
 
 # create waypoint
 netedit.leftClick(referencePosition, 290, 155)

@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (embedded route)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.flowEmbedded.create.begin, "dummyBegin")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.begin, "dummyBegin")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.flowEmbedded.create.begin, "-12")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.begin, "-12")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.flowEmbedded.create.begin, "50")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.begin, "50")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.flowEmbedded.create.begin, "12.5")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.begin, "12.5")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)

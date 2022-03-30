@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference center")
 
 # create parkingArea 1 in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 200)
 
 # Change parameter id with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.id, "pa_1", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.id, "pa_1", True)
 
 # Change parameter id with a non valid value (Invalid ID)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.id, "Id with spaces", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.id, "Id with spaces", True)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.id, "correctID", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.id, "correctID", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

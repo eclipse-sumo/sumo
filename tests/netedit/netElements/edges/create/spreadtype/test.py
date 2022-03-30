@@ -32,21 +32,21 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 netedit.createEdgeMode()
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.enums.edge.create.spreadType, "dummy")
+netedit.changeDefaultValue(netedit.attrs.edge.create.spreadType, "dummy")
 
 # Create two nodes
 netedit.leftClick(referencePosition, 87, 108)
 netedit.leftClick(referencePosition, 510, 108)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.enums.edge.create.spreadType, "")
+netedit.changeDefaultValue(netedit.attrs.edge.create.spreadType, "")
 
 # Create two nodes
 netedit.leftClick(referencePosition, 87, 108)
 netedit.leftClick(referencePosition, 510, 108)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.enums.edge.create.spreadType, "center")
+netedit.changeDefaultValue(netedit.attrs.edge.create.spreadType, "center")
 
 # Create two nodes
 netedit.leftClick(referencePosition, 87, 108)

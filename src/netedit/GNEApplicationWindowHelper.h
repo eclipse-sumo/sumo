@@ -600,7 +600,7 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCommand for redo last change
         FXMenuCommand* redoLastChange;
 
-        /// @brief FXMenuCommand for open undolist dialog
+        /// @brief FXMenuCommand for open undolist dialgo
         FXMenuCommand* openUndolistDialog;
 
         /// @brief network view options

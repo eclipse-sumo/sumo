@@ -32,16 +32,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 netedit.createEdgeMode()
 
 # remove lane
-netedit.changeDefaultBoolValue(netedit.attrs.enums.edge.createLane.remove)
+netedit.changeDefaultBoolValue(netedit.attrs.edge.createLane.remove)
 
 # add lane
-netedit.changeDefaultBoolValue(netedit.attrs.enums.edge.createLane.add)
+netedit.changeDefaultBoolValue(netedit.attrs.edge.createLane.add)
 
 # remove lane
-netedit.changeDefaultBoolValue(netedit.attrs.enums.edge.createLane.remove)
+netedit.changeDefaultBoolValue(netedit.attrs.edge.createLane.remove)
 
 # add lane
-netedit.changeDefaultBoolValue(netedit.attrs.enums.edge.createLane.add)
+netedit.changeDefaultBoolValue(netedit.attrs.edge.createLane.add)
 
 # Create two nodes
 netedit.leftClick(referencePosition, 87, 108)

@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 108, 50)
 
 # Change parameter 8 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.POI.inspect.height, "dummyHeight", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspect.height, "dummyHeight", False)
 
 # Change parameter 8 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.enums.POI.inspect.height, "-3", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspect.height, "-3", False)
 
 # Change parameter 8 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.POI.inspect.height, "5", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspect.height, "5", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

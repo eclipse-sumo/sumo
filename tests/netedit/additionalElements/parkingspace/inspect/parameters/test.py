@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 250, 180)
 netedit.changeElement("space")
 
 # create first space
-netedit.selectAdditionalChild(netedit.attrs.enums.parkingSpace.create.parent, 0)
+netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
 netedit.leftClick(referencePosition, 231, 285)
 
 # go to inspect mode
@@ -51,7 +51,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 230, 275)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.enums.parkingSpace.inspect.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.parkingSpace.inspect.parameters, False)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

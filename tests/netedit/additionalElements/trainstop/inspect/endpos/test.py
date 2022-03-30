@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("trainStop")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.enums.trainStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference center")
 
 # create trainStop in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter endpos with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.enums.trainStop.inspect.endPos, "", True)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.endPos, "", True)
 
 # Change parameter endpos with a valid value (> lanelength)
-netedit.modifyAttribute(netedit.attrs.enums.trainStop.inspect.endPos, "5000", True)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.endPos, "5000", True)
 
 # Change parameter endpos with a non valid value (< startPos)
-netedit.modifyAttribute(netedit.attrs.enums.trainStop.inspect.endPos, "2", True)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.endPos, "2", True)
 
 # Change parameter endpos with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.trainStop.inspect.endPos, "30", True)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.endPos, "30", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

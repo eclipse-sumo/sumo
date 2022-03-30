@@ -119,10 +119,10 @@ public:
             /// @brief constructor
             VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const RowAttrType rowAttrType, const std::vector<std::string>& values = {});
 
-            /// @brief set Variable in VehicleType (using default value obtained from GNEAttributeCarrier)
+            /// @brief set Variablen in VehicleType (using default value obtained from GNEAttributeCarrier)
             void setVariable();
 
-            /// @brief set Variable in VehicleType (Specifying default value)
+            /// @brief set Variablen in VehicleType (Specifying default value)
             void setVariable(const std::string& defaultValue);
 
             /// @brief update value of Vehicle Type (using default value obtained from GNEAttributeCarrier)
@@ -376,7 +376,7 @@ public:
         /// @brief VTypeAttributeRow for accel lat
         VTypeAttributeRow* myLCAAccelLat;
 
-        /// @brief VTypeAttributeRow for look ahead left
+        /// @brief VTypeAttributeRow for loock ahead left
         VTypeAttributeRow* myLCALookAheadLeft;
 
         /// @brief VTypeAttributeRow for speed gain right
@@ -434,7 +434,7 @@ public:
             /// @brief constructor
             CarFollowingModelRow(CarFollowingModelParameters* carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr);
 
-            /// @brief set Variable in VehicleType
+            /// @brief set Variablen in VehicleType
             void setVariable();
 
             /// @brief update value of Vehicle Type
@@ -470,7 +470,7 @@ public:
         /// @brief Row for Decel
         CarFollowingModelRow* myDecelRow;
 
-        /// @brief Row for apparent Decel
+        /// @brief Row for aparent Decel
         CarFollowingModelRow* myApparentDecelRow;
 
         /// @brief Row for emergency Decel

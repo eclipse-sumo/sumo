@@ -48,19 +48,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 280, 392)
 
 # Change parameter edges with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.enums.route.inspect.edges, "", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "", False)
 
 # Change parameter edges with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.route.inspect.edges, "dummyEdges", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "dummyEdges", False)
 
 # Change parameter edges with a NON consecutive edges
-netedit.modifyAttribute(netedit.attrs.enums.route.inspect.edges, "gneE2 gneE5", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "gneE2 gneE5", False)
 
 # Change parameter edges with a consecutive NON connected edges
-netedit.modifyAttribute(netedit.attrs.enums.route.inspect.edges, "gneE7 gneE2", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "gneE7 gneE2", False)
 
 # Change parameter edges with valid a single edge
-netedit.modifyAttribute(netedit.attrs.enums.route.inspect.edges, "gneE2", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "gneE2", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

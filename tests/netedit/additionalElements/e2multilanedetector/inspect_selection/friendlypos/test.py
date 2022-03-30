@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 320, 250)
 
 # Change boolean parameter friendlypos
-netedit.modifyBoolAttribute(netedit.attrs.enums.E2Multilane.inspectSelection.friendlyPos, True)
+netedit.modifyBoolAttribute(netedit.attrs.E2Multilane.inspectSelection.friendlyPos, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

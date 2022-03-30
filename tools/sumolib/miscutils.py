@@ -245,7 +245,6 @@ def parseBool(val):
     # see data/xsd/baseTypes:boolType
     return val in ["true", "True", "x", "1", "yes", "on"]
 
-
 def getFlowNumber(flow):
     """interpret number of vehicles from a flow parsed by sumolib.xml.parse"""
     if flow.number is not None:
@@ -266,3 +265,4 @@ def getFlowNumber(flow):
             return math.ceil(duration / period)
         else:
             return 1
+

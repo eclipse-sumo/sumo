@@ -152,6 +152,12 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 libsumo::Edge::setMaxSpeed(id, value);
                 break;
             }
+            case libsumo::VAR_FRICTION: {
+            	// read and set friction for entire edge
+            	const double value = StoHelp::readTypedDouble(inputStorage, "The speed must be given as a double.");
+            	libsumo::Edge::setFriction(id, value);
+            	break;
+            }            
             case libsumo::VAR_PARAMETER: {
                 // read and check item number
                 StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");

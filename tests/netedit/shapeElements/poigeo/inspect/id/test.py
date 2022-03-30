@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 108, 50)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.enums.POIGEO.inspect.id, "poi_1", False)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.id, "poi_1", False)
 
 # Change parameter 0 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.enums.POIGEO.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.id, "", False)
 
 # Change parameter 0 with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.enums.POIGEO.inspect.id, "ID with spaces", False)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.id, "ID with spaces", False)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.POIGEO.inspect.id, "newID", False)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.id, "newID", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

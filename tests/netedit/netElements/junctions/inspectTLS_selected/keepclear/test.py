@@ -50,7 +50,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # change keep clear
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspectSelectionTLS.keepClear, "true", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.keepClear, "true", False)
 
 # rebuild network
 netedit.rebuildNetwork()

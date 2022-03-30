@@ -62,7 +62,7 @@ public:
 
     /// @name members and functions relative to write data sets into XML
     /// @{
-    /**@brief write data set element into a xml file
+    /**@brief writte data set element into a xml file
      * @param[in] device device in which write parameters of data set element
      */
     void writeGenericData(OutputDevice& device) const;
@@ -86,7 +86,7 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
-    /// @brief return exaggeration associated with this GLObject
+    /// @brief return exaggeration asociated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -147,7 +147,7 @@ public:
 
     /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value associated to key key
+     * @param[in] value The value asociated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);

@@ -13,7 +13,6 @@
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId />
     <Name>netedit</Name>
-    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />

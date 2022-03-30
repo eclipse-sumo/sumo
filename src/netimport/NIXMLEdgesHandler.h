@@ -142,6 +142,9 @@ private:
     /// @brief The current edge's maximum speed
     double myCurrentSpeed;
 
+    /// @brief The current edge's friction
+    double myCurrentFriction;
+
     /// @brief The current edge's priority
     int myCurrentPriority;
 

@@ -121,7 +121,7 @@ GNERide::writeDemandElement(OutputDevice& device) const {
     } else {
         device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
     }
-    // avoid write arrival positions in ride to busStop
+    // avoid writte arrival positions in ride to busStop
     if (!((myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP) && (myArrivalPosition == 0))) {
         // only write arrivalPos if is different of -1
         if (myArrivalPosition != -1) {

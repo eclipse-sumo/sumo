@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("vaporizer")
 
 # set invalid start
-netedit.changeDefaultValue(netedit.attrs.enums.vaporizer.create.begin, "-12")
+netedit.changeDefaultValue(netedit.attrs.vaporizer.create.begin, "-12")
 
 # try to create vaporizer
 netedit.leftClick(referencePosition, 250, 265)
 
 # set valid start
-netedit.changeDefaultValue(netedit.attrs.enums.vaporizer.create.begin, "10")
+netedit.changeDefaultValue(netedit.attrs.vaporizer.create.begin, "10")
 
 # create vaporizer (camera will be moved)
 netedit.leftClick(referencePosition, 250, 265)

@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference center")
 
 # create parkingArea in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 200)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.enums.parkingArea.inspect.parameters, True)
+netedit.checkParameters(referencePosition, netedit.attrs.parkingArea.inspect.parameters, True)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

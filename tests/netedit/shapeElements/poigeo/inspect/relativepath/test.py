@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 108, 50)
 
 # Change boolean parameter 9
-netedit.modifyBoolAttribute(netedit.attrs.enums.POIGEO.inspect.relativePath, False)
+netedit.modifyBoolAttribute(netedit.attrs.POIGEO.inspect.relativePath, False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

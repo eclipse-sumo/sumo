@@ -264,9 +264,11 @@
 #include "routeprobe.xpm"
 #include "vaporizer.xpm"
 #include "variablespeedsign.xpm"
+#include "frictioncoefficient.xpm"
 #include "calibrator.xpm"
 #include "rerouterinterval.xpm"
 #include "vssstep.xpm"
+#include "cofstep.xpm"
 #include "closingreroute.xpm"
 #include "closinglanereroute.xpm"
 #include "destprobreroute.xpm"
@@ -678,9 +680,11 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::ROUTEPROBE] = new FXXPMIcon(a, routeprobe_xpm);
     myIcons[GUIIcon::VAPORIZER] = new FXXPMIcon(a, vaporizer_xpm);
     myIcons[GUIIcon::VARIABLESPEEDSIGN] = new FXXPMIcon(a, variablespeedsign_xpm);
+    myIcons[GUIIcon::FRICTIONCOEFFICIENT] = new FXXPMIcon(a, frictioncoefficient_xpm);
     myIcons[GUIIcon::CALIBRATOR] = new FXXPMIcon(a, calibrator_xpm);
     myIcons[GUIIcon::REROUTERINTERVAL] = new FXXPMIcon(a, rerouterinterval_xpm);
     myIcons[GUIIcon::VSSSTEP] = new FXXPMIcon(a, vssstep_xpm);
+    myIcons[GUIIcon::COFSTEP] = new FXXPMIcon(a, cofstep_xpm);
     myIcons[GUIIcon::CLOSINGREROUTE] = new FXXPMIcon(a, closingreroute_xpm);
     myIcons[GUIIcon::CLOSINGLANEREROUTE] = new FXXPMIcon(a, closinglanereroute_xpm);
     myIcons[GUIIcon::DESTPROBREROUTE] = new FXXPMIcon(a, destprobreroute_xpm);

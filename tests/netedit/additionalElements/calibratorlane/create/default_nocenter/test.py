@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("calibratorLane")
 
 # change center veiw
-netedit.changeDefaultBoolValue(netedit.attrs.enums.calibrator.create.center)
+netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 
 # create calibrator
 netedit.leftClick(referencePosition, 240, 250)

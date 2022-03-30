@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (embedded route)")
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.enums.flowEmbedded.create.departSpeed, "dummySpeed")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.departSpeed, "dummySpeed")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.enums.flowEmbedded.create.departSpeed, "-12")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.departSpeed, "-12")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.enums.flowEmbedded.create.departSpeed, "max")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.departSpeed, "max")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.enums.flowEmbedded.create.departSpeed, "20")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.departSpeed, "20")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)

@@ -24,7 +24,6 @@ personTrip
 
 # use periodic rerouting to avoid congestion
 reroute_congestions
-tlsPenalty
 
 # handlng stops while rerouting
 stops

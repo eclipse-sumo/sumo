@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("e2Detector")
 
 # set invalid time threshold (dummy)
-netedit.changeDefaultValue(netedit.attrs.enums.E2.create.timeThreshold, "dummyTimeTreshold")
+netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "dummyTimeTreshold")
 
 # try to create E2 with invalid time threshold
 netedit.leftClick(referencePosition, 250, 220)
 
 # set invalid time threshold (negative)
-netedit.changeDefaultValue(netedit.attrs.enums.E2.create.timeThreshold, "-12")
+netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "-12")
 
 # try to create E2 with invalid time threshold
 netedit.leftClick(referencePosition, 250, 220)
 
 # set valid time threshold
-netedit.changeDefaultValue(netedit.attrs.enums.E2.create.timeThreshold, "10.5")
+netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "10.5")
 
 # create E2 with valid time threshold
 netedit.leftClick(referencePosition, 250, 220)
