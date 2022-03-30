@@ -8,7 +8,7 @@ inductionloop, junction, multientryexit, polygon, route, person and
 vehicle, which correspond to individual modules. For a detailed list of
 available functions see the [pydoc generated documentation](https://sumo.dlr.de/pydoc/traci.html). The source code
 can be found at
-[\[1\]](https://github.com/eclipse/sumo/tree/master/tools/traci)
+[\[1\]](https://github.com/eclipse/sumo/tree/main/tools/traci)
 
 ## importing **traci** in a script
 

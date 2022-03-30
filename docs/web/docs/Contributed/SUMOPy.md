@@ -11,8 +11,8 @@ and in the [proceedings of the SUMO2013](http://sumo.dlr.de/2013/SUMO2013_15-17M
 
 A further scope of SUMOPy is to manage the huge amount of data necessary
 to run complex multi-modal simulations. This includes different demand
-generation methods such as support for OD matrices, trurnflows and a
-syntetic (or virtual population. Also different services such as
+generation methods such as support for OD matrices, turnflows and a
+synthetic (or virtual population. Also different services such as
 Personal Rapid Transit (PRT) or self-driving taxis are supported.
 
 Essentially, SUMOPy consists of a GUI interface, network editor as well

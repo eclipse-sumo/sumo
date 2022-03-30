@@ -20,12 +20,12 @@ Bieker, D. Krajzewicz, A. Morra, C. Michelacci and F. Cartolano,
 "Traffic simulation for all: a real world traffic scenario from the city
 of Bologna", SUMO2014, p 19-26
 
-- [Bologna Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/master/bologna/)
+- [Bologna Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/)
 - (Old release) [Download .zip files from SourceForge](http://sourceforge.net/projects/sumo/files/traffic_data/scenarios/Bologna_small)
 
 # Brunswick
 
-- [Brunswick Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/master/brunswick)
+- [Brunswick Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/brunswick)
 
 # Dublin - Irish Motorway, National road and city centre 
 
@@ -103,7 +103,7 @@ There is further information about
 A scenario from the [TAVF](https://tavf.hamburg/en/) test track for automated and
 connected driving in Hamburg.
 
-- [TAVF-Hamburg Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/master/TAVF-Hamburg)
+- [TAVF-Hamburg Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/TAVF-Hamburg)
 
 # Further real-world scenarios
 
@@ -131,7 +131,7 @@ Tools"](https://web.archive.org/web/20170808122505/http://elib.dlr.de/98046/1/CO
 
 This scenario can be followed as a tutorial - it showcases how routes can be generated within a network, using counting data.
 
-- [Wildau Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/master/Wildau)
+- [Wildau Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/Wildau)
 
 # Test cases
 
