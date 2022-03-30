@@ -1506,7 +1506,8 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             double dist = FAR_AWAY;
             double perpendicularDist = FAR_AWAY;
             // add some slack to avoid issues from tiny gaps between consecutive lanes
-            const double slack = POSITION_EPS;
+            // except when simulating with high precision where the slack can throw of mapping
+            const double slack = POSITION_EPS * TS;
             PositionVector laneShape = l->getShape();
             laneShape.extrapolate2D(slack);
             double off = laneShape.nearest_offset_to_point2D(pos, true);
@@ -1571,7 +1572,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
         double idN = u.ID ? 1 : 0;
         double onRouteN = u.onRoute ? 1 : 0;
         double sameEdgeN = u.sameEdge ? MIN2(currentRouteEdge->getLength() / MAX2(NUMERICAL_EPS, speed), (double)1.) : 0;
-        double value = (distN * .5 // distance is more important than angle because the vehicle might be driving in the opposite direction
+        // distance is more important than angle because the vehicle might be driving in the opposite direction
+        // also, distance becomes increasingly more important with lower step lengths (because position errors from one step to the next can result in large acceleration/speed errors)
+        double value = (distN * .5 / TS
                         + angleDiffN * 0.35 /*.5 */
                         + idN * 1
                         + onRouteN * 0.1
