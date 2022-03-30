@@ -1,4 +1,6 @@
 # all test check also the undo-redo of modifications and save the POI into a file
+friendlyPos
+
 # edit POI lat position
 poslat
 
@@ -7,6 +9,8 @@ color
 
 # edit POI type
 type
+
+name
 
 # edit POI layer
 layer
