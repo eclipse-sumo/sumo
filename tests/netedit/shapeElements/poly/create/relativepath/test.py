@@ -35,16 +35,16 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # change color manually
-netedit.changeDefaultValue(netedit.attrs.Enums.Poly.create.color, "white")
+netedit.changeDefaultValue(netedit.attrs.Poly.create.color, "white")
 
 # change fill
-netedit.changeDefaultBoolValue(netedit.attrs.Enums.Poly.create.fill)
+netedit.changeDefaultBoolValue(netedit.attrs.Poly.create.fill)
 
 # change imgfile (valid)
-netedit.changeDefaultValue(netedit.attrs.Enums.Poly.create.imgFile, "berlin_icon.ico")
+netedit.changeDefaultValue(netedit.attrs.Poly.create.imgFile, "berlin_icon.ico")
 
 # change relativePos
-netedit.changeDefaultBoolValue(netedit.attrs.Enums.Poly.create.reativePath)
+netedit.changeDefaultBoolValue(netedit.attrs.Poly.create.reativePath)
 
 # create polygon
 netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)

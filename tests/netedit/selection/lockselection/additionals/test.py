@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.selectMode()
 
 # show connections
-netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.showConnections)
+netedit.changeEditMode(netedit.attrs.Modes.Network.showConnections)
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
@@ -47,7 +47,7 @@ netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
 netedit.selectionClear()
 
 # lock additionals
-netedit.lockSelection(netedit.attrs.Enums.Selection.LockSelectionNetwork.additionals)
+netedit.lockSelection(netedit.attrs.Selection.LockSelectionNetwork.additionals)
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
@@ -59,7 +59,7 @@ netedit.selectionClear()
 netedit.typeTwoKeys('alt', 'o')
 
 # lock additionals
-netedit.lockSelection(netedit.attrs.Enums.Selection.LockSelectionNetwork.additionals)
+netedit.lockSelection(netedit.attrs.Selection.LockSelectionNetwork.additionals)
 
 # check undo and redo
 netedit.undo(referencePosition, 5)

@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 225)
 
 # Change priority
-netedit.modifyBoolAttribute(netedit.attrs.Enums.crossing.inspect.priority, True)
+netedit.modifyBoolAttribute(netedit.attrs.crossing.inspect.priority, True)
 
 # rebuild network
 netedit.rebuildNetwork()

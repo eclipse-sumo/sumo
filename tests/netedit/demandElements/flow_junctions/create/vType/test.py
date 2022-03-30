@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to junctions)")
 
 # set invalid vType
-netedit.changeDefaultValue(netedit.attrs.Enums.flowJunction.create.type, "blue")
+netedit.changeDefaultValue(netedit.attrs.flowJunction.create.type, "blue")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid vType
-netedit.changeDefaultValue(netedit.attrs.Enums.flowJunction.create.type, "custom_vType")
+netedit.changeDefaultValue(netedit.attrs.flowJunction.create.type, "custom_vType")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

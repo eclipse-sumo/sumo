@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change vType with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.flowJunction.inspect.type, "", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.type, "", False)
 
 # change vType with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.flowJunction.inspect.type, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.type, ";;;;", False)
 
 # change vType with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.flowJunction.inspect.type, "dummyVType", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.type, "dummyVType", False)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.flowJunction.inspect.type, "custom_vType", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.type, "custom_vType", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

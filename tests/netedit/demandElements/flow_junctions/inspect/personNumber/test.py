@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.flowJunction.inspect.personNumber, "", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.personNumber, "", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.flowJunction.inspect.personNumber, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.personNumber, "dummyNumber", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.flowJunction.inspect.personNumber, "-5", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.personNumber, "-5", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.flowJunction.inspect.personNumber, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.personNumber, "2.5", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.flowJunction.inspect.personNumber, "3", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.personNumber, "3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # change angle (invalid)
-netedit.changeDefaultValue(netedit.attrs.Enums.POI.create.name, "%%%%;;;%%%")
+netedit.changeDefaultValue(netedit.attrs.POI.create.name, "%%%%;;;%%%")
 
 # try to create POI
 netedit.leftClick(referencePosition, 100, 50)
 
 # change angle (valid, but > 360)
-netedit.changeDefaultValue(netedit.attrs.Enums.POI.create.name, "customName")
+netedit.changeDefaultValue(netedit.attrs.POI.create.name, "customName")
 
 # create POI
 netedit.leftClick(referencePosition, 150, 50)

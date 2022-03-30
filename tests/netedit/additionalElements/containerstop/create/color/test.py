@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # set invalid container number
-netedit.changeColorUsingDialog(netedit.attrs.Enums.containerStop.create.colorButton, 5)
+netedit.changeColorUsingDialog(netedit.attrs.containerStop.create.colorButton, 5)
 
 # try to create containerStop
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.Enums.containerStop.create.color, "Vlue")
+netedit.changeDefaultValue(netedit.attrs.containerStop.create.color, "Vlue")
 
 # try to create containerStop
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.Enums.containerStop.create.color, "red")
+netedit.changeDefaultValue(netedit.attrs.containerStop.create.color, "red")
 
 # create containerStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

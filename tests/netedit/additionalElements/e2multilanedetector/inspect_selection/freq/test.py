@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 320, 250)
 
 # Change parameter Frequency with a non valid value (non numeral)
-netedit.modifyAttribute(netedit.attrs.Enums.E2Multilane.inspectSelection.freq, "dummyFrequency", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.freq, "dummyFrequency", True)
 
 # Change parameter Frequency with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.Enums.E2Multilane.inspectSelection.freq, "-100", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.freq, "-100", True)
 
 # Change parameter Frequency with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.E2Multilane.inspectSelection.freq, "120", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.freq, "120", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

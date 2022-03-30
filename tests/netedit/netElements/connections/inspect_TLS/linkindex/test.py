@@ -32,25 +32,25 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.showConnections)
+netedit.changeEditMode(netedit.attrs.Modes.Network.showConnections)
 
 # inspect connection
 netedit.leftClick(referencePosition, 228, 164)
 
 # Change linkIndex with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.connection.inspectTLS.linkIndex, "dummyLinkIndex", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.linkIndex, "dummyLinkIndex", True)
 
 # Change linkIndex with an valid value
-netedit.modifyAttribute(netedit.attrs.Enums.connection.inspectTLS.linkIndex, "-2", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.linkIndex, "-2", True)
 
 # Change linkIndex with an valid value
-netedit.modifyAttribute(netedit.attrs.Enums.connection.inspectTLS.linkIndex, "0", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.linkIndex, "0", True)
 
 # Change linkIndex with an valid value (but big)
-netedit.modifyAttribute(netedit.attrs.Enums.connection.inspectTLS.linkIndex, "600", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.linkIndex, "600", True)
 
 # Change linkIndex with an valid value
-netedit.modifyAttribute(netedit.attrs.Enums.connection.inspectTLS.linkIndex, "12", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.linkIndex, "12", True)
 
 # rebuild
 netedit.rebuildNetwork()

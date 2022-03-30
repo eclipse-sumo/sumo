@@ -35,31 +35,31 @@ netedit.additionalMode()
 netedit.changeElement("chargingStation")
 
 # set invalid length (dummy)
-netedit.changeDefaultValue(netedit.attrs.Enums.chargingStation.create.length, "dummyLenght")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length, "dummyLenght")
 
 # try to create chargingStation with invalid length
 netedit.leftClick(referencePosition, 500, 250)
 
 # set invalid length (negative)
-netedit.changeDefaultValue(netedit.attrs.Enums.chargingStation.create.length, "-20")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length, "-20")
 
 # try to create chargingStation with invalid length
 netedit.leftClick(referencePosition, 500, 250)
 
 # Change length
-netedit.changeDefaultValue(netedit.attrs.Enums.chargingStation.create.length, "5")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length, "5")
 
 # create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 500, 250)
 
 # change reference to right
-netedit.changeDefaultValue(netedit.attrs.Enums.chargingStation.create.references, "reference right")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "reference right")
 
 # create chargingStation in mode "reference right"
 netedit.leftClick(referencePosition, 230, 250)
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.Enums.chargingStation.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "reference center")
 
 # create chargingStation in mode "reference center"
 netedit.leftClick(referencePosition, 425, 250)

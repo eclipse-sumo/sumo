@@ -47,10 +47,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 223)
 
 # Change parameter 1 with a non valid value (dummy edge)
-netedit.modifyAttribute(netedit.attrs.Enums.routeProbe.inspect.edge, "dummyEdge", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.edge, "dummyEdge", True)
 
 # Change parameter 1 with a valid value (different edge)
-netedit.modifyAttribute(netedit.attrs.Enums.routeProbe.inspect.edge, "gneE0", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.edge, "gneE0", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

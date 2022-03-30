@@ -41,7 +41,7 @@ netedit.stopMode()
 netedit.changeStopType("waypointParkingArea")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.Enums.waypointParking.create.triggered, "join")
+netedit.changeDefaultValue(netedit.attrs.waypointParking.create.triggered, "join")
 
 # create waypoint
 netedit.leftClick(referencePosition, 290, 155)

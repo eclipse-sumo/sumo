@@ -41,16 +41,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 17 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspect.endOffset, "dummyEndOffset", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.endOffset, "dummyEndOffset", False)
 
 # Change parameter 17 with a non valid value (emtpy)
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspect.endOffset, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.endOffset, "", False)
 
 # Change parameter 17 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspect.endOffset, "-3", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.endOffset, "-3", False)
 
 # Change parameter 17 with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspect.endOffset, "12", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.endOffset, "12", False)
 
 # recompute
 netedit.rebuildNetwork()

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.showConnections)
+netedit.changeEditMode(netedit.attrs.Modes.Network.showConnections)
 
 # set connection mode
 netedit.connectionMode()

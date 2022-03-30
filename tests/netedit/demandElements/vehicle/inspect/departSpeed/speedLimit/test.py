@@ -58,13 +58,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.vehicle.inspect.departSpeed, "", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departSpeed, "", True)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.vehicle.inspect.departSpeed, "dummySpeed", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departSpeed, "dummySpeed", True)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.vehicle.inspect.departSpeed, "speedLimit", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departSpeed, "speedLimit", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

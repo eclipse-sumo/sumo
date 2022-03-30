@@ -72,7 +72,7 @@ for j in range(10):
 with open("enumsXML.txt", "w") as fp:
     for i in range(len(matrix)):
         line = ""
-        for j in range(1, 10):
+        for j in range(0, 10):
             if (len(matrix[i]) > j):
                 line += str(matrix[i][j]) + "."
         line = line[:-1]

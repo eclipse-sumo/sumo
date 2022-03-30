@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("calibrator")
 
 # change output with an invalid value
-netedit.changeDefaultValue(netedit.attrs.Enums.calibrator.create.output, "%%%%##;;#!!!")
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.output, "%%%%##;;#!!!")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(referencePosition, 240, 250)
 
 # change output with an valid value
-netedit.changeDefaultValue(netedit.attrs.Enums.calibrator.create.output, "myOwnOutput")
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.output, "myOwnOutput")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(referencePosition, 240, 250)

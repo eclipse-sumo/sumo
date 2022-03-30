@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("e2Detector")
 
 # Change friendlyPos
-netedit.changeDefaultBoolValue(netedit.attrs.Enums.E2.create.friendlyPos)
+netedit.changeDefaultBoolValue(netedit.attrs.E2.create.friendlyPos)
 
 # create E2 with different friendlyPos
 netedit.leftClick(referencePosition, 400, 220)

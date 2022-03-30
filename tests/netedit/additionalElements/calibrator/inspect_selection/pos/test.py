@@ -41,16 +41,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 300, 130)
 
 # Change parameter id with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Enums.calibrator.inspectSelection.pos, "dummyPos", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.pos, "dummyPos", True)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.calibrator.inspectSelection.pos, "-12", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.pos, "-12", True)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.calibrator.inspectSelection.pos, "5000", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.pos, "5000", True)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.calibrator.inspectSelection.pos, "10", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.pos, "10", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

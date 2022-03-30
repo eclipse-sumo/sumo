@@ -43,7 +43,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 182, 130)
 
 # Change parameter 12 with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspect.geoshape,
+netedit.modifyAttribute(netedit.attrs.Poly.inspect.geoshape,
                         "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 " +
                         "-28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00", False)
 

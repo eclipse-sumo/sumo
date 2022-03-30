@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.routeflow.inspectSelection.color, "", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.color, "", True)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.routeflow.inspectSelection.color, "dummyColor", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.color, "dummyColor", True)
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.Enums.routeflow.inspectSelection.color, "cyan", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.color, "cyan", True)
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.routeflow.inspectSelection.color, "12,13,14", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.color, "12,13,14", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

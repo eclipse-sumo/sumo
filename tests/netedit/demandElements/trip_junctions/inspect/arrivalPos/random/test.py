@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspect.arrivalPos, "", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalPos, "", False)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspect.arrivalPos, "dummyPos", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalPos, "dummyPos", False)
 
 # change departColor with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspect.arrivalPos, "500", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalPos, "500", False)
 
 # change arrivalPos with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspect.arrivalPos, "random", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalPos, "random", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

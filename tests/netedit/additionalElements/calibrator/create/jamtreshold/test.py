@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("calibrator")
 
 # change output with an invalid value
-netedit.changeDefaultValue(netedit.attrs.Enums.calibrator.create.jamTreshold, "dummyJam")
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamTreshold, "dummyJam")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(referencePosition, 240, 250)
 
 # change output with an invalid value
-netedit.changeDefaultValue(netedit.attrs.Enums.calibrator.create.jamTreshold, "-5")
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamTreshold, "-5")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(referencePosition, 240, 250)
 
 # change output with an valid value
-netedit.changeDefaultValue(netedit.attrs.Enums.calibrator.create.jamTreshold, "12.3")
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamTreshold, "12.3")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(referencePosition, 240, 250)

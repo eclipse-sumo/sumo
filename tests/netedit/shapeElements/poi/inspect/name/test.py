@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 108, 50)
 
 # Change parameter 9 with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.Enums.POI.inspect.name, "%$$%%%%%", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspect.name, "%$$%%%%%", False)
 
 # Change parameter 9 with a non valid value (no exist)
-netedit.modifyAttribute(netedit.attrs.Enums.POI.inspect.name, "customName", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspect.name, "customName", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

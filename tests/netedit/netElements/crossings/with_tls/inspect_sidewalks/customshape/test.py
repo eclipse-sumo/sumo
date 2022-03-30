@@ -41,10 +41,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 225)
 
 # Change shape with a non valid value
-netedit.modifyAttribute(netedit.attrs.Enums.crossing.inspectTLS.customShape, "dummyShape", True)
+netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.customShape, "dummyShape", True)
 
 # Change shape with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.crossing.inspectTLS.customShape,
+netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.customShape,
                         "42.60,56.52 48.25,55.65 51.97,53.13 51.86,49.56 49.29,45.45 42.87,43.86", True)
 
 # rebuild network

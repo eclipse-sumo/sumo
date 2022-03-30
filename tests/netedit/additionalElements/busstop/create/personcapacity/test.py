@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.Enums.busStop.create.personCapacity, "-2")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.personCapacity, "-2")
 
 # try to create busStop
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.Enums.busStop.create.personCapacity, "7.5")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.personCapacity, "7.5")
 
 # try to create busStop
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.Enums.busStop.create.personCapacity, "3")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.personCapacity, "3")
 
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

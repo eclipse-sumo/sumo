@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.forceSaveAdditionals()
 
 # toggle select lanes
-netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.selectLane)
+netedit.changeEditMode(netedit.attrs.Modes.Network.selectLane)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 165)
 
 # Change parameter 1 with an non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Enums.lane.inspect.allow, "DummyAllowed", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.allow, "DummyAllowed", True)
 
 # Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.Enums.lane.inspect.allow, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.allow, "", True)
 
 # Change parameter 1 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.Enums.lane.inspect.allow, "authority  army, passenger; taxi. tram", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.allow, "authority  army, passenger; taxi. tram", True)
 
 # Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.Enums.lane.inspect.allow, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.allow, "", True)
 
 # Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.Enums.lane.inspect.allow,
+netedit.modifyAttribute(netedit.attrs.lane.inspect.allow,
                         "authority army vip passenger hov taxi bus coach tram bicycle", True)
 
 # recompute

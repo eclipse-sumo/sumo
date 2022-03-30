@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 230)
 
 # set invalid radius
-netedit.modifyAttribute(netedit.attrs.Enums.junction.inspectSelectionTLS.radius, "dummyRadius", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.radius, "dummyRadius", False)
 
 # set invalid radius
-netedit.modifyAttribute(netedit.attrs.Enums.junction.inspectSelectionTLS.radius, "-7", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.radius, "-7", False)
 
 # change radio
-netedit.modifyAttribute(netedit.attrs.Enums.junction.inspectSelectionTLS.radius, "2.3", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.radius, "2.3", False)
 
 # rebuild network
 netedit.rebuildNetwork()

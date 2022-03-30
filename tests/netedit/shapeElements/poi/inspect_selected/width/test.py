@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 103, 57)
 
 # Change parameter 6 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Enums.POI.inspectSelection.width, "dummyWidth", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.width, "dummyWidth", False)
 
 # Change parameter 6 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.Enums.POI.inspectSelection.width, "-2", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.width, "-2", False)
 
 # Change parameter 6 with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.POI.inspectSelection.width, "5", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.width, "5", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

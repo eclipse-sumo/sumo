@@ -53,10 +53,10 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 11 with a non valid value
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspectSelection.name, "%%%$$$$$%", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.name, "%%%$$$$$%", False)
 
 # Change parameter 11 with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspectSelection.name, "my own name", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.name, "my own name", False)
 
 # recompute
 netedit.rebuildNetwork()

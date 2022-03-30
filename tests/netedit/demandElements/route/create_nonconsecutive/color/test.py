@@ -38,7 +38,7 @@ netedit.routeMode()
 netedit.changeRouteMode("non consecutive edges")
 
 # set invalid color
-netedit.changeDefaultValue(netedit.attrs.Enums.route.create.color, "dummyColor")
+netedit.changeDefaultValue(netedit.attrs.route.create.color, "dummyColor")
 
 # try to create route using three edges
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,13 +48,13 @@ netedit.leftClick(referencePosition, 570, 250)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.Enums.route.create.color, "120, 20, 30")
+netedit.changeDefaultValue(netedit.attrs.route.create.color, "120, 20, 30")
 
 # press enter to create route
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.Enums.route.create.color, "blue")
+netedit.changeDefaultValue(netedit.attrs.route.create.color, "blue")
 
 # try to create route using three edges
 netedit.leftClick(referencePosition, 280, 55)

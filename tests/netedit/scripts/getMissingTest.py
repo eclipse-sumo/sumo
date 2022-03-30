@@ -76,7 +76,7 @@ for reference in references:
         # replace extra characters
         reference = reference.replace(')', '')
         # replace extra characters
-        reference = reference.replace('netedit.attrs.Enums.', '')
+        reference = reference.replace('netedit.attrs.', '')
         if (len(reference) > 0):
             # add endline
             if (reference[-1] != '\n'):

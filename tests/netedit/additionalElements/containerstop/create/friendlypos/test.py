@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # set friendlyPos
-netedit.changeDefaultBoolValue(netedit.attrs.Enums.containerStop.create.friendlyPos)
+netedit.changeDefaultBoolValue(netedit.attrs.containerStop.create.friendlyPos)
 
 # create containerStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

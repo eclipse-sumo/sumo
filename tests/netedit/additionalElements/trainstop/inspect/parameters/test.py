@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("trainStop")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.Enums.trainStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference center")
 
 # create trainStop in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.Enums.trainStop.inspect.parameters, True)
+netedit.checkParameters(referencePosition, netedit.attrs.trainStop.inspect.parameters, True)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

@@ -41,22 +41,22 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 8 with an non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspect.allowed, "DummyAllowed", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.allowed, "DummyAllowed", False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspect.allowed, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.allowed, "", False)
 
 # Change parameter 8 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspect.allowed, "authority  army, passenger; taxi. tram", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.allowed, "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspect.allowed, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.allowed, "", False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.Enums.edge.inspect.allowedButton, False)
+netedit.modifyAllowDisallowValue(netedit.attrs.edge.inspect.allowedButton, False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspect.allowed,
+netedit.modifyAttribute(netedit.attrs.edge.inspect.allowed,
                         "authority army vip passenger hov taxi bus coach tram bicycle", False)
 
 # recompute

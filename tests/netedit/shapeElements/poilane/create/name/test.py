@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # change imgfile (invalid)
-netedit.changeDefaultValue(netedit.attrs.Enums.POILane.create.name, "%%$%$&$%$%$")
+netedit.changeDefaultValue(netedit.attrs.POILane.create.name, "%%$%$&$%$%$")
 
 # try to create POI
 netedit.leftClick(referencePosition, 150, 210)
 
 # change imgfile (non exist)
-netedit.changeDefaultValue(netedit.attrs.Enums.POILane.create.name, "customName")
+netedit.changeDefaultValue(netedit.attrs.POILane.create.name, "customName")
 
 # try to create POI
 netedit.leftClick(referencePosition, 200, 210)

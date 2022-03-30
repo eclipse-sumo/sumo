@@ -38,16 +38,16 @@ netedit.changeElement("poi")
 netedit.leftClick(referencePosition, 90, 83)
 
 # change color to white (To see icon)
-netedit.changeDefaultValue(netedit.attrs.Enums.POI.create.color, "white")
+netedit.changeDefaultValue(netedit.attrs.POI.create.color, "white")
 
 # Change parameter width with a valid value (To see icon)
-netedit.changeDefaultValue(netedit.attrs.Enums.POI.create.width, "10")
+netedit.changeDefaultValue(netedit.attrs.POI.create.width, "10")
 
 # Change parameter height with a valid value (To see icon)
-netedit.changeDefaultValue(netedit.attrs.Enums.POI.create.height, "10")
+netedit.changeDefaultValue(netedit.attrs.POI.create.height, "10")
 
 # change imgfile (valid)
-netedit.changeDefaultValue(netedit.attrs.Enums.POI.create.imgFile, "berlin_icon.ico")
+netedit.changeDefaultValue(netedit.attrs.POI.create.imgFile, "berlin_icon.ico")
 
 # create poi
 netedit.leftClick(referencePosition, 90, 416)

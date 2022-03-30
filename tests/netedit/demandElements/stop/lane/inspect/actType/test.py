@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspect.actType, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.actType, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspect.actType, "", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.actType, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspect.actType, "singing", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.actType, "singing", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

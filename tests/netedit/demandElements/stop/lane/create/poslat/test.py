@@ -41,25 +41,25 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.Enums.stopLane.create.posLat, "dummyPosLat")
+netedit.changeDefaultValue(netedit.attrs.stopLane.create.posLat, "dummyPosLat")
 
 # try to create stop
 netedit.leftClick(referencePosition, 400, 185)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.Enums.stopLane.create.posLat, "-15")
+netedit.changeDefaultValue(netedit.attrs.stopLane.create.posLat, "-15")
 
 # try to create stop
 netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.Enums.stopLane.create.posLat, "7")
+netedit.changeDefaultValue(netedit.attrs.stopLane.create.posLat, "7")
 
 # create stop
 netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.Enums.stopLane.create.posLat, "2.3")
+netedit.changeDefaultValue(netedit.attrs.stopLane.create.posLat, "2.3")
 
 # create stop
 netedit.leftClick(referencePosition, 400, 185)

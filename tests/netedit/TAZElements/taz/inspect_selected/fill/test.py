@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 115, 70)
 
 # Change boolean parameter 2
-netedit.modifyAttribute(netedit.attrs.Enums.TAZ.inspectSelection.fill, "dummyFill", False)
+netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.fill, "dummyFill", False)
 
 # Change boolean parameter 2
-netedit.modifyAttribute(netedit.attrs.Enums.TAZ.inspectSelection.fill, "true", False)
+netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.fill, "true", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

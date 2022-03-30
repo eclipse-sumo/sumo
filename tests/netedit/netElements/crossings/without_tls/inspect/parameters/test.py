@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 225)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.Enums.crossing.inspect.parameters, True)
+netedit.checkParameters(referencePosition, netedit.attrs.crossing.inspect.parameters, True)
 
 # save network
 netedit.saveNetwork(referencePosition)

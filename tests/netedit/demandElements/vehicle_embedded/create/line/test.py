@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (embedded route)")
 
 # set invalid line
-netedit.changeDefaultValue(netedit.attrs.Enums.vehicleEmbedded.create.line, "%%%%%%")
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.line, "%%%%%%")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid Line
-netedit.changeDefaultValue(netedit.attrs.Enums.vehicleEmbedded.create.line, "ownLine")
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.line, "ownLine")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set empty line
-netedit.changeDefaultValue(netedit.attrs.Enums.vehicleEmbedded.create.line, "")
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.line, "")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)

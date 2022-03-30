@@ -41,7 +41,7 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.Enums.stopLane.create.triggered, "join")
+netedit.changeDefaultValue(netedit.attrs.stopLane.create.triggered, "join")
 
 # create stop
 netedit.leftClick(referencePosition, 400, 185)

@@ -19,7 +19,6 @@ TAZ.inspect.colorButton
 TAZ.inspectSelection.colorButton
 TLS.create.TLS
 TLS.create.noTLS
-busStop.inspect.color
 busStop.inspect.colorButton
 busStop.inspectSelection.colorButton
 calibrator.create.id
@@ -142,7 +141,6 @@ lane.inspectSelection.changeLeftButton
 lane.inspectSelection.changeRight
 lane.inspectSelection.changeRightButton
 lane.inspectSelection.type
-netedit.attrs.enums.busStop.create.references
 parkingArea.create.departPos
 parkingArea.inspect.departPos
 parkingArea.inspectSelection.departPos

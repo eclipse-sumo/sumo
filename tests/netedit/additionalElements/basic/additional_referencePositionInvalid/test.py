@@ -38,13 +38,13 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # set invalid reference (dummy)
-netedit.changeDefaultValue(netedit.attrs.Enums.busStop.create.references, "dummy reference")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "dummy reference")
 
 # try to create busStop with the dummy reference
 netedit.leftClick(referencePosition, 240, 250)
 
 # set valid reference
-netedit.changeDefaultValue(netedit.attrs.Enums.busStop.create.references, "reference right")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference right")
 
 # create busStop with the valid reference
 netedit.leftClick(referencePosition, 300, 250)

@@ -38,7 +38,7 @@ netedit.crossingMode()
 netedit.leftClick(referencePosition, 325, 225)
 
 # try to create single crossing (fail)
-netedit.modifyCrossingDefaultValue(netedit.attrs.Enums.crossing.createTLS.edges, "4")
+netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.createTLS.edges, "4")
 netedit.createCrossing(True)
 
 # save network

@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 149, 53)
 
 # Change parameter 6 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Enums.POIGEO.inspectSelection.width, "dummyWidth", True)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.width, "dummyWidth", True)
 
 # Change parameter 6 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.Enums.POIGEO.inspectSelection.width, "-2", True)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.width, "-2", True)
 
 # Change parameter 6 with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.POIGEO.inspectSelection.width, "5", True)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.width, "5", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

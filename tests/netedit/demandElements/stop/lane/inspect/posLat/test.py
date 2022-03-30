@@ -50,19 +50,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspect.posLat, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.posLat, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspect.posLat, "", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.posLat, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspect.posLat, "-30", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.posLat, "-30", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspect.posLat, "6", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.posLat, "6", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.Enums.stopLane.inspect.posLat, "2.3", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.posLat, "2.3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

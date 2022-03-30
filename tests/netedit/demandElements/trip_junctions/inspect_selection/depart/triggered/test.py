@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 410, 170)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspectSelection.depart, "", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.depart, "", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspectSelection.depart, "dummyDepart", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.depart, "dummyDepart", False)
 
 # change depart with an valid value
-netedit.modifyAttribute(netedit.attrs.Enums.tripFromToJunction.inspectSelection.depart, "triggered", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.depart, "triggered", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

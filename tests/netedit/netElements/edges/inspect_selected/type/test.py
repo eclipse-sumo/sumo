@@ -53,10 +53,10 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 3 with a non valid value
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspectSelection.type, "%%$$&&&", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.type, "%%$$&&&", False)
 
 # Change parameter 3 with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspectSelection.type, "customType", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.type, "customType", False)
 
 # recompute
 netedit.rebuildNetwork()

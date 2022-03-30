@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 275, 250)
 netedit.changeElement("access")
 
 # Create Access detector
-netedit.selectAdditionalChild(netedit.attrs.Enums.access.create.parent, 0)
+netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 netedit.leftClick(referencePosition, 50, 200)
 
 # Try to create another Access in the same edge

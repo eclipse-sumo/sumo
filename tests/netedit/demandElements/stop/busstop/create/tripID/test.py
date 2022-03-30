@@ -41,19 +41,19 @@ netedit.stopMode()
 netedit.changeStopType("stopBusStop")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.Enums.stop.create.tripID, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stop.create.tripID, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.Enums.stop.create.tripID, "")
+netedit.changeDefaultValue(netedit.attrs.stop.create.tripID, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.Enums.stop.create.tripID, "customLine")
+netedit.changeDefaultValue(netedit.attrs.stop.create.tripID, "customLine")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 175)

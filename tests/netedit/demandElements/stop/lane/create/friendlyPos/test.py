@@ -41,7 +41,7 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # change friendlyPos
-netedit.changeDefaultBoolValue(netedit.attrs.Enums.stopLane.create.friendlyPos)
+netedit.changeDefaultBoolValue(netedit.attrs.stopLane.create.friendlyPos)
 
 # create stop
 netedit.leftClick(referencePosition, 400, 185)

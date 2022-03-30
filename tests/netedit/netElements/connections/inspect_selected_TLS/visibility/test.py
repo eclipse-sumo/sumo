@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.showConnections)
+netedit.changeEditMode(netedit.attrs.Modes.Network.showConnections)
 
 # go to select mode
 netedit.selectMode()
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 228, 170)
 
 # Change visibility with an invalid value
-netedit.modifyAttribute(netedit.attrs.Enums.connection.inspectSelectionTLS.visibility, "dummyVisibility", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.visibility, "dummyVisibility", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.Enums.connection.inspectSelectionTLS.visibility, "-4", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.visibility, "-4", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.Enums.connection.inspectSelectionTLS.visibility, "0", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.visibility, "0", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.Enums.connection.inspectSelectionTLS.visibility, "11", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.visibility, "11", True)
 
 # rebuild
 netedit.rebuildNetwork()

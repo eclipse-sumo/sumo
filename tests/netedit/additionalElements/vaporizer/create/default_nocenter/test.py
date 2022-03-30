@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("vaporizer")
 
 # disable center view
-netedit.changeDefaultBoolValue(netedit.attrs.Enums.vaporizer.create.center)
+netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
 
 # create vaporizer
 netedit.leftClick(referencePosition, 250, 265)

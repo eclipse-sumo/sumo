@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (embedded route)")
 
 # set invalid line
-netedit.changeDefaultValue(netedit.attrs.Enums.flowEmbedded.create.line, "%%%%%%")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.line, "%%%%%%")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid Line
-netedit.changeDefaultValue(netedit.attrs.Enums.flowEmbedded.create.line, "ownLine")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.line, "ownLine")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set empty line
-netedit.changeDefaultValue(netedit.attrs.Enums.flowEmbedded.create.line, "")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.line, "")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)

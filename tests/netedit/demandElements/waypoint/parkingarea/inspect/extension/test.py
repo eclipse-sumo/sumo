@@ -50,25 +50,25 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 155)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.Enums.waypointParking.inspect.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointParking.inspect.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.Enums.waypointParking.inspect.extensionEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointParking.inspect.extensionEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.Enums.waypointParking.inspect.extension, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.extension, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.Enums.waypointParking.inspect.extension, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.extension, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.Enums.waypointParking.inspect.extension, "-5", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.extension, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.Enums.waypointParking.inspect.extension, "0", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.extension, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.Enums.waypointParking.inspect.extension, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.extension, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

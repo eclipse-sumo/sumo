@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 223)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.Enums.routeProbe.inspect.id, "rp_1", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.id, "rp_1", True)
 
 # Change parameter 0 with a non valid value (Invalid ID)
-netedit.modifyAttribute(netedit.attrs.Enums.routeProbe.inspect.id, "Id with spaces", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.id, "Id with spaces", True)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.routeProbe.inspect.id, "correctID", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.id, "correctID", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

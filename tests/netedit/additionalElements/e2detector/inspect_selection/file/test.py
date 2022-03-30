@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 350, 310)
 
 # Change parameter file with an non valid value
-netedit.modifyAttribute(netedit.attrs.Enums.E2.inspectSelection.file, "%;;%%&%%%&&", True)
+netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.file, "%;;%%&%%%&&", True)
 
 # Change parameter file with an empty value
-netedit.modifyAttribute(netedit.attrs.Enums.E2.inspectSelection.file, "", True)
+netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.file, "", True)
 
 # Change parameter file with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.E2.inspectSelection.file, "myOwnOutput.txt", True)
+netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.file, "myOwnOutput.txt", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

@@ -42,13 +42,13 @@ netedit.leftClick(referencePosition, 190, 240)
 netedit.leftClick(referencePosition, 440, 240)
 
 # set invalid vehicle types (invalid IDs)
-netedit.changeDefaultValue(netedit.attrs.Enums.E2Multilane.create.vTypes, "%%;$$$ %%$$ type.3")
+netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.vTypes, "%%;$$$ %%$$ type.3")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # set valid vehicle type
-netedit.changeDefaultValue(netedit.attrs.Enums.E2Multilane.create.vTypes, "private passenger taxi bus")
+netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.vTypes, "private passenger taxi bus")
 
 # create E2 with default parameters
 netedit.typeEnter()

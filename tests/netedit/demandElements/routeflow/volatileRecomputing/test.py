@@ -30,7 +30,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(
     neteditTestRoot, ['--sidewalks.guess', '--crossings.guess', '--gui-testing-debug-gl'])
 
 # show demand elements in network mode
-netedit.changeEditMode(netedit.attrs.Enums.Modes.Network.showDemandElements)
+netedit.changeEditMode(netedit.attrs.Modes.Network.showDemandElements)
 
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions()

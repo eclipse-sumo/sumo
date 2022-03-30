@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("routeProbe")
 
 # set invalid filename
-netedit.changeDefaultValue(netedit.attrs.Enums.routeProbe.create.file, "&&&&&&&&")
+netedit.changeDefaultValue(netedit.attrs.routeProbe.create.file, "&&&&&&&&")
 
 # try to create RouteProbe with invalid filename
 netedit.leftClick(referencePosition, 250, 235)
 
 # set valid filename
-netedit.changeDefaultValue(netedit.attrs.Enums.routeProbe.create.file, "fileA.txt")
+netedit.changeDefaultValue(netedit.attrs.routeProbe.create.file, "fileA.txt")
 
 # create routeProbe (camera will be moved)
 netedit.leftClick(referencePosition, 250, 235)

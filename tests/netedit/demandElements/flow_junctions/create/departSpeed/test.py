@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to junctions)")
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.Enums.flowJunction.create.departSpeed, "dummySpeed")
+netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departSpeed, "dummySpeed")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.Enums.flowJunction.create.departSpeed, "-12")
+netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departSpeed, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.Enums.flowJunction.create.departSpeed, "max")
+netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departSpeed, "max")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.Enums.flowJunction.create.departSpeed, "20")
+netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departSpeed, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # set invalid name
-netedit.changeDefaultValue(netedit.attrs.Enums.parkingArea.create.name, "&&>>><<<")
+netedit.changeDefaultValue(netedit.attrs.parkingArea.create.name, "&&>>><<<")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set name
-netedit.changeDefaultValue(netedit.attrs.Enums.parkingArea.create.name, "custon name")
+netedit.changeDefaultValue(netedit.attrs.parkingArea.create.name, "custon name")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)

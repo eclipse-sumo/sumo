@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 160, 270)
 
 # Set container capacity
-netedit.modifyAttribute(netedit.attrs.Enums.containerStop.inspectSelection.containerCapacity, "50", False)
+netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.containerCapacity, "50", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

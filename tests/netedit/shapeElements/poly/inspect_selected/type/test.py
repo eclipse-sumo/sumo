@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 105, 70)
 
 # Change parameter 5 with a valid value (but with invalid XML attributes)
-netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspectSelection.type, "<<myOwnType>>", False)
+netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.type, "<<myOwnType>>", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

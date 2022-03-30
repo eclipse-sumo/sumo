@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change type of junction
-netedit.modifyAttribute(netedit.attrs.Enums.junction.inspectTLS.type, "rail_signal", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.type, "rail_signal", False)
 
 # rebuild network
 netedit.rebuildNetwork()

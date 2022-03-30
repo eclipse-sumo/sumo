@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 300, 225)
 
 # Change parameter id with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.Enums.calibrator.inspect.id, "ca_0", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "ca_0", False)
 
 # Change parameter id with a non valid value (Invalid ID)
-netedit.modifyAttribute(netedit.attrs.Enums.calibrator.inspect.id, "Id with spaces", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "Id with spaces", False)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.calibrator.inspect.id, "correctID", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "correctID", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

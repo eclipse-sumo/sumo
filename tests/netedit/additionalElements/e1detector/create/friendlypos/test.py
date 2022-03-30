@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("e1Detector")
 
 # Change friendlyPos
-netedit.changeDefaultBoolValue(netedit.attrs.Enums.E1.create.friendlyPos)
+netedit.changeDefaultBoolValue(netedit.attrs.E1.create.friendlyPos)
 
 # create E1 with different friendly position
 netedit.leftClick(referencePosition, 450, 245)

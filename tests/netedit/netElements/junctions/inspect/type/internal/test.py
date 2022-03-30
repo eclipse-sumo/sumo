@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change type of junction
-netedit.modifyAttribute(netedit.attrs.Enums.junction.inspect.type, "internal", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.type, "internal", False)
 
 # rebuild network
 netedit.rebuildNetwork()

@@ -53,19 +53,19 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 12 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspectSelection.stopOffset, "dummyOffset", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "dummyOffset", False)
 
 # Change parameter 12 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspectSelection.stopOffset, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "", False)
 
 # Change parameter 12 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspectSelection.stopOffset, "-2", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "-2", False)
 
 # Change parameter 12 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspectSelection.stopOffset, "default", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "default", False)
 
 # Change parameter 12 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.Enums.edge.inspectSelection.stopOffset, "4", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "4", False)
 
 # recompute
 netedit.rebuildNetwork()

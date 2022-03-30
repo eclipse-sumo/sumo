@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("trainStop")
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.Enums.trainStop.create.personCapacity, "-2")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.personCapacity, "-2")
 
 # try to create trainStop
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.Enums.trainStop.create.personCapacity, "7.5")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.personCapacity, "7.5")
 
 # try to create trainStop
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.Enums.trainStop.create.personCapacity, "3")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.personCapacity, "3")
 
 # create trainStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

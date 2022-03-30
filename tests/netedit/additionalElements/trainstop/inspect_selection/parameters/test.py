@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 160, 270)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.Enums.trainStop.inspectSelection.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.trainStop.inspectSelection.parameters, False)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

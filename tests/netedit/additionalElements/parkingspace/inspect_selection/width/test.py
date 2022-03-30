@@ -41,16 +41,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 230, 260)
 
 # Change parameter width with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Enums.parkingSpace.inspectSelection.width, "dummyWidth", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.width, "dummyWidth", False)
 
 # Change parameter width with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.Enums.parkingSpace.inspectSelection.width, "-5", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.width, "-5", False)
 
 # Change parameter width with a non valid value (0)
-netedit.modifyAttribute(netedit.attrs.Enums.parkingSpace.inspectSelection.width, "0", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.width, "0", False)
 
 # Change parameter width with a valid value
-netedit.modifyAttribute(netedit.attrs.Enums.parkingSpace.inspectSelection.width, "2.3", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.width, "2.3", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

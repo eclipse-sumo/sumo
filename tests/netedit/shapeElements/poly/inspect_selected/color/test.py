@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 105, 70)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.Enums.Poly.inspectSelection.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.Poly.inspectSelection.colorButton, 5, False)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspectSelection.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.color, "dummyColor", False)
 
 # Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspectSelection.color, "255,255,500", False)
+netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.color, "255,255,500", False)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspectSelection.color, "blue", False)
+netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.color, "blue", False)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspectSelection.color, "125,60,200", False)
+netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.color, "125,60,200", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)
