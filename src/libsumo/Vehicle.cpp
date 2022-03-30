@@ -1031,7 +1031,7 @@ Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std
         } else if (param == toString(SUMO_ATTR_EXTENSION)) {
             return pars.extension < 0 ? "-1" : time2string(pars.extension);
         } else if (param == toString(SUMO_ATTR_INDEX)) {
-            return toString(nextStopIndex + vehicle->getPastStops().size()); 
+            return toString(nextStopIndex + vehicle->getPastStops().size());
         } else if (param == toString(SUMO_ATTR_PARKING)) {
             return toString(pars.parking);
         } else if (param == toString(SUMO_ATTR_TRIGGERED)) {
@@ -1483,7 +1483,8 @@ Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int
 
     Position vehPos = veh->getPosition();
 #ifdef DEBUG_MOVEXY
-    std::cout << std::endl << SIMTIME << " moveToXY veh=" << veh->getID() << " vehPos=" << vehPos << " lane=" << Named::getIDSecure(veh->getLane()) << std::endl;
+    std::cout << std::endl << SIMTIME << " moveToXY veh=" << veh->getID() << " vehPos=" << vehPos
+        << " lane=" << Named::getIDSecure(veh->getLane()) << " lanePos=" << vehicle->getPositionOnLane() << std::endl;
     std::cout << " wantedPos=" << pos << " origID=" << origID << " laneIndex=" << laneIndex << " origAngle=" << origAngle << " angle=" << angle << " keepRoute=" << keepRoute << std::endl;
 #endif
 
