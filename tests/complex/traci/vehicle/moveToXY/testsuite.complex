@@ -39,3 +39,6 @@ matchThreshold
 
 # test vehicle.getDistance
 odometer
+
+# tests for mapping vehicle at low step length (#10448)
+low_stepLength
