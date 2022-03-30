@@ -46,6 +46,9 @@ netedit.inspectMode()
 # inspect first trainStop
 netedit.leftClick(referencePosition, 250, 190)
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.trainStop.inspect.colorButton, 5, True)
+
 # Change parameter 2 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.color, "dummyColor", True)
 

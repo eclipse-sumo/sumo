@@ -1,5 +1,6 @@
 Debug: Selected item 'trainStop' in GNETagSelector
 Debug: Adding trainStop 'ts_0' in GNEChange_Additional
+Debug: Setting new attribute
 Debug: Value 'dummyColor' for attribute color of trainStop isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute

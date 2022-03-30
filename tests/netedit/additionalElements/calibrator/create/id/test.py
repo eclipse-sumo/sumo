@@ -26,44 +26,41 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
 
-# select containerStop
-netedit.changeElement("containerStop")
+# select calibrator
+netedit.changeElement("calibrator")
 
-# change reference to center
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "reference center")
+# change center view
+netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 
-# create containerStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 170)
+# create calibrator
+netedit.leftClick(referencePosition, 240, 250)
 
-# go to inspect mode
-netedit.inspectMode()
+# set invalid value
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.id, ";;;;;")
 
-# inspect first containerStop
-netedit.leftClick(referencePosition, 250, 190)
+# create calibrator
+netedit.leftClick(referencePosition, 240, 250)
 
-# change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.containerStop.inspect.colorButton, 5, True)
+# set invalid value
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.id, "ca_0")
 
-# Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.color, "dummyColor", True)
+# create calibrator
+netedit.leftClick(referencePosition, 240, 250)
 
-# Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.color, "255,255,500", True)
+# set invalid value
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.id, "customID")
 
-# Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.color, "blue", True)
+# create calibrator
+netedit.leftClick(referencePosition, 240, 250)
 
-# Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.color, "125,60,200", True)
-
-# Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+# Check undo redo
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

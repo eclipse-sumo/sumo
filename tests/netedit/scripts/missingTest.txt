@@ -19,9 +19,6 @@ TAZ.inspect.colorButton
 TAZ.inspectSelection.colorButton
 TLS.create.TLS
 TLS.create.noTLS
-busStop.inspect.colorButton
-busStop.inspectSelection.colorButton
-calibrator.create.id
 chargingStation.inspect.endPos
 connection.inspect.allow
 connection.inspect.allowButton
@@ -71,8 +68,6 @@ connection.inspectTLS.indirect
 connection.inspectTLS.length
 connection.inspectTLS.linkIndex2
 connection.inspectTLS.type
-containerStop.inspect.colorButton
-containerStop.inspectSelection.colorButton
 edgeRelData.inspect.fromEdge
 edgeRelData.inspect.toEdge
 flowEmbedded.create.colorButton
@@ -209,8 +204,6 @@ stopLane.inspectSelection.posLat
 stopLane.inspectSelection.tripID
 stopParking.inspectSelection.line
 stopParking.inspectSelection.tripID
-trainStop.inspect.colorButton
-trainStop.inspectSelection.colorButton
 tripFromToEdge.create.colorButton
 tripFromToEdge.create.id
 tripFromToEdge.create.personNumber
