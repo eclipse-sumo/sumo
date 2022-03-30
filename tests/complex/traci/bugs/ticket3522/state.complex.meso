@@ -41,7 +41,7 @@
     <vType id="t1" accel="3.00" decel="2.00" emergencyDecel="7.00" apparentDecel="6.00" sigma="1.00" tau="1.30"/>
     <vType id="t2" length="5.00" minGap="1.50" maxSpeed="20.00" color="yellow" accel="2.5" decel="4.5" sigma="0.5"/>
     <vType id="t2@veh2" length="5.00" minGap="1.50" maxSpeed="20.00" color="yellow" accel="3.00" decel="2.00" emergencyDecel="7.00" apparentDecel="6.00" sigma="1.00" tau="1.30"/>
-    <vehicle id="veh0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.06" state="0 1 0 0 0 50000 40000 9223372036854775807">
+    <vehicle id="veh0" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.06" state="0 1 0 0 0 50000 40000 9223372036854775807">
         <device id="vehroute_veh0" state="10.00 0.00 0"/>
     </vehicle>
     <vehicle id="veh1" type="t1" depart="10.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.06" state="10000 1 0 0 0 57170 47736 9223372036854775807">

@@ -40,10 +40,10 @@
     <vType id="v1" length="3.00" minGap="2.00" maxSpeed="10.00" probability="0.10" accel="1.8" decel="4.5" sigma="0"/>
     <vType id="v2" length="3.00" minGap="2.00" maxSpeed="10.00" probability="0.90" accel="2.8" decel="4.5" sigma="0"/>
     <vTypeDistribution id="v" vTypes="v1 v2" probabilities="0.10 0.90"/>
-    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="0 1 0 0 0 50000 40000 9223372036854775807">
+    <vehicle id="0" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="0 1 0 0 0 50000 40000 9223372036854775807">
         <device id="vehroute_0" state="10.00 0.00 0"/>
     </vehicle>
-    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="5.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="5000 1 0 0 0 55000 45000 9223372036854775807">
+    <vehicle id="1" depart="5.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="5000 1 0 0 0 55000 45000 9223372036854775807">
         <device id="vehroute_1" state="10.00 0.00 0"/>
     </vehicle>
     <segment id="3/1to2/1:0">
