@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
     <node id="C" x="100.00" y="100.00" type="traffic_light" tl="C">
         <param key="important" value="this is a test"/>
     </node>
-    <node id="E" x="200.00" y="100.00" type="priority"/>
+    <node id="E:" x="200.00" y="100.00" type="priority"/>
     <node id="N" x="100.00" y="200.00" type="dead_end"/>
     <node id="S" x="100.00" y="0.00" type="priority"/>
     <node id="W" x="0.00" y="100.00" type="dead_end"/>
