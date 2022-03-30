@@ -28,39 +28,30 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
-# go to shape mode
-netedit.shapeMode()
+# go to select mode
+netedit.selectMode()
 
-# select POI in list of shapes
-netedit.changeElement("poi")
+# select first POI
+netedit.leftClick(referencePosition, 103, 57)
 
-# create first POI
-netedit.leftClick(referencePosition, 108, 50)
+# select second POI
+netedit.leftClick(referencePosition, 153, 57)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 108, 50)
+netedit.leftClick(referencePosition, 103, 57)
 
-# change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.Enums.POI.inspect.colorButton, 5, False)
+# Change parameter 8 with a non valid value (invalid)
+netedit.modifyAttribute(netedit.attrs.Enums.POI.inspectSelection.name, "%$$%%%%%", False)
 
-# Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Enums.POI.inspect.color, "dummyColor", False)
-
-# Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.Enums.POI.inspect.color, "255,255,500", False)
-
-# Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.Enums.POI.inspect.color, "blue", False)
-
-# Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.Enums.POI.inspect.color, "125,60,200", False)
+# Change parameter 8 with a non valid value (no exist)
+netedit.modifyAttribute(netedit.attrs.Enums.POI.inspectSelection.name, "customName", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save shapes
 netedit.saveAdditionals(referencePosition)

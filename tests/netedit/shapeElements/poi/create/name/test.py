@@ -31,36 +31,24 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to shape mode
 netedit.shapeMode()
 
-# select POI in list of shapes
+# go to shape mode
 netedit.changeElement("poi")
 
-# create first POI
-netedit.leftClick(referencePosition, 108, 50)
+# change angle (invalid)
+netedit.changeDefaultValue(netedit.attrs.Enums.POI.create.name, "%%%%;;;%%%")
 
-# go to inspect mode
-netedit.inspectMode()
+# try to create POI
+netedit.leftClick(referencePosition, 100, 50)
 
-# inspect first POI
-netedit.leftClick(referencePosition, 108, 50)
+# change angle (valid, but > 360)
+netedit.changeDefaultValue(netedit.attrs.Enums.POI.create.name, "customName")
 
-# change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.Enums.POI.inspect.colorButton, 5, False)
+# create POI
+netedit.leftClick(referencePosition, 150, 50)
 
-# Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Enums.POI.inspect.color, "dummyColor", False)
-
-# Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.Enums.POI.inspect.color, "255,255,500", False)
-
-# Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.Enums.POI.inspect.color, "blue", False)
-
-# Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.Enums.POI.inspect.color, "125,60,200", False)
-
-# Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+# Check undo redo
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save shapes
 netedit.saveAdditionals(referencePosition)

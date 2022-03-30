@@ -12,11 +12,6 @@ Modes.Network.grid
 Modes.Network.junctionShape
 Modes.Network.showSubAdditionals
 Modes.Network.spreadVehicle
-POI.create.name
-POI.inspect.colorButton
-POI.inspect.name
-POI.inspectSelection.colorButton
-POI.inspectSelection.name
 POIGEO.create.lonLat
 POIGEO.create.name
 POIGEO.inspect.colorButton

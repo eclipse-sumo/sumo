@@ -974,6 +974,31 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     typeSpace()
 
 
+def modifyColorAttribute(attributeNumber, color, overlapped):
+    """
+    @brief modify color using dialog
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to attribute depending if it's a overlapped element
+    if overlapped:
+        for _ in range(attributeNumber + 1 + attrs.Enums.EditElements.overlapped):
+            typeTab()
+    else:
+        for _ in range(attributeNumber + 1):
+            typeTab()
+    typeSpace()
+    # go to list of colors TextField
+    for _ in range(2):
+        typeInvertTab()
+    # select color
+    for _ in range(1 + color):
+        typeKey('down')
+    # go to accept button and press it
+    typeTab()
+    typeSpace()
+
+
 def modifyAllowDisallowValue(numTabs, overlapped):
     """
     @brief modify allow/disallow values
