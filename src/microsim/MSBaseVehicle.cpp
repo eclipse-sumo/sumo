@@ -857,9 +857,9 @@ MSBaseVehicle::getDevice(const std::type_info& type) const {
 
 void
 MSBaseVehicle::saveState(OutputDevice& out) {
-    // this saves lots of departParameters which are only needed for vehicles that did not yet depart
     // the parameters may hold the name of a vTypeDistribution but we are interested in the actual type
-    myParameter->write(out, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, getVehicleType().getID());
+    const std::string& typeID = MSNet::getInstance()->getVehicleControl().hasVTypeDistribution(myParameter->vtypeid) || getVehicleType().isVehicleSpecific() ? getVehicleType().getID() : "";
+    myParameter->write(out, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, typeID);
     // params and stops must be written in child classes since they may wish to add additional attributes first
     out.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
     std::ostringstream os;
