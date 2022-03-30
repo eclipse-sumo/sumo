@@ -53,11 +53,13 @@ for file in fileList:
     for line in lines:
         if ("netedit.attrs." in line):
             references.append(line)
-
+            
+"""
 # save references
 with open("references.txt", "w") as fp:
     for reference in references:
         fp.write(reference)
+"""
 
 # cleaned references
 cleanedReferences = []
@@ -81,11 +83,13 @@ for reference in references:
                 reference += '\n'
             # add into cleanedReferences
             cleanedReferences.append(reference)
-
+            
+"""
 # save cleanedReferences
 with open("cleanedReferences.txt", "w") as fp:
     for cleanedReference in cleanedReferences:
         fp.write(cleanedReference)
+"""
 
 # open enumsXML.txt and append to cleanedReferences
 with open("enumsXML.txt", "r") as fp:
@@ -94,10 +98,12 @@ with open("enumsXML.txt", "r") as fp:
 # sort
 cleanedReferences.sort()
 
+"""
 # save
 with open("cleanedReferencesAndEnums.txt", "w") as fp:
     for cleanedReference in cleanedReferences:
         fp.write(cleanedReference)
+"""
 
 # dictionary
 dic = {'dummy': 1000}
