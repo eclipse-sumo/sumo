@@ -41,7 +41,9 @@ for laneID in ["SC_0", ":C_w2_0"]:
         lane.getID(),
         '\n'.join(list(map(str, lane.getOutgoing())))))
     print("outgoing internal lanes of %s: %s" % (
-        lane.getID(), ' '.join([net.getLane(c.getViaLaneID()).getID() if c.getViaLaneID() != "" else "" for c in lane.getOutgoing()])))
+        lane.getID(), ' '.join([net.getLane(c.getViaLaneID()).getID()
+            if c.getViaLaneID() != "" else ""
+            for c in lane.getOutgoing()])))
 
 for laneID in ["CN_0", ":C_w2_0"]:
     lane2 = net.getLane(laneID)
