@@ -43,6 +43,9 @@ netedit.inspectMode()
 # inspect first POI
 netedit.leftClick(referencePosition, 103, 57)
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.POI.inspectSelection.colorButton, 6, False)
+
 # Change parameter 2 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.color, "dummyColor", False)
 
@@ -56,8 +59,8 @@ netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.color, "blue", False)
 netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.color, "125,60,200", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save shapes
 netedit.saveAdditionals(referencePosition)

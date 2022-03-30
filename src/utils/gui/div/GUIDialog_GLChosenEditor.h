@@ -82,7 +82,7 @@ public:
      * Opens a file dialog and forces the selection container to save the list
      *  of selected objects when a file was chosen.
      *
-     * If the saveing failed, a message window is shown.
+     * If the saving failed, a message window is shown.
      *
      * @todo Recheck loading/saving of selections
      */

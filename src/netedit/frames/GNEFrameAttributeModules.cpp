@@ -85,7 +85,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     // Create and hide ButtonCombinableChoices
     myAttributeButtonCombinableChoices = new FXButton(this, "attributeButtonCombinableChoices", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeButtonCombinableChoices->hide();
-    // create and hidde color editor
+    // create and hide color editor
     myAttributeColorButton = new FXButton(this, "attributeColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
     // Create and hide textField for string attributes
@@ -296,7 +296,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
             myAttributeButtonCombinableChoices->disable();
         }
     }
-    // set check buton
+    // set check button
     if (myAttributeCheckButton->shown()) {
         myAttributeCheckButton->setCheck(attributeEnabled);
     }
@@ -464,7 +464,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             double angle = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
             // filter if angle isn't between [0,360]
             if ((angle < 0) || (angle > 360)) {
-                // apply modul
+                // apply module
                 angle = fmod(angle, 360);
             }
             // set newVal
@@ -639,7 +639,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
     if (ACs.size() > 0) {
         // Iterate over attributes
         for (const auto& attrProperty : ACs.front()->getTagProperty()) {
-            // declare flag to show/hidde atribute
+            // declare flag to show/hide attribute
             bool editAttribute = true;
             // disable editing for unique attributes in case of multi-selection
             if ((ACs.size() > 1) && attrProperty.isUnique()) {
@@ -729,7 +729,7 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
     if (ACs.size() > 0) {
         // Iterate over inspected attribute carriers
         for (const auto& attrProperty : ACs.front()->getTagProperty()) {
-            // declare flag to show/hidde atribute
+            // declare flag to show/hide attribute
             bool editAttribute = true;
             // disable editing for unique attributes in case of multi-selection
             if ((ACs.size() > 1) && attrProperty.isUnique()) {

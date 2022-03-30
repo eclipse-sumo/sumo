@@ -43,6 +43,9 @@ netedit.inspectMode()
 # inspect first POILane
 netedit.leftClick(referencePosition, 140, 210)
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.POILane.inspectSelection.colorButton, 3, True)
+
 # Change parameter color with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.POILane.inspectSelection.color, "dummyColor", True)
 

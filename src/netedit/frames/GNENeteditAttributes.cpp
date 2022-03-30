@@ -188,7 +188,7 @@ GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*)
             myLengthTextField->setTextColor(FXRGB(255, 0, 0));
             myCurrentLengthValid = false;
         }
-        // Update aditional frame
+        // Update additional frame
         update();
     } else if (obj == myReferencePointMatchBox) {
         // Cast actual reference point type

@@ -2,7 +2,7 @@
   "replacementPatterns": [
     {
       "pattern": "{{Source}}",
-      "replacement": "https://github.com/eclipse/sumo/blob/master/"
+      "replacement": "https://github.com/eclipse/sumo/blob/main/"
     }
   ],
   "ignorePatterns": [
@@ -13,7 +13,7 @@
       "pattern": "https://build.opensuse.org/project/show/science:dlr"
     },
     {
-      "pattern": "https://github.com/eclipse/sumo/blob/master/"
+      "pattern": "https://github.com/eclipse/sumo/blob/main/"
     },
     {
       "pattern": "https://elib.dlr.de/94006/1/Proceeding_SUMO2014_15%2B16May2014_Berlin-Adlershof.pdf"

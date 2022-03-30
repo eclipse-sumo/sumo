@@ -131,7 +131,9 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix
     }
     if (OptionsCont::getOptions().getBool("save-state.rng")) {
         saveRNGs(out);
-        MSNet::getInstance()->getEdgeControl().saveState(out);
+        if (!MSGlobals::gUseMesoSim) {
+            MSNet::getInstance()->getEdgeControl().saveState(out);
+        }
     }
     MSRoute::dict_saveState(out);
     MSNet::getInstance()->getVehicleControl().saveState(out);

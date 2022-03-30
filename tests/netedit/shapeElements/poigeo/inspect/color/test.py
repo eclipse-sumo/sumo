@@ -43,6 +43,9 @@ netedit.inspectMode()
 # inspect first POI
 netedit.leftClick(referencePosition, 108, 50)
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.POIGEO.inspect.colorButton, 5, False)
+
 # Change parameter 4 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.color, "dummyColor", False)
 
