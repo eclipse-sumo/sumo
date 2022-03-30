@@ -16,49 +16,66 @@
 # @date    2022-03-21
 
 
+# remove '=' until end
+def removeEqual(line):
+    solution = ""
+    while ((len(line) > 0) and (line[0] != '=')):
+        solution += line[0]
+        line = line[1:]
+    return solution
+
+# load
 with open("../attributesEnum.py", "r") as fp:
     lines = fp.readlines()
 
-# process
-
+# process lines
 matrix = []
 for line in lines:
     if ("#" not in line):
-        line = line.replace(" = ", "=")
+        line = removeEqual(line)
         line = line.replace("class ", "")
         line = line.replace("    ", "\t")
         line = line.replace(":", "")
         line = line.replace("\n", "")  
         if ("='" in line):
-            line = line[0:-5]
+            line = line[0:-4]
         if ("=" in line):
             line = line[0:-3]
         if ("=" in line):
             line = line[0:-2]
-        if (line.count('\t') == 0):
-            matrix.append(line)
-        elif (line.count('\t') == 1):
-            line = line.replace("\t", "")
-            matrix.append([[], line])
-        elif (line.count('\t') == 2):
-            line = line.replace("\t", "")
-            matrix.append([[], [], line])
-        elif (line.count('\t') == 3):
-            line = line.replace("\t", "")
-            matrix.append([[], [], [], line])
-        elif (line.count('\t') == 4):
-            line = line.replace("\t", "")
-            matrix.append([[], [], [], [], line])
-        elif (line.count('\t') == 5):
-            line = line.replace("\t", "")
-            matrix.append([[], [], [], [], [], line])
+        if (len(line) > 1):
+            if (line.count('\t') == 0):
+                matrix.append([line])
+            elif (line.count('\t') == 1):
+                line = line.replace("\t", "")
+                matrix.append([[], line])
+            elif (line.count('\t') == 2):
+                line = line.replace("\t", "")
+                matrix.append([[], [], line])
+            elif (line.count('\t') == 3):
+                line = line.replace("\t", "")
+                matrix.append([[], [], [], line])
+            elif (line.count('\t') == 4):
+                line = line.replace("\t", "")
+                matrix.append([[], [], [], [], line])
+            elif (line.count('\t') == 5):
+                line = line.replace("\t", "")
+                matrix.append([[], [], [], [], [], line])
+
+# fill
+for j in range(10):
+    for i in range(len(matrix)):
+        if ((len(matrix[i]) > j) and (matrix[i][j] == [])):
+            matrix[i][j] = matrix[i-1][j]
 
 # save
 with open("enumsXML.txt", "w") as fp:
-
-            
-            
-            print (matrix)
-
-            fp.write(line)
+    for i in range(len(matrix)):
+        line = ""
+        for j in range(10):
+            if (len(matrix[i]) > j):
+                line += str(matrix[i][j]) + "."
+        line = line[:-1]
+        line += '\n'
+        fp.write(line)
                 
