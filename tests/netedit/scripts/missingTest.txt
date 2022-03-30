@@ -13,13 +13,6 @@ Modes.Network.junctionShape
 Modes.Network.showSubAdditionals
 Modes.Network.spreadVehicle
 POIGEO.create.lonLat
-
-Poly.create.name
-Poly.inspect.colorButton
-Poly.inspect.name
-Poly.inspectSelection.colorButton
-Poly.inspectSelection.fill
-Poly.inspectSelection.name
 Selection.LockSelectionNetwork.TAZs
 TAZ.create.name
 TAZ.inspect.colorButton

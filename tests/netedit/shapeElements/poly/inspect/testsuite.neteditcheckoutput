@@ -20,6 +20,8 @@ layer
 # edit poly type
 type
 
+name
+
 # edit poly imgfile
 imgfile
 

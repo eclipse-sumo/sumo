@@ -7,6 +7,8 @@ Debug: Adding poly 'poly_0' in GNEChange_Additional
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -8.00,-2.00,22.00,28.00
 Debug: Adding poly 'poly_1' in GNEChange_Additional
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 12.00,-2.00,42.00,28.00
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyColor' for attribute color of poly isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute

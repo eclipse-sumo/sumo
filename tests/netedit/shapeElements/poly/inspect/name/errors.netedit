@@ -9,9 +9,6 @@ Debug: Key ENTER pressed
 Debug: Adding poly 'po_0' in GNEChange_Additional
 GLDebug: 	Inserted polygon:po_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
 Debug: Setting new attribute
-Debug: Value 'dummyColor' for attribute color of poly isn't valid
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -21,16 +18,12 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
+Debug: Removing poly 'po_0' in GNEChange_Additional
+GLDebug: 	Removed object polygon:po_0 from SUMORTree with boundary -10.00,0.00,20.00,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
+Debug: Adding poly 'po_0' in GNEChange_Additional
+GLDebug: 	Inserted polygon:po_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

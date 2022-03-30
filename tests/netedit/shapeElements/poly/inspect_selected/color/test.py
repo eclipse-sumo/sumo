@@ -43,6 +43,9 @@ netedit.inspectMode()
 # inspect first polygon
 netedit.leftClick(referencePosition, 105, 70)
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.Enums.Poly.inspectSelection.colorButton, 5, False)
+
 # Change parameter 2 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspectSelection.color, "dummyColor", False)
 

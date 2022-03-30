@@ -31,36 +31,24 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to shape mode
 netedit.shapeMode()
 
-# go to poly mode and select poly
+# go to shape mode
 netedit.changeElement("poly")
 
-# create first polygon
+# change layer (invalid)
+netedit.changeDefaultValue(netedit.attrs.Enums.Poly.create.name, "%%%%%%···$$$$")
+
+# try to create polygon
 netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
-# go to inspect mode
-netedit.inspectMode()
+# change layer (valid, negative)
+netedit.changeDefaultValue(netedit.attrs.Enums.Poly.create.name, "customName")
 
-# inspect first polygon
-netedit.leftClick(referencePosition, 182, 130)
+# create polygon
+netedit.createSquaredPoly(referencePosition, 382, 130, 200, True)
 
-# change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.Enums.Poly.inspect.colorButton, 5, False)
-
-# Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspect.color, "dummyColor", False)
-
-# Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspect.color, "255,255,500", False)
-
-# Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspect.color, "blue", False)
-
-# Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.Enums.Poly.inspect.color, "125,60,200", False)
-
-# Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+# Check undo redo
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save shapes
 netedit.saveAdditionals(referencePosition)
