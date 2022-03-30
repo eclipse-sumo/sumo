@@ -1243,7 +1243,7 @@ SUMOXMLDefinitions::getIndexFromLane(const std::string laneID) {
 
 bool
 SUMOXMLDefinitions::isValidNetID(const std::string& value) {
-    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,:!<>&*?") == std::string::npos;
+    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,!<>&*?") == std::string::npos && value[0] != ':';
 }
 
 
