@@ -145,16 +145,18 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
         double layer = oc.getFloat("layer");
         double angle = Shape::DEFAULT_ANGLE;
         std::string imgFile = Shape::DEFAULT_IMG_FILE;
-        if (type != "" && tm.has(type)) {
-            const PCTypeMap::TypeDef& def = tm.get(type);
-            if (def.discard) {
-                continue;
+        if (type != "") {
+            if (tm.has(type)) {
+                const PCTypeMap::TypeDef& def = tm.get(type);
+                if (def.discard) {
+                    continue;
+                }
+                color = def.color;
+                layer = def.layer;
+                angle = def.angle;
+                imgFile = def.imgFile;
+                type = def.id;
             }
-            color = def.color;
-            layer = def.layer;
-            angle = def.angle;
-            imgFile = def.imgFile;
-            type = def.id;
         } else {
             type = oc.getString("type");
         }
