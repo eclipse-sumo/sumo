@@ -51,3 +51,7 @@ guess_next_edge_keepRoute0
 
 # test for #4250
 guess_next_edge_keepRoute2
+
+# test for #4250	
+# move vehicle against eddge direction
+guess_next_edge_keepRoute2_reverse
