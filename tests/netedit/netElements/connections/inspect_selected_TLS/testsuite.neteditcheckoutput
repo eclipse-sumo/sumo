@@ -10,6 +10,22 @@ visibility
 
 linkindex
 
+linkindex2
+
+allow
+
+disallow
+
 speed
+
+length
+
+changeleft
+
+changeright
+
+indirect
+
+type
 
 parameters
