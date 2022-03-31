@@ -28,7 +28,7 @@ looks like this:
 
 ```
 <add>
-    <tlLogic id="2881" offset="0" programID="NEMA" type="NEMA" offset="10">
+    <tlLogic id="2881" offset="10" programID="NEMA" type="NEMA">
         <param key="detector-length" value="20"/>
         <param key="detector-length-leftTurnLane" value="10"/>
         <param key="total-cycle-length" value="130"/>
@@ -56,7 +56,7 @@ looks like this:
 For an intersection at a ramp, the traffic light program configuration could look like this:
 ```
 <add>
-    <tlLogic id="2881" offset="0" programID="NEMA" type="NEMA" offset="10">
+    <tlLogic id="2881" offset="10" programID="NEMA" type="NEMA">
         <param key="detector-length" value="20"/>
         <param key="detector-length-leftTurnLane" value="10"/>
         <param key="total-cycle-length" value="120"/>

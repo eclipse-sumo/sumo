@@ -49,7 +49,7 @@ class GNEDataInterval;
 
 /**
  * @class GNEGenericData
- * @brief An Element which don't belongs to GNENet but has influency in the simulation
+ * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
 class GNEGenericData : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEPathManager::PathElement {
 

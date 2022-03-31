@@ -739,7 +739,6 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
             std::cout << SIMTIME << " link=" << getDescription() << " ego=" << ego->getID() << " foe=" << veh->getID()
                 << " at=" << STEPS2TIME(arrivalTime)
                 << " fat=" << STEPS2TIME(avi.arrivalTime)
-                << " atb=" << STEPS2TIME(avi.arrivalTimeBraking)
                 << " fatb=" << STEPS2TIME(fatb)
                 << " fat2=" << STEPS2TIME(foeArrivalTime)
                 << "\n";
@@ -757,7 +756,7 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1 || gDebugFlag6) {
         std::stringstream stream; // to reduce output interleaving from different threads
-        stream << "       imp=" << impatience << " fATb=" << avi.arrivalTimeBraking << " fAT2=" << foeArrivalTime << " fASb=" << foeArrivalSpeedBraking << " lA=" << lookAhead << " egoAT=" << arrivalTime << " egoLT=" << leaveTime << " egoLS=" << leaveSpeed << "\n";
+        stream << "       imp=" << impatience << " fAT2=" << foeArrivalTime << " fASb=" << foeArrivalSpeedBraking << " lA=" << lookAhead << " egoAT=" << arrivalTime << " egoLT=" << leaveTime << " egoLS=" << leaveSpeed << "\n";
         std::cout << stream.str();
     }
 #endif

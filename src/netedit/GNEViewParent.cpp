@@ -137,7 +137,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
 
-    // Hidde all Frames Area
+    // Hide all Frames Area
     hideFramesArea();
 
     // Build view toolBars

@@ -12,7 +12,7 @@ following purposes:
   fishbone or parallel parking
 - parking space outside the road network can be limited to a set
   capacity
-- automatic rerouting to an alternative parking area can be triggered
+- [automatic rerouting to an alternative parking](Rerouter.md#rerouting_to_an_alternative_parking_area) area can be triggered
   whenever a parking area becomes full
 
 # Definition

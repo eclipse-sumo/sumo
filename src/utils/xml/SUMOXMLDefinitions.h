@@ -1356,6 +1356,8 @@ enum SumoXMLAttr {
     GNE_ATTR_STOPOEXCEPTION,
     /// @brief vehicle type distribution
     GNE_ATTR_VTYPE_DISTRIBUTION,
+    /// @brief poisson definition (used in flow)
+    GNE_ATTR_POISSON,
 
     // @}
 

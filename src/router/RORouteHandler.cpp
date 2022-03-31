@@ -608,9 +608,10 @@ RORouteHandler::closePersonFlow() {
             }
         } else {
             SUMOTime depart = myVehicleParameter->depart;
-            if (OptionsCont::getOptions().getBool("randomize-flows")) {
+            // uniform sampling of departures from range is equivalent to poisson flow (encoded by negative offset)
+            if (OptionsCont::getOptions().getBool("randomize-flows") && myVehicleParameter->repetitionOffset >= 0) {
                 std::vector<SUMOTime> departures;
-                const SUMOTime range  = myVehicleParameter->repetitionNumber * myVehicleParameter->repetitionOffset;
+                const SUMOTime range = myVehicleParameter->repetitionNumber * myVehicleParameter->repetitionOffset;
                 for (int j = 0; j < myVehicleParameter->repetitionNumber; ++j) {
                     departures.push_back(depart + RandHelper::rand(range));
                 }
@@ -621,9 +622,16 @@ RORouteHandler::closePersonFlow() {
                     depart += myVehicleParameter->repetitionOffset;
                 }
             } else {
-                for (; i < myVehicleParameter->repetitionNumber; i++) {
-                    addFlowPerson(type, depart, baseID, i);
-                    depart += myVehicleParameter->repetitionOffset;
+                const bool triggered = myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED;
+                if (myVehicleParameter->repetitionOffset < 0) {
+                    // poisson: randomize first depart
+                    myVehicleParameter->incrementFlow(1);
+                }
+                for (; i < myVehicleParameter->repetitionNumber && (triggered || depart + myVehicleParameter->repetitionTotalOffset <= myVehicleParameter->repetitionEnd); i++) {
+                    addFlowPerson(type, depart + myVehicleParameter->repetitionTotalOffset, baseID, i);
+                    if (myVehicleParameter->departProcedure != DepartDefinition::TRIGGERED) {
+                        myVehicleParameter->incrementFlow(1);
+                    }
                 }
             }
         }

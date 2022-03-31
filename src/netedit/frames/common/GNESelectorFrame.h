@@ -109,7 +109,7 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief called when user change type of selction operation
+        /// @brief called when user change type of selection operation
         long onCmdSelectModificationMode(FXObject*, FXSelector, void*);
 
         /// @}
@@ -211,7 +211,7 @@ public:
 
         /** @brief Called when the user presses the Save-button
          * @note Opens a file dialog and forces the selection container to save the list
-           of selected objects when a file was chosen. If the saveing failed, a message window is shown.
+           of selected objects when a file was chosen. If the saving failed, a message window is shown.
          */
         long onCmdSave(FXObject*, FXSelector, void*);
 

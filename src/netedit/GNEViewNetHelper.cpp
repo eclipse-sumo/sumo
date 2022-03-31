@@ -1444,7 +1444,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
                 ACToUnselect.push_back(AC);
             }
         }
-        // iterate over AtributeCarriers obtained of boundary an place it in ACToSelect or ACToUnselect
+        // iterate over AttributeCarriers obtained of boundary an place it in ACToSelect or ACToUnselect
         for (const auto& AC : ACsInBoundaryFiltered) {
             switch (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModule()->getModificationMode()) {
                 case GNESelectorFrame::ModificationMode::Operation::SUB:
@@ -1537,7 +1537,7 @@ GNEViewNetHelper::TestingMode::initTestingMode() {
 
 void
 GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
-    // first check if testing mode is neabled
+    // first check if testing mode is enabled
     if (myTestingEnabled) {
         // check if main windows has to be resized
         if (myTestingWidth > 0) {
@@ -1935,7 +1935,7 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
     menuCheckToggleGrid->create();
 
     menuCheckToggleDrawJunctionShape = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            ("\t\tShow or hide junction shape. (Ctrl+J)"),
+            ("\t\tToggle show junction shape. (Ctrl+J)"),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
             myViewNet, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
     menuCheckToggleDrawJunctionShape->setChecked(false);
@@ -2209,7 +2209,7 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     menuCheckToggleGrid->create();
 
     menuCheckToggleDrawJunctionShape = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            ("\t\tShow or hide junction shape. (Ctrl+J)"),
+            ("\t\tToggle show junction shape. (Ctrl+J)"),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
             myViewNet, MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
     menuCheckToggleDrawJunctionShape->setChecked(false);
@@ -2486,7 +2486,7 @@ void
 GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
     // create menu checks
     menuCheckToggleDrawJunctionShape = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            ("\t\tShow or hide junction shape. (Ctrl+J)"),
+            ("\t\tToggle show junction shape. (Ctrl+J)"),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
     menuCheckToggleDrawJunctionShape->setChecked(false);
@@ -3121,7 +3121,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     connectionButton->create();
     // prohibition mode
     prohibitionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            "\tset prohibition mode\tMode for editing connection prohibitions. (W)",
+            "\tset prohibition mode\tMode for editing connection prohibitions. (H)",
             GUIIconSubSys::getIcon(GUIIcon::MODEPROHIBITION), myViewNet, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN, GUIDesignMFXCheckableButtonSquare);
     prohibitionButton->create();
     // traffic light mode

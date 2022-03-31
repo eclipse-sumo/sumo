@@ -93,7 +93,7 @@ GNEConnection::updateGeometry() {
             return;
         }
         // Calculate shape of connection depending of the size of Junction shape
-        // value obtanied from GNEJunction::drawgl
+        // value obtained from GNEJunction::drawgl
         if (nbCon.customShape.size() != 0) {
             myConnectionGeometry.updateGeometry(nbCon.customShape);
         } else if (getEdgeFrom()->getNBEdge()->getToNode()->getShape().area() > 4) {
@@ -113,7 +113,7 @@ GNEConnection::updateGeometry() {
                 }
                 myConnectionGeometry.updateGeometry(connectionShape);
             } else {
-                // Calculate shape so something can be drawn immidiately
+                // Calculate shape so something can be drawn immediately
                 myConnectionGeometry.updateGeometry(getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
                                                         laneShapeFrom, laneShapeTo, NUM_POINTS,
                                                         getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
@@ -126,7 +126,7 @@ GNEConnection::updateGeometry() {
         }
         // check if internal junction marker must be calculated
         if (nbCon.haveVia && (nbCon.shape.size() != 0)) {
-            // create marker for interal junction waiting position (contPos)
+            // create marker for internal junction waiting position (contPos)
             const double orthoLength = 0.5;
             Position pos = nbCon.shape.back();
             myInternalJunctionMarker = nbCon.shape.getOrthogonal(pos, 10, true, 0.1);
@@ -680,7 +680,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
                     (getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0) &&
                     canParse<int>(value) &&
                     (parse<int>(value) >= 0 || parse<int>(value) == -1)) {
-                // obtan Traffic light definition
+                // obtain Traffic light definition
                 NBTrafficLightDefinition* def = *getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin();
                 return def->getMaxValidIndex() >= parse<int>(value);
             } else {

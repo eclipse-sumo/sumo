@@ -65,8 +65,8 @@ jobs:
         cd sumo/cmake-build 
         if [[ "${{ matrix.compiler }}" == "gcc" ]]; then export CC=gcc; export CXX=g++; fi
         if [[ "${{ matrix.compiler }}" == "clang" ]]; then export CC=clang; export CXX=clang++; fi
-        if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake -DFMI=ON ..; fi
-        if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF ..; fi 
+        if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake ..; fi
+        if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF -DFMI=OFF ..; fi 
         make -j4
 
     - name: Building Traas
@@ -83,7 +83,7 @@ jobs:
       if: matrix.build_type == 'full'
       run: |
         sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-flake8 python3-autopep8
-        sudo pip3 install ezdxf pulp
+        sudo pip3 install -r sumo/tools/requirements.txt
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
@@ -92,10 +92,3 @@ jobs:
       with:
         name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}
         path: sumo/bin
-
-    - name: Uploading FMI 2.0 FMU artifacts
-      if: matrix.build_type == 'full'
-      uses: actions/upload-artifact@v1
-      with:
-        name: sumo-fmi2-linux64
-        path: sumo/bin/sumo-fmi2-linux64.fmu 

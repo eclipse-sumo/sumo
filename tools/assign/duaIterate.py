@@ -40,7 +40,7 @@ import sumolib  # noqa
 from sumolib.options import get_long_option_names  # noqa
 
 DEBUGLOG = None
-
+EDGEDATA_ADD = "edgedata.add.xml"
 
 def addGenericOptions(argParser):
     # add options which are used by duaIterate and cadytsIterate
@@ -263,12 +263,11 @@ def get_scale(options, step):
     else:
         return options.incMax
 
-
 def get_dumpfilename(options, step, prefix, full_path=True):
     # the file to which edge costs (traveltimes) are written
     if full_path:
-        return "%03i/%s_%03i_%s.xml" % (step, prefix, step, options.aggregation)
-    return "%s_%03i_%s.xml" % (prefix, step, options.aggregation)
+        return "%03i/%s_%s.xml" % (step, prefix, options.aggregation)
+    return "%s_%s.xml" % (prefix, options.aggregation)
 
 
 def get_weightfilename(options, step, prefix):
@@ -283,14 +282,14 @@ def get_weightfilename(options, step, prefix):
 
 def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     cfgfile = "%03i/iteration_%03i.sumocfg" % (step, step)
-    detectorfile = "%03i/dua_dump_%03i.add.xml" % (step, step)
-    add = [detectorfile]
+    add = [EDGEDATA_ADD]
     if options.additional != '':
         add += options.additional.split(',')
 
     sumoCmd = [sumoBinary,
+               '--output-prefix', '%03i/' % step,
                '--save-configuration', cfgfile,
-               '--log', "%03i/iteration_%03i.sumo.log" % (step, step),
+               '--log', "iteration_%03i.sumo.log" % step,
                '--net-file', options.net,
                '--route-files', route_files,
                '--additional-files', ",".join(add),
@@ -307,17 +306,17 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
                ] + additional_args
 
     if hasattr(options, "noSummary") and not options.noSummary:
-        sumoCmd += ['--summary-output', "%03i/summary_%03i.xml" % (step, step)]
+        sumoCmd += ['--summary-output', "summary_%03i.xml" % step]
     if hasattr(options, "noTripinfo") and not options.noTripinfo:
-        sumoCmd += ['--tripinfo-output', "%03i/tripinfo_%03i.xml" % (step, step)]
+        sumoCmd += ['--tripinfo-output', "tripinfo_%03i.xml" % step]
         if options.eco_measure:
             sumoCmd += ['--device.hbefa.probability', '1']
     if hasattr(options, "routefile"):
         if options.routefile == "routesonly":
-            sumoCmd += ['--vehroute-output', "%03i/vehroute_%03i.xml" % (step, step),
+            sumoCmd += ['--vehroute-output', "vehroute_%03i.xml" % step,
                         '--vehroute-output.route-length']
         elif options.routefile == "detailed":
-            sumoCmd += ['--vehroute-output', "%03i/vehroute_%03i.xml" % (step, step),
+            sumoCmd += ['--vehroute-output', "vehroute_%03i.xml" % step,
                         '--vehroute-output.route-length',
                         '--vehroute-output.exit-times']
     if hasattr(options, "lastroute") and options.lastroute:
@@ -348,18 +347,6 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     # use sumoBinary to write a config file
     subprocess.call(sumoCmd, stdout=subprocess.PIPE)
 
-    # write detectorfile
-    with open(detectorfile, 'w') as fd:
-        vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
-        suffix = "_%03i_%s" % (step, options.aggregation)
-        print("<a>", file=fd)
-        print('    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
-            suffix, options.aggregation, get_dumpfilename(options, step, "dump", False), vTypes), file=fd)
-        if options.eco_measure:
-            print(('    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml" ' +
-                   'excludeEmpty="true" minSamples="1"%s/>') %
-                  (suffix, options.aggregation, suffix, vTypes), file=fd)
-        print("</a>", file=fd)
     return cfgfile
 
 
@@ -555,6 +542,18 @@ def main(args=None):
             dumpfile = get_dumpfilename(options, step, "dump")
             print(">>> Loading %s" % dumpfile)
             costmemory.load_costs(dumpfile, step, get_scale(options, step))
+
+    # write detectorfile
+    with open(EDGEDATA_ADD, 'w') as fd:
+        vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
+        print("<a>", file=fd)
+        print('    <edgeData id="dump_%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
+            options.aggregation, options.aggregation, get_dumpfilename(options, -1, "dump", False), vTypes), file=fd)
+        if options.eco_measure:
+            print(('    <edgeData id="eco_%s" type="hbefa" freq="%s" file="%s" ' +
+                   'excludeEmpty="true" minSamples="1"%s/>') %
+                  (options.aggregation, options.aggregation, get_dumpfilename(options, step, "dump", False), vTypes), file=fd)
+        print("</a>", file=fd)
 
     avgTT = sumolib.miscutils.Statistics()
     for step in range(options.firstStep, options.lastStep):

@@ -156,3 +156,4 @@ __pycache__
 *.aps
 .gdb_history
 .env
+/tests/netedit/.vs/netedit

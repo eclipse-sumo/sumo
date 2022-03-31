@@ -317,7 +317,7 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
         const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
         // get numer of links
         const int noLinks = (int)cons.size();
-        // only continue if there is lnks
+        // only continue if there are links
         if (noLinks > 0) {
             // push link matrix
             GLHelper::pushMatrix();
@@ -491,7 +491,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     LaneDrawingConstants laneDrawingConstants(s, this);
     // get lane color
     const RGBColor color = setLaneColor(s);
-    // get flag for draw lane as railwy
+    // get flag for draw lane as railway
     const bool drawRailway = drawAsRailway(s);
     // we draw the lanes with reduced width so that the lane markings below are visible (this avoids artifacts at geometry corners without having to)
     const bool spreadSuperposed = s.spreadSuperposed && drawRailway && myParentEdge->getNBEdge()->isBidiRail();
@@ -569,7 +569,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
         // if shape is being edited, draw point and green line
         if (myShapeEdited) {
-            // psuh shape edited matrix
+            // push shape edited matrix
             GLHelper::pushMatrix();
             // translate
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 1);
@@ -1473,7 +1473,7 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s, double exagg
             for (double subWidth = 0; subWidth < myLaneGeometry.getShapeLengths()[i]; subWidth += width) {
                 // calculate length
                 const double length = MIN2(width * 0.5, myLaneGeometry.getShapeLengths()[i] - subWidth);
-                // draw tiangle
+                // draw triangle
                 glBegin(GL_TRIANGLES);
                 glVertex2d(sideOffset, -subWidth - length);
                 glVertex2d(sideOffset - width * 0.25, -subWidth);
@@ -1556,7 +1556,7 @@ GNELane::drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConsta
             GLHelper::pushMatrix();
             // Set white color
             glColor3d(1, 1, 1);
-            // Traslate matrix 2
+            // Translate matrix 2
             glTranslated(myLaneRestrictedTexturePositions.at(i).x(), myLaneRestrictedTexturePositions.at(i).y(), 0.1);
             // Rotate matrix 2
             glRotated(myLaneRestrictedTextureRotations.at(i), 0, 0, -1);
@@ -1707,7 +1707,7 @@ GNELane::updateConnectionIDs() {
     for (auto i : incomingConnections) {
         i->updateID();
     }
-    // update outocming connections of lane
+    // update outcoming connections of lane
     std::vector<GNEConnection*> outcomingConnections = getGNEOutcomingConnections();
     for (auto i : outcomingConnections) {
         i->updateID();
@@ -1845,7 +1845,7 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     removeBuslane->disable();
     FXMenuCommand* removeGreenVerge = GUIDesigns::buildFXMenuCommand(removeSpecialLanes, "Greenverge", greenVergeIcon, &parent, MID_GNE_LANE_REMOVE_GREENVERGE);
     removeGreenVerge->disable();
-    // Create menu comands for all trasform special lanes and disable it
+    // Create menu comands for all transform special lanes and disable it
     FXMenuCommand* transformLaneToSidewalk = GUIDesigns::buildFXMenuCommand(transformSlanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_TRANSFORM_SIDEWALK);
     FXMenuCommand* transformLaneToBikelane = GUIDesigns::buildFXMenuCommand(transformSlanes, "Bikelane", bikeIcon, &parent, MID_GNE_LANE_TRANSFORM_BIKE);
     FXMenuCommand* transformLaneToBuslane = GUIDesigns::buildFXMenuCommand(transformSlanes, "Buslane", busIcon, &parent, MID_GNE_LANE_TRANSFORM_BUS);

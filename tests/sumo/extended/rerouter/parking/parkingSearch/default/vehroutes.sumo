@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-11 10:12:43 by Eclipse SUMO sumo Version v1_12_0+0469-d8c8739
+<!-- generated on 2022-03-29 15:55:28 by Eclipse SUMO sumo Version v1_12_0+1721-cfd3c87c354
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,7 +64,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="ego.2" type="car" depart="4.00" departSpeed="13.89" speedFactor="1.0000" routeLength="251.40">
         <routeDistribution>
             <route cost="41.03" savings="-34.37" replacedOnEdge="A1A2" replacedOnIndex="1" reason="parkA1A2:parkingAreaReroute" replacedAtTime="20.00" probability="0" edges="A0A1 A1A2 A2A1 A1A0 A0A1" routeLength="480.55"/>
-            <route cost="48.51" savings="-14.61" edges="A0A1 A1A2 A2A3 A3A2 A2A1 A1A0 A0A1" exitTimes="15.00 26.00 -1 -1 -1 -1 -1"/>
+            <route cost="48.51" savings="-14.61" edges="A0A1 A1A2 A2A3 A3A2 A2A1 A1A0 A0A1" exitTimes="14.00 26.00 -1 -1 -1 -1 -1"/>
         </routeDistribution>
     </vehicle>
 
@@ -72,7 +72,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <routeDistribution>
             <route cost="41.03" savings="-34.37" replacedOnEdge="A1A2" replacedOnIndex="1" reason="parkA1A2:parkingAreaReroute" replacedAtTime="20.00" probability="0" edges="A0A1 A1A2 A2A1 A1A0 A0A1" routeLength="480.55"/>
             <route cost="48.51" savings="-14.61" replacedOnEdge="A2A3" replacedOnIndex="2" reason="parkA2A3:parkingAreaReroute" replacedAtTime="33.00" probability="0" edges="A0A1 A1A2 A2A3 A3A2 A2A1 A1A0 A0A1" routeLength="683.54"/>
-            <route cost="68.69" savings="-27.18" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3B2 B2B1 B1B0 B0A0 A0A1" exitTimes="17.00 28.00 39.00 46.00 54.00 -1 -1 -1 -1 -1 -1"/>
+            <route cost="68.69" savings="-27.18" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3B2 B2B1 B1B0 B0A0 A0A1" exitTimes="16.00 27.00 39.00 46.00 53.00 -1 -1 -1 -1 -1 -1"/>
         </routeDistribution>
     </vehicle>
 
@@ -81,7 +81,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route cost="41.07" savings="-34.38" replacedOnEdge="A1A2" replacedOnIndex="1" reason="parkA1A2:parkingAreaReroute" replacedAtTime="20.00" probability="0" edges="A0A1 A1A2 A2A1 A1A0 A0A1" routeLength="480.55"/>
             <route cost="48.51" savings="-14.61" replacedOnEdge="A2A3" replacedOnIndex="2" reason="parkA2A3:parkingAreaReroute" replacedAtTime="33.00" probability="0" edges="A0A1 A1A2 A2A3 A3A2 A2A1 A1A0 A0A1" routeLength="683.54"/>
             <route cost="68.69" savings="-27.18" replacedOnEdge="B2B3" replacedOnIndex="5" reason="parkB2B3:parkingAreaReroute" replacedAtTime="61.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3B2 B2B1 B1B0 B0A0 A0A1" routeLength="1061.11"/>
-            <route cost="77.38" savings="-32.23" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3C2 C2C1 C1C0 C0B0 B0A0 A0A1" exitTimes="18.00 30.00 41.00 48.00 56.00 67.00 74.00 82.00 -1 -1 -1 -1 -1 -1 -1"/>
+            <route cost="77.38" savings="-32.23" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3C2 C2C1 C1C0 C0B0 B0A0 A0A1" exitTimes="17.00 29.00 40.00 47.00 55.00 67.00 74.00 81.00 -1 -1 -1 -1 -1 -1 -1"/>
         </routeDistribution>
     </vehicle>
 
@@ -91,7 +91,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route cost="48.51" savings="-14.61" replacedOnEdge="A2A3" replacedOnIndex="2" reason="parkA2A3:parkingAreaReroute" replacedAtTime="33.00" probability="0" edges="A0A1 A1A2 A2A3 A3A2 A2A1 A1A0 A0A1" routeLength="683.54"/>
             <route cost="68.69" savings="-27.18" replacedOnEdge="B2B3" replacedOnIndex="5" reason="parkB2B3:parkingAreaReroute" replacedAtTime="61.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3B2 B2B1 B1B0 B0A0 A0A1" routeLength="1061.11"/>
             <route cost="77.38" savings="-32.23" replacedOnEdge="C2C3" replacedOnIndex="8" reason="parkC2C3:parkingAreaReroute" replacedAtTime="89.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3C2 C2C1 C1C0 C0B0 B0A0 A0A1" routeLength="1447.59"/>
-            <route cost="84.88" savings="-32.58" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D0 D0C0 C0B0 B0A0 A0A1" exitTimes="20.00 31.00 42.00 49.00 58.00 69.00 76.00 84.00 96.00 104.00 111.00 -1 -1 -1 -1 -1 -1 -1 -1"/>
+            <route cost="84.88" savings="-32.58" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D0 D0C0 C0B0 B0A0 A0A1" exitTimes="19.00 30.00 42.00 49.00 58.00 69.00 76.00 84.00 96.00 103.00 111.00 -1 -1 -1 -1 -1 -1 -1 -1"/>
         </routeDistribution>
     </vehicle>
 
@@ -102,7 +102,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route cost="68.69" savings="-27.18" replacedOnEdge="B2B3" replacedOnIndex="5" reason="parkB2B3:parkingAreaReroute" replacedAtTime="61.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3B2 B2B1 B1B0 B0A0 A0A1" routeLength="1061.11"/>
             <route cost="77.38" savings="-32.23" replacedOnEdge="C2C3" replacedOnIndex="8" reason="parkC2C3:parkingAreaReroute" replacedAtTime="89.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3C2 C2C1 C1C0 C0B0 B0A0 A0A1" routeLength="1447.59"/>
             <route cost="84.88" savings="-32.58" replacedOnEdge="D2D3" replacedOnIndex="11" reason="parkD2D3:parkingAreaReroute" replacedAtTime="118.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D0 D0C0 C0B0 B0A0 A0A1" routeLength="1838.23"/>
-            <route cost="79.49" savings="-19.72" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1D0 D0C0 C0B0 B0A0 A0A1" exitTimes="21.00 33.00 44.00 51.00 60.00 71.00 78.00 87.00 98.00 105.00 113.00 125.00 133.00 140.00 -1 -1 -1 -1 -1 -1 -1"/>
+            <route cost="79.49" savings="-19.72" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1D0 D0C0 C0B0 B0A0 A0A1" exitTimes="20.00 32.00 44.00 50.00 60.00 71.00 78.00 86.00 98.00 105.00 113.00 124.00 132.00 140.00 -1 -1 -1 -1 -1 -1 -1"/>
         </routeDistribution>
     </vehicle>
 
@@ -114,7 +114,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route cost="77.40" savings="-32.21" replacedOnEdge="C2C3" replacedOnIndex="8" reason="parkC2C3:parkingAreaReroute" replacedAtTime="89.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3C2 C2C1 C1C0 C0B0 B0A0 A0A1" routeLength="1447.59"/>
             <route cost="84.88" savings="-32.58" replacedOnEdge="D2D3" replacedOnIndex="11" reason="parkD2D3:parkingAreaReroute" replacedAtTime="118.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D0 D0C0 C0B0 B0A0 A0A1" routeLength="1838.23"/>
             <route cost="79.49" savings="-19.72" replacedOnEdge="D1D2" replacedOnIndex="14" reason="parkD1D2:parkingAreaReroute" replacedAtTime="147.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1D0 D0C0 C0B0 B0A0 A0A1" routeLength="2028.79"/>
-            <route cost="71.75" savings="-19.38" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1C1 C1C2 C2C1 C1C0 C0B0 B0A0 A0A1" exitTimes="23.00 34.00 45.00 52.00 62.00 73.00 80.00 89.00 100.00 107.00 116.00 127.00 135.00 143.00 152.00 159.00 167.00 -1 -1 -1 -1 -1 -1"/>
+            <route cost="71.75" savings="-19.38" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1C1 C1C2 C2C1 C1C0 C0B0 B0A0 A0A1" exitTimes="22.00 33.00 45.00 52.00 62.00 73.00 80.00 88.00 100.00 107.00 115.00 126.00 134.00 142.00 152.00 159.00 167.00 -1 -1 -1 -1 -1 -1"/>
         </routeDistribution>
     </vehicle>
 
@@ -127,7 +127,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route cost="84.92" savings="-32.55" replacedOnEdge="D2D3" replacedOnIndex="11" reason="parkD2D3:parkingAreaReroute" replacedAtTime="118.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D0 D0C0 C0B0 B0A0 A0A1" routeLength="1838.23"/>
             <route cost="79.49" savings="-19.72" replacedOnEdge="D1D2" replacedOnIndex="14" reason="parkD1D2:parkingAreaReroute" replacedAtTime="147.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1D0 D0C0 C0B0 B0A0 A0A1" routeLength="2028.79"/>
             <route cost="71.75" savings="-19.38" replacedOnEdge="C1C2" replacedOnIndex="17" reason="parkC1C2:parkingAreaReroute" replacedAtTime="175.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1C1 C1C2 C2C1 C1C0 C0B0 B0A0 A0A1" routeLength="2214.69"/>
-            <route cost="64.51" savings="-17.93" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1C1 C1C2 C2C1 C1B1 B1B2 B2B1 B1B0 B0A0 A0A1" exitTimes="29.00 37.00 47.00 54.00 64.00 75.00 82.00 91.00 102.00 109.00 118.00 129.00 137.00 145.00 154.00 161.00 169.00 182.00 189.00 197.00 -1 -1 -1 -1 -1"/>
+            <route cost="64.51" savings="-17.93" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1C1 C1C2 C2C1 C1B1 B1B2 B2B1 B1B0 B0A0 A0A1" exitTimes="27.00 36.00 47.00 53.00 64.00 75.00 82.00 91.00 102.00 109.00 117.00 129.00 136.00 145.00 154.00 161.00 169.00 181.00 189.00 197.00 -1 -1 -1 -1 -1"/>
         </routeDistribution>
     </vehicle>
 
@@ -141,7 +141,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route cost="79.56" savings="-19.72" replacedOnEdge="D1D2" replacedOnIndex="14" reason="parkD1D2:parkingAreaReroute" replacedAtTime="147.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1D0 D0C0 C0B0 B0A0 A0A1" routeLength="2028.79"/>
             <route cost="71.75" savings="-19.38" replacedOnEdge="C1C2" replacedOnIndex="17" reason="parkC1C2:parkingAreaReroute" replacedAtTime="175.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1C1 C1C2 C2C1 C1C0 C0B0 B0A0 A0A1" routeLength="2214.69"/>
             <route cost="64.51" savings="-17.93" replacedOnEdge="B1B2" replacedOnIndex="20" reason="parkB1B2:parkingAreaReroute" replacedAtTime="205.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1C1 C1C2 C2C1 C1B1 B1B2 B2B1 B1B0 B0A0 A0A1" routeLength="2401.17"/>
-            <route cost="57.38" savings="-18.22" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1C1 C1C2 C2C1 C1B1 B1B2 B2B1 B1B0 B0B1 B1B0 B0A0 A0A1" exitTimes="31.00 40.00 48.00 55.00 66.00 77.00 84.00 93.00 104.00 111.00 120.00 131.00 139.00 147.00 156.00 163.00 171.00 184.00 191.00 199.00 212.00 220.00 227.00 -1 -1 -1 -1"/>
+            <route cost="57.38" savings="-18.22" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3C3 C3C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D2 D2D1 D1C1 C1C2 C2C1 C1B1 B1B2 B2B1 B1B0 B0B1 B1B0 B0A0 A0A1" exitTimes="30.00 39.00 48.00 55.00 66.00 77.00 84.00 93.00 104.00 111.00 120.00 131.00 138.00 147.00 156.00 163.00 171.00 184.00 191.00 199.00 211.00 219.00 227.00 -1 -1 -1 -1"/>
         </routeDistribution>
     </vehicle>
 

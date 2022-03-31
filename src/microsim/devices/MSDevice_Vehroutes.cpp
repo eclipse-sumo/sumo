@@ -177,9 +177,7 @@ MSDevice_Vehroutes::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notifica
 bool
 MSDevice_Vehroutes::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (mySaveExits && reason != NOTIFICATION_LANE_CHANGE && reason != NOTIFICATION_PARKING && reason != NOTIFICATION_SEGMENT) {
-        if (reason != NOTIFICATION_TELEPORT && myLastSavedAt == veh.getEdge()) { // need to check this for internal lanes
-            myExits.back() = MSNet::getInstance()->getCurrentTimeStep();
-        } else if (myLastSavedAt != veh.getEdge()) {
+        if (myLastSavedAt != veh.getEdge()) {
             myExits.push_back(MSNet::getInstance()->getCurrentTimeStep());
             myLastSavedAt = veh.getEdge();
         }
@@ -521,6 +519,7 @@ MSDevice_Vehroutes::saveState(OutputDevice& out) const {
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     if (mySaveExits && myExits.size() > 0) {
         out.writeAttr(SUMO_ATTR_EXITTIMES, myExits);
+        out.writeAttr(SUMO_ATTR_EDGE, myLastSavedAt->getID());
     }
     out.closeTag();
 }
@@ -561,6 +560,9 @@ MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
         bool ok = true;
         for (const std::string& t : attrs.get<std::vector<std::string> >(SUMO_ATTR_EXITTIMES, nullptr, ok)) {
             myExits.push_back(StringUtils::toLong(t));
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_EDGE)) {
+            myLastSavedAt = MSEdge::dictionary(attrs.getString(SUMO_ATTR_EDGE));
         }
     }
 }

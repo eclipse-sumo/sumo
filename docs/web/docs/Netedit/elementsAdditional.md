@@ -44,14 +44,15 @@ Adding a list of bus stop lines
 ![](../images/GNEReferences.png)    
 Adding additional with different references
 
-## Additional sets
+## Additional hierarchies  
 
-Additional sets are additionals that comprise or contain another  additionals (called childs) (For example, *detectorE3* contains a list
-of *detEntry* and *detExit*). Additional sets are inserted in the same way as an Additional, but the insertion of an additional child is
-different. Before the insertion of an additional child in the map, the ID of the *additionalSet* parent must be selected in the list of IDs placed on the left frame. In this list the IDs of the additional sets only appear when they can be parents of the additional child (Referring to the given example: if the user wants to insert a *detEntry*, than only IDs of *detectorE3* will appear in the list on the left frame). Additional sets and their childs are graphically connected by a yellow line.
+Certain additionals need another previous additionals already placed in the newtork to be created (For example, a *detEntry* or *detExit* needs a previous *detectorE3* placed in the newtork. These child additionals are inserted in the same way as an Additional, but the insertion of an additional child is
+different. Before the insertion of an *additional child* in the map, either the ID of the *additional parent* parent must be selected in the list of IDs placed on the left frame or additional parent must be clicked in the view. In the list the IDs of the additional parents only appear when they can be parents of the additional child (Referring to the given example: if the user wants to insert a *detEntry*, than only IDs of *detectorE3* will appear in the list on the left frame). Additional parents and their childs are graphically connected by a yellow line.
 
 ![](../images/GNEAdditionalSet.png)    
 Insertion of an additional Set
+
+Additional parent can be changed during inspection of an additional child, either writting the Id of the new parent in section "Netedit attributes" or clicking over "Set new Parent" button, and then clicking over new parent.
 
 ## Help dialogs
 

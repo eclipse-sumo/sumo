@@ -452,12 +452,12 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_WIDTH:
-            return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == -1)); // kann NICHT 0 sein, oder -1 (bedeutet default)
+            return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == -1)); // can not be 0, or -1 (it means default)
         case SUMO_ATTR_PRIORITY:
             return canParse<bool>(value);
         case SUMO_ATTR_TLLINKINDEX:
         case SUMO_ATTR_TLLINKINDEX2:
-            // -1 means that tlLinkIndex2 takes on the same value as tlLinkIndex when setting idnices
+            // -1 means that tlLinkIndex2 takes on the same value as tlLinkIndex when setting indices
             return (isAttributeEnabled(key) &&
                     canParse<int>(value)
                     && (parse<double>(value) >= 0 || parse<double>(value) == -1)

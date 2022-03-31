@@ -2433,8 +2433,8 @@ NBEdge::hasLaneSpecificSpeed() const {
 
 bool
 NBEdge::hasLaneSpecificFriction() const {
-	for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-		if (i->friction != getFriction()) {
+    for (std::vector<Lane>::const_iterator i = myLanes.begin(), i2 = ++myLanes.begin(); i2 != myLanes.end(); ++i, ++i2) {
+		if (i->friction != (i2)->friction) {
 			return true;
 		}
 	}
@@ -3713,6 +3713,9 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
             return false;
         } else if (myLanes[i].permissions != possContinuation->myLanes[i].permissions) {
             reason = "lane " + toString(i) + " permissions";
+            return false;
+        } else if (myLanes[i].changeLeft != possContinuation->myLanes[i].changeLeft || myLanes[i].changeRight != possContinuation->myLanes[i].changeRight) {
+            reason = "lane " + toString(i) + " change restrictions";
             return false;
         } else if (myLanes[i].width != possContinuation->myLanes[i].width &&
                    fabs(myLanes[i].width - possContinuation->myLanes[i].width) > OptionsCont::getOptions().getFloat("geometry.remove.width-tolerance")) {

@@ -1,30 +1,25 @@
-# all test check also the undo-redo of modifications and save the POI into a shape file
-# create default
 default
 
-# create pos lat
+id
+
+friendlyPos
+
 poslat
 
-# create color
 color
 
-# create type
 type
 
-# create layer
+name
+
 layer
 
-# create width
 width
 
-# create height
 height
 
-# create imgfile
 imgfile
 
-# create relativepath
 relativepath
 
-# create with different angle
 angle

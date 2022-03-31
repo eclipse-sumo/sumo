@@ -1223,18 +1223,11 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             myCurrentEdge->myParkingType |= PARKING_LEFT;
         } else if (key == "parking:lane:right" && !StringUtils::startsWith(value, "no")) {
             myCurrentEdge->myParkingType |= PARKING_RIGHT;
-        } else if (key == "change") {
+        } else if (key == "change" || key == "change:lanes") {
+            myCurrentEdge->myChangeForward = myCurrentEdge->myChangeBackward = interpretChangeType(value);
+        } else if (key == "change:forward" || key == "change:lanes:forward") {
             myCurrentEdge->myChangeForward = interpretChangeType(value);
-            myCurrentEdge->myChangeBackward = myCurrentEdge->myChangeForward;
-        } else if (key == "change:forward") {
-            myCurrentEdge->myChangeForward = interpretChangeType(value);
-        } else if (key == "change:backward") {
-            myCurrentEdge->myChangeBackward = interpretChangeType(value);
-        } else if (key == "change:lanes") {
-            myCurrentEdge->myChangeForward = interpretChangeType(value);
-        } else if (key == "change:lanes:forward") {
-            myCurrentEdge->myChangeForward = interpretChangeType(value);
-        } else if (key == "change:lanes:backward") {
+        } else if (key == "change:backward" || key == "change:lanes:backward") {
             myCurrentEdge->myChangeBackward = interpretChangeType(value);
         } else if (key == "vehicle:lanes" || key == "vehicle:lanes:forward") {
             interpretLaneUse(value, SVC_PASSENGER, myCurrentEdge->myLaneUseForward);

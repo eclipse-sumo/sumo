@@ -55,7 +55,7 @@ public:
      * @param[in] viewParent viewParent of this viewNet
      * @param[in] net traffic net
      * @param[in] newNet check if we're creating a new net, or loading an existent
-     * @param[in] undoList pointer to UndoList modul
+     * @param[in] undoList pointer to UndoList module
      * @param[in] glVis a reference to GLVisuals
      * @param[in] share a reference to FXCanvas
      */
@@ -130,10 +130,10 @@ public:
     /// @brief get data view options
     const GNEViewNetHelper::DataViewOptions& getDataViewOptions() const;
 
-    /// @brief get Key Pressed modul
+    /// @brief get Key Pressed module
     const GNEViewNetHelper::MouseButtonKeyPressed& getMouseButtonKeyPressed() const;
 
-    /// @brief get Edit Shape modul
+    /// @brief get Edit Shape module
     const GNEViewNetHelper::EditNetworkElementShapes& getEditNetworkElementShapes() const;
 
     /// @name overloaded handlers
@@ -468,7 +468,7 @@ public:
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
-    /// @brief set staturBar text
+    /// @brief set statusBar text
     void setStatusBarText(const std::string& text);
 
     /// @brief whether to autoselect nodes or to lanes

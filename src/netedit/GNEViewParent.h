@@ -256,7 +256,7 @@ protected:
         /// @brief frame for inspect elements
         GNEInspectorFrame* inspectorFrame;
 
-        /// @brief frame for delete elemetns
+        /// @brief frame for delete elements
         GNEDeleteFrame* deleteFrame;
 
         /// @brief frame for select elements

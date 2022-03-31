@@ -71,8 +71,9 @@ GNEFlowEditor::GNEFlowEditor(GNEViewNet* viewNet, FXVerticalFrame* contentFrame)
     // fill comboBox B
     mySpacingComboBox->appendItem(toString(SUMO_ATTR_VEHSPERHOUR).c_str());
     mySpacingComboBox->appendItem(toString(SUMO_ATTR_PERIOD).c_str());
+    mySpacingComboBox->appendItem(toString(GNE_ATTR_POISSON).c_str());
     mySpacingComboBox->appendItem(toString(SUMO_ATTR_PROB).c_str());
-    mySpacingComboBox->setNumVisible(3);
+    mySpacingComboBox->setNumVisible(4);
 }
 
 
@@ -97,8 +98,9 @@ GNEFlowEditor::showFlowEditor(const std::vector<GNEAttributeCarrier*> editedFlow
         mySpacingComboBox->clearItems();
         mySpacingComboBox->appendItem(toString(myPerHourAttr).c_str());
         mySpacingComboBox->appendItem(toString(SUMO_ATTR_PERIOD).c_str());
+        mySpacingComboBox->appendItem(toString(GNE_ATTR_POISSON).c_str());
         mySpacingComboBox->appendItem(toString(SUMO_ATTR_PROB).c_str());
-        mySpacingComboBox->setNumVisible(3);
+        mySpacingComboBox->setNumVisible(4);
         // refresh
         refreshFlowEditor();
         // show
@@ -157,6 +159,9 @@ GNEFlowEditor::getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject)
     if (mySpacingLabel->getText().text() == toString(SUMO_ATTR_PERIOD)) {
         baseObject->addDoubleAttribute(SUMO_ATTR_PERIOD, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
     }
+    if (mySpacingLabel->getText() == "rate") {
+        baseObject->addDoubleAttribute(GNE_ATTR_POISSON, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
+    }
     if (mySpacingLabel->getText().text() == toString(SUMO_ATTR_PROB)) {
         baseObject->addDoubleAttribute(SUMO_ATTR_PROB, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
     }
@@ -184,6 +189,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
         // check if all spacing attributes are disabled
         const bool spacingEnabled = myEditedFlows.front()->isAttributeEnabled(myPerHourAttr) || 
                                     myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_PERIOD) || 
+                                    myEditedFlows.front()->isAttributeEnabled(GNE_ATTR_POISSON) || 
                                     myEditedFlows.front()->isAttributeEnabled(SUMO_ATTR_PROB);
         // get special case endNumber
         const bool endNumber = (myTerminateComboBox->getText().text() == (toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER)));
@@ -202,6 +208,8 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
             spacingAttribute = myPerHourAttr;
         } else if (mySpacingComboBox->getText().text() == toString(SUMO_ATTR_PERIOD)) {
             spacingAttribute = SUMO_ATTR_PERIOD;
+        } else if (mySpacingComboBox->getText().text() == toString(GNE_ATTR_POISSON)) {
+            spacingAttribute = GNE_ATTR_POISSON;
         } else if (mySpacingComboBox->getText().text() == toString(SUMO_ATTR_PROB)) {
             spacingAttribute = SUMO_ATTR_PROB;
         }
@@ -213,6 +221,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
                 // disable others
                 disableAttrs.push_back(myPerHourAttr);
                 disableAttrs.push_back(SUMO_ATTR_PERIOD);
+                disableAttrs.push_back(GNE_ATTR_POISSON);
                 disableAttrs.push_back(SUMO_ATTR_PROB);
                 // reset color
                 myTerminateComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -248,6 +257,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
             if (spacingAttribute == myPerHourAttr) {
                 enableAttrs.push_back(myPerHourAttr);
                 disableAttrs.push_back(SUMO_ATTR_PERIOD);
+                disableAttrs.push_back(GNE_ATTR_POISSON);
                 disableAttrs.push_back(SUMO_ATTR_PROB);
                 // reset color
                 mySpacingComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -255,6 +265,15 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
             } else if (spacingAttribute == SUMO_ATTR_PERIOD) {
                 disableAttrs.push_back(myPerHourAttr);
                 enableAttrs.push_back(SUMO_ATTR_PERIOD);
+                disableAttrs.push_back(GNE_ATTR_POISSON);
+                disableAttrs.push_back(SUMO_ATTR_PROB);
+                // reset color
+                mySpacingComboBox->setTextColor(FXRGB(0, 0, 0));
+                mySpacingComboBox->killFocus(); 
+            } else if (spacingAttribute == GNE_ATTR_POISSON) {
+                disableAttrs.push_back(myPerHourAttr);
+                disableAttrs.push_back(SUMO_ATTR_PERIOD);
+                enableAttrs.push_back(GNE_ATTR_POISSON);
                 disableAttrs.push_back(SUMO_ATTR_PROB);
                 // reset color
                 mySpacingComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -262,6 +281,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
             } else if (spacingAttribute == SUMO_ATTR_PROB) {
                 disableAttrs.push_back(myPerHourAttr);
                 disableAttrs.push_back(SUMO_ATTR_PERIOD);
+                disableAttrs.push_back(GNE_ATTR_POISSON);
                 enableAttrs.push_back(SUMO_ATTR_PROB);
                 // reset color
                 mySpacingComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -270,6 +290,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
                 // disable all
                 disableAttrs.push_back(myPerHourAttr);
                 disableAttrs.push_back(SUMO_ATTR_PERIOD);
+                disableAttrs.push_back(GNE_ATTR_POISSON);
                 disableAttrs.push_back(SUMO_ATTR_PROB);
                 // set invalid color
                 mySpacingComboBox->setTextColor(FXRGB(255, 0, 0));
@@ -423,9 +444,16 @@ GNEFlowEditor::refreshSingleFlow() {
             mySpacingLabel->setText(toString(SUMO_ATTR_PERIOD).c_str());
             // set text fields
             mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PERIOD).c_str());
-        } else if (flow->isAttributeEnabled(SUMO_ATTR_PROB)) {
+        } else if (flow->isAttributeEnabled(GNE_ATTR_POISSON)) {
             // set first comboBox
             mySpacingComboBox->setCurrentItem(2),
+            // set label
+            mySpacingLabel->setText("rate");
+            // set text fields
+            mySpacingTextField->setText(getFlowAttribute(GNE_ATTR_POISSON).c_str());
+        } else if (flow->isAttributeEnabled(SUMO_ATTR_PROB)) {
+            // set first comboBox
+            mySpacingComboBox->setCurrentItem(3),
             // set label
             mySpacingLabel->setText(toString(SUMO_ATTR_PROB).c_str());
             // set text fields
@@ -444,6 +472,7 @@ GNEFlowEditor::refreshMultipleFlows() {
     const bool number = editedFlow->isAttributeEnabled(SUMO_ATTR_NUMBER);
     const bool perhour = editedFlow->isAttributeEnabled(myPerHourAttr);
     const bool period = editedFlow->isAttributeEnabled(SUMO_ATTR_PERIOD);
+    const bool poisson = editedFlow->isAttributeEnabled(GNE_ATTR_POISSON);
     const bool probability = editedFlow->isAttributeEnabled(SUMO_ATTR_PROB);
     // we need to check if attributes are defined differents in flows
     std::vector<std::string> terminateDifferent;
@@ -461,6 +490,9 @@ GNEFlowEditor::refreshMultipleFlows() {
         }
         if (flow->isAttributeEnabled(SUMO_ATTR_PERIOD) != period) {
             spacingDifferent.push_back(toString(SUMO_ATTR_PERIOD));
+        }
+        if (flow->isAttributeEnabled(GNE_ATTR_POISSON) != poisson) {
+            spacingDifferent.push_back(toString(GNE_ATTR_POISSON));
         }
         if (flow->isAttributeEnabled(SUMO_ATTR_PROB) != probability) {
             spacingDifferent.push_back(toString(SUMO_ATTR_PROB));
@@ -535,9 +567,16 @@ GNEFlowEditor::refreshMultipleFlows() {
                 mySpacingLabel->setText(toString(SUMO_ATTR_PERIOD).c_str());
                 // set text fields
                 mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PERIOD).c_str());
-            } else if (probability) {
+            } else if (poisson) {
                 // set first comboBox
                 mySpacingComboBox->setCurrentItem(2),
+                // set label
+                mySpacingLabel->setText("rate");
+                // set text fields
+                mySpacingTextField->setText(getFlowAttribute(GNE_ATTR_POISSON).c_str());
+            } else if (probability) {
+                // set first comboBox
+                mySpacingComboBox->setCurrentItem(3),
                 // set label
                 mySpacingLabel->setText(toString(SUMO_ATTR_PROB).c_str());
                 // set text fields

@@ -77,7 +77,7 @@ jobs:
         cd sumo
         mkdir build_msvc
         cd build_msvc
-        cmake -DFMI=ON .. -GNinja -DCHECK_OPTIONAL_LIBS=true
+        cmake .. -GNinja -DCHECK_OPTIONAL_LIBS=true
         cmake --build . --config Release
 
     - name: Building TraaS
@@ -86,7 +86,7 @@ jobs:
         cmake --build . --config Release --target traas
 
     - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
         name: Windows-${{ matrix.build-type }}
         path: sumo/bin
@@ -96,34 +96,33 @@ jobs:
       if: matrix.build-type == 'plain'
       run: |
         cd sumo/build_msvc
-        $env:TEXTTEST_TMP = "D:/texttest/1"
+        $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,sumo"
         ctest -R texttest --verbose
-        $env:TEXTTEST_TMP = "D:/texttest/2"
         $env:TEXTTEST_CI_APPS = "-a marouter,netgen,od2trips,polyconvert,netconvert"
         ctest -R texttest --verbose
 
     - name: Examples and extra tests
-      if: matrix.build-type == 'extra'
+      if: matrix.build-type == 'extra' && github.repository == 'DLR-TS/sumo'
       run: |
-        python -m pip install pyproj Rtree ezdxf pulp pandas matplotlib scipy
+        python -m pip install -r sumo/tools/requirements.txt
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
         $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
         ctest --build-config Release --verbose
 
-#    - name: Uploading test results
-#      if: always()
-#      uses: actions/upload-artifact@v2
-#      with:
-#        name: texttesttmp-${{ matrix.build-type }}
-#        path: D:/texttest
-#        if-no-files-found: warn
+    - name: Compressing test results
+      if: always() && github.repository == 'DLR-TS/sumo'
+      run: |
+        dir d:\texttest
+        Compress-Archive -Path D:/texttest -DestinationPath D:/texttest/tt.zip
+        dir d:\texttest
 
-    - name: Uploading FMI 2.0 FMU artifacts
-      if: matrix.build-type == 'extra'
-      uses: actions/upload-artifact@v1
+    - name: Uploading test results
+      if: always() && github.repository == 'DLR-TS/sumo'
+      uses: actions/upload-artifact@v2
       with:
-        name: sumo-fmi2-win64
-        path: sumo/bin/sumo-fmi2-win64.fmu 
+        name: texttesttmp-${{ matrix.build-type }}
+        path: D:/texttest/tt.zip
+        if-no-files-found: warn

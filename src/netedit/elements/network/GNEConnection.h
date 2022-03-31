@@ -102,7 +102,7 @@ public:
     /// @brief recompute cached myLinkState
     void updateLinkState();
 
-    /// @brief somoothShape
+    /// @brief smoothShape
     void smootShape();
 
     /// @name inherited from GUIGlObject

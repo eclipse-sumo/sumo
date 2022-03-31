@@ -94,6 +94,12 @@ Xerces-C++ (3.2.3)
 * Project: http://xerces.apache.org/xerces-c/
 * Source: https://dlcdn.apache.org/xerces/c/3/sources/xerces-c-3.2.3.tar.gz
 
+JSON for Modern C++ (3.10.5)
+
+* License: MIT
+* Project: https://json.nlohmann.me/
+* Source: https://github.com/nlohmann/json/releases/tag/v3.10.5
+
 ## Cryptography
 
 Content may contain encryption software. The country in which you are currently

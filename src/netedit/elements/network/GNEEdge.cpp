@@ -87,7 +87,7 @@ GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
 
 
 GNEEdge::~GNEEdge() {
-    // Delete references to this eddge in lanes
+    // Delete references to this edge in lanes
     for (const auto& lane : myLanes) {
         lane->decRef("GNEEdge::~GNEEdge");
         if (lane->unreferenced()) {
@@ -100,7 +100,7 @@ GNEEdge::~GNEEdge() {
             delete lane;
         }
     }
-    // delete references to this eddge in connections
+    // delete references to this edge in connections
     for (const auto& connection : myGNEConnections) {
         connection->decRef("GNEEdge::~GNEEdge");
         if (connection->unreferenced()) {
@@ -173,7 +173,7 @@ GNEMoveOperation*
 GNEEdge::getMoveOperation() {
     // get snapRadius
     const double snapRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.edgeGeometryPointRadius;
-    // chec if edge is selected
+    // check if edge is selected
     if (isAttributeCarrierSelected()) {
         // check if both junctions are selected
         if (getFromJunction()->isAttributeCarrierSelected() && getToJunction()->isAttributeCarrierSelected()) {
@@ -336,7 +336,7 @@ GNEEdge::updateCenteringBoundary(const bool updateGrid) {
     // add lane boundaries
     for (const auto& lane : myLanes) {
         myBoundary.add(lane->getCenteringBoundary());
-        // add parkingArea boundaris
+        // add parkingArea boundaries
         for (const auto& additional : lane->getChildAdditionals()) {
             if (additional->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA) {
                 myBoundary.add(additional->getCenteringBoundary());
@@ -471,7 +471,7 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
         double offset = myNBEdge->getGeometry().nearest_offset_to_point2D(myNet->getViewNet()->snapToActiveGrid(pos), true);
         if (offset != GeomHelper::INVALID_OFFSET) {
             PositionVector geom = myNBEdge->getGeometry();
-            // calculate position over edge shape relative to clicked positino
+            // calculate position over edge shape relative to clicked position
             Position newPos = geom.positionAtOffset2D(offset);
             // snap new position to grid
             newPos = myNet->getViewNet()->snapToActiveGrid(newPos);
@@ -594,7 +594,7 @@ GNEEdge::getBackDownShapePosition() const {
 
 void
 GNEEdge::remakeGNEConnections() {
-    // create new and removed unused GNEConnectinos
+    // create new and removed unused GNEConnections
     const std::vector<NBEdge::Connection>& connections = myNBEdge->getConnections();
     // create a vector to keep retrieved and created connections
     std::vector<GNEConnection*> retrievedConnections;
@@ -621,7 +621,7 @@ GNEEdge::remakeGNEConnections() {
         connection->decRef();
         // remove it from network
         myNet->removeGLObjectFromGrid(connection);
-        // and from AttributeCarreirs
+        // and from AttributeCarriers
         if (myNet->getAttributeCarriers()->getConnections().count(connection) > 0) {
             myNet->getAttributeCarriers()->deleteConnection(connection);
         }
@@ -633,7 +633,7 @@ GNEEdge::remakeGNEConnections() {
             delete connection;
         }
     }
-    // copy retrieved (existent and created) GNECrossigns to myGNEConnections
+    // copy retrieved (existent and created) GNECrossings to myGNEConnections
     myGNEConnections = retrievedConnections;
 }
 
@@ -650,7 +650,7 @@ GNEEdge::clearGNEConnections() {
         connection->decRef("GNEEdge::clearGNEConnections");
         // remove it from network
         myNet->removeGLObjectFromGrid(connection);
-        // and from AttributeCarreirs
+        // and from AttributeCarriers
         if (myNet->getAttributeCarriers()->getConnections().count(connection) > 0) {
             myNet->getAttributeCarriers()->deleteConnection(connection);
         }
@@ -844,10 +844,10 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             }
 		case SUMO_ATTR_FRICTION:
 			if (myNBEdge->hasLaneSpecificFriction()) {
-				return "lane specific";
+                return "lane specific";
 			}
 			else {
-				return toString(myNBEdge->getFriction());
+				return toString(myNBEdge->getLaneFriction());
 			}
         case SUMO_ATTR_WIDTH:
             if (myNBEdge->hasLaneSpecificWidth()) {
@@ -1229,7 +1229,7 @@ GNEEdge::updateVehicleStackLabels() {
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > laneVehiclesMap = getVehiclesOverEdgeMap();
     // iterate over laneVehiclesMap and obtain a vector with
     for (const auto& vehicleMap : laneVehiclesMap) {
-        // declare map for sprt vehicles using their departpos+length position (StackPosition)
+        // declare map for sort vehicles using their departpos+length position (StackPosition)
         std::vector<std::pair<GNEEdge::StackPosition, GNEDemandElement*> > departPosVehicles;
         // declare vector of stack demand elements
         std::vector<GNEEdge::StackDemandElements> stackedVehicles;
@@ -1321,7 +1321,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
                 if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
                     GLHelper::pushMatrix();
                     glTranslated(pos.x(), pos.y(), 0.1);
-                    // resolution of drawn circle depending of the zoom (To improve smothness)
+                    // resolution of drawn circle depending of the zoom (To improve smoothness)
                     GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                     GLHelper::popMatrix();
                     // draw elevation or special symbols (Start, End and Block)
@@ -1343,7 +1343,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
                     const double angle = RAD2DEG(myNBEdge->getGeometry().front().angleTo2D(myNBEdge->getGeometry()[1])) * -1;
                     GLHelper::pushMatrix();
                     glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.1);
-                    // resolution of drawn circle depending of the zoom (To improve smothness)
+                    // resolution of drawn circle depending of the zoom (To improve smoothness)
                     GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle + 90, angle + 270);
                     GLHelper::popMatrix();
                     // draw a "s" over last point depending of drawForRectangleSelection
@@ -1368,7 +1368,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
                     const double angle = RAD2DEG(myNBEdge->getGeometry()[-1].angleTo2D(myNBEdge->getGeometry()[-2])) * -1;
                     GLHelper::pushMatrix();
                     glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.1);
-                    // resolution of drawn circle depending of the zoom (To improve smothness)
+                    // resolution of drawn circle depending of the zoom (To improve smoothness)
                     GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle - 90, angle + 90);
                     GLHelper::popMatrix();
                     // draw a "e" over last point depending of drawForRectangleSelection
@@ -1810,7 +1810,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     myNBEdge->setPreferredVehicleClass(laneAttrs.preferred, lane->getIndex());
     myNBEdge->setEndOffset(lane->getIndex(), laneAttrs.endOffset);
     myNBEdge->setLaneWidth(lane->getIndex(), laneAttrs.width);
-    // udate indices
+    // update indices
     for (int i = 0; i < (int)myLanes.size(); ++i) {
         myLanes[i]->setIndex(i);
     }
@@ -1863,7 +1863,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
         WRITE_DEBUG("Deleting unreferenced " + lane->getTagStr() + " '" + lane->getID() + "' in removeLane()");
         delete lane;
     }
-    // udate indices
+    // update indices
     for (int i = 0; i < (int)myLanes.size(); ++i) {
         myLanes[i]->setIndex(i);
     }
@@ -2396,7 +2396,7 @@ GNEEdge::processNoneJunctionSelected(const double snapRadius) {
     const auto& moveMultipleElementValues = myNet->getViewNet()->getMoveMultipleElementValues();
     // declare shape to move
     PositionVector shapeToMove = myNBEdge->getGeometry();
-    // first check if keeped offset is larger than geometry
+    // first check if kept offset is larger than geometry
     if (shapeToMove.length2D() < moveMultipleElementValues.getEdgeOffset()) {
         return nullptr;
     }

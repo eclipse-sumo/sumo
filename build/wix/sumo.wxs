@@ -148,5 +148,8 @@
     <Icon Id="netedit.exe" SourceFile="{bindir}\netedit.exe" />
     <Icon Id="webwiz.exe" SourceFile="{webwizico}" />
     <Property Id="ARPPRODUCTICON" Value="sumogui.exe" />
+
+    <!-- Handle upgrades (cf. https://wixtoolset.org/documentation/manual/v3/howtos/updates/major_upgrade.html) -->
+    <MajorUpgrade AllowDowngrades="no" AllowSameVersionUpgrades="no" Schedule="afterInstallValidate" DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." />
   </Product>
 </Wix>

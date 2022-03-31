@@ -357,7 +357,7 @@ private:
         const std::vector<GNEDemandElement*>& getDemandElements() const;
     };
 
-    /// @brif flag to enable/disable update geometry of lanes (used mainly by setNumLanes)
+    /// @brief flag to enable/disable update geometry of lanes (used mainly by setNumLanes)
     bool myUpdateGeometry;
 
     /// @brief set attribute after validation

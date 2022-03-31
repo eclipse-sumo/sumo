@@ -75,7 +75,7 @@ enum {
     /// @name Ctrl hotkeys
     /// @{
 
-    /// @brief Start the simulation in SUMO and open Additionals Elemements in NETEDIT
+    /// @brief Start the simulation in SUMO and open Additionals Elements in NETEDIT
     MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,
     /// @brief Edit simulation breakpoints in SUMO and open Data Elements in NETEDIT
     MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,
@@ -91,13 +91,13 @@ enum {
     MID_HOTKEY_CTRL_I_EDITVIEWPORT,
     /// @brief Fullscreen mode - menu entry
     MID_HOTKEY_CTRL_F_FULSCREENMODE,
-    /// @brief toogle draw junction shape
+    /// @brief toggle draw junction shape
     MID_HOTKEY_CTRL_J_TOOGLEDRAWJUNCTIONSHAPE,
     /// @brief Load file with TLS Programs
     MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,
     /// @brief save network as plain XML
     MID_HOTKEY_CTRL_L_SAVEASPLAINXML,
-    /// @brief create new empty newtork
+    /// @brief create new empty network
     MID_HOTKEY_CTRL_N_NEWNETWORK,
     /// @brief Main window closes
     MID_HOTKEY_CTRL_Q_CLOSE,
@@ -365,7 +365,7 @@ enum {
     MID_LOCATECONTAINER,
     /// @brief Locate TLS - button
     MID_LOCATETLS,
-    /// @brief Locate addtional structure - button
+    /// @brief Locate additional structure - button
     MID_LOCATEADD,
     /// @brief Locate poi - button
     MID_LOCATEPOI,
@@ -445,7 +445,7 @@ enum {
     MID_SHOW_DETECTORS,
     /// @brief Add to selected items - menu entry
     MID_ADDSELECT,
-    /// @brief Remove from selected items - Menu Etry
+    /// @brief Remove from selected items - Menu Entry
     MID_REMOVESELECT,
     /// @brief Open the object's manipulator
     MID_MANIP,
@@ -481,9 +481,9 @@ enum {
     MID_HIDE_LFLINKITEMS,
     /// @brief select transportables of a vehicle
     MID_SELECT_TRANSPORTED,
-    /// @brief toggle stop state of a vehice or person
+    /// @brief toggle stop state of a vehicle or person
     MID_TOGGLE_STOP,
-    /// @brief remove a vehice or person
+    /// @brief remove a vehicle or person
     MID_REMOVE_OBJECT,
     /// @brief Show persons's path on walkingarea
     MID_SHOW_WALKINGAREA_PATH,
@@ -694,7 +694,7 @@ enum {
 
     /// @brief show grid
     MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,
-    /// @brief toogle draw junction shape
+    /// @brief toggle draw junction shape
     MID_GNE_NETWORKVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief Draw vehicles in begin position or spread in lane
     MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,
@@ -724,7 +724,7 @@ enum {
     MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,
     /// @brief Add edge to selected items - menu entry
     MID_GNE_ADDSELECT_EDGE,
-    /// @brief Remove edge from selected items - Menu Etry
+    /// @brief Remove edge from selected items - Menu Entry
     MID_GNE_REMOVESELECT_EDGE,
     /// @brief lock element
     MID_GNE_LOCK_ELEMENT,
@@ -742,7 +742,7 @@ enum {
 
     /// @brief show grid
     MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID,
-    /// @brief toogle draw junction shape
+    /// @brief toggle draw junction shape
     MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief Draw vehicles in begin position or spread in lane
     MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,
@@ -768,7 +768,7 @@ enum {
     /// @name GNEViewNet Data view options messages
     /// @{
     
-    /// @brief toogle draw junction shape
+    /// @brief toggle draw junction shape
     MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief show additionals
     MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,
@@ -776,13 +776,13 @@ enum {
     MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,
     /// @brief show demand elements
     MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,
-    /// @brief toogle TAZRel drawing
+    /// @brief toggle TAZRel drawing
     MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,
-    /// @brief toogle draz TAZ fill
+    /// @brief toggle draw TAZ fill
     MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL,
-    /// @brief toogle draz TAZRel only from
+    /// @brief toggle draw TAZRel only from
     MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM,
-    /// @brief toogle draz TAZRel only to
+    /// @brief toggle draw TAZRel only to
     MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO,
 
     /// @}
@@ -823,7 +823,7 @@ enum {
     MID_GNE_INSPECT,
     /// @brief reset element
     MID_GNE_RESET,
-    /// @brief aply element
+    /// @brief apply element
     MID_GNE_APPLY,
     /// @brief center element
     MID_GNE_CENTER,
@@ -847,7 +847,7 @@ enum {
     MID_GNE_SET_ATTRIBUTE_TEXT,
     /// @brief bool attribute edited
     MID_GNE_SET_ATTRIBUTE_BOOL,
-    /// @brief attribute edited trought dialog
+    /// @brief attribute edited trough dialog
     MID_GNE_SET_ATTRIBUTE_DIALOG,
     /// @brief open parameters dialog
     MID_GNE_OPEN_PARAMETERS_DIALOG,
@@ -881,13 +881,13 @@ enum {
     MID_GNE_STOPDRAWING,
     /// @brief abort drawing polygon
     MID_GNE_ABORTDRAWING,
-    /// @brief inspect next element in overlapped modul
+    /// @brief inspect next element in overlapped module
     MID_GNE_OVERLAPPED_NEXT,
-    /// @brief inspect previous element in overlapped modul
+    /// @brief inspect previous element in overlapped module
     MID_GNE_OVERLAPPED_PREVIOUS,
     /// @brief show list of overlapped elements
     MID_GNE_OVERLAPPED_SHOWLIST,
-    /// @brief list item selected in overlapped modul
+    /// @brief list item selected in overlapped module
     MID_GNE_OVERLAPPED_ITEMSELECTED,
     /// @brief mark item as front element
     MID_GNE_MARKFRONTELEMENT,
@@ -1016,11 +1016,11 @@ enum {
     MID_GNE_USESELECTED,
     /// @brief clear selection of elements
     MID_GNE_CLEARSELECTION,
-    /// @brief invert selection of eleents
+    /// @brief invert selection of elements
     MID_GNE_INVERTSELECTION,
-    /// @brief stop selection of consecutive egdes/lanes
+    /// @brief stop selection of consecutive edges/lanes
     MID_GNE_STOPSELECTION,
-    /// @brief abort selection of consecutive egdes/lanes
+    /// @brief abort selection of consecutive edges/lanes
     MID_GNE_ABORTSELECTION,
 
     /// @}
@@ -1128,7 +1128,7 @@ enum {
     MID_GNE_POLYGON_CLOSE,
     /// @brief open closed polygon
     MID_GNE_POLYGON_OPEN,
-    /// @brief Set a vertex of polygon as first verte
+    /// @brief Set a vertex of polygon as first vertex
     MID_GNE_POLYGON_SET_FIRST_POINT,
     /// @brief delete geometry point
     MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,
@@ -1172,7 +1172,7 @@ enum {
     MID_GNE_LANE_ADD_BUS,
     /// @brief add greenVerge front of current lane
     MID_GNE_LANE_ADD_GREENVERGE_FRONT,
-    /// @brief add greenVerge back of current laen
+    /// @brief add greenVerge back of current lane
     MID_GNE_LANE_ADD_GREENVERGE_BACK,
     /// @brief remove sidewalk
     MID_GNE_LANE_REMOVE_SIDEWALK,
@@ -1185,7 +1185,7 @@ enum {
 
     /// @}
 
-    /// @name GNEDemandEleemnts messages
+    /// @name GNEDemandElements messages
     /// @{
 
     /// @brief apply distance

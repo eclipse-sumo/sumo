@@ -108,7 +108,7 @@ public:
     /// @brief set the linkState (controls drawing color)
     void setLinkState(LinkState state);
 
-    /// @brief whether link state has been modfied
+    /// @brief whether link state has been modified
     LinkState getLinkState() const;
 
     /// @brief multiplexes message to two targets

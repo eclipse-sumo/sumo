@@ -309,7 +309,7 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
         // create edge
         edge = new GNEEdge(this, nbe, wasSplit);
     }
-    // add edge usin undo list
+    // add edge using undo list
     undoList->begin(GUIIcon::EDGE, "create " + toString(SUMO_TAG_EDGE));
     undoList->add(new GNEChange_Edge(edge, true), true);
     // recompute connection
@@ -910,7 +910,7 @@ GNENet::splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos
     // split second edge
     splitEdge(oppositeEdge, pos, undoList, newJunction);
     if (edge->getLanes().back()->getAttribute(GNE_ATTR_OPPOSITE) != "") {
-        // restore opposit lane information
+        // restore opposite lane information
         for (const auto& nbEdge : newJunction->getNBNode()->getEdges()) {
             GNEEdge* e = myAttributeCarriers->retrieveEdge(nbEdge->getID());
             // store old attribute before it's changed by guess opposite
@@ -1467,7 +1467,7 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
         myNetCrossings.reserve(myNetCrossings.size() + it.second->getGNECrossings().size());
         myNetCrossings.insert(myNetCrossings.end(), it.second->getGNECrossings().begin(), it.second->getGNECrossings().end());
     }
-    // obtain invalid crossigns
+    // obtain invalid crossings
     std::vector<GNECrossing*> myInvalidCrossings;
     for (auto i = myNetCrossings.begin(); i != myNetCrossings.end(); i++) {
         if ((*i)->getNBCrossing()->valid == false) {
@@ -1970,7 +1970,7 @@ GNENet::saveAdditionals(const std::string& filename) {
     }
     // if there are invalid StoppingPlaces or detectors, open GNEFixAdditionalElements
     if (invalidSingleLaneAdditionals.size() > 0 || invalidMultiLaneAdditionals.size() > 0) {
-        // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
+        // 0 -> Canceled Saving, with or without selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
         GNEFixAdditionalElements fixAdditionalElementsDialog(myViewNet, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
         if (fixAdditionalElementsDialog.execute() == 0) {
@@ -2035,7 +2035,7 @@ GNENet::saveDemandElements(const std::string& filename) {
     }
     // if there are invalid demand elements, open GNEFixDemandElements
     if (invalidSingleLaneDemandElements.size() > 0) {
-        // 0 -> Canceled Saving, with or whithout selecting invalid demand elements
+        // 0 -> Canceled Saving, with or without selecting invalid demand elements
         // 1 -> Invalid demand elements fixed, friendlyPos enabled, or saved with invalid positions
         GNEFixDemandElements fixDemandElementsDialog(myViewNet, invalidSingleLaneDemandElements);
         if (fixDemandElementsDialog.execute() == 0) {
@@ -2299,7 +2299,7 @@ GNENet::writeVTypes(OutputDevice& device, const bool additionalFile) const {
         // special case for default vTypes
         const bool defaultVType = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE));
         const bool defaultVTypeModified = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED));
-        // only write defaul vType modified
+        // only write default vType modified
         if ((vType->getParentDemandElements().size() == 0) && (!defaultVType || (defaultVType && defaultVTypeModified))) {
             if ((additionalFile && (vType->getChildAdditionals().size() > 0)) || 
                 (!additionalFile && (vType->getChildAdditionals().size() == 0))) {
@@ -2330,7 +2330,7 @@ GNENet::writeVTypeComment(OutputDevice& device, const bool additionalFile) const
         // special case for default vTypes
         const bool defaultVType = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE));
         const bool defaultVTypeModified = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED));
-        // only write defaul vType modified
+        // only write default vType modified
         if ((vType->getParentDemandElements().size() == 0) && (!defaultVType || (defaultVType && defaultVTypeModified))) {
             if (additionalFile && (vType->getChildAdditionals().size() > 0)) {
                 device << ("    <!-- VTypes (used in calibratorFlows) -->\n");
@@ -2659,7 +2659,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
         // disable update geometry before clear undo list
         myUpdateGeometryEnabled = false;
-        // destropy Popup
+        // destroy Popup
         myViewNet->destroyPopup();
         // clear undo list (This will be remove additionals and shapes)
         myViewNet->getUndoList()->clear();

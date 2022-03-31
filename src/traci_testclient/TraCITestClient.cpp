@@ -540,14 +540,6 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         defFile >> valF;
         into.writeDouble(valF);
         return 1 + 8 + 8;
-    }
-    else if (dataTypeS == "<positionLL>") {
-        defFile >> valF;
-        into.writeUnsignedByte(libsumo::POSITION_LON_LAT);
-        into.writeDouble(valF);
-        defFile >> valF;
-        into.writeDouble(valF);
-        return 1 + 8 + 8;
     } else if (dataTypeS == "<position3D>") {
         defFile >> valF;
         into.writeUnsignedByte(libsumo::POSITION_3D);
@@ -653,11 +645,6 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         double xv = inMsg.readDouble();
         double yv = inMsg.readDouble();
         answerLog << " position value: (" << xv << "," << yv << ")" << std::endl;
-    }
-    else if (valueDataType == libsumo::POSITION_LON_LAT) { //todo add dat 3d ding
-        double lon = inMsg.readDouble();
-        double lat = inMsg.readDouble();
-        answerLog << " lat lon position value: (" << lat << "," << lon << ")" << std::endl;
     } else if (valueDataType == libsumo::TYPE_COLOR) {
         int r = inMsg.readUnsignedByte();
         int g = inMsg.readUnsignedByte();

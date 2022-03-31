@@ -85,7 +85,7 @@ public:
     /// @brief Destructor
     ~GNELane();
 
-    /// @brief get arent edge
+    /// @brief get parent edge
     GNEEdge* getParentEdge() const;
 
     /// @brief check if current lane allow pedestrians

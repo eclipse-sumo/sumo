@@ -31,7 +31,7 @@
 class OptionsCont;
 class PCPolyContainer;
 class PCTypeMap;
-
+class OGRFeature;
 
 // ===========================================================================
 // class definitions
@@ -73,6 +73,8 @@ protected:
     static void load(const std::string& file, OptionsCont& oc, PCPolyContainer& toFill,
                      PCTypeMap& tm);
 
+    /// @brief return all fields support by the given feature
+    static std::vector<std::string> getFieldNames(OGRFeature* poFeature);
 
 private:
     /// @brief Invalidated copy constructor.
