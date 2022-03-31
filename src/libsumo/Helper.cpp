@@ -723,6 +723,16 @@ Helper::clearStateChanges() {
 }
 
 
+MSCalibrator::AspiredState
+Helper::getCalibratorState(const MSCalibrator* c) {
+    try {
+        return c->getCurrentStateInterval();
+    } catch (ProcessError& e) {
+        throw TraCIException(e.what());
+    }
+}
+
+
 void
 Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape) {
     switch (domain) {
