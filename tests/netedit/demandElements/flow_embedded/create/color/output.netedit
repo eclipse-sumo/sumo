@@ -2,6 +2,8 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (embedded route)
+TestFunctions: Clicked over position 578 - 560
+TestFunctions: Clicked over position 584 - 223
 dummyColor
 TestFunctions: Clicked over position 578 - 560
 TestFunctions: Clicked over position 584 - 223

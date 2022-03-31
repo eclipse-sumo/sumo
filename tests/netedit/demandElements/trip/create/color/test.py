@@ -37,6 +37,13 @@ netedit.vehicleMode()
 # disable select trip due this is the first vehicle in the list
 # netedit.changeElement("trip")
 
+# set color using dialog color
+netedit.changeColorUsingDialog(netedit.attrs.tripFromToEdge.create.colorButton, 5)
+
+# try to create trip
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 280, 55)
+
 # set invalid color
 netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.color, "dummyColor")
 

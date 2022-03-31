@@ -37,6 +37,13 @@ netedit.vehicleMode()
 # select trip over junctions
 netedit.changeElement("trip (from-to junctions)")
 
+# set color using dialog color
+netedit.changeColorUsingDialog(netedit.attrs.tripFromToJunction.create.colorButton, 5)
+
+# try to create trip
+netedit.leftClick(referencePosition, 80, 360)
+netedit.leftClick(referencePosition, 85, 77)
+
 # set invalid color
 netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.color, "dummyColor")
 

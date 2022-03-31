@@ -18,7 +18,6 @@ TLS.create.TLS
 TLS.create.noTLS
 edgeRelData.inspect.fromEdge
 edgeRelData.inspect.toEdge
-flowEmbedded.create.colorButton
 flowEmbedded.create.id
 flowEmbedded.inspect.arrivalEdge
 flowEmbedded.inspect.colorButton
@@ -30,7 +29,6 @@ flowEmbedded.inspectSelection.spacingOption
 flowEmbedded.inspectSelection.terminate
 flowEmbedded.inspectSelection.terminateOption
 flowEmbedded.inspectSelection.type
-flowFromToEdge.create.colorButton
 flowFromToEdge.create.id
 flowFromToEdge.inspect.colorButton
 flowFromToEdge.inspectSelection.begin
@@ -40,7 +38,6 @@ flowFromToEdge.inspectSelection.spacingOption
 flowFromToEdge.inspectSelection.terminate
 flowFromToEdge.inspectSelection.terminateOption
 flowFromToEdge.inspectSelection.type
-flowJunction.create.colorButton
 flowJunction.create.end
 flowJunction.create.id
 flowJunction.create.number
@@ -135,7 +132,6 @@ stopLane.inspectSelection.posLat
 stopLane.inspectSelection.tripID
 stopParking.inspectSelection.line
 stopParking.inspectSelection.tripID
-tripFromToEdge.create.colorButton
 tripFromToEdge.create.id
 tripFromToEdge.create.personNumber
 tripFromToEdge.inspect.colorButton

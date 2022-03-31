@@ -37,6 +37,13 @@ netedit.vehicleMode()
 # select flow with embedded route
 netedit.changeElement("flow (embedded route)")
 
+# set invalid person number
+netedit.changeColorUsingDialog(netedit.attrs.flowEmbedded.create.colorButton, 5)
+
+# try to create flow with embedded route
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 280, 55)
+
 # set invalid color
 netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.color, "dummyColor")
 

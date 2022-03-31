@@ -37,6 +37,13 @@ netedit.vehicleMode()
 # select flow
 netedit.changeElement("flow (from-to edges)")
 
+# set color using dialog
+netedit.changeColorUsingDialog(netedit.attrs.flowFromToEdge.create.colorButton, 5)
+
+# try to create flow
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 280, 55)
+
 # set invalid color
 netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.color, "dummyColor")
 
