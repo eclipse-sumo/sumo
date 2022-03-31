@@ -1244,7 +1244,7 @@ GNEApplicationWindow::fillMenuBar() {
     myLockMenuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "L&ock", nullptr, myLockMenu);
     myLockMenuTitle->setTarget(this);
     myLockMenuTitle->setSelector(MID_GNE_LOCK_MENUTITLE);
-    // build lock menu commmands
+    // build lock menu commands
     myLockMenuCommands.buildLockMenuCommands(myLockMenu);
     // build processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
@@ -1381,7 +1381,7 @@ GNEApplicationWindow::closeAllWindows() {
     GUITextureSubSys::resetTextures();
     // reset fonts
     GLHelper::resetFont();
-    // disable saving commmand
+    // disable saving command
     disableSaveAdditionalsMenu();
 }
 
@@ -3034,7 +3034,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
             WRITE_DEBUG("Closed FXMessageBox 'error saving network' with 'OK'");
         }
         myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Network saved in " + oc.getString("output-file") + ".\n");
-        // After saveing a net sucesfully, add it into Recent Nets list.
+        // After saving a net successfully, add it into Recent Nets list.
         myMenuBarFile.myRecentNetsAndConfigs.appendFile(oc.getString("output-file").c_str());
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
