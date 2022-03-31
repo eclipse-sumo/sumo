@@ -221,7 +221,6 @@ connection.inspectSelection.disallowButton
 connection.inspectSelection.disallow 
 connection.inspectSelection.speed 
 connection.inspectSelection.length 
-connection.inspectSelection.customShape 
 connection.inspectSelection.changeLeftButton 
 connection.inspectSelection.changeLeft 
 connection.inspectSelection.changeRightButton 
@@ -243,10 +242,9 @@ connection.inspectSelectionTLS.disallowButton
 connection.inspectSelectionTLS.disallow 
 connection.inspectSelectionTLS.speed 
 connection.inspectSelectionTLS.length 
-connection.inspectSelectionTLS.customShape 
 connection.inspectSelectionTLS.changeLeftButton 
 connection.inspectSelectionTLS.changeLeft 
-connection.inspectSelectionTLS.changeRightBtton 
+connection.inspectSelectionTLS.changeRightButton 
 connection.inspectSelectionTLS.changeRight 
 connection.inspectSelectionTLS.indirect 
 connection.inspectSelectionTLS.type 

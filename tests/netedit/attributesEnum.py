@@ -287,13 +287,12 @@ class connection:
         disallow = 9
         speed = 10
         length = 11
-        customShape = 12
-        changeLeftButton = 13
-        changeLeft = 14
-        changeRightButton = 15
-        changeRight = 16
-        indirect = 17
-        type = 18
+        changeLeftButton = 12
+        changeLeft = 13
+        changeRightButton = 14
+        changeRight = 15
+        indirect = 16
+        type = 17
         parameters = 20
 
     class inspectSelectionTLS:
@@ -310,13 +309,12 @@ class connection:
         disallow = 11
         speed = 12
         length = 13
-        customShape = 14
-        changeLeftButton = 15
-        changeLeft = 16
-        changeRightBtton = 17
-        changeRight = 18
-        indirect = 19
-        type = 20
+        changeLeftButton = 14
+        changeLeft = 15
+        changeRightButton = 16
+        changeRight = 17
+        indirect = 18
+        type = 19
         parameters = 22
 
     saveConnections = 4
