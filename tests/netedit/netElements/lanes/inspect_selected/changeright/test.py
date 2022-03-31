@@ -52,24 +52,25 @@ netedit.inspectMode()
 # inspect lane
 netedit.leftClick(referencePosition, 250, 95)
 
-# Change parameter 1 with an non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow, "DummyAllowed", True)
+# Change parameter 2 with an non valid value
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.changeRight, "DummyDisallowed", True)
 
-# Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow, "", True)
+# Change parameter 2 with a valid value (empty)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.changeRight, "", True)
 
-# Change parameter 1 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow, "authority  army, passenger; taxi. tram", True)
+# Change parameter 2 with a valid value (different separators)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.changeRight, "authority  army, passenger; taxi. tram", True)
 
-# Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow, "", True)
+# Change parameter 2 with a valid value (empty)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.changeRight, "", True)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.lane.inspectSelection.allowButton, True)
+netedit.modifyAllowDisallowValue(netedit.attrs.lane.inspectSelection.changeRightButton, True)
 
-# Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow,
-                        "authority army vip passenger hov taxi bus coach tram bicycle", True)
+# Change parameter 2 with a valid value (empty)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.changeRight,
+                        "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
+                        "rail_electric motorcycle moped pedestrian custom1", True)
 
 # recompute
 netedit.rebuildNetwork()

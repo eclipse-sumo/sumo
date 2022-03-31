@@ -16,5 +16,11 @@ endoffset
 # edit acceleration
 acceleration
 
+changeleft
+
+changeright
+
+type
+
 # edit parameters
 parameters

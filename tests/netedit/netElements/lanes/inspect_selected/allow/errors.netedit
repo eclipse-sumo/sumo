@@ -24,6 +24,8 @@ Debug: Value 'DummyAllowed' for attribute allow of lane isn't valid
 Debug: Value 'authority  army, passenger; taxi. tram' for attribute allow of lane isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
