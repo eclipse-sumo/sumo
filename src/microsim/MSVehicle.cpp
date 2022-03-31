@@ -99,6 +99,7 @@
 //#define DEBUG_REVERSE_BIDI
 //#define DEBUG_REPLACE_ROUTE
 //#define DEBUG_EXTRAPOLATE_DEPARTPOS
+//#define DEBUG_REMOTECONTROL
 //#define DEBUG_COND (getID() == "ego")
 //#define DEBUG_COND (true)
 #define DEBUG_COND (isSelected())
@@ -811,6 +812,22 @@ MSVehicle::Influencer::isRemoteAffected(SUMOTime t) const {
     return myLastRemoteAccess >= t - TIME2STEPS(10);
 }
 
+
+void
+MSVehicle::Influencer::updateRemoteControlRoute(MSVehicle* v) {
+    if (myRemoteRoute.size() != 0 && myRemoteRoute != v->getRoute().getEdges()) {
+        // only replace route at this time if the vehicle is moving with the flow
+        const bool isForward = v->getLane() != 0 && &v->getLane()->getEdge() == myRemoteRoute[0];
+#ifdef DEBUG_REMOTECONTROL
+        std::cout << SIMSTEP << " updateRemoteControlRoute veh=" << v->getID() << " old=" << toString(v->getRoute().getEdges()) << " new=" << toString(myRemoteRoute) << " fwd=" << isForward << "\n";
+#endif
+        if (isForward) {
+            v->replaceRouteEdges(myRemoteRoute, -1, 0, "traci:moveToXY", true);
+            v->updateBestLanes();
+        }
+    }
+}
+
 void
 MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     const bool wasOnRoad = v->isOnRoad();
@@ -824,7 +841,17 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
         v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
         v->getMutableLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT, false);
     }
-    if (myRemoteRoute.size() != 0) {
+    if (myRemoteRoute.size() != 0 && myRemoteRoute != v->getRoute().getEdges()) {
+        // needed for the insertion step
+#ifdef DEBUG_REMOTECONTROL
+        std::cout << SIMSTEP << " postProcessRemoteControl veh=" << v->getID()
+            << "\n  oldLane=" << Named::getIDSecure(v->getLane())
+            << " oldRoute=" << toString(v->getRoute().getEdges())
+            << "\n  newLane=" << Named::getIDSecure(myRemoteLane)
+            << " newRoute=" << toString(myRemoteRoute)
+            << " newRouteEdge=" << myRemoteRoute[myRemoteEdgeOffset]->getID()
+            << "\n";
+#endif
         v->replaceRouteEdges(myRemoteRoute, -1, 0, "traci:moveToXY", true);
     }
     v->myCurrEdge = v->getRoute().begin() + myRemoteEdgeOffset;
@@ -911,8 +938,8 @@ MSVehicle::Influencer::implicitDeltaPosRemote(const MSVehicle* veh) {
         return 0;
     } else {
         if (DIST2SPEED(dist) > veh->getMaxSpeed() * 1.1) {
-            WRITE_WARNINGF("Vehicle '%' moved by by traci from % to % with implied speed of % (exceeding maximum speed %). time=%.",
-                    veh->getID(), veh->getPosition(), myRemoteXYPos, DIST2SPEED(dist), veh->getMaxSpeed(), time2string(SIMSTEP));
+            WRITE_WARNINGF("Vehicle '%' moved by by traci from % to % (dist %) with implied speed of % (exceeding maximum speed %). time=%.",
+                    veh->getID(), veh->getPosition(), myRemoteXYPos, dist, DIST2SPEED(dist), veh->getMaxSpeed(), time2string(SIMSTEP));
             // some sanity check here
             dist = MIN2(dist, SPEED2DIST(veh->getMaxSpeed() * 2));
         }
@@ -1980,6 +2007,9 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         }
 #endif
         myLFLinkLanesPrev = myLFLinkLanes;
+        if (myInfluencer != nullptr) {
+            myInfluencer->updateRemoteControlRoute(this);
+        }
         planMoveInternal(t, ahead, myLFLinkLanes, myStopDist, myNextTurn);
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {

@@ -1520,6 +1520,10 @@ public:
             return myLastRemoteAccess;
         }
 
+        /// @brief update route if provided by remote control
+        void updateRemoteControlRoute(MSVehicle* v);
+
+        /// @brief update position from remote control
         void postProcessRemoteControl(MSVehicle* v);
 
         /// @brief return the speed that is implicit in the new remote position
