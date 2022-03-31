@@ -21,9 +21,6 @@
 #include <vector>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/VehicleType.h>
-#ifndef LIBTRACI
-#include <microsim/transportables/MSTransportable.h>
-#endif
 
 
 // ===========================================================================
