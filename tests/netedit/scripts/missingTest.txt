@@ -76,11 +76,8 @@ lane.inspectSelection.stopOffsetException
 parkingArea.create.departPos
 parkingArea.inspect.departPos
 parkingArea.inspectSelection.departPos
-parkingSpace.create.name
 parkingSpace.create.slope
-parkingSpace.inspect.name
 parkingSpace.inspect.slope
-parkingSpace.inspectSelection.name
 parkingSpace.inspectSelection.slope
 person.create.depart
 person.create.id
