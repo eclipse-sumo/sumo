@@ -66,6 +66,10 @@ Debug: Key ENTER pressed
 Debug: Adding route 'r_0' in GNEChange_DemandElement
 Debug: Key ENTER pressed
 Debug: Adding route 'r_1' in GNEChange_DemandElement
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyColor' for attribute color of route isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -81,16 +85,20 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing route 'r_1' in GNEChange_DemandElement
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing route 'r_0' in GNEChange_DemandElement
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding route 'r_0' in GNEChange_DemandElement
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding route 'r_1' in GNEChange_DemandElement
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

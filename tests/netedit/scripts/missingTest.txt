@@ -63,13 +63,9 @@ flowJunction.inspectSelection.spacingOption
 flowJunction.inspectSelection.terminate
 flowJunction.inspectSelection.terminateOption
 flowJunction.inspectSelection.type
-junction.inspect.name
-junction.inspectSelection.name
-junction.inspectSelectionTLS.name
 junction.inspectSelectionTLS.tl
 junction.inspectSelectionTLS.tlLayout
 junction.inspectSelectionTLS.tlType
-junction.inspectTLS.name
 junction.inspectTLS.tl
 junction.inspectTLS.tlLayout
 junction.inspectTLS.tlType
@@ -124,10 +120,7 @@ person.inspectSelection.line
 person.inspectSelection.parameters
 person.inspectSelection.personNumber
 person.inspectSelection.type
-route.create.colorButton
 route.create.id
-route.inspect.colorButton
-route.inspectSelection.colorButton
 routeflow.create.colorButton
 routeflow.create.id
 routeflow.inspect.arrivalEdge

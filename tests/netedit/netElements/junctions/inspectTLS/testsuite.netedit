@@ -22,5 +22,7 @@ rightofway
 # edit attribute fringe
 fringe
 
+name
+
 # edit attribute parameters
 parameters

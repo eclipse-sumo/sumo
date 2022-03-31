@@ -37,6 +37,13 @@ netedit.routeMode()
 # change to non consecutive mode
 netedit.changeRouteMode("non consecutive edges")
 
+# set color using dialog
+netedit.changeColorUsingDialog(netedit.attrs.route.create.colorButton, 5)
+
+# try to create route using three edges
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 570, 250)
+
 # set invalid color
 netedit.changeDefaultValue(netedit.attrs.route.create.color, "dummyColor")
 

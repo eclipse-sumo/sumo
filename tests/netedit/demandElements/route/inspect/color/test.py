@@ -47,6 +47,9 @@ netedit.inspectMode()
 # inspect route
 netedit.leftClick(referencePosition, 280, 392)
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.route.inspect.colorButton, 5, False)
+
 # Change parameter color with a non valid value (empty)
 netedit.modifyAttribute(netedit.attrs.route.inspect.color, "", False)
 
@@ -60,8 +63,8 @@ netedit.modifyAttribute(netedit.attrs.route.inspect.color, "12,15,30", False)
 netedit.modifyAttribute(netedit.attrs.route.inspect.color, "red", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save routes
 netedit.saveRoutes(referencePosition)

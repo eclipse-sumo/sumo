@@ -13,7 +13,7 @@
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
-# @date    2019-07-16
+# @date    2016-11-25
 
 # import common functions for netedit tests
 import os
@@ -26,31 +26,37 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# go to demand mode
-netedit.supermodeDemand()
+# rebuild network
+netedit.rebuildNetwork()
 
-# go to route mode
-netedit.routeMode()
+# force save additionals
+netedit.forceSaveAdditionals()
 
-# create route using three edges
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 280, 55)
+# inspect central node
+netedit.leftClick(referencePosition, 325, 250)
 
-# press button to create route
-netedit.focusOnFrame()
-for _ in range(15):
-    netedit.typeTab()
-netedit.typeSpace()
+# set invalid radius
+netedit.modifyAttribute(netedit.attrs.junction.inspect.name, "&&&&%%%%", False)
 
-# Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+# set invalid radius
+netedit.modifyAttribute(netedit.attrs.junction.inspect.radius, "customName", False)
 
-# save routes
-netedit.saveRoutes(referencePosition)
+# rebuild network
+netedit.rebuildNetwork()
+
+# Check undo
+netedit.undo(referencePosition, 2)
+
+# rebuild network
+netedit.rebuildNetwork()
+
+# Check redo
+netedit.redo(referencePosition, 2)
+
+# save additionals
+netedit.saveAdditionals(referencePosition)
 
 # save network
 netedit.saveNetwork(referencePosition)

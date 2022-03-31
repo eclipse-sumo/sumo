@@ -60,6 +60,9 @@ netedit.inspectMode()
 # inspect route
 netedit.leftClick(referencePosition, 280, 392)
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.route.inspectSelection.colorButton, 5, False)
+
 # Change parameter color with a non valid value (empty)
 netedit.modifyAttribute(netedit.attrs.route.inspectSelection.color, "", False)
 
