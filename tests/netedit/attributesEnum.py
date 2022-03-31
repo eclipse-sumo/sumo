@@ -247,7 +247,7 @@ class connection:
         changeLeftButton = 13
         changeLeft = 14
         changeRightButton = 15
-        changeRignt = 16
+        changeRight = 16
         indirect = 17
         type = 18
         parameters = 21
@@ -269,8 +269,8 @@ class connection:
         customShape = 14
         changeLeftButton = 15
         changeLeft = 16
-        changeRightBtton = 17
-        changeRignt = 18
+        changeRightButton = 17
+        changeRight = 18
         indirect = 19
         type = 20
         parameters = 23
@@ -291,7 +291,7 @@ class connection:
         changeLeftButton = 13
         changeLeft = 14
         changeRightButton = 15
-        changeRignt = 16
+        changeRight = 16
         indirect = 17
         type = 18
         parameters = 20
@@ -314,7 +314,7 @@ class connection:
         changeLeftButton = 15
         changeLeft = 16
         changeRightBtton = 17
-        changeRignt = 18
+        changeRight = 18
         indirect = 19
         type = 20
         parameters = 22

@@ -183,7 +183,7 @@ connection.inspect.customShape
 connection.inspect.changeLeftButton 
 connection.inspect.changeLeft 
 connection.inspect.changeRightButton 
-connection.inspect.changeRignt 
+connection.inspect.changeRight 
 connection.inspect.indirect 
 connection.inspect.type 
 connection.inspect.parameters 
@@ -204,8 +204,8 @@ connection.inspectTLS.length
 connection.inspectTLS.customShape 
 connection.inspectTLS.changeLeftButton 
 connection.inspectTLS.changeLeft 
-connection.inspectTLS.changeRightBtton 
-connection.inspectTLS.changeRignt 
+connection.inspectTLS.changeRightButton 
+connection.inspectTLS.changeRight 
 connection.inspectTLS.indirect 
 connection.inspectTLS.type 
 connection.inspectTLS.parameters 
@@ -225,7 +225,7 @@ connection.inspectSelection.customShape
 connection.inspectSelection.changeLeftButton 
 connection.inspectSelection.changeLeft 
 connection.inspectSelection.changeRightButton 
-connection.inspectSelection.changeRignt 
+connection.inspectSelection.changeRight 
 connection.inspectSelection.indirect 
 connection.inspectSelection.type 
 connection.inspectSelection.parameters 
@@ -247,7 +247,7 @@ connection.inspectSelectionTLS.customShape
 connection.inspectSelectionTLS.changeLeftButton 
 connection.inspectSelectionTLS.changeLeft 
 connection.inspectSelectionTLS.changeRightBtton 
-connection.inspectSelectionTLS.changeRignt 
+connection.inspectSelectionTLS.changeRight 
 connection.inspectSelectionTLS.indirect 
 connection.inspectSelectionTLS.type 
 connection.inspectSelectionTLS.parameters 
