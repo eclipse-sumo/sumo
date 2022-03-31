@@ -14,9 +14,6 @@ Modes.Network.showSubAdditionals
 Modes.Network.spreadVehicle
 POIGEO.create.lonLat
 Selection.LockSelectionNetwork.TAZs
-TAZ.create.name
-TAZ.inspect.colorButton
-TAZ.inspectSelection.colorButton
 TLS.create.TLS
 TLS.create.noTLS
 edgeRelData.inspect.fromEdge

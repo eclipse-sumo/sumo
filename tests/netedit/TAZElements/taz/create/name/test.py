@@ -28,39 +28,24 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
-# go to select mode
-netedit.selectMode()
+# go to TAZ mode
+netedit.TAZMode()
 
-# select first TAZ
-netedit.leftClick(referencePosition, 115, 70)
+# change color manually (invalid)
+netedit.changeDefaultValue(netedit.attrs.TAZ.create.name, "%%%%%%;;;")
 
-# select second TAZ
-netedit.leftClick(referencePosition, 300, 70)
+# try to create TAZ
+netedit.createSquaredTAZ(referencePosition, 282, 130, 200, True)
 
-# go to inspect mode
-netedit.inspectMode()
+# change color manually (valid)
+netedit.changeDefaultValue(netedit.attrs.TAZ.create.name, "customName")
 
-# inspect first TAZ
-netedit.leftClick(referencePosition, 115, 70)
+# create TAZ
+netedit.createSquaredTAZ(referencePosition, 382, 130, 200, True)
 
-# change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.TAZ.inspectSelection.colorButton, 5, False)
-
-# Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.color, "dummyColor", False)
-
-# Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.color, "255,255,500", False)
-
-# Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.color, "blue", False)
-
-# Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.color, "125,60,200", False)
-
-# Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+# Check undo redo
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save TAZs
 netedit.saveAdditionals(referencePosition)

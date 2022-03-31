@@ -13,6 +13,8 @@ Debug: Inserting generic parameter 'keyB2|valueB2' into taz
 Debug: Inserting generic parameter 'keyB3|valueB3' into taz
 Debug: Adding taz 'TAZ_1' in GNEChange_Additional
 GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary 12.00,-2.00,50.00,60.00
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyColor' for attribute color of taz isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -32,6 +34,14 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
