@@ -60,7 +60,7 @@ netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.expected,
-        "containerID1 containerID2 containerID3")
+                           "containerID1 containerID2 containerID3")
 
 # create waypoint
 netedit.leftClick(referencePosition, 290, 155)
