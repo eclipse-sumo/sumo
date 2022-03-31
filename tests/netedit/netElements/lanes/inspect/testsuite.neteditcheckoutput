@@ -19,5 +19,13 @@ acceleration
 # edit customshape
 customshape
 
+opposite
+
+changeleft
+
+changeright
+
+type
+
 # edit parameters
 parameters

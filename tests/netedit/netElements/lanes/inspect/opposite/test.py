@@ -43,36 +43,23 @@ netedit.inspectMode()
 # inspect edge
 netedit.leftClick(referencePosition, 250, 165)
 
-# Change parameter 1 with an non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.allow, "DummyAllowed", True)
+# Change parameter 0 with a non valid value (empty speed)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.opposite, "%%%&&&", True)
 
-# Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.allow, "", True)
-
-# Change parameter 1 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.allow, "authority  army, passenger; taxi. tram", True)
-
-# Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.allow, "", True)
-
-# Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.lane.inspect.allowButton, True)
-
-# Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.allow,
-                        "authority army vip passenger hov taxi bus coach tram bicycle", True)
+# Change parameter 0 with a non valid value (dummy speed)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.opposite, "gneE3_1", True)
 
 # recompute
 netedit.rebuildNetwork()
 
-# Check undos
-netedit.undo(referencePosition, 3)
+# Check undo
+netedit.undo(referencePosition, 2)
 
 # recompute
 netedit.rebuildNetwork()
 
-# check redos
-netedit.redo(referencePosition, 3)
+# Check redo
+netedit.redo(referencePosition, 2)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
