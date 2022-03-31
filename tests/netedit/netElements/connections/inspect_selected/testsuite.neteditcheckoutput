@@ -8,6 +8,20 @@ uncontrolled
 
 visibility
 
+allow
+
+disallow
+
 speed
+
+length
+
+changeleft
+
+changeright
+
+indirect
+
+type
 
 parameters
