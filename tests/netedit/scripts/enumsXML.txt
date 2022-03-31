@@ -140,7 +140,9 @@ edge.inspectSelection.parameters
 lane
 lane.inspect
 lane.inspect.speed 
+lane.inspect.allowButton 
 lane.inspect.allow 
+lane.inspect.disallowButton 
 lane.inspect.disallow 
 lane.inspect.width 
 lane.inspect.endOffset 
@@ -152,10 +154,14 @@ lane.inspect.changeLeft
 lane.inspect.changeRightButton 
 lane.inspect.changeRight 
 lane.inspect.type 
+lane.inspect.stopOffset 
+lane.inspect.stopOffsetException 
 lane.inspect.parameters 
 lane.inspectSelection
 lane.inspectSelection.speed 
+lane.inspectSelection.allowButton 
 lane.inspectSelection.allow 
+lane.inspectSelection.disallowButton 
 lane.inspectSelection.disallow 
 lane.inspectSelection.width 
 lane.inspectSelection.endOffset 
@@ -165,6 +171,8 @@ lane.inspectSelection.changeLeft
 lane.inspectSelection.changeRightButton 
 lane.inspectSelection.changeRight 
 lane.inspectSelection.type 
+lane.inspectSelection.stopOffset 
+lane.inspectSelection.stopOffsetException 
 lane.inspectSelection.parameters 
 connection
 connection.inspect

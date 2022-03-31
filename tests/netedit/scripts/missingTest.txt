@@ -76,10 +76,10 @@ junction.inspectTLS.name
 junction.inspectTLS.tl
 junction.inspectTLS.tlLayout
 junction.inspectTLS.tlType
-lane.inspect.allowButton
-lane.inspect.disallowButton
-lane.inspectSelection.allowButton
-lane.inspectSelection.disallowButton
+lane.inspect.stopOffset
+lane.inspect.stopOffsetException
+lane.inspectSelection.stopOffset
+lane.inspectSelection.stopOffsetException
 parkingArea.create.departPos
 parkingArea.inspect.departPos
 parkingArea.inspectSelection.departPos

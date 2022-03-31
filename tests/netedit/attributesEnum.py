@@ -191,9 +191,9 @@ class edge:
 class lane:
     class inspect:
         speed = 1
-        allowButton = 2     # Missing
+        allowButton = 2
         allow = 3
-        disallowButton = 4  # Missing
+        disallowButton = 4
         disallow = 5
         width = 6
         endOffset = 7
@@ -205,15 +205,15 @@ class lane:
         changeRightButton = 13
         changeRight = 14
         type = 15
-        stopOffset = 16             # Missing
-        stopOffsetException = 17    # Missing
+        stopOffset = 16
+        stopOffsetException = 17
         parameters = 21
 
     class inspectSelection:
         speed = 1
-        allowButton = 2     # Missing
+        allowButton = 2
         allow = 3
-        disallowButton = 4  # Missing
+        disallowButton = 4
         disallow = 5
         width = 6
         endOffset = 7
@@ -223,8 +223,8 @@ class lane:
         changeRightButton = 11
         changeRight = 12
         type = 13
-        stopOffset = 14             # Missing
-        stopOffsetException = 15    # Missing
+        stopOffset = 14
+        stopOffsetException = 15
         parameters = 19
 
 # connection
