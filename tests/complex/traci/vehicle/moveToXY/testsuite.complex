@@ -45,3 +45,6 @@ low_stepLength
 
 # tests for mapping vehicle at low step length (#10448)
 low_stepLength_keepRoute2
+
+# test for #4250
+guess_next_edge
