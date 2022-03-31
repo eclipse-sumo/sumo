@@ -844,10 +844,10 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             }
 		case SUMO_ATTR_FRICTION:
 			if (myNBEdge->hasLaneSpecificFriction()) {
-				return "lane specific";
+                return "lane specific";
 			}
 			else {
-				return toString(myNBEdge->getFriction());
+				return toString(myNBEdge->getLaneFriction());
 			}
         case SUMO_ATTR_WIDTH:
             if (myNBEdge->hasLaneSpecificWidth()) {

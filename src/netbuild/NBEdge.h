@@ -1342,8 +1342,9 @@ public:
 
     /// @brief get lane speed
     double getLaneSpeed(int lane) const;
-    /// @brief get lane friction
-    double getLaneFriction(int lane) const;
+
+    /// @brief get lane friction of specified lane, defaults to lane idx 0.
+    double getLaneFriction(int lane = 0) const;
 
     /// @brief Check if edge is near enought to be joined to another edge
     bool isNearEnough2BeJoined2(NBEdge* e, double threshold) const;

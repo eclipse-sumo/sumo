@@ -2433,8 +2433,8 @@ NBEdge::hasLaneSpecificSpeed() const {
 
 bool
 NBEdge::hasLaneSpecificFriction() const {
-	for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-		if (i->friction != getFriction()) {
+    for (std::vector<Lane>::const_iterator i = myLanes.begin(), i2 = ++myLanes.begin(); i2 != myLanes.end(); ++i, ++i2) {
+		if (i->friction != (i2)->friction) {
 			return true;
 		}
 	}
