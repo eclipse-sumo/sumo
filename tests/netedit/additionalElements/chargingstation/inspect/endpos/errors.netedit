@@ -9,20 +9,29 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
 Debug: Selected item 'chargingStation' in GNETagSelector
 Debug: Adding chargingStation 'cs_0' in GNEChange_Additional
-Debug: Value '5000' for attribute efficiency of chargingStation isn't valid
-Debug: Value '2' for attribute efficiency of chargingStation isn't valid
-Debug: Value '30' for attribute efficiency of chargingStation isn't valid
+Debug: Setting new attribute
+Debug: Value '5000' for attribute endPos of chargingStation isn't valid
+Debug: Value '2' for attribute endPos of chargingStation isn't valid
+Debug: Setting new attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing chargingStation 'cs_0' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding chargingStation 'cs_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

@@ -41,13 +41,13 @@ netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "ref
 netedit.leftClick(referencePosition, 250, 172)
 
 # create chargingStation 2 in mode "reference center"
-netedit.leftClick(referencePosition, 450, 170)
+netedit.leftClick(referencePosition, 450, 172)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, 250, 173)
+netedit.leftClick(referencePosition, 250, 165)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.id, "cs_1", True)

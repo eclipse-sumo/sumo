@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 250, 172)
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, 250, 173)
+netedit.leftClick(referencePosition, 250, 165)
 
 # Change parameter startPos with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.startPos, "", True)

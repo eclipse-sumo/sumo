@@ -44,19 +44,19 @@ netedit.leftClick(referencePosition, 250, 172)
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, 250, 173)
+netedit.leftClick(referencePosition, 250, 165)
 
 # Change parameter endpos with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.efficiency, "", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.endPos, "", True)
 
 # Change parameter endpos with a valid value (> lanelength)
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.efficiency, "5000", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.endPos, "5000", True)
 
 # Change parameter endpos with a non valid value (< startPos)
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.efficiency, "2", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.endPos, "2", True)
 
 # Change parameter endpos with a valid value
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.efficiency, "30", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.endPos, "30", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

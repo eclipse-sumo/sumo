@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 250, 172)
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, 250, 175)
+netedit.leftClick(referencePosition, 250, 165)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.chargingStation.inspect.parameters, True)
