@@ -28,6 +28,7 @@
 // ===========================================================================
 #ifndef LIBTRACI
 class MSPerson;
+class MSStage;
 struct Reservation;
 class PositionVector;
 #endif
