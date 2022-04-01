@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 510, 185)
 netedit.leftClick(referencePosition, 87, 185)
 
 # select two-way mode
-netedit.changeEditMode(netedit.attrs.Modes.Network.twoWayMode)
+netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 
 # create square
 netedit.leftClick(referencePosition, 87, 292)

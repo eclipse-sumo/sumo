@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.forceSaveDemandElements()
 
 # show demand elements in network mode
-netedit.changeEditMode(netedit.attrs.Modes.Network.showDemandElements)
+netedit.changeEditMode(netedit.attrs.modes.network.showDemandElements)
 
 # Recompute
 netedit.rebuildNetwork()

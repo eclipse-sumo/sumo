@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.createEdgeMode()
 
 # select two-way mode
-netedit.changeEditMode(netedit.attrs.Modes.Network.twoWayMode)
+netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 
 # Create two nodes
 netedit.leftClick(referencePosition, 113, 239)

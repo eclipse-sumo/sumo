@@ -20,11 +20,11 @@
 # --------------------------------
 
 
-class EditElements:
+class editElements:
     overlapped = 5
 
-class Selection:
-    class LockSelectionNetwork:
+class selection:
+    class lockSelectionNetwork:
         junctions = 1
         edges = 2
         lanes = 3
@@ -36,7 +36,7 @@ class Selection:
         POIs = 9
 
 
-class Modes:
+class modes:
     class Network:
         grid = '1'
         junctionShape = '2'
@@ -49,13 +49,18 @@ class Modes:
         chainMode = '5'
         twoWayMode = '6'
 
-    class Demand:
+    class demand:
         grid = '1'
         junctionShape = '2'
 
     class Data:
         junctionShape = '1'
 
+class frames:
+    class route:
+        create = 15
+        abort = 16
+        removeLastInsertedEdge = 17
 
 # --------------------------------
 # NETWORK

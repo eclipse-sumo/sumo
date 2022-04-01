@@ -946,7 +946,7 @@ def modifyAttribute(attributeNumber, value, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 1 + attrs.EditElements.overlapped):
+        for _ in range(attributeNumber + 1 + attrs.editElements.overlapped):
             typeTab()
     else:
         for _ in range(attributeNumber + 1):
@@ -965,7 +965,7 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 1 + attrs.EditElements.overlapped):
+        for _ in range(attributeNumber + 1 + attrs.editElements.overlapped):
             typeTab()
     else:
         for _ in range(attributeNumber + 1):
@@ -982,7 +982,7 @@ def modifyColorAttribute(attributeNumber, color, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 1 + attrs.EditElements.overlapped):
+        for _ in range(attributeNumber + 1 + attrs.editElements.overlapped):
             typeTab()
     else:
         for _ in range(attributeNumber + 1):
