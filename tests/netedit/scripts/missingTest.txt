@@ -52,9 +52,6 @@ flowJunction.inspectSelection.spacingOption
 flowJunction.inspectSelection.terminate
 flowJunction.inspectSelection.terminateOption
 flowJunction.inspectSelection.type
-frames.route.abort
-frames.route.create
-frames.route.removeLastInsertedEdge
 junction.inspectSelectionTLS.tl
 junction.inspectSelectionTLS.tlLayout
 junction.inspectSelectionTLS.tlType
@@ -65,7 +62,7 @@ lane.inspect.stopOffset
 lane.inspect.stopOffsetException
 lane.inspectSelection.stopOffset
 lane.inspectSelection.stopOffsetException
-modes.Data.junctionShape
+modes.data.junctionShape
 modes.demand.grid
 modes.demand.junctionShape
 modes.network.grid

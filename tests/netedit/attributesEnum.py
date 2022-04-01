@@ -53,7 +53,7 @@ class modes:
         grid = '1'
         junctionShape = '2'
 
-    class Data:
+    class data:
         junctionShape = '1'
 
 
