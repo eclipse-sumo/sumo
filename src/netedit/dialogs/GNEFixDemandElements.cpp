@@ -281,7 +281,12 @@ GNEFixDemandElements::FixRouteOptions::fixElements(bool& abortSaving) {
             myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid routes");
             // iterate over invalid routes to delete it
             for (const auto& invalidRoute : myInvalidElements) {
-                myViewNet->getNet()->deleteDemandElement(invalidRoute, myViewNet->getUndoList());
+                // special case for embedded routes
+                if (invalidRoute->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+                    myViewNet->getNet()->deleteDemandElement(invalidRoute->getParentDemandElements().front(), myViewNet->getUndoList());
+                } else {
+                    myViewNet->getNet()->deleteDemandElement(invalidRoute, myViewNet->getUndoList());
+                }
             }
             // end undo list
             myViewNet->getUndoList()->end();
@@ -384,8 +389,8 @@ GNEFixDemandElements::FixVehicleOptions::fixElements(bool& abortSaving) {
     if (myInvalidElements.size() > 0) {
         if (removeInvalidVehicles->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid routes");
-            // iterate over invalid routes to delete it
+            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid vehicles");
+            // iterate over invalid vehicles to delete it
             for (const auto& invalidVehicle : myInvalidElements) {
                 myViewNet->getNet()->deleteDemandElement(invalidVehicle, myViewNet->getUndoList());
             }
