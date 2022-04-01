@@ -1165,11 +1165,6 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
                        + "' set to end at " + time2string(stop.pars.until)
                        + " earlier than departure at " + time2string(getParameter().depart) + ".";
         }
-        if (stop.pars.arrival >= 0 && getParameter().depart > stop.pars.arrival) {
-            errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID()
-                       + "' set to start at " + time2string(stop.pars.arrival)
-                       + " earlier than departure at " + time2string(getParameter().depart) + ".";
-        }
     }
     if (stop.pars.until >= 0 && stop.pars.arrival > stop.pars.until && errorMsg == "") {
         errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID()
