@@ -100,6 +100,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             of.writeAttr(SUMO_ATTR_ID, veh->getID());
             of.writeOptionalAttr(SUMO_ATTR_X, pos.x(), mask);
             of.writeOptionalAttr(SUMO_ATTR_Y, pos.y(), mask);
+            of.setPrecision(gPrecision);
             if (elevation) {
                 of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
             }
