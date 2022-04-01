@@ -59,6 +59,9 @@ public:
     /** The time to detect grid locks on highways */
     static SUMOTime gTimeToGridlockHighways;
 
+    /** The speed threshold for gTimeToGridlockHighways */
+    static double gGridlockHighwaysSpeed;
+
     /** The time to wait for teleport on disconected routes */
     static SUMOTime gTimeToTeleportDisconnected;
 

@@ -1956,7 +1956,9 @@ MSLane::executeMovements(const SUMOTime t) {
         if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0 || MSGlobals::gTimeToTeleportDisconnected >= 0) {
             const bool wrongLane = !appropriate(firstNotStopped);
             const bool r1 = MSGlobals::gTimeToGridlock > 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlock;
-            const bool r2 = !r1 && MSGlobals::gTimeToGridlockHighways > 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && getSpeedLimit() > 69. / 3.6 && wrongLane;
+            const bool r2 = !r1 && MSGlobals::gTimeToGridlockHighways > 0
+                && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlockHighways
+                && getSpeedLimit() > MSGlobals::gGridlockHighwaysSpeed && wrongLane;
             const bool r3 = !r1 && !r2 && MSGlobals::gTimeToTeleportDisconnected >= 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected
                             && firstNotStopped->succEdge(1) != nullptr
                             && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr;

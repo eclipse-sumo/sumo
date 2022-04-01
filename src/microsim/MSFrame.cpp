@@ -392,6 +392,9 @@ MSFrame::fillOptions() {
     oc.doRegister("time-to-teleport.highways", new Option_String("0", "TIME"));
     oc.addDescription("time-to-teleport.highways", "Processing", "The waiting time after which vehicles on a fast road (speed > 69km/h) are teleported if they are on a non-continuing lane");
 
+    oc.doRegister("time-to-teleport.highways.min-speed", new Option_Float(69 / 3.6));
+    oc.addDescription("time-to-teleport.highways.min-speed", "Processing", "The waiting time after which vehicles on a fast road (default: speed > 69km/h) are teleported if they are on a non-continuing lane");
+
     oc.doRegister("time-to-teleport.disconnected", new Option_String("-1", "TIME"));
     oc.addDescription("time-to-teleport.disconnected", "Processing", "The waiting time after which vehicles with a disconnected route are teleported. Negative values disable teleporting");
 
@@ -946,6 +949,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gTimeToGridlock = string2time(oc.getString("time-to-teleport")) < 0 ? 0 : string2time(oc.getString("time-to-teleport"));
     MSGlobals::gTimeToImpatience = string2time(oc.getString("time-to-impatience"));
     MSGlobals::gTimeToGridlockHighways = string2time(oc.getString("time-to-teleport.highways")) < 0 ? 0 : string2time(oc.getString("time-to-teleport.highways"));
+    MSGlobals::gGridlockHighwaysSpeed = oc.getFloat("time-to-teleport.highways.min-speed");
     MSGlobals::gTimeToTeleportDisconnected = string2time(oc.getString("time-to-teleport.disconnected"));
     MSGlobals::gRemoveGridlocked = oc.getBool("time-to-teleport.remove");
     MSGlobals::gCheck4Accidents = !oc.getBool("ignore-accidents");
