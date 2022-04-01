@@ -633,7 +633,7 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
         into.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n.getFringeType()));
     }
     if (n.getName() != "") {
-        into.writeAttr<std::string>(SUMO_ATTR_NAME, n.getName());
+        into.writeAttr<std::string>(SUMO_ATTR_NAME, StringUtils::escapeXML(n.getName()));
     }
     if (n.getType() != SumoXMLNodeType::DEAD_END) {
         // write right-of-way logics
@@ -1013,7 +1013,7 @@ NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* 
             }
         }
         if (phase.name != "") {
-            into.writeAttr(SUMO_ATTR_NAME, phase.name);
+            into.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(phase.name));
         }
         if (phase.next.size() > 0) {
             into.writeAttr(SUMO_ATTR_NEXT, phase.next);
