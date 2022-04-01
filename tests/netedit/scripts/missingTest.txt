@@ -125,11 +125,7 @@ routeflow.inspectSelection.terminate
 routeflow.inspectSelection.terminateOption
 routeflow.inspectSelection.type
 selection.lockSelectionNetwork.TAZs
-stopLane.inspectSelection.line
 stopLane.inspectSelection.posLat
-stopLane.inspectSelection.tripID
-stopParking.inspectSelection.line
-stopParking.inspectSelection.tripID
 tripFromToEdge.create.id
 tripFromToEdge.create.personNumber
 tripFromToEdge.inspect.colorButton
