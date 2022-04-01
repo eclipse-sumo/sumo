@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_12_0+1668-49cf6e3
+Eclipse SUMO sumo Version v1_12_0+1874-91efc38
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -224,6 +224,10 @@ Processing Options:
                                         a fast road (speed > 69km/h) are
                                         teleported if they are on a
                                         non-continuing lane
+  --time-to-teleport.highways.min-speed FLOAT  The waiting time after which
+                                        vehicles on a fast road (default: speed
+                                        > 69km/h) are teleported if they are on
+                                        a non-continuing lane
   --time-to-teleport.disconnected TIME  The waiting time after which vehicles
                                         with a disconnected route are
                                         teleported. Negative values disable
