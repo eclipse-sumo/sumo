@@ -555,6 +555,11 @@ public:
      */
     bool isStoppedTriggered() const;
 
+    /** @brief Returns whether the vehicle is on a parking stop
+     * @return whether the vehicle is on a parking stop
+     */
+    bool isStoppedParking() const;
+
     /** @brief return whether the given position is within range of the current stop
      */
     bool isStoppedInRange(const double pos, const double tolerance) const;

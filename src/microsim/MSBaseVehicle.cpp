@@ -911,6 +911,12 @@ MSBaseVehicle::isStoppedTriggered() const {
 
 
 bool
+MSBaseVehicle::isStoppedParking() const {
+    return isStopped() && myStops.begin()->pars.parking;
+}
+
+
+bool
 MSBaseVehicle::isStoppedInRange(const double pos, const double tolerance) const {
     if (isStopped()) {
         const MSStop& stop = myStops.front();

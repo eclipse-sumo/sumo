@@ -1726,16 +1726,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 MSNet::getInstance()->informVehicleStateListener(this, MSNet::VehicleState::STARTING_STOP);
                 MSNet::getInstance()->getVehicleControl().registerStopStarted();
                 // compute stopping time
-                if (stop.pars.until >= 0) {
-                    if (stop.duration == -1) {
-                        stop.duration = stop.pars.until - time;
-                    } else {
-                        stop.duration = MAX2(stop.duration, stop.pars.until - time);
-                    }
-                }
-                if (MSGlobals::gUseStopEnded && stop.pars.ended >= 0) {
-                    stop.duration = stop.pars.ended - time;
-                }
+                stop.duration = stop.getMinDuration(time);
                 stop.endBoarding = stop.pars.extension >= 0 ? time + stop.duration + stop.pars.extension : SUMOTime_MAX;
                 if (stop.pars.speed > 0) {
                     // ignore duration parameter in waypoint mode

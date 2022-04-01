@@ -125,4 +125,20 @@ MSStop::getStateFlagsOld() const {
     return ((reached ? 1 : 0) + 2 * pars.getFlags());
 }
 
+
+SUMOTime
+MSStop::getMinDuration(SUMOTime time) const {
+    if (MSGlobals::gUseStopEnded && pars.ended >= 0) {
+        return pars.ended - time;
+    }
+    if (pars.until >= 0) {
+        if (duration == -1) {
+            return pars.until - time;
+        } else {
+            return MAX2(duration, pars.until - time);
+        }
+    } else {
+        return duration;
+    }
+}
 /****************************************************************************/

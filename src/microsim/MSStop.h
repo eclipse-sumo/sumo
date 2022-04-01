@@ -108,6 +108,9 @@ public:
     /// @brief return flags as used by Vehicle::getStopState
     int getStateFlagsOld() const;
 
+    /// @brief return minimum stop duration when starting stop at time
+    SUMOTime getMinDuration(SUMOTime time) const;
+
 private:
     /// @brief Invalidated assignment operator
     MSStop& operator=(const MSStop& src) = delete;
