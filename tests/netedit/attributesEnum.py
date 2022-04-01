@@ -37,7 +37,7 @@ class selection:
 
 
 class modes:
-    class Network:
+    class network:
         grid = '1'
         junctionShape = '2'
         spreadVehicle = '3'
@@ -55,6 +55,7 @@ class modes:
 
     class Data:
         junctionShape = '1'
+
 
 class frames:
     class route:
