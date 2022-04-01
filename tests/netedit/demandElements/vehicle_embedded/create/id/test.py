@@ -37,8 +37,15 @@ netedit.vehicleMode()
 # select vehicle with embedded route
 netedit.changeElement("vehicle (embedded route)")
 
-# set invalid person number
-netedit.changeColorUsingDialog(netedit.attrs.vehicleEmbedded.create.colorButton, 5)
+# create trip
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 280, 55)
+
+# press enter to create trip
+netedit.typeEnter()
+
+# set invalid ID
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.id, ";;;;&&&")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -47,18 +54,8 @@ netedit.leftClick(referencePosition, 280, 55)
 # press enter to create trip
 netedit.typeEnter()
 
-# set invalid color
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.color, "dummyColor")
-
-# try to create trip
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
-
-# press enter to create trip
-netedit.typeEnter()
-
-# set valid color
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.color, "cyan")
+# set invalid ID
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.id, "v_0")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -67,8 +64,8 @@ netedit.leftClick(referencePosition, 280, 55)
 # press enter to create trip
 netedit.typeEnter()
 
-# set valid color
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.color, "12,13,14")
+# set valid ID
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.id, "customID")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)

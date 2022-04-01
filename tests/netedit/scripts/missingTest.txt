@@ -148,8 +148,6 @@ vehicle.inspect.colorButton
 vehicle.inspect.departEdge
 vehicle.inspectSelection.colorButton
 vehicle.inspectSelection.type
-vehicleEmbedded.create.colorButton
-vehicleEmbedded.create.id
 vehicleEmbedded.inspect.arrivalEdge
 vehicleEmbedded.inspect.colorButton
 vehicleEmbedded.inspect.departEdge
