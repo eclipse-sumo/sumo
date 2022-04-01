@@ -54,11 +54,6 @@ netedit.typeEnter()
 # set valid repeat
 netedit.changeDefaultValue(netedit.attrs.route.create.repeat, "13")
 
-# try to create route using three edges
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 280, 55)
-
 # press enter to create route
 netedit.typeEnter()
 

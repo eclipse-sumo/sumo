@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+º#!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 280, 55)
 
 # press abort button
 netedit.focusOnFrame()
-for _ in range(16):
+for _ in range(netedit.attrs.frames.route.abort):
     netedit.typeTab()
 netedit.typeSpace()
 

@@ -37,10 +37,13 @@ netedit.routeMode()
 # set color using dialog
 netedit.changeColorUsingDialog(netedit.attrs.route.create.colorButton, 5)
 
-# try to create route using three edges
+# create edge
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 55)
+
+# press enter to create route
+netedit.typeEnter()
 
 # set invalid color
 netedit.changeDefaultValue(netedit.attrs.route.create.color, "dummyColor")

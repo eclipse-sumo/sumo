@@ -37,19 +37,38 @@ netedit.routeMode()
 # change to non consecutive mode
 netedit.changeRouteMode("non consecutive edges")
 
-# create route using two edges
+# create edge
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press button to create route
-netedit.focusOnFrame()
-for _ in range(netedit.attrs.frames.route.create):
-    netedit.typeTab()
-netedit.typeSpace()
+# press enter to create route
+netedit.typeEnter()
+
+# set invalid id
+netedit.changeDefaultValue(netedit.attrs.route.create.id, "%%%;;;;")
+
+# try to create route using three edges
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 280, 55)
+
+# press enter to try to create route
+netedit.typeEnter()
+
+# set invalid ID
+netedit.changeDefaultValue(netedit.attrs.route.create.id, "r_0")
+
+# press enter to create route
+netedit.typeEnter()
+
+# set valid ID
+netedit.changeDefaultValue(netedit.attrs.route.create.id, "customID")
+
+# press enter to create route
+netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save routes
 netedit.saveRoutes(referencePosition)
