@@ -1,0 +1,9 @@
+-n net.net.xml
+-r input_routes.rou.xml
+-a input_additional.add.xml
+-e 3600
+--extrapolate-departpos
+--max-depart-delay 3
+--collision.mingap-factor 0
+--no-step-log
+-t

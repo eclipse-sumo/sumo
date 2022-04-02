@@ -1,0 +1,13 @@
+# - Observing breakdown requires a long road because the disturbance travels upstream and needs some time to develop
+# - Krauss sigma may create a critical disturbance but also reduces density (which absorbs disturbances)
+# - To increase the likelyhood of breakdown, density must be increased further (tau 0.9)
+# - Simulation is free of "physical" collisions but we have to disable collision warnings for mingap violations
+# - we need large disturbances to reach standstill from a high speed of ~36 (sigma=1)
+krauss_t0.9_s1
+
+# - Observing breakdown requires a long road because the disturbance travels upstream and needs some time to develop
+# - Krauss sigma may create a critical disturbance but also reduces density (which absorbs disturbances)
+# - To increase the likelyhood of breakdown, density must be increased further (tau 0.9)
+# - Simulation is free of "physical" collisions but we have to disable collision warnings for mingap violations
+# - we need lesser disturbances to reach standstill from a speed of ~16 (sigma=0.8)
+krauss_t0.9_s0.8
