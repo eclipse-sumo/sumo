@@ -1,4 +1,13 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 't1'; waited too long, from edge 'b':1, time=360.13.
-Warning: Vehicle 't1' teleports beyond arrival edge 'b', time=381.46.
-Warning: Vehicle 't0' aborted waiting for a person or container that will never come.
+Warning: Join stops are not available in meso yet (vehicle 't0', segment 'a:0').
+Warning: Join stops are not available in meso yet (vehicle 't0', segment 'a:1').
+Warning: Join stops are not available in meso yet (vehicle 't0', segment 'b:0').
+Warning: Join stops are not available in meso yet (vehicle 't0', segment 'b:1').
+Warning: Join stops are not available in meso yet (vehicle 't0', segment 'b:2').
+Warning: Join stops are not available in meso yet (vehicle 't1', segment 'd:0').
+Warning: Join stops are not available in meso yet (vehicle 't0', segment 'c:0').
+Warning: Join stops are not available in meso yet (vehicle 't1', segment 'd:1').
+Warning: Join stops are not available in meso yet (vehicle 't0', segment 'c:1').
+Warning: Join stops are not available in meso yet (vehicle 't1', segment 'b:0').
+Warning: Join stops are not available in meso yet (vehicle 't1', segment 'b:1').
+Warning: Join stops are not available in meso yet (vehicle 't1', segment 'b:2').
