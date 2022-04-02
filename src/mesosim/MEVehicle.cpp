@@ -214,9 +214,12 @@ SUMOTime
 MEVehicle::checkStop(SUMOTime time) {
     const SUMOTime initialTime = time;
     bool hadStop = false;
-    MSNet* const net = MSNet::getInstance();
-    SUMOTime dummy = -1; // boarding- and loading-time are not considered
     for (MSStop& stop : myStops) {
+        if (stop.joinTriggered) {
+            WRITE_WARNINGF("Join stops are not available in meso yet (vehicle '%', segment '%').",
+                            getID(), mySegment->getID());
+            continue;
+        }
         if (stop.edge != myCurrEdge || stop.segment != mySegment) {
             break;
         }
@@ -235,7 +238,7 @@ MEVehicle::checkStop(SUMOTime time) {
         if (!stop.reached) {
             stop.reached = true;
             stop.pars.started = myLastEntryTime;
-
+            stop.endBoarding = stop.pars.extension >= 0 ? time + stop.pars.extension : SUMOTime_MAX;
             if (MSStopOut::active()) {
                 if (!hadStop) {
                     MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
@@ -246,20 +249,6 @@ MEVehicle::checkStop(SUMOTime time) {
             }
         }
         if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
-            bool wait = true;
-            if (stop.triggered && net->hasPersons()) {
-                wait = !net->getPersonControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
-            }
-            if (stop.containerTriggered && net->hasContainers()) {
-                wait = !net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
-            }
-            /// @todo handle stop.joinTriggered
-            if (wait) {
-                net->getVehicleControl().registerOneWaiting();
-            } else {
-                stop.triggered = false;
-                stop.containerTriggered = false;
-            }
             time = MAX2(time, cur + DELTA_T);
         }
         hadStop = true;
@@ -285,8 +274,9 @@ MEVehicle::resumeFromStopping() {
             MSStopOut::getInstance()->stopEnded(this, stop.pars, mySegment->getEdge().getID());
         }
         myPastStops.push_back(stop.pars);
-        if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
+        if (myAmRegisteredAsWaiting && (stop.triggered || stop.containerTriggered || stop.joinTriggered)) {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
+            myAmRegisteredAsWaiting = false;
         }
         myStops.pop_front();
         if (myEventTime > now) {
@@ -355,23 +345,34 @@ MEVehicle::mayProceed() {
     if (mySegment == nullptr) {
         return true;
     }
-    /*if (checkStop(myLastEntryTime) > myEventTime) {
-        // TODO refactor function to return expected time of continuation
-        return false;
-    }*/
     MSNet* const net = MSNet::getInstance();
     SUMOTime dummy = -1; // boarding- and loading-time are not considered
     for (MSStop& stop : myStops) {
         if (!stop.reached) {
             break;
         }
+        if (net->getCurrentTimeStep() > stop.endBoarding) {
+            stop.triggered = false;
+            stop.containerTriggered = false;
+            if (myAmRegisteredAsWaiting) {
+                net->getVehicleControl().unregisterOneWaiting();
+                myAmRegisteredAsWaiting = false;
+            }
+        }
         if (stop.triggered) {
             if (getVehicleType().getPersonCapacity() == getPersonNumber()) {
                 // we could not check this on entering the segment because there may be persons who still want to leave
                 WRITE_WARNING("Vehicle '" + getID() + "' ignores triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
                 stop.triggered = false;
-                net->getVehicleControl().unregisterOneWaiting();
+                if (myAmRegisteredAsWaiting) {
+                    net->getVehicleControl().unregisterOneWaiting();
+                    myAmRegisteredAsWaiting = false;
+                }
             } else if (!net->hasPersons() || !net->getPersonControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
+                if (!myAmRegisteredAsWaiting) {
+                    MSNet::getInstance()->getVehicleControl().registerOneWaiting();
+                    myAmRegisteredAsWaiting = true;
+                }
                 return false;
             }
         }
@@ -380,12 +381,20 @@ MEVehicle::mayProceed() {
                 // we could not check this on entering the segment because there may be containers who still want to leave
                 WRITE_WARNING("Vehicle '" + getID() + "' ignores container triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
                 stop.containerTriggered = false;
-                net->getVehicleControl().unregisterOneWaiting();
+                if (myAmRegisteredAsWaiting) {
+                    net->getVehicleControl().unregisterOneWaiting();
+                    myAmRegisteredAsWaiting = false;
+                }
             } else if (!net->hasContainers() || !net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
+                if (!myAmRegisteredAsWaiting) {
+                    MSNet::getInstance()->getVehicleControl().registerOneWaiting();
+                    myAmRegisteredAsWaiting = true;
+                }
                 return false;
             }
         }
         if (stop.joinTriggered) {
+            // TODO do something useful here
             return false;
         }
     }

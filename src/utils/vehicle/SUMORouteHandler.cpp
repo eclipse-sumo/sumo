@@ -480,7 +480,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     // legacy
     if (attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, nullptr, ok, false)) {
         triggers.push_back(toString(SUMO_TAG_CONTAINER));
-    };
+    }
     SUMOVehicleParameter::parseStopTriggers(triggers, expectTrigger, stop);
     stop.arrival = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ARRIVAL, nullptr, ok, -1);
     stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
