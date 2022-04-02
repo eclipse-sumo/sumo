@@ -983,6 +983,9 @@ protected:
     ParkingMemory* myParkingMemory = nullptr;
     int myNumberParkingReroutes = 0;
 
+    /// @brief Whether this vehicle is registered as waiting for a person or container (for deadlock-recognition)
+    bool myAmRegisteredAsWaiting = false;
+
     /* @brief magic value for undeparted vehicles
      * @note: in previous versions this was -1
      */

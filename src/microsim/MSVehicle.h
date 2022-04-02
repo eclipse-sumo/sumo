@@ -1867,12 +1867,6 @@ protected:
     /// @brief Whether the vehicle is trying to enter the network (eg after parking so engine is running)
     bool myAmIdling;
 
-    /// @brief Whether this vehicle is registered as waiting for a person (for deadlock-recognition)
-    bool myAmRegisteredAsWaitingForPerson;
-
-    /// @brief Whether this vehicle is registered as waiting for a container (for deadlock-recognition)
-    bool myAmRegisteredAsWaitingForContainer;
-
     bool myHaveToWaitOnNextLink;
 
     /// @brief the angle in radians (@todo consider moving this into myState)
