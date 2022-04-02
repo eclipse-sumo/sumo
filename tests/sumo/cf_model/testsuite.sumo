@@ -2,7 +2,7 @@
 parameters
 
 # create fundamental diagram. to plot:
-# visualization/plotXMLAttributes.py aggregated.xml -i id -x density -y left -s --scatterplot --yfactor 60 --ylabel vehs/hour
+# visualization/plotXMLAttributes.py edgedata.xml -i id -x density -y left -s --scatterplot --yfactor 60 --ylabel vehs/hour
 fundamental
 
 # show that each model allows vehicles to follow each other around a circular track
