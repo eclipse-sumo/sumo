@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 14 12:42:21 2020 by Eclipse SUMO sumo Version v1_7_0+0592-51838c0a76
+<!-- generated on 2022-04-02 15:27:56 by Eclipse SUMO sumo Version v1_12_0+1866-fd84196f622
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -38,6 +43,10 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="veh1" type="Car" depart="10.00" departPos="0.00" arrival="11.00">
+        <route edges="1to2 out"/>
+    </vehicle>
+
     <person id="p1" depart="100.00" departPos="4.00" arrival="252.00">
         <ride from="1to2" to="out" arrivalPos="1.00" lines="veh0"/>
     </person>
@@ -49,10 +58,6 @@ SPDX-License-Identifier: EPL-2.0
     <vehicle id="veh0" type="Car" depart="1.00" departPos="0.00" arrival="252.00">
         <route edges="1to2 out"/>
         <stop lane="1to2_0" endPos="4.00" duration="250.00" triggered="person" expected="p1 p2"/>
-    </vehicle>
-
-    <vehicle id="veh1" type="Car" depart="252.00" departPos="0.00" arrival="253.00">
-        <route edges="1to2 out"/>
     </vehicle>
 
 </routes>
