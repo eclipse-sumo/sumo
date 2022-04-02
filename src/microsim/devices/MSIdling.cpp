@@ -28,13 +28,9 @@
 #include "MSRoutingEngine.h"
 #include "MSIdling.h"
 
-//#define DEBUG_RESERVATION
-//#define DEBUG_Idling
-//#define DEBUG_SERVABLE
-//#define DEBUG_TRAVELTIME
-//#define DEBUG_DETOUR
-//#define DEBUG_COND2(obj) (obj->getID() == "p0")
-#define DEBUG_COND2(obj) (true)
+//#define DEBUG_IDLING
+//#define DEBUG_COND(obj) (obj->getHolder().getID() == "p0")
+#define DEBUG_COND(obj) (true)
 
 
 // ===========================================================================
@@ -44,8 +40,11 @@
 void
 MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
     if (!taxi->getHolder().hasStops()) {
-        //std::cout << SIMTIME << " MSIdling_Stop add stop\n";
-        // add stop
+#ifdef DEBUG_IDLING
+    if (DEBUG_COND(taxi)) {
+        std::cout << SIMTIME << " MSIdling_Stop add stop\n";
+    }
+#endif
         std::string errorOut;
         double brakeGap = 0;
         std::pair<const MSLane*, double> stopPos;
@@ -80,7 +79,11 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
             WRITE_WARNING("Idle taxi '" + taxi->getHolder().getID() + "' could not stop within " + toString(brakeGap) + "m");
         }
     } else {
-        //std::cout << SIMTIME << " MSIdling_Stop reuse stop\n";
+#ifdef DEBUG_IDLING
+    if (DEBUG_COND(taxi)) {
+        std::cout << SIMTIME << " MSIdling_Stop reuse stop\n";
+    }
+#endif
         MSStop& stop = taxi->getHolder().getNextStop();
         if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
             stop.containerTriggered = true;
@@ -89,6 +92,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
         }
     }
 }
+
 
 // ===========================================================================
 // MSIdling_RandomCircling methods

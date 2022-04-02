@@ -137,18 +137,6 @@ public:
      * @see MSMoveReminder::Notification
      */
     bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
-
-
-    /** @brief Saves arrival info
-     *
-     * @param[in] veh The leaving vehicle.
-     * @param[in] lastPos Position on the lane when leaving.
-     * @param[in] isArrival whether the vehicle arrived at its destination
-     * @param[in] isLaneChange whether the vehicle changed from the lane
-     * @return True if it did not leave the net.
-     */
-    bool notifyLeave(SUMOTrafficObject& veh, double lastPos,
-                     MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
     /// @}
 
 
