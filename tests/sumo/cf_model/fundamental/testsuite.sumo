@@ -11,3 +11,7 @@ krauss_t0.9_s1
 # - Simulation is free of "physical" collisions but we have to disable collision warnings for mingap violations
 # - we need lesser disturbances to reach standstill from a speed of ~16 (sigma=0.8)
 krauss_t0.9_s0.8
+
+# instead of creating a disturbance with high sigma, we combine long plattoons of fast vehicles (on the left lane) with occasional slow vehicles (on the right lane) to occasionally obstruct the plattoon via lane changing
+# 
+2lane_krauss_t0.8_s0.5
