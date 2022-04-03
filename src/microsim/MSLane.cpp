@@ -2662,7 +2662,8 @@ MSLane::getCriticalLeader(double dist, double seen, double speed, const MSVehicl
                 // XXX ignoring pedestrians here!
                 // XXX ignoring the fact that the link leader may alread by following us
                 // XXX ignoring the fact that we may drive up to the crossing point
-                const double tmpSpeed = veh.getSafeFollowSpeed((*it).vehAndGap, seen, nextLane, (*it).distToCrossing);
+                double tmpSpeed = safeSpeed;
+                veh.adaptToJunctionLeader((*it).vehAndGap, seen, nullptr, nextLane, tmpSpeed, tmpSpeed, (*it).distToCrossing);
 #ifdef DEBUG_CONTEXT
                 if (DEBUG_COND2(&veh)) {
                     std::cout << "    linkLeader=" << leader->getID() << " gap=" << result.second << " tmpSpeed=" << tmpSpeed << " safeSpeed=" << safeSpeed << "\n";

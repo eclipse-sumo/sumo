@@ -1645,10 +1645,6 @@ public:
     /// @brief sets position outside the road network
     void setRemoteState(Position xyPos);
 
-    /// @brief compute safe speed for following the given leader
-    double getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderInfo,
-                              const double seen, const MSLane* const lane, double distToCrossing) const;
-
     /// @brief get a numerical value for the priority of the  upcoming link
     static int nextLinkPriority(const std::vector<MSLane*>& conts);
 
@@ -1982,6 +1978,13 @@ protected:
                        const double seen, DriveProcessItem* const lastLink,
                        const MSLane* const lane, double& v, double& vLinkPass,
                        double distToCrossing = -1) const;
+
+public:
+    void adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leaderInfo,
+                       const double seen, DriveProcessItem* const lastLink,
+                       const MSLane* const lane, double& v, double& vLinkPass,
+                       double distToCrossing = -1) const;
+protected:
 
     /* @brief adapt safe velocity in accordance to multiple vehicles ahead:
      * @param[in] ahead The leader information according to the current lateral-resolution

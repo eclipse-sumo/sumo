@@ -2828,13 +2828,131 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
                          const MSLane* const lane, double& v, double& vLinkPass,
                          double distToCrossing) const {
     if (leaderInfo.first != 0) {
-        const double vsafeLeader = getSafeFollowSpeed(leaderInfo, seen, lane, distToCrossing);
+        assert(leaderInfo.first != 0);
+        const MSCFModel& cfModel = getCarFollowModel();
+        double vsafeLeader = 0;
+        if (!MSGlobals::gSemiImplicitEulerUpdate) {
+            vsafeLeader = -std::numeric_limits<double>::max();
+        }
+        if (leaderInfo.second >= 0) {
+            vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first);
+        } else {
+            // the leading, in-lapping vehicle is occupying the complete next lane
+            // stop before entering this lane
+            vsafeLeader = cfModel.stopSpeed(this, getSpeed(), seen - lane->getLength() - POSITION_EPS);
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " veh=" << getID() << "  stopping before junction: lane=" << lane->getID() << " seen=" << seen
+                    << " laneLength=" << lane->getLength()
+                    << " stopDist=" << seen - lane->getLength()  - POSITION_EPS
+                    << " vsafeLeader=" << vsafeLeader
+                    << " distToCrossing=" << distToCrossing
+                    << "\n";
+            }
+#endif
+        }
         if (lastLink != nullptr) {
             lastLink->adaptLeaveSpeed(vsafeLeader);
         }
         v = MIN2(v, vsafeLeader);
         vLinkPass = MIN2(vLinkPass, vsafeLeader);
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND) std::cout
+                    << SIMTIME
+                    //std::cout << std::setprecision(10);
+                    << " veh=" << getID()
+                    << " lead=" << leaderInfo.first->getID()
+                    << " leadSpeed=" << leaderInfo.first->getSpeed()
+                    << " gap=" << leaderInfo.second
+                    << " leadLane=" << leaderInfo.first->getLane()->getID()
+                    << " predPos=" << leaderInfo.first->getPositionOnLane()
+                    << " seen=" << seen
+                    << " lane=" << lane->getID()
+                    << " myLane=" << myLane->getID()
+                    << " dTC=" << distToCrossing
+                    << " v=" << v
+                    << " vSafeLeader=" << vsafeLeader
+                    << " vLinkPass=" << vLinkPass
+                    << "\n";
+#endif
+    }
+}
 
+
+void
+MSVehicle::adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leaderInfo,
+                         const double seen, DriveProcessItem* const lastLink,
+                         const MSLane* const lane, double& v, double& vLinkPass,
+                         double distToCrossing) const {
+    if (leaderInfo.first != 0) {
+        const MSCFModel& cfModel = getCarFollowModel();
+        double vsafeLeader = 0;
+        if (!MSGlobals::gSemiImplicitEulerUpdate) {
+            vsafeLeader = -std::numeric_limits<double>::max();
+        }
+        if (leaderInfo.second >= 0) {
+            vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first);
+        } else {
+            // the leading, in-lapping vehicle is occupying the complete next lane
+            // stop before entering this lane
+            vsafeLeader = cfModel.stopSpeed(this, getSpeed(), seen - lane->getLength() - POSITION_EPS);
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " veh=" << getID() << "  stopping before junction: lane=" << lane->getID() << " seen=" << seen
+                    << " laneLength=" << lane->getLength()
+                    << " stopDist=" << seen - lane->getLength()  - POSITION_EPS
+                    << " vsafeLeader=" << vsafeLeader
+                    << " distToCrossing=" << distToCrossing
+                    << "\n";
+            }
+#endif
+        }
+        if (distToCrossing >= 0) {
+            // can the leader still stop in the way?
+            const double vStop = cfModel.stopSpeed(this, getSpeed(), distToCrossing - getVehicleType().getMinGap());
+            if (leaderInfo.first == this) {
+                // braking for pedestrian
+                vsafeLeader = vStop;
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+                if (DEBUG_COND) {
+                    std::cout << "  breaking for pedestrian distToCrossing=" << distToCrossing << " vStop=" << vStop << "\n";
+                }
+#endif
+            } else if (leaderInfo.second == -std::numeric_limits<double>::max()) {
+                // drive up to the crossing point and stop
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+                if (DEBUG_COND) {
+                    std::cout << "  stop at crossing point for critical leader\n";
+                };
+#endif
+                vsafeLeader = MAX2(vsafeLeader, vStop);
+            } else {
+                const double leaderDistToCrossing = distToCrossing - leaderInfo.second;
+                // estimate the time at which the leader has gone past the crossing point
+                const double leaderPastCPTime = leaderDistToCrossing / MAX2(leaderInfo.first->getSpeed(), SUMO_const_haltingSpeed);
+                // reach distToCrossing after that time
+                // avgSpeed * leaderPastCPTime = distToCrossing
+                // ballistic: avgSpeed = (getSpeed + vFinal) / 2
+                const double vFinal = MAX2(getSpeed(), 2 * (distToCrossing - getVehicleType().getMinGap()) / leaderPastCPTime - getSpeed());
+                const double v2 = getSpeed() + ACCEL2SPEED((vFinal - getSpeed()) / leaderPastCPTime);
+                vsafeLeader = MAX2(vsafeLeader, MIN2(v2, vStop));
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+                if (DEBUG_COND) {
+                    std::cout << "    driving up to the crossing point (distToCrossing=" << distToCrossing << ")"
+                        << " leaderPastCPTime=" << leaderPastCPTime
+                        << " vFinal=" << vFinal
+                        << " v2=" << v2
+                        << " vStop=" << vStop
+                        << " vsafeLeader=" << vsafeLeader << "\n";
+                }
+#endif
+            }
+        }
+        if (lastLink != nullptr) {
+            lastLink->adaptLeaveSpeed(vsafeLeader);
+        }
+        v = MIN2(v, vsafeLeader);
+        vLinkPass = MIN2(vLinkPass, vsafeLeader);
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) std::cout
                     << SIMTIME
@@ -2908,7 +3026,7 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
 #endif
                 continue;
             }
-            adaptToLeader(std::make_pair(this, -1), seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
+            adaptToJunctionLeader(std::make_pair(this, -1), seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
         } else if (isLeader(link, leader) || (*it).inTheWay) {
             if (getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB, 0) > 0
                     && getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB, 0) >= RandHelper::rand(getRNG())) {
@@ -2953,7 +3071,7 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                               << "\n";
                 }
 #endif
-                adaptToLeader(it->vehAndGap, seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
+                adaptToJunctionLeader(it->vehAndGap, seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
             }
             if (lastLink != nullptr) {
                 // we are not yet on the junction with this linkLeader.
@@ -3002,76 +3120,6 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
     vLinkWait = MIN2(vLinkWait, v);
 }
 
-
-double
-MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderInfo,
-                              const double seen, const MSLane* const lane, double distToCrossing) const {
-    assert(leaderInfo.first != 0);
-    const MSCFModel& cfModel = getCarFollowModel();
-    double vsafeLeader = 0;
-    if (!MSGlobals::gSemiImplicitEulerUpdate) {
-        vsafeLeader = -std::numeric_limits<double>::max();
-    }
-    if (leaderInfo.second >= 0) {
-        vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first);
-    } else {
-        // the leading, in-lapping vehicle is occupying the complete next lane
-        // stop before entering this lane
-        vsafeLeader = cfModel.stopSpeed(this, getSpeed(), seen - lane->getLength() - POSITION_EPS);
-#ifdef DEBUG_PLAN_MOVE_LEADERINFO
-        if (DEBUG_COND) {
-            std::cout << SIMTIME << " veh=" << getID() << "  stopping before junction: lane=" << lane->getID() << " seen=" << seen
-                      << " laneLength=" << lane->getLength()
-                      << " stopDist=" << seen - lane->getLength()  - POSITION_EPS
-                      << " vsafeLeader=" << vsafeLeader
-                      << " distToCrossing=" << distToCrossing
-                      << "\n";
-        }
-#endif
-    }
-    if (distToCrossing >= 0) {
-        // can the leader still stop in the way?
-        const double vStop = cfModel.stopSpeed(this, getSpeed(), distToCrossing - getVehicleType().getMinGap());
-        if (leaderInfo.first == this) {
-            // braking for pedestrian
-            vsafeLeader = vStop;
-#ifdef DEBUG_PLAN_MOVE_LEADERINFO
-            if (DEBUG_COND) {
-                std::cout << "  breaking for pedestrian distToCrossing=" << distToCrossing << " vStop=" << vStop << "\n";
-            }
-#endif
-        } else if (leaderInfo.second == -std::numeric_limits<double>::max()) {
-            // drive up to the crossing point and stop
-#ifdef DEBUG_PLAN_MOVE_LEADERINFO
-            if (DEBUG_COND) {
-                std::cout << "  stop at crossing point for critical leader\n";
-            };
-#endif
-            vsafeLeader = MAX2(vsafeLeader, vStop);
-        } else {
-            const double leaderDistToCrossing = distToCrossing - leaderInfo.second;
-            // estimate the time at which the leader has gone past the crossing point
-            const double leaderPastCPTime = leaderDistToCrossing / MAX2(leaderInfo.first->getSpeed(), SUMO_const_haltingSpeed);
-            // reach distToCrossing after that time
-            // avgSpeed * leaderPastCPTime = distToCrossing
-            // ballistic: avgSpeed = (getSpeed + vFinal) / 2
-            const double vFinal = MAX2(getSpeed(), 2 * (distToCrossing - getVehicleType().getMinGap()) / leaderPastCPTime - getSpeed());
-            const double v2 = getSpeed() + ACCEL2SPEED((vFinal - getSpeed()) / leaderPastCPTime);
-            vsafeLeader = MAX2(vsafeLeader, MIN2(v2, vStop));
-#ifdef DEBUG_PLAN_MOVE_LEADERINFO
-            if (DEBUG_COND) {
-                std::cout << "    driving up to the crossing point (distToCrossing=" << distToCrossing << ")"
-                          << " leaderPastCPTime=" << leaderPastCPTime
-                          << " vFinal=" << vFinal
-                          << " v2=" << v2
-                          << " vStop=" << vStop
-                          << " vsafeLeader=" << vsafeLeader << "\n";
-            }
-#endif
-        }
-    }
-    return vsafeLeader;
-}
 
 double
 MSVehicle::getDeltaPos(const double accel) const {
