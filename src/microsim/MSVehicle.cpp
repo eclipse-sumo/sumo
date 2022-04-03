@@ -2153,7 +2153,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                           << " cands=" << cands.toString() << " oppositeLeaders=" <<  oppositeLeaders.toString() << "\n";
             }
 #endif
-            adaptToLeaderDistance(oppositeLeaders, 0, seen, lastLink, myLane, v, vLinkPass);
+            adaptToLeaderDistance(oppositeLeaders, 0, lastLink, v, vLinkPass);
         } else {
             adaptToLeaders(ahead, lateralShift, seen, lastLink, leaderLane, v, vLinkPass);
         }
@@ -2211,7 +2211,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         std::cout << "   shadowLeadersFixed=" << shadowLeaders.toString() << "\n";
                     }
 #endif
-                    adaptToLeaderDistance(shadowLeaders, latOffset, seen, lastLink, myLane, v, vLinkPass);
+                    adaptToLeaderDistance(shadowLeaders, latOffset, lastLink, v, vLinkPass);
                 }
             }
         }
@@ -2796,15 +2796,14 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
 
 void
 MSVehicle::adaptToLeaderDistance(const MSLeaderDistanceInfo& ahead, double latOffset,
-                                 const double seen, DriveProcessItem* const lastLink,
-                                 const MSLane* const lane, double& v, double& vLinkPass) const {
+                                 DriveProcessItem* const lastLink,
+                                 double& v, double& vLinkPass) const {
     int rightmost;
     int leftmost;
     ahead.getSubLanes(this, latOffset, rightmost, leftmost);
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) std::cout << SIMTIME
                                   << "\nADAPT_TO_LEADERS_DISTANCE\nveh=" << getID()
-                                  << " lane=" << lane->getID()
                                   << " latOffset=" << latOffset
                                   << " rm=" << rightmost
                                   << " lm=" << leftmost
