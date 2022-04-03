@@ -2834,23 +2834,7 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
         if (!MSGlobals::gSemiImplicitEulerUpdate) {
             vsafeLeader = -std::numeric_limits<double>::max();
         }
-        if (leaderInfo.second >= 0) {
-            vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first);
-        } else {
-            // the leading, in-lapping vehicle is occupying the complete next lane
-            // stop before entering this lane
-            vsafeLeader = cfModel.stopSpeed(this, getSpeed(), seen - lane->getLength() - POSITION_EPS);
-#ifdef DEBUG_PLAN_MOVE_LEADERINFO
-            if (DEBUG_COND) {
-                std::cout << SIMTIME << " veh=" << getID() << "  stopping before junction: lane=" << lane->getID() << " seen=" << seen
-                    << " laneLength=" << lane->getLength()
-                    << " stopDist=" << seen - lane->getLength()  - POSITION_EPS
-                    << " vsafeLeader=" << vsafeLeader
-                    << " distToCrossing=" << distToCrossing
-                    << "\n";
-            }
-#endif
-        }
+        vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first);
         if (lastLink != nullptr) {
             lastLink->adaptLeaveSpeed(vsafeLeader);
         }
