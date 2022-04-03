@@ -934,6 +934,10 @@ MSCFModel::calculateEmergencyDeceleration(double gap, double egoSpeed, double pr
     // There are two cases:
     // 1) Either, stopping in time is possible with a deceleration b <= predMaxDecel, then this value is returned
     // 2) Or, b > predMaxDecel is required in this case the minimal value b allowing to stop safely under the assumption maxPredDecel=b is returned
+    assert(gap < 0 || predSpeed < egoSpeed);
+    if (gap <= 0.) {
+        return myEmergencyDecel;
+    }
 
     // Apparent braking distance for the leader
     const double predBrakeDist = 0.5 * predSpeed * predSpeed / predMaxDecel;
@@ -966,10 +970,6 @@ MSCFModel::calculateEmergencyDeceleration(double gap, double egoSpeed, double pr
 #endif
 
     // Case 2) applies
-    assert(gap < 0 || predSpeed < egoSpeed);
-    if (gap <= 0.) {
-        return myEmergencyDecel;
-    }
     // Required deceleration according to case 2)
     const double b2 = 0.5 * (egoSpeed * egoSpeed - predSpeed * predSpeed) / gap;
 
