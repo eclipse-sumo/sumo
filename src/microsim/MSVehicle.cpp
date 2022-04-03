@@ -2785,7 +2785,7 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                 std::cout << "     pred=" << pred->getID() << " predLane=" << pred->getLane()->getID() << " predPos=" << pred->getPositionOnLane() << " gap=" << gap << " predBack=" << predBack << " seen=" << seen << " lane=" << lane->getID() << " myLane=" << myLane->getID() << "\n";
             }
 #endif
-            adaptToLeader(std::make_pair(pred, gap), seen, lastLink, lane, v, vLinkPass);
+            adaptToLeader(std::make_pair(pred, gap), lastLink, v, vLinkPass);
         }
     }
 }
@@ -2816,7 +2816,7 @@ MSVehicle::adaptToLeaderDistance(const MSLeaderDistanceInfo& ahead, double latOf
                 std::cout << "     pred=" << pred->getID() << " predLane=" << pred->getLane()->getID() << " predPos=" << pred->getPositionOnLane() << " gap=" << predDist.second << "\n";
             }
 #endif
-            adaptToLeader(predDist, seen, lastLink, lane, v, vLinkPass);
+            adaptToLeader(predDist, lastLink, v, vLinkPass);
         }
     }
 }
@@ -2824,9 +2824,8 @@ MSVehicle::adaptToLeaderDistance(const MSLeaderDistanceInfo& ahead, double latOf
 
 void
 MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
-                         const double seen, DriveProcessItem* const lastLink,
-                         const MSLane* const lane, double& v, double& vLinkPass,
-                         double distToCrossing) const {
+                         DriveProcessItem* const lastLink,
+                         double& v, double& vLinkPass) const {
     if (leaderInfo.first != 0) {
         assert(leaderInfo.first != 0);
         const MSCFModel& cfModel = getCarFollowModel();
@@ -2850,10 +2849,7 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
                     << " gap=" << leaderInfo.second
                     << " leadLane=" << leaderInfo.first->getLane()->getID()
                     << " predPos=" << leaderInfo.first->getPositionOnLane()
-                    << " seen=" << seen
-                    << " lane=" << lane->getID()
                     << " myLane=" << myLane->getID()
-                    << " dTC=" << distToCrossing
                     << " v=" << v
                     << " vSafeLeader=" << vsafeLeader
                     << " vLinkPass=" << vLinkPass

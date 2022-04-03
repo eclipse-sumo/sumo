@@ -1967,17 +1967,13 @@ protected:
      * - a leader vehicle
      * - a vehicle or pedestrian that crosses this vehicles path on an upcoming intersection
      * @param[in] leaderInfo The leading vehicle and the (virtual) distance to it
-     * @param[in] seen the distance to the end of the current lane
      * @param[in] lastLink the lastLink index
-     * @param[in] lane The current Lane the vehicle is on
      * @param[in,out] the safe velocity for driving
      * @param[in,out] the safe velocity for arriving at the next link
-     * @param[in] distToCrossing The distance to the crossing point with the current leader where relevant or -1
      */
     void adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
-                       const double seen, DriveProcessItem* const lastLink,
-                       const MSLane* const lane, double& v, double& vLinkPass,
-                       double distToCrossing = -1) const;
+                       DriveProcessItem* const lastLink,
+                       double& v, double& vLinkPass) const;
 
 public:
     void adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leaderInfo,
