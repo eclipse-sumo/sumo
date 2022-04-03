@@ -896,16 +896,16 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
             // can result in corrupted values (leading to intersecting trajectories) if, e.g. leader and follower are fast (leader still faster) and the gap is very small,
             // such that braking harder than myDecel is required.
 
+            double safeDecel = EMERGENCY_DECEL_AMPLIFIER * calculateEmergencyDeceleration(gap, egoSpeed, predSpeed, predMaxDecel);
 #ifdef DEBUG_EMERGENCYDECEL
             if (DEBUG_COND2) {
                 std::cout << SIMTIME << " initial vsafe=" << x
                           << " egoSpeed=" << egoSpeed << " (origSafeDecel=" << origSafeDecel << ")"
                           << " predSpeed=" << predSpeed << " (predDecel=" << predMaxDecel << ")"
+                          << " safeDecel=" << safeDecel
                           << std::endl;
             }
 #endif
-
-            double safeDecel = EMERGENCY_DECEL_AMPLIFIER * calculateEmergencyDeceleration(gap, egoSpeed, predSpeed, predMaxDecel);
             // Don't be riskier than the usual method (myDecel <= safeDecel may occur, because a headway>0 is used above)
             safeDecel = MAX2(safeDecel, myDecel);
             // don't brake harder than originally planned (possible due to euler/ballistic mismatch)
@@ -968,7 +968,7 @@ MSCFModel::calculateEmergencyDeceleration(double gap, double egoSpeed, double pr
     // Case 2) applies
     assert(gap < 0 || predSpeed < egoSpeed);
     if (gap <= 0.) {
-        return -ACCEL2SPEED(myEmergencyDecel);
+        return myEmergencyDecel;
     }
     // Required deceleration according to case 2)
     const double b2 = 0.5 * (egoSpeed * egoSpeed - predSpeed * predSpeed) / gap;
