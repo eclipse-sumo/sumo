@@ -79,12 +79,12 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
             WRITE_WARNING("Idle taxi '" + taxi->getHolder().getID() + "' could not stop within " + toString(brakeGap) + "m");
         }
     } else {
+        MSStop& stop = taxi->getHolder().getNextStop();
 #ifdef DEBUG_IDLING
     if (DEBUG_COND(taxi)) {
-        std::cout << SIMTIME << " MSIdling_Stop reuse stop\n";
+        std::cout << SIMTIME << " MSIdling_Stop reusing stop with duration " << time2string(stop.duration) << "\n";
     }
 #endif
-        MSStop& stop = taxi->getHolder().getNextStop();
         if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
             stop.containerTriggered = true;
         } else {

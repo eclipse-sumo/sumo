@@ -189,6 +189,19 @@ public:
 
     static bool compatibleLine(const std::string& taxiLine, const std::string& rideLine);
 
+protected:
+    /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()
+     *
+     */
+    void notifyMoveInternal(const SUMOTrafficObject& veh,
+                            const double frontOnLane,
+                            const double timeOnLane,
+                            const double meanSpeedFrontOnLane,
+                            const double meanSpeedVehicleOnLane,
+                            const double travelledDistanceFrontOnLane,
+                            const double travelledDistanceVehicleOnLane,
+                            const double meanLengthOnLane);
+
 private:
     /** @brief Constructor
      *
@@ -196,6 +209,8 @@ private:
      * @param[in] id The ID of the device
      */
     MSDevice_Taxi(SUMOVehicle& holder, const std::string& id);
+
+    void updateMove(const SUMOTime traveltime, const double travelledDist);
 
     /// @brief prepare stop for the given action
     void prepareStop(ConstMSEdgeVector& edges,
