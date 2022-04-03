@@ -15,3 +15,7 @@ krauss_t0.9_s0.8
 # instead of creating a disturbance with high sigma, we combine long plattoons of fast vehicles (on the left lane) with occasional slow vehicles (on the right lane) to occasionally obstruct the plattoon via lane changing
 # 
 2lane_krauss_t0.8_s0.5
+
+# instead of creating a disturbance with high sigma (which IDM doesn't provide), we combine long plattoons of fast vehicles (on the left lane) with occasional slow vehicles (on the right lane) to occasionally obstruct the plattoon via lane changing
+# 
+2lane_IDM
