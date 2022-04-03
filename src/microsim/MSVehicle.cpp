@@ -2766,10 +2766,14 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
             if (myLaneChangeModel->isOpposite()) {
                 if (pred->getLaneChangeModel().isOpposite() || lane == pred->getLaneChangeModel().getShadowLane()) {
                     // ego might and leader are driving against lane
-                    gap = myState.myPos - predBack - getVehicleType().getMinGap();
+                    gap = (lastLink == nullptr
+                            ? myState.myPos - predBack - getVehicleType().getMinGap()
+                            : predBack + seen - lane->getLength() - getVehicleType().getMinGap());
                 } else {
                     // ego and leader are driving in the same direction as lane (shadowlane for ego)
-                    gap = predBack - (myLane->getLength() - myState.myPos) - getVehicleType().getMinGap();
+                    gap = (lastLink == nullptr
+                            ? predBack - (myLane->getLength() - myState.myPos) - getVehicleType().getMinGap()
+                            : predBack + seen - lane->getLength() - getVehicleType().getMinGap());
                 }
             } else if (pred->getLaneChangeModel().isOpposite() && pred->getLaneChangeModel().getShadowLane() != lane) {
                 // must react to stopped / dangerous oncoming vehicles
@@ -2782,7 +2786,7 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
             }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
-                std::cout << "     pred=" << pred->getID() << " predLane=" << pred->getLane()->getID() << " predPos=" << pred->getPositionOnLane() << " gap=" << gap << " predBack=" << predBack << " seen=" << seen << " lane=" << lane->getID() << " myLane=" << myLane->getID() << "\n";
+                std::cout << "     pred=" << pred->getID() << " predLane=" << pred->getLane()->getID() << " predPos=" << pred->getPositionOnLane() << " gap=" << gap << " predBack=" << predBack << " seen=" << seen << " lane=" << lane->getID() << " myLane=" << myLane->getID() << " lastLink=" << (lastLink == nullptr ? "NULL" : lastLink->myLink->getDescription()) << "\n";
             }
 #endif
             adaptToLeader(std::make_pair(pred, gap), lastLink, v, vLinkPass);
