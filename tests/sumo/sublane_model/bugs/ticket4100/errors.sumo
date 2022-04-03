@@ -1,5 +1,3 @@
 Warning: Vehicle 'WE_bike.5' performs emergency braking with decel=-7.00 wished=1.00 severity=1.00, time=39.70.
-Warning: Vehicle 'WE_bike.6' performs emergency braking with decel=-7.00 wished=1.00 severity=1.00, time=94.30.
-Warning: Vehicle 'WE_bike.7' performs emergency braking with decel=-7.00 wished=1.00 severity=1.00, time=105.30.
-Warning: Vehicle 'WE_bike.7' performs emergency braking with decel=-7.00 wished=1.00 severity=1.00, time=119.10.
-Warning: Vehicle 'WE_bike.8' performs emergency braking with decel=-7.00 wished=1.00 severity=1.00, time=123.30.
+Warning: Vehicle 'WE_bike.6' performs emergency braking with decel=-7.00 wished=1.00 severity=1.00, time=94.40.
+Warning: Vehicle 'WE_bike.7' performs emergency braking with decel=-7.00 wished=1.00 severity=1.00, time=105.40.
