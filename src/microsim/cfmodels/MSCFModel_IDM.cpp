@@ -187,13 +187,13 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
         const double acc = myAccel * (1. - pow(newSpeed / desSpeed, myDelta) - (s * s) / (gap * gap));
 #ifdef DEBUG_V
         if (gDebugFlag1) {
-            std::cout << " gap=" << gap << " t=" << myHeadwayTime << " t2=" << headwayTime << " s=" << s << " pow=" << pow(newSpeed / desSpeed, myDelta) << " gapDecel=" << (s * s) / (gap * gap) << " a=" << acc;
+            std::cout << " i=" << i << " gap=" << gap << " t=" << myHeadwayTime << " t2=" << headwayTime << " s=" << s << " pow=" << pow(newSpeed / desSpeed, myDelta) << " gapDecel=" << (s * s) / (gap * gap) << " a=" << acc;
         }
 #endif
         newSpeed = MAX2(0.0, newSpeed + ACCEL2SPEED(acc) / myIterations);
 #ifdef DEBUG_V
         if (gDebugFlag1) {
-            std::cout << " v2=" << newSpeed << "\n";
+            std::cout << " v2=" << newSpeed << " gLC=" << MSGlobals::gComputeLC << "\n";
         }
 #endif
         //TODO use more realistic position update which takes accelerated motion into account
