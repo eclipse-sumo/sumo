@@ -510,8 +510,13 @@ MEVehicle::saveState(OutputDevice& out) {
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
         stop.write(out, false);
-        out.writeAttr(SUMO_ATTR_STARTED, time2string(stop.started));
-        out.writeAttr(SUMO_ATTR_ENDED, time2string(stop.ended));
+        // do not write started and ended twice
+        if ((stop.parametersSet & STOP_STARTED_SET) == 0) {
+            out.writeAttr(SUMO_ATTR_STARTED, time2string(stop.started));
+        }
+        if ((stop.parametersSet & STOP_ENDED_SET) == 0) {
+            out.writeAttr(SUMO_ATTR_ENDED, time2string(stop.ended));
+        }
         out.closeTag();
     }
     // save upcoming stops
@@ -558,6 +563,9 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
                 assert(seg != 0);
             }
             setSegment(seg, queIndex);
+            if (queIndex == MESegment::PARKING_QUEUE) {
+                MSGlobals::gMesoNet->addLeaderCar(this, nullptr);
+            }
         } else {
             // on teleport
             setSegment(nullptr, 0);
