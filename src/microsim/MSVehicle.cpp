@@ -4943,6 +4943,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     activateReminders(MSMoveReminder::NOTIFICATION_LANE_CHANGE, enteredLane);
     MSLane* lane = myLane;
     double leftLength = getVehicleType().getLength() - myState.myPos;
+    int deleteFurther = 0;
     for (int i = 0; i < (int)myFurtherLanes.size(); i++) {
         if (lane != nullptr) {
             lane = lane->getLogicalPredecessorLane(myFurtherLanes[i]->getEdge());
@@ -4954,21 +4955,36 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
             }
 #endif
             myFurtherLanes[i]->resetPartialOccupation(this);
-            myFurtherLanes[i] = lane;
-            myFurtherLanesPosLat[i] = myState.myPosLat;
+            // lane changing onto longer lanes may reduce the number of
+            // remaining further lanes
+            if (leftLength > 0) {
+                myFurtherLanes[i] = lane;
+                myFurtherLanesPosLat[i] = myState.myPosLat;
 #ifdef DEBUG_SETFURTHER
-            if (DEBUG_COND) {
-                std::cout << SIMTIME << " enterLaneAtLaneChange \n";
-            }
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " enterLaneAtLaneChange \n";
+                }
 #endif
-            leftLength -= (lane)->setPartialOccupation(this);
-            myState.myBackPos = -leftLength;
+                leftLength -= (lane)->setPartialOccupation(this);
+                myState.myBackPos = -leftLength;
+            } else {
+                deleteFurther++;
+            }
         } else {
             // keep the old values, but ensure there is no shadow
             if (myLaneChangeModel->isChangingLanes()) {
                 myLaneChangeModel->setNoShadowPartialOccupator(myFurtherLanes[i]);
             }
         }
+    }
+    if (deleteFurther > 0) {
+#ifdef DEBUG_SETFURTHER
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh=" << getID() << " shortening myFurtherLanes by " << deleteFurther << "\n";
+        }
+#endif
+        myFurtherLanes.erase(myFurtherLanes.end() - 1);
+        myFurtherLanesPosLat.erase(myFurtherLanesPosLat.end() - 1);
     }
 #ifdef DEBUG_SETFURTHER
     if (DEBUG_COND) {
