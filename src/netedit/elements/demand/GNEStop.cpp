@@ -64,7 +64,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
     // set flags
     parking = (parametersSet & STOP_PARKING_SET);
     // set tripID and line
-    (stopParameter.tripId.size() > 0)? parametersSet |= STOP_PARKING_SET : parametersSet &= ~STOP_TRIP_ID_SET;
+    (stopParameter.tripId.size() > 0)? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     (stopParameter.line.size() > 0)? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
     // set waypoint speed
     myTagProperty.isWaypoint()? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
@@ -78,7 +78,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEL
     // set flags
     parking = (parametersSet & STOP_PARKING_SET);
     // set tripID and line
-    (stopParameter.tripId.size() > 0)? parametersSet |= STOP_PARKING_SET : parametersSet &= ~STOP_TRIP_ID_SET;
+    (stopParameter.tripId.size() > 0)? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     (stopParameter.line.size() > 0)? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
     // set waypoint speed
     myTagProperty.isWaypoint()? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
@@ -99,7 +99,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEE
     containerTriggered = (parametersSet & STOP_CONTAINER_TRIGGER_SET);
     joinTriggered = (parametersSet & STOP_JOIN_SET);
     // set tripID and line
-    (stopParameter.tripId.size() > 0)? parametersSet |= STOP_PARKING_SET : parametersSet &= ~STOP_TRIP_ID_SET;
+    (stopParameter.tripId.size() > 0)? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     (stopParameter.line.size() > 0)? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
     // set waypoint speed
     myTagProperty.isWaypoint()? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
