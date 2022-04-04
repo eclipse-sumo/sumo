@@ -158,4 +158,7 @@ turn-lanes
 
 # import turn-lane information merge_to_right
 turn-lanes2
+
+# import key junction=circular
+junction_circular
 bugs
