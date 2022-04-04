@@ -3,4 +3,3 @@ Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|high
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.trunk' (first occurence for edge '365415331').
 Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.trunk' (first occurence for edge '519432808').
 Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.service' (first occurence for edge '519432809').
-Warning: Connection '-38696934#0_1->3527220_1' is only 0.04m short.
