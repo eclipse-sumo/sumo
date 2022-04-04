@@ -2843,7 +2843,7 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
             backOnRoute = false;
             // this can either be
             // a) a merging situation (leader back is is not our route) or
-            // b) a minGap violation / collision 
+            // b) a minGap violation / collision
             MSLane* current = lastLink->myLink->getViaLaneOrLane();
             if (leaderInfo.first->getBackLane() == current) {
                 backOnRoute = true;
@@ -7211,4 +7211,9 @@ MSVehicle::getStopArrivalDelay() const {
     }
 }
 
+
+const MSEdge*
+MSVehicle::getCurrentEdge() const {
+    return myLane != nullptr ? &myLane->getEdge() : getEdge();
+}
 /****************************************************************************/

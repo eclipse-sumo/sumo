@@ -488,6 +488,17 @@ MEVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
     MSGlobals::gMesoNet->changeSegment(this, MSNet::getInstance()->getCurrentTimeStep(), nullptr, reason);
 }
 
+double
+MEVehicle::getRightSideOnEdge(const MSLane* /*lane*/) const {
+    if (mySegment == nullptr || mySegment->getIndex() >= getEdge()->getNumLanes()) {
+        return 0;
+    }
+    const MSLane* lane = getEdge()->getLanes()[mySegment->getIndex()];
+    return lane->getRightSideOnEdge() + lane->getWidth() * 0.5 - 0.5 * getVehicleType().getWidth();
+
+}
+
+
 void
 MEVehicle::saveState(OutputDevice& out) {
     if (mySegment != nullptr && MESegment::isInvalid(mySegment)) {

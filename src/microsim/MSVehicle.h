@@ -613,6 +613,10 @@ public:
      */
     bool isFrontOnLane(const MSLane* lane) const;
 
+    /** @brief Returns the edge the vehicle is currently at (possibly an
+     * internal edge or nullptr)
+     */
+    const MSEdge* getCurrentEdge() const;
 
     /** @brief Returns the starting point for reroutes (usually the current edge)
      *
