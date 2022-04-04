@@ -1972,6 +1972,7 @@ protected:
      * @param[in,out] the safe velocity for arriving at the next link
      */
     void adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
+                       double seen,
                        DriveProcessItem* const lastLink,
                        double& v, double& vLinkPass) const;
 
@@ -1997,6 +1998,7 @@ protected:
                         const MSLane* const lane, double& v, double& vLinkPass) const;
 
     void adaptToLeaderDistance(const MSLeaderDistanceInfo& ahead, double latOffset,
+                               double seen,
                                DriveProcessItem* const lastLink,
                                double& v, double& vLinkPass) const;
 

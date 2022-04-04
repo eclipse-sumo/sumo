@@ -2153,7 +2153,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                           << " cands=" << cands.toString() << " oppositeLeaders=" <<  oppositeLeaders.toString() << "\n";
             }
 #endif
-            adaptToLeaderDistance(oppositeLeaders, 0, lastLink, v, vLinkPass);
+            adaptToLeaderDistance(oppositeLeaders, 0, seen, lastLink, v, vLinkPass);
         } else {
             adaptToLeaders(ahead, lateralShift, seen, lastLink, leaderLane, v, vLinkPass);
         }
@@ -2211,7 +2211,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         std::cout << "   shadowLeadersFixed=" << shadowLeaders.toString() << "\n";
                     }
 #endif
-                    adaptToLeaderDistance(shadowLeaders, latOffset, lastLink, v, vLinkPass);
+                    adaptToLeaderDistance(shadowLeaders, latOffset, seen, lastLink, v, vLinkPass);
                 }
             }
         }
@@ -2789,13 +2789,14 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                 std::cout << "     pred=" << pred->getID() << " predLane=" << pred->getLane()->getID() << " predPos=" << pred->getPositionOnLane() << " gap=" << gap << " predBack=" << predBack << " seen=" << seen << " lane=" << lane->getID() << " myLane=" << myLane->getID() << " lastLink=" << (lastLink == nullptr ? "NULL" : lastLink->myLink->getDescription()) << "\n";
             }
 #endif
-            adaptToLeader(std::make_pair(pred, gap), lastLink, v, vLinkPass);
+            adaptToLeader(std::make_pair(pred, gap), seen, lastLink, v, vLinkPass);
         }
     }
 }
 
 void
 MSVehicle::adaptToLeaderDistance(const MSLeaderDistanceInfo& ahead, double latOffset,
+                                 double seen,
                                  DriveProcessItem* const lastLink,
                                  double& v, double& vLinkPass) const {
     int rightmost;
@@ -2819,7 +2820,7 @@ MSVehicle::adaptToLeaderDistance(const MSLeaderDistanceInfo& ahead, double latOf
                 std::cout << "     pred=" << pred->getID() << " predLane=" << pred->getLane()->getID() << " predPos=" << pred->getPositionOnLane() << " gap=" << predDist.second << "\n";
             }
 #endif
-            adaptToLeader(predDist, lastLink, v, vLinkPass);
+            adaptToLeader(predDist, seen, lastLink, v, vLinkPass);
         }
     }
 }
@@ -2827,6 +2828,7 @@ MSVehicle::adaptToLeaderDistance(const MSLeaderDistanceInfo& ahead, double latOf
 
 void
 MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
+                         double seen,
                          DriveProcessItem* const lastLink,
                          double& v, double& vLinkPass) const {
     if (leaderInfo.first != 0) {
@@ -2836,7 +2838,37 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
         if (!MSGlobals::gSemiImplicitEulerUpdate) {
             vsafeLeader = -std::numeric_limits<double>::max();
         }
-        vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first);
+        bool backOnRoute = true;
+        if (leaderInfo.second < 0 && lastLink != nullptr && lastLink->myLink != nullptr) {
+            backOnRoute = false;
+            // this can either be
+            // a) a merging situation (leader back is is not our route) or
+            // b) a minGap violation / collision 
+            MSLane* current = lastLink->myLink->getViaLaneOrLane();
+            if (leaderInfo.first->getBackLane() == current) {
+                backOnRoute = true;
+            } else {
+                for (MSLane* lane : getBestLanesContinuation()) {
+                    if (lane == current) {
+                        break;
+                    }
+                    if (leaderInfo.first->getBackLane() == lane) {
+                        backOnRoute = true;
+                    }
+                }
+            }
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " current=" << current->getID() << " leaderBackLane=" << leaderInfo.first->getBackLane()->getID() << " backOnRoute=" << backOnRoute << "\n";
+            }
+#endif
+            if (!backOnRoute) {
+                vsafeLeader = cfModel.stopSpeed(this, getSpeed(), seen - current->getLength() - POSITION_EPS);
+            }
+        }
+        if (backOnRoute) {
+            vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first);
+        }
         if (lastLink != nullptr) {
             lastLink->adaptLeaveSpeed(vsafeLeader);
         }

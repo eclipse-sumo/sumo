@@ -886,7 +886,12 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
     //    const double headway = predSpeed > 0. ? myHeadwayTime : 0.;
 
     const double headway = myHeadwayTime;
-    double x = maximumSafeStopSpeed(gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0), myDecel, egoSpeed, onInsertion, headway);
+    double x;
+    if (gap >= 0 || MSGlobals::gComputeLC) {
+        x = maximumSafeStopSpeed(gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0), myDecel, egoSpeed, onInsertion, headway);
+    } else {
+        x = egoSpeed - ACCEL2SPEED(myEmergencyDecel);
+    }
 
     if (myDecel != myEmergencyDecel && !onInsertion && !MSGlobals::gComputeLC) {
         double origSafeDecel = SPEED2ACCEL(egoSpeed - x);
