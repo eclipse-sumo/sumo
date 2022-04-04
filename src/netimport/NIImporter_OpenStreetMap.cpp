@@ -1173,7 +1173,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
         } else if (key == "maxspeed:backward" && myCurrentEdge->myMaxSpeedBackward == MAXSPEED_UNGIVEN) {
             myCurrentEdge->myMaxSpeedBackward = interpretSpeed(key, value);
         } else if (key == "junction") {
-            if ((value == "roundabout") && (myCurrentEdge->myIsOneWay.empty())) {
+            if ((value == "roundabout" || value == "circular") && (myCurrentEdge->myIsOneWay.empty())) {
                 myCurrentEdge->myIsOneWay = "yes";
             }
         } else if (key == "oneway") {
