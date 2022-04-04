@@ -2,7 +2,7 @@
    Inserted: count 10, min 100.00 (1373158593), max 100.00 (1373158593), mean 100.00, Q1 100.00, median 100.00, Q3 100.00
     Running: count 10, min 0.00 (1373158593), max 0.00 (1373158593), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
 RouteLength: count 10, min 393.90 (1373158593), max 393.90 (1373158593), mean 393.90, Q1 393.90, median 393.90, Q3 393.90
-   Duration: count 10, min 41.86 (186699721), max 48.47 (590620963), mean 45.20, Q1 44.43, median 45.56, Q3 46.00
-WaitingTime: count 10, min 2.72 (186699721), max 7.39 (590620963), mean 5.14, Q1 4.55, median 5.58, Q3 5.70
-   TimeLoss: count 10, min 13.03 (186699721), max 19.12 (590620963), mean 16.08, Q1 15.47, median 16.62, Q3 17.04
-DepartDelay: count 10, min 10.12 (1453201083), max 14.19 (1915941032), mean 12.19, Q1 11.73, median 12.18, Q3 13.10
+   Duration: count 10, min 41.28 (1373158593), max 46.70 (479341410), mean 44.54, Q1 42.04, median 45.47, Q3 46.43
+WaitingTime: count 10, min 2.47 (53710187), max 6.60 (479341410), mean 4.60, Q1 2.92, median 5.39, Q3 5.61
+   TimeLoss: count 10, min 12.27 (1373158593), max 17.74 (479341410), mean 15.40, Q1 13.06, median 16.19, Q3 17.10
+DepartDelay: count 10, min 9.20 (1581559889), max 11.78 (186699721), mean 10.32, Q1 9.43, median 10.67, Q3 10.79
