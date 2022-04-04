@@ -46,59 +46,155 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Restoring previous attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Setting new attribute
+Debug: Deleting TLS from junction 'Center'
+Debug: Adding TLS into junction 'Center'
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
