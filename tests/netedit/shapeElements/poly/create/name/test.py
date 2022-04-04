@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # change layer (invalid)
-netedit.changeDefaultValue(netedit.attrs.Poly.create.name, "%%%%%%···$$$$")
+netedit.changeDefaultValue(netedit.attrs.Poly.create.name, "%%%%%%$$$$")
 
 # try to create polygon
 netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
