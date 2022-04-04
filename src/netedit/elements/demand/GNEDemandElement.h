@@ -436,7 +436,7 @@ protected:
         const GNEEdge* edge;
 
         /// @brief stops sorted by end position
-        std::vector<std::pair<double, const GNEDemandElement*> > myStops;
+        std::vector<std::pair<std::pair<double, double >, const GNEDemandElement*> > myStops;
     };
 
     /// @brief get sorted stops

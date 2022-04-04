@@ -229,6 +229,9 @@ protected:
     /// @brief value for saving second original position over lane before moving
     std::string mySecondOriginalPosition;
 
+    /// @brief creation index (using for saving sorted)
+    const int myCreationIndex;
+
     /// @brief get first valid lane
     const GNELane* getFirstAllowedLane() const;
 

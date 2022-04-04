@@ -46,7 +46,8 @@
 // ---------------------------------------------------------------------------
 
 GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
-    myNet(net) {
+    myNet(net),
+    myStopIndex(0) {
     // fill additionals with tags
     auto additionalTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT | 
         GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::SYMBOL | GNETagProperties::TagType::TAZELEMENT | GNETagProperties::TagType::WIRE);
@@ -1292,6 +1293,11 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     GNEVType* defaultContainerType = new GNEVType(myNet, DEFAULT_CONTAINERTYPE_ID, SVC_IGNORING);
     myDemandElements.at(defaultContainerType->getTagProperty().getTag()).insert(defaultContainerType);
     defaultContainerType->incRef("GNENet::DEFAULT_CONTAINERTYPE_ID");
+}
+
+
+int GNENetHelper::AttributeCarriers::getStopIndex() {
+    return myStopIndex++;
 }
 
 

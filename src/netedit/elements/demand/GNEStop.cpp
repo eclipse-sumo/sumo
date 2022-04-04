@@ -33,13 +33,15 @@
 
 #include "GNEStop.h"
 
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {}, {}, {}),
+    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // reset default values
     resetDefaultValues();
     // enable parking for stops in parkin)gAreas
@@ -56,7 +58,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {stoppingPlace}, {stopParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+    SUMOVehicleParameter::Stop(stopParameter),
+    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkingAreas
     if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
@@ -74,7 +77,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {lane}, {}, {stopParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+    SUMOVehicleParameter::Stop(stopParameter),
+    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // set flags
     parking = (parametersSet & STOP_PARKING_SET);
     // set tripID and line
@@ -88,7 +92,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEL
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {edge}, {}, {}, {stopParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+    SUMOVehicleParameter::Stop(stopParameter),
+    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkingAreas
     if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
@@ -654,6 +659,8 @@ GNEStop::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return endPos;
             }
+        case SUMO_ATTR_INDEX: // for writting sorted
+            return (double)myCreationIndex;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }

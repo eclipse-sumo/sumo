@@ -921,7 +921,9 @@ GNEDemandElement::SortedStops::SortedStops(GNEEdge* edge_) :
 
 void
 GNEDemandElement::SortedStops::addStop(const GNEDemandElement* stop) {
-    myStops.push_back(std::make_pair(stop->getAttributeDouble(SUMO_ATTR_ENDPOS), stop));
+    // create first pair
+    auto posIndexPair = std::make_pair(stop->getAttributeDouble(SUMO_ATTR_ENDPOS), stop->getAttributeDouble(SUMO_ATTR_INDEX));
+    myStops.push_back(std::make_pair(posIndexPair, stop));
     // sort stops
     std::sort(myStops.begin(), myStops.end());
 }
