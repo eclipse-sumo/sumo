@@ -7,15 +7,13 @@ Warning: 18 total messages of type: Speed of % connection '%' reduced by % due t
 Warning: Teleporting vehicle 'vehicle.561'; waited too long (jam), lane='i5_1', time=1575.00.
 Warning: Vehicle 'vehicle.561' ends teleporting on edge 'i6', time=1575.00.
 Warning: Teleporting vehicle 'vehicle.624'; waited too long (jam), lane='i2_2', time=1764.00.
-Warning: Vehicle 'vehicle.624' ends teleporting on edge 'i3', time=1765.00.
-Warning: Teleporting vehicle 'vehicle.1582'; waited too long (jam), lane='i1_1', time=4420.00.
-Warning: Vehicle 'vehicle.1582' ends teleporting on edge 'i5', time=4670.00.
-Warning: Vehicle 'vehicle.1676' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=4748.00.
-Warning: Vehicle 'vehicle.1737' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=4749.00.
-Warning: Vehicle 'vehicle.1714' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=4750.00.
-Warning: Vehicle 'vehicle.1718' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=4751.00.
-Warning: Vehicle 'vehicle.1687' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=4752.00.
-Warning: Vehicle 'vehicle.1669' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=4753.00.
-Warning: Vehicle 'vehicle.1720' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=4754.00.
-Warning: Teleporting vehicle 'vehicle.1988'; waited too long (wrong lane), lane='i7_1', time=6021.00.
-Warning: Vehicle 'vehicle.1988' ends teleporting on edge 'e3', time=6079.00.
+Warning: Vehicle 'vehicle.624' ends teleporting on edge 'i3', time=1769.00.
+Warning: Vehicle 'vehicle.710' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1985.00.
+Warning: Vehicle 'vehicle.713' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1986.00.
+Warning: Vehicle 'vehicle.805' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2256.00.
+Warning: Teleporting vehicle 'vehicle.798'; waited too long (wrong lane), lane='i7_0', time=2636.00.
+Warning: Vehicle 'vehicle.798' ends teleporting on edge 'e1', time=2675.00.
+Warning: Teleporting vehicle 'vehicle.898'; waited too long (wrong lane), lane='i7_1', time=3130.00.
+Warning: Teleporting vehicle 'vehicle.960'; waited too long (wrong lane), lane='i7_1', time=3132.00.
+Warning: Vehicle 'vehicle.960' ends teleporting on edge 'e1', time=3160.00.
+Warning: Vehicle 'vehicle.898' ends teleporting on edge 'e4', time=3196.00.
