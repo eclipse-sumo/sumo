@@ -139,14 +139,10 @@ tripFromToJunction.inspectSelection.type
 vehicle.create.colorButton
 vehicle.create.id
 vehicle.inspect.arrivalEdge
-vehicle.inspect.colorButton
 vehicle.inspect.departEdge
-vehicle.inspectSelection.colorButton
 vehicle.inspectSelection.type
 vehicleEmbedded.inspect.arrivalEdge
-vehicleEmbedded.inspect.colorButton
 vehicleEmbedded.inspect.departEdge
-vehicleEmbedded.inspectSelection.colorButton
 vehicleEmbedded.inspectSelection.type
 waypoint.create.speed
 waypoint.inspect.speed
