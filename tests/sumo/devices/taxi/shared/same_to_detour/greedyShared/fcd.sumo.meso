@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-03 17:19:30 by Eclipse SUMO sumo Version v1_12_0+1887-c5cc8894432
+<!-- generated on 2022-04-05 10:32:20 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,7 +52,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <vehicle id="taxi" x="-4.20" y="194.80" angle="180.00" type="taxi" speed="87600.00" pos="0.00" edge="A2A1" slope="0.00" device.taxi.state="1"/>
+        <vehicle id="taxi" x="-4.20" y="194.80" angle="180.00" type="taxi" speed="13.89" pos="0.00" edge="A2A1" slope="0.00" device.taxi.state="1"/>
         <person id="0" x="7.20" y="92.80" angle="0.00" speed="0.00" pos="0.00" edge="A1B1" slope="0.00"/>
         <person id="1" x="607.20" y="192.80" angle="0.00" speed="0.00" pos="0.00" edge="C2D2" slope="0.00"/>
     </timestep>
@@ -87,7 +87,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <person id="1" x="607.20" y="192.80" angle="0.00" speed="0.00" pos="0.00" edge="C2D2" slope="0.00"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="taxi" x="7.20" y="95.80" angle="90.00" type="taxi" speed="95.20" pos="0.00" edge="A1B1" slope="0.00" device.taxi.state="1"/>
+        <vehicle id="taxi" x="7.20" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="0.00" edge="A1B1" slope="0.00" device.taxi.state="1"/>
         <person id="0" x="7.20" y="92.80" angle="0.00" speed="0.00" pos="0.00" edge="A1B1" slope="0.00"/>
         <person id="1" x="607.20" y="192.80" angle="0.00" speed="0.00" pos="0.00" edge="C2D2" slope="0.00"/>
     </timestep>
@@ -327,8 +327,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <person id="1" x="607.20" y="192.80" angle="0.00" speed="0.00" pos="0.00" edge="C2D2" slope="0.00"/>
     </timestep>
     <timestep time="55.00">
-        <vehicle id="taxi" x="607.20" y="195.80" angle="90.00" type="taxi" speed="95.20" pos="0.00" edge="C2D2" slope="0.00" device.taxi.state="3"/>
-        <person id="0" x="607.20" y="195.80" angle="90.00" speed="95.20" pos="0.00" edge="C2D2" slope="0.00"/>
+        <vehicle id="taxi" x="607.20" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="0.00" edge="C2D2" slope="0.00" device.taxi.state="3"/>
+        <person id="0" x="607.20" y="195.80" angle="90.00" speed="0.00" pos="0.00" edge="C2D2" slope="0.00"/>
         <person id="1" x="607.20" y="192.80" angle="0.00" speed="0.00" pos="0.00" edge="C2D2" slope="0.00"/>
     </timestep>
     <timestep time="56.00">
@@ -637,186 +637,186 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <person id="1" x="1302.40" y="95.80" angle="90.00" speed="13.89" pos="95.20" edge="E1F1" slope="0.00"/>
     </timestep>
     <timestep time="117.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="118.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="119.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="120.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="121.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="122.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="123.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="124.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="125.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="126.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="127.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="128.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="129.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="130.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="131.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="132.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="133.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="134.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="135.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="136.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="137.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="138.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="139.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="140.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="141.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="142.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="143.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="144.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="145.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="146.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="147.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="148.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="149.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="150.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="151.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="152.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="153.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="154.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="155.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="156.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="157.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="158.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="159.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="160.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="161.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="162.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="163.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="164.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="165.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="166.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="167.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="168.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="169.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="170.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="171.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="172.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="173.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="174.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="175.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="176.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.59" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
     <timestep time="177.00">
-        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="1.56" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
+        <vehicle id="taxi" x="1397.60" y="95.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="E1F1" slope="0.00" device.taxi.state="0"/>
     </timestep>
 </fcd-export>

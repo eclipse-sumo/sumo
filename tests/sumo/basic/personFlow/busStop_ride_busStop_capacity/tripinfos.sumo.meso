@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-08 14:33:24 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
+<!-- generated on 2022-04-05 10:30:42 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -70,5 +70,5 @@
         <stop duration="1.00" arrival="2.00" arrivalPos="50.00" actType="waiting"/>
         <ride waitingTime="18.80" vehicle="b" depart="20.80" arrival="28.00" arrivalPos="0.00" duration="7.20" routeLength="100.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="b" depart="0.00" departLane="" departPos="0.00" departSpeed="3.68" departDelay="0.00" arrival="48.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="5.00" duration="48.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="32.80" timeLoss="32.80" rerouteNo="0" devices="tripinfo_b routing_b person_b" vType="t" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="b" depart="0.00" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="48.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="5.00" duration="48.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="32.80" timeLoss="32.80" rerouteNo="0" devices="tripinfo_b routing_b person_b" vType="t" speedFactor="1.00" vaporized=""/>
 </tripinfos>
