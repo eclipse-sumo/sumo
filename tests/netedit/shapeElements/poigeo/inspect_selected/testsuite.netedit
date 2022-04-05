@@ -5,6 +5,8 @@ color
 # edit POI type
 type
 
+name
+
 # edit POI layer
 layer
 

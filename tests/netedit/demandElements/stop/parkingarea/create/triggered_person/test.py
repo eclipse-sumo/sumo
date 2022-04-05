@@ -41,25 +41,25 @@ netedit.stopMode()
 netedit.changeStopType("stopParkingArea")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.enums.stopParking.create.triggered, "person")
+netedit.changeDefaultValue(netedit.attrs.stopParking.create.triggered, "person")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.stopParking.create.expected, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.stopParking.create.expected, "")
+netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.enums.stopParking.create.expected, "personID1 personID2 personID3")
+netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, "personID1 personID2 personID3")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 155)

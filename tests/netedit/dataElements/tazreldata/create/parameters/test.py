@@ -44,7 +44,7 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # set invalid parameters
-netedit.changeDefaultValue(netedit.attrs.enums.TAZRelData.create.parameters, "dummyValues")
+netedit.changeDefaultValue(netedit.attrs.TAZRelData.create.parameters, "dummyValues")
 
 # create TAZRelData
 netedit.leftClick(referencePosition, 180, 180)
@@ -52,7 +52,7 @@ netedit.leftClick(referencePosition, 460, 180)
 netedit.typeEnter()
 
 # set valid parameters
-netedit.changeDefaultValue(netedit.attrs.enums.TAZRelData.create.parameters, "param1=value2|param3=value4")
+netedit.changeDefaultValue(netedit.attrs.TAZRelData.create.parameters, "param1=value2|param3=value4")
 
 # create TAZRelData
 netedit.typeEnter()

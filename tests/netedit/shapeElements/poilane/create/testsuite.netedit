@@ -2,11 +2,15 @@ default
 
 id
 
+friendlyPos
+
 poslat
 
 color
 
 type
+
+name
 
 layer
 

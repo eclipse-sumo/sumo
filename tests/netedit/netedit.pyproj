@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{a402be16-9f73-4dd1-a5fd-8ce92419fa3c}</ProjectGuid>
+    <ProjectGuid>{08b768a1-d573-4ebb-859f-e0bd7b36dd82}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -12,7 +12,6 @@
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId />
-    <Name>netedit</Name>
     <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
@@ -581,7 +580,6 @@
     <Compile Include="bugs\ticket5552\test.py" />
     <Compile Include="bugs\viewport\change_zoom\test.py" />
     <Compile Include="bugs\viewport\input_zoom\test.py" />
-    <Compile Include="clearFailTest.py" />
     <Compile Include="dataElements\edgedata\create\default\test.py" />
     <Compile Include="dataElements\edgedata\create\parameters\test.py" />
     <Compile Include="dataElements\edgedata\delete\test.py" />
@@ -620,6 +618,7 @@
     <Compile Include="demandElements\flow\create\number\test.py" />
     <Compile Include="demandElements\flow\create\period\test.py" />
     <Compile Include="demandElements\flow\create\personNumber\test.py" />
+    <Compile Include="demandElements\flow\create\poisson\test.py" />
     <Compile Include="demandElements\flow\create\probability\test.py" />
     <Compile Include="demandElements\flow\create\vehsPerHour\test.py" />
     <Compile Include="demandElements\flow\create\vType\test.py" />
@@ -671,6 +670,7 @@
     <Compile Include="demandElements\flow\inspect\parameters\test.py" />
     <Compile Include="demandElements\flow\inspect\period\test.py" />
     <Compile Include="demandElements\flow\inspect\personNumber\test.py" />
+    <Compile Include="demandElements\flow\inspect\poisson\test.py" />
     <Compile Include="demandElements\flow\inspect\probability\test.py" />
     <Compile Include="demandElements\flow\inspect\to\test.py" />
     <Compile Include="demandElements\flow\inspect\vehsPerHour\test.py" />
@@ -737,6 +737,7 @@
     <Compile Include="demandElements\flow_embedded\create\number\test.py" />
     <Compile Include="demandElements\flow_embedded\create\period\test.py" />
     <Compile Include="demandElements\flow_embedded\create\personNumber\test.py" />
+    <Compile Include="demandElements\flow_embedded\create\poisson\test.py" />
     <Compile Include="demandElements\flow_embedded\create\probability\test.py" />
     <Compile Include="demandElements\flow_embedded\create\vehsPerHour\test.py" />
     <Compile Include="demandElements\flow_embedded\create\vType\test.py" />
@@ -787,6 +788,7 @@
     <Compile Include="demandElements\flow_embedded\inspect\parameters\test.py" />
     <Compile Include="demandElements\flow_embedded\inspect\period\test.py" />
     <Compile Include="demandElements\flow_embedded\inspect\personNumber\test.py" />
+    <Compile Include="demandElements\flow_embedded\inspect\poisson\test.py" />
     <Compile Include="demandElements\flow_embedded\inspect\probability\test.py" />
     <Compile Include="demandElements\flow_embedded\inspect\vehsPerHour\test.py" />
     <Compile Include="demandElements\flow_embedded\inspect\vType\test.py" />
@@ -982,6 +984,7 @@
     <Compile Include="demandElements\routeflow\create\number\test.py" />
     <Compile Include="demandElements\routeflow\create\period\test.py" />
     <Compile Include="demandElements\routeflow\create\personNumber\test.py" />
+    <Compile Include="demandElements\routeflow\create\poisson\test.py" />
     <Compile Include="demandElements\routeflow\create\probability\test.py" />
     <Compile Include="demandElements\routeflow\create\vehsPerHour\test.py" />
     <Compile Include="demandElements\routeflow\create\vType\test.py" />
@@ -1032,6 +1035,7 @@
     <Compile Include="demandElements\routeflow\inspect\parameters\test.py" />
     <Compile Include="demandElements\routeflow\inspect\period\test.py" />
     <Compile Include="demandElements\routeflow\inspect\personNumber\test.py" />
+    <Compile Include="demandElements\routeflow\inspect\poisson\test.py" />
     <Compile Include="demandElements\routeflow\inspect\probability\test.py" />
     <Compile Include="demandElements\routeflow\inspect\route\test.py" />
     <Compile Include="demandElements\routeflow\inspect\vehsPerHour\test.py" />
@@ -1151,11 +1155,13 @@
     <Compile Include="demandElements\stop\busstop\inspect_selection\actType\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect_selection\duration\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect_selection\extension\test.py" />
+    <Compile Include="demandElements\stop\busstop\inspect_selection\line\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect_selection\parking\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect_selection\permitted\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect_selection\triggered_container\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect_selection\triggered_join\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect_selection\triggered_person\test.py" />
+    <Compile Include="demandElements\stop\busstop\inspect_selection\tripID\test.py" />
     <Compile Include="demandElements\stop\busstop\inspect_selection\until\test.py" />
     <Compile Include="demandElements\stop\busstop\load\test.py" />
     <Compile Include="demandElements\stop\busstop\volatileRecomputing\test.py" />
@@ -2351,6 +2357,8 @@
     <Compile Include="netElements\lanes\select_vtypes\disallowed\truck\test.py" />
     <Compile Include="netElements\lanes\select_vtypes\disallowed\vip\test.py" />
     <Compile Include="netElements\trafficlights\save\test.py" />
+    <Compile Include="scripts\clearFailTest.py" />
+    <Compile Include="scripts\getMissingTest.py" />
     <Compile Include="selection\basic\additional_basic\test.py" />
     <Compile Include="selection\basic\click\test.py" />
     <Compile Include="selection\basic\default\test.py" />
@@ -3277,6 +3285,7 @@
     <Folder Include="demandElements\flow\create\number" />
     <Folder Include="demandElements\flow\create\period" />
     <Folder Include="demandElements\flow\create\personNumber" />
+    <Folder Include="demandElements\flow\create\poisson" />
     <Folder Include="demandElements\flow\create\probability" />
     <Folder Include="demandElements\flow\create\vehsPerHour" />
     <Folder Include="demandElements\flow\create\vType" />
@@ -3337,6 +3346,7 @@
     <Folder Include="demandElements\flow\inspect\parameters" />
     <Folder Include="demandElements\flow\inspect\period" />
     <Folder Include="demandElements\flow\inspect\personNumber" />
+    <Folder Include="demandElements\flow\inspect\poisson" />
     <Folder Include="demandElements\flow\inspect\probability" />
     <Folder Include="demandElements\flow\inspect\to" />
     <Folder Include="demandElements\flow\inspect\vehsPerHour" />
@@ -3414,6 +3424,7 @@
     <Folder Include="demandElements\flow_embedded\create\number" />
     <Folder Include="demandElements\flow_embedded\create\period" />
     <Folder Include="demandElements\flow_embedded\create\personNumber" />
+    <Folder Include="demandElements\flow_embedded\create\poisson" />
     <Folder Include="demandElements\flow_embedded\create\probability" />
     <Folder Include="demandElements\flow_embedded\create\vehsPerHour" />
     <Folder Include="demandElements\flow_embedded\create\vType" />
@@ -3473,6 +3484,7 @@
     <Folder Include="demandElements\flow_embedded\inspect\parameters" />
     <Folder Include="demandElements\flow_embedded\inspect\period" />
     <Folder Include="demandElements\flow_embedded\inspect\personNumber" />
+    <Folder Include="demandElements\flow_embedded\inspect\poisson" />
     <Folder Include="demandElements\flow_embedded\inspect\probability" />
     <Folder Include="demandElements\flow_embedded\inspect\vehsPerHour" />
     <Folder Include="demandElements\flow_embedded\inspect\vType" />
@@ -3712,6 +3724,7 @@
     <Folder Include="demandElements\routeflow\create\number" />
     <Folder Include="demandElements\routeflow\create\period" />
     <Folder Include="demandElements\routeflow\create\personNumber" />
+    <Folder Include="demandElements\routeflow\create\poisson" />
     <Folder Include="demandElements\routeflow\create\probability" />
     <Folder Include="demandElements\routeflow\create\vehsPerHour" />
     <Folder Include="demandElements\routeflow\create\vType" />
@@ -3771,6 +3784,7 @@
     <Folder Include="demandElements\routeflow\inspect\parameters" />
     <Folder Include="demandElements\routeflow\inspect\period" />
     <Folder Include="demandElements\routeflow\inspect\personNumber" />
+    <Folder Include="demandElements\routeflow\inspect\poisson" />
     <Folder Include="demandElements\routeflow\inspect\probability" />
     <Folder Include="demandElements\routeflow\inspect\route" />
     <Folder Include="demandElements\routeflow\inspect\vehsPerHour" />
@@ -3912,11 +3926,13 @@
     <Folder Include="demandElements\stop\busstop\inspect_selection\actType" />
     <Folder Include="demandElements\stop\busstop\inspect_selection\duration" />
     <Folder Include="demandElements\stop\busstop\inspect_selection\extension" />
+    <Folder Include="demandElements\stop\busstop\inspect_selection\line" />
     <Folder Include="demandElements\stop\busstop\inspect_selection\parking" />
     <Folder Include="demandElements\stop\busstop\inspect_selection\permitted" />
     <Folder Include="demandElements\stop\busstop\inspect_selection\triggered_container" />
     <Folder Include="demandElements\stop\busstop\inspect_selection\triggered_join" />
     <Folder Include="demandElements\stop\busstop\inspect_selection\triggered_person" />
+    <Folder Include="demandElements\stop\busstop\inspect_selection\tripID" />
     <Folder Include="demandElements\stop\busstop\inspect_selection\until" />
     <Folder Include="demandElements\stop\busstop\load" />
     <Folder Include="demandElements\stop\busstop\volatileRecomputing" />
@@ -5297,6 +5313,7 @@
     <Folder Include="netElements\lanes\select_vtypes\disallowed\vip" />
     <Folder Include="netElements\trafficlights\" />
     <Folder Include="netElements\trafficlights\save" />
+    <Folder Include="scripts" />
     <Folder Include="selection\" />
     <Folder Include="selection\basic\" />
     <Folder Include="selection\basic\additional_basic" />

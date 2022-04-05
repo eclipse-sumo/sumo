@@ -119,20 +119,14 @@ void MSEdge::recalcCache() {
     }
     myLength = myLanes->front()->getLength();
     myEmptyTraveltime = myLength / MAX2(getSpeedLimit(), NUMERICAL_EPS);
-    if (isNormal() && (MSGlobals::gUseMesoSim || MSGlobals::gTLSPenalty > 0)) {
-        double minorPenalty = 0;
-        bool haveTLSPenalty = MSGlobals::gTLSPenalty > 0;
-        if (MSGlobals::gUseMesoSim) {
-            const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(getEdgeType());
-            minorPenalty = edgeType.minorPenalty;
-            haveTLSPenalty = edgeType.tlsPenalty > 0;
-        }
-        if (haveTLSPenalty || minorPenalty > 0) {
+    if (MSGlobals::gUseMesoSim) {
+        const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(getEdgeType());
+        if (edgeType.tlsPenalty > 0 || edgeType.minorPenalty > 0) {
             // add tls penalties to the minimum travel time
             SUMOTime minPenalty = -1;
             for (const MSLane* const l : *myLanes) {
                 for (const MSLink* const link : l->getLinkCont()) {
-                    SUMOTime linkPenalty = link->getMesoTLSPenalty() + (link->havePriority() ? 0 : minorPenalty);
+                    SUMOTime linkPenalty = link->getMesoTLSPenalty() + (link->havePriority() ? 0 : edgeType.minorPenalty);
                     if (minPenalty == -1) {
                         minPenalty = linkPenalty;
                     } else {
@@ -142,11 +136,9 @@ void MSEdge::recalcCache() {
             }
             if (minPenalty > 0) {
                 myEmptyTraveltime += STEPS2TIME(minPenalty);
-                myTimePenalty = STEPS2TIME(minPenalty);
             }
         }
-    }
-    if (isInternal() && MSGlobals::gUsingInternalLanes) {
+    } else if (isInternal() && MSGlobals::gUsingInternalLanes) {
         const MSLink* link = myLanes->front()->getIncomingLanes()[0].viaLink;
         if (!link->isTLSControlled() && !link->havePriority()) {
             myEmptyTraveltime += MSGlobals::gMinorPenalty;
@@ -883,6 +875,30 @@ MSEdge::getMeanSpeed() const {
 }
 
 double
+MSEdge::getMeanFriction() const {
+    double f = 0;
+    double no = 0;
+    if (MSGlobals::gUseMesoSim) {
+        //return get TODO
+        return 1.0;
+    }
+    else {
+        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+            const double fLane = (double)(*i)->getFrictionCoefficient();
+            f += fLane;
+            no++;
+        }
+        if (no != 0) {
+            return f / no;
+        }
+        else
+        {
+            return 1.0;
+        }
+    }
+}
+
+double
 MSEdge::getMeanSpeedBike() const {
     if (MSGlobals::gUseMesoSim) {
         // no separate bicycle speeds in meso
@@ -1046,6 +1062,11 @@ MSEdge::getVehicleMaxSpeed(const SUMOTrafficObject* const veh) const {
     return myLanes->empty() ? 1 : getLanes()[0]->getVehicleMaxSpeed(veh);
 }
 
+double
+MSEdge::getFrictionCoefficient() const {
+	// @note lanes might have different friction coefficients in theory, only returnin lane[0]
+	return myLanes->empty() ? 1 : getLanes()[0]->getFrictionCoefficient();
+}
 
 void
 MSEdge::setMaxSpeed(double val) const {
@@ -1056,6 +1077,14 @@ MSEdge::setMaxSpeed(double val) const {
     }
 }
 
+void
+MSEdge::setFrictionCoefficient(double val) const {
+	if (myLanes != 0) {
+		for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+			(*i)->setFrictionCoefficient(val);
+		}
+	}
+}
 
 void
 MSEdge::addTransportable(MSTransportable* t) const {
@@ -1342,26 +1371,6 @@ MSEdge::getVehicles() const {
 int
 MSEdge::getVehicleNumber() const {
     return (int)getVehicles().size();
-}
-
-
-bool
-MSEdge::isEmpty() const {
-    /// more efficient than retrieving vehicle number
-    if (MSGlobals::gUseMesoSim) {
-        for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
-            if (segment->getCarNumber() > 0) {
-                return false;
-            }
-        }
-    } else {
-        for (MSLane* lane : getLanes()) {
-            if (lane->getVehicleNumber() > 0) {
-                return false;
-            }
-        }
-    }
-    return true;
 }
 
 

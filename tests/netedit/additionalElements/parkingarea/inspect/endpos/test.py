@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.enums.parkingArea.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference center")
 
 # create parkingArea in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,19 +47,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 200)
 
 # Change parameter endPos with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.endPos, "dummyEndPos", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.endPos, "dummyEndPos", True)
 
 # Change parameter endPos with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.endPos, "", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.endPos, "", True)
 
 # Change parameter endPos with a valid value (out of range)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.endPos, "3000", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.endPos, "3000", True)
 
 # Change parameter endPos with a non valid value (<startPos)
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.endPos, "10", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.endPos, "10", True)
 
 # Change parameter endPos with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.parkingArea.inspect.endPos, "30", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.endPos, "30", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

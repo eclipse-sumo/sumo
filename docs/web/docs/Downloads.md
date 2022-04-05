@@ -99,7 +99,7 @@ major macOS versions (currently Mojave and Catalina) and are built
 from source with minimal requirements (fox, proj, xerces-c). If you need
 optional libraries, you can specify these on the brew command line and
 brew will compile SUMO from source. For details, see the [Formula's
-README](https://github.com/DLR-TS/homebrew-sumo/blob/master/README.md).
+README](https://github.com/DLR-TS/homebrew-sumo/blob/main/README.md).
 
 ### Application launchers
 

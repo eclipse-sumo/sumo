@@ -53,25 +53,25 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 12 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspectSelection.stopOffset, "4", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "4", False)
 
 # Change parameter 7 with an non valid value
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspectSelection.stopException, "DummyDisallowed", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopException, "DummyDisallowed", False)
 
 # Change parameter 7 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspectSelection.stopException, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopException, "", False)
 
 # Change parameter 7 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspectSelection.stopException, "authority  army, passenger; taxi. tram", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopException, "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 7 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspectSelection.stopException, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopException, "", False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.enums.edge.inspectSelection.stopExceptionButton, False)
+netedit.modifyAllowDisallowValue(netedit.attrs.edge.inspectSelection.stopExceptionButton, False)
 
 # Change parameter 7 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspectSelection.stopException,
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopException,
                         "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
                         "rail_electric motorcycle moped pedestrian custom1", False)
 

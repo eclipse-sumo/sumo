@@ -250,7 +250,7 @@ def getBidiStops(net, stopEdges):
     edgeStops = defaultdict(list)
     maxStopsPerEdge = 0
     maxStopsEdge = None
-    for busStop, edgeID in stopEdges.items():
+    for busStop, edgeID in sorted(stopEdges.items()):
         edgeStops[edgeID].append(busStop)
         nStops = len(edgeStops[edgeID])
         if nStops > maxStopsPerEdge:

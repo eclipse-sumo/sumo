@@ -42,13 +42,13 @@ netedit.leftClick(referencePosition, 190, 240)
 netedit.leftClick(referencePosition, 440, 240)
 
 # set invalid time threshold
-netedit.changeDefaultValue(netedit.attrs.enums.E2Multilane.create.timeThreshold, "-12")
+netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.timeThreshold, "-12")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # set valid time threshold
-netedit.changeDefaultValue(netedit.attrs.enums.E2Multilane.create.timeThreshold, "10")
+netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.timeThreshold, "10")
 
 # create E2 with default parameters
 netedit.typeEnter()

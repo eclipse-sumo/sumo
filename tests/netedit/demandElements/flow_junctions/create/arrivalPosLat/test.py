@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to junctions)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.arrivalPosLat, "dummyPos")
+netedit.changeDefaultValue(netedit.attrs.flowJunction.create.arrivalPosLat, "dummyPos")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.arrivalPosLat, "-12")
+netedit.changeDefaultValue(netedit.attrs.flowJunction.create.arrivalPosLat, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.arrivalPosLat, "center")
+netedit.changeDefaultValue(netedit.attrs.flowJunction.create.arrivalPosLat, "center")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.arrivalPosLat, "20")
+netedit.changeDefaultValue(netedit.attrs.flowJunction.create.arrivalPosLat, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

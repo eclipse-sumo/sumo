@@ -40,17 +40,20 @@ netedit.inspectMode()
 # inspect first POI
 netedit.leftClick(referencePosition, 149, 53)
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.POIGEO.inspectSelection.colorButton, 4, True)
+
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.POIGEO.inspectSelection.color, "dummyColor", True)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.color, "dummyColor", True)
 
 # Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.enums.POIGEO.inspectSelection.color, "255,255,500", True)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.color, "255,255,500", True)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.enums.POIGEO.inspectSelection.color, "blue", True)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.color, "blue", True)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.enums.POIGEO.inspectSelection.color, "125,60,200", True)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.color, "125,60,200", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

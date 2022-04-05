@@ -38,13 +38,13 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # set dummy value
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspect.fringe, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.fringe, "dummyValue", False)
 
 # set valid value
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspect.fringe, "outer", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.fringe, "outer", False)
 
 # set valid value
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspect.fringe, "inner", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.fringe, "inner", False)
 
 # rebuild network
 netedit.rebuildNetwork()

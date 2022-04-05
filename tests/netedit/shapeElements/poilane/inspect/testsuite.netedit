@@ -8,6 +8,8 @@ lane
 # edit POI position
 pos
 
+friendlyPos
+
 # edit POI lat position
 poslat
 
@@ -16,6 +18,8 @@ color
 
 # edit POI type
 type
+
+name
 
 # edit POI layer
 layer

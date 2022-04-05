@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 0 with a non valid value (empty ID)
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.id, "", False)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.id, "gneE3", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.id, "gneE3", False)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.id, "correct_ID", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.id, "correct_ID", False)
 
 # recompute
 netedit.rebuildNetwork()

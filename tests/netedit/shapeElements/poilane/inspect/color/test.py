@@ -43,21 +43,24 @@ netedit.inspectMode()
 # inspect first POILane
 netedit.leftClick(referencePosition, 140, 210)
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.POILane.inspect.colorButton, 5, True)
+
 # Change parameter color with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.POILane.inspect.color, "dummyColor", True)
+netedit.modifyAttribute(netedit.attrs.POILane.inspect.color, "dummyColor", True)
 
 # Change parameter color with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.enums.POILane.inspect.color, "255,255,500", True)
+netedit.modifyAttribute(netedit.attrs.POILane.inspect.color, "255,255,500", True)
 
 # Change parameter color with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.enums.POILane.inspect.color, "blue", True)
+netedit.modifyAttribute(netedit.attrs.POILane.inspect.color, "blue", True)
 
 # Change parameter color with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.enums.POILane.inspect.color, "125,60,200", True)
+netedit.modifyAttribute(netedit.attrs.POILane.inspect.color, "125,60,200", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save shapes
 netedit.saveAdditionals(referencePosition)

@@ -91,7 +91,7 @@ and committing the changes after careful inspection
   - add the new version and the release date [to sumo.metainfo.xml]({{Source}}build/package/sumo.metainfo.xml)
     for correct flatpak info
 - update the eclipse.org/sumo website
-  - modify the version number (Version) [in config.toml](https://github.com/eclipse/sumo.website/blob/master/config.toml) in the **Default Parameters** section at the beginning
+  - modify the version number (Version) [in config.toml](https://github.com/eclipse/sumo.website/blob/main/config.toml) in the **Default Parameters** section at the beginning
 - If it is the first release of the year, create a new Eclipse release at https://projects.eclipse.org/projects/automotive.sumo (after login there should be a "Create Release" button)
   - add an IP Log to the release
   - send an email to the PMC at automotive-pmc@eclipse.org asking for review (include links to the release and the IP log)

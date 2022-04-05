@@ -422,9 +422,14 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         WRITE_WARNING("Currently unsuported. Create rerouter elements using rerouter dialog");
         return false;
     }
-        // disable intervals (temporal)
+    // disable steps (temporal)
     if (tagProperties.getTag() == SUMO_TAG_STEP) {
-        WRITE_WARNING("Currently unsuported. Create VSS steps elements using VSS dialog");
+        WRITE_WARNING("Currently unsuported. Create VSS steps using VSS dialog");
+        return false;
+    }
+    // disable flows (temporal)
+    if (tagProperties.getTag() == GNE_TAG_CALIBRATOR_FLOW) {
+        WRITE_WARNING("Currently unsuported. Create calibratorFlows using calibrator dialog");
         return false;
     }
     // Check if ID has to be generated

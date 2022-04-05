@@ -331,9 +331,6 @@ public:
     /// @brief Returns a device of the given type if it exists or 0
     MSTransportableDevice* getDevice(const std::type_info& type) const;
 
-    /// @brief set individual junction model paramete (not type related)
-    void setJunctionModelParameter(const std::string& key, const std::string& value);
-
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
      */

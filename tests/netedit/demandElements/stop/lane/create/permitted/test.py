@@ -41,19 +41,19 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.stopLane.create.permitted, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stopLane.create.permitted, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, 400, 185)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.enums.stopLane.create.permitted, "")
+netedit.changeDefaultValue(netedit.attrs.stopLane.create.permitted, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.enums.stopLane.create.permitted, "ID1 ID2 ID3")
+netedit.changeDefaultValue(netedit.attrs.stopLane.create.permitted, "ID1 ID2 ID3")
 
 # create stop
 netedit.leftClick(referencePosition, 400, 185)

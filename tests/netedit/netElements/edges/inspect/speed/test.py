@@ -41,16 +41,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 3 with a non valid value (empty speed)
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.speed, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.speed, "", False)
 
 # Change parameter 3 with a non valid value (dummy speed)
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.speed, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.speed, "dummySpeed", False)
 
 # Change parameter 3 with a non valid value (negative speed)
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.speed, "-13", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.speed, "-13", False)
 
 # Change parameter 3 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.edge.inspect.speed, "120.5", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.speed, "120.5", False)
 
 # recompute
 netedit.rebuildNetwork()

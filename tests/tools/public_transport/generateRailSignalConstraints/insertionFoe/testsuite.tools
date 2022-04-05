@@ -1,9 +1,6 @@
 # one train passes the stop and the other train is inserted there
 basic
 
-# one train passes the stop and the other train is inserted on the opposite direction stop 
-opposite
-
 # one train passes the stop and the other train is inserted there, passing train has parking stop
 parking
 

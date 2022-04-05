@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to junctions)")
 
 # set invalid color
-netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.color, "dummyColor")
+netedit.changeDefaultValue(netedit.attrs.flowJunction.create.color, "dummyColor")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.color, "cyan")
+netedit.changeDefaultValue(netedit.attrs.flowJunction.create.color, "cyan")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.enums.flowJunction.create.color, "12,13,14")
+netedit.changeDefaultValue(netedit.attrs.flowJunction.create.color, "12,13,14")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

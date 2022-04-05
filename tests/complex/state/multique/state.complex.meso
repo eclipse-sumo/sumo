@@ -35,7 +35,7 @@
     <route id="!0" state="1" edges="SC CW"/>
     <delay number="1" begin="3" end="2" depart="0.00" time="27.00"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="0.2" type="DEFAULT_VEHTYPE" depart="00:00:20" route="!0" distance="0 0" speedFactor="1.01" reroute="1" state="20000 0 0 0 1 26384 20000 9223372036854775807">
+    <vehicle id="0.2" depart="00:00:20" route="!0" distance="0 0" speedFactor="1.01" reroute="1" state="20000 0 0 0 1 26384 20000 9223372036854775807">
         <device id="vehroute_0.2" state="14.04 0.00 0"/>
         <device id="routing_0.2" state="0"/>
     </vehicle>

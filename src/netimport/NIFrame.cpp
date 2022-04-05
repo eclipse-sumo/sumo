@@ -156,6 +156,9 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("speed-in-kmh", new Option_Bool(false));
     oc.addDescription("speed-in-kmh", "Processing", "vmax is parsed as given in km/h (some)");
 
+    oc.doRegister("friction-in-percent", new Option_Bool(false));
+    oc.addDescription("friction-in-percent", "Processing", "friction is parsed as given in percent (some)");
+
     oc.doRegister("construction-date", new Option_String());
     oc.addDescription("construction-date", "Processing", "Use YYYY-MM-DD date to determine the readiness of features under construction");
 

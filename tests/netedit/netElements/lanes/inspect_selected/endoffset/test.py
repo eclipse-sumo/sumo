@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.forceSaveAdditionals()
 
 # toggle select lanes
-netedit.changeEditMode(netedit.attrs.enums.Modes.Network.selectLane)
+netedit.changeEditMode(netedit.attrs.Modes.Network.selectLane)
 
 # go to select mode
 netedit.selectMode()
@@ -53,16 +53,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 95)
 
 # Change parameter 4 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.lane.inspectSelection.endOffset, "dummyEndOffset", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "dummyEndOffset", True)
 
 # Change parameter 4 with a non valid value (emtpy)
-netedit.modifyAttribute(netedit.attrs.enums.lane.inspectSelection.endOffset, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "", True)
 
 # Change parameter 4 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.enums.lane.inspectSelection.endOffset, "-3", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "-3", True)
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.lane.inspectSelection.endOffset, "12.5", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "12.5", True)
 
 # recompute
 netedit.rebuildNetwork()

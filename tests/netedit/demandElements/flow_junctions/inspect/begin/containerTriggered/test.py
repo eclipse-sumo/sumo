@@ -51,13 +51,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change begin with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspect.begin, "", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.begin, "", False)
 
 # change begin with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspect.begin, "dummyDepart", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.begin, "dummyDepart", False)
 
 # change begin with an valid value
-netedit.modifyAttribute(netedit.attrs.enums.tripFromToJunction.inspect.begin, "containerTriggered", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.begin, "containerTriggered", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

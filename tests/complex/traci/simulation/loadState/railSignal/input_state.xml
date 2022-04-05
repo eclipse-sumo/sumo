@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 21 17:45:26 2021 by Eclipse SUMO sumo Version v1_8_0+0648-16ba97d7de
+<!-- generated on 2022-03-30 09:17:00 by Eclipse SUMO sumo Version v1_12_0+1760-67fbbcd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="railSignal/input_net.net.xml"/>
-        <route-files value="railSignal/input_routes.rou.xml"/>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
         <save-state.times value="25"/>
-        <save-state.files value="railSignal/input_state.xml"/>
+        <save-state.files value="input_state.xml"/>
     </output>
 
     <report>
@@ -20,44 +20,44 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_8_0+0648-16ba97d7de" time="25.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1760-67fbbcd" time="25.00" type="micro">
     <route id="!t0!var#1" state="0" edges="a b c d e"/>
     <route id="!t1!var#1" state="0" edges="a b c d e"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="train" length="45.00" maxSpeed="8.00" vClass="rail">
         <param key="carriageLength" value="10"/>
     </vType>
-    <vehicle id="t0" type="train" depart="0.00" departSpeed="max" route="!t0!var#1" distance="200.2 1" speedFactor="1.00" reroute="1" state="131090 0 2 45.10 0 0.00 24000 0 0" pos="36.90 92.00 8.00" speed="8.00 8.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="t0" type="train" depart="0.00" departSpeed="max" route="!t0!var#1" distance="200.2 1" speedFactor="1.0000" reroute="1" state="262162 0 2 45.10 0 0.00 24000 0 0" pos="36.90 92.00 8.00" speed="8.00 8.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
         <device id="routing_t0" state="0"/>
     </vehicle>
-    <vehicle id="t1" type="train" depart="10.00" departSpeed="max" route="!t1!var#1" distance="0 1" speedFactor="1.00" reroute="1" state="131090 10000 0 45.10 4000 7.26 24000 0 0" pos="99.00 54.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 1 0 4000">
+    <vehicle id="t1" type="train" depart="10.00" departSpeed="max" route="!t1!var#1" distance="0 1" speedFactor="1.0000" reroute="1" state="262162 10000 0 45.10 4000 7.26 24000 0 0" pos="99.00 54.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 1 0 4000">
         <device id="routing_t1" state="0"/>
     </vehicle>
     <lane id=":D_0_0">
         <link to="d_0">
-            <approaching id="t0" arrivalTime="31900" arrivalSpeed="8.00" departSpeed="8.00" request="1" arrivalTimeBraking="61900" arrivalSpeedBraking="0.00" waitingTime="0" distance="71.20"/>
+            <approaching id="t0" arrivalTime="31900" arrivalSpeed="8.00" departSpeed="8.00" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="71.20"/>
         </link>
     </lane>
     <lane id=":E_0_0">
         <link to="e_0">
-            <approaching id="t0" arrivalTime="44412" arrivalSpeed="8.00" departSpeed="8.00" request="1" arrivalTimeBraking="74412" arrivalSpeedBraking="0.00" waitingTime="0" distance="171.30"/>
+            <approaching id="t0" arrivalTime="44412" arrivalSpeed="8.00" departSpeed="8.00" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="171.30"/>
         </link>
     </lane>
     <lane id="a_0">
         <vehicles value="t1"/>
         <link to=":B_0_0">
-            <approaching id="t1" arrivalTime="28004" arrivalSpeed="0.00" departSpeed="0.25" request="0" arrivalTimeBraking="58004" arrivalSpeedBraking="0.00" waitingTime="3000" distance="1.00"/>
+            <approaching id="t1" arrivalTime="25001" arrivalSpeed="0.00" departSpeed="0.25" request="0" arrivalSpeedBraking="0.00" waitingTime="3000" distance="1.00"/>
         </link>
     </lane>
     <lane id="c_0">
         <vehicles value="t0"/>
         <link to=":D_0_0">
-            <approaching id="t0" arrivalTime="31888" arrivalSpeed="8.00" departSpeed="8.00" request="1" arrivalTimeBraking="61888" arrivalSpeedBraking="0.00" waitingTime="0" distance="71.10"/>
+            <approaching id="t0" arrivalTime="31888" arrivalSpeed="8.00" departSpeed="8.00" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="71.10"/>
         </link>
     </lane>
     <lane id="d_0">
         <link to=":E_0_0">
-            <approaching id="t0" arrivalTime="44400" arrivalSpeed="8.00" departSpeed="8.00" request="1" arrivalTimeBraking="74400" arrivalSpeedBraking="0.00" waitingTime="0" distance="171.20"/>
+            <approaching id="t0" arrivalTime="44400" arrivalSpeed="8.00" departSpeed="8.00" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="171.20"/>
         </link>
     </lane>
 </snapshot>

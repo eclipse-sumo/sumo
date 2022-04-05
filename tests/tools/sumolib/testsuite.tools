@@ -6,9 +6,6 @@ net_short_internal
 
 # parsing a network and accessing objects
 net_roundabout
-
-# parsing a network and accessing objects
-net_intermodal
 sumolib3d
 
 # unit tests for functions in init
@@ -26,6 +23,9 @@ getShortestRoute
 
 # finding routes in a railway network
 getShortestRoute_rail
+
+# finding fastest routes
+getFastestRoute
 
 # parsing XML and accessing objects
 xml

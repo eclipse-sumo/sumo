@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (embedded route)")
 
 # set invalid color
-netedit.changeDefaultValue(netedit.attrs.enums.flowEmbedded.create.color, "dummyColor")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.color, "dummyColor")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.enums.flowEmbedded.create.color, "cyan")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.color, "cyan")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.enums.flowEmbedded.create.color, "12,13,14")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.color, "12,13,14")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)

@@ -31,14 +31,13 @@ from sumolib.miscutils import Statistics, geh  # noqa
 
 def get_options(args=None):
     optParser = optparse.OptionParser()
-    optParser.add_option("--relative", action="store_true", default=False,
-                         help="write relative instead of absolute differences")
-    optParser.add_option("--geh", action="store_true", default=False,
-                         help="write geh value instead of absolute differences")
+    optParser.add_option("--relative", action="store_true",
+                         default=False, help="write relative instead of absolute differences")
+    optParser.add_option("--geh", action="store_true",
+                         default=False, help="write geh value instead of absolute differences")
     optParser.add_option("--undefined", type="float", default=-1001, help="value to use if the difference is undefined")
-    optParser.add_option("--no-statistics", action="store_true", default=False,
-                         help="otherwise: handle attributes starting with 'std_' as standard"
-                         + "deviation and calculate propagated error")
+    optParser.add_option("--no-statistics", action="store_true",
+                         default=False, help="otherwise: handle attributes starting with 'std_' as standard deviation and calculate propagated error")
     (options, args) = optParser.parse_args(args=args)
 
     if len(args) == 3:

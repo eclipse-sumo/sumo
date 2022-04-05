@@ -205,7 +205,7 @@ Use the following template for your files:
 # Line endings and keyword replacement
 
 We enforce special line endings for the following file types (overriding
-core.autocrlf settings of git) using [{{SUMO}}/.gitattributes](https://github.com/eclipse/sumo/blob/master/.gitattributes):
+core.autocrlf settings of git) using [{{SUMO}}/.gitattributes](https://github.com/eclipse/sumo/blob/main/.gitattributes):
 
 - LF for
   - source files (".h", ".cpp", ".py", ...),

@@ -302,6 +302,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("vss-prefix", new Option_String("vs"));
     oc.addDescription("vss-prefix", "Netedit", "prefix for variable speed sign naming");
 
+    oc.doRegister("cof-prefix", new Option_String("cof"));
+    oc.addDescription("cof-prefix", "Netedit", "prefix for coefficient of friction naming");
+
     oc.doRegister("tractionSubstation-prefix", new Option_String("tr"));
     oc.addDescription("tractionSubstation-prefix", "Netedit", "prefix for traction substation naming");
 

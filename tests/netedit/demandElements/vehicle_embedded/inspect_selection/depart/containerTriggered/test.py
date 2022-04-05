@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.vehicleEmbedded.inspectSelection.depart, "", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.depart, "", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.vehicleEmbedded.inspectSelection.depart, "dummyDepart", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.depart, "dummyDepart", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.enums.vehicleEmbedded.inspectSelection.depart, "-3", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.depart, "-3", False)
 
 # change depart with an valid value
-netedit.modifyAttribute(netedit.attrs.enums.vehicleEmbedded.inspectSelection.depart, "containerTriggered", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.depart, "containerTriggered", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

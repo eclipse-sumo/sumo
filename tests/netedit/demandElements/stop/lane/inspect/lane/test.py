@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 263, 185)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopLane.inspect.lane, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.lane, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopLane.inspect.lane, "gneE1_0", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.lane, "gneE1_0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.enums.stopLane.inspect.lane, "gneE0_0", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.lane, "gneE0_0", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

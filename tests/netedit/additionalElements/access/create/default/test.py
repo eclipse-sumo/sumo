@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 275, 250)
 netedit.changeElement("access")
 
 # Create Access detector
-netedit.selectAdditionalChild(netedit.attrs.enums.access.create.parent, 0)
+netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 netedit.leftClick(referencePosition, 50, 200)
 
 # Check undo redo

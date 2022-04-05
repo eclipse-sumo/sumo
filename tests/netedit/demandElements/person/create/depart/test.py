@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 270, 43)
 
 # set invalid person number
-netedit.changeColorUsingDialog(netedit.attrs.enums.person.create.colorButton, 5)
+netedit.changeColorUsingDialog(netedit.attrs.person.create.colorButton, 5)
 
 # press enter to create route
 netedit.typeEnter()
@@ -55,13 +55,13 @@ netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 270, 43)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.enums.person.create.color, "Vlue")
+netedit.changeDefaultValue(netedit.attrs.person.create.color, "Vlue")
 
 # press enter to create route
 netedit.typeEnter()
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.enums.person.create.color, "red")
+netedit.changeDefaultValue(netedit.attrs.person.create.color, "red")
 
 # press enter to create route
 netedit.typeEnter()

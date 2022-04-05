@@ -15,8 +15,8 @@
 # @author  Pablo Alvarez Lopez
 # @date    2022-03-21
 
-import re
-
+import os
+import scandir
 
 # remove from
 def removeFrom(line):
@@ -34,38 +34,97 @@ def removeTo(line):
         line = line[1:]
     return solution
 
+# file lists
+fileList = []
+
+# get all test.py
+for paths, dirs, files in scandir.walk('D:/SUMO/tests/netedit'):
+    for file in files:
+        if file.endswith("test.py"):
+            fileList.append(os.path.join(paths, file))
+
+# list of references
+references = []
+
+# get all lines with "netedit.attrs"
+for file in fileList:
+    with open(file, "r") as fp:
+        lines = fp.readlines()
+    for line in lines:
+        if ("netedit.attrs." in line):
+            references.append(line)
+            
+"""
+# save references
+with open("references.txt", "w") as fp:
+    for reference in references:
+        fp.write(reference)
+"""
+
+# cleaned references
+cleanedReferences = []
+
+# iterate over lines
+for reference in references:
+    if ('.' in line):
+        # remove first element all until (
+        reference = removeFrom(reference)
+        # remove "referencePosition, "
+        reference = reference.replace("referencePosition, ", "")
+        # remove last element until ,
+        reference = removeTo(reference)
+        # replace extra characters
+        reference = reference.replace(')', '')
+        # replace extra characters
+        reference = reference.replace('netedit.attrs.', '')
+        if (len(reference) > 0):
+            # add endline
+            if (reference[-1] != '\n'):
+                reference += '\n'
+            # add into cleanedReferences
+            cleanedReferences.append(reference)
+            
+"""
+# save cleanedReferences
+with open("cleanedReferences.txt", "w") as fp:
+    for cleanedReference in cleanedReferences:
+        fp.write(cleanedReference)
+"""
+
+# open enumsXML.txt and append to cleanedReferences
+with open("enumsXML.txt", "r") as fp:
+    cleanedReferences += fp.readlines()
+
+# sort
+cleanedReferences.sort()
+
+"""
+# save
+with open("cleanedReferencesAndEnums.txt", "w") as fp:
+    for cleanedReference in cleanedReferences:
+        fp.write(cleanedReference)
+"""
+
 # dictionary
 dic = {'dummy': 1000}
 
-with open("report.txt", "r") as fp:
-    lines = fp.readlines()
-
-# iterate over lines
-for line in lines:
-    if ("netedit.attrs" in line):
-        # remove first element all until (
-        line = removeFrom(line)
-        # remove "referencePosition, "
-        line = line.replace("referencePosition, ", "")
-        # remove last element until ,
-        line = removeTo(line)
-        # replace extra characters
-        line = line.replace(')', '')
-        # check size
-        if (len(line) > 0):
-            found = False
-            for key in dic:
-                if (key == line):
-                    dic[key] += 1
-                    found = True
+# get number of 
+for reference in cleanedReferences:
+    # remove all spaces
+    reference = reference.replace(' ', '')
+    # check number of dots
+    if (reference.count('.') > 1):
+        found = False
+        for key in dic:
+            if (key == reference):
+                dic[key] += 1
+                found = True
+        # add in diccionary
+        if (found == False):
+            dic[reference] = 0
             
-            if (found == False):
-                dic[line] = 0
-# save
+# save missing test
 with open("missingTest.txt", "w") as fp:
     for key in dic:
         if (dic[key] == 0):
-            if (key[-1] == '\n'):
-                fp.write(key)
-            else :
-                fp.write(key + "\n")
+            fp.write(key)

@@ -12,6 +12,8 @@ layer
 
 type
 
+name
+
 imgfile
 
 relativepath

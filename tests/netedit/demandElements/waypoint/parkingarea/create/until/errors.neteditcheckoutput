@@ -1,19 +1,5 @@
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-10.10, offset=11.55), time=10.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=2.30), time=11.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=2.10), time=12.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.44), time=13.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.76), time=14.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.48), time=15.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.49), time=16.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.55), time=17.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=2.40), time=18.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=2.16), time=19.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=2.03), time=20.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.77), time=21.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=2.56), time=22.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.61), time=23.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.76), time=24.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=2.12), time=25.00.
+Warning: parkingArea 'parkingAreaB' for vehicle 'vehicle_0' on lane 'gneE1_0' set to end at 0.00 earlier than previous stop at 22.33.
+Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-3.37, offset=2.87), time=25.00.
 Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.61), time=26.00.
 Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.96), time=27.00.
 Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.33), time=28.00.

@@ -414,7 +414,7 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check to show grid button
             FXMenuCheckIcon* menuCheckToggleGrid;
 
-            /// @brief menu check to toogle draw junction shape
+            /// @brief menu check to toggle draw junction shape
             FXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
 
             /// @brief menu check to draw vehicles in begin position or spread in lane
@@ -444,7 +444,7 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check to we should warn about merging junctions
             FXMenuCheckIcon* menuCheckWarnAboutMerge;
 
-            /// @brief menu check to show connection as buuble in "Move" mode.
+            /// @brief menu check to show connection as bubble in "Move" mode.
             FXMenuCheckIcon* menuCheckShowJunctionBubble;
 
             /// @brief menu check to apply movement to elevation
@@ -485,7 +485,7 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check to show grid button
             FXMenuCheckIcon* menuCheckToggleGrid;
 
-            /// @brief menu check to toogle draw junction shape
+            /// @brief menu check to toggle draw junction shape
             FXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
 
             /// @brief menu check to draw vehicles in begin position or spread in lane
@@ -541,7 +541,7 @@ struct GNEApplicationWindowHelper {
             /// @brief hide all options menu checks
             void hideDataViewOptionsMenuChecks();
 
-            /// @brief menu check to toogle draw junction shape
+            /// @brief menu check to toggle draw junction shape
             FXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
 
             /// @brief menu check to show Additionals
@@ -553,16 +553,16 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check to show Demand Elements
             FXMenuCheckIcon* menuCheckShowDemandElements;
 
-            /// @brief menu check to toogle TAZRel drawing mode
+            /// @brief menu check to toggle TAZRel drawing mode
             FXMenuCheckIcon* menuCheckToogleTAZRelDrawing;
 
-            /// @brief menu check to toogle TAZ draw fill
+            /// @brief menu check to toggle TAZ draw fill
             FXMenuCheckIcon* menuCheckToogleTAZDrawFill;
 
-            /// @brief menu check to toogle TAZRel only from
+            /// @brief menu check to toggle TAZRel only from
             FXMenuCheckIcon* menuCheckToogleTAZRelOnlyFrom;
 
-            /// @brief menu check to toogle TAZRel only to
+            /// @brief menu check to toggle TAZRel only to
             FXMenuCheckIcon* menuCheckToogleTAZRelOnlyTo;
 
             /// @brief separator
@@ -600,7 +600,7 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCommand for redo last change
         FXMenuCommand* redoLastChange;
 
-        /// @brief FXMenuCommand for open undolist dialog
+        /// @brief FXMenuCommand for open undolist dialgo
         FXMenuCommand* openUndolistDialog;
 
         /// @brief network view options

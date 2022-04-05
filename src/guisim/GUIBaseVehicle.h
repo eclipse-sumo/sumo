@@ -164,7 +164,7 @@ public:
     /// @brief notify object about popup menu removal
     void removedPopupMenu();
 
-    /// @brief return exaggeration associated with this GLObject
+    /// @brief return exaggeration asociated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object

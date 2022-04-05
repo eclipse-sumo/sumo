@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change type of junction
-netedit.modifyAttribute(netedit.attrs.enums.junction.inspect.type, "right_before_left", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.type, "right_before_left", False)
 
 # rebuild network
 netedit.rebuildNetwork()

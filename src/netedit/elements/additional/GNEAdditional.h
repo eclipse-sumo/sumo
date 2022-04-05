@@ -43,7 +43,7 @@ class GUIGLObjectPopupMenu;
 
 /**
  * @class GNEAdditional
- * @brief An Element which don't belong to GNENet but has influence in the simulation
+ * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
 class GNEAdditional : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement {
 
@@ -116,12 +116,12 @@ public:
 
     /// @name members and functions relative to write additionals into XML
     /// @{
-    /**@brief write additional element into a xml file
+    /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
     virtual void writeAdditional(OutputDevice& device) const = 0;
 
-    /// @brief check if current additional is valid to be written into XML (by default true, can be reimplemented in children)
+    /// @brief check if current additional is valid to be writed into XML (by default true, can be reimplemented in children)
     virtual bool isAdditionalValid() const;
 
     /// @brief return a string with the current additional problem (by default empty, can be reimplemented in children)
@@ -143,7 +143,7 @@ public:
     /// @brief Returns position of additional in view
     virtual Position getPositionInView() const = 0;
 
-    /// @brief return exaggeration associated with this GLObject
+    /// @brief return exaggeration asociated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -259,9 +259,9 @@ public:
      */
     virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
 
-    /**@brief method for checking if the key and their correspondent attribute are valids
+    /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value associated to key key
+     * @param[in] value The value asociated to key key
      * @return true if the value is valid, false in other case
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
@@ -315,7 +315,7 @@ public:
     /// @brief get draw position index (used in rerouters and VSS)
     int getDrawPositionIndex() const;
 
-    /// @brief check if the given lanes are consecutive (used by E2 Multilane)
+    /// @brief check if the given lanes are consecutives (used by E2 Multilane)
     static bool areLaneConsecutives(const std::vector<GNELane*> &lanes);
 
 protected:
@@ -408,7 +408,7 @@ private:
     static void drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor,
                                             const double fromAngle, const double toAngle, const bool ignoreShift);
 
-    /// @brief adjust listed additional text
+    /// @brief adjust listed addtitional text
     std::string adjustListedAdditionalText(const std::string& text) const;
 
     /// @brief Invalidated copy constructor.

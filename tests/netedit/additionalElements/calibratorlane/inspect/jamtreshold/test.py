@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 300, 230)
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(netedit.attrs.enums.calibrator.inspect.vTypes, "///;;", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.vTypes, "///;;", True)
 
 # Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.enums.calibrator.inspect.vTypes, "", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.vTypes, "", True)
 
 # Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.enums.calibrator.inspect.vTypes, "type1 type2", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.vTypes, "type1 type2", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

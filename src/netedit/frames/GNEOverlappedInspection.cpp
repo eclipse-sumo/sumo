@@ -235,7 +235,7 @@ GNEOverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
 
 long
 GNEOverlappedInspection::onCmdShowList(FXObject*, FXSelector, void*) {
-    // show or hidde element list
+    // show or hide element list
     if (myOverlappedElementList->shown()) {
         myOverlappedElementList->hide();
     } else {

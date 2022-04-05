@@ -50,10 +50,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 227)
 
 # Change parameter 3 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.vaporizer.inspect.name, "%%$$$""", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.name, "%%$$$""", True)
 
 # Change parameter 3 with a valid value
-netedit.modifyAttribute(netedit.attrs.enums.vaporizer.inspect.name, "customName", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.name, "customName", True)
 
 # click over an empty area
 netedit.leftClick(referencePosition, 0, 0)

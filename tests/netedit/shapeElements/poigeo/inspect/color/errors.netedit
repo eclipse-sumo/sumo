@@ -6,6 +6,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'poiGeo' in GNETagSelector
 Debug: Adding poiGeo 'poi_0' in GNEChange_Additional
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
+Debug: Setting new attribute
 Debug: Value 'dummyColor' for attribute color of poiGeo isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute

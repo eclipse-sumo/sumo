@@ -283,7 +283,7 @@ struct GUIVisualizationCandidateColorSettings {
 /// @brief struct for connection settings
 struct GUIVisualizationNeteditSizeSettings {
 
-    /// @brief junction buuble radius
+    /// @brief junction bubble radius
     static const double junctionBubbleRadius;
 
     /// @brief moving junction geometry point radius
@@ -336,6 +336,12 @@ struct GUIVisualizationAdditionalSettings {
 
     /// @brief VSS size
     static const double VSSSize;
+
+    // @brief color for COF
+    static const RGBColor COFColor;
+
+    /// @brief COF size
+    static const double COFSize;
 
     /// @brief color for Calibrators
     static const RGBColor calibratorColor;
@@ -709,7 +715,7 @@ public:
     // Setting bundles for optional drawing names with size and color
     GUIVisualizationTextSettings edgeName, internalEdgeName, cwaEdgeName, streetName, edgeValue;
 
-    /// @brief flag to show or hidde connectors
+    /// @brief flag to show or hide connectors
     bool hideConnectors;
 
     /// @brief The lane exaggeration (upscale thickness)

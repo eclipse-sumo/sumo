@@ -1,5 +1,5 @@
 read 4 busStops on 4 edges
-found 2 bidi-stops (max stops per edge 1 on c)
+found 2 bidi-stops (max stops per edge 1 on -a)
 read 2 routes (2 unique) and 4 stops at 4 busStops
 processed 2 routes across 5 edges with 0 merging switches
 Found 0 stops after merging switches and 0 signals that guard switches

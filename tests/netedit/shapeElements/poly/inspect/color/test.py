@@ -43,21 +43,24 @@ netedit.inspectMode()
 # inspect first polygon
 netedit.leftClick(referencePosition, 182, 130)
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.Poly.inspect.colorButton, 5, False)
+
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.enums.Poly.inspect.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.Poly.inspect.color, "dummyColor", False)
 
 # Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.enums.Poly.inspect.color, "255,255,500", False)
+netedit.modifyAttribute(netedit.attrs.Poly.inspect.color, "255,255,500", False)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.enums.Poly.inspect.color, "blue", False)
+netedit.modifyAttribute(netedit.attrs.Poly.inspect.color, "blue", False)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.enums.Poly.inspect.color, "125,60,200", False)
+netedit.modifyAttribute(netedit.attrs.Poly.inspect.color, "125,60,200", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save shapes
 netedit.saveAdditionals(referencePosition)

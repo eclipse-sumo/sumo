@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid depart
-netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.depart, "-12")
+netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.depart, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid depart
-netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.depart, "30")
+netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.depart, "30")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid depart (output will be changed)
-netedit.changeDefaultValue(netedit.attrs.enums.tripFromToJunction.create.depart, "20")
+netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.depart, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

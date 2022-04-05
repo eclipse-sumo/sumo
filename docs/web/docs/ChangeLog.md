@@ -30,7 +30,6 @@ title: ChangeLog
   - Rerouting now takes empty lanes into account in mean speed calculation. Issue #10345
   - Rerouting now ignores stopped vehicles in mean speed calculation if they can be overtaken. Issue. #10336
   - Teleporting of blocked vehicles now works if they are blocked behind a stopping vehicles. Issue #1078
-  - Fixed crash when using option **--weights.separate-turns** with intermodal network. Issue #10416
   - opposite-direction driving
     - Can now overtake stopped vehicle when there is only a short gap afterwards. Issue #9994, #10338
     - Fixed failure to overtake fast vehicles. Issue #10194    
@@ -85,8 +84,6 @@ title: ChangeLog
   - Fixed inconsistent move-mode behavior of E2Detector. Issue #10305
   - Data elementes can no longer be given invalid attributes. Issue #10373
   - Rerouters and VSS no longer lose their edges and lanes after recomputing with volatile options. Issue #10386
-  - Fixed error when deleting trips/flows between junctions. Issue #10391
-  - Fixed crash when setting departLane of trips/flows between junctions. Issue #10396
     
 - sumo-gui
   - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069
@@ -97,8 +94,8 @@ title: ChangeLog
   - Files saved via dialogs now ignore option **--output-prefix**. Issue #10347
   - Fixed red/black GUI on MacOS. Issue #7830
   - Fixed invalid exaggerated vehicle size when drawing vehicle as imgFile. Issue #10381
-  - Loading edge data for unknown edges is no longer an error. Issue #10379  
-  - Fixed inconsistent gui settings on reload (settings will be kept on reload unlese the settings-file was modified). Issue #10398  
+  - Loading edge data for unknown edges is no longer an error. Issue #10379
+  - Background images (decals) now support environment variable resolution in their paths. Issue #10371
     
 - duarouter
   - route errors are now detected when using option **--skip-new-routes**. Issue #6113
@@ -116,7 +113,6 @@ title: ChangeLog
   - Fixed invalid route and errors after removing stops with replaceStop on departure and rerouting. Issue #10209
   - Fixed inconsistent lane change state (left+right at the same time). Issue #10212
   - Fixed missing attributes in vehroute output after adding vehicle. Issue #10282
-  - Fixed invalid collision when using moveToXY with high implicit speed. Issue #10367
 
 - tools
   - generateTurnRatios.py now writes correct closing tag. Issue #10140 (regression in 1.11.0)
@@ -162,8 +158,6 @@ title: ChangeLog
   - The keys pgdup/pgdown can now be used to change simulation delay.  (their former functionality of quick-panning the view was taken up by alt+arrows). Issue #10199
   - Greatly improved rendering speed of polygons. Issue #10240
   - Hotkey **Ctrl+j** now toggles drawing of junction shapes. Issue #10362
-  - Background images (decals) now support environment variable resolution in their paths. Issue #10371
-  - The *space* key can be used to toggle run/stop. Issue #10068
 
 - netedit
   - Can now set stop attributes "tripID" and "line". Issue #6011
@@ -182,7 +176,6 @@ title: ChangeLog
   - Improved feedback after reloading additionals. Issue #9362
   - Hotkey **Ctrl+j** now toggles drawing of junction shapes. Issue #10362
   - Added 'smooth shape' to the connections context menu. Issue #10352
-  - Deleting lanes in now works in create-edge mode. Issue #10409
 
 - netconvert
   - Improved speed of OSM import. Issue #8147
@@ -209,7 +202,6 @@ title: ChangeLog
   - Actuated traffic lights now supports the keys *cycleTime, cycleSecond, coordinated, offset* in setParameter and getParameter calls. Issue #10234
   - Added function 'vehicle.setAcceleration' Issue #10197
   - Function vehicle.replaceStop now supports the flag 'teleport=2' to trigger rerouting after stop removal. Issue #10131
-  - countEdgeUsage.py: Option **--taz** now works together with time filtering and **--subpart** filtering. Issue #10404
   
 - tools
   - routeStats.py: Can use measures "speed", "speedKmh", "routeLength", can switch to the fast XML parser and can also filter by route length . Issue #10044
@@ -220,7 +212,6 @@ title: ChangeLog
   - randomTrips.py: When setting option **--random-depart**, with a fractional value for option **--period**, the depart times now have sub-second resolution. Issue #10122
   - randomTrips.py: now supports option **--random-routing-factor** to increase the variance of generated routes. Issue #10172
   - added library function `sumolib.net.getFastestPath`. Issue #10318
-  - edgeDataDiff.py now supports error propagation for attributes starting with `_std`. Issue #10103
 
 ### miscellaneous
 
