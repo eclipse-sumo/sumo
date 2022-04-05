@@ -22,5 +22,9 @@ changeright
 
 type
 
+stopoffset
+
+stopoffsetexception
+
 # edit parameters
 parameters

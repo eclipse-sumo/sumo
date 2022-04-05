@@ -160,6 +160,7 @@ lane.inspect.changeRightButton
 lane.inspect.changeRight 
 lane.inspect.type 
 lane.inspect.stopOffset 
+lane.inspect.stopOffsetExceptionButton 
 lane.inspect.stopOffsetException 
 lane.inspect.parameters 
 lane.inspectSelection
@@ -177,6 +178,7 @@ lane.inspectSelection.changeRightButton
 lane.inspectSelection.changeRight 
 lane.inspectSelection.type 
 lane.inspectSelection.stopOffset 
+lane.inspectSelection.stopOffsetExceptionButton 
 lane.inspectSelection.stopOffsetException 
 lane.inspectSelection.parameters 
 connection

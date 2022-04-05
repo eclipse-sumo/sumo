@@ -212,7 +212,8 @@ class lane:
         changeRight = 14
         type = 15
         stopOffset = 16
-        stopOffsetException = 17
+        stopOffsetExceptionButton = 17
+        stopOffsetException = 18
         parameters = 21
 
     class inspectSelection:
@@ -230,7 +231,8 @@ class lane:
         changeRight = 12
         type = 13
         stopOffset = 14
-        stopOffsetException = 15
+        stopOffsetExceptionButton = 15
+        stopOffsetException = 16
         parameters = 19
 
 # connection

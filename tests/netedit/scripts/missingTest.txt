@@ -55,10 +55,6 @@ junction.inspectSelectionTLS.tlType
 junction.inspectTLS.tl
 junction.inspectTLS.tlLayout
 junction.inspectTLS.tlType
-lane.inspect.stopOffset
-lane.inspect.stopOffsetException
-lane.inspectSelection.stopOffset
-lane.inspectSelection.stopOffsetException
 modes.data.junctionShape
 modes.demand.grid
 modes.demand.junctionShape
