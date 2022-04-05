@@ -106,7 +106,7 @@ MEVehicle::getPosition(const double offset) const {
 
 double
 MEVehicle::getSpeed() const {
-    if (getWaitingTime() > 0) {
+    if (getWaitingTime() > 0 || isStopped()) {
         return 0;
     } else {
         return getAverageSpeed();
@@ -116,7 +116,7 @@ MEVehicle::getSpeed() const {
 
 double
 MEVehicle::getAverageSpeed() const {
-    return mySegment != nullptr ? mySegment->getLength() / STEPS2TIME(myEventTime - myLastEntryTime) : 0;
+    return mySegment != nullptr ? MIN2(mySegment->getLength() / STEPS2TIME(myEventTime - myLastEntryTime), getEdge()->getVehicleMaxSpeed(this)) : 0;
 }
 
 
