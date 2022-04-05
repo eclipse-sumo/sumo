@@ -27,7 +27,8 @@ with open("failTests.txt", "w") as fp:
         if (("Test\t" not in lineStrip) and
                 ("Summary\t" not in lineStrip) and
                 ("test_default.daily" not in lineStrip) and
-                ("daily." not in lineStrip)):
+                ("daily." not in lineStrip) and
+                ("0" not in lineStrip)):
             # clear substrings
             lineStrip = lineStrip.replace("\t", " ")
             lineStrip = lineStrip.replace("(+)", " ")
