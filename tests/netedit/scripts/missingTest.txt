@@ -7,8 +7,6 @@ E2Multilane.inspectSelection.tl
 POIGEO.create.lonLat
 TLS.create.TLS
 TLS.create.noTLS
-edgeRelData.inspect.fromEdge
-edgeRelData.inspect.toEdge
 flowEmbedded.create.id
 flowEmbedded.inspect.arrivalEdge
 flowEmbedded.inspect.colorButton
@@ -68,9 +66,6 @@ modes.network.grid
 modes.network.junctionShape
 modes.network.showSubAdditionals
 modes.network.spreadVehicle
-parkingArea.create.departPos
-parkingArea.inspect.departPos
-parkingArea.inspectSelection.departPos
 parkingSpace.create.slope
 parkingSpace.inspect.slope
 parkingSpace.inspectSelection.slope
