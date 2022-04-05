@@ -31,50 +31,36 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to route mode
-netedit.routeMode()
+# force save additionals
+netedit.forceSaveAdditionals()
 
-# create route using three edges
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 280, 55)
+# go to select mode
+netedit.selectMode()
 
-# press enter to create route
-netedit.typeEnter()
+# select all using invert
+netedit.selectionInvert()
 
-# go to vehicle mode
-netedit.vehicleMode()
+# go to inspect mode
+netedit.inspectMode()
 
-# select vehicle
-netedit.changeElement("vehicle (over route)")
+# inspect selection
+netedit.leftClick(referencePosition, 290, 155)
 
-# set invalid person number
-netedit.changeColorUsingDialog(netedit.attrs.vehicle.create.colorButton, 5)
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.tripID, ";;;;", False)
 
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 392)
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.tripID, "", False)
 
-# set invalid color
-netedit.changeDefaultValue(netedit.attrs.vehicle.create.color, "dummyColor")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 392)
-
-# set valid color
-netedit.changeDefaultValue(netedit.attrs.vehicle.create.color, "cyan")
-
-# create vehicle
-netedit.leftClick(referencePosition, 274, 392)
-
-# set valid color
-netedit.changeDefaultValue(netedit.attrs.vehicle.create.color, "12,13,14")
-
-# create vehicle
-netedit.leftClick(referencePosition, 274, 392)
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.tripID, "customTripID", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
+
+# save additionals
+netedit.saveAdditionals(referencePosition)
 
 # save routes
 netedit.saveRoutes(referencePosition)

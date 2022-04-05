@@ -94,7 +94,6 @@ person.inspectSelection.line
 person.inspectSelection.parameters
 person.inspectSelection.personNumber
 person.inspectSelection.type
-routeflow.create.colorButton
 routeflow.create.id
 routeflow.inspect.arrivalEdge
 routeflow.inspect.departEdge
@@ -116,7 +115,6 @@ tripFromToJunction.create.personNumber
 tripFromToJunction.inspect.colorButton
 tripFromToJunction.inspectSelection.colorButton
 tripFromToJunction.inspectSelection.type
-vehicle.create.colorButton
 vehicle.create.id
 vehicle.inspect.arrivalEdge
 vehicle.inspect.departEdge
@@ -131,5 +129,3 @@ waypointLane.inspectSelection.line
 waypointLane.inspectSelection.posLat
 waypointLane.inspectSelection.speed
 waypointLane.inspectSelection.tripID
-waypointParking.inspectSelection.line
-waypointParking.inspectSelection.tripID
