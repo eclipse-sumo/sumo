@@ -141,9 +141,5 @@ waypointLane.inspectSelection.line
 waypointLane.inspectSelection.posLat
 waypointLane.inspectSelection.speed
 waypointLane.inspectSelection.tripID
-
-waypointParking.create.speed
-waypointParking.inspect.speed
 waypointParking.inspectSelection.line
-waypointParking.inspectSelection.speed
 waypointParking.inspectSelection.tripID
