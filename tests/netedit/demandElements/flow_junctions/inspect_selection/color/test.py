@@ -43,6 +43,9 @@ netedit.inspectMode()
 # inspect vehicle
 netedit.leftClick(referencePosition, 410, 170)
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.flowJunction.inspectSelection.colorButton, 5, False)
+
 # change color with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.color, "", False)
 

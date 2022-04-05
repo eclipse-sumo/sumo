@@ -78,6 +78,8 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyColor' for attribute color of flowWithRoute isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -99,24 +101,20 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing routeEmbedded 'flowB' in GNEChange_DemandElement
-Debug: Removing flowWithRoute 'flowB' in GNEChange_DemandElement
-Debug: Removing routeEmbedded 'flowA' in GNEChange_DemandElement
-Debug: Removing flowWithRoute 'flowA' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding flowWithRoute 'flowA' in GNEChange_DemandElement
-Debug: Adding routeEmbedded 'flowA' in GNEChange_DemandElement
-Debug: Adding flowWithRoute 'flowB' in GNEChange_DemandElement
-Debug: Adding routeEmbedded 'flowB' in GNEChange_DemandElement
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed

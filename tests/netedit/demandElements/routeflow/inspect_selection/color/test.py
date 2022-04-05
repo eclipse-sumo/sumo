@@ -43,6 +43,9 @@ netedit.inspectMode()
 # inspect flow over route
 netedit.leftClick(referencePosition, 330, 150)
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.routeflow.inspectSelection.colorButton, 5, True)
+
 # change color with an invalid value
 netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.color, "", True)
 

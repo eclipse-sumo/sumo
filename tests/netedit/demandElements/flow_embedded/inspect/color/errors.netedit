@@ -68,6 +68,8 @@ Debug: Selected item 'flow (embedded route)' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding flowWithRoute 'f_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'f_0' in GNEChange_DemandElement
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyColor' for attribute color of flowWithRoute isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -79,13 +81,13 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing routeEmbedded 'f_0' in GNEChange_DemandElement
-Debug: Removing flowWithRoute 'f_0' in GNEChange_DemandElement
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding flowWithRoute 'f_0' in GNEChange_DemandElement
-Debug: Adding routeEmbedded 'f_0' in GNEChange_DemandElement
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -93,6 +95,8 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
