@@ -31,19 +31,45 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to route mode
-netedit.routeMode()
+# force save additionals
+netedit.forceSaveAdditionals()
 
-# create route using three edges
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 280, 55)
+# go to waypoint mode
+netedit.stopMode()
 
-# press abort button
-netedit.focusOnFrame()
-for _ in range(netedit.attrs.frames.route.abort):
-    netedit.typeTab()
-netedit.typeSpace()
+# change waypoint type with a valid value
+netedit.changeStopType("waypointParkingArea")
+
+# create waypoint
+netedit.leftClick(referencePosition, 290, 155)
+
+# go to inspect mode
+netedit.inspectMode()
+
+# inspect waypoint
+netedit.leftClick(referencePosition, 290, 155)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.speed, "dummy", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.speed, "", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.speed, "-16", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.speed, "11.5", False)
+
+# Check undo redo
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
+
+# save additionals
+netedit.saveAdditionals(referencePosition)
+
+# save routes
+netedit.saveRoutes(referencePosition)
 
 # save network
 netedit.saveNetwork(referencePosition)

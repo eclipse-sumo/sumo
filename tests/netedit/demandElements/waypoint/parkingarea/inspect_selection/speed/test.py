@@ -31,19 +31,42 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to route mode
-netedit.routeMode()
+# force save additionals
+netedit.forceSaveAdditionals()
 
-# create route using three edges
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 280, 55)
+# go to select mode
+netedit.selectMode()
 
-# press abort button
-netedit.focusOnFrame()
-for _ in range(netedit.attrs.frames.route.abort):
-    netedit.typeTab()
-netedit.typeSpace()
+# select all using invert
+netedit.selectionInvert()
+
+# go to inspect mode
+netedit.inspectMode()
+
+# inspect selection
+netedit.leftClick(referencePosition, 290, 155)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.speed, "dummy", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.speed, "", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.speed, "-14", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.speed, "12.3", False)
+
+# Check undo redo
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
+
+# save additionals
+netedit.saveAdditionals(referencePosition)
+
+# save routes
+netedit.saveRoutes(referencePosition)
 
 # save network
 netedit.saveNetwork(referencePosition)
