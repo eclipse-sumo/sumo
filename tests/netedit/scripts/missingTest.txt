@@ -132,8 +132,6 @@ vehicle.inspectSelection.type
 vehicleEmbedded.inspect.arrivalEdge
 vehicleEmbedded.inspect.departEdge
 vehicleEmbedded.inspectSelection.type
-waypoint.create.speed
-waypoint.inspect.speed
 waypoint.inspectSelection.speed
 waypointLane.create.speed
 waypointLane.inspect.speed
