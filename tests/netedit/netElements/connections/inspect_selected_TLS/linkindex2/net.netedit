@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-11 13:21:59 by Eclipse SUMO netedit Version v1_10_0+2158-87261770815
+<!-- generated on 2022-04-05 15:00:43 by Eclipse SUMO netedit Version v1_12_0+1962-dfcec2a1788
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov125507.6560\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Apr145850.7784\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex2\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov125507.6560\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Apr145850.7784\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex2\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,27 +31,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov125507.6560\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov125507.6560\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov125507.6560\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov125507.6560\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov125507.6560\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov125507.6560\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Apr145850.7784\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex2\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Apr145850.7784\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex2\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Apr145850.7784\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex2\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Apr145850.7784\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex2\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Apr145850.7784\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex2\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Apr145850.7784\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex2\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov125507.6560\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Apr145850.7784\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex2\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov125507.6560\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Apr145850.7784\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex2\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov125507.6560\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Apr145850.7784\netedit.gui\netElements\connections\inspect_selected_TLS\linkindex2\log.txt"/>
     </report>
 
 </configuration>
@@ -124,21 +124,21 @@
     </junction>
     <junction id="D" type="dead_end" x="100.00" y="50.00" incLanes="4_0 4_1" intLanes="" shape="100.00,50.00 100.00,43.60 100.00,50.00"/>
 
-    <connection from="5" to="4" fromLane="0" toLane="0" tl="Center" linkIndex="12" dir="r" state="O"/>
-    <connection from="5" to="2" fromLane="0" toLane="0" tl="Center" linkIndex="12" dir="s" state="O"/>
-    <connection from="5" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="12" dir="s" state="O"/>
-    <connection from="5" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="12" dir="l" state="o"/>
-    <connection from="6" to="3" fromLane="0" toLane="0" tl="Center" linkIndex="12" dir="r" state="O"/>
-    <connection from="6" to="1" fromLane="0" toLane="0" tl="Center" linkIndex="12" dir="s" state="O"/>
-    <connection from="6" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="12" dir="s" state="O"/>
-    <connection from="6" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="12" dir="l" state="o"/>
-    <connection from="7" to="1" fromLane="0" toLane="0" tl="Center" linkIndex="12" dir="r" state="o"/>
-    <connection from="7" to="4" fromLane="0" toLane="0" tl="Center" linkIndex="12" dir="s" state="o"/>
-    <connection from="7" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="12" dir="s" state="o"/>
-    <connection from="7" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="12" dir="l" state="o"/>
-    <connection from="8" to="2" fromLane="0" toLane="0" tl="Center" linkIndex="12" dir="r" state="o"/>
-    <connection from="8" to="3" fromLane="0" toLane="0" tl="Center" linkIndex="12" dir="s" state="o"/>
-    <connection from="8" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="12" dir="s" state="o"/>
-    <connection from="8" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="12" dir="l" state="o"/>
+    <connection from="5" to="4" fromLane="0" toLane="0" tl="Center" linkIndex="8" linkIndex2="12" dir="r" state="O"/>
+    <connection from="5" to="2" fromLane="0" toLane="0" tl="Center" linkIndex="9" linkIndex2="12" dir="s" state="O"/>
+    <connection from="5" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="10" linkIndex2="12" dir="s" state="O"/>
+    <connection from="5" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="11" linkIndex2="12" dir="l" state="o"/>
+    <connection from="6" to="3" fromLane="0" toLane="0" tl="Center" linkIndex="0" linkIndex2="12" dir="r" state="O"/>
+    <connection from="6" to="1" fromLane="0" toLane="0" tl="Center" linkIndex="1" linkIndex2="12" dir="s" state="O"/>
+    <connection from="6" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="2" linkIndex2="12" dir="s" state="O"/>
+    <connection from="6" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="3" linkIndex2="12" dir="l" state="o"/>
+    <connection from="7" to="1" fromLane="0" toLane="0" tl="Center" linkIndex="12" linkIndex2="12" dir="r" state="o"/>
+    <connection from="7" to="4" fromLane="0" toLane="0" tl="Center" linkIndex="13" linkIndex2="12" dir="s" state="o"/>
+    <connection from="7" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="14" linkIndex2="12" dir="s" state="o"/>
+    <connection from="7" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="15" linkIndex2="12" dir="l" state="o"/>
+    <connection from="8" to="2" fromLane="0" toLane="0" tl="Center" linkIndex="4" linkIndex2="12" dir="r" state="o"/>
+    <connection from="8" to="3" fromLane="0" toLane="0" tl="Center" linkIndex="5" linkIndex2="12" dir="s" state="o"/>
+    <connection from="8" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="6" linkIndex2="12" dir="s" state="o"/>
+    <connection from="8" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="7" linkIndex2="12" dir="l" state="o"/>
 
 </net>

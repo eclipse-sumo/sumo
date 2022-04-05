@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # change imgfile (invalid)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.name, "%%$%$&$%$%$")
+netedit.changeDefaultValue(netedit.attrs.POIGEO.create.name, ";;;;;%%%%")
 
 # try to create POI
 netedit.leftClick(referencePosition, 100, 50)
