@@ -120,7 +120,7 @@ void MSEdge::recalcCache() {
     myLength = myLanes->front()->getLength();
     myEmptyTraveltime = myLength / MAX2(getSpeedLimit(), NUMERICAL_EPS);
     if (isNormal() && (MSGlobals::gUseMesoSim || MSGlobals::gTLSPenalty > 0)) {
-        double minorPenalty = 0;
+        SUMOTime minorPenalty = 0;
         bool haveTLSPenalty = MSGlobals::gTLSPenalty > 0;
         if (MSGlobals::gUseMesoSim) {
             const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(getEdgeType());
