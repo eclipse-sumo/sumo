@@ -197,6 +197,7 @@ GUIDialog_ViewSettings::onCmdCancel(FXObject*, FXSelector, void*) {
     saveWindowSize();
     hide();
     (*mySettings) = myBackup;
+    myParent->update();
     return 1;
 }
 
