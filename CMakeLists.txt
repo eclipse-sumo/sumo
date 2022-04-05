@@ -331,7 +331,7 @@ if (CHECK_OPTIONAL_LIBS)
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
     file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gl2ps-?.?.?")
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH}")
-    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll")
+    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${OSG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll")
 
     # GDAL (for geopositioning)
     find_package(GDAL)
@@ -486,12 +486,14 @@ if (SUMO_LIBRARIES AND WIN32)
     endforeach(DLL_PATH)
     # copy OSG dlls
     if (HAVE_OSG)
-        file(GLOB OSG_DLL "${OSG_PATH}/bin/*osg.dll")
-        get_filename_component(OSG_DLL_BASENAME ${OSG_DLL} NAME)
-        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/${OSG_DLL_BASENAME})
+        file(GLOB OSG_PLUGIN_DLL "${OSG_PATH}/bin/osgPlugins*/osgdb_osg.dll")
+        get_filename_component(OSG_PLUGIN_DLL_BASENAME ${OSG_PLUGIN_DLL} NAME)
+        get_filename_component(OSG_PLUGIN_DIR ${OSG_PLUGIN_DLL} DIRECTORY)
+        get_filename_component(OSG_PLUGIN_DIR ${OSG_PLUGIN_DIR} NAME)
+        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/${OSG_PLUGIN_DIR}/${OSG_PLUGIN_DLL_BASENAME})
         add_custom_command(OUTPUT ${OSG_TARGET}
-                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin
-                           DEPENDS ${OSG_DLL})
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin/${OSG_PLUGIN_DIR} ${CMAKE_SOURCE_DIR}/bin/${OSG_PLUGIN_DIR}
+                           DEPENDS ${OSG_PLUGIN_DLL})
     endif (HAVE_OSG)
     # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
     set(PROJ_DATA ${CMAKE_SOURCE_DIR}/share/proj/proj.db)
