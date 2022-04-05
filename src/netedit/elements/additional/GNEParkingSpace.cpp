@@ -109,7 +109,7 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
     }
     if (getAttribute(SUMO_ATTR_SLOPE) != myTagProperty.getDefaultValue(SUMO_ATTR_SLOPE)) {
-        device.writeAttr(SUMO_ATTR_SLOPE, myAngle);
+        device.writeAttr(SUMO_ATTR_SLOPE, mySlope);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
