@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-06 17:13:44 by Eclipse SUMO netedit Version v1_12_0+1989-e251bbc92c8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="C:\erdm_ja\sip-svn-trunk\papers\DLR\SUMO_Conference2022\tutorial\bugs\missing_connection\input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-10780475#1" from="94945362" to="94953622" name="Alt-Köpenick" priority="1" type="highway.pedestrian" numLanes="1" speed="1.39" shape="0.13,70.08 9.50,95.95 14.42,109.01 26.77,138.08 34.93,156.84 38.60,165.26" width="2.00" allow="pedestrian bus">
+        <lane index="0">
+            <param key="origId" value="10780475 10780475 1021333857 1021333857"/>
+        </lane>
+    </edge>
+    <edge id="1021333857#0" from="94953622" to="94945362" name="Alt-Köpenick" priority="1" type="highway.pedestrian" numLanes="1" speed="1.39" shape="38.60,165.26 34.93,156.84 26.77,138.08 14.42,109.01 9.50,95.95 0.13,70.08" width="2.00" allow="pedestrian bus">
+        <lane index="0">
+            <param key="origId" value="1021333857 1021333857 10780475 10780475"/>
+        </lane>
+    </edge>
+    <edge id="180304817#0" from="94945362" to="1863260119" name="Alt-Köpenick" priority="1" type="highway.service" numLanes="1" speed="1.39" spreadType="center" allow="pedestrian bus delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="180304817"/>
+        </lane>
+    </edge>
+    <edge id="180304817#1" from="1863260119" to="1531989567" name="Alt-Köpenick" priority="1" type="highway.service" numLanes="1" speed="1.39" spreadType="center" allow="pedestrian bus delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="180304817"/>
+        </lane>
+    </edge>
+    <edge id="180304817#2" from="1531989567" to="1531989564" name="Alt-Köpenick" priority="1" type="highway.service" numLanes="1" speed="1.39" spreadType="center" allow="pedestrian bus delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="180304817"/>
+        </lane>
+    </edge>
+    <edge id="180304817#3" from="1531989564" to="1531989559" name="Alt-Köpenick" priority="1" type="highway.service" numLanes="1" speed="1.39" spreadType="center" allow="pedestrian bus delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="180304817"/>
+        </lane>
+    </edge>
+</edges>
