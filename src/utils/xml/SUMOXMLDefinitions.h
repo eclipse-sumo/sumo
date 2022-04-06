@@ -789,8 +789,9 @@ enum SumoXMLAttr {
 
     /// @name Car following model attributes
     /// @{
-    SUMO_ATTR_SIGMA,    // used by: Krauss
-    SUMO_ATTR_TAU,      // Krauss
+    SUMO_ATTR_SIGMA,      // used by: Krauss
+    SUMO_ATTR_SIGMA_STEP, // used by: Krauss
+    SUMO_ATTR_TAU,
     SUMO_ATTR_TMP1,
     SUMO_ATTR_TMP2,
     SUMO_ATTR_TMP3,

@@ -1213,6 +1213,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         // Krauss
         std::set<SumoXMLAttr> kraussParams(genericParams);
         kraussParams.insert(SUMO_ATTR_SIGMA);
+        kraussParams.insert(SUMO_ATTR_SIGMA_STEP);
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS] = kraussParams;
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_ORIG1] = kraussParams;
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_PLUS_SLOPE] = kraussParams;

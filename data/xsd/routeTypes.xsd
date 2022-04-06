@@ -117,6 +117,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="sigmaStep" type="positiveFloatType"/>
         <xsd:attribute name="impatience">
             <xsd:simpleType>
                 <xsd:union memberTypes="xsd:float">
@@ -243,14 +244,6 @@
     <xsd:complexType name="cfIDMType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
-        <xsd:attribute name="sigma">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:maxInclusive value="1"/>
-                    <xsd:minInclusive value="0"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="delta" type="xsd:float"/>
         <xsd:attribute name="stepping" type="positiveFloatType"/>
@@ -259,14 +252,6 @@
     <xsd:complexType name="cfIDMMType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
-        <xsd:attribute name="sigma">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:maxInclusive value="1"/>
-                    <xsd:minInclusive value="0"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="adaptTime" type="xsd:float"/>
         <xsd:attribute name="adaptFactor" type="xsd:float"/>
@@ -314,6 +299,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="sigmaStep" type="positiveFloatType"/>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
     </xsd:complexType>
 
@@ -328,6 +314,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="sigmaStep" type="positiveFloatType"/>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="tmp1" type="xsd:float"/>
         <xsd:attribute name="tmp2" type="xsd:float"/>
@@ -371,14 +358,6 @@
     <xsd:complexType name="cfWiedemannType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
-        <xsd:attribute name="sigma">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:maxInclusive value="1"/>
-                    <xsd:minInclusive value="0"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="security" type="xsd:float"/>
         <xsd:attribute name="estimation" type="xsd:float"/>
@@ -399,14 +378,6 @@
     <xsd:complexType name="cfACCType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
-        <xsd:attribute name="sigma">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:maxInclusive value="1"/>
-                    <xsd:minInclusive value="0"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
         <xsd:attribute name="speedControlGain" type="xsd:float"/>
         <xsd:attribute name="gapClosingControlGainSpeed" type="xsd:float"/>
         <xsd:attribute name="gapClosingControlGainSpace" type="xsd:float"/>
