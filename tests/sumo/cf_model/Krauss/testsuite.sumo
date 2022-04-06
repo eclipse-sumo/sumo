@@ -5,6 +5,9 @@ sigma1_step1
 sigma1_step0.1
 
 # test step-lenght effect on dawdling (sigma)
+sigma1_step0.1_actionStep1
+
+# test step-lenght effect on dawdling (sigma)
 sigma1_step0.1_sigmaStep1
 
 # test unsuitable sigmaStep
