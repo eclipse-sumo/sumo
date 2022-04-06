@@ -1556,6 +1556,58 @@ def vehicleMode():
     time.sleep(DELAY_CHANGEMODE)
 
 #################################################
+# vType elements
+#################################################
+
+def typeMode():
+    """
+    @brief change to type mode
+    """
+    typeKey('t')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+
+def createVType():
+    """
+    @brief create vType
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop type
+    for _ in range(attrs.type.buttons.create):
+        typeTab()
+    # type space
+    typeSpace()
+
+
+def deleteVType():
+    """
+    @brief delete vType
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop type
+    for _ in range(attrs.type.buttons.delete):
+        typeTab()
+    # type space
+    typeSpace()
+
+
+def copyVType():
+    """
+    @brief copy vType
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop type
+    for _ in range(attrs.type.buttons.copy):
+        typeTab()
+    # type space
+    typeSpace()
+
+
+#################################################
 # delete
 #################################################
 

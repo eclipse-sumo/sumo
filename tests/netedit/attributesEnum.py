@@ -1171,6 +1171,11 @@ class TAZ:
 # type
 
 class type:
+    class buttons:
+        create = 2
+        delete = 3
+        copy = 3
+
     class create:
         id = 1
 
