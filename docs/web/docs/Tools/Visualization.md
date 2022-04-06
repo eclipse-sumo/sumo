@@ -148,7 +148,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 <tr class="odd">
 <td><figure>
 <img src="../images/Plot_net_dump.png" title="plot_net_dump.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_dump_net.py -v -n bs.net.xml \</code><br />
+<td><p><code>python plot_net_dump.py -v -n bs.net.xml \</code><br />
 <code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
 <code> --measures entered,entered --xlabel [m] --ylabel [m] \</code><br />
 <code> --default-width 1 -i base-jr.xml,base-jr.xml \</code><br />
@@ -163,7 +163,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 <tr class="even">
 <td><figure>
 <img src="../images/Plot_net_dump2.png" title="plot_net_dump2.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_dump_net.py -v -n bs.net.xml \</code><br />
+<td><p><code>python plot_net_dump.py -v -n bs.net.xml \</code><br />
 <code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
 <code> --measures NOx_normed,NOx_normed --xlabel [m] --ylabel [m] \</code><br />
 <code> --default-width 1 -i HBEFA_base-jr.xml,HBEFA_base-jr.xml \</code><br />
