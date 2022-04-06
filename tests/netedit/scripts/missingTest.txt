@@ -18,10 +18,6 @@ flowEmbedded.inspectSelection.terminateOption
 flowEmbedded.inspectSelection.type
 flowFromToEdge.create.id
 flowFromToEdge.inspectSelection.begin
-flowFromToEdge.inspectSelection.spacing
-flowFromToEdge.inspectSelection.spacingOption
-flowFromToEdge.inspectSelection.terminate
-flowFromToEdge.inspectSelection.terminateOption
 flowFromToEdge.inspectSelection.type
 flowJunction.create.end
 flowJunction.create.id
