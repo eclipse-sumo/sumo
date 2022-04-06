@@ -1168,6 +1168,45 @@ class TAZ:
 # DEMAND ELEMENTS
 # --------------------------------
 
+# type
+
+class type:
+    class create:
+        id = 1
+
+    class createDialog:
+        vClass = 1
+        id = 3
+        colorDialog = 4
+        color = 5
+        length = 6
+        minGap = 7
+        maxSpeed = 8
+        speedFactor = 9
+        emissionClass = 10
+        width = 12
+        height = 13
+        imgFileButton = 14
+        imgFile = 15
+        osgFileButton = 16
+        osgFile = 17
+        probability = 18
+        laneChangeModel = 19
+        guiShape = 21
+        personCapacity = 23
+        containerCapacity = 24
+        boardingDuration = 25
+        loadingDuration = 26
+        latAlignment = 27
+        minGapLat = 29
+        maxSpeedLat = 30
+        actionStepLength = 31
+        carriageLength = 32
+        locomotiveLength = 33
+        carriageGap = 34
+        parametersButton = 35
+        parameters = 36
+
 # route
 
 
