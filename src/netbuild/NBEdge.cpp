@@ -2971,11 +2971,11 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     if (availableLanes.size() > 0) {
         divideSelectedLanesOnEdges(outgoing, availableLanes);
     }
-    // build connections for busses (possibly combined with bicycles)
+    // build connections for busses from lanes that were excluded in the previous step
     availableLanes.clear();
     for (int i = 0; i < (int)myLanes.size(); ++i) {
         const SVCPermissions perms = getPermissions(i);
-        if (perms != SVC_BUS && perms != (SVC_BUS | SVC_BICYCLE)) {
+        if ((perms & SVC_BUS) == 0 || (perms & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_BUS)) != 0 || (perms & SVC_PASSENGER) != 0) {
             continue;
         }
         availableLanes.push_back(i);
