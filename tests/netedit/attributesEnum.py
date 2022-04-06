@@ -1176,10 +1176,22 @@ class type:
         delete = 3
         copy = 3
 
-    class create:
+    class edit:
         id = 8
-        vTypeDistDefault = 7
         vTypeDist = 9
+        vClass = 10
+        colorDialog = 12
+        color = 13
+        length = 14
+        minGap = 15
+        maxSpeed = 16
+        accel = 17
+        decel = 18
+        sigma = 19
+        tau = 20
+
+    class editDefault:
+        vTypeDist = 7
         vClass = 8
         colorDialog = 10
         color = 11
@@ -1191,7 +1203,7 @@ class type:
         sigma = 17
         tau = 18
 
-    class createDialog:
+    class editDialog:
         vClass = 1
         id = 3
         colorDialog = 4
