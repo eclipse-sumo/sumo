@@ -39,6 +39,8 @@
 #define DEBUG_COND (veh->isSelected())
 #define DEBUG_DRIVER_ERRORS
 
+MSCFModel_Krauss::VehicleVariables::VehicleVariables(SUMOTime dawdleStep) 
+    : accelDawdle(1e6), updateOffset(SIMSTEP % dawdleStep + DELTA_T) { }
 
 // ===========================================================================
 // method definitions

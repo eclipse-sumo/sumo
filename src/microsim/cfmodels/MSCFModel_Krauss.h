@@ -100,7 +100,7 @@ private:
     class VehicleVariables : public MSCFModel::VehicleVariables {
     public:
         // no speed update happens in the insertion step
-        VehicleVariables(SUMOTime dawdleStep) : accelDawdle(1e6), updateOffset(SIMSTEP % dawdleStep + DELTA_T) { }
+        VehicleVariables(SUMOTime dawdleStep);
 
         /// @brief the accleration due to dawdling
         double accelDawdle;
