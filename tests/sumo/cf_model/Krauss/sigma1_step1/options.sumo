@@ -2,5 +2,4 @@
 -r input_routes.rou.xml
 --no-step-log
 --fcd-output fcd.xml
---fcd-output.attributes acceleration
 -t

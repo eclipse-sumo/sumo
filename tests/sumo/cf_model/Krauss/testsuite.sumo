@@ -3,3 +3,6 @@ sigma1_step1
 
 # test step-lenght effect on dawdling (sigma)
 sigma1_step0.1
+
+# test step-lenght effect on dawdling (sigma)
+sigma1_step0.1_sigmaStep1
