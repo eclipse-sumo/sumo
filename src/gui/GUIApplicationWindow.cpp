@@ -1574,6 +1574,7 @@ GUIApplicationWindow::eventOccurred() {
         switch (e->getOwnType()) {
             case GUIEventType::SIMULATION_LOADED:
                 handleEvent_SimulationLoaded(e);
+                setFocus();
                 break;
             case GUIEventType::SIMULATION_STEP:
                 if (myRunThread->simulationAvailable()) { // avoid race-condition related crash if reload was pressed
