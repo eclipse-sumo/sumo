@@ -1177,7 +1177,19 @@ class type:
         copy = 3
 
     class create:
-        id = 1
+        id = 8
+        vTypeDistDefault = 7
+        vTypeDist = 9
+        vClass = 8
+        colorDialog = 10
+        color = 11
+        length = 12
+        minGap = 13
+        maxSpeed = 14
+        accel = 15
+        decel = 16
+        sigma = 17
+        tau = 18
 
     class createDialog:
         vClass = 1
