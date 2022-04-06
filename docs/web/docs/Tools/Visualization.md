@@ -157,7 +157,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 <code> --min-color-value -1000 --max-color-value 1000 \</code><br />
 <code> --max-width-value 1000 --min-width-value -1000  \</code><br />
 <code> --max-width 3 --min-width .5 \</code><br />
-<code> --colormap #0:#0000c0,.25:#404080,.5:#808080,.75:#804040,1:#c00000</code></p>
+<code> --colormap "#0:#0000c0,.25:#404080,.5:#808080,.75:#804040,1:#c00000"</code></p>
 <p>It shows the shift in traffic in the city of Brunswick, Tuesday-Thursday week type after establishing an environmental zone.</p></td>
 </tr>
 <tr class="even">
@@ -171,7 +171,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 <code> --default-width .5 --default-color #606060 \</code><br />
 <code> --min-color-value -.1 --max-color-value .1 \</code><br />
 <code> --max-width-value .1  --max-width 3 --min-width .5 \</code><br />
-<code> --colormap #0:#00c000,.25:#408040,.5:#808080,.75:#804040,1:#c00000</code></p>
+<code> --colormap "#0:#00c000,.25:#408040,.5:#808080,.75:#804040,1:#c00000"</code></p>
 <p>Showing the according changes in NOx emissions.</p></td>
 </tr>
 </tbody>
