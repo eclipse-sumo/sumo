@@ -6,3 +6,6 @@ verbose
 # logarithmic colors
 logColors
 multiple_intervals
+
+# test colormap option
+colormap
