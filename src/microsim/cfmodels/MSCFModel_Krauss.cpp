@@ -46,7 +46,18 @@
 MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype) :
     MSCFModel_KraussOrig1(vtype),
     myDawdleStep(TIME2STEPS(vtype->getParameter().getCFParam(SUMO_ATTR_SIGMA_STEP, TS)))
-{ }
+{ 
+    if (myDawdleStep % DELTA_T != 0) {
+        SUMOTime rem = myDawdleStep % DELTA_T;
+        if (rem < DELTA_T / 2) {
+            myDawdleStep += -rem;
+        } else {
+            myDawdleStep += DELTA_T - rem;
+        }
+        WRITE_WARNINGF("Rounding 'sigmaStep' to % for vType '%'", STEPS2TIME(myDawdleStep), vtype->getID());
+
+    }
+}
 
 
 MSCFModel_Krauss::~MSCFModel_Krauss() {}
