@@ -1,3 +1,25 @@
-basic
+buttons
 
 # dialog
+
+id
+
+vtypedist
+
+vclass
+
+color
+
+length
+
+mingap
+
+maxspeed
+
+accel
+
+decel
+
+sigma
+
+tau
