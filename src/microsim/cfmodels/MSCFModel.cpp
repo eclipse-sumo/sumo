@@ -891,6 +891,9 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
         x = maximumSafeStopSpeed(gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0), myDecel, egoSpeed, onInsertion, headway);
     } else {
         x = egoSpeed - ACCEL2SPEED(myEmergencyDecel);
+        if (MSGlobals::gSemiImplicitEulerUpdate) {
+            x = MAX2(x, 0.);
+        }
     }
 
     if (myDecel != myEmergencyDecel && !onInsertion && !MSGlobals::gComputeLC) {
@@ -939,7 +942,6 @@ MSCFModel::calculateEmergencyDeceleration(double gap, double egoSpeed, double pr
     // There are two cases:
     // 1) Either, stopping in time is possible with a deceleration b <= predMaxDecel, then this value is returned
     // 2) Or, b > predMaxDecel is required in this case the minimal value b allowing to stop safely under the assumption maxPredDecel=b is returned
-    assert(gap < 0 || predSpeed < egoSpeed);
     if (gap <= 0.) {
         return myEmergencyDecel;
     }
