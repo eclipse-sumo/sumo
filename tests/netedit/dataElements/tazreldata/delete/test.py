@@ -52,7 +52,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete TAZRelData
-netedit.leftClick(referencePosition, 300, 208)
+netedit.leftClick(referencePosition, 325, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 2, 0, 30)

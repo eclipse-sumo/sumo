@@ -49,8 +49,8 @@ netedit.leftClick(referencePosition, 460, 180)
 netedit.typeEnter()
 
 # create TAZRelData
-netedit.leftClick(referencePosition, 350, 120)
-netedit.leftClick(referencePosition, 350, 360)
+netedit.leftClick(referencePosition, 460, 180)
+netedit.leftClick(referencePosition, 180, 180)
 netedit.typeEnter()
 
 # go to select mode
@@ -63,7 +63,7 @@ netedit.selectionInvertData()
 netedit.inspectMode()
 
 # inspect TAZRelData
-netedit.leftClick(referencePosition, 300, 208)
+netedit.leftClick(referencePosition, 300, 250)
 
 # check double parameters
 netedit.checkDoubleParameters(referencePosition, netedit.attrs.TAZRelData.inspectSelection.parameters, False, 0, 30)

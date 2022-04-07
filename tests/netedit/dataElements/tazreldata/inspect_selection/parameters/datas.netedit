@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08.01.2021 10:18:23 by Eclipse SUMO netedit Version v1_8_0+0421-945d1c2c58
+<!-- generated on 2022-04-07 09:20:56 by Eclipse SUMO netedit Version v1_12_0+2005-1bfbb413ee8
 -->
 
-<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval id="newDataSet" begin="0.00" end="3600.00">
-        <edgeRelation from="gneE12" to="gneE15" keyFinal1="1" keyFinal2="2" keyFinal3="3"/>
-        <edgeRelation from="gneE13" to="-gneE16" keyFinal1="1" keyFinal2="2" keyFinal3="3"/>
+        <tazRelation from="taz_0" to="taz_1" keyFinal1="1" keyFinal2="2" keyFinal3="3"/>
+        <tazRelation from="taz_1" to="taz_0" keyFinal1="1" keyFinal2="2" keyFinal3="3"/>
     </interval>
-</meandata>
+</data>

@@ -2221,7 +2221,9 @@ class TAZRelData:
         parameters = 12
 
     class inspect:
+        fromTAZ = 1
+        toTAZ = 2
         parameters = 5
 
     class inspectSelection:
-        parameters = 5
+        parameters = 3
