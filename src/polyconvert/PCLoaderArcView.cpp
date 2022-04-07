@@ -123,7 +123,11 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     int runningID = 0;
     while ((poFeature = poLayer->GetNextFeature()) != nullptr) {
         if (runningID == 0) {
-            WRITE_MESSAGE("Available fields: " + toString(getFieldNames(poFeature)));
+            std::vector<std::string> fields;
+            for (int i = 0; i < poFeature->GetFieldCount(); i++) {
+                fields.push_back(poFeature->GetFieldDefnRef(i)->GetNameRef());
+            }
+            WRITE_MESSAGE("Available fields: " + toString(fields));
         }
         std::vector<Parameterised*> parCont;
         // read in edge attributes
@@ -314,18 +318,6 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     WRITE_ERROR("SUMO was compiled without GDAL support.");
 #endif
 }
-
-std::vector<std::string>
-PCLoaderArcView::getFieldNames(OGRFeature* poFeature) {
-    std::vector<std::string> fields;
-#ifdef HAVE_GDAL
-    for (int i = 0; i < poFeature->GetFieldCount(); i++) {
-        fields.push_back(poFeature->GetFieldDefnRef(i)->GetNameRef());
-    }
-#endif
-    return fields;
-}
-
 
 
 /****************************************************************************/

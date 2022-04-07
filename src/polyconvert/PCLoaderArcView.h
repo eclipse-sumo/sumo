@@ -31,7 +31,7 @@
 class OptionsCont;
 class PCPolyContainer;
 class PCTypeMap;
-class OGRFeature;
+
 
 // ===========================================================================
 // class definitions
@@ -59,22 +59,17 @@ public:
      * @param[in] tm The type map to use for setting values of loaded polys/pois
      * @exception ProcessError if something fails
      */
-    static void loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
-                          PCTypeMap& tm);
+    static void loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm);
 
 
-protected:
+private:
     /** @brief Parses pois/polys stored within the given file
      * @param[in] oc The options container to get further options from
      * @param[in] toFill The poly/pois container to add loaded polys/pois to
      * @param[in] tm The type map to use for setting values of loaded polys/pois
      * @exception ProcessError if something fails
      */
-    static void load(const std::string& file, OptionsCont& oc, PCPolyContainer& toFill,
-                     PCTypeMap& tm);
-
-    /// @brief return all fields support by the given feature
-    static std::vector<std::string> getFieldNames(OGRFeature* poFeature);
+    static void load(const std::string& file, OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm);
 
 private:
     /// @brief Invalidated copy constructor.
