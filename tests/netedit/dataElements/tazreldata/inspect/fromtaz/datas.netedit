@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-21 11:10:57 by Eclipse SUMO netedit Version v1_12_0+1543-06f48ec75fb
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="newDataSet" begin="0.00" end="3600.00">
+        <tazRelation from="taz_0" to="taz_1" keyFinal1="1" keyFinal2="2" keyFinal3="3"/>
+    </interval>
+</data>
