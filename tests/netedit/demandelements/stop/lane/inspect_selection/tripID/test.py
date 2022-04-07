@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, 400, 185)
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 263, 185)
+netedit.leftClick(referencePosition, 265, 188)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.tripID, ";;;;", False)

@@ -44,7 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 263, 185)
+netedit.leftClick(referencePosition, 265, 188)
 
 # change value
 netedit.modifyBoolAttribute(netedit.attrs.stopLane.inspectSelection.parking, False)

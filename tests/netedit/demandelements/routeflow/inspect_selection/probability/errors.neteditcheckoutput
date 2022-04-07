@@ -1,27 +1,24 @@
-Error: Vehicle 'flowB.0' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.1' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.2' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.3' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.4' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.5' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.6' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.7' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.8' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Warning: Teleporting vehicle 'flowA.0'; waited too long (jam), lane=':gneJ5_1_1', time=312.00.
-Warning: Vehicle 'flowA.0' ends teleporting on edge 'gneE4', time=312.00.
-Warning: Teleporting vehicle 'flowA.1'; waited too long (jam), lane=':gneJ5_1_1', time=618.00.
-Warning: Vehicle 'flowA.1' ends teleporting on edge 'gneE4', time=618.00.
-Warning: Teleporting vehicle 'flowA.2'; waited too long (jam), lane=':gneJ5_1_1', time=922.00.
-Warning: Vehicle 'flowA.2' ends teleporting on edge 'gneE4', time=922.00.
-Warning: Teleporting vehicle 'flowA.3'; waited too long (jam), lane=':gneJ5_1_1', time=1227.00.
-Warning: Vehicle 'flowA.3' ends teleporting on edge 'gneE4', time=1227.00.
-Warning: Teleporting vehicle 'flowA.4'; waited too long (jam), lane=':gneJ5_1_1', time=1533.00.
-Warning: Vehicle 'flowA.4' ends teleporting on edge 'gneE4', time=1533.00.
-Warning: Teleporting vehicle 'flowA.5'; waited too long (jam), lane=':gneJ5_1_1', time=1838.00.
-Warning: Vehicle 'flowA.5' ends teleporting on edge 'gneE4', time=1838.00.
-Warning: Teleporting vehicle 'flowA.6'; waited too long (jam), lane=':gneJ5_1_1', time=2142.00.
-Warning: Vehicle 'flowA.6' ends teleporting on edge 'gneE4', time=2142.00.
-Warning: Teleporting vehicle 'flowA.7'; waited too long (jam), lane=':gneJ5_1_1', time=2448.00.
-Warning: Vehicle 'flowA.7' ends teleporting on edge 'gneE4', time=2448.00.
-Warning: Teleporting vehicle 'flowA.8'; waited too long (jam), lane=':gneJ5_1_1', time=2753.00.
-Warning: Vehicle 'flowA.8' ends teleporting on edge 'gneE4', time=2753.00.
+Warning: Vehicle 'flowA.2' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.20 for vehicle 'flowA.2' to match departure speed 12.00 (max 11.55).
+Error: Vehicle 'flowB.3' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowB.5' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Teleporting vehicle 'flowA.0'; waited too long (jam), lane=':gneJ5_1_1', time=311.00.
+Warning: Vehicle 'flowA.0' ends teleporting on edge 'gneE4', time=311.00.
+Warning: Teleporting vehicle 'flowA.1'; waited too long (jam), lane=':gneJ5_1_1', time=616.00.
+Warning: Vehicle 'flowA.1' ends teleporting on edge 'gneE4', time=616.00.
+Warning: Teleporting vehicle 'flowA.2'; waited too long (jam), lane=':gneJ5_1_1', time=921.00.
+Warning: Vehicle 'flowA.2' ends teleporting on edge 'gneE4', time=921.00.
+Warning: Teleporting vehicle 'flowA.3'; waited too long (jam), lane=':gneJ5_1_1', time=1226.00.
+Warning: Vehicle 'flowA.3' ends teleporting on edge 'gneE4', time=1226.00.
+Warning: Teleporting vehicle 'flowA.4'; waited too long (jam), lane=':gneJ5_1_1', time=1530.00.
+Warning: Vehicle 'flowA.4' ends teleporting on edge 'gneE4', time=1530.00.
+Warning: Teleporting vehicle 'flowA.5'; waited too long (jam), lane=':gneJ5_1_1', time=1835.00.
+Warning: Vehicle 'flowA.5' ends teleporting on edge 'gneE4', time=1835.00.
+Warning: Teleporting vehicle 'flowA.6'; waited too long (jam), lane=':gneJ5_1_1', time=2140.00.
+Warning: Vehicle 'flowA.6' ends teleporting on edge 'gneE4', time=2140.00.
+Warning: Teleporting vehicle 'flowA.7'; waited too long (jam), lane=':gneJ5_1_1', time=2446.00.
+Warning: Vehicle 'flowA.7' ends teleporting on edge 'gneE4', time=2446.00.
+Warning: Teleporting vehicle 'flowA.8'; waited too long (jam), lane=':gneJ5_1_1', time=2751.00.
+Warning: Vehicle 'flowA.8' ends teleporting on edge 'gneE4', time=2751.00.
+Warning: Teleporting vehicle 'flowA.9'; waited too long (jam), lane=':gneJ5_1_1', time=3055.00.
+Warning: Vehicle 'flowA.9' ends teleporting on edge 'gneE4', time=3055.00.

@@ -44,7 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 263, 185)
+netedit.leftClick(referencePosition, 265, 188)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.friendlyPos, "dummy", False)
