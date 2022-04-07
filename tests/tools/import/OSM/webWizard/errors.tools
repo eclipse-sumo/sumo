@@ -43,6 +43,8 @@ Warning: Ignoring restriction relation '4806373' with unknown to-way.
 Warning: Platform '383505801' in relation: '5707635' is given as polygon, which currently is not supported.
 Warning: Platform '383505801' in relation: '5707635' is given as polygon, which currently is not supported.
 Warning: Ignoring restriction relation '7778535' with unknown to-way.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '587624704' (U Berliner Rathaus). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1257007152' (U Museumsinsel). Thus, it will be removed!
 Warning: Could not re-assign PT stop '1615531689', probably broken osm file.
 Warning: PT stop '4692172068' has been moved to edge '-326116285#2'.
 Warning: Incomplete route for pt line '2014286' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben).

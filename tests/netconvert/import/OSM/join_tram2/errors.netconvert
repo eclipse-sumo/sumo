@@ -5,6 +5,8 @@ Warning: Discarding unusable type 'highway.bus_stop' (first occurence for edge '
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '51353828').
 Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '579326821').
 Warning: Discarding unusable type 'highway.proposed' (first occurence for edge '743594483').
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '270105899' (Altstadtmarkt). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '4397192313' (Altstadtmarkt). Thus, it will be removed!
 Warning: Not joining tram edge '316682910#0' with 2 lanes.
 Warning: Not joining tram edge '316682910#1' with 2 lanes.
 Warning: Not joining tram edge '316682910#2' with 2 lanes.
