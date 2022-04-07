@@ -22,3 +22,6 @@ ticket8804
 
 # lcSigma should not cause deadlock
 ticket9395
+
+# intermediate bus lane
+ticket10512
