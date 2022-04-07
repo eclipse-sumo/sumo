@@ -562,8 +562,9 @@ The definition of a lane contains the following optional attributes:
 | speed          | float                                                                                                               | speed in meters per second                                                                                                                 |
 | width          | float                                                                                                               | width in meters (used for visualization)                                                                                                   |
 | endOffset      | float \>= 0                                                                                                         | Move the stop line back from the intersection by the given amount (effectively shortening the lane and locally enlarging the intersection) |
-| shape          | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!). | A custom shape for this lane.<br><br>**Note:** The lane lengths will be averaged in the generated network. Lane-changing will ignore gaps between lanes.     |
-type          | string | a custom type description for this lane (only informational) |
+| shape          | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!). | A custom shape for this lane.<br><br>**Note:** The lane lengths will be averaged in the generated network. Lane-changing will ignore gaps between lanes.    
+| type          | string | a custom type description for this lane (only informational) |
+| acceleration  | bool | whether this lane is a motorway acceleration lane (default *false*) |
 
 See "Vehicle Classes" for further information about [allowed vehicle classes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class)
 and their usage.
