@@ -5,8 +5,6 @@ E2Multilane.create.tl
 E2Multilane.inspect.tl
 E2Multilane.inspectSelection.tl
 POIGEO.create.lonLat
-TLS.create.TLS
-TLS.create.noTLS
 flowEmbedded.inspect.arrivalEdge
 flowEmbedded.inspect.departEdge
 flowEmbedded.inspectSelection.begin
@@ -97,9 +95,6 @@ tripFromToJunction.create.personNumber
 tripFromToJunction.inspect.colorButton
 tripFromToJunction.inspectSelection.colorButton
 tripFromToJunction.inspectSelection.type
-type.buttons.copy
-type.buttons.create
-type.buttons.delete
 type.edit.accel
 type.edit.color
 type.edit.colorDialog

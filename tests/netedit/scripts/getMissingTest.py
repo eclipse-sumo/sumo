@@ -40,7 +40,7 @@ fileList = []
 # get all test.py
 for paths, dirs, files in scandir.walk('D:/SUMO/tests/netedit'):
     for file in files:
-        if file.endswith("test.py"):
+        if file.endswith("test.py") or file.endswith("neteditTestFunctions.py"):
             fileList.append(os.path.join(paths, file))
 
 # list of references
@@ -52,6 +52,9 @@ for file in fileList:
         lines = fp.readlines()
     for line in lines:
         if ("netedit.attrs." in line):
+            references.append(line)
+        elif ("attrs." in line):
+            line = line.replace('attrs.', 'netedit.attrs.')
             references.append(line)
             
 """
