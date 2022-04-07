@@ -2,28 +2,28 @@
 basic
 
 # tests for net elements (Junctions, edges, crossings, etc..)
-netElements
+netelements
 
 # tests for additional elements (Busstops, charging stations, etc.)
-additionalElements
+additionalelements
 
 # test for shapes elements (Polygons and POIs)
-shapeElements
+shapeelements
 
 # test for shapes elements
-TAZElements
+tazelements
 
 # test for demand elements (Routes, Vehicles, etc.)
-demandElements
+demandelements
 
 # test for data elements (edgeData, edgeRelData, etc...)
-dataElements
+dataelements
 
 # test for select elements 
 selection
 
 # test for check recomputing with volatile options
-volatileRecomputing
+volatilerecomputing
 
 # bugs
 bugs
