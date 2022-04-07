@@ -286,6 +286,25 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         }
         idx++;
     }
+
+    if (oc.isSet("ptstop-output")) {
+        // declare additional stops that are not anchored to a (road)-way or route relation
+        std::set<std::string> stopNames;
+        for (const auto& item : nb.getPTStopCont().getStops()) {
+            stopNames.insert(item.second->getName());
+        }
+        for (const auto& item : myOSMNodes) {
+            const NIOSMNode* n = item.second;
+            if (n->ptStopPosition && stopNames.count(n->name) == 0) {
+                Position ptPos(n->lon, n->lat, n->ele);
+                if (!NBNetBuilder::transformCoordinate(ptPos)) {
+                    WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
+                }
+                NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
+                nb.getPTStopCont().insert(ptStop, true);
+            }
+        }
+    }
 }
 
 

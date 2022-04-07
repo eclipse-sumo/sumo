@@ -62,7 +62,7 @@ NBPTStop::getOrigEdgeId() const {
 }
 
 
-const std::string
+const std::string&
 NBPTStop::getEdgeId() const {
     return myEdgeId;
 }

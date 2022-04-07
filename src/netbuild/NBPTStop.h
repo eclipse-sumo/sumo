@@ -61,7 +61,11 @@ public:
 
     std::string getID() const;
 
-    const std::string getEdgeId() const;
+    const std::string& getEdgeId() const;
+
+    const std::string& getLaneId() const {
+        return myLaneId;
+    }
 
     const std::string getOrigEdgeId() const;
 
