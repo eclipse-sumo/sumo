@@ -95,6 +95,9 @@ public:
 
         // the vehicles in front of the current vehicle (including those on the next edge, contiously update during change() ))
         MSLeaderDistanceInfo aheadNext;
+
+        /// vehicles that cannot be stored in ahead because they are outside the lane bounds
+        std::vector<MSVehicle*>  outsideBounds;
         ///@}
 
     };

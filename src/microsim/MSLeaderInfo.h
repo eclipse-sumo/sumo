@@ -98,6 +98,14 @@ public:
         return myVehicles;
     }
 
+    double getSublaneOffset() const {
+        return myOffset;
+    }
+
+    void setSublaneOffset(double offset) {
+        myOffset = offset;
+    }
+
     /// @brief whether a stopped vehicle is leader
     bool hasStoppedVehicle() const;
 
@@ -112,6 +120,9 @@ protected:
     /// @brief the width of the lane to which this instance applies
     // @note: not const to simplify assignment
     double myWidth;
+
+    /// @brief an extra offset for shifting the interpretation of sublane borders (default [0,myWidth])
+    double myOffset;
 
     std::vector<const MSVehicle*> myVehicles;
 

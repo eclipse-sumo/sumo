@@ -6016,6 +6016,12 @@ MSVehicle::getRightSideOnLane() const {
 
 
 double
+MSVehicle::getLeftSideOnLane() const {
+    return myState.myPosLat + 0.5 * myLane->getWidth() + 0.5 * getVehicleType().getWidth();
+}
+
+
+double
 MSVehicle::getRightSideOnEdge(const MSLane* lane) const {
     return getCenterOnEdge(lane) - 0.5 * getVehicleType().getWidth();
 }
