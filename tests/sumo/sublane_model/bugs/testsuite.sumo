@@ -66,3 +66,6 @@ ticket10060
 
 # overtake a vehicle that is 500m long
 ticket10060b
+
+# deadlock
+ticket10509
