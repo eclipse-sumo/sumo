@@ -31,39 +31,53 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to select mode
-netedit.selectMode()
+# go to route mode
+netedit.routeMode()
 
-# select all using invert
-netedit.selectionInvert()
+# create route using three edges
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 570, 250)
+netedit.leftClick(referencePosition, 280, 55)
 
-# go to inspect mode
-netedit.inspectMode()
+# press enter to create route
+netedit.typeEnter()
 
-# inspect vehicle
-netedit.leftClick(referencePosition, 330, 150)
+# go to vehicle mode
+netedit.vehicleMode()
 
-# change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.terminate, "end", True)
+# select vehicle
+netedit.changeElement("vehicle (over route)")
 
-# change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacing, "dummyTerminate", True)
+# try create vehicle
+netedit.leftClick(referencePosition, 274, 392)
 
-# change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacing, "period", True)
+# set invalid id
+netedit.changeDefaultValue(netedit.attrs.vehicle.create.id, "%%%%;;%%")
 
-# change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacingOption, "dummy", True)
+# try to create vehicle
+netedit.leftClick(referencePosition, 274, 392)
 
-# change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacingOption, "12.5", True)
+# set valid id
+netedit.changeDefaultValue(netedit.attrs.vehicle.create.id, "")
 
-# change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacingOption, "26", True)
+# create vehicle
+netedit.leftClick(referencePosition, 274, 392)
+
+# set empty id
+netedit.changeDefaultValue(netedit.attrs.vehicle.create.id, "v_0")
+
+# create vehicle
+netedit.leftClick(referencePosition, 274, 392)
+
+# set empty id
+netedit.changeDefaultValue(netedit.attrs.vehicle.create.id, "customID")
+
+# create vehicle
+netedit.leftClick(referencePosition, 274, 392)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save routes
 netedit.saveRoutes(referencePosition)

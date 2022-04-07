@@ -149,7 +149,6 @@ type.editDialog.probability
 type.editDialog.speedFactor
 type.editDialog.vClass
 type.editDialog.width
-vehicle.create.id
 vehicle.inspect.arrivalEdge
 vehicle.inspect.departEdge
 vehicle.inspectSelection.type
@@ -159,7 +158,5 @@ vehicleEmbedded.inspectSelection.type
 waypoint.inspectSelection.speed
 waypointLane.create.speed
 waypointLane.inspect.speed
-waypointLane.inspectSelection.line
 waypointLane.inspectSelection.posLat
 waypointLane.inspectSelection.speed
-waypointLane.inspectSelection.tripID

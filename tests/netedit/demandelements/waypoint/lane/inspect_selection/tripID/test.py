@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to select mode
 netedit.selectMode()
 
@@ -40,30 +43,24 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
-netedit.leftClick(referencePosition, 330, 150)
+# inspect selection
+netedit.leftClick(referencePosition, 263, 185)
 
-# change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.terminate, "end", True)
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.tripID, ";;;;;", False)
 
-# change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacing, "dummyTerminate", True)
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.tripID, "", False)
 
-# change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacing, "period", True)
-
-# change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacingOption, "dummy", True)
-
-# change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacingOption, "12.5", True)
-
-# change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacingOption, "26", True)
+# change value
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.tripID, "customTripID", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
+
+# save additionals
+netedit.saveAdditionals(referencePosition)
 
 # save routes
 netedit.saveRoutes(referencePosition)
