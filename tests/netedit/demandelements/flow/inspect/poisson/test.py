@@ -63,7 +63,7 @@ netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.spacingOption, "dum
 netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.spacingOption, "12.5", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.spacingOption, "26", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.spacingOption, "2.6", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

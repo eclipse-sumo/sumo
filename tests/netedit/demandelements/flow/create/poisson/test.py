@@ -78,7 +78,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacingOption, "20.5")
+netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacingOption, "2.5")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -86,9 +86,6 @@ netedit.leftClick(referencePosition, 280, 55)
 
 # press enter to create flow
 netedit.typeEnter()
-
-# set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacingOption, "22")
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

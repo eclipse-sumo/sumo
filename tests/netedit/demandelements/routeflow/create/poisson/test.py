@@ -73,13 +73,10 @@ netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacingOption, "-30")
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacingOption, "20.5")
+netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacingOption, "2.5")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
-
-# set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacingOption, "22")
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

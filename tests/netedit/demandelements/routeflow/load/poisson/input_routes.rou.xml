@@ -66,8 +66,8 @@
 	
 	<flow id="flow_5" end="100.00" period="exp(0)" route="route_0"/>
 	
-	<flow id="flow_6" end="100.00" period="exp(20.30)" route="route_0"/>
+	<flow id="flow_6" end="100.00" period="exp(2.30)" route="route_0"/>
 	
-	<flow id="flow_7" end="100.00" period="exp(50)" route="route_0"/>
+	<flow id="flow_7" end="100.00" period="exp(5.0)" route="route_0"/>
 	
 </routes>

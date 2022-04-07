@@ -70,7 +70,7 @@ netedit.modifyAttribute(netedit.attrs.routeflow.inspect.spacingOption, "dummy", 
 netedit.modifyAttribute(netedit.attrs.routeflow.inspect.spacingOption, "12.5", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.spacingOption, "26", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.spacingOption, "2.6", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -65,8 +65,8 @@
 	
 	<flow id="flow_5" end="100.00" period="exp(0)" from="gneE2" to="gneE5"/>
 	
-	<flow id="flow_6" end="100.00" period="exp(20.30)" from="gneE2" to="gneE5"/>
+	<flow id="flow_6" end="100.00" period="exp(2.30)" from="gneE2" to="gneE5"/>
 	
-	<flow id="flow_7" end="100.00" period="exp(50)" from="gneE2" to="gneE5"/>
+	<flow id="flow_7" end="100.00" period="exp(1.7)" from="gneE2" to="gneE5"/>
 	
 </routes>
