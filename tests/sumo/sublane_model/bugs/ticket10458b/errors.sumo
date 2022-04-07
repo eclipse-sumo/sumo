@@ -1,3 +1,1 @@
 Warning: Unused states in tlLogic 'C', program '0' in phase 0 after tl-index 2
-Warning: Teleporting vehicle 'b.1'; junction collision with vehicle 'b.0', lane=':C_2_0', gap=-1.99', latGap=-0.65, time=9.00 stage=laneChange.
-Warning: Vehicle 'b.1' ends teleporting on edge 'E1', time=9.00.
