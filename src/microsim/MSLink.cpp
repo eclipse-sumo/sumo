@@ -1267,6 +1267,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
 
             if (MSGlobals::gSublane && ego != nullptr && (sameSource || sameTarget)
                     && (!foeStrategicBlocked)) {
+                if (ego->getLane() == leader->getLane()) {
+                    continue;
+                }
                 // ignore vehicles if not in conflict sublane-wise
                 const double posLat = ego->getLateralPositionOnLane();
                 const double posLatLeader = leader->getLateralPositionOnLane() + leader->getLatOffset(foeLane);
