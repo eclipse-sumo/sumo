@@ -1875,6 +1875,8 @@ TAZRelData
 TAZRelData.create
 TAZRelData.create.parameters 
 TAZRelData.inspect
+TAZRelData.inspect.fromTAZ 
+TAZRelData.inspect.toTAZ 
 TAZRelData.inspect.parameters 
 TAZRelData.inspectSelection
 TAZRelData.inspectSelection.parameters 

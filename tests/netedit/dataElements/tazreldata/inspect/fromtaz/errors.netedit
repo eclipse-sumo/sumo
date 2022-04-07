@@ -1,31 +1,14 @@
 Debug: Adding taz 'taz_0' in GNEChange_Additional
 Debug: Adding taz 'taz_1' in GNEChange_Additional
+Debug: Adding taz 'taz_2' in GNEChange_Additional
 Debug: Adding dataSet 'newDataSet' in GNEChange_DataSet
 Debug: adding dataInterval [0.00, 3600.00] in GNEChange_DataInterval
 Debug: Key ENTER pressed
 Debug: Adding tazRelation 'newDataSet' in GNEChange_GenericData
+Debug: Value '' for attribute from of tazRelation isn't valid
+Debug: Value 'dummyTAZ' for attribute from of tazRelation isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -38,21 +21,6 @@ Debug: Removing tazRelation 'newDataSet' in GNEChange_GenericData
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding tazRelation 'newDataSet' in GNEChange_GenericData
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -84,6 +52,7 @@ Debug: Additionals saved
 Debug: Deleting unreferenced tazRelation 'newDataSet'
 Debug: Deleting unreferenced dataInterval [0.00, 3600.00] in ~GNEChange_DataInterval()
 Debug: Deleting unreferenced dataSet 'newDataSet'
+Debug: Deleting unreferenced taz 'taz_2'
 Debug: Deleting unreferenced taz 'taz_1'
 Debug: Deleting unreferenced taz 'taz_0'
 Debug: Deleting unreferenced edge '-gneE14' in AttributeCarriers destructor

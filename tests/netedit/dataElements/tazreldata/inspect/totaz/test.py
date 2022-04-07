@@ -54,8 +54,21 @@ netedit.inspectMode()
 # inspect TAZRelData
 netedit.leftClick(referencePosition, 300, 250)
 
-# check double parameters
-netedit.checkDoubleParameters(referencePosition, netedit.attrs.TAZRelData.inspect.parameters, False, 0, 30)
+# Change parameter 3 with a non valid value (empty speed)
+netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.toTAZ, "", False)
+
+# Change parameter 3 with a non valid value (empty speed)
+netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.toTAZ, "dummyTAZ", False)
+
+# Change parameter 3 with a non valid value (empty speed)
+netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.toTAZ, "taz_0", False)
+
+# Change parameter 3 with a non valid value (empty speed)
+netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.toTAZ, "taz_2", False)
+
+# Check undo
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save data elements
 netedit.saveDatas(referencePosition, True, 0, 30)
