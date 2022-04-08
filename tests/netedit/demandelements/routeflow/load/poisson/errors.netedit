@@ -18,8 +18,13 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Error: At most one of 'period' and 'vehsPerHour' has to be given in the definition of flow 'flow_0'.
 Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_1'.
-Error: Invalid Number Format (double) dummyPeriod
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_07Apr112720.8168\netedit.gui\demandelements\routeflow\load\poisson\input_routes.rou.xml failed.
+Error: Attribute 'period' in definition of flow 'flow_3' is empty.
+Error: Attribute 'period' in definition of flow 'flow_3' is empty.
+Error: Invalid rate parameter for exponentially distributed period in the definition of flow 'flow_4'.
+Error: Invalid rate parameter for exponentially distributed period in the definition of flow 'flow_5'.
+Debug: Adding flowRoute 'flow_6' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_7' in GNEChange_DemandElement
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr130940.160\netedit.gui\demandelements\routeflow\load\poisson\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
@@ -69,10 +74,14 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
+Debug: Removing flowRoute 'flow_7' in GNEChange_DemandElement
+Debug: Removing flowRoute 'flow_6' in GNEChange_DemandElement
 Debug: Removing route 'route_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding route 'route_0' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_6' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_7' in GNEChange_DemandElement
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
@@ -110,6 +119,8 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
+Debug: Deleting unreferenced flowRoute 'flow_7'
+Debug: Deleting unreferenced flowRoute 'flow_6'
 Debug: Deleting unreferenced route 'route_0'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor

@@ -19,20 +19,19 @@ Error: At most one of 'period' and 'vehsPerHour' has to be given in the definiti
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_1'.
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
-Error: Attribute 'period' in definition of flow 'flow_2' is not a valid time value.
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: Attribute 'period' in definition of flow 'flow_3' is empty.
 Error: Attribute 'period' in definition of flow 'flow_3' is empty.
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
-Error: Invalid repetition rate in the definition of flow 'flow_4'.
+Error: Invalid rate parameter for exponentially distributed period in the definition of flow 'flow_4'.
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
-Error: Invalid repetition rate in the definition of flow 'flow_5'.
+Error: Invalid rate parameter for exponentially distributed period in the definition of flow 'flow_5'.
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Debug: Adding flowWithRoute 'flow_6' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_6' in GNEChange_DemandElement
 Debug: Adding flowWithRoute 'flow_7' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_7' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\demandElements\flow_embedded\load\period\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr130940.160\netedit.gui\demandelements\flow_embedded\load\poisson\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
