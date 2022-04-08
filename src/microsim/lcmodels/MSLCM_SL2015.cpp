@@ -2911,7 +2911,7 @@ MSLCM_SL2015::keepLatGap(int state,
     const bool stayInLane = (laneOffset == 0
         || ((state & LCA_STRATEGIC) != 0
             && (state & LCA_STAY) != 0
-            // permit wide vehicles to stay on the rload
+            // permit wide vehicles to stay on the road
             && (surplusGapLeft >= 0 && surplusGapRight >= 0)));
 
     if (isOpposite()) {
