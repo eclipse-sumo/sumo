@@ -432,6 +432,18 @@ public:
      */
     double getLeftSideOnLane() const;
 
+    /** @brief Get the lateral position of the vehicles right side on the lane:
+     * @return The lateral position of the vehicle (in m distance between right
+     * side of vehicle and right side of the lane it is on
+     */
+    double getRightSideOnLane(const MSLane* lane) const;
+
+    /** @brief Get the lateral position of the vehicles left side on the lane:
+     * @return The lateral position of the vehicle (in m distance between left
+     * side of vehicle and right side of the lane it is on
+     */
+    double getLeftSideOnLane(const MSLane* lane) const;
+
     /** @brief Get the minimal lateral distance required to move fully onto the lane at given offset
      * @return The lateral distance to be covered to move the vehicle fully onto the lane (in m)
      */

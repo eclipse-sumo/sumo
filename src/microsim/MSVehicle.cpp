@@ -2155,6 +2155,30 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
             adaptToLeaderDistance(oppositeLeaders, 0, seen, lastLink, v, vLinkPass);
         } else {
+            if (MSGlobals::gLateralResolution > 0
+                    && (getLeftSideOnLane(lane) < 0 || getRightSideOnLane(lane) > lane->getWidth())) {
+                    // if ego is driving outside lane bounds we must consider
+                    // potential leaders that are also outside lane bounds
+                const bool outsideLeft = getLeftSideOnLane(lane) < 0;
+                if (outsideLeft) {
+                    ahead.setSublaneOffset(ceil(-getLeftSideOnLane(lane) / MSGlobals::gLateralResolution) * MSGlobals::gLateralResolution);
+                } else if (getRightSideOnLane(lane) > lane->getWidth()) {
+                    ahead.setSublaneOffset(-ceil((getRightSideOnLane(lane) - getWidth()) / MSGlobals::gLateralResolution) * MSGlobals::gLateralResolution);
+                }
+                for (const MSVehicle* cand : lane->getVehiclesSecure()) {
+                    if ((lane != myLane || cand->getPositionOnLane() > getPositionOnLane())
+                            && ((outsideLeft && cand->getLeftSideOnLane() < 0)
+                                || (!outsideLeft && cand->getRightSideOnEdge() > lane->getWidth()))) {
+                        ahead.addLeader(cand, true);
+#ifdef DEBUG_PLAN_MOVE
+                        if (DEBUG_COND) {
+                            std::cout << SIMTIME << " veh=" << getID() << " offset=" << ahead.getSublaneOffset() << " outsideLeft=" << outsideLeft << " outsideLeader=" << cand->getID() << "\n";
+                        }
+#endif
+                    }
+                }
+                lane->releaseVehicles();
+            }
             adaptToLeaders(ahead, lateralShift, seen, lastLink, leaderLane, v, vLinkPass);
         }
         if (lastLink != nullptr) {
@@ -2742,6 +2766,7 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                                   << " latOffset=" << latOffset
                                   << " rm=" << rightmost
                                   << " lm=" << leftmost
+                                  << " shift=" << ahead.getSublaneOffset()
                                   << " ahead=" << ahead.toString()
                                   << "\n";
 #endif
@@ -6018,6 +6043,18 @@ MSVehicle::getRightSideOnLane() const {
 double
 MSVehicle::getLeftSideOnLane() const {
     return myState.myPosLat + 0.5 * myLane->getWidth() + 0.5 * getVehicleType().getWidth();
+}
+
+
+double
+MSVehicle::getRightSideOnLane(const MSLane* lane) const {
+    return myState.myPosLat + 0.5 *lane->getWidth() - 0.5 * getVehicleType().getWidth();
+}
+
+
+double
+MSVehicle::getLeftSideOnLane(const MSLane* lane) const {
+    return myState.myPosLat + 0.5 * lane->getWidth() + 0.5 * getVehicleType().getWidth();
 }
 
 
