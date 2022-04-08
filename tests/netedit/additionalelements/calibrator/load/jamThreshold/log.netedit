@@ -1,4 +1,0 @@
-Error: Attribute 'jamThreshold' in definition of calibrator 'calibrator01' Invalid Number Format (double) %%%%,,,$$$$$.
-Error: Attribute 'jamThreshold' in definition of calibrator 'calibrator02' is empty.
-Error: Could not build calibrator with ID 'calibrator03' in netedit; attribute jamThreshold cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\calibrator\load\jamThreshold\input_additionals.add.xml failed.
