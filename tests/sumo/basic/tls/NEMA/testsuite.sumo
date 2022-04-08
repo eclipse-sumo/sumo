@@ -27,3 +27,6 @@ TS2
 
 # latching_detectors
 latching_detectors
+
+# test for #10517 (should not generate duplicate detector ids)
+multiple_edges_per_phase
