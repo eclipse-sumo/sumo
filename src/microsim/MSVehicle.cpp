@@ -2372,7 +2372,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // check whether the lane or the shadowLane is a dead end (allow some leeway on intersections)
         if (lane->isLinkEnd(link)
                 || ((*link)->getViaLane() == nullptr
-                    && getLateralOverlap() > POSITION_EPS
+                    && getLateralOverlap() > POSITION_EPS && MSGlobals::gSublane
                     // do not get stuck on narrow edges
                     && getVehicleType().getWidth() <= lane->getEdge().getWidth()
                     // this is the exit link of a junction. The normal edge should support the shadow
