@@ -1,0 +1,9 @@
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format dummy.
+Error: Invalid duration or end time is given for a stop at 'parkingArea'
+Error: Attribute 'containerTriggered' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop at 'parkingArea'
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format -4.
+Error: Invalid duration or end time is given for a stop at 'parkingArea'
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format 2.3.
+Error: Invalid duration or end time is given for a stop at 'parkingArea'
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\demandElements\waypoint\parkingarea\load\containerTrigger\input_routes.rou.xml failed.

@@ -1,0 +1,4 @@
+Warning: Vehicle 'tripA' will not be able to arrive with the given speed!
+Warning: Vehicle 'tripA' will not be able to arrive with the given speed!
+Warning: Vehicle 'tripB' will not be able to arrive with the given speed!
+Error: Vehicle 'tripB' will not be able to depart using the given velocity (junction 'gneJ6' too close)!

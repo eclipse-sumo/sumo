@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-07 12:05:44 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="trip_2" depart="20.00" departLane="0" from="gneE2" to="gneE5"/>
+    <trip id="trip_4" depart="20.00" departLane="random" from="gneE2" to="gneE5"/>
+    <trip id="trip_5" depart="20.00" departLane="free" from="gneE2" to="gneE5"/>
+    <trip id="trip_6" depart="20.00" departLane="allowed" from="gneE2" to="gneE5"/>
+    <trip id="trip_7" depart="20.00" departLane="best" from="gneE2" to="gneE5"/>
+    <trip id="trip_8" depart="20.00" departLane="first" from="gneE2" to="gneE5"/>
+</routes>

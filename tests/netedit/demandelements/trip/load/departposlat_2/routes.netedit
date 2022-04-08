@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-07 12:12:38 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="trip_1" depart="20.00" departPosLat="0.00" from="gneE2" to="gneE5"/>
+    <trip id="trip_10" depart="20.00" departPosLat="center" from="gneE2" to="gneE5"/>
+    <trip id="trip_2" depart="20.00" departPosLat="0.00" from="gneE2" to="gneE5"/>
+    <trip id="trip_3" depart="20.00" departPosLat="0.00" from="gneE2" to="gneE5"/>
+    <trip id="trip_4" depart="20.00" departPosLat="0.00" from="gneE2" to="gneE5"/>
+    <trip id="trip_5" depart="20.00" departPosLat="random" from="gneE2" to="gneE5"/>
+    <trip id="trip_6" depart="20.00" departPosLat="free" from="gneE2" to="gneE5"/>
+    <trip id="trip_7" depart="20.00" departPosLat="random_free" from="gneE2" to="gneE5"/>
+    <trip id="trip_8" depart="20.00" departPosLat="left" from="gneE2" to="gneE5"/>
+    <trip id="trip_9" depart="20.00" departPosLat="right" from="gneE2" to="gneE5"/>
+</routes>

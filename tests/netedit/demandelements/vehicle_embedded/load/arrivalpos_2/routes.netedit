@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-08 10:08:30 by Eclipse SUMO netedit Version v1_12_0+1216-22d05a4cfcc
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="vehicle_1" depart="20.00" arrivalPos="-12.00">
+        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+    </vehicle>
+    <vehicle id="vehicle_2" depart="20.00" arrivalPos="0.00">
+        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+    </vehicle>
+    <vehicle id="vehicle_3" depart="20.00" arrivalPos="500.00">
+        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+    </vehicle>
+    <vehicle id="vehicle_4" depart="20.00" arrivalPos="1.00">
+        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+    </vehicle>
+    <vehicle id="vehicle_5" depart="20.00" arrivalPos="max">
+        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+    </vehicle>
+    <vehicle id="vehicle_6" depart="20.00" arrivalPos="random">
+        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+    </vehicle>
+</routes>
