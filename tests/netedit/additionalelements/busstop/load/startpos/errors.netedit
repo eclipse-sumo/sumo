@@ -9,7 +9,7 @@ Error: Could not build busStop with ID 'busStop_03' in netedit; Invalid position
 Error: Could not build busStop with ID 'busStop_04' in netedit; Invalid position over lane.
 Debug: Adding busStop 'busStop_05' in GNEChange_Additional
 Debug: Adding busStop 'busStop_06' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\busstop\load\startpos\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\busstop\load\startpos\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

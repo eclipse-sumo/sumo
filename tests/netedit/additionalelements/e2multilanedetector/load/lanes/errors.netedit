@@ -12,7 +12,7 @@ Error: Could not build e2Detector with ID 'e2MultilaneDetector_1' in netedit; li
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_2' in GNEChange_Additional
 Error: Could not build e2Detector with ID 'e2MultilaneDetector_3' in netedit; Lanes aren't consecutives.
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_4' in GNEChange_Additional
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Mar090324.20872\netedit.gui\additionalElements\e2multilanedetector\load\lanes\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e2multilanedetector\load\lanes\input_additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

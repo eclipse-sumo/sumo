@@ -8,7 +8,7 @@ Error: Invalid color definition 'dummyparkinglength'
 Error: Invalid color definition '-7'
 Debug: Adding containerStop 'containerStop_04' in GNEChange_Additional
 Debug: Adding containerStop 'containerStop_05' in GNEChange_Additional
-Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.18Jan114657.13884\netedit.gui\additionalElements\containerstop\load\color\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\containerstop\load\color\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

@@ -14,7 +14,7 @@ Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_4' in GNEChange_Additiona
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_5' in GNEChange_Additional
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_6' in GNEChange_Additional
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_7' in GNEChange_Additional
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Mar091543.18516\netedit.gui\additionalElements\e2multilanedetector\load\endpos\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e2multilanedetector\load\endpos\input_additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

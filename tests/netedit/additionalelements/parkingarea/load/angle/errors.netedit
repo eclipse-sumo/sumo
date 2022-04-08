@@ -8,7 +8,7 @@ Error: Attribute 'angle' in definition of parkingArea 'parkingArea_1' Invalid Nu
 Debug: Adding parkingArea 'parkingArea_2' in GNEChange_Additional
 Debug: Adding parkingArea 'parkingArea_3' in GNEChange_Additional
 Debug: Adding parkingArea 'parkingArea_4' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Feb084151.2096\netedit.gui\additionalElements\parkingarea\load\angle\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\parkingarea\load\angle\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

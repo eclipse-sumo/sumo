@@ -8,7 +8,7 @@ Error: Attribute 'id' is missing in definition of a e2Detector.
 Debug: Adding e2Detector 'id with spaces' in GNEChange_Additional
 Error: Could not build e2Detector with ID 'E2_01' in netedit; declared twice.
 Debug: Adding e2Detector 'E2_02' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Nov152749.4268\netedit.gui\additionalElements\e2detector\load\id\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e2detector\load\id\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

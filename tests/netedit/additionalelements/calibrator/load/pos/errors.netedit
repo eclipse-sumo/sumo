@@ -7,7 +7,7 @@ Error: Attribute 'pos' is missing in definition of calibrator 'calibrator01'.
 Error: Attribute 'pos' in definition of calibrator 'calibrator02' Invalid Number Format (double) dummyPosition.
 Debug: Adding calibrator 'calibrator03' in GNEChange_Additional
 Debug: Adding calibrator 'calibrator04' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\calibrator\load\pos\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\calibrator\load\pos\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

@@ -2,4 +2,4 @@ Error: 'lanes' and 'endPos' must be defined together in a lane area detector.
 Error: Attribute 'endPos' in definition of e2Detector 'e2MultilaneDetector_1' Invalid Number Format (double) dummyEndPos.
 Error: Attribute 'endPos' in definition of e2Detector 'e2MultilaneDetector_2' is empty.
 Error: Could not build e2Detector with ID 'e2MultilaneDetector_3' in netedit; Invalid position over lane.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.22Feb123347.7796\netedit.gui\additionalElements\e2multilanedetector\load\endpos\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e2multilanedetector\load\endpos\input_additionals.add.xml failed.

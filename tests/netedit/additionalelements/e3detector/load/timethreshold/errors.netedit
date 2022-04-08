@@ -17,7 +17,7 @@ Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_3 into SUMORTree with boundary 14.00,0.00,34.00,20.00
 Debug: Adding detEntry 'e3Detector_3' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_3' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\e3detector\load\timethreshold\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e3detector\load\timethreshold\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

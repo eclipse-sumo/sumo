@@ -20,7 +20,7 @@ Error: Attribute 'to' in definition of trip 'trip_1' is empty.
 Error: Could not build trip in netedit; edge doesn't exist.
 Debug: Adding trip 'trip_3' in GNEChange_DemandElement
 Debug: Adding trip 'trip_4' in GNEChange_DemandElement
-Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.18Jan114657.13884\netedit.gui\demandElements\trip\load\to\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\trip\load\to\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00

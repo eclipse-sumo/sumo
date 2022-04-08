@@ -7,7 +7,7 @@ Debug: Adding e2Detector 'E2_01' in GNEChange_Additional
 Error: Attribute 'speedThreshold' in definition of e2Detector 'E2_02' Invalid Number Format (double) dummySpeedThreshold.
 Error: Could not build e2Detector with ID 'E2_03' in netedit; attribute speedThreshold cannot be negative.
 Debug: Adding e2Detector 'E2_04' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\e2detector\load\speedthreshold\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e2detector\load\speedthreshold\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

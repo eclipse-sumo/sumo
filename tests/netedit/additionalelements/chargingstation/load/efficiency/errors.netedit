@@ -8,7 +8,7 @@ Error: Attribute 'efficiency' in definition of chargingStation 'chargingStation_
 Debug: Adding chargingStation 'chargingStation_2' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStation_3' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStation_4' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\chargingstation\load\efficiency\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\chargingstation\load\efficiency\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
