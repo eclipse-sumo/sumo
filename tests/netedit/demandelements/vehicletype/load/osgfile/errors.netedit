@@ -17,7 +17,7 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Adding vType 'vType0' in GNEChange_DemandElement
 Error: Attribute 'osgFile' in definition of vType 'vType1' is empty.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Nov152742.6512\netedit.gui\demandElements\vehicletype\load\osgfile\input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.08Apr202456.3580/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/osgfile/input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
