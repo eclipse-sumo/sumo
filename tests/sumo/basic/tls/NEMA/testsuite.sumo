@@ -1,17 +1,17 @@
+# test param fixForceOff for different demand levels
+fixForceOff
+
+# fully actuated mode tests
+fully_actuated
+
+# inputs that should be reported as problematic
+errors
+
 # Copy of basic
 basic
 
 # Copy of basic
 custom_detector
-
-# test param fixForceOff for different demand levels
-fixForceOff
-
-# inputs that should be reported as problematic
-errors
-
-# fully actuated mode tests
-fully_actuated
 
 # test green rest
 green_rest
