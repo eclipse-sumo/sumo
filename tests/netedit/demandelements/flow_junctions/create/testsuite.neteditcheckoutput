@@ -2,31 +2,31 @@ default
 
 id
 
-vType
+vtype
 
 color
 
-departLane
+departlane
 
-departPos
+departpos
 
-departSpeed
+departspeed
 
-arrivalLane
+arrivallane
 
-arrivalPos
+arrivalpos
 
-arrivalSpeed
+arrivalspeed
 
 line
 
-personNumber
+personnumber
 
-containerNumber
+containernumber
 
-departPosLat
+departposlat
 
-arrivalPosLat
+arrivalposlat
 
 begin
 
@@ -36,7 +36,7 @@ number
 
 end-number
 
-vehsPerHour
+vehsperhour
 
 period
 

@@ -4,7 +4,7 @@ no_junctions
 
 id
 
-vType
+vtype
 
 from
 
@@ -12,27 +12,27 @@ to
 
 color
 
-departLane
+departlane
 
-departPos
+departpos
 
-departSpeed
+departspeed
 
-arrivalLane
+arrivallane
 
-arrivalPos
+arrivalpos
 
-arrivalSpeed
+arrivalspeed
 
 line
 
-personNumber
+personnumber
 
-containerNumber
+containernumber
 
-departPosLat
+departposlat
 
-arrivalPosLat
+arrivalposlat
 
 end
 
@@ -40,7 +40,7 @@ number
 
 end-number
 
-vehsPerHour
+vehsperhour
 
 period
 

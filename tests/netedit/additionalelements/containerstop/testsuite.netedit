@@ -18,7 +18,7 @@ load
 move
 
 # volatile recomputing
-volatileRecomputing
+volatilerecomputing
 
 # fix elements
 fix

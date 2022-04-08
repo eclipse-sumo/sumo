@@ -11,10 +11,10 @@ inspect
 inspect_selected
 
 # inspect
-inspect_TLS
+inspect_tls
 
 # inspect selected
-inspect_TLS_selected
+inspect_tls_selected
 
 # load
 load

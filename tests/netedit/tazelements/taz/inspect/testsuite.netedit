@@ -1,21 +1,21 @@
-# all test check also the undo-redo of modifications and save the TAZ into a file
-# edit TAZ id
+# all test check also the undo-redo of modifications and save the taz into a file
+# edit taz id
 id
 
-# edit TAZ shape
+# edit taz shape
 shape
 
 # edit center
 center
 
-# edit TAZ fill
+# edit taz fill
 fill
 
-# edit TAZ color
+# edit taz color
 color
 
 # edit name
 name
 
-# edit TAZ parameters
+# edit taz parameters
 parameters

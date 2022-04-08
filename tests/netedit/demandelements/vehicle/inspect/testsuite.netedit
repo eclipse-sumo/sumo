@@ -2,33 +2,33 @@ id
 
 route
 
-vType
+vtype
 
-vType_bike
+vtype_bike
 
 color
 
-departLane
+departlane
 
-departPos
+departpos
 
-departSpeed
+departspeed
 
-arrivalLane
+arrivallane
 
-arrivalPos
+arrivalpos
 
-arrivalSpeed
+arrivalspeed
 
 line
 
-personNumber
+personnumber
 
-containerNumber
+containernumber
 
-departPosLat
+departposlat
 
-arrivalPosLat
+arrivalposlat
 
 depart
 

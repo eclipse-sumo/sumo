@@ -1,34 +1,34 @@
-# all test check also the undo-redo of modifications and save the POI into a file
-friendlyPos
+# all test check also the undo-redo of modifications and save the poi into a file
+friendlypos
 
-# edit POI lat position
+# edit poi lat position
 poslat
 
-# edit POI color
+# edit poi color
 color
 
-# edit POI type
+# edit poi type
 type
 
 name
 
-# edit POI layer
+# edit poi layer
 layer
 
-# edit POI width
+# edit poi width
 width
 
-# edit POI height
+# edit poi height
 height
 
-# edit POI imgfile
+# edit poi imgfile
 imgfile
 
-# edit POI relative path
+# edit poi relative path
 relativepath
 
-# edit POI angle
+# edit poi angle
 angle
 
-# edit POI parameters
+# edit poi parameters
 parameters

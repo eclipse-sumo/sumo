@@ -1,12 +1,12 @@
 lane
 
-startPos
+startpos
 
-endPos
+endpos
 
-friendlyPos
+friendlypos
 
-posLat
+poslat
 
 duration
 
@@ -24,8 +24,8 @@ permitted
 
 parking
 
-actType
+acttype
 
-tripID
+tripid
 
 line

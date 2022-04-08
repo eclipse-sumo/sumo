@@ -34,7 +34,7 @@ detentry
 # det exit
 detexit
 
-# E1 Instant detector
+# e1 instant detector
 e1instantdetector
 
 # calibrator

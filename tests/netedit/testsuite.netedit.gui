@@ -1,22 +1,22 @@
 # basic tests for opening and creating networks
 basic
 
-# tests for net elements (Junctions, edges, crossings, etc..)
+# tests for net elements (junctions, edges, crossings, etc..)
 netelements
 
-# tests for additional elements (Busstops, charging stations, etc.)
+# tests for additional elements (busstops, charging stations, etc.)
 additionalelements
 
-# test for shapes elements (Polygons and POIs)
+# test for shapes elements (polygons and pois)
 shapeelements
 
 # test for shapes elements
 tazelements
 
-# test for demand elements (Routes, Vehicles, etc.)
+# test for demand elements (routes, vehicles, etc.)
 demandelements
 
-# test for data elements (edgeData, edgeRelData, etc...)
+# test for data elements (edgedata, edgereldata, etc...)
 dataelements
 
 # test for select elements 

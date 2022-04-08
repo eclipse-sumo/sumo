@@ -4,30 +4,30 @@ default_continuous
 
 id
 
-vType
+vtype
 
 color
 
-departLane
+departlane
 
-departPos
+departpos
 
-departSpeed
+departspeed
 
-arrivalLane
+arrivallane
 
-arrivalPos
+arrivalpos
 
-arrivalSpeed
+arrivalspeed
 
 line
 
-personNumber
+personnumber
 
-containerNumber
+containernumber
 
-departPosLat
+departposlat
 
-arrivalPosLat
+arrivalposlat
 
 depart

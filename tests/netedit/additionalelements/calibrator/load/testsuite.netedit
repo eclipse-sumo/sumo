@@ -10,11 +10,11 @@ freq
 
 name
 
-routeProbe
+routeprobe
 
 output
 
-jamThreshold
+jamthreshold
 
 vtypes
 
