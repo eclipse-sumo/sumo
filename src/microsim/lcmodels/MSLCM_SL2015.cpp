@@ -2896,7 +2896,6 @@ MSLCM_SL2015::keepLatGap(int state,
 
     /// XXX to be made configurable
     double gapFactor = computeGapFactor(state);
-    const bool stayInLane = laneOffset == 0 || ((state & LCA_STRATEGIC) != 0 && (state & LCA_STAY) != 0);
     const double oldLatDist = latDist;
     const double oldManeuverDist = maneuverDist;
 
@@ -2909,6 +2908,12 @@ MSLCM_SL2015::keepLatGap(int state,
     // stay within the current edge
     double surplusGapRight = oldCenter - halfWidth;
     double surplusGapLeft = getLeftBorder(laneOffset != 0) - oldCenter - halfWidth;
+    const bool stayInLane = (laneOffset == 0
+        || ((state & LCA_STRATEGIC) != 0
+            && (state & LCA_STAY) != 0
+            // permit wide vehicles to stay on the rload
+            && (surplusGapLeft >= 0 && surplusGapRight >= 0)));
+
     if (isOpposite()) {
         std::swap(surplusGapLeft, surplusGapRight);
     }
