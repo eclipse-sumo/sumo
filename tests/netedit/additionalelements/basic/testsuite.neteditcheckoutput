@@ -2,7 +2,7 @@
 additional_invalid
 
 # reference position of stoppingplace invalid
-additional_referencepositioninvalid
+additional_refposinvalid
 
 # create additional and save it using save additional dialgo before closing
 additional_savedialog

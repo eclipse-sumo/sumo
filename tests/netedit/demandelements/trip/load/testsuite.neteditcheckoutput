@@ -4,7 +4,7 @@ no_edges
 
 id
 
-vType
+vtype
 
 from
 
@@ -14,27 +14,27 @@ via
 
 color
 
-departLane
+departlane
 
-departPos
+departpos
 
-departSpeed
+departspeed
 
-arrivalLane
+arrivallane
 
-arrivalPos
+arrivalpos
 
-arrivalSpeed
+arrivalspeed
 
 line
 
-personNumber
+personnumber
 
-containerNumber
+containernumber
 
-departPosLat
+departposlat
 
-arrivalPosLat
+arrivalposlat
 
 depart
 
