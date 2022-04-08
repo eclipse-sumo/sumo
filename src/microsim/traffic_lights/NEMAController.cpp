@@ -435,7 +435,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                         index++;
                         id = myID + "_" + myProgramID + "_D" + toString(phaseNumber) + "." + toString(index);
                     }
-                    // std::cout << "The detectorID = " << id << std::endl;
+                    //std::cout << "The detectorID = " << id << " show=" << myShowDetectors << "\n";
                     //createE2Detector() method will lead to bad detector showing in sumo-gui
                     //so it is better to use build2Detector() rather than createE2Detector()
                     // det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), myDetectorLength, 0, 0, 0, myVehicleTypes, myShowDetectors);
@@ -452,6 +452,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                                        0, // minimum dist to the next standing vehicle to make this vehicle count as a participant to the jam
                                        myVehicleTypes, //vehicle types to consider, if it is empty, meaning consider all types of vehicles
                                        false, // detector position check. More details could be found on SUMO web
+                                       true, // whether to give some slack on positioning
                                        myShowDetectors, // whether to show detectors in sumo-gui
                                        0, //traffic light that triggers aggregation when swithing
                                        0); // outgoing lane that associated with the traffic light
