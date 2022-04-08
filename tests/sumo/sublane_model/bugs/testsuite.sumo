@@ -75,3 +75,6 @@ ticket10458b
 
 # deadlock
 ticket10509
+
+# wide vehicle blocked
+ticket10523
