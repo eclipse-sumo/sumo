@@ -170,7 +170,19 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             const std::string description = attrs.get<std::string>(SUMO_ATTR_PERIOD, id.c_str(), ok);
             const std::string distName = description.substr(0, description.find('('));
             if (distName == "exp") {
-                const double rate = StringUtils::toDouble(description.substr(distName.size() + 1, description.size() - distName.size() - 2));
+                // declare rate
+                double rate = -1;
+                // parse rate
+                try {
+                    rate = StringUtils::toDouble(description.substr(distName.size() + 1, description.size() - distName.size() - 2));
+                } catch (ProcessError& attributeError) {
+                    // check if continue handling another vehicles or stop handling
+                    if (hardFail) {
+                        throw ProcessError(attributeError.what());
+                    } else {
+                        return nullptr;
+                    }
+                }
                 if (rate <= 0) {
                     return handleVehicleError(hardFail, flowParameter, "Invalid rate parameter for exponentially distributed period in the definition of " + toString(tag) + " '" + id + "'.");
                 }
