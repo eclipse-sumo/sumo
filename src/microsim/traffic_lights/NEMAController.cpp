@@ -429,7 +429,12 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                     if (myLanePhaseMap.find(lane->getID()) != myLanePhaseMap.end()){    
                          phaseNumber = myLanePhaseMap.find(lane->getID()) -> second;
                     }
-                    std::string id = myID + "_" + myProgramID + "_D" + toString(phaseNumber) + "." + toString(lane->getIndex());
+                    int index = lane->getIndex();
+                    std::string id = myID + "_" + myProgramID + "_D" + toString(phaseNumber) + "." + toString(index);
+                    while (MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(id) != nullptr) {
+                        index++;
+                        id = myID + "_" + myProgramID + "_D" + toString(phaseNumber) + "." + toString(index);
+                    }
                     // std::cout << "The detectorID = " << id << std::endl;
                     //createE2Detector() method will lead to bad detector showing in sumo-gui
                     //so it is better to use build2Detector() rather than createE2Detector()
