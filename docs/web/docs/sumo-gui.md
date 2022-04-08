@@ -785,6 +785,14 @@ elements to the configuration:
 </viewsettings>
 ```
 
+## Miscellaneous View Settings
+
+3D Scene lighting can be defined via the following (indices 0 - 9 are supported):
+
+```xml
+<light index="0" centerX="671.02" centerY="639.20" centerZ="200"/>
+```
+
 # Multiple Views
 
 Using the (![NewView.gif](images/NewView.gif
