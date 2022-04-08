@@ -1,2 +1,2 @@
 Error: Attribute 'line' in definition of a stop is empty.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Apr101646.7328\netedit.gui\demandElements\waypoint\busstop\load\line\input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.busstop.1_from_08Apr202456.91508/netedit.daily.demand.waypoint.busstop/demandelements/waypoint/busstop/load/line/input_routes.rou.xml failed.
