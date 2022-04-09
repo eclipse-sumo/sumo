@@ -14,7 +14,7 @@ Debug: Adding busStop 'busStop1' in GNEChange_Additional
 Debug: Adding busStop 'busStop2' in GNEChange_Additional
 Debug: Adding busStop 'busStop3' in GNEChange_Additional
 Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_09Nov101919.19872\netedit.gui\netElements\edges\contextual_menu\straighten_elevation_edge\input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.net.edges.08Apr202457.3639/netedit.daily.net.edges/netelements/edges/contextual_menu/straighten_elevation_edge/input_additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
