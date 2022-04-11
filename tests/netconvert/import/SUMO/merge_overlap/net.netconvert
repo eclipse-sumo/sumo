@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-11 11:39:23 by Eclipse SUMO netconvert Version v1_12_0+2077-010cc8d
+<!-- generated on 2022-04-11 11:47:27 by Eclipse SUMO netconvert Version v1_12_0+2079-b45c2ff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -334,6 +334,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="9"  response="000001100010" foes="000001110010" cont="0"/>
         <request index="10" response="000001101010" foes="000001101110" cont="0"/>
         <request index="11" response="000001001001" foes="000001001001" cont="0"/>
+        <param key="key1" value="value1"/>
+        <param key="key2" value="param2"/>
     </junction>
     <junction id="cC0" type="priority" x="300.00" y="100.00" incLanes="ctop2cC0_0 cright0cC0_0 cbottom2cC0_0 cB0cC0_0" intLanes=":cC0_0_0 :cC0_1_0 :cC0_16_0 :cC0_17_0 :cC0_4_0 :cC0_5_0 :cC0_6_0 :cC0_7_0 :cC0_8_0 :cC0_9_0 :cC0_18_0 :cC0_19_0 :cC0_12_0 :cC0_13_0 :cC0_14_0 :cC0_15_0" shape="296.80,107.20 303.20,107.20 307.20,103.20 307.20,96.80 303.20,92.80 296.80,92.80 292.80,96.80 292.80,103.20">
         <request index="0"  response="0000000000000000" foes="1000010000100000" cont="0"/>
