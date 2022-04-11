@@ -2,9 +2,7 @@ POIGEO.create.lonLat
 flowEmbedded.inspect.arrivalEdge
 flowEmbedded.inspect.departEdge
 flowEmbedded.inspectSelection.begin
-flowEmbedded.inspectSelection.type
 flowFromToEdge.inspectSelection.begin
-flowFromToEdge.inspectSelection.type
 flowJunction.create.end
 flowJunction.create.number
 flowJunction.create.personNumber
@@ -143,10 +141,8 @@ type.editDialog.vClass
 type.editDialog.width
 vehicle.inspect.arrivalEdge
 vehicle.inspect.departEdge
-vehicle.inspectSelection.type
 vehicleEmbedded.inspect.arrivalEdge
 vehicleEmbedded.inspect.departEdge
-vehicleEmbedded.inspectSelection.type
 waypoint.inspectSelection.speed
 waypointLane.create.speed
 waypointLane.inspect.speed
