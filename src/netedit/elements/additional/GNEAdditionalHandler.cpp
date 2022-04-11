@@ -513,8 +513,11 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                         pos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(),
                         endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
                 writeErrorInvalidPosition(SUMO_TAG_E2DETECTOR, id);
-            } else if (freq < 0) {
+            } else if ((freq != -1) && (freq < 0)) {
                 writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_FREQUENCY);
+            } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
+                // temporal
+                WRITE_ERROR("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with ID '" + id + "' in netedit; invalid traffic light ID.");
             } else if (timeThreshold < 0) {
                 writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
             } else if (speedThreshold < 0) {
