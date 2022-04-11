@@ -194,7 +194,7 @@ private:
     public:
         SUMOTerrainManipulator() {
             setAllowThrow(false);
-            setRotationMode(ELEVATION_AZIM_ROLL); // default is ELEVATION_AZIM and this prevents rotating the view around the z-axis
+            setVerticalAxisFixed(false);
         }
         bool performMovementLeftMouseButton(const double eventTimeDelta, const double dx, const double dy) {
             return osgGA::TerrainManipulator::performMovementMiddleMouseButton(eventTimeDelta, dx, dy);
@@ -249,7 +249,7 @@ protected:
 
 private:
     GUIVehicle* myTracked;
-    osg::ref_ptr<osgGA::CameraManipulator> myCameraManipulator;
+    osg::ref_ptr<SUMOTerrainManipulator> myCameraManipulator;
 
     SUMOTime myLastUpdate;
 

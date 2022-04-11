@@ -253,14 +253,14 @@ GUIOSGView::recenterView() {
     stopTrack();
     Position center = myGrid->getCenter();
     osg::Vec3d lookFromOSG, lookAtOSG, up;
-    myViewer->getCameraManipulator()->getHomePosition(lookFromOSG, lookAtOSG, up);
+    myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
     lookFromOSG[0] = center.x();
     lookFromOSG[1] = center.y();
     lookFromOSG[2] = myChanger->zoom2ZPos(100);
     lookAtOSG[0] = center.x();
     lookAtOSG[1] = center.y();
     lookAtOSG[2] = 0;
-    myViewer->getCameraManipulator()->setHomePosition(lookFromOSG, lookAtOSG, up);
+    myCameraManipulator->setHomePosition(lookFromOSG, lookAtOSG, up);
     myViewer->home();
 }
 
@@ -464,25 +464,58 @@ void
 GUIOSGView::showViewportEditor() {
     getViewportEditor(); // make sure it exists;
     osg::Vec3d lookFromOSG, lookAtOSG, up;
-    myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
+    myCameraManipulator->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
     Position from(lookFromOSG[0], lookFromOSG[1], lookFromOSG[2]), at(lookAtOSG[0], lookAtOSG[1], lookAtOSG[2]);
-    myViewportChooser->setOldValues(from, at, 0);
+
+    osg::Vec3d viewAxis, viewUp, orthogonal, normal;
+    viewAxis = lookFromOSG - lookAtOSG;
+    viewAxis.normalize();
+    viewUp = (viewAxis[0] + viewAxis[1] == 0.) ? osg::Vec3d(0.,1.,0.) : osg::Vec3d(0., 0., 1.); // check for parallel vectors
+    orthogonal = viewUp ^ viewAxis;
+    orthogonal.normalize();
+    normal = viewAxis ^ orthogonal;
+    double angle = atan2((normal ^ up).length() / (normal.length() * up.length()), (normal * up) / (normal.length() * up.length()));
+    if (angle < 0) {
+        angle += M_PI;
+    }
+
+    myViewportChooser->setOldValues(from, at, RAD2DEG(angle));
     myViewportChooser->show();
 }
 
 
 void
-GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double /*rotation*/) {
+GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double rotation) {
     osg::Vec3d lookFromOSG, lookAtOSG, up;
-    myViewer->getCameraManipulator()->getHomePosition(lookFromOSG, lookAtOSG, up);
+    myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
     lookFromOSG[0] = lookFrom.x();
     lookFromOSG[1] = lookFrom.y();
     lookFromOSG[2] = lookFrom.z();
     lookAtOSG[0] = lookAt.x();
     lookAtOSG[1] = lookAt.y();
     lookAtOSG[2] = lookAt.z();
+
+    osg::Vec3d viewAxis, viewUp, orthogonal, normal;
+    viewAxis = lookFromOSG - lookAtOSG;
+    viewAxis.normalize();
+    viewUp = (viewAxis[0] + viewAxis[1] == 0.) ? osg::Vec3d(0., 1., 0.) : osg::Vec3d(0., 0., 1.); // check for parallel vectors
+    orthogonal = viewUp ^ viewAxis;
+    orthogonal.normalize();
+    normal = viewAxis ^ orthogonal;
+    
+    rotation = std::fmod(rotation, 360.);
+    if (rotation < 0) {
+        rotation += 360.;
+    }
+    myChanger->setRotation(rotation);
+    double angle = DEG2RAD(rotation);
+    up = normal * cos(angle) - orthogonal * sin(angle);
+    up.normalize();
+
+    myCameraManipulator->setVerticalAxisFixed(true);
     myViewer->getCameraManipulator()->setHomePosition(lookFromOSG, lookAtOSG, up);
     myViewer->home();
+    myCameraManipulator->setVerticalAxisFixed(false);
 }
 
 
