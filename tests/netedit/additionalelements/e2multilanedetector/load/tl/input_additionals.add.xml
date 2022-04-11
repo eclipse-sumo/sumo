@@ -35,7 +35,7 @@
     <e2Detector id="e2MultilaneDetector_0" lanes="gneE2_0 gneE3_0" pos="15" file="e2MultilaneDetector_0.xml" endPos="15"/>
 	
 	<!-- dummy freq -->
-    <e2Detector id="e2MultilaneDetector_1" lanes="gneE2_0 gneE3_0" pos="15" tl="dummyFreq" file="e2MultilaneDetector_1.xml" endPos="15"/>
+    <e2Detector id="e2MultilaneDetector_1" lanes="gneE2_0 gneE3_0" pos="15" tl=";;;;;" file="e2MultilaneDetector_1.xml" endPos="15"/>
 	
 	<!-- negative -->
     <e2Detector id="e2MultilaneDetector_2" lanes="gneE2_0 gneE3_0" pos="15" tl="gneJ1" file="e2MultilaneDetector_2.xml" endPos="15"/>

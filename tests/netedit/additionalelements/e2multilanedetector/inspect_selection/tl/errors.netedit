@@ -22,13 +22,10 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Value 'dummyFrequency' for attribute freq of e2MultilaneDetector isn't valid
-Debug: Value '-100' for attribute freq of e2MultilaneDetector isn't valid
-Debug: Setting new attribute
+Debug: Value ';;;;' for attribute tl of e2MultilaneDetector isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -68,7 +65,6 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_1'

@@ -48,7 +48,7 @@ netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.tl, ";;;%%;;")
 netedit.typeEnter()
 
 # set invalid frequency
-netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.freq, "gneJ1")
+netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.tl, "gneJ1")
 
 # create E2 with default parameters
 netedit.typeEnter()
