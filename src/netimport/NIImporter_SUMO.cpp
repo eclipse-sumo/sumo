@@ -724,11 +724,13 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     Position pos = readPosition(attrs, id, ok);
     NBNetBuilder::transformCoordinate(pos, true, myLocation);
     NBNode* node = new NBNode(id, pos, type);
-    myLastParameterised.push_back(node);
     if (!myNodeCont.insert(node)) {
         WRITE_WARNINGF("Junction '%' occurred at least twice in the input.", id);
         delete node;
+        myLastParameterised.push_back(myNodeCont.retrieve(id));
         return;
+    } else {
+        myLastParameterised.push_back(node);
     }
     myCurrentJunction.node = node;
     myCurrentJunction.intLanes = attrs.get<std::vector<std::string> >(SUMO_ATTR_INTLANES, nullptr, ok, false);
