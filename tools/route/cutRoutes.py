@@ -51,7 +51,7 @@ class Statistics:
         self.num_persons = 0
         self.num_flows = 0
         self.num_returned = 0
-        self.missingEdgeOccurences = defaultdict(lambda: 0)
+        self.missingEdgeOccurrences = defaultdict(lambda: 0)
         # routes which enter the sub-scenario multiple times
         self.multiAffectedRoutes = 0
         self.teleportFactorSum = 0.0
@@ -147,7 +147,7 @@ def _cutEdgeList(areaEdges, oldDepart, exitTimes, edges, orig_net, options, stat
     # check for connectivity
     route_parts = [(firstIndex + i, firstIndex + j)
                    for i, j in missingEdges(areaEdges, edges[firstIndex:(lastIndex + 1)],
-                                            stats.missingEdgeOccurences)]
+                                            stats.missingEdgeOccurrences)]
     if len(route_parts) > 1:
         stats.multiAffectedRoutes += 1
         if disconnected_action == 'discard':
@@ -399,7 +399,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
     print("Number of disconnected routes: %s." % stats.multiAffectedRoutes)
     if options.missing_edges > 0:
         print("Most frequent missing edges:")
-        counts = sorted([(v, k) for k, v in stats.missingEdgeOccurences.items()], reverse=True)
+        counts = sorted([(v, k) for k, v in stats.missingEdgeOccurrences.items()], reverse=True)
         for count, edge in itertools.islice(counts, options.missing_edges):
             print(count, edge)
 
@@ -441,7 +441,7 @@ def getFirstIndex(areaEdges, edges):
     return None
 
 
-def missingEdges(areaEdges, edges, missingEdgeOccurences):
+def missingEdges(areaEdges, edges, missingEdgeOccurrences):
     '''
     Returns a list of intervals corresponding to the overlapping parts of the route with the area
     '''
@@ -456,7 +456,7 @@ def missingEdges(areaEdges, edges, missingEdgeOccurences):
                 route_intervals.append((start, j - 1))
 #                 print("edge '%s' not in area."%edge)
                 lastEdgePresent = False
-            missingEdgeOccurences[edge] += 1
+            missingEdgeOccurrences[edge] += 1
         else:
             if not lastEdgePresent:
                 # this is a start of a present interval

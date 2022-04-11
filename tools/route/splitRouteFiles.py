@@ -62,10 +62,10 @@ def checkDirOpen(path, mode='w'):
 class RouteReader(handler.ContentHandler):
 
     def __init__(self, collectFile, edgeCountFile, pythonEdgeFile, collectAll=False):
-        """when parsing, collects all routes with their multiplicities in _routeOccurences.
+        """when parsing, collects all routes with their multiplicities in _routeOccurrences.
         when closeAll() is called the edge distributions are created"""
         handler.ContentHandler.__init__(self)
-        self._routeOccurences = defaultdict(lambda: 0)  # listOfEdges -> count
+        self._routeOccurrences = defaultdict(lambda: 0)  # listOfEdges -> count
         self._vehID = None
         self._routeString = ''
         self._routeDistributions = {}
@@ -99,16 +99,16 @@ class RouteReader(handler.ContentHandler):
 
     def endElement(self, name):
         if name == 'route':
-            self._routeOccurences[self._routeString] += 1
+            self._routeOccurrences[self._routeString] += 1
 
     def closeAll(self):
-        """build edge distributions from self._routeOccurences"""
+        """build edge distributions from self._routeOccurrences"""
         # build distributions
         # edge -> (route -> prob)
         edgeCount = defaultdict(lambda: 0)
         routeProbs = defaultdict(dict)
         numRoutesTotal = 0
-        for index, (edgeString, count) in enumerate(self._routeOccurences.items()):
+        for index, (edgeString, count) in enumerate(self._routeOccurrences.items()):
             edges = edgeString.split()
             routeID = 'r%s' % index
             numRoutesTotal += count
@@ -120,7 +120,7 @@ class RouteReader(handler.ContentHandler):
                 if edge in self._routeDistributions:
                     routeProbs[edge][routeID] = count
         print(("writing distributions for %s routes (%s unique)" % (
-            numRoutesTotal, len(self._routeOccurences))))
+            numRoutesTotal, len(self._routeOccurrences))))
         # write distributions
         for edge, filename in self._routeDistributions.items():
             if edge in routeProbs:

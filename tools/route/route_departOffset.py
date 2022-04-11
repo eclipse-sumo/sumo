@@ -53,7 +53,7 @@ def get_options(args=None):
                          default=False, help="whether ids should be modified as well")
     optParser.add_option("--heterogeneous", dest="heterogeneous",
                          action="store_true", default=False, help="whether heterogeneous objects shall be parsed " +
-                                                                  "(i.e. vehicles with embeded and referenced routes)")
+                                                                  "(i.e. vehicles with embedded and referenced routes)")
     optParser.add_option("--depart-edges", dest="depart_edges",
                          help="only modify departure times of vehicles departing on the given edges")
     optParser.add_option("--depart-edges.file", dest="depart_edges_file",

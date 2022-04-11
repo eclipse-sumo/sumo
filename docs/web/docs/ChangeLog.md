@@ -93,7 +93,7 @@ title: ChangeLog
   - Now validating route IDs. Issue #10235
   - Fixed conversion of junction to roundabout in lefthand network. Issue #10258
   - Fixed inconsistent move-mode behavior of E2Detector. Issue #10305
-  - Data elementes can no longer be given invalid attributes. Issue #10373
+  - Data elements can no longer be given invalid attributes. Issue #10373
   - Rerouters and VSS no longer lose their edges and lanes after recomputing with volatile options. Issue #10386
   - Fixed error when deleting trips/flows between junctions. Issue #10391
   - Fixed crash when setting departLane of trips/flows between junctions. Issue #10396
@@ -111,8 +111,8 @@ title: ChangeLog
   - Fixed red/black GUI on MacOS. Issue #7830
   - Fixed invalid exaggerated vehicle size when drawing vehicle as imgFile. Issue #10381
   - Loading edge data for unknown edges is no longer an error. Issue #10379  
-  - Fixed inconsistent gui settings on reload (settings will be kept on reload unlese the settings-file was modified). Issue #10398
-  - Cancelling a change in viewsettings now takes effect immediatelly. Issue #10495
+  - Fixed inconsistent gui settings on reload (settings will be kept on reload unless the settings-file was modified). Issue #10398
+  - Cancelling a change in viewsettings now takes effect immediately. Issue #10495
     
 - duarouter
   - Route errors are now detected when using option **--skip-new-routes**. Issue #6113
@@ -170,7 +170,7 @@ title: ChangeLog
   - Person attribute 'speedFactor' can now be used to override speed distribution. Issue #10254  
   - Added option **--personroute-output** to separate vehroute output for persons/containers from vehicle routes. Issue #10317
   - Option **--fcd-output.attributes** now supports value 'odometer' to include the odometer value and 'all' to include all values. Issue #10323
-  - Option **--time-to-teleport.ride** caues persons and containers to "teleport" after waiting for too long for a ride. Issue #10281
+  - Option **--time-to-teleport.ride** causes persons and containers to "teleport" after waiting for too long for a ride. Issue #10281
   - Vehicles on long stops should no longer recompute their route. Issue #8851
   - Added warnings when a vehicle has stops with inconsistent timing information. Issue #10460
   - Added option **--time-to-teleport.highways.min-speed** to configure the speed threshold for time-to-teleport.highways. Issue #8268
