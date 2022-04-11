@@ -29,6 +29,9 @@ queue_stop_start
 # a platton of vehicles follows a slow leader
 follow_slow
 
+# 10 queue vehicles drive off after a traffic light turns green	
+tls_driveOff
+
 # test model behaviour in jam situations
 jam_resolution
 
@@ -49,9 +52,6 @@ collisions
 
 # tests for setting apparentDecel  and emergentDecel to be distinct from decel
 apparentDecel_emergencyDecel
-
-# Krauss-specific model tests
-Krauss
 
 # tests for specific aspects of IDM and IDMM
 IDM
