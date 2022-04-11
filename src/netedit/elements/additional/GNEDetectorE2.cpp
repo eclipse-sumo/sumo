@@ -612,8 +612,8 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FREQUENCY:
             return value.empty() || (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_TLID:
-            /* temporal */
-            return true;
+            // temporal
+            return SUMOXMLDefinitions::isValidNetID(value);
         case SUMO_ATTR_LENGTH:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_NAME:
