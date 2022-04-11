@@ -503,7 +503,11 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ENDPOS:
             return toString(myEndPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
-            return time2string(myFreq);
+            if (myFreq == -1) {
+                return "";
+            } else {
+                return time2string(myFreq);
+            }
         case SUMO_ATTR_TLID:
             return myTrafficLight;
         case SUMO_ATTR_LENGTH:
@@ -679,7 +683,11 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFreq = string2time(value);
+            if (value.empty()) {
+                myFreq = -1;
+            } else {
+                myFreq = string2time(value);
+            }
             break;
         case SUMO_ATTR_TLID:
             myTrafficLight = value;
