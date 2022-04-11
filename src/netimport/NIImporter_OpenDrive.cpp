@@ -1444,7 +1444,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 // this avoids geometry errors due to imprecision
                 if (!e.geom.back().almostSame(geom.front())) {
                     const int index = (int)(j - e.geometries.begin());
-                    WRITE_WARNING("Mismatched geometry for edge '" + e.id + "' between geometry segments " + toString(index - 1) + " and " + toString(index) + ".");
+                    WRITE_WARNINGF("Mismatched geometry for edge '%' between geometry segments % and %.", e.id, index - 1, index);
                 }
                 e.geom.pop_back();
             }
