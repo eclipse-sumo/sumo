@@ -81,9 +81,7 @@ routeflow.inspectSelection.begin
 routeflow.inspectSelection.type
 selection.lockSelectionNetwork.TAZs
 stopLane.inspectSelection.posLat
-tripFromToEdge.create.personNumber
 tripFromToEdge.inspect.colorButton
-tripFromToEdge.inspectSelection.colorButton
 tripFromToEdge.inspectSelection.type
 tripFromToJunction.create.personNumber
 tripFromToJunction.inspect.colorButton

@@ -31,55 +31,30 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to vehicle mode
-netedit.vehicleMode()
+# go to select mode
+netedit.selectMode()
 
-# disable select trip due this is the first vehicle in the list
-# netedit.changeElement("trip")
+# select all using invert
+netedit.selectionInvert()
 
-# set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.personNumber, "dummypersonNumber")
+# go to inspect mode
+netedit.inspectMode()
 
-# try to create trip
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+# inspect vehicle
+netedit.leftClick(referencePosition, 330, 150)
 
-# press enter to create trip
-netedit.typeEnter()
+# change departLane with an invalid value
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.type, "", False)
 
-# set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.personNumber, "-12")
+# change departLane with an invalid value
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.type, "dummyType", False)
 
-# try to create trip
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
-
-# press enter to create trip
-netedit.typeEnter()
-
-# set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.personNumber, "3.5")
-
-# try to create trip
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
-
-# press enter to create trip
-netedit.typeEnter()
-
-# set valid personNumber
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.personNumber, "13")
-
-# create trip
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
-
-# press enter to create trip
-netedit.typeEnter()
+# change departLane with a valid value
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.type, "typeC", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save routes
 netedit.saveRoutes(referencePosition)
