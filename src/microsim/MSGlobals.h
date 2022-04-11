@@ -163,4 +163,7 @@ public:
 
     /// @brief Whether turning specific weights are estimated (and how much)
     static double gWeightsSeparateTurns;
+
+    /// @brief The minimum waiting time before applying startupDelay
+    static SUMOTime gStartupWaitThreshold;
 };

@@ -515,6 +515,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "sigma",                  SUMO_ATTR_SIGMA },
     { "sigmaStep",              SUMO_ATTR_SIGMA_STEP },
+    { "startupDelay",           SUMO_ATTR_STARTUP_DELAY },
     { "tau",                    SUMO_ATTR_TAU },
     { "tmp1",                   SUMO_ATTR_TMP1 },
     { "tmp2",                   SUMO_ATTR_TMP2 },

@@ -1222,6 +1222,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         genericParams.insert(SUMO_ATTR_APPARENTDECEL);
         genericParams.insert(SUMO_ATTR_EMERGENCYDECEL);
         genericParams.insert(SUMO_ATTR_COLLISION_MINGAP_FACTOR);
+        genericParams.insert(SUMO_ATTR_STARTUP_DELAY);
         // Krauss
         std::set<SumoXMLAttr> kraussParams(genericParams);
         kraussParams.insert(SUMO_ATTR_SIGMA);

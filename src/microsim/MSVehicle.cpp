@@ -978,6 +978,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myJunctionEntryTime(SUMOTime_MAX),
     myJunctionEntryTimeNeverYield(SUMOTime_MAX),
     myJunctionConflictEntryTime(SUMOTime_MAX),
+    myTimeSinceStartup(TIME2STEPS(3600 * 24)),
     myInfluencer(nullptr) {
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
     myNextDriveItem = myLFLinkLanes.begin();
@@ -4071,6 +4072,12 @@ MSVehicle::executeMove() {
     // Determine vNext = speed after current sim step (ballistic), resp. in current simstep (euler)
     // Call to finalizeSpeed applies speed reduction due to dawdling / lane changing but ensures minimum safe speed
     double vNext = vSafe;
+    if (vNext <= SUMO_const_haltingSpeed && myWaitingTime > MSGlobals::gStartupWaitThreshold) {
+        myTimeSinceStartup = 0;
+    } else {
+        // identify potential startup (before other effects reduce the speed again)
+        myTimeSinceStartup += DELTA_T;
+    }
     if (myActionStep) {
         vNext = getCarFollowModel().finalizeSpeed(this, vSafe);
         if (vNext > 0) {

@@ -655,6 +655,16 @@ public:
         return myWaitingTime;
     }
 
+    /** @brief Returns the SUMOTime spent driving since startup (speed was larger than 0.1m/s)
+     *
+     * The value is reset if the vehicle halts (moves slower than 0.1m/s)
+     * Intentional stopping does not reset the time
+     * @return The time the vehicle is standing
+     */
+    SUMOTime getTimeSinceStartup() const {
+        return myTimeSinceStartup;
+    }
+
     /** @brief Returns the SUMOTime lost (speed was lesser maximum speed)
      *
      * @note Intentional stopping does not count towards this time.
@@ -1902,6 +1912,9 @@ protected:
     SUMOTime myJunctionEntryTime;
     SUMOTime myJunctionEntryTimeNeverYield;
     SUMOTime myJunctionConflictEntryTime;
+
+    /// @brief duration of driving (speed > SUMO_const_haltingSpeed) after the last halting eposide
+    SUMOTime myTimeSinceStartup;
 
 protected:
 

@@ -407,6 +407,9 @@ MSFrame::fillOptions() {
     oc.doRegister("waiting-time-memory", new Option_String("100", "TIME"));
     oc.addDescription("waiting-time-memory", "Processing", "Length of time interval, over which accumulated waiting time is taken into account (default is 100s.)");
 
+    oc.doRegister("startup-wait-threshold", new Option_String("2", "TIME"));
+    oc.addDescription("startup-wait-threshold", "Processing", "Minimum consecutive waiting time before applying startupDelay");
+
     oc.doRegister("max-depart-delay", new Option_String("-1", "TIME"));
     oc.addDescription("max-depart-delay", "Processing", "How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped");
 
@@ -955,6 +958,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gCheck4Accidents = !oc.getBool("ignore-accidents");
     MSGlobals::gCheckRoutes = !oc.getBool("ignore-route-errors");
     MSGlobals::gWeightsSeparateTurns = oc.getFloat("weights.separate-turns");
+    MSGlobals::gStartupWaitThreshold = string2time(oc.getString("startup-wait-threshold"));
     MSGlobals::gLaneChangeDuration = string2time(oc.getString("lanechange.duration"));
     MSGlobals::gLateralResolution = oc.getFloat("lateral-resolution");
     MSGlobals::gSublane = (MSGlobals::gLaneChangeDuration > 0 || MSGlobals::gLateralResolution > 0);

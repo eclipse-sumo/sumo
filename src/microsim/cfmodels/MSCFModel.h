@@ -90,6 +90,9 @@ public:
         return vMax;
     }
 
+    /// @brief apply speed adaptation on startup 
+    virtual double applyStartupDelay(const MSVehicle* veh, double vMin, double vMax) const; 
+
 
     /** @brief Computes the vehicle's safe speed without a leader
      *
@@ -262,6 +265,9 @@ public:
         return myCollisionMinGapFactor;
     }
 
+    double getStartupDelay() const {
+        return myStartupDelay;
+    }
 
     /// @name Virtual methods with default implementation
     /// @{
@@ -654,6 +660,9 @@ protected:
 
     /// @brief The driver's desired time headway (aka reaction time tau) [s]
     double myHeadwayTime;
+
+    /// @brief The startup delay after halting [s]
+    SUMOTime myStartupDelay;
 
 
 
