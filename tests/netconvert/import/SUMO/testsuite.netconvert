@@ -90,6 +90,9 @@ short_edge
 # merge 2 networks without geo-referencing that are shifted appropriately
 merge
 
+# merge 2 networks without geo-referencing that are shifted appropriately.  Networks overlap (with identical ids)
+merge_overlap
+
 # merge 2 geo-referenced networks
 merge_geo
 merge_geo_overlap
