@@ -38,18 +38,36 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
 	<!-- non valid latAlignment -->
-    <vType id="vType0" latAlignment="dummyLatAlignment"/>
+    <vType id="vType00" latAlignment="dummyLatAlignment"/>
 	
 	<!-- non valid latAlignment -->
-    <vType id="vType1" latAlignment="-3"/>
+    <vType id="vType01" latAlignment="-3"/>
 	
 	<!-- valid latAlignment -->
-    <vType id="vType2" latAlignment="0"/>
+    <vType id="vType02" latAlignment="0"/>
 	
 	<!-- valid latAlignment -->
-    <vType id="vType3" latAlignment="12"/>
+    <vType id="vType03" latAlignment="12"/>
 	
 	<!-- valid latAlignment -->
-    <vType id="vType4" latAlignment="4.5"/>
+    <vType id="vType04" latAlignment="4.5"/>
+	
+	<!-- valid latAlignment -->
+    <vType id="vType05" latAlignment="left"/>
+	
+	<!-- valid latAlignment -->
+    <vType id="vType06" latAlignment="right"/>
+	
+	<!-- valid latAlignment -->
+    <vType id="vType07" latAlignment="center"/>
+	
+	<!-- valid latAlignment -->
+    <vType id="vType08" latAlignment="compact"/>
+	
+	<!-- valid latAlignment -->
+    <vType id="vType09" latAlignment="nice"/>
+	
+	<!-- valid latAlignment -->
+    <vType id="vType10" latAlignment="arbitrary"/>
 	
 </routes>

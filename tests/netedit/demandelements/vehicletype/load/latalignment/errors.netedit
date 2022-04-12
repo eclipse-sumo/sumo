@@ -15,13 +15,19 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Error: Unknown lateral alignment 'dummyLatAlignment' when parsing vType 'vType0';
+Error: Unknown lateral alignment 'dummyLatAlignment' when parsing vType 'vType00';
  must be one of ("right", "center", "arbitrary", "nice", "compact", "left" or a float)
-Debug: Adding vType 'vType1' in GNEChange_DemandElement
-Debug: Adding vType 'vType2' in GNEChange_DemandElement
-Debug: Adding vType 'vType3' in GNEChange_DemandElement
-Debug: Adding vType 'vType4' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.08Apr202456.3580/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/latalignment/input_routes.rou.xml failed.
+Debug: Adding vType 'vType01' in GNEChange_DemandElement
+Debug: Adding vType 'vType02' in GNEChange_DemandElement
+Debug: Adding vType 'vType03' in GNEChange_DemandElement
+Debug: Adding vType 'vType04' in GNEChange_DemandElement
+Debug: Adding vType 'vType05' in GNEChange_DemandElement
+Debug: Adding vType 'vType06' in GNEChange_DemandElement
+Debug: Adding vType 'vType07' in GNEChange_DemandElement
+Debug: Adding vType 'vType08' in GNEChange_DemandElement
+Debug: Adding vType 'vType09' in GNEChange_DemandElement
+Debug: Adding vType 'vType10' in GNEChange_DemandElement
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Apr150627.12140\netedit.gui\demandelements\vehicletype\load\latalignment\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
@@ -71,16 +77,28 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing vType 'vType4' in GNEChange_DemandElement
-Debug: Removing vType 'vType3' in GNEChange_DemandElement
-Debug: Removing vType 'vType2' in GNEChange_DemandElement
-Debug: Removing vType 'vType1' in GNEChange_DemandElement
+Debug: Removing vType 'vType10' in GNEChange_DemandElement
+Debug: Removing vType 'vType09' in GNEChange_DemandElement
+Debug: Removing vType 'vType08' in GNEChange_DemandElement
+Debug: Removing vType 'vType07' in GNEChange_DemandElement
+Debug: Removing vType 'vType06' in GNEChange_DemandElement
+Debug: Removing vType 'vType05' in GNEChange_DemandElement
+Debug: Removing vType 'vType04' in GNEChange_DemandElement
+Debug: Removing vType 'vType03' in GNEChange_DemandElement
+Debug: Removing vType 'vType02' in GNEChange_DemandElement
+Debug: Removing vType 'vType01' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding vType 'vType1' in GNEChange_DemandElement
-Debug: Adding vType 'vType2' in GNEChange_DemandElement
-Debug: Adding vType 'vType3' in GNEChange_DemandElement
-Debug: Adding vType 'vType4' in GNEChange_DemandElement
+Debug: Adding vType 'vType01' in GNEChange_DemandElement
+Debug: Adding vType 'vType02' in GNEChange_DemandElement
+Debug: Adding vType 'vType03' in GNEChange_DemandElement
+Debug: Adding vType 'vType04' in GNEChange_DemandElement
+Debug: Adding vType 'vType05' in GNEChange_DemandElement
+Debug: Adding vType 'vType06' in GNEChange_DemandElement
+Debug: Adding vType 'vType07' in GNEChange_DemandElement
+Debug: Adding vType 'vType08' in GNEChange_DemandElement
+Debug: Adding vType 'vType09' in GNEChange_DemandElement
+Debug: Adding vType 'vType10' in GNEChange_DemandElement
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
@@ -118,10 +136,16 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Deleting unreferenced vType 'vType4'
-Debug: Deleting unreferenced vType 'vType3'
-Debug: Deleting unreferenced vType 'vType2'
-Debug: Deleting unreferenced vType 'vType1'
+Debug: Deleting unreferenced vType 'vType10'
+Debug: Deleting unreferenced vType 'vType09'
+Debug: Deleting unreferenced vType 'vType08'
+Debug: Deleting unreferenced vType 'vType07'
+Debug: Deleting unreferenced vType 'vType06'
+Debug: Deleting unreferenced vType 'vType05'
+Debug: Deleting unreferenced vType 'vType04'
+Debug: Deleting unreferenced vType 'vType03'
+Debug: Deleting unreferenced vType 'vType02'
+Debug: Deleting unreferenced vType 'vType01'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
