@@ -5,11 +5,6 @@ flowEmbedded.inspectSelection.begin
 flowFromToEdge.inspectSelection.begin
 flowJunction.inspect.begin
 flowJunction.inspectSelection.begin
-flowJunction.inspectSelection.spacing
-flowJunction.inspectSelection.spacingOption
-flowJunction.inspectSelection.terminate
-flowJunction.inspectSelection.terminateOption
-flowJunction.inspectSelection.type
 junction.inspectSelectionTLS.tl
 junction.inspectSelectionTLS.tlLayout
 junction.inspectSelectionTLS.tlType
