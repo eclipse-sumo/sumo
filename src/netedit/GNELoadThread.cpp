@@ -381,6 +381,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("default.action-step-length", new Option_Float(0.0));
     oc.addDescription("default.action-step-length", "Processing", "Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length.");
 
+    oc.doRegister("default.speeddev", new Option_Float(-1));
+    oc.addDescription("default.speeddev", "Processing", "Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class");
+
     NIFrame::fillOptions(true);
     NBFrame::fillOptions(false);
     NWFrame::fillOptions(false);
