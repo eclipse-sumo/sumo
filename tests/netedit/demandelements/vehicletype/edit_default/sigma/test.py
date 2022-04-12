@@ -34,12 +34,24 @@ netedit.supermodeDemand()
 # go to type mode
 netedit.typeMode()
 
-# create vType
-netedit.createVType()
+# change value
+netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "dummySigma", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "-30", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "20.5", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "0.52", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save routes
 netedit.saveRoutes(referencePosition)

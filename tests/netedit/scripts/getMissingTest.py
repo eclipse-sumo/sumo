@@ -117,6 +117,8 @@ dic = {'dummy': 1000}
 for reference in cleanedReferences:
     # remove all spaces
     reference = reference.replace(' ', '')
+    # remove all spaces
+    reference = reference.replace('+1', '')
     # check number of dots
     if (reference.count('.') > 1):
         found = False

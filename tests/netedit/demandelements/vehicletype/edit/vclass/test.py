@@ -34,14 +34,17 @@ netedit.supermodeDemand()
 # go to type mode
 netedit.typeMode()
 
-# modify attribute
-netedit.modifyAttribute(netedit.attrs.type.create.vClass, "dummy", False)
+# create vType
+netedit.createVType()
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.create.vClass, "", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.vClass, "dummy", False)
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.create.vClass, "pedestrian", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.vClass, "", False)
+
+# modify attribute
+netedit.modifyAttribute(netedit.attrs.type.edit.vClass, "pedestrian", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

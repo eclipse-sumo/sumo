@@ -34,12 +34,21 @@ netedit.supermodeDemand()
 # go to type mode
 netedit.typeMode()
 
-# create vType
-netedit.createVType()
+# change value
+netedit.modifyAttribute(netedit.attrs.type.editDefault.accel, "", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.type.editDefault.accel, "dummyAcel", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.type.editDefault.accel, "-30", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.type.editDefault.accel + 1, "20.5", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save routes
 netedit.saveRoutes(referencePosition)

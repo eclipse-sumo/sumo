@@ -35,25 +35,25 @@ netedit.supermodeDemand()
 netedit.typeMode()
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.create.vTypeDistDefault, ";;;", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.vTypeDist, ";;;", False)
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.create.vTypeDistDefault, "distA", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.vTypeDist, "distA", False)
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.create.vTypeDistDefault, "", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.vTypeDist, "", False)
 
 # abort
 netedit.typeTwoKeys('alt', 'n')
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.create.vTypeDistDefault, "", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.vTypeDist, "", False)
 
 # continue
 netedit.typeSpace()
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.create.vTypeDistDefault, "dist1", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.vTypeDist, "dist1", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
