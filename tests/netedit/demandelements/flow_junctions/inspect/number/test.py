@@ -34,52 +34,40 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip over junctions
+# change vehicle
 netedit.changeElement("flow (from-to junctions)")
 
-# set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.personNumber, "dummypersonNumber")
-
-# try to create trip
+# create flow with embedded route using two edges
 netedit.leftClick(referencePosition, 80, 360)
 netedit.leftClick(referencePosition, 85, 77)
 
-# press enter to create trip
+# press enter to create route
 netedit.typeEnter()
 
-# set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.personNumber, "-12")
+# go to inspect mode
+netedit.inspectMode()
 
-# try to create trip
+# inspect vehicle
 netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
 
-# press enter to create trip
-netedit.typeEnter()
+# change flow value
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.terminate, "dummyTerminate", False)
 
-# set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.personNumber, "3.5")
+# change flow value
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.terminate, "number", False)
 
-# try to create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+# change flow value
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.terminateOption, "dummyEnd", False)
 
-# press enter to create trip
-netedit.typeEnter()
+# change flow value
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.terminateOption, "12.5", False)
 
-# set valid personNumber
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.personNumber, "13")
-
-# create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
-
-# press enter to create trip
-netedit.typeEnter()
+# change flow value
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.terminateOption, "26", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save routes
 netedit.saveRoutes(referencePosition)

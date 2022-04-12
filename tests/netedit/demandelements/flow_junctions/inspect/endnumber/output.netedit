@@ -6,10 +6,13 @@ TestFunctions: Clicked over position 384 - 528
 TestFunctions: Clicked over position 389 - 245
 TestFunctions: Clicked over position 384 - 528
 dummyTerminate
-poisson
-dummy
-12.5
-2.6
+end-number
+dummyEnd
+23
+dummyNumber
+12.3
+-30
+81
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

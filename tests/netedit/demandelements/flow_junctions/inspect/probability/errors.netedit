@@ -15,7 +15,6 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Adding flow 'duplicatedVehicle' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
@@ -65,29 +64,33 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
-Debug: Selected item 'flow (from-to edges)' in GNETagSelector
+Debug: Selected item 'flow (from-to junctions)' in GNETagSelector
 Debug: Key ENTER pressed
-Debug: Adding flow 'f_0' in GNEChange_DemandElement
-Debug: Value '' for attribute id of flow isn't valid
-Debug: Value ';;;;;;;;' for attribute id of flow isn't valid
-Debug: Value 'id with spaces' for attribute id of flow isn't valid
-Debug: Value 'duplicatedVehicle' for attribute id of flow isn't valid
+Debug: Adding flowJunctions 'f_0' in GNEChange_DemandElement
+Debug: Setting new attribute into flowJunctions 'f_0'
+Debug: Setting new attribute into flowJunctions 'f_0'
+Debug: Setting new attribute into flowJunctions 'f_0'
+Debug: Setting new attribute into flowJunctions 'f_0'
+Debug: Setting new attribute into flowJunctions 'f_0'
+Debug: Setting new attribute into flowJunctions 'f_0'
+Debug: Setting new attribute into flowJunctions 'f_0'
+Debug: Setting new attribute into flowJunctions 'f_0'
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing flow 'f_0' in GNEChange_DemandElement
+Debug: Setting previous attribute into flowJunctions 'f_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing flow 'duplicatedVehicle' in GNEChange_DemandElement
+Debug: Setting previous attribute into flowJunctions 'f_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding flow 'duplicatedVehicle' in GNEChange_DemandElement
+Debug: Setting new attribute into flowJunctions 'f_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding flow 'f_0' in GNEChange_DemandElement
+Debug: Setting new attribute into flowJunctions 'f_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -128,8 +131,7 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Deleting unreferenced flow 'customID'
-Debug: Deleting unreferenced flow 'duplicatedVehicle'
+Debug: Deleting unreferenced flowJunctions 'f_0'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
