@@ -74,6 +74,8 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyColor' for attribute color of tripJunctions isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -97,12 +99,12 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing tripJunctions 'tripB' in GNEChange_DemandElement
-Debug: Removing tripJunctions 'tripA' in GNEChange_DemandElement
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding tripJunctions 'tripA' in GNEChange_DemandElement
-Debug: Adding tripJunctions 'tripB' in GNEChange_DemandElement
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

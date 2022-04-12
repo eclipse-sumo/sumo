@@ -50,6 +50,9 @@ netedit.inspectMode()
 # inspect vehicle
 netedit.leftClick(referencePosition, 80, 360)
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.tripFromToJunction.inspect.colorButton, 5, False)
+
 # change color with an invalid value
 netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.color, "", False)
 
@@ -63,8 +66,8 @@ netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.color, "cyan", 
 netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.color, "12,13,14", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save routes
 netedit.saveRoutes(referencePosition)
