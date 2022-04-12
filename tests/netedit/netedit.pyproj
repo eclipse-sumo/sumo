@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{374a3ef2-afeb-4b3c-abe9-d144af1cfd68}</ProjectGuid>
+    <ProjectGuid>{a01cbecf-fadb-4704-bbab-ac63bc92a91d}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -12,7 +12,6 @@
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId />
-    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -885,9 +884,16 @@
     <Compile Include="demandelements\flow_junctions\create\departposlat\test.py" />
     <Compile Include="demandelements\flow_junctions\create\departpos\test.py" />
     <Compile Include="demandelements\flow_junctions\create\departspeed\test.py" />
+    <Compile Include="demandelements\flow_junctions\create\endnumber\test.py" />
+    <Compile Include="demandelements\flow_junctions\create\end\test.py" />
     <Compile Include="demandelements\flow_junctions\create\id\test.py" />
     <Compile Include="demandelements\flow_junctions\create\line\test.py" />
+    <Compile Include="demandelements\flow_junctions\create\number\test.py" />
+    <Compile Include="demandelements\flow_junctions\create\period\test.py" />
     <Compile Include="demandelements\flow_junctions\create\personnumber\test.py" />
+    <Compile Include="demandelements\flow_junctions\create\poisson\test.py" />
+    <Compile Include="demandelements\flow_junctions\create\probability\test.py" />
+    <Compile Include="demandelements\flow_junctions\create\vehsperhour\test.py" />
     <Compile Include="demandelements\flow_junctions\create\vtype\test.py" />
     <Compile Include="demandelements\flow_junctions\delete\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect\arrivallane\current\test.py" />
@@ -930,12 +936,19 @@
     <Compile Include="demandelements\flow_junctions\inspect\departspeed\max\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect\departspeed\random\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect\departspeed\speedlimit\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect\endnumber\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect\end\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect\from\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect\id\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect\line\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect\number\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect\parameters\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect\period\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect\personnumber\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect\poisson\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect\probability\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect\to\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect\vehsperhour\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect\vtype\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect_selection\arrivallane\current\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect_selection\arrivallane\float\test.py" />
@@ -974,9 +987,16 @@
     <Compile Include="demandelements\flow_junctions\inspect_selection\departspeed\max\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect_selection\departspeed\random\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect_selection\departspeed\speedlimit\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect_selection\end\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect_selection\line\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect_selection\number\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect_selection\parameters\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect_selection\period\test.py" />
     <Compile Include="demandelements\flow_junctions\inspect_selection\personnumber\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect_selection\poisson\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect_selection\probability\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect_selection\type\test.py" />
+    <Compile Include="demandelements\flow_junctions\inspect_selection\vehsperhour\test.py" />
     <Compile Include="demandelements\flow_junctions\load\test.py" />
     <Compile Include="demandelements\flow_junctions\volatilerecomputing\test.py" />
     <Compile Include="demandelements\personflow\create\color\test.py" />
@@ -3775,9 +3795,16 @@
     <Folder Include="demandelements\flow_junctions\create\departpos" />
     <Folder Include="demandelements\flow_junctions\create\departposlat" />
     <Folder Include="demandelements\flow_junctions\create\departspeed" />
+    <Folder Include="demandelements\flow_junctions\create\end" />
+    <Folder Include="demandelements\flow_junctions\create\endnumber" />
     <Folder Include="demandelements\flow_junctions\create\id" />
     <Folder Include="demandelements\flow_junctions\create\line" />
+    <Folder Include="demandelements\flow_junctions\create\number" />
+    <Folder Include="demandelements\flow_junctions\create\period" />
     <Folder Include="demandelements\flow_junctions\create\personnumber" />
+    <Folder Include="demandelements\flow_junctions\create\poisson" />
+    <Folder Include="demandelements\flow_junctions\create\probability" />
+    <Folder Include="demandelements\flow_junctions\create\vehsperhour" />
     <Folder Include="demandelements\flow_junctions\create\vtype" />
     <Folder Include="demandelements\flow_junctions\delete" />
     <Folder Include="demandelements\flow_junctions\inspect\" />
@@ -3830,12 +3857,19 @@
     <Folder Include="demandelements\flow_junctions\inspect\departspeed\max" />
     <Folder Include="demandelements\flow_junctions\inspect\departspeed\random" />
     <Folder Include="demandelements\flow_junctions\inspect\departspeed\speedlimit" />
+    <Folder Include="demandelements\flow_junctions\inspect\end" />
+    <Folder Include="demandelements\flow_junctions\inspect\endnumber" />
     <Folder Include="demandelements\flow_junctions\inspect\from" />
     <Folder Include="demandelements\flow_junctions\inspect\id" />
     <Folder Include="demandelements\flow_junctions\inspect\line" />
+    <Folder Include="demandelements\flow_junctions\inspect\number" />
     <Folder Include="demandelements\flow_junctions\inspect\parameters" />
+    <Folder Include="demandelements\flow_junctions\inspect\period" />
     <Folder Include="demandelements\flow_junctions\inspect\personnumber" />
+    <Folder Include="demandelements\flow_junctions\inspect\poisson" />
+    <Folder Include="demandelements\flow_junctions\inspect\probability" />
     <Folder Include="demandelements\flow_junctions\inspect\to" />
+    <Folder Include="demandelements\flow_junctions\inspect\vehsperhour" />
     <Folder Include="demandelements\flow_junctions\inspect\vtype" />
     <Folder Include="demandelements\flow_junctions\inspect_selection\" />
     <Folder Include="demandelements\flow_junctions\inspect_selection\arrivallane\" />
@@ -3883,9 +3917,16 @@
     <Folder Include="demandelements\flow_junctions\inspect_selection\departspeed\max" />
     <Folder Include="demandelements\flow_junctions\inspect_selection\departspeed\random" />
     <Folder Include="demandelements\flow_junctions\inspect_selection\departspeed\speedlimit" />
+    <Folder Include="demandelements\flow_junctions\inspect_selection\end" />
     <Folder Include="demandelements\flow_junctions\inspect_selection\line" />
+    <Folder Include="demandelements\flow_junctions\inspect_selection\number" />
     <Folder Include="demandelements\flow_junctions\inspect_selection\parameters" />
+    <Folder Include="demandelements\flow_junctions\inspect_selection\period" />
     <Folder Include="demandelements\flow_junctions\inspect_selection\personnumber" />
+    <Folder Include="demandelements\flow_junctions\inspect_selection\poisson" />
+    <Folder Include="demandelements\flow_junctions\inspect_selection\probability" />
+    <Folder Include="demandelements\flow_junctions\inspect_selection\type" />
+    <Folder Include="demandelements\flow_junctions\inspect_selection\vehsperhour" />
     <Folder Include="demandelements\flow_junctions\load" />
     <Folder Include="demandelements\flow_junctions\volatilerecomputing" />
     <Folder Include="demandelements\personflow\" />
