@@ -19,9 +19,9 @@ Error: Invalid format of distribution parameterized
 Debug: Adding vType 'vType0' in GNEChange_DemandElement
 Error: Invalid speed distribution when parsing vType 'vType1' (distribution mean -3.00 is smaller than lower boundary 0.20)
 Error: Invalid speed distribution when parsing vType 'vType2' (distribution mean 0.00 is smaller than lower boundary 0.20)
-Debug: Adding vType 'vType3' in GNEChange_DemandElement
-Debug: Adding vType 'vType4' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.08Apr202456.3580/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/speedfactor/input_routes.rou.xml failed.
+Error: Invalid speed distribution when parsing vType 'vType3' (distribution mean 12.00 is larger than upper boundary 2.00)
+Error: Invalid speed distribution when parsing vType 'vType4' (distribution mean 4.50 is larger than upper boundary 2.00)
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Apr090840.8708\netedit.gui\demandelements\vehicletype\load\speedfactor\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
@@ -71,14 +71,10 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing vType 'vType4' in GNEChange_DemandElement
-Debug: Removing vType 'vType3' in GNEChange_DemandElement
 Debug: Removing vType 'vType0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding vType 'vType0' in GNEChange_DemandElement
-Debug: Adding vType 'vType3' in GNEChange_DemandElement
-Debug: Adding vType 'vType4' in GNEChange_DemandElement
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
@@ -116,8 +112,6 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Deleting unreferenced vType 'vType4'
-Debug: Deleting unreferenced vType 'vType3'
 Debug: Deleting unreferenced vType 'vType0'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
