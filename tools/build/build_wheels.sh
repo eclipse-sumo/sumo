@@ -15,7 +15,7 @@
 # @author  Michael Behrisch
 # @date    2019
 yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
-yum install -y --nogpgcheck cmake3 ccache xerces-c-devel proj-devel fox16-devel bzip2-devel gl2ps-devel swig3
+yum install -y --nogpgcheck cmake3 ccache libxerces-c-devel proj-devel fox16-devel bzip2-devel gl2ps-devel swig3
 /opt/python/cp38-cp38/bin/pip install scikit-build
 
 mkdir -p $HOME/.ccache
