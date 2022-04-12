@@ -50,16 +50,16 @@ netedit.inspectMode()
 # inspect vehicle
 netedit.leftClick(referencePosition, 91, 392)
 
-# change arrivalPos with an invalid value
+# change value
 netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspect.arrivalPos, "", False)
 
-# change arrivalPos with an invalid value
+# change value
 netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspect.arrivalPos, "dummyPos", False)
 
 # change departColor with a valid value
 netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspect.arrivalPos, "500", False)
 
-# change arrivalPos with an invalid value
+# change value
 netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspect.arrivalPos, "-10", False)
 
 # change arrivalPos with a valid value

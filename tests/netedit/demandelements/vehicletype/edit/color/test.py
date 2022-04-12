@@ -37,9 +37,24 @@ netedit.typeMode()
 # create vType
 netedit.createVType()
 
+# change color using dialog
+netedit.modifyColorAttribute(netedit.attrs.type.edit.colorButton, 5, False)
+
+# change color with an invalid value
+netedit.modifyAttribute(netedit.attrs.type.edit.color, "", False)
+
+# change color with an invalid value
+netedit.modifyAttribute(netedit.attrs.type.edit.color, "dummyColor", False)
+
+# change color with an valid value
+netedit.modifyAttribute(netedit.attrs.type.edit.color, "cyan", False)
+
+# change color with a valid value
+netedit.modifyAttribute(netedit.attrs.type.edit.color, "12,13,14", False)
+
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save routes
 netedit.saveRoutes(referencePosition)

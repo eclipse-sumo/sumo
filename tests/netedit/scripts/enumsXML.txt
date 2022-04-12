@@ -954,7 +954,7 @@ type.edit
 type.edit.id 
 type.edit.vTypeDist 
 type.edit.vClass 
-type.edit.colorDialog 
+type.edit.colorButton 
 type.edit.color 
 type.edit.length 
 type.edit.minGap 
@@ -966,7 +966,7 @@ type.edit.tau
 type.editDefault
 type.editDefault.vTypeDist 
 type.editDefault.vClass 
-type.editDefault.colorDialog 
+type.editDefault.colorButton 
 type.editDefault.color 
 type.editDefault.length 
 type.editDefault.minGap 
@@ -978,7 +978,7 @@ type.editDefault.tau
 type.editDialog
 type.editDialog.vClass 
 type.editDialog.id 
-type.editDialog.colorDialog 
+type.editDialog.colorButton 
 type.editDialog.color 
 type.editDialog.length 
 type.editDialog.minGap 

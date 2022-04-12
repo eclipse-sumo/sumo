@@ -39,19 +39,19 @@ netedit.createVType()
 netedit.createVType()
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.create.id, "", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.id, "", False)
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.create.id, ";;;", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.id, ";;;", False)
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.create.id, "t_0", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.id, "t_0", False)
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.create.id, "t_1", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.id, "t_1", False)
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.create.id, "customID", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.id, "customID", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

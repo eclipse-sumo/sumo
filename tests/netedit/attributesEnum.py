@@ -1180,7 +1180,7 @@ class type:
         id = 8
         vTypeDist = 9
         vClass = 10
-        colorDialog = 12
+        colorButton = 12
         color = 13
         length = 14
         minGap = 15
@@ -1193,7 +1193,7 @@ class type:
     class editDefault:
         vTypeDist = 7
         vClass = 8
-        colorDialog = 10
+        colorButton = 10
         color = 11
         length = 12
         minGap = 13
@@ -1206,7 +1206,7 @@ class type:
     class editDialog:
         vClass = 1
         id = 3
-        colorDialog = 4
+        colorButton = 4
         color = 5
         length = 6
         minGap = 7
