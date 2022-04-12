@@ -65,24 +65,27 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'flow (from-to junctions)' in GNETagSelector
+Debug: Invalid input parameter of flowJunctions
+Debug: Invalid input parameter of flowJunctions
+Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding flowJunctions 'f_0' in GNEChange_DemandElement
 Debug: Invalid input parameter of flowJunctions
 Debug: Invalid input parameter of flowJunctions
 Debug: Key ENTER pressed
+Debug: Invalid input parameter of flowJunctions
+Debug: Invalid input parameter of flowJunctions
+Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding flowJunctions 'f_1' in GNEChange_DemandElement
-Debug: Key ENTER pressed
-Debug: Adding flowJunctions 'f_2' in GNEChange_DemandElement
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing flowJunctions 'f_2' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flowJunctions 'f_1' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flowJunctions 'f_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding flowJunctions 'f_0' in GNEChange_DemandElement
@@ -90,8 +93,7 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding flowJunctions 'f_1' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding flowJunctions 'f_2' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
@@ -129,7 +131,6 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Deleting unreferenced flowJunctions 'f_2'
 Debug: Deleting unreferenced flowJunctions 'f_1'
 Debug: Deleting unreferenced flowJunctions 'f_0'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
