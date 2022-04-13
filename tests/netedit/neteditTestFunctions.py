@@ -1473,15 +1473,19 @@ def changePersonVClass(value):
     typeEnter()
 
 
-def changePersonPlan(personPlan):
+def changePersonPlan(personPlan, flow):
     """
     @brief change personPlan
     """
     # focus current frame
     focusOnFrame()
     # jump to person plan
-    for _ in range(16):
-        typeTab()
+    if (flow) :
+        for _ in range(23):
+            typeTab()
+    else:
+        for _ in range(16):
+            typeTab()
     # paste the new personPlan
     pasteIntoTextField(personPlan)
     # type enter to save change

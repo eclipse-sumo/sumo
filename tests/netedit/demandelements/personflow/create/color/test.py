@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to person mode
 netedit.personMode()
 
@@ -38,32 +41,32 @@ netedit.personMode()
 netedit.changeElement("personFlow")
 
 # change person plan
-netedit.changePersonFlowPlan("walk: edges")
+netedit.changePersonPlan("walk: edge->busStop", True)
 
-# set invalid color
-netedit.changeDefaultValue(6, "dummyColor")
+# create route using edge and busStop
+netedit.leftClick(referencePosition, 274, 380)
+netedit.leftClick(referencePosition, 270, 43)
 
-# try to create person
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
+# set invalid personFlow number
+netedit.changeColorUsingDialog(netedit.attrs.personFlow.create.colorButton, 5)
 
-# press enter to create person
+# press enter to create route
 netedit.typeEnter()
 
-# set valid color
-netedit.changeDefaultValue(6, "cyan")
+# set invalid personFlow number
+netedit.changeDefaultValue(netedit.attrs.personFlow.create.color, "Vlue")
 
-# press enter to create person
+# create route using edge and busStop
+netedit.leftClick(referencePosition, 274, 380)
+netedit.leftClick(referencePosition, 270, 43)
+
+# press enter to create route
 netedit.typeEnter()
 
-# set valid color
-netedit.changeDefaultValue(6, "12,13,14")
+# set invalid personFlow number
+netedit.changeDefaultValue(netedit.attrs.personFlow.create.color, "red")
 
-# create person
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
-
-# press enter to create person
+# press enter to create route
 netedit.typeEnter()
 
 # Check undo redo

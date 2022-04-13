@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to person mode
 netedit.personMode()
 
@@ -38,101 +41,37 @@ netedit.personMode()
 netedit.changeElement("personFlow")
 
 # change person plan
-netedit.changePersonFlowPlan("walk: edges")
+netedit.changePersonPlan("walk: edge->busStop", True)
 
-# set invalid depart
-netedit.changeDefaultValue(7, "dummyDepartPos")
+# set invalid person number
+netedit.changeDefaultValue(netedit.attrs.personFlow.create.departPos, "dummy")
 
-# try to create person
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
-
-# press enter to create route
-netedit.typeEnter()
-
-# set invalid depart
-netedit.changeDefaultValue(7, "-12")
-
-# try to create person
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
+# create route using edge and busStop
+netedit.leftClick(referencePosition, 274, 380)
+netedit.leftClick(referencePosition, 270, 43)
 
 # press enter to create route
 netedit.typeEnter()
 
-# set valid depart
-netedit.changeDefaultValue(7, "5000")
-
-# try to create person
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
+# set invalid person number
+netedit.changeDefaultValue(netedit.attrs.personFlow.create.departPos, "-20")
 
 # press enter to create route
 netedit.typeEnter()
 
-# set valid depart (output will be changed)
-netedit.changeDefaultValue(7, "20")
+# set invalid person number
+netedit.changeDefaultValue(netedit.attrs.personFlow.create.departPos, "7.8")
 
-# try to create person
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
-
-# press enter to create route
-netedit.typeEnter()
-
-# set valid depart (output will be changed)
-netedit.changeDefaultValue(7, "random")
-
-# try to create person
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
-
-# press enter to create route
-netedit.typeEnter()
-
-# set valid depart (output will be changed)
-netedit.changeDefaultValue(7, "free")
-
-# try to create person
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
-
-# press enter to create route
-netedit.typeEnter()
-
-# set valid depart (output will be changed)
-netedit.changeDefaultValue(7, "base")
-
-# try to create person
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
-
-# press enter to create route
-netedit.typeEnter()
-
-# set valid depart (output will be changed)
-netedit.changeDefaultValue(7, "random_free")
-
-# try to create person
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
-
-# press enter to create route
-netedit.typeEnter()
-
-# set valid depart (output will be changed)
-netedit.changeDefaultValue(7, "last")
-
-# try to create person
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 180, 55)
+# create route using edge and busStop
+netedit.leftClick(referencePosition, 274, 380)
+netedit.leftClick(referencePosition, 270, 43)
 
 # press enter to create route
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 6)
-netedit.redo(referencePosition, 6)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save routes
 netedit.saveRoutes(referencePosition)

@@ -2140,47 +2140,30 @@ class person:
         id = 8
         colorButton = 9
         color = 10
-        depart = 11
+        departPos = 11
+        depart = 12
 
     class inspect:
         id = 1
-        type = 2
-        fromEdge = 3
-        toEdge = 4
-        via = 5
-        colorButton = 6
-        color = 7
-        departLane = 8
-        departPos = 9
-        departSpeed = 10
-        arrivalLane = 11
-        arrivalPos = 12
-        arrivalSpeed = 13
-        line = 14
-        personNumber = 15
-        containerNumber = 16
-        departPosLat = 17
-        arrivalPosLat = 18
-        depart = 19
-        parameters = 22
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        depart = 15
-        parameters = 18
+
+
+class personFlow:
+    class create:
+        id = 8
+        colorButton = 9
+        color = 10
+        departPos = 11
+        begin = 12
+
+    class inspect:
+        id = 1
+
+    class inspectSelection:
+        type = 1
+
 
 # --------------------------------
 # DATA ELEMENTS
