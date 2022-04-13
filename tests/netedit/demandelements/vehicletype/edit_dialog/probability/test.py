@@ -41,13 +41,16 @@ netedit.createVType()
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "dummy")
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.probability, "dummy")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "")
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.probability, "")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "army")
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.probability, "-5")
+
+# modify attribute
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.probability, "12.3")
 
 # close dialog
 netedit.closeVTypeDialog()

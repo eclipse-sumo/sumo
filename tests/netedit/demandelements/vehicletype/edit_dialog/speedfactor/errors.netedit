@@ -63,6 +63,8 @@ Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Adding vType 't_0' in GNEChange_DemandElement
+Error: Invalid format of distribution parameterized
+Error: Invalid format of distribution parameterized
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute

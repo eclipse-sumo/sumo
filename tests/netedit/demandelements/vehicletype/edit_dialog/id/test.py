@@ -37,17 +37,23 @@ netedit.typeMode()
 # create vType
 netedit.createVType()
 
+# create another vType
+netedit.createVType()
+
 # open dialog
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "dummy")
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.id, ";;;;;")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "")
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.id, "")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "army")
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.id, "t_1")
+
+# modify attribute
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.id, "customID")
 
 # close dialog
 netedit.closeVTypeDialog()

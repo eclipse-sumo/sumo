@@ -41,13 +41,16 @@ netedit.createVType()
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "dummy")
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.latAlignment, "dummy")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "")
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.latAlignment, "")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "army")
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.latAlignment, "-12")
+
+# modify attribute
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.latAlignment, "7.3")
 
 # close dialog
 netedit.closeVTypeDialog()

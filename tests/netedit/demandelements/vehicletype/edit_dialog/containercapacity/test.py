@@ -41,13 +41,19 @@ netedit.createVType()
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "dummy")
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.containerCapacity, "dummy")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "")
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.containerCapacity, "")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "army")
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.containerCapacity, "-7")
+
+# modify attribute
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.containerCapacity, "5.2")
+
+# modify attribute
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.containerCapacity, "3")
 
 # close dialog
 netedit.closeVTypeDialog()

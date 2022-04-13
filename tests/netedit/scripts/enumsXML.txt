@@ -950,6 +950,7 @@ type.buttons
 type.buttons.create 
 type.buttons.delete 
 type.buttons.copy 
+type.buttons.dialog 
 type.edit
 type.edit.id 
 type.edit.vTypeDist 
