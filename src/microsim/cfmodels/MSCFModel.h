@@ -265,10 +265,6 @@ public:
         return myCollisionMinGapFactor;
     }
 
-    double getStartupDelay() const {
-        return myStartupDelay;
-    }
-
     /// @name Virtual methods with default implementation
     /// @{
 
