@@ -1607,6 +1607,42 @@ def copyVType():
     typeSpace()
 
 
+def openVTypeDialog():
+    """
+    @brief create vType
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop type
+    for _ in range(attrs.type.buttons.dialog):
+        typeTab()
+    # type space
+    typeSpace()
+    # wait some second to question dialog
+    time.sleep(DELAY_QUESTION)
+
+
+def closeVTypeDialog():
+    """
+    @brief close vType dialog saving elements
+    """
+    typeTwoKeys('alt', 'a')
+
+
+def modifyVTypeAttribute(attributeNumber, value):
+    """
+    @brief modify VType attribute of type int/float/string
+    """
+    # focus dialog
+    typeTwoKeys('alt', 'f')
+    # jump to attribute
+    for _ in range(attributeNumber):
+        typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type Enter to commit change
+    typeEnter()
+
 #################################################
 # delete
 #################################################

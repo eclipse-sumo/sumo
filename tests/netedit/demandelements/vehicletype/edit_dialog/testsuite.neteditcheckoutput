@@ -1,6 +1,10 @@
 default
 
+vclass
+
 id
+
+color
 
 length
 
@@ -10,27 +14,21 @@ maxspeed
 
 speedfactor
 
-speeddev
-
-color
-
-vclass
-
 emissionclass
 
-guishape
-
 width
+
+height
 
 imgfile
 
 osgfile
 
-impatience
+probability
 
 lanechangemodel
 
-carfollowingmodel
+guishape
 
 personcapacity
 
@@ -48,8 +46,10 @@ maxspeedlat
 
 actionsteplength
 
-carfollowingmodel_params
+carriagelength
 
-lanechangemodel_params
+locomotivelength
 
-junctionmodel_params
+carriagegap
+
+parameters

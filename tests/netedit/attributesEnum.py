@@ -1175,6 +1175,7 @@ class type:
         create = 2
         delete = 3
         copy = 3
+        dialog = 24
 
     class edit:
         id = 8
