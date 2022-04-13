@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{a01cbecf-fadb-4704-bbab-ac63bc92a91d}</ProjectGuid>
+    <ProjectGuid>{1ac138fa-1cef-4414-a707-3edc7d6c0f5a}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -12,7 +12,6 @@
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId />
-    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -1635,6 +1634,34 @@
     <Compile Include="demandelements\vehicletype\edit_default\tau\test.py" />
     <Compile Include="demandelements\vehicletype\edit_default\vclass\test.py" />
     <Compile Include="demandelements\vehicletype\edit_default\vtypedist\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\actionsteplength\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\boardingduration\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\carriagegap\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\carriagelength\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\color\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\containercapacity\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\default\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\emissionclass\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\guishape\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\height\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\id\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\imgfile\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\lanechangemodel\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\latalignment\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\length\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\loadingduration\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\locomotivelength\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\maxspeedlat\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\maxspeed\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\mingaplat\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\mingap\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\osgfile\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\parameters\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\personcapacity\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\probability\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\speedfactor\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\vclass\test.py" />
+    <Compile Include="demandelements\vehicletype\edit_dialog\width\test.py" />
     <Compile Include="demandelements\vehicletype\load\test.py" />
     <Compile Include="demandelements\vehicle\create\arrivallane\test.py" />
     <Compile Include="demandelements\vehicle\create\arrivalposlat\test.py" />
@@ -4674,6 +4701,35 @@
     <Folder Include="demandelements\vehicletype\edit_default\tau" />
     <Folder Include="demandelements\vehicletype\edit_default\vclass" />
     <Folder Include="demandelements\vehicletype\edit_default\vtypedist" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\actionsteplength" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\boardingduration" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\carriagegap" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\carriagelength" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\color" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\containercapacity" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\default" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\emissionclass" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\guishape" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\height" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\id" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\imgfile" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\lanechangemodel" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\latalignment" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\length" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\loadingduration" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\locomotivelength" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\maxspeed" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\maxspeedlat" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\mingap" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\mingaplat" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\osgfile" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\parameters" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\personcapacity" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\probability" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\speedfactor" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\vclass" />
+    <Folder Include="demandelements\vehicletype\edit_dialog\width" />
     <Folder Include="demandelements\vehicletype\load" />
     <Folder Include="demandelements\vehicle\" />
     <Folder Include="demandelements\vehicle\create\" />
