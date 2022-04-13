@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("personTrip: edge->busStop")
+netedit.changePersonPlan("personTrip: edge->busStop", False)
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, 274, 392)

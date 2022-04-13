@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("stopPerson: busStop")
+netedit.changePersonPlan("stopPerson: busStop", False)
 
 # create route clicking over busStop
 netedit.leftClick(referencePosition, 270, 43)

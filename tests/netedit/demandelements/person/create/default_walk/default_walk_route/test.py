@@ -46,7 +46,7 @@ netedit.typeEnter()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: route")
+netedit.changePersonPlan("walk: route", False)
 
 # create person
 netedit.leftClick(referencePosition, 274, 392)
