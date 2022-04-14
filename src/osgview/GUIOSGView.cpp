@@ -187,6 +187,12 @@ GUIOSGView::recalculateBoundaries() {
 }
 
 
+bool
+GUIOSGView::is3DView() const {
+    return true;
+}
+
+
 void
 GUIOSGView::buildViewToolBars(GUIGlChildWindow* v) {
     // build coloring tools

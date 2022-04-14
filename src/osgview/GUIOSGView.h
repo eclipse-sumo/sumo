@@ -126,6 +126,9 @@ public:
     /// @brief recalculate boundaries
     void recalculateBoundaries();
 
+    /// @brief confirm 3D view to viewport editor
+    bool is3DView() const;
+
     /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow*);
 
