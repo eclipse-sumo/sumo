@@ -1489,7 +1489,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
             if (d.initialised && d.filename != value) {
                 d.initialised = false;
             }
-            d.filename = StringUtils::trim(value);
+            d.filename = StringUtils::substituteEnvironment(StringUtils::trim(value));
             break;
         case 1:
             try {

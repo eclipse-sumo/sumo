@@ -23,6 +23,7 @@
 #pragma once
 #include <config.h>
 #include <string>
+#include <chrono>
 #include <xercesc/util/XMLString.hpp>
 #include <utils/common/UtilExceptions.h>
 
@@ -57,7 +58,7 @@ public:
 
     /** Replaces an environment variable with its value (similar to bash);
         syntax for a variable is ${NAME} */
-    static std::string substituteEnvironment(std::string str);
+    static std::string substituteEnvironment(const std::string& str, const std::chrono::time_point<std::chrono::system_clock>* const timeRef=nullptr);
 
     /// Builds a time string (hh:mm:ss) from the given seconds
     static std::string toTimeString(int time);

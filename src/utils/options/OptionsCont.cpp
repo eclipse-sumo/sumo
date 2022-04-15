@@ -34,15 +34,16 @@
 #include <cstring>
 #include <cerrno>
 #include <iterator>
-#include "Option.h"
-#include "OptionsCont.h"
+#include <sstream>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/xml/SUMOSAXAttributes.h>
-#include <sstream>
+#include "Option.h"
+#include "OptionsIO.h"
+#include "OptionsCont.h"
 
 
 // ===========================================================================
@@ -253,7 +254,8 @@ OptionsCont::set(const std::string& name, const std::string& value) {
         return false;
     }
     try {
-        if (!o->set(value)) {
+        // Substitute environment variables defined by ${NAME} with their value
+        if (!o->set(StringUtils::substituteEnvironment(value, &OptionsIO::getLoadTime()))) {
             return false;
         }
     } catch (ProcessError& e) {
