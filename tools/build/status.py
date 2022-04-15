@@ -33,12 +33,16 @@ import logging.handlers
 
 def killall(debugSuffix, binaries):
     bins = set([name + suff + ".exe" for name in binaries for suff in debugSuffix])
-    for _ in range(2):  # killing twice is better than once ;-)
+    printLog("Looking for running instances of %s." % bins)
+    for i in range(2):  # killing twice is better than once ;-)
         clean = True
         for taskline in subprocess.check_output(["tasklist", "/nh"]).splitlines():
+            printLog("Checking %s." % taskline)
             task = taskline.split()
             if task and task[0] in bins:
+                printLog("Found %s." % task)
                 log_subprocess(["taskkill", "/f", "/im", task[0]])
+                printLog("Sent kill to all %s (try %s)." % (task[0], i))
                 bins.remove(task[0])
                 clean = False
         if clean:
