@@ -1977,8 +1977,8 @@ NBNode::mergeConflictYields(const NBEdge* from, int fromLane, int fromLaneFoe, N
     if (myRequest == nullptr) {
         return false;
     }
-    NBEdge::Connection con = from->getConnection(fromLane, to, toLane);
-    NBEdge::Connection prohibitorCon = from->getConnection(fromLaneFoe, to, toLane);
+    const NBEdge::Connection& con = from->getConnection(fromLane, to, toLane);
+    const NBEdge::Connection& prohibitorCon = from->getConnection(fromLaneFoe, to, toLane);
     return myRequest->mergeConflict(from, con, from, prohibitorCon, false);
 }
 
@@ -3463,9 +3463,8 @@ NBNode::getCrossing(const EdgeVector& edges, bool hardFail) const {
     }
     if (!hardFail) {
         return nullptr;
-    } else {
-        throw ProcessError("Request for unknown crossing for the given Edges");
     }
+    throw ProcessError("Request for unknown crossing for the given Edges");
 }
 
 
@@ -3503,21 +3502,17 @@ NBNode::numNormalConnections() const {
 int
 NBNode::getConnectionIndex(const NBEdge* from, const NBEdge::Connection& con) const {
     int result = 0;
-    for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-        const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-            const NBEdge::Connection& cand = *k;
-            if (*i == from
-                    && cand.fromLane == con.fromLane
-                    && cand.toLane == con.toLane
-                    && cand.toEdge == con.toEdge) {
+    for (const NBEdge* const e : myIncomingEdges) {
+        for (const NBEdge::Connection& cand : e->getConnections()) {
+            if (e == from && cand.fromLane == con.fromLane && cand.toLane == con.toLane && cand.toEdge == con.toEdge) {
                 return result;
-            };
+            }
             result++;
         }
     }
     return -1;
 }
+
 
 Position
 NBNode::getCenter() const {
@@ -3531,9 +3526,8 @@ NBNode::getCenter() const {
     //std::cout << getID() << " around=" << tmp.around(myPosition) << " dist=" << tmp.distance2D(myPosition) << "\n";
     if (tmp.size() < 3 || tmp.around(myPosition) || tmp.distance2D(myPosition) < POSITION_EPS) {
         return myPosition;
-    } else {
-        return myPoly.getPolygonCenter();
     }
+    return myPoly.getPolygonCenter();
 }
 
 

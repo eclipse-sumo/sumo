@@ -159,10 +159,10 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     int numConnections = 0;
     for (std::map<std::string, NBEdge*>::const_iterator it_edge = ec.begin(); it_edge != ec.end(); it_edge++) {
         NBEdge* from = it_edge->second;
-        const std::vector<NBEdge::Connection> connections = from->getConnections();
+        const std::vector<NBEdge::Connection>& connections = from->getConnections();
         numConnections += (int)connections.size();
-        for (std::vector<NBEdge::Connection>::const_iterator it_c = connections.begin(); it_c != connections.end(); it_c++) {
-            writeConnection(device, *from, *it_c, includeInternal);
+        for (const NBEdge::Connection& con : connections) {
+            writeConnection(device, *from, con, includeInternal);
         }
     }
     if (numConnections > 0) {

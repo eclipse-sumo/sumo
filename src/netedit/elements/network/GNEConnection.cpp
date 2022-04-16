@@ -76,7 +76,7 @@ GNEConnection::getConnectionShape() const {
 void
 GNEConnection::updateGeometry() {
     // Get shape of from and to lanes
-    NBEdge::Connection& nbCon = getNBEdgeConnection();
+    const NBEdge::Connection& nbCon = getNBEdgeConnection();
     if (myShapeDeprecated) {
         // obtain lane shape from
         PositionVector laneShapeFrom;
@@ -264,7 +264,7 @@ GNEConnection::markConnectionGeometryDeprecated() {
 
 void
 GNEConnection::updateLinkState() {
-    NBEdge::Connection& nbCon = getNBEdgeConnection();
+    const NBEdge::Connection& nbCon = getNBEdgeConnection();
     myLinkState = getEdgeFrom()->getNBEdge()->getToNode()->getLinkState(getEdgeFrom()->getNBEdge(),
                   nbCon.toEdge,
                   nbCon.fromLane,
@@ -428,7 +428,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // check if edge value has to be shown
             if (s.edgeValue.show(this)) {
-                NBEdge::Connection& nbCon = getNBEdgeConnection();
+                const NBEdge::Connection& nbCon = getNBEdgeConnection();
                 std::string value = nbCon.getParameter(s.edgeParam, "");
                 if (value != "") {
                     int shapeIndex = (int)myConnectionGeometry.getShape().size() / 2;
@@ -472,7 +472,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         // @note: may be called for connections without a valid nbCon reference
         return getID();
     }
-    NBEdge::Connection& nbCon = getNBEdgeConnection();
+    const NBEdge::Connection& nbCon = getNBEdgeConnection();
     switch (key) {
         case SUMO_ATTR_FROM:
             return getEdgeFrom()->getID();

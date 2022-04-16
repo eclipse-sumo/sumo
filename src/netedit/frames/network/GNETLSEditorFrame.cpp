@@ -820,7 +820,7 @@ GNETLSEditorFrame::buildInternalLanes(NBTrafficLightDefinition* tlDef) {
             int tlIndex = link.getTLIndex();
             PositionVector shape;
             try {
-                const NBEdge::Connection& con = link.getFrom()->getConnectionRef(link.getFromLane(), link.getTo(), link.getToLane());
+                const NBEdge::Connection& con = link.getFrom()->getConnection(link.getFromLane(), link.getTo(), link.getToLane());
                 shape = con.shape;
                 shape.append(con.viaShape);
             } catch (ProcessError&) {

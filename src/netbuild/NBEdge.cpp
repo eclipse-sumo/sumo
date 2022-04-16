@@ -1222,28 +1222,23 @@ NBEdge::getConnectionsFromLane(int lane, NBEdge* to, int toLane) const {
 }
 
 
-NBEdge::Connection
+const NBEdge::Connection&
 NBEdge::getConnection(int fromLane, const NBEdge* to, int toLane) const {
-    for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-        if (
-            (*i).fromLane == fromLane
-            && (*i).toEdge == to
-            && (*i).toLane == toLane) {
-            return *i;
+    for (const Connection& c : myConnections) {
+        if (c.fromLane == fromLane && c.toEdge == to && c.toLane == toLane) {
+            return c;
         }
     }
     throw ProcessError("Connection from " + getID() + "_" + toString(fromLane)
                        + " to " + to->getID() + "_" + toString(toLane) + " not found");
 }
 
+
 NBEdge::Connection&
 NBEdge::getConnectionRef(int fromLane, const NBEdge* to, int toLane) {
-    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-        if (
-            (*i).fromLane == fromLane
-            && (*i).toEdge == to
-            && (*i).toLane == toLane) {
-            return *i;
+    for (Connection& c : myConnections) {
+        if (c.fromLane == fromLane && c.toEdge == to && c.toLane == toLane) {
+            return c;
         }
     }
     throw ProcessError("Connection from " + getID() + "_" + toString(fromLane)
@@ -3405,9 +3400,7 @@ void
 NBEdge::moveOutgoingConnectionsFrom(NBEdge* e, int laneOff) {
     int lanes = e->getNumLanes();
     for (int i = 0; i < lanes; i++) {
-        std::vector<NBEdge::Connection> elv = e->getConnectionsFromLane(i);
-        for (std::vector<NBEdge::Connection>::iterator j = elv.begin(); j != elv.end(); j++) {
-            NBEdge::Connection el = *j;
+        for (const NBEdge::Connection& el : e->getConnectionsFromLane(i)) {
             assert(el.tlID == "");
             addLane2LaneConnection(i + laneOff, el.toEdge, el.toLane, Lane2LaneInfoType::COMPUTED);
         }

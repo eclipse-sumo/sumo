@@ -984,11 +984,11 @@ public:
      */
     std::vector<Connection> getConnectionsFromLane(int lane, NBEdge* to = nullptr, int toLane = -1) const;
 
-    /** @brief Returns the specified connection
+    /** @brief Returns the specified connection (unmodifiable)
      * This method goes through "myConnections" and returns the specified one
      * @see NBEdge::Connection
      */
-    Connection getConnection(int fromLane, const NBEdge* to, int toLane) const;
+    const Connection& getConnection(int fromLane, const NBEdge* to, int toLane) const;
 
     /** @brief Returns reference to the specified connection
      * This method goes through "myConnections" and returns the specified one
