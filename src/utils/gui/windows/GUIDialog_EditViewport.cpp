@@ -118,12 +118,13 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     new FXLabel(lookAtZFrame, "LookAtZ:", nullptr, GUIDesignLabelLeftThick);
     myLookAtZ = new FXRealSpinner(lookAtZFrame, 16, this, MID_CHANGED, GUIDesignSpinDialViewPort);
 
-    // only show LookAt elements if OSG is enabled
-#ifdef HAVE_OSG
-    lookAtFrame->show();
-#else
-    lookAtFrame->hide();
-#endif
+    // only show LookAt elements for OSG views
+    if (parent->is3DView()) {
+        lookAtFrame->show();
+    }
+    else {
+        lookAtFrame->hide();
+    }
 
     // create buttons ok/cancel
     new FXHorizontalSeparator(contentsFrame, GUIDesignHorizontalSeparator);

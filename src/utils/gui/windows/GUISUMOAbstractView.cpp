@@ -269,6 +269,12 @@ GUISUMOAbstractView::getVisibleBoundary() const {
 }
 
 
+bool
+GUISUMOAbstractView::is3DView() const {
+    return false;
+}
+
+
 void
 GUISUMOAbstractView::paintGL() {
     if (getWidth() == 0 || getHeight() == 0) {
