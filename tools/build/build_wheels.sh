@@ -24,6 +24,7 @@ echo "base_dir = /github/workspace/_skbuild/linux-x86_64-3.8" >> $HOME/.ccache/c
 /opt/python/cp38-cp38/bin/python tools/build/setup-sumo.py --cmake-executable cmake3 -j 8 bdist_wheel
 mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp38-cp38/py2.py3-none/'`
 auditwheel repair dist/eclipse_sumo*.whl
+cp -a data tools/libsumo
 for py in /opt/python/*; do
     rm dist/*.whl
     $py/bin/pip install scikit-build

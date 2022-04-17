@@ -80,6 +80,7 @@ jobs:
       run: |
         cd sumo
         cmake --build build_msvc --config Release --target libsumo libtraci
+        xcopy /s data .\tools\libsumo\data\
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
         python tools\build\setup-libtraci.py bdist_wheel --plat-name win_amd64
 
