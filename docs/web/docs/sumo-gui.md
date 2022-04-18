@@ -753,7 +753,7 @@ decals if the corresponding check-boxes are activated before saving.
 
 ```xml
     <viewsettings>
-        <scheme name="...
+        <scheme name="..."
            ...
         </scheme>
 
