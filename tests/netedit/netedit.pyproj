@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1ac138fa-1cef-4414-a707-3edc7d6c0f5a}</ProjectGuid>
+    <ProjectGuid>{7fd1471e-6723-4c8c-8aa0-58cb7c6d2736}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -1000,6 +1000,7 @@
     <Compile Include="demandelements\flow_junctions\inspect_selection\vehsperhour\test.py" />
     <Compile Include="demandelements\flow_junctions\load\test.py" />
     <Compile Include="demandelements\flow_junctions\volatilerecomputing\test.py" />
+    <Compile Include="demandelements\personflow\create\begin\test.py" />
     <Compile Include="demandelements\personflow\create\color\test.py" />
     <Compile Include="demandelements\personflow\create\default_ride\default_ride_busstop\test.py" />
     <Compile Include="demandelements\personflow\create\default_ride\default_ride_fromto\test.py" />
@@ -1012,6 +1013,7 @@
     <Compile Include="demandelements\personflow\create\default_walk\default_walk_fromto\test.py" />
     <Compile Include="demandelements\personflow\create\default_walk\default_walk_route\test.py" />
     <Compile Include="demandelements\personflow\create\departpos\test.py" />
+    <Compile Include="demandelements\personflow\create\id\test.py" />
     <Compile Include="demandelements\personflow\delete\test.py" />
     <Compile Include="demandelements\person\create\color\test.py" />
     <Compile Include="demandelements\person\create\default_ride\default_ride_busstop\test.py" />
@@ -1026,7 +1028,13 @@
     <Compile Include="demandelements\person\create\default_walk\default_walk_route\test.py" />
     <Compile Include="demandelements\person\create\departpos\test.py" />
     <Compile Include="demandelements\person\create\depart\test.py" />
+    <Compile Include="demandelements\person\create\id\test.py" />
     <Compile Include="demandelements\person\delete\test.py" />
+    <Compile Include="demandelements\person\inspect\color\test.py" />
+    <Compile Include="demandelements\person\inspect\departpos\test.py" />
+    <Compile Include="demandelements\person\inspect\id\test.py" />
+    <Compile Include="demandelements\person\inspect\parameters\test.py" />
+    <Compile Include="demandelements\person\inspect\type\test.py" />
     <Compile Include="demandelements\routeflow\create\arrivallane\test.py" />
     <Compile Include="demandelements\routeflow\create\arrivalposlat\test.py" />
     <Compile Include="demandelements\routeflow\create\arrivalpos\test.py" />
@@ -1500,6 +1508,7 @@
     <Compile Include="demandelements\trip\inspect_selection\line\test.py" />
     <Compile Include="demandelements\trip\inspect_selection\parameters\test.py" />
     <Compile Include="demandelements\trip\inspect_selection\personnumber\test.py" />
+    <Compile Include="demandelements\trip\inspect_selection\type\test.py" />
     <Compile Include="demandelements\trip\load\test.py" />
     <Compile Include="demandelements\trip\volatilerecomputing\test.py" />
     <Compile Include="demandelements\trip_junctions\create\arrivallane\test.py" />
@@ -2013,6 +2022,7 @@
     <Compile Include="demandelements\waypoint\lane\create\parking\test.py" />
     <Compile Include="demandelements\waypoint\lane\create\permitted\test.py" />
     <Compile Include="demandelements\waypoint\lane\create\poslat\test.py" />
+    <Compile Include="demandelements\waypoint\lane\create\speed\test.py" />
     <Compile Include="demandelements\waypoint\lane\create\triggered_container\test.py" />
     <Compile Include="demandelements\waypoint\lane\create\triggered_join\test.py" />
     <Compile Include="demandelements\waypoint\lane\create\triggered_person\test.py" />
@@ -2029,6 +2039,7 @@
     <Compile Include="demandelements\waypoint\lane\inspect\parking\test.py" />
     <Compile Include="demandelements\waypoint\lane\inspect\permitted\test.py" />
     <Compile Include="demandelements\waypoint\lane\inspect\poslat\test.py" />
+    <Compile Include="demandelements\waypoint\lane\inspect\speed\test.py" />
     <Compile Include="demandelements\waypoint\lane\inspect\startpos\test.py" />
     <Compile Include="demandelements\waypoint\lane\inspect\triggered_container\test.py" />
     <Compile Include="demandelements\waypoint\lane\inspect\triggered_join\test.py" />
@@ -2043,6 +2054,7 @@
     <Compile Include="demandelements\waypoint\lane\inspect_selection\parking\test.py" />
     <Compile Include="demandelements\waypoint\lane\inspect_selection\permitted\test.py" />
     <Compile Include="demandelements\waypoint\lane\inspect_selection\poslat\test.py" />
+    <Compile Include="demandelements\waypoint\lane\inspect_selection\speed\test.py" />
     <Compile Include="demandelements\waypoint\lane\inspect_selection\triggered_container\test.py" />
     <Compile Include="demandelements\waypoint\lane\inspect_selection\triggered_join\test.py" />
     <Compile Include="demandelements\waypoint\lane\inspect_selection\triggered_person\test.py" />
@@ -3960,6 +3972,7 @@
     <Folder Include="demandelements\flow_junctions\volatilerecomputing" />
     <Folder Include="demandelements\personflow\" />
     <Folder Include="demandelements\personflow\create\" />
+    <Folder Include="demandelements\personflow\create\begin" />
     <Folder Include="demandelements\personflow\create\color" />
     <Folder Include="demandelements\personflow\create\default_ride\" />
     <Folder Include="demandelements\personflow\create\default_ride\default_ride_busstop" />
@@ -3976,6 +3989,7 @@
     <Folder Include="demandelements\personflow\create\default_walk\default_walk_fromto" />
     <Folder Include="demandelements\personflow\create\default_walk\default_walk_route" />
     <Folder Include="demandelements\personflow\create\departpos" />
+    <Folder Include="demandelements\personflow\create\id" />
     <Folder Include="demandelements\personflow\delete" />
     <Folder Include="demandelements\person\" />
     <Folder Include="demandelements\person\create\" />
@@ -3996,7 +4010,15 @@
     <Folder Include="demandelements\person\create\default_walk\default_walk_route" />
     <Folder Include="demandelements\person\create\depart" />
     <Folder Include="demandelements\person\create\departpos" />
+    <Folder Include="demandelements\person\create\id" />
     <Folder Include="demandelements\person\delete" />
+    <Folder Include="demandelements\person\inspect\" />
+    <Folder Include="demandelements\person\inspect\color" />
+    <Folder Include="demandelements\person\inspect\depart" />
+    <Folder Include="demandelements\person\inspect\departpos" />
+    <Folder Include="demandelements\person\inspect\id" />
+    <Folder Include="demandelements\person\inspect\parameters" />
+    <Folder Include="demandelements\person\inspect\type" />
     <Folder Include="demandelements\routeflow\" />
     <Folder Include="demandelements\routeflow\create\" />
     <Folder Include="demandelements\routeflow\create\arrivallane" />
@@ -4541,6 +4563,7 @@
     <Folder Include="demandelements\trip\inspect_selection\line" />
     <Folder Include="demandelements\trip\inspect_selection\parameters" />
     <Folder Include="demandelements\trip\inspect_selection\personnumber" />
+    <Folder Include="demandelements\trip\inspect_selection\type" />
     <Folder Include="demandelements\trip\load" />
     <Folder Include="demandelements\trip\volatilerecomputing" />
     <Folder Include="demandelements\trip_junctions\" />
@@ -5141,6 +5164,7 @@
     <Folder Include="demandelements\waypoint\lane\create\parking" />
     <Folder Include="demandelements\waypoint\lane\create\permitted" />
     <Folder Include="demandelements\waypoint\lane\create\poslat" />
+    <Folder Include="demandelements\waypoint\lane\create\speed" />
     <Folder Include="demandelements\waypoint\lane\create\triggered_container" />
     <Folder Include="demandelements\waypoint\lane\create\triggered_join" />
     <Folder Include="demandelements\waypoint\lane\create\triggered_person" />
@@ -5158,6 +5182,7 @@
     <Folder Include="demandelements\waypoint\lane\inspect\parking" />
     <Folder Include="demandelements\waypoint\lane\inspect\permitted" />
     <Folder Include="demandelements\waypoint\lane\inspect\poslat" />
+    <Folder Include="demandelements\waypoint\lane\inspect\speed" />
     <Folder Include="demandelements\waypoint\lane\inspect\startpos" />
     <Folder Include="demandelements\waypoint\lane\inspect\triggered_container" />
     <Folder Include="demandelements\waypoint\lane\inspect\triggered_join" />
@@ -5173,6 +5198,7 @@
     <Folder Include="demandelements\waypoint\lane\inspect_selection\parking" />
     <Folder Include="demandelements\waypoint\lane\inspect_selection\permitted" />
     <Folder Include="demandelements\waypoint\lane\inspect_selection\poslat" />
+    <Folder Include="demandelements\waypoint\lane\inspect_selection\speed" />
     <Folder Include="demandelements\waypoint\lane\inspect_selection\triggered_container" />
     <Folder Include="demandelements\waypoint\lane\inspect_selection\triggered_join" />
     <Folder Include="demandelements\waypoint\lane\inspect_selection\triggered_person" />

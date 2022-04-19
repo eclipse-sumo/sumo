@@ -2153,6 +2153,12 @@ class person:
 
     class inspect:
         id = 1
+        type = 2
+        colorButton = 3
+        color = 4
+        departPos = 5
+        depart = 6
+        parameters = 9
 
     class inspectSelection:
         type = 1
@@ -2168,6 +2174,17 @@ class personFlow:
 
     class inspect:
         id = 1
+        type = 2
+        colorButton = 3
+        color = 4
+        departPos = 5
+        begin = 6
+        terminate = 9
+        spacing = 11
+        end = 12
+        terminateOption = 13
+        spacingOption = 14
+        parameters = 17
 
     class inspectSelection:
         type = 1
