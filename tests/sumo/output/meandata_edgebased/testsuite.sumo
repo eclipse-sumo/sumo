@@ -10,7 +10,7 @@ print_defaults
 # one vehicle is moving
 one_vehicle
 
-# one vehicle stopped across mutiple lanes
+# one vehicle stopped across multiple lanes
 long_stopped_vehicle
 
 # one vehicle is moving, subsecond
