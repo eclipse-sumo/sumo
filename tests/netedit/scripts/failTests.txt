@@ -1,18 +1,6 @@
 -tp appdata=netedit.gui
 demandelements/flow/create/arrivalspeed
-demandelements/person/create/color
-demandelements/person/create/depart
-demandelements/person/create/departpos
-demandelements/person/create/id
 demandelements/person/delete
-demandelements/personflow/create/begin
-demandelements/personflow/create/color
-demandelements/personflow/create/default_walk/default_walk_route
-demandelements/personflow/create/departpos
-demandelements/personflow/create/id
 demandelements/personflow/delete
 demandelements/route/fix/save
 demandelements/stop/lane/inspect_selection/line
-demandelements/vehicletype/buttons/copy
-demandelements/vehicletype/edit_default/vtypedist
-shapeelements/poly/create/default/default

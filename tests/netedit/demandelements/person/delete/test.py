@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # create person using three edges
-netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 274, 400)
 netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 180, 55)
 

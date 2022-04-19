@@ -44,7 +44,7 @@ netedit.changePersonPlan("walk: edge->busStop", False)
 netedit.changeDefaultValue(netedit.attrs.person.create.depart, "dummy")
 
 # create route using edge and busStop
-netedit.leftClick(referencePosition, 274, 380)
+netedit.leftClick(referencePosition, 274, 400)
 netedit.leftClick(referencePosition, 270, 43)
 
 # press enter to create route

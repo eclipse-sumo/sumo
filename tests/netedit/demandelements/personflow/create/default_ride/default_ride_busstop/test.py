@@ -44,7 +44,7 @@ netedit.changeElement("personFlow")
 netedit.changePersonPlan("ride: edge->busStop", True)
 
 # create route using edge and busStop
-netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 274, 400)
 netedit.leftClick(referencePosition, 270, 43)
 
 # press enter to create route

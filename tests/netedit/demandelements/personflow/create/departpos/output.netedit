@@ -4,11 +4,11 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 personFlow
 walk: edge->busStop
 dummy
-TestFunctions: Clicked over position 578 - 548
+TestFunctions: Clicked over position 578 - 568
 TestFunctions: Clicked over position 574 - 211
 -20
 7.8
-TestFunctions: Clicked over position 578 - 548
+TestFunctions: Clicked over position 578 - 568
 TestFunctions: Clicked over position 574 - 211
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
