@@ -1211,7 +1211,17 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             }
         // Specific of vehicles
         case SUMO_ATTR_DEPART:
-            return time2string(depart);
+            if (departProcedure == DepartDefinition::TRIGGERED) {
+                return "triggered";
+            } else if (departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
+                return "containerTriggered";
+            } else if (departProcedure == DepartDefinition::SPLIT) {
+                return "split";
+            } else if (departProcedure == DepartDefinition::NOW) {
+                return "now";
+            } else {
+                return time2string(depart);
+            }
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
                 return getParentDemandElements().at(1)->getID();
