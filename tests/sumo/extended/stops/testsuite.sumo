@@ -86,6 +86,9 @@ flow_until
 # Tests for flexible assignment of stopping positions (#3937)
 busstop_stopping_position_assignment
 
+# test defining a custom stop position at a long busStop
+busstop_customPos
+
 # long stopping times should not trigger teleport, but teleports should possible after the stop
 long_stop
 
