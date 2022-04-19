@@ -16,6 +16,9 @@ long_stopped_vehicle
 # test occupancy on short edges
 short_edge
 
+# test occupancy on short edges
+short_edge_2lanes
+
 # one vehicle is moving, subsecond
 one_vehicle_subsecond
 
