@@ -33,11 +33,11 @@ frames.route.create
 frames.route.abort 
 frames.route.removeLastInsertedEdge 
 fix
-fix.demandELements
-fix.demandELements.routes
-fix.demandELements.routes.removeStops 
-fix.demandELements.routes.selectInvalidRoutes 
-fix.demandELements.routes.saveInvalidRoutes 
+fix.demandElements
+fix.demandElements.routes
+fix.demandElements.routes.removeStops 
+fix.demandElements.routes.selectInvalidRoutes 
+fix.demandElements.routes.saveInvalidRoutes 
 junction
 junction.inspect
 junction.inspect.id 

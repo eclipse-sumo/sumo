@@ -41,7 +41,7 @@ netedit.supermodeDemand()
 netedit.saveRoutes(referencePosition)
 
 # fix
-netedit.fixDemandElement(netedit.attrs.fix.demandELements.routes.selectInvalidRoutes)
+netedit.fixDemandElement(netedit.attrs.fix.demandElements.routes.selectInvalidRoutes)
 
 # press supr key to remove invalid routes
 netedit.deleteUsingSuprKey()

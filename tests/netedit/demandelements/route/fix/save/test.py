@@ -41,7 +41,7 @@ netedit.rebuildNetwork()
 netedit.saveRoutes(referencePosition)
 
 # fix
-netedit.fixDemandElement(netedit.attrs.fix.demandELements.routes.saveInvalidRoutes)
+netedit.fixDemandElement(netedit.attrs.fix.demandElements.routes.saveInvalidRoutes)
 
 # save network
 netedit.saveNetwork(referencePosition)
