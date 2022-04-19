@@ -53,6 +53,9 @@ collisions
 # tests for setting apparentDecel  and emergentDecel to be distinct from decel
 apparentDecel_emergencyDecel
 
+# Krauss-specific model tests
+Krauss
+
 # tests for specific aspects of IDM and IDMM
 IDM
 EIDM
