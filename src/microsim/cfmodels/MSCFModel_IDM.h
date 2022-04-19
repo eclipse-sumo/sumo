@@ -153,6 +153,8 @@ public:
     int getModelID() const {
         return myAdaptationFactor == 1. ? SUMO_TAG_CF_IDM : SUMO_TAG_CF_IDMM;
     }
+
+    double minNextSpeed(double speed, const MSVehicle* const veh = 0) const;
     /// @}
 
 

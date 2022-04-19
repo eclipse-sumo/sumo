@@ -46,6 +46,20 @@ MSCFModel_IDM::~MSCFModel_IDM() {}
 
 
 double
+MSCFModel_IDM::minNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
+    // permit exceeding myDecel when approaching stops
+    const double decel = MAX2(myDecel, MIN2(myEmergencyDecel, 1.5));
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        return MAX2(speed - ACCEL2SPEED(decel), 0.);
+    } else {
+        // NOTE: ballistic update allows for negative speeds to indicate a stop within the next timestep
+        return speed - ACCEL2SPEED(decel);
+    }
+}
+
+
+
+double
 MSCFModel_IDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     const double vNext = MSCFModel::finalizeSpeed(veh, vPos);
     if (myAdaptationFactor != 1.) {
@@ -122,6 +136,9 @@ MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
 
 double
 MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
+#ifdef DEBUG_V
+    gDebugFlag1 = veh->isSelected();
+#endif
     applyHeadwayPerceptionError(veh, speed, gap);
     if (gap < 0.01) {
         return 0;
