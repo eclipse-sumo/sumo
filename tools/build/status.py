@@ -93,7 +93,7 @@ def printStatus(makeLog, makeAllLog, smtpServer="localhost", out=sys.stdout, toA
     failed = ""
     build = commonprefix([basename(makeLog), basename(makeAllLog)])
     print(build, end=' ', file=out)
-    print(datetime.datetime.fromtimestamp(os.stat(makeLog).st_ctime).ctime(), file=out)
+    print(datetime.fromtimestamp(os.stat(makeLog).st_ctime).ctime(), file=out)
     print("--", file=out)
     print(basename(makeLog), file=out)
     warnings = 0
@@ -141,4 +141,5 @@ Subject: Error occurred while building
 
 
 if __name__ == "__main__":
-    printStatus(sys.argv[1], sys.argv[2], sys.argv[3], sys.stdout, sys.argv[4])
+    printStatus(sys.argv[1], sys.argv[2], sys.argv[3], sys.stdout, sys.argv[4],
+                sys.argv[5] if len(sys.argv) > 5 else None)
