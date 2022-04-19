@@ -143,6 +143,7 @@ GNEFixDemandElements::FixOptions::FixOptions(FXVerticalFrame* frameParent, const
     myViewNet(viewNet) {
     // Create table
     myTable = new FXTable(this, this, MID_TABLE, GUIDesignTableFixElements);
+    myTable->disable();
     // create horizontal frame
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create vertical frames
