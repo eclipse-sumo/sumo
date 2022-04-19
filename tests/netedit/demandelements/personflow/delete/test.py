@@ -28,19 +28,21 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to demand mode
 netedit.supermodeDemand()
 
 # go to person mode
 netedit.personMode()
 
-# select personFlwo
+# change Person
 netedit.changeElement("personFlow")
 
 # create person using three edges
 netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 180, 55)
+netedit.leftClick(referencePosition, 180, 60)
 
 # press enter to create person
 netedit.typeEnter()
@@ -52,7 +54,7 @@ netedit.deleteMode()
 netedit.setZoom("15", "20", "20")
 
 # delete person
-netedit.leftClick(referencePosition, 150, 295)
+netedit.leftClick(referencePosition, 162, 398)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -76,8 +78,8 @@ netedit.changeProtectDemandElements(referencePosition)
 netedit.leftClick(referencePosition, 400, 295)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save network
 netedit.saveNetwork(referencePosition)
