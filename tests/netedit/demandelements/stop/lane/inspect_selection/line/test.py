@@ -44,7 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 265, 188)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.line, ";;;;", False)
