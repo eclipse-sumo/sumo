@@ -74,7 +74,9 @@ Debug: Selected item 'walk: route' in GNETagSelector
 Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
 Debug: Adding walk: route 'f_0' in GNEChange_DemandElement
 Debug: Key ENTER pressed
-Error: There is another personFlow with the same ID='f_0'.
+Debug: Adding personFlow 'f_1' in GNEChange_DemandElement
+Debug: Removing personFlow 'f_1' in GNEChange_DemandElement
+Debug: Deleting unreferenced personFlow 'f_1'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing walk: route 'f_0' in GNEChange_DemandElement

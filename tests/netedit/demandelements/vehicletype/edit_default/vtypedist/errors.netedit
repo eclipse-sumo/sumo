@@ -65,8 +65,8 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Value ';;;' for attribute VTypeDist. of vType isn't valid
 Debug: Adding vTypeDistribution 'distA' in GNEChange_DemandElement
 Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
+Debug: Opening FXMessageBox 'remove vTypeDistribution'
+Debug: Closed FXMessageBox 'remove vTypeDistribution' with 'No'
 Debug: Opening FXMessageBox 'remove vTypeDistribution'
 Debug: Closed FXMessageBox 'remove vTypeDistribution' with 'yes'
 Debug: Setting new attribute
@@ -84,8 +84,10 @@ Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
+Debug: Removing vTypeDistribution 'distA' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
+Debug: Adding vTypeDistribution 'distA' in GNEChange_DemandElement
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
