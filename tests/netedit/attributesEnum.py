@@ -63,6 +63,13 @@ class frames:
         abort = 16
         removeLastInsertedEdge = 17
 
+class fix:
+    class demandELements:
+        class routes:
+            removeStops = 1
+            selectInvalidRoutes = 2
+            saveInvalidRoutes = 3
+
 # --------------------------------
 # NETWORK
 # --------------------------------

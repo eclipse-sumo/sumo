@@ -32,6 +32,12 @@ frames.route
 frames.route.create 
 frames.route.abort 
 frames.route.removeLastInsertedEdge 
+fix
+fix.demandELements
+fix.demandELements.routes
+fix.demandELements.routes.removeStops 
+fix.demandELements.routes.selectInvalidRoutes 
+fix.demandELements.routes.saveInvalidRoutes 
 junction
 junction.inspect
 junction.inspect.id 

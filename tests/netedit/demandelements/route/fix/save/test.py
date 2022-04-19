@@ -40,19 +40,8 @@ netedit.rebuildNetwork()
 # save routes
 netedit.saveRoutes(referencePosition)
 
-# go to "save" option
-for _ in range(2):
-    netedit.typeInvertTab()
-
-# select solution
-netedit.typeSpace()
-
-# go to "ok" button
-for _ in range(2):
-    netedit.typeTab()
-
-# press space to press ok button
-netedit.typeSpace()
+# fix
+netedit.fixDemandElement(netedit.attrs.fix.demandELements.routes.saveInvalidRoutes)
 
 # save network
 netedit.saveNetwork(referencePosition)

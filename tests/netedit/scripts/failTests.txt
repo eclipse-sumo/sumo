@@ -1,6 +1,1 @@
 -tp appdata=netedit.gui
-demandelements/flow/create/arrivalspeed
-demandelements/person/delete
-demandelements/personflow/delete
-demandelements/route/fix/save
-demandelements/stop/lane/inspect_selection/line

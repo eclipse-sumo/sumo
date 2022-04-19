@@ -1,4 +1,6 @@
 POIGEO.create.lonLat
+fix.demandELements.routes
+fix.demandELements.routes.removeStops
 flowEmbedded.inspect.arrivalEdge
 flowEmbedded.inspect.departEdge
 flowEmbedded.inspectSelection.begin

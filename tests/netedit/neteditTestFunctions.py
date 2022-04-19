@@ -1388,7 +1388,7 @@ def fixStoppingPlace(solution):
         typeSpace()
 
 #################################################
-# route elements
+# demand elements
 #################################################
 
 
@@ -1429,6 +1429,21 @@ def changeRouteVClass(value):
     pasteIntoTextField(value)
     # type enter to save change
     typeEnter()
+
+
+def fixDemandElement(value):
+    """
+    @brief fix demand element
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to option
+    for _ in range(value):
+        typeInvertTab()
+    # type space to select
+    typeSpace()
+    # accept
+    typeTwoKeys('alt', 'a')
 
 #################################################
 # person elements

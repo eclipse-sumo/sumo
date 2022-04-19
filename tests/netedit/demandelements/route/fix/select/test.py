@@ -31,28 +31,21 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # show demand elements in network mode
 netedit.changeEditMode(netedit.attrs.modes.network.showDemandElements)
 
-# Recompute
-netedit.rebuildNetwork()
+# force save demand elements
+netedit.forceSaveDemandElements()
 
 # Go to demand mode
 netedit.supermodeDemand()
+
 # save routes
 netedit.saveRoutes(referencePosition)
 
-# go to "select invalid" option
-netedit.typeInvertTab()
-
-# select solution
-netedit.typeSpace()
-
-# go to "ok" button
-netedit.typeTab()
-
-# press space to press ok button
-netedit.typeSpace()
+# fix
+netedit.fixDemandElement(netedit.attrs.fix.demandELements.routes.selectInvalidRoutes)
 
 # press supr key to remove invalid routes
 netedit.deleteUsingSuprKey()
+
 # save routes
 netedit.saveRoutes(referencePosition)
 
