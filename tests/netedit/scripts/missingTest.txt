@@ -30,7 +30,6 @@ routeflow.inspectSelection.begin
 routeflow.inspectSelection.type
 selection.lockSelectionNetwork.TAZs
 stopLane.inspectSelection.posLat
-tripFromToEdge.inspectSelection.type
 tripFromToJunction.inspectSelection.type
 type.editDialog.colorButton
 type.editDialog.imgFileButton
@@ -41,7 +40,4 @@ vehicle.inspect.departEdge
 vehicleEmbedded.inspect.arrivalEdge
 vehicleEmbedded.inspect.departEdge
 waypoint.inspectSelection.speed
-waypointLane.create.speed
-waypointLane.inspect.speed
 waypointLane.inspectSelection.posLat
-waypointLane.inspectSelection.speed
