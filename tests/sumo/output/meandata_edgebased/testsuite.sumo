@@ -13,6 +13,9 @@ one_vehicle
 # one vehicle stopped across multiple lanes
 long_stopped_vehicle
 
+# test occupancy on short edges
+short_edge
+
 # one vehicle is moving, subsecond
 one_vehicle_subsecond
 
