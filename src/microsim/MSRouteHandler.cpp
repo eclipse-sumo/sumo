@@ -1167,7 +1167,11 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         if (toStop != nullptr) {
             const MSLane& l = toStop->getLane();
             stop.lane = l.getID();
-            stop.endPos = toStop->getEndLanePosition();
+            if ((stop.parametersSet & STOP_END_SET) == 0) {
+                stop.endPos = toStop->getEndLanePosition();
+            } else {
+                stop.endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, nullptr, ok);
+            }
             stop.startPos = toStop->getBeginLanePosition();
             edge = &l.getEdge();
         } else {
