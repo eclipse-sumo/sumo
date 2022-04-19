@@ -193,6 +193,8 @@ public:
     long OnIdle(FXObject* sender, FXSelector sel, void* ptr);
 
 private:
+    double calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up);
+
     class SUMOTerrainManipulator : public osgGA::TerrainManipulator {
     public:
         SUMOTerrainManipulator() {
