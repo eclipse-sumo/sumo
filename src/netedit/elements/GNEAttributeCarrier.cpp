@@ -5257,7 +5257,7 @@ GNEAttributeCarrier::fillCommonPersonAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::UPDATEGEOMETRY,
                                           "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag) +
                                           DEFAULT_VTYPE_ID);
     myTagProperties[currentTag].addAttribute(attrProperty);
