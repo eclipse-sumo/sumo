@@ -133,6 +133,9 @@ public:
 
     void setShowDetectors(bool show);
 
+    /// @brief try to get the value of the given parameter (including prefixed parameters)
+    const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;
+
     /**@brief Sets a parameter and updates internal constants */
     void setParameter(const std::string& key, const std::string& value) override;
 

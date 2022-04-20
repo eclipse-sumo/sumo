@@ -1271,6 +1271,21 @@ MSActuatedTrafficLightLogic::getConditions() const {
     return result;
 }
 
+const std::string
+MSActuatedTrafficLightLogic::getParameter(const std::string& key, const std::string defaultValue) const {
+    if (StringUtils::startsWith(key, "condition.")) {
+        const std::string cond = key.substr(10);
+        auto it = myConditions.find(cond);
+        if (it != myConditions.end()) {
+            return toString(evalExpression(it->second));
+        } else {
+            throw InvalidArgument("Unknown condition '" + cond + "' for actuated traffic light '" + getID() + "'");
+        }
+    } else {
+        return MSSimpleTrafficLightLogic::getParameter(key, defaultValue);
+    }
+}
+
 void
 MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::string& value) {
     // some pre-defined parameters can be updated at runtime
