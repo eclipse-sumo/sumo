@@ -16,9 +16,15 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Adding busStop 'busStop' in GNEChange_Additional
-Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
+Debug: Inserting generic parameter 'KeyA1|valueA1' into person
+Debug: Inserting generic parameter 'KeyA3|valueA2' into person
+Debug: Inserting generic parameter 'KeyA2|valueA3' into person
+Debug: Adding person 'f_0' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'f_0' in GNEChange_DemandElement
-Debug: Adding personFlow 'f_1' in GNEChange_DemandElement
+Debug: Inserting generic parameter 'KeyB1|valueB1' into person
+Debug: Inserting generic parameter 'KeyB3|valueB2' into person
+Debug: Inserting generic parameter 'KeyB2|valueB3' into person
+Debug: Adding person 'f_1' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'f_1' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
@@ -74,7 +80,7 @@ Debug: Setting new attribute
 Debug: Current Viewport values: 15.00, 20.00, 20.00. Zoom = '434.00'
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Value 'dummyPos' for attribute departPos of personFlow isn't valid
+Debug: Value 'dummyPos' for attribute departPos of person isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -142,9 +148,9 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: demand elements saved
 Debug: Additionals saved
 Debug: Deleting unreferenced personTrip: edge->edge 'f_1'
-Debug: Deleting unreferenced personFlow 'f_1'
+Debug: Deleting unreferenced person 'f_1'
 Debug: Deleting unreferenced personTrip: edge->edge 'f_0'
-Debug: Deleting unreferenced personFlow 'f_0'
+Debug: Deleting unreferenced person 'f_0'
 Debug: Deleting unreferenced busStop 'busStop'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor

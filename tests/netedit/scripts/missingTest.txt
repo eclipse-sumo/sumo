@@ -20,12 +20,6 @@ modes.network.grid
 modes.network.junctionShape
 modes.network.showSubAdditionals
 modes.network.spreadVehicle
-person.inspectSelection.color
-person.inspectSelection.colorButton
-person.inspectSelection.depart
-person.inspectSelection.departPos
-person.inspectSelection.parameters
-person.inspectSelection.type
 routeflow.inspectSelection.begin
 routeflow.inspectSelection.type
 selection.lockSelectionNetwork.TAZs
