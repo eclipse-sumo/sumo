@@ -8,6 +8,10 @@ type_bike
 
 color
 
+departedge
+
+arrivaledge
+
 departlane
 
 departpos
