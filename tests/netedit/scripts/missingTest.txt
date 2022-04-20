@@ -20,8 +20,12 @@ modes.network.grid
 modes.network.junctionShape
 modes.network.showSubAdditionals
 modes.network.spreadVehicle
+person.inspectSelection.color
+person.inspectSelection.colorButton
+person.inspectSelection.depart
+person.inspectSelection.departPos
+person.inspectSelection.parameters
 person.inspectSelection.type
-personFlow.inspectSelection.type
 routeflow.inspect.arrivalEdge
 routeflow.inspect.departEdge
 routeflow.inspectSelection.begin

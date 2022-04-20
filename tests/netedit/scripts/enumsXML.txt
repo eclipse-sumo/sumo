@@ -1835,6 +1835,11 @@ person.inspect.depart
 person.inspect.parameters 
 person.inspectSelection
 person.inspectSelection.type 
+person.inspectSelection.colorButton 
+person.inspectSelection.color 
+person.inspectSelection.departPos 
+person.inspectSelection.depart 
+person.inspectSelection.parameters 
 personFlow
 personFlow.create
 personFlow.create.id 
@@ -1857,6 +1862,15 @@ personFlow.inspect.spacingOption
 personFlow.inspect.parameters 
 personFlow.inspectSelection
 personFlow.inspectSelection.type 
+personFlow.inspectSelection.colorButton 
+personFlow.inspectSelection.color 
+personFlow.inspectSelection.departPos 
+personFlow.inspectSelection.begin 
+personFlow.inspectSelection.terminate 
+personFlow.inspectSelection.spacing 
+personFlow.inspectSelection.terminateOption 
+personFlow.inspectSelection.spacingOption 
+personFlow.inspectSelection.parameters 
 edgeData
 edgeData.create
 edgeData.create.parameters 

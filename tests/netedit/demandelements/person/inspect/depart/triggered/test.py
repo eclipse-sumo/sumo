@@ -60,10 +60,7 @@ netedit.modifyAttribute(netedit.attrs.person.inspect.depart, "", False)
 netedit.modifyAttribute(netedit.attrs.person.inspect.depart, "dummyDepart", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.person.inspect.depart, "-3", False)
-
-# change depart with an valid value
-netedit.modifyAttribute(netedit.attrs.person.inspect.depart, "10.2", False)
+netedit.modifyAttribute(netedit.attrs.person.inspect.depart, "triggered", False)
 
 # Check undo
 netedit.undo(referencePosition, 2)
