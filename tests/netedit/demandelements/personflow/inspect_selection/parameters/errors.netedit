@@ -16,8 +16,14 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Adding busStop 'busStop' in GNEChange_Additional
+Debug: Inserting generic parameter 'KeyA1|valueA1' into personFlow
+Debug: Inserting generic parameter 'KeyA3|valueA2' into personFlow
+Debug: Inserting generic parameter 'KeyA2|valueA3' into personFlow
 Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'f_0' in GNEChange_DemandElement
+Debug: Inserting generic parameter 'KeyB1|valueB1' into personFlow
+Debug: Inserting generic parameter 'KeyB3|valueB2' into personFlow
+Debug: Inserting generic parameter 'KeyB2|valueB3' into personFlow
 Debug: Adding personFlow 'f_1' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'f_1' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
@@ -239,3 +245,4 @@ Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16
+X connection to :19168.0 broken (explicit kill or server shutdown).
