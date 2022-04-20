@@ -1847,6 +1847,12 @@ personFlow.create.colorButton
 personFlow.create.color 
 personFlow.create.departPos 
 personFlow.create.begin 
+personFlow.create.terminate 
+personFlow.create.end 
+personFlow.create.number 
+personFlow.create.spacing 
+personFlow.create.terminateOption 
+personFlow.create.spacingOption 
 personFlow.inspect
 personFlow.inspect.id 
 personFlow.inspect.type 

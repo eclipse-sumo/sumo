@@ -2176,6 +2176,12 @@ class personFlow:
         color = 10
         departPos = 11
         begin = 12
+        terminate = 16
+        end = 18
+        number = 19
+        spacing = 18
+        terminateOption = 20
+        spacingOption = 21
 
     class inspect:
         id = 1
