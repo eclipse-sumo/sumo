@@ -2294,7 +2294,7 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
     if (outgoing == nullptr) { // always off
         return LINKSTATE_TL_OFF_NOSIGNAL;
     }
-    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
+    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT && mustBrake(incoming, outgoing, fromlane, toLane, true)) {
         return LINKSTATE_EQUAL; // all the same
     }
     if (myType == SumoXMLNodeType::ALLWAY_STOP) {
