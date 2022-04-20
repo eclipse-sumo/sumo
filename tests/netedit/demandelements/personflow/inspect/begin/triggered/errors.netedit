@@ -65,13 +65,14 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personFlow' in GNETagSelector
 Debug: Key ENTER pressed
-Debug: Adding person 'p_0' in GNEChange_DemandElement
-Debug: Adding personTrip: edge->edge 'p_0' in GNEChange_DemandElement
+Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
+Debug: Adding personTrip: edge->edge 'f_0' in GNEChange_DemandElement
 Debug: Current Viewport values: 15.00, 20.00, 20.00. Zoom = '434.00'
 Debug: Setting new attribute
-Debug: Value 'dummyDepart' for attribute depart of person isn't valid
-Debug: Value '-3' for attribute depart of person isn't valid
+Debug: Value 'dummyDepart' for attribute begin of personFlow isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -123,8 +124,8 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: demand elements saved
 Debug: Additionals saved
-Debug: Deleting unreferenced personTrip: edge->edge 'p_0'
-Debug: Deleting unreferenced person 'p_0'
+Debug: Deleting unreferenced personTrip: edge->edge 'f_0'
+Debug: Deleting unreferenced personFlow 'f_0'
 Debug: Deleting unreferenced busStop 'busStop'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
