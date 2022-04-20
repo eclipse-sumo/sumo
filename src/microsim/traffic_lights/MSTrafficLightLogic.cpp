@@ -156,9 +156,8 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                        + "', program '" + getProgramID() + "' in phases " + toString(i) + " and " + toString(iNext));
                 }
                 if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size() + myIgnoredIndices.size()) {
-                    WRITE_WARNING("Unused states in tlLogic '" + getID()
-                                  + "', program '" + getProgramID() + "' in phase " + toString(i)
-                                  + " after tl-index " + toString((int)myLanes.size() - 1));
+                    WRITE_WARNINGF("Unused states in tlLogic '%', program '%' in phase % after tl-index %",
+                            getID(), getProgramID(), i, myLanes.size() - 1);
                     haveWarnedAboutUnusedStates = true;
                 }
                 // detect illegal states
@@ -176,9 +175,8 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                         for (LaneVector::const_iterator it = myLanes[j].begin(); it != myLanes[j].end(); ++it) {
                             if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
                                 if (getLogicType() != TrafficLightType::NEMA) {
-                                    WRITE_WARNING("Missing yellow phase in tlLogic '" + getID()
-                                                  + "', program '" + getProgramID() + "' for tl-index " + toString(j)
-                                                  + " when switching" + optionalFrom + " to phase " + toString(iNext));
+                                    WRITE_WARNINGF("Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %",
+                                            getID(), getProgramID(), j, optionalFrom, iNext);
                                     // one warning per program is enough
                                     haveWarned = true;
                                 }
@@ -199,8 +197,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         for (int j = 0; j < (int)foundGreen.size(); ++j) {
             if (!foundGreen[j]) {
                 if (getLogicType() != TrafficLightType::NEMA) {
-                    WRITE_WARNING("Missing green phase in tlLogic '" + getID()
-                                  + "', program '" + getProgramID() + "' for tl-index " + toString(j));
+                    WRITE_WARNINGF("Missing green phase in tlLogic '%', program '%' for tl-index %", getID(), getProgramID(), j);
                 }
                 break;
             }
