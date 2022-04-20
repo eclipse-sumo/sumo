@@ -854,9 +854,11 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_TYPE:
-            replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
-            // set manually vtypeID (needed for saving)
-            vtypeid = value;
+            if (getID().size() > 0) {
+                replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
+                // set manually vtypeID (needed for saving)
+                vtypeid = value;
+            }
             break;
         case SUMO_ATTR_COLOR:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {

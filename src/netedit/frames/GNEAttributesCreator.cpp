@@ -276,9 +276,10 @@ GNEAttributesCreator::refreshRows(const bool createRows) {
         if ((attribute.getAttr() == SUMO_ATTR_ID) && (attribute.getTagPropertyParent().getTag() == SUMO_TAG_VAPORIZER)) {
             showAttribute = false;
         }
-        // check special case for VType IDs in vehicle Frame
+        // check special case for VType IDs in vehicle and person Frame
         if ((attribute.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
-            (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
+            ((myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
+            (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_PERSON))) {
             showAttribute = false;
         }
         // show attribute depending of showAttribute flag
