@@ -26,8 +26,6 @@ person.inspectSelection.depart
 person.inspectSelection.departPos
 person.inspectSelection.parameters
 person.inspectSelection.type
-routeflow.inspect.arrivalEdge
-routeflow.inspect.departEdge
 routeflow.inspectSelection.begin
 routeflow.inspectSelection.type
 selection.lockSelectionNetwork.TAZs
@@ -37,8 +35,6 @@ type.editDialog.colorButton
 type.editDialog.imgFileButton
 type.editDialog.osgFileButton
 type.editDialog.parametersButton
-vehicle.inspect.arrivalEdge
-vehicle.inspect.departEdge
 vehicleEmbedded.inspect.arrivalEdge
 vehicleEmbedded.inspect.departEdge
 waypoint.inspectSelection.speed
