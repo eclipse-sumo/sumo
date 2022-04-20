@@ -509,7 +509,7 @@ value/range
 
 ## Vehicle Visualisation Settings
 
-**Table 1.1 Vehicle shape schemes**
+### Vehicle shape shemes
 
 | Name          | Description                                                                                                                      |
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -521,7 +521,7 @@ value/range
 !!! note
     When using an `imgFile` as the shape, it is necessary to select the vehicles to show as "raster images" in the *View Settings* menu.
 
-**Table 1.2 Vehicle coloring schemes and boundaries**
+### Vehicle coloring schemes
 
 | Name                           | Measure | Description         |
 | ------------------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -561,10 +561,36 @@ value/range
 | random                         | \-      | Random vehicle color                                                                                                                                       |
 | by angle                       | \-      | Color by heading angle of the vehicle                                                                                                                                       |
 
-In addition to the vehicle shape and coloring one can display blinker
-and brake lights, the minimum gap, and the vehicle name. The vehicle
-names will always be scaled to the chosen size, no matter which zoom
-step is chosen.
+### Toggles
+
+- Show blinkers / brake lights
+- Show brake gap
+- Show route index: When activating *show route* in the vehicle context menu, each highlighted edge is annoted with it's index along the route (permitting to analyze looped routes)
+- Show parking info: When activating *show route* in the vehicle context menu, the vehicle is annoted with the number of failed parking attempts and each parking area is annoted with the last target selection score
+- Show minimum gap
+- Show [Bluetooth range](Simulation/Bluetooth.md)
+- Scale length with gemeotry (see [length-geometry-mismatch](Simulation/Distances.md#vehicle_lengths_in_sumo-gui)
+
+### Scaling
+
+Vehicle size is affected by the following features
+
+- **Exaggerate by** : Sets a constant scaling factor
+- **Draw with constant size when zoomed out**: Increases vehicle size (relative to road network) and thereby keeps them visible when zooming out
+It is also possible to scale the size of the vehicle according it's attributes.
+- **Scale size**: Selects scaling by a given attribute (i.e. speed). The user may configure a table of scaling factors corresponding to a list of numerical values (with automatic interpolation). This works similar to color interpolation.
+
+### Textual annotations
+
+The following textual annotations are supported:
+
+- **vehicle id**: Renders the vehicle id and also 'line' attribute if defined for the vehicle
+- **vehicle color value**: The numerical value that forms the basis for coloring (i.e. speed) is rendered
+- **vehicle scale value**: The numerical value that forms the basis for scaling (i.e. acceleration( is rendered. It may be useful to activate scaling just for the textual value (and setting a scaling factors to 1). 
+- **Vehicle text param**: Renders any [Generic Parameter](Simulation/GenericParameters.md) set on the vehicle. This also supports any [virtual parameters accessible via TraCI](TraCI/Vehicle_Value_Retrieval.md#device_and_lanechangemodel_parameter_retrieval_0x7e)
+
+
+Each text can be configured with regard to it's size color and background color. By activating the option *Only for selected*, The textual annotation is limited to vehicles with the [*selected*](#selecting_objects) status.
 
 ## Edge/Lane Visualisation Settings
 
