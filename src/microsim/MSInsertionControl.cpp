@@ -251,7 +251,9 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                 int quota = useScale ? 1 : vehControl.getQuota(vehControl.getScale() * typeScale);
                 if (quota > 0) {
                     vehControl.addVehicle(newPars->id, vehicle);
-                    add(vehicle);
+                    if (pars->departProcedure == DepartDefinition::GIVEN) {
+                        add(vehicle);
+                    }
                     i->index++;
                     while (--quota > 0) {
                         SUMOVehicleParameter* const quotaPars = new SUMOVehicleParameter(*pars);
@@ -260,7 +262,9 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                                             pars->depart + pars->repetitionsDone * pars->repetitionTotalOffset + computeRandomDepartOffset();
                         SUMOVehicle* const quotaVehicle = vehControl.buildVehicle(quotaPars, route, vtype, !MSGlobals::gCheckRoutes);
                         vehControl.addVehicle(quotaPars->id, quotaVehicle);
-                        add(quotaVehicle);
+                        if (pars->departProcedure == DepartDefinition::GIVEN) {
+                            add(quotaVehicle);
+                        }
                         pars->repetitionsDone++;
                         i->index++;
                     }
