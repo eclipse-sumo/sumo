@@ -206,7 +206,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
     // check incompatible junction logic
     // this can happen if the network was built with a very different signal
     // plan from the one currently being used.
-    // Cconnections that never had a common green phase during network building may
+    // Connections that never had a common green phase during network building may
     // have a symmetric response relation to avoid certain kinds of jam but this
     // can lead to deadlock if a different program gives minor green to both
     // connections at the same time
@@ -214,7 +214,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
 
     const bool mustCheck = MSNet::getInstance()->hasInternalLinks();
     // The checks only runs for definitions from additional file and this is sufficient.
-    // The distinction is implicit because original logics are loaded earlier and at that time hasInternalLinks is alwas false
+    // The distinction is implicit because original logics are loaded earlier and at that time hasInternalLinks is always false
     // Also, when the network has no internal links, mutual conflicts are not built by netconvert
     //std::cout << "init tlLogic=" << getID() << " prog=" << getProgramID() << " links=" << myLinks.size() << " internal=" << MSNet::getInstance()->hasInternalLinks() << "\n";
     if (mustCheck && phases.size() > 0) {
