@@ -1,11 +1,3 @@
-id
+float
 
-type
-
-color
-
-departpos
-
-depart
-
-parameters
+triggered

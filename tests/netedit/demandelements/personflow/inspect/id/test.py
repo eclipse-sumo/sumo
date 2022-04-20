@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # create person using three edges
-netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, 560, 220)
 netedit.leftClick(referencePosition, 180, 57)
 
 # press enter to create person
@@ -64,19 +64,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 162, 398)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.person.inspect.id, "", True)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.id, "", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.person.inspect.id, ";;;;;;;;", True)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.id, ";;;;;;;;", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.person.inspect.id, "id with spaces", True)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.id, "id with spaces", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.person.inspect.id, "p_0", True)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.id, "f_0", False)
 
 # change ID with an invalid value (empty)
-netedit.modifyAttribute(netedit.attrs.person.inspect.id, "customID", True)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.id, "customID", False)
 
 # Check undo
 netedit.undo(referencePosition, 3)

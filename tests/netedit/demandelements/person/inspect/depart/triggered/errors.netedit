@@ -69,7 +69,6 @@ Debug: Key ENTER pressed
 Debug: Adding person 'p_0' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'p_0' in GNEChange_DemandElement
 Debug: Current Viewport values: 15.00, 20.00, 20.00. Zoom = '434.00'
-Debug: Setting new attribute
 Debug: Value 'dummyDepart' for attribute depart of person isn't valid
 Debug: Value '-3' for attribute depart of person isn't valid
 Debug: Setting new attribute
@@ -78,10 +77,12 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
+Debug: Removing personTrip: edge->edge 'p_0' in GNEChange_DemandElement
+Debug: Removing person 'p_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
+Debug: Adding person 'p_0' in GNEChange_DemandElement
+Debug: Adding personTrip: edge->edge 'p_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

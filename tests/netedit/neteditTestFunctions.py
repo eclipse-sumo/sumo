@@ -1052,9 +1052,9 @@ def checkParameters(referencePosition, attributeNumber, overlapped):
     # Change generic parameters with a valid value
     modifyAttribute(attributeNumber, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", overlapped)
     # Check undo
-    undo(referencePosition, 10)
+    undo(referencePosition, 8)
     # Check redo
-    redo(referencePosition, 10)
+    redo(referencePosition, 8)
 
 
 def checkDoubleParameters(referencePosition, attributeNumber, overlapped, posX=0, posY=0):

@@ -57,16 +57,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 162, 398)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.person.inspect.type, ";;;;;", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, ";;;;;", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.person.inspect.type, "", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.person.inspect.type, "dummyType", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "dummyType", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.person.inspect.type, "custom_vType", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "custom_vType", False)
 
 # Check undo
 netedit.undo(referencePosition, 2)
