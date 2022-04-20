@@ -2063,9 +2063,15 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DEPARTEDGE: {
             // update depart edge
             if (value.empty()) {
+                // unset parameter
+                parametersSet &= ~VEHPARS_DEPARTEDGE_SET;
                 departEdge = -1;
+                departEdgeProcedure = RouteIndexDefinition::DEFAULT;
             } else {
+                // mark parameter as set
+                parametersSet |= VEHPARS_DEPARTEDGE_SET;
                 departEdge = parse<int>(value);
+                departEdgeProcedure = RouteIndexDefinition::GIVEN;
             }
             // compute vehicle
             if (getID().size() > 0) {
@@ -2077,9 +2083,15 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ARRIVALEDGE: {
             // update arrival edge
             if (value.empty()) {
-                arrivalEdge = 0;
+                // unset parameter
+                parametersSet &= ~VEHPARS_ARRIVALEDGE_SET;
+                arrivalEdge = -1;
+                arrivalEdgeProcedure = RouteIndexDefinition::DEFAULT;
             } else {
+                // mark parameter as set
+                parametersSet |= VEHPARS_ARRIVALEDGE_SET;
                 arrivalEdge = parse<int>(value);
+                arrivalEdgeProcedure = RouteIndexDefinition::GIVEN;
             }
             if (getID().size() > 0) {
                 // compute vehicle
