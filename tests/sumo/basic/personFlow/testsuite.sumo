@@ -1,5 +1,11 @@
 # person with a single ride
 ride
+
+# a flow of persons with triggered vehicles
+ride_triggered
+
+# a flow of persons in a flow of triggered vehicles
+ride_triggeredFlow
 walk_personsPerHour
 walk_poisson
 walk_probability
