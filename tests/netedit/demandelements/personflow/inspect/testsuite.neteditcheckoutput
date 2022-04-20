@@ -6,6 +6,20 @@ color
 
 departpos
 
-depart
+begin
+
+endnumber
+
+end
+
+number
+
+vehsperhour
+
+period
+
+poisson
+
+probability
 
 parameters

@@ -71,11 +71,10 @@ Debug: Key ENTER pressed
 Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'f_0' in GNEChange_DemandElement
 Debug: Current Viewport values: 15.00, 20.00, 20.00. Zoom = '434.00'
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
+Debug: Setting new attribute into personFlow 'f_0'
+Debug: Setting new attribute into personFlow 'f_0'
+Debug: Setting new attribute into personFlow 'f_0'
+Debug: Setting new attribute into personFlow 'f_0'
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -86,42 +85,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing personTrip: edge->edge 'f_0' in GNEChange_DemandElement
-Debug: Removing personFlow 'f_0' in GNEChange_DemandElement
+Debug: Setting previous attribute into personFlow 'f_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding personTrip: edge->edge 'f_0' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
+Debug: Setting new attribute into personFlow 'f_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
