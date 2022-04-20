@@ -75,7 +75,7 @@ Debug: Current Viewport values: 15.00, 20.00, 20.00. Zoom = '434.00'
 Debug: Value '' for attribute id of person isn't valid
 Debug: Value ';;;;;;;;' for attribute id of person isn't valid
 Debug: Value 'id with spaces' for attribute id of person isn't valid
-Debug: Value 'p_0' for attribute id of person isn't valid
+Debug: Value 'p_1' for attribute id of person isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
