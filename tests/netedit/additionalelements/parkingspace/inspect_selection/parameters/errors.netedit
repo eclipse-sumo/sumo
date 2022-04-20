@@ -95,27 +95,6 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing space 'parkingArea_B' in GNEChange_Additional
-GLDebug: 	Removed object parkingSpace:parkingArea_B from SUMORTree with boundary 10.00,-17.00,58.00,31.00
-Debug: Removing parkingArea 'parkingArea_B' in GNEChange_Additional
-Debug: Removing space 'parkingArea_A' in GNEChange_Additional
-GLDebug: 	Removed object parkingSpace:parkingArea_A from SUMORTree with boundary -2.00,-12.00,36.00,26.00
-Debug: Removing parkingArea 'parkingArea_A' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding parkingArea 'parkingArea_A' in GNEChange_Additional
-Debug: Adding space 'parkingArea_A' in GNEChange_Additional
-GLDebug: 	Inserted parkingSpace:parkingArea_A into SUMORTree with boundary -2.00,-12.00,36.00,26.00
-GLDebug: 	Removed object parkingSpace:parkingArea_A from SUMORTree with boundary -2.00,-12.00,36.00,26.00
-GLDebug: 	Inserted parkingSpace:parkingArea_A into SUMORTree with boundary -2.00,-12.00,36.00,26.00
-Debug: Adding parkingArea 'parkingArea_B' in GNEChange_Additional
-Debug: Adding space 'parkingArea_B' in GNEChange_Additional
-GLDebug: 	Inserted parkingSpace:parkingArea_B into SUMORTree with boundary 10.00,-17.00,58.00,31.00
-GLDebug: 	Removed object parkingSpace:parkingArea_B from SUMORTree with boundary 10.00,-17.00,58.00,31.00
-GLDebug: 	Inserted parkingSpace:parkingArea_B into SUMORTree with boundary 10.00,-17.00,58.00,31.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -158,7 +137,6 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Keys Ctrl+Y (Redo) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

@@ -61,8 +61,6 @@ Debug: Removing taz 'TAZ_1' in GNEChange_Additional
 GLDebug: 	Removed object taz:TAZ_1 from SUMORTree with boundary 12.00,-2.00,50.00,60.00
 Debug: Removing taz 'TAZ_0' in GNEChange_Additional
 GLDebug: 	Removed object taz:TAZ_0 from SUMORTree with boundary -8.00,-2.00,30.00,40.00
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding taz 'TAZ_0' in GNEChange_Additional
@@ -97,8 +95,6 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Keys Ctrl+Y (Redo) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

@@ -56,8 +56,6 @@ Debug: Removing busStop 'busStop4' in GNEChange_Additional
 Debug: Removing busStop 'busStop3' in GNEChange_Additional
 Debug: Removing busStop 'busStop2' in GNEChange_Additional
 Debug: Removing busStop 'busStop1' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding busStop 'busStop1' in GNEChange_Additional
@@ -87,8 +85,6 @@ Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 Debug: Deleting unreferenced busStop 'busStop6'
 Debug: Deleting unreferenced busStop 'busStop5'
