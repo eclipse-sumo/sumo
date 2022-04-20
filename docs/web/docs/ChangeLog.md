@@ -36,6 +36,12 @@ title: ChangeLog
   - Fixed collision with carFollowModel "IDM". Issue #10471
   - Fixed warnings after a long vehicle changes lanes after turning. Issue #10481
   - Added vType attribute 'sigmaStep' to decouple the driving imperfection dynamics (sigma) of Krauss and related Models from the simulation step-length. Issue  #10494
+  - Fixed sublane model deadlock at width change on junction. Issue #10509
+  - Fixed junction collision in sublane model. Issue #10458
+  - Fixed xml schema error when loading data files written by netedit. Issue #1051
+  - Fixed error related to NEMA detector naming. Issue #10517
+  - Fixed wide vehicle being blocked on junction. Issue #10521, #10523
+  - CarFollowModel IDM with low decel values no longer overshoots stop position. Issue #10556
   - opposite-direction driving
     - Can now overtake stopped vehicle when there is only a short gap afterwards. Issue #9994, #10338
     - Fixed failure to overtake fast vehicles. Issue #10194    
@@ -64,6 +70,11 @@ title: ChangeLog
   - Fixed crash when opening phase tracker window on invalid switching conditions. Issue #10121
   - Vehicles in the 3D-view are no longer hidden beneath a colored bubble. Issue #5735
   - Fixed frozen GUI after interactively removing vehicle. Issue #10291
+  - param `show-detectors` now takes effect for NEMA controllers. Issue #10519
+  - Fixed bug where color threshold names were not restored from settings file. Issue #10507
+  - Setting 3D viewing angle in the viewport dialog is now working. Issue #5663
+  - Fixed incorrect interpretation of some projection parameters (Windowso only). Issue #10526
+  - 3D options are no longer shown in viewport editor for 2D view. Issue #10540
     
 - netconvert
   - Fixed crash when using option **--railway.topology.extend-priority**. Issue #10043
@@ -76,9 +87,12 @@ title: ChangeLog
   - Improve default shape for diagonal pedestrian crossings. Issue #10287
   - Fixed invalid XML characters in written junction names. Issue #10461
   - Fixed interpretation of OSM key junction=circular. Issue #10479
+  - Fixed missing bus connection. Issue #10502
+  - Fixed crash when merging overlapping networks with junction params. Issue #10528
 
 - netedit
   - Fixed invalid geometry when loading geo-polygons. Issue #10101 (regression in 1.10.0)
+  - Fixed crash when creating geo-poi. Issue #10505 (regression in 1.10.0)
   - regressions in 1.12.0  
     - Fixed crash when deleting last (or only) personTrip-element. Issue #10192
     - Fixed crash when changing departSpeed for flow. Issue #10165
@@ -100,8 +114,10 @@ title: ChangeLog
   - Stops can now load tripId attribute. Issue #10475
   - Stops with embedded routes are now written sorted. Issue #10476
   - Fixed crash in edgeRelation mode. Issue #10485
-    
+  - Train visualization paramters (i.e. *carriageLength*) are now written. Issue #10553
+      
 - sumo-gui
+  - Fixed missing window focus at startup. Issue #10499
   - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069
   - GUI-defined traffic scaling is now preserved on reload. Issue #10096
   - Fixed several problems when clicking on time links in the message area. Issue #10225
@@ -113,6 +129,7 @@ title: ChangeLog
   - Loading edge data for unknown edges is no longer an error. Issue #10379  
   - Fixed inconsistent gui settings on reload (settings will be kept on reload unless the settings-file was modified). Issue #10398
   - Cancelling a change in viewsettings now takes effect immediately. Issue #10495
+  - Fixed x-axis annotation of moused-over value in plot window.
     
 - duarouter
   - Route errors are now detected when using option **--skip-new-routes**. Issue #6113
@@ -176,6 +193,7 @@ title: ChangeLog
   - Added option **--time-to-teleport.highways.min-speed** to configure the speed threshold for time-to-teleport.highways. Issue #8268
   - Fixed exaggerated precision of non-geodetic fcd-output attributes when using option **--fcd-output.geo**. Issue #10465
   - All carFollowModels now support attribute 'collisionMinGapFactor'. Issue #10466
+  - Stop attribute 'endPos' can now be used to override automated stop position choice at busStop. Issue #10550
 
 - sumo-gui
   - Enabled dpi awareness. Issue #9985
@@ -216,6 +234,7 @@ title: ChangeLog
   - OpenDRIVE import now uses more information to compute junction shapes. Issue #10337
   - Option **--opposites.guess.fix-lengths** is now enabled by default. Issue #10326
   - The character ':' is now permitted edge and junction ids except as leading character. Issue #10421
+  - OSM: now importing additional bus stops. Issue #10503
 
 - polyconvert
   - Shapefile with geometry encoded as linestring2D is now supported. Issue #10100
@@ -261,6 +280,7 @@ title: ChangeLog
  - The ubuntu package now includes emission tools, header files and libsumo/libtraci.so files. Issue #10136
  - Removed obsolete and broken tool 'personGenerator.py' (use personFlow instead). Issue #10143
  - Added [examples and documentation](Tutorials/FundamentalDiagram.md) for spontaneous break-down of traffic flow jamming. Issue #10244
+ - Documented [attribute plotting](sumo-gui.md#plotting_object_properties) and [extended vehicle visualization features](sumo-gui.md#vehicle_visualisation_settings). Issue #10558, #10559
 
 ## Version 1.12.0 (25.01.2022)
 
