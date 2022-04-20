@@ -185,6 +185,27 @@ The following additional functions are available via right-click:
 - Switch programs (traffic lights)
 - [Visualize Signal Plans](Simulation/Traffic_Lights.md#signal_plan_visualization) (traffic lights)
 
+## Plotting object properties
+
+All objects support the *Show Parameter* item in their context menu.
+This opens up a dialog in tabular shape as show below:
+![vehicle_parameters.png](images/vehicle_parameters.png "Vehicle Parameter Dialog")
+
+Each of the listed attributes or [Generic Parameters](Simulation/GenericParameters.md) is accompanied by one of the following symbols:
+
+- ![attribute_static.png](images/attribute_static.png "Static Attribute") : Attribute does not change
+- ![attribute_dynamic.png](images/attribute_dynamic.png "Dynamic Attribute") : Attribute may change but cannot be plotted
+- ![attribute_dynamic_plot.png](images/attribute_dynamic_plot.png "Plottable Attribute") : Attribute may change and can be plotted. Left-clicking the plot symbol will open up a plotting window.
+
+A plotting window (acceleration over time) is shown below:
+
+![plotted_accel.png](images/plotted_accel.png "Acceleration plotted over time")
+
+Clicking on additional Attribute plot symbols opens up new plotting windows.
+By activating the 'Multiplot'-checkbox, any additional attribute plots wil be added to that plot window instead of opening a new plot window.
+
+When moving the mouse over a plot window, plot point closest to the mouse cursor is highlighted and it's *x* and *y* values are printed in blue along the plot axes.
+
 ## Selecting Objects
 
 **sumo-gui** allows for the selection of arbitrary
