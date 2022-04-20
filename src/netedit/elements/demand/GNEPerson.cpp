@@ -489,6 +489,7 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
             }
         // Specific of persons
         case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN:
             if (departProcedure == DepartDefinition::TRIGGERED) {
                 return "triggered";
             } else if (departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
@@ -501,8 +502,6 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
                 return time2string(depart);
             }
         // Specific of personFlows
-        case SUMO_ATTR_BEGIN:
-            return time2string(depart);
         case SUMO_ATTR_END:
             return time2string(repetitionEnd);
         case SUMO_ATTR_PERSONSPERHOUR:
@@ -588,8 +587,8 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_DEPARTPOS:
         // Specific of persons
         case SUMO_ATTR_DEPART:
-        // Specific of personFlows
         case SUMO_ATTR_BEGIN:
+        // Specific of personFlows
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
         case SUMO_ATTR_PERSONSPERHOUR:
@@ -633,7 +632,8 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
             return error.empty();
         }
         // Specific of persons
-        case SUMO_ATTR_DEPART: {
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN:{
             SUMOTime dummyDepart;
             DepartDefinition dummyDepartProcedure;
             parseDepart(value, toString(SUMO_TAG_PERSON), id, dummyDepart, dummyDepartProcedure, error);
@@ -641,12 +641,6 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
             return error.empty();
         }
         // Specific of personflows
-        case SUMO_ATTR_BEGIN:
-            if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
-            } else {
-                return false;
-            }
         case SUMO_ATTR_END:
             if (canParse<double>(value)) {
                 return (parse<double>(value) >= 0);
@@ -887,15 +881,12 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGeometry();
             break;
         // Specific of persons
-        case SUMO_ATTR_DEPART: {
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN: {
             parseDepart(value, toString(SUMO_TAG_PERSON), id, depart, departProcedure, error);
             break;
         }
         // Specific of personFlows
-        case SUMO_ATTR_BEGIN: {
-            depart = string2time(value);
-            break;
-        }
         case SUMO_ATTR_END:
             repetitionEnd = string2time(value);
             break;
