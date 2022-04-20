@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7fd1471e-6723-4c8c-8aa0-58cb7c6d2736}</ProjectGuid>
+    <ProjectGuid>{f35a1f7f-0076-4b05-916f-ef674d927828}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -1015,6 +1015,32 @@
     <Compile Include="demandelements\personflow\create\departpos\test.py" />
     <Compile Include="demandelements\personflow\create\id\test.py" />
     <Compile Include="demandelements\personflow\delete\test.py" />
+    <Compile Include="demandelements\personflow\inspect\begin\float\test.py" />
+    <Compile Include="demandelements\personflow\inspect\begin\triggered\test.py" />
+    <Compile Include="demandelements\personflow\inspect\color\test.py" />
+    <Compile Include="demandelements\personflow\inspect\departpos\test.py" />
+    <Compile Include="demandelements\personflow\inspect\endnumber\test.py" />
+    <Compile Include="demandelements\personflow\inspect\end\test.py" />
+    <Compile Include="demandelements\personflow\inspect\id\test.py" />
+    <Compile Include="demandelements\personflow\inspect\number\test.py" />
+    <Compile Include="demandelements\personflow\inspect\parameters\test.py" />
+    <Compile Include="demandelements\personflow\inspect\period\test.py" />
+    <Compile Include="demandelements\personflow\inspect\personsperhour\test.py" />
+    <Compile Include="demandelements\personflow\inspect\poisson\test.py" />
+    <Compile Include="demandelements\personflow\inspect\probability\test.py" />
+    <Compile Include="demandelements\personflow\inspect\type\test.py" />
+    <Compile Include="demandelements\personflow\inspect_selection\begin\float\test.py" />
+    <Compile Include="demandelements\personflow\inspect_selection\begin\triggered\test.py" />
+    <Compile Include="demandelements\personflow\inspect_selection\color\test.py" />
+    <Compile Include="demandelements\personflow\inspect_selection\departpos\test.py" />
+    <Compile Include="demandelements\personflow\inspect_selection\end\test.py" />
+    <Compile Include="demandelements\personflow\inspect_selection\number\test.py" />
+    <Compile Include="demandelements\personflow\inspect_selection\parameters\test.py" />
+    <Compile Include="demandelements\personflow\inspect_selection\period\test.py" />
+    <Compile Include="demandelements\personflow\inspect_selection\personsperhour\test.py" />
+    <Compile Include="demandelements\personflow\inspect_selection\poisson\test.py" />
+    <Compile Include="demandelements\personflow\inspect_selection\probability\test.py" />
+    <Compile Include="demandelements\personflow\inspect_selection\type\test.py" />
     <Compile Include="demandelements\person\create\color\test.py" />
     <Compile Include="demandelements\person\create\default_ride\default_ride_busstop\test.py" />
     <Compile Include="demandelements\person\create\default_ride\default_ride_fromto\test.py" />
@@ -1032,6 +1058,8 @@
     <Compile Include="demandelements\person\delete\test.py" />
     <Compile Include="demandelements\person\inspect\color\test.py" />
     <Compile Include="demandelements\person\inspect\departpos\test.py" />
+    <Compile Include="demandelements\person\inspect\depart\float\test.py" />
+    <Compile Include="demandelements\person\inspect\depart\triggered\test.py" />
     <Compile Include="demandelements\person\inspect\id\test.py" />
     <Compile Include="demandelements\person\inspect\parameters\test.py" />
     <Compile Include="demandelements\person\inspect\type\test.py" />
@@ -3991,6 +4019,36 @@
     <Folder Include="demandelements\personflow\create\departpos" />
     <Folder Include="demandelements\personflow\create\id" />
     <Folder Include="demandelements\personflow\delete" />
+    <Folder Include="demandelements\personflow\inspect\" />
+    <Folder Include="demandelements\personflow\inspect\begin\" />
+    <Folder Include="demandelements\personflow\inspect\begin\float" />
+    <Folder Include="demandelements\personflow\inspect\begin\triggered" />
+    <Folder Include="demandelements\personflow\inspect\color" />
+    <Folder Include="demandelements\personflow\inspect\departpos" />
+    <Folder Include="demandelements\personflow\inspect\end" />
+    <Folder Include="demandelements\personflow\inspect\endnumber" />
+    <Folder Include="demandelements\personflow\inspect\id" />
+    <Folder Include="demandelements\personflow\inspect\number" />
+    <Folder Include="demandelements\personflow\inspect\parameters" />
+    <Folder Include="demandelements\personflow\inspect\period" />
+    <Folder Include="demandelements\personflow\inspect\personsperhour" />
+    <Folder Include="demandelements\personflow\inspect\poisson" />
+    <Folder Include="demandelements\personflow\inspect\probability" />
+    <Folder Include="demandelements\personflow\inspect\type" />
+    <Folder Include="demandelements\personflow\inspect_selection\" />
+    <Folder Include="demandelements\personflow\inspect_selection\begin\" />
+    <Folder Include="demandelements\personflow\inspect_selection\begin\float" />
+    <Folder Include="demandelements\personflow\inspect_selection\begin\triggered" />
+    <Folder Include="demandelements\personflow\inspect_selection\color" />
+    <Folder Include="demandelements\personflow\inspect_selection\departpos" />
+    <Folder Include="demandelements\personflow\inspect_selection\end" />
+    <Folder Include="demandelements\personflow\inspect_selection\number" />
+    <Folder Include="demandelements\personflow\inspect_selection\parameters" />
+    <Folder Include="demandelements\personflow\inspect_selection\period" />
+    <Folder Include="demandelements\personflow\inspect_selection\personsperhour" />
+    <Folder Include="demandelements\personflow\inspect_selection\poisson" />
+    <Folder Include="demandelements\personflow\inspect_selection\probability" />
+    <Folder Include="demandelements\personflow\inspect_selection\type" />
     <Folder Include="demandelements\person\" />
     <Folder Include="demandelements\person\create\" />
     <Folder Include="demandelements\person\create\color" />
@@ -4014,8 +4072,10 @@
     <Folder Include="demandelements\person\delete" />
     <Folder Include="demandelements\person\inspect\" />
     <Folder Include="demandelements\person\inspect\color" />
-    <Folder Include="demandelements\person\inspect\depart" />
     <Folder Include="demandelements\person\inspect\departpos" />
+    <Folder Include="demandelements\person\inspect\depart\" />
+    <Folder Include="demandelements\person\inspect\depart\float" />
+    <Folder Include="demandelements\person\inspect\depart\triggered" />
     <Folder Include="demandelements\person\inspect\id" />
     <Folder Include="demandelements\person\inspect\parameters" />
     <Folder Include="demandelements\person\inspect\type" />
