@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11.06.2018 08:58:35 by Eclipse SUMO netedit Version 8ea350efa2
+<!-- generated on 2022-04-21 09:22:00 by Eclipse SUMO netedit Version v1_12_0+2200-a642e05db6c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Projects\sumo\tests\netedit\additionalElements\access\load\input_net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\additionalelements\access\load\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Projects\sumo\tests\netedit\additionalElements\access\load\input_net.net.xml"/>
-        <plain-output-prefix value="C:\Projects\sumo\tests\netedit\additionalElements\access\load\input_net"/>
+        <output-file value="D:\SUMO\tests\netedit\additionalelements\access\load\input_net.net.xml"/>
+        <plain-output-prefix value="D:\SUMO\tests\netedit\additionalelements\access\load\input_net"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
 
 </configuration>
 -->
 
-<tlLogics version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+<tlLogics version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="gneJ0" type="static" programID="0" offset="0">
         <phase duration="87" state="G"/>
         <phase duration="3"  state="y"/>
