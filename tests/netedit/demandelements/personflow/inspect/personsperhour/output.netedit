@@ -4,10 +4,10 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 personFlow
 TestFunctions: Clicked over position 578 - 568
 TestFunctions: Clicked over position 484 - 228
-15
-20
-20
-TestFunctions: Clicked over position 466 - 566
+0
+-6
+5
+TestFunctions: Clicked over position 614 - 308
 dummyTerminate
 personsPerHour
 dummy
