@@ -1,26 +1,26 @@
-Debug: Adding dataSet 'newDataSet' in GNEChange_DataSet
+Debug: Adding dataSet 'param1=value2|param3=value4' in GNEChange_DataSet
 Debug: adding dataInterval [0.00, 3600.00] in GNEChange_DataInterval
 Debug: Key ENTER pressed
-Debug: Adding edgeRelation 'newDataSet' in GNEChange_GenericData
-Debug: Removing edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15' in GNEChange_GenericData
+Debug: Adding edgeRelation 'param1=value2|param3=value4' in GNEChange_GenericData
+Debug: Removing edgeRelation 'param1=value2|param3=value4[0.00,3600.00]gneE12->gneE15' in GNEChange_GenericData
 Debug: Removing dataInterval [0.00, 3600.00] in GNEChange_DataInterval
-Debug: Removing dataSet 'newDataSet' in GNEChange_DataSet
+Debug: Removing dataSet 'param1=value2|param3=value4' in GNEChange_DataSet
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding dataSet 'newDataSet' in GNEChange_DataSet
+Debug: Adding dataSet 'param1=value2|param3=value4' in GNEChange_DataSet
 Debug: adding dataInterval [0.00, 3600.00] in GNEChange_DataInterval
-Debug: Adding edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15' in GNEChange_GenericData
+Debug: Adding edgeRelation 'param1=value2|param3=value4[0.00,3600.00]gneE12->gneE15' in GNEChange_GenericData
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15' in GNEChange_GenericData
+Debug: Removing edgeRelation 'param1=value2|param3=value4[0.00,3600.00]gneE12->gneE15' in GNEChange_GenericData
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15' in GNEChange_GenericData
+Debug: Adding edgeRelation 'param1=value2|param3=value4[0.00,3600.00]gneE12->gneE15' in GNEChange_GenericData
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15' in GNEChange_GenericData
+Debug: Removing edgeRelation 'param1=value2|param3=value4[0.00,3600.00]gneE12->gneE15' in GNEChange_GenericData
 Debug: Removing dataInterval [0.00, 3600.00] in GNEChange_DataInterval
-Debug: Removing dataSet 'newDataSet' in GNEChange_DataSet
+Debug: Removing dataSet 'param1=value2|param3=value4' in GNEChange_DataSet
 Debug: data sets saved
 Debug: Created connection 'from-gneE14_0togneE16_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE14_0togneE15_0' in retrieveGNEConnection()
@@ -42,9 +42,9 @@ Debug: Created connection 'fromgneE12_0togneE16_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_1togneE16_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE16_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE15_2' in retrieveGNEConnection()
-Debug: Deleting unreferenced edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
+Debug: Deleting unreferenced edgeRelation 'param1=value2|param3=value4[0.00,3600.00]gneE12->gneE15'
 Debug: Deleting unreferenced dataInterval [0.00, 3600.00] in ~GNEChange_DataInterval()
-Debug: Deleting unreferenced dataSet 'newDataSet'
+Debug: Deleting unreferenced dataSet 'param1=value2|param3=value4'
 Debug: Deleting unreferenced edge '-gneE14' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE14_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE14_1' in GNEEdge destructor
