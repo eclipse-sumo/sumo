@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-08 12:42:58 by Eclipse SUMO netedit Version v1_12_0+0346-b19768f19ca
+<!-- generated on 2022-04-21 14:26:03 by Eclipse SUMO netedit Version v1_12_0+2217-2ed7c9aad7e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\right_before_left\input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_21Apr123612.114065/netedit.daily.net.junctions/netelements/junctions/inspect_selected/type/right_before_left/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\right_before_left\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_21Apr123612.114065/netedit.daily.net.junctions/netelements/junctions/inspect_selected/type/right_before_left/net.net.xml"/>
     </output>
 
     <processing>
@@ -31,27 +31,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\right_before_left\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\right_before_left\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\right_before_left\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\right_before_left\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\right_before_left\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\right_before_left\datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_21Apr123612.114065/netedit.daily.net.junctions/netelements/junctions/inspect_selected/type/right_before_left/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_21Apr123612.114065/netedit.daily.net.junctions/netelements/junctions/inspect_selected/type/right_before_left/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_21Apr123612.114065/netedit.daily.net.junctions/netelements/junctions/inspect_selected/type/right_before_left/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_21Apr123612.114065/netedit.daily.net.junctions/netelements/junctions/inspect_selected/type/right_before_left/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_21Apr123612.114065/netedit.daily.net.junctions/netelements/junctions/inspect_selected/type/right_before_left/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_21Apr123612.114065/netedit.daily.net.junctions/netelements/junctions/inspect_selected/type/right_before_left/datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\right_before_left\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_21Apr123612.114065/netedit.daily.net.junctions/netelements/junctions/inspect_selected/type/right_before_left/gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\right_before_left\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_21Apr123612.114065/netedit.daily.net.junctions/netelements/junctions/inspect_selected/type/right_before_left/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\right_before_left\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_21Apr123612.114065/netedit.daily.net.junctions/netelements/junctions/inspect_selected/type/right_before_left/log.txt"/>
     </report>
 
 </configuration>
@@ -225,7 +225,7 @@
 
     <connection from="1" to="5" fromLane="1" toLane="1" via=":A_0_0" dir="t" state="M"/>
     <connection from="2" to="6" fromLane="1" toLane="1" via=":B_0_0" dir="t" state="M"/>
-    <connection from="3" to="7" fromLane="1" toLane="1" via=":C_0_0" dir="t" state="="/>
+    <connection from="3" to="7" fromLane="1" toLane="1" via=":C_0_0" dir="t" state="M"/>
     <connection from="4" to="8" fromLane="1" toLane="1" via=":D_0_0" dir="t" state="M"/>
     <connection from="5" to="4" fromLane="0" toLane="0" via=":Center_10_0" dir="r" state="="/>
     <connection from="5" to="2" fromLane="0" toLane="0" via=":Center_11_0" dir="s" state="="/>
