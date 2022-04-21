@@ -48,13 +48,13 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # change zoom
-netedit.setZoom("15", "20", "20")
+netedit.setZoom("0", "-6", "5")
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, 162, 398)
+netedit.leftClick(referencePosition, 310, 140)
 
 # change ID with an invalid value
 netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, ";;;;;", False)
