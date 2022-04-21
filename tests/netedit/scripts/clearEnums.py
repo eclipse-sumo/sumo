@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
@@ -11,7 +12,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    clearFailTest.py
+# @file    clearEnums.py
 # @author  Pablo Alvarez Lopez
 # @date    2022-03-21
 
@@ -23,6 +24,7 @@ def removeEqual(line):
         solution += line[0]
         line = line[1:]
     return solution
+
 
 # load
 with open("../attributesEnum.py", "r") as fp:
@@ -36,7 +38,7 @@ for line in lines:
         line = line.replace("class ", "")
         line = line.replace("    ", "\t")
         line = line.replace(":", "")
-        line = line.replace("\n", "")  
+        line = line.replace("\n", "")
         if ("='" in line):
             line = line[0:-4]
         if ("=" in line):
@@ -78,4 +80,3 @@ with open("enumsXML.txt", "w") as fp:
         line = line[:-1]
         line += '\n'
         fp.write(line)
-                

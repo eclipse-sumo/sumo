@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
@@ -11,12 +12,10 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    clearFailTest.py
+# @file    showUppercaseTests.py
 # @author  Pablo Alvarez Lopez
 # @date    2022-03-21
 
-import os
-import re
 import scandir
 
 # file lists
@@ -27,4 +26,4 @@ for paths, dirs, files in scandir.walk('D:/SUMO/tests/netedit'):
     directory = paths.replace('D:/SUMO/tests/netedit', '')
     directoryLower = directory.lower()
     if (directory != directoryLower):
-       print (directory)
+        print(directory)

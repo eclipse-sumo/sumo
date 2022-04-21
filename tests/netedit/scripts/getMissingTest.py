@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
@@ -11,28 +12,29 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    clearFailTest.py
+# @file    getMissingTest.py
 # @author  Pablo Alvarez Lopez
 # @date    2022-03-21
 
 import os
 import scandir
 
-# remove from
+
 def removeFrom(line):
     while ((len(line) > 0) and (line[0] != '(')):
         line = line[1:]
     if (len(line) > 0):
         line = line[1:]
     return line
-        
-# remove to
+
+
 def removeTo(line):
     solution = ""
     while ((len(line) > 0) and (line[0] != ',')):
         solution += line[0]
         line = line[1:]
     return solution
+
 
 # file lists
 fileList = []
@@ -56,7 +58,7 @@ for file in fileList:
         elif ("attrs." in line):
             line = line.replace('attrs.', 'netedit.attrs.')
             references.append(line)
-            
+
 """
 # save references
 with open("references.txt", "w") as fp:
@@ -88,7 +90,7 @@ for reference in references:
                 reference += '\n'
             # add into cleanedReferences
             cleanedReferences.append(reference)
-            
+
 """
 # save cleanedReferences
 with open("cleanedReferences.txt", "w") as fp:
@@ -113,7 +115,7 @@ with open("cleanedReferencesAndEnums.txt", "w") as fp:
 # dictionary
 dic = {'dummy': 1000}
 
-# get number of 
+# get number of
 for reference in cleanedReferences:
     # remove all spaces
     reference = reference.replace(' ', '')
@@ -127,9 +129,9 @@ for reference in cleanedReferences:
                 dic[key] += 1
                 found = True
         # add in diccionary
-        if (found == False):
+        if not found:
             dic[reference] = 0
-            
+
 # save missing test
 with open("missingTest.txt", "w") as fp:
     for key in dic:

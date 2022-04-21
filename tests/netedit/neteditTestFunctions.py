@@ -1495,7 +1495,7 @@ def changePersonPlan(personPlan, flow):
     # focus current frame
     focusOnFrame()
     # jump to person plan
-    if (flow) :
+    if (flow):
         for _ in range(23):
             typeTab()
     else:
@@ -1577,6 +1577,7 @@ def vehicleMode():
 #################################################
 # vType elements
 #################################################
+
 
 def typeMode():
     """

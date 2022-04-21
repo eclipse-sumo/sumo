@@ -23,6 +23,7 @@
 class editElements:
     overlapped = 5
 
+
 class selection:
     class lockSelectionNetwork:
         junctions = 1
@@ -1177,6 +1178,7 @@ class TAZ:
 # --------------------------------
 
 # type
+
 
 class type:
     class buttons:
