@@ -48,10 +48,10 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # change zoom
-netedit.setZoom("15", "20", "20")
+netedit.setZoom("0", "-6", "5")
 
 # delete person
-netedit.leftClick(referencePosition, 162, 398)
+netedit.leftClick(referencePosition, 310, 140)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -63,7 +63,7 @@ netedit.supermodeNetwork()
 netedit.deleteMode()
 
 # try to delete an edge with demand elements
-netedit.leftClick(referencePosition, 400, 295)
+netedit.leftClick(referencePosition, 570, 160)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -72,7 +72,7 @@ netedit.waitDeleteWarning()
 netedit.changeProtectDemandElements(referencePosition)
 
 # now delete edge with their person
-netedit.leftClick(referencePosition, 400, 295)
+netedit.leftClick(referencePosition, 570, 160)
 
 # Check undo
 netedit.undo(referencePosition, 1)

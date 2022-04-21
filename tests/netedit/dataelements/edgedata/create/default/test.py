@@ -41,7 +41,7 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # create edgeData
-netedit.leftClick(referencePosition, 366, 120)
+netedit.leftClick(referencePosition, 400, 120)
 
 # Check undo redo
 netedit.undo(referencePosition, 1, 0, 30)
