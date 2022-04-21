@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-20 10:49:18 by Eclipse SUMO netedit Version v1_11_0+1305-0448234e9dc
+<!-- generated on 2022-04-21 10:04:27 by Eclipse SUMO netedit Version v1_12_0+2202-358ad4cd312
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan102824.5676\netedit.gui\netElements\lanes\inspect_selected\endoffset\input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr093213.5603/netedit.daily.net.lanes/netelements/lanes/inspect_selected/endoffset/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan102824.5676\netedit.gui\netElements\lanes\inspect_selected\endoffset\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr093213.5603/netedit.daily.net.lanes/netelements/lanes/inspect_selected/endoffset/net.net.xml"/>
     </output>
 
     <processing>
@@ -30,27 +30,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan102824.5676\netedit.gui\netElements\lanes\inspect_selected\endoffset\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan102824.5676\netedit.gui\netElements\lanes\inspect_selected\endoffset\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan102824.5676\netedit.gui\netElements\lanes\inspect_selected\endoffset\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan102824.5676\netedit.gui\netElements\lanes\inspect_selected\endoffset\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan102824.5676\netedit.gui\netElements\lanes\inspect_selected\endoffset\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan102824.5676\netedit.gui\netElements\lanes\inspect_selected\endoffset\datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr093213.5603/netedit.daily.net.lanes/netelements/lanes/inspect_selected/endoffset/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr093213.5603/netedit.daily.net.lanes/netelements/lanes/inspect_selected/endoffset/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr093213.5603/netedit.daily.net.lanes/netelements/lanes/inspect_selected/endoffset/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr093213.5603/netedit.daily.net.lanes/netelements/lanes/inspect_selected/endoffset/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr093213.5603/netedit.daily.net.lanes/netelements/lanes/inspect_selected/endoffset/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr093213.5603/netedit.daily.net.lanes/netelements/lanes/inspect_selected/endoffset/datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan102824.5676\netedit.gui\netElements\lanes\inspect_selected\endoffset\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr093213.5603/netedit.daily.net.lanes/netelements/lanes/inspect_selected/endoffset/gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan102824.5676\netedit.gui\netElements\lanes\inspect_selected\endoffset\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr093213.5603/netedit.daily.net.lanes/netelements/lanes/inspect_selected/endoffset/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan102824.5676\netedit.gui\netElements\lanes\inspect_selected\endoffset\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr093213.5603/netedit.daily.net.lanes/netelements/lanes/inspect_selected/endoffset/log.txt"/>
     </report>
 
 </configuration>
@@ -162,16 +162,16 @@
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_2_0" dir="t" state="m"/>
     <connection from="gneE1" to="gneE9" fromLane="0" toLane="0" via=":gneJ0_1_0" dir="r" state="M"/>
     <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_2_0" dir="t" state="m"/>
-    <connection from="gneE2" to="gneE4" fromLane="0" toLane="0" via=":gneJ3_2_0" dir="r" state="M"/>
+    <connection from="gneE2" to="gneE4" fromLane="0" toLane="0" keepClear="0" via=":gneJ3_2_0" dir="r" state="M"/>
     <connection from="gneE2" to="gneE3" fromLane="1" toLane="1" via=":gneJ3_3_0" dir="t" state="m"/>
     <connection from="gneE3" to="gneE8" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="l" state="M"/>
     <connection from="gneE3" to="gneE2" fromLane="1" toLane="1" via=":gneJ2_1_0" dir="t" state="m"/>
-    <connection from="gneE4" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="r" state="M"/>
-    <connection from="gneE5" to="gneE3" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="l" state="M"/>
-    <connection from="gneE5" to="gneE3" fromLane="0" toLane="1" via=":gneJ3_0_1" dir="l" state="M"/>
-    <connection from="gneE8" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" dir="l" state="M"/>
-    <connection from="gneE9" to="gneE2" fromLane="0" toLane="0" via=":gneJ2_2_0" dir="r" state="M"/>
-    <connection from="gneE9" to="gneE2" fromLane="0" toLane="1" via=":gneJ2_2_1" dir="r" state="M"/>
+    <connection from="gneE4" to="gneE1" fromLane="0" toLane="0" keepClear="0" via=":gneJ1_0_0" dir="r" state="M"/>
+    <connection from="gneE5" to="gneE3" fromLane="0" toLane="0" keepClear="0" via=":gneJ3_0_0" dir="l" state="M"/>
+    <connection from="gneE5" to="gneE3" fromLane="0" toLane="1" keepClear="0" via=":gneJ3_0_1" dir="l" state="M"/>
+    <connection from="gneE8" to="gneE0" fromLane="0" toLane="0" keepClear="0" via=":gneJ0_0_0" dir="l" state="M"/>
+    <connection from="gneE9" to="gneE2" fromLane="0" toLane="0" keepClear="0" via=":gneJ2_2_0" dir="r" state="M"/>
+    <connection from="gneE9" to="gneE2" fromLane="0" toLane="1" keepClear="0" via=":gneJ2_2_1" dir="r" state="M"/>
 
     <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":gneJ0_1" to="gneE9" fromLane="0" toLane="0" dir="r" state="M"/>
