@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-04 08:38:45 by Eclipse SUMO netconvert Version v1_10_0+1919-2fd86b1b558
+<!-- generated on 2022-04-21 08:18:16 by Eclipse SUMO netconvert Version v1_12_0+2200-a642e05db6c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\shapeElements\poigeo\input_net.nod.xml"/>
-        <edge-files value=".\netedit\shapeElements\poigeo\input_net.edg.xml"/>
-        <connection-files value=".\netedit\shapeElements\poigeo\input_net.con.xml"/>
-        <tllogic-files value=".\netedit\shapeElements\poigeo\input_net.tll.xml"/>
+        <node-files value=".\netedit\shapeelements\poigeo\input_net.nod.xml"/>
+        <edge-files value=".\netedit\shapeelements\poigeo\input_net.edg.xml"/>
+        <connection-files value=".\netedit\shapeelements\poigeo\input_net.con.xml"/>
+        <tllogic-files value=".\netedit\shapeelements\poigeo\input_net.tll.xml"/>
     </input>
 
     <output>
-        <output-file value=".\netedit\shapeElements\poigeo\input_net.net.xml"/>
+        <output-file value=".\netedit\shapeelements\poigeo\input_net.net.xml"/>
     </output>
 
     <report>
@@ -24,7 +24,7 @@
 
 <net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ0_0" function="internal">
         <lane id=":gneJ0_0_0" index="0" speed="3.65" length="4.67" shape="0.00,1.60 -1.20,0.80 -1.60,0.00 -1.20,-0.80 0.00,-1.60"/>
