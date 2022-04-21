@@ -26,25 +26,26 @@ import os
 import sys
 from collections import defaultdict
 import optparse
-import math
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics  # noqa
 
 
 def mylist_callback(option, opt, value, parser):
-  setattr(parser.values, option.dest, value.replace(" ", "").replace('"', '').split(','))
+    setattr(parser.values, option.dest, value.replace(" ", "").replace('"', '').split(','))
 
 
 def get_options(args=None):
     optParser = optparse.OptionParser()
-    optParser.add_option("--attributes-list", type='string', action='callback',
-                          callback=mylist_callback, help="if given, calculate statistic values only for the given attributes")
+    optParser.add_option("--attributes-list", type='string', action='callback', callback=mylist_callback,
+                         help="if given, calculate statistic values only for the given attributes")
 #    optParser.add_option("--geh", action="store_true",
 #                         default=False, help="write geh value instead of absolute differences")
-#    optParser.add_option("--undefined", type="float", default=-1001, help="value to use if the difference is undefined")
-#    optParser.add_option("--no-statistics", action="store_true",
-#                         default=False, help="otherwise: handle attributes starting with 'std_' as standard deviation and calculate propagated error")
+#    optParser.add_option("--undefined", type="float", default=-1001,
+#                         help="value to use if the difference is undefined")
+#    optParser.add_option("--no-statistics", action="store_true", default=False,
+#                         help="otherwise: handle attributes starting with 'std_' "
+#                              "as standard deviation and calculate propagated error")
     (options, args) = optParser.parse_args(args=args)
 
     if len(args) == 2:
@@ -64,7 +65,7 @@ def write_stats(options):
     for input_file in options.input_list.replace(" ", "").replace('"', '').split(','):
         parsed_file = parse(input_file, 'interval', heterogeneous=True)
         parsed_input_files.append(parsed_file)
-    
+
     with open(options.out, 'w') as f:
         f.write("<meandata>\n")
         for interval_all in zip(*parsed_input_files):

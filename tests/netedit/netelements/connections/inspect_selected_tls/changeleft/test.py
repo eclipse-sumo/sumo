@@ -53,7 +53,8 @@ netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.changeLeft,
 netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.changeLeft, "", True)
 
 # Change parameter 8 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.changeLeft, "authority  army, passenger; taxi. tram", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.changeLeft,
+                        "authority  army, passenger; taxi. tram", True)
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.changeLeft, "", True)

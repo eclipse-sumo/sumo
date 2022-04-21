@@ -62,7 +62,8 @@ netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffsetException,
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffsetException, "", True)
 
 # Change parameter 1 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffsetException, "authority  army, passenger; taxi. tram", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffsetException,
+                        "authority  army, passenger; taxi. tram", True)
 
 # Change parameter 1 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffsetException, "", True)

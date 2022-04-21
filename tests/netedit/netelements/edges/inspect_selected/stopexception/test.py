@@ -62,7 +62,8 @@ netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopException, "Dumm
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopException, "", False)
 
 # Change parameter 7 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopException, "authority  army, passenger; taxi. tram", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopException,
+                        "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 7 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopException, "", False)
