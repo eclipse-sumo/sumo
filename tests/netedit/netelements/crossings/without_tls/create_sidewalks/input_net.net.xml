@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-21 09:26:20 by Eclipse SUMO netconvert Version v1_12_0+2200-a642e05db6c
+<!-- generated on 2021-11-04 08:38:26 by Eclipse SUMO netconvert Version v1_10_0+1919-2fd86b1b558
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\netelements\crossings\without_tls\create_sidewalks\input_net.nod.xml"/>
-        <edge-files value=".\netedit\netelements\crossings\without_tls\create_sidewalks\input_net.edg.xml"/>
+        <node-files value=".\netedit\netElements\crossings\without_tls\create_sidewalks\input_net.nod.xml"/>
+        <edge-files value=".\netedit\netElements\crossings\without_tls\create_sidewalks\input_net.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\netedit\netelements\crossings\without_tls\create_sidewalks\input_net.net.xml"/>
+        <output-file value=".\netedit\netElements\crossings\without_tls\create_sidewalks\input_net.net.xml"/>
     </output>
 
     <junctions>

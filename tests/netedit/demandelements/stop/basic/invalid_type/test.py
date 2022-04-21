@@ -38,13 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("dummyType")
 
 # try to create stop
-netedit.leftClick(referencePosition, 246, 240)
+netedit.leftClick(referencePosition, 246, 255)
 
 # change stop type with a valid value
 netedit.changeStopType("stopLane")
 
 # create stop
-netedit.leftClick(referencePosition, 246, 240)
+netedit.leftClick(referencePosition, 246, 255)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
