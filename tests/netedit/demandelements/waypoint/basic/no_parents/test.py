@@ -34,6 +34,9 @@ netedit.supermodeDemand()
 # go to waypoint mode
 netedit.stopMode()
 
+# create waypoint
+netedit.leftClick(referencePosition, 246, 240)
+
 # save routes
 netedit.saveRoutes(referencePosition)
 

@@ -38,13 +38,13 @@ netedit.stopMode()
 netedit.changeStopParent("dummyParent")
 
 # try to create stop
-netedit.leftClick(referencePosition, 246, 255)
+netedit.leftClick(referencePosition, 246, 240)
 
 # change stop parent with a valid value
 netedit.changeStopParent("route_0")
 
 # create stop
-netedit.leftClick(referencePosition, 246, 255)
+netedit.leftClick(referencePosition, 246, 240)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
