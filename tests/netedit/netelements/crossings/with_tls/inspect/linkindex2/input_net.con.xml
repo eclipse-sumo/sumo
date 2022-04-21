@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 27.08.2018 15:07:28 by Eclipse SUMO netedit Version b980bbd93f
+<!-- generated on 2022-04-21 12:11:59 by Eclipse SUMO netconvert Version v1_12_0+2200-a642e05db6c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Projects\sumo\tests\netedit\netElements\crossings\inspect\inspect_linkindex2\input_net.net.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\inspect\linkindex2/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Projects\sumo\tests\netedit\netElements\crossings\inspect\inspect_linkindex2\input_net.net.xml"/>
-        <plain-output-prefix value="C:\Projects\sumo\tests\netedit\netElements\crossings\inspect\inspect_linkindex2\input_net"/>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\inspect\linkindex2/input_net"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="-1"/>
+        <junctions.limit-turn-speed value="5.5"/>
         <rectangular-lane-cut value="false"/>
     </junctions>
 
@@ -29,10 +29,14 @@
         <walkingareas value="false"/>
     </pedestrian>
 
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
 </configuration>
 -->
 
-<connections version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
     <connection from="1" to="5" fromLane="1" toLane="1"/>
 
     <connection from="2" to="6" fromLane="1" toLane="1"/>
@@ -65,6 +69,6 @@
     <connection from="8" to="1" fromLane="1" toLane="1"/>
     <connection from="8" to="4" fromLane="1" toLane="1"/>
 
-    <crossing node="Center" edges="4 8" priority="1" width="3.00"/>
-    <crossing node="Center" edges="3 7" priority="0" width="4.00"/>
+    <crossing node="Center" edges="4 8" priority="1" width="3.00" linkIndex="20"/>
+    <crossing node="Center" edges="3 7" priority="1" width="4.00" linkIndex="21"/>
 </connections>

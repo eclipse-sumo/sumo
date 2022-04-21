@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08/05/2017 16:51:19 by Netedit Version dev-SVN-r22880
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 2022-04-21 12:11:56 by Eclipse SUMO netconvert Version v1_12_0+2200-a642e05db6c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\load_big\input_net.net.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\netelements\crossings\load_big/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\load_big\input_net.net.xml"/>
-        <plain-output-prefix value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\load_big\input_net"/>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\netelements\crossings\load_big/input_net"/>
         <output.street-names value="true"/>
     </output>
 
     <processing>
-        <no-internal-links value="false"/>
-        <no-turnarounds value="true"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
     </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
 
 </configuration>
 -->
 
-<nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
     <location netOffset="-388415.86,-5817979.56" convBoundary="0.00,0.00,6080.75,5405.51" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <node id="1026368491" x="4123.52" y="2165.54" type="dead_end"/>
@@ -1431,8 +1438,8 @@ SPDX-License-Identifier: EPL-2.0
     <node id="283049069" x="2292.49" y="2120.48" type="priority"/>
     <node id="283049082" x="2336.37" y="2115.83" type="priority"/>
     <node id="2831092401" x="3792.90" y="2294.63" type="priority"/>
-    <node id="2831092402" x="3653.57" y="2331.92" type="rail_crossing"/>
-    <node id="2831092403" x="3721.46" y="2389.02" type="rail_crossing"/>
+    <node id="2831092402" x="3653.57" y="2331.92" type="priority"/>
+    <node id="2831092403" x="3721.46" y="2389.02" type="priority"/>
     <node id="283199518" x="2024.27" y="2215.34" type="dead_end"/>
     <node id="283199870" x="2015.33" y="2221.97" type="priority"/>
     <node id="28373970" x="3704.98" y="1656.68" type="priority"/>
@@ -1574,9 +1581,9 @@ SPDX-License-Identifier: EPL-2.0
     <node id="29221612" x="3688.19" y="3000.75" type="priority"/>
     <node id="29221620" x="3269.86" y="2923.14" type="dead_end"/>
     <node id="2922881190" x="4198.75" y="2283.39" type="priority"/>
-    <node id="2924018416" x="2177.69" y="2809.26" type="rail_crossing"/>
-    <node id="2924018417" x="2189.96" y="2816.02" type="rail_crossing"/>
-    <node id="2924018418" x="2175.94" y="2828.20" type="rail_crossing"/>
+    <node id="2924018416" x="2177.69" y="2809.26" type="priority"/>
+    <node id="2924018417" x="2189.96" y="2816.02" type="priority"/>
+    <node id="2924018418" x="2175.94" y="2828.20" type="priority"/>
     <node id="29270906" x="4280.27" y="1950.82" type="priority"/>
     <node id="293226261" x="2635.82" y="2391.04" type="dead_end"/>
     <node id="2933662031" x="3857.07" y="1983.26" type="priority"/>
@@ -1642,8 +1649,8 @@ SPDX-License-Identifier: EPL-2.0
     <node id="3102589353" x="2647.87" y="1410.59" type="priority"/>
     <node id="3102589402" x="2646.11" y="1458.26" type="priority"/>
     <node id="310270793" x="1861.29" y="2469.66" type="priority"/>
-    <node id="3104326557" x="3870.82" y="2180.76" type="rail_crossing"/>
-    <node id="3104326558" x="3902.24" y="2343.00" type="rail_crossing"/>
+    <node id="3104326557" x="3870.82" y="2180.76" type="priority"/>
+    <node id="3104326558" x="3902.24" y="2343.00" type="priority"/>
     <node id="311264846" x="3215.74" y="2479.08" type="priority"/>
     <node id="311264847" x="3209.69" y="2491.13" type="priority"/>
     <node id="31153651" x="3385.50" y="1675.06" type="dead_end"/>
@@ -1770,7 +1777,7 @@ SPDX-License-Identifier: EPL-2.0
     <node id="3269713283" x="3682.74" y="2408.37" type="priority"/>
     <node id="3269713294" x="3658.30" y="2459.15" type="priority"/>
     <node id="3269713299" x="3653.95" y="1630.44" type="priority"/>
-    <node id="3269783482" x="2630.86" y="2026.28" type="rail_crossing"/>
+    <node id="3269783482" x="2630.86" y="2026.28" type="priority"/>
     <node id="3274025415" x="4102.08" y="2828.16" type="priority"/>
     <node id="3279659027" x="4229.06" y="2794.26" type="dead_end"/>
     <node id="3279659028" x="4190.25" y="2742.71" type="dead_end"/>

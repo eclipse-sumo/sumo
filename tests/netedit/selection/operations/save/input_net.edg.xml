@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 29/12/2016 9:44:52 by Netedit Version dev-SVN-r22364
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<!-- generated on 2022-04-21 12:12:08 by Eclipse SUMO netconvert Version v1_12_0+2200-a642e05db6c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <new value="true"/>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.29Dec094048.4216/netedit.server/additionalElements/busstop/create\additionals.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\selection\operations\save/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\Palcraft\Desktop\net.net.xml"/>
-        <plain-output-prefix value="C:\Users\Palcraft\Desktop\input_net"/>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\selection\operations\save/input_net"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
     </processing>
 
-    <visualisation>
-        <window-size value="700,500"/>
-        <gui-testing value="true"/>
-    </visualisation>
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
 
     <report>
-        <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.29Dec094048.4216/netedit.server/additionalElements/busstop/create\log.txt"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1" numLanes="1" speed="5"/>
-    <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1" numLanes="1" speed="20"/>
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1" numLanes="1" speed="5.00"/>
+    <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1" numLanes="1" speed="20.00"/>
 </edges>

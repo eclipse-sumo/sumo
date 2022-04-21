@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.09.2018 13:24:35 by Eclipse SUMO netedit Version d6cfaccbb6
+<!-- generated on 2022-04-21 12:12:04 by Eclipse SUMO netconvert Version v1_12_0+2200-a642e05db6c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Projects\sumo\tests\netedit\netElements\edges\select_vtypes\select_vtypes_disallowed\select_vtypes_allowed_all\input_net.net.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\netelements\edges\select_vtypes\disallowed/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Projects\sumo\tests\netedit\netElements\edges\select_vtypes\select_vtypes_disallowed\select_vtypes_allowed_all\input_net.net.xml"/>
-        <plain-output-prefix value="C:\Projects\sumo\tests\netedit\netElements\edges\select_vtypes\select_vtypes_disallowed\select_vtypes_allowed_all\input_net"/>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\netelements\edges\select_vtypes\disallowed/input_net"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -20,7 +21,7 @@
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="-1"/>
+        <junctions.limit-turn-speed value="5.5"/>
         <rectangular-lane-cut value="false"/>
     </junctions>
 
@@ -28,8 +29,12 @@
         <walkingareas value="false"/>
     </pedestrian>
 
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
 </configuration>
 -->
 
-<tlLogics version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+<tlLogics version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
 </tlLogics>
