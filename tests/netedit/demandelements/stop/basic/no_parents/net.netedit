@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
 <!-- generated on 2022-04-21 10:09:52 by Eclipse SUMO netedit Version v1_12_0+2200-a642e05db6c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
@@ -9,6 +10,17 @@
 
     <output>
         <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Apr100927.8172\netedit.gui\demandelements\stop\basic\no_parents\net.net.xml"/>
+=======
+<!-- generated on 2022-04-21 09:55:30 by Eclipse SUMO netedit Version v1_12_0+2202-358ad4cd312
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.basic.1_from_21Apr093212.45682/netedit.daily.demand.stop.basic/demandelements/stop/basic/no_parents/input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.basic.1_from_21Apr093212.45682/netedit.daily.demand.stop.basic/demandelements/stop/basic/no_parents/net.net.xml"/>
+>>>>>>> patching NETEDIT expected results. Refs #3045
     </output>
 
     <processing>
@@ -30,6 +42,7 @@
     </pedestrian>
 
     <netedit>
+<<<<<<< HEAD
         <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Apr100927.8172\netedit.gui\demandelements\stop\basic\no_parents\additionals.xml"/>
         <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Apr100927.8172\netedit.gui\demandelements\stop\basic\no_parents\additionals.xml"/>
         <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Apr100927.8172\netedit.gui\demandelements\stop\basic\no_parents\routes.xml"/>
@@ -40,18 +53,38 @@
 
     <visualisation>
         <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Apr100927.8172\netedit.gui\demandelements\stop\basic\no_parents\gui-settings.xml"/>
+=======
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.basic.1_from_21Apr093212.45682/netedit.daily.demand.stop.basic/demandelements/stop/basic/no_parents/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.basic.1_from_21Apr093212.45682/netedit.daily.demand.stop.basic/demandelements/stop/basic/no_parents/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.basic.1_from_21Apr093212.45682/netedit.daily.demand.stop.basic/demandelements/stop/basic/no_parents/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.basic.1_from_21Apr093212.45682/netedit.daily.demand.stop.basic/demandelements/stop/basic/no_parents/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.basic.1_from_21Apr093212.45682/netedit.daily.demand.stop.basic/demandelements/stop/basic/no_parents/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.basic.1_from_21Apr093212.45682/netedit.daily.demand.stop.basic/demandelements/stop/basic/no_parents/datas.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.basic.1_from_21Apr093212.45682/netedit.daily.demand.stop.basic/demandelements/stop/basic/no_parents/gui-settings.xml"/>
+>>>>>>> patching NETEDIT expected results. Refs #3045
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+<<<<<<< HEAD
         <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Apr100927.8172\netedit.gui\demandelements\stop\basic\no_parents\guisettingsoutput.xml"/>
+=======
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.basic.1_from_21Apr093212.45682/netedit.daily.demand.stop.basic/demandelements/stop/basic/no_parents/guisettingsoutput.xml"/>
+>>>>>>> patching NETEDIT expected results. Refs #3045
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
+<<<<<<< HEAD
         <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Apr100927.8172\netedit.gui\demandelements\stop\basic\no_parents\log.txt"/>
+=======
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.basic.1_from_21Apr093212.45682/netedit.daily.demand.stop.basic/demandelements/stop/basic/no_parents/log.txt"/>
+>>>>>>> patching NETEDIT expected results. Refs #3045
     </report>
 
 </configuration>
