@@ -397,6 +397,16 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
         // special case for embedded routes
         if (edge->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
             deleteDemandElement(edge->getChildDemandElements().front()->getParentDemandElements().front(), undoList);
+        } else if (edge->getChildDemandElements().front()->getTagProperty().isPersonPlan()) {
+            const auto person = edge->getChildDemandElements().front()->getParentDemandElements().front();
+            if (person->getChildDemandElements().size() == 1) {
+                deleteDemandElement(person, undoList);
+            }
+        } else if (edge->getChildDemandElements().front()->getTagProperty().isContainerPlan()) {
+            const auto container = edge->getChildDemandElements().front()->getParentDemandElements().front();
+            if (container->getChildDemandElements().size() == 1) {
+                deleteDemandElement(container, undoList);
+            }
         } else {
             deleteDemandElement(edge->getChildDemandElements().front(), undoList);
         }
