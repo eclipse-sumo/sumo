@@ -29,4 +29,5 @@ for paths, dirs, files in scandir.walk('D:/SUMO/tests/netedit'):
             folderList.append(os.path.join(paths))
 
 for folder in folderList:
-    os.system('D:/SUMO/bin/netconvert.exe -s ' + folder + '/input_net.net.xml --plain-output-prefix ' + folder + '/input_net')
+    os.system('D:/SUMO/bin/netconvert.exe -s ' + folder +
+              '/input_net.net.xml --plain-output-prefix ' + folder + '/input_net')
