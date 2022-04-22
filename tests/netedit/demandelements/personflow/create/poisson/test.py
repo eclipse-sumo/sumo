@@ -76,7 +76,7 @@ netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacingOption, "-30")
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacingOption, "2.2")
+netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacingOption, "1.2")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
