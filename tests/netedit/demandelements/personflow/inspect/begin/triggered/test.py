@@ -37,6 +37,9 @@ netedit.supermodeDemand()
 # go to person mode
 netedit.personMode()
 
+# change person plan
+netedit.changePersonPlan("ride: edge->edge", False)
+
 # change Person
 netedit.changeElement("personFlow")
 

@@ -37,6 +37,9 @@ netedit.supermodeDemand()
 # go to person mode
 netedit.personMode()
 
+# change person plan
+netedit.changePersonPlan("ride: edge->edge", False)
+
 # create person using three edges
 netedit.leftClick(referencePosition, 274, 400)
 netedit.leftClick(referencePosition, 180, 60)
