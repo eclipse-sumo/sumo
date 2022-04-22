@@ -140,9 +140,10 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // calculate index Updater
         int indexUpdater = (int)((double)mySpaceOccupancies.size() / ShapeLength);
         // check if indexUpdater is 0
-        if (indexUpdater == 0) {
+        if (indexUpdater == 0 || (myCapacity != myRoadSideCapacity)) {
             indexUpdater = 1;
         }
+        if (getID() == "Zentralparkplatz_1") std::cout << " ShapeLength=" << ShapeLength << " spaces=" << mySpaceOccupancies.size() << " indexUpdater=" << indexUpdater << "\n";
         // draw spaceOccupancies
         for (int i = 0; i < (int)mySpaceOccupancies.size(); i += indexUpdater) {
             GLHelper::drawSpaceOccupancies(exaggeration, mySpaceOccupancies.at(i).position, mySpaceOccupancies.at(i).rotation,

@@ -47,6 +47,7 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
                              double angle, const std::string& name, bool onRoad,
                              const std::string& departPos) :
     MSStoppingPlace(id, SUMO_TAG_PARKING_AREA, lines, lane, begPos, endPos, name),
+    myRoadSideCapacity(capacity),
     myCapacity(0),
     myOnRoad(onRoad),
     myWidth(width),

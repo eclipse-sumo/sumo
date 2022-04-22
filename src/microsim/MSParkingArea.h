@@ -266,7 +266,10 @@ protected:
     /// @brief Last free lot number (-1 no free lot)
     int myLastFreeLot;
 
-    /// @brief Stop area capacity
+    /// @brief Stop area capacity configured via roadsideCapacity
+    int myRoadSideCapacity;
+
+    /// @brief Stop area total capacity
     int myCapacity;
 
     /// @brief Whether vehicles stay on the road
