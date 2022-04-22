@@ -267,15 +267,21 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
 
 GNEDemandElement::Problem
 GNEPerson::isDemandElementValid() const {
-    // a single person is always valid
-    return Problem::OK;
+    if (getChildDemandElements().size() == 0) {
+        return Problem::NO_PLANS;
+    } else {
+        return Problem::OK;
+    }
 }
 
 
 std::string
 GNEPerson::getDemandElementProblem() const {
-    // A single person cannot habe problem (but their children)
-    return "";
+    if (getChildDemandElements().size() == 0) {
+        return "Person needs at least one plan";
+    } else {
+        return "";
+    }
 }
 
 

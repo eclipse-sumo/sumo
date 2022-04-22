@@ -64,6 +64,7 @@ public:
         DISCONNECTED_PLAN,      // Plan element (person, containers) is not connected with the previous or next plan
         INVALID_STOPPOSITION,   // StopPosition is invalid (only used in stops over edges or lanes
         STOP_DOWNSTREAM,        // Stops don't follow their route parent
+        NO_PLANS                // Person or container doesn't have a plan
     };
 
     /**@brief Constructor
