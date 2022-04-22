@@ -184,7 +184,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     }
     GLHelper::popName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName, s.angle);
-    if (myCapacity != myRoadSideCapacity || true) {
+    if (myCapacity != myRoadSideCapacity) {
         // draw parking vehicles (their lane might not be within drawing range. if it is, they are drawn twice)
         myLane.getVehiclesSecure();
         for (const MSBaseVehicle* const v : myLane.getParkingVehicles()) {
