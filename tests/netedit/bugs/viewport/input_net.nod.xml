@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-21 12:11:54 by Eclipse SUMO netconvert Version v1_12_0+2200-a642e05db6c
+<!-- generated on 2022-04-22 13:15:48 by Eclipse SUMO netconvert Version v1_12_0+2234-4a9e9d56134
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -37,12 +37,12 @@
 -->
 
 <nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <location netOffset="0.00,0.00" convBoundary="10.00,20.00,70.00,60.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="-10.00,-20.00" convBoundary="0.00,0.00,60.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <node id="gneJ4" x="10.00" y="20.00" type="dead_end"/>
-    <node id="gneJ5" x="70.00" y="20.00" type="priority"/>
-    <node id="gneJ6" x="70.00" y="60.00" type="priority"/>
-    <node id="gneJ7" x="10.00" y="60.00" type="priority"/>
-    <node id="gneJ8" x="10.00" y="40.00" type="priority"/>
-    <node id="gneJ9" x="40.00" y="40.00" type="priority"/>
+    <node id="gneJ4" x="0.00" y="0.00" type="dead_end"/>
+    <node id="gneJ5" x="60.00" y="0.00" type="priority"/>
+    <node id="gneJ6" x="60.00" y="40.00" type="priority"/>
+    <node id="gneJ7" x="0.00" y="40.00" type="priority"/>
+    <node id="gneJ8" x="0.00" y="20.00" type="priority"/>
+    <node id="gneJ9" x="30.00" y="20.00" type="priority"/>
 </nodes>

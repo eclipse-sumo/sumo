@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-21 12:11:55 by Eclipse SUMO netconvert Version v1_12_0+2200-a642e05db6c
+<!-- generated on 2022-04-22 13:15:48 by Eclipse SUMO netconvert Version v1_12_0+2234-4a9e9d56134
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -19,7 +19,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.5"/>
@@ -40,7 +39,7 @@
 <connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
     <connection from="gneE10"/>
 
-    <connection from="gneE11"/>
+    <connection from="gneE11" to="gneE6" fromLane="0" toLane="0"/>
 
     <connection from="gneE2"/>
 
@@ -56,6 +55,6 @@
 
     <connection from="gneE8"/>
 
-    <connection from="gneE9"/>
+    <connection from="gneE9" to="gneE11" fromLane="0" toLane="0"/>
 
 </connections>
