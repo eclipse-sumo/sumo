@@ -457,6 +457,9 @@ void
 MSDevice_Vehroutes::generateOutputForUnfinished() {
     for (const auto& it : myStateListener.myDevices) {
         if (it.first->hasDeparted()) {
+            if (it.first->isStopped()) {
+                it.second->notifyStopEnded();
+            }
             it.second->writeOutput(false);
         }
     }
