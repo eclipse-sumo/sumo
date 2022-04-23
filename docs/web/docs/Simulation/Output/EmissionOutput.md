@@ -73,4 +73,4 @@ The meanings of the written values are given in the following table.
 | pos_y      | \---                 | The absolut Y coordinate of the vehicle. The value depends on the given geographic projection. |
 
 !!! caution
-    When running with sub-second resolution, the emissions written during every simulation step are extrapolated to those that would be generated in 1 second. Thus, care must be taken when computing sums over time.
+    When running with sub-second resolution, the emissions written during every simulation step are extrapolated to those that would be generated in 1 second. To avoid scaling (and thus simplify aggregation), set option **--emission-output.step-scaled**
