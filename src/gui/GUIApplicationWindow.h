@@ -380,7 +380,7 @@ protected:
     /// @brief the submenus
     FXMenuPane* myFileMenu = nullptr, *myEditMenu = nullptr, *mySelectByPermissions = nullptr, *mySettingsMenu = nullptr,
                 *myLocatorMenu, *myControlMenu = nullptr,
-                                 *myWindowsMenu, *myHelpMenu = nullptr;
+                                 *myWindowMenu, *myHelpMenu = nullptr;
 
     /// @brief the menu cascades
     FXMenuCascade* mySelectLanesMenuCascade = nullptr;

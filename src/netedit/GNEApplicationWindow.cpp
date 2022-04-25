@@ -478,7 +478,7 @@ GNEApplicationWindow::create() {
     myFileMenuDemandElements->create();
     myFileMenuDataElements->create();
     //mySettingsMenu->create();
-    myWindowsMenu->create();
+    myWindowMenu->create();
     myHelpMenu->create();
 
     FXint textWidth = getApp()->getNormalFont()->getTextWidth("8", 1) * 22;
@@ -517,7 +517,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myProcessingMenu;
     delete myLocatorMenu;
     delete myToolsMenu;
-    delete myWindowsMenu;
+    delete myWindowMenu;
     delete myHelpMenu;
     // Delete load thread
     delete myLoadThread;
@@ -1259,9 +1259,9 @@ GNEApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Tools", nullptr, myToolsMenu);
     myToolsMenuCommands.buildToolsMenuCommands(myToolsMenu);
     // build windows menu
-    myWindowsMenu = new FXMenuPane(this);
-    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Windows", nullptr, myWindowsMenu);
-    myWindowsMenuCommands.buildWindowsMenuCommands(myWindowsMenu, myStatusbar, myMessageWindow);
+    myWindowMenu = new FXMenuPane(this);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Window", nullptr, myWindowMenu);
+    myWindowsMenuCommands.buildWindowsMenuCommands(myWindowMenu, myStatusbar, myMessageWindow);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Help", nullptr, myHelpMenu);

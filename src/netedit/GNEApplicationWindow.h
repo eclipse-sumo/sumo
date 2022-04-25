@@ -485,7 +485,7 @@ protected:
                 *myProcessingMenu = nullptr,
                 *myLocatorMenu = nullptr,
                 *myToolsMenu = nullptr,
-                *myWindowsMenu = nullptr,
+                *myWindowMenu = nullptr,
                 *myHelpMenu = nullptr;
 
     /// @brief menu title for modes
