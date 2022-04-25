@@ -193,7 +193,7 @@ tripinfos:tripinfos.xml
 gtfs_missing:gtfs_missing.xml
 gtfs_routes:gtfs_publictransport.rou.xml
 gtfs_additional:gtfs_publictransport.add.xml
-batterymerged:batterymerged.txt
+aggregatebattery:aggregatebattery.txt
 
 [run_dependent_text]
 output:Begin time

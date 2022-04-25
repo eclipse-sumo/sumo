@@ -1,1 +1,0 @@
--i battery.txt -o batterymerged.txt -t 60 -v veh0 tools/output/mergeBatteryOutput.py

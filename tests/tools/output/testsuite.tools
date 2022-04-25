@@ -39,5 +39,5 @@ computePassengerCounts
 stopOrder
 parkingSearchTraffic
 
-# merge battery outputs
-mergeBatteryOutput
+# aggregate battery outputs
+aggregateBatteryOutput
