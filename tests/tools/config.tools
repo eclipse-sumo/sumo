@@ -81,6 +81,7 @@ copy_test_path:input_data.xml
 copy_test_path_merge:data
 copy_test_path:sim.sumocfg
 copy_test_path:gtfs.zip
+copy_test_path:battery.txt
 
 [collate_file]
 detectors:e1.add.xml
@@ -192,6 +193,7 @@ tripinfos:tripinfos.xml
 gtfs_missing:gtfs_missing.xml
 gtfs_routes:gtfs_publictransport.rou.xml
 gtfs_additional:gtfs_publictransport.add.xml
+batterymerged:batterymerged.txt
 
 [run_dependent_text]
 output:Begin time
