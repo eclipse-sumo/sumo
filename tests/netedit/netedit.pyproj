@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{f35a1f7f-0076-4b05-916f-ef674d927828}</ProjectGuid>
+    <ProjectGuid>{1d675b3c-d4d0-4a6d-898e-917e5b066a8f}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -12,7 +12,6 @@
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId />
-    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -1013,7 +1012,13 @@
     <Compile Include="demandelements\personflow\create\default_walk\default_walk_fromto\test.py" />
     <Compile Include="demandelements\personflow\create\default_walk\default_walk_route\test.py" />
     <Compile Include="demandelements\personflow\create\departpos\test.py" />
+    <Compile Include="demandelements\personflow\create\end\test.py" />
     <Compile Include="demandelements\personflow\create\id\test.py" />
+    <Compile Include="demandelements\personflow\create\number\test.py" />
+    <Compile Include="demandelements\personflow\create\period\test.py" />
+    <Compile Include="demandelements\personflow\create\personsperhour\test.py" />
+    <Compile Include="demandelements\personflow\create\poisson\test.py" />
+    <Compile Include="demandelements\personflow\create\probability\test.py" />
     <Compile Include="demandelements\personflow\delete\test.py" />
     <Compile Include="demandelements\personflow\inspect\begin\float\test.py" />
     <Compile Include="demandelements\personflow\inspect\begin\triggered\test.py" />
@@ -1041,6 +1046,8 @@
     <Compile Include="demandelements\personflow\inspect_selection\poisson\test.py" />
     <Compile Include="demandelements\personflow\inspect_selection\probability\test.py" />
     <Compile Include="demandelements\personflow\inspect_selection\type\test.py" />
+    <Compile Include="demandelements\personflow\load\no_child\test.py" />
+    <Compile Include="demandelements\personflow\load\test.py" />
     <Compile Include="demandelements\person\create\color\test.py" />
     <Compile Include="demandelements\person\create\default_ride\default_ride_busstop\test.py" />
     <Compile Include="demandelements\person\create\default_ride\default_ride_fromto\test.py" />
@@ -1063,6 +1070,14 @@
     <Compile Include="demandelements\person\inspect\id\test.py" />
     <Compile Include="demandelements\person\inspect\parameters\test.py" />
     <Compile Include="demandelements\person\inspect\type\test.py" />
+    <Compile Include="demandelements\person\inspect_selection\color\test.py" />
+    <Compile Include="demandelements\person\inspect_selection\departpos\test.py" />
+    <Compile Include="demandelements\person\inspect_selection\depart\float\test.py" />
+    <Compile Include="demandelements\person\inspect_selection\depart\triggered\test.py" />
+    <Compile Include="demandelements\person\inspect_selection\parameters\test.py" />
+    <Compile Include="demandelements\person\inspect_selection\type\test.py" />
+    <Compile Include="demandelements\person\load\no_child\test.py" />
+    <Compile Include="demandelements\person\load\test.py" />
     <Compile Include="demandelements\routeflow\create\arrivallane\test.py" />
     <Compile Include="demandelements\routeflow\create\arrivalposlat\test.py" />
     <Compile Include="demandelements\routeflow\create\arrivalpos\test.py" />
@@ -1087,6 +1102,7 @@
     <Compile Include="demandelements\routeflow\create\vehsperhour\test.py" />
     <Compile Include="demandelements\routeflow\create\vtype\test.py" />
     <Compile Include="demandelements\routeflow\delete\test.py" />
+    <Compile Include="demandelements\routeflow\inspect\arrivaledge\test.py" />
     <Compile Include="demandelements\routeflow\inspect\arrivallane\current\test.py" />
     <Compile Include="demandelements\routeflow\inspect\arrivallane\float\test.py" />
     <Compile Include="demandelements\routeflow\inspect\arrivalposlat\current\test.py" />
@@ -1101,6 +1117,7 @@
     <Compile Include="demandelements\routeflow\inspect\begin\test.py" />
     <Compile Include="demandelements\routeflow\inspect\color\test.py" />
     <Compile Include="demandelements\routeflow\inspect\containernumber\test.py" />
+    <Compile Include="demandelements\routeflow\inspect\departedge\test.py" />
     <Compile Include="demandelements\routeflow\inspect\departlane\allowed\test.py" />
     <Compile Include="demandelements\routeflow\inspect\departlane\best\test.py" />
     <Compile Include="demandelements\routeflow\inspect\departlane\first\test.py" />
@@ -1719,6 +1736,7 @@
     <Compile Include="demandelements\vehicle\create\personnumber\test.py" />
     <Compile Include="demandelements\vehicle\create\vtype\test.py" />
     <Compile Include="demandelements\vehicle\delete\test.py" />
+    <Compile Include="demandelements\vehicle\inspect\arrivaledge\test.py" />
     <Compile Include="demandelements\vehicle\inspect\arrivallane\current\test.py" />
     <Compile Include="demandelements\vehicle\inspect\arrivallane\float\test.py" />
     <Compile Include="demandelements\vehicle\inspect\arrivalposlat\current\test.py" />
@@ -1732,6 +1750,7 @@
     <Compile Include="demandelements\vehicle\inspect\arrivalspeed\right\test.py" />
     <Compile Include="demandelements\vehicle\inspect\color\test.py" />
     <Compile Include="demandelements\vehicle\inspect\containernumber\test.py" />
+    <Compile Include="demandelements\vehicle\inspect\departedge\test.py" />
     <Compile Include="demandelements\vehicle\inspect\departlane\allowed\test.py" />
     <Compile Include="demandelements\vehicle\inspect\departlane\best\test.py" />
     <Compile Include="demandelements\vehicle\inspect\departlane\first\test.py" />
@@ -2612,6 +2631,7 @@
     <Compile Include="netelements\lanes\select_vtypes\disallowed\truck\test.py" />
     <Compile Include="netelements\lanes\select_vtypes\disallowed\vip\test.py" />
     <Compile Include="netelements\trafficlights\save\test.py" />
+    <Compile Include="scripts\buildNetworks.py" />
     <Compile Include="scripts\clearEnums.py" />
     <Compile Include="scripts\clearFailTest.py" />
     <Compile Include="scripts\getMissingTest.py" />
@@ -4017,7 +4037,13 @@
     <Folder Include="demandelements\personflow\create\default_walk\default_walk_fromto" />
     <Folder Include="demandelements\personflow\create\default_walk\default_walk_route" />
     <Folder Include="demandelements\personflow\create\departpos" />
+    <Folder Include="demandelements\personflow\create\end" />
     <Folder Include="demandelements\personflow\create\id" />
+    <Folder Include="demandelements\personflow\create\number" />
+    <Folder Include="demandelements\personflow\create\period" />
+    <Folder Include="demandelements\personflow\create\personsperhour" />
+    <Folder Include="demandelements\personflow\create\poisson" />
+    <Folder Include="demandelements\personflow\create\probability" />
     <Folder Include="demandelements\personflow\delete" />
     <Folder Include="demandelements\personflow\inspect\" />
     <Folder Include="demandelements\personflow\inspect\begin\" />
@@ -4049,6 +4075,8 @@
     <Folder Include="demandelements\personflow\inspect_selection\poisson" />
     <Folder Include="demandelements\personflow\inspect_selection\probability" />
     <Folder Include="demandelements\personflow\inspect_selection\type" />
+    <Folder Include="demandelements\personflow\load" />
+    <Folder Include="demandelements\personflow\load\no_child" />
     <Folder Include="demandelements\person\" />
     <Folder Include="demandelements\person\create\" />
     <Folder Include="demandelements\person\create\color" />
@@ -4079,6 +4107,16 @@
     <Folder Include="demandelements\person\inspect\id" />
     <Folder Include="demandelements\person\inspect\parameters" />
     <Folder Include="demandelements\person\inspect\type" />
+    <Folder Include="demandelements\person\inspect_selection\" />
+    <Folder Include="demandelements\person\inspect_selection\color" />
+    <Folder Include="demandelements\person\inspect_selection\departpos" />
+    <Folder Include="demandelements\person\inspect_selection\depart\" />
+    <Folder Include="demandelements\person\inspect_selection\depart\float" />
+    <Folder Include="demandelements\person\inspect_selection\depart\triggered" />
+    <Folder Include="demandelements\person\inspect_selection\parameters" />
+    <Folder Include="demandelements\person\inspect_selection\type" />
+    <Folder Include="demandelements\person\load" />
+    <Folder Include="demandelements\person\load\no_child" />
     <Folder Include="demandelements\routeflow\" />
     <Folder Include="demandelements\routeflow\create\" />
     <Folder Include="demandelements\routeflow\create\arrivallane" />
@@ -4106,6 +4144,7 @@
     <Folder Include="demandelements\routeflow\create\vtype" />
     <Folder Include="demandelements\routeflow\delete" />
     <Folder Include="demandelements\routeflow\inspect\" />
+    <Folder Include="demandelements\routeflow\inspect\arrivaledge" />
     <Folder Include="demandelements\routeflow\inspect\arrivallane\" />
     <Folder Include="demandelements\routeflow\inspect\arrivallane\current" />
     <Folder Include="demandelements\routeflow\inspect\arrivallane\float" />
@@ -4124,6 +4163,7 @@
     <Folder Include="demandelements\routeflow\inspect\begin" />
     <Folder Include="demandelements\routeflow\inspect\color" />
     <Folder Include="demandelements\routeflow\inspect\containernumber" />
+    <Folder Include="demandelements\routeflow\inspect\departedge" />
     <Folder Include="demandelements\routeflow\inspect\departlane\" />
     <Folder Include="demandelements\routeflow\inspect\departlane\allowed" />
     <Folder Include="demandelements\routeflow\inspect\departlane\best" />
@@ -4836,6 +4876,7 @@
     <Folder Include="demandelements\vehicle\create\vtype" />
     <Folder Include="demandelements\vehicle\delete" />
     <Folder Include="demandelements\vehicle\inspect\" />
+    <Folder Include="demandelements\vehicle\inspect\arrivaledge" />
     <Folder Include="demandelements\vehicle\inspect\arrivallane\" />
     <Folder Include="demandelements\vehicle\inspect\arrivallane\current" />
     <Folder Include="demandelements\vehicle\inspect\arrivallane\float" />
@@ -4853,6 +4894,7 @@
     <Folder Include="demandelements\vehicle\inspect\arrivalspeed\right" />
     <Folder Include="demandelements\vehicle\inspect\color" />
     <Folder Include="demandelements\vehicle\inspect\containernumber" />
+    <Folder Include="demandelements\vehicle\inspect\departedge" />
     <Folder Include="demandelements\vehicle\inspect\departlane\" />
     <Folder Include="demandelements\vehicle\inspect\departlane\allowed" />
     <Folder Include="demandelements\vehicle\inspect\departlane\best" />
