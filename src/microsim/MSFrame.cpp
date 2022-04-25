@@ -354,7 +354,7 @@ MSFrame::fillOptions() {
     oc.addDescription("ignore-junction-blocker", "Processing", "Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore)");
 
     oc.doRegister("ignore-route-errors", new Option_Bool(false));
-    oc.addDescription("ignore-route-errors", "Processing", "(1) Do not check whether routes are connected. (2) Allow inserting a vehicle in a situation which requires emergency braking.");
+    oc.addDescription("ignore-route-errors", "Processing", "Do not check whether routes are connected");
 
     oc.doRegister("ignore-accidents", new Option_Bool(false));
     oc.addDescription("ignore-accidents", "Processing", "Do not check whether accidents occur");
@@ -418,6 +418,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("eager-insert", new Option_Bool(false));
     oc.addDescription("eager-insert", "Processing", "Whether each vehicle is checked separately for insertion on an edge");
+
+    oc.doRegister("emergency-insert", new Option_Bool(false));
+    oc.addDescription("emergency-insert", "Processing", "Allow inserting a vehicle in a situation which requires emergency braking");
 
     oc.doRegister("random-depart-offset", new Option_String("0", "TIME"));
     oc.addDescription("random-depart-offset", "Processing", "Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]");
@@ -957,6 +960,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gRemoveGridlocked = oc.getBool("time-to-teleport.remove");
     MSGlobals::gCheck4Accidents = !oc.getBool("ignore-accidents");
     MSGlobals::gCheckRoutes = !oc.getBool("ignore-route-errors");
+    MSGlobals::gEmergencyInsert = oc.getBool("emergency-insert");
     MSGlobals::gWeightsSeparateTurns = oc.getFloat("weights.separate-turns");
     MSGlobals::gStartupWaitThreshold = string2time(oc.getString("startup-wait-threshold"));
     MSGlobals::gLaneChangeDuration = string2time(oc.getString("lanechange.duration"));

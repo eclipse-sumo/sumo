@@ -678,7 +678,7 @@ MSLane::checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, con
             if ((aVehicle->getParameter().insertionChecks & (int)check) == 0) {
                 return false;
             }
-            if (!MSGlobals::gCheckRoutes) {
+            if (MSGlobals::gEmergencyInsert) {
                 // Check whether vehicle can stop at the given distance when applying emergency braking
                 double emergencyBrakeGap = 0.5 * speed * speed / aVehicle->getCarFollowModel().getEmergencyDecel();
                 if (emergencyBrakeGap <= dist) {

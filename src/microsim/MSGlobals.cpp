@@ -43,6 +43,7 @@ SUMOTime MSGlobals::gTimeToImpatience;
 bool MSGlobals::gCheck4Accidents;
 
 bool MSGlobals::gCheckRoutes;
+bool MSGlobals::gEmergencyInsert;
 
 SUMOTime MSGlobals::gLaneChangeDuration;
 

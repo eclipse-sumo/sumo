@@ -84,6 +84,9 @@ public:
     /** information whether the routes shall be checked for connectivity */
     static bool gCheckRoutes;
 
+    /** information whether dangerous insertion speeds are permitted */
+    static bool gEmergencyInsert;
+
     /** information Duration of a lane change maneuver */
     static SUMOTime gLaneChangeDuration;
 
