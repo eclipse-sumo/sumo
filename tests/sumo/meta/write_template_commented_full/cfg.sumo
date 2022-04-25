@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-11 16:42:49 by Eclipse SUMO sumo Version v1_12_0+2081-d04c25f
+<!-- generated on 2022-04-25 11:17:03 by Eclipse SUMO sumo Version v1_12_0+2258-d281eb2
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -321,7 +321,7 @@
         <!-- Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore) -->
         <ignore-junction-blocker value="-1" type="TIME"/>
 
-        <!-- (1) Do not check whether routes are connected. (2) Allow inserting a vehicle in a situation which requires emergency braking. -->
+        <!-- Do not check whether routes are connected -->
         <ignore-route-errors value="false" type="BOOL"/>
 
         <!-- Do not check whether accidents occur -->
@@ -386,6 +386,9 @@
 
         <!-- Whether each vehicle is checked separately for insertion on an edge -->
         <eager-insert value="false" type="BOOL"/>
+
+        <!-- Allow inserting a vehicle in a situation which requires emergency braking -->
+        <emergency-insert value="false" type="BOOL"/>
 
         <!-- Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME] -->
         <random-depart-offset value="0" type="TIME"/>
