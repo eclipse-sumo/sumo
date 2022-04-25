@@ -9,7 +9,7 @@ opts, args = getopt.getopt(sys.argv[1:], "i:o:t:v:", ["input=", "output=", "time
 
 # check arguments
 if (len(opts) == 0):
-    print ('usage: mergeBatteryOutput.py -i <battery input file> -o <battery merged output file> -t <time to merge> -v <vehicleid>')
+    print ('usage: aggregateBatteryOutput.py -i <battery input file> -o <battery merged output file> -t <time to merge> -v <vehicleid>')
     sys.exit()
 
 # parse arguments
