@@ -39,6 +39,8 @@ const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
 const size_t GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES = 128;
 const Parameterised::Map GNEAttributeCarrier::PARAMETERS_EMPTY;
+const std::string GNEAttributeCarrier::True = toString(true);
+const std::string GNEAttributeCarrier::False = toString(false);
 
 
 // ===========================================================================

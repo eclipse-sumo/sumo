@@ -480,7 +480,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             if (myDefaultVehicleType) {
                 return toString(myDefaultVehicleTypeModified);
             } else {
-                return toString(false);
+                return False;
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

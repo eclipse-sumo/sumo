@@ -123,7 +123,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,            GNEApplicationWindow::onCmdSaveAdditionals),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,            GNEApplicationWindow::onUpdSaveAdditionals),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,             GNEApplicationWindow::onCmdSaveAdditionalsAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,             GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,             GNEApplicationWindow::onUpdSaveAdditionalsAs),
     // demand elements
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,  GNEApplicationWindow::onCmdOpenDemandElements),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,  GNEApplicationWindow::onUpdNeedsNetwork),
@@ -132,7 +132,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,                 GNEApplicationWindow::onCmdSaveDemandElements),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,                 GNEApplicationWindow::onUpdSaveDemandElements),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,                          GNEApplicationWindow::onCmdSaveDemandElementsAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,                          GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,                          GNEApplicationWindow::onUpdSaveDemandElementsAs),
     // data elements
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,  GNEApplicationWindow::onCmdOpenDataElements),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,  GNEApplicationWindow::onUpdNeedsNetwork),
@@ -141,7 +141,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,           GNEApplicationWindow::onCmdSaveDataElements),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,           GNEApplicationWindow::onUpdSaveDataElements),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDATA_AS,                    GNEApplicationWindow::onCmdSaveDataElementsAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDATA_AS,                    GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDATA_AS,                    GNEApplicationWindow::onUpdSaveDataElementsAs),
     // other
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,             GNEApplicationWindow::onCmdSaveTLSProgramsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,             GNEApplicationWindow::onUpdSaveTLSPrograms),
@@ -1497,8 +1497,8 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             // clear additional path
             additionalsSavePath = "";
         }
-        // Check if there are demand elements in our net (3 due default vehicle types and person types)
-        if (myNet->getAttributeCarriers()->getNumberOfDemandElements() > 3) {
+        // Check if there are demand elements in our net
+        if (myNet->getAttributeCarriers()->getNumberOfDemandElements() > 0) {
             // ask user if want to save demand elements if weren't saved previously
             if (oc.getString("route-files") == "") {
                 // write warning if netedit is running in testing mode
@@ -2593,6 +2593,13 @@ GNEApplicationWindow::onUpdSaveAdditionals(FXObject* sender, FXSelector, void*) 
 
 
 long
+GNEApplicationWindow::onUpdSaveAdditionalsAs(FXObject* sender, FXSelector, void*) {
+    sender->handle(this, ((myNet == nullptr) || (myNet->getAttributeCarriers()->getNumberOfAdditionals() == 0)) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    return 1;
+}
+
+
+long
 GNEApplicationWindow::onUpdSaveDemandElements(FXObject* sender, FXSelector, void*) {
     sender->handle(this, ((myNet == nullptr) || myNet->isDemandElementsSaved()) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     return 1;
@@ -2600,8 +2607,22 @@ GNEApplicationWindow::onUpdSaveDemandElements(FXObject* sender, FXSelector, void
 
 
 long
+GNEApplicationWindow::onUpdSaveDemandElementsAs(FXObject* sender, FXSelector, void*) {
+    sender->handle(this, ((myNet == nullptr) || (myNet->getAttributeCarriers()->getNumberOfDemandElements() == 0)) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    return 1;
+}
+
+
+long
 GNEApplicationWindow::onUpdSaveDataElements(FXObject* sender, FXSelector, void*) {
     sender->handle(this, ((myNet == nullptr) || myNet->isDataElementsSaved()) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onUpdSaveDataElementsAs(FXObject* sender, FXSelector, void*) {
+    sender->handle(this, ((myNet == nullptr) || (myNet->getAttributeCarriers()->getDataSets().size() == 0)) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     return 1;
 }
 

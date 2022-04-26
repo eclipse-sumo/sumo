@@ -1000,11 +1000,11 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
             for (const auto& i : myGNEIncomingEdges) {
                 for (const auto& j : i->getGNEConnections()) {
                     if (j->getNBEdgeConnection().keepClear) {
-                        return toString(true);
+                        return True;
                     }
                 }
             }
-            return toString(false);
+            return False;
         case SUMO_ATTR_RIGHT_OF_WAY:
             return SUMOXMLDefinitions::RightOfWayValues.getString(myNBNode->getRightOfWay());
         case SUMO_ATTR_FRINGE:

@@ -236,11 +236,20 @@ public:
     /// @brief called when the update/FXCall save additionals is executed
     long onUpdSaveAdditionals(FXObject*, FXSelector, void*);
 
+    /// @brief called when the update/FXCall save additionals as is executed
+    long onUpdSaveAdditionalsAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the update/FXCall save demand elements is executed
     long onUpdSaveDemandElements(FXObject*, FXSelector, void*);
 
+    /// @brief called when the update/FXCall save demand elements as is executed
+    long onUpdSaveDemandElementsAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the update/FXCall save data elements is executed
     long onUpdSaveDataElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save data elements as is executed
+    long onUpdSaveDataElementsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall undo is executed
     long onUpdUndo(FXObject* obj, FXSelector sel, void* ptr);

@@ -1170,7 +1170,16 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfDemandElements() const {
     int counter = 0;
     for (const auto& demandElementTag : myDemandElements) {
-        counter += (int)demandElementTag.second.size();
+        if (demandElementTag.first == SUMO_TAG_VTYPE) {
+            // iterate over vehicle types to avoid default vTypes
+            for (const auto &vType : demandElementTag.second) {
+                if (vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE) != GNEAttributeCarrier::True) {
+                    counter++;
+                }
+            }
+        } else {
+            counter += (int)demandElementTag.second.size();
+        }
     }
     return counter;
 }
