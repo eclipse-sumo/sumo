@@ -803,6 +803,12 @@ struct GNEApplicationWindowHelper {
         /// @brief show data processing menu commands
         void hideDataProcessingMenuCommands();
 
+        /// @brief show separator
+        void showSeparator();
+
+        /// @brief hide separator
+        void hideSeparator();
+
         /// @name Processing FXMenuCommands for Network mode
         /// @{
         /// @brief FXMenuCommand for compute network
@@ -850,6 +856,9 @@ struct GNEApplicationWindowHelper {
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;
+
+        /// @brief separator for optionsMenu
+        FXMenuSeparator *mySeparator;
 
         /// @brief Invalidated copy constructor.
         ProcessingMenuCommands(const ProcessingMenuCommands&) = delete;

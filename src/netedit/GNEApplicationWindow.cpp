@@ -4043,6 +4043,7 @@ GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
         myProcessingMenuCommands.showNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
         myProcessingMenuCommands.hideDataProcessingMenuCommands();
+        myProcessingMenuCommands.showSeparator();
     } else if (supermode == Supermode::DEMAND) {
         // menu commands
         myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
@@ -4056,6 +4057,7 @@ GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.showDemandProcessingMenuCommands();
         myProcessingMenuCommands.hideDataProcessingMenuCommands();
+        myProcessingMenuCommands.showSeparator();
     } else if (supermode == Supermode::DATA) {
         // menu commands
         myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
@@ -4069,11 +4071,13 @@ GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
         myProcessingMenuCommands.showDataProcessingMenuCommands();
+        myProcessingMenuCommands.hideSeparator();
     } else {
         // menu commands
         myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
         myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
+        myProcessingMenuCommands.hideSeparator();
         // lock
         myLockMenuCommands.hideNetworkLockMenuCommands();
         myLockMenuCommands.hideDemandLockMenuCommands();

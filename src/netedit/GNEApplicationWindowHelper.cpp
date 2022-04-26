@@ -1453,8 +1453,9 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(
     clearInvalidDemandElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                                  "Clean invalid route elements", "F8", "Clear elements with an invalid path (routes, Trips, Flows...).",
                                  GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), myGNEApp, MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
-    // add separator (because optionsmenu is commmon for Network and Demand modes
-    new FXMenuSeparator(fileMenu);
+    // create separator
+    mySeparator = new FXMenuSeparator(fileMenu);
+    // create optionmenus
     optionMenus = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                   "Options", "F10", "Configure Processing Options.",
                   GUIIconSubSys::getIcon(GUIIcon::OPTIONS), myGNEApp, MID_HOTKEY_F10_OPTIONSMENU);
@@ -1531,13 +1532,24 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::hideDemandProcessingMenuComm
 
 void
 GNEApplicationWindowHelper::ProcessingMenuCommands::showDataProcessingMenuCommands() {
-
+    // currently nothing to show
 }
 
 
 void
 GNEApplicationWindowHelper::ProcessingMenuCommands::hideDataProcessingMenuCommands() {
+    // currently nothing to hide
+}
 
+void 
+GNEApplicationWindowHelper::ProcessingMenuCommands::showSeparator() {
+    mySeparator->show();
+}
+
+
+void
+GNEApplicationWindowHelper::ProcessingMenuCommands::hideSeparator() {
+    mySeparator->hide();
 }
 
 // ---------------------------------------------------------------------------
