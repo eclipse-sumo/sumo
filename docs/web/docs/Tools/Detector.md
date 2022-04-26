@@ -2,6 +2,8 @@
 title: Detector
 ---
 
+This page documents tools that work with [detectors](..Simulation/Output/Induction_Loops_Detectors_(E1).md) and detector [flow files](../Demand/Routes_from_Observation_Points.md#computing_flows).
+
 # flowrouter.py
 
 "flowrouter.py" serves as a drop in replacement for
@@ -63,13 +65,15 @@ name of a typeDistribution).
 
 ## Ambiguity
 
-In many cases, the solutions for a given input is not unique. By setting
-the option **--limit** {{DT_INT}}, the flow is assigned in multiple iterations which causes
+In many cases, the solutions for a given input is not unique. It is often the case, that a large proportion of the solution space contains "implausible" (i.e. looped / detour) routes. Some strategies for mitigation are described below. In some cases it may be better to use the [routeSampler tool instead](../Demand/Routes_from_Observation_Points.md#chosing_the_right_tool).
+
+### Distribution among candidate successors
+
+By setting the option **--limit** {{DT_INT}}, the flow is assigned in multiple iterations. This can increase running time but causes
 flows to be distributed more evenly so that all routes are used in
-proportion to the incoming and outgoing flows (as done by
+proportion to the incoming and outgoing flows (similar to the behavir of 
 [dfrouter](../dfrouter.md)).
 
-Another way to resolve ambiguity is to add route restrictions:
 
 ### Restricting generated routes
 
