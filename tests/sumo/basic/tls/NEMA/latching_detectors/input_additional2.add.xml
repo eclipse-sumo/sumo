@@ -12,6 +12,7 @@
         <param key="show-detectors" value="true"/>
         <param key="whetherOutputState" value="true"/>
         <param key="greenTransfer" value="true"/>
+        <param key="controllerType" value="Type170"/>
 
         <!-- Coordination Settings -->
         <param key="coordinate-mode" value="false"/>

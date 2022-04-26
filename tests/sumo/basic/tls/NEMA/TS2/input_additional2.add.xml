@@ -16,7 +16,6 @@
         <!-- Coordination Settings -->
         <param key="coordinate-mode" value="true"/>
         <param key="coordinatePhases" value="2,6"/>
-        <param key="cabinetType" value="TS2"/>
         <param key="total-cycle-length" value="150"/>
 
         <!-- Recall Settings -->
