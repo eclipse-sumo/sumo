@@ -289,3 +289,13 @@ Example:
 ```
 python tools/output/parkingSearchTraffic.py net.net.xml vehroutes.xml
 ```
+
+
+## aggregateBatteryOutput.py
+
+Script for aggregate battery outputs in intervals.
+
+Example usage:
+```
+python tools\output\aggregateBatteryOutput.py -i battery.xml -o batteryAggregatedx.xml -t 60 -v veh0')
+```
