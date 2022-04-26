@@ -1390,8 +1390,8 @@ GNEEdge::drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, 
         const GNELane* topLane =  lefthand ? edge->getLanes().back() : edge->getLanes().front();
         const GNELane* botLane = lefthand ? edge->getLanes().front() : edge->getLanes().back();
         // obtain a copy of both geometries
-        GUIDottedGeometry dottedGeometryTop(s, topLane->getLaneShape(), false);
-        GUIDottedGeometry dottedGeometryBot(s, botLane->getLaneShape(), false);
+        GUIDottedGeometry dottedGeometryTop(s, topLane->getLaneGeometry().getShape(), false);
+        GUIDottedGeometry dottedGeometryBot(s, botLane->getLaneGeometry().getShape(), false);
         // obtain both LaneDrawingConstants
         GNELane::LaneDrawingConstants laneDrawingConstantsFront(s, topLane);
         GNELane::LaneDrawingConstants laneDrawingConstantsBack(s, botLane);
