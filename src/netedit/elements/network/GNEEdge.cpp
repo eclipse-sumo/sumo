@@ -593,7 +593,7 @@ GNEEdge::getBackDownShapePosition() const {
 }
 
 void
-GNEEdge::remakeGNEConnections() {
+GNEEdge::remakeGNEConnections(bool junctionsReady) {
     // create new and removed unused GNEConnections
     const std::vector<NBEdge::Connection>& connections = myNBEdge->getConnections();
     // create a vector to keep retrieved and created connections
@@ -602,7 +602,9 @@ GNEEdge::remakeGNEConnections() {
     for (const auto& connection : connections) {
         // retrieve existent GNEConnection, or create it
         GNEConnection* retrievedGNEConnection = retrieveGNEConnection(connection.fromLane, connection.toEdge, connection.toLane);
-        retrievedGNEConnection->updateLinkState();
+        if (junctionsReady) {
+            retrievedGNEConnection->updateLinkState();
+        }
         retrievedConnections.push_back(retrievedGNEConnection);
         // check if previously this GNEConnections exists, and if true, remove it from myGNEConnections
         std::vector<GNEConnection*>::iterator retrievedExists = std::find(myGNEConnections.begin(), myGNEConnections.end(), retrievedGNEConnection);

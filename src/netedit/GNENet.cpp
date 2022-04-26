@@ -2704,7 +2704,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
         // remake connections
         for (const auto& connection : myAttributeCarriers->getEdges()) {
-            connection.second->remakeGNEConnections();
+            connection.second->remakeGNEConnections(true);
         }
         // iterate over junctions of net
         for (const auto& junction : myAttributeCarriers->getJunctions()) {
