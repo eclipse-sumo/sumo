@@ -3630,8 +3630,7 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
         }
     }
     // if given identically osm names
-    if (!OptionsCont::getOptions().isDefault("output.street-names") && myStreetName != possContinuation->getStreetName()
-            && myStreetName != "" && possContinuation->getStreetName() != "") {
+    if (!OptionsCont::getOptions().isDefault("output.street-names") && myStreetName != possContinuation->getStreetName()) {
         return false;
     }
 
@@ -3662,12 +3661,6 @@ NBEdge::append(NBEdge* e) {
         for (int i = 0; i < (int)myLanes.size(); i++) {
             myLanes[i].width = e->myLanes[i].width;
         }
-    }
-    // defined name prevails over undefined name
-    if (myStreetName == ""
-            // name of longer street prevails
-            || (e->myStreetName != "" && e->getLength() > myLength)) {
-        myStreetName = e->myStreetName;
     }
     // recompute length
     myLength += e->myLength;
