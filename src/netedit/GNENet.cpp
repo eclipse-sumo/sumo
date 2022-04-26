@@ -424,7 +424,7 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
         edge->getToJunction()->setLogicValid(false, undoList);
     } else {
         edge->getFromJunction()->removeConnectionsTo(edge, undoList, true);
-        edge->getFromJunction()->removeConnectionsFrom(edge, undoList, true);
+        edge->getToJunction()->removeConnectionsFrom(edge, undoList, true);
     }
     // if junction source is a TLS and after deletion will have only an edge, remove TLS
     if (edge->getFromJunction()->getNBNode()->isTLControlled() && (edge->getFromJunction()->getGNEOutgoingEdges().size() <= 1)) {
