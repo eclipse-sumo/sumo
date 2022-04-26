@@ -3,7 +3,12 @@ import sys
 import zipfile
 import shutil
 
-# first download sumo
+# first check platform (currently only avaliable in Windows)
+if sys.platform != "win32":
+    print ("This script only works in Windows")
+    sys.exit()
+
+# download sumo
 print ("Downloading daily SUMO...")
 os.system('curl https://sumo.dlr.de/daily/sumo-win64extra-git.zip --output sumo.zip')
 
