@@ -709,7 +709,7 @@ void
 GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandViewOptionsMenuChecks(FXMenuPane* editMenu) {
     // create menu checks
     menuCheckToggleGrid = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                          "Toggle grid", "Ctrl+G or Alt+1", "",
+                          "Show grid", "Ctrl+G or Alt+1", "",
                           GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEGRID),
                           myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID);
 
@@ -724,12 +724,12 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandView
                                   myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES);
 
     menuCheckHideShapes = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                          "Toggle show shapes", "Alt+4", "",
+                          "Show shapes", "Alt+4", "",
                           GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES),
                           myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES);
 
     menuCheckShowAllTrips = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                            "Toggle show all trips", "Alt+5", "",
+                            "Show all trips", "Alt+5", "",
                             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWTRIPS),
                             myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS);
 
@@ -754,12 +754,12 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandView
                              myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER);
 
     menuCheckHideNonInspectedDemandElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-            "Toggle show non-inspected demand elements", "Alt+8", "",
+            "Show non-inspected demand elements", "Alt+8", "",
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
             myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED);
 
     menuCheckShowOverlappedRoutes = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                    "Toggle show number of overlapped routes", "Alt+9", "",
+                                    "Show number of overlapped routes", "Alt+9", "",
                                     GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWOVERLAPPEDROUTES),
                                     myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES);
 
@@ -811,37 +811,37 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::buildDataViewOpti
                                        myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE);
 
     menuCheckShowAdditionals = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                               "Toggle show additionals", "Alt+2", "",
+                               "Show additionals", "Alt+2", "",
                                GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_SHOWADDITIONALS),
                                myGNEApp, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS);
 
     menuCheckShowShapes = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                          "Toggle show shapes", "Alt+3", "",
+                          "Show shapes", "Alt+3", "",
                           GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_SHOWSHAPES),
                           myGNEApp, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES);
 
     menuCheckShowDemandElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                  "Toggle show demand elements", "Alt+4", "",
+                                  "Show demand elements", "Alt+4", "",
                                   GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS),
                                   myGNEApp, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS);
 
     menuCheckToogleTAZRelDrawing = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                   "Toggle TAZRel drawing mode", "Alt+5", "",
+                                   "Draw TAZRel from center", "Alt+5", "",
                                    GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELDRAWING),
                                    myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING);
 
     menuCheckToogleTAZDrawFill = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                 "Toggle TAZ draw fill", "Alt+6", "",
+                                 "Draw TAZ fill", "Alt+6", "",
                                  GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZDRAWFILL),
                                  myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL);
 
     menuCheckToogleTAZRelOnlyFrom = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                    "Toggle only draw TAZRel from", "Alt+6", "",
+                                    "Only draw TAZRel from", "Alt+6", "",
                                     GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYFROM),
                                     myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM);
 
     menuCheckToogleTAZRelOnlyTo = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                  "Toggle only draw TAZRel to", "Alt+7", "",
+                                  "Only draw TAZRel to", "Alt+7", "",
                                   GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYTO),
                                   myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO);
     // build separator
