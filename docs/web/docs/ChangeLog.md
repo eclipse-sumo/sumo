@@ -521,6 +521,7 @@ title: ChangeLog
   - implausibleRoutes.py: now supports option **--xml-output** to write route scores for post-processing. Issue #9862
   - randomTrips.py: now support option **--fringe-junctions** to determine the fringe from [junction attribute 'fringe'](Networks/PlainXML.md#fringe). Issue #9948
   - [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle) now permits loading of [electric vehicle params](Models/Electric.md#defining_electric_vehicles) via the new options **--vtype** and **--additional-files**. Issue #9930
+  - aggregateBatteryOutput.py: Tool used for aggregate battery outputs in custom intervals. Issue #10583
 
 ### Miscellaneous
 
