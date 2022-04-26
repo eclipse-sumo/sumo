@@ -95,7 +95,7 @@ The following attributes/elements are used within the tlLogic element:
 
 ## <param\> Attributes
 
-The following parameters are used to set the NEMA diagram:
+The following parameters are used to set the NEMA diagram and controller behavior:
 
 | Parameter Key | Value Type                            | Description      |
 | -------------- | ------------------------------------- | ---------------- |
@@ -112,7 +112,9 @@ The following parameters are used to set the NEMA diagram:
 |**fixForceOff**  | bool (true or false)    | If true, the controller will be in fixed force-off mode. This permits non-coordinated phases to use the unused time of previous phases. If false, the controller will be in floating force-off mode. default *false*|
 |**whetherOutputState**  | bool (true or false)    | Whether record the signal phase change events. This could be used for generating Automated Traffic Signal Performance Measures (ATSPM). The value will be default to false if not set.|
 |**show-detectors**  | bool (true or false)    | It controls whether generated detectors will be visible or hidden in sumo-gui. The default for all traffic lights can be set with option --tls.actuated.show-detectors. It is also possible to toggle this value from within the GUI by right-clicking on a traffic light.
-|**cabinetType**  | string (TS2 or Type 170)    | It controls the type of controller used. NEMA TS2 controllers reference the coordinated *offset* to the beginning of the 1st coordinated phase. Type 170 controllers reference the coordinated *offset* to the beginning of yellow on the coordinated phase. default *Type 170*.|
+|**controllerType**  | string (TS2 or Type 170)    | It controls the type of controller used. NEMA TS2 controllers reference the coordinated *offset* to the beginning of the 1st coordinated phase. Type 170 controllers reference the coordinated *offset* to the beginning of yellow on the coordinated phase. TS2 offset has been validated against software-in-the-loop Econolite controllers. default *TS2*.
+|**latchingDetectors**  | string    | Passing a string of phases (like "1,2,3,4") will cause the detector in those phases to remain on until the phase has been served, regardless of whether the vehicle left the detection zone or not. default "".
+|**crossPhaseSwitching:X**  | string    | X is a phase number. For example, key="crossPhaseSwitching:2" value="5" will cause phase 5 detector to report to phase 2 while phase 2 is active. Default is no cross phase switching |
 
 ## <phase\> Attributes
 
@@ -122,7 +124,7 @@ Each phase is defined using the following attributes:
 | -------------- | --------------------- | -------------------------- |
 | **duration**   | time (int)            | This attribute is default to 99 and does not affect the control. The duration of the phase will change dynamically according to the traffic actuation and constrained by **minDur** and **maxDur**.             |
 | **minDur**         | time (double)            | The minimum green of the phase.                                                              |
-| **maxDur**         | time (double)            | The maximum green of the phase. In coordinated mode, it's the split minus the yellow and all red time of the phase.|
+| **maxDur**         | time (double)            | The maximum green of the phase. **In coordinated mode, it's the split minus the yellow and all red time of the phase.**|
 | **vehExt**         | time (double)            | Vehicle extension in seconds of the actuated phase. |
 | **yellow**         | time (double)            | The yellow time of the phase. |
 | **red**         | time (double)            | Red clearance time of the phase. |
