@@ -12,7 +12,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    csv2xml.py
+# @file    mapDetectors.py
 # @author  Jakob Erdmann
 # @date    2022-04-25
 
@@ -31,8 +31,10 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 
+
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser(description="Map detector locations to a network and write inductionLoop-defintions")
+    optParser = sumolib.options.ArgumentParser(
+            description="Map detector locations to a network and write inductionLoop-defintions")  # noqa
     optParser.add_argument("-n", "--net-file", dest="netfile",
                            help="define the net file (mandatory)")
     optParser.add_argument("-d", "--detector-file", dest="detfile",
@@ -63,47 +65,6 @@ def get_options(args=None):
     return options
 
 
-def writeHierarchicalXml(struct, options):
-    if not struct.root.attributes:
-        options.skip_root = True
-    with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:
-        if options.source.isdigit():
-            inputf = xml2csv.getSocketStream(int(options.source))
-        else:
-            inputf = io.open(options.source, encoding="utf8")
-        lastRow = OrderedDict()
-        tagStack = [struct.root.name]
-        if options.skip_root:
-            outputf.write(u'<%s' % struct.root.name)
-        fields = None
-        enums = {}
-        first = True
-        for raw in csv.reader(inputf, delimiter=options.delimiter):
-            if not fields:
-                fields = raw
-                for f in fields:
-                    if '_' not in f:
-                        continue
-                    enum = struct.getEnumerationByAttr(*f.split('_', 1))
-                    if enum:
-                        enums[f] = enum
-            else:
-                row = OrderedDict()
-                for field, entry in zip(fields, raw):
-                    if field in enums and entry.isdigit():
-                        entry = enums[field][int(entry)]
-                    row[field] = entry
-                if first and not options.skip_root:
-                    checkAttributes(outputf, lastRow, row, struct.root, tagStack, 0)
-                    first = False
-                checkChanges(outputf, lastRow, row, struct.root, tagStack, 1)
-                lastRow = row
-        outputf.write(u"/>\n")
-        for idx in range(len(tagStack) - 2, -1, -1):
-            outputf.write(u"%s</%s>\n" % (idx * '    ', tagStack[idx]))
-        inputf.close()
-
-
 def main():
     options = get_options()
     net = sumolib.net.readNet(options.netfile)
@@ -118,8 +79,8 @@ def main():
                 for attr in ["id", "lon", "lat"]:
                     colName = getattr(options, attr)
                     if colName not in row:
-                        sys.exit("Required column %s not found. Available columns are %s" %
-                                (colName, ",".join(row.keys())))
+                        sys.exit("Required column %s not found. Available columns are %s" % (
+                                 colName, ",".join(row.keys())))
             detID = row[options.id]
             lon = float(row[options.lon])
             lat = float(row[options.lat])
@@ -137,11 +98,12 @@ def main():
             lanes.sort()
             best = lanes[0][1]
             pos = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint((x,y), best.getShape())
-            outf.write('    <inductionLoop id="%s" lane="%s" pos="%s" file="%s" freq="%s"/>\n' %
-                    (detID, best.getID(), pos, options.detOut, options.interval))
+            outf.write('    <inductionLoop id="%s" lane="%s" pos="%s" file="%s" freq="%s"/>\n' % (
+                       detID, best.getID(), pos, options.detOut, options.interval))
 
         outf.write('</additional>\n')
         inputf.close()
+
 
 if __name__ == "__main__":
     main()
