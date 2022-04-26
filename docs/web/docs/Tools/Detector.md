@@ -96,7 +96,7 @@ The tool [implausibleRoutes.py](Routes.md#implausibleroutespy) can be used to ge
 
 This script does the reverse of flowrouter.py and
 [dfrouter](../dfrouter.md) in generating a traffic counts for
-detectors from a route or flow file. It can also be used to compare the
+detectors from a route or flow file. It's main purpse  It can also be used to compare the
 input counts with the outputs of flowrouter.py and
 [dfrouter](../dfrouter.md). Example:
 
@@ -104,10 +104,40 @@ input counts with the outputs of flowrouter.py and
 <SUMO_HOME>/tools/detector/flowFromRoutes.py -d detectors.xml -r routes.xml -e flows.xml
 ```
 
+# flowFromEdgeData
+
+This script is similar to [flowFromRoutes](#flowFromRoutes). It generates traffic counts for detectors but uses [edgeData files](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) as input instead of routes.
+It requires the use of an input flow file and then performs a comparison between input flows and edgdata flows
+```
+<SUMO_HOME>/tools/detector/flowFromEdgeData.py -d detectors.xml -e edgedata.xml -f flows.txt
+```
+
+
 # edgeDataFromFlow.py
 
 This script converts detector flow files to into edgeData format (i.e. to be used by [routeSampler.py](Turns.md#routesamplerpy))
 Example:
 ```
 <SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml 
+```
+
+# filterFlows.py
+
+Filters a flow file by detector ids and time range
+```
+<SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d det1,det2 -f input_flows.txt -b 3600 -e 7200 -o output_flows.txt
+```
+
+# mapDetectors.py
+
+Given a file `det.csv` of the following form
+```
+id;lat;lon
+det1;52.432559;13.496612;1000
+det2;52.432373;13.496142;500
+```
+
+It can be turned into a file with detectors with:
+```
+<SUMO_HOME>/tools/detector/mapDetectors.py -n net.net.xml -d  det.csv -o det.add.xml
 ```
