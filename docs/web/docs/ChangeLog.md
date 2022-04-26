@@ -42,6 +42,8 @@ title: ChangeLog
   - Fixed error related to NEMA detector naming. Issue #10517
   - Fixed wide vehicle being blocked on junction. Issue #10521, #10523
   - CarFollowModel IDM with low decel values no longer overshoots stop position. Issue #10556
+  - Unfinished (started) stops are now included in vehroute-output when setting option **--vehroute-output.write-unfinished**. Issue #10565
+  - Added option **emergency-insert** to permit inserting vehicles at dangerous speeds. This behavior was previously a side effect of option **--ignore-route-errors**. Issue #10581
   - opposite-direction driving
     - Can now overtake stopped vehicle when there is only a short gap afterwards. Issue #9994, #10338
     - Fixed failure to overtake fast vehicles. Issue #10194    
@@ -89,6 +91,7 @@ title: ChangeLog
   - Fixed interpretation of OSM key junction=circular. Issue #10479
   - Fixed missing bus connection. Issue #10502
   - Fixed crash when merging overlapping networks with junction params. Issue #10528
+  - Connections without conflict now have state *Major* (`M`) at "right_before_left" junctions. Issue #10439
 
 - netedit
   - Fixed invalid geometry when loading geo-polygons. Issue #10101 (regression in 1.10.0)
@@ -115,8 +118,10 @@ title: ChangeLog
   - Stops with embedded routes are now written sorted. Issue #10476
   - Fixed crash in edgeRelation mode. Issue #10485
   - Train visualization paramters (i.e. *carriageLength*) are now written. Issue #10553
+  - Empty person plans now trigger a warning when saving. Issue #10566
       
 - sumo-gui
+  - Fixed partially invisible individuallly defined parking spaces. Issue #10568 (regression in 1.10.0)
   - Fixed missing window focus at startup. Issue #10499
   - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069
   - GUI-defined traffic scaling is now preserved on reload. Issue #10096
@@ -130,6 +135,7 @@ title: ChangeLog
   - Fixed inconsistent gui settings on reload (settings will be kept on reload unless the settings-file was modified). Issue #10398
   - Cancelling a change in viewsettings now takes effect immediately. Issue #10495
   - Fixed x-axis annotation of moused-over value in plot window.
+  - Fixed slow simulation when there are many vehicles at a parkingArea. Issue #10570
     
 - duarouter
   - Route errors are now detected when using option **--skip-new-routes**. Issue #6113
@@ -159,6 +165,10 @@ title: ChangeLog
 - tools
   - generateTurnRatios.py now writes correct closing tag. Issue #10140 (regression in 1.11.0)
   - extractTest.py: now supports complex tests and option CLEAR. Issue #10264, #8473
+  - [route2OD.py](Tools/Routes.md#route2odpy) now works if an edge is part of multiple TAZ. Issue #10586
+
+- miscellaneous
+  - Fixed missing data files in libsumo wheel installation. Issue #9945****
 
 ### Enhancements
 
@@ -194,6 +204,7 @@ title: ChangeLog
   - Fixed exaggerated precision of non-geodetic fcd-output attributes when using option **--fcd-output.geo**. Issue #10465
   - All carFollowModels now support attribute 'collisionMinGapFactor'. Issue #10466
   - Stop attribute 'endPos' can now be used to override automated stop position choice at busStop. Issue #10550
+  - Flows now support attribute `begin="triggered"`. Issue #10560
 
 - sumo-gui
   - Enabled dpi awareness. Issue #9985
@@ -253,6 +264,7 @@ title: ChangeLog
   - Added functions 'vehicletype.getScale' and 'vehicletype.setScale' to access the type-specific traffic scaling factor. Issue #10161
   - Added functions 'getDetEntryLanes, getDetExitLanes, getDetEntryPositions, getDetExitPositions' to 'multientryexit' domain. Issue #10083
   - Actuated traffic lights now supports the keys *cycleTime, cycleSecond, coordinated, offset* in setParameter and getParameter calls. Issue #10234
+  - Actuated traffic lights can now retrieve switching condition states via `trafficlight.getParameter(tlsID, "condition.CONDITION_ID")` #10561
   - Added function 'vehicle.setAcceleration' Issue #10197
   - Function vehicle.replaceStop now supports the flag 'teleport=2' to trigger rerouting after stop removal. Issue #10131
   - Function `vehicle.moveToXY` now "guesses" the next route edges to prevent artefacts when reaching the end of the current route. #4250
@@ -268,6 +280,7 @@ title: ChangeLog
   - added library function `sumolib.net.getFastestPath`. Issue #10318
   - edgeDataDiff.py now supports error propagation for attributes starting with `_std`. Issue #10103
   - countEdgeUsage.py: Option **--taz** now works together with time filtering and **--subpart** filtering. Issue #10404
+  - Added tool [mapDetectors.py](Tools/Detector.md#mapdetectorspy) which creates detector definitions based on geographic coordinates.
 
 ### miscellaneous
 
