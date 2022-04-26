@@ -6,7 +6,6 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="C:\Users\behr_mi\Projekte\sumo\repos\sumo\data\typemap\osmNetconvert.typ.xml"/>
         <osm-files value="osm_bbox.osm.xml.gz"/>
     </input>
 
