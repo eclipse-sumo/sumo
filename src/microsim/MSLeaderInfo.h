@@ -98,13 +98,12 @@ public:
         return myVehicles;
     }
 
-    double getSublaneOffset() const {
+    int getSublaneOffset() const {
         return myOffset;
     }
 
-    void setSublaneOffset(double offset) {
-        myOffset = offset;
-    }
+    /// @brief set number of sublanes by which to shift positions
+    void setSublaneOffset(int offset);
 
     /// @brief whether a stopped vehicle is leader
     bool hasStoppedVehicle() const;
@@ -122,7 +121,7 @@ protected:
     double myWidth;
 
     /// @brief an extra offset for shifting the interpretation of sublane borders (default [0,myWidth])
-    double myOffset;
+    int myOffset;
 
     std::vector<const MSVehicle*> myVehicles;
 

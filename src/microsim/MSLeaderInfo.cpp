@@ -111,7 +111,7 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
         return;
     }
     // map center-line based coordinates into [0, myWidth] coordinates
-    const double vehCenter = veh->getLateralPositionOnLane() + 0.5 * myWidth + latOffset + myOffset;
+    const double vehCenter = veh->getLateralPositionOnLane() + 0.5 * myWidth + latOffset + myOffset * MSGlobals::gLateralResolution;
     const double vehHalfWidth = 0.5 * veh->getVehicleType().getWidth();
     double rightVehSide = vehCenter - vehHalfWidth;
     double leftVehSide = vehCenter + vehHalfWidth;
@@ -155,8 +155,8 @@ MSLeaderInfo::getSublaneBorders(int sublane, double latOffset, double& rightSide
     assert(sublane >= 0);
     assert(sublane < (int)myVehicles.size());
     const double res = MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : myWidth;
-    rightSide = sublane * res + latOffset - myOffset;
-    leftSide = MIN2((sublane + 1) * res, myWidth) + latOffset - myOffset;
+    rightSide = sublane * res + latOffset - myOffset * MSGlobals::gLateralResolution;
+    leftSide = MIN2((sublane + 1) * res, myWidth) + latOffset - myOffset * MSGlobals::gLateralResolution;
 }
 
 
@@ -181,6 +181,13 @@ MSLeaderInfo::toString() const {
     }
     oss << " free=" << myFreeSublanes;
     return oss.str();
+}
+
+
+void
+MSLeaderInfo::setSublaneOffset(int offset) {
+    assert(MSGlobals::gLateralResolution > 0);
+    myOffset = offset;
 }
 
 

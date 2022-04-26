@@ -3376,9 +3376,9 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
         // be between itself and the first "actual" sublane
         // shift the offset so that we "see" this vehicle
         if (ego->getLeftSideOnLane() < -MSGlobals::gLateralResolution) {
-            result.setSublaneOffset(floor(-ego->getLeftSideOnLane() / MSGlobals::gLateralResolution) * MSGlobals::gLateralResolution);
+            result.setSublaneOffset(floor(-ego->getLeftSideOnLane() / MSGlobals::gLateralResolution));
         } else if (ego->getRightSideOnLane() > getWidth() + MSGlobals::gLateralResolution) {
-            result.setSublaneOffset(-floor((ego->getRightSideOnLane() - getWidth()) / MSGlobals::gLateralResolution) * MSGlobals::gLateralResolution);
+            result.setSublaneOffset(-floor((ego->getRightSideOnLane() - getWidth()) / MSGlobals::gLateralResolution));
         }
 #ifdef DEBUG_CONTEXT
         if (DEBUG_COND2(ego)) {

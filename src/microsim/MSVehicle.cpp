@@ -2162,9 +2162,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     // potential leaders that are also outside lane bounds
                 const bool outsideLeft = getLeftSideOnLane(lane) < 0;
                 if (outsideLeft) {
-                    ahead.setSublaneOffset(ceil(-getLeftSideOnLane(lane) / MSGlobals::gLateralResolution) * MSGlobals::gLateralResolution);
+                    ahead.setSublaneOffset(ceil(-getLeftSideOnLane(lane) / MSGlobals::gLateralResolution));
                 } else if (getRightSideOnLane(lane) > lane->getWidth()) {
-                    ahead.setSublaneOffset(-ceil((getRightSideOnLane(lane) - getWidth()) / MSGlobals::gLateralResolution) * MSGlobals::gLateralResolution);
+                    ahead.setSublaneOffset(-ceil((getRightSideOnLane(lane) - getWidth()) / MSGlobals::gLateralResolution));
                 }
                 for (const MSVehicle* cand : lane->getVehiclesSecure()) {
                     if ((lane != myLane || cand->getPositionOnLane() > getPositionOnLane())
