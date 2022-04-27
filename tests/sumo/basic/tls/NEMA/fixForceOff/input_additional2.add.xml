@@ -11,6 +11,7 @@
         <param key="coordinate-mode" value="true"/>
         <param key="whetherOutputState" value="true"/>
         <param key="fixForceOff" value="false"/>
+        <param key="controllerType" value="Type170"/>
 
         <phase duration="99" minDur="6"  maxDur="16" vehext="3" yellow="4" red="1" name="1"   state="srrrrrGGrrr"/>
         <phase duration="99" minDur="10" maxDur="67" vehext="3" yellow="4" red="1" name="2"   state="srrrrrrrGGG"/>

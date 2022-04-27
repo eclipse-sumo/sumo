@@ -15,6 +15,7 @@
         <param key="barrier2Phases" value="2,6"/>
         <param key="coordinate-mode" value="true"/>
         <param key="whetherOutputState" value="true"/>
+        <param key="controllerType" value="Type170"/>
         <param key="17276_0" value="customDet1"/>
         <param key="17276_1" value="customDet2"/>
         <param key="17276_2" value="customDet3"/>

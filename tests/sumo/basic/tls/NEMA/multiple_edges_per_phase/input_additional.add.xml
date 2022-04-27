@@ -18,9 +18,10 @@
         <param key="coordinate-mode" value="true"/>
         <param key="barrier2Phases" value="2,6"/>
         <param key="minRecall" value="2,6"/>
-        <param key="maxRecall" value=""/>
         <param key="whetherOutputState" value="true"/>
         <param key="fixForceOff" value="false"/>
         <param key="file" value="detector.xml"/>
+        <param key="controllerType" value="Type170"/>
+
     </tlLogic>
 </add>
