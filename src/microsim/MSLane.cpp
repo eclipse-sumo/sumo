@@ -3370,15 +3370,14 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
     }
 #endif
     MSCriticalFollowerDistanceInfo result(this, allSublanes ? nullptr : ego, allSublanes ? 0 : egoLatDist, getOppositeLeaders);
-    if (MSGlobals::gLateralResolution > 0
-            && egoLatDist == 0) {
+    if (MSGlobals::gLateralResolution > 0 && egoLatDist == 0) {
         // check whether ego is outside lane bounds far enough so that another vehicle might
         // be between itself and the first "actual" sublane
         // shift the offset so that we "see" this vehicle
         if (ego->getLeftSideOnLane() < -MSGlobals::gLateralResolution) {
-            result.setSublaneOffset(floor(-ego->getLeftSideOnLane() / MSGlobals::gLateralResolution));
+            result.setSublaneOffset(int(-ego->getLeftSideOnLane() / MSGlobals::gLateralResolution));
         } else if (ego->getRightSideOnLane() > getWidth() + MSGlobals::gLateralResolution) {
-            result.setSublaneOffset(-floor((ego->getRightSideOnLane() - getWidth()) / MSGlobals::gLateralResolution));
+            result.setSublaneOffset(-int((ego->getRightSideOnLane() - getWidth()) / MSGlobals::gLateralResolution));
         }
 #ifdef DEBUG_CONTEXT
         if (DEBUG_COND2(ego)) {
