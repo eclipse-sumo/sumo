@@ -4,7 +4,6 @@ fix.demandElements.routes.removeStops
 flowEmbedded.inspect.arrivalEdge
 flowEmbedded.inspect.departEdge
 flowEmbedded.inspectSelection.begin
-flowFromToEdge.inspectSelection.begin
 flowJunction.inspect.begin
 flowJunction.inspectSelection.begin
 junction.inspectSelectionTLS.tl
@@ -22,8 +21,6 @@ modes.network.showSubAdditionals
 modes.network.spreadVehicle
 personFlow.create.end
 personFlow.create.number
-routeflow.inspectSelection.begin
-routeflow.inspectSelection.type
 selection.lockSelectionNetwork.TAZs
 stopLane.inspectSelection.posLat
 tripFromToJunction.inspectSelection.type
