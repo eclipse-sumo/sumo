@@ -3630,7 +3630,11 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
         }
     }
     // if given identically osm names
-    if (!OptionsCont::getOptions().isDefault("output.street-names") && myStreetName != possContinuation->getStreetName()) {
+    if (!OptionsCont::getOptions().isDefault("output.street-names") && myStreetName != possContinuation->getStreetName()
+            && ((myStreetName != "" && possContinuation->getStreetName() != "")
+                // only permit merging a short unnamed road with a longer named road
+                || (myStreetName != "" && myLength <= possContinuation->getLength())
+                || (myStreetName == "" && myLength >= possContinuation->getLength()))) {
         return false;
     }
 
@@ -3660,6 +3664,10 @@ NBEdge::append(NBEdge* e) {
         // make sure to use the attributes from the longer edge
         for (int i = 0; i < (int)myLanes.size(); i++) {
             myLanes[i].width = e->myLanes[i].width;
+        }
+        // defined name prevails over undefined name of shorter road
+        if (myStreetName == "") {
+            myStreetName = e->myStreetName;
         }
     }
     // recompute length
