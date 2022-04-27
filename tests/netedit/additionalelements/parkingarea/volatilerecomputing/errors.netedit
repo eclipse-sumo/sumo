@@ -68,7 +68,6 @@ Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
-Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -153,7 +152,6 @@ GLDebug: 	Removed object parkingSpace:parkingArea_gneE4_0_0 from SUMORTree with 
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE4_0_0 into SUMORTree with boundary -28.20,-21.20,8.20,15.20
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE4_0_0 from SUMORTree with boundary -28.20,-21.20,8.20,15.20
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE4_0_0 into SUMORTree with boundary -28.20,-21.20,8.20,15.20
-Error: routes cannot be processed either with additional handler nor with demand handler
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-15.20,10.00,15.20

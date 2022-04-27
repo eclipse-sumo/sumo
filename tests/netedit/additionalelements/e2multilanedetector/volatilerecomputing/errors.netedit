@@ -101,7 +101,6 @@ Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved after dialog
-Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 36.80,-13.20,63.20,13.20
@@ -165,7 +164,6 @@ Error: Could not build e2Detector with ID 'e2MultilaneDetector_1' in netedit; La
 Error: Could not build e2Detector with ID 'e2MultilaneDetector_2' in netedit; Lanes aren't consecutives.
 Error: Could not build e2Detector with ID 'e2MultilaneDetector_3' in netedit; Lanes aren't consecutives.
 Error: Could not build e2Detector with ID 'e2MultilaneDetector_4' in netedit; Lanes aren't consecutives.
-Error: routes cannot be processed either with additional handler nor with demand handler
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -15.20,-15.20,15.20,15.20

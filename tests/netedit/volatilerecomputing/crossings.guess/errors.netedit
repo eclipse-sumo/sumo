@@ -15,7 +15,6 @@ Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
-Debug: demand elements saved
 Debug: Deleting unreferenced detExit 'e3Detector_0'
 Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
@@ -41,7 +40,6 @@ Debug: Created crossing ':gneJ6_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ7_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ8_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ9_c0' in retrieveGNECrossing()
-Error: routes cannot be processed either with additional handler nor with demand handler
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE11_1to-gneE10_1' in retrieveGNEConnection()

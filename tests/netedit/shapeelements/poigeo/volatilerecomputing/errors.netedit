@@ -31,7 +31,6 @@ Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
-Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -79,7 +78,6 @@ GLDebug: 	Inserted poi:POI_6 into SUMORTree with boundary 4582365.71,-1344979.66
 GLDebug: 	Inserted poi:POI_7 into SUMORTree with boundary 3325841.18,-1217897.28,3325861.18,-1217877.28
 GLDebug: 	Inserted poi:POI_8 into SUMORTree with boundary 2161991.41,-1143859.32,2162011.41,-1143839.32
 GLDebug: 	Inserted poi:POI_9 into SUMORTree with boundary 1048651.65,-1109587.31,1048671.65,-1109567.31
-Error: routes cannot be processed either with additional handler nor with demand handler
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-15.20,10.00,15.20

@@ -19,7 +19,6 @@ Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
-Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -49,7 +48,6 @@ GLDebug: 	Inserted polygon:poly_2 into SUMORTree with boundary 30.00,0.00,60.00,
 GLDebug: 	Inserted polygon:poly_3 into SUMORTree with boundary -10.00,-30.00,20.00,0.00
 GLDebug: 	Inserted polygon:poly_4 into SUMORTree with boundary 10.00,-30.00,40.00,0.00
 GLDebug: 	Inserted polygon:poly_5 into SUMORTree with boundary 30.00,-30.00,60.00,0.00
-Error: routes cannot be processed either with additional handler nor with demand handler
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-15.20,10.00,15.20

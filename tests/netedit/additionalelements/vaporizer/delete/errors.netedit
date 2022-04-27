@@ -28,8 +28,8 @@ Debug: Deleting TLS from junction 'gneJ0'
 Debug: Adding TLS into junction 'gneJ0'
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnection()
-Debug: Deleting TLS from junction 'gneJ0'
-Debug: Adding TLS into junction 'gneJ0'
+Debug: Deleting TLS from junction 'gneJ1'
+Debug: Adding TLS into junction 'gneJ1'
 Debug: Deleting TLS from junction 'gneJ0'
 Debug: Setting new attribute
 Debug: Deleting TLS from junction 'gneJ1'
@@ -44,8 +44,8 @@ Debug: Restoring previous attribute
 Debug: Adding TLS into junction 'gneJ1'
 Debug: Restoring previous attribute
 Debug: Adding TLS into junction 'gneJ0'
-Debug: Removing TLS from junction 'gneJ0'
-Debug: Adding TLS into junction 'gneJ0'
+Debug: Removing TLS from junction 'gneJ1'
+Debug: Adding TLS into junction 'gneJ1'
 Debug: Adding connection 'gneE0_0->gneE1_0' into edge 'gneE0'
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Removing TLS from junction 'gneJ0'
