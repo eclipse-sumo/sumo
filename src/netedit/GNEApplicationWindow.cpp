@@ -106,11 +106,15 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // TLS
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,                  GNEApplicationWindow::onCmdOpenTLSPrograms),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,                  GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS,             GNEApplicationWindow::onCmdReloadTLSPrograms),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS,             GNEApplicationWindow::onUpdReloadTLSPrograms),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,                    GNEApplicationWindow::onCmdSaveTLSPrograms),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,                    GNEApplicationWindow::onUpdSaveTLSPrograms),
     // edge types
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_H_OPENEDGETYPES,                    GNEApplicationWindow::onCmdOpenEdgeTypes),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_H_OPENEDGETYPES,                    GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES,               GNEApplicationWindow::onCmdReloadEdgeTypes),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES,               GNEApplicationWindow::onUpdReloadEdgeTypes),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,              GNEApplicationWindow::onCmdSaveEdgeTypes),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,              GNEApplicationWindow::onUpdSaveEdgeTypes),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,               GNEApplicationWindow::onCmdSaveEdgeTypesAs),
@@ -726,6 +730,34 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
 
 
 long
+GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
+    // Run parser
+    myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, "loading TLS Programs from '" + OptionsCont::getOptions().getString("TLSPrograms-files") + "'");
+    myNet->computeNetwork(this);
+    if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(OptionsCont::getOptions().getString("TLSPrograms-files")) == false) {
+        // Abort undo/redo
+        myUndoList->abortAllChangeGroups();
+    } else {
+        // commit undo/redo operation
+        myUndoList->end();
+        update();
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject*, FXSelector, void*) {
+    // check if file exist
+    if (OptionsCont::getOptions().getString("TLSPrograms-files").empty()) {
+        return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
+}
+
+
+long
 GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
     // open dialog
     FXFileDialog opendialog(this, "Load edgeType file");
@@ -764,6 +796,49 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
         myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
     return 0;
+}
+
+
+long
+GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
+    // declare type container
+    NBTypeCont typeContainerAux;
+    // declare type handler
+    NIXMLTypesHandler* handler = new NIXMLTypesHandler(typeContainerAux);
+    // load edge types
+    NITypeLoader::load(handler, {OptionsCont::getOptions().getString("edgeTypes-files")}, "types");
+    // write information
+    WRITE_MESSAGE("Loaded " + toString(typeContainerAux.size()) + " edge types");
+    // now create GNETypes based on typeContainerAux
+    myViewNet->getUndoList()->begin(Supermode::NETWORK, GUIIcon::EDGE, "load edgeTypes");
+    // iterate over typeContainerAux
+    for (const auto& auxEdgeType : typeContainerAux) {
+        // create new edge type
+        GNEEdgeType* edgeType = new GNEEdgeType(myNet, auxEdgeType.first, auxEdgeType.second);
+        // add lane types
+        for (const auto& laneType : auxEdgeType.second->laneTypeDefinitions) {
+            edgeType->addLaneType(new GNELaneType(edgeType, laneType));
+        }
+        // add it using undoList
+        myViewNet->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
+
+    }
+    // end undo list
+    myViewNet->getUndoList()->end();
+    // refresh edge type selector
+    myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
+    return 0;
+}
+
+
+long
+GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject*, FXSelector, void*) {
+    // check if file exist
+    if (OptionsCont::getOptions().getString("edgeTypes-files").empty()) {
+        return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
 }
 
 
@@ -3348,11 +3423,10 @@ long
 GNEApplicationWindow::onUpdReloadAdditionals(FXObject*, FXSelector, void*) {
     // check if file exist
     if (OptionsCont::getOptions().getString("additional-files").empty()) {
-        myFileMenuCommands.reloadAdditionals->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return myFileMenuCommands.reloadAdditionals->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        myFileMenuCommands.reloadAdditionals->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return myFileMenuCommands.reloadAdditionals->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
-    return 1;
 }
 
 
@@ -3519,11 +3593,10 @@ long
 GNEApplicationWindow::onUpdReloadDemandElements(FXObject*, FXSelector, void*) {
     // check if file exist
     if (OptionsCont::getOptions().getString("route-files").empty()) {
-        myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
-    return 1;
 }
 
 
@@ -3698,11 +3771,10 @@ long
 GNEApplicationWindow::onUpdReloadDataElements(FXObject*, FXSelector, void*) {
     // check if file exist
     if (OptionsCont::getOptions().getString("data-files").empty()) {
-        myFileMenuCommands.reloadDataElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return myFileMenuCommands.reloadDataElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        myFileMenuCommands.reloadDataElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return myFileMenuCommands.reloadDataElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
-    return 1;
 }
 
 

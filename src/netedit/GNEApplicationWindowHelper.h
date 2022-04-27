@@ -146,7 +146,19 @@ struct GNEApplicationWindowHelper {
         /// @brief build menu commands
         void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
                                    FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements);
+        
+        /// @brief FXMenuCommand for reload TLS Programs
+        FXMenuCommand* reloadTLSPrograms;
+        
+        /// @brief FXMenuCommand for enable or disable save additionals
+        FXMenuCommand* saveTLSPrograms;
 
+        /// @brief FXMenuCommand for reload Edge Types
+        FXMenuCommand* reloadEdgeTypes;
+
+        /// @brief FXMenuCommand for enable or disable save edgeTypes
+        FXMenuCommand* saveEdgeTypes;
+        
         /// @brief FXMenuCommand for enable or disable save additionals
         FXMenuCommand* saveAdditionals;
 
@@ -155,12 +167,6 @@ struct GNEApplicationWindowHelper {
 
         /// @brief FXMenuCommand for reload additionals
         FXMenuCommand* reloadAdditionals;
-
-        /// @brief FXMenuCommand for enable or disable save additionals
-        FXMenuCommand* saveTLSPrograms;
-
-        /// @brief FXMenuCommand for enable or disable save edgeTypes
-        FXMenuCommand* saveEdgeTypes;
 
         /// @brief FXMenuCommand for enable or disable save demand elements
         FXMenuCommand* saveDemandElements;

@@ -644,6 +644,10 @@ enum {
     MID_GNE_SAVEJOINEDJUNCTIONS,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
+    /// @brief reload TLS Programs
+    MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS,
+    /// @brief reload edge types
+    MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES,
     /// @brief reload additionals
     MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS,
     /// @brief save TLS Programs as

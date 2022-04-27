@@ -119,8 +119,20 @@ public:
     /// @brief called when the command/FXCall open TLS programs is executed
     long onCmdOpenTLSPrograms(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall reload TLS programs is executed
+    long onCmdReloadTLSPrograms(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload TLS programs is updated
+    long onUpdReloadTLSPrograms(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall open edgeType is executed
     long onCmdOpenEdgeTypes(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload edge types is executed
+    long onCmdReloadEdgeTypes(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload edge types is updated
+    long onUpdReloadEdgeTypes(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall reload is executed
     long onCmdReload(FXObject*, FXSelector, void*);

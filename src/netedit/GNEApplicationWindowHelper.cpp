@@ -220,6 +220,9 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuTLS,
                                            "Load TLS Programs...", "Ctrl+K", "Load programs for traffic lights in the current net.",
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN_TLSPROGRAMS), myGNEApp, MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS);
+    reloadTLSPrograms = GUIDesigns::buildFXMenuCommandShortcut(fileMenuTLS,
+                        "Reload TLS Programs", "", "Reload TLS Programs.",
+                        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS);
     saveTLSPrograms = GUIDesigns::buildFXMenuCommandShortcut(fileMenuTLS,
                       "Save TLS Programs", "Ctrl+Shift+K", "Save all traffic light programs of the current net.",
                       GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_K_SAVETLS);
@@ -232,6 +235,9 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuEdgeTypes,
                                            "Load Edge Types...", "Ctrl+H", "Load edge types in the current net.",
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN_TLSPROGRAMS), myGNEApp, MID_HOTKEY_CTRL_H_OPENEDGETYPES);
+    reloadEdgeTypes = GUIDesigns::buildFXMenuCommandShortcut(fileMenuEdgeTypes,
+                        "Reload edge types", "", "Reload edge types.",
+                        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES);
     saveEdgeTypes = GUIDesigns::buildFXMenuCommandShortcut(fileMenuEdgeTypes,
                     "Save Edge Types", "Ctrl+Shift+H", "Save edge types of the current net.",
                     GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES);
