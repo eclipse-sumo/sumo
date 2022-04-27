@@ -8,9 +8,9 @@ Warning: Teleporting vehicle 'vehicle.561'; waited too long (jam), lane='i5_1', 
 Warning: Vehicle 'vehicle.561' ends teleporting on edge 'i6', time=1575.00.
 Warning: Teleporting vehicle 'vehicle.624'; waited too long (jam), lane='i2_2', time=1764.00.
 Warning: Vehicle 'vehicle.624' ends teleporting on edge 'i3', time=1769.00.
-Warning: Vehicle 'vehicle.710' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1985.00.
-Warning: Vehicle 'vehicle.713' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1986.00.
-Warning: Vehicle 'vehicle.805' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2256.00.
+Warning: Vehicle 'vehicle.710' performs emergency braking on lane 'o_0' with decel=9.00, wished=4.50, severity=1.00, time=1985.00.
+Warning: Vehicle 'vehicle.713' performs emergency braking on lane 'o_0' with decel=9.00, wished=4.50, severity=1.00, time=1986.00.
+Warning: Vehicle 'vehicle.805' performs emergency braking on lane 'o_0' with decel=9.00, wished=4.50, severity=1.00, time=2256.00.
 Warning: Teleporting vehicle 'vehicle.798'; waited too long (wrong lane), lane='i7_0', time=2636.00.
 Warning: Vehicle 'vehicle.798' ends teleporting on edge 'e1', time=2675.00.
 Warning: Teleporting vehicle 'vehicle.898'; waited too long (wrong lane), lane='i7_1', time=3130.00.
