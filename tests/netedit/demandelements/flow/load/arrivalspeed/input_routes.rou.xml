@@ -53,20 +53,20 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 	
-    <flow id="flow_0" begin="20.00" end="50.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="dummyDepart"/>
+    <flow id="flow_0" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="dummyDepart"/>
 	
-	<flow id="flow_1" begin="20.00" end="50.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="-12"/>
+	<flow id="flow_1" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="-12"/>
 	
-	<flow id="flow_2" begin="20.00" end="50.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="0"/>
+	<flow id="flow_2" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="0"/>
 	
-	<flow id="flow_3" begin="20.00" end="50.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="500"/>
+	<flow id="flow_3" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="500"/>
 	
-	<flow id="flow_4" begin="20.00" end="50.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="1"/>
+	<flow id="flow_4" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="1"/>
 	
-	<flow id="flow_5" begin="20.00" end="50.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="left"/>
+	<flow id="flow_5" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="left"/>
 	
-	<flow id="flow_6" begin="20.00" end="50.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="right"/>
+	<flow id="flow_6" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="right"/>
 	
-	<flow id="flow_7" begin="20.00" end="50.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="center"/>
+	<flow id="flow_7" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" arrivalPosLat="center"/>
 
 </routes>

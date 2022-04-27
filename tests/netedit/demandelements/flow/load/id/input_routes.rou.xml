@@ -53,14 +53,14 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 	
-    <flow begin="20.00" end="50.00" number="100" from="gneE2" to="gneE5"/>
+    <flow begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5"/>
 	
-	<flow id="" begin="20.00" end="50.00" number="100" from="gneE2" to="gneE5"/>
+	<flow id="" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5"/>
 	
-	<flow id="id with spaces" begin="20.00" end="50.00" number="100" from="gneE2" to="gneE5"/>
+	<flow id="id with spaces" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5"/>
 	
-	<flow id="flow_valid" begin="20.00" end="50.00" number="100" from="gneE2" to="gneE5"/>
+	<flow id="flow_valid" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5"/>
 	
-	<flow id="flow_valid" begin="20.00" end="50.00" number="100" from="gneE2" to="gneE5"/>
+	<flow id="flow_valid" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5"/>
 	
 </routes>
