@@ -147,44 +147,59 @@ struct GNEApplicationWindowHelper {
         void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
                                    FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements);
         
+        /// @brief FXMenuCascade for TLS
+        FXMenuCascade* TLSMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for edgeTypes
+        FXMenuCascade* edgeTypesMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for additional
+        FXMenuCascade* additionalMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for demand
+        FXMenuCascade* demandMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for data
+        FXMenuCascade* dataMenuCascade = nullptr;
+
         /// @brief FXMenuCommand for reload TLS Programs
-        FXMenuCommand* reloadTLSPrograms;
+        FXMenuCommand* reloadTLSPrograms = nullptr;
         
         /// @brief FXMenuCommand for enable or disable save additionals
-        FXMenuCommand* saveTLSPrograms;
+        FXMenuCommand* saveTLSPrograms = nullptr;
 
         /// @brief FXMenuCommand for reload Edge Types
-        FXMenuCommand* reloadEdgeTypes;
+        FXMenuCommand* reloadEdgeTypes = nullptr;
 
         /// @brief FXMenuCommand for enable or disable save edgeTypes
-        FXMenuCommand* saveEdgeTypes;
+        FXMenuCommand* saveEdgeTypes = nullptr;
         
         /// @brief FXMenuCommand for enable or disable save additionals
-        FXMenuCommand* saveAdditionals;
+        FXMenuCommand* saveAdditionals = nullptr;
 
         /// @brief FXMenuCommand for enable or disable save additionals As
-        FXMenuCommand* saveAdditionalsAs;
+        FXMenuCommand* saveAdditionalsAs = nullptr;
 
         /// @brief FXMenuCommand for reload additionals
-        FXMenuCommand* reloadAdditionals;
+        FXMenuCommand* reloadAdditionals = nullptr;
 
         /// @brief FXMenuCommand for enable or disable save demand elements
-        FXMenuCommand* saveDemandElements;
+        FXMenuCommand* saveDemandElements = nullptr;
 
         /// @brief FXMenuCommand for enable or disable save demand elements as
-        FXMenuCommand* saveDemandElementsAs;
+        FXMenuCommand* saveDemandElementsAs = nullptr;
 
         /// @brief FXMenuCommand for reload demand elements
-        FXMenuCommand* reloadDemandElements;
+        FXMenuCommand* reloadDemandElements = nullptr;
 
         /// @brief FXMenuCommand for enable or disable save data elements
-        FXMenuCommand* saveDataElements;
+        FXMenuCommand* saveDataElements = nullptr;
 
         /// @brief FXMenuCommand for enable or disable save data elements as
-        FXMenuCommand* saveDataElementsAs;
+        FXMenuCommand* saveDataElementsAs = nullptr;
 
         /// @brief FXMenuCommand for reload data elements
-        FXMenuCommand* reloadDataElements;
+        FXMenuCommand* reloadDataElements = nullptr;
 
     private:
         /// @brief pointer to current GNEApplicationWindows
