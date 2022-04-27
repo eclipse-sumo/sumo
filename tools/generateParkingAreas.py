@@ -48,6 +48,8 @@ def get_options(args=None):
                            help="Minimum capacity for parkingAreas")
     optParser.add_argument("--max", type=int, default=uMax,
                            help="Maximum capacity for parkingAreas")
+    optParser.add_argument("--keep-all", action="store_true", default=False, dest="keepAll",
+                           help="whether to keep parkingAreas with 0 capacity")
     optParser.add_argument("-a", "--angle", type=float,
                            help="parking area angle")
     optParser.add_argument("--prefix", default="pa", help="prefix for the parkingArea ids")
@@ -83,7 +85,7 @@ def main(options):
                         if options.randCapacity:
                             capacity *= random.random()
                         capacity = min(options.max, max(options.min, int(capacity)))
-                        if capacity > 0 or capacity == options.max:
+                        if capacity > 0 or capacity == options.max or options.keepAll:
                             angle = '' if options.angle is None else ' angle="%s"' % options.angle
                             length = '' if options.spaceLength <= 0 else ' length="%s"' % options.spaceLength
                             width = '' if options.width is None else ' width="%s"' % options.width
