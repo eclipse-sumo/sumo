@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-07 15:25:18 by Eclipse SUMO netedit Version v1_12_0+2023-61fb51b9a3c
+<!-- generated on 2022-04-27 16:18:23 by Eclipse SUMO netedit Version v1_12_0+2326-5512512a8d2
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -13,7 +13,7 @@
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </flow>
-    <flow id="flowB" begin="0.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" route="routeB" number="26" vehsPerHour="1800.00">
+    <flow id="flowB" begin="10.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" route="routeB" number="26" vehsPerHour="1800.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

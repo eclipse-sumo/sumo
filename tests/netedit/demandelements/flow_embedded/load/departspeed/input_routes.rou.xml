@@ -53,39 +53,39 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 	
-    <flow id="flow_0" begin="20.00" end="50.00" number="100" departSpeed="dummyDepart">
+    <flow id="flow_0" begin="20.00" end="500.00" number="100" departSpeed="dummyDepart">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
 	
-	<flow id="flow_1" begin="20.00" end="50.00" number="100" departSpeed="-12">
+	<flow id="flow_1" begin="20.00" end="500.00" number="100" departSpeed="-12">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
 	
-	<flow id="flow_2" begin="20.00" end="50.00" number="100" departSpeed="0">
+	<flow id="flow_2" begin="20.00" end="500.00" number="100" departSpeed="0">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
 	
-	<flow id="flow_3" begin="20.00" end="50.00" number="100" departSpeed="500">
+	<flow id="flow_3" begin="20.00" end="500.00" number="100" departSpeed="500">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
 	
-	<flow id="flow_4" begin="20.00" end="50.00" number="100" departSpeed="1">
+	<flow id="flow_4" begin="20.00" end="500.00" number="100" departSpeed="1">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
 	
-	<flow id="flow_5" begin="20.00" end="50.00" number="100" departSpeed="random">
+	<flow id="flow_5" begin="20.00" end="500.00" number="100" departSpeed="random">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
 	
-	<flow id="flow_6" begin="20.00" end="50.00" number="100" departSpeed="max">
+	<flow id="flow_6" begin="20.00" end="500.00" number="100" departSpeed="max">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
 	
-	<flow id="flow_7" begin="20.00" end="50.00" number="100" departSpeed="desired">
+	<flow id="flow_7" begin="20.00" end="500.00" number="100" departSpeed="desired">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
 	
-	<flow id="flow_8" begin="20.00" end="50.00" number="100" departSpeed="speedLimit">
+	<flow id="flow_8" begin="20.00" end="500.00" number="100" departSpeed="speedLimit">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
 
