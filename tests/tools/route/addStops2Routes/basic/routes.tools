@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-09-19 10:06:51.411694 by $Id$
-  options: -o out.rou.xml -n input_net.net.xml -t input_routes.rou.xml -r input_routes.rou.xml -p <doubleminus>duration 1800 <doubleminus>until 12:0:0
+<!-- generated on 2022-04-27 15:20:41.084473 by addStops2Routes.py v1_12_0+2331-3c08681
+<configuration>
+    <duration value="1800"/>
+    <net-file value="input_net.net.xml"/>
+    <output-file value="out.rou.xml"/>
+    <parking value="True"/>
+    <route-files value="input_routes.rou.xml"/>
+    <typesfile value="input_routes.rou.xml"/>
+    <until value="12:0:0"/>
+</configuration>
+
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="type1" vClass="bicycle"/>
     <vehicle color="1,0,0" depart="0" id="0_parkingA" type="type1">
         <route edges="SC CN"/>
         <stop duration="1800" lane="CN_2" parking="true" until="12:0:0"/>
