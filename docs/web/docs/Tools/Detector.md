@@ -2,7 +2,7 @@
 title: Detector
 ---
 
-This page documents tools that work with [detectors](..Simulation/Output/Induction_Loops_Detectors_(E1).md) and detector [flow files](../Demand/Routes_from_Observation_Points.md#computing_flows).
+This page documents tools that work with [detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md) and detector [flow files](../Demand/Routes_from_Observation_Points.md#computing_flows).
 
 # flowrouter.py
 
