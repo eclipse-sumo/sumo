@@ -732,9 +732,9 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
     // Run parser
-    myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, "loading TLS Programs from '" + OptionsCont::getOptions().getString("TLSPrograms-files") + "'");
+    myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, "loading TLS Programs from '" + OptionsCont::getOptions().getString("TLSPrograms-output") + "'");
     myNet->computeNetwork(this);
-    if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(OptionsCont::getOptions().getString("TLSPrograms-files")) == false) {
+    if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(OptionsCont::getOptions().getString("TLSPrograms-output")) == false) {
         // Abort undo/redo
         myUndoList->abortAllChangeGroups();
     } else {
@@ -749,7 +749,7 @@ GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
 long 
 GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject*, FXSelector, void*) {
     // check if file exist
-    if (OptionsCont::getOptions().getString("TLSPrograms-files").empty()) {
+    if (OptionsCont::getOptions().getString("TLSPrograms-output").empty()) {
         return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -806,7 +806,7 @@ GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
     // declare type handler
     NIXMLTypesHandler* handler = new NIXMLTypesHandler(typeContainerAux);
     // load edge types
-    NITypeLoader::load(handler, {OptionsCont::getOptions().getString("edgeTypes-files")}, "types");
+    NITypeLoader::load(handler, {OptionsCont::getOptions().getString("edgeTypes-output")}, "types");
     // write information
     WRITE_MESSAGE("Loaded " + toString(typeContainerAux.size()) + " edge types");
     // now create GNETypes based on typeContainerAux
@@ -834,7 +834,7 @@ GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject*, FXSelector, void*) {
     // check if file exist
-    if (OptionsCont::getOptions().getString("edgeTypes-files").empty()) {
+    if (OptionsCont::getOptions().getString("edgeTypes-output").empty()) {
         return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3300,7 +3300,7 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check tat file is valid
     if (fileWithExtension != "") {
-        // change value of "TLSPrograms-files"
+        // change value of "TLSPrograms-output"
         OptionsCont::getOptions().resetWritable();
         OptionsCont::getOptions().set("TLSPrograms-output", fileWithExtension);
         // save TLS Programs
@@ -3331,7 +3331,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check tat file is valid
     if (fileWithExtension != "") {
-        // change value of "edgeTypes-files"
+        // change value of "edgeTypes-output"
         OptionsCont::getOptions().set("edgeTypes-output", fileWithExtension);
         // save edgeTypes
         return onCmdSaveEdgeTypes(nullptr, 0, nullptr);
