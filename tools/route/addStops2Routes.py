@@ -130,7 +130,10 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
     numSkipped = defaultdict(lambda: 0)
 
     for routefile in options.routefiles:
-        for obj in sumolib.xml.parse(routefile, ['vehicle', 'trip', 'flow', 'person']):
+        for obj in sumolib.xml.parse(routefile, ['vehicle', 'trip', 'flow', 'person', 'vType']):
+            if obj.name == 'vType':
+                outf.write(obj.toXML(' '*4))
+                continue
             lastEdgeID = getLastEdge(obj)
             if lastEdgeID is None:
                 if obj.name == 'person' and (
