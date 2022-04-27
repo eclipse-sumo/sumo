@@ -600,7 +600,7 @@ NEMALogic::validate_timing() {
     for (int barrierNum = 0; barrierNum < 2; barrierNum++) {
         if (cycleLengths[0][barrierNum] != cycleLengths[1][barrierNum]) {
             const std::string error = "At NEMA tlLogic '" + getID() + "', the phases before barrier " + toString(barrierNum + 1) + " from both rings do not add up. (ring1="
-                + toString(cycleLengths[0][barrierNum]) + ", ring2=" + toString(cycleLengths[1][barrierNum]) + ")";
+                + toString(STEPS2TIME(cycleLengths[0][barrierNum])) + ", ring2=" + toString(STEPS2TIME(cycleLengths[1][barrierNum])) + ")";
             if (coordinateMode && !ignoreErrors) {
                 throw  ProcessError(error);
             }
@@ -990,7 +990,7 @@ NEMALogic::parseControllerType(std::string inputType) {
     else {
         throw InvalidArgument("Please set controllerType for NEMA tlLogic " + myID + " to either Type170 or TS2");
     }
-};
+}
 
 std::vector<NEMAPhase*>
 NEMALogic::getPhasesByRing(int ringNum) {
