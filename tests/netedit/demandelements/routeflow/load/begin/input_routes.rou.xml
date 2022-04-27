@@ -56,14 +56,14 @@
 	
     <flow id="flow_0" route="route_0"/>
 	
-	<flow id="flow_1" begin="" end="50.00" number="100" route="route_0"/>
+	<flow id="flow_1" begin="" end="500.00" number="100" route="route_0"/>
 	
-	<flow id="flow_2" begin="dummyBegin" end="50.00" number="100" route="route_0"/>
+	<flow id="flow_2" begin="dummyBegin" end="500.00" number="100" route="route_0"/>
 	
-	<flow id="flow_3" begin="-12" end="50.00" number="100" route="route_0"/>
+	<flow id="flow_3" begin="-12" end="500.00" number="100" route="route_0"/>
 	
 	<flow id="flow_4" begin="100" end="50.00" number="100" route="route_0"/>
 	
-	<flow id="flow_5" begin="22.34" end="50.00" number="100" route="route_0"/>
+	<flow id="flow_5" begin="22.34" end="500.00" number="100" route="route_0"/>
 	
 </routes>

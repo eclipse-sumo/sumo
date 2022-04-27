@@ -13,6 +13,6 @@ Warning: Vehicle 'flowA.70' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.70' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.77' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.77' will not be able to arrive with the given speed!
-Warning: Vehicle 'flowA.12' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=44.00.
+Warning: Vehicle 'flowA.12' performs emergency braking on lane ':gneJ5_1_1' with decel=9.00, wished=4.50, severity=1.00, time=44.00.
 Warning: Vehicle 'flowA.98' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.98' will not be able to arrive with the given speed!
