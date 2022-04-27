@@ -2162,9 +2162,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     // potential leaders that are also outside lane bounds
                 const bool outsideLeft = getLeftSideOnLane(lane) < 0;
                 if (outsideLeft) {
-                    ahead.setSublaneOffset(ceil(-getLeftSideOnLane(lane) / MSGlobals::gLateralResolution));
+                    ahead.setSublaneOffset((int)ceil(-getLeftSideOnLane(lane) / MSGlobals::gLateralResolution));
                 } else if (getRightSideOnLane(lane) > lane->getWidth()) {
-                    ahead.setSublaneOffset(-ceil((getRightSideOnLane(lane) - getWidth()) / MSGlobals::gLateralResolution));
+                    ahead.setSublaneOffset(-(int)ceil((getRightSideOnLane(lane) - getWidth()) / MSGlobals::gLateralResolution));
                 }
                 for (const MSVehicle* cand : lane->getVehiclesSecure()) {
                     if ((lane != myLane || cand->getPositionOnLane() > getPositionOnLane())
@@ -4354,14 +4354,11 @@ MSVehicle::updateState(double vNext) {
             decelPlus += 2 * NUMERICAL_EPS;
             const double emergencyFraction = decelPlus / MAX2(NUMERICAL_EPS, getCarFollowModel().getEmergencyDecel() - getCarFollowModel().getMaxDecel());
             if (emergencyFraction >= MSGlobals::gEmergencyDecelWarningThreshold) {
-                WRITE_WARNING("Vehicle '" + getID()
-                              + "' performs emergency braking with decel=" + toString(myAcceleration)
-                              + " wished=" + toString(getCarFollowModel().getMaxDecel())
-                              + " severity=" + toString(emergencyFraction)
-                              //+ " decelPlus=" + toString(decelPlus)
-                              //+ " prevAccel=" + toString(previousAcceleration)
-                              //+ " reserve=" + toString(MAX2(NUMERICAL_EPS, getCarFollowModel().getEmergencyDecel() - getCarFollowModel().getMaxDecel()))
-                              + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                WRITE_WARNINGF("Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, severity=%, time=%.",
+                               //+ " decelPlus=" + toString(decelPlus)
+                               //+ " prevAccel=" + toString(previousAcceleration)
+                               //+ " reserve=" + toString(MAX2(NUMERICAL_EPS, getCarFollowModel().getEmergencyDecel() - getCarFollowModel().getMaxDecel()))
+                               getID(), myLane->getID(), -myAcceleration, getCarFollowModel().getMaxDecel(), emergencyFraction, time2string(SIMSTEP));
             }
         }
     }
