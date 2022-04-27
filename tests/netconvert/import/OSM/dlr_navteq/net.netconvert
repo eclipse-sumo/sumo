@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-19 17:28:05 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
+<!-- generated on 2022-04-27 11:00:19 by Eclipse SUMO netconvert Version v1_12_0+2312-7f065df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1147,11 +1147,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":2340420373_8" function="internal">
         <lane id=":2340420373_8_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" length="4.67" shape="1045.67,430.50 1046.82,431.37 1047.17,432.19 1046.72,432.96 1045.47,433.69"/>
-    </edge>
-    <edge id=":244319321_0" function="internal">
-        <lane id=":244319321_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="0.29" shape="946.86,385.84 947.07,385.68"/>
-        <lane id=":244319321_0_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="0.29" shape="948.75,388.42 948.99,388.25"/>
-        <lane id=":244319321_0_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="0.29" shape="950.64,391.00 950.90,390.81"/>
     </edge>
     <edge id=":260479469_0" function="internal">
         <lane id=":260479469_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="19.44" length="2.74" shape="903.61,449.04 902.87,449.50 902.36,449.80 901.83,450.07 901.05,450.45"/>
@@ -2752,20 +2747,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
         <param key="ref" value="A 113"/>
     </edge>
-    <edge id="22762378" from="244319321" to="32266898" name="Teltowkanalbrücke" priority="14" type="highway.motorway" spreadType="center" shape="948.87,388.33 968.93,373.32 995.68,347.41 1021.32,318.78 1051.28,277.33">
-        <lane id="22762378_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="151.46" shape="947.07,385.68 966.85,370.88 993.37,345.19 1018.82,316.77 1048.53,275.68">
-            <param key="origId" value="22762378"/>
-        </lane>
-        <lane id="22762378_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="151.46" shape="948.99,388.25 968.93,373.32 995.68,347.41 1021.32,318.78 1051.12,277.55">
-            <param key="origId" value="22762378"/>
-        </lane>
-        <lane id="22762378_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="151.46" shape="950.90,390.81 971.01,375.76 997.99,349.63 1023.82,320.79 1053.72,279.43">
-            <param key="origId" value="22762378"/>
-        </lane>
-        <param key="bridge" value="yes"/>
-        <param key="layer" value="1"/>
-        <param key="ref" value="A 113"/>
-    </edge>
     <edge id="25382187" from="32266901" to="32266902" priority="14" type="highway.motorway" spreadType="center" shape="1147.77,2.02 1141.44,66.70 1134.97,105.25 1125.07,144.11 1114.08,178.89 1095.53,226.14 1069.81,275.09">
         <lane id="25382187_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="286.51" shape="1150.95,2.33 1144.62,67.12 1138.11,105.91 1128.15,144.99 1117.10,179.96 1098.45,227.47 1072.74,276.40">
             <param key="origId" value="25382187"/>
@@ -2806,15 +2787,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="origTo" value="2335739502"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="292525973" from="2960840891" to="244319321" priority="14" type="highway.motorway" spreadType="center" shape="925.77,405.66 936.55,397.34 948.87,388.33">
-        <lane id="292525973_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="24.78" shape="926.95,400.72 934.62,394.79 946.86,385.84">
-            <param key="origId" value="292525973"/>
+    <edge id="292525973" from="2960840891" to="32266898" name="Teltowkanalbrücke" priority="14" type="highway.motorway" spreadType="center" shape="925.77,405.66 936.55,397.34 948.87,388.33 968.93,373.32 995.68,347.41 1021.32,318.78 1051.28,277.33">
+        <lane id="292525973_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="176.53" shape="926.95,400.72 934.62,394.79 946.97,385.76 966.85,370.88 993.37,345.19 1018.82,316.77 1048.53,275.68">
+            <param key="origId" value="292525973 22762378"/>
         </lane>
-        <lane id="292525973_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="24.78" shape="928.90,403.25 936.55,397.34 948.75,388.42">
-            <param key="origId" value="292525973"/>
+        <lane id="292525973_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="176.53" shape="928.90,403.25 936.55,397.34 948.87,388.33 968.93,373.32 995.68,347.41 1021.32,318.78 1051.12,277.55">
+            <param key="origId" value="292525973 22762378"/>
         </lane>
-        <lane id="292525973_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="24.78" shape="930.86,405.78 938.47,399.90 950.64,391.00">
-            <param key="origId" value="292525973"/>
+        <lane id="292525973_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="176.53" shape="930.86,405.78 938.47,399.90 950.77,390.91 971.01,375.76 997.99,349.63 1023.82,320.79 1053.72,279.43">
+            <param key="origId" value="292525973 22762378"/>
         </lane>
         <param key="ref" value="A 113"/>
     </edge>
@@ -4597,11 +4578,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="8" response="000010001" foes="000010001" cont="0"/>
     </junction>
     <junction id="2437417326" type="dead_end" x="1071.26" y="223.58" incLanes="213883655_0" intLanes="" shape="1071.60,222.64 1070.64,225.31"/>
-    <junction id="244319321" type="priority" x="948.87" y="388.33" incLanes="292525973_0 292525973_1 292525973_2" intLanes=":244319321_0_0 :244319321_0_1 :244319321_0_2" shape="951.86,392.09 946.11,384.40 945.92,384.55 951.58,392.30">
-        <request index="0" response="000" foes="000" cont="0"/>
-        <request index="1" response="000" foes="000" cont="0"/>
-        <request index="2" response="000" foes="000" cont="0"/>
-    </junction>
     <junction id="260479469" type="priority" x="898.24" y="442.97" incLanes="22762377_0 22762377_1 22762377_2 22762377_3 22762377_4" intLanes=":260479469_0_0 :260479469_0_1 :260479469_2_0 :260479469_2_1 :260479469_2_2" shape="904.46,450.38 895.87,436.89 895.47,438.94 901.75,451.89 902.78,451.38 903.14,451.19 903.49,450.99 903.91,450.74">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
@@ -4683,7 +4659,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="32266898" type="priority" x="1051.28" y="277.33" incLanes="22762378_0 22762378_1 22762378_2" intLanes=":32266898_0_0 :32266898_0_1 :32266898_0_2" shape="1055.61,279.43 1047.23,274.74 1055.01,280.36 1055.25,280.03 1055.33,279.91 1055.40,279.79 1055.49,279.64">
+    <junction id="32266898" type="priority" x="1051.28" y="277.33" incLanes="292525973_0 292525973_1 292525973_2" intLanes=":32266898_0_0 :32266898_0_1 :32266898_0_2" shape="1055.61,279.43 1047.23,274.74 1055.01,280.36 1055.25,280.03 1055.33,279.91 1055.40,279.79 1055.49,279.64">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
@@ -5317,9 +5293,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="22762377" to="292525978" fromLane="2" toLane="0" via=":260479469_2_0" dir="s" state="M"/>
     <connection from="22762377" to="292525978" fromLane="3" toLane="1" via=":260479469_2_1" dir="s" state="M"/>
     <connection from="22762377" to="292525978" fromLane="4" toLane="2" via=":260479469_2_2" dir="s" state="M"/>
-    <connection from="22762378" to="152466382" fromLane="0" toLane="0" via=":32266898_0_0" dir="s" state="M"/>
-    <connection from="22762378" to="152466382" fromLane="1" toLane="1" via=":32266898_0_1" dir="s" state="M"/>
-    <connection from="22762378" to="152466382" fromLane="2" toLane="2" via=":32266898_0_2" dir="s" state="M"/>
     <connection from="25382187" to="144909695" fromLane="0" toLane="0" via=":32266902_0_0" dir="s" state="M"/>
     <connection from="25382187" to="144909695" fromLane="1" toLane="1" via=":32266902_0_1" dir="s" state="M"/>
     <connection from="25382187" to="144909695" fromLane="2" toLane="2" via=":32266902_0_2" dir="s" state="M"/>
@@ -5335,9 +5308,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="283317455" to="415852974" fromLane="0" toLane="1" via=":4167993265_12_0" tl="cluster_1560223404_2335739502_3273797701" linkIndex="12" dir="L" state="o"/>
     <connection from="283317455" to="-224769566" fromLane="0" toLane="0" via=":4167993265_13_0" tl="cluster_1560223404_2335739502_3273797701" linkIndex="13" dir="l" state="o"/>
     <connection from="283317455" to="-283317455" fromLane="0" toLane="0" via=":4167993265_14_0" tl="cluster_1560223404_2335739502_3273797701" linkIndex="14" dir="t" state="o"/>
-    <connection from="292525973" to="22762378" fromLane="0" toLane="0" via=":244319321_0_0" dir="s" state="M"/>
-    <connection from="292525973" to="22762378" fromLane="1" toLane="1" via=":244319321_0_1" dir="s" state="M"/>
-    <connection from="292525973" to="22762378" fromLane="2" toLane="2" via=":244319321_0_2" dir="s" state="M"/>
+    <connection from="292525973" to="152466382" fromLane="0" toLane="0" via=":32266898_0_0" dir="s" state="M"/>
+    <connection from="292525973" to="152466382" fromLane="1" toLane="1" via=":32266898_0_1" dir="s" state="M"/>
+    <connection from="292525973" to="152466382" fromLane="2" toLane="2" via=":32266898_0_2" dir="s" state="M"/>
     <connection from="292525975" to="292525973" fromLane="1" toLane="0" via=":2960840891_0_0" dir="s" state="M"/>
     <connection from="292525975" to="292525973" fromLane="2" toLane="1" via=":2960840891_0_1" dir="s" state="M"/>
     <connection from="292525975" to="292525973" fromLane="3" toLane="2" via=":2960840891_0_2" dir="s" state="M"/>
@@ -6226,9 +6199,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":2340420373_6" to="225232900" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":2340420373_7" to="415852942" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2340420373_8" to="415852852" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":244319321_0" to="22762378" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":244319321_0" to="22762378" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":244319321_0" to="22762378" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from=":260479469_0" to="146511467" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":260479469_0" to="146511467" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":260479469_2" to="292525978" fromLane="0" toLane="0" dir="s" state="M"/>
