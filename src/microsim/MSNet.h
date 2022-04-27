@@ -987,6 +987,7 @@ protected:
     /// @brief to avoid concurrent access to the state update function
     FXMutex myTransportableStateListenerMutex;
 #endif
+    static const NamedObjectCont<MSStoppingPlace*> myEmptyStoppingPlaceCont;
 
     /// @brief container to record warnings that shall only be issued once
     std::map<std::string, bool> myWarnedOnce;

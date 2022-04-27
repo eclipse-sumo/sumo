@@ -137,6 +137,8 @@ const std::string MSNet::STAGE_MOVEMENTS("move");
 const std::string MSNet::STAGE_LANECHANGE("laneChange");
 const std::string MSNet::STAGE_INSERTIONS("insertion");
 
+const NamedObjectCont<MSStoppingPlace*> MSNet::myEmptyStoppingPlaceCont;
+
 // ===========================================================================
 // static member method definitions
 // ===========================================================================
@@ -1278,7 +1280,7 @@ MSNet::getStoppingPlaces(SumoXMLTag category) const {
     if (it != myStoppingPlaces.end()) {
         return it->second;
     } else {
-        throw ProcessError("No stoppingPlace of type '" + toString(category) + "' found");
+        return myEmptyStoppingPlaceCont;
     }
 }
 
