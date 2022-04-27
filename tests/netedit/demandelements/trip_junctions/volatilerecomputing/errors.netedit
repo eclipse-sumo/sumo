@@ -57,9 +57,9 @@ GLDebug: 	Inserted junction:gneJ5 into SUMORTree with boundary 39.60,-15.20,78.4
 Debug: Created crossing ':gneJ5_c0' in retrieveGNECrossing()
 GLDebug: 	Inserted junction:gneJ6 into SUMORTree with boundary 39.60,22.80,78.40,55.20
 Debug: Created crossing ':gneJ6_c0' in retrieveGNECrossing()
-GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -14.00,23.30,15.50,55.20
+GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -14.00,22.80,16.00,55.20
 Debug: Created crossing ':gneJ7_c0' in retrieveGNECrossing()
-GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary -14.00,4.80,15.50,36.70
+GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary -14.00,4.80,16.00,37.20
 Debug: Created crossing ':gneJ8_c0' in retrieveGNECrossing()
 GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 20.00,4.80,40.00,35.20
 GLDebug: 	Inserted edge:gneE10 into SUMORTree with boundary -13.00,10.00,10.00,50.00
@@ -78,8 +78,8 @@ GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-15.20,10.00,15.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 39.60,-15.20,78.40,17.20
 GLDebug: 	Removed object junction:gneJ6 from SUMORTree with boundary 39.60,22.80,78.40,55.20
-GLDebug: 	Removed object junction:gneJ7 from SUMORTree with boundary -14.00,23.30,15.50,55.20
-GLDebug: 	Removed object junction:gneJ8 from SUMORTree with boundary -14.00,4.80,15.50,36.70
+GLDebug: 	Removed object junction:gneJ7 from SUMORTree with boundary -14.00,22.80,16.00,55.20
+GLDebug: 	Removed object junction:gneJ8 from SUMORTree with boundary -14.00,4.80,16.00,37.20
 GLDebug: 	Removed object junction:gneJ9 from SUMORTree with boundary 20.00,4.80,40.00,35.20
 GLDebug: Removing edges during recomputing
 GLDebug: 	Removed object edge:gneE10 from SUMORTree with boundary -13.00,10.00,10.00,50.00
@@ -96,8 +96,8 @@ GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(..
 GLDebug: 	Inserted junction:gneJ4 into SUMORTree with boundary -10.00,-15.20,10.00,15.20
 GLDebug: 	Inserted junction:gneJ5 into SUMORTree with boundary 39.60,-15.20,78.40,17.20
 GLDebug: 	Inserted junction:gneJ6 into SUMORTree with boundary 39.60,22.80,78.40,55.20
-GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -14.00,23.30,15.50,55.20
-GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary -14.00,4.80,15.50,36.70
+GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -14.00,22.80,16.00,55.20
+GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary -14.00,4.80,16.00,37.20
 GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 20.00,4.80,40.00,35.20
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE10 into SUMORTree with boundary -13.00,10.00,10.00,50.00
