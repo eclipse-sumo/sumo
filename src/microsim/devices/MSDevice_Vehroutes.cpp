@@ -167,7 +167,14 @@ MSDevice_Vehroutes::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notifica
         myDepartPos = veh.getPositionOnLane();
     }
     if (myWriteStopPriorEdges) {
-        myPriorEdges.push_back(&enteredLane->getEdge());
+        if (MSGlobals::gUseMesoSim) {
+            const MSEdge* e = veh.getEdge();
+            if (myPriorEdges.empty() || myPriorEdges.back() != e) {
+                myPriorEdges.push_back(e);
+            }
+        } else {
+            myPriorEdges.push_back(&enteredLane->getEdge());
+        }
     }
     myLastRouteIndex = myHolder.getRoutePosition();
     return true;
