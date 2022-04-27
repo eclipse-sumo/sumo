@@ -5345,7 +5345,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         nextStopPos = nextStop.pars.startPos;
         nextStopIsWaypoint = nextStop.pars.speed > 0;
     }
-    if (myParameter->arrivalLaneProcedure >= ArrivalLaneDefinition::GIVEN && nextStopEdge == myRoute->end()) {
+    // myArrivalTime = -1 in the context of validating departSpeed with departLane=best
+    if (myParameter->arrivalLaneProcedure >= ArrivalLaneDefinition::GIVEN && nextStopEdge == myRoute->end() && myArrivalLane >= 0) {
         nextStopEdge = (myRoute->end() - 1);
         nextStopLane = (*nextStopEdge)->getLanes()[myArrivalLane];
         nextStopPos = myArrivalPos;
