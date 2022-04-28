@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1d675b3c-d4d0-4a6d-898e-917e5b066a8f}</ProjectGuid>
+    <ProjectGuid>{b5a94a41-dfdf-4af5-9bfd-579b26cf9f4f}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -589,6 +589,8 @@
     <Compile Include="bugs\processing\ticket3071\test.py" />
     <Compile Include="bugs\processing\ticket3994\test.py" />
     <Compile Include="bugs\revision24081\test.py" />
+    <Compile Include="bugs\ticket10588\test.py" />
+    <Compile Include="bugs\ticket10591\test.py" />
     <Compile Include="bugs\ticket1711\test.py" />
     <Compile Include="bugs\ticket2593\test.py" />
     <Compile Include="bugs\ticket2948\test.py" />
@@ -709,6 +711,7 @@
     <Compile Include="demandelements\flow\inspect_selection\arrivalspeed\float\test.py" />
     <Compile Include="demandelements\flow\inspect_selection\arrivalspeed\left\test.py" />
     <Compile Include="demandelements\flow\inspect_selection\arrivalspeed\right\test.py" />
+    <Compile Include="demandelements\flow\inspect_selection\begin\test.py" />
     <Compile Include="demandelements\flow\inspect_selection\color\test.py" />
     <Compile Include="demandelements\flow\inspect_selection\containernumber\test.py" />
     <Compile Include="demandelements\flow\inspect_selection\departlane\allowed\test.py" />
@@ -1166,6 +1169,7 @@
     <Compile Include="demandelements\routeflow\inspect_selection\arrivalspeed\float\test.py" />
     <Compile Include="demandelements\routeflow\inspect_selection\arrivalspeed\left\test.py" />
     <Compile Include="demandelements\routeflow\inspect_selection\arrivalspeed\right\test.py" />
+    <Compile Include="demandelements\routeflow\inspect_selection\begin\test.py" />
     <Compile Include="demandelements\routeflow\inspect_selection\color\test.py" />
     <Compile Include="demandelements\routeflow\inspect_selection\containernumber\test.py" />
     <Compile Include="demandelements\routeflow\inspect_selection\departlane\allowed\test.py" />
@@ -1200,6 +1204,7 @@
     <Compile Include="demandelements\routeflow\inspect_selection\personnumber\test.py" />
     <Compile Include="demandelements\routeflow\inspect_selection\poisson\test.py" />
     <Compile Include="demandelements\routeflow\inspect_selection\probability\test.py" />
+    <Compile Include="demandelements\routeflow\inspect_selection\type\test.py" />
     <Compile Include="demandelements\routeflow\inspect_selection\vehsperhour\test.py" />
     <Compile Include="demandelements\routeflow\load\test.py" />
     <Compile Include="demandelements\routeflow\volatilerecomputing\test.py" />
@@ -2438,6 +2443,9 @@
     <Compile Include="netelements\edges\select_vtypes\disallowed\tram\test.py" />
     <Compile Include="netelements\edges\select_vtypes\disallowed\truck\test.py" />
     <Compile Include="netelements\edges\select_vtypes\disallowed\vip\test.py" />
+    <Compile Include="netelements\edges\templates\clear\test.py" />
+    <Compile Include="netelements\edges\templates\copy\test.py" />
+    <Compile Include="netelements\edges\templates\create\test.py" />
     <Compile Include="netelements\junctions\create\circular\test.py" />
     <Compile Include="netelements\junctions\create\circular_double\test.py" />
     <Compile Include="netelements\junctions\create\complex\test.py" />
@@ -3531,6 +3539,8 @@
     <Folder Include="bugs\processing\ticket3071" />
     <Folder Include="bugs\processing\ticket3994" />
     <Folder Include="bugs\revision24081" />
+    <Folder Include="bugs\ticket10588" />
+    <Folder Include="bugs\ticket10591" />
     <Folder Include="bugs\ticket1711" />
     <Folder Include="bugs\ticket2593" />
     <Folder Include="bugs\ticket2948" />
@@ -3683,6 +3693,7 @@
     <Folder Include="demandelements\flow\inspect_selection\arrivalspeed\float" />
     <Folder Include="demandelements\flow\inspect_selection\arrivalspeed\left" />
     <Folder Include="demandelements\flow\inspect_selection\arrivalspeed\right" />
+    <Folder Include="demandelements\flow\inspect_selection\begin" />
     <Folder Include="demandelements\flow\inspect_selection\color" />
     <Folder Include="demandelements\flow\inspect_selection\containernumber" />
     <Folder Include="demandelements\flow\inspect_selection\departlane\" />
@@ -4221,6 +4232,7 @@
     <Folder Include="demandelements\routeflow\inspect_selection\arrivalspeed\float" />
     <Folder Include="demandelements\routeflow\inspect_selection\arrivalspeed\left" />
     <Folder Include="demandelements\routeflow\inspect_selection\arrivalspeed\right" />
+    <Folder Include="demandelements\routeflow\inspect_selection\begin" />
     <Folder Include="demandelements\routeflow\inspect_selection\color" />
     <Folder Include="demandelements\routeflow\inspect_selection\containernumber" />
     <Folder Include="demandelements\routeflow\inspect_selection\departlane\" />
@@ -4259,6 +4271,7 @@
     <Folder Include="demandelements\routeflow\inspect_selection\personnumber" />
     <Folder Include="demandelements\routeflow\inspect_selection\poisson" />
     <Folder Include="demandelements\routeflow\inspect_selection\probability" />
+    <Folder Include="demandelements\routeflow\inspect_selection\type" />
     <Folder Include="demandelements\routeflow\inspect_selection\vehsperhour" />
     <Folder Include="demandelements\routeflow\load" />
     <Folder Include="demandelements\routeflow\volatilerecomputing" />
@@ -5677,6 +5690,10 @@
     <Folder Include="netelements\edges\select_vtypes\disallowed\tram" />
     <Folder Include="netelements\edges\select_vtypes\disallowed\truck" />
     <Folder Include="netelements\edges\select_vtypes\disallowed\vip" />
+    <Folder Include="netelements\edges\templates\" />
+    <Folder Include="netelements\edges\templates\clear" />
+    <Folder Include="netelements\edges\templates\copy" />
+    <Folder Include="netelements\edges\templates\create" />
     <Folder Include="netelements\junctions\" />
     <Folder Include="netelements\junctions\create\" />
     <Folder Include="netelements\junctions\create\circular" />

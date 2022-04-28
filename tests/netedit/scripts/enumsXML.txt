@@ -148,6 +148,10 @@ edge.inspectSelection.stopOffset
 edge.inspectSelection.stopExceptionButton 
 edge.inspectSelection.stopException 
 edge.inspectSelection.parameters 
+edge.template
+edge.template.create 
+edge.template.copy 
+edge.template.clear 
 lane
 lane.inspect
 lane.inspect.speed 

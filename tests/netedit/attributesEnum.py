@@ -200,6 +200,11 @@ class edge:
         stopException = 19
         parameters = 22
 
+    class template:
+        create = 33
+        copy = 34
+        clear = 35
+
 # lane
 
 
