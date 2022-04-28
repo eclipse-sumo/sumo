@@ -5242,6 +5242,11 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             // use leftmost lane of forward edge
             startLane = startLane->getEdge().getOppositeEdge()->getLanes().back();
             assert(startLane != 0);
+#ifdef DEBUG_BESTLANES
+            if (DEBUG_COND) {
+                std::cout << "   startLaneIsOpposite newStartLane=" << startLane->getID() << "\n";
+            }
+#endif
         }
     }
     if (forceRebuild) {
