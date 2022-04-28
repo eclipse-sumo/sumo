@@ -5213,6 +5213,12 @@ MSVehicle::getLaneChangeModel() const {
     return *myLaneChangeModel;
 }
 
+bool
+MSVehicle::isOppositeLane(const MSLane* lane) const {
+        return (lane->isInternal()
+                ? &(lane->getLinkCont()[0]->getLane()->getEdge()) != *(myCurrEdge + 1)
+                : &lane->getEdge() != *myCurrEdge);
+}
 
 const std::vector<MSVehicle::LaneQ>&
 MSVehicle::getBestLanes() const {
@@ -5235,10 +5241,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         // depending on the calling context, startLane might be the forward lane
         // or the reverse-direction lane. In the latter case we need to
         // transform it to the forward lane.
-        bool startLaneIsOpposite = (startLane->isInternal()
-                                    ? & (startLane->getLinkCont()[0]->getLane()->getEdge()) != *(myCurrEdge + 1)
-                                    : &startLane->getEdge() != *myCurrEdge);
-        if (startLaneIsOpposite) {
+        if (isOppositeLane(startLane)) {
             // use leftmost lane of forward edge
             startLane = startLane->getEdge().getOppositeEdge()->getLanes().back();
             assert(startLane != 0);

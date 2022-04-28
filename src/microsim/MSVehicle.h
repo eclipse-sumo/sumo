@@ -2083,6 +2083,9 @@ protected:
 
     SUMOTime getArrivalTime(SUMOTime t, double seen, double v, double arrivalSpeed) const;
 
+    /// @brief whether the give lane is reverse direction of the current route or not
+    bool isOppositeLane(const MSLane* lane) const;
+
 private:
     /// @brief The per vehicle variables of the car following model
     MSCFModel::VehicleVariables* myCFVariables;
