@@ -741,7 +741,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     // handle custom shape
     if (attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, id.c_str(), ok, false)) {
         PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
-        NBNetBuilder::transformCoordinates(shape);
+        NBNetBuilder::transformCoordinates(shape, true, myLocation);
         node->setCustomShape(shape);
     }
     if (type == SumoXMLNodeType::RAIL_SIGNAL || type == SumoXMLNodeType::RAIL_CROSSING) {

@@ -728,8 +728,17 @@ NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoCon
             && *from_srs != GeoConvHelper::getLoaded()) {
         from_srs->cartesian2geo(from);
         ok &= GeoConvHelper::getLoaded().x2cartesian(from, false);
-    } else {
+    }
+    if (from_srs == nullptr || !GeoConvHelper::getProcessing().usingGeoProjection()) {
+        // if getProcessing is not a geo-projection, assume it a cartesian transformation (i.e. shift)
         ok &= GeoConvHelper::getProcessing().x2cartesian(from, includeInBoundary);
+
+        if (from_srs == nullptr && GeoConvHelper::getProcessing().usingGeoProjection() 
+                && GeoConvHelper::getNumLoaded() > 0
+                && GeoConvHelper::getLoaded().usingGeoProjection()) {
+            // apply geo patch to loaded geo-network (offset must match)
+            from = from + GeoConvHelper::getLoaded().getOffset();
+        }
     }
     if (ok) {
         const NBHeightMapper& hm = NBHeightMapper::get();
