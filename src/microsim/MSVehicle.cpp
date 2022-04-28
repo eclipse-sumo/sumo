@@ -1308,7 +1308,7 @@ MSVehicle::getRerouteOrigin() const {
         return *(myCurrEdge + 1);
     }
     if (myLane != nullptr) {
-        if (myLaneChangeModel->isOpposite()) {
+        if (myLaneChangeModel->isOpposite() && isOppositeLane(myLane)) {
             return myLane->getParallelOpposite()->getNextNormal();
         }
         return myLane->getNextNormal();
