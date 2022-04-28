@@ -5,7 +5,7 @@ done.
    8 nodes loaded.
    33 types loaded.
    13 edges loaded.
-Removing self-loops ... done (0ms).
+Removing self-loops ... done (1ms).
 Joining junctions with identical coordinates ... done (0ms).
  Joined 3 junctions.
 Removing empty nodes ... done (0ms).
@@ -14,7 +14,7 @@ Joining similar edges ... done (0ms).
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (0ms).
+Computing node shapes ... done (1ms).
 Computing edge shapes ... done (0ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
@@ -26,7 +26,7 @@ Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... 
 done (0ms).
 Computing traffic light control information ... done (0ms).
-Computing node logics ... done (1ms).
+Computing node logics ... done (0ms).
 Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
 Building inner edges ... done (0ms).
@@ -38,9 +38,9 @@ Summary:
   Priority junctions          : 2
   Right-before-left junctions : 0
  Network boundaries:
-  Original boundary  : 1797.56,772.39,1953.77,1059.88
+  Original boundary  : 1723.51,772.39,1953.77,1059.88
   Applied offset     : 0.00,0.00
   Converted boundary : 1723.51,772.39,1953.77,1059.88
 -----------------------------------------------------
-Writing network ... done (1ms).
+Writing network ... done (3ms).
 Success.
