@@ -35,3 +35,9 @@ ticket4528
 
 # crash after sequence of undo-redo, recomputings and join junctions 
 ticket5552
+
+# Crash after undo lane deletion
+ticket10588
+
+ # Crash after undo edge deletion
+ticket10591
