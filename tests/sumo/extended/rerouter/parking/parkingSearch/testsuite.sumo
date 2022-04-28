@@ -33,3 +33,6 @@ all_visible_brakeGap
 
 # permit opposite direction driving during parking search
 opposite
+
+# permit opposite direction driving during parking search
+opposite2

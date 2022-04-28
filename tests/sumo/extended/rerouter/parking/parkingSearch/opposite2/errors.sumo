@@ -1,0 +1,8 @@
+Warning: Teleporting vehicle 'ego.53'; waited too long (wrong lane), lane='A2A3_0', time=497.00.
+Warning: Vehicle 'ego.53' ends teleporting on edge 'A3A2', time=497.00.
+Warning: Teleporting vehicle 'ego.38'; waited too long (wrong lane), lane='B1B2_0', time=583.00.
+Warning: Vehicle 'ego.38' ends teleporting on edge 'B2B1', time=583.00.
+Warning: Teleporting vehicle 'ego.33'; waited too long (wrong lane), lane='B2B3_0', time=595.00.
+Warning: Vehicle 'ego.33' ends teleporting on edge 'B3B2', time=595.00.
+Warning: Teleporting vehicle 'ego.50'; waited too long (wrong lane), lane='A2A3_0', time=801.00.
+Warning: Vehicle 'ego.50' ends teleporting on edge 'A3A2', time=801.00.
