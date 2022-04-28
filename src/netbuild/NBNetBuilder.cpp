@@ -728,8 +728,9 @@ NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoCon
             && *from_srs != GeoConvHelper::getLoaded()) {
         from_srs->cartesian2geo(from);
         ok &= GeoConvHelper::getLoaded().x2cartesian(from, false);
+    } else {
+        ok &= GeoConvHelper::getProcessing().x2cartesian(from, includeInBoundary);
     }
-    ok &= GeoConvHelper::getProcessing().x2cartesian(from, includeInBoundary);
     if (ok) {
         const NBHeightMapper& hm = NBHeightMapper::get();
         if (hm.ready()) {
