@@ -1,0 +1,23 @@
+Warning: Invalid longitude 1919.06
+Warning: Invalid longitude 1918.30
+Warning: Invalid longitude 1953.77
+Warning: Invalid longitude 1954.95
+Warning: Invalid longitude 1797.56
+Warning: Invalid longitude 1798.64
+Warning: Invalid longitude 1801.10
+Warning: Invalid longitude 1800.50
+Warning: Invalid longitude 1919.06
+Warning: Invalid longitude 1918.35
+Warning: Invalid longitude 1919.06
+Warning: Invalid longitude 1922.24
+Warning: Invalid longitude 1876.49
+Warning: Invalid longitude 1919.06
+Warning: Invalid longitude 1799.33
+Warning: Invalid longitude 1951.34
+Warning: Target lane '239924883_0' is already connected from '-239924883'.
+Warning: Target lane '-239924883_0' is already connected from '-4930543#0'.
+Warning: Target lane '4930543#0_0' is already connected from '-4930543#0'.
+Warning: Target lane '4930543#0_0' is already connected from '239924883'.
+Warning: Target lane '-239924883_0' is already connected from '239924883'.
+Warning: Network contains very large coordinates and will probably flicker in the GUI. Check for outlying nodes and make sure the network is shifted to the coordinate origin
+Warning: 6 total messages of type: Target lane '%' is already connected from '%'.

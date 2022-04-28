@@ -97,6 +97,9 @@ merge_overlap
 merge_geo
 merge_geo_overlap
 
+# load geo-encoded patch into geo network
+patch_geo
+
 # re-import limited speed on junctions based on radius
 limit-turn-speed
 
