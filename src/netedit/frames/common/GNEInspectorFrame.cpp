@@ -628,6 +628,15 @@ GNEInspectorFrame::TemplateEditor::setEdgeTemplate(const GNEEdge* edge) {
 }
 
 
+void 
+GNEInspectorFrame::TemplateEditor::updateEdgeTemplate() {
+    if (myEdgeTemplate) {
+        myEdgeTemplate->updateLaneTemplates();
+        // use template by default
+        myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getViewParent()->getCreateEdgeFrame()->setUseEdgeTemplate();
+    }
+}
+
 void
 GNEInspectorFrame::TemplateEditor::setTemplate() {
     // check if template editor AND mySetTemplateButton is enabled

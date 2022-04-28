@@ -61,6 +61,7 @@ GNEEdgeTemplate::updateLaneTemplates() {
     for (const auto& laneTemplate : myLaneTemplates) {
         delete laneTemplate;
     }
+    myLaneTemplates.clear();
     // now set new laneTemplates
     for (const auto& lane : myEdge->getLanes()) {
         myLaneTemplates.push_back(new GNELaneTemplate(lane));
