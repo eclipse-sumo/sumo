@@ -4989,13 +4989,13 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
             if (leftLength > 0) {
                 myFurtherLanes[i] = lane;
                 myFurtherLanesPosLat[i] = myState.myPosLat;
-#ifdef DEBUG_SETFURTHER
-                if (DEBUG_COND) {
-                    std::cout << SIMTIME << " enterLaneAtLaneChange \n";
-                }
-#endif
                 leftLength -= (lane)->setPartialOccupation(this);
                 myState.myBackPos = -leftLength;
+#ifdef DEBUG_SETFURTHER
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << "   newBackPos=" << myState.myBackPos << "\n";
+                }
+#endif
             } else {
                 deleteFurther++;
             }
@@ -5004,6 +5004,14 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
             if (myLaneChangeModel->isChangingLanes()) {
                 myLaneChangeModel->setNoShadowPartialOccupator(myFurtherLanes[i]);
             }
+            if (myState.myBackPos < 0) {
+                myState.myBackPos += myFurtherLanes[i]->getLength();
+            }
+#ifdef DEBUG_SETFURTHER
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << "   i=" << i << " further=" << myFurtherLanes[i]->getID() << " newBackPos=" << myState.myBackPos << "\n";
+            }
+#endif
         }
     }
     if (deleteFurther > 0) {
