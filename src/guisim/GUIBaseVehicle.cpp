@@ -447,7 +447,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     double upscaleLength = upscale;
     if (upscale > 1 && length > 5 && s.vehicleQuality != 4) {
         // reduce the length/width ratio because this is not usefull at high zoom
-        const double widthLengthFactor = length / getVType().getWidth();
+        const double widthLengthFactor = length / 5;
         const double shrinkFactor = MIN2(widthLengthFactor, sqrt(upscaleLength));
         upscaleLength /= shrinkFactor;
     }
