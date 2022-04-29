@@ -73,7 +73,7 @@ def writeTimeSteps(result):
             vehicleOutput.set("energyChargedInTransit", str(vehicleAttributes["energyChargedInTransit"]))
             vehicleOutput.set("energyChargedStopped", str(vehicleAttributes["energyChargedStopped"]))
             vehicleOutput.set("timeStopped", str(vehicleAttributes["timeStopped"]))
-            vehicleOutput.set("number", str(vehicleAttributes["number"]))
+            vehicleOutput.set("aggregateNumber", str(vehicleAttributes["aggregateNumber"]))
     # write Output
     outputRootStr = ET.tostring(outputRoot, encoding="utf-8", method="xml")
     dom = xml.dom.minidom.parseString(outputRootStr)
@@ -85,8 +85,6 @@ def writeTimeSteps(result):
 @brief process matrix
 """
 def processMatrix(matrix, timeToSplit):
-
-    timeStepCounter = 0
     # create matrix for result
     result = []
     # get last 
@@ -98,8 +96,6 @@ def processMatrix(matrix, timeToSplit):
             result.append([timeStep, lastValue, {}])
         else:
             result.append([timeStep, timeStep + timeToSplit - 1, {}])
-        # update counter
-        timeStepCounter += 1
     # declare timeStep counter
     timeStepCounter = 0
     # now copy values from matrix to result
@@ -128,7 +124,7 @@ def processMatrix(matrix, timeToSplit):
                     newVehicleAttributes["energyChargedInTransit"] = float(vehicleResult["energyChargedInTransit"]) + float(vehicleMatrix["energyChargedInTransit"])
                     newVehicleAttributes["energyChargedStopped"] = float(vehicleResult["energyChargedStopped"]) + float(vehicleMatrix["energyChargedStopped"])
                     newVehicleAttributes["timeStopped"] = float(vehicleResult["timeStopped"]) + float(vehicleMatrix["timeStopped"])
-                    newVehicleAttributes["number"] = float(vehicleResult["number"]) + 1
+                    newVehicleAttributes["aggregateNumber"] = float(vehicleResult["aggregateNumber"]) + 1
                     # add new vehicle attributes in result
                     result[timeStepCounter][2][vehicleIDResult] = newVehicleAttributes
                     # update flag
@@ -144,7 +140,7 @@ def processMatrix(matrix, timeToSplit):
                 newVehicleAttributes["energyChargedInTransit"] = float(vehicleMatrix["energyChargedInTransit"])
                 newVehicleAttributes["energyChargedStopped"] = float(vehicleMatrix["energyChargedStopped"])
                 newVehicleAttributes["timeStopped"] = float(vehicleMatrix["timeStopped"])
-                newVehicleAttributes["number"] = 0.0
+                newVehicleAttributes["aggregateNumber"] = 1.0
                 # add new vehicle attributes in result
                 result[timeStepCounter][2][vehicleID] = newVehicleAttributes
     
