@@ -21,6 +21,78 @@ import xml.dom.minidom
 import sys
 import getopt
 
+"""
+@brief parse time steps
+"""
+def parseTimeSteps(tree):
+    # create matrix for result
+    result = {float : {str : {str : float}}}
+    # iterate over timeSteps
+    for timeStep in tree.getroot():
+        # get timeStep in float format
+        timestepFloat = float(timeStep.attrib["time"])
+        # create substructure
+        result[timestepFloat] = {str : {str : float}}
+        for vehicle in timeStep:
+            # get vehicle ID
+            vehicleID = vehicle.attrib["id"]
+            # add vehicle
+            result[timestepFloat][vehicleID] = {str : float}
+            # add vehicle values
+            result[timestepFloat][vehicleID]["energyConsumed"] = float(vehicle.attrib["energyConsumed"])
+            result[timestepFloat][vehicleID]["totalEnergyConsumed"] = float(vehicle.attrib["totalEnergyConsumed"])
+            result[timestepFloat][vehicleID]["totalEnergyRegenerated"] = float(vehicle.attrib["totalEnergyRegenerated"])
+            result[timestepFloat][vehicleID]["energyChargedInTransit"] = float(vehicle.attrib["energyChargedInTransit"])
+            result[timestepFloat][vehicleID]["energyChargedStopped"] = float(vehicle.attrib["energyChargedStopped"])
+            result[timestepFloat][vehicleID]["timeStopped"] = float(vehicle.attrib["timeStopped"])
+    # return result
+    return result
+
+"""
+@brief save time steps
+"""
+def saveTimeSteps(result):
+    # convert result in xml format
+    outputRoot = ET.Element('battery-export')
+    # iterate over result
+    for timeStep in result:
+        # filter type float
+        if (type(timeStep) is not type(float)):
+            # write timeSteps
+            timeStepOutput = ET.SubElement(outputRoot, 'timestep')
+            timeStepOutput.set("time", str(timeStep))
+            # iterate over vehicles
+            for vehicle in result[timeStep]:
+                if (type(vehicle) is not type(str)):
+                    vehicleOutput = ET.SubElement(timeStepOutput, 'vehicle')
+                    # write vehicle values
+                    vehicleOutput.set("id", vehicle)
+                    vehicleOutput.set("energyConsumed", str(result[timeStep][vehicle]["energyConsumed"]))
+                    vehicleOutput.set("totalEnergyConsumed", str(result[timeStep][vehicle]["totalEnergyConsumed"]))
+                    vehicleOutput.set("totalEnergyRegenerated", str(result[timeStep][vehicle]["totalEnergyRegenerated"]))
+                    vehicleOutput.set("energyChargedInTransit", str(result[timeStep][vehicle]["energyChargedInTransit"]))
+                    vehicleOutput.set("energyChargedStopped", str(result[timeStep][vehicle]["energyChargedStopped"]))
+                    vehicleOutput.set("timeStopped", str(result[timeStep][vehicle]["timeStopped"]))
+    # write Output
+    outputRootStr = ET.tostring(outputRoot, encoding="utf-8", method="xml")
+    dom = xml.dom.minidom.parseString(outputRootStr)
+    prettyDom = dom.toprettyxml()
+    with open(outputFile, "w") as f:
+        f.write(prettyDom)
+
+"""
+@brief process matrix
+"""
+def processMatrix(matrix)
+    # create matrix for result
+    result = {float : {str : {str : float}}}
+
+
+    return result
+
+"""
+@brief main
+"""
 
 # parse input
 opts, args = getopt.getopt(sys.argv[1:], "i:o:t:v:", ["input=", "output=", "time="])
@@ -39,71 +111,19 @@ for opt, arg in opts:
         outputFile = arg
     elif opt in ("-t", "--time"):
         timeToSplit = int(arg)
+        
 # declare timeStep counter
 timeStepCounter = 0
 currentTimeStep = 0
 
-# declare variables for sum
-energyConsumed = 0.0
-totalEnergyConsumed = 0.0
-totalEnergyRegenerated = 0.0
-energyCharged = 0.0
-energyChargedInTransit = 0.0
-energyChargedStopped = 0.0
-timeStopped = 0.0
-
-
-# create matrix for result
-result = {float : {str : {str : float}}}
-
 # load battery outuput
 tree = ET.parse(inputFile)
 
-# iterate over timeSteps
-for timeStep in tree.getroot():
-    # get timeStep in float format
-    timestepFloat = float(timeStep.attrib["time"])
-    # create substructure
-    result[timestepFloat] = {str : {str : float}}
-    for vehicle in timeStep:
-        # get vehicle ID
-        vehicleID = vehicle.attrib["id"]
-        # add vehicle
-        result[timestepFloat][vehicleID] = {str : float}
-        # add vehicle values
-        result[timestepFloat][vehicleID]["energyConsumed"] = float(vehicle.attrib["energyConsumed"])
-        result[timestepFloat][vehicleID]["totalEnergyConsumed"] = float(vehicle.attrib["totalEnergyConsumed"])
-        result[timestepFloat][vehicleID]["totalEnergyRegenerated"] = float(vehicle.attrib["totalEnergyRegenerated"])
-        result[timestepFloat][vehicleID]["energyChargedInTransit"] = float(vehicle.attrib["energyChargedInTransit"])
-        result[timestepFloat][vehicleID]["energyChargedStopped"] = float(vehicle.attrib["energyChargedStopped"])
-        result[timestepFloat][vehicleID]["timeStopped"] = float(vehicle.attrib["timeStopped"])
-        
-# convert result in xml format
-outputRoot = ET.Element('battery-export')
+# create matrix with timeSteps
+matrix = parseTimeSteps(tree)
 
-# iterate over result
-for timeStep in result:
-    # filter type float
-    if (type(timeStep) is not type(float)):
-        # write timeSteps
-        timeStepOutput = ET.SubElement(outputRoot, 'timestep')
-        timeStepOutput.set("time", str(timeStep))
-        # iterate over vehicles
-        for vehicle in result[timeStep]:
-            if (type(vehicle) is not type(str)):
-                vehicleOutput = ET.SubElement(timeStepOutput, 'vehicle')
-                # write vehicle values
-                vehicleOutput.set("id", vehicle)
-                vehicleOutput.set("energyConsumed", str(result[timeStep][vehicle]["energyConsumed"]))
-                vehicleOutput.set("totalEnergyConsumed", str(result[timeStep][vehicle]["totalEnergyConsumed"]))
-                vehicleOutput.set("totalEnergyRegenerated", str(result[timeStep][vehicle]["totalEnergyRegenerated"]))
-                vehicleOutput.set("energyChargedInTransit", str(result[timeStep][vehicle]["energyChargedInTransit"]))
-                vehicleOutput.set("energyChargedStopped", str(result[timeStep][vehicle]["energyChargedStopped"]))
-                vehicleOutput.set("timeStopped", str(result[timeStep][vehicle]["timeStopped"]))
+# process matrix
+matrix = processMatrix(matrix)
 
-# write Output
-outputRootStr = ET.tostring(outputRoot, encoding="utf-8", method="xml")
-dom = xml.dom.minidom.parseString(outputRootStr)
-prettyDom = dom.toprettyxml()
-with open(outputFile, "w") as f:
-    f.write(prettyDom)
+#write matrix
+saveTimeSteps(matrix)
