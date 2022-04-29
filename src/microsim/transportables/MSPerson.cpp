@@ -76,7 +76,26 @@ MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {
 
 MSStage*
 MSPerson::MSPersonStage_Walking::clone() const {
-    return new MSPersonStage_Walking("dummyID", myRoute, myDestinationStop, myWalkingTime, mySpeed, myDepartPos, myArrivalPos, myDepartPosLat, myDepartLane, myRouteID);
+    std::vector<const MSEdge*> route = myRoute;;
+    double departPos = myDepartPos;
+    double arrivalPos = myArrivalPos;
+    double departLane = myDepartLane;
+    if (myRouteID != "" && MSRoute::distDictionary(myRouteID) != nullptr) {
+        route = MSRoute::dictionary(myRouteID, MSRouteHandler::getParsingRNG())->getEdges();
+        if (departPos > route[0]->getLength()) {
+            WRITE_WARNINGF("Adjusting departPos for cloned walk with routeDistribution '%s'", myRouteID);
+            departPos = route[0]->getLength();
+        }
+        if (arrivalPos > route.back()->getLength()) {
+            WRITE_WARNINGF("Adjusting arrivalPos for cloned walk with routeDistribution '%s'", myRouteID);
+            arrivalPos = route.back()->getLength();
+        }
+        if (departLane >= route[0]->getNumLanes()) {
+            WRITE_WARNINGF("Adjusting departLane for cloned walk with routeDistribution '%s'", myRouteID);
+            departLane = route[0]->getNumLanes() - 1;
+        }
+    }
+    return new MSPersonStage_Walking("dummyID", route, myDestinationStop, myWalkingTime, mySpeed, departPos, arrivalPos, myDepartPosLat, departLane, myRouteID);
 }
 
 
