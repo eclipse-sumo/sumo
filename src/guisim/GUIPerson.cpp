@@ -265,7 +265,7 @@ GUIPerson::getTypeParameterWindow(GUIMainWindow& app,
 
 double
 GUIPerson::getExaggeration(const GUIVisualizationSettings& s) const {
-    return s.personSize.getExaggeration(s, this, 80);
+    return s.personSize.getExaggeration(s, this, s.personQuality == 1 ? 40 : 80);
 }
 
 
@@ -304,7 +304,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
         case 3:
         default:
             GUIBasePersonHelper::drawAction_drawAsImage(angle, getVehicleType().getLength(), getVehicleType().getWidth(),
-                    getVehicleType().getImgFile(), getVehicleType().getGuiShape(), exaggeration);
+                    getVehicleType().getImgFile(), getVehicleType().getGuiShape(), 1);
             break;
     }
     GLHelper::popMatrix();
