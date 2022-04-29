@@ -26,18 +26,18 @@ import getopt
 """
 def parseTimeSteps(tree):
     # create matrix for result
-    result = {float : {str : {str : float}}}
+    result = {}
     # iterate over timeSteps
     for timeStep in tree.getroot():
         # get timeStep in float format
         timestepFloat = float(timeStep.attrib["time"])
         # create substructure
-        result[timestepFloat] = {str : {str : float}}
+        result[timestepFloat] = {}
         for vehicle in timeStep:
             # get vehicle ID
             vehicleID = vehicle.attrib["id"]
             # add vehicle
-            result[timestepFloat][vehicleID] = {str : float}
+            result[timestepFloat][vehicleID] = {}
             # add vehicle values
             result[timestepFloat][vehicleID]["energyConsumed"] = float(vehicle.attrib["energyConsumed"])
             result[timestepFloat][vehicleID]["totalEnergyConsumed"] = float(vehicle.attrib["totalEnergyConsumed"])
@@ -51,28 +51,27 @@ def parseTimeSteps(tree):
 """
 @brief save time steps
 """
-def saveTimeSteps(result):
+def writeTimeSteps(result, timeToSplit):
     # convert result in xml format
     outputRoot = ET.Element('battery-export')
     # iterate over result
     for timeStep in result:
-        # filter type float
-        if (type(timeStep) is not type(float)):
-            # write timeSteps
-            timeStepOutput = ET.SubElement(outputRoot, 'timestep')
-            timeStepOutput.set("time", str(timeStep))
-            # iterate over vehicles
-            for vehicle in result[timeStep]:
-                if (type(vehicle) is not type(str)):
-                    vehicleOutput = ET.SubElement(timeStepOutput, 'vehicle')
-                    # write vehicle values
-                    vehicleOutput.set("id", vehicle)
-                    vehicleOutput.set("energyConsumed", str(result[timeStep][vehicle]["energyConsumed"]))
-                    vehicleOutput.set("totalEnergyConsumed", str(result[timeStep][vehicle]["totalEnergyConsumed"]))
-                    vehicleOutput.set("totalEnergyRegenerated", str(result[timeStep][vehicle]["totalEnergyRegenerated"]))
-                    vehicleOutput.set("energyChargedInTransit", str(result[timeStep][vehicle]["energyChargedInTransit"]))
-                    vehicleOutput.set("energyChargedStopped", str(result[timeStep][vehicle]["energyChargedStopped"]))
-                    vehicleOutput.set("timeStopped", str(result[timeStep][vehicle]["timeStopped"]))
+        # write timeSteps
+        timeStepOutput = ET.SubElement(outputRoot, 'timestep')
+        timeStepOutput.set("interval", str(timeStep[0]) + "-" + str(timeStep[1]))
+        # iterate over vehicles
+        for vehicle in timeStep[2]:
+            vehicleOutput = ET.SubElement(timeStepOutput, 'vehicle')
+            # write vehicle values
+            vehicleOutput.set("id", vehicle)
+            """
+            vehicleOutput.set("energyConsumed", str(result[timeStep][vehicle]["energyConsumed"]))
+            vehicleOutput.set("totalEnergyConsumed", str(result[timeStep][vehicle]["totalEnergyConsumed"]))
+            vehicleOutput.set("totalEnergyRegenerated", str(result[timeStep][vehicle]["totalEnergyRegenerated"]))
+            vehicleOutput.set("energyChargedInTransit", str(result[timeStep][vehicle]["energyChargedInTransit"]))
+            vehicleOutput.set("energyChargedStopped", str(result[timeStep][vehicle]["energyChargedStopped"]))
+            vehicleOutput.set("timeStopped", str(result[timeStep][vehicle]["timeStopped"]))
+            """
     # write Output
     outputRootStr = ET.tostring(outputRoot, encoding="utf-8", method="xml")
     dom = xml.dom.minidom.parseString(outputRootStr)
@@ -83,11 +82,32 @@ def saveTimeSteps(result):
 """
 @brief process matrix
 """
-def processMatrix(matrix)
+def processMatrix(matrix, timeToSplit):
+
+    timeStepCounter = 0
     # create matrix for result
-    result = {float : {str : {str : float}}}
-
-
+    result = []
+    # get last 
+    lastValue = int(list(matrix.keys())[-1])
+    # fill timesteps
+    for t in range (0, lastValue, timeToSplit):
+        if ((t + timeToSplit - 1) > lastValue):
+            result.append([t, lastValue, {}])
+        else:
+            result.append([t, t + timeToSplit - 1, {}])
+        # update counter
+        timeStepCounter += 1
+    # declare timeStep counter
+    timeStepCounter = 0
+    # now copy values from matrix to result
+    for timeStep in matrix:
+        # check if update counter
+        if (result[timeStepCounter][1] < timeStep):
+            timeStepCounter += 1 
+        result[timeStepCounter][2] = matrix[timeStep]
+    
+    print (result)
+    # return  matrix
     return result
 
 """
@@ -123,7 +143,7 @@ tree = ET.parse(inputFile)
 matrix = parseTimeSteps(tree)
 
 # process matrix
-matrix = processMatrix(matrix)
+matrix = processMatrix(matrix, timeToSplit)
 
 #write matrix
-saveTimeSteps(matrix)
+writeTimeSteps(matrix, timeToSplit)
