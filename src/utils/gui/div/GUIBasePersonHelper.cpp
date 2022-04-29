@@ -64,6 +64,15 @@ GUIBasePersonHelper::drawAction_drawAsCircle(const double angle, const double le
 
 
 void
+GUIBasePersonHelper::drawAction_drawAsCenteredCircle(const double length, const double width, double detail) {
+    const double maxDim = MAX2(length, width);
+    const int steps = MIN2(MAX2(8, int(detail / 10)), 64);
+    glScaled(maxDim, maxDim, 1);
+    GLHelper::drawFilledCircle(0.8, steps);
+}
+
+
+void
 GUIBasePersonHelper::drawAction_drawAsPoly(const double angle, const double length, const double width) {
     // draw pedestrian shape
     glRotated(RAD2DEG(angle), 0, 0, 1);

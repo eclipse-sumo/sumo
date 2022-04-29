@@ -403,11 +403,11 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // set scale
             glScaled(exaggeration, exaggeration, 1);
             // draw person depending of detail level
-            if (s.drawDetail(s.detailSettings.personShapes, exaggeration)) {
+            if (s.personQuality >= 2) {
                 GUIBasePersonHelper::drawAction_drawAsImage(0, length, width, file, SUMOVehicleShape::PEDESTRIAN, exaggeration);
-            } else if (s.drawDetail(s.detailSettings.personCircles, exaggeration)) {
-                GUIBasePersonHelper::drawAction_drawAsCircle(0, length, width, s.scale * exaggeration);
-            } else if (s.drawDetail(s.detailSettings.personTriangles, exaggeration)) {
+            } else if (s.personQuality == 1) {
+                GUIBasePersonHelper::drawAction_drawAsCenteredCircle(length / 2, width / 2, s.scale * exaggeration);
+            } else if (s.personQuality == 0) {
                 GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
             }
             // pop matrix

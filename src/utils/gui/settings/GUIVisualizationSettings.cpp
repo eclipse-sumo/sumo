@@ -543,7 +543,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     vehicleValue(false, 80, RGBColor::CYAN),
     vehicleScaleValue(false, 80, RGBColor::GREY),
     vehicleText(false, 80, RGBColor::RED),
-    personQuality(0),
+    personQuality(netedit ? 2 : 0),
     personSize(1),
     personName(false, 60, RGBColor(0, 153, 204, 255)),
     personValue(false, 80, RGBColor::CYAN),
