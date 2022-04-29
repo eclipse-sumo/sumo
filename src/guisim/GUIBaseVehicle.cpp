@@ -489,12 +489,14 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             case 3:
                 drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, scaledLength, true);
                 break;
-            case 4:
-                // do not scale circle radius by lengthGeometryFactor
-                GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(getVType().getWidth(), length, s.scale * upscale);
+            case 4: {
+                // do not scale circle radius by lengthGeometryFactor nor length and reduce the effect of width
+                const double w = 1.8 * sqrt(getVType().getWidth() / 1.8);
+                GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(w, s.scale * upscale);
                 // display text at circle center
                 scaledLength = 0;
                 break;
+            }
             default:
                 break;
         }

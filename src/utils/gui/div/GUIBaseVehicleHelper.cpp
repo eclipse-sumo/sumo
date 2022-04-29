@@ -143,10 +143,9 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(const double width, c
 
 
 void
-GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(const double width, const double length, double detail) {
-    const double maxDim = MAX2(MIN2(4 * width, length), width);
+GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(const double width, double detail) {
     const int steps = MIN2(MAX2(16, int(detail / 5)), 64);
-    GLHelper::drawFilledCircle(maxDim / 5, steps);
+    GLHelper::drawFilledCircle(width / 2, steps);
 }
 
 void
