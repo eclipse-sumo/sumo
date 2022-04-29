@@ -124,7 +124,7 @@ title: ChangeLog
   - Fixed error when deleting trips/flows between junctions. Issue #10391
   - Fixed crash when setting departLane of trips/flows between junctions. Issue #10396
   - Stops can now load tripId attribute. Issue #10475
-  - Stops with embedded routes are now written sorted. Issue #10476
+  - Stops within embedded routes are now written sorted. Issue #10476
   - Fixed crash in edgeRelation mode. Issue #10485
   - Train visualization paramters (i.e. *carriageLength*) are now written. Issue #10553
   - Empty person plans now trigger a warning when saving. Issue #10566
@@ -215,7 +215,7 @@ title: ChangeLog
   - Option **--time-to-teleport.ride** causes persons and containers to "teleport" after waiting for too long for a ride. Issue #10281
   - Vehicles on long stops should no longer recompute their route. Issue #8851
   - Added warnings when a vehicle has stops with inconsistent timing information. Issue #10460
-  - Added option **--time-to-teleport.highways.min-speed** to configure the speed threshold for time-to-teleport.highways. Issue #8268
+  - Added option **--time-to-teleport.highways.min-speed** to configure the speed threshold for applying **--time-to-teleport.highways**. Issue #8268
   - Fixed exaggerated precision of non-geodetic fcd-output attributes when using option **--fcd-output.geo**. Issue #10465
   - All carFollowModels now support attribute 'collisionMinGapFactor'. Issue #10466
   - Stop attribute 'endPos' can now be used to override automated stop position choice at busStop. Issue #10550
