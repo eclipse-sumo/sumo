@@ -296,7 +296,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
             GUIBasePersonHelper::drawAction_drawAsTriangle(angle, getVehicleType().getLength(), getVehicleType().getWidth());
             break;
         case 1:
-            GUIBasePersonHelper::drawAction_drawAsCircle(getVehicleType().getLength(), getVehicleType().getWidth(), s.scale * exaggeration);
+            GUIBasePersonHelper::drawAction_drawAsCircle(angle, getVehicleType().getLength(), getVehicleType().getWidth(), s.scale * exaggeration);
             break;
         case 2:
             GUIBasePersonHelper::drawAction_drawAsPoly(angle, getVehicleType().getLength(), getVehicleType().getWidth());

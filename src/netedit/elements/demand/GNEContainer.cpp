@@ -402,7 +402,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             if (s.drawDetail(s.detailSettings.personShapes, exaggeration)) {
                 GUIBasePersonHelper::drawAction_drawAsImage(0, length, width, file, SUMOVehicleShape::PEDESTRIAN, exaggeration);
             } else if (s.drawDetail(s.detailSettings.personCircles, exaggeration)) {
-                GUIBasePersonHelper::drawAction_drawAsCircle(length, width, s.scale * exaggeration);
+                GUIBasePersonHelper::drawAction_drawAsCircle(0, length, width, s.scale * exaggeration);
             } else if (s.drawDetail(s.detailSettings.personTriangles, exaggeration)) {
                 GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
             }
