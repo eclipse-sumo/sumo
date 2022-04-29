@@ -10,6 +10,7 @@ walk_personsPerHour
 walk_poisson
 walk_probability
 walk_departPos_random
+walk_routeDist
 
 # test whether a chain of walks rides and stops works
 trip_chain

@@ -1,0 +1,13 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_PEDTYPE" speedDev="0" vClass="pedestrian"/>
+
+    <routeDistribution id="rDist">
+        <route id="r0" edges="beg beg2left"/>
+        <route id="r1" edges="beg middle"/>
+        <route id="r2" edges="beg beg2right"/>
+    </routeDistribution>
+
+    <personFlow id="p1" begin="0" end="36" personsPerHour="1000" departPos="-50">
+        <walk route="rDist" arrivalPos="50"/>
+    </personFlow>
+</routes>
