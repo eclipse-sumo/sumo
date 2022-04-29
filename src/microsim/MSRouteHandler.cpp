@@ -1435,6 +1435,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 
 void
 MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
+    myActiveRouteID = "";
     if (attrs.hasAttribute(SUMO_ATTR_EDGES) || attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
         try {
             myActiveRoute.clear();
@@ -1454,10 +1455,10 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             double arrivalPos = 0;
             MSStoppingPlace* bs = nullptr;
             if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
-                const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ROUTE, myVehicleParameter->id.c_str(), ok);
-                const MSRoute* route = MSRoute::dictionary(routeID, &myParsingRNG);
+                myActiveRouteID = attrs.get<std::string>(SUMO_ATTR_ROUTE, myVehicleParameter->id.c_str(), ok);
+                const MSRoute* route = MSRoute::dictionary(myActiveRouteID, &myParsingRNG);
                 if (route == nullptr) {
-                    throw ProcessError("The route '" + routeID + "' for walk of person '" + myVehicleParameter->id + "' is not known.");
+                    throw ProcessError("The route '" + myActiveRouteID + "' for walk of person '" + myVehicleParameter->id + "' is not known.");
                 }
                 myActiveRoute = route->getEdges();
             } else {
