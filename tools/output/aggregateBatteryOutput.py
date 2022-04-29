@@ -23,12 +23,12 @@ import getopt
 
 
 # parse input
-opts, args = getopt.getopt(sys.argv[1:], "i:o:t:v:", ["input=", "output=", "time=", "vehicleid="])
+opts, args = getopt.getopt(sys.argv[1:], "i:o:t:v:", ["input=", "output=", "time="])
 
 # check arguments
 if len(opts) == 0:
     print('usage: aggregateBatteryOutput.py -i <battery input file> '
-          '-o <battery merged output file> -t <time to merge> -v <vehicleid>')
+          '-o <battery merged output file> -t <time to merge>')
     sys.exit()
 
 # parse arguments
@@ -39,9 +39,6 @@ for opt, arg in opts:
         outputFile = arg
     elif opt in ("-t", "--time"):
         timeToSplit = int(arg)
-    elif opt in ("-v", "--vehicleid"):
-        vehicleID = arg
-
 # declare timeStep counter
 timeStepCounter = 0
 currentTimeStep = 0
@@ -55,69 +52,54 @@ energyChargedInTransit = 0.0
 energyChargedStopped = 0.0
 timeStopped = 0.0
 
-# create output tree
-outputRoot = ET.Element('battery-export')
+
+# create matrix for result
+result = {float : {str : {str : float}}}
 
 # load battery outuput
 tree = ET.parse(inputFile)
 
-# iterate over all time Steps
+# iterate over timeSteps
 for timeStep in tree.getroot():
-    currentTimeStep = timeStep.attrib["time"]
+    # get timeStep in float format
+    timestepFloat = float(timeStep.attrib["time"])
+    # create substructure
+    result[timestepFloat] = {str : {str : float}}
     for vehicle in timeStep:
-        if (vehicle.attrib["id"] == vehicleID):
-            # update values
-            energyConsumed += float(vehicle.attrib["energyConsumed"])
-            totalEnergyConsumed += float(vehicle.attrib["totalEnergyConsumed"])
-            totalEnergyRegenerated += float(vehicle.attrib["totalEnergyRegenerated"])
-            energyCharged += float(vehicle.attrib["energyCharged"])
-            energyChargedInTransit += float(vehicle.attrib["energyChargedInTransit"])
-            energyChargedStopped += float(vehicle.attrib["energyChargedStopped"])
-            timeStopped += float(vehicle.attrib["timeStopped"])
-            # update counter
-            timeStepCounter += 1
-            # check timeStepCounter
-            if (timeStepCounter >= timeToSplit):
-                # add time value
-                timestepOutput = ET.SubElement(outputRoot, 'timestep')
-                timestepOutput.set("time", timeStep.attrib["time"])
-                # add vehicle
-                vehicleOutput = ET.SubElement(timestepOutput, 'vehicle')
-                vehicleOutput.set("id", vehicle.attrib["id"])
+        # get vehicle ID
+        vehicleID = vehicle.attrib["id"]
+        # add vehicle
+        result[timestepFloat][vehicleID] = {str : float}
+        # add vehicle values
+        result[timestepFloat][vehicleID]["energyConsumed"] = float(vehicle.attrib["energyConsumed"])
+        result[timestepFloat][vehicleID]["totalEnergyConsumed"] = float(vehicle.attrib["totalEnergyConsumed"])
+        result[timestepFloat][vehicleID]["totalEnergyRegenerated"] = float(vehicle.attrib["totalEnergyRegenerated"])
+        result[timestepFloat][vehicleID]["energyChargedInTransit"] = float(vehicle.attrib["energyChargedInTransit"])
+        result[timestepFloat][vehicleID]["energyChargedStopped"] = float(vehicle.attrib["energyChargedStopped"])
+        result[timestepFloat][vehicleID]["timeStopped"] = float(vehicle.attrib["timeStopped"])
+        
+# convert result in xml format
+outputRoot = ET.Element('battery-export')
+
+# iterate over result
+for timeStep in result:
+    # filter type float
+    if (type(timeStep) is not type(float)):
+        # write timeSteps
+        timeStepOutput = ET.SubElement(outputRoot, 'timestep')
+        timeStepOutput.set("time", str(timeStep))
+        # iterate over vehicles
+        for vehicle in result[timeStep]:
+            if (type(vehicle) is not type(str)):
+                vehicleOutput = ET.SubElement(timeStepOutput, 'vehicle')
                 # write vehicle values
-                vehicleOutput.set("energyConsumed", str(energyConsumed))
-                vehicleOutput.set("totalEnergyConsumed", str(totalEnergyConsumed))
-                vehicleOutput.set("totalEnergyRegenerated", str(totalEnergyRegenerated))
-                vehicleOutput.set("energyCharged", str(energyCharged))
-                vehicleOutput.set("energyChargedInTransit", str(energyChargedInTransit))
-                vehicleOutput.set("energyChargedStopped", str(energyChargedStopped))
-                vehicleOutput.set("timeStopped", str(timeStopped))
-                # reset values
-                energyConsumed = 0.0
-                totalEnergyConsumed = 0.0
-                totalEnergyRegenerated = 0.0
-                energyCharged = 0.0
-                energyChargedInTransit = 0.0
-                energyChargedStopped = 0.0
-                timeStopped = 0.0
-                # reset timeStepCounter
-                timeStepCounter = 0
-# write last
-if (timeStepCounter > 0):
-    # add time value
-    timestepOutput = ET.SubElement(outputRoot, 'timestep')
-    timestepOutput.set("time", currentTimeStep)
-    # add vehicle
-    vehicleOutput = ET.SubElement(timestepOutput, 'vehicle')
-    vehicleOutput.set("id", vehicle.attrib["id"])
-    # write vehicle values
-    vehicleOutput.set("energyConsumed", str(energyConsumed))
-    vehicleOutput.set("totalEnergyConsumed", str(totalEnergyConsumed))
-    vehicleOutput.set("totalEnergyRegenerated", str(totalEnergyRegenerated))
-    vehicleOutput.set("energyCharged", str(energyCharged))
-    vehicleOutput.set("energyChargedInTransit", str(energyChargedInTransit))
-    vehicleOutput.set("energyChargedStopped", str(energyChargedStopped))
-    vehicleOutput.set("timeStopped", str(timeStopped))
+                vehicleOutput.set("id", vehicle)
+                vehicleOutput.set("energyConsumed", str(result[timeStep][vehicle]["energyConsumed"]))
+                vehicleOutput.set("totalEnergyConsumed", str(result[timeStep][vehicle]["totalEnergyConsumed"]))
+                vehicleOutput.set("totalEnergyRegenerated", str(result[timeStep][vehicle]["totalEnergyRegenerated"]))
+                vehicleOutput.set("energyChargedInTransit", str(result[timeStep][vehicle]["energyChargedInTransit"]))
+                vehicleOutput.set("energyChargedStopped", str(result[timeStep][vehicle]["energyChargedStopped"]))
+                vehicleOutput.set("timeStopped", str(result[timeStep][vehicle]["timeStopped"]))
 
 # write Output
 outputRootStr = ET.tostring(outputRoot, encoding="utf-8", method="xml")
