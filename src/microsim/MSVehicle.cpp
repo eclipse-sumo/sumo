@@ -5102,6 +5102,9 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
             addReminder(*rem);
         }
         activateReminders(notification, enteredLane);
+    } else {
+        myLastBestLanesEdge = nullptr;
+        myLastBestLanesInternalLane = nullptr;
     }
     computeFurtherLanes(enteredLane, pos);
     if (MSGlobals::gLateralResolution > 0) {
