@@ -250,6 +250,7 @@ public:
      * @param[in] decel The maximum deceleration of the checking vehicle
      * @param[in] waitingTime The waiting time of the checking vehicle
      * @param[in] collectFoes If a vector is passed the return value is always False, instead all blocking foes are collected and inserted into this vector
+     * @param[in] lastWasContRed Whether the link which is checked, is an internal junction link where the entry has red
      * @return Whether this link is blocked
      * @note Since this needs to be called without a SUMOVehicle (TraCI), we cannot simply pass the checking vehicle itself
      **/
