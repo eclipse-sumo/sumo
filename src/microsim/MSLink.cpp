@@ -539,7 +539,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
                BlockingFoes* collectFoes, bool ignoreRed, const SUMOTrafficObject* ego) const {
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1) {
-        std::cout << SIMTIME << "  opened? link=" << getDescription() << " red=" << haveRed() << " cont=" << isCont() << " numFoeLinks=" << myFoeLinks.size() << " havePrio=" << havePriority() << " lastWasContMajorGreen=" << lastWasContMajorGreen() << "\n";
+        std::cout << SIMTIME << "  opened? link=" << getDescription() << " red=" << haveRed() << " cont=" << isCont() << " numFoeLinks=" << myFoeLinks.size() << " havePrio=" << havePriority() << " lastWasContMajorGreen=" << lastWasContState(LINKSTATE_TL_GREEN_MAJOR) << "\n";
     }
 #endif
     if (haveRed() && !ignoreRed) {
@@ -622,7 +622,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
             }
         }
     }
-    if ((havePriority() || lastWasContMajorGreen()) && myState != LINKSTATE_ZIPPER) {
+    if ((havePriority() || lastWasContState(LINKSTATE_TL_GREEN_MAJOR)) && myState != LINKSTATE_ZIPPER) {
         // priority usually means the link is open but there are exceptions:
         // zipper still needs to collect foes
         // sublane model could have detected a conflict
@@ -641,6 +641,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
     if (MSGlobals::gUseMesoSim && impatience == 1) {
         return true;
     }
+    const bool lastWasContRed = lastWasContState(LINKSTATE_TL_RED);
     for (const MSLink* const link : myFoeLinks) {
         if (MSGlobals::gUseMesoSim) {
             if (link->haveRed()) {
@@ -653,7 +654,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
         }
 #endif
         if (link->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == link->getLane(),
-                                impatience, decel, waitingTime, collectFoes, ego)) {
+                                impatience, decel, waitingTime, collectFoes, ego, lastWasContRed)) {
             return false;
         }
     }
@@ -667,7 +668,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
 bool
 MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                       bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-                      BlockingFoes* collectFoes, const SUMOTrafficObject* ego) const {
+                      BlockingFoes* collectFoes, const SUMOTrafficObject* ego, bool lastWasContRed) const {
     for (const auto& it : myApproachingVehicles) {
 #ifdef MSLink_DEBUG_OPENED
         if (gDebugFlag1) {
@@ -689,6 +690,7 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) < it.second.speed
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) < RandHelper::rand(ego->getRNG()))
                 && !ignoreFoe(ego, it.first)
+                && (!lastWasContRed || it.first->getSpeed() > SUMO_const_haltingSpeed)
                 && blockedByFoe(it.first, it.second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, sameTargetLane,
                                 impatience, decel, waitingTime, ego)) {
             if (collectFoes == nullptr) {
@@ -932,7 +934,7 @@ MSLink::lastWasContMajor() const {
 
 
 bool
-MSLink::lastWasContMajorGreen() const {
+MSLink::lastWasContState(LinkState linkState) const {
     if (myInternalLane == nullptr || myAmCont || myHavePedestrianCrossingFoe) {
         return false;
     } else {
@@ -944,7 +946,7 @@ MSLink::lastWasContMajorGreen() const {
             assert(pred2 != nullptr);
             const MSLink* const predLink = pred2->getLinkTo(pred);
             assert(predLink != nullptr);
-            return predLink->getState() == LINKSTATE_TL_GREEN_MAJOR || predLink->getState() == LINKSTATE_TL_RED;
+            return predLink->getState() == linkState;
         }
     }
 }

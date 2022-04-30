@@ -255,7 +255,7 @@ public:
      **/
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                        bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-                       BlockingFoes* collectFoes = nullptr, const SUMOTrafficObject* ego = nullptr) const;
+                       BlockingFoes* collectFoes = nullptr, const SUMOTrafficObject* ego = nullptr, bool lastWasContRed = false) const;
 
 
     bool isBlockingAnyone() const {
@@ -440,8 +440,8 @@ public:
     /// @brief whether this is a link past an internal junction which currently has priority
     bool lastWasContMajor() const;
 
-    /// @brief whether this is a link past an internal junction which currently has green major
-    bool lastWasContMajorGreen() const;
+    /// @brief whether this is a link past an internal junction where the entry to the junction currently has the given state
+    bool lastWasContState(LinkState linkState) const;
 
     /** @brief Returns the cumulative length of all internal lanes after this link
      *  @return sum of the lengths of all internal lanes following this link
