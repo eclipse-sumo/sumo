@@ -1469,7 +1469,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                         if (collider->getBoundingPoly(myCheckJunctionCollisionMinGap).overlapsWith(victim->getBoundingPoly())) {
                             // junction leader is the victim (collider must still be on junction)
                             assert(isInternal());
-                            if (victim->getLane()->isInternal() && victim->isLeader(myLinks.front(), collider)) {
+                            if (victim->getLane()->isInternal() && victim->isLeader(myLinks.front(), collider, -1)) {
                                 foeLane->handleCollisionBetween(timestep, stage, victim, collider, -1, 0, toRemove, toTeleport);
                             } else {
                                 handleCollisionBetween(timestep, stage, collider, victim, -1, 0, toRemove, toTeleport);
@@ -2570,7 +2570,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
                 }
 #endif
                 // in the context of lane-changing, all candidates are leaders
-                if (lVeh != nullptr && !laneChanging && !veh.isLeader(*link, lVeh)) {
+                if (lVeh != nullptr && !laneChanging && !veh.isLeader(*link, lVeh, ll.vehAndGap.second)) {
                     continue;
                 }
                 if (gap < shortestGap) {
@@ -3462,7 +3462,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                     const MSLink::LinkLeaders linkLeaders = (*it).viaLink->getLeaderInfo(ego, -backOffset);
                     for (const auto& ll : linkLeaders) {
                         if (ll.vehAndGap.first != nullptr) {
-                            const bool egoIsLeader = ll.vehAndGap.first->isLeader((*it).viaLink, ego);
+                            const bool egoIsLeader = ll.vehAndGap.first->isLeader((*it).viaLink, ego, ll.vehAndGap.second);
                             // if ego is leader the returned gap still assumes that ego follows the leader
                             // if the foe vehicle follows ego we need to deduce that gap
                             const double gap = (egoIsLeader
@@ -3604,7 +3604,7 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
                 const MSLink::LinkLeader ll = linkLeaders[0];
                 MSVehicle* veh = ll.vehAndGap.first;
                 // in the context of lane changing all junction leader candidates must be respected
-                if (veh != 0 && (ego->isLeader(*link, veh)
+                if (veh != 0 && (ego->isLeader(*link, veh, ll.vehAndGap.second)
                                  || (MSGlobals::gComputeLC
                                      && veh->getPosition().distanceTo2D(ego->getPosition()) - veh->getVehicleType().getMinGap() - ego->getVehicleType().getLength()
                                      < veh->getCarFollowModel().brakeGap(veh->getSpeed())))) {

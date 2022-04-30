@@ -3068,7 +3068,7 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                 continue;
             }
             adaptToJunctionLeader(std::make_pair(this, -1), seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
-        } else if (isLeader(link, leader) || (*it).inTheWay) {
+        } else if (isLeader(link, leader, (*it).vehAndGap.second) || (*it).inTheWay) {
             if (getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB, 0) > 0
                     && getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB, 0) >= RandHelper::rand(getRNG())) {
 #ifdef DEBUG_PLAN_MOVE
@@ -3148,7 +3148,7 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
         else {
             if (DEBUG_COND) {
-                std::cout << SIMTIME << " veh=" << getID() << " ignoring leader " << leader->getID()
+                std::cout << SIMTIME << " veh=" << getID() << " ignoring leader " << leader->getID() << " gap=" << (*it).vehAndGap.second << " dtC=" << (*it).distToCrossing
                           << " ET=" << myJunctionEntryTime << " lET=" << leader->myJunctionEntryTime
                           << " ETN=" << myJunctionEntryTimeNeverYield << " lETN=" << leader->myJunctionEntryTimeNeverYield
                           << " CET=" << myJunctionConflictEntryTime << " lCET=" << leader->myJunctionConflictEntryTime
@@ -6714,7 +6714,7 @@ MSVehicle::passingMinor() const {
 }
 
 bool
-MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh) const {
+MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh, const double gap) const {
     assert(link->fromInternalLane());
     if (veh == nullptr) {
         return false;
@@ -6752,8 +6752,27 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh) const {
                 const MSLink* foeEntry = foeLink->getCorrespondingEntryLink();
                 if (entry->haveRed() || foeEntry->haveRed()) {
                     // ensure that vehicles which are stuck on the intersection may exit
-                    response = foeEntry->haveRed();
-                    response2 = entry->haveRed();
+                    if (!foeEntry->haveRed() && veh->getSpeed() > SUMO_const_haltingSpeed && gap < 0) {
+                        // foe might be oncoming, don't drive unless foe can still brake safely
+                        const double foeGap = -gap - veh->getLength();
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+                        if (DEBUG_COND) {
+                            std::cout << " foeGap=" << foeGap << " foeBGap=" << veh->getBrakeGap(true) << "\n";
+
+                        }
+#endif
+                        if (foeGap < veh->getBrakeGap(true)) {
+                            response = true;
+                            response2 = false;
+                        } else {
+                            response = false;
+                            response2 = true;
+                        }
+                    } else {
+                        // brake for stuck foe
+                        response = foeEntry->haveRed();
+                        response2 = entry->haveRed();
+                    }
                 } else if (entry->havePriority() != foeEntry->havePriority()) {
                     response = !entry->havePriority();
                     response2 = !foeEntry->havePriority();

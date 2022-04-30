@@ -537,6 +537,11 @@ bool
 MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, double vehicleLength,
                double impatience, double decel, SUMOTime waitingTime, double posLat,
                BlockingFoes* collectFoes, bool ignoreRed, const SUMOTrafficObject* ego) const {
+#ifdef MSLink_DEBUG_OPENED
+    if (gDebugFlag1) {
+        std::cout << SIMTIME << "  opened? link=" << getDescription() << " red=" << haveRed() << " cont=" << isCont() << " numFoeLinks=" << myFoeLinks.size() << " havePrio=" << havePriority() << " lastWasContMajorGreen=" << lastWasContMajorGreen() << "\n";
+    }
+#endif
     if (haveRed() && !ignoreRed) {
         return false;
     }

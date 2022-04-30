@@ -1681,7 +1681,7 @@ public:
     static int nextLinkPriority(const std::vector<MSLane*>& conts);
 
     /// @brief whether the given vehicle must be followed at the given junction
-    bool isLeader(const MSLink* link, const MSVehicle* veh) const;
+    bool isLeader(const MSLink* link, const MSVehicle* veh, const double gap) const;
 
     // @brief get the position of the back bumper;
     const Position getBackPosition() const;
