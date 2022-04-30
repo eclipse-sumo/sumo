@@ -83,8 +83,9 @@ def main():
     else:
         def elements():
             for datafile in options.datafiles:
+                defaultID = None if len(options.datafiles) == 1 else datafile
                 for element in parse(datafile, options.element, heterogeneous=True):
-                    elementID = None
+                    elementID = defaultID
                     if element.hasAttribute(options.idAttr):
                         elementID = element.getAttribute(options.idAttr)
                     stringVal = None
