@@ -27,6 +27,10 @@
 //#define DEBUG_V
 //#define DEBUG_INSERTION_SPEED
 
+#define DEBUG_COND (veh->isSelected) 
+//#define DEBUG_COND true
+
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -76,6 +80,9 @@ MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, 
         // can occur for ballistic update (in context of driving at red light)
         return maxSpeed;
     }
+#ifdef DEBUG_V
+    gDebugFlag1 = DEBUG_COND;
+#endif
     const double secGap = getSecureGap(veh, nullptr, maxSpeed, 0, myDecel);
     double vSafe;
     if (speed <= maxSpeed) {
@@ -100,7 +107,7 @@ double
 MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
     applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap2pred, predSpeed, predMaxDecel, pred);
 #ifdef DEBUG_V
-    gDebugFlag1 = veh->isSelected();
+    gDebugFlag1 = DEBUG_COND;
 #endif
     return _v(veh, gap2pred, speed, predSpeed, veh->getLane()->getVehicleMaxSpeed(veh));
 }
@@ -137,7 +144,7 @@ MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
 double
 MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
 #ifdef DEBUG_V
-    gDebugFlag1 = veh->isSelected();
+    gDebugFlag1 = DEBUG_COND;
 #endif
     applyHeadwayPerceptionError(veh, speed, gap);
     if (gap < 0.01) {
@@ -194,6 +201,11 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
         // gap2pred comes with minGap already subtracted so we need to add it here again
         gap += myType->getMinGap();
     }
+#ifdef DEBUG_V
+        if (gDebugFlag1) {
+            std::cout << SIMTIME << " veh=" << veh->getID() << " gap2pred=" << gap2pred << " egoSpeed=" << egoSpeed << " predSpeed=" << predSpeed << " desSpeed=" << desSpeed << " rMG=" << respectMinGap << " hw=" << headwayTime << "\n";
+        }
+#endif
     for (int i = 0; i < myIterations; i++) {
         const double delta_v = newSpeed - predSpeed;
         double s = MAX2(0., newSpeed * headwayTime + newSpeed * delta_v / myTwoSqrtAccelDecel);
@@ -204,7 +216,7 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
         const double acc = myAccel * (1. - pow(newSpeed / desSpeed, myDelta) - (s * s) / (gap * gap));
 #ifdef DEBUG_V
         if (gDebugFlag1) {
-            std::cout << " i=" << i << " gap=" << gap << " t=" << myHeadwayTime << " t2=" << headwayTime << " s=" << s << " pow=" << pow(newSpeed / desSpeed, myDelta) << " gapDecel=" << (s * s) / (gap * gap) << " a=" << acc;
+            std::cout << "   i=" << i << " gap=" << gap << " t=" << myHeadwayTime << " t2=" << headwayTime << " s=" << s << " pow=" << pow(newSpeed / desSpeed, myDelta) << " gapDecel=" << (s * s) / (gap * gap) << " a=" << acc;
         }
 #endif
         newSpeed = MAX2(0.0, newSpeed + ACCEL2SPEED(acc) / myIterations);
