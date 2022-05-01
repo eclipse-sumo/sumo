@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        build-type: [plain, extra]
+        build_type: [plain, extra]
     env:
       CC: cl
       CXX: cl
@@ -47,17 +47,17 @@ jobs:
       uses: actions/cache@v2
       with:
         path: C:\Users\runneradmin\AppData\Local\Mozilla\sccache\cache
-        key: ${{ matrix.build-type }}-${{ github.head_ref }}-${{ github.run_number }}
+        key: ${{ matrix.build_type }}-${{ github.head_ref }}-${{ github.run_number }}
         restore-keys: |
-          ${{ matrix.build-type }}-${{ github.head_ref }}-
-          ${{ matrix.build-type }}-
+          ${{ matrix.build_type }}-${{ github.head_ref }}-
+          ${{ matrix.build_type }}-
 
     # required for CMake to find Ninja
     - name: "Set up MSVC Developer Command Prompt"
       uses: seanmiddleditch/gha-setup-vsdevenv@v3
 
     - name: Configuring SUMO plain build
-      if: matrix.build-type == 'plain'
+      if: matrix.build_type == 'plain'
       run: |
         python -m pip install wheel
         cd sumo
@@ -66,13 +66,13 @@ jobs:
         cmake .. -GNinja -DCHECK_OPTIONAL_LIBS=false
 
     - name: Building SUMO plain
-      if: matrix.build-type == 'plain'
+      if: matrix.build_type == 'plain'
       run: |
         cd sumo
         cmake --build build_msvc --config Release
 
     - name: Building SUMO extra
-      if: matrix.build-type == 'extra'
+      if: matrix.build_type == 'extra'
       run: |
         cd sumo
         mkdir build_msvc
@@ -88,12 +88,12 @@ jobs:
     - name: Uploading artifacts (SUMO binaries)
       uses: actions/upload-artifact@v2
       with:
-        name: Windows-${{ matrix.build-type }}
+        name: Windows-${{ matrix.build_type }}
         path: sumo/bin
         retention-days: 30
 
     - name: Plain examples and tests
-      if: matrix.build-type == 'plain'
+      if: matrix.build_type == 'plain'
       run: |
         cd sumo/build_msvc
         $env:TEXTTEST_TMP = "D:/texttest"
@@ -103,7 +103,7 @@ jobs:
         ctest -R texttest --verbose
 
     - name: Examples and extra tests
-      if: matrix.build-type == 'extra' && github.repository == 'DLR-TS/sumo'
+      if: matrix.build_type == 'extra' && github.repository == 'DLR-TS/sumo'
       run: |
         python -m pip install -r sumo/tools/requirements.txt
         cd sumo/build_msvc
@@ -123,6 +123,6 @@ jobs:
       if: always() && github.repository == 'DLR-TS/sumo'
       uses: actions/upload-artifact@v2
       with:
-        name: texttesttmp-${{ matrix.build-type }}
+        name: texttesttmp-${{ matrix.build_type }}
         path: D:/texttest/tt.zip
         if-no-files-found: warn
