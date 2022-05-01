@@ -24,6 +24,7 @@ import os
 import sys
 import subprocess
 import glob
+import shutil
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -58,6 +59,13 @@ def get_options(args=None):
 
     if not options.configuration:
         sys.stderr.write("Error: option configuration is mandatory\n")
+        sys.exit()
+    elif not os.path.exists(options.configuration):
+        sys.stderr.write("Error: configuration '%s' not found\n" % options.configuration)
+        sys.exit()
+
+    if hasattr(shutil, "which") and not shutil.which(options.appliction):
+        sys.stderr.write("Error: application '%s' not found\n" % options.application)
         sys.exit()
 
     if not "SEED" in options.prefix:
