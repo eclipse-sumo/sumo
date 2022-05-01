@@ -161,6 +161,9 @@ fullstats:fullstats.dat
 xmlstats:stats.xml
 xmlstats0:000/stats.xml
 xmlstats1:001/stats.xml
+xmlstats1:1.stats.xml
+xmlstats2:2.stats.xml
+xmlstats3:3.stats.xml
 osmimport:*/osm.net.xml
 osmstops:*/osm_stops.add.xml
 osmlines:*/osm_ptlines.xml
@@ -274,6 +277,8 @@ turns:<!-- generated on{[->]}-->
 xmlstats:<!-- generated on{[->]}-->
 xmlstats0:<!-- generated on{[->]}-->
 xmlstats1:<!-- generated on{[->]}-->
+xmlstats2:<!-- generated on{[->]}-->
+xmlstats3:<!-- generated on{[->]}-->
 edgedata:<!-- generated on{[->]}-->
 od:<!-- generated on{[->]}-->
 net:<!--{[->]}-->

@@ -7,3 +7,4 @@ generateParkingLots
 generateParkingAreaRerouters
 generateContinuousRerouters
 extractTest
+runSeeds
