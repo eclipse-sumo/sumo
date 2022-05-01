@@ -88,7 +88,7 @@ jobs:
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
     - name: Extra tests
-      if: matrix.build-type == 'full'
+      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
       run: |
         sumo/tests/runTests.sh -b ci -a sumo.meso.ci
 
