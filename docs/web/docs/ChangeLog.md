@@ -34,6 +34,8 @@ title: ChangeLog
   - Fixed NaN-value in summary-output when setting speed limit to 0. Issue #10603  
   - Fixed negative timeloss in person-walk tripinfo. Issue #10270
   - personFlow now re-samples walks from a routeDistribution. Issue #10632
+  - Fixed invalid junction collision error. Issue #10637
+  - Fixed bug where vehicles waiting within an intersection violate right-of-way after their green phase ends. Issue #8124
   - opposite-direction driving
     - Can now overtake stopped vehicle when there is only a short gap afterwards. Issue #9994, #10338
     - Fixed failure to overtake fast vehicles. Issue #10194    
@@ -65,6 +67,7 @@ title: ChangeLog
     - Fixed crash when using arrivalEdge and rerouting. Issue #10276
     - Fixed crash when using option **--weights.separate-turns** with intermodal network. Issue #10416
     - Fixed crash when coloring streets by free parking spaces. Issue #10606
+    - Fixed crash after teleporting within circular route. Issue #10634
   - Fixed various deadlocks
     - Fixed deadlock at on-off-ramp despite relief connection. Issue #10037 (regression in 1.6.0)  
     - Fixed preventable deadlock in weaving situation by applying stronger braking. Issue #10028
@@ -129,6 +132,7 @@ title: ChangeLog
   - Train visualization paramters (i.e. *carriageLength*) are now written. Issue #10553
   - Empty person plans now trigger a warning when saving. Issue #10566
   - Fixed bad visibility of dotted contour for very short edge. Issue #10555
+  - Person drawing style takes now effect. Issue #10636
       
 - sumo-gui
   - Fixed partially invisible individuallly defined parking spaces. Issue #10568 (regression in 1.10.0)
@@ -221,6 +225,7 @@ title: ChangeLog
   - Stop attribute 'endPos' can now be used to override automated stop position choice at busStop. Issue #10550
   - Flows now support attribute `begin="triggered"`. Issue #10560
   - Added option **emergency-insert** to permit inserting vehicles at dangerous speeds. This behavior was previously a side effect of option **--ignore-route-errors**. Issue #10581
+  - Attribute 'departEdge' can now be used with trips and flows. Issue #8992
 
 - sumo-gui
   - Enabled dpi awareness. Issue #9985
@@ -236,6 +241,7 @@ title: ChangeLog
   - The *space* key can be used to toggle run/stop. Issue #10068
   - Improved visibility of vehicles with exaggerated size on multi-lane roads with exaggerated size. Issue #10483
   - Vehicle length no longer affects size when drawing as circles. Issue #10629
+  - Improved positioning when drawing persons as circles. Issue #10608
 
 - netedit
   - Can now set stop attributes "tripID" and "line". Issue #6011
@@ -303,6 +309,8 @@ title: ChangeLog
   - generateParkingAreas.py: now supports option **--keep-all** to keep 0-capacity areas. Issue #10612
   - generateParkingAreas.py: now supports options **--edge-type.keep** and **--edge-type.remove** to filter by edge type. Issue #10615
   - addStops2Routes.py should now preserves vTypes. Issue #10613
+  - attributeStats.py now supports reading attributes from multiple files. Issue #10643
+  - added new tool [runSeeds.py](Tools/Misc.md#runseedspy) to run a configuration multiple times with different random seeds and collect distinct outputs. Issue #10642
 
 ### miscellaneous
 
