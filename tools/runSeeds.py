@@ -64,7 +64,7 @@ def get_options(args=None):
         sys.stderr.write("Error: configuration '%s' not found\n" % options.configuration)
         sys.exit()
 
-    if hasattr(shutil, "which") and not shutil.which(options.appliction):
+    if hasattr(shutil, "which") and not shutil.which(options.application):
         sys.stderr.write("Error: application '%s' not found\n" % options.application)
         sys.exit()
 
