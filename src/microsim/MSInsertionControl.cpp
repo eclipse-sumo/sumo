@@ -308,6 +308,11 @@ MSInsertionControl::descheduleDeparture(const SUMOVehicle* veh) {
     myAbortedEmits.insert(veh);
 }
 
+void
+MSInsertionControl::retractDescheduleDeparture(const SUMOVehicle* veh) {
+    myAbortedEmits.erase(veh);
+}
+
 
 void
 MSInsertionControl::alreadyDeparted(SUMOVehicle* veh) {

@@ -589,11 +589,16 @@ MSLane::insertVehicle(MSVehicle& veh) {
                 pos = RandHelper::rand(getLength());
                 posLat = getDepartPosLat(veh); // could be random as well
                 if (isInsertionSuccess(&veh, speed, pos, posLat, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED)) {
+                    MSNet::getInstance()->getInsertionControl().retractDescheduleDeparture(&veh);
                     return true;
                 }
             }
             // ... and if that doesn't work, we put the vehicle to the free position
-            return freeInsertion(veh, speed, posLat);
+            bool success = freeInsertion(veh, speed, posLat);
+            if (success) {
+                MSNet::getInstance()->getInsertionControl().retractDescheduleDeparture(&veh);
+            }
+            return success;
         }
         case DepartPosDefinition::FREE:
             return freeInsertion(veh, speed, posLat);

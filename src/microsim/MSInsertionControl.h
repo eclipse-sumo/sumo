@@ -135,6 +135,8 @@ public:
     /// @brief stops trying to emit the given vehicle (and delete it)
     void descheduleDeparture(const SUMOVehicle* veh);
 
+    /// @brief reverts a previous call to descheduleDeparture (only needed for departPos="random_free")
+    void retractDescheduleDeparture(const SUMOVehicle* veh);
 
     /// @brief clears out all pending vehicles from a route, "" for all routes
     void clearPendingVehicles(const std::string& route);
