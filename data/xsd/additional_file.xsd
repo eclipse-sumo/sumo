@@ -441,6 +441,7 @@
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="voltage" type="xsd:float" use="optional"/>
         <xsd:attribute name="currentLimit" type="xsd:float" use="optional"/>
+        <xsd:attribute name="pos" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="overheadWireClampType">
