@@ -2079,4 +2079,14 @@ GNEApplicationWindowHelper::toggleEditOptionsData(GNEViewNet* viewNet, const MFX
     return true;
 }
 
+
+bool
+GNEApplicationWindowHelper::stringEndsWith(const std::string &str, const std::string &suffix) {
+    if (str.length() < suffix.length()) {
+        return false;
+    } else {
+        return str.compare(str.length() - suffix.length(), suffix.length(), suffix) == 0;
+    }
+}
+
 /****************************************************************************/

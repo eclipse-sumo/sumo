@@ -2469,13 +2469,28 @@ GNEApplicationWindow::onCmdClearTemplate(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
+    // declar extensions
+    const std::string netExtension = ".net.xml";
+    const std::string zipNetExtension = netExtension + ".gz";
+    const std::string wildcard = (netExtension + "\n" + zipNetExtension);
     // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save Network as", ".net.xml",
+                    "Save Network as", wildcard.c_str(),
                     GUIIconSubSys::getIcon(GUIIcon::SAVE),
                     gCurrentFolder);
-    // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".net.xml");
+    // get file with extension
+    std::string fileWithExtension = file.text();
+    // clear wildcard
+    const size_t pos = fileWithExtension.find(wildcard);
+    if (pos != std::string::npos){
+        // If found then erase it from string
+        fileWithExtension.erase(pos, wildcard.length());
+    }
+    // check xml extension
+    if (!GNEApplicationWindowHelper::stringEndsWith(fileWithExtension, netExtension) && 
+        !GNEApplicationWindowHelper::stringEndsWith(fileWithExtension, zipNetExtension)) {
+        fileWithExtension = FileHelpers::addExtension(fileWithExtension, netExtension);
+    }
     // check that file with extension is valid
     if (fileWithExtension != "") {
         OptionsCont& oc = OptionsCont::getOptions();

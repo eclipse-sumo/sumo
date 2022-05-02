@@ -995,6 +995,9 @@ struct GNEApplicationWindowHelper {
     static bool toggleEditOptionsData(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
                                       const int numericalKeyPressed, FXObject* obj, FXSelector sel);
 
+    /// @brief check if a string ends with another string
+    static bool stringEndsWith(const std::string &str, const std::string &suffix);
+
 private:
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;
