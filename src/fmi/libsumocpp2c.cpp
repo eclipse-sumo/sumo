@@ -34,7 +34,7 @@
 inline char*
 allocateAndCopyString(ModelInstance* comp, const std::string& s) {
     char* buf = NULL;
-    buf = (char *)comp->allocateMemory(1 + s.length(), sizeof(char));
+    buf = (char*)comp->allocateMemory(1 + s.length(), sizeof(char));
     s.copy(buf, 1 + s.length());
     return buf;
 }

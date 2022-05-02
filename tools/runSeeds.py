@@ -12,7 +12,7 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runSeeds.py
-# @author  Jakob Erdmann Behrisch
+# @author  Jakob Erdmann
 # @date    2022-04-30
 
 """
@@ -23,16 +23,11 @@ from __future__ import print_function
 import os
 import sys
 import subprocess
-import glob
 import shutil
 
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(os.path.join(tools))
-    import sumolib
-    from sumolib.xml import parse, parse_fast  # noqa
-    from sumolib.miscutils import Statistics  # noqa
-    from sumolib.statistics import setPrecision
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+    import sumolib  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
@@ -68,10 +63,11 @@ def get_options(args=None):
         sys.stderr.write("Error: application '%s' not found\n" % options.application)
         sys.exit()
 
-    if not "SEED" in options.prefix:
+    if "SEED" not in options.prefix:
         sys.stderr.write("Warning: --output-prefix should contain 'SEED' to prevent overwriting\n")
 
     return options
+
 
 def main(options):
     for seed in options.seeds:
@@ -83,6 +79,7 @@ def main(options):
                 '--seed', str(seed),
                 '--output-prefix', prefix]
         subprocess.call(args)
+
 
 if __name__ == "__main__":
     if not main(get_options()):

@@ -24,6 +24,8 @@ import getopt
 """
 @brief parse time steps
 """
+
+
 def parseTimeSteps(tree):
     # create matrix for result
     result = {}
@@ -48,9 +50,12 @@ def parseTimeSteps(tree):
     # return result
     return result
 
+
 """
 @brief save time steps
 """
+
+
 def writeTimeSteps(result):
     # convert result in xml format
     outputRoot = ET.Element('battery-export')
@@ -81,16 +86,19 @@ def writeTimeSteps(result):
     with open(outputFile, "w") as f:
         f.write(prettyDom)
 
+
 """
 @brief process matrix
 """
+
+
 def processMatrix(matrix, timeToSplit):
     # create matrix for result
     result = []
-    # get last 
+    # get last
     lastValue = int(list(matrix.keys())[-1])
     # fill timesteps
-    for timeStep in range (0, lastValue, timeToSplit):
+    for timeStep in range(0, lastValue, timeToSplit):
         # check if this is the last interval
         if ((timeStep + timeToSplit - 1) > lastValue):
             result.append([timeStep, lastValue, {}])
@@ -102,7 +110,7 @@ def processMatrix(matrix, timeToSplit):
     for timeStep in matrix:
         # check if update counter
         if (result[timeStepCounter][1] < timeStep):
-            timeStepCounter += 1 
+            timeStepCounter += 1
         # copy vehicle information
         for vehicleID in matrix[timeStep]:
             # get vehicle from Matrix
@@ -118,19 +126,25 @@ def processMatrix(matrix, timeToSplit):
                     # declare new vehicle attributes
                     newVehicleAttributes = {}
                     # update vehicle attributes
-                    newVehicleAttributes["energyConsumed"] = float(vehicleResult["energyConsumed"]) + float(vehicleMatrix["energyConsumed"])
-                    newVehicleAttributes["totalEnergyConsumed"] = float(vehicleResult["totalEnergyConsumed"]) + float(vehicleMatrix["totalEnergyConsumed"])
-                    newVehicleAttributes["totalEnergyRegenerated"] = float(vehicleResult["totalEnergyRegenerated"]) + float(vehicleMatrix["totalEnergyRegenerated"])
-                    newVehicleAttributes["energyChargedInTransit"] = float(vehicleResult["energyChargedInTransit"]) + float(vehicleMatrix["energyChargedInTransit"])
-                    newVehicleAttributes["energyChargedStopped"] = float(vehicleResult["energyChargedStopped"]) + float(vehicleMatrix["energyChargedStopped"])
-                    newVehicleAttributes["timeStopped"] = float(vehicleResult["timeStopped"]) + float(vehicleMatrix["timeStopped"])
+                    newVehicleAttributes["energyConsumed"] = float(
+                        vehicleResult["energyConsumed"]) + float(vehicleMatrix["energyConsumed"])
+                    newVehicleAttributes["totalEnergyConsumed"] = float(
+                        vehicleResult["totalEnergyConsumed"]) + float(vehicleMatrix["totalEnergyConsumed"])
+                    newVehicleAttributes["totalEnergyRegenerated"] = float(
+                        vehicleResult["totalEnergyRegenerated"]) + float(vehicleMatrix["totalEnergyRegenerated"])
+                    newVehicleAttributes["energyChargedInTransit"] = float(
+                        vehicleResult["energyChargedInTransit"]) + float(vehicleMatrix["energyChargedInTransit"])
+                    newVehicleAttributes["energyChargedStopped"] = float(
+                        vehicleResult["energyChargedStopped"]) + float(vehicleMatrix["energyChargedStopped"])
+                    newVehicleAttributes["timeStopped"] = float(
+                        vehicleResult["timeStopped"]) + float(vehicleMatrix["timeStopped"])
                     newVehicleAttributes["aggregateNumber"] = float(vehicleResult["aggregateNumber"]) + 1
                     # add new vehicle attributes in result
                     result[timeStepCounter][2][vehicleIDResult] = newVehicleAttributes
                     # update flag
                     found = True
             # if vehicle wasn't found add it
-            if (found == False):
+            if not found:
                 # declare new vehicle attributes
                 newVehicleAttributes = {}
                 # add vehicle attributes
@@ -143,9 +157,10 @@ def processMatrix(matrix, timeToSplit):
                 newVehicleAttributes["aggregateNumber"] = 1.0
                 # add new vehicle attributes in result
                 result[timeStepCounter][2][vehicleID] = newVehicleAttributes
-    
+
     # return  matrix
     return result
+
 
 """
 @brief main
@@ -168,7 +183,7 @@ for opt, arg in opts:
         outputFile = arg
     elif opt in ("-t", "--time"):
         timeToSplit = int(arg)
-        
+
 # declare timeStep counter
 timeStepCounter = 0
 currentTimeStep = 0
@@ -182,5 +197,5 @@ matrix = parseTimeSteps(tree)
 # process matrix
 matrix = processMatrix(matrix, timeToSplit)
 
-#write matrix
+# write matrix
 writeTimeSteps(matrix)

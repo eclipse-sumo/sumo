@@ -1,3 +1,23 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+
+# @file    updateDailyVersion.py
+# @author  Pablo Alvarez Lopez
+# @date    2022-04-26
+
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 import zipfile
@@ -5,31 +25,31 @@ import shutil
 
 # first check platform (currently only avaliable in Windows)
 if sys.platform != "win32":
-    print ("This script only works in Windows")
+    print("This script only works in Windows")
     sys.exit()
 
 # download sumo
-print ("Downloading daily SUMO...")
+print("Downloading daily SUMO...")
 os.system('curl https://sumo.dlr.de/daily/sumo-win64extra-git.zip --output sumo.zip')
 
 # now check if sumo.zip exist
 if os.path.exists("sumo.zip"):
-    print ("Download sucesfully. Unzipping...")
+    print("Download successful. Unzipping ...")
 else:
-    print ("Error downloading SUMO")
+    print("Error downloading SUMO")
     sys.exit()
 
 # unzip SUMO
 with zipfile.ZipFile("sumo.zip", 'r') as zip_ref:
     zip_ref.extractall(".")
- 
-# check if sumo-git exists 
+
+# check if sumo-git exists
 if os.path.exists("sumo-git"):
-    print ("Unzip sucesfully. Updating SUMO folder...")
+    print("Unzip successful. Updating SUMO folder ...")
 else:
-    print ("Error unzipping SUMO")
+    print("Error unzipping SUMO")
     sys.exit()
-    
+
 # Copy all files
 for src_dir, dirs, files in os.walk('./sumo-git'):
     dst_dir = src_dir.replace('./sumo-git', '../../', 1)
@@ -46,11 +66,11 @@ for src_dir, dirs, files in os.walk('./sumo-git'):
         shutil.move(src_file, dst_dir)
 
 # write info
-print ("All files copied. Cleaning...")
+print("All files copied. Cleaning ...")
 
-# remove temporal files
+# remove temporary files
 os.remove("sumo.zip")
 shutil.rmtree("sumo-git")
 
 # finished
-print ("Done.")
+print("Done.")
