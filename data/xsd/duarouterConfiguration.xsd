@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-23 14:36:26 by Eclipse SUMO duarouter Version v1_11_0+1386-3dcddef099b
+<!-- generated on 2022-05-02 19:08:08 by Eclipse SUMO duarouter Version v1_12_0+2434-3307e8578f4
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -26,10 +26,10 @@
             <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="route-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="phemlight-path" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="junction-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lane-weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-attribute" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="junction-taz" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -58,26 +58,26 @@
 
     <xsd:complexType name="processingTopicType">
         <xsd:all>
+            <xsd:element name="max-alternatives" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="unsorted-input" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="route-steps" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="randomize-flows" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="max-alternatives" type="intOptionType" minOccurs="0"/>
             <xsd:element name="remove-loops" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="repair" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="repair.from" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="repair.to" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.junctions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="bulk-routing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="restriction-params" type="strArrayOptionType" minOccurs="0"/>
-            <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="weights.random-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="restriction-params" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.random-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weight-period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="weights.priority-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="astar.all-distances" type="fileOptionType" minOccurs="0"/>
@@ -89,8 +89,8 @@
             <xsd:element name="skip-new-routes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="keep-route-probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="ptline-routing" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="logit" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="route-choice-method" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="logit" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="logit.beta" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="logit.gamma" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="logit.theta" type="floatOptionType" minOccurs="0"/>
