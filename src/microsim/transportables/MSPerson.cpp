@@ -79,7 +79,7 @@ MSPerson::MSPersonStage_Walking::clone() const {
     std::vector<const MSEdge*> route = myRoute;;
     double departPos = myDepartPos;
     double arrivalPos = myArrivalPos;
-    double departLane = myDepartLane;
+    int departLane = myDepartLane;
     if (myRouteID != "" && MSRoute::distDictionary(myRouteID) != nullptr) {
         route = MSRoute::dictionary(myRouteID, MSRouteHandler::getParsingRNG())->getEdges();
         if (departPos > route[0]->getLength()) {
