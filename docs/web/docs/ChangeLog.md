@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.13.0 (03.05.2022)
 
 ### Bugfixes
 
@@ -133,7 +133,7 @@ title: ChangeLog
   - Empty person plans now trigger a warning when saving. Issue #10566
   - Fixed bad visibility of dotted contour for very short edge. Issue #10555
   - Person drawing style takes now effect. Issue #10636
-      
+
 - sumo-gui
   - Fixed partially invisible individuallly defined parking spaces. Issue #10568 (regression in 1.10.0)
   - Fixed missing window focus at startup. Issue #10499
@@ -150,7 +150,7 @@ title: ChangeLog
   - Cancelling a change in viewsettings now takes effect immediately. Issue #10495
   - Fixed x-axis annotation of moused-over value in plot window.
   - Fixed slow simulation when there are many vehicles at a parkingArea. Issue #10570
-    
+
 - duarouter
   - Route errors are now detected when using option **--skip-new-routes**. Issue #6113
 
@@ -293,7 +293,7 @@ title: ChangeLog
   - Added function 'vehicle.setAcceleration' Issue #10197
   - Function vehicle.replaceStop now supports the flag 'teleport=2' to trigger rerouting after stop removal. Issue #10131
   - Function `vehicle.moveToXY` now "guesses" the next route edges to prevent artefacts when reaching the end of the current route. #4250
-    
+
 - tools
   - routeStats.py: Can use measures "speed", "speedKmh", "routeLength", can switch to the fast XML parser and can also filter by route length . Issue #10044
   - tls_csv2SUMO.py now supports the same signal states as the simulation. Issue #10063
@@ -318,12 +318,13 @@ title: ChangeLog
   - Rerouter attribute 'file' is no longer supported. Intervals should be child elements of rerouters. Alternatively, element `<include href="FILE"/>`  may be used. Issue #9579
   - Improved error message when using `<stop>` elements and attribute `via` in an inconsistent manner. Issue #10110
   - limit internal precision of random variables (i.e. sampled speedFactor or random departSpeed) to 4 decimal digits and enforced the same minimum output precision. This avoids problems when replicating a scenario based on **vehroute-output**. Issue #10091  
-  
+
  - The [test extraction page](https://sumo.dlr.de/extractTest.php) now supports downloading a whole directory of tests. Issue #10105
  - The ubuntu package now includes emission tools, header files and libsumo/libtraci.so files. Issue #10136
  - Removed obsolete and broken tool 'personGenerator.py' (use personFlow instead). Issue #10143
  - Added [examples and documentation](Tutorials/FundamentalDiagram.md) for spontaneous break-down of traffic flow jamming. Issue #10244
  - Documented [attribute plotting](sumo-gui.md#plotting_object_properties) and [extended vehicle visualization features](sumo-gui.md#vehicle_visualisation_settings). Issue #10558, #10559
+
 
 ## Version 1.12.0 (25.01.2022)
 
