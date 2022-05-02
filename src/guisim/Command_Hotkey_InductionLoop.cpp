@@ -62,8 +62,8 @@ Command_Hotkey_InductionLoop::registerHotkey(const std::string& key, MSInductLoo
     GUINet* gn = dynamic_cast<GUINet*>(MSNet::getInstance());
     if (gn != nullptr) {
         gn->addHotkey(hotkey,
-                new Command_Hotkey_InductionLoop(det, true),
-                new Command_Hotkey_InductionLoop(det, false));
+                      new Command_Hotkey_InductionLoop(det, true),
+                      new Command_Hotkey_InductionLoop(det, false));
     }
     return true;
 }

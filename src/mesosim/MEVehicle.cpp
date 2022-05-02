@@ -217,7 +217,7 @@ MEVehicle::checkStop(SUMOTime time) {
     for (MSStop& stop : myStops) {
         if (stop.joinTriggered) {
             WRITE_WARNINGF("Join stops are not available in meso yet (vehicle '%', segment '%').",
-                            getID(), mySegment->getID());
+                           getID(), mySegment->getID());
             continue;
         }
         if (stop.edge != myCurrEdge || stop.segment != mySegment) {

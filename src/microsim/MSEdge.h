@@ -626,7 +626,7 @@ public:
         return mySublaneSides;
     }
 
-    void rebuildAllowedLanes(const bool onInit=false);
+    void rebuildAllowedLanes(const bool onInit = false);
 
     void rebuildAllowedTargets(const bool updateVehicles = true);
 

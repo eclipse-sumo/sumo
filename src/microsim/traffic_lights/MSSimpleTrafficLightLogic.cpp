@@ -49,8 +49,7 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol
         const Parameterised::Map& parameters) :
     MSTrafficLightLogic(tlcontrol, id, programID, offset, logicType, delay, parameters),
     myPhases(phases),
-    myStep(step)
-{
+    myStep(step) {
     for (const MSPhaseDefinition* phase : myPhases) {
         myDefaultCycleTime += phase->duration;
     }
@@ -226,9 +225,9 @@ MSSimpleTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
 #ifdef DEBUG_COORDINATION
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " tl=" << getID() << " getEarliest phase=" << myStep
-                    << " prevStart= " << STEPS2TIME(prevStart)
-                    << " prevEnd= " << STEPS2TIME(getCurrentPhaseDef().myLastEnd)
-                    << " cycleStart=" << STEPS2TIME(SIMSTEP - getTimeInCycle()) << " started Twice - move into next cycle\n";
+                          << " prevStart= " << STEPS2TIME(prevStart)
+                          << " prevEnd= " << STEPS2TIME(getCurrentPhaseDef().myLastEnd)
+                          << " cycleStart=" << STEPS2TIME(SIMSTEP - getTimeInCycle()) << " started Twice - move into next cycle\n";
             }
 #endif
         } else {
@@ -246,7 +245,7 @@ MSSimpleTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
 #ifdef DEBUG_COORDINATION
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " tl=" << getID() << " getEarliest phase=" << myStep << " latest=" << STEPS2TIME(latest) << " minEnd="
-                        << STEPS2TIME(minEnd) << " earliest=" << STEPS2TIME(earliest) << "\n";
+                              << STEPS2TIME(minEnd) << " earliest=" << STEPS2TIME(earliest) << "\n";
                 }
 #endif
             }
@@ -273,7 +272,7 @@ MSSimpleTrafficLightLogic::getLatest() const {
 #ifdef DEBUG_COORDINATION
         if (DEBUG_COND) {
             std::cout << SIMTIME << " tl=" << getID() << " getLatest phase=" << myStep << " latest=" << STEPS2TIME(latest)
-                << " cycTime=" << STEPS2TIME(getTimeInCycle()) << " res=" << STEPS2TIME(latest - getTimeInCycle()) << "\n";
+                      << " cycTime=" << STEPS2TIME(getTimeInCycle()) << " res=" << STEPS2TIME(latest - getTimeInCycle()) << "\n";
         }
 #endif
         if (latest == myDefaultCycleTime && getTimeInCycle() == 0) {
@@ -352,7 +351,7 @@ MSSimpleTrafficLightLogic::setParameter(const std::string& key, const std::strin
         throw InvalidArgument(key + " cannot be changed dynamically for traffic light '" + getID() + "'");
     } else if (key == "offset") {
         myOffset = string2time(value);
-     } else if (key == "coordinated") {
+    } else if (key == "coordinated") {
         myCoordinated = StringUtils::toBool(value);
         Parameterised::setParameter(key, value);
     } else {

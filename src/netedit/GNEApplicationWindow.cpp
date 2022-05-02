@@ -746,7 +746,7 @@ GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject*, FXSelector, void*) {
     // check if file exist
     if (OptionsCont::getOptions().getString("TLSPrograms-output").empty()) {
@@ -3270,7 +3270,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onUpdSaveEdgeTypes(FXObject* sender, FXSelector, void*) {
     // check if net exist and there are edge types
     if (myNet && (myNet->getAttributeCarriers()->getEdgeTypes().size() > 0)) {

@@ -146,7 +146,7 @@ struct GNEApplicationWindowHelper {
         /// @brief build menu commands
         void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
                                    FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements);
-        
+
         /// @brief FXMenuCascade for TLS
         FXMenuCascade* TLSMenuCascade = nullptr;
 
@@ -164,7 +164,7 @@ struct GNEApplicationWindowHelper {
 
         /// @brief FXMenuCommand for reload TLS Programs
         FXMenuCommand* reloadTLSPrograms = nullptr;
-        
+
         /// @brief FXMenuCommand for enable or disable save additionals
         FXMenuCommand* saveTLSPrograms = nullptr;
 
@@ -173,7 +173,7 @@ struct GNEApplicationWindowHelper {
 
         /// @brief FXMenuCommand for enable or disable save edgeTypes
         FXMenuCommand* saveEdgeTypes = nullptr;
-        
+
         /// @brief FXMenuCommand for enable or disable save additionals
         FXMenuCommand* saveAdditionals = nullptr;
 
@@ -879,7 +879,7 @@ struct GNEApplicationWindowHelper {
         GNEApplicationWindow* myGNEApp;
 
         /// @brief separator for optionsMenu
-        FXMenuSeparator *mySeparator;
+        FXMenuSeparator* mySeparator;
 
         /// @brief Invalidated copy constructor.
         ProcessingMenuCommands(const ProcessingMenuCommands&) = delete;

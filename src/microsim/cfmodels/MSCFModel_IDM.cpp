@@ -27,7 +27,7 @@
 //#define DEBUG_V
 //#define DEBUG_INSERTION_SPEED
 
-#define DEBUG_COND (veh->isSelected) 
+#define DEBUG_COND (veh->isSelected)
 //#define DEBUG_COND true
 
 
@@ -202,9 +202,9 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
         gap += myType->getMinGap();
     }
 #ifdef DEBUG_V
-        if (gDebugFlag1) {
-            std::cout << SIMTIME << " veh=" << veh->getID() << " gap2pred=" << gap2pred << " egoSpeed=" << egoSpeed << " predSpeed=" << predSpeed << " desSpeed=" << desSpeed << " rMG=" << respectMinGap << " hw=" << headwayTime << "\n";
-        }
+    if (gDebugFlag1) {
+        std::cout << SIMTIME << " veh=" << veh->getID() << " gap2pred=" << gap2pred << " egoSpeed=" << egoSpeed << " predSpeed=" << predSpeed << " desSpeed=" << desSpeed << " rMG=" << respectMinGap << " hw=" << headwayTime << "\n";
+    }
 #endif
     for (int i = 0; i < myIterations; i++) {
         const double delta_v = newSpeed - predSpeed;

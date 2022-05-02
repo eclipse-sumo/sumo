@@ -909,7 +909,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::SPEED_LIMIT) != 0) {
                         if (!MSGlobals::gCheckRoutes) {
                             WRITE_WARNINGF("Vehicle '%' is inserted too fast and will violate the speed limit on a lane '%'.",
-                                    aVehicle->getID(), nextLane->getID());
+                                           aVehicle->getID(), nextLane->getID());
                         } else {
                             // we may not drive with the given velocity - we would be too fast on the next lane
                             WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (slow lane ahead)!");
@@ -949,15 +949,15 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #ifdef DEBUG_INSERTION
         if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
             std::cout << SIMTIME << " isInsertionSuccess lane=" << getID()
-                                 << " veh=" << aVehicle->getID()
-                                 << " pos=" << pos
-                                 << " posLat=" << posLat
-                                 << " patchSpeed=" << patchSpeed
-                                 << " speed=" << speed
-                                 << " nspeed=" << nspeed
-                                 << " nextLane=" << nextLane->getID()
-                                 << " leaders=" << leaders.toString()
-                                 << " failed (@700)!\n";
+                      << " veh=" << aVehicle->getID()
+                      << " pos=" << pos
+                      << " posLat=" << posLat
+                      << " patchSpeed=" << patchSpeed
+                      << " speed=" << speed
+                      << " nspeed=" << nspeed
+                      << " nextLane=" << nextLane->getID()
+                      << " leaders=" << leaders.toString()
+                      << " failed (@700)!\n";
         }
 #endif
         return false;
@@ -980,16 +980,16 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #ifdef DEBUG_INSERTION
                 if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
                     std::cout << SIMTIME << " isInsertionSuccess lane=" << getID()
-                                         << " veh=" << aVehicle->getID()
-                                         << " pos=" << pos
-                                         << " posLat=" << posLat
-                                         << " patchSpeed=" << patchSpeed
-                                         << " speed=" << speed
-                                         << " nspeed=" << nspeed
-                                         << " follower=" << follower->getID()
-                                         << " backGapNeeded=" << backGapNeeded
-                                         << " gap=" << followers[i].second
-                                         << " failure (@719)!\n";
+                              << " veh=" << aVehicle->getID()
+                              << " pos=" << pos
+                              << " posLat=" << posLat
+                              << " patchSpeed=" << patchSpeed
+                              << " speed=" << speed
+                              << " nspeed=" << nspeed
+                              << " follower=" << follower->getID()
+                              << " backGapNeeded=" << backGapNeeded
+                              << " gap=" << followers[i].second
+                              << " failure (@719)!\n";
                 }
 #endif
                 return false;
@@ -1014,8 +1014,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             if (follower != nullptr) {
                 const double backGapNeeded = follower->getCarFollowModel().getSecureGap(follower, aVehicle, follower->getSpeed(), speed, cfModel.getMaxDecel());
                 if (shadowFollowers[i].second < backGapNeeded
-                    && ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::FOLLOWER_GAP) != 0
-                        || (shadowFollowers[i].second < 0 && (aVehicle->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0))) {
+                        && ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::FOLLOWER_GAP) != 0
+                            || (shadowFollowers[i].second < 0 && (aVehicle->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0))) {
                     // too close to the follower on this lane
 #ifdef DEBUG_INSERTION
                     if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
@@ -1044,8 +1044,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 const double gap = veh->getBackPositionOnLane(shadowLane) - aVehicle->getPositionOnLane() - aVehicle->getVehicleType().getMinGap();
                 const double gapNeeded = aVehicle->getCarFollowModel().getSecureGap(aVehicle, veh, speed, veh->getSpeed(), veh->getCarFollowModel().getMaxDecel());
                 if (gap <  gapNeeded
-                    && ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::LEADER_GAP) != 0
-                        || (gap < 0 && (aVehicle->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0))) {
+                        && ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::LEADER_GAP) != 0
+                            || (gap < 0 && (aVehicle->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0))) {
                     // too close to the shadow leader
 #ifdef DEBUG_INSERTION
                     if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
@@ -1376,7 +1376,7 @@ MSLane::updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPar
             }
 #endif
             if (!(MSGlobals::gLaneChangeDuration > 0 && (*vehPart)->getLaneChangeModel().isOpposite()
-                        && !(*vehPart)->getLaneChangeModel().isChangingLanes())) {
+                    && !(*vehPart)->getLaneChangeModel().isChangingLanes())) {
                 ahead.addLeader(*vehPart, false, latOffset);
             }
             ++vehPart;
@@ -1957,8 +1957,8 @@ MSLane::executeMovements(const SUMOTime t) {
             const bool wrongLane = !appropriate(firstNotStopped);
             const bool r1 = MSGlobals::gTimeToGridlock > 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlock;
             const bool r2 = !r1 && MSGlobals::gTimeToGridlockHighways > 0
-                && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlockHighways
-                && getSpeedLimit() > MSGlobals::gGridlockHighwaysSpeed && wrongLane;
+                            && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlockHighways
+                            && getSpeedLimit() > MSGlobals::gGridlockHighwaysSpeed && wrongLane;
             const bool r3 = !r1 && !r2 && MSGlobals::gTimeToTeleportDisconnected >= 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected
                             && firstNotStopped->succEdge(1) != nullptr
                             && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr;
@@ -1975,9 +1975,9 @@ MSLane::executeMovements(const SUMOTime t) {
                     reason = " (blocked)";
                 }
                 WRITE_WARNINGF("Teleporting vehicle '%'; waited too long" + reason
-                                + (r2 ? " (highway)" : "")
-                                + (r3 ? " (disconnected)" : "")
-                                + ", lane='%', time=%.", firstNotStopped->getID(), getID(), time2string(t));
+                               + (r2 ? " (highway)" : "")
+                               + (r3 ? " (disconnected)" : "")
+                               + ", lane='%', time=%.", firstNotStopped->getID(), getID(), time2string(t));
                 if (wrongLane) {
                     MSNet::getInstance()->getVehicleControl().registerTeleportWrongLane();
                 } else if (minorLink) {
@@ -3382,10 +3382,10 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
 #ifdef DEBUG_CONTEXT
         if (DEBUG_COND2(ego)) {
             std::cout << SIMTIME << " getFollowers lane=" << getID() << " ego=" << ego->getID()
-                << " egoPosLat=" << ego->getLateralPositionOnLane()
-                << " egoLatDist=" << ego->getLane()->getRightSideOnEdge() - getRightSideOnEdge()
-                << " extraOffset=" << result.getSublaneOffset()
-                << "\n";
+                      << " egoPosLat=" << ego->getLateralPositionOnLane()
+                      << " egoLatDist=" << ego->getLane()->getRightSideOnEdge() - getRightSideOnEdge()
+                      << " extraOffset=" << result.getSublaneOffset()
+                      << "\n";
         }
 #endif
     }
@@ -3538,8 +3538,8 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                     const std::vector<MSLane::IncomingLaneInfo>& followers = next->getIncomingLanes();
                     for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j = followers.begin(); j != followers.end(); ++j) {
                         if (visited.find((*j).lane) == visited.end() && (((*j).viaLink->havePriority() && !(*j).viaLink->isTurnaround())
-                                    || mLinkMode == MinorLinkMode::FOLLOW_ALWAYS
-                                    || (mLinkMode == MinorLinkMode::FOLLOW_ONCOMING && (*j).viaLink->getDirection() == LinkDirection::STRAIGHT))) {
+                                || mLinkMode == MinorLinkMode::FOLLOW_ALWAYS
+                                || (mLinkMode == MinorLinkMode::FOLLOW_ONCOMING && (*j).viaLink->getDirection() == LinkDirection::STRAIGHT))) {
                             visited.insert((*j).lane);
                             MSLane::IncomingLaneInfo ili;
                             ili.lane = (*j).lane;

@@ -219,7 +219,7 @@ public:
     //@}
 
 
-    /* @brief Persistently overrides the measured time since detection with the given value. 
+    /* @brief Persistently overrides the measured time since detection with the given value.
      * Setting a negative value resets the override
      */
     void overrideTimeSinceDetection(double time);

@@ -48,7 +48,7 @@
 GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                                const Parameterised::Map& parameters) :
     GNEGenericData(SUMO_TAG_EDGEREL, GLO_EDGERELDATA, dataIntervalParent, parameters,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {}) {
+{}, {fromEdge, toEdge}, {}, {}, {}, {}) {
 }
 
 

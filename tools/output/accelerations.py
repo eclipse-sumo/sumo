@@ -27,8 +27,7 @@ from sumolib.miscutils import Statistics  # noqa
 
 def accelStats(netstate):
     lastSpeed = {}
-    stats = Statistics(
-        "Accelerations", histogram=True, printMin=True, scale=0.2)
+    stats = Statistics("Accelerations", histogram=True, printMin=True, scale=0.2)
     for vehicle in parse_fast(netstate, 'vehicle', ['id', 'speed']):
         speed = float(vehicle.speed)
         prevSpeed = lastSpeed.get(vehicle.id, speed)
@@ -40,4 +39,4 @@ def accelStats(netstate):
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         sys.exit("call %s <netstate-dump>" % sys.argv[0])
-    accelStats(*sys.argv[1:])
+    accelStats(sys.argv[1])

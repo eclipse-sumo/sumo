@@ -89,7 +89,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
     // check if add or remove lane
     if (myLanesSelector->isShown() && objectsUnderCursor.getLaneFront()) {
         myLanesSelector->toogleSelectedElement(objectsUnderCursor.getLaneFront());
-            return true;
+        return true;
     }
     // show warning dialogbox and stop check if input parameters are valid
     if (!myAdditionalAttributes->areValuesValid()) {
@@ -127,7 +127,7 @@ GNEAdditionalFrame::getEdgesSelector() const {
 }
 
 
-GNENetworkSelector* 
+GNENetworkSelector*
 GNEAdditionalFrame::getLanesSelector() const {
     return myLanesSelector;
 }
@@ -414,11 +414,11 @@ bool
 GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagProperties) {
     // disable intervals (temporal)
     if ((tagProperties.getTag() == SUMO_TAG_INTERVAL) ||
-        (tagProperties.getTag() == SUMO_TAG_DEST_PROB_REROUTE) ||
-        (tagProperties.getTag() == SUMO_TAG_CLOSING_REROUTE) ||
-        (tagProperties.getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) ||
-        (tagProperties.getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) ||
-        (tagProperties.getTag() == SUMO_TAG_PARKING_AREA_REROUTE)) {
+            (tagProperties.getTag() == SUMO_TAG_DEST_PROB_REROUTE) ||
+            (tagProperties.getTag() == SUMO_TAG_CLOSING_REROUTE) ||
+            (tagProperties.getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) ||
+            (tagProperties.getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) ||
+            (tagProperties.getTag() == SUMO_TAG_PARKING_AREA_REROUTE)) {
         WRITE_WARNING("Currently unsuported. Create rerouter elements using rerouter dialog");
         return false;
     }

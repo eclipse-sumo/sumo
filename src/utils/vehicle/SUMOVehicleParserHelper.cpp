@@ -683,7 +683,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
         std::vector<std::string> checks = attrs.get<std::vector<std::string> >(SUMO_ATTR_INSERTIONCHECKS, ret->id.c_str(), ok);
         if (!ok) {
             handleVehicleError(true, ret);
-        } else { 
+        } else {
             for (std::string check : checks) {
                 if (!SUMOXMLDefinitions::InsertionChecks.hasString(check)) {
                     handleVehicleError(true, ret, "Unknown value '" + check + "' in " + toString(SUMO_ATTR_INSERTIONCHECKS));

@@ -73,13 +73,13 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_ROUTE, tag,
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-        {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(RGBColor::YELLOW),
-    myCustomColor(false),
-    myRepeat(0),
-    myCycleTime(0),
-    myVClass(SVC_PASSENGER) {
+{}, {}, {}, {}, {}, {}),
+Parameterised(),
+myColor(RGBColor::YELLOW),
+myCustomColor(false),
+myRepeat(0),
+myCycleTime(0),
+myVClass(SVC_PASSENGER) {
     // reset default values
     resetDefaultValues();
 }
@@ -88,13 +88,13 @@ GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
 GNERoute::GNERoute(GNENet* net) :
     GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-    {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(RGBColor::YELLOW),
-    myCustomColor(false),
-    myRepeat(0),
-    myCycleTime(0),
-    myVClass(SVC_PASSENGER) {
+{}, {}, {}, {}, {}, {}),
+Parameterised(),
+myColor(RGBColor::YELLOW),
+myCustomColor(false),
+myRepeat(0),
+myCycleTime(0),
+myVClass(SVC_PASSENGER) {
     // reset default values
     resetDefaultValues();
 }
@@ -104,13 +104,13 @@ GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, 
                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
     GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE,
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-    {}, edges, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myColor(color),
-    myCustomColor(color != RGBColor(false)),
-    myRepeat(repeat),
-    myCycleTime(cycleTime),
-    myVClass(vClass) {
+{}, edges, {}, {}, {}, {}),
+Parameterised(parameters),
+myColor(color),
+myCustomColor(color != RGBColor(false)),
+myRepeat(repeat),
+myCycleTime(cycleTime),
+myVClass(vClass) {
 }
 
 
@@ -118,26 +118,26 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vect
                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED,
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-    {}, edges, {}, {}, {vehicleParent}, {}),
-    Parameterised(parameters),
-    myColor(color),
-    myCustomColor(color != RGBColor::INVISIBLE),
-    myRepeat(repeat),
-    myCycleTime(cycleTime),
-    myVClass(vehicleParent->getVClass()) {
+{}, edges, {}, {}, {vehicleParent}, {}),
+Parameterised(parameters),
+myColor(color),
+myCustomColor(color != RGBColor::INVISIBLE),
+myRepeat(repeat),
+myCycleTime(cycleTime),
+myVClass(vehicleParent->getVClass()) {
 }
 
 
 GNERoute::GNERoute(GNEDemandElement* route) :
     GNEDemandElement(route, route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-    {}, route->getParentEdges(), {}, {}, {}, {}),
-    Parameterised(),
-    myColor(route->getColor()),
-    myCustomColor(!route->getAttribute(SUMO_ATTR_COLOR).empty()),
-    myRepeat(parse<int>(route->getAttribute(SUMO_ATTR_REPEAT))),
-    myCycleTime(parse<SUMOTime>(route->getAttribute(SUMO_ATTR_CYCLETIME))),
-    myVClass(route->getVClass()) {
+{}, route->getParentEdges(), {}, {}, {}, {}),
+Parameterised(),
+myColor(route->getColor()),
+myCustomColor(!route->getAttribute(SUMO_ATTR_COLOR).empty()),
+myRepeat(parse<int>(route->getAttribute(SUMO_ATTR_REPEAT))),
+myCycleTime(parse<SUMOTime>(route->getAttribute(SUMO_ATTR_CYCLETIME))),
+myVClass(route->getVClass()) {
 }
 
 

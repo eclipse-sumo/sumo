@@ -69,7 +69,7 @@ public:
 
     /// @brief event after release a key
     long onKeyRelease(FXObject* sender, FXSelector sel, void* ptr);
-    
+
     /// @brief focus on frame
     long onCmdFocusOnFrame(FXObject* sender, FXSelector sel, void* ptr);
 

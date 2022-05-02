@@ -46,8 +46,7 @@ GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
                              int detectPersons, bool show) :
     MSInductLoop(id, lane, position, vTypes, detectPersons, true),
     myWrapper(nullptr),
-    myShow(show)
-{
+    myShow(show) {
 }
 
 
@@ -80,8 +79,7 @@ GUIInductLoop::setSpecialColor(const RGBColor* color) {
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
     GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID()),
     myDetector(detector), myPosition(pos),
-    mySpecialColor(nullptr)
-{
+    mySpecialColor(nullptr) {
     mySupportsOverride = true;
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);

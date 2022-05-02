@@ -571,11 +571,11 @@ GNEAdditional::getMoveOperationMultiLane(const double startPos, const double end
     if (fromGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
         // move using start position
         return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
-                                    false, shift? GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST : GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_FIRST);
+                                    false, shift ? GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST : GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_FIRST);
     } else if (toGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
         // move using end position
         return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
-                                    false, shift? GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND : GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_SECOND);
+                                    false, shift ? GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND : GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_SECOND);
     } else {
         return nullptr;
     }
@@ -636,7 +636,7 @@ GNEAdditional::getPathElementArrivalPos() const {
 }
 
 
-Position 
+Position
 GNEAdditional::getAttributePosition(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
 }
@@ -743,7 +743,7 @@ GNEAdditional::getDrawPositionIndex() const {
 }
 
 
-bool 
+bool
 GNEAdditional::areLaneConsecutives(const std::vector<GNELane*>& lanes) {
     // declare lane iterator
     int laneIt = 0;
@@ -752,10 +752,10 @@ GNEAdditional::areLaneConsecutives(const std::vector<GNELane*>& lanes) {
         // we assume that E2 is invalid
         bool connectionFound = false;
         // if there is a connection betwen "from" lane and "to" lane of connection, change connectionFound to true
-        for (const auto &connection : lanes.at(laneIt)->getParentEdge()->getNBEdge()->getConnections()) {
+        for (const auto& connection : lanes.at(laneIt)->getParentEdge()->getNBEdge()->getConnections()) {
             if ((connection.toEdge == lanes.at(laneIt + 1)->getParentEdge()->getNBEdge()) &&
-                (connection.fromLane == lanes.at(laneIt)->getIndex()) && 
-                (connection.toLane == lanes.at(laneIt + 1)->getIndex())) {
+                    (connection.fromLane == lanes.at(laneIt)->getIndex()) &&
+                    (connection.toLane == lanes.at(laneIt + 1)->getIndex())) {
                 connectionFound = true;
             }
         }
@@ -789,7 +789,7 @@ GNEAdditional::drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Posi
         const double fromAngle, const double toAngle, const bool ignoreShift) {
     // first check that we're in move mode and shift key is pressed
     if (viewNet->getEditModes().isCurrentSupermodeNetwork() && (viewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        (viewNet->getMouseButtonKeyPressed().shiftKeyPressed() || ignoreShift)) {
+            (viewNet->getMouseButtonKeyPressed().shiftKeyPressed() || ignoreShift)) {
         // calculate new color
         const RGBColor color = baseColor.changedBrightness(-50);
         // push matrix

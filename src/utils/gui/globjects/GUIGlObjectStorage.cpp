@@ -53,7 +53,7 @@ GUIGlObjectStorage::registerObject(GUIGlObject* object) {
     } else {
         myObjects[id] = object;
     }
-    while(myNextID < myObjects.size() && myObjects[myNextID] != nullptr) {
+    while (myNextID < myObjects.size() && myObjects[myNextID] != nullptr) {
         myNextID++;
     }
     return id;

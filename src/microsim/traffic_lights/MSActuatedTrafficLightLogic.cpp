@@ -457,8 +457,8 @@ MSActuatedTrafficLightLogic::getMinDur(int step) const {
     step = step < 0 ? myStep : step;
     const MSPhaseDefinition* p = myPhases[step];
     return p->minDuration != MSPhaseDefinition::OVERRIDE_DURATION
-        ? p->minDuration
-        : TIME2STEPS(evalExpression(myConditions.find("minDur:" + toString(step))->second));
+           ? p->minDuration
+           : TIME2STEPS(evalExpression(myConditions.find("minDur:" + toString(step))->second));
 }
 
 SUMOTime
@@ -466,8 +466,8 @@ MSActuatedTrafficLightLogic::getMaxDur(int step) const {
     step = step < 0 ? myStep : step;
     const MSPhaseDefinition* p = myPhases[step];
     return p->maxDuration != MSPhaseDefinition::OVERRIDE_DURATION
-        ? p->maxDuration
-        : TIME2STEPS(evalExpression(myConditions.find("maxDur:" + toString(step))->second));
+           ? p->maxDuration
+           : TIME2STEPS(evalExpression(myConditions.find("maxDur:" + toString(step))->second));
 }
 
 SUMOTime
@@ -475,8 +475,8 @@ MSActuatedTrafficLightLogic::getEarliestEnd(int step) const {
     step = step < 0 ? myStep : step;
     const MSPhaseDefinition* p = myPhases[step];
     return p->earliestEnd != MSPhaseDefinition::OVERRIDE_DURATION
-        ? p->earliestEnd
-        : TIME2STEPS(evalExpression(myConditions.find("earliestEnd:" + toString(step))->second));
+           ? p->earliestEnd
+           : TIME2STEPS(evalExpression(myConditions.find("earliestEnd:" + toString(step))->second));
 }
 
 SUMOTime
@@ -484,8 +484,8 @@ MSActuatedTrafficLightLogic::getLatestEnd(int step) const {
     step = step < 0 ? myStep : step;
     const MSPhaseDefinition* p = myPhases[step];
     return p->latestEnd != MSPhaseDefinition::OVERRIDE_DURATION
-        ? p->latestEnd
-        : TIME2STEPS(evalExpression(myConditions.find("latestEnd:" + toString(step))->second));
+           ? p->latestEnd
+           : TIME2STEPS(evalExpression(myConditions.find("latestEnd:" + toString(step))->second));
 }
 
 
@@ -631,7 +631,7 @@ MSActuatedTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, 
     const SUMOTime nextSwitch = t + getPhase(step).minDuration - spentDuration;
     mySwitchCommand->deschedule(this);
     mySwitchCommand = new SwitchCommand(tlcontrol, this, nextSwitch);
-    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent( mySwitchCommand, nextSwitch);
+    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(mySwitchCommand, nextSwitch);
     setTrafficLightSignals(lastSwitch);
     tlcontrol.get(getID()).executeOnSwitchActions();
 }
@@ -678,8 +678,8 @@ MSActuatedTrafficLightLogic::trySwitch() {
 #ifdef DEBUG_PHASE_SELECTION
         if (DEBUG_COND) {
             std::cout << SIMTIME << " p=" << myStep
-                << " trySwitch dGap=" << (detectionGap == std::numeric_limits<double>::max() ? "inf" : toString(detectionGap))
-                << " multi=" << multiTarget << "\n";
+                      << " trySwitch dGap=" << (detectionGap == std::numeric_limits<double>::max() ? "inf" : toString(detectionGap))
+                      << " multi=" << multiTarget << "\n";
         }
 #endif
         if (detectionGap < std::numeric_limits<double>::max() && !multiTarget && !myTraCISwitch) {
@@ -725,8 +725,8 @@ MSActuatedTrafficLightLogic::trySwitch() {
 #ifdef DEBUG_PHASE_SELECTION
     if (DEBUG_COND) {
         std::cout << SIMTIME << " tl=" << getID() << " p=" << myStep
-            << " nextTryMinDur=" << STEPS2TIME(getMinDur() - actDuration)
-            << " nextTryEarliest=" << STEPS2TIME(getEarliest(prevStart)) << "\n";
+                  << " nextTryMinDur=" << STEPS2TIME(getMinDur() - actDuration)
+                  << " nextTryEarliest=" << STEPS2TIME(getEarliest(prevStart)) << "\n";
     }
 #endif
     return MAX3(TIME2STEPS(1), getMinDur() - actDuration, getEarliest(prevStart));
@@ -1062,8 +1062,8 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
                 if (tokens[i] == o) {
                     try {
                         const double val = evalTernaryExpression(
-                                evalAtomicExpression(tokens[i - 1]), o,
-                                evalAtomicExpression(tokens[i + 1]), condition);
+                                               evalAtomicExpression(tokens[i - 1]), o,
+                                               evalAtomicExpression(tokens[i + 1]), condition);
                         std::vector<std::string> newTokens(tokens.begin(), tokens.begin() + (i - 1));
                         newTokens.push_back(toString(val));
                         newTokens.insert(newTokens.end(), tokens.begin() + (i + 2), tokens.end());
@@ -1259,15 +1259,15 @@ MSActuatedTrafficLightLogic::getDetectorStates() const {
 std::map<std::string, double>
 MSActuatedTrafficLightLogic::getConditions() const {
     std::map<std::string, double> result;
-        for (auto item : myConditions) {
-            if (myListedConditions.count(item.first) != 0) {
-                try {
-                    result[item.first] = evalExpression(item.second);
-                } catch (ProcessError& e) {
-                    WRITE_ERROR("Error when retrieving conditions '" + item.first + "' for tlLogic '" + getID() + "' (" + e.what() + ")");
-                }
+    for (auto item : myConditions) {
+        if (myListedConditions.count(item.first) != 0) {
+            try {
+                result[item.first] = evalExpression(item.second);
+            } catch (ProcessError& e) {
+                WRITE_ERROR("Error when retrieving conditions '" + item.first + "' for tlLogic '" + getID() + "' (" + e.what() + ")");
             }
         }
+    }
     return result;
 }
 

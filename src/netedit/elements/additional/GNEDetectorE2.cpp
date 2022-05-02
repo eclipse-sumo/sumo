@@ -36,10 +36,10 @@
 
 GNEDetectorE2::GNEDetectorE2(SumoXMLTag tag, GNENet* net) :
     GNEDetector("", net, GLO_E2DETECTOR, tag, 0, 0, {}, "", {}, "", false, Parameterised::Map()),
-    myEndPositionOverLane(0),
-    myTimeThreshold(0),
-    mySpeedThreshold(0),
-    myJamThreshold(0) {
+            myEndPositionOverLane(0),
+            myTimeThreshold(0),
+            mySpeedThreshold(0),
+myJamThreshold(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -49,12 +49,14 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, 
                              const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
                              SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos,
                              const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {lane}, filename, vehicleTypes, name, friendlyPos, parameters),
-    myEndPositionOverLane(pos + length),
-    myTimeThreshold(timeThreshold),
-    mySpeedThreshold(speedThreshold),
-    myJamThreshold(jamThreshold),
-    myTrafficLight(trafficLight) {
+    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {
+    lane
+}, filename, vehicleTypes, name, friendlyPos, parameters),
+myEndPositionOverLane(pos + length),
+myTimeThreshold(timeThreshold),
+mySpeedThreshold(speedThreshold),
+myJamThreshold(jamThreshold),
+myTrafficLight(trafficLight) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -590,7 +592,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else if (isValidDetectorID(value)) {
                 return (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, value, false) == nullptr) &&
-                        (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E2DETECTOR, value, false) == nullptr);
+                       (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E2DETECTOR, value, false) == nullptr);
             } else {
                 return false;
             }
@@ -742,7 +744,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEDetectorE2::setMoveShape(const GNEMoveResult& moveResult) {
     if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) ||
-        (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
+            (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
         // change only start position
         myPositionOverLane = moveResult.newFirstPos;
     } else if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||
@@ -765,7 +767,7 @@ GNEDetectorE2::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* und
     undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
     // set attributes depending of operation type
     if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) ||
-        (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
+            (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
         // set only start position
         setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
     } else if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||

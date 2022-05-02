@@ -4812,7 +4812,7 @@ GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag, SumoXMLAttr
                                           "0.5");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-     attrProperty = GNEAttributeProperties(GNE_ATTR_POISSON,
+    attrProperty = GNEAttributeProperties(GNE_ATTR_POISSON,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
                                           "Insert " + toString(currentTag) + "s spaciated using a poisson distribution (not together with period or vehsPerHour or probability)",
                                           "2");
@@ -5472,7 +5472,7 @@ GNEAttributeCarrier::fillDataElements() {
 }
 
 
-FXIcon* 
+FXIcon*
 GNEAttributeCarrier::getVClassIcon(const SUMOVehicleClass vc) {
     switch (vc) {
         case SVC_IGNORING:

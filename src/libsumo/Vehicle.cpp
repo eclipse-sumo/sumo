@@ -970,18 +970,18 @@ Vehicle::replaceStop(const std::string& vehID,
 
 void
 Vehicle::insertStop(const std::string& vehID,
-                     int nextStopIndex,
-                     const std::string& edgeID,
-                     double pos,
-                     int laneIndex,
-                     double duration,
-                     int flags,
-                     double startPos,
-                     double until,
-                     int teleport) {
+                    int nextStopIndex,
+                    const std::string& edgeID,
+                    double pos,
+                    int laneIndex,
+                    double duration,
+                    int flags,
+                    double startPos,
+                    double until,
+                    int teleport) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     SUMOVehicleParameter::Stop stopPars = Helper::buildStopParameters(edgeID,
-            pos, laneIndex, startPos, flags, duration, until);
+                                          pos, laneIndex, startPos, flags, duration, until);
 
     std::string error;
     if (!vehicle->insertStop(nextStopIndex, stopPars, "traci:insertStop", teleport != 0, error)) {
@@ -996,19 +996,19 @@ Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std
     try {
         if (nextStopIndex >= (int)vehicle->getStops().size() || (nextStopIndex < 0 && -nextStopIndex > (int)vehicle->getPastStops().size())) {
             throw ProcessError("Invalid stop index " + toString(nextStopIndex)
-                    + " (has " + toString(vehicle->getPastStops().size()) + " past stops and " + toString(vehicle->getStops().size()) + " remaining stops)");
+                               + " (has " + toString(vehicle->getPastStops().size()) + " past stops and " + toString(vehicle->getStops().size()) + " remaining stops)");
 
         }
         const SUMOVehicleParameter::Stop& pars = (nextStopIndex >= 0
-            ? vehicle->getStop(nextStopIndex).pars
-            : vehicle->getPastStops()[vehicle->getPastStops().size() + nextStopIndex]);
+                ? vehicle->getStop(nextStopIndex).pars
+                : vehicle->getPastStops()[vehicle->getPastStops().size() + nextStopIndex]);
 
         if (param == toString(SUMO_ATTR_EDGE)) {
             return pars.edge;
         } else if (param == toString(SUMO_ATTR_LANE)) {
             return toString(SUMOXMLDefinitions::getIndexFromLane(pars.lane));
         } else if (param == toString(SUMO_ATTR_BUS_STOP)
-                || param == toString(SUMO_ATTR_TRAIN_STOP)) {
+                   || param == toString(SUMO_ATTR_TRAIN_STOP)) {
             return pars.busstop;
         } else if (param == toString(SUMO_ATTR_CONTAINER_STOP)) {
             return pars.containerstop;
@@ -1070,7 +1070,7 @@ Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std
 
 void
 Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
-                                 const std::string& param, const std::string& value) {
+                          const std::string& param, const std::string& value) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     try {
         MSStop& stop = vehicle->getStop(nextStopIndex);
@@ -1083,7 +1083,7 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
                 || param == toString(SUMO_ATTR_CHARGING_STATION)
                 || param == toString(SUMO_ATTR_PARKING_AREA)
                 || param == toString(SUMO_ATTR_LANE)
-                ) {
+           ) {
             int laneIndex = stop.lane->getIndex();
             int flags = pars.getFlags() & 3;
             std::string edgeOrStopID = value;
@@ -1091,7 +1091,7 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
                 laneIndex = StringUtils::toInt(value);
                 edgeOrStopID = pars.edge;
             } else if (param == toString(SUMO_ATTR_BUS_STOP)
-                    || param == toString(SUMO_ATTR_TRAIN_STOP)) {
+                       || param == toString(SUMO_ATTR_TRAIN_STOP)) {
                 flags |= 8;
             } else if (param == toString(SUMO_ATTR_CONTAINER_STOP)) {
                 flags |= 16;
@@ -1102,7 +1102,7 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
             }
             // special case: replace stop
             replaceStop(vehID, nextStopIndex, edgeOrStopID, pars.endPos, laneIndex, STEPS2TIME(pars.duration),
-                    flags, pars.startPos, STEPS2TIME(pars.until), 0);
+                        flags, pars.startPos, STEPS2TIME(pars.until), 0);
 
         } else if (param == toString(SUMO_ATTR_STARTPOS)) {
             pars.startPos = StringUtils::toDouble(value);
@@ -1484,7 +1484,7 @@ Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int
     Position vehPos = veh->getPosition();
 #ifdef DEBUG_MOVEXY
     std::cout << std::endl << SIMTIME << " moveToXY veh=" << veh->getID() << " vehPos=" << vehPos
-        << " lane=" << Named::getIDSecure(veh->getLane()) << " lanePos=" << vehicle->getPositionOnLane() << std::endl;
+              << " lane=" << Named::getIDSecure(veh->getLane()) << " lanePos=" << vehicle->getPositionOnLane() << std::endl;
     std::cout << " wantedPos=" << pos << " origID=" << origID << " laneIndex=" << laneIndex << " origAngle=" << origAngle << " angle=" << angle << " keepRoute=" << keepRoute << std::endl;
 #endif
 

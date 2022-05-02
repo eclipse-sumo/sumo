@@ -2013,9 +2013,9 @@ protected:
 
 public:
     void adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leaderInfo,
-                       const double seen, DriveProcessItem* const lastLink,
-                       const MSLane* const lane, double& v, double& vLinkPass,
-                       double distToCrossing = -1) const;
+                               const double seen, DriveProcessItem* const lastLink,
+                               const MSLane* const lane, double& v, double& vLinkPass,
+                               double distToCrossing = -1) const;
 protected:
 
     /* @brief adapt safe velocity in accordance to multiple vehicles ahead:

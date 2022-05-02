@@ -969,7 +969,7 @@ GNEDemandElement::getSortedStops(const std::vector<GNEEdge*>& edges) const {
 
 
 void
-GNEDemandElement::setFlowParameters(SUMOVehicleParameter *vehicleParameters, const SumoXMLAttr attribute, const bool value) {
+GNEDemandElement::setFlowParameters(SUMOVehicleParameter* vehicleParameters, const SumoXMLAttr attribute, const bool value) {
     // modify parameters depending of given Flow attribute
     if (value) {
         switch (attribute) {
@@ -1026,7 +1026,7 @@ GNEDemandElement::setFlowParameters(SUMOVehicleParameter *vehicleParameters, con
 
 
 void
-GNEDemandElement::adjustDefaultFlowAttributes(SUMOVehicleParameter *vehicleParameters) {
+GNEDemandElement::adjustDefaultFlowAttributes(SUMOVehicleParameter* vehicleParameters) {
     // first check that this demand element is a flow
     if (myTagProperty.isFlow()) {
         // end
@@ -1038,9 +1038,9 @@ GNEDemandElement::adjustDefaultFlowAttributes(SUMOVehicleParameter *vehicleParam
             setAttribute(SUMO_ATTR_NUMBER, myTagProperty.getDefaultValue(SUMO_ATTR_NUMBER));
         }
         // vehicles/person/container per hour
-        if (((vehicleParameters->parametersSet & VEHPARS_PERIOD_SET) == 0) && 
-            ((vehicleParameters->parametersSet & VEHPARS_POISSON_SET) == 0) &&
-            ((vehicleParameters->parametersSet & VEHPARS_VPH_SET) == 0)) {
+        if (((vehicleParameters->parametersSet & VEHPARS_PERIOD_SET) == 0) &&
+                ((vehicleParameters->parametersSet & VEHPARS_POISSON_SET) == 0) &&
+                ((vehicleParameters->parametersSet & VEHPARS_VPH_SET) == 0)) {
             setAttribute(SUMO_ATTR_PERIOD, myTagProperty.getDefaultValue(SUMO_ATTR_PERIOD));
         }
         // probability
@@ -1074,11 +1074,11 @@ GNEDemandElement::buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const {
     // check path size
     if (path.size() > 0) {
         double length = 0;
-        for (const auto &edge : path) {
+        for (const auto& edge : path) {
             length += edge->getNBEdge()->getFinalLength();
         }
-        for (int i = 0; i < ((int)path.size() -1); i++) {
-            length += path.at(i)->getLanes().front()->getLane2laneConnections().getLane2laneGeometry(path.at(i+1)->getLanes().front()).getShape().length();
+        for (int i = 0; i < ((int)path.size() - 1); i++) {
+            length += path.at(i)->getLanes().front()->getLane2laneConnections().getLane2laneGeometry(path.at(i + 1)->getLanes().front()).getShape().length();
         }
         GUIDesigns::buildFXMenuCommand(ret, "Route length: " + toString(length), nullptr, ret, MID_COPY_NAME);
     }

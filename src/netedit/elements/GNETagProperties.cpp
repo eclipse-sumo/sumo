@@ -271,7 +271,7 @@ GNETagProperties::isAdditionalElement() const {
 }
 
 
-bool 
+bool
 GNETagProperties::isAdditionalPureElement() const {
     return (isAdditionalElement() && !isShapeElement() && !isTAZElement() && !isWireElement());
 }

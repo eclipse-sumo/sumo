@@ -645,10 +645,10 @@ public:
      * @todo validity checks
      */
     double getInternalLaneWidth(
-            const NBNode& node,
-            const NBEdge::Connection& connection,
-            const NBEdge::Lane& successor,
-            bool isVia) const;
+        const NBNode& node,
+        const NBEdge::Connection& connection,
+        const NBEdge::Lane& successor,
+        bool isVia) const;
 
     /// @brief Returns the combined width of all lanes of this edge
     double getTotalWidth() const;

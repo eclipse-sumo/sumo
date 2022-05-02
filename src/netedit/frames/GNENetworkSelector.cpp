@@ -49,7 +49,7 @@ GNENetworkSelector::GNENetworkSelector(GNEFrame* frameParent, const Type network
     FXGroupBoxModule(frameParent->getContentFrame(), "NetworkElements"),
     myFrameParent(frameParent),
     myNetworkElementType(networkElementType) {
-     // Create horizontal frame
+    // Create horizontal frame
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create buttons
     myClearSelection = new FXButton(buttonsFrame, "Clear", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButtonRectangular100);
@@ -59,15 +59,15 @@ GNENetworkSelector::GNENetworkSelector(GNEFrame* frameParent, const Type network
     // create information label and update modul name
     switch (myNetworkElementType) {
         case Type::EDGE:
-            new FXLabel(this, 
-                "-Click over an edge to select\n-ESC to clear selection", 
-                0, GUIDesignLabelFrameInformation);
+            new FXLabel(this,
+                        "-Click over an edge to select\n-ESC to clear selection",
+                        0, GUIDesignLabelFrameInformation);
             setText("Edges");
             break;
         case Type::LANE:
-            new FXLabel(this, 
-                "-Click over a lane to select\n-ESC to clear selection", 
-                0, GUIDesignLabelFrameInformation);
+            new FXLabel(this,
+                        "-Click over a lane to select\n-ESC to clear selection",
+                        0, GUIDesignLabelFrameInformation);
             setText("Lanes");
             break;
         default:
@@ -124,14 +124,14 @@ GNENetworkSelector::hideNetworkElementsSelector() {
 }
 
 
-bool 
+bool
 GNENetworkSelector::isShown() const {
     return shown();
 }
 
 
-bool 
-GNENetworkSelector::toogleSelectedElement(const GNENetworkElement *networkElement) {
+bool
+GNENetworkSelector::toogleSelectedElement(const GNENetworkElement* networkElement) {
     // Obtain Id's of list
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->getText().text() == networkElement->getID()) {
@@ -150,7 +150,7 @@ GNENetworkSelector::toogleSelectedElement(const GNENetworkElement *networkElemen
 }
 
 
-void 
+void
 GNENetworkSelector::clearSelection() {
     // clear list of egdge ids
     myList->clearItems();
@@ -166,14 +166,14 @@ GNENetworkSelector::onCmdUseSelectedElements(FXObject*, FXSelector, void*) {
     // set modul name
     switch (myNetworkElementType) {
         case Type::EDGE:
-            for (const auto &edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+            for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
                 if (edge.second->isAttributeCarrierSelected()) {
                     myList->appendItem(edge.first.c_str(), edge.second->getIcon());
                 }
             }
             break;
         case Type::LANE:
-            for (const auto &lane : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getLanes()) {
+            for (const auto& lane : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getLanes()) {
                 if (lane->isAttributeCarrierSelected()) {
                     myList->appendItem(lane->getID().c_str(), lane->getIcon());
                 }

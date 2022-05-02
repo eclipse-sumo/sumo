@@ -417,8 +417,8 @@ NBPTStopCont::assignEdgeForFloatingStops(NBEdgeCont& cont, double maxRadius) {
             }
         }
         std::sort(nearby.begin(), nearby.end(), [pos](NBEdge * a, NBEdge * b) {
-                return a->getLaneShape(0).distance2D(pos, false) < b->getLaneShape(0).distance2D(pos, false);
-                });
+            return a->getLaneShape(0).distance2D(pos, false) < b->getLaneShape(0).distance2D(pos, false);
+        });
 
         for (NBEdge* e : nearby) {
             ptStop->setEdgeId(e->getID(), cont);

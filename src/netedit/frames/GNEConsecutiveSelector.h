@@ -51,7 +51,7 @@ public:
     void hideConsecutiveLaneSelectorModule();
 
     /// @brief get vector with lanes and clicked positions
-    const std::vector<std::pair<GNELane*, double> > &getLanePath() const;
+    const std::vector<std::pair<GNELane*, double> >& getLanePath() const;
 
     /// @brief get lane IDs
     const std::vector<std::string> getLaneIDPath() const;

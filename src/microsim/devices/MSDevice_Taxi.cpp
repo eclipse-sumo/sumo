@@ -625,7 +625,7 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
             myDispatcher->fulfilledReservation(res);
         }
         myCurrentReservations.clear();
-        if (MSGlobals::gUseMesoSim&& MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
+        if (MSGlobals::gUseMesoSim && MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
             myIdleAlgorithm->idle(this);
         }
     } else {

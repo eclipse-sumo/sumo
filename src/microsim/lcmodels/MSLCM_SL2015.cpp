@@ -564,7 +564,7 @@ MSLCM_SL2015::informLeader(int blocked,
                 || myLeftSpace - myLeadingBlockerLength - myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed()) < overtakeDist
                 // not enough time to overtake?
                 || dv * remainingSeconds < overtakeDist)
-              && (!neighLead.first->isStopped() || (isOpposite() && neighLead.second >= 0))) {
+                && (!neighLead.first->isStopped() || (isOpposite() && neighLead.second >= 0))) {
             // cannot overtake
             msg(neighLead, -1, dir | LCA_AMBLOCKINGLEADER);
             // slow down smoothly to follow leader
@@ -1279,7 +1279,9 @@ MSLCM_SL2015::_wantsChangeSublane(
         MSVehicle* neighLeadLongest = const_cast<MSVehicle*>(getLongest(neighLeaders).first);
         const bool canContinue = curr.bestContinuations.size() > 1;
 #ifdef DEBUG_WANTSCHANGE
-        if (DEBUG_COND) std::cout << SIMTIME << " veh=" << myVehicle.getID() << " neighLeaders=" << neighLeaders.toString() << " longest=" << Named::getIDSecure(neighLeadLongest) << " firstBlocked=" << Named::getIDSecure(*firstBlocked) << "\n";
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " neighLeaders=" << neighLeaders.toString() << " longest=" << Named::getIDSecure(neighLeadLongest) << " firstBlocked=" << Named::getIDSecure(*firstBlocked) << "\n";
+        }
 #endif
         bool canReserve = MSLCHelper::saveBlockerLength(myVehicle, neighLeadLongest, lcaCounter, myLeftSpace, canContinue, myLeadingBlockerLength);
         if (*firstBlocked != neighLeadLongest && tieBrakeLeader(*firstBlocked)) {
@@ -2163,9 +2165,9 @@ bool
 MSLCM_SL2015::tieBrakeLeader(const MSVehicle* veh) const {
     // tie braker if the leader is at the same lane position
     return veh != nullptr && (veh->getPositionOnLane() != myVehicle.getPositionOnLane()
-        || veh->getSpeed() < myVehicle.getSpeed()
-        || &veh->getLane()->getEdge() != &myVehicle.getLane()->getEdge()
-        || veh->getLane()->getIndex() > myVehicle.getLane()->getIndex());
+                              || veh->getSpeed() < myVehicle.getSpeed()
+                              || &veh->getLane()->getEdge() != &myVehicle.getLane()->getEdge()
+                              || veh->getLane()->getIndex() > myVehicle.getLane()->getIndex());
 }
 
 
@@ -2909,10 +2911,10 @@ MSLCM_SL2015::keepLatGap(int state,
     double surplusGapRight = oldCenter - halfWidth;
     double surplusGapLeft = getLeftBorder(laneOffset != 0) - oldCenter - halfWidth;
     const bool stayInLane = (laneOffset == 0
-        || ((state & LCA_STRATEGIC) != 0
-            && (state & LCA_STAY) != 0
-            // permit wide vehicles to stay on the road
-            && (surplusGapLeft >= 0 && surplusGapRight >= 0)));
+                             || ((state & LCA_STRATEGIC) != 0
+                                 && (state & LCA_STAY) != 0
+                                 // permit wide vehicles to stay on the road
+                                 && (surplusGapLeft >= 0 && surplusGapRight >= 0)));
 
     if (isOpposite()) {
         std::swap(surplusGapLeft, surplusGapRight);

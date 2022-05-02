@@ -53,8 +53,7 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
     myEagerInsertionCheck(eagerInsertionCheck),
     myMaxVehicleNumber(maxVehicleNumber),
     myPendingEmitsUpdateTime(SUMOTime_MIN),
-    myFlowRNG("flow")
-{
+    myFlowRNG("flow") {
     myMaxRandomDepartOffset = randomDepartOffset;
     RandHelper::initRandGlobal(&myFlowRNG);
 }
@@ -372,7 +371,7 @@ MSInsertionControl::saveState(OutputDevice& out) {
     // save flow states
     for (const Flow& flow : myFlows) {
         flow.pars->write(out, OptionsCont::getOptions(), SUMO_TAG_FLOWSTATE,
-                flow.pars->vtypeid == DEFAULT_VTYPE_ID ? "" : flow.pars->vtypeid);
+                         flow.pars->vtypeid == DEFAULT_VTYPE_ID ? "" : flow.pars->vtypeid);
         if (flow.pars->repetitionEnd == SUMOTime_MAX) {
             out.writeAttr(SUMO_ATTR_NUMBER, flow.pars->repetitionNumber);
         }

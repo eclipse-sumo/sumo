@@ -180,7 +180,7 @@ public:
 
     /// @brief return true if tag correspond to a shape (Only used to group all detectors in the XML)
     bool isDetector() const;
-    
+
     /// @brief return true if tag correspond to a calibrator (Only used to group all detectors in the XML)
     bool isCalibrator() const;
 

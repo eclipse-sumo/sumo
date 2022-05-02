@@ -242,8 +242,8 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
         ret->mkItem("minGapLat", false, myType->getMinGapLat());
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
         ret->mkItem("latAlignment", false, myType->getPreferredLateralAlignment() == LatAlignmentDefinition::GIVEN
-                ? toString(myType->getPreferredLateralAlignmentOffset())
-                : toString(myType->getPreferredLateralAlignment()));
+                    ? toString(myType->getPreferredLateralAlignmentOffset())
+                    : toString(myType->getPreferredLateralAlignment()));
     } else if (MSGlobals::gLaneChangeDuration > 0) {
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
     }

@@ -429,7 +429,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                     stop.awaitedContainers.insert(id);
                 }
                 stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
-            } 
+            }
         }
     }
     if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_PERMITTED)) {

@@ -444,10 +444,10 @@ protected:
     std::vector<const GNEDemandElement*> getSortedStops(const std::vector<GNEEdge*>& edges) const;
 
     /// @brief set flow parameters (used in toogleAttribute(...) function of vehicles, persons and containers
-    void setFlowParameters(SUMOVehicleParameter *vehicleParameters, const SumoXMLAttr attribute, const bool value);
+    void setFlowParameters(SUMOVehicleParameter* vehicleParameters, const SumoXMLAttr attribute, const bool value);
 
     /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)
-    void adjustDefaultFlowAttributes(SUMOVehicleParameter *vehicleParameters);
+    void adjustDefaultFlowAttributes(SUMOVehicleParameter* vehicleParameters);
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;

@@ -39,7 +39,7 @@ public:
     * @param[in] floating whether the stop is not referenced by a way or relation
     * @return Whether the pt stop could be added
     */
-    bool insert(NBPTStop* ptStop, bool floating = false );
+    bool insert(NBPTStop* ptStop, bool floating = false);
 
     /// @brief Retrieve a previously inserted pt stop
     NBPTStop* get(std::string id) const;

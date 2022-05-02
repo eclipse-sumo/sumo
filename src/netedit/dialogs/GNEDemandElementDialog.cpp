@@ -107,7 +107,7 @@ GNEDemandElementDialog::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr
 }
 
 
-long 
+long
 GNEDemandElementDialog::onCmdFocusOnFrame(FXObject*, FXSelector, void*) {
     setFocus();
     return 1;

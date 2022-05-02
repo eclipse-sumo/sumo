@@ -162,7 +162,7 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_PERSON, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}) {
+{}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
     // set end and vehPerHours
@@ -173,8 +173,8 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
     GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {pType}, {}),
-    SUMOVehicleParameter(personparameters) {
+{}, {}, {}, {}, {pType}, {}),
+SUMOVehicleParameter(personparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
     // adjust default flow attributes
@@ -598,7 +598,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
         case SUMO_ATTR_PERSONSPERHOUR:
-        case SUMO_ATTR_PERIOD:        
+        case SUMO_ATTR_PERIOD:
         case GNE_ATTR_POISSON:
         case SUMO_ATTR_PROB:
         //
@@ -639,7 +639,7 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
         }
         // Specific of persons
         case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN:{
+        case SUMO_ATTR_BEGIN: {
             SUMOTime dummyDepart;
             DepartDefinition dummyDepartProcedure;
             parseDepart(value, toString(SUMO_TAG_PERSON), id, dummyDepart, dummyDepartProcedure, error);

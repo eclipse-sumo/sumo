@@ -35,9 +35,9 @@
 
 GNERouteProbe::GNERouteProbe(GNENet* net) :
     GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, "",
-        {}, {}, {}, {}, {}, {}),
-    myFrequency(0),
-    myBegin(0) {
+{}, {}, {}, {}, {}, {}),
+myFrequency(0),
+myBegin(0) {
     // reset default values
     resetDefaultValues();
     // update centering boundary without updating grid
@@ -48,11 +48,11 @@ GNERouteProbe::GNERouteProbe(GNENet* net) :
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime frequency, const std::string& name,
                              const std::string& filename, SUMOTime begin, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name,
-        {}, {edge}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myFrequency(frequency),
-    myFilename(filename),
-    myBegin(begin) {
+{}, {edge}, {}, {}, {}, {}),
+Parameterised(parameters),
+myFrequency(frequency),
+myFilename(filename),
+myBegin(begin) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -236,7 +236,7 @@ GNERouteProbe::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const Parameterised::Map& 
+const Parameterised::Map&
 GNERouteProbe::getACParametersMap() const {
     return getParametersMap();
 }

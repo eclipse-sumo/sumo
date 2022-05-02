@@ -180,7 +180,7 @@ GUIGeometry::updateSinglePosGeometry(const Position& position, const double rota
 }
 
 
-void 
+void
 GUIGeometry::moveGeometryToSide(const double amount) {
     // move shape
     myShape.move2side(amount);

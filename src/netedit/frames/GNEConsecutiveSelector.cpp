@@ -54,7 +54,7 @@ FXIMPLEMENT(GNEConsecutiveSelector, FXGroupBoxModule, ConsecutiveLaneSelectorMap
 GNEConsecutiveSelector::GNEConsecutiveSelector(GNEFrame* frameParent, const bool allowOneLane) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Consecutive lane selector"),
     myFrameParent(frameParent),
-    myAllowOneLane(allowOneLane){
+    myAllowOneLane(allowOneLane) {
     // create label for route info
     myInfoPathLabel = new FXLabel(getCollapsableFrame(), "No lanes selected", 0, GUIDesignLabelFrameThicked);
     // create button for finish route creation
@@ -109,7 +109,7 @@ GNEConsecutiveSelector::getLanePath() const {
 }
 
 
-const std::vector<std::string> 
+const std::vector<std::string>
 GNEConsecutiveSelector::getLaneIDPath() const {
     std::vector<std::string> laneIDs;
     for (const auto& lane : myLanePath) {
@@ -228,7 +228,7 @@ GNEConsecutiveSelector::updateLaneColors() {
     }
     // update view net
     myFrameParent->getViewNet()->updateViewNet();
-}  
+}
 
 
 void
@@ -241,7 +241,7 @@ GNEConsecutiveSelector::drawTemporalConsecutiveLanePath(const GUIVisualizationSe
         // declare vector with shapes
         std::vector<PositionVector> shapes;
         // iterate over lanes (only if there is more than one)
-        if ((myLanePath.size() == 2) &&  (myLanePath.front().first == myLanePath.back().first)) {
+        if ((myLanePath.size() == 2) && (myLanePath.front().first == myLanePath.back().first)) {
             // only add first lane shape
             shapes.push_back(myLanePath.front().first->getLaneShape());
             // adjust shape
@@ -273,7 +273,7 @@ GNEConsecutiveSelector::drawTemporalConsecutiveLanePath(const GUIVisualizationSe
         // move to temporal shape
         glTranslated(0, 0, GLO_TEMPORALSHAPE);
         // iterate over shapes
-        for (const auto &shape : shapes) {
+        for (const auto& shape : shapes) {
             // set extern
             GLHelper::setColor(RGBColor::GREY);
             // draw extern shape

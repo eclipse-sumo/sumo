@@ -1153,7 +1153,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
             myViewParent->getAdditionalFrame()->getLanesSelector()->clearSelection();
             // abort path
             myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortPathCreation();
-            } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_WIRE) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_WIRE) {
             // abort path
             myViewParent->getWireFrame()->getConsecutiveLaneSelector()->abortPathCreation();
         }

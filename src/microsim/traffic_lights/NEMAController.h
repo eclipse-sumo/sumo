@@ -25,12 +25,12 @@
 #include <vector>
 #include <bitset>
 #include <map>
+#include <set>
 #include <microsim/MSEventControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "MSSimpleTrafficLightLogic.h"
 #include "microsim/output/MSE2Collector.h"
 #include "MSPhaseDefinition.h"
-#include <set>
 
 
 // ===========================================================================
@@ -69,7 +69,7 @@ public:
 
     typedef std::map<MSE2Collector*, MSLane*, ComparatorIdLess> DetectorLaneMap;
 
-    // Small structure for storing two ring transitions and the average distance 
+    // Small structure for storing two ring transitions and the average distance
     struct transitionInfo {
         PhaseTransitionLogic* p1;
         PhaseTransitionLogic* p2;
@@ -93,12 +93,12 @@ public:
      * @param[in] parameter The parameter to use for tls set-up
      */
     NEMALogic(MSTLLogicControl& tlcontrol,
-        const std::string& id, const std::string& programID,
-        const SUMOTime offset,
-        const MSSimpleTrafficLightLogic::Phases& phases,
-        int step, SUMOTime delay,
-        const std::map<std::string, std::string>& parameter,
-        const std::string& basePath);
+              const std::string& id, const std::string& programID,
+              const SUMOTime offset,
+              const MSSimpleTrafficLightLogic::Phases& phases,
+              int step, SUMOTime delay,
+              const std::map<std::string, std::string>& parameter,
+              const std::string& basePath);
 
 
     /** @brief Initialises the tls with information about incoming lanes
@@ -110,7 +110,7 @@ public:
     /// @brief Destructor
     ~NEMALogic();
 
-    /// @brief overrides the MSSimpleTrafficLightLogic trySwitch method  
+    /// @brief overrides the MSSimpleTrafficLightLogic trySwitch method
     SUMOTime trySwitch() override;
 
     /// @name Dynamic Information Retrieval
@@ -206,13 +206,17 @@ public:
     const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;
 
     /// @brief Wrapper Function to Simplify Accessing Time
-    inline SUMOTime getCurrentTime(void) const { return simTime; };
+    inline SUMOTime getCurrentTime(void) const {
+        return simTime;
+    }
 
     // /// @brief Wrapper Function to Simplify Accessing Offset Cycle Time
     // inline SUMOTime getCurrentOffsetTime(void) const {return simTime - cycleRefPoint - offset; };
 
     /// @brief override Function to Simplify Accessing Offset Cycle Time
-    inline SUMOTime getTimeInCycle() const { return (simTime - cycleRefPoint - offset) % myCycleLength; };
+    inline SUMOTime getTimeInCycle() const {
+        return (simTime - cycleRefPoint - offset) % myCycleLength;
+    }
 
 
     /// @brief set the active phase
@@ -224,7 +228,9 @@ public:
      * @param ringNum
      * @return PhasePtr
      */
-    inline PhasePtr getActivePhase(int ringNum) { return myActivePhaseObjs[ringNum]; };
+    inline PhasePtr getActivePhase(int ringNum) {
+        return myActivePhaseObjs[ringNum];
+    }
 
     /**
      * @brief get all phases for a given ring
@@ -249,7 +255,9 @@ public:
      *
      * @return std::vector<PhasePtr>
      */
-    inline std::vector<PhasePtr> getPhaseObjs(void) { return myPhaseObjs; };
+    inline std::vector<PhasePtr> getPhaseObjs(void) {
+        return myPhaseObjs;
+    }
 
     /**
      * @brief return the ring distance between two phases
@@ -267,7 +275,9 @@ public:
      * @return true if myControllerType == Type170
      * @return false
      */
-    inline bool isType170(void) const { return myControllerType == Type170; };
+    inline bool isType170(void) const {
+        return myControllerType == Type170;
+    }
 
     /**
      * @brief Get the opposite active phase
@@ -286,7 +296,7 @@ public:
      */
     void implementTraciChanges(void);
 
-    /// @brief a store of the coordinated phase objects. Only used meaningfully when the controller is 
+    /// @brief a store of the coordinated phase objects. Only used meaningfully when the controller is
     /// in coordinated mode
     PhasePtr coordinatePhaseObjs[2];
 
@@ -309,7 +319,9 @@ protected:
     SUMOTime simTime = 0;
 
     /// @brief Set the simTime
-    inline void setCurrentTime(void) { simTime = MSNet::getInstance()->getCurrentTimeStep(); }
+    inline void setCurrentTime(void) {
+        simTime = MSNet::getInstance()->getCurrentTimeStep();
+    }
 
     // / @brief variable to store the active phases
     PhasePtr myActivePhaseObjs[2] = { nullptr, nullptr };
@@ -329,7 +341,7 @@ protected:
      * @param ring2 a string of phases in ring 2 ("5,6,7,8")
      */
     void constructTimingAndPhaseDefs(std::string& barriers, std::string& coordinates,
-        std::string& ring1, std::string& ring2);
+                                     std::string& ring1, std::string& ring2);
 
     /** @brief iterates over the two active phases (myActivePhaseObjs) and merges the two active phases
      * @return std::string the light string to implement (GGGrrrGGGrrr)
@@ -492,12 +504,12 @@ protected:
     /// @brief directs the code to the correct force off function accorifing to its cabinet type
     void calculateForceOffs() {
         switch (myControllerType) {
-        case Type170:
-            return calculateForceOffs170();
-        case TS2:
-            return calculateForceOffsTS2();
-        default:
-            return calculateForceOffs170();
+            case Type170:
+                return calculateForceOffs170();
+            case TS2:
+                return calculateForceOffsTS2();
+            default:
+                return calculateForceOffs170();
         }
     }
 
@@ -509,13 +521,13 @@ protected:
     /// @brief directs the controller to the correct calculate phases function
     void calculateInitialPhases() {
         switch (myControllerType) {
-        case Type170:
-            return calculateInitialPhases170();
-        case TS2:
-            return calculateInitialPhasesTS2();
-        default:
-            // Default to Type170
-            return calculateInitialPhases170();
+            case Type170:
+                return calculateInitialPhases170();
+            case TS2:
+                return calculateInitialPhasesTS2();
+            default:
+                // Default to Type170
+                return calculateInitialPhases170();
         }
     }
 };
@@ -554,11 +566,11 @@ public:
         std::vector<MSE2Collector*> detectors;
         /// @brief the cross-phase switching target for myself (6 if 6 should check 1 if 6 is green and I am phase 1)
         PhasePtr cpdTarget;
-        /// @brief the cross-phase switching source for myself  (1 if 6 should check 1 if 6 is green and I am phase 6) 
+        /// @brief the cross-phase switching source for myself  (1 if 6 should check 1 if 6 is green and I am phase 6)
         PhasePtr cpdSource;
-        /// @brief where any of my detectors are active or not 
+        /// @brief where any of my detectors are active or not
         bool detectActive;
-        /// @brief whether the detectors are latching or not 
+        /// @brief whether the detectors are latching or not
         bool latching;
     };
 
@@ -580,30 +592,38 @@ public:
      * @param phase the MSPhaseDefinition base class
      */
     NEMAPhase(int phaseName,
-        bool isBarrier,
-        bool isGreenRest,
-        bool isCoordinated,
-        bool minRecall,
-        bool maxRecall,
-        bool fixForceOff,
-        int barrierNum,
-        int ringNum,
-        MSPhaseDefinition* phase);
+              bool isBarrier,
+              bool isGreenRest,
+              bool isCoordinated,
+              bool minRecall,
+              bool maxRecall,
+              bool fixForceOff,
+              int barrierNum,
+              int ringNum,
+              MSPhaseDefinition* phase);
 
     /// @brief Destructor
     ~NEMAPhase();
 
-    /// @brief gets the current light state 
-    inline LightState getCurrentState() const { return myLightState; }
+    /// @brief gets the current light state
+    inline LightState getCurrentState() const {
+        return myLightState;
+    }
     /// @brief returns a vector of the phases detectors
-    inline std::vector<MSE2Collector*> getDetectors() const { return myDetectorInfo.detectors; }
+    inline std::vector<MSE2Collector*> getDetectors() const {
+        return myDetectorInfo.detectors;
+    }
 
 
     /// @brief sets the detectors for the phase
-    inline void setDetectors(std::vector<MSE2Collector*> detectors) { myDetectorInfo.detectors = detectors; };
+    inline void setDetectors(std::vector<MSE2Collector*> detectors) {
+        myDetectorInfo.detectors = detectors;
+    }
 
     /// @brief check if a transition is active
-    inline bool isTransitionActive() const { return myLightState < LightState::Green; }
+    inline bool isTransitionActive() const {
+        return myLightState < LightState::Green;
+    }
 
     // Build a Map of Valid Transitions and store the detector-based information
     /**
@@ -632,13 +652,19 @@ public:
     void exit(NEMALogic* controller, PhaseTransitionLogic* nextPhases[2]);
 
     /// @brief simple method to check if there is a recall on the phase.
-    inline bool hasRecall(void) { return minRecall || maxRecall; };
+    inline bool hasRecall(void) {
+        return minRecall || maxRecall;
+    }
 
     /// @brief simple method to check if there is either a recall or an active detector
-    inline bool callActive(void) { return minRecall || maxRecall || myDetectorInfo.detectActive; };
+    inline bool callActive(void) {
+        return minRecall || maxRecall || myDetectorInfo.detectActive;
+    }
 
     /// @brief simple method to check if a detector is active
-    inline bool detectActive(void) { return myDetectorInfo.detectActive; };
+    inline bool detectActive(void) {
+        return myDetectorInfo.detectActive;
+    }
 
     /// @brief Check Detectors. Called on all phases at every step
     void checkMyDetectors(void);
@@ -657,7 +683,7 @@ public:
     bool fixForceOff;
     int ringNum;
 
-    /// @brief store the last detect check for traci purposes 
+    /// @brief store the last detect check for traci purposes
     bool lastDetectActive;
 
     /// @brief a count down timer to track green rest transition time
@@ -678,10 +704,14 @@ public:
     SUMOTime getTransitionTime(NEMALogic* controller);
 
     /// @brief get the prior phase
-    inline PhasePtr getSequentialPriorPhase(void) { return sequentialPriorPhase; };
+    inline PhasePtr getSequentialPriorPhase(void) {
+        return sequentialPriorPhase;
+    }
 
     /// @brief set the prior phase
-    inline void setSequentialPriorPhase(PhasePtr priorPhase) { sequentialPriorPhase = priorPhase; };
+    inline void setSequentialPriorPhase(PhasePtr priorPhase) {
+        sequentialPriorPhase = priorPhase;
+    }
 
     /**
      * @brief calculate a vector of potention next phases
@@ -706,10 +736,12 @@ public:
     void recalculateTiming(void);
 
     /// @brief Force Enter. This Should only be called at initialization time
-    inline void forceEnter(NEMALogic* controller) { enter(controller, sequentialPriorPhase); };
+    inline void forceEnter(NEMALogic* controller) {
+        enter(controller, sequentialPriorPhase);
+    }
 
     ///  @name Basic Phase Timing Parameters
-    /// @{  
+    /// @{
     SUMOTime yellow;
     SUMOTime red;
     SUMOTime minDuration;
@@ -719,7 +751,7 @@ public:
     /// @}
 
 private:
-    /// @brief A reference to the core phase of which NEMAPhase wraps 
+    /// @brief A reference to the core phase of which NEMAPhase wraps
     MSPhaseDefinition* myCorePhase = nullptr;
 
     /// @name store references to myself, the last phase I was in, and the sequentially next phase
@@ -761,7 +793,7 @@ private:
      */
     void enter(NEMALogic* controller, PhasePtr lastPhase);
 
-    /// @brief variable to store whether a transition is active or not 
+    /// @brief variable to store whether a transition is active or not
     bool transitionActive;
 
     /// @brief pointer to save the last transition
@@ -812,16 +844,23 @@ public:
      */
     int getDistance(PhaseTransitionLogic* otherTrans);
     /// @brief set the transition distance
-    inline void setDistance(int d) { distance = d; };
+    inline void setDistance(int d) {
+        distance = d;
+    }
     int distance;
 
     /// @brief deconstructor
     ~PhaseTransitionLogic() {};
 
     /// @brief get the to phase
-    inline PhasePtr getToPhase(void) const { return toPhase; };
+    inline PhasePtr getToPhase(void) const {
+        return toPhase;
+    }
+
     /// @brief get the from phase
-    inline PhasePtr getFromPhase(void) const { return fromPhase; };
+    inline PhasePtr getFromPhase(void) const {
+        return fromPhase;
+    }
 
 private:
     PhasePtr fromPhase;
@@ -870,4 +909,3 @@ private:
      */
     bool coordBase(NEMALogic* controller);
 };
-

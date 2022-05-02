@@ -39,7 +39,7 @@
 #define DEBUG_COND (veh->isSelected())
 #define DEBUG_DRIVER_ERRORS
 
-MSCFModel_Krauss::VehicleVariables::VehicleVariables(SUMOTime dawdleStep) 
+MSCFModel_Krauss::VehicleVariables::VehicleVariables(SUMOTime dawdleStep)
     : accelDawdle(1e6), updateOffset(SIMSTEP % dawdleStep + DELTA_T) { }
 
 // ===========================================================================
@@ -47,8 +47,7 @@ MSCFModel_Krauss::VehicleVariables::VehicleVariables(SUMOTime dawdleStep)
 // ===========================================================================
 MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype) :
     MSCFModel_KraussOrig1(vtype),
-    myDawdleStep(TIME2STEPS(vtype->getParameter().getCFParam(SUMO_ATTR_SIGMA_STEP, TS)))
-{ 
+    myDawdleStep(TIME2STEPS(vtype->getParameter().getCFParam(SUMO_ATTR_SIGMA_STEP, TS))) {
     if (myDawdleStep % DELTA_T != 0) {
         SUMOTime rem = myDawdleStep % DELTA_T;
         if (rem < DELTA_T / 2) {

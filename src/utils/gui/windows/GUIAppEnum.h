@@ -771,7 +771,7 @@ enum {
 
     /// @name GNEViewNet Data view options messages
     /// @{
-    
+
     /// @brief toggle draw junction shape
     MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief show additionals

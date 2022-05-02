@@ -857,7 +857,7 @@ public:
     /// @brief Set vehicle class specific stopOffsets
     void setLaneStopOffset(const StopOffset& stopOffset);
 
-    /** @enum MinorLinkMode 
+    /** @enum MinorLinkMode
      * @brief determine whether/how getFollowers looks upstream beyond minor links
      */
     enum MinorLinkMode {

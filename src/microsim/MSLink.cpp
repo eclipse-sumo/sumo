@@ -458,7 +458,7 @@ MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTim
 #endif
     myApproachingVehicles.emplace(approaching,
                                   ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest,
-                                           arrivalSpeedBraking, waitingTime, dist, approaching->getSpeed(), latOffset));
+                                          arrivalSpeedBraking, waitingTime, dist, approaching->getSpeed(), latOffset));
 }
 
 
@@ -744,11 +744,11 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
 #ifdef MSLink_DEBUG_OPENED
         if (gDebugFlag6) {
             std::cout << SIMTIME << " link=" << getDescription() << " ego=" << ego->getID() << " foe=" << veh->getID()
-                << " at=" << STEPS2TIME(arrivalTime)
-                << " fat=" << STEPS2TIME(avi.arrivalTime)
-                << " fatb=" << STEPS2TIME(fatb)
-                << " fat2=" << STEPS2TIME(foeArrivalTime)
-                << "\n";
+                      << " at=" << STEPS2TIME(arrivalTime)
+                      << " fat=" << STEPS2TIME(avi.arrivalTime)
+                      << " fatb=" << STEPS2TIME(fatb)
+                      << " fat2=" << STEPS2TIME(foeArrivalTime)
+                      << "\n";
         }
 #endif
     }

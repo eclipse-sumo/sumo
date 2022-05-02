@@ -157,7 +157,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                 }
                 if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size() + myIgnoredIndices.size()) {
                     WRITE_WARNINGF("Unused states in tlLogic '%', program '%' in phase % after tl-index %",
-                            getID(), getProgramID(), i, (int)myLanes.size() - 1);
+                                   getID(), getProgramID(), i, (int)myLanes.size() - 1);
                     haveWarnedAboutUnusedStates = true;
                 }
                 // detect illegal states
@@ -176,7 +176,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                             if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
                                 if (getLogicType() != TrafficLightType::NEMA) {
                                     WRITE_WARNINGF("Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %",
-                                            getID(), getProgramID(), j, optionalFrom, iNext);
+                                                   getID(), getProgramID(), j, optionalFrom, iNext);
                                     // one warning per program is enough
                                     haveWarned = true;
                                 }

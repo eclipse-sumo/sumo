@@ -121,8 +121,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     // only show LookAt elements for OSG views
     if (parent->is3DView()) {
         lookAtFrame->show();
-    }
-    else {
+    } else {
         lookAtFrame->hide();
     }
 

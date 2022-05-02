@@ -495,7 +495,7 @@ GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookA
     orthogonal = viewUp ^ viewAxis;
     orthogonal.normalize();
     normal = viewAxis ^ orthogonal;
-    
+
     rotation = std::fmod(rotation, 360.);
     if (rotation < 0) {
         rotation += 360.;
@@ -700,7 +700,7 @@ GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
         osg::Vec3d lookFrom, lookAt, up;
         myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
         myViewportChooser->setValues(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
-            Position(lookAt[0], lookAt[1], lookAt[2]), calculateRotation(lookFrom, lookAt, up));
+                                     Position(lookAt[0], lookAt[1], lookAt[2]), calculateRotation(lookFrom, lookAt, up));
     }
 
     return FXGLCanvas::onMotion(sender, sel, ptr);

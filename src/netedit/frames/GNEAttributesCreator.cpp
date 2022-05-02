@@ -85,8 +85,7 @@ GNEAttributesCreator::showAttributesCreatorModule(GNEAttributeCarrier* templateA
         myResetButton->enable();
         // show
         show();
-    }
-    else {
+    } else {
         throw ProcessError("invalid templateAC in showAttributesCreatorModule");
     }
 }
@@ -127,38 +126,30 @@ GNEAttributesCreator::getAttributesAndValues(CommonXMLStructure::SumoBaseObject*
                 if (attrProperties.isInt()) {
                     const int intValue = GNEAttributeCarrier::canParse<int>(row->getValue()) ? GNEAttributeCarrier::parse<int>(row->getValue()) : GNEAttributeCarrier::parse<int>(attrProperties.getDefaultValue());
                     baseObject->addIntAttribute(attrProperties.getAttr(), intValue);
-                }
-                else if (attrProperties.isFloat()) {
+                } else if (attrProperties.isFloat()) {
                     const double doubleValue = GNEAttributeCarrier::canParse<double>(row->getValue()) ? GNEAttributeCarrier::parse<double>(row->getValue()) : GNEAttributeCarrier::parse<double>(attrProperties.getDefaultValue());
                     baseObject->addDoubleAttribute(attrProperties.getAttr(), doubleValue);
-                }
-                else if (attrProperties.isBool()) {
+                } else if (attrProperties.isBool()) {
                     const bool boolValue = GNEAttributeCarrier::canParse<bool>(row->getValue()) ? GNEAttributeCarrier::parse<bool>(row->getValue()) : GNEAttributeCarrier::parse<bool>(attrProperties.getDefaultValue());
                     baseObject->addBoolAttribute(attrProperties.getAttr(), boolValue);
-                }
-                else if (attrProperties.isposition()) {
+                } else if (attrProperties.isposition()) {
                     const Position positionValue = GNEAttributeCarrier::canParse<Position>(row->getValue()) ? GNEAttributeCarrier::parse<Position>(row->getValue()) : GNEAttributeCarrier::parse<Position>(attrProperties.getDefaultValue());
                     baseObject->addPositionAttribute(attrProperties.getAttr(), positionValue);
-                }
-                else if (attrProperties.isSUMOTime()) {
+                } else if (attrProperties.isSUMOTime()) {
                     const SUMOTime timeValue = GNEAttributeCarrier::canParse<SUMOTime>(row->getValue()) ? GNEAttributeCarrier::parse<SUMOTime>(row->getValue()) : GNEAttributeCarrier::parse<SUMOTime>(attrProperties.getDefaultValue());
                     baseObject->addTimeAttribute(attrProperties.getAttr(), timeValue);
-                }
-                else if (attrProperties.isColor()) {
+                } else if (attrProperties.isColor()) {
                     const RGBColor colorValue = GNEAttributeCarrier::canParse<RGBColor>(row->getValue()) ? GNEAttributeCarrier::parse<RGBColor>(row->getValue()) : GNEAttributeCarrier::parse<RGBColor>(attrProperties.getDefaultValue());
                     baseObject->addColorAttribute(attrProperties.getAttr(), colorValue);
-                }
-                else if (attrProperties.isList()) {
+                } else if (attrProperties.isList()) {
                     if (attrProperties.isposition()) {
                         const PositionVector positionVectorValue = GNEAttributeCarrier::canParse<PositionVector>(row->getValue()) ? GNEAttributeCarrier::parse<PositionVector>(row->getValue()) : GNEAttributeCarrier::parse<PositionVector>(attrProperties.getDefaultValue());
                         baseObject->addPositionVectorAttribute(attrProperties.getAttr(), positionVectorValue);
-                    }
-                    else {
+                    } else {
                         const std::vector<std::string> stringVectorValue = GNEAttributeCarrier::canParse<std::vector<std::string> >(row->getValue()) ? GNEAttributeCarrier::parse<std::vector<std::string> >(row->getValue()) : GNEAttributeCarrier::parse<std::vector<std::string> >(attrProperties.getDefaultValue());
                         baseObject->addStringListAttribute(attrProperties.getAttr(), stringVectorValue);
                     }
-                }
-                else {
+                } else {
                     baseObject->addStringAttribute(attrProperties.getAttr(), row->getValue());
                 }
             }
@@ -183,8 +174,7 @@ GNEAttributesCreator::showWarningMessage(std::string extra) const {
     // show warning box if input parameters aren't invalid
     if (extra.size() == 0) {
         errorMessage = "Invalid input parameter of " + myTemplateAC->getTagProperty().getTagStr();
-    }
-    else {
+    } else {
         errorMessage = "Invalid input parameter of " + myTemplateAC->getTagProperty().getTagStr() + ": " + extra;
     }
     // set message in status bar
@@ -278,8 +268,8 @@ GNEAttributesCreator::refreshRows(const bool createRows) {
         }
         // check special case for VType IDs in vehicle and person Frame
         if ((attribute.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
-            ((myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
-            (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_PERSON))) {
+                ((myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
+                 (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_PERSON))) {
             showAttribute = false;
         }
         // show attribute depending of showAttribute flag
@@ -287,8 +277,7 @@ GNEAttributesCreator::refreshRows(const bool createRows) {
             // check if we have to create a new row
             if (createRows) {
                 myAttributesCreatorRows.at(attribute.getPositionListed()) = new GNEAttributesCreatorRow(this, attribute);
-            }
-            else {
+            } else {
                 myAttributesCreatorRows.at(attribute.getPositionListed())->refreshRow();
             }
         }
@@ -300,8 +289,7 @@ GNEAttributesCreator::refreshRows(const bool createRows) {
     // check if flow editor has to be shown
     if (showFlowEditor) {
         myFlowEditor->showFlowEditor({ myTemplateAC });
-    }
-    else {
+    } else {
         myFlowEditor->hideFlowEditor();
     }
 }

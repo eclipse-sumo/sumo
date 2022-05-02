@@ -2823,8 +2823,8 @@ NBNode::buildCrossings() {
                 diff += 360;
             }
             const double rawDiff = NBHelpers::relAngle(
-                    edges[i]->getAngleAtNodeNormalized(this),
-                    edges[(i + 1) % edges.size()]->getAngleAtNodeNormalized(this));
+                                       edges[i]->getAngleAtNodeNormalized(this),
+                                       edges[(i + 1) % edges.size()]->getAngleAtNodeNormalized(this));
             rawAngleDiffs.push_back(fabs(rawDiff));
 
             if (gDebugFlag1) {
@@ -2850,10 +2850,10 @@ NBNode::buildCrossings() {
                 std::cout << " detected pedScramble " << c->id << " edges=" << toString(edges) << " rawDiffs=" << toString(rawAngleDiffs) << "\n";
                 for (auto e : edges) {
                     std::cout << "  e=" << e->getID()
-                        << " aC=" << e->getAngleAtNodeToCenter(this)
-                        << " a=" << e->getAngleAtNode(this)
-                        << " aN=" << e->getAngleAtNodeNormalized(this)
-                        << "\n";
+                              << " aC=" << e->getAngleAtNodeToCenter(this)
+                              << " a=" << e->getAngleAtNode(this)
+                              << " aN=" << e->getAngleAtNodeNormalized(this)
+                              << "\n";
                 }
             }
         }

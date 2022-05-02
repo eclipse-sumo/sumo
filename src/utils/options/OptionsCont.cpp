@@ -936,15 +936,15 @@ OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
     os << buffer << myFullName << "\n";
     if (myWriteLicense) {
         os << "This data file and the accompanying materials\n"
-              "are made available under the terms of the Eclipse Public License v2.0\n"
-              "which accompanies this distribution, and is available at\n"
-              "http://www.eclipse.org/legal/epl-v20.html\n"
-              "This file may also be made available under the following Secondary\n"
-              "Licenses when the conditions for such availability set forth in the Eclipse\n"
-              "Public License 2.0 are satisfied: GNU General Public License, version 2\n"
-              "or later which is available at\n"
-              "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html\n"
-              "SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later\n";
+           "are made available under the terms of the Eclipse Public License v2.0\n"
+           "which accompanies this distribution, and is available at\n"
+           "http://www.eclipse.org/legal/epl-v20.html\n"
+           "This file may also be made available under the following Secondary\n"
+           "Licenses when the conditions for such availability set forth in the Eclipse\n"
+           "Public License 2.0 are satisfied: GNU General Public License, version 2\n"
+           "or later which is available at\n"
+           "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html\n"
+           "SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later\n";
     }
     if (includeConfig) {
         writeConfiguration(os, true, false, false, "", false, true);

@@ -735,7 +735,7 @@ MSBaseVehicle::calculateArrivalParams(bool onInit) {
     const int arrivalEdgeIndex = MIN2(myParameter->arrivalEdge, (int)myRoute->getEdges().size() - 1);
     if (arrivalEdgeIndex != myParameter->arrivalEdge) {
         WRITE_WARNINGF("Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% (routeLength=%)",
-                getID(), myParameter->arrivalEdge, time2string(SIMSTEP), myRoute->getEdges().size() - 1);
+                       getID(), myParameter->arrivalEdge, time2string(SIMSTEP), myRoute->getEdges().size() - 1);
     }
     const MSEdge* arrivalEdge = myParameter->arrivalEdge >= 0 ? myRoute->getEdges()[arrivalEdgeIndex] : myRoute->getLastEdge();
     if (!onInit) {
@@ -1174,8 +1174,8 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     }
     if (stop.pars.until >= 0 && stop.pars.arrival > stop.pars.until && errorMsg == "") {
         errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID()
-            + "' set to end at " + time2string(stop.pars.until)
-            + " earlier than arrival at " + time2string(stop.pars.arrival) + ".";
+                   + "' set to end at " + time2string(stop.pars.until)
+                   + " earlier than arrival at " + time2string(stop.pars.arrival) + ".";
     }
     myStops.insert(iter, stop);
     //std::cout << " added stop " << errorMsgStart << " totalStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin())
