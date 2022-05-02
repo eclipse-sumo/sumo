@@ -31,37 +31,30 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to vehicle mode
-netedit.vehicleMode()
+# go to select mode
+netedit.selectMode()
 
-# change vehicle
-netedit.changeElement("trip (from-to junctions)")
-
-# create trip using two junctions
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
-
-# press enter to create route
-netedit.typeEnter()
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 80, 360)
+netedit.leftClick(referencePosition, 410, 170)
 
 # change begin with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.begin, "", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.begin, "", False)
 
 # change begin with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.begin, "dummyDepart", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.begin, "dummyDepart", False)
 
 # change begin with an valid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.begin, "containerTriggered", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.begin, "containerTriggered", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save routes
 netedit.saveRoutes(referencePosition)

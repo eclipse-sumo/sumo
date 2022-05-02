@@ -3,9 +3,6 @@ fix.demandElements.routes
 fix.demandElements.routes.removeStops
 flowEmbedded.inspect.arrivalEdge
 flowEmbedded.inspect.departEdge
-flowEmbedded.inspectSelection.begin
-flowJunction.inspect.begin
-flowJunction.inspectSelection.begin
 junction.inspectSelectionTLS.tl
 junction.inspectSelectionTLS.tlLayout
 junction.inspectSelectionTLS.tlType
@@ -23,7 +20,6 @@ personFlow.create.end
 personFlow.create.number
 selection.lockSelectionNetwork.TAZs
 stopLane.inspectSelection.posLat
-tripFromToJunction.inspectSelection.type
 type.editDialog.colorButton
 type.editDialog.imgFileButton
 type.editDialog.osgFileButton
