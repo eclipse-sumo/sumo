@@ -49,6 +49,7 @@ configuration:
 |--------|-------------|
 | **-c** {{DT_FILE}}<br> **--configuration-file** {{DT_FILE}} | Loads the named config on startup |
 | **-C** {{DT_FILE}}<br> **--save-configuration** {{DT_FILE}} | Saves current configuration into FILE |
+| **--save-configuration.relative** {{DT_BOOL}} | Enforce relative paths when saving the configuration; *default:* **false** |
 | **--save-template** {{DT_FILE}} | Saves a configuration template (empty) into FILE |
 | **--save-schema** {{DT_FILE}} | Saves the configuration schema into FILE |
 | **--save-commented** {{DT_BOOL}} | Adds comments to saved template, configuration, or schema; *default:* **false** |
@@ -81,6 +82,7 @@ configuration:
 | **--netstate-dump.precision** {{DT_INT}} | Write positions and speeds with the given precision (default 2); *default:* **2** |
 | **--emission-output** {{DT_FILE}} | Save the emission values of each vehicle |
 | **--emission-output.precision** {{DT_INT}} | Write emission values with the given precision (default 2); *default:* **2** |
+| **--emission-output.geo** {{DT_BOOL}} | Save the positions in emission output using geo-coordinates (lon/lat); *default:* **false** |
 | **--emission-output.step-scaled** {{DT_BOOL}} | Write emission values scaled to the step length rather than as per-second values; *default:* **false** |
 | **--battery-output** {{DT_FILE}} | Save the battery values of each vehicle |
 | **--battery-output.precision** {{DT_INT}} | Write battery values with the given precision (default 2); *default:* **2** |
@@ -124,6 +126,7 @@ configuration:
 | **--vehroute-output.incomplete** {{DT_BOOL}} | Include invalid routes and route stubs in vehroute output; *default:* **false** |
 | **--vehroute-output.stop-edges** {{DT_BOOL}} | Include information about edges between stops; *default:* **false** |
 | **--vehroute-output.speedfactor** {{DT_BOOL}} | Write the vehicle speedFactor (defaults to 'true' if departSpeed is written); *default:* **false** |
+| **--personroute-output** {{DT_FILE}} | Save person and container routes to separate FILE |
 | **--link-output** {{DT_FILE}} | Save links states into FILE |
 | **--railsignal-block-output** {{DT_FILE}} | Save railsignal-blocks into FILE |
 | **--bt-output** {{DT_FILE}} | Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender) |
@@ -135,8 +138,6 @@ configuration:
 | **--stop-output.write-unfinished** {{DT_BOOL}} | Write stop output for stops which have not ended at simulation end; *default:* **false** |
 | **--collision-output** {{DT_FILE}} | Write collision information into FILE |
 | **--statistic-output** {{DT_FILE}} | Write overall statistics into FILE |
-| **--movereminder-output** {{DT_FILE}} | Save movereminder states of selected vehicles into FILE |
-| **--movereminder-output.vehicles** {{DT_STR[]}} | List of vehicle ids which shall save their movereminder states |
 | **--save-state.times** {{DT_STR[]}} | Use TIME[] as times at which a network state written |
 | **--save-state.period** {{DT_TIME}} | save state repeatedly after TIME period; *default:* **-1** |
 | **--save-state.period.keep** {{DT_INT}} | Keep only the last INT periodic state files; *default:* **0** |
@@ -167,7 +168,7 @@ configuration:
 | **-s** {{DT_TIME}}<br> **--route-steps** {{DT_TIME}} | Load routes for the next number of seconds ahead; *default:* **200** |
 | **--no-internal-links** {{DT_BOOL}} | Disable (junction) internal links; *default:* **false** |
 | **--ignore-junction-blocker** {{DT_TIME}} | Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore); *default:* **-1** |
-| **--ignore-route-errors** {{DT_BOOL}} | (1) Do not check whether routes are connected. (2) Allow inserting a vehicle in a situation which requires emergency braking.; *default:* **false** |
+| **--ignore-route-errors** {{DT_BOOL}} | Do not check whether routes are connected; *default:* **false** |
 | **--ignore-accidents** {{DT_BOOL}} | Do not check whether accidents occur; *default:* **false** |
 | **--collision.action** {{DT_STR}} | How to deal with collisions: [none,warn,teleport,remove]; *default:* **teleport** |
 | **--collision.stoptime** {{DT_TIME}} | Let vehicle stop for TIME before performing collision.action (except for action 'none'); *default:* **0** |
@@ -180,12 +181,16 @@ configuration:
 | **--scale-suffix** {{DT_STR}} | Suffix to be added when creating ids for cloned vehicles; *default:* **.** |
 | **--time-to-teleport** {{DT_TIME}} | Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting; *default:* **300** |
 | **--time-to-teleport.highways** {{DT_TIME}} | The waiting time after which vehicles on a fast road (speed > 69km/h) are teleported if they are on a non-continuing lane; *default:* **0** |
+| **--time-to-teleport.highways.min-speed** {{DT_FLOAT}} | The waiting time after which vehicles on a fast road (default: speed > 69km/h) are teleported if they are on a non-continuing lane; *default:* **19.1667** |
 | **--time-to-teleport.disconnected** {{DT_TIME}} | The waiting time after which vehicles with a disconnected route are teleported. Negative values disable teleporting; *default:* **-1** |
 | **--time-to-teleport.remove** {{DT_BOOL}} | Whether vehicles shall be removed after waiting too long instead of being teleported; *default:* **false** |
+| **--time-to-teleport.ride** {{DT_TIME}} | The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting; *default:* **-1** |
 | **--waiting-time-memory** {{DT_TIME}} | Length of time interval, over which accumulated waiting time is taken into account (default is 100s.); *default:* **100** |
+| **--startup-wait-threshold** {{DT_TIME}} | Minimum consecutive waiting time before applying startupDelay; *default:* **2** |
 | **--max-depart-delay** {{DT_TIME}} | How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped; *default:* **-1** |
 | **--sloppy-insert** {{DT_BOOL}} | Whether insertion on an edge shall not be repeated in same step once failed; *default:* **false** |
 | **--eager-insert** {{DT_BOOL}} | Whether each vehicle is checked separately for insertion on an edge; *default:* **false** |
+| **--emergency-insert** {{DT_BOOL}} | Allow inserting a vehicle in a situation which requires emergency braking; *default:* **false** |
 | **--random-depart-offset** {{DT_TIME}} | Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]; *default:* **0** |
 | **--lanechange.duration** {{DT_TIME}} | Duration of a lane change maneuver (default 0); *default:* **0** |
 | **--lanechange.overtake-right** {{DT_BOOL}} | Whether overtaking on the right on motorways is permitted; *default:* **false** |
@@ -194,7 +199,7 @@ configuration:
 | **--tls.delay_based.detector-range** {{DT_FLOAT}} | Sets default range for detecting delayed vehicles; *default:* **100** |
 | **--tls.yellow.min-decel** {{DT_FLOAT}} | Minimum deceleration when braking at yellow; *default:* **3** |
 | **--railsignal-moving-block** {{DT_BOOL}} | Let railsignals operate in moving-block mode by default; *default:* **false** |
-| **--time-to-impatience** {{DT_TIME}} | Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth; *default:* **300** |
+| **--time-to-impatience** {{DT_TIME}} | Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth; *default:* **180** |
 | **--default.action-step-length** {{DT_FLOAT}} | Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length.; *default:* **0** |
 | **--default.carfollowmodel** {{DT_STR}} | Select default car following model (Krauss, IDM, ...); *default:* **Krauss** |
 | **--default.speeddev** {{DT_FLOAT}} | Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class; *default:* **-1** |
@@ -225,6 +230,7 @@ configuration:
 | **--routing-algorithm** {{DT_STR}} | Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']; *default:* **dijkstra** |
 | **--weights.random-factor** {{DT_FLOAT}} | Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT); *default:* **1** |
 | **--weights.minor-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing minimum routing costs for minor-link internal lanes; *default:* **1.5** |
+| **--weights.tls-penalty** {{DT_FLOAT}} | Apply scaled travel time penalties based on green split when computing minimum routing costs for internal lanes at traffic lights; *default:* **0** |
 | **--weights.priority-factor** {{DT_FLOAT}} | Consider edge priorities in addition to travel times, weighted by factor; *default:* **0** |
 | **--weights.separate-turns** {{DT_FLOAT}} | Distinguish travel time by turn direction and shift a fraction of the estimated time loss ahead of the intersection onto the internal edges; *default:* **0** |
 | **--astar.all-distances** {{DT_FILE}} | Initialize lookup table for astar from the given file (generated by marouter --all-pairs-output) |
@@ -236,6 +242,7 @@ configuration:
 | **--persontrip.default.group** {{DT_STR}} | When set, trips between the same origin and destination will share a taxi by default |
 | **--persontrip.taxi.waiting-time** {{DT_TIME}} | Estimated time for taxi pickup; *default:* **300** |
 | **--railway.max-train-length** {{DT_FLOAT}} | Use FLOAT as a maximum train length when initializing the railway router; *default:* **1000** |
+| **--replay-rerouting** {{DT_BOOL}} | Replay exact rerouting sequence from vehroute-output; *default:* **false** |
 | **--device.rerouting.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'rerouting' device; *default:* **-1** |
 | **--device.rerouting.explicit** {{DT_STR[]}} | Assign a 'rerouting' device to named vehicles |
 | **--device.rerouting.deterministic** {{DT_BOOL}} | The 'rerouting' devices are set deterministic using a fraction of 1000; *default:* **false** |
