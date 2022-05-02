@@ -2472,7 +2472,7 @@ GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
     // declar extensions
     const std::string netExtension = ".net.xml";
     const std::string zipNetExtension = netExtension + ".gz";
-    const std::string wildcard = (netExtension + "\n" + zipNetExtension);
+    const std::string wildcard = (netExtension + "\n*" + zipNetExtension);
     // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
                     "Save Network as", wildcard.c_str(),
