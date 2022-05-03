@@ -19,7 +19,7 @@ title: ChangeLog
   - Scaling vehicles with vTypeDistribution now resamples the type for each added vehicle. Issue #10155    
   - Trips with fromJunction, toJunction can now be loaded from additional file. Issue #10306
   - Rerouting now takes empty lanes into account in mean speed calculation. Issue #10345
-  - Rerouting now ignores stopped vehicles in mean speed calculation if they can be overtaken. Issue. #10336
+  - Rerouting now ignores stopped vehicles in mean speed calculation if they can be overtaken. Issue #10336
   - Teleporting of blocked vehicles now works if they are blocked behind a stopping vehicles. Issue #1078  
   - Vehicles that do not park at a stopping place now ignore attribute `parkingLength`. Issue #10463
   - Fixed creeping collision with carFollowModel "W99". Issue #10472
@@ -36,6 +36,7 @@ title: ChangeLog
   - personFlow now re-samples walks from a routeDistribution. Issue #10632
   - Fixed invalid junction collision error. Issue #10637
   - Fixed bug where vehicles waiting within an intersection violate right-of-way after their green phase ends. Issue #8124
+  - Fixed exaggerated precision of non-geodetic fcd-output attributes when using option **--fcd-output.geo**. Issue #10465
   - opposite-direction driving
     - Can now overtake stopped vehicle when there is only a short gap afterwards. Issue #9994, #10338
     - Fixed failure to overtake fast vehicles. Issue #10194    
@@ -84,10 +85,25 @@ title: ChangeLog
   - param `show-detectors` now takes effect for NEMA controllers. Issue #10519
   - Fixed bug where color threshold names were not restored from settings file. Issue #10507
   - Setting 3D viewing angle in the viewport dialog is now working. Issue #5663
-  - Fixed incorrect interpretation of some projection parameters (Windowso only). Issue #10526
+  - Fixed incorrect interpretation of some projection parameters (Windows only). Issue #10526
   - 3D options are no longer shown in viewport editor for 2D view. Issue #10540
   - exaggerated person-as-circle no longer exceeds car size when zoomed out. Issue #10633  
   - Exaggerated trucks are now slightly larger than vehicles when zoomed out. Issue #10635
+  - Fixed partially invisible individuallly defined parking spaces. Issue #10568 (regression in 1.10.0)
+  - Fixed missing window focus at startup. Issue #10499
+  - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069
+  - GUI-defined traffic scaling is now preserved on reload. Issue #10096
+  - Fixed several problems when clicking on time links in the message area. Issue #10225
+  - Fixed memory leak when drawing polygons. Issue #10232
+  - Fixed unnecessary wide parameter dialog for lanes that prohibit all vClasses. Issue #10341
+  - Files saved via dialogs now ignore option **--output-prefix**. Issue #10347
+  - Fixed red/black GUI on MacOS. Issue #7830
+  - Fixed invalid exaggerated vehicle size when drawing vehicle as imgFile. Issue #10381
+  - Loading edge data for unknown edges is no longer an error. Issue #10379  
+  - Fixed inconsistent gui settings on reload (settings will be kept on reload unless the settings-file was modified). Issue #10398
+  - Cancelling a change in viewsettings now takes effect immediately. Issue #10495
+  - Fixed x-axis annotation of moused-over value in plot window.
+  - Fixed slow simulation when there are many vehicles at a parkingArea. Issue #10570
     
 - netconvert
   - Fixed crash when using option **--railway.topology.extend-priority**. Issue #10043
@@ -133,23 +149,6 @@ title: ChangeLog
   - Empty person plans now trigger a warning when saving. Issue #10566
   - Fixed bad visibility of dotted contour for very short edge. Issue #10555
   - Person drawing style takes now effect. Issue #10636
-
-- sumo-gui
-  - Fixed partially invisible individuallly defined parking spaces. Issue #10568 (regression in 1.10.0)
-  - Fixed missing window focus at startup. Issue #10499
-  - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069
-  - GUI-defined traffic scaling is now preserved on reload. Issue #10096
-  - Fixed several problems when clicking on time links in the message area. Issue #10225
-  - Fixed memory leak when drawing polygons. Issue #10232
-  - Fixed unnecessary wide parameter dialog for lanes that prohibit all vClasses. Issue #10341
-  - Files saved via dialogs now ignore option **--output-prefix**. Issue #10347
-  - Fixed red/black GUI on MacOS. Issue #7830
-  - Fixed invalid exaggerated vehicle size when drawing vehicle as imgFile. Issue #10381
-  - Loading edge data for unknown edges is no longer an error. Issue #10379  
-  - Fixed inconsistent gui settings on reload (settings will be kept on reload unless the settings-file was modified). Issue #10398
-  - Cancelling a change in viewsettings now takes effect immediately. Issue #10495
-  - Fixed x-axis annotation of moused-over value in plot window.
-  - Fixed slow simulation when there are many vehicles at a parkingArea. Issue #10570
 
 - duarouter
   - Route errors are now detected when using option **--skip-new-routes**. Issue #6113
@@ -219,8 +218,7 @@ title: ChangeLog
   - Option **--time-to-teleport.ride** causes persons and containers to "teleport" after waiting for too long for a ride. Issue #10281
   - Vehicles on long stops should no longer recompute their route. Issue #8851
   - Added warnings when a vehicle has stops with inconsistent timing information. Issue #10460
-  - Added option **--time-to-teleport.highways.min-speed** to configure the speed threshold for applying **--time-to-teleport.highways**. Issue #8268
-  - Fixed exaggerated precision of non-geodetic fcd-output attributes when using option **--fcd-output.geo**. Issue #10465
+  - Added option **--time-to-teleport.highways.min-speed** to configure the speed threshold for applying **--time-to-teleport.highways**. Issue #8268  
   - All carFollowModels now support attribute 'collisionMinGapFactor'. Issue #10466
   - Stop attribute 'endPos' can now be used to override automated stop position choice at busStop. Issue #10550
   - Flows now support attribute `begin="triggered"`. Issue #10560
@@ -292,7 +290,7 @@ title: ChangeLog
   - Actuated traffic lights can now retrieve switching condition states via `trafficlight.getParameter(tlsID, "condition.CONDITION_ID")` #10561
   - Added function 'vehicle.setAcceleration' Issue #10197
   - Function vehicle.replaceStop now supports the flag 'teleport=2' to trigger rerouting after stop removal. Issue #10131
-  - Function `vehicle.moveToXY` now "guesses" the next route edges to prevent artefacts when reaching the end of the current route. #4250
+  - Function `vehicle.moveToXY` now "guesses" the next route edges to prevent artefacts when reaching the end of the current route. Issue #4250
 
 - tools
   - routeStats.py: Can use measures "speed", "speedKmh", "routeLength", can switch to the fast XML parser and can also filter by route length . Issue #10044
