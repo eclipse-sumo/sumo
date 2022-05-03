@@ -111,6 +111,8 @@ jobs:
         $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
         ctest --build-config Release --verbose
+        $env:TEXTTEST_CI_APPS = "-a sumo.meso,netconvert.gdal,polyconvert.gdal"
+        ctest --build-config Release --verbose
 
     - name: Compressing test results
       if: always() && github.repository == 'DLR-TS/sumo'
