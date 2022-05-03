@@ -132,7 +132,7 @@ If everything is fine:
   - add files to the release
   - change default download attributes
   - update files at the [opensuse build
-    service](https://build.opensuse.org/package/show/home:behrisch/sumo)
+    service](https://build.opensuse.org/package/show/science:dlr/sumo)
 - update the ubuntu ppa (see
 <https://askubuntu.com/questions/642632/how-to-bump-the-version-of-a-package-available-in-another-users-ppa>)
   - this assumes you have the devscripts package as well as all sumo dependencies installed
