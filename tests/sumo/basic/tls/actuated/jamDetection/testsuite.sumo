@@ -1,0 +1,5 @@
+# no jam detection (causing suboptimal timing)
+default
+
+# detect blockage after 5s of jamming
+jamThresh_5
