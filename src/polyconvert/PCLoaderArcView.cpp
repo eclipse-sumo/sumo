@@ -141,13 +141,15 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
         destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
     }
 #endif
-    OGRCoordinateTransformation* poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
+    OGRCoordinateTransformation* poCT = origTransf == nullptr ? nullptr : OGRCreateCoordinateTransformation(origTransf, &destTransf);
     if (poCT == nullptr) {
         if (oc.getBool("shapefile.guess-projection")) {
             OGRSpatialReference origTransf2;
             origTransf2.SetWellKnownGeogCS("WGS84");
             poCT = OGRCreateCoordinateTransformation(&origTransf2, &destTransf);
         }
+    } else {
+        myWarnMissingProjection = false;
     }
 
     OGRFeature* poFeature;

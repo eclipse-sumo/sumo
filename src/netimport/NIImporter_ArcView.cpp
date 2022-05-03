@@ -146,7 +146,7 @@ NIImporter_ArcView::load() {
         destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
     }
 #endif
-    OGRCoordinateTransformation* poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
+    OGRCoordinateTransformation* poCT = origTransf == nullptr ? nullptr : OGRCreateCoordinateTransformation(origTransf, &destTransf);
     if (poCT == nullptr) {
         if (myOptions.getBool("shapefile.guess-projection")) {
             OGRSpatialReference origTransf2;
