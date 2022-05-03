@@ -244,6 +244,7 @@ title: ChangeLog
   - Improved positioning when drawing persons as circles. Issue #10608
 
 - netedit
+  - Added support for editing [overead-wire infrastructure](Models/ElectricHybrid.md). Issue #9480
   - Can now set stop attributes "tripID" and "line". Issue #6011
   - Hierarchy view now contains object ids. Issue #10076
   - Defining waypoints is now supported. Issue #10111
