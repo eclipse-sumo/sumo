@@ -61,6 +61,7 @@ MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
     myNeedLock(needLocking || MSGlobals::gNumSimThreads > 1),
     myLastLeaveTime(SIMTIME),
     myOverrideTime(-1),
+    myOverrideEntryTime(-1),
     myVehicleDataCont(),
     myVehiclesOnDet() {
     assert(myPosition >= 0 && myPosition <= myLane->getLength());
@@ -245,6 +246,25 @@ MSInductLoop::getTimeSinceLastDetection() const {
 }
 
 
+double
+MSInductLoop::getOccupancyTime() const {
+    if (myOverrideTime >= 0) {
+        return SIMTIME - myOverrideEntryTime;;
+    }
+    if (myVehiclesOnDet.size() == 0) {
+        // detector is unoccupied
+        return 0;
+    } else {
+        double minEntry = std::numeric_limits<double>::max();
+        for (const auto& i : myVehiclesOnDet) {
+            minEntry = MIN2(i.second, minEntry);
+        }
+        return SIMTIME - minEntry;
+    }
+}
+
+
+
 SUMOTime
 MSInductLoop::getLastDetectionTime() const {
     if (myOverrideTime >= 0) {
@@ -260,6 +280,17 @@ MSInductLoop::getLastDetectionTime() const {
 void
 MSInductLoop::overrideTimeSinceDetection(double time) {
     myOverrideTime = time;
+    if (time < 0) {
+        myOverrideEntryTime = -1;
+    } else {
+        const double entryTime = MAX2(0.0, SIMTIME - time);
+        if (myOverrideEntryTime >= 0) {
+            // maintain earlier entry time to achive continous detection
+            myOverrideEntryTime = MIN2(myOverrideEntryTime, entryTime);
+        } else {
+            myOverrideEntryTime = entryTime;
+        }
+    }
 }
 
 void

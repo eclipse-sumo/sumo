@@ -55,6 +55,7 @@ const std::vector<std::string> MSActuatedTrafficLightLogic::OPERATOR_PRECEDENCE(
 // parameter defaults definitions
 // ===========================================================================
 #define DEFAULT_MAX_GAP "3.0"
+#define DEFAULT_JAM_THRESHOLD "-1"
 #define DEFAULT_PASSING_TIME "1.9"
 #define DEFAULT_DETECTOR_GAP "2.0"
 #define DEFAULT_INACTIVE_THRESHOLD "180"
@@ -85,6 +86,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myTraCISwitch(false),
     myDetectorPrefix(id + "_" + programID + "_") {
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
+    myJamThreshold = StringUtils::toDouble(getParameter("jam-threshold", DEFAULT_JAM_THRESHOLD));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
     myInactiveThreshold = string2time(getParameter("inactive-threshold", DEFAULT_INACTIVE_THRESHOLD));
@@ -226,7 +228,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             laneInductLoopMap[lane] = loop;
             inductLoopLaneMap[loop] = lane;
             const double maxGap = getDouble("max-gap:" + lane->getID(), myMaxGap);
-            myInductLoops.push_back(InductLoopInfo(loop, (int)myPhases.size(), maxGap));
+            const double jamThreshold = getDouble("jam-threshold:" + lane->getID(), myJamThreshold);
+            myInductLoops.push_back(InductLoopInfo(loop, (int)myPhases.size(), maxGap, jamThreshold));
 
             if (warn && floor(floor(inductLoopPosition / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minDur)) {
                 // warn if the minGap is insufficient to clear vehicles between stop line and detector
@@ -793,7 +796,7 @@ MSActuatedTrafficLightLogic::gapControl() {
         MSInductLoop* loop = loopInfo->loop;
         loop->setSpecialColor(&RGBColor::GREEN);
         const double actualGap = loop->getTimeSinceLastDetection();
-        if (actualGap < loopInfo->maxGap) {
+        if (actualGap < loopInfo->maxGap && !loopInfo->isJammed() ) {
             result = MIN2(result, actualGap);
         }
     }
@@ -883,7 +886,8 @@ int
 MSActuatedTrafficLightLogic::getDetectorPriority(const InductLoopInfo& loopInfo) const {
     MSInductLoop* loop = loopInfo.loop;
     const double actualGap = loop->getTimeSinceLastDetection();
-    if (actualGap < loopInfo.maxGap || loopInfo.lastGreenTime < loop->getLastDetectionTime()) {
+    if ((actualGap < loopInfo.maxGap && !loopInfo.isJammed())
+            || loopInfo.lastGreenTime < loop->getLastDetectionTime()) {
         SUMOTime inactiveTime = MSNet::getInstance()->getCurrentTimeStep() - loopInfo.lastGreenTime;
         // @note. Inactive time could also be tracked regardless of current activity (to increase robustness in case of detection failure
         if (inactiveTime > myInactiveThreshold) {
@@ -1298,6 +1302,13 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
         // overwrite custom values
         for (InductLoopInfo& loopInfo : myInductLoops) {
             loopInfo.maxGap = myMaxGap;
+        }
+        Parameterised::setParameter(key, value);
+    } else if (key == "jam-threshold") {
+        myJamThreshold = StringUtils::toDouble(value);
+        // overwrite custom values
+        for (InductLoopInfo& loopInfo : myInductLoops) {
+            loopInfo.jamThreshold = myJamThreshold;
         }
         Parameterised::setParameter(key, value);
     } else if (key == "show-detectors") {

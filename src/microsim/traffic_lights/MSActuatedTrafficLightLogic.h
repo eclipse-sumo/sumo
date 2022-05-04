@@ -153,15 +153,24 @@ protected:
     void initSwitchingRules();
 
     struct InductLoopInfo {
-        InductLoopInfo(MSInductLoop* _loop, int numPhases, double _maxGap):
+        InductLoopInfo(MSInductLoop* _loop, int numPhases, double _maxGap, double _jamThreshold):
             loop(_loop),
             servedPhase(numPhases, false),
-            maxGap(_maxGap)
+            maxGap(_maxGap),
+            jamThreshold(_jamThreshold)
         {}
+
+
+        bool isJammed() const {
+            return jamThreshold > 0 && loop->getOccupancyTime() >= jamThreshold;
+        }
+
         MSInductLoop* loop;
         SUMOTime lastGreenTime = 0;
         std::vector<bool> servedPhase;
         double maxGap;
+        double jamThreshold;
+
     };
 
     /// @brief Definition of a map from phases to induct loops controlling them
@@ -255,6 +264,9 @@ protected:
 
     /// The maximum gap to check in seconds
     double myMaxGap;
+
+    /// The minimum continuous occupancy time to mark a detector as jammed
+    double myJamThreshold;
 
     /// The passing time used in seconds
     double myPassingTime;
