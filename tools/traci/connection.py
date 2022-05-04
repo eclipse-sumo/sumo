@@ -52,9 +52,9 @@ class Connection(StepManager):
         self._socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
         try:
             self._socket.connect((host, port))
-        except socket.error as e:
+        except socket.error:
             self._socket.close()
-            raise e
+            raise
         self._process = process
         self._string = bytes()
         self._queue = []
