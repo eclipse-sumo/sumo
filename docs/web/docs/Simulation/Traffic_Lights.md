@@ -448,7 +448,7 @@ The following elements are permitted in an expression for attributes
 'earlyTarget' and 'finalTarget':
 
 - numbers
-- comparators <,>,=,<=,>=
+- comparators >,=,>=
 - mathematical operators +,-,*,/,**,%
 - logical operators 'or', 'and', '!'
 - parentheses (,)
@@ -465,6 +465,9 @@ The following constraints apply to expressions:
 
 - all elements of an expression must be separated by a space character (' ')
   with the exception of the operator '!' (logical negation) which must precede it's operand without a space.
+  
+!!! note
+    The comparators '<' and '<=' are also supported but must be written as xml-entities `&lt;` and `&lt;=` respectively.
 
 ### Named Expressions
 
