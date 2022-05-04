@@ -657,7 +657,7 @@ To use custom detectors (i.e. for custom placement or output) additional paramet
    <param key="gneE42_2" value="customDetector1"/>
 ```
 !!! caution
-Custom detectors only work when the 'tlLogic' is loaded from an additional file.
+    Custom detectors only work when the 'tlLogic' is loaded from an additional file.
 
 ## Type 'NEMA'
 
@@ -672,7 +672,7 @@ To use custom detectors (i.e. for custom placement or output) additional paramet
    <param key="gneE42_2" value="customDetector1"/>
 ```
 !!! caution
-Custom detectors only work when the 'tlLogic' is loaded from an additional file.
+    Custom detectors only work when the 'tlLogic' is loaded from an additional file.
 
 Detector activation states (for default and custom detectors) can optionally be written to the [TLS output](Output/Traffic_Lights.md#optional_output).
 
