@@ -42,8 +42,8 @@ FXIMPLEMENT(GNEInternalLane, FXDelegator, 0, 0)
 StringBijection<FXuint>::Entry GNEInternalLane::linkStateNamesValues[] = {
     { "Green-Major",    LINKSTATE_TL_GREEN_MAJOR },
     { "Green-Minor",    LINKSTATE_TL_GREEN_MINOR },
-    { "Yellow-Major",   LINKSTATE_TL_YELLOW_MAJOR },
-    { "Yellow-Minor",   LINKSTATE_TL_YELLOW_MINOR },
+    //{ "Yellow-Major",   LINKSTATE_TL_YELLOW_MAJOR }, (should not be used)
+    { "Yellow",   LINKSTATE_TL_YELLOW_MINOR },
     { "Red",            LINKSTATE_TL_RED },
     { "Red-Yellow",     LINKSTATE_TL_REDYELLOW },
     { "Stop",           LINKSTATE_STOP },
@@ -221,16 +221,11 @@ GNEInternalLane::updateCenteringBoundary(const bool /*updateGrid*/) {
 
 RGBColor
 GNEInternalLane::colorForLinksState(FXuint state) {
-    if (state == LINKSTATE_TL_YELLOW_MINOR) {
-        // special case (default gui does not distinguish between yellow major/minor
-        return RGBColor(179, 179, 0, 255);
-    } else {
-        try {
-            return GUIVisualizationSettings::getLinkColor((LinkState)state);
-        } catch (ProcessError&) {
-            WRITE_WARNING("invalid link state='" + toString(state) + "'");
-            return RGBColor::BLACK;
-        }
+    try {
+        return GUIVisualizationSettings::getLinkColor((LinkState)state);
+    } catch (ProcessError&) {
+        WRITE_WARNING("invalid link state='" + toString(state) + "'");
+        return RGBColor::BLACK;
     }
 }
 
