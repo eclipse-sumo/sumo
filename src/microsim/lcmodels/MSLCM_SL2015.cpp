@@ -1019,6 +1019,20 @@ MSLCM_SL2015::changed() {
 }
 
 
+void
+MSLCM_SL2015::resetState() {
+    myOwnState = 0;
+    mySpeedGainProbabilityRight = 0;
+    mySpeedGainProbabilityLeft = 0;
+    myKeepRightProbability = 0;
+    myLeadingBlockerLength = 0;
+    myLeftSpace = 0;
+    myLookAheadSpeed = LOOK_AHEAD_MIN_SPEED;
+    myLCAccelerationAdvices.clear();
+    myDontBrake = false;
+}
+
+
 int
 MSLCM_SL2015::_wantsChangeSublane(
     int laneOffset,

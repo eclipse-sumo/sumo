@@ -5115,6 +5115,7 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
     } else {
         myLastBestLanesEdge = nullptr;
         myLastBestLanesInternalLane = nullptr;
+        myLaneChangeModel->resetState();
     }
     computeFurtherLanes(enteredLane, pos);
     if (MSGlobals::gLateralResolution > 0) {
