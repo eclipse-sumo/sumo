@@ -161,6 +161,17 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
         glColor3d(1, 1, 1);
     } else {
         GLHelper::setColor(*mySpecialColor);
+        if (width * exaggeration > 1 && *mySpecialColor == RGBColor::ORANGE) {
+            // jammed actuated-tls detector, draw crossed-out:
+            glBegin(GL_LINES);
+            glVertex2d(-1.0, 2);
+            glVertex2d(1.0, -2);
+            glEnd();
+            glBegin(GL_LINES);
+            glVertex2d(-1.0, -2);
+            glVertex2d(1.0, 2);
+            glEnd();
+        }
     }
 
     // outline

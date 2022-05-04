@@ -3,5 +3,6 @@
 
     <tlLogic id="C" type="actuated" programID="0" offset="0">
         <param key="jam-threshold:SC_0" value="5"/>
+        <param key="show-detectors" value="true"/>
     </tlLogic>
 </additional>

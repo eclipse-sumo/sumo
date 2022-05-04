@@ -720,7 +720,11 @@ MSActuatedTrafficLightLogic::trySwitch() {
     if ((myShowDetectors || multiTarget) && getCurrentPhaseDef().isGreenPhase()) {
         for (InductLoopInfo* loopInfo : myInductLoopsForPhase[myStep]) {
             //std::cout << SIMTIME << " p=" << myStep << " loopinfo=" << loopInfo->loop->getID() << " set lastGreen=" << STEPS2TIME(now) << "\n";
-            loopInfo->loop->setSpecialColor(&RGBColor::GREEN);
+            if (loopInfo->isJammed()) {
+                loopInfo->loop->setSpecialColor(&RGBColor::ORANGE);
+            } else {
+                loopInfo->loop->setSpecialColor(&RGBColor::GREEN);
+            }
             loopInfo->lastGreenTime = now;
         }
     }
@@ -794,7 +798,11 @@ MSActuatedTrafficLightLogic::gapControl() {
     // now the gapcontrol starts
     for (InductLoopInfo* loopInfo : myInductLoopsForPhase[myStep]) {
         MSInductLoop* loop = loopInfo->loop;
-        loop->setSpecialColor(&RGBColor::GREEN);
+        if (loopInfo->isJammed()) {
+            loopInfo->loop->setSpecialColor(&RGBColor::ORANGE);
+        } else {
+            loopInfo->loop->setSpecialColor(&RGBColor::GREEN);
+        }
         const double actualGap = loop->getTimeSinceLastDetection();
         if (actualGap < loopInfo->maxGap && !loopInfo->isJammed() ) {
             result = MIN2(result, actualGap);
@@ -1309,6 +1317,7 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
         for (InductLoopInfo& loopInfo : myInductLoops) {
             if (loopInfo.lane->getID() == laneID) {
                 loopInfo.maxGap = StringUtils::toDouble(value);
+                Parameterised::setParameter(key, value);
                 return;
             }
         }
@@ -1325,6 +1334,7 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
         for (InductLoopInfo& loopInfo : myInductLoops) {
             if (loopInfo.lane->getID() == laneID) {
                 loopInfo.jamThreshold = StringUtils::toDouble(value);
+                Parameterised::setParameter(key, value);
                 return;
             }
         }
@@ -1332,6 +1342,9 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
     } else if (key == "show-detectors") {
         myShowDetectors = StringUtils::toBool(value);
         Parameterised::setParameter(key, value);
+        for (InductLoopInfo& loopInfo : myInductLoops) {
+            loopInfo.loop->setVisible(myShowDetectors);
+        }
     } else if (key == "inactive-threshold") {
         myInactiveThreshold = string2time(value);
         Parameterised::setParameter(key, value);
