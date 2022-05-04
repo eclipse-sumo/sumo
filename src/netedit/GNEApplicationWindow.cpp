@@ -3385,6 +3385,10 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         // close additional dialog
         WRITE_DEBUG("Close additional dialog");
+        // save previous status save
+        const bool requiereSaveAdditionals = !myNet->isAdditionalsSaved();
+        const bool requiereSaveDemandElements = !myNet->isDemandElementsSaved();
+        const bool requiereSaveDataElements = !myNet->isDataElementsSaved();
         // udpate current folder
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
@@ -3403,6 +3407,10 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         update();
         // restore validation for additionals
         XMLSubSys::setValidation("auto", "auto", "auto");
+        // update require save additional elements
+        myNet->requireSaveAdditionals(requiereSaveAdditionals);
+        myNet->requireSaveDemandElements(requiereSaveDemandElements);
+        myNet->requireSaveDataElements(requiereSaveDataElements);
     } else {
         // write debug information
         WRITE_DEBUG("Cancel additional dialog");
@@ -3555,6 +3563,10 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         // close additional dialog
         WRITE_DEBUG("Close demand element dialog");
+        // save previous status save
+        const bool requiereSaveAdditionals = !myNet->isAdditionalsSaved();
+        const bool requiereSaveDemandElements = !myNet->isDemandElementsSaved();
+        const bool requiereSaveDataElements = !myNet->isDataElementsSaved();
         // udpate current folder
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
@@ -3573,6 +3585,10 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         update();
         // restore validation for demand
         XMLSubSys::setValidation("auto", "auto", "auto");
+        // update require save additional elements
+        myNet->requireSaveAdditionals(requiereSaveAdditionals);
+        myNet->requireSaveDemandElements(requiereSaveDemandElements);
+        myNet->requireSaveDataElements(requiereSaveDataElements);
     } else {
         // write debug information
         WRITE_DEBUG("Cancel demand element dialog");
@@ -3723,6 +3739,10 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         // close additional dialog
         WRITE_DEBUG("Close data element dialog");
+        // save previous status save
+        const bool requiereSaveAdditionals = !myNet->isAdditionalsSaved();
+        const bool requiereSaveDemandElements = !myNet->isDemandElementsSaved();
+        const bool requiereSaveDataElements = !myNet->isDataElementsSaved();
         // udpate current folder
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
@@ -3738,14 +3758,18 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         if (!dataHandler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
-        // restore validation for data
-        XMLSubSys::setValidation("auto", "auto", "auto");
         // end undoList operation and update view
         myUndoList->end();
         // enable update data
         myViewNet->getNet()->enableUpdateData();
         // update
         update();
+        // restore validation for data
+        XMLSubSys::setValidation("auto", "auto", "auto");
+        // update require save additional elements
+        myNet->requireSaveAdditionals(requiereSaveAdditionals);
+        myNet->requireSaveDemandElements(requiereSaveDemandElements);
+        myNet->requireSaveDataElements(requiereSaveDataElements);
     } else {
         // write debug information
         WRITE_DEBUG("Cancel data element dialog");
