@@ -56,6 +56,7 @@ const std::vector<std::string> MSActuatedTrafficLightLogic::OPERATOR_PRECEDENCE(
 // ===========================================================================
 #define DEFAULT_MAX_GAP "3.0"
 #define DEFAULT_JAM_THRESHOLD "-1"
+#define DEFAULT_DET_LENGTH "0"
 #define DEFAULT_PASSING_TIME "1.9"
 #define DEFAULT_DETECTOR_GAP "2.0"
 #define DEFAULT_INACTIVE_THRESHOLD "180"
@@ -166,6 +167,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     std::map<MSInductLoop*, const MSLane*> inductLoopLaneMap; // in case loops are placed further upstream
     int detEdgeIndex = -1;
     int detLaneIndex = 0;
+    const double detDefaultLength = StringUtils::toDouble(getParameter("detector-length", DEFAULT_DET_LENGTH));
     MSEdge* prevDetEdge = nullptr;
     for (LaneVector& lanes : myLanes) {
         for (MSLane* lane : lanes) {
@@ -211,8 +213,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                     ilpos = 0;
                 }
                 // Build the induct loop and set it into the container
+                const double detLength = getDouble("detector-length:" + lane->getID(), detDefaultLength);
                 std::string id = myDetectorPrefix + "D" + toString(detEdgeIndex) + "." + toString(detLaneIndex);
-                loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, myVehicleTypes, (int)PersonMode::NONE, myShowDetectors));
+                loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, detLength, myVehicleTypes, (int)PersonMode::NONE, myShowDetectors));
                 MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, myFile, myFreq);
             } else if (customID == NO_DETECTOR) {
                 continue;

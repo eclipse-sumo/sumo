@@ -74,6 +74,7 @@ public:
      */
     MSInductLoop(const std::string& id, MSLane* const lane,
                  double positionInMeters,
+                 double length,
                  const std::string& vTypes,
                  int detectPersons,
                  const bool needLocking);
@@ -93,6 +94,13 @@ public:
      */
     double getPosition() const {
         return myPosition;
+    }
+
+    /** @brief Returns the end position of the detector on the lane
+     * @return The detector's end position in meters
+     */
+    double getEndPosition() const {
+        return myEndPosition;
     }
 
 
@@ -333,6 +341,9 @@ protected:
 protected:
     /// @brief Detector's position on lane [m]
     const double myPosition;
+
+    /// @brief Detector's end position (defaults to myPosition)
+    const double myEndPosition;
 
     /// @brief whether internals need to be guarded against concurrent access (GUI or multi threading)
     const bool myNeedLock;

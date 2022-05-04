@@ -42,9 +42,9 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
-                             double position, const std::string& vTypes,
+                             double position, double length, const std::string& vTypes,
                              int detectPersons, bool show) :
-    MSInductLoop(id, lane, position, vTypes, detectPersons, true),
+    MSInductLoop(id, lane, position, length, vTypes, detectPersons, true),
     myWrapper(nullptr),
     myShow(show) {
 }
@@ -107,6 +107,9 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     // add items
     // parameter
     ret->mkItem("position [m]", false, myPosition);
+    if (myDetector.getEndPosition() != myPosition) {
+        ret->mkItem("end position [m]", false, myDetector.getEndPosition());
+    }
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values
     ret->mkItem("entered vehicles [#]", true,
@@ -150,10 +153,6 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glVertex2d(1.0, 2);
     glEnd();
     glTranslated(0, 0, .01);
-    glBegin(GL_LINES);
-    glVertex2d(0, 2 - .1);
-    glVertex2d(0, -2 + .1);
-    glEnd();
 
     if (haveOverride()) {
         glColor3d(1, 0, 1);
