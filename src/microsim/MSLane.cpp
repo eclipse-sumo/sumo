@@ -2498,7 +2498,7 @@ MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<M
         if (seen > dist) {
             return std::pair<MSVehicle* const, double>(static_cast<MSVehicle*>(nullptr), -1);
         }
-        return getLeaderOnConsecutive(dist, seen, speed, *veh, bestLaneConts);
+        return getLeaderOnConsecutive(dist, seen, speed, *veh, bestLaneConts, false);
     } else {
         return std::make_pair(static_cast<MSVehicle*>(nullptr), -1);
     }
@@ -2507,7 +2507,7 @@ MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<M
 
 std::pair<MSVehicle* const, double>
 MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSVehicle& veh,
-                               const std::vector<MSLane*>& bestLaneConts) const {
+                               const std::vector<MSLane*>& bestLaneConts, bool abortClosed) const {
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(&veh)) {
         std::cout << "   getLeaderOnConsecutive lane=" << getID() << " ego=" << veh.getID() << " seen=" << seen << " dist=" << dist << " conts=" << toString(bestLaneConts) << "\n";
@@ -2542,7 +2542,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
         nextLane->getVehiclesSecure(); // lock against running sim when called from GUI for time gap coloring
         // get the next link used
         std::vector<MSLink*>::const_iterator link = succLinkSec(veh, view, *nextLane, bestLaneConts);
-        if (nextLane->isLinkEnd(link)) {
+        if (nextLane->isLinkEnd(link) || (abortClosed && (*link)->haveRed())) {
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(&veh)) {
                 std::cout << "    cannot continue after nextLane=" << nextLane->getID() << "\n";
