@@ -666,12 +666,12 @@ Vehicle::getNeighbors(const std::string& vehID, const int mode) {
             double pos = targetLane->getOppositePos(veh->getPositionOnLane());
             neighbors = targetLane->getFollowersOnConsecutive(veh, pos, true);
         } else {
-            targetLane->addLeaders(veh, veh->getPositionOnLane(), neighbors);
+            targetLane->addLeaders(veh, veh->getPositionOnLane(), false, neighbors);
         }
     } else {
         if (opposite) {
             double pos = targetLane->getOppositePos(veh->getPositionOnLane());
-            targetLane->addLeaders(veh, pos, neighbors);
+            targetLane->addLeaders(veh, pos, false, neighbors);
             neighbors.fixOppositeGaps(true);
         } else {
             neighbors = targetLane->getFollowersOnConsecutive(veh, veh->getBackPositionOnLane(), true);

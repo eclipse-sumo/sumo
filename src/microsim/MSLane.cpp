@@ -2542,7 +2542,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
         nextLane->getVehiclesSecure(); // lock against running sim when called from GUI for time gap coloring
         // get the next link used
         std::vector<MSLink*>::const_iterator link = succLinkSec(veh, view, *nextLane, bestLaneConts);
-        if (nextLane->isLinkEnd(link) || (abortClosed && (*link)->haveRed())) {
+        if (nextLane->isLinkEnd(link) || (abortClosed && (*link)->haveRed() && !veh.ignoreRed(*link, true))) {
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(&veh)) {
                 std::cout << "    cannot continue after nextLane=" << nextLane->getID() << "\n";
@@ -3567,7 +3567,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
 
 void
 MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MSVehicle* ego,
-                                const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result,
+                                const std::vector<MSLane*>& bestLaneConts, bool abortClosed, MSLeaderDistanceInfo& result,
                                 bool oppositeDirection) const {
     if (seen > dist) {
         return;
@@ -3600,7 +3600,7 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
             nextLane = bestLaneConts[view];
         } else {
             std::vector<MSLink*>::const_iterator link = succLinkSec(*ego, view, *nextLane, bestLaneConts);
-            if (nextLane->isLinkEnd(link)) {
+            if (nextLane->isLinkEnd(link) || (abortClosed && (*link)->haveRed() && !ego->ignoreRed(*link, true))) {
                 break;
             }
             // check for link leaders
@@ -3673,7 +3673,7 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
 
 
 void
-MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result, bool opposite) {
+MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, bool abortClosed, MSLeaderDistanceInfo& result, bool opposite) {
     // if there are vehicles on the target lane with the same position as ego,
     // they may not have been added to 'ahead' yet
 #ifdef DEBUG_SURROUNDING
@@ -3720,10 +3720,10 @@ MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo
                 std::cout << " upstreamOpposite=" << toString(bestLaneConts);
             }
 #endif
-            getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, result, opposite);
+            getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, abortClosed, result, opposite);
         } else {
             const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation(this);
-            getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, result);
+            getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, abortClosed, result);
         }
 #ifdef DEBUG_SURROUNDING
         if (DEBUG_COND || DEBUG_COND2(vehicle)) {
