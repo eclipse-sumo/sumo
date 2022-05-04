@@ -65,10 +65,16 @@ public:
     /// @brief pop Name
     static void popName();
 
-    /// @brief check counter matrix
+    /// @brief get matrix counter
+    static int getMatrixCounter();
+
+    /// @brief reset matrix counter
+    static void resetMatrixCounter();
+
+    /// @brief check counter matrix (for debug purposes)
     static void checkCounterMatrix();
 
-    /// @brief check counter name
+    /// @brief check counter name (for debug purposes)
     static void checkCounterName();
 
     /** @brief Draws a filled polygon described by the list of points
@@ -383,6 +389,9 @@ private:
 
     /// @brief matrix counter
     static int myMatrixCounter;
+
+    /// @brief matrix counter (for debug purposes)
+    static int myMatrixCounterDebug;
 
     /// @brief name counter
     static int myNameCounter;

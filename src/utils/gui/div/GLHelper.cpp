@@ -57,6 +57,7 @@
 // static member definitions
 // ===========================================================================
 
+int GLHelper::myMatrixCounterDebug = 0;
 int GLHelper::myMatrixCounter = 0;
 int GLHelper::myNameCounter = 0;
 std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
@@ -113,8 +114,10 @@ GLHelper::angleLookup(double angleDeg) {
 void
 GLHelper::pushMatrix() {
     glPushMatrix();
-#ifdef CHECK_PUSHPOP
+    // update matrix counter
     myMatrixCounter++;
+#ifdef CHECK_PUSHPOP
+    myMatrixCounterDebug++;
 #endif
 }
 
@@ -123,7 +126,7 @@ void
 GLHelper::popMatrix() {
     glPopMatrix();
 #ifdef CHECK_PUSHPOP
-    myMatrixCounter--;
+    myMatrixCounterDebug--;
 #endif
 }
 
@@ -146,13 +149,25 @@ GLHelper::popName() {
 }
 
 
+int
+GLHelper::getMatrixCounter() {
+    return myMatrixCounter;
+}
+
+
+void
+GLHelper::resetMatrixCounter() {
+    myMatrixCounter = 0;
+}
+
+
 void
 GLHelper::checkCounterMatrix() {
 #ifdef CHECK_PUSHPOP
-    if (myMatrixCounter != 0) {
+    if (myMatrixCounterDebug != 0) {
         WRITE_WARNING("invalid matrix counter. Check that number of pushMatrix and popMatrix functions calls are the same");
     }
-    myMatrixCounter = 0;
+    myMatrixCounterDebug = 0;
 #endif
 }
 

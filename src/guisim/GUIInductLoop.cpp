@@ -101,7 +101,7 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
             const Position& f = myFGShape[i];
             const Position& s = myFGShape[i + 1];
             myFGShapeLengths.push_back(f.distanceTo(s));
-            myFGShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI);
+            myFGShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
         }
         myOutline.push_back(lane.geometryPositionAtOffset(pos, -1));
         myOutline.push_back(lane.geometryPositionAtOffset(pos, 1));
