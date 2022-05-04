@@ -3,8 +3,7 @@ Parsing nodes from 'input_plain.nod.xml' ... done.
 Parsing edges from 'input_plain.edg.xml' ... 
 Duplicate edge id occurred ('-239924883'); assuming overwriting is wished.
 done.
-Parsing connections from 'input_plain.con.xml' ... 
-done.
+Parsing connections from 'input_plain.con.xml' ... done.
  Import done:
    5 nodes loaded.
    33 types loaded.
@@ -43,5 +42,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : 1723.51,772.39,1953.74,1059.88
 -----------------------------------------------------
-Writing network ... done (3ms).
+Writing network ... done (2ms).
 Success.
