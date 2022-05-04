@@ -119,6 +119,8 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
                 new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getVehicleLength, 0));
     ret->mkItem("empty time [s]", true,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getTimeSinceLastDetection));
+    ret->mkItem("occupied time [s]", true,
+                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getOccupancyTime));
     // close building
     ret->closeBuilding(&myDetector);
     return ret;
