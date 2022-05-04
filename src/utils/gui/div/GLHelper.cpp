@@ -57,8 +57,9 @@
 // static member definitions
 // ===========================================================================
 
-int GLHelper::myMatrixCounterDebug = 0;
 int GLHelper::myMatrixCounter = 0;
+int GLHelper::myVertexCounter = 0;
+int GLHelper::myMatrixCounterDebug = 0;
 int GLHelper::myNameCounter = 0;
 std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
 std::vector<RGBColor> GLHelper::myDottedcontourColors;
@@ -161,6 +162,18 @@ GLHelper::resetMatrixCounter() {
 }
 
 
+int
+GLHelper::getVertexCounter() {
+    return myVertexCounter;
+}
+
+
+void
+GLHelper::resetVertexCounter() {
+    myVertexCounter = 0;
+}
+
+
 void
 GLHelper::checkCounterMatrix() {
 #ifdef CHECK_PUSHPOP
@@ -193,10 +206,12 @@ GLHelper::drawFilledPoly(const PositionVector& v, bool close) {
     for (PositionVector::const_iterator i = v.begin(); i != v.end(); i++) {
         const Position& p = *i;
         glVertex2d(p.x(), p.y());
+        myVertexCounter++;
     }
     if (close) {
         const Position& p = *(v.begin());
         glVertex2d(p.x(), p.y());
+        myVertexCounter++;
     }
     glEnd();
 }
@@ -257,6 +272,7 @@ GLHelper::drawBoxLine(const Position& beg, double rot, double visLength,
     glVertex2d(width - offset, 0);
     glEnd();
     GLHelper::popMatrix();
+    myVertexCounter += 4;
 }
 
 
@@ -274,6 +290,7 @@ GLHelper::drawBoxLine(const Position& beg1, const Position& beg2,
     glVertex2d(width, 0);
     glEnd();
     GLHelper::popMatrix();
+    myVertexCounter += 4;
 }
 
 
@@ -392,6 +409,7 @@ GLHelper::drawLine(const Position& beg, double rot, double visLength) {
     glVertex2d(0, -visLength);
     glEnd();
     GLHelper::popMatrix();
+    myVertexCounter += 2;
 }
 
 
@@ -406,6 +424,7 @@ GLHelper::drawLine(const Position& beg1, const Position& beg2,
     glVertex2d(0, -visLength);
     glEnd();
     GLHelper::popMatrix();
+    myVertexCounter += 2;
 }
 
 
@@ -417,6 +436,7 @@ GLHelper::drawLine(const PositionVector& v) {
     for (int i = 0; i < e; ++i) {
         glVertex2d(v[i].x(), v[i].y());
         glVertex2d(v[i + 1].x(), v[i + 1].y());
+        myVertexCounter += 2;
     }
     glEnd();
 }
@@ -430,6 +450,7 @@ GLHelper::drawLine(const PositionVector& v, const std::vector<RGBColor>& cols) {
         setColor(cols[i]);
         glVertex2d(v[i].x(), v[i].y());
         glVertex2d(v[i + 1].x(), v[i + 1].y());
+        myVertexCounter += 2;
     }
     glEnd();
 }
@@ -441,6 +462,7 @@ GLHelper::drawLine(const Position& beg, const Position& end) {
     glVertex2d(beg.x(), beg.y());
     glVertex2d(end.x(), end.y());
     glEnd();
+    myVertexCounter += 2;
 }
 
 
@@ -464,6 +486,7 @@ GLHelper::drawFilledCircle(double width, int steps, double beg, double end) {
         glVertex2d(0, 0);
         glEnd();
         p1 = p2;
+        myVertexCounter += 2;
     }
 }
 
@@ -494,6 +517,8 @@ GLHelper::drawOutlineCircle(double width, double iwidth, int steps,
 
         glEnd();
         p1 = p2;
+
+        myVertexCounter += 6;
     }
 }
 
@@ -517,6 +542,7 @@ GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2, double tLeng
     glVertex2d(+tWidth, 0);
     glEnd();
     GLHelper::popMatrix();
+    myVertexCounter += 3;
 }
 
 
@@ -745,6 +771,7 @@ GLHelper::drawCrossTies(const PositionVector& geom,
                 glVertex2d(halfWidth, -t - length);
                 glVertex2d(halfWidth, -t);
                 glEnd();
+                myVertexCounter += 4;
             }
         } else {
             // only draw a single rectangle if it's being drawn only for selecting
@@ -754,6 +781,7 @@ GLHelper::drawCrossTies(const PositionVector& geom,
             glVertex2d(halfWidth, -lengths.back());
             glVertex2d(halfWidth, 0);
             glEnd();
+            myVertexCounter += 4;
         }
         // pop three draw matrix
         GLHelper::popMatrix();
@@ -788,6 +816,7 @@ GLHelper::drawInverseMarkings(const PositionVector& geom,
                 glVertex2d(-mw2, -t - length);
                 glVertex2d(-mw2, -t);
                 glEnd();
+                myVertexCounter += 4;
                 if (!cl || !cr) {
                     // draw inverse marking between asymmetrical lane markings
                     const double length2 = MIN2((double)6, lengths[i] - t);
@@ -797,6 +826,7 @@ GLHelper::drawInverseMarkings(const PositionVector& geom,
                     glVertex2d(-halfWidth - 0.02, -t - length);
                     glVertex2d(-halfWidth - 0.02, -t - length2);
                     glEnd();
+                    myVertexCounter += 4;
                 }
             }
             GLHelper::popMatrix();

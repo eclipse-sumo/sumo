@@ -277,8 +277,9 @@ GUISUMOAbstractView::is3DView() const {
 
 void
 GUISUMOAbstractView::paintGL() {
-    // reset matrix counter
+    // reset debug counters
     GLHelper::resetMatrixCounter();
+    GLHelper::resetVertexCounter();
     if (getWidth() == 0 || getHeight() == 0) {
         return;
     }
@@ -802,6 +803,8 @@ GUISUMOAbstractView::drawFPS() {
     const double fontWidth = 0.2 * 300. / getWidth();
     GLHelper::drawText(toString((int)getFPS()) + " FPS", Position(0.82, 0.88), -1, fontHeight, RGBColor::RED, 0, FONS_ALIGN_LEFT, fontWidth);
     GLHelper::drawText(toString(GLHelper::getMatrixCounter()) + " matrix", Position(0.82, 0.79), -1, fontHeight, RGBColor::RED, 0, FONS_ALIGN_LEFT, fontWidth);
+    GLHelper::drawText(toString(GLHelper::getVertexCounter()) + " vertex", Position(0.82, 0.71), -1, fontHeight, RGBColor::RED, 0, FONS_ALIGN_LEFT, fontWidth);
+
     // restore matrices
     glMatrixMode(GL_PROJECTION);
     GLHelper::popMatrix();
