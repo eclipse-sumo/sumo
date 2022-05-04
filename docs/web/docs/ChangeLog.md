@@ -4,6 +4,12 @@ title: ChangeLog
 
 ## Git Main
 
+### Bugfixes
+
+### Enhancements
+
+### Mscellaneous
+
 ## Version 1.13.0 (03.05.2022)
 
 ### Bugfixes
@@ -39,6 +45,7 @@ title: ChangeLog
   - Fixed invalid junction collision error. Issue #10637
   - Fixed bug where vehicles waiting within an intersection violate right-of-way after their green phase ends. Issue #8124
   - Fixed exaggerated precision of non-geodetic fcd-output attributes when using option **--fcd-output.geo**. Issue #10465
+  - Fixed vehicle being discard with `departPos="random_free"` due to invalid memory-reuse. Issue #10647
   - opposite-direction driving
     - Can now overtake stopped vehicle when there is only a short gap afterwards. Issue #9994, #10338
     - Fixed failure to overtake fast vehicles. Issue #10194    
@@ -151,6 +158,7 @@ title: ChangeLog
   - Empty person plans now trigger a warning when saving. Issue #10566
   - Fixed bad visibility of dotted contour for very short edge. Issue #10555
   - Person drawing style takes now effect. Issue #10636
+  - TLS index is no longer shown for non tls junctions. Issue #10649
 
 - duarouter
   - Route errors are now detected when using option **--skip-new-routes**. Issue #6113
@@ -262,6 +270,7 @@ title: ChangeLog
   - Hotkey **Ctrl+j** now toggles drawing of junction shapes. Issue #10362
   - Added 'smooth shape' to the connections context menu. Issue #10352
   - Deleting lanes in now works in create-edge mode. Issue #10409
+  - Saving (compressed) networks with '.net.xml.gz' extension is now possible. Issue #10624
 
 - netconvert
   - Improved speed of OSM import. Issue #8147
