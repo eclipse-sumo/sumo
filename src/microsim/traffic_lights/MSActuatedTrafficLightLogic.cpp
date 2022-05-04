@@ -229,7 +229,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             inductLoopLaneMap[loop] = lane;
             const double maxGap = getDouble("max-gap:" + lane->getID(), myMaxGap);
             const double jamThreshold = getDouble("jam-threshold:" + lane->getID(), myJamThreshold);
-            myInductLoops.push_back(InductLoopInfo(loop, (int)myPhases.size(), maxGap, jamThreshold));
+            myInductLoops.push_back(InductLoopInfo(loop, lane, (int)myPhases.size(), maxGap, jamThreshold));
 
             if (warn && floor(floor(inductLoopPosition / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minDur)) {
                 // warn if the minGap is insufficient to clear vehicles between stop line and detector
@@ -1304,6 +1304,15 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
             loopInfo.maxGap = myMaxGap;
         }
         Parameterised::setParameter(key, value);
+    } else if (StringUtils::startsWith(key, "max-gap:")) {
+        const std::string laneID = key.substr(8);
+        for (InductLoopInfo& loopInfo : myInductLoops) {
+            if (loopInfo.lane->getID() == laneID) {
+                loopInfo.maxGap = StringUtils::toDouble(value);
+                return;
+            }
+        }
+        throw InvalidArgument("Invalid lane '" + laneID + "' in key '" + key + "' for actuated traffic light '" + getID() + "'");
     } else if (key == "jam-threshold") {
         myJamThreshold = StringUtils::toDouble(value);
         // overwrite custom values
@@ -1311,6 +1320,15 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
             loopInfo.jamThreshold = myJamThreshold;
         }
         Parameterised::setParameter(key, value);
+    } else if (StringUtils::startsWith(key, "jam-threshold:")) {
+        const std::string laneID = key.substr(14);
+        for (InductLoopInfo& loopInfo : myInductLoops) {
+            if (loopInfo.lane->getID() == laneID) {
+                loopInfo.jamThreshold = StringUtils::toDouble(value);
+                return;
+            }
+        }
+        throw InvalidArgument("Invalid lane '" + laneID + "' in key '" + key + "' for actuated traffic light '" + getID() + "'");
     } else if (key == "show-detectors") {
         myShowDetectors = StringUtils::toBool(value);
         Parameterised::setParameter(key, value);

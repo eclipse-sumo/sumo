@@ -153,8 +153,9 @@ protected:
     void initSwitchingRules();
 
     struct InductLoopInfo {
-        InductLoopInfo(MSInductLoop* _loop, int numPhases, double _maxGap, double _jamThreshold):
+        InductLoopInfo(MSInductLoop* _loop, const MSLane* _lane, int numPhases, double _maxGap, double _jamThreshold):
             loop(_loop),
+            lane(_lane),
             servedPhase(numPhases, false),
             maxGap(_maxGap),
             jamThreshold(_jamThreshold)
@@ -166,6 +167,7 @@ protected:
         }
 
         MSInductLoop* loop;
+        const MSLane* lane;
         SUMOTime lastGreenTime = 0;
         std::vector<bool> servedPhase;
         double maxGap;
