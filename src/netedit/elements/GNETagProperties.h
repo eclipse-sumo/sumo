@@ -92,7 +92,7 @@ public:
         RTREE =                     1 << 9,     // Element is placed in RTREE
         CENTERAFTERCREATION =       1 << 10,    // Camera is moved after element creation
         EMBEDDED_ROUTE =            1 << 11,    // Element has an embedded route
-        REQUIERE_PROJ =             1 << 12,    // Element requiere a geo-projection defined in network
+        REQUIRE_PROJ =              1 << 12,    // Element require a geo-projection defined in network
         VCLASS_ICON =               1 << 13,    // Element returns icon depending of their vClass
     };
 

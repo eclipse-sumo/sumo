@@ -2904,7 +2904,7 @@ GNEAttributeCarrier::fillShapeElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::SHAPE,
-                                      GNETagProperties::RTREE | GNETagProperties::REQUIERE_PROJ,
+                                      GNETagProperties::RTREE | GNETagProperties::REQUIRE_PROJ,
                                       GUIIcon::POIGEO, SUMO_TAG_POI);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,

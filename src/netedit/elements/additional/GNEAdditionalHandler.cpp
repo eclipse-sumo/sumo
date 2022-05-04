@@ -1677,7 +1677,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
     } else if (GeoConvHelper::getFinal().getProjString() == "!") {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_POI) + " with ID '" + id + "' in netedit; Networ requieres a geo projection.");
+        WRITE_ERROR("Could not build " + toString(SUMO_TAG_POI) + " with ID '" + id + "' in netedit; Networ requires a geo projection.");
     } else if ((myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POI, id, false) == nullptr) ||
                (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POILANE, id, false) == nullptr) ||
                (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POIGEO, id, false) == nullptr)) {

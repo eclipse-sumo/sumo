@@ -119,7 +119,7 @@ GNETagProperties::checkTagIntegrity() const {
     }
     // check vClass icons
     if (vClassIcon() && !hasAttribute(SUMO_ATTR_VCLASS)) {
-        throw FormatException("Tag requiere attribute SUMO_ATTR_VCLASS");
+        throw FormatException("Tag require attribute SUMO_ATTR_VCLASS");
     }
     // check integrity of all attributes
     for (const auto& attributeProperty : myAttributeProperties) {
@@ -521,7 +521,7 @@ GNETagProperties::hasEmbebbedRoute() const {
 
 bool
 GNETagProperties::requireProj() const {
-    return (myTagProperty & REQUIERE_PROJ) != 0;
+    return (myTagProperty & REQUIRE_PROJ) != 0;
 }
 
 
