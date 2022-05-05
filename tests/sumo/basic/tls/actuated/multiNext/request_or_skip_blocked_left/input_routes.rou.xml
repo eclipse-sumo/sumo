@@ -6,6 +6,6 @@
    <route id="NS" edges="NC CS"/>
 
    <flow id="WE" route="WE" begin="0" period="3" end="300" departSpeed="max"/>
-   <flow id="SW" route="SN" begin="0" period="10"   end="300" departSpeed="max"/>
+   <flow id="SW" route="SW" begin="0" period="10"   end="300" departSpeed="max"/>
    <flow id="NS" route="NS" begin="0" period="10"  end="300" departSpeed="max"/>
 </routes>

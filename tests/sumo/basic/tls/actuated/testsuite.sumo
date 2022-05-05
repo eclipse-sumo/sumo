@@ -1,3 +1,6 @@
+# test branching plans (multiple 'next' phases) with default logic
+multiNext
+
 # exclude jammed detectors from gapControl
 jamDetection
 
@@ -54,18 +57,6 @@ unused_indices
 # test for moving detector upstream when the the lane that is incoming to the intersection is too short.
 short_lane
 
-# test for approximating a dual-ring controller by using the actuated branching logic
-dualring_simple
-
-# test for approximating a dual-ring controller by using the actuated branching logic, including constraints on maximum green time for selected links
-dualring_simple_linkMaxDur
-
-# test for approximating a dual-ring controller by using the actuated branching logic, including constraints on minimum green time for selected links
-dualring_simple_linkMinDur
-
-# test for approximating a dual-ring controller by using the actuated branching logic
-dualring
-
 # network contains a static traffic light, load actuated as additional program (new default) with linkMinDur constraints
 linkMinDur
 
@@ -77,6 +68,3 @@ controlling_detectors
 
 # if minDur is set, interpret missing maxDur as unlimited
 maxDur_missing
-
-# only switch to side direction on request
-multiNext_request_or_skip
