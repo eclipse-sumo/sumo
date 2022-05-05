@@ -80,7 +80,11 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
         initProj(proj);
         if (myProjection == nullptr) {
             // avoid error about missing datum shift file
-            initProj(std::regex_replace(proj, std::regex("\\+geoidgrids[^ ]*"), std::string("")));
+            myProjString = std::regex_replace(proj, std::regex("\\+geoidgrids[^ ]*"), std::string(""));
+            if (myProjString != proj) {
+                WRITE_WARNING("Ignoring geoidgrids in projection");
+                initProj(myProjString);
+            }
         }
         if (myProjection == nullptr) {
             // !!! check pj_errno

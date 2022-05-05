@@ -719,15 +719,15 @@ Vehicle::replaceStop(const std::string& vehID,
 
 void
 Vehicle::insertStop(const std::string& vehID,
-                     int nextStopIndex,
-                     const std::string& edgeID,
-                     double pos,
-                     int laneIndex,
-                     double duration,
-                     int flags,
-                     double startPos,
-                     double until,
-                     int teleport) {
+                    int nextStopIndex,
+                    const std::string& edgeID,
+                    double pos,
+                    int laneIndex,
+                    double duration,
+                    int flags,
+                    double startPos,
+                    double until,
+                    int teleport) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 9);
     StoHelp::writeTypedString(content, edgeID);
@@ -745,7 +745,7 @@ Vehicle::insertStop(const std::string& vehID,
 
 void
 Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
-                                 const std::string& param, const std::string& value) {
+                          const std::string& param, const std::string& value) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 3);
     StoHelp::writeTypedInt(content, nextStopIndex);

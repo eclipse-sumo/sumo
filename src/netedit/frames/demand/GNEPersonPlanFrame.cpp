@@ -142,7 +142,7 @@ GNEPersonPlanFrame::getPathCreator() const {
 }
 
 
-GNEElementTree* 
+GNEElementTree*
 GNEPersonPlanFrame::getPersonHierarchy() const {
     return myPersonHierarchy;
 }

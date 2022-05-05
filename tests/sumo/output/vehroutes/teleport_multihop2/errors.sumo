@@ -1,0 +1,67 @@
+Warning: Ignoring child element 'route' for vehicle '2' because attribute 'route' is set.
+Warning: Missing yellow phase in tlLogic '1/1', program 't1' for tl-index 5 when switching to phase 1
+Warning: Missing yellow phase in tlLogic '1/1', program 't1' for tl-index 0 when switching to phase 0
+Warning: Missing yellow phase in tlLogic '2/1', program 't1' for tl-index 5 when switching to phase 1
+Warning: Missing yellow phase in tlLogic '2/1', program 't1' for tl-index 0 when switching to phase 0
+Warning: Missing yellow phase in tlLogic '3/1', program 't1' for tl-index 5 when switching to phase 1
+Warning: Missing yellow phase in tlLogic '3/1', program 't1' for tl-index 0 when switching to phase 0
+Warning: Teleporting vehicle '0.9'; waited too long (yield), lane='3/1to2/1_0', time=401.00.
+Warning: Teleporting vehicle '0.22'; waited too long (yield), lane='4/1to3/1_0', time=404.00.
+Warning: Teleporting vehicle '0.0'; waited too long (yield), lane='2/1to1/1_0', time=412.00.
+Warning: Vehicle '0.0' ends teleporting on edge '1/1to0/1', time=412.00.
+Warning: Vehicle '0.9' ends teleporting on edge '2/1to1/1', time=412.00.
+Warning: Teleporting vehicle '1.4'; waited too long (jam), lane='3/0to3/1_0', time=417.00.
+Warning: Teleporting vehicle '2.8'; waited too long (jam), lane='2/0to2/1_0', time=429.00.
+Warning: Vehicle '1.4' teleports beyond arrival edge '3/1to2/1', time=702.00.
+Warning: Teleporting vehicle '0.10'; waited too long (yield), lane='3/1to2/1_0', time=707.00.
+Warning: Vehicle '0.22' ends teleporting on edge '3/1to2/1', time=707.00.
+Warning: Teleporting vehicle '0.23'; waited too long (yield), lane='4/1to3/1_0', time=710.00.
+Warning: Teleporting vehicle '0.9'; waited too long (yield), lane='2/1to1/1_0', time=713.00.
+Warning: Vehicle '2.8' ends teleporting on edge '2/1to1/1', time=713.00.
+Warning: Vehicle '0.9' ends teleporting on edge '1/1to0/1', time=713.00.
+Warning: Teleporting vehicle '1.6'; waited too long (jam), lane='3/0to3/1_0', time=726.00.
+Warning: Teleporting vehicle '0.22'; waited too long (yield), lane='3/1to2/1_0', time=1008.00.
+Warning: Vehicle '1.6' ends teleporting on edge '3/1to2/1', time=1008.00.
+Warning: Teleporting vehicle '0.24'; waited too long (yield), lane='4/1to3/1_0', time=1016.00.
+Warning: Teleporting vehicle '0.1'; waited too long (yield), lane='2/1to1/1_0', time=1019.00.
+Warning: Vehicle '0.1' ends teleporting on edge '1/1to0/1', time=1019.00.
+Warning: Vehicle '0.10' ends teleporting on edge '2/1to1/1', time=1019.00.
+Warning: Teleporting vehicle '2.10'; waited too long (jam), lane='2/0to2/1_0', time=1036.00.
+Warning: Teleporting vehicle '0.2'; waited too long (jam), lane='2/1to1/1_0', time=1100.00.
+Warning: Vehicle '0.2' ends teleporting on edge '1/1to0/1', time=1100.00.
+Warning: Vehicle '2.10' ends teleporting on edge '2/1to1/1', time=1152.00.
+Warning: Vehicle '0.24' ends teleporting on edge '3/1to2/1', time=1169.00.
+Warning: Vehicle '0.22' ends teleporting on edge '2/1to1/1', time=1170.00.
+Warning: Vehicle '0.23' ends teleporting on edge '2/1to1/1', time=1170.00.
+Warning: Teleporting vehicle '0.33'; waited too long (yield), lane='3/1to2/1_0', time=1501.00.
+Warning: Teleporting vehicle '0.46'; waited too long (yield), lane='4/1to3/1_0', time=1504.00.
+Warning: Teleporting vehicle '0.23'; waited too long (yield), lane='2/1to1/1_0', time=1504.00.
+Warning: Vehicle '0.23' ends teleporting on edge '1/1to0/1', time=1504.00.
+Warning: Vehicle '0.33' ends teleporting on edge '2/1to1/1', time=1504.00.
+Warning: Teleporting vehicle '2.17'; waited too long (jam), lane='2/0to2/1_0', time=1522.00.
+Warning: Teleporting vehicle '0.33'; waited too long (yield), lane='2/1to1/1_0', time=1805.00.
+Warning: Vehicle '2.17' ends teleporting on edge '2/1to1/1', time=1805.00.
+Warning: Vehicle '0.33' ends teleporting on edge '1/1to0/1', time=1805.00.
+Warning: Teleporting vehicle '0.34'; waited too long (yield), lane='3/1to2/1_0', time=1807.00.
+Warning: Vehicle '0.46' ends teleporting on edge '3/1to2/1', time=1807.00.
+Warning: Teleporting vehicle '0.47'; waited too long (yield), lane='4/1to3/1_0', time=1810.00.
+Warning: Teleporting vehicle '1.13'; waited too long (jam), lane='3/0to3/1_0', time=1824.00.
+Warning: Teleporting vehicle '0.46'; waited too long (yield), lane='3/1to2/1_0', time=2108.00.
+Warning: Vehicle '1.13' ends teleporting on edge '3/1to2/1', time=2108.00.
+Warning: Teleporting vehicle '0.22'; waited too long (yield), lane='2/1to1/1_0', time=2111.00.
+Warning: Vehicle '0.22' ends teleporting on edge '1/1to0/1', time=2111.00.
+Warning: Vehicle '0.34' ends teleporting on edge '2/1to1/1', time=2111.00.
+Warning: Teleporting vehicle '0.48'; waited too long (yield), lane='4/1to3/1_0', time=2116.00.
+Warning: Teleporting vehicle '2.19'; waited too long (jam), lane='2/0to2/1_0', time=2128.00.
+Warning: Teleporting vehicle '0.24'; waited too long (jam), lane='2/1to1/1_0', time=2200.00.
+Warning: Vehicle '0.24' ends teleporting on edge '1/1to0/1', time=2200.00.
+Warning: Vehicle '2.19' ends teleporting on edge '2/1to1/1', time=2252.00.
+Warning: Vehicle '0.48' ends teleporting on edge '3/1to2/1', time=2269.00.
+Warning: Vehicle '0.46' ends teleporting on edge '2/1to1/1', time=2270.00.
+Warning: Vehicle '0.47' ends teleporting on edge '2/1to1/1', time=2270.00.
+Warning: Teleporting vehicle '0.47'; waited too long (yield), lane='2/1to1/1_0', time=2604.00.
+Warning: Vehicle '0.47' ends teleporting on edge '1/1to0/1', time=2604.00.
+Warning: Teleporting vehicle '0.46'; waited too long (yield), lane='2/1to1/1_0', time=2910.00.
+Warning: Vehicle '0.46' ends teleporting on edge '1/1to0/1', time=2910.00.
+Warning: Teleporting vehicle '0.48'; waited too long (yield), lane='2/1to1/1_0', time=3216.00.
+Warning: Vehicle '0.48' ends teleporting on edge '1/1to0/1', time=3216.00.

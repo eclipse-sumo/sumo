@@ -88,6 +88,24 @@ public:
      */
     MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
+    VehicleVariables* createVehicleVariables() const {
+        if (myDawdleStep > DELTA_T) {
+            return new VehicleVariables(myDawdleStep);
+        }
+        return 0;
+    }
+
+
+private:
+    class VehicleVariables : public MSCFModel::VehicleVariables {
+    public:
+        // no speed update happens in the insertion step
+        VehicleVariables(SUMOTime dawdleStep);
+
+        /// @brief the accleration due to dawdling
+        double accelDawdle;
+        SUMOTime updateOffset;
+    };
 
 protected:
 
@@ -97,6 +115,10 @@ protected:
      * @return The speed after dawdling
      */
     double dawdle2(double speed, double sigma, SumoRNG* rng) const;
+
+    /// @brief The vehicle's update period for dawdling
+    SUMOTime myDawdleStep;
+
 
 };
 

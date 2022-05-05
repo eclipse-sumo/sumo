@@ -245,7 +245,6 @@ def doKruskalWallisTest(verbose, groups, combivehlist, assignments, label, hValu
 
             if current > (len(combivehlist) - 1):
                 break
-                print('current:', current)
 
         for veh in combivehlist:
             for method in assignments.itervalues():

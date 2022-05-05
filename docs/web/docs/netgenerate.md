@@ -36,6 +36,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 |--------|-------------|
 | **-c** {{DT_FILE}}<br> **--configuration-file** {{DT_FILE}} | Loads the named config on startup |
 | **-C** {{DT_FILE}}<br> **--save-configuration** {{DT_FILE}} | Saves current configuration into FILE |
+| **--save-configuration.relative** {{DT_BOOL}} | Enforce relative paths when saving the configuration; *default:* **false** |
 | **--save-template** {{DT_FILE}} | Saves a configuration template (empty) into FILE |
 | **--save-schema** {{DT_FILE}} | Saves the configuration schema into FILE |
 | **--save-commented** {{DT_BOOL}} | Adds comments to saved template, configuration, or schema; *default:* **false** |
@@ -106,7 +107,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rather than seconds; *default:* **false** |
 | **--alphanumerical-ids** {{DT_BOOL}} | The Ids of generated nodes use an alphanumerical code for easier readability when possible; *default:* **true** |
 | **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | The generated net will be written to FILE |
-| **--plain-output-prefix** {{DT_FILE}} | Prefix of files to write plain xml nodes, edges and connections to |
+| **-p** {{DT_FILE}}<br> **--plain-output-prefix** {{DT_FILE}} | Prefix of files to write plain xml nodes, edges and connections to |
 | **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins |
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction names |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
@@ -151,7 +152,7 @@ the offsets given).
 | **--roundabouts.guess** {{DT_BOOL}} | Enable roundabout-guessing; *default:* **true** |
 | **--roundabouts.visibility-distance** {{DT_FLOAT}} | Default visibility when approaching a roundabout; *default:* **9** |
 | **--opposites.guess** {{DT_BOOL}} | Enable guessing of opposite direction lanes usable for overtaking; *default:* **false** |
-| **--opposites.guess.fix-lengths** {{DT_BOOL}} | Ensure that opposite edges have the same length; *default:* **false** |
+| **--opposites.guess.fix-lengths** {{DT_BOOL}} | Ensure that opposite edges have the same length; *default:* **true** |
 | **--fringe.guess** {{DT_BOOL}} | Enable guessing of network fringe nodes; *default:* **false** |
 | **--lefthand** {{DT_BOOL}} | Assumes left-hand traffic on the network; *default:* **false** |
 | **--edges.join** {{DT_BOOL}} | Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import); *default:* **false** |

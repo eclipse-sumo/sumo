@@ -270,23 +270,32 @@ GNEGenericData::replaceLastParentEdge(const std::string& value) {
 
 
 void
-GNEGenericData::replaceFirstParentTAZElement(SumoXMLTag tag, const std::string& value) {
+GNEGenericData::replaceParentTAZElement(const int index, const std::string& value) {
     std::vector<GNEAdditional*> parentTAZElements = getParentAdditionals();
-    parentTAZElements[0] = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
-    // replace parent TAZElements
-    replaceParentElements(this, parentTAZElements);
-}
-
-
-void
-GNEGenericData::replaceSecondParentTAZElement(SumoXMLTag tag, const std::string& value) {
-    std::vector<GNEAdditional*> parentTAZElements = getParentAdditionals();
-    if (value.empty()) {
-        parentTAZElements.pop_back();
-    } else if (parentTAZElements.size() == 1) {
-        parentTAZElements.push_back(myNet->getAttributeCarriers()->retrieveAdditional(tag, value));
+    auto TAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, value);
+    // continue depending of index and number of TAZs
+    if (index == 0) {
+        if (parentTAZElements.size() == 2) {
+            if (parentTAZElements.at(1)->getID() == value) {
+                parentTAZElements = {TAZ};
+            } else {
+                parentTAZElements[0] = TAZ;
+            }
+        } else if (parentTAZElements.at(0) != TAZ) {
+            parentTAZElements = {TAZ, parentTAZElements.at(0)};
+        }
+    } else if (index == 1) {
+        if (parentTAZElements.size() == 2) {
+            if (parentTAZElements.at(0)->getID() == value) {
+                parentTAZElements = {TAZ};
+            } else {
+                parentTAZElements[1] = TAZ;
+            }
+        } else if (parentTAZElements.at(0) != TAZ) {
+            parentTAZElements = {parentTAZElements.at(0), TAZ};
+        }
     } else {
-        parentTAZElements.at(1) = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
+        throw ProcessError("Invalid index");
     }
     // replace parent TAZElements
     replaceParentElements(this, parentTAZElements);

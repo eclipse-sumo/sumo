@@ -221,7 +221,7 @@ public:
     const Position getBackDownShapePosition() const;
 
     /// @brief remake connections
-    void remakeGNEConnections();
+    void remakeGNEConnections(bool junctionsReady = false);
 
     /// @brief copy edge attributes from edgetemplate
     void copyTemplate(const GNEEdgeTemplate* edgeTemplate, GNEUndoList* undoList);

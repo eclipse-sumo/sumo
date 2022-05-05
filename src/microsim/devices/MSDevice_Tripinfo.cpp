@@ -211,6 +211,7 @@ MSDevice_Tripinfo::notifyMoveInternal(const SUMOTrafficObject& veh,
     myWaitingTime += veh.getWaitingTime();
 }
 
+
 void
 MSDevice_Tripinfo::updateParkingStopTime() {
     if (myParkingStarted >= 0) {

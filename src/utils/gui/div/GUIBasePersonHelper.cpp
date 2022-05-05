@@ -53,7 +53,18 @@ GUIBasePersonHelper::drawAction_drawAsTriangle(const double angle, const double 
 
 
 void
-GUIBasePersonHelper::drawAction_drawAsCircle(const double length, const double width, double detail) {
+GUIBasePersonHelper::drawAction_drawAsCircle(const double angle, const double length, const double width, double detail) {
+    glRotated(RAD2DEG(angle), 0, 0, 1);
+    const double maxDim = MAX2(length, width);
+    const int steps = MIN2(MAX2(8, int(detail / 10)), 64);
+    glScaled(maxDim, maxDim, 1);
+    glTranslated(-0.8, 0, 0);
+    GLHelper::drawFilledCircle(0.8, steps);
+}
+
+
+void
+GUIBasePersonHelper::drawAction_drawAsCenteredCircle(const double length, const double width, double detail) {
     const double maxDim = MAX2(length, width);
     const int steps = MIN2(MAX2(8, int(detail / 10)), 64);
     glScaled(maxDim, maxDim, 1);

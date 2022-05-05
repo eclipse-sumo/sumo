@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 14 12:42:19 2020 by Eclipse SUMO sumo Version v1_7_0+0592-51838c0a76
+<!-- generated on 2022-04-05 10:31:32 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -41,92 +46,92 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="0.00"/>
     <timestep time="1.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="2.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="3.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="4.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="5.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="6.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="7.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="8.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="9.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="10.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="11.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="12.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="13.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="14.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="15.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="16.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="17.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="18.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="19.00">
@@ -206,92 +211,92 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="34.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="35.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="36.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="37.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="38.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="39.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="40.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="41.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="42.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="43.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="44.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="45.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="46.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="47.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="48.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="49.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="50.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="51.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="0.00" speed="6.40"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="52.00">
@@ -561,87 +566,87 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="105.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="106.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="107.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="108.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="109.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="110.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="111.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="112.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="113.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="114.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="115.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="116.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="117.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="118.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="119.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="120.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="121.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="0.00" speed="4.75"/>
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
         </edge>
     </timestep>
     <timestep time="122.00">

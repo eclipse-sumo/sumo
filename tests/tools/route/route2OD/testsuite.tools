@@ -7,3 +7,6 @@ trips
 
 # generate edge-based OD
 edge
+
+# edge is part of two taz
+ambiguous_taz

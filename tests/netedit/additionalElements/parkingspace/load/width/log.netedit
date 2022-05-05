@@ -1,4 +1,0 @@
-Error: Attribute 'width' in definition of a space is empty.
-Error: Could not build space' in netedit; attribute width cannot be parse to float.
-Error: Could not build space with ID 'parkingArea_0' in netedit; attribute width cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111853.5008\netedit.gui\additionalElements\parkingspace\load\width\input_additionals.add.xml failed.

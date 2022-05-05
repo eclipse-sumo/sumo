@@ -74,6 +74,7 @@ public:
      */
     MSInductLoop(const std::string& id, MSLane* const lane,
                  double positionInMeters,
+                 double length,
                  const std::string& vTypes,
                  int detectPersons,
                  const bool needLocking);
@@ -93,6 +94,13 @@ public:
      */
     double getPosition() const {
         return myPosition;
+    }
+
+    /** @brief Returns the end position of the detector on the lane
+     * @return The detector's end position in meters
+     */
+    double getEndPosition() const {
+        return myEndPosition;
     }
 
 
@@ -210,6 +218,11 @@ public:
      */
     double getTimeSinceLastDetection() const;
 
+    /** @brief Returns the time of continous occupation by the same vehicle in seconds
+     * or 0 if there is no vehicle on the detector
+     */
+    double getOccupancyTime() const;
+
     ///@brief return last time a vehicle was on the detector
     SUMOTime getLastDetectionTime() const;
 
@@ -219,7 +232,7 @@ public:
     //@}
 
 
-    /* @brief Persistently overrides the measured time since detection with the given value. 
+    /* @brief Persistently overrides the measured time since detection with the given value.
      * Setting a negative value resets the override
      */
     void overrideTimeSinceDetection(double time);
@@ -329,6 +342,9 @@ protected:
     /// @brief Detector's position on lane [m]
     const double myPosition;
 
+    /// @brief Detector's end position (defaults to myPosition)
+    const double myEndPosition;
+
     /// @brief whether internals need to be guarded against concurrent access (GUI or multi threading)
     const bool myNeedLock;
 
@@ -337,6 +353,9 @@ protected:
 
     /// @brief overrides the time since last detection
     double myOverrideTime;
+
+    /// @brief records the time at which overrideTimeSinceDetection was activated
+    double myOverrideEntryTime;
 
     /// @brief The number of entered vehicles
     int myEnteredVehicleNumber;

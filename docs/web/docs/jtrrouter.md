@@ -50,6 +50,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 |--------|-------------|
 | **-c** {{DT_FILE}}<br> **--configuration-file** {{DT_FILE}} | Loads the named config on startup |
 | **-C** {{DT_FILE}}<br> **--save-configuration** {{DT_FILE}} | Saves current configuration into FILE |
+| **--save-configuration.relative** {{DT_BOOL}} | Enforce relative paths when saving the configuration; *default:* **false** |
 | **--save-template** {{DT_FILE}} | Saves a configuration template (empty) into FILE |
 | **--save-schema** {{DT_FILE}} | Saves the configuration schema into FILE |
 | **--save-commented** {{DT_BOOL}} | Adds comments to saved template, configuration, or schema; *default:* **false** |
@@ -84,23 +85,22 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 
 | Option | Description |
 |--------|-------------|
+| **--max-alternatives** {{DT_INT}} | Prune the number of alternatives to INT; *default:* **5** |
+| **--with-taz** {{DT_BOOL}} | Use origin and destination zones (districts) for in- and output; *default:* **false** |
 | **--unsorted-input** {{DT_BOOL}} | Assume input is unsorted; *default:* **false** |
 | **-s** {{DT_TIME}}<br> **--route-steps** {{DT_TIME}} | Load routes for the next number of seconds ahead; *default:* **200** |
 | **--no-internal-links** {{DT_BOOL}} | Disable (junction) internal links; *default:* **false** |
 | **--randomize-flows** {{DT_BOOL}} | generate random departure times for flow input; *default:* **false** |
-| **--max-alternatives** {{DT_INT}} | Prune the number of alternatives to INT; *default:* **5** |
 | **--remove-loops** {{DT_BOOL}} | Remove loops within the route; Remove turnarounds at start and end of the route; *default:* **false** |
 | **--repair** {{DT_BOOL}} | Tries to correct a false route; *default:* **false** |
 | **--repair.from** {{DT_BOOL}} | Tries to correct an invalid starting edge by using the first usable edge instead; *default:* **false** |
 | **--repair.to** {{DT_BOOL}} | Tries to correct an invalid destination edge by using the last usable edge instead; *default:* **false** |
-| **--weights.interpolate** {{DT_BOOL}} | Interpolate edge weights at interval boundaries; *default:* **false** |
-| **--weights.minor-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs for minor-link internal lanes; *default:* **1.5** |
-| **--with-taz** {{DT_BOOL}} | Use origin and destination zones (districts) for in- and output; *default:* **false** |
 | **--mapmatch.distance** {{DT_FLOAT}} | Maximum distance when mapping input coordinates (fromXY etc.) to the road network; *default:* **100** |
 | **--mapmatch.junctions** {{DT_BOOL}} | Match positions to junctions instead of edges; *default:* **false** |
 | **--bulk-routing** {{DT_BOOL}} | Aggregate routing queries with the same origin; *default:* **false** |
 | **--routing-threads** {{DT_INT}} | The number of parallel execution threads used for routing; *default:* **0** |
 | **--restriction-params** {{DT_STR[]}} | Comma separated list of param keys to compare for additional restrictions |
+| **--weights.minor-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs for minor-link internal lanes; *default:* **1.5** |
 | **--max-edges-factor** {{DT_FLOAT}} | Routes are cut off when the route edges to net edges ratio is larger than FLOAT; *default:* **2** |
 | **-T** {{DT_STR[]}}<br> **--turn-defaults** {{DT_STR[]}} | Use STR[] as default turn definition; *default:* **30,50,20** |
 | **--sink-edges** {{DT_STR[]}} | Use STR[] as list of sink edges |

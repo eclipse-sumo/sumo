@@ -33,7 +33,7 @@
 
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
     GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
-        {}, {}, {}, {}, {}, {}) {
+{}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
     // set VPH and speed enabled
@@ -46,8 +46,8 @@ GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
-        {}, {}, {}, {calibratorParent}, {vehicleType, route}, {}),
-    SUMOVehicleParameter() {
+{}, {}, {}, {calibratorParent}, {vehicleType, route}, {}),
+SUMOVehicleParameter() {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // reset ID
@@ -57,8 +57,8 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
-        {}, {}, {}, {calibratorParent}, {vehicleType, route}, {}),
-    SUMOVehicleParameter(vehicleParameters) {
+{}, {}, {}, {calibratorParent}, {vehicleType, route}, {}),
+SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // reset ID
@@ -299,7 +299,7 @@ GNECalibratorFlow::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const Parameterised::Map& 
+const Parameterised::Map&
 GNECalibratorFlow::getACParametersMap() const {
     return PARAMETERS_EMPTY;
 }

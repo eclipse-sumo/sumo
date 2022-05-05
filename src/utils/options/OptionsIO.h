@@ -23,7 +23,7 @@
 
 #include <vector>
 #include <string>
-#include <utils/common/UtilExceptions.h>
+#include <chrono>
 
 
 // ===========================================================================
@@ -96,9 +96,16 @@ public:
      */
     static std::string getRoot(const std::string& filename);
 
+    /** @brief Return the time stamp of the last init
+     */
+    static const std::chrono::time_point<std::chrono::system_clock>& getLoadTime() {
+        return myLoadTime;
+    }
+
 
 private:
     static int myArgC;
     static char** myArgV;
+    static std::chrono::time_point<std::chrono::system_clock> myLoadTime;
 
 };

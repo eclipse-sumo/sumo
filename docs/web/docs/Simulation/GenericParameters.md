@@ -23,8 +23,7 @@ Parameters support the following functionality
 
 - editing in [netedit](../Netedit/index.md#generic_parameters)
 - Supplying additional information to the user (via
-  [sumo-gui](../sumo-gui.md) dialogs or when inspecting XML
-  files)
+  [sumo-gui](../sumo-gui.md) [dialogs](../sumo-gui.md#plotting_object_properties), [text annotations](../sumo-gui.md#textual_annotations) or when inspecting XML files)
 - reading and writing [via TraCI](../TraCI/GenericParameters.md).
 - retaining custom information when [saving and loading simulation state](SaveAndLoad.md)
 

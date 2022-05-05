@@ -107,7 +107,7 @@ def main(options):
         fcdFile[mode].write(u'<fcd-export>\n')
         if options.verbose:
             print('Writing fcd file "%s"' % fcdFile[mode].name)
-        tripFile[mode] = io.open(filePrefix + '.rou.xml', 'w')
+        tripFile[mode] = io.open(filePrefix + '.rou.xml', 'w', encoding="utf8")
         tripFile[mode].write(u"<routes>\n")
     timeIndex = 0
     for _, trip_data in full_data_merged.groupby(['route_id']):

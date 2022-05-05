@@ -173,7 +173,7 @@ protected:
 
     /// @brief whether to show the window in full screen mode
     bool myAmFullScreen;
-    
+
     /// @brief list of GLWindows
     std::vector<GUIGlChildWindow*> myGLWindows;
 

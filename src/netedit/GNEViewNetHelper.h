@@ -774,7 +774,7 @@ struct GNEViewNetHelper {
         SumoXMLTag getGenericDataType() const;
 
         /// @brief get dataSet
-        GNEDataSet *getDataSet() const;
+        GNEDataSet* getDataSet() const;
 
         /// @brief get begin
         double getBegin() const;

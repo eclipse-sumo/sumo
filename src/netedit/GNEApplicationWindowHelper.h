@@ -147,38 +147,59 @@ struct GNEApplicationWindowHelper {
         void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
                                    FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements);
 
+        /// @brief FXMenuCascade for TLS
+        FXMenuCascade* TLSMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for edgeTypes
+        FXMenuCascade* edgeTypesMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for additional
+        FXMenuCascade* additionalMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for demand
+        FXMenuCascade* demandMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for data
+        FXMenuCascade* dataMenuCascade = nullptr;
+
+        /// @brief FXMenuCommand for reload TLS Programs
+        FXMenuCommand* reloadTLSPrograms = nullptr;
+
         /// @brief FXMenuCommand for enable or disable save additionals
-        FXMenuCommand* saveAdditionals;
+        FXMenuCommand* saveTLSPrograms = nullptr;
 
-        /// @brief FXMenuCommand for enable or disable save additionals As
-        FXMenuCommand* saveAdditionalsAs;
-
-        /// @brief FXMenuCommand for reload additionals
-        FXMenuCommand* reloadAdditionals;
-
-        /// @brief FXMenuCommand for enable or disable save additionals
-        FXMenuCommand* saveTLSPrograms;
+        /// @brief FXMenuCommand for reload Edge Types
+        FXMenuCommand* reloadEdgeTypes = nullptr;
 
         /// @brief FXMenuCommand for enable or disable save edgeTypes
-        FXMenuCommand* saveEdgeTypes;
+        FXMenuCommand* saveEdgeTypes = nullptr;
+
+        /// @brief FXMenuCommand for enable or disable save additionals
+        FXMenuCommand* saveAdditionals = nullptr;
+
+        /// @brief FXMenuCommand for enable or disable save additionals As
+        FXMenuCommand* saveAdditionalsAs = nullptr;
+
+        /// @brief FXMenuCommand for reload additionals
+        FXMenuCommand* reloadAdditionals = nullptr;
 
         /// @brief FXMenuCommand for enable or disable save demand elements
-        FXMenuCommand* saveDemandElements;
+        FXMenuCommand* saveDemandElements = nullptr;
 
         /// @brief FXMenuCommand for enable or disable save demand elements as
-        FXMenuCommand* saveDemandElementsAs;
+        FXMenuCommand* saveDemandElementsAs = nullptr;
 
         /// @brief FXMenuCommand for reload demand elements
-        FXMenuCommand* reloadDemandElements;
+        FXMenuCommand* reloadDemandElements = nullptr;
 
         /// @brief FXMenuCommand for enable or disable save data elements
-        FXMenuCommand* saveDataElements;
+        FXMenuCommand* saveDataElements = nullptr;
 
         /// @brief FXMenuCommand for enable or disable save data elements as
-        FXMenuCommand* saveDataElementsAs;
+        FXMenuCommand* saveDataElementsAs = nullptr;
 
         /// @brief FXMenuCommand for reload data elements
-        FXMenuCommand* reloadDataElements;
+        FXMenuCommand* reloadDataElements = nullptr;
 
     private:
         /// @brief pointer to current GNEApplicationWindows
@@ -803,6 +824,12 @@ struct GNEApplicationWindowHelper {
         /// @brief show data processing menu commands
         void hideDataProcessingMenuCommands();
 
+        /// @brief show separator
+        void showSeparator();
+
+        /// @brief hide separator
+        void hideSeparator();
+
         /// @name Processing FXMenuCommands for Network mode
         /// @{
         /// @brief FXMenuCommand for compute network
@@ -850,6 +877,9 @@ struct GNEApplicationWindowHelper {
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;
+
+        /// @brief separator for optionsMenu
+        FXMenuSeparator* mySeparator;
 
         /// @brief Invalidated copy constructor.
         ProcessingMenuCommands(const ProcessingMenuCommands&) = delete;
@@ -964,6 +994,9 @@ struct GNEApplicationWindowHelper {
     /// @brief toggle edit options Data menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
     static bool toggleEditOptionsData(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
                                       const int numericalKeyPressed, FXObject* obj, FXSelector sel);
+
+    /// @brief check if a string ends with another string
+    static bool stringEndsWith(const std::string &str, const std::string &suffix);
 
 private:
     /// @brief Invalidated copy constructor.

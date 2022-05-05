@@ -162,7 +162,7 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_CONTAINER, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}) {
+{}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
@@ -170,8 +170,8 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters) :
     GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {pType}, {}),
-    SUMOVehicleParameter(containerparameters) {
+{}, {}, {}, {}, {pType}, {}),
+SUMOVehicleParameter(containerparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
     // adjust default flow attributes
@@ -402,7 +402,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             if (s.drawDetail(s.detailSettings.personShapes, exaggeration)) {
                 GUIBasePersonHelper::drawAction_drawAsImage(0, length, width, file, SUMOVehicleShape::PEDESTRIAN, exaggeration);
             } else if (s.drawDetail(s.detailSettings.personCircles, exaggeration)) {
-                GUIBasePersonHelper::drawAction_drawAsCircle(length, width, s.scale * exaggeration);
+                GUIBasePersonHelper::drawAction_drawAsCircle(0, length, width, s.scale * exaggeration);
             } else if (s.drawDetail(s.detailSettings.personTriangles, exaggeration)) {
                 GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
             }
@@ -580,7 +580,7 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
         case SUMO_ATTR_CONTAINERSPERHOUR:
-        case SUMO_ATTR_PERIOD:        
+        case SUMO_ATTR_PERIOD:
         case GNE_ATTR_POISSON:
         case SUMO_ATTR_PROB:
         //

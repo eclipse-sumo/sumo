@@ -1,5 +1,0 @@
-Error: Attribute 'id' is missing in definition of a routeProbe.
-Error: Could not build routeProbe with ID 'id with spaces' in netedit; ID contains invalid characters.
-Error: Attribute 'id' in definition of a routeProbe is empty.
-Error: Could not build routeProbe with ID 'routeProbe_0' in netedit; declared twice.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun142428.2364\netedit.gui\additionalElements\routeprobe\load\id\input_additionals.add.xml failed.

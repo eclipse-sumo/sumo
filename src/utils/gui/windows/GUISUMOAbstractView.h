@@ -139,6 +139,9 @@ public:
     /// @brief get visible boundary
     Boundary getVisibleBoundary() const;
 
+    /// @brief return whether this is a 3D view
+    virtual bool is3DView() const;
+
     /// @brief mouse functions
     //@{
     virtual long onConfigure(FXObject*, FXSelector, void*);

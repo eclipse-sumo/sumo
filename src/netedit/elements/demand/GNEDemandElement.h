@@ -64,6 +64,7 @@ public:
         DISCONNECTED_PLAN,      // Plan element (person, containers) is not connected with the previous or next plan
         INVALID_STOPPOSITION,   // StopPosition is invalid (only used in stops over edges or lanes
         STOP_DOWNSTREAM,        // Stops don't follow their route parent
+        NO_PLANS                // Person or container doesn't have a plan
     };
 
     /**@brief Constructor
@@ -436,17 +437,17 @@ protected:
         const GNEEdge* edge;
 
         /// @brief stops sorted by end position
-        std::vector<std::pair<double, const GNEDemandElement*> > myStops;
+        std::vector<std::pair<std::pair<double, double >, const GNEDemandElement*> > myStops;
     };
 
     /// @brief get sorted stops
     std::vector<const GNEDemandElement*> getSortedStops(const std::vector<GNEEdge*>& edges) const;
 
     /// @brief set flow parameters (used in toogleAttribute(...) function of vehicles, persons and containers
-    void setFlowParameters(SUMOVehicleParameter *vehicleParameters, const SumoXMLAttr attribute, const bool value);
+    void setFlowParameters(SUMOVehicleParameter* vehicleParameters, const SumoXMLAttr attribute, const bool value);
 
     /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)
-    void adjustDefaultFlowAttributes(SUMOVehicleParameter *vehicleParameters);
+    void adjustDefaultFlowAttributes(SUMOVehicleParameter* vehicleParameters);
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;

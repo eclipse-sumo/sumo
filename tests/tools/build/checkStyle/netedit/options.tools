@@ -1,1 +1,1 @@
--d tests/netedit -x additionalElements,demandElements
+-d tests/netedit -x additionalelements,demandelements

@@ -78,9 +78,11 @@ copy_test_path:input.toolcfg
 copy_test_path:input_sel.txt
 copy_test_path:matsim_plans.xml
 copy_test_path:input_data.xml
+copy_test_path:input_data2.xml
 copy_test_path_merge:data
 copy_test_path:sim.sumocfg
 copy_test_path:gtfs.zip
+copy_test_path:battery.txt
 
 [collate_file]
 detectors:e1.add.xml
@@ -159,6 +161,9 @@ fullstats:fullstats.dat
 xmlstats:stats.xml
 xmlstats0:000/stats.xml
 xmlstats1:001/stats.xml
+xmlstats1:1.stats.xml
+xmlstats2:2.stats.xml
+xmlstats3:3.stats.xml
 osmimport:*/osm.net.xml
 osmstops:*/osm_stops.add.xml
 osmlines:*/osm_ptlines.xml
@@ -192,6 +197,7 @@ tripinfos:tripinfos.xml
 gtfs_missing:gtfs_missing.xml
 gtfs_routes:gtfs_publictransport.rou.xml
 gtfs_additional:gtfs_publictransport.add.xml
+aggregatebattery:aggregatebattery.txt
 
 [run_dependent_text]
 output:Begin time
@@ -262,6 +268,7 @@ errors:unknown url type{REPLACE [Errno 2] No such file or directory}
 errors::ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element
 errors:Matplotlib is building the font cache; this may take a moment.
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
+errors:schemaCheck.py
 omnet:<!-- generated on
 shawn:<!-- generated on
 gpsdat:r[0-9]
@@ -270,6 +277,8 @@ turns:<!-- generated on{[->]}-->
 xmlstats:<!-- generated on{[->]}-->
 xmlstats0:<!-- generated on{[->]}-->
 xmlstats1:<!-- generated on{[->]}-->
+xmlstats2:<!-- generated on{[->]}-->
+xmlstats3:<!-- generated on{[->]}-->
 edgedata:<!-- generated on{[->]}-->
 od:<!-- generated on{[->]}-->
 net:<!--{[->]}-->

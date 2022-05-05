@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_12_0+1660-9b16f488674
+Eclipse SUMO sumo Version v1_12_0+2258-d281eb2
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -192,10 +192,8 @@ Processing Options:
   --ignore-junction-blocker TIME       Ignore vehicles which block the junction
                                         after they have been standing for
                                         SECONDS (-1 means never ignore)
-  --ignore-route-errors                (1) Do not check whether routes are
-                                        connected. (2) Allow inserting a vehicle
-                                        in a situation which requires emergency
-                                        braking.
+  --ignore-route-errors                Do not check whether routes are
+                                        connected
   --ignore-accidents                   Do not check whether accidents occur
   --collision.action STR               How to deal with collisions:
                                         [none,warn,teleport,remove]
@@ -224,6 +222,10 @@ Processing Options:
                                         a fast road (speed > 69km/h) are
                                         teleported if they are on a
                                         non-continuing lane
+  --time-to-teleport.highways.min-speed FLOAT  The waiting time after which
+                                        vehicles on a fast road (default: speed
+                                        > 69km/h) are teleported if they are on
+                                        a non-continuing lane
   --time-to-teleport.disconnected TIME  The waiting time after which vehicles
                                         with a disconnected route are
                                         teleported. Negative values disable
@@ -238,6 +240,8 @@ Processing Options:
   --waiting-time-memory TIME           Length of time interval, over which
                                         accumulated waiting time is taken into
                                         account (default is 100s.)
+  --startup-wait-threshold TIME        Minimum consecutive waiting time before
+                                        applying startupDelay
   --max-depart-delay TIME              How long vehicles wait for departure
                                         before being skipped, defaults to -1
                                         which means vehicles are never skipped
@@ -245,6 +249,8 @@ Processing Options:
                                         be repeated in same step once failed
   --eager-insert                       Whether each vehicle is checked
                                         separately for insertion on an edge
+  --emergency-insert                   Allow inserting a vehicle in a situation
+                                        which requires emergency braking
   --random-depart-offset TIME          Each vehicle receives a random offset to
                                         its depart value drawn uniformly from
                                         [0, TIME]
@@ -346,6 +352,10 @@ Routing Options:
   --weights.minor-penalty FLOAT        Apply the given time penalty when
                                         computing minimum routing costs for
                                         minor-link internal lanes
+  --weights.tls-penalty FLOAT          Apply scaled travel time penalties based
+                                        on green split when computing minimum
+                                        routing costs for internal lanes at
+                                        traffic lights
   --weights.priority-factor FLOAT      Consider edge priorities in addition to
                                         travel times, weighted by factor
   --weights.separate-turns FLOAT       Distinguish travel time by turn
@@ -697,19 +707,6 @@ Vehroutes Device Options:
                                         vehicles
   --device.vehroute.deterministic      The 'vehroute' devices are set
                                         deterministic using a fraction of 1000
-
-Seeroad Device Options:
-  --device.Seeroad.probability FLOAT   The probability for a vehicle to have a
-                                        'Seeroad' device
-  --device.Seeroad.explicit STR[]      Assign a 'Seeroad' device to named
-                                        vehicles
-  --device.Seeroad.deterministic       The 'Seeroad' devices are set
-                                        deterministic using a fraction of 1000
-  --device.Seeroad.stdev FLOAT         The measurement noise parameter which
-                                        can be applied to the Seeroad device
-  --device.Seeroad.offset FLOAT        The measurement offset parameter which
-                                        can be applied to the Seeroad device ->
-                                        e.g. to force false measurements
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set

@@ -42,12 +42,11 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
-                             double position, const std::string& vTypes,
+                             double position, double length, const std::string& vTypes,
                              int detectPersons, bool show) :
-    MSInductLoop(id, lane, position, vTypes, detectPersons, true),
+    MSInductLoop(id, lane, position, length, vTypes, detectPersons, true),
     myWrapper(nullptr),
-    myShow(show)
-{
+    myShow(show) {
 }
 
 
@@ -80,13 +79,39 @@ GUIInductLoop::setSpecialColor(const RGBColor* color) {
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
     GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID()),
     myDetector(detector), myPosition(pos),
-    mySpecialColor(nullptr)
-{
+    myHaveLength(myPosition != detector.getEndPosition()),
+    mySpecialColor(nullptr) {
     mySupportsOverride = true;
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);
     myBoundary.add(myFGPosition.x() - (double) 5.5, myFGPosition.y() - (double) 5.5);
     myFGRotation = -detector.getLane()->getShape().rotationDegreeAtOffset(pos);
+
+    if (myHaveLength) {
+        const MSLane& lane = *detector.getLane();
+        const double endPos = detector.getEndPosition();
+        myFGShape = lane.getShape();
+        myFGShape = myFGShape.getSubpart(
+                lane.interpolateLanePosToGeometryPos(pos),
+                lane.interpolateLanePosToGeometryPos(endPos));
+        myFGShapeRotations.reserve(myFGShape.size() - 1);
+        myFGShapeLengths.reserve(myFGShape.size() - 1);
+        int e = (int) myFGShape.size() - 1;
+        for (int i = 0; i < e; ++i) {
+            const Position& f = myFGShape[i];
+            const Position& s = myFGShape[i + 1];
+            myFGShapeLengths.push_back(f.distanceTo(s));
+            myFGShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
+        }
+        myOutline.push_back(lane.geometryPositionAtOffset(pos, -1));
+        myOutline.push_back(lane.geometryPositionAtOffset(pos, 1));
+        myOutline.push_back(lane.geometryPositionAtOffset(endPos, 1));
+        myOutline.push_back(lane.geometryPositionAtOffset(endPos, -1));
+        myIndicators.push_back(lane.geometryPositionAtOffset(pos, -1.7));
+        myIndicators.push_back(lane.geometryPositionAtOffset(pos, 1.7));
+        myIndicators.push_back(lane.geometryPositionAtOffset(endPos, 1.7));
+        myIndicators.push_back(lane.geometryPositionAtOffset(endPos, -1.7));
+    }
 }
 
 
@@ -109,6 +134,9 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     // add items
     // parameter
     ret->mkItem("position [m]", false, myPosition);
+    if (myDetector.getEndPosition() != myPosition) {
+        ret->mkItem("end position [m]", false, myDetector.getEndPosition());
+    }
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values
     ret->mkItem("entered vehicles [#]", true,
@@ -121,6 +149,8 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
                 new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getVehicleLength, 0));
     ret->mkItem("empty time [s]", true,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getTimeSinceLastDetection));
+    ret->mkItem("occupied time [s]", true,
+                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getOccupancyTime));
     // close building
     ret->closeBuilding(&myDetector);
     return ret;
@@ -136,25 +166,102 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
     const double exaggeration = getExaggeration(s);
-    // shape
     glColor3d(1, 1, 0);
-    GLHelper::pushMatrix();
-    glTranslated(0, 0, getType());
-    glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
-    glRotated(myFGRotation, 0, 0, 1);
-    glScaled(exaggeration, exaggeration, 1);
-    glBegin(GL_QUADS);
-    glVertex2d(0 - 1.0, 2);
-    glVertex2d(-1.0, -2);
-    glVertex2d(1.0, -2);
-    glVertex2d(1.0, 2);
-    glEnd();
-    glTranslated(0, 0, .01);
-    glBegin(GL_LINES);
-    glVertex2d(0, 2 - .1);
-    glVertex2d(0, -2 + .1);
-    glEnd();
+    if (myHaveLength) {
+        GLHelper::pushMatrix();
+        glTranslated(0, 0, getType());
+        GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, MIN2(1.0, exaggeration), 0, 0);
+        if (width * exaggeration > 1) {
 
+            // outline
+            setOutlineColor();
+            glTranslated(0, 0, .01);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            glBegin(GL_QUADS);
+            for (const Position& p : myOutline) {
+                glVertex2d(p.x(), p.y());
+            }
+            glEnd();
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+            // position indicator
+            glBegin(GL_LINES);
+            glVertex2d(myIndicators[0].x(), myIndicators[0].y());
+            glVertex2d(myIndicators[1].x(), myIndicators[1].y());
+            glEnd();
+            glBegin(GL_LINES);
+            glVertex2d(myIndicators[2].x(), myIndicators[2].y());
+            glVertex2d(myIndicators[3].x(), myIndicators[3].y());
+            glEnd();
+
+            // jammed actuated-tls detector, draw crossed-out:
+            if (mySpecialColor != nullptr  && *mySpecialColor == RGBColor::ORANGE) {
+                glBegin(GL_LINES);
+                glVertex2d(myOutline[0].x(), myOutline[0].y());
+                glVertex2d(myOutline[2].x(), myOutline[2].y());
+                glEnd();
+                glBegin(GL_LINES);
+                glVertex2d(myOutline[1].x(), myOutline[1].y());
+                glVertex2d(myOutline[3].x(), myOutline[3].y());
+                glEnd();
+            }
+        }
+        GLHelper::popMatrix();
+    } else {
+        // classic shape
+        GLHelper::pushMatrix();
+        glTranslated(0, 0, getType());
+        glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
+        glRotated(myFGRotation, 0, 0, 1);
+        glScaled(exaggeration, exaggeration, 1);
+        glBegin(GL_QUADS);
+        glVertex2d(0 - 1.0, 2);
+        glVertex2d(-1.0, -2);
+        glVertex2d(1.0, -2);
+        glVertex2d(1.0, 2);
+        glEnd();
+        glTranslated(0, 0, .01);
+        setOutlineColor();
+
+        if (width * exaggeration > 1) {
+            // outline
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            glBegin(GL_QUADS);
+            glVertex2d(0 - 1.0, 2);
+            glVertex2d(-1.0, -2);
+            glVertex2d(1.0, -2);
+            glVertex2d(1.0, 2);
+            glEnd();
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+            // position indicator
+            glRotated(90, 0, 0, -1);
+            glBegin(GL_LINES);
+            glVertex2d(0, 1.7);
+            glVertex2d(0, -1.7);
+            glEnd();
+
+            // jammed actuated-tls detector, draw crossed-out:
+            if (mySpecialColor != nullptr  && *mySpecialColor == RGBColor::ORANGE) {
+                glBegin(GL_LINES);
+                glVertex2d(-1.0, 2);
+                glVertex2d(1.0, -2);
+                glEnd();
+                glBegin(GL_LINES);
+                glVertex2d(-1.0, -2);
+                glVertex2d(1.0, 2);
+                glEnd();
+            }
+        }
+        GLHelper::popMatrix();
+    }
+    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    GLHelper::popName();
+}
+
+
+void
+GUIInductLoop::MyWrapper::setOutlineColor() const {
     if (haveOverride()) {
         glColor3d(1, 0, 1);
     } else if (mySpecialColor == nullptr) {
@@ -162,32 +269,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         GLHelper::setColor(*mySpecialColor);
     }
-
-    // outline
-    if (width * exaggeration > 1) {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glBegin(GL_QUADS);
-        glVertex2d(0 - 1.0, 2);
-        glVertex2d(-1.0, -2);
-        glVertex2d(1.0, -2);
-        glVertex2d(1.0, 2);
-        glEnd();
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    }
-
-    // position indicator
-    if (width * exaggeration > 1) {
-        glRotated(90, 0, 0, -1);
-        glBegin(GL_LINES);
-        glVertex2d(0, 1.7);
-        glVertex2d(0, -1.7);
-        glEnd();
-    }
-    GLHelper::popMatrix();
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    GLHelper::popName();
 }
-
 
 bool
 GUIInductLoop::MyWrapper::haveOverride() const {

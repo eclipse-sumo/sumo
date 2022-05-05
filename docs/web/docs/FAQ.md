@@ -800,7 +800,7 @@ registered
   build your network. Editing networks by hand is very complicated and
   error-prone.
 
-### How do I change the duration of cycles and phases?
+### How do I change the duration of traffic light cycles and phases?
 
   use [netedit](Netedit/index.md#traffic_lights)
 
@@ -833,6 +833,7 @@ registered
   almost on second 1 (0.99...). If time steps of 0.1 seconds are used,
   the same vehicle is inserted into the network at the end of the time
   step between 0 and 0.1, this means almost on 0.1 (0.099...).
+  See also [VehicleInsertion](Simulation/VehicleInsertion.md)
 
 ### How to save a simulation state and proceed later and/or differently
 
@@ -997,6 +998,26 @@ Some examples on an average desktop PC:
 In a city simulation of one day running with 80k UPS where a vehicle spends on average 30 minutes driving, 3.8 million vehicles can be simulated in 24h wall-clock time. However, the simulation would run slower than real-time whenever there are more than 80k Vehicles in the network at the same time because rush hours and low-traffic times would average out.
 
 Calculated as ` 24 * 3600 * 80000 / 1800 = 3840000 `
+
+### How to perform repeated simulations with different results
+
+By default, the same configuration will result in the same behavior even though many parts of the simulation are [randomized](Simulation/Randomness.md).
+To change this, either option **--seed** or option **--random** must be used.
+In order to collect distinct output from multiple runs, it is advisable to set option **--output-prefix**.
+Running a simulation 3 times with differen results could be done in a batch file like this:
+
+```
+sumo -c run.sumocfg --seed 1 --output-prefix 1.
+sumo -c run.sumocfg --seed 2 --output-prefix 2.
+sumo -c run.sumocfg --seed 3 --output-prefix 3.
+```
+
+The tool [runSeeds.py](Tools/Misc.md#runseedspy) can be used to automate this. 
+
+The tool [attributeStats.py](Tools/Output.md#attributestatspy) can be used to generated statistics for multiple runs:
+i.e. if *run.sumocfg* contains the option `<statistic-output value="stats.xml">/`, the command 
+`tools/output/attributeStats.py -e vehicleTripStatistics -a timeLoss *.stats.xml` 
+will generate timeLoss statistics for all runs
 
 ## Visualization
 

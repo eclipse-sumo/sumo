@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-28 14:15:12 by Eclipse SUMO netconvert Version v1_12_0+2358-3780045
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net2.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <projection>
+        <proj.plain-geo value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-239924883" from="56455689" to="cluster_32444587_6273887394" name="Stadionstraße" priority="10" type="highway.tertiary" numLanes="1" speed="13.89" shape="13.616469,52.367944 13.616395,52.367984 13.616287,52.367990 13.616169,52.367976 13.616062,52.367954 13.614693,52.367690" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="239924883"/>
+        </lane>
+        <param key="origTo" value="32444587"/>
+        <param key="ref" value="K 6161"/>
+    </edge>
+    <edge id="-304426109#0" from="cluster_32444587_6273887394" to="32444585" name="Gerhart-Hauptmann-Allee" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="13.614693,52.367690 13.613550,52.369442" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="304426109"/>
+        </lane>
+        <param key="origFrom" value="32444587"/>
+    </edge>
+    <edge id="-4930543#0" from="cluster_32444589_4396212913" to="56455689" name="Heinrich-Heine-Allee" priority="10" type="highway.tertiary" numLanes="1" speed="13.89" shape="13.616997,52.367356 13.616860,52.367444 13.616736,52.367551 13.616628,52.367697 13.616469,52.367944" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="4930543"/>
+        </lane>
+        <param key="origFrom" value="32444589"/>
+        <param key="ref" value="K 6161"/>
+    </edge>
+    <edge id="239924883" from="cluster_32444587_6273887394" to="56455689" name="Stadionstraße" priority="10" type="highway.tertiary" numLanes="1" speed="13.89" shape="13.614693,52.367690 13.616062,52.367954 13.616169,52.367976 13.616287,52.367990 13.616395,52.367984 13.616469,52.367944" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="239924883"/>
+        </lane>
+        <param key="origFrom" value="32444587"/>
+        <param key="ref" value="K 6161"/>
+    </edge>
+    <edge id="239924889#3" from="cluster_32444587_6273887394" to="cluster_32444589_4396212913" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.614747,52.367624 13.616260,52.367921 13.616364,52.367892 13.616748,52.367350 13.616863,52.367346 13.616927,52.367319" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="239924889"/>
+        </lane>
+        <param key="origFrom" value="6273887394"/>
+        <param key="origTo" value="4396212913"/>
+    </edge>
+    <edge id="304426109#0" from="32444585" to="cluster_32444587_6273887394" name="Gerhart-Hauptmann-Allee" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="13.613550,52.369442 13.614693,52.367690" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="304426109"/>
+        </lane>
+        <param key="origTo" value="32444587"/>
+    </edge>
+    <edge id="4930543#0" from="56455689" to="cluster_32444589_4396212913" name="Heinrich-Heine-Allee" priority="10" type="highway.tertiary" numLanes="1" speed="13.89" shape="13.616469,52.367944 13.616628,52.367697 13.616736,52.367551 13.616860,52.367444 13.616997,52.367356" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="4930543"/>
+        </lane>
+        <param key="origTo" value="32444589"/>
+        <param key="ref" value="K 6161"/>
+    </edge>
+</edges>

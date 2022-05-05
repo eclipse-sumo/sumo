@@ -1045,6 +1045,11 @@ TraCIAPI::LaneScope::setMaxSpeed(const std::string& laneID, double speed) const 
 }
 
 void
+TraCIAPI::LaneScope::setFriction(const std::string& laneID, double friction) const {
+    setDouble(libsumo::VAR_FRICTION, laneID, friction);
+}
+
+void
 TraCIAPI::LaneScope::setLength(const std::string& laneID, double length) const {
     setDouble(libsumo::VAR_LENGTH, laneID, length);
 }

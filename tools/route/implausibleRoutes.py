@@ -246,8 +246,8 @@ def main():
                 routeInfos[vehicle.id].detourRatio = oldCosts / newCosts
 
     implausible = []
-    allRoutesStats = Statistics("overall implausiblity")
-    implausibleRoutesStats = Statistics("implausiblity above threshold")
+    allRoutesStats = Statistics("overall implausibility")
+    implausibleRoutesStats = Statistics("implausibility above threshold")
     for rID in sorted(routeInfos.keys()):
         ri = routeInfos[rID]
         ri.implausibility = (options.airdist_ratio_factor * ri.airDistRatio +

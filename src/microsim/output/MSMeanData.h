@@ -415,7 +415,7 @@ protected:
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
      */
-    void writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime); 
+    void writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime);
 
     /** @brief Writes the interval opener
      *

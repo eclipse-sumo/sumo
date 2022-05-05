@@ -1,0 +1,9 @@
+Warning: Ignoring loaded location attribute nr. 2 for tracking of original location
+Warning: Edge ':cA0_0' occurred at least twice in the input.
+Warning: Edge ':cB0_0' occurred at least twice in the input.
+Warning: Edge ':cB0_1' occurred at least twice in the input.
+Warning: Edge ':cB0_4' occurred at least twice in the input.
+Warning: Edge ':cB0_2' occurred at least twice in the input.
+Warning: Junction 'cA0' occurred at least twice in the input.
+Warning: Junction 'cB0' occurred at least twice in the input.
+Warning: 9 total messages of type: Edge '%' occurred at least twice in the input.

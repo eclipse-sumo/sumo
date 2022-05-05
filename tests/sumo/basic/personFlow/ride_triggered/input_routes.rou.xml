@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <route id="r0" edges="beg middle end"/>
+    <vehicle id="v1" depart="triggered" departPos="0" line="v" route="r0"/>
+    <vehicle id="v2" depart="triggered" departPos="0" line="v" route="r0"/>
+    <vehicle id="v3" depart="triggered" departPos="0" line="v" route="r0"/>
+    <personFlow id="p1" begin="0" period="5" number="3" departPos="5">
+        <ride from="beg" to="end" lines="v"/>
+    </personFlow>
+</routes>

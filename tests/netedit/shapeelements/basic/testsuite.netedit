@@ -1,0 +1,8 @@
+# select invalid shapes in polygon frame
+shape_invalid
+
+# create shape and save it using save shape dialgo before closing
+shape_savedialog
+
+# load location file
+location_load

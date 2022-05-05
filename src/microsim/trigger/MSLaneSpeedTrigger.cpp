@@ -105,8 +105,6 @@ MSLaneSpeedTrigger::execute(SUMOTime currentTime) {
 
 SUMOTime
 MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
-    UNUSED_PARAMETER(currentTime);
-    std::vector<MSLane*>::iterator i;
     const double speed = getCurrentSpeed();
     if (MSGlobals::gUseMesoSim) {
         if (myDestLanes.size() > 0 && myDestLanes.front()->getSpeedLimit() != speed) {
@@ -118,8 +116,8 @@ MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
             }
         }
     } else {
-        for (i = myDestLanes.begin(); i != myDestLanes.end(); ++i) {
-            (*i)->setMaxSpeed(speed);
+        for (MSLane* const lane : myDestLanes) {
+            lane->setMaxSpeed(speed);
         }
     }
     if (!move2next) {
@@ -130,10 +128,9 @@ MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
         ++myCurrentEntry;
     }
     if (myCurrentEntry != myLoadedSpeeds.end()) {
-        return ((*myCurrentEntry).first) - ((*(myCurrentEntry - 1)).first);
-    } else {
-        return 0;
+        return myCurrentEntry->first - currentTime;
     }
+    return 0;
 }
 
 

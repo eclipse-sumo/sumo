@@ -99,4 +99,7 @@ target_prohibits_change2
 
 # connect to all lanes on target if it prohibits lane changing (#8391)
 target_prohibits_turns
+
+# test missing connection in osm derived data (#10502)	
+bus_only
 ramps

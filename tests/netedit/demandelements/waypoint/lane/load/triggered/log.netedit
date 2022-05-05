@@ -1,0 +1,11 @@
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop on lane 'gneE1_0'
+Error: There is another flowRoute with the same ID='routeFlow_0'.
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: There is another flowRoute with the same ID='routeFlow_0'.
+Error: There is another flowRoute with the same ID='routeFlow_0'.
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: There is another flowRoute with the same ID='routeFlow_0'.
+Error: There is another flowRoute with the same ID='routeFlow_0'.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Apr161512.5508\netedit.gui\demandelements\waypoint\lane\load\triggered\input_routes.rou.xml failed.

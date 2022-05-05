@@ -33,9 +33,9 @@
 
 GNERerouterInterval::GNERerouterInterval(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, "",
-        {}, {}, {}, {}, {}, {}),
-    myBegin(0),
-    myEnd(0) {
+{}, {}, {}, {}, {}, {}),
+myBegin(0),
+myEnd(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -43,9 +43,9 @@ GNERerouterInterval::GNERerouterInterval(GNENet* net) :
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, "",
-        {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}),
-    myBegin(0),
-    myEnd(0) {
+{}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}),
+myBegin(0),
+myEnd(0) {
     // reset default values
     resetDefaultValues();
     // update boundary of rerouter parent
@@ -55,9 +55,9 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
     GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "",
-        {}, {}, {}, {rerouterParent}, {}, {}),
-    myBegin(begin),
-    myEnd(end) {
+{}, {}, {}, {rerouterParent}, {}, {}),
+myBegin(begin),
+myEnd(end) {
     // update boundary of rerouter parent
     rerouterParent->updateCenteringBoundary(true);
 }
@@ -181,7 +181,7 @@ GNERerouterInterval::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const Parameterised::Map& 
+const Parameterised::Map&
 GNERerouterInterval::getACParametersMap() const {
     return PARAMETERS_EMPTY;
 }

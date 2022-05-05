@@ -248,6 +248,12 @@ public:
         return myQueIndex;
     }
 
+    /** @brief Get the vehicle's lateral position on the edge of the given lane
+     * (or its current edge if lane == 0)
+     * @return The lateral position of the vehicle (in m distance between right
+     * side of vehicle and ride side of edge
+     */
+    double getRightSideOnEdge(const MSLane* /*lane*/) const;
 
     /** @brief Sets the entry time for the current segment
      * @param[in] t The entry time

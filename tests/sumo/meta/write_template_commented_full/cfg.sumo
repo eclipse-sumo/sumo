@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-25 10:13:18 by Eclipse SUMO sumo Version v1_12_0+1660-9b16f488674
+<!-- generated on 2022-04-25 11:17:03 by Eclipse SUMO sumo Version v1_12_0+2258-d281eb2
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -321,7 +321,7 @@
         <!-- Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore) -->
         <ignore-junction-blocker value="-1" type="TIME"/>
 
-        <!-- (1) Do not check whether routes are connected. (2) Allow inserting a vehicle in a situation which requires emergency braking. -->
+        <!-- Do not check whether routes are connected -->
         <ignore-route-errors value="false" type="BOOL"/>
 
         <!-- Do not check whether accidents occur -->
@@ -360,6 +360,9 @@
         <!-- The waiting time after which vehicles on a fast road (speed &gt; 69km/h) are teleported if they are on a non-continuing lane -->
         <time-to-teleport.highways value="0" type="TIME"/>
 
+        <!-- The waiting time after which vehicles on a fast road (default: speed &gt; 69km/h) are teleported if they are on a non-continuing lane -->
+        <time-to-teleport.highways.min-speed value="19.1667" type="FLOAT"/>
+
         <!-- The waiting time after which vehicles with a disconnected route are teleported. Negative values disable teleporting -->
         <time-to-teleport.disconnected value="-1" type="TIME"/>
 
@@ -372,6 +375,9 @@
         <!-- Length of time interval, over which accumulated waiting time is taken into account (default is 100s.) -->
         <waiting-time-memory value="100" type="TIME"/>
 
+        <!-- Minimum consecutive waiting time before applying startupDelay -->
+        <startup-wait-threshold value="2" type="TIME"/>
+
         <!-- How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped -->
         <max-depart-delay value="-1" type="TIME"/>
 
@@ -380,6 +386,9 @@
 
         <!-- Whether each vehicle is checked separately for insertion on an edge -->
         <eager-insert value="false" type="BOOL"/>
+
+        <!-- Allow inserting a vehicle in a situation which requires emergency braking -->
+        <emergency-insert value="false" type="BOOL"/>
 
         <!-- Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME] -->
         <random-depart-offset value="0" type="TIME"/>
@@ -485,6 +494,9 @@
 
         <!-- Apply the given time penalty when computing minimum routing costs for minor-link internal lanes -->
         <weights.minor-penalty value="1.5" type="FLOAT"/>
+
+        <!-- Apply scaled travel time penalties based on green split when computing minimum routing costs for internal lanes at traffic lights -->
+        <weights.tls-penalty value="0" type="FLOAT"/>
 
         <!-- Consider edge priorities in addition to travel times, weighted by factor -->
         <weights.priority-factor value="0" type="FLOAT"/>
@@ -988,24 +1000,6 @@
         <device.vehroute.deterministic value="false" type="BOOL"/>
 
     </vehroutes_device>
-
-    <seeroad_device>
-        <!-- The probability for a vehicle to have a &apos;Seeroad&apos; device -->
-        <device.Seeroad.probability value="-1" type="FLOAT"/>
-
-        <!-- Assign a &apos;Seeroad&apos; device to named vehicles -->
-        <device.Seeroad.explicit value="" synonymes="device.Seeroad.knownveh" type="STR[]"/>
-
-        <!-- The &apos;Seeroad&apos; devices are set deterministic using a fraction of 1000 -->
-        <device.Seeroad.deterministic value="false" type="BOOL"/>
-
-        <!-- The measurement noise parameter which can be applied to the Seeroad device -->
-        <device.Seeroad.stdev value="0.1" type="FLOAT"/>
-
-        <!-- The measurement offset parameter which can be applied to the Seeroad device -&gt; e.g. to force false measurements -->
-        <device.Seeroad.offset value="0" type="FLOAT"/>
-
-    </seeroad_device>
 
     <traci_server>
         <!-- Enables TraCI Server if set -->

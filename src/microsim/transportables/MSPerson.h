@@ -68,7 +68,7 @@ public:
     public:
         /// constructor
         MSPersonStage_Walking(const std::string& personID, const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime,
-                              double speed, double departPos, double arrivalPos, double departPosLat, int departLane = -1);
+                              double speed, double departPos, double arrivalPos, double departPosLat, int departLane = -1, const std::string& routeID = "");
 
         /// destructor
         ~MSPersonStage_Walking();

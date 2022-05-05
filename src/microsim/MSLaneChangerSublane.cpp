@@ -75,6 +75,7 @@ MSLaneChangerSublane::initChanger() {
     // Prepare myChanger with a safe state.
     for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
         ce->ahead = ce->lane->getPartialBeyond();
+        ce->outsideBounds.clear();
 //        std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " vehicles=" << toString(ce->lane->myVehicles) << "\n";
 //        std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " partial vehicles=" << toString(ce->lane->myPartialVehicles) << "\n";
 //        std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " partial vehicles beyond=" << toString(ce->ahead.toString()) << "\n";
@@ -88,8 +89,12 @@ MSLaneChangerSublane::updateChanger(bool vehHasChanged) {
     MSLaneChanger::updateChanger(vehHasChanged);
     if (!vehHasChanged) {
         MSVehicle* lead = myCandi->lead;
-        //std::cout << SIMTIME << " updateChanger lane=" << myCandi->lane->getID() << " lead=" << Named::getIDSecure(lead) << "\n";
-        myCandi->ahead.addLeader(lead, false, 0);
+        //std::cout << SIMTIME << " updateChanger lane=" << myCandi->lane->getID() << " lead=" << Named::getIDSecure(lead) << " lsol=" << lead->getLeftSideOnLane() << " rsol=" << lead->getRightSideOnLane() << "\n";
+        if (lead->getLeftSideOnLane() < 0 || lead->getRightSideOnLane() > myCandi->lane->getWidth()) {
+            myCandi->outsideBounds.push_back(lead);
+        } else {
+            myCandi->ahead.addLeader(lead, false, 0);
+        }
         MSLane* shadowLane = lead->getLaneChangeModel().getShadowLane();
         if (shadowLane != nullptr && &shadowLane->getEdge() == &lead->getLane()->getEdge()) {
             assert(shadowLane->getIndex() < (int)myChanger.size());
@@ -608,19 +613,40 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* vehic
     }
 #endif
     MSLeaderDistanceInfo result(target->lane, nullptr, 0);
+    if (target->lane == vehicle->getLane()) {
+        if (vehicle->getLeftSideOnLane() < -MSGlobals::gLateralResolution) {
+            result.setSublaneOffset(int(-vehicle->getLeftSideOnLane() / MSGlobals::gLateralResolution));
+        } else if (vehicle->getRightSideOnLane() > target->lane->getWidth() + MSGlobals::gLateralResolution) {
+            result.setSublaneOffset(-int((vehicle->getRightSideOnLane() - target->lane->getWidth()) / MSGlobals::gLateralResolution));
+        }
+    }
+    const int sublaneShift = result.getSublaneOffset();
     for (int i = 0; i < target->ahead.numSublanes(); ++i) {
         const MSVehicle* veh = target->ahead[i];
         if (veh != nullptr) {
             const double gap = veh->getBackPositionOnLane(target->lane) - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap();
 #ifdef DEBUG_SURROUNDING
             if (DEBUG_COND) {
-                std::cout << " ahead lead=" << veh->getID() << " leadBack=" << veh->getBackPositionOnLane() << " gap=" << gap << "\n";
+                std::cout << " ahead lead=" << veh->getID() << " leadBack=" << veh->getBackPositionOnLane() << " gap=" << gap << " sublaneShift=" << sublaneShift << "\n";
             }
 #endif
-            result.addLeader(veh, gap, 0, i);
+            if (i + sublaneShift >= 0 && i + sublaneShift < result.numSublanes()) {
+                result.addLeader(veh, gap, 0, i + sublaneShift);
+            }
         }
     }
-    target->lane->addLeaders(vehicle, vehicle->getPositionOnLane(), result);
+    if (sublaneShift != 0) {
+        for (MSVehicle* cand : target->outsideBounds) {
+            const double gap = cand->getBackPositionOnLane() - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap();
+            result.addLeader(cand, gap);
+        }
+    }
+#ifdef DEBUG_SURROUNDING
+    if (DEBUG_COND) {
+        std::cout << "   outsideBounds=" << toString(target->outsideBounds) << " result=" << result.toString() << "\n";
+    }
+#endif
+    target->lane->addLeaders(vehicle, vehicle->getPositionOnLane(), true, result);
     return result;
 }
 
@@ -723,12 +749,12 @@ MSLaneChangerSublane::checkChangeOpposite(
     if (vehicle->getLaneChangeModel().isOpposite()) {
         leaders = curLane->getFollowersOnConsecutive(vehicle, vehicle->getPositionOnLane(), true, -1, MSLane::MinorLinkMode::FOLLOW_ONCOMING);
         leaders.fixOppositeGaps(false);
-        curLane->addLeaders(vehicle, vehicle->getBackPositionOnLane(), followers);
+        curLane->addLeaders(vehicle, vehicle->getBackPositionOnLane(), false, followers);
         followers.fixOppositeGaps(true);
         const double posOnTarget = backPosOnTarget + vehicle->getVehicleType().getLength() + POSITION_EPS;
         neighFollowers = targetLane->getFollowersOnConsecutive(vehicle, backPosOnTarget, true);
         neighFollowers.fixOppositeGaps(false);
-        targetLane->addLeaders(vehicle, posOnTarget, neighLeaders);
+        targetLane->addLeaders(vehicle, posOnTarget, false, neighLeaders);
         int sublaneIndex = 0;
         for (int i = 0; i < targetLane->getIndex(); i++) {
             sublaneIndex += MSLeaderInfo(targetLane->getEdge().getLanes()[i]).numSublanes();
@@ -738,7 +764,7 @@ MSLaneChangerSublane::checkChangeOpposite(
         leaders = myCandi->aheadNext;
         followers = myCandi->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
         const double posOnTarget = backPosOnTarget - vehicle->getVehicleType().getLength();
-        targetLane->addLeaders(vehicle, backPosOnTarget, neighFollowers, true);
+        targetLane->addLeaders(vehicle, backPosOnTarget, false, neighFollowers, true);
         neighFollowers.fixOppositeGaps(true);
         neighLeaders = targetLane->getFollowersOnConsecutive(vehicle, posOnTarget, true);
         neighLeaders.fixOppositeGaps(false);

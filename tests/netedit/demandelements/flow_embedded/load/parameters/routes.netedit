@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-27 17:09:14 by Eclipse SUMO netedit Version v1_12_0+2326-5512512a8d2
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="flow_0" begin="20.00" end="500.00" number="100">
+        <param key="$$key with spaces%%" value="value4"/>
+        <param key="key1" value="value5"/>
+        <param key="key2" value=""/>
+        <param key="key3" value="$$value with spaces%%"/>
+        <param key="keyFinal" value="valueFinal"/>
+        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+    </flow>
+</routes>

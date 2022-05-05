@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-19 10:06:39 by Eclipse SUMO netedit Version v1_12_0+2121-f24ff6feff6
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="DEFAULT_VEHTYPE" color="12,13,14"/>
+</routes>

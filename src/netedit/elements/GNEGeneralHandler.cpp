@@ -48,7 +48,7 @@ GNEGeneralHandler::beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_LOCATION:
             // process in Network handler
             myQueue.push_back(TagType(tag, true, false, false));
-        break;
+            break;
         case SUMO_TAG_PARAM:
         case SUMO_TAG_INTERVAL:
             if (myQueue.size() > 0) {

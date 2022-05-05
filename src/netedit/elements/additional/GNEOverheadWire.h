@@ -48,7 +48,7 @@ public:
      * @param[in] forbiddenInnerLanes Inner lanes, where placing of overhead wire is restricted
      * @param[in] parameters generic parameters
      */
-    GNEOverheadWire(const std::string& id, std::vector<GNELane*> lanes, GNEAdditional *substation, GNENet* net, 
+    GNEOverheadWire(const std::string& id, std::vector<GNELane*> lanes, GNEAdditional* substation, GNENet* net,
                     const double startPos, const double endPos, const bool friendlyPos,
                     const std::vector<std::string>& forbiddenInnerLanes, const Parameterised::Map& parameters);
 

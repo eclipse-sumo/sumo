@@ -217,14 +217,18 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
                 if (myCurrentScheme->isFixed()) {
                     myCurrentScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), color);
                 } else {
-                    myCurrentScheme->addColor(color, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, std::numeric_limits<double>::max()));
+                    myCurrentScheme->addColor(color,
+                                              attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, std::numeric_limits<double>::max()),
+                                              attrs.getStringSecure(SUMO_ATTR_NAME, ""));
                 }
             } else if (myCurrentScaleScheme != nullptr) {
                 double scale = attrs.get<double>(SUMO_ATTR_COLOR, nullptr, ok);
                 if (myCurrentScaleScheme->isFixed()) {
                     myCurrentScaleScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), scale);
                 } else {
-                    myCurrentScaleScheme->addColor(scale, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, std::numeric_limits<double>::max()));
+                    myCurrentScaleScheme->addColor(scale,
+                                                   attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, std::numeric_limits<double>::max()),
+                                                   attrs.getStringSecure(SUMO_ATTR_NAME, ""));
                 }
             }
             break;
@@ -352,15 +356,11 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
         case SUMO_TAG_VIEWSETTINGS_DECAL: {
             GUISUMOAbstractView::Decal d;
             if (attrs.hasAttribute(SUMO_ATTR_FILE)) {
-                d.filename = attrs.get<std::string>(SUMO_ATTR_FILE, nullptr, ok);
+                d.filename = StringUtils::substituteEnvironment(attrs.get<std::string>(SUMO_ATTR_FILE, nullptr, ok));
             } else {
                 d.filename = attrs.getStringSecure("filename", d.filename);
                 WRITE_WARNING("The 'filename' attribute is deprecated for decals. Please use 'file'.");
             }
-            if (std::getenv("${SUMO_LOGO}") == nullptr) {
-                d.filename = StringUtils::replace(d.filename, "${SUMO_LOGO}", "${SUMO_HOME}/data/logo/sumo-128x138.png");
-            }
-            d.filename = StringUtils::substituteEnvironment(d.filename);
             if (d.filename != "" && !FileHelpers::isAbsolute(d.filename)) {
                 d.filename = FileHelpers::getConfigurationRelative(getFileName(), d.filename);
             }

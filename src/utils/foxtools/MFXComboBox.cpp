@@ -32,7 +32,7 @@ FXDEFMAP(MFXComboBox) MFXComboBoxMap[] = {
 // Object implementation
 FXIMPLEMENT(MFXComboBox, FXComboBox, MFXComboBoxMap, ARRAYNUMBER(MFXComboBoxMap))
 
-MFXComboBox::MFXComboBox(FXComposite *p,FXint cols,FXObject *tgt,FXSelector sel,FXuint opts,FXint x,FXint y,FXint w,FXint h,FXint pl,FXint pr,FXint pt,FXint pb):
+MFXComboBox::MFXComboBox(FXComposite* p, FXint cols, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
     FXComboBox(p, cols, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
 }
 

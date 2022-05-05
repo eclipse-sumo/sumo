@@ -24,3 +24,6 @@ getBlocking_reroute
 
 # tests interaction with actuated traffic light
 actuated
+
+# tests interaction with actuated traffic light that uses custom switching conditions
+actuated_conditions

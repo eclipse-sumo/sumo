@@ -40,12 +40,12 @@ class RouteCounter(handler.ContentHandler):
             route = attrs["edges"]
             edges = route.split(" ")
             od = (edges[0], edges[-1])
-            # count od occurences
+            # count od occurrences
             if od in self._odCounts:
                 self._odCounts[od] = self._odCounts[od] + 1
             else:
                 self._odCounts[od] = 1
-            # count route occurences
+            # count route occurrences
             if route in self._routeCounts:
                 self._routeCounts[route] = self._routeCounts[route] + 1
             else:
@@ -104,8 +104,8 @@ class RoutePatcher(handler.ContentHandler):
 if len(sys.argv) < 3:
     print("Usage: route2alts.py <INPUT_FILE> <OUTPUT_FILE>")
     sys.exit()
-# count occurences
-print("Counting alternatives occurences...")
+# count occurrences
+print("Counting alternative occurrences...")
 parser = make_parser()
 counter = RouteCounter()
 parser.setContentHandler(counter)

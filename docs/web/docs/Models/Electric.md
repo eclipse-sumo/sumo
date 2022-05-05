@@ -103,7 +103,7 @@ Charging stations are defined in additional using the following format:
 
 ```
 <additional>
-    <chargingStation chargeDelay="2" chargeInTransit="0" chrgpower="200000" efficiency="0.95" endPos="25" id="cS_2to19_0a" lane="2to19_0" startPos="10"/>
+    <chargingStation chargeDelay="2" chargeInTransit="0" power="200000" efficiency="0.95" endPos="25" id="cS_2to19_0a" lane="2to19_0" startPos="10"/>
 </additional>
 ```
 

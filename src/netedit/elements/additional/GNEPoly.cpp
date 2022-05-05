@@ -39,9 +39,9 @@
 
 GNEPoly::GNEPoly(GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", Parameterised::Map()),
-    GNEAdditional("", net, GLO_POLYGON, SUMO_TAG_POLY, "", 
-        {}, {}, {}, {}, {}, {}),
-    mySimplifiedShape(false) {
+                  GNEAdditional("", net, GLO_POLYGON, SUMO_TAG_POLY, "",
+                                {}, {}, {}, {}, {}, {}),
+mySimplifiedShape(false) {
     // reset default values
     resetDefaultValues();
 }
@@ -51,9 +51,9 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::string& name,
                  const Parameterised::Map& parameters) :
     TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
-    GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, "", 
-        {}, {}, {}, {}, {}, {}),
-    mySimplifiedShape(false) {
+    GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, "",
+{}, {}, {}, {}, {}, {}),
+mySimplifiedShape(false) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setShapeImgFile("");
@@ -159,7 +159,7 @@ GNEPoly::updateCenteringBoundary(const bool updateGrid) {
 }
 
 
-void 
+void
 GNEPoly::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // nothing to split
 }
@@ -570,7 +570,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEPoly::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
 }

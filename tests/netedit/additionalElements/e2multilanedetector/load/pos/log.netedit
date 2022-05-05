@@ -1,4 +1,0 @@
-Error: Attribute 'pos' is missing in definition of e2Detector 'e2MultilaneDetector_0'.
-Error: Attribute 'pos' in definition of e2Detector 'e2MultilaneDetector_1' Invalid Number Format (double) dummyPos.
-Error: Could not build e2Detector with ID 'e2MultilaneDetector_4' in netedit; Invalid position over lane.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.22Feb123347.7796\netedit.gui\additionalElements\e2multilanedetector\load\pos\input_additionals.add.xml failed.

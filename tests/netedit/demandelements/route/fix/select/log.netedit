@@ -1,0 +1,12 @@
+Warning: Edge 'gneE10' is not connected to outgoing edges at junction 'gneJ8'.
+Warning: Lane 'gneE10_0' is not connected from any incoming edge at junction 'gneJ7'.
+Warning: Edge 'gneE2' is not connected to outgoing edges at junction 'gneJ5'.
+Warning: Edge 'gneE3' is not connected to outgoing edges at junction 'gneJ5'.
+Warning: Lane 'gneE3_0' is not connected from any incoming edge at junction 'gneJ6'.
+Warning: Lane 'gneE3_1' is not connected from any incoming edge at junction 'gneJ6'.
+Warning: Edge 'gneE4' is not connected to outgoing edges at junction 'gneJ6'.
+Warning: Lane 'gneE4_0' is not connected from any incoming edge at junction 'gneJ5'.
+Warning: Lane 'gneE4_1' is not connected from any incoming edge at junction 'gneJ5'.
+Warning: Edge 'gneE5' is not connected to outgoing edges at junction 'gneJ7'.
+Warning: 12 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
+Warning: 16 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.

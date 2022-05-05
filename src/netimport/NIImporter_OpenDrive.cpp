@@ -435,7 +435,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             }
         }
 #ifdef DEBUG_SHAPE
-        if (DEBUG_COND3(e->id)) std::cout << " geomWithOffset=" << geomWithOffset << "\n";
+        if (DEBUG_COND3(e->id)) {
+            std::cout << " geomWithOffset=" << geomWithOffset << "\n";
+        }
 #endif
         const double length2D = geomWithOffset.length2D();
         double cF = length2D == 0 ? 1 : e->length / length2D;
@@ -496,7 +498,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 bool useOffsets = false;
                 PositionVector rightGeom = geom;
 #ifdef DEBUG_SHAPE
-                if (DEBUG_COND3(e->id)) gDebugFlag1 = true;
+                if (DEBUG_COND3(e->id)) {
+                    gDebugFlag1 = true;
+                }
 #endif
                 rightGeom.move2side((*j).discardedInnerWidthRight);
 #ifdef DEBUG_SHAPE
@@ -560,7 +564,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 leftGeom.move2side(-(*j).discardedInnerWidthLeft);
                 PositionVector laneGeom = leftGeom;
 #ifdef DEBUG_SHAPE
-                if (DEBUG_COND3(e->id)) std::cout << " " << id << "_geom=" << geom << " " << id << "_leftGeom=" << leftGeom << "\n";
+                if (DEBUG_COND3(e->id)) {
+                    std::cout << " " << id << "_geom=" << geom << " " << id << "_leftGeom=" << leftGeom << "\n";
+                }
 #endif
                 currLeft = new NBEdge(id, sTo, sFrom, (*j).leftType, defaultSpeed, (*j).leftLaneNumber, priorityL,
                                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, leftGeom.reverse(), LaneSpreadFunction::RIGHT, e->streetName, "", true);
@@ -1445,7 +1451,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 // this avoids geometry errors due to imprecision
                 if (!e.geom.back().almostSame(geom.front())) {
                     const int index = (int)(j - e.geometries.begin());
-                    WRITE_WARNING("Mismatched geometry for edge '" + e.id + "' between geometry segments " + toString(index - 1) + " and " + toString(index) + ".");
+                    WRITE_WARNINGF("Mismatched geometry for edge '%' between geometry segments % and %.", e.id, index - 1, index);
                 }
                 e.geom.pop_back();
             }
@@ -1461,7 +1467,9 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
             e.geom.push_back(last);
         }
 #ifdef DEBUG_SHAPE
-        if (DEBUG_COND3(e.id)) std::cout << " initialGeom=" << e.geom << "\n";
+        if (DEBUG_COND3(e.id)) {
+            std::cout << " initialGeom=" << e.geom << "\n";
+        }
 #endif
         if (oc.exists("geometry.min-dist") && !oc.isDefault("geometry.min-dist")) {
             // simplify geometry for both directions consistently but ensure
@@ -1471,7 +1479,9 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
             }
         }
 #ifdef DEBUG_SHAPE
-        if (DEBUG_COND3(e.id)) std::cout << " reducedGeom=" << e.geom << "\n";
+        if (DEBUG_COND3(e.id)) {
+            std::cout << " reducedGeom=" << e.geom << "\n";
+        }
 #endif
         if (!NBNetBuilder::transformCoordinates(e.geom)) {
             WRITE_ERROR("Unable to project coordinates for edge '" + e.id + "'.");

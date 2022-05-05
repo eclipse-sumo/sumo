@@ -264,7 +264,7 @@ public:
         double getLength(const std::string& laneID) const;
         double getMaxSpeed(const std::string& laneID) const;
         double getWidth(const std::string& laneID) const;
-	double getFriction(const std::string& laneID) const;
+	    double getFriction(const std::string& laneID) const;
         std::vector<std::string> getAllowed(const std::string& laneID) const;
         std::vector<std::string> getDisallowed(const std::string& laneID) const;
         int getLinkNumber(const std::string& laneID) const;
@@ -292,6 +292,7 @@ public:
         void setAllowed(const std::string& laneID, const std::vector<std::string>& allowedClasses) const;
         void setDisallowed(const std::string& laneID, const std::vector<std::string>& disallowedClasses) const;
         void setMaxSpeed(const std::string& laneID, double speed) const;
+        void setFriction(const std::string& laneID, double friction) const;
         void setLength(const std::string& laneID, double length) const;
     };
 

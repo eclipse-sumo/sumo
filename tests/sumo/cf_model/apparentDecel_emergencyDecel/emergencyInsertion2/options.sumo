@@ -1,1 +1,1 @@
- -n net.net.xml -r input_routes.rou.xml --step-length=0.1 --ignore-route-errors --no-step-log
+ -n net.net.xml -r input_routes.rou.xml --step-length=0.1 --emergency-insert --no-step-log

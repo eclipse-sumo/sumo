@@ -37,8 +37,7 @@ Command_SaveTLSState::Command_SaveTLSState(const MSTLLogicControl::TLSLogicVaria
     myOutputDevice(od),
     myLogics(logics),
     mySaveDetectors(saveDetectors),
-    mySaveConditions(saveConditions)
-{
+    mySaveConditions(saveConditions) {
     MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(this);
 }
 

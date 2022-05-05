@@ -723,6 +723,16 @@ Helper::clearStateChanges() {
 }
 
 
+MSCalibrator::AspiredState
+Helper::getCalibratorState(const MSCalibrator* c) {
+    try {
+        return c->getCurrentStateInterval();
+    } catch (ProcessError& e) {
+        throw TraCIException(e.what());
+    }
+}
+
+
 void
 Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape) {
     switch (domain) {
@@ -1506,7 +1516,8 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             double dist = FAR_AWAY;
             double perpendicularDist = FAR_AWAY;
             // add some slack to avoid issues from tiny gaps between consecutive lanes
-            const double slack = POSITION_EPS;
+            // except when simulating with high precision where the slack can throw of mapping
+            const double slack = POSITION_EPS * TS;
             PositionVector laneShape = l->getShape();
             laneShape.extrapolate2D(slack);
             double off = laneShape.nearest_offset_to_point2D(pos, true);
@@ -1571,7 +1582,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
         double idN = u.ID ? 1 : 0;
         double onRouteN = u.onRoute ? 1 : 0;
         double sameEdgeN = u.sameEdge ? MIN2(currentRouteEdge->getLength() / MAX2(NUMERICAL_EPS, speed), (double)1.) : 0;
-        double value = (distN * .5 // distance is more important than angle because the vehicle might be driving in the opposite direction
+        // distance is more important than angle because the vehicle might be driving in the opposite direction
+        // also, distance becomes increasingly more important with lower step lengths (because position errors from one step to the next can result in large acceleration/speed errors)
+        double value = (distN * .5 / TS
                         + angleDiffN * 0.35 /*.5 */
                         + idN * 1
                         + onRouteN * 0.1
@@ -1596,7 +1609,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     const LaneUtility& u = lane2utility.find(bestLane)->second;
     bestDistance = u.dist;
     *lane = bestLane;
-    lanePos = MAX2(0., MIN2(double((*lane)->getLength() - POSITION_EPS),
+    lanePos = MAX2(0., MIN2(double((*lane)->getLength() - NUMERICAL_EPS),
                             bestLane->interpolateGeometryPosToLanePos(
                                 bestLane->getShape().nearest_offset_to_point25D(pos, false))));
     const MSEdge* prevEdge = u.prevEdge;
@@ -1754,7 +1767,7 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         }
     }
     // check position, stuff, we should have the best lane along the route
-    lanePos = MAX2(0., MIN2(double((*lane)->getLength() - POSITION_EPS),
+    lanePos = MAX2(0., MIN2(double((*lane)->getLength() - NUMERICAL_EPS),
                             (*lane)->interpolateGeometryPosToLanePos(
                                 (*lane)->getShape().nearest_offset_to_point25D(pos, false))));
     //std::cout << SIMTIME << " moveToXYMap_matchingRoutePosition vehicle=" << veh.getID() << " currLane=" << veh.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(edges) << " lane=" << (*lane)->getID() << "\n";

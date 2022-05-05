@@ -105,7 +105,7 @@ By default, each index of the state controls exactly one connection so the inner
 
 # Getting Traffic light parameters (0x7e)
 
-Traffic lights support retrieval of additinal parameters using the [generic
+Traffic lights support retrieval of additional parameters using the [generic
 parameter retrieval call](../TraCI/GenericParameters.md#get_parameter).
 
 |      key           | return value type (expressed as string) | supported by tlType |  description |
@@ -117,3 +117,4 @@ parameter retrieval call](../TraCI/GenericParameters.md#get_parameter).
 | max-gap            | double (s)  | actuated                      | detector time-out for abandoning phase
 | show-detectors     | bool        | actuated                      | show/hide detectors in view
 | inactive-threshold | double (s)  | actuated                      | time-out for switching to an unserved phase when running with the default phase-skipping logic
+| condition.CONDITION_ID | double  | actuated                      | retrieve current value of [custom switching condition](../Simulation/Traffic_Lights.md#named_expressions) with id = *CONDITION_ID*.

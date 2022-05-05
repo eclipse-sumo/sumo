@@ -20,7 +20,14 @@
 #pragma once
 #include <vector>
 #include <libsumo/TraCIDefs.h>
-#include <utils/geom/PositionVector.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+#ifndef LIBTRACI
+class PositionVector;
+#endif
 
 
 // ===========================================================================

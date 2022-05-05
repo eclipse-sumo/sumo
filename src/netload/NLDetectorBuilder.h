@@ -80,6 +80,7 @@ public:
      * @param[in] id The id the detector shall have
      * @param[in] lane The name of the lane the detector is placed at
      * @param[in] pos The definition of the position on the lane the detector shall be placed at
+     * @param[in] length The optional length of the detector
      * @param[in] splInterval The aggregation time span the detector shall use
      * @param[in] device The output device the detector shall write into
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
@@ -88,7 +89,7 @@ public:
      * @return The created detector
      */
     Parameterised* buildInductLoop(const std::string& id,
-                                   const std::string& lane, double pos, SUMOTime splInterval,
+                                   const std::string& lane, double pos, double length, SUMOTime splInterval,
                                    const std::string& device, bool friendlyPos,
                                    const std::string& vTypes, int detectPersons);
 
@@ -263,11 +264,13 @@ public:
      * @param[in] id The id the detector shall have
      * @param[in] lane The lane the detector is placed at
      * @param[in] pos The position on the lane the detector is placed at
+     * @param[in] length The optional length of the detector
      * @param[in] vTypes which vehicle types are considered
      * @param[in] show Whether to show the detector in the gui if available
      */
     virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
             MSLane* lane, double pos,
+            double length,
             const std::string& vTypes,
             int detectPersons,
             bool show = true);

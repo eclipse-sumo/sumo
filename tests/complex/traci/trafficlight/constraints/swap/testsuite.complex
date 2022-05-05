@@ -30,6 +30,9 @@ redundant_1
 # deadlock must be resolved (only solution is to let the waiting vehicle keep waiting)
 redundant_2
 
+# deadlock must be resolved (only solution is to let the waiting vehicle keep waiting)
+redundant_2_routes
+
 # a foeInsertion constraint can no longer be swapped (to avoid deadlock) after the vehicle has been inserted (even if the constraint has not yet been fulfulled because the inserted vehicle has not passed the next signal).
 # Instead it must be treated like an implicit constraint (foe2 follows foe on the same track)
 foeInsertion

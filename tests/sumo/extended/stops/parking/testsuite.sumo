@@ -13,5 +13,14 @@ busstop_stopping_position_assignment_parking
 # provide more parking length than the distance between endPos and startPos
 busstop_parkingLength
 
+# non-parking vehicles should stop without blocking parking vehicle egress
+# 
+busstop_parkingLength_mixed
+
+# non-parking vehicles should stop without blocking parking vehicle egress.
+# Parking vehicles that stop longer should not prevent entering the stop
+# 
+busstop_parkingLength_mixed2
+
 # custom departPos at parkingArea
 parkingArea_departPos

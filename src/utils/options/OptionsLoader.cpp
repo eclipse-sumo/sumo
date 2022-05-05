@@ -30,12 +30,13 @@
 #include <xercesc/sax/SAXException.hpp>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
-#include "OptionsLoader.h"
-#include "OptionsCont.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include "OptionsIO.h"
+#include "OptionsCont.h"
+#include "OptionsLoader.h"
 
 
 // ===========================================================================
@@ -53,12 +54,10 @@ void OptionsLoader::startElement(const XMLCh* const name,
     myItem = StringUtils::transcode(name);
     if (!myRootOnly) {
         for (int i = 0; i < (int)attributes.getLength(); i++) {
-            std::string key = StringUtils::transcode(attributes.getName(i));
-            std::string value = StringUtils::transcode(attributes.getValue(i));
+            const std::string& key = StringUtils::transcode(attributes.getName(i));
+            const std::string& value = StringUtils::transcode(attributes.getValue(i));
             if (key == "value" || key == "v") {
-                // Substitute environment variables defined by ${NAME} with their value
-                std::string cleanValue = StringUtils::substituteEnvironment(value);
-                setValue(myItem, cleanValue);
+                setValue(myItem, value);
             }
             // could give a hint here about unsupported attributes in configuration files
         }
@@ -68,7 +67,7 @@ void OptionsLoader::startElement(const XMLCh* const name,
 
 
 void OptionsLoader::setValue(const std::string& key,
-                             std::string& value) {
+                             const std::string& value) {
     if (value.length() > 0) {
         try {
             if (!setSecure(key, value)) {

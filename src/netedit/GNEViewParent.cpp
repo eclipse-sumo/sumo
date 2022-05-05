@@ -505,7 +505,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                                         demandElements.at(GNE_TAG_TRIP_JUNCTIONS).size() +
                                         demandElements.at(SUMO_TAG_FLOW).size() +
                                         demandElements.at(GNE_TAG_FLOW_ROUTE).size() +
-                                        demandElements.at(GNE_TAG_FLOW_WITHROUTE).size() + 
+                                        demandElements.at(GNE_TAG_FLOW_WITHROUTE).size() +
                                         demandElements.at(GNE_TAG_FLOW_JUNCTIONS).size());
                     // fill ACsToLocate with vehicles,...
                     for (const auto& vehicle : demandElements.at(SUMO_TAG_VEHICLE)) {

@@ -1,0 +1,7 @@
+
+[Reported by Windows at 29Apr15:23:18]
+search_string:junction collision
+search_file:errors
+ignore_other_errors:1
+full_description:junction collision
+brief_description:see #10637

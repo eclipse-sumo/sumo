@@ -239,11 +239,11 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
 #ifdef DEBUG_SEPARATE_TURNS
             if (DEBUG_COND(e->getLanes()[0])) {
                 std::cout << SIMTIME << " edge=" << e->getID()
-                    << " meanSpeed=" << e->getMeanSpeed()
-                    << " currSpeed=" << currSpeed
-                    << " oldestSpeed=" << myPastEdgeSpeeds[id][myAdaptationStepsIndex]
-                    << " oldAvg=" << myEdgeSpeeds[id]
-                    << "\n";
+                          << " meanSpeed=" << e->getMeanSpeed()
+                          << " currSpeed=" << currSpeed
+                          << " oldestSpeed=" << myPastEdgeSpeeds[id][myAdaptationStepsIndex]
+                          << " oldAvg=" << myEdgeSpeeds[id]
+                          << "\n";
             }
 #endif
             if (myAdaptationSteps > 0) {
