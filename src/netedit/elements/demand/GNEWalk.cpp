@@ -348,6 +348,7 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         // Common person plan attributes
         case SUMO_ATTR_ID:
+        case GNE_ATTR_PARENT:
             return getParentDemandElements().front()->getID();
         case SUMO_ATTR_FROM:
             if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
@@ -382,8 +383,6 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
-        case GNE_ATTR_PARENT:
-            return getParentDemandElements().front()->getID();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -444,6 +443,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_FROMJUNCTION:
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_PARENT:
         case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
@@ -565,6 +565,14 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
+        case GNE_ATTR_PARENT:
+            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {
+                return true;
+            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) != nullptr) {
+                return true;
+            } else {
+                return false;
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -689,6 +697,14 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_PARENT:
+            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {
+                replaceDemandElementParent(SUMO_TAG_ROUTE, value, 0);
+            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) != nullptr) {
+                replaceDemandElementParent(SUMO_TAG_PERSONFLOW, value, 0);
+            }
+            updateGeometry();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
