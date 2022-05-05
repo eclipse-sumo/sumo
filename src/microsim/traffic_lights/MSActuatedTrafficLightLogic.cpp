@@ -913,7 +913,7 @@ MSActuatedTrafficLightLogic::getDetectorPriority(const InductLoopInfo& loopInfo)
             // give bonus to detectors that are currently served (if that phase can stil be extended)
             if (loopInfo.servedPhase[myStep]) {
                 SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
-                const bool canExtend = actDuration < getCurrentPhaseDef().maxDuration || getLatest() > 0;
+                const bool canExtend = actDuration < getCurrentPhaseDef().maxDuration && getLatest() > 0;
 #ifdef DEBUG_PHASE_SELECTION
                 if (DEBUG_COND) {
                     std::cout << "    loop=" << loop->getID()
