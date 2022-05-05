@@ -88,10 +88,10 @@ def main(options):
         ambiguousSink = []
         for edge, tazs in edgeFromTaz.items():
             if len(tazs) > 1:
-                ambiguousSource.push_back(edge)
+                ambiguousSource.append(edge)
         for edge, tazs in edgeToTaz.items():
             if len(tazs) > 1:
-                ambiguousSink.push_back(edge)
+                ambiguousSink.append(edge)
 
         print("read %s TAZ" % numTaz)
 

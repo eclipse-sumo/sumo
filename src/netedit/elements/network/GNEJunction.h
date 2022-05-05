@@ -235,6 +235,9 @@ public:
     /// @brief mark connections as deprecated
     void markConnectionsDeprecated(bool includingNeighbours);
 
+    /// @brief set junction Type (using undo/redo)
+    void setJunctionType(const std::string &value, GNEUndoList* undoList);
+
 protected:
     /// @brief A reference to the represented junction
     NBNode* myNBNode;

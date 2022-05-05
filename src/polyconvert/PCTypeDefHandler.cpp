@@ -37,9 +37,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-PCTypeDefHandler::PCTypeDefHandler(OptionsCont& oc, PCTypeMap& con)
-    : SUMOSAXHandler("Detector-Defintion"),
-      myOptions(oc),  myContainer(con) {}
+PCTypeDefHandler::PCTypeDefHandler(OptionsCont& oc, PCTypeMap& con) :
+    SUMOSAXHandler("Detector-Defintion"),
+    myOptions(oc),
+    myContainer(con),
+    myOverwriteType(!oc.isDefault("type"))
+{}
 
 
 PCTypeDefHandler::~PCTypeDefHandler() {}
@@ -58,7 +61,7 @@ PCTypeDefHandler::myStartElement(int element,
         const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), ok, myOptions.getFloat("layer"));
         const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
         const bool allowFill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, myOptions.getBool("fill"));
-        const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, myOptions.getString("type"));
+        const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, myOverwriteType ? myOptions.getString("type") : id);
         const std::string prefix = attrs.getOpt<std::string>(SUMO_ATTR_PREFIX, id.c_str(), ok, myOptions.getString("prefix"));
         const std::string color = attrs.getOpt<std::string>(SUMO_ATTR_COLOR, id.c_str(), ok, myOptions.getString("color"));
         const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);

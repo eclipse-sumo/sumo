@@ -211,6 +211,9 @@ public:
         /// @brief set edge template
         void setEdgeTemplate(const GNEEdge* edge);
 
+        /// @brief update edge template
+        void updateEdgeTemplate();
+
         /// @brief set template (used by shortcut)
         void setTemplate();
 

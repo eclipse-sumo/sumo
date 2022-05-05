@@ -1,0 +1,3 @@
+Warning: Choosing new speed factor 1.44 for vehicle 'vehicleA' to match departure speed 20.00 (max 14.73).
+Warning: Choosing new speed factor 1.44 for vehicle 'vehicleB' to match departure speed 20.00 (max 13.04).
+Error: Vehicle 'vehicleB' will not be able to depart using the given velocity (slow lane ahead)!

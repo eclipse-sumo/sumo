@@ -32,9 +32,9 @@
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE, "",
-        {}, {}, {}, {}, {}, {}),
-    myClosedLane(nullptr),
-    myPermissions(0) {
+{}, {}, {}, {}, {}, {}),
+myClosedLane(nullptr),
+myPermissions(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -42,9 +42,9 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNENet* net) :
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE, "",
-        {}, {}, {}, {rerouterIntervalParent}, {}, {}),
-    myClosedLane(closedLane),
-    myPermissions(permissions) {
+{}, {}, {}, {rerouterIntervalParent}, {}, {}),
+myClosedLane(closedLane),
+myPermissions(permissions) {
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
@@ -152,7 +152,7 @@ GNEClosingLaneReroute::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const Parameterised::Map& 
+const Parameterised::Map&
 GNEClosingLaneReroute::getACParametersMap() const {
     return PARAMETERS_EMPTY;
 }

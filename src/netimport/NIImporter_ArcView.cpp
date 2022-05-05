@@ -133,7 +133,7 @@ NIImporter_ArcView::load() {
     }
 
     // begin file parsing
-    OGRLayer*  poLayer = poDS->GetLayer(0);
+    OGRLayer* poLayer = poDS->GetLayer(0);
     poLayer->ResetReading();
 
     // build coordinate transformation
@@ -146,15 +146,12 @@ NIImporter_ArcView::load() {
         destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
     }
 #endif
-    OGRCoordinateTransformation* poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
+    OGRCoordinateTransformation* poCT = origTransf == nullptr ? nullptr : OGRCreateCoordinateTransformation(origTransf, &destTransf);
     if (poCT == nullptr) {
         if (myOptions.isSet("shapefile.guess-projection")) {
             OGRSpatialReference origTransf2;
             origTransf2.SetWellKnownGeogCS("WGS84");
             poCT = OGRCreateCoordinateTransformation(&origTransf2, &destTransf);
-        }
-        if (poCT == nullptr) {
-            WRITE_WARNING("Could not create geocoordinates converter; check whether proj.4 is installed.");
         }
     }
 
@@ -167,6 +164,7 @@ NIImporter_ArcView::load() {
 
     int featureIndex = 0;
     bool warnNotUnique = true;
+    bool warnMissingProjection = true;
     std::string idPrefix = ""; // prefix for non-unique street-id values
     std::map<std::string, int> idIndex; // running index to make street-id unique
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
@@ -231,7 +229,7 @@ NIImporter_ArcView::load() {
             }
         }
         if (mySpeedInKMH) {
-            speed = speed / (double) 3.6;
+            speed /= 3.6;
         }
 
 
@@ -244,6 +242,21 @@ NIImporter_ArcView::load() {
             return;
         }
         OGRLineString* cgeom = (OGRLineString*) poGeometry;
+        if (poCT == nullptr && warnMissingProjection) {
+            int outOfRange = 0;
+            for (int j = 0; j < cgeom->getNumPoints(); j++) {
+                if (fabs(cgeom->getX(j)) > 180 || fabs(cgeom->getY(j)) > 90) {
+                    outOfRange++;
+                }
+            }
+            if (2 * outOfRange > cgeom->getNumPoints()) {
+                WRITE_WARNING("No coordinate system found and coordinates look already projected.");
+                GeoConvHelper::init("!", GeoConvHelper::getProcessing().getOffset(), GeoConvHelper::getProcessing().getOrigBoundary(), GeoConvHelper::getProcessing().getConvBoundary());
+            } else {
+                WRITE_WARNING("Could not find geo coordinate system, assuming WGS84.");
+            }
+            warnMissingProjection = false;
+        }
         if (poCT != nullptr) {
             // try transform to wgs84
             cgeom->transform(poCT);
@@ -251,7 +264,7 @@ NIImporter_ArcView::load() {
 
         PositionVector shape;
         for (int j = 0; j < cgeom->getNumPoints(); j++) {
-            Position pos((double) cgeom->getX(j), (double) cgeom->getY(j), (double) cgeom->getZ(j));
+            Position pos(cgeom->getX(j), cgeom->getY(j), cgeom->getZ(j));
             if (!NBNetBuilder::transformCoordinate(pos)) {
                 WRITE_WARNINGF("Unable to project coordinates for edge '%'.", id);
             }
@@ -260,10 +273,10 @@ NIImporter_ArcView::load() {
 
         // build from-node
         NBNode* from = myNodeCont.retrieve(from_node);
-        if (from == 0) {
+        if (from == nullptr) {
             Position from_pos = shape[0];
             from = myNodeCont.retrieve(from_pos, nodeJoinDist);
-            if (from == 0) {
+            if (from == nullptr) {
                 from = new NBNode(from_node, from_pos);
                 if (!myNodeCont.insert(from)) {
                     WRITE_ERROR("Node '" + from_node + "' could not be added");
@@ -274,10 +287,10 @@ NIImporter_ArcView::load() {
         }
         // build to-node
         NBNode* to = myNodeCont.retrieve(to_node);
-        if (to == 0) {
+        if (to == nullptr) {
             Position to_pos = shape[-1];
             to = myNodeCont.retrieve(to_pos, nodeJoinDist);
-            if (to == 0) {
+            if (to == nullptr) {
                 to = new NBNode(to_node, to_pos);
                 if (!myNodeCont.insert(to)) {
                     WRITE_ERROR("Node '" + to_node + "' could not be added");
@@ -300,13 +313,12 @@ NIImporter_ArcView::load() {
         }
         const std::string origID = saveOrigIDs ? id : "";
         // check for duplicate ids
-        NBEdge* existing = myEdgeCont.retrieve(id);
-        NBEdge* existingReverse = myEdgeCont.retrieve("-" + id);
+        NBEdge* const existing = myEdgeCont.retrieve(id);
+        NBEdge* const existingReverse = myEdgeCont.retrieve("-" + id);
         if (existing != nullptr || existingReverse != nullptr) {
-            std::string duplicateID = existing != nullptr ? id : existingReverse->getID();
-            if ((existing != 0 && existing->getGeometry() == shape)
-                    || (existingReverse != 0 && existingReverse->getGeometry() == shape.reverse())) {
-                WRITE_ERROR("Edge '" + duplicateID + " is not unique");
+            if ((existing != nullptr && existing->getGeometry() == shape)
+                    || (existingReverse != nullptr && existingReverse->getGeometry() == shape.reverse())) {
+                WRITE_ERROR("Edge '" + (existing != nullptr ? id : existingReverse->getID()) + " is not unique.");
             } else {
                 if (idIndex.count(id) == 0) {
                     idIndex[id] = 0;
@@ -315,7 +327,7 @@ NIImporter_ArcView::load() {
                 idPrefix = id;
                 id += "#" + toString(idIndex[id]);
                 if (warnNotUnique) {
-                    WRITE_WARNING("street-id '" + idPrefix + "' is not unique. Renaming subsequent edge to '" + id + "'");
+                    WRITE_WARNINGF("Edge '%' is not unique. Renaming subsequent edge to '%'.", idPrefix, id);
                     warnNotUnique = false;
                 }
             }
@@ -330,7 +342,7 @@ NIImporter_ArcView::load() {
                 checkSpread(edge);
                 addParams(edge, poFeature, params);
             } else {
-                WRITE_ERROR("Could not create edge '" + id + "'. An edge with the same id already exists");
+                WRITE_ERROR("Could not create edge '" + id + "'. An edge with the same id already exists.");
             }
         }
         // add negative direction if wanted
@@ -343,7 +355,7 @@ NIImporter_ArcView::load() {
                 checkSpread(edge);
                 addParams(edge, poFeature, params);
             } else {
-                WRITE_ERROR("Could not create edge '-" + id + "'. An edge with the same id already exists");
+                WRITE_ERROR("Could not create edge '-" + id + "'. An edge with the same id already exists.");
             }
         }
         //

@@ -43,6 +43,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
 
 
 // ===========================================================================
@@ -90,15 +91,15 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
             std::string prefix = OptionsCont::getOptions().getString("output-prefix");
             const std::string::size_type metaTimeIndex = prefix.find("TIME");
             if (metaTimeIndex != std::string::npos) {
-                time_t rawtime;
+                const time_t rawtime = std::chrono::system_clock::to_time_t(OptionsIO::getLoadTime());
                 char buffer [80];
-                time(&rawtime);
                 struct tm* timeinfo = localtime(&rawtime);
                 strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S", timeinfo);
-                prefix.replace(metaTimeIndex, 4, std::string(buffer));
+                prefix.replace(metaTimeIndex, 4, buffer);
             }
             name2 = FileHelpers::prependToLastPathComponent(prefix, name);
         }
+        name2 = StringUtils::substituteEnvironment(name2, &OptionsIO::getLoadTime());
         const int len = (int)name.length();
         dev = new OutputDevice_File(name2, len > 3 && name.substr(len - 3) == ".gz");
     }

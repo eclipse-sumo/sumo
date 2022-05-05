@@ -235,11 +235,11 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
             // continue depending of operationType
             if (moveOperation->operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST) {
                 // move only first position
-                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset, 
+                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset,
                                     0, moveOperation->firstLane->getLaneShapeLength());
             } else if (moveOperation->operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND) {
                 // move only second position
-                calculateMoveResult(moveResult, viewNet, moveOperation->secondLane, moveOperation->secondPosition, offset, 
+                calculateMoveResult(moveResult, viewNet, moveOperation->secondLane, moveOperation->secondPosition, offset,
                                     0, moveOperation->secondLane->getLaneShapeLength());
             } else {
                 // adjust positions
@@ -543,8 +543,8 @@ GNEMoveElement::calculateNewLane(const GNEViewNet* viewNet, const GNELane* origi
 }
 
 
-void 
-GNEMoveElement::adjustBothPositions(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, GNEMoveResult &moveResult, const GNEMoveOffset& offset) {
+void
+GNEMoveElement::adjustBothPositions(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, GNEMoveResult& moveResult, const GNEMoveOffset& offset) {
     // get lane shape lengths
     const double firstLaneLength = moveOperation->firstLane->getLaneShapeLength();
     const double secondLaneLength = moveOperation->secondLane->getLaneShapeLength();

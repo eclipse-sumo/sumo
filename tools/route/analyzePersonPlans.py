@@ -35,7 +35,7 @@ def get_options(args=None):
     parser = ArgumentParser(description="Analyze person plans")
     parser.add_argument("-r", "--route-files", dest="routeFiles", help="Input route files")
     parser.add_argument("-w", "--merge-walks", dest="mergeWalks", action="store_true", help="merge subsequent walks")
-    parser.add_argument("-p", "--public-prefixes", dest="public", help="Distinguis public transport modes by prefix")
+    parser.add_argument("-p", "--public-prefixes", dest="public", help="Distinguish public transport modes by prefix")
     parser.add_argument("-i", "--ids", dest="ids", default=0, type=int,
                         help="List the given number of person ids for each type of plan")
     options = parser.parse_args(args=args)

@@ -269,8 +269,17 @@ GUISUMOAbstractView::getVisibleBoundary() const {
 }
 
 
+bool
+GUISUMOAbstractView::is3DView() const {
+    return false;
+}
+
+
 void
 GUISUMOAbstractView::paintGL() {
+    // reset debug counters
+    GLHelper::resetMatrixCounter();
+    GLHelper::resetVertexCounter();
     if (getWidth() == 0 || getHeight() == 0) {
         return;
     }
@@ -709,14 +718,36 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
         if (i + 1 < numColors) {
             // fade
             RGBColor col2 = scheme.getColors()[i + 1];
-            for (double j = 0.0; j < fadeSteps; j++) {
-                GLHelper::setColor(RGBColor::interpolate(col, col2, j / fadeSteps));
+            double thresh2 = scheme.getThresholds()[i + 1];
+            if (!fixed && thresh2 == GUIVisualizationSettings::MISSING_DATA) {
+                // draw scale end before missing data
+                GLHelper::setColor(col);
                 glBegin(GL_QUADS);
-                glVertex2d(left, topi - j * colorStep);
-                glVertex2d(right, topi - j * colorStep);
-                glVertex2d(right, topi - (j + 1) * colorStep);
-                glVertex2d(left, topi - (j + 1) * colorStep);
+                glVertex2d(left, topi);
+                glVertex2d(right, topi);
+                glVertex2d(right, topi - 5 * colorStep);
+                glVertex2d(left, topi - 5 * colorStep);
                 glEnd();
+                glColor3d(0, 0, 0);
+                glBegin(GL_LINES);
+                glVertex2d(right, topi - 10 * colorStep);
+                glVertex2d(left, topi - 10 * colorStep);
+                glEnd();
+                glBegin(GL_LINES);
+                glVertex2d(right, topi - 5 * colorStep);
+                glVertex2d(left, topi - 5 * colorStep);
+                glEnd();
+            } else {
+                // fade colors
+                for (double j = 0.0; j < fadeSteps; j++) {
+                    GLHelper::setColor(RGBColor::interpolate(col, col2, j / fadeSteps));
+                    glBegin(GL_QUADS);
+                    glVertex2d(left, topi - j * colorStep);
+                    glVertex2d(right, topi - j * colorStep);
+                    glVertex2d(right, topi - (j + 1) * colorStep);
+                    glVertex2d(left, topi - (j + 1) * colorStep);
+                    glEnd();
+                }
             }
         } else {
             GLHelper::setColor(col);
@@ -771,7 +802,10 @@ GUISUMOAbstractView::drawFPS() {
     const double fontHeight = 0.2 * 300. / getHeight();
     const double fontWidth = 0.2 * 300. / getWidth();
     GLHelper::drawText(toString((int)getFPS()) + " FPS", Position(0.82, 0.88), -1, fontHeight, RGBColor::RED, 0, FONS_ALIGN_LEFT, fontWidth);
-
+#ifdef CHECK_ELEMENTCOUNTER
+    GLHelper::drawText(toString(GLHelper::getMatrixCounter()) + " matrix", Position(0.82, 0.79), -1, fontHeight, RGBColor::RED, 0, FONS_ALIGN_LEFT, fontWidth);
+    GLHelper::drawText(toString(GLHelper::getVertexCounter()) + " vertex", Position(0.82, 0.71), -1, fontHeight, RGBColor::RED, 0, FONS_ALIGN_LEFT, fontWidth);
+#endif
     // restore matrices
     glMatrixMode(GL_PROJECTION);
     GLHelper::popMatrix();

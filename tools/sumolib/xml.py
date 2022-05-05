@@ -73,7 +73,7 @@ def _prefix_keyword(name, warn=False):
     result = ''.join([c for c in name if c.isalnum() or c == '_'])
     if result != name:
         if result == '':
-            result == 'attr_'
+            result = 'attr_'
         if warn:
             print("Warning: Renaming attribute '%s' to '%s' because it contains illegal characters" % (
                 name, result), file=sys.stderr)
@@ -222,7 +222,7 @@ def compound_object(element_name, attrnames, warn=False):
     return CompoundObject
 
 
-def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
+def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
           heterogeneous=True, warn=False):
     """
     Parses the given element_names from xmlfile and yield compound objects for
@@ -249,10 +249,14 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
     """
     if isinstance(element_names, str):
         element_names = [element_names]
-    elementTypes = {}
+    if element_attrs is None:
+        element_attrs = {}
+    if attr_conversions is None:
+        attr_conversions = {}
+    element_types = {}
     for _, parsenode in ET.iterparse(_open(xmlfile, None)):
         if parsenode.tag in element_names:
-            yield _get_compound_object(parsenode, elementTypes,
+            yield _get_compound_object(parsenode, element_types,
                                        parsenode.tag, element_attrs,
                                        attr_conversions, heterogeneous, warn)
             parsenode.clear()
@@ -262,26 +266,26 @@ def _IDENTITY(x):
     return x
 
 
-def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_conversions, heterogeneous, warn):
-    if element_name not in elementTypes or heterogeneous:
+def _get_compound_object(node, element_types, element_name, element_attrs, attr_conversions, heterogeneous, warn):
+    if element_name not in element_types or heterogeneous:
         # initialized the compound_object type from the first encountered #
         # element
         attrnames = element_attrs.get(element_name, node.keys())
         if len(attrnames) != len(set(attrnames)):
             raise Exception(
                 "non-unique attributes %s for element '%s'" % (attrnames, element_name))
-        elementTypes[element_name] = compound_object(
+        element_types[element_name] = compound_object(
             element_name, attrnames, warn)
     # prepare children
     child_dict = {}
     child_list = []
     if len(node) > 0:
         for c in node:
-            child = _get_compound_object(c, elementTypes, c.tag, element_attrs, attr_conversions, heterogeneous, warn)
+            child = _get_compound_object(c, element_types, c.tag, element_attrs, attr_conversions, heterogeneous, warn)
             child_dict.setdefault(c.tag, []).append(child)
             child_list.append(child)
-    attrnames = elementTypes[element_name]._original_fields
-    return elementTypes[element_name](
+    attrnames = element_types[element_name]._original_fields
+    return element_types[element_name](
         [attr_conversions.get(a, _IDENTITY)(node.get(a)) for a in attrnames],
         child_dict, node.text, child_list)
 

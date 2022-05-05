@@ -36,16 +36,16 @@
         <lane id=":J3_0_0" index="0" speed="3.90" length="2.58" shape="201.60,300.00 201.50,300.70 201.20,301.20 200.70,301.50 200.00,301.60"/>
     </edge>
 
-    <edge id="E0" from="J0" to="J1" priority="-1">
+    <edge id="E0" from="J0" to="J1" priority="-1" type="a">
         <lane id="E0_0" index="0" speed="13.89" length="100.00" shape="-100.00,-1.60 0.00,-1.60"/>
     </edge>
-    <edge id="E1" from="J1" to="J2" priority="-1">
+    <edge id="E1" from="J1" to="J2" priority="-1" type="a">
         <lane id="E1_0" index="0" speed="13.89" length="200.00" shape="0.00,-1.60 200.00,-1.60"/>
     </edge>
-    <edge id="E2" from="J2" to="J3" priority="-1">
+    <edge id="E2" from="J2" to="J3" priority="-1" type="b">
         <lane id="E2_0" index="0" speed="13.89" length="300.00" shape="201.60,0.00 201.60,300.00"/>
     </edge>
-    <edge id="E3" from="J3" to="J4" priority="-1">
+    <edge id="E3" from="J3" to="J4" priority="-1" type="c">
         <lane id="E3_0" index="0" speed="13.89" length="400.00" shape="200.00,301.60 -200.00,301.60"/>
     </edge>
 

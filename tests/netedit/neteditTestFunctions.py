@@ -946,7 +946,7 @@ def modifyAttribute(attributeNumber, value, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 1 + attrs.Enums.EditElements.overlapped):
+        for _ in range(attributeNumber + 1 + attrs.editElements.overlapped):
             typeTab()
     else:
         for _ in range(attributeNumber + 1):
@@ -965,7 +965,7 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 1 + attrs.Enums.EditElements.overlapped):
+        for _ in range(attributeNumber + 1 + attrs.editElements.overlapped):
             typeTab()
     else:
         for _ in range(attributeNumber + 1):
@@ -982,7 +982,7 @@ def modifyColorAttribute(attributeNumber, color, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 1 + attrs.Enums.EditElements.overlapped):
+        for _ in range(attributeNumber + 1 + attrs.editElements.overlapped):
             typeTab()
     else:
         for _ in range(attributeNumber + 1):
@@ -1052,9 +1052,9 @@ def checkParameters(referencePosition, attributeNumber, overlapped):
     # Change generic parameters with a valid value
     modifyAttribute(attributeNumber, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", overlapped)
     # Check undo
-    undo(referencePosition, 10)
+    undo(referencePosition, 8)
     # Check redo
-    redo(referencePosition, 10)
+    redo(referencePosition, 8)
 
 
 def checkDoubleParameters(referencePosition, attributeNumber, overlapped, posX=0, posY=0):
@@ -1129,10 +1129,10 @@ def createCrossing(hasTLS):
     focusOnFrame()
     # jump to create crossing button depending of hasTLS
     if hasTLS:
-        for _ in range(attrs.Enums.TLS.create.TLS):
+        for _ in range(attrs.TLS.create.TLS):
             typeTab()
     else:
-        for _ in range(attrs.Enums.TLS.create.noTLS):
+        for _ in range(attrs.TLS.create.noTLS):
             typeTab()
     # type space to create crossing
     typeSpace()
@@ -1145,7 +1145,7 @@ def modifyCrossingDefaultValue(numtabs, value):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + attrs.Enums.crossing.firstField):
+    for _ in range(numtabs + attrs.crossing.firstField):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -1160,7 +1160,7 @@ def modifyCrossingDefaultBoolValue(numtabs):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + attrs.Enums.crossing.firstField):
+    for _ in range(numtabs + attrs.crossing.firstField):
         typeTab()
     # type space to change value
     typeSpace()
@@ -1174,11 +1174,11 @@ def crossingClearEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for _ in range(attrs.Enums.crossing.clearEdgesSelected):
+        for _ in range(attrs.crossing.clearEdgesSelected):
             typeTab()
     else:
         # jump to clear button
-        for _ in range(attrs.Enums.crossing.clearEdges):
+        for _ in range(attrs.crossing.clearEdges):
             typeTab()
     # type space to activate button
     typeSpace()
@@ -1192,11 +1192,11 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for _ in range(attrs.Enums.crossing.clearEdgesSelected):
+        for _ in range(attrs.crossing.clearEdgesSelected):
             typeTab()
     else:
         # jump to clear button
-        for _ in range(attrs.Enums.crossing.clearEdges):
+        for _ in range(attrs.crossing.clearEdges):
             typeTab()
     # type space to activate button
     typeSpace()
@@ -1243,7 +1243,7 @@ def saveConnectionEdit():
     # focus current frame
     focusOnFrame()
     # go to cancel button
-    for _ in range(attrs.Enums.connection.saveConnections):
+    for _ in range(attrs.connection.saveConnections):
         typeTab()
     # type space to press button
     typeSpace()
@@ -1271,7 +1271,7 @@ def changeElement(element):
     # focus current frame
     focusOnFrame()
     # go to first editable element of frame
-    for _ in range(attrs.Enums.additionals.changeElement):
+    for _ in range(attrs.additionals.changeElement):
         typeTab()
     # paste the new value
     pasteIntoTextField(element)
@@ -1388,7 +1388,7 @@ def fixStoppingPlace(solution):
         typeSpace()
 
 #################################################
-# route elements
+# demand elements
 #################################################
 
 
@@ -1429,6 +1429,21 @@ def changeRouteVClass(value):
     pasteIntoTextField(value)
     # type enter to save change
     typeEnter()
+
+
+def fixDemandElement(value):
+    """
+    @brief fix demand element
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to option
+    for _ in range(value):
+        typeInvertTab()
+    # type space to select
+    typeSpace()
+    # accept
+    typeTwoKeys('alt', 'a')
 
 #################################################
 # person elements
@@ -1473,15 +1488,19 @@ def changePersonVClass(value):
     typeEnter()
 
 
-def changePersonPlan(personPlan):
+def changePersonPlan(personPlan, flow):
     """
     @brief change personPlan
     """
     # focus current frame
     focusOnFrame()
     # jump to person plan
-    for _ in range(16):
-        typeTab()
+    if (flow):
+        for _ in range(23):
+            typeTab()
+    else:
+        for _ in range(16):
+            typeTab()
     # paste the new personPlan
     pasteIntoTextField(personPlan)
     # type enter to save change
@@ -1554,6 +1573,95 @@ def vehicleMode():
     typeKey('v')
     # wait for gl debug
     time.sleep(DELAY_CHANGEMODE)
+
+#################################################
+# vType elements
+#################################################
+
+
+def typeMode():
+    """
+    @brief change to type mode
+    """
+    typeKey('t')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+
+def createVType():
+    """
+    @brief create vType
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop type
+    for _ in range(attrs.type.buttons.create):
+        typeTab()
+    # type space
+    typeSpace()
+
+
+def deleteVType():
+    """
+    @brief delete vType
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop type
+    for _ in range(attrs.type.buttons.delete):
+        typeTab()
+    # type space
+    typeSpace()
+
+
+def copyVType():
+    """
+    @brief copy vType
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop type
+    for _ in range(attrs.type.buttons.copy):
+        typeTab()
+    # type space
+    typeSpace()
+
+
+def openVTypeDialog():
+    """
+    @brief create vType
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop type
+    for _ in range(attrs.type.buttons.dialog):
+        typeTab()
+    # type space
+    typeSpace()
+    # wait some second to question dialog
+    time.sleep(DELAY_QUESTION)
+
+
+def closeVTypeDialog():
+    """
+    @brief close vType dialog saving elements
+    """
+    typeTwoKeys('alt', 'a')
+
+
+def modifyVTypeAttribute(attributeNumber, value):
+    """
+    @brief modify VType attribute of type int/float/string
+    """
+    # focus dialog
+    typeTwoKeys('alt', 'f')
+    # jump to attribute
+    for _ in range(attributeNumber):
+        typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type Enter to commit change
+    typeEnter()
 
 #################################################
 # delete

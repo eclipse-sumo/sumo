@@ -137,6 +137,8 @@ const std::string MSNet::STAGE_MOVEMENTS("move");
 const std::string MSNet::STAGE_LANECHANGE("laneChange");
 const std::string MSNet::STAGE_INSERTIONS("insertion");
 
+const NamedObjectCont<MSStoppingPlace*> MSNet::myEmptyStoppingPlaceCont;
+
 // ===========================================================================
 // static member method definitions
 // ===========================================================================
@@ -634,7 +636,7 @@ MSNet::simulationStep() {
 #ifdef HAVE_FOX
     MSRoutingEngine::waitForAll();
 #endif
-    if (MSGlobals::gCheck4Accidents) {
+    if (MSGlobals::gCheck4Accidents && !MSGlobals::gUseMesoSim) {
         myEdges->detectCollisions(myStep, STAGE_EVENTS);
     }
     // check whether the tls programs need to be switched
@@ -684,7 +686,7 @@ MSNet::simulationStep() {
     MSRoutingEngine::waitForAll();
 #endif
     myInserter->emitVehicles(myStep);
-    if (MSGlobals::gCheck4Accidents) {
+    if (MSGlobals::gCheck4Accidents && !MSGlobals::gUseMesoSim) {
         //myEdges->patchActiveLanes(); // @note required to detect collisions on lanes that were empty before insertion. wasteful?
         myEdges->detectCollisions(myStep, STAGE_INSERTIONS);
     }
@@ -701,7 +703,7 @@ MSNet::simulationStep() {
         myTraCIStepDuration += SysUtils::getCurrentMillis();
         myTraCIMillis += myTraCIStepDuration;
     }
-    if (MSGlobals::gCheck4Accidents) {
+    if (MSGlobals::gCheck4Accidents && !MSGlobals::gUseMesoSim) {
         // collisions from the previous step were kept to avoid duplicate
         // warnings. we must remove them now to ensure correct output.
         removeOutdatedCollisions();
@@ -1278,7 +1280,7 @@ MSNet::getStoppingPlaces(SumoXMLTag category) const {
     if (it != myStoppingPlaces.end()) {
         return it->second;
     } else {
-        throw ProcessError("No stoppingPlace of type '" + toString(category) + "' found");
+        return myEmptyStoppingPlaceCont;
     }
 }
 

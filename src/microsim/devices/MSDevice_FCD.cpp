@@ -36,7 +36,7 @@
 const long long int MSDevice_FCD::myDefaultMask(~(
             ((long long int)1 << SUMO_ATTR_VEHICLE)
             | ((long long int)1 << SUMO_ATTR_ODOMETER)
-            ));
+        ));
 
 // ===========================================================================
 // static members

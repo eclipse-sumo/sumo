@@ -133,6 +133,9 @@ public:
 
     void setShowDetectors(bool show);
 
+    /// @brief try to get the value of the given parameter (including prefixed parameters)
+    const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;
+
     /**@brief Sets a parameter and updates internal constants */
     void setParameter(const std::string& key, const std::string& value) override;
 
@@ -150,15 +153,26 @@ protected:
     void initSwitchingRules();
 
     struct InductLoopInfo {
-        InductLoopInfo(MSInductLoop* _loop, int numPhases, double _maxGap):
+        InductLoopInfo(MSInductLoop* _loop, const MSLane* _lane, int numPhases, double _maxGap, double _jamThreshold):
             loop(_loop),
+            lane(_lane),
             servedPhase(numPhases, false),
-            maxGap(_maxGap)
+            maxGap(_maxGap),
+            jamThreshold(_jamThreshold)
         {}
+
+
+        bool isJammed() const {
+            return jamThreshold > 0 && loop->getOccupancyTime() >= jamThreshold;
+        }
+
         MSInductLoop* loop;
+        const MSLane* lane;
         SUMOTime lastGreenTime = 0;
         std::vector<bool> servedPhase;
         double maxGap;
+        double jamThreshold;
+
     };
 
     /// @brief Definition of a map from phases to induct loops controlling them
@@ -252,6 +266,9 @@ protected:
 
     /// The maximum gap to check in seconds
     double myMaxGap;
+
+    /// The minimum continuous occupancy time to mark a detector as jammed
+    double myJamThreshold;
 
     /// The passing time used in seconds
     double myPassingTime;

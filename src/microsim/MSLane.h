@@ -890,7 +890,7 @@ public:
     /// @brief Set vehicle class specific stopOffsets
     void setLaneStopOffset(const StopOffset& stopOffset);
 
-    /** @enum MinorLinkMode 
+    /** @enum MinorLinkMode
      * @brief determine whether/how getFollowers looks upstream beyond minor links
      */
     enum MinorLinkMode {
@@ -940,18 +940,19 @@ public:
      * @param[in] speed The speed of the vehicle used for determining whether a subsequent link will be opened at arrival time
      * @param[in] veh The vehicle for which the information shall be computed
      * @param[in] bestLaneConts The lanes the vehicle will use in future
+     * @param[in] abortClosed Whether the leader search should abort upon encountering a closed link
      * @return
      */
     std::pair<MSVehicle* const, double> getLeaderOnConsecutive(double dist, double seen,
-            double speed, const MSVehicle& veh, const std::vector<MSLane*>& bestLaneConts) const;
+            double speed, const MSVehicle& veh, const std::vector<MSLane*>& bestLaneConts, bool abortClosed) const;
 
     /// @brief Returns the immediate leaders and the distance to them (as getLeaderOnConsecutive but for the sublane case)
     void getLeadersOnConsecutive(double dist, double seen, double speed, const MSVehicle* ego,
-                                 const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result, bool oppositeDirection = false) const;
+                                 const std::vector<MSLane*>& bestLaneConts, bool abortClosed, MSLeaderDistanceInfo& result, bool oppositeDirection = false) const;
 
 
     /// @brief get leaders for ego on the given lane
-    void addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result, bool oppositeDirection = false);
+    void addLeaders(const MSVehicle* vehicle, double vehPos, bool abortClosed, MSLeaderDistanceInfo& result, bool oppositeDirection = false);
 
 
     /** @brief Returns the most dangerous leader and the distance to him

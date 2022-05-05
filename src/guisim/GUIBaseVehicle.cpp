@@ -434,14 +434,20 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     const double length = getVType().getLength();
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(degAngle, 0, 0, 1);
-    // set vehicle color
     RGBColor col = setColor(s);
     // scale
     const double upscale = getExaggeration(s);
+
+    if (upscale > 1 && s.laneWidthExaggeration > 1 && myVehicle.isOnRoad()) {
+        // optionally shift according to edge exaggeration
+        double offsetFromLeftBorder = myVehicle.getCurrentEdge()->getWidth() - myVehicle.getRightSideOnEdge() - myVehicle.getVehicleType().getWidth() / 2;
+        glTranslated((s.laneWidthExaggeration - 1) * -offsetFromLeftBorder / 2, 0, 0);
+    }
+
     double upscaleLength = upscale;
     if (upscale > 1 && length > 5 && s.vehicleQuality != 4) {
         // reduce the length/width ratio because this is not usefull at high zoom
-        const double widthLengthFactor = length / getVType().getWidth();
+        const double widthLengthFactor = length / 5;
         const double shrinkFactor = MIN2(widthLengthFactor, sqrt(upscaleLength));
         upscaleLength /= shrinkFactor;
     }
@@ -483,12 +489,14 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             case 3:
                 drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, scaledLength, true);
                 break;
-            case 4:
-                // do not scale circle radius by lengthGeometryFactor
-                GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(getVType().getWidth(), length, s.scale * upscale);
+            case 4: {
+                // do not scale circle radius by lengthGeometryFactor nor length and reduce the effect of width
+                const double w = 1.8 * sqrt(getVType().getWidth() / 1.8);
+                GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(w, s.scale * upscale);
                 // display text at circle center
                 scaledLength = 0;
                 break;
+            }
             default:
                 break;
         }

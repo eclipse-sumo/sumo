@@ -301,6 +301,10 @@ public:
      */
     virtual bool isStoppedTriggered() const = 0;
 
+    /** @brief Returns whether the vehicle is at a stop and parking
+     */
+    virtual bool isStoppedParking() const = 0;
+
     /** @brief Returns whether the vehicle is stopped in the range of the given position */
     virtual bool isStoppedInRange(const double pos, const double tolerance) const = 0;
 

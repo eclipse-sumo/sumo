@@ -110,6 +110,9 @@ The normal behavior is to replace the type of the passing vehicles with the type
 !!! note
     When calibrating types, the 'route' attribute can be omitted from the flow definition    
 
+!!! caution
+    The type modification happens when the vehicle enters the calibrator edge regardless of the configuration calibraor position.
+
 ### Mapping between vTypeDistributions
 A special behavior is activated if the following conditions are met:
 - the `type` in the flow element references a `vTypeDistribution`

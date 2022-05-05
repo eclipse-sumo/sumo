@@ -93,20 +93,15 @@ class Colorgen:
     def get_value(self, opt, index):
         if opt == 'random':
             return random.random()
-        elif opt == 'cycle':
+        if opt == 'cycle':
             # the 255 below is intentional to get all color values when cycling long enough
             self.cycle[index] = (self.cycle[index] + self.cycleOffset) % 255
             return self.cycle[index] / 255.0
-        elif opt == 'cycle':
-            # the 255 below is intentional to get all color values when cycling long enough
-            self.cycle[index] = (self.cycle[index] + self.cycleOffset) % 255
-            return self.cycle[index] / 255.0
-        elif opt == 'distinct':
+        if opt == 'distinct':
             if index == 0:
                 self.distinctIndex = (self.distinctIndex + 1) % len(self.DISTINCT)
             return self.DISTINCT[self.distinctIndex][index]
-        else:
-            return float(opt)
+        return float(opt)
 
     def floatTuple(self):
         """return color as a tuple of floats each in [0,1]"""

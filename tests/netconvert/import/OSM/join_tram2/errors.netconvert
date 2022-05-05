@@ -5,10 +5,12 @@ Warning: Discarding unusable type 'highway.bus_stop' (first occurence for edge '
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '51353828').
 Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '579326821').
 Warning: Discarding unusable type 'highway.proposed' (first occurence for edge '743594483').
-Warning: Not joining tram edge '316682910#0' with 2 lanes
-Warning: Not joining tram edge '316682910#1' with 2 lanes
-Warning: Not joining tram edge '316682910#2' with 2 lanes
-Warning: Not joining tram edge '316682910#3' with 2 lanes
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '270105899' (Altstadtmarkt). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '4397192313' (Altstadtmarkt). Thus, it will be removed!
+Warning: Not joining tram edge '316682910#0' with 2 lanes.
+Warning: Not joining tram edge '316682910#1' with 2 lanes.
+Warning: Not joining tram edge '316682910#2' with 2 lanes.
+Warning: Not joining tram edge '316682910#3' with 2 lanes.
 Warning: Found sharp turn with radius 3.86 at the end of edge '18963300#1'.
 Warning: The rail crossing '3144373886' does not have any roads.
 Warning: The traffic light '29326590' does not control any links; it will not be build.

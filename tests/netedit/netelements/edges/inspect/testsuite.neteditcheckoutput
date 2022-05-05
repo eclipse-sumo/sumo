@@ -1,0 +1,59 @@
+# edit id
+id
+
+# edit from
+from
+
+# edit to
+to
+
+# edit speed
+speed
+
+# edit priority
+priority
+
+# edit numlanes
+numlanes
+
+# edit type
+type
+
+# edit allow
+allow
+
+# edit disallow
+disallow
+
+# edit shape
+shape
+
+# edit length
+length
+
+# edit spreadtype
+spreadtype
+
+# edit name
+name
+
+# edit width
+width
+
+# edit endoffset
+endoffset
+
+# edit shapestart
+shapestart
+
+# edit shapeend
+shapeend
+
+distance
+
+stopoffset
+
+stopexception
+
+# edit parameters
+parameters

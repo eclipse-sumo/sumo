@@ -109,6 +109,12 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
     if (dv < sdvo && dx <= sdxc) {
         // 'Decelerate - Increase Distance';
         accel = 0;
+        // code in addtion to w99-demo to fix collision (#10472)
+        if (dx - SPEED2DIST(speed) < myType->getMinGap() * myCollisionMinGapFactor) {
+            // prevent crashin in the next step
+            accel = -SPEED2ACCEL(speed);
+            status = 9;
+        }
         if (predSpeed > 0) {
             if (dv < 0) {
                 if (dx > cc0) {

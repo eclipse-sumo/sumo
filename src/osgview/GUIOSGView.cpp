@@ -187,6 +187,12 @@ GUIOSGView::recalculateBoundaries() {
 }
 
 
+bool
+GUIOSGView::is3DView() const {
+    return true;
+}
+
+
 void
 GUIOSGView::buildViewToolBars(GUIGlChildWindow* v) {
     // build coloring tools
@@ -253,14 +259,14 @@ GUIOSGView::recenterView() {
     stopTrack();
     Position center = myGrid->getCenter();
     osg::Vec3d lookFromOSG, lookAtOSG, up;
-    myViewer->getCameraManipulator()->getHomePosition(lookFromOSG, lookAtOSG, up);
+    myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
     lookFromOSG[0] = center.x();
     lookFromOSG[1] = center.y();
     lookFromOSG[2] = myChanger->zoom2ZPos(100);
     lookAtOSG[0] = center.x();
     lookAtOSG[1] = center.y();
     lookAtOSG[2] = 0;
-    myViewer->getCameraManipulator()->setHomePosition(lookFromOSG, lookAtOSG, up);
+    myCameraManipulator->setHomePosition(lookFromOSG, lookAtOSG, up);
     myViewer->home();
 }
 
@@ -463,26 +469,46 @@ GUIOSGView::removeTransportable(MSTransportable* t) {
 void
 GUIOSGView::showViewportEditor() {
     getViewportEditor(); // make sure it exists;
-    osg::Vec3d lookFromOSG, lookAtOSG, up;
-    myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
-    Position from(lookFromOSG[0], lookFromOSG[1], lookFromOSG[2]), at(lookAtOSG[0], lookAtOSG[1], lookAtOSG[2]);
-    myViewportChooser->setOldValues(from, at, 0);
+    osg::Vec3d lookFrom, lookAt, up;
+    myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
+    Position from(lookFrom[0], lookFrom[1], lookFrom[2]), at(lookAt[0], lookAt[1], lookAt[2]);
+    myViewportChooser->setOldValues(from, at, calculateRotation(lookFrom, lookAt, up));
     myViewportChooser->show();
 }
 
 
 void
-GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double /*rotation*/) {
+GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double rotation) {
     osg::Vec3d lookFromOSG, lookAtOSG, up;
-    myViewer->getCameraManipulator()->getHomePosition(lookFromOSG, lookAtOSG, up);
+    myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
     lookFromOSG[0] = lookFrom.x();
     lookFromOSG[1] = lookFrom.y();
     lookFromOSG[2] = lookFrom.z();
     lookAtOSG[0] = lookAt.x();
     lookAtOSG[1] = lookAt.y();
     lookAtOSG[2] = lookAt.z();
+
+    osg::Vec3d viewAxis, viewUp, orthogonal, normal;
+    viewAxis = lookFromOSG - lookAtOSG;
+    viewAxis.normalize();
+    viewUp = (viewAxis[0] + viewAxis[1] == 0.) ? osg::Vec3d(0., 1., 0.) : osg::Vec3d(0., 0., 1.); // check for parallel vectors
+    orthogonal = viewUp ^ viewAxis;
+    orthogonal.normalize();
+    normal = viewAxis ^ orthogonal;
+
+    rotation = std::fmod(rotation, 360.);
+    if (rotation < 0) {
+        rotation += 360.;
+    }
+    myChanger->setRotation(rotation);
+    double angle = DEG2RAD(rotation);
+    up = normal * cos(angle) - orthogonal * sin(angle);
+    up.normalize();
+
+    myCameraManipulator->setVerticalAxisFixed(true);
     myViewer->getCameraManipulator()->setHomePosition(lookFromOSG, lookAtOSG, up);
     myViewer->home();
+    myCameraManipulator->setVerticalAxisFixed(false);
 }
 
 
@@ -646,6 +672,7 @@ long GUIOSGView::onMiddleBtnRelease(FXObject* sender, FXSelector sel, void* ptr)
     return FXGLCanvas::onMiddleBtnRelease(sender, sel, ptr);
 }
 
+
 long GUIOSGView::onRightBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
     handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
 
@@ -663,10 +690,18 @@ long GUIOSGView::onRightBtnRelease(FXObject* sender, FXSelector sel, void* ptr) 
     return FXGLCanvas::onRightBtnRelease(sender, sel, ptr);
 }
 
+
 long
 GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     myAdapter->getEventQueue()->mouseMotion((float)event->win_x, (float)event->win_y);
+
+    if (myViewportChooser != nullptr && myViewportChooser->shown()) {
+        osg::Vec3d lookFrom, lookAt, up;
+        myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
+        myViewportChooser->setValues(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
+                                     Position(lookAt[0], lookAt[1], lookAt[2]), calculateRotation(lookFrom, lookAt, up));
+    }
 
     return FXGLCanvas::onMotion(sender, sel, ptr);
 }
@@ -678,6 +713,23 @@ GUIOSGView::OnIdle(FXObject* /* sender */, FXSelector /* sel */, void*) {
     update();
     getApp()->addChore(this, MID_CHORE);
     return 1;
+}
+
+
+double
+GUIOSGView::calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up) {
+    osg::Vec3d viewAxis, viewUp, orthogonal, normal;
+    viewAxis = lookFrom - lookAt;
+    viewAxis.normalize();
+    viewUp = (abs(viewAxis[0]) + abs(viewAxis[1]) == 0.) ? osg::Y_AXIS : osg::Z_AXIS; // check for parallel vectors
+    orthogonal = viewUp ^ viewAxis;
+    orthogonal.normalize();
+    normal = viewAxis ^ orthogonal;
+    double angle = atan2((normal ^ up).length() / (normal.length() * up.length()), (normal * up) / (normal.length() * up.length()));
+    if (angle < 0) {
+        angle += M_PI;
+    }
+    return RAD2DEG(angle);
 }
 
 

@@ -1,4 +1,0 @@
-Error: Attribute 'file' is missing in definition of e1Detector 'E1_01'.
-Error: Could not build e1Detector with ID 'E1_02' in netedit; filename is invalid.
-Error: Attribute 'file' in definition of e1Detector 'E1_03' is empty.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.30Jun102104.10204\netedit.gui\additionalElements\e1detector\load\file\input_additionals.add.xml failed.

@@ -33,8 +33,7 @@
 // ===========================================================================
 Command_RouteReplacement::Command_RouteReplacement(const std::string& vehID, const MSRoute* route) :
     myVehID(vehID),
-    myRoute(route)
-{ 
+    myRoute(route) {
     myRoute->addReference();
 }
 
@@ -48,7 +47,7 @@ Command_RouteReplacement::execute(SUMOTime /*currentTime*/) {
     // if the vehicle is not available anymore, silently ignore replacement
     if (veh != nullptr) {
         std::string errorPrefix = ("Replayed route replacement failed for vehicle '"
-            + veh->getID() + "' route=" + myRoute->getID() + " time=" + time2string(SIMSTEP));
+                                   + veh->getID() + "' route=" + myRoute->getID() + " time=" + time2string(SIMSTEP));
         std::string msg;
         if (!veh->hasValidRoute(msg, myRoute)) {
             WRITE_WARNING("Invalid route replacement for vehicle '" + veh->getID() + "'. " + msg);
@@ -58,7 +57,7 @@ Command_RouteReplacement::execute(SUMOTime /*currentTime*/) {
         }
         std::string errorMsg;
         if (!veh->replaceRoute(myRoute, "replayRerouting", veh->getLane() == nullptr,
-                    veh->getRoute().getReplacedIndex(), true, true, &errorMsg)) {
+                               veh->getRoute().getReplacedIndex(), true, true, &errorMsg)) {
             throw ProcessError(errorPrefix + " (" + errorMsg + ").");
         }
     }

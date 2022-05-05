@@ -1,0 +1,4 @@
+-n net.net.xml -o out.add.xml 
+--min 1 
+--edge-type.remove a,b
+tools/generateParkingAreas.py

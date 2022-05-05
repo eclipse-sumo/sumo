@@ -94,7 +94,7 @@ class T_Value:
         self.hightvalue = highvalue
 
     def __repr__(self):
-        return "%<%s|%s|%s|%s>" % (self.avgtraveltime, self.avgtravelspeed, self.avgtravellength, self.avgwaittime)
+        return "<%s|%s|%s|%s>" % (self.avgtraveltime, self.avgtravelspeed, self.avgtravellength, self.avgwaittime)
 
 # This class is used for the Kruskal-Wallis test in the significance test.
 
@@ -113,8 +113,8 @@ class H_Value:
         self.highchivalue = highvalue
 
     def __repr__(self):
-        return "%<%s|%s|%s|%s|%s|%s>" % (self.traveltime, self.travelspeed, self.travellength, self.waittime,
-                                         self.lowchivalue, self.highchivalue)
+        return "<%s|%s|%s|%s|%s|%s>" % (self.traveltime, self.travelspeed, self.travellength, self.waittime,
+                                        self.lowchivalue, self.highchivalue)
 
 # The class is for parsing the XML input file (vehicle information). This class is used in the networkStatistics.py for
 # calculating the gloabal network performances, e.g. avg. travel time and

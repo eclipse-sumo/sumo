@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-07 13:04:18 by Eclipse SUMO sumo Version v1_12_0+0296-f036efb
+<!-- generated on 2022-04-27 15:23:04 by Eclipse SUMO sumo Version v1_12_0+2325-8f8fe5402ec
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -68,6 +68,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop lane="1si_0" endPos="4.00" until="721.00"/>
         <stop lane="1fi_0" endPos="6.00" until="861.00"/>
         <stop lane="1si_0" endPos="4.00" until="921.00"/>
+        <stop lane="1fi_0" endPos="6.00" until="1061.00"/>
     </vehicle>
 
 </routes>

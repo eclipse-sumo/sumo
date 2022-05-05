@@ -42,8 +42,8 @@ FXIMPLEMENT(GNEInternalLane, FXDelegator, 0, 0)
 StringBijection<FXuint>::Entry GNEInternalLane::linkStateNamesValues[] = {
     { "Green-Major",    LINKSTATE_TL_GREEN_MAJOR },
     { "Green-Minor",    LINKSTATE_TL_GREEN_MINOR },
-    { "Yellow-Major",   LINKSTATE_TL_YELLOW_MAJOR },
-    { "Yellow-Minor",   LINKSTATE_TL_YELLOW_MINOR },
+    //{ "Yellow-Major",   LINKSTATE_TL_YELLOW_MAJOR }, (should not be used)
+    { "Yellow",   LINKSTATE_TL_YELLOW_MINOR },
     { "Red",            LINKSTATE_TL_RED },
     { "Red-Yellow",     LINKSTATE_TL_REDYELLOW },
     { "Stop",           LINKSTATE_STOP },
@@ -61,13 +61,13 @@ const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
 GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* junctionParent,
                                  const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
     GNENetworkElement(junctionParent->getNet(), id, GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-        {}, {}, {}, {}, {}, {}),
-    myJunctionParent(junctionParent),
-    myState(state),
-    myStateTarget(myState),
-    myEditor(editor),
-    myTlIndex(tlIndex),
-    myPopup(nullptr) {
+{}, {}, {}, {}, {}, {}),
+myJunctionParent(junctionParent),
+myState(state),
+myStateTarget(myState),
+myEditor(editor),
+myTlIndex(tlIndex),
+myPopup(nullptr) {
     // calculate internal lane geometry
     myInternalLaneGeometry.updateGeometry(shape);
     // update centering boundary without updating grid
@@ -77,12 +77,12 @@ GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* j
 
 GNEInternalLane::GNEInternalLane() :
     GNENetworkElement(nullptr, "dummyInternalLane", GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-        {}, {}, {}, {}, {}, {}),
-    myJunctionParent(nullptr),
-    myState(0),
-    myEditor(0),
-    myTlIndex(0),
-    myPopup(nullptr) {
+{}, {}, {}, {}, {}, {}),
+myJunctionParent(nullptr),
+myState(0),
+myEditor(0),
+myTlIndex(0),
+myPopup(nullptr) {
 }
 
 
@@ -221,16 +221,11 @@ GNEInternalLane::updateCenteringBoundary(const bool /*updateGrid*/) {
 
 RGBColor
 GNEInternalLane::colorForLinksState(FXuint state) {
-    if (state == LINKSTATE_TL_YELLOW_MINOR) {
-        // special case (default gui does not distinguish between yellow major/minor
-        return RGBColor(179, 179, 0, 255);
-    } else {
-        try {
-            return GUIVisualizationSettings::getLinkColor((LinkState)state);
-        } catch (ProcessError&) {
-            WRITE_WARNING("invalid link state='" + toString(state) + "'");
-            return RGBColor::BLACK;
-        }
+    try {
+        return GUIVisualizationSettings::getLinkColor((LinkState)state);
+    } catch (ProcessError&) {
+        WRITE_WARNING("invalid link state='" + toString(state) + "'");
+        return RGBColor::BLACK;
     }
 }
 

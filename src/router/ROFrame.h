@@ -42,7 +42,7 @@ public:
     /** @brief Inserts options used by routing applications into the OptionsCont-singleton
      * @param[in] oc The options container to fill
      */
-    static void fillOptions(OptionsCont& oc, const bool isDUA=false, const bool isMA=false);
+    static void fillOptions(OptionsCont& oc, const bool isDUA = false, const bool isMA = false);
 
 
     /** @brief Checks whether options are valid

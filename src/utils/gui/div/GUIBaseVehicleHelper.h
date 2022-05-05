@@ -50,7 +50,7 @@ public:
     static void drawAction_drawVehicleAsTrianglePlus(const double width, const double length);
 
     /// @brief draw vehicle as a circle
-    static void drawAction_drawVehicleAsCircle(const double width, const double length, double detail);
+    static void drawAction_drawVehicleAsCircle(const double width, double detail);
 
     /// @brief draw vehicle as a polygon
     static void drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length,

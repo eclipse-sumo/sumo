@@ -1,4 +1,0 @@
-Error: Attribute 'personNumber' in definition of vehicle 'vehicle_0' Invalid Number Format (long long integer format) dummyPersonNumber.
-Error: Attribute 'personNumber' in definition of vehicle 'vehicle_1' is empty.
-Error: Attribute 'personNumber' in definition of vehicle 'vehicle_4' Invalid Number Format (long long integer format) 2.5.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\demandElements\vehicle\load\personNumber\input_routes.rou.xml failed.

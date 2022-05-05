@@ -329,7 +329,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildRerouter(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
-                               const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const bool off, 
+                               const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const bool off,
                                const SUMOTime timeThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) = 0;
 
     /**@brief builds a rerouter interval
@@ -474,7 +474,7 @@ public:
      * @param[in] currentLimit Current limit of the feeder line
      * @param[in] parameters generic parameters
      */
-    virtual void buildTractionSubstation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
+    virtual void buildTractionSubstation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
                                          const double voltage, const double currentLimit, const Parameterised::Map& parameters) = 0;
 
     /**@brief build overhead wire
@@ -488,10 +488,10 @@ public:
      * @param[in] forbiddenInnerLanes Inner lanes, where placing of overhead wire is restricted
      * @param[in] parameters generic parameters
      */
-    virtual void buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& substationId, 
+    virtual void buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& substationId,
                                    const std::vector<std::string>& laneIDs, const double startPos, const double endPos, const bool friendlyPos,
                                    const std::vector<std::string>& forbiddenInnerLanes, const Parameterised::Map& parameters) = 0;
-   
+
     /**@brief build overhead wire clamp
      * @param[in] id Overhead wire clamp ID
      * @param[in] overheadWireIDStartClamp ID of the overhead wire segment, to the start of which the overhead wire clamp is connected
@@ -500,7 +500,7 @@ public:
      * @param[in] laneIDEndClamp ID of the overhead wire segment lane of overheadWireIDEndClamp
      * @param[in] parameters generic parameters
      */
-    virtual void buildOverheadWireClamp(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& overheadWireIDStartClamp, 
+    virtual void buildOverheadWireClamp(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& overheadWireIDStartClamp,
                                         const std::string& laneIDStartClamp, const std::string& overheadWireIDEndClamp, const std::string& laneIDEndClamp,
                                         const Parameterised::Map& parameters) = 0;
 
@@ -692,10 +692,10 @@ private:
 
     /// @brief parse traction substation
     void parseTractionSubstation(const SUMOSAXAttributes& attrs);
-    
+
     /// @brief parse overhead wire segment
     void parseOverheadWire(const SUMOSAXAttributes& attrs);
-    
+
     /// @brief parse overhead wire clamp
     void parseOverheadWireClamp(const SUMOSAXAttributes& attrs);
 

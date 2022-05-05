@@ -113,6 +113,11 @@ public:
         return myDefaultType;
     }
 
+    /// @brief retrieve all known types
+    const std::map<std::string, TypeDef>& getTypes() const {
+        return myTypes;
+    }
+
 protected:
     /// @brief A map of type names to type definitions
     std::map<std::string, TypeDef> myTypes;

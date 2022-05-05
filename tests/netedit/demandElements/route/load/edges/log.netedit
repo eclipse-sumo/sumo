@@ -1,4 +1,0 @@
-Error: Attribute 'edges' is missing in definition of route 'route_0'.
-Error: Attribute 'edges' in definition of route 'route_1' is empty.
-Error: Could not build route in netedit; edge doesn't exist.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug091525.4584\netedit.gui\demandElements\route\load\edges\input_routes.rou.xml failed.

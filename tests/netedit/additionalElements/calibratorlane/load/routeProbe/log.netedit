@@ -1,3 +1,0 @@
-Error: Could not build calibrator in netedit; routeProbe doesn't exist.
-Error: Attribute 'routeProbe' in definition of calibrator 'calibrator02' is empty.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_04Feb114325.6952\netedit.gui\additionalElements\calibratorlane\load\routeProbe\input_additionals.add.xml failed.

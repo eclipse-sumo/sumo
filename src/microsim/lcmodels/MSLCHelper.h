@@ -66,7 +66,7 @@ public:
      */
     static bool saveBlockerLength(const MSVehicle& veh, MSVehicle* blocker, int lcaCounter, double leftSpace, bool reliefConnection, double& leadingBlockerLength);
 
-    /* @brief return saveable space 
+    /* @brief return saveable space
      * @param[in] requested The space that should be saved for another vehicle
      * @param[in] leftSpace The remaining distance that can be driving without lane change
      * @return Whether the requested space can be reserved

@@ -289,19 +289,17 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
     ConstMSEdgeVector tmpEdges;
     std::vector<SUMOVehicleParameter::Stop> stops;
     double lastPos = myHolder.getPositionOnLane();
-    MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(&myHolder);
-    assert(veh != nullptr);
-    const MSEdge* rerouteOrigin = veh->getRerouteOrigin();
+    const MSEdge* rerouteOrigin = myHolder.getRerouteOrigin();
     if (isEmpty()) {
         // start fresh from the current edge
         myHolder.abortNextStop();
-        assert(!veh->hasStops());
+        assert(!myHolder.hasStops());
         tmpEdges.push_back(myHolder.getEdge());
         if (myHolder.getEdge() != rerouteOrigin) {
             tmpEdges.push_back(rerouteOrigin);
         }
     } else {
-        assert(veh->hasStops());
+        assert(myHolder.hasStops());
         // check how often existing customers appear in the new reservations
         std::map<const MSTransportable*, int> nOccur;
         for (const Reservation* res : reservations) {
@@ -317,7 +315,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
         if (nOccur.size() == 0) {
             // no overlap with existing customers - extend route
             tmpEdges = myHolder.getRoute().getEdges();
-            lastPos = veh->getStops().back().pars.endPos;
+            lastPos = myHolder.getStops().back().pars.endPos;
 #ifdef DEBUG_DISPATCH
             if (DEBUG_COND) {
                 std::cout << " re-dispatch with route-extension\n";
@@ -368,7 +366,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                     }
                 }
             }
-            while (veh->hasStops()) {
+            while (myHolder.hasStops()) {
                 myHolder.abortNextStop();
             }
             tmpEdges.push_back(myHolder.getEdge());
@@ -540,12 +538,11 @@ MSDevice_Taxi::allowsBoarding(MSTransportable* t) const {
 }
 
 
-bool
-MSDevice_Taxi::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
-                          double newPos, double /*newSpeed*/) {
+void
+MSDevice_Taxi::updateMove(const SUMOTime traveltime, const double travelledDist) {
     if (myHolder.getPersonNumber() > 0 || myHolder.getContainerNumber() > 0) {
-        myOccupiedDistance += (newPos - oldPos);
-        myOccupiedTime += DELTA_T;
+        myOccupiedDistance += travelledDist;
+        myOccupiedTime += traveltime;
     }
     if (isEmpty() && MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
         myIdleAlgorithm->idle(this);
@@ -558,7 +555,27 @@ MSDevice_Taxi::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         }
     }
     myIsStopped = myHolder.isStopped();
+}
+
+
+bool
+MSDevice_Taxi::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
+                          double newPos, double /*newSpeed*/) {
+    updateMove(DELTA_T, newPos - oldPos);
     return true; // keep the device
+}
+
+
+void
+MSDevice_Taxi::notifyMoveInternal(const SUMOTrafficObject& /* veh */,
+                                  const double /* frontOnLane */,
+                                  const double timeOnLane,
+                                  const double /* meanSpeedFrontOnLane */,
+                                  const double /* meanSpeedVehicleOnLane */,
+                                  const double travelledDistanceFrontOnLane,
+                                  const double /* travelledDistanceVehicleOnLane */,
+                                  const double /* meanLengthOnLane */) {
+    updateMove(TIME2STEPS(timeOnLane), travelledDistanceFrontOnLane);
 }
 
 
@@ -570,11 +587,6 @@ MSDevice_Taxi::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notificat
     return true; // keep the device
 }
 
-
-bool
-MSDevice_Taxi::notifyLeave(SUMOTrafficObject& /*veh*/, double /*lastPos*/, MSMoveReminder::Notification /*reason*/, const MSLane* /* enteredLane */) {
-    return true; // keep the device
-}
 
 void
 MSDevice_Taxi::customerEntered(const MSTransportable* t) {
@@ -613,6 +625,9 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
             myDispatcher->fulfilledReservation(res);
         }
         myCurrentReservations.clear();
+        if (MSGlobals::gUseMesoSim && MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
+            myIdleAlgorithm->idle(this);
+        }
     } else {
         // check whether a single reservation has been fulfilled
         for (auto resIt = myCurrentReservations.begin(); resIt != myCurrentReservations.end();) {
@@ -632,6 +647,7 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
         }
     }
 }
+
 
 bool
 MSDevice_Taxi::hasFuturePickup() {

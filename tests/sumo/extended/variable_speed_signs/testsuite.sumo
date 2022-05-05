@@ -24,3 +24,6 @@ b0_offset_100_doubleTime
 
 # negative speeds should reset to default edge speed
 reset_to_default
+
+# begin time=0, first change at time=100
+speed0

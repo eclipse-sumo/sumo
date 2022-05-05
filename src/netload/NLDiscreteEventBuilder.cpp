@@ -101,7 +101,7 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const SUMOSAXAttributes& attrs,
         for (std::vector<std::string>::const_iterator tls = ids.begin(); tls != ids.end(); ++tls) {
             const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(*tls);
             new Command_SaveTLSState(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)),
-                    saveDetectors, saveConditions);
+                                     saveDetectors, saveConditions);
         }
     } else {
         // get the logic
@@ -111,7 +111,7 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const SUMOSAXAttributes& attrs,
         const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(source);
         // build the action
         new Command_SaveTLSState(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)),
-                saveDetectors, saveConditions);
+                                 saveDetectors, saveConditions);
     }
 }
 

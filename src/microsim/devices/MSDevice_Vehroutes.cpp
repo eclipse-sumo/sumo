@@ -167,7 +167,14 @@ MSDevice_Vehroutes::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notifica
         myDepartPos = veh.getPositionOnLane();
     }
     if (myWriteStopPriorEdges) {
-        myPriorEdges.push_back(&enteredLane->getEdge());
+        if (MSGlobals::gUseMesoSim) {
+            const MSEdge* e = veh.getEdge();
+            if (myPriorEdges.empty() || myPriorEdges.back() != e) {
+                myPriorEdges.push_back(e);
+            }
+        } else {
+            myPriorEdges.push_back(&enteredLane->getEdge());
+        }
     }
     myLastRouteIndex = myHolder.getRoutePosition();
     return true;
@@ -328,23 +335,23 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
         }
         if (tmp.wasSet(VEHPARS_DEPARTPOSLAT_SET)) {
             tmp.departPosLatProcedure = (tmp.departPosLatProcedure == DepartPosLatDefinition::RANDOM
-                ? DepartPosLatDefinition::GIVEN_VEHROUTE
-                : DepartPosLatDefinition::GIVEN);
+                                         ? DepartPosLatDefinition::GIVEN_VEHROUTE
+                                         : DepartPosLatDefinition::GIVEN);
             tmp.departPosLat = myDepartPosLat;
         }
     }
     if (tmp.wasSet(VEHPARS_DEPARTPOS_SET)) {
         tmp.departPosProcedure = ((tmp.departPosProcedure != DepartPosDefinition::GIVEN
-                    && tmp.departPosProcedure != DepartPosDefinition::STOP)
-                ? DepartPosDefinition::GIVEN_VEHROUTE
-                : DepartPosDefinition::GIVEN);
+                                   && tmp.departPosProcedure != DepartPosDefinition::STOP)
+                                  ? DepartPosDefinition::GIVEN_VEHROUTE
+                                  : DepartPosDefinition::GIVEN);
         tmp.departPos = myDepartPos;
     }
     if (tmp.wasSet(VEHPARS_DEPARTSPEED_SET)) {
         tmp.departSpeedProcedure = ((tmp.departSpeedProcedure != DepartSpeedDefinition::GIVEN
-                    && tmp.departSpeedProcedure != DepartSpeedDefinition::LIMIT)
-                ? DepartSpeedDefinition::GIVEN_VEHROUTE
-                : DepartSpeedDefinition::GIVEN);
+                                     && tmp.departSpeedProcedure != DepartSpeedDefinition::LIMIT)
+                                    ? DepartSpeedDefinition::GIVEN_VEHROUTE
+                                    : DepartSpeedDefinition::GIVEN);
         tmp.departSpeed = myDepartSpeed;
     }
     if (oc.getBool("vehroute-output.speedfactor") ||
@@ -457,6 +464,9 @@ void
 MSDevice_Vehroutes::generateOutputForUnfinished() {
     for (const auto& it : myStateListener.myDevices) {
         if (it.first->hasDeparted()) {
+            if (it.first->isStopped()) {
+                it.second->notifyStopEnded();
+            }
             it.second->writeOutput(false);
         }
     }

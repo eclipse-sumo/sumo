@@ -644,6 +644,10 @@ enum {
     MID_GNE_SAVEJOINEDJUNCTIONS,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
+    /// @brief reload TLS Programs
+    MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS,
+    /// @brief reload edge types
+    MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES,
     /// @brief reload additionals
     MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS,
     /// @brief save TLS Programs as
@@ -767,7 +771,7 @@ enum {
 
     /// @name GNEViewNet Data view options messages
     /// @{
-    
+
     /// @brief toggle draw junction shape
     MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief show additionals
@@ -978,6 +982,8 @@ enum {
     MID_GNE_TLSFRAME_CREATE,
     /// @brief delete TLS
     MID_GNE_TLSFRAME_DELETE,
+    /// @brief regenerate TLS
+    MID_GNE_TLSFRAME_REGENERATE,
     /// @brief rename TLS
     MID_GNE_TLSFRAME_RENAME,
     /// @brief sub-rename TLS
@@ -1215,6 +1221,8 @@ enum {
     MID_GNE_BUTTON_CLEAR,
     /// @brief sort button
     MID_GNE_BUTTON_SORT,
+    /// @brief focus button
+    MID_GNE_BUTTON_FOCUS,
 
     /// @}
 

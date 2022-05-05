@@ -320,3 +320,17 @@ The given .sumocfg file only needs to include the network and any additional inf
 !!! caution
     Option **--save-state.period 1** can slow down a simulation significantly.
 
+# runSeeds.py
+
+Run a (sumo) configuration multiple times with different seeds.
+
+Example:
+
+```
+python tools/runSeeds.py -k test.sumocfg --seeds 7,11,13
+```
+
+- option **--seeds** can either be given as a list or as a range (`0:100`).  
+- the application path can be set with option **--application** (**-a**)
+- option **--output-prefix** (**-p**) can be used to define a prefix for all written output files. The string "SEED" is replaced by the current seed. (default prefix is "SEED.")
+

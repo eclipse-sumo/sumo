@@ -129,7 +129,7 @@ public:
     static std::string getCurrentDir();
 
     /** @brief Splits the given file path into directory components.
-     * 
+     *
      * The path gets normalized such that redundant "." and empty components are removed.
      * Furthermore it will not contain a ".." after a directory name.
      *
@@ -146,7 +146,7 @@ public:
      * @param[in] curDir the current working dir (mainly for easier testing), "" will trigger a call of getCurrentDir
      * @return the corrected relative file path
      */
-    static std::string fixRelative(const std::string& filename, const std::string& basePath, const bool force, std::string curDir="");
+    static std::string fixRelative(const std::string& filename, const std::string& basePath, const bool force, std::string curDir = "");
 
     /// @brief prepend the given prefix to the last path component of the given file path
     static std::string prependToLastPathComponent(const std::string& prefix, const std::string& path);

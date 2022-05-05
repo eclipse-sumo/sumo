@@ -247,7 +247,7 @@ MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lca
             // we cannot save enough space for the blocker. It needs to save
             // space for ego instead
             const bool canReserve = blocker->getLaneChangeModel().saveBlockerLength(veh.getVehicleType().getLengthWithGap(), leftSpace);
-                    //reliefConnection ? std::numeric_limits<double>::max() : leftSpace);
+            //reliefConnection ? std::numeric_limits<double>::max() : leftSpace);
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
             if (DEBUG_COND) {
                 std::cout << SIMTIME

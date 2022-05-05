@@ -1,3 +1,0 @@
-Error: Unknown lane change model 'dummyLaneChangeModel' when parsing vType 'vType0'
-Error: Attribute 'laneChangeModel' in definition of vType 'vType1' is empty.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\lanechangemodel\input_routes.rou.xml failed.

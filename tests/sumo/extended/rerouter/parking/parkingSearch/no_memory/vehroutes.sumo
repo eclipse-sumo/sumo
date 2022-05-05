@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-29 15:55:28 by Eclipse SUMO sumo Version v1_12_0+1721-cfd3c87c354
+<!-- generated on 2022-04-22 10:59:06 by Eclipse SUMO sumo Version v1_12_0+2232-c4797f9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -55,10 +55,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="ego.0" type="car" depart="0.00" departSpeed="13.89" speedFactor="1.0000" routeLength="49.90">
         <route cost="0.00" savings="0.00" edges="A0A1" exitTimes="-1"/>
+        <stop parkingArea="parkA0A1" duration="3600.00" started="6.00" ended="-1"/>
     </vehicle>
 
     <vehicle id="ego.1" type="car" depart="2.00" departSpeed="13.89" speedFactor="1.0000" routeLength="151.40">
         <route cost="41.03" savings="-34.37" edges="A0A1 A1A2 A2A1 A1A0 A0A1" exitTimes="13.00 -1 -1 -1 -1"/>
+        <stop parkingArea="parkA1A2" duration="3600.00" started="19.00" ended="-1"/>
     </vehicle>
 
     <vehicle id="ego.2" type="car" depart="4.00" departSpeed="13.89" speedFactor="1.0000" routeLength="251.40">
@@ -66,6 +68,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route cost="41.03" savings="-34.37" replacedOnEdge="A1A2" replacedOnIndex="1" reason="parkA1A2:parkingAreaReroute" replacedAtTime="20.00" probability="0" edges="A0A1 A1A2 A2A1 A1A0 A0A1" routeLength="480.55"/>
             <route cost="48.51" savings="-14.61" edges="A0A1 A1A2 A2A3 A3A2 A2A1 A1A0 A0A1" exitTimes="14.00 26.00 -1 -1 -1 -1 -1"/>
         </routeDistribution>
+        <stop parkingArea="parkA2A3" duration="3600.00" started="32.00" ended="-1"/>
     </vehicle>
 
     <vehicle id="ego.3" type="car" depart="6.00" departSpeed="13.599" speedFactor="1.0000" routeLength="538.46">
@@ -74,6 +77,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route cost="48.51" savings="-14.61" replacedOnEdge="A2A3" replacedOnIndex="2" reason="parkA2A3:parkingAreaReroute" replacedAtTime="33.00" probability="0" edges="A0A1 A1A2 A2A3 A3A2 A2A1 A1A0 A0A1" routeLength="683.54"/>
             <route cost="68.69" savings="-27.18" edges="A0A1 A1A2 A2A3 A3B3 B3B2 B2B3 B3B2 B2B1 B1B0 B0A0 A0A1" exitTimes="16.00 27.00 39.00 46.00 53.00 -1 -1 -1 -1 -1 -1"/>
         </routeDistribution>
+        <stop parkingArea="parkB2B3" duration="3600.00" started="60.00" ended="-1"/>
     </vehicle>
 
     <vehicle id="ego.4" type="car" depart="8.00" departSpeed="11.1317" speedFactor="1.0000" routeLength="6098.28">

@@ -60,7 +60,7 @@ class Vehicle:
         self.vtype = None
 
     def __repr__(self):
-        return "%s_%s_%s_%s_%s_%s<%s>" % (
+        return "%s_%s_%s_%s_%s_%s" % (
             self.label, self.depart, self.arrival, self.speed, self.traveltime, self.travellength)
 
 

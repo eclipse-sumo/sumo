@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-31 10:26:14 by Eclipse SUMO sumo Version v1_12_0+1808-7caee96
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <stop-output value="stopinfos.xml"/>
+        <save-state.times value="50"/>
+        <save-state.files value="state.xml"/>
+        <save-state.precision value="3"/>
+    </output>
+
+    <time>
+        <end value="500"/>
+    </time>
+
+    <processing>
+        <collision.stoptime value="50"/>
+        <default.speeddev value="0"/>
+        <default.emergencydecel value="decel"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+</stops>

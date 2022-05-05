@@ -107,6 +107,9 @@ By default, vehicles will leave the simulation after reaching the end of their f
 - "stop" (default): stop at the current location (off-road) after delivering the last customer of the current service request.
 - "randomCircling": continue driving to random edges until the next request is received. (caution: taxi might get stuck in a cul-de-sac if the network has those)
 
+!!! note
+    When using "randomCircling", the default value for parameter "device.taxi.end" is 8 hours after vehicle departure.
+
 ## Customer Stops
 
 Taxis will stop to pick-up and drop-off customers. The 'actType' attribute of a stop indicates the purpose ('pickup' / 'dropOff') as well as the ids of the customers and their reservation id. Stop attributes can be configured using [generic parameters]() `<vType>` or `<vehicle>` definition of the taxi:

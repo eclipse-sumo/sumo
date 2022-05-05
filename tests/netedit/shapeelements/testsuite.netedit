@@ -1,0 +1,14 @@
+# basic shape tests
+basic
+
+# pois (points of interest)
+poi
+
+# poilanes (points of interest placed over lanes)
+poilane
+
+# poigeos (points of interest in geo coordinates)
+poigeo
+
+# polygons
+poly

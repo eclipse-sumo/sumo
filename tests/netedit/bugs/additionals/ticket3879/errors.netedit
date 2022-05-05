@@ -19,7 +19,6 @@ Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
-Debug: demand elements saved
 Debug: Deleting unreferenced variableSpeedSignSymbol 'v'
 Debug: Deleting unreferenced variableSpeedSign 'v'
 Debug: Deleting unreferenced rerouterSymbol 'r'
@@ -37,7 +36,6 @@ Debug: Deleting unreferenced e1Detector 'e1'
 Debug: Deleting unreferenced containerStop 'ct'
 Debug: Deleting unreferenced chargingStation 'cs'
 Debug: Deleting unreferenced busStop 'bs'
-Error: routes cannot be processed either with additional handler nor with demand handler
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()

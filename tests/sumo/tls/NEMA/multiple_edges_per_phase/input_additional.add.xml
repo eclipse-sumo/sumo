@@ -1,0 +1,27 @@
+<add>
+	<tlLogic id="J5" type="NEMA" programID="test_controller" offset="0">
+        <phase duration="99" state="rrrGGGrrrrrrrrrr" name="2" vehext="2" yellow="3" red="2" minDur="5" maxDur="30"/>
+		<phase duration="99" state="rrrrrrrrrrrGGGrr" name="6" vehext="2" yellow="3" red="2" minDur="5" maxDur="30"/>
+        <phase duration="99" state="GGrrrrrrrrrrrrrG" name="4" vehext="2" yellow="3" red="2" minDur="5" maxDur="30"/>
+		<phase duration="99" state="rrrrrrrGGGrrrrrr" name="8" vehext="2" yellow="3" red="2" minDur="5" maxDur="30"/>
+		<phase duration="99" state="rrrrrrGrrrrrrrrr" name="5" vehext="2" yellow="3" red="2" minDur="5" maxDur="30"/>
+        <phase duration="99" state="rrrrrrrrrrrrrrGr" name="1" vehext="2" yellow="3" red="2" minDur="5" maxDur="30"/>
+        <phase duration="99" state="rrGrrrrrrrrrrrrr" name="3" vehext="2" yellow="3" red="2" minDur="5" maxDur="30"/>
+		<phase duration="99" state="rrrrrrrrrrGrrrrr" name="7" vehext="2" yellow="3" red="2" minDur="5" maxDur="30"/>
+
+        <param key="detector-length" value="20"/>
+        <param key="detector-length-leftTurnLane" value="10"/>
+        <param key="total-cycle-length" value="140"/>
+        <param key="ring1" value="1,2,3,4"/>
+        <param key="ring2" value="5,6,7,8"/>
+        <param key="barrierPhases" value="4,8"/>
+        <param key="coordinate-mode" value="true"/>
+        <param key="barrier2Phases" value="2,6"/>
+        <param key="minRecall" value="2,6"/>
+        <param key="whetherOutputState" value="true"/>
+        <param key="fixForceOff" value="false"/>
+        <param key="file" value="detector.xml"/>
+        <param key="controllerType" value="Type170"/>
+
+    </tlLogic>
+</add>

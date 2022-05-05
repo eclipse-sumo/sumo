@@ -1,6 +1,0 @@
-Error: Attribute 'until' in definition of a stop is not a valid time value.
-Error: Invalid duration or end time is given for a stop at 'parkingArea'
-Error: Attribute 'until' in definition of a stop is empty.
-Error: Invalid duration or end time is given for a stop at 'parkingArea'
-Error: Invalid duration or end time is given for a stop at 'parkingArea'
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\demandElements\stop\parkingarea\load\until\input_routes.rou.xml failed.

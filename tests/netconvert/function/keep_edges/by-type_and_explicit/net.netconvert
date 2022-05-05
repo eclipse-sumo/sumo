@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:21:07 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-04-19 17:28:05 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -209,7 +214,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="--33#2" to="--33#1" fromLane="0" toLane="0" via=":-26_0_0" tl="-26" linkIndex="0" dir="s" state="O"/>
     <connection from="--33#2" to="--33#1" fromLane="1" toLane="1" via=":-26_0_1" tl="-26" linkIndex="1" dir="s" state="O"/>
     <connection from="--33#2" to="-33#2" fromLane="1" toLane="1" via=":-26_2_0" tl="-26" linkIndex="2" dir="t" state="o"/>
-    <connection from="--38#2" to="-38#1" fromLane="0" toLane="0" via=":-14_0_0" dir="t" state="="/>
+    <connection from="--38#2" to="-38#1" fromLane="0" toLane="0" via=":-14_0_0" dir="t" state="M"/>
     <connection from="-33#0" to="-33#1" fromLane="0" toLane="0" via=":-15_7_0" dir="s" state="M"/>
     <connection from="-33#0" to="-33#1" fromLane="1" toLane="1" via=":-15_7_1" dir="s" state="M"/>
     <connection from="-33#0" to="--38#2" fromLane="1" toLane="0" via=":-15_9_0" dir="l" state="m"/>

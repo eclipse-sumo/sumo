@@ -70,6 +70,9 @@ public:
     /// @brief event after release a key
     long onKeyRelease(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief focus on frame
+    long onCmdFocusOnFrame(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @}
 
 protected:
@@ -111,6 +114,9 @@ private:
 
     /// @brief cancel button
     FXButton* myResetButton;
+
+    /// @brief focus button
+    FXButton* myFocusButton;
 
     /// @brief description of changes did in this additional dialog
     std::string myChangesDescription;

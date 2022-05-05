@@ -32,7 +32,7 @@ FXDEFMAP(MFXRealSpinner) MFXRealSpinnerMap[] = {
 // Object implementation
 FXIMPLEMENT(MFXRealSpinner, FXRealSpinner, MFXRealSpinnerMap, ARRAYNUMBER(MFXRealSpinnerMap))
 
-MFXRealSpinner::MFXRealSpinner(FXComposite *p,FXint cols,FXObject *tgt,FXSelector sel,FXuint opts,FXint x,FXint y,FXint w,FXint h,FXint pl,FXint pr,FXint pt,FXint pb):
+MFXRealSpinner::MFXRealSpinner(FXComposite* p, FXint cols, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
     FXRealSpinner(p, cols, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
 }
 

@@ -59,6 +59,9 @@ public:
     /** The time to detect grid locks on highways */
     static SUMOTime gTimeToGridlockHighways;
 
+    /** The speed threshold for gTimeToGridlockHighways */
+    static double gGridlockHighwaysSpeed;
+
     /** The time to wait for teleport on disconected routes */
     static SUMOTime gTimeToTeleportDisconnected;
 
@@ -80,6 +83,9 @@ public:
 
     /** information whether the routes shall be checked for connectivity */
     static bool gCheckRoutes;
+
+    /** information whether dangerous insertion speeds are permitted */
+    static bool gEmergencyInsert;
 
     /** information Duration of a lane change maneuver */
     static SUMOTime gLaneChangeDuration;
@@ -158,4 +164,7 @@ public:
 
     /// @brief Whether turning specific weights are estimated (and how much)
     static double gWeightsSeparateTurns;
+
+    /// @brief The minimum waiting time before applying startupDelay
+    static SUMOTime gStartupWaitThreshold;
 };

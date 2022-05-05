@@ -36,25 +36,25 @@
 
 GNEOverheadWire::GNEOverheadWire(GNENet* net) :
     GNEAdditional("", net, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, "",
-        {}, {}, {}, {}, {}, {}),
-    myStartPos(0),
-    myEndPos(0),
-    myFriendlyPosition(false) {
+{}, {}, {}, {}, {}, {}),
+myStartPos(0),
+myEndPos(0),
+myFriendlyPosition(false) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEOverheadWire::GNEOverheadWire(const std::string& id, std::vector<GNELane*> lanes, GNEAdditional* substation, GNENet* net, 
-        const double startPos, const double endPos, const bool friendlyPos, const std::vector<std::string>& forbiddenInnerLanes, 
-        const Parameterised::Map& parameters) :
+GNEOverheadWire::GNEOverheadWire(const std::string& id, std::vector<GNELane*> lanes, GNEAdditional* substation, GNENet* net,
+                                 const double startPos, const double endPos, const bool friendlyPos, const std::vector<std::string>& forbiddenInnerLanes,
+                                 const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, "",
-        {}, {}, lanes, {substation}, {}, {}),
-    Parameterised(parameters),
-    myStartPos(startPos),
-    myEndPos(endPos),
-    myFriendlyPosition(friendlyPos),
-    myForbiddenInnerLanes(forbiddenInnerLanes) {
+{}, {}, lanes, {substation}, {}, {}),
+Parameterised(parameters),
+myStartPos(startPos),
+myEndPos(endPos),
+myFriendlyPosition(friendlyPos),
+myForbiddenInnerLanes(forbiddenInnerLanes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -64,11 +64,11 @@ GNEOverheadWire::~GNEOverheadWire() {
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEOverheadWire::getMoveOperation() {
     // check modes and detector type
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
         return getMoveOperationMultiLane(myStartPos, myEndPos);
     } else {
         return nullptr;
@@ -105,7 +105,7 @@ GNEOverheadWire::isAdditionalValid() const {
             return true;
         } else {
             return (myStartPos >= 0) && ((myStartPos) <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) &&
-                    (myEndPos >= 0) && ((myEndPos) <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
+                   (myEndPos >= 0) && ((myEndPos) <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
         }
     } else {
         return false;
@@ -192,13 +192,13 @@ GNEOverheadWire::updateGeometry() {
 }
 
 
-Position 
+Position
 GNEOverheadWire::getPositionInView() const {
     return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
-void 
+void
 GNEOverheadWire::updateCenteringBoundary(const bool /* updateGrid */) {
     myAdditionalBoundary.reset();
     // add center
@@ -247,16 +247,16 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             overheadWireGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                      geometryDepartPos, geometryEndPos,      // extrem positions
-                                      Position::INVALID, Position::INVALID);  // extra positions
+                                                geometryDepartPos, geometryEndPos,      // extrem positions
+                                                Position::INVALID, Position::INVALID);  // extra positions
         } else if (segment->isFirstSegment()) {
             overheadWireGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                      geometryDepartPos, -1,                  // extrem positions
-                                      Position::INVALID, Position::INVALID);  // extra positions
+                                                geometryDepartPos, -1,                  // extrem positions
+                                                Position::INVALID, Position::INVALID);  // extra positions
         } else if (segment->isLastSegment()) {
             overheadWireGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                      -1, geometryEndPos,                     // extrem positions
-                                      Position::INVALID, Position::INVALID);  // extra positions
+                                                -1, geometryEndPos,                     // extrem positions
+                                                Position::INVALID, Position::INVALID);  // extra positions
         } else {
             overheadWireGeometry = lane->getLaneGeometry();
         }
@@ -425,7 +425,7 @@ GNEOverheadWire::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const Parameterised::Map& 
+const Parameterised::Map&
 GNEOverheadWire::getACParametersMap() const {
     return getParametersMap();
 }
@@ -570,7 +570,7 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEOverheadWire::setMoveShape(const GNEMoveResult& moveResult) {
     if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) ||
-        (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
+            (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
         // change only start position
         myStartPos = moveResult.newFirstPos;
     } else if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||
@@ -593,7 +593,7 @@ GNEOverheadWire::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* u
     undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
     // set attributes depending of operation type
     if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) ||
-        (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
+            (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
         // set only start position
         setAttribute(SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
     } else if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||

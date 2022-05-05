@@ -397,6 +397,16 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
         // special case for embedded routes
         if (edge->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
             deleteDemandElement(edge->getChildDemandElements().front()->getParentDemandElements().front(), undoList);
+        } else if (edge->getChildDemandElements().front()->getTagProperty().isPersonPlan()) {
+            const auto person = edge->getChildDemandElements().front()->getParentDemandElements().front();
+            if (person->getChildDemandElements().size() == 1) {
+                deleteDemandElement(person, undoList);
+            }
+        } else if (edge->getChildDemandElements().front()->getTagProperty().isContainerPlan()) {
+            const auto container = edge->getChildDemandElements().front()->getParentDemandElements().front();
+            if (container->getChildDemandElements().size() == 1) {
+                deleteDemandElement(container, undoList);
+            }
         } else {
             deleteDemandElement(edge->getChildDemandElements().front(), undoList);
         }
@@ -414,7 +424,7 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
         edge->getToJunction()->setLogicValid(false, undoList);
     } else {
         edge->getFromJunction()->removeConnectionsTo(edge, undoList, true);
-        edge->getFromJunction()->removeConnectionsFrom(edge, undoList, true);
+        edge->getToJunction()->removeConnectionsFrom(edge, undoList, true);
     }
     // if junction source is a TLS and after deletion will have only an edge, remove TLS
     if (edge->getFromJunction()->getNBNode()->isTLControlled() && (edge->getFromJunction()->getGNEOutgoingEdges().size() <= 1)) {
@@ -2238,7 +2248,7 @@ GNENet::saveDataElementsConfirmed(const std::string& filename) {
 void
 GNENet::writeAdditionalByType(OutputDevice& device, const std::vector<SumoXMLTag> tags) const {
     std::map<std::string, GNEAdditional*> sortedAdditionals;
-    for (const auto &tag : tags) {
+    for (const auto& tag : tags) {
         for (const auto& additional : myAttributeCarriers->getAdditionals().at(tag)) {
             if (sortedAdditionals.count(additional->getID()) == 0) {
                 sortedAdditionals[additional->getID()] = additional;
@@ -2265,12 +2275,12 @@ GNENet::writeDemandByType(OutputDevice& device, SumoXMLTag tag) const {
 }
 
 
-void 
+void
 GNENet::writeRoutes(OutputDevice& device, const bool additionalFile) const {
     std::map<std::string, GNEDemandElement*> sortedRoutes;
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        if ((additionalFile && (route->getChildAdditionals().size() > 0)) || 
-            (!additionalFile && (route->getChildAdditionals().size() == 0))) {
+        if ((additionalFile && (route->getChildAdditionals().size() > 0)) ||
+                (!additionalFile && (route->getChildAdditionals().size() == 0))) {
             sortedRoutes[route->getID()] = route;
         }
     }
@@ -2280,13 +2290,13 @@ GNENet::writeRoutes(OutputDevice& device, const bool additionalFile) const {
 }
 
 
-void 
+void
 GNENet::writeVTypes(OutputDevice& device, const bool additionalFile) const {
     std::map<std::string, GNEDemandElement*> sortedElements;
     // write vType Distributions
     for (const auto& vTypeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-        if ((additionalFile && (vTypeDistribution->getChildAdditionals().size() > 0)) || 
-            (!additionalFile && (vTypeDistribution->getChildAdditionals().size() == 0))) {
+        if ((additionalFile && (vTypeDistribution->getChildAdditionals().size() > 0)) ||
+                (!additionalFile && (vTypeDistribution->getChildAdditionals().size() == 0))) {
             sortedElements[vTypeDistribution->getID()] = vTypeDistribution;
         }
     }
@@ -2301,8 +2311,8 @@ GNENet::writeVTypes(OutputDevice& device, const bool additionalFile) const {
         const bool defaultVTypeModified = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED));
         // only write default vType modified
         if ((vType->getParentDemandElements().size() == 0) && (!defaultVType || (defaultVType && defaultVTypeModified))) {
-            if ((additionalFile && (vType->getChildAdditionals().size() > 0)) || 
-                (!additionalFile && (vType->getChildAdditionals().size() == 0))) {
+            if ((additionalFile && (vType->getChildAdditionals().size() > 0)) ||
+                    (!additionalFile && (vType->getChildAdditionals().size() == 0))) {
                 sortedElements[vType->getID()] = vType;
             }
         }
@@ -2313,7 +2323,7 @@ GNENet::writeVTypes(OutputDevice& device, const bool additionalFile) const {
 }
 
 
-bool 
+bool
 GNENet::writeVTypeComment(OutputDevice& device, const bool additionalFile) const {
     // vType Distributions
     for (const auto& vTypeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
@@ -2345,7 +2355,7 @@ GNENet::writeVTypeComment(OutputDevice& device, const bool additionalFile) const
 }
 
 
-bool 
+bool
 GNENet::writeRouteComment(OutputDevice& device, const bool additionalFile) const {
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         if (additionalFile && (route->getChildAdditionals().size() > 0)) {
@@ -2360,7 +2370,7 @@ GNENet::writeRouteComment(OutputDevice& device, const bool additionalFile) const
 }
 
 
-bool 
+bool
 GNENet::writeRouteProbeComment(OutputDevice& device) const {
     if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_ROUTEPROBE).size() > 0) {
         device << ("    <!-- RouteProbes -->\n");
@@ -2370,9 +2380,9 @@ GNENet::writeRouteProbeComment(OutputDevice& device) const {
 }
 
 
-bool 
+bool
 GNENet::writeCalibratorComment(OutputDevice& device) const {
-    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+    for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
         if (GNEAttributeCarrier::getTagProperty(additionals.first).isCalibrator() && (additionals.second.size() > 0)) {
             device << ("    <!-- Calibrators -->\n");
             return true;
@@ -2382,9 +2392,9 @@ GNENet::writeCalibratorComment(OutputDevice& device) const {
 }
 
 
-bool 
+bool
 GNENet::writeStoppingPlaceComment(OutputDevice& device) const {
-    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+    for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
         if (GNEAttributeCarrier::getTagProperty(additionals.first).isStoppingPlace() && (additionals.second.size() > 0)) {
             device << ("    <!-- StoppingPlaces -->\n");
             return true;
@@ -2394,9 +2404,9 @@ GNENet::writeStoppingPlaceComment(OutputDevice& device) const {
 }
 
 
-bool 
+bool
 GNENet::writeDetectorComment(OutputDevice& device) const {
-    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+    for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
         if (GNEAttributeCarrier::getTagProperty(additionals.first).isDetector() && (additionals.second.size() > 0)) {
             device << ("    <!-- Detectors -->\n");
             return true;
@@ -2408,13 +2418,13 @@ GNENet::writeDetectorComment(OutputDevice& device) const {
 
 bool
 GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
-    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+    for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
         if (GNEAttributeCarrier::getTagProperty(additionals.first).isAdditionalPureElement() &&
-            !GNEAttributeCarrier::getTagProperty(additionals.first).isStoppingPlace() &&
-            !GNEAttributeCarrier::getTagProperty(additionals.first).isDetector() &&
-            !GNEAttributeCarrier::getTagProperty(additionals.first).isCalibrator() &&
-            (additionals.first != SUMO_TAG_ROUTEPROBE) && (additionals.first != SUMO_TAG_ACCESS) &&
-            (additionals.first != SUMO_TAG_PARKING_SPACE) && (additionals.second.size() > 0)) {
+                !GNEAttributeCarrier::getTagProperty(additionals.first).isStoppingPlace() &&
+                !GNEAttributeCarrier::getTagProperty(additionals.first).isDetector() &&
+                !GNEAttributeCarrier::getTagProperty(additionals.first).isCalibrator() &&
+                (additionals.first != SUMO_TAG_ROUTEPROBE) && (additionals.first != SUMO_TAG_ACCESS) &&
+                (additionals.first != SUMO_TAG_PARKING_SPACE) && (additionals.second.size() > 0)) {
             device << ("    <!-- Other additionals -->\n");
             return true;
         }
@@ -2423,9 +2433,9 @@ GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
 }
 
 
-bool 
+bool
 GNENet::writeShapesComment(OutputDevice& device) const {
-    for (const auto &additionals : myAttributeCarriers->getAdditionals()) {
+    for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
         if (GNEAttributeCarrier::getTagProperty(additionals.first).isShapeElement() && (additionals.second.size() > 0)) {
             device << ("    <!-- Shapes -->\n");
             return true;
@@ -2435,7 +2445,7 @@ GNENet::writeShapesComment(OutputDevice& device) const {
 }
 
 
-bool 
+bool
 GNENet::writeTAZComment(OutputDevice& device) const {
     if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_TAZ).size() > 0) {
         device << ("    <!-- TAZs -->\n");
@@ -2445,7 +2455,7 @@ GNENet::writeTAZComment(OutputDevice& device) const {
 }
 
 
-bool 
+bool
 GNENet::writeWireComment(OutputDevice& device) const {
     if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_TRACTION_SUBSTATION).size() > 0) {
         device << ("    <!-- Wires -->\n");
@@ -2695,7 +2705,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
         // remake connections
         for (const auto& connection : myAttributeCarriers->getEdges()) {
-            connection.second->remakeGNEConnections();
+            connection.second->remakeGNEConnections(true);
         }
         // iterate over junctions of net
         for (const auto& junction : myAttributeCarriers->getJunctions()) {

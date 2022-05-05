@@ -26,7 +26,7 @@
 // class declarations
 // ===========================================================================
 #ifndef LIBTRACI
-class MSParkingArea;
+class MSStoppingPlace;
 #endif
 
 

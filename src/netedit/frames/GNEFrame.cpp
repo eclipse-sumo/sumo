@@ -135,7 +135,7 @@ GNEFrame::getViewNet() const {
 }
 
 
-FXVerticalFrame* 
+FXVerticalFrame*
 GNEFrame::getContentFrame() const {
     return myContentFrame;
 }

@@ -95,6 +95,9 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
     if (getAttribute(SUMO_ATTR_ANGLE) != myTagProperty.getDefaultValue(SUMO_ATTR_ANGLE)) {
         device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
     }
+    if (getAttribute(SUMO_ATTR_DEPARTPOS) != myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTPOS)) {
+        device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPos);
+    }
     // write all parking spaces
     for (const auto& space : getChildAdditionals()) {
         if (space->getTagProperty().getTag() == SUMO_TAG_PARKING_SPACE) {
@@ -356,8 +359,12 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             } else if (canParse<double>(value)) {
                 // parse value
                 const double departPos = parse<double>(value);
-                if ((departPos >= 0) && (departPos <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength())) {
-                    return true;
+                if (departPos >= 0) {
+                    if (isTemplate()) {
+                        return true;
+                    } else {
+                        return (departPos <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
+                    }
                 } else {
                     return false;
                 }

@@ -46,12 +46,16 @@ Warning: Vehicle 'flow.15' ends teleporting on edge 'C1toB1', time=1576800672.00
 Warning: Vehicle 'flow.13' teleports beyond arrival edge 'A1toA0', time=1576800697.00.
 Warning: Teleporting vehicle 'flow.9'; waited too long (yield), lane='A0toA1_0', time=1576800703.00.
 Warning: Vehicle 'flow.9' ends teleporting on edge 'A1toA0', time=1576800705.00.
+Warning: Teleporting vehicle 'flow.18'; waited too long (jam), lane='B1toA1_0', time=1576800847.00.
 Warning: Teleporting vehicle 'flow.15'; waited too long (yield), lane='A1toA0_0', time=1576800853.00.
+Warning: Vehicle 'flow.18' ends teleporting on edge 'A1toA0', time=1576800853.00.
+Warning: Teleporting vehicle 'flow.16'; waited too long (jam), lane=':A1_0_0', time=1576800854.00.
 Warning: Teleporting vehicle 'flow.11'; waited too long (yield), lane=':A1_3_0', time=1576800854.00.
-Warning: Vehicle 'flow.11' teleports beyond arrival edge 'A1toA0', time=1576800858.00.
-Warning: Vehicle 'flow.15' teleports beyond arrival edge 'A1toA0', time=1576800863.00.
-Warning: Teleporting vehicle 'flow.16'; waited too long (yield), lane='A0toA1_0', time=1576801006.00.
-Warning: Vehicle 'flow.16' ends teleporting on edge 'A1toA0', time=1576801008.00.
+Warning: Vehicle 'flow.11' teleports beyond arrival edge 'A1toA0', time=1576800863.00.
+Warning: Vehicle 'flow.15' teleports beyond arrival edge 'A1toA0', time=1576800871.00.
+Warning: Vehicle 'flow.16' teleports beyond arrival edge 'A1toA0', time=1576800881.00.
+Warning: Teleporting vehicle 'flow.14'; waited too long (yield), lane='A0toA1_0', time=1576800957.00.
+Warning: Vehicle 'flow.14' ends teleporting on edge 'A1toA0', time=1576800959.00.
 Warning: Teleporting vehicle 'flow.17'; waited too long (jam), lane='E0toF0_0', time=1576800338.00.
 Warning: Teleporting vehicle 'flow.19'; waited too long (jam), lane='D0toE0_0', time=1576800340.00.
 Warning: Teleporting vehicle 'flow.2'; waited too long (yield), lane='A0toA1_0', time=1576800357.00.

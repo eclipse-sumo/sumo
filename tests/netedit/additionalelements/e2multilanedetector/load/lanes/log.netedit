@@ -1,0 +1,5 @@
+Error: Could not build e2Detector with ID 'e2MultilaneDetector_0' in netedit; list of lanes isn't valid.
+Error: Could not build e2Detector in netedit; lane doesn't exist.
+Error: Could not build e2Detector with ID 'e2MultilaneDetector_1' in netedit; list of lanes isn't valid.
+Error: Could not build e2Detector with ID 'e2MultilaneDetector_3' in netedit; Lanes aren't consecutives.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e2multilanedetector\load\lanes\input_additionals.add.xml failed.

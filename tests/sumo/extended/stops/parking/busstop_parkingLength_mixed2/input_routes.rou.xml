@@ -1,0 +1,16 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <vehicle id="b0" depart="0" route="1">
+        <stop busStop="bs0" parking="true" duration="100"/>
+    </vehicle>
+
+    <vehicle id="b1" depart="2" route="1">
+        <stop busStop="bs0" parking="false" duration="50"/>
+    </vehicle>
+
+    <vehicle id="b2" depart="2" route="1">
+        <stop busStop="bs0" parking="false" duration="50"/>
+    </vehicle>
+
+
+</routes>

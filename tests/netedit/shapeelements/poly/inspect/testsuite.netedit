@@ -1,0 +1,44 @@
+# all test check also the undo-redo of modifications and save the poly into a file
+# edit poly id
+id
+
+# edit poly shape
+shape
+
+# edit poly color
+color
+
+# edit poly fill
+fill
+
+# edit poly linewidth
+linewidth
+
+# edit poly layer
+layer
+
+# edit poly type
+type
+
+name
+
+# edit poly imgfile
+imgfile
+
+# edit poly relative path
+relativepath
+
+# edit poly angle
+angle
+
+# edit geo shape
+geo_shape
+
+# edit use geo
+geo_use
+
+# edit poly parameters
+parameters
+
+# edit poly close shape
+closeshape

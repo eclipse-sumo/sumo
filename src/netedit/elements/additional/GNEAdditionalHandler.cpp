@@ -319,8 +319,9 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
             WRITE_ERROR("Could not build " + toString(SUMO_TAG_PARKING_AREA) + " with ID '" + id + "' in netedit; Invalid " + toString(SUMO_ATTR_DEPARTPOS) + " over lane.");
         } else {
             // build parkingArea
-            GNEAdditional* parkingArea = new GNEParkingArea(id, lane, myNet, startPos, endPos, departPos, name, friendlyPosition, roadSideCapacity,
-                    onRoad, (width == 0) ? SUMO_const_laneWidth : width, length, angle, parameters);
+            GNEAdditional* parkingArea = new GNEParkingArea(id, lane, myNet, startPos, endPos, GNEAttributeCarrier::canParse<double>(departPos) ? departPos : "",
+                    name, friendlyPosition, roadSideCapacity, onRoad,
+                    (width == 0) ? SUMO_const_laneWidth : width, length, angle, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::PARKINGAREA, "add " + toString(SUMO_TAG_PARKING_AREA));
@@ -450,14 +451,15 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
             writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_LENGTH);
         } else if ((freq != -1) && (freq < 0)) {
             writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_FREQUENCY);
+        } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
+            // temporal
+            WRITE_ERROR("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with ID '" + id + "' in netedit; invalid traffic light ID.");
         } else if (timeThreshold < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
         } else if (speedThreshold < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
         } else if (jamThreshold < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
-        } else if (freq < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_FREQUENCY);
         } else if (timeThreshold < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
         } else if (speedThreshold < 0) {
@@ -511,11 +513,14 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
             if (!GNEAdditional::areLaneConsecutives(lanes)) {
                 WRITE_ERROR("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with ID '" + id + "' in netedit; Lanes aren't consecutives.");
             } else if (!checkMultiLanePosition(
-                        pos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(),
-                        endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
+                           pos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(),
+                           endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
                 writeErrorInvalidPosition(SUMO_TAG_E2DETECTOR, id);
-            } else if (freq < 0) {
+            } else if ((freq != -1) && (freq < 0)) {
                 writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_FREQUENCY);
+            } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
+                // temporal
+                WRITE_ERROR("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with ID '" + id + "' in netedit; invalid traffic light ID.");
             } else if (timeThreshold < 0) {
                 writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
             } else if (speedThreshold < 0) {
@@ -809,7 +814,7 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
 void
 GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameter) {
     // get vType
-    GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter.vtypeid.empty()? DEFAULT_VTYPE_ID : vehicleParameter.vtypeid, false);
+    GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter.vtypeid.empty() ? DEFAULT_VTYPE_ID : vehicleParameter.vtypeid, false);
     // get route
     GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, vehicleParameter.routeid, false);
     // get calibrator parent
@@ -1538,9 +1543,9 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
 }
 
 
-void 
-GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
-                                              const double voltage, const double currentLimit, const Parameterised::Map& parameters) {
+void
+GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
+        const double voltage, const double currentLimit, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_TRACTION_SUBSTATION, id);
@@ -1568,8 +1573,8 @@ GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBase
 }
 
 
-void 
-GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& substationId, 
+void
+GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& substationId,
                                         const std::vector<std::string>& laneIDs, const double startPos, const double endPos, const bool friendlyPos,
                                         const std::vector<std::string>& forbiddenInnerLanes, const Parameterised::Map& parameters) {
     // check conditions
@@ -1588,8 +1593,8 @@ GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject
             if (!GNEAdditional::areLaneConsecutives(lanes)) {
                 WRITE_ERROR("Could not build " + toString(SUMO_TAG_OVERHEAD_WIRE_SECTION) + " with ID '" + id + "' in netedit; Lanes aren't consecutives.");
             } else if (!checkMultiLanePosition(
-                        startPos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(),
-                        endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
+                           startPos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(),
+                           endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
                 writeErrorInvalidPosition(SUMO_TAG_OVERHEAD_WIRE_SECTION, id);
             } else if (tractionSubstation == nullptr) {
                 writeErrorInvalidParent(SUMO_TAG_OVERHEAD_WIRE_SECTION, SUMO_TAG_TRACTION_SUBSTATION);
@@ -1616,12 +1621,12 @@ GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject
         writeErrorDuplicated(SUMO_TAG_OVERHEAD_WIRE_SECTION, id);
     }
 }
-   
+
 
 void
 GNEAdditionalHandler::buildOverheadWireClamp(const CommonXMLStructure::SumoBaseObject* /* sumoBaseObject */, const std::string& /* id */, const std::string& /* overheadWireIDStartClamp */,
-                                             const std::string& /* laneIDStartClamp */, const std::string& /* overheadWireIDEndClamp */, const std::string& /* laneIDEndClamp */,
-                                             const Parameterised::Map& /* parameters */) {
+        const std::string& /* laneIDStartClamp */, const std::string& /* overheadWireIDEndClamp */, const std::string& /* laneIDEndClamp */,
+        const Parameterised::Map& /* parameters */) {
     //
 }
 
@@ -1754,7 +1759,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
     } else if (GeoConvHelper::getFinal().getProjString() == "!") {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_POI) + " with ID '" + id + "' in netedit; Networ requieres a geo projection.");
+        WRITE_ERROR("Could not build " + toString(SUMO_TAG_POI) + " with ID '" + id + "' in netedit; Networ requires a geo projection.");
     } else if ((myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POI, id, false) == nullptr) ||
                (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POILANE, id, false) == nullptr) ||
                (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POIGEO, id, false) == nullptr)) {
@@ -1842,7 +1847,7 @@ GNEAdditionalHandler::checkLanePosition(double pos, const double length, const d
 
 
 void
-GNEAdditionalHandler::fixLanePosition(double& pos, double &length, const double laneLength) {
+GNEAdditionalHandler::fixLanePosition(double& pos, double& length, const double laneLength) {
     // negative pos means that start at the end of lane and count backward)
     if (pos < 0) {
         pos += laneLength;
@@ -1991,7 +1996,7 @@ GNEAdditionalHandler::writeErrorInvalidFilename(const SumoXMLTag tag, const std:
 }
 
 
-void 
+void
 GNEAdditionalHandler::writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id) const {
     WRITE_ERROR("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; list of lanes isn't valid.");
 }

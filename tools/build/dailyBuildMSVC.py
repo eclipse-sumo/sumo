@@ -123,6 +123,8 @@ def main(options, platform="x64"):
     prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
     makeLog = prefix + "Release.log"
     makeAllLog = prefix + "Debug.log"
+    testLog = prefix + "Test.log"
+    testDebugLog = prefix + "DebugTest.log"
     statusLog = prefix + "status.log"
     log_handler = status.set_rotating_log(makeLog)
 
@@ -209,17 +211,17 @@ def main(options, platform="x64"):
         except IOError as ziperr:
             status.printLog("Warning: Could not zip to %s (%s)!" % (debugZip, ziperr))
 
-    log_handler = status.set_rotating_log(makeLog, debug_handler)
+    log_handler = status.set_rotating_log(testLog, debug_handler)
     status.printLog("Running tests.")
     runTests(options, env, gitrev)
     with open(statusLog, 'w') as log:
-        status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
+        status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log, testLog=testLog)
     if not options.x64only:
-        debug_handler = status.set_rotating_log(makeAllLog, log_handler)
+        debug_handler = status.set_rotating_log(testDebugLog, log_handler)
         status.printLog("Running debug tests.")
         runTests(options, env, gitrev, "D")
         with open(prefix + "Dstatus.log", 'w') as log:
-            status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)
+            status.printStatus(makeAllLog, testDebugLog, env["SMTP_SERVER"], log, testLog=testDebugLog)
 
 
 if __name__ == "__main__":

@@ -350,6 +350,9 @@ public:
      * the custom variables of each child implementation */
     virtual void changed() = 0;
 
+    /* @brief called once when the vehicle moves to a new lane in an "irregular"  way (i.e. by teleporting)
+     * resets custom variables of each child implementation */
+    virtual void resetState() {};
 
     /// @brief return factor for modifying the safety constraints of the car-following model
     virtual double getSafetyFactor() const {

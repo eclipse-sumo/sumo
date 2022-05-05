@@ -27,6 +27,13 @@
 #include <cstdio>
 #include <cstring>
 #include <regex>
+#ifdef WIN32
+#define NOMINMAX
+#include <windows.h>
+#undef NOMINMAX
+#else
+#include <unistd.h>
+#endif
 #include <xercesc/util/TransService.hpp>
 #include <xercesc/util/TranscodingException.hpp>
 #include <utils/common/UtilExceptions.h>
@@ -125,7 +132,39 @@ StringUtils::replace(std::string str, const std::string& what, const std::string
 }
 
 
-std::string StringUtils::substituteEnvironment(std::string str) {
+std::string
+StringUtils::substituteEnvironment(const std::string& str, const std::chrono::time_point<std::chrono::system_clock>* const timeRef) {
+    std::string s = str;
+    if (timeRef != nullptr) {
+        const std::string::size_type localTimeIndex = str.find("${LOCALTIME}");
+        const std::string::size_type utcIndex = str.find("${UTC}");
+        if (localTimeIndex != std::string::npos || utcIndex != std::string::npos) {
+            const time_t rawtime = std::chrono::system_clock::to_time_t(*timeRef);
+            char buffer [80];
+            struct tm* timeinfo = utcIndex != std::string::npos ? gmtime(&rawtime) : localtime(&rawtime);
+            strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S.", timeinfo);
+            auto seconds = std::chrono::time_point_cast<std::chrono::seconds>(*timeRef);
+            auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(*timeRef - seconds);
+            const std::string micro = buffer + toString(microseconds.count());
+            if (utcIndex != std::string::npos) {
+                s.replace(utcIndex, 6, micro);
+            } else {
+                s.replace(localTimeIndex, 12, micro);
+            }
+        }
+    }
+    const std::string::size_type pidIndex = str.find("${PID}");
+    if (pidIndex != std::string::npos) {
+#ifdef WIN32
+        s.replace(pidIndex, 6, toString(::GetCurrentProcessId()));
+#else
+        s.replace(pidIndex, 6, toString(::getpid()));
+#endif
+    }
+    if (std::getenv("${SUMO_LOGO}") == nullptr) {
+        s = replace(s, "${SUMO_LOGO}", "${SUMO_HOME}/data/logo/sumo-128x138.png");
+    }
+
     // Expression for an environment variables, e.g. ${NAME}
     // Note: - R"(...)" is a raw string literal syntax to simplify a regex declaration
     //       - .+? looks for the shortest match (non-greedy)
@@ -134,7 +173,7 @@ std::string StringUtils::substituteEnvironment(std::string str) {
 
     // Are there any variables in this string?
     std::smatch match;
-    std::string strIter = str;
+    std::string strIter = s;
 
     // Loop over the entire value string and look for variable names
     while (std::regex_search(strIter, match, envVarExpr)) {
@@ -147,14 +186,14 @@ std::string StringUtils::substituteEnvironment(std::string str) {
         }
 
         // Replace the variable placeholder with its value in the original string
-        str = std::regex_replace(str, std::regex("\\$\\{" + varName + "\\}"), varValue);
+        s = std::regex_replace(s, std::regex("\\$\\{" + varName + "\\}"), varValue);
 
         // Continue the loop with the remainder of the string
         strIter = match.suffix();
     }
-
-    return str;
+    return s;
 }
+
 
 std::string
 StringUtils::toTimeString(int time) {

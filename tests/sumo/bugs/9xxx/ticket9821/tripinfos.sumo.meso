@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-07 13:04:32 by Eclipse SUMO sumo Version v1_12_0+0296-f036efb
+<!-- generated on 2022-04-05 10:32:48 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,5 +49,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE">
         <ride waitingTime="2.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </personinfo>
-    <tripinfo id="trip_A" depart="0.00" departLane="" departPos="0.00" departSpeed="91.95" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="2.00" routeLength="0.00" waitingTime="0.00" waitingCount="0" stopTime="1.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_trip_A routing_trip_A" vType="special" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="trip_A" depart="0.00" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="2.00" routeLength="0.00" waitingTime="0.00" waitingCount="0" stopTime="1.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_trip_A routing_trip_A" vType="special" speedFactor="1.00" vaporized="end"/>
 </tripinfos>

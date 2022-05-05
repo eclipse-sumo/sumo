@@ -188,7 +188,11 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
                 geoPos.swapXY();
             }
             GeoConvHelper::getFinal().x2cartesian_const(geoPos);
-            myShapeFrameParent->myBaseShape->addPositionAttribute(SUMO_ATTR_POSITION, geoPos);
+            // add lon/lat
+            myShapeFrameParent->myBaseShape->addDoubleAttribute(SUMO_ATTR_LON, geoPos.x());
+            myShapeFrameParent->myBaseShape->addDoubleAttribute(SUMO_ATTR_LAT, geoPos.y());
+            // set GEO Position as true
+            myShapeFrameParent->myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, "true");
             // add shape
             myShapeFrameParent->addShape();
             // check if view has to be centered over created GEO POI

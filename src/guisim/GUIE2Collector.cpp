@@ -69,8 +69,7 @@ GUIE2Collector::buildDetectorGUIRepresentation() {
 
 GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
     GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID()),
-    myDetector(detector)
-{
+    myDetector(detector) {
     mySupportsOverride = true;
     // collect detector shape into one vector (v)
     const std::vector<MSLane*> lanes = detector.getLanes();
