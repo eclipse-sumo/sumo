@@ -48,6 +48,12 @@ def get_options(args=None):
                            help="Minimum capacity for parkingAreas")
     optParser.add_argument("--max", type=int, default=uMax,
                            help="Maximum capacity for parkingAreas")
+    optParser.add_argument("--edge-type.keep", dest="edgeTypeKeep",
+                           help="Optional list of edge types to keep exclusively")
+    optParser.add_argument("--edge-type.remove", dest="edgeTypeRemove",
+                           help="Optional list of edge types to exclude")
+    optParser.add_argument("--keep-all", action="store_true", default=False, dest="keepAll",
+                           help="whether to keep parkingAreas with 0 capacity")
     optParser.add_argument("-a", "--angle", type=float,
                            help="parking area angle")
     optParser.add_argument("--prefix", default="pa", help="prefix for the parkingArea ids")
@@ -64,6 +70,11 @@ def get_options(args=None):
         optParser.print_help()
         sys.exit(1)
 
+    if options.edgeTypeKeep:
+        options.edgeTypeKeep = options.edgeTypeKeep.split(',')
+    if options.edgeTypeRemove:
+        options.edgeTypeRemove = options.edgeTypeRemove.split(',')
+
     return options
 
 
@@ -76,6 +87,10 @@ def main(options):
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)  # noqa
         for edge in net.getEdges():
+            if options.edgeTypeKeep and not edge.getType() in options.edgeTypeKeep:
+                continue
+            if options.edgeTypeRemove and edge.getType() in options.edgeTypeRemove:
+                continue
             for lane in edge.getLanes():
                 if lane.allows(options.vclass):
                     if random.random() < options.probability:
@@ -83,7 +98,7 @@ def main(options):
                         if options.randCapacity:
                             capacity *= random.random()
                         capacity = min(options.max, max(options.min, int(capacity)))
-                        if capacity > 0 or capacity == options.max:
+                        if capacity > 0 or capacity == options.max or options.keepAll:
                             angle = '' if options.angle is None else ' angle="%s"' % options.angle
                             length = '' if options.spaceLength <= 0 else ' length="%s"' % options.spaceLength
                             width = '' if options.width is None else ' width="%s"' % options.width

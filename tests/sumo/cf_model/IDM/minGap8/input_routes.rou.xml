@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-03 16:28:01 by Eclipse SUMO netedit Version v1_12_0+1889-c98cbd4
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vType id="t" carFollowModel="IDM" minGap="8"/>
+    <vehicle id="v_0" depart="0.00">
+        <route edges="E1"/>
+        <stop lane="E1_0" startPos="0.00" endPos="5.10" duration="60.00"/>
+    </vehicle>
+    <vehicle id="v_1" depart="0.00" departSpeed="max" type="t">
+        <route edges="E0 E1"/>
+    </vehicle>
+</routes>

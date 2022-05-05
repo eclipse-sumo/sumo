@@ -113,6 +113,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
                 && !oc.getBool("ptstop-output.no-bidi")) {
             myPTStopCont.localizePTStops(myEdgeCont);
         }
+        myPTStopCont.assignEdgeForFloatingStops(myEdgeCont, 20);
         myPTStopCont.assignLanes(myEdgeCont);
         PROGRESS_TIME_MESSAGE(before);
         if (mayAddOrRemove && oc.exists("keep-edges.components") && oc.getInt("keep-edges.components") > 0) {
@@ -741,7 +742,17 @@ NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoCon
         from_srs->cartesian2geo(from);
         ok &= GeoConvHelper::getLoaded().x2cartesian(from, false);
     }
-    ok &= GeoConvHelper::getProcessing().x2cartesian(from, includeInBoundary);
+    if (from_srs == nullptr || !GeoConvHelper::getProcessing().usingGeoProjection()) {
+        // if getProcessing is not a geo-projection, assume it a cartesian transformation (i.e. shift)
+        ok &= GeoConvHelper::getProcessing().x2cartesian(from, includeInBoundary);
+
+        if (from_srs == nullptr && GeoConvHelper::getProcessing().usingGeoProjection()
+                && GeoConvHelper::getNumLoaded() > 0
+                && GeoConvHelper::getLoaded().usingGeoProjection()) {
+            // apply geo patch to loaded geo-network (offset must match)
+            from = from + GeoConvHelper::getLoaded().getOffset();
+        }
+    }
     if (ok) {
         const NBHeightMapper& hm = NBHeightMapper::get();
         if (hm.ready()) {

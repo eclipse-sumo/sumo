@@ -162,7 +162,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
             device.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n->getFringeType()));
         }
         if (n->getName() != "") {
-            device.writeAttr<std::string>(SUMO_ATTR_NAME, n->getName());
+            device.writeAttr<std::string>(SUMO_ATTR_NAME, StringUtils::escapeXML(n->getName()));
         }
         n->writeParams(device);
         device.closeTag();

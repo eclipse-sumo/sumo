@@ -173,7 +173,7 @@ vehicles will be placed at the exact longitudinal and lateral position
 to match the specified coordinates. This allows for full control of
 sublane-placement.
 
-# Simple Continuos lane-change model
+# Simple Continuous lane-change model
 
 The sublane model described above allows simulating a wide range of
 phenomena related to lateral vehicle dynamics at the price of increased

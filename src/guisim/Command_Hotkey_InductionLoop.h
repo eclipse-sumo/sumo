@@ -36,7 +36,7 @@ class MSInductLoop;
 // ===========================================================================
 /**
  * @class Command_Hotkey_InductionLoop
- * @brief Set/unsets inductionloop override 
+ * @brief Set/unsets inductionloop override
  */
 class Command_Hotkey_InductionLoop : public Command {
 public:

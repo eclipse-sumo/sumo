@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 21 17:33:49 2021 by Eclipse SUMO sumo Version v1_8_0+0648-16ba97d7de
+<!-- generated on 2022-03-31 09:59:47 by Eclipse SUMO sumo Version v1_12_0+1800-1448304
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -42,19 +47,15 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_8_0+0648-16ba97d7de" time="1000.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1800-1448304" time="1000.00" type="meso">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" begin="3" end="0" depart="0.00" time="0.00"/>
     <vType id="type0" sigma="0"/>
-    <vehicle id="v0" type="type0" depart="1000.00" route="r0" distance="0 0" speedFactor="1.00" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
-        <device id="tripinfo_v0" state="-1 0 0 0 0 0 -1"/>
-    </vehicle>
-    <vehicle id="v1" type="type0" depart="990.00" route="r0" distance="7 0" speedFactor="1.00" state="990000 1 0 0 0 1004199 997000 9223372036854775807">
+    <vehicle id="v0" type="type0" depart="1000.00" route="r0" distance="0 0" speedFactor="1.0000" state="2050 9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807"/>
+    <vehicle id="v1" type="type0" depart="990.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 990000 1 0 0 0 1004199 997000 9223372036854775807">
         <device id="tripinfo_v1" state="1 7 0 0 0 0 -1"/>
     </vehicle>
-    <vehicle id="v2" type="type0" depart="1100.00" route="r0" distance="0 0" speedFactor="1.00" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
-        <device id="tripinfo_v2" state="-1 0 0 0 0 0 -1"/>
-    </vehicle>
+    <vehicle id="v2" type="type0" depart="1100.00" route="r0" distance="0 0" speedFactor="1.0000" state="2050 9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807"/>
     <segment id="beg:0">
         <vehicles time="1005630" value=""/>
     </segment>

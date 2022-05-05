@@ -1,4 +1,0 @@
-Warning: At NEMA tlLogic '0', the phases before barrier 1 from both rings do not add up. (ring1=169.00, ring2=174.00)
-Warning: At NEMA tlLogic '0', the phases before barrier 2 from both rings do not add up. (ring1=102.00, ring2=97.00)
-Warning: At NEMA tlLogic '0', actuated phase 3 has no controlling detector
-Warning: At NEMA tlLogic '0, linkIndex 7 has no controlling detector

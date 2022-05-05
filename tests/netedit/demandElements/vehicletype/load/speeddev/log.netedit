@@ -1,3 +1,0 @@
-Error: Attribute 'speedDev' in definition of vType 'vType0' Invalid Number Format (double) dummySpeedDev.
-Error: speedDev must be equal or greater than 0
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\demandElements\vehicletype\load\speeddev\input_routes.rou.xml failed.

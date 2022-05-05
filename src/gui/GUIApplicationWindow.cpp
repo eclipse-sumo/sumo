@@ -335,7 +335,7 @@ GUIApplicationWindow::create() {
     mySettingsMenu->create();
     myLocatorMenu->create();
     myControlMenu->create();
-    myWindowsMenu->create();
+    myWindowMenu->create();
     myHelpMenu->create();
 
     FXint textWidth = getApp()->getNormalFont()->getTextWidth("8", 1) * 24;
@@ -360,6 +360,8 @@ GUIApplicationWindow::create() {
     }
     if (myOnlineMaps.empty()) {
         myOnlineMaps["GeoHack"] = "https://geohack.toolforge.org/geohack.php?params=%lat;%lon_scale:1000";
+        myOnlineMaps["GoogleSat"] = "https://www.google.com/maps?ll=%lat,%lon&t=h&z=18";
+        myOnlineMaps["OSM"] = "https://www.openstreetmap.org/?mlat=%lat&mlon=%lon&zoom=18&layers=M";
     }
 }
 
@@ -381,7 +383,7 @@ GUIApplicationWindow::~GUIApplicationWindow() {
     delete mySettingsMenu;
     delete myLocatorMenu;
     delete myControlMenu;
-    delete myWindowsMenu;
+    delete myWindowMenu;
     delete myHelpMenu;
 
     delete myLoadThread;
@@ -578,45 +580,45 @@ GUIApplicationWindow::fillMenuBar() {
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_SIMLOAD);
 
     // build windows menu
-    myWindowsMenu = new FXMenuPane(this);
-    GUIDesigns::buildFXMenuTitle(myMenuBar, "&Windows", nullptr, myWindowsMenu);
-    new FXMenuCheck(myWindowsMenu,
+    myWindowMenu = new FXMenuPane(this);
+    GUIDesigns::buildFXMenuTitle(myMenuBar, "&Window", nullptr, myWindowMenu);
+    new FXMenuCheck(myWindowMenu,
                     "Show Status Line\t\tToggle the Status Bar on/off.",
                     myStatusbar, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowsMenu,
+    new FXMenuCheck(myWindowMenu,
                     "Show Message Window\t\tToggle the Message Window on/off.",
                     myMessageWindow, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowsMenu,
+    new FXMenuCheck(myWindowMenu,
                     "Show Simulation Time\t\tToggle the Simulation Time on/off.",
                     myToolBar3, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowsMenu,
+    new FXMenuCheck(myWindowMenu,
                     "Show Simulation Delay\t\tToggle the Simulation Delay Entry on/off.",
                     myToolBar4, FXWindow::ID_TOGGLESHOWN);
-    addToWindowsMenu(myWindowsMenu);
-    new FXMenuSeparator(myWindowsMenu);
-    GUIDesigns::buildFXMenuCommandShortcut(myWindowsMenu,
+    addToWindowsMenu(myWindowMenu);
+    new FXMenuSeparator(myWindowMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
                                            "Tile &Horizontally", "", "",
                                            GUIIconSubSys::getIcon(GUIIcon::WINDOWS_TILE_HORI), myMDIClient, FXMDIClient::ID_MDI_TILEHORIZONTAL);
-    GUIDesigns::buildFXMenuCommandShortcut(myWindowsMenu,
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
                                            "Tile &Vertically", "", "",
                                            GUIIconSubSys::getIcon(GUIIcon::WINDOWS_TILE_VERT), myMDIClient, FXMDIClient::ID_MDI_TILEVERTICAL);
-    GUIDesigns::buildFXMenuCommandShortcut(myWindowsMenu,
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
                                            "Cascade", "", "",
                                            GUIIconSubSys::getIcon(GUIIcon::WINDOWS_CASCADE),
                                            myMDIClient, FXMDIClient::ID_MDI_CASCADE);
-    GUIDesigns::buildFXMenuCommandShortcut(myWindowsMenu,
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
                                            "&Close", "", "",
                                            nullptr, myMDIClient, FXMDIClient::ID_MDI_CLOSE);
-    sep1 = new FXMenuSeparator(myWindowsMenu);
+    sep1 = new FXMenuSeparator(myWindowMenu);
     sep1->setTarget(myMDIClient);
     sep1->setSelector(FXMDIClient::ID_MDI_ANY);
-    GUIDesigns::buildFXMenuCommand(myWindowsMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_1);
-    GUIDesigns::buildFXMenuCommand(myWindowsMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_2);
-    GUIDesigns::buildFXMenuCommand(myWindowsMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_3);
-    GUIDesigns::buildFXMenuCommand(myWindowsMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_4);
-    GUIDesigns::buildFXMenuCommand(myWindowsMenu, "&Others...", nullptr, myMDIClient, FXMDIClient::ID_MDI_OVER_5);
-    new FXMenuSeparator(myWindowsMenu);
-    GUIDesigns::buildFXMenuCommandShortcut(myWindowsMenu,
+    GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_1);
+    GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_2);
+    GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_3);
+    GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_4);
+    GUIDesigns::buildFXMenuCommand(myWindowMenu, "&Others...", nullptr, myMDIClient, FXMDIClient::ID_MDI_OVER_5);
+    new FXMenuSeparator(myWindowMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
                                            "Clear Message Window", "", "Clear the message window.",
                                            GUIIconSubSys::getIcon(GUIIcon::CLEARMESSAGEWINDOW), this, MID_CLEARMESSAGEWINDOW);
     // build help menu
@@ -1574,6 +1576,7 @@ GUIApplicationWindow::eventOccurred() {
         switch (e->getOwnType()) {
             case GUIEventType::SIMULATION_LOADED:
                 handleEvent_SimulationLoaded(e);
+                setFocus();
                 break;
             case GUIEventType::SIMULATION_STEP:
                 if (myRunThread->simulationAvailable()) { // avoid race-condition related crash if reload was pressed

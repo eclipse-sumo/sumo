@@ -1,2 +1,0 @@
-Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'duplicatedVehicle'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Feb120617.1504\netedit.gui\demandElements\flow\inspect\id\input_routes.rou.xml failed.

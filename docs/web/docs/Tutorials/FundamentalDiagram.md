@@ -30,6 +30,7 @@ sufficient space to insert additional vehicles. In a closed system all
 the space is eventually taken up by the existing vehicles and the safety
 gaps between them. Additional space can only be obtained by lowering the
 speed in some parts of the circle to reduce these gaps.
+A special case are scenarios that feature spontaneous break down of speed and a travelling jam wave which permits different local densities over time.
 
 ## Reducing the speed evenly
 
@@ -92,3 +93,28 @@ And a flow that continuously tries to add vehicles:
   <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1"/>
 </flow>
 ```
+
+## Reducing the speed spontaneously
+
+Some car-following models permit spontaneous break-down of flow given the right configuration parameters, density or lane changing situation.
+For the default Krauss carFollowModel, it is sufficient to set sigma ~ 0.8 to observe stochastic break-down at densities of ~ 50 veh/km and given sigma = 1 the break-down may also occur at 3 veh/km.  
+
+Some tests cases can be obtained at
+
+- [circle_krauss_d50_t0.8](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/circle_krauss_d50_t0.8) 
+- [circle_krauss_d30_t1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/circle_krauss_d30_t1)
+
+
+
+# Fundamental diagram on a straight piece of road
+
+## Reducing the speed spontaneously
+It's possible to observe spontaneous breakdown given the sufficient length of road, and the right configuration of  parameters, density and lane changing situations.
+
+Some tests cases can be obtained at
+
+- [krauss_t0.9_s1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/circle_krauss_d50_t0.8) and [circle_krauss_d30_t1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/krauss_t0.9_s1)
+- [krauss_t0.9_s0.8](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/circle_krauss_d50_t0.8) and [circle_krauss_d30_t1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/krauss_t0.9_s0.8)
+- [2lane_krauss_t0.8_s0.5](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/circle_krauss_d50_t0.8) and [circle_krauss_d30_t1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/2lane_krauss_t0.8_s0.5)
+- [2lane_IDM](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/circle_krauss_d50_t0.8) and [circle_krauss_d30_t1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/2lane_IDM)
+

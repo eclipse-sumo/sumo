@@ -91,6 +91,9 @@ slowDown_subsecond
 
 # test timing of setAcceleration command
 setAcceleration
+
+# test speed response curve on setting speedFactor
+setSpeedFactor_IDM
 getFollower
 getLeader
 

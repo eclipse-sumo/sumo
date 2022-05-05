@@ -82,7 +82,7 @@ import as above.
 using namespace libsumo;
 
 int main(int argc, char* argv[]) {
-    Simulation::load({"-n", "net.net.xml"});
+    Simulation::load({"-c", "test.sumocfg"});
     for (int i = 0; i < 5; i++) {
         Simulation::step();
     }
@@ -115,7 +115,7 @@ import org.eclipse.sumo.libsumo.StringVector;
 public class Test {
     public static void main(String[] args) {
         System.loadLibrary("libsumojni");
-        Simulation.load(new StringVector(new String[] {"-n", "net.net.xml"}));
+        Simulation.load(new StringVector(new String[] {"-c", "test.sumocfg"}));
         for (int i = 0; i < 5; i++) {
             Simulation.step();
         }

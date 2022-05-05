@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+   <route id="WE" edges="WC CE"/>
+   <route id="SN" edges="SC CN"/>
+   <vehicle id="blocker" route="SN" depart="0">
+       <stop edge="CN" endPos="10" duration="600"/>
+   </vehicle>
+   <flow id="SN" route="SN" begin="30" number="6" end="60"/>
+   <flow id="WE" route="WE" begin="60" probability="0.1" end="400"/>
+</routes>

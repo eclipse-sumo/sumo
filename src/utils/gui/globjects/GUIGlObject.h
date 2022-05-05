@@ -153,7 +153,7 @@ public:
     }
 
     /// @brief set blocking status
-    inline void setBlocked(const bool state=true) {
+    inline void setBlocked(const bool state = true) {
         myAmBlocked = state;
     }
 

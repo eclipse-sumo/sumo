@@ -38,6 +38,7 @@ FXDEFMAP(GNEDemandElementDialog) GNEDemandElementDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_ACCEPT,  GNEDemandElementDialog::onCmdAccept),
     FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_CANCEL,  GNEDemandElementDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_RESET,   GNEDemandElementDialog::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_FOCUS,   GNEDemandElementDialog::onCmdFocusOnFrame),
 };
 
 // Object abstract implementation
@@ -51,7 +52,7 @@ GNEDemandElementDialog::GNEDemandElementDialog(GNEDemandElement* editedDemandEle
     FXTopWindow(editedDemandElement->getNet()->getViewNet(), ("Edit '" + editedDemandElement->getID() + "' data").c_str(), editedDemandElement->getIcon(), editedDemandElement->getIcon(), GUIDesignDialogBoxExplicit(width, height)),
     myEditedDemandElement(editedDemandElement),
     myUpdatingElement(updatingElement),
-    myChangesDescription("change " + editedDemandElement->getTagStr() + " values"),
+    myChangesDescription("Change " + editedDemandElement->getTagStr() + " values"),
     myNumberOfChanges(0) {
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
@@ -60,9 +61,11 @@ GNEDemandElementDialog::GNEDemandElementDialog(GNEDemandElement* editedDemandEle
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose accepting changes",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose discarding changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    myResetButton = new FXButton(buttonsFrame,  "reset\t\treset to previous values",  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+    myAcceptButton = new FXButton(buttonsFrame, "&Accept\t\tclose accepting changes",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(buttonsFrame, "&Cancel\t\tclose discarding changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    myResetButton = new FXButton(buttonsFrame,  "&Reset\t\treset to previous values",  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+    myFocusButton = new FXButton(buttonsFrame,  "&F", nullptr, this, MID_GNE_BUTTON_FOCUS, GUIDesignButtonFocus);
+
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
@@ -101,6 +104,13 @@ GNEDemandElementDialog::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) 
 long
 GNEDemandElementDialog::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
     return FXTopWindow::onKeyRelease(sender, sel, ptr);
+}
+
+
+long
+GNEDemandElementDialog::onCmdFocusOnFrame(FXObject*, FXSelector, void*) {
+    setFocus();
+    return 1;
 }
 
 

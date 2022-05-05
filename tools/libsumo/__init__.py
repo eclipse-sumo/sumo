@@ -16,6 +16,8 @@
 # @date    2018-06-05
 
 import os
+if "SUMO_HOME" not in os.environ and os.path.exists(os.path.join(os.path.dirname(__file__), "data")):
+    os.environ["SUMO_HOME"] = os.path.abspath(os.path.dirname(__file__))
 if hasattr(os, "add_dll_directory"):
     # since Python 3.8 the DLL search path has to be set explicitly see https://bugs.python.org/issue43173
     if "SUMO_HOME" in os.environ:

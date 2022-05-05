@@ -31,7 +31,7 @@ if len(sys.argv) < 4:
         "Call: CSV2polyconvertXML.py <CSV_FILE> <OUTPUT_FILE> <VALUENAME>[,<VALUENAME>]*")
     print(" The values within the csv-file are supposed to be divided by ';'.")
     print(
-        " <VALUENAME>s give the attribute names in order of their appearence within the csv-file .")
+        " <VALUENAME>s give the attribute names in order of their appearance within the csv-file .")
     exit()
 
 

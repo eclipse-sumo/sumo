@@ -941,7 +941,7 @@ GNEFrameAttributeModules::GenericDataAttributes::getFrameParent() const {
 }
 
 
-bool 
+bool
 GNEFrameAttributeModules::GenericDataAttributes::areAttributesValid() const {
     if (myTextFieldParameters->getText().empty()) {
         return true;
@@ -999,8 +999,8 @@ GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters(FXObject*, F
 
 bool
 GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC) {
-    if (viewNet->getEditModes().isCurrentSupermodeNetwork() && 
-        (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
+    if (viewNet->getEditModes().isCurrentSupermodeNetwork() &&
+            (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
         return true;
     } else if (viewNet->getEditModes().isCurrentSupermodeDemand() &&
                AC->getTagProperty().isDemandElement()) {

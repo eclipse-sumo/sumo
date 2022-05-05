@@ -331,7 +331,7 @@ MSTransportableControl::abortAnyWaitingForVehicle() {
             edge->removeTransportable(p);
             MSStageDriving* stage = dynamic_cast<MSStageDriving*>(p->getCurrentStage());
             const std::string waitDescription = stage == nullptr ? "waiting" : stage->getWaitingDescription();
-            WRITE_WARNING(p->getObjectType()+ " '" + p->getID() + "' aborted " + waitDescription + ".");
+            WRITE_WARNING(p->getObjectType() + " '" + p->getID() + "' aborted " + waitDescription + ".");
             if (myAbortWaitingTimeout >= 0) {
                 p->setAbortWaiting(-1);
             }

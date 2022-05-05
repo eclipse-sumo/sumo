@@ -50,7 +50,11 @@ class Connection(StepManager):
         else:
             self._socket = socket.socket()
         self._socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        self._socket.connect((host, port))
+        try:
+            self._socket.connect((host, port))
+        except socket.error:
+            self._socket.close()
+            raise
         self._process = process
         self._string = bytes()
         self._queue = []

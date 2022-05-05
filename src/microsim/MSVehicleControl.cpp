@@ -468,7 +468,7 @@ MSVehicleControl::getVehicleMeanSpeeds() const {
         if ((veh->isOnRoad() || veh->isRemoteControlled()) && !veh->isStopped()) {
             count++;
             speedSum += veh->getSpeed();
-            relSpeedSum += veh->getSpeed() / veh->getEdge()->getSpeedLimit();
+            relSpeedSum += veh->getEdge()->getSpeedLimit() > 0 ? veh->getSpeed() / veh->getEdge()->getSpeedLimit() : 0;
         }
     }
     if (count > 0) {

@@ -53,8 +53,7 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
     myEagerInsertionCheck(eagerInsertionCheck),
     myMaxVehicleNumber(maxVehicleNumber),
     myPendingEmitsUpdateTime(SUMOTime_MIN),
-    myFlowRNG("flow")
-{
+    myFlowRNG("flow") {
     myMaxRandomDepartOffset = randomDepartOffset;
     RandHelper::initRandGlobal(&myFlowRNG);
 }
@@ -251,7 +250,9 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                 int quota = useScale ? 1 : vehControl.getQuota(vehControl.getScale() * typeScale);
                 if (quota > 0) {
                     vehControl.addVehicle(newPars->id, vehicle);
-                    add(vehicle);
+                    if (pars->departProcedure == DepartDefinition::GIVEN) {
+                        add(vehicle);
+                    }
                     i->index++;
                     while (--quota > 0) {
                         SUMOVehicleParameter* const quotaPars = new SUMOVehicleParameter(*pars);
@@ -260,7 +261,9 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                                             pars->depart + pars->repetitionsDone * pars->repetitionTotalOffset + computeRandomDepartOffset();
                         SUMOVehicle* const quotaVehicle = vehControl.buildVehicle(quotaPars, route, vtype, !MSGlobals::gCheckRoutes);
                         vehControl.addVehicle(quotaPars->id, quotaVehicle);
-                        add(quotaVehicle);
+                        if (pars->departProcedure == DepartDefinition::GIVEN) {
+                            add(quotaVehicle);
+                        }
                         pars->repetitionsDone++;
                         i->index++;
                     }
@@ -303,6 +306,11 @@ MSInsertionControl::getPendingFlowCount() const {
 void
 MSInsertionControl::descheduleDeparture(const SUMOVehicle* veh) {
     myAbortedEmits.insert(veh);
+}
+
+void
+MSInsertionControl::retractDescheduleDeparture(const SUMOVehicle* veh) {
+    myAbortedEmits.erase(veh);
 }
 
 
@@ -368,7 +376,7 @@ MSInsertionControl::saveState(OutputDevice& out) {
     // save flow states
     for (const Flow& flow : myFlows) {
         flow.pars->write(out, OptionsCont::getOptions(), SUMO_TAG_FLOWSTATE,
-                flow.pars->vtypeid == DEFAULT_VTYPE_ID ? "" : flow.pars->vtypeid);
+                         flow.pars->vtypeid == DEFAULT_VTYPE_ID ? "" : flow.pars->vtypeid);
         if (flow.pars->repetitionEnd == SUMOTime_MAX) {
             out.writeAttr(SUMO_ATTR_NUMBER, flow.pars->repetitionNumber);
         }

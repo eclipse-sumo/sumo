@@ -1,0 +1,46 @@
+Warning: Ignoring child element 'route' for vehicle '2' because attribute 'route' is set.
+Warning: Missing yellow phase in tlLogic '1/1', program 't1' for tl-index 5 when switching to phase 1
+Warning: Missing yellow phase in tlLogic '1/1', program 't1' for tl-index 0 when switching to phase 0
+Warning: Missing yellow phase in tlLogic '2/1', program 't1' for tl-index 5 when switching to phase 1
+Warning: Missing yellow phase in tlLogic '2/1', program 't1' for tl-index 0 when switching to phase 0
+Warning: Missing yellow phase in tlLogic '3/1', program 't1' for tl-index 5 when switching to phase 1
+Warning: Missing yellow phase in tlLogic '3/1', program 't1' for tl-index 0 when switching to phase 0
+Warning: Teleporting vehicle '0.4'; waited too long, from edge '3/1to2/1':3, time=400.14.
+Warning: Teleporting vehicle '0.12'; waited too long, from edge '4/1to3/1':3, time=400.14.
+Warning: Teleporting vehicle '0.0'; waited too long, from edge '2/1to1/1':3 to edge '1/1to0/1':1, time=421.00.
+Warning: Vehicle '0.4' ends teleporting on edge '1/1to0/1':0, time=440.14.
+Warning: Vehicle '0.12' ends teleporting on edge '1/1to0/1':0, time=480.14.
+Warning: Teleporting vehicle '0.5'; waited too long, from edge '3/1to2/1':3, time=700.35.
+Warning: Teleporting vehicle '0.13'; waited too long, from edge '4/1to3/1':3, time=700.35.
+Warning: Teleporting vehicle '0.1'; waited too long, from edge '2/1to1/1':3 to edge '1/1to0/1':1, time=725.98.
+Warning: Vehicle '0.5' ends teleporting on edge '1/1to0/1':0, time=740.35.
+Warning: Vehicle '0.13' ends teleporting on edge '1/1to0/1':0, time=780.35.
+Warning: Teleporting vehicle '0.6'; waited too long, from edge '3/1to2/1':3, time=1001.08.
+Warning: Teleporting vehicle '0.14'; waited too long, from edge '4/1to3/1':3, time=1001.08.
+Warning: Teleporting vehicle '0.2'; waited too long, from edge '2/1to1/1':3 to edge '1/1to0/1':1, time=1030.96.
+Warning: Vehicle '0.6' ends teleporting on edge '1/1to0/1':0, time=1041.08.
+Warning: Vehicle '0.14' ends teleporting on edge '1/1to0/1':0, time=1081.08.
+Warning: Teleporting vehicle '0.36'; waited too long, from edge '4/1to3/1':3, time=1501.40.
+Warning: Teleporting vehicle '0.25'; waited too long, from edge '3/1to2/1':3, time=1502.40.
+Warning: Teleporting vehicle '0.15'; waited too long, from edge '2/1to1/1':3 to edge '1/1to0/1':1, time=1504.32.
+Warning: Vehicle '0.25' ends teleporting on edge '1/1to0/1':0, time=1542.40.
+Warning: Vehicle '0.36' ends teleporting on edge '1/1to0/1':0, time=1581.40.
+Warning: Teleporting vehicle '0.37'; waited too long, from edge '4/1to3/1':3, time=1801.80.
+Warning: Teleporting vehicle '0.26'; waited too long, from edge '3/1to2/1':3, time=1802.79.
+Warning: Teleporting vehicle '0.16'; waited too long, from edge '2/1to1/1':3 to edge '1/1to0/1':1, time=1809.30.
+Warning: Vehicle '0.26' ends teleporting on edge '1/1to0/1':0, time=1842.79.
+Warning: Vehicle '0.37' ends teleporting on edge '1/1to0/1':0, time=1881.80.
+Warning: Teleporting vehicle '0.38'; waited too long, from edge '4/1to3/1':3, time=2102.53.
+Warning: Teleporting vehicle '0.27'; waited too long, from edge '3/1to2/1':3, time=2103.52.
+Warning: Teleporting vehicle '0.17'; waited too long, from edge '2/1to1/1':3 to edge '1/1to0/1':1, time=2114.28.
+Warning: Vehicle '0.27' ends teleporting on edge '1/1to0/1':0, time=2143.52.
+Warning: Vehicle '0.38' ends teleporting on edge '1/1to0/1':0, time=2182.53.
+Warning: Teleporting vehicle '0.48'; waited too long, from edge '3/1to2/1':3, time=2600.09.
+Warning: Teleporting vehicle '0.39'; waited too long, from edge '2/1to1/1':3 to edge '1/1to0/1':1, time=2606.01.
+Warning: Vehicle '0.48' ends teleporting on edge '1/1to0/1':0, time=2640.09.
+Warning: Teleporting vehicle '0.49'; waited too long, from edge '3/1to2/1':3, time=2900.48.
+Warning: Teleporting vehicle '0.40'; waited too long, from edge '2/1to1/1':3 to edge '1/1to0/1':1, time=2910.99.
+Warning: Vehicle '0.49' ends teleporting on edge '1/1to0/1':0, time=2940.48.
+Warning: Teleporting vehicle '2'; waited too long, from edge '3/1to2/1':3, time=3201.21.
+Warning: Teleporting vehicle '0.41'; waited too long, from edge '2/1to1/1':3 to edge '1/1to0/1':1, time=3215.97.
+Warning: Vehicle '2' ends teleporting on edge '1/1to0/1':0, time=3241.21.

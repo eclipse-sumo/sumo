@@ -1,6 +1,6 @@
 -n net.net.xml 
 -r input_routes.rou.xml
---ignore-route-errors
+--emergency-insert
 --step-length=0.1
 --no-step-log
 --step-method.ballistic

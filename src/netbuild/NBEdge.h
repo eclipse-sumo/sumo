@@ -717,10 +717,10 @@ public:
      * @todo validity checks
      */
     double getInternalLaneWidth(
-            const NBNode& node,
-            const NBEdge::Connection& connection,
-            const NBEdge::Lane& successor,
-            bool isVia) const;
+        const NBNode& node,
+        const NBEdge::Connection& connection,
+        const NBEdge::Lane& successor,
+        bool isVia) const;
 
     /// @brief Returns the combined width of all lanes of this edge
     double getTotalWidth() const;
@@ -1058,11 +1058,11 @@ public:
      */
     std::vector<Connection> getConnectionsFromLane(int lane, NBEdge* to = nullptr, int toLane = -1) const;
 
-    /** @brief Returns the specified connection
+    /** @brief Returns the specified connection (unmodifiable)
      * This method goes through "myConnections" and returns the specified one
      * @see NBEdge::Connection
      */
-    Connection getConnection(int fromLane, const NBEdge* to, int toLane) const;
+    const Connection& getConnection(int fromLane, const NBEdge* to, int toLane) const;
 
     /** @brief Returns reference to the specified connection
      * This method goes through "myConnections" and returns the specified one

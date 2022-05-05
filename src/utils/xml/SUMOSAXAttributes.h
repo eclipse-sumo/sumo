@@ -98,7 +98,7 @@ public:
      * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occurred
      */
     template <typename T>
-    T getOpt(int attr, const char* objectid, bool& ok, T defaultValue=T(), bool report = true) const;
+    T getOpt(int attr, const char* objectid, bool& ok, T defaultValue = T(), bool report = true) const;
 
 
     /** @brief Tries to read given attribute assuming it is a SUMOTime
@@ -235,7 +235,7 @@ public:
      * @return The attribute's value as a string, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
-    virtual std::string getString(int id, bool* isPresent=nullptr) const = 0;
+    virtual std::string getString(int id, bool* isPresent = nullptr) const = 0;
 
 
     /**

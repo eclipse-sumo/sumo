@@ -429,7 +429,7 @@ MSVehicleType::check() {
         SVCPermissions ignoreVClasses = parseVehicleClasses(OptionsCont::getOptions().getStringVector("meso-ignore-lanes-by-vclass"));
         if ((ignoreVClasses & getVehicleClass()) != 0) {
             WRITE_WARNINGF("Vehicle class '%' of vType '%' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation",
-                    toString(getVehicleClass()), getID());
+                           toString(getVehicleClass()), getID());
         }
     }
 }

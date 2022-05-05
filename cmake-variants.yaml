@@ -1,5 +1,5 @@
 buildType:
-  default: debug
+  default: release
   description: Switch between debug and release build type
   choices:
     debug:
@@ -8,27 +8,28 @@ buildType:
       buildType: Debug
       settings:
         CMAKE_BUILD_TYPE: Debug
+    minimal:
+      short: Minimal
+      long: Minimal build without optional libs / GUI
+      buildType: Release
+      settings:
+        CMAKE_BUILD_TYPE: Release
+        CHECK_OPTIONAL_LIBS: no
+        FOX_CONFIG: ''
+        BINARY_SUFFIX: M
+    profiling:
+      short: Profiling
+      long: Profiling
+      buildType: RelWithDebInfo
+      settings:
+        CMAKE_BUILD_TYPE: RelWithDebInfo
+        PROFILING: yes
     release:
       short: Release
       long: Release
       buildType: Release
       settings:
         CMAKE_BUILD_TYPE: Release
-
-useFMI:
-  default: 'no'
-  description: Enable building of FMUs for SUMO
-  choices:
-    'yes':
-      short: FMI
-      long: FMI
-      settings:
-        FMI: 'yes'
-    'no':
-      short: 'noFMI'
-      long: 'noFMI'
-      settings:
-        FMI: 'no'
 
 pythonBindings:
   default: 'default'

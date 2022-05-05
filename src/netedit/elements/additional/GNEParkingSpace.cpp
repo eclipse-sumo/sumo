@@ -33,8 +33,8 @@
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net) :
     GNEAdditional("", net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "",
-    {}, {}, {}, {}, {}, {}),
-    mySlope(0) {
+{}, {}, {}, {}, {}, {}),
+mySlope(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -44,13 +44,13 @@ GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, 
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
                                  const std::string& name, const Parameterised::Map& parameters) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
-    {}, {}, {}, {parkingAreaParent}, {}, {}),
-    Parameterised(parameters),
-    myPosition(pos),
-    myWidth(width),
-    myLength(length),
-    myAngle(angle),
-    mySlope(slope) {
+{}, {}, {}, {parkingAreaParent}, {}, {}),
+Parameterised(parameters),
+myPosition(pos),
+myWidth(width),
+myLength(length),
+myAngle(angle),
+mySlope(slope) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -109,7 +109,7 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
     }
     if (getAttribute(SUMO_ATTR_SLOPE) != myTagProperty.getDefaultValue(SUMO_ATTR_SLOPE)) {
-        device.writeAttr(SUMO_ATTR_SLOPE, myAngle);
+        device.writeAttr(SUMO_ATTR_SLOPE, mySlope);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
@@ -292,7 +292,7 @@ GNEParkingSpace::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const Parameterised::Map& 
+const Parameterised::Map&
 GNEParkingSpace::getACParametersMap() const {
     return getParametersMap();
 }

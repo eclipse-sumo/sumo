@@ -26,7 +26,7 @@
 // class declarations
 // ===========================================================================
 #ifndef LIBTRACI
-class MSOverheadWire;
+class MSStoppingPlace;
 #endif
 
 

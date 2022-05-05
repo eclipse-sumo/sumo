@@ -113,7 +113,7 @@ def genMatrix(demandMap, originSet, destSet, options):
                 outf.write('* District %s Sum = %s\n' % (taz, demandMap[taz]))
                 for _ in range(len(originSet)):
                     outf.write('    0')
-                # asumme the demand is uniformly distrubted to the pre-defined destination areas
+                # assume the demand is uniformly distributed to the pre-defined destination areas
                 # TODO: consider different customized ratios
                 for _ in range(len(destSet)):
                     outf.write('    %s' % (round(demandMap[taz]/len(destSet))))
@@ -222,7 +222,7 @@ def main(args=None):
     # TODO: for evacuating demands to the neighbor areas
     if options.verbose:
         print("Step 3: get the population data and the neighbor areas of the selected evacuation areas")
-    neighborMap = {}  # taz: [beighbor1_id, ....]
+    neighborMap = {}  # taz: [neighbor1_id, ....]
     for i, obj in enumerate(objList):
         print("    ObjList:%s" % i)
         for taz, description in obj["entities"].items():
@@ -256,7 +256,7 @@ def main(args=None):
                     nameMap[taz] = description["labels"][language]["value"]
                     neighborMap[taz] = set()
 
-                # get the adjacent adminstrative areas
+                # get the adjacent administrative areas
                 if "claims" in description and "P47" in description["claims"]:
                     for history in description["claims"]["P47"]:
                         neighborMap[taz].add(history["mainsnak"]["datavalue"]["value"]["id"])
@@ -281,7 +281,7 @@ def main(args=None):
     matrixFile = genMatrix(demandMap, originSet, destSet, options)
 
     if options.verbose:
-        print("Step 6: generate taz ploygon file for getting edges in each taz with polyconvert")
+        print("Step 6: generate taz polygon file for getting edges in each taz with polyconvert")
     # get the boundary polygon from the osm.poly.xml
     # set the polygon type file and use it with polyconvert
     # todo: need to revise, currently all types are still written in the boundaries.poly.xml

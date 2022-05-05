@@ -81,12 +81,12 @@ bool
 RORoute::isValid(const ROVehicle& veh, bool ignoreErrors) const {
     MsgHandler* mh = ignoreErrors ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
     for (ConstROEdgeVector::const_iterator i = myRoute.begin() + 1; i != myRoute.end(); ++i) {
-            const ROEdge* prev = *(i - 1);
-            const ROEdge* cur = *i;
-            if (!prev->isConnectedTo(*cur, veh.getVClass())) {
-                mh->informf("Edge '%' not connected to edge '%' for vehicle '%'.", prev->getID(), cur->getID(), veh.getID());
-                return ignoreErrors;
-            }
+        const ROEdge* prev = *(i - 1);
+        const ROEdge* cur = *i;
+        if (!prev->isConnectedTo(*cur, veh.getVClass())) {
+            mh->informf("Edge '%' not connected to edge '%' for vehicle '%'.", prev->getID(), cur->getID(), veh.getID());
+            return ignoreErrors;
+        }
     }
     return true;
 }

@@ -358,7 +358,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
 
     double latest = 0;
     double mx = (2 * myMouseX / myWidthInPixels - 1) / 0.8 + 1;
-    int mIndex = -1;
+    int mIndex = 0;
     double mouseValue = std::numeric_limits<double>::max();
     latest = values.back();
     // init values
@@ -373,6 +373,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         double xn = xp + xStep;
         if (xp < mx && mx < xn) {
             mouseValue = yp;
+            mIndex = (int)(i - values.begin()) - 1;
             glPushMatrix();
             GLHelper::setColor(isMultiPlot ? col.changedBrightness(-40).changedAlpha(-100) : RGBColor::BLUE);
             glTranslated(xn, yn, 0);
@@ -387,7 +388,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         glEnd();
         yp = yn;
         xp = xn;
-        mIndex++;
     }
     desc.unlockValues();
     GLHelper::popMatrix();

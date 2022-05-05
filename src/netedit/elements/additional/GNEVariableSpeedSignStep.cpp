@@ -31,8 +31,8 @@
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNENet* net) :
     GNEAdditional("", net, GLO_VSS_STEP, SUMO_TAG_STEP, "",
-        {}, {}, {}, {}, {}, {}),
-    myTime(0) {
+{}, {}, {}, {}, {}, {}),
+myTime(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -40,9 +40,9 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNENet* net) :
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string& speed) :
     GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS_STEP, SUMO_TAG_STEP, "",
-        {}, {}, {}, {variableSpeedSignParent}, {}, {}),
-    myTime(time),
-    mySpeed(speed) {
+{}, {}, {}, {variableSpeedSignParent}, {}, {}),
+myTime(time),
+mySpeed(speed) {
     // update boundary of rerouter parent
     variableSpeedSignParent->updateCenteringBoundary(true);
 }
@@ -150,7 +150,7 @@ GNEVariableSpeedSignStep::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const Parameterised::Map& 
+const Parameterised::Map&
 GNEVariableSpeedSignStep::getACParametersMap() const {
     return PARAMETERS_EMPTY;
 }

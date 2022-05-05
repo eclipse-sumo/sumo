@@ -916,6 +916,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     }
     const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
     const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), ok);
+    const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, 0);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
@@ -936,7 +937,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        Parameterised* det = myDetectorBuilder.buildInductLoop(id, lane, position, frequency,
+        Parameterised* det = myDetectorBuilder.buildInductLoop(id, lane, position, length, frequency,
                              FileHelpers::checkForRelativity(file, getFileName()),
                              friendlyPos, vTypes, detectPersons);
         myLastParameterised.push_back(det);

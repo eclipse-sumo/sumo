@@ -32,9 +32,9 @@
 
 GNEClosingReroute::GNEClosingReroute(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, "",
-        {}, {}, {}, {}, {}, {}),
-    myClosedEdge(nullptr),
-    myPermissions(0) {
+{}, {}, {}, {}, {}, {}),
+myClosedEdge(nullptr),
+myPermissions(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -42,9 +42,9 @@ GNEClosingReroute::GNEClosingReroute(GNENet* net) :
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, "",
-        {}, {}, {}, {rerouterIntervalParent}, {}, {}),
-    myClosedEdge(closedEdge),
-    myPermissions(permissions) {
+{}, {}, {}, {rerouterIntervalParent}, {}, {}),
+myClosedEdge(closedEdge),
+myPermissions(permissions) {
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
@@ -150,7 +150,7 @@ GNEClosingReroute::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const Parameterised::Map& 
+const Parameterised::Map&
 GNEClosingReroute::getACParametersMap() const {
     return PARAMETERS_EMPTY;
 }

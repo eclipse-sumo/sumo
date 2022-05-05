@@ -102,7 +102,7 @@ possible to save the current settings (![Save.gif](images/Save.gif
 viewport editor).
 
 The viewport is defined as following:
-`<viewport zoom="<ZOOM>" x="<X>" y="<Y>"/>`. It can be loaded as a part of viewsettings.
+`<viewport zoom="<ZOOM>" x="<X>" y="<Y>"/>`. It can be in a gui-settings file.
 
 Pressing the center-button (![Center.gif](images/Center.gif
 "Center")) from the menu bar at the top of the view, will
@@ -184,6 +184,27 @@ The following additional functions are available via right-click:
 - Set speed limit (variable speed sign)
 - Switch programs (traffic lights)
 - [Visualize Signal Plans](Simulation/Traffic_Lights.md#signal_plan_visualization) (traffic lights)
+
+## Plotting object properties
+
+All objects support the *Show Parameter* item in their context menu.
+This opens up a dialog in tabular shape as show below:
+![vehicle_parameters.png](images/vehicle_parameters.png "Vehicle Parameter Dialog")
+
+Each of the listed attributes or [Generic Parameters](Simulation/GenericParameters.md) is accompanied by one of the following symbols:
+
+- ![attribute_static.png](images/attribute_static.png "Static Attribute") : Attribute does not change
+- ![attribute_dynamic.png](images/attribute_dynamic.png "Dynamic Attribute") : Attribute may change but cannot be plotted
+- ![attribute_dynamic_plot.png](images/attribute_dynamic_plot.png "Plottable Attribute") : Attribute may change and can be plotted. Left-clicking the plot symbol will open up a plotting window.
+
+A plotting window (acceleration over time) is shown below:
+
+![plotted_accel.png](images/plotted_accel.png "Acceleration plotted over time")
+
+Clicking on additional Attribute plot symbols opens up new plotting windows.
+By activating the 'Multiplot'-checkbox, any additional attribute plots wil be added to that plot window instead of opening a new plot window.
+
+When moving the mouse over a plot window, plot point closest to the mouse cursor is highlighted and it's *x* and *y* values are printed in blue along the plot axes.
 
 ## Selecting Objects
 
@@ -488,7 +509,7 @@ value/range
 
 ## Vehicle Visualisation Settings
 
-**Table 1.1 Vehicle shape schemes**
+### Vehicle shape shemes
 
 | Name          | Description                                                                                                                      |
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -498,9 +519,9 @@ value/range
 | raster images | All vehicles are drawn with a loaded bitmap defined for their type using attribute `imgFile` (using *simple shapes* as fallback) |
 
 !!! note
-    When using an `imgFile` as the shape, it is necessary to select the vehicles to show as "raster images" in the viewsettings menu.
+    When using an `imgFile` as the shape, it is necessary to select the vehicles to show as "raster images" in the *View Settings* menu.
 
-**Table 1.2 Vehicle coloring schemes and boundaries**
+### Vehicle coloring schemes
 
 | Name                           | Measure | Description         |
 | ------------------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -540,10 +561,36 @@ value/range
 | random                         | \-      | Random vehicle color                                                                                                                                       |
 | by angle                       | \-      | Color by heading angle of the vehicle                                                                                                                                       |
 
-In addition to the vehicle shape and coloring one can display blinker
-and brake lights, the minimum gap, and the vehicle name. The vehicle
-names will always be scaled to the chosen size, no matter which zoom
-step is chosen.
+### Toggles
+
+- Show blinkers / brake lights
+- Show brake gap
+- Show route index: When activating *show route* in the vehicle context menu, each highlighted edge is annoted with it's index along the route (permitting to analyze looped routes)
+- Show parking info: When activating *show route* in the vehicle context menu, the vehicle is annoted with the number of failed parking attempts and each parking area is annoted with the last target selection score
+- Show minimum gap
+- Show [Bluetooth range](Simulation/Bluetooth.md)
+- Scale length with gemeotry (see [length-geometry-mismatch](Simulation/Distances.md#vehicle_lengths_in_sumo-gui)
+
+### Scaling
+
+Vehicle size is affected by the following features
+
+- **Exaggerate by** : Sets a constant scaling factor
+- **Draw with constant size when zoomed out**: Increases vehicle size (relative to road network) and thereby keeps them visible when zooming out
+It is also possible to scale the size of the vehicle according it's attributes.
+- **Scale size**: Selects scaling by a given attribute (i.e. speed). The user may configure a table of scaling factors corresponding to a list of numerical values (with automatic interpolation). This works similar to color interpolation.
+
+### Textual annotations
+
+The following textual annotations are supported:
+
+- **vehicle id**: Renders the vehicle id and also 'line' attribute if defined for the vehicle
+- **vehicle color value**: The numerical value that forms the basis for coloring (i.e. speed) is rendered
+- **vehicle scale value**: The numerical value that forms the basis for scaling (i.e. acceleration( is rendered. It may be useful to activate scaling just for the textual value (and setting a scaling factors to 1). 
+- **Vehicle text param**: Renders any [Generic Parameter](Simulation/GenericParameters.md) set on the vehicle. This also supports any [virtual parameters accessible via TraCI](TraCI/Vehicle_Value_Retrieval.md#device_and_lanechangemodel_parameter_retrieval_0x7e)
+
+
+Each text can be configured with regard to it's size color and background color. By activating the option *Only for selected*, The textual annotation is limited to vehicles with the [*selected*](#selecting_objects) status.
 
 ## Edge/Lane Visualisation Settings
 
@@ -707,10 +754,39 @@ settings) support (Red,Green,Blue,Alpha) color values.
 
 **sumo-gui** uses the same configuration files as
 SUMO. The recognized options can be obtained by calling *sumo --help* or
-you save a configuration file with default settings by calling `sumo --save-template <file> --save-commented`. The option **--gui-settings-file** is specific
-to **sumo-gui**. It allows you to load a previously
-saved gui-settings file. The easiest way to obtain a gui-settings file
-is via the *View Settings*-Dialog
+you save a configuration file with default settings by calling `sumo --save-template <file> --save-commented`. 
+
+The options in the *GUI* category are specific to sumo-gui
+
+-  **--gui-settings-file** (shortcut **-g**) allows to load a previously saved gui-settings file (see below)
+-  **-S, --start**: starts the simulation upon opening the gui (without the need to click the *start* button
+-  **-Q, --quit-on-end**: closes the gui upon simulation end
+-  **-d, --delay**: sets an initial simulation delay to prevent the simulation from running to quickly
+- **--window-size WIDTH,HEIGHT**: sets the iniial window size (by default the previous size is restored)
+- **--window-pos X,Y**: sets the initial window position (by default the previous position is restored)
+
+A sumo configuration that loads gui settings is shown below:
+
+*example.sumocfg*
+
+```xml
+    <configuration>
+        <net-file value="yournetwork.net.xml"/>
+        <gui-settings-file value="viewsettings.xml"/>
+    </configuration>
+```
+
+You may either load *example.sumocfg* using the *open simulation*-dialog
+or by using the command-line `sumo-gui -c example.sumocfg`.
+
+You may use a XML schema definition file for setting up a sumo-gui
+configuration:
+[sumoConfiguration.xsd](https://sumo.dlr.de/xsd/sumoConfiguration.xsd).****
+
+# GUI-settings Files
+
+All the settings configured in the *View Settings* dialog can be saved to a file and re-used for a new simulation. We refer to such files as gui-settings files. Such a file can also include information about breapoints, screenshots, simulation delay and background images.
+The easiest way to obtain a gui-settings file is via the *View Settings*-Dialog
 ![Open_viewsettings_editor.gif](images/Open_viewsettings_editor.gif
 "Open viewsettings editor"). Simply modify the settings and
 save ![Save.gif](images/Save.gif "Save").
@@ -718,22 +794,13 @@ save ![Save.gif](images/Save.gif "Save").
 Note, that the gui-settings-file obtained this way only contain
 information about the viewport (zoom and offset), delay, breakpoints and
 decals if the corresponding check-boxes are activated before saving.
-When you are done the configuration files should look like below:
 
-*example.sumocfg*
 
-```xml
-    <configuration>
-        <net-file value="yournetwork.net.xml"/>
-        <gui-settings-file value="gui-settings.cfg"/>
-    </configuration>
-```
-
-*gui-settings.cfg*
+*viewsettings.xml*
 
 ```xml
     <viewsettings>
-        <scheme name="...
+        <scheme name="..."
            ...
         </scheme>
 
@@ -745,8 +812,25 @@ When you are done the configuration files should look like below:
     </viewsettings>
 ```
 
-Alternatively, you can manually add a breakpoint-file definition to your
-settings
+
+## Minimal settings file
+
+It possible to reference a predefined scheme by it's name alone:
+
+```xml
+<viewsettings>
+    <scheme name="real world"/>
+</viewsettings>
+```
+
+The name may either be one of the "native" schemese ("standard", "real world", ...) or any schema [stored in the registry](#changing_the_appearancevisualisation_of_the_simulation) by the user.
+
+## Breakpoints
+
+There are multiple ways to load pre-defined [breakpoints](#breakpoints).
+The breakpoint element can be included directly in a gui-settings file: `<breakpoint value="1337"/>`
+
+Alternatively, a breakpoint-file definition can be specified in the gui-settings file:
 
 ```xml
 <viewsettings>
@@ -755,24 +839,12 @@ settings
 </viewsettings>
 ```
 
+The breakpoints file should hold one time-value per line.
 A file, suitable for loading breakpoints can be obtained by setting
 breakpoints in the gui and using the menu-option for saving (Edit-\>Edit
-Breakpoints-\>save).
+Breakpoints-\>save). 
 
-You may either load *example.sumocfg* using the *open simulation*-dialog
-or by using the command-line `sumo-gui -c example.sumocfg`.
-
-You may use a XML schema definition file for setting up a sumo-gui
-configuration:
-[sumoConfiguration.xsd](https://sumo.dlr.de/xsd/sumoConfiguration.xsd).
-
-It is also possible to reference a predefined scheme by it's name alone:
-
-```xml
-<viewsettings>
-    <scheme name="real world"/>
-</viewsettings>
-```
+A further way to set breakpoints is by using the sumo option **--breakpoints** to load a comma-separated list of time values (shortcut **-B**). This circumvents the need for a gui-settings file.
 
 ## Screenshots
 
@@ -783,6 +855,14 @@ elements to the configuration:
 <viewsettings>
     <snapshot file="myScreenshot.png" time="42"/>
 </viewsettings>
+```
+
+## Miscellaneous View Settings
+
+3D Scene lighting can be defined via the following (indices 0 - 9 are supported):
+
+```xml
+<light index="0" centerX="671.02" centerY="639.20" centerZ="200"/>
 ```
 
 # Multiple Views

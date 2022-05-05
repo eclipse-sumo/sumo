@@ -1,5 +1,5 @@
-# Force deletion of additionals doesn't work deleting junctions
+# force deletion of additionals doesn't work deleting junctions
 ticket3322
 
-# Additionals elements loses value of attribute "Block movement" after recomputing with volatile options
+# additionals elements loses value of attribute "block movement" after recomputing with volatile options
 ticket3879

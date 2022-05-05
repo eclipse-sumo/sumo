@@ -83,7 +83,7 @@ protected:
 
 private:
     /// @brief pointer to viewNet
-    GNEViewNet *myViewNet;
+    GNEViewNet* myViewNet;
 
     /// @brief ComboBox for terminate options (end, number, end/number)
     FXComboBox* myTerminateComboBox = nullptr;

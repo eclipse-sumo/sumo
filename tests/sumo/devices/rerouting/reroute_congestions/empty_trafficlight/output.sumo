@@ -1,6 +1,7 @@
 Loading net-file from 'net.net.xml' ... done (2ms).
-Loading additional-files from 'input_additional.add.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading done.
+<<<<<<< HEAD:tests/sumo/devices/rerouting/reroute_congestions/empty_trafficlight/output.sumo
 Simulation version v1_12_0+1649-870e1bc started with time: 0.00
 Simulation ended at time: 2726.00
 Reason: All vehicles have left the simulation.
@@ -8,17 +9,35 @@ Performance:
  Duration: 0.45s
  Real time factor: 6071.27
  UPS: 335616.926503
+=======
+Simulation version v1_13_0+0011-a81882c started with time: 0.00
+Simulation ended at time: 3259.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 0.39s
+ Real time factor: 8356.41
+ UPS: 142989.743590
+>>>>>>> upstream/main:tests/sumo/devices/rerouting/tlsPenalty/default/output.sumo
 Vehicles: 
  Inserted: 1000
  Running: 0
  Waiting: 0
 Statistics (avg):
+<<<<<<< HEAD:tests/sumo/devices/rerouting/reroute_congestions/empty_trafficlight/output.sumo
  RouteLength: 411.72
  Speed: 4.08
  Duration: 150.69
  WaitingTime: 91.83
  TimeLoss: 120.42
  DepartDelay: 4.43
+=======
+ RouteLength: 396.69
+ Speed: 7.89
+ Duration: 55.77
+ WaitingTime: 19.17
+ TimeLoss: 26.73
+ DepartDelay: 0.40
+>>>>>>> upstream/main:tests/sumo/devices/rerouting/tlsPenalty/default/output.sumo
 
 DijkstraRouter answered 1007 queries and explored 6.32 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

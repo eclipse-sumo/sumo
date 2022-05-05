@@ -352,8 +352,8 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
 }
 
 
-void 
-RouteHandler::writeErrorInvalidID(const SumoXMLTag tag, const std::string& id) const {   
+void
+RouteHandler::writeErrorInvalidID(const SumoXMLTag tag, const std::string& id) const {
     WRITE_ERROR("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; ID contains invalid characters.");
 }
 

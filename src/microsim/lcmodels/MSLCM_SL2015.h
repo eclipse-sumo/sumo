@@ -105,6 +105,8 @@ public:
 
     void changed() override;
 
+    void resetState() override;
+
     double getSafetyFactor() const override;
 
     double getOppositeSafetyFactor() const override;

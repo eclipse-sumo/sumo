@@ -43,7 +43,7 @@ def get_options(args=None):
                         help="Output route file")
     parser.add_argument("--turn-output", dest="turnOutput", default="turns.tmp.xml",
                         help="Intermediate turn-ratio-file")
-    parser.add_argument("--flow-output", dest="flowOuput", default="flows.tmp.xml",
+    parser.add_argument("--flow-output", dest="flowOutput", default="flows.tmp.xml",
                         help="Intermediate flow file")
     parser.add_argument("--turn-attribute", dest="turnAttr", default="count",
                         help="Read turning counts from the given attribute")
@@ -94,7 +94,7 @@ def main(options):
     if options.turnFile is None:
         # read data from connection params
         net = sumolib.net.readNet(options.net)
-        with open(options.turnOutput, 'w') as tf, open(options.flowOuput, 'w') as ff:
+        with open(options.turnOutput, 'w') as tf, open(options.flowOutput, 'w') as ff:
             sumolib.writeXMLHeader(tf, "$Id$", "turns")  # noqa
             sumolib.writeXMLHeader(ff, "$Id$", "routes")  # noqa
             tf.write('    <interval begin="%s" end="%s">\n' % (options.begin, options.end))
@@ -121,7 +121,7 @@ def main(options):
     else:
         # read turn-count file
         options.turnOutput = options.turnFile
-        with open(options.flowOuput, 'w') as ff:
+        with open(options.flowOutput, 'w') as ff:
             ff.write('<routes>\n')
             for i, interval in enumerate(parseEdgeCounts(options.turnFile, options.turnAttr)):
                 interval_id, interval_begin, interval_end, counts = interval
@@ -142,7 +142,7 @@ def main(options):
     args = [JTRROUTER,
             '-n', options.net,
             '--turn-ratio-files', options.turnOutput,
-            '--route-files', options.flowOuput,
+            '--route-files', options.flowOutput,
             '--accept-all-destinations',
             '-o', options.out]
     if not options.fringe_flows:

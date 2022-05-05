@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
@@ -25,9 +26,16 @@ with open("failTests.txt", "w") as fp:
     for line in lines:
         lineStrip = line.strip("\n")
         if (("Test\t" not in lineStrip) and
+<<<<<<< HEAD:tests/netedit/clearFailTest.py
             ("Summary\t" not in lineStrip) and
             ("test_default.daily" not in lineStrip) and
             ("daily." not in lineStrip)):
+=======
+                ("Summary\t" not in lineStrip) and
+                ("test_default.daily" not in lineStrip) and
+                ("daily." not in lineStrip) and
+                ("0" not in lineStrip)):
+>>>>>>> upstream/main:tests/netedit/scripts/clearFailTest.py
             # clear substrings
             lineStrip = lineStrip.replace("\t", " ")
             lineStrip = lineStrip.replace("(+)", " ")

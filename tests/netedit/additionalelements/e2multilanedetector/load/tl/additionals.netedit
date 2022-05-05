@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-11 14:46:14 by Eclipse SUMO netedit Version v1_12_0+2087-30eea9ba1a0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <e2Detector id="e2MultilaneDetector_2" lanes="gneE2_0 gneE3_0" pos="15.00" endPos="15.00" tl="gneJ1" file="e2MultilaneDetector_2.xml"/>
+</additional>

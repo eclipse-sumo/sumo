@@ -30,22 +30,22 @@
 
 GNETractionSubstation::GNETractionSubstation(GNENet* net) :
     GNEAdditional("", net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, "",
-        {}, {}, {}, {}, {}, {}),
-    myVoltage(0),
-    myCurrentLimit(0) {
+{}, {}, {}, {}, {}, {}),
+myVoltage(0),
+myCurrentLimit(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage, 
+GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage,
         const double currentLimit, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, "",
-        {}, {}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myPosition(pos),
-    myVoltage(voltage),
-    myCurrentLimit(currentLimit) {
+{}, {}, {}, {}, {}, {}),
+Parameterised(parameters),
+myPosition(pos),
+myVoltage(voltage),
+myCurrentLimit(currentLimit) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -166,7 +166,7 @@ GNETractionSubstation::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const 
+const
 Parameterised::Map& GNETractionSubstation::getACParametersMap() const {
     return PARAMETERS_EMPTY;
 }

@@ -315,8 +315,8 @@ public:
     /// @brief get draw position index (used in rerouters and VSS)
     int getDrawPositionIndex() const;
 
-    /// @brief check if the given lanes are consecutives (used by E2 Multilane)
-    static bool areLaneConsecutives(const std::vector<GNELane*> &lanes);
+    /// @brief check if the given lanes are consecutive (used by E2 Multilane)
+    static bool areLaneConsecutives(const std::vector<GNELane*>& lanes);
 
 protected:
     /// @brief Additional Boundary
@@ -379,7 +379,7 @@ protected:
     void drawListedAddtional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
                              const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const;
 
-                             
+
     /// @brief get moveOperation for an element over single lane
     GNEMoveOperation* getMoveOperationSingleLane(const double startPos, const double endPos);
 

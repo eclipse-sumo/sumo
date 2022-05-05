@@ -68,11 +68,12 @@ public:
      * @param[in] id The id the detector shall have
      * @param[in] lane The lane the detector is placed at
      * @param[in] pos The position on the lane the detector is placed at
+     * @param[in] length The optional length of the detector
      * @param[in] vTypes which vehicle types are considered
      * @param[in] show Whether to show the detector in the gui if available
      */
     virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
-            MSLane* lane, double pos, const std::string& vTypes, int detectPersons,
+            MSLane* lane, double pos, double length, const std::string& vTypes, int detectPersons,
             bool show = true) override;
 
 

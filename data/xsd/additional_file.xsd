@@ -117,6 +117,7 @@
         <xsd:attribute name="id" type="detectorIdType" use="required"/>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
         <xsd:attribute name="pos" type="xsd:float" use="required"/>
+        <xsd:attribute name="length" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
@@ -418,7 +419,7 @@
         <xsd:attribute name="lines" type="xsd:string" use="optional"/>
         <xsd:attribute name="power" type="xsd:float" use="optional"/>
         <xsd:attribute name="efficiency" type="xsd:float" use="optional"/>
-        <xsd:attribute name="chargeInTransit" type="xsd:float" use="optional"/>
+        <xsd:attribute name="chargeInTransit" type="boolType" use="optional"/>
         <xsd:attribute name="chargeDelay" type="xsd:float" use="optional"/>
     </xsd:complexType>
 
@@ -441,6 +442,7 @@
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="voltage" type="xsd:float" use="optional"/>
         <xsd:attribute name="currentLimit" type="xsd:float" use="optional"/>
+        <xsd:attribute name="pos" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="overheadWireClampType">

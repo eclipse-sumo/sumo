@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_12_0+1660-9b16f488674
+Eclipse SUMO sumo Version v1_12_0+2258-d281eb2
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -192,10 +192,8 @@ Processing Options:
   --ignore-junction-blocker TIME       Ignore vehicles which block the junction
                                         after they have been standing for
                                         SECONDS (-1 means never ignore)
-  --ignore-route-errors                (1) Do not check whether routes are
-                                        connected. (2) Allow inserting a vehicle
-                                        in a situation which requires emergency
-                                        braking.
+  --ignore-route-errors                Do not check whether routes are
+                                        connected
   --ignore-accidents                   Do not check whether accidents occur
   --collision.action STR               How to deal with collisions:
                                         [none,warn,teleport,remove]
@@ -224,6 +222,10 @@ Processing Options:
                                         a fast road (speed > 69km/h) are
                                         teleported if they are on a
                                         non-continuing lane
+  --time-to-teleport.highways.min-speed FLOAT  The waiting time after which
+                                        vehicles on a fast road (default: speed
+                                        > 69km/h) are teleported if they are on
+                                        a non-continuing lane
   --time-to-teleport.disconnected TIME  The waiting time after which vehicles
                                         with a disconnected route are
                                         teleported. Negative values disable
@@ -238,6 +240,8 @@ Processing Options:
   --waiting-time-memory TIME           Length of time interval, over which
                                         accumulated waiting time is taken into
                                         account (default is 100s.)
+  --startup-wait-threshold TIME        Minimum consecutive waiting time before
+                                        applying startupDelay
   --max-depart-delay TIME              How long vehicles wait for departure
                                         before being skipped, defaults to -1
                                         which means vehicles are never skipped
@@ -245,6 +249,8 @@ Processing Options:
                                         be repeated in same step once failed
   --eager-insert                       Whether each vehicle is checked
                                         separately for insertion on an edge
+  --emergency-insert                   Allow inserting a vehicle in a situation
+                                        which requires emergency braking
   --random-depart-offset TIME          Each vehicle receives a random offset to
                                         its depart value drawn uniformly from
                                         [0, TIME]

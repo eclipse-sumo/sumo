@@ -266,6 +266,8 @@ protected:
 
     /// @brief The last free position at this stop (variable)
     double myLastFreePos;
+    /// @brief The length of the last parking vehicle (or 0 if there is none)
+    const SUMOVehicle* myLastParking;
 
     /// @brief The name of the stopping place
     const std::string myName;

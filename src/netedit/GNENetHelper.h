@@ -396,6 +396,9 @@ struct GNENetHelper {
         /// @brief add default VTypes
         void addDefaultVTypes();
 
+        /// @brief get (and update) stop index
+        int getStopIndex();
+
         /// @brief get number of selected demand elements
         int getNumberOfSelectedDemandElements() const;
 
@@ -605,6 +608,9 @@ struct GNENetHelper {
     private:
         /// @brief pointer to net
         GNENet* myNet;
+
+        /// @brief stop index
+        int myStopIndex;
 
         /// @brief map with the ID and pointer to junctions of net
         std::map<std::string, GNEJunction*> myJunctions;

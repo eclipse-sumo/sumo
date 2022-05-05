@@ -520,6 +520,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "partialCharge",                  SUMO_ATTR_PARTIALCHARGE },
 
     { "sigma",                  SUMO_ATTR_SIGMA },
+    { "sigmaStep",              SUMO_ATTR_SIGMA_STEP },
+    { "startupDelay",           SUMO_ATTR_STARTUP_DELAY },
     { "tau",                    SUMO_ATTR_TAU },
     { "tmp1",                   SUMO_ATTR_TMP1 },
     { "tmp2",                   SUMO_ATTR_TMP2 },
@@ -1251,7 +1253,7 @@ SUMOXMLDefinitions::getIndexFromLane(const std::string laneID) {
 
 bool
 SUMOXMLDefinitions::isValidNetID(const std::string& value) {
-    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,:!<>&*?") == std::string::npos;
+    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,!<>&*?") == std::string::npos && value[0] != ':';
 }
 
 

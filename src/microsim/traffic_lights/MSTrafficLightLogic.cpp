@@ -156,9 +156,8 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                        + "', program '" + getProgramID() + "' in phases " + toString(i) + " and " + toString(iNext));
                 }
                 if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size() + myIgnoredIndices.size()) {
-                    WRITE_WARNING("Unused states in tlLogic '" + getID()
-                                  + "', program '" + getProgramID() + "' in phase " + toString(i)
-                                  + " after tl-index " + toString((int)myLanes.size() - 1));
+                    WRITE_WARNINGF("Unused states in tlLogic '%', program '%' in phase % after tl-index %",
+                                   getID(), getProgramID(), i, (int)myLanes.size() - 1);
                     haveWarnedAboutUnusedStates = true;
                 }
                 // detect illegal states
@@ -176,9 +175,8 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                         for (LaneVector::const_iterator it = myLanes[j].begin(); it != myLanes[j].end(); ++it) {
                             if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
                                 if (getLogicType() != TrafficLightType::NEMA) {
-                                    WRITE_WARNING("Missing yellow phase in tlLogic '" + getID()
-                                                  + "', program '" + getProgramID() + "' for tl-index " + toString(j)
-                                                  + " when switching" + optionalFrom + " to phase " + toString(iNext));
+                                    WRITE_WARNINGF("Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %",
+                                                   getID(), getProgramID(), j, optionalFrom, iNext);
                                     // one warning per program is enough
                                     haveWarned = true;
                                 }
@@ -199,8 +197,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         for (int j = 0; j < (int)foundGreen.size(); ++j) {
             if (!foundGreen[j]) {
                 if (getLogicType() != TrafficLightType::NEMA) {
-                    WRITE_WARNING("Missing green phase in tlLogic '" + getID()
-                                  + "', program '" + getProgramID() + "' for tl-index " + toString(j));
+                    WRITE_WARNINGF("Missing green phase in tlLogic '%', program '%' for tl-index %", getID(), getProgramID(), j);
                 }
                 break;
             }
@@ -209,7 +206,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
     // check incompatible junction logic
     // this can happen if the network was built with a very different signal
     // plan from the one currently being used.
-    // Cconnections that never had a common green phase during network building may
+    // Connections that never had a common green phase during network building may
     // have a symmetric response relation to avoid certain kinds of jam but this
     // can lead to deadlock if a different program gives minor green to both
     // connections at the same time
@@ -217,7 +214,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
 
     const bool mustCheck = MSNet::getInstance()->hasInternalLinks();
     // The checks only runs for definitions from additional file and this is sufficient.
-    // The distinction is implicit because original logics are loaded earlier and at that time hasInternalLinks is alwas false
+    // The distinction is implicit because original logics are loaded earlier and at that time hasInternalLinks is always false
     // Also, when the network has no internal links, mutual conflicts are not built by netconvert
     //std::cout << "init tlLogic=" << getID() << " prog=" << getProgramID() << " links=" << myLinks.size() << " internal=" << MSNet::getInstance()->hasInternalLinks() << "\n";
     if (mustCheck && phases.size() > 0) {

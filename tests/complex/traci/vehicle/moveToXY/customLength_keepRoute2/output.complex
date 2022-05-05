@@ -9,7 +9,7 @@
 9.0 edge=beg xReq=70 xAct=70.0 xActConv 70.0
 10.0 edge=beg xReq=80 xAct=80.0 xActConv 80.0
 11.0 edge=beg xReq=90 xAct=90.0 xActConv 90.0
-12.0 edge=beg xReq=100 xAct=100.0 xActConv 99.95
+12.0 edge=beg xReq=100 xAct=100.0 xActConv 99.9995
 13.0 edge=middle xReq=110 xAct=110.0 xActConv 110.0
 14.0 edge=middle xReq=120 xAct=120.0 xActConv 120.0
 15.0 edge=middle xReq=130 xAct=130.0 xActConv 130.0

@@ -40,7 +40,7 @@ public:
      * @param[in] currentLimit tractionSubstation currentLimit
      * @param[in] parameters generic parameters
      */
-    GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage, 
+    GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage,
                           const double currentLimit, const Parameterised::Map& parameters);
 
     /// @brief Destructor

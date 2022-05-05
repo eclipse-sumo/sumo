@@ -38,3 +38,6 @@ computeStoppingPlaceUsage
 computePassengerCounts
 stopOrder
 parkingSearchTraffic
+
+# aggregate battery outputs
+aggregateBatteryOutput

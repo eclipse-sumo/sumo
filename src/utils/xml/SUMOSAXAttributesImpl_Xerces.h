@@ -83,7 +83,7 @@ public:
      * @return The attribute's value as a string, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
-    std::string getString(int id, bool* isPresent=nullptr) const;
+    std::string getString(int id, bool* isPresent = nullptr) const;
 
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute

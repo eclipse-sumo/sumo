@@ -58,9 +58,9 @@ public:
      * @param[in] lineWidth Line width when drawing unfilled polygon
      */
     TesselatedPolygon(const std::string& id, const std::string& type, const RGBColor& color, const PositionVector& shape,
-               bool geo, bool fill, double lineWidth, double layer = 0, double angle = 0, const std::string& imgFile = "",
-               bool relativePath = false, const std::string& name = DEFAULT_NAME,
-               const Parameterised::Map& parameters = DEFAULT_PARAMETERS):
+                      bool geo, bool fill, double lineWidth, double layer = 0, double angle = 0, const std::string& imgFile = "",
+                      bool relativePath = false, const std::string& name = DEFAULT_NAME,
+                      const Parameterised::Map& parameters = DEFAULT_PARAMETERS):
         SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters)
     {}
 

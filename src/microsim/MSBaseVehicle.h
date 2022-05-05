@@ -174,6 +174,12 @@ public:
      */
     const MSEdge* getEdge() const;
 
+    /** @brief Returns the edge the vehicle is currently at (possibly an
+     * internal edge)
+     */
+    virtual const MSEdge* getCurrentEdge() const {
+        return getEdge();
+    }
 
     /** @brief Returns the information whether the vehicle is on a road (is simulated)
      * @return Whether the vehicle is simulated
@@ -207,6 +213,16 @@ public:
      * centerline of the lane)
      */
     virtual double getLateralPositionOnLane() const {
+        return 0;
+    }
+
+    /** @brief Get the vehicle's lateral position on the edge of the given lane
+     * (or its current edge if lane == 0)
+     * @return The lateral position of the vehicle (in m distance between right
+     * side of vehicle and ride side of edge
+     */
+    virtual double getRightSideOnEdge(const MSLane* lane = 0) const {
+        UNUSED_PARAMETER(lane);
         return 0;
     }
 
@@ -554,6 +570,11 @@ public:
      * @return whether the vehicle is on a triggered stop
      */
     bool isStoppedTriggered() const;
+
+    /** @brief Returns whether the vehicle is on a parking stop
+     * @return whether the vehicle is on a parking stop
+     */
+    bool isStoppedParking() const;
 
     /** @brief return whether the given position is within range of the current stop
      */
@@ -977,6 +998,9 @@ protected:
     /// memory for parking search
     ParkingMemory* myParkingMemory = nullptr;
     int myNumberParkingReroutes = 0;
+
+    /// @brief Whether this vehicle is registered as waiting for a person or container (for deadlock-recognition)
+    bool myAmRegisteredAsWaiting = false;
 
     /* @brief magic value for undeparted vehicles
      * @note: in previous versions this was -1

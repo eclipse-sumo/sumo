@@ -845,7 +845,7 @@ NBEdgeCont::recheckLanes() {
                 if (oppositeID != "" && oppositeID != "-") {
                     if (edge->getLanes().back().oppositeID == "" && oppEdge != nullptr) {
                         edge->getLaneStruct(leftmostLane).oppositeID = oppositeID;
-                        WRITE_WARNINGF("Moving opposite lane '%' from invalid lane '%' to lane %.", oppositeID, edge->getLaneID(i), leftmostLane);
+                        WRITE_WARNINGF("Moving opposite lane '%' from invalid lane '%' to lane index %.", oppositeID, edge->getLaneID(i), leftmostLane);
                     } else {
                         WRITE_WARNINGF("Removing opposite lane '%' for invalid lane '%'.", oppositeID, edge->getLaneID(i));
                     }
@@ -861,7 +861,7 @@ NBEdgeCont::recheckLanes() {
                     continue;
                 } else if (oppEdge->getLaneID(oppEdge->getNumLanes() - 1) != oppositeID) {
                     const std::string oppEdgeLeftmost = oppEdge->getLaneID(oppEdge->getNumLanes() - 1);
-                    WRITE_WARNINGF("Adapting invalid opposite lane '%' for edge '%' to '%'", oppositeID, edge->getID(), oppEdgeLeftmost);
+                    WRITE_WARNINGF("Adapting invalid opposite lane '%' for edge '%' to '%'.", oppositeID, edge->getID(), oppEdgeLeftmost);
                     edge->getLaneStruct(leftmostLane).oppositeID = oppEdgeLeftmost;
                 }
                 if (fabs(oppEdge->getLoadedLength() - edge->getLoadedLength()) > NUMERICAL_EPS) {
@@ -872,8 +872,9 @@ NBEdgeCont::recheckLanes() {
                         edge->setLoadedLength(avgLength);
                         oppEdge->setLoadedLength(avgLength);
                     } else {
-                        WRITE_ERROR("Opposite lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) + ") differs in length from edge '" + edge->getID() + "' (length "
-                                    + toString(edge->getLoadedLength()) + "). Set --opposites.guess.fix-lengths to fix this.");
+                        WRITE_ERROR("Opposite lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) +
+                                    ") differs in length from edge '" + edge->getID() + "' (length " +
+                                    toString(edge->getLoadedLength()) + "). Set --opposites.guess.fix-lengths to fix this.");
                         edge->getLaneStruct(edge->getNumLanes() - 1).oppositeID = "";
                         continue;
                     }
@@ -1378,7 +1379,7 @@ NBEdgeCont::guessRoundabouts() {
                     if (find(myRoundabouts.begin(), myRoundabouts.end(), guessed) == myRoundabouts.end()) {
                         for (auto it = myRoundabouts.begin(); it != myRoundabouts.end(); it++) {
                             if ((*it).count(loopEdges.front()) != 0) {
-                                WRITE_WARNINGF("Replacing loaded roundabout '%s' with '%s'", toString(*it), toString(guessed));
+                                WRITE_WARNINGF("Replacing loaded roundabout '%' with '%'.", toString(*it), toString(guessed));
                                 myRoundabouts.erase(it);
                                 break;
                             }
@@ -1665,7 +1666,7 @@ NBEdgeCont::checkOverlap(double threshold, double zThreshold) const {
                 outline2.append(e2->getCCWBoundaryLine(*e2->getToNode()));
                 const double overlap = outline1.getOverlapWith(outline2, zThreshold);
                 if (overlap > threshold) {
-                    WRITE_WARNINGF("Edge '%' overlaps with edge '%' by %.", e1->getID(), e2->getID(), toString(overlap));
+                    WRITE_WARNINGF("Edge '%' overlaps with edge '%' by %.", e1->getID(), e2->getID(), overlap);
                 }
             }
         }
@@ -1681,9 +1682,9 @@ NBEdgeCont::checkGrade(double threshold) const {
             double maxJump = 0;
             const double grade = edge->getLaneShape(i).getMaxGrade(maxJump);
             if (maxJump > 0.01) {
-                WRITE_WARNINGF("Edge '%s' has a vertical jump of %sm.", edge->getID(), toString(maxJump));
+                WRITE_WARNINGF("Edge '%' has a vertical jump of %m.", edge->getID(), maxJump);
             } else if (grade > threshold) {
-                WRITE_WARNINGF("Edge '%' has a grade of %%.", edge->getID(), toString(grade * 100), "%");
+                WRITE_WARNINGF("Edge '%' has a grade of %%.", edge->getID(), grade * 100, "%");
                 break;
             }
         }
@@ -1693,9 +1694,9 @@ NBEdgeCont::checkGrade(double threshold) const {
             double maxJump = 0;
             const double grade = MAX2(c.shape.getMaxGrade(maxJump), c.viaShape.getMaxGrade(maxJump));
             if (maxJump > 0.01) {
-                WRITE_WARNINGF("Connection '%' has a vertical jump of %m.", c.getDescription(edge), toString(maxJump));
+                WRITE_WARNINGF("Connection '%' has a vertical jump of %m.", c.getDescription(edge), maxJump);
             } else if (grade > threshold) {
-                WRITE_WARNINGF("Connection '%' has a grade of %%.", c.getDescription(edge), toString(grade * 100), "%");
+                WRITE_WARNINGF("Connection '%' has a grade of %%.", c.getDescription(edge), grade * 100, "%");
                 break;
             }
         }
@@ -1725,7 +1726,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
             if (item.second->getNumLanes() == 1) {
                 tramEdges.insert(item.second);
             } else {
-                WRITE_WARNINGF("Not joining tram edge '%' with % lanes", item.second->getID(), item.second->getNumLanes());
+                WRITE_WARNINGF("Not joining tram edge '%' with % lanes.", item.second->getID(), item.second->getNumLanes());
             }
         } else if ((permissions & (SVC_PASSENGER | SVC_BUS)) != 0) {
             targetEdges.insert(item.second);
@@ -1799,7 +1800,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
                     if (matches.count(key) == 0) {
                         matches[key] = tramEdge;
                     } else {
-                        WRITE_WARNINGF("Ambiguous tram edges '%' and '%' for lane '%'", matches[key]->getID(), tramEdge->getID(), edge->getLaneID(minLane));
+                        WRITE_WARNINGF("Ambiguous tram edges '%' and '%' for lane '%'.", matches[key]->getID(), tramEdge->getID(), edge->getLaneID(minLane));
                     }
 #ifdef DEBUG_JOIN_TRAM
                     std::cout << edge->getLaneID(minLane) << " is close to tramEdge " << tramEdge->getID() << " maxLaneDist=" << minEdgeDist << " tramLength=" << tramEdge->getLength() << " edgeLength=" << edge->getLength() << " tramAngle=" << tramAngle << " edgeAngle=" << edge->getTotalAngle() << "\n";

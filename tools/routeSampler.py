@@ -365,7 +365,7 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
     # minimization objective [routeCounts] + [slack]
     c = [options.minimizeVehs] * k + [1] * m
 
-    # set x to prior counts and slack to deficit (otherwise solver may fail to find any soluton
+    # set x to prior counts and slack to deficit (otherwise solver may fail to find any solution
     x0 = priorRelevantRouteCounts + [cd.origCount - cd.count for cd in countData]
 
     # print("k=%s" % k)
@@ -429,7 +429,7 @@ class Routes:
         self.edgeIDs = {}
         self.withProb = 0
         for routefile in routefiles:
-            # not all routes may have specified probability, in this case use their number of occurence
+            # not all routes may have specified probability, in this case use their number of occurrences
             for r in sumolib.xml.parse(routefile, 'route', heterogeneous=True):
                 edges = tuple(r.edges.split())
                 self.all.append(edges)

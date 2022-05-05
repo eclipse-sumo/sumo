@@ -7,6 +7,9 @@ spec
 # handling of basic structures
 basic
 
+# tests for the traffic lights subsystem
+tls
+
 # output tests
 output
 
@@ -24,7 +27,6 @@ junction_model
 
 # testing the dynamics and interaction of different pedestrian models
 pedestrian_model
-
 rail
 
 # testing opposite-direction driving

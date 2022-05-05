@@ -20,11 +20,11 @@ Warning: No way found for reference '4823464352' in relation '7200749'
 Warning: No way found for reference '4823464351' in relation '7200750'
 Warning: No way found for reference '4823464352' in relation '7200750'
 Warning: No way found for reference '4823464352' in relation '7200751'
-Warning: Not joining tram edge '175769905#0' with 2 lanes
-Warning: Not joining tram edge '175769905#1' with 2 lanes
-Warning: Not joining tram edge '175769905#2' with 2 lanes
-Warning: Not joining tram edge '175769905#3' with 2 lanes
-Warning: Not joining tram edge '175769905#4' with 2 lanes
+Warning: Not joining tram edge '175769905#0' with 2 lanes.
+Warning: Not joining tram edge '175769905#1' with 2 lanes.
+Warning: Not joining tram edge '175769905#2' with 2 lanes.
+Warning: Not joining tram edge '175769905#3' with 2 lanes.
+Warning: Not joining tram edge '175769905#4' with 2 lanes.
 Warning: 18 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
 Warning: 26 total messages of type: No way found for reference '%' in relation '%'
-Warning: 23 total messages of type: Not joining tram edge '%' with % lanes
+Warning: 23 total messages of type: Not joining tram edge '%' with % lanes.
