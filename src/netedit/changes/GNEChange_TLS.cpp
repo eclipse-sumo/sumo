@@ -38,16 +38,40 @@ FXIMPLEMENT_ABSTRACT(GNEChange_TLS, GNEChange, nullptr, 0)
 
 
 /// @brief constructor for creating an edge
-GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert, const std::string tlID):
+GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert, const std::string tlID) :
     GNEChange(Supermode::NETWORK, forward, false),
     myJunction(junction),
     myTlDef(tlDef),
     myForceInsert(forceInsert) {
     myJunction->incRef("GNEChange_TLS");
     if (myTlDef == nullptr) {
-        assert(forward);
+        // check forward
+        if (!forward) {
+            throw ProcessError("If myTlDef is null, forward cannot be false");
+        }
         // potential memory leak if this change is never executed
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
+        if (myJunction->getNBNode()->isTLControlled()) {
+            // copy existing type
+            type = (*myJunction->getNBNode()->getControllingTLS().begin())->getType();
+        }
+        myTlDef = new NBOwnTLDef(tlID == "" ? myJunction->getMicrosimID() : tlID, 0, type);
+    }
+}
+
+
+GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, TrafficLightType type,
+    bool forceInsert, const std::string tlID) :
+    GNEChange(Supermode::NETWORK, forward, false),
+    myJunction(junction),
+    myTlDef(tlDef),
+    myForceInsert(forceInsert) {
+    myJunction->incRef("GNEChange_TLS");
+    if (myTlDef == nullptr) {
+        // check forward
+        if (!forward) {
+            throw ProcessError("If myTlDef is null, forward cannot be false");
+        }
         if (myJunction->getNBNode()->isTLControlled()) {
             // copy existing type
             type = (*myJunction->getNBNode()->getControllingTLS().begin())->getType();

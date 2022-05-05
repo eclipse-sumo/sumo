@@ -43,6 +43,16 @@ public:
      */
     GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert = false, const std::string tlID = "");
 
+    /**@brief Constructor for creating/deleting an edge
+    * @param[in] junction The junction to which the traffic light belong
+    * @param[in] tlDef The traffic light definition (may be 0 on creation)
+    * @param[in] forward Whether to create/delete (true/false)
+    * @param[in] tlID The id for the newly created tlDef (set to junction id if * "" is given)
+    * @param[in] type TrafficLightType
+    */
+    GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, TrafficLightType type,
+        bool forceInsert = false, const std::string tlID = "");
+
     /// @brief Destructor
     ~GNEChange_TLS();
 
