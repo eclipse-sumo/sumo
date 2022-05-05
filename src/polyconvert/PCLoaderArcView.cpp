@@ -320,17 +320,5 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
 #endif
 }
 
-std::vector<std::string>
-PCLoaderArcView::getFieldNames(OGRFeature* poFeature) {
-    std::vector<std::string> fields;
-#ifdef HAVE_GDAL
-    for (int i = 0; i < poFeature->GetFieldCount(); i++) {
-        fields.push_back(poFeature->GetFieldDefnRef(i)->GetNameRef());
-    }
-#endif
-    return fields;
-}
-
-
 
 /****************************************************************************/

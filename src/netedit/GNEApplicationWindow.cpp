@@ -109,16 +109,16 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS,             GNEApplicationWindow::onCmdReloadTLSPrograms),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS,             GNEApplicationWindow::onUpdReloadTLSPrograms),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,                    GNEApplicationWindow::onCmdSaveTLSPrograms),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,                    GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,                    GNEApplicationWindow::onUpdSaveTLSPrograms),
     // edge types
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_H_OPENEDGETYPES,                    GNEApplicationWindow::onCmdOpenEdgeTypes),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_H_OPENEDGETYPES,                    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES,               GNEApplicationWindow::onCmdReloadEdgeTypes),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES,               GNEApplicationWindow::onUpdReloadEdgeTypes),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,              GNEApplicationWindow::onCmdSaveEdgeTypes),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,              GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,              GNEApplicationWindow::onUpdSaveEdgeTypes),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,               GNEApplicationWindow::onCmdSaveEdgeTypesAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,               GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,               GNEApplicationWindow::onUpdSaveEdgeTypesAs),
     // additionals
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,  GNEApplicationWindow::onCmdOpenAdditionals),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,  GNEApplicationWindow::onUpdNeedsNetwork),
@@ -148,7 +148,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDATA_AS,                    GNEApplicationWindow::onUpdSaveDataElementsAs),
     // other
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,             GNEApplicationWindow::onCmdSaveTLSProgramsAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,             GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,             GNEApplicationWindow::onUpdSaveTLSPrograms),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_W_CLOSESIMULATION,                  GNEApplicationWindow::onCmdClose),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_W_CLOSESIMULATION,                  GNEApplicationWindow::onUpdNeedsNetwork),
 
@@ -1238,7 +1238,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     // write reload message
     if (myReloading) {
-        WRITE_MESSAGE("Reload sucesfully");
+        WRITE_MESSAGE("Reload successfully");
         myReloading = false;
     }
     // update app
@@ -1355,7 +1355,7 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
     storeWindowSizeAndPos();
     getApp()->beginWaitCursor();
     myAmLoading = true;
-    myReloading = true;
+    myReloading = isReload;
     closeAllWindows();
     if (isReload) {
         myLoadThread->start();
@@ -1967,7 +1967,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
                 (myViewNet->getNet()->getAttributeCarriers()->getNumberOfAdditionals() > 0)) {
             // save additionals
             onCmdSaveAdditionals(nullptr, 0, nullptr);
-            // check if additionals were sucesfully saved. If not, abort
+            // check if additionals were successfully saved. If not, abort
             if (!myViewNet->getNet()->isAdditionalsSaved()) {
                 return 0;
             }
@@ -1977,7 +1977,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
                 (myViewNet->getNet()->getAttributeCarriers()->getNumberOfDemandElements() > 0)) {
             // save additionals
             onCmdSaveDemandElements(nullptr, 0, nullptr);
-            // check if demand elements were sucesfully saved. If not, abort
+            // check if demand elements were successfully saved. If not, abort
             if (!myViewNet->getNet()->isDemandElementsSaved()) {
                 return 0;
             }
@@ -2383,8 +2383,8 @@ GNEApplicationWindow::onCmdOpenUndoListDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdOpenUndoListDialog(FXObject* sender, FXSelector, void*) {
-    // check if net exist
-    if (myNet) {
+    // check if net exist and there is something to undo/redo
+    if (myNet && (myEditMenuCommands.undoLastChange->isEnabled() || myEditMenuCommands.redoLastChange->isEnabled())) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -3223,6 +3223,18 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
 
 
 long
+GNEApplicationWindow::onUpdSaveTLSPrograms(FXObject* sender, FXSelector, void*) {
+    // check if net exist and there is junctions
+    if (myNet && (myNet->getAttributeCarriers()->getJunctions().size() > 0)) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
+    return 1;
+}
+
+
+long
 GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
     // obtain option container
     OptionsCont& oc = OptionsCont::getOptions();
@@ -3349,6 +3361,18 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
     } else {
         return 1;
     }
+}
+
+
+long
+GNEApplicationWindow::onUpdSaveEdgeTypesAs(FXObject* sender, FXSelector, void*) {
+    // check if net exist and there are edge types
+    if (myNet && (myNet->getAttributeCarriers()->getEdgeTypes().size() > 0)) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
+    return 1;
 }
 
 
@@ -3975,7 +3999,7 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges(const std::string& op
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Save additionals before " + operation + "' with 'Yes'");
             if (onCmdSaveAdditionals(nullptr, 0, nullptr) == 1) {
-                // additionals sucesfully saved
+                // additionals successfully saved
                 return true;
             } else {
                 // error saving additionals, abort saving
@@ -4018,7 +4042,7 @@ GNEApplicationWindow::continueWithUnsavedDemandElementChanges(const std::string&
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before " + operation + "' with 'Yes'");
             if (onCmdSaveDemandElements(nullptr, 0, nullptr) == 1) {
-                // demand elements sucesfully saved
+                // demand elements successfully saved
                 return true;
             } else {
                 // error saving demand elements, abort saving
@@ -4061,7 +4085,7 @@ GNEApplicationWindow::continueWithUnsavedDataElementChanges(const std::string& o
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Save data elements before " + operation + "' with 'Yes'");
             if (onCmdSaveDataElements(nullptr, 0, nullptr) == 1) {
-                // data elements sucesfully saved
+                // data elements successfully saved
                 return true;
             } else {
                 // error saving data elements, abort saving
@@ -4218,7 +4242,7 @@ GNEApplicationWindow::getLockMenuCommands() {
 void
 GNEApplicationWindow::clearUndoList() {
     if (myViewNet) {
-        // destropy Popup (to avoid crashes)
+        // destroy Popup (to avoid crashes)
         myViewNet->destroyPopup();
     }
     // clear undo list and return true to continue with closing/reload
