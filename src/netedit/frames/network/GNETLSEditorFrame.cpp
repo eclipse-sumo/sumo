@@ -345,7 +345,18 @@ GNETLSEditorFrame::onCmdDefDelete(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::onCmdDefRegenerate(FXObject*, FXSelector, void*) {
-
+    // make a copy of the junction
+    GNEJunction* junction = myTLSJunction->getCurrentJunction();
+    // begin undo
+    myViewNet->getUndoList()->begin(GUIIcon::MODETLS, "regenerate TLS");
+    // delete junction
+    onCmdDefDelete(nullptr, 0, nullptr);
+    // set junction again
+    myTLSJunction->setCurrentJunction(junction);
+    // create junction
+    onCmdDefCreate(nullptr, 0, nullptr);
+    // end undo
+    myViewNet->getUndoList()->end();
     return 1;
 }
 
