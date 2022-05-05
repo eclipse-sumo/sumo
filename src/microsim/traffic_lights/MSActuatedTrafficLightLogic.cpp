@@ -164,7 +164,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     //SUMOTime inductLoopInterval = 1; //
     // build the induct loops
     std::map<const MSLane*, MSInductLoop*> laneInductLoopMap;
-    std::map<MSInductLoop*, const MSLane*> inductLoopLaneMap; // in case loops are placed further upstream
+    std::map<MSInductLoop*, int> inductLoopInfoMap; // retrieve junction entry lane in case loops are placed further upstream (and other properties)
     int detEdgeIndex = -1;
     int detLaneIndex = 0;
     const double detDefaultLength = StringUtils::toDouble(getParameter("detector-length", DEFAULT_DET_LENGTH));
@@ -228,10 +228,10 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 ilpos = loop->getPosition();
                 inductLoopPosition = length - ilpos;
             }
-            laneInductLoopMap[lane] = loop;
-            inductLoopLaneMap[loop] = lane;
             const double maxGap = getDouble("max-gap:" + lane->getID(), myMaxGap);
             const double jamThreshold = getDouble("jam-threshold:" + lane->getID(), myJamThreshold);
+            laneInductLoopMap[lane] = loop;
+            inductLoopInfoMap[loop] = (int)myInductLoops.size();
             myInductLoops.push_back(InductLoopInfo(loop, lane, (int)myPhases.size(), maxGap, jamThreshold));
 
             if (warn && floor(floor(inductLoopPosition / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minDur)) {
@@ -249,10 +249,12 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     //              check1b : there is another major link from the same lane in the current phase
     //            (Under these conditions we assume that the minor link is unimportant and traffic is mostly for the major link)
     //
-    //              check1c: when the lane has only one edge, we treat greenMinor as green as there would be no actuation otherwise
+    //              check1c: when the edge has only one lane, we treat greenMinor as green as there would be no actuation otherwise
     //              check1d: for turnarounds 1b is sufficient and we do not require 1a
     //
     //  check2: if there are two loops on subsequent lanes (joined tls) and the second one has a red link, the first loop may not be used
+    //
+    //  if a jamThreshold is specificed for the loop, all checks are ignored
 
     // also assign loops to link index for validation:
     // check if all links from actuated phases (minDur != maxDur) have an inductionloop in at least one phase
@@ -301,19 +303,25 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             const std::string& state = phase->getState();
             // collect indices of all green links for the phase
             std::set<int> greenLinks;
+            // green links that could jam
+            std::set<int> greenLinksPermissive;
             // collect green links for each induction loops (in this phase)
             std::map<MSInductLoop*, std::set<int> > loopLinks;
 
             for (int i = 0; i < numLinks; i++)  {
-                if (state[i] == LINKSTATE_TL_GREEN_MAJOR
-                        || (state[i] == LINKSTATE_TL_GREEN_MINOR
-                            && (((neverMajor[i] || turnaround[i])  // check1a, 1d
-                                 && hasMajor(state, getLanesAt(i))) // check1b
-                                || oneLane[i])) // check1c
-                   ) {
+                if (state[i] == LINKSTATE_TL_GREEN_MAJOR) {
                     greenLinks.insert(i);
-                    if (state[i] == LINKSTATE_TL_GREEN_MAJOR || !turnaround[i]) {
-                        actuatedLinks.insert(i);
+                    actuatedLinks.insert(i);
+                } else if (state[i] == LINKSTATE_TL_GREEN_MINOR) {
+                    if (((neverMajor[i] || turnaround[i])  // check1a, 1d
+                            && hasMajor(state, getLanesAt(i))) // check1b
+                            || oneLane[i]) { // check1c
+                        greenLinks.insert(i);
+                        if (!turnaround[i]) {
+                            actuatedLinks.insert(i);
+                        }
+                    } else {
+                        greenLinksPermissive.insert(i);
                     }
                 }
 #ifdef DEBUG_DETECTORS
@@ -336,22 +344,29 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             }
             for (auto& item : loopLinks) {
                 MSInductLoop* loop = item.first;
-                const MSLane* loopLane = inductLoopLaneMap[loop];
+                const InductLoopInfo& info = myInductLoops[inductLoopInfoMap[loop]];
+                const MSLane* loopLane = info.lane;
                 bool usable = true;
+                bool foundUsable = false;
                 // check1
                 for (int j : item.second) {
-                    if (greenLinks.count(j) == 0) {
+                    if (greenLinks.count(j) == 0 && (info.jamThreshold <= 0 || greenLinksPermissive.count(j) == 0)) {
                         usable = false;
 #ifdef DEBUG_DETECTORS
                         if (DEBUG_COND) {
                             std::cout << " phase=" << phaseIndex << " check1: loopLane=" << loopLane->getID() << " notGreen=" << j << " oneLane[j]=" << oneLane[j] << "\n";
                         }
 #endif
-                        break;
+                    } else {
+                        foundUsable = true;
                     }
                 }
-                // check2
-                if (usable) {
+                if (!usable && foundUsable && info.jamThreshold > 0) {
+                    // permit green even when the same lane has green and red links (if we have jamDetection)
+                    usable = true;
+                }
+                // check2 (skip if we have jam detection)
+                if (usable && info.jamThreshold <= 0) {
                     for (MSLink* link : loopLane->getLinkCont()) {
                         if (link->isTurnaround()) {
                             continue;
