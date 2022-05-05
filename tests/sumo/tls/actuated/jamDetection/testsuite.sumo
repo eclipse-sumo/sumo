@@ -9,3 +9,6 @@ jamThresh_5_lane
 
 # detect blockage after 10s of jamming
 jamThresh_10
+
+# detect blockage after 5s of jamming
+useAllDetectors
