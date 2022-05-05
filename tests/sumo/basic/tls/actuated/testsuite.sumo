@@ -77,3 +77,6 @@ controlling_detectors
 
 # if minDur is set, interpret missing maxDur as unlimited
 maxDur_missing
+
+# only switch to side direction on request
+multiNext_request_or_skip
