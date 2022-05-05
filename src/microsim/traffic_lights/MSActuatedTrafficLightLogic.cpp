@@ -914,6 +914,16 @@ MSActuatedTrafficLightLogic::getDetectorPriority(const InductLoopInfo& loopInfo)
             if (loopInfo.servedPhase[myStep]) {
                 SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
                 const bool canExtend = actDuration < getCurrentPhaseDef().maxDuration || getLatest() > 0;
+#ifdef DEBUG_PHASE_SELECTION
+                if (DEBUG_COND) {
+                    std::cout << "    loop=" << loop->getID()
+                        << " actDuration=" << STEPS2TIME(actDuration)
+                        << " maxDur=" << STEPS2TIME(getCurrentPhaseDef().maxDuration)
+                        << " getLatest=" << STEPS2TIME(getLatest())
+                        << " canExtend=" << canExtend
+                        << "\n";
+                }
+#endif
                 if (canExtend) {
                     return DEFAULT_CURRENT_PRIORITY;
                 } else {
