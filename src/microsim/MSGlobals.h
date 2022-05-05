@@ -144,8 +144,10 @@ public:
     /// treshold for warning about strong deceleration
     static double gEmergencyDecelWarningThreshold;
 
-    /// time penalty for passing a minor link when routing
+    /// (minimum) time penalty for passing a minor link when routing
     static double gMinorPenalty;
+    /// scaled (minimum) time penalty for passing a tls link when routing
+    static double gTLSPenalty;
 
     /// whether parking simulation includes manoeuver time and any associated lane blocking
     static bool gModelParkingManoeuver;
