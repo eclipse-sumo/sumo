@@ -982,6 +982,8 @@ enum {
     MID_GNE_TLSFRAME_CREATE,
     /// @brief delete TLS
     MID_GNE_TLSFRAME_DELETE,
+    /// @brief regenerate TLS
+    MID_GNE_TLSFRAME_REGENERATE,
     /// @brief rename TLS
     MID_GNE_TLSFRAME_RENAME,
     /// @brief sub-rename TLS
