@@ -722,6 +722,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_POSITION_LAT:
         //
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_PARENT:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         // special case for person plans
@@ -914,6 +915,14 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         //
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
+        case GNE_ATTR_PARENT:
+            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {
+                return true;
+            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) != nullptr) {
+                return true;
+            } else {
+                return false;
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1491,6 +1500,14 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 unselectAttributeCarrier();
             }
+            break;
+        case GNE_ATTR_PARENT:
+            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {
+                replaceDemandElementParent(SUMO_TAG_PERSON, value, 0);
+            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) != nullptr) {
+                replaceDemandElementParent(SUMO_TAG_PERSONFLOW, value, 0);
+            }
+            updateGeometry();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -2685,7 +2685,13 @@ GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdSaveAdditionals(FXObject* sender, FXSelector, void*) {
-    return sender->handle(this, ((myNet == nullptr) || myNet->isAdditionalsSaved()) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    if (myNet == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (myNet->getViewNet()->getViewParent()->getTAZFrame()->getTAZSaveChangesModule()->isChangesPending()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return sender->handle(this, myNet->isAdditionalsSaved() ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
 }
 
 
