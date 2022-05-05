@@ -74,20 +74,26 @@ Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding flowWithRoute 'f_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'f_0' in GNEChange_DemandElement
-Debug: Invalid input parameter of flowWithRoute
-Debug: Invalid input parameter of flowWithRoute
 Debug: Key ENTER pressed
+Debug: Adding flowWithRoute 'f_1' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'f_1' in GNEChange_DemandElement
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing routeEmbedded 'f_1' in GNEChange_DemandElement
+Debug: Removing flowWithRoute 'f_1' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'f_0' in GNEChange_DemandElement
 Debug: Removing flowWithRoute 'f_0' in GNEChange_DemandElement
-Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding flowWithRoute 'f_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding flowWithRoute 'f_1' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'f_1' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

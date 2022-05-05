@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_12_0+1660-9b16f488674
+Eclipse SUMO netgenerate Version v1_12_0+1373-449ea4e
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -180,7 +180,6 @@ Building Defaults Options:
   --default.spreadtype STR             The default method for computing lane
                                         shapes from edge shapes
   -S, --default.speed FLOAT            The default speed on an edge (in m/s)
-  -F, --default.friction FLOAT         The default friction on an edge
   -P, --default.priority INT           The default priority of an edge
   --default.type STR                   The default edge type
   --default.sidewalk-width FLOAT       The default width of added sidewalks

@@ -352,6 +352,10 @@ Routing Options:
   --weights.minor-penalty FLOAT        Apply the given time penalty when
                                         computing minimum routing costs for
                                         minor-link internal lanes
+  --weights.tls-penalty FLOAT          Apply scaled travel time penalties based
+                                        on green split when computing minimum
+                                        routing costs for internal lanes at
+                                        traffic lights
   --weights.priority-factor FLOAT      Consider edge priorities in addition to
                                         travel times, weighted by factor
   --weights.separate-turns FLOAT       Distinguish travel time by turn
@@ -703,19 +707,6 @@ Vehroutes Device Options:
                                         vehicles
   --device.vehroute.deterministic      The 'vehroute' devices are set
                                         deterministic using a fraction of 1000
-
-Seeroad Device Options:
-  --device.Seeroad.probability FLOAT   The probability for a vehicle to have a
-                                        'Seeroad' device
-  --device.Seeroad.explicit STR[]      Assign a 'Seeroad' device to named
-                                        vehicles
-  --device.Seeroad.deterministic       The 'Seeroad' devices are set
-                                        deterministic using a fraction of 1000
-  --device.Seeroad.stdev FLOAT         The measurement noise parameter which
-                                        can be applied to the Seeroad device
-  --device.Seeroad.offset FLOAT        The measurement offset parameter which
-                                        can be applied to the Seeroad device ->
-                                        e.g. to force false measurements
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set

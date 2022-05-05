@@ -100,7 +100,6 @@ Debug: Calling GNEUndoList::undo()
 Debug: Removing flowJunctions 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding flowJunctions 'f_0' in GNEChange_DemandElement

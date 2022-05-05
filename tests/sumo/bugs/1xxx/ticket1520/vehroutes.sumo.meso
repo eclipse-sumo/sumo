@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-11 11:29:01 by Eclipse SUMO sumo Version v1_12_0+0490-00f3a0f
+<!-- generated on 2022-03-25 13:17:58 by Eclipse SUMO sumo Version v1_12_0+1669-5ef84da
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="blocker" type="t0" depart="0.00" arrival="64.00">
         <route edges="beg end" exitTimes="8.00 64.00"/>
-        <stop lane="end_0" endPos="6.00" duration="50.00" started="7.10" ended="-1"/>
+        <stop lane="end_0" endPos="6.00" duration="50.00" started="7.10" ended="64.00"/>
     </vehicle>
 
     <vehicle id="teleport" type="t0" depart="2.00" arrival="66.00">
