@@ -30,6 +30,7 @@ import sys
 import math
 import heapq
 import gzip
+import warnings
 from xml.sax import handler, parse
 from copy import copy
 from collections import defaultdict
@@ -273,8 +274,7 @@ class Net:
         return result
 
     # Please be aware that the resulting list of edges is NOT sorted
-    def getNeighboringEdges(self, x, y, r=0.1, includeJunctions=True,
-                            allowFallback=True):
+    def getNeighboringEdges(self, x, y, r=0.1, includeJunctions=True, allowFallback=True):
         edges = []
         try:
             if self._rtreeEdges is None:
@@ -286,23 +286,16 @@ class Net:
                 if d < r:
                     edges.append((e, d))
         except ImportError:
-            if allowFallback:
-                if not self.hasWarnedAboutMissingRTree:
-                    sys.stderr.write("Warning: Module 'rtree' not available. Using brute-force fallback\n")
-                    self.hasWarnedAboutMissingRTree = True
-            else:
-                sys.stderr.write("Error: Module 'rtree' not available.\n")
-                sys.exit(1)
-
+            if not allowFallback:
+                raise
+            warnings.warn("Module 'rtree' not available. Using brute-force fallback.")
             for the_edge in self._edges:
-                d = sumolib.geomhelper.distancePointToPolygon(
-                    (x, y), the_edge.getShape(includeJunctions))
+                d = sumolib.geomhelper.distancePointToPolygon((x, y), the_edge.getShape(includeJunctions))
                 if d < r:
                     edges.append((the_edge, d))
         return edges
 
-    def getNeighboringLanes(self, x, y, r=0.1, includeJunctions=True,
-                            allowFallback=True):
+    def getNeighboringLanes(self, x, y, r=0.1, includeJunctions=True, allowFallback=True):
         lanes = []
         try:
             if self._rtreeLanes is None:
@@ -310,26 +303,19 @@ class Net:
                     self._allLanes += the_edge.getLanes()
                 self._rtreeLanes = self._initRTree(self._allLanes, includeJunctions)
             for i in self._rtreeLanes.intersection((x - r, y - r, x + r, y + r)):
-                lane = self._allLanes[i]
-                d = sumolib.geomhelper.distancePointToPolygon(
-                    (x, y), lane.getShape(includeJunctions))
+                the_lane = self._allLanes[i]
+                d = sumolib.geomhelper.distancePointToPolygon((x, y), the_lane.getShape(includeJunctions))
                 if d < r:
-                    lanes.append((lane, d))
+                    lanes.append((the_lane, d))
         except ImportError:
-            if allowFallback:
-                if not self.hasWarnedAboutMissingRTree:
-                    sys.stderr.write("Warning: Module 'rtree' not available. Using brute-force fallback\n")
-                    self.hasWarnedAboutMissingRTree = True
-            else:
-                sys.stderr.write("Error: Module 'rtree' not available.\n")
-                sys.exit(1)
-
+            if not allowFallback:
+                raise
+            warnings.warn("Module 'rtree' not available. Using brute-force fallback.")
             for the_edge in self._edges:
-                for lane in the_edge.getLanes():
-                    d = sumolib.geomhelper.distancePointToPolygon(
-                        (x, y), lane.getShape(includeJunctions))
+                for the_lane in the_edge.getLanes():
+                    d = sumolib.geomhelper.distancePointToPolygon((x, y), the_lane.getShape(includeJunctions))
                     if d < r:
-                        lanes.append((lane, d))
+                        lanes.append((the_lane, d))
         return lanes
 
     def hasNode(self, id):
