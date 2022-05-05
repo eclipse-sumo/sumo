@@ -6,7 +6,23 @@ title: ChangeLog
 
 ### Bugfixes
 
+- Simulation
+  - Vehicles waiting at a red ligth no longer change lanes in response to vehicles passing the intersection. #10665
+  
+- netedit
+  - tls mode coloring of 'yellow' phase is now consistent with sumo-gui. Issue #10651
+  - Loading a demand file only triggers a 'demand is modified' warning after actual modification. Issue #9529
+
 ### Enhancements
+
+- Simulation
+  - Jammed detectors of actuated traffic lights can now be ignored for phase extension after a configurable time threshold. Issue #5212
+  - InductionLoop detectors now support optional attribute 'length'. Issue #10668
+  - Actuated traffic lights now support param key 'detector-length' to set the default length of it's detectors. Issue #10668
+  
+- sumo-gui
+  - InductionLoop detectors now list the time of continous occupation in their parameter dialog. Issue #10671
+
 
 ### Mscellaneous
 
