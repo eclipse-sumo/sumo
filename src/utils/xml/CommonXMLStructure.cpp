@@ -207,6 +207,23 @@ CommonXMLStructure::SumoBaseObject::getTimeAttribute(const SumoXMLAttr attr) con
 }
 
 
+SUMOTime
+CommonXMLStructure::SumoBaseObject::getPeriodAttribute() const {
+    SumoXMLAttr attr = SUMO_ATTR_PERIOD;
+    if (hasTimeAttribute(attr)) {
+        return myTimeAttributes.at(attr);
+    } else {
+        // try 'freq' as alias for 'period'
+        attr = SUMO_ATTR_FREQUENCY;
+        if (hasTimeAttribute(attr)) {
+            return myTimeAttributes.at(attr);
+        }
+        handleAttributeError(SUMO_ATTR_PERIOD, "time");
+        throw ProcessError();
+    }
+}
+
+
 const RGBColor&
 CommonXMLStructure::SumoBaseObject::getColorAttribute(const SumoXMLAttr attr) const {
     if (hasColorAttribute(attr)) {

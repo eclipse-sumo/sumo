@@ -85,6 +85,41 @@ SUMOSAXAttributes::getSUMOTimeReporting(int attr, const char* objectid,
 
 
 SUMOTime
+SUMOSAXAttributes::getPeriod(const char* objectid, bool& ok, bool report) const {
+    int attr = SUMO_ATTR_PERIOD;
+    try {
+        bool isPresent = true;
+        const std::string& val = getString(attr, &isPresent);
+        if (!isPresent) {
+            // try 'freq' as alias for 'period'
+            attr = SUMO_ATTR_FREQUENCY;
+            isPresent = true;
+            const std::string& valFreq = getString(attr, &isPresent);
+            if (!isPresent) {
+                if (report) {
+                    emitUngivenError(getName(SUMO_ATTR_PERIOD), objectid);
+                }
+                ok = false;
+                return -1;
+            }
+            return string2time(valFreq);
+        }
+        return string2time(val);
+    } catch (EmptyData&) {
+        if (report) {
+            emitEmptyError(getName(attr), objectid);
+        }
+    } catch (ProcessError&) {
+        if (report) {
+            emitFormatError(getName(attr), "is not a valid time value", objectid);
+        }
+    }
+    ok = false;
+    return -1;
+}
+
+
+SUMOTime
 SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char* objectid,
         bool& ok, SUMOTime defaultValue, bool report) const {
     try {
@@ -92,6 +127,37 @@ SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char* objectid,
         const std::string& val = getString(attr, &isPresent);
         if (!isPresent) {
             return defaultValue;
+        }
+        return string2time(val);
+    } catch (EmptyData&) {
+        if (report) {
+            emitEmptyError(getName(attr), objectid);
+        }
+    } catch (ProcessError&) {
+        if (report) {
+            emitFormatError(getName(attr), "is not a valid time value", objectid);
+        }
+    }
+    ok = false;
+    return -1;
+}
+
+
+SUMOTime
+SUMOSAXAttributes::getOptPeriod(const char* objectid, bool& ok, SUMOTime defaultValue, bool report) const {
+    int attr = SUMO_ATTR_PERIOD;
+    try {
+        bool isPresent = true;
+        const std::string& val = getString(attr, &isPresent);
+        if (!isPresent) {
+            // try 'freq' as alias for 'period'
+            attr = SUMO_ATTR_FREQUENCY;
+            isPresent = true;
+            const std::string& valFreq = getString(attr, &isPresent);
+            if (!isPresent) {
+                return defaultValue;
+            }
+            return string2time(valFreq);
         }
         return string2time(val);
     } catch (EmptyData&) {

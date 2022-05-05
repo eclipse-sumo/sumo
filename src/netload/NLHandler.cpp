@@ -910,7 +910,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
+    const SUMOTime period = attrs.getPeriod(id.c_str(), ok);
     const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), ok);
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, 0);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
@@ -933,7 +933,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        Parameterised* det = myDetectorBuilder.buildInductLoop(id, lane, position, length, frequency,
+        Parameterised* det = myDetectorBuilder.buildInductLoop(id, lane, position, length, period,
                              FileHelpers::checkForRelativity(file, getFileName()),
                              friendlyPos, vTypes, detectPersons);
         myLastParameterised.push_back(det);
@@ -983,14 +983,14 @@ NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes& attrs) {
     WRITE_WARNING("VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) instead.");
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
-    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
+    SUMOTime period = attrs.getPeriod(id.c_str(), ok);
     std::string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
     std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
         return;
     }
     try {
-        myDetectorBuilder.buildVTypeProbe(id, type, frequency, FileHelpers::checkForRelativity(file, getFileName()));
+        myDetectorBuilder.buildVTypeProbe(id, type, period, FileHelpers::checkForRelativity(file, getFileName()));
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
@@ -1003,7 +1003,7 @@ void
 NLHandler::addRouteProbeDetector(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
-    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
+    SUMOTime period = attrs.getPeriod(id.c_str(), ok);
     SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, -1);
     std::string edge = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
     std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
@@ -1012,7 +1012,7 @@ NLHandler::addRouteProbeDetector(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        myDetectorBuilder.buildRouteProbe(id, edge, frequency, begin,
+        myDetectorBuilder.buildRouteProbe(id, edge, period, begin,
                                           FileHelpers::checkForRelativity(file, getFileName()), vTypes);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
@@ -1161,17 +1161,17 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
         }
     }
 
-    // Frequency
+    // Period
 
-    SUMOTime frequency;
+    SUMOTime period;
     if (!lsaGiven) {
-        frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
+        period = attrs.getPeriod(id.c_str(), ok);
         if (!ok) {
             myCurrentIsBroken = true;
             return;
         }
     } else {
-        frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, false);
+        period = attrs.getPeriod(id.c_str(), ok, false);
     }
 
     // TLS
@@ -1181,9 +1181,9 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
         if (tlls->getActive() == nullptr) {
             throw InvalidArgument("The detector '" + id + "' refers to an unknown lsa '" + lsaid + "'.");
         }
-        if (frequency != -1) {
-            WRITE_WARNING("Ignoring argument 'frequency' for E2Detector '" + id + "' since argument 'tl' was given.");
-            frequency = -1;
+        if (period != -1) {
+            WRITE_WARNING("Ignoring argument 'period' for E2Detector '" + id + "' since argument 'tl' was given.");
+            period = -1;
         }
     }
 
@@ -1205,13 +1205,13 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     // Build detector
     if (lanesGiven) {
         // specification by a lane sequence
-        det = myDetectorBuilder.buildE2Detector(id, clanes, position, endPosition, filename, frequency,
+        det = myDetectorBuilder.buildE2Detector(id, clanes, position, endPosition, filename, period,
                                                 haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
                                                 vTypes, detectPersons, friendlyPos, showDetector,
                                                 tlls, cToLane);
     } else {
         // specification by start or end lane
-        det = myDetectorBuilder.buildE2Detector(id, clane, position, endPosition, length, filename, frequency,
+        det = myDetectorBuilder.buildE2Detector(id, clane, position, endPosition, length, filename, period,
                                                 haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
                                                 vTypes, detectPersons, friendlyPos, showDetector,
                                                 tlls, cToLane);
@@ -1225,7 +1225,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     myCurrentIsBroken = false;
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
-    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
+    const SUMOTime period = attrs.getPeriod(id.c_str(), ok);
     const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
     const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
@@ -1249,7 +1249,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     try {
         Parameterised* det = myDetectorBuilder.beginE3Detector(id,
                              FileHelpers::checkForRelativity(file, getFileName()),
-                             frequency, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons, openEntry);
+                             period, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons, openEntry);
         myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         myCurrentIsBroken = true;
@@ -1302,7 +1302,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "performance");
     std::string vtypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string writeAttributes = attrs.getOpt<std::string>(SUMO_ATTR_WRITE_ATTRIBUTES, id.c_str(), ok, "");
-    const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, -1);
+    const SUMOTime period = attrs.getOptPeriod(id.c_str(), ok, -1);
     const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("begin")));
     const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("end")));
     std::vector<std::string> edgeIDs = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), ok);
@@ -1346,7 +1346,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
         edges.push_back(edge);
     }
     try {
-        myDetectorBuilder.createEdgeLaneMeanData(id, frequency, begin, end,
+        myDetectorBuilder.createEdgeLaneMeanData(id, period, begin, end,
                 type, objecttype == SUMO_TAG_MEANDATA_LANE,
                 // equivalent to TplConvert::_2bool used in SUMOSAXAttributes::getBool
                 excludeEmpty[0] != 't' && excludeEmpty[0] != 'T' && excludeEmpty[0] != '1' && excludeEmpty[0] != 'x',
