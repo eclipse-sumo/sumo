@@ -955,6 +955,43 @@ GNEJunction::markConnectionsDeprecated(bool includingNeighbours) {
 }
 
 
+void 
+GNEJunction::setJunctionType(const std::string &value, GNEUndoList* undoList) {
+    undoList->begin(GUIIcon::JUNCTION, "change " + getTagStr() + " type");
+    if (NBNode::isTrafficLight(SUMOXMLDefinitions::NodeTypes.get(value))) {
+        if (getNBNode()->isTLControlled() &&
+            // if switching changing from or to traffic_light_right_on_red we need to remove the old plan
+            (getNBNode()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED
+                || SUMOXMLDefinitions::NodeTypes.get(value) == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED)
+            ) {
+            // make a copy because we will modify the original
+            const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
+            for (const auto& TLS : copyOfTls) {
+                undoList->add(new GNEChange_TLS(this, TLS, false), true);
+            }
+        }
+        if (!getNBNode()->isTLControlled()) {
+            // create new traffic light
+            undoList->add(new GNEChange_TLS(this, nullptr, true), true);
+        }
+    } else if (getNBNode()->isTLControlled()) {
+        // delete old traffic light
+        // make a copy because we will modify the original
+        const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
+        for (const auto& TLS : copyOfTls) {
+            undoList->add(new GNEChange_TLS(this, TLS, false, false), true);
+        }
+    }
+    // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS
+    undoList->add(new GNEChange_Attribute(this, SUMO_ATTR_TYPE, value), true);
+    for (const auto& crossing : myGNECrossings) {
+        undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX, "-1"), true);
+        undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
+    }
+    undoList->end();
+}
+
+
 std::string
 GNEJunction::getAttribute(SumoXMLAttr key) const {
     switch (key) {
@@ -1050,38 +1087,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             undoList->end();
             break;
         case SUMO_ATTR_TYPE: {
-            undoList->begin(GUIIcon::JUNCTION, "change " + getTagStr() + " type");
-            if (NBNode::isTrafficLight(SUMOXMLDefinitions::NodeTypes.get(value))) {
-                if (getNBNode()->isTLControlled() &&
-                        // if switching changing from or to traffic_light_right_on_red we need to remove the old plan
-                        (getNBNode()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED
-                         || SUMOXMLDefinitions::NodeTypes.get(value) == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED)
-                   ) {
-                    // make a copy because we will modify the original
-                    const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
-                    for (const auto& TLS : copyOfTls) {
-                        undoList->add(new GNEChange_TLS(this, TLS, false), true);
-                    }
-                }
-                if (!getNBNode()->isTLControlled()) {
-                    // create new traffic light
-                    undoList->add(new GNEChange_TLS(this, nullptr, true), true);
-                }
-            } else if (getNBNode()->isTLControlled()) {
-                // delete old traffic light
-                // make a copy because we will modify the original
-                const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
-                for (const auto& TLS : copyOfTls) {
-                    undoList->add(new GNEChange_TLS(this, TLS, false, false), true);
-                }
-            }
-            // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS
-            undoList->add(new GNEChange_Attribute(this, key, value), true);
-            for (const auto& crossing : myGNECrossings) {
-                undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX, "-1"), true);
-                undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
-            }
-            undoList->end();
+            // set junction type
+            setJunctionType(value, undoList);
             break;
         }
         case SUMO_ATTR_TLTYPE: {
