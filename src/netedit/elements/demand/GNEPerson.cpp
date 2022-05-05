@@ -78,7 +78,7 @@ GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson* person, GUIMainWind
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all transformations
         myTransformToPerson = GUIDesigns::buildFXMenuCommand(transformOperation, "Person", GUIIconSubSys::getIcon(GUIIcon::PERSON), this, MID_GNE_PERSON_TRANSFORM);
-        myTransformToPersonFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "Person (embedded route)", GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
+        myTransformToPersonFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "PersonFlow", GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
         // check what menu command has to be disabled
         if (myPerson->getTagProperty().getTag() == SUMO_TAG_PERSON) {
             myTransformToPerson->disable();
@@ -848,6 +848,8 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // update microsimID
             setMicrosimID(value);
+            // update id
+            id = value;
             // Change IDs of all person plans children
             for (const auto& personPlans : getChildDemandElements()) {
                 personPlans->setMicrosimID(getID());

@@ -700,7 +700,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARENT:
             if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {
-                replaceDemandElementParent(SUMO_TAG_ROUTE, value, 0);
+                replaceDemandElementParent(SUMO_TAG_PERSON, value, 0);
             } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) != nullptr) {
                 replaceDemandElementParent(SUMO_TAG_PERSONFLOW, value, 0);
             }

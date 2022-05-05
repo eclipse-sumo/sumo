@@ -1691,14 +1691,66 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
 
 
 void
-GNERouteHandler::transformToPerson(GNEPerson* /*originalPerson*/) {
-    //
+GNERouteHandler::transformToPerson(GNEPerson* originalPerson) {
+    // get pointer to net
+    GNENet* net = originalPerson->getNet();
+    // declare route handler
+    GNERouteHandler routeHandler("", net, true);
+    // obtain person parameters
+    SUMOVehicleParameter personParameters = *originalPerson;
+    // get person plans
+    const auto personPlans = originalPerson->getChildDemandElements();
+    // save ID
+    const auto ID = personParameters.id;
+    // set dummy ID
+    personParameters.id = "%dummyID%";
+    // begin undo-redo operation
+    net->getViewNet()->getUndoList()->begin(originalPerson->getTagProperty().getGUIIcon(), "transform " + originalPerson->getTagStr() + " to " + toString(SUMO_TAG_PERSON));
+    // create personFlow
+    routeHandler.buildPerson(nullptr, personParameters);
+    // move all person plans to new person
+    for (const auto &personPlan : personPlans) {
+        personPlan->setAttribute(GNE_ATTR_PARENT, "%dummyID%", net->getViewNet()->getUndoList());
+    }
+    // delete original person plan
+    net->deleteDemandElement(originalPerson, net->getViewNet()->getUndoList());
+    // restore ID of new person plan
+    auto newPerson = net->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, "%dummyID%");
+    newPerson->setAttribute(SUMO_ATTR_ID, ID, net->getViewNet()->getUndoList());
+    // finish undoList
+    net->getViewNet()->getUndoList()->end();
 }
 
 
 void
-GNERouteHandler::transformToPersonFlow(GNEPerson* /*originalPerson*/) {
-    //
+GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
+    // get pointer to net
+    GNENet* net = originalPerson->getNet();
+    // declare route handler
+    GNERouteHandler routeHandler("", net, true);
+    // obtain person parameters
+    SUMOVehicleParameter personParameters = *originalPerson;
+    // get person plans
+    const auto personPlans = originalPerson->getChildDemandElements();
+    // save ID
+    const auto ID = personParameters.id;
+    // set dummy ID
+    personParameters.id = "%dummyID%";
+    // begin undo-redo operation
+    net->getViewNet()->getUndoList()->begin(originalPerson->getTagProperty().getGUIIcon(), "transform " + originalPerson->getTagStr() + " to " + toString(SUMO_TAG_PERSONFLOW));
+    // create personFlow
+    routeHandler.buildPersonFlow(nullptr, personParameters);
+    // move all person plans to new person
+    for (const auto &personPlan : personPlans) {
+        personPlan->setAttribute(GNE_ATTR_PARENT, "%dummyID%", net->getViewNet()->getUndoList());
+    }
+    // delete original person plan
+    net->deleteDemandElement(originalPerson, net->getViewNet()->getUndoList());
+    // restore ID of new person plan
+    auto newPerson = net->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, "%dummyID%");
+    newPerson->setAttribute(SUMO_ATTR_ID, ID, net->getViewNet()->getUndoList());
+    // finish undoList
+    net->getViewNet()->getUndoList()->end();
 }
 
 
