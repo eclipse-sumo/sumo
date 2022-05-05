@@ -142,9 +142,11 @@ void MSEdge::recalcCache() {
             }
             if (minPenalty > 0) {
                 myEmptyTraveltime += STEPS2TIME(minPenalty);
+                myTimePenalty = STEPS2TIME(minPenalty);
             }
         }
-    } else if (isInternal() && MSGlobals::gUsingInternalLanes) {
+    }
+    if (isInternal() && MSGlobals::gUsingInternalLanes) {
         const MSLink* link = myLanes->front()->getIncomingLanes()[0].viaLink;
         if (!link->isTLSControlled() && !link->havePriority()) {
             myEmptyTraveltime += MSGlobals::gMinorPenalty;
@@ -1377,6 +1379,26 @@ MSEdge::getVehicles() const {
 int
 MSEdge::getVehicleNumber() const {
     return (int)getVehicles().size();
+}
+
+
+bool
+MSEdge::isEmpty() const {
+    /// more efficient than retrieving vehicle number
+    if (MSGlobals::gUseMesoSim) {
+        for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
+            if (segment->getCarNumber() > 0) {
+                return false;
+            }
+        }
+    } else {
+        for (MSLane* lane : getLanes()) {
+            if (lane->getVehicleNumber() > 0) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 
