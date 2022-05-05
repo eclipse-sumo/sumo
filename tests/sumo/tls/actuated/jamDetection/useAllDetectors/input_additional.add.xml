@@ -11,6 +11,6 @@
         <phase duration="6"  minDur="5" maxDur="50" state="rrrrrrrrGGrrrrrrrrGG"/>
         <phase duration="3"  state="rrrrrrrryyrrrrrrrryy"/>
         <param key="show-detectors" value="true"/>
-        <param key="jam-threshold" value="5"/>
+        <param key="jam-threshold" value="10"/>
     </tlLogic>
 </additional>
