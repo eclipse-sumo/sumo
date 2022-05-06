@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-13 23:18:29 by Eclipse SUMO sumo Version v1_12_0+1357-26a5b20
+<!-- generated on 2022-05-06 14:57:12 by Eclipse SUMO sumo Version v1_13_0+0075-233ba11839e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,18 +44,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <vehicle id="0" x="1495.25" y="401.65" angle="270.00" type="t1" speed="10.00" pos="100.00" lane="4/1to3/1_0" slope="0.00" signals="0" acceleration="0.00" distance="100.00" odometer="0.00"/>
+        <vehicle id="0" x="1495.25" y="401.65" angle="270.00" type="t1" speed="10.00" pos="100.00" lane="4/1to3/1_0" slope="0.00" signals="0" acceleration="0.00" distance="100.00" odometer="0.00" posLat="0.00"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="0" x="1485.25" y="401.65" angle="270.00" type="t1" speed="10.00" pos="110.00" lane="4/1to3/1_0" slope="0.00" signals="0" acceleration="0.00" distance="110.00" odometer="10.00"/>
+        <vehicle id="0" x="1485.25" y="401.65" angle="270.00" type="t1" speed="10.00" pos="110.00" lane="4/1to3/1_0" slope="0.00" signals="0" acceleration="0.00" distance="110.00" odometer="10.00" posLat="0.00"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="0" x="1475.25" y="401.65" angle="270.00" type="t1" speed="10.00" pos="120.00" lane="4/1to3/1_0" slope="0.00" signals="0" acceleration="0.00" distance="120.00" odometer="20.00"/>
+        <vehicle id="0" x="1475.25" y="401.65" angle="270.00" type="t1" speed="10.00" pos="120.00" lane="4/1to3/1_0" slope="0.00" signals="0" acceleration="0.00" distance="120.00" odometer="20.00" posLat="0.00"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="0" x="1465.25" y="401.65" angle="270.00" type="t1" speed="10.00" pos="130.00" lane="4/1to3/1_0" slope="0.00" signals="0" acceleration="0.00" distance="130.00" odometer="30.00"/>
+        <vehicle id="0" x="1465.25" y="401.65" angle="270.00" type="t1" speed="10.00" pos="130.00" lane="4/1to3/1_0" slope="0.00" signals="0" acceleration="0.00" distance="130.00" odometer="30.00" posLat="0.00"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="0" x="1455.25" y="401.65" angle="270.00" type="t1" speed="10.00" pos="140.00" lane="4/1to3/1_0" slope="0.00" signals="0" acceleration="0.00" distance="140.00" odometer="40.00"/>
+        <vehicle id="0" x="1455.25" y="401.65" angle="270.00" type="t1" speed="10.00" pos="140.00" lane="4/1to3/1_0" slope="0.00" signals="0" acceleration="0.00" distance="140.00" odometer="40.00" posLat="0.00"/>
     </timestep>
 </fcd-export>
