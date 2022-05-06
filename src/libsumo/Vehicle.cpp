@@ -1653,12 +1653,10 @@ Vehicle::setAcceleration(const std::string& vehID, double accel, double duration
         return;
     }
 
-    double targetSpeed = veh->getSpeed() + accel * duration;
+    double targetSpeed = std::max(veh->getSpeed() + accel * duration, 0.0);
     std::vector<std::pair<SUMOTime, double>> speedTimeLine;
-    if (accel >= 0) {
-        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), veh->getSpeed()));
-        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), targetSpeed));
-    }
+    speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), veh->getSpeed()));
+    speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), targetSpeed));
     veh->getInfluencer().setSpeedTimeLine(speedTimeLine);
 }
 

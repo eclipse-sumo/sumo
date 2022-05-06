@@ -54,6 +54,8 @@ while traci.simulation.getMinExpectedNumber() > 0:
         accelerate(speed, speed + 2, 2)
     if t == 8:
         accelerate(speed, speed + 4, 3)
+    if t == 15:
+        accelerate(speed, -1, 5)
     traci.simulationStep()
 
 traci.close()
