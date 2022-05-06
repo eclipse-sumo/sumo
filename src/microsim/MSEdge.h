@@ -471,6 +471,10 @@ public:
         }
     }
 
+    double getTimePenalty() const {
+        return myTimePenalty;
+    }
+
 
     /** @brief Returns the travel time for the given edge
      *

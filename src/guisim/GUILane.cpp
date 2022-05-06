@@ -942,6 +942,7 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
     ret->mkItem("stored traveltime [s]", true, new FunctionBinding<GUILane, double>(this, &GUILane::getStoredEdgeTravelTime));
     ret->mkItem("loaded weight", true, new FunctionBinding<GUILane, double>(this, &GUILane::getLoadedEdgeWeight));
     ret->mkItem("routing speed [m/s]", true, new FunctionBinding<MSEdge, double>(myEdge, &MSEdge::getRoutingSpeed));
+    ret->mkItem("time penalty [s]", true, new FunctionBinding<MSEdge, double>(myEdge, &MSEdge::getTimePenalty));
 	ret->mkItem("Lane friction coefficient [%]", true, new FunctionBinding<GUILane, double>(this, &GUILane::getFrictionCoefficient));
     ret->mkItem("brutto occupancy [%]", true, new FunctionBinding<GUILane, double>(this, &GUILane::getBruttoOccupancy, 100.));
     ret->mkItem("netto occupancy [%]", true, new FunctionBinding<GUILane, double>(this, &GUILane::getNettoOccupancy, 100.));
