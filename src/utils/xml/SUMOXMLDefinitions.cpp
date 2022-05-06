@@ -360,6 +360,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "leaderGap",              SUMO_ATTR_LEADER_GAP },
     { "vehicle",                SUMO_ATTR_VEHICLE },
     { "odometer",               SUMO_ATTR_ODOMETER },
+    { "posLat",                 SUMO_ATTR_POSITION_LAT },
 
     // Edge
     { "id",                     SUMO_ATTR_ID },
@@ -637,7 +638,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "walkFactor",             SUMO_ATTR_WALKFACTOR },
 
     { "function",               SUMO_ATTR_FUNCTION },
-    { "posLat",                 SUMO_ATTR_POSITION_LAT },
     { "freq",                   SUMO_ATTR_FREQUENCY },
     { "style",                  SUMO_ATTR_STYLE },
     { "file",                   SUMO_ATTR_FILE },

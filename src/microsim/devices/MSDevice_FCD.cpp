@@ -34,9 +34,10 @@
 
 // some attributes are not written by default and must be enabled via option fcd-output.attributes
 const long long int MSDevice_FCD::myDefaultMask(~(
-            ((long long int)1 << SUMO_ATTR_VEHICLE)
-            | ((long long int)1 << SUMO_ATTR_ODOMETER)
-        ));
+            ((long long int)1 << SUMO_ATTR_VEHICLE) |
+            ((long long int)1 << SUMO_ATTR_ODOMETER) |
+            ((long long int)1 << SUMO_ATTR_POSITION_LAT)
+    ));
 
 // ===========================================================================
 // static members
