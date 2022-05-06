@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-10 14:18:33 by Eclipse SUMO sumo Version v1_12_0+0453-348ab90
+<!-- generated on 2022-05-06 13:10:11 by Eclipse SUMO sumo Version v1_13_0+0080-acf42d6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -196,9 +196,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="2071.00" id="2881" programID="NEMA" phase="0" state="yyyyyrrrrrrr" name="4+4"/>
     <tlsState time="2076.00" id="2881" programID="NEMA" phase="1" state="rrrrrrrrrrrr" name="4+4"/>
     <tlsState time="2077.00" id="2881" programID="NEMA" phase="0" state="srrrrGGGGrrr" name="1+6"/>
-    <tlsState time="2091.00" id="2881" programID="NEMA" phase="1" state="srrrrGGyyrrr" name="1+6"/>
-    <tlsState time="2095.00" id="2881" programID="NEMA" phase="0" state="srrrrGGrrrrr" name="1+6"/>
-    <tlsState time="2096.00" id="2881" programID="NEMA" phase="1" state="srrrrGGrrGGG" name="2+6"/>
+    <tlsState time="2093.00" id="2881" programID="NEMA" phase="1" state="srrrrGGyyrrr" name="1+6"/>
+    <tlsState time="2097.00" id="2881" programID="NEMA" phase="0" state="srrrrGGrrrrr" name="1+6"/>
+    <tlsState time="2098.00" id="2881" programID="NEMA" phase="1" state="srrrrGGrrGGG" name="2+6"/>
     <tlsState time="2165.00" id="2881" programID="NEMA" phase="0" state="srrrryyrryyy" name="2+6"/>
     <tlsState time="2169.00" id="2881" programID="NEMA" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
     <tlsState time="2170.00" id="2881" programID="NEMA" phase="0" state="GGGGGrrrrrrr" name="4+4"/>
@@ -268,9 +268,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="3031.00" id="2881" programID="NEMA" phase="0" state="yyyyyrrrrrrr" name="4+4"/>
     <tlsState time="3036.00" id="2881" programID="NEMA" phase="1" state="rrrrrrrrrrrr" name="4+4"/>
     <tlsState time="3037.00" id="2881" programID="NEMA" phase="0" state="srrrrGGGGrrr" name="1+6"/>
-    <tlsState time="3053.00" id="2881" programID="NEMA" phase="1" state="srrrrGGyyrrr" name="1+6"/>
-    <tlsState time="3057.00" id="2881" programID="NEMA" phase="0" state="srrrrGGrrrrr" name="1+6"/>
-    <tlsState time="3058.00" id="2881" programID="NEMA" phase="1" state="srrrrGGrrGGG" name="2+6"/>
+    <tlsState time="3051.00" id="2881" programID="NEMA" phase="1" state="srrrrGGyyrrr" name="1+6"/>
+    <tlsState time="3055.00" id="2881" programID="NEMA" phase="0" state="srrrrGGrrrrr" name="1+6"/>
+    <tlsState time="3056.00" id="2881" programID="NEMA" phase="1" state="srrrrGGrrGGG" name="2+6"/>
     <tlsState time="3125.00" id="2881" programID="NEMA" phase="0" state="srrrryyrryyy" name="2+6"/>
     <tlsState time="3129.00" id="2881" programID="NEMA" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
     <tlsState time="3130.00" id="2881" programID="NEMA" phase="0" state="GGGGGrrrrrrr" name="4+4"/>
@@ -319,12 +319,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="3725.00" id="2881" programID="NEMA" phase="1" state="srrrryyrryyy" name="2+6"/>
     <tlsState time="3729.00" id="2881" programID="NEMA" phase="0" state="rrrrrrrrrrrr" name="2+6"/>
     <tlsState time="3730.00" id="2881" programID="NEMA" phase="1" state="GGGGGrrrrrrr" name="4+4"/>
-    <tlsState time="3751.00" id="2881" programID="NEMA" phase="0" state="yyyyyrrrrrrr" name="4+4"/>
-    <tlsState time="3756.00" id="2881" programID="NEMA" phase="1" state="rrrrrrrrrrrr" name="4+4"/>
-    <tlsState time="3757.00" id="2881" programID="NEMA" phase="0" state="srrrrGGGGrrr" name="1+6"/>
-    <tlsState time="3763.00" id="2881" programID="NEMA" phase="1" state="srrrrGGyyrrr" name="1+6"/>
-    <tlsState time="3767.00" id="2881" programID="NEMA" phase="0" state="srrrrGGrrrrr" name="1+6"/>
-    <tlsState time="3768.00" id="2881" programID="NEMA" phase="1" state="srrrrGGrrGGG" name="2+6"/>
+    <tlsState time="3748.00" id="2881" programID="NEMA" phase="0" state="yyyyyrrrrrrr" name="4+4"/>
+    <tlsState time="3753.00" id="2881" programID="NEMA" phase="1" state="rrrrrrrrrrrr" name="4+4"/>
+    <tlsState time="3754.00" id="2881" programID="NEMA" phase="0" state="srrrrGGGGrrr" name="1+6"/>
+    <tlsState time="3760.00" id="2881" programID="NEMA" phase="1" state="srrrrGGyyrrr" name="1+6"/>
+    <tlsState time="3764.00" id="2881" programID="NEMA" phase="0" state="srrrrGGrrrrr" name="1+6"/>
+    <tlsState time="3765.00" id="2881" programID="NEMA" phase="1" state="srrrrGGrrGGG" name="2+6"/>
     <tlsState time="3845.00" id="2881" programID="NEMA" phase="0" state="srrrryyrryyy" name="2+6"/>
     <tlsState time="3849.00" id="2881" programID="NEMA" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
     <tlsState time="3850.00" id="2881" programID="NEMA" phase="0" state="GGGGGrrrrrrr" name="4+4"/>
