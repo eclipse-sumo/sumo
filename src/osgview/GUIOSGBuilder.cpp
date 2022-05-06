@@ -146,6 +146,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         const float zOffset = edge.isWalkingArea() || edge.isCrossing() ? 0.01f : 0.f;
         osg::Vec3Array* osg_coords = new osg::Vec3Array(shapeSize);
         geom->setVertexArray(osg_coords);
+        int sizeDiff = 0;
         if (edge.isWalkingArea()) {
             int index = 0;
             for (int k = 0; k < (int)shape.size(); ++k, ++index) {
@@ -163,6 +164,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
             for (int k = (int) lshape.size() - 1; k >= 0; --k, ++index) {
                 (*osg_coords)[index].set((float)lshape[k].x(), (float)lshape[k].y(), (float)lshape[k].z() + zOffset);
             }
+            sizeDiff = rshape.size() + lshape.size() - shapeSize;
         }
         osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
         (*osg_normals)[0] = osg::Vec3(0, 0, 1);
@@ -180,7 +182,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         geom->setColorArray(osg_colors);
         geom->setColorBinding(osg::Geometry::BIND_OVERALL);
 #endif
-        geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, shapeSize));
+        geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, shapeSize + sizeDiff));
 
         osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
         ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
