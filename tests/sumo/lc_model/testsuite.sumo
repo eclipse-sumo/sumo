@@ -1,11 +1,8 @@
 # tests for dynamics at ramps leading to and from motorways
 ramps
 
-# test vType attribute 'lcm'
-specify_lcm
-
-# test lateral imperfection
-lcSigma
+# interaction between lane changing and junctions
+junctions
 
 # change towards the best continuation lane if the current lane does not continue
 strategic
@@ -38,3 +35,9 @@ network_prohibits_changing
 #apparentDecel
 
 bugs
+
+# test lateral imperfection
+lcSigma
+
+# test vType attribute 'lcm'
+specify_lcm
