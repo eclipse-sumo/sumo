@@ -27,11 +27,13 @@
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNECalibrator.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
+#include <netedit/elements/additional/GNEFrictionCoefficient.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
 #include <netedit/dialogs/GNEMultipleParametersDialog.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
 #include <netedit/dialogs/GNECalibratorDialog.h>
 #include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
+#include <netedit/dialogs/GNEFrictionCoefficientDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -831,7 +833,7 @@ GNEInspectorFrame::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, 
             if (GNEMultipleParametersDialog(this).execute()) {
                 // write debug information
                 WRITE_DEBUG("Close multiple parameters dialog");
-                // update frame parent after attribute successfully set
+                // update frame parent after attribute sucesfully set
                 myInspectorFrameParent->attributeUpdated();
                 // Refresh parameter EditorInspector
                 refreshParametersEditor();
@@ -845,7 +847,7 @@ GNEInspectorFrame::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, 
             if (GNESingleParametersDialog(this).execute()) {
                 // write debug information
                 WRITE_DEBUG("Close single parameters dialog");
-                // update frame parent after attribute successfully set
+                // update frame parent after attribute sucesfully set
                 myInspectorFrameParent->attributeUpdated();
                 // Refresh parameter EditorInspector
                 refreshParametersEditor();
@@ -889,7 +891,7 @@ GNEInspectorFrame::ParametersEditor::onCmdSetParameters(FXObject*, FXSelector, v
                 // end undo list
                 myInspectorFrameParent->myViewNet->getUndoList()->end();
             }
-            // update frame parent after attribute successfully set
+            // update frame parent after attribute sucesfully set
             myInspectorFrameParent->attributeUpdated();
         } else {
             myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
@@ -944,6 +946,12 @@ GNEInspectorFrame::AdditionalDialog::showAdditionalDialog() {
             myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN));
             // show modul
             show();
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_COF) {
+            // update button
+            myOpenAdditionalDialog->setText("Open COF dialog");
+            myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::FRICTIONCOEFFICIENT));
+            // show modul
+            show();
         }
     } else {
         // hide modul
@@ -975,6 +983,9 @@ GNEInspectorFrame::AdditionalDialog::onCmdOpenAdditionalDialog(FXObject*, FXSele
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_VSS) {
             // Open VSS dialog
             GNEVariableSpeedSignDialog(dynamic_cast<GNEVariableSpeedSign*>(AC));
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_COF) {
+            // Open COF dialog
+            GNEFrictionCoefficientDialog(dynamic_cast<GNEFrictionCoefficient*>(AC));
         }
     }
     return 1;

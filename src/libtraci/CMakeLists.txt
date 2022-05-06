@@ -11,6 +11,7 @@ set(libtracistatic_STAT_SRCS
     Connection.h
     Domain.h
     Edge.cpp
+    FrictionCoefficientSign.cpp
     GUI.cpp
     InductionLoop.cpp
     Junction.cpp

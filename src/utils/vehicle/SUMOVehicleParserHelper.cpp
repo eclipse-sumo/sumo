@@ -1206,7 +1206,7 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
             }
         }
     }
-    // all CFM successfully parsed, then return true
+    // all CFM sucesfully parsed, then return true
     return true;
 }
 
@@ -1230,6 +1230,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS] = kraussParams;
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_ORIG1] = kraussParams;
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_PLUS_SLOPE] = kraussParams;
+	allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_FRICTION] = kraussParams;
         std::set<SumoXMLAttr> allParams(kraussParams);
         // KraussX
         std::set<SumoXMLAttr> kraussXParams(kraussParams);
@@ -1342,6 +1343,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         ACCParams.insert(SUMO_ATTR_CA_GAIN_SPACE);
         ACCParams.insert(SUMO_ATTR_APPLYDRIVERSTATE);
         allowedCFModelAttrs[SUMO_TAG_CF_ACC] = ACCParams;
+	allowedCFModelAttrs[SUMO_TAG_CF_ACC_FRICTION] = ACCParams;
         allParams.insert(ACCParams.begin(), ACCParams.end());
         // CACC
         std::set<SumoXMLAttr> CACCParams(genericParams);
@@ -1547,7 +1549,7 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAt
             }
         }
     }
-    // all JM parameters successfully parsed, then return true
+    // all JM parameters sucesfully parsed, then return true
     return true;
 }
 

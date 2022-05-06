@@ -35,6 +35,7 @@
 class MSTrigger;
 class MSNet;
 class MSLaneSpeedTrigger;
+class MSFrictionCoefficientTrigger;
 class NLHandler;
 class MSTriggeredRerouter;
 class MSLane;
@@ -109,6 +110,23 @@ public:
     void parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttributes& attrs,
                                        const std::string& base);
 
+	/** @brief Parses his values and builds a Friction Coefficient trigger
+	*
+	* If one of the declaration values is errornous, an InvalidArgument is thrown. //TODO
+	*
+	* If the XML-file parsed during initialisation is errornous, and the
+	*  MSFrictionCoefficientTrigger-constructor throws a ProcessError due to this, this
+	*  exception is cought and an InvalidArgument with the message given in the
+	*  ProcessError is thrown.
+	*
+	* @param[in] net The network the lane speed trigger belongs to
+	* @param[in] attrs SAX-attributes which define the trigger
+	* @param[in] base  path
+	* @exception InvalidArgument If a parameter (lane/position) is not valid or the read definition is errornous
+	* @see buildFricitonCoefficientTrigger
+	*/
+	void parseAndBuildFrictionCoefficientTrigger(MSNet& net, const SUMOSAXAttributes& attrs,
+		const std::string& base);
 
     /** @brief Parses his values and builds a rerouter
      *
@@ -294,6 +312,20 @@ protected:
             const std::string& id, const std::vector<MSLane*>& destLanes,
             const std::string& file);
 
+	/** @brief Builds a friction coefficient trigger
+	*
+	* Simply calls the MSFrictionCoefficientTrigger constructor.
+	*
+	* @param[in] net The net the friction coefficient trigger belongs to
+	* @param[in] id The id of the friction coefficient trigger
+	* @param[in] destLanes List of lanes affected by this COF trigger
+	* @param[in] file Name of the file to read the speeds to set from
+	* @see MSFrictionCoefficientTrigger
+	* @exception ProcessError If the XML definition file is errornous
+	*/
+	virtual MSFrictionCoefficientTrigger* buildFrictionCoefficientTrigger(MSNet& net,
+		const std::string& id, const std::vector<MSLane*>& destLanes,
+		const std::string& file);
 
     /** @brief Builds a stopping place
      *

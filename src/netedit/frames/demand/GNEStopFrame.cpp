@@ -206,7 +206,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
             } else {
                 myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setChecked(TRUE);
             }
-            // stop successfully created, then return true
+            // stop sucesfully created, then return true
             return true;
         } else {
             return false;

@@ -34,6 +34,7 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSRouteProbe.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
+#include <microsim/trigger/MSFrictionCoefficientTrigger.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <microsim/trigger/MSCalibrator.h>
 #include <microsim/MSStoppingPlace.h>
@@ -138,6 +139,43 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttribu
         MSLaneSpeedTrigger* trigger = buildLaneSpeedTrigger(net, id, lanes, file);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_VSS, myHandler);
+        }
+    } catch (ProcessError& e) {
+        throw InvalidArgument(e.what());
+    }
+}
+
+void
+NLTriggerBuilder::parseAndBuildFrictionCoefficientTrigger(MSNet& net, const SUMOSAXAttributes& attrs,
+        const std::string& base) {
+    // get the id, throw if not given or empty...
+    bool ok = true;
+    // get the id, throw if not given or empty...
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    if (!ok) {
+        return;
+    }
+    // get the file name to read further definitions from
+    std::string file = getFileName(attrs, base, true);
+    std::string objectid = attrs.get<std::string>(SUMO_ATTR_LANES, id.c_str(), ok);
+    std::vector<MSLane*> lanes;
+    for (const std::string& laneID : attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), ok)) {
+        MSLane* lane = MSLane::dictionary(laneID);
+        if (lane == nullptr) {
+            throw InvalidArgument("The lane '" + laneID + "' to use within MSFrictionCoefficientTrigger '" + id + "' is not known.");
+        }
+        lanes.push_back(lane);
+    }
+    if (!ok) {
+        throw InvalidArgument("The lanes to use within MSFrictionCoefficientTrigger '" + id + "' are not known.");
+    }
+    if (lanes.size() == 0) {
+        throw InvalidArgument("No lane defined for MMSFrictionCoefficientTrigger '" + id + "'.");
+    }
+    try {
+        MSFrictionCoefficientTrigger* trigger = buildFrictionCoefficientTrigger(net, id, lanes, file);
+        if (file == "") {
+            trigger->registerParent(SUMO_TAG_COF, myHandler);
         }
     } catch (ProcessError& e) {
         throw InvalidArgument(e.what());
@@ -703,6 +741,12 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet& /*net*/, const std::string& id,
                                         const std::vector<MSLane*>& destLanes,
                                         const std::string& file) {
     return new MSLaneSpeedTrigger(id, destLanes, file);
+}
+
+MSFrictionCoefficientTrigger* 
+NLTriggerBuilder::buildFrictionCoefficientTrigger(MSNet& /*net*/, const std::string& id, const std::vector<MSLane*>& destLanes, const std::string& file)
+{
+	return new MSFrictionCoefficientTrigger(id, destLanes, file);
 }
 
 

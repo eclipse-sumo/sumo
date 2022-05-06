@@ -143,7 +143,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build menu command for center button and copy cursor position to clipboard
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
-    // build menu commands for names
+    // buld menu commands for names
     GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
@@ -780,7 +780,7 @@ GNEAdditional::checkChildAdditionalRestriction() const {
 
 void
 GNEAdditional::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    // nothing to toggle in Additionals
+    // nothing to toogle in Additionals
 }
 
 

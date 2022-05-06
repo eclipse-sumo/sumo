@@ -148,7 +148,7 @@ NIImporter_ArcView::load() {
 #endif
     OGRCoordinateTransformation* poCT = origTransf == nullptr ? nullptr : OGRCreateCoordinateTransformation(origTransf, &destTransf);
     if (poCT == nullptr) {
-        if (myOptions.getBool("shapefile.guess-projection")) {
+        if (myOptions.isSet("shapefile.guess-projection")) {
             OGRSpatialReference origTransf2;
             origTransf2.SetWellKnownGeogCS("WGS84");
             poCT = OGRCreateCoordinateTransformation(&origTransf2, &destTransf);

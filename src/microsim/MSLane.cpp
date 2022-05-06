@@ -190,6 +190,46 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
     myNumericalID(numericalID), myShape(shape), myIndex(index),
     myVehicles(), myLength(length), myWidth(width),
     myEdge(edge), myMaxSpeed(maxSpeed),
+    myFrictionCoefficient(1.0),
+    myPermissions(permissions),
+    myChangeLeft(changeLeft),
+    myChangeRight(changeRight),
+    myOriginalPermissions(permissions),
+    myLogicalPredecessorLane(nullptr),
+    myCanonicalPredecessorLane(nullptr),
+    myCanonicalSuccessorLane(nullptr),
+    myBruttoVehicleLengthSum(0), myNettoVehicleLengthSum(0),
+    myBruttoVehicleLengthSumToRemove(0), myNettoVehicleLengthSumToRemove(0),
+    myLeaderInfo(this, nullptr, 0),
+    myFollowerInfo(this, nullptr, 0),
+    myLeaderInfoTime(SUMOTime_MIN),
+    myFollowerInfoTime(SUMOTime_MIN),
+    myLengthGeometryFactor(MAX2(POSITION_EPS, myShape.length()) / myLength), // factor should not be 0
+    myIsRampAccel(isRampAccel),
+    myLaneType(type),
+    myRightSideOnEdge(0), // initialized in MSEdge::initialize
+    myRightmostSublane(0),
+    myNeedsCollisionCheck(false),
+#ifdef HAVE_FOX
+    mySimulationTask(*this, 0),
+#endif
+    myStopWatch(3) {
+    // initialized in MSEdge::initialize
+    initRestrictions();// may be reloaded again from initialized in MSEdge::closeBuilding
+    assert(myRNGs.size() > 0);
+    myRNGIndex = numericalID % myRNGs.size();
+}
+MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double length, MSEdge* const edge,
+               int numericalID, const PositionVector& shape, double width,
+               SVCPermissions permissions,
+               SVCPermissions changeLeft, SVCPermissions changeRight,
+               int index, bool isRampAccel,
+               const std::string& type) :
+    Named(id),
+    myNumericalID(numericalID), myShape(shape), myIndex(index),
+    myVehicles(), myLength(length), myWidth(width),
+    myEdge(edge), myMaxSpeed(maxSpeed),
+	myFrictionCoefficient(friction),
     myPermissions(permissions),
     myChangeLeft(changeLeft),
     myChangeRight(changeRight),
@@ -2325,6 +2365,11 @@ MSLane::setMaxSpeed(double val) {
     myEdge->recalcCache();
 }
 
+void
+MSLane::setFrictionCoefficient(double val) {
+	myFrictionCoefficient = val;
+	myEdge->recalcCache();
+}
 
 void
 MSLane::setLength(double val) {

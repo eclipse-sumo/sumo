@@ -210,7 +210,7 @@ GUIGlChildWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 long
 GUIGlChildWindow::onCmdShowToolTips(FXObject* sender, FXSelector, void*) {
     MFXCheckableButton* button = dynamic_cast<MFXCheckableButton*>(sender);
-    // check if button was successfully casted
+    // check if button was sucesfully casted
     if (button) {
         button->setChecked(!button->amChecked());
         myView->showToolTips(button->amChecked());

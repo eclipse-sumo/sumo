@@ -59,6 +59,9 @@
 #include "GNETexture_VariableSpeedSign.cpp"
 #include "GNETexture_VariableSpeedSignSelected.cpp"
 #include "GNETexture_VariableSpeedSign_Step.cpp"
+#include "GNETexture_FrictionCoefficient.cpp"
+#include "GNETexture_FrictionCoefficientSelected.cpp"
+#include "GNETexture_FrictionCoefficient_Step.cpp"
 
 
 // ===========================================================================
@@ -104,6 +107,16 @@ GUITextureSubSys::GUITextureSubSys(FXApp* a) :
     myTextures[GUITexture::VARIABLESPEEDSIGN] = 0;
     myTextures[GUITexture::VARIABLESPEEDSIGN_SELECTED] = 0;
     myTextures[GUITexture::VARIABLESPEEDSIGN_STEP] = 0;
+    myTextures[GUITexture::FRICTIONCOEFFICIENT] = 0;
+    myTextures[GUITexture::FRICTIONCOEFFICIENT_SELECTED] = 0;
+    myTextures[GUITexture::FRICTIONCOEFFICIENT_STEP] = 0;
+    myTextures[GUITexture::LANE_BIKE] = 0;
+    myTextures[GUITexture::LANE_BUS] = 0;
+    myTextures[GUITexture::LANE_PEDESTRIAN] = 0;
+    myTextures[GUITexture::STOP] = 0;
+    myTextures[GUITexture::STOP_SELECTED] = 0;
+    myTextures[GUITexture::STOPPERSON] = 0;
+    myTextures[GUITexture::STOPPERSON_SELECTED] = 0;
 }
 
 
@@ -185,6 +198,15 @@ GUITextureSubSys::getTexture(GUITexture which) {
                 break;
             case GUITexture::VARIABLESPEEDSIGN_STEP :
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_VariableSpeedSign_Step, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::FRICTIONCOEFFICIENT :
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_FrictionCoefficient, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::FRICTIONCOEFFICIENT_SELECTED :
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_FrictionCoefficientSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::FRICTIONCOEFFICIENT_STEP :
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_FrictionCoefficient_Step, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
             case GUITexture::LANE_BIKE :
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_LaneBike, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));

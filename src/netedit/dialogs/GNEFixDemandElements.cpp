@@ -215,11 +215,11 @@ GNEFixDemandElements::FixOptions::saveContents() const {
         // close output device
         dev.close();
         // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox 'Saving list of conflicted items successfully'");
+        WRITE_DEBUG("Opening FXMessageBox 'Saving list of conflicted items sucesfully'");
         // open message box error
-        FXMessageBox::information(myTable, MBOX_OK, "Saving successfully", "%s", "List of conflicted items was successfully saved");
+        FXMessageBox::information(myTable, MBOX_OK, "Saving sucesfully", "%s", "List of conflicted items was sucesfully saved");
         // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'Saving list of conflicted items successfully' with 'OK'");
+        WRITE_DEBUG("Closed FXMessageBox 'Saving list of conflicted items sucesfully' with 'OK'");
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox 'error saving list of conflicted items'");

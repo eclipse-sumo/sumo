@@ -471,9 +471,6 @@ public:
         }
     }
 
-    double getTimePenalty() const {
-        return myTimePenalty;
-    }
 
     /** @brief Returns the travel time for the given edge
      *
@@ -657,6 +654,12 @@ public:
      */
     double getSpeedLimit() const;
 
+	/** @brief Returns the friction coefficient of the edge
+	* @caution The COF of the first lane is retured; should probably be the worst lane
+	* @return The maximum speed allowed on this edge
+	*/
+	double getFrictionCoefficient() const;
+
     /// @brief return shape.length() / myLength
     double getLengthGeometryFactor() const;
 
@@ -664,6 +667,11 @@ public:
      * @param[in] val the new speed in m/s
      */
     void setMaxSpeed(double val) const;
+
+	/** @brief Sets a new friction coefficient COF for all lanes [*later to be (used by TraCI and MSCalibrator)*]
+	* @param[in] val the new coefficient in [0..1]
+	*/
+	void setFrictionCoefficient(double val) const;
 
     /** @brief Returns the maximum speed the vehicle may use on this edge
      *
@@ -706,6 +714,9 @@ public:
 
     /// @brief get the mean speed
     double getMeanSpeed() const;
+
+    /// @brief get the mean friction over the lanes
+    double getMeanFriction() const;
 
     /// @brief get the mean speed of all bicycles on this edge
     double getMeanSpeedBike() const;

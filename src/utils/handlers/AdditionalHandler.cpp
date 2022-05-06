@@ -106,6 +106,13 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
             case SUMO_TAG_STEP:
                 parseVariableSpeedSignStepAttributes(attrs);
                 break;
+            // Variable Friction
+            case SUMO_TAG_COF:
+                parseVariableFrictionCoefficientAttributes(attrs);
+                break;
+            case SUMO_TAG_STEP_COF:
+                parseVariableFrictionCoefficientStepAttributes(attrs);
+                break;
             // Calibrator
             case SUMO_TAG_CALIBRATOR:
             case GNE_TAG_CALIBRATOR_LANE:
@@ -204,6 +211,8 @@ AdditionalHandler::endParseAttributes() {
         case SUMO_TAG_TAZ:
         // Variable Speed Sign
         case SUMO_TAG_VSS:
+        // Variable Coefficient of Friction
+        case SUMO_TAG_COF:
         // Calibrator
         case SUMO_TAG_CALIBRATOR:
         case GNE_TAG_CALIBRATOR_LANE:
@@ -453,6 +462,21 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             buildVariableSpeedSignStep(obj,
                                        obj->getTimeAttribute(SUMO_ATTR_TIME),
                                        obj->getStringAttribute(SUMO_ATTR_SPEED));
+            break;
+        // Variable Friction Sign
+        case SUMO_TAG_COF:
+            buildVariableFrictionCoefficient(obj,
+                obj->getStringAttribute(SUMO_ATTR_ID),
+                obj->getPositionAttribute(SUMO_ATTR_POSITION),
+                obj->getStringListAttribute(SUMO_ATTR_LANES),
+                obj->getStringAttribute(SUMO_ATTR_NAME),
+                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                obj->getParameters());
+            break;
+        case SUMO_TAG_STEP_COF:
+            buildVariableFrictionCoefficientStep(obj,
+                obj->getTimeAttribute(SUMO_ATTR_TIME),
+                obj->getStringAttribute(SUMO_ATTR_FRICTION));
             break;
         // Calibrator
         case SUMO_TAG_CALIBRATOR:
@@ -1224,6 +1248,50 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
     }
 }
 
+void
+AdditionalHandler::parseVariableFrictionCoefficientAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const std::vector<std::string> lanes = attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk);
+    // optional attributes
+    const Position pos = attrs.getOpt<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, Position());
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
+    const std::vector<std::string> vehicleTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, std::vector<std::string>());
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_COF);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LANES, lanes);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
+    }
+}
+
+
+void
+AdditionalHandler::parseVariableFrictionCoefficientStepAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "", parsedOk);
+    // optional attributes
+    const std::string friction = attrs.getOpt<std::string>(SUMO_ATTR_FRICTION, "", parsedOk, ""); //TODO check percent
+    // check parent
+    checkParent(SUMO_TAG_STEP_COF, { SUMO_TAG_COF }, parsedOk);
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_STEP_COF);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_TIME, time);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FRICTION, friction);
+    }
+}
 
 void
 AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {

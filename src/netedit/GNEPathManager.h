@@ -366,7 +366,7 @@ protected:
     /// @brief PathDraw instance
     PathDraw* myPathDraw;
 
-    /// @brief map with path element and their associated segments
+    /// @brief map with path element and their asociated segments
     std::map<const PathElement*, std::vector<Segment*> > myPaths;
 
     /// @brief map with lane segments

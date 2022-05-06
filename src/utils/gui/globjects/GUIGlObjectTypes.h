@@ -120,6 +120,10 @@ enum GUIGlObjectType {
     GLO_VAPORIZER = 125,
     /// @brief a Acces
     GLO_ACCESS = 126,
+    /// @brief a Variable Coefficient Of Friction Sign
+    GLO_COF = 128,
+    /// @brief a Variable Coefficient Of Friction Sign step
+    GLO_COF_STEP = 129,
     /// @brief reserved GLO type for packing all wire elements
     GLO_WIRE = 140,
     /// @brief a segment of an overhead line

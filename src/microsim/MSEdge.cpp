@@ -883,6 +883,30 @@ MSEdge::getMeanSpeed() const {
 }
 
 double
+MSEdge::getMeanFriction() const {
+    double f = 0;
+    double no = 0;
+    if (MSGlobals::gUseMesoSim) {
+        //return get TODO
+        return 1.0;
+    }
+    else {
+        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+            const double fLane = (double)(*i)->getFrictionCoefficient();
+            f += fLane;
+            no++;
+        }
+        if (no != 0) {
+            return f / no;
+        }
+        else
+        {
+            return 1.0;
+        }
+    }
+}
+
+double
 MSEdge::getMeanSpeedBike() const {
     if (MSGlobals::gUseMesoSim) {
         // no separate bicycle speeds in meso
@@ -1046,6 +1070,11 @@ MSEdge::getVehicleMaxSpeed(const SUMOTrafficObject* const veh) const {
     return myLanes->empty() ? 1 : getLanes()[0]->getVehicleMaxSpeed(veh);
 }
 
+double
+MSEdge::getFrictionCoefficient() const {
+	// @note lanes might have different friction coefficients in theory, only returnin lane[0]
+	return myLanes->empty() ? 1 : getLanes()[0]->getFrictionCoefficient();
+}
 
 void
 MSEdge::setMaxSpeed(double val) const {
@@ -1056,6 +1085,14 @@ MSEdge::setMaxSpeed(double val) const {
     }
 }
 
+void
+MSEdge::setFrictionCoefficient(double val) const {
+	if (myLanes != 0) {
+		for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+			(*i)->setFrictionCoefficient(val);
+		}
+	}
+}
 
 void
 MSEdge::addTransportable(MSTransportable* t) const {

@@ -356,6 +356,10 @@ public:
      */
     void setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh = DO_NOT_PATCH_JAM_THRESHOLD);
 
+	/** @brief reset myFrictionCoefficient
+	*/
+	void setFrictionCoefficient(double newFriction, SUMOTime currentTime);
+
     /** @brief Returns the (planned) time at which the next vehicle leaves this segment
      * @return The time the vehicle thinks it leaves
      */

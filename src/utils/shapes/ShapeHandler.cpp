@@ -75,7 +75,7 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 if (myLastParameterised != nullptr) {
                     bool ok = true;
                     const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
-                    // continue if key was successfully loaded
+                    // continue if key awas sucesfully loaded
                     if (ok) {
                         // circumventing empty string value
                         const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";

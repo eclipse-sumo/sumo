@@ -105,6 +105,8 @@ const RGBColor GUIVisualizationAdditionalSettings::rerouterColor(255, 0, 0, 255)
 const double GUIVisualizationAdditionalSettings::rerouterSize(1);
 const RGBColor GUIVisualizationAdditionalSettings::VSSColor(255, 255, 255, 255);
 const double GUIVisualizationAdditionalSettings::VSSSize(1);
+const RGBColor GUIVisualizationAdditionalSettings::COFColor(0, 102, 122, 255);
+const double GUIVisualizationAdditionalSettings::COFSize(1);
 const RGBColor GUIVisualizationAdditionalSettings::calibratorColor(255, 204, 0, 255);
 const double GUIVisualizationAdditionalSettings::calibratorWidth(1.4);
 const double GUIVisualizationAdditionalSettings::calibratorHeight(6);

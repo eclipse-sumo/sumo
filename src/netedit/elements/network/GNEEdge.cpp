@@ -716,6 +716,9 @@ GNEEdge::copyTemplate(const GNEEdgeTemplate* edgeTemplate, GNEUndoList* undoList
     if (isValid(SUMO_ATTR_SPEED, edgeTemplate->getAttribute(SUMO_ATTR_SPEED))) {
         setAttribute(SUMO_ATTR_SPEED,       edgeTemplate->getAttribute(SUMO_ATTR_SPEED),            undoList);
     }
+    if (isValid(SUMO_ATTR_FRICTION, edgeTemplate->getAttribute(SUMO_ATTR_FRICTION))) {
+        setAttribute(SUMO_ATTR_FRICTION,       edgeTemplate->getAttribute(SUMO_ATTR_FRICTION),      undoList);
+    }
     if (isValid(SUMO_ATTR_WIDTH, edgeTemplate->getAttribute(SUMO_ATTR_WIDTH))) {
         setAttribute(SUMO_ATTR_WIDTH,       edgeTemplate->getAttribute(SUMO_ATTR_WIDTH),            undoList);
     }
@@ -726,6 +729,7 @@ GNEEdge::copyTemplate(const GNEEdgeTemplate* edgeTemplate, GNEUndoList* undoList
     for (int i = 0; i < (int)myLanes.size(); i++) {
         myLanes[i]->setAttribute(SUMO_ATTR_ALLOW,           edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_ALLOW),          undoList);
         myLanes[i]->setAttribute(SUMO_ATTR_SPEED,           edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_SPEED),          undoList);
+        myLanes[i]->setAttribute(SUMO_ATTR_FRICTION,           edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_FRICTION),    undoList);
         myLanes[i]->setAttribute(SUMO_ATTR_WIDTH,           edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_WIDTH),          undoList);
         myLanes[i]->setAttribute(SUMO_ATTR_ENDOFFSET,       edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_ENDOFFSET),      undoList);
         myLanes[i]->setAttribute(GNE_ATTR_STOPOFFSET,       edgeTemplate->getLaneTemplates().at(i)->getAttribute(GNE_ATTR_STOPOFFSET),      undoList);
@@ -742,6 +746,8 @@ GNEEdge::copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList) {
     setAttribute(SUMO_ATTR_NUMLANES, edgeType->getAttribute(SUMO_ATTR_NUMLANES), undoList);
     // set speed
     setAttribute(SUMO_ATTR_SPEED, edgeType->getAttribute(SUMO_ATTR_SPEED), undoList);
+    // set friction
+    setAttribute(SUMO_ATTR_FRICTION, edgeType->getAttribute(SUMO_ATTR_FRICTION), undoList);
     // set allow (no disallow)
     setAttribute(SUMO_ATTR_ALLOW, edgeType->getAttribute(SUMO_ATTR_ALLOW), undoList);
     // set spreadType
@@ -757,6 +763,9 @@ GNEEdge::copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList) {
         // now copy custom lane values
         if (edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_SPEED).size() > 0) {
             myLanes[i]->setAttribute(SUMO_ATTR_SPEED, edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_SPEED), undoList);
+        }
+        if (edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_FRICTION).size() > 0) {
+            myLanes[i]->setAttribute(SUMO_ATTR_FRICTION, edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_FRICTION), undoList);
         }
         if (edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_ALLOW).size() > 0) {
             myLanes[i]->setAttribute(SUMO_ATTR_ALLOW, edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_ALLOW), undoList);
@@ -836,6 +845,13 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myNBEdge->getSpeed());
             }
+		case SUMO_ATTR_FRICTION:
+			if (myNBEdge->hasLaneSpecificFriction()) {
+                return "lane specific";
+			}
+			else {
+				return toString(myNBEdge->getLaneFriction());
+			}
         case SUMO_ATTR_WIDTH:
             if (myNBEdge->hasLaneSpecificWidth()) {
                 return "lane specific";
@@ -906,6 +922,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_ENDOFFSET:
         case SUMO_ATTR_SPEED:
+	case SUMO_ATTR_FRICTION:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW: {
             undoList->begin(GUIIcon::EDGE, "change " + getTagStr() + " attribute");
@@ -1037,6 +1054,8 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case SUMO_ATTR_SPEED:
+            return canParse<double>(value) && (parse<double>(value) > 0);
+        case SUMO_ATTR_FRICTION:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_NUMLANES:
             return canParse<int>(value) && (parse<double>(value) > 0);
@@ -1565,6 +1584,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEED:
             myNBEdge->setSpeed(-1, parse<double>(value));
             break;
+	    case SUMO_ATTR_FRICTION:
+		    myNBEdge->setFriction(-1, parse<double>(value));
+		break;
         case SUMO_ATTR_WIDTH:
             if (value.empty() || (value == "default")) {
                 myNBEdge->setLaneWidth(-1, NBEdge::UNSPECIFIED_WIDTH);
@@ -1784,6 +1806,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     }
     // we copy all attributes except shape since this is recomputed from edge shape
     myNBEdge->setSpeed(lane->getIndex(), laneAttrs.speed);
+    myNBEdge->setFriction(lane->getIndex(), laneAttrs.friction);
     myNBEdge->setPermissions(laneAttrs.permissions, lane->getIndex());
     myNBEdge->setPreferredVehicleClass(laneAttrs.preferred, lane->getIndex());
     myNBEdge->setEndOffset(lane->getIndex(), laneAttrs.endOffset);
@@ -1868,11 +1891,11 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
 
 void
 GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
-    // If a new connection was successfully created
+    // If a new connection was sucesfully created
     if (myNBEdge->setConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, NBEdge::Lane2LaneInfoType::USER, true, nbCon.mayDefinitelyPass,
                                 nbCon.keepClear, nbCon.contPos, nbCon.visibility,
-                                nbCon.speed, nbCon.customLength, nbCon.customShape, nbCon.uncontrolled)) {
-        // Create  or retrieve existent GNEConnection
+                                nbCon.speed, nbCon.friction, nbCon.customLength, nbCon.customShape, nbCon.uncontrolled)) {
+        // Create  or retrieve existent GNEConection
         GNEConnection* con = retrieveGNEConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane);
         // add it to GNEConnection container
         myGNEConnections.push_back(con);

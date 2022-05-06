@@ -2178,6 +2178,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     writeOtherAdditionalsComment(device);
     writeAdditionalByType(device, {SUMO_TAG_REROUTER});
     writeAdditionalByType(device, {SUMO_TAG_VSS});
+    writeAdditionalByType(device, {SUMO_TAG_COF});
     writeAdditionalByType(device, {SUMO_TAG_VAPORIZER});
     // shapes
     writeShapesComment(device);

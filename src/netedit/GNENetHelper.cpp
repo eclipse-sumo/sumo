@@ -192,10 +192,10 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarrier(const GUIGlID id, bool
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     // Make sure that object exists
     if (object != nullptr) {
-        // unblock and try to parse to AttributeCarrier
+        // unblock and try to parse to AtributeCarrier
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
         GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(object);
-        // If was successfully parsed, return it
+        // If was sucesfully parsed, return it
         if (ac == nullptr) {
             throw ProcessError("GUIGlObject does not match the declared type");
         } else {
@@ -1031,6 +1031,8 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = oc.getString("routeProbe-prefix");
     } else if (tag == SUMO_TAG_VSS) {
         prefix = oc.getString("vss-prefix");
+    } else if (tag == SUMO_TAG_COF) {
+        prefix = oc.getString("cof-prefix");
     } else if (tag == SUMO_TAG_TRACTION_SUBSTATION) {
         prefix = oc.getString("tractionSubstation-prefix");
     } else if (tag == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
