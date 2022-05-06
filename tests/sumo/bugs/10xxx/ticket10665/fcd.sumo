@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-04 09:24:05 by Eclipse SUMO sumo Version v1_13_0+0011-a81882c
+<!-- generated on 2022-05-03 12:24:35 by Eclipse SUMO sumo Version v1_12_0+2426-d9cc316
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -634,7 +634,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="WE.9" signals="0"/>
     </timestep>
     <timestep time="51.00">
-        <vehicle id="SN.2" signals="8"/>
+        <vehicle id="SN.2" signals="10"/>
         <vehicle id="SN.3" signals="8"/>
         <vehicle id="SN.4" signals="8"/>
         <vehicle id="WE.0" signals="0"/>
@@ -697,7 +697,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="WE.9" signals="0"/>
     </timestep>
     <timestep time="54.00">
-        <vehicle id="SN.2" signals="8"/>
+        <vehicle id="SN.2" signals="10"/>
         <vehicle id="SN.3" signals="8"/>
         <vehicle id="SN.4" signals="8"/>
         <vehicle id="WE.0" signals="0"/>
@@ -754,7 +754,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="WE.9" signals="0"/>
     </timestep>
     <timestep time="57.00">
-        <vehicle id="SN.2" signals="8"/>
+        <vehicle id="SN.2" signals="10"/>
         <vehicle id="SN.3" signals="8"/>
         <vehicle id="SN.4" signals="8"/>
         <vehicle id="WE.10" signals="0"/>
@@ -786,7 +786,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="WE.9" signals="0"/>
     </timestep>
     <timestep time="59.00">
-        <vehicle id="SN.2" signals="8"/>
+        <vehicle id="SN.2" signals="10"/>
         <vehicle id="SN.3" signals="8"/>
         <vehicle id="SN.4" signals="8"/>
         <vehicle id="WE.10" signals="0"/>
@@ -914,7 +914,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="WE.16" signals="0"/>
     </timestep>
     <timestep time="73.00">
-        <vehicle id="SN.2" signals="8"/>
+        <vehicle id="SN.2" signals="10"/>
         <vehicle id="SN.3" signals="8"/>
         <vehicle id="SN.4" signals="8"/>
         <vehicle id="SN.5" signals="8"/>
