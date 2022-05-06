@@ -595,7 +595,7 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         }
         const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation(targetLane);
 
-        std::pair<MSVehicle* const, double> result = target->lane->getLeaderOnConsecutive(dist, seen, speed, *vehicle, bestLaneConts, true);
+        std::pair<MSVehicle* const, double> result = target->lane->getLeaderOnConsecutive(dist, seen, speed, *vehicle, bestLaneConts);
 #ifdef DEBUG_SURROUNDING_VEHICLES
         if (DEBUG_COND) {
             std::cout << "  found consecutiveLeader=" << Named::getIDSecure(result.first) << "\n";

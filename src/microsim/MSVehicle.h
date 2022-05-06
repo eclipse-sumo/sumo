@@ -2016,10 +2016,6 @@ public:
                                const double seen, DriveProcessItem* const lastLink,
                                const MSLane* const lane, double& v, double& vLinkPass,
                                double distToCrossing = -1) const;
-
-    /// @brief decide whether a red (or yellow light) may be ignore
-    bool ignoreRed(const MSLink* link, bool canBrake) const;
-
 protected:
 
     /* @brief adapt safe velocity in accordance to multiple vehicles ahead:
@@ -2066,6 +2062,9 @@ protected:
 
     /// @brief decide whether the given link must be kept clear
     bool keepClear(const MSLink* link) const;
+
+    /// @brief decide whether a red (or yellow light) may be ignore
+    bool ignoreRed(const MSLink* link, bool canBrake) const;
 
     double estimateTimeToNextStop() const;
 
