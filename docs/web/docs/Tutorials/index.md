@@ -28,6 +28,7 @@ The SUMO User Conference is an anual event organized by the German Aerospace Cen
 * [SUMO 2019](http://sumo.dlr.de/daily/sumo2019_tutorial.zip): network editing, visualizing traffic data, public transport from OSM, parking, netgenerate
 * [SUMO 2020](http://sumo.dlr.de/daily/sumo2020_tutorial.zip): turn lanes, routeSampler.py, defining counting data in netedit, taxi/DRT
 * [SUMO 2021](http://sumo.dlr.de/daily/sumo2021_tutorial.zip): traffic light layout, indirect left turn, TAZ, OD-traffic, GTFS
+* [SUMO 2022](http://sumo.dlr.de/daily/sumo2022_tutorial.zip): network editing, flows, opposite driving, pedestrian crossings, parking search
 
 ## Videos
 
