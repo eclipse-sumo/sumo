@@ -437,6 +437,9 @@ MSFrame::fillOptions() {
     oc.doRegister("tls.actuated.show-detectors", new Option_Bool(false));
     oc.addDescription("tls.actuated.show-detectors", "Processing", "Sets default visibility for actuation detectors");
 
+    oc.doRegister("tls.actuated.jam-threshold", new Option_Float(-1));
+    oc.addDescription("tls.actuated.jam-threshold", "Processing", "Sets default jam-treshold parameter for all actuation detectors");
+
     oc.doRegister("tls.delay_based.detector-range", new Option_Float(100));
     oc.addDescription("tls.delay_based.detector-range", "Processing", "Sets default range for detecting delayed vehicles");
 
