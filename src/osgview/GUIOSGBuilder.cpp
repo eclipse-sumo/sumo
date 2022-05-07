@@ -164,7 +164,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
             for (int k = (int) lshape.size() - 1; k >= 0; --k, ++index) {
                 (*osg_coords)[index].set((float)lshape[k].x(), (float)lshape[k].y(), (float)lshape[k].z() + zOffset);
             }
-            sizeDiff = rshape.size() + lshape.size() - shapeSize;
+            sizeDiff = (int)rshape.size() + (int)lshape.size() - shapeSize;
         }
         osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
         (*osg_normals)[0] = osg::Vec3(0, 0, 1);

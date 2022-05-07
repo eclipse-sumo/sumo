@@ -1076,7 +1076,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
     } else if (tokens.size() == 2) {
         if (tokens[0] == "not") {
             try {
-                return !(bool)(evalAtomicExpression(tokens[1]));
+                return evalAtomicExpression(tokens[1]) == 0. ? 1. : 0.;
             } catch (ProcessError& e) {
                 throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
             }
@@ -1209,7 +1209,7 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
     if (expr.size() == 0) {
         throw ProcessError("Invalid empty expression");
     } else if (expr[0] == '!') {
-        return !(bool)evalAtomicExpression(expr.substr(1));
+        return evalAtomicExpression(expr.substr(1)) == 0. ? 1. : 0.;
     } else if (expr[0] == '-') {
         return -evalAtomicExpression(expr.substr(1));
     } else {

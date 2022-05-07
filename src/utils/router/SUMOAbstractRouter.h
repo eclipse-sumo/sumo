@@ -86,10 +86,6 @@ public:
             visited = false;
         }
 
-    private:
-        /// @brief Invalidated assignment operator
-        EdgeInfo& operator=(const EdgeInfo& s) = delete;
-
     };
 
     /// Type of the function that is used to retrieve the edge effort.
