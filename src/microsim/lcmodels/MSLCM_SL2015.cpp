@@ -3770,7 +3770,7 @@ MSLCM_SL2015::wantsKeepRight(double keepRightProb) const {
 }
 
 
-double
+bool
 MSLCM_SL2015::saveBlockerLength(double length, double foeLeftSpace) {
     const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
     if (!isOpposite() && (canReserve || myLeftSpace > foeLeftSpace)) {

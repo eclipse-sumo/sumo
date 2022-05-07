@@ -248,7 +248,9 @@ Helper::addSubscriptionFilter(SubscriptionFilterType filter) {
         int filterType = 0;
         if (index != 0) {
             ++filterType;
-            while (index >>= 1) ++filterType;
+            while (index >>= 1) {
+                ++filterType;
+            }
         }
         throw TraCIException("No previous vehicle context subscription exists to apply filter type " + toHex(filterType, 2));
     }
@@ -902,7 +904,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                         // this is a non-opposite lane
                         MSVehicle* leader = lane->getLeader(v, v->getPositionOnLane(), v->getBestLanesContinuation(lane), downstreamDist).first;
                         MSVehicle* follower = lane->getFollower(v, v->getPositionOnLane(), upstreamDist,
-                                MSLane::MinorLinkMode::FOLLOW_ALWAYS).first;
+                                                                MSLane::MinorLinkMode::FOLLOW_ALWAYS).first;
                         vehs.insert(vehs.end(), leader);
                         vehs.insert(vehs.end(), follower);
 

@@ -187,7 +187,7 @@ protected:
     int slowDownForBlocked(MSVehicle** blocked, int state);
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    double saveBlockerLength(double length, double foeLeftSpace) override;
+    bool saveBlockerLength(double length, double foeLeftSpace) override;
 
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;

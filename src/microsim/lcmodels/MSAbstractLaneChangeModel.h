@@ -505,8 +505,8 @@ public:
     void cleanupTargetLane();
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    virtual double saveBlockerLength(double length, double /*foeLeftSpace*/) {
-        return length;
+    virtual bool saveBlockerLength(double /* length */, double /* foeLeftSpace */) {
+        return true;
     }
 
     void setShadowPartialOccupator(MSLane* lane) {
