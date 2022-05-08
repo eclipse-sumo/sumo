@@ -1818,10 +1818,6 @@ public:
 
         /// @brief edge to find
         const NBEdge* const myEdge2Find;
-
-    private:
-        /// @brief invalidated assignment operator
-        connections_toedge_finder& operator=(const connections_toedge_finder& s) = delete;
     };
 
     /// @class connections_toedgelane_finder
@@ -1847,10 +1843,6 @@ public:
 
         /// @brief from lane to find
         int myFromLane2Find;
-
-    private:
-        /// @brief invalidated assignment operator
-        connections_toedgelane_finder& operator=(const connections_toedgelane_finder& s) = delete;
     };
 
     /// @class connections_finder
@@ -1879,10 +1871,6 @@ public:
 
         /// @brief invert edge to find
         bool myInvertEdge2find;
-
-    private:
-        /// @brief invalidated assignment operator
-        connections_finder& operator=(const connections_finder& s) = delete;
     };
 
     /// @class connections_conflict_finder
@@ -1908,10 +1896,6 @@ public:
 
         /// @brief check if is right
         bool myCheckRight;
-
-    private:
-        /// @brief invalidated assignment operator
-        connections_conflict_finder& operator=(const connections_conflict_finder& s) = delete;
     };
 
     /// @class connections_fromlane_finder

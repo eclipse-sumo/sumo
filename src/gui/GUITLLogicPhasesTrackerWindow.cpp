@@ -516,7 +516,6 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // start drawing
     std::vector<SUMOTime> runningGreen(myTLLogic->getLinks().size(), 0);
     for (DurationsVector::iterator pd = myDurations.begin() + myFirstPhase2Show; pd != myDurations.end(); ++pd) {
-        SUMOTime i = 30;
         // the first phase may be drawn incompletely
         SUMOTime duration = *pd - fpo;
         // compute the height and the width of the phase
@@ -603,7 +602,6 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         }
         lastName = name;
         // proceed to next phase
-        i += duration;
         ++pi;
         ++ii;
         x = x2;
@@ -830,7 +828,6 @@ GUITLLogicPhasesTrackerWindow::drawAdditionalStates(GUITLLogicPhasesTrackerPanel
     std::string tooltip = "";
     // start drawing
     for (auto pd = durations.begin() + first2Show; pd != durations.end(); ++pd) {
-        SUMOTime i = 30;
         // the first phase may be drawn incompletely
         SUMOTime duration = *pd - fpo;
         // compute the height and the width of the phase
@@ -861,7 +858,6 @@ GUITLLogicPhasesTrackerWindow::drawAdditionalStates(GUITLLogicPhasesTrackerPanel
             h -= h20;
         }
         // proceed to next phase
-        i += duration;
         ++di;
         x = x2;
         // all further phases are drawn in full

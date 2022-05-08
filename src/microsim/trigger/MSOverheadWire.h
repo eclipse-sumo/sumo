@@ -374,8 +374,6 @@ public:
         MSOverheadWire* start;
         MSOverheadWire* end;
         bool usage;
-
-        OverheadWireClamp& operator=(const OverheadWireClamp&) = delete;
     };
 
     /// @brief Find an overhead wire clamp by its ID

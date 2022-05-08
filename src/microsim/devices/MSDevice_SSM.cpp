@@ -2360,7 +2360,6 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                 // Here we also determine the real crossing lanes (before the conflict lane is the first lane of the connection)
                 // for the ego
                 double egoDistToConflictFromJunctionEntry = INVALID_DOUBLE;
-                double foeInternalLaneLengthsBeforeCrossing = 0.;
                 while (foeConflictLane != nullptr && foeConflictLane->isInternal()) {
                     egoDistToConflictFromJunctionEntry = egoEntryLink->getLengthsBeforeCrossing(foeConflictLane);
                     if (egoDistToConflictFromJunctionEntry != INVALID_DOUBLE) {
@@ -2368,7 +2367,6 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         egoDistToConflictFromJunctionEntry += 0.5 * (foeConflictLane->getWidth() - e->foe->getVehicleType().getWidth());
                         break;
                     }
-                    foeInternalLaneLengthsBeforeCrossing += foeConflictLane->getLength();
                     if (!foeConflictLane->getCanonicalSuccessorLane()->isInternal()) {
                         // intersection has wierd geometry and the intersection was found
                         egoDistToConflictFromJunctionEntry = 0;
@@ -2385,7 +2383,6 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
 
                 // for the foe
                 double foeDistToConflictFromJunctionEntry = INVALID_DOUBLE;
-                double egoInternalLaneLengthsBeforeCrossing = 0.;
                 foeDistToConflictFromJunctionEntry = INVALID_DOUBLE;
                 while (egoConflictLane != nullptr && egoConflictLane->isInternal()) {
                     foeDistToConflictFromJunctionEntry = foeEntryLink->getLengthsBeforeCrossing(egoConflictLane);
@@ -2394,7 +2391,6 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         foeDistToConflictFromJunctionEntry += 0.5 * (egoConflictLane->getWidth() - e->ego->getVehicleType().getWidth());
                         break;
                     }
-                    egoInternalLaneLengthsBeforeCrossing += egoConflictLane->getLength();
                     if (!egoConflictLane->getCanonicalSuccessorLane()->isInternal()) {
                         // intersection has wierd geometry and the intersection was found
                         foeDistToConflictFromJunctionEntry = 0;

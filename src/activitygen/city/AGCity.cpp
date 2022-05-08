@@ -372,11 +372,11 @@ AGCity::carAllocation() {
     }
 
     nbrCars = 0;
-    int nbrAdults = 0;
+    //int nbrAdults = 0;
     for (it = households.begin(); it != households.end(); ++it) {
         it->generateCars(newRate);
         nbrCars += it->getCarNbr();
-        nbrAdults += it->getAdultNbr();
+        //nbrAdults += it->getAdultNbr();
     }
     //TEST RESULTS
     //std::cout << "number of cars: " << nbrCars << std::endl;
