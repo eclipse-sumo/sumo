@@ -42,6 +42,7 @@ from sumolib.options import get_long_option_names  # noqa
 DEBUGLOG = None
 EDGEDATA_ADD = "edgedata.add.xml"
 
+
 def addGenericOptions(argParser):
     # add options which are used by duaIterate and cadytsIterate
     argParser.add_argument("-w", "--disable-warnings", action="store_true", dest="noWarnings",
@@ -262,6 +263,7 @@ def get_scale(options, step):
         return min(options.incStart + options.incValue * float(step + 1) / options.incBase, options.incMax)
     else:
         return options.incMax
+
 
 def get_dumpfilename(options, step, prefix, full_path=True):
     # the file to which edge costs (traveltimes) are written
@@ -548,11 +550,17 @@ def main(args=None):
         vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
         print("<a>", file=fd)
         print('    <edgeData id="dump_%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
-            options.aggregation, options.aggregation, get_dumpfilename(options, -1, "dump", False), vTypes), file=fd)
+            options.aggregation,
+            options.aggregation,
+            get_dumpfilename(options, -1, "dump", False),
+            vTypes), file=fd)
         if options.eco_measure:
             print(('    <edgeData id="eco_%s" type="hbefa" freq="%s" file="%s" ' +
-                   'excludeEmpty="true" minSamples="1"%s/>') %
-                  (options.aggregation, options.aggregation, get_dumpfilename(options, step, "dump", False), vTypes), file=fd)
+                   'excludeEmpty="true" minSamples="1"%s/>') % (
+                       options.aggregation,
+                       options.aggregation,
+                       get_dumpfilename(options, step, "dump", False),
+                       vTypes), file=fd)
         print("</a>", file=fd)
 
     avgTT = sumolib.miscutils.Statistics()
