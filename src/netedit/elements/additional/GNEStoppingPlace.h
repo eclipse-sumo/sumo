@@ -66,7 +66,7 @@ public:
     void fixAdditionalProblem();
     /// @}
 
-    /**@brief writte additional element into a xml file
+    /**@brief write additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
     virtual void writeAdditional(OutputDevice& device) const = 0;
@@ -125,7 +125,7 @@ public:
 
     /* @brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;

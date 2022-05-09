@@ -76,6 +76,6 @@ private:
     /// @brief we need to preserve the attributes explicitly because they are not contained withing GNELane itself
     const NBEdge::Lane myLaneAttrs;
 
-    /// @bried whether to recompute connection when adding a new lane
+    /// @brief whether to recompute connection when adding a new lane
     bool myRecomputeConnections;
 };

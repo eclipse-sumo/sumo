@@ -195,7 +195,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         }
         // pop layer matrix
         GLHelper::popMatrix();
-        // pop gl identficador
+        // pop gl identificator
         GLHelper::popName();
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);

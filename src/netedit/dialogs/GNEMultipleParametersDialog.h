@@ -110,7 +110,7 @@ public:
             /// @brief disable row
             void disableRow();
 
-            /// @brief enable rlow
+            /// @brief enable row
             void enableRow(const std::string& parameter, const std::string& value) const;
 
             /// @brief toggle add button
