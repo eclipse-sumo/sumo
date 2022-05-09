@@ -179,37 +179,49 @@ public:
     void setPhaseDuration(int phaseIndex, SUMOTime duration);
 
     /** @brief Modifies the min duration for an existing phase (used by NETEDIT)
-    * @param[in] phaseIndex The index of the phase to modify
-    * @param[in] duration The new duration for this phase
-    */
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new duration for this phase
+     */
     void setPhaseMinDuration(int phaseIndex, SUMOTime duration);
 
     /** @brief Modifies the max duration for an existing phase (used by NETEDIT)
-    * @param[in] phaseIndex The index of the phase to modify
-    * @param[in] duration The new duration for this phase
-    */
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new duration for this phase
+     */
     void setPhaseMaxDuration(int phaseIndex, SUMOTime duration);
 
+    /** @brief Modifies the min duration for an existing phase (used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new duration for this phase
+     */
+    void setPhaseEarliestEnd(int phaseIndex, SUMOTime duration);
+
+    /** @brief Modifies the max duration for an existing phase (used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new duration for this phase
+     */
+    void setPhaseLatestEnd(int phaseIndex, SUMOTime duration);
+
     /** @brief Modifies the next phase (used by NETEDIT)
-    * @param[in] phaseIndex The index of the phase to modify
-    * @param[in] duration The new duration for this phase
-    */
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new duration for this phase
+     */
     void setPhaseNext(int phaseIndex, const std::vector<int>& next);
 
     /** @brief Modifies the phase name (used by NETEDIT)
-    * @param[in] phaseIndex The index of the phase to modify
-    * @param[in] duration The new duration for this phase
-    */
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new duration for this phase
+     */
     void setPhaseName(int phaseIndex, const std::string& name);
 
     /* @brief deletes the phase at the given index
      * @note thhrows InvalidArgument on out-of range index
-    */
+     */
     void deletePhase(int index);
 
     /* @brief changes state size either by cutting of at the end or by adding
      * new states at the end
-    */
+     */
     void setStateLength(int numLinks, LinkState fill = LINKSTATE_TL_RED);
 
     /// @brief remove the index from all phase states
