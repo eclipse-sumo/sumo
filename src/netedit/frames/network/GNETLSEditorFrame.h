@@ -159,8 +159,11 @@ public:
         /// @brief the list of Definitions for the current junction
         std::vector<NBTrafficLightDefinition*> myTLSDefinitions;
 
-        /// @brief name text field
-        FXTextField* myNameTextField;
+        /// @brief TLS Type text field
+        FXTextField* myTLSType;
+
+        /// @brief id text field
+        FXTextField* myIDTextField;
 
         /// @brief the comboBox for selecting the tl-definition to edit
         FXComboBox* myProgramComboBox;

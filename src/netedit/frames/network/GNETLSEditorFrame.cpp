@@ -1013,10 +1013,16 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     myTLSEditorParent(TLSEditorParent) {
 
     // create frame, label and textfield for name (By default disabled)
-    FXHorizontalFrame* nameFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(nameFrame, toString(SUMO_ATTR_ID).c_str(), nullptr, GUIDesignLabelAttribute);
-    myNameTextField = new FXTextField(nameFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_SWITCH, GUIDesignTextField);
-    myNameTextField->disable();
+    FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelAttribute);
+    myTLSType = new FXTextField(typeFrame, GUIDesignTextFieldNCol, myTLSEditorParent, 0, GUIDesignTextField);
+    myTLSType->disable();
+
+    // create frame, label and textfield for name (By default disabled)
+    FXHorizontalFrame* idFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(idFrame, toString(SUMO_ATTR_ID).c_str(), nullptr, GUIDesignLabelAttribute);
+    myIDTextField = new FXTextField(idFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_SWITCH, GUIDesignTextField);
+    myIDTextField->disable();
 
     // create frame, label and comboBox for Program (By default hidden)
     FXHorizontalFrame* programFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -1044,10 +1050,12 @@ GNETLSEditorFrame::TLSAttributes::~TLSAttributes() {}
 
 void
 GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
-    assert(junction);
+    // clear definitions
     myTLSDefinitions.clear();
-    // enable name TextField
-    myNameTextField->enable();
+    // set TLS type
+    myTLSType->setText(junction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
+    // enable id TextField
+    myIDTextField->enable();
     // enable Offset
     myOffsetTextField->enable();
     myOffsetTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
@@ -1056,11 +1064,11 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
     myParametersTextField->enable();
     myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
     // obtain TLSs
-    for (auto it : junction->getNBNode()->getControllingTLS()) {
-        myTLSDefinitions.push_back(it);
-        myNameTextField->setText(it->getID().c_str());
-        myNameTextField->enable();
-        myProgramComboBox->appendItem(it->getProgramID().c_str());
+    for (const auto &TLS : junction->getNBNode()->getControllingTLS()) {
+        myTLSDefinitions.push_back(TLS);
+        myIDTextField->setText(TLS->getID().c_str());
+        myIDTextField->enable();
+        myProgramComboBox->appendItem(TLS->getProgramID().c_str());
     }
     if (myTLSDefinitions.size() > 0) {
         myProgramComboBox->enable();
@@ -1075,9 +1083,11 @@ void
 GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
     // clear definitions
     myTLSDefinitions.clear();
+    // clear TLS type
+    myTLSType->setText("");
     // clear and disable name TextField
-    myNameTextField->setText("");
-    myNameTextField->disable();
+    myIDTextField->setText("");
+    myIDTextField->disable();
     // clear and disable myProgramComboBox
     myProgramComboBox->clearItems();
     myProgramComboBox->disable();
