@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>492</string>
+	<string>512</string>
 	<key>AMApplicationVersion</key>
 	<string>2.10</string>
 	<key>AMDocumentVersion</key>
@@ -55,7 +55,7 @@
 				<key>ActionBundlePath</key>
 				<string>/System/Library/Automator/Run Shell Script.action</string>
 				<key>ActionName</key>
-				<string>Ejecutar el script Shell</string>
+				<string>Shell-Skript ausführen</string>
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
@@ -100,7 +100,7 @@ if [ -z "$SUMO_HOME" ]; then
     exit -1
 else
     echo "Starting: python $SUMO_HOME/tools/osmWebWizard.py"
-    python $SUMO_HOME/tools/osmWebWizard.py "$@" &amp;&gt; /dev/null &amp;
+    python $SUMO_HOME/tools/osmWebWizard.py "$@" &amp;&gt; /dev/null || python3 $SUMO_HOME/tools/osmWebWizard.py "$@" &amp;&gt; /dev/null &amp;
 fi
 
 </string>
@@ -128,19 +128,19 @@ fi
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>F6B0B40A-8527-4A93-A1B8-04C48A71C891</string>
+				<string>008BEF11-AB12-48A3-A910-EE5EDE3465AA</string>
 				<key>Keywords</key>
 				<array>
 					<string>Shell</string>
-					<string>Script</string>
-					<string>Comando</string>
-					<string>Ejecutar</string>
+					<string>Skript</string>
+					<string>Befehl</string>
+					<string>Ausführen</string>
 					<string>Unix</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>0A51D436-2F7F-4683-9AEE-D6337701986C</string>
+				<string>B164883A-4B14-49E3-8492-0D426E883A26</string>
 				<key>UUID</key>
-				<string>266451F3-99CD-4808-B273-5C9113E76F3D</string>
+				<string>CB6915BA-1527-4C12-84A1-BE396A15976C</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>
@@ -216,14 +216,14 @@ fi
 				<key>conversionLabel</key>
 				<integer>0</integer>
 				<key>isViewVisible</key>
-				<true/>
+				<integer>1</integer>
 				<key>location</key>
-				<string>529.000000:252.000000</string>
+				<string>309.000000:184.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
 			<key>isViewVisible</key>
-			<true/>
+			<integer>1</integer>
 		</dict>
 	</array>
 	<key>connectors</key>
