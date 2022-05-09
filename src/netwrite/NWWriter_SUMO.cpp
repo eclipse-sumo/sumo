@@ -1011,6 +1011,12 @@ NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* 
             if (phase.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
                 into.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
             }
+            if (phase.earliestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                into.writeAttr(SUMO_ATTR_EARLIEST_END, writeSUMOTime(phase.earliestEnd));
+            }
+            if (phase.latestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                into.writeAttr(SUMO_ATTR_LATEST_END, writeSUMOTime(phase.latestEnd));
+            }
         }
         if (phase.name != "") {
             into.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(phase.name));
