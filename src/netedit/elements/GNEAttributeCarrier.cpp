@@ -828,7 +828,7 @@ GNEAttributeCarrier::fillNetworkElements() {
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(SumoXMLNodeType::DEAD_END)));
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(SumoXMLNodeType::INTERNAL)));
     // obtain TLTypes (note: avoid insert all TLTypes because some of them are experimental and not documented)
-    std::vector<std::string> TLTypes = SUMOXMLDefinitions::TrafficLightTypes.getStrings();
+    std::vector<std::string> TLTypes;
     TLTypes.push_back(toString(TrafficLightType::STATIC));
     TLTypes.push_back(toString(TrafficLightType::ACTUATED));
     TLTypes.push_back(toString(TrafficLightType::DELAYBASED));
