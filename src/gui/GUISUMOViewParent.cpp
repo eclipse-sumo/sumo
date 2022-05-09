@@ -147,7 +147,7 @@ GUISUMOViewParent::eraseGLObjChooser(GUIDialog_GLObjChooser* GLObjChooser) {
 long
 GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
     MFXCheckableButton* button = dynamic_cast<MFXCheckableButton*>(sender);
-    // check if cast was sucesfully
+    // check if cast was successfully
     if (button) {
         if (button->amChecked()) {
             myView->endSnapshot();

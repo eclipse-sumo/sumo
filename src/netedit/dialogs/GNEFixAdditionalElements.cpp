@@ -327,7 +327,7 @@ GNEFixAdditionalElements::ConsecutiveLaneOptions::ConsecutiveLaneOptions(GNEFixA
             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     removeInvalidElements = new FXRadioButton(RadioButtonsLeft, "Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-connected lanes",
             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // add a vertical separator beween both options
+    // add a vertical separator between both options
     new FXVerticalSeparator(RadioButtons, GUIDesignVerticalSeparator);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);

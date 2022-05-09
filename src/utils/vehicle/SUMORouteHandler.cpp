@@ -122,11 +122,11 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             if (myElementStack.size() == 1 || myElementStack[myElementStack.size() - 2] != SUMO_TAG_CALIBRATOR) {
                 myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, true, myBeginDefault, myEndDefault);
             }
-            // check if myVehicleParameter was sucesfully created
+            // check if myVehicleParameter was successfully created
             if (myVehicleParameter) {
                 // check tag
                 if (myVehicleParameter->routeid.empty()) {
-                    // open a route flow (It could be a flow with embebbed route)
+                    // open a route flow (It could be a flow with embedded route)
                     openFlow(attrs);
                 } else {
                     // open a route flow
@@ -178,7 +178,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             }
             // parse vehicle parameters
             myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, myHardFail);
-            // check if myVehicleParameter was sucesfully created
+            // check if myVehicleParameter was successfully created
             if (myVehicleParameter) {
                 myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
                 myActiveRouteID = "!" + myVehicleParameter->id;

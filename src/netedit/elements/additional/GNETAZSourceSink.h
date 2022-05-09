@@ -51,7 +51,7 @@ public:
      */
     GNEMoveOperation* getMoveOperation();
 
-    /**@brief writte additional element into a xml file
+    /**@brief write additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
     void writeAdditional(OutputDevice& device) const;
@@ -67,7 +67,7 @@ public:
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
 
-    /// @brief return exaggeration asociated with this GLObject
+    /// @brief return exaggeration associated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object

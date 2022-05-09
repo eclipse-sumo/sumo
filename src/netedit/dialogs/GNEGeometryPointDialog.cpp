@@ -103,7 +103,7 @@ GNEGeometryPointDialog::onCmdChangeGeometryPoint(FXObject* sender, FXSelector, v
             myTextFieldXY->killFocus();
             // obtain position
             *myPos = GNEAttributeCarrier::parse<Position>(myTextFieldXY->getText().text());
-            // check if there is geo coordiantes
+            // check if there is geo coordinates
             if (myGeo) {
                 // calculate geo position
                 Position geoPos = *myPos;

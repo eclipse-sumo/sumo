@@ -979,8 +979,27 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
 void
 Person::setParameter(const std::string& personID, const std::string& key, const std::string& value) {
     MSTransportable* p = getPerson(personID);
-    ((SUMOVehicleParameter&)p->getParameter()).setParameter(key, value);
+    if (StringUtils::startsWith(key, "device.")) {
+        throw TraCIException("Person '" + personID + "' does not support device parameters\n");
+    } else if (StringUtils::startsWith(key, "laneChangeModel.")) {
+        throw TraCIException("Person '" + personID + "' does not support laneChangeModel parameters\n");
+    } else if (StringUtils::startsWith(key, "carFollowModel.")) {
+        throw TraCIException("Person '" + personID + "' does not support carFollowModel parameters\n");
+    } else if (StringUtils::startsWith(key, "junctionModel.")) {
+        try {
+            // use the whole key (including junctionModel prefix)
+            p->setJunctionModelParameter(key, value);
+        } catch (InvalidArgument& e) {
+            // error message includes id since it is also used for xml input
+            throw TraCIException(e.what());
+        }
+    } else if (StringUtils::startsWith(key, "has.") && StringUtils::endsWith(key, ".device")) {
+        throw TraCIException("Person '" + personID + "' does not support chanigng device status\n");
+    } else {
+        ((SUMOVehicleParameter&)p->getParameter()).setParameter(key, value);
+    }
 }
+
 
 void
 Person::setLength(const std::string& personID, double length) {

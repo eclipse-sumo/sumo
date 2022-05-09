@@ -1595,7 +1595,7 @@ GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     if (myAmCreateEdgeSource) {
         color = RGBColor::GREEN;
     }
-    // overwritte color if we're in data mode
+    // overwrite color if we're in data mode
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         color = s.junctionColorer.getScheme().getColor(6);
     }

@@ -78,7 +78,7 @@ public:
 protected:
     FOX_CONSTRUCTOR(GNEDemandElementDialog)
 
-    /// @brief pointer to edited aditional
+    /// @brief pointer to edited additional
     GNEDemandElement* myEditedDemandElement;
 
     /// @brief flag to indicate if additional are being created or modified (cannot be changed after open dialog)

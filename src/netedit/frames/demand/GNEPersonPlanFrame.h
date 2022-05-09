@@ -56,11 +56,11 @@ public:
     /**@brief add person plan element
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @param mouseButtonKeyPressed key pressed during click
-     * @return true if element was sucesfully added
+     * @return true if element was successfully added
      */
     bool addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
-    /// @brief get path creator modul
+    /// @brief get path creator module
     GNEPathCreator* getPathCreator() const;
 
     /// @brief get Person Hierarchy
