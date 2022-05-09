@@ -944,14 +944,15 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* cur
         WRITE_ERROR("Phase duration for tl-logic '" + id + "/" + currentTL->getProgramID() + "' must be positive.");
         return;
     }
-    // if the traffic light is an actuated traffic light, try to get
-    //  the minimum and maximum durations
-    SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-    SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+    // if the traffic light is an actuated traffic light, try to get the minimum and maximum durations and ends
+    const SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+    const SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+    const SUMOTime earliestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_EARLIEST_END, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+    const SUMOTime latestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_LATEST_END, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
     std::vector<int> nextPhases = attrs.getOpt<std::vector<int> >(SUMO_ATTR_NEXT, id.c_str(), ok);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok);
     if (ok) {
-        currentTL->addPhase(duration, state, minDuration, maxDuration, nextPhases, name);
+        currentTL->addPhase(duration, state, minDuration, maxDuration, earliestEnd, latestEnd, nextPhases, name);
     }
 }
 

@@ -109,8 +109,8 @@ public:
                                       const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /// @brief add 1 or 2 phases depending on the presence of pedestrian crossings
-    static std::string addPedestrianPhases(NBTrafficLightLogic* logic, SUMOTime greenTime,
-                                           SUMOTime minDur, SUMOTime maxDur,
+    static std::string addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime greenTime,
+                                           const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd, const SUMOTime latestEnd,
                                            std::string state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /// @brief compute phase state in regard to pedestrian crossings

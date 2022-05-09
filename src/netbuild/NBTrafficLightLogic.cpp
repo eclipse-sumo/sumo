@@ -65,15 +65,18 @@ NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
 NBTrafficLightLogic::~NBTrafficLightLogic() {}
 
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, const std::vector<int>& next, const std::string& name, int index) {
+NBTrafficLightLogic::addStep(const SUMOTime duration, const std::string& state, const std::vector<int>& next, const std::string& name, const int index) {
     addStep(duration, state,
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
             next, name, index);
 }
 
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, const std::vector<int>& next, const std::string& name, int index) {
+NBTrafficLightLogic::addStep(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd, 
+                             const SUMOTime latestEnd, const std::vector<int>& next, const std::string& name, int index) {
     // check state size
     if (myNumLinks == 0) {
         // initialize
@@ -92,7 +95,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTi
         // insert at the end
         index = (int)myPhases.size();
     }
-    myPhases.insert(myPhases.begin() + index, PhaseDefinition(duration, state, minDur, maxDur, next, name));
+    myPhases.insert(myPhases.begin() + index, PhaseDefinition(duration, state, minDur, maxDur, earliestEnd, latestEnd, next, name));
 }
 
 

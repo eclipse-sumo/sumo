@@ -98,8 +98,11 @@ public:
      * @param[in] state The state definition of a tls phase
      * @param[in] minDur The minimum duration of the phase to add
      * @param[in] maxDur The maximum duration of the phase to add
+     * @param[in] earliestEnd The early end of the phase to add
+     * @param[in] latestEnd The latest end of the phase to add
      */
-    void addPhase(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, const std::vector<int>& next, const std::string& name);
+    void addPhase(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd, 
+                  const SUMOTime latestEnd, const std::vector<int>& next, const std::string& name);
 
     /// @brief mark phases as load
     void phasesLoaded() {
