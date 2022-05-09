@@ -472,6 +472,7 @@ public:
     }
 
 
+
     /** @brief Returns the travel time for the given edge
      *
      * @param[in] edge The edge for which the travel time shall be retrieved

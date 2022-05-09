@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_12_0+2258-d281eb2
+Eclipse SUMO sumo Version v1_13_0+0072-dfc2497149c
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -708,6 +708,19 @@ Vehroutes Device Options:
   --device.vehroute.deterministic      The 'vehroute' devices are set
                                         deterministic using a fraction of 1000
 
+Seeroad Device Options:
+  --device.Seeroad.probability FLOAT   The probability for a vehicle to have a
+                                        'Seeroad' device
+  --device.Seeroad.explicit STR[]      Assign a 'Seeroad' device to named
+                                        vehicles
+  --device.Seeroad.deterministic       The 'Seeroad' devices are set
+                                        deterministic using a fraction of 1000
+  --device.Seeroad.stdev FLOAT         The measurement noise parameter which
+                                        can be applied to the Seeroad device
+  --device.Seeroad.offset FLOAT        The measurement offset parameter which
+                                        can be applied to the Seeroad device ->
+                                        e.g. to force false measurements
+
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
   --num-clients INT                    Expected number of connecting clients
@@ -791,8 +804,6 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing
