@@ -119,8 +119,20 @@ public:
     /// @brief called when the command/FXCall open TLS programs is executed
     long onCmdOpenTLSPrograms(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall reload TLS programs is executed
+    long onCmdReloadTLSPrograms(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload TLS programs is updated
+    long onUpdReloadTLSPrograms(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall open edgeType is executed
     long onCmdOpenEdgeTypes(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload edge types is executed
+    long onCmdReloadEdgeTypes(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload edge types is updated
+    long onUpdReloadEdgeTypes(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall reload is executed
     long onCmdReload(FXObject*, FXSelector, void*);
@@ -152,14 +164,23 @@ public:
     /// @brief called when the command/FXCall save TLSPrograms is executed
     long onCmdSaveTLSPrograms(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall save TLSPrograms is updated
+    long onUpdSaveTLSPrograms(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save edge types is executed
     long onCmdSaveEdgeTypes(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save edge types is updated
+    long onUpdSaveEdgeTypes(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save TLSPrograms as is executed
     long onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save edgeTypes as is executed
     long onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save edgeTypes as is updated
+    long onUpdSaveEdgeTypesAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall open additionals is executed
     long onCmdOpenAdditionals(FXObject*, FXSelector, void*);
@@ -227,11 +248,20 @@ public:
     /// @brief called when the update/FXCall save additionals is executed
     long onUpdSaveAdditionals(FXObject*, FXSelector, void*);
 
+    /// @brief called when the update/FXCall save additionals as is executed
+    long onUpdSaveAdditionalsAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the update/FXCall save demand elements is executed
     long onUpdSaveDemandElements(FXObject*, FXSelector, void*);
 
+    /// @brief called when the update/FXCall save demand elements as is executed
+    long onUpdSaveDemandElementsAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the update/FXCall save data elements is executed
     long onUpdSaveDataElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save data elements as is executed
+    long onUpdSaveDataElementsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall undo is executed
     long onUpdUndo(FXObject* obj, FXSelector sel, void* ptr);
@@ -466,18 +496,18 @@ protected:
     /// @brief the submenus
     FXMenuPane* myFileMenu = nullptr,
                 *myFileMenuTLS = nullptr,
-                *myFileMenuEdgeTypes = nullptr,
-                *myFileMenuAdditionals = nullptr,
-                *myFileMenuDemandElements = nullptr,
-                *myFileMenuDataElements = nullptr,
-                *myModesMenu = nullptr,
-                *myEditMenu = nullptr,
-                *myLockMenu = nullptr,
-                *myProcessingMenu = nullptr,
-                *myLocatorMenu = nullptr,
-                *myToolsMenu = nullptr,
-                *myWindowsMenu = nullptr,
-                *myHelpMenu = nullptr;
+                 *myFileMenuEdgeTypes = nullptr,
+                  *myFileMenuAdditionals = nullptr,
+                   *myFileMenuDemandElements = nullptr,
+                    *myFileMenuDataElements = nullptr,
+                     *myModesMenu = nullptr,
+                      *myEditMenu = nullptr,
+                       *myLockMenu = nullptr,
+                        *myProcessingMenu = nullptr,
+                         *myLocatorMenu = nullptr,
+                          *myToolsMenu = nullptr,
+                           *myWindowMenu = nullptr,
+                            *myHelpMenu = nullptr;
 
     /// @brief menu title for modes
     FXMenuTitle* myModesMenuTitle = nullptr;

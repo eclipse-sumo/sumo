@@ -20,3 +20,9 @@ remove
 
 # remove person and add another one with the same id
 remove_add
+
+# test ignoring specific foes ids and foe types
+junctionModel.ignore
+
+# test ignoring foes with a specific speed
+junctionModel.ignoreProb

@@ -70,12 +70,15 @@ public:
     /// @brief event after release a key
     long onKeyRelease(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief focus on frame
+    long onCmdFocusOnFrame(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @}
 
 protected:
     FOX_CONSTRUCTOR(GNEDemandElementDialog)
 
-    /// @brief pointer to edited aditional
+    /// @brief pointer to edited additional
     GNEDemandElement* myEditedDemandElement;
 
     /// @brief flag to indicate if additional are being created or modified (cannot be changed after open dialog)
@@ -111,6 +114,9 @@ private:
 
     /// @brief cancel button
     FXButton* myResetButton;
+
+    /// @brief focus button
+    FXButton* myFocusButton;
 
     /// @brief description of changes did in this additional dialog
     std::string myChangesDescription;

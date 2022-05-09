@@ -143,6 +143,7 @@ GNEFixDemandElements::FixOptions::FixOptions(FXVerticalFrame* frameParent, const
     myViewNet(viewNet) {
     // Create table
     myTable = new FXTable(this, this, MID_TABLE, GUIDesignTableFixElements);
+    myTable->disable();
     // create horizontal frame
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create vertical frames
@@ -214,11 +215,11 @@ GNEFixDemandElements::FixOptions::saveContents() const {
         // close output device
         dev.close();
         // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox 'Saving list of conflicted items sucesfully'");
+        WRITE_DEBUG("Opening FXMessageBox 'Saving list of conflicted items successfully'");
         // open message box error
-        FXMessageBox::information(myTable, MBOX_OK, "Saving sucesfully", "%s", "List of conflicted items was sucesfully saved");
+        FXMessageBox::information(myTable, MBOX_OK, "Saving successfully", "%s", "List of conflicted items was successfully saved");
         // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'Saving list of conflicted items sucesfully' with 'OK'");
+        WRITE_DEBUG("Closed FXMessageBox 'Saving list of conflicted items successfully' with 'OK'");
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox 'error saving list of conflicted items'");
@@ -281,7 +282,12 @@ GNEFixDemandElements::FixRouteOptions::fixElements(bool& abortSaving) {
             myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid routes");
             // iterate over invalid routes to delete it
             for (const auto& invalidRoute : myInvalidElements) {
-                myViewNet->getNet()->deleteDemandElement(invalidRoute, myViewNet->getUndoList());
+                // special case for embedded routes
+                if (invalidRoute->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+                    myViewNet->getNet()->deleteDemandElement(invalidRoute->getParentDemandElements().front(), myViewNet->getUndoList());
+                } else {
+                    myViewNet->getNet()->deleteDemandElement(invalidRoute, myViewNet->getUndoList());
+                }
             }
             // end undo list
             myViewNet->getUndoList()->end();
@@ -384,8 +390,8 @@ GNEFixDemandElements::FixVehicleOptions::fixElements(bool& abortSaving) {
     if (myInvalidElements.size() > 0) {
         if (removeInvalidVehicles->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid routes");
-            // iterate over invalid routes to delete it
+            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid vehicles");
+            // iterate over invalid vehicles to delete it
             for (const auto& invalidVehicle : myInvalidElements) {
                 myViewNet->getNet()->deleteDemandElement(invalidVehicle, myViewNet->getUndoList());
             }

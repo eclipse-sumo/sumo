@@ -25,6 +25,7 @@ that is mentioned in the config under copy_test_path.
 from __future__ import absolute_import
 from __future__ import print_function
 import os
+import stat
 import sys
 from os.path import join
 import glob
@@ -320,7 +321,7 @@ for d, p in [
                 cmd = [o if " " not in o else "'%s'" % o for o in appOptions]
                 with open(nameBase + ".sh", "w") as sh:
                     sh.write(" ".join(cmd))
-                os.chmod(nameBase + ".sh", 0o775)
+                os.chmod(nameBase + ".sh", os.stat(nameBase + ".sh").st_mode | stat.S_IXUSR)
                 cmd = [o.replace("$SUMO_HOME", "%SUMO_HOME%") if " " not in o else '"%s"' % o for o in appOptions]
                 with open(nameBase + ".bat", "w") as bat:
                     bat.write(" ".join(cmd))

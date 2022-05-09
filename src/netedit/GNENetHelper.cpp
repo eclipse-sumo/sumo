@@ -46,10 +46,11 @@
 // ---------------------------------------------------------------------------
 
 GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
-    myNet(net) {
+    myNet(net),
+    myStopIndex(0) {
     // fill additionals with tags
-    auto additionalTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT | 
-        GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::SYMBOL | GNETagProperties::TagType::TAZELEMENT | GNETagProperties::TagType::WIRE);
+    auto additionalTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT |
+                          GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::SYMBOL | GNETagProperties::TagType::TAZELEMENT | GNETagProperties::TagType::WIRE);
     for (const auto& additionalTag : additionalTags) {
         myAdditionals.insert(std::make_pair(additionalTag.getTag(), std::set<GNEAdditional*>()));
     }
@@ -191,10 +192,10 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarrier(const GUIGlID id, bool
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     // Make sure that object exists
     if (object != nullptr) {
-        // unblock and try to parse to AtributeCarrier
+        // unblock and try to parse to AttributeCarrier
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
         GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(object);
-        // If was sucesfully parsed, return it
+        // If was successfully parsed, return it
         if (ac == nullptr) {
             throw ProcessError("GUIGlObject does not match the declared type");
         } else {
@@ -1047,19 +1048,19 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
     // special case for calibrators
     if ((tag == SUMO_TAG_CALIBRATOR) || (tag == GNE_TAG_CALIBRATOR_LANE)) {
         while ((retrieveAdditional(SUMO_TAG_CALIBRATOR, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveAdditional(GNE_TAG_CALIBRATOR_LANE, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveAdditional(GNE_TAG_CALIBRATOR_LANE, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
     } else if ((tag == SUMO_TAG_POLY) || (tag == SUMO_TAG_TAZ)) {
         // Polys and TAZs share namespace
         while ((retrieveAdditional(SUMO_TAG_POLY, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveAdditional(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveAdditional(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
     } else if ((tag == SUMO_TAG_POI) || (tag == GNE_TAG_POILANE) || (tag == GNE_TAG_POIGEO)) {
         while ((retrieveAdditional(SUMO_TAG_POI, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveAdditional(GNE_TAG_POILANE, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveAdditional(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveAdditional(GNE_TAG_POILANE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveAdditional(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
     } else {
@@ -1171,7 +1172,16 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfDemandElements() const {
     int counter = 0;
     for (const auto& demandElementTag : myDemandElements) {
-        counter += (int)demandElementTag.second.size();
+        if (demandElementTag.first == SUMO_TAG_VTYPE) {
+            // iterate over vehicle types to avoid default vTypes
+            for (const auto& vType : demandElementTag.second) {
+                if (vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE) != GNEAttributeCarrier::True) {
+                    counter++;
+                }
+            }
+        } else {
+            counter += (int)demandElementTag.second.size();
+        }
     }
     return counter;
 }
@@ -1202,21 +1212,7 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     }
     // declare counter
     int counter = 0;
-    if (tagProperty.isVehicle() || tagProperty.isFlow()) {
-        // check all vehicles, because share nameSpaces
-        while ((retrieveDemandElement(SUMO_TAG_VEHICLE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_TRIP, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_VEHICLE_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_TRIP_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_ROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_FLOW, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr)) {
-            counter++;
-        }
-        // return new vehicle ID
-        return (prefix + "_" + toString(counter));
-    } else if (tagProperty.isPerson()) {
+    if (tagProperty.isPerson()) {
         // special case for persons (person and personFlows share nameSpaces)
         while ((retrieveDemandElement(SUMO_TAG_PERSON, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveDemandElement(SUMO_TAG_PERSONFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
@@ -1231,6 +1227,20 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
             counter++;
         }
         // return new container ID
+        return (prefix + "_" + toString(counter));
+    } else if (tagProperty.isVehicle() || tagProperty.isFlow()) {
+        // check all vehicles, because share nameSpaces
+        while ((retrieveDemandElement(SUMO_TAG_VEHICLE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(SUMO_TAG_TRIP, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_VEHICLE_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_TRIP_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_FLOW_ROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(SUMO_TAG_FLOW, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_FLOW_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr)) {
+            counter++;
+        }
+        // return new vehicle ID
         return (prefix + "_" + toString(counter));
     } else {
         while (retrieveDemandElement(tag, prefix + "_" + toString(counter), false) != nullptr) {
@@ -1294,6 +1304,11 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     GNEVType* defaultContainerType = new GNEVType(myNet, DEFAULT_CONTAINERTYPE_ID, SVC_IGNORING);
     myDemandElements.at(defaultContainerType->getTagProperty().getTag()).insert(defaultContainerType);
     defaultContainerType->incRef("GNENet::DEFAULT_CONTAINERTYPE_ID");
+}
+
+
+int GNENetHelper::AttributeCarriers::getStopIndex() {
+    return myStopIndex++;
 }
 
 

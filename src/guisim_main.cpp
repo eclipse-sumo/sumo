@@ -92,6 +92,7 @@ main(int argc, char** argv) {
             window->loadOnStartup();
         }
         // Run
+        window->setFocus();
         ret = application.run();
     } catch (const ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {

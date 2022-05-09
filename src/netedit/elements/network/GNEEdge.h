@@ -130,7 +130,7 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /// @brief return exaggeration asociated with this GLObject
+    /// @brief return exaggeration associated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /// @brief update centering boundary (implies change in RTREE)
@@ -221,7 +221,7 @@ public:
     const Position getBackDownShapePosition() const;
 
     /// @brief remake connections
-    void remakeGNEConnections();
+    void remakeGNEConnections(bool junctionsReady = false);
 
     /// @brief copy edge attributes from edgetemplate
     void copyTemplate(const GNEEdgeTemplate* edgeTemplate, GNEUndoList* undoList);

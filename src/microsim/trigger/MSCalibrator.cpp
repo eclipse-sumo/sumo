@@ -90,7 +90,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
     myLane(lane),
     myPos(pos), myProbe(probe),
     myMeanDataParent(id + "_dummyMeanData", 0, 0, false, false, false, false, false, false, 1, 0, 0, vTypes, "",
-            std::vector<MSEdge*>(), false),
+                     std::vector<MSEdge*>(), false),
     myEdgeMeanData(nullptr, length, false, &myMeanDataParent),
     myCurrentStateInterval(myIntervals.begin()),
     myOutput(nullptr), myFrequency(freq), myRemoved(0),
@@ -419,7 +419,8 @@ MSCalibrator::execute(SUMOTime currentTime) {
             assert(route != 0 && vtype != 0);
             // build the vehicle
             const std::string newID = getNewVehicleID();
-            if (vc.getVehicle(newID) != nullptr) {;
+            if (vc.getVehicle(newID) != nullptr) {
+                ;
                 // duplicate ids could come from loading state
                 myInserted++;
                 break;

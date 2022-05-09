@@ -65,10 +65,22 @@ public:
     /// @brief pop Name
     static void popName();
 
-    /// @brief check counter matrix
+    /// @brief get matrix counter
+    static int getMatrixCounter();
+
+    /// @brief reset matrix counter
+    static void resetMatrixCounter();
+
+    /// @brief get vertex counter
+    static int getVertexCounter();
+
+    /// @brief reset vertex counter
+    static void resetVertexCounter();
+
+    /// @brief check counter matrix (for debug purposes)
     static void checkCounterMatrix();
 
-    /// @brief check counter name
+    /// @brief check counter name (for debug purposes)
     static void checkCounterName();
 
     /** @brief Draws a filled polygon described by the list of points
@@ -381,8 +393,14 @@ private:
     /// @brief get dotted contour colors (black and white). Vector will be automatically increased if current size is minor than size
     static const std::vector<RGBColor>& getDottedcontourColors(const int size);
 
-    /// @brief matrix counter
+    /// @brief matrix counter (for debug purposes)
     static int myMatrixCounter;
+
+    /// @brief matrix counter (for debug purposes)
+    static int myVertexCounter;
+
+    /// @brief matrix counter (for debug purposes)
+    static int myMatrixCounterDebug;
 
     /// @brief name counter
     static int myNameCounter;

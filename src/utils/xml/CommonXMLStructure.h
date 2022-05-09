@@ -80,6 +80,9 @@ public:
         /// @brief get time attribute
         SUMOTime getTimeAttribute(const SumoXMLAttr attr) const;
 
+        /// @brief get 'period' attribute
+        SUMOTime getPeriodAttribute() const;
+
         /// @brief get color attribute
         const RGBColor& getColorAttribute(const SumoXMLAttr attr) const;
 

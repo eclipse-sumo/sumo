@@ -434,7 +434,7 @@ GNETAZFrame::TAZSaveChanges::enableButtonsAndBeginUndoList() {
 bool
 GNETAZFrame::TAZSaveChanges::isChangesPending() const {
     // simply check if save Changes Button is enabled
-    return mySaveChangesButton->isEnabled();
+    return myTAZFrameParent->shown() && mySaveChangesButton->isEnabled();
 }
 
 

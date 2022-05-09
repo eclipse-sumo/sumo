@@ -1,0 +1,14 @@
+# no jam detection (causing suboptimal timing)
+default
+
+# detect blockage after 5s of jamming
+jamThresh_5
+
+# set for a specific lane rather than for all detectors
+jamThresh_5_lane
+
+# detect blockage after 10s of jamming
+jamThresh_10
+
+# detect blockage after 5s of jamming
+useAllDetectors

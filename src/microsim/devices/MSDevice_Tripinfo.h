@@ -204,7 +204,7 @@ protected:
                             const double meanSpeedVehicleOnLane,
                             const double travelledDistanceFrontOnLane,
                             const double travelledDistanceVehicleOnLane,
-                            const double /* meanLengthOnLane */);
+                            const double meanLengthOnLane);
 
     /// @brief update stopping time after parking
     void updateParkingStopTime();

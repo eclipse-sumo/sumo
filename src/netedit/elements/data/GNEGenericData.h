@@ -104,7 +104,7 @@ public:
 
     /// @name members and functions relative to write data sets into XML
     /// @{
-    /**@brief writte data set element into a xml file
+    /**@brief write data set element into a xml file
      * @param[in] device device in which write parameters of data set element
      */
     virtual void writeGenericData(OutputDevice& device) const = 0;
@@ -145,7 +145,7 @@ public:
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
-    /// @brief return exaggeration asociated with this GLObject
+    /// @brief return exaggeration associated with this GLObject
     virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -219,7 +219,7 @@ public:
 
     /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
@@ -275,10 +275,7 @@ protected:
     void replaceLastParentEdge(const std::string& value);
 
     /// @brief replace the first parent TAZElement
-    void replaceFirstParentTAZElement(SumoXMLTag tag, const std::string& value);
-
-    /// @brief replace the second parent TAZElement
-    void replaceSecondParentTAZElement(SumoXMLTag tag, const std::string& value);
+    void replaceParentTAZElement(const int index, const std::string& value);
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

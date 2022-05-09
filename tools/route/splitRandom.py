@@ -44,7 +44,7 @@ def get_options(args=None):
     optParser.add_option("-n", "--number", dest="number",
                          help="number of trips/vehicles to split (not together with percent)")
     optParser.add_option("-p", "--percent", dest="percent",
-                         help="percent of trips/vehicles to split (not toghether with number")
+                         help="percent of trips/vehicles to split (not together with number")
     optParser.add_option("-a", "--output-file-a", dest="outputA", default="tripsA.rou.xml",
                          help="define the first output route file")
     optParser.add_option("-b", "--output-file-b", dest="outputB", default="tripsB.rou.xml",

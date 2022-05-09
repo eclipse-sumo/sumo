@@ -281,7 +281,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
     }
     // obtain default values depending of vclass
     VClassDefaultValues defaultValues(vclass);
-    // overwritte SUMOVTypeParameter with VClassDefaultValues
+    // overwrite SUMOVTypeParameter with VClassDefaultValues
     length = defaultValues.length;
     minGap = defaultValues.minGap;
     maxSpeed = defaultValues.maxSpeed;
@@ -473,19 +473,40 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
     }
     // Write Lane Change Model parameters
-    for (const auto& i : lcParameter) {
-        dev.writeAttr(i.first, i.second);
+    for (const auto& lcParam : lcParameter) {
+        dev.writeAttr(lcParam.first, lcParam.second);
     }
     // Write Junction Model parameter
-    for (const auto& i : jmParameter) {
-        dev.writeAttr(i.first, i.second);
+    for (const auto& jmParam : jmParameter) {
+        dev.writeAttr(jmParam.first, jmParam.second);
     }
     if (wasSet(VTYPEPARS_CAR_FOLLOW_MODEL)) {
         dev.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, SUMOXMLDefinitions::CarFollowModels.getString(cfModel));
     }
     // Write Car Following Model parameters
-    for (const auto& i : cfParameter) {
-        dev.writeAttr(i.first, i.second);
+    for (const auto& cfParam : cfParameter) {
+        dev.writeAttr(cfParam.first, cfParam.second);
+    }
+    // Write carriage length
+    if (wasSet(VTYPEPARS_CARRIAGE_LENGTH_SET)) {
+        dev.openTag(SUMO_TAG_PARAM);
+        dev.writeAttr(SUMO_ATTR_KEY, toString(SUMO_ATTR_CARRIAGE_LENGTH));
+        dev.writeAttr(SUMO_ATTR_VALUE, toString(carriageLength));
+        dev.closeTag();
+    }
+    // Write locomotive length
+    if (wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET)) {
+        dev.openTag(SUMO_TAG_PARAM);
+        dev.writeAttr(SUMO_ATTR_KEY, toString(SUMO_ATTR_LOCOMOTIVE_LENGTH));
+        dev.writeAttr(SUMO_ATTR_VALUE, toString(locomotiveLength));
+        dev.closeTag();
+    }
+    // Write carriage gap
+    if (wasSet(VTYPEPARS_CARRIAGE_GAP_SET)) {
+        dev.openTag(SUMO_TAG_PARAM);
+        dev.writeAttr(SUMO_ATTR_KEY, toString(SUMO_ATTR_CARRIAGE_GAP));
+        dev.writeAttr(SUMO_ATTR_VALUE, toString(carriageGap));
+        dev.closeTag();
     }
     // Write rest of parameters
     writeParams(dev);

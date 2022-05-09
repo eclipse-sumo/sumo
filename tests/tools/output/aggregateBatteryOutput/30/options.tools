@@ -1,0 +1,1 @@
+-i battery.txt -o aggregatebattery.txt -t 30 tools/output/aggregateBatteryOutput.py

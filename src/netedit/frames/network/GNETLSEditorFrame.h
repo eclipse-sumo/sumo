@@ -98,6 +98,9 @@ public:
 
         /// @brief button for delete traffic light program
         FXButton* myDeleteTLProgram;
+
+        /// @brief button for regenerate traffic light program
+        FXButton* myRegenerateTLProgram;
     };
 
     // ===========================================================================
@@ -348,6 +351,9 @@ public:
 
     /// @brief Called when the user deletes a TLS
     long onCmdDefDelete(FXObject*, FXSelector, void*);
+
+    /// @brief Called when the user regenerates a TLS
+    long onCmdDefRegenerate(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user changes the offset of a TLS
     long onCmdSetOffset(FXObject*, FXSelector, void*);

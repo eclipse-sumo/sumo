@@ -19,3 +19,6 @@ walk_0
 # random depart and arrival positions
 walk_random_pos
 walk_start_crossing
+
+# Copy of walk_routeDist
+walk_routeDist

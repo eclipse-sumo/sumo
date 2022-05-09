@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-25 10:13:17 by Eclipse SUMO sumo Version v1_12_0+1660-9b16f488674
+<!-- generated on 2022-05-06 12:01:45 by Eclipse SUMO sumo Version v1_13_0+0072-dfc2497149c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -119,7 +119,7 @@
         <route-steps value="200" synonymes="s" type="TIME" help="Load routes for the next number of seconds ahead"/>
         <no-internal-links value="false" type="BOOL" help="Disable (junction) internal links"/>
         <ignore-junction-blocker value="-1" type="TIME" help="Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore)"/>
-        <ignore-route-errors value="false" type="BOOL" help="(1) Do not check whether routes are connected. (2) Allow inserting a vehicle in a situation which requires emergency braking."/>
+        <ignore-route-errors value="false" type="BOOL" help="Do not check whether routes are connected"/>
         <ignore-accidents value="false" type="BOOL" help="Do not check whether accidents occur"/>
         <collision.action value="teleport" type="STR" help="How to deal with collisions: [none,warn,teleport,remove]"/>
         <collision.stoptime value="0" type="TIME" help="Let vehicle stop for TIME before performing collision.action (except for action &apos;none&apos;)"/>
@@ -132,13 +132,16 @@
         <scale-suffix value="." type="STR" help="Suffix to be added when creating ids for cloned vehicles"/>
         <time-to-teleport value="300" type="TIME" help="Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting"/>
         <time-to-teleport.highways value="0" type="TIME" help="The waiting time after which vehicles on a fast road (speed &gt; 69km/h) are teleported if they are on a non-continuing lane"/>
+        <time-to-teleport.highways.min-speed value="19.1667" type="FLOAT" help="The waiting time after which vehicles on a fast road (default: speed &gt; 69km/h) are teleported if they are on a non-continuing lane"/>
         <time-to-teleport.disconnected value="-1" type="TIME" help="The waiting time after which vehicles with a disconnected route are teleported. Negative values disable teleporting"/>
         <time-to-teleport.remove value="false" type="BOOL" help="Whether vehicles shall be removed after waiting too long instead of being teleported"/>
         <time-to-teleport.ride value="-1" type="TIME" help="The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting"/>
         <waiting-time-memory value="100" type="TIME" help="Length of time interval, over which accumulated waiting time is taken into account (default is 100s.)"/>
+        <startup-wait-threshold value="2" type="TIME" help="Minimum consecutive waiting time before applying startupDelay"/>
         <max-depart-delay value="-1" type="TIME" help="How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped"/>
         <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed"/>
         <eager-insert value="false" type="BOOL" help="Whether each vehicle is checked separately for insertion on an edge"/>
+        <emergency-insert value="false" type="BOOL" help="Allow inserting a vehicle in a situation which requires emergency braking"/>
         <random-depart-offset value="0" type="TIME" help="Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]"/>
         <lanechange.duration value="0" type="TIME" help="Duration of a lane change maneuver (default 0)"/>
         <lanechange.overtake-right value="false" type="BOOL" help="Whether overtaking on the right on motorways is permitted"/>
@@ -176,6 +179,7 @@
         <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
         <weights.random-factor value="1" type="FLOAT" help="Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)"/>
         <weights.minor-penalty value="1.5" type="FLOAT" help="Apply the given time penalty when computing minimum routing costs for minor-link internal lanes"/>
+        <weights.tls-penalty value="0" type="FLOAT" help="Apply scaled travel time penalties based on green split when computing minimum routing costs for internal lanes at traffic lights"/>
         <weights.priority-factor value="0" type="FLOAT" help="Consider edge priorities in addition to travel times, weighted by factor"/>
         <weights.separate-turns value="0" type="FLOAT" help="Distinguish travel time by turn direction and shift a fraction of the estimated time loss ahead of the intersection onto the internal edges"/>
         <astar.all-distances value="" type="FILE" help="Initialize lookup table for astar from the given file (generated by marouter --all-pairs-output)"/>
@@ -429,7 +433,6 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>

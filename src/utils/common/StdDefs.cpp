@@ -48,7 +48,7 @@ double roundBits(double x, int fractionBits) {
 }
 
 double roundDecimal(double x, int precision) {
-    const double p =pow(10, precision);
+    const double p = pow(10, precision);
     const double x2 = x * p;
     return (x2 < 0 ? ceil(x2 - 0.5) : floor(x2 + 0.5)) / p;
 }

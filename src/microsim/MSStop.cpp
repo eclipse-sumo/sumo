@@ -33,7 +33,9 @@
 double
 MSStop::getEndPos(const SUMOVehicle& veh) const {
     const double brakePos = veh.getEdge() == getEdge() ? veh.getPositionOnLane() + veh.getBrakeGap() : 0;
-    if (busstop != nullptr) {
+    if ((pars.parametersSet & STOP_END_SET) != 0) {
+        return pars.endPos;
+    } else if (busstop != nullptr) {
         return busstop->getLastFreePos(veh, brakePos);
     } else if (containerstop != nullptr) {
         return containerstop->getLastFreePos(veh, brakePos);
@@ -125,4 +127,20 @@ MSStop::getStateFlagsOld() const {
     return ((reached ? 1 : 0) + 2 * pars.getFlags());
 }
 
+
+SUMOTime
+MSStop::getMinDuration(SUMOTime time) const {
+    if (MSGlobals::gUseStopEnded && pars.ended >= 0) {
+        return pars.ended - time;
+    }
+    if (pars.until >= 0) {
+        if (duration == -1) {
+            return pars.until - time;
+        } else {
+            return MAX2(duration, pars.until - time);
+        }
+    } else {
+        return duration;
+    }
+}
 /****************************************************************************/

@@ -147,7 +147,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing nodes from osm-file '" + file + "'");
         readers.push_back(XMLSubSys::getSAXReader(nodesHandler));
         if (!readers.back()->parseFirst(file) || !readers.back()->parseSection(SUMO_TAG_NODE) ||
-            MsgHandler::getErrorInstance()->wasInformed()) {
+                MsgHandler::getErrorInstance()->wasInformed()) {
             return;
         }
         if (nodesHandler.getDuplicateNodes() > 0) {
@@ -285,6 +285,25 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
             delete readers[idx];
         }
         idx++;
+    }
+
+    if (oc.isSet("ptstop-output")) {
+        // declare additional stops that are not anchored to a (road)-way or route relation
+        std::set<std::string> stopNames;
+        for (const auto& item : nb.getPTStopCont().getStops()) {
+            stopNames.insert(item.second->getName());
+        }
+        for (const auto& item : myOSMNodes) {
+            const NIOSMNode* n = item.second;
+            if (n->ptStopPosition && stopNames.count(n->name) == 0) {
+                Position ptPos(n->lon, n->lat, n->ele);
+                if (!NBNetBuilder::transformCoordinate(ptPos)) {
+                    WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
+                }
+                NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
+                nb.getPTStopCont().insert(ptStop, true);
+            }
+        }
     }
 }
 
@@ -1173,7 +1192,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
         } else if (key == "maxspeed:backward" && myCurrentEdge->myMaxSpeedBackward == MAXSPEED_UNGIVEN) {
             myCurrentEdge->myMaxSpeedBackward = interpretSpeed(key, value);
         } else if (key == "junction") {
-            if ((value == "roundabout") && (myCurrentEdge->myIsOneWay.empty())) {
+            if ((value == "roundabout" || value == "circular") && (myCurrentEdge->myIsOneWay.empty())) {
                 myCurrentEdge->myIsOneWay = "yes";
             }
         } else if (key == "oneway") {

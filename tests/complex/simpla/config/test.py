@@ -247,7 +247,4 @@ catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
 
 
 if __name__ == "__main__":
-    if sys.version.startswith("3"):
-        ut.main(warnings="ignore")
-    else:
-        ut.main()
+    ut.main()

@@ -55,6 +55,8 @@ const std::vector<std::string> MSActuatedTrafficLightLogic::OPERATOR_PRECEDENCE(
 // parameter defaults definitions
 // ===========================================================================
 #define DEFAULT_MAX_GAP "3.0"
+#define DEFAULT_JAM_THRESHOLD "-1"
+#define DEFAULT_DET_LENGTH "0"
 #define DEFAULT_PASSING_TIME "1.9"
 #define DEFAULT_DETECTOR_GAP "2.0"
 #define DEFAULT_INACTIVE_THRESHOLD "180"
@@ -85,6 +87,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myTraCISwitch(false),
     myDetectorPrefix(id + "_" + programID + "_") {
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
+    myJamThreshold = StringUtils::toDouble(getParameter("jam-threshold", DEFAULT_JAM_THRESHOLD));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
     myInactiveThreshold = string2time(getParameter("inactive-threshold", DEFAULT_INACTIVE_THRESHOLD));
@@ -161,9 +164,10 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     //SUMOTime inductLoopInterval = 1; //
     // build the induct loops
     std::map<const MSLane*, MSInductLoop*> laneInductLoopMap;
-    std::map<MSInductLoop*, const MSLane*> inductLoopLaneMap; // in case loops are placed further upstream
+    std::map<MSInductLoop*, int> inductLoopInfoMap; // retrieve junction entry lane in case loops are placed further upstream (and other properties)
     int detEdgeIndex = -1;
     int detLaneIndex = 0;
+    const double detDefaultLength = StringUtils::toDouble(getParameter("detector-length", DEFAULT_DET_LENGTH));
     MSEdge* prevDetEdge = nullptr;
     for (LaneVector& lanes : myLanes) {
         for (MSLane* lane : lanes) {
@@ -209,8 +213,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                     ilpos = 0;
                 }
                 // Build the induct loop and set it into the container
+                const double detLength = getDouble("detector-length:" + lane->getID(), detDefaultLength);
                 std::string id = myDetectorPrefix + "D" + toString(detEdgeIndex) + "." + toString(detLaneIndex);
-                loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, myVehicleTypes, (int)PersonMode::NONE, myShowDetectors));
+                loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, detLength, myVehicleTypes, (int)PersonMode::NONE, myShowDetectors));
                 MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, myFile, myFreq);
             } else if (customID == NO_DETECTOR) {
                 continue;
@@ -223,10 +228,11 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 ilpos = loop->getPosition();
                 inductLoopPosition = length - ilpos;
             }
-            laneInductLoopMap[lane] = loop;
-            inductLoopLaneMap[loop] = lane;
             const double maxGap = getDouble("max-gap:" + lane->getID(), myMaxGap);
-            myInductLoops.push_back(InductLoopInfo(loop, (int)myPhases.size(), maxGap));
+            const double jamThreshold = getDouble("jam-threshold:" + lane->getID(), myJamThreshold);
+            laneInductLoopMap[lane] = loop;
+            inductLoopInfoMap[loop] = (int)myInductLoops.size();
+            myInductLoops.push_back(InductLoopInfo(loop, lane, (int)myPhases.size(), maxGap, jamThreshold));
 
             if (warn && floor(floor(inductLoopPosition / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minDur)) {
                 // warn if the minGap is insufficient to clear vehicles between stop line and detector
@@ -243,10 +249,12 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     //              check1b : there is another major link from the same lane in the current phase
     //            (Under these conditions we assume that the minor link is unimportant and traffic is mostly for the major link)
     //
-    //              check1c: when the lane has only one edge, we treat greenMinor as green as there would be no actuation otherwise
+    //              check1c: when the edge has only one lane, we treat greenMinor as green as there would be no actuation otherwise
     //              check1d: for turnarounds 1b is sufficient and we do not require 1a
     //
     //  check2: if there are two loops on subsequent lanes (joined tls) and the second one has a red link, the first loop may not be used
+    //
+    //  if a jamThreshold is specificed for the loop, all checks are ignored
 
     // also assign loops to link index for validation:
     // check if all links from actuated phases (minDur != maxDur) have an inductionloop in at least one phase
@@ -295,19 +303,25 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             const std::string& state = phase->getState();
             // collect indices of all green links for the phase
             std::set<int> greenLinks;
+            // green links that could jam
+            std::set<int> greenLinksPermissive;
             // collect green links for each induction loops (in this phase)
             std::map<MSInductLoop*, std::set<int> > loopLinks;
 
             for (int i = 0; i < numLinks; i++)  {
-                if (state[i] == LINKSTATE_TL_GREEN_MAJOR
-                        || (state[i] == LINKSTATE_TL_GREEN_MINOR
-                            && (((neverMajor[i] || turnaround[i])  // check1a, 1d
-                                 && hasMajor(state, getLanesAt(i))) // check1b
-                                || oneLane[i])) // check1c
-                   ) {
+                if (state[i] == LINKSTATE_TL_GREEN_MAJOR) {
                     greenLinks.insert(i);
-                    if (state[i] == LINKSTATE_TL_GREEN_MAJOR || !turnaround[i]) {
-                        actuatedLinks.insert(i);
+                    actuatedLinks.insert(i);
+                } else if (state[i] == LINKSTATE_TL_GREEN_MINOR) {
+                    if (((neverMajor[i] || turnaround[i])  // check1a, 1d
+                            && hasMajor(state, getLanesAt(i))) // check1b
+                            || oneLane[i]) { // check1c
+                        greenLinks.insert(i);
+                        if (!turnaround[i]) {
+                            actuatedLinks.insert(i);
+                        }
+                    } else {
+                        greenLinksPermissive.insert(i);
                     }
                 }
 #ifdef DEBUG_DETECTORS
@@ -330,22 +344,29 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             }
             for (auto& item : loopLinks) {
                 MSInductLoop* loop = item.first;
-                const MSLane* loopLane = inductLoopLaneMap[loop];
+                const InductLoopInfo& info = myInductLoops[inductLoopInfoMap[loop]];
+                const MSLane* loopLane = info.lane;
                 bool usable = true;
+                bool foundUsable = false;
                 // check1
                 for (int j : item.second) {
-                    if (greenLinks.count(j) == 0) {
+                    if (greenLinks.count(j) == 0 && (info.jamThreshold <= 0 || greenLinksPermissive.count(j) == 0)) {
                         usable = false;
 #ifdef DEBUG_DETECTORS
                         if (DEBUG_COND) {
                             std::cout << " phase=" << phaseIndex << " check1: loopLane=" << loopLane->getID() << " notGreen=" << j << " oneLane[j]=" << oneLane[j] << "\n";
                         }
 #endif
-                        break;
+                    } else {
+                        foundUsable = true;
                     }
                 }
-                // check2
-                if (usable) {
+                if (!usable && foundUsable && info.jamThreshold > 0) {
+                    // permit green even when the same lane has green and red links (if we have jamDetection)
+                    usable = true;
+                }
+                // check2 (skip if we have jam detection)
+                if (usable && info.jamThreshold <= 0) {
                     for (MSLink* link : loopLane->getLinkCont()) {
                         if (link->isTurnaround()) {
                             continue;
@@ -457,8 +478,8 @@ MSActuatedTrafficLightLogic::getMinDur(int step) const {
     step = step < 0 ? myStep : step;
     const MSPhaseDefinition* p = myPhases[step];
     return p->minDuration != MSPhaseDefinition::OVERRIDE_DURATION
-        ? p->minDuration
-        : TIME2STEPS(evalExpression(myConditions.find("minDur:" + toString(step))->second));
+           ? p->minDuration
+           : TIME2STEPS(evalExpression(myConditions.find("minDur:" + toString(step))->second));
 }
 
 SUMOTime
@@ -466,8 +487,8 @@ MSActuatedTrafficLightLogic::getMaxDur(int step) const {
     step = step < 0 ? myStep : step;
     const MSPhaseDefinition* p = myPhases[step];
     return p->maxDuration != MSPhaseDefinition::OVERRIDE_DURATION
-        ? p->maxDuration
-        : TIME2STEPS(evalExpression(myConditions.find("maxDur:" + toString(step))->second));
+           ? p->maxDuration
+           : TIME2STEPS(evalExpression(myConditions.find("maxDur:" + toString(step))->second));
 }
 
 SUMOTime
@@ -475,8 +496,8 @@ MSActuatedTrafficLightLogic::getEarliestEnd(int step) const {
     step = step < 0 ? myStep : step;
     const MSPhaseDefinition* p = myPhases[step];
     return p->earliestEnd != MSPhaseDefinition::OVERRIDE_DURATION
-        ? p->earliestEnd
-        : TIME2STEPS(evalExpression(myConditions.find("earliestEnd:" + toString(step))->second));
+           ? p->earliestEnd
+           : TIME2STEPS(evalExpression(myConditions.find("earliestEnd:" + toString(step))->second));
 }
 
 SUMOTime
@@ -484,8 +505,8 @@ MSActuatedTrafficLightLogic::getLatestEnd(int step) const {
     step = step < 0 ? myStep : step;
     const MSPhaseDefinition* p = myPhases[step];
     return p->latestEnd != MSPhaseDefinition::OVERRIDE_DURATION
-        ? p->latestEnd
-        : TIME2STEPS(evalExpression(myConditions.find("latestEnd:" + toString(step))->second));
+           ? p->latestEnd
+           : TIME2STEPS(evalExpression(myConditions.find("latestEnd:" + toString(step))->second));
 }
 
 
@@ -631,7 +652,7 @@ MSActuatedTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, 
     const SUMOTime nextSwitch = t + getPhase(step).minDuration - spentDuration;
     mySwitchCommand->deschedule(this);
     mySwitchCommand = new SwitchCommand(tlcontrol, this, nextSwitch);
-    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent( mySwitchCommand, nextSwitch);
+    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(mySwitchCommand, nextSwitch);
     setTrafficLightSignals(lastSwitch);
     tlcontrol.get(getID()).executeOnSwitchActions();
 }
@@ -678,8 +699,8 @@ MSActuatedTrafficLightLogic::trySwitch() {
 #ifdef DEBUG_PHASE_SELECTION
         if (DEBUG_COND) {
             std::cout << SIMTIME << " p=" << myStep
-                << " trySwitch dGap=" << (detectionGap == std::numeric_limits<double>::max() ? "inf" : toString(detectionGap))
-                << " multi=" << multiTarget << "\n";
+                      << " trySwitch dGap=" << (detectionGap == std::numeric_limits<double>::max() ? "inf" : toString(detectionGap))
+                      << " multi=" << multiTarget << "\n";
         }
 #endif
         if (detectionGap < std::numeric_limits<double>::max() && !multiTarget && !myTraCISwitch) {
@@ -717,7 +738,11 @@ MSActuatedTrafficLightLogic::trySwitch() {
     if ((myShowDetectors || multiTarget) && getCurrentPhaseDef().isGreenPhase()) {
         for (InductLoopInfo* loopInfo : myInductLoopsForPhase[myStep]) {
             //std::cout << SIMTIME << " p=" << myStep << " loopinfo=" << loopInfo->loop->getID() << " set lastGreen=" << STEPS2TIME(now) << "\n";
-            loopInfo->loop->setSpecialColor(&RGBColor::GREEN);
+            if (loopInfo->isJammed()) {
+                loopInfo->loop->setSpecialColor(&RGBColor::ORANGE);
+            } else {
+                loopInfo->loop->setSpecialColor(&RGBColor::GREEN);
+            }
             loopInfo->lastGreenTime = now;
         }
     }
@@ -725,8 +750,8 @@ MSActuatedTrafficLightLogic::trySwitch() {
 #ifdef DEBUG_PHASE_SELECTION
     if (DEBUG_COND) {
         std::cout << SIMTIME << " tl=" << getID() << " p=" << myStep
-            << " nextTryMinDur=" << STEPS2TIME(getMinDur() - actDuration)
-            << " nextTryEarliest=" << STEPS2TIME(getEarliest(prevStart)) << "\n";
+                  << " nextTryMinDur=" << STEPS2TIME(getMinDur() - actDuration)
+                  << " nextTryEarliest=" << STEPS2TIME(getEarliest(prevStart)) << "\n";
     }
 #endif
     return MAX3(TIME2STEPS(1), getMinDur() - actDuration, getEarliest(prevStart));
@@ -791,9 +816,13 @@ MSActuatedTrafficLightLogic::gapControl() {
     // now the gapcontrol starts
     for (InductLoopInfo* loopInfo : myInductLoopsForPhase[myStep]) {
         MSInductLoop* loop = loopInfo->loop;
-        loop->setSpecialColor(&RGBColor::GREEN);
+        if (loopInfo->isJammed()) {
+            loopInfo->loop->setSpecialColor(&RGBColor::ORANGE);
+        } else {
+            loopInfo->loop->setSpecialColor(&RGBColor::GREEN);
+        }
         const double actualGap = loop->getTimeSinceLastDetection();
-        if (actualGap < loopInfo->maxGap) {
+        if (actualGap < loopInfo->maxGap && !loopInfo->isJammed() ) {
             result = MIN2(result, actualGap);
         }
     }
@@ -883,7 +912,8 @@ int
 MSActuatedTrafficLightLogic::getDetectorPriority(const InductLoopInfo& loopInfo) const {
     MSInductLoop* loop = loopInfo.loop;
     const double actualGap = loop->getTimeSinceLastDetection();
-    if (actualGap < loopInfo.maxGap || loopInfo.lastGreenTime < loop->getLastDetectionTime()) {
+    if ((actualGap < loopInfo.maxGap && !loopInfo.isJammed())
+            || loopInfo.lastGreenTime < loop->getLastDetectionTime()) {
         SUMOTime inactiveTime = MSNet::getInstance()->getCurrentTimeStep() - loopInfo.lastGreenTime;
         // @note. Inactive time could also be tracked regardless of current activity (to increase robustness in case of detection failure
         if (inactiveTime > myInactiveThreshold) {
@@ -898,7 +928,17 @@ MSActuatedTrafficLightLogic::getDetectorPriority(const InductLoopInfo& loopInfo)
             // give bonus to detectors that are currently served (if that phase can stil be extended)
             if (loopInfo.servedPhase[myStep]) {
                 SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
-                const bool canExtend = actDuration < getCurrentPhaseDef().maxDuration || getLatest() > 0;
+                const bool canExtend = actDuration < getCurrentPhaseDef().maxDuration && getLatest() > 0;
+#ifdef DEBUG_PHASE_SELECTION
+                if (DEBUG_COND) {
+                    std::cout << "    loop=" << loop->getID()
+                        << " actDuration=" << STEPS2TIME(actDuration)
+                        << " maxDur=" << STEPS2TIME(getCurrentPhaseDef().maxDuration)
+                        << " getLatest=" << STEPS2TIME(getLatest())
+                        << " canExtend=" << canExtend
+                        << "\n";
+                }
+#endif
                 if (canExtend) {
                     return DEFAULT_CURRENT_PRIORITY;
                 } else {
@@ -1062,8 +1102,8 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
                 if (tokens[i] == o) {
                     try {
                         const double val = evalTernaryExpression(
-                                evalAtomicExpression(tokens[i - 1]), o,
-                                evalAtomicExpression(tokens[i + 1]), condition);
+                                               evalAtomicExpression(tokens[i - 1]), o,
+                                               evalAtomicExpression(tokens[i + 1]), condition);
                         std::vector<std::string> newTokens(tokens.begin(), tokens.begin() + (i - 1));
                         newTokens.push_back(toString(val));
                         newTokens.insert(newTokens.end(), tokens.begin() + (i + 2), tokens.end());
@@ -1259,16 +1299,31 @@ MSActuatedTrafficLightLogic::getDetectorStates() const {
 std::map<std::string, double>
 MSActuatedTrafficLightLogic::getConditions() const {
     std::map<std::string, double> result;
-        for (auto item : myConditions) {
-            if (myListedConditions.count(item.first) != 0) {
-                try {
-                    result[item.first] = evalExpression(item.second);
-                } catch (ProcessError& e) {
-                    WRITE_ERROR("Error when retrieving conditions '" + item.first + "' for tlLogic '" + getID() + "' (" + e.what() + ")");
-                }
+    for (auto item : myConditions) {
+        if (myListedConditions.count(item.first) != 0) {
+            try {
+                result[item.first] = evalExpression(item.second);
+            } catch (ProcessError& e) {
+                WRITE_ERROR("Error when retrieving conditions '" + item.first + "' for tlLogic '" + getID() + "' (" + e.what() + ")");
             }
         }
+    }
     return result;
+}
+
+const std::string
+MSActuatedTrafficLightLogic::getParameter(const std::string& key, const std::string defaultValue) const {
+    if (StringUtils::startsWith(key, "condition.")) {
+        const std::string cond = key.substr(10);
+        auto it = myConditions.find(cond);
+        if (it != myConditions.end()) {
+            return toString(evalExpression(it->second));
+        } else {
+            throw InvalidArgument("Unknown condition '" + cond + "' for actuated traffic light '" + getID() + "'");
+        }
+    } else {
+        return MSSimpleTrafficLightLogic::getParameter(key, defaultValue);
+    }
 }
 
 void
@@ -1285,9 +1340,39 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
             loopInfo.maxGap = myMaxGap;
         }
         Parameterised::setParameter(key, value);
+    } else if (StringUtils::startsWith(key, "max-gap:")) {
+        const std::string laneID = key.substr(8);
+        for (InductLoopInfo& loopInfo : myInductLoops) {
+            if (loopInfo.lane->getID() == laneID) {
+                loopInfo.maxGap = StringUtils::toDouble(value);
+                Parameterised::setParameter(key, value);
+                return;
+            }
+        }
+        throw InvalidArgument("Invalid lane '" + laneID + "' in key '" + key + "' for actuated traffic light '" + getID() + "'");
+    } else if (key == "jam-threshold") {
+        myJamThreshold = StringUtils::toDouble(value);
+        // overwrite custom values
+        for (InductLoopInfo& loopInfo : myInductLoops) {
+            loopInfo.jamThreshold = myJamThreshold;
+        }
+        Parameterised::setParameter(key, value);
+    } else if (StringUtils::startsWith(key, "jam-threshold:")) {
+        const std::string laneID = key.substr(14);
+        for (InductLoopInfo& loopInfo : myInductLoops) {
+            if (loopInfo.lane->getID() == laneID) {
+                loopInfo.jamThreshold = StringUtils::toDouble(value);
+                Parameterised::setParameter(key, value);
+                return;
+            }
+        }
+        throw InvalidArgument("Invalid lane '" + laneID + "' in key '" + key + "' for actuated traffic light '" + getID() + "'");
     } else if (key == "show-detectors") {
         myShowDetectors = StringUtils::toBool(value);
         Parameterised::setParameter(key, value);
+        for (InductLoopInfo& loopInfo : myInductLoops) {
+            loopInfo.loop->setVisible(myShowDetectors);
+        }
     } else if (key == "inactive-threshold") {
         myInactiveThreshold = string2time(value);
         Parameterised::setParameter(key, value);

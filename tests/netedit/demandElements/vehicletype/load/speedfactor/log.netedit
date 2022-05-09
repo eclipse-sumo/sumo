@@ -1,4 +1,0 @@
-Error: Invalid format of distribution parameterized
-Error: Invalid speed distribution when parsing vType 'vType1' (distribution mean -3.00 is smaller than lower boundary 0.20)
-Error: Invalid speed distribution when parsing vType 'vType2' (distribution mean 0.00 is smaller than lower boundary 0.20)
-Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.18Jan114657.13884\netedit.gui\demandElements\vehicletype\load\speedfactor\input_routes.rou.xml failed.

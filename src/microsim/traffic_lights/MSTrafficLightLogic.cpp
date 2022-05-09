@@ -128,7 +128,7 @@ MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl& tlcontrol, const std:
 void
 MSTrafficLightLogic::init(NLDetectorBuilder&) {
     const Phases& phases = getPhases();
-    if (phases.size() > 0 && MSGlobals::gUseMesoSim) {
+    if (phases.size() > 0 && (MSGlobals::gUseMesoSim || MSGlobals::gTLSPenalty > 0)) {
         initMesoTLSPenalties();
     }
     if (phases.size() > 1) {
@@ -156,9 +156,8 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                        + "', program '" + getProgramID() + "' in phases " + toString(i) + " and " + toString(iNext));
                 }
                 if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size() + myIgnoredIndices.size()) {
-                    WRITE_WARNING("Unused states in tlLogic '" + getID()
-                                  + "', program '" + getProgramID() + "' in phase " + toString(i)
-                                  + " after tl-index " + toString((int)myLanes.size() - 1));
+                    WRITE_WARNINGF("Unused states in tlLogic '%', program '%' in phase % after tl-index %",
+                                   getID(), getProgramID(), i, (int)myLanes.size() - 1);
                     haveWarnedAboutUnusedStates = true;
                 }
                 // detect illegal states
@@ -176,9 +175,8 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                         for (LaneVector::const_iterator it = myLanes[j].begin(); it != myLanes[j].end(); ++it) {
                             if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
                                 if (getLogicType() != TrafficLightType::NEMA) {
-                                    WRITE_WARNING("Missing yellow phase in tlLogic '" + getID()
-                                                  + "', program '" + getProgramID() + "' for tl-index " + toString(j)
-                                                  + " when switching" + optionalFrom + " to phase " + toString(iNext));
+                                    WRITE_WARNINGF("Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %",
+                                                   getID(), getProgramID(), j, optionalFrom, iNext);
                                     // one warning per program is enough
                                     haveWarned = true;
                                 }
@@ -199,8 +197,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         for (int j = 0; j < (int)foundGreen.size(); ++j) {
             if (!foundGreen[j]) {
                 if (getLogicType() != TrafficLightType::NEMA) {
-                    WRITE_WARNING("Missing green phase in tlLogic '" + getID()
-                                  + "', program '" + getProgramID() + "' for tl-index " + toString(j));
+                    WRITE_WARNINGF("Missing green phase in tlLogic '%', program '%' for tl-index %", getID(), getProgramID(), j);
                 }
                 break;
             }
@@ -209,7 +206,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
     // check incompatible junction logic
     // this can happen if the network was built with a very different signal
     // plan from the one currently being used.
-    // Cconnections that never had a common green phase during network building may
+    // Connections that never had a common green phase during network building may
     // have a symmetric response relation to avoid certain kinds of jam but this
     // can lead to deadlock if a different program gives minor green to both
     // connections at the same time
@@ -217,7 +214,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
 
     const bool mustCheck = MSNet::getInstance()->hasInternalLinks();
     // The checks only runs for definitions from additional file and this is sufficient.
-    // The distinction is implicit because original logics are loaded earlier and at that time hasInternalLinks is alwas false
+    // The distinction is implicit because original logics are loaded earlier and at that time hasInternalLinks is always false
     // Also, when the network has no internal links, mutual conflicts are not built by netconvert
     //std::cout << "init tlLogic=" << getID() << " prog=" << getProgramID() << " links=" << myLinks.size() << " internal=" << MSNet::getInstance()->hasInternalLinks() << "\n";
     if (mustCheck && phases.size() > 0) {
@@ -410,6 +407,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
     // warning already given if not all states are used
     assert(numLinks <= (int)phases.front()->getState().size());
     SUMOTime duration = 0;
+    std::vector<double> firstRedDuration(numLinks, 0);
     std::vector<double> redDuration(numLinks, 0);
     std::vector<double> totalRedDuration(numLinks, 0);
     std::vector<double> penalty(numLinks, 0);
@@ -418,43 +416,55 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
         duration += phases[i]->duration;
         // warn about transitions from green to red without intermediate yellow
         for (int j = 0; j < numLinks; ++j) {
+            double& red = redDuration[j];
             if ((LinkState)state[j] == LINKSTATE_TL_RED
                     || (LinkState)state[j] == LINKSTATE_TL_REDYELLOW) {
-                redDuration[j] += STEPS2TIME(phases[i]->duration);
+                red += STEPS2TIME(phases[i]->duration);
                 totalRedDuration[j] += STEPS2TIME(phases[i]->duration);
-            } else if (redDuration[j] > 0) {
-                penalty[j] += 0.5 * (redDuration[j] * redDuration[j] + redDuration[j]);
-                redDuration[j] = 0;
+            } else if (red > 0) {
+                if (firstRedDuration[j] == 0) {
+                    // store for handling wrap-around
+                    firstRedDuration[j] = red;
+                } else {
+                    // vehicle may arive in any second or the red duration
+                    // compute the sum over [0,red]
+                    penalty[j] += 0.5 * (red * red + red);
+                }
+                red = 0;
             }
         }
     }
-    /// XXX penalty for wrap-around red phases is underestimated
+    // final phase and wrap-around to first phase
     for (int j = 0; j < numLinks; ++j) {
-        if (redDuration[j] > 0) {
-            penalty[j] += 0.5 * (redDuration[j] * redDuration[j] + redDuration[j]);
-            redDuration[j] = 0;
+        double red = redDuration[j] + firstRedDuration[j];
+        if (red) {
+            penalty[j] += 0.5 * (red * red + red);
         }
     }
+    double tlsPenalty = MSGlobals::gTLSPenalty;
     const double durationSeconds = STEPS2TIME(duration);
     std::set<const MSJunction*> controlledJunctions;
     for (int j = 0; j < numLinks; ++j) {
         for (int k = 0; k < (int)myLinks[j].size(); ++k) {
             MSLink* link = myLinks[j][k];
             MSEdge& edge = link->getLaneBefore()->getEdge();
-            const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(edge.getEdgeType());
-            double greenFraction = (durationSeconds - totalRedDuration[j]) / durationSeconds;
-            if (edgeType.tlsFlowPenalty == 0) {
-                greenFraction = 1;
-            } else {
-                greenFraction = MAX2(MIN2(greenFraction / edgeType.tlsFlowPenalty, 1.0), 0.01);
+            if (MSGlobals::gUseMesoSim) {
+                const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(edge.getEdgeType());
+                tlsPenalty = edgeType.tlsPenalty;
+                double greenFraction = (durationSeconds - totalRedDuration[j]) / durationSeconds;
+                if (edgeType.tlsFlowPenalty == 0) {
+                    greenFraction = 1;
+                } else {
+                    greenFraction = MAX2(MIN2(greenFraction / edgeType.tlsFlowPenalty, 1.0), 0.01);
+                }
+                if (greenFraction == 0.01) {
+                    WRITE_WARNINGF("Green fraction is only 1% for link % in tlLogic '%', program '%'.", "%", j, getID(), getProgramID());
+                }
+                link->setGreenFraction(greenFraction);
             }
-            if (greenFraction == 0.01) {
-                WRITE_WARNINGF("Green fraction is only 1% for link % in tlLogic '%', program '%'.", "%", j, getID(), getProgramID());
-            }
-            link->setMesoTLSPenalty(TIME2STEPS(edgeType.tlsPenalty * penalty[j] / durationSeconds));
-            link->setGreenFraction(greenFraction);
+            link->setMesoTLSPenalty(TIME2STEPS(tlsPenalty * penalty[j] / durationSeconds));
             controlledJunctions.insert(link->getLane()->getEdge().getFromJunction()); // MSLink::myJunction is not yet initialized
-            //std::cout << " tls=" << getID() << " i=" << j << " link=" << link->getViaLaneOrLane()->getID() << " penalty=" << penalty[j] / durationSeconds << " durSecs=" << durationSeconds << " greenTime=" << " gF=" << myLinks[j][k]->getGreenFraction() << "\n";
+            //std::cout << " tls=" << getID() << " i=" << j << " link=" << link->getDescription() << " p=" << penalty[j] << " fr=" << firstRedDuration[j] << " r=" << redDuration[j] << " tr=" << totalRedDuration[j] << " durSecs=" << durationSeconds << " tlsPen=" << STEPS2TIME(link->getMesoTLSPenalty()) << " gF=" << myLinks[j][k]->getGreenFraction() << "\n";
         }
     }
     // initialize empty-net travel times

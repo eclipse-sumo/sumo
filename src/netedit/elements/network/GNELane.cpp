@@ -85,12 +85,12 @@ GNELane::LaneDrawingConstants::LaneDrawingConstants() :
 
 GNELane::GNELane(GNEEdge* edge, const int index) :
     GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE,
-        {}, {}, {}, {}, {}, {}),
-    myParentEdge(edge),
-    myIndex(index),
-    mySpecialColor(nullptr),
-    mySpecialColorValue(-1),
-    myLane2laneConnections(this) {
+{}, {}, {}, {}, {}, {}),
+myParentEdge(edge),
+myIndex(index),
+mySpecialColor(nullptr),
+mySpecialColorValue(-1),
+myLane2laneConnections(this) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -98,12 +98,12 @@ GNELane::GNELane(GNEEdge* edge, const int index) :
 
 GNELane::GNELane() :
     GNENetworkElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE,
-        {}, {}, {}, {}, {}, {}),
-    myParentEdge(nullptr),
-    myIndex(-1),
-    mySpecialColor(nullptr),
-    mySpecialColorValue(-1),
-    myLane2laneConnections(this) {
+{}, {}, {}, {}, {}, {}),
+myParentEdge(nullptr),
+myIndex(-1),
+mySpecialColor(nullptr),
+mySpecialColorValue(-1),
+myLane2laneConnections(this) {
 }
 
 
@@ -312,7 +312,7 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
 void
 GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
     // first check that drawLinkTLIndex must be drawn
-    if (s.drawLinkTLIndex.show(myParentEdge->getToJunction())) {
+    if (s.drawLinkTLIndex.show(myParentEdge->getToJunction()) && (myParentEdge->getToJunction()->getNBNode()->getControllingTLS().size() > 0)) {
         // get connections
         const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
         // get numer of links
@@ -987,7 +987,7 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             return true;
         case GNE_ATTR_STOPOFFSET:
-            return canParse<int>(value) && (parse<double>(value) >= 0);
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_STOPOEXCEPTION:
             return canParseVehicleClasses(value);
         case GNE_ATTR_SELECTED:

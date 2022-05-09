@@ -1461,7 +1461,7 @@ MSE2Collector::reset() {
 int
 MSE2Collector::getCurrentVehicleNumber() const {
     int result = 0;
-    if (myOverrideVehNumber >= 0){
+    if (myOverrideVehNumber >= 0) {
         result = myOverrideVehNumber;
     } else {
         for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin(); it != myVehicleInfos.end(); it++) {
@@ -1474,7 +1474,7 @@ MSE2Collector::getCurrentVehicleNumber() const {
 }
 
 void
-MSE2Collector::overrideVehicleNumber(int num){
+MSE2Collector::overrideVehicleNumber(int num) {
     myOverrideVehNumber = num;
 }
 

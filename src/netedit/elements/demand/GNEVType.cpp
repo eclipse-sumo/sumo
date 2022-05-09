@@ -34,10 +34,10 @@
 
 GNEVType::GNEVType(GNENet* net) :
     GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(""),
-    myDefaultVehicleType(true),
-    myDefaultVehicleTypeModified(false) {
+{}, {}, {}, {}, {}, {}),
+SUMOVTypeParameter(""),
+myDefaultVehicleType(true),
+myDefaultVehicleTypeModified(false) {
     // reset default values
     resetDefaultValues();
     // init Rail Visualization Parameters
@@ -47,13 +47,12 @@ GNEVType::GNEVType(GNENet* net) :
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(vTypeID),
-    myDefaultVehicleType(true),
-    myDefaultVehicleTypeModified(false) {
+{}, {}, {}, {}, {}, {}),
+SUMOVTypeParameter(vTypeID),
+myDefaultVehicleType(true),
+myDefaultVehicleTypeModified(false) {
     // set default vehicle class
     vehicleClass = defaultVClass;
-    parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     // init Rail Visualization Parameters
     initRailVisualizationParameters();
 }
@@ -61,10 +60,10 @@ GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleCla
 
 GNEVType::GNEVType(GNENet* net, const SUMOVTypeParameter& vTypeParameter) :
     GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(vTypeParameter),
-    myDefaultVehicleType(false),
-    myDefaultVehicleTypeModified(false) {
+{}, {}, {}, {}, {}, {}),
+SUMOVTypeParameter(vTypeParameter),
+myDefaultVehicleType(false),
+myDefaultVehicleTypeModified(false) {
     // init Rail Visualization Parameters
     initRailVisualizationParameters();
 }
@@ -72,10 +71,10 @@ GNEVType::GNEVType(GNENet* net, const SUMOVTypeParameter& vTypeParameter) :
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, GNEVType* vTypeOriginal) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(*vTypeOriginal),
-    myDefaultVehicleType(false),
-    myDefaultVehicleTypeModified(false) {
+{}, {}, {}, {}, {}, {}),
+SUMOVTypeParameter(*vTypeOriginal),
+myDefaultVehicleType(false),
+myDefaultVehicleTypeModified(false) {
     // change manually the ID (to avoid to use the ID of vTypeOriginal)
     id = vTypeID;
     // init Rail Visualization Parameters
@@ -96,7 +95,7 @@ void
 GNEVType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified
     if (myDefaultVehicleType) {
-        if (myDefaultVehicleTypeModified) {
+        if (myDefaultVehicleTypeModified || (getParentDemandElements().size() > 0)) {
             write(device);
         }
     } else {
@@ -481,7 +480,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             if (myDefaultVehicleType) {
                 return toString(myDefaultVehicleTypeModified);
             } else {
-                return toString(false);
+                return False;
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -681,7 +680,9 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // Vtypes and PTypes shares namespace
-            if (SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr)) {
+            if (value == getID()) {
+                return true;
+            } else if (SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
@@ -931,7 +932,7 @@ GNEVType::getACParametersMap() const {
 
 void
 GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList) {
-    // open undo list and overwritte all values of default VType
+    // open undo list and overwrite all values of default VType
     undoList->begin(vType->getTagProperty().getGUIIcon(), "update default " + vType->getTagStr() + " '" + DEFAULT_VTYPE_ID + "'");
     // CFM values
     if (!newVTypeParameter.getCFParamString(SUMO_ATTR_ACCEL, "").empty()) {

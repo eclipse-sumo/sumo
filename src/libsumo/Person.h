@@ -21,9 +21,6 @@
 #include <vector>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/VehicleType.h>
-#ifndef LIBTRACI
-#include <microsim/transportables/MSTransportable.h>
-#endif
 
 
 // ===========================================================================
@@ -31,6 +28,7 @@
 // ===========================================================================
 #ifndef LIBTRACI
 class MSPerson;
+class MSStage;
 struct Reservation;
 class PositionVector;
 #endif

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-04 12:39:45 by Eclipse SUMO netedit Version v1_12_0+1915-27c190f6120
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="vehicle_0" depart="0.00">
+        <route edges="gneE0 gneE1" color="yellow"/>
+        <stop parkingArea="parkingAreaB" duration="60.00" parking="1" line=";;;;;;;;;;" speed="13.89"/>
+        <stop parkingArea="parkingAreaB" duration="60.00" parking="1" speed="13.89"/>
+        <stop parkingArea="parkingAreaB" duration="60.00" parking="1" line="customLine" speed="13.89"/>
+    </vehicle>
+</routes>

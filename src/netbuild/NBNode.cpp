@@ -1977,8 +1977,8 @@ NBNode::mergeConflictYields(const NBEdge* from, int fromLane, int fromLaneFoe, N
     if (myRequest == nullptr) {
         return false;
     }
-    NBEdge::Connection con = from->getConnection(fromLane, to, toLane);
-    NBEdge::Connection prohibitorCon = from->getConnection(fromLaneFoe, to, toLane);
+    const NBEdge::Connection& con = from->getConnection(fromLane, to, toLane);
+    const NBEdge::Connection& prohibitorCon = from->getConnection(fromLaneFoe, to, toLane);
     return myRequest->mergeConflict(from, con, from, prohibitorCon, false);
 }
 
@@ -2294,7 +2294,7 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
     if (outgoing == nullptr) { // always off
         return LINKSTATE_TL_OFF_NOSIGNAL;
     }
-    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
+    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT && mustBrake(incoming, outgoing, fromlane, toLane, true)) {
         return LINKSTATE_EQUAL; // all the same
     }
     if (myType == SumoXMLNodeType::ALLWAY_STOP) {
@@ -2823,8 +2823,8 @@ NBNode::buildCrossings() {
                 diff += 360;
             }
             const double rawDiff = NBHelpers::relAngle(
-                    edges[i]->getAngleAtNodeNormalized(this),
-                    edges[(i + 1) % edges.size()]->getAngleAtNodeNormalized(this));
+                                       edges[i]->getAngleAtNodeNormalized(this),
+                                       edges[(i + 1) % edges.size()]->getAngleAtNodeNormalized(this));
             rawAngleDiffs.push_back(fabs(rawDiff));
 
             if (gDebugFlag1) {
@@ -2850,10 +2850,10 @@ NBNode::buildCrossings() {
                 std::cout << " detected pedScramble " << c->id << " edges=" << toString(edges) << " rawDiffs=" << toString(rawAngleDiffs) << "\n";
                 for (auto e : edges) {
                     std::cout << "  e=" << e->getID()
-                        << " aC=" << e->getAngleAtNodeToCenter(this)
-                        << " a=" << e->getAngleAtNode(this)
-                        << " aN=" << e->getAngleAtNodeNormalized(this)
-                        << "\n";
+                              << " aC=" << e->getAngleAtNodeToCenter(this)
+                              << " a=" << e->getAngleAtNode(this)
+                              << " aN=" << e->getAngleAtNodeNormalized(this)
+                              << "\n";
                 }
             }
         }
@@ -3463,9 +3463,8 @@ NBNode::getCrossing(const EdgeVector& edges, bool hardFail) const {
     }
     if (!hardFail) {
         return nullptr;
-    } else {
-        throw ProcessError("Request for unknown crossing for the given Edges");
     }
+    throw ProcessError("Request for unknown crossing for the given Edges");
 }
 
 
@@ -3503,21 +3502,17 @@ NBNode::numNormalConnections() const {
 int
 NBNode::getConnectionIndex(const NBEdge* from, const NBEdge::Connection& con) const {
     int result = 0;
-    for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-        const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-            const NBEdge::Connection& cand = *k;
-            if (*i == from
-                    && cand.fromLane == con.fromLane
-                    && cand.toLane == con.toLane
-                    && cand.toEdge == con.toEdge) {
+    for (const NBEdge* const e : myIncomingEdges) {
+        for (const NBEdge::Connection& cand : e->getConnections()) {
+            if (e == from && cand.fromLane == con.fromLane && cand.toLane == con.toLane && cand.toEdge == con.toEdge) {
                 return result;
-            };
+            }
             result++;
         }
     }
     return -1;
 }
+
 
 Position
 NBNode::getCenter() const {
@@ -3531,9 +3526,8 @@ NBNode::getCenter() const {
     //std::cout << getID() << " around=" << tmp.around(myPosition) << " dist=" << tmp.distance2D(myPosition) << "\n";
     if (tmp.size() < 3 || tmp.around(myPosition) || tmp.distance2D(myPosition) < POSITION_EPS) {
         return myPosition;
-    } else {
-        return myPoly.getPolygonCenter();
     }
+    return myPoly.getPolygonCenter();
 }
 
 

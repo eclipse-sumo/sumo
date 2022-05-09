@@ -318,6 +318,8 @@ Detector activation states can optionally be written to the [TLS output](Output/
   <param key="show-detectors" value="false"/>
   <param key="file" value="NULL"/>
   <param key="freq" value="300"/>
+  <param key="jam-threshold" value="-1"/>
+  <param key="detector-length" value="0"/>  
 
   <phase duration="31" minDur="5" maxDur="45" state="GGggrrrrGGggrrrr"/>
   ...
@@ -338,6 +340,8 @@ each lanes maximum speed).
 induction loop detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
 - **coordinated** (true/false) Influence there reference point for time-in-cycle when using [coordination](#coordination)
 - **cycleTime** sets the cycle time (in s) when using [coordination](#coordination). Defaults to the sum of all phase 'durations' values.
+- **jam-threshold**: ignore detected vehicles if they have stood on a detector for the given time or more (activated by setting a position value)
+- **detector-length**: set detector length to the given value (to ensure robust request detection with varying gaps and vehicle positions)
 
 Some parameters are only used when a signal plan with [dynamic phase selection](#dynamic_phase_selection_phase_skipping) is active:
 
@@ -376,10 +380,18 @@ To include further detectors in the output and in the [phase tracker dialog](#tr
    <param key="extra-detectors" value="customDetector1 customDetector2 ..."/>
 ```
     
-### Lane-specific max-gap
+### Lane-specific detector settings 
+
 To define a max-gap value that differs from the default you can use a param with `key="max-gap:<LANE_ID>"` where LANE_ID is a lane incoming to the traffic light (the detector might lie further upstream).
 ```
    <param key="max-gap:gneE42_2" value="2"/>
+```
+
+In the same way, a custom jam-threshold or detector-length may be set:
+
+```
+   <param key="jam-threshold:LANE_ID" value="5"/>
+   <param key="detector-length:LANE_ID" value="2.5"/>
 ```
 
 ### Coordination
@@ -448,7 +460,7 @@ The following elements are permitted in an expression for attributes
 'earlyTarget' and 'finalTarget':
 
 - numbers
-- comparators <,>,=,<=,>=
+- comparators >,=,>=
 - mathematical operators +,-,*,/,**,%
 - logical operators 'or', 'and', '!'
 - parentheses (,)
@@ -465,6 +477,9 @@ The following constraints apply to expressions:
 
 - all elements of an expression must be separated by a space character (' ')
   with the exception of the operator '!' (logical negation) which must precede it's operand without a space.
+  
+!!! note
+    The comparators '<' and '<=' are also supported but must be written as xml-entities `&lt;` and `&lt;=` respectively.
 
 ### Named Expressions
 
@@ -657,7 +672,7 @@ To use custom detectors (i.e. for custom placement or output) additional paramet
    <param key="gneE42_2" value="customDetector1"/>
 ```
 !!! caution
-Custom detectors only work when the 'tlLogic' is loaded from an additional file.
+    Custom detectors only work when the 'tlLogic' is loaded from an additional file.
 
 ## Type 'NEMA'
 
@@ -672,7 +687,7 @@ To use custom detectors (i.e. for custom placement or output) additional paramet
    <param key="gneE42_2" value="customDetector1"/>
 ```
 !!! caution
-Custom detectors only work when the 'tlLogic' is loaded from an additional file.
+    Custom detectors only work when the 'tlLogic' is loaded from an additional file.
 
 Detector activation states (for default and custom detectors) can optionally be written to the [TLS output](Output/Traffic_Lights.md#optional_output).
 

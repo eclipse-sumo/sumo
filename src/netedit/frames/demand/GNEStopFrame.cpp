@@ -206,7 +206,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
             } else {
                 myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setChecked(TRUE);
             }
-            // stop sucesfully created, then return true
+            // stop successfully created, then return true
             return true;
         } else {
             return false;
@@ -429,7 +429,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                     stop.awaitedContainers.insert(id);
                 }
                 stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
-            } 
+            }
         }
     }
     if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_PERMITTED)) {
@@ -453,6 +453,10 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_LINE)) {
         stop.line = stopBaseObject->getStringAttribute(SUMO_ATTR_LINE);
         stop.parametersSet |= STOP_LINE_SET;
+    }
+    if (stopBaseObject->hasDoubleAttribute(SUMO_ATTR_SPEED) && (stopBaseObject->getDoubleAttribute(SUMO_ATTR_SPEED) > 0)) {
+        stop.speed = stopBaseObject->getDoubleAttribute(SUMO_ATTR_SPEED);
+        stop.parametersSet |= STOP_SPEED_SET;
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_INDEX)) {
         if (stopBaseObject->getStringAttribute(SUMO_ATTR_INDEX) == "fit") {

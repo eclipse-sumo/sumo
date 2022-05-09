@@ -71,8 +71,7 @@ NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet& net, NLDetectorBuilder
     myDetectorBuilder(db),
     myOffset(0),
     myJunctions(nullptr),
-    myNetIsLoaded(false)
-{
+    myNetIsLoaded(false) {
     myLogicControl = new MSTLLogicControl();
     myJunctions = new MSJunctionControl();
 }

@@ -64,6 +64,7 @@ public:
         DISCONNECTED_PLAN,      // Plan element (person, containers) is not connected with the previous or next plan
         INVALID_STOPPOSITION,   // StopPosition is invalid (only used in stops over edges or lanes
         STOP_DOWNSTREAM,        // Stops don't follow their route parent
+        NO_PLANS                // Person or container doesn't have a plan
     };
 
     /**@brief Constructor
@@ -157,7 +158,7 @@ public:
 
     /// @name members and functions relative to write demand elements into XML
     /// @{
-    /**@brief writte demand element element into a xml file
+    /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
     virtual void writeDemandElement(OutputDevice& device) const = 0;
@@ -217,7 +218,7 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /// @brief return exaggeration asociated with this GLObject
+    /// @brief return exaggeration associated with this GLObject
     virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
@@ -304,7 +305,7 @@ public:
 
     /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
@@ -436,17 +437,17 @@ protected:
         const GNEEdge* edge;
 
         /// @brief stops sorted by end position
-        std::vector<std::pair<double, const GNEDemandElement*> > myStops;
+        std::vector<std::pair<std::pair<double, double >, const GNEDemandElement*> > myStops;
     };
 
     /// @brief get sorted stops
     std::vector<const GNEDemandElement*> getSortedStops(const std::vector<GNEEdge*>& edges) const;
 
     /// @brief set flow parameters (used in toogleAttribute(...) function of vehicles, persons and containers
-    void setFlowParameters(SUMOVehicleParameter *vehicleParameters, const SumoXMLAttr attribute, const bool value);
+    void setFlowParameters(SUMOVehicleParameter* vehicleParameters, const SumoXMLAttr attribute, const bool value);
 
     /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)
-    void adjustDefaultFlowAttributes(SUMOVehicleParameter *vehicleParameters);
+    void adjustDefaultFlowAttributes(SUMOVehicleParameter* vehicleParameters);
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;

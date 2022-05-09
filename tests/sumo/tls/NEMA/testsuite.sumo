@@ -1,0 +1,32 @@
+# test param fixForceOff for different demand levels
+fixForceOff
+
+# fully actuated mode tests
+fully_actuated
+
+# inputs that should be reported as problematic
+errors
+
+# Copy of basic
+basic
+
+# Copy of basic
+custom_detector
+
+# test green rest
+green_rest
+
+# test green transfer
+green_transfer
+
+# cross phase switching
+cross_phase_switching
+
+# TS2 Type Cabinet
+TS2
+
+# latching_detectors
+latching_detectors
+
+# test for #10517 (should not generate duplicate detector ids)
+multiple_edges_per_phase

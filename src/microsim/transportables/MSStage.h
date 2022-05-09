@@ -470,10 +470,10 @@ private:
 class MSStageMoving : public MSStage {
 public:
     /// constructor
-    MSStageMoving(const std::vector<const MSEdge*>& route, MSStoppingPlace* toStop, const double speed,
+    MSStageMoving(const std::vector<const MSEdge*>& route, const std::string& routeID, MSStoppingPlace* toStop, const double speed,
                   const double departPos, const double arrivalPos, const double departPosLat, const int departLane, MSStageType type) :
         MSStage(route.back(), toStop, arrivalPos, type),
-        myState(nullptr), myRoute(route), myRouteStep(myRoute.begin()),
+        myState(nullptr), myRoute(route), myRouteID(routeID), myRouteStep(myRoute.begin()),
         mySpeed(speed), myDepartPos(departPos),
         myDepartPosLat(departPosLat), myDepartLane(departLane) {}
 
@@ -553,6 +553,9 @@ protected:
 
     /// @brief The route of the container
     std::vector<const MSEdge*> myRoute;
+
+    /// @brief The original route id
+    std::string myRouteID;
 
     /// @brief current step
     std::vector<const MSEdge*>::iterator myRouteStep;

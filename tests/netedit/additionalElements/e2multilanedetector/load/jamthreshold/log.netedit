@@ -1,3 +1,0 @@
-Error: Attribute 'jamThreshold' in definition of e2Detector 'e2MultilaneDetector_1' Invalid Number Format (double) dummyjamThreshold.
-Error: Could not build e2Detector with ID 'e2MultilaneDetector_2' in netedit; attribute jamThreshold cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\additionalElements\e2multilanedetector\load\jamthreshold\input_additionals.add.xml failed.

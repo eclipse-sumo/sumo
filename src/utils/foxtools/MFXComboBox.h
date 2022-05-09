@@ -32,8 +32,8 @@ class MFXComboBox : public FXComboBox {
 
 public:
     /// @brief constructor (Very similar to the FXButton constructor)
-    MFXComboBox(FXComposite *p,FXint cols,FXObject *tgt=NULL,FXSelector sel=0,FXuint opts=REALSPIN_NORMAL,
-            FXint x=0,FXint y=0,FXint w=0,FXint h=0,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD);
+    MFXComboBox(FXComposite* p, FXint cols, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = REALSPIN_NORMAL,
+                FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// @brief destructor (Called automatically)
     ~MFXComboBox();

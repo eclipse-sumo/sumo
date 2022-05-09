@@ -404,7 +404,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
             if (ACs.size() > 1) {
                 myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
             }
-            // update frame parent after attribute sucesfully set
+            // update frame parent after attribute successfully set
             myAttributesEditorParent->getFrameParent()->attributeUpdated();
         }
         return 1;
@@ -516,7 +516,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
                 myValueTextField->killFocus();
             }
-            // update frame parent after attribute sucesfully set
+            // update frame parent after attribute successfully set
             myAttributesEditorParent->getFrameParent()->attributeUpdated();
         }
     } else {
@@ -674,7 +674,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 std::string value = oss.str();
                 // declare a flag for enabled attributes
                 bool attributeEnabled = ACs.front()->isAttributeEnabled(attrProperty.getAttr());
-                // overwritte value if attribute is disabled (used by LinkIndex)
+                // overwrite value if attribute is disabled (used by LinkIndex)
                 if (attributeEnabled == false) {
                     value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
@@ -763,7 +763,7 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                 std::string value = oss.str();
                 // declare a flag for enabled attributes
                 bool attributeEnabled = ACs.front()->isAttributeEnabled(attrProperty.getAttr());
-                // overwritte value if attribute is disabled (used by LinkIndex)
+                // overwrite value if attribute is disabled (used by LinkIndex)
                 if (attributeEnabled == false) {
                     value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
@@ -941,7 +941,7 @@ GNEFrameAttributeModules::GenericDataAttributes::getFrameParent() const {
 }
 
 
-bool 
+bool
 GNEFrameAttributeModules::GenericDataAttributes::areAttributesValid() const {
     if (myTextFieldParameters->getText().empty()) {
         return true;
@@ -988,7 +988,7 @@ GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters(FXObject*, F
             // save it in myParameters
             myParameters[keyParam.front()] = keyParam.back();
         }
-        // overwritte myTextFieldParameters (to remove duplicated parameters
+        // overwrite myTextFieldParameters (to remove duplicated parameters
         myTextFieldParameters->setText(getParametersStr().c_str(), FALSE);
     } else {
         myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
@@ -999,8 +999,8 @@ GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters(FXObject*, F
 
 bool
 GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC) {
-    if (viewNet->getEditModes().isCurrentSupermodeNetwork() && 
-        (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
+    if (viewNet->getEditModes().isCurrentSupermodeNetwork() &&
+            (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
         return true;
     } else if (viewNet->getEditModes().isCurrentSupermodeDemand() &&
                AC->getTagProperty().isDemandElement()) {

@@ -21,7 +21,6 @@
 
 #define LIBTRACI 1
 #include <libsumo/TraCIConstants.h>
-#include <libsumo/Helper.h>
 #include <libsumo/RouteProbe.h>
 #include "Domain.h"
 

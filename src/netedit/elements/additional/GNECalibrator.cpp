@@ -33,11 +33,10 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(SumoXMLTag tag, GNENet* net) :
-    GNEAdditional("", net, GLO_CALIBRATOR, tag, "",
-        {}, {}, {}, {}, {}, {}),
-    myPositionOverLane(0),
-    myFrequency(0),
-    myJamThreshold(0) {
+    GNEAdditional("", net, GLO_CALIBRATOR, tag, "", {}, {}, {}, {}, {}, {}),
+              myPositionOverLane(0),
+              myFrequency(0),
+myJamThreshold(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -46,13 +45,13 @@ GNECalibrator::GNECalibrator(SumoXMLTag tag, GNENet* net) :
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name,
-        {}, {edge}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes) {
+{}, {edge}, {}, {}, {}, {}),
+Parameterised(parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -62,13 +61,13 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, 
                              const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
                              const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name,
-        {}, {edge}, {}, {routeProbe}, {}, {}),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes) {
+{}, {edge}, {}, {routeProbe}, {}, {}),
+Parameterised(parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -77,13 +76,13 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, name,
-        {}, {}, {lane}, {}, {}, {}),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes) {
+{}, {}, {lane}, {}, {}, {}),
+Parameterised(parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -93,13 +92,13 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, 
                              const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
                              const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, name,
-        {}, {}, {lane}, {routeProbe}, {}, {}),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes) {
+{}, {}, {lane}, {routeProbe}, {}, {}),
+Parameterised(parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -243,7 +242,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalID(s);
             // iterate over additionals and check if drawn
             for (const auto& calibratorFlow : getChildAdditionals()) {
-                // if calibrator is bein inspected or selected, then draw
+                // if calibrator is being inspected or selected, then draw
                 if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
                         isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
                         calibratorFlow->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(calibratorFlow) ||
@@ -308,7 +307,7 @@ GNECalibrator::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const Parameterised::Map& 
+const Parameterised::Map&
 GNECalibrator::getACParametersMap() const {
     return getParametersMap();
 }
@@ -424,7 +423,7 @@ GNECalibrator::getHierarchyName() const {
 // private
 // ===========================================================================
 
-void 
+void
 GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const {
     // begin push name
     GLHelper::pushName(getGlID());

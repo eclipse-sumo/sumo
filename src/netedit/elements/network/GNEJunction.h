@@ -98,7 +98,7 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /// @brief return exaggeration asociated with this GLObject
+    /// @brief return exaggeration associated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /// @brief update centering boundary (implies change in RTREE)
@@ -167,7 +167,7 @@ public:
 
     /* @brief method for checking if the key and their correspond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
@@ -234,6 +234,9 @@ public:
 
     /// @brief mark connections as deprecated
     void markConnectionsDeprecated(bool includingNeighbours);
+
+    /// @brief set junction Type (using undo/redo)
+    void setJunctionType(const std::string &value, GNEUndoList* undoList);
 
 protected:
     /// @brief A reference to the represented junction

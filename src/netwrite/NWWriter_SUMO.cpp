@@ -159,10 +159,10 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     int numConnections = 0;
     for (std::map<std::string, NBEdge*>::const_iterator it_edge = ec.begin(); it_edge != ec.end(); it_edge++) {
         NBEdge* from = it_edge->second;
-        const std::vector<NBEdge::Connection> connections = from->getConnections();
+        const std::vector<NBEdge::Connection>& connections = from->getConnections();
         numConnections += (int)connections.size();
-        for (std::vector<NBEdge::Connection>::const_iterator it_c = connections.begin(); it_c != connections.end(); it_c++) {
-            writeConnection(device, *from, *it_c, includeInternal);
+        for (const NBEdge::Connection& con : connections) {
+            writeConnection(device, *from, con, includeInternal);
         }
     }
     if (numConnections > 0) {
@@ -640,7 +640,7 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
         into.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n.getFringeType()));
     }
     if (n.getName() != "") {
-        into.writeAttr<std::string>(SUMO_ATTR_NAME, n.getName());
+        into.writeAttr<std::string>(SUMO_ATTR_NAME, StringUtils::escapeXML(n.getName()));
     }
     if (n.getType() != SumoXMLNodeType::DEAD_END) {
         // write right-of-way logics
@@ -1020,7 +1020,7 @@ NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* 
             }
         }
         if (phase.name != "") {
-            into.writeAttr(SUMO_ATTR_NAME, phase.name);
+            into.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(phase.name));
         }
         if (phase.next.size() > 0) {
             into.writeAttr(SUMO_ATTR_NEXT, phase.next);

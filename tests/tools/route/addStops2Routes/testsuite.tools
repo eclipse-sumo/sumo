@@ -1,5 +1,6 @@
 # tests for adding stops at the end of a route
 basic
+default_type_file
 
 # set stop position
 relpos

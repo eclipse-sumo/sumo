@@ -1,3 +1,0 @@
-Error: Unknown car following model 'dummyTau' when parsing vType 'vType0'
-Error: Attribute 'carFollowModel' in definition of vType 'vType1' is empty.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\carfollowingmodel\input_routes.rou.xml failed.

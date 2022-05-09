@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-09 07:16:08 by Eclipse SUMO sumo Version v1_10_0+2049-8579d4d
+<!-- generated on 2022-04-22 12:20:13 by Eclipse SUMO sumo Version v1_12_0+2241-8b511a2
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -24,7 +24,7 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="40649"/>
+        <remote-port value="57660"/>
     </traci_server>
 
 </configuration>
@@ -51,6 +51,7 @@
         </routeDistribution>
         <stop lane="B1C1_0" permitted="b" actType="pickup b (1)"/>
         <stop lane="C1D1_0" permitted="c" actType="pickup c (2),dropOff b (1)"/>
+        <stop lane="D2D3_0" actType="dropOff c (2)"/>
     </vehicle>
 
 </routes>

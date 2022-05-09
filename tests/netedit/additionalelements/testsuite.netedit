@@ -1,0 +1,68 @@
+# basic additional test
+basic
+
+# bus stops
+busstop
+
+# train stops
+trainstop
+
+# access
+access
+
+# charging station
+chargingstation
+
+# container stops
+containerstop
+
+# e1 detector
+e1detector
+
+# e2 detector
+e2detector
+
+# e2 multilane 
+e2multilanedetector
+
+# e3 detector
+e3detector
+
+# det entry
+detentry
+
+# det exit
+detexit
+
+# e1 instant detector
+e1instantdetector
+
+# calibrator
+calibrator
+
+# calibratorlane
+calibratorlane
+
+# calibratorflow
+calibratorflow
+
+# parking areas
+parkingarea
+
+# parking space
+parkingspace
+
+# routeprobe
+routeprobe
+
+# vaporizer
+vaporizer
+
+# rerouter
+rerouter
+
+# rerouter elements
+rerouterelements
+
+# variable speed sign
+variablespeedsign

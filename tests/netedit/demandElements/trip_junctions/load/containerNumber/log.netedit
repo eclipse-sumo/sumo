@@ -1,4 +1,0 @@
-Error: Attribute 'containerNumber' in definition of trip 'trip_0' Invalid Number Format (long long integer format) dummycontainerNumber.
-Error: Attribute 'containerNumber' in definition of trip 'trip_1' is empty.
-Error: Attribute 'containerNumber' in definition of trip 'trip_4' Invalid Number Format (long long integer format) 2.5.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb162728.6444\netedit.gui\demandElements\trip_junctions\load\containerNumber\input_routes.rou.xml failed.

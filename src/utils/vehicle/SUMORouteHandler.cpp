@@ -119,14 +119,14 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             // parse vehicle parameters
             // might be called to parse vehicles from additional file in the
             // context of quickReload. In this case, rerouter flows must be ignored
-            if (myElementStack.size() == 1 || myElementStack[myElementStack.size() - 2] != SUMO_TAG_CALIBRATOR) {;
+            if (myElementStack.size() == 1 || myElementStack[myElementStack.size() - 2] != SUMO_TAG_CALIBRATOR) {
                 myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, true, myBeginDefault, myEndDefault);
             }
-            // check if myVehicleParameter was sucesfully created
+            // check if myVehicleParameter was successfully created
             if (myVehicleParameter) {
                 // check tag
                 if (myVehicleParameter->routeid.empty()) {
-                    // open a route flow (It could be a flow with embebbed route)
+                    // open a route flow (It could be a flow with embedded route)
                     openFlow(attrs);
                 } else {
                     // open a route flow
@@ -178,7 +178,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             }
             // parse vehicle parameters
             myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, myHardFail);
-            // check if myVehicleParameter was sucesfully created
+            // check if myVehicleParameter was successfully created
             if (myVehicleParameter) {
                 myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
                 myActiveRouteID = "!" + myVehicleParameter->id;
@@ -480,7 +480,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     // legacy
     if (attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, nullptr, ok, false)) {
         triggers.push_back(toString(SUMO_TAG_CONTAINER));
-    };
+    }
     SUMOVehicleParameter::parseStopTriggers(triggers, expectTrigger, stop);
     stop.arrival = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ARRIVAL, nullptr, ok, -1);
     stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);

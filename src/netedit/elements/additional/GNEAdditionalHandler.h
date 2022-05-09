@@ -325,12 +325,12 @@ public:
      * @param[in] id The id of the rerouter
      * @param[in] pos position of the rerouter in the map
      * @param[in] edgeIDs The edges the rerouter is placed at
-     * @param[in] prob The probability the rerouter reoutes vehicles with
+     * @param[in] prob The probability the rerouter reroutes vehicles with
      * @param[in] name Calibrator name
      * @param[in] parameters generic parameters
      */
     void buildRerouter(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
-                       const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const bool off, 
+                       const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const bool off,
                        const SUMOTime timeThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
 
     /**@brief builds a rerouter interval
@@ -475,7 +475,7 @@ public:
      * @param[in] currentLimit Current limit of the feeder line
      * @param[in] parameters generic parameters
      */
-    void buildTractionSubstation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
+    void buildTractionSubstation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
                                  const double voltage, const double currentLimit, const Parameterised::Map& parameters);
 
     /** @brief build overhead wire
@@ -489,10 +489,10 @@ public:
      * @param[in] forbiddenInnerLanes Inner lanes, where placing of overhead wire is restricted
      * @param[in] parameters generic parameters
      */
-    void buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& substationId, 
-                           const std::vector<std::string>& laneIDs, const double startPos, const double endPos, const bool friendlyPos, 
+    void buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& substationId,
+                           const std::vector<std::string>& laneIDs, const double startPos, const double endPos, const bool friendlyPos,
                            const std::vector<std::string>& forbiddenInnerLanes, const Parameterised::Map& parameters);
-   
+
     /** @brief build overhead wire clamp
      * @param[in] id Overhead wire clamp ID
      * @param[in] overheadWireIDStartClamp ID of the overhead wire segment, to the start of which the overhead wire clamp is connected
@@ -501,7 +501,7 @@ public:
      * @param[in] laneIDEndClamp ID of the overhead wire segment lane of overheadWireIDEndClamp
      * @param[in] parameters generic parameters
      */
-    void buildOverheadWireClamp(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& overheadWireIDStartClamp, 
+    void buildOverheadWireClamp(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& overheadWireIDStartClamp,
                                 const std::string& laneIDStartClamp, const std::string& overheadWireIDEndClamp, const std::string& laneIDEndClamp,
                                 const Parameterised::Map& parameters);
 
@@ -575,8 +575,8 @@ public:
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
      * @param[in] color The color of the POI
-     * @param[in] lon POI's longitud
-     * @param[in] lat POI's latitud
+     * @param[in] lon POI's longitude
+     * @param[in] lat POI's latitude
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
@@ -610,14 +610,14 @@ public:
      * @param[in] pos pos position of element over lane
      * @param[in] laneLength Length of the lane
      */
-    static void fixLanePosition(double& pos, double &length, const double laneLength);
+    static void fixLanePosition(double& pos, double& length, const double laneLength);
 
     /**@brief check if the given positions over a lane is valid
      * @param[in] from begin position of element over lane
      * @param[in] to end position of element over lane
      * @param[in] laneLength Length of the lane
      * @param[in] friendlyPos Attribute of element
-     * @return true if the element positions is valid, false in otherweise
+     * @return true if the element positions is valid, false in otherwise
      */
     static bool checkLaneDoublePosition(double from, const double to, const double laneLength, const bool friendlyPos);
 
@@ -634,7 +634,7 @@ public:
      * @param[in] toPos position of element over second lane
      * @param[in] toLaneLength length of the second lane
      * @param[in] friendlyPos flag for friendlyPos
-     * @return true if the element positions is valid, false in otherweise
+     * @return true if the element positions is valid, false in otherwise
      */
     static bool checkMultiLanePosition(double fromPos, const double fromLaneLength, const double toPos, const double tolaneLength, const bool friendlyPos);
 

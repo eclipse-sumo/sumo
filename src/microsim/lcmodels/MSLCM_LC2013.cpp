@@ -459,7 +459,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
     double plannedSpeed = myVehicle.getSpeed();
     if (!isOpposite()) {
         plannedSpeed = MIN2(plannedSpeed,
-                myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), myLeftSpace - myLeadingBlockerLength));
+                            myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), myLeftSpace - myLeadingBlockerLength));
     }
     for (std::vector<double>::const_iterator i = myLCAccelerationAdvices.begin(); i != myLCAccelerationAdvices.end(); ++i) {
         const double a = *i;
@@ -1077,6 +1077,19 @@ MSLCM_LC2013::changed() {
         myLeadingBlockerLength = 0;
         myLeftSpace = 0;
     }
+    myLookAheadSpeed = LOOK_AHEAD_MIN_SPEED;
+    myLCAccelerationAdvices.clear();
+    myDontBrake = false;
+}
+
+
+void
+MSLCM_LC2013::resetState() {
+    myOwnState = 0;
+    mySpeedGainProbability = 0;
+    myKeepRightProbability = 0;
+    myLeadingBlockerLength = 0;
+    myLeftSpace = 0;
     myLookAheadSpeed = LOOK_AHEAD_MIN_SPEED;
     myLCAccelerationAdvices.clear();
     myDontBrake = false;

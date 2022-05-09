@@ -241,7 +241,9 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     if (MSGlobals::gLateralResolution > 0) {
         ret->mkItem("minGapLat", false, myType->getMinGapLat());
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
-        ret->mkItem("latAlignment", false, toString(myType->getPreferredLateralAlignment()));
+        ret->mkItem("latAlignment", false, myType->getPreferredLateralAlignment() == LatAlignmentDefinition::GIVEN
+                    ? toString(myType->getPreferredLateralAlignmentOffset())
+                    : toString(myType->getPreferredLateralAlignment()));
     } else if (MSGlobals::gLaneChangeDuration > 0) {
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
     }
@@ -302,7 +304,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     double upscaleLength = exaggeration;
     if (exaggeration > 1 && totalLength > 5) {
         // reduce the length/width ratio because this is not usefull at high zoom
-        const double widthLengthFactor = totalLength / getVType().getWidth();
+        const double widthLengthFactor = totalLength / 5;
         const double shrinkFactor = MIN2(widthLengthFactor, sqrt(upscaleLength));
         upscaleLength /= shrinkFactor;
     }
@@ -863,7 +865,7 @@ GUIVehicle::selectBlockingFoes() const {
             // the vehicle to enter the junction first has priority
             const GUIVehicle* leader = dynamic_cast<const GUIVehicle*>(it->vehAndGap.first);
             if (leader != nullptr) {
-                if (isLeader(dpi.myLink, leader)) {
+                if (isLeader(dpi.myLink, leader, it->vehAndGap.second)) {
                     gSelected.select(leader->getGlID());
 #ifdef DEBUG_FOES
                     std::cout << "      linkLeader=" << leader->getID() << "\n";

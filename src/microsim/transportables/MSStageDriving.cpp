@@ -318,7 +318,7 @@ MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const tr
 
 void
 MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const {
-    os.openTag(isPerson ? SUMO_TAG_RIDE: SUMO_TAG_TRANSPORT);
+    os.openTag(isPerson ? SUMO_TAG_RIDE : SUMO_TAG_TRANSPORT);
     if (getFromEdge() != nullptr) {
         os.writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID());
     } else if (previous != nullptr && previous->getStageType() == MSStageType::WAITING_FOR_DEPART) {
@@ -530,8 +530,8 @@ MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& st
         // there should always be at least one prior WAITING_FOR_DEPART stage
         MSStage* previous = transportable->getNextStage(-1);
         myOriginStop = (previous->getStageType() == MSStageType::TRIP
-                    ? previous->getOriginStop()
-                    : previous->getDestinationStop());
+                        ? previous->getOriginStop()
+                        : previous->getDestinationStop());
         if (myOriginStop != nullptr) {
             // the arrival stop may have an access point
             myOriginStop->addTransportable(transportable);

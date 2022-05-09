@@ -85,14 +85,14 @@ public:
     /**@brief add vehicle element
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @param mouseButtonKeyPressed key pressed during click
-     * @return true if element was sucesfully added
+     * @return true if element was successfully added
      */
     bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get vehicle tag selector (needed for transform vehicles)
     GNETagSelector* getVehicleTagSelector() const;
 
-    /// @brief get GNEPathCreator modul
+    /// @brief get GNEPathCreator module
     GNEPathCreator* getPathCreator() const;
 
 protected:

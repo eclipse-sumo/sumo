@@ -1,0 +1,8 @@
+Warning: Vehicle '1to2.0' performs emergency braking on lane ':0_13_0' with decel=9.00, wished=4.50, severity=1.00, time=51.00.
+Warning: Teleporting vehicle '1to2.7'; collision with vehicle '3to2.5', lane='2o_0', gap=-5.10, time=86.00 stage=move.
+Warning: Vehicle '1to2.7' teleports beyond arrival edge '2o', time=86.00.
+Warning: Vehicle '1to2.11' performs emergency braking on lane ':0_13_0' with decel=9.00, wished=4.50, severity=1.00, time=107.00.
+Warning: Teleporting vehicle '1to2.14'; collision with vehicle '3to2.10', lane='2o_0', gap=-4.69, time=120.00 stage=move.
+Warning: Vehicle '1to2.14' teleports beyond arrival edge '2o', time=120.00.
+Warning: Teleporting vehicle '1to2.18'; collision with vehicle '3to2.13', lane='2o_0', gap=-6.14, time=142.00 stage=move.
+Warning: Vehicle '1to2.18' teleports beyond arrival edge '2o', time=142.00.

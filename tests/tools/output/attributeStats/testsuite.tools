@@ -1,6 +1,9 @@
 # analyze tripinfo timeloss
 default
 
+# analyze tripinfo timeloss from two output files
+2_files
+
 # analyze tripinfo timeloss
 histogram_output
 

@@ -24,6 +24,7 @@
 #include <libsumo/Subscription.h>
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/trigger/MSCalibrator.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
 
@@ -217,6 +218,8 @@ public:
     static const std::vector<std::string>& getTransportableStateChanges(const MSNet::TransportableState state);
 
     static void clearStateChanges();
+
+    static MSCalibrator::AspiredState getCalibratorState(const MSCalibrator* c);
 
     /// @name functions for moveToXY
     /// @{

@@ -63,8 +63,7 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     myCurrentRouteDistribution(nullptr),
     myAmLoadingState(false),
     myScaleSuffix(OptionsCont::getOptions().getString("scale-suffix")),
-    myReplayRerouting(OptionsCont::getOptions().getBool("replay-rerouting"))
-{
+    myReplayRerouting(OptionsCont::getOptions().getBool("replay-rerouting")) {
     myActiveRoute.reserve(100);
 }
 
@@ -1167,7 +1166,11 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         if (toStop != nullptr) {
             const MSLane& l = toStop->getLane();
             stop.lane = l.getID();
-            stop.endPos = toStop->getEndLanePosition();
+            if ((stop.parametersSet & STOP_END_SET) == 0) {
+                stop.endPos = toStop->getEndLanePosition();
+            } else {
+                stop.endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, nullptr, ok);
+            }
             stop.startPos = toStop->getBeginLanePosition();
             edge = &l.getEdge();
         } else {
@@ -1431,6 +1434,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 
 void
 MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
+    myActiveRouteID = "";
     if (attrs.hasAttribute(SUMO_ATTR_EDGES) || attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
         try {
             myActiveRoute.clear();
@@ -1450,10 +1454,10 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             double arrivalPos = 0;
             MSStoppingPlace* bs = nullptr;
             if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
-                const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ROUTE, myVehicleParameter->id.c_str(), ok);
-                const MSRoute* route = MSRoute::dictionary(routeID, &myParsingRNG);
+                myActiveRouteID = attrs.get<std::string>(SUMO_ATTR_ROUTE, myVehicleParameter->id.c_str(), ok);
+                const MSRoute* route = MSRoute::dictionary(myActiveRouteID, &myParsingRNG);
                 if (route == nullptr) {
-                    throw ProcessError("The route '" + routeID + "' for walk of person '" + myVehicleParameter->id + "' is not known.");
+                    throw ProcessError("The route '" + myActiveRouteID + "' for walk of person '" + myVehicleParameter->id + "' is not known.");
                 }
                 myActiveRoute = route->getEdges();
             } else {
@@ -1479,7 +1483,7 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             }
             const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, nullptr, ok, 0);
             const int departLane =  attrs.getOpt<int>(SUMO_ATTR_DEPARTLANE, nullptr, ok, -1);
-            myActiveTransportablePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat, departLane));
+            myActiveTransportablePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat, departLane, myActiveRouteID));
             if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
                 myActiveTransportablePlan->back()->markSet(VEHPARS_ARRIVALPOS_SET);
             }

@@ -217,7 +217,7 @@ public:
         return ret;
     }
 
-    void needsCharacterData(const bool value=true) {
+    void needsCharacterData(const bool value = true) {
         myCollectCharacterData = value;
     }
 

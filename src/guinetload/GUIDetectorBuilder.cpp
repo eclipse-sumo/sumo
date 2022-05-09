@@ -49,11 +49,11 @@ GUIDetectorBuilder::~GUIDetectorBuilder() {}
 
 MSDetectorFileOutput*
 GUIDetectorBuilder::createInductLoop(const std::string& id,
-                                     MSLane* lane, double pos, const std::string& vTypes, int detectPersons, bool show) {
+                                     MSLane* lane, double pos, double length, const std::string& vTypes, int detectPersons, bool show) {
     if (MSGlobals::gUseMesoSim) {
         return new GUIMEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, vTypes, detectPersons, show);
     } else {
-        return new GUIInductLoop(id, lane, pos, vTypes, detectPersons, show);
+        return new GUIInductLoop(id, lane, pos, length, vTypes, detectPersons, show);
     }
 }
 

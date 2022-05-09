@@ -142,7 +142,7 @@ GUIGlChildWindow::buildColoringToolBar() {
     new FXVerticalSeparator(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, GUIDesignVerticalSeparator);
     // build coloring tools
     myColoringSchemes = new MFXComboBox(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-                                       GUIDesignComboBoxNCol, this, MID_COLOURSCHEMECHANGE, GUIDesignComboBoxStatic);
+                                        GUIDesignComboBoxNCol, this, MID_COLOURSCHEMECHANGE, GUIDesignComboBoxStatic);
     // editor
     new FXButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
                  "\tEdit Coloring Schemes\tOpens a menu which lets you edit the coloring schemes. (F9)",
@@ -210,7 +210,7 @@ GUIGlChildWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 long
 GUIGlChildWindow::onCmdShowToolTips(FXObject* sender, FXSelector, void*) {
     MFXCheckableButton* button = dynamic_cast<MFXCheckableButton*>(sender);
-    // check if button was sucesfully casted
+    // check if button was successfully casted
     if (button) {
         button->setChecked(!button->amChecked());
         myView->showToolTips(button->amChecked());

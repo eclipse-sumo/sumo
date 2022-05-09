@@ -176,6 +176,9 @@ public:
     /// @brief return total number of vehicles on this edges lanes or segments
     int getVehicleNumber() const;
 
+    /// @brief whether this edge has no vehicles
+    bool isEmpty() const;
+
     /// @brief return vehicles on this edges lanes or segments
     std::vector<const SUMOVehicle*> getVehicles() const;
 
@@ -468,6 +471,10 @@ public:
         }
     }
 
+    double getTimePenalty() const {
+        return myTimePenalty;
+    }
+
 
     /** @brief Returns the travel time for the given edge
      *
@@ -620,7 +627,7 @@ public:
         return mySublaneSides;
     }
 
-    void rebuildAllowedLanes(const bool onInit=false);
+    void rebuildAllowedLanes(const bool onInit = false);
 
     void rebuildAllowedTargets(const bool updateVehicles = true);
 

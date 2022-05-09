@@ -44,7 +44,7 @@ public:
      * @param[in] ac The attribute-carrier to be modified
      * @param[in] key The attribute key
      * @param[in] value The new value
-     * @param[in] customOrigValue custon original value
+     * @param[in] customOrigValue custom original value
      */
     GNEChange_Attribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value,
                         const std::string& customOrigValue);

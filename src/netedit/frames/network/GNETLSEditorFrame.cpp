@@ -47,6 +47,8 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CREATE,          GNETLSEditorFrame::onUpdDefCreate),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DELETE,          GNETLSEditorFrame::onCmdDefDelete),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DELETE,          GNETLSEditorFrame::onUpdDefSwitch),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_REGENERATE,      GNETLSEditorFrame::onCmdDefRegenerate),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_REGENERATE,      GNETLSEditorFrame::onUpdDefSwitch),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::onCmdDefSwitch),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::onUpdDefSwitch),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onCmdSetOffset),
@@ -337,6 +339,24 @@ GNETLSEditorFrame::onCmdDefDelete(FXObject*, FXSelector, void*) {
     } else {
         myViewNet->getUndoList()->add(new GNEChange_TLS(junction, tlDef, false), true);
     }
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::onCmdDefRegenerate(FXObject*, FXSelector, void*) {
+    // make a copy of the junction
+    GNEJunction* junction = myTLSJunction->getCurrentJunction();
+    // begin undo
+    myViewNet->getUndoList()->begin(GUIIcon::MODETLS, "regenerate TLS");
+    // delete junction
+    onCmdDefDelete(nullptr, 0, nullptr);
+    // set junction again
+    myTLSJunction->setCurrentJunction(junction);
+    // create junction
+    onCmdDefCreate(nullptr, 0, nullptr);
+    // end undo
+    myViewNet->getUndoList()->end();
     return 1;
 }
 
@@ -820,7 +840,7 @@ GNETLSEditorFrame::buildInternalLanes(NBTrafficLightDefinition* tlDef) {
             int tlIndex = link.getTLIndex();
             PositionVector shape;
             try {
-                const NBEdge::Connection& con = link.getFrom()->getConnectionRef(link.getFromLane(), link.getTo(), link.getToLane());
+                const NBEdge::Connection& con = link.getFrom()->getConnection(link.getFromLane(), link.getTo(), link.getToLane());
                 shape = con.shape;
                 shape.append(con.viaShape);
             } catch (ProcessError&) {
@@ -1200,13 +1220,19 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
 
 GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorParent) :
     FXGroupBoxModule(TLSEditorParent->myContentFrame, "Traffic Light Programs") {
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    // create auxiliar frames
+    FXHorizontalFrame* horizontalFrameAux = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
+    FXVerticalFrame * verticalFrameAuxA = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame * verticalFrameAuxB = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
-    myNewTLProgram = new FXButton(buttonsFrame, "Create\t\tCreate a new traffic light program",
+    myNewTLProgram = new FXButton(verticalFrameAuxA, "Create\t\tCreate a new traffic light program",
                                   GUIIconSubSys::getIcon(GUIIcon::MODETLS), TLSEditorParent, MID_GNE_TLSFRAME_CREATE, GUIDesignButton);
     // create delete tlDef button
-    myDeleteTLProgram = new FXButton(buttonsFrame, "Delete\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.",
+    myDeleteTLProgram = new FXButton(verticalFrameAuxB, "Delete\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.",
                                      GUIIconSubSys::getIcon(GUIIcon::REMOVE), TLSEditorParent, MID_GNE_TLSFRAME_DELETE, GUIDesignButton);
+    // create regenerate tlDef button
+    myRegenerateTLProgram = new FXButton(verticalFrameAuxA, "Regenerate\t\tRegenerate TLS Program.",
+                                         GUIIconSubSys::getIcon(GUIIcon::RELOAD), TLSEditorParent, MID_GNE_TLSFRAME_REGENERATE, GUIDesignButton);
     // show TLS TLSDefinition
     show();
 }
@@ -1241,9 +1267,9 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     // below attempt did not make the buttons fill available horizontal space
     // FXMatrix* phaseButtons = new FXMatrix(getCollapsableFrame(), 2, LAYOUT_FILL_X | MATRIX_BY_COLUMNS);
 
-    FXHorizontalFrame* phaseButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    FXVerticalFrame* col1 = new FXVerticalFrame(phaseButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // left button columm
-    FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // right button column
+    FXHorizontalFrame* phaseButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
+    FXVerticalFrame* col1 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // left button columm
+    FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // right button column
 
     // create new phase button
     myInsertDuplicateButton = new FXButton(col1, "Insert Phase\t\tInsert new phase after the selected phase. The new state is deduced from the selected phase.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_CREATE, GUIDesignButton);

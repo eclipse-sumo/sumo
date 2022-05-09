@@ -239,11 +239,11 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
 #ifdef DEBUG_SEPARATE_TURNS
             if (DEBUG_COND(e->getLanes()[0])) {
                 std::cout << SIMTIME << " edge=" << e->getID()
-                    << " meanSpeed=" << e->getMeanSpeed()
-                    << " currSpeed=" << currSpeed
-                    << " oldestSpeed=" << myPastEdgeSpeeds[id][myAdaptationStepsIndex]
-                    << " oldAvg=" << myEdgeSpeeds[id]
-                    << "\n";
+                          << " meanSpeed=" << e->getMeanSpeed()
+                          << " currSpeed=" << currSpeed
+                          << " oldestSpeed=" << myPastEdgeSpeeds[id][myAdaptationStepsIndex]
+                          << " oldAvg=" << myEdgeSpeeds[id]
+                          << "\n";
             }
 #endif
             if (myAdaptationSteps > 0) {
@@ -300,6 +300,9 @@ MSRoutingEngine::patchSpeedForTurns(const MSEdge* edge, double currSpeed) {
     const double length = edge->getLength();
     double maxSpeed = 0;
     for (const auto& pair : edge->getViaSuccessors()) {
+        if (pair.second == nullptr) {
+            continue;
+        }
         TimeAndCount& tc = myEdgeTravelTimes[pair.second->getNumericalID()];
         if (tc.second > 0) {
             const double avgSpeed = length / STEPS2TIME(tc.first / tc.second);
@@ -310,6 +313,9 @@ MSRoutingEngine::patchSpeedForTurns(const MSEdge* edge, double currSpeed) {
         // perform correction
         const double correctedSpeed = MSGlobals::gWeightsSeparateTurns * maxSpeed + (1 - MSGlobals::gWeightsSeparateTurns) * currSpeed;
         for (const auto& pair : edge->getViaSuccessors()) {
+            if (pair.second == nullptr) {
+                continue;
+            }
             const int iid = pair.second->getNumericalID();
             TimeAndCount& tc = myEdgeTravelTimes[iid];
             if (tc.second > 0) {

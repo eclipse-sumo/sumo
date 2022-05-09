@@ -47,11 +47,11 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObje
                                    GNELane* lane, const double startPos, const double endPos, const std::string& name,
                                    bool friendlyPosition, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, type, tag, name,
-        {}, {}, {lane}, {}, {}, {}),
-    Parameterised(parameters),
-    myStartPosition(startPos),
-    myEndPosition(endPos),
-    myFriendlyPosition(friendlyPosition) {
+{}, {}, {lane}, {}, {}, {}),
+Parameterised(parameters),
+myStartPosition(startPos),
+myEndPosition(endPos),
+myFriendlyPosition(friendlyPosition) {
 }
 
 
@@ -268,7 +268,7 @@ GNEStoppingPlace::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const Parameterised::Map& 
+const Parameterised::Map&
 GNEStoppingPlace::getACParametersMap() const {
     return getParametersMap();
 }

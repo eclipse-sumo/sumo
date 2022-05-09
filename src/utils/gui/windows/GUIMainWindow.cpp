@@ -86,6 +86,7 @@ GUIMainWindow::~GUIMainWindow() {
     delete myBottomDock;
     delete myLeftDock;
     delete myRightDock;
+    //myInstance = nullptr;
 }
 
 

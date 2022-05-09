@@ -455,6 +455,19 @@ MSTransportable::getDevice(const std::type_info& type) const {
     return nullptr;
 }
 
+
+void
+MSTransportable::setJunctionModelParameter(const std::string& key, const std::string& value) {
+    if (key == toString(SUMO_ATTR_JM_IGNORE_IDS) || key == toString(SUMO_ATTR_JM_IGNORE_TYPES)) {
+        getParameter().parametersSet |= VEHPARS_JUNCTIONMODEL_PARAMS_SET;
+        const_cast<SUMOVehicleParameter&>(getParameter()).setParameter(key, value);
+        // checked in MSLink::ignoreFoe
+    } else {
+        throw InvalidArgument(getObjectType() + " '" + getID() + "' does not support junctionModel parameter '" + key + "'");
+    }
+}
+
+
 double
 MSTransportable::getSlope() const {
     const MSEdge* edge = getEdge();

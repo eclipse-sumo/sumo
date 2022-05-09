@@ -54,7 +54,7 @@ public:
     /**@brief add container plan element
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @param mouseButtonKeyPressed key pressed during click
-     * @return true if element was sucesfully added
+     * @return true if element was successfully added
      */
     bool addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 

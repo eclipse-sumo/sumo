@@ -6,6 +6,7 @@ warn
 
 # only warn about physical collisions
 mingap-factor
+mingap-factor_attr
 
 # teleport the rear vehicle
 teleport

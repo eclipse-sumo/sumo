@@ -207,8 +207,8 @@ public:
      * @param[in] from_srs The spatial reference system of the input coordinate
      * @notde These methods are located outside of GeoConvHelper to avoid linker-dependencies on GDAL for libgeom
      */
-    static bool transformCoordinate(Position& from, bool includeInBoundary = true, GeoConvHelper* from_srs = 0);
-    static bool transformCoordinates(PositionVector& from, bool includeInBoundary = true, GeoConvHelper* from_srs = 0);
+    static bool transformCoordinate(Position& from, bool includeInBoundary = true, GeoConvHelper* from_srs = nullptr);
+    static bool transformCoordinates(PositionVector& from, bool includeInBoundary = true, GeoConvHelper* from_srs = nullptr);
 
     /// @brief insertion geometry points to ensure maximum segment length between points
     static int addGeometrySegments(PositionVector& from, const PositionVector& cartesian, const double maxLength);

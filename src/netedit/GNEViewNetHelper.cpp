@@ -2698,7 +2698,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     myDataSetsComboBox->create();
     // create checkbutton for myLimitByInterval
     myIntervalCheckBox = new FXCheckButton(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-            "Interval", myViewNet, MID_GNE_INTERVALBAR_LIMITED, GUIDesignCheckButtonAttribute);
+                                           "Interval", myViewNet, MID_GNE_INTERVALBAR_LIMITED, GUIDesignCheckButtonAttribute);
     myIntervalCheckBox->create();
     // create textfield for begin
     myBeginTextField = new FXTextField(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
@@ -2714,7 +2714,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     parameterLabel->create();
     // create combo box for attributes
     myParametersComboBox = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-            GUIDesignComboBoxNCol, myViewNet, MID_GNE_INTERVALBAR_PARAMETER, GUIDesignComboBoxWidth180);
+                                          GUIDesignComboBoxNCol, myViewNet, MID_GNE_INTERVALBAR_PARAMETER, GUIDesignComboBoxWidth180);
     myParametersComboBox->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar->recalc();
@@ -2749,11 +2749,11 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
         // clear parameters
         myParameters.clear();
         // iterate over all data elements
-        for (const auto &dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
+        for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
             // add data set ID
             myDataSets.push_back(dataSet->getID());
             // iterate over all intervals
-            for (const auto &interval : dataSet->getDataIntervalChildren()) {
+            for (const auto& interval : dataSet->getDataIntervalChildren()) {
                 // set intervals
                 if ((begin == INVALID_DOUBLE) || (interval.first < begin)) {
                     begin = interval.first;
@@ -2762,9 +2762,9 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
                     end = interval.first;
                 }
                 // iterate over all generic datas
-                for (const auto &genericData : interval.second->getGenericDataChildren()) {
+                for (const auto& genericData : interval.second->getGenericDataChildren()) {
                     // iterate over parameters
-                    for (const auto &parameter : genericData->getParametersMap()) {
+                    for (const auto& parameter : genericData->getParametersMap()) {
                         myParameters.insert(parameter.first);
                     }
                 }
@@ -2773,8 +2773,8 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
         // get previous dataSet
         const std::string previousDataSet = myDataSetsComboBox->getText().text();
         // get previous interval
-        const std::string previousBegin = (myIntervalCheckBox->getCheck() == TRUE)? myBeginTextField->getText().text() : "";
-        const std::string previousEnd = (myIntervalCheckBox->getCheck() == TRUE)? myEndTextField->getText().text() : "";
+        const std::string previousBegin = (myIntervalCheckBox->getCheck() == TRUE) ? myBeginTextField->getText().text() : "";
+        const std::string previousEnd = (myIntervalCheckBox->getCheck() == TRUE) ? myEndTextField->getText().text() : "";
         // get previous parameter
         const std::string previousParameter = myParametersComboBox->getText().text();
         // clear comboBoxes
@@ -2784,14 +2784,14 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
         myDataSetsComboBox->appendItem("<all>");
         myParametersComboBox->appendItem("<all>");
         // fill dataSet comboBox
-        for (const auto &dataSet : myDataSets) {
+        for (const auto& dataSet : myDataSets) {
             myDataSetsComboBox->appendItem(dataSet.c_str());
         }
         // set begin/end
         myBeginTextField->setText(toString(begin).c_str());
         myEndTextField->setText(toString(end).c_str());
         // fill parameter comboBox
-        for (const auto &parameter : myParameters) {
+        for (const auto& parameter : myParameters) {
             myParametersComboBox->appendItem(parameter.c_str());
         }
         // check previous dataSet
@@ -2825,9 +2825,9 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
             myParametersComboBox->setNumVisible(10);
         }
         // check if enable or disable
-        if ((myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) || 
-            (myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_SELECT) ||
-            (myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_DELETE)) {
+        if ((myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) ||
+                (myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_SELECT) ||
+                (myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_DELETE)) {
             enableIntervalBar();
         } else {
             disableIntervalBar();
@@ -2861,9 +2861,9 @@ GNEViewNetHelper::IntervalBar::getGenericDataType() const {
 
 GNEDataSet*
 GNEViewNetHelper::IntervalBar::getDataSet() const {
-    if (!myDataSetsComboBox->isEnabled() || 
-        (myDataSetsComboBox->getCurrentItem() == 0) || 
-        (myDataSetsComboBox->getTextColor() == FXRGB(255, 0, 0))) {
+    if (!myDataSetsComboBox->isEnabled() ||
+            (myDataSetsComboBox->getCurrentItem() == 0) ||
+            (myDataSetsComboBox->getTextColor() == FXRGB(255, 0, 0))) {
         return nullptr;
     } else {
         return myViewNet->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSetsComboBox->getText().text());
@@ -2893,9 +2893,9 @@ GNEViewNetHelper::IntervalBar::getEnd() const {
 
 std::string
 GNEViewNetHelper::IntervalBar::getParameter() const {
-    if (!myParametersComboBox->isEnabled() || 
-        (myParametersComboBox->getCurrentItem() == 0) || 
-        (myParametersComboBox->getTextColor() == FXRGB(255, 0, 0))) {
+    if (!myParametersComboBox->isEnabled() ||
+            (myParametersComboBox->getCurrentItem() == 0) ||
+            (myParametersComboBox->getTextColor() == FXRGB(255, 0, 0))) {
         return "";
     } else {
         return myParametersComboBox->getText().text();
@@ -2906,9 +2906,9 @@ GNEViewNetHelper::IntervalBar::getParameter() const {
 void
 GNEViewNetHelper::IntervalBar::setGenericDataType() {
     if ((myGenericDataTypesComboBox->getText() == "<all>") ||
-        (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_MEANDATA_EDGE).c_str()) ||
-        (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_EDGEREL).c_str()) ||
-        (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_TAZREL).c_str())) {
+            (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_MEANDATA_EDGE).c_str()) ||
+            (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_EDGEREL).c_str()) ||
+            (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_TAZREL).c_str())) {
         myGenericDataTypesComboBox->setTextColor(FXRGB(0, 0, 0));
     } else {
         myGenericDataTypesComboBox->setTextColor(FXRGB(255, 0, 0));
@@ -3106,18 +3106,18 @@ void
 GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     // move button
     moveNetworkElementsButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tset move mode\tMode for move elements. (M)",
-        GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myViewNet, MID_HOTKEY_M_MODE_MOVE, GUIDesignMFXCheckableButtonSquare);
+            "\tset move mode\tMode for move elements. (M)",
+            GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myViewNet, MID_HOTKEY_M_MODE_MOVE, GUIDesignMFXCheckableButtonSquare);
     moveNetworkElementsButton->create();
     // create edge
     createEdgeButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tset create edge mode\tMode for creating junction and edges. (E)",
-        GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE), myViewNet, MID_HOTKEY_E_MODE_EDGE_EDGEDATA, GUIDesignMFXCheckableButtonSquare);
+            "\tset create edge mode\tMode for creating junction and edges. (E)",
+            GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE), myViewNet, MID_HOTKEY_E_MODE_EDGE_EDGEDATA, GUIDesignMFXCheckableButtonSquare);
     createEdgeButton->create();
     // connection mode
     connectionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tset connection mode\tMode for edit connections between lanes. (C)",
-        GUIIconSubSys::getIcon(GUIIcon::MODECONNECTION), myViewNet, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN, GUIDesignMFXCheckableButtonSquare);
+            "\tset connection mode\tMode for edit connections between lanes. (C)",
+            GUIIconSubSys::getIcon(GUIIcon::MODECONNECTION), myViewNet, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN, GUIDesignMFXCheckableButtonSquare);
     connectionButton->create();
     // prohibition mode
     prohibitionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -3131,28 +3131,28 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     trafficLightButton->create();
     // additional mode
     additionalButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tset additional mode\tMode for adding additional elements. (A)",
-        GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myViewNet, MID_HOTKEY_A_MODE_ADDITIONAL_STOP, GUIDesignMFXCheckableButtonSquare);
+            "\tset additional mode\tMode for adding additional elements. (A)",
+            GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myViewNet, MID_HOTKEY_A_MODE_ADDITIONAL_STOP, GUIDesignMFXCheckableButtonSquare);
     additionalButton->create();
     // crossing mode
     crossingButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tset crossing mode\tMode for creating crossings between edges. (R)",
-        GUIIconSubSys::getIcon(GUIIcon::MODECROSSING), myViewNet, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA, GUIDesignMFXCheckableButtonSquare);
+                                            "\tset crossing mode\tMode for creating crossings between edges. (R)",
+                                            GUIIconSubSys::getIcon(GUIIcon::MODECROSSING), myViewNet, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA, GUIDesignMFXCheckableButtonSquare);
     crossingButton->create();
     // TAZ Mode
     TAZButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tset TAZ mode\tMode for creating Traffic Assignment Zones. (Z)",
-        GUIIconSubSys::getIcon(GUIIcon::MODETAZ), myViewNet, MID_HOTKEY_Z_MODE_TAZ_TAZREL, GUIDesignMFXCheckableButtonSquare);
+                                       "\tset TAZ mode\tMode for creating Traffic Assignment Zones. (Z)",
+                                       GUIIconSubSys::getIcon(GUIIcon::MODETAZ), myViewNet, MID_HOTKEY_Z_MODE_TAZ_TAZREL, GUIDesignMFXCheckableButtonSquare);
     TAZButton->create();
     // shape mode
     shapeButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tset polygon mode\tMode for creating polygons and POIs. (P)",
-        GUIIconSubSys::getIcon(GUIIcon::MODESHAPE), myViewNet, MID_HOTKEY_P_MODE_POLYGON_PERSON, GUIDesignMFXCheckableButtonSquare);
+                                         "\tset polygon mode\tMode for creating polygons and POIs. (P)",
+                                         GUIIconSubSys::getIcon(GUIIcon::MODESHAPE), myViewNet, MID_HOTKEY_P_MODE_POLYGON_PERSON, GUIDesignMFXCheckableButtonSquare);
     shapeButton->create();
     // wire mode
     wireButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tset wire mode\tMode for editing wires. (W)",
-        GUIIconSubSys::getIcon(GUIIcon::MODEWIRE), myViewNet, MID_HOTKEY_W_MODE_WIRE, GUIDesignMFXCheckableButtonSquare);
+                                        "\tset wire mode\tMode for editing wires. (W)",
+                                        GUIIconSubSys::getIcon(GUIIcon::MODEWIRE), myViewNet, MID_HOTKEY_W_MODE_WIRE, GUIDesignMFXCheckableButtonSquare);
     wireButton->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();

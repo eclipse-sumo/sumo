@@ -38,10 +38,10 @@ netedit.forceSaveAdditionals()
 netedit.selectMode()
 
 # show connections
-netedit.changeEditMode(netedit.attrs.Modes.Network.showConnections)
+netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
 # disable select edges
-netedit.changeEditMode(netedit.attrs.Modes.Network.selectLane)
+netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
@@ -50,7 +50,7 @@ netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
 netedit.selectionClear()
 
 # lock lanes
-netedit.lockSelection(netedit.attrs.Selection.LockSelectionNetwork.lanes)
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.lanes)
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
@@ -62,7 +62,7 @@ netedit.selectionClear()
 netedit.typeTwoKeys('alt', 'o')
 
 # lock lanes
-netedit.lockSelection(netedit.attrs.Selection.LockSelectionNetwork.lanes)
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.lanes)
 
 # check undo and redo
 netedit.undo(referencePosition, 5)

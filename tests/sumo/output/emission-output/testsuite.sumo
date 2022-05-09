@@ -13,6 +13,9 @@ one_vehicle_geo
 # one vehicle is moving and waiting for some time
 one_vehicle_waiting
 
+# one vehicle is moving and stopping for some time (parked)
+one_vehicle_parking
+
 # one vehicle is moving, timestep is subseconds
 one_vehicle_subsecond
 

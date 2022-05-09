@@ -420,11 +420,29 @@ public:
         myCachedPosition = Position::INVALID;
     }
 
-    /** @brief Get the vehicle's lateral position on the lane:
+    /** @brief Get the lateral position of the vehicles right side on the lane:
      * @return The lateral position of the vehicle (in m distance between right
-     * side of vehicle and ride side of the lane it is on
+     * side of vehicle and right side of the lane it is on
      */
     double getRightSideOnLane() const;
+
+    /** @brief Get the lateral position of the vehicles left side on the lane:
+     * @return The lateral position of the vehicle (in m distance between left
+     * side of vehicle and right side of the lane it is on
+     */
+    double getLeftSideOnLane() const;
+
+    /** @brief Get the lateral position of the vehicles right side on the lane:
+     * @return The lateral position of the vehicle (in m distance between right
+     * side of vehicle and right side of the lane it is on
+     */
+    double getRightSideOnLane(const MSLane* lane) const;
+
+    /** @brief Get the lateral position of the vehicles left side on the lane:
+     * @return The lateral position of the vehicle (in m distance between left
+     * side of vehicle and right side of the lane it is on
+     */
+    double getLeftSideOnLane(const MSLane* lane) const;
 
     /** @brief Get the minimal lateral distance required to move fully onto the lane at given offset
      * @return The lateral distance to be covered to move the vehicle fully onto the lane (in m)
@@ -613,6 +631,10 @@ public:
      */
     bool isFrontOnLane(const MSLane* lane) const;
 
+    /** @brief Returns the edge the vehicle is currently at (possibly an
+     * internal edge or nullptr)
+     */
+    const MSEdge* getCurrentEdge() const;
 
     /** @brief Returns the starting point for reroutes (usually the current edge)
      *
@@ -631,6 +653,16 @@ public:
      */
     SUMOTime getWaitingTime() const {
         return myWaitingTime;
+    }
+
+    /** @brief Returns the SUMOTime spent driving since startup (speed was larger than 0.1m/s)
+     *
+     * The value is reset if the vehicle halts (moves slower than 0.1m/s)
+     * Intentional stopping does not reset the time
+     * @return The time the vehicle is standing
+     */
+    SUMOTime getTimeSinceStartup() const {
+        return myTimeSinceStartup;
     }
 
     /** @brief Returns the SUMOTime lost (speed was lesser maximum speed)
@@ -1520,6 +1552,10 @@ public:
             return myLastRemoteAccess;
         }
 
+        /// @brief update route if provided by remote control
+        void updateRemoteControlRoute(MSVehicle* v);
+
+        /// @brief update position from remote control
         void postProcessRemoteControl(MSVehicle* v);
 
         /// @brief return the speed that is implicit in the new remote position
@@ -1641,15 +1677,11 @@ public:
     /// @brief sets position outside the road network
     void setRemoteState(Position xyPos);
 
-    /// @brief compute safe speed for following the given leader
-    double getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderInfo,
-                              const double seen, const MSLane* const lane, double distToCrossing) const;
-
     /// @brief get a numerical value for the priority of the  upcoming link
     static int nextLinkPriority(const std::vector<MSLane*>& conts);
 
     /// @brief whether the given vehicle must be followed at the given junction
-    bool isLeader(const MSLink* link, const MSVehicle* veh) const;
+    bool isLeader(const MSLink* link, const MSVehicle* veh, const double gap) const;
 
     // @brief get the position of the back bumper;
     const Position getBackPosition() const;
@@ -1863,12 +1895,6 @@ protected:
     /// @brief Whether the vehicle is trying to enter the network (eg after parking so engine is running)
     bool myAmIdling;
 
-    /// @brief Whether this vehicle is registered as waiting for a person (for deadlock-recognition)
-    bool myAmRegisteredAsWaitingForPerson;
-
-    /// @brief Whether this vehicle is registered as waiting for a container (for deadlock-recognition)
-    bool myAmRegisteredAsWaitingForContainer;
-
     bool myHaveToWaitOnNextLink;
 
     /// @brief the angle in radians (@todo consider moving this into myState)
@@ -1886,6 +1912,9 @@ protected:
     SUMOTime myJunctionEntryTime;
     SUMOTime myJunctionEntryTimeNeverYield;
     SUMOTime myJunctionConflictEntryTime;
+
+    /// @brief duration of driving (speed > SUMO_const_haltingSpeed) after the last halting eposide
+    SUMOTime myTimeSinceStartup;
 
 protected:
 
@@ -1973,17 +2002,25 @@ protected:
      * - a leader vehicle
      * - a vehicle or pedestrian that crosses this vehicles path on an upcoming intersection
      * @param[in] leaderInfo The leading vehicle and the (virtual) distance to it
-     * @param[in] seen the distance to the end of the current lane
      * @param[in] lastLink the lastLink index
-     * @param[in] lane The current Lane the vehicle is on
      * @param[in,out] the safe velocity for driving
      * @param[in,out] the safe velocity for arriving at the next link
-     * @param[in] distToCrossing The distance to the crossing point with the current leader where relevant or -1
      */
     void adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
-                       const double seen, DriveProcessItem* const lastLink,
-                       const MSLane* const lane, double& v, double& vLinkPass,
-                       double distToCrossing = -1) const;
+                       double seen,
+                       DriveProcessItem* const lastLink,
+                       double& v, double& vLinkPass) const;
+
+public:
+    void adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leaderInfo,
+                               const double seen, DriveProcessItem* const lastLink,
+                               const MSLane* const lane, double& v, double& vLinkPass,
+                               double distToCrossing = -1) const;
+
+    /// @brief decide whether a red (or yellow light) may be ignore
+    bool ignoreRed(const MSLink* link, bool canBrake) const;
+
+protected:
 
     /* @brief adapt safe velocity in accordance to multiple vehicles ahead:
      * @param[in] ahead The leader information according to the current lateral-resolution
@@ -2000,8 +2037,9 @@ protected:
                         const MSLane* const lane, double& v, double& vLinkPass) const;
 
     void adaptToLeaderDistance(const MSLeaderDistanceInfo& ahead, double latOffset,
-                               const double seen, DriveProcessItem* const lastLink,
-                               const MSLane* const lane, double& v, double& vLinkPass) const;
+                               double seen,
+                               DriveProcessItem* const lastLink,
+                               double& v, double& vLinkPass) const;
 
     /// @brief checks for link leaders on the given link
     void checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
@@ -2029,9 +2067,6 @@ protected:
     /// @brief decide whether the given link must be kept clear
     bool keepClear(const MSLink* link) const;
 
-    /// @brief decide whether a red (or yellow light) may be ignore
-    bool ignoreRed(const MSLink* link, bool canBrake) const;
-
     double estimateTimeToNextStop() const;
 
     /* @brief special considerations for opposite direction driving so that the
@@ -2048,6 +2083,9 @@ protected:
 
 
     SUMOTime getArrivalTime(SUMOTime t, double seen, double v, double arrivalSpeed) const;
+
+    /// @brief whether the give lane is reverse direction of the current route or not
+    bool isOppositeLane(const MSLane* lane) const;
 
 private:
     /// @brief The per vehicle variables of the car following model

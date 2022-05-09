@@ -198,7 +198,7 @@ public:
         ~SelectionOperation();
 
         /// @brief get reduce button
-        FXButton *getReduceButton() const;
+        FXButton* getReduceButton() const;
 
         /// @name FOX-callbacks
         /// @{

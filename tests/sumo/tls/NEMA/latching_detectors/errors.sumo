@@ -1,0 +1,23 @@
+Warning: At NEMA tlLogic '0', the phases before barrier 1 from both rings do not add up. (ring1=97.00, ring2=102.00)
+Warning: At NEMA tlLogic '0', actuated phase 3 has no controlling detector
+Warning: At NEMA tlLogic '0, linkIndex 7 has no controlling detector
+Warning: Teleporting vehicle 'SW.0'; collision with vehicle 'NW.4', lane='1o_0', gap=-7.50, time=43.00 stage=move.
+Warning: Vehicle 'SW.0' teleports beyond arrival edge '1o', time=43.00.
+Warning: Teleporting vehicle 'NW_1.0'; collision with vehicle 'EW.5', lane='1o_0', gap=-0.29, time=99.00 stage=move.
+Warning: Vehicle 'NW_1.0' teleports beyond arrival edge '1o', time=99.00.
+Warning: Teleporting vehicle 'NW_1.1'; collision with vehicle 'EW.8', lane='1o_0', gap=-5.59, time=104.00 stage=move.
+Warning: Vehicle 'NW_1.1' teleports beyond arrival edge '1o', time=104.00.
+Warning: Teleporting vehicle 'SW_1.5'; collision with vehicle 'NW_1.4', lane='1o_0', gap=-6.60, time=120.00 stage=move.
+Warning: Vehicle 'SW_1.5' teleports beyond arrival edge '1o', time=120.00.
+Warning: Teleporting vehicle 'SE_1.1'; collision with vehicle 'NE.23', lane='2o_0', gap=-2.90, time=123.00 stage=move.
+Warning: Vehicle 'SE_1.1' teleports beyond arrival edge '2o', time=123.00.
+Warning: Teleporting vehicle 'NW_1.5'; collision with vehicle 'SW_1.7', lane='1o_0', gap=-0.00, time=125.00 stage=move.
+Warning: Vehicle 'NW_1.5' teleports beyond arrival edge '1o', time=125.00.
+Warning: Teleporting vehicle 'SE_1.2'; collision with vehicle 'NE.26', lane='2o_0', gap=-3.89, time=128.00 stage=move.
+Warning: Vehicle 'SE_1.2' teleports beyond arrival edge '2o', time=128.00.
+Warning: Teleporting vehicle 'NW_1.6'; collision with vehicle 'SW_1.10', lane='1o_0', gap=-0.29, time=130.00 stage=move.
+Warning: Vehicle 'NW_1.6' teleports beyond arrival edge '1o', time=130.00.
+Warning: Teleporting vehicle 'NW_1.7'; collision with vehicle 'SW_1.19', lane='1o_0', gap=-1.13, time=145.00 stage=move.
+Warning: Vehicle 'NW_1.7' teleports beyond arrival edge '1o', time=145.00.
+Warning: Teleporting vehicle 'NW_1.9'; collision with vehicle 'EW.16', lane='1o_0', gap=-4.18, time=184.00 stage=move.
+Warning: Vehicle 'NW_1.9' teleports beyond arrival edge '1o', time=184.00.

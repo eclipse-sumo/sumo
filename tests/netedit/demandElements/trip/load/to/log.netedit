@@ -1,4 +1,0 @@
-Error: trip definition needs either 'from/to' or 'fromJunction/toJunction'
-Error: Attribute 'to' in definition of trip 'trip_1' is empty.
-Error: Could not build trip in netedit; edge doesn't exist.
-Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.18Jan114657.13884\netedit.gui\demandElements\trip\load\to\input_routes.rou.xml failed.

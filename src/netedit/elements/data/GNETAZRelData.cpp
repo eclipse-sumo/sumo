@@ -48,8 +48,8 @@
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ,
                              const Parameterised::Map& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-        {}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
-    myLastWidth(0) {
+{}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
+myLastWidth(0) {
     // update geometry
     updateGeometry();
 }
@@ -58,8 +58,8 @@ GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional*
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* TAZ,
                              const Parameterised::Map& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-        {}, {}, {}, {TAZ}, {}, {}),
-    myLastWidth(0) {
+{}, {}, {}, {TAZ}, {}, {}),
+myLastWidth(0) {
     // update geometry
     updateGeometry();
 }
@@ -356,7 +356,11 @@ std::string
 GNETAZRelData::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getParentAdditionals().front()->getID();
+            if (getParentAdditionals().size() == 1) {
+                return getParentAdditionals().front()->getID();
+            } else {
+                return (getParentAdditionals().front()->getID() + "->" + getParentAdditionals().back()->getID());
+            }
         case SUMO_ATTR_FROM:
             return getParentAdditionals().front()->getID();
         case SUMO_ATTR_TO:
@@ -444,7 +448,11 @@ GNETAZRelData::getPopUpID() const {
 
 std::string
 GNETAZRelData::getHierarchyName() const {
-    return getTagStr() + ": " + getParentAdditionals().front()->getID() + "->" + getParentAdditionals().back()->getID();
+    if (getParentAdditionals().size() == 1) {
+        return getTagStr() + ": " + getParentAdditionals().front()->getID();
+    } else {
+        return getTagStr() + ": " + getParentAdditionals().front()->getID() + "->" + getParentAdditionals().back()->getID();
+    }
 }
 
 
@@ -493,14 +501,8 @@ GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM: {
             // remove from grid
             myNet->removeGLObjectFromGrid(this);
-            // check number of parent TAZ elements
-            if ((getParentAdditionals().size() > 1) &&
-                    (value == getParentAdditionals().at(1)->getID())) {
-                // reset second TAZ
-                replaceSecondParentTAZElement(SUMO_TAG_TAZ, "");
-            }
-            // change first TAZ
-            replaceFirstParentTAZElement(SUMO_TAG_TAZ, value);
+            // replace first TAZ Parent
+            replaceParentTAZElement(0, value);
             // update geometry
             updateGeometry();
             // add into grid again
@@ -510,12 +512,8 @@ GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TO: {
             // remove from grid
             myNet->removeGLObjectFromGrid(this);
-            if (value == getParentAdditionals().front()->getID()) {
-                replaceSecondParentTAZElement(SUMO_TAG_TAZ, "");
-            } else {
-                // change second TAZ
-                replaceSecondParentTAZElement(SUMO_TAG_TAZ, value);
-            }
+            // replace second TAZ Parent
+            replaceParentTAZElement(1, value);
             // update geometry
             updateGeometry();
             // add into grid again

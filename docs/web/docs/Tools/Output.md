@@ -204,11 +204,13 @@ document. (eg. attribute *timeLoss* for element *tripinfo* in
 results to standard output. When the attribute contains time data in HH:MM:SS format, the values will automatically be converted to seconds.
 
 ```
-python tools/output/attributeStats --element tripinfo --attribute timeLoss
+python tools/output/attributeStats --element tripinfo --attribute timeLoss input.xml
 ```
 
 With option **--hist-output** {{DT_FILE}} a histogram data file (e.g. for plotting with gnuplot) is
 generated.
+
+It is also possible to give multiple files as input as a space separated list or via shell expenasion (i.e. `*.input.xml`)
 
 ## computeCoordination.py
 
@@ -288,4 +290,14 @@ It currently outputs only basic statistics (mean, avg, quartiles etc.).
 Example:
 ```
 python tools/output/parkingSearchTraffic.py net.net.xml vehroutes.xml
+```
+
+
+## aggregateBatteryOutput.py
+
+Script for aggregate battery outputs in intervals.
+
+Example usage:
+```
+python tools\output\aggregateBatteryOutput.py -i battery.xml -o batteryAggregatedx.xml -t 60 -v veh0')
 ```

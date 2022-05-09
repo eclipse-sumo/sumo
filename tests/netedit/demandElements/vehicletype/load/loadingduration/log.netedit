@@ -1,3 +1,0 @@
-Error: Attribute 'loadingDuration' in definition of vType 'vType0' is not a valid time value.
-Error: loadingDuration must be equal or greater than 0
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.18Feb084411.4148\netedit.gui\demandElements\vehicletype\load\loadingduration\input_routes.rou.xml failed.

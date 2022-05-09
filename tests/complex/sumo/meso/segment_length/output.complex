@@ -6,5 +6,5 @@ Deviation int.net.xml meso vs. micro: 0.288849079199
 Deviation int.net.xml meso jc vs. micro: 0.127948123357
 Durations noint.net.xml: count 19, min 309.98 (100), max 311.30 (120), mean 310.74, Q1 310.34, median 310.74, Q3 311.11
 Durations with junction control noint.net.xml: count 19, min 312.27 (10), max 469.85 (150), mean 387.32, Q1 337.01, median 383.25, Q3 469.85
-Deviation noint.net.xml meso vs. micro: 0.27267183735
-Deviation noint.net.xml meso jc vs. micro: 0.0934455673872
+Deviation noint.net.xml meso vs. micro: 0.282645357102
+Deviation noint.net.xml meso jc vs. micro: 0.105876735331

@@ -137,15 +137,15 @@ public:
                             int teleport = 0);
 
     static void insertStop(const std::string& vehID,
-                            int nextStopIndex,
-                            const std::string& edgeID,
-                            double pos = 1.,
-                            int laneIndex = 0,
-                            double duration = libsumo::INVALID_DOUBLE_VALUE,
-                            int flags = libsumo::STOP_DEFAULT,
-                            double startPos = libsumo::INVALID_DOUBLE_VALUE,
-                            double until = libsumo::INVALID_DOUBLE_VALUE,
-                            int teleport = 0);
+                           int nextStopIndex,
+                           const std::string& edgeID,
+                           double pos = 1.,
+                           int laneIndex = 0,
+                           double duration = libsumo::INVALID_DOUBLE_VALUE,
+                           int flags = libsumo::STOP_DEFAULT,
+                           double startPos = libsumo::INVALID_DOUBLE_VALUE,
+                           double until = libsumo::INVALID_DOUBLE_VALUE,
+                           int teleport = 0);
 
     static void setStopParameter(const std::string& vehID, int nextStopIndex,
                                  const std::string& param, const std::string& value);

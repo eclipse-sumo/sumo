@@ -87,6 +87,12 @@ jobs:
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
+    - name: Extra tests
+      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
+      run: |
+        sumo/tests/runTests.sh -b ci -a sumo.meso.ci
+        sumo/tests/runTests.sh -b ci -a netconvert.gdal.ci,polyconvert.gdal.ci
+
     - name: Uploading artifacts (SUMO binaries)
       uses: actions/upload-artifact@v1
       with:

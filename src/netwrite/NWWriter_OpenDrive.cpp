@@ -944,8 +944,7 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
 
 void
 NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double length,
-        SignalLanes& signalLanes)
-{
+                                 SignalLanes& signalLanes) {
     device.openTag("signals");
     if (e->getToNode()->isTLControlled()) {
         // try to faithfully represent the SUMO signal layout

@@ -224,13 +224,11 @@ void
 DataHandler::getAttributes(const SUMOSAXAttributes& attrs, const std::vector<SumoXMLAttr> avoidAttributes) const {
     // transform avoidAttributes to strings
     std::vector<std::string> avoidAttributesStr;
-    for (const auto & avoidAttribute : avoidAttributes) {
+    for (const SumoXMLAttr& avoidAttribute : avoidAttributes) {
         avoidAttributesStr.push_back(toString(avoidAttribute));
     }
-    // obtain all attributes
-    const auto attributeNames = attrs.getAttributeNames();
     // iterate over attributes and fill parameters map
-    for (const auto& attribute : attributeNames) {
+    for (const std::string& attribute : attrs.getAttributeNames()) {
         if (std::find(avoidAttributesStr.begin(), avoidAttributesStr.end(), attribute) == avoidAttributesStr.end()) {
             myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, attrs.getStringSecure(attribute, ""));
         }

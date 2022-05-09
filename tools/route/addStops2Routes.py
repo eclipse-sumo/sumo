@@ -91,7 +91,9 @@ def get_options(args=None):
         sys.exit("--net-file missing")
 
     if not options.typesfile:
-        options.typesfiles = options.routefiles
+        options.typesfile = options.routefiles
+    else:
+        options.typesfile = options.typesfile.split(",")
 
     if not options.duration and not options.until:
         optParser.print_help()
@@ -105,7 +107,7 @@ def get_options(args=None):
 
 def readTypes(options):
     vtypes = {None: "passenger"}
-    for file in options.typesfile.split(','):
+    for file in options.typesfile:
         for vtype in sumolib.output.parse(file, 'vType'):
             vtypes[vtype.id] = vtype.getAttributeSecure("vClass", "passenger")
     # print(vtypes)
@@ -128,7 +130,10 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
     numSkipped = defaultdict(lambda: 0)
 
     for routefile in options.routefiles:
-        for obj in sumolib.xml.parse(routefile, ['vehicle', 'trip', 'flow', 'person']):
+        for obj in sumolib.xml.parse(routefile, ['vehicle', 'trip', 'flow', 'person', 'vType']):
+            if obj.name == 'vType':
+                outf.write(obj.toXML(' '*4))
+                continue
             lastEdgeID = getLastEdge(obj)
             if lastEdgeID is None:
                 if obj.name == 'person' and (

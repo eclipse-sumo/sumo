@@ -39,13 +39,16 @@ NBPTStopCont::~NBPTStopCont() {
 
 
 bool
-NBPTStopCont::insert(NBPTStop* ptStop) {
+NBPTStopCont::insert(NBPTStop* ptStop, bool floating) {
     std::string id = ptStop->getID();
     auto i = myPTStops.find(id);
     if (i != myPTStops.end()) {
         return false;
     }
     myPTStops[id] = ptStop;
+    if (floating) {
+        myFloatingStops.push_back(ptStop);
+    }
     return true;
 }
 
@@ -87,8 +90,7 @@ NBPTStopCont::localizePTStops(NBEdgeCont& cont) {
             }
         }
     }
-
-    //insrt new stops if any
+    //insert new stops if any
     for (auto& reverseStop : reverseStops) {
         insert(reverseStop);
     }
@@ -386,6 +388,51 @@ NBPTStopCont::alignIdSigns() {
     }
 }
 
+void
+NBPTStopCont::assignEdgeForFloatingStops(NBEdgeCont& cont, double maxRadius) {
+    NamedRTree r;
+    SVCPermissions publicPermissions = SVC_BUS | SVC_TRAM | SVC_RAIL | SVC_RAIL_URBAN | SVC_TAXI;
+    for (const auto& item : cont) {
+        NBEdge* edge = item.second;
+        if ((edge->getPermissions() & publicPermissions) == 0) {
+            continue;
+        }
+        const Boundary& bound = edge->getGeometry().getBoxBoundary();
+        float min[2] = { static_cast<float>(bound.xmin()), static_cast<float>(bound.ymin()) };
+        float max[2] = { static_cast<float>(bound.xmax()), static_cast<float>(bound.ymax()) };
+        r.Insert(min, max, edge);
+    }
+    for (NBPTStop* ptStop : myFloatingStops) {
+        std::set<const Named*> edges;
+        Named::StoringVisitor visitor(edges);
+        const Position& pos = ptStop->getPosition();
+        float min[2] = {static_cast<float>(pos.x() - maxRadius), static_cast<float>(pos.y() - maxRadius)};
+        float max[2] = {static_cast<float>(pos.x() + maxRadius), static_cast<float>(pos.y() + maxRadius)};
+        r.Search(min, max, visitor);
+        std::vector<NBEdge*> nearby;
+        for (const Named* namedEdge : edges) {
+            NBEdge* e = const_cast<NBEdge*>(dynamic_cast<const NBEdge*>(namedEdge));
+            if ((e->getPermissions() & ptStop->getPermissions()) != 0) {
+                nearby.push_back(e);
+            }
+        }
+        std::sort(nearby.begin(), nearby.end(), [pos](NBEdge * a, NBEdge * b) {
+            return a->getLaneShape(0).distance2D(pos, false) < b->getLaneShape(0).distance2D(pos, false);
+        });
+
+        for (NBEdge* e : nearby) {
+            ptStop->setEdgeId(e->getID(), cont);
+            if (ptStop->getLaneId() != "") {
+                break;
+            }
+        }
+        if (ptStop->getLaneId() == "") {
+            WRITE_WARNINGF("Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!",
+                           ptStop->getID(), ptStop->getName());
+            myPTStops.erase(ptStop->getID());
+        }
+    }
+}
 
 void
 NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, int maxCount, double accessFactor) {
