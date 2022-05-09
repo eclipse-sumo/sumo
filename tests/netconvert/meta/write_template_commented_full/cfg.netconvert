@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-14 14:35:18 by Eclipse SUMO netconvert Version v1_12_0+1373-449ea4e
+<!-- generated on 2022-05-09 12:02:46 by Eclipse SUMO netconvert Version v1_13_0+0104-344aa75a703
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -485,6 +485,12 @@
 
         <!-- Default maximum phase duration for traffic lights with variable phase length -->
         <tls.max-dur value="50" type="INT"/>
+
+        <!-- Default earliest end phase for traffic lights with variable phase length -->
+        <tls.earliestEnd value="5" type="INT"/>
+
+        <!-- Default latest end phase phase for traffic lights with variable phase length -->
+        <tls.latestEnd value="50" type="INT"/>
 
         <!-- Assign the same tls link index to connections that share the same states -->
         <tls.group-signals value="false" type="BOOL"/>
