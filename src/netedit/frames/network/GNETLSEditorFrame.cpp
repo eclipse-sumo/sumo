@@ -502,13 +502,6 @@ GNETLSEditorFrame::onCmdPhaseSwitch(FXObject*, FXSelector, void*) {
 }
 
 
-bool
-GNETLSEditorFrame::fixedDuration() const {
-    assert(myEditedDef != nullptr);
-    return myEditedDef->getType() == TrafficLightType::STATIC;
-}
-
-
 void
 GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
     editJunction(dynamic_cast<GNEJunction*>(AC));
@@ -517,13 +510,16 @@ GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 
 long
 GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
+    // mark TLS as modified
     myTLSModifications->setHaveModifications(true);
+    // check if TLS is static
+    const bool TLSStatic = (myEditedDef->getType() == TrafficLightType::STATIC);
     // allows insertion at first position by deselecting via arrow keys
     int newIndex = myTLSPhases->getPhaseTable()->getSelStartRow() + 1;
     int oldIndex = MAX2(0, myTLSPhases->getPhaseTable()->getSelStartRow());
     // copy current row
     SUMOTime duration = getSUMOTime(myTLSPhases->getPhaseTable()->getItemText(oldIndex, 0));
-    const std::string oldState = myTLSPhases->getPhaseTable()->getItemText(oldIndex, fixedDuration() ? 1 : 3).text();
+    const std::string oldState = myTLSPhases->getPhaseTable()->getItemText(oldIndex, TLSStatic? 1 : 3).text();
     std::string state = oldState;
 
     std::set<int> crossingIndices;
@@ -579,7 +575,7 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     }
     // fix continuous green states
     const int nextIndex = myTLSPhases->getPhaseTable()->getNumRows() > newIndex ? newIndex : 0;
-    const std::string state2 = myTLSPhases->getPhaseTable()->getItemText(nextIndex, fixedDuration() ? 1 : 3).text();
+    const std::string state2 = myTLSPhases->getPhaseTable()->getItemText(nextIndex, TLSStatic? 1 : 3).text();
     for (int i = 0; i < (int)state.size(); i++) {
         if ((oldState[i] == LINKSTATE_TL_GREEN_MAJOR || oldState[i] == LINKSTATE_TL_GREEN_MINOR)
                 && (state2[i] == LINKSTATE_TL_GREEN_MAJOR || state2[i] == LINKSTATE_TL_GREEN_MINOR)) {
@@ -676,15 +672,15 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
      * click inside the cell and hit enter to actually update the value */
     FXTablePos* tp = (FXTablePos*)ptr;
     FXString value = myTLSPhases->getPhaseTable()->getItemText(tp->row, tp->col);
-    const bool fixed = fixedDuration();
+    const bool staticTLS = (myEditedDef->getType() == TrafficLightType::STATIC);
     const int colDuration = 0;
-    const int colMinDur = fixed ? -1 : 1;
-    const int colMaxDur = fixed ? -1 : 2;
-    const int colEarliestEnd = fixed ? -1 : 3;
-    const int colLatestEnd = fixed ? -1 : 4;
-    const int colState = fixed ? 1 : 5;
-    const int colNext = fixed ? 2 : 6;
-    const int colName = fixed ? 3 : 7;
+    const int colMinDur = staticTLS ? -1 : 1;
+    const int colMaxDur = staticTLS ? -1 : 2;
+    const int colEarliestEnd = staticTLS ? -1 : 3;
+    const int colLatestEnd = staticTLS ? -1 : 4;
+    const int colState = staticTLS ? 1 : 5;
+    const int colNext = staticTLS ? 2 : 6;
+    const int colName = staticTLS ? 3 : 7;
     if (tp->col == colDuration) {
         // duration edited
         if (GNEAttributeCarrier::canParse<double>(value.text())) {
@@ -1354,16 +1350,16 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
     myPhaseTable->setVisibleColumns(2);
     myPhaseTable->hide();
     if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
-        const bool fixed = myTLSEditorParent->fixedDuration();
-        const int cols = fixed ? 4 : 8;
+        const bool staticTLS = (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC);
+        const int cols = staticTLS ? 4 : 8;
         const int colDuration = 0;
-        const int colMinDur = fixed ? -1 : 1;
-        const int colMaxDur = fixed ? -1 : 2;
-        const int colEarliestEnd = fixed ? -1 : 3;
-        const int colLatestEnd = fixed ? -1 : 4;
-        const int colState = fixed ? 1 : 5;
-        const int colNext = fixed ? 2 : 6;
-        const int colName = fixed ? 3 : 7;
+        const int colMinDur = staticTLS ? -1 : 1;
+        const int colMaxDur = staticTLS ? -1 : 2;
+        const int colEarliestEnd = staticTLS ? -1 : 3;
+        const int colLatestEnd = staticTLS ? -1 : 4;
+        const int colState = staticTLS ? 1 : 5;
+        const int colNext = staticTLS ? 2 : 6;
+        const int colName = staticTLS ? 3 : 7;
 
         const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
         myPhaseTable->setTableSize((int)phases.size(), cols);
@@ -1371,9 +1367,11 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
         myPhaseTable->setVisibleColumns(cols);
         for (int row = 0; row < (int)phases.size(); row++) {
             myPhaseTable->setItemText(row, colDuration, toString(STEPS2TIME(phases[row].duration)).c_str());
-            if (!fixed) {
+            if (!staticTLS) {
                 myPhaseTable->setItemText(row, colMinDur, varDurString(phases[row].minDur).c_str());
                 myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
+                myPhaseTable->setItemText(row, colEarliestEnd, varDurString(phases[row].earliestEnd).c_str());
+                myPhaseTable->setItemText(row, colLatestEnd, varDurString(phases[row].latestEnd).c_str());
             }
             myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
             myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");

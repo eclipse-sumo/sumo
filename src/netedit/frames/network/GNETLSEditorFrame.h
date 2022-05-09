@@ -437,9 +437,6 @@ public:
     /// @brief whether the given edge is controlled by the currently edited tlDef
     bool controlsEdge(GNEEdge* edge) const;
 
-    /// @brief whether the current traffic light uses fixed phase durations
-    bool fixedDuration() const;
-
     /// @brief open GNEAttributesCreator extended dialog (can be reimplemented in frame children)
     void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
