@@ -107,7 +107,11 @@ elseif (MSVC)
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         # this is a workaround to disable lots of warnings for replacing /W3 with /W4 in VS 2019
         # there is a policy for that starting with CMake 3.15
-        string(REPLACE "/W3" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+        if (MSVC_VERSION GREATER 1900)
+            string(REPLACE "/W3" "/Wall" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+        else ()
+            string(REPLACE "/W3" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+        endif ()
     else ()
         # /Wall brings MSVC 2013 to complete halt
         if (MSVC_VERSION GREATER 1900)

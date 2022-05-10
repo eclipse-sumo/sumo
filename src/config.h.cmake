@@ -107,8 +107,14 @@
     #pragma warning(disable: 4820)
     /* Disable unhandled switch case warnings (which get triggered even with a default branch) */
     #pragma warning(disable: 4061)
-    /* Disable implicitly deleted assignment operator warnings */
-    #pragma warning(disable: 4626)
+    /* Disable implicitly deleted assignment operator / constructor warnings */
+    #pragma warning(disable: 4623 4625 4626 5026 5027)
+    /* Disable casting int to unsigned warnings which get triggered by almost every access to a vector by index */
+    #pragma warning(disable: 4365)
+    /* Disable spectre warnings */
+    #pragma warning(disable: 5045)
+    /* Disable undefined macro in #if warnings */
+    #pragma warning(disable: 4668)
 
     /* Disable "unsafe" warnings for crt functions in VC++ 2005. */
     #if _MSC_VER >= 1400
