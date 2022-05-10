@@ -1771,7 +1771,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
     myPhaseTable->setColumnText(colVehExt, "veh.ext");
     myPhaseTable->setColumnWidth(colVehExt, MAX2(myPhaseTable->getColumnWidth(colVehExt), 35));
-    myPhaseTable->setColumnText(colYellow, "yellow");
+    myPhaseTable->setColumnText(colYellow, "yel");
     myPhaseTable->setColumnWidth(colYellow, MAX2(myPhaseTable->getColumnWidth(colYellow), 35));
     myPhaseTable->setColumnText(colRed, "red");
     myPhaseTable->setColumnWidth(colRed, MAX2(myPhaseTable->getColumnWidth(colRed), 35));
