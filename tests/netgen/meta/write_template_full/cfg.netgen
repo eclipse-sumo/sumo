@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-14 14:35:21 by Eclipse SUMO netgenerate Version v1_12_0+1373-449ea4e
+<!-- generated on 2022-05-10 14:09:32 by Eclipse SUMO netgenerate Version v1_13_0+0114-ce72809a489
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -155,6 +155,8 @@
         <tls.no-mixed value="false" type="BOOL" help="Avoid phases with green and red signals for different connections from the same lane"/>
         <tls.min-dur value="5" type="INT" help="Default minimum phase duration for traffic lights with variable phase length"/>
         <tls.max-dur value="50" type="INT" help="Default maximum phase duration for traffic lights with variable phase length"/>
+        <tls.earliestEnd value="5" type="INT" help="Default earliest end phase for traffic lights with variable phase length"/>
+        <tls.latestEnd value="50" type="INT" help="Default latest end phase phase for traffic lights with variable phase length"/>
         <tls.group-signals value="false" type="BOOL" help="Assign the same tls link index to connections that share the same states"/>
         <tls.ungroup-signals value="false" type="BOOL" help="Assign a distinct tls link index to every connection"/>
     </tls_building>
