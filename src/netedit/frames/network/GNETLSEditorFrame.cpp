@@ -1108,6 +1108,148 @@ GNETLSEditorFrame::editActuatedPhase(FXTablePos* tp, const std::string &value) {
 
 long 
 GNETLSEditorFrame::editNEMAPhase(FXTablePos* tp, const std::string &value) {
+    // get constants
+    const int colDuration = 0;
+    const int colMinDur = 1;
+    const int colMaxDur = 2;
+    const int colVehExt = 3;
+    const int colYellow = 4;
+    const int colRed = 5;
+    const int colState = 6;
+    const int colNext = 7;
+    const int colName = 8;
+    // check column
+    if (tp->col == colDuration) {
+        // duration edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime duration = getSUMOTime(value);
+            if (duration > 0) {
+                myEditedDef->getLogic()->setPhaseDuration(tp->row, duration);
+                myTLSModifications->setHaveModifications(true);
+                myTLSPhases->updateCycleDuration();
+                return 1;
+            }
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colDuration, getSteps2Time(getPhases()[tp->row].duration).c_str());
+    } else if (tp->col == colMinDur) {
+        // minDur edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime minDur = getSUMOTime(value);
+            if (minDur > 0) {
+                myEditedDef->getLogic()->setPhaseMinDuration(tp->row, minDur);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseMinDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMinDur, varDurString(getPhases()[tp->row].minDur).c_str());
+    } else if (tp->col == colMaxDur) {
+        // maxDur edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime maxDur = getSUMOTime(value);
+            if (maxDur > 0) {
+                myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, maxDur);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMaxDur, varDurString(getPhases()[tp->row].maxDur).c_str());
+    } else if (tp->col == colVehExt) {
+        // vehExt edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime vehExt = getSUMOTime(value);
+            if (vehExt > 0) {
+                myEditedDef->getLogic()->setPhaseVehExt(tp->row, vehExt);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseVehExt(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colVehExt, varDurString(getPhases()[tp->row].vehExt).c_str());
+    } else if (tp->col == colYellow) {
+        // yellow edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime yellow = getSUMOTime(value);
+            if (yellow > 0) {
+                myEditedDef->getLogic()->setPhaseYellow(tp->row, yellow);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseYellow(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colYellow, varDurString(getPhases()[tp->row].yellow).c_str());
+    } else if (tp->col == colRed) {
+        // red edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime red = getSUMOTime(value);
+            if (red > 0) {
+                myEditedDef->getLogic()->setPhaseRed(tp->row, red);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseRed(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colRed, varDurString(getPhases()[tp->row].red).c_str());
+    } else if (tp->col == colState) {
+        // state edited
+        try {
+            // insert phase with new step and delete the old phase
+            const NBTrafficLightLogic::PhaseDefinition& phase = getPhases()[tp->row];
+            myEditedDef->getLogic()->addStep(phase.duration, value, phase.next, phase.name, tp->row);
+            myEditedDef->getLogic()->deletePhase(tp->row + 1);
+            myTLSModifications->setHaveModifications(true);
+            onCmdPhaseSwitch(nullptr, 0, nullptr);
+        } catch (ProcessError&) {
+            // input error, reset value
+            myTLSPhases->getPhaseTable()->setItemText(tp->row, colState, getPhases()[tp->row].state.c_str());
+        }
+    } else if (tp->col == colNext) {
+        // next edited
+        bool ok = true;
+        if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
+            std::vector<int> nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
+            for (int n : nextEdited) {
+                if (n < 0 || n >= myTLSPhases->getPhaseTable()->getNumRows()) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) {
+                myEditedDef->getLogic()->setPhaseNext(tp->row, nextEdited);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colNext, "");
+    } else if (tp->col == colName) {
+        // name edited
+        myEditedDef->getLogic()->setPhaseName(tp->row, value);
+        myTLSModifications->setHaveModifications(true);
+        return 1;
+    }
     return 1;
 }
 
@@ -1588,15 +1730,16 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
 void 
 GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     // declare constants for columns
-    const int cols = 8;
+    const int cols = 9;
     const int colDuration = 0;
     const int colMinDur = 1;
     const int colMaxDur = 2;
-    const int colEarliestEnd = 3;
-    const int colLatestEnd = 4;
-    const int colState = 5;
-    const int colNext = 6;
-    const int colName = 7;
+    const int colVehExt = 3;
+    const int colYellow = 4;
+    const int colRed = 5;
+    const int colState = 6;
+    const int colNext = 7;
+    const int colName = 8;
     // get phases
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
@@ -1608,8 +1751,9 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
         myPhaseTable->setItemText(row, colMinDur, varDurString(phases[row].minDur).c_str());
         myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
-        myPhaseTable->setItemText(row, colEarliestEnd, varDurString(phases[row].earliestEnd).c_str());
-        myPhaseTable->setItemText(row, colLatestEnd, varDurString(phases[row].latestEnd).c_str());
+        myPhaseTable->setItemText(row, colVehExt, varDurString(phases[row].vehExt).c_str());
+        myPhaseTable->setItemText(row, colYellow, varDurString(phases[row].yellow).c_str());
+        myPhaseTable->setItemText(row, colRed, varDurString(phases[row].red).c_str());
         myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
         myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
         myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
@@ -1622,10 +1766,11 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     myPhaseTable->setColumnText(colMaxDur, "max");
     myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
     myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
-    myPhaseTable->setColumnText(colEarliestEnd, "ear.end");
-    myPhaseTable->setColumnText(colLatestEnd, "lat.end");
-    myPhaseTable->setColumnWidth(colEarliestEnd, MAX2(myPhaseTable->getColumnWidth(colEarliestEnd), 35));
-    myPhaseTable->setColumnWidth(colLatestEnd, MAX2(myPhaseTable->getColumnWidth(colLatestEnd), 35));
+    myPhaseTable->setColumnText(colYellow, "yellow");
+    myPhaseTable->setColumnWidth(colVehExt, MAX2(myPhaseTable->getColumnWidth(colVehExt), 35));
+    myPhaseTable->setColumnWidth(colYellow, MAX2(myPhaseTable->getColumnWidth(colYellow), 35));
+    myPhaseTable->setColumnText(colRed, "red");
+    myPhaseTable->setColumnWidth(colRed, MAX2(myPhaseTable->getColumnWidth(colRed), 35));
     myPhaseTable->setColumnText(colState, "state");
     myPhaseTable->setColumnText(colNext, "nxt");
     myPhaseTable->setColumnText(colName, "name");
@@ -1772,59 +1917,68 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
                     "Save TLS Program as", ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                     gCurrentFolder);
-    if (file == "") {
-        return 1;
-    }
-    // add xml extension
-    file = FileHelpers::addExtension(file.text(), ".xml").c_str();
-    OutputDevice& device = OutputDevice::getDevice(file.text());
-    // save program
-    device.writeXMLHeader("additional", "additional_file.xsd");
-    device.openTag(SUMO_TAG_TLLOGIC);
-    device.writeAttr(SUMO_ATTR_ID, myTLSEditorParent->myEditedDef->getLogic()->getID());
-    device.writeAttr(SUMO_ATTR_TYPE, myTLSEditorParent->myEditedDef->getLogic()->getType());
-    device.writeAttr(SUMO_ATTR_PROGRAMID, myTLSEditorParent->myEditedDef->getLogic()->getProgramID());
-    device.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime(myTLSEditorParent->myEditedDef->getLogic()->getOffset()));
-    myTLSEditorParent->myEditedDef->writeParams(device);
-    // write the phases
-    const bool TLSActuated = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::ACTUATED);
-    const bool TLSNEMA = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::NEMA);
-    // write the phases
-    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
-    for (const auto &phase : phases) {
-        device.openTag(SUMO_TAG_PHASE);
-        device.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(phase.duration));
-        device.writeAttr(SUMO_ATTR_STATE, phase.state);
-        // write specific actuated parameters
-        if (TLSActuated) {
-            if (phase.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur));
+    // check file
+    if (file != "") {
+        // add xml extension
+        file = FileHelpers::addExtension(file.text(), ".xml").c_str();
+        OutputDevice& device = OutputDevice::getDevice(file.text());
+        // save program
+        device.writeXMLHeader("additional", "additional_file.xsd");
+        device.openTag(SUMO_TAG_TLLOGIC);
+        device.writeAttr(SUMO_ATTR_ID, myTLSEditorParent->myEditedDef->getLogic()->getID());
+        device.writeAttr(SUMO_ATTR_TYPE, myTLSEditorParent->myEditedDef->getLogic()->getType());
+        device.writeAttr(SUMO_ATTR_PROGRAMID, myTLSEditorParent->myEditedDef->getLogic()->getProgramID());
+        device.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime(myTLSEditorParent->myEditedDef->getLogic()->getOffset()));
+        myTLSEditorParent->myEditedDef->writeParams(device);
+        // write the phases
+        const bool TLSActuated = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::ACTUATED);
+        const bool TLSNEMA = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::NEMA);
+        // write the phases
+        const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
+        for (const auto &phase : phases) {
+            device.openTag(SUMO_TAG_PHASE);
+            device.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(phase.duration));
+            device.writeAttr(SUMO_ATTR_STATE, phase.state);
+            // write specific actuated parameters
+            if (TLSActuated) {
+                if (phase.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur));
+                }
+                if (phase.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
+                }
+                if (phase.earliestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
+                }
+                if (phase.earliestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_EARLIEST_END, writeSUMOTime(phase.maxDur));
+                }
+                if (phase.latestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_LATEST_END, writeSUMOTime(phase.maxDur));
+                }
             }
-            if (phase.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
+            // write specific NEMA parameters
+            if (TLSNEMA) {
+                if (phase.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur));
+                }
+                if (phase.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
+                }
+                if (phase.vehExt != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.vehExt));
+                }
+                if (phase.red != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.red));
+                }
+                if (phase.yellow != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.yellow));
+                }
             }
-            if (phase.earliestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
-            }
-            if (phase.earliestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                device.writeAttr(SUMO_ATTR_EARLIEST_END, writeSUMOTime(phase.maxDur));
-            }
-            if (phase.latestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                device.writeAttr(SUMO_ATTR_LATEST_END, writeSUMOTime(phase.maxDur));
-            }
+            device.closeTag();
         }
-        // write specific NEMA parameters
-        if (TLSNEMA) {
-            if (phase.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur));
-            }
-            if (phase.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
-            }
-        }
-        device.closeTag();
+        device.close();
     }
-    device.close();
     return 1;
 }
 
