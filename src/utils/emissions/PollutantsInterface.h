@@ -100,6 +100,9 @@ public:
          */
         Helper(std::string name, const int baseIndex, const int defaultClass);
 
+        /// @brief empty destructor
+        virtual ~Helper() {}
+
         /** @brief Returns the name of the model
          * @return the name of the model (string before the '/' in the emission class attribute)
          */

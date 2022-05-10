@@ -27,9 +27,9 @@
 
 #include <list>
 #include "AGTrip.h"
-#include "../city/AGCity.h"
-#include "../city/AGBusLine.h"
-#include "../city/AGHousehold.h"
+#include <activitygen/city/AGCity.h>
+#include <activitygen/city/AGBusLine.h>
+#include <activitygen/city/AGHousehold.h>
 
 
 // ===========================================================================

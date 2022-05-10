@@ -37,7 +37,7 @@ typedef long long int SUMOTime;
 extern SUMOTime DELTA_T;
 
 // the step length in seconds as double
-#define TS (static_cast<double>(DELTA_T/1000.))
+#define TS (static_cast<double>(DELTA_T)/1000.)
 
 // x*deltaT
 #define SPEED2DIST(x) ((x)*TS)

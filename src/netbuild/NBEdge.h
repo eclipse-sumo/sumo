@@ -61,6 +61,7 @@ class NBVehicle;
  */
 class NBRouterEdge {
 public:
+    virtual ~NBRouterEdge() {}
     virtual const std::string& getID() const = 0;
     virtual double getSpeed() const = 0;
     virtual double getLength() const = 0;

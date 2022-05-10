@@ -364,7 +364,7 @@ public:
      * @return The velocity after maximum deceleration
      */
     inline double getSpeedAfterMaxDecel(double v) const {
-        return MAX2((double) 0, v - (double) ACCEL2SPEED(myDecel));
+        return MAX2(0., v - ACCEL2SPEED(myDecel));
     }
     /// @}
 
