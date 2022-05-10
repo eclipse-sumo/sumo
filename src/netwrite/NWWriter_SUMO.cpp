@@ -1017,6 +1017,16 @@ NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* 
             if (phase.latestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
                 into.writeAttr(SUMO_ATTR_LATEST_END, writeSUMOTime(phase.latestEnd));
             }
+            // NEMA attributes
+            if (phase.vehExt != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                into.writeAttr(SUMO_ATTR_VEHICLEEXTENSION, writeSUMOTime(phase.vehExt));
+            }
+            if (phase.yellow != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                into.writeAttr(SUMO_ATTR_YELLOW, writeSUMOTime(phase.yellow));
+            }
+            if (phase.red != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                into.writeAttr(SUMO_ATTR_RED, writeSUMOTime(phase.red));
+            }
         }
         if (phase.name != "") {
             into.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(phase.name));
