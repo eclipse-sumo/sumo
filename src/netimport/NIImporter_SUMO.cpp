@@ -945,14 +945,19 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* cur
         return;
     }
     // if the traffic light is an actuated traffic light, try to get the minimum and maximum durations and ends
+    std::vector<int> nextPhases = attrs.getOpt<std::vector<int> >(SUMO_ATTR_NEXT, id.c_str(), ok);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok);
+    // Specific from actuated
     const SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
     const SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
     const SUMOTime earliestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_EARLIEST_END, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
     const SUMOTime latestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_LATEST_END, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-    std::vector<int> nextPhases = attrs.getOpt<std::vector<int> >(SUMO_ATTR_NEXT, id.c_str(), ok);
-    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok);
+    // specific von NEMA
+    const SUMOTime vehExt = attrs.getOptSUMOTimeReporting(SUMO_ATTR_VEHICLEEXTENSION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+    const SUMOTime yellow = attrs.getOptSUMOTimeReporting(SUMO_ATTR_YELLOW, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+    const SUMOTime red = attrs.getOptSUMOTimeReporting(SUMO_ATTR_RED, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
     if (ok) {
-        currentTL->addPhase(duration, state, minDuration, maxDuration, earliestEnd, latestEnd, nextPhases, name);
+        currentTL->addPhase(duration, state, minDuration, maxDuration, earliestEnd, latestEnd, vehExt, yellow, red, nextPhases, name);
     }
 }
 

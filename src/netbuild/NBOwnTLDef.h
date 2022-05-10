@@ -97,25 +97,22 @@ public:
     /// @}
 
 
-    /** @brief Forces the definition not to compute an additional phase for left-movers
-     */
+    /// @brief Forces the definition not to compute an additional phase for left-movers
     void setSinglePhase() {
         myHaveSinglePhase = true;
     }
 
     /// @brief add an additional pedestrian phase if there are crossings that did not get green yet
-    static void addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll,
-                                      SUMOTime greenTime, SUMOTime yellowTime,
+    static void addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll, SUMOTime greenTime, SUMOTime yellowTime,
                                       const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /// @brief add 1 or 2 phases depending on the presence of pedestrian crossings
-    static std::string addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime greenTime,
-                                           const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd, const SUMOTime latestEnd,
+    static std::string addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime greenTime, const SUMOTime minDur, const SUMOTime maxDur, 
+                                           const SUMOTime earliestEnd, const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, const SUMOTime red, 
                                            std::string state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /// @brief compute phase state in regard to pedestrian crossings
-    static std::string patchStateForCrossings(const std::string& state,
-            const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
+    static std::string patchStateForCrossings(const std::string& state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /** @brief helper function for myCompute
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls

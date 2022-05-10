@@ -70,6 +70,15 @@ public:
         /// @brief maximum duration duration (for actuated)
         SUMOTime latestEnd;
 
+        /// @brief veh ext (for NEMA)
+        SUMOTime vehExt;
+
+        /// @brief yellow (for NEMA)
+        SUMOTime yellow;
+
+        /// @brief red (for NEMA)
+        SUMOTime red;
+
         /// @brief The state definition
         std::string state;
 
@@ -84,13 +93,17 @@ public:
          * @param[in] stateArg Signals per link
          */
         PhaseDefinition(const SUMOTime duration_, const std::string& state_, const SUMOTime minDur_, const SUMOTime maxDur_, 
-                        const SUMOTime earliestEnd_, const SUMOTime latestEnd_, const std::vector<int>& next_, const std::string& name_) :
+                        const SUMOTime earliestEnd_, const SUMOTime latestEnd_, const SUMOTime vehExt_, const SUMOTime yellow_,
+                        const SUMOTime red_, const std::vector<int>& next_, const std::string& name_) :
             duration(duration_),
             minDur(minDur_),
             maxDur(maxDur_),
             earliestEnd(earliestEnd_),
             latestEnd(latestEnd_),
             state(state_),
+            vehExt(vehExt_),
+            yellow(yellow_),
+            red(red_),
             next(next_),
             name(name_)
         { }
@@ -141,8 +154,6 @@ public:
      *
      * @param[in] duration The duration of the phase to add
      * @param[in] state The state definition of a tls phase
-     * @param[in] minDur The minimum duration of the phase to add
-     * @param[in] maxDur The maximum duration of the phase to add
      * @param[in] name The name of the phase
      * @param[in] next The index of the next phase
      * @param[in] index The index of the new phase (-1 means append to end)
@@ -153,17 +164,25 @@ public:
                  const std::string& name = "", const int index = -1);
     
     /** @brief Adds a phase to the logic (actuated)
-    *
-    * @param[in] duration The duration of the phase to add
-    * @param[in] state The state definition of a tls phase
-    * @param[in] name The name of the phase
-    * @param[in] next The index of the next phase
-    * @param[in] index The index of the new phase (-1 means append to end)
-    * @note: the length of the state has to match the number of links
-    *        and the length given in previous calls to addStep (throws ProcessError)
-    */
-    void addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, const SUMOTime earliestEnd, 
-                 const SUMOTime latestEnd, const std::vector<int>& next = std::vector<int>(), const std::string& name = "", int index = -1);
+     *
+     * @param[in] duration The duration of the phase to add
+     * @param[in] state The state definition of a tls phase
+     * @param[in] name The name of the phase
+     * @param[in] minDur The minimum duration of the phase to add
+     * @param[in] maxDur The maximum duration of the phase to add
+     * @param[in] earliestEnd The earliest end of the phase to add
+     * @param[in] latestEnd The latest end of the phase to add
+     * @param[in] vehExt The vehExt of the phase to add
+     * @param[in] yellow The yellow of the phase to add
+     * @param[in] red The red of the phase to add
+     * @param[in] next The index of the next phase
+     * @param[in] index The index of the new phase (-1 means append to end)
+     * @note: the length of the state has to match the number of links
+     *        and the length given in previous calls to addStep (throws ProcessError)
+     */
+    void addStep(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd, 
+                 const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, const SUMOTime red, 
+                 const std::vector<int>& next = std::vector<int>(), const std::string& name = "", int index = -1);
 
     /** @brief Modifies the state for an existing phase (used by NETEDIT)
      * @param[in] phaseIndex The index of the phase to modify
@@ -180,27 +199,45 @@ public:
 
     /** @brief Modifies the min duration for an existing phase (used by NETEDIT)
      * @param[in] phaseIndex The index of the phase to modify
-     * @param[in] duration The new duration for this phase
+     * @param[in] duration The new min duration for this phase
      */
     void setPhaseMinDuration(int phaseIndex, SUMOTime duration);
 
     /** @brief Modifies the max duration for an existing phase (used by NETEDIT)
      * @param[in] phaseIndex The index of the phase to modify
-     * @param[in] duration The new duration for this phase
+     * @param[in] duration The new max duration for this phase
      */
     void setPhaseMaxDuration(int phaseIndex, SUMOTime duration);
 
     /** @brief Modifies the min duration for an existing phase (used by NETEDIT)
      * @param[in] phaseIndex The index of the phase to modify
-     * @param[in] duration The new duration for this phase
+     * @param[in] duration The new earliestEnd for this phase
      */
     void setPhaseEarliestEnd(int phaseIndex, SUMOTime duration);
 
     /** @brief Modifies the max duration for an existing phase (used by NETEDIT)
      * @param[in] phaseIndex The index of the phase to modify
-     * @param[in] duration The new duration for this phase
+     * @param[in] duration The new latestEnd for this phase
      */
     void setPhaseLatestEnd(int phaseIndex, SUMOTime duration);
+
+    /** @brief Modifies the veh ex for an existing phase (used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new vehEx for this phase
+     */
+    void setPhaseVehExt(int phaseIndex, SUMOTime duration);
+
+    /** @brief Modifies the veh ex for an existing phase (used by NETEDIT)
+    * @param[in] phaseIndex The index of the phase to modify
+    * @param[in] duration The new vehEx for this phase
+    */
+    void setPhaseYellow(int phaseIndex, SUMOTime duration);
+
+    /** @brief Modifies the veh ex for an existing phase (used by NETEDIT)
+    * @param[in] phaseIndex The index of the phase to modify
+    * @param[in] duration The new vehEx for this phase
+    */
+    void setPhaseRed(int phaseIndex, SUMOTime duration);
 
     /** @brief Modifies the next phase (used by NETEDIT)
      * @param[in] phaseIndex The index of the phase to modify
