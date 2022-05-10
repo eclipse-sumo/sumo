@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_13_0+0104-344aa75a703
+Eclipse SUMO netconvert Version v1_13_0+0118-c15aca61d7c
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -306,11 +306,6 @@ TLS Building Options:
                                         traffic lights with variable phase
                                         length
   --tls.max-dur INT                    Default maximum phase duration for
-                                        traffic lights with variable phase
-                                        length
-  --tls.earliestEnd INT                Default earliest end phase for traffic
-                                        lights with variable phase length
-  --tls.latestEnd INT                  Default latest end phase phase for
                                         traffic lights with variable phase
                                         length
   --tls.group-signals                  Assign the same tls link index to
