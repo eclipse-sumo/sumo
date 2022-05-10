@@ -208,6 +208,16 @@ public:
         /// @brief recomputes cycle duration and updates label
         void updateCycleDuration();
 
+    protected:
+        /// @brief init static phase table
+        void initStaticPhaseTable(const int index);
+
+        /// @brief init actuated phase table
+        void initActuatedPhaseTable(const int index);
+
+        /// @brief init NEMA phase table
+        void initNEMAPhaseTable(const int index);
+
     private:
         /// @brief pointer to TLSEditor Parent
         GNETLSEditorFrame* myTLSEditorParent;
@@ -448,8 +458,20 @@ protected:
      */
     void editJunction(GNEJunction* junction);
 
+    /// @brief edit static phase
+    long editStaticPhase(FXTablePos* tp, const std::string &value);
+
+    /// @brief edit actuated phase
+    long editActuatedPhase(FXTablePos* tp, const std::string &value);
+
+    /// @brief edit NEMA phase
+    long editNEMAPhase(FXTablePos* tp, const std::string &value);
+
     /// @brief converts to SUMOTime
-    static SUMOTime getSUMOTime(const FXString& string);
+    static SUMOTime getSUMOTime(const std::string& value);
+
+    /// @brief converts to SUMOTime
+    static const std::string getSteps2Time(const SUMOTime value);
 
 private:
     /// @brief Overlapped Inspection
