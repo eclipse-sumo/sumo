@@ -1695,18 +1695,20 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     // set columns
     myPhaseTable->fitColumnsToContents(0, cols);
     myPhaseTable->setColumnText(colDuration, "dur");
+    myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
     myPhaseTable->setColumnText(colMinDur, "min");
-    myPhaseTable->setColumnText(colMaxDur, "max");
     myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
+    myPhaseTable->setColumnText(colMaxDur, "max");
     myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
     myPhaseTable->setColumnText(colEarliestEnd, "ear.end");
-    myPhaseTable->setColumnText(colLatestEnd, "lat.end");
     myPhaseTable->setColumnWidth(colEarliestEnd, MAX2(myPhaseTable->getColumnWidth(colEarliestEnd), 35));
+    myPhaseTable->setColumnText(colLatestEnd, "lat.end");
     myPhaseTable->setColumnWidth(colLatestEnd, MAX2(myPhaseTable->getColumnWidth(colLatestEnd), 35));
     myPhaseTable->setColumnText(colState, "state");
+    myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
     myPhaseTable->setColumnText(colNext, "nxt");
-    myPhaseTable->setColumnText(colName, "name");
     myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
+    myPhaseTable->setColumnText(colName, "name");
     myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
     // set rows
     myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
@@ -1762,19 +1764,22 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     // set columns
     myPhaseTable->fitColumnsToContents(0, cols);
     myPhaseTable->setColumnText(colDuration, "dur");
+    myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
     myPhaseTable->setColumnText(colMinDur, "min");
-    myPhaseTable->setColumnText(colMaxDur, "max");
     myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
+    myPhaseTable->setColumnText(colMaxDur, "max");
     myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
-    myPhaseTable->setColumnText(colYellow, "yellow");
+    myPhaseTable->setColumnText(colVehExt, "veh.ext");
     myPhaseTable->setColumnWidth(colVehExt, MAX2(myPhaseTable->getColumnWidth(colVehExt), 35));
+    myPhaseTable->setColumnText(colYellow, "yellow");
     myPhaseTable->setColumnWidth(colYellow, MAX2(myPhaseTable->getColumnWidth(colYellow), 35));
     myPhaseTable->setColumnText(colRed, "red");
     myPhaseTable->setColumnWidth(colRed, MAX2(myPhaseTable->getColumnWidth(colRed), 35));
     myPhaseTable->setColumnText(colState, "state");
+    myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
     myPhaseTable->setColumnText(colNext, "nxt");
-    myPhaseTable->setColumnText(colName, "name");
     myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
+    myPhaseTable->setColumnText(colName, "name");
     myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
     // set rows
     myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
