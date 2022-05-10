@@ -678,11 +678,9 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     if (OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) {
         const SUMOTime cycleTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.cycle.time"));
         // adapt to cycle time by changing the duration of the green phases
-        SUMOTime greenPhaseTime = 0;
         SUMOTime minGreenDuration = SUMOTime_MAX;
         for (std::vector<int>::const_iterator it = greenPhases.begin(); it != greenPhases.end(); ++it) {
             const SUMOTime dur = logic->getPhases()[*it].duration;
-            greenPhaseTime += dur;
             minGreenDuration = MIN2(minGreenDuration, dur);
         }
         const int patchSeconds = (int)(STEPS2TIME(cycleTime - totalDuration) / greenPhases.size());

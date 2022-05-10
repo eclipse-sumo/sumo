@@ -42,9 +42,6 @@ private:
         // the repetition period for a flow or -1 for a vehicle
         SUMOTime period;
         const SUMOTime travelTime;
-    private:
-        /// @brief Invalidated assignment operator
-        Schedule& operator=(const Schedule& src) = delete;
     };
 
 public:

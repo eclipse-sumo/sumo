@@ -1556,8 +1556,6 @@ private:
         int operator()(const MSEdge* const e1, const MSEdge* const e2) const;
 
     private:
-        by_connections_to_sorter& operator=(const by_connections_to_sorter&) = delete; // just to avoid a compiler warning
-    private:
         const MSEdge* const myEdge;
         double myLaneDir;
     };
@@ -1577,8 +1575,6 @@ private:
         int operator()(const IncomingLaneInfo& lane1, const IncomingLaneInfo& lane2) const;
 
     private:
-        incoming_lane_priority_sorter& operator=(const incoming_lane_priority_sorter&) = delete; // just to avoid a compiler warning
-    private:
         const MSLane* const myLane;
         double myLaneDir;
     };
@@ -1597,8 +1593,6 @@ private:
         int operator()(const MSLink* link1, const MSLink* link2) const;
 
     private:
-        outgoing_lane_priority_sorter& operator=(const outgoing_lane_priority_sorter&) = delete; // just to avoid a compiler warning
-    private:
         double myLaneDir;
     };
 
@@ -1611,8 +1605,6 @@ private:
         bool operator()(const IncomingLaneInfo& ili) const {
             return &(ili.lane->getEdge()) == myEdge;
         }
-    private:
-        edge_finder& operator=(const edge_finder&) = delete; // just to avoid a compiler warning
     private:
         const MSEdge* const myEdge;
     };

@@ -247,10 +247,6 @@ private:
         }
     private:
         const NBConnection& myC;
-    private:
-        /// @brief invalidated assignment operator
-        connection_equal& operator=(const connection_equal& s) = delete;
-
     };
 
 };

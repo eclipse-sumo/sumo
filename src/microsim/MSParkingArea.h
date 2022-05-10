@@ -250,9 +250,6 @@ protected:
 
         ///@brief Whether the lot is on the LHS of the lane relative to the lane direction
         bool sideIsLHS;
-
-        /// @brief Invalidated assignment operator.
-        LotSpaceDefinition& operator=(const LotSpaceDefinition&) = delete;
     };
 
     /** @brief Computes the last free position on this stop
