@@ -76,10 +76,10 @@
     #pragma clang diagnostic ignored "-Wsuggest-destructor-override"
 
     #pragma clang diagnostic ignored "-Wswitch-enum"
-	
-	#pragma clang diagnostic ignored "-Wglobal-constructors"
-	
-	#pragma clang diagnostic ignored "-Wexit-time-destructors"
+
+    #pragma clang diagnostic ignored "-Wglobal-constructors"
+
+    #pragma clang diagnostic ignored "-Wexit-time-destructors"
 
     /* CLANG in Windows */
     #endif
@@ -101,6 +101,14 @@
     #pragma warning(disable: 4251)
     /* Disable integer overflow in arithmetics warnings */
     #pragma warning(disable: 26451)
+    /* Disable unreferenced inline function warnings */
+    #pragma warning(disable: 4514)
+    /* Disable byte padding warnings */
+    #pragma warning(disable: 4820)
+    /* Disable unhandled switch case warnings (which get triggered even with a default branch) */
+    #pragma warning(disable: 4061)
+    /* Disable implicitly deleted assignment operator warnings */
+    #pragma warning(disable: 4626)
 
     /* Disable "unsafe" warnings for crt functions in VC++ 2005. */
     #if _MSC_VER >= 1400
