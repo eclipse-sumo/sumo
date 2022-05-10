@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_13_0+0114-ce72809a489
+Eclipse SUMO netgenerate Version v1_13_0+0129-a0d5aef1507
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -262,11 +262,6 @@ TLS Building Options:
                                         traffic lights with variable phase
                                         length
   --tls.max-dur INT                    Default maximum phase duration for
-                                        traffic lights with variable phase
-                                        length
-  --tls.earliestEnd INT                Default earliest end phase for traffic
-                                        lights with variable phase length
-  --tls.latestEnd INT                  Default latest end phase phase for
                                         traffic lights with variable phase
                                         length
   --tls.group-signals                  Assign the same tls link index to
