@@ -676,6 +676,12 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         // exiting the oneway section should always be possible
         deactivateInsideEdges(logic, fromEdges);
     }
+    if (myType == TrafficLightType::NEMA) {
+        logic->setParameter("ring1", "1,2,3,4");
+        logic->setParameter("ring2", "5,6,7,8");
+        logic->setParameter("barrierPhases", "4,8");
+        logic->setParameter("barrier2Phases", "2,6");
+    }
 
     SUMOTime totalDuration = logic->getDuration();
     if (OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) {
