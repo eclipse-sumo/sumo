@@ -681,6 +681,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         logic->setParameter("ring2", "5,6,7,8");
         logic->setParameter("barrierPhases", "4,8");
         logic->setParameter("barrier2Phases", "2,6");
+        for (int i = 0; i < (int)logic->getPhases().size(); i++) {
+            // 1-based indexing
+            logic->setPhaseName(i, toString(i + 1));
+        }
     }
 
     SUMOTime totalDuration = logic->getDuration();
