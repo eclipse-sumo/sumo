@@ -191,7 +191,9 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
                     }
                 }
                 // there must be a matching MSPhaseDefinition
-                assert(tempPhase != nullptr);
+                if (tempPhase == nullptr) {
+                    throw ProcessError("At traffic signal '" + myID + "' program '" + myProgramID + "' no phase named '" + toString(p) + "' was found");
+                }
 
                 // create lane specific objects
                 std::string state = tempPhase->getState();
