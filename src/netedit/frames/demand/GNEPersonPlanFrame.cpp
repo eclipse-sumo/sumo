@@ -143,7 +143,7 @@ GNEPersonPlanFrame::isCurrentPerson(const GNEDemandElement *person) const {
     if (myCurrentPerson != nullptr) {
         return (myCurrentPerson == person);
     } else {
-        return nullptr;
+        return false;
     }
 }
 
