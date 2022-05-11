@@ -73,50 +73,6 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     myVehicleTypes = getParameter("vTypes", "");
     myControllerType = parseControllerType(getParameter("controllerType", "TS2"));
     ignoreErrors = StringUtils::toBool(getParameter("ignore-errors", "false"));
-
-    // TODO: Create a parameter for this
-    cycleRefPoint = TIME2STEPS(0);
-
-    std::string barriers = getParameter("barrierPhases", "");
-    std::string coordinates = getParameter("coordinatePhases", getParameter("barrier2Phases", ""));
-    std::string ring1 = getParameter("ring1", "");
-    std::string ring2 = getParameter("ring2", "");
-
-    fixForceOff = StringUtils::toBool(getParameter("fixForceOff", "false"));
-    offset = _offset;
-    myNextOffset = offset;
-    whetherOutputState = StringUtils::toBool(getParameter("whetherOutputState", "false"));
-    coordinateMode = StringUtils::toBool(getParameter("coordinate-mode", "false"));
-
-    // set the queued traci changes to false
-    queuedTraciChanges = false;
-
-    //missing parameter error
-    error_handle_not_set(ring1, "ring1");
-    error_handle_not_set(ring2, "ring2");
-    error_handle_not_set(barriers, "barrierPhases");
-    error_handle_not_set(coordinates, "barrier2Phases or coordinatePhases");
-
-    //print to check
-#ifdef DEBUG_NEMA
-    std::cout << "JunctionID = " << myID << std::endl;
-    std::cout << "All parameters after calling constructor are: " << std::endl;
-    std::cout << "myDetectorLength = " << myDetectorLength << std::endl;
-    std::cout << "cycleLength = " << STEPS2TIME(myCycleLength) << std::endl;
-    std::cout << "ring1 = " << ring1 << std::endl;
-    std::cout << "ring2 = " << ring2 << std::endl;
-    std::cout << "barriers = " << barriers << std::endl;
-    std::cout << "coordinates = " << coordinates << std::endl;
-    std::cout << "offset = " << offset << std::endl;
-    std::cout << "whetherOutputState = " << whetherOutputState << std::endl;
-    std::cout << "myShowDetectors = " << myShowDetectors << std::endl;
-    std::cout << "coordinateMode = " << coordinateMode << std::endl;
-    std::cout << "fixForceOff = " << fixForceOff << std::endl;
-    std::cout << "You reach the end of constructor" << std::endl;
-    std::cout << "****************************************\n";
-#endif
-    // Construct the NEMA specific timing data types and initial phases
-    constructTimingAndPhaseDefs(barriers, coordinates, ring1, ring2);
 }
 
 NEMALogic::~NEMALogic() {
@@ -362,6 +318,51 @@ NEMALogic::vectorContainsPhase(std::vector<int> v, int phaseNum) {
 
 void
 NEMALogic::init(NLDetectorBuilder& nb) {
+
+    // TODO: Create a parameter for this
+    cycleRefPoint = TIME2STEPS(0);
+
+    std::string barriers = getParameter("barrierPhases", "");
+    std::string coordinates = getParameter("coordinatePhases", getParameter("barrier2Phases", ""));
+    std::string ring1 = getParameter("ring1", "");
+    std::string ring2 = getParameter("ring2", "");
+
+    fixForceOff = StringUtils::toBool(getParameter("fixForceOff", "false"));
+    offset = myOffset;
+    myNextOffset = myOffset;
+    whetherOutputState = StringUtils::toBool(getParameter("whetherOutputState", "false"));
+    coordinateMode = StringUtils::toBool(getParameter("coordinate-mode", "false"));
+
+    // set the queued traci changes to false
+    queuedTraciChanges = false;
+
+    //missing parameter error
+    error_handle_not_set(ring1, "ring1");
+    error_handle_not_set(ring2, "ring2");
+    error_handle_not_set(barriers, "barrierPhases");
+    error_handle_not_set(coordinates, "barrier2Phases or coordinatePhases");
+
+    //print to check
+#ifdef DEBUG_NEMA
+    std::cout << "JunctionID = " << myID << std::endl;
+    std::cout << "All parameters after calling constructor are: " << std::endl;
+    std::cout << "myDetectorLength = " << myDetectorLength << std::endl;
+    std::cout << "cycleLength = " << STEPS2TIME(myCycleLength) << std::endl;
+    std::cout << "ring1 = " << ring1 << std::endl;
+    std::cout << "ring2 = " << ring2 << std::endl;
+    std::cout << "barriers = " << barriers << std::endl;
+    std::cout << "coordinates = " << coordinates << std::endl;
+    std::cout << "offset = " << offset << std::endl;
+    std::cout << "cycleSecond = " << getTimeInCycle() << std::endl;
+    std::cout << "whetherOutputState = " << whetherOutputState << std::endl;
+    std::cout << "myShowDetectors = " << myShowDetectors << std::endl;
+    std::cout << "coordinateMode = " << coordinateMode << std::endl;
+    std::cout << "fixForceOff = " << fixForceOff << std::endl;
+    std::cout << "You reach the end of constructor" << std::endl;
+    std::cout << "****************************************\n";
+#endif
+    // Construct the NEMA specific timing data types and initial phases
+    constructTimingAndPhaseDefs(barriers, coordinates, ring1, ring2);
 
     //init the traffic light
     MSTrafficLightLogic::init(nb);
@@ -704,12 +705,11 @@ NEMALogic::ModeCycle(SUMOTime a, SUMOTime b) {
 
 std::set<std::string> NEMALogic::getLaneIDsFromNEMAState(std::string state) {
     std::set<std::string> output;
-    const MSTrafficLightLogic::LinkVectorVector& linkV = MSNet::getInstance()->getTLSControl().get(myID).getActive()->getLinks();
     for (int i = 0; i < (int)state.size(); i++) {
         char ch = state[i];
         // if the ch is 'G', it means that the phase is controlling this lane
         if (ch == 'G') {
-            for (auto link : linkV[i]) {
+            for (auto link : myLinks[i]) {
                 output.insert(link->getLaneBefore()->getID());
             }
         }
