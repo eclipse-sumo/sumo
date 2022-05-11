@@ -1,2 +1,2 @@
-Error: At NEMA tlLogic '2881', Ring 1 does not add to cycle length.
+Error: At traffic signal '0' program '0' no phase named '1' was found
 Quitting (on error).
