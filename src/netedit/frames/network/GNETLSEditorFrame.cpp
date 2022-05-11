@@ -674,7 +674,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
     const std::string value = myTLSPhases->getPhaseTable()->getItemText(tp->row, tp->col).text();
     if (myEditedDef->getType() == TrafficLightType::STATIC) {
         editStaticPhase(tp, value);
-    } else if (myEditedDef->getType() == TrafficLightType::ACTUATED) {
+    } else if ((myEditedDef->getType() == TrafficLightType::ACTUATED) || (myEditedDef->getType() == TrafficLightType::DELAYBASED)) {
         editActuatedPhase(tp, value);
     } else if (myEditedDef->getType() == TrafficLightType::NEMA) {
         editNEMAPhase(tp, value);
@@ -1582,7 +1582,8 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
     if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
         if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC) {
             initStaticPhaseTable(index);
-        } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::ACTUATED) {
+        } else if ((myTLSEditorParent->myEditedDef->getType() == TrafficLightType::ACTUATED) || 
+                   (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::DELAYBASED)) {
             initActuatedPhaseTable(index);
         } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::NEMA) {
             initNEMAPhaseTable(index);
@@ -1938,6 +1939,7 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
         myTLSEditorParent->myEditedDef->writeParams(device);
         // write the phases
         const bool TLSActuated = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::ACTUATED);
+        const bool TLSDelayBased = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::DELAYBASED);
         const bool TLSNEMA = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::NEMA);
         // write the phases
         const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
@@ -1946,7 +1948,7 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
             device.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(phase.duration));
             device.writeAttr(SUMO_ATTR_STATE, phase.state);
             // write specific actuated parameters
-            if (TLSActuated) {
+            if (TLSActuated || TLSDelayBased) {
                 if (phase.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
                     device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur));
                 }
