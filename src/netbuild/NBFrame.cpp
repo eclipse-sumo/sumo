@@ -521,6 +521,15 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("tls.left-green.time", new Option_Integer(6));
     oc.addDescription("tls.left-green.time", "TLS Building", "Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases");
 
+    oc.doRegister("tls.nema.vehExt", new Option_Integer(2));
+    oc.addDescription("tls.nema.vehExt", "TLS Building", "Set INT as fixed time for intermediate vehext phase after every switch");
+
+    oc.doRegister("tls.nema.yellow", new Option_Integer(3));
+    oc.addDescription("tls.nema.yellow", "TLS Building", "Set INT as fixed time for intermediate NEMA yelow phase after every switch");
+
+    oc.doRegister("tls.nema.red", new Option_Integer(2));
+    oc.addDescription("tls.nema.red", "TLS Building", "Set INT as fixed time for intermediate NEMA red phase after every switch");
+
     oc.doRegister("tls.crossing-min.time", new Option_Integer(4));
     oc.addDescription("tls.crossing-min.time", "TLS Building", "Use INT as minimum green duration for pedestrian crossings (s).");
 
