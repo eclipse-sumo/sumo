@@ -47,6 +47,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/geom/GeomHelper.h>
+#include <libsumo/TraCIConstants.h>
 #include <microsim/transportables/MSPModel.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
@@ -109,6 +110,57 @@ std::vector<SumoRNG> MSLane::myRNGs;
 // ===========================================================================
 // internal class method definitions
 // ===========================================================================
+void
+MSLane::StoringVisitor::add(const MSLane* const l) const {
+    switch (myDomain) {
+        case libsumo::CMD_GET_VEHICLE_VARIABLE:
+        {
+            for (const MSVehicle* veh : l->getVehiclesSecure()) {
+                if (myShape.distance2D(veh->getPosition()) <= myRange) {
+                    myObjects.insert(veh);
+                }
+            }
+            for (const MSBaseVehicle* veh : l->getParkingVehicles()) {
+                if (myShape.distance2D(veh->getPosition()) <= myRange) {
+                    myObjects.insert(veh);
+                }
+            }
+            l->releaseVehicles();
+        }
+        break;
+        case libsumo::CMD_GET_PERSON_VARIABLE:
+        {
+            l->getVehiclesSecure();
+            std::vector<MSTransportable*> persons = l->getEdge().getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
+            for (auto p : persons) {
+                if (myShape.distance2D(p->getPosition()) <= myRange) {
+                    myObjects.insert(p);
+                }
+            }
+            l->releaseVehicles();
+        }
+        break;
+        case libsumo::CMD_GET_EDGE_VARIABLE:
+        {
+            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
+                myObjects.insert(&l->getEdge());
+            }
+        }
+        break;
+        case libsumo::CMD_GET_LANE_VARIABLE:
+        {
+            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
+                myObjects.insert(l);
+            }
+        }
+        break;
+        default:
+            break;
+
+    }
+}
+
+
 MSLane::AnyVehicleIterator&
 MSLane::AnyVehicleIterator::operator++() {
     if (nextIsMyVehicles()) {

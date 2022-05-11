@@ -62,52 +62,6 @@
 //#define DEBUG_MOVEXY_ANGLE
 //#define DEBUG_SURROUNDING
 
-void
-LaneStoringVisitor::add(const MSLane* const l) const {
-    switch (myDomain) {
-        case libsumo::CMD_GET_VEHICLE_VARIABLE: {
-            for (const MSVehicle* veh : l->getVehiclesSecure()) {
-                if (myShape.distance2D(veh->getPosition()) <= myRange) {
-                    myObjects.insert(veh);
-                }
-            }
-            for (const MSBaseVehicle* veh : l->getParkingVehicles()) {
-                if (myShape.distance2D(veh->getPosition()) <= myRange) {
-                    myObjects.insert(veh);
-                }
-            }
-            l->releaseVehicles();
-        }
-        break;
-        case libsumo::CMD_GET_PERSON_VARIABLE: {
-            l->getVehiclesSecure();
-            std::vector<MSTransportable*> persons = l->getEdge().getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
-            for (auto p : persons) {
-                if (myShape.distance2D(p->getPosition()) <= myRange) {
-                    myObjects.insert(p);
-                }
-            }
-            l->releaseVehicles();
-        }
-        break;
-        case libsumo::CMD_GET_EDGE_VARIABLE: {
-            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
-                myObjects.insert(&l->getEdge());
-            }
-        }
-        break;
-        case libsumo::CMD_GET_LANE_VARIABLE: {
-            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
-                myObjects.insert(l);
-            }
-        }
-        break;
-        default:
-            break;
-
-    }
-}
-
 namespace libsumo {
 // ===========================================================================
 // static member initializations
@@ -808,7 +762,7 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
                 myLaneTree = new LANE_RTREE_QUAL(&MSLane::visit);
                 MSLane::fill(*myLaneTree);
             }
-            LaneStoringVisitor lsv(into, shape, range, domain);
+            MSLane::StoringVisitor lsv(into, shape, range, domain);
             myLaneTree->Search(cmin, cmax, lsv);
         }
         break;
