@@ -384,6 +384,7 @@ MFXIconComboBox::setItem(const FXString& text, FXIcon* icon) {
         const MFXListItem* item = dynamic_cast<MFXListItem*>(myList->getItem(i));
         // set icon and background color
         if (item && (item->getText() == text) && (item->getIcon() == icon)) {
+            myTextFieldIcon->setText(item->getText());
             myList->setCurrentItem(i, FALSE);
             return true;
         }
