@@ -108,3 +108,6 @@ flipY_lefthand
 
 # build networks with higher junction speed when incoming and outgoing edge have different speeds
 junctions.higherSpeed
+
+# TLS extended attributes (NEMA and actuated)
+tls_extended_attributes
