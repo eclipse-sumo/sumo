@@ -264,8 +264,8 @@ GNETLSEditorFrame::onCmdOK(FXObject*, FXSelector, void*) {
         if (myTLSModifications->checkHaveModifications()) {
             NBTrafficLightDefinition* oldDefinition = myTLSAttributes->getCurrentTLSDefinition();
             std::vector<NBNode*> nodes = oldDefinition->getNodes();
-            for (auto it : nodes) {
-                GNEJunction* junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(it->getID());
+            for (const auto &node : nodes) {
+                GNEJunction* junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID());
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, oldDefinition, false), true);
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, myEditedDef, true), true);
             }
@@ -672,14 +672,212 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
      * click inside the cell and hit enter to actually update the value */
     FXTablePos* tp = (FXTablePos*)ptr;
     const std::string value = myTLSPhases->getPhaseTable()->getItemText(tp->row, tp->col).text();
+    // Declare columns
+    int colDuration = 0;
+    int colState = -1;
+    int colNext = -1;
+    int colName = -1;
+    int colMinDur = -1;
+    int colMaxDur = -1;
+    int colEarliestEnd = -1;
+    int colLatestEnd = -1;
+    int colVehExt = -1;
+    int colYellow = -1;
+    int colRed = -1;
+    // set columns
     if (myEditedDef->getType() == TrafficLightType::STATIC) {
-        editStaticPhase(tp, value);
+        colState = 1;
+        colNext = 2;
+        colName = 3;
     } else if (myEditedDef->getType() == TrafficLightType::ACTUATED) {
-        editActuatedPhase(tp, value);
+        colMinDur = 1;
+        colMaxDur = 2;
+        colState = 3;
+        colEarliestEnd = 4;
+        colLatestEnd = 5;
+        colNext = 6;
+        colName = 7;
     } else if (myEditedDef->getType() == TrafficLightType::DELAYBASED) {
-        return editDelayBasePhase(tp, value);
+        colMinDur = 1;
+        colMaxDur = 2;
+        colState = 3;
+        colNext = 4;
     } else if (myEditedDef->getType() == TrafficLightType::NEMA) {
-        editNEMAPhase(tp, value);
+        colMinDur = 1;
+        colMaxDur = 2;
+        colState = 3;
+        colVehExt = 4;
+        colYellow = 5;
+        colRed = 6;
+        colNext = 7;
+        colName = 8;
+    }
+    // check column
+    if (tp->col == colDuration) {
+        // duration edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime duration = getSUMOTime(value);
+            if (duration > 0) {
+                myEditedDef->getLogic()->setPhaseDuration(tp->row, duration);
+                myTLSModifications->setHaveModifications(true);
+                myTLSPhases->updateCycleDuration();
+                return 1;
+            }
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colDuration, getSteps2Time(getPhases()[tp->row].duration).c_str());
+    } else if (tp->col == colState) {
+        // state edited
+        try {
+            // insert phase with new step and delete the old phase
+            const NBTrafficLightLogic::PhaseDefinition& phase = getPhases()[tp->row];
+            myEditedDef->getLogic()->addStep(phase.duration, value, phase.next, phase.name, tp->row);
+            myEditedDef->getLogic()->deletePhase(tp->row + 1);
+            myTLSModifications->setHaveModifications(true);
+            onCmdPhaseSwitch(nullptr, 0, nullptr);
+        } catch (ProcessError&) {
+            // input error, reset value
+            myTLSPhases->getPhaseTable()->setItemText(tp->row, colState, getPhases()[tp->row].state.c_str());
+        }
+    } else if (tp->col == colNext) {
+        // next edited
+        bool ok = true;
+        if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
+            std::vector<int> nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
+            for (int n : nextEdited) {
+                if (n < 0 || n >= myTLSPhases->getPhaseTable()->getNumRows()) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) {
+                myEditedDef->getLogic()->setPhaseNext(tp->row, nextEdited);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colNext, "");
+    } else if (tp->col == colName) {
+        // name edited
+        myEditedDef->getLogic()->setPhaseName(tp->row, value);
+        myTLSModifications->setHaveModifications(true);
+    } else if (tp->col == colMinDur) {
+        // minDur edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime minDur = getSUMOTime(value);
+            if (minDur > 0) {
+                myEditedDef->getLogic()->setPhaseMinDuration(tp->row, minDur);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseMinDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMinDur, varDurString(getPhases()[tp->row].minDur).c_str());
+    } else if (tp->col == colMaxDur) {
+        // maxDur edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime maxDur = getSUMOTime(value);
+            if (maxDur > 0) {
+                myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, maxDur);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMaxDur, varDurString(getPhases()[tp->row].maxDur).c_str());
+    } else if (tp->col == colEarliestEnd) {
+        // earliestEnd edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime earliestEnd = getSUMOTime(value);
+            if (earliestEnd > 0) {
+                myEditedDef->getLogic()->setPhaseEarliestEnd(tp->row, earliestEnd);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseEarliestEnd(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colEarliestEnd, varDurString(getPhases()[tp->row].earliestEnd).c_str());
+    } else if (tp->col == colLatestEnd) {
+        // latestEnd edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime latestEnd = getSUMOTime(value);
+            if (latestEnd > 0) {
+                myEditedDef->getLogic()->setPhaseLatestEnd(tp->row, latestEnd);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseLatestEnd(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colLatestEnd, varDurString(getPhases()[tp->row].latestEnd).c_str());
+    } else if (tp->col == colName) {
+        // name edited
+        myEditedDef->getLogic()->setPhaseName(tp->row, value);
+        myTLSModifications->setHaveModifications(true);
+    } else if (tp->col == colVehExt) {
+        // vehExt edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime vehExt = getSUMOTime(value);
+            if (vehExt > 0) {
+                myEditedDef->getLogic()->setPhaseVehExt(tp->row, vehExt);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseVehExt(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colVehExt, varDurString(getPhases()[tp->row].vehExt).c_str());
+    } else if (tp->col == colYellow) {
+        // yellow edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime yellow = getSUMOTime(value);
+            if (yellow > 0) {
+                myEditedDef->getLogic()->setPhaseYellow(tp->row, yellow);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseYellow(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colYellow, varDurString(getPhases()[tp->row].yellow).c_str());
+    } else if (tp->col == colRed) {
+        // red edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime red = getSUMOTime(value);
+            if (red > 0) {
+                myEditedDef->getLogic()->setPhaseRed(tp->row, red);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseRed(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colRed, varDurString(getPhases()[tp->row].red).c_str());
     }
     return 1;
 }
@@ -912,445 +1110,6 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
     } else {
         myViewNet->setStatusBarText("Unsaved modifications. Abort or Save");
     }
-}
-
-
-long 
-GNETLSEditorFrame::editStaticPhase(FXTablePos* tp, const std::string &value) {
-    // get constants
-    const int colDuration = 0;
-    const int colState = 1;
-    const int colNext = 2;
-    const int colName = 3;
-    // check column
-    if (tp->col == colDuration) {
-        // duration edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime duration = getSUMOTime(value);
-            if (duration > 0) {
-                myEditedDef->getLogic()->setPhaseDuration(tp->row, duration);
-                myTLSModifications->setHaveModifications(true);
-                myTLSPhases->updateCycleDuration();
-                return 1;
-            }
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colDuration, getSteps2Time(getPhases()[tp->row].duration).c_str());
-    } else if (tp->col == colState) {
-        // state edited
-        try {
-            // insert phase with new step and delete the old phase
-            const NBTrafficLightLogic::PhaseDefinition& phase = getPhases()[tp->row];
-            myEditedDef->getLogic()->addStep(phase.duration, value, phase.next, phase.name, tp->row);
-            myEditedDef->getLogic()->deletePhase(tp->row + 1);
-            myTLSModifications->setHaveModifications(true);
-            onCmdPhaseSwitch(nullptr, 0, nullptr);
-        } catch (ProcessError&) {
-            // input error, reset value
-            myTLSPhases->getPhaseTable()->setItemText(tp->row, colState, getPhases()[tp->row].state.c_str());
-        }
-    } else if (tp->col == colNext) {
-        // next edited
-        bool ok = true;
-        if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
-            std::vector<int> nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
-            for (int n : nextEdited) {
-                if (n < 0 || n >= myTLSPhases->getPhaseTable()->getNumRows()) {
-                    ok = false;
-                    break;
-                }
-            }
-            if (ok) {
-                myEditedDef->getLogic()->setPhaseNext(tp->row, nextEdited);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colNext, "");
-    } else if (tp->col == colName) {
-        // name edited
-        myEditedDef->getLogic()->setPhaseName(tp->row, value);
-        myTLSModifications->setHaveModifications(true);
-        return 1;
-    }
-    return 1;
-}
-
-
-long 
-GNETLSEditorFrame::editActuatedPhase(FXTablePos* tp, const std::string &value) {
-    // get constants
-    const int colDuration = 0;
-    const int colMinDur = 1;
-    const int colMaxDur = 2;
-    const int colState = 3;
-    const int colEarliestEnd = 4;
-    const int colLatestEnd = 5;
-    const int colNext = 6;
-    const int colName = 7;
-    // check column
-    if (tp->col == colDuration) {
-        // duration edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime duration = getSUMOTime(value);
-            if (duration > 0) {
-                myEditedDef->getLogic()->setPhaseDuration(tp->row, duration);
-                myTLSModifications->setHaveModifications(true);
-                myTLSPhases->updateCycleDuration();
-                return 1;
-            }
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colDuration, getSteps2Time(getPhases()[tp->row].duration).c_str());
-    } else if (tp->col == colMinDur) {
-        // minDur edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime minDur = getSUMOTime(value);
-            if (minDur > 0) {
-                myEditedDef->getLogic()->setPhaseMinDuration(tp->row, minDur);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        } else if (StringUtils::prune(value).empty()) {
-            myEditedDef->getLogic()->setPhaseMinDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMinDur, varDurString(getPhases()[tp->row].minDur).c_str());
-    } else if (tp->col == colMaxDur) {
-        // maxDur edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime maxDur = getSUMOTime(value);
-            if (maxDur > 0) {
-                myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, maxDur);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        } else if (StringUtils::prune(value).empty()) {
-            myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMaxDur, varDurString(getPhases()[tp->row].maxDur).c_str());
-    } else if (tp->col == colState) {
-        // state edited
-        try {
-            // insert phase with new step and delete the old phase
-            const NBTrafficLightLogic::PhaseDefinition& phase = getPhases()[tp->row];
-            myEditedDef->getLogic()->addStep(phase.duration, value, phase.next, phase.name, tp->row);
-            myEditedDef->getLogic()->deletePhase(tp->row + 1);
-            myTLSModifications->setHaveModifications(true);
-            onCmdPhaseSwitch(nullptr, 0, nullptr);
-        } catch (ProcessError&) {
-            // input error, reset value
-            myTLSPhases->getPhaseTable()->setItemText(tp->row, colState, getPhases()[tp->row].state.c_str());
-        }
-    } else if (tp->col == colNext) {
-        // next edited
-        bool ok = true;
-        if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
-            std::vector<int> nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
-            for (int n : nextEdited) {
-                if (n < 0 || n >= myTLSPhases->getPhaseTable()->getNumRows()) {
-                    ok = false;
-                    break;
-                }
-            }
-            if (ok) {
-                myEditedDef->getLogic()->setPhaseNext(tp->row, nextEdited);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colNext, "");
-    } else if (tp->col == colEarliestEnd) {
-        // earliestEnd edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime earliestEnd = getSUMOTime(value);
-            if (earliestEnd > 0) {
-                myEditedDef->getLogic()->setPhaseEarliestEnd(tp->row, earliestEnd);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        } else if (StringUtils::prune(value).empty()) {
-            myEditedDef->getLogic()->setPhaseEarliestEnd(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colEarliestEnd, varDurString(getPhases()[tp->row].earliestEnd).c_str());
-    } else if (tp->col == colLatestEnd) {
-        // latestEnd edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime latestEnd = getSUMOTime(value);
-            if (latestEnd > 0) {
-                myEditedDef->getLogic()->setPhaseLatestEnd(tp->row, latestEnd);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        } else if (StringUtils::prune(value).empty()) {
-            myEditedDef->getLogic()->setPhaseLatestEnd(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colLatestEnd, varDurString(getPhases()[tp->row].latestEnd).c_str());
-    } else if (tp->col == colName) {
-        // name edited
-        myEditedDef->getLogic()->setPhaseName(tp->row, value);
-        myTLSModifications->setHaveModifications(true);
-        return 1;
-    }
-    return 1;
-}
-
-
-long 
-GNETLSEditorFrame::editDelayBasePhase(FXTablePos* tp, const std::string &value) {
-    // get constants
-    const int colDuration = 0;
-    const int colMinDur = 1;
-    const int colMaxDur = 2;
-    const int colState = 3;
-    const int colNext = 4;
-    const int colName = 5;
-    // check column
-    if (tp->col == colDuration) {
-        // duration edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime duration = getSUMOTime(value);
-            if (duration > 0) {
-                myEditedDef->getLogic()->setPhaseDuration(tp->row, duration);
-                myTLSModifications->setHaveModifications(true);
-                myTLSPhases->updateCycleDuration();
-                return 1;
-            }
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colDuration, getSteps2Time(getPhases()[tp->row].duration).c_str());
-    } else if (tp->col == colMinDur) {
-        // minDur edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime minDur = getSUMOTime(value);
-            if (minDur > 0) {
-                myEditedDef->getLogic()->setPhaseMinDuration(tp->row, minDur);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        } else if (StringUtils::prune(value).empty()) {
-            myEditedDef->getLogic()->setPhaseMinDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMinDur, varDurString(getPhases()[tp->row].minDur).c_str());
-    } else if (tp->col == colMaxDur) {
-        // maxDur edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime maxDur = getSUMOTime(value);
-            if (maxDur > 0) {
-                myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, maxDur);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        } else if (StringUtils::prune(value).empty()) {
-            myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMaxDur, varDurString(getPhases()[tp->row].maxDur).c_str());
-    } else if (tp->col == colState) {
-        // state edited
-        try {
-            // insert phase with new step and delete the old phase
-            const NBTrafficLightLogic::PhaseDefinition& phase = getPhases()[tp->row];
-            myEditedDef->getLogic()->addStep(phase.duration, value, phase.next, phase.name, tp->row);
-            myEditedDef->getLogic()->deletePhase(tp->row + 1);
-            myTLSModifications->setHaveModifications(true);
-            onCmdPhaseSwitch(nullptr, 0, nullptr);
-        } catch (ProcessError&) {
-            // input error, reset value
-            myTLSPhases->getPhaseTable()->setItemText(tp->row, colState, getPhases()[tp->row].state.c_str());
-        }
-    } else if (tp->col == colNext) {
-        // next edited
-        bool ok = true;
-        if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
-            std::vector<int> nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
-            for (int n : nextEdited) {
-                if (n < 0 || n >= myTLSPhases->getPhaseTable()->getNumRows()) {
-                    ok = false;
-                    break;
-                }
-            }
-            if (ok) {
-                myEditedDef->getLogic()->setPhaseNext(tp->row, nextEdited);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colNext, "");
-    } else if (tp->col == colName) {
-        // name edited
-        myEditedDef->getLogic()->setPhaseName(tp->row, value);
-        myTLSModifications->setHaveModifications(true);
-        return 1;
-    }
-    return 1;
-}
-
-
-long 
-GNETLSEditorFrame::editNEMAPhase(FXTablePos* tp, const std::string &value) {
-    // get constants
-    const int colDuration = 0;
-    const int colMinDur = 1;
-    const int colMaxDur = 2;
-    const int colVehExt = 3;
-    const int colYellow = 4;
-    const int colRed = 5;
-    const int colState = 6;
-    const int colNext = 7;
-    const int colName = 8;
-    // check column
-    if (tp->col == colDuration) {
-        // duration edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime duration = getSUMOTime(value);
-            if (duration > 0) {
-                myEditedDef->getLogic()->setPhaseDuration(tp->row, duration);
-                myTLSModifications->setHaveModifications(true);
-                myTLSPhases->updateCycleDuration();
-                return 1;
-            }
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colDuration, getSteps2Time(getPhases()[tp->row].duration).c_str());
-    } else if (tp->col == colMinDur) {
-        // minDur edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime minDur = getSUMOTime(value);
-            if (minDur > 0) {
-                myEditedDef->getLogic()->setPhaseMinDuration(tp->row, minDur);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        } else if (StringUtils::prune(value).empty()) {
-            myEditedDef->getLogic()->setPhaseMinDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMinDur, varDurString(getPhases()[tp->row].minDur).c_str());
-    } else if (tp->col == colMaxDur) {
-        // maxDur edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime maxDur = getSUMOTime(value);
-            if (maxDur > 0) {
-                myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, maxDur);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        } else if (StringUtils::prune(value).empty()) {
-            myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMaxDur, varDurString(getPhases()[tp->row].maxDur).c_str());
-    } else if (tp->col == colVehExt) {
-        // vehExt edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime vehExt = getSUMOTime(value);
-            if (vehExt > 0) {
-                myEditedDef->getLogic()->setPhaseVehExt(tp->row, vehExt);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        } else if (StringUtils::prune(value).empty()) {
-            myEditedDef->getLogic()->setPhaseVehExt(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colVehExt, varDurString(getPhases()[tp->row].vehExt).c_str());
-    } else if (tp->col == colYellow) {
-        // yellow edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime yellow = getSUMOTime(value);
-            if (yellow > 0) {
-                myEditedDef->getLogic()->setPhaseYellow(tp->row, yellow);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        } else if (StringUtils::prune(value).empty()) {
-            myEditedDef->getLogic()->setPhaseYellow(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colYellow, varDurString(getPhases()[tp->row].yellow).c_str());
-    } else if (tp->col == colRed) {
-        // red edited
-        if (GNEAttributeCarrier::canParse<double>(value)) {
-            SUMOTime red = getSUMOTime(value);
-            if (red > 0) {
-                myEditedDef->getLogic()->setPhaseRed(tp->row, red);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        } else if (StringUtils::prune(value).empty()) {
-            myEditedDef->getLogic()->setPhaseRed(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colRed, varDurString(getPhases()[tp->row].red).c_str());
-    } else if (tp->col == colState) {
-        // state edited
-        try {
-            // insert phase with new step and delete the old phase
-            const NBTrafficLightLogic::PhaseDefinition& phase = getPhases()[tp->row];
-            myEditedDef->getLogic()->addStep(phase.duration, value, phase.next, phase.name, tp->row);
-            myEditedDef->getLogic()->deletePhase(tp->row + 1);
-            myTLSModifications->setHaveModifications(true);
-            onCmdPhaseSwitch(nullptr, 0, nullptr);
-        } catch (ProcessError&) {
-            // input error, reset value
-            myTLSPhases->getPhaseTable()->setItemText(tp->row, colState, getPhases()[tp->row].state.c_str());
-        }
-    } else if (tp->col == colNext) {
-        // next edited
-        bool ok = true;
-        if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
-            std::vector<int> nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
-            for (int n : nextEdited) {
-                if (n < 0 || n >= myTLSPhases->getPhaseTable()->getNumRows()) {
-                    ok = false;
-                    break;
-                }
-            }
-            if (ok) {
-                myEditedDef->getLogic()->setPhaseNext(tp->row, nextEdited);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colNext, "");
-    } else if (tp->col == colName) {
-        // name edited
-        myEditedDef->getLogic()->setPhaseName(tp->row, value);
-        myTLSModifications->setHaveModifications(true);
-        return 1;
-    }
-    return 1;
 }
 
 

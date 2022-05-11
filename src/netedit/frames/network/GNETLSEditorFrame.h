@@ -461,18 +461,6 @@ protected:
      */
     void editJunction(GNEJunction* junction);
 
-    /// @brief edit static phase
-    long editStaticPhase(FXTablePos* tp, const std::string &value);
-
-    /// @brief edit actuated phase
-    long editActuatedPhase(FXTablePos* tp, const std::string &value);
-
-    /// @brief edit delayBase phase
-    long editDelayBasePhase(FXTablePos* tp, const std::string &value);
-
-    /// @brief edit NEMA phase
-    long editNEMAPhase(FXTablePos* tp, const std::string &value);
-
     /// @brief converts to SUMOTime
     static SUMOTime getSUMOTime(const std::string& value);
 
