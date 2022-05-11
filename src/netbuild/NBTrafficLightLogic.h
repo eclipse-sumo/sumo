@@ -58,6 +58,9 @@ public:
         /// @brief The duration of the phase in s
         SUMOTime duration;
 
+        /// @brief The state definition
+        std::string state;
+
         /// @brief minimum duration (for actuated)
         SUMOTime minDur;
 
@@ -79,9 +82,6 @@ public:
         /// @brief red (for NEMA)
         SUMOTime red;
 
-        /// @brief The state definition
-        std::string state;
-
         /// @brief next phase indices or empty list
         std::vector<int> next;
 
@@ -96,6 +96,7 @@ public:
                         const SUMOTime earliestEnd_, const SUMOTime latestEnd_, const SUMOTime vehExt_, const SUMOTime yellow_,
                         const SUMOTime red_, const std::vector<int>& next_, const std::string& name_) :
             duration(duration_),
+            state(state_),
             minDur(minDur_),
             maxDur(maxDur_),
             earliestEnd(earliestEnd_),
@@ -103,7 +104,6 @@ public:
             vehExt(vehExt_),
             yellow(yellow_),
             red(red_),
-            state(state_),
             next(next_),
             name(name_)
         { }
