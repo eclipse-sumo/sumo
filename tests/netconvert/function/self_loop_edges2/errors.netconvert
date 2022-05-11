@@ -1,4 +1,1 @@
-Error: The from-node '0' is identical to the to-node for edge 'loop'.
-Repeating initial error messages:
-The from-node '0' is identical to the to-node for edge 'loop'.
-Quitting (on error).
+Warning: Edge's 'loop' from- and to-node are at the same position.
