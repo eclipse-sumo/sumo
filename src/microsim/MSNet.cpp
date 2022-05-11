@@ -62,6 +62,7 @@
 #include <utils/vehicle/SUMORouteLoaderControl.h>
 #include <utils/xml/XMLSubSys.h>
 #include <traci-server/TraCIServer.h>
+#include <libsumo/Helper.h>
 #include <libsumo/Simulation.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>

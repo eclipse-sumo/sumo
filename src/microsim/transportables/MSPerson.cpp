@@ -33,15 +33,16 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
-#include "MSPerson.h"
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/MSRouteHandler.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDevice_Taxi.h>
+#include "MSPerson.h"
 #include "MSPModel.h"
 
 // ===========================================================================

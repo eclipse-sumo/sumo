@@ -30,6 +30,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSInsertionControl.h>
+#include <libsumo/Helper.h>
 #include <libsumo/TraCIConstants.h>
 #include "Lane.h"
 

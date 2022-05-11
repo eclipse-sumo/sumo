@@ -42,6 +42,7 @@
 #ifdef HAVE_FOX
 #include <utils/foxtools/MsgHandlerSynchronized.h>
 #endif
+#include <libsumo/Helper.h>
 #include <mesosim/MEVehicleControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>

@@ -25,6 +25,7 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSNet.h>
+#include <libsumo/Helper.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
 #include "InductionLoop.h"

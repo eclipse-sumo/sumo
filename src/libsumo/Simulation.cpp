@@ -51,6 +51,7 @@
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 #include <netload/NLBuilder.h>
+#include <libsumo/Helper.h>
 #include <libsumo/TraCIConstants.h>
 #ifdef HAVE_LIBSUMOGUI
 #include "GUI.h"

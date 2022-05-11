@@ -101,8 +101,8 @@
     #pragma warning(disable: 4251)
     /* Disable integer overflow in arithmetics warnings */
     #pragma warning(disable: 26451)
-    /* Disable unreferenced inline function warnings */
-    #pragma warning(disable: 4514)
+    /* Disable inline function warnings */
+    #pragma warning(disable: 4514 4710)
     /* Disable byte padding warnings */
     #pragma warning(disable: 4820)
     /* Disable unhandled switch case warnings (which get triggered even with a default branch) */
@@ -115,6 +115,8 @@
     #pragma warning(disable: 5045)
     /* Disable undefined macro in #if warnings */
     #pragma warning(disable: 4668)
+    /* Disable class layout warnings */
+    #pragma warning(disable: 4371)
 
     /* Disable "unsafe" warnings for crt functions in VC++ 2005. */
     #if _MSC_VER >= 1400

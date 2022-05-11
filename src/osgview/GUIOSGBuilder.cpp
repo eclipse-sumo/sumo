@@ -251,7 +251,7 @@ void
 GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo) {
     osg::Node* pLoadedModel = osgDB::readNodeFile(d.filename);
     osg::PositionAttitudeTransform* base = new osg::PositionAttitudeTransform();
-    float zOffset = 0.0f;
+    double zOffset = 0.;
     if (pLoadedModel == nullptr) {
         // check for 2D image 
         osg::Image* pImage = osgDB::readImageFile(d.filename);
@@ -260,16 +260,15 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
             WRITE_ERROR("Could not load '" + d.filename + "'.");
             return;
         }
-        osg::Texture2D* texture = new osg::Texture2D;
+        osg::Texture2D* texture = new osg::Texture2D();
         texture->setImage(pImage);
         osg::Geometry* quad = osg::createTexturedQuadGeometry(osg::Vec3d(-0.5 * d.width, -0.5 * d.height, 0.), osg::Vec3d(d.width, 0., 0.), osg::Vec3d(0., d.height, 0.));
         quad->getOrCreateStateSet()->setTextureAttributeAndModes(0, texture);
-        osg::Geode* const pLoadedModel = new osg::Geode;
+        osg::Geode* const pLoadedModel = new osg::Geode();
         pLoadedModel->addDrawable(quad);
         base->addChild(pLoadedModel);
         zOffset = d.layer;
-    }
-    else { 
+    } else { 
         osg::ShadeModel* sm = new osg::ShadeModel();
         sm->setMode(osg::ShadeModel::FLAT);
         pLoadedModel->getOrCreateStateSet()->setAttribute(sm);
