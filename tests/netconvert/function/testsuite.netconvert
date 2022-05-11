@@ -77,6 +77,9 @@ railway
 # tests whether removing self-loop edges works
 self_loop_edges
 
+# tests whether removing self-loop edges works
+self_loop_edges2
+
 # test speed factor and offset
 speed_modification
 min_speed
@@ -108,6 +111,3 @@ flipY_lefthand
 
 # build networks with higher junction speed when incoming and outgoing edge have different speeds
 junctions.higherSpeed
-
-# TLS extended attributes (NEMA and actuated)
-tls_extended_attributes
