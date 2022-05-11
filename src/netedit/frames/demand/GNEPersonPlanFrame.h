@@ -60,6 +60,12 @@ public:
      */
     bool addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
+    /// @brief check if given person is the current person
+    bool isCurrentPerson(const GNEDemandElement *person) const;
+
+    /// @brief set given person as current person
+    void setCurrentPerson(GNEDemandElement *person);
+
     /// @brief get path creator module
     GNEPathCreator* getPathCreator() const;
 
@@ -81,17 +87,20 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief Person selectors
-    DemandElementSelector* myPersonSelector;
+    DemandElementSelector* myPersonSelector = nullptr;
 
     /// @brief personPlan selector
-    GNETagSelector* myPersonPlanTagSelector;
+    GNETagSelector* myPersonPlanTagSelector = nullptr;
 
     /// @brief internal vehicle attributes
-    GNEAttributesCreator* myPersonPlanAttributes;
+    GNEAttributesCreator* myPersonPlanAttributes = nullptr;
 
     /// @brief Path Creator
-    GNEPathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator = nullptr;
 
     /// @brief Person Hierarchy
-    GNEElementTree* myPersonHierarchy;
+    GNEElementTree* myPersonHierarchy = nullptr;
+
+    /// @brief current person
+    GNEDemandElement* myCurrentPerson = nullptr;
 };

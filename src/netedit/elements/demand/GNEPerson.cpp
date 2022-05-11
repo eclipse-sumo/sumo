@@ -22,6 +22,8 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/changes/GNEChange_EnableAttribute.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
@@ -524,6 +526,8 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_CURRENTPERSON:
+            return toString(myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->isCurrentPerson(this));
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -606,6 +610,13 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case GNE_ATTR_SELECTED:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
+        case GNE_ATTR_CURRENTPERSON:
+            if (value == "true") {
+                return myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->setCurrentPerson(this);
+            } else {
+                return myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->setCurrentPerson(nullptr);
+            }
+            break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -684,6 +695,8 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
+        case GNE_ATTR_CURRENTPERSON:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -921,6 +934,9 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_CURRENTPERSON:
+            // nothing to do
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

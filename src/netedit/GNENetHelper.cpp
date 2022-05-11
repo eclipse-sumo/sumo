@@ -2107,6 +2107,10 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     myNet->getViewNet()->removeFromAttributeCarrierInspected(demandElement);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
     myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPersonHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
+    // remove from personPlanFrame
+    if (myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->isCurrentPerson(demandElement)) {
+        myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->setCurrentPerson(nullptr);
+    }
     // erase it from container
     myDemandElements.at(demandElement->getTagProperty().getTag()).erase(itFind);
     // remove element from grid
