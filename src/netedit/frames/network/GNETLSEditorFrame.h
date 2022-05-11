@@ -215,6 +215,9 @@ public:
         /// @brief init actuated phase table
         void initActuatedPhaseTable(const int index);
 
+        /// @brief init delayBase phase table
+        void initDelayBasePhaseTable(const int index);
+
         /// @brief init NEMA phase table
         void initNEMAPhaseTable(const int index);
 
@@ -463,6 +466,9 @@ protected:
 
     /// @brief edit actuated phase
     long editActuatedPhase(FXTablePos* tp, const std::string &value);
+
+    /// @brief edit delayBase phase
+    long editDelayBasePhase(FXTablePos* tp, const std::string &value);
 
     /// @brief edit NEMA phase
     long editNEMAPhase(FXTablePos* tp, const std::string &value);

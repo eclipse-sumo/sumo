@@ -674,8 +674,10 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
     const std::string value = myTLSPhases->getPhaseTable()->getItemText(tp->row, tp->col).text();
     if (myEditedDef->getType() == TrafficLightType::STATIC) {
         editStaticPhase(tp, value);
-    } else if ((myEditedDef->getType() == TrafficLightType::ACTUATED) || (myEditedDef->getType() == TrafficLightType::DELAYBASED)) {
+    } else if (myEditedDef->getType() == TrafficLightType::ACTUATED) {
         editActuatedPhase(tp, value);
+    } else if (myEditedDef->getType() == TrafficLightType::DELAYBASED) {
+        return editDelayBasePhase(tp, value);
     } else if (myEditedDef->getType() == TrafficLightType::NEMA) {
         editNEMAPhase(tp, value);
     }
@@ -982,9 +984,9 @@ GNETLSEditorFrame::editActuatedPhase(FXTablePos* tp, const std::string &value) {
     const int colDuration = 0;
     const int colMinDur = 1;
     const int colMaxDur = 2;
-    const int colEarliestEnd = 3;
-    const int colLatestEnd = 4;
-    const int colState = 5;
+    const int colState = 3;
+    const int colEarliestEnd = 4;
+    const int colLatestEnd = 5;
     const int colNext = 6;
     const int colName = 7;
     // check column
@@ -1033,6 +1035,38 @@ GNETLSEditorFrame::editActuatedPhase(FXTablePos* tp, const std::string &value) {
         }
         // input error, reset value
         myTLSPhases->getPhaseTable()->setItemText(tp->row, colMaxDur, varDurString(getPhases()[tp->row].maxDur).c_str());
+    } else if (tp->col == colState) {
+        // state edited
+        try {
+            // insert phase with new step and delete the old phase
+            const NBTrafficLightLogic::PhaseDefinition& phase = getPhases()[tp->row];
+            myEditedDef->getLogic()->addStep(phase.duration, value, phase.next, phase.name, tp->row);
+            myEditedDef->getLogic()->deletePhase(tp->row + 1);
+            myTLSModifications->setHaveModifications(true);
+            onCmdPhaseSwitch(nullptr, 0, nullptr);
+        } catch (ProcessError&) {
+            // input error, reset value
+            myTLSPhases->getPhaseTable()->setItemText(tp->row, colState, getPhases()[tp->row].state.c_str());
+        }
+    } else if (tp->col == colNext) {
+        // next edited
+        bool ok = true;
+        if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
+            std::vector<int> nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
+            for (int n : nextEdited) {
+                if (n < 0 || n >= myTLSPhases->getPhaseTable()->getNumRows()) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) {
+                myEditedDef->getLogic()->setPhaseNext(tp->row, nextEdited);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colNext, "");
     } else if (tp->col == colEarliestEnd) {
         // earliestEnd edited
         if (GNEAttributeCarrier::canParse<double>(value)) {
@@ -1065,6 +1099,71 @@ GNETLSEditorFrame::editActuatedPhase(FXTablePos* tp, const std::string &value) {
         }
         // input error, reset value
         myTLSPhases->getPhaseTable()->setItemText(tp->row, colLatestEnd, varDurString(getPhases()[tp->row].latestEnd).c_str());
+    } else if (tp->col == colName) {
+        // name edited
+        myEditedDef->getLogic()->setPhaseName(tp->row, value);
+        myTLSModifications->setHaveModifications(true);
+        return 1;
+    }
+    return 1;
+}
+
+
+long 
+GNETLSEditorFrame::editDelayBasePhase(FXTablePos* tp, const std::string &value) {
+    // get constants
+    const int colDuration = 0;
+    const int colMinDur = 1;
+    const int colMaxDur = 2;
+    const int colState = 3;
+    const int colNext = 4;
+    const int colName = 5;
+    // check column
+    if (tp->col == colDuration) {
+        // duration edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime duration = getSUMOTime(value);
+            if (duration > 0) {
+                myEditedDef->getLogic()->setPhaseDuration(tp->row, duration);
+                myTLSModifications->setHaveModifications(true);
+                myTLSPhases->updateCycleDuration();
+                return 1;
+            }
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colDuration, getSteps2Time(getPhases()[tp->row].duration).c_str());
+    } else if (tp->col == colMinDur) {
+        // minDur edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime minDur = getSUMOTime(value);
+            if (minDur > 0) {
+                myEditedDef->getLogic()->setPhaseMinDuration(tp->row, minDur);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseMinDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMinDur, varDurString(getPhases()[tp->row].minDur).c_str());
+    } else if (tp->col == colMaxDur) {
+        // maxDur edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime maxDur = getSUMOTime(value);
+            if (maxDur > 0) {
+                myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, maxDur);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMaxDur, varDurString(getPhases()[tp->row].maxDur).c_str());
     } else if (tp->col == colState) {
         // state edited
         try {
@@ -1582,9 +1681,10 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
     if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
         if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC) {
             initStaticPhaseTable(index);
-        } else if ((myTLSEditorParent->myEditedDef->getType() == TrafficLightType::ACTUATED) || 
-                   (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::DELAYBASED)) {
+        } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::ACTUATED) {
             initActuatedPhaseTable(index);
+        } else if(myTLSEditorParent->myEditedDef->getType() == TrafficLightType::DELAYBASED) {
+            initDelayBasePhaseTable(index);
         } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::NEMA) {
             initNEMAPhaseTable(index);
         }
@@ -1671,9 +1771,9 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     const int colDuration = 0;
     const int colMinDur = 1;
     const int colMaxDur = 2;
-    const int colEarliestEnd = 3;
-    const int colLatestEnd = 4;
-    const int colState = 5;
+    const int colState = 3;
+    const int colEarliestEnd = 4;
+    const int colLatestEnd = 5;
     const int colNext = 6;
     const int colName = 7;
     // get phases
@@ -1687,9 +1787,9 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
         myPhaseTable->setItemText(row, colMinDur, varDurString(phases[row].minDur).c_str());
         myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
+        myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
         myPhaseTable->setItemText(row, colEarliestEnd, varDurString(phases[row].earliestEnd).c_str());
         myPhaseTable->setItemText(row, colLatestEnd, varDurString(phases[row].latestEnd).c_str());
-        myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
         myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
         myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
         myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
@@ -1732,18 +1832,15 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
 
 
 void 
-GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
+GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     // declare constants for columns
-    const int cols = 9;
+    const int cols = 8;
     const int colDuration = 0;
     const int colMinDur = 1;
     const int colMaxDur = 2;
-    const int colVehExt = 3;
-    const int colYellow = 4;
-    const int colRed = 5;
-    const int colState = 6;
-    const int colNext = 7;
-    const int colName = 8;
+    const int colState = 3;
+    const int colNext = 4;
+    const int colName = 5;
     // get phases
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
@@ -1755,9 +1852,6 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
         myPhaseTable->setItemText(row, colMinDur, varDurString(phases[row].minDur).c_str());
         myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
-        myPhaseTable->setItemText(row, colVehExt, varDurString(phases[row].vehExt).c_str());
-        myPhaseTable->setItemText(row, colYellow, varDurString(phases[row].yellow).c_str());
-        myPhaseTable->setItemText(row, colRed, varDurString(phases[row].red).c_str());
         myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
         myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
         myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
@@ -1771,14 +1865,79 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
     myPhaseTable->setColumnText(colMaxDur, "max");
     myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
+    myPhaseTable->setColumnText(colState, "state");
+    myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
+    myPhaseTable->setColumnText(colNext, "nxt");
+    myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
+    myPhaseTable->setColumnText(colName, "name");
+    myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
+    // set rows
+    myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
+    myPhaseTable->setCurrentItem(index, 0);
+    myPhaseTable->selectRow(index, true);
+    myPhaseTable->show();
+    myPhaseTable->setFocus();
+    myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
+    // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
+    // however, the scroll pane uses getDefaultWidth to determine the
+    // horizontal scrolling area which can only be changed via
+    // getDefColumnWidth, hence the baroque work-around
+    int neededWidth = 0;
+    for (int i = 0; i < cols; i++) {
+        neededWidth += myPhaseTable->getColumnWidth(i);
+    }
+    myPhaseTable->setDefColumnWidth(neededWidth / cols);
+}
+
+
+void 
+GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
+    // declare constants for columns
+    const int cols = 9;
+    const int colDuration = 0;
+    const int colMinDur = 1;
+    const int colMaxDur = 2;
+    const int colState = 3;
+    const int colVehExt = 4;
+    const int colYellow = 5;
+    const int colRed = 6;
+    const int colNext = 7;
+    const int colName = 8;
+    // get phases
+    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
+    // adjust table
+    myPhaseTable->setTableSize((int)phases.size(), cols);
+    myPhaseTable->setVisibleRows((int)phases.size());
+    myPhaseTable->setVisibleColumns(cols);
+    // fill rows
+    for (int row = 0; row < (int)phases.size(); row++) {
+        myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
+        myPhaseTable->setItemText(row, colMinDur, varDurString(phases[row].minDur).c_str());
+        myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
+        myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
+        myPhaseTable->setItemText(row, colVehExt, varDurString(phases[row].vehExt).c_str());
+        myPhaseTable->setItemText(row, colYellow, varDurString(phases[row].yellow).c_str());
+        myPhaseTable->setItemText(row, colRed, varDurString(phases[row].red).c_str());
+        myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
+        myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
+        myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
+    }
+    // set columns
+    myPhaseTable->fitColumnsToContents(0, cols);
+    myPhaseTable->setColumnText(colDuration, "dur");
+    myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
+    myPhaseTable->setColumnText(colMinDur, "min");
+    myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
+    myPhaseTable->setColumnText(colMaxDur, "max");
+    myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
+    myPhaseTable->setColumnText(colState, "state");
+    myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
     myPhaseTable->setColumnText(colVehExt, "veh.ext");
     myPhaseTable->setColumnWidth(colVehExt, MAX2(myPhaseTable->getColumnWidth(colVehExt), 35));
     myPhaseTable->setColumnText(colYellow, "yel");
     myPhaseTable->setColumnWidth(colYellow, MAX2(myPhaseTable->getColumnWidth(colYellow), 35));
     myPhaseTable->setColumnText(colRed, "red");
     myPhaseTable->setColumnWidth(colRed, MAX2(myPhaseTable->getColumnWidth(colRed), 35));
-    myPhaseTable->setColumnText(colState, "state");
-    myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
     myPhaseTable->setColumnText(colNext, "nxt");
     myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
     myPhaseTable->setColumnText(colName, "name");
