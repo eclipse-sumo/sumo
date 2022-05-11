@@ -497,7 +497,7 @@ private:
     NBLoadedSUMOTLDef* myEditedDef;
 
     /// @brief index of the phase being shown
-    int myPhaseIndex;
+    int myPhaseIndex = 0;
 
     /// @brief cleans up previous lanes
     void cleanup();
