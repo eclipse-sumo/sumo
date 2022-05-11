@@ -1,2 +1,4 @@
-Warning:  Removing self-looping edge 'loop'
-Warning: 1 self-looping edge(s) removed.
+Error: The from-node '0' is identical to the to-node for edge 'loop'.
+Repeating initial error messages:
+The from-node '0' is identical to the to-node for edge 'loop'.
+Quitting (on error).
