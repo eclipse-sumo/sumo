@@ -673,12 +673,13 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
     FXTablePos* tp = (FXTablePos*)ptr;
     const std::string value = myTLSPhases->getPhaseTable()->getItemText(tp->row, tp->col).text();
     if (myEditedDef->getType() == TrafficLightType::STATIC) {
-        return editStaticPhase(tp, value);
+        editStaticPhase(tp, value);
     } else if (myEditedDef->getType() == TrafficLightType::ACTUATED) {
-        return editActuatedPhase(tp, value);
+        editActuatedPhase(tp, value);
     } else if (myEditedDef->getType() == TrafficLightType::NEMA) {
-        return editNEMAPhase(tp, value);
+        editNEMAPhase(tp, value);
     }
+    return 1;
 }
 
 

@@ -100,10 +100,10 @@ public:
             maxDur(maxDur_),
             earliestEnd(earliestEnd_),
             latestEnd(latestEnd_),
-            state(state_),
             vehExt(vehExt_),
             yellow(yellow_),
             red(red_),
+            state(state_),
             next(next_),
             name(name_)
         { }
