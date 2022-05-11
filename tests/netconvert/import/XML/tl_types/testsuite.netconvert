@@ -3,6 +3,9 @@ default_actuated
 static
 actuated
 delay_based
+
+# declare a NEMA controller
+NEMA
 plain_tll_actuated
 
 # test a tl-controlled junction which has no junction logic
