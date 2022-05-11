@@ -258,9 +258,9 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     const SUMOTime maxDur = (myType == TrafficLightType::STATIC) ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.max-dur"));
     const SUMOTime earliestEnd = UNSPECIFIED_DURATION;
     const SUMOTime latestEnd = UNSPECIFIED_DURATION;
-    const SUMOTime vehExt = (myType != TrafficLightType::STATIC) ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.vehExt"));
-    const SUMOTime yellow = (myType != TrafficLightType::STATIC) ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.yellow"));
-    const SUMOTime red = (myType != TrafficLightType::STATIC)? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.red"));
+    const SUMOTime vehExt = (myType != TrafficLightType::NEMA) ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.vehExt"));
+    const SUMOTime yellow = (myType != TrafficLightType::NEMA) ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.yellow"));
+    const SUMOTime red = (myType != TrafficLightType::NEMA)? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.red"));
 
     // build complete lists first
     const EdgeVector& incoming = getIncomingEdges();
