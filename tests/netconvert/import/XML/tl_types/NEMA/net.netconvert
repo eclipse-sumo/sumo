@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-11 15:57:29 by Eclipse SUMO netconvert Version v1_13_0+0153-4fb0c40
+<!-- generated on 2022-05-11 16:39:45 by Eclipse SUMO netconvert Version v1_13_0+0158-5e928c1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -149,14 +149,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <tlLogic id="0" type="NEMA" programID="0" offset="0">
-        <phase duration="33" state="GGggrrrrGGggrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2"/>
-        <phase duration="3"  state="yyggrrrryyggrrrr"/>
-        <phase duration="6"  state="rrGGrrrrrrGGrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2"/>
-        <phase duration="3"  state="rryyrrrrrryyrrrr"/>
-        <phase duration="33" state="rrrrGGggrrrrGGgg" minDur="5" maxDur="50" vehext="2" yellow="3" red="2"/>
-        <phase duration="3"  state="rrrryyggrrrryygg"/>
-        <phase duration="6"  state="rrrrrrGGrrrrrrGG" minDur="5" maxDur="50" vehext="2" yellow="3" red="2"/>
-        <phase duration="3"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="33" state="GGggrrrrGGggrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="1"/>
+        <phase duration="3"  state="yyggrrrryyggrrrr" name="2"/>
+        <phase duration="6"  state="rrGGrrrrrrGGrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="3"/>
+        <phase duration="3"  state="rryyrrrrrryyrrrr" name="4"/>
+        <phase duration="33" state="rrrrGGggrrrrGGgg" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="5"/>
+        <phase duration="3"  state="rrrryyggrrrryygg" name="6"/>
+        <phase duration="6"  state="rrrrrrGGrrrrrrGG" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="7"/>
+        <phase duration="3"  state="rrrrrryyrrrrrryy" name="8"/>
         <param key="barrier2Phases" value="2,6"/>
         <param key="barrierPhases" value="4,8"/>
         <param key="ring1" value="1,2,3,4"/>
