@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_13_0+0129-a0d5aef1507
+Eclipse SUMO netgenerate Version v1_13_0+0150-c78e419
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -239,6 +239,12 @@ TLS Building Options:
   --tls.left-green.time INT            Use INT as green phase duration for left
                                         turns (s). Setting this value to 0
                                         disables additional left-turning phases
+  --tls.nema.vehExt INT                Set INT as fixed time for intermediate
+                                        vehext phase after every switch
+  --tls.nema.yellow INT                Set INT as fixed time for intermediate
+                                        NEMA yelow phase after every switch
+  --tls.nema.red INT                   Set INT as fixed time for intermediate
+                                        NEMA red phase after every switch
   --tls.crossing-min.time INT          Use INT as minimum green duration for
                                         pedestrian crossings (s).
   --tls.crossing-clearance.time INT    Use INT as clearance time for pedestrian

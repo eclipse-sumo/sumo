@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-10 16:20:30 by Eclipse SUMO netgenerate Version v1_13_0+0129-a0d5aef1507
+<!-- generated on 2022-05-11 14:32:16 by Eclipse SUMO netgenerate Version v1_13_0+0150-c78e419
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -374,6 +374,15 @@
 
         <!-- Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases -->
         <tls.left-green.time value="6" type="INT"/>
+
+        <!-- Set INT as fixed time for intermediate vehext phase after every switch -->
+        <tls.nema.vehExt value="2" type="INT"/>
+
+        <!-- Set INT as fixed time for intermediate NEMA yelow phase after every switch -->
+        <tls.nema.yellow value="3" type="INT"/>
+
+        <!-- Set INT as fixed time for intermediate NEMA red phase after every switch -->
+        <tls.nema.red value="2" type="INT"/>
 
         <!-- Use INT as minimum green duration for pedestrian crossings (s). -->
         <tls.crossing-min.time value="4" type="INT"/>
