@@ -3,6 +3,9 @@ basic
 # tests for changing to gain speed
 speedGain
 
+# test cooperative changing
+cooperative
+
 # tests for overtaking and merging at ramps
 motorway
 
