@@ -1516,6 +1516,17 @@ MSLCM_LC2013::_wantsChange(
                                             : -mySpeedGainProbability / myChangeProbThresholdLeft));
     const bool speedGainInconvenient = inconvenience > myCooperativeParam;
     const bool neighOccupancyInconvenient = neigh.lane->getBruttoOccupancy() > curr.lane->getBruttoOccupancy();
+#ifdef DEBUG_WANTS_CHANGE
+    if (DEBUG_COND) {
+        std::cout << STEPS2TIME(currentTime)
+            << " veh=" << myVehicle.getID()
+            << " speedGainProb=" << mySpeedGainProbability
+            << " inconvenience=" << inconvenience
+            << " speedInconv=" << speedGainInconvenient
+            << " occInconv=" << neighOccupancyInconvenient
+            << "\n";
+    }
+#endif
 
     // VARIANT_15
     if (roundaboutBonus > 0) {
@@ -2061,6 +2072,22 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(myMaxSpeedLatFactor);
     } else if (key == toString(SUMO_ATTR_LCA_MAXDISTLATSTANDING)) {
         return toString(myMaxDistLatStanding);
+        // access to internal state for debugging in sumo-gui (not documented since it may change at any time)
+    } else if (key == "speedGainProbabilityRight") {
+        return toString(-mySpeedGainProbability);
+    } else if (key == "speedGainProbabilityLeft") {
+        return toString(mySpeedGainProbability);
+    } else if (key == "keepRightProbability") {
+        return toString(-myKeepRightProbability);
+    } else if (key == "lookAheadSpeed") {
+        return toString(myLookAheadSpeed);
+        // motivation relative to threshold
+    } else if (key == "speedGainRP") {
+        return toString(-mySpeedGainProbability / myChangeProbThresholdRight);
+    } else if (key == "speedGainLP") {
+        return toString(mySpeedGainProbability / myChangeProbThresholdLeft);
+    } else if (key == "keepRightP") {
+        return toString(myKeepRightProbability * myKeepRightParam / -myChangeProbThresholdRight);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
