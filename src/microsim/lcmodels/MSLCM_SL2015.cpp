@@ -1398,6 +1398,22 @@ MSLCM_SL2015::_wantsChangeSublane(
     const double inconvenience = (latLaneDist < 0
                                   ? -mySpeedGainProbabilityRight / myChangeProbThresholdRight
                                   : -mySpeedGainProbabilityLeft / myChangeProbThresholdLeft);
+#ifdef DEBUG_COOPERATE
+    if (gDebugFlag2) {
+        std::cout << STEPS2TIME(currentTime)
+            << " veh=" << myVehicle.getID()
+            << " amBlocking=" << amBlockingFollowerPlusNB()
+            << " state=" << toString((LaneChangeAction)myOwnState)
+            << " myLca=" << toString((LaneChangeAction)myLca)
+            << " prevState=" << toString((LaneChangeAction)myPreviousState)
+            << " inconvenience=" << inconvenience
+            << " origLatDist=" << getManeuverDist()
+            << " wantsChangeToHelp=" << (right ? "right" : "left")
+            << " state=" << myOwnState
+            << "\n";
+    }
+#endif
+
     if (laneOffset != 0
             && ((amBlockingFollowerPlusNB()
                  // VARIANT_6 : counterNoHelp
@@ -1414,15 +1430,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         // VARIANT_2 (nbWhenChangingToHelp)
 #ifdef DEBUG_COOPERATE
         if (gDebugFlag2) {
-            std::cout << STEPS2TIME(currentTime)
-                      << " veh=" << myVehicle.getID()
-                      << " amBlocking=" << amBlockingFollowerPlusNB()
-                      << " prevState=" << toString((LaneChangeAction)myPreviousState)
-                      << " origLatDist=" << getManeuverDist()
-                      << " wantsChangeToHelp=" << (right ? "right" : "left")
-                      << " state=" << myOwnState
-                      //<< (((myOwnState & myLca) == 0) ? " (counter)" : "")
-                      << "\n";
+            std::cout << "   wants cooperative change\n";
         }
 #endif
 
