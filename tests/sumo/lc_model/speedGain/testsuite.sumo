@@ -7,6 +7,9 @@ keepRight0
 # lcSpeedGain=2 (earlier changing)
 speedGain2
 
+# disable changing
+speedGain0
+
 # symmetrical speedGain threshold for left and right
 lcSpeedGainRight1
 
