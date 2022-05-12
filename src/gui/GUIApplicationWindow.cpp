@@ -812,7 +812,7 @@ GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
                 GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
                 if (w != nullptr) {
                     // color by selection
-                    w->getView()->getVisualisationSettings().laneColorer.setActive(1);
+                    w->getView()->getVisualisationSettings()->laneColorer.setActive(1);
                 }
             }
         }
@@ -1377,7 +1377,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         return 1;
     }
     myAmGaming = !myAmGaming;
-    myGLWindows[0]->getView()->getVisualisationSettings().gaming = myAmGaming;
+    myGLWindows[0]->getView()->getVisualisationSettings()->gaming = myAmGaming;
     if (myAmGaming) {
         myGamingModeCheckbox->setCheck(TRUE);
         myMenuBar->hide();
@@ -1432,10 +1432,10 @@ GUIApplicationWindow::onCmdToogleDrawJunctionShape(FXObject*, FXSelector, void*)
     GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
     if (w != nullptr) {
         // show or hide grid depending of myNetworkViewOptions.menuCheckToggleGrid
-        if (w->getView()->getVisualisationSettings().drawJunctionShape) {
-            w->getView()->getVisualisationSettings().drawJunctionShape = false;
+        if (w->getView()->getVisualisationSettings()->drawJunctionShape) {
+            w->getView()->getVisualisationSettings()->drawJunctionShape = false;
         } else {
-            w->getView()->getVisualisationSettings().drawJunctionShape = true;
+            w->getView()->getVisualisationSettings()->drawJunctionShape = true;
         }
         w->getView()->update();
     }

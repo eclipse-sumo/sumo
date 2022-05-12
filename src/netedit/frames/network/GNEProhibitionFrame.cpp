@@ -87,7 +87,7 @@ GNEProhibitionFrame::Legend::Legend(GNEProhibitionFrame* prohibitionFrameParent)
     // Create labels for color legend
     FXLabel* legendLabel = new FXLabel(getCollapsableFrame(), "Selected", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
-    legendLabel->setBackColor(MFXUtils::getFXColor(prohibitionFrameParent->myViewNet->getVisualisationSettings().colorSettings.selectedProhibitionColor));
+    legendLabel->setBackColor(MFXUtils::getFXColor(prohibitionFrameParent->myViewNet->getVisualisationSettings()->colorSettings.selectedProhibitionColor));
     // label for conflicts
     legendLabel = new FXLabel(getCollapsableFrame(), "No conflict", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setBackColor(MFXUtils::getFXColor(myUndefinedColor));
@@ -233,7 +233,7 @@ void
 GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitelyPass */, bool /* allowConflict */, bool /* toggle */) {
     if (myCurrentConn == nullptr) {
         myCurrentConn = conn;
-        myCurrentConn->setSpecialColor(&myViewNet->getVisualisationSettings().colorSettings.selectedProhibitionColor);
+        myCurrentConn->setSpecialColor(&myViewNet->getVisualisationSettings()->colorSettings.selectedProhibitionColor);
 
         // determine prohibition status of all other connections with respect to the selected one
         GNEJunction* junction = myCurrentConn->getEdgeFrom()->getToJunction();

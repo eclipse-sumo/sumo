@@ -532,7 +532,7 @@ GNEAdditional::getMoveOperationSingleLane(const double startPos, const double en
     // fist check if we're moving only extremes
     if (myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // get snap radius
-        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+        const double snap_radius = myNet->getViewNet()->getVisualisationSettings()->neteditSizeSettings.additionalGeometryPointRadius;
         // get mouse position
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         // check if we clicked over start or end position
@@ -560,7 +560,7 @@ GNEAdditional::getMoveOperationMultiLane(const double startPos, const double end
     // check if shift is pressed
     const bool shift = myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed();
     // get snap radius
-    const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+    const double snap_radius = myNet->getViewNet()->getVisualisationSettings()->neteditSizeSettings.additionalGeometryPointRadius;
     // get mouse position
     const Position mousePosition = myNet->getViewNet()->getPositionInformation();
     // calculate both geometries
@@ -804,8 +804,8 @@ GNEAdditional::drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Posi
         glTranslated(pos.x(), pos.y(), 0.1);
         glRotated(rot, 0, 0, 1);
         // draw geometry point
-        GLHelper::drawFilledCircle(viewNet->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius,
-                                   viewNet->getVisualisationSettings().getCircleResolution(), fromAngle, toAngle);
+        GLHelper::drawFilledCircle(viewNet->getVisualisationSettings()->neteditSizeSettings.additionalGeometryPointRadius,
+                                   viewNet->getVisualisationSettings()->getCircleResolution(), fromAngle, toAngle);
         // pop geometry point matrix
         GLHelper::popMatrix();
         // pop draw matrix

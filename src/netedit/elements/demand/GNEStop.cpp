@@ -127,7 +127,7 @@ GNEStop::getMoveOperation() {
                 (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&
                 myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
             // get snap radius
-            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+            const double snap_radius = myNet->getViewNet()->getVisualisationSettings()->neteditSizeSettings.additionalGeometryPointRadius;
             // get mouse position
             const Position mousePosition = myNet->getViewNet()->getPositionInformation();
             // check if we clicked over start or end position
@@ -329,7 +329,7 @@ GNEStop::getVClass() const {
 const RGBColor&
 GNEStop::getColor() const {
     if (getTagProperty().isPersonPlan() || getTagProperty().isContainerPlan()) {
-        return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopPersonColor;
+        return myNet->getViewNet()->getVisualisationSettings()->colorSettings.stopPersonColor;
     } else if (myNet->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // get inspected AC
         const auto AC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
@@ -344,9 +344,9 @@ GNEStop::getColor() const {
     }
     // return default color
     if (myTagProperty.isWaypoint()) {
-        return myNet->getViewNet()->getVisualisationSettings().colorSettings.waypointColor;
+        return myNet->getViewNet()->getVisualisationSettings()->colorSettings.waypointColor;
     } else {
-        return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopColor;
+        return myNet->getViewNet()->getVisualisationSettings()->colorSettings.stopColor;
     }
 }
 

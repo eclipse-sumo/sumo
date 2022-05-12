@@ -36,20 +36,20 @@ GNEM_PathLegend::GNEM_PathLegend(GNEFrame* frameParent) :
     FXLabel* legendLabel = nullptr;
     // edge candidate
     legendLabel = new FXLabel(getCollapsableFrame(), " edge candidate", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));
+    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings()->candidateColorSettings.possible));
     legendLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     // last edge selected
     legendLabel = new FXLabel(getCollapsableFrame(), " last edge selected", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.target));
+    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings()->candidateColorSettings.target));
     // edge selected
     legendLabel = new FXLabel(getCollapsableFrame(), " edge selected", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.source));
+    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings()->candidateColorSettings.source));
     // edge conflict (vClass)
     legendLabel = new FXLabel(getCollapsableFrame(), " edge conflict (vClass)", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.special));
+    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings()->candidateColorSettings.special));
     // edge disconnected
     legendLabel = new FXLabel(getCollapsableFrame(), " edge disconnected", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.conflict));
+    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings()->candidateColorSettings.conflict));
 }
 
 

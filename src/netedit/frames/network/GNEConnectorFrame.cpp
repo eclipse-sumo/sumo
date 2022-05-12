@@ -323,24 +323,24 @@ GNEConnectorFrame::Legend::Legend(GNEConnectorFrame* connectorFrameParent) :
 
     // create possible target label
     FXLabel* possibleTargetLabel = new FXLabel(getCollapsableFrame(), "Possible Target", 0, GUIDesignLabelLeft);
-    possibleTargetLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));
+    possibleTargetLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings()->candidateColorSettings.possible));
     possibleTargetLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
 
     // create source label
     FXLabel* sourceLabel = new FXLabel(getCollapsableFrame(), "Source lane", 0, GUIDesignLabelLeft);
-    sourceLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.source));
+    sourceLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings()->candidateColorSettings.source));
 
     // create target label
     FXLabel* targetLabel = new FXLabel(getCollapsableFrame(), "Target lane", 0, GUIDesignLabelLeft);
-    targetLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.target));
+    targetLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings()->candidateColorSettings.target));
 
     // create target (pass) label
     FXLabel* targetPassLabel = new FXLabel(getCollapsableFrame(), "Target (pass)", 0, GUIDesignLabelLeft);
-    targetPassLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.special));
+    targetPassLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings()->candidateColorSettings.special));
 
     // create conflict label
     FXLabel* conflictLabel = new FXLabel(getCollapsableFrame(), "Conflict", 0, GUIDesignLabelLeft);
-    conflictLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.conflict));
+    conflictLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings()->candidateColorSettings.conflict));
 }
 
 
@@ -414,7 +414,7 @@ void
 GNEConnectorFrame::buildConnection(GNELane* lane, const bool mayDefinitelyPass, const bool allowConflict, const bool toggle) {
     if (myCurrentEditedLane == 0) {
         myCurrentEditedLane = lane;
-        myCurrentEditedLane->setSpecialColor(&myViewNet->getVisualisationSettings().candidateColorSettings.source);
+        myCurrentEditedLane->setSpecialColor(&myViewNet->getVisualisationSettings()->candidateColorSettings.source);
         initTargets();
         myNumChanges = 0;
         myViewNet->getUndoList()->begin(GUIIcon::CONNECTION, "modify " + toString(SUMO_TAG_CONNECTION) + "s");
@@ -447,9 +447,9 @@ GNEConnectorFrame::buildConnection(GNELane* lane, const bool mayDefinitelyPass, 
                     NBConnection newNBCon(srcEdge->getNBEdge(), fromIndex, destEdge->getNBEdge(), lane->getIndex(), newCon.tlLinkIndex);
                     myViewNet->getUndoList()->add(new GNEChange_Connection(srcEdge, newCon, false, true), true);
                     if (mayDefinitelyPass) {
-                        lane->setSpecialColor(&myViewNet->getVisualisationSettings().candidateColorSettings.special);
+                        lane->setSpecialColor(&myViewNet->getVisualisationSettings()->candidateColorSettings.special);
                     } else {
-                        lane->setSpecialColor(&myViewNet->getVisualisationSettings().candidateColorSettings.target);
+                        lane->setSpecialColor(&myViewNet->getVisualisationSettings()->candidateColorSettings.target);
                     }
                     srcEdge->getToJunction()->invalidateTLS(myViewNet->getUndoList(), NBConnection::InvalidConnection, newNBCon);
                 }
@@ -460,7 +460,7 @@ GNEConnectorFrame::buildConnection(GNELane* lane, const bool mayDefinitelyPass, 
                 GNEConnection* con = srcEdge->retrieveGNEConnection(fromIndex, destEdge->getNBEdge(), lane->getIndex());
                 myDeletedConnections.push_back(con->getNBEdgeConnection());
                 myViewNet->getNet()->deleteConnection(con, myViewNet->getUndoList());
-                lane->setSpecialColor(&myViewNet->getVisualisationSettings().candidateColorSettings.possible);
+                lane->setSpecialColor(&myViewNet->getVisualisationSettings()->candidateColorSettings.possible);
                 changed = true;
                 break;
             }
@@ -502,16 +502,16 @@ GNEConnectorFrame::initTargets() {
     for (const auto& lane : myPotentialTargets) {
         switch (getLaneStatus(connections, lane)) {
             case LaneStatus::CONNECTED:
-                lane->setSpecialColor(&myViewNet->getVisualisationSettings().candidateColorSettings.target);
+                lane->setSpecialColor(&myViewNet->getVisualisationSettings()->candidateColorSettings.target);
                 break;
             case LaneStatus::CONNECTED_PASS:
-                lane->setSpecialColor(&myViewNet->getVisualisationSettings().candidateColorSettings.special);
+                lane->setSpecialColor(&myViewNet->getVisualisationSettings()->candidateColorSettings.special);
                 break;
             case LaneStatus::CONFLICTED:
-                lane->setSpecialColor(&myViewNet->getVisualisationSettings().candidateColorSettings.conflict);
+                lane->setSpecialColor(&myViewNet->getVisualisationSettings()->candidateColorSettings.conflict);
                 break;
             case LaneStatus::UNCONNECTED:
-                lane->setSpecialColor(&myViewNet->getVisualisationSettings().candidateColorSettings.possible);
+                lane->setSpecialColor(&myViewNet->getVisualisationSettings()->candidateColorSettings.possible);
                 break;
         }
     }

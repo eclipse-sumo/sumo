@@ -482,8 +482,8 @@ GNEPathManager::PathDraw::drawPathGeometry(const bool dottedElement, const GNELa
     // check conditions
     if (dottedElement) {
         return true;
-    } else if (lane->getNet()->getViewNet()->getVisualisationSettings().drawForPositionSelection ||
-               lane->getNet()->getViewNet()->getVisualisationSettings().drawForRectangleSelection) {
+    } else if (lane->getNet()->getViewNet()->getVisualisationSettings()->drawForPositionSelection ||
+               lane->getNet()->getViewNet()->getVisualisationSettings()->drawForRectangleSelection) {
         return true;
     } else if (myLaneDrawedElements.count(lane) > 0) {
         // check tag
@@ -510,8 +510,8 @@ GNEPathManager::PathDraw::drawPathGeometry(const bool dottedElement, const GNELa
     // check conditions
     if (dottedElement) {
         return true;
-    } else if (fromLane->getNet()->getViewNet()->getVisualisationSettings().drawForPositionSelection ||
-               fromLane->getNet()->getViewNet()->getVisualisationSettings().drawForRectangleSelection) {
+    } else if (fromLane->getNet()->getViewNet()->getVisualisationSettings()->drawForPositionSelection ||
+               fromLane->getNet()->getViewNet()->getVisualisationSettings()->drawForRectangleSelection) {
         return true;
     } else {
         // declare lane2lane

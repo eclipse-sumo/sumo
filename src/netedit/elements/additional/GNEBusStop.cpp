@@ -106,7 +106,7 @@ GNEBusStop::updateGeometry() {
     // Obtain a copy of the shape
     PositionVector tmpShape = myAdditionalGeometry.getShape();
     // Move shape to side
-    tmpShape.move2side(myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
+    tmpShape.move2side(myNet->getViewNet()->getVisualisationSettings()->stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
     // update demand element children
