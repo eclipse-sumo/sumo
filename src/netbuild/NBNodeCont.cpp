@@ -2471,10 +2471,10 @@ NBNodeCont::discardRailSignals() {
 
 int
 NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix) {
-    if (!numericaIDs && !reservedIDs && prefix == "") {
+    bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.node-start");
+    if (!numericaIDs && !reservedIDs && prefix == "" && !startGiven) {
         return 0;
     }
-    bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.node-start");
     std::vector<std::string> avoid;
     if (startGiven) {
         avoid.push_back(toString(OptionsCont::getOptions().getInt("numerical-ids.node-start") - 1));
