@@ -1,20 +1,21 @@
-Loading net-file from 'net.net.xml' ... done (6ms).
+Loading net-file from 'net.net.xml' ... done (4ms).
 Loading done.
-vehicle 'ego' does not supply vehicle parameter 'device.ssm.measures'. Using default of ''
-vehicle 'ego' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '0'
-vehicle 'ego' does not supply vehicle parameter 'device.ssm.range'. Using default of '50.00'
-vehicle 'ego' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '5.00'
-vehicle 'ego' does not supply vehicle parameter 'device.ssm.file'. Using default of 'ssm_ego.xml'
-vehicle 'ego' does not supply vehicle parameter 'device.ssm.geo'. Using default of '0'
-vehicle 'ego' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '0'
-vehicle 'ego' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '0'
-Simulation version v1_10_0+2040-2621588d960 started with time: 0.00
+Vehicle 'ego' does not supply vehicle parameter 'device.ssm.measures'. Using default of ''.
+Vehicle 'ego' does not supply vehicle parameter 'device.ssm.thresholds'. Using default of ''.
+Vehicle 'ego' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '0'.
+Vehicle 'ego' does not supply vehicle parameter 'device.ssm.range'. Using default of '50.00'.
+Vehicle 'ego' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '5.00'.
+Vehicle 'ego' does not supply vehicle parameter 'device.ssm.file'. Using default of 'ssm_ego.xml'.
+Vehicle 'ego' does not supply vehicle parameter 'device.ssm.geo'. Using default of '0'.
+Vehicle 'ego' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '0'.
+Vehicle 'ego' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '0'.
+Simulation version v1_13_0+0176-54e71bd3408 started with time: 0.00
 Simulation ended at time: 16.00
 Reason: All vehicles have left the simulation.
 Performance: 
  Duration: 0.01s
- Real time factor: 1454.55
- UPS: 26272.727273
+ Real time factor: 2285.71
+ UPS: 41285.714286
 Vehicles: 
  Inserted: 2
  Running: 0

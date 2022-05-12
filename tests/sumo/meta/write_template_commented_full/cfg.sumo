@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-06 14:02:06 by Eclipse SUMO sumo Version v1_13_0+0082-9795b22
+<!-- generated on 2022-05-12 09:23:33 by Eclipse SUMO sumo Version v1_13_0+0176-54e71bd3408
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -742,25 +742,25 @@
         <device.ssm.thresholds value="" type="STR"/>
 
         <!-- Specifies whether trajectories will be logged (if false, only the extremal values and times are reported, this is the default). -->
-        <device.ssm.trajectories value="" type="BOOL"/>
+        <device.ssm.trajectories value="false" type="BOOL"/>
 
         <!-- Specifies the detection range in meters (default is 50.00m.). For vehicles below this distance from the equipped vehicle, SSM values are traced. -->
-        <device.ssm.range value="" type="FLOAT"/>
+        <device.ssm.range value="50" type="FLOAT"/>
 
         <!-- Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required &gt;0 if PET is to be calculated for crossing conflicts. -->
-        <device.ssm.extratime value="" type="FLOAT"/>
+        <device.ssm.extratime value="5" type="FLOAT"/>
 
         <!-- Give a global default filename for the SSM output. -->
         <device.ssm.file value="" type="STR"/>
 
         <!-- Whether to use coordinates of the original reference system in output (default is false). -->
-        <device.ssm.geo value="" type="BOOL"/>
+        <device.ssm.geo value="false" type="BOOL"/>
 
         <!-- Whether to write positions (coordinates) for each timestep. -->
-        <device.ssm.write-positions value="" type="BOOL"/>
+        <device.ssm.write-positions value="false" type="BOOL"/>
 
         <!-- Whether to write lanes and their positions for each timestep. -->
-        <device.ssm.write-lane-positions value="" type="BOOL"/>
+        <device.ssm.write-lane-positions value="false" type="BOOL"/>
 
     </ssm_device>
 
@@ -1121,6 +1121,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
