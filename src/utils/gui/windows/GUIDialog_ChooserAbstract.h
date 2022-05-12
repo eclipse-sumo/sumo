@@ -130,6 +130,12 @@ protected:
     /// @brief toggle selection (handled differently in NETEDIT)
     virtual void toggleSelection(int listIndex);
 
+    /// @brief set selection (handled differently in NETEDIT)
+    virtual void select(int listIndex);
+
+    /// @brief unset selection (handled differently in NETEDIT)
+    virtual void deselect(int listIndex);
+
     /// @brief filter ACs (needed in NETEDIT)
     virtual void filterACs(const std::vector<GUIGlID>& GLIDs);
 

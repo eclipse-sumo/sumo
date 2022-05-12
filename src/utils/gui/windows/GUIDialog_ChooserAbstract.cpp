@@ -352,8 +352,7 @@ GUIDialog_ChooserAbstract::onCmdAddListSelection(FXObject*, FXSelector, void*) {
     FXIcon* flag = GUIIconSubSys::getIcon(GUIIcon::FLAG);
     const int numItems = myList->getNumItems();
     for (int i = 0; i < numItems; i++) {
-        GUIGlID* glID = static_cast<GUIGlID*>(myList->getItemData(i));
-        gSelected.select(*glID);
+        select(i);
         myList->setItemIcon(i, flag);
     }
     myList->update();
@@ -366,8 +365,7 @@ long
 GUIDialog_ChooserAbstract::onCmdClearListSelection(FXObject*, FXSelector, void*) {
     const int numItems = myList->getNumItems();
     for (int i = 0; i < numItems; i++) {
-        GUIGlID* glID = static_cast<GUIGlID*>(myList->getItemData(i));
-        gSelected.deselect(*glID);
+        deselect(i);
         myList->setItemIcon(i, nullptr);
     }
     myList->update();
@@ -412,6 +410,18 @@ void
 GUIDialog_ChooserAbstract::toggleSelection(int listIndex) {
     GUIGlID* glID = static_cast<GUIGlID*>(myList->getItemData(listIndex));
     gSelected.toggleSelection(*glID);
+}
+
+void
+GUIDialog_ChooserAbstract::select(int listIndex) {
+    GUIGlID* glID = static_cast<GUIGlID*>(myList->getItemData(listIndex));
+    gSelected.select(*glID);
+}
+
+void
+GUIDialog_ChooserAbstract::deselect(int listIndex) {
+    GUIGlID* glID = static_cast<GUIGlID*>(myList->getItemData(listIndex));
+    gSelected.deselect(*glID);
 }
 
 
