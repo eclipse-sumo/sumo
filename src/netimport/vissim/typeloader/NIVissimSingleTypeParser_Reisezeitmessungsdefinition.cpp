@@ -23,7 +23,7 @@
 #include <iostream>
 #include <utils/common/StringUtils.h>
 #include <netimport/vissim/NIImporter_Vissim.h>
-#include "../tempstructs/NIVissimClosures.h"
+#include <netimport/vissim/tempstructs/NIVissimClosures.h>
 #include "NIVissimSingleTypeParser_Reisezeitmessungsdefinition.h"
 
 

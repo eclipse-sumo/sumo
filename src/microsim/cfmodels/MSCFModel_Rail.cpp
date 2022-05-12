@@ -131,7 +131,7 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
         }
     }
 
-    double maxNextSpeed = speed + a * DELTA_T / 1000.;
+    double maxNextSpeed = speed + ACCEL2SPEED(a);
 
 //    std::cout << veh->getID() << " speed: " << (speed*3.6) << std::endl;
 

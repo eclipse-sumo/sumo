@@ -37,7 +37,7 @@ public:
     RouteHandler(const std::string& filename, const bool hardFail);
 
     /// @brief Destructor
-    ~RouteHandler();
+    virtual ~RouteHandler();
 
     /// @brief begin parse attributes
     bool beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs);

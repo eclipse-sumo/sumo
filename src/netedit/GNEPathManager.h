@@ -158,7 +158,7 @@ public:
         PathElement(const int options);
 
         /// @brief destructor
-        ~PathElement();
+        virtual ~PathElement();
 
         /// @brief check if pathElement is a network element
         bool isNetworkElement() const;

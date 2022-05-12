@@ -25,9 +25,9 @@
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/PositionVector.h>
 #include <netimport/vissim/NIImporter_Vissim.h>
-#include "../tempstructs/NIVissimEdge.h"
-#include "../tempstructs/NIVissimClosedLaneDef.h"
-#include "../tempstructs/NIVissimClosedLanesVector.h"
+#include <netimport/vissim/tempstructs/NIVissimEdge.h>
+#include <netimport/vissim/tempstructs/NIVissimClosedLaneDef.h>
+#include <netimport/vissim/tempstructs/NIVissimClosedLanesVector.h>
 #include "NIVissimSingleTypeParser_Streckendefinition.h"
 
 

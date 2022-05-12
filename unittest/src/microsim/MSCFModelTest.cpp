@@ -98,13 +98,13 @@ TEST_F(MSCFModelTest, test_method_static_freeSpeed_half) {
     const double b = 4;
     const double v = 0;
     const double g = 4;
-    EXPECT_DOUBLE_EQ(14. / 3., MSCFModel::freeSpeed(vCur, b, g, v, false, DELTA_T * 0.001));
-    EXPECT_DOUBLE_EQ(6., MSCFModel::freeSpeed(vCur, b, 6, v, false, DELTA_T * 0.001));
-    EXPECT_DOUBLE_EQ(18.75, MSCFModel::freeSpeed(vCur, 5, 30, 10, false, DELTA_T * 0.001));
-    EXPECT_DOUBLE_EQ(18.4, MSCFModel::freeSpeed(vCur, 4.5, 20, 13.9, false, DELTA_T * 0.001));
-    EXPECT_DOUBLE_EQ(20.65, MSCFModel::freeSpeed(vCur, 4.5, 20, 13.9, true, DELTA_T * 0.001));
-    EXPECT_DOUBLE_EQ(20.65, MSCFModel::freeSpeed(vCur, 4.5, 30, 13.9, false, DELTA_T * 0.001));
-    EXPECT_DOUBLE_EQ(22.9, MSCFModel::freeSpeed(vCur, 4.5, 30, 13.9, true, DELTA_T * 0.001));
-    EXPECT_DOUBLE_EQ(22.9, MSCFModel::freeSpeed(vCur, 4.5, 40, 13.9, false, DELTA_T * 0.001));
+    EXPECT_DOUBLE_EQ(14. / 3., MSCFModel::freeSpeed(vCur, b, g, v, false, TS));
+    EXPECT_DOUBLE_EQ(6., MSCFModel::freeSpeed(vCur, b, 6, v, false, TS));
+    EXPECT_DOUBLE_EQ(18.75, MSCFModel::freeSpeed(vCur, 5, 30, 10, false, TS));
+    EXPECT_DOUBLE_EQ(18.4, MSCFModel::freeSpeed(vCur, 4.5, 20, 13.9, false, TS));
+    EXPECT_DOUBLE_EQ(20.65, MSCFModel::freeSpeed(vCur, 4.5, 20, 13.9, true, TS));
+    EXPECT_DOUBLE_EQ(20.65, MSCFModel::freeSpeed(vCur, 4.5, 30, 13.9, false, TS));
+    EXPECT_DOUBLE_EQ(22.9, MSCFModel::freeSpeed(vCur, 4.5, 30, 13.9, true, TS));
+    EXPECT_DOUBLE_EQ(22.9, MSCFModel::freeSpeed(vCur, 4.5, 40, 13.9, false, TS));
     DELTA_T = 1000;
 }

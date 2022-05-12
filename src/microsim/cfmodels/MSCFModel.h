@@ -333,7 +333,7 @@ public:
      * @param[in] speed The vehicle's current speed
      * @return The distance needed to halt
      */
-    virtual double brakeGap(const double speed) const {
+    double brakeGap(const double speed) const {
         return brakeGap(speed, myDecel, myHeadwayTime);
     }
 
