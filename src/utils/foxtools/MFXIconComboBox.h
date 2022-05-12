@@ -146,6 +146,9 @@ public:
     /// @brief set Item
     bool setItem(const FXString& text, FXIcon* icon);
 
+    /// @brief set custom text
+    void setCustomText(const FXString text);
+
     /// Prepend an item to the list
     FXint prependItem(const FXString& text, void* ptr = NULL);
 

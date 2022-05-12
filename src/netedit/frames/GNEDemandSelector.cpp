@@ -95,15 +95,19 @@ DemandElementSelector::getAllowedTags() const {
 
 void
 DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
-    // first check that demandElement tag correspond to a tag of myDemandElementTags
-    if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
-        // update text of myDemandElementsMatchBox
-        myDemandElementsMatchBox->setItem(demandElement->getID().c_str(), demandElement->getIcon());
-        // Set new current demand element
-        myCurrentDemandElement = demandElement;
-        // call demandElementSelected function
-        myFrameParent->demandElementSelected();
+    // Set new current demand element
+    myCurrentDemandElement = demandElement;
+    if (demandElement == nullptr) {
+        myDemandElementsMatchBox->setCustomText("select item...");
+    } else {
+        // check that demandElement tag correspond to a tag of myDemandElementTags
+        if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
+            // update text of myDemandElementsMatchBox
+            myDemandElementsMatchBox->setItem(demandElement->getID().c_str(), demandElement->getIcon());
+        }
     }
+    // call demandElementSelected function
+    myFrameParent->demandElementSelected();
 }
 
 

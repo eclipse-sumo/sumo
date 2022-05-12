@@ -69,10 +69,26 @@ GNEPersonPlanFrame::show() {
         // refresh tag selector
         myPersonPlanTagSelector->refreshTagSelector();
         // set first person as demand element (this will call demandElementSelected() function)
-        if (persons.size() > 0) {
-            myPersonSelector->setDemandElement(*persons.begin());
+        if (myViewNet->getFrontAttributeCarrier() && myViewNet->getFrontAttributeCarrier()->getTagProperty().isPerson()) {
+            GNEDemandElement *personFound = nullptr;
+            // search person
+            for (const auto &person : persons) {
+                if (myViewNet->getFrontAttributeCarrier()->getID() == person->getID()) {
+                    personFound = person;
+                }
+            }
+            // search personFlow
+            for (const auto &personFlow : personFlows) {
+                if (myViewNet->getFrontAttributeCarrier()->getID() == personFlow->getID()) {
+                    personFound = personFlow;
+                }
+            }
+            // check personFound
+            if (personFound) {
+                myPersonSelector->setDemandElement(personFound);
+            }
         } else {
-            myPersonSelector->setDemandElement(*personFlows.begin());
+            myPersonSelector->setDemandElement(nullptr);
         }
     } else {
         // hide all moduls except helpCreation
@@ -133,6 +149,12 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     } else {
         return false;
     }
+}
+
+
+void 
+GNEPersonPlanFrame::resetSelectedPerson() {
+    myPersonSelector->setDemandElement(nullptr);
 }
 
 

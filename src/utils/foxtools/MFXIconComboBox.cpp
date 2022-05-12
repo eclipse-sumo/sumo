@@ -393,6 +393,13 @@ MFXIconComboBox::setItem(const FXString& text, FXIcon* icon) {
 }
 
 
+void
+MFXIconComboBox::setCustomText(const FXString text) {
+    myTextFieldIcon->setText(text);
+    myTextFieldIcon->setTextColor(FXRGB(128, 128, 128));
+}
+
+
 FXint
 MFXIconComboBox::prependItem(const FXString& text, void* ptr) {
     FXint index = myList->prependItem(text, NULL, ptr);

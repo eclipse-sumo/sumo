@@ -60,6 +60,9 @@ public:
      */
     bool addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
+    /// @brief reset selected person
+    void resetSelectedPerson();
+
     /// @brief get path creator module
     GNEPathCreator* getPathCreator() const;
 
