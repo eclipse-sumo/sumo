@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-12 09:23:57 by Eclipse SUMO sumo Version v1_13_0+0176-54e71bd
+<!-- generated on 2022-05-12 09:28:21 by Eclipse SUMO sumo Version v1_13_0+0177-a461dec
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,8 +45,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <lanechanges>
-    <change id="ego" type="ego" time="213.00" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="192.71" reason="speedGain" leaderGap="202.50" leaderSecureGap="0.00" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.50" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
-    <change id="ego" type="ego" time="2229.00" from="beg_1" to="beg_0" dir="-1" speed="0.00" pos="394.73" reason="speedGain" leaderGap="202.50" leaderSecureGap="0.00" leaderSpeed="0.00" followerGap="187.50" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="2.50" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
-    <change id="ego" type="ego" time="2445.00" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="594.94" reason="speedGain" leaderGap="202.50" leaderSecureGap="0.00" leaderSpeed="0.00" followerGap="187.50" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="2.50" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
-    <change id="ego" type="ego" time="4461.00" from="beg_1" to="beg_0" dir="-1" speed="0.00" pos="796.96" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="187.50" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="2.50" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
 </lanechanges>
