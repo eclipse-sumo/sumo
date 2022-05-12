@@ -385,7 +385,10 @@ MFXIconComboBox::setItem(const FXString& text, FXIcon* icon) {
         // set icon and background color
         if (item && (item->getText() == text) && (item->getIcon() == icon)) {
             myTextFieldIcon->setText(item->getText());
-            myList->setCurrentItem(i, FALSE);
+            myTextFieldIcon->setBackColor(item->getBackGroundColor());
+            myIconLabel->setIcon(item->getIcon());
+            myIconLabel->setBackColor(item->getBackGroundColor());
+            myTextFieldIcon->setTextColor(FXRGB(0,0,0));
             return true;
         }
     }
