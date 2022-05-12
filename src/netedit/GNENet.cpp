@@ -1147,18 +1147,18 @@ GNENet::save(OptionsCont& oc) {
 
 
 void
-GNENet::savePlain(OptionsCont& oc) {
+GNENet::savePlain(OptionsCont& oc, const std::string& prefix) {
     // compute without volatile options
     computeAndUpdate(oc, false);
-    NWWriter_XML::writeNetwork(oc, *myNetBuilder);
+    NWWriter_XML::writeNetwork(oc, prefix, *myNetBuilder);
 }
 
 
 void
-GNENet::saveJoined(OptionsCont& oc) {
+GNENet::saveJoined(OptionsCont& oc, const std::string& filename) {
     // compute without volatile options
     computeAndUpdate(oc, false);
-    NWWriter_XML::writeJoinedJunctions(oc, myNetBuilder->getNodeCont());
+    NWWriter_XML::writeJoinedJunctions(filename, myNetBuilder->getNodeCont());
 }
 
 

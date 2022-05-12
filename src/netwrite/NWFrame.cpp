@@ -178,7 +178,7 @@ NWFrame::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NWWriter_MATSim::writeNetwork(oc, nb);
     NWWriter_OpenDrive::writeNetwork(oc, nb);
     NWWriter_DlrNavteq::writeNetwork(oc, nb);
-    NWWriter_XML::writeNetwork(oc, nb);
+    NWWriter_XML::writeNetwork(oc, oc.isSet("plain-output-prefix") ? oc.getString("plain-output-prefix") : "", nb);
     PROGRESS_TIME_MESSAGE(before);
 }
 

@@ -294,12 +294,12 @@ public:
     /**@brief save plain xml representation of the network (and nothing else)
      * @param[in] oc The OptionsCont which knows how and where to save
      */
-    void savePlain(OptionsCont& oc);
+    void savePlain(OptionsCont& oc, const std::string& prefix);
 
     /**@brief save log of joined junctions (and nothing else)
      * @param[in] oc The OptionsCont which knows how and where to save
      */
-    void saveJoined(OptionsCont& oc);
+    void saveJoined(OptionsCont& oc, const std::string& filename);
 
     /// @brief Set the net to be notified of network changes
     void setViewNet(GNEViewNet* viewNet);

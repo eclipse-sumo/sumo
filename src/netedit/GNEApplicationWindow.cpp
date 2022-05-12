@@ -2521,8 +2521,6 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
                     currentFolder);
     // check that file is valid (note: in this case we don't need to use function FileHelpers::addExtension)
     if (file != "") {
-        bool wasSet = oc.isSet("plain-output-prefix");
-        std::string oldPrefix = oc.getString("plain-output-prefix");
         std::string prefix = file.text();
         // if the name of an edg.xml file was given, remove the suffix
         if (StringUtils::endsWith(prefix, ".edg.xml")) {
@@ -2531,11 +2529,9 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
         if (StringUtils::endsWith(prefix, ".")) {
             prefix = prefix.substr(0, prefix.size() - 1);
         }
-        oc.resetWritable();
-        oc.set("plain-output-prefix", prefix);
         getApp()->beginWaitCursor();
         try {
-            myNet->savePlain(oc);
+            myNet->savePlain(oc, prefix);
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
@@ -2546,12 +2542,6 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Plain XML saved with prefix '" + prefix + "'.\n");
         myMessageWindow->addSeparator();
-        if (wasSet) {
-            oc.resetWritable();
-            oc.set("plain-output-prefix", oldPrefix);
-        } else {
-            oc.unSet("plain-output-prefix");
-        }
         getApp()->endWaitCursor();
         // restore focus
         setFocus();
@@ -2580,13 +2570,9 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check that file with extension is valid
     if (fileWithExtension != "") {
-        bool wasSet = oc.isSet("junctions.join-output");
-        std::string oldFile = oc.getString("junctions.join-output");
-        oc.resetWritable();
-        oc.set("junctions.join-output", fileWithExtension);
         getApp()->beginWaitCursor();
         try {
-            myNet->saveJoined(oc);
+            myNet->saveJoined(oc, fileWithExtension);
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
@@ -2597,12 +2583,6 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Joined junctions saved to '" + fileWithExtension + "'.\n");
         myMessageWindow->addSeparator();
-        if (wasSet) {
-            oc.resetWritable();
-            oc.set("junctions.join-output", oldFile);
-        } else {
-            oc.unSet("junctions.join-output");
-        }
         getApp()->endWaitCursor();
         // restore focus
         setFocus();

@@ -68,7 +68,7 @@ RODFDetFlowLoader::read(const std::string& file) {
             if (!myDetectorContainer.knows(detName)) {
                 continue;
             }
-            const SUMOTime parsedTime = StringUtils::toDouble((myLineHandler.get("time"))) * myTimeScale - myTimeOffset;
+            const SUMOTime parsedTime = (SUMOTime)(StringUtils::toDouble(myLineHandler.get("time")) * (double)myTimeScale) - myTimeOffset;
             // parsing as float to handle values which would cause int overflow
             if (parsedTime < myStartTime || parsedTime >= myEndTime) {
                 if (!myHaveWarnedAboutOverridingBoundaries) {

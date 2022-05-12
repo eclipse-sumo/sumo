@@ -307,13 +307,6 @@ public:
     bool isSet(const std::string& name, bool failOnNonExistant = true) const;
 
 
-    /** @brief Marks the option as unset
-     * @param[in] name The name of the option to check
-     * @param[in] failOnNonExistant Whether asking for an unregistered option should trigger an exception
-     */
-    void unSet(const std::string& name, bool failOnNonExistant = true) const;
-
-
     /** @brief Returns the information whether the named option has still the default value
      *
      * The named option is tried to be retrieved from the container. If
