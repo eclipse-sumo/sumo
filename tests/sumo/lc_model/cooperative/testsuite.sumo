@@ -7,5 +7,8 @@ cooperative0
 # disable cooperative changing if the target lane is too slow
 cooperative0_inconvenient
 
+# disable cooperative changing if the target lane is too slow (target lane has vehicles on it)
+cooperative0_inconvenient2
+
 # disable cooperative changing completely
 cooperative-1
