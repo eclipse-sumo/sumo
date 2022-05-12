@@ -1108,17 +1108,6 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
             focusUpperElement();
         }
         return true;
-    } else if (myViewNet->getInspectedAttributeCarriers().size()  == 1) {
-        // get inspected element
-        auto inspectedAC = myViewNet->getInspectedAttributeCarriers().front();
-        // if we clicked over an empty area and we're inspecting a person, reset current person
-        if (inspectedAC->getTagProperty().hasAttribute(GNE_ATTR_CURRENTPERSON)) {
-            inspectedAC->setAttribute(GNE_ATTR_CURRENTPERSON, "false", nullptr);
-            // inspect again (for refresh)
-            inspectSingleElement(inspectedAC);
-        } else {
-            return false;
-        }
     } else {
         return false;
     }
