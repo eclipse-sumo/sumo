@@ -22,7 +22,7 @@
 
 #include <iostream>
 #include <utils/common/StringUtils.h>
-#include "../NIImporter_Vissim.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
 #include "../tempstructs/NIVissimSource.h"
 #include "NIVissimSingleTypeParser_Zuflussdefinition.h"
 

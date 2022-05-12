@@ -24,8 +24,8 @@
 #include <iostream>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
-#include "../NIImporter_Vissim.h"
-#include "../tempstructs/NIVissimTL.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
+#include <netimport/vissim/tempstructs/NIVissimTL.h>
 #include "NIVissimSingleTypeParser_Lichtsignalanlagendefinition.h"
 
 

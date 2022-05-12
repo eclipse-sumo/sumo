@@ -43,13 +43,6 @@
 using namespace FX;
 #endif
 
-// Disable warnings on extern before template instantiation for the Microsoft compiler.
-// see "HOWTO: Exporting STL Components Inside & Outside of a Class" on the microsoft website
-#if defined(WIN32) && defined(_MSC_VER)
-#pragma warning (disable : 4231)
-#endif
-
-
 // implement CALLBACK for unix
 #ifndef CALLBACK
 #define CALLBACK
