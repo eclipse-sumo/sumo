@@ -1,5 +1,8 @@
 basic
 
+# tests for changing to gain speed
+speedGain
+
 # tests for overtaking and merging at ramps
 motorway
 
