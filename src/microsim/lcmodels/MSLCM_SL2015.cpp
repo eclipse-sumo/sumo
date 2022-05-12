@@ -3566,7 +3566,7 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myLookAheadSpeed);
     } else if (key == "sigmaState") {
         return toString(mySigmaState);
-        // motivaiton relative to threshold
+        // motivation relative to threshold
     } else if (key == "speedGainRP") {
         return toString(mySpeedGainProbabilityRight / myChangeProbThresholdRight);
     } else if (key == "speedGainLP") {
