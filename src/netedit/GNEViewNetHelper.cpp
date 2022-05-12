@@ -497,6 +497,16 @@ GNEViewNetHelper::ObjectsUnderCursor::getClickedAttributeCarriers() const {
 }
 
 
+const std::vector<GNEDemandElement*>&
+GNEViewNetHelper::ObjectsUnderCursor::getClickedDemandElements() const {
+    if (mySwapLane2edge) {
+        return myEdgeObjects.demandElements;
+    } else {
+        return myLaneObjects.demandElements;
+    }
+}
+
+
 GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::ObjectsContainer() {}
 
 

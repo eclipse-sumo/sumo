@@ -119,8 +119,15 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     // check if we have to select a new person
     if (myPersonSelector->getCurrentDemandElement() == nullptr) {
         if (objectsUnderCursor.getDemandElementFront() && objectsUnderCursor.getDemandElementFront()->getTagProperty().isPerson()) {
-            // select new person
-            myPersonSelector->setDemandElement(objectsUnderCursor.getDemandElementFront());
+            // continue depending of number of demand elements under cursor
+            if (objectsUnderCursor.getClickedDemandElements().size() > 1) {
+                // Filter persons
+                myPersonSelector->setDemandElements(objectsUnderCursor.getClickedDemandElements());
+            } else {
+                // select new person
+                myPersonSelector->setDemandElement(objectsUnderCursor.getDemandElementFront());
+            }
+            return true;
         } else {
             myViewNet->setStatusBarText("Current selected person isn't valid.");
             return false;
