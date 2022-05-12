@@ -1521,12 +1521,18 @@ MSLCM_LC2013::_wantsChange(
     //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " thisLaneVSafe=" << thisLaneVSafe << " neighLaneVSafe=" << neighLaneVSafe << "\n";
 
 
-    // a high inconvenience prevents cooperative changes.
+    // a high inconvenience prevents cooperative changes and the following things are inconvenient:
+    // - a desire to change in the opposite direction for speedGain
+    // - low anticipated speed on the neighboring lane
+    // - high occupancy on the neighboring lane while in a roundabout
+
     double inconvenience = laneOffset < 0
         ? mySpeedGainProbability / myChangeProbThresholdRight
         : -mySpeedGainProbability / myChangeProbThresholdLeft;
 
+    inconvenience = MAX2(thisLaneVSafe / neighLaneVSafe - 1, inconvenience);
     inconvenience = MIN2(1.0, inconvenience);
+
     const bool speedGainInconvenient = inconvenience > myCooperativeParam;
     const bool neighOccupancyInconvenient = neigh.lane->getBruttoOccupancy() > curr.lane->getBruttoOccupancy();
 #ifdef DEBUG_WANTS_CHANGE
@@ -1534,6 +1540,7 @@ MSLCM_LC2013::_wantsChange(
         std::cout << STEPS2TIME(currentTime)
             << " veh=" << myVehicle.getID()
             << " speedGainProb=" << mySpeedGainProbability
+            << " neighSpeedFactor=" << (thisLaneVSafe / neighLaneVSafe - 1)
             << " inconvenience=" << inconvenience
             << " speedInconv=" << speedGainInconvenient
             << " occInconv=" << neighOccupancyInconvenient
