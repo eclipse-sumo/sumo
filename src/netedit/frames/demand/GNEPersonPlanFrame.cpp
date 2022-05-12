@@ -116,10 +116,15 @@ GNEPersonPlanFrame::hide() {
 
 bool
 GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
-    // first check if person selected is valid
+    // check if we have to select a new person
     if (myPersonSelector->getCurrentDemandElement() == nullptr) {
-        myViewNet->setStatusBarText("Current selected person isn't valid.");
-        return false;
+        if (objectsUnderCursor.getDemandElementFront() && objectsUnderCursor.getDemandElementFront()->getTagProperty().isPerson()) {
+            // select new person
+            myPersonSelector->setDemandElement(objectsUnderCursor.getDemandElementFront());
+        } else {
+            myViewNet->setStatusBarText("Current selected person isn't valid.");
+            return false;
+        }
     }
     // finally check that person plan selected is valid
     if (myPersonPlanTagSelector->getCurrentTemplateAC() == nullptr) {
