@@ -2471,6 +2471,9 @@ NBNodeCont::discardRailSignals() {
 
 int
 NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix) {
+    if (!numericaIDs && !reservedIDs && prefix == "") {
+        return 0;
+    }
     bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.node-start");
     std::vector<std::string> avoid;
     if (startGiven) {

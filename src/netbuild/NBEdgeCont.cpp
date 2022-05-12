@@ -1574,6 +1574,9 @@ NBEdgeCont::updateAllChangeRestrictions(SVCPermissions ignoring) {
 
 int
 NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBPTStopCont& sc) {
+    if (!numericaIDs && !reservedIDs && prefix == "") {
+        return 0;
+    }
     bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.edge-start");
     std::vector<std::string> avoid;
     if (startGiven) {
