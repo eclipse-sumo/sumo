@@ -4,6 +4,9 @@ default_noKeepRight
 # permit cooperative changing if there is no inconvenience
 cooperative0
 
+# allow cooperative changing if the target lane is slower
+cooperative0.5_inconvenient
+
 # disable cooperative changing if the target lane is too slow
 cooperative0_inconvenient
 
