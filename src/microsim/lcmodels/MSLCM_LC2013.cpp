@@ -1510,10 +1510,23 @@ MSLCM_LC2013::_wantsChange(
         ret = getCanceledState(laneOffset);
         return ret;
     }
+
+    // we wish to anticipate future speeds. This is difficult when the leading
+    // vehicles are still accelerating so we resort to comparing speeds for the near future (1s) in this case
+    const bool acceleratingLeader = (neighLead.first != 0 && neighLead.first->getAcceleration() > 0)
+                                    || (leader.first != 0 && leader.first->getAcceleration() > 0);
+    const double neighVMax = neighLane.getVehicleMaxSpeed(&myVehicle);
+    double neighLaneVSafe = MIN2(neighVMax, anticipateFollowSpeed(neighLead, neighDist, neighVMax, acceleratingLeader));
+    thisLaneVSafe = MIN2(thisLaneVSafe, anticipateFollowSpeed(leader, currentDist, vMax, acceleratingLeader));
+    //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " thisLaneVSafe=" << thisLaneVSafe << " neighLaneVSafe=" << neighLaneVSafe << "\n";
+
+
     // a high inconvenience prevents cooperative changes.
-    const double inconvenience = MIN2(1.0, (laneOffset < 0
-                                            ? mySpeedGainProbability / myChangeProbThresholdRight
-                                            : -mySpeedGainProbability / myChangeProbThresholdLeft));
+    double inconvenience = laneOffset < 0
+        ? mySpeedGainProbability / myChangeProbThresholdRight
+        : -mySpeedGainProbability / myChangeProbThresholdLeft;
+
+    inconvenience = MIN2(1.0, inconvenience);
     const bool speedGainInconvenient = inconvenience > myCooperativeParam;
     const bool neighOccupancyInconvenient = neigh.lane->getBruttoOccupancy() > curr.lane->getBruttoOccupancy();
 #ifdef DEBUG_WANTS_CHANGE
@@ -1622,16 +1635,6 @@ MSLCM_LC2013::_wantsChange(
     //if ((congested(neighLead.first) && neighLead.second < 20) || predInteraction(leader.first)) { //!!!
     //    return ret;
     //}
-
-    // we wish to anticipate future speeds. This is difficult when the leading
-    // vehicles are still accelerating so we resort to comparing speeds for the near future (1s) in this case
-    const bool acceleratingLeader = (neighLead.first != 0 && neighLead.first->getAcceleration() > 0)
-                                    || (leader.first != 0 && leader.first->getAcceleration() > 0);
-    const double neighVMax = neighLane.getVehicleMaxSpeed(&myVehicle);
-    double neighLaneVSafe = MIN2(neighVMax, anticipateFollowSpeed(neighLead, neighDist, neighVMax, acceleratingLeader));
-    thisLaneVSafe = MIN2(thisLaneVSafe, anticipateFollowSpeed(leader, currentDist, vMax, acceleratingLeader));
-
-    //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " thisLaneVSafe=" << thisLaneVSafe << " neighLaneVSafe=" << neighLaneVSafe << "\n";
 
     if (neighLane.getEdge().getPersons().size() > 0) {
         // react to pedestrians
