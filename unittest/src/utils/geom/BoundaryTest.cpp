@@ -18,6 +18,7 @@
 ///
 // Tests the class Boundary
 /****************************************************************************/
+#include <config.h>
 
 #include <gtest/gtest.h>
 #include <utils/geom/Boundary.h>
