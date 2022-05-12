@@ -4050,12 +4050,6 @@ GNEAttributeCarrier::fillPersonElements() {
                                               "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        // current person
-        attrProperty = GNEAttributeProperties(GNE_ATTR_CURRENTPERSON,
-                GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UNIQUE,
-                "If set, person will be show first in PersonPlan mode",
-                "false");
-        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_PERSONFLOW;
     {
@@ -4070,13 +4064,6 @@ GNEAttributeCarrier::fillPersonElements() {
 
         // add flow attributes
         fillCommonFlowAttributes(currentTag, SUMO_ATTR_PERSONSPERHOUR);
-
-        // current person
-        attrProperty = GNEAttributeProperties(GNE_ATTR_CURRENTPERSON,
-            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UNIQUE,
-            "If set, person will be show first in PersonPlan mode",
-            "false");
-        myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
 

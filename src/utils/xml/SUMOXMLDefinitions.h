@@ -1350,8 +1350,6 @@ enum SumoXMLAttr {
     GNE_ATTR_VTYPE_DISTRIBUTION,
     /// @brief poisson definition (used in flow)
     GNE_ATTR_POISSON,
-    /// @brief current person
-    GNE_ATTR_CURRENTPERSON,
 
     // @}
 

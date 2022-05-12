@@ -69,9 +69,7 @@ GNEPersonPlanFrame::show() {
         // refresh tag selector
         myPersonPlanTagSelector->refreshTagSelector();
         // set first person as demand element (this will call demandElementSelected() function)
-        if (myCurrentPerson) {
-            myPersonSelector->setDemandElement(myCurrentPerson);
-        } else if (persons.size() > 0) {
+        if (persons.size() > 0) {
             myPersonSelector->setDemandElement(*persons.begin());
         } else {
             myPersonSelector->setDemandElement(*personFlows.begin());
@@ -135,22 +133,6 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     } else {
         return false;
     }
-}
-
-
-bool 
-GNEPersonPlanFrame::isCurrentPerson(const GNEDemandElement *person) const {
-    if (myCurrentPerson != nullptr) {
-        return (myCurrentPerson == person);
-    } else {
-        return false;
-    }
-}
-
-
-void 
-GNEPersonPlanFrame::setCurrentPerson(GNEDemandElement *person) {
-    myCurrentPerson = person;
 }
 
 

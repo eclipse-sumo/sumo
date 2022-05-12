@@ -928,7 +928,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "stopOException",                     GNE_ATTR_STOPOEXCEPTION },
     { "VTypeDist.",                         GNE_ATTR_VTYPE_DISTRIBUTION },
     { "poisson",                            GNE_ATTR_POISSON },
-    { "currentPerson",                      GNE_ATTR_CURRENTPERSON },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
