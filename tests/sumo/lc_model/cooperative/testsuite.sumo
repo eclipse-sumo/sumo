@@ -1,6 +1,12 @@
 # keepRight changing disabled to get a base case for evaluating cooperative changing (used by subsequent tests)
 default_noKeepRight
 
+# perform cooperative change for a leader vehicle with at least 50% overlap
+overlappingLeader
+
+# perform cooperative change for a leader vehicle with less than 50% overlap
+overlappingLeader_ignore
+
 # permit cooperative changing if there is no inconvenience
 cooperative0
 
