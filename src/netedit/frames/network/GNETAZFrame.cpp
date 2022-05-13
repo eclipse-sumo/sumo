@@ -48,8 +48,9 @@ FXDEFMAP(GNETAZFrame::TAZSaveChanges) TAZSaveChangesMap[] = {
 };
 
 FXDEFMAP(GNETAZFrame::TAZChildDefaultParameters) TAZChildDefaultParametersMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,         GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,             GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ZEROFRINGEPROB, GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges),
 };
 
 FXDEFMAP(GNETAZFrame::TAZSelectionStatistics) TAZSelectionStatisticsMap[] = {
@@ -182,7 +183,7 @@ GNETAZFrame::CurrentTAZ::setTAZ(GNETAZ* editedTAZ) {
         // show save TAZ Edges
         myTAZFrameParent->myTAZSaveChanges->showTAZSaveChangesModule();
         // show edge common parameters
-        myTAZFrameParent->myTAZChildDefaultParameters->showTAZChildDefaultParametersModule();
+        myTAZFrameParent->myTAZChildDefaultParameters->extendTAZChildDefaultParameters();
         // show Edges graphics
         myTAZFrameParent->myTAZEdgesGraphic->showTAZEdgesGraphicModule();
     } else {
@@ -193,7 +194,7 @@ GNETAZFrame::CurrentTAZ::setTAZ(GNETAZ* editedTAZ) {
         // hide edge common parameters
         myTAZFrameParent->myTAZCommonStatistics->hideTAZCommonStatisticsModule();
         // hide edge common parameters
-        myTAZFrameParent->myTAZChildDefaultParameters->hideTAZChildDefaultParametersModule();
+        myTAZFrameParent->myTAZChildDefaultParameters->collapseTAZChildDefaultParameters();
         // hide Edges graphics
         myTAZFrameParent->myTAZEdgesGraphic->hideTAZEdgesGraphicModule();
         // hide save TAZ Edges
@@ -484,9 +485,9 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     myDefaultTAZSourceWeight(1),
     myDefaultTAZSinkWeight(1) {
     // create checkbox for toggle membership
-    FXHorizontalFrame* toggleMembershipFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(toggleMembershipFrame, "Membership", 0, GUIDesignLabelAttribute);
-    myToggleMembership = new FXCheckButton(toggleMembershipFrame, "Toggle", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myToggleMembershipFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(myToggleMembershipFrame, "Membership", 0, GUIDesignLabelAttribute);
+    myToggleMembership = new FXCheckButton(myToggleMembershipFrame, "Toggle", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // by default enabled
     myToggleMembership->setCheck(TRUE);
     // create default TAZ Source weight
@@ -501,6 +502,8 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     myTextFieldDefaultValueTAZSinks->setText("1");
     // Create button for use selected edges
     myUseSelectedEdges = new FXButton(getCollapsableFrame(), "Use selected edges", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
+    // Create button for zero fringe probabilities
+    myZeroFringeProbabilities = new FXButton(getCollapsableFrame(), "Set zero fringe prob.", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
     // Create information label
     std::ostringstream information;
     information
@@ -508,6 +511,8 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
             << "  Create new Sources/Sinks\n"
             << "  with given weights.";
     myInformationLabel = new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    // always show
+    show();
 }
 
 
@@ -515,7 +520,7 @@ GNETAZFrame::TAZChildDefaultParameters::~TAZChildDefaultParameters() {}
 
 
 void
-GNETAZFrame::TAZChildDefaultParameters::showTAZChildDefaultParametersModule() {
+GNETAZFrame::TAZChildDefaultParameters::extendTAZChildDefaultParameters() {
     // check if TAZ selection Statistics Module has to be shown
     if (myToggleMembership->getCheck() == FALSE) {
         myTAZFrameParent->myTAZSelectionStatistics->showTAZSelectionStatisticsModule();
@@ -524,17 +529,25 @@ GNETAZFrame::TAZChildDefaultParameters::showTAZChildDefaultParametersModule() {
     }
     // update selected button
     updateSelectEdgesButton();
-    // show modul
-    show();
+    // show items edges button
+    myToggleMembershipFrame->show();
+    myDefaultTAZSourceFrame->show();
+    myDefaultTAZSinkFrame->show();
+    myUseSelectedEdges->show();
+    myInformationLabel->show();
 }
 
 
 void
-GNETAZFrame::TAZChildDefaultParameters::hideTAZChildDefaultParametersModule() {
+GNETAZFrame::TAZChildDefaultParameters::collapseTAZChildDefaultParameters() {
     // hide TAZ Selection Statistics Module
     myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModule();
-    // hide modul
-    hide();
+    // hide items
+    myToggleMembershipFrame->hide();
+    myDefaultTAZSourceFrame->hide();
+    myDefaultTAZSinkFrame->hide();
+    myUseSelectedEdges->hide();
+    myInformationLabel->hide();
 }
 
 
@@ -770,6 +783,12 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject*, FXSelec
     myTAZFrameParent->myTAZChildDefaultParameters->updateSelectEdgesButton();
     // update view net
     myTAZFrameParent->myViewNet->updateViewNet();
+    return 1;
+}
+
+
+long
+GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject*, FXSelector, void*) {
     return 1;
 }
 

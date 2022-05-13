@@ -899,6 +899,8 @@ enum {
     MID_GNE_CUSTOM_GEOMETRYPOINT,
     /// @brief reset geometry point
     MID_GNE_RESET_GEOMETRYPOINT,
+    /// @brief set zero fringe probabilities (used in TAZ Frame)
+    MID_GNE_SET_ZEROFRINGEPROB,
 
     /// @}
 
