@@ -17,6 +17,8 @@
 ///
 // A series of automatic Cruise Controllers (CC, ACC, CACC)
 /****************************************************************************/
+#include <config.h>
+
 #include <algorithm>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOTime.h>
