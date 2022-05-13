@@ -2276,7 +2276,7 @@ GUIVisualizationSettings::getCircleResolution() const {
         return 8;
     } else if (scale >= 10) {
         return 32;
-    } else if (scale >= 2) {
+    } else if (scale >= 5) {
         return 16;
     } else {
         return 8;

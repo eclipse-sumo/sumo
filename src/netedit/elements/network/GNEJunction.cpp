@@ -420,12 +420,12 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                             // pop matrix
                             GLHelper::popMatrix();
                         }
-                    } else if ((s.scale * junctionExaggeration * myMaxDrawingSize) < 40.) {
-                        // draw shape
-                        GLHelper::drawFilledPoly(junctionClosedShape, true);
-                    } else {
+                    } else if ((s.scale * junctionExaggeration * myMaxDrawingSize) >= 300) {
                         // draw shape with high detail
                         GLHelper::drawFilledPolyTesselated(junctionClosedShape, true);
+                    } else {
+                        // draw shape
+                        GLHelper::drawFilledPoly(junctionClosedShape, true);
                     }
                     // draw shape points only in Network supemode
                     if (myShapeEdited && s.drawMovingGeometryPoint(junctionExaggeration, s.neteditSizeSettings.junctionGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
