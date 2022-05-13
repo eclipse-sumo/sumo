@@ -33,6 +33,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -81,6 +82,7 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double length,
     MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type),
     GUIGlObject(GLO_LANE, id),
     myParkingAreas(nullptr),
+    myTesselation(nullptr),
 #ifdef HAVE_OSG
     myGeom(0),
 #endif
@@ -113,6 +115,7 @@ GUILane::~GUILane() {
         myLock.unlock();
     }
     delete myParkingAreas;
+    delete myTesselation;
 }
 
 
@@ -593,7 +596,10 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     if (s.scale * exaggeration < 20.) {
                         GLHelper::drawFilledPoly(myShape, true);
                     } else {
-                        GLHelper::drawFilledPolyTesselated(myShape, true);
+                        if (myTesselation == nullptr) {
+                            myTesselation = new TesselatedPolygon(getID(), "", RGBColor::MAGENTA, PositionVector(), false, true, 0);
+                        }
+                        myTesselation->drawTesselation(myShape);
                     }
                     glTranslated(0, 0, -.2);
 #ifdef GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
