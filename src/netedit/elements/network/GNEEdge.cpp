@@ -1447,6 +1447,28 @@ GNEEdge::isConvexAngle() const {
     return edgeAngle >= 0 && edgeAngle < 180;
 }
 
+
+bool
+GNEEdge::hasPredecessors() const {
+    // get incoming edges
+    const auto incomingEdges = getFromJunction()->getGNEIncomingEdges();
+    // iterate over connections
+    for (const auto &incomingEdge : incomingEdges) {
+        for (const auto &connection : incomingEdge->getGNEConnections()) {
+            if (connection->getEdgeTo() == this) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+bool 
+GNEEdge::hasSuccessors() const {
+    return (myGNEConnections.size() > 0);
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

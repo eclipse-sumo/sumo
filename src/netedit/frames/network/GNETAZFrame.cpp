@@ -28,6 +28,7 @@
 #include <netedit/elements/additional/GNETAZSourceSink.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/GNEUndoList.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNETAZFrame.h"
 
@@ -50,7 +51,7 @@ FXDEFMAP(GNETAZFrame::TAZSaveChanges) TAZSaveChangesMap[] = {
 FXDEFMAP(GNETAZFrame::TAZChildDefaultParameters) TAZChildDefaultParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,             GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ZEROFRINGEPROB, GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ZEROFRINGEPROB, GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities),
 };
 
 FXDEFMAP(GNETAZFrame::TAZSelectionStatistics) TAZSelectionStatisticsMap[] = {
@@ -503,7 +504,7 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     // Create button for use selected edges
     myUseSelectedEdges = new FXButton(getCollapsableFrame(), "Use selected edges", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
     // Create button for zero fringe probabilities
-    myZeroFringeProbabilities = new FXButton(getCollapsableFrame(), "Set zero fringe prob.", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
+    myZeroFringeProbabilities = new FXButton(getCollapsableFrame(), "Set zero fringe prob.", nullptr, this, MID_GNE_SET_ZEROFRINGEPROB, GUIDesignButton);
     // Create information label
     std::ostringstream information;
     information
@@ -789,6 +790,83 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject*, FXSelec
 
 long
 GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject*, FXSelector, void*) {
+    // compute and update
+    OptionsCont& oc = OptionsCont::getOptions();
+    myTAZFrameParent->getViewNet()->getNet()->computeAndUpdate(oc, false);
+    myTAZFrameParent->getViewNet()->update();
+    // find all edges with TAZSource/sinks and without successors/predecessors
+    std::vector<GNEAdditional*> sources;
+    std::vector<GNEAdditional*> sinks;
+    std::set<GNEAdditional*> TAZs;
+    // check if we're editing a single TAZ or all TAZs
+    if (myTAZFrameParent->myCurrentTAZ->getTAZ() != nullptr) {
+        // iterate over source/sinks
+        for (const auto &TAZSourceSink : myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildAdditionals()) {
+            if (TAZSourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+                // set sink probability to 0 for all edges that have no predecessor
+                if (!TAZSourceSink->getParentEdges().front()->hasSuccessors() &&
+                    (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
+                    sources.push_back(TAZSourceSink);
+                    TAZs.insert(myTAZFrameParent->myCurrentTAZ->getTAZ());
+                }
+            } else {
+                // set source probability to 0 for all edges that have no successor
+                if (!TAZSourceSink->getParentEdges().front()->hasPredecessors() &&
+                    (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
+                    sinks.push_back(TAZSourceSink);
+                    TAZs.insert(myTAZFrameParent->myCurrentTAZ->getTAZ());
+                }
+            }
+        }
+    } else {
+        // iterate over all TAZs
+        for (const auto &TAZ : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+            // iterate over source/sinks
+            for (const auto &TAZSourceSink : TAZ->getChildAdditionals()) {
+                if (TAZSourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+                    // set sink probability to 0 for all edges that have no predecessor
+                    if (!TAZSourceSink->getParentEdges().front()->hasSuccessors() &&
+                        (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
+                        sources.push_back(TAZSourceSink);
+                        TAZs.insert(TAZ);
+                    }
+                } else {
+                    // set source probability to 0 for all edges that have no successor
+                    if (!TAZSourceSink->getParentEdges().front()->hasPredecessors() &&
+                        (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
+                        sinks.push_back(TAZSourceSink);
+                        TAZs.insert(TAZ);
+                    }
+                }
+            }
+        }
+    }
+    // check if there is sources/sinks
+    if ((sources.size() + sinks.size()) > 0) {
+        // build the text
+        const std::string text = (TAZs.size() == 1)? 
+            // single TAZ
+            "Set weight 0 in " + toString(sources.size()) + " sources and " +
+            toString(sinks.size()) + " sinks from TAZ '" + (*TAZs.begin())->getID() + "'?" : 
+            // multiple TAZs
+            "Set weight 0 in " + toString(sources.size()) + " sources and " +
+            toString(sinks.size()) + " sinks from " + toString(TAZs.size()) + " TAZs?";
+        // ask if continue
+        const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, "Set zero fringe probabilities", "%s", text.c_str());
+        if (answer == 1) { // 1:yes, 2:no, 4:esc
+            myTAZFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TAZ, "set zero fringe probabilities");
+            for (const auto &source : sources) {
+                source->setAttribute(SUMO_ATTR_WEIGHT, "0", myTAZFrameParent->myViewNet->getUndoList());
+            }
+            for (const auto &sink : sinks) {
+                sink->setAttribute(SUMO_ATTR_WEIGHT, "0", myTAZFrameParent->myViewNet->getUndoList());
+            }
+            myTAZFrameParent->myViewNet->getUndoList()->end();
+        }
+    } else {
+        // show information box
+        FXMessageBox::information(this, MBOX_OK, "Set zero fringe probabilities", "No source/sinks to update.");
+    }
     return 1;
 }
 
@@ -1042,8 +1120,8 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
             averageWeightSink += weight;
         }
         // calculate average
-        averageWeightSource /= myEdgeAndTAZChildrenSelected.size();
-        averageWeightSink /= myEdgeAndTAZChildrenSelected.size();
+        averageWeightSource /= (double)myEdgeAndTAZChildrenSelected.size();
+        averageWeightSink /= (double)myEdgeAndTAZChildrenSelected.size();
         // declare ostringstream for statistics
         std::ostringstream information;
         std::string edgeInformation;
