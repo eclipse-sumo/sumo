@@ -113,6 +113,17 @@ The normal behavior is to replace the type of the passing vehicles with the type
 !!! caution
     The type modification happens when the vehicle enters the calibrator edge regardless of the configuration calibraor position.
 
+### Type-dependent mapping
+
+If the traffic consists of multiple vehicle types (i.e. passenger cars and trucks) it may be desirable to either
+
+- modify only some of the observed types 
+- perform a depedent mapping: carType -> carType2, truckType -> truckType2
+
+Both can be accomplished by using the `vTypes` attribute of the calibrator to make it apply to a subset of types only.
+For a dependent mapping, multiple calibrators (each with a different `vTypes` attribute) may be defined.
+However, if there are very many types this may be cumbersome to define. In this case it may be better to define a mapping between type distributions as described below.
+
 ### Mapping between vTypeDistributions
 A special behavior is activated if the following conditions are met:
 - the `type` in the flow element references a `vTypeDistribution`
