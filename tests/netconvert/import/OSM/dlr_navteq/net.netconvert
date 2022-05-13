@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-27 11:00:19 by Eclipse SUMO netconvert Version v1_12_0+2312-7f065df
+<!-- generated on 2022-05-13 11:31:50 by Eclipse SUMO netconvert Version v1_13_0+0231-194ea10
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -4577,7 +4577,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="7" response="000011000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="0"/>
     </junction>
-    <junction id="2437417326" type="dead_end" x="1071.26" y="223.58" incLanes="213883655_0" intLanes="" shape="1071.60,222.64 1070.64,225.31"/>
+    <junction id="2437417326" type="dead_end" x="1071.26" y="223.58" incLanes="213883655_0" intLanes="" shape="1071.60,222.64 1070.92,224.52"/>
     <junction id="260479469" type="priority" x="898.24" y="442.97" incLanes="22762377_0 22762377_1 22762377_2 22762377_3 22762377_4" intLanes=":260479469_0_0 :260479469_0_1 :260479469_2_0 :260479469_2_1 :260479469_2_2" shape="904.46,450.38 895.87,436.89 895.47,438.94 901.75,451.89 902.78,451.38 903.14,451.19 903.49,450.99 903.91,450.74">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
