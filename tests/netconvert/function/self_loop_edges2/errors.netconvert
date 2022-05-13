@@ -1,1 +1,1 @@
-Warning: Edge's 'loop' from- and to-node are at the same position.
+Warning: Ignoring self-looped edge 'loop' at junction '0'
