@@ -118,7 +118,7 @@ The normal behavior is to replace the type of the passing vehicles with the type
 If the traffic consists of multiple vehicle types (i.e. passenger cars and trucks) it may be desirable to either
 
 - modify only some of the observed types 
-- perform a depedent mapping: carType -> carType2, truckType -> truckType2
+- perform a dependent mapping: carType -> carType2, truckType -> truckType2
 
 Both can be accomplished by using the `vTypes` attribute of the calibrator to make it apply to a subset of types only.
 For a dependent mapping, multiple calibrators (each with a different `vTypes` attribute) may be defined.
