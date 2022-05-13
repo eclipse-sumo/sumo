@@ -718,7 +718,7 @@ NBFrame::checkOptions() {
     }
     if (oc.getFloat("junctions.scurve-stretch") > 0) {
         if (oc.getBool("no-internal-links")) {
-            WRITE_WARNING("option 'junctions.scurve-stretch' requires internal lanes to work. Option '--no-internal-links' was disabled.");
+            WRITE_WARNING("Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--no-internal-links' will be disabled.");
         }
         // make sure the option is set so heuristics cannot ignore it
         oc.set("no-internal-links", "false");
@@ -727,7 +727,7 @@ NBFrame::checkOptions() {
         if (!oc.isDefault("junctions.small-radius")) {
             WRITE_WARNING("option 'default.junctions.radius' is smaller than option 'junctions.small-radius'");
         } else {
-            oc.set("junctions.small-radius", oc.getValueString("default.junctions.radius"));
+            oc.setDefault("junctions.small-radius", oc.getValueString("default.junctions.radius"));
         }
     }
     if (oc.getString("tls.layout") != "opposites"
@@ -746,16 +746,16 @@ NBFrame::checkOptions() {
         ok = false;
     }
     if (oc.isDefault("railway.topology.repair") && oc.getBool("railway.topology.repair.connect-straight")) {
-        oc.set("railway.topology.repair", "true");
+        oc.setDefault("railway.topology.repair", "true");
     }
     if (oc.isDefault("railway.topology.repair") && oc.getBool("railway.topology.repair.minimal")) {
-        oc.set("railway.topology.repair", "true");
+        oc.setDefault("railway.topology.repair", "true");
     }
     if (oc.isDefault("railway.topology.all-bidi") && !oc.isDefault("railway.topology.all-bidi.input-file")) {
-        oc.set("railway.topology.all-bidi", "true");
+        oc.setDefault("railway.topology.all-bidi", "true");
     }
     if (oc.isDefault("railway.topology.repair.stop-turn") && !oc.isDefault("railway.topology.repair")) {
-        oc.set("railway.topology.repair.stop-turn", "true");
+        oc.setDefault("railway.topology.repair.stop-turn", "true");
     }
     if (!SUMOXMLDefinitions::LaneSpreadFunctions.hasString(oc.getString("default.spreadtype"))) {
         WRITE_ERROR("Unknown value for default.spreadtype '" + oc.getString("default.spreadtype") + "'.");

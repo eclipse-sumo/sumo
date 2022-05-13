@@ -221,7 +221,7 @@ RODUAFrame::checkOptions() {
         return false;
     }
     if (oc.isDefault("routing-algorithm") && (oc.isSet("astar.all-distances") || oc.isSet("astar.landmark-distances") || oc.isSet("astar.save-landmark-distances"))) {
-        oc.set("routing-algorithm", "astar");
+        oc.setDefault("routing-algorithm", "astar");
     }
 
     if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit") {
@@ -237,16 +237,16 @@ RODUAFrame::checkOptions() {
         const std::string& filename = oc.getString("output-file");
         const int len = (int)filename.length();
         if (len > 4 && filename.substr(len - 4) == ".xml") {
-            oc.set("alternatives-output", filename.substr(0, len - 4) + ".alt.xml");
+            oc.setDefault("alternatives-output", filename.substr(0, len - 4) + ".alt.xml");
         } else if (len > 4 && filename.substr(len - 3) == ".gz") {
-            oc.set("alternatives-output", filename.substr(0, len - 3) + ".alt.gz");
+            oc.setDefault("alternatives-output", filename.substr(0, len - 3) + ".alt.gz");
         } else {
             WRITE_WARNING("Cannot derive file name for alternatives output, skipping it.");
         }
     }
     if (oc.getBool("write-trips.junctions")) {
         if (oc.isDefault("write-trips")) {
-            oc.set("write-trips", "true");
+            oc.setDefault("write-trips", "true");
         } else if (!oc.getBool("write-trips")) {
             WRITE_WARNING("Option --write-trips.junctions takes no affect when --write-trips is disabled.");
         }

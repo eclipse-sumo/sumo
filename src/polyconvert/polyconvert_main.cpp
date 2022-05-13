@@ -298,7 +298,7 @@ main(int argc, char** argv) {
             prune = true;
         }
         if (oc.isSet("osm-files") && oc.isDefault("poi-layer-offset")) {
-            oc.set("poi-layer-offset", "5"); // sufficient when using the default typemap
+            oc.setDefault("poi-layer-offset", "5"); // sufficient when using the default typemap
         }
 
         PCPolyContainer toFill(prune, pruningBoundary, oc.getStringVector("remove"));
