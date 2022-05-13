@@ -69,5 +69,5 @@ This is typically accomplished in a 2-step process of first converting lon,lat t
 - [how to match trajectories](FAQ.md#how_do_i_generate_sumo_routes_from_gps_traces)
 - [traci.moveToXY](TraCI/Change_Vehicle_State.md#move_to_xy_0xb4) moves a vehicle to an appropriate network position
 - [convert geo-coordinates to edge with sumolib](Tools/Sumolib.md#locate_nearby_edges_based_on_the_geo-coordinate)
-
+- [TraCI](TraCI/Simulation_Value_Retrieval.md#command_0x82_position_conversion) converts between coordinates (x,y or lon,lat) and edges
 
