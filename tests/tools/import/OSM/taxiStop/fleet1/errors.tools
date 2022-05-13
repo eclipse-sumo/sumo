@@ -38,10 +38,10 @@ Warning: Ambiguity in turnarounds computation at junction '1206481808'.
 Warning: Ambiguity in turnarounds computation at junction '5527777343'.
 Warning: Found sharp turn with radius 5.72 at the end of edge '-285825377'.
 Warning: Found sharp turn with radius 6.74 at the start of edge '-330832908'.
-Warning: Found sharp turn with radius 1.59 at the start of edge '-409507435#1'.
 Warning: Found sharp turn with radius 8.20 at the start of edge '-409507435#2'.
 Warning: Found sharp turn with radius 6.39 at the start of edge '-52348720#0'.
 Warning: Found sharp turn with radius 4.03 at the start of edge '-553121566#2'.
+Warning: Found sharp turn with radius 6.03 at the start of edge '122820534#0'.
 Warning: Found angle of 179.72 degrees at edge '32590429', segment 0.
 Warning: Found angle of 179.79 degrees at edge '32590434#1', segment 14.
 Warning: Found sharp turn with radius 6.39 at the end of edge '52348720#0'.
@@ -56,6 +56,6 @@ Warning: Speed of turning connection '27080261_0->177195505#1_0' reduced by 24.9
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 18 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
 Warning: 17 total messages of type: Discarding unusable type '%' (first occurence for edge '%').
-Warning: 9 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 7 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
 Warning: 29 total messages of type: The rail crossing '%' does not have any roads.
