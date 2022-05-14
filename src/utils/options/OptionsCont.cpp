@@ -232,6 +232,7 @@ OptionsCont::getStringVector(const std::string& name) const {
     return o->getStringVector();
 }
 
+
 bool
 OptionsCont::set(const std::string& name, const std::string& value) {
     Option* o = getSecure(name);
@@ -254,8 +255,9 @@ OptionsCont::set(const std::string& name, const std::string& value) {
 
 bool
 OptionsCont::setDefault(const std::string& name, const std::string& value) {
-    if (set(name, value)) {
-        getSecure(name)->resetDefault();
+    Option* const o = getSecure(name);
+    if (o->isWriteable() && set(name, value)) {
+        o->resetDefault();
         return true;
     }
     return false;
