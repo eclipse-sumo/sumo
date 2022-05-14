@@ -9,6 +9,7 @@
  *  first edit:	09.03.2010 by M. Dupuis @ VIRES GmbH
  *  last mod.:  02.05.2017 by Michael Scholz @ German Aerospace Center (DLR)
  *  last mod.:  05.07.2017 by Jakob Erdmann @ German Aerospace Center (DLR)
+ *  last mod.:  14.05.2022 by Michael Behrisch @ German Aerospace Center (DLR)
  * ===================================================
     Copyright 2010 VIRES Simulationstechnologie GmbH
 	Copyright 2017 German Aerospace Center (DLR)
@@ -30,6 +31,10 @@
     spirals for OpenDRIVE applications. Their sole purpose is to facilitate 
     the interpretation of OpenDRIVE spiral data.
  */
+
+#ifdef _MSC_VER
+#pragma warning(disable:4820 4514 5045)
+#endif
 
 /* ====== INCLUSIONS ====== */
 #include <stdio.h>

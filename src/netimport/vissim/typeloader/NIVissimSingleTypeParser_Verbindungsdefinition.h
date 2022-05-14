@@ -22,7 +22,7 @@
 
 #include <iostream>
 #include <netimport/vissim/NIImporter_Vissim.h>
-#include "../tempstructs/NIVissimExtendedEdgePoint.h"
+#include <netimport/vissim/tempstructs/NIVissimExtendedEdgePoint.h>
 
 
 // ===========================================================================
