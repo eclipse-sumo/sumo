@@ -30,14 +30,22 @@ import traci  # noqa
 import traci.constants as tc  # noqa
 import sumolib  # noqa
 
+traci.setLegacyGetLeader(False)
+
 
 def checkSSM(vehID):
-    print("  veh=%s minTTC=%s maxDRAC=%s minPET=%s" % (
+    # to find junction leaders we need to look beyond brakeDist
+    leader, dist = traci.vehicle.getLeader(vehID, 200)
+    curTTC = None
+    if leader:
+        dv = traci.vehicle.getSpeed(vehID) - traci.vehicle.getSpeed(leader)
+        curTTC = (dist + traci.vehicle.getMinGap(vehID)) / dv
+    print("  veh=%s minTTC=%s maxDRAC=%s minPET=%s curTTC=%s" % (
         vehID,
         traci.vehicle.getParameter(vehID, "device.ssm.minTTC"),
         traci.vehicle.getParameter(vehID, "device.ssm.maxDRAC"),
         traci.vehicle.getParameter(vehID, "device.ssm.minPET"),
-    ))
+        curTTC))
 
 
 traci.start([

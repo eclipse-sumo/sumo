@@ -1,46 +1,46 @@
  Retrying in 1 seconds
 step 0
-  veh=ego minTTC= maxDRAC= minPET=
-  veh=leader minTTC= maxDRAC= minPET=
+  veh=ego minTTC= maxDRAC= minPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= curTTC=None
 step 1
-  veh=ego minTTC= maxDRAC= minPET=
-  veh=leader minTTC= maxDRAC= minPET=
+  veh=ego minTTC= maxDRAC= minPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= curTTC=None
 step 2
-  veh=ego minTTC= maxDRAC=0.00 minPET=
-  veh=leader minTTC= maxDRAC=0.00 minPET=
+  veh=ego minTTC= maxDRAC=0.00 minPET= curTTC=-6.64853928216
+  veh=leader minTTC= maxDRAC=0.00 minPET= curTTC=None
 step 3
-  veh=ego minTTC= maxDRAC=0.00 minPET=
-  veh=leader minTTC= maxDRAC=0.00 minPET=
+  veh=ego minTTC= maxDRAC=0.00 minPET= curTTC=-13.9621091322
+  veh=leader minTTC= maxDRAC=0.00 minPET= curTTC=None
 step 4
-  veh=ego minTTC= maxDRAC=0.00 minPET=
-  veh=leader minTTC= maxDRAC=0.00 minPET=
+  veh=ego minTTC= maxDRAC=0.00 minPET= curTTC=-4.72691504983
+  veh=leader minTTC= maxDRAC=0.00 minPET= curTTC=None
 step 5
-  veh=ego minTTC= maxDRAC=0.00 minPET=
-  veh=leader minTTC= maxDRAC=0.00 minPET=
+  veh=ego minTTC= maxDRAC=0.00 minPET= curTTC=-8.79420918703
+  veh=leader minTTC= maxDRAC=0.00 minPET= curTTC=None
 step 6
-  veh=ego minTTC=4.18 maxDRAC=0.39 minPET=
-  veh=leader minTTC=4.18 maxDRAC=0.39 minPET=
+  veh=ego minTTC=4.18 maxDRAC=0.39 minPET= curTTC=4.18373497548
+  veh=leader minTTC=4.18 maxDRAC=0.39 minPET= curTTC=None
 step 7
-  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
-  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET= curTTC=2.02770155329
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET= curTTC=None
 step 8
-  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
-  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET= curTTC=-6.32136620473
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET= curTTC=None
 step 9
-  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
-  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET= curTTC=-13.2494001809
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET= curTTC=None
 step 10
-  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
-  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET= curTTC=-2.71870208252
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET= curTTC=None
 step 11
-  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
-  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET= curTTC=-3.44776273387
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET= curTTC=None
 step 12
-  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
-  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET= curTTC=-4.72860091791
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET= curTTC=None
 step 13
-  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
-  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET= curTTC=-8.12427611857
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET= curTTC=None
 step 14
-  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
-  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET= curTTC=-17.4564064547
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET= curTTC=None
