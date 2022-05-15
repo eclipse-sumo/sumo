@@ -346,7 +346,7 @@ GUI::step(SUMOTime t) {
 
 
 bool
-GUI::close(const std::string& reason) {
+GUI::close(const std::string& /*reason*/) {
     if (myWindow != nullptr) {
         myApp->stop();
         delete myWindow;
