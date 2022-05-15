@@ -239,8 +239,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myTimeLoss(0),
     myEmergencyVehicleCount(0),
     myTotalDistance(0),
-    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY)
-{
+    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY) {
     // init icons
     GUIIconSubSys::initIcons(a);
     // init cursors
@@ -249,7 +248,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
 
 
 void
-GUIApplicationWindow::dependentBuild() {
+GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
     // don't do this twice
     if (hadDependentBuild) {
         return;
@@ -302,7 +301,7 @@ GUIApplicationWindow::dependentBuild() {
     myToolBar9->hide();
     myToolBar10->hide();
     // build additional threads
-    myLoadThread = new GUILoadThread(getApp(), this, myEvents, myLoadThreadEvent);
+    myLoadThread = new GUILoadThread(getApp(), this, myEvents, myLoadThreadEvent, isLibsumo);
     myRunThread = new GUIRunThread(getApp(), this, mySimDelay, myEvents, myRunThreadEvent);
     // set the status bar
     myStatusbar->getStatusLine()->setText("Ready.");
@@ -1225,7 +1224,7 @@ long
 GUIApplicationWindow::onCmdDelayInc(FXObject*, FXSelector, void*) {
     if (mySimDelay < 10) {
         mySimDelay = 10;
-    } else if (mySimDelay >=20 && mySimDelay < 50) {
+    } else if (mySimDelay >= 20 && mySimDelay < 50) {
         mySimDelay = 50;
     } else if (mySimDelay >= 200 && mySimDelay < 500) {
         mySimDelay = 500;
@@ -1427,7 +1426,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GUIApplicationWindow::onCmdToogleDrawJunctionShape(FXObject*, FXSelector, void*) {
     GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
     if (w != nullptr) {
@@ -2029,8 +2028,13 @@ GUIApplicationWindow::getTrackerInterval() const {
 
 
 void
-GUIApplicationWindow::loadOnStartup() {
+GUIApplicationWindow::loadOnStartup(const bool wait) {
     loadConfigOrNet("");
+    if (wait) {
+        while (myAmLoading) {
+            myRunThread->sleep(50);
+        }
+    }
 }
 
 

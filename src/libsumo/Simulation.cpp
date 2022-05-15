@@ -149,9 +149,9 @@ Simulation::close(const std::string& reason) {
     Helper::clearSubscriptions();
     if (
 #ifdef HAVE_LIBSUMOGUI
-        !GUI::close() &&
+        !GUI::close(reason) &&
 #endif
-         MSNet::hasInstance()) {
+        MSNet::hasInstance()) {
         MSNet::getInstance()->closeSimulation(0, reason);
         delete MSNet::getInstance();
         SystemFrame::close();
