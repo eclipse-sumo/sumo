@@ -179,7 +179,7 @@ class VehAttribute:
                     (0, None))
             except KeyError:
                 raise KeyError("The distribution %s is not known. Please select one of: \n%s " %
-                         (distribution, "\n".join(_DIST_DICT.keys())))
+                               (distribution, "\n".join(_DIST_DICT.keys())))
         else:
             isNumeric = False if self.name == "emissionClass" else len(
                 re.findall(r'^(-?[0-9]+(\.[0-9]+)?)$', self.attribute_value)) > 0
@@ -290,7 +290,7 @@ class CreateVehTypeDistribution:
                 return xml.dom.minidom.parse(file_path), True
             except Exception as e:
                 raise Exception("Cannot parse existing %s. Error: %s" %
-                         (file_path, str(e)))
+                                (file_path, str(e)))
         else:
             return xml.dom.minidom.Document(), False
 
