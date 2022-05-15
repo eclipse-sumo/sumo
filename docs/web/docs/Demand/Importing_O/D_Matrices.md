@@ -146,6 +146,8 @@ every a given vehicle type as follows:
 <data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval id="car" begin="0" end="1:0:0">
       <tazRelation count="2000" from="1" to="2"/>
+      <tazRelation count="500" from="1" to="3"/>
+      ...
     </interval>
     <interval ...>
     ...
