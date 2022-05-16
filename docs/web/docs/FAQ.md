@@ -284,17 +284,7 @@ of error can be safely handled by the script with *try/except*
 figure out what went wrong in a simulation run or why the simulation
 aborted.
 - If SUMO crashes (just stops instead of quitting with an error
-message) here is how to debug it:
-  - in the options to *traci.start()* add *\['--save-configuration',
-    'debug.sumocfg'\]*
-  - run your script (sumo will not start and the script will try to
-    connect repeatedly)
-  - run the debug version of sumo with the saved configuration in a
-    debugger while the script is still trying to connect
-
-```
-gdb --args sumoD -c debug.sumocfg
-```
+message) [you can run sumo in a debugger while executing your script](TraCI/Interfacing_TraCI_from_Python.md#debugging_a_traci_session_on_linux) and send the stracktrace to the developers.
 
 ### Error: tcpip::Storage::readIsSafe: want to read 8 bytes from Storage, but only 4 remaining
 
