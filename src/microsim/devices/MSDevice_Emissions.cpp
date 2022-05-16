@@ -59,8 +59,8 @@ MSDevice_Emissions::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
 // ---------------------------------------------------------------------------
 // MSDevice_Emissions-methods
 // ---------------------------------------------------------------------------
-MSDevice_Emissions::MSDevice_Emissions(SUMOVehicle& holder, const std::string& id)
-    : MSVehicleDevice(holder, id), myEmissions() {
+MSDevice_Emissions::MSDevice_Emissions(SUMOVehicle& holder, const std::string& id, const bool generateOutput)
+    : MSVehicleDevice(holder, id), myEmissions(), myParam(&holder.getVehicleType().getParameter()), myOutput(generateOutput) {
 }
 
 
@@ -70,19 +70,19 @@ MSDevice_Emissions::~MSDevice_Emissions() {
 
 bool
 MSDevice_Emissions::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, double /*newPos*/, double newSpeed) {
-    const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
-    const double a = veh.getAcceleration();
-    const double slope = veh.getSlope();
-    myEmissions.addScaled(PollutantsInterface::computeAll(c, newSpeed, a, slope,
-                          static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), TS);
+    if (myOutput) {
+        const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
+        myEmissions.addScaled(PollutantsInterface::computeAll(c, newSpeed, veh.getAcceleration(), veh.getSlope(), &myParam), TS);
+    }
     return true;
 }
 
 bool
 MSDevice_Emissions::notifyIdle(SUMOTrafficObject& veh) {
-    const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
-    myEmissions.addScaled(PollutantsInterface::computeAll(c, 0., 0., 0.,
-                          static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), TS);
+    if (myOutput) {
+        const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
+        myEmissions.addScaled(PollutantsInterface::computeAll(c, 0., 0., 0., &myParam), TS);
+    }
     return true;
 }
 
@@ -97,17 +97,17 @@ MSDevice_Emissions::notifyMoveInternal(const SUMOTrafficObject& veh,
                                        const double /* meanLengthOnLane */) {
 
     // called by meso (see MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal)
-    const double a = veh.getAcceleration();
-    myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(),
-                          meanSpeedVehicleOnLane, a, veh.getSlope(),
-                          static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), timeOnLane);
+    if (myOutput) {
+        const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
+        myEmissions.addScaled(PollutantsInterface::computeAll(c, meanSpeedVehicleOnLane, veh.getAcceleration(), veh.getSlope(), &myParam), timeOnLane);
+    }
 }
 
 
 
 void
 MSDevice_Emissions::generateOutput(OutputDevice* tripinfoOut) const {
-    if (tripinfoOut != nullptr) {
+    if (myOutput && tripinfoOut != nullptr) {
         const int precision = MAX2(6, gPrecision);
         tripinfoOut->openTag("emissions");
         tripinfoOut->writeAttr("CO_abs", OutputDevice::realString(myEmissions.CO, precision));

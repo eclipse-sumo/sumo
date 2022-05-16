@@ -30,8 +30,10 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <mesosim/MELoop.h>
+#include <mesosim/MEVehicle.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/devices/MSDevice_Transportable.h>
+#include <microsim/devices/MSDevice_Emissions.h>
 #include <microsim/devices/MSDevice_Battery.h>
 #include <microsim/devices/MSDevice_ElecHybrid.h>
 #include <microsim/devices/MSDevice_Taxi.h>
@@ -171,20 +173,8 @@ MSBaseVehicle::getParameter() const {
 
 const EnergyParams*
 MSBaseVehicle::getEmissionParameters() const {
-    MSDevice_Battery* batteryDevice = static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
-    MSDevice_ElecHybrid* elecHybridDevice = static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
-    if (batteryDevice != nullptr) {
-        if (elecHybridDevice != nullptr) {
-            WRITE_WARNING("MSBaseVehicle::getEmissionParameters(): both batteryDevice and elecHybridDevice defined, returning batteryDevice parameters.");
-        }
-        return &batteryDevice->getEnergyParams();
-    } else {
-        if (elecHybridDevice != nullptr) {
-            return &elecHybridDevice->getEnergyParams();
-        } else {
-            return nullptr;
-        }
-    }
+    MSDevice_Emissions* const d = static_cast<MSDevice_Emissions*>(getDevice(typeid(MSDevice_Emissions)));
+    return d == nullptr ? nullptr : &d->getEnergyParams();
 }
 
 void
