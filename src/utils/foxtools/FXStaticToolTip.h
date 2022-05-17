@@ -38,6 +38,9 @@ public:
     /// @brief draw FXStaticToolTip
     long onPaint(FXObject* obj, FXSelector sel, void* ptr);
 
+    /// @brief show tip
+    long onTipShow(FXObject*,FXSelector,void*);
+
 protected:
     /// @brief FOX need this
     FXStaticToolTip();
