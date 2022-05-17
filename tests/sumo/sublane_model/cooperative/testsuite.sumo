@@ -22,5 +22,11 @@ cooperative0_inconvenient
 # disable cooperative changing if the target lane is too slow (target lane has vehicles on it)
 cooperative0_inconvenient2
 
+# test cooperative changing where the target lane is faster (with lcSpeedGain=0)
+cooperative0_superconvenient
+
+# test cooperative changing where the target lane is faster (with lcSpeedGain=0)
+cooperative-1_superconvenient
+
 # disable cooperative changing completely
 cooperative-1
