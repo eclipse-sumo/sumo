@@ -62,6 +62,9 @@ def get_options(args=None):
     optParser.add_option("--timeline-pair", dest="timelinepair", type=str,
                          default = "7200,200;7200,200;7200,200;7200,200;7200,200;7200,200",
                          help="Define the timeline pairs (duration, scacled percentage)")
+    optParser.add_option("--random", action="store_true", dest="random",
+                        default=False, help="use a random seed to initialize the random number generator")
+    optParser.add_option("-s", "--seed", type=int, dest="seed", default=42, help="random seed")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
 
@@ -197,7 +200,8 @@ def scaleRoutes(options, outf):
 
 
 def main(options):
-
+    if not options.random:
+        random.seed(options.seed)
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
         scaleRoutes(options, outf)
