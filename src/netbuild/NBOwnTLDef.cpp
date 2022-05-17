@@ -1389,11 +1389,9 @@ NBOwnTLDef::filterState(std::string state, const EdgeVector& fromEdges, const NB
 
 void
 NBOwnTLDef::filterMissingNames(std::vector<int>& vec, const std::set<int>& names) {
-    for (auto it = vec.begin(); it != vec.end();) {
-        if (names.count(*it) == 0) {
-            it = vec.erase(it);
-        } else {
-            it++;
+    for (int i = 0; i < (int)vec.size(); i++) {
+        if (names.count(vec[i]) == 0) {
+            vec[i] = 0;
         }
     }
 }
