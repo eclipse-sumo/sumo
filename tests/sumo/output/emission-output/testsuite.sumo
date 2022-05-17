@@ -37,5 +37,11 @@ half_equipped
 # output in every 5th step
 period
 
+# shutting off the engine at planned stops
+shut_off_stop
+
+# shutting off the engine at traffic lights
+shut_off_auto
+
 # Testing error cases
 errors
