@@ -667,6 +667,23 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 
             }
 
+        } else if (isNEMA) {
+            std::string& s = straightStates.back();
+            std::string leftState = s;
+            for (int ii = 0; ii < pos; ++ii) {
+                if (s[ii] != 'r') {
+                    NBEdge* fromEdge = fromEdges[ii];
+                    NBEdge* toEdge = toEdges[ii];
+                    LinkDirection dir = fromEdge->getToNode()->getDirection(fromEdge, toEdge);
+                    if (hasTurnLane[ii] && (dir == LinkDirection::LEFT || dir == LinkDirection::TURN)) {
+                        s[ii] = 'r';
+                        leftState[ii] = 'G';
+                    } else {
+                        leftState[ii] = 'r';
+                    }
+                }
+            }
+            leftStates.push_back(leftState);
         }
     }
     // fix pedestrian crossings that did not get the green light yet
@@ -703,14 +720,18 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 NBEdge* e2 = chosenList[i].second;
                 if (i < (int)leftStates.size()) {
                     std::string left1 = filterState(leftStates[i], fromEdges, e1);
-                    logic->addStep(dur, left1, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, toString(phaseNameLeft));
+                    if (left1 != "") {
+                        logic->addStep(dur, left1, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, toString(phaseNameLeft));
+                    }
                 }
                 if (e2 != nullptr) {
                     std::string straight2 = filterState(straightStates[i], fromEdges, e2);
                     logic->addStep(dur, straight2, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, toString(phaseNameLeft + 1));
                     if (i < (int)leftStates.size()) {
                         std::string left2 = filterState(leftStates[i], fromEdges, e2);
-                        logic->addStep(dur, left2, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, toString(phaseNameLeft + 4));
+                        if (left2 != "") {
+                            logic->addStep(dur, left2, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, toString(phaseNameLeft + 4));
+                        }
                     }
 
                 }
@@ -1375,27 +1396,26 @@ NBOwnTLDef::corridorLike() const {
 
 std::string
 NBOwnTLDef::filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e) {
+    bool haveGreen = false;;
     for (int j = 0; j < (int)state.size(); j++) {
         if (fromEdges[j] != e) {
             state[j] = 'r';
+        } else if (state[j] != 'r') {
+            haveGreen = true;
         }
     }
-    return state;
+    if (haveGreen) {
+        return state;
+    } else {
+        return "";
+    }
 }
 
 void
 NBOwnTLDef::filterMissingNames(std::vector<int>& vec, const std::set<int>& names, bool isBarrier) {
-    int valid = 0;
-    if (isBarrier) {
-        for (int i = 0; i < (int)vec.size(); i++) {
-            if (names.count(vec[i]) != 0) {
-                valid = vec[i];
-            }
-        }
-    }
     for (int i = 0; i < (int)vec.size(); i++) {
         if (names.count(vec[i]) == 0) {
-            vec[i] = valid;
+            vec[i] = isBarrier ? vec[i] - 1 : 0;
         }
     }
 }
