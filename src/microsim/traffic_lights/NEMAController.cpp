@@ -49,6 +49,7 @@
 
 // #define DEBUG_NEMA
 // #define FUZZ_TESTING
+// #define DEBUG_NEMA_SWITCH
 
 // ===========================================================================
 // method definitions
@@ -299,7 +300,7 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
     std::cout << "R2State = " << myActivePhaseObjs[1]->phaseName << " and its state = " << std::to_string((int)myActivePhaseObjs[0]->getCurrentState()) << std::endl;
 #endif
 
-    // Set the light state
+    // Set the initial light state
     myPhase.setState(composeLightString());
     myPhase.setName(toString(myActivePhaseObjs[0]->phaseName) + "+" + toString(myActivePhaseObjs[1]->phaseName));
     myStep = 0;
@@ -1128,6 +1129,9 @@ NEMALogic::composeLightString() {
 
 SUMOTime
 NEMALogic::trySwitch() {
+#ifdef DEBUG_NEMA_SWITCH
+    std::cout << SIMTIME << " trySwitch tls=" << getID() << "\n";
+#endif
     PhaseTransitionLogic* nextPhases[2] = { nullptr, nullptr };
 
     // update the internal time. This is a must. Could have just used a reference to the tmme
@@ -1365,6 +1369,9 @@ NEMAPhase::checkMyDetectors() {
 
 void
 NEMAPhase::enter(NEMALogic* controller, NEMAPhase* lastPhase) {
+#ifdef DEBUG_NEMA_SWITCH
+    std::cout << SIMTIME << " enter tls=" << controller->getID() << " phase=" << phaseName << "\n";
+#endif
 
     // Enter the phase
     myStartTime = controller->getCurrentTime();
