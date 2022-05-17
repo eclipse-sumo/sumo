@@ -85,6 +85,8 @@ copy_test_path:gtfs.zip
 copy_test_path:battery.txt
 
 [collate_file]
+scaledObj:scaledObj.rou.xml
+scaled:scaled.rou.xml
 detectors:e1.add.xml
 detectors:e2.add.xml
 detectors:e3.add.xml
@@ -306,6 +308,8 @@ diff_nod:<!-- generated on{[->]}-->
 diff_tll:<!-- generated on{[->]}-->
 diff_xml:<!-- generated on{[->]}-->
 meandata:<!-- generated on{[->]}-->
+scaled:<!-- generated on{[->]}-->
+scaledObj:<!-- generated on{[->]}-->
 gtfs_additional:<!-- generated on{[->]}-->
 gtfs_routes:<!-- generated on{[->]}-->
 
