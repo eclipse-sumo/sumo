@@ -87,10 +87,14 @@ FXStaticToolTip::onPaint(FXObject* obj, FXSelector sel, void* ptr) {
 
 
 long
-FXStaticToolTip::onTipShow(FXObject*, FXSelector, void*) {
+FXStaticToolTip::onTipShow(FXObject*, FXSelector, void* ptr) {
     if (!label.empty()) {
-        autoplace();
+        //autoplace();
+        FXWindow *ev = (FXWindow*)ptr;
+        place(ev->getX(), ev->getY());
+
         show();
+/*
         if (!(options & TOOLTIP_PERMANENT)) {
             FXint timeoutms = getApp()->getTooltipTime();
             if (options & TOOLTIP_VARIABLE){
@@ -98,6 +102,7 @@ FXStaticToolTip::onTipShow(FXObject*, FXSelector, void*) {
             }
             getApp()->addTimeout(this, ID_TIP_HIDE, timeoutms);
         }
+*/
     }
     return 1;
 }

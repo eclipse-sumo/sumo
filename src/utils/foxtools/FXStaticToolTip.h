@@ -24,7 +24,7 @@
 #include "fxheader.h"
 
 /// @brief FXStaticToolTip (based on FXToolTip)
-class FXStaticToolTip : protected FXToolTip {
+class FXStaticToolTip : public FXToolTip {
     /// @brief FOX declaration
     FXDECLARE(FXStaticToolTip)
 
