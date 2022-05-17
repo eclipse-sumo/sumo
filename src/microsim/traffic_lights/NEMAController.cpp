@@ -390,8 +390,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                 if (customID != "") {
                     det = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(customID));
                     if (det == nullptr) {
-                        WRITE_ERROR("Unknown laneAreaDetector '" + customID + "' given as custom detector for NEMA tlLogic '" + getID() + "', program '" + getProgramID() + ".");
-                        continue;
+                        throw ProcessError("Unknown laneAreaDetector '" + customID + "' given as custom detector for NEMA tlLogic '" + getID() + "', program '" + getProgramID() + ".");
                     }
                     //set the detector to be visible in gui
                     det->setVisible(myShowDetectors);
