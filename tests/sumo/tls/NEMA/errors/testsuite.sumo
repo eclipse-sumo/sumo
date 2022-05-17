@@ -12,3 +12,4 @@ missingPhaseName
 
 # trying to load phases from a 'static' controller
 badPhases
+customDetectorsMissing
