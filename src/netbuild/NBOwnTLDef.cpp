@@ -252,15 +252,21 @@ NBTrafficLightLogic*
 NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     myNeedsContRelation.clear();
     myRightOnRedConflicts.clear();
+    const bool isNEMA = myType == TrafficLightType::NEMA;
     const SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
     const SUMOTime leftTurnTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.left-green.time"));
     const SUMOTime minMinDur = (myType == TrafficLightType::STATIC) ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.min-dur"));
     const SUMOTime maxDur = (myType == TrafficLightType::STATIC) ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.max-dur"));
     const SUMOTime earliestEnd = UNSPECIFIED_DURATION;
     const SUMOTime latestEnd = UNSPECIFIED_DURATION;
-    const SUMOTime vehExt = (myType != TrafficLightType::NEMA) ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.vehExt"));
-    const SUMOTime yellow = (myType != TrafficLightType::NEMA) ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.yellow"));
-    const SUMOTime red = (myType != TrafficLightType::NEMA)? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.red"));
+    const SUMOTime vehExt = !isNEMA ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.vehExt"));
+    const SUMOTime yellow = !isNEMA ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.yellow"));
+    const SUMOTime red = !isNEMA ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.red"));
+
+    // things collect for NEMA phase building
+    std::vector<std::pair<NBEdge*, NBEdge*> > chosenList;
+    std::vector<std::string> straightStates;
+    std::vector<std::string> leftStates;
 
     // build complete lists first
     const EdgeVector& incoming = getIncomingEdges();
@@ -404,6 +410,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             std::cout << " computing " << getID() << " prog=" << getProgramID() << " cho1=" << Named::getIDSecure(chosen.first) << " cho2=" << Named::getIDSecure(chosen.second) << " toProc=" << toString(toProc) << " bentPrio=" << chosen.first->getToNode()->isBentPriority() << "\n";
         }
 #endif
+        chosenList.push_back(chosen);
         // plain straight movers
         double maxSpeed = 0;
         bool haveGreen = false;
@@ -435,26 +442,28 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             std::cout << " state after plain straight movers " << state << "\n";
         }
 #endif
-        // correct behaviour for those that are not in chosen, but may drive, though
-        state = allowCompatible(state, fromEdges, toEdges, fromLanes, toLanes);
-        if (groupTram) {
-            state = allowByVClass(state, fromEdges, toEdges, SVC_TRAM);
-        } else if (groupOther) {
-            state = allowByVClass(state, fromEdges, toEdges, SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY);
-        }
+        if (!isNEMA) {
+            // correct behaviour for those that are not in chosen, but may drive, though
+            state = allowCompatible(state, fromEdges, toEdges, fromLanes, toLanes);
+            if (groupTram) {
+                state = allowByVClass(state, fromEdges, toEdges, SVC_TRAM);
+            } else if (groupOther) {
+                state = allowByVClass(state, fromEdges, toEdges, SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY);
+            }
 #ifdef DEBUG_PHASES
-        if (DEBUGCOND) {
-            std::cout << " state after grouping by vClass " << state << "\n";
-        }
+            if (DEBUGCOND) {
+                std::cout << " state after grouping by vClass " << state << "\n";
+            }
 #endif
-        if (groupOpposites || chosen.first->getToNode()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED) {
-            state = allowUnrelated(state, fromEdges, toEdges, isTurnaround, crossings);
-        }
+            if (groupOpposites || chosen.first->getToNode()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED) {
+                state = allowUnrelated(state, fromEdges, toEdges, isTurnaround, crossings);
+            }
 #ifdef DEBUG_PHASES
-        if (DEBUGCOND) {
-            std::cout << " state after finding allowUnrelated " << state << "\n";
-        }
+            if (DEBUGCOND) {
+                std::cout << " state after finding allowUnrelated " << state << "\n";
+            }
 #endif
+        }
         // correct behaviour for those that have to wait (mainly left-mover)
         bool haveForbiddenLeftMover = false;
         std::vector<bool> rightTurnConflicts(pos, false);
@@ -510,6 +519,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                       << "\n";
         }
 #endif
+        straightStates.push_back(state);
 
         const std::string vehicleState = state; // backup state before pedestrian modifications
         greenPhases.push_back((int)logic->getPhases().size());
@@ -577,6 +587,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                     state[i1] = 'G';
                 }
             }
+            leftStates.push_back(state);
             state = allowCompatible(state, fromEdges, toEdges, fromLanes, toLanes);
             state = correctConflicting(state, fromEdges, toEdges, isTurnaround, fromLanes, toLanes, hadGreenMajor, haveForbiddenLeftMover, rightTurnConflicts, mergeConflicts);
             bool buildMixedGreenPhase = false;
@@ -676,19 +687,48 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         // exiting the oneway section should always be possible
         deactivateInsideEdges(logic, fromEdges);
     }
-    if (myType == TrafficLightType::NEMA) {
+    if (isNEMA) {
+        const SUMOTime dur = TIME2STEPS(OptionsCont::getOptions().getInt("tls.cycle.time"));
         logic->setParameter("ring1", "1,2,3,4");
         logic->setParameter("ring2", "5,6,7,8");
         logic->setParameter("barrierPhases", "4,8");
         logic->setParameter("barrier2Phases", "2,6");
-        for (int i = 0; i < (int)logic->getPhases().size(); i++) {
-            // 1-based indexing
-            logic->setPhaseName(i, toString(i + 1));
+        if (chosenList.size() == 2) {
+            logic->resetPhases();
+            int phaseNameLeft = 1;
+            for (int i = 0; i < (int)chosenList.size(); i++) {
+                NBEdge* e1 = chosenList[i].first;
+                assert(e1 != nullptr);
+                NBEdge* e2 = chosenList[i].second;
+                if (i < (int)leftStates.size()) {
+                    std::string left1 = filterState(leftStates[i], fromEdges, e1);
+                    logic->addStep(dur, left1, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red);
+                    logic->setPhaseName(logic->getPhases().size() - 1, toString(phaseNameLeft));
+                }
+                if (e2 != nullptr) {
+                    std::string straight2 = filterState(straightStates[i], fromEdges, e2);
+                    logic->addStep(dur, straight2, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red);
+                    logic->setPhaseName(logic->getPhases().size() - 1, toString(phaseNameLeft + 1));
+                    if (i < (int)leftStates.size()) {
+                        std::string left2 = filterState(leftStates[i], fromEdges, e2);
+                        logic->addStep(dur, left2, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red);
+                        logic->setPhaseName(logic->getPhases().size() - 1, toString(phaseNameLeft + 4));
+                    }
+
+                }
+                std::string straight1 = filterState(straightStates[i], fromEdges, e1);
+                logic->addStep(dur, straight1, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red);
+                logic->setPhaseName(logic->getPhases().size() - 1, toString(phaseNameLeft + 5));
+                phaseNameLeft += 2;
+            }
+        } else {
+            WRITE_WARNINGF("Generating NEMA phases is not support for traffic light '%' with % incoming edges", getID(), incoming.size());
         }
-    }
+    } 
 
     SUMOTime totalDuration = logic->getDuration();
-    if (OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) {
+
+    if ((OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) && !isNEMA) {
         const SUMOTime cycleTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.cycle.time"));
         // adapt to cycle time by changing the duration of the green phases
         SUMOTime minGreenDuration = SUMOTime_MAX;
@@ -721,7 +761,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     // this computation only makes sense for single nodes
     myNeedsContRelationReady = (myControlledNodes.size() == 1);
     if (totalDuration > 0) {
-        if (totalDuration > 3 * (greenTime + 2 * brakingTime + leftTurnTime)) {
+        if (totalDuration > 3 * (greenTime + 2 * brakingTime + leftTurnTime) && !isNEMA) {
             WRITE_WARNINGF("The traffic light '%' has a high cycle time of %.", getID(), time2string(totalDuration));
         }
         logic->closeBuilding();
@@ -1320,6 +1360,16 @@ NBOwnTLDef::corridorLike() const {
         controlledNode->removeTrafficLight(&dummy);
     }
     return greenPhases <= 2;
+}
+
+std::string
+NBOwnTLDef::filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e) {
+    for (int j = 0; j < (int)state.size(); j++) {
+        if (fromEdges[j] != e) {
+            state[j] = 'r';
+        }
+    }
+    return state;
 }
 
 

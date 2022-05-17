@@ -175,6 +175,9 @@ protected:
     /// @brief test whether a joined tls with layout 'opposites' would be built without dedicated left-turn phase
     bool corridorLike() const;
 
+    /// @brief mask out all greens that do not originate at the given edge
+    std::string filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e); 
+
     /** @brief Returns the weight of a stream given its direction
      * @param[in] dir The direction of the stream
      * @return This stream's weight
