@@ -727,10 +727,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 phaseNameLeft += 2;
             }
 
-            filterMissingNames(ring1, names);
-            filterMissingNames(ring2, names);
-            filterMissingNames(barrier1, names);
-            filterMissingNames(barrier2, names);
+            filterMissingNames(ring1, names, false);
+            filterMissingNames(ring2, names, false);
+            filterMissingNames(barrier1, names, true);
+            filterMissingNames(barrier2, names, true);
         } else {
             WRITE_WARNINGF("Generating NEMA phases is not support for traffic light '%' with % incoming edges", getID(), incoming.size());
         }
@@ -1388,10 +1388,18 @@ NBOwnTLDef::filterState(std::string state, const EdgeVector& fromEdges, const NB
 }
 
 void
-NBOwnTLDef::filterMissingNames(std::vector<int>& vec, const std::set<int>& names) {
+NBOwnTLDef::filterMissingNames(std::vector<int>& vec, const std::set<int>& names, bool isBarrier) {
+    int valid = 0;
+    if (isBarrier) {
+        for (int i = 0; i < (int)vec.size(); i++) {
+            if (names.count(vec[i]) != 0) {
+                valid = vec[i];
+            }
+        }
+    }
     for (int i = 0; i < (int)vec.size(); i++) {
         if (names.count(vec[i]) == 0) {
-            vec[i] = 0;
+            vec[i] = valid;
         }
     }
 }

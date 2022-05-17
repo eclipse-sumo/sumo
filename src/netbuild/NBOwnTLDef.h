@@ -179,7 +179,7 @@ protected:
     std::string filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e); 
 
     /// @brief keep only valid NEMA phase names (for params)
-    void filterMissingNames(std::vector<int>& vec, const std::set<int>& names); 
+    void filterMissingNames(std::vector<int>& vec, const std::set<int>& names, bool isBarrier);
 
     /** @brief Returns the weight of a stream given its direction
      * @param[in] dir The direction of the stream
