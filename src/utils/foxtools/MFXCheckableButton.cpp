@@ -25,11 +25,16 @@
 FXDEFMAP(MFXCheckableButton) MFXCheckableButtonMap[] = {
     FXMAPFUNC(SEL_PAINT, 0, MFXCheckableButton::onPaint),
     FXMAPFUNC(SEL_UPDATE, 0, MFXCheckableButton::onUpdate),
+    FXMAPFUNC(SEL_UPDATE, 0, MFXCheckableButton::onUpdate),
+    FXMAPFUNC(SEL_ENTER,0,MFXCheckableButton::onEnter),
+    FXMAPFUNC(SEL_LEAVE,0,MFXCheckableButton::onLeave),
 };
 
 
 // Object implementation
 FXIMPLEMENT(MFXCheckableButton, FXButton, MFXCheckableButtonMap, ARRAYNUMBER(MFXCheckableButtonMap))
+
+FXToolTip* myToolTip;
 
 MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p,
                                        const FXString& text, FXIcon* ic,
@@ -39,6 +44,8 @@ MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p,
                                        FXint pl, FXint pr, FXint pt, FXint pb) :
     FXButton(p, text, ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
     myAmChecked(amChecked), myAmInitialised(false) {
+    myStaticToolTip = new FXStaticToolTip(getApp()); 
+    myStaticToolTip->create();
     border = 0;
 }
 
@@ -57,6 +64,7 @@ MFXCheckableButton::setChecked(bool val) {
     myAmChecked = val;
 }
 
+#include <iostream>
 
 long
 MFXCheckableButton::onPaint(FXObject* sender, FXSelector sel, void* ptr) {
@@ -76,6 +84,22 @@ MFXCheckableButton::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
     setColors();
     long ret = FXButton::onUpdate(sender, sel, ptr);
     return ret;
+}
+
+
+long
+MFXCheckableButton::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
+    // show tip show
+    myStaticToolTip->onTipShow(sender, sel, this);
+    return FXButton::onEnter(sender, sel, ptr);
+}
+
+
+long 
+MFXCheckableButton::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
+    // show tip hide
+    myStaticToolTip->onTipHide(sender, sel, this);
+    return FXButton::onLeave(sender, sel, ptr);
 }
 
 

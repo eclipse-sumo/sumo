@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include "fxheader.h"
+#include "FXStaticToolTip.h"
 
 /**
  * @class MFXCheckableButton
@@ -54,6 +55,9 @@ public:
 
     /// @brief called when this MFXCheckableButton is updated
     long onUpdate(FXObject*, FXSelector, void*);
+
+    long onEnter(FXObject*,FXSelector,void*);
+    long onLeave(FXObject*,FXSelector,void*);
     /// @}
 
 protected:
@@ -78,6 +82,9 @@ private:
 
     /// @brief check if this MFXCheckableButton is initialised
     bool myAmInitialised;
+
+    /// @brief static tool tip
+    FXStaticToolTip* myStaticToolTip;
 };
 
 
