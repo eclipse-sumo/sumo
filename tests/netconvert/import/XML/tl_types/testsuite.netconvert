@@ -6,6 +6,9 @@ delay_based
 
 # declare a NEMA controller
 NEMA
+
+# declare a NEMA controller
+NEMA_noLeftTurnLane
 plain_tll_actuated
 
 # test a tl-controlled junction which has no junction logic
