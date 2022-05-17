@@ -13,6 +13,9 @@ changeOpposite
 # test relative lane changes
 changeRelative
 
+# test relative lane changes
+changeRelative_blocked
+
 # test reaction to an invalid changeRelative command in a network that allows opposite direction driving (#6576)
 changeRelative_invalid
 
