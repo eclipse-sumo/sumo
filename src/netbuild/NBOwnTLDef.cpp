@@ -32,6 +32,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 
@@ -693,7 +694,6 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         std::vector<int> ring2({5,6,7,8});
         std::vector<int> barrier1({4,8});
         std::vector<int> barrier2({2,6});
-        std::set<int> names;
         if (chosenList.size() == 2) {
             logic->resetPhases();
             int phaseNameLeft = 1;
@@ -703,28 +703,24 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 NBEdge* e2 = chosenList[i].second;
                 if (i < (int)leftStates.size()) {
                     std::string left1 = filterState(leftStates[i], fromEdges, e1);
-                    logic->addStep(dur, left1, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red);
-                    logic->setPhaseName(logic->getPhases().size() - 1, toString(phaseNameLeft));
-                    names.insert(phaseNameLeft);
+                    logic->addStep(dur, left1, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, toString(phaseNameLeft));
                 }
                 if (e2 != nullptr) {
                     std::string straight2 = filterState(straightStates[i], fromEdges, e2);
-                    logic->addStep(dur, straight2, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red);
-                    logic->setPhaseName(logic->getPhases().size() - 1, toString(phaseNameLeft + 1));
-                    names.insert(phaseNameLeft + 1);
+                    logic->addStep(dur, straight2, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, toString(phaseNameLeft + 1));
                     if (i < (int)leftStates.size()) {
                         std::string left2 = filterState(leftStates[i], fromEdges, e2);
-                        logic->addStep(dur, left2, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red);
-                        logic->setPhaseName(logic->getPhases().size() - 1, toString(phaseNameLeft + 4));
-                        names.insert(phaseNameLeft + 4);
+                        logic->addStep(dur, left2, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, toString(phaseNameLeft + 4));
                     }
 
                 }
                 std::string straight1 = filterState(straightStates[i], fromEdges, e1);
-                logic->addStep(dur, straight1, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red);
-                logic->setPhaseName(logic->getPhases().size() - 1, toString(phaseNameLeft + 5));
-                names.insert(phaseNameLeft + 5);
+                logic->addStep(dur, straight1, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, toString(phaseNameLeft + 5));
                 phaseNameLeft += 2;
+            }
+            std::set<int> names;
+            for (const auto& p : logic->getPhases()) {
+                names.insert(StringUtils::toInt(p.name));
             }
 
             filterMissingNames(ring1, names, false);

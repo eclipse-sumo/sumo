@@ -92,7 +92,7 @@ public:
          * @param[in] durationArg The duration of the phase
          * @param[in] stateArg Signals per link
          */
-        PhaseDefinition(const SUMOTime duration_, const std::string& state_, const SUMOTime minDur_, const SUMOTime maxDur_, 
+        PhaseDefinition(const SUMOTime duration_, const std::string& state_, const SUMOTime minDur_, const SUMOTime maxDur_,
                         const SUMOTime earliestEnd_, const SUMOTime latestEnd_, const SUMOTime vehExt_, const SUMOTime yellow_,
                         const SUMOTime red_, const std::vector<int>& next_, const std::string& name_) :
             duration(duration_),
@@ -160,9 +160,9 @@ public:
      * @note: the length of the state has to match the number of links
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
-    void addStep(const SUMOTime duration, const std::string& state, const std::vector<int>& next = std::vector<int>(), 
+    void addStep(const SUMOTime duration, const std::string& state, const std::vector<int>& next = std::vector<int>(),
                  const std::string& name = "", const int index = -1);
-    
+
     /** @brief Adds a phase to the logic (actuated)
      *
      * @param[in] duration The duration of the phase to add
@@ -180,9 +180,11 @@ public:
      * @note: the length of the state has to match the number of links
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
-    void addStep(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd, 
-                 const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, const SUMOTime red, 
-                 const std::vector<int>& next = std::vector<int>(), const std::string& name = "", int index = -1);
+    void addStep(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd,
+                 const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, const SUMOTime red,
+                 const std::string& name = "",
+                 const std::vector<int>& next = std::vector<int>(),
+                 int index = -1);
 
     /** @brief Modifies the state for an existing phase (used by NETEDIT)
      * @param[in] phaseIndex The index of the phase to modify

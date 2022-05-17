@@ -76,14 +76,16 @@ NBTrafficLightLogic::addStep(const SUMOTime duration, const std::string& state, 
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
-            next, name, index);
+            name, next, index);
 }
 
 
 void
-NBTrafficLightLogic::addStep(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd, 
-                             const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, const SUMOTime red, const std::vector<int>& next, 
-                             const std::string& name, int index) {
+NBTrafficLightLogic::addStep(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd,
+                             const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, const SUMOTime red,
+                             const std::string& name,
+                             const std::vector<int>& next,
+                             int index) {
     // check state size
     if (myNumLinks == 0) {
         // initialize
@@ -233,14 +235,14 @@ NBTrafficLightLogic::setPhaseMaxDuration(int phaseIndex, SUMOTime duration) {
 }
 
 
-void 
+void
 NBTrafficLightLogic::setPhaseEarliestEnd(int phaseIndex, SUMOTime duration) {
     assert(phaseIndex < (int)myPhases.size());
     myPhases[phaseIndex].earliestEnd = duration;
 }
 
 
-void 
+void
 NBTrafficLightLogic::setPhaseLatestEnd(int phaseIndex, SUMOTime duration) {
     assert(phaseIndex < (int)myPhases.size());
     myPhases[phaseIndex].latestEnd = duration;
@@ -254,14 +256,14 @@ NBTrafficLightLogic::setPhaseVehExt(int phaseIndex, SUMOTime duration) {
 }
 
 
-void 
+void
 NBTrafficLightLogic::setPhaseYellow(int phaseIndex, SUMOTime duration) {
     assert(phaseIndex < (int)myPhases.size());
     myPhases[phaseIndex].yellow = duration;
 }
 
 
-void 
+void
 NBTrafficLightLogic::setPhaseRed(int phaseIndex, SUMOTime duration) {
     assert(phaseIndex < (int)myPhases.size());
     myPhases[phaseIndex].red = duration;
