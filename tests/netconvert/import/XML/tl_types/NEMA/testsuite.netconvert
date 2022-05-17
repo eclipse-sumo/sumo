@@ -1,0 +1,14 @@
+# declare a NEMA controller
+basic
+
+# declare a NEMA controller
+NEMA_noLeftTurnLane
+
+# declare a NEMA controller
+NEMA_4arm
+
+# declare a NEMA controller
+NEMA_3arm_noS
+
+# declare a NEMA controller
+NEMA_3arm_noE
