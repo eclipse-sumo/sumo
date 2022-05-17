@@ -303,6 +303,7 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
     // Set the initial light state
     myPhase.setState(composeLightString());
     myPhase.setName(toString(myActivePhaseObjs[0]->phaseName) + "+" + toString(myActivePhaseObjs[1]->phaseName));
+    setTrafficLightSignals(SIMSTEP);
     myStep = 0;
 
     //validating timing
