@@ -689,10 +689,11 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     }
     if (isNEMA) {
         const SUMOTime dur = TIME2STEPS(OptionsCont::getOptions().getInt("tls.cycle.time"));
-        logic->setParameter("ring1", "1,2,3,4");
-        logic->setParameter("ring2", "5,6,7,8");
-        logic->setParameter("barrierPhases", "4,8");
-        logic->setParameter("barrier2Phases", "2,6");
+        std::vector<int> ring1({1,2,3,4});
+        std::vector<int> ring2({5,6,7,8});
+        std::vector<int> barrier1({4,8});
+        std::vector<int> barrier2({2,6});
+        std::set<int> names;
         if (chosenList.size() == 2) {
             logic->resetPhases();
             int phaseNameLeft = 1;
@@ -704,26 +705,39 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                     std::string left1 = filterState(leftStates[i], fromEdges, e1);
                     logic->addStep(dur, left1, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red);
                     logic->setPhaseName(logic->getPhases().size() - 1, toString(phaseNameLeft));
+                    names.insert(phaseNameLeft);
                 }
                 if (e2 != nullptr) {
                     std::string straight2 = filterState(straightStates[i], fromEdges, e2);
                     logic->addStep(dur, straight2, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red);
                     logic->setPhaseName(logic->getPhases().size() - 1, toString(phaseNameLeft + 1));
+                    names.insert(phaseNameLeft + 1);
                     if (i < (int)leftStates.size()) {
                         std::string left2 = filterState(leftStates[i], fromEdges, e2);
                         logic->addStep(dur, left2, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red);
                         logic->setPhaseName(logic->getPhases().size() - 1, toString(phaseNameLeft + 4));
+                        names.insert(phaseNameLeft + 4);
                     }
 
                 }
                 std::string straight1 = filterState(straightStates[i], fromEdges, e1);
                 logic->addStep(dur, straight1, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red);
                 logic->setPhaseName(logic->getPhases().size() - 1, toString(phaseNameLeft + 5));
+                names.insert(phaseNameLeft + 5);
                 phaseNameLeft += 2;
             }
+
+            filterMissingNames(ring1, names);
+            filterMissingNames(ring2, names);
+            filterMissingNames(barrier1, names);
+            filterMissingNames(barrier2, names);
         } else {
             WRITE_WARNINGF("Generating NEMA phases is not support for traffic light '%' with % incoming edges", getID(), incoming.size());
         }
+        logic->setParameter("ring1", joinToString(ring1, ","));
+        logic->setParameter("ring2", joinToString(ring2, ","));
+        logic->setParameter("barrierPhases", joinToString(barrier1, ","));
+        logic->setParameter("barrier2Phases", joinToString(barrier2, ","));
     } 
 
     SUMOTime totalDuration = logic->getDuration();
@@ -1362,6 +1376,7 @@ NBOwnTLDef::corridorLike() const {
     return greenPhases <= 2;
 }
 
+
 std::string
 NBOwnTLDef::filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e) {
     for (int j = 0; j < (int)state.size(); j++) {
@@ -1372,5 +1387,15 @@ NBOwnTLDef::filterState(std::string state, const EdgeVector& fromEdges, const NB
     return state;
 }
 
+void
+NBOwnTLDef::filterMissingNames(std::vector<int>& vec, const std::set<int>& names) {
+    for (auto it = vec.begin(); it != vec.end();) {
+        if (names.count(*it) == 0) {
+            it = vec.erase(it);
+        } else {
+            it++;
+        }
+    }
+}
 
 /****************************************************************************/

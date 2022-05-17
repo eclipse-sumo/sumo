@@ -178,6 +178,9 @@ protected:
     /// @brief mask out all greens that do not originate at the given edge
     std::string filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e); 
 
+    /// @brief keep only valid NEMA phase names (for params)
+    void filterMissingNames(std::vector<int>& vec, const std::set<int>& names); 
+
     /** @brief Returns the weight of a stream given its direction
      * @param[in] dir The direction of the stream
      * @return This stream's weight
