@@ -27,8 +27,3 @@ turn_rr
 
 # turn around while walking on the left side of the road and continue on the left side
 turn_ll
-cross_twice
-
-# crossing twice using diagonal crossings (pedestrian scramble)
-cross_twice_diagonal
-middle_islands
