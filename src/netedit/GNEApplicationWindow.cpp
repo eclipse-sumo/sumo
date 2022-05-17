@@ -414,6 +414,8 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     GUICursorSubSys::initCursors(a);
     // create undoList dialog (after initCursors)
     myUndoListDialog = new GNEUndoListDialog(this);
+    a->setTooltipTime(1000000000);
+    a->setTooltipPause(1000000000);
 }
 
 
