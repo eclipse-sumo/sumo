@@ -42,6 +42,7 @@
 #include "MSGlobals.h"
 #include "MSLeaderInfo.h"
 #include "MSMoveReminder.h"
+#include "MSVehicle.h"
 
 #include <utils/foxtools/FXSynchQue.h>
 #ifdef HAVE_FOX
@@ -55,7 +56,6 @@
 // ===========================================================================
 class MSEdge;
 class MSBaseVehicle;
-class MSVehicle;
 class MSLaneChanger;
 class MSLink;
 class MSVehicleTransfer;
