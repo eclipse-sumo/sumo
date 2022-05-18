@@ -33,6 +33,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/common/RGBColor.h>
+#include <utils/emissions/EnergyParams.h>
 
 
 // ===========================================================================
@@ -573,9 +574,16 @@ public:
      */
     void check();
 
+    /// @brief retrieve parameters for the energy consumption model
+    inline const EnergyParams* getEmissionParameters() const {
+        return &myEnergyParams;
+    }
+
 private:
     /// @brief the parameter container
     SUMOVTypeParameter myParameter;
+
+    const EnergyParams myEnergyParams;
 
     /// @brief the vtypes actionsStepLength in seconds (cached because needed very often)
     double myCachedActionStepLengthSecs;

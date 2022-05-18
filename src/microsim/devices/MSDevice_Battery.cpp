@@ -73,15 +73,9 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         const double powerMax = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMPOWER), 100.);
         const double stoppingTreshold = typeParams.getDouble(toString(SUMO_ATTR_STOPPINGTRESHOLD), 0.1);
 
-        MSDevice_Emissions* emissionDevice = static_cast<MSDevice_Emissions*>(v.getDevice(typeid(MSDevice_Emissions)));
-        if (emissionDevice == nullptr) {
-            emissionDevice = new MSDevice_Emissions(v, "emissions_" + v.getID(), false);
-            into.push_back(emissionDevice);
-        }
-
         // battery constructor
         MSDevice_Battery* device = new MSDevice_Battery(v, "battery_" + v.getID(),
-                actualBatteryCapacity, maximumBatteryCapacity, powerMax, stoppingTreshold, emissionDevice);
+                actualBatteryCapacity, maximumBatteryCapacity, powerMax, stoppingTreshold);
 
         // Add device to vehicle
         into.push_back(device);
@@ -93,13 +87,12 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
 // MSDevice_Battery-methods
 // ---------------------------------------------------------------------------
 MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
-    const double powerMax, const double stoppingTreshold, MSDevice_Emissions* const emissionDevice) :
+    const double powerMax, const double stoppingTreshold) :
     MSVehicleDevice(holder, id),
     myActualBatteryCapacity(0),         // [actualBatteryCapacity <= maximumBatteryCapacity]
     myMaximumBatteryCapacity(0),        // [maximumBatteryCapacity >= 0]
     myPowerMax(0),                      // [maximumPower >= 0]
     myStoppingTreshold(0),              // [stoppingTreshold >= 0]
-    myEmissionDevice(emissionDevice),
     myLastAngle(std::numeric_limits<double>::infinity()),
     myChargingStopped(false),           // Initially vehicle don't charge stopped
     myChargingInTransit(false),         // Initially vehicle don't charge in transit
@@ -137,16 +130,17 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
         myStoppingTreshold = stoppingTreshold;
     }
 
-    checkParam(SUMO_ATTR_VEHICLEMASS);
-    checkParam(SUMO_ATTR_FRONTSURFACEAREA);
-    checkParam(SUMO_ATTR_AIRDRAGCOEFFICIENT);
-    checkParam(SUMO_ATTR_INTERNALMOMENTOFINERTIA);
-    checkParam(SUMO_ATTR_RADIALDRAGCOEFFICIENT);
-    checkParam(SUMO_ATTR_ROLLDRAGCOEFFICIENT);
-    checkParam(SUMO_ATTR_CONSTANTPOWERINTAKE);
-    checkParam(SUMO_ATTR_PROPULSIONEFFICIENCY);
-    checkParam(SUMO_ATTR_RECUPERATIONEFFICIENCY);
-    checkParam(SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION);
+    EnergyParams* const params = myHolder.getEmissionParameters();
+    params->checkParam(SUMO_ATTR_VEHICLEMASS, getID());
+    params->checkParam(SUMO_ATTR_FRONTSURFACEAREA, getID());
+    params->checkParam(SUMO_ATTR_AIRDRAGCOEFFICIENT, getID());
+    params->checkParam(SUMO_ATTR_INTERNALMOMENTOFINERTIA, getID());
+    params->checkParam(SUMO_ATTR_RADIALDRAGCOEFFICIENT, getID());
+    params->checkParam(SUMO_ATTR_ROLLDRAGCOEFFICIENT, getID());
+    params->checkParam(SUMO_ATTR_CONSTANTPOWERINTAKE, getID());
+    params->checkParam(SUMO_ATTR_PROPULSIONEFFICIENCY, getID());
+    params->checkParam(SUMO_ATTR_RECUPERATIONEFFICIENCY, getID());
+    params->checkParam(SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION, getID());
 
     myTrackFuel = !PollutantsInterface::getEnergyHelper().includesClass(holder.getVehicleType().getEmissionClass()) && OptionsCont::getOptions().getBool("device.battery.track-fuel");
 }
@@ -171,16 +165,17 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
     }
 
     // Update Energy from the battery
+    EnergyParams* const params = myHolder.getEmissionParameters();
     if (getMaximumBatteryCapacity() != 0) {
-        myEmissionDevice->setDouble(SUMO_ATTR_ANGLE, myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle()));
+        params->setDouble(SUMO_ATTR_ANGLE, myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle()));
         if (myTrackFuel) {
             // [ml]
             myConsum = PollutantsInterface::compute(veh.getVehicleType().getEmissionClass(), PollutantsInterface::FUEL, veh.getSpeed(), veh.getAcceleration(),
-                veh.getSlope(), &myEmissionDevice->getEnergyParams()) * TS;
+                veh.getSlope(), params) * TS;
         } else {
             // [Wh]
             myConsum = PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, veh.getSpeed(), veh.getAcceleration(),
-                veh.getSlope(), &myEmissionDevice->getEnergyParams()) * TS;
+                veh.getSlope(), params) * TS;
         }
         if (veh.isParking()) {
             // recuperation from last braking step is ok but further consumption should cease
@@ -293,16 +288,6 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
 
     // Always return true.
     return true;
-}
-
-
-void
-MSDevice_Battery::checkParam(const SumoXMLAttr paramKey, const double lower, const double upper) {
-    const EnergyParams& p = myEmissionDevice->getEnergyParams();
-    if (!p.knowsParameter(paramKey) || p.getDouble(paramKey) < lower || p.getDouble(paramKey) > upper) {
-        WRITE_WARNINGF("Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%).", getID(), paramKey, p.getDouble(paramKey));
-        myEmissionDevice->setDouble(paramKey, PollutantsInterface::getEnergyHelper().getDefaultParam(paramKey));
-    }
 }
 
 
@@ -469,7 +454,7 @@ MSDevice_Battery::getParameter(const std::string& key) const {
     } else if (key == toString(SUMO_ATTR_CHARGINGSTATIONID)) {
         return getChargingStationID();
     } else if (key == toString(SUMO_ATTR_VEHICLEMASS)) {
-        return toString(myEmissionDevice->getEnergyParams().getDouble(SUMO_ATTR_VEHICLEMASS));
+        return toString(myHolder.getEmissionParameters()->getDouble(SUMO_ATTR_VEHICLEMASS));
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -488,7 +473,7 @@ MSDevice_Battery::setParameter(const std::string& key, const std::string& value)
     } else if (key == toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY)) {
         setMaximumBatteryCapacity(doubleValue);
     } else if (key == toString(SUMO_ATTR_VEHICLEMASS)) {
-        myEmissionDevice->setDouble(SUMO_ATTR_VEHICLEMASS, doubleValue);
+        myHolder.getEmissionParameters()->setDouble(SUMO_ATTR_VEHICLEMASS, doubleValue);
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
@@ -501,4 +486,6 @@ MSDevice_Battery::notifyParking() {
     notifyMove(myHolder, myHolder.getPositionOnLane(), myHolder.getPositionOnLane(), myHolder.getSpeed());
     myConsum = 0;
 }
+
+
 /****************************************************************************/

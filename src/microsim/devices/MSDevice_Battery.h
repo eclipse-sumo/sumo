@@ -101,9 +101,7 @@ private:
     * @param[in] preInsertionPeriod The route search period before insertion
     */
     MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
-                     const double powerMax, const double stoppingTreshold, MSDevice_Emissions* const emissionDevice);
-
-    void checkParam(const SumoXMLAttr paramKey, const double lower = 0., const double upper = std::numeric_limits<double>::infinity());
+                     const double powerMax, const double stoppingTreshold);
 
 public:
     /// @brief Get the actual vehicle's Battery Capacity in Wh
@@ -181,9 +179,6 @@ protected:
 
     /// @brief Parameter, stopping vehicle treshold [myStoppingTreshold >= 0]
     double myStoppingTreshold;
-
-    /// @brief Parameter holding emission device
-    MSDevice_Emissions* myEmissionDevice;
 
     /// @brief Parameter, Vehicle's last angle
     double myLastAngle;

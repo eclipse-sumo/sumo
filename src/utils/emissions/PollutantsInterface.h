@@ -184,6 +184,7 @@ public:
          * @param[in] v The vehicle's current velocity
          * @param[in] a The vehicle's current acceleration
          * @param[in] slope The road's slope at vehicle's position [deg]
+         * @param[in] param parameter of the emission model affecting the computation
          * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
          */
         virtual double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const;
@@ -305,7 +306,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
-    static double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const EnergyParams* param = 0);
+    static double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const EnergyParams* param = nullptr);
 
     /** @brief Returns the amount of all emitted pollutants given the vehicle type and state (in mg/s or ml/s for fuel)
      * @param[in] c The vehicle emission class
@@ -314,7 +315,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
-    static Emissions computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param = 0);
+    static Emissions computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param = nullptr);
 
     /** @brief Returns the amount of emitted pollutant given the vehicle type and default values for the state (in mg)
      * @param[in] c The vehicle emission class
@@ -325,7 +326,7 @@ public:
      * @param{in] tt the time the vehicle travels
      * @return The amount emitted by the given vehicle class [mg]
      */
-    static double computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const EnergyParams* param = 0);
+    static double computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const EnergyParams* param = nullptr);
 
     /** @brief Returns the adapted acceleration value, useful for comparing with external PHEMlight references.
      * @param[in] c the emission class

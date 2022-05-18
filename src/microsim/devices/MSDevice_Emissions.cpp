@@ -23,9 +23,12 @@
 
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSStop.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/emissions/HelpersEnergy.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSDevice_Emissions.h"
 
@@ -49,9 +52,11 @@ void
 MSDevice_Emissions::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "emissions", v, oc.isSet("emission-output"))) {
-        // build the device
-        MSDevice_Emissions* device = new MSDevice_Emissions(v, "emissions_" + v.getID());
-        into.push_back(device);
+        into.push_back(new MSDevice_Emissions(v));
+    }
+    if (MSNet::getInstance()->getDetectorControl().haveEmissions()) {
+        // ensure we have the emission parameters even if we don't have the device
+        v.getEmissionParameters();
     }
 }
 
@@ -59,8 +64,8 @@ MSDevice_Emissions::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
 // ---------------------------------------------------------------------------
 // MSDevice_Emissions-methods
 // ---------------------------------------------------------------------------
-MSDevice_Emissions::MSDevice_Emissions(SUMOVehicle& holder, const std::string& id, const bool generateOutput)
-    : MSVehicleDevice(holder, id), myEmissions(), myParam(&holder.getVehicleType().getParameter()), myOutput(generateOutput) {
+MSDevice_Emissions::MSDevice_Emissions(SUMOVehicle& holder)
+    : MSVehicleDevice(holder, "emissions_" + holder.getID()), myEmissions() {
 }
 
 
@@ -70,21 +75,19 @@ MSDevice_Emissions::~MSDevice_Emissions() {
 
 bool
 MSDevice_Emissions::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, double /*newPos*/, double newSpeed) {
-    if (myOutput) {
-        const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
-        myEmissions.addScaled(PollutantsInterface::computeAll(c, newSpeed, veh.getAcceleration(), veh.getSlope(), &myParam), TS);
-    }
+    const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
+    myEmissions.addScaled(PollutantsInterface::computeAll(c, newSpeed, veh.getAcceleration(), veh.getSlope(), myHolder.getEmissionParameters()), TS);
     return true;
 }
 
+
 bool
 MSDevice_Emissions::notifyIdle(SUMOTrafficObject& veh) {
-    if (myOutput) {
-        const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
-        myEmissions.addScaled(PollutantsInterface::computeAll(c, 0., 0., 0., &myParam), TS);
-    }
+    const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
+    myEmissions.addScaled(PollutantsInterface::computeAll(c, 0., 0., 0., myHolder.getEmissionParameters()), TS);
     return true;
 }
+
 
 void
 MSDevice_Emissions::notifyMoveInternal(const SUMOTrafficObject& veh,
@@ -97,17 +100,15 @@ MSDevice_Emissions::notifyMoveInternal(const SUMOTrafficObject& veh,
                                        const double /* meanLengthOnLane */) {
 
     // called by meso (see MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal)
-    if (myOutput) {
-        const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
-        myEmissions.addScaled(PollutantsInterface::computeAll(c, meanSpeedVehicleOnLane, veh.getAcceleration(), veh.getSlope(), &myParam), timeOnLane);
-    }
+    const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
+    myEmissions.addScaled(PollutantsInterface::computeAll(c, meanSpeedVehicleOnLane, veh.getAcceleration(), veh.getSlope(), myHolder.getEmissionParameters()), timeOnLane);
 }
 
 
 
 void
 MSDevice_Emissions::generateOutput(OutputDevice* tripinfoOut) const {
-    if (myOutput && tripinfoOut != nullptr) {
+    if (tripinfoOut != nullptr) {
         const int precision = MAX2(6, gPrecision);
         tripinfoOut->openTag("emissions");
         tripinfoOut->writeAttr("CO_abs", OutputDevice::realString(myEmissions.CO, precision));

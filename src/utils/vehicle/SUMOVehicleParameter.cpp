@@ -1007,7 +1007,7 @@ SUMOVehicleParameter::incrementFlow(double scale, SumoRNG* rng) {
     // equidistant or exponential offset (for poisson distributed arrivals)
     if (repetitionProbability < 0) {
         if (repetitionOffset >= 0) {
-            repetitionTotalOffset += (SUMOTime)(repetitionOffset / scale);
+            repetitionTotalOffset += (SUMOTime)((double)repetitionOffset / scale);
         } else {
             // we need to cache this do avoid double generation of the rng in the TIME2STEPS macro
             const double r = RandHelper::randExp(-STEPS2TIME(repetitionOffset), rng);

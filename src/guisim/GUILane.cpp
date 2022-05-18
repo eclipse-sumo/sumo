@@ -1215,17 +1215,17 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         case 7:
             return getEdgeLaneNumber();
         case 8:
-            return getCO2Emissions() / myLength;
+            return getEmissions<PollutantsInterface::CO2>() / myLength;
         case 9:
-            return getCOEmissions() / myLength;
+            return getEmissions<PollutantsInterface::CO>() / myLength;
         case 10:
-            return getPMxEmissions() / myLength;
+            return getEmissions<PollutantsInterface::PM_X>() / myLength;
         case 11:
-            return getNOxEmissions() / myLength;
+            return getEmissions<PollutantsInterface::NO_X>() / myLength;
         case 12:
-            return getHCEmissions() / myLength;
+            return getEmissions<PollutantsInterface::HC>() / myLength;
         case 13:
-            return getFuelConsumption() / myLength;
+            return getEmissions<PollutantsInterface::FUEL>() / myLength;
         case 14:
             return getHarmonoise_NoiseEmissions();
         case 15: {
@@ -1272,7 +1272,7 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
             return myEdge->getRoutingSpeed();
         }
         case 28:
-            return getElectricityConsumption() / myLength;
+            return getEmissions<PollutantsInterface::ELEC>() / myLength;
         case 29:
             return getPendingEmits();
         case 31: {
@@ -1354,17 +1354,17 @@ GUILane::getScaleValue(int activeScheme) const {
         case 6:
             return getEdgeLaneNumber();
         case 7:
-            return getCO2Emissions() / myLength;
+            return getEmissions<PollutantsInterface::CO2>() / myLength;
         case 8:
-            return getCOEmissions() / myLength;
+            return getEmissions<PollutantsInterface::CO>() / myLength;
         case 9:
-            return getPMxEmissions() / myLength;
+            return getEmissions<PollutantsInterface::PM_X>() / myLength;
         case 10:
-            return getNOxEmissions() / myLength;
+            return getEmissions<PollutantsInterface::NO_X>() / myLength;
         case 11:
-            return getHCEmissions() / myLength;
+            return getEmissions<PollutantsInterface::HC>() / myLength;
         case 12:
-            return getFuelConsumption() / myLength;
+            return getEmissions<PollutantsInterface::FUEL>() / myLength;
         case 13:
             return getHarmonoise_NoiseEmissions();
         case 14: {
@@ -1398,7 +1398,7 @@ GUILane::getScaleValue(int activeScheme) const {
             return getMeanSpeed() / myMaxSpeed;
         }
         case 21:
-            return getElectricityConsumption() / myLength;
+            return getEmissions<PollutantsInterface::ELEC>() / myLength;
         case 22:
             return MSNet::getInstance()->getInsertionControl().getPendingEmits(this);
     }

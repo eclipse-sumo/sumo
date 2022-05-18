@@ -79,9 +79,8 @@ public:
     /** @brief Constructor
      *
      * @param[in] holder The vehicle that holds this device
-     * @param[in] id The ID of the device
      */
-    MSDevice_Emissions(SUMOVehicle& holder, const std::string& id, const bool generateOutput=true);
+    MSDevice_Emissions(SUMOVehicle& holder);
 
     /// @brief Destructor.
     ~MSDevice_Emissions();
@@ -131,19 +130,6 @@ public:
      */
     void generateOutput(OutputDevice* tripinfoOut) const;
 
-    /// @brief retrieve parameters for the energy consumption model
-    inline const EnergyParams& getEnergyParams() const {
-        return myParam;
-    }
-
-    /**@brief Sets a parameter
-     * @param[in] key The parameter's name
-     * @param[in] value The parameter's value
-     */
-    inline void setDouble(SumoXMLAttr attr, double value) {
-        myParam.setDouble(attr, value);
-    }
-
 protected:
     /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()
      *
@@ -158,15 +144,8 @@ protected:
                             const double meanLengthOnLane);
 
 private:
-    /// @brief whether we generate output or just collect paramters
-    const bool myOutput;
-
-    /// @brief Parameter collection
-    EnergyParams myParam;
-
     /// @brief Internal storages for pollutant/fuel sum in mg or ml
     PollutantsInterface::Emissions myEmissions;
-
 
 private:
     /// @brief Invalidated copy constructor.
@@ -174,6 +153,5 @@ private:
 
     /// @brief Invalidated assignment operator.
     MSDevice_Emissions& operator=(const MSDevice_Emissions&);
-
 
 };

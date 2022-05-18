@@ -1117,7 +1117,23 @@ MSVehicle::workOnMoveReminders(double oldPos, double newPos, double newSpeed) {
             ++rem;
         }
     }
+    if (myEnergyParams != nullptr) {
+        // TODO make the vehicle energy params a derived class which is a move reminder
+        const double duration = myEnergyParams->getDouble(SUMO_ATTR_DURATION);
+        if (isStopped()) {
+            if (duration < 0) {
+                myEnergyParams->setDouble(SUMO_ATTR_DURATION, STEPS2TIME(getNextStop().duration));
+                myEnergyParams->setDouble(SUMO_ATTR_PARKING, isParking() ? 1. : 0.);
+            }
+        } else {
+            if (duration >= 0) {
+                myEnergyParams->setDouble(SUMO_ATTR_DURATION, -1.);
+            }
+        }
+        myEnergyParams->setDouble(SUMO_ATTR_WAITINGTIME, getWaitingSeconds());
+    }
 }
+
 
 void
 MSVehicle::workOnIdleReminders() {

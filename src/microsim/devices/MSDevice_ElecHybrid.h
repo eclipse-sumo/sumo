@@ -215,9 +215,7 @@ private:
     * @param[in] id The ID of the device
     */
     MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string& id,
-                        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower, MSDevice_Emissions* const emissionDevice);
-
-    void checkParam(const SumoXMLAttr paramKey, const double lower = 0., const double upper = std::numeric_limits<double>::infinity());
+                        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower);
 
 protected:
     /// @brief Parameter, The actual vehicles's Battery Capacity in Wh, [myActualBatteryCapacity <= myMaximumBatteryCapacity]

@@ -514,6 +514,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "chargingEnd",                    SUMO_ATTR_CHARGINGEND },
     { "partialCharge",                  SUMO_ATTR_PARTIALCHARGE },
 
+    // general emission / consumption
+    { "shutOffStopDuration",    SUMO_ATTR_SHUT_OFF_STOP },
+    { "shutOffAutoDuration",    SUMO_ATTR_SHUT_OFF_AUTO },
+
     { "sigma",                  SUMO_ATTR_SIGMA },
     { "sigmaStep",              SUMO_ATTR_SIGMA_STEP },
     { "startupDelay",           SUMO_ATTR_STARTUP_DELAY },

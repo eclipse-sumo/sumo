@@ -37,6 +37,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/NamedRTree.h>
+#include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/PositionVector.h>
 #include "MSGlobals.h"
 #include "MSLeaderInfo.h"
@@ -1072,46 +1073,18 @@ public:
     }
 
 
-    /** @brief Returns the sum of last step CO2 emissions
-     * @return CO2 emissions of vehicles on this lane during the last step
+    /** @brief Returns the sum of last step emissions
+     * @return emissions of vehicles on this lane during the last step
      */
-    double getCO2Emissions() const;
-
-
-    /** @brief Returns the sum of last step CO emissions
-     * @return CO emissions of vehicles on this lane during the last step
-     */
-    double getCOEmissions() const;
-
-
-    /** @brief Returns the sum of last step PMx emissions
-     * @return PMx emissions of vehicles on this lane during the last step
-     */
-    double getPMxEmissions() const;
-
-
-    /** @brief Returns the sum of last step NOx emissions
-     * @return NOx emissions of vehicles on this lane during the last step
-     */
-    double getNOxEmissions() const;
-
-
-    /** @brief Returns the sum of last step HC emissions
-     * @return HC emissions of vehicles on this lane during the last step
-     */
-    double getHCEmissions() const;
-
-
-    /** @brief Returns the sum of last step fuel consumption
-    * @return fuel consumption of vehicles on this lane during the last step
-    */
-    double getFuelConsumption() const;
-
-
-    /** @brief Returns the sum of last step electricity consumption
-    * @return electricity consumption of vehicles on this lane during the last step
-    */
-    double getElectricityConsumption() const;
+    template<PollutantsInterface::EmissionType ET>
+    double getEmissions() const {
+        double ret = 0;
+        for (MSVehicle* const v : getVehiclesSecure()) {
+            ret += v->getEmissions<ET>();
+        }
+        releaseVehicles();
+        return ret;
+    }
 
 
     /** @brief Returns the sum of last step noise emissions

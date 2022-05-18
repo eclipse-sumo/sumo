@@ -18,10 +18,14 @@
 // A class for parameters used by the emission models
 /****************************************************************************/
 #include <config.h>
+
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 
+#include "PollutantsInterface.h"
+#include "HelpersEnergy.h"
 #include "EnergyParams.h"
 
 
@@ -30,6 +34,11 @@
 // ===========================================================================
 
 EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
+    myMap[SUMO_ATTR_SHUT_OFF_STOP] = 300.;
+    myMap[SUMO_ATTR_SHUT_OFF_AUTO] = std::numeric_limits<double>::max();
+    myMap[SUMO_ATTR_DURATION] = -1.;
+    myMap[SUMO_ATTR_PARKING] = 0.;
+    myMap[SUMO_ATTR_WAITINGTIME] = -1.;
 
     // default values from
     // Kurczveil, T., López, P.Á., & Schnieder, E. (2014). Implementation of an Energy Model and a Charging Infrastructure in SUMO.
@@ -76,8 +85,6 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
 }
 
 
-
-
 EnergyParams::~EnergyParams() {}
 
 
@@ -86,41 +93,69 @@ EnergyParams::setDouble(SumoXMLAttr attr, double value) {
     myMap[attr] = value;
 }
 
+
 double
 EnergyParams::getDouble(SumoXMLAttr attr) const {
     auto it = myMap.find(attr);
     if (it != myMap.end()) {
         return it->second;
-    } else {
-        throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
     }
+    if (mySecondaryParams != nullptr) {
+        return mySecondaryParams->getDouble(attr);
+    }
+    throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
 }
+
 
 const std::vector<double>&
 EnergyParams::getDoubles(SumoXMLAttr attr) const {
+    if (mySecondaryParams != nullptr) {
+        return mySecondaryParams->getDoubles(attr);
+    }
     auto it = myVecMap.find(attr);
     if (it != myVecMap.end()) {
         return it->second;
-    } else {
-        throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
     }
+    throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
 }
+
 
 const CharacteristicMap&
 EnergyParams::getCharacteristicMap(SumoXMLAttr attr) const {
+    if (mySecondaryParams != nullptr) {
+        return mySecondaryParams->getCharacteristicMap(attr);
+    }
     auto it = myCharacteristicMapMap.find(attr);
     if (it != myCharacteristicMapMap.end()) {
         return it->second;
-    } else {
-        throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
+    }
+    throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
+}
+
+
+void
+EnergyParams::checkParam(const SumoXMLAttr paramKey, const std::string& id, const double lower, const double upper) {
+    const auto& p = myMap.find(paramKey);
+    if (p != myMap.end() && (p->second < lower || p->second > upper)) {
+        WRITE_WARNINGF("Vehicle device '%' doesn't have a valid value for parameter % (%).", id, toString(paramKey), p->second);
+        setDouble(paramKey, PollutantsInterface::getEnergyHelper().getDefaultParam(paramKey));
     }
 }
 
+
 bool
-EnergyParams::knowsParameter(SumoXMLAttr attr) const {
-    return myMap.find(attr) != myMap.end()
-           || myVecMap.find(attr) != myVecMap.end()
-           || myCharacteristicMapMap.find(attr) != myCharacteristicMapMap.end();
+EnergyParams::isEngineOff() const {
+    // they all got a default in the constructor so getDouble is safe here
+    return getDouble(SUMO_ATTR_DURATION) > getDouble(SUMO_ATTR_SHUT_OFF_STOP) ||
+        getDouble(SUMO_ATTR_WAITINGTIME) > getDouble(SUMO_ATTR_SHUT_OFF_AUTO);
 }
+
+
+bool
+EnergyParams::isOff() const {
+    // they all got a default in the constructor so getDouble is safe here
+    return getDouble(SUMO_ATTR_DURATION) > getDouble(SUMO_ATTR_SHUT_OFF_STOP) && getDouble(SUMO_ATTR_PARKING) > 0.;
+}
+
 
 /****************************************************************************/

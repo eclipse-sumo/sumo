@@ -938,6 +938,7 @@ MSNet::writeOutput() {
 
     // check full dumps
     if (OptionsCont::getOptions().isSet("full-output")) {
+        myDetectorControl->enableEmissions();
         MSFullExport::write(OutputDevice::getDeviceByOption("full-output"), myStep);
     }
 

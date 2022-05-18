@@ -27,6 +27,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 
+#include "EnergyParams.h"
 #include "HelpersPHEMlight5.h"
 
 
@@ -105,18 +106,22 @@ HelpersPHEMlight5::getModifiedAccel(const SUMOEmissionClass c, const double v, c
 
 
 double
-HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* /* param */) const {
+HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const {
+    if (param != nullptr && param->isEngineOff()) {
+        return 0.;
+    }
     const double corrSpeed = MAX2(0.0, v);
-    double power = 0.;
-    PHEMlightdllV5::CEP* currCep = myCEPs.count(c) == 0 ? 0 : myCEPs.find(c)->second;
-    if (currCep != nullptr) {
-        const double corrAcc = getModifiedAccel(c, corrSpeed, a, slope);
-        const bool isHBEV = currCep->getFuelType() == PHEMlightdllV5::Constants::strBEV || currCep->getFuelType() == PHEMlightdllV5::Constants::strHybrid;
-        if (isHBEV && corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) &&
-                corrSpeed > PHEMlightdllV5::Constants::ZERO_SPEED_ACCURACY) {
-            return 0;
-        }
-        power = currCep->CalcPower(corrSpeed, corrAcc, slope, isHBEV);
+    assert(myCEPs.count(c) == 1);
+    PHEMlightdllV5::CEP* const currCep = myCEPs.find(c)->second;
+    const double corrAcc = getModifiedAccel(c, corrSpeed, a, slope);
+    const bool isBEV = currCep->getFuelType() == PHEMlightdllV5::Constants::strBEV;
+    const bool isHybrid = currCep->getFuelType() == PHEMlightdllV5::Constants::strHybrid;
+    const double power_raw = currCep->CalcPower(corrSpeed, corrAcc, slope, isBEV || isHybrid);
+    const double power = isHybrid ? currCep->CalcWheelPower(corrSpeed, corrAcc, slope) : currCep->CalcEngPower(power_raw);
+
+    if (!isBEV && corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) &&
+            corrSpeed > PHEMlightdllV5::Constants::ZERO_SPEED_ACCURACY) {
+        return 0;
     }
     const std::string& fuelType = currCep->getFuelType();
     switch (e) {

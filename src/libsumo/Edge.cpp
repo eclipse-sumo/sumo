@@ -128,7 +128,7 @@ double
 Edge::getCO2Emission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getCO2Emissions();
+        sum += lane->getEmissions<PollutantsInterface::CO2>();
     }
     return sum;
 }
@@ -138,7 +138,7 @@ double
 Edge::getCOEmission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getCOEmissions();
+        sum += lane->getEmissions<PollutantsInterface::CO>();
     }
     return sum;
 }
@@ -148,7 +148,7 @@ double
 Edge::getHCEmission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getHCEmissions();
+        sum += lane->getEmissions<PollutantsInterface::HC>();
     }
     return sum;
 }
@@ -158,7 +158,7 @@ double
 Edge::getPMxEmission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getPMxEmissions();
+        sum += lane->getEmissions<PollutantsInterface::PM_X>();
     }
     return sum;
 }
@@ -168,7 +168,7 @@ double
 Edge::getNOxEmission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getNOxEmissions();
+        sum += lane->getEmissions<PollutantsInterface::NO_X>();
     }
     return sum;
 }
@@ -178,7 +178,7 @@ double
 Edge::getFuelConsumption(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getFuelConsumption();
+        sum += lane->getEmissions<PollutantsInterface::FUEL>();
     }
     return sum;
 }
@@ -201,7 +201,7 @@ double
 Edge::getElectricityConsumption(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getElectricityConsumption();
+        sum += lane->getEmissions<PollutantsInterface::ELEC>();
     }
     return sum;
 }

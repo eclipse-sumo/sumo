@@ -788,6 +788,14 @@ enum SumoXMLAttr {
     SUMO_ATTR_PARTIALCHARGE,
     /// @}
 
+    /// @name general emission / consumption parameters
+    /// @{
+    /// @brief engine gets switched off if remaining planned stop duration exceeds value
+    SUMO_ATTR_SHUT_OFF_STOP,
+    /// @brief engine gets switched off if stopping duration exceeds value
+    SUMO_ATTR_SHUT_OFF_AUTO,
+    /// @}
+
     /// @name Car following model attributes
     /// @{
     SUMO_ATTR_SIGMA,      // used by: Krauss
