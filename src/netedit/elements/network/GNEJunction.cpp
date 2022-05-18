@@ -123,7 +123,7 @@ GNEJunction::getMoveOperation() {
     if (isShapeEdited()) {
         // calculate move shape operation
         return calculateMoveShapeOperation(myNBNode->getShape(), myNet->getViewNet()->getPositionInformation(),
-                                           myNet->getViewNet()->getVisualisationSettings()->neteditSizeSettings.junctionGeometryPointRadius, true);
+                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius, true);
     } else {
         // return move junction position
         return new GNEMoveOperation(this, myNBNode->getPosition());
@@ -142,7 +142,7 @@ GNEJunction::removeGeometryPoint(const Position clickedPosition, GNEUndoList* un
             // obtain index
             int index = shape.indexOfClosest(clickedPosition);
             // get snap radius
-            const double snap_radius = myNet->getViewNet()->getVisualisationSettings()->neteditSizeSettings.junctionGeometryPointRadius;
+            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
             // check if we have to create a new index
             if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
                 // remove geometry point
@@ -235,7 +235,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPositionCopyEntry(ret, app);
     // check if we're in supermode network
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        //if (parent.getVisualisationSettings()->editMode != GNE_MODE_CONNECT) {
+        //if (parent.getVisualisationSettings().editMode != GNE_MODE_CONNECT) {
         //    // XXX if joinable
         //    GUIDesigns::buildFXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
         //}

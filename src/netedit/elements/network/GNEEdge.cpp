@@ -173,7 +173,7 @@ GNEEdge::getPositionInView() const {
 GNEMoveOperation*
 GNEEdge::getMoveOperation() {
     // get snapRadius
-    const double snapRadius = myNet->getViewNet()->getVisualisationSettings()->neteditSizeSettings.edgeGeometryPointRadius;
+    const double snapRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.edgeGeometryPointRadius;
     // check if edge is selected
     if (isAttributeCarrierSelected()) {
         // check if both junctions are selected

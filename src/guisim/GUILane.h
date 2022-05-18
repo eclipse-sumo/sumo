@@ -378,7 +378,7 @@ private:
     bool myAmClosed;
 
     /// @brief cached for tracking color value
-    static const GUIVisualizationSettings* myCachedGUISettings;
+    static GUIVisualizationSettings* myCachedGUISettings;
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer

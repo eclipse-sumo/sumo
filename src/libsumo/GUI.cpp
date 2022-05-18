@@ -86,7 +86,7 @@ GUI::getOffset(const std::string& viewID) {
 
 std::string
 GUI::getSchema(const std::string& viewID) {
-    return getView(viewID)->getVisualisationSettings()->name;
+    return getView(viewID)->getVisualisationSettings().name;
 }
 
 

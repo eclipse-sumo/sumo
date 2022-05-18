@@ -66,7 +66,7 @@
 // static member declaration
 // ===========================================================================
 const RGBColor GUILane::MESO_USE_LANE_COLOR(0, 0, 0, 0);
-const GUIVisualizationSettings* GUILane::myCachedGUISettings(nullptr);
+GUIVisualizationSettings* GUILane::myCachedGUISettings(nullptr);
 
 
 // ===========================================================================
@@ -938,7 +938,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 GUIParameterTableWindow*
 GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
-    myCachedGUISettings = view.getVisualisationSettings();
+    myCachedGUISettings = view.editVisualisationSettings();
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
@@ -1155,7 +1155,7 @@ GUILane::setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, R
 double
 GUILane::getColorValueForTracker() const {
     if (myCachedGUISettings != nullptr) {
-        const GUIVisualizationSettings& s = *myCachedGUISettings;
+        const GUIVisualizationSettings& s = myCachedGUISettings;
         const GUIColorer& c = s.laneColorer;
         return getColorValueWithFunctional(s, c.getActive());
     } else {

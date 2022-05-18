@@ -1459,8 +1459,14 @@ GUISUMOAbstractView::setColorScheme(const std::string&) {
 }
 
 
-GUIVisualizationSettings*
+const GUIVisualizationSettings&
 GUISUMOAbstractView::getVisualisationSettings() const {
+    return myVisualizationSettings;
+}
+
+
+GUIVisualizationSettings* 
+GUISUMOAbstractView::editVisualisationSettings() const {
     return myVisualizationSettings;
 }
 

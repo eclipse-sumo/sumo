@@ -90,7 +90,7 @@ GNEPOI::getMoveOperation() {
             (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
             myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // get snap radius
-        const double snap_radius = myNet->getViewNet()->getVisualisationSettings()->neteditSizeSettings.additionalGeometryPointRadius;
+        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
         // get mouse position
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         // check if we're editing width or height

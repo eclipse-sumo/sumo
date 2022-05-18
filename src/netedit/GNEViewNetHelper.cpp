@@ -1976,7 +1976,7 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
             ("\tShow connections over junctions\tToggle show connections over junctions."),
             GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SHOWCONNECTIONS),
             myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS, GUIDesignMFXCheckableButtonSquare);
-    menuCheckShowConnections->setChecked(myViewNet->getVisualisationSettings()->showLane2Lane);
+    menuCheckShowConnections->setChecked(myViewNet->getVisualisationSettings().showLane2Lane);
     menuCheckShowConnections->create();
 
     menuCheckHideConnections = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -2160,7 +2160,7 @@ GNEViewNetHelper::NetworkViewOptions::showConnections() const {
     } else if (myViewNet->myEditModes.isCurrentSupermodeNetwork() && menuCheckShowConnections->shown() == false) {
         return false;
     } else {
-        return (myViewNet->getVisualisationSettings()->showLane2Lane);
+        return (myViewNet->getVisualisationSettings().showLane2Lane);
     }
 }
 
@@ -3538,11 +3538,11 @@ GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, GUIGlObj
         return false;
     }
     // check visualizationSettings
-    if (s->drawForPositionSelection || s->drawForRectangleSelection) {
+    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
         return false;
     }
     // check detail
-    if (!s->drawDetail(s->detailSettings.lockIcon, exaggeration)) {
+    if (!s.drawDetail(s.detailSettings.lockIcon, exaggeration)) {
         return false;
     }
     // all ok, then draw

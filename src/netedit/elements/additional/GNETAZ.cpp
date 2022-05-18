@@ -85,7 +85,7 @@ GNETAZ::~GNETAZ() {}
 GNEMoveOperation*
 GNETAZ::getMoveOperation() {
     // get snap radius
-    const double snap_radius = myNet->getViewNet()->getVisualisationSettings()->neteditSizeSettings.polygonGeometryPointRadius;
+    const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
     // check if we're moving center or shape
     if (myTAZCenter.distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation()) < (snap_radius * snap_radius)) {
         // move entire shape
@@ -108,7 +108,7 @@ GNETAZ::getVertexIndex(Position pos, bool snapToGrid) {
     }
     // first check if vertex already exists
     for (const auto& shapePosition : myShape) {
-        if (shapePosition.distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings()->neteditSizeSettings.polygonGeometryPointRadius) {
+        if (shapePosition.distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius) {
             return myShape.indexOfClosest(shapePosition);
         }
     }
@@ -127,7 +127,7 @@ GNETAZ::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLis
         // get last index
         const int lastIndex = ((int)shape.size() - 1);
         // get snap radius
-        const double snap_radius = myNet->getViewNet()->getVisualisationSettings()->neteditSizeSettings.polygonGeometryPointRadius;
+        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
         // check if we have to create a new index
         if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
             // check if we're deleting the first point
