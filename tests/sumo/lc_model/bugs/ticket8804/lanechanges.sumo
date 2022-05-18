@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-03 22:01:33 by Eclipse SUMO sumo Version v1_12_0+1895-7795d68
+<!-- generated on 2022-05-18 13:35:43 by Eclipse SUMO sumo Version v1_13_0+0324-c5e9788
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,19 +35,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
-
-    <gui_only>
-        <tracker-interval value="0.05"/>
-    </gui_only>
 
 </configuration>
 -->
 
 <lanechanges>
-    <change id="flowing24" type="middle" time="14.35" from="end_0" to="end_1" dir="1" speed="0.86" pos="50.17" reason="speedGain" leaderGap="135.68" leaderSecureGap="0.96" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="12.59" origLeaderSecureGap="0.00" origLeaderSpeed="11.33"/>
-    <change id="flowing24" type="middle" time="15.65" from="end_1" to="end_0" dir="-1" speed="4.14" pos="53.56" reason="strategic|urgent" leaderGap="3.04" leaderSecureGap="0.00" leaderSpeed="15.18" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="132.29" origLeaderSecureGap="6.65" origLeaderSpeed="0.00"/>
-    <change id="ego" type="middle" time="56.05" from="end_1" to="end_0" dir="-1" speed="0.54" pos="191.44" reason="strategic|urgent" leaderGap="9.68" leaderSecureGap="0.00" leaderSpeed="8.89" followerGap="2.94" followerSecureGap="0.42" followerSpeed="0.43" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="flowing24" type="middle" time="14.35" from="end_0" to="end_1" dir="1" speed="0.85" pos="50.17" reason="speedGain" leaderGap="135.15" leaderSecureGap="0.96" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="12.06" origLeaderSecureGap="0.00" origLeaderSpeed="11.22"/>
+    <change id="flowing24" type="middle" time="15.65" from="end_1" to="end_0" dir="-1" speed="4.12" pos="53.55" reason="strategic|urgent" leaderGap="2.80" leaderSecureGap="0.00" leaderSpeed="14.84" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="131.77" origLeaderSecureGap="6.60" origLeaderSpeed="0.00"/>
+    <change id="ego" type="middle" time="55.70" from="end_1" to="end_0" dir="-1" speed="0.80" pos="191.19" reason="strategic|urgent" leaderGap="7.96" leaderSecureGap="0.00" leaderSpeed="8.44" followerGap="3.07" followerSecureGap="0.56" followerSpeed="0.58" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>
