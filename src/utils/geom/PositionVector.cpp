@@ -399,6 +399,9 @@ PositionVector::getBoxBoundary() const {
 
 Position
 PositionVector::getPolygonCenter() const {
+    if (size() == 0) {
+        return Position::INVALID;
+    }
     double x = 0;
     double y = 0;
     double z = 0;
