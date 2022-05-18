@@ -124,6 +124,18 @@ Both can be accomplished by using the `vTypes` attribute of the calibrator to ma
 For a dependent mapping, multiple calibrators (each with a different `vTypes` attribute) may be defined.
 However, if there are very many types this may be cumbersome to define. In this case it may be better to define a mapping between type distributions as described below.
 
+```
+<additional>
+  ... 
+  <calibrator id="forCars" edge="E1" pos="0" type="myCarType">
+    <flow begin="0" end="1800" type="myCarType2"/>    
+  </calibrator>
+  <calibrator id="forTrucks" edge="E1" pos="0" type="myTruckType">
+    <flow begin="0" end="1800" type="myTruckType2"/>    
+  </calibrator>  
+</additional>
+```
+
 ### Mapping between vTypeDistributions
 A special behavior is activated if the following conditions are met:
 - the `type` in the flow element references a `vTypeDistribution`
