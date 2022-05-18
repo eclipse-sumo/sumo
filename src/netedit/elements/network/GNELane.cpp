@@ -72,6 +72,22 @@ GNELane::LaneDrawingConstants::LaneDrawingConstants(const GUIVisualizationSettin
 }
 
 
+GNELane::LaneDrawingConstants::LaneDrawingConstants(const GUIVisualizationSettings* s, const GNELane* lane) :
+    selectionScale(lane->isAttributeCarrierSelected() || lane->myParentEdge->isAttributeCarrierSelected() ? s->selectorFrameScale : 1),
+    exaggeration(selectionScale * s->laneWidthExaggeration),
+    halfWidth2(exaggeration * (lane->myParentEdge->getNBEdge()->getLaneWidth(lane->getIndex()) / 2 - SUMO_const_laneMarkWidth / 2)),
+    halfWidth(lane->drawUsingSelectColor() ? halfWidth2 - exaggeration * 0.3 : halfWidth2) {
+    // start drawing lane checking whether it is not too small
+    //selectionScale = lane->isAttributeCarrierSelected() || lane->myParentEdge->isAttributeCarrierSelected() ? s->selectionScale : 1;
+    //exaggeration = selectionScale * s->laneWidthExaggeration; // * s->laneScaler.getScheme().getColor(getScaleValue(s->laneScaler.getActive()));
+    // compute lane-marking intersection points)
+    //halfWidth2 = exaggeration * (lane->myParentEdge->getNBEdge()->getLaneWidth(lane->getIndex()) / 2 - SUMO_const_laneMarkWidth / 2);
+
+    // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
+    //halfWidth =  lane->drawUsingSelectColor() ? halfWidth2 - exaggeration * 0.3 : halfWidth2;
+}
+
+
 GNELane::LaneDrawingConstants::LaneDrawingConstants() :
     selectionScale(0),
     exaggeration(0),

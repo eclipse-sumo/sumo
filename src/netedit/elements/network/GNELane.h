@@ -52,8 +52,11 @@ public:
     class LaneDrawingConstants {
 
     public:
-        /// @brief parameter constructor
-        LaneDrawingConstants(const GUIVisualizationSettings& s, const GNELane* lane);
+        /// @brief parameter constructor (pointer)
+        LaneDrawingConstants(const GUIVisualizationSettings* s, const GNELane* lane);
+
+        /// @brief parameter constructor (reference)
+        LaneDrawingConstants(const GUIVisualizationSettings  &s, const GNELane* lane);
 
         /// @brief selection scale
         const double selectionScale;

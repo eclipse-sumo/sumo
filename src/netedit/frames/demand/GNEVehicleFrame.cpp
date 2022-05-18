@@ -189,8 +189,8 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         if (route && (route->getTagProperty().isRoute())) {
             // check if departLane is valid
             if ((route->getTagProperty().getTag() == SUMO_TAG_ROUTE) && myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTLANE) &&
-                    GNEAttributeCarrier::canParse<double>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE))) {
-                double departLane = GNEAttributeCarrier::parse<double>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE));
+                    GNEAttributeCarrier::canParse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE))) {
+                const double departLane = GNEAttributeCarrier::parse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE));
                 if (departLane >= route->getParentEdges().front()->getLanes().size()) {
                     myViewNet->setStatusBarText("Invalid " + toString(SUMO_ATTR_DEPARTLANE));
                     return false;
