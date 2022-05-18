@@ -3517,7 +3517,7 @@ GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, GUIGlObj
     // get view net
     const auto viewNet = AC->getNet()->getViewNet();
     // get visualization settings
-    const auto s = viewNet->getVisualisationSettings();
+    const auto &s = viewNet->getVisualisationSettings();
     // check exaggeration
     if (exaggeration == 0) {
         return false;

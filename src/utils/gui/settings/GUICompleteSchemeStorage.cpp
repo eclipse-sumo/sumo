@@ -53,7 +53,7 @@ GUICompleteSchemeStorage::add(const GUIVisualizationSettings& scheme) {
     if (std::find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name) == mySortedSchemeNames.end()) {
         mySortedSchemeNames.push_back(name);
     }
-    mySettings[name] = scheme;
+    mySettings[name].copy(scheme);
 }
 
 

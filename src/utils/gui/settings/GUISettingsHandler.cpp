@@ -105,7 +105,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
         case SUMO_TAG_VIEWSETTINGS_SCHEME: {
             mySettings.name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok, mySettings.name);
             if (gSchemeStorage.contains(mySettings.name)) {
-                mySettings = gSchemeStorage.get(mySettings.name);
+                mySettings.copy(gSchemeStorage.get(mySettings.name));
             }
         }
         break;

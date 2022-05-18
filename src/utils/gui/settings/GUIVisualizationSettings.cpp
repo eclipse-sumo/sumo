@@ -500,7 +500,7 @@ GUIVisualizationWidthSettings::operator!=(const GUIVisualizationWidthSettings& v
 // GUIVisualizationWidthSettings - methods
 // ---------------------------------------------------------------------------
 
-GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
+GUIVisualizationSettings::GUIVisualizationSettings(const bool _netedit) :
     name(""),
     netedit(_netedit),
     angle(0),
@@ -597,6 +597,13 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     } else {
         initSumoGuiDefaults();
     }
+}
+
+
+void 
+GUIVisualizationSettings::copy(const GUIVisualizationSettings& s) {
+    // just copy. Note: By default = operator is disabled to avoid accidental copies)
+    *this = s;
 }
 
 

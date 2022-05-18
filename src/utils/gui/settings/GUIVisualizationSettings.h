@@ -583,8 +583,15 @@ struct GUIVisualizationDetailSettings {
 class GUIVisualizationSettings {
 
 public:
+
+    /// @name friend class
+    friend class GUIDialog_ViewSettings;
+
     /// @brief constructor
-    GUIVisualizationSettings(bool _netedit = false);
+    GUIVisualizationSettings(const bool _netedit = false);
+
+    /// @brief copy all content from another GUIVisualizationSettings (note: DON'T USE in DrawGL functions!)
+    void copy(const GUIVisualizationSettings& s);
 
     /// @brief init default settings
     void initNeteditDefaults();
@@ -1003,4 +1010,11 @@ public:
 
     /// @brief detail settings
     GUIVisualizationDetailSettings detailSettings;
+
+private:
+    /// @brief set copy constructor private
+    GUIVisualizationSettings(const GUIVisualizationSettings& s) = default;
+
+    /// @brief set assignment operator private
+    GUIVisualizationSettings& operator=(const GUIVisualizationSettings& s) = default;
 };
