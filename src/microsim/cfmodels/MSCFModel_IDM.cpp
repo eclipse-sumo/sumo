@@ -27,7 +27,7 @@
 //#define DEBUG_V
 //#define DEBUG_INSERTION_SPEED
 
-#define DEBUG_COND (veh->isSelected)
+#define DEBUG_COND (veh->isSelected())
 //#define DEBUG_COND true
 
 
@@ -150,7 +150,7 @@ MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double 
     if (gap < 0.01) {
         return 0;
     }
-    double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh));
+    double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
     if (gap > 0 && speed < NUMERICAL_EPS && result < NUMERICAL_EPS) {
         // ensure that stops can be reached:
         //std::cout << " switching to krauss: " << veh->getID() << " gap=" << gap << " speed=" << speed << " res1=" << result << " res2=" << maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs())<< "\n";
