@@ -739,15 +739,18 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 logic->addStep(dur, straight1, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, toString(phaseNameLeft + 5));
                 phaseNameLeft += 2;
             }
-            std::set<int> names;
-            for (const auto& p : logic->getPhases()) {
-                names.insert(StringUtils::toInt(p.name));
+            std::map<int, int> names; // nema phase name -> sumo phase index
+            for (int i = 0; i < (int)logic->getPhases().size(); i++) {
+                names[StringUtils::toInt(logic->getPhases()[i].name)] = i;
             }
 
             filterMissingNames(ring1, names, false);
             filterMissingNames(ring2, names, false);
             filterMissingNames(barrier1, names, true);
             filterMissingNames(barrier2, names, true);
+
+            fixDurationSum(logic, names, 1, 2, 5, 6);
+            fixDurationSum(logic, names, 3, 4, 7, 8);
         } else {
             WRITE_WARNINGF("Generating NEMA phases is not support for traffic light '%' with % incoming edges", getID(), incoming.size());
         }
@@ -1412,11 +1415,42 @@ NBOwnTLDef::filterState(std::string state, const EdgeVector& fromEdges, const NB
 }
 
 void
-NBOwnTLDef::filterMissingNames(std::vector<int>& vec, const std::set<int>& names, bool isBarrier) {
+NBOwnTLDef::filterMissingNames(std::vector<int>& vec, const std::map<int, int>& names, bool isBarrier) {
     for (int i = 0; i < (int)vec.size(); i++) {
         if (names.count(vec[i]) == 0) {
             vec[i] = isBarrier ? vec[i] - 1 : 0;
         }
+    }
+}
+
+void
+NBOwnTLDef::fixDurationSum(NBTrafficLightLogic* logic, const std::map<int, int>& names, int ring1a, int ring1b, int ring2a, int ring2b) {
+    std::set<int> ring1existing;
+    std::set<int> ring2existing;
+    if (names.count(ring1a) != 0) {
+        ring1existing.insert(ring1a);
+    }
+    if (names.count(ring1b) != 0) {
+        ring1existing.insert(ring1b);
+    }
+    if (names.count(ring2a) != 0) {
+        ring2existing.insert(ring2a);
+    }
+    if (names.count(ring2b) != 0) {
+        ring2existing.insert(ring2b);
+    }
+    assert(ring1existing.size() > 0);
+    assert(ring2existing.size() > 0);
+    if (ring1existing.size() != ring2existing.size()) {
+        int pI; // sumo phase index
+        if (ring1existing.size() < ring2existing.size()) {
+            pI = names.find(*ring1existing.begin())->second;;
+        } else {
+            pI = names.find(*ring2existing.begin())->second;;
+        }
+        const auto& p = logic->getPhases()[pI];
+        SUMOTime newMaxDur = 2 * p.maxDur + p.yellow + p.red;
+        logic->setPhaseMaxDuration(pI, newMaxDur);
     }
 }
 
