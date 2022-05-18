@@ -330,7 +330,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 std::sort(departures.begin(), departures.end());
             } else {
                 for (int i = 0; i < numCars; ++i) {
-                    departures.push_back(time + (SUMOTime)(stepOffset * i / (double)numCars));
+                    departures.push_back(time + (stepOffset * i / numCars));
                 }
             }
 

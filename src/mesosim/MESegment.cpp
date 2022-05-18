@@ -138,10 +138,10 @@ MESegment::initSegment(const MesoEdgeType& edgeType, const MSEdge& parent, const
         myQueueCapacity = capacity;
         myTau_length = TIME2STEPS(1) / MAX2(MESO_MIN_SPEED, myMeanSpeed) / laneScale;
         // Eissfeldt p. 90 and 151 ff.
-        myTau_ff = (SUMOTime)(edgeType.tauff / laneScale);
-        myTau_fj = (SUMOTime)(edgeType.taufj / laneScale);
-        myTau_jf = (SUMOTime)(edgeType.taujf / laneScale);
-        myTau_jj = (SUMOTime)(edgeType.taujj / laneScale);
+        myTau_ff = (SUMOTime)((double)edgeType.tauff / laneScale);
+        myTau_fj = (SUMOTime)((double)edgeType.taufj / laneScale);
+        myTau_jf = (SUMOTime)((double)edgeType.taujf / laneScale);
+        myTau_jj = (SUMOTime)((double)edgeType.taujj / laneScale);
     } else {
         myTau_ff = edgeType.tauff;
         myTau_fj = edgeType.taufj;
@@ -513,7 +513,7 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
             const MSLink* const tllink = getLink(veh, true);
             if (tllink != nullptr && tllink->isTLSControlled()) {
                 assert(tllink->getGreenFraction() > 0);
-                myLastHeadway = (SUMOTime)(myLastHeadway / tllink->getGreenFraction());
+                myLastHeadway = (SUMOTime)((double)myLastHeadway / tllink->getGreenFraction());
             }
         }
         q.setBlockTime(q.getBlockTime() + myLastHeadway);

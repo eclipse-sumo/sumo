@@ -130,7 +130,7 @@ AGCity::generateOutgoingWP() {
     /**
      * N_out = N_in * (ProportionOut / (1 - ProportionOut)) = N_out = N_in * (Noutworkers / (Nworkers - Noutworkers))
      */
-    int nbrOutWorkPositions = static_cast<int>(workPositions.size() * (static_cast<double>(statData.outgoingTraffic)) / (nbrWorkers - static_cast<double>(statData.outgoingTraffic)));
+    int nbrOutWorkPositions = (int)((double)workPositions.size() * (double)statData.outgoingTraffic / (nbrWorkers - (double)statData.outgoingTraffic));
 
     if (cityGates.empty()) {
         return;
