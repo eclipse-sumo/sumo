@@ -90,7 +90,7 @@ MFXCheckableButton::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
 long
 MFXCheckableButton::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     // show tip show
-    myStaticToolTip->onTipShow(sender, sel, this);
+    myStaticToolTip->onTipShow(sender, sel, ptr);
     return FXButton::onEnter(sender, sel, ptr);
 }
 

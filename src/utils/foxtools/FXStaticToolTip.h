@@ -41,7 +41,14 @@ public:
     /// @brief show tip
     long onTipShow(FXObject*,FXSelector,void*);
 
+    /// @brief hide tip
+    long onTipHide(FXObject*,FXSelector,void*);
+
 protected:
     /// @brief FOX need this
     FXStaticToolTip();
+
+private:
+    /// @brief object called in show()
+    FXEvent* myToolTippedObject = nullptr;
 };
