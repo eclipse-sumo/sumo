@@ -23,11 +23,11 @@
 
 
 FXDEFMAP(MFXCheckableButton) MFXCheckableButtonMap[] = {
-    FXMAPFUNC(SEL_PAINT, 0, MFXCheckableButton::onPaint),
-    FXMAPFUNC(SEL_UPDATE, 0, MFXCheckableButton::onUpdate),
-    FXMAPFUNC(SEL_UPDATE, 0, MFXCheckableButton::onUpdate),
-    FXMAPFUNC(SEL_ENTER,0,MFXCheckableButton::onEnter),
-    FXMAPFUNC(SEL_LEAVE,0,MFXCheckableButton::onLeave),
+    FXMAPFUNC(SEL_PAINT,    0,  MFXCheckableButton::onPaint),
+    FXMAPFUNC(SEL_UPDATE,   0,  MFXCheckableButton::onUpdate),
+    FXMAPFUNC(SEL_UPDATE,   0,  MFXCheckableButton::onUpdate),
+    FXMAPFUNC(SEL_ENTER,    0,  MFXCheckableButton::onEnter),
+    FXMAPFUNC(SEL_LEAVE,    0,  MFXCheckableButton::onLeave),
 };
 
 
@@ -44,8 +44,6 @@ MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p,
                                        FXint pl, FXint pr, FXint pt, FXint pb) :
     FXButton(p, text, ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
     myAmChecked(amChecked), myAmInitialised(false) {
-    myStaticToolTip = new FXStaticToolTip(getApp()); 
-    myStaticToolTip->create();
     border = 0;
 }
 
@@ -64,7 +62,6 @@ MFXCheckableButton::setChecked(bool val) {
     myAmChecked = val;
 }
 
-#include <iostream>
 
 long
 MFXCheckableButton::onPaint(FXObject* sender, FXSelector sel, void* ptr) {
@@ -89,6 +86,11 @@ MFXCheckableButton::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
 
 long
 MFXCheckableButton::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
+    // create on first enter
+    if (myStaticToolTip == nullptr) {
+        myStaticToolTip = new FXStaticToolTip(getApp()); 
+        myStaticToolTip->create();
+    }
     // show tip show
     myStaticToolTip->onTipShow(sender, sel, ptr);
     return FXButton::onEnter(sender, sel, ptr);
@@ -97,7 +99,8 @@ MFXCheckableButton::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
 
 long 
 MFXCheckableButton::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
-    // show tip hide
+    // hide tip hide
+
     myStaticToolTip->onTipHide(sender, sel, this);
     return FXButton::onLeave(sender, sel, ptr);
 }
