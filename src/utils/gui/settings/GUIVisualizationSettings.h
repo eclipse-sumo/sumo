@@ -1009,8 +1009,8 @@ public:
 
 private:
     /// @brief set copy constructor private
-    GUIVisualizationSettings(const GUIVisualizationSettings& s) = default;
+    GUIVisualizationSettings(const GUIVisualizationSettings&) = default;
 
     /// @brief set assignment operator private
-    GUIVisualizationSettings& operator=(const GUIVisualizationSettings& s) = default;
+    GUIVisualizationSettings& operator=(const GUIVisualizationSettings&) = default;
 };
