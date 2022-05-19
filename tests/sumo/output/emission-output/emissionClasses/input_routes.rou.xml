@@ -50,8 +50,8 @@
 
     <route id="route0" edges="e"/>
 
-    <vehicle id="PHEMlight_PC_D_EU4" type="PC_D_EU4" route="route0" depart="0"/>
-    <vehicle id="PHEMlight_PC_G_EU4" type="PC_G_EU4" route="route0" depart="100"/>
+    <vehicle id="PHEMlight_PC_D_EU4" type="PHEMlight_PC_D_EU4" route="route0" depart="0"/>
+    <vehicle id="PHEMlight_PC_G_EU4" type="PHEMlight_PC_G_EU4" route="route0" depart="100"/>
     <vehicle id="LDV" type="LDV" route="route0" depart="200"/>
     <vehicle id="LDV_G_EU0" type="LDV_G_EU0" route="route0" depart="300"/>
     <vehicle id="LDV_G_EU1" type="LDV_G_EU1" route="route0" depart="400"/>
