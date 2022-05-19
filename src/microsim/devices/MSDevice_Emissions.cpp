@@ -54,10 +54,6 @@ MSDevice_Emissions::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
     if (equippedByDefaultAssignmentOptions(oc, "emissions", v, oc.isSet("emission-output"))) {
         into.push_back(new MSDevice_Emissions(v));
     }
-    if (MSNet::getInstance()->getDetectorControl().haveEmissions()) {
-        // ensure we have the emission parameters even if we don't have the device
-        v.getEmissionParameters();
-    }
 }
 
 

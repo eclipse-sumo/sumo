@@ -153,14 +153,6 @@ public:
         return myMeanData;
     }
 
-    bool haveEmissions() const {
-        return myHaveEmissions;
-    }
-
-    void enableEmissions() {
-        myHaveEmissions = true;
-    }
-
     /** @brief Computes detector values
      *
      * Some detectors need to be touched each time step in order to compute
@@ -217,9 +209,6 @@ protected:
 
     /// @brief List of meanData detectors
     std::map<std::string, std::vector<MSMeanData*> > myMeanData;
-
-    /// @brief Whether we have an emissions data collector
-    bool myHaveEmissions = false;
 
     /// @brief An empty container to return in getTypedDetectors() if no detectors of the asked type exist
     NamedObjectCont< MSDetectorFileOutput*> myEmptyContainer;

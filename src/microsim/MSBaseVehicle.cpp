@@ -159,6 +159,10 @@ MSBaseVehicle::initDevices() {
     for (MSVehicleDevice* dev : myDevices) {
         myMoveReminders.push_back(std::make_pair(dev, 0.));
     }
+    if (MSGlobals::gHaveEmissions) {
+        // ensure we have the emission parameters even if we don't have the device
+        getEmissionParameters();
+    }
 }
 
 

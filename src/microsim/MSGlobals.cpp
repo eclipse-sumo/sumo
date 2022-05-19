@@ -95,4 +95,6 @@ double MSGlobals::gWeightsSeparateTurns(0);
 
 SUMOTime MSGlobals::gStartupWaitThreshold(0);
 
+bool MSGlobals::gHaveEmissions(false);
+
 /****************************************************************************/

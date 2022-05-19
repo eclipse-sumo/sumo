@@ -87,7 +87,7 @@ MSDetectorControl::add(MSMeanData* md, const std::string& device,
     if (begin <= string2time(OptionsCont::getOptions().getString("begin"))) {
         md->init();
     }
-    myHaveEmissions = myHaveEmissions || typeid(*md) == typeid(MSMeanData_Emissions);
+    MSGlobals::gHaveEmissions |= typeid(*md) == typeid(MSMeanData_Emissions);
 }
 
 

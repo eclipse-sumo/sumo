@@ -271,7 +271,7 @@ GUINet::initGUIStructures() {
         }
     }
     // let's always track emission parameters for the GUI
-    myDetectorControl->enableEmissions();
+    MSGlobals::gHaveEmissions = true;
     // initialise calibrators
     for (auto& item : MSCalibrator::getInstances()) {
         GUICalibrator* wrapper = new GUICalibrator(item.second);
