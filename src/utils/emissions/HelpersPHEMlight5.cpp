@@ -43,10 +43,10 @@ HelpersPHEMlight5::HelpersPHEMlight5() :
 SUMOEmissionClass
 HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     if (eClass == "unknown" && !myEmissionClassStrings.hasString("unknown")) {
-        myEmissionClassStrings.addAlias("unknown", getClassByName("PC_G_EU4", vc));
+        myEmissionClassStrings.addAlias("unknown", getClassByName("PC_EU4_G", vc));
     }
     if (eClass == "default" && !myEmissionClassStrings.hasString("default")) {
-        myEmissionClassStrings.addAlias("default", getClassByName("PC_G_EU4", vc));
+        myEmissionClassStrings.addAlias("default", getClassByName("PC_EU4_G", vc));
     }
     if (myEmissionClassStrings.hasString(eClass)) {
         return myEmissionClassStrings.get(eClass);
@@ -60,29 +60,23 @@ HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleCl
         index |= PollutantsInterface::HEAVY_BIT;
     }
     myEmissionClassStrings.insert(eClass, index);
-#ifdef INTERNAL_PHEM
-    if (type == "HDV" || type == "LCV" || type == "PC_" || !PHEMCEPHandler::getHandlerInstance().Load(index, eClass)) {
-#endif
-        std::vector<std::string> phemPath;
-        phemPath.push_back(OptionsCont::getOptions().getString("phemlight-path") + "/");
-        if (getenv("PHEMLIGHT_PATH") != nullptr) {
-            phemPath.push_back(std::string(getenv("PHEMLIGHT_PATH")) + "/");
-        }
-        if (getenv("SUMO_HOME") != nullptr) {
-            phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight/V5/");
-        }
-        myHelper.setCommentPrefix("c");
-        myHelper.setPHEMDataV("V5");
-        myHelper.setclass(eClass);
-        if (!myCEPHandler.GetCEP(phemPath, &myHelper, nullptr)) {
-            myEmissionClassStrings.remove(eClass, index);
-            myIndex--;
-            throw InvalidArgument("File for PHEM emission class " + eClass + " not found.\n" + myHelper.getErrMsg());
-        }
-        myCEPs[index] = myCEPHandler.getCEPS().find(myHelper.getgClass())->second;
-#ifdef INTERNAL_PHEM
+    std::vector<std::string> phemPath;
+    phemPath.push_back(OptionsCont::getOptions().getString("phemlight-path") + "/");
+    if (getenv("PHEMLIGHT_PATH") != nullptr) {
+        phemPath.push_back(std::string(getenv("PHEMLIGHT_PATH")) + "/");
     }
-#endif
+    if (getenv("SUMO_HOME") != nullptr) {
+        phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight/V5/");
+    }
+    myHelper.setCommentPrefix("c");
+    myHelper.setPHEMDataV("V5");
+    myHelper.setclass(eClass);
+    if (!myCEPHandler.GetCEP(phemPath, &myHelper, nullptr)) {
+        myEmissionClassStrings.remove(eClass, index);
+        myIndex--;
+        throw InvalidArgument("File for PHEM emission class " + eClass + " not found.\n" + myHelper.getErrMsg());
+    }
+    myCEPs[index] = myCEPHandler.getCEPS().find(myHelper.getgClass())->second;
     myEmissionClassStrings.addAlias(StringUtils::to_lower_case(eClass), index);
     return index;
 }
