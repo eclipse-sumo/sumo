@@ -5174,7 +5174,7 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
     if ((reason == MSMoveReminder::NOTIFICATION_JUNCTION || reason == MSMoveReminder::NOTIFICATION_TELEPORT) && myLane != nullptr) {
         myOdometer += getLane()->getLength();
     }
-    if (myLane->getBidiLane() != nullptr) {
+    if (myLane != nullptr && myLane->getBidiLane() != nullptr) {
         myLane->getBidiLane()->resetPartialOccupation(this);
     }
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
