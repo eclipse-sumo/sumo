@@ -941,13 +941,14 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
             }
         }
     }
-    GUIVisualizationSettings tmpSettings = *mySettings;
+    GUIVisualizationSettings tmpSettings(mySettings->name, mySettings->netedit);
+    tmpSettings.copy(*mySettings);
     tmpSettings.name = name;
     if (name == mySettings->name || StringUtils::startsWith(mySettings->name, "custom_")) {
         gSchemeStorage.remove(mySettings->name);
         myParent->getColoringSchemesCombo()->setItemText(index, name.c_str());
     } else {
-        gSchemeStorage.get(mySettings->name) = myBackup;
+        gSchemeStorage.get(mySettings->name).copy(myBackup);
         index = mySchemeName->appendItem(name.c_str());
         myParent->getColoringSchemesCombo()->appendItem(name.c_str());
         myParent->getColoringSchemesCombo()->setCurrentItem(
@@ -957,7 +958,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
     mySchemeName->setItemText(index, name.c_str());
     myParent->setColorScheme(name);
     mySettings = &gSchemeStorage.get(name);
-    myBackup = *mySettings;
+    myBackup.copy(*mySettings);
     gSchemeStorage.writeSettings(getApp());
     return 1;
 }

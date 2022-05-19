@@ -583,10 +583,6 @@ struct GUIVisualizationDetailSettings {
 class GUIVisualizationSettings {
 
 public:
-
-    /// @name friend class
-    friend class GUIDialog_ViewSettings;
-
     /// @brief constructor
     GUIVisualizationSettings(const std::string& _name, bool _netedit = false);
 
