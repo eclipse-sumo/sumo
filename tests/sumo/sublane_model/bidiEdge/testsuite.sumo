@@ -1,0 +1,12 @@
+# a single pair of bidi-edges and 2 vehicles
+1edge
+
+# a single pair of bidi-edges (between normal edges) and 2 vehicles
+1edge_between
+
+# two consecutive pairs of bidi-edges (between normal edges) and 2 vehicles
+2edges_between
+
+# two consecutive pairs of bidi-edges (between normal edges) and 2 vehicles,
+# broken departure symmetry
+2edges_between2
