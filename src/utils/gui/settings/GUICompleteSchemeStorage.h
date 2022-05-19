@@ -123,7 +123,7 @@ public:
 
 protected:
     /// @brief A map of settings referenced by their names
-    std::map<std::string, GUIVisualizationSettings> mySettings;
+    std::map<std::string, GUIVisualizationSettings*> mySettings;
 
     /// @brief List of known setting names
     std::vector<std::string> mySortedSchemeNames;

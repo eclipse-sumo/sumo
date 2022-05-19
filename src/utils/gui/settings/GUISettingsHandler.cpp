@@ -42,7 +42,7 @@
 // ===========================================================================
 GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile, bool netedit) :
     SUMOSAXHandler(content),
-    mySettings(netedit),
+    mySettings("TEMPORARY_NAME", netedit),
     myDelay(-1), myLookFrom(-1, -1, -1), myLookAt(-1, -1, -1),
     myRotation(0),
     myCurrentColorer(SUMO_TAG_NOTHING),

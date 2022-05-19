@@ -588,7 +588,7 @@ public:
     friend class GUIDialog_ViewSettings;
 
     /// @brief constructor
-    GUIVisualizationSettings(const bool _netedit = false);
+    GUIVisualizationSettings(const std::string& _name, bool _netedit = false);
 
     /// @brief copy all content from another GUIVisualizationSettings (note: DON'T USE in DrawGL functions!)
     void copy(const GUIVisualizationSettings& s);

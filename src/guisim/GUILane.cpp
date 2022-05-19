@@ -1155,7 +1155,7 @@ GUILane::setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, R
 double
 GUILane::getColorValueForTracker() const {
     if (myCachedGUISettings != nullptr) {
-        const GUIVisualizationSettings& s = myCachedGUISettings;
+        const GUIVisualizationSettings& s = *myCachedGUISettings;
         const GUIColorer& c = s.laneColorer;
         return getColorValueWithFunctional(s, c.getActive());
     } else {

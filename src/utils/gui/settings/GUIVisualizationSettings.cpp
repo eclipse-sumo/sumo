@@ -500,8 +500,8 @@ GUIVisualizationWidthSettings::operator!=(const GUIVisualizationWidthSettings& v
 // GUIVisualizationWidthSettings - methods
 // ---------------------------------------------------------------------------
 
-GUIVisualizationSettings::GUIVisualizationSettings(const bool _netedit) :
-    name(""),
+GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, bool _netedit) :
+    name(_name),
     netedit(_netedit),
     angle(0),
     dither(false),
