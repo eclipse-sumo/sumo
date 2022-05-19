@@ -9,6 +9,9 @@ nefz_hbefa3_separator
 nefz_phemlight
 nefz_phemlight5
 
+# non-existing driving cycle file
+invalid_cycle
+
 # Battery model
 nefz_energy
 
