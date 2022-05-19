@@ -4510,6 +4510,7 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
                   << " pos=" << myState.myPos
                   << " backPos=" << myState.myBackPos
                   << " myLane=" << myLane->getID()
+                  << " myLaneBidi=" << Named::getIDSecure(myLane->getBidiLane())
                   << " further=" << toString(myFurtherLanes)
                   << " furtherPosLat=" << toString(myFurtherLanesPosLat)
                   << "\n     shadowLane=" << Named::getIDSecure(myLaneChangeModel->getShadowLane())
@@ -4534,6 +4535,8 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
         } else {
             return myState.myPos - myType->getLength();
         }
+    } else if (lane == myLane->getBidiLane()) {
+        return lane->getLength() - myState.myPos - myType->getLength();
     } else if (myFurtherLanes.size() > 0 && lane == myFurtherLanes.back()) {
         return myState.myBackPos;
     } else if ((myLaneChangeModel->getShadowFurtherLanes().size() > 0 && lane == myLaneChangeModel->getShadowFurtherLanes().back())
@@ -5170,6 +5173,9 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
     }
     if ((reason == MSMoveReminder::NOTIFICATION_JUNCTION || reason == MSMoveReminder::NOTIFICATION_TELEPORT) && myLane != nullptr) {
         myOdometer += getLane()->getLength();
+    }
+    if (myLane->getBidiLane() != nullptr) {
+        myLane->getBidiLane()->resetPartialOccupation(this);
     }
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         // @note. In case of lane change, myFurtherLanes and partial occupation
@@ -6126,6 +6132,8 @@ MSVehicle::getCenterOnEdge(const MSLane* lane) const {
         } else {
             return lane->getRightSideOnEdge() - myLane->getWidth() + myState.myPosLat + 0.5 * myLane->getWidth();
         }
+    } else if (lane == myLane->getBidiLane()) {
+        return lane->getRightSideOnEdge() - myState.myPosLat + 0.5 * lane->getWidth();
     } else {
         assert(myFurtherLanes.size() == myFurtherLanesPosLat.size());
         for (int i = 0; i < (int)myFurtherLanes.size(); ++i) {
@@ -6161,6 +6169,8 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
         return myLane->getRightSideOnEdge() - lane->getRightSideOnEdge();
     } else if (myLane->getParallelOpposite() == lane) {
         return (myLane->getWidth() + lane->getWidth()) * 0.5 - 2 * getLateralPositionOnLane();
+    } else if (myLane->getBidiLane() == lane) {
+        return -getLateralPositionOnLane();
     } else {
         // Check whether the lane is a further lane for the vehicle
         for (int i = 0; i < (int)myFurtherLanes.size(); ++i) {
