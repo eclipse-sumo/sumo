@@ -1071,6 +1071,16 @@ MSLCM_LC2013::prepareStep() {
 }
 
 
+double
+MSLCM_LC2013::getExtraReservation(int bestLaneOffset) const {
+    if (bestLaneOffset < -1) {
+        return 20;
+    } else if (bestLaneOffset > 1) {
+        return 40;
+    }
+    return 0;
+}
+
 void
 MSLCM_LC2013::changed() {
     myOwnState = 0;

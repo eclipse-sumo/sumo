@@ -5879,6 +5879,16 @@ MSVehicle::getBestLaneOffset() const {
     }
 }
 
+double
+MSVehicle::getBestLaneDist() const {
+    if (myBestLanes.empty() || myBestLanes[0].empty()) {
+        return -1;
+    } else {
+        return (*myCurrentLaneInBestLanes).length;
+    }
+}
+
+
 
 void
 MSVehicle::adaptBestLanesOccupation(int laneIndex, double density) {

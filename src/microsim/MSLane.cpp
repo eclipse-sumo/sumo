@@ -1173,6 +1173,27 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #endif
         return false;
     }
+    const int bestLaneOffset = aVehicle->getBestLaneOffset();
+    const double extraReservation = aVehicle->getLaneChangeModel().getExtraReservation(bestLaneOffset);
+    if (extraReservation > 0) {
+        std::stringstream msg;
+        msg << "too many lane changes required on lane '" << myID << "'";
+        // we need to take into acount one extra actionStep of delay due to #3665
+        double distToStop = MAX2(0.0, aVehicle->getBestLaneDist() - pos - extraReservation - speed * aVehicle->getActionStepLengthSecs());
+        double stopSpeed = cfModel.stopSpeed(aVehicle, speed, distToStop);
+#ifdef DEBUG_INSERTION
+        if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+            std::cout << "\nIS_INSERTION_SUCCESS\n"
+                << SIMTIME << " veh=" << aVehicle->getID() << " bestLaneOffset=" << bestLaneOffset << " bestLaneDist=" << aVehicle->getBestLaneDist() << " extraReservation=" << extraReservation
+                << " distToStop=" << distToStop << " v=" << speed << " v2=" << stopSpeed << "\n";
+        }
+#endif
+        if (checkFailure(aVehicle, speed, distToStop, MAX2(0.0, stopSpeed),
+                    patchSpeed, msg.str(), InsertionCheck::LANECHANGE)) {
+            // we may not drive with the given velocity - we cannot reserve enough space for lane changing
+            return false;
+        }
+    }
     // enter
     incorporateVehicle(aVehicle, pos, speed, posLat, find_if(myVehicles.begin(), myVehicles.end(), [&](MSVehicle * const v) {
         return v->getPositionOnLane() >= pos;

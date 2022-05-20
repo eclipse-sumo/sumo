@@ -929,6 +929,9 @@ public:
      */
     int getBestLaneOffset() const;
 
+    /** @brief returns the distance that can be driven without lane change **/
+    double getBestLaneDist() const;
+
     /// @brief update occupation from MSLaneChanger
     void adaptBestLanesOccupation(int laneIndex, double density);
 

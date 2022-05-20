@@ -944,6 +944,17 @@ MSLCM_SL2015::prepareStep() {
 }
 
 double
+MSLCM_SL2015::getExtraReservation(int bestLaneOffset) const {
+    if (bestLaneOffset < -1) {
+        return 20;
+    } else if (bestLaneOffset > 1) {
+        return 40;
+    }
+    return 0;
+}
+
+
+double
 MSLCM_SL2015::getLateralDrift() {
     //OUProcess::step(double state, double dt, double timeScale, double noiseIntensity)
     const double deltaState = OUProcess::step(mySigmaState,

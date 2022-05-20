@@ -1603,7 +1603,9 @@ enum class InsertionCheck {
     ONCOMING_TRAIN = 1 << 6,
     SPEED_LIMIT = 1 << 7,
     PEDESTRIAN = 1 << 8,
-    ALL = ((1 << 9) - 1) // <- must be the last one
+    BIDI = 1 << 9,
+    LANECHANGE = 1 << 10,
+    ALL = ((1 << 11) - 1) // <- must be the last one
 };
 
 

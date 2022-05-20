@@ -1112,6 +1112,8 @@ StringBijection<InsertionCheck>::Entry SUMOXMLDefinitions::insertionCheckValues[
     { "oncomingTrain", InsertionCheck::ONCOMING_TRAIN },
     { "speedLimit",    InsertionCheck::SPEED_LIMIT },
     { "pedestrian",    InsertionCheck::PEDESTRIAN },
+    { "bidi",          InsertionCheck::BIDI },
+    { "laneChange",    InsertionCheck::LANECHANGE },
     { "all",           InsertionCheck::ALL } //< must be the last one
 };
 

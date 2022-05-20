@@ -104,6 +104,8 @@ public:
 
     void prepareStep() override;
 
+    double getExtraReservation(int bestLaneOffset) const override;
+
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const override;
 
