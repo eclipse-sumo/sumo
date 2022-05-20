@@ -121,7 +121,7 @@ MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bo
     }
     os.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     if (withRouteLength) {
-        os.writeAttr("routeLength", mySpeed * (myArrived - myDeparted));
+        os.writeAttr("routeLength", mySpeed * STEPS2TIME(myArrived - myDeparted));
     }
     if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
         os.writeAttr(SUMO_ATTR_STARTED, myDeparted >= 0 ? time2string(myDeparted) : "-1");

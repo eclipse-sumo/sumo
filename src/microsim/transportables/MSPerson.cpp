@@ -435,7 +435,7 @@ MSPerson::MSPersonStage_Access::getStageSummary(const bool /* isPerson */) const
 
 Position
 MSPerson::MSPersonStage_Access::getPosition(SUMOTime now) const {
-    return myPath.positionAtOffset(myPath.length() * (now - myDeparted) / (myEstimatedArrival - myDeparted));
+    return myPath.positionAtOffset(myPath.length() * (double)(now - myDeparted) / (double)(myEstimatedArrival - myDeparted));
 }
 
 

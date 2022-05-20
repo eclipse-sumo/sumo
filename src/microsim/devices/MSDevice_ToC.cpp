@@ -168,7 +168,7 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
         const double lcAbstinence = getFloatParam(v, oc, "toc.lcAbstinence", DEFAULT_LCABSTINENCE, false);
         const double initialAwareness = getFloatParam(v, oc, "toc.initialAwareness", DEFAULT_INITIAL_AWARENESS, false);
         const double mrmDecel = getFloatParam(v, oc, "toc.mrmDecel", DEFAULT_MRM_DECEL, false);
-        const bool useColoring = getBoolParam(v, oc, "toc.useColorScheme", "false", false);
+        const bool useColoring = getBoolParam(v, oc, "toc.useColorScheme", true, false);
         const std::string deviceID = "toc_" + v.getID();
         const std::string file = getOutputFilename(v, oc);
         const OpenGapParams ogp = getOpenGapParams(v, oc);
@@ -552,9 +552,9 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM, SUMOTime responseTime) {
         }
     } else {
         // Switch to automated mode is performed immediately
-        if (timeTillMRM > 0.) {
+        if (timeTillMRM > 0) {
             std::stringstream ss;
-            ss << "[t=" << SIMTIME << "] Positive transition time (" << timeTillMRM / 1000. << "s.) for upward ToC of vehicle '" << myHolder.getID() << "' is ignored.";
+            ss << "[t=" << SIMTIME << "] Positive transition time (" << STEPS2TIME(timeTillMRM) << "s.) for upward ToC of vehicle '" << myHolder.getID() << "' is ignored.";
             WRITE_WARNING(ss.str());
         }
         triggerUpwardToC(SIMSTEP + DELTA_T);
