@@ -186,12 +186,13 @@ class Builder(object):
             self.files["osm"] = data['osm']
         else:
             self.report("Downloading map data")
-            osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp, "-z",
-                       "-r", json.dumps(self.data["roadTypes"])]
+            osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp, "-z"]           
             if self.data["poly"]:
                 osmArgs.append("--shapes")
             if 'osmMirror' in self.data:
                 osmArgs += ["-u", self.data["osmMirror"]]
+            if 'roadTypes' in self.data:
+                osmArgs += ["-r", json.dumps(self.data["roadTypes"])]
             osmGet.get(osmArgs)
 
         options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
