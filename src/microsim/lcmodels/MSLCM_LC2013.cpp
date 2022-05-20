@@ -225,7 +225,7 @@ MSLCM_LC2013::patchSpeed(const double min, const double wanted, const double max
 
 
 double
-MSLCM_LC2013::_patchSpeed(double min, const double wanted, const double max, const MSCFModel& cfModel) {
+MSLCM_LC2013::_patchSpeed(double min, const double wanted, double max, const MSCFModel& cfModel) {
     int state = myOwnState;
 #ifdef DEBUG_PATCH_SPEED
     if (DEBUG_COND) {
@@ -253,6 +253,7 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, const double max, con
         if (space > 0) { // XXX space > -MAGIC_offset
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
             double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
+            max = MIN2(max, safe);
             // if we are approaching this place
             if (safe < wanted) {
                 // return this speed as the speed to use

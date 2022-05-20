@@ -122,7 +122,7 @@ public:
 protected:
 
     /** helper function which contains the actual logic */
-    double _patchSpeed(double min, const double wanted, const double max,
+    double _patchSpeed(double min, const double wanted, double max,
                        const MSCFModel& cfModel);
 
     /// @brief helper function for doing the actual work
