@@ -418,6 +418,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw edge stopOffset
     drawLaneStopOffset(s);
+    // draw TAZ elements
+    drawTAZElements(s);
     // draw name if isn't being drawn for selecting
     drawEdgeName(s);
     // draw dotted contours
@@ -2279,6 +2281,56 @@ GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s) const {
     }
     // Push stopOffset matrix
     GLHelper::popMatrix();
+}
+
+
+void
+GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
+    // first check if draw TAZ Elements is enabled
+    if (myNet->getViewNet()->getNetworkViewOptions().showTAZElements()) {
+        std::vector<GNEAdditional*> TAZSourceSinks;
+        // get all TAZ source/sinks vinculated with this edge
+        for (const auto &additional : getChildAdditionals()) {
+            if ((additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) ||
+                (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK)) {
+                TAZSourceSinks.push_back(additional);
+            }
+        }
+        if (TAZSourceSinks.size() > 0) {
+            // push all GLIDs
+            for (const auto &TAZSourceSink : TAZSourceSinks) {
+                GLHelper::pushName(TAZSourceSink->getGlID());
+            }
+            // iterate over lanes
+            for (const auto &lane : myLanes) {
+                // get lane drawing constants
+                GNELane::LaneDrawingConstants laneDrawingConstants(s, lane);
+                // Push layer matrix
+                GLHelper::pushMatrix();
+                // translate to front (note: Special case)
+                if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                    glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
+                } else if (lane->getLaneShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
+                    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 0.5);
+                } else {
+                    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
+                }
+                // move to front
+                glTranslated(0, 0, 0.1);
+                // set color
+                GLHelper::setColor(RGBColor::CYAN);
+                // draw as box lines
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), 
+                    lane->getLaneGeometry(), laneDrawingConstants.halfWidth);
+                // Pop layer matrix
+                GLHelper::popMatrix();
+            }
+            // pop all GLIDs
+            for (const auto &TAZSourceSink : TAZSourceSinks) {
+                GLHelper::popName();
+            }
+        }
+    }
 }
 
 
