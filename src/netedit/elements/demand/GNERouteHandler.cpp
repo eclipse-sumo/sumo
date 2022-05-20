@@ -1749,6 +1749,9 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
     // restore ID of new person plan
     auto newPerson = net->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, "%dummyID%");
     newPerson->setAttribute(SUMO_ATTR_ID, ID, net->getViewNet()->getUndoList());
+    // enable attributes
+    newPerson->enableAttribute(SUMO_ATTR_END, net->getViewNet()->getUndoList());
+    newPerson->enableAttribute(SUMO_ATTR_PERSONSPERHOUR, net->getViewNet()->getUndoList());
     // finish undoList
     net->getViewNet()->getUndoList()->end();
 }
