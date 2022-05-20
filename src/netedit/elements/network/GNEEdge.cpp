@@ -939,8 +939,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 originalFirstParentJunction->updateGeometry();
                 getFromJunction()->updateGeometry();
                 getToJunction()->updateGeometry();
-                break;
             }
+            break;
         }
         case SUMO_ATTR_TO: {
             if (value != getAttribute(key)) {
@@ -960,8 +960,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 originalSecondParentJunction->updateGeometry();
                 getToJunction()->updateGeometry();
                 getFromJunction()->updateGeometry();
-                break;
             }
+            break;
         }
         case SUMO_ATTR_ID:
         case SUMO_ATTR_PRIORITY:
@@ -2326,7 +2326,7 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                 GLHelper::popMatrix();
             }
             // pop all GLIDs
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (int i = 0; i < (int)TAZSourceSinks.size(); i++) {
                 GLHelper::popName();
             }
         }
