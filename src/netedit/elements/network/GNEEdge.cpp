@@ -920,42 +920,46 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             break;
         }
         case SUMO_ATTR_FROM: {
-            undoList->begin(GUIIcon::EDGE, "change  " + getTagStr() + "  attribute");
-            // Remove edge from crossings of junction source
-            removeEdgeFromCrossings(getFromJunction(), undoList);
-            // continue changing from junction
-            GNEJunction* originalFirstParentJunction = getFromJunction();
-            getFromJunction()->setLogicValid(false, undoList);
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
-            getFromJunction()->setLogicValid(false, undoList);
-            myNet->getAttributeCarriers()->retrieveJunction(value)->setLogicValid(false, undoList);
-            setAttribute(GNE_ATTR_SHAPE_START, toString(getFromJunction()->getNBNode()->getPosition()), undoList);
-            getFromJunction()->invalidateShape();
-            undoList->end();
-            // update geometries of all implicated junctions
-            originalFirstParentJunction->updateGeometry();
-            getFromJunction()->updateGeometry();
-            getToJunction()->updateGeometry();
-            break;
+            if (value != getAttribute(key)) {
+                undoList->begin(GUIIcon::EDGE, "change  " + getTagStr() + "  attribute");
+                // Remove edge from crossings of junction source
+                removeEdgeFromCrossings(getFromJunction(), undoList);
+                // continue changing from junction
+                GNEJunction* originalFirstParentJunction = getFromJunction();
+                getFromJunction()->setLogicValid(false, undoList);
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                getFromJunction()->setLogicValid(false, undoList);
+                myNet->getAttributeCarriers()->retrieveJunction(value)->setLogicValid(false, undoList);
+                setAttribute(GNE_ATTR_SHAPE_START, toString(getFromJunction()->getNBNode()->getPosition()), undoList);
+                getFromJunction()->invalidateShape();
+                undoList->end();
+                // update geometries of all implicated junctions
+                originalFirstParentJunction->updateGeometry();
+                getFromJunction()->updateGeometry();
+                getToJunction()->updateGeometry();
+                break;
+            }
         }
         case SUMO_ATTR_TO: {
-            undoList->begin(GUIIcon::EDGE, "change  " + getTagStr() + "  attribute");
-            // Remove edge from crossings of junction destiny
-            removeEdgeFromCrossings(getToJunction(), undoList);
-            // continue changing destiny junction
-            GNEJunction* originalSecondParentJunction = getToJunction();
-            getToJunction()->setLogicValid(false, undoList);
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
-            getToJunction()->setLogicValid(false, undoList);
-            myNet->getAttributeCarriers()->retrieveJunction(value)->setLogicValid(false, undoList);
-            setAttribute(GNE_ATTR_SHAPE_END, toString(getToJunction()->getNBNode()->getPosition()), undoList);
-            getToJunction()->invalidateShape();
-            undoList->end();
-            // update geometries of all implicated junctions
-            originalSecondParentJunction->updateGeometry();
-            getToJunction()->updateGeometry();
-            getFromJunction()->updateGeometry();
-            break;
+            if (value != getAttribute(key)) {
+                undoList->begin(GUIIcon::EDGE, "change  " + getTagStr() + "  attribute");
+                // Remove edge from crossings of junction destiny
+                removeEdgeFromCrossings(getToJunction(), undoList);
+                // continue changing destiny junction
+                GNEJunction* originalSecondParentJunction = getToJunction();
+                getToJunction()->setLogicValid(false, undoList);
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                getToJunction()->setLogicValid(false, undoList);
+                myNet->getAttributeCarriers()->retrieveJunction(value)->setLogicValid(false, undoList);
+                setAttribute(GNE_ATTR_SHAPE_END, toString(getToJunction()->getNBNode()->getPosition()), undoList);
+                getToJunction()->invalidateShape();
+                undoList->end();
+                // update geometries of all implicated junctions
+                originalSecondParentJunction->updateGeometry();
+                getToJunction()->updateGeometry();
+                getFromJunction()->updateGeometry();
+                break;
+            }
         }
         case SUMO_ATTR_ID:
         case SUMO_ATTR_PRIORITY:
@@ -1010,7 +1014,9 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) == nullptr);
         case SUMO_ATTR_FROM: {
             // check that is a valid ID and is different of ID of junction destiny
-            if (SUMOXMLDefinitions::isValidNetID(value) && (value != getToJunction()->getID())) {
+            if (value == getFromJunction()->getID()) {
+                return true;
+            } else if (SUMOXMLDefinitions::isValidNetID(value) && (value != getToJunction()->getID())) {
                 GNEJunction* junctionFrom = myNet->getAttributeCarriers()->retrieveJunction(value, false);
                 // check that there isn't already another edge with the same From and To Edge
                 if ((junctionFrom != nullptr) && (myNet->getAttributeCarriers()->retrieveEdge(junctionFrom, getToJunction(), false) == nullptr)) {
@@ -1024,7 +1030,9 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_TO: {
             // check that is a valid ID and is different of ID of junction Source
-            if (SUMOXMLDefinitions::isValidNetID(value) && (value != getFromJunction()->getID())) {
+            if (value == getToJunction()->getID()) {
+                return true;
+            } else if (SUMOXMLDefinitions::isValidNetID(value) && (value != getFromJunction()->getID())) {
                 GNEJunction* junctionTo = myNet->getAttributeCarriers()->retrieveJunction(value, false);
                 // check that there isn't already another edge with the same From and To Edge
                 if ((junctionTo != nullptr) && (myNet->getAttributeCarriers()->retrieveEdge(getFromJunction(), junctionTo, false) == nullptr)) {
