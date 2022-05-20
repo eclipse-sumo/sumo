@@ -60,13 +60,19 @@ NGEdge::~NGEdge() {
 
 
 NBEdge*
-NGEdge::buildNBEdge(NBNetBuilder& nb, const std::string& type, const bool reversed) const {
+NGEdge::buildNBEdge(NBNetBuilder& nb, std::string type, const bool reversed) const {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.getBool("random-type") && nb.getTypeCont().size() > 1) {
+        auto it = nb.getTypeCont().begin();
+        std::advance(it, RandHelper::rand((int)nb.getTypeCont().size()));;
+        type = it->first;
+    }
     int priority = nb.getTypeCont().getEdgeTypePriority(type);
-    if (priority > 1 && OptionsCont::getOptions().getBool("rand.random-priority")) {
+    if (priority > 1 && oc.getBool("rand.random-priority")) {
         priority = RandHelper::rand(priority) + 1;
     }
     int lanenumber = nb.getTypeCont().getEdgeTypeNumLanes(type);
-    if (lanenumber > 1 && OptionsCont::getOptions().getBool("rand.random-lanenumber")) {
+    if (lanenumber > 1 && oc.getBool("rand.random-lanenumber")) {
         lanenumber = RandHelper::rand(lanenumber) + 1;
     }
 
