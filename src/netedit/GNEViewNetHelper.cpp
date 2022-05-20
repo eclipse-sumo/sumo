@@ -1923,6 +1923,7 @@ GNEViewNetHelper::NetworkViewOptions::NetworkViewOptions(GNEViewNet* viewNet) :
     menuCheckShowConnections(nullptr),
     menuCheckHideConnections(nullptr),
     menuCheckShowAdditionalSubElements(nullptr),
+    menuCheckShowTAZElements(nullptr),
     menuCheckExtendSelection(nullptr),
     menuCheckChangeAllPhases(nullptr),
     menuCheckWarnAboutMerge(nullptr),
@@ -1993,6 +1994,13 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
     menuCheckShowAdditionalSubElements->setChecked(false);
     menuCheckShowAdditionalSubElements->create();
 
+    menuCheckShowTAZElements = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+        ("\tshow TAZ elements\tToggle show TAZ elements."),
+        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SHOWTAZELEMENTS),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWTAZELEMENTS, GUIDesignMFXCheckableButtonSquare);
+    menuCheckShowTAZElements->setChecked(false);
+    menuCheckShowTAZElements->create();
+
     menuCheckExtendSelection = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\tAutomatic select junctions\tToggle whether selecting multiple edges should automatically select their junctions."),
             GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_AUTOSELECTJUNCTIONS),
@@ -2057,6 +2065,7 @@ GNEViewNetHelper::NetworkViewOptions::hideNetworkViewOptionsMenuChecks() {
     menuCheckShowConnections->hide();
     menuCheckHideConnections->hide();
     menuCheckShowAdditionalSubElements->hide();
+    menuCheckShowTAZElements->hide();
     menuCheckExtendSelection->hide();
     menuCheckChangeAllPhases->hide();
     menuCheckWarnAboutMerge->hide();
@@ -2095,6 +2104,9 @@ GNEViewNetHelper::NetworkViewOptions::getVisibleNetworkMenuCommands(std::vector<
     }
     if (menuCheckShowAdditionalSubElements->shown()) {
         commands.push_back(menuCheckShowAdditionalSubElements);
+    }
+    if (menuCheckShowTAZElements->shown()) {
+        commands.push_back(menuCheckShowTAZElements);
     }
     if (menuCheckExtendSelection->shown()) {
         commands.push_back(menuCheckExtendSelection);
@@ -2173,6 +2185,18 @@ GNEViewNetHelper::NetworkViewOptions::showSubAdditionals() const {
         return false;
     } else {
         return menuCheckShowAdditionalSubElements->amChecked();
+    }
+}
+
+
+bool
+GNEViewNetHelper::NetworkViewOptions::showTAZElements() const {
+    if (!myViewNet->myEditModes.isCurrentSupermodeNetwork()) {
+        return false;
+    } else if (menuCheckShowTAZElements->shown() == false) {
+        return false;
+    } else {
+        return menuCheckShowTAZElements->amChecked();
     }
 }
 

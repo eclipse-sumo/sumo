@@ -302,6 +302,9 @@ public:
     /// @brief toggle show additional sub-elements
     long onCmdToggleShowAdditionalSubElements(FXObject*, FXSelector, void*);
 
+    /// @brief toggle show TAZ elements
+    long onCmdToggleShowTAZElements(FXObject*, FXSelector, void*);
+
     /// @brief toggle extend selection
     long onCmdToggleExtendSelection(FXObject*, FXSelector, void*);
 
