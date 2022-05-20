@@ -1,0 +1,7 @@
+
+[Reported by Windows at 20Mai15:01:29]
+search_string:rail_cross
+search_file:net
+ignore_other_errors:1
+full_description:invalid rail crossing
+brief_description:see #10777
