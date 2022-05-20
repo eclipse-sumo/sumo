@@ -65,5 +65,8 @@ remove_edge
 # bidi-probability=0
 oneway
 
+# apply randomization options to grid
+randomize
+
 # Tests processing of errors in input
 errors
