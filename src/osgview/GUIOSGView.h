@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    GUIOSGView.h
 /// @author  Daniel Krajzewicz
+/// @author  Mirko Barthauer
 /// @date    19.01.2012
 ///
 // An OSG-based 3D view on the simulation
@@ -244,6 +245,17 @@ private:
         GUISUMOAbstractView* const myParent;
         FXCursor* const myOldCursor;
     };
+
+	class PickHandler : public osgGA::GUIEventHandler {
+	public:
+		PickHandler(GUISUMOAbstractView* parent) : myParent(parent) {};
+		bool handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
+		virtual void pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea);
+	protected:
+		~PickHandler() {};
+	private:
+		GUISUMOAbstractView* const myParent;
+	};
 
 protected:
     GUIOSGView() {}
