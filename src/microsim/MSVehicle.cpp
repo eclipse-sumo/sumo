@@ -5470,13 +5470,18 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     // we are examining the last lane explicitly
     if (myBestLanes.size() != 0) {
         double bestLength = -1;
+        // minimum and maximum lane index with best length
         int bestThisIndex = 0;
+        int bestThisMaxIndex = 0;
         int index = 0;
         std::vector<LaneQ>& last = myBestLanes.back();
         for (std::vector<LaneQ>::iterator j = last.begin(); j != last.end(); ++j, ++index) {
             if ((*j).length > bestLength) {
                 bestLength = (*j).length;
                 bestThisIndex = index;
+                bestThisMaxIndex = index;
+            } else if ((*j).length == bestLength) {
+                bestThisMaxIndex = index;
             }
         }
         index = 0;
@@ -5484,8 +5489,11 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         int requireChangeToLeftForbidden = -1;
         for (std::vector<LaneQ>::iterator j = last.begin(); j != last.end(); ++j, ++index) {
             if ((*j).length < bestLength) {
-                (*j).bestLaneOffset = bestThisIndex - index;
-
+                if (abs(bestThisIndex - index) < abs(bestThisMaxIndex - index)) {
+                    (*j).bestLaneOffset = bestThisIndex - index;
+                } else {
+                    (*j).bestLaneOffset = bestThisMaxIndex - index;
+                }
                 if ((*j).bestLaneOffset < 0 && (!(*j).lane->allowsChangingRight(getVClass())
                             || !(*j).lane->getParallelLane(-1, false)->allowsVehicleClass(getVClass())
                             || requiredChangeRightForbidden)) {
@@ -5502,16 +5510,16 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         for (int i = requireChangeToLeftForbidden; i >= 0; i--) {
             last[i].length -= last[i].currentLength;
         }
-    }
 #ifdef DEBUG_BESTLANES
-    if (DEBUG_COND) {
-        std::cout << "   last edge:\n";
-        std::vector<LaneQ>& laneQs = myBestLanes.back();
-        for (std::vector<LaneQ>::iterator j = laneQs.begin(); j != laneQs.end(); ++j) {
-            std::cout << "     lane=" << (*j).lane->getID() << " length=" << (*j).length << " bestOffset=" << (*j).bestLaneOffset << "\n";
+        if (DEBUG_COND) {
+            std::cout << "   last edge=" << last.front().lane->getEdge().getID() << " (bestIndex=" << bestThisIndex << " bestMaxIndex=" << bestThisMaxIndex << "):\n";
+            std::vector<LaneQ>& laneQs = myBestLanes.back();
+            for (std::vector<LaneQ>::iterator j = laneQs.begin(); j != laneQs.end(); ++j) {
+                std::cout << "     lane=" << (*j).lane->getID() << " length=" << (*j).length << " bestOffset=" << (*j).bestLaneOffset << "\n";
+            }
         }
-    }
 #endif
+    }
     // go backward through the lanes
     // track back best lane and compute the best prior lane(s)
     for (std::vector<std::vector<LaneQ> >::reverse_iterator i = myBestLanes.rbegin() + 1; i != myBestLanes.rend(); ++i) {
@@ -5531,6 +5539,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         }
         // compute index of the best lane (highest length and least offset from the best next lane)
         int bestThisIndex = 0;
+        int bestThisMaxIndex = 0;
         if (bestConnectedLength > 0) {
             index = 0;
             for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j, ++index) {
@@ -5559,6 +5568,11 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                             nextLinkPriority(clanes[bestThisIndex].bestContinuations) < nextLinkPriority((*j).bestContinuations))
                    ) {
                     bestThisIndex = index;
+                    bestThisMaxIndex = index;
+                } else if (clanes[bestThisIndex].length == (*j).length
+                        && abs(clanes[bestThisIndex].bestLaneOffset) == abs((*j).bestLaneOffset)
+                        && nextLinkPriority(clanes[bestThisIndex].bestContinuations) == nextLinkPriority((*j).bestContinuations)) {
+                    bestThisMaxIndex = index;
                 }
             }
 
@@ -5569,6 +5583,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     std::string overheadWireSegmentID = MSNet::getInstance()->getStoppingPlaceID((*j).lane, ((*j).currentLength) / 2, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
                     if (overheadWireSegmentID != "") {
                         bestThisIndex = index;
+                        bestThisMaxIndex = index;
                     }
                 }
             }
@@ -5586,6 +5601,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                             if (bestDistToNeeded > abs((*m).bestLaneOffset)) {
                                 bestDistToNeeded = abs((*m).bestLaneOffset);
                                 bestThisIndex = index;
+                                bestThisMaxIndex = index;
                                 bestNextIndex = nextIndex;
                             }
                         }
@@ -5605,7 +5621,11 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     || ((*j).length == clanes[bestThisIndex].length && abs((*j).bestLaneOffset) > abs(clanes[bestThisIndex].bestLaneOffset))
                     || (nextLinkPriority((*j).bestContinuations)) < nextLinkPriority(clanes[bestThisIndex].bestContinuations)
                ) {
-                (*j).bestLaneOffset = bestThisIndex - index;
+                if (abs(bestThisIndex - index) < abs(bestThisMaxIndex - index)) {
+                    (*j).bestLaneOffset = bestThisIndex - index;
+                } else {
+                    (*j).bestLaneOffset = bestThisMaxIndex - index;
+                }
                 if ((nextLinkPriority((*j).bestContinuations)) < nextLinkPriority(clanes[bestThisIndex].bestContinuations)) {
                     // try to move away from the lower-priority lane before it ends
                     (*j).length = (*j).currentLength;
@@ -5642,7 +5662,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
 
 #ifdef DEBUG_BESTLANES
         if (DEBUG_COND) {
-            std::cout << "   edge=" << cE.getID() << "\n";
+            std::cout << "   edge=" << cE.getID() << " (bestIndex=" << bestThisIndex << " bestMaxIndex=" << bestThisMaxIndex << "):\n";
             std::vector<LaneQ>& laneQs = clanes;
             for (std::vector<LaneQ>::iterator j = laneQs.begin(); j != laneQs.end(); ++j) {
                 std::cout << "     lane=" << (*j).lane->getID() << " length=" << (*j).length << " bestOffset=" << (*j).bestLaneOffset << "\n";
