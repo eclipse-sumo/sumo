@@ -894,6 +894,7 @@ GNETLSEditorFrame::onCmdEditParameters(FXObject*, FXSelector, void*) {
             WRITE_DEBUG("Close single parameters dialog");
             // set parameters in textfield
             myTLSAttributes->setParameters(myEditedDef->getParametersStr());
+            myTLSModifications->setHaveModifications(true);
         } else {
             // write debug information
             WRITE_DEBUG("Cancel single parameters dialog");
