@@ -1,0 +1,5 @@
+Warning: Vehicle 'f_0.74'; collision with vehicle 'f_0.82', lane='25290438_3', gap=-0.69, time=192.00 stage=move.
+Warning: Vehicle 'f_0.93'; collision with vehicle 'f_0.74', lane='25290438_3', gap=-3.36, time=193.00 stage=move.
+Warning: Vehicle 'f_0.95'; collision with vehicle 'f_0.97', lane='25290438_3', gap=-2.50, time=236.00 stage=move.
+Warning: Vehicle 'f_0.146'; collision with vehicle 'f_0.161', lane='25290438_3', gap=-0.94, time=381.00 stage=move.
+Warning: Vehicle 'f_0.149'; collision with vehicle 'f_0.146', lane='25290438_3', gap=-2.76, time=382.00 stage=move.
