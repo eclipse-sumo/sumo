@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-11 14:32:16 by Eclipse SUMO netgenerate Version v1_13_0+0150-c78e419
+<!-- generated on 2022-05-20 13:58:49 by Eclipse SUMO netgenerate Version v1_13_0+0343-c5a7072
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -50,8 +50,8 @@
         <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4" type="FLOAT" help="Probability for a node having exactly 4 neighbors"/>
         <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5" type="FLOAT" help="Probability for a node having exactly 5 neighbors"/>
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT" help="Probability for a node having exactly 6 neighbors"/>
-        <rand.random-lanenumber value="false" type="BOOL" help="Draw lane numbers randomly from [1,default.lanenumber]"/>
-        <rand.random-priority value="false" type="BOOL" help="Draw edge priority randomly from [1,default.priority]"/>
+        <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL" help="Draw lane numbers randomly from [1,default.lanenumber]"/>
+        <random-priority value="false" synonymes="rand.random-priority" type="BOOL" help="Draw edge priority randomly from [1,default.priority]"/>
         <rand.grid value="false" type="BOOL" help="Place nodes on a regular grid with spacing rand.min-distance"/>
     </random_network>
 

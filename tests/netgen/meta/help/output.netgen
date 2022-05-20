@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_13_0+0150-c78e419
+Eclipse SUMO netgenerate Version v1_13_0+0343-c5a7072
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -75,9 +75,9 @@ Random Network Options:
                                         neighbors
   --rand.neighbor-dist6 FLOAT          Probability for a node having exactly 6
                                         neighbors
-  --rand.random-lanenumber             Draw lane numbers randomly from
+  --random-lanenumber                  Draw lane numbers randomly from
                                         [1,default.lanenumber]
-  --rand.random-priority               Draw edge priority randomly from
+  --random-priority                    Draw edge priority randomly from
                                         [1,default.priority]
   --rand.grid                          Place nodes on a regular grid with
                                         spacing rand.min-distance
