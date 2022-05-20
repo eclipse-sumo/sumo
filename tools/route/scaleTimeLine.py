@@ -17,26 +17,23 @@
 # @date    2022-04-19
 
 """
-- write a new route file with fewer or more vehicles/flows depending on 
+- write a new route file with fewer or more vehicles/flows depending on
   the given percentages and the sorted route/trip file(s)
 
 - if more than one route file are given, all outputs will be stored in
   one output file. It may need to sort this file by departure time.
 """
-from __future__ import absolute_import
 from __future__ import print_function
+from __future__ import absolute_import
 import os
 import sys
-from collections import defaultdict
+import copy
+import random
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from sumolib.output import parse, parse_fast  # noqa
-from sumolib.options import ArgumentParser  # noqa
+from sumolib.miscutils import parseTime, getFlowNumber  # noqa
 import sumolib  # noqa
-from sumolib.miscutils import parseTime, getFlowNumber
-from datetime import datetime
-import random
-import copy
+
 
 class SimObject:
     def __init__(self, obj_id, depart, objfrom, objto, edges, vtype):
@@ -51,36 +48,37 @@ class SimObject:
 
 
 def get_options(args=None):
-    optParser = ArgumentParser()
+    optParser = sumolib.options.ArgumentParser()
     optParser.add_option("-r", "--route-files", dest="routefiles",
                          help="define the route file seperated by comma (mandatory)")
     optParser.add_option("-o", "--output-file", dest="outfile",
                          help="define the output filename")
     optParser.add_option("--timeline-list", dest="timelinelist", type=str,
-                         default = "3600,200,200,200,200,200,200,200,200,200,200,200,200",
-                         help="Define the interval duration and then the scacled percentage for each interval; e.g. 200% of the current demand")
+                         default="3600,200,200,200,200,200,200,200,200,200,200,200,200",
+                         help="Define the interval duration and then the scaled percentage for each interval; "
+                              "e.g. 200% of the current demand")
     optParser.add_option("--timeline-pair", dest="timelinepair", type=str,
-                         default = "7200,200;7200,200;7200,200;7200,200;7200,200;7200,200",
+                         default="7200,200;7200,200;7200,200;7200,200;7200,200;7200,200",
                          help="Define the timeline pairs (duration, scacled percentage)")
     optParser.add_option("--random", action="store_true", dest="random",
-                        default=False, help="use a random seed to initialize the random number generator")
+                         default=False, help="use a random seed to initialize the random number generator")
     optParser.add_option("-s", "--seed", type=int, dest="seed", default=42, help="random seed")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
 
-    (options, args) = optParser.parse_known_args(args=args)
+    options, args = optParser.parse_known_args(args=args)
 
     if options.timelinelist:
         duration = float(options.timelinelist.split(",")[0])
         options.timelinelist = [[duration, float(i)] for i in options.timelinelist.split(",")[1:]]
 
     elif options.timelinepair:
-        timelinelist = [x.split(',') for x in timelinepair.split(';')]
+        timelinelist = [x.split(',') for x in options.timelinepair.split(';')]
         options.timelinelist = []
         for data in timelinelist:
             options.timelinelist.append([float(x) for x in data])
-        #options.timelinelist = list(map(float, templist))
-        
+        # options.timelinelist = list(map(float, templist))
+
     if not options.routefiles:
         optParser.print_help()
         sys.exit("--route-files missing")
@@ -102,18 +100,17 @@ def getScaledObjList(periodMap, periodList, currIndex, candidatsList, idMap):
         totalList = candidatsList + selectedList
     else:
         idList = [i.id for i in selectedList]
-        totalList = [i for i in candidatsList if not i.id in idList]
+        totalList = [i for i in candidatsList if i.id not in idList]
 
     totalList = sorted(totalList, key=lambda simobject: simobject.depart)
-    
+
     return totalList, idMap
 
 
 def changeIDs(selectedList, idMap):
-    temp = []
     selectedList = sorted(selectedList, key=lambda simobject: simobject.id)
-    for i, obj in enumerate(selectedList):
-        #get last cloneId
+    for obj in selectedList:
+        # get last cloneId
         if idMap[obj.id]:
             cloneIdx = idMap[obj.id] + 1
         else:
@@ -131,9 +128,10 @@ def getScale(depart, periodList, periodMap):
             scale = periodMap[p]/100.
         elif depart < p and depart >= periodList[i-1]:
             scale = periodMap[p]/100.
-            
+
     return scale
-   
+
+
 def writeObjs(totalList, outf):
     for elem in totalList:
         outf.write(elem.toXML(' '*4))
@@ -155,12 +153,11 @@ def scaleRoutes(options, outf):
     for routefile in options.routefiles:
         for elem in sumolib.xml.parse(routefile, ['vehicle', 'trip', 'flow', 'person', 'personFlow', 'vType']):
             idMap[elem.id] = None
-    
-    # scale the number of objs for each pre-defined interval        
+
+    # scale the number of objs for each pre-defined interval
     for routefile in options.routefiles:
         currIndex = 0
         candidatsList = []
-        selectedList = []
         for elem in sumolib.xml.parse(routefile, ['vehicle', 'trip', 'flow', 'person', 'personFlow', 'vType']):
             if elem.name == 'vType':
                 outf.write(elem.toXML(' '*4))
@@ -179,7 +176,7 @@ def scaleRoutes(options, outf):
                     sys.stderr.write("Unsorted departure %s for %s '%s'" % (
                         depart, elem.tag, elem.id))
                     lastDepart = depart
-                if (depart < periodList[currIndex] and currIndex == 0) or (depart < periodList[currIndex] and depart >= periodList[currIndex -1]):
+                if depart < periodList[currIndex] and (currIndex == 0 or depart >= periodList[currIndex - 1]):
                     candidatsList.append(elem)
                 else:
                     if currIndex < len(periodList):
@@ -188,9 +185,8 @@ def scaleRoutes(options, outf):
                             writeObjs(totalList, outf)
                             currIndex += 1
                             candidatsList = []
-                            selectedList = []
                             # check the current or the first object in the next period
-                            if depart < periodList[currIndex] and depart >= periodList[currIndex -1]:
+                            if depart < periodList[currIndex] and depart >= periodList[currIndex - 1]:
                                 candidatsList.append(elem)
                     else:
                         outf.write(elem.toXML(' '*4))
@@ -210,5 +206,4 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
-    main(options)
+    main(get_options(sys.argv))
