@@ -54,12 +54,6 @@ HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleCl
     if (eClass.size() < 6) {
         throw InvalidArgument("Unknown emission class '" + eClass + "'.");
     }
-    int index = myIndex++;
-    const std::string type = eClass.substr(0, 3);
-    if (type == "HDV" || type == "LB_" || type == "RB_" || type == "LSZ" || eClass.find("LKW") != std::string::npos) {
-        index |= PollutantsInterface::HEAVY_BIT;
-    }
-    myEmissionClassStrings.insert(eClass, index);
     std::vector<std::string> phemPath;
     phemPath.push_back(OptionsCont::getOptions().getString("phemlight-path") + "/");
     if (getenv("PHEMLIGHT_PATH") != nullptr) {
@@ -72,11 +66,15 @@ HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleCl
     myHelper.setPHEMDataV("V5");
     myHelper.setclass(eClass);
     if (!myCEPHandler.GetCEP(phemPath, &myHelper, nullptr)) {
-        myEmissionClassStrings.remove(eClass, index);
-        myIndex--;
-        throw InvalidArgument("File for PHEM emission class " + eClass + " not found.\n" + myHelper.getErrMsg());
+        throw InvalidArgument("File for PHEMlight5 emission class " + eClass + " not found.\n" + myHelper.getErrMsg());
     }
-    myCEPs[index] = myCEPHandler.getCEPS().find(myHelper.getgClass())->second;
+    PHEMlightdllV5::CEP* const currCep = myCEPHandler.getCEPS().find(myHelper.getgClass())->second;
+    int index = myIndex++;
+    if (currCep->getHeavyVehicle()) {
+        index |= PollutantsInterface::HEAVY_BIT;
+    }
+    myEmissionClassStrings.insert(eClass, index);
+    myCEPs[index] = currCep;
     myEmissionClassStrings.addAlias(StringUtils::to_lower_case(eClass), index);
     return index;
 }
