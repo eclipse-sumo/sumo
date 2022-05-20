@@ -66,7 +66,7 @@ HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleCl
         phemPath.push_back(std::string(getenv("PHEMLIGHT_PATH")) + "/");
     }
     if (getenv("SUMO_HOME") != nullptr) {
-        phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight/V5/");
+        phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight5/");
     }
     myHelper.setCommentPrefix("c");
     myHelper.setPHEMDataV("V5");
