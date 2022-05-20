@@ -100,6 +100,12 @@ HelpersPHEMlight5::getModifiedAccel(const SUMOEmissionClass c, const double v, c
 
 
 double
+HelpersPHEMlight5::getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const {
+    return myCEPs.find(c)->second->GetDecelCoast(v, a, slope);
+}
+
+
+double
 HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const {
     if (param != nullptr && param->isEngineOff()) {
         return 0.;

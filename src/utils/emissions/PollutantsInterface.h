@@ -199,6 +199,17 @@ public:
          */
         virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const;
 
+        /** @brief Returns the maximum deceleration value (as a negative number), which can still be considered as non-braking.
+         * Default implementation returns always zero.
+         * @param[in] c the emission class
+         * @param[in] v the speed value
+         * @param[in] a the acceleration value
+         * @param[in] slope The road's slope at vehicle's position [deg]
+         * @param[in] param parameter of the emission model affecting the computation
+         * @return the coasting deceleration
+         */
+        virtual double getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const;
+
         /** @brief Add all known emission classes of this model to the given container
          * @param[in] list the vector to add to
          */
