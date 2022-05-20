@@ -887,6 +887,8 @@ long
 GNETLSEditorFrame::onCmdEditParameters(FXObject*, FXSelector, void*) {
     // continue depending of myEditedDef
     if (myEditedDef) {
+        // get previous parameters
+        const auto previousParameters = myTLSAttributes->getParameters();
         // write debug information
         WRITE_DEBUG("Open single parameters dialog");
         if (GNESingleParametersDialog(myViewNet->getApp(), myEditedDef).execute()) {
@@ -894,7 +896,10 @@ GNETLSEditorFrame::onCmdEditParameters(FXObject*, FXSelector, void*) {
             WRITE_DEBUG("Close single parameters dialog");
             // set parameters in textfield
             myTLSAttributes->setParameters(myEditedDef->getParametersStr());
-            myTLSModifications->setHaveModifications(true);
+            // only mark as modified if parameters are different
+            if (myTLSAttributes->getParameters() != previousParameters) {
+                myTLSModifications->setHaveModifications(true);
+            }
         } else {
             // write debug information
             WRITE_DEBUG("Cancel single parameters dialog");
