@@ -238,8 +238,12 @@ GNEAttributesCreatorRow::refreshRow() {
                 myValueComboBox->appendItem(item.c_str());
             }
             myValueComboBox->setNumVisible(myValueComboBox->getNumItems());
-            myValueComboBox->setTextColor(FXRGB(0, 0, 0));
             myValueComboBox->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
+            if (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueComboBox->getText().text())) {
+                myValueComboBox->setTextColor(FXRGB(128, 128, 128));
+            } else {
+                myValueComboBox->setTextColor(FXRGB(0, 0, 0));
+            }
             myValueComboBox->show();
             // check if enable or disable
             if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
@@ -250,6 +254,11 @@ GNEAttributesCreatorRow::refreshRow() {
         } else {
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
             myValueTextField->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
+            if (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueTextField->getText().text())) {
+                myValueTextField->setTextColor(FXRGB(128, 128, 128));
+            } else {
+                myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            }
             myValueTextField->show();
             // check if enable or disable
             if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
@@ -328,16 +337,24 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), "false");
         }
     } else if (obj == myValueComboBox) {
+        // check if use default value
+        const bool useDefaultValue = (myValueComboBox->getText().empty() && myAttrProperties.hasDefaultValue());
         // change color of text field depending of myCurrentValueValid
-        if (myAttributesCreatorParent->getCurrentTemplateAC()->isValid(myAttrProperties.getAttr(), myValueComboBox->getText().text())) {
+        if (myAttributesCreatorParent->getCurrentTemplateAC()->isValid(myAttrProperties.getAttr(), myValueComboBox->getText().text()) || useDefaultValue) {
             // check color depending if is a default value
-            if (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueComboBox->getText().text())) {
+            if (useDefaultValue || (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueComboBox->getText().text()))) {
                 myValueComboBox->setTextColor(FXRGB(128, 128, 128));
             } else {
                 myValueComboBox->setTextColor(FXRGB(0, 0, 0));
-                myValueComboBox->killFocus();
             }
-            myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueComboBox->getText().text());
+            // check if use default value
+            if (useDefaultValue) {
+                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myAttrProperties.getDefaultValue());
+                // refresh entire GNEAttributesCreator
+                myAttributesCreatorParent->refreshAttributesCreator();
+            } else {
+                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueComboBox->getText().text());
+            }
             // special case for trigger stops (in the future will be changed)
             if (myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().isStop() && (myAttrProperties.getAttr() == SUMO_ATTR_TRIGGERED)) {
                 // refresh entire GNEAttributesCreator
@@ -346,21 +363,31 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
         } else {
             // if value of TextField isn't valid, change their color to Red
             myValueComboBox->setTextColor(FXRGB(255, 0, 0));
+            myValueComboBox->killFocus();
         }
     } else if (obj == myValueTextField) {
+        // check if use default value
+        const bool useDefaultValue = (myValueTextField->getText().empty() && myAttrProperties.hasDefaultValue());
         // change color of text field depending of myCurrentValueValid
-        if (myAttributesCreatorParent->getCurrentTemplateAC()->isValid(myAttrProperties.getAttr(), myValueTextField->getText().text())) {
+        if (myAttributesCreatorParent->getCurrentTemplateAC()->isValid(myAttrProperties.getAttr(), myValueTextField->getText().text()) || useDefaultValue) {
             // check color depending if is a default value
-            if (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueTextField->getText().text())) {
+            if (useDefaultValue || (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueTextField->getText().text()))) {
                 myValueTextField->setTextColor(FXRGB(128, 128, 128));
             } else {
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
             }
-            myValueTextField->killFocus();
-            myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueTextField->getText().text());
+            // check if use default value
+            if (useDefaultValue) {
+                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myAttrProperties.getDefaultValue());
+                // refresh entire GNEAttributesCreator
+                myAttributesCreatorParent->refreshAttributesCreator();
+            } else {
+                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueTextField->getText().text());
+            }
         } else {
             // if value of TextField isn't valid, change their color to Red
             myValueTextField->setTextColor(FXRGB(255, 0, 0));
+            myValueComboBox->killFocus();
         }
     }
     // Update row
