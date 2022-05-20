@@ -68,5 +68,8 @@ oneway
 # apply randomization options to grid
 randomize
 
+# pick random type from among 3 loaded types
+randomize_type
+
 # Tests processing of errors in input
 errors
