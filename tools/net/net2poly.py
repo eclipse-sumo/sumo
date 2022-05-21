@@ -32,7 +32,8 @@ import sumolib  # noqa
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " -n <net> <options>"
     argParser = sumolib.options.ArgumentParser(usage=USAGE)
-    argParser.add_argument("-n", "--net-file", dest="netFile", help="The .net.xml file to convert")
+    argParser.add_argument("-n", "--net-file", dest="netFile", required=True,
+                           help="The .net.xml file to convert")
     argParser.add_argument("-o", "--output-file", dest="outFile", help="The polygon output file name")
     argParser.add_argument("-l", "--lanes", action="store_true", default=False,
                            help="Export lane geometries instead of edge geometries")
@@ -41,18 +42,12 @@ def parse_args():
     argParser.add_argument("--layer", default="10", help="Layer for normal edges")
     argParser.add_argument("--color", default="red", help="Color for normal edges")
     argParser.add_argument("--internal-color", dest="iColor", default="orange", help="Color for internal edges")
-
-    options = argParser.parse_args()
-    if not options.netFile:
-        print("Missing arguments")
-        argParser.print_help()
-        exit()
-    return options
+    return argParser.parse_args()
 
 
-def getGeometries(options, net):
-    for edge in net.getEdges():
-        if options.lanes:
+def getGeometries(edges, useLanes):
+    for edge in edges:
+        if useLanes:
             for lane in edge.getLanes():
                 yield lane.getID(), lane.getShape(), lane.getWidth()
         else:
@@ -66,7 +61,7 @@ if __name__ == "__main__":
 
     with open(options.outFile, 'w') as outf:
         sumolib.xml.writeHeader(outf, root="additional")
-        for id, geometry, width in getGeometries(options, net):
+        for id, geometry, width in getGeometries(net.getEdges(), options.lanes):
             color = options.iColor if id[0] == ":" else options.color
             shape = ["%s,%s" % net.convertXY2LonLat(x, y) for x, y in geometry]
             outf.write('    <poly id="%s" color="%s" layer="%s" lineWidth="%s" shape="%s" geo="1"/>\n' %
