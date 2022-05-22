@@ -905,5 +905,5 @@
         <legend showSizeLegend="1" showColorLegend="0" showVehicleColorLegend="0"/>
     </scheme>
     <viewport zoom="660.00" x="351.35" y="338.17" angle="0.00"/>
-    <delay value="50.00"/>
+    <delay value="1000.00"/>
 </viewsettings>
