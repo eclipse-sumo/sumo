@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_13_0+0362-d564dd0
+Eclipse SUMO netgenerate Version v1_13_0+0392-8630667
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -154,6 +154,9 @@ Processing Options:
   --reserved-ids FILE                  Ensures that generated ids do not
                                         included any of the typed IDs from FILE
                                         (sumo-gui selection file format)
+  --geometry.split                     Splits edges across geometry nodes
+  --geometry.max-segment-length FLOAT  splits geometry to restrict segment
+                                        length
   --geometry.max-grade FLOAT           Warn about edge geometries with a grade
                                         in % above FLOAT.
   --geometry.max-grade.fix             Smooth edge edge geometries with a grade
@@ -331,6 +334,8 @@ Junctions Options:
                                         other (recommended for OSM import)
   --junctions.join-dist FLOAT          Determines the maximal distance for
                                         joining junctions (defaults to 10)
+  --junctions.join-same                Joins junctions that have the same
+                                        coordinates even if not connected
   --junctions.corner-detail INT        Generate INT intermediate points to
                                         smooth out intersection corners
   --junctions.internal-link-detail INT  Generate INT intermediate points to
