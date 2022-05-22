@@ -143,11 +143,11 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("no-left-connections", new Option_Bool(false));
     oc.addDescription("no-left-connections", "Junctions", "Disables building connections to left");
 
-    if (!forNetgen) {
-        oc.doRegister("geometry.split", new Option_Bool(false)); // !!!not described
-        oc.addSynonyme("geometry.split", "split-geometry", true);
-        oc.addDescription("geometry.split", "Processing", "Splits edges across geometry nodes");
+    oc.doRegister("geometry.split", new Option_Bool(false)); // !!!not described
+    oc.addSynonyme("geometry.split", "split-geometry", true);
+    oc.addDescription("geometry.split", "Processing", "Splits edges across geometry nodes");
 
+    if (!forNetgen) {
         oc.doRegister("geometry.remove", 'R', new Option_Bool(false));
         oc.addSynonyme("geometry.remove", "remove-geometry", true);
         oc.addDescription("geometry.remove", "Processing", "Replace nodes which only define edge geometry by geometry points (joins edges)");
@@ -170,9 +170,11 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("geometry.remove.width-tolerance", "Processing",
                           "Allow merging edges with differing lane widths if the difference is below FLOAT");
 
-        oc.doRegister("geometry.max-segment-length", new Option_Float(0));
-        oc.addDescription("geometry.max-segment-length", "Processing", "splits geometry to restrict segment length");
+    }
+    oc.doRegister("geometry.max-segment-length", new Option_Float(0));
+    oc.addDescription("geometry.max-segment-length", "Processing", "splits geometry to restrict segment length");
 
+    if (!forNetgen) {
         oc.doRegister("geometry.min-dist", new Option_Float(-1));
         oc.addDescription("geometry.min-dist", "Processing", "reduces too similar geometry points");
 
@@ -306,11 +308,13 @@ NBFrame::fillOptions(bool forNetgen) {
     if (!forNetgen) {
         oc.doRegister("junctions.join-exclude", new Option_StringVector());
         oc.addDescription("junctions.join-exclude", "Junctions", "Interprets STR[] as list of junctions to exclude from joining");
+    }
 
-        oc.doRegister("junctions.join-same", new Option_Bool(false));
-        oc.addDescription("junctions.join-same", "Junctions",
-                          "Joins junctions that have the same coordinates even if not connected");
+    oc.doRegister("junctions.join-same", new Option_Bool(false));
+    oc.addDescription("junctions.join-same", "Junctions",
+            "Joins junctions that have the same coordinates even if not connected");
 
+    if (!forNetgen) {
         oc.doRegister("speed.offset", new Option_Float(0));
         oc.addDescription("speed.offset", "Processing", "Modifies all edge speeds by adding FLOAT");
 

@@ -81,12 +81,21 @@ NGEdge::buildNBEdge(NBNetBuilder& nb, std::string type, const bool reversed) con
     if (isRailway(permissions) &&  nb.getTypeCont().getEdgeTypeIsOneWay(type)) {
         lsf = LaneSpreadFunction::CENTER;
     }
+    const double maxSegmentLength = oc.getFloat("geometry.max-segment-length");
+    NBNode* from = nb.getNodeCont().retrieve(reversed ? myEndNode->getID() : myStartNode->getID());
+    NBNode* to = nb.getNodeCont().retrieve(reversed ? myStartNode->getID() : myEndNode->getID());
+    PositionVector shape;
+    if (maxSegmentLength > 0) {
+        shape.push_back(from->getPosition());
+        shape.push_back(to->getPosition());
+        // shape is already cartesian but we must use a copy because the original will be modified
+        NBNetBuilder::addGeometrySegments(shape, PositionVector(shape), maxSegmentLength);
+    }
     NBEdge* result = new NBEdge(
         reversed ? myReverseID : myID,
-        nb.getNodeCont().retrieve(reversed ? myEndNode->getID() : myStartNode->getID()), // from
-        nb.getNodeCont().retrieve(reversed ? myStartNode->getID() : myEndNode->getID()), // to
+        from, to,
         type, nb.getTypeCont().getEdgeTypeSpeed(type), lanenumber,
-        priority, nb.getTypeCont().getEdgeTypeWidth(type), NBEdge::UNSPECIFIED_OFFSET, lsf);
+        priority, nb.getTypeCont().getEdgeTypeWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape, lsf);
     result->setPermissions(permissions);
     return result;
 }
