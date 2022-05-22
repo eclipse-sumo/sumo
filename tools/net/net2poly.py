@@ -63,7 +63,7 @@ if __name__ == "__main__":
         sumolib.xml.writeHeader(outf, root="additional")
         for id, geometry, width in getGeometries(net.getEdges(), options.lanes):
             color = options.iColor if id[0] == ":" else options.color
-            shape = ["%s,%s" % net.convertXY2LonLat(x, y) for x, y in geometry]
+            shape = ["%.6f,%.6f" % net.convertXY2LonLat(x, y) for x, y in geometry]
             outf.write('    <poly id="%s" color="%s" layer="%s" lineWidth="%s" shape="%s" geo="1"/>\n' %
                        (id, color, options.layer, width, " ".join(shape)))
         outf.write('</additional>\n')
