@@ -2297,9 +2297,25 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
             }
         }
         if (TAZSourceSinks.size() > 0) {
+            // check if current front element is a Source/sink
+            const auto frontAC = myNet->getViewNet()->getFrontAttributeCarrier();
             // push all GLIDs
             for (const auto &TAZSourceSink : TAZSourceSinks) {
-                GLHelper::pushName(TAZSourceSink->getGlID());
+                if (TAZSourceSink == frontAC) {
+                    GLHelper::pushName(TAZSourceSink->getGUIGlObject()->getGlID());
+                }
+            }
+            for (const auto &TAZSourceSink : TAZSourceSinks) {
+                if (TAZSourceSink != frontAC) {
+                    GLHelper::pushName(TAZSourceSink->getGlID());
+                }
+            }
+            // check if TAZ Source/sink is selected
+            bool selected = false;
+            for (const auto &TAZSourceSink : TAZSourceSinks) {
+                if (TAZSourceSink->isAttributeCarrierSelected()) {
+                    selected = true;
+                }
             }
             // iterate over lanes
             for (const auto &lane : myLanes) {
@@ -2318,7 +2334,11 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                 // move to front
                 glTranslated(0, 0, 0.1);
                 // set color
-                GLHelper::setColor(RGBColor::CYAN);
+                if (selected) {
+                    GLHelper::setColor(RGBColor::BLUE);
+                } else {
+                    GLHelper::setColor(RGBColor::CYAN);
+                }
                 // draw as box lines
                 GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), 
                     lane->getLaneGeometry(), laneDrawingConstants.halfWidth);
@@ -2326,8 +2346,23 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                 GLHelper::popMatrix();
             }
             // pop all GLIDs
-            for (int i = 0; i < (int)TAZSourceSinks.size(); i++) {
-                GLHelper::popName();
+            for (const auto &TAZSourceSink : TAZSourceSinks) {
+                if (TAZSourceSink == frontAC) {
+                    GLHelper::popName();
+                }
+            }
+            for (const auto &TAZSourceSink : TAZSourceSinks) {
+                if (TAZSourceSink != frontAC) {
+                    GLHelper::popName();
+                }
+            }
+            // check if curently we're inspecting a TAZ Source/Sink
+            for (const auto &TAZSourceSink : TAZSourceSinks) {
+                if (myNet->getViewNet()->isAttributeCarrierInspected(TAZSourceSink)) {
+                    drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, this, true, true);
+                } else if (TAZSourceSink == frontAC) {
+                    drawDottedContourEdge(GUIDottedGeometry::DottedContourType::FRONT, s, this, true, true);
+                }
             }
         }
     }
