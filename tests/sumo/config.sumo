@@ -20,6 +20,7 @@ copy_test_path:input_districts.taz.xml
 copy_test_path:busnet.net.xml
 copy_test_path:sumo.sumocfg
 copy_test_path:settings.xml
+copy_test_path:settings2.xml
 copy_test_path:input_state.xml
 copy_test_path:input_meso_state.xml
 copy_test_path:lookuptable
