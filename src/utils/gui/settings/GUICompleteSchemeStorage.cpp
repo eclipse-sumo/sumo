@@ -228,6 +228,13 @@ GUICompleteSchemeStorage::saveViewport(const double x, const double y, const dou
     myRotation = rot;
 }
 
+void
+GUICompleteSchemeStorage::saveDecals(const std::vector<GUISUMOAbstractView::Decal>& decals) {
+    myDecals = decals;
+    for (auto& d : myDecals) {
+        d.initialised = false;
+    }
+}
 
 void
 GUICompleteSchemeStorage::setViewport(GUISUMOAbstractView* view) {

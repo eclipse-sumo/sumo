@@ -145,12 +145,14 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     myVisualizationSettings = &gSchemeStorage.getDefault();
     myVisualizationSettings->gaming = myApp->isGaming();
     gSchemeStorage.setViewport(this);
+    myDecals = gSchemeStorage.getDecals();
 }
 
 
 GUISUMOAbstractView::~GUISUMOAbstractView() {
     gSchemeStorage.setDefault(myVisualizationSettings->name);
     gSchemeStorage.saveViewport(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos(), myChanger->getRotation());
+    gSchemeStorage.saveDecals(myDecals);
     delete myPopup;
     delete myChanger;
     delete myViewportChooser;
