@@ -218,9 +218,10 @@ according to the above suggestions.
 - if you put your question into an issue an the issue was closed, put your follow-up questions into the closed issue rather than open an new issue
 - Be polite
 - Good Example questions:
-  - How can I get data X out of SUMO?
-  - How can I influence aspect Y of a simulation?
-  - My simulation does Z though I do not expect it to. How do I fix that?
+  - How can I get data *X* out of SUMO?
+  - How can I influence aspect *Y* of a simulation?
+  - My simulation aborted with error "<ERROR MESSAGE GOES HERE>". What does that mean?
+  - My simulation does *Z* though I expected it to do *X*. How do I fix that?
 
 ### I asked a question on the mailing list and did not get an answer within X days. Why?
 
