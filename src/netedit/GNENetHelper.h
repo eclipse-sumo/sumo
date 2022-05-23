@@ -358,6 +358,12 @@ struct GNENetHelper {
         /// @brief get number of selected TAZs
         int getNumberOfSelectedTAZs() const;
 
+        /// @brief get number of selected TAZSources
+        int getNumberOfSelectedTAZSources() const;
+
+        /// @brief get number of selected TAZSinks
+        int getNumberOfSelectedTAZSinks() const;
+
         /// @}
 
         /// @name function for demand elements
