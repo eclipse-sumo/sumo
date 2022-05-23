@@ -1638,7 +1638,8 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                     mTime = MAX2(mTime, SysUtils::getModifiedTime(fname));
                 }
             }
-            if (ec->mySettingsFiles.size() > 0 && (!myIsReload || myGuiSettingsFileMTime < mTime)) {
+            // always reload if settings were modified or to restore multiple views
+            if (ec->mySettingsFiles.size() > 0 && (!myIsReload || myGuiSettingsFileMTime < mTime || ec->mySettingsFiles.size() > 1)) {
                 // open a view for each file and apply settings
                 for (std::string fname : ec->mySettingsFiles) {
                     GUISettingsHandler settings(fname);
