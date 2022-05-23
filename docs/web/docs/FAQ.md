@@ -220,7 +220,7 @@ according to the above suggestions.
 - Good Example questions:
   - How can I get data *X* out of SUMO?
   - How can I influence aspect *Y* of a simulation?
-  - My simulation aborted with error "<ERROR MESSAGE GOES HERE>". What does that mean?
+  - My simulation aborted with error "`<ERROR MESSAGE GOES HERE>`". What does that mean?
   - My simulation does *Z* though I expected it to do *X*. How do I fix that?
 
 ### I asked a question on the mailing list and did not get an answer within X days. Why?
