@@ -37,8 +37,8 @@
 
 FXDEFMAP(GNEUndoListDialog) GNEUndoListDialogMap[] = {
     FXMAPFUNC(SEL_CLOSE,    0,                      GNEUndoListDialog::onCmdClose),
+    FXMAPFUNC(SEL_UPDATE,   0,                      GNEUndoListDialog::onCmdUpdate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEUndoListDialog::onCmdClose),
-    FXMAPFUNC(SEL_COMMAND,  FXComposite::ID_UPDATE, GNEUndoListDialog::onCmdUpdate),
 };
 
 // Object implementation
@@ -95,15 +95,20 @@ GNEUndoListDialog::setFocus() {
 
 long
 GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
-    // just close dialog
+    // reset selected elements
+    myTreeListDinamic->resetSelectedItem();
+    // close dialog
     hide();
     return 1;
 }
 
-
 long 
 GNEUndoListDialog::onCmdUpdate(FXObject* obj, FXSelector sel, void* ptr) {
-    return FXTopWindow::onCmdUpdate(obj, sel, ptr);
+    // first check if shown
+    if (shown()) {
+        
+    }
+    return 0;
 }
 
 
