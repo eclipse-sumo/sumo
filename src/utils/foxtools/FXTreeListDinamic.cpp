@@ -49,14 +49,78 @@ FXTreeListDinamic::show() {
 }
 
 
+void
+FXTreeListDinamic::hide() {
+    // hide
+    FXTreeList::hide();
+}
+
+
+void 
+FXTreeListDinamic::clearItems() {
+    myFXTreeItems.clear();
+    return FXTreeList::clearItems();
+}
+
+
+FXint 
+FXTreeListDinamic::getNumItems() {
+    return FXTreeList::getNumItems();
+}
+
+
+FXint 
+FXTreeListDinamic::getSelectedIndex() {
+    return mySelectedItem;
+}
+
+
+FXTreeItem* 
+FXTreeListDinamic::insertItem(FXTreeItem* father, const FXString& text, FXIcon* oi) {
+    return FXTreeList::insertItem(nullptr, father, text, oi, oi, nullptr, false);
+}
+
+
+FXWindow* 
+FXTreeListDinamic::getFXWindow() {
+    return this;
+}
+
+
+FXTreeItem* 
+FXTreeListDinamic::getItemAt(FXint x,FXint y) const {
+    return FXTreeList::getItemAt(x, y);
+}
+
+
+FXTreeItem* 
+FXTreeListDinamic::getItem(FXint index) const {
+    return myFXTreeItems.at(index);
+}
+
+
+void
+FXTreeListDinamic::resetSelectedItem() {
+    mySelectedItem = -1;
+}
+
+
 long
 FXTreeListDinamic::onLeftBtnPress(FXObject* obj, FXSelector sel, void* ptr) {
     FXTreeList::onLeftBtnPress(obj, sel, ptr);
+    // update selected item
+    mySelectedItem = -1;
+    for (int i = 0; i < (int)myFXTreeItems.size(); i++) {
+        if (myFXTreeItems.at(i)->isSelected()) {
+            mySelectedItem = i;
+        }
+    }
     // update height
     setHeight(getContentHeight() + 20);
     return 1;
 }
 
 
-FXTreeListDinamic::FXTreeListDinamic() {
+FXTreeListDinamic::FXTreeListDinamic() :
+    FXTreeList::FXTreeList() {
 }

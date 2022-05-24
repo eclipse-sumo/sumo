@@ -21,11 +21,12 @@
 #pragma once
 #include <config.h>
 
+#include <vector>
 
 #include "fxheader.h"
 
 /// @brief FXTreeListDinamic
-class FXTreeListDinamic : public FXTreeList {
+class FXTreeListDinamic : protected FXTreeList {
     /// @brief FOX-declaration
     FXDECLARE(FXTreeListDinamic)
 
@@ -36,6 +37,33 @@ public:
     /// @brief Show FXTreeListDinamic
     void show();
 
+    /// @brief Hide FXTreeListDinamic
+    void hide();
+
+    /// @brief clear items
+    void clearItems();
+
+    /// @brief get num items
+    FXint getNumItems();
+
+    /// @brief getSelected item index
+    FXint getSelectedIndex();
+
+    /// @brief Insert item with given text and icon
+    FXTreeItem* insertItem(FXTreeItem* father, const FXString& text, FXIcon* oi);
+
+    /// @brief get FXWindows associated with this FXTreeListDinamic
+    FXWindow* getFXWindow();
+
+    /// @brief Get item at x,y, if any
+    FXTreeItem* getItemAt(FXint x,FXint y) const;
+
+    /// @brief Get item 
+    FXTreeItem* getItem(FXint index) const;
+
+    /// @brief reset selected item
+    void resetSelectedItem();
+
     /// @name FOX calls
     /// @{
     long onLeftBtnPress(FXObject*, FXSelector, void*);
@@ -45,6 +73,12 @@ protected:
     /// @brief default constructor
     FXTreeListDinamic();
 
+    /// @brief list with current elements
+    std::vector<FXTreeItem*> myFXTreeItems;
+
+    /// @brief selected item
+    FXint mySelectedItem = -1;
+    
 private:
     /// @brief Invalidated copy constructor.
     FXTreeListDinamic(const FXTreeListDinamic&) = delete;
