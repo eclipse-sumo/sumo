@@ -1,6 +1,3 @@
-# test for scale up/down demand with given timeline info
-scaleTimeline
-
 # Tests for <SUMO_DIST>/tools/route_tools/routecompare.py
 routecompare
 

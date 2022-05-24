@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-22 22:18:00 by Eclipse SUMO netgenerate Version v1_13_0+0392-8630667
+<!-- generated on 2022-03-14 14:35:21 by Eclipse SUMO netgenerate Version v1_12_0+1373-449ea4e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -121,13 +121,10 @@
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT"/>
 
         <!-- Draw lane numbers randomly from [1,default.lanenumber] -->
-        <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL"/>
+        <rand.random-lanenumber value="false" type="BOOL"/>
 
         <!-- Draw edge priority randomly from [1,default.priority] -->
-        <random-priority value="false" synonymes="rand.random-priority" type="BOOL"/>
-
-        <!-- Draw edge type randomly from all loaded types -->
-        <random-type value="false" type="BOOL"/>
+        <rand.random-priority value="false" type="BOOL"/>
 
         <!-- Place nodes on a regular grid with spacing rand.min-distance -->
         <rand.grid value="false" type="BOOL"/>
@@ -227,12 +224,6 @@
 
         <!-- Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format) -->
         <reserved-ids value="" type="FILE"/>
-
-        <!-- Splits edges across geometry nodes -->
-        <geometry.split value="false" synonymes="split-geometry" type="BOOL"/>
-
-        <!-- splits geometry to restrict segment length -->
-        <geometry.max-segment-length value="0" type="FLOAT"/>
 
         <!-- Warn about edge geometries with a grade in % above FLOAT. -->
         <geometry.max-grade value="10" type="FLOAT"/>
@@ -384,15 +375,6 @@
         <!-- Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases -->
         <tls.left-green.time value="6" type="INT"/>
 
-        <!-- Set INT as fixed time for intermediate vehext phase after every switch -->
-        <tls.nema.vehExt value="2" type="INT"/>
-
-        <!-- Set INT as fixed time for intermediate NEMA yelow phase after every switch -->
-        <tls.nema.yellow value="3" type="INT"/>
-
-        <!-- Set INT as fixed time for intermediate NEMA red phase after every switch -->
-        <tls.nema.red value="2" type="INT"/>
-
         <!-- Use INT as minimum green duration for pedestrian crossings (s). -->
         <tls.crossing-min.time value="4" type="INT"/>
 
@@ -500,9 +482,6 @@
 
         <!-- Determines the maximal distance for joining junctions (defaults to 10) -->
         <junctions.join-dist value="10" type="FLOAT"/>
-
-        <!-- Joins junctions that have the same coordinates even if not connected -->
-        <junctions.join-same value="false" type="BOOL"/>
 
         <!-- Generate INT intermediate points to smooth out intersection corners -->
         <junctions.corner-detail value="5" type="INT"/>

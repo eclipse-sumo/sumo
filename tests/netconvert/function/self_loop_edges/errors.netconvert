@@ -1,1 +1,2 @@
-Warning: Ignoring self-looped edge 'loop' at junction '0'
+Warning:  Removing self-looping edge 'loop'
+Warning: 1 self-looping edge(s) removed.

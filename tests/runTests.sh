@@ -19,13 +19,13 @@ if test `uname` = "Darwin"; then #macOS specific exports
   export LANG=C
 fi
 
-pushd `dirname $0` > /dev/null
+pushd `dirname $0`
 export TEXTTEST_HOME="$PWD"
 if test x"$SUMO_HOME" = x; then
   cd ..
   export SUMO_HOME="$PWD"
 fi
-popd > /dev/null
+popd
 export ACTIVITYGEN_BINARY="$SUMO_HOME/bin/activitygen"
 export DFROUTER_BINARY="$SUMO_HOME/bin/dfrouter"
 export DUAROUTER_BINARY="$SUMO_HOME/bin/duarouter"
