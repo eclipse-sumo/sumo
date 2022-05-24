@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-23 13:10:43 by Eclipse SUMO netconvert Version v1_11_0+1383-87ad85f7aa6
+<!-- generated on 2022-05-13 12:18:34 by Eclipse SUMO netconvert Version v1_13_0+0234-b8e58c6a531
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertShips.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
-        <osm-files value="osm_bbox.osm.xml"/>
+        <osm-files value="/home/kobo/.texttest/tmp/tools.13May121823.1673112/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -150,7 +150,7 @@
         <access lane="204032443#0_0" pos="28.63" length="22.56" friendlyPos="1"/>
         <access lane="318915602#3_0" pos="7.69" length="18.09" friendlyPos="1"/>
         <access lane="378662086_0" pos="11.72" length="39.83" friendlyPos="1"/>
-        <access lane="438607993_0" pos="0.74" length="15.17" friendlyPos="1"/>
+        <access lane="438607993_0" pos="4.05" length="15.17" friendlyPos="1"/>
     </busStop>
     <busStop id="1668717159" name="S Oranienburger Straße" lane="101699672_0" startPos="50.79" endPos="75.79" friendlyPos="true" lines="M5 M1">
         <access lane="-4396823#0_0" pos="165.44" length="5.09" friendlyPos="1"/>
@@ -192,7 +192,7 @@
         <access lane="175885742_0" pos="4.80" length="16.69" friendlyPos="1"/>
         <access lane="43185731_0" pos="0.00" length="14.29" friendlyPos="1"/>
         <access lane="465376239_0" pos="53.39" length="13.46" friendlyPos="1"/>
-        <access lane="465376241_0" pos="0.00" length="15.07" friendlyPos="1"/>
+        <access lane="465376241_0" pos="0.00" length="15.08" friendlyPos="1"/>
         <access lane="70163730#1_0" pos="0.00" length="14.36" friendlyPos="1"/>
     </busStop>
     <busStop id="1827996414" name="Spandauer Straße/Marienkirche" lane="72157174#1_1" startPos="28.37" endPos="35.87" friendlyPos="true" lines="TXL 100 200 M48"/>
@@ -213,7 +213,7 @@
     </busStop>
     <busStop id="1862699772" name="S Oranienburger Straße" lane="154321040#2_0" startPos="10.48" endPos="35.48" friendlyPos="true" lines="M5 M1">
         <access lane="-4396823#0_0" pos="167.13" length="9.07" friendlyPos="1"/>
-        <access lane="461165665#0_0" pos="0.00" length="26.38" friendlyPos="1"/>
+        <access lane="461165665#0_0" pos="0.00" length="22.17" friendlyPos="1"/>
         <access lane="461165666_0" pos="0.00" length="16.27" friendlyPos="1"/>
         <access lane="461165667_0" pos="0.00" length="12.92" friendlyPos="1"/>
         <access lane="465398529#1_0" pos="20.52" length="5.03" friendlyPos="1"/>
@@ -313,8 +313,8 @@
         <access lane="175885743_0" pos="4.47" length="26.10" friendlyPos="1"/>
         <access lane="465376239_0" pos="22.13" length="19.14" friendlyPos="1"/>
         <access lane="465376240_0" pos="47.45" length="14.62" friendlyPos="1"/>
-        <access lane="465376241_0" pos="28.08" length="18.90" friendlyPos="1"/>
-        <access lane="465376242_0" pos="47.27" length="15.25" friendlyPos="1"/>
+        <access lane="465376241_0" pos="28.05" length="18.90" friendlyPos="1"/>
+        <access lane="465376242_0" pos="46.88" length="15.36" friendlyPos="1"/>
     </busStop>
     <busStop id="247603398" name="Am Kupfergraben" lane="144014230#4_0" startPos="0.00" endPos="15.79" friendlyPos="true" lines="M1">
         <access lane="-340498976#8_0" pos="16.08" length="2.38" friendlyPos="1"/>

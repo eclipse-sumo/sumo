@@ -1,0 +1,3 @@
+--debug
+--input lsa_def.csv --net input_net.net.xml --output out.add.xml tools/tls/tls_csvSignalGroups.py
+

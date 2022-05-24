@@ -1,3 +1,3 @@
-Error: Define either 'freq' or 'tl' in a lane area detector.
+Error: Define either 'period' (alias: 'freq') or 'tl' in a lane area detector.
 Error: Could not build e2Detector with ID 'e2MultilaneDetector_1' in netedit; invalid traffic light ID.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_11Apr144420.20620\netedit.gui\additionalelements\e2multilanedetector\load\tl\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12May145105.4444\netedit.gui\additionalelements\e2multilanedetector\load\tl\input_additionals.add.xml failed.

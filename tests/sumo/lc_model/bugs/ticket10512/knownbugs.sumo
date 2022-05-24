@@ -1,7 +1,0 @@
-
-[Reported by erdm_ja at 09Oct16:35:29]
-search_string:Teleporting vehicle
-search_file:errors
-ignore_other_errors:1
-full_description:intermediate bus lane leads to wrong lane
-brief_description:see #10512

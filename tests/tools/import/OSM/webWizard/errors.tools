@@ -87,9 +87,9 @@ Warning: Found sharp turn with radius 7.81 at the end of edge '-150634670#0'.
 Warning: Found sharp turn with radius 7.23 at the start of edge '-150634670#1'.
 Warning: Found sharp turn with radius 5.72 at the end of edge '-285825377'.
 Warning: Found sharp turn with radius 6.74 at the start of edge '-330832908'.
-Warning: Found sharp turn with radius 1.59 at the start of edge '-409507435#1'.
 Warning: Found sharp turn with radius 8.20 at the start of edge '-409507435#2'.
 Warning: Found sharp turn with radius 6.39 at the start of edge '-52348720#0'.
+Warning: Found sharp turn with radius 4.03 at the start of edge '-553121566#2'.
 Warning: Found sharp turn with radius 7.23 at the end of edge '150634670#1'.
 Warning: Found sharp turn with radius 6.39 at the end of edge '52348720#0'.
 Warning: The rail crossing '1157325170' does not have any roads.
@@ -104,7 +104,7 @@ Warning: 10 total messages of type: Could not re-assign PT stop '%', probably br
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
 Warning: 15 total messages of type: Discarding unusable type '%' (first occurence for edge '%').
 Warning: 69 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
-Warning: 11 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 9 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 17 total messages of type: Incomplete route for pt line '%'%.
 Warning: 6 total messages of type: Last stop edge '%' is not part of the route of line '%'.
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
@@ -150,11 +150,9 @@ Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle '
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=476.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=480.00.
 Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 'pt_bus_N6:1.0'.
-Warning: Person 'ped1' aborted waiting for M5:0 at busStop '1633759766'.
-Warning: Person 'ped177' aborted waiting for M6:0 at busStop '1633759766'.
+Warning: Teleporting person 'ped57' from vehicle destination edge '295255789' to intended destination edge '378664954' time=622.00
 Warning: Person 'ped135' aborted waiting for N40:1 at busStop '1686199552'.
 Warning: Person 'ped173' aborted waiting for N2:0 at busStop '3867910420'.
-Warning: Person 'ped77' aborted waiting for M4:2 at busStop '30731497'.
 Warning: Person 'ped99' aborted waiting for 100:1 at busStop '270718978'.
-Warning: Person 'ped147' aborted waiting for 12:0 at busStop '247600965'.
 Warning: Person 'ped37' aborted waiting for S5:1 at busStop '27411231'.
+Warning: Person 'ped71' aborted waiting for 200:1 at busStop '1827996414'.

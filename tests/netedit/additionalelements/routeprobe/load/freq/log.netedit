@@ -1,4 +1,4 @@
-Error: Attribute 'freq' is missing in definition of routeProbe 'routeProbe_0'.
+Error: Attribute 'period' is missing in definition of routeProbe 'routeProbe_0'.
 Error: Attribute 'freq' in definition of routeProbe 'routeProbe_1' is not a valid time value.
 Error: Could not build routeProbe with ID 'routeProbe_2' in netedit; attribute freq cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\routeprobe\load\freq\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09May091435.5936\netedit.gui\additionalelements\routeprobe\load\freq\input_additionals.add.xml failed.

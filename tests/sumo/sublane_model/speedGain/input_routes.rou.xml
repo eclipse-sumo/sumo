@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r0" edges="beg"/>
+
+    <vehicle id="ego" type="ego"  route="r0" depart="0" departSpeed="max"/>
+    <vehicle id="A"   type="slow" route="r0" depart="0" departLane="0" arrivalLane="0" departPos="200" departSpeed="max"/>
+    <vehicle id="B"   type="slow" route="r0" depart="0" departLane="1" arrivalLane="1" departPos="400" departSpeed="max"/>
+    <vehicle id="C"   type="slow" route="r0" depart="0" departLane="0" arrivalLane="0" departPos="600" departSpeed="max"/>
+    <vehicle id="D"   type="slow" route="r0" depart="0" departLane="1" arrivalLane="1" departPos="800" departSpeed="max"/>
+</routes>

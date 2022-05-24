@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<<<<<<< HEAD
+<!-- generated on 2022-05-06 12:01:45 by Eclipse SUMO sumo Version v1_13_0+0072-dfc2497149c
+=======
+<!-- generated on 2022-05-12 09:23:33 by Eclipse SUMO sumo Version v1_13_0+0176-54e71bd3408
+>>>>>>> upstream/friction
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <configuration>
+        <!-- Loads the named config on startup -->
+        <configuration-file value="" synonymes="c configuration" type="FILE"/>
+
+        <!-- Saves current configuration into FILE -->
+        <save-configuration value="" synonymes="C save-config" type="FILE"/>
+
+        <!-- Enforce relative paths when saving the configuration -->
+        <save-configuration.relative value="false" synonymes="save-config.relative" type="BOOL"/>
+
+        <!-- Saves a configuration template (empty) into FILE -->
+        <save-template value="" type="FILE"/>
+
+        <!-- Saves the configuration schema into FILE -->
+        <save-schema value="" type="FILE"/>
+
+        <!-- Adds comments to saved template, configuration, or schema -->
+        <save-commented value="" synonymes="save-template.commented" type="BOOL"/>
+
+    </configuration>
+
+    <input>
+        <!-- Load road network description from FILE -->
+        <net-file value="" synonymes="n net" type="FILE"/>
+
+        <!-- Load routes descriptions from FILE(s) -->
+        <route-files value="" synonymes="r routes" type="FILE"/>
+
+        <!-- Load further descriptions from FILE(s) -->
+        <additional-files value="" synonymes="a additional" type="FILE"/>
+
+        <!-- Load edge/lane weights for online rerouting from FILE -->
+        <weight-files value="" synonymes="w weights" type="FILE"/>
+
+        <!-- Name of the xml attribute which gives the edge weight -->
+        <weight-attribute value="traveltime" synonymes="measure x" type="STR"/>
+
+        <!-- Loads a network state from FILE -->
+        <load-state value="" type="FILE"/>
+
+        <!-- Shifts all times loaded from a saved state by the given offset -->
+        <load-state.offset value="0" type="TIME"/>
+
+        <!-- Removes vehicles with the given IDs from the loaded state -->
+        <load-state.remove-vehicles value="" type="STR[]"/>
+
+        <!-- Initialize a TAZ for every junction to use attributes toJunction and fromJunction -->
+        <junction-taz value="false" type="BOOL"/>
+
+    </input>
+
+    <output>
+        <!-- Include license info into every output file -->
+        <write-license value="false" type="BOOL"/>
+
+        <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
+        <output-prefix value="" type="STR"/>
+
+        <!-- Defines the number of digits after the comma for floating point output -->
+        <precision value="2" type="INT"/>
+
+        <!-- Defines the number of digits after the comma for lon,lat output -->
+        <precision.geo value="6" type="INT"/>
+
+        <!-- Write time values as hour:minute:second or day:hour:minute:second rather than seconds -->
+        <human-readable-time value="false" synonymes="H" type="BOOL"/>
+
+        <!-- Save complete network states into FILE -->
+        <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE"/>
+
+        <!-- Write also empty edges completely when dumping -->
+        <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate-output.empty-edges netstate.empty-edges" type="BOOL"/>
+
+        <!-- Write positions and speeds with the given precision (default 2) -->
+        <netstate-dump.precision value="2" synonymes="dump-precision netstate-output.precision netstate.precision" type="INT"/>
+
+        <!-- Save the emission values of each vehicle -->
+        <emission-output value="" type="FILE"/>
+
+        <!-- Write emission values with the given precision (default 2) -->
+        <emission-output.precision value="2" type="INT"/>
+
+        <!-- Save the positions in emission output using geo-coordinates (lon/lat) -->
+        <emission-output.geo value="false" type="BOOL"/>
+
+        <!-- Write emission values scaled to the step length rather than as per-second values -->
+        <emission-output.step-scaled value="false" type="BOOL"/>
+
+        <!-- Save the battery values of each vehicle -->
+        <battery-output value="" type="FILE"/>
+
+        <!-- Write battery values with the given precision (default 2) -->
+        <battery-output.precision value="2" type="INT"/>
+
+        <!-- Save the elecHybrid values of each vehicle -->
+        <elechybrid-output value="" type="FILE"/>
+
+        <!-- Write elecHybrid values with the given precision (default 2) -->
+        <elechybrid-output.precision value="2" type="INT"/>
+
+        <!-- Write elecHybrid values into one aggregated file -->
+        <elechybrid-output.aggregated value="false" type="BOOL"/>
+
+        <!-- Write data of charging stations -->
+        <chargingstations-output value="" type="FILE"/>
+
+        <!-- Write data of overhead wire segments -->
+        <overheadwiresegments-output value="" type="FILE"/>
+
+        <!-- Write data of electrical substation stations -->
+        <substations-output value="" type="FILE"/>
+
+        <!-- Write substation values with the given precision (default 2) -->
+        <substations-output.precision value="2" type="INT"/>
+
+        <!-- Save the Floating Car Data -->
+        <fcd-output value="" type="FILE"/>
+
+        <!-- Save the Floating Car Data using geo-coordinates (lon/lat) -->
+        <fcd-output.geo value="false" type="BOOL"/>
+
+        <!-- Add the vehicle signal state to the FCD output (brake lights etc.) -->
+        <fcd-output.signals value="false" type="BOOL"/>
+
+        <!-- Add kilometrage to the FCD output (linear referencing) -->
+        <fcd-output.distance value="false" type="BOOL"/>
+
+        <!-- Add acceleration to the FCD output -->
+        <fcd-output.acceleration value="false" type="BOOL"/>
+
+        <!-- Add leader vehicle information to the FCD output (within the given distance) -->
+        <fcd-output.max-leader-distance value="-1" type="FLOAT"/>
+
+        <!-- Add generic parameter values to the FCD output -->
+        <fcd-output.params value="" type="STR[]"/>
+
+        <!-- Restrict fcd output to the edge selection from the given input file -->
+        <fcd-output.filter-edges.input-file value="" type="FILE"/>
+
+        <!-- List attributes that should be included in the FCD output -->
+        <fcd-output.attributes value="" type="STR[]"/>
+
+        <!-- Restrict SSM device output to the edge selection from the given input file -->
+        <device.ssm.filter-edges.input-file value="" type="FILE"/>
+
+        <!-- Save a lot of information for each timestep (very redundant) -->
+        <full-output value="" type="FILE"/>
+
+        <!-- Save the vehicle queues at the junctions (experimental) -->
+        <queue-output value="" type="FILE"/>
+
+        <!-- Save vehicle queues with the given period -->
+        <queue-output.period value="-1" type="TIME"/>
+
+        <!-- Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files) -->
+        <vtk-output value="" type="FILE"/>
+
+        <!-- Save the vehicle trajectories in the Amitran format -->
+        <amitran-output value="" type="FILE"/>
+
+        <!-- Save aggregated vehicle departure info into FILE -->
+        <summary-output value="" synonymes="summary" type="FILE"/>
+
+        <!-- Save aggregated person counts into FILE -->
+        <person-summary-output value="" type="FILE"/>
+
+        <!-- Save single vehicle trip info into FILE -->
+        <tripinfo-output value="" synonymes="tripinfo" type="FILE"/>
+
+        <!-- Write tripinfo output for vehicles which have not arrived at simulation end -->
+        <tripinfo-output.write-unfinished value="false" type="BOOL"/>
+
+        <!-- Write tripinfo output for vehicles which have not departed at simulation end because of depart delay -->
+        <tripinfo-output.write-undeparted value="false" type="BOOL"/>
+
+        <!-- Save single vehicle route info into FILE -->
+        <vehroute-output value="" synonymes="vehroutes" type="FILE"/>
+
+        <!-- Write the exit times for all edges -->
+        <vehroute-output.exit-times value="false" synonymes="vehroutes.exit-times" type="BOOL"/>
+
+        <!-- Write the last route only -->
+        <vehroute-output.last-route value="false" synonymes="vehroutes.last-route" type="BOOL"/>
+
+        <!-- Sorts the output by departure time -->
+        <vehroute-output.sorted value="false" synonymes="vehroutes.sorted" type="BOOL"/>
+
+        <!-- Write the output in the duarouter alternatives style -->
+        <vehroute-output.dua value="false" synonymes="vehroutes.dua" type="BOOL"/>
+
+        <!-- Write costs for all routes -->
+        <vehroute-output.cost value="false" type="BOOL"/>
+
+        <!-- Write the output with the intended instead of the real departure time -->
+        <vehroute-output.intended-depart value="false" synonymes="vehroutes.intended-depart" type="BOOL"/>
+
+        <!-- Include total route length in the output -->
+        <vehroute-output.route-length value="false" synonymes="vehroutes.route-length" type="BOOL"/>
+
+        <!-- Write vehroute output for vehicles which have not arrived at simulation end -->
+        <vehroute-output.write-unfinished value="false" type="BOOL"/>
+
+        <!-- Skip vehroute output for public transport vehicles -->
+        <vehroute-output.skip-ptlines value="false" type="BOOL"/>
+
+        <!-- Include invalid routes and route stubs in vehroute output -->
+        <vehroute-output.incomplete value="false" type="BOOL"/>
+
+        <!-- Include information about edges between stops -->
+        <vehroute-output.stop-edges value="false" type="BOOL"/>
+
+        <!-- Write the vehicle speedFactor (defaults to &apos;true&apos; if departSpeed is written) -->
+        <vehroute-output.speedfactor value="false" type="BOOL"/>
+
+        <!-- Save person and container routes to separate FILE -->
+        <personroute-output value="" synonymes="personroutes" type="FILE"/>
+
+        <!-- Save links states into FILE -->
+        <link-output value="" type="FILE"/>
+
+        <!-- Save railsignal-blocks into FILE -->
+        <railsignal-block-output value="" type="FILE"/>
+
+        <!-- Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender) -->
+        <bt-output value="" type="FILE"/>
+
+        <!-- Record lane changes and their motivations for all vehicles into FILE -->
+        <lanechange-output value="" type="FILE"/>
+
+        <!-- Record start of lane change manoeuvres -->
+        <lanechange-output.started value="false" type="BOOL"/>
+
+        <!-- Record end of lane change manoeuvres -->
+        <lanechange-output.ended value="false" type="BOOL"/>
+
+        <!-- Record coordinates of lane change manoeuvres -->
+        <lanechange-output.xy value="false" type="BOOL"/>
+
+        <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
+        <stop-output value="" type="FILE"/>
+
+        <!-- Write stop output for stops which have not ended at simulation end -->
+        <stop-output.write-unfinished value="false" type="BOOL"/>
+
+        <!-- Write collision information into FILE -->
+        <collision-output value="" type="FILE"/>
+
+        <!-- Write overall statistics into FILE -->
+        <statistic-output value="" synonymes="statistics-output" type="FILE"/>
+
+        <!-- Use TIME[] as times at which a network state written -->
+        <save-state.times value="" type="STR[]"/>
+
+        <!-- save state repeatedly after TIME period -->
+        <save-state.period value="-1" type="TIME"/>
+
+        <!-- Keep only the last INT periodic state files -->
+        <save-state.period.keep value="0" type="INT"/>
+
+        <!-- Prefix for network states -->
+        <save-state.prefix value="state" type="FILE"/>
+
+        <!-- Suffix for network states (.xml.gz or .xml) -->
+        <save-state.suffix value=".xml.gz" type="STR"/>
+
+        <!-- Files for network states -->
+        <save-state.files value="" type="FILE"/>
+
+        <!-- Save random number generator states -->
+        <save-state.rng value="false" type="BOOL"/>
+
+        <!-- Save person and container states (experimental) -->
+        <save-state.transportables value="false" type="BOOL"/>
+
+        <!-- Save rail signal constraints -->
+        <save-state.constraints value="false" type="BOOL"/>
+
+        <!-- Write internal state values with the given precision (default 2) -->
+        <save-state.precision value="2" type="INT"/>
+
+    </output>
+
+    <time>
+        <!-- Defines the begin time in seconds; The simulation starts at this time -->
+        <begin value="0" synonymes="b" type="TIME"/>
+
+        <!-- Defines the end time in seconds; The simulation ends at this time -->
+        <end value="-1" synonymes="e" type="TIME"/>
+
+        <!-- Defines the step duration in seconds -->
+        <step-length value="1" type="TIME"/>
+
+    </time>
+
+    <processing>
+        <!-- Whether to use ballistic method for the positional update of vehicles (default is a semi-implicit Euler method). -->
+        <step-method.ballistic value="false" type="BOOL"/>
+
+        <!-- Whether vehicles that depart between simulation steps should extrapolate the depart position -->
+        <extrapolate-departpos value="false" type="BOOL"/>
+
+        <!-- Defines the number of threads for parallel simulation -->
+        <threads value="1" type="INT"/>
+
+        <!-- Defines the resolution in m when handling lateral positioning within a lane (with -1 all vehicles drive at the center of their lane -->
+        <lateral-resolution value="-1" type="FLOAT"/>
+
+        <!-- Load routes for the next number of seconds ahead -->
+        <route-steps value="200" synonymes="s" type="TIME"/>
+
+        <!-- Disable (junction) internal links -->
+        <no-internal-links value="false" type="BOOL"/>
+
+        <!-- Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore) -->
+        <ignore-junction-blocker value="-1" type="TIME"/>
+
+        <!-- Do not check whether routes are connected -->
+        <ignore-route-errors value="false" type="BOOL"/>
+
+        <!-- Do not check whether accidents occur -->
+        <ignore-accidents value="false" type="BOOL"/>
+
+        <!-- How to deal with collisions: [none,warn,teleport,remove] -->
+        <collision.action value="teleport" type="STR"/>
+
+        <!-- Let vehicle stop for TIME before performing collision.action (except for action &apos;none&apos;) -->
+        <collision.stoptime value="0" type="TIME"/>
+
+        <!-- Enables collisions checks on junctions -->
+        <collision.check-junctions value="false" type="BOOL"/>
+
+        <!-- Increase or decrease sensitivity for junction collision check -->
+        <collision.check-junctions.mingap value="0" type="FLOAT"/>
+
+        <!-- Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used -->
+        <collision.mingap-factor value="-1" type="FLOAT"/>
+
+        <!-- Delay vehicle insertion to stay within the given maximum number -->
+        <max-num-vehicles value="-1" type="INT"/>
+
+        <!-- Abort the simulation if the given maximum number of teleports is exceeded -->
+        <max-num-teleports value="-1" type="INT"/>
+
+        <!-- Scale demand by the given factor (by discarding or duplicating vehicles) -->
+        <scale value="1" type="FLOAT"/>
+
+        <!-- Suffix to be added when creating ids for cloned vehicles -->
+        <scale-suffix value="." type="STR"/>
+
+        <!-- Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting -->
+        <time-to-teleport value="300" type="TIME"/>
+
+        <!-- The waiting time after which vehicles on a fast road (speed &gt; 69km/h) are teleported if they are on a non-continuing lane -->
+        <time-to-teleport.highways value="0" type="TIME"/>
+
+        <!-- The waiting time after which vehicles on a fast road (default: speed &gt; 69km/h) are teleported if they are on a non-continuing lane -->
+        <time-to-teleport.highways.min-speed value="19.1667" type="FLOAT"/>
+
+        <!-- The waiting time after which vehicles with a disconnected route are teleported. Negative values disable teleporting -->
+        <time-to-teleport.disconnected value="-1" type="TIME"/>
+
+        <!-- Whether vehicles shall be removed after waiting too long instead of being teleported -->
+        <time-to-teleport.remove value="false" type="BOOL"/>
+
+        <!-- The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting -->
+        <time-to-teleport.ride value="-1" type="TIME"/>
+
+        <!-- Length of time interval, over which accumulated waiting time is taken into account (default is 100s.) -->
+        <waiting-time-memory value="100" type="TIME"/>
+
+        <!-- Minimum consecutive waiting time before applying startupDelay -->
+        <startup-wait-threshold value="2" type="TIME"/>
+
+        <!-- How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped -->
+        <max-depart-delay value="-1" type="TIME"/>
+
+        <!-- Whether insertion on an edge shall not be repeated in same step once failed -->
+        <sloppy-insert value="false" type="BOOL"/>
+
+        <!-- Whether each vehicle is checked separately for insertion on an edge -->
+        <eager-insert value="false" type="BOOL"/>
+
+        <!-- Allow inserting a vehicle in a situation which requires emergency braking -->
+        <emergency-insert value="false" type="BOOL"/>
+
+        <!-- Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME] -->
+        <random-depart-offset value="0" type="TIME"/>
+
+        <!-- Duration of a lane change maneuver (default 0) -->
+        <lanechange.duration value="0" type="TIME"/>
+
+        <!-- Whether overtaking on the right on motorways is permitted -->
+        <lanechange.overtake-right value="false" type="BOOL"/>
+
+        <!-- Switches off all traffic lights. -->
+        <tls.all-off value="false" type="BOOL"/>
+
+        <!-- Sets default visibility for actuation detectors -->
+        <tls.actuated.show-detectors value="false" type="BOOL"/>
+
+        <!-- Sets default jam-treshold parameter for all actuation detectors -->
+        <tls.actuated.jam-threshold value="-1" type="FLOAT"/>
+
+        <!-- Sets default range for detecting delayed vehicles -->
+        <tls.delay_based.detector-range value="100" type="FLOAT"/>
+
+        <!-- Minimum deceleration when braking at yellow -->
+        <tls.yellow.min-decel value="3" type="FLOAT"/>
+
+        <!-- Let railsignals operate in moving-block mode by default -->
+        <railsignal-moving-block value="false" type="BOOL"/>
+
+        <!-- Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth -->
+        <time-to-impatience value="180" type="TIME"/>
+
+        <!-- Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length. -->
+        <default.action-step-length value="0" type="FLOAT"/>
+
+        <!-- Select default car following model (Krauss, IDM, ...) -->
+        <default.carfollowmodel value="Krauss" synonymes="carfollow.model" type="STR"/>
+
+        <!-- Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class -->
+        <default.speeddev value="-1" type="FLOAT"/>
+
+        <!-- Select default emergencyDecel value among (&apos;decel&apos;, &apos;default&apos;, FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2 -->
+        <default.emergencydecel value="default" type="STR"/>
+
+        <!-- Use Kirchhoff&apos;s laws for solving overhead wire circuit -->
+        <overhead-wire.solver value="true" type="BOOL"/>
+
+        <!-- Enable recuperation from the vehicle equipped with elecHybrid device into the ovrehead wire. -->
+        <overhead-wire.recuperation value="true" type="BOOL"/>
+
+        <!-- Enable current limits of traction substation during solving the overhead wire electrical circuit. -->
+        <overhead-wire.substation-current-limits value="true" type="BOOL"/>
+
+        <!-- Sets the fraction of emergency decel capability that must be used to trigger a warning. -->
+        <emergencydecel.warning-threshold value="1" type="FLOAT"/>
+
+        <!-- Whether parking simulation includes manoeuvering time and associated lane blocking -->
+        <parking.maneuver value="false" type="BOOL"/>
+
+        <!-- Override stop until times with stop ended times when given -->
+        <use-stop-ended value="false" type="BOOL"/>
+
+        <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;] -->
+        <pedestrian.model value="striping" type="STR"/>
+
+        <!-- Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos; -->
+        <pedestrian.striping.stripe-width value="0.64" type="FLOAT"/>
+
+        <!-- Factor for random slow-downs [0,1] for use with model &apos;striping&apos; -->
+        <pedestrian.striping.dawdling value="0.2" type="FLOAT"/>
+
+        <!-- Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle for use with model &apos;striping&apos; -->
+        <pedestrian.striping.mingap-to-vehicle value="0.25" type="FLOAT"/>
+
+        <!-- Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing) -->
+        <pedestrian.striping.jamtime value="300" type="TIME"/>
+
+        <!-- Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model &apos;striping&apos; (non-positive values disable squeezing) -->
+        <pedestrian.striping.jamtime.crossing value="10" type="TIME"/>
+
+        <!-- Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model &apos;striping&apos; -->
+        <pedestrian.striping.jamtime.narrow value="1" type="TIME"/>
+
+        <!-- Fraction of stripes to reserve for oncoming pedestrians -->
+        <pedestrian.striping.reserve-oncoming value="0" type="FLOAT"/>
+
+        <!-- Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas -->
+        <pedestrian.striping.reserve-oncoming.junctions value="0.34" type="FLOAT"/>
+
+        <!-- The address (host:port) of the external simulation -->
+        <pedestrian.remote.address value="localhost:9000" type="STR"/>
+
+        <!-- Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops -->
+        <ride.stop-tolerance value="10" type="FLOAT"/>
+
+        <!-- Use FLOAT as a factor on walking speed against vehicle traffic direction -->
+        <persontrip.walk-opposite-factor value="1" type="FLOAT"/>
+
+    </processing>
+
+    <routing>
+        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
+        <routing-algorithm value="dijkstra" type="STR"/>
+
+        <!-- Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT) -->
+        <weights.random-factor value="1" type="FLOAT"/>
+
+        <!-- Apply the given time penalty when computing minimum routing costs for minor-link internal lanes -->
+        <weights.minor-penalty value="1.5" type="FLOAT"/>
+
+        <!-- Apply scaled travel time penalties based on green split when computing minimum routing costs for internal lanes at traffic lights -->
+        <weights.tls-penalty value="0" type="FLOAT"/>
+
+        <!-- Consider edge priorities in addition to travel times, weighted by factor -->
+        <weights.priority-factor value="0" type="FLOAT"/>
+
+        <!-- Distinguish travel time by turn direction and shift a fraction of the estimated time loss ahead of the intersection onto the internal edges -->
+        <weights.separate-turns value="0" type="FLOAT"/>
+
+        <!-- Initialize lookup table for astar from the given file (generated by marouter --all-pairs-output) -->
+        <astar.all-distances value="" type="FILE"/>
+
+        <!-- Initialize lookup table for astar ALT-variant from the given file -->
+        <astar.landmark-distances value="" type="FILE"/>
+
+        <!-- Use FLOAT as a factor on pedestrian maximum speed during intermodal routing -->
+        <persontrip.walkfactor value="0.75" type="FLOAT"/>
+
+        <!-- Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations) -->
+        <persontrip.transfer.car-walk value="parkingAreas" type="STR[]"/>
+
+        <!-- Where taxis can drop off customers (&apos;allJunctions, &apos;ptStops&apos;) -->
+        <persontrip.transfer.taxi-walk value="" type="STR[]"/>
+
+        <!-- Where taxis can pick up customers (&apos;allJunctions, &apos;ptStops&apos;) -->
+        <persontrip.transfer.walk-taxi value="" type="STR[]"/>
+
+        <!-- When set, trips between the same origin and destination will share a taxi by default -->
+        <persontrip.default.group value="" type="STR"/>
+
+        <!-- Estimated time for taxi pickup -->
+        <persontrip.taxi.waiting-time value="300" type="TIME"/>
+
+        <!-- Use FLOAT as a maximum train length when initializing the railway router -->
+        <railway.max-train-length value="1000" type="FLOAT"/>
+
+        <!-- Replay exact rerouting sequence from vehroute-output -->
+        <replay-rerouting value="false" type="BOOL"/>
+
+        <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
+        <device.rerouting.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;rerouting&apos; device to named vehicles -->
+        <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR[]"/>
+
+        <!-- The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.rerouting.deterministic value="false" type="BOOL"/>
+
+        <!-- The period with which the vehicle shall be rerouted -->
+        <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME"/>
+
+        <!-- The rerouting period before depart -->
+        <device.rerouting.pre-period value="60" synonymes="device.routing.pre-period" type="TIME"/>
+
+        <!-- The weight of prior edge weights for exponential moving average -->
+        <device.rerouting.adaptation-weight value="0" synonymes="device.routing.adaptation-weight" type="FLOAT"/>
+
+        <!-- The number of steps for moving average weight of prior edge weights -->
+        <device.rerouting.adaptation-steps value="180" synonymes="device.routing.adaptation-steps" type="INT"/>
+
+        <!-- The interval for updating the edge weights -->
+        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME"/>
+
+        <!-- Use zones (districts) as routing start- and endpoints -->
+        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" type="BOOL"/>
+
+        <!-- Use weight files given with option --weight-files for initializing edge weights -->
+        <device.rerouting.init-with-loaded-weights value="false" type="BOOL"/>
+
+        <!-- The number of parallel execution threads used for rerouting -->
+        <device.rerouting.threads value="0" synonymes="routing-threads" type="INT"/>
+
+        <!-- Let rerouting happen at the same time for all vehicles -->
+        <device.rerouting.synchronize value="false" type="BOOL"/>
+
+        <!-- Allow rerouting triggered by rail signals. -->
+        <device.rerouting.railsignal value="true" type="BOOL"/>
+
+        <!-- Compute separate average speeds for bicycles -->
+        <device.rerouting.bike-speeds value="false" type="BOOL"/>
+
+        <!-- Save adapting weights to FILE -->
+        <device.rerouting.output value="" type="FILE"/>
+
+        <!-- The probability for a person to have a &apos;rerouting&apos; device -->
+        <person-device.rerouting.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;rerouting&apos; device to named persons -->
+        <person-device.rerouting.explicit value="" synonymes="person-device.rerouting.knownveh" type="STR[]"/>
+
+        <!-- The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000 -->
+        <person-device.rerouting.deterministic value="false" type="BOOL"/>
+
+        <!-- The period with which the person shall be rerouted -->
+        <person-device.rerouting.period value="0" synonymes="person-device.routing.period" type="TIME"/>
+
+    </routing>
+
+    <report>
+        <!-- Switches to verbose output -->
+        <verbose value="false" synonymes="v" type="BOOL"/>
+
+        <!-- Prints option values before processing -->
+        <print-options value="false" type="BOOL"/>
+
+        <!-- Prints this screen or selected topics -->
+        <help value="false" synonymes="?" type="BOOL"/>
+
+        <!-- Prints the current version -->
+        <version value="false" synonymes="V" type="BOOL"/>
+
+        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation value="auto" synonymes="X" type="STR"/>
+
+        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation.net value="never" type="STR"/>
+
+        <!-- Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation.routes value="auto" type="STR"/>
+
+        <!-- Disables output of warnings -->
+        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
+
+        <!-- Aggregate warnings of the same type whenever more than INT occur -->
+        <aggregate-warnings value="-1" type="INT"/>
+
+        <!-- Writes all messages to FILE (implies verbose) -->
+        <log value="" synonymes="l log-file" type="FILE"/>
+
+        <!-- Writes all non-error messages to FILE (implies verbose) -->
+        <message-log value="" type="FILE"/>
+
+        <!-- Writes all warnings and errors to FILE -->
+        <error-log value="" type="FILE"/>
+
+        <!-- Disable performance reports for individual simulation steps -->
+        <duration-log.disable value="false" synonymes="no-duration-log" type="BOOL"/>
+
+        <!-- Enable statistics on vehicle trips -->
+        <duration-log.statistics value="false" synonymes="t" type="BOOL"/>
+
+        <!-- Disable console output of current simulation step -->
+        <no-step-log value="false" type="BOOL"/>
+
+        <!-- Number of simulation steps between step-log outputs -->
+        <step-log.period value="100" type="INT"/>
+
+    </report>
+
+    <emissions>
+        <!-- Determines where to load PHEMlight definitions from. -->
+        <phemlight-path value="./PHEMlight/" type="FILE"/>
+
+        <!-- The probability for a vehicle to have a &apos;emissions&apos; device -->
+        <device.emissions.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;emissions&apos; device to named vehicles -->
+        <device.emissions.explicit value="" synonymes="device.emissions.knownveh" type="STR[]"/>
+
+        <!-- The &apos;emissions&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.emissions.deterministic value="false" type="BOOL"/>
+
+        <!-- Recording period for emission-output -->
+        <device.emissions.period value="0" type="STR"/>
+
+    </emissions>
+
+    <communication>
+        <!-- The probability for a vehicle to have a &apos;btreceiver&apos; device -->
+        <device.btreceiver.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;btreceiver&apos; device to named vehicles -->
+        <device.btreceiver.explicit value="" synonymes="device.btreceiver.knownveh" type="STR[]"/>
+
+        <!-- The &apos;btreceiver&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.btreceiver.deterministic value="false" type="BOOL"/>
+
+        <!-- The range of the bt receiver -->
+        <device.btreceiver.range value="300" type="FLOAT"/>
+
+        <!-- Whether all recognition point shall be written -->
+        <device.btreceiver.all-recognitions value="false" type="BOOL"/>
+
+        <!-- The offtime used for calculating detection probability (in seconds) -->
+        <device.btreceiver.offtime value="0.64" type="FLOAT"/>
+
+        <!-- The probability for a vehicle to have a &apos;btsender&apos; device -->
+        <device.btsender.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;btsender&apos; device to named vehicles -->
+        <device.btsender.explicit value="" synonymes="device.btsender.knownveh" type="STR[]"/>
+
+        <!-- The &apos;btsender&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.btsender.deterministic value="false" type="BOOL"/>
+
+    </communication>
+
+    <battery>
+        <!-- The probability for a vehicle to have a &apos;battery&apos; device -->
+        <device.battery.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;battery&apos; device to named vehicles -->
+        <device.battery.explicit value="" synonymes="device.battery.knownveh" type="STR[]"/>
+
+        <!-- The &apos;battery&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.battery.deterministic value="false" type="BOOL"/>
+
+        <!-- Track fuel consumption for non-electric vehicles -->
+        <device.battery.track-fuel value="false" type="BOOL"/>
+
+    </battery>
+
+    <example_device>
+        <!-- The probability for a vehicle to have a &apos;example&apos; device -->
+        <device.example.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;example&apos; device to named vehicles -->
+        <device.example.explicit value="" synonymes="device.example.knownveh" type="STR[]"/>
+
+        <!-- The &apos;example&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.example.deterministic value="false" type="BOOL"/>
+
+        <!-- An exemplary parameter which can be used by all instances of the example device -->
+        <device.example.parameter value="0" type="FLOAT"/>
+
+    </example_device>
+
+    <ssm_device>
+        <!-- The probability for a vehicle to have a &apos;ssm&apos; device -->
+        <device.ssm.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;ssm&apos; device to named vehicles -->
+        <device.ssm.explicit value="" synonymes="device.ssm.knownveh" type="STR[]"/>
+
+        <!-- The &apos;ssm&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.ssm.deterministic value="false" type="BOOL"/>
+
+        <!-- Specifies which measures will be logged (as a space separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;)). -->
+        <device.ssm.measures value="" type="STR"/>
+
+        <!-- Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. -->
+        <device.ssm.thresholds value="" type="STR"/>
+
+        <!-- Specifies whether trajectories will be logged (if false, only the extremal values and times are reported, this is the default). -->
+        <device.ssm.trajectories value="false" type="BOOL"/>
+
+        <!-- Specifies the detection range in meters (default is 50.00m.). For vehicles below this distance from the equipped vehicle, SSM values are traced. -->
+        <device.ssm.range value="50" type="FLOAT"/>
+
+        <!-- Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required &gt;0 if PET is to be calculated for crossing conflicts. -->
+        <device.ssm.extratime value="5" type="FLOAT"/>
+
+        <!-- Give a global default filename for the SSM output. -->
+        <device.ssm.file value="" type="STR"/>
+
+        <!-- Whether to use coordinates of the original reference system in output (default is false). -->
+        <device.ssm.geo value="false" type="BOOL"/>
+
+        <!-- Whether to write positions (coordinates) for each timestep. -->
+        <device.ssm.write-positions value="false" type="BOOL"/>
+
+        <!-- Whether to write lanes and their positions for each timestep. -->
+        <device.ssm.write-lane-positions value="false" type="BOOL"/>
+
+    </ssm_device>
+
+    <toc_device>
+        <!-- The probability for a vehicle to have a &apos;toc&apos; device -->
+        <device.toc.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;toc&apos; device to named vehicles -->
+        <device.toc.explicit value="" synonymes="device.toc.knownveh" type="STR[]"/>
+
+        <!-- The &apos;toc&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.toc.deterministic value="false" type="BOOL"/>
+
+        <!-- Vehicle type for manual driving regime. -->
+        <device.toc.manualType value="" type="STR"/>
+
+        <!-- Vehicle type for automated driving regime. -->
+        <device.toc.automatedType value="" type="STR"/>
+
+        <!-- Average response time needed by a driver to take back control. -->
+        <device.toc.responseTime value="-1" type="FLOAT"/>
+
+        <!-- Recovery rate for the driver&apos;s awareness after a ToC. -->
+        <device.toc.recoveryRate value="0.1" type="FLOAT"/>
+
+        <!-- Attention level below which a driver restrains from performing lane changes (value in [0,1]). -->
+        <device.toc.lcAbstinence value="0" type="FLOAT"/>
+
+        <!-- Average awareness a driver has initially after a ToC (value in [0,1]). -->
+        <device.toc.initialAwareness value="0.5" type="FLOAT"/>
+
+        <!-- Deceleration rate applied during a &apos;minimum risk maneuver&apos;. -->
+        <device.toc.mrmDecel value="1.5" type="FLOAT"/>
+
+        <!-- Time, which the vehicle requires to have ahead to continue in automated mode. The default value of 0 indicates no dynamic triggering of ToCs. -->
+        <device.toc.dynamicToCThreshold value="0" type="FLOAT"/>
+
+        <!-- Probability that a dynamically triggered TOR is not answered in time. -->
+        <device.toc.dynamicMRMProbability value="0.05" type="FLOAT"/>
+
+        <!-- If true, the vehicle tries to change to the right during an MRM. -->
+        <device.toc.mrmKeepRight value="false" type="BOOL"/>
+
+        <!-- If set, the vehicle tries to reach the given named stopping place during an MRM. -->
+        <device.toc.mrmSafeSpot value="" type="STR"/>
+
+        <!-- Duration the vehicle stays at the safe spot after an MRM. -->
+        <device.toc.mrmSafeSpotDuration value="60" type="FLOAT"/>
+
+        <!-- Maximal acceleration that may be applied during the ToC preparation phase. -->
+        <device.toc.maxPreparationAccel value="0" type="FLOAT"/>
+
+        <!-- Timegap for ToC preparation phase. -->
+        <device.toc.ogNewTimeHeadway value="-1" type="FLOAT"/>
+
+        <!-- Additional spacing for ToC preparation phase. -->
+        <device.toc.ogNewSpaceHeadway value="-1" type="FLOAT"/>
+
+        <!-- Maximal deceleration applied for establishing increased gap in ToC preparation phase. -->
+        <device.toc.ogMaxDecel value="-1" type="FLOAT"/>
+
+        <!-- Rate of adaptation towards the increased headway during ToC preparation. -->
+        <device.toc.ogChangeRate value="-1" type="FLOAT"/>
+
+        <!-- Whether a coloring scheme shall by applied to indicate the different ToC stages. -->
+        <device.toc.useColorScheme value="true" type="BOOL"/>
+
+        <!-- Switches on output by specifying an output filename. -->
+        <device.toc.file value="" type="STR"/>
+
+    </toc_device>
+
+    <driver_state_device>
+        <!-- The probability for a vehicle to have a &apos;driverstate&apos; device -->
+        <device.driverstate.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;driverstate&apos; device to named vehicles -->
+        <device.driverstate.explicit value="" synonymes="device.driverstate.knownveh" type="STR[]"/>
+
+        <!-- The &apos;driverstate&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.driverstate.deterministic value="false" type="BOOL"/>
+
+        <!-- Initial value assigned to the driver&apos;s awareness. -->
+        <device.driverstate.initialAwareness value="1" type="FLOAT"/>
+
+        <!-- Time scale for the error process. -->
+        <device.driverstate.errorTimeScaleCoefficient value="100" type="FLOAT"/>
+
+        <!-- Noise intensity driving the error process. -->
+        <device.driverstate.errorNoiseIntensityCoefficient value="0.2" type="FLOAT"/>
+
+        <!-- General scaling coefficient for applying the error to the perceived speed difference (error also scales with distance). -->
+        <device.driverstate.speedDifferenceErrorCoefficient value="0.15" type="FLOAT"/>
+
+        <!-- General scaling coefficient for applying the error to the perceived distance (error also scales with distance). -->
+        <device.driverstate.headwayErrorCoefficient value="0.75" type="FLOAT"/>
+
+        <!-- Base threshold for recognizing changes in the speed difference (threshold also scales with distance). -->
+        <device.driverstate.speedDifferenceChangePerceptionThreshold value="0.1" type="FLOAT"/>
+
+        <!-- Base threshold for recognizing changes in the headway (threshold also scales with distance). -->
+        <device.driverstate.headwayChangePerceptionThreshold value="0.1" type="FLOAT"/>
+
+        <!-- Minimal admissible value for the driver&apos;s awareness. -->
+        <device.driverstate.minAwareness value="0.1" type="FLOAT"/>
+
+        <!-- Maximal reaction time (~action step length) induced by decreased awareness level (reached for awareness=minAwareness). -->
+        <device.driverstate.maximalReactionTime value="-1" type="FLOAT"/>
+
+    </driver_state_device>
+
+    <bluelight_device>
+        <!-- The probability for a vehicle to have a &apos;bluelight&apos; device -->
+        <device.bluelight.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;bluelight&apos; device to named vehicles -->
+        <device.bluelight.explicit value="" synonymes="device.bluelight.knownveh" type="STR[]"/>
+
+        <!-- The &apos;bluelight&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.bluelight.deterministic value="false" type="BOOL"/>
+
+        <!-- Set the distance at which other drivers react to the blue light and siren sound -->
+        <device.bluelight.reactiondist value="25" type="FLOAT"/>
+
+    </bluelight_device>
+
+    <fcd_device>
+        <!-- The probability for a vehicle to have a &apos;fcd&apos; device -->
+        <device.fcd.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;fcd&apos; device to named vehicles -->
+        <device.fcd.explicit value="" synonymes="device.fcd.knownveh" type="STR[]"/>
+
+        <!-- The &apos;fcd&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.fcd.deterministic value="false" type="BOOL"/>
+
+        <!-- Recording period for FCD-data -->
+        <device.fcd.period value="0" type="STR"/>
+
+        <!-- Record objects in a radius around equipped vehicles -->
+        <device.fcd.radius value="0" type="FLOAT"/>
+
+        <!-- The probability for a person to have a &apos;fcd&apos; device -->
+        <person-device.fcd.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;fcd&apos; device to named persons -->
+        <person-device.fcd.explicit value="" synonymes="person-device.fcd.knownveh" type="STR[]"/>
+
+        <!-- The &apos;fcd&apos; devices are set deterministic using a fraction of 1000 -->
+        <person-device.fcd.deterministic value="false" type="BOOL"/>
+
+        <!-- Recording period for FCD-data -->
+        <person-device.fcd.period value="0" type="STR"/>
+
+    </fcd_device>
+
+    <elechybrid_device>
+        <!-- The probability for a vehicle to have a &apos;elechybrid&apos; device -->
+        <device.elechybrid.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;elechybrid&apos; device to named vehicles -->
+        <device.elechybrid.explicit value="" synonymes="device.elechybrid.knownveh" type="STR[]"/>
+
+        <!-- The &apos;elechybrid&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.elechybrid.deterministic value="false" type="BOOL"/>
+
+    </elechybrid_device>
+
+    <taxi_device>
+        <!-- The probability for a vehicle to have a &apos;taxi&apos; device -->
+        <device.taxi.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;taxi&apos; device to named vehicles -->
+        <device.taxi.explicit value="" synonymes="device.taxi.knownveh" type="STR[]"/>
+
+        <!-- The &apos;taxi&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.taxi.deterministic value="false" type="BOOL"/>
+
+        <!-- The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|traci] -->
+        <device.taxi.dispatch-algorithm value="greedy" type="STR"/>
+
+        <!-- Write information from the dispatch algorithm to FILE -->
+        <device.taxi.dispatch-algorithm.output value="" type="FILE"/>
+
+        <!-- Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE] -->
+        <device.taxi.dispatch-algorithm.params value="" type="STR"/>
+
+        <!-- The period between successive calls to the dispatcher -->
+        <device.taxi.dispatch-period value="60" type="TIME"/>
+
+        <!-- The behavior of idle taxis [stop|randomCircling] -->
+        <device.taxi.idle-algorithm value="stop" type="STR"/>
+
+        <!-- Write information from the idling algorithm to FILE -->
+        <device.taxi.idle-algorithm.output value="" type="FILE"/>
+
+    </taxi_device>
+
+    <glosa_device>
+        <!-- The probability for a vehicle to have a &apos;glosa&apos; device -->
+        <device.glosa.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;glosa&apos; device to named vehicles -->
+        <device.glosa.explicit value="" synonymes="device.glosa.knownveh" type="STR[]"/>
+
+        <!-- The &apos;glosa&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.glosa.deterministic value="false" type="BOOL"/>
+
+        <!-- The communication range to the traffic light -->
+        <device.glosa.range value="100" type="FLOAT"/>
+
+        <!-- The maximum speed factor when approaching a green light -->
+        <device.glosa.max-speedfactor value="1.1" type="FLOAT"/>
+
+        <!-- Minimum speed when coasting towards a red light -->
+        <device.glosa.min-speed value="5" type="FLOAT"/>
+
+    </glosa_device>
+
+    <tripinfo_device>
+        <!-- The probability for a vehicle to have a &apos;tripinfo&apos; device -->
+        <device.tripinfo.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;tripinfo&apos; device to named vehicles -->
+        <device.tripinfo.explicit value="" synonymes="device.tripinfo.knownveh" type="STR[]"/>
+
+        <!-- The &apos;tripinfo&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.tripinfo.deterministic value="false" type="BOOL"/>
+
+    </tripinfo_device>
+
+    <vehroutes_device>
+        <!-- The probability for a vehicle to have a &apos;vehroute&apos; device -->
+        <device.vehroute.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;vehroute&apos; device to named vehicles -->
+        <device.vehroute.explicit value="" synonymes="device.vehroute.knownveh" type="STR[]"/>
+
+        <!-- The &apos;vehroute&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.vehroute.deterministic value="false" type="BOOL"/>
+
+    </vehroutes_device>
+
+    <seeroad_device>
+        <!-- The probability for a vehicle to have a &apos;Seeroad&apos; device -->
+        <device.Seeroad.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;Seeroad&apos; device to named vehicles -->
+        <device.Seeroad.explicit value="" synonymes="device.Seeroad.knownveh" type="STR[]"/>
+
+        <!-- The &apos;Seeroad&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.Seeroad.deterministic value="false" type="BOOL"/>
+
+        <!-- The measurement noise parameter which can be applied to the Seeroad device -->
+        <device.Seeroad.stdev value="0.1" type="FLOAT"/>
+
+        <!-- The measurement offset parameter which can be applied to the Seeroad device -&gt; e.g. to force false measurements -->
+        <device.Seeroad.offset value="0" type="FLOAT"/>
+
+    </seeroad_device>
+
+    <traci_server>
+        <!-- Enables TraCI Server if set -->
+        <remote-port value="0" type="INT"/>
+
+        <!-- Expected number of connecting clients -->
+        <num-clients value="1" type="INT"/>
+
+    </traci_server>
+
+    <mesoscopic>
+        <!-- Enables mesoscopic simulation -->
+        <mesosim value="false" type="BOOL"/>
+
+        <!-- Length of an edge segment in mesoscopic simulation -->
+        <meso-edgelength value="98" type="FLOAT"/>
+
+        <!-- Factor for calculating the net free-free headway time -->
+        <meso-tauff value="1.13" type="TIME"/>
+
+        <!-- Factor for calculating the net free-jam headway time -->
+        <meso-taufj value="1.13" type="TIME"/>
+
+        <!-- Factor for calculating the jam-free headway time -->
+        <meso-taujf value="1.73" type="TIME"/>
+
+        <!-- Factor for calculating the jam-jam headway time -->
+        <meso-taujj value="1.4" type="TIME"/>
+
+        <!-- Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed and tauff (default) -->
+        <meso-jam-threshold value="-1" type="FLOAT"/>
+
+        <!-- Enable multiple queues at edge ends -->
+        <meso-multi-queue value="true" type="BOOL"/>
+
+        <!-- Enable separate queues for every lane -->
+        <meso-lane-queue value="false" type="BOOL"/>
+
+        <!-- Do not build queues (or reduce capacity) for lanes allowing only the given vclasses -->
+        <meso-ignore-lanes-by-vclass value="pedestrian,bicycle" synonymes="meso.ignore-lanes.by-vclass" type="STR[]"/>
+
+        <!-- Enable mesoscopic traffic light and priority junction handling -->
+        <meso-junction-control value="false" type="BOOL"/>
+
+        <!-- Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations -->
+        <meso-junction-control.limited value="false" type="BOOL"/>
+
+        <!-- Apply scaled travel time penalties when driving across tls controlled junctions based on green split instead of checking actual phases -->
+        <meso-tls-penalty value="0" type="FLOAT"/>
+
+        <!-- Apply scaled headway penalties when driving across tls controlled junctions based on green split instead of checking actual phases -->
+        <meso-tls-flow-penalty value="0" type="FLOAT"/>
+
+        <!-- Apply fixed time penalty when driving across a minor link. When using --meso-junction-control.limited, the penalty is not applied whenever limited control is active. -->
+        <meso-minor-penalty value="0" type="TIME"/>
+
+        <!-- Enable mesoscopic overtaking -->
+        <meso-overtaking value="false" type="BOOL"/>
+
+        <!-- Time interval for rechecking insertion into the next segment after failure -->
+        <meso-recheck value="0" type="TIME"/>
+
+    </mesoscopic>
+
+    <random_number>
+        <!-- Initialises the random number generator with the current system time -->
+        <random value="false" synonymes="abs-rand" type="BOOL"/>
+
+        <!-- Initialises the random number generator with the given value -->
+        <seed value="23423" synonymes="srand" type="INT"/>
+
+        <!-- Number of pre-allocated random number generators to ensure repeatable multi-threaded simulations (should be at least the number of threads for repeatable simulations). -->
+        <thread-rngs value="64" type="INT"/>
+
+    </random_number>
+
+    <gui_only>
+        <!-- Load visualisation settings from FILE -->
+        <gui-settings-file value="" synonymes="g" type="FILE"/>
+
+        <!-- Quits the GUI when the simulation stops -->
+        <quit-on-end value="false" synonymes="Q" type="BOOL"/>
+
+        <!-- Start the GUI in gaming mode -->
+        <game value="false" synonymes="G" type="BOOL"/>
+
+        <!-- Select the game type (&apos;tls&apos;, &apos;drt&apos;) -->
+        <game.mode value="tls" type="STR"/>
+
+        <!-- Start the simulation after loading -->
+        <start value="false" synonymes="S" type="BOOL"/>
+
+        <!-- Use FLOAT in ms as delay between simulation steps -->
+        <delay value="0" synonymes="d" type="FLOAT"/>
+
+        <!-- Use TIME[] as times when the simulation should halt -->
+        <breakpoints value="" synonymes="B" type="STR[]"/>
+
+        <!-- Load edge/lane weights for visualization from FILE -->
+        <edgedata-files value="" type="FILE"/>
+
+        <!-- Restart the simulation after ending (demo mode) -->
+        <demo value="false" synonymes="D" type="BOOL"/>
+
+        <!-- Do not load background pictures -->
+        <disable-textures value="false" synonymes="T" type="BOOL"/>
+
+        <!-- Load current viewport from registry -->
+        <registry-viewport value="false" type="BOOL"/>
+
+        <!-- Create initial window with the given x,y size -->
+        <window-size value="" type="STR[]"/>
+
+        <!-- Create initial window at the given x,y position -->
+        <window-pos value="" type="STR[]"/>
+
+        <!-- The aggregation period for value tracker windows -->
+        <tracker-interval value="1" type="TIME"/>
+
+        <!-- Enable overlay for screen recognition -->
+        <gui-testing value="false" type="BOOL"/>
+
+        <!-- Enable output messages during GUI-Testing -->
+        <gui-testing-debug value="false" type="BOOL"/>
+
+        <!-- Save gui settings in the given settings output file -->
+        <gui-testing.setting-output value="" type="FILE"/>
+
+    </gui_only>
+
+</configuration>

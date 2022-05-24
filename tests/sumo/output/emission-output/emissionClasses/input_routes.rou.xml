@@ -1,6 +1,8 @@
 <routes>
     <vType sigma="0" vClass="passenger" id="PHEMlight_PC_D_EU4" emissionClass="PHEMlight/PC_D_EU4"/>
     <vType sigma="0" vClass="passenger" id="PHEMlight_PC_G_EU4" emissionClass="PHEMlight/PC_G_EU4"/>
+    <vType sigma="0" vClass="passenger" id="PHEMlight5_PC_D_EU4" emissionClass="PHEMlight5/PC_EU4_D_MW"/>
+    <vType sigma="0" vClass="passenger" id="PHEMlight5_PC_G_EU4" emissionClass="PHEMlight5/PC_EU4_G"/>
     <vType sigma="0" vClass="passenger" id="LDV" emissionClass="HBEFA3/LDV"/>
     <vType sigma="0" vClass="passenger" id="LDV_G_EU0" emissionClass="HBEFA3/LDV_G_EU0"/>
     <vType sigma="0" vClass="passenger" id="LDV_G_EU1" emissionClass="HBEFA3/LDV_G_EU1"/>
@@ -50,8 +52,8 @@
 
     <route id="route0" edges="e"/>
 
-    <vehicle id="PHEMlight_PC_D_EU4" type="PC_D_EU4" route="route0" depart="0"/>
-    <vehicle id="PHEMlight_PC_G_EU4" type="PC_G_EU4" route="route0" depart="100"/>
+    <vehicle id="PHEMlight_PC_D_EU4" type="PHEMlight_PC_D_EU4" route="route0" depart="0"/>
+    <vehicle id="PHEMlight_PC_G_EU4" type="PHEMlight_PC_G_EU4" route="route0" depart="100"/>
     <vehicle id="LDV" type="LDV" route="route0" depart="200"/>
     <vehicle id="LDV_G_EU0" type="LDV_G_EU0" route="route0" depart="300"/>
     <vehicle id="LDV_G_EU1" type="LDV_G_EU1" route="route0" depart="400"/>
@@ -98,5 +100,7 @@
     <vehicle id="HDV_D_EU6" type="HDV_D_EU6" route="route0" depart="4500"/>
     <vehicle id="HDV_D_East" type="HDV_D_East" route="route0" depart="4600"/>
     <vehicle id="Energy" type="Energy" route="route0" depart="4700"/>
+    <vehicle id="PHEMlight5_PC_D_EU4" type="PHEMlight5_PC_D_EU4" route="route0" depart="4800"/>
+    <vehicle id="PHEMlight5_PC_G_EU4" type="PHEMlight5_PC_G_EU4" route="route0" depart="4900"/>
 
 </routes>

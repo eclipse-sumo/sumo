@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-05-20 11:49:52 by Eclipse SUMO netedit Version v1_13_0+0340-e0e1cd4baec
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\behr_mi\Projekte\simo\projects\junction_control_comparison2\scenario\5GBraWo\brawo.net.xml.gz"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\behr_mi\Projekte\simo\projects\junction_control_comparison2\scenario\5GBraWo\brawo.net.xml.gz"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-598668.09,-5783261.49" convBoundary="6355.99,7052.64,6458.49,7455.92" origBoundary="10.393336,52.146541,10.787296,52.408126" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="2166437547" x="6362.31" y="7119.97"/>
+    <node id="256574415" x="6355.99" y="7132.14"/>
+    <node id="28007021" x="6453.57" y="7333.97"/>
+    <node id="3231100261" x="6401.80" y="7246.45"/>
+    <node id="50917994" x="6365.27" y="7118.71"/>
+    <node id="57749950" x="6438.70" y="7215.17" type="priority"/>
+    <node id="Willy-Brandt-Platz" x="6458.49" y="7455.92"/>
+    <node id="cluster_2166437512_2166437513_2166437514_2166437515_2302566753_28449352_28449353_309922883_309922906_51520995" x="6362.97" y="7052.64"/>
+    <node id="cluster_28114806_286726503_2952513732_2952513733_318617385_318617386" x="6390.56" y="7187.83"/>
+    <node id="cluster_282514172_286726504" x="6430.78" y="7173.80"/>
+</nodes>

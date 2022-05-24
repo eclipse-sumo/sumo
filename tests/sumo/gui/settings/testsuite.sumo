@@ -1,6 +1,9 @@
 # Loading a settings file at startup
 startup_load
 
+# Loading two settings files at startup
+multiview
+
 # Loading an incomplete settings file at startup
 incomplete
 

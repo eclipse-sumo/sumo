@@ -5,5 +5,5 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="f_0" begin="0.00" departLane="random" departSpeed="max" from="25290438" to="23208748#0" end="100.00" vehsPerHour="1800.00"/>
+    <flow id="f_0" begin="0.00" departLane="random" departSpeed="max" from="25290438" to="23208748#0" end="1000.00" vehsPerHour="1800.00"/>
 </routes>

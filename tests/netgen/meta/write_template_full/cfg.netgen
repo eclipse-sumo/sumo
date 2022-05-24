@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-14 14:35:21 by Eclipse SUMO netgenerate Version v1_12_0+1373-449ea4e
+<!-- generated on 2022-05-22 22:18:00 by Eclipse SUMO netgenerate Version v1_13_0+0392-8630667
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -50,8 +50,9 @@
         <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4" type="FLOAT" help="Probability for a node having exactly 4 neighbors"/>
         <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5" type="FLOAT" help="Probability for a node having exactly 5 neighbors"/>
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT" help="Probability for a node having exactly 6 neighbors"/>
-        <rand.random-lanenumber value="false" type="BOOL" help="Draw lane numbers randomly from [1,default.lanenumber]"/>
-        <rand.random-priority value="false" type="BOOL" help="Draw edge priority randomly from [1,default.priority]"/>
+        <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL" help="Draw lane numbers randomly from [1,default.lanenumber]"/>
+        <random-priority value="false" synonymes="rand.random-priority" type="BOOL" help="Draw edge priority randomly from [1,default.priority]"/>
+        <random-type value="false" type="BOOL" help="Draw edge type randomly from all loaded types"/>
         <rand.grid value="false" type="BOOL" help="Place nodes on a regular grid with spacing rand.min-distance"/>
     </random_network>
 
@@ -91,6 +92,8 @@
         <numerical-ids.node-start value="2147483647" type="INT" help="Remaps IDs of nodes to integers starting at INT"/>
         <numerical-ids.edge-start value="2147483647" type="INT" help="Remaps IDs of edges to integers starting at INT"/>
         <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format)"/>
+        <geometry.split value="false" synonymes="split-geometry" type="BOOL" help="Splits edges across geometry nodes"/>
+        <geometry.max-segment-length value="0" type="FLOAT" help="splits geometry to restrict segment length"/>
         <geometry.max-grade value="10" type="FLOAT" help="Warn about edge geometries with a grade in % above FLOAT."/>
         <geometry.max-grade.fix value="true" type="BOOL" help="Smooth edge edge geometries with a grade in above the warning threshold."/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
@@ -112,6 +115,7 @@
         <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT" help="The default width of lanes"/>
         <default.spreadtype value="right" type="STR" help="The default method for computing lane shapes from edge shapes"/>
         <default.speed value="13.89" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
+        <default.friction value="1" synonymes="F friction" type="FLOAT" help="The default friction on an edge"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
         <default.type value="" type="STR" help="The default edge type"/>
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
@@ -145,6 +149,9 @@
         <tls.allred.time value="0" type="INT" help="Set INT as fixed time for intermediate red phase after every switch"/>
         <tls.minor-left.max-speed value="19.44" type="FLOAT" help="Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles"/>
         <tls.left-green.time value="6" type="INT" help="Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases"/>
+        <tls.nema.vehExt value="2" type="INT" help="Set INT as fixed time for intermediate vehext phase after every switch"/>
+        <tls.nema.yellow value="3" type="INT" help="Set INT as fixed time for intermediate NEMA yelow phase after every switch"/>
+        <tls.nema.red value="2" type="INT" help="Set INT as fixed time for intermediate NEMA red phase after every switch"/>
         <tls.crossing-min.time value="4" type="INT" help="Use INT as minimum green duration for pedestrian crossings (s)."/>
         <tls.crossing-clearance.time value="5" type="INT" help="Use INT as clearance time for pedestrian crossings (s)."/>
         <tls.scramble.time value="5" type="INT" help="Use INT as green phase duration for pedestrian scramble phase (s)."/>
@@ -187,6 +194,7 @@
         <no-left-connections value="false" type="BOOL" help="Disables building connections to left"/>
         <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
         <junctions.join-dist value="10" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 10)"/>
+        <junctions.join-same value="false" type="BOOL" help="Joins junctions that have the same coordinates even if not connected"/>
         <junctions.corner-detail value="5" type="INT" help="Generate INT intermediate points to smooth out intersection corners"/>
         <junctions.internal-link-detail value="5" type="INT" help="Generate INT intermediate points to smooth out lanes within the intersection"/>
         <junctions.scurve-stretch value="0" type="FLOAT" help="Generate longer intersections to allow for smooth s-curves when the number of lanes changes"/>

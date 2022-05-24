@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-01 13:32:26 by Eclipse SUMO netconvert Version v1_12_0+2420-9cd1df78d9a
+<!-- generated on 2022-05-15 12:52:33 by Eclipse SUMO netconvert Version v1_13_0+0250-d69a610
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,7 +32,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -289,13 +288,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":8_4_0" index="0" speed="6.64" length="5.02" shape="45.85,98.36 46.40,98.41 48.15,99.46 49.62,101.39"/>
     </edge>
     <edge id=":9_0" function="internal">
-        <lane id=":9_0_0" index="0" speed="6.24" length="4.22" shape="137.26,60.55 136.26,58.23 136.30,56.54"/>
+        <lane id=":9_0_0" index="0" speed="6.25" length="4.22" shape="137.26,60.55 136.27,58.23 136.31,56.54"/>
     </edge>
     <edge id=":9_2" function="internal">
-        <lane id=":9_2_0" index="0" speed="6.24" length="4.81" shape="136.30,56.54 136.31,56.24 137.40,54.57 139.53,53.23"/>
+        <lane id=":9_2_0" index="0" speed="6.25" length="4.83" shape="136.31,56.54 136.32,56.23 137.41,54.56 139.55,53.22"/>
     </edge>
     <edge id=":9_1" function="internal">
-        <lane id=":9_1_0" index="0" speed="13.89" length="11.25" shape="129.32,57.96 139.53,53.23"/>
+        <lane id=":9_1_0" index="0" speed="13.89" length="11.27" shape="129.32,57.96 139.55,53.22"/>
     </edge>
 
     <edge id="119515110" from="50" to="51" priority="0" spreadType="center">
@@ -344,7 +343,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="188865513_0" index="0" speed="13.89" length="0.39" shape="44.12,91.55 44.31,91.89"/>
     </edge>
     <edge id="188865519" from="9" to="61" priority="0" spreadType="center" shape="134.23,55.58 151.93,47.71 152.32,46.84 157.29,35.93">
-        <lane id="188865519_0" index="0" speed="13.89" length="21.21" shape="139.53,53.23 151.93,47.71 152.32,46.84 155.09,40.77"/>
+        <lane id="188865519_0" index="0" speed="13.89" length="21.18" shape="139.55,53.22 151.93,47.71 152.32,46.84 155.09,40.77"/>
     </edge>
     <edge id="188865521" from="63" to="1" priority="0" spreadType="center" shape="523.39,110.45 500.25,126.82 467.98,149.51 360.72,225.22">
         <lane id="188865521_0" index="0" speed="13.89" length="187.84" shape="518.83,113.67 500.25,126.82 467.98,149.51 365.34,221.95"/>
@@ -914,7 +913,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="3" response="0010" foes="0010" cont="1"/>
     </junction>
     <junction id="86" type="dead_end" x="647.20" y="280.27" incLanes="" intLanes="" shape="648.50,279.33 645.91,281.21"/>
-    <junction id="9" type="priority" x="134.23" y="55.58" incLanes="721757930_0 31586091_0" intLanes=":9_2_0 :9_1_0" shape="135.89,61.38 138.62,59.72 137.87,57.64 137.98,56.75 138.40,55.96 139.14,55.27 140.20,54.68 138.78,51.61 128.63,56.52 130.02,59.40 132.27,58.84 133.29,59.02 134.23,59.51 135.10,60.29">
+    <junction id="9" type="priority" x="134.23" y="55.58" incLanes="721757930_0 31586091_0" intLanes=":9_2_0 :9_1_0" shape="135.89,61.38 138.62,59.72 137.87,57.64 137.98,56.75 138.40,55.96 139.14,55.27 140.20,54.68 138.90,51.75 128.63,56.52 130.02,59.40 132.27,58.84 133.29,59.02 134.23,59.51 135.10,60.29">
         <request index="0" response="10" foes="10" cont="1"/>
         <request index="1" response="00" foes="01" cont="0"/>
     </junction>
@@ -936,7 +935,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id=":61_2_0" type="internal" x="159.25" y="37.20" incLanes=":61_1_0 128266207_0" intLanes=":61_0_0"/>
     <junction id=":63_4_0" type="internal" x="524.10" y="108.48" incLanes=":63_3_0 188865524_0" intLanes=":63_1_0"/>
     <junction id=":8_4_0" type="internal" x="45.85" y="98.36" incLanes=":8_3_0 188865513_0" intLanes=":8_1_0"/>
-    <junction id=":9_2_0" type="internal" x="136.30" y="56.54" incLanes=":9_0_0 31586091_0" intLanes=":9_1_0"/>
+    <junction id=":9_2_0" type="internal" x="136.31" y="56.54" incLanes=":9_0_0 31586091_0" intLanes=":9_1_0"/>
 
     <connection from="127539811" to="4686491" fromLane="0" toLane="0" via=":2_0_0" dir="l" state="M"/>
     <connection from="128266207" to="188865512" fromLane="0" toLane="0" via=":61_0_0" dir="r" state="M"/>

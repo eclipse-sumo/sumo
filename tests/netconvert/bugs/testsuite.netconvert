@@ -133,3 +133,12 @@ ticket9810
 
 # junction shape
 ticket10589
+
+# regression on clipping curved shapes
+ticket10727
+
+# strange connections
+ticket10771
+
+# invalid rail crossing
+ticket10777
