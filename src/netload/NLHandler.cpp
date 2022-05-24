@@ -1708,6 +1708,7 @@ NLHandler::addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs,
     const std::string foesString = attrs.get<std::string>(SUMO_ATTR_FOES, nullptr, ok);
     const std::vector<std::string> foes = StringTokenizer(foesString).getVector();
     const int limit = attrs.getOpt<int>(SUMO_ATTR_LIMIT, nullptr, ok, (int)foes.size());
+    const bool active = attrs.getOpt<bool>(SUMO_ATTR_ACTIVE, nullptr, ok, true);
 
     if (!MSNet::getInstance()->getTLSControl().knows(signalID)) {
         throw InvalidArgument("Rail signal '" + signalID + "' in railSignalConstraints is not known");
@@ -1718,7 +1719,7 @@ NLHandler::addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs,
     }
     if (ok) {
         for (const std::string& foe : foes) {
-            MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(signal, foe, limit);
+            MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(signal, foe, limit, active);
             if (element == SUMO_TAG_PREDECESSOR) {
                 rs->addConstraint(tripId, c);
             } else if (element == SUMO_TAG_INSERTION_PREDECESSOR) {

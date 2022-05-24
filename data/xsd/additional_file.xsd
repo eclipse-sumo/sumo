@@ -548,6 +548,7 @@
                     <xsd:attribute name="tl"     use="required" type="idType"/>
                     <xsd:attribute name="foes"   use="required" type="xsd:string"/>
                     <xsd:attribute name="limit"  use="optional" type="positiveIntType"/>
+                    <xsd:attribute name="active" use="optional" type="boolType"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="insertionPredecessor">
@@ -556,6 +557,7 @@
                     <xsd:attribute name="tl"     use="required" type="idType"/>
                     <xsd:attribute name="foes"   use="required" type="xsd:string"/>
                     <xsd:attribute name="limit"  use="optional" type="positiveIntType"/>
+                    <xsd:attribute name="active" use="optional" type="boolType"/>
                 </xsd:complexType>
             </xsd:element>
         </xsd:choice>

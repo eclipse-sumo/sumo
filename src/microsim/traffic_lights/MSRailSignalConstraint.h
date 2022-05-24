@@ -75,7 +75,7 @@ class MSRailSignalConstraint_Predecessor : public MSRailSignalConstraint {
 public:
     /** @brief Constructor
      */
-    MSRailSignalConstraint_Predecessor(const MSRailSignal* signal, const std::string& tripId, int limit);
+    MSRailSignalConstraint_Predecessor(const MSRailSignal* signal, const std::string& tripId, int limit, bool active);
 
     /// @brief Destructor
     ~MSRailSignalConstraint_Predecessor() {};
@@ -136,6 +136,9 @@ public:
 
     /// @brief the number of passed vehicles within which tripId must have occured
     const int myLimit;
+
+    /// @brief Whether this constraint is currently active
+    int myAmActive;
 
     /// @brief store the foe signal (for TraCI access)
     const MSRailSignal* myFoeSignal;
