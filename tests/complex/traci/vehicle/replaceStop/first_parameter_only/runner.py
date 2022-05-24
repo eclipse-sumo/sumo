@@ -22,11 +22,8 @@ from __future__ import absolute_import
 import os
 import sys
 
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 
 import traci  # noqa
 import sumolib  # noqa
@@ -60,7 +57,7 @@ def getParams(vehID, index):
             "speed",
             "started",
             "ended",
-            ]:
+    ]:
         print(p, traci.vehicle.getStopParameter(vehID, index, p))
 
 
