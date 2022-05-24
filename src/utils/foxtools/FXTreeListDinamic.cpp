@@ -20,6 +20,8 @@
 
 #include "FXTreeListDinamic.h"
 
+#include <utils/common/UtilExceptions.h>
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -77,7 +79,13 @@ FXTreeListDinamic::getSelectedIndex() {
 
 FXTreeItem* 
 FXTreeListDinamic::insertItem(FXTreeItem* father, const FXString& text, FXIcon* oi) {
-    return FXTreeList::insertItem(nullptr, father, text, oi, oi, nullptr, false);
+    auto newItem = FXTreeList::insertItem(nullptr, father, text, oi, oi, nullptr, false);
+    if (newItem != nullptr) {
+        myFXTreeItems.push_back(newItem);
+        return newItem;
+    } else {
+        throw ProcessError("New item cannot be NULL");
+    }
 }
 
 
@@ -101,7 +109,10 @@ FXTreeListDinamic::getItem(FXint index) const {
 
 void
 FXTreeListDinamic::resetSelectedItem() {
-    mySelectedItem = -1;
+    if (mySelectedItem != -1) {
+        myFXTreeItems.at(mySelectedItem)->setSelected(false);
+        mySelectedItem = -1;
+    }
 }
 
 
