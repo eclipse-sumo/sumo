@@ -32,9 +32,16 @@ public:
     /// @brief Constructor
     FXTreeItemDynamic(const FXString& text, FXIcon* oi = nullptr, FXIcon* ci = nullptr, void* ptr = nullptr);
 
+    /// Change text color
+    void setTextColor(FXColor clr);
+
 protected:
     /// @brief draw tree item
     void draw(const FXTreeList* list, FXDC& dc, FXint xx, FXint yy, FXint, FXint hh) const;
+
+private:
+    /// @brief set text color
+    FXColor myTextColor = FXRGB(0, 0, 0);
 };
 
 /// @brief FXTreeListDinamic
@@ -51,6 +58,9 @@ public:
 
     /// @brief Hide FXTreeListDinamic
     void hide();
+
+    /// @brief update
+    void update();
 
     /// @brief clear items
     void clearItems();
@@ -71,7 +81,7 @@ public:
     FXTreeItem* getItemAt(FXint x,FXint y) const;
 
     /// @brief Get item 
-    FXTreeItem* getItem(FXint index) const;
+    FXTreeItemDynamic* getItem(FXint index) const;
 
     /// @brief reset selected item
     void resetSelectedItem();
@@ -85,8 +95,8 @@ protected:
     /// @brief default constructor
     FXTreeListDinamic();
 
-    /// @brief list with current elements
-    std::vector<FXTreeItem*> myFXTreeItems;
+    /// @brief list with current FXTreeItemDynamic elements
+    std::vector<FXTreeItemDynamic*> myFXTreeItemDynamicItems;
 
     /// @brief selected item
     FXint mySelectedItem = -1;

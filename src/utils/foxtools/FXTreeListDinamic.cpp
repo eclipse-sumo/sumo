@@ -43,7 +43,14 @@ FXIMPLEMENT(FXTreeListDinamic, FXTreeList, FXTreeListDinamicMap, ARRAYNUMBER(FXT
 // FXTreeItemDynamic
 
 FXTreeItemDynamic::FXTreeItemDynamic(const FXString& text, FXIcon* oi, FXIcon* ci, void* ptr) :
-    FXTreeItem(text, oi, ci, ptr) {}
+    FXTreeItem(text, oi, ci, ptr) {
+}
+
+
+void 
+FXTreeItemDynamic::setTextColor(FXColor clr) {
+    myTextColor = clr;
+}
 
 
 void
@@ -74,7 +81,7 @@ FXTreeItemDynamic::draw(const FXTreeList* list, FXDC& dc, FXint xx, FXint yy, FX
         } else if (isSelected()) {
             dc.setForeground(list->getSelTextColor());
         } else {
-            dc.setForeground(list->getTextColor());
+            dc.setForeground(myTextColor);
         }
         dc.drawText(xx + 2, yy + font->getFontAscent() + 2, label);
     }
@@ -103,9 +110,16 @@ FXTreeListDinamic::hide() {
 }
 
 
+void
+FXTreeListDinamic::update() {
+    // update
+    FXTreeList::update();
+}
+
+
 void 
 FXTreeListDinamic::clearItems() {
-    myFXTreeItems.clear();
+    myFXTreeItemDynamicItems.clear();
     return FXTreeList::clearItems();
 }
 
@@ -124,9 +138,9 @@ FXTreeListDinamic::getSelectedIndex() {
 
 FXTreeItem* 
 FXTreeListDinamic::insertItem(FXTreeItem* father, const FXString& text, FXIcon* oi) {
-    auto newItem = FXTreeList::insertItem(nullptr, father, new FXTreeItemDynamic(text, oi, oi, nullptr), false);
+    FXTreeItemDynamic* newItem = dynamic_cast<FXTreeItemDynamic*>(FXTreeList::insertItem(nullptr, father, new FXTreeItemDynamic(text, oi, oi, nullptr), false));
     if (newItem != nullptr) {
-        myFXTreeItems.push_back(newItem);
+        myFXTreeItemDynamicItems.push_back(newItem);
         return newItem;
     } else {
         throw ProcessError("New item cannot be NULL");
@@ -146,16 +160,16 @@ FXTreeListDinamic::getItemAt(FXint x,FXint y) const {
 }
 
 
-FXTreeItem* 
+FXTreeItemDynamic* 
 FXTreeListDinamic::getItem(FXint index) const {
-    return myFXTreeItems.at(index);
+    return myFXTreeItemDynamicItems.at(index);
 }
 
 
 void
 FXTreeListDinamic::resetSelectedItem() {
     if (mySelectedItem != -1) {
-        myFXTreeItems.at(mySelectedItem)->setSelected(false);
+        myFXTreeItemDynamicItems.at(mySelectedItem)->setSelected(false);
         mySelectedItem = -1;
     }
 }
@@ -166,8 +180,8 @@ FXTreeListDinamic::onLeftBtnPress(FXObject* obj, FXSelector sel, void* ptr) {
     FXTreeList::onLeftBtnPress(obj, sel, ptr);
     // update selected item
     mySelectedItem = -1;
-    for (int i = 0; i < (int)myFXTreeItems.size(); i++) {
-        if (myFXTreeItems.at(i)->isSelected()) {
+    for (int i = 0; i < (int)myFXTreeItemDynamicItems.size(); i++) {
+        if (myFXTreeItemDynamicItems.at(i)->isSelected()) {
             mySelectedItem = i;
         }
     }
