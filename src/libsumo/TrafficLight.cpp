@@ -342,6 +342,7 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
     }
     if (c != nullptr) {
         const int limit = c->myLimit;
+        // the two constraints are complementary so we actually remove rather than deactivate to avoid redundant conflict information
         s->removeConstraint(tripId, c);
         s2->addConstraint(foeId, new MSRailSignalConstraint_Predecessor(s, tripId, limit, true));
         return findConstraintsDeadLocks(foeId, tripId, foeSignal, tlsID);
@@ -359,15 +360,26 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
             MSTrafficLightLogic* const active = Helper::getTLS(tlsCand).getDefault();
             MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
             if (s != nullptr) {
-                auto cands = s->getConstraints(); // make copy
-                for (auto item : cands) {
+                for (auto item : s->getConstraints()) {
                     if (tripId == "" || item.first == tripId) {
                         for (MSRailSignalConstraint* cand : item.second) {
                             MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
                             if (pc != nullptr
                                     && (foeId == "" || pc->myTripId == foeId)
                                     && (foeSignal == "" || pc->myFoeSignal->getID() == foeSignal)) {
-                                s->removeConstraint(item.first, cand);
+                                cand->setActive(false);
+                            }
+                        }
+                    }
+                }
+                for (auto item : s->getInsertionConstraints()) {
+                    if (tripId == "" || item.first == tripId) {
+                        for (MSRailSignalConstraint* cand : item.second) {
+                            MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
+                            if (pc != nullptr
+                                    && (foeId == "" || pc->myTripId == foeId)
+                                    && (foeSignal == "" || pc->myFoeSignal->getID() == foeSignal)) {
+                                cand->setActive(false);
                             }
                         }
                     }
@@ -394,7 +406,7 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
         for (auto item : s->getConstraints()) {
             for (MSRailSignalConstraint* cand : item.second) {
                 MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
-                if (pc != nullptr && !pc->cleared()) {
+                if (pc != nullptr && !pc->cleared() && pc->isActive()) {
                     if (item.first == tripId) {
                         // tripId waits for foe2
                         // @could there by more than one constraint on tripId by this foe2?
@@ -461,6 +473,7 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                         nc.limit = c.limit;
                         nc.type = c.type;
                         nc.mustWait = true; // ???
+                        nc.active = true;
                         result.push_back(nc);
                         // let foe wait for foe2
                         std::vector<TraCISignalConstraint> result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
@@ -516,6 +529,7 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                         nc.limit = c.limit;
                         nc.type = c.type;
                         nc.mustWait = true; // ???
+                        nc.active = true;
                         result.push_back(nc);
                         // let foe wait for foe2
                         std::vector<TraCISignalConstraint> result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
@@ -555,6 +569,7 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
         nc.limit = c.limit;
         nc.type = c.type;
         nc.mustWait = true; // ???
+        nc.active = true;
         result.push_back(nc);
         // let foe wait for foe2
         const std::vector<TraCISignalConstraint>& result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
@@ -744,7 +759,8 @@ TrafficLight::buildConstraint(const std::string& tlsID, const std::string& tripI
         c.foeSignal = pc->myFoeSignal->getID();
         c.limit = pc->myLimit;
         c.type = insertionConstraint ? 1 : 0;
-        c.mustWait = !pc->cleared();
+        c.mustWait = !pc->cleared() && pc->isActive();
+        c.active = pc->isActive();
     }
     return c;
 }

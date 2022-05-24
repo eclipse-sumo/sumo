@@ -622,6 +622,8 @@ struct TraCISignalConstraint {
     int type;
     /// @brief whether tripId must still wait for foeId to pass foeSignal
     bool mustWait;
+    /// @brief whether this constraint is active
+    bool active;
 
     std::string getString() const {
         std::ostringstream os;

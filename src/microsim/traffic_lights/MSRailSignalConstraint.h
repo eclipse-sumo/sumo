@@ -48,6 +48,10 @@ public:
     /// @brief whether the constraint has been met
     virtual bool cleared() const = 0;
 
+    virtual void setActive(bool active) = 0;
+
+    virtual bool isActive() const = 0;
+
     virtual std::string getDescription() const {
         return "RailSignalConstraint";
     }
@@ -95,6 +99,14 @@ public:
     static void clearState();
 
     bool cleared() const;
+
+    void setActive(bool active) {
+        myAmActive = active;
+    }
+
+    bool isActive() const {
+        return myAmActive;
+    }
 
     std::string getDescription() const;
 
