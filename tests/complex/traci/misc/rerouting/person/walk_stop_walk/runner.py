@@ -21,7 +21,8 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-sys.path.append(os.path.join(
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "..", "..", "tools"))
 
 import traci  # noqa
