@@ -234,6 +234,9 @@ protected:
 	 */
 	GUILane* getLaneUnderCursor();
 
+	// @brief get the new camera position given a zoom value
+	void zoom2Pos(Position& camera, Position& lookAt, double zoom);
+
 private:
     double calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up);
 
@@ -308,7 +311,7 @@ protected:
     osg::ref_ptr<osg::Group> myRoot;
 
 private:
-    GUIVehicle* myTracked;
+	GUIVehicle* myTracked;
     osg::ref_ptr<SUMOTerrainManipulator> myCameraManipulator;
 
     SUMOTime myLastUpdate;

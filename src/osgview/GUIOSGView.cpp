@@ -519,6 +519,7 @@ GUIOSGView::showViewportEditor() {
     myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
     Position from(lookFrom[0], lookFrom[1], lookFrom[2]), at(lookAt[0], lookAt[1], lookAt[2]);
     myViewportChooser->setOldValues(from, at, calculateRotation(lookFrom, lookAt, up));
+	myViewportChooser->setZoomValue(1);
     myViewportChooser->show();
 }
 
@@ -526,7 +527,6 @@ GUIOSGView::showViewportEditor() {
 void
 GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double rotation) {
     osg::Vec3d lookFromOSG, lookAtOSG, up;
-    myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
     lookFromOSG[0] = lookFrom.x();
     lookFromOSG[1] = lookFrom.y();
     lookFromOSG[2] = lookFrom.z();
@@ -551,6 +551,9 @@ GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookA
     up = normal * cos(angle) - orthogonal * sin(angle);
     up.normalize();
 
+    double zoom = (myViewportChooser != nullptr) ? myViewportChooser->getZoomValue() : 100.;
+    lookFromOSG = lookFromOSG + viewAxis * (100. - zoom);
+    lookAtOSG = lookFromOSG - viewAxis;
     myCameraManipulator->setVerticalAxisFixed(true);
     myViewer->getCameraManipulator()->setHomePosition(lookFromOSG, lookAtOSG, up);
     myViewer->home();
@@ -956,11 +959,33 @@ GUIOSGView::getGUIGlObjectsUnderCursor() {
 
 GUILane* 
 GUIOSGView::getLaneUnderCursor() {
-	std::vector<GUIGlObject*> objects = getGUIGlObjectsUnderCursor();
-	if (objects.size() > 0) {
-		return dynamic_cast<GUILane*>(objects[0]);
-	}
-	return nullptr;
+    std::vector<GUIGlObject*> objects = getGUIGlObjectsUnderCursor();
+    if (objects.size() > 0) {
+        return dynamic_cast<GUILane*>(objects[0]);
+    }
+    return nullptr;
+}
+
+
+void
+GUIOSGView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
+	osg::Vec3f lookFromOSG, lookAtOSG, viewAxis, up;
+	myCameraManipulator->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
+	lookFromOSG[0] = camera.x();
+	lookFromOSG[1] = camera.y();
+	lookFromOSG[2] = camera.z();
+	lookAtOSG[0] = lookAt.x();
+	lookAtOSG[1] = lookAt.y();
+	lookAtOSG[2] = lookAt.z();
+	viewAxis = lookAtOSG - lookFromOSG;
+	viewAxis.normalize();
+
+	// compute new camera and lookAt pos
+	osg::Vec3f cameraUpdate = lookFromOSG + viewAxis * zoom;
+	osg::Vec3f lookAtUpdate = cameraUpdate + viewAxis;
+
+	myViewer->getCameraManipulator()->setHomePosition(cameraUpdate, lookAtUpdate, up);
+	myViewer->home();
 }
 
 
