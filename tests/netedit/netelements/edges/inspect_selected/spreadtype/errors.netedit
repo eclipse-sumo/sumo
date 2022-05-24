@@ -20,7 +20,6 @@ Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Value 'dummySpread' for attribute spreadType of edge isn't valid
-Debug: Value '' for attribute spreadType of edge isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed

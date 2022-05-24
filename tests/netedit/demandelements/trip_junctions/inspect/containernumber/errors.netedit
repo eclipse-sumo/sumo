@@ -69,7 +69,6 @@ Debug: Key ENTER pressed
 Debug: Adding tripJunctions 't_0' in GNEChange_DemandElement
 Debug: Value 'dummyNumber' for attribute containerNumber of tripJunctions isn't valid
 Debug: Value '-5' for attribute containerNumber of tripJunctions isn't valid
-Debug: Value '' for attribute containerNumber of tripJunctions isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
