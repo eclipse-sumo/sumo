@@ -1,0 +1,29 @@
+# keepRight changing disabled to get a base case for evaluating cooperative changing (used by subsequent tests)
+default_noKeepRight
+
+# perform cooperative change for a leader vehicle with at least 50% overlap
+overlappingLeader
+
+# perform cooperative change for a leader vehicle with less than 50% overlap
+overlappingLeader_ignore
+
+# permit cooperative changing if there is no inconvenience
+cooperative0
+
+# allow cooperative changing if the target lane is slower
+cooperative0.5_inconvenient
+
+# disable cooperative changing if the target lane is too slow
+cooperative0_inconvenient
+
+# disable cooperative changing if the target lane is too slow (target lane has vehicles on it)
+cooperative0_inconvenient2
+
+# test cooperative changing where the target lane is faster (with lcSpeedGain=0)
+cooperative0_superconvenient
+
+# test cooperative changing where the target lane is faster (with lcSpeedGain=0)
+cooperative-1_superconvenient
+
+# disable cooperative changing completely
+cooperative-1

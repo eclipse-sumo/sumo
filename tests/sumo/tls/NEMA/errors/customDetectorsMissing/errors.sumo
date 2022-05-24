@@ -1,0 +1,3 @@
+Warning: At NEMA tlLogic '0', the phases before barrier 1 from both rings do not add up. (ring1=97.00, ring2=102.00)
+Error: Unknown laneAreaDetector 'Detector_8' given as custom detector for NEMA tlLogic '0', program '01.
+Quitting (on error).

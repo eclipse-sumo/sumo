@@ -1,0 +1,8 @@
+--grid --grid.x-number=3 --grid.y-number=3
+--no-internal-links
+--output=net.net.xml
+--prefix foo_
+--default.lanenumber 3
+--random-lanenumber
+--default.priority 10
+--random-priority

@@ -65,5 +65,14 @@ remove_edge
 # bidi-probability=0
 oneway
 
+# apply randomization options to grid
+randomize
+
+# pick random type from among 3 loaded types
+randomize_type
+
+# split geometry to add extra nodes
+split
+
 # Tests processing of errors in input
 errors

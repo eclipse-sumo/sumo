@@ -1,0 +1,4 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="ego" sigma="0" lcKeepRight="0" lcCooperative="-1"/>
+   <vType id="neigh" sigma="0" lcKeepRight="0"/>
+</routes>

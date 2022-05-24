@@ -16,6 +16,9 @@ one_vehicle_waiting
 # one vehicle is moving and stopping for some time (parked)
 one_vehicle_parking
 
+# one vehicle is moving and stopping for some time (parked on road)
+one_vehicle_parking_onRoad
+
 # one vehicle is moving, timestep is subseconds
 one_vehicle_subsecond
 
@@ -33,6 +36,12 @@ half_equipped
 
 # output in every 5th step
 period
+
+# shutting off the engine at planned stops
+shut_off_stop
+
+# shutting off the engine at traffic lights
+shut_off_auto
 
 # Testing error cases
 errors

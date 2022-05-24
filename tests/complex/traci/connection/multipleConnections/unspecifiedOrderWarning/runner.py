@@ -59,7 +59,7 @@ def traciLoop(port, traciEndTime, index, orderOdd):
     except Exception as e:
         time.sleep(orderTime * index)  # assure ordering of outputs
         sumoStop = True
-        print("client %s: " % index, str(e), " (at TraCIStep %s)" % step)
+        print("Process %s: " % index, str(e), " (at TraCIStep %s)" % step)
         sys.stdout.flush()
     if not sumoStop:
         time.sleep(orderTime * index)  # assure ordering of outputs

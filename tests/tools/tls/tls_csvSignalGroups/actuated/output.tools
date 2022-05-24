@@ -1,0 +1,25 @@
+Valid description from -474_0 to --470_0 (SG FZ11, tlIndex 0)
+Valid description from -474_0 to --468_0 (SG FZ11, tlIndex 1)
+Valid description from -474_1 to --472_0 (SG FZ11, tlIndex 2)
+Valid description from -472_0 to --474_0 (SG FZ21, tlIndex 3)
+Valid description from -472_0 to --470_0 (SG FZ21, tlIndex 4)
+Valid description from -472_0 to --468_0 (SG FZ21, tlIndex 5)
+Valid description from -468_0 to --472_0 (SG FZ31, tlIndex 6)
+Valid description from -468_0 to --474_0 (SG FZ31, tlIndex 7)
+Valid description from -468_1 to --470_0 (SG FZ31, tlIndex 8)
+Valid description from -470_0 to --468_0 (SG FZ41, tlIndex 9)
+Valid description from -470_0 to --472_0 (SG FZ41, tlIndex 10)
+Valid description from -470_0 to --474_0 (SG FZ41, tlIndex 11)
+All switch times: [0, 10, 13, 14, 15, 25, 28, 29, 30, 40, 43, 44, 45, 55, 58, 59]
+SG FZ11: tlIndex 0: yield tlIndices []
+SG FZ11: tlIndex 1: yield tlIndices []
+SG FZ11: tlIndex 2: yield tlIndices [6, 7]
+SG FZ21: tlIndex 3: yield tlIndices [7]
+SG FZ21: tlIndex 4: yield tlIndices [7, 8, 0, 1, 2]
+SG FZ21: tlIndex 5: yield tlIndices [7, 8, 9, 10, 1, 2]
+SG FZ31: tlIndex 6: yield tlIndices []
+SG FZ31: tlIndex 7: yield tlIndices []
+SG FZ31: tlIndex 8: yield tlIndices [0, 1]
+SG FZ41: tlIndex 9: yield tlIndices [1]
+SG FZ41: tlIndex 10: yield tlIndices [6, 7, 8, 1, 2]
+SG FZ41: tlIndex 11: yield tlIndices [7, 8, 3, 4, 1, 2]

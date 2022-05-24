@@ -6,10 +6,10 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,-11.60,35.00,1
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 15.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
-Error: Define either 'freq' or 'tl' in a lane area detector.
+Error: Define either 'period' (alias: 'freq') or 'tl' in a lane area detector.
 Error: Could not build e2Detector with ID 'e2MultilaneDetector_1' in netedit; invalid traffic light ID.
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_2' in GNEChange_Additional
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_11Apr144420.20620\netedit.gui\additionalelements\e2multilanedetector\load\tl\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12May145105.4444\netedit.gui\additionalelements\e2multilanedetector\load\tl\input_additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

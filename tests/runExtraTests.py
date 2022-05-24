@@ -51,7 +51,7 @@ def run(suffix, args, guiTests=False, chrouter=True):
     if guiTests:
         apps += ",sumo.meso.gui,sumo.gui.osg"
 #        if os.name == "posix":
-#            apps += ",complex.libsumogui"
+#            apps += ",complex.libsumo.gui"
     process = subprocess.Popen("%s %s -a %s" % ("texttest", args, apps), env=env, 
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
     with process.stdout:

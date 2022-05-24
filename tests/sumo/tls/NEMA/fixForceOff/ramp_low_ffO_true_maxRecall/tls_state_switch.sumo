@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-04 09:23:09 by Eclipse SUMO sumo Version v1_13_0+0011-a81882c
+<!-- generated on 2022-05-20 17:43:04 by Eclipse SUMO sumo Version v1_13_0+0377-d3c4141
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,9 +29,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </processing>
 
     <report>
-        <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -341,4 +339,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="3968.00" id="2881" programID="01" phase="0" state="srrrGGyyrrr" name="1+6"/>
     <tlsState time="3972.00" id="2881" programID="01" phase="1" state="srrrGGrrrrr" name="1+6"/>
     <tlsState time="3973.00" id="2881" programID="01" phase="0" state="srrrGGrrGGG" name="2+6"/>
+    <tlsState time="4040.00" id="2881" programID="01" phase="1" state="srrryyrryyy" name="2+6"/>
+    <tlsState time="4044.00" id="2881" programID="01" phase="0" state="rrrrrrrrrrr" name="2+6"/>
+    <tlsState time="4045.00" id="2881" programID="01" phase="1" state="GGGGrrrrrrr" name="4+4"/>
+    <tlsState time="4066.00" id="2881" programID="01" phase="0" state="yyyyrrrrrrr" name="4+4"/>
+    <tlsState time="4071.00" id="2881" programID="01" phase="1" state="rrrrrrrrrrr" name="4+4"/>
+    <tlsState time="4072.00" id="2881" programID="01" phase="0" state="srrrGGGGrrr" name="1+6"/>
+    <tlsState time="4088.00" id="2881" programID="01" phase="1" state="srrrGGyyrrr" name="1+6"/>
+    <tlsState time="4092.00" id="2881" programID="01" phase="0" state="srrrGGrrrrr" name="1+6"/>
+    <tlsState time="4093.00" id="2881" programID="01" phase="1" state="srrrGGrrGGG" name="2+6"/>
 </tlsStates>

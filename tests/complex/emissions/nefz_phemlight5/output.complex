@@ -12,22 +12,22 @@ Success.
 Running 'PHEMlight5/PC_EU4_D_MW'
 sums
 length:11041.9
-CO:310.081
-CO2:2.15123e+06
-HC:158.845
-NOx:8329.05
-PMx:285.686
-fuel:814.391
+CO:290.742
+CO2:2.13351e+06
+HC:146.766
+NOx:8034.25
+PMx:270.385
+fuel:807.661
 electricity:0
 Success.
 Running 'PHEMlight5/PC_EU4_G'
 sums
 length:11041.9
-CO:14894.4
-CO2:2.36195e+06
-HC:121.219
-NOx:621.469
-PMx:25.5487
-fuel:1014.77
+CO:8655.76
+CO2:2.34213e+06
+HC:90.0354
+NOx:569.625
+PMx:17.1163
+fuel:1002.12
 electricity:0
 Success.
