@@ -976,11 +976,11 @@ public:
 
     /// @brief Returns the immediate leaders and the distance to them (as getLeaderOnConsecutive but for the sublane case)
     void getLeadersOnConsecutive(double dist, double seen, double speed, const MSVehicle* ego,
-                                 const std::vector<MSLane*>& bestLaneConts, bool abortClosed, MSLeaderDistanceInfo& result, bool oppositeDirection = false) const;
+        const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result, bool oppositeDirection = false) const;
 
 
     /// @brief get leaders for ego on the given lane
-    void addLeaders(const MSVehicle* vehicle, double vehPos, bool abortClosed, MSLeaderDistanceInfo& result, bool oppositeDirection = false);
+    void addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result, bool oppositeDirection = false);
 
 
     /** @brief Returns the most dangerous leader and the distance to him
