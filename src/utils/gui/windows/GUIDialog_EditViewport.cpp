@@ -33,6 +33,7 @@
 #include <utils/options/OptionsCont.h>
 
 #include "GUISUMOAbstractView.h"
+#include "osgview/GUIOSGView.h"
 #include "GUIDialog_EditViewport.h"
 
 
@@ -185,7 +186,20 @@ GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
     if (o == myZOff) {
         myZoom->setValue(myParent->getChanger().zPos2Zoom(myZOff->getValue()));
     } else if (o == myZoom) {
-        myZOff->setValue(myParent->getChanger().zoom2ZPos(myZoom->getValue()));
+		if (myParent->is3DView()) {
+			// calculate new camera position
+			Position camera, lookAt;
+			dynamic_cast<GUIOSGView*>(myParent)->zoom2Pos(myZoom->getValue(), camera, lookAt);
+			myXOff->setValue(camera.x());
+			myYOff->setValue(camera.y());
+			myZOff->setValue(camera.z());
+			myLookAtX->setValue(lookAt.x());
+			myLookAtY->setValue(lookAt.y());
+			myLookAtZ->setValue(lookAt.z());
+		}
+		else {
+			myZOff->setValue(myParent->getChanger().zoom2ZPos(myZoom->getValue()));
+		}
     }
     myParent->setViewportFromToRot(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
@@ -274,7 +288,7 @@ GUIDialog_EditViewport::setValues(const Position& lookFrom, const Position& look
     myXOff->setValue(lookFrom.x());
     myYOff->setValue(lookFrom.y());
     myZOff->setValue(lookFrom.z());
-    myZoom->setValue(myParent->getChanger().zPos2Zoom(lookFrom.z()));
+	myZoom->setValue(myParent->getChanger().zPos2Zoom(lookFrom.z()));
 #ifdef HAVE_OSG
     myLookAtX->setValue(lookAt.x());
     myLookAtY->setValue(lookAt.y());

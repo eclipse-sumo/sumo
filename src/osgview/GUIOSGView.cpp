@@ -125,7 +125,7 @@ GUIOSGView::GUIOSGView(
     GUINet& net, FXGLVisual* glVis,
     FXGLCanvas* share) :
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
-    myTracked(0), myCameraManipulator(new SUMOTerrainManipulator()), myLastUpdate(-1) {
+    myTracked(0), myCameraManipulator(new SUMOTerrainManipulator()), myLastUpdate(-1), myZoomRefLength(net.getVisualisationSpeedUp().getWidth()) {
 
     //FXGLVisual* glVisual=new FXGLVisual(getApp(),VISUAL_DOUBLEBUFFER|VISUAL_STEREO);
 
@@ -738,6 +738,40 @@ GUIOSGView::calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& look
         angle += M_PI;
     }
     return RAD2DEG(angle);
+}
+
+
+void
+GUIOSGView::zoom2Pos(double zoom, Position& camera, Position& lookAt) const {
+	osg::Vec3f lookFromOSG, lookAtOSG, up, viewAxis;
+	myCameraManipulator->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
+	viewAxis = lookAtOSG - lookFromOSG;
+	viewAxis.normalize();
+	double zUpdate = (myZoomRefLength / lookFromOSG[2]) * 100 / zoom * lookFromOSG[2];
+
+	// zoom only if view is not parallel to the ground
+	if (abs(viewAxis[2]) > 0.) {
+		// compute new camera and lookAt pos
+		double scaleFactor = (zUpdate - lookFromOSG[2]) / viewAxis[2];
+		osg::Vec3f cameraUpdate = lookFromOSG + viewAxis * scaleFactor;
+		osg::Vec3f lookAtUpdate = cameraUpdate + viewAxis;
+		camera.setx(cameraUpdate[0]);
+		camera.sety(cameraUpdate[1]);
+		camera.setz(cameraUpdate[2]);
+		lookAt.setx(lookAtUpdate[0]);
+		lookAt.sety(lookAtUpdate[1]);
+		lookAt.setz(lookAtUpdate[2]);
+	}
+	else {
+		// return old values
+		WRITE_WARNING("Zooming parallel to the ground is undefined.");
+		camera.setx(lookFromOSG[0]);
+		camera.sety(lookFromOSG[1]);
+		camera.setz(lookFromOSG[2]);
+		lookAt.setx(lookAtOSG[0]);
+		lookAt.sety(lookAtOSG[1]);
+		lookAt.setz(lookAtOSG[2]);
+	}
 }
 
 
