@@ -36,9 +36,9 @@
 // ===========================================================================
 
 FXDEFMAP(GNEUndoListDialog) GNEUndoListDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,        0,                                      GNEUndoListDialog::onCmdClose),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_ACCEPT,                  GNEUndoListDialog::onCmdClose),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_REROUTEDIALOG_ADD_INTERVAL,     GNEUndoListDialog::onCmdSelectElement),
+    FXMAPFUNC(SEL_CLOSE,    0,                      GNEUndoListDialog::onCmdClose),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEUndoListDialog::onCmdClose),
+    FXMAPFUNC(SEL_COMMAND,  FXComposite::ID_UPDATE, GNEUndoListDialog::onCmdUpdate),
 };
 
 // Object implementation
@@ -49,7 +49,7 @@ FXIMPLEMENT(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GN
 // ===========================================================================
 
 GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
-    FXTopWindow(GNEApp->getApp(), "Undo/Redo history", GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(300, 400)),
+    FXTopWindow(GNEApp->getApp(), "Undo/Redo history", GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(500, 400)),
     myGNEApp(GNEApp) {
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
@@ -58,7 +58,7 @@ GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonsFrame, "OK\tclose dialog",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    new FXButton(buttonsFrame, "OK\tclose dialog", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
@@ -101,10 +101,9 @@ GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
 }
 
 
-long
-GNEUndoListDialog::onCmdSelectElement(FXObject*, FXSelector, void*) {
-    // currently unused
-    return 1;
+long 
+GNEUndoListDialog::onCmdUpdate(FXObject* obj, FXSelector sel, void* ptr) {
+    return FXTopWindow::onCmdUpdate(obj, sel, ptr);
 }
 
 
@@ -116,7 +115,7 @@ GNEUndoListDialog::updateList() {
     GNEUndoList::Iterator it(myGNEApp->getUndoList());
     // fill myTreeListDinamic
     while (!it.end()) {
-        myTreeListDinamic->insertItem(nullptr, nullptr, it.getDescription().c_str(), it.getIcon(), it.getIcon());
+        myTreeListDinamic->insertItem(nullptr, it.getDescription().c_str(), it.getIcon());
         it++;
     }
 }

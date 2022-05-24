@@ -66,14 +66,16 @@ public:
     /// @brief event after press close button
     long onCmdClose(FXObject*, FXSelector, void*);
 
-    /// @brief event after selecting an element in the undoredolist
-    long onCmdSelectElement(FXObject*, FXSelector, void*);
+    /// @brief event after update command
+    long onCmdUpdate(FXObject*, FXSelector, void*);
+
     /// @}
 
     /// @brief update data table
     void updateList();
 
 protected:
+    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEUndoListDialog)
 
     /// @brief pointer to GNEApplicationWindow
