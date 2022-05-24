@@ -25,6 +25,18 @@
 
 #include "fxheader.h"
 
+
+class FXTreeItemDynamic : public FXTreeItem {
+
+public:
+    /// @brief Constructor
+    FXTreeItemDynamic(const FXString& text, FXIcon* oi = nullptr, FXIcon* ci = nullptr, void* ptr = nullptr);
+
+protected:
+    /// @brief draw tree item
+    void draw(const FXTreeList* list, FXDC& dc, FXint xx, FXint yy, FXint, FXint hh) const;
+};
+
 /// @brief FXTreeListDinamic
 class FXTreeListDinamic : protected FXTreeList {
     /// @brief FOX-declaration
