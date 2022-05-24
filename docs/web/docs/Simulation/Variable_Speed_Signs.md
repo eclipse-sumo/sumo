@@ -5,7 +5,7 @@ title: Variable Speed Signs
 One of the trigger objects that may be specified within an {{AdditionalFile}} allows the
 simulation of variable speed signs. The syntax for such an object is given in the following
 
-# defintion in a single file
+# Definition in a single file
 
 ```xml
 <additional>>
@@ -16,7 +16,6 @@ simulation of variable speed signs. The syntax for such an object is given in th
     </variableSpeedSign>
 </additional>
 ```
-
 
 
 The following attributes are used within the `VariableSpeedSign` element:
@@ -35,7 +34,7 @@ and the speed to set itself and uses the following attributes:
 | **time**       | time (int)     | Time in which the speed will be changed                                                                     |
 | speed          | speed (double) | New speed (if no value or a negative value is given, the speed will be reset to the original network value) |
 
-# definitions within an external file
+# Definition with an external file
 
 Instead of defining the speed changes of a `<variableSpeedSign>` in the same file, it may also be read from a second file as follows:
 
