@@ -430,10 +430,6 @@ protected:
 
     private:
         const int myDir;
-
-    private:
-        /// @brief Invalidated assignment operator.
-        by_xpos_sorter& operator=(const by_xpos_sorter&) = delete;
     };
 
 

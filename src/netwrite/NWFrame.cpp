@@ -144,19 +144,19 @@ NWFrame::checkOptions() {
         ok = false;
     }
     if (oc.isSet("opendrive-output") && oc.isDefault("no-internal-links")) {
-        oc.set("no-internal-links", "false");
+        oc.setDefault("no-internal-links", "false");
     }
     if (oc.isSet("opendrive-output") && oc.isDefault("rectangular-lane-cut")) {
-        oc.set("rectangular-lane-cut", "true");
+        oc.setDefault("rectangular-lane-cut", "true");
     }
     if (oc.isSet("opendrive-output") && !oc.getBool("rectangular-lane-cut")) {
         WRITE_WARNING("OpenDRIVE cannot represent oblique lane cuts and should use option 'rectangular-lane-cut'.");
     }
     if (oc.isSet("dlr-navteq-output") && oc.isDefault("numerical-ids")) {
-        oc.set("numerical-ids", "true");
+        oc.setDefault("numerical-ids", "true");
     }
     if (oc.isSet("dlr-navteq-output") && oc.isDefault("osm.all-attributes")) {
-        oc.set("osm.all-attributes", "true");
+        oc.setDefault("osm.all-attributes", "true");
     }
     if (oc.exists("ptline-output") && oc.isSet("ptline-output") && !oc.isSet("ptstop-output")) {
         WRITE_ERROR("public transport lines output requires 'ptstop-output' to be set");
@@ -178,7 +178,7 @@ NWFrame::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NWWriter_MATSim::writeNetwork(oc, nb);
     NWWriter_OpenDrive::writeNetwork(oc, nb);
     NWWriter_DlrNavteq::writeNetwork(oc, nb);
-    NWWriter_XML::writeNetwork(oc, nb);
+    NWWriter_XML::writeNetwork(oc, oc.isSet("plain-output-prefix") ? oc.getString("plain-output-prefix") : "", nb);
     PROGRESS_TIME_MESSAGE(before);
 }
 

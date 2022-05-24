@@ -12,7 +12,7 @@ An edge based Amitran output is defined way within an additional file as
 following:
 
 ```
-<edgeData id="<DETECTOR_ID>" type="amitran" freq="<FREQUENCY>"
+<edgeData id="<DETECTOR_ID>" type="amitran" period="<PERIOD>"
 file="<OUTPUT_FILE>" \[vTypes="<LIST>"\] \[excludeEmpty="true"\]/\>
 ```
 
@@ -20,7 +20,7 @@ file="<OUTPUT_FILE>" \[vTypes="<LIST>"\] \[excludeEmpty="true"\]/\>
 | -------------- | ------------------------------ | ------------------------------------------------------------- |
 | **id**         | id (string)                    | The id of the detector                                        |
 | **file**       | filename                       | The path to the output file. The path may be relative.        |
-| freq           | int (time)                     | The aggregation period the values the detector collects shall be summed up. If not given, the whole time range between begin and end is aggregated                                                                                              |
+| period (alias freq) | int (time)               | The aggregation period the values the detector collects shall be summed up. If not given, the whole time range between begin and end is aggregated                                                                                              |
 | begin          | int (time)                     | The time to start writing (intervals starting before this time are discarded). If not given, the simulation's begin is used.                                                                                                                    |
 | end            | int (time)                     | The time to end writing (intervals starting at or after this time are discarded). If not given the simulation's end is used.                                                                                                                    |
 | vTypes         | string                         | A space separated ist of vehicle types to collect data for. If not given, collect for all types.        |

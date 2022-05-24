@@ -65,16 +65,16 @@ positions to the network:
     sumolib.files.additional.write(<DETECTORFILE>, detectors)
 ```
 
-The frequency of data aggregation for data collection is 60 sec as
+The period of data aggregation for data collection is 60 sec as
 default. The default output file name is set as none. Detector type
 (source, sink, between) can also be given if it is available. En example
 of the output file is shown below.
 
 ```
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-<e1Detector id=""det0"" lane="262667814#2.7_0" pos="80.2550814486" freq="60" file="NUL" friendlyPos="True"/>
-<e1Detector id=""det1"" lane="262667814#2.7_1" pos="90.2522181762" freq="60" file="NUL" friendlyPos="True"/>
-<e1Detector id=""det2"" lane="262667814#2.7_2" pos="91.6879752087" freq="60" file="NUL" friendlyPos="True"/>
+<e1Detector id=""det0"" lane="262667814#2.7_0" pos="80.2550814486" period="60" file="NUL" friendlyPos="True"/>
+<e1Detector id=""det1"" lane="262667814#2.7_1" pos="90.2522181762" period="60" file="NUL" friendlyPos="True"/>
+<e1Detector id=""det2"" lane="262667814#2.7_2" pos="91.6879752087" period="60" file="NUL" friendlyPos="True"/>
 </additional>
 ```
 

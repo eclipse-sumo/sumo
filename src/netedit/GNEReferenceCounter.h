@@ -35,13 +35,13 @@
 class GNEReferenceCounter {
 public:
     //// @brief constructor
-    GNEReferenceCounter(): myCount(0) {}
+    GNEReferenceCounter() : myCount(0) {}
 
     /// @brief return ID of object
     virtual const std::string& getID() const = 0;
 
     //// @brief destructor
-    ~GNEReferenceCounter() {
+    virtual ~GNEReferenceCounter() {
         // If myCount is different of 0, means that references weren't removed correctly
         if (myCount != 0) {
             // cannot print id here, it already got destructed

@@ -43,7 +43,11 @@ GUICompleteSchemeStorage gSchemeStorage;
 GUICompleteSchemeStorage::GUICompleteSchemeStorage() { }
 
 
-GUICompleteSchemeStorage::~GUICompleteSchemeStorage() { }
+GUICompleteSchemeStorage::~GUICompleteSchemeStorage() {
+    for (auto item : mySettings) {
+        delete item.second;
+    }
+}
 
 
 
@@ -53,19 +57,21 @@ GUICompleteSchemeStorage::add(const GUIVisualizationSettings& scheme) {
     if (std::find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name) == mySortedSchemeNames.end()) {
         mySortedSchemeNames.push_back(name);
     }
-    mySettings[name] = scheme;
+    GUIVisualizationSettings* s = new GUIVisualizationSettings(name);
+    s->copy(scheme);
+    mySettings[name] = s;
 }
 
 
 GUIVisualizationSettings&
 GUICompleteSchemeStorage::get(const std::string& name) {
-    return mySettings.find(name)->second;
+    return *mySettings.find(name)->second;
 }
 
 
 GUIVisualizationSettings&
 GUICompleteSchemeStorage::getDefault() {
-    return mySettings.find(myDefaultSettingName)->second;
+    return *mySettings.find(myDefaultSettingName)->second;
 }
 
 
@@ -81,7 +87,8 @@ GUICompleteSchemeStorage::remove(const std::string& name) {
         return;
     }
     mySortedSchemeNames.erase(find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name));
-    mySettings.erase(mySettings.find(name));
+    delete mySettings.find(name)->second;
+    mySettings.erase(name);
 }
 
 
@@ -109,14 +116,12 @@ GUICompleteSchemeStorage::getNumInitialSettings() const {
 void
 GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
     {
-        GUIVisualizationSettings vs(netedit);
-        vs.name = "standard";
+        GUIVisualizationSettings vs("standard", netedit);
         vs.laneShowBorders = true;
         gSchemeStorage.add(vs);
     }
     {
-        GUIVisualizationSettings vs(netedit);
-        vs.name = "faster standard";
+        GUIVisualizationSettings vs("faster standard", netedit);
         vs.laneShowBorders = false;
         vs.showLinkDecals = false;
         vs.showRails = false;
@@ -125,8 +130,7 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
         gSchemeStorage.add(vs);
     }
     {
-        GUIVisualizationSettings vs(netedit);
-        vs.name = "real world";
+        GUIVisualizationSettings vs("real world", netedit);
         vs.vehicleQuality = 2;
         vs.backgroundColor = RGBColor(51, 128, 51, 255);
         vs.laneShowBorders = true;
@@ -138,8 +142,7 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
         gSchemeStorage.add(vs);
     }
     {
-        GUIVisualizationSettings vs(netedit);
-        vs.name = "rail";
+        GUIVisualizationSettings vs("rail", netedit);
         vs.vehicleQuality = 2;
         vs.showLaneDirection = true;
         vs.spreadSuperposed = true;
@@ -149,8 +152,7 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
     }
 
     if (!netedit) {
-        GUIVisualizationSettings vs(netedit);
-        vs.name = "selection";
+        GUIVisualizationSettings vs("selection", netedit);
         vs.vehicleColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
         vs.edgeColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
         vs.laneColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
@@ -168,9 +170,7 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
         std::string name = "visset#" + toString(i);
         std::string setting = app->reg().readStringEntry("VisualizationSettings", name.c_str(), "");
         if (setting != "") {
-            GUIVisualizationSettings vs(netedit);
-
-            vs.name = setting;
+            GUIVisualizationSettings vs(setting, netedit);
             app->reg().readStringEntry("VisualizationSettings", name.c_str(), "");
 
             // add saved xml setting
@@ -205,12 +205,12 @@ GUICompleteSchemeStorage::writeSettings(FXApp* app) {
     app->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size() - myNumInitialSettings);
     int gidx = 0;
     for (std::vector<std::string>::const_iterator it = names.begin() + myNumInitialSettings; it != names.end(); ++it, ++gidx) {
-        const GUIVisualizationSettings& item = mySettings.find(*it)->second;
+        const GUIVisualizationSettings* item = mySettings.find(*it)->second;
         std::string sname = "visset#" + toString(gidx);
 
-        app->reg().writeStringEntry("VisualizationSettings", sname.c_str(), item.name.c_str());
+        app->reg().writeStringEntry("VisualizationSettings", sname.c_str(), item->name.c_str());
         OutputDevice_String dev;
-        item.save(dev);
+        item->save(dev);
         std::string content = dev.getString();
         app->reg().writeIntEntry(sname.c_str(), "xmlSize", (FXint)(content.size()));
         const unsigned maxSize = 1500; // this is a fox limitation for registry entries
@@ -228,6 +228,13 @@ GUICompleteSchemeStorage::saveViewport(const double x, const double y, const dou
     myRotation = rot;
 }
 
+void
+GUICompleteSchemeStorage::saveDecals(const std::vector<GUISUMOAbstractView::Decal>& decals) {
+    myDecals = decals;
+    for (auto& d : myDecals) {
+        d.initialised = false;
+    }
+}
 
 void
 GUICompleteSchemeStorage::setViewport(GUISUMOAbstractView* view) {

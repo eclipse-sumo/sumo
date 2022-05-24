@@ -23,6 +23,8 @@
 ///
 // Representation of electric circuit of overhead wires
 /****************************************************************************/
+#include <config.h>
+
 #include <cfloat>
 #include <cstdlib>
 #include <iostream>

@@ -17,7 +17,8 @@ may also [download pre-build Windows binaries](../Downloads.md).
 - SUMO sources (either an unpacked src zip or a git clone, see
   [Getting the source code](../Installing/Linux_Build.md#getting_the_source_code))
 - Installed Libraries (Xerces-C, Proj, Fox) preferably by cloning <https://github.com/DLR-TS/SUMOLibraries/>
-  - Make sure that the `SUMO_LIBRARIES` environment variable points to your cloned directory
+  - Make sure that the `SUMO_LIBRARIES` environment variable points to your cloned directory in case you didn't put the libraries in the same directory as the SUMO repository
+  - Note that in case you don't have admin rights, you can still configure environment variables for you only
 
 ## Recommended Windows setup
 
@@ -52,14 +53,14 @@ Editing the CMake settings using Visual Studio
   - Test start a python script and add association
   - Add Python to the path (also the Scripts dir), find it at `C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64`
   - Install pyautogui, matplotlib, rtree, pyproj, lxml, pipwin following the instructions https://docs.microsoft.com/en-us/visualstudio/python/tutorial-working-with-python-in-visual-studio-step-05-installing-packages?view=vs-2019
-- If not, use `pip install pyautogui matplotlib pyproj lxml pipwin`
+- If not, use `pip install pyautogui matplotlib pyproj lxml pipwin`, possibly with the `--user` option if you don't have admin rights
 
 - Run `pipwin install rtree` (or download Rtree [from here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#rtree) and install it manually)
 - (after 30 days) Setup a Microsoft account (if you do not already have one) and register your Visual Studio
 
 ## Further notes
 
-If you need a different python version or want to test with multiple Pythons you can either install them directly from Visual Studio or [Download Python for Windows](http://www.python.org/download/) and install it. Most SUMO tools should work with Python 2 and 3. Please make sure that you install the recommend python modules as above.
+If you need a different python version or want to test with multiple Pythons you can either install them directly from Visual Studio or [Download Python for Windows](http://www.python.org/download/) and install it. Most SUMO tools should work with Python 2 and 3. Please make sure that you install the recommended python modules as explained above and that the `PATH` environment variable contains the directory where the desired Python interpreter is.
 
 If you want to clone / checkout a special SUMO version, you can of course do it from the command line (if you have installed the command line tools)
 using `git clone --recursive https://github.com/eclipse/sumo` or download and extract a source package, see [Downloads](../Downloads.md).

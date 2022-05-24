@@ -24,12 +24,12 @@
 #include <utils/common/StringUtils.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
-#include "../NIImporter_Vissim.h"
-#include "../tempstructs/NIVissimNodeParticipatingEdge.h"
-#include "../tempstructs/NIVissimNodeParticipatingEdgeVector.h"
-#include "../tempstructs/NIVissimNodeDef_Edges.h"
-#include "../tempstructs/NIVissimNodeDef_Poly.h"
-#include "../tempstructs/NIVissimNodeDef.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
+#include <netimport/vissim/tempstructs/NIVissimNodeParticipatingEdge.h>
+#include <netimport/vissim/tempstructs/NIVissimNodeParticipatingEdgeVector.h>
+#include <netimport/vissim/tempstructs/NIVissimNodeDef_Edges.h>
+#include <netimport/vissim/tempstructs/NIVissimNodeDef_Poly.h>
+#include <netimport/vissim/tempstructs/NIVissimNodeDef.h>
 #include "NIVissimSingleTypeParser_Knotendefinition.h"
 
 

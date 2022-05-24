@@ -28,7 +28,9 @@
 // class declarations
 // ===========================================================================
 #ifndef LIBTRACI
-namespace FX { class FXApp; }
+namespace FX {
+class FXApp;
+}
 class GUISUMOAbstractView;
 class GUIApplicationWindow;
 typedef long long int SUMOTime;
@@ -74,7 +76,7 @@ public:
 
     static bool step(SUMOTime t);
 
-    static bool close();
+    static bool close(const std::string& reason);
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
@@ -87,7 +89,7 @@ private:
 
     static GUIApplicationWindow* myWindow;
 
-    static FX::FXApp myApp;
+    static FX::FXApp* myApp;
 
 #endif
 #endif

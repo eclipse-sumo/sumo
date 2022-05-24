@@ -646,7 +646,7 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* vehic
         std::cout << "   outsideBounds=" << toString(target->outsideBounds) << " result=" << result.toString() << "\n";
     }
 #endif
-    target->lane->addLeaders(vehicle, vehicle->getPositionOnLane(), true, result);
+    target->lane->addLeaders(vehicle, vehicle->getPositionOnLane(), result);
     return result;
 }
 
@@ -749,12 +749,12 @@ MSLaneChangerSublane::checkChangeOpposite(
     if (vehicle->getLaneChangeModel().isOpposite()) {
         leaders = curLane->getFollowersOnConsecutive(vehicle, vehicle->getPositionOnLane(), true, -1, MSLane::MinorLinkMode::FOLLOW_ONCOMING);
         leaders.fixOppositeGaps(false);
-        curLane->addLeaders(vehicle, vehicle->getBackPositionOnLane(), false, followers);
+        curLane->addLeaders(vehicle, vehicle->getBackPositionOnLane(), followers);
         followers.fixOppositeGaps(true);
         const double posOnTarget = backPosOnTarget + vehicle->getVehicleType().getLength() + POSITION_EPS;
         neighFollowers = targetLane->getFollowersOnConsecutive(vehicle, backPosOnTarget, true);
         neighFollowers.fixOppositeGaps(false);
-        targetLane->addLeaders(vehicle, posOnTarget, false, neighLeaders);
+        targetLane->addLeaders(vehicle, posOnTarget, neighLeaders);
         int sublaneIndex = 0;
         for (int i = 0; i < targetLane->getIndex(); i++) {
             sublaneIndex += MSLeaderInfo(targetLane->getEdge().getLanes()[i]).numSublanes();
@@ -764,7 +764,7 @@ MSLaneChangerSublane::checkChangeOpposite(
         leaders = myCandi->aheadNext;
         followers = myCandi->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
         const double posOnTarget = backPosOnTarget - vehicle->getVehicleType().getLength();
-        targetLane->addLeaders(vehicle, backPosOnTarget, false, neighFollowers, true);
+        targetLane->addLeaders(vehicle, backPosOnTarget, neighFollowers, true);
         neighFollowers.fixOppositeGaps(true);
         neighLeaders = targetLane->getFollowersOnConsecutive(vehicle, posOnTarget, true);
         neighLeaders.fixOppositeGaps(false);

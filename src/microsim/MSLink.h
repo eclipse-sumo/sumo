@@ -132,10 +132,6 @@ public:
         /// @brief The lateral offset from the center of the entering lane
         const double latOffset;
 
-    private:
-        /// invalidated assignment operator
-        ApproachingVehicleInformation& operator=(const ApproachingVehicleInformation& s) = delete;
-
     };
 
     typedef std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> ApproachInfos;

@@ -20,6 +20,8 @@
 ///
 //
 /****************************************************************************/
+#include <config.h>
+
 #include "CEP.h"
 #include "CEPHandler.h"
 #include "Constants.h"

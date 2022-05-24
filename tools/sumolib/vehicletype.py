@@ -107,9 +107,7 @@ class _NormalCappedDistribution(_FixDistribution):
     def __init__(self, mu, sd, min, max):
         _FixDistribution.__init__(self, (mu, sd, min, max))
         if mu < min or mu > max:
-            sys.stderr.write("mean %s is outside cutoff bounds [%s, %s]" % (
-                mu, min, max))
-            sys.exit()
+            raise Exception("mean %s is outside cutoff bounds [%s, %s]" % (mu, min, max))
 
     def _sampleValue(self):
         while True:
@@ -169,7 +167,7 @@ class VehAttribute:
         self.bounds = bounds
         self.attribute_value = attribute_value
         if self.attribute_value and self.distribution:
-            sys.exit("Only one of distribution or attribute value should be defined, not both")
+            raise Exception("Only one of distribution or attribute value should be defined, not both")
         self.d_obj = self._dist_helper(distribution, distribution_params, bounds)
 
     def _dist_helper(self, distribution, dist_params, dist_bounds):
@@ -180,8 +178,8 @@ class VehAttribute:
                 d.setLimits(dist_bounds) if dist_bounds else d.setLimits(
                     (0, None))
             except KeyError:
-                sys.exit("The distribution %s is not known. Please select one of: \n%s " %
-                         (distribution, "\n".join(_DIST_DICT.keys())))
+                raise KeyError("The distribution %s is not known. Please select one of: \n%s " %
+                               (distribution, "\n".join(_DIST_DICT.keys())))
         else:
             isNumeric = False if self.name == "emissionClass" else len(
                 re.findall(r'^(-?[0-9]+(\.[0-9]+)?)$', self.attribute_value)) > 0
@@ -291,8 +289,8 @@ class CreateVehTypeDistribution:
             try:
                 return xml.dom.minidom.parse(file_path), True
             except Exception as e:
-                sys.exit("Cannot parse existing %s. Error: %s" %
-                         (file_path, str(e)))
+                raise Exception("Cannot parse existing %s. Error: %s" %
+                                (file_path, str(e)))
         else:
             return xml.dom.minidom.Document(), False
 

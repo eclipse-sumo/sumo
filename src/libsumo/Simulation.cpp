@@ -51,6 +51,7 @@
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 #include <netload/NLBuilder.h>
+#include <libsumo/Helper.h>
 #include <libsumo/TraCIConstants.h>
 #ifdef HAVE_LIBSUMOGUI
 #include "GUI.h"
@@ -148,9 +149,9 @@ Simulation::close(const std::string& reason) {
     Helper::clearSubscriptions();
     if (
 #ifdef HAVE_LIBSUMOGUI
-        !GUI::close() &&
+        !GUI::close(reason) &&
 #endif
-         MSNet::hasInstance()) {
+        MSNet::hasInstance()) {
         MSNet::getInstance()->closeSimulation(0, reason);
         delete MSNet::getInstance();
         SystemFrame::close();

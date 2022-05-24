@@ -59,13 +59,13 @@ public:
      * @param[in] oc The options to use
      * @param[in] nb The network builder from which to read data
      */
-    static void writeNetwork(const OptionsCont& oc, NBNetBuilder& nb);
+    static void writeNetwork(const OptionsCont& oc, const std::string& prefix, NBNetBuilder& nb);
 
     /** @brief Writes the joined-juncionts to file
      * @param[in] oc The options to use
      * @param[in] nc The node-container from which to read data
      */
-    static void writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc);
+    static void writeJoinedJunctions(const std::string& filename, NBNodeCont& nc);
 
     /** @brief Writes street signs as POIs to file
      * @param[in] oc The options to use
@@ -78,19 +78,19 @@ private:
      * @param[in] oc The options to use
      * @param[in] nc The node-container from which to read data
      */
-    static void writeNodes(const OptionsCont& oc, NBNodeCont& nc);
+    static void writeNodes(const OptionsCont& oc, const std::string& prefix, NBNodeCont& nc);
 
     /** @brief Writes the types file
      * @param[in] oc The options to use
      * @param[in] nc The type-container from which to read data
      */
-    static void writeTypes(const OptionsCont& oc, NBTypeCont& tc);
+    static void writeTypes(const std::string& prefix, NBTypeCont& tc);
 
     /** @brief Writes the edges and connections files
      * @param[in] oc The options to use
      * @param[in] nb The network build from which to read data
      */
-    static void writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec);
+    static void writeEdgesAndConnections(const OptionsCont& oc, const std::string& prefix, NBNodeCont& nc, NBEdgeCont& ec);
 
 
     /** @brief Writes the traffic lights file
@@ -98,7 +98,7 @@ private:
      * @param[in] tc The tll-container from which to read data
      * @param[in] ec The edge-container from which to read data
      */
-    static void writeTrafficLights(const OptionsCont& oc, NBTrafficLightLogicCont& tc, NBEdgeCont& ec);
+    static void writeTrafficLights(const std::string& prefix, NBTrafficLightLogicCont& tc, NBEdgeCont& ec);
 
     /** @brief Writes the pt stops file
      * @param[in] oc The options to use

@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include "fxheader.h"
+#include "FXStaticToolTip.h"
 
 /**
  * @class MFXCheckableButton
@@ -54,19 +55,18 @@ public:
 
     /// @brief called when this MFXCheckableButton is updated
     long onUpdate(FXObject*, FXSelector, void*);
+
+    /// @brief called when mouse enter in MFXCheckableButton
+    long onEnter(FXObject*, FXSelector, void*);
+
+    /// @brief called when mouse leaves in MFXCheckableButton
+    long onLeave(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(MFXCheckableButton)
 
-private:
-    /// @brief build color of this MFXCheckableButton
-    void buildColors();
-
-    /// @brief set colors of this MFXCheckableButton
-    void setColors();
-
-private:
     /// @brief flag to indicate if this MFXCheckableButton is checked
     bool myAmChecked;
 
@@ -78,6 +78,22 @@ private:
 
     /// @brief check if this MFXCheckableButton is initialised
     bool myAmInitialised;
+
+    /// @brief static tool tip
+    FXStaticToolTip* myStaticToolTip = nullptr;
+
+    /// @brief build color of this MFXCheckableButton
+    void buildColors();
+
+    /// @brief set colors of this MFXCheckableButton
+    void setColors();
+
+private:
+    /// @brief Invalidated copy constructor.
+    MFXCheckableButton(const MFXCheckableButton&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    MFXCheckableButton& operator=(const MFXCheckableButton&) = delete;
 };
 
 

@@ -229,6 +229,9 @@ struct GNEViewNetHelper {
         /// @brief get vector with clicked ACs
         const std::vector<GNEAttributeCarrier*>& getClickedAttributeCarriers() const;
 
+        /// @brief get vector with clicked Demand Elements
+        const std::vector<GNEDemandElement*>& getClickedDemandElements() const;
+
     protected:
         /// @brief objects container
         class ObjectsContainer {
@@ -511,6 +514,9 @@ struct GNEViewNetHelper {
         /// @brief check if show sub-additionals
         bool showSubAdditionals() const;
 
+        /// @brief check if show TAZ Elements
+        bool showTAZElements() const;
+
         /// @brief check if we're editing elevation
         bool editingElevation() const;
 
@@ -537,6 +543,9 @@ struct GNEViewNetHelper {
 
         /// @brief checkable button to show additional sub-elements
         MFXCheckableButton* menuCheckShowAdditionalSubElements;
+        
+        /// @brief checkable button to show TAZ elements
+        MFXCheckableButton* menuCheckShowTAZElements;
 
         /// @brief checkable button to extend to edge nodes
         MFXCheckableButton* menuCheckExtendSelection;

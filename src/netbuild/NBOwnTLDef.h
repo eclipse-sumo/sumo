@@ -97,25 +97,22 @@ public:
     /// @}
 
 
-    /** @brief Forces the definition not to compute an additional phase for left-movers
-     */
+    /// @brief Forces the definition not to compute an additional phase for left-movers
     void setSinglePhase() {
         myHaveSinglePhase = true;
     }
 
     /// @brief add an additional pedestrian phase if there are crossings that did not get green yet
-    static void addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll,
-                                      SUMOTime greenTime, SUMOTime yellowTime,
+    static void addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll, SUMOTime greenTime, SUMOTime yellowTime,
                                       const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /// @brief add 1 or 2 phases depending on the presence of pedestrian crossings
-    static std::string addPedestrianPhases(NBTrafficLightLogic* logic, SUMOTime greenTime,
-                                           SUMOTime minDur, SUMOTime maxDur,
+    static std::string addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime greenTime, const SUMOTime minDur, const SUMOTime maxDur, 
+                                           const SUMOTime earliestEnd, const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, const SUMOTime red, 
                                            std::string state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /// @brief compute phase state in regard to pedestrian crossings
-    static std::string patchStateForCrossings(const std::string& state,
-            const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
+    static std::string patchStateForCrossings(const std::string& state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /** @brief helper function for myCompute
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
@@ -177,6 +174,15 @@ protected:
 
     /// @brief test whether a joined tls with layout 'opposites' would be built without dedicated left-turn phase
     bool corridorLike() const;
+
+    /// @brief mask out all greens that do not originate at the given edge
+    std::string filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e); 
+
+    /// @brief keep only valid NEMA phase names (for params)
+    void filterMissingNames(std::vector<int>& vec, const std::map<int, int>& names, bool isBarrier);
+
+    /// @brief ensure that phase max durations before each barrier have the same sum in both rings
+    void fixDurationSum(NBTrafficLightLogic* logic, const std::map<int, int>& names, int ring1a, int ring1b, int ring2a, int ring2b);
 
     /** @brief Returns the weight of a stream given its direction
      * @param[in] dir The direction of the stream

@@ -30,6 +30,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSInsertionControl.h>
+#include <libsumo/Helper.h>
 #include <libsumo/TraCIConstants.h>
 #include "Lane.h"
 
@@ -148,36 +149,36 @@ Lane::getWidth(std::string laneID) {
 
 double
 Lane::getCO2Emission(std::string laneID) {
-    return getLane(laneID)->getCO2Emissions();
+    return getLane(laneID)->getEmissions<PollutantsInterface::CO2>();
 }
 
 
 double
 Lane::getCOEmission(std::string laneID) {
-    return getLane(laneID)->getCOEmissions();
+    return getLane(laneID)->getEmissions<PollutantsInterface::CO>();
 }
 
 
 double
 Lane::getHCEmission(std::string laneID) {
-    return getLane(laneID)->getHCEmissions();
+    return getLane(laneID)->getEmissions<PollutantsInterface::HC>();
 }
 
 
 double
 Lane::getPMxEmission(std::string laneID) {
-    return getLane(laneID)->getPMxEmissions();
+    return getLane(laneID)->getEmissions<PollutantsInterface::PM_X>();
 }
 
 
 double
 Lane::getNOxEmission(std::string laneID) {
-    return getLane(laneID)->getNOxEmissions();
+    return getLane(laneID)->getEmissions<PollutantsInterface::NO_X>();
 }
 
 double
 Lane::getFuelConsumption(std::string laneID) {
-    return getLane(laneID)->getFuelConsumption();
+    return getLane(laneID)->getEmissions<PollutantsInterface::FUEL>();
 }
 
 
@@ -189,7 +190,7 @@ Lane::getNoiseEmission(std::string laneID) {
 
 double
 Lane::getElectricityConsumption(std::string laneID) {
-    return getLane(laneID)->getElectricityConsumption();
+    return getLane(laneID)->getEmissions<PollutantsInterface::ELEC>();
 }
 
 

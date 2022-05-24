@@ -20,6 +20,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <limits>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
@@ -29,7 +30,6 @@
 #include <utils/iodevices/OutputDevice.h>
 #include "MSMeanData_Emissions.h"
 #include <utils/emissions/PollutantsInterface.h>
-#include <limits>
 
 
 // ===========================================================================

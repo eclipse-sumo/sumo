@@ -12,7 +12,7 @@ describes the relationship between flow (vehicles per hour) and density
 Both measures can be obtained from
 [edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md).
 The *density* value measures vehicles per km and the flow can be
-computed from *entered* \* 3600 / *freq* where *freq* is the specified
+computed from *entered* \* 3600 / *period* where *period* is the specified
 aggregation interval of the output.
 
 Generally, this can be computed for any kind of scenario as long as this

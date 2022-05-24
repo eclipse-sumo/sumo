@@ -25,11 +25,14 @@
 #include <iostream>
 #include <vector>
 #include <set>
-#include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/StdDefs.h>
+#include <utils/emissions/EnergyParams.h>
+#include <utils/emissions/PollutantsInterface.h>
+#include <utils/vehicle/SUMOVehicle.h>
 #include "MSRoute.h"
 #include "MSMoveReminder.h"
 #include "MSVehicleType.h"
+
 
 // ===========================================================================
 // class declarations
@@ -37,6 +40,7 @@
 class MSLane;
 class MSStop;
 class MSDevice_Transportable;
+class MSDevice_Emissions;
 class MSVehicleDevice;
 class MSEdgeWeightsStorage;
 
@@ -105,12 +109,6 @@ public:
 
     /// @brief retrieve parameters of devices, models and the vehicle itself
     std::string getPrefixedParameter(const std::string& key, std::string& error) const;
-
-    /** @brief Returns the vehicle's emission model parameter
-     *
-     * @return The vehicle's emission parameters
-     */
-    const EnergyParams* getEmissionParameters() const;
 
     /// @brief replace the vehicle parameter (deleting the old one)
     void replaceParameter(const SUMOVehicleParameter* newParameter);
@@ -724,50 +722,27 @@ public:
         return myContainerDevice;
     }
 
+    /// @brief retrieve parameters for the energy consumption model
+    inline EnergyParams* getEmissionParameters() const {
+        if (myEnergyParams == nullptr) {
+            myEnergyParams = new EnergyParams(getVehicleType().getEmissionParameters());
+        }
+        return myEnergyParams;
+    }
 
     /// @name Emission retrieval
     //@{
 
-    /** @brief Returns CO2 emission of the current state
-     * @return The current CO2 emission
+    /** @brief Returns emissions of the current state
+     * @return The current emission
      */
-    double getCO2Emissions() const;
-
-
-    /** @brief Returns CO emission of the current state
-     * @return The current CO emission
-     */
-    double getCOEmissions() const;
-
-
-    /** @brief Returns HC emission of the current state
-     * @return The current HC emission
-     */
-    double getHCEmissions() const;
-
-
-    /** @brief Returns NOx emission of the current state
-     * @return The current NOx emission
-     */
-    double getNOxEmissions() const;
-
-
-    /** @brief Returns PMx emission of the current state
-     * @return The current PMx emission
-     */
-    double getPMxEmissions() const;
-
-
-    /** @brief Returns fuel consumption of the current state
-    * @return The current fuel consumption
-    */
-    double getFuelConsumption() const;
-
-
-    /** @brief Returns electricity consumption of the current state
-    * @return The current electricity consumption
-    */
-    double getElectricityConsumption() const;
+    template<PollutantsInterface::EmissionType ET>
+    double getEmissions() const {
+        if (isOnRoad() || isIdling()) {
+            return PollutantsInterface::compute(myType->getEmissionClass(), ET, getSpeed(), getAcceleration(), getSlope(), getEmissionParameters());
+        }
+        return 0.;
+    }
 
     /** @brief Returns actual state of charge of battery (Wh)
     * RICE_CHECK: This may be a misnomer, SOC is typically percentage of the maximum battery capacity.
@@ -970,6 +945,9 @@ protected:
 
     /// @brief The containers this vehicle may have
     MSDevice_Transportable* myContainerDevice;
+
+    /// @brief The emission parameters this vehicle may have
+    mutable EnergyParams* myEnergyParams;
 
     /// @brief The real departure time
     SUMOTime myDeparture;

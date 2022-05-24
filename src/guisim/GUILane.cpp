@@ -33,6 +33,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -65,7 +66,7 @@
 // static member declaration
 // ===========================================================================
 const RGBColor GUILane::MESO_USE_LANE_COLOR(0, 0, 0, 0);
-const GUIVisualizationSettings* GUILane::myCachedGUISettings(nullptr);
+GUIVisualizationSettings* GUILane::myCachedGUISettings(nullptr);
 
 
 // ===========================================================================
@@ -81,6 +82,7 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double friction, double
     MSLane(id, maxSpeed, friction, length, edge, numericalID, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type),
     GUIGlObject(GLO_LANE, id),
     myParkingAreas(nullptr),
+    myTesselation(nullptr),
 #ifdef HAVE_OSG
     myGeom(0),
 #endif
@@ -113,6 +115,7 @@ GUILane::~GUILane() {
         myLock.unlock();
     }
     delete myParkingAreas;
+    delete myTesselation;
 }
 
 
@@ -593,7 +596,10 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     if (s.scale * exaggeration < 20.) {
                         GLHelper::drawFilledPoly(myShape, true);
                     } else {
-                        GLHelper::drawFilledPolyTesselated(myShape, true);
+                        if (myTesselation == nullptr) {
+                            myTesselation = new TesselatedPolygon(getID(), "", RGBColor::MAGENTA, PositionVector(), false, true, 0);
+                        }
+                        myTesselation->drawTesselation(myShape);
                     }
                     glTranslated(0, 0, -.2);
 #ifdef GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
@@ -932,7 +938,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 GUIParameterTableWindow*
 GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
-    myCachedGUISettings = &view.getVisualisationSettings();
+    myCachedGUISettings = view.editVisualisationSettings();
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
@@ -1210,17 +1216,17 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         case 7:
             return getEdgeLaneNumber();
         case 8:
-            return getCO2Emissions() / myLength;
+            return getEmissions<PollutantsInterface::CO2>() / myLength;
         case 9:
-            return getCOEmissions() / myLength;
+            return getEmissions<PollutantsInterface::CO>() / myLength;
         case 10:
-            return getPMxEmissions() / myLength;
+            return getEmissions<PollutantsInterface::PM_X>() / myLength;
         case 11:
-            return getNOxEmissions() / myLength;
+            return getEmissions<PollutantsInterface::NO_X>() / myLength;
         case 12:
-            return getHCEmissions() / myLength;
+            return getEmissions<PollutantsInterface::HC>() / myLength;
         case 13:
-            return getFuelConsumption() / myLength;
+            return getEmissions<PollutantsInterface::FUEL>() / myLength;
         case 14:
             return getHarmonoise_NoiseEmissions();
         case 15: {
@@ -1267,7 +1273,7 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
             return myEdge->getRoutingSpeed();
         }
         case 28:
-            return getElectricityConsumption() / myLength;
+            return getEmissions<PollutantsInterface::ELEC>() / myLength;
         case 29:
             return getPendingEmits();
         case 31: {
@@ -1349,17 +1355,17 @@ GUILane::getScaleValue(int activeScheme) const {
         case 6:
             return getEdgeLaneNumber();
         case 7:
-            return getCO2Emissions() / myLength;
+            return getEmissions<PollutantsInterface::CO2>() / myLength;
         case 8:
-            return getCOEmissions() / myLength;
+            return getEmissions<PollutantsInterface::CO>() / myLength;
         case 9:
-            return getPMxEmissions() / myLength;
+            return getEmissions<PollutantsInterface::PM_X>() / myLength;
         case 10:
-            return getNOxEmissions() / myLength;
+            return getEmissions<PollutantsInterface::NO_X>() / myLength;
         case 11:
-            return getHCEmissions() / myLength;
+            return getEmissions<PollutantsInterface::HC>() / myLength;
         case 12:
-            return getFuelConsumption() / myLength;
+            return getEmissions<PollutantsInterface::FUEL>() / myLength;
         case 13:
             return getHarmonoise_NoiseEmissions();
         case 14: {
@@ -1393,7 +1399,7 @@ GUILane::getScaleValue(int activeScheme) const {
             return getMeanSpeed() / myMaxSpeed;
         }
         case 21:
-            return getElectricityConsumption() / myLength;
+            return getEmissions<PollutantsInterface::ELEC>() / myLength;
         case 22:
             return MSNet::getInstance()->getInsertionControl().getPendingEmits(this);
     }

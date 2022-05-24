@@ -223,8 +223,11 @@ public:
     /// @brief set color scheme
     virtual bool setColorScheme(const std::string&);
 
-    /// @brief get visualization settings
-    GUIVisualizationSettings& getVisualisationSettings() const;
+    /// @brief get visualization settings (read only)
+    const GUIVisualizationSettings &getVisualisationSettings() const;
+
+    /// @brief edit visualization settings (allow modify VisualizationSetings, use carefully)
+    GUIVisualizationSettings* editVisualisationSettings() const;
 
     /// @brief recalibrate color scheme according to the current value range
     virtual void buildColorRainbow(const GUIVisualizationSettings& /*s*/, GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/,

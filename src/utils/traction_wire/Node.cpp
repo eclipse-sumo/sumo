@@ -20,22 +20,23 @@
 ///
 // Representation of electric circuit nodes, i.e. wire junctions and connection points.
 /****************************************************************************/
+#include <config.h>
+
 #include <string>
 #include <algorithm>
 #include "Node.h"
 #include "Element.h"
 
-using namespace std;
 
 // A constructor, same functionality as "init" functions
-Node::Node(string name, int id) {
+Node::Node(std::string name, int id) {
     isground = false;
     this->name = name;		// unique property, each object has distinctive and unique name
     this->id = id;				// a sequential ID number, might be useful when making the equation
     this->num_matrixRow = -1;
     this->num_matrixCol = -1;
     this->voltage = 0;
-    this->elements = new vector<Element*>(0);
+    this->elements = new std::vector<Element*>(0);
     isremovable = false;
 }
 
@@ -61,7 +62,7 @@ int Node::getNumOfElements() {
     return (int) elements->size();
 }
 
-string& Node::getName() {
+std::string& Node::getName() {
     return this->name;
 }
 
@@ -97,7 +98,7 @@ int Node::getNumMatrixCol() {
     return this->num_matrixCol;
 }
 
-vector<Element*>* Node::getElements() {
+std::vector<Element*>* Node::getElements() {
     return elements;
 }
 

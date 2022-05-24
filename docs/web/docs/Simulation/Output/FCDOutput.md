@@ -130,7 +130,8 @@ When not all vehicles are equipped with an **fcd**-device, other ehicles and per
 - **--fcd-output.attributes ATTR1,ATTR2,...** restricts written attributes to the given list (to reduce output). The following attributes are special:
   - **all**: enables all attributes
   - **vehicle**: add a vehicle attribute to each person (and thereby distinguish riding from walking persons).
-  - **odomoeter**: write odometer value for eache vehicle (distance driven since departure)
+  - **odometer**: write odometer value for each vehicle (distance driven since departure)
+  - **posLat**: write lateral position on lane for each vehicle
   
 ## NOTES
 

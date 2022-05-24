@@ -24,9 +24,9 @@
 #include <vector>
 #include <cassert>
 #include <utils/common/StringUtils.h>
-#include "../NIImporter_Vissim.h"
-#include "../tempstructs/NIVissimEdge.h"
-#include "../tempstructs/NIVissimConnection.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
+#include <netimport/vissim/tempstructs/NIVissimEdge.h>
+#include <netimport/vissim/tempstructs/NIVissimConnection.h>
 #include "NIVissimSingleTypeParser_VWunschentscheidungsdefinition.h"
 
 

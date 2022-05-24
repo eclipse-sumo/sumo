@@ -228,6 +228,9 @@ public:
     /// @brief constructor
     GNEMoveElement();
 
+    //// @brief empty destructor
+    virtual ~GNEMoveElement() {}
+
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */

@@ -81,7 +81,7 @@ GNELoadThread::run() {
         }
     }
     if (oc.isDefault("aggregate-warnings")) {
-        oc.set("aggregate-warnings", "5");
+        oc.setDefault("aggregate-warnings", "5");
     }
     MsgHandler::initOutputOptions();
     if (!(NIFrame::checkOptions() &&

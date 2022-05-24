@@ -57,7 +57,7 @@ Further examples are shown below...
 
 ### Inductionloop Speed over Time
 
-Input is [inductionloop-output](../Simulation/Output/Induction_Loops_Detectors_(E1).md) with 30s aggregation from 2 detectors (`<e1Detector id="e1Detector_-109_0_0" lane="-109_0" pos="54.06" freq="30.00" file="data.xml"/>`
+Input is [inductionloop-output](../Simulation/Output/Induction_Loops_Detectors_(E1).md) with 30s aggregation from 2 detectors (`<e1Detector id="e1Detector_-109_0_0" lane="-109_0" pos="54.06" period="30.00" file="data.xml"/>`
 
 Call: `python tools/visualization/plotXMLAttributes.py data.xml -x begin -y speed -s`
 
@@ -73,11 +73,11 @@ Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop 
 
 ### Fundamental Diagram from edgeData
 
-Input is [edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) with 1-minute aggregation (`<edgeData id="example" file="data.xml" freq="60"/>`)
+Input is [edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) with 1-minute aggregation (`<edgeData id="example" file="data.xml" period="60"/>`)
 
 Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density -y left -s  --scatterplot --yfactor 60 --ylabel vehs/hour`
 
-Each color gives encodes a different edge-id. Option **--factor 60** is used to convert from vehicles per 60s (edgeData-freq 60) to vehicles per hour.
+Each color gives encodes a different edge-id. Option **--factor 60** is used to convert from vehicles per 60s (edgeData-period 60) to vehicles per hour.
 
 ![plotAttrs_fundamental.png](../images/plotAttrs_fundamental.png "plotAttrs_fundamental.png")
 

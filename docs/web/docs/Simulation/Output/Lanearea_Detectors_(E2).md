@@ -30,7 +30,7 @@ values to indicate a distance from the lane's end).
 <additional>
    <laneAreaDetector id="<ID>" lanes="<LANE_ID1> <LANE_ID2> ... <LANE_IDN>" 
    pos="<START_POSITION_ON_FIRST_LANE>" endPos="<END_POSITION_ON_LAST_LANE>" 
-   friendlyPos="<BOOL>" freq="<AGGREGATION_TIME>" file="<OUTPUT_FILE>" 
+   friendlyPos="<BOOL>" period="<AGGREGATION_TIME>" file="<OUTPUT_FILE>" 
    timeThreshold="<FLOAT>" speedThreshold="<FLOAT>" jamThreshold="<FLOAT>"
    tl="<TRAFFIC_LIGHT_ID>"  to="<LANE_ID>"/>  
 </additional>
@@ -48,7 +48,7 @@ plus two of the attributes `pos`, `endPos`, and `length` like this:
 <additional>
    <laneAreaDetector id="<ID>" lane="<LANE_ID>" 
    pos="<START_POSITION_ON_LANE>" endPos="<END_POSITION_ON_LANE>" length="<DETECTOR_LENGTH>"  // <- only two of those
-   friendlyPos="<BOOL>" freq="<AGGREGATION_TIME>" file="<OUTPUT_FILE>" 
+   friendlyPos="<BOOL>" period="<AGGREGATION_TIME>" file="<OUTPUT_FILE>" 
    timeThreshold="<FLOAT>" speedThreshold="<FLOAT>" jamThreshold="<FLOAT>" 
    tl="<TRAFFIC_LIGHT_ID>"  to="<LANE_ID>"/>  
 </additional>
@@ -76,8 +76,8 @@ The complete list of attributes is:
 | **endPos**     | float                   | The end position on the last lane covered by the detector. Per default the end position is placed at the last lane's end.    |
 | **length**     | float                   | The length of the detector in meters. If the detector reaches over the lane's end, it is extended to preceding / consecutive lanes.   |
 | **file**       | filename                | The path to the output file. The path may be relative.   |
-| freq           | int                     | The aggregation period the values the detector collects shall be summed up. Either *freq* or *tl* must be specified      |
-| tl             | id                      | The [traffic light that triggers aggregation when switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). Either *freq* or *tl* must be specified   |
+| period (alias freq) | int                | The aggregation period the values the detector collects shall be summed up. Either *period* or *tl* must be specified      |
+| tl             | id                      | The [traffic light that triggers aggregation when switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). Either *period* or *tl* must be specified   |
 | to             | id                      | The id of an outgoing lane that [triggers aggregation in conjunction with traffic light switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). This is only used together with *tl*.   |
 | timeThreshold  | float                   | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.      |
 | speedThreshold | float                   | The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; *in m/s, default: 5/3.6m/s*.   |
@@ -106,7 +106,7 @@ each vehicle that enters the area. As long as the vehicle does not leave
 the area completely, its state is collected in each time step during the
 interval. Each vehicle state in this case is called a "data sample" and
 the output of a lane area detector is made up from all data samples of
-all vehicles within the are during the complete data collection ("freq")
+all vehicles within the are during the complete data collection ("period")
 interval.
 
 As a lane area detector covers a lane and vehicles are sorted on these,
@@ -144,9 +144,9 @@ The values are described in the following table.
 | meanMaxJamLengthInVehicles  | \#vehicles           | The length of the longest jams recognized during each step, averaged over the interval duration. In vehicles that have contributed to these jams.                                                           |
 | meanMaxJamLengthInMeters    | m                    | As prior, but in meters (see notes)                                                                                                                                                                         |
 | maxJamLengthInVehicles      | \#vehicles           | The length of the longest jam recognized during the interval duration. In vehicles that have contributed to this jams.                                                                                      |
-| maxJamLengthInMeters        | m                    | As prior, but in meters (see notes)                                                                                                                                                                         |
+| maxJamLengthInMeters        | m                    | As prior, but in meters. This includes the gaps between jammed vehicles               |
 | jamLengthInVehiclesSum      | \#vehicles           | The sum of all lengths of all jams recognized during the interval. In vehicles that have contributed to these jams.                                                                                         |
-| jamLengthInMetersSum        | m                    | As prior, but in meters (see notes)                                                                                                                                                                         |
+| jamLengthInMetersSum        | m                    | As prior, but in meters. This includes the gaps between jammed vehicles                |
 | meanHaltingDuration         | s                    | The mean halting duration of vehicles that entered the area and are still inside or have left the area within the reported interval.                                                                        |
 | maxHaltingDuration          | s                    | The maximum halting duration of vehicles that entered the area and are still inside or have left the area within the reported interval.                                                                     |
 | haltingDurationSum          | s                    | The sum of all halting durations of vehicles that entered the area and are still inside or have left the area within the reported interval.                                                                 |

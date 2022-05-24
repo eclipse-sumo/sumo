@@ -264,8 +264,8 @@ GNETLSEditorFrame::onCmdOK(FXObject*, FXSelector, void*) {
         if (myTLSModifications->checkHaveModifications()) {
             NBTrafficLightDefinition* oldDefinition = myTLSAttributes->getCurrentTLSDefinition();
             std::vector<NBNode*> nodes = oldDefinition->getNodes();
-            for (auto it : nodes) {
-                GNEJunction* junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(it->getID());
+            for (const auto &node : nodes) {
+                GNEJunction* junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID());
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, oldDefinition, false), true);
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, myEditedDef, true), true);
             }
@@ -502,13 +502,6 @@ GNETLSEditorFrame::onCmdPhaseSwitch(FXObject*, FXSelector, void*) {
 }
 
 
-bool
-GNETLSEditorFrame::fixedDuration() const {
-    assert(myEditedDef != nullptr);
-    return myEditedDef->getType() == TrafficLightType::STATIC;
-}
-
-
 void
 GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
     editJunction(dynamic_cast<GNEJunction*>(AC));
@@ -517,13 +510,16 @@ GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 
 long
 GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
+    // mark TLS as modified
     myTLSModifications->setHaveModifications(true);
+    // check if TLS is static
+    const bool TLSStatic = (myEditedDef->getType() == TrafficLightType::STATIC);
     // allows insertion at first position by deselecting via arrow keys
     int newIndex = myTLSPhases->getPhaseTable()->getSelStartRow() + 1;
     int oldIndex = MAX2(0, myTLSPhases->getPhaseTable()->getSelStartRow());
     // copy current row
-    SUMOTime duration = getSUMOTime(myTLSPhases->getPhaseTable()->getItemText(oldIndex, 0));
-    const std::string oldState = myTLSPhases->getPhaseTable()->getItemText(oldIndex, fixedDuration() ? 1 : 3).text();
+    SUMOTime duration = getSUMOTime(myTLSPhases->getPhaseTable()->getItemText(oldIndex, 0).text());
+    const std::string oldState = myTLSPhases->getPhaseTable()->getItemText(oldIndex, TLSStatic? 1 : 3).text();
     std::string state = oldState;
 
     std::set<int> crossingIndices;
@@ -579,7 +575,7 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     }
     // fix continuous green states
     const int nextIndex = myTLSPhases->getPhaseTable()->getNumRows() > newIndex ? newIndex : 0;
-    const std::string state2 = myTLSPhases->getPhaseTable()->getItemText(nextIndex, fixedDuration() ? 1 : 3).text();
+    const std::string state2 = myTLSPhases->getPhaseTable()->getItemText(nextIndex, TLSStatic? 1 : 3).text();
     for (int i = 0; i < (int)state.size(); i++) {
         if ((oldState[i] == LINKSTATE_TL_GREEN_MAJOR || oldState[i] == LINKSTATE_TL_GREEN_MINOR)
                 && (state2[i] == LINKSTATE_TL_GREEN_MAJOR || state2[i] == LINKSTATE_TL_GREEN_MINOR)) {
@@ -675,16 +671,51 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
      * called the value of the cell is not yet updated. This means you have to
      * click inside the cell and hit enter to actually update the value */
     FXTablePos* tp = (FXTablePos*)ptr;
-    FXString value = myTLSPhases->getPhaseTable()->getItemText(tp->row, tp->col);
-    const int colDuration = 0;
-    const int colMinDur = fixedDuration() ? -1 : 1;
-    const int colMaxDur = fixedDuration() ? -1 : 2;
-    const int colState = fixedDuration() ? 1 : 3;
-    const int colNext = fixedDuration() ? 2 : 4;
-    const int colName = fixedDuration() ? 3 : 5;
+    const std::string value = myTLSPhases->getPhaseTable()->getItemText(tp->row, tp->col).text();
+    // Declare columns
+    int colDuration = 0;
+    int colState = -1;
+    int colNext = -1;
+    int colName = -1;
+    int colMinDur = -1;
+    int colMaxDur = -1;
+    int colEarliestEnd = -1;
+    int colLatestEnd = -1;
+    int colVehExt = -1;
+    int colYellow = -1;
+    int colRed = -1;
+    // set columns
+    if (myEditedDef->getType() == TrafficLightType::STATIC) {
+        colState = 1;
+        colNext = 2;
+        colName = 3;
+    } else if (myEditedDef->getType() == TrafficLightType::ACTUATED) {
+        colMinDur = 1;
+        colMaxDur = 2;
+        colState = 3;
+        colEarliestEnd = 4;
+        colLatestEnd = 5;
+        colNext = 6;
+        colName = 7;
+    } else if (myEditedDef->getType() == TrafficLightType::DELAYBASED) {
+        colMinDur = 1;
+        colMaxDur = 2;
+        colState = 3;
+        colNext = 4;
+    } else if (myEditedDef->getType() == TrafficLightType::NEMA) {
+        colMinDur = 1;
+        colMaxDur = 2;
+        colState = 3;
+        colVehExt = 4;
+        colYellow = 5;
+        colRed = 6;
+        colNext = 7;
+        colName = 8;
+    }
+    // check column
     if (tp->col == colDuration) {
         // duration edited
-        if (GNEAttributeCarrier::canParse<double>(value.text())) {
+        if (GNEAttributeCarrier::canParse<double>(value)) {
             SUMOTime duration = getSUMOTime(value);
             if (duration > 0) {
                 myEditedDef->getLogic()->setPhaseDuration(tp->row, duration);
@@ -694,45 +725,13 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             }
         }
         // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colDuration, toString(STEPS2TIME(getPhases()[tp->row].duration)).c_str());
-    } else if (tp->col == colMinDur) {
-        // minDur edited
-        if (GNEAttributeCarrier::canParse<double>(value.text())) {
-            SUMOTime minDur = getSUMOTime(value);
-            if (minDur > 0) {
-                myEditedDef->getLogic()->setPhaseMinDuration(tp->row, minDur);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        } else if (StringUtils::prune(value.text()).empty()) {
-            myEditedDef->getLogic()->setPhaseMinDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMinDur, varDurString(getPhases()[tp->row].minDur).c_str());
-    } else if (tp->col == colMaxDur) {
-        // maxDur edited
-        if (GNEAttributeCarrier::canParse<double>(value.text())) {
-            SUMOTime maxDur = getSUMOTime(value);
-            if (maxDur > 0) {
-                myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, maxDur);
-                myTLSModifications->setHaveModifications(true);
-                return 1;
-            }
-        } else if (StringUtils::prune(value.text()).empty()) {
-            myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        }
-        // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMaxDur, varDurString(getPhases()[tp->row].maxDur).c_str());
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colDuration, getSteps2Time(getPhases()[tp->row].duration).c_str());
     } else if (tp->col == colState) {
         // state edited
         try {
             // insert phase with new step and delete the old phase
             const NBTrafficLightLogic::PhaseDefinition& phase = getPhases()[tp->row];
-            myEditedDef->getLogic()->addStep(phase.duration, value.text(), phase.next, phase.name, tp->row);
+            myEditedDef->getLogic()->addStep(phase.duration, value, phase.next, phase.name, tp->row);
             myEditedDef->getLogic()->deletePhase(tp->row + 1);
             myTLSModifications->setHaveModifications(true);
             onCmdPhaseSwitch(nullptr, 0, nullptr);
@@ -743,8 +742,8 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
     } else if (tp->col == colNext) {
         // next edited
         bool ok = true;
-        if (GNEAttributeCarrier::canParse<std::vector<int> >(value.text())) {
-            std::vector<int> nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value.text());
+        if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
+            std::vector<int> nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
             for (int n : nextEdited) {
                 if (n < 0 || n >= myTLSPhases->getPhaseTable()->getNumRows()) {
                     ok = false;
@@ -761,9 +760,124 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
         myTLSPhases->getPhaseTable()->setItemText(tp->row, colNext, "");
     } else if (tp->col == colName) {
         // name edited
-        myEditedDef->getLogic()->setPhaseName(tp->row, value.text());
+        myEditedDef->getLogic()->setPhaseName(tp->row, value);
         myTLSModifications->setHaveModifications(true);
-        return 1;
+    } else if (tp->col == colMinDur) {
+        // minDur edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime minDur = getSUMOTime(value);
+            if (minDur > 0) {
+                myEditedDef->getLogic()->setPhaseMinDuration(tp->row, minDur);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseMinDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMinDur, varDurString(getPhases()[tp->row].minDur).c_str());
+    } else if (tp->col == colMaxDur) {
+        // maxDur edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime maxDur = getSUMOTime(value);
+            if (maxDur > 0) {
+                myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, maxDur);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMaxDur, varDurString(getPhases()[tp->row].maxDur).c_str());
+    } else if (tp->col == colEarliestEnd) {
+        // earliestEnd edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime earliestEnd = getSUMOTime(value);
+            if (earliestEnd > 0) {
+                myEditedDef->getLogic()->setPhaseEarliestEnd(tp->row, earliestEnd);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseEarliestEnd(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colEarliestEnd, varDurString(getPhases()[tp->row].earliestEnd).c_str());
+    } else if (tp->col == colLatestEnd) {
+        // latestEnd edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime latestEnd = getSUMOTime(value);
+            if (latestEnd > 0) {
+                myEditedDef->getLogic()->setPhaseLatestEnd(tp->row, latestEnd);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseLatestEnd(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colLatestEnd, varDurString(getPhases()[tp->row].latestEnd).c_str());
+    } else if (tp->col == colName) {
+        // name edited
+        myEditedDef->getLogic()->setPhaseName(tp->row, value);
+        myTLSModifications->setHaveModifications(true);
+    } else if (tp->col == colVehExt) {
+        // vehExt edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime vehExt = getSUMOTime(value);
+            if (vehExt > 0) {
+                myEditedDef->getLogic()->setPhaseVehExt(tp->row, vehExt);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseVehExt(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colVehExt, varDurString(getPhases()[tp->row].vehExt).c_str());
+    } else if (tp->col == colYellow) {
+        // yellow edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime yellow = getSUMOTime(value);
+            if (yellow > 0) {
+                myEditedDef->getLogic()->setPhaseYellow(tp->row, yellow);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseYellow(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colYellow, varDurString(getPhases()[tp->row].yellow).c_str());
+    } else if (tp->col == colRed) {
+        // red edited
+        if (GNEAttributeCarrier::canParse<double>(value)) {
+            SUMOTime red = getSUMOTime(value);
+            if (red > 0) {
+                myEditedDef->getLogic()->setPhaseRed(tp->row, red);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
+        } else if (StringUtils::prune(value).empty()) {
+            myEditedDef->getLogic()->setPhaseRed(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colRed, varDurString(getPhases()[tp->row].red).c_str());
     }
     return 1;
 }
@@ -773,6 +887,8 @@ long
 GNETLSEditorFrame::onCmdEditParameters(FXObject*, FXSelector, void*) {
     // continue depending of myEditedDef
     if (myEditedDef) {
+        // get previous parameters
+        const auto previousParameters = myTLSAttributes->getParameters();
         // write debug information
         WRITE_DEBUG("Open single parameters dialog");
         if (GNESingleParametersDialog(myViewNet->getApp(), myEditedDef).execute()) {
@@ -780,6 +896,10 @@ GNETLSEditorFrame::onCmdEditParameters(FXObject*, FXSelector, void*) {
             WRITE_DEBUG("Close single parameters dialog");
             // set parameters in textfield
             myTLSAttributes->setParameters(myEditedDef->getParametersStr());
+            // only mark as modified if parameters are different
+            if (myTLSAttributes->getParameters() != previousParameters) {
+                myTLSModifications->setHaveModifications(true);
+            }
         } else {
             // write debug information
             WRITE_DEBUG("Cancel single parameters dialog");
@@ -892,7 +1012,7 @@ GNETLSEditorFrame::buildInternalLanes(NBTrafficLightDefinition* tlDef) {
 
 std::string
 GNETLSEditorFrame::varDurString(SUMOTime dur) {
-    return dur == NBTrafficLightDefinition::UNSPECIFIED_DURATION ? "   " : toString(STEPS2TIME(dur));
+    return dur == NBTrafficLightDefinition::UNSPECIFIED_DURATION ? "   " : getSteps2Time(dur);
 }
 
 
@@ -1000,8 +1120,13 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
 
 
 SUMOTime
-GNETLSEditorFrame::getSUMOTime(const FXString& string) {
-    return TIME2STEPS(GNEAttributeCarrier::parse<double>(string.text()));
+GNETLSEditorFrame::getSUMOTime(const std::string& string) {
+    return TIME2STEPS(GNEAttributeCarrier::parse<double>(string));
+}
+
+const std::string 
+GNETLSEditorFrame::getSteps2Time(const SUMOTime value) {
+    return toString(STEPS2TIME(value));
 }
 
 // ---------------------------------------------------------------------------
@@ -1013,10 +1138,16 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     myTLSEditorParent(TLSEditorParent) {
 
     // create frame, label and textfield for name (By default disabled)
-    FXHorizontalFrame* nameFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(nameFrame, toString(SUMO_ATTR_ID).c_str(), nullptr, GUIDesignLabelAttribute);
-    myNameTextField = new FXTextField(nameFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_SWITCH, GUIDesignTextField);
-    myNameTextField->disable();
+    FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelAttribute);
+    myTLSType = new FXTextField(typeFrame, GUIDesignTextFieldNCol, myTLSEditorParent, 0, GUIDesignTextField);
+    myTLSType->disable();
+
+    // create frame, label and textfield for name (By default disabled)
+    FXHorizontalFrame* idFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(idFrame, toString(SUMO_ATTR_ID).c_str(), nullptr, GUIDesignLabelAttribute);
+    myIDTextField = new FXTextField(idFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_SWITCH, GUIDesignTextField);
+    myIDTextField->disable();
 
     // create frame, label and comboBox for Program (By default hidden)
     FXHorizontalFrame* programFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -1044,10 +1175,12 @@ GNETLSEditorFrame::TLSAttributes::~TLSAttributes() {}
 
 void
 GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
-    assert(junction);
+    // clear definitions
     myTLSDefinitions.clear();
-    // enable name TextField
-    myNameTextField->enable();
+    // set TLS type
+    myTLSType->setText(junction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
+    // enable id TextField
+    myIDTextField->enable();
     // enable Offset
     myOffsetTextField->enable();
     myOffsetTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
@@ -1056,11 +1189,11 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
     myParametersTextField->enable();
     myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
     // obtain TLSs
-    for (auto it : junction->getNBNode()->getControllingTLS()) {
-        myTLSDefinitions.push_back(it);
-        myNameTextField->setText(it->getID().c_str());
-        myNameTextField->enable();
-        myProgramComboBox->appendItem(it->getProgramID().c_str());
+    for (const auto &TLS : junction->getNBNode()->getControllingTLS()) {
+        myTLSDefinitions.push_back(TLS);
+        myIDTextField->setText(TLS->getID().c_str());
+        myIDTextField->enable();
+        myProgramComboBox->appendItem(TLS->getProgramID().c_str());
     }
     if (myTLSDefinitions.size() > 0) {
         myProgramComboBox->enable();
@@ -1075,9 +1208,11 @@ void
 GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
     // clear definitions
     myTLSDefinitions.clear();
+    // clear TLS type
+    myTLSType->setText("");
     // clear and disable name TextField
-    myNameTextField->setText("");
-    myNameTextField->disable();
+    myIDTextField->setText("");
+    myIDTextField->disable();
     // clear and disable myProgramComboBox
     myProgramComboBox->clearItems();
     myProgramComboBox->disable();
@@ -1129,7 +1264,7 @@ GNETLSEditorFrame::TLSAttributes::getOffset() const {
 
 void
 GNETLSEditorFrame::TLSAttributes::setOffset(const SUMOTime& offset) {
-    myOffsetTextField->setText(toString(STEPS2TIME(offset)).c_str());
+    myOffsetTextField->setText(getSteps2Time(offset).c_str());
     myOffsetTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
 }
 
@@ -1231,7 +1366,7 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     myDeleteTLProgram = new FXButton(verticalFrameAuxB, "Delete\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.",
                                      GUIIconSubSys::getIcon(GUIIcon::REMOVE), TLSEditorParent, MID_GNE_TLSFRAME_DELETE, GUIDesignButton);
     // create regenerate tlDef button
-    myRegenerateTLProgram = new FXButton(verticalFrameAuxA, "Regenerate\t\tRegenerate TLS Program.",
+    myRegenerateTLProgram = new FXButton(verticalFrameAuxA, "Reset\t\tRegenerate TLS Program.",
                                          GUIIconSubSys::getIcon(GUIIcon::RELOAD), TLSEditorParent, MID_GNE_TLSFRAME_REGENERATE, GUIDesignButton);
     // show TLS TLSDefinition
     show();
@@ -1309,61 +1444,15 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
     myPhaseTable->setVisibleColumns(2);
     myPhaseTable->hide();
     if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
-        const bool fixed = myTLSEditorParent->fixedDuration();
-        const int cols = fixed ? 4 : 6;
-        const int colDuration = 0;
-        const int colMinDur = fixed ? -1 : 1;
-        const int colMaxDur = fixed ? -1 : 2;
-        const int colState = fixed ? 1 : 3;
-        const int colNext = fixed ? 2 : 4;
-        const int colName = fixed ? 3 : 5;
-
-        const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
-        myPhaseTable->setTableSize((int)phases.size(), cols);
-        myPhaseTable->setVisibleRows((int)phases.size());
-        myPhaseTable->setVisibleColumns(cols);
-        for (int row = 0; row < (int)phases.size(); row++) {
-            myPhaseTable->setItemText(row, colDuration, toString(STEPS2TIME(phases[row].duration)).c_str());
-            if (!fixed) {
-                myPhaseTable->setItemText(row, colMinDur, varDurString(phases[row].minDur).c_str());
-                myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
-            }
-            myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
-            myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
-            myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
-            myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
+        if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC) {
+            initStaticPhaseTable(index);
+        } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::ACTUATED) {
+            initActuatedPhaseTable(index);
+        } else if(myTLSEditorParent->myEditedDef->getType() == TrafficLightType::DELAYBASED) {
+            initDelayBasePhaseTable(index);
+        } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::NEMA) {
+            initNEMAPhaseTable(index);
         }
-        myPhaseTable->fitColumnsToContents(0, cols);
-        myPhaseTable->setColumnText(colDuration, "dur");
-        if (colMinDur >= 0) {
-            myPhaseTable->setColumnText(colMinDur, "min");
-            myPhaseTable->setColumnText(colMaxDur, "max");
-            myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 30));
-            myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
-        }
-        myPhaseTable->setColumnText(colState, "state");
-        myPhaseTable->setColumnText(colNext, "nxt");
-        myPhaseTable->setColumnText(colName, "name");
-        myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
-        myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
-
-        myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
-        myPhaseTable->setCurrentItem(index, 0);
-        myPhaseTable->selectRow(index, true);
-        myPhaseTable->show();
-        myPhaseTable->setFocus();
-        myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
-
-        // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
-        // however, the scroll pane uses getDefaultWidth to determine the
-        // horizontal scrolling area which can only be changed via
-        // getDefColumnWidth, hence the baroque work-around
-
-        int neededWidth = 0;
-        for (int i = 0; i < cols; i++) {
-            neededWidth += myPhaseTable->getColumnWidth(i);
-        }
-        myPhaseTable->setDefColumnWidth(neededWidth / cols);
     }
     update();
 }
@@ -1386,8 +1475,254 @@ GNETLSEditorFrame::TLSPhases::updateCycleDuration() {
     for (auto it : myTLSEditorParent->getPhases()) {
         cycleDuration += it.duration;
     }
-    std::string text = "Cycle time: " + toString(STEPS2TIME(cycleDuration));
+    std::string text = "Cycle time: " + getSteps2Time(cycleDuration);
     myCycleDuration->setText(text.c_str());
+}
+
+
+void 
+GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
+    // declare constants for columns
+    const int cols = 4;
+    const int colDuration = 0;
+    const int colState = 1;
+    const int colNext = 2;
+    const int colName = 3;
+    // get phases
+    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
+    // adjust table
+    myPhaseTable->setTableSize((int)phases.size(), cols);
+    myPhaseTable->setVisibleRows((int)phases.size());
+    myPhaseTable->setVisibleColumns(cols);
+    // fill rows
+    for (int row = 0; row < (int)phases.size(); row++) {
+        myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
+        myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
+        myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
+        myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
+        myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
+    }
+    // set columns
+    myPhaseTable->fitColumnsToContents(0, cols);
+    myPhaseTable->setColumnText(colDuration, "dur");
+    myPhaseTable->setColumnText(colState, "state");
+    myPhaseTable->setColumnText(colNext, "nxt");
+    myPhaseTable->setColumnText(colName, "name");
+    myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
+    myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
+    // set rows
+    myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
+    myPhaseTable->setCurrentItem(index, 0);
+    myPhaseTable->selectRow(index, true);
+    myPhaseTable->show();
+    myPhaseTable->setFocus();
+    myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
+    // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
+    // however, the scroll pane uses getDefaultWidth to determine the
+    // horizontal scrolling area which can only be changed via
+    // getDefColumnWidth, hence the baroque work-around
+    int neededWidth = 0;
+    for (int i = 0; i < cols; i++) {
+        neededWidth += myPhaseTable->getColumnWidth(i);
+    }
+    myPhaseTable->setDefColumnWidth(neededWidth / cols);
+}
+
+
+void 
+GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
+    // declare constants for columns
+    const int cols = 8;
+    const int colDuration = 0;
+    const int colMinDur = 1;
+    const int colMaxDur = 2;
+    const int colState = 3;
+    const int colEarliestEnd = 4;
+    const int colLatestEnd = 5;
+    const int colNext = 6;
+    const int colName = 7;
+    // get phases
+    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
+    // adjust table
+    myPhaseTable->setTableSize((int)phases.size(), cols);
+    myPhaseTable->setVisibleRows((int)phases.size());
+    myPhaseTable->setVisibleColumns(cols);
+    // fill rows
+    for (int row = 0; row < (int)phases.size(); row++) {
+        myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
+        myPhaseTable->setItemText(row, colMinDur, varDurString(phases[row].minDur).c_str());
+        myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
+        myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
+        myPhaseTable->setItemText(row, colEarliestEnd, varDurString(phases[row].earliestEnd).c_str());
+        myPhaseTable->setItemText(row, colLatestEnd, varDurString(phases[row].latestEnd).c_str());
+        myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
+        myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
+        myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
+    }
+    // set columns
+    myPhaseTable->fitColumnsToContents(0, cols);
+    myPhaseTable->setColumnText(colDuration, "dur");
+    myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
+    myPhaseTable->setColumnText(colMinDur, "min");
+    myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
+    myPhaseTable->setColumnText(colMaxDur, "max");
+    myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
+    myPhaseTable->setColumnText(colEarliestEnd, "ear.end");
+    myPhaseTable->setColumnWidth(colEarliestEnd, MAX2(myPhaseTable->getColumnWidth(colEarliestEnd), 35));
+    myPhaseTable->setColumnText(colLatestEnd, "lat.end");
+    myPhaseTable->setColumnWidth(colLatestEnd, MAX2(myPhaseTable->getColumnWidth(colLatestEnd), 35));
+    myPhaseTable->setColumnText(colState, "state");
+    myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
+    myPhaseTable->setColumnText(colNext, "nxt");
+    myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
+    myPhaseTable->setColumnText(colName, "name");
+    myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
+    // set rows
+    myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
+    myPhaseTable->setCurrentItem(index, 0);
+    myPhaseTable->selectRow(index, true);
+    myPhaseTable->show();
+    myPhaseTable->setFocus();
+    myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
+    // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
+    // however, the scroll pane uses getDefaultWidth to determine the
+    // horizontal scrolling area which can only be changed via
+    // getDefColumnWidth, hence the baroque work-around
+    int neededWidth = 0;
+    for (int i = 0; i < cols; i++) {
+        neededWidth += myPhaseTable->getColumnWidth(i);
+    }
+    myPhaseTable->setDefColumnWidth(neededWidth / cols);
+}
+
+
+void 
+GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
+    // declare constants for columns
+    const int cols = 8;
+    const int colDuration = 0;
+    const int colMinDur = 1;
+    const int colMaxDur = 2;
+    const int colState = 3;
+    const int colNext = 4;
+    const int colName = 5;
+    // get phases
+    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
+    // adjust table
+    myPhaseTable->setTableSize((int)phases.size(), cols);
+    myPhaseTable->setVisibleRows((int)phases.size());
+    myPhaseTable->setVisibleColumns(cols);
+    // fill rows
+    for (int row = 0; row < (int)phases.size(); row++) {
+        myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
+        myPhaseTable->setItemText(row, colMinDur, varDurString(phases[row].minDur).c_str());
+        myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
+        myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
+        myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
+        myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
+        myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
+    }
+    // set columns
+    myPhaseTable->fitColumnsToContents(0, cols);
+    myPhaseTable->setColumnText(colDuration, "dur");
+    myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
+    myPhaseTable->setColumnText(colMinDur, "min");
+    myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
+    myPhaseTable->setColumnText(colMaxDur, "max");
+    myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
+    myPhaseTable->setColumnText(colState, "state");
+    myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
+    myPhaseTable->setColumnText(colNext, "nxt");
+    myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
+    myPhaseTable->setColumnText(colName, "name");
+    myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
+    // set rows
+    myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
+    myPhaseTable->setCurrentItem(index, 0);
+    myPhaseTable->selectRow(index, true);
+    myPhaseTable->show();
+    myPhaseTable->setFocus();
+    myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
+    // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
+    // however, the scroll pane uses getDefaultWidth to determine the
+    // horizontal scrolling area which can only be changed via
+    // getDefColumnWidth, hence the baroque work-around
+    int neededWidth = 0;
+    for (int i = 0; i < cols; i++) {
+        neededWidth += myPhaseTable->getColumnWidth(i);
+    }
+    myPhaseTable->setDefColumnWidth(neededWidth / cols);
+}
+
+
+void 
+GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
+    // declare constants for columns
+    const int cols = 9;
+    const int colDuration = 0;
+    const int colMinDur = 1;
+    const int colMaxDur = 2;
+    const int colState = 3;
+    const int colVehExt = 4;
+    const int colYellow = 5;
+    const int colRed = 6;
+    const int colNext = 7;
+    const int colName = 8;
+    // get phases
+    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
+    // adjust table
+    myPhaseTable->setTableSize((int)phases.size(), cols);
+    myPhaseTable->setVisibleRows((int)phases.size());
+    myPhaseTable->setVisibleColumns(cols);
+    // fill rows
+    for (int row = 0; row < (int)phases.size(); row++) {
+        myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
+        myPhaseTable->setItemText(row, colMinDur, varDurString(phases[row].minDur).c_str());
+        myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
+        myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
+        myPhaseTable->setItemText(row, colVehExt, varDurString(phases[row].vehExt).c_str());
+        myPhaseTable->setItemText(row, colYellow, varDurString(phases[row].yellow).c_str());
+        myPhaseTable->setItemText(row, colRed, varDurString(phases[row].red).c_str());
+        myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
+        myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
+        myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
+    }
+    // set columns
+    myPhaseTable->fitColumnsToContents(0, cols);
+    myPhaseTable->setColumnText(colDuration, "dur");
+    myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
+    myPhaseTable->setColumnText(colMinDur, "min");
+    myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
+    myPhaseTable->setColumnText(colMaxDur, "max");
+    myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
+    myPhaseTable->setColumnText(colState, "state");
+    myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
+    myPhaseTable->setColumnText(colVehExt, "v.ext");
+    myPhaseTable->setColumnWidth(colVehExt, MAX2(myPhaseTable->getColumnWidth(colVehExt), 45));
+    myPhaseTable->setColumnText(colYellow, "yel");
+    myPhaseTable->setColumnWidth(colYellow, MAX2(myPhaseTable->getColumnWidth(colYellow), 35));
+    myPhaseTable->setColumnText(colRed, "red");
+    myPhaseTable->setColumnWidth(colRed, MAX2(myPhaseTable->getColumnWidth(colRed), 35));
+    myPhaseTable->setColumnText(colNext, "nxt");
+    myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
+    myPhaseTable->setColumnText(colName, "name");
+    myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
+    // set rows
+    myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
+    myPhaseTable->setCurrentItem(index, 0);
+    myPhaseTable->selectRow(index, true);
+    myPhaseTable->show();
+    myPhaseTable->setFocus();
+    myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
+    // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
+    // however, the scroll pane uses getDefaultWidth to determine the
+    // horizontal scrolling area which can only be changed via
+    // getDefColumnWidth, hence the baroque work-around
+    int neededWidth = 0;
+    for (int i = 0; i < cols; i++) {
+        neededWidth += myPhaseTable->getColumnWidth(i);
+    }
+    myPhaseTable->setDefColumnWidth(neededWidth / cols);
 }
 
 // ---------------------------------------------------------------------------
@@ -1513,45 +1848,76 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
                     "Save TLS Program as", ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                     gCurrentFolder);
-    if (file == "") {
-        return 1;
-    }
-    // add xml extension
-    file = FileHelpers::addExtension(file.text(), ".xml").c_str();
-    OutputDevice& device = OutputDevice::getDevice(file.text());
-    // save program
-    device.writeXMLHeader("additional", "additional_file.xsd");
-    device.openTag(SUMO_TAG_TLLOGIC);
-    device.writeAttr(SUMO_ATTR_ID, myTLSEditorParent->myEditedDef->getLogic()->getID());
-    device.writeAttr(SUMO_ATTR_TYPE, myTLSEditorParent->myEditedDef->getLogic()->getType());
-    device.writeAttr(SUMO_ATTR_PROGRAMID, myTLSEditorParent->myEditedDef->getLogic()->getProgramID());
-    device.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime(myTLSEditorParent->myEditedDef->getLogic()->getOffset()));
-    myTLSEditorParent->myEditedDef->writeParams(device);
-    // write the phases
-    const bool varPhaseLength = myTLSEditorParent->myEditedDef->getLogic()->getType() != TrafficLightType::STATIC;
-    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
-    for (auto j : phases) {
-        device.openTag(SUMO_TAG_PHASE);
-        device.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(j.duration));
-        device.writeAttr(SUMO_ATTR_STATE, j.state);
-        if (varPhaseLength) {
-            if (j.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(j.minDur));
+    // check file
+    if (file != "") {
+        // add xml extension
+        file = FileHelpers::addExtension(file.text(), ".xml").c_str();
+        OutputDevice& device = OutputDevice::getDevice(file.text());
+        // save program
+        device.writeXMLHeader("additional", "additional_file.xsd");
+        device.openTag(SUMO_TAG_TLLOGIC);
+        device.writeAttr(SUMO_ATTR_ID, myTLSEditorParent->myEditedDef->getLogic()->getID());
+        device.writeAttr(SUMO_ATTR_TYPE, myTLSEditorParent->myEditedDef->getLogic()->getType());
+        device.writeAttr(SUMO_ATTR_PROGRAMID, myTLSEditorParent->myEditedDef->getLogic()->getProgramID());
+        device.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime(myTLSEditorParent->myEditedDef->getLogic()->getOffset()));
+        myTLSEditorParent->myEditedDef->writeParams(device);
+        // write the phases
+        const bool TLSActuated = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::ACTUATED);
+        const bool TLSDelayBased = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::DELAYBASED);
+        const bool TLSNEMA = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::NEMA);
+        // write the phases
+        const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
+        for (const auto &phase : phases) {
+            device.openTag(SUMO_TAG_PHASE);
+            device.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(phase.duration));
+            device.writeAttr(SUMO_ATTR_STATE, phase.state);
+            // write specific actuated parameters
+            if (TLSActuated || TLSDelayBased) {
+                if (phase.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur));
+                }
+                if (phase.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
+                }
+                if (phase.earliestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
+                }
+                if (phase.earliestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_EARLIEST_END, writeSUMOTime(phase.maxDur));
+                }
+                if (phase.latestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_LATEST_END, writeSUMOTime(phase.maxDur));
+                }
             }
-            if (j.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(j.maxDur));
+            // write specific NEMA parameters
+            if (TLSNEMA) {
+                if (phase.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur));
+                }
+                if (phase.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
+                }
+                if (phase.vehExt != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.vehExt));
+                }
+                if (phase.red != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.red));
+                }
+                if (phase.yellow != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.yellow));
+                }
             }
+            device.closeTag();
         }
-        device.closeTag();
+        device.close();
     }
-    device.close();
     return 1;
 }
 
 
 std::string
 GNETLSEditorFrame::TLSFile::writeSUMOTime(SUMOTime steps) {
-    double time = STEPS2TIME(steps);
+    const double time = STEPS2TIME(steps);
     if (time == std::floor(time)) {
         return toString(int(time));
     } else {

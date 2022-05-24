@@ -590,7 +590,10 @@ class GUIVisualizationSettings {
 
 public:
     /// @brief constructor
-    GUIVisualizationSettings(bool _netedit = false);
+    GUIVisualizationSettings(const std::string& _name, bool _netedit = false);
+
+    /// @brief copy all content from another GUIVisualizationSettings (note: DON'T USE in DrawGL functions!)
+    void copy(const GUIVisualizationSettings& s);
 
     /// @brief init default settings
     void initNeteditDefaults();
@@ -1009,4 +1012,11 @@ public:
 
     /// @brief detail settings
     GUIVisualizationDetailSettings detailSettings;
+
+private:
+    /// @brief set copy constructor private
+    GUIVisualizationSettings(const GUIVisualizationSettings&) = default;
+
+    /// @brief set assignment operator private
+    GUIVisualizationSettings& operator=(const GUIVisualizationSettings&) = default;
 };

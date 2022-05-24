@@ -50,7 +50,7 @@ namespace libsumo {
 SubscriptionResults GUI::mySubscriptionResults;
 ContextSubscriptionResults GUI::myContextSubscriptionResults;
 GUIApplicationWindow* GUI::myWindow = nullptr;
-FXApp GUI::myApp("SUMO GUI", "sumo-gui");
+FXApp* GUI::myApp = nullptr;
 
 
 // ===========================================================================
@@ -254,10 +254,13 @@ GUI::start(const std::vector<std::string>& cmd) {
     return false;
 #else
     try {
+        if (!GUI::close("Libsumo started new instance.")) {
+//            SystemFrame::close();
+        }
         bool needStart = false;
         if (std::getenv("LIBSUMO_GUI") != nullptr) {
             needStart = true;
-            for (const std::string& a: cmd) {
+            for (const std::string& a : cmd) {
                 if (a == "-S" || a == "--start") {
                     needStart = false;
                 }
@@ -286,24 +289,22 @@ GUI::start(const std::vector<std::string>& cmd) {
         OptionsIO::getOptions(true);
         OptionsCont::getOptions().processMetaOptions(false);
         // Open display
-        myApp.init(argc, argv);
+        myApp = new FXApp("SUMO GUI", "sumo-gui");
+        myApp->init(argc, argv);
         int minor, major;
-        if (!FXGLVisual::supported(&myApp, major, minor)) {
+        if (!FXGLVisual::supported(myApp, major, minor)) {
             throw ProcessError("This system has no OpenGL support. Exiting.");
         }
 
         // build the main window
-        myWindow = new GUIApplicationWindow(&myApp, "*.sumo.cfg,*.sumocfg");
-        gSchemeStorage.init(&myApp);
-        myWindow->dependentBuild();
-        myApp.create();
+        myWindow = new GUIApplicationWindow(myApp, "*.sumo.cfg,*.sumocfg");
+        gSchemeStorage.init(myApp);
+        myWindow->dependentBuild(true);
+        myApp->create();
         myWindow->getRunner()->enableLibsumo();
         // Load configuration given on command line
         if (argc > 1) {
-            myWindow->loadOnStartup();
-            while (!myWindow->getRunner()->simulationAvailable()) {
-                myWindow->getRunner()->sleep(50);
-            }
+            myWindow->loadOnStartup(true);
         }
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
@@ -333,7 +334,7 @@ bool
 GUI::step(SUMOTime t) {
     if (myWindow != nullptr) {
         if (t == 0) {
-            t = SIMSTEP + DELTA_T; 
+            t = SIMSTEP + DELTA_T;
         }
         while (SIMSTEP < t) {
             myWindow->getRunner()->tryStep();
@@ -345,12 +346,13 @@ GUI::step(SUMOTime t) {
 
 
 bool
-GUI::close() {
+GUI::close(const std::string& /*reason*/) {
     if (myWindow != nullptr) {
-        myApp.stop();
+        myApp->stop();
         delete myWindow;
         myWindow = nullptr;
         SystemFrame::close();
+        delete myApp;
         return true;
     }
     return false;

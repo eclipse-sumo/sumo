@@ -20,6 +20,8 @@
 ///
 //
 /****************************************************************************/
+#include <config.h>
+
 #include <fstream>
 #include <sstream>
 #define JSON_USE_IMPLICIT_CONVERSIONS 0

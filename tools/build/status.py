@@ -38,7 +38,6 @@ def killall(debugSuffix, binaries):
     for i in range(2):  # killing twice is better than once ;-)
         clean = True
         for taskline in subprocess.check_output(["tasklist", "/nh"], universal_newlines=True).splitlines():
-            printLog("Checking %s." % taskline)
             task = taskline.split()
             if task and task[0] in bins:
                 printLog("Found %s." % task)

@@ -14,6 +14,7 @@
 /// @file    GUIOSGView.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    19.01.2012
 ///
 // An OSG-based 3D view on the simulation
@@ -138,6 +139,7 @@ GUIOSGView::GUIOSGView(
     myViewer->getCamera()->setGraphicsContext(myAdapter);
     myViewer->getCamera()->setViewport(0, 0, w, h);
     myViewer->setThreadingModel(osgViewer::Viewer::SingleThreaded);
+	myViewer->addEventHandler(new PickHandler(this));
 
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath != 0) {
@@ -347,6 +349,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         if (itVeh == myVehicles.end()) {
             myVehicles[veh] = GUIOSGBuilder::buildMovable(veh->getVehicleType());
             myRoot->addChild(myVehicles[veh].pos);
+			myVehicles[veh].pos->setName("vehicle:"+veh->getID());
         } else {
             itVeh->second.active = true;
         }
@@ -693,6 +696,11 @@ long GUIOSGView::onRightBtnRelease(FXObject* sender, FXSelector sel, void* ptr) 
 
 long
 GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
+	// if popup exist but isn't shown, destroy it first
+	if (myPopup && (myPopup->shown() == false)) {
+		destroyPopup();
+	}
+
     FXEvent* event = (FXEvent*)ptr;
     myAdapter->getEventQueue()->mouseMotion((float)event->win_x, (float)event->win_y);
 
@@ -792,6 +800,40 @@ void GUIOSGView::FXOSGAdapter::swapBuffersImplementation() {
     myParent->swapBuffers();
 }
 
+
+bool GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
+	if (ea.getEventType() == osgGA::GUIEventAdapter::RELEASE && ea.getButton() == osgGA::GUIEventAdapter::RIGHT_MOUSE_BUTTON) {
+		osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
+		if (view) pick(view, ea);
+	}
+	return false;
+}
+
+
+void GUIOSGView::PickHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea) {
+	osgUtil::LineSegmentIntersector::Intersections intersections;
+	if (view->computeIntersections(ea, intersections))
+	{
+		for (auto intersection : intersections) {
+			if (!intersection.nodePath.empty() && !(intersection.nodePath.back()->getName().empty())) {
+				// the vehicle is identified by the ID stored in OSG
+				for (osg::Node* currentNode : intersection.nodePath) {
+					if (currentNode->getName().length() > 8 && currentNode->getName().substr(0,8) == "vehicle:") {
+						const std::string vehID = currentNode->getName();
+						if (myParent->makeCurrent()) {
+							GUIGlObject* obj = GUIGlObjectStorage::gIDStorage.getObjectBlocking(vehID);
+							if (obj != nullptr) {
+								myParent->openObjectDialog(obj);
+							}
+							myParent->makeNonCurrent();
+						}
+						return;
+					}
+				}
+			}
+		}
+	}
+}
 
 #endif
 

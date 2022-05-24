@@ -188,7 +188,7 @@ which are coupled to a traffic light. Then, the tls is used to determine
 the intervals (aggregation) time instead of giving a fixed aggregation
 time. In this case, output will be generated every time the traffic
 light switches. To use this feature set attribute `tl="<TL_ID>"` to the desired
-traffic light id instead off attribute `<freq>`:
+traffic light id instead of attribute `<period>`:
 
 `<e2Detector id="<ID>" lane="<LANE_ID>" pos="<POSITION_ON_LANE>" length="<DETECTOR_LENGTH>" tl="<TL_ID>" file="<OUTPUT_FILE>" [timeThreshold="<FLOAT>"] [speedThreshold="<FLOAT>"] [jamThreshold="<FLOAT>"]/>`
 

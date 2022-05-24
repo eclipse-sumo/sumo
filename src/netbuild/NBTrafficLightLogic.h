@@ -53,17 +53,38 @@ public:
      * @brief The definition of a single phase of the logic
      */
     class PhaseDefinition {
+
     public:
         /// @brief The duration of the phase in s
         SUMOTime duration;
-        SUMOTime minDur;
-        SUMOTime maxDur;
 
         /// @brief The state definition
         std::string state;
 
+        /// @brief minimum duration (for actuated)
+        SUMOTime minDur;
+
+        /// @brief maximum duration duration (for actuated)
+        SUMOTime maxDur;
+
+        /// @brief minimum duration (for actuated)
+        SUMOTime earliestEnd;
+
+        /// @brief maximum duration duration (for actuated)
+        SUMOTime latestEnd;
+
+        /// @brief veh ext (for NEMA)
+        SUMOTime vehExt;
+
+        /// @brief yellow (for NEMA)
+        SUMOTime yellow;
+
+        /// @brief red (for NEMA)
+        SUMOTime red;
+
         /// @brief next phase indices or empty list
         std::vector<int> next;
+
         /// @brief option phase name
         std::string name;
 
@@ -71,13 +92,20 @@ public:
          * @param[in] durationArg The duration of the phase
          * @param[in] stateArg Signals per link
          */
-        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurArg, SUMOTime maxDurArg, const std::vector<int>& nextArg, const std::string& nameArg) :
-            duration(durationArg),
-            minDur(minDurArg),
-            maxDur(maxDurArg),
-            state(stateArg),
-            next(nextArg),
-            name(nameArg)
+        PhaseDefinition(const SUMOTime duration_, const std::string& state_, const SUMOTime minDur_, const SUMOTime maxDur_,
+                        const SUMOTime earliestEnd_, const SUMOTime latestEnd_, const SUMOTime vehExt_, const SUMOTime yellow_,
+                        const SUMOTime red_, const std::vector<int>& next_, const std::string& name_) :
+            duration(duration_),
+            state(state_),
+            minDur(minDur_),
+            maxDur(maxDur_),
+            earliestEnd(earliestEnd_),
+            latestEnd(latestEnd_),
+            vehExt(vehExt_),
+            yellow(yellow_),
+            red(red_),
+            next(next_),
+            name(name_)
         { }
 
         /// @brief Destructor
@@ -88,12 +116,14 @@ public:
          * @return Whether this and the given phases are same
          */
         bool operator!=(const PhaseDefinition& pd) const {
-            return (pd.duration != duration
-                    || pd.minDur != minDur
-                    || pd.maxDur != maxDur
-                    || pd.state != state
-                    || pd.next != next
-                    || pd.name != name);
+            return ((pd.duration != duration) ||
+                    (pd.minDur != minDur) ||
+                    (pd.maxDur != maxDur) ||
+                    (pd.earliestEnd != earliestEnd) ||
+                    (pd.latestEnd != latestEnd) ||
+                    (pd.state != state) ||
+                    (pd.next != next) ||
+                    (pd.name != name));
         }
 
     };
@@ -120,23 +150,41 @@ public:
     ~NBTrafficLightLogic();
 
 
-    /** @brief Adds a phase to the logic
+    /** @brief Adds a phase to the logic (static)
      *
      * @param[in] duration The duration of the phase to add
      * @param[in] state The state definition of a tls phase
-     * @param[in] minDur The minimum duration of the phase to add
-     * @param[in] maxDur The maximum duration of the phase to add
      * @param[in] name The name of the phase
      * @param[in] next The index of the next phase
      * @param[in] index The index of the new phase (-1 means append to end)
      * @note: the length of the state has to match the number of links
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
-    void addStep(SUMOTime duration, const std::string& state,
-                 const std::vector<int>& next = std::vector<int>(), const std::string& name = "", int index = -1);
-    void addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur,
-                 const std::vector<int>& next = std::vector<int>(), const std::string& name = "", int index = -1);
+    void addStep(const SUMOTime duration, const std::string& state, const std::vector<int>& next = std::vector<int>(),
+                 const std::string& name = "", const int index = -1);
 
+    /** @brief Adds a phase to the logic (actuated)
+     *
+     * @param[in] duration The duration of the phase to add
+     * @param[in] state The state definition of a tls phase
+     * @param[in] name The name of the phase
+     * @param[in] minDur The minimum duration of the phase to add
+     * @param[in] maxDur The maximum duration of the phase to add
+     * @param[in] earliestEnd The earliest end of the phase to add
+     * @param[in] latestEnd The latest end of the phase to add
+     * @param[in] vehExt The vehExt of the phase to add
+     * @param[in] yellow The yellow of the phase to add
+     * @param[in] red The red of the phase to add
+     * @param[in] next The index of the next phase
+     * @param[in] index The index of the new phase (-1 means append to end)
+     * @note: the length of the state has to match the number of links
+     *        and the length given in previous calls to addStep (throws ProcessError)
+     */
+    void addStep(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd,
+                 const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, const SUMOTime red,
+                 const std::string& name = "",
+                 const std::vector<int>& next = std::vector<int>(),
+                 int index = -1);
 
     /** @brief Modifies the state for an existing phase (used by NETEDIT)
      * @param[in] phaseIndex The index of the phase to modify
@@ -150,26 +198,75 @@ public:
      * @param[in] duration The new duration for this phase
      */
     void setPhaseDuration(int phaseIndex, SUMOTime duration);
+
+    /** @brief Modifies the min duration for an existing phase (used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new min duration for this phase
+     */
     void setPhaseMinDuration(int phaseIndex, SUMOTime duration);
+
+    /** @brief Modifies the max duration for an existing phase (used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new max duration for this phase
+     */
     void setPhaseMaxDuration(int phaseIndex, SUMOTime duration);
+
+    /** @brief Modifies the min duration for an existing phase (used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new earliestEnd for this phase
+     */
+    void setPhaseEarliestEnd(int phaseIndex, SUMOTime duration);
+
+    /** @brief Modifies the max duration for an existing phase (used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new latestEnd for this phase
+     */
+    void setPhaseLatestEnd(int phaseIndex, SUMOTime duration);
+
+    /** @brief Modifies the veh ex for an existing phase (used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new vehEx for this phase
+     */
+    void setPhaseVehExt(int phaseIndex, SUMOTime duration);
+
+    /** @brief Modifies the veh ex for an existing phase (used by NETEDIT)
+    * @param[in] phaseIndex The index of the phase to modify
+    * @param[in] duration The new vehEx for this phase
+    */
+    void setPhaseYellow(int phaseIndex, SUMOTime duration);
+
+    /** @brief Modifies the veh ex for an existing phase (used by NETEDIT)
+    * @param[in] phaseIndex The index of the phase to modify
+    * @param[in] duration The new vehEx for this phase
+    */
+    void setPhaseRed(int phaseIndex, SUMOTime duration);
+
+    /** @brief Modifies the next phase (used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new duration for this phase
+     */
     void setPhaseNext(int phaseIndex, const std::vector<int>& next);
+
+    /** @brief Modifies the phase name (used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new duration for this phase
+     */
     void setPhaseName(int phaseIndex, const std::string& name);
 
     /* @brief deletes the phase at the given index
      * @note thhrows InvalidArgument on out-of range index
-    */
+     */
     void deletePhase(int index);
 
     /* @brief changes state size either by cutting of at the end or by adding
      * new states at the end
-    */
+     */
     void setStateLength(int numLinks, LinkState fill = LINKSTATE_TL_RED);
 
     /// @brief remove the index from all phase states
     void deleteStateIndex(int index);
 
-    /* @brief deletes all phases and reset the expect number of links
-    */
+    /// @brief deletes all phases and reset the expect number of links
     void resetPhases();
 
     /** @brief closes the building process
@@ -178,12 +275,8 @@ public:
      */
     void closeBuilding(bool checkVarDurations = true);
 
-
-    /** @brief Returns the duration of the complete cycle
-     * @return The duration of this logic's cycle
-     */
+    /// @brief Returns the duration of the complete cycle
     SUMOTime getDuration() const;
-
 
     /** @brief Sets the offset of this tls
      * @param[in] offset The offset of this cycle
@@ -192,33 +285,22 @@ public:
         myOffset = offset;
     }
 
-
-    /** @brief Returns the ProgramID
-     * @return The ID of the program (subID)
-     */
+    /// @brief Returns the ProgramID
     const std::string& getProgramID() const {
         return mySubID;
     };
 
-
-    /** @brief Returns the phases
-     * @return The phase list
-     */
+    /// @brief Returns the phases
     const std::vector<PhaseDefinition>& getPhases() const {
         return myPhases;
     }
 
-
-    /** @brief Returns the offset of first switch
-     * @return The switch offset
-     */
+    /// @brief Returns the offset of first switch
     SUMOTime getOffset() const {
         return myOffset;
     };
 
-
-    /** @brief Returns the number of participating links
-     */
+    /// @brief Returns the number of participating links
     int getNumLinks() {
         return myNumLinks;
     }
@@ -262,5 +344,4 @@ private:
 private:
     /// @brief Invalidated assignment operator
     NBTrafficLightLogic& operator=(const NBTrafficLightLogic& s) = delete;
-
 };

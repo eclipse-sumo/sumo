@@ -192,7 +192,7 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
             myShapeFrameParent->myBaseShape->addDoubleAttribute(SUMO_ATTR_LON, geoPos.x());
             myShapeFrameParent->myBaseShape->addDoubleAttribute(SUMO_ATTR_LAT, geoPos.y());
             // set GEO Position as true
-            myShapeFrameParent->myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, "true");
+            myShapeFrameParent->myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, true);
             // add shape
             myShapeFrameParent->addShape();
             // check if view has to be centered over created GEO POI
@@ -279,7 +279,7 @@ GNEShapeFrame::processClick(const Position& clickedPosition, const GNEViewNetHel
             myBaseShape->addDoubleAttribute(SUMO_ATTR_X, clickedPosition.x());
             myBaseShape->addDoubleAttribute(SUMO_ATTR_Y, clickedPosition.y());
             // set GEO Position as false (because we have created POI clicking over View
-            myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, "false");
+            myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, false);
             // add shape
             addShape();
             // refresh shape attributes
@@ -309,7 +309,7 @@ GNEShapeFrame::processClick(const Position& clickedPosition, const GNEViewNetHel
             myBaseShape->addDoubleAttribute(SUMO_ATTR_LON, GEOPos.x());
             myBaseShape->addDoubleAttribute(SUMO_ATTR_LAT, GEOPos.y());
             // set GEO Position as false (because we have created POI clicking over View
-            myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, "true");
+            myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, true);
             // add shape
             addShape();
             // refresh shape attributes

@@ -47,6 +47,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/geom/GeomHelper.h>
+#include <libsumo/TraCIConstants.h>
 #include <microsim/transportables/MSPModel.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
@@ -109,6 +110,57 @@ std::vector<SumoRNG> MSLane::myRNGs;
 // ===========================================================================
 // internal class method definitions
 // ===========================================================================
+void
+MSLane::StoringVisitor::add(const MSLane* const l) const {
+    switch (myDomain) {
+        case libsumo::CMD_GET_VEHICLE_VARIABLE:
+        {
+            for (const MSVehicle* veh : l->getVehiclesSecure()) {
+                if (myShape.distance2D(veh->getPosition()) <= myRange) {
+                    myObjects.insert(veh);
+                }
+            }
+            for (const MSBaseVehicle* veh : l->getParkingVehicles()) {
+                if (myShape.distance2D(veh->getPosition()) <= myRange) {
+                    myObjects.insert(veh);
+                }
+            }
+            l->releaseVehicles();
+        }
+        break;
+        case libsumo::CMD_GET_PERSON_VARIABLE:
+        {
+            l->getVehiclesSecure();
+            std::vector<MSTransportable*> persons = l->getEdge().getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
+            for (auto p : persons) {
+                if (myShape.distance2D(p->getPosition()) <= myRange) {
+                    myObjects.insert(p);
+                }
+            }
+            l->releaseVehicles();
+        }
+        break;
+        case libsumo::CMD_GET_EDGE_VARIABLE:
+        {
+            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
+                myObjects.insert(&l->getEdge());
+            }
+        }
+        break;
+        case libsumo::CMD_GET_LANE_VARIABLE:
+        {
+            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
+                myObjects.insert(l);
+            }
+        }
+        break;
+        default:
+            break;
+
+    }
+}
+
+
 MSLane::AnyVehicleIterator&
 MSLane::AnyVehicleIterator::operator++() {
     if (nextIsMyVehicles()) {
@@ -402,6 +454,10 @@ MSLane::incorporateVehicle(MSVehicle* veh, double pos, double speed, double posL
     myEdge->markDelayed();
     if (wasInactive) {
         MSNet::getInstance()->getEdgeControl().gotActive(this);
+    }
+    if (!isRailway(myPermissions) && getBidiLane() != nullptr) {
+        // railways don't need to "see" each other when moving in opposite directions on the same track (efficiency)
+        getBidiLane()->setPartialOccupation(veh);
     }
 }
 
@@ -1156,6 +1212,27 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         }
 #endif
         return false;
+    }
+    const int bestLaneOffset = aVehicle->getBestLaneOffset();
+    const double extraReservation = aVehicle->getLaneChangeModel().getExtraReservation(bestLaneOffset);
+    if (extraReservation > 0) {
+        std::stringstream msg;
+        msg << "too many lane changes required on lane '" << myID << "'";
+        // we need to take into acount one extra actionStep of delay due to #3665
+        double distToStop = MAX2(0.0, aVehicle->getBestLaneDist() - pos - extraReservation - speed * aVehicle->getActionStepLengthSecs());
+        double stopSpeed = cfModel.stopSpeed(aVehicle, speed, distToStop);
+#ifdef DEBUG_INSERTION
+        if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+            std::cout << "\nIS_INSERTION_SUCCESS\n"
+                << SIMTIME << " veh=" << aVehicle->getID() << " bestLaneOffset=" << bestLaneOffset << " bestLaneDist=" << aVehicle->getBestLaneDist() << " extraReservation=" << extraReservation
+                << " distToStop=" << distToStop << " v=" << speed << " v2=" << stopSpeed << "\n";
+        }
+#endif
+        if (checkFailure(aVehicle, speed, distToStop, MAX2(0.0, stopSpeed),
+                    patchSpeed, msg.str(), InsertionCheck::LANECHANGE)) {
+            // we may not drive with the given velocity - we cannot reserve enough space for lane changing
+            return false;
+        }
     }
     // enter
     incorporateVehicle(aVehicle, pos, speed, posLat, find_if(myVehicles.begin(), myVehicles.end(), [&](MSVehicle * const v) {
@@ -1950,6 +2027,11 @@ MSLane::executeMovements(const SUMOTime t) {
                 // vehicle has entered a new lane (leaveLane and workOnMoveReminders were already called in MSVehicle::executeMove)
                 target->myVehBuffer.push_back(veh);
                 MSNet::getInstance()->getEdgeControl().needsVehicleIntegration(target);
+                if (!isRailway(myPermissions) && target->getBidiLane() != nullptr) {
+                    // railways don't need to "see" each other when moving in opposite directions on the same track (efficiency)
+                    target->getBidiLane()->setPartialOccupation(veh);
+                    //MSNet::getInstance()->getEdgeControl().needsVehicleIntegration(target->getBidiLane());
+                }
                 if (MSGlobals::gSublane && veh->getLaneChangeModel().getShadowLane() != nullptr) {
                     // trigger sorting of partial vehicles as their order may have changed (lane might not be active and only contain partial vehicles)
                     MSNet::getInstance()->getEdgeControl().needsVehicleIntegration(veh->getLaneChangeModel().getShadowLane());
@@ -2613,7 +2695,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
 #ifdef DEBUG_CONTEXT
                 if (DEBUG_COND2(&veh)) {
                     std::cout << "      linkLeader candidate " << Named::getIDSecure(lVeh)
-                              << " isLeader=" << veh.isLeader(*link, lVeh)
+                              << " isLeader=" << veh.isLeader(*link, lVeh, gap)
                               << " gap=" << ll.vehAndGap.second
                               << " gap+brakeing=" << gap
                               << "\n";
@@ -2989,90 +3071,6 @@ MSLane::getMeanSpeedBike() const {
         ret = v / (double) myVehicles.size();
     } else {
         ret = myMaxSpeed;
-    }
-    releaseVehicles();
-    return ret;
-}
-
-
-double
-MSLane::getCO2Emissions() const {
-    double ret = 0;
-    const MSLane::VehCont& vehs = getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        ret += (*i)->getCO2Emissions();
-    }
-    releaseVehicles();
-    return ret;
-}
-
-
-double
-MSLane::getCOEmissions() const {
-    double ret = 0;
-    const MSLane::VehCont& vehs = getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        ret += (*i)->getCOEmissions();
-    }
-    releaseVehicles();
-    return ret;
-}
-
-
-double
-MSLane::getPMxEmissions() const {
-    double ret = 0;
-    const MSLane::VehCont& vehs = getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        ret += (*i)->getPMxEmissions();
-    }
-    releaseVehicles();
-    return ret;
-}
-
-
-double
-MSLane::getNOxEmissions() const {
-    double ret = 0;
-    const MSLane::VehCont& vehs = getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        ret += (*i)->getNOxEmissions();
-    }
-    releaseVehicles();
-    return ret;
-}
-
-
-double
-MSLane::getHCEmissions() const {
-    double ret = 0;
-    const MSLane::VehCont& vehs = getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        ret += (*i)->getHCEmissions();
-    }
-    releaseVehicles();
-    return ret;
-}
-
-
-double
-MSLane::getFuelConsumption() const {
-    double ret = 0;
-    const MSLane::VehCont& vehs = getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        ret += (*i)->getFuelConsumption();
-    }
-    releaseVehicles();
-    return ret;
-}
-
-
-double
-MSLane::getElectricityConsumption() const {
-    double ret = 0;
-    const MSLane::VehCont& vehs = getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        ret += (*i)->getElectricityConsumption();
     }
     releaseVehicles();
     return ret;

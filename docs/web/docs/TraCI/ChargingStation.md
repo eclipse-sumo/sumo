@@ -5,7 +5,7 @@ title: ChargingStation
 Asks for the value of a certain variable of the named ChargingStation.
 The value returned is the state of the asked variable/value within the
 last simulation step. Please note that for asking values from your
-ChargingStation within an {{AdditionalFile}} and load them at the start of the simulation. The `freq` and `file`
+ChargingStation within an {{AdditionalFile}} and load them at the start of the simulation. The `period` and `file`
 attributes do not affect TraCI.
 
 The following variable values can be retrieved, the type of the return

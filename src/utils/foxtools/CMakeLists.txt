@@ -17,6 +17,8 @@ set(utils_foxtools_STAT_SRCS
    FXSevenSegment.h
    FXSingleEventThread.cpp
    FXSingleEventThread.h
+   FXStaticToolTip.cpp
+   FXStaticToolTip.h
    FXSynchQue.h
    FXSynchSet.h
    FXThreadEvent.cpp

@@ -31,6 +31,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 
+#include "EnergyParams.h"
 #include "HelpersPHEMlight.h"
 
 // idle speed is usually given in rpm (but may depend on electrical consumers). Actual speed depends on the gear so this number is only a rough estimate
@@ -255,7 +256,16 @@ HelpersPHEMlight::getModifiedAccel(const SUMOEmissionClass c, const double v, co
 
 
 double
-HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* /* param */) const {
+HelpersPHEMlight::getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* /* param */) const {
+    return myCEPs.count(c) == 0 ? 0. : myCEPs.find(c)->second->GetDecelCoast(v, a, slope);
+}
+
+
+double
+HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const {
+    if (param != nullptr && param->isEngineOff()) {
+        return 0.;
+    }
     const double corrSpeed = MAX2(0.0, v);
     double power = 0.;
 #ifdef INTERNAL_PHEM

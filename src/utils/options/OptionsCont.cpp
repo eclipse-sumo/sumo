@@ -147,20 +147,6 @@ OptionsCont::isSet(const std::string& name, bool failOnNonExistant) const {
 }
 
 
-void
-OptionsCont::unSet(const std::string& name, bool failOnNonExistant) const {
-    KnownContType::const_iterator i = myValues.find(name);
-    if (i == myValues.end()) {
-        if (failOnNonExistant) {
-            throw ProcessError("Internal request for unknown option '" + name + "'!");
-        } else {
-            return;
-        }
-    }
-    (*i).second->unSet();
-}
-
-
 bool
 OptionsCont::isDefault(const std::string& name) const {
     KnownContType::const_iterator i = myValues.find(name);
@@ -246,6 +232,7 @@ OptionsCont::getStringVector(const std::string& name) const {
     return o->getStringVector();
 }
 
+
 bool
 OptionsCont::set(const std::string& name, const std::string& value) {
     Option* o = getSecure(name);
@@ -268,8 +255,9 @@ OptionsCont::set(const std::string& name, const std::string& value) {
 
 bool
 OptionsCont::setDefault(const std::string& name, const std::string& value) {
-    if (set(name, value)) {
-        getSecure(name)->resetDefault();
+    Option* const o = getSecure(name);
+    if (o->isWriteable() && set(name, value)) {
+        o->resetDefault();
         return true;
     }
     return false;

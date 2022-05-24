@@ -27,6 +27,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include "EnergyParams.h"
 #include "PollutantsInterface.h"
 
 
@@ -94,8 +95,7 @@ public:
      */
     inline double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const {
         UNUSED_PARAMETER(slope);
-        UNUSED_PARAMETER(param);
-        if (a < 0. || e == PollutantsInterface::ELEC) {
+        if (a < 0. || e == PollutantsInterface::ELEC || (param != nullptr && param->isEngineOff())) {
             return 0.;
         }
         const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA3_BASE;

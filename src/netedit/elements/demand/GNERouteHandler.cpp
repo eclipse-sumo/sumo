@@ -1447,7 +1447,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             vehicleBaseOBject->addStringAttribute(SUMO_ATTR_ID, vehicleParameters.id);
             vehicleBaseOBject->setVehicleParameter(&vehicleParameters);
             // build embedded route
-            routeHandler.buildEmbeddedRoute(routeBaseOBject, edgeIDs, "", false, 0, {});
+            routeHandler.buildEmbeddedRoute(routeBaseOBject, edgeIDs, RGBColor::INVISIBLE, false, 0, {});
             delete vehicleBaseOBject;
         } else {
             // change tag in vehicle parameters
@@ -1542,7 +1542,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             vehicleBaseOBject->addStringAttribute(SUMO_ATTR_ID, vehicleParameters.id);
             vehicleBaseOBject->setVehicleParameter(&vehicleParameters);
             // build embedded route
-            routeHandler.buildEmbeddedRoute(routeBaseOBject, edgeIDs, "", false, 0, {});
+            routeHandler.buildEmbeddedRoute(routeBaseOBject, edgeIDs, RGBColor::INVISIBLE, false, 0, {});
             delete vehicleBaseOBject;
         } else {
             // change tag in vehicle parameters
@@ -1749,6 +1749,9 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
     // restore ID of new person plan
     auto newPerson = net->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, "%dummyID%");
     newPerson->setAttribute(SUMO_ATTR_ID, ID, net->getViewNet()->getUndoList());
+    // enable attributes
+    newPerson->enableAttribute(SUMO_ATTR_END, net->getViewNet()->getUndoList());
+    newPerson->enableAttribute(SUMO_ATTR_PERSONSPERHOUR, net->getViewNet()->getUndoList());
     // finish undoList
     net->getViewNet()->getUndoList()->end();
 }

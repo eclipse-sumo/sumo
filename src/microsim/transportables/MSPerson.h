@@ -133,9 +133,7 @@ public:
         }
         //@}
 
-
     private:
-
         /// @brief compute total walking distance
         double walkDistance() const;
 
@@ -143,9 +141,7 @@ public:
          * @note Must be called when the previous stage changes myDepartPos from the default*/
         double computeAverageSpeed() const;
 
-
     private:
-
         /// the time the person is walking
         SUMOTime myWalkingTime;
 
@@ -157,21 +153,6 @@ public:
 
         /// @brief optional exit time tracking for vehroute output
         std::vector<SUMOTime>* myExitTimes;
-
-        class arrival_finder {
-        public:
-            /// constructor
-            explicit arrival_finder(SUMOTime time) : myTime(time) {}
-
-            /// comparison operator
-            bool operator()(double t) const {
-                return myTime > t;
-            }
-
-        private:
-            /// the searched arrival time
-            SUMOTime myTime;
-        };
 
     private:
         /// @brief Invalidated copy constructor.

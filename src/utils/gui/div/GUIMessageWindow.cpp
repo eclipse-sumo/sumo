@@ -138,7 +138,10 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
                 type = "parkingArea";
             }
             const std::string id(text.mid(idS + 2, idE - idS - 2).text());
-            return GUIGlObjectStorage::gIDStorage.getObjectBlocking(type + ":" + id);
+            const std::string typedID = type + ":" + id;
+            const GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(typedID);
+            //std::cout << " getActiveStringObject '" << typedID << "' o=" << (o == nullptr ? "NULL" : o->getMicrosimID()) << "\n";
+            return o;
         }
     }
     return nullptr;

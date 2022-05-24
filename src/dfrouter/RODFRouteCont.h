@@ -163,10 +163,6 @@ protected:
     private:
         /// @brief The route description for which a same shall be found
         const RODFRouteDesc& myDesc;
-
-    private:
-        /// @brief invalidated assignment operator
-        route_finder& operator=(const route_finder&) = delete;
     };
 
 protected:

@@ -39,6 +39,6 @@ if [ -z "$SUMO_HOME" ]; then
     exit -1
 else
     echo "Starting: python $SUMO_HOME/tools/osmWebWizard.py"
-    python $SUMO_HOME/tools/osmWebWizard.py "$@" &> /dev/null &
+    python $SUMO_HOME/tools/osmWebWizard.py "$@" &> /dev/null || python3 $SUMO_HOME/tools/osmWebWizard.py "$@" &> /dev/null &
 fi
 

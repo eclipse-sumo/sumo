@@ -85,13 +85,14 @@ def isLaneID(laneOrEdgeID):
 
 class TlLogic(sumolib.net.TLSProgram):
 
-    def __init__(self, id, programID, cycleTime, offset=0, parameters={}, net=None, debug=False):
+    def __init__(self, id, programID, cycleTime, offset, actuated, parameters, net=None, debug=False):
         if(not isinstance(cycleTime, int) or cycleTime < 1):
             print("Invalid cycle time = %s" % str(cycleTime))
 
-        sumolib.net.TLSProgram.__init__(self, id, str(offset), "static")
+        sumolib.net.TLSProgram.__init__(self, id, str(offset), "actuated" if actuated else "static")
         self._cycleTime = cycleTime  # cycle time [s]
         self._programID = programID
+        self._actuated = actuated
         self._parameters = parameters
         self.net = net
         self._signalGroups = {}
@@ -128,7 +129,7 @@ class TlLogic(sumolib.net.TLSProgram):
                 for timeKey in sg._times:
                     if timeKey not in self._allTimes:
                         self._allTimes.append(timeKey)
-        if(self._debug):
+        if self._debug:
             print("All switch times: %s" % str(sorted(self._allTimes)))
         for sg in sorted(self._signalGroups.keys()):
             self._signalGroups[sg].calculateCompleteSignals(self._allTimes)
@@ -198,7 +199,7 @@ class TlLogic(sumolib.net.TLSProgram):
             print("No tlIndex to signal group relation available: Signal program will be empty.")
         tlEl = doc.addChild("tlLogic")
         tlEl.setAttribute("id", self._id)
-        tlEl.setAttribute("type", "static")
+        tlEl.setAttribute("type", self._type)
         tlEl.setAttribute("programID", self._programID)
         tlEl.setAttribute("offset", self._offset)
 
@@ -211,13 +212,14 @@ class TlLogic(sumolib.net.TLSProgram):
             parEl.setAttribute("key", key)
             parEl.setAttribute("value", self._parameters[key])
 
-        for i in range(0, len(self._allTimes)):
+        actuatedIdx = 0
+        for i in range(len(self._allTimes)):
             states = {}
             for tlIndex in self._tlIndexToSignalGroup:
                 sgID = self._tlIndexToSignalGroup[tlIndex]
                 states[tlIndex] = self._signalGroups[sgID].completeSignals[tlIndex][self._allTimes[i]]
             # fill duration up to the cycle time
-            if(i == len(self._allTimes) - 1):
+            if i == len(self._allTimes) - 1:
                 duration = self._cycleTime - self._allTimes[i]
             else:
                 duration = self._allTimes[i + 1] - self._allTimes[i]
@@ -225,6 +227,12 @@ class TlLogic(sumolib.net.TLSProgram):
             phaseEl = tlEl.addChild("phase")
             phaseEl.setAttribute("duration", str(duration))
             phaseEl.setAttribute("state", states)
+            if actuatedIdx + 1 < len(self._actuated):
+                start, end = self._actuated[actuatedIdx:actuatedIdx + 2]
+                if start >= self._allTimes[i] and end <= self._allTimes[i] + duration:
+                    phaseEl.setAttribute("minDur", duration - (end - start))
+                    phaseEl.setAttribute("maxDur", duration)
+                    actuatedIdx += 2
         return tlEl
 
 
@@ -336,7 +344,7 @@ def writeXmlOutput(tlList, outputFile):
         root = sumolib.xml.create_document("additional")
         for tlLogic in tlList:
             tlLogic.xmlOutput(root)
-        with open(options.output, 'w') as out:
+        with open(outputFile, 'w') as out:
             sumolib.xml.writeHeader(out)
             out.write(root.toXML())
 
@@ -417,6 +425,7 @@ if __name__ == "__main__":
         signalGroupOrder = []
         sgToLinks = {}
         parameters = {}
+        actuated = []
 
         with open(inputFileName, 'r') as inputFile:
             inputReader = csv.reader(inputFile, delimiter=options.delimiter, quotechar='"')
@@ -438,20 +447,22 @@ if __name__ == "__main__":
                             sys.exit()
 
                     # general TLS input
-                    if(activeSection == "general"):
-                        if(cell0 == "cycle time"):
+                    if activeSection == "general":
+                        if cell0 == "cycle time":
                             cycleTime = int(line[1])
-                        elif(cell0 == "key"):
+                        elif cell0 == "key":
                             key = line[1].strip()
-                        elif(cell0 == "subkey"):
+                        elif cell0 == "subkey":
                             subkey = line[1].strip()
-                        elif(cell0 == "offset"):
+                        elif cell0 == "offset":
                             offset = int(line[1])
-                        elif(cell0 == "param"):
+                        elif cell0 == "param":
                             parameters[line[1].strip()] = line[2].strip()
+                        elif cell0 == "actuated":
+                            actuated = [int(entry) for entry in line[1:]]
 
                     # relation between signal groups and network connection elements
-                    elif(activeSection == "links"):
+                    elif activeSection == "links":
                         link = (line[1], line[2])
                         if(cell0 not in sgToLinks):
                             sgToLinks[cell0] = []
@@ -459,8 +470,8 @@ if __name__ == "__main__":
 
                     # define green times (once or twice per cycle time) and special transitional signal states
                     # (yellow...)
-                    elif(activeSection == "signal groups"):
-                        if(not readSgHeader):  # remember relation between columns and their meanings
+                    elif activeSection == "signal groups":
+                        if not readSgHeader:  # remember relation between columns and their meanings
                             readSgHeader = True
                             for colIndex in range(0, len(line)):
                                 if(line[colIndex].strip() in signalColumns):
@@ -487,7 +498,7 @@ if __name__ == "__main__":
                     raise
 
         # build everything together
-        tlLogic = TlLogic(key, subkey, cycleTime, offset, parameters=parameters, net=net, debug=options.debug)
+        tlLogic = TlLogic(key, subkey, cycleTime, offset, actuated, parameters, net=net, debug=options.debug)
         tlLogic.addSignalGroups(signalGroups, signalGroupOrder)
         tlLogic.setSignalGroupRelations(sgToLinks)
         tlLogic.setFreeTime()

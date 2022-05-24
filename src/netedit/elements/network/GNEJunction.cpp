@@ -49,15 +49,18 @@
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
-{}, {}, {}, {}, {}, {}),
-myNBNode(nbn),
-myMaxDrawingSize(1),
-myAmCreateEdgeSource(false),
-myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-myAmResponsible(false),
-myHasValidLogic(loaded),
-myAmTLSSelected(false),
-myColorForMissingConnections(false) {
+            {}, {}, {}, {}, {}, {}),
+    myNBNode(nbn),
+    myMaxDrawingSize(1),
+    myAmCreateEdgeSource(false),
+    myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+    myAmResponsible(false),
+    myHasValidLogic(loaded),
+    myAmTLSSelected(false),
+    myColorForMissingConnections(false),
+    myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0),
+    myExaggeration(1)
+{
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -94,6 +97,8 @@ GNEJunction::getJunctionShape() const {
 void
 GNEJunction::updateGeometry() {
     updateGeometryAfterNetbuild(true);
+    // trigger rebuilding tesselation
+    myExaggeration = 2;
 }
 
 
@@ -230,7 +235,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPositionCopyEntry(ret, app);
     // check if we're in supermode network
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        //if (parent.getVisualisationSettings()->editMode != GNE_MODE_CONNECT) {
+        //if (parent.getVisualisationSettings().editMode != GNE_MODE_CONNECT) {
         //    // XXX if joinable
         //    GUIDesigns::buildFXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
         //}
@@ -399,18 +404,18 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 if (junctionShapeColor.alpha() != 0) {
                     // set color
                     GLHelper::setColor(junctionShapeColor);
-                    // obtain junction Shape
-                    PositionVector junctionClosedShape = myNBNode->getShape();
-                    // close junction shape
-                    junctionClosedShape.closePolygon();
                     // adjust shape to exaggeration
-                    if (junctionExaggeration > 1) {
-                        junctionClosedShape.scaleRelative(junctionExaggeration);
+                    if ((junctionExaggeration > 1 || myExaggeration > 1) && junctionExaggeration != myExaggeration) {
+                        myExaggeration = junctionExaggeration;
+                        myTesselation.setShape(myNBNode->getShape());
+                        myTesselation.getShapeRef().closePolygon();
+                        myTesselation.getShapeRef().scaleRelative(junctionExaggeration);
+                        myTesselation.myTesselation.clear();
                     }
                     // first check if inner junction polygon can be drawn
                     if (s.drawForPositionSelection) {
                         // only draw a point if mouse is around shape
-                        if (junctionClosedShape.around(mousePosition)) {
+                        if (myTesselation.getShape().around(mousePosition)) {
                             // push matrix
                             GLHelper::pushMatrix();
                             // move to mouse position
@@ -420,12 +425,12 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                             // pop matrix
                             GLHelper::popMatrix();
                         }
-                    } else if ((s.scale * junctionExaggeration * myMaxDrawingSize) < 40.) {
-                        // draw shape
-                        GLHelper::drawFilledPoly(junctionClosedShape, true);
-                    } else {
+                    } else if ((s.scale * junctionExaggeration * myMaxDrawingSize) >= 40) {
                         // draw shape with high detail
-                        GLHelper::drawFilledPolyTesselated(junctionClosedShape, true);
+                        myTesselation.drawTesselation(myTesselation.getShape());
+                    } else {
+                        // draw shape
+                        GLHelper::drawFilledPoly(myTesselation.getShape(), true);
                     }
                     // draw shape points only in Network supemode
                     if (myShapeEdited && s.drawMovingGeometryPoint(junctionExaggeration, s.neteditSizeSettings.junctionGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {

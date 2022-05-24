@@ -27,7 +27,7 @@
 #include <utils/common/ToString.h>
 #include <utils/distribution/Distribution_Points.h>
 #include <utils/distribution/DistributionCont.h>
-#include "../NIImporter_Vissim.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
 #include "NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.h"
 
 

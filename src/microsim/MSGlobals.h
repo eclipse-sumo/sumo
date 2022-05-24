@@ -169,4 +169,7 @@ public:
 
     /// @brief The minimum waiting time before applying startupDelay
     static SUMOTime gStartupWaitThreshold;
+
+    /// @brief Whether emission output of some type is needed (files or GUI)
+    static bool gHaveEmissions;
 };

@@ -28,8 +28,9 @@
 // ===========================================================================
 /// @brief the effort calculator interface
 class EffortCalculator {
-
 public:
+    /// @brief empty destructor
+    virtual ~EffortCalculator() {}
 
     /** Pass the set of all edges in the routing query to the effortCalculator **/
     virtual void init(const std::vector<std::string>& edges) = 0;

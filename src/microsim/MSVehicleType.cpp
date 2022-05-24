@@ -61,6 +61,7 @@ int MSVehicleType::myNextIndex = 0;
 // ===========================================================================
 MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter) :
     myParameter(parameter),
+    myEnergyParams(&parameter),
     myWarnedActionStepLengthTauOnce(false),
     myWarnedActionStepLengthBallisticOnce(false),
     myWarnedStepLengthTauOnce(false),

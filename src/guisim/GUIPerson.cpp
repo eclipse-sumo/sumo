@@ -509,7 +509,7 @@ GUIPerson::getGUIPosition(const GUIVisualizationSettings* s) const {
                    && s != nullptr
                    && s->gaming
                    && getCurrentStage()->getOriginStop() != nullptr
-                   && s->addSize.getExaggeration(s, nullptr) > 1) {
+                   && s->addSize.getExaggeration(*s, nullptr) > 1) {
             // shift position away from stop center
             Position pos = MSPerson::getPosition();
             Position ref = getCurrentStage()->getOriginStop()->getCenterPos();

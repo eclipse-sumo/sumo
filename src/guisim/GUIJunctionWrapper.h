@@ -27,6 +27,7 @@
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 
 
 // ===========================================================================
@@ -145,6 +146,10 @@ private:
 private:
     /// @brief A reference to the represented junction
     MSJunction& myJunction;
+
+    /// @brief An object that stores the shape and its tesselation
+    mutable TesselatedPolygon myTesselation;
+    mutable double myExaggeration;
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double myMaxSize;

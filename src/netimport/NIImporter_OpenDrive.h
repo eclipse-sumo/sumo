@@ -522,8 +522,6 @@ protected:
         }
 
     private:
-        same_position_finder& operator=(const same_position_finder&) = delete; // just to avoid a compiler warning
-    private:
         /// @brief The position to search for
         double myPosition;
 

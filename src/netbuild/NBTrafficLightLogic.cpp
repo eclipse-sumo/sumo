@@ -53,6 +53,7 @@ NBTrafficLightLogic::NBTrafficLightLogic(const std::string& id,
     myOffset(offset),
     myType(type) {}
 
+
 NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
     Named(logic->getID()),
     myNumLinks(logic->myNumLinks),
@@ -64,16 +65,27 @@ NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
 
 NBTrafficLightLogic::~NBTrafficLightLogic() {}
 
+
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, const std::vector<int>& next, const std::string& name, int index) {
+NBTrafficLightLogic::addStep(const SUMOTime duration, const std::string& state, const std::vector<int>& next, const std::string& name, const int index) {
     addStep(duration, state,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
-            next, name, index);
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
+            name, next, index);
 }
 
+
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, const std::vector<int>& next, const std::string& name, int index) {
+NBTrafficLightLogic::addStep(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd,
+                             const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, const SUMOTime red,
+                             const std::string& name,
+                             const std::vector<int>& next,
+                             int index) {
     // check state size
     if (myNumLinks == 0) {
         // initialize
@@ -92,7 +104,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTi
         // insert at the end
         index = (int)myPhases.size();
     }
-    myPhases.insert(myPhases.begin() + index, PhaseDefinition(duration, state, minDur, maxDur, next, name));
+    myPhases.insert(myPhases.begin() + index, PhaseDefinition(duration, state, minDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, next, name));
 }
 
 
@@ -120,6 +132,7 @@ NBTrafficLightLogic::setStateLength(int numLinks, LinkState fill) {
     }
     myNumLinks = numLinks;
 }
+
 
 void
 NBTrafficLightLogic::deleteStateIndex(int index) {
@@ -207,11 +220,13 @@ NBTrafficLightLogic::setPhaseDuration(int phaseIndex, SUMOTime duration) {
     myPhases[phaseIndex].duration = duration;
 }
 
+
 void
 NBTrafficLightLogic::setPhaseMinDuration(int phaseIndex, SUMOTime duration) {
     assert(phaseIndex < (int)myPhases.size());
     myPhases[phaseIndex].minDur = duration;
 }
+
 
 void
 NBTrafficLightLogic::setPhaseMaxDuration(int phaseIndex, SUMOTime duration) {
@@ -219,17 +234,53 @@ NBTrafficLightLogic::setPhaseMaxDuration(int phaseIndex, SUMOTime duration) {
     myPhases[phaseIndex].maxDur = duration;
 }
 
+
+void
+NBTrafficLightLogic::setPhaseEarliestEnd(int phaseIndex, SUMOTime duration) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].earliestEnd = duration;
+}
+
+
+void
+NBTrafficLightLogic::setPhaseLatestEnd(int phaseIndex, SUMOTime duration) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].latestEnd = duration;
+}
+
+
+void
+NBTrafficLightLogic::setPhaseVehExt(int phaseIndex, SUMOTime duration) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].vehExt = duration;
+}
+
+
+void
+NBTrafficLightLogic::setPhaseYellow(int phaseIndex, SUMOTime duration) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].yellow = duration;
+}
+
+
+void
+NBTrafficLightLogic::setPhaseRed(int phaseIndex, SUMOTime duration) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].red = duration;
+}
+
+
 void
 NBTrafficLightLogic::setPhaseNext(int phaseIndex, const std::vector<int>& next) {
     assert(phaseIndex < (int)myPhases.size());
     myPhases[phaseIndex].next = next;
 }
 
+
 void
 NBTrafficLightLogic::setPhaseName(int phaseIndex, const std::string& name) {
     assert(phaseIndex < (int)myPhases.size());
     myPhases[phaseIndex].name = name;
 }
-
 
 /****************************************************************************/

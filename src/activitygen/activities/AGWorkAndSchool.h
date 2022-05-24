@@ -24,8 +24,8 @@
 #pragma once
 #include <config.h>
 
-#include "../city/AGHousehold.h"
-#include "../city/AGPosition.h"
+#include <activitygen/city/AGHousehold.h>
+#include <activitygen/city/AGPosition.h>
 #include "AGActivity.h"
 
 

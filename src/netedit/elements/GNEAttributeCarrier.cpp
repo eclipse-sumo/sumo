@@ -827,6 +827,12 @@ GNEAttributeCarrier::fillNetworkElements() {
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(SumoXMLNodeType::DEAD_END_DEPRECATED)));
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(SumoXMLNodeType::DEAD_END)));
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(SumoXMLNodeType::INTERNAL)));
+    // obtain TLTypes (note: avoid insert all TLTypes because some of them are experimental and not documented)
+    std::vector<std::string> TLTypes;
+    TLTypes.push_back(toString(TrafficLightType::STATIC));
+    TLTypes.push_back(toString(TrafficLightType::ACTUATED));
+    TLTypes.push_back(toString(TrafficLightType::DELAYBASED));
+    TLTypes.push_back(toString(TrafficLightType::NEMA));
     // fill networkElement ACs
     SumoXMLTag currentTag = SUMO_TAG_JUNCTION;
     {
@@ -891,7 +897,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TLTYPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                               "An optional type for the traffic light algorithm");
-        attrProperty.setDiscreteValues({toString(TrafficLightType::STATIC), toString(TrafficLightType::ACTUATED), toString(TrafficLightType::DELAYBASED)});
+        attrProperty.setDiscreteValues(TLTypes);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TLLAYOUT,

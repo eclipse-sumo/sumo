@@ -19,6 +19,7 @@
 ///
 // Tests the class NBTrafficLightLogic
 /****************************************************************************/
+#include <config.h>
 
 #include <gtest/gtest.h>
 #include <netbuild/NBTrafficLightLogic.h>

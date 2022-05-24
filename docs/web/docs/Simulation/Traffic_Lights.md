@@ -433,7 +433,7 @@ When a phase uses attribute 'next' with a list of indices. The next phase is cho
 - if a particular phase should remain active indefinitely in the absence of traffic it must have its own index in the 'next' list as well as a high maxDur value
 - if an active detector was not served for a given time threshold (param **inactive-threshold**), this detector receives bonus priority according the time it was not served. This can be used to prevent starvation if other phases are consistently preferred due to serving more traffic 
 
-Examples for this type of traffic light logic can be found in [{{SUMO}}/tests/sumo/basic/tls/actuated/dualring_simple]({{Source}}tests/sumo/basic/tls/actuated/dualring_simple).
+Examples for this type of traffic light logic can be found in [{{SUMO}}/tests/sumo/tls/actuated/multiNext/dualring_simple]({{Source}}tests/sumo/tls/actuated/multiNext/dualring_simple).
 
 The helper script [tls_buildTransitions.py] can be used to generate such logics from simplified definitions.
 

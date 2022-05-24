@@ -242,11 +242,11 @@ public:
         /// @brief destructor
         ~TAZChildDefaultParameters();
 
-        /// @brief show TAZ child default parameters Module
-        void showTAZChildDefaultParametersModule();
+        /// @brief extend TAZ child default parameters Module (if we have selected a TAZ)
+        void extendTAZChildDefaultParameters();
 
-        /// @brief hide TAZ child default parameters Module
-        void hideTAZChildDefaultParametersModule();
+        /// @brief collapse TAZ child default parameters Module (if we have selected a TAZ)
+        void collapseTAZChildDefaultParameters();
 
         /// @brief update "select edges button"
         void updateSelectEdgesButton();
@@ -265,11 +265,15 @@ public:
         /// @brief Called when the user changes default values
         long onCmdSetDefaultValues(FXObject* obj, FXSelector, void*);
 
-        /// @brief Called when the user press use selected edges
+        /// @brief Called when the user press "use selected edges" button
         long onCmdUseSelectedEdges(FXObject* obj, FXSelector, void*);
+
+        /// @brief Called when the user press "zero fringe probabilities" button
+        long onCmdSetZeroFringeProbabilities(FXObject* obj, FXSelector, void*);
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(TAZChildDefaultParameters)
 
     private:
@@ -278,6 +282,9 @@ public:
 
         /// @brief CheckButton to enable or disable Toggle edge Membership
         FXCheckButton* myToggleMembership;
+
+        /// @brief Horizontal Frame toogle membership
+        FXHorizontalFrame* myToggleMembershipFrame;
 
         /// @brief Horizontal Frame for default TAZ Source Weight
         FXHorizontalFrame* myDefaultTAZSourceFrame;
@@ -293,6 +300,9 @@ public:
 
         /// @brief button for use selected edges
         FXButton* myUseSelectedEdges;
+
+        /// @brief button for setting zero fringe probabilities
+        FXButton* myZeroFringeProbabilities;
 
         /// @brief information label
         FXLabel* myInformationLabel;

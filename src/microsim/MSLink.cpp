@@ -1147,6 +1147,15 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
     if (gDebugFlag1) {
         std::cout << SIMTIME << " getLeaderInfo link=" << getViaLaneOrLane()->getID() << " dist=" << dist << " isShadowLink=" << isShadowLink << "\n";
     }
+    if (MSGlobals::gComputeLC && ego != nullptr && ego->getLane()->isNormal()) {
+        const MSLink* junctionEntry = getLaneBefore()->getEntryLink();
+        if (junctionEntry->haveRed() && !ego->ignoreRed(junctionEntry, true)) {
+            if (gDebugFlag1) {
+                std::cout << "   ignore linkLeaders beyond red light\n";
+            }
+            return result;
+        }
+    }
     // this is an exit link
     for (int i = 0; i < (int)myFoeLanes.size(); ++i) {
         const MSLane* foeLane = myFoeLanes[i];

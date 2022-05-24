@@ -542,7 +542,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_LEADER_GAP         = 59,
     SUMO_ATTR_VEHICLE            = 60,
     SUMO_ATTR_ODOMETER           = 61,
-    SUMO_ATTR_FRICTION           = 62,
+    SUMO_ATTR_POSITION_LAT       = 62,
+    SUMO_ATTR_FRICTION           = 63,
     /// @}
 
     /// @name common attributes
@@ -797,6 +798,14 @@ enum SumoXMLAttr {
     SUMO_ATTR_PARTIALCHARGE,
     /// @}
 
+    /// @name general emission / consumption parameters
+    /// @{
+    /// @brief engine gets switched off if remaining planned stop duration exceeds value
+    SUMO_ATTR_SHUT_OFF_STOP,
+    /// @brief engine gets switched off if stopping duration exceeds value
+    SUMO_ATTR_SHUT_OFF_AUTO,
+    /// @}
+
     /// @name Car following model attributes
     /// @{
     SUMO_ATTR_SIGMA,      // used by: Krauss
@@ -948,7 +957,6 @@ enum SumoXMLAttr {
     /// @name source definitions
     /// @{
     SUMO_ATTR_FUNCTION,
-    SUMO_ATTR_POSITION_LAT,
     SUMO_ATTR_FREQUENCY,
     SUMO_ATTR_STYLE,
     SUMO_ATTR_FILE,
@@ -1605,7 +1613,9 @@ enum class InsertionCheck {
     ONCOMING_TRAIN = 1 << 6,
     SPEED_LIMIT = 1 << 7,
     PEDESTRIAN = 1 << 8,
-    ALL = ((1 << 9) - 1) // <- must be the last one
+    BIDI = 1 << 9,
+    LANECHANGE = 1 << 10,
+    ALL = ((1 << 11) - 1) // <- must be the last one
 };
 
 

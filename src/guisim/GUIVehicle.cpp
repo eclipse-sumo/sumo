@@ -157,19 +157,19 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("stop info", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getStopInfo));
     ret->mkItem("line", false, myParameter->line);
     ret->mkItem("CO2 [mg/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getCO2Emissions));
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::CO2>));
     ret->mkItem("CO [mg/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getCOEmissions));
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::CO>));
     ret->mkItem("HC [mg/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getHCEmissions));
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::HC>));
     ret->mkItem("NOx [mg/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getNOxEmissions));
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::NO_X>));
     ret->mkItem("PMx [mg/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getPMxEmissions));
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::PM_X>));
     ret->mkItem("fuel [ml/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getFuelConsumption));
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::FUEL>));
     ret->mkItem("electricity [Wh/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getElectricityConsumption));
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::ELEC>));
     ret->mkItem("noise (Harmonoise) [dB]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getHarmonoise_NoiseEmissions));
     ret->mkItem("devices", false, getDeviceDescription());
@@ -558,17 +558,17 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
         case 13:
             return getLane()->getVehicleMaxSpeed(this);
         case 14:
-            return getCO2Emissions();
+            return getEmissions<PollutantsInterface::CO2>();
         case 15:
-            return getCOEmissions();
+            return getEmissions<PollutantsInterface::CO>();
         case 16:
-            return getPMxEmissions();
+            return getEmissions<PollutantsInterface::PM_X>();
         case 17:
-            return getNOxEmissions();
+            return getEmissions<PollutantsInterface::NO_X>();
         case 18:
-            return getHCEmissions();
+            return getEmissions<PollutantsInterface::HC>();
         case 19:
-            return getFuelConsumption();
+            return getEmissions<PollutantsInterface::FUEL>();
         case 20:
             return getHarmonoise_NoiseEmissions();
         case 21:
@@ -584,7 +584,7 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
         case 26:
             return STEPS2TIME(getDepartDelay());
         case 27:
-            return getElectricityConsumption();
+            return getEmissions<PollutantsInterface::ELEC>();
         case 28:
             return getTimeLossSeconds();
         case 29:

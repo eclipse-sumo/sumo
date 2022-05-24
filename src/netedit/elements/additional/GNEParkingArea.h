@@ -130,9 +130,6 @@ protected:
 
         /// @brief The length
         const double length;
-
-        /// @brief Invalidated assignment operator.
-        GNELotSpaceDefinition& operator=(const GNELotSpaceDefinition&) = delete;
     };
 
     /// @brief departPos

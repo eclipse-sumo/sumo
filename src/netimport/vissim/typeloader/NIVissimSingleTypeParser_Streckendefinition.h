@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <iostream>
-#include "../NIImporter_Vissim.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
 
 
 // ===========================================================================

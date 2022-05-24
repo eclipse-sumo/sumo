@@ -399,6 +399,9 @@ PositionVector::getBoxBoundary() const {
 
 Position
 PositionVector::getPolygonCenter() const {
+    if (size() == 0) {
+        return Position::INVALID;
+    }
     double x = 0;
     double y = 0;
     double z = 0;
@@ -1193,9 +1196,7 @@ PositionVector::move2side(double amount, double maxExtension) {
             shape.back().set(shape.back().x(), shape.back().y(), me.z());
             const double angle = localAngle(from, me, to);
             if (fabs(angle) > NUMERICAL_EPS) {
-                const double length = (i == 1 || i + 2 == (int)size()
-                                       ? MIN2(from.distanceTo2D(me), me.distanceTo2D(to)) * 2
-                                       : (from.distanceTo2D(me) + me.distanceTo2D(to)));
+                const double length = from.distanceTo2D(me) + me.distanceTo2D(to);
                 const double radius = length / angle;
 #ifdef DEBUG_MOVE2SIDE
                 if (gDebugFlag1) {

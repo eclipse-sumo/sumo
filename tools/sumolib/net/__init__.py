@@ -173,7 +173,6 @@ class Net:
         self._allLanes = []
         self._origIdx = None
         self._proj = None
-        self.hasWarnedAboutMissingRTree = False
         self.hasInternal = False
         # store dijsktra heap for reuse if the same origin is used repeatedly
         self._shortestPathCache = None

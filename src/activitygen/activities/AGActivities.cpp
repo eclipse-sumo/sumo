@@ -25,12 +25,12 @@
 /****************************************************************************/
 #include <config.h>
 
-#include "AGActivities.h"
-#include "AGWorkAndSchool.h"
-#include "AGFreeTime.h"
-#include "../city/AGTime.h"
 #include <sstream>
 #include <utils/common/RandHelper.h>
+#include <activitygen/city/AGTime.h>
+#include "AGWorkAndSchool.h"
+#include "AGFreeTime.h"
+#include "AGActivities.h"
 
 #define REBUILD_ITERATION_LIMIT 2
 

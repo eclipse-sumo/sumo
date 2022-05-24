@@ -22,7 +22,7 @@ population in the means of vehicle emission class distribution.
 An edge-based emissions output is defined way within an {{AdditionalFile}} as following:
 
 ```xml
-<edgeData id="<DETECTOR_ID>" type="emissions" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
+<edgeData id="<DETECTOR_ID>" type="emissions" period="<PERIOD>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
 ```
 
 ### Lane-Based Emission Output
@@ -30,7 +30,7 @@ An edge-based emissions output is defined way within an {{AdditionalFile}} as fo
 A lane-based emissions output is defined way within an {{AdditionalFile}} as following:
 
 ```xml
-<laneData id="<DETECTOR_ID>" type="emissions" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
+<laneData id="<DETECTOR_ID>" type="emissions" period="<PERIOD>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
 ```
 
 ### Attributes, for both Edge- and Lane-Based Emission Output
@@ -39,7 +39,7 @@ A lane-based emissions output is defined way within an {{AdditionalFile}} as fol
 | -------------- | ------------------------------ | --------------------------------------- |
 | **id**         | id (string)                    | The id of the detector             |
 | **file**       | filename                       | The path to the output file. The path may be relative.     |
-| freq           | int (time)                     | The aggregation period the values the detector collects shall be summed up. If not given, the whole time range between begin and end is aggregated   |
+| period (alias freq) | int (time)                | The aggregation period the values the detector collects shall be summed up. If not given, the whole time range between begin and end is aggregated   |
 | begin          | int (time)                     | The time to start writing (intervals starting before this time are discarded). If not given, the simulation's begin is used.    |
 | end            | int (time)                     | The time to end writing (intervals starting at or after this time are discarded). If not given the simulation's end is used.     |
 | withInternal   | bool                     | If set, junction internal edges/lanes will be written as well; *default: false*.  |

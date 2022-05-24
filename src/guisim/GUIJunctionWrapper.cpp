@@ -55,6 +55,8 @@
 GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& tllID):
     GUIGlObject(GLO_JUNCTION, junction.getID()),
     myJunction(junction),
+    myTesselation(junction.getID(), "", RGBColor::MAGENTA, junction.getShape(), false, true, 0),
+    myExaggeration(1),
     myTLLID(tllID) {
     if (myJunction.getShape().size() == 0) {
         Position pos = myJunction.getPosition();
@@ -86,6 +88,7 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& 
             }
         }
     }
+    myTesselation.getShapeRef().closePolygon();
 }
 
 
@@ -150,16 +153,18 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
 
             // recognize full transparency and simply don't draw
             if (color.alpha() != 0) {
-                PositionVector shape = myJunction.getShape();
-                shape.closePolygon();
-                if (exaggeration > 1) {
-                    shape.scaleRelative(exaggeration);
+                if ((exaggeration > 1 || myExaggeration > 1) && exaggeration != myExaggeration) {
+                    myExaggeration = exaggeration;
+                    myTesselation.setShape(myJunction.getShape());
+                    myTesselation.getShapeRef().closePolygon();
+                    myTesselation.getShapeRef().scaleRelative(exaggeration);
+                    myTesselation.myTesselation.clear();
                 }
                 glTranslated(0, 0, getType());
                 if (s.scale * myMaxSize < 40.) {
-                    GLHelper::drawFilledPoly(shape, true);
+                    GLHelper::drawFilledPoly(myTesselation.getShape(), true);
                 } else {
-                    GLHelper::drawFilledPolyTesselated(shape, true);
+                    myTesselation.drawTesselation(myTesselation.getShape());
                 }
 #ifdef GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES
                 GLHelper::debugVertices(shape, 80 / s.scale);

@@ -18,6 +18,7 @@
 ///
 //
 /****************************************************************************/
+#include <config.h>
 
 #include <gtest/gtest.h>
 #include <utils/common/StringTokenizer.h>

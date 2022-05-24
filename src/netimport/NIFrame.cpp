@@ -381,7 +381,7 @@ NIFrame::checkOptions() {
         }
     }
     if (oc.isSet("dlr-navteq-prefix") && oc.isDefault("proj.scale")) {
-        oc.set("proj.scale", NIImporter_DlrNavteq::GEO_SCALE);
+        oc.setDefault("proj.scale", NIImporter_DlrNavteq::GEO_SCALE);
     }
 #else
     if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-prefix") || oc.isSet("shapefile-prefix")) && !oc.getBool("simple-projection")) {
@@ -424,19 +424,19 @@ NIFrame::checkOptions() {
     if (oc.isSet("opendrive-files")) {
         if (oc.isDefault("tls.left-green.time")) {
             // legacy behavior. see #2114
-            oc.set("tls.left-green.time", "0");
+            oc.setDefault("tls.left-green.time", "0");
         }
         if (oc.isDefault("rectangular-lane-cut")) {
             // a better interpretation of imported geometries
-            oc.set("rectangular-lane-cut", "true");
+            oc.setDefault("rectangular-lane-cut", "true");
         }
         if (oc.isDefault("geometry.max-grade.fix")) {
             // a better interpretation of imported geometries
-            oc.set("geometry.max-grade.fix", "false");
+            oc.setDefault("geometry.max-grade.fix", "false");
         }
     }
     if (!oc.isDefault("osm.extra-attributes") && oc.isDefault("osm.all-attributes")) {
-        oc.set("osm.all-attributes", "true");
+        oc.setDefault("osm.all-attributes", "true");
     }
     return ok;
 }

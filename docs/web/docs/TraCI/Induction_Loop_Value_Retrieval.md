@@ -15,7 +15,7 @@ The value returned is the state of the asked variable/value within the
 last simulation step. Please note that for asking values from your
 detectors [you have to define
 them](../Simulation/Output/Induction_Loops_Detectors_(E1).md)
-within an {{AdditionalFile}} and load them at the start of the simulation. The `freq` and `file`
+within an {{AdditionalFile}} and load them at the start of the simulation. The `period` and `file`
 attributes do not matter for TraCI.
 
 The following variable values can be retrieved, the type of the return

@@ -509,14 +509,13 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     IndexVector::iterator ii = myPhaseIndex.begin() + myFirstPhase2Show;
 
     SUMOTime fpo = myFirstPhaseOffset;
-    const bool phaseNames = myIndexMode->getCheck();
+    const bool phaseNames = myIndexMode->getCheck() == TRUE;
     std::string lastName = "";
     double spaceForName = 0;
 
     // start drawing
     std::vector<SUMOTime> runningGreen(myTLLogic->getLinks().size(), 0);
     for (DurationsVector::iterator pd = myDurations.begin() + myFirstPhase2Show; pd != myDurations.end(); ++pd) {
-        SUMOTime i = 30;
         // the first phase may be drawn incompletely
         SUMOTime duration = *pd - fpo;
         // compute the height and the width of the phase
@@ -603,7 +602,6 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         }
         lastName = name;
         // proceed to next phase
-        i += duration;
         ++pi;
         ++ii;
         x = x2;
@@ -830,7 +828,6 @@ GUITLLogicPhasesTrackerWindow::drawAdditionalStates(GUITLLogicPhasesTrackerPanel
     std::string tooltip = "";
     // start drawing
     for (auto pd = durations.begin() + first2Show; pd != durations.end(); ++pd) {
-        SUMOTime i = 30;
         // the first phase may be drawn incompletely
         SUMOTime duration = *pd - fpo;
         // compute the height and the width of the phase
@@ -861,7 +858,6 @@ GUITLLogicPhasesTrackerWindow::drawAdditionalStates(GUITLLogicPhasesTrackerPanel
             h -= h20;
         }
         // proceed to next phase
-        i += duration;
         ++di;
         x = x2;
         // all further phases are drawn in full
@@ -1004,10 +1000,10 @@ GUITLLogicPhasesTrackerWindow::loadSettings() {
     setWidth(MAX2(getApp()->reg().readIntEntry("TL_TRACKER", "width", 700), minSize));
     myBeginOffset->setValue(getApp()->reg().readIntEntry("TL_TRACKER", "timeRange", (int)myBeginOffset->getValue()));
     myTimeMode->setCurrentItem(getApp()->reg().readIntEntry("TL_TRACKER", "timeMode", myTimeMode->getCurrentItem()));
-    myGreenMode->setCurrentItem((bool)getApp()->reg().readIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCurrentItem())));
-    myIndexMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "indexMode", (int)(myIndexMode->getCheck())));
-    myDetectorMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "detectorMode", (int)(myDetectorMode->getCheck())));
-    myConditionMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "conditionMode", (int)(myConditionMode->getCheck())));
+    myGreenMode->setCurrentItem(getApp()->reg().readIntEntry("TL_TRACKER", "greenMode", myGreenMode->getCurrentItem()));
+    myIndexMode->setCheck((FXbool)getApp()->reg().readIntEntry("TL_TRACKER", "indexMode", (int)(myIndexMode->getCheck())));
+    myDetectorMode->setCheck((FXbool)getApp()->reg().readIntEntry("TL_TRACKER", "detectorMode", (int)(myDetectorMode->getCheck())));
+    myConditionMode->setCheck((FXbool)getApp()->reg().readIntEntry("TL_TRACKER", "conditionMode", (int)(myConditionMode->getCheck())));
 }
 
 /****************************************************************************/

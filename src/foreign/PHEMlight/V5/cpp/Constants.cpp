@@ -20,8 +20,9 @@
 ///
 //
 /****************************************************************************/
-#include "Constants.h"
+#include <config.h>
 
+#include "Constants.h"
 
 namespace PHEMlightdllV5 {
 

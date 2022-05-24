@@ -8,23 +8,61 @@ title: ChangeLog
 
 - Simulation
   - Vehicles waiting at a red ligth no longer change lanes in response to vehicles passing the intersection. #10665
+  - Fixed crash when loading NEMA controller with invalid phases. Issue #10704
+  - Fixed crash when loading NEMA controller embedded in .net.xml. Issue #10705
+  - Lane-specific speed limits now influence lane-changing decisions. Issue #8984
+  - Inconvenience of slower lanes is now taken into accout for cooperative changing. Issue #10714  
+  - NEMA controller: fixed invalid initial state (until the first switch). Issue #10743
+  - NEMA controller: fixed crash when custom detectors are missing. Issue #10745
   
 - netedit
+  - Fixed crash when loading a network (on very slow computers / builds). Issue #10750 (regression in 1.9.0)
+  - Greatly increased rendering speed. Issue #10425 (regression in 1.11.0)
   - tls mode coloring of 'yellow' phase is now consistent with sumo-gui. Issue #10651
   - Loading a demand file only triggers a 'demand is modified' warning after actual modification. Issue #9529
+  - Locate dialog buttons "select all" and "deselect all" now toggle selection status. Issue #10707 
+
+- netconvert
+  - Fixed invalid edge reduction in edge shape detail at very dense geometry. Issue #10727 (regression in 1.12.0)
+  - Fixed crash when importing plain-xml with self-looped edge and re-occuring edge ids. Issue #10700
+  - Fixed crash when loading OpenDRIVE road object validity record. Issue #10701
+
+- TraCI
+  - Function `vehicle.setAcceleration` now supports negative values. Issue #10693
+
+- tools
+  - sumolib no longer crashes in an environment where rtree and stderr are missing. Issue #10666
 
 ### Enhancements
 
 - Simulation
   - Jammed detectors of actuated traffic lights can now be ignored for phase extension after a configurable time threshold. Issue #5212
+  - When jam detection is actived (i.e. via option **--tls.actuated.jam-threshold**), all detectors are usable for activation and this eliminates the warnings about "no controlling detectors". Issue #9280, #10682
   - InductionLoop detectors now support optional attribute 'length'. Issue #10668
   - Actuated traffic lights now support param key 'detector-length' to set the default length of it's detectors. Issue #10668
+  - Option **--fcd-output.attributes** now supports the value **posLat** to include lateral positions in fcd-output. Issue #10695
+  - Setting lcSpeedGain=0 now fully disables changing for speedGain. Issue #10709
   
+- netedit
+  - Persons and personFlows can now be transformed into each other via context menu (similar to vehicles and flows). Issue #10607
+  - Traffic light mode now supports phase attributes `earliestEnd, latestEnd` (tlType=actuated) and `vehExt,yellow,red` (tlType=NEMA). Issue #10656
+  - PersonPlan-mode now permits selecting the person via clicking (deselect with ESC). Issue #9606
+  - Taz Mode: Added new button to update source and sink weight for fringe edges. Isseue #4991
+  - Now supports creating and editing NEMA controller. Issue #9599
+
 - sumo-gui
   - InductionLoop detectors now list the time of continous occupation in their parameter dialog. Issue #10671
 
+- netconvert
+  - Now supports generating NEMA controllers. Issue #9599
+
+- tools
+  - [tls_csvSignalGroups](Tools/tls.md#tls_csvsignalgroupspy) now supports keyword **actuated** to declare time ranges for shorting/extending phases and causes programs of type *actuated* to be written. Issue #10719
+  - osmWebWizard now uses a different projection when activating the "satellite background" option  to ensure that the network matches the background.
 
 ### Mscellaneous
+
+  - Outputfile comment header no longer includes options that were set automatically (only user defined options). Issue #10712
 
 ## Version 1.13.0 (03.05.2022)
 

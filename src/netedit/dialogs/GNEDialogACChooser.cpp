@@ -64,6 +64,26 @@ GNEDialogACChooser::toggleSelection(int listIndex) {
 
 
 void
+GNEDialogACChooser::select(int listIndex) {
+    // always filtered ACs
+    GNEAttributeCarrier* ac = myFilteredACs[listIndex];
+    if (!ac->isAttributeCarrierSelected()) {
+        ac->selectAttributeCarrier();
+    }
+}
+
+
+void
+GNEDialogACChooser::deselect(int listIndex) {
+    // always filtered ACs
+    GNEAttributeCarrier* ac = myFilteredACs[listIndex];
+    if (ac->isAttributeCarrierSelected()) {
+        ac->unselectAttributeCarrier();
+    }
+}
+
+
+void
 GNEDialogACChooser::filterACs(const std::vector<GUIGlID>& GLIDs) {
     if (GLIDs.empty()) {
         myFilteredACs = myACs;

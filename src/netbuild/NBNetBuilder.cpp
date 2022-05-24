@@ -292,7 +292,14 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (mayAddOrRemove && oc.exists("geometry.split") && oc.getBool("geometry.split")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE("Splitting geometry edges");
         myEdgeCont.splitGeometry(myDistrictCont, myNodeCont);
+        // newly split junctions might also be joinable
         PROGRESS_TIME_MESSAGE(before);
+        if (oc.getBool("junctions.join-same")) {
+            int numJoined3 = myNodeCont.joinSameJunctions(myDistrictCont, myEdgeCont, myTLLCont);
+            if (numJoined3 > 0) {
+                WRITE_MESSAGE(" Joined " + toString(numJoined3) + " junctions after splitting geometry.");
+            }
+        }
     }
     // turning direction
     before = PROGRESS_BEGIN_TIME_MESSAGE("Computing turning directions");

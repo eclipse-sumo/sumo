@@ -198,11 +198,16 @@ NGFrame::fillOptions() {
     oc.addSynonyme("rand.neighbor-dist6", "dist6");
     oc.addDescription("rand.neighbor-dist6", "Random Network", "Probability for a node having exactly 6 neighbors");
 
-    oc.doRegister("rand.random-lanenumber", new Option_Bool(false));
-    oc.addDescription("rand.random-lanenumber", "Random Network", "Draw lane numbers randomly from [1,default.lanenumber]");
+    oc.doRegister("random-lanenumber", new Option_Bool(false));
+    oc.addSynonyme("random-lanenumber", "rand.random-lanenumber", false);
+    oc.addDescription("random-lanenumber", "Random Network", "Draw lane numbers randomly from [1,default.lanenumber]");
 
-    oc.doRegister("rand.random-priority", new Option_Bool(false));
-    oc.addDescription("rand.random-priority", "Random Network", "Draw edge priority randomly from [1,default.priority]");
+    oc.doRegister("random-priority", new Option_Bool(false));
+    oc.addSynonyme("random-priority", "rand.random-priority", false);
+    oc.addDescription("random-priority", "Random Network", "Draw edge priority randomly from [1,default.priority]");
+
+    oc.doRegister("random-type", new Option_Bool(false));
+    oc.addDescription("random-type", "Random Network", "Draw edge type randomly from all loaded types");
 
     oc.doRegister("rand.grid", new Option_Bool(false));
     oc.addDescription("rand.grid", "Random Network", "Place nodes on a regular grid with spacing rand.min-distance");
@@ -260,6 +265,9 @@ NGFrame::checkOptions() {
                         toString(SumoXMLNodeType::RIGHT_BEFORE_LEFT));
             ok = false;
         }
+    }
+    if (oc.getBool("random-type") && !oc.isSet("type-files")) {
+        WRITE_WARNING("Option 'random-type' takes no effect unless 'type-files' are loaded");
     }
     return ok;
 }

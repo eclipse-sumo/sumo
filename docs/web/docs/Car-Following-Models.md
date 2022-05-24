@@ -55,3 +55,13 @@ The use of minGap with respect to the desired (minimum) time headway varies by m
 As explained [above](#actionsteplength), the reaction time is defined by the simulation step length and the **actionStepLength** parameter. fundamentally limited by the simulation step size ([sumo](sumo.md) option **--step-length** {{DT_FLOAT}}).
 
 By setting a value of tau that is higher than the reaction time, the driving saftey can be increased since vehicles will use large gaps and have enough time to react. Conversely, setting a value of tau that is lower than the reaction time leads to unsafe driving. In the simulation this can manifest as  high deceleration or even collisions.
+
+### decel, apparentDecel, emergencyDecel
+
+By default, carFollowModels will adapt their driving speed to limit necessary braking to a maximum configured by the **decel** attribute. For the default *Krauss* model this is a hard limit whereas for other models such as *IDM* the decel bound is less strict. The default decel value is 4.5 (in units of m/s^2) for passenger cars and takes a different [default for other vehicle classes](Vehicle_Type_Parameter_Defaults.md)
+
+The "safe" velocity for every simulation step is computed by the configured carFollowModel based on the leading vehicle as well as the right-of-way-rules. To ensure safe driving under various circumstances, the maximum braking capability of the leader vehicle is also taken into account. This value is taken from the **apparentDecel** attribute of the leader vehicle (which defaults to the same value as it's **decel** attribute).
+
+If for some reasons, reaching the safe velocity requires braking beyond the desired deceleration, the vehicle may do so up to a hart limit configured by the attribute **emergencyDecel**. The default emergency deceleration is 9 for passenger cars and takes a different [default for other vehicle classes](Vehicle_Type_Parameter_Defaults.md). The global default can be changed with option **--default.emergencydecel**.
+
+An emergency braking warning is triggered if the braking strength exceeds a threshold value configured by **----emergencydecel.warning-threshold**. By default this threshold is set to *1* which triggers a warning when braking with 100% of **emergencyDecel**. The warnings can be disabled by setting the threshold to a value > 1.

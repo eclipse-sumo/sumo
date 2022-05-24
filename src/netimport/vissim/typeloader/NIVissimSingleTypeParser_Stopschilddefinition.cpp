@@ -22,7 +22,7 @@
 
 #include <iostream>
 #include <utils/common/StringUtils.h>
-#include "../NIImporter_Vissim.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
 #include "NIVissimSingleTypeParser_Stopschilddefinition.h"
 
 

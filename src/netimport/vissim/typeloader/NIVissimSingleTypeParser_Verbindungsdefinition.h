@@ -21,8 +21,8 @@
 #include <config.h>
 
 #include <iostream>
-#include "../NIImporter_Vissim.h"
-#include "../tempstructs/NIVissimExtendedEdgePoint.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
+#include <netimport/vissim/tempstructs/NIVissimExtendedEdgePoint.h>
 
 
 // ===========================================================================

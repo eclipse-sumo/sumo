@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNECandidateElement.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 #include <netbuild/NBNode.h>
 
 #include "GNENetworkElement.h"
@@ -272,6 +273,10 @@ protected:
 
     /// @brief whether this junction probably should have some connections but doesn't
     bool myColorForMissingConnections;
+
+    /// @brief An object that stores the shape and its tesselation
+    mutable TesselatedPolygon myTesselation;
+    mutable double myExaggeration;
 
 private:
     /// @brief draw TLS icon

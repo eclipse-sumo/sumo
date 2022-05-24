@@ -27,8 +27,8 @@
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/VectorHelper.h>
-#include "../NIImporter_Vissim.h"
-#include "../tempstructs/NIVissimTL.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
+#include <netimport/vissim/tempstructs/NIVissimTL.h>
 #include "NIVissimSingleTypeParser_Signalgruppendefinition.h"
 
 

@@ -213,6 +213,9 @@ main(int argc, char** argv) {
             int time = 0;
 
             LineReader lr(oc.getString("timeline-file"));
+            if (!lr.good()) {
+                throw ProcessError("Unreadable file '" + lr.getFileName() + "'.");
+            }
             while (lr.hasMore()) {
                 std::string line = lr.readLine();
                 if (skip > 0) {

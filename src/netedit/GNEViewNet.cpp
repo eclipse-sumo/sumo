@@ -107,6 +107,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,          GNEViewNet::onCmdToggleShowConnections),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS,          GNEViewNet::onCmdToggleHideConnections),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS,       GNEViewNet::onCmdToggleShowAdditionalSubElements),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWTAZELEMENTS,          GNEViewNet::onCmdToggleShowTAZElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,          GNEViewNet::onCmdToggleExtendSelection),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES,          GNEViewNet::onCmdToggleChangeAllPhases),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE,              GNEViewNet::onCmdToggleWarnAboutMerge),
@@ -1172,7 +1173,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
             myViewParent->getPersonFrame()->getPathCreator()->abortPathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            myViewParent->getPersonPlanFrame()->getPathCreator()->abortPathCreation();
+            myViewParent->getPersonPlanFrame()->resetSelectedPerson();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
             myViewParent->getContainerFrame()->getPathCreator()->abortPathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
@@ -3129,6 +3130,25 @@ GNEViewNet::onCmdToggleShowAdditionalSubElements(FXObject*, FXSelector sel, void
 
 
 long
+GNEViewNet::onCmdToggleShowTAZElements(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowAdditionalSubElements
+    if (myNetworkViewOptions.menuCheckShowTAZElements->amChecked() == TRUE) {
+        myNetworkViewOptions.menuCheckShowTAZElements->setChecked(FALSE);
+    } else {
+        myNetworkViewOptions.menuCheckShowTAZElements->setChecked(TRUE);
+    }
+    myNetworkViewOptions.menuCheckShowTAZElements->update();
+    // Update viewNet to show/hide TAZ elements
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWTAZELEMENTS)) {
+        myNetworkViewOptions.menuCheckShowTAZElements->setFocus();
+    }
+    return 1;
+}
+
+
+long
 GNEViewNet::onCmdToggleExtendSelection(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckExtendSelection
     if (myNetworkViewOptions.menuCheckExtendSelection->amChecked() == TRUE) {
@@ -3919,10 +3939,12 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkViewOptions.menuCheckSelectEdges->show();
             myNetworkViewOptions.menuCheckShowConnections->show();
             myNetworkViewOptions.menuCheckShowAdditionalSubElements->show();
+            myNetworkViewOptions.menuCheckShowTAZElements->show();
             // show menu checks
             menuChecks.menuCheckSelectEdges->show();
             menuChecks.menuCheckShowConnections->show();
             menuChecks.menuCheckShowAdditionalSubElements->show();
+            menuChecks.menuCheckShowTAZElements->show();
             // update lock menu bar
             myLockManager.updateLockMenuBar();
             // show
@@ -3934,10 +3956,12 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myCommonCheckableButtons.deleteButton->setChecked(true);
             myNetworkViewOptions.menuCheckShowConnections->show();
             myNetworkViewOptions.menuCheckShowAdditionalSubElements->show();
+            myNetworkViewOptions.menuCheckShowTAZElements->show();
             // show view options
             myNetworkViewOptions.menuCheckSelectEdges->show();
             myNetworkViewOptions.menuCheckShowConnections->show();
             menuChecks.menuCheckShowAdditionalSubElements->show();
+            menuChecks.menuCheckShowTAZElements->show();
             // show menu checks
             menuChecks.menuCheckSelectEdges->show();
             menuChecks.menuCheckShowConnections->show();
@@ -3952,11 +3976,13 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkViewOptions.menuCheckShowConnections->show();
             myNetworkViewOptions.menuCheckExtendSelection->show();
             myNetworkViewOptions.menuCheckShowAdditionalSubElements->show();
+            myNetworkViewOptions.menuCheckShowTAZElements->show();
             // show menu checks
             menuChecks.menuCheckSelectEdges->show();
             menuChecks.menuCheckShowConnections->show();
             menuChecks.menuCheckExtendSelection->show();
             menuChecks.menuCheckShowAdditionalSubElements->show();
+            menuChecks.menuCheckShowTAZElements->show();
             break;
         // specific modes
         case NetworkEditMode::NETWORK_CREATE_EDGE:
@@ -4573,7 +4599,7 @@ GNEViewNet::drawTemporalJunction() const {
             // set color
             GLHelper::setColor(temporalEdgeColor);
             // draw temporal edge
-            GUIGeometry::drawGeometry(myVisualizationSettings, getPositionInformation(), temporalEdgeGeometry, 0.75);
+            GUIGeometry::drawGeometry(*myVisualizationSettings, getPositionInformation(), temporalEdgeGeometry, 0.75);
             // check if we have to draw opposite edge
             if (myNetworkViewOptions.menuCheckAutoOppositeEdge->amChecked() == TRUE) {
                 // move temporal edge to opposite edge
@@ -4581,7 +4607,7 @@ GNEViewNet::drawTemporalJunction() const {
                 // update geometry
                 temporalEdgeGeometry.updateGeometry(temporalEdge);
                 // draw temporal edge
-                GUIGeometry::drawGeometry(myVisualizationSettings, getPositionInformation(), temporalEdgeGeometry, 0.75);
+                GUIGeometry::drawGeometry(*myVisualizationSettings, getPositionInformation(), temporalEdgeGeometry, 0.75);
             }
             // pop temporal edge matrix
             GLHelper::popMatrix();

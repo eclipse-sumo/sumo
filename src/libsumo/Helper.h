@@ -22,6 +22,7 @@
 #include <vector>
 #include <memory>
 #include <libsumo/Subscription.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/trigger/MSCalibrator.h>
@@ -43,42 +44,8 @@ class MSVehicleType;
 
 
 // ===========================================================================
-// type definitions
-// ===========================================================================
-typedef std::map<const MSLane*, std::pair<double, double> >  LaneCoverageInfo; // also declared in MSLane.h!
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
-
-class LaneStoringVisitor {
-public:
-    /// @brief Constructor
-    LaneStoringVisitor(std::set<const Named*>& objects, const PositionVector& shape,
-                       const double range, const int domain)
-        : myObjects(objects), myShape(shape), myRange(range), myDomain(domain) {}
-
-    /// @brief Destructor
-    ~LaneStoringVisitor() {}
-
-    /// @brief Adds the given object to the container
-    void add(const MSLane* const l) const;
-
-    /// @brief The container
-    std::set<const Named*>& myObjects;
-    const PositionVector& myShape;
-    const double myRange;
-    const int myDomain;
-
-private:
-    /// @brief invalidated copy constructor
-    LaneStoringVisitor(const LaneStoringVisitor& src);
-
-    /// @brief invalidated assignment operator
-    LaneStoringVisitor& operator=(const LaneStoringVisitor& src);
-};
-
-#define LANE_RTREE_QUAL RTree<MSLane*, MSLane, float, 2, LaneStoringVisitor>
 template<>
 inline float LANE_RTREE_QUAL::RectSphericalVolume(Rect* a_rect) {
     ASSERT(a_rect);

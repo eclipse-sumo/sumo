@@ -2298,8 +2298,11 @@ NIImporter_OpenDrive::myStartElement(int element,
         case OPENDRIVE_TAG_VALIDITY: {
             int fromLane = attrs.get<int>(OPENDRIVE_ATTR_FROMLANE, myCurrentEdge.id.c_str(), ok);
             int toLane = attrs.get<int>(OPENDRIVE_ATTR_TOLANE, myCurrentEdge.id.c_str(), ok);
-            myCurrentEdge.signals.back().minLane = fromLane;
-            myCurrentEdge.signals.back().maxLane = toLane;
+            if (myElementStack.size() >= 1 && (myElementStack.back() == OPENDRIVE_TAG_SIGNAL
+                        || myElementStack.back() == OPENDRIVE_TAG_SIGNALREFERENCE)) {
+                myCurrentEdge.signals.back().minLane = fromLane;
+                myCurrentEdge.signals.back().maxLane = toLane;
+            }
         }
         break;
         case OPENDRIVE_TAG_JUNCTION:

@@ -761,10 +761,6 @@ NBEdge::setNodeBorder(const NBNode* node, const Position& p, const Position& p2,
         border.push_back(p2);
     }
     if (border.size() == 2) {
-        double edgeWidth = 0;
-        for (int i = 0; i < (int)myLanes.size(); i++) {
-            edgeWidth += getLaneWidth(i);
-        }
         border.extrapolate2D(getTotalWidth());
         if (node == myFrom) {
             myFromBorder = border;
