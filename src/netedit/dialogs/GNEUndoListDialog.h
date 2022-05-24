@@ -84,6 +84,9 @@ protected:
     /// @brief tree list dinamic to show the elements to erase
     FXTreeListDinamic* myTreeListDinamic;
 
+    /// @brief index for last undo element
+    int myLastUndoElement = -1;
+
 private:
     /// @brief Invalidated copy constructor.
     GNEUndoListDialog(const GNEUndoListDialog&) = delete;

@@ -70,6 +70,8 @@ void
 GNEUndoListDialog::open() {
     // update table
     updateList();
+    // reset last undo element
+    myLastUndoElement = -1;
     // show
     show(PLACEMENT_SCREEN);
 }
@@ -103,10 +105,25 @@ GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
 }
 
 long 
-GNEUndoListDialog::onCmdUpdate(FXObject* obj, FXSelector sel, void* ptr) {
+GNEUndoListDialog::onCmdUpdate(FXObject*, FXSelector, void*) {
     // first check if shown
-    if (shown()) {
-        
+    if (shown() && (myLastUndoElement != myTreeListDinamic->getSelectedIndex())) {
+        // set colors
+        for (int i = 0; i < myTreeListDinamic->getSelectedIndex(); i++) {
+            myTreeListDinamic->getItem(i)->setTextColor(FXRGB(255, 0, 0));
+        }
+        for (int i = myTreeListDinamic->getSelectedIndex(); i < myTreeListDinamic->getNumItems(); i++) {
+            myTreeListDinamic->getItem(i)->setTextColor(FXRGB(0, 0, 0));
+        }
+        myTreeListDinamic->update();
+        // undo/redo
+        for (int i = myLastUndoElement; i < myTreeListDinamic->getSelectedIndex(); i++) {
+            myGNEApp->getUndoList()->undo();
+        }
+        for (int i = myLastUndoElement; i >= myTreeListDinamic->getSelectedIndex(); i--) {
+            myGNEApp->getUndoList()->redo();
+        }
+        myLastUndoElement = myTreeListDinamic->getSelectedIndex();
     }
     return 0;
 }
