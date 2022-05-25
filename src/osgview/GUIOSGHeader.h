@@ -41,6 +41,7 @@
 
 // OSG Headers
 #include <osg/ComputeBoundsVisitor>
+#include <osg/FrontFace>
 #include <osg/Geode>
 #include <osg/Geometry>
 #include <osg/Group>
@@ -62,6 +63,7 @@
 #include <osgGA/TerrainManipulator>
 #include <osgGA/TrackballManipulator>
 #include <osgUtil/Tessellator>
+#include <osgUtil/SmoothingVisitor>
 #include <osgViewer/Viewer>
 #include <osgViewer/ViewerEventHandlers>
 

@@ -74,6 +74,9 @@ private:
 
     static void setShapeState(osg::ref_ptr<osg::ShapeDrawable> shape);
 
+	// @brief Return the Z offset applied to a specific network object type e.g. to prevent Z-fighting (defaults to 0)
+	static float getAdditionalZOffset(GUIGlObjectType type);
+
     static std::map<std::string, osg::ref_ptr<osg::Node> > myCars;
 };
 
