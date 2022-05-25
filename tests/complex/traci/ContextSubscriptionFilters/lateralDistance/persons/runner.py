@@ -23,9 +23,8 @@ from __future__ import print_function
 import os
 import sys
 
-sumoHome = os.environ['SUMO_HOME']
 if "SUMO_HOME" in os.environ:
-    sys.path.append(os.path.join(sumoHome, "tools"))
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
