@@ -27,10 +27,8 @@ import traci  # noqa
 import sumolib  # noqa
 
 
-sumoBinary = os.environ["SUMO_BINARY"]
-
 cmd = [
-    sumoBinary,
+    sumolib.checkBinary('sumo'),
     '-n', 'input_net2.net.xml',
     '--vehroute-output', 'vehroutes.xml',
     '--tripinfo-output', 'tripinfo.xml',

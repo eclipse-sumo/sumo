@@ -30,7 +30,7 @@ import sumolib  # noqa
 
 WATCH = False
 
-sumoBinary = 'sumo-gui' if WATCH else os.environ["SUMO_BINARY"]
+sumoBinary = 'sumo-gui' if WATCH else sumolib.checkBinary('sumo')
 cmd = [
     sumoBinary,
     '-n', 'input_net.net.xml',

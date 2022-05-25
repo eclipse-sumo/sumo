@@ -23,6 +23,9 @@ import subprocess
 import sys
 from xml.sax import parse, handler
 from collections import defaultdict
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import sumolib  # noqa
 
 
 class OutputHandler(handler.ContentHandler):
@@ -98,8 +101,7 @@ def flush():
     sys.stderr.flush()
 
 
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
-    os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))
+sumoBinary = sumolib.checkBinary('sumo')
 sumoArgStart = len(sys.argv)
 for idx, arg in enumerate(sys.argv):
     if arg[0] == "-":

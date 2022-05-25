@@ -31,10 +31,8 @@ def ppStages(comment, stages):
     print("%s\n  %s\n" % (comment, "\n  ".join(map(str, stages))))
 
 
-sumoBinary = os.environ["SUMO_BINARY"]
-
 cmd = [
-    sumoBinary,
+    sumolib.checkBinary('sumo'),
     '-n', 'input_net.net.xml',
     '-a', 'input_additional.add.xml',
     '--no-step-log', ]

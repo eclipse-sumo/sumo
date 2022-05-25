@@ -26,8 +26,7 @@ if "SUMO_HOME" in os.environ:
 import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
-traci.start([sumoBinary,
+traci.start([sumolib.checkBinary('sumo'),
              '-c', 'sumo.sumocfg',
              '-n', 'input_net4.net.xml',
              '-a', 'input_additional.add.xml',

@@ -22,15 +22,15 @@ from __future__ import print_function
 import os
 import sys
 
-sumoHome = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', '..'))
-sys.path.append(os.path.join(sumoHome, "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
 if sys.argv[1] == "sumo":
-    sumoCall = [os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))]
+    sumoCall = [sumolib.checkBinary('sumo')]
 else:
-    sumoCall = [os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
+    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q']
 
 
 def runSingle(traciEndTime, viewRange, objID):
