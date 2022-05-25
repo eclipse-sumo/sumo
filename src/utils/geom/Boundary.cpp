@@ -365,10 +365,16 @@ Boundary::operator!=(const Boundary& b) const {
 
 void
 Boundary::set(double xmin, double ymin, double xmax, double ymax) {
-    myXmin = xmin;
-    myYmin = ymin;
-    myXmax = xmax;
-    myYmax = ymax;
+    /*
+        Takes care of the following extraneous cases w.r.t the given parameters:
+            - xmin > xmax
+            - ymin > ymax
+    */
+    
+    myXmin = std::min(xmin, xmax);
+    myYmin = std::min(ymin, ymax);
+    myXmax = std::max(xmin, xmax);;
+    myYmax = std::max(ymin, ymax);;
 }
 
 
