@@ -119,18 +119,20 @@ TEST(Boundary, test_method_moveby) {
     EXPECT_DOUBLE_EQ(bound.ymin(), -1.5);
 }
 
+
+
 /* Test the method 'growWidth'*/
 TEST(Boundary, test_method_growWidth){
     Boundary bound(1, 2, 3, 6);
     bound.growWidth(0.5);
     EXPECT_DOUBLE_EQ(bound.xmin(), 0.5);
-    EXPECT_DOUBLE_EQ(bound.xmax(), 2.5);
+    EXPECT_DOUBLE_EQ(bound.xmax(), 3.5);
 }
 
 /* Test the method 'growHeight'*/
 TEST(Boundary, test_method_growHeight){
     Boundary bound(1, 2, 3, 6);
     bound.growHeight(0.5);
-    EXPECT_DOUBLE_EQ(bound.ymin(), 3.5);
-    EXPECT_DOUBLE_EQ(bound.ymax(), 5.5);
+    EXPECT_DOUBLE_EQ(bound.ymin(), 1.5);
+    EXPECT_DOUBLE_EQ(bound.ymax(), 6.5);
 }
