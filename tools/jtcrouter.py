@@ -31,6 +31,10 @@ import subprocess
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools/turn-defs'))
+else:
+    THIS_DIR = os.path.abspath(os.path.dirname(__file__))
+    sys.path.append(os.path.join(THIS_DIR, 'turn-defs'))
+
 import sumolib  # noqa
 from turnCount2EdgeCount import parseEdgeCounts  # noqa
 
