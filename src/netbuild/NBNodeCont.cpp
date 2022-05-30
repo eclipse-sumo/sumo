@@ -64,6 +64,7 @@
 // ===========================================================================
 
 //#define DEBUG_JOINJUNCTIONS
+//#define DEBUG_JOINJUNCTIONS_CONNECTIONS
 //#define DEBUG_GUESSSIGNALS
 #define DEBUGNODEID ""
 #define DEBUGNODEID2 ""
@@ -1619,8 +1620,9 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
             }
         }
     }
-#ifdef DEBUG_JOINJUNCTIONS
-    std::cout << "joining cluster " << joinNamedToString(cluster, ' ') << "\n"
+#ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
+    std::cout << "joining cluster " << joinNamedToString(cluster, ' ')
+              << "  resetConnections=" << resetConnections << "\n"
               << "  incoming=" << joinNamedToString(clusterIncoming, ' ') << "\n"
               << "  inside=" << joinNamedToString(inside, ' ') << "\n";
 #endif
@@ -1705,7 +1707,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
                 reachable[e].insert(reached);
             }
         }
-#ifdef DEBUG_JOINJUNCTIONS
+#ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
         std::cout << " reachable e=" << e->getID() << " seen=" << toString(seen) << " reachable=" << toString(reachable[e]) << "\n";
 #endif
     }
@@ -1750,6 +1752,9 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
             if ((*k).fromLane >= 0 && (*k).fromLane < e->getNumLanes() && e->getLaneStruct((*k).fromLane).connectionsDone) {
                 // @note (see NIImporter_DlrNavteq::ConnectedLanesHandler)
                 e->declareConnectionsAsLoaded(NBEdge::EdgeBuildingStep::INIT);
+#ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
+                std::cout << "   e=" << e->getID() << " declareConnectionsAsLoaded\n";
+#endif
             }
         }
     }

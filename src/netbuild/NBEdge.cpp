@@ -2454,7 +2454,7 @@ bool
 NBEdge::computeEdge2Edges(bool noLeftMovers) {
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {
-        std::cout << "computeEdge2Edges  edge=" << getID() << " step=" << (int)myStep << "\n";
+        std::cout << "computeEdge2Edges  edge=" << getID() << " step=" << (int)myStep << " noLeftMovers=" << noLeftMovers << "\n";
         for (Connection& c : myConnections) {
             std::cout << "  conn " << c.getDescription(this) << "\n";
         }
