@@ -374,8 +374,8 @@ Boundary::set(double xmin, double ymin, double xmax, double ymax) {
     
     myXmin = std::min(xmin, xmax);
     myYmin = std::min(ymin, ymax);
-    myXmax = std::max(xmin, xmax);;
-    myYmax = std::max(ymin, ymax);;
+    myXmax = std::max(xmin, xmax);
+    myYmax = std::max(ymin, ymax);
 }
 
 
