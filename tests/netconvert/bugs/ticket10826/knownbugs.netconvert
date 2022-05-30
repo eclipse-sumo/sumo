@@ -1,0 +1,5 @@
+[Reported by Windows at 30Mai15:01:29]
+search_string:connection
+search_file:net
+full_description:join looses tram connection
+brief_description:see #10826
