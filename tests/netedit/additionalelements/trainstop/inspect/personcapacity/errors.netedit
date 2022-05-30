@@ -2,7 +2,6 @@ Debug: Selected item 'trainStop' in GNETagSelector
 Debug: Adding trainStop 'ts_0' in GNEChange_Additional
 Debug: Value 'dummyPersonCapacity' for attribute personCapacity of trainStop isn't valid
 Debug: Value '-7' for attribute personCapacity of trainStop isn't valid
-Debug: Value '' for attribute personCapacity of trainStop isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

@@ -22,17 +22,13 @@ from __future__ import absolute_import
 import os
 import sys
 
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 
 import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
-cmd = [sumoBinary,
+cmd = [sumolib.checkBinary('sumo'),
        '-n', 'input_net2.net.xml',
        '-r', 'input_routes.rou.xml',
        '--no-step-log',

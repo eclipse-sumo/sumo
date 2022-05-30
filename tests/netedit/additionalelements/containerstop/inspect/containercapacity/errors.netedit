@@ -2,7 +2,6 @@ Debug: Selected item 'containerStop' in GNETagSelector
 Debug: Adding containerStop 'ct_0' in GNEChange_Additional
 Debug: Value 'dummyContainerCapacity' for attribute containerCapacity of containerStop isn't valid
 Debug: Value '-7' for attribute containerCapacity of containerStop isn't valid
-Debug: Value '' for attribute containerCapacity of containerStop isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

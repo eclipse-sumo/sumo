@@ -291,9 +291,6 @@
         <!-- The default speed on an edge (in m/s) -->
         <default.speed value="13.89" synonymes="S speed" type="FLOAT"/>
 
-        <!-- The default friction on an edge -->
-        <default.friction value="1" synonymes="F friction" type="FLOAT"/>
-
         <!-- The default priority of an edge -->
         <default.priority value="-1" synonymes="P priority" type="INT"/>
 

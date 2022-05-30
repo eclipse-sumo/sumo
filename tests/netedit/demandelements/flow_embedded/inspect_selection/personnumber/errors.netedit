@@ -80,7 +80,6 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Value 'dummyNumber' for attribute personNumber of flowWithRoute isn't valid
 Debug: Value '-5' for attribute personNumber of flowWithRoute isn't valid
-Debug: Value '' for attribute personNumber of flowWithRoute isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

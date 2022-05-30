@@ -710,19 +710,6 @@ Vehroutes Device Options:
   --device.vehroute.deterministic      The 'vehroute' devices are set
                                         deterministic using a fraction of 1000
 
-Seeroad Device Options:
-  --device.Seeroad.probability FLOAT   The probability for a vehicle to have a
-                                        'Seeroad' device
-  --device.Seeroad.explicit STR[]      Assign a 'Seeroad' device to named
-                                        vehicles
-  --device.Seeroad.deterministic       The 'Seeroad' devices are set
-                                        deterministic using a fraction of 1000
-  --device.Seeroad.stdev FLOAT         The measurement noise parameter which
-                                        can be applied to the Seeroad device
-  --device.Seeroad.offset FLOAT        The measurement offset parameter which
-                                        can be applied to the Seeroad device ->
-                                        e.g. to force false measurements
-
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
   --num-clients INT                    Expected number of connecting clients

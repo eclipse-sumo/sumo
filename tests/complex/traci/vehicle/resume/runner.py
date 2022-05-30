@@ -23,13 +23,10 @@ import os
 import sys
 
 
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path += [tools, os.path.join(tools, 'assign')]
-    import sumolib  # noqa
-    import traci  # noqa
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import sumolib  # noqa
+import traci  # noqa
 
 
 def main(args):
@@ -37,7 +34,7 @@ def main(args):
                  "--netstate-dump", "rawdump.xml",
                  "--no-step-log",
                  "-v",
-                 ] + sys.argv[1:]
+                 ] + args
     traci.start(sumo_call)
     step = -1
     while True:

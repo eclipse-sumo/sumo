@@ -23,7 +23,6 @@ Debug: Selected item 'routeFlow' in DemandElementSelector
 Debug: Selected item 'stopLane' in GNETagSelector
 Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
 Debug: Value ';;;;' for attribute tripId of stopLane isn't valid
-Debug: Value '' for attribute tripId of stopLane isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

@@ -21,12 +21,13 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 import traci  # noqa
 import traci.constants as tc  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
-sumoCmd = [sumoBinary,
+sumoCmd = [sumolib.checkBinary('sumo'),
            '-n', 'input_net.net.xml',
            '-r', 'input_routes.rou.xml',
            '--no-step-log',

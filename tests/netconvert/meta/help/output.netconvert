@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_13_0+0485-fe17465c81f
+Eclipse SUMO netconvert Version v1_13_0+0143-484dc81fb93
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -110,8 +110,6 @@ Projection Options:
 
 Processing Options:
   --speed-in-kmh                       vmax is parsed as given in km/h (some)
-  --friction-in-percent                friction is parsed as given in percent
-                                        (some)
   --construction-date STR              Use YYYY-MM-DD date to determine the
                                         readiness of features under construction
   --flatten                            Remove all z-data
@@ -215,7 +213,6 @@ Building Defaults Options:
   --default.spreadtype STR             The default method for computing lane
                                         shapes from edge shapes
   -S, --default.speed FLOAT            The default speed on an edge (in m/s)
-  -F, --default.friction FLOAT         The default friction on an edge
   -P, --default.priority INT           The default priority of an edge
   --default.type STR                   The default edge type
   --default.sidewalk-width FLOAT       The default width of added sidewalks

@@ -1004,24 +1004,6 @@
 
     </vehroutes_device>
 
-    <seeroad_device>
-        <!-- The probability for a vehicle to have a &apos;Seeroad&apos; device -->
-        <device.Seeroad.probability value="-1" type="FLOAT"/>
-
-        <!-- Assign a &apos;Seeroad&apos; device to named vehicles -->
-        <device.Seeroad.explicit value="" synonymes="device.Seeroad.knownveh" type="STR[]"/>
-
-        <!-- The &apos;Seeroad&apos; devices are set deterministic using a fraction of 1000 -->
-        <device.Seeroad.deterministic value="false" type="BOOL"/>
-
-        <!-- The measurement noise parameter which can be applied to the Seeroad device -->
-        <device.Seeroad.stdev value="0.1" type="FLOAT"/>
-
-        <!-- The measurement offset parameter which can be applied to the Seeroad device -&gt; e.g. to force false measurements -->
-        <device.Seeroad.offset value="0" type="FLOAT"/>
-
-    </seeroad_device>
-
     <traci_server>
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>

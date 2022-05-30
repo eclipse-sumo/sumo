@@ -23,8 +23,8 @@ from __future__ import absolute_import
 import os
 import sys
 
-SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
@@ -35,9 +35,9 @@ traci.start([sumolib.checkBinary('sumo'),
 tlsID = "C"
 for step in range(100):
     print(traci.simulation.getTime(), " phase=%s nextSwitch=%s" % (
-            traci.trafficlight.getPhase(tlsID),
-            traci.trafficlight.getNextSwitch(tlsID)
-            ))
+        traci.trafficlight.getPhase(tlsID),
+        traci.trafficlight.getNextSwitch(tlsID)
+    ))
     traci.simulationStep()
 
 
@@ -50,9 +50,9 @@ traci.trafficlight.setProgramLogic(tlsID, logic)
 
 for step in range(100):
     print(traci.simulation.getTime(), " phase=%s nextSwitch=%s" % (
-            traci.trafficlight.getPhase(tlsID),
-            traci.trafficlight.getNextSwitch(tlsID)
-            ))
+        traci.trafficlight.getPhase(tlsID),
+        traci.trafficlight.getNextSwitch(tlsID)
+    ))
     traci.simulationStep()
 
 

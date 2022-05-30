@@ -22,8 +22,11 @@ import os
 import subprocess
 import sys
 
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
-    os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import sumolib  # noqa
+
+sumoBinary = sumolib.checkBinary('sumo')
 for dep1 in range(10):
     for dep2 in range(10):
         for stop in range(1, 10):
