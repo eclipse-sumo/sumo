@@ -19,8 +19,8 @@
 
 import wx
 import os
-import objpanel
-from wxmisc import AgileStatusbar
+from . import objpanel
+from .wxmisc import AgileStatusbar
 
 
 class ProcessDialogMixin:
@@ -392,7 +392,7 @@ class ProcessDialogInteractive(ProcessDialogMixin, wx.Frame):
             # print 'call step'
             self.process.step()
         else:
-            print '  Simulation finished'
+            print('  Simulation finished')
             self.timer.Stop()
 
     def on_stop(self, event=None):
@@ -451,7 +451,7 @@ class ProcessDialogInteractive(ProcessDialogMixin, wx.Frame):
         # self.Update()
 
     def write_message(self, text, **kwargs):
-        print 'write_message', text
+        print('write_message', text)
         self.statusbar.write_message(text)
 
     def make_browser(self):

@@ -40,13 +40,13 @@ except:
         wxversion.select("3")
     except:
         #sys.exit('ERROR: wxPython versions 2.8 or 3.x not available.')
-        print 'No wxversion module available, try import default wx version'
-        print 'If wx import shall fail, please install wxPython versions 2.8 or 3.x together with the wxversion module.'
+        print('No wxversion module available, try import default wx version')
+        print('If wx import shall fail, please install wxPython versions 2.8 or 3.x together with the wxversion module.')
         sys.exit(0)
 
 
 
-from agilepy.lib_wx.mainframe import AgileMainframe
+from .agilepy.lib_wx.mainframe import AgileMainframe
 import wx
 __usage__ = """USAGE:
 from command line:
@@ -65,20 +65,20 @@ from command line:
 use for debugging:
     python sumopy_gui.py --debug > debug.txt 2>&1
 """
-print '                   _                         '
-print '       ____________|______|||___________________      '
-print '      /      _     |              / \  _ _ _ _ _ \     '
-print '     /       |   / | \     v     / _ \ _|_|_|_|_ /     '
-print '     \   __o-o__/  |  \  \ | /  / / \ \     ____/      '
-print '      \        / \|o|/ \  \|/  / / o/\ \   |   _|__/_  '
-print '       \      /  \|o|/  \  |  / / /|  \ \  |  | |      '
-print '   | | | | | /   \|0|/   \ v /  \_/ \_/  \_|    |      '
-print '   | | | | |/_____________\_/____________/ ____/       '
-print '                                         |/             '
-print ''
-print __appname__+' version '+__version__+'\n'+__copyright__
+print('                   _                         ')
+print('       ____________|______|||___________________      ')
+print('      /      _     |              / \  _ _ _ _ _ \     ')
+print('     /       |   / | \     v     / _ \ _|_|_|_|_ /     ')
+print('     \   __o-o__/  |  \  \ | /  / / \ \     ____/      ')
+print('      \        / \|o|/ \  \|/  / / o/\ \   |   _|__/_  ')
+print('       \      /  \|o|/  \  |  / / /|  \ \  |  | |      ')
+print('   | | | | | /   \|0|/   \ v /  \_/ \_/  \_|    |      ')
+print('   | | | | |/_____________\_/____________/ ____/       ')
+print('                                         |/             ')
+print('')
+print(__appname__+' version '+__version__+'\n'+__copyright__)
 
-print '\n  using wx python version', wx.__version__
+print('\n  using wx python version', wx.__version__)
 
 ###############################################################################
 # IMPORTS

@@ -16,7 +16,7 @@
 # @author  Joerg Schweizer
 # @date   2012
 
-import maps
+from . import maps
 from agilepy.lib_base.processes import Process, CmlMixin
 from collections import OrderedDict
 from numpy import random
@@ -64,7 +64,7 @@ def clean_osm(filepath_in, filepath_out):
     fd_in = open(filepath_in, 'r')
     fd_out = open(filepath_out, 'w')
     for line in fd_in.readlines():
-        for oldstr, newstr in substitutes.iteritems():
+        for oldstr, newstr in substitutes.items():
             line = line.replace(oldstr, newstr)
         fd_out.write(line)
     fd_in.close()
@@ -453,7 +453,7 @@ class Zones(am.ArrayObjman):
         # self.zones.update_netoffset(deltaoffset)
         self.coords.value[:, :2] = self.coords.value[:, :2] + deltaoffset
         shapes = self.shapes.value
-        for i in xrange(len(shapes)):
+        for i in range(len(shapes)):
             s = np.array(shapes[i])
             s[:, :2] = s[:, :2] + deltaoffset
             shapes[i] = list(s)
@@ -464,7 +464,7 @@ class Zones(am.ArrayObjman):
         self.areas[id_zone] = find_area(shape)/1000000.0
 
     def identify_zoneedges(self, id_zone):
-        print 'identify_zoneedges of id_zone', id_zone
+        print('identify_zoneedges of id_zone', id_zone)
 
         if len(self.shapes[id_zone]) >= 3:
             # must have at least 3 vertices to be an area
@@ -492,9 +492,9 @@ class Zones(am.ArrayObjman):
 
             # select and determine weights
             self.ids_edges_inside[id_zone] = self.get_edges().get_ids(inds_within)
-            print '  found', len(self.ids_edges_inside[id_zone]), 'edges'
+            print('  found', len(self.ids_edges_inside[id_zone]), 'edges')
             if len(self.ids_edges_inside[id_zone]) == 0:
-                print 'WARNING in identify_zoneedges: no edges found in zone', id_zone
+                print('WARNING in identify_zoneedges: no edges found in zone', id_zone)
 
     def get_zoneedges_by_mode_fast(self, id_zone, id_mode, speed_max=None,
                                    modeconst_excl=0.0, modeconst_mix=0.0,
@@ -509,10 +509,10 @@ class Zones(am.ArrayObjman):
         """
 
         # print 'get_zoneedges_by_mode_fast id_zone',id_zone,'id_mode',id_mode
-        if not self._mode_to_edges_inside.has_key(id_mode):
+        if id_mode not in self._mode_to_edges_inside:
             self._mode_to_edges_inside[id_mode] = {}
 
-        if not self._mode_to_edges_inside[id_mode].has_key(id_zone):
+        if id_zone not in self._mode_to_edges_inside[id_mode]:
             self._mode_to_edges_inside[id_mode][id_zone] = self.get_zoneedges_by_mode(
                 id_zone, id_mode, weights=weights, fstar=fstar)
             # print '  found edges',len(self._mode_to_edges_inside[id_mode][id_zone])
@@ -552,7 +552,7 @@ class Zones(am.ArrayObjman):
         # todo: rename ids_edges_orig to simply ids_edges
         ids_edge_orig = self.ids_edges_orig[id_zone]
         if ids_edge_orig is None:
-            print 'WARNING: no edges in zone', id_zone, '. Run edge detection first.'
+            print('WARNING: no edges in zone', id_zone, '. Run edge detection first.')
             if is_dict:
                 return {}
             else:
@@ -647,7 +647,7 @@ class Zones(am.ArrayObjman):
             fd.write(xm.end('Placemark', indent + 2))
 
     def write_xml(self, fd=None, indent=0):
-        print 'Zones.write_xml'
+        print('Zones.write_xml')
         net = self.parent.parent.net
         ids_edge_sumo = net.edges.ids_sumo
         ids_zone = self.get_ids()
@@ -715,7 +715,7 @@ class Zones(am.ArrayObjman):
         """
         Export zones to Google kml file formate.
         """
-        print 'export_sumoxml', filepath, len(self)
+        print('export_sumoxml', filepath, len(self))
         if len(self) == 0:
             return None
 
@@ -725,7 +725,7 @@ class Zones(am.ArrayObjman):
         try:
             fd = open(filepath, 'w')
         except:
-            print 'WARNING in write_obj_to_xml: could not open', filepath
+            print('WARNING in write_obj_to_xml: could not open', filepath)
             return False
         #xmltag, xmltag_item, attrname_id = self.xmltag
         fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
@@ -746,7 +746,7 @@ class Zones(am.ArrayObjman):
         """
         Export zones to SUMO xml file formate.
         """
-        print 'export_sumoxml', filepath, len(self)
+        print('export_sumoxml', filepath, len(self))
         if len(self) == 0:
             return None
 
@@ -756,7 +756,7 @@ class Zones(am.ArrayObjman):
         try:
             fd = open(filepath, 'w')
         except:
-            print 'WARNING in export_sumoxml: could not open', filepath
+            print('WARNING in export_sumoxml: could not open', filepath)
             return False
         #xmltag, xmltag_item, attrname_id = self.xmltag
         #fd.write('<?xml version="1.0" encoding="%s"?>\n'%encoding)
@@ -1372,7 +1372,7 @@ class Facilities(am.ArrayObjman):
         # self.zones.update_netoffset(deltaoffset)
         self.centroids.value[:, :2] = self.centroids.value[:, :2] + deltaoffset
         shapes = self.shapes.value
-        for i in xrange(len(shapes)):
+        for i in range(len(shapes)):
             s = np.array(shapes[i])
             s[:, :2] = s[:, :2] + deltaoffset
             shapes[i] = list(s)
@@ -1437,7 +1437,7 @@ class Facilities(am.ArrayObjman):
         The ids_fac is an array that contains the facility ids in correspondence
         to the probability vector.
         """
-        print 'get_departure_probabilities_landuse2 ids_landusetype', ids_landusetype
+        print('get_departure_probabilities_landuse2 ids_landusetype', ids_landusetype)
         probabilities = {}
         zones = self.ids_zone.get_linktab()
         inds_fac = self.get_inds()
@@ -1466,13 +1466,13 @@ class Facilities(am.ArrayObjman):
                 probabilities[id_zone] = utils  # all zero prob
 
             if 0:  # debug
-                print '    sum(probs)', np.sum(probabilities[id_zone])
+                print('    sum(probs)', np.sum(probabilities[id_zone]))
                 if np.sum(probabilities[id_zone]) > 0:
                     ids_fac = self.get_ids(inds_fac)
                     for id_fac, id_landusetype, id_thiszone, prob in zip(ids_fac, self.ids_landusetype[ids_fac], self.ids_zone[ids_fac], probabilities[id_zone]):
                         if (id_thiszone == id_zone):  # & (id_landusetype in ids_landusetype):
                             if prob > 0:
-                                print '        id_fac', id_fac, 'id_landusetype', id_landusetype, 'prob', prob
+                                print('        id_fac', id_fac, 'id_landusetype', id_landusetype, 'prob', prob)
 
         return probabilities, self.get_ids(inds_fac)
 
@@ -1486,14 +1486,14 @@ class Facilities(am.ArrayObjman):
         The ids_fac is an array that contains the facility ids in correspondence
         to the probability vector.
         """
-        print 'get_departure_probabilities_landuse'
+        print('get_departure_probabilities_landuse')
         probabilities = {}
         zones = self.ids_zone.get_linktab()
         inds_fac = self.get_inds()
         for id_zone in zones.get_ids():
             probabilities[id_zone] = {}
             for id_landusetype in set(self.ids_landusetype.value):
-                print '  id_zone,id_landusetype', id_zone, id_landusetype
+                print('  id_zone,id_landusetype', id_zone, id_landusetype)
                 # print '  ids_landusetype',self.ids_landusetype.value[inds_fac]
                 # print '  ids_zone',self.ids_zone.value[inds_fac]
                 # print ''
@@ -1548,7 +1548,7 @@ class Facilities(am.ArrayObjman):
 
     def identify_landuse_from_area(self, ids_fac=None):
         """Determines the landuse of facilities from the landuse of areas in which their are located"""
-        print 'identify_landuse_from_area', ids_fac
+        print('identify_landuse_from_area', ids_fac)
         # TODO:
         landusetypes = self.get_landusetypes()
         ids_area = self.get_ids_area(ids_fac)
@@ -1560,8 +1560,8 @@ class Facilities(am.ArrayObjman):
 
                 if osmkey == 'building.yes':
                     if is_point_in_polygon(coord[:2], np.array(shape, dtype=np.float32)[:, :2], is_use_shapely=IS_SHAPELY):
-                        print '  found id_fac', id_fac, osmkey, 'in id_area', id_area
-                        print '    id_landusetype', self.ids_landusetype[id_fac], 'is_area', landusetypes.are_area[self.ids_landusetype[id_fac]], '->', id_landusetype_fac
+                        print('  found id_fac', id_fac, osmkey, 'in id_area', id_area)
+                        print('    id_landusetype', self.ids_landusetype[id_fac], 'is_area', landusetypes.are_area[self.ids_landusetype[id_fac]], '->', id_landusetype_fac)
                         self.ids_landusetype[id_fac] = id_landusetype_fac
 
     def update_centroid(self, _id):
@@ -1605,7 +1605,7 @@ class Facilities(am.ArrayObjman):
         is closest to the centoid of each facility and the satisfies certain
         conditions.
         """
-        print 'identify_closest_edge'
+        print('identify_closest_edge')
         edges = self.get_edges()
         id_ped = self.get_net().modes.get_id_mode('pedestrian')
         # select edges...if (edges.priorities[id_edge]<=priority_max) & edges.has_sidewalk(id_edge):
@@ -1635,7 +1635,7 @@ class Facilities(am.ArrayObjman):
                 pos = 0.0
                 x1, y1, z1 = shape[0]
                 edgelength = edges.lengths[id_edge]
-                for j in xrange(1, n_segs):
+                for j in range(1, n_segs):
                     x2, y2, z2 = shape[j]
                     d, xp, yp = shortest_dist(x1, y1, x2, y2, xc, yc)
                     # print '    x1,y1=(%d,%d)'%(x1,y1),',x2,y2=(%d,%d)'%(x2,y2),',xc,yc=(%d,%d)'%(xc,yc)
@@ -1713,7 +1713,7 @@ class Facilities(am.ArrayObjman):
         self.update(ids)
 
     def import_poly(self, polyfilepath, is_remove_xmlfiles=False, is_clear=True, **kwargs):
-        print 'import_poly from %s ' % (polyfilepath,)
+        print('import_poly from %s ' % (polyfilepath,))
         if is_clear:
             self.clear()
         # let's read first the offset information, which are in the
@@ -1749,7 +1749,7 @@ class Facilities(am.ArrayObjman):
         # self.update()
 
         # timeit
-        print '  exec time=', time.clock() - exectime_start
+        print('  exec time=', time.clock() - exectime_start)
 
         # print '  self.shapes',self.shapes.value
 
@@ -1806,7 +1806,7 @@ class Facilities(am.ArrayObjman):
         """
         Export stops to SUMO stop xml file.
         """
-        print 'export_sumoxml', filepath, len(self)
+        print('export_sumoxml', filepath, len(self))
         if len(self) == 0:
             return None
 
@@ -1816,7 +1816,7 @@ class Facilities(am.ArrayObjman):
         try:
             fd = open(filepath, 'w')
         except:
-            print 'WARNING in write_obj_to_xml: could not open', filepath
+            print('WARNING in write_obj_to_xml: could not open', filepath)
             return False
         #xmltag, xmltag_item, attrname_id = self.xmltag
         fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
@@ -1908,7 +1908,7 @@ class SumoPolyReader(handler.ContentHandler):
     def get_landuse(self, osmkey):
         keyvec = osmkey.split('.')
         len_keyvec = len(keyvec)
-        print 'get_landuse', len_keyvec, keyvec
+        print('get_landuse', len_keyvec, keyvec)
         #is_match = False
         for id_landusetype in self._ids_landusetype_all:
             # print '    id_landusetype',id_landusetype
@@ -1918,7 +1918,7 @@ class SumoPolyReader(handler.ContentHandler):
             for osmfilter in self._osmfilters[id_landusetype]:
                 # print '       ?osmfiltervec',osmfilter,osmkey==osmfilter
                 if osmkey == osmfilter:  # exact match of filter
-                    print '      exact', osmkey
+                    print('      exact', osmkey)
                     return id_landusetype
 
         # now check for wildcards
@@ -1931,7 +1931,7 @@ class SumoPolyReader(handler.ContentHandler):
                 if (len(osmfiltervec) == 2) & (len_keyvec == 2):
                     if osmfiltervec[0] == keyvec[0]:
                         if osmfiltervec[1] == '*':
-                            print '      *', keyvec[0]
+                            print('      *', keyvec[0])
                             return id_landusetype
         return -1
 
@@ -2132,7 +2132,7 @@ class Parking(am.ArrayObjman):
                      is_clear=True,
                      logger=None,
                      **kwargs):
-        print 'make_parking'
+        print('make_parking')
         if is_clear:
             self.clear()
         edges = self.edges.get_value()
@@ -2162,7 +2162,7 @@ class Parking(am.ArrayObjman):
                 pos_offset = length_noparking
                 pos = pos_offset
                 if n_spaces > 0:
-                    for i in xrange(n_spaces):
+                    for i in range(n_spaces):
                         #id_park = self.suggest_id()
                         # print '    pos=',pos,pos/edges.lengths[id_edge]
 
@@ -2180,7 +2180,7 @@ class Parking(am.ArrayObjman):
                         ids_parking.append(id_park)
                         pos = pos_offset+(i+1)*length_lot
 
-        print '  created %d parking spaces' % n_parking
+        print('  created %d parking spaces' % n_parking)
         return ids_parking
 
     def clear_booking(self):
@@ -2194,7 +2194,7 @@ class Parking(am.ArrayObjman):
         """
 
         #inds_person = self.persons.get_inds(ids_person)
-        print 'get_closest_parking'
+        print('get_closest_parking')
         ind_parking_closest = self.get_inds()[np.argmin(
             np.sum((coord-self.vertices.value[:, 1, :])**2, 1) + c_spread*lengths*self.lengths.get_value())]
         self.numbers_booking.get_value()[ind_parking_closest] += 1
@@ -2215,7 +2215,7 @@ class Parking(am.ArrayObjman):
 
         # print 'get_closest_parking',n,len(self),'n_retrials',n_retrials
         if len(self) == 0:
-            print 'WARNING in get_closest_parkings: there is no parking.'
+            print('WARNING in get_closest_parkings: there is no parking.')
             return [], []
 
         #parking = self.get_landuse().parking
@@ -2274,8 +2274,8 @@ class Parking(am.ArrayObjman):
                     # print '    fallback n_search',n_search,'is_search',is_search
 
             if is_search:
-                print 'WARNING: inaccessible parking for id_veh', id_veh, 'is_fallback', is_fallback
-                print '  dist=%.1f' % (np.sqrt(dists[ind_parking_closest])), 'id_lane', ids_lane[ind_parking_closest], 'al', lanes.get_accesslevel([ids_lane[ind_parking_closest]], id_mode_fallback)
+                print('WARNING: inaccessible parking for id_veh', id_veh, 'is_fallback', is_fallback)
+                print('  dist=%.1f' % (np.sqrt(dists[ind_parking_closest])), 'id_lane', ids_lane[ind_parking_closest], 'al', lanes.get_accesslevel([ids_lane[ind_parking_closest]], id_mode_fallback))
 
             inds_vehparking[i] = ind_parking_closest
             are_fallback[i] = is_fallback
@@ -2387,11 +2387,11 @@ class Landuse(cm.BaseObjman):
             else:
                 filepath = os.path.join(os.getcwd(), 'landuse.poly.xml')
 
-        print 'export_polyxml', filepath
+        print('export_polyxml', filepath)
         try:
             fd = open(filepath, 'w')
         except:
-            print 'WARNING in export_poly_xml: could not open', filepath
+            print('WARNING in export_poly_xml: could not open', filepath)
             return None
 
         #xmltag, xmltag_item, attrname_id = self.xmltag
@@ -2442,7 +2442,7 @@ class Landuse(cm.BaseObjman):
 
 class FacilityGenerator(Process):
     def __init__(self, ident='facilitygenerator', facilities=None,  logger=None, **kwargs):
-        print 'FacilityGenerator.__init__'
+        print('FacilityGenerator.__init__')
 
         # TODO: let this be independent, link to it or child??
 
@@ -2503,7 +2503,7 @@ class FacilityGenerator(Process):
         #                    ))
 
     def do(self):
-        print self.get_name()+'.do'
+        print(self.get_name()+'.do')
         # links
         facilities = self.parent
         net = facilities.parent.get_net()
@@ -2637,7 +2637,7 @@ class FacilityGenerator(Process):
 
                 # check if positions on parallel shape are closest to
                 # this edge or closer to another edge
-        print '  Done, generated %d facilities' % n_fac
+        print('  Done, generated %d facilities' % n_fac)
         return True
 
     def get_segind_closest_edge(self, p, x1, y1, x2, y2, inds_seg_exclude=None):
@@ -2650,7 +2650,7 @@ class FacilityGenerator(Process):
 
 class ParkingGenerator(Process):
     def __init__(self, ident='parkinggenerator', parking=None,  logger=None, **kwargs):
-        print 'ParkingGenerator.__init__'
+        print('ParkingGenerator.__init__')
 
         # TODO: let this be independent, link to it or child??
 
@@ -2724,7 +2724,7 @@ class ParkingGenerator(Process):
                                                  ))
 
     def do(self):
-        print self.get_name()+'.do'
+        print(self.get_name()+'.do')
         # links
         # print '  self.id_mode',self.id_mode
         # print '  self.get_kwoptions()',self.get_kwoptions()
@@ -2749,7 +2749,7 @@ class OsmPolyImporter(CmlMixin, Process):
                  is_clean_osmfile=True,
                  is_merge=False,
                  logger=None, **kwargs):
-        print 'OsmPolyImporter.__init__', landuse, landuse.parent.get_rootfilename()
+        print('OsmPolyImporter.__init__', landuse, landuse.parent.get_rootfilename())
         self._init_common('osmpolyimporter', name='OSM Poly import',
                           logger=logger,
                           info='Converts a OSM  file to a SUMO Poly file and read facilities into scenario.',
@@ -2945,12 +2945,12 @@ OSM building types are mapped to specific facility parameters, is not explicitel
         self.run_cml(cml)
         if self.status == 'success':
             if os.path.isfile(self.polyfilepath):
-                print '  OSM->poly.xml successful, start importing xml files'
+                print('  OSM->poly.xml successful, start importing xml files')
                 self._landuse.import_polyxml(self.rootname, self.rootdirpath,
                                              is_clear=not self.is_merge,
                                              type_default=self.type_default,
                                              height_default=self.height_default)
-                print '  import poly in sumopy done.'
+                print('  import poly in sumopy done.')
                 return True
             return False
         else:

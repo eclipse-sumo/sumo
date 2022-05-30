@@ -18,7 +18,7 @@
 
 
 import zlib
-import cPickle
+import pickle
 import sys
 import os
 import types
@@ -110,7 +110,7 @@ class AgileToolbarMixin:
         # print 'add_tool',self,key,func
 
         id = wx.NewId()
-        if not args.has_key('name'):
+        if 'name' not in args:
             name = string.capitalize(key)
         else:
             name = args['name']
@@ -140,15 +140,15 @@ class AgileToolbarMixin:
         return id
 
     def enable_tool(self, key, enable=True):
-        if self._tools.has_key(key):
+        if key in self._tools:
             # self._tools[key].Show(False)
             self.toolbar.EnableTool(self._tools[key], enable)
 
         else:
-            print 'enable_tool: no tool named:', key
+            print('enable_tool: no tool named:', key)
 
     def del_tool(self, key):
-        if self._tools.has_key(key):
+        if key in self._tools:
             # self._tools[key].Show(False)
             self.toolbar.RemoveTool(self._tools[key])
             del self._tools[key]
@@ -157,7 +157,7 @@ class AgileToolbarMixin:
             # causes it to render (more or less, that is).
             self.toolbar.Realize()
         else:
-            print 'del_tool: no tool named:', key
+            print('del_tool: no tool named:', key)
 
 
 class AgileToolbarFrameMixin(AgileToolbarMixin):
@@ -209,7 +209,7 @@ class AgileMenuMixin:
         # print 'get_menu',path
         for key in path:
             # print '  ',key,items
-            if items.has_key(key):
+            if key in items:
                 val = items[key]
                 # print val
                 if len(val) == 3:
@@ -217,7 +217,7 @@ class AgileMenuMixin:
                 else:
                     return None, None, -1
             else:
-                print 'WARNING in get_menu: invalid menu key', key, 'in path'
+                print('WARNING in get_menu: invalid menu key', key, 'in path')
                 return None, None, -1
 
         return val[0], val[1], val[2]
@@ -279,7 +279,7 @@ class AgileMenuMixin:
         # overwrite with args
         data.update(args)
 
-        if not data.has_key('name'):
+        if 'name' not in data:
             data['name'] = string.capitalize(key)
 
         if data['alt']:
@@ -332,7 +332,7 @@ class AgileMenuMixin:
             # append item
             # print '  menu',menu,type(menu),dir(menu)
             menu.AppendItem(item)
-            if args.has_key('check'):
+            if 'check' in args:
                 menu.Check(item.GetId(), args['check'])
             # if (args.has_key('check'))&(args.has_key('checked')):
             #    menu.Check(item.GetId(), args['checked'])
@@ -340,7 +340,7 @@ class AgileMenuMixin:
             menu_dict[key] = (item, id)
             return item, id
         else:
-            print 'WARNING: in append_item: invalid menu path', menupath
+            print('WARNING: in append_item: invalid menu path', menupath)
             return None, None
 
     def _create_item(self, key, menu, function=None, **args):
@@ -353,10 +353,10 @@ class AgileMenuMixin:
         # overwrite with args
         data.update(args)
 
-        if not data.has_key('name'):
+        if 'name' not in data:
             data['name'] = string.capitalize(key)
 
-        if not data.has_key('info'):
+        if 'info' not in data:
             if function.__doc__ is not None:
                 data['info'] = function.__doc__.replace('\n', ' ').strip()
             else:
@@ -374,12 +374,12 @@ class AgileMenuMixin:
         if data['shortkey'] != '':
             itemtext += '\t'+data['shortkey']
 
-        if data.has_key('radio'):
+        if 'radio' in data:
 
             item = wx.MenuItem(menu, id, itemtext, data['info'], wx.ITEM_RADIO)
             # print ' radio item'
 
-        elif data.has_key('check'):
+        elif 'check' in data:
             item = wx.MenuItem(menu, id, itemtext, data['info'], wx.ITEM_CHECK)
             # check boxes AFTER append
 
@@ -387,7 +387,7 @@ class AgileMenuMixin:
             item = wx.MenuItem(menu, id, itemtext, data['info'], wx.ITEM_NORMAL)
             # print ' normal item'
 
-        if data.has_key('bitmap'):
+        if 'bitmap' in data:
             # print '_create_item  bitmap',data['bitmap']
             # TODO: allow more image formats in menuitem
             # item.SetBitmap(images.getSmilesBitmap())
@@ -406,7 +406,7 @@ class AgileMenuMixin:
 
         menu, menu_dict, menuid = self.get_menu(menupath)
         if menu:
-            if menu_dict.has_key(key):
+            if key in menu_dict:
                 menu.RemoveItem(menu_dict[key][0])
                 # menu_dict[key][0].Remove()
                 del menu_dict[key]
@@ -429,9 +429,9 @@ class AgileMenuMixin:
     def __setitem__(self, menupath, **data):
         # print 'set menue',menupath,'to',data
 
-        if type(name) != types.TupleType:
+        if type(name) != tuple:
             # create main menue entry, if necessary
-            if not self.menus.has_key(name):
+            if name not in self.menus:
                 newmenue = wx.Menu()
                 self.Append(newmenue, '&'+name)
                 self.menus[name] = (-1, {})
@@ -439,14 +439,14 @@ class AgileMenuMixin:
         elif len(name) == 2:
             # create submenu entry, if necessary
             name1, name2 = name
-            if not self.menus.has_key(name1):
+            if name1 not in self.menus:
                 newmenue = wx.Menu()
                 self.Append(newmenue, '&'+name1)
                 self.menus[name] = (-1, {})
 
             menuid, submenus = self.menus[name1]
 
-            if not submenus.has_key(name2):
+            if name2 not in submenus:
                 id = wx.NewId()
                 get_menu_item()
                 newmenue = wx.Menu()
@@ -456,7 +456,7 @@ class AgileMenuMixin:
             submenu = self.menus
         parentmenu = None
         for m in menu:
-            if not submenu.has_key(m):
+            if m not in submenu:
                 newmenue = wx.Menu()
 
     def get_menu_item(self, id):
@@ -657,7 +657,7 @@ class KeyHandler:
         """
         # print 'on_key_up'
         self.del_keypress()
-        print '  key_pressed', self.key_pressed
+        print('  key_pressed', self.key_pressed)
 
     def del_keypress(self):
         """
@@ -831,7 +831,7 @@ class AgileStatusbar(wx.StatusBar):
         self.Update()
 
     def has_key(self, key):
-        return self._ind_fields.has_key(key)
+        return key in self._ind_fields
 
     def OnSize(self, evt):
         self.Reposition()  # for normal size events
@@ -872,7 +872,7 @@ def get_bitmap(name, size=22):
     try:
         return imgImages.catalog[name].getBitmap()
     except:
-        print 'WARNING in get_bitmap: failed to return image', name
+        print('WARNING in get_bitmap: failed to return image', name)
         return wx.NullBitmap
 
 
@@ -880,7 +880,7 @@ def get_bitmap(name, size=22):
 
 
 def GetHandData():
-    return cPickle.loads(zlib.decompress(
+    return pickle.loads(zlib.decompress(
         'x\xda\xd3\xc8)0\xe4\nV72T\x00!\x05Cu\xae\xc4`u=\x85d\x05\xa7\x9c\xc4\xe4l0O\
 \x01\xc8S\xb6t\x06A(\x1f\x0b\xa0\xa9\x8c\x9e\x1e6\x19\xa0\xa8\x1e\x88\xd4C\
 \x97\xd1\x83\xe8\x80 \x9c2zh\xa6\xc1\x11X\n\xab\x8c\x02\x8a\x0cD!\x92\x12\
@@ -895,7 +895,7 @@ def GetHandBitmap():
 
 
 def GetPlusData():
-    return cPickle.loads(zlib.decompress(
+    return pickle.loads(zlib.decompress(
         'x\xda\xd3\xc8)0\xe4\nV72T\x00!\x05Cu\xae\xc4`u=\x85d\x05\xa7\x9c\xc4\xe4l0O\
 \x01\xc8S\xb6t\x06A(\x1f\x0b RF\x0f\x08\xb0\xc9@D\xe1r\x08\x19\xb8j=l2`\r\
 \xe82HF\xe9a\xc8\xe8\xe9A\x9c@\x8a\x0c\x0e\xd3p\xbb\x00\x8f\xab\xe1>\xd5\xd3\
@@ -910,7 +910,7 @@ def GetPlusBitmap():
 
 
 def GetMinusData():
-    return cPickle.loads(zlib.decompress(
+    return pickle.loads(zlib.decompress(
         'x\xda\xd3\xc8)0\xe4\nV72T\x00!\x05Cu\xae\xc4`u=\x85d\x05\xa7\x9c\xc4\xe4l0O\
 \x01\xc8S\xb6t\x06A(\x1f\x0b RF\x0f\x08\xb0\xc9@D\xe1r\x08\x19\xb8j=\xa2e\
 \x10\x16@\x99\xc82zz\x10\'\x90"\x83\xc34r\xdc\x86\xf0\xa9\x9e\x1e\xae\xd0\

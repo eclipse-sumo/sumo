@@ -25,13 +25,13 @@ import string
 import time
 from collections import OrderedDict
 
-from wxmisc import KEYMAP, AgileMenuMixin, AgileToolbarFrameMixin, AgileStatusbar, AgileMenubar
+from .wxmisc import KEYMAP, AgileMenuMixin, AgileToolbarFrameMixin, AgileStatusbar, AgileMenubar
 
 
 from os.path import *
 from os import getcwd
 
-import objpanel
+from . import objpanel
 from agilepy.lib_base.logger import Logger
 
 # We first have to set an application-wide help provider.  Normally you
@@ -295,7 +295,7 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
         #################################################################
         self._moduleguis = make_moduleguis(appdir, moduledirs)
 
-        for modulename, modulegui in self._moduleguis.iteritems():
+        for modulename, modulegui in self._moduleguis.items():
             # print '  init gui of module',modulename
             modulegui.init_widgets(self)
         #################################################################
@@ -311,7 +311,7 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
     def refresh_moduleguis(self):
         # print 'refresh_moduleguis',len(self._moduleguis)
         self.browse_obj(None)
-        for modulename, modulegui in self._moduleguis.iteritems():
+        for modulename, modulegui in self._moduleguis.items():
             # print '  refresh gui of module',modulename
             modulegui.refresh_widgets()
 
@@ -392,12 +392,12 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
         #    event.Skip()
 
     def on_save(self, event):
-        print 'save it!!'
+        print('save it!!')
 
     def on_open(self, event):
         """Open a document"""
         #wildcards = CreateWildCards() + "All files (*.*)|*.*"
-        print 'open it!!'
+        print('open it!!')
 
     def destroy(self):
         """Destroy this object"""
@@ -408,7 +408,7 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
 
     def on_close(self, event):
         # self.Close(True)
-        print 'Mainframe.on_close'
+        print('Mainframe.on_close')
         # pass
         self.destroy()
 

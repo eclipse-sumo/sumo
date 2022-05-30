@@ -45,22 +45,22 @@ def create_zones(n_zones, x_min, x_max, y_min, y_max):
 
 # CREATE ZONES by CLUSTER OF POINTS
 
-    print 'k-value cluster'
+    print('k-value cluster')
     # k-value cluster
     # https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.vq.kmeans.html
 
     features = np.array(origin_dest_points)
-    print 'features', features
+    print('features', features)
     # Whiten data
     st_dev_x = np.std(features[:][0])
     st_dev_y = np.std(features[:][1])
-    print 'st_dev_x', st_dev_x
-    print 'st_dev_y', st_dev_y
+    print('st_dev_x', st_dev_x)
+    print('st_dev_y', st_dev_y)
 
     whitened = whiten(features)
     # Find 2 clusters in the data
     codebook, distortion = kmeans(features, n_zones)
-    print 'codebook', codebook
+    print('codebook', codebook)
 
     features[:, 0] = features[:, 0]*st_dev_x
     features[:, 1] = features[:, 1]*st_dev_y
@@ -79,8 +79,8 @@ def create_zones(n_zones, x_min, x_max, y_min, y_max):
     # myscenario.landuse.zones.clear()
     vertices = vor.vertices
     regions = vor.regions
-    print vertices
-    print regions
+    print(vertices)
+    print(regions)
     zone_name = 1
     for region in regions:
         if region != []:
@@ -88,11 +88,11 @@ def create_zones(n_zones, x_min, x_max, y_min, y_max):
             for vertice in region:
                 shape.append([vertices[vertice][0], vertices[vertice][1], 0.])
                 ids_zone = myscenario.landuse.zones.get_ids()
-                print 'n_zones =', len(ids_zone)
-                print shape
+                print('n_zones =', len(ids_zone))
+                print(shape)
             zone_name += 1
             # np.concatenate(shape).astype(None)
-            print shape
+            print(shape)
             myscenario.landuse.zones.make(zonename='zone_name', coord=np.zeros(
                 3, dtype=np.float32), shape=shape, id_landusetype=6)
     ids_zone = myscenario.landuse.zones.get_ids()

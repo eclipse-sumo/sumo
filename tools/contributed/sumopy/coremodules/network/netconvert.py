@@ -852,13 +852,13 @@ class NetConvertMixin(CmlMixin, Process):
         # print 'SumonetImporter.do',cml
         self.run_cml(cml)
         if self.status == 'success':
-            print '  Netconvert done.'
+            print('  Netconvert done.')
             if os.path.isfile(self.netfilepath):
-                print '  sumo.net.xml exists, start generation of xml files'
+                print('  sumo.net.xml exists, start generation of xml files')
                 net.import_netxml(self.netfilepath)
                 if self.is_import_ptstops:
                     if os.path.isfile(ptstopfilepath):
-                        print '  ptfilepath exists, start importing ptstops'
+                        print('  ptfilepath exists, start importing ptstops')
                         net.ptstops.import_sumostops(ptstopfilepath)
 
                 # print '  import in sumopy done.'
@@ -908,7 +908,7 @@ class TlSignalGenerator(NetConvertMixin):
         self.init_options_tls()
 
     def import_tlsxml(self,  is_remove_xmlfiles=False):
-        print 'import_tlsxml'
+        print('import_tlsxml')
         filepath = self.netfilepath
         net = self.parent
         rootname = net.get_rootfilename()
@@ -922,13 +922,13 @@ class TlSignalGenerator(NetConvertMixin):
             + ' --plain-output-prefix '+filepathlist_to_filepathstring(os.path.join(dirname, rootname))
 
         proc = subprocess.Popen(cml, shell=True)
-        print '  run_cml cml=', cml
-        print '  pid = ', proc.pid
+        print('  run_cml cml=', cml)
+        print('  pid = ', proc.pid)
         proc.wait()
         if not proc.returncode:
 
             tlsfilepath = os.path.join(dirname, rootname+'.tll.xml')
-            print '  import_sumotls', tlsfilepath
+            print('  import_sumotls', tlsfilepath)
             net.import_sumotls_to_net(tlsfilepath, is_remove_xmlfiles=is_remove_xmlfiles)
 
             return True
@@ -949,7 +949,7 @@ class TlSignalGenerator(NetConvertMixin):
             + ' --connection-files '+filepathlist_to_filepathstring(filepath_connections)\
             #+' --output-file '+filepathlist_to_filepathstring(filepath)
 
-        print '  cmlbase', cmlbase
+        print('  cmlbase', cmlbase)
         self.reset_cml(cmlbase)
 
         # apply netconvert and reimport
@@ -960,7 +960,7 @@ class TlSignalGenerator(NetConvertMixin):
         # print 'SumonetImporter.do',cml
         self.run_cml(cml)
         if self.status == 'success':
-            print '  Netconvert done.'
+            print('  Netconvert done.')
             if os.path.isfile(self.netfilepath):
                 # print '  sumo.net.xml exists, start generation of xml files'
                 # self.parent.import_netxml(self.netfilepath)

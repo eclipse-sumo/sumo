@@ -117,7 +117,7 @@ ALIGNMMENTS_LAT = ['center', 'left', 'right', 'compact', 'nice', 'arbitrary']
 
 class Electricalprofiles(am.ArrayObjman):
     def __init__(self, ident, parent, **kwargs):
-        print 'Electricalprofiles.__init__'
+        print('Electricalprofiles.__init__')
         self._init_objman(ident=ident,
                           parent=parent,
                           name='Electrical profiles',
@@ -129,7 +129,7 @@ class Electricalprofiles(am.ArrayObjman):
             self.add_profiles_default()
 
     def _init_attributes(self):
-        print 'Electricalprofiles._init_attributes'
+        print('Electricalprofiles._init_attributes')
         self.add_col(SumoIdsConf('profilename', name='Electric profile', perm='rw'))
         self.add_col(am.ArrayConf('capacities_battery', 0.8,
                                   groupnames=['parameters', 'key'],
@@ -189,7 +189,7 @@ class Electricalprofiles(am.ArrayObjman):
 
 class VehicleTypes(am.ArrayObjman):
     def __init__(self, parent, net, is_add_default=True, **kwargs):
-        print 'VehicleTypes.__init__ is_add_default', is_add_default
+        print('VehicleTypes.__init__ is_add_default', is_add_default)
         self._init_objman(ident='vtypes',
                           parent=parent,
                           name='Vehicle Types',
@@ -205,7 +205,7 @@ class VehicleTypes(am.ArrayObjman):
         self.set_version(0.3)
 
     def _init_attributes(self):
-        print 'VehicleTypes._init_attributes', len(self), self.get_ident_abs()
+        print('VehicleTypes._init_attributes', len(self), self.get_ident_abs())
         net = self.parent.get_net()
         demand = self.parent
 
@@ -530,7 +530,7 @@ class VehicleTypes(am.ArrayObjman):
                                   ))
 
         emissionclasses_xml = {}
-        for key in EMISSIONCLASSES.keys():
+        for key in list(EMISSIONCLASSES.keys()):
             emissionclasses_xml[key] = key  # yes, map onto itself, otherwise choice values are taken
 
         self.add_col(am.ArrayConf('emissionclasses', 'HBEFA3/HDV_D_EU4',
@@ -758,7 +758,7 @@ class VehicleTypes(am.ArrayObjman):
             _id = self.add_row(**row_last)
             # print '  _id',_id
         else:
-            print '  clone last'
+            print('  clone last')
             i = 1
             row_last = self.get_row(self.get_ids()[-1])
             row_last['ids_sumo'] += '_%03d' % i  # important for all indexed attrs!!
@@ -780,17 +780,17 @@ class VehicleTypes(am.ArrayObjman):
             return id_vtype
 
     def add_vtype(self, vtype, **kwargs):
-        print 'add_vtype', vtype, kwargs
+        print('add_vtype', vtype, kwargs)
         if self.ids_sumo.has_index(vtype):
             # vtype already exist
             _id = self.ids_sumo.get_id_from_index(vtype)
         else:
             _id = self.add_row(ids_sumo=vtype)
 
-        if kwargs.has_key('mode'):
+        if 'mode' in kwargs:
             id_mode = MODES.get(kwargs['mode'], 1)
             del kwargs['mode']
-        elif kwargs.has_key('id_mode'):
+        elif 'id_mode' in kwargs:
             id_mode = kwargs['id_mode']
             del kwargs['id_mode']
         else:
@@ -798,7 +798,7 @@ class VehicleTypes(am.ArrayObjman):
 
         #_id = self.add_row( ids_sumo = vtype, ids_mode = id_mode,**kwargs)
 
-        if kwargs.has_key('eprofile'):
+        if 'eprofile' in kwargs:
             eprofiles = self.eprofiles.get_value()
             eprofile = kwargs['eprofile']
             eprofiles.add_profile(eprofile, **kwargs)
@@ -861,7 +861,7 @@ class VehicleTypes(am.ArrayObjman):
         return _id
 
     def add_vtypes_default(self):
-        print 'add_vtypes_default'
+        print('add_vtypes_default')
         # self.del_rows(self.get_ids())
         self.add_vtype('pedestrian',
                        accel=1.5,
@@ -1411,7 +1411,7 @@ class VehicleTypes(am.ArrayObjman):
         """
         mode_vtypes = self.get_modes()
         mode_choice = OrderedDict()
-        for mode, id_mode in MODES.iteritems():
+        for mode, id_mode in MODES.items():
             if id_mode in mode_vtypes:
                 mode_choice[mode] = id_mode
         return mode_choice
@@ -1516,12 +1516,12 @@ class VehicleTypes(am.ArrayObjman):
         # print '  _write_xml_body: done'
 
     def export_xml(self, filepath, encoding='UTF-8'):
-        print 'export_xml to %s' % (filepath)
+        print('export_xml to %s' % (filepath))
 
         try:
             fd = open(filepath, 'w')
         except:
-            print 'WARNING in vtypes.export_xml: could not open', filepath
+            print('WARNING in vtypes.export_xml: could not open', filepath)
             return False
 
         fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
@@ -1539,7 +1539,7 @@ class VehicleTypes(am.ArrayObjman):
     #    attrconfigs_excluded.append('lanechangemodel')
 
     def import_xml(self, filepath):
-        print 'import_xml from %s' % (filepath)
+        print('import_xml from %s' % (filepath))
         reader = VtypeReader(self)
         parse(filepath, reader)
         self.normalize_shares()
@@ -1566,20 +1566,20 @@ class VtypeReader(handler.ContentHandler):
             params = {}
 
             # print 'startElement',attrs['id'],self._id_vclass_dist
-            if attrs.has_key('laneChangeModel'):
+            if 'laneChangeModel' in attrs:
                 lanechangemodel = attrs['laneChangeModel']
                 if lanechangemodel in LANECHANGEMODELS:
                     self._vtypes.lanechangemodel.set_value(lanechangemodel)
 
-            if attrs.has_key('vClass'):
+            if 'vClass' in attrs:
                 if self._id_vclass_dist is None:
                     params['ids_mode'] = self._vtypes.ids_mode.get_value_from_string(attrs['vClass'])
                 else:
                     params['ids_mode'] = self._id_vclass_dist  # set vclass to distribution id
 
             # for xmltag, xmlval in self._xmlattrmap.iteritems():
-            for xmltag in attrs.keys():
-                if self._xmlattrmap.has_key(xmltag):
+            for xmltag in list(attrs.keys()):
+                if xmltag in self._xmlattrmap:
                     attrconfig = self._xmlattrmap[xmltag]
                     params[attrconfig.attrname] = attrconfig.get_value_from_xmlattr(attrs)
 

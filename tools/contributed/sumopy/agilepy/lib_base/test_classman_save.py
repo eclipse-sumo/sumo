@@ -18,9 +18,9 @@
 
 #from classman import *
 
-from test_classman_classes import *
-from arrayman import *
-import xmlman as xm
+from .test_classman_classes import *
+from .arrayman import *
+from . import xmlman as xm
 # TODOD: create a test object with all tests
 is_all = 0
 
@@ -105,17 +105,17 @@ if 0 | is_all:
     # save/load
     save_obj(lines, 'test_lines.obj')
     del lines
-    print '\nreload'+60*'.'
+    print('\nreload'+60*'.')
     lines = load_obj('test_lines.obj')
     lines.print_attrs()
 
-    print 'direct access vertex=\n', lines.vertices.value
-    print 'direct access polygons=\n', lines.polygons.value
-    print 'id for index bb22=', lines.ids_sumo.get_id_from_index('bb22')
-    print 'ids for index bb22,cc333=', lines.ids_sumo.get_ids_from_indices(['bb22', 'cc333'])
+    print('direct access vertex=\n', lines.vertices.value)
+    print('direct access polygons=\n', lines.polygons.value)
+    print('id for index bb22=', lines.ids_sumo.get_id_from_index('bb22'))
+    print('ids for index bb22,cc333=', lines.ids_sumo.get_ids_from_indices(['bb22', 'cc333']))
     lines.del_row(2)
     lines.print_attrs()
-    print 'id for index bb22=', lines.ids_sumo.get_id_from_index('cc333')
+    print('id for index bb22=', lines.ids_sumo.get_id_from_index('cc333'))
 
 if 0 | is_all:
     class Lines(ArrayObjman):
@@ -166,19 +166,19 @@ if 0 | is_all:
     # lines.add_rows(3)
     lines.add_rows(3, vertices=vertices, polygons=polygons)
     lines.print_attrs()
-    print 'direct access vertex=\n', lines.vertices.value
-    print 'direct access polygons=\n', lines.polygons.value
+    print('direct access vertex=\n', lines.vertices.value)
+    print('direct access polygons=\n', lines.polygons.value)
 
     # save/load
     save_obj(lines, 'test_lines.obj')
     del lines
-    print '\nreload'+60*'.'
+    print('\nreload'+60*'.')
     lines = load_obj('test_lines.obj')
 
     # print
     lines.print_attrs()
-    print 'direct access vertex=\n', lines.vertices.value
-    print 'direct access polygons=\n', lines.polygons.value
+    print('direct access vertex=\n', lines.vertices.value)
+    print('direct access polygons=\n', lines.polygons.value)
 
     vertices2 = [
         [[0.0, 0.0, 0.0], [0.2, 0.0, 0.0]],  # 0
@@ -325,9 +325,9 @@ if 0 | is_all:
     demand.get_attrsman().print_attrs()
     odintervals.print_attrs()
     for id_odmodes in odintervals.get_ids():
-        print '\nMODE:'
+        print('\nMODE:')
         odintervals.odmodes[id_odmodes].print_attrs()
-        print '\nTRIPS:'
+        print('\nTRIPS:')
         for id_odtrips in odmodes.get_ids():
             odmodes.odtrips[id_odtrips].print_attrs()
 
@@ -335,16 +335,16 @@ if 0 | is_all:
     # save/load
     save_obj(demand, 'test_demand_array.obj')
     del demand
-    print '\nreload'+60*'.'
+    print('\nreload'+60*'.')
     demand = load_obj('test_demand_array.obj')
 
     # print
     demand.get_attrsman().print_attrs()
     odintervals.print_attrs()
     for id_odmodes in odintervals.get_ids():
-        print '\nMODE:'
+        print('\nMODE:')
         odintervals.odmodes[id_odmodes].print_attrs()
-        print '\nTRIPS:'
+        print('\nTRIPS:')
         for id_odtrips in odmodes.get_ids():
             odmodes.odtrips[id_odtrips].print_attrs()
 
@@ -457,25 +457,25 @@ if 0 | is_all:  # OLD BROKEN??!!
     demand.get_attrsman().print_attrs()
     odintervals.print_attrs()
     for id_odmodes in odintervals.get_ids():
-        print '\nMODE:'
+        print('\nMODE:')
         odintervals.odmodes[id_odmodes].print_attrs()
-        print '\nTRIPS:'
+        print('\nTRIPS:')
         for id_odtrips in odmodes.get_ids():
             odmodes.odtrips[id_odtrips].print_attrs()
 
     # save/load
     save_obj(demand, 'test_demand.obj')
     del demand
-    print '\nreload'+60*'.'
+    print('\nreload'+60*'.')
     demand = load_obj('test_demand.obj')
 
     # print
     demand.get_attrsman().print_attrs()
     odintervals.print_attrs()
     for id_odmodes in odintervals.get_ids():
-        print '\nMODE:'
+        print('\nMODE:')
         odintervals.odmodes[id_odmodes].print_attrs()
-        print '\nTRIPS:'
+        print('\nTRIPS:')
         for id_odtrips in odmodes.get_ids():
             odmodes.odtrips[id_odtrips].print_attrs()
 
@@ -534,7 +534,7 @@ if 0 | is_all:  # OK
     net.nodes.print_attrs()
     save_obj(net, 'test_net.obj')
     del net
-    print '\nreload'+60*'.'
+    print('\nreload'+60*'.')
     net_new = load_obj('test_net.obj')
     net_new.get_attrsman().print_attrs()
     net_new.edges.print_attrs()
@@ -564,23 +564,23 @@ if 0 | is_all:
                   streetname=['a', 'bb', 'ccc', 'dddd'],
                   )
 
-    print 'direct access: tab1.surname.value', tab1.surname.value
-    print 'direct access: tab1.streetname.value', tab1.streetname.value
+    print('direct access: tab1.surname.value', tab1.surname.value)
+    print('direct access: tab1.streetname.value', tab1.streetname.value)
     tab1.print_attrs()
 
     save_obj(tab1, 'test_tab.obj')
     del tab1
-    print '\nreload'+60*'.'
+    print('\nreload'+60*'.')
     tab1_new = load_obj('test_tab.obj')
     tab1_new.print_attrs()
-    print 'direct access: tab1_new.surname.value', tab1_new.surname.value
-    print 'direct access: tab1_new.streetname.value', tab1_new.streetname.value
+    print('direct access: tab1_new.surname.value', tab1_new.surname.value)
+    print('direct access: tab1_new.streetname.value', tab1_new.streetname.value)
 if 0 | is_all:
     tab1 = TableObjman('tab1')
-    print '\ntab1.ident', tab1.ident
+    print('\ntab1.ident', tab1.ident)
 
     tab2 = TableObjman('tab2', parent=tab1)
-    print '\ntab2.ident', tab2.ident
+    print('\ntab2.ident', tab2.ident)
 
     # TODO: seperate attrname from linked obj ident because restrictive and makes problems with multiple tab destinations
     # this should be possible ...following the path of attrnames of absident
@@ -620,24 +620,24 @@ if 0 | is_all:
 
     save_obj(tab1, 'test_tab.obj')
     del tab1
-    print '\nreload'+60*'.'
+    print('\nreload'+60*'.')
     tab1_new = load_obj('test_tab.obj')
 
     tab1_new.print_attrs()
     tab2_new = tab1_new.tab2.get_valueobj()
     tab2_new.print_attrs()
-    print tab2_new.get_ident_abs()
+    print(tab2_new.get_ident_abs())
 
 
 if False | is_all:  # False:#True:
     obj = TestTabman()
 
-    print 'obj.ident', obj.ident
+    print('obj.ident', obj.ident)
 
     obj.attrsman.print_attrs()
     save_obj(obj, 'test_obj.obj')
     del obj
-    print '\nreload'+60*'.'
+    print('\nreload'+60*'.')
     obj_new = load_obj('test_obj.obj')
     obj_new.attrsman.print_attrs()
     # streetname
@@ -648,7 +648,7 @@ if False | is_all:  # False:#True:
 if 0 | is_all:  # False:#True:  ###!!!!!!!!!!!!!!!!check this : failed to reload!!
     obj = TestTableObjMan()
 
-    print 'obj.ident', obj.ident
+    print('obj.ident', obj.ident)
 
     obj.x.set(1.0/3)
     # obj.is_pos_ok.set(True)
@@ -656,7 +656,7 @@ if 0 | is_all:  # False:#True:  ###!!!!!!!!!!!!!!!!check this : failed to reload
     obj.print_attrs()
     save_obj(obj, 'test_obj.obj')
     del obj
-    print '\nreload'+60*'.'
+    print('\nreload'+60*'.')
     obj_new = load_obj('test_obj.obj')
     obj_new.x.set(2.0/3)
     obj_new.print_attrs()
@@ -667,12 +667,12 @@ if 0 | is_all:  # False:#True:  ###!!!!!!!!!!!!!!!!check this : failed to reload
     #
 
 if 0 | is_all:
-    print 'TestTableObjMan export'
+    print('TestTableObjMan export')
     obj = TestTableObjMan()
     obj.get_attrsman().print_attrs()
     xm.write_obj_to_xml(obj, 'test_obj.xml')
     del obj
-    print '\nreload'+60*'.'
+    print('\nreload'+60*'.')
     obj_new = load_obj('test_obj.obj')
     obj_new.get_attrsman().print_attrs()
     # sys.exit()
@@ -689,7 +689,7 @@ if 0 | is_all:
     save_obj(obj2, 'test_obj2.obj')
     xm.write_obj_to_xml(obj2, 'test_obj2.xml')
     del obj2
-    print '\nreload'+60*'.'
+    print('\nreload'+60*'.')
     obj2_new = load_obj('test_obj2.obj')
     obj2_new.get_attrsman().print_attrs()
 
@@ -699,9 +699,9 @@ if 0 | is_all:
 
 if 0 | is_all:  # False:#True:
     obj = TestClass()
-    print 'obj.ident', obj.ident
+    print('obj.ident', obj.ident)
 
-    print 'This is the value of the attribute: obj.x=', obj.x
+    print('This is the value of the attribute: obj.x=', obj.x)
     # print 'This is the configuration instance of the attribute x',obj.attrsman.x
     obj.get_attrsman().print_attrs()
     # obj.get_attrsman().x.plugin.add_event(EVTSET,on_event_setattr)
@@ -712,16 +712,16 @@ if 0 | is_all:  # False:#True:
     # print 'Test func...',obj.attrsman.testfunc.get()
     # obj.get_attrsman().testfunc.add_event(EVTGET,on_event_getattr)
     # obj.get_attrsman().testfunc.get()
-    print 'obj.get_attrsman().x.get()', obj.get_attrsman().x.get(), 'is_modified', obj.is_modified()
+    print('obj.get_attrsman().x.get()', obj.get_attrsman().x.get(), 'is_modified', obj.is_modified())
     obj.get_attrsman().x.set(1.0)
-    print 'obj.get_attrsman().x.get()', obj.get_attrsman().x.get(), 'is_modified', obj.is_modified()
+    print('obj.get_attrsman().x.get()', obj.get_attrsman().x.get(), 'is_modified', obj.is_modified())
 
     # obj.attrsman.delete('x')
     obj.get_attrsman().print_attrs()
     save_obj(obj, 'test_obj.obj')
     xm.write_obj_to_xml(obj, 'test_obj.xml')
     del obj
-    print '\nreload'+60*'.'
+    print('\nreload'+60*'.')
     obj_new = load_obj('test_obj.obj')
     obj_new.get_attrsman().print_attrs()
     # print 'obj.get_attrsman().x.get_formatted()=',obj.get_attrsman().x.get_formatted()
@@ -729,12 +729,12 @@ if 0 | is_all:  # False:#True:
 
 if 1 | is_all:
     save_obj(drawing, 'test_drawing.obj')
-    print '\nreload'+60*'.'
+    print('\nreload'+60*'.')
     obj_new = load_obj('test_drawing.obj')
     obj_new.get_attrsman().print_attrs()
 
     obj_new.collections.print_attrs()
 
     tab_check, ids_check = obj_new.collections.tab_id_lists[1][1]
-    print '  check tab, ids=', tab_check, ids_check
+    print('  check tab, ids=', tab_check, ids_check)
     tab_check.print_attrs()

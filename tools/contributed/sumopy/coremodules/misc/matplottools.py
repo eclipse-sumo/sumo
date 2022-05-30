@@ -38,7 +38,7 @@ if 0:  # change backend...makes problems with plt
     gui_env = ['WXAgg', 'GTKAgg', 'Qt4Agg', 'TKAgg', ]
     for gui in gui_env:
         try:
-            print "Try Matplotlib backend:", gui
+            print("Try Matplotlib backend:", gui)
             mpl.use(gui, warn=False, force=True)
             from mpl.patches import Arrow, Circle, Wedge, Polygon, FancyArrow
             from mpl.mpl import PatchCollection
@@ -51,13 +51,13 @@ if 0:  # change backend...makes problems with plt
             break
         except:
             continue
-    print "Using Matplotlib backend", mpl.get_backend()
+    print("Using Matplotlib backend", mpl.get_backend())
 
 
 try:
     import wx
 except:
-    print 'WARNING: no wxwindows support'
+    print('WARNING: no wxwindows support')
 
 
 COLORS = ['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c',
@@ -282,7 +282,7 @@ def plot_zone(ax, zone_shape, color_zone="gray",
         is_fill = True
 
     shape = (np.array(zone_shape)[:, :2]*mapscale).tolist()
-    print shape
+    print(shape)
     ax.add_patch(Polygon(shape,
                          linewidth=width_line,
                          edgecolor=color_outline,
@@ -485,7 +485,7 @@ def plot_edgevalues_arrows(ax, ids_result=None, config_ids_edge=None, values=[],
                            mapscale=1.0):
 
     # ATTENTION: do not change order of args for backwards compatibility
-    print 'plot_edgevalues_arrows ids_result width_max', width_max
+    print('plot_edgevalues_arrows ids_result width_max', width_max)
     # print '  ids_result',ids_result
     # print '  ids_edge',ids_edge
     if ids_edge is None:
@@ -574,7 +574,7 @@ def plot_connectionvalues_arrows(ax, ids_result=None, config_ids_edge=None, valu
                                  mapscale=1.0):
 
     # ATTENTION: do not change order of args for backwards compatibility
-    print 'plot_connectionvalues_arrows ids_result'
+    print('plot_connectionvalues_arrows ids_result')
 
     head_width = headwidthstretch*width_max
     fontsize_ticks = int(0.8*fontsize)
@@ -664,7 +664,7 @@ def plot_nodevalues(ax, ids_result=None, config_ids_edge=None, values=[],
                     mapscale=1.0):
 
     # ATTENTION: do not change order of args for backwards compatibility
-    print 'plot_nodevalues ids_result'
+    print('plot_nodevalues ids_result')
     fontsize_ticks = int(0.8*fontsize)
 
     patches = []
@@ -717,7 +717,7 @@ def plot_pointvalues(ax, x_coords, y_coords,  values,
                      ):
 
     # ATTENTION: do not change order of args for backwards compatibility
-    print 'plot_pointvalues ids_result'
+    print('plot_pointvalues ids_result')
     fontsize_ticks = int(0.8*fontsize)
 ##    i = 0
     patches = []
@@ -776,7 +776,7 @@ def get_resultshape_connections(net, id_connection, dispacement):
     """
     Return resultshape coords for this edge.
     """
-    print 'get_resultshape', 'connections', 'id_connection', id_connection, 'dispacement', dispacement
+    print('get_resultshape', 'connections', 'id_connection', id_connection, 'dispacement', dispacement)
     x0 = net.edges.shapes[net.lanes.ids_edge[net.connections.ids_fromlane[id_connection]]][-1, 0]
     y0 = net.edges.shapes[net.lanes.ids_edge[net.connections.ids_fromlane[id_connection]]][-1, 1]
     x1 = net.edges.shapes[net.lanes.ids_edge[net.connections.ids_tolane[id_connection]]][0, 0]
@@ -785,7 +785,7 @@ def get_resultshape_connections(net, id_connection, dispacement):
         shape = np.array([[x0, y0, 0.], [x1, y1, 0.]])
     else:
         shape = np.array([[x0, y0, 0.], [x1 + 1., y1 + 1., 0.]])
-        print 'connection', id_connection, 'has no shape'
+        print('connection', id_connection, 'has no shape')
     n_vert = len(shape)
     resultshape = np.zeros(shape.shape, np.float32)
     #laneshapes = np.zeros((n_lanes,n_vert,3), np.float32)
@@ -1231,7 +1231,7 @@ class PlotoptionsMixin:
 
         rootfilepath = self.get_scenario().get_rootfilepath()
         filepath = "%s_%s.%s" % (rootfilepath, figname, self.figformat)
-        print 'save_fig', filepath
+        print('save_fig', filepath)
         plt.savefig(filepath, format=self.figformat,
                     dpi=self.resolution,
                     # orientation='landscape',
@@ -1473,7 +1473,7 @@ class PlotoptionsMixin:
         # axis.set_ylim([y_min,y_max])
 
     def plot_net(self, axis=None, title="", unit='', mapscale=None, is_configure=True):
-        print 'plot_net mapscale', mapscale
+        print('plot_net mapscale', mapscale)
         if mapscale is None:
             unit = self.unit_mapscale
             mapscale = self.get_attrsman().get_config('unit_mapscale').mapscales[unit]

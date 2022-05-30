@@ -489,19 +489,19 @@ class TripReader(handler.ContentHandler):
             self.ids_vtype[self._ind_trip] = self._get_id_vtype(attrs)
             self.times_depart[self._ind_trip] = int(float(attrs['depart']))
 
-            if attrs.has_key('from'):
+            if 'from' in attrs:
                 self.ids_edge_depart[self._ind_trip] = self._ids_edge_sumo.get_id_from_index(str(attrs['from']))
-            if attrs.has_key('to'):
+            if 'to' in attrs:
                 self.ids_edge_arrival[self._ind_trip] = self._ids_edge_sumo.get_id_from_index(str(attrs['to']))
 
             ind_lane_depart_raw = attrs.get('departLane', 'free')
-            if OPTIONMAP_LANE_DEPART.has_key(ind_lane_depart_raw):
+            if ind_lane_depart_raw in OPTIONMAP_LANE_DEPART:
                 self.inds_lane_depart[self._ind_trip] = OPTIONMAP_LANE_DEPART[ind_lane_depart_raw]
             else:
                 self.inds_lane_depart[self._ind_trip] = int(ind_lane_depart_raw)
 
             positions_depart_raw = attrs.get('departPos', 'base')
-            if OPTIONMAP_POS_DEPARTURE.has_key(positions_depart_raw):
+            if positions_depart_raw in OPTIONMAP_POS_DEPARTURE:
                 self.positions_depart[self._ind_trip] = OPTIONMAP_POS_DEPARTURE[positions_depart_raw]
             else:
                 self.positions_depart[self._ind_trip] = float(positions_depart_raw)
@@ -509,13 +509,13 @@ class TripReader(handler.ContentHandler):
             self.speeds_depart[self._ind_trip] = attrs.get('departSpeed', 0.0)
 
             ind_lane_arrival_raw = attrs.get('arrivalLane', 'current')
-            if OPTIONMAP_LANE_ARRIVAL.has_key(ind_lane_arrival_raw):
+            if ind_lane_arrival_raw in OPTIONMAP_LANE_ARRIVAL:
                 self.inds_lane_arrival[self._ind_trip] = OPTIONMAP_LANE_ARRIVAL[ind_lane_arrival_raw]
             else:
                 self.inds_lane_arrival[self._ind_trip] = int(ind_lane_arrival_raw)
 
             positions_arrival_raw = attrs.get('arrivalPos', 'max')
-            if OPTIONMAP_POS_ARRIVAL.has_key(positions_arrival_raw):
+            if positions_arrival_raw in OPTIONMAP_POS_ARRIVAL:
                 self.positions_arrival[self._ind_trip] = OPTIONMAP_POS_ARRIVAL[positions_arrival_raw]
             else:
                 self.positions_arrival[self._ind_trip] = float(positions_arrival_raw)
@@ -626,50 +626,50 @@ class RouteReader(TripReader):
             self.ids_vtype[self._ind_trip] = self.ids_vtype[self._ind_trip] = self._get_id_vtype(attrs)
 
             self.times_depart[self._ind_trip] = int(float(attrs['depart']))
-            if attrs.has_key('arrival'):
+            if 'arrival' in attrs:
                 self.times_arrival[self._ind_trip] = int(float(attrs['arrival']))
             else:
                 # duarouter is not calculating arrival time in results!
                 self.times_arrival[self._ind_trip] = 0.0
 
             self.type[self._ind_trip] = attrs['type']
-            if attrs.has_key('from'):
+            if 'from' in attrs:
                 self.ids_edge_depart[self._ind_trip] = self._ids_edge_sumo.get_id_from_index(str(attrs['from']))
-            if attrs.has_key('to'):
+            if 'to' in attrs:
                 self.ids_edge_arrival[self._ind_trip] = self._ids_edge_sumo.get_id_from_index(str(attrs['to']))
 
             ind_lane_depart_raw = attrs.get('departLane', 'free')
-            if OPTIONMAP_LANE_DEPART.has_key(ind_lane_depart_raw):
+            if ind_lane_depart_raw in OPTIONMAP_LANE_DEPART:
                 self.inds_lane_depart[self._ind_trip] = OPTIONMAP_LANE_DEPART[ind_lane_depart_raw]
             else:
                 self.inds_lane_depart[self._ind_trip] = int(ind_lane_depart_raw)
 
             positions_depart_raw = attrs.get('departPos', 'base')
-            if OPTIONMAP_POS_DEPARTURE.has_key(positions_depart_raw):
+            if positions_depart_raw in OPTIONMAP_POS_DEPARTURE:
                 self.positions_depart[self._ind_trip] = OPTIONMAP_POS_DEPARTURE[positions_depart_raw]
             else:
                 self.positions_depart[self._ind_trip] = float(positions_depart_raw)
 
             speed_depart_raw = attrs.get('departSpeed', 'max')
-            if OPTIONMAP_SPEED_DEPARTURE.has_key(speed_depart_raw):
+            if speed_depart_raw in OPTIONMAP_SPEED_DEPARTURE:
                 self.speeds_depart[self._ind_trip] = OPTIONMAP_SPEED_DEPARTURE[speed_depart_raw]
             else:
                 self.speeds_depart[self._ind_trip] = float(speed_depart_raw)
 
             ind_lane_arrival_raw = attrs.get('arrivalLane', 'current')
-            if OPTIONMAP_LANE_ARRIVAL.has_key(ind_lane_arrival_raw):
+            if ind_lane_arrival_raw in OPTIONMAP_LANE_ARRIVAL:
                 self.inds_lane_arrival[self._ind_trip] = OPTIONMAP_LANE_ARRIVAL[ind_lane_arrival_raw]
             else:
                 self.inds_lane_arrival[self._ind_trip] = int(ind_lane_arrival_raw)
 
             positions_arrival_raw = attrs.get('arrivalPos', 'max')
-            if OPTIONMAP_POS_ARRIVAL.has_key(positions_arrival_raw):
+            if positions_arrival_raw in OPTIONMAP_POS_ARRIVAL:
                 self.positions_arrival[self._ind_trip] = OPTIONMAP_POS_ARRIVAL[positions_arrival_raw]
             else:
                 self.positions_arrival[self._ind_trip] = float(positions_arrival_raw)
 
             speed_arrival_raw = attrs.get('arrivalSpeed', 'current')
-            if OPTIONMAP_SPEED_ARRIVAL.has_key(speed_arrival_raw):
+            if speed_arrival_raw in OPTIONMAP_SPEED_ARRIVAL:
                 self.speeds_arrival[self._ind_trip] = OPTIONMAP_SPEED_ARRIVAL[speed_arrival_raw]
             else:
                 self.speeds_arrival[self._ind_trip] = float(speed_arrival_raw)
@@ -735,7 +735,7 @@ class RouteReader(TripReader):
                 }
 
     def insert_routes(self, is_generate_ids=True, is_add=False, is_overwrite_only=False):
-        print 'TripReader.make_routes is_generate_ids', is_generate_ids, 'is_add', is_add, 'is_overwrite_only', is_overwrite_only
+        print('TripReader.make_routes is_generate_ids', is_generate_ids, 'is_add', is_add, 'is_overwrite_only', is_overwrite_only)
 
         # self._trips is scenario trip database
         # self.ids_sumo is a list of SUMO IDs read from xml file

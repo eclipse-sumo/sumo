@@ -25,8 +25,8 @@ import tempfile
 from agilepy.lib_wx.modulegui import ModuleGui
 from agilepy.lib_wx.ogleditor import *
 from agilepy.lib_wx.processdialog import ProcessDialog, ProcessDialogInteractive
-import landuse
-import maps
+from . import landuse
+from . import maps
 
 from coremodules.misc import shapeformat
 
@@ -170,7 +170,7 @@ class ZoneDrawings(Polygons):
                                 id_landusetype=id_landusetype)
 
     def on_add_element(self, shapes, ids):
-        print 'on_add_element', shapes.attrname, ids
+        print('on_add_element', shapes.attrname, ids)
         if shapes == self._zones.shapes:
             self._id_target = ids[0]
             self.add_row(_id=self._id_target,
@@ -1112,7 +1112,7 @@ class WxGui(ModuleGui):
 
     def close_process_facilities(self, dlg):
         # called before destroying the process dialog
-        print 'close_process_facilities', self.proc.status
+        print('close_process_facilities', self.proc.status)
         if self.proc.status == 'success':
             self._mainframe.browse_obj(self._landuse.facilities)
             self._is_needs_refresh = True

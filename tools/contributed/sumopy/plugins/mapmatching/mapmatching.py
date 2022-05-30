@@ -71,12 +71,12 @@ try:
         from shapely.geometry import Polygon, MultiPolygon, MultiLineString, Point, LineString, MultiPoint, asLineString, asMultiPoint
         from shapely.ops import cascaded_union
     except:
-        print 'Import error: No shapely module available.'
+        print('Import error: No shapely module available.')
 except:
-    print 'Import error: in order to run the traces plugin please install the following modules:'
-    print '   mpl_toolkits.basemap and shapely'
-    print 'Please install these modules if you want to use it.'
-    print __doc__
+    print('Import error: in order to run the traces plugin please install the following modules:')
+    print('   mpl_toolkits.basemap and shapely')
+    print('Please install these modules if you want to use it.')
+    print(__doc__)
     raise
 
 AGES_STRAVA = {'unknown':0,
@@ -409,7 +409,7 @@ def get_boundary(coords):
        
 class OdCreator(Process):
     def __init__(self, ident, mapmatching, logger = None, **kwargs):
-        print 'VpCreator.__init__'
+        print('VpCreator.__init__')
         self._init_common(  ident, 
                             parent = mapmatching,
                             name = 'Od routes creator from GPS trips', 
@@ -484,7 +484,7 @@ class OdCreator(Process):
                                      info='transport mode of the flow.',
                                      ))   
     def do(self):
-        print 'OdCreator.__do__'
+        print('OdCreator.__do__')
         #Preparation
         logger = self.get_logger()
         scenario = self.get_scenario()
@@ -519,7 +519,7 @@ class OdCreator(Process):
                    to_zone[id_trip] = id_zone
                    analyzedtrips += 0.5 
                    break      
-            print analyzedtrips
+            print(analyzedtrips)
         i = 0
         j= 0
         for id_zonei in ids_zone:
@@ -532,7 +532,7 @@ class OdCreator(Process):
             j = 0
 
         n_trip = np.sum(od_matrix) 
-        print ' number of trips', n_trip
+        print(' number of trips', n_trip)
         generated = np.zeros(len(od_matrix[0,:]))
         attracted  = np.zeros(len(od_matrix[:,0]))
         
@@ -563,8 +563,8 @@ class OdCreator(Process):
             
            
         re_allocates = generated - attracted
-        print 'generated',generated, 'attracted',attracted, 're_allocates', re_allocates
-        print 'od_matrix',od_matrix
+        print('generated',generated, 'attracted',attracted, 're_allocates', re_allocates)
+        print('od_matrix',od_matrix)
         np.savetxt('od_matrix.csv', od_matrix)
 
         return od_matrix, generated, attracted, re_allocates                     
@@ -577,7 +577,7 @@ class OdCreator(Process):
                        
 class OdRouteCreator(Process):
     def __init__(self, ident, mapmatching, logger = None, **kwargs):
-        print 'OdRouteCreator.__init__'
+        print('OdRouteCreator.__init__')
         self._init_common(  ident, 
                             parent = mapmatching,
                             name = 'Od routes creator from GPS trips', 
@@ -589,7 +589,7 @@ class OdRouteCreator(Process):
 
   
     def do(self):
-        print 'OdRouteCreator.__do__'
+        print('OdRouteCreator.__do__')
         #Preparation
         logger = self.get_logger()
         scenario = self.get_scenario()
@@ -603,7 +603,7 @@ class OdRouteCreator(Process):
         ids_trip = trips.get_ids()
         ids_trip = ids_trip[trips.are_selected[ids_trip] & np.logical_not(np.equal(trips.ids_points[ids_trip],None))]
         n_trips = len(ids_trip)
-        print '  len(ids_trip)',n_trips
+        print('  len(ids_trip)',n_trips)
 
         trips_demand.clear_trips()
         trips_demand.clear_routes()
@@ -643,7 +643,7 @@ class OdRouteCreator(Process):
                                                              
 class VpCreator(Process):
     def __init__(self, ident='vpcreator', mapmatching=None, logger = None, **kwargs):
-        print 'VpCreator.__init__'
+        print('VpCreator.__init__')
         self._init_common(  ident, 
                             parent = mapmatching,
                             name = 'VP creator from GPS trips', 
@@ -795,7 +795,7 @@ class VpCreator(Process):
         
                                                            
     def do(self):
-        print 'VpCreator.__do__'
+        print('VpCreator.__do__')
         #Preparation
         logger = self.get_logger()
         scenario = self.get_scenario()
@@ -831,8 +831,8 @@ class VpCreator(Process):
 
         persons = scenario.demand.mapmatching.persons
         persons.analyze()
-        print 'id_strategy =',self.id_strategy
-        print 'is_first_method =',self.is_first_method
+        print('id_strategy =',self.id_strategy)
+        print('is_first_method =',self.is_first_method)
         #select strategy
         if self.is_first_method == True:
             if self.id_strategy == -1:
@@ -843,7 +843,7 @@ class VpCreator(Process):
                 ids_trip = ids_trip_bike
                 ids_trip = np.append(ids_trip,ids_trip_bus)
                 ids_trip = np.append(ids_trip,ids_trip_ped)
-                print 'ids_trip =',ids_trip
+                print('ids_trip =',ids_trip)
                 # ids_trip = ids_trip_bike + ids_trip_ped + ids_trip_bus
             if self.id_strategy == strategies.get_id_from_formatted('walk'):
                 ids_trip_ped = ids_trip[(ids_mode == modes.get_id_from_formatted('pedestrian'))]
@@ -912,9 +912,9 @@ class VpCreator(Process):
                                 
                 if self.is_first_method == True:
                     n_pers = int(n_pers*(float(self.scale - count))) #scale parameter based on people number
-                    print 'new n_pers = ',n_pers
+                    print('new n_pers = ',n_pers)
                     
-                    print 'old ids_trip = ',ids_trip
+                    print('old ids_trip = ',ids_trip)
                     
                     if self.id_strategy == -1:
                         ids_trip = np.array([],dtype = np.int32)
@@ -947,14 +947,14 @@ class VpCreator(Process):
                     #ids_trip = np.random.choice(ids_trip, n_pers, replace = False)
                     #ids_trip.sort()
                     
-                    print 'new ids_trip = ',ids_trip
+                    print('new ids_trip = ',ids_trip)
                     
                     
                 elif self.is_first_method == False:
                     n_trips_tab = int(n_trips_for_scale*(float(self.scale - count))) # scale parameter based on trips number
-                    print 'new n_pers = ',n_pers
+                    print('new n_pers = ',n_pers)
                     
-                    print 'old ids_pers = ',ids_pers
+                    print('old ids_pers = ',ids_pers)
                     
                     if self.id_strategy == -1:
                         
@@ -1003,13 +1003,13 @@ class VpCreator(Process):
                     #ids_pers = np.random.choice(ids_pers, n_pers, replace = False)
                     #ids_pers.sort()
                     
-                    print 'new ids_pers = ',ids_pers
+                    print('new ids_pers = ',ids_pers)
             elif count == max(range(int(self.scale + 1.0))) and difference == 0.0:
                 break
                     
             if self.is_first_method == True:
                 #create virtual person
-                print 'create virtal person'
+                print('create virtal person')
                 ids_person = virtualpop.make_multiple(n_pers)
                 
       ##        localtime = time.localtime
@@ -1024,7 +1024,7 @@ class VpCreator(Process):
 ##                seconds_arrive = np.zeros(n_pers, dtype = np.float32)
 ##                duration_for_scale = np.zeros(n_pers, dtype = np.float32)
 
-                for id_trip, id_person, i  in zip(ids_trip, ids_person, range(len(ids_trip))):
+                for id_trip, id_person, i  in zip(ids_trip, ids_person, list(range(len(ids_trip)))):
                     #Population attributes
                     virtualpop.ids_mode_preferred[id_person] = scenario.demand.vtypes.ids_mode[trips.ids_vtype[id_trip]]  
                     virtualpop.years_birth[id_person] = persons.years_birth[trips.ids_person[id_trip]]
@@ -1052,9 +1052,9 @@ class VpCreator(Process):
 
             elif self.is_first_method == False:
                 #create virtual person
-                print 'create virtal person'
+                print('create virtal person')
                 ids_vppers = virtualpop.make_multiple(n_pers)
-                print 'ids_vppers',ids_vppers
+                print('ids_vppers',ids_vppers)
                 pers_vppers = np.zeros(np.max(ids_pers)+1, dtype = np.int32)
         ##        pers_vppers = []
                 for pers, vppers in zip(ids_pers, ids_vppers):
@@ -1064,7 +1064,7 @@ class VpCreator(Process):
                 
                 for id_pers, id_vppers, ids_trip  in zip(ids_pers, ids_vppers, ids_trips):
                     #Population attributes
-                    print 'Add population attributes'
+                    print('Add population attributes')
                     ids_mode = scenario.demand.vtypes.ids_mode[trips.ids_vtype[ids_trip]]
                     id_preferred_mode = np.argmax(np.bincount(ids_mode))
                     virtualpop.ids_mode_preferred[id_vppers] = id_preferred_mode 
@@ -1074,7 +1074,7 @@ class VpCreator(Process):
                     virtualpop.identifications[id_vppers] = persons.ids_sumo[id_pers] 
                 
             #Calculate trips departure and arrive times
-            print 'Calculate trips departure and arrive times'
+            print('Calculate trips departure and arrive times')
 
             if self.id_strategy == strategies.get_id_from_formatted('bike') or self.id_strategy == -1:            
                 seconds_departure_bike = np.zeros(len(ids_trip_bike), dtype = np.float32)
@@ -1104,13 +1104,13 @@ class VpCreator(Process):
                         seconds_arrive_bike[i] = seconds_departure_bike[i] + duration_for_scale_bike[i]
 
                     i+=1
-                print '  min_seconds_departure_bike: ',min_seconds_departure_bike
-                print '  max_seconds_arrive_bike: ',max_seconds_departure_bike
-                print
-                print '  ids_trip_bike: ',ids_trip_bike
-                print
-                print '  seconds_departure_bike: ', seconds_departure_bike
-                print
+                print('  min_seconds_departure_bike: ',min_seconds_departure_bike)
+                print('  max_seconds_arrive_bike: ',max_seconds_departure_bike)
+                print()
+                print('  ids_trip_bike: ',ids_trip_bike)
+                print()
+                print('  seconds_departure_bike: ', seconds_departure_bike)
+                print()
                 
 
             if self.id_strategy == strategies.get_id_from_formatted('transit') or self.id_strategy == -1:   
@@ -1144,7 +1144,7 @@ class VpCreator(Process):
 
                     i+=1
 
-                print seconds_departure_bus, seconds_arrive_bus
+                print(seconds_departure_bus, seconds_arrive_bus)
             
             if self.id_strategy == strategies.get_id_from_formatted('walk') or self.id_strategy == -1:   
                 seconds_departure_ped = np.zeros(len(ids_trip_ped), dtype = np.float32)
@@ -1177,7 +1177,7 @@ class VpCreator(Process):
                     i+=1
 
 
-                print seconds_departure_ped, seconds_arrive_ped
+                print(seconds_departure_ped, seconds_arrive_ped)
 
 
             # call Vehicle provider to give vehicles to persons
@@ -1211,10 +1211,10 @@ class VpCreator(Process):
             fstar = net.edges.get_fstar()
             
             #Preapare parameters for stages
-            print 'Preapare parameters for stages'
+            print('Preapare parameters for stages')
             
             #bus
-            print 'Preapare parameters for BUS plans'
+            print('Preapare parameters for BUS plans')
             if self.id_strategy == strategies.get_id_from_formatted('transit') or self.id_strategy == -1:
                 times_from_bus = seconds_departure_bus
                 durations_approx_bus = seconds_arrive_bus - seconds_departure_bus 
@@ -1261,13 +1261,13 @@ class VpCreator(Process):
                     
         ##        ids_route = trips.ids_route_matched[ids_trip]
                 #Identify closest edge for facilities
-                print 'Identify closest edge for facilities from'
+                print('Identify closest edge for facilities from')
                 facilities.identify_closest_edge(ids = ids_fac_from_bus, priority_max = 7, has_sidewalk = True)
-                print 'Identify closest edge for facilities to'
+                print('Identify closest edge for facilities to')
                 facilities.identify_closest_edge(ids = ids_fac_to_bus, priority_max = 7, has_sidewalk = True)
             
             #bike
-            print 'Preapare parameters for BIKE plans'
+            print('Preapare parameters for BIKE plans')
             
             if self.id_strategy == strategies.get_id_from_formatted('bike') or self.id_strategy == -1:
                 times_from_bike = seconds_departure_bike
@@ -1325,16 +1325,16 @@ class VpCreator(Process):
                     ids_fac_to_bike[i] = int(distance_fac_list_to[0,1])
                     i+=1
 
-                print 'ids_only_bike_trip', ids_only_bike_trip
+                print('ids_only_bike_trip', ids_only_bike_trip)
                 ##        ids_route = trips.ids_route_matched[ids_trip]
                 #Identify closest edge for facilities
-                print 'Identify closest edge for facilities from'
+                print('Identify closest edge for facilities from')
                 facilities.identify_closest_edge(ids = ids_fac_from_bike, priority_max = 7, has_sidewalk = True)
-                print 'Identify closest edge for facilities to'
+                print('Identify closest edge for facilities to')
                 facilities.identify_closest_edge(ids = ids_fac_to_bike, priority_max = 7, has_sidewalk = True)
     
             #pedestrian
-            print 'Preapare parameters for PEDESTRIAN plans'
+            print('Preapare parameters for PEDESTRIAN plans')
             
             if self.id_strategy == strategies.get_id_from_formatted('walk') or self.id_strategy == -1:
                 times_from_ped = seconds_departure_ped
@@ -1374,7 +1374,7 @@ class VpCreator(Process):
                 available_strategies.append(strategies.get_id_from_formatted('transit'))  
                 
             for strategy in available_strategies:
-                print 'init strategy', strategy
+                print('init strategy', strategy)
     
                 
                 if strategy == strategies.get_id_from_formatted('bike'):
@@ -1404,7 +1404,7 @@ class VpCreator(Process):
                                     
                 
                 #walk1
-                print 'Prepare parameters for Walk1'
+                print('Prepare parameters for Walk1')
     
                 ids_edge_from_walk1 =  facilities.ids_roadedge_closest[ids_fac_from]
                 positions_edge_from_walk1 = facilities.positions_roadedge_closest[ids_fac_from]
@@ -1424,7 +1424,7 @@ class VpCreator(Process):
                     ids_edge_to_walk1 = facilities.ids_roadedge_closest[ids_fac_to]
                 if strategy == strategies.get_id_from_formatted('transit') or strategy == strategies.get_id_from_formatted('bike'):
                     #walk2
-                    print 'Prepare parameters for Walk2'
+                    print('Prepare parameters for Walk2')
         
                     times_from_walk2 = seconds_arrive +1.-1.
             
@@ -1437,9 +1437,9 @@ class VpCreator(Process):
                         ids_edge_from_walk2 = ids_edge_to_busstop
                         positions_edge_from_walk2 = positions_edge_to_busstop
                 
-                print seconds_arrive  
+                print(seconds_arrive)  
                 #act1 
-                print 'Prepare parameters for Act1'
+                print('Prepare parameters for Act1')
                 
                 unitvec_int_act = np.ones(n_trips)
                 ids_edge_from_act1 = facilities.ids_roadedge_closest[ids_fac_from]
@@ -1449,7 +1449,7 @@ class VpCreator(Process):
                 times_from_act1 = seconds_departure-3600.0
              
                 #act2
-                print 'Prepare parameters for Act2'
+                print('Prepare parameters for Act2')
                 
                 ids_edge_to_act2 = facilities.ids_roadedge_closest[ids_fac_to]
                 positions_edge_to = facilities.positions_roadedge_closest[ids_fac_to]                  
@@ -1458,7 +1458,7 @@ class VpCreator(Process):
                 durations_act_to = np.ones(n_trips)*3600.0               
                         
             #Add activities 
-            print 'Add activities '
+            print('Add activities ')
     ##        ids_fac_from = ids_facilities[ids_fac_from]
     ##        ids_fac_to = ids_facilities[ids_fac_to]
             
@@ -1485,7 +1485,7 @@ class VpCreator(Process):
                     virtualpop.activitypatterns[id_person] = [id_activity_from,id_activity_to, ]
 
                 #Create plans
-                print 'Create plans'
+                print('Create plans')
                 ids_plan = virtualpop.add_plans(ids_person, strategy)
 
             # QUESTO METODO POTREBBE ESSERE VALIDO ANCHE PER VPCREATOR1???
@@ -1493,18 +1493,18 @@ class VpCreator(Process):
                 for id_person,id_activity_from,id_activity_to in zip(ids_person,ids_activity_from,ids_activity_to):
                     if virtualpop.activitypatterns[id_person] is not None:
                               patterns = virtualpop.activitypatterns[id_person]
-                              print 'patterns', patterns
+                              print('patterns', patterns)
                               patterns.append(id_activity_from)
-                              print 'patterns', patterns
+                              print('patterns', patterns)
                               patterns.append(id_activity_to)
-                              print 'patterns', patterns
+                              print('patterns', patterns)
                               virtualpop.activitypatterns[id_person] = patterns
-                              print 'patterns', patterns
+                              print('patterns', patterns)
                     else:
                               virtualpop.activitypatterns[id_person] = [id_activity_from, id_activity_to]
 
                 #Create plans
-                print 'Create plans'
+                print('Create plans')
                 if strategy == strategies.get_id_from_formatted('transit') or strategy ==strategies.get_id_from_formatted('bike'):
                     ids_plan = virtualpop.add_plans(ids_person, strategy)
                 elif strategy == strategies.get_id_from_formatted('walk'):
@@ -1515,7 +1515,7 @@ class VpCreator(Process):
 
             
             #Add activity stages
-            print 'Add activity stages'
+            print('Add activity stages')
         
             for id_plan,\
                 id_act_from,\
@@ -1542,7 +1542,7 @@ class VpCreator(Process):
                                                         )       
                
             #Add walk stages
-            print 'Add walk stages'
+            print('Add walk stages')
             ids_walk1 = np.zeros(len(ids_trip), dtype = np.int32)
             times_end_walk1 = np.zeros(len(ids_trip), dtype = np.int32)
 
@@ -1562,11 +1562,11 @@ class VpCreator(Process):
                          ids_edge_to_walk1,\
                          positions_edge_to_walk1,\
                          ids_person,\
-                         range(len(ids_trip))): 
+                         list(range(len(ids_trip)))): 
                     try:
                         ids_only_bike_trip.index(id_pers) 
                     except:
-                        print 'plan first walk'
+                        print('plan first walk')
                         ids_walk1[i] , times_end_walk1[i] = virtualpop.get_plans().get_stagetable('walks').append_stage(\
                                                     id_plan, time_from, 
                                                     id_edge_from = id_edge_from, 
@@ -1576,7 +1576,7 @@ class VpCreator(Process):
                                                     )
                                                     
                 durations_walk1 = np.zeros(len(ids_trip), dtype = np.int32)
-                for time_end,  second_departure, i in zip(times_end_walk1, seconds_departure, range(len(ids_trip))) :
+                for time_end,  second_departure, i in zip(times_end_walk1, seconds_departure, list(range(len(ids_trip)))) :
                     if time_end !=0:
                         durations_walk1[i] = virtualpop.get_plans().get_stagetable('walks').durations[ids_walk1[i]]
                 #bike
@@ -1602,11 +1602,11 @@ class VpCreator(Process):
                          positions_edge_to_walk1,\
                          ids_person,\
                          ids_trip,\
-                         range(len(ids_trip))): 
+                         list(range(len(ids_trip)))): 
                     try:
                         ids_only_bike_trip.index(id_trip) 
                     except:
-                        print 'plan first walk'
+                        print('plan first walk')
                         ids_walk1[i] , times_end_walk1[i] = virtualpop.get_plans().get_stagetable('walks').append_stage(\
                                                     id_plan, time_from, 
                                                     id_edge_from = id_edge_from, 
@@ -1616,10 +1616,10 @@ class VpCreator(Process):
                                                     )
                                                     
                 durations_walk1 = np.zeros(len(ids_trip), dtype = np.float32)
-                for time_end,  second_departure, i in zip(times_end_walk1, seconds_departure, range(len(ids_trip))) :
+                for time_end,  second_departure, i in zip(times_end_walk1, seconds_departure, list(range(len(ids_trip)))) :
                     if time_end !=0:
                         durations_walk1[i] = virtualpop.get_plans().get_stagetable('walks').durations[ids_walk1[i]]
-                print seconds_departure, durations_walk1
+                print(seconds_departure, durations_walk1)
                 
                 if strategy ==strategies.get_id_from_formatted('bike'):
                     #bike
@@ -1630,7 +1630,7 @@ class VpCreator(Process):
 
             if strat_for_stages == strategies.get_id_from_formatted('bike'):
                 #Add bikeride stages
-                print 'Add bikeride stages'
+                print('Add bikeride stages')
                 ##        virtualpop.get_plans().get_stagetable('bikeride').prepare_planning()
                 ##        duration_approx1, route1 = routing.get_mincostroute_edge2edge(
                 ##                                                    ids_edge_from_bike,
@@ -1674,14 +1674,14 @@ class VpCreator(Process):
             if strat_for_stages == strategies.get_id_from_formatted('transit'):
 
                 #Add bus stages
-                print 'Add bus stages'
+                print('Add bus stages')
                 ids_route = trips.ids_route_matched[ids_trip]
                 ids_ptlinks = trips.get_routes().ids_ptlinks[ids_route]
-                for id_route, id_plan, time_from_bus, i in zip(ids_route, ids_plan,times_from_bus, range(len(ids_trip))):
+                for id_route, id_plan, time_from_bus, i in zip(ids_route, ids_plan,times_from_bus, list(range(len(ids_trip)))):
                     ids_ptlinks = trips.get_routes().ids_ptlinks[id_route]
                     types_ptlinks = scenario.demand.ptlines.get_ptlinks().types[ids_ptlinks]
                     board = 0
-                    for type, id_ptlink, j in zip(types_ptlinks, ids_ptlinks, range(len(ids_ptlinks))):
+                    for type, id_ptlink, j in zip(types_ptlinks, ids_ptlinks, list(range(len(ids_ptlinks)))):
                         #board
                         if type == 3:
                             if board ==1:
@@ -1705,7 +1705,7 @@ class VpCreator(Process):
                             duration = scenario.demand.ptlines.get_ptlinks().durations[id_ptlink]
                             id_fromstop = scenario.demand.ptlines.get_ptlinks().ids_fromstop[id_ptlink]
                             numb_links = j
-                            print i, scenario.demand.ptlines.get_ptlinks().types[ids_ptlinks[numb_links+1]]
+                            print(i, scenario.demand.ptlines.get_ptlinks().types[ids_ptlinks[numb_links+1]])
                             is_ok = True
                             if numb_links+2<len(ids_ptlinks):
                                 while (scenario.demand.ptlines.get_ptlinks().types[ids_ptlinks[numb_links+1]] == 2)and(is_ok == True):
@@ -1737,7 +1737,7 @@ class VpCreator(Process):
                                 id_fromedge = id_edge_from,
                                 id_toedge = id_edge_to, 
                                 ) 
-                            print  '2',times_from_bus, end_time ,  time_from    
+                            print('2',times_from_bus, end_time ,  time_from)    
                             time_from_bus  += (end_time-time_from)
                             times_from_bus[i] = time_from_bus
                             board = 1
@@ -1757,14 +1757,14 @@ class VpCreator(Process):
                                                                     id_edge_to = id_edge_to, 
                                                                     position_edge_to = position_edge_to,
                                                                     )
-                            print  '3',times_from_bus, end_time ,  time_from                                     
+                            print('3',times_from_bus, end_time ,  time_from)                                     
                             time_from_bus  += (end_time-time_from)
                             times_from_bus[i] = time_from_bus
                             board = 0
     
                     
             #Add walk stages
-            print 'Add walk stages'
+            print('Add walk stages')
             
             if self.is_first_method == True:
                 ids_walk2 = np.zeros(len(ids_trip), dtype = np.int32)
@@ -1788,7 +1788,7 @@ class VpCreator(Process):
                          positions_edge_from_walk2,\
                          ids_edge_to_walk2,\
                          positions_edge_to_walk2,\
-                         range(len(ids_trip)),\
+                         list(range(len(ids_trip))),\
                          ids_person ): 
                     try:
                         ids_only_bike_trip.index(id_pers) 
@@ -1825,7 +1825,7 @@ class VpCreator(Process):
                              ids_edge_to_walk2,\
                              positions_edge_to_walk2,\
                              ids_trip,\
-                             range(len(ids_trip)),\
+                             list(range(len(ids_trip))),\
                              ids_person ): 
                         try:
                             ids_only_bike_trip.index(id_trip) 
@@ -1839,7 +1839,7 @@ class VpCreator(Process):
                                                         )
 
             durations_walk2 = np.zeros(len(ids_trip), dtype = np.float32)
-            for time_end,  second_arrive, i, duration_walk_1 in zip(times_end_walk2, seconds_arrive, range(len(ids_trip)),durations_walk1):
+            for time_end,  second_arrive, i, duration_walk_1 in zip(times_end_walk2, seconds_arrive, list(range(len(ids_trip))),durations_walk1):
                 if strat_for_stages ==strategies.get_id_from_formatted('bike'):
                     if time_end !=0:
                         durations_walk2[i] = virtualpop.get_plans().get_stagetable('walks').durations[ids_walk2[i]]
@@ -1847,9 +1847,9 @@ class VpCreator(Process):
                 if strat_for_stages ==strategies.get_id_from_formatted('transit'):
                     durations_walk2 = times_end_walk2-times_from_bus
                     times_from_act2 = times_from_bus + durations_walk2+ durations_walk1
-            print 'durations_walk1',durations_walk1,'durations_walk2',durations_walk2, 'seconds_arrive', seconds_arrive, 'seconds_departure', seconds_departure
+            print('durations_walk1',durations_walk1,'durations_walk2',durations_walk2, 'seconds_arrive', seconds_arrive, 'seconds_departure', seconds_departure)
             #Add activity stages
-            print 'Add activity stages'
+            print('Add activity stages')
     
             for id_plan,\
                 id_act_to,\
@@ -1866,7 +1866,7 @@ class VpCreator(Process):
                      ids_edge_to_act2,\
                      positions_edge_to,\
                      times_from_act2,\
-                     range(len(ids_trip))): 
+                     list(range(len(ids_trip)))): 
                 virtualpop.get_plans().get_stagetable('activities').append_stage(\
                                                         id_plan, time_from,
                                                         ids_activity = id_act_to,
@@ -1899,7 +1899,7 @@ class VpCreator(Process):
                                                                                         
 class BirgilMatcher(Process):
     def __init__(self, ident = 'birgilmatcher', parent = None,  logger = None, **kwargs):
-        print 'BirgilMatcher.__init__'
+        print('BirgilMatcher.__init__')
         
         # TODO: let this be independent, link to it or child??
        
@@ -2068,7 +2068,7 @@ class BirgilMatcher(Process):
             tick_before = time.time()
             logger.w('Analyzing Trip %d...'%id_trip) 
             if ids_point is not None:
-                if distancesmap.has_key(id_mode) & (id_mode != id_mode_ped) & (len(ids_point)>=2):
+                if (id_mode in distancesmap) & (id_mode != id_mode_ped) & (len(ids_point)>=2):
                     
                     
                     are_valid = distancesmap[id_mode] > self.dist_min_modespecific
@@ -2103,11 +2103,11 @@ class BirgilMatcher(Process):
                                                 )
                 else:
                     logger.w("  Failed id_trip %d because pedestrian mode or id_mode %d does not occured in network"%(id_trip,id_mode)) 
-                    print '  distancesmap.keys()',distancesmap.keys()
+                    print('  distancesmap.keys()',list(distancesmap.keys()))
                     
             else:
                 logger.w("  Failed id_trip %d because no points"%(id_trip)) 
-                print '  ids_point',ids_point
+                print('  ids_point',ids_point)
                 
             n_trip_matched += 1
             
@@ -2133,8 +2133,8 @@ class BirgilMatcher(Process):
         # triplength
         
         # TODO: check get_closest_edge everywhere if projecting properly
-        print 79*'='
-        print 'match_trip_birgil',id_trip,'n_points=',len(ids_point)
+        print(79*'=')
+        print('match_trip_birgil',id_trip,'n_points=',len(ids_point))
         #print '  ids_point',ids_point
         #print '  weights[26216]',weights[26216],accesslevels[26216]
         #print '  weights[26217]',weights[26217],accesslevels[26217]
@@ -2317,7 +2317,7 @@ class BirgilMatcher(Process):
                 
             routelist_new = []
             n_routes = len(routelist)
-            for ind_route in xrange(n_routes):
+            for ind_route in range(n_routes):
                 #routeinfo = 1*routeinfo_orig
                 costs_tot, cost, length_partial, length_cum, accesslevel, length_edge, ids_edge, ids_point_edgeend = routelist[ind_route]
                 routeinfo = costs_tot, cost, length_partial, length_cum, accesslevel, length_edge, ids_edge, ids_point_edgeend
@@ -2449,10 +2449,10 @@ class BirgilMatcher(Process):
             
             # take only the chapest route that arrives at a specific edge
             n_routes = len(routelist)
-            for route, i in zip(routelist[:-1],xrange(n_routes-1)):
+            for route, i in zip(routelist[:-1],range(n_routes-1)):
                 #cost_tot = route[0]
                 id_edge_last = route[6][-1]
-                for j in xrange(i+1,n_routes):
+                for j in range(i+1,n_routes):
                     if routelist[j][6][-1] == id_edge_last:
                         routelist[j][0] = np.inf
             # this will throw all infinites to the tail            
@@ -2529,7 +2529,7 @@ class BirgilMatcher(Process):
         
         
         # check dist error
-        inds_point = xrange(ind_point_initial,ind_point_final)
+        inds_point = range(ind_point_initial,ind_point_final)
         n_points = len(inds_point)
         
         
@@ -2773,7 +2773,7 @@ class BirgilMatcher(Process):
     
 class PTMatcher(BirgilMatcher):
     def __init__(self, ident, mapmatching,  logger = None, **kwargs):
-        print 'PTMatcher.__init__'
+        print('PTMatcher.__init__')
         
         # TODO: let this be independent, link to it or child??
        
@@ -2959,7 +2959,7 @@ class PTMatcher(BirgilMatcher):
         fstar = ptlinks.get_fstar()
         
         if len(fstar) == 0:
-            print 'WARNING: no PT links built.'
+            print('WARNING: no PT links built.')
             return False
         
         ids_trip = trips.get_ids_selected()
@@ -3025,8 +3025,8 @@ class PTMatcher(BirgilMatcher):
     
     def match_trip(self,id_trip,  ids_point, ptfstar, ptstops, ptlines, busdistances, busedgetimes, accesslevels):
 
-        print 79*'='
-        print 'match_trip',id_trip,'n_points=',len(ids_point)
+        print(79*'=')
+        print('match_trip',id_trip,'n_points=',len(ids_point))
         tick = time.time()
         routes = []
         route = None
@@ -3069,8 +3069,8 @@ class PTMatcher(BirgilMatcher):
         
         ids_stop = ptstops.get_ids()
         coords_stop = ptstops.centroids[ids_stop][:,:2]
-        print '       len(ids_stop)',len(ids_stop)
-        print '       coords_stop.shape',coords_stop.shape
+        print('       len(ids_stop)',len(ids_stop))
+        print('       coords_stop.shape',coords_stop.shape)
         
         
         # map stop IDs to PT link IDs with specific type
@@ -3108,7 +3108,7 @@ class PTMatcher(BirgilMatcher):
         t_point_initial = -1
         t_point_final = -1
         
-        print '  search initial stops'
+        print('  search initial stops')
         ind_point = 0
         for p in coords:
             dists2 = np.sum((coords_stop-p)**2,1)
@@ -3146,22 +3146,22 @@ class PTMatcher(BirgilMatcher):
             dists2 = np.sum((coords_stop-coords_stop[ind_hit_initial])**2,1)
             inds_hit = np.flatnonzero(dists2 < self.width_buffer_terminal_max**2)
             for id_stop in ids_stop[inds_hit]:
-                if map_id_fromstop_to_ids_link.has_key(id_stop):
+                if id_stop in map_id_fromstop_to_ids_link:
                     ids_stop_initial.append(id_stop) 
         else:
-            print 'ABOARD: no initial stop found' 
+            print('ABOARD: no initial stop found') 
             return [], [], 0.0, 0.0,-1.0,-1.0, -1.0, -1.0, 0.0, [], False
             
         if ind_hit_final > -1:
             dists2 = np.sum((coords_stop-coords_stop[ind_hit_final])**2,1)
             inds_hit = np.flatnonzero(dists2 < self.width_buffer_terminal_max**2)
             for id_stop in ids_stop[inds_hit]:
-                if map_id_tostop_to_ids_link.has_key(id_stop):
+                if id_stop in map_id_tostop_to_ids_link:
                     ids_stop_final.append(id_stop) 
                     
 
         else:
-            print 'ABOARD: no final stop found' 
+            print('ABOARD: no final stop found') 
             return [], [], 0.0, 0.0,-1.0,-1.0, -1.0, -1.0, 0.0, [], False
         
         n_points_eff = ind_point_final - ind_point_initial
@@ -3170,18 +3170,18 @@ class PTMatcher(BirgilMatcher):
         
         #if self._logger:
         #    self._logger.w( '>>match_trip_birgil : n_points_eff=%d, len(ids_edge_initial)=%d,len(ids_edge_final)=%d'%(n_points_eff, len(ids_edge_initial),len(ids_edge_final)) )
-        print '\n  completed init:'
-        print '   ids_stop_initial',ids_stop_initial
-        print '   ids_stop_final',ids_stop_final
+        print('\n  completed init:')
+        print('   ids_stop_initial',ids_stop_initial)
+        print('   ids_stop_final',ids_stop_final)
         
         #print '  ind_point_initial,ind_point_final,n_points_eff',ind_point_initial,ind_point_final,n_points_eff
-        print '  id_point_initial=%d,id_point_final=%d,n_points_eff=%d'%(ids_point[ind_point_initial],ids_point[ind_point_final],n_points_eff)
+        print('  id_point_initial=%d,id_point_final=%d,n_points_eff=%d'%(ids_point[ind_point_initial],ids_point[ind_point_final],n_points_eff))
         if (ind_point_initial<0)|(ind_point_final<0) | (n_points_eff < self.n_points_min):
-            print 'ABOARD: insufficient valid points' 
+            print('ABOARD: insufficient valid points') 
             return [], [], 0.0, 0.0,-1.0,-1.0, -1.0, -1.0, 0.0, [], False
         
 
-        print '  define initial and final pt links'
+        print('  define initial and final pt links')
         
         ids_ptlink_initial = set()
         for id_stop  in ids_stop_initial:
@@ -3191,8 +3191,8 @@ class PTMatcher(BirgilMatcher):
         for id_stop  in ids_stop_final:
             ids_ptlink_final.update(map_id_tostop_to_ids_link[id_stop])
             
-        print '   ids_ptlink_initial',ids_ptlink_initial
-        print '   ids_ptlink_final',ids_ptlink_final
+        print('   ids_ptlink_initial',ids_ptlink_initial)
+        print('   ids_ptlink_final',ids_ptlink_final)
         
         
         ##---------------------------------------------------------------------
@@ -3214,8 +3214,8 @@ class PTMatcher(BirgilMatcher):
             delta_point = point-coords[ind_point-1]
             phi_point = np.arctan2(delta_point[1], delta_point[0])
             
-            print 79*'='
-            print '    point ind_point',ind_point,ind_point_final,' id_point',id_point,'coords',point
+            print(79*'=')
+            print('    point ind_point',ind_point,ind_point_final,' id_point',id_point,'coords',point)
             
             ids_edge_buffer, dists = get_closest_edge( point, n_best = self.n_edge_max, 
                                                 d_max = self.width_buffer_max,
@@ -3227,10 +3227,10 @@ class PTMatcher(BirgilMatcher):
             
             
             n_hits = len(ids_edge_buffer)
-            print '    n_hits',n_hits,'ids_edge_buffer',ids_edge_buffer
+            print('    n_hits',n_hits,'ids_edge_buffer',ids_edge_buffer)
             if n_hits>0:
                 phis_delta = np.zeros(n_hits, dtype = np.float32)
-                for ind, id_edge in zip(xrange(n_hits), ids_edge_buffer):
+                for ind, id_edge in zip(range(n_hits), ids_edge_buffer):
                     
                     dist_point_edge, segment = get_dist_point_to_edge(point, id_edge, 
                                                 is_ending=True,
@@ -3252,7 +3252,7 @@ class PTMatcher(BirgilMatcher):
             for id_stop in ids_stops_near:
                 t_wait_point = min(pointtimes[ind_point]-pointtimes[ind_point-1],600.0)
                 #print '      near id_stop',id_stop,map_id_fromstop_to_ids_link.has_key(id_stop)
-                if map_id_fromstop_to_ids_link.has_key(id_stop):
+                if id_stop in map_id_fromstop_to_ids_link:
                     waittimes_stops[id_stop] += t_wait_point
                     #ptlinkhits[map_id_fromstop_to_ids_link[id_stop]] += self.weight_stop_hits/n_near
                     pttimes[map_id_fromstop_to_ids_link[id_stop]] -= self.weight_stop_hits*t_wait_point#/n_near
@@ -3265,10 +3265,10 @@ class PTMatcher(BirgilMatcher):
             ptlinkhits[id_ptlink] += np.sum(edgehits[ids_ptedge])
         
         if 0: #debug
-            print '    Stop waittimes'
+            print('    Stop waittimes')
             for id_stop, waits in zip(ids_stop, waittimes_stops[ids_stop]):
                 if waits>0:
-                    print '      waits at id_stop %d = %.2fs'%(id_stop,waits)
+                    print('      waits at id_stop %d = %.2fs'%(id_stop,waits))
                     
             # debug edgelinks
             #ids_edge = edges.get_ids()
@@ -3303,16 +3303,16 @@ class PTMatcher(BirgilMatcher):
         
         ##--------------------------------------------------------------------
         ## post matching analisis
-        print '\n'+79*'-'
+        print('\n'+79*'-')
         
         #print '  ids_point_edgeend',len(ids_point_edgeend),ids_point_edgeend
         if len(routelist) == 0:
-            print 'ABOARD: no routes found'
+            print('ABOARD: no routes found')
             return [],[], 0.0, 0.0,-1.0,-1.0, -1.0, -1.0, 0.0, [], False
         else:
             ids_ptlink = routelist[0][1]
             if len(ids_ptlink) == 0:
-                print 'ABOARD: route contains no edges ids_ptlink=',ids_ptlink
+                print('ABOARD: route contains no edges ids_ptlink=',ids_ptlink)
                 return [],[], 0.0, 0.0,-1.0,-1.0, -1.0, -1.0, 0.0, [], False
             else:
                 is_connected = True
@@ -3321,12 +3321,12 @@ class PTMatcher(BirgilMatcher):
                     ids_edge += ptlinks.get_ids_edge(id_ptlink)
                 route = ids_edge
                 
-        print '  matched route: len(ids_edge)',len(ids_edge),'len(ids_ptlink)',len(ids_ptlink),'cost =%.2f'%routelist[0][0]
+        print('  matched route: len(ids_edge)',len(ids_edge),'len(ids_ptlink)',len(ids_ptlink),'cost =%.2f'%routelist[0][0])
         
         if 1:
             for id_ptlink in ids_ptlink:
                 ptlinks.print_link(id_ptlink, ident = 4, is_edges = False, is_link_forward = False)
-            print '                               ids_edge',ids_edge
+            print('                               ids_edge',ids_edge)
             
                 
             
@@ -3353,7 +3353,7 @@ class PTMatcher(BirgilMatcher):
         
         
         # check dist error
-        inds_point = xrange(ind_point_initial,ind_point_final)
+        inds_point = range(ind_point_initial,ind_point_final)
         n_points = len(inds_point)
         
         
@@ -3381,10 +3381,10 @@ class PTMatcher(BirgilMatcher):
             err_dist = dist_points_tot/float(n_points) 
         
         if ptlinks.ids_tostop[ids_ptlink[-1]] in ids_stop_final:
-            print 'SUCCESS: target id_stop',ptlinks.ids_tostop[ids_ptlink[-1]],'reached length %.2f, gps length %.2f$'%(length_route,length_gps)
+            print('SUCCESS: target id_stop',ptlinks.ids_tostop[ids_ptlink[-1]],'reached length %.2f, gps length %.2f$'%(length_route,length_gps))
             is_connected = True
         else:
-            print 'DISCONNECTED: last matched id_stop',ptlinks.ids_tostop[ids_ptlink[-1]],' does not reach final ids_stop',ids_stop_final
+            print('DISCONNECTED: last matched id_stop',ptlinks.ids_tostop[ids_ptlink[-1]],' does not reach final ids_stop',ids_stop_final)
             is_connected = False
              
              
@@ -3407,7 +3407,7 @@ def get_colvalue(val, default = 0.0):
  
 class VirtualpopCreator(Process):
     def __init__(self,  mapmatching, logger = None, **kwargs):
-        print 'VirtualpopCreator.__init__'
+        print('VirtualpopCreator.__init__')
         self._init_common(  'virtualpopcreator', 
                             parent = mapmatching,
                             name = 'VirtualpopCreator', 
@@ -3448,7 +3448,7 @@ class VirtualpopCreator(Process):
     
 class ModeSelector(Process):
     def __init__(self,  mapmatching, logger = None, **kwargs):
-        print 'ModeSelector.__init__'
+        print('ModeSelector.__init__')
         self._init_common(  'modeselector', 
                             parent = mapmatching,
                             name = 'Mode Selector', 
@@ -3692,7 +3692,7 @@ class FilterMixin(Process):
     
 class PostMatchfilter(FilterMixin):
     def __init__(self,  mapmatching, logger = None, **kwargs):
-        print 'PostMatchfilter.__init__'
+        print('PostMatchfilter.__init__')
         self._init_common(  'postmatchfilter', 
                             parent = mapmatching,
                             name = 'Post matchfilter', 
@@ -3797,7 +3797,7 @@ class PostMatchfilter(FilterMixin):
         ids_trip = trips.get_ids()
         ids_points = trips.ids_points[ids_trip]
         
-        print 'filter_ids',n_trips,'selected'
+        print('filter_ids',n_trips,'selected')
         inds_eliminate = np.logical_or(\
             trips.lengthindexes[ids_selected]<self.lengthindex_min,
             trips.lengthindexes[ids_selected]>self.lengthindex_max,
@@ -3805,31 +3805,31 @@ class PostMatchfilter(FilterMixin):
             #np.logical_not(trips.are_match_connected[ids_selected]),
             #(trips.lengths_route_matched[ids_selected]<1.0), # too many args??
             )
-        print '  after lengthindex remaining',n_trips-len(np.flatnonzero(inds_eliminate))
+        print('  after lengthindex remaining',n_trips-len(np.flatnonzero(inds_eliminate)))
                     
         
         inds_eliminate |= trips.errors_dist[ids_selected]>self.error_dist_max
-        print '  after distance error remaining',n_trips-len(np.flatnonzero(inds_eliminate))
+        print('  after distance error remaining',n_trips-len(np.flatnonzero(inds_eliminate)))
         
              
         if self.is_connected:
             inds_eliminate |= np.logical_not(trips.are_match_connected[ids_selected])
         
-        print '  after connected remaining',n_trips-len(np.flatnonzero(inds_eliminate))
+        print('  after connected remaining',n_trips-len(np.flatnonzero(inds_eliminate)))
             
         if self.is_shortest:
             inds_eliminate |= trips.ids_route_shortest[ids_selected] == -1
         if self.is_matched:    
             inds_eliminate |= trips.ids_route_matched[ids_selected] == -1
-            print '  after is matched remaining',n_trips-len(np.flatnonzero(inds_eliminate))
+            print('  after is matched remaining',n_trips-len(np.flatnonzero(inds_eliminate)))
         
             inds_eliminate |= trips.lengths_route_matched[ids_selected]<1.0
-            print '  after too short trips remaining:',n_trips-len(np.flatnonzero(inds_eliminate))
+            print('  after too short trips remaining:',n_trips-len(np.flatnonzero(inds_eliminate)))
             
 
         inds_eliminate |= trips.speeds_average[ids_selected] < self.speed_trip_min
         inds_eliminate |= trips.speeds_average[ids_selected] > self.speed_trip_max
-        print '  after speed check remaining',n_trips-len(np.flatnonzero(inds_eliminate))
+        print('  after speed check remaining',n_trips-len(np.flatnonzero(inds_eliminate)))
         
 
  
@@ -3850,7 +3850,7 @@ class PostMatchfilter(FilterMixin):
         #print '  inds_eliminate',inds_eliminate
         
         inds_eliminate |= self.filter_time(trips.timestamps[ids_selected])
-        print '  after time check trips remaining:',n_trips-len(np.flatnonzero(inds_eliminate))
+        print('  after time check trips remaining:',n_trips-len(np.flatnonzero(inds_eliminate)))
         #print '  inds_eliminate',inds_eliminate
         
         if self.is_loopfree:
@@ -3860,7 +3860,7 @@ class PostMatchfilter(FilterMixin):
                     # loop-free check
                     inds_eliminate[i] = len(ids_edge) != len(set(ids_edge))
                 i += 1
-        print '  after loop test trips remaining:',n_trips-len(np.flatnonzero(inds_eliminate))   
+        print('  after loop test trips remaining:',n_trips-len(np.flatnonzero(inds_eliminate)))   
 
         return ids_selected[inds_eliminate] 
     
@@ -3874,7 +3874,7 @@ class PostMatchfilter(FilterMixin):
         
 class PersonFilter(FilterMixin):
     def __init__(self,  mapmatching, logger = None, **kwargs):
-        print 'Personfilter.__init__'
+        print('Personfilter.__init__')
         self._init_common(  'personfilter', 
                             parent = mapmatching,
                             name = 'Person filter', 
@@ -3979,18 +3979,18 @@ class PersonFilter(FilterMixin):
         ids_trip = trips.get_ids()
         ids_points = trips.ids_points[ids_trip]
         
-        print 'filter_ids',n_trips,'selected'  
+        print('filter_ids',n_trips,'selected')  
         inds_eliminate = np.zeros(len(trips.ids_vtype[ids_selected]), dtype=bool)
 
         if self.is_select_gender:
             inds_eliminate |= persons.ids_gender[trips.ids_person[ids_selected]] != self.gender 
-            print '  after gender check remaining',n_trips-len(np.flatnonzero(inds_eliminate))
+            print('  after gender check remaining',n_trips-len(np.flatnonzero(inds_eliminate)))
             
         if self.is_select_age:
             inds_eliminate |= np.logical_or(\
                 persons.years_birth[trips.ids_person[ids_selected]]<=self.birth_min,
                 persons.years_birth[trips.ids_person[ids_selected]]>=self.birth_max,) 
-            print '  after age check remaining',n_trips-len(np.flatnonzero(inds_eliminate))
+            print('  after age check remaining',n_trips-len(np.flatnonzero(inds_eliminate)))
 
         if len(self.zones)>0:
             if self.is_select_od_trips:
@@ -4002,7 +4002,7 @@ class PersonFilter(FilterMixin):
                     id_initial_point = ids_point[0]
                     od_trips[id_trip] =  is_point_in_polygon(points.coords[id_initial_point], zone_shape_origin)*is_point_in_polygon(points.coords[id_final_point], zone_shape_dest)
                 inds_eliminate |= np.logical_not(od_trips[ids_selected])
-                print ' after od trips remaining ',n_trips-len(np.flatnonzero(inds_eliminate)) 
+                print(' after od trips remaining ',n_trips-len(np.flatnonzero(inds_eliminate))) 
                     
             if self.is_select_gen_trips:
                 zone_shape_origin = zones.shapes[zones.ids_sumo.get_id_from_index(self.origin_zone_name)]
@@ -4011,7 +4011,7 @@ class PersonFilter(FilterMixin):
                     id_initial_point = ids_point[0]
                     od_trips[id_trip] =  is_point_in_polygon(points.coords[id_initial_point], zone_shape_origin)
                 inds_eliminate |= np.logical_not(od_trips[ids_selected])
-                print ' after generated trips remaining ',n_trips-len(np.flatnonzero(inds_eliminate))      
+                print(' after generated trips remaining ',n_trips-len(np.flatnonzero(inds_eliminate)))      
                   
             if self.is_select_attr_trips:
                 zone_shape_dest = zones.shapes[zones.ids_sumo.get_id_from_index(self.dest_zone_name)]          
@@ -4020,7 +4020,7 @@ class PersonFilter(FilterMixin):
                     id_final_point = ids_point[-1]
                     od_trips[id_trip] = is_point_in_polygon(points.coords[id_final_point], zone_shape_dest)
                 inds_eliminate |= np.logical_not(od_trips[ids_selected])
-                print ' after attracted trips remaining ',n_trips-len(np.flatnonzero(inds_eliminate))      
+                print(' after attracted trips remaining ',n_trips-len(np.flatnonzero(inds_eliminate)))      
 
         return ids_selected[inds_eliminate] 
     
@@ -4039,7 +4039,7 @@ SELECTTRACES = {'FromOrigin':1,
            
 class TripGeomfilter(FilterMixin):
     def __init__(self,  mapmatching, logger = None, **kwargs):
-        print 'TripGeomfilter.__init__'
+        print('TripGeomfilter.__init__')
         self._init_common(  'tripGeomfilter', 
                             parent = mapmatching,
                             name = 'Geometry trip filter', 
@@ -4209,7 +4209,7 @@ class TripGeomfilter(FilterMixin):
         """
         Previews selected trips after filtering.
         """
-        print 'TripGeomfilter.filterpreview'
+        print('TripGeomfilter.filterpreview')
         trips = self.parent.trips
         n_trips = len(trips)
         if n_trips == 0:
@@ -4221,7 +4221,7 @@ class TripGeomfilter(FilterMixin):
         return '%d/%d (currently %d/%d)'%(n_sel_after,n_trips,n_sel_current,n_trips)
             
     def do(self):
-        print 'TripGeomfilter.do'
+        print('TripGeomfilter.do')
         # execute filtering
         if len(self.parent.trips)>0:
             self.parent.trips.are_selected[self.filter_ids(is_eliminate_points = True)] = False
@@ -4253,7 +4253,7 @@ class TripGeomfilter(FilterMixin):
         Returns an array of ids to be eliminated or deselected.
         """
         c_cutoff = 1.0 - self.const_return_max
-        print 'TripGeomfilter.filter_ids c_cutoff',c_cutoff,'is_eliminate_points',is_eliminate_points
+        print('TripGeomfilter.filter_ids c_cutoff',c_cutoff,'is_eliminate_points',is_eliminate_points)
         dist_point_max = self.dist_point_max
         dist_point_min = self.dist_point_min_extr
         dist_point_min_inter = self.dist_point_min_inter
@@ -4263,10 +4263,10 @@ class TripGeomfilter(FilterMixin):
         ids_trip = trips.get_ids_selected()
         ids_points = trips.ids_points[ids_trip]
         speed_max = self.speed_max
-        print '  n_trips',len(ids_trip)
-        print '  n_points',len(ids_points)
+        print('  n_trips',len(ids_trip))
+        print('  n_points',len(ids_points))
         if len(ids_points) == 0:
-            print 'WARNING: no points found, no traces'
+            print('WARNING: no points found, no traces')
             return True
         intersects_boundaries = self.parent.get_scenario().net.intersects_boundaries
         in_boundaries = self.parent.get_scenario().net.in_boundaries
@@ -4287,17 +4287,17 @@ class TripGeomfilter(FilterMixin):
         surplus = 0
         
         for id_trip, ids_point in  zip(ids_trip, ids_points):
-            print 79*'-'
-            print '  filter id_trip ',id_trip,
+            print(79*'-')
+            print('  filter id_trip ',id_trip, end=' ')
             if ids_point is None:
                 is_eliminate = True 
-                print '    no points'
+                print('    no points')
                 
            
             
             elif (len(ids_point) < 2*self.num_external_points+2 and self.is_eliminate_external_points):
                 is_eliminate = True 
-                print '    not enough points, only',len(ids_point) 
+                print('    not enough points, only',len(ids_point)) 
             
             else:
 ##                print 'ids_point',ids_point
@@ -4325,16 +4325,16 @@ class TripGeomfilter(FilterMixin):
                     # this happens if the points of a trip in the workout file
                     # have not been imported for some reason
                     is_eliminate = True  
-                    print 'it has no points'
+                    print('it has no points')
                 elif n<2:
                     is_eliminate = True
-                    print 'less than 2 points'    
+                    print('less than 2 points')    
                 elif not intersects_boundaries(get_boundary(coords)):
                     is_eliminate = True  
-                    print 'do not intersect boundaries'
+                    print('do not intersect boundaries')
                 elif np.any(times<0):
                     is_eliminate = True 
-                    print 'has negative times' 
+                    print('has negative times') 
                 else:
                     dist_max = 0.0
                     is_eliminate = False
@@ -4370,7 +4370,7 @@ class TripGeomfilter(FilterMixin):
                     durations_inter = np.zeros(len(dists_to_end),dtype = np.float32)
                     speeds_inter = np.zeros(len(dists_to_end),dtype = np.float32)
                     
-                    for i, duration_inter, speed_inter in zip(range(len(durations_inter)), durations_inter, speeds_inter):
+                    for i, duration_inter, speed_inter in zip(list(range(len(durations_inter))), durations_inter, speeds_inter):
                         if i>0:
                             
                             durations_inter[i] = times[i]-times[i-1]
@@ -4396,7 +4396,7 @@ class TripGeomfilter(FilterMixin):
                         
                         #print '    ids_points_outside =',np.array(ids_point, dtype = np.int32)[are_outside]
                         ids_point_elim.update(np.array(ids_point, dtype = np.int32)[are_outside])
-                        print len(ids_point_elim), 'points outside box'
+                        print(len(ids_point_elim), 'points outside box')
                         i = 0
                         while (i<(n-2)):
                             i+=1
@@ -4411,7 +4411,7 @@ class TripGeomfilter(FilterMixin):
                                 if dists_to_start[i] < dist_point_min:
                                     #print '  eliminate',ids_point[i], dist_check
                                     ids_point_elim.add(ids_point[i])
-                                    print 'point', ids_point[i], dists_to_start[i], 'meters near start'
+                                    print('point', ids_point[i], dists_to_start[i], 'meters near start')
                                 
                                 
                                     
@@ -4422,7 +4422,7 @@ class TripGeomfilter(FilterMixin):
                                     if dists_to_end[i] < dist_point_min:
                                         #print '  eliminate',ids_point[i], dist_check
                                         ids_point_elim.add(ids_point[i])
-                                        print 'point', ids_point[i], dists_to_end[i], 'meters near end'
+                                        print('point', ids_point[i], dists_to_end[i], 'meters near end')
                                     else:
                                         
                                         #dist_check = np.sqrt(   (coords[i,0]-coord_last[0])**2\
@@ -4434,7 +4434,7 @@ class TripGeomfilter(FilterMixin):
                                             dists_inter[i+1] = np.sqrt(   (coords[i+1,0]-coords[i-surplus,0])**2\
                                                 + (coords[i+1,1]-coords[i-surplus,1])**2 )
                                             
-                                            print 'point', ids_point[i], (dists_inter[i]), 'meters near other point'
+                                            print('point', ids_point[i], (dists_inter[i]), 'meters near other point')
                                         else:
                                             surplus = 0
                                         #else:
@@ -4460,10 +4460,10 @@ class TripGeomfilter(FilterMixin):
                                     speeds_average[id_trip] = distances_gps[id_trip]/durations_gps[id_trip]
                                 else:
                                     speeds_average[id_trip] = 0.0
-                                print 'old dist', trips.distances_gps[id_trip], 'new dist', distances_gps[id_trip]
-                                print 'old duration', trips.durations_gps[id_trip], 'new duration',durations_gps[id_trip]
-                                print 'old speed', trips.speeds_average[id_trip], 'new speed', speeds_average[id_trip]
-                                print 'old max speed', trips.speeds_max[id_trip], 'new max speed', max_speeds_intern[id_trip]
+                                print('old dist', trips.distances_gps[id_trip], 'new dist', distances_gps[id_trip])
+                                print('old duration', trips.durations_gps[id_trip], 'new duration',durations_gps[id_trip])
+                                print('old speed', trips.speeds_average[id_trip], 'new speed', speeds_average[id_trip])
+                                print('old max speed', trips.speeds_max[id_trip], 'new max speed', max_speeds_intern[id_trip])
     
     
                             else:
@@ -4477,18 +4477,18 @@ class TripGeomfilter(FilterMixin):
                                         speeds_average[id_trip] = distances_gps[id_trip]/durations_gps[id_trip]
                                     else:
                                         speeds_average[id_trip] = 0.0
-                                    print 'old dist', trips.distances_gps[id_trip], 'new dist', distances_gps[id_trip]
-                                    print 'old duration', trips.durations_gps[id_trip], 'new duration',durations_gps[id_trip]
-                                    print 'old speed', trips.speeds_average[id_trip], 'new speed', speeds_average[id_trip]
-                                    print 'old max speed', trips.speeds_max[id_trip], 'new max speed', max_speeds_intern[id_trip]
+                                    print('old dist', trips.distances_gps[id_trip], 'new dist', distances_gps[id_trip])
+                                    print('old duration', trips.durations_gps[id_trip], 'new duration',durations_gps[id_trip])
+                                    print('old speed', trips.speeds_average[id_trip], 'new speed', speeds_average[id_trip])
+                                    print('old max speed', trips.speeds_max[id_trip], 'new max speed', max_speeds_intern[id_trip])
                         
                         elif len(np.unique(list(ids_point_elim)))>=len(ids_point2): 
                             is_eliminate = True  
-                            print 'all points eliminated'
+                            print('all points eliminated')
                         # no points left
                         elif len(ids_point2)<2:
                             is_eliminate = True  
-                            print 'no points left'      
+                            print('no points left')      
                                 
 
                         ids_point_elim_perm += list(ids_point_elim)
@@ -4501,7 +4501,7 @@ class TripGeomfilter(FilterMixin):
                             #print '  after elim ids_point',trips.ids_points[id_trip]
 
                     if is_eliminate:
-                        print 'Deselected trace due to the point analysis'
+                        print('Deselected trace due to the point analysis')
                     if self.is_deselect_traces and not is_eliminate:
                         
                         #ricalculate dist_inter and duration_inter
@@ -4529,13 +4529,13 @@ class TripGeomfilter(FilterMixin):
                                                 
                      
                             dist_to_start_max = np.max(dists_to_start)
-                            print    'dist_to_start_max', dist_to_start_max
+                            print('dist_to_start_max', dist_to_start_max)
                             
         ##                    print dists_to_start, dist_to_start_max
                             dists_to_end = np.sqrt(   (coords[:,0]-coords[-1,0])**2\
                                                         + (coords[:,1]-coords[-1,1])**2 )
                                                         
-                            for i, duration_inter, speed_inter in zip(range(len(durations_inter)), durations_inter, speeds_inter):
+                            for i, duration_inter, speed_inter in zip(list(range(len(durations_inter))), durations_inter, speeds_inter):
                                 if i>0:
                                     
                                     durations_inter[i] = times[i]-times[i-1]
@@ -4550,22 +4550,22 @@ class TripGeomfilter(FilterMixin):
                         
                         if np.any(dists_inter>dist_point_max):
                             is_eliminate = True
-                            print 'one internal distance over the tollerance. Max value:', np.max(dists_inter), 'meters'
+                            print('one internal distance over the tollerance. Max value:', np.max(dists_inter), 'meters')
                             
                         if self.is_deselect_duplicate:
                             dist_duration = [trips.distances_gps[id_trip], trips.durations_gps[id_trip]] 
 
                             if dist_duration in dists_durations and dist_duration != [0.,0.]:
                                 n_duplicate_trips += 1
-                                print dist_duration
-                                print 'duplicated trip'
+                                print(dist_duration)
+                                print('duplicated trip')
                                 is_eliminate = True
 ##                            else:
                             dists_durations[id_trip] = [trips.distances_gps[id_trip], trips.durations_gps[id_trip]]
                             
                         if np.any(durations_inter>duration_point_max):
                             is_eliminate = True
-                            print 'one internal duration over the tollerance. Max value:', np.max(durations_inter), 'seconds'
+                            print('one internal duration over the tollerance. Max value:', np.max(durations_inter), 'seconds')
 
                         n_invalid_speeds = 0
                         i = 0
@@ -4577,11 +4577,11 @@ class TripGeomfilter(FilterMixin):
 
                             if n_invalid_speeds == self.n_overspeed_max:
                                 is_eliminate = True
-                                print 'invalid internal speeds'
+                                print('invalid internal speeds')
                             i += 1   
                         if dists_to_start[-1] <= c_cutoff*dist_to_start_max:
                             is_eliminate = True 
-                            print 'round trip: return distance over the tollerance'
+                            print('round trip: return distance over the tollerance')
                        
                         if len(self.zones) > 0 and  not is_eliminate:    
                             if self.is_od_select:
@@ -4592,17 +4592,17 @@ class TripGeomfilter(FilterMixin):
                                 if self.select_type == 1:
                                     is_eliminate = not is_point_in_polygon(points.coords[id_initial_point], zone_shape_origin)
                                     if is_eliminate == True:
-                                        print 'deselected for the zone filter'
+                                        print('deselected for the zone filter')
                                 if self.select_type == 2:
                                     is_eliminate = not is_point_in_polygon(points.coords[id_final_point], zone_shape_dest)
                                     if is_eliminate == True:
-                                        print 'deselected for the zone filter'
+                                        print('deselected for the zone filter')
                                 if self.select_type == 3:
                                     is_eliminate = not is_point_in_polygon(points.coords[id_initial_point], zone_shape_origin)*is_point_in_polygon(points.coords[id_final_point], zone_shape_dest)
                                     if is_eliminate == True:
-                                        print 'deselected for the zone filter'
+                                        print('deselected for the zone filter')
             if is_eliminate:
-                print 'Deselected trace'
+                print('Deselected trace')
             inds_elim[j] = is_eliminate  
             j +=1 
             
@@ -4615,12 +4615,12 @@ class TripGeomfilter(FilterMixin):
 
 
                 
-            print '  permanently eliminated %d GPS points'%(len(ids_point_elim_perm)) 
+            print('  permanently eliminated %d GPS points'%(len(ids_point_elim_perm))) 
         if self.is_analyze_points:   
-            print '%d Invalid GPS points'%(len(np.unique(ids_point_elim_perm)))    
-        print '%d Invalid GPS traces'%(np.sum(inds_elim))
+            print('%d Invalid GPS points'%(len(np.unique(ids_point_elim_perm))))    
+        print('%d Invalid GPS traces'%(np.sum(inds_elim)))
         if self.is_deselect_duplicate:
-            print '%d Duplicated GPS traces'%(np.sum(n_duplicate_trips))
+            print('%d Duplicated GPS traces'%(np.sum(n_duplicate_trips)))
         #print '+++++++++++ids_point_elim_perm',ids_point_elim_perm
         #print '            eliminate points?',(len(ids_point_elim_perm)>0),is_eliminate_points,(len(ids_point_elim_perm)>0) & is_eliminate_points
 
@@ -4629,7 +4629,7 @@ class TripGeomfilter(FilterMixin):
 
 class MobikeImporter(FilterMixin):
     def __init__(self,  mapmatching, logger = None, **kwargs):
-        print 'MobikeImporter.__init__',mapmatching.get_ident()
+        print('MobikeImporter.__init__',mapmatching.get_ident())
         self._init_common(  'mobikeimporter', 
                             parent = mapmatching,
                             name = 'Mobike Importer', 
@@ -4780,7 +4780,7 @@ class MobikeImporter(FilterMixin):
                         trips.durations_gps[id_trip] = timestamps[-1]-timestamps[0]
                                        
     def do(self):
-        print 'TraceImporter.do'
+        print('TraceImporter.do')
         log = self.get_logger()
         #ID Bicicletta;Data e ora inizio;Data e ora fine;Latitudine inizio;Longitudine inizio;Latitudine fine;Longitudine fine;Durata;Distanza
         #        0       1                    2                 3                4                  5              6              7        8 
@@ -4827,7 +4827,7 @@ class MobikeImporter(FilterMixin):
         for line in f.readlines()[1:]:# first line contains header
 
             cols = line.strip().split(sep)
-            print '    i_line',i_line,'len(cols)',len(cols),n_cols
+            print('    i_line',i_line,'len(cols)',len(cols),n_cols)
             if len(cols)==n_cols:
                 
                 # sep_date_clock = ' ', sep_date = '-', sep_clock = ':', 
@@ -4842,8 +4842,8 @@ class MobikeImporter(FilterMixin):
                                 )
                 
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.pointsfilepath)
-                print '  cols =',cols
+                print('WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.pointsfilepath))
+                print('  cols =',cols)
             
                 
             i_line += 1
@@ -4858,7 +4858,7 @@ class MobikeImporter(FilterMixin):
 
 class StravaImporter(FilterMixin):
     def __init__(self,  mapmatching, logger = None, **kwargs):
-        print 'StravaImporter.__init__',mapmatching.get_ident()
+        print('StravaImporter.__init__',mapmatching.get_ident())
         self._init_common(  'traceimporter', 
                             parent = mapmatching,
                             name = 'Strava Trace Importer', 
@@ -4964,7 +4964,7 @@ class StravaImporter(FilterMixin):
     
                    
     def do(self):
-        print 'TraceImporter.do'
+        print('TraceImporter.do')
         if self.year == 2013:
             self.import_points_2013()
             self.import_users_2013()
@@ -4979,7 +4979,7 @@ class StravaImporter(FilterMixin):
 		log = self.get_logger()
         
         
-		print 'import users'
+		print('import users')
 		if  (self.userinfofilepath == ''):
 			return
         
@@ -5057,17 +5057,17 @@ class StravaImporter(FilterMixin):
 		if hasattr(self,'home_zips'):
                 #print '  zips',self.zips.get_value().dtype,self.zips.get_value()
 			if self.home_zips.get_value().dtype in [np.dtype(np.int32),np.dtype(np.int64)]:
-				print 'WARNING: delete old person.home_zips'
+				print('WARNING: delete old person.home_zips')
 				self.delete('home_zips')
 		if hasattr(self,'school_zips'):
 				#print '  zips',self.zips.get_value().dtype,self.zips.get_value()
 				if self.school_zips.get_value().dtype in [np.dtype(np.int32),np.dtype(np.int64)]:
-					print 'WARNING: delete old person.school_zips'
+					print('WARNING: delete old person.school_zips')
 					self.delete('school_zips')
 		if hasattr(self,'work_zips'):
 				#print '  zips',self.zips.get_value().dtype,self.zips.get_value()
 				if self.work_zips.get_value().dtype in [np.dtype(np.int32),np.dtype(np.int64)]:
-					print 'WARNING: delete old person.work_zips'
+					print('WARNING: delete old person.work_zips')
 					self.delete('work_zips')
                                         
         #if self.get_version()<0.2:
@@ -5079,7 +5079,7 @@ class StravaImporter(FilterMixin):
 #1	7561	35	    Commute	    2012-10-12 15:07:22	  0  	0	    0	    1	        30316	-1	        30308	 3	        1	            2
 
 		n_cols = 15
-		j_id_line, j_tripid, j_userid, j_trip_type, j_created_date, j_age, j_gender, j_income, j_ethnicity, j_homeZIP, j_schoolZip, j_workZip, j_cyclingfreq, j_rider_history, j_rider_type  = range(15)
+		j_id_line, j_tripid, j_userid, j_trip_type, j_created_date, j_age, j_gender, j_income, j_ethnicity, j_homeZIP, j_schoolZip, j_workZip, j_cyclingfreq, j_rider_history, j_rider_type  = list(range(15))
 		
 		#dd
         
@@ -5129,10 +5129,10 @@ class StravaImporter(FilterMixin):
 		                
 		                                            
 					else:
-						print 'WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.userinfofilepath)
-						print '  cols =',cols
+						print('WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.userinfofilepath))
+						print('  cols =',cols)
 					if i_line%1000 == 0:
-						print i_line,'/',len(lines), 'users imported'
+						print(i_line,'/',len(lines), 'users imported')
 					i_line += 1
 		            
 		            
@@ -5172,7 +5172,7 @@ class StravaImporter(FilterMixin):
 				ids_vtype[i] = self.get_vtype_for_mode(id_mode)
 				i+=1                   
             # create new trip
-			print 'add trips'
+			print('add trips')
 			ids_trip = trips.add_rows(ids_sumo = ids_trip_sumo,
 									timestamps = timestamps_trips,
 									ids_vtype = ids_vtype,
@@ -5180,22 +5180,22 @@ class StravaImporter(FilterMixin):
 									distances_gps = distances_gps,
 									speeds_average = speeds_av,
 									)
-			print len(ids_trip), 'trips added'
+			print(len(ids_trip), 'trips added')
 
             
 			i_changes = [0]
 			current_id_trips_points = ids_trips_points[0]
-			for id_trips_points, i in zip(ids_trips_points, range(len(ids_trips_points))): 
+			for id_trips_points, i in zip(ids_trips_points, list(range(len(ids_trips_points)))): 
 				if id_trips_points != current_id_trips_points:
 					i_changes.append(i)
 				current_id_trips_points = id_trips_points
 			i_changes.append(len(ids_trips_points))
-			print len(i_changes)-1, len(ids_trip)
-			for i, id_trip in zip(range(len(i_changes)-1), ids_trip):
+			print(len(i_changes)-1, len(ids_trip))
+			for i, id_trip in zip(list(range(len(i_changes)-1)), ids_trip):
 				ids_trips_points[i_changes[i]:i_changes[i+1]] = id_trip*np.ones(len(ids_trips_points[i_changes[i]:i_changes[i+1]]))
                 
                 
-			print 'add points'
+			print('add points')
 
 ##            print timestamps_points, timestamps_trips
 			ids_point = points.add_rows(\
@@ -5206,12 +5206,12 @@ class StravaImporter(FilterMixin):
                         altitudes = altitudes,
                         )
                         
-			print len(ids_point), 'points added'           
-			print 'add ids points'
+			print(len(ids_point), 'points added')           
+			print('add ids points')
 
             # bellamossa does provide no altitude
             #points.coords[ids_point][:,:2] =  coords 
-			for i, id_trip in zip(range(len(i_changes)-1), ids_trip):
+			for i, id_trip in zip(list(range(len(i_changes)-1)), ids_trip):
 ##                print points.get_ids()[(points.ids_trip[points.get_ids()] == id_trip)]
 				trips.set_points(id_trip, ids_point[i_changes[i]:i_changes[i+1]])
             #print '    timestamps',timestamps
@@ -5297,7 +5297,7 @@ class StravaImporter(FilterMixin):
             return is_valid, 0., 0., 0.
                                 
     def import_points_2013(self):
-        print 'import_points_2013'
+        print('import_points_2013')
         log = self.get_logger()
         #pointDBNode,   pointPathId,    id,     timestamp,          latitude,   longitude,  altitude,distance,  heartRate,instruction,speed
         #4,             61565791,   23648171762,2013-05-01 06:33:58,44.501085,  11.372906,  NULL,       0,      NULL,       2,          NULL
@@ -5361,7 +5361,7 @@ class StravaImporter(FilterMixin):
         lines = f.readlines()[1:]
         n_lines = len(lines)
         n_trips = len(lines)
-        print 'analyze', n_lines, 'points and', n_trips, 'trips'
+        print('analyze', n_lines, 'points and', n_trips, 'trips')
 
         ids_trip_sumo = np.zeros(n_trips,dtype = 'object')                      
         ids_mode  = np.zeros(n_trips,dtype = np.int32)                            
@@ -5461,11 +5461,11 @@ class StravaImporter(FilterMixin):
       
                 
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.pointsfilepath)
-                print '  cols =',cols
+                print('WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.pointsfilepath))
+                print('  cols =',cols)
             
             if i_line%500000 == 0:
-                print i_line,'/',len(lines), 'points imported'
+                print(i_line,'/',len(lines), 'points imported')
             i_line += 1
         
         # register points of last trip after loop ended
@@ -5518,7 +5518,7 @@ class StravaImporter(FilterMixin):
 
 class BellamossaImporter(FilterMixin):
     def __init__(self,  mapmatching, logger = None, **kwargs):
-        print 'BellamossaImporter.__init__',mapmatching.get_ident()
+        print('BellamossaImporter.__init__',mapmatching.get_ident())
         self._init_common(  'traceimporter', 
                             parent = mapmatching,
                             name = 'Bellamossa Trace Importer', 
@@ -5633,7 +5633,7 @@ class BellamossaImporter(FilterMixin):
     
                    
     def do(self):
-        print 'TraceImporter.do'
+        print('TraceImporter.do')
         if self.year == 2017:
             self.import_points_2017()
             self.import_users_2017()
@@ -5647,7 +5647,7 @@ class BellamossaImporter(FilterMixin):
     def import_users_2017(self):
         log = self.get_logger()
         
-        print 'import users'
+        print('import users')
         if (self.tripinfofilepath == '') | (self.userinfofilepath == ''):
             return
         
@@ -5663,7 +5663,7 @@ class BellamossaImporter(FilterMixin):
         #81511,Female,1981
         #81507,Male,1983
         n_cols = 3
-        j_id_user, j_sex, j_year = range(3)
+        j_id_user, j_sex, j_year = list(range(3))
         
         
         #exist_id_person_sumo = persons.ids_sumo.has_index
@@ -5693,10 +5693,10 @@ class BellamossaImporter(FilterMixin):
                 
                                             
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.userinfofilepath)
-                print '  cols =',cols
+                print('WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.userinfofilepath))
+                print('  cols =',cols)
             if i_line%1000 == 0:
-                print i_line,'/',len(lines), 'users imported'
+                print(i_line,'/',len(lines), 'users imported')
             i_line += 1
 
         f.close()
@@ -5704,7 +5704,7 @@ class BellamossaImporter(FilterMixin):
         
         ## read trip-user file
         n_cols = 2
-        j_id_trip, j_id_user = range(2)
+        j_id_trip, j_id_user = list(range(2))
         f = open(self.tripinfofilepath,'r')
         if self._logger: self._logger.w('import_users_2017 import tripfile %s'%os.path.basename(self.tripinfofilepath))
         sep = ','
@@ -5739,10 +5739,10 @@ class BellamossaImporter(FilterMixin):
                     
                                             
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.tripinfofilepath)
-                print '  cols =',cols
+                print('WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.tripinfofilepath))
+                print('  cols =',cols)
             if i_line%500000 == 0:
-                print i_line,'/',len(lines), 'users imported'
+                print(i_line,'/',len(lines), 'users imported')
             i_line += 1                          
     
     def add_trips(self, trips, points, distances_gps, durations_gps, speeds_av, ids_trip_sumo, ids_trips_points,
@@ -5758,7 +5758,7 @@ class BellamossaImporter(FilterMixin):
                 ids_vtype[i] = self.get_vtype_for_mode(id_mode)
                 i+=1                   
             # create new trip
-            print 'add trips'
+            print('add trips')
             ids_trip = trips.add_rows(ids_sumo = ids_trip_sumo,
                                     timestamps = timestamps_trips,
                                     ids_vtype = ids_vtype,
@@ -5766,22 +5766,22 @@ class BellamossaImporter(FilterMixin):
                                     distances_gps = distances_gps,
                                     speeds_average = speeds_av,
                                     )
-            print len(ids_trip), 'trips added'
+            print(len(ids_trip), 'trips added')
 
             
             i_changes = [0]
             current_id_trips_points = ids_trips_points[0]
-            for id_trips_points, i in zip(ids_trips_points, range(len(ids_trips_points))): 
+            for id_trips_points, i in zip(ids_trips_points, list(range(len(ids_trips_points)))): 
                 if id_trips_points != current_id_trips_points:
                     i_changes.append(i)
                 current_id_trips_points = id_trips_points
             i_changes.append(len(ids_trips_points))
-            print len(i_changes)-1, len(ids_trip)
-            for i, id_trip in zip(range(len(i_changes)-1), ids_trip):
+            print(len(i_changes)-1, len(ids_trip))
+            for i, id_trip in zip(list(range(len(i_changes)-1)), ids_trip):
                 ids_trips_points[i_changes[i]:i_changes[i+1]] = id_trip*np.ones(len(ids_trips_points[i_changes[i]:i_changes[i+1]]))
                 
                 
-            print 'add points'
+            print('add points')
 
 ##            print timestamps_points, timestamps_trips
             ids_point = points.add_rows(\
@@ -5792,12 +5792,12 @@ class BellamossaImporter(FilterMixin):
                         altitudes = np.zeros(len(ids_trips_points), dtype = np.float32),
                         )
                         
-            print len(ids_point), 'points added'           
-            print 'add ids points'
+            print(len(ids_point), 'points added')           
+            print('add ids points')
 
             # bellamossa does provide no altitude
             #points.coords[ids_point][:,:2] =  coords 
-            for i, id_trip in zip(range(len(i_changes)-1), ids_trip):
+            for i, id_trip in zip(list(range(len(i_changes)-1)), ids_trip):
 ##                print points.get_ids()[(points.ids_trip[points.get_ids()] == id_trip)]
                 trips.set_points(id_trip, ids_point[i_changes[i]:i_changes[i+1]])
             #print '    timestamps',timestamps
@@ -5863,7 +5863,7 @@ class BellamossaImporter(FilterMixin):
             return is_valid, 0., 0., 0.
                                 
     def import_points_2017(self):
-        print 'import_points_2017'
+        print('import_points_2017')
         log = self.get_logger()
         #    0          1           2     3        4        5        6       7              8
         # ActivityId,ActivityType,Time,Latitude,Longitude,Accuracy,Speed,IdentifiedType,IdentifiedConfidence
@@ -5926,7 +5926,7 @@ class BellamossaImporter(FilterMixin):
         lines = f.readlines()[1:]
         n_lines = len(lines)
         n_trips = len(lines)
-        print 'analyze', n_lines, 'points and', n_trips, 'trips'
+        print('analyze', n_lines, 'points and', n_trips, 'trips')
 
         ids_trip_sumo = np.zeros(n_trips,dtype = 'object')                      
         ids_mode  = np.zeros(n_trips,dtype = np.int32)                            
@@ -6025,11 +6025,11 @@ class BellamossaImporter(FilterMixin):
       
                 
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.pointsfilepath)
-                print '  cols =',cols
+                print('WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.pointsfilepath))
+                print('  cols =',cols)
             
             if i_line%500000 == 0:
-                print i_line,'/',len(lines), 'points imported'
+                print(i_line,'/',len(lines), 'points imported')
             i_line += 1
         
         # register points of last trip after loop ended
@@ -6078,7 +6078,7 @@ class BellamossaImporter(FilterMixin):
                                     
 class EccTracesImporter(FilterMixin):
     def __init__(self,  mapmatching, logger = None, **kwargs):
-        print 'EccTracesImporter.__init__',mapmatching.get_ident()
+        print('EccTracesImporter.__init__',mapmatching.get_ident())
         self._init_common(  'traceimporter', 
                             parent = mapmatching,
                             name = 'ECC Trace Importer', 
@@ -6179,7 +6179,7 @@ class EccTracesImporter(FilterMixin):
                    & (speed_av < self.speed_trip_max)
                    
     def do(self):
-        print 'TraceImporter.do'
+        print('TraceImporter.do')
         if self.year == 2014:
             self.import_workouts_2014()
             self.import_points_2014()
@@ -6202,7 +6202,7 @@ class EccTracesImporter(FilterMixin):
         #UserID                        TripID                        TimeStamp    Start DT                    Distance     ECC     AvgSpeed     TrackType     Sex     Year     Profession     Frequent User     ZIP     Source      TypeOfBike     TipeOfTrip     Max Spd
         #57249bcd88c537874f9fa1ae    57515edc88c537576ca3e16f    1464945480    2016-06-03T09:18:00.000Z    4.75    4.75        10.16        urban bicycle    F    1999    Studente        yes                    cy-web-gpx    MyBike        HomeToSchool    25.45
 
-        j_id_user, j_id_trip, j_timestamp, j_date, j_dist, j_dist_copy, j_speed_av, j_tracktype, j_sex, j_year, j_profession, j_frequent, j_zip, j_device, j_biketype, j_purpose, j_speedmax = range(17)
+        j_id_user, j_id_trip, j_timestamp, j_date, j_dist, j_dist_copy, j_speed_av, j_tracktype, j_sex, j_year, j_profession, j_frequent, j_zip, j_device, j_biketype, j_purpose, j_speedmax = list(range(17))
         n_cols = 17
         null = 'NULL'
         trips = self.parent.trips
@@ -6283,17 +6283,17 @@ class EccTracesImporter(FilterMixin):
                             #print
                 
                 else:
-                    print '  invalid trip',cols[j_id_trip]
+                    print('  invalid trip',cols[j_id_trip])
                 
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.workoutsfilepath)
-                print '  cols =',cols
+                print('WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.workoutsfilepath))
+                print('  cols =',cols)
             
             i_line += 1
                                             
     
     def import_points_2016(self):
-        print 'import_points_2016'
+        print('import_points_2016')
         #    0          1    2            3         4          5         6    7        
         # TripID, TimeStamp,Latitude, Longitude, Altitude, Distance, Speed, Type
         # 574e98c988c5378163a3e11f,1462347278,44.52606,11.27617,78,0.027255420500625783,5,<start|mid|end>,
@@ -6385,8 +6385,8 @@ class EccTracesImporter(FilterMixin):
       
                 
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.pointsfilepath)
-                print '  cols =',cols
+                print('WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.pointsfilepath))
+                print('  cols =',cols)
             
                 
             i_line += 1
@@ -6421,7 +6421,7 @@ class EccTracesImporter(FilterMixin):
         #54eb068de71f393530a9a74d    54eb0737e71f394c2fa9a74d    1424692504    Mon, 23 Feb 2015 11:55:04 GMT    0    0    urban bicycle    M    1987    Developer    no    
         #54eb9374e71f39f02fa9a750    5505cb04e71f39542e25e2d4    1426442994    Sun, 15 Mar 2015 18:09:54 GMT    0    0.7    urban bicycle    M    1974    Worker    yes    40128
 
-        j_id_user, j_id_trip, j_timestamp, j_date, j_dist, j_speed_av, j_tracktype, j_sex, j_year, j_profession, j_frequent, j_zip = range(12)
+        j_id_user, j_id_trip, j_timestamp, j_date, j_dist, j_speed_av, j_tracktype, j_sex, j_year, j_profession, j_frequent, j_zip = list(range(12))
         n_cols = 12
         null = 'NULL'
         trips = self.parent.trips
@@ -6498,13 +6498,13 @@ class EccTracesImporter(FilterMixin):
                                             zip = zip,
                                             )  
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.workoutsfilepath)
+                print('WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.workoutsfilepath))
                 #print '  cols =',cols
             
             i_line += 1
     
     def import_points_2015(self):
-        print 'import_points_2015'
+        print('import_points_2015')
         #    0          1    2   3         4          5         6         7       8  
         #TripID, TimeStamp,Date, Latitude, Longitude, Altitude, Distance, Speed, Type
         #54eb0737e71f394c2fa9a74d,1424692509,"Mon, 23 Feb 2015 11:55:09 GMT",44.499096,11.361185,49.419395,0,0.000815,start
@@ -6596,7 +6596,7 @@ class EccTracesImporter(FilterMixin):
       
                 
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.pointsfilepath)
+                print('WARNING: inconsistent number of columns (%d) in line %d, file %s'%(len(cols),i_line,self.pointsfilepath))
                 #print '  cols =',cols
             
                 
@@ -6626,13 +6626,13 @@ class EccTracesImporter(FilterMixin):
                                 
     
     def import_workouts_2014(self):
-        print 'import_workouts_2014'
+        print('import_workouts_2014')
         # 2014 ecomondo workouts
         #id            pointDBNode    pointPathId    startTime            distance    duration    sport    calories    maxSpeed    altitudeMin    altitudeMax    metersAscent    metersDescent
         #329308466    7            37073516    2014-05-01 19:00:00        26        15600        1        1182.64        NULL        NULL        NULL        NULL            NULL 
         # 0         1           2            3                       4          5       6          7        8           9          10          11                   12             
         
-        j_id, j_node, j_id_trip, j_time, j_dist,j_duration = range(6)
+        j_id, j_node, j_id_trip, j_time, j_dist,j_duration = list(range(6))
         j_v_max = 8
         n_cols = 13
         null = 'NULL'
@@ -6686,7 +6686,7 @@ class EccTracesImporter(FilterMixin):
         
     
     def import_points_2014(self):
-        print 'import_points_2014'
+        print('import_points_2014')
         # csv2014
         #pointDBNode,pointPathId,id,timestamp,latitude,longitude,altitude,distance,heartRate,instruction,speed
         #4,61565791,23648171762,2013-05-01 06:33:58,44.501085,11.372906,NULL,0,NULL,2,NULL
@@ -6782,7 +6782,7 @@ class EccTracesImporter(FilterMixin):
       
                 
             else:
-                print 'WARNING: inconsistent columns in line %d, file %s'%(i_line,os.path.basename(self.pointsfilepath))
+                print('WARNING: inconsistent columns in line %d, file %s'%(i_line,os.path.basename(self.pointsfilepath)))
             
                 
             i_line += 1
@@ -6808,7 +6808,7 @@ class EccTracesImporter(FilterMixin):
     
     
     def import_points_2013(self):
-        print 'import_points_2013'
+        print('import_points_2013')
         #pointDBNode,   pointPathId,    id,     timestamp,          latitude,   longitude,  altitude,distance,  heartRate,instruction,speed
         #4,             61565791,   23648171762,2013-05-01 06:33:58,44.501085,  11.372906,  NULL,       0,      NULL,       2,          NULL
         #0                  1         2          3                      4          5            6       7       8           9           10
@@ -6924,7 +6924,7 @@ class EccTracesImporter(FilterMixin):
       
                 
             else:
-                print 'WARNING: inconsistent columns in line %d, file %s'%(i_line,os.path.basename(self.pointsfilepath))
+                print('WARNING: inconsistent columns in line %d, file %s'%(i_line,os.path.basename(self.pointsfilepath)))
             
                 
             i_line += 1
@@ -6952,7 +6952,7 @@ class EccTracesImporter(FilterMixin):
 
 class GpxImporter(FilterMixin):
     def __init__(self,  mapmatching, logger = None, **kwargs):
-        print 'GpxImporter.__init__',mapmatching.get_ident()
+        print('GpxImporter.__init__',mapmatching.get_ident())
         self._init_common(  'gpximporter', 
                             parent = mapmatching,
                             name = 'GPX Importer', 
@@ -6996,7 +6996,7 @@ class GpxImporter(FilterMixin):
         Reads endomondo gpx xml file and stores point data in traces table.
         If there is no traces table, one will be initialized and returned
         """
-        print 'GpxImporter.do',self.filepaths
+        print('GpxImporter.do',self.filepaths)
         mapmatching = self.parent
         #scenario = mapmatching.get_scenario()
         logger = self.get_logger()
@@ -7015,7 +7015,7 @@ class GpxImporter(FilterMixin):
                             speed_trip_max = self.speed_trip_max,
                             )
         for filepath in self.filepaths.split(','):
-            print '  parse gpx file',    filepath            
+            print('  parse gpx file',    filepath)            
             parse(filepath.strip(), parser)
             
         ids_trips = parser.get_ids_trip()
@@ -7207,7 +7207,7 @@ class GpxParser(handler.ContentHandler):
 
 class GtfsShapeImporter(FilterMixin):
     def __init__(self,  mapmatching, logger = None, **kwargs):
-        print 'GtfsShapeImporter.__init__',mapmatching.get_ident()
+        print('GtfsShapeImporter.__init__',mapmatching.get_ident())
         self._init_common(  'gtfsshapeimporter', 
                             parent = mapmatching,
                             name = 'GTFS Importer', 
@@ -7250,7 +7250,7 @@ class GtfsShapeImporter(FilterMixin):
         Reads endomondo gpx xml file and stores point data in traces table.
         If there is no traces table, one will be initialized and returned
         """
-        print 'GtfsShapeImporter.do',self.gtfsdirpath
+        print('GtfsShapeImporter.do',self.gtfsdirpath)
         mapmatching = self.parent
         
         mapmatching.get_attrsman().do_not_save_attrs(['gtfsdirpath'])
@@ -7263,7 +7263,7 @@ class GtfsShapeImporter(FilterMixin):
         net = self.parent
         get_vtype_for_mode = scenario.demand.vtypes.get_vtype_for_mode#( id_mode)
         id_vtype = get_vtype_for_mode(self.id_mode)
-        print '  self.id_mode',self.id_mode,'id_vtype',id_vtype
+        print('  self.id_mode',self.id_mode,'id_vtype',id_vtype)
         tripshapes = mapmatching.trips
         points = mapmatching.points
         
@@ -7286,7 +7286,7 @@ class GtfsShapeImporter(FilterMixin):
         for fileattr_raw in f.readline().split(sep):
             
             fileattr = fileattr_raw.strip().strip(aa)
-            print '  check fileattr *%s*, %d'%(fileattr,i)
+            print('  check fileattr *%s*, %d'%(fileattr,i))
             if fileattr == 'shape_id':
                 ind_shape_id = i
                 
@@ -7324,7 +7324,7 @@ class GtfsShapeImporter(FilterMixin):
                 id_shape = tripshapes.add_row(  ids_sumo = cols[ind_shape_id].strip(aa),
                                                 ids_vtype = id_vtype)
                                                 
-                print '  id_shape',id_shape,tripshapes.ids_vtype[id_shape],id_vtype
+                print('  id_shape',id_shape,tripshapes.ids_vtype[id_shape],id_vtype)
                 lons = []
                 lats = []
                 ind_shape = ind_shape_new
@@ -7369,7 +7369,7 @@ class GtfsStopGenerator(Process):
             self._results = Matchresults(   'matchresults',mapmatching)
         else:
             self._results =  results
-        print 'GtfsGenerator.__init__'
+        print('GtfsGenerator.__init__')
         self._init_common(  ident, 
                             parent = mapmatching,
                             name = 'GTFS Stop Generator', 
@@ -7458,7 +7458,7 @@ class GtfsStopGenerator(Process):
     #def place_stop(self, id_stop, name_stop, lat_stop, lon_ stop, **kwargs):
         
     def do(self):
-        print 'GtfsStopGenerator.do'
+        print('GtfsStopGenerator.do')
         # go through shapes.txt and match shapes with id_edges
         # > shape_id -> ids_edge
         # done through mapmatching
@@ -7544,7 +7544,7 @@ class GtfsStopGenerator(Process):
                 map_trip_to_shape[cols[ind_trip_id].strip().strip(aa)] = id_shape
                 
                 id_service = cols[ind_service_id].strip().strip(aa)
-                if not map_service_to_trips.has_key(id_service):
+                if id_service not in map_service_to_trips:
                     map_service_to_trips[id_service] = []
                 else:
                     map_service_to_trips[id_service].append(id_trip)
@@ -7558,11 +7558,11 @@ class GtfsStopGenerator(Process):
                 #else:
                 #    map_service_to_route[id_service] = cols[ind_route_id].strip().strip(aa)
                 map_trip_to_route[id_trip] = cols[ind_route_id].strip().strip(aa)
-                print '      *id_trip',id_trip,'id_service',id_service,'id_route',cols[ind_route_id].strip().strip(aa),'-> id_shape',id_shape
+                print('      *id_trip',id_trip,'id_service',id_service,'id_route',cols[ind_route_id].strip().strip(aa),'-> id_shape',id_shape)
                 
         f.close()
         
-        print '  result: len(map_trip_to_shape)',len(map_trip_to_shape),'different shapes',len(set(map_trip_to_shape.values())),'of',len(ids_gtsshape_set)
+        print('  result: len(map_trip_to_shape)',len(map_trip_to_shape),'different shapes',len(set(map_trip_to_shape.values())),'of',len(ids_gtsshape_set))
         #ids_trip = {}
         #for id_shape in gpstrips.ids_sumo[gpstrips.get_ids()]:
         #    ids_trip[id_shape] = map_shape_to_trip[id_shape]
@@ -7589,28 +7589,28 @@ class GtfsStopGenerator(Process):
             id_stop = cols[ind_stop_id].strip().strip(aa)
             #print '  id_trip',id_trip,map_trip_to_shape.has_key(id_trip),'found stop',id_stop
             
-            if map_trip_to_shape.has_key(id_trip):
-                if not trip_stops.has_key(id_trip):
+            if id_trip in map_trip_to_shape:
+                if id_trip not in trip_stops:
                     trip_stops[id_trip] = []
                     trip_times[id_trip] = []
-                print '    for id_trip',id_trip,'* found id_stop',id_stop,'at id_shape',map_trip_to_shape[id_trip]
+                print('    for id_trip',id_trip,'* found id_stop',id_stop,'at id_shape',map_trip_to_shape[id_trip])
                 trip_stops[id_trip].append(id_stop)
                 trip_times[id_trip].append(cols[ind_departure_time].strip().strip(aa))
             
             
         f.close()
-        print '  result: len(trip_stops)',len(trip_stops)
+        print('  result: len(trip_stops)',len(trip_stops))
         
         # dictionary to map stop ID to shape ID that will be used 
         # to identify edge of stop
         stop_shapes = OrderedDict()
-        for id_trip, ids_stop in trip_stops.iteritems():
+        for id_trip, ids_stop in trip_stops.items():
             #print '  id_trip',id_trip,'ids_stop',ids_stop
             #print '    ',
             for id_stop in ids_stop:
                 #print (map_trip_to_shape.has_key(id_trip),map_trip_to_shape.has_key(id_trip)),
                 # currently not all trips have shapes (unless include direction = 1)
-                if (map_trip_to_shape.has_key(id_trip)):
+                if (id_trip in map_trip_to_shape):
                     #print '*',
                     ids_edges = ids_edges_shape[gpstrips.ids_route_matched[get_id_gpstrip(map_trip_to_shape[id_trip])]]
                     # edges of  shape of new trip
@@ -7619,7 +7619,7 @@ class GtfsStopGenerator(Process):
                     else:
                         n_edges = 0
                                 
-                    if stop_shapes.has_key(id_stop):
+                    if id_stop in stop_shapes:
                         # use new shape if shape is longer than previous shape
                         if  n_edges > len(ids_edges_shape[gpstrips.ids_route_matched[get_id_gpstrip(stop_shapes[id_stop])]]):
                             stop_shapes[id_stop] = map_trip_to_shape[id_trip]
@@ -7658,7 +7658,7 @@ class GtfsStopGenerator(Process):
             cols = line.split(sep)
             id_stop = cols[ind_stop_id].strip().strip(aa)
             #print '  found id_stop',id_stop,stop_shapes.has_key(id_stop)
-            if stop_shapes.has_key(id_stop):
+            if id_stop in stop_shapes:
                 ids_stop_gtfs.append(id_stop)
                 
                 lats.append(float(cols[ind_stop_lat].strip().strip(aa)))
@@ -7680,8 +7680,8 @@ class GtfsStopGenerator(Process):
         accesslevelsmap = self.parent.get_accesslevelsmap()
         #gtfsstop_to_simstop = {}
         for id_stop, coord, stopname in zip(ids_stop_gtfs,coords, stopnames):
-            print '\n  id_stop',id_stop, coord,'id_gpstrip',get_id_gpstrip(stop_shapes[id_stop])
-            print '    id_gpsroute',gpstrips.ids_route_matched[get_id_gpstrip(stop_shapes[id_stop])]
+            print('\n  id_stop',id_stop, coord,'id_gpstrip',get_id_gpstrip(stop_shapes[id_stop]))
+            print('    id_gpsroute',gpstrips.ids_route_matched[get_id_gpstrip(stop_shapes[id_stop])])
             ids_edge_target = ids_edges_shape[gpstrips.ids_route_matched[get_id_gpstrip(stop_shapes[id_stop])]]
             #print '    ids_edge_target',ids_edge_target
             
@@ -7697,12 +7697,12 @@ class GtfsStopGenerator(Process):
             ind = 0
             is_hit = False
             n_hits = len(ids_edge_hit)
-            print '    n_hits',n_hits,'len(ids_edge_target)',len(ids_edge_target),'dists',dists
+            print('    n_hits',n_hits,'len(ids_edge_target)',len(ids_edge_target),'dists',dists)
             while (not is_hit) & (ind<n_hits):
                 #for id_edge in  ids_edge_hit:
                 id_edge =  ids_edge_hit[ind]
                 
-                print '      check id_edge', id_edge,id_edge in ids_edge_target
+                print('      check id_edge', id_edge,id_edge in ids_edge_target)
                 if  id_edge in ids_edge_target:
                     is_hit = self.place_stop(id_stop, stopname, id_edge, coord, edges, lanes, ptstops, id_mode_pt, id_mode_ped)
                     
@@ -7710,7 +7710,7 @@ class GtfsStopGenerator(Process):
                 ind += 1
                 
             if not is_hit:
-                print 'WARNING: no edge found for stop_id',id_stop,'id_gpstrip' ,get_id_gpstrip(stop_shapes[id_stop])
+                print('WARNING: no edge found for stop_id',id_stop,'id_gpstrip' ,get_id_gpstrip(stop_shapes[id_stop]))
                          
         
         ptstops.update_centroids()
@@ -7738,41 +7738,41 @@ class GtfsStopGenerator(Process):
     def place_stop(self, id_stop, stopname, id_edge, coord, edges, lanes, ptstops, id_mode_pt, id_mode_ped):
         ids_lane = edges.ids_lanes[id_edge]
         edgelength = edges.lengths[id_edge]
-        print  'place_stop on id_edge',id_edge,'edgelength',edgelength,'len(ids_lane)',len(ids_lane)
+        print('place_stop on id_edge',id_edge,'edgelength',edgelength,'len(ids_lane)',len(ids_lane))
         if (len(ids_lane)>=2):
-            print  '      check ped access',lanes.get_accesslevel([ids_lane[0]], id_mode_ped)
+            print('      check ped access',lanes.get_accesslevel([ids_lane[0]], id_mode_ped))
             
             
             
             if lanes.get_accesslevel([ids_lane[0]], id_mode_ped)>-1:
-                print  '      check bus access',lanes.get_accesslevel([ids_lane[1]], id_mode_pt)
+                print('      check bus access',lanes.get_accesslevel([ids_lane[1]], id_mode_pt))
                 if lanes.get_accesslevel([ids_lane[1]], id_mode_pt)>-1:
                     
                     ids_simstop_exist = ptstops.select_ids(ptstops.ids_lane.get_value() == ids_lane[1])
                     if len(ids_simstop_exist)>0:
-                        print '     there are already stops ids_simstop_exist',ids_simstop_exist
+                        print('     there are already stops ids_simstop_exist',ids_simstop_exist)
                         d_init = np.min(ptstops.positions_from[ids_simstop_exist])
                         d_end = edgelength-np.max(ptstops.positions_to[ids_simstop_exist])
-                        print '        d_init,d_end',d_init,d_end
+                        print('        d_init,d_end',d_init,d_end)
                         if d_init>d_end:
-                            print '       place stop in front of previous stops'
+                            print('       place stop in front of previous stops')
                             pos_from = d_init - self.length_stop
                             pos_to = d_init
-                            print '       try pos_from',pos_from
+                            print('       try pos_from',pos_from)
                             if pos_from < self.dist_edge_stop_min:
                                 pos_from = d_init - self.length_stop_min
-                                print '       try with shorter stop pos_from',pos_from
+                                print('       try with shorter stop pos_from',pos_from)
 
                             is_hit = pos_from > self.dist_edge_stop_min
                             
                         else:
-                            print '      place stop in behind previous stops'
+                            print('      place stop in behind previous stops')
                             pos_from = edgelength-d_end
                             pos_to = pos_from+self.length_stop
-                            print '       try pos_to',pos_to
+                            print('       try pos_to',pos_to)
                             if pos_to > edgelength-self.dist_edge_stop_min:
                                 pos_to = pos_from+self.length_stop_min
-                                print '       try with shorter stop pos_to',pos_to
+                                print('       try with shorter stop pos_to',pos_to)
                                 
                             is_hit = pos_to < edgelength-self.dist_edge_stop_min
                             
@@ -7780,35 +7780,35 @@ class GtfsStopGenerator(Process):
                     else:
                         
                         pos = edges.get_pos_from_coord(id_edge, coord)-0.5*self.dist_edge_stop_min
-                        print '     place stop nearest to GPS coordinate pos',pos
+                        print('     place stop nearest to GPS coordinate pos',pos)
                         if pos < self.dist_edge_stop_min:
                             pos_from = self.dist_edge_stop_min
                             pos_to = self.dist_edge_stop_min + self.length_stop
-                            print '       try pos_to',pos_to
+                            print('       try pos_to',pos_to)
                             if pos_to > edgelength-self.dist_edge_stop_min:
                                 pos_to = self.dist_edge_stop_min + self.length_stop_min
-                                print '       try with shorter stop pos_to',pos_to
+                                print('       try with shorter stop pos_to',pos_to)
                             is_hit = pos_to < edgelength-self.dist_edge_stop_min
                             
                         elif pos+ self.length_stop > edgelength-self.dist_edge_stop_min:
                             pos_from = edgelength-self.dist_edge_stop_min- self.length_stop
                             pos_to = edgelength-self.dist_edge_stop_min
-                            print '       try pos_from',pos_from
+                            print('       try pos_from',pos_from)
                             if pos_from < self.dist_edge_stop_min:
                                 pos_from = edgelength-self.dist_edge_stop_min- self.length_stop_min
-                                print '       try with shorter stop pos_from',pos_from
+                                print('       try with shorter stop pos_from',pos_from)
                             
                             is_hit =   pos_from > self.dist_edge_stop_min
                              
                         else:
-                            print '       stop fits'
+                            print('       stop fits')
                             pos_from = pos
                             pos_to = pos + self.length_stop
                             is_hit = True
                             
                         
                     if  is_hit:
-                        print '    Add stop',id_stop,'at id_edge',id_edge,'pos_from %d'%pos_from,'pos_to %d'%pos_to,'edgelength %d'%edgelength
+                        print('    Add stop',id_stop,'at id_edge',id_edge,'pos_from %d'%pos_from,'pos_to %d'%pos_to,'edgelength %d'%edgelength)
                         id_simstop = ptstops.make( id_stop,
                                                     id_lane = ids_lane[1],
                                                     position_from = pos_from,
@@ -7829,7 +7829,7 @@ class GtfsServiceGenerator(Process):
             self._results = Matchresults(   'matchresults',mapmatching)
         else:
             self._results =  results
-        print 'GtfsServiceGenerator.__init__'
+        print('GtfsServiceGenerator.__init__')
         self._init_common(  ident, 
                             parent = mapmatching,
                             name = 'GTFS Service Generator', 
@@ -7948,16 +7948,16 @@ class GtfsServiceGenerator(Process):
             date = cols[ind_date].strip().strip(aa)
             year,month,day = (date[0:4],date[4:6],date[6:8])
             id_service = cols[ind_service_id].strip().strip(aa)
-            print '  id_service',id_service,'year,month,day',year,month,day,(int(year) == self.year) ,(int(month) == self.month),(int(day) == self.day),
+            print('  id_service',id_service,'year,month,day',year,month,day,(int(year) == self.year) ,(int(month) == self.month),(int(day) == self.day), end=' ')
             #service_to_date [cols[ind_service_id].strip().strip(aa)] = (date[0:4],date[4:6],date[6:8])
             
             
             
             if (int(year) == self.year) & (int(month) == self.month) &(int(day) == self.day):
-                print 'valid'
+                print('valid')
                 ids_service_valid.append(cols[ind_service_id].strip().strip(aa))
             else:
-                print 'not valid'
+                print('not valid')
                 
         f.close()
         
@@ -7967,7 +7967,7 @@ class GtfsServiceGenerator(Process):
             else:
                 return self.schedule_simple(ids_service_valid)
         else:
-            print 'WARNING: no services found on specified date.'
+            print('WARNING: no services found on specified date.')
             return True
         
     def schedule_frequ_est(self, ids_service_valid):
@@ -8000,11 +8000,11 @@ class GtfsServiceGenerator(Process):
         ids_edges_shape = gpstrips.routes.get_value().ids_edges
         
         if not hasattr(mapmatching,'trip_stops'):
-            print 'WARNING: no stops found, please run PT stop generation first'
+            print('WARNING: no stops found, please run PT stop generation first')
             return False
         ##
         ## Generate timetables for ids_trip
-        ids_trip = mapmatching.trip_stops.keys()
+        ids_trip = list(mapmatching.trip_stops.keys())
         
         time_inter_begin = self.hour_begin*3600.0
         time_inter_end = self.hour_end*3600.0
@@ -8013,12 +8013,12 @@ class GtfsServiceGenerator(Process):
         # maps stop sequences to a unique service ID
         # which is different from the GTFS service ID
         stopsequence_to_services = {}
-        for id_service, ids_trip in mapmatching.map_service_to_trips.iteritems():
+        for id_service, ids_trip in mapmatching.map_service_to_trips.items():
             if id_service in ids_service_valid:
                 for id_trip in ids_trip:
                     
                     hs,ms,ss = trip_times[id_trip][0].split(':')
-                    print '  examin valid id_service',id_service,'id_trip',id_trip,'t',hs,ms,ss
+                    print('  examin valid id_service',id_service,'id_trip',id_trip,'t',hs,ms,ss)
                     hs = int(hs)
                     if (hs >= self.hour_begin)&(hs<self.hour_end):
                         time_start = hs*3600+int(ms)*60+int(ss)
@@ -8048,18 +8048,18 @@ class GtfsServiceGenerator(Process):
                         for time_start_check, _id_service, _id_trip in stopsequence_to_services[ids_simstop]:
                             is_found = time_start==time_start_check
                             if is_found:
-                                print '    WARNING: already existing id_trip',id_trip,'with time_start',time_start
+                                print('    WARNING: already existing id_trip',id_trip,'with time_start',time_start)
                                 break
                             
                         if not  is_found:
-                            print '    add id_trip',id_trip,'id_route',map_trip_to_route[id_trip],'time_start %s:%s'%(hs,ms)#,'to ids_simstop',ids_simstop
+                            print('    add id_trip',id_trip,'id_route',map_trip_to_route[id_trip],'time_start %s:%s'%(hs,ms))#,'to ids_simstop',ids_simstop
                             stopsequence_to_services[ids_simstop].append((time_start, id_service, id_trip))  
                     
 
     
         id_estservice = 0
         ids_route_count = {}
-        for ids_simstop, services in stopsequence_to_services.iteritems():
+        for ids_simstop, services in stopsequence_to_services.items():
             
             # sort trips with identical stop sequences by start time
             # this is only to extract first run time
@@ -8116,14 +8116,14 @@ class GtfsServiceGenerator(Process):
                                     ids_edge= ids_edge,
                                     id_vtype= id_vtype,
                                     )
-            print '\n',70*'-'
-            print '  scheduled',linename,'time_start %d'%time_start,'time_end %d'%time_end,'frequ %d'%freq,'id_stop',trip_stops[id_trip][0]
-            print '      id_gpstrip',id_gpstrip,'id_gpsroute',gpstrips.ids_route_matched[id_gpstrip]
-            print '        ids_simstop',ids_simstop
-            print '        ids_edge',ids_edge
+            print('\n',70*'-')
+            print('  scheduled',linename,'time_start %d'%time_start,'time_end %d'%time_end,'frequ %d'%freq,'id_stop',trip_stops[id_trip][0])
+            print('      id_gpstrip',id_gpstrip,'id_gpsroute',gpstrips.ids_route_matched[id_gpstrip])
+            print('        ids_simstop',ids_simstop)
+            print('        ids_edge',ids_edge)
             t = time_first                        
             for time_start, id_service, id_trip in services:
-                print '           check id_trip',id_trip,'time_start %d'%time_start,'t %.d'%t,'delay',time_start-t
+                print('           check id_trip',id_trip,'time_start %d'%time_start,'t %.d'%t,'delay',time_start-t)
                 t = t + freq
             id_estservice += 1     
             
@@ -8196,19 +8196,19 @@ class GtfsServiceGenerator(Process):
         ids_edges_shape = gpstrips.routes.get_value().ids_edges
         
         if not hasattr(mapmatching,'trip_stops'):
-            print 'WARNING: no stops found, please run PT stop generation first'
+            print('WARNING: no stops found, please run PT stop generation first')
             return False
         ##
         ## Generate timetables for ids_trip
-        ids_trip = mapmatching.trip_stops.keys()
+        ids_trip = list(mapmatching.trip_stops.keys())
         
         id_service_counter = 0
         # maps stop sequences to a unique service ID
         # which is different from the GTFS service ID
         stopsequence_to_services = {}
-        for id_service, ids_trip in mapmatching.map_service_to_trips.iteritems():
-            print '-'*70
-            print 'id_service',id_service
+        for id_service, ids_trip in mapmatching.map_service_to_trips.items():
+            print('-'*70)
+            print('id_service',id_service)
             schedules=[]# contains all trip data of a service
             for id_trip in ids_trip:
                 #print '  time',trip_times[id_trip][0],'\t id_stop',trip_stops[id_trip][0],id_trip
@@ -8249,9 +8249,9 @@ class GtfsServiceGenerator(Process):
                                     id_vtype= gpstrips.ids_vtype[id_gpstrip],
                                     )
                         
-                print '  scheduled',linename,"start%d"%time_start,'id_stop',trip_stops[id_trip][0],'id_gpstrip',id_gpstrip,'id_gpsroute',gpstrips.ids_route_matched[id_gpstrip]
-                print '        ids_simstop',ids_simstop
-                print '        ids_edge',ids_edge
+                print('  scheduled',linename,"start%d"%time_start,'id_stop',trip_stops[id_trip][0],'id_gpstrip',id_gpstrip,'id_gpsroute',gpstrips.ids_route_matched[id_gpstrip])
+                print('        ids_simstop',ids_simstop)
+                print('        ids_edge',ids_edge)
         
         
             
@@ -8752,7 +8752,7 @@ class GpsTrips(Trips):
         """
         Shortest fastest routing.
         """
-        print 'route_fastest_with_waits',time_modespecific,c_modespecific
+        print('route_fastest_with_waits',time_modespecific,c_modespecific)
         # TODO: if too mant vtypes, better go through id_modes
         exectime_start = time.clock()
         scenario = self.parent.get_scenario()
@@ -8857,7 +8857,7 @@ class GpsTrips(Trips):
                         #print '  routes.ids_edges' ,routes.ids_edges[id_route]
         
         
-        print '  exectime',time.clock()-exectime_start 
+        print('  exectime',time.clock()-exectime_start) 
         
     def route_fastest(self, time_modespecific = 3.0, c_modespecific = 0.9, 
                         is_ignor_connections = False,
@@ -8865,7 +8865,7 @@ class GpsTrips(Trips):
         """
         Shortest fastest routing.
         """
-        print 'route_fastest',time_modespecific,c_modespecific
+        print('route_fastest',time_modespecific,c_modespecific)
         # TODO: if too mant vtypes, better go through id_modes
         exectime_start = time.clock()
         scenario = self.parent.get_scenario()
@@ -8885,7 +8885,7 @@ class GpsTrips(Trips):
             id_mode = vtypes.ids_mode[id_vtype]
             
             # no routing for pedestrians
-            if (id_mode != net.modes.get_id_mode('pedestrian'))&timesmap.has_key(id_mode):
+            if (id_mode != net.modes.get_id_mode('pedestrian'))&(id_mode in timesmap):
                 #dists = distancesmap[id_mode]
                 times_orig = timesmap[id_mode].copy() 
                 
@@ -8960,14 +8960,14 @@ class GpsTrips(Trips):
                         #print '  routes.ids_edges' ,routes.ids_edges[id_route]
         
         
-        print '  exectime',time.clock()-exectime_start 
+        print('  exectime',time.clock()-exectime_start) 
     
     def route_generic(self, weightsmap = None, is_ignor_connections = False, 
                                 color_route = None,):
         """
         Generic path routing.
         """
-        print 'route_generic'
+        print('route_generic')
         # TODO: if too mant vtypes, better go through id_modes
         exectime_start = time.clock()
         scenario = self.parent.get_scenario()
@@ -8988,7 +8988,7 @@ class GpsTrips(Trips):
             id_mode = vtypes.ids_mode[id_vtype]
             
             # no routing for pedestrians
-            if (id_mode != net.modes.get_id_mode('pedestrian'))&weightsmap.has_key(id_mode):
+            if (id_mode != net.modes.get_id_mode('pedestrian'))&(id_mode in weightsmap):
                 weights = weightsmap[id_mode]
                 
                 distances = distancesmap[id_mode]
@@ -9043,7 +9043,7 @@ class GpsTrips(Trips):
                         #print '  routes.ids_edges' ,routes.ids_edges[id_route]
         
         
-        print '  exectime',time.clock()-exectime_start 
+        print('  exectime',time.clock()-exectime_start) 
             
     def route_shortest(self, dist_modespecific = 5.0, c_modespecific = 0.9, 
                         is_ignor_connections = False, dist_min_modespecific= 15.0,
@@ -9051,7 +9051,7 @@ class GpsTrips(Trips):
         """
         Shortest path routing.
         """
-        print 'route_shortest',dist_modespecific,c_modespecific
+        print('route_shortest',dist_modespecific,c_modespecific)
         # TODO: if too mant vtypes, better go through id_modes
         exectime_start = time.clock()
         scenario = self.parent.get_scenario()
@@ -9072,7 +9072,7 @@ class GpsTrips(Trips):
             id_mode = vtypes.ids_mode[id_vtype]
             
             # no routing for pedestrians
-            if (id_mode != net.modes.get_id_mode('pedestrian'))&distancesmap.has_key(id_mode):
+            if (id_mode != net.modes.get_id_mode('pedestrian'))&(id_mode in distancesmap):
                 dists_orig = distancesmap[id_mode].copy() 
                 weights = dists_orig.copy() 
                 
@@ -9140,7 +9140,7 @@ class GpsTrips(Trips):
                         #print '  routes.ids_edges' ,routes.ids_edges[id_route]
         
         
-        print '  exectime',time.clock()-exectime_start 
+        print('  exectime',time.clock()-exectime_start) 
         
     def get_ids_edge_matched(self, id_trip):
         return self.get_routes().ids_edges[self.ids_route_matched[id_trip]]
@@ -9198,7 +9198,7 @@ class GpsTrips(Trips):
     
     def get_ids_route_selected(self):
         # TODO: here we could append direct routes 
-        print 'get_ids_route_selected'
+        print('get_ids_route_selected')
         ids_route_matched = self.ids_route_matched[self.get_ids_selected()]
         ids_route_shortest = self.ids_route_shortest[self.get_ids_selected()]
         ids_route_fastest = self.ids_route_fastest[self.get_ids_selected()]
@@ -9570,7 +9570,7 @@ class GpsPersons(am.ArrayObjman):
         if hasattr(self,'ids_genders'): self.delete('ids_genders') 
     
     def analyze(self):
-        print 'Persons.analyze'
+        print('Persons.analyze')
         #ids_person = self.select_ids(self.) 
         trips = self.parent.trips
         points = self.parent.points
@@ -9599,7 +9599,7 @@ class GpsPersons(am.ArrayObjman):
             # get selected trips only
             ids_trip = np.array(ids_trip_all)[trips.are_selected[ids_trip_all] ]      
             
-            print '   analyze person',id_person,'ids_trip',ids_trip
+            print('   analyze person',id_person,'ids_trip',ids_trip)
             
             if ids_trip is not None:
                 if len(ids_trip) > 0:
@@ -9649,7 +9649,7 @@ class GpsPersons(am.ArrayObjman):
             # get selected trips only
             ids_trip = np.array(ids_trip_all)[trips.are_selected[ids_trip_all] ]      
             
-            print '   analyze person',id_person,'ids_trip',ids_trip
+            print('   analyze person',id_person,'ids_trip',ids_trip)
             
             if ids_trip is not None:
                 n_trips = len(ids_trip)
@@ -9678,7 +9678,7 @@ class GpsPersons(am.ArrayObjman):
             self.ids_trips[id_pers].append(id_trip)
         
     def make(self, id_sumo, **kwargs):
-        print 'make id_pers_sumo',id_sumo
+        print('make id_pers_sumo',id_sumo)
         
         id_trip = kwargs.get('id_trip',-1)
         if self.ids_sumo.has_index(id_sumo):
@@ -9785,7 +9785,7 @@ class Mapmatching(DemandobjMixin, cm.BaseObjman):
         
             
         def _init_attributes(self):
-            print 'Mapmatching._init_attributes'
+            print('Mapmatching._init_attributes')
             attrsman = self.get_attrsman()
             
             self.points = attrsman.add( cm.ObjConf(GpsPoints('points',self)))
@@ -9911,7 +9911,7 @@ class Mapmatching(DemandobjMixin, cm.BaseObjman):
             Returns a dictionary where key is id_mode and
             value is a distance-lookup table, mapping id_edge to edge distance
             """
-            print 'get_distancesmap',self._distancesmap is None
+            print('get_distancesmap',self._distancesmap is None)
             
             
             if self._distancesmap is None:
@@ -9920,7 +9920,7 @@ class Mapmatching(DemandobjMixin, cm.BaseObjman):
                     vtypes = self.get_scenario().demand.vtypes
                     ids_vtype = self.trips.ids_vtype[self.trips.get_ids()]
                     ids_mode = vtypes.ids_mode[ids_vtype]
-                print '    ids_mode',set(ids_mode),len(ids_mode)
+                print('    ids_mode',set(ids_mode),len(ids_mode))
             
                 self._distancesmap = {}
                 for id_mode in set(ids_mode):
@@ -9939,7 +9939,7 @@ class Mapmatching(DemandobjMixin, cm.BaseObjman):
             Returns a dictionary where key is id_mode and
             value is the corrisponding fstar.
             """
-            print 'get_fstarmap',self._fstarmap is None
+            print('get_fstarmap',self._fstarmap is None)
             
             
             if self._fstarmap is None:
@@ -9948,7 +9948,7 @@ class Mapmatching(DemandobjMixin, cm.BaseObjman):
                     vtypes = self.get_scenario().demand.vtypes
                     ids_vtype = self.trips.ids_vtype[self.trips.get_ids()]
                     ids_mode = vtypes.ids_mode[ids_vtype]
-                print '    ids_mode',set(ids_mode),len(ids_mode)
+                print('    ids_mode',set(ids_mode),len(ids_mode))
             
                 self._fstarmap = {}
                 for id_mode in set(ids_mode):
@@ -9976,7 +9976,7 @@ class Mapmatching(DemandobjMixin, cm.BaseObjman):
                     vtypes = self.get_scenario().demand.vtypes
                     ids_vtype = self.trips.ids_vtype[self.trips.get_ids()]
                     ids_mode = vtypes.ids_mode[ids_vtype]
-                print '    ids_mode',set(ids_mode),len(ids_mode)
+                print('    ids_mode',set(ids_mode),len(ids_mode))
                 
             
             
@@ -10021,7 +10021,7 @@ class Matchresults(cm.BaseObjman):
             # attention: need to check whether already set
             # because setattr is set explicitely after add
             if not hasattr(self, resultobj.get_ident()):
-                if kwargs.has_key('groupnames'):
+                if 'groupnames' in kwargs:
                     kwargs['groupnames'].append('Results')
                 else:
                     kwargs['groupnames'] = ['Results']
@@ -10253,17 +10253,17 @@ class Nodesresults(am.ArrayObjman):
         the average wait tie at node id_node is
         times_wait_est[id_node]
         """
-        print 'get_times_wait_est'
+        print('get_times_wait_est')
         nodes = self.ids_node.get_linktab()
         ids_node = nodes.get_ids()
         ids_node_signif = self.get_nodes_significant()
         #nodetypes = nodes.types[ids_node_signif]
         map_nodetype_to_times_wait = self.get_map_nodetype_to_times_wait()
         
-        print '  map_nodetype_to_times_wait',map_nodetype_to_times_wait
+        print('  map_nodetype_to_times_wait',map_nodetype_to_times_wait)
         
         times_wait = np.zeros(max(ids_node)+1, dtype = np.int32)
-        print '  ',np.min(nodes.types[ids_node_signif]),np.max(nodes.types[ids_node_signif])
+        print('  ',np.min(nodes.types[ids_node_signif]),np.max(nodes.types[ids_node_signif]))
         
         times_wait[ids_node_signif] = map_nodetype_to_times_wait[nodes.types[ids_node_signif]]
         
@@ -10272,11 +10272,11 @@ class Nodesresults(am.ArrayObjman):
         return  times_wait   
         
     def get_map_nodetype_to_times_wait(self):
-        print 'get_map_nodetype_to_times_wait'
+        print('get_map_nodetype_to_times_wait')
         nodes = self.ids_node.get_linktab()
         ids_res = self.get_ids()
         nodetypes =  nodes.types[self.ids_node[ids_res]]
-        nodetypeset = nodes.types.choices.values()
+        nodetypeset = list(nodes.types.choices.values())
         #map_type_to_typename = get_inversemap(nodes.types.choices)
         #map_type_to_times_wait = {}
         map_type_to_times_wait = np.zeros(max(nodetypeset)+1,dtype = np.float32)
@@ -10503,7 +10503,7 @@ class Edgesresults(am.ArrayObjman):
         # return result ids and respective edge ids
         ids_edgeresmap = np.zeros(np.max(ids_edge_init)+1,dtype = np.int32)
         ids_edgeresmap[ids_edge_init] = self.add_rows(n=len(ids_edge_init), ids_edge = ids_edge_init)
-        print 'init_for_routes: created',len(ids_edge_init),'entries for edgeresults  max(ids_edge)', np.max(ids_edge_init)
+        print('init_for_routes: created',len(ids_edge_init),'entries for edgeresults  max(ids_edge)', np.max(ids_edge_init))
 
         return ids_edgeresmap
     
@@ -10516,7 +10516,7 @@ class Edgesresults(am.ArrayObjman):
         # return result ids and respective edge ids
         ids_edgeresmap = np.zeros(np.max(ids_edge_init)+1,dtype = np.int32)
         ids_edgeresmap[ids_edge_init] = self.add_rows(n=len(ids_edge_init), ids_edge = ids_edge_init)
-        print 'init_for_routes: created',len(ids_edge_init),'entries for edgeresults  max(ids_edge)', np.max(ids_edge_init)
+        print('init_for_routes: created',len(ids_edge_init),'entries for edgeresults  max(ids_edge)', np.max(ids_edge_init))
         return ids_edgeresmap
     
     def get_edgeresmap(self):
@@ -10753,7 +10753,7 @@ class Connectionsresults(am.ArrayObjman):
         # return result ids and respective edge ids
         ids_connectionresmap = np.zeros(np.max(ids_connection_init)+1,dtype = np.int32)
         ids_connectionresmap[ids_connection_init] = self.add_rows(n=len(ids_connection_init), ids_connection = ids_connection_init)
-        print 'init_for_routes: created',len(ids_connection_init),'entries for connectionresults  max(ids_connection)', np.max(ids_connection_init)
+        print('init_for_routes: created',len(ids_connection_init),'entries for connectionresults  max(ids_connection)', np.max(ids_connection_init))
         return ids_connectionresmap
     
     def get_connectionresmap(self):
@@ -11383,7 +11383,7 @@ class Routesresults(am.ArrayObjman):
 
 class Shortestrouter(Process):
     def __init__(self, ident, mapmatching,  logger = None, **kwargs):
-        print 'Shortestrouter.__init__'
+        print('Shortestrouter.__init__')
         
         # TODO: let this be independent, link to it or child??
         
@@ -11441,7 +11441,7 @@ class Shortestrouter(Process):
                                         ))
                                         
     def do(self):
-        print 'Shortestrouter.do'
+        print('Shortestrouter.do')
         # links
         mapmatching = self.parent
         trips = mapmatching.trips
@@ -11455,7 +11455,7 @@ class Shortestrouter(Process):
                                          
 class Fastestrouter(Process):
     def __init__(self, ident, mapmatching,  logger = None, matchresults = None, **kwargs):
-        print 'Fastestrouter.__init__'
+        print('Fastestrouter.__init__')
         
         # TODO: let this be independent, link to it or child??
         
@@ -11528,7 +11528,7 @@ class Fastestrouter(Process):
     def do(self):
         mapmatching = self.parent
         trips = mapmatching.trips
-        print 'Shortestrouter.do is_use_nodeswaittimes_est',self.is_use_nodeswaittimes_est,(self.matchresults is not None)
+        print('Shortestrouter.do is_use_nodeswaittimes_est',self.is_use_nodeswaittimes_est,(self.matchresults is not None))
         # links
         
         # map_nodetype_to_times_wait = get_map_nodetype_to_times_wait
@@ -11698,7 +11698,7 @@ class AlternativeRoutesresults(am.ArrayObjman):
                                                                                      
 class AlternativeRoutesanalyzer(Process):
     def __init__(self, ident, mapmatching, results = None,  logger = None, **kwargs):
-        print 'AlternativeRoutesanalyzer.__init__'
+        print('AlternativeRoutesanalyzer.__init__')
         
         # TODO: let this be independent, link to it or child??
         
@@ -11792,7 +11792,7 @@ class AlternativeRoutesanalyzer(Process):
         return   self._results 
     
     def do(self):
-        print 'AlternativeRoutesanalyzer.do'
+        print('AlternativeRoutesanalyzer.do')
         # results
         results = self.get_results()
         altroutesresults = results.altroutesresults
@@ -11864,10 +11864,10 @@ class AlternativeRoutesanalyzer(Process):
         
         #ind = 0
         if len(ids_trip)==0:
-            print 'WARNING: no trips selected.'
+            print('WARNING: no trips selected.')
             return True
         
-        print '  analyzing %d trips'%len(ids_trip)
+        print('  analyzing %d trips'%len(ids_trip))
         
         
         #ids_res = routesresults_matched.add_rows(n=len(ids_trip),)
@@ -11888,8 +11888,8 @@ class AlternativeRoutesanalyzer(Process):
                         routes.ids_edges[ids_route_fastest],
                         ids_mode, 
                         ):
-            print 79*'*'
-            print '  id_trip',id_trip
+            print(79*'*')
+            print('  id_trip',id_trip)
             
             # edge weights for routing, which is mode specific
             # because non accessible edges are marked with weight = -1 
@@ -11925,7 +11925,7 @@ class AlternativeRoutesanalyzer(Process):
                     if id_edge_matched != id_edge_shortest:
                         
                         dist = np.sum(weights[route_ol])
-                        print '     overlapped route len',len(route_ol),'d',dist
+                        print('     overlapped route len',len(route_ol),'d',dist)
                         if (len(route_ol) >= self.n_edge_min) & (dist > self.dist_alt_min):
                             #print '       store and finish route_ol',route_ol
                             routesets_overlap.append([route_ol,])
@@ -11960,7 +11960,7 @@ class AlternativeRoutesanalyzer(Process):
                         # collect data of matched and shortest route section
                         dist_matched = np.sum(weights[route_matched_nol])
                         dist_shortest = np.sum(weights[route_shortest_nol])
-                        print '     nonoverlapped route len',len(route_shortest_nol),'dm',dist_matched,'ds',dist_shortest,'dd',dist_matched-dist_shortest
+                        print('     nonoverlapped route len',len(route_shortest_nol),'dm',dist_matched,'ds',dist_shortest,'dd',dist_matched-dist_shortest)
                         if (len(route_matched_nol)>=self.n_edge_min)\
                            &(len(route_shortest_nol)>=self.n_edge_min)\
                            &(dist_matched > self.dist_alt_min)\
@@ -12014,7 +12014,7 @@ class AlternativeRoutesanalyzer(Process):
         
         
         
-        print '  create shortest routes around overlapping routes',len(routesets_overlap)
+        print('  create shortest routes around overlapping routes',len(routesets_overlap))
         for routeset_overlap, routeset_overlap_dists  in zip(routesets_overlap, routesets_overlap_dists):
             # routesets_overlap has initially the onlu selected route
             ids_edge = routeset_overlap[0]
@@ -12048,32 +12048,32 @@ class AlternativeRoutesanalyzer(Process):
             
         
         if 0:
-            print 79*'='  
+            print(79*'=')  
             n_overl = 0  
             for routeset_nonoverlap, routeset_nonoverlap_dists  in zip(routesets_nonoverlap,routesets_nonoverlap_dists):
-                print
+                print()
                 dist_min = np.min(routeset_nonoverlap_dists)
                 if len(routeset_nonoverlap)>0:
                     n_overl += 1
                     for ids_edge, dist in zip(routeset_nonoverlap, routeset_nonoverlap_dists):
-                        print '    nonoverl d=%dfm, delta=%dm'%(dist,dist-dist_min),dist#,'ids_edge',ids_edge
+                        print('    nonoverl d=%dfm, delta=%dm'%(dist,dist-dist_min),dist)#,'ids_edge',ids_edge
                 
-            print '  len(routesets_nonoverlap)',len(routesets_nonoverlap),len(ids_trip_routesets_overlap),len(routesets_overlap_dists)
+            print('  len(routesets_nonoverlap)',len(routesets_nonoverlap),len(ids_trip_routesets_overlap),len(routesets_overlap_dists))
             
             
         if 0:
-            print 79*'='  
+            print(79*'=')  
             n_overl = 0  
             for routeset_overlap, routeset_overlap_dists  in zip(routesets_overlap,routesets_overlap_dists):
-                print
+                print()
                 dist_min = np.min(routeset_overlap_dists)
                 if len(routeset_overlap)>0:
                     n_overl += 1
                     for ids_edge, dist in zip(routeset_overlap, routeset_overlap_dists):
-                        print '    overl d=%dfm, delta=%dm'%(dist,dist-dist_min),'ids_edge',ids_edge
+                        print('    overl d=%dfm, delta=%dm'%(dist,dist-dist_min),'ids_edge',ids_edge)
                 
             
-            print '  len(routesets_overlap)',n_overl,len(ids_trip_routesets_nonoverlap),len(routesets_nonoverlap_dists)
+            print('  len(routesets_overlap)',n_overl,len(ids_trip_routesets_nonoverlap),len(routesets_nonoverlap_dists))
         
         self._samplecount = 0
         self._id_alt_last = 10**8
@@ -12083,13 +12083,13 @@ class AlternativeRoutesanalyzer(Process):
         #print '  routesets_nonoverlap',routesets_nonoverlap
         #print '  routesets_nonoverlap_dists',routesets_nonoverlap_dists
         
-        print 79*'*' 
-        print '  create alternative routes database'
+        print(79*'*') 
+        print('  create alternative routes database')
         
         # do all non-overlap routes
         for id_trip, routeset_nonoverlap, routeset_nonoverlap_dists, id_mode  in zip(ids_trip_routesets_nonoverlap, routesets_nonoverlap,routesets_nonoverlap_dists,ids_mode_routesets_nonoverlap):
-            print 79*'-'
-            print '  id_trip NOL',id_trip,len(routeset_overlap)
+            print(79*'-')
+            print('  id_trip NOL',id_trip,len(routeset_overlap))
             #print '    routeset_nonoverlap',routeset_nonoverlap
             #print '    dists',routeset_nonoverlap_dists
             if len(routeset_nonoverlap) >= 2:
@@ -12101,8 +12101,8 @@ class AlternativeRoutesanalyzer(Process):
         
         # do all overlap and generated routes
         for id_trip, routeset_overlap, routeset_overlap_dists, id_mode  in zip(ids_trip_routesets_overlap, routesets_overlap,routesets_overlap_dists, ids_mode_routesets_overlap):
-            print 79*'-'
-            print '  id_trip OL',id_trip,len(routeset_overlap)
+            print(79*'-')
+            print('  id_trip OL',id_trip,len(routeset_overlap))
             if len(routeset_overlap) >= 2:
                 # add chosen, matched and overlapping route
                 self.add_alternative(id_trip,np.array(routeset_overlap[0], dtype=np.int32),1, True, routeset_overlap_dists[0], id_mode)
@@ -12133,7 +12133,7 @@ class AlternativeRoutesanalyzer(Process):
         #print '  ids_edge[accesses[ids_edge]==1]',ids_edge[accesses[ids_edge]==1]
         #print '  edgelengths[ids_edge[accesses[ids_edge]==1]]',edgelengths[ids_edge[accesses[ids_edge]==1]]
         
-        print 'add_alternative',id_trip,id_alt,is_selected, 'dist',dist,np.sum(edgelengths[ids_edge]),'excl',np.sum(edgelengths[ids_edge[accesses[ids_edge]==2]])
+        print('add_alternative',id_trip,id_alt,is_selected, 'dist',dist,np.sum(edgelengths[ids_edge]),'excl',np.sum(edgelengths[ids_edge[accesses[ids_edge]==2]]))
         id_res = self.altroutesresults.add_row(\
                                   ids_trip = id_trip,
                                   counter = self._samplecount,
@@ -15122,7 +15122,7 @@ class CyclistsDatabaseAnalyzer(Process):
         MA_real_vs_expected1_waiting_time = np.zeros(len(ids_person))
         MA_real_vs_expected2_waiting_time = np.zeros(len(ids_person))
         
-        for id_person, i in zip(ids_person, range(len(ids_person))):
+        for id_person, i in zip(ids_person, list(range(len(ids_person)))):
             
             ids_tripsdatabase_pers = ids_tripsdatabase[(tripsdatabase.ids_person[ids_tripsdatabase] == id_person)]
             lengths = tripsdatabase.lengths_route_matched[ids_tripsdatabase_pers]
@@ -16723,7 +16723,7 @@ class TripsDatabaseAnalyzer(Process):
         
         ids_person = np.zeros(len(ids_routesresults_matched), dtype = np.int32)
         ids_routesresults_shortest = np.zeros(len(ids_routesresults_matched), dtype = np.int32)
-        for i, id_routesresults_matched in zip(range(len(ids_routesresults_matched)),ids_routesresults_matched):
+        for i, id_routesresults_matched in zip(list(range(len(ids_routesresults_matched))),ids_routesresults_matched):
             #if self.parent.trips.ids_person[self.parent.trips.get_routes().ids_trip[routesresults_matched.ids_route[id_routesresults_matched]]] > 0:
 ##                print id_routesresults_matched
             id_route = routesresults_matched.ids_route[id_routesresults_matched]
@@ -17001,7 +17001,7 @@ class TripsDatabaseAnalyzer(Process):
     
 class Routesanalyzer(Process):
     def __init__(self, ident, mapmatching, results = None,  logger = None, **kwargs):
-        print 'Routesanalyzer.__init__'
+        print('Routesanalyzer.__init__')
         
         # TODO: let this be independent, link to it or child??
         
@@ -17178,7 +17178,7 @@ class Routesanalyzer(Process):
     
     
     def do(self):
-        print 'Routesanalyzer.do'
+        print('Routesanalyzer.do')
         # results
         results = self.get_results()
         routesresults_shortest = results.routesresults_shortest
@@ -17243,10 +17243,10 @@ class Routesanalyzer(Process):
         
         #ind = 0
         if len(ids_trip)==0:
-            print 'WARNING: no trips selected.'
+            print('WARNING: no trips selected.')
             return True
         
-        print '  analyzing %d trips'%len(ids_trip)
+        print('  analyzing %d trips'%len(ids_trip))
         
         routesresults_shortest.clear()
         routesresults_matched.clear()
@@ -17320,8 +17320,8 @@ class Routesanalyzer(Process):
             
             
             if 1:
-                print 70*'-'
-                print 'id_trip',id_trip,'Routes: id_matched',id_route_matched,'id_shortest',id_route_shortest,'id_fastest',id_route_fastest
+                print(70*'-')
+                print('id_trip',id_trip,'Routes: id_matched',id_route_matched,'id_shortest',id_route_shortest,'id_fastest',id_route_fastest)
                 
             #ids_point = trips.ids_points[id_trip]
             distances = distancesmap[id_mode]
@@ -17473,7 +17473,7 @@ class Routesanalyzer(Process):
                         if element in possible_connections:
                             connections_list.append(element)
                     if connections_list == []:
-                        print 'Error: map matching process should be done without ignoring connections'  
+                        print('Error: map matching process should be done without ignoring connections')  
                         break 
                     lane_index_connections = lanes.indexes[connections.ids_fromlane[connections_list]] + lanes.indexes[connections.ids_tolane[connections_list]]
                     connection = connections_list[np.argmin(lane_index_connections)]
@@ -17597,7 +17597,7 @@ class Routesanalyzer(Process):
                     else:
 ##                        print '11'
                         is_adeguate = False
-                        print 'too few or points or edges involved' 
+                        print('too few or points or edges involved') 
                         break
 ##                                                #If the problem occour to the second points 
 ##                                                else:
@@ -17667,7 +17667,7 @@ class Routesanalyzer(Process):
                     #Match points to edge and connections
                     cumulative_dists = np.zeros(len(cumulative_dists_initial))
                     #Correct cumulative distances, adding a length to the connections from the backward
-                    for is_connection, i in zip(are_connection, range(len(cumulative_dists_initial))):
+                    for is_connection, i in zip(are_connection, list(range(len(cumulative_dists_initial)))):
                         if is_connection == 0 and i < len(cumulative_dists_initial)-1:
                             if i>0:
                                 if cumulative_dists_initial[i] - self.junctionrange > cumulative_dists_initial[i-1]:
@@ -17685,7 +17685,7 @@ class Routesanalyzer(Process):
                     ids_arc_point = np.zeros(len(point_positions_on_poly), dtype = np.int32)
                     are_connection_points = np.zeros(len(point_positions_on_poly), dtype = np.int32)
                     diffs = cumulative_dists-point_positions_on_poly[0]
-                    for diff, i in  zip(diffs, range(len(diffs))):
+                    for diff, i in  zip(diffs, list(range(len(diffs)))):
                         if diff < 0:
                             diffs[i] = np.max(diffs)+1
                     ids_arc_point[0] = ids_arc[np.argmin(diffs[(diffs>0)])]
@@ -17725,7 +17725,7 @@ class Routesanalyzer(Process):
     
     
                     #calculate average edge speed
-                    for i, id_arc, is_connection in zip(range(len(ids_arc)), ids_arc, are_connection):
+                    for i, id_arc, is_connection in zip(list(range(len(ids_arc))), ids_arc, are_connection):
                         if i>0 and i<len(ids_arc)-1:   
                             if  not is_connection:
                                 edge_points_time = point_times[(ids_arc_point == id_arc)]
@@ -17767,7 +17767,7 @@ class Routesanalyzer(Process):
 ##                    actual_edge_starting_time_and_position = [point_times[0], point_positions_on_poly[0]]
                     id_arc_pre = 0
                     last_conn = 0
-                    for i, point_position_on_poly, point_time, id_arc_point, is_connection_point   in zip(range(len(point_times)), point_positions_on_poly, point_times, ids_arc_point, are_connection_points):
+                    for i, point_position_on_poly, point_time, id_arc_point, is_connection_point   in zip(list(range(len(point_times))), point_positions_on_poly, point_times, ids_arc_point, are_connection_points):
 
                         if i>0:
                             delta_time = point_times[i] - point_times[i-1]  
@@ -17807,7 +17807,7 @@ class Routesanalyzer(Process):
                                         
                                     if id_arc_point != id_arc_pre:
                                         n_wait_times_edge_at_int[lanes.ids_edge[connections.ids_fromlane[id_arc_point]]] += 1
-                                        print 'connection', id_arc_point, 'n +1'
+                                        print('connection', id_arc_point, 'n +1')
                                         n_wait_times_node[edges.ids_tonode[lanes.ids_edge[connections.ids_fromlane[id_arc_point]]]] += 1
                                         if connections.turns_type[id_arc_point] == 'left_turn':
                                             number_wait_route_at_left_turns += 1
@@ -17851,7 +17851,7 @@ class Routesanalyzer(Process):
                                 if id_arc_point != id_arc_pre and last_conn > 0:
                                     connections_waitingtimes[last_conn].append(current_waitingtime_total)
                                     nodes_waitingtimes[edges.ids_tonode[lanes.ids_edge[connections.ids_fromlane[last_conn]]]].append(current_waitingtime_total)
-                                    print 'ADD', 'current_waitingtime_total', current_waitingtime_total, 'id_arc_point', last_conn
+                                    print('ADD', 'current_waitingtime_total', current_waitingtime_total, 'id_arc_point', last_conn)
                                     current_waitingtime_total = 0.0
                                 
                                 if is_connection_point:
@@ -17863,7 +17863,7 @@ class Routesanalyzer(Process):
                                 if id_arc_point != id_arc_pre:
                                     current_waitingtime_total = 0.0
                                 current_waitingtime_total  += delta_time
-                                print 'current_waitingtime_total', current_waitingtime_total, 'id_arc_point', id_arc_point
+                                print('current_waitingtime_total', current_waitingtime_total, 'id_arc_point', id_arc_point)
                                 id_arc_pre = id_arc_point
 
                         
@@ -17871,10 +17871,10 @@ class Routesanalyzer(Process):
                     if last_conn > 0:
                         connections_waitingtimes[last_conn].append(current_waitingtime_total)
                         nodes_waitingtimes[edges.ids_tonode[lanes.ids_edge[connections.ids_fromlane[last_conn]]]].append(current_waitingtime_total)
-                        print 'ADD', 'current_waitingtime_total', current_waitingtime_total, 'id_arc_point', last_conn
+                        print('ADD', 'current_waitingtime_total', current_waitingtime_total, 'id_arc_point', last_conn)
                         current_waitingtime_total = 0.0
-                    print 'there were', len(irregular_indices), 'irregular indices'    
-                    print 'time_wait_route', time_wait_route,'time_wait_junction_route',time_wait_junction_route, 'time_wait_tls_route', time_wait_tls_route
+                    print('there were', len(irregular_indices), 'irregular indices')    
+                    print('time_wait_route', time_wait_route,'time_wait_junction_route',time_wait_junction_route, 'time_wait_tls_route', time_wait_tls_route)
 ##                    print 'GOOD TRACES', good_traces, 'OF',(good_traces+bad_traces) ,'/',len(ids_trip)        
                     
                     #Find all connection for the connection results
@@ -17971,7 +17971,7 @@ class Routesanalyzer(Process):
 
 ##                    plt.show()
                     bad_traces+=1
-                    print 'trip', id_trip, 'is not adeguate for the speed analysis or too few points remained after point filtering, with', len(irregular_indices), 'irregular points'
+                    print('trip', id_trip, 'is not adeguate for the speed analysis or too few points remained after point filtering, with', len(irregular_indices), 'irregular points')
 
                     routesresults_matched.times_inmotion[id_res]= -1.
                     routesresults_matched.n_times_wait[id_res] = -1.
@@ -18001,7 +18001,7 @@ class Routesanalyzer(Process):
                     
                     
                 
-                print 'There were', good_traces, 'good traces and', bad_traces, 'bad traces', 'of',(good_traces+bad_traces) ,'/',len(ids_trip)
+                print('There were', good_traces, 'good traces and', bad_traces, 'bad traces', 'of',(good_traces+bad_traces) ,'/',len(ids_trip))
                     
 
         
@@ -18109,7 +18109,7 @@ class Routesanalyzer(Process):
                             if element in possible_connections:
                                 connections_list.append(element)
                         if connections_list == []:
-                            print 'Error: map matching process should be done without ignoring connections'  
+                            print('Error: map matching process should be done without ignoring connections')  
                             break 
                         lane_index_connections = lanes.indexes[connections.ids_fromlane[connections_list]] + lanes.indexes[connections.ids_tolane[connections_list]]
                         connection = connections_list[np.argmin(lane_index_connections)]
@@ -18146,20 +18146,20 @@ class Routesanalyzer(Process):
                 dist_shortest = np.sum(distances[ids_edge_shortest])
                 
                 if 0:
-                    print '\n  shortest dist ana'
+                    print('\n  shortest dist ana')
                     d_cum = 0.0
                     l_cum = 0.0
                     for id_edge in ids_edge_shortest:
                         d_cum += distances[id_edge]
                         l_cum += edges.lengths[id_edge]
-                        print '  id_edge_short',id_edge,'dist',distances[id_edge],'length',edges.lengths[id_edge],'c_cum',d_cum,'l_cum',l_cum
-                    print
+                        print('  id_edge_short',id_edge,'dist',distances[id_edge],'length',edges.lengths[id_edge],'c_cum',d_cum,'l_cum',l_cum)
+                    print()
                     d_cum = 0.0
                     l_cum = 0.0
                     for id_edge in ids_edge:
                         d_cum += distances[id_edge]
                         l_cum += edges.lengths[id_edge]
-                        print '  id_edge_matched',id_edge,'dist',distances[id_edge],'length',edges.lengths[id_edge],'c_cum',d_cum,'l_cum',l_cum
+                        print('  id_edge_matched',id_edge,'dist',distances[id_edge],'length',edges.lengths[id_edge],'c_cum',d_cum,'l_cum',l_cum)
                             
                     
                 n_nodes_shortest = len(nodetypes_shortest)
@@ -18531,7 +18531,7 @@ class Routesanalyzer(Process):
         routesresults_matched.expected_waiting_times_tot_route_matched_tls_nodes[ids_routesresults_matched] = expected_waiting_times_tot_route_matched_tls_nodes[ids_routesresults_matched]
         routesresults_matched.expected_waiting_times_tot_route_matched_edges[ids_routesresults_matched] = expected_waiting_times_tot_route_matched_edges[ids_routesresults_matched]
         
-        print '  Route analyses done.'
+        print('  Route analyses done.')
         return True
     
     def get_connectionsresults_map(self):
@@ -18565,7 +18565,7 @@ class Routesanalyzer(Process):
         """
         Only overlap calculations.
         """
-        print 'Routesanalyzer.do_overlap'
+        print('Routesanalyzer.do_overlap')
         # results
         results = self.get_results()
         routesresults_shortest = results.routesresults_shortest
@@ -18618,10 +18618,10 @@ class Routesanalyzer(Process):
         
         #ind = 0
         if len(ids_trip)==0:
-            print 'WARNING: no trips selected.'
+            print('WARNING: no trips selected.')
             return True
         
-        print '  analyzing %d trips'%len(ids_trip)
+        print('  analyzing %d trips'%len(ids_trip))
         
         routesresults_shortest.clear()
         #routesresults_matched.clear()
@@ -18644,8 +18644,8 @@ class Routesanalyzer(Process):
             
             
             if 0:
-                print 70*'-'
-                print 'id_trip',id_trip,'Routes: id_matched',id_route_matched,'id_shortest',id_route_shortest,'id_fastest',id_route_fastest
+                print(70*'-')
+                print('id_trip',id_trip,'Routes: id_matched',id_route_matched,'id_shortest',id_route_shortest,'id_fastest',id_route_fastest)
                 
             #ids_point = trips.ids_points[id_trip]
             distances = distancesmap[id_mode]
@@ -18710,7 +18710,7 @@ class Routesanalyzer(Process):
                 
         
         
-        print '  Route overlap analyses done.'
+        print('  Route overlap analyses done.')
         return True
 
 class PtRoutesresults(am.ArrayObjman):
@@ -18872,7 +18872,7 @@ class PtLinesresults(am.ArrayObjman):
 
 class PtRoutesanalyzer(Process):
     def __init__(self, ident, mapmatching, results = None,  logger = None, **kwargs):
-        print 'Routesanalyzer.__init__'
+        print('Routesanalyzer.__init__')
         
         # TODO: let this be independent, link to it or child??
         
@@ -18927,7 +18927,7 @@ class PtRoutesanalyzer(Process):
     
     
     def do(self):
-        print 'Routesanalyzer.do'
+        print('Routesanalyzer.do')
         # results
         results = self.get_results()
         ptlinesresults = results.ptlinesresults
@@ -18973,8 +18973,8 @@ class PtRoutesanalyzer(Process):
                         ptlinks.lengths[ids_link],ptlinks.durations[ids_link]):
                             
                     if type_link == type_transit:
-                        if not numbercounter_lines.has_key(id_line):
-                            print id_line
+                        if id_line not in numbercounter_lines:
+                            print(id_line)
                             numbercounter_lines[id_line] = 0
                             distancecounter_lines[id_line] = 0.0
                             timecounter_lines[id_line]  = 0.0
@@ -18983,12 +18983,12 @@ class PtRoutesanalyzer(Process):
                         distancecounter_lines[id_line] += dist_link
                         timecounter_lines[id_line] += duration_link
                         
-                        if not numbercounter_links.has_key(id_link):
+                        if id_link not in numbercounter_links:
                             numbercounter_links[id_link] = 0
                             
                         numbercounter_links[id_link] += 1
         
-        ids_line = numbercounter_lines.keys()
+        ids_line = list(numbercounter_lines.keys())
         ids_lineres = ptlinesresults.add_rows(n=len(ids_line),ids_line = ids_line)
         id_line_to_id_lineres = {}
         
@@ -19014,14 +19014,14 @@ class PtRoutesanalyzer(Process):
             
             id_line_to_id_lineres[id_line] = id_lineres
         
-        ids_link = numbercounter_links.keys()  
+        ids_link = list(numbercounter_links.keys())  
         for id_link, id_line, id_fromstop, id_tostop, n in zip(\
                         ids_link, ptlinks.ids_line[ids_link],
                         ptlinks.ids_fromstop[ids_link],ptlinks.ids_tostop[ids_link],
-                        numbercounter_links.values()):
+                        list(numbercounter_links.values())):
             
             ptrouteresults = ptlinesresults.ptroutesresults[id_line_to_id_lineres[id_line]]
-            if map_stops_to_routeres[id_line].has_key((id_fromstop, id_tostop)):
+            if (id_fromstop, id_tostop) in map_stops_to_routeres[id_line]:
                 id_routeres = map_stops_to_routeres[id_line][(id_fromstop, id_tostop)]
 ##                print '    Add',n,'trips to id_line %d (%s) id_fromstop %d id_tostop %d'%(id_line,ptlines.linenames[id_line],id_fromstop, id_tostop)
                 ptrouteresults.ids_link[id_routeres] = id_link
@@ -19036,7 +19036,7 @@ def routes_to_shapefile(mapmatching,results, filepath,
     """
     Writes routes to file.
     """
-    print '\n routes_to_shapefile for mapmatching'
+    print('\n routes_to_shapefile for mapmatching')
     net = mapmatching.get_scenario().net
     edges = net.edges
     trips = mapmatching.trips
@@ -19105,7 +19105,7 @@ def edgesresults_to_shapefile(mapmatching,results, filepath,
     """
     Writes edge results of mapmatching to shape-file.
     """
-    print '\n edgesresults_to_shapefile for mapmatching'
+    print('\n edgesresults_to_shapefile for mapmatching')
     net = mapmatching.get_scenario().net
     edges = net.edges
     edgesresults = results.edgesresults
@@ -19179,7 +19179,7 @@ def points_to_shapefile(mapmatching, filepath, dataname= 'pointshapedata',
     # 
     
     
-    print 'nodes_to_shapefile',filepath
+    print('nodes_to_shapefile',filepath)
     
     for attr in attrlist:
         shapedata.add_field(attr[2:])

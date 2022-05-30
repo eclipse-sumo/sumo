@@ -39,7 +39,7 @@ if len(sys.argv) >= 2:
     if len(sys.argv) == 3:
         resultfilepath = sys.argv[2]
 else:
-    print __doc__
+    print(__doc__)
     sys.exit(0)
 
 myscenario = scenario.load_scenario(simfilepath)
@@ -111,7 +111,7 @@ microsim.do()  # now open SUMO and run simulation
 
 
 if resultfilepath is not None:
-    print 'saving results in', resultfilepath
+    print('saving results in', resultfilepath)
     myscenario.simulation.results.save(resultfilepath)
 
 # import all results from xml and put them into myscenario.simulation.results
@@ -135,9 +135,9 @@ tripres.export_csv(rootfilepath+'.tripres.csv',
 
 # do some analyses
 ids_tripres = tripres.get_ids()
-print 'numer of arrived vehicles:', len(ids_tripres)
-print 'Total triplength: %.2fKm' % (0.001*np.mean(tripres.routeLength[ids_tripres]))
-print 'Average speed: %.2fKm/s' % (3.6*np.mean(tripres.routeLength[ids_tripres]/tripres.duration[ids_tripres]))
+print('numer of arrived vehicles:', len(ids_tripres))
+print('Total triplength: %.2fKm' % (0.001*np.mean(tripres.routeLength[ids_tripres])))
+print('Average speed: %.2fKm/s' % (3.6*np.mean(tripres.routeLength[ids_tripres]/tripres.duration[ids_tripres])))
 
 ids_edgeres = edgeres.get_ids()
-print 'Total fuel consumption: %.2f liter' % (0.001*np.sum(edgeres.fuel_abs[ids_edgeres]))
+print('Total fuel consumption: %.2f liter' % (0.001*np.sum(edgeres.fuel_abs[ids_edgeres])))

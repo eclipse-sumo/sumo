@@ -42,9 +42,9 @@ import math
 from collections import OrderedDict
 from datetime import datetime
 #import numpy as np
-import xmlman as xm
-from logger import Logger
-from misc import get_inversemap
+from . import xmlman as xm
+from .logger import Logger
+from .misc import get_inversemap
 
 ##########
 
@@ -71,8 +71,8 @@ ATTRS_SAVE_TABLE = ('_is_localvalue', 'attrname', '_colconfigs', '_ids', '_inds'
 STRUCTS_COL = ('odict', 'array')
 STRUCTS_SCALAR = ('scalar', 'list', 'matrix', 'scalar.func')
 
-NUMERICTYPES = (types.BooleanType, types.FloatType, types.IntType, types.LongType, types.ComplexType)
-STRINGTYPES = (types.StringType, types.UnicodeType)
+NUMERICTYPES = (bool, float, int, int, complex)
+STRINGTYPES = (bytes, str)
 NODATATYPES = (types.FunctionType, types.InstanceType, types.LambdaType)
 
 
@@ -86,7 +86,7 @@ def save_obj(obj, filename, is_not_save_parent=False):
     try:
         f = open(filename, 'wb')
     except:
-        print 'WARNING in save: could not open', filename
+        print('WARNING in save: could not open', filename)
         return False
 
     if is_not_save_parent:
@@ -110,7 +110,7 @@ def load_obj(filename, parent=None, is_throw_error=False):
     Filename may also include absolute or relative path.
     If operation fails a None object is returned.
     """
-    print 'load_obj', filename
+    print('load_obj', filename)
 
     if is_throw_error:
         f = open(filename, 'rb')
@@ -118,7 +118,7 @@ def load_obj(filename, parent=None, is_throw_error=False):
         try:
             f = open(filename, 'rb')
         except:
-            print 'WARNING in load_obj: could not open', filename
+            print('WARNING in load_obj: could not open', filename)
             return None
 
     # try:
@@ -168,7 +168,7 @@ class Plugin:
         Standard plug types are automatically set but the system:
 
         """
-        if not self._events.has_key(trigger):
+        if trigger not in self._events:
             self._events[trigger] = []
         self._events[trigger].append(function)
         self._has_events = True
@@ -269,7 +269,7 @@ class AttrConf:
 
         # set rest of attributes passed as keyword args
         # no matter what they are used for
-        for attr, value in attrs.iteritems():
+        for attr, value in attrs.items():
             setattr(self, attr, value)
 
     def is_save(self):
@@ -331,7 +331,7 @@ class AttrConf:
         then None is returned.
         """
         if (self.xmltag is not None):
-            if xmlattrs.has_key(self.xmltag):
+            if self.xmltag in xmlattrs:
                 return self.get_value_from_string(xmlattrs[self.xmltag])
             else:
                 return None
@@ -362,7 +362,7 @@ class AttrConf:
         elif self.xmlmap is not None:
             imap = get_inversemap(self.xmlmap)
             # print 'get_value_from_string',s,imap
-            if imap.has_key(s):
+            if s in imap:
                 return imap[s]
             else:
                 return self.get_numvalue_from_string(s)
@@ -376,19 +376,19 @@ class AttrConf:
         else:
             t = valtype
 
-        if t in (types.UnicodeType, types.StringType):
+        if t in (str, bytes):
             return s
 
-        elif t in (types.UnicodeType, types.StringType):
+        elif t in (str, bytes):
             return s
 
-        elif t in (types.LongType, types.IntType):
+        elif t in (int, int):
             return int(s)
 
-        elif t in (types.FloatType, types.ComplexType):
+        elif t in (float, complex):
             return float(s)
 
-        elif t == types.BooleanType:  # use default and hope it is no a numpy bool!!!
+        elif t == bool:  # use default and hope it is no a numpy bool!!!
             if s in ('1', 'True'):
                 return True
             else:
@@ -421,27 +421,27 @@ class AttrConf:
                 pass
 
         elif self.xmlmap is not None:
-            if self.xmlmap.has_key(val):
+            if val in self.xmlmap:
                 fd.write(xm.num(self.xmltag, self.xmlmap[val]))
             else:
                 fd.write(xm.num(self.xmltag, val))
 
         elif hasattr(self, 'choices'):
-            if type(self.choices) == types.ListType:
+            if type(self.choices) == list:
                 fd.write(xm.num(self.xmltag, val))
             else:
                 # print '_write_xml_value',self.attrname
                 # print '  val,self.choices.values()',val,self.choices.values()
-                i = self.choices.values().index(val)
-                fd.write(xm.num(self.xmltag, self.choices.keys()[i]))
+                i = list(self.choices.values()).index(val)
+                fd.write(xm.num(self.xmltag, list(self.choices.keys())[i]))
 
-        elif type(self._default) == types.BooleanType:  # use default and hope it is no a numpy bool!!!
+        elif type(self._default) == bool:  # use default and hope it is no a numpy bool!!!
             if val:
                 fd.write(xm.num(self.xmltag, 1))
             else:
                 fd.write(xm.num(self.xmltag, 0))
 
-        elif type(self._default) in (types.UnicodeType, types.StringType):
+        elif type(self._default) in (str, bytes):
             if len(val) > 0:
                 fd.write(xm.num(self.xmltag, val))
 
@@ -680,9 +680,9 @@ class AttrConf:
         # print '  self.__dict__=\n',self.__dict__.keys()
         if self._is_saved:
             # this message indicates a loop!!
-            print 'WARNING in __getstate__: Attribute already saved:', self.get_obj().format_ident_abs(), self.attrname
+            print('WARNING in __getstate__: Attribute already saved:', self.get_obj().format_ident_abs(), self.attrname)
         state = {}
-        for attr in self.__dict__.keys():
+        for attr in list(self.__dict__.keys()):
 
             if attr == 'plugin':
                 plugin = self.__dict__[attr]
@@ -708,7 +708,7 @@ class AttrConf:
         # this is always required, but will not be saved
         self.plugins = {}
 
-        for attr in state.keys():
+        for attr in list(state.keys()):
             # print '  state key',attr, state[attr]
             # done in init_postload_internal...
             # if attr=='plugin':
@@ -783,7 +783,7 @@ class ListConf(AttrConf):
             if len(default) > 0:
                 valtype = type(default[0])
             else:
-                valtype = types.UnicodeType
+                valtype = str
 
         AttrConf.__init__(self,  attrname, default,
                           struct='scalar',
@@ -874,7 +874,7 @@ class ObjConf(AttrConf):
                     # print '    found object',self.get_value().get_ident_abs()
                     state['_ident_value'] = self.get_value().get_ident_abs()
                 else:
-                    print 'WARNING in ObjConf._getstate_specific', self.attrname, 'lost linked object'
+                    print('WARNING in ObjConf._getstate_specific', self.attrname, 'lost linked object')
                     state['_ident_value'] = []
                 # print '  ',
 
@@ -924,7 +924,7 @@ class ObjConf(AttrConf):
                 # print '  linkobj',linkobj.ident
                 self.set_value(linkobj)
             else:
-                print 'WARNING in ObjConf._getstate_specific', self.attrname, 'lost linked object'
+                print('WARNING in ObjConf._getstate_specific', self.attrname, 'lost linked object')
                 self.set_value(BaseObjman('lost_object'))
 
     # def get_valueobj(self):
@@ -1023,13 +1023,13 @@ class Indexing:
     def has_indices(self, indices):
         ans = len(indices)*[False]
         for i in range(len(indices)):
-            if self._index_to_id.has_key(indices[i]):
+            if indices[i] in self._index_to_id:
                 ans[i] = True
 
         return ans
 
     def has_index(self, index):
-        return self._index_to_id.has_key(index)
+        return index in self._index_to_id
 
     def get_ids_from_indices(self, indices):
         ids = len(indices)*[0]
@@ -1043,7 +1043,7 @@ class Indexing:
     def get_ids_from_indices_save(self, indices):
         ids = len(indices)*[0]
         for i in range(len(indices)):
-            if not self._index_to_id.has_key(indices[i]):
+            if indices[i] not in self._index_to_id:
                 ids[i] = -1
             else:
                 ids[i] = self._index_to_id[indices[i]]
@@ -1059,7 +1059,7 @@ class Indexing:
         self._index_to_id[index] = _id
 
     def rebuild_indices(self):
-        for idx in self._index_to_id.keys():
+        for idx in list(self._index_to_id.keys()):
             del self._index_to_id[idx]
         ids = self.get_obj().get_ids()
         self.add_indices(ids, self[ids])
@@ -1083,14 +1083,14 @@ class Indexing:
     def del_index(self, _id):
         index = self[_id]
         # when index is added (with set) no previous index value exists
-        if self._index_to_id.has_key(index):
+        if index in self._index_to_id:
             del self._index_to_id[index]
 
     def get_ids_sorted(self):
         # print 'get_ids_sorted',self.value
         # print '  _index_to_id',self._index_to_id
         # print '  sorted',sorted(self._index_to_id.iteritems())
-        return OrderedDict(sorted(self._index_to_id.iteritems())).values()
+        return list(OrderedDict(sorted(self._index_to_id.items())).values())
 
     # def indexset(self, indices, values):
     # no! set made with respective attribute
@@ -1375,10 +1375,10 @@ class ColConf(Indexing, AttrConf):
         val = self[_id]
         tt = type(val)
 
-        if tt in (types.LongType, types.IntType):
+        if tt in (int, int):
             return str(val)+unit
 
-        elif tt in (types.FloatType, types.ComplexType):
+        elif tt in (float, complex):
             if hasattr(attrconf, 'digits_fraction'):
                 digits_fraction = self.digits_fraction
             else:
@@ -1492,7 +1492,7 @@ class IdsConf(ColConf):
                 # don't even write empty lists
                 pass
 
-        elif type(self._default) in (types.UnicodeType, types.StringType):
+        elif type(self._default) in (str, bytes):
             if len(val) > 0:
                 fd.write(xm.num(self.xmltag, val))
 
@@ -1984,7 +1984,7 @@ class Attrsman:
         if len(attrconf.groupnames) > 0:
             for groupname in attrconf.groupnames:
 
-                if not self._groups.has_key(groupname):
+                if groupname not in self._groups:
                     self._groups[groupname] = []
 
                 if attrconf not in self._groups[groupname]:
@@ -1992,7 +1992,7 @@ class Attrsman:
 
     def del_groupname(self, attrconf):
         if len(attrconf.groupnames) > 0:
-            for groupname in self._groups.keys():
+            for groupname in list(self._groups.keys()):
                 attrconfigs = self._groups[groupname]
                 if attrconf in attrconfigs:
                     if groupname not in attrconf.groupnames:
@@ -2002,10 +2002,10 @@ class Attrsman:
         return self._groups
 
     def get_groupnames(self):
-        return self._groups.keys()
+        return list(self._groups.keys())
 
     def has_group(self, groupname):
-        return self._groups.has_key(groupname)
+        return groupname in self._groups
 
     def get_group(self, name):
         """
@@ -2021,7 +2021,7 @@ class Attrsman:
         """
         # print 'get_group_attrs', self._groups
         attrs = OrderedDict()
-        if not self._groups.has_key(name):
+        if name not in self._groups:
             return attrs
         for attrconf in self._groups[name]:
             # print '  attrconf.attrname',attrconf.attrname
@@ -2050,7 +2050,7 @@ class Attrsman:
                         show_parentesis), sep, attrconf.format_value()))
 
     def print_attrs(self, show_unit=True, show_parentesis=False, attrconfigs=None):
-        print 'Attributes of', self._obj._name, 'ident_abs=', self._obj.get_ident_abs()
+        print('Attributes of', self._obj._name, 'ident_abs=', self._obj.get_ident_abs())
         if attrconfigs is None:
             attrconfigs = self.get_configs(structs=STRUCTS_SCALAR)
 
@@ -2099,7 +2099,7 @@ class Attrsman:
         #    print 'WARNING in Attrsman.__getstate__',self,'attrname missing','id',id(self),'id obj',id(self._obj)
 
         if not hasattr(self, '_obj'):
-            print 'WARNING: unknown obj in attrman', self, type(self)
+            print('WARNING: unknown obj in attrman', self, type(self))
             # print '  dir',dir(self)
             # if hasattr(self,'attrname'):
             #    print '    No attrman but attribute',self.attrname
@@ -2115,7 +2115,7 @@ class Attrsman:
         # print '  self.__dict__=\n',self.__dict__.keys()
 
         state = {}
-        for attr in self.__dict__.keys():
+        for attr in list(self.__dict__.keys()):
             # print '  attr',attr,self.__dict__[attr]
             # TODO: optimize and put this at the end
             if attr == 'plugin':
@@ -2149,7 +2149,7 @@ class Attrsman:
         # this is always required, but will not be saved
         # self.plugins={}
 
-        for attr in state.keys():
+        for attr in list(state.keys()):
             # print '  set state',attr
             # plugin set in init_postload_internal
             # if attr=='plugin':
@@ -2304,7 +2304,7 @@ class Tabman(Attrsman):
         else:
             id_max = max(id_set)
         # print  'suggest_id',id0,
-        return list(id_set.symmetric_difference(xrange(id0, id_max+id0+1)))[0]
+        return list(id_set.symmetric_difference(range(id0, id_max+id0+1)))[0]
 
     def suggest_ids(self, n, is_zeroid=False):
         """
@@ -2324,14 +2324,14 @@ class Tabman(Attrsman):
         else:
             id_max = max(id_set)
 
-        return list(id_set.symmetric_difference(xrange(id0, id_max+id0+n)))[:n]
+        return list(id_set.symmetric_difference(range(id0, id_max+id0+n)))[:n]
 
     def add_rows(self, n=None, ids=[], **attrs):
         if n is not None:
             ids = self.suggest_ids(n)
         elif len(ids) == 0:
             # get number of rows from any valye vector provided
-            ids = self.suggest_ids(len(attrs.values()[0]))
+            ids = self.suggest_ids(len(list(attrs.values())[0]))
         else:
             # ids already given , no ids to create
             pass
@@ -2412,7 +2412,7 @@ class Tabman(Attrsman):
 
         for _id in ids:
             for attrconf in self.get_configs(structs=STRUCTS_COL):
-                print '  %s[%d] =\t %s' % (attrconf.attrname, _id, attrconf.format_value(_id, show_unit=True))
+                print('  %s[%d] =\t %s' % (attrconf.attrname, _id, attrconf.format_value(_id, show_unit=True)))
 
     def write_csv(self, fd, sep=',', ids=None,
                   attrconfigs=None,
@@ -2681,7 +2681,7 @@ class BaseObjman:
         """
         Export scalars to file feed in csv format.
         """
-        print 'BaseObjman.export_csv', filepath, "*"+sep+"*", 'attrconfigs', attrconfigs, self.get_attrsman()
+        print('BaseObjman.export_csv', filepath, "*"+sep+"*", 'attrconfigs', attrconfigs, self.get_attrsman())
         fd = open(filepath, 'w')
 
         # header
@@ -2786,7 +2786,7 @@ class BaseObjman:
         """
         Return child instance
         """
-        if self.childs.has_key(attrname):
+        if attrname in self.childs:
             config = self.childs[attrname]
             return config.get_value()
         else:
@@ -2867,7 +2867,7 @@ class BaseObjman:
         # this is always required, but will not be saved
         # self.plugins={}
 
-        for key in state.keys():
+        for key in list(state.keys()):
             # print '  set state',key
             self.__dict__[key] = state[key]
 
@@ -2887,7 +2887,7 @@ class BaseObjman:
         Called after set state.
         Link internal states and call constant settings.
         """
-        print 'BaseObjman.init_postload_internal', self.ident, 'parent:'
+        print('BaseObjman.init_postload_internal', self.ident, 'parent:')
         # if parent is not None:
         #    print parent.ident
         # else:
@@ -2995,7 +2995,7 @@ class TableMixin(BaseObjman):
             self._is_saved = True
 
         else:
-            print 'WARNING in __getstate__: object %s already saved' % self.ident
+            print('WARNING in __getstate__: object %s already saved' % self.ident)
         return state
 
     def __setstate__(self, state):
@@ -3004,7 +3004,7 @@ class TableMixin(BaseObjman):
         # this is always required, but will not be saved
         self.plugins = {}
 
-        for attr in state.keys():
+        for attr in list(state.keys()):
             # print '  set state',key
             if attr == 'plugin':
                 if state[attr] == True:
@@ -3063,7 +3063,7 @@ class TableMixin(BaseObjman):
         """
         Export scalars to file feed in csv format.
         """
-        print 'TableMixin.export_csv', filepath, "*"+sep+"*"  # ,'attrconfigs',attrconfigs,self.get_attrsman()
+        print('TableMixin.export_csv', filepath, "*"+sep+"*")  # ,'attrconfigs',attrconfigs,self.get_attrsman()
         fd = open(filepath, 'w')
 
         # header

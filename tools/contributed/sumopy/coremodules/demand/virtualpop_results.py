@@ -129,7 +129,7 @@ class IterateStatistics(am.ArrayObjman):
         return 'estutils_'+strategy.get_ident()
 
     def add_results(self, scenario, ids_plan_before, ids_plan_after):
-        print 'add_results iteration:', len(self)+1
+        print('add_results iteration:', len(self)+1)
         # print '  ids_plan_before',ids_plan_before
         # print '  ids_plan_after',ids_plan_after
         # print '  changes',np.sum(ids_plan_before != ids_plan_after)
@@ -169,7 +169,7 @@ class IterateStatistics(am.ArrayObjman):
         for id_strat, strategy in zip(ids_strat, strategies.strategies[ids_strat]):
             inds_thisstrat_before = ids_strat_before == id_strat
             inds_thisstrat_after = ids_strat_after == id_strat
-            print '  check', id_strat, strategy, np.sum(inds_thisstrat_before), np.sum(inds_thisstrat_after)
+            print('  check', id_strat, strategy, np.sum(inds_thisstrat_before), np.sum(inds_thisstrat_after))
             stratcountattr = self.get_stratcountattr(strategy)
             getattr(self, stratcountattr)[id_run] = np.sum(inds_thisstrat_after)
 
@@ -233,7 +233,7 @@ class Personresults(am.ArrayObjman):
                                  'default': 0.0, 'info': 'Time ending last trip or activity.', 'groupnames': ['tripdata']}),
         ])
 
-        for attrname, kwargs in attrinfos.iteritems():
+        for attrname, kwargs in attrinfos.items():
             self.add_resultattr(attrname, **kwargs)
 
         # this is a special for route info
@@ -252,7 +252,7 @@ class Personresults(am.ArrayObjman):
         # default cannot be kwarg
         default = kwargs['default']
         del kwargs['default']
-        if kwargs.has_key('groupnames'):
+        if 'groupnames' in kwargs:
             kwargs['groupnames'].append('results')
         else:
             kwargs['groupnames'] = ['results']
@@ -261,12 +261,12 @@ class Personresults(am.ArrayObjman):
 
     def import_xml(self, sumo, datapaths):
         datapathkey = self.datapathkey.get_value()
-        if datapaths.has_key(datapathkey):
+        if datapathkey in datapaths:
             self.import_sumoxml(datapaths[datapathkey], sumo)
             self.get_persons().update_results(self)
 
     def import_sumoxml(self, filepath, sumo):
-        print 'Personresults.import_sumoxml', self.get_persons().ident, filepath
+        print('Personresults.import_sumoxml', self.get_persons().ident, filepath)
 
         reader = PersonReader(self.get_persons(), sumo)
         parse(filepath, reader)

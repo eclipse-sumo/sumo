@@ -25,9 +25,9 @@
 #import wxversion
 # wxversion.select('2.8')
 
-import wxmisc
-import objpanel
-from wxmisc import *
+from . import wxmisc
+from . import objpanel
+from .wxmisc import *
 import classman as cm
 import math
 import wx
@@ -45,7 +45,7 @@ try:
     import numpy as np
 
 except ImportError:
-    raise ImportError, "Required dependency OpenGL not present"
+    raise ImportError("Required dependency OpenGL not present")
 
 import sys
 import os
@@ -280,7 +280,7 @@ class BaseTool(cm.BaseObjman):
         Set handles to selected object sets which can be connected.
         """
         # put handles on all section objects
-        for name_set in self.targetsets.keys():
+        for name_set in list(self.targetsets.keys()):
             self.metacanvas.set_handles(name_set=name_set)
 
     def get_bitmap_from_file(self, name_bitmap):
@@ -309,8 +309,8 @@ class BaseTool(cm.BaseObjman):
         """
         Called from options panel.
         """
-        print 'set_options', self.ident
-        print '  event=', event
+        print('set_options', self.ident)
+        print('  event=', event)
         pass
 
     def set_statusbar(self, key, info):
@@ -482,7 +482,7 @@ class ToolPalett(wx.Panel):
         Returns lins with all toll instances
         """
         tools = []
-        for (tool, b) in self._id_to_tool.values():
+        for (tool, b) in list(self._id_to_tool.values()):
             tools.append(tool)
         return tools
 
@@ -496,12 +496,12 @@ class ToolPalett(wx.Panel):
     def on_select(self, event):
 
         _id = event.GetEventObject().GetId()
-        print '\n on_select', _id, self._id  # ,self._id_to_tool[_id]
+        print('\n on_select', _id, self._id)  # ,self._id_to_tool[_id]
         if _id != self._id:
-            if self._id_to_tool.has_key(_id):
+            if _id in self._id_to_tool:
 
                 (tool, button) = self._id_to_tool[_id]
-                print '  new tool', tool.get_name()
+                print('  new tool', tool.get_name())
                 self.unselect()
                 self._id = _id
                 self.GetParent().set_options(tool)
@@ -512,7 +512,7 @@ class ToolPalett(wx.Panel):
         """
         Unselect currently selected tool.
         """
-        if self._id_to_tool.has_key(self._id):
+        if self._id in self._id_to_tool:
             (tool, button) = self._id_to_tool[self._id]
             if hasattr(button, 'SetToggle'):
                 button.SetToggle(False)
@@ -525,10 +525,10 @@ class ToolPalett(wx.Panel):
         """
         Select explicitelt a tool.
         """
-        print '\n select', id, self._id, self._id_to_tool
+        print('\n select', id, self._id, self._id_to_tool)
 
         if id != self._id:
-            if self._id_to_tool.has_key(id):
+            if id in self._id_to_tool:
                 # unselect previous
                 self.unselect()
 
@@ -740,7 +740,7 @@ class WxGLTest_orig(glcanvas.GLCanvas):
         y = radius*math.cos(0)
         glColor(0.0, 1.0, 0.0)
         glBegin(GL_LINE_STRIP)
-        for deg in xrange(1000):
+        for deg in range(1000):
             glVertex(x, y, 0.0)
             rad = math.radians(deg)
             radius -= 0.001
@@ -757,7 +757,7 @@ class WxGLTest_orig(glcanvas.GLCanvas):
         x = radius*math.sin(0)
         y = radius*math.cos(0)
         glColor(1.0, 0.0, 0.0)
-        for deg in xrange(820):
+        for deg in range(820):
             spiral_array.append([x, y])
             rad = math.radians(deg)
             radius -= 0.001
@@ -805,7 +805,7 @@ class WxGLTest_orig(glcanvas.GLCanvas):
         y = event.GetY()
 
     def OnDestroy(self, event):
-        print "Destroying Window"
+        print("Destroying Window")
 
 
 class Lines:
@@ -982,7 +982,7 @@ class GLFrame(wx.Frame):
                  size=wx.DefaultSize, style=wx.DEFAULT_FRAME_STYLE,
                  name='frame', mainframe=None):
 
-        print '\n\nGLFrame!!'
+        print('\n\nGLFrame!!')
         if mainframe is None:
             self._mainframe = parent
         else:
@@ -1622,7 +1622,7 @@ class GlEditorSash(wx.SplitterWindow):
         pass
 
     def OnSashChanging(self, evt):
-        print("sash changing to %s\n" % str(evt.GetSashPosition()))
+        print(("sash changing to %s\n" % str(evt.GetSashPosition())))
         # uncomment this to not allow the change
         # evt.SetSashPosition(-1)
         # evt.SetSashPosition(210)
@@ -1893,7 +1893,7 @@ class TestMainframe(AgileToolbarFrameMixin, wx.Frame):
         return view
 
     def on_size(self, event=None):
-        print 'Mainframe.on_size'
+        print('Mainframe.on_size')
         # self.tc.SetSize(self.GetSize())
         # self.tc.SetSize(self.GetSize())
         # self._viewtabs.SetSize(self.GetSize())
@@ -1908,12 +1908,12 @@ class TestMainframe(AgileToolbarFrameMixin, wx.Frame):
             event.Skip()
 
     def on_save(self, event):
-        print 'save it!!'
+        print('save it!!')
 
     def on_open(self, event):
         """Open a document"""
         #wildcards = CreateWildCards() + "All files (*.*)|*.*"
-        print 'open it!!'
+        print('open it!!')
 
     def destroy(self):
         """Destroy this object"""

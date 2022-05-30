@@ -24,13 +24,13 @@ import agilepy.lib_base.arrayman as am
 from agilepy.lib_base.misc import get_inversemap
 from agilepy.lib_wx.ogleditor import *
 try:
-    import virtualpop_results_mpl as results_mpl
+    from . import virtualpop_results_mpl as results_mpl
     is_mpl = True  # we have matplotlib support
 except:
-    print "WARNING: python matplotlib package not installed, no matplotlib plots."
+    print("WARNING: python matplotlib package not installed, no matplotlib plots.")
     is_mpl = False
 
-import virtualpop
+from . import virtualpop
 
 
 from agilepy.lib_wx.processdialog import ProcessDialog, ProcessDialogInteractive
@@ -199,7 +199,7 @@ class VirtualpopWxGuiMixin:
 
         # this does not return until the dialog is closed.
         #val = dlg.ShowModal()
-        print 'on_create_pop_from_odflows'
+        print('on_create_pop_from_odflows')
         dlg.Show()
         dlg.MakeModal(True)
 
@@ -221,7 +221,7 @@ class VirtualpopWxGuiMixin:
             # print 'You selected %d files:' % len(paths)
             if len(paths) > 0:
                 filepath = paths[0]
-                print 'call import_routes_xml', filepath
+                print('call import_routes_xml', filepath)
                 self._demand.virtualpop.import_routes_xml(filepath)
                 self._mainframe.browse_obj(self._demand.virtualpop.get_plans())
 
@@ -274,7 +274,7 @@ class VirtualpopWxGuiMixin:
 
         # this does not return until the dialog is closed.
         #val = dlg.ShowModal()
-        print 'on_create_pop_from_odflows'
+        print('on_create_pop_from_odflows')
         dlg.Show()
         dlg.MakeModal(True)
 
@@ -300,7 +300,7 @@ class VirtualpopWxGuiMixin:
 
         # this does not return until the dialog is closed.
         #val = dlg.ShowModal()
-        print 'on_provide_vehicles'
+        print('on_provide_vehicles')
         dlg.Show()
         dlg.MakeModal(True)
 
@@ -327,7 +327,7 @@ class VirtualpopWxGuiMixin:
 
         # this does not return until the dialog is closed.
         #val = dlg.ShowModal()
-        print 'on_generate_plan'
+        print('on_generate_plan')
         dlg.Show()
         dlg.MakeModal(True)
         if self.proc.status == 'success':
@@ -444,8 +444,8 @@ class VirtualpopWxGuiMixin:
         scenario = self._demand.parent
 
         vpiterstats = scenario.simulation.results.get_resultobj('vpiterstats')
-        print 'on_plot_iterations  '
-        print ' vpiterstats ', vpiterstats
+        print('on_plot_iterations  ')
+        print(' vpiterstats ', vpiterstats)
         if is_mpl & (vpiterstats is not None):
             resultplotter = results_mpl.IteratePlotter(scenario,
                                                        logger=self._mainframe.get_logger()

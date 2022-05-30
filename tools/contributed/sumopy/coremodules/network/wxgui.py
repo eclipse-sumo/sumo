@@ -23,16 +23,16 @@ from agilepy.lib_wx.modulegui import ModuleGui
 from agilepy.lib_wx.processdialog import ProcessDialog
 
 
-import network
-import routing
-import netgenerate
-import netconvert
-import networktools
-import networkxtools  # IS_NX = True if available
+from . import network
+from . import routing
+from . import netgenerate
+from . import netconvert
+from . import networktools
+from . import networkxtools  # IS_NX = True if available
 
 
-from publictransportnet_wxgui import PtWxGuiMixin
-from network_editor import *
+from .publictransportnet_wxgui import PtWxGuiMixin
+from .network_editor import *
 from coremodules.misc import shapeformat
 
 from coremodules.misc.matplottools import *
@@ -399,14 +399,14 @@ class WxGui(PtWxGuiMixin, ModuleGui):
     def on_test_routing(self, event=None):
         D, P = routing.dijkstra(54, self._net.nodes, self._net.edges, set([42, 82]))
         cost, route = routing.get_mincostroute_node2node(54, 42, D, P, self._net.edges)
-        print ' route:', route
-        print ' cost', cost
-        print '  firstnode, lastnode', self._net.edges.ids_fromnode[route[0]], self._net.edges.ids_tonode[route[-1]]
+        print(' route:', route)
+        print(' cost', cost)
+        print('  firstnode, lastnode', self._net.edges.ids_fromnode[route[0]], self._net.edges.ids_tonode[route[-1]])
 
         D, P = routing.edgedijkstra(29, self._net.nodes, self._net.edges, set([106, 82]))
         cost, route = routing.get_mincostroute_edge2edge(29, 82, D, P)
-        print ' route:', route
-        print ' cost', cost
+        print(' route:', route)
+        print(' cost', cost)
         # print  '  firstnode, lastnode',self._net.edges.ids_fromnode[route[0]],self._net.edges.ids_tonode[route[-1]]
 
     def on_clean_codes(self, event=None):
@@ -804,7 +804,7 @@ class WxGui(PtWxGuiMixin, ModuleGui):
             self._mainframe.refresh_moduleguis()
 
     def on_export_sumonet(self, event=None):
-        print 'on_export_sumonet'
+        print('on_export_sumonet')
         if self._net.parent is not None:
             rootname = self._net.parent.get_rootfilename()
             rootdirpath = self._net.parent.get_workdirpath()
@@ -854,7 +854,7 @@ class WxGui(PtWxGuiMixin, ModuleGui):
         """
         Export Network nodes data to shape file.
         """
-        print 'on_nodes_to_shapefile'
+        print('on_nodes_to_shapefile')
 
         dirpath = self._net.parent.get_workdirpath()
         defaultFile = self._net.parent.get_rootfilename()+'.nodes.shp'

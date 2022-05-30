@@ -27,8 +27,8 @@ from coremodules.network.network import SumoIdsConf, MODES
 from coremodules.network import routing
 from agilepy.lib_base.processes import Process, CmlMixin
 
-import demand as dm
-import demandbase as db
+from . import demand as dm
+from . import demandbase as db
 from agilepy.lib_base.geometry import is_polyline_intersect_polygon
 
 
@@ -220,7 +220,7 @@ class OdTrips(am.ArrayObjman):
 
     def _get_fstar(self, id_mode,  is_return_arrays=True, is_ignor_connections=False):
 
-        if not self._fstars.has_key(id_mode):
+        if id_mode not in self._fstars:
             self._fstars[id_mode] = self.get_edges().get_fstar(id_mode,
                                                                is_ignor_connections=is_ignor_connections,
                                                                is_return_arrays=is_return_arrays,)
@@ -228,7 +228,7 @@ class OdTrips(am.ArrayObjman):
 
     def _get_times(self, id_mode,  is_check_lanes=False):
 
-        if not self._times.has_key(id_mode):
+        if id_mode not in self._times:
             self._times[id_mode] = self.get_edges().get_times(id_mode=id_mode,
                                                               is_check_lanes=is_check_lanes,
                                                               )
@@ -239,10 +239,10 @@ class OdTrips(am.ArrayObjman):
                           priority_max, speed_max,
                           id_mode_fallback=None):
 
-        if not self._mode_to_edgeinfo.has_key(id_mode):
+        if id_mode not in self._mode_to_edgeinfo:
             self._mode_to_edgeinfo[id_mode] = {}
 
-        if not self._mode_to_edgeinfo[id_mode].has_key(id_zone):
+        if id_zone not in self._mode_to_edgeinfo[id_mode]:
             zones = self.get_zones()
             ids_edge = zones.get_zoneedges_by_mode_fast(id_zone, id_mode,
                                                         weights=self._get_times(id_mode),
@@ -277,7 +277,7 @@ class OdTrips(am.ArrayObjman):
             self.del_row(id_row)
 
     def on_add_row(self, id_row=None):
-        print 'on_add_row'
+        print('on_add_row')
         if len(self) > 0:
 
             # copy previous
@@ -324,7 +324,7 @@ class OdTrips(am.ArrayObjman):
         """
         Generates trips in demand.trip table.
         """
-        print 'generate_trips', time_start, time_end, 'id_mode_primary', id_mode_primary, 'id_mode_fallback', id_mode_fallback
+        print('generate_trips', time_start, time_end, 'id_mode_primary', id_mode_primary, 'id_mode_fallback', id_mode_fallback)
         id_mode_ped = MODES['pedestrian']
         zones = self.get_zones()
         edges = self.get_edges()
@@ -352,7 +352,7 @@ class OdTrips(am.ArrayObjman):
         # in case there is a secondary mode, the secondary mode is chosen
         ids_vtype_mode_primary, prob_vtype_mode_primary = demand.vtypes.select_by_mode(
             id_mode_primary, is_share=True)
-        print '  ids_vtype_mode_primary', ids_vtype_mode_primary, prob_vtype_mode_primary
+        print('  ids_vtype_mode_primary', ids_vtype_mode_primary, prob_vtype_mode_primary)
         n_vtypes_primary = len(ids_vtype_mode_primary)
 
         n_vtypes_fallback = 0
@@ -368,7 +368,7 @@ class OdTrips(am.ArrayObjman):
             is_fallback = False
         # print '  n_vtypes_primary',n_vtypes_primary,'n_vtypes_fallback',n_vtypes_fallback,'is_fallback',is_fallback
         if n_vtypes_primary == 0:
-            print 'WARNING: no vehicle types for this mode with ID', id_mode_primary
+            print('WARNING: no vehicle types for this mode with ID', id_mode_primary)
             return False
 
         ids_od = self.get_ids()
@@ -378,7 +378,7 @@ class OdTrips(am.ArrayObjman):
                 np.array(self.tripnumbers[ids_od]+random.rand(len(ids_od)), dtype=np.int32),
                 ):
 
-            print '  generate', tripnumber, ' trips from id_orig', id_orig, 'to id_dest', id_dest
+            print('  generate', tripnumber, ' trips from id_orig', id_orig, 'to id_dest', id_dest)
 
             ids_edge_orig, weights_orig = self.get_zone_edgeinfo(
                 id_mode_primary, id_orig, n_edges_min_length, n_edges_max_length, priority_max, speed_max)
@@ -390,7 +390,7 @@ class OdTrips(am.ArrayObjman):
             # print '  n_edges_orig',n_edges_orig,len(weights_orig),'n_edges_dest',n_edges_dest,len(weights_dest)
 
             if 1:  # (n_edges_orig > 0) & (n_edges_dest > 0):
-                for i_trip in xrange(tripnumber):
+                for i_trip in range(tripnumber):
 
                     time_depart = random.uniform(time_start, time_end)
 
@@ -414,9 +414,9 @@ class OdTrips(am.ArrayObjman):
 
                     n_trips_generated += 1
 
-        print '  -----'
-        print '  n_trips_generated', n_trips_generated
-        print '  n_trips_failed', np.sum(self.tripnumbers[ids_od])-n_trips_generated
+        print('  -----')
+        print('  n_trips_generated', n_trips_generated)
+        print('  n_trips_failed', np.sum(self.tripnumbers[ids_od])-n_trips_generated)
         return True
 
     def add_od_trips(self, scale, names_orig, names_dest, tripnumbers,
@@ -428,7 +428,7 @@ class OdTrips(am.ArrayObjman):
         is_filter_cross = len(ids_zone_cross_filter) > 0
         is_dist_min = dist_min > 0
         is_dist_max = dist_max > 0
-        print 'OdTrips.add_od_trips', is_filter_orig, is_filter_dest, is_filter_cross
+        print('OdTrips.add_od_trips', is_filter_orig, is_filter_dest, is_filter_cross)
         # print '  filter',ids_zone_orig_filter,ids_zone_dest_filter
         # print '  scale, names_orig, names_dest, tripnumbers',scale, names_orig, names_dest, tripnumbers,len(tripnumbers)
         zones = self.get_zones()
@@ -477,15 +477,15 @@ class OdTrips(am.ArrayObjman):
                 else:
                     n_trips_scale_fin = int(n_trips_scale_int + 1)
                 # -----
-                print '      add from', name_orig, 'to', name_dest, 'tripnumber', n_trips_scale_fin
+                print('      add from', name_orig, 'to', name_dest, 'tripnumber', n_trips_scale_fin)
 
                 self.add_row(ids_orig=id_zone_orig,
                              ids_dest=id_zone_dest,
                              tripnumbers=n_trips_scale_fin)  # prima c'era (tripnumbers = scale*tripnumber)
             else:
                 if not ((zones.ids_sumo.has_index(name_orig)) & (zones.ids_sumo.has_index(name_dest))):
-                    print '  WARNING: zone named %s or %s not known' % (
-                        name_orig, name_dest)
+                    print('  WARNING: zone named %s or %s not known' % (
+                        name_orig, name_dest))
                     # print '  zones indexmap', zones.get_indexmap()
                     # print '  ids_sumo', zones.ids_sumo.get_value()
                     # print '  ids_sumo._index_to_id', zones.ids_sumo._index_to_id
@@ -678,7 +678,7 @@ class OdIntervals(am.ArrayObjman):
         """
         Export flows to Amitran format that defines the demand per OD pair in time slices for every vehicle type.
         """
-        print 'export_amitranxml', filepath, len(self)
+        print('export_amitranxml', filepath, len(self))
 
         if len(self) == 0:
             return None
@@ -689,7 +689,7 @@ class OdIntervals(am.ArrayObjman):
         try:
             fd = open(filepath, 'w')
         except:
-            print 'WARNING in export_sumoxml: could not open', filepath
+            print('WARNING in export_sumoxml: could not open', filepath)
             return False
 
         indent = 0
@@ -745,7 +745,7 @@ class OdIntervals(am.ArrayObjman):
         """
         Export flows to SUMO xml file formate.
         """
-        print 'export_sumoxml', filepath, len(self)
+        print('export_sumoxml', filepath, len(self))
         if len(self) == 0:
             return None
 
@@ -755,7 +755,7 @@ class OdIntervals(am.ArrayObjman):
         try:
             fd = open(filepath, 'w')
         except:
-            print 'WARNING in export_sumoxml: could not open', filepath
+            print('WARNING in export_sumoxml: could not open', filepath)
             return False
         #xmltag, xmltag_item, attrname_id = self.xmltag
         #fd.write('<?xml version="1.0" encoding="%s"?>\n'%encoding)

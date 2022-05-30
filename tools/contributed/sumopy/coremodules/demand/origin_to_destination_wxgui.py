@@ -26,12 +26,12 @@ from agilepy.lib_base.misc import get_inversemap
 from agilepy.lib_wx.ogleditor import *
 from agilepy.lib_wx.objpanel import ObjPanel
 from coremodules.network.network import SumoIdsConf, MODES
-import origin_to_destination as od
+from . import origin_to_destination as od
 
 
 class OdCommonMixin:
     def add_odoptions_common(self, modes=None, activitytypes=None, **kwargs):
-        print 'add_odoptions_common', modes
+        print('add_odoptions_common', modes)
         self.add(am.AttrConf('t_start', kwargs.get('t_start', 0),
                              groupnames=['options'],
                              perm='rw',
@@ -630,7 +630,7 @@ class AddOdWizzard(OdCommonMixin, am.ArrayObjman):
         """
         Add demand to scenario.
         """
-        print 'AddOdm.add_demand'
+        print('AddOdm.add_demand')
         # print '   ids_zone_orig_filter',self.ids_zone_orig_filter.get_value()
         # print '   ids_zone_dest_filter',self.ids_zone_dest_filter.get_value()
         odintervals = self.parent
@@ -677,11 +677,11 @@ class AddOdWizzard(OdCommonMixin, am.ArrayObjman):
                                  tripnumbers=int(tripnumbers_str)
                                  )
                 else:
-                    print 'WARNING: unknown zonename in line %d of file %s' % (i_line, filepath)
+                    print('WARNING: unknown zonename in line %d of file %s' % (i_line, filepath))
 
             else:
                 if len(cols) != 0:
-                    print 'WARNING: inconsistent o,d,trips info in line %d of file %s' % (i_line, filepath)
+                    print('WARNING: inconsistent o,d,trips info in line %d of file %s' % (i_line, filepath))
             i_line += 1
         # self.odtab.print_rows()
         f.close()

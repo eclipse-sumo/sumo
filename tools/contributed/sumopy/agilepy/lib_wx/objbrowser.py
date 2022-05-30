@@ -17,8 +17,8 @@
 # @date    2012
 
 import wx
-from objpanel import *
-from mainframe import AgileMainframe, AgileStatusbar, AgileMenubar
+from .objpanel import *
+from .mainframe import AgileMainframe, AgileStatusbar, AgileMenubar
 
 
 class ObjBrowserMainframe(AgileMainframe):
