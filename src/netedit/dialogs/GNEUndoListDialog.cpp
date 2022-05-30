@@ -72,13 +72,19 @@ GNEUndoListDialog::open() {
     updateList();
     // reset last undo element
     myLastUndoElement = -1;
+
     // show
     show(PLACEMENT_SCREEN);
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    myGNEApp->getApp()->runModalFor(this);
+    
 }
 
 
 void
 GNEUndoListDialog::hide() {
+    // stop modal
+    myGNEApp->getApp()->stopModal(this);
     FXTopWindow::hide();
 }
 
@@ -103,6 +109,7 @@ GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
     hide();
     return 1;
 }
+
 
 long 
 GNEUndoListDialog::onCmdUpdate(FXObject*, FXSelector, void*) {
