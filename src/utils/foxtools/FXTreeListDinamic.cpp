@@ -137,10 +137,11 @@ FXTreeListDinamic::getSelectedIndex() {
 
 
 FXTreeItem* 
-FXTreeListDinamic::prependItem(FXTreeItem* father, const FXString& text, FXIcon* oi) {
+FXTreeListDinamic::prependItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor textColor) {
     FXTreeItemDynamic* newItem = dynamic_cast<FXTreeItemDynamic*>(FXTreeList::prependItem(father, new FXTreeItemDynamic(text, oi, oi, nullptr), false));
     if (newItem != nullptr) {
         myFXTreeItemDynamicItems.insert(myFXTreeItemDynamicItems.begin(), newItem);
+        newItem->setTextColor(textColor);
         return newItem;
     } else {
         throw ProcessError("New item cannot be NULL");
@@ -149,10 +150,11 @@ FXTreeListDinamic::prependItem(FXTreeItem* father, const FXString& text, FXIcon*
 
 
 FXTreeItem* 
-FXTreeListDinamic::appendItem(FXTreeItem* father, const FXString& text, FXIcon* oi) {
+FXTreeListDinamic::appendItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor textColor) {
     FXTreeItemDynamic* newItem = dynamic_cast<FXTreeItemDynamic*>(FXTreeList::appendItem(father, new FXTreeItemDynamic(text, oi, oi, nullptr), false));
     if (newItem != nullptr) {
         myFXTreeItemDynamicItems.push_back(newItem);
+        newItem->setTextColor(textColor);
         return newItem;
     } else {
         throw ProcessError("New item cannot be NULL");
