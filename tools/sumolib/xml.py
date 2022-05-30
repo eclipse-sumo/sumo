@@ -233,7 +233,6 @@ def parselines(xmlline, element_name, element_attrs=None, attr_conversions=None,
         for x in parse(xmlfile, element_name, element_attrs, attr_conversions,
                 heterogeneous, warn):
             yield x
-    return None
 
 
 def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
