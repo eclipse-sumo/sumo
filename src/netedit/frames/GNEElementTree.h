@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <utils/foxtools/FXGroupBoxModule.h>
-#include <utils/foxtools/FXTreeListDinamic.h>
+#include <utils/foxtools/FXTreeListDynamic.h>
 
 // ===========================================================================
 // class declaration

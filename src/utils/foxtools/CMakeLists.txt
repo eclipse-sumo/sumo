@@ -23,8 +23,8 @@ set(utils_foxtools_STAT_SRCS
    FXSynchSet.h
    FXThreadEvent.cpp
    FXThreadEvent.h
-   FXTreeListDinamic.cpp
-   FXTreeListDinamic.h
+   FXTreeListDynamic.cpp
+   FXTreeListDynamic.h
    FXWorkerThread.h
    MFXAddEditTypedTable.cpp
    MFXAddEditTypedTable.h
