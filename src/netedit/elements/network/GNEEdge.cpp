@@ -847,13 +847,13 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myNBEdge->getSpeed());
             }
-		case SUMO_ATTR_FRICTION:
-			if (myNBEdge->hasLaneSpecificFriction()) {
+        case SUMO_ATTR_FRICTION:
+            if (myNBEdge->hasLaneSpecificFriction()) {
                 return "lane specific";
-			}
-			else {
-				return toString(myNBEdge->getLaneFriction());
-			}
+            }
+            else {
+                return toString(myNBEdge->getLaneFriction());
+            }
         case SUMO_ATTR_WIDTH:
             if (myNBEdge->hasLaneSpecificWidth()) {
                 return "lane specific";
@@ -1616,9 +1616,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEED:
             myNBEdge->setSpeed(-1, parse<double>(value));
             break;
-	    case SUMO_ATTR_FRICTION:
-		    myNBEdge->setFriction(-1, parse<double>(value));
-		break;
+        case SUMO_ATTR_FRICTION:
+	    myNBEdge->setFriction(-1, parse<double>(value));
+            break;
         case SUMO_ATTR_WIDTH:
             if (value.empty() || (value == "default")) {
                 myNBEdge->setLaneWidth(-1, NBEdge::UNSPECIFIED_WIDTH);

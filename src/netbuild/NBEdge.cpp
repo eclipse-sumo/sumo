@@ -151,7 +151,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
 
 NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
     speed(e->getSpeed()),
-	friction(e->getFriction()),
+    friction(e->getFriction()),
     permissions(SVCAll),
     preferred(0),
     changeLeft(SVCAll),
@@ -3820,7 +3820,7 @@ NBEdge::addLane(int index, bool recomputeShape, bool recomputeConnections, bool 
     if (myLanes.size() > 1) {
         int templateIndex = index > 0 ? index - 1 : index + 1;
         myLanes[index].speed = myLanes[templateIndex].speed;
-	    myLanes[index].friction = myLanes[templateIndex].friction;
+        myLanes[index].friction = myLanes[templateIndex].friction;
         myLanes[index].permissions = myLanes[templateIndex].permissions;
         myLanes[index].preferred = myLanes[templateIndex].preferred;
         myLanes[index].endOffset = myLanes[templateIndex].endOffset;

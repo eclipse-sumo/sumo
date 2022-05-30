@@ -150,8 +150,8 @@ public:
         /// @brief The speed allowed on this lane
         double speed;
 
-	    /// @brief The friction on this lane
-	    double friction;
+        /// @brief The friction on this lane
+        double friction;
 
         /// @brief List of vehicle types that are allowed on this lane
         SVCPermissions permissions;
@@ -256,8 +256,8 @@ public:
         /// @brief custom speed for connection
         double speed;
 
-	    // @brief custom friction for connection
-	    double friction;		
+        // @brief custom friction for connection
+        double friction;		
         /// @brief custom length for connection
         double customLength;
 
@@ -360,9 +360,8 @@ public:
 
     /// @brief unspecified lane speed
     static const double UNSPECIFIED_SPEED;
-
-	/// @brief unspecified lane friction
-	static const double UNSPECIFIED_FRICTION;
+    /// @brief unspecified lane friction
+    static const double UNSPECIFIED_FRICTION;
 
     /// @brief unspecified internal junction position
     static const double UNSPECIFIED_CONTPOS;

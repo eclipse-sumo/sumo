@@ -2625,7 +2625,7 @@ MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<M
         if (seen > dist) {
             return std::pair<MSVehicle* const, double>(static_cast<MSVehicle*>(nullptr), -1);
         }
-        return getLeaderOnConsecutive(dist, seen, speed, *veh, bestLaneConts, false);
+        return getLeaderOnConsecutive(dist, seen, speed, *veh, bestLaneConts);
     } else {
         return std::make_pair(static_cast<MSVehicle*>(nullptr), -1);
     }
@@ -2634,7 +2634,7 @@ MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<M
 
 std::pair<MSVehicle* const, double>
 MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSVehicle& veh,
-                               const std::vector<MSLane*>& bestLaneConts, bool abortClosed) const {
+                               const std::vector<MSLane*>& bestLaneConts) const {
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(&veh)) {
         std::cout << "   getLeaderOnConsecutive lane=" << getID() << " ego=" << veh.getID() << " seen=" << seen << " dist=" << dist << " conts=" << toString(bestLaneConts) << "\n";
@@ -2669,7 +2669,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
         nextLane->getVehiclesSecure(); // lock against running sim when called from GUI for time gap coloring
         // get the next link used
         std::vector<MSLink*>::const_iterator link = succLinkSec(veh, view, *nextLane, bestLaneConts);
-        if (nextLane->isLinkEnd(link) || (abortClosed && (*link)->haveRed() && !veh.ignoreRed(*link, true))) {
+        if (nextLane->isLinkEnd(link)) {
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(&veh)) {
                 std::cout << "    cannot continue after nextLane=" << nextLane->getID() << "\n";
@@ -3610,8 +3610,8 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
 
 void
 MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MSVehicle* ego,
-    const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result,
-    bool oppositeDirection) const {
+                                const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result,
+                                bool oppositeDirection) const {
     if (seen > dist) {
         return;
     }
@@ -3621,8 +3621,7 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
         MSVehicle* veh = *it;
         if (!veh->isFrontOnLane(this)) {
             result.addLeader(veh, seen, veh->getLatOffset(this));
-        }
-        else {
+        } else {
             break;
         }
     }
@@ -3642,8 +3641,7 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
                 break;
             }
             nextLane = bestLaneConts[view];
-        }
-        else {
+        } else {
             std::vector<MSLink*>::const_iterator link = succLinkSec(*ego, view, *nextLane, bestLaneConts);
             if (nextLane->isLinkEnd(link)) {
                 break;
@@ -3655,9 +3653,9 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
                 MSVehicle* veh = ll.vehAndGap.first;
                 // in the context of lane changing all junction leader candidates must be respected
                 if (veh != 0 && (ego->isLeader(*link, veh, ll.vehAndGap.second)
-                    || (MSGlobals::gComputeLC
-                        && veh->getPosition().distanceTo2D(ego->getPosition()) - veh->getVehicleType().getMinGap() - ego->getVehicleType().getLength()
-                        < veh->getCarFollowModel().brakeGap(veh->getSpeed())))) {
+                                 || (MSGlobals::gComputeLC
+                                     && veh->getPosition().distanceTo2D(ego->getPosition()) - veh->getVehicleType().getMinGap() - ego->getVehicleType().getLength()
+                                     < veh->getCarFollowModel().brakeGap(veh->getSpeed())))) {
                     // add link leader to all sublanes and return
                     for (int i = 0; i < result.numSublanes(); ++i) {
 #ifdef DEBUG_CONTEXT
@@ -3693,11 +3691,11 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
             if (veh != nullptr) {
 #ifdef DEBUG_CONTEXT
                 if (DEBUG_COND2(ego)) std::cout << "   lead=" << veh->getID()
-                    << " seen=" << seen
-                    << " minGap=" << ego->getVehicleType().getMinGap()
-                    << " backPos=" << veh->getBackPositionOnLane(nextLane)
-                    << " gap=" << seen - ego->getVehicleType().getMinGap() + veh->getBackPositionOnLane(nextLane)
-                    << "\n";
+                                                    << " seen=" << seen
+                                                    << " minGap=" << ego->getVehicleType().getMinGap()
+                                                    << " backPos=" << veh->getBackPositionOnLane(nextLane)
+                                                    << " gap=" << seen - ego->getVehicleType().getMinGap() + veh->getBackPositionOnLane(nextLane)
+                                                    << "\n";
 #endif
                 result.addLeader(veh, seen - ego->getVehicleType().getMinGap() + veh->getBackPositionOnLane(nextLane), 0, i);
             }
@@ -3766,8 +3764,7 @@ MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo
             }
 #endif
             getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, result, opposite);
-        }
-        else {
+        } else {
             const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation(this);
             getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, result);
         }
