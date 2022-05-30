@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXTreeListDinamic.h>
+#include <utils/foxtools/FXTreeListDynamic.h>
 
 
 // ===========================================================================
@@ -82,7 +82,7 @@ protected:
     GNEApplicationWindow* myGNEApp;
 
     /// @brief tree list dinamic to show the elements to erase
-    FXTreeListDinamic* myTreeListDinamic;
+    FXTreeListDynamic* myTreeListDinamic;
 
     /// @brief index for last undo element
     int myLastUndoElement = -1;

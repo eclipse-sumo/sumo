@@ -111,7 +111,7 @@ ROJTREdge::setTurnDefaults(const std::vector<double>& defs) {
     // store in less common multiple
     for (int i = 0; i < (int)defs.size(); ++i) {
         for (int j = 0; j < (int)myFollowingEdges.size(); ++j) {
-            tmp[i * myFollowingEdges.size() + j] = (double)(defs[i] / 100.0 / (myFollowingEdges.size()));
+            tmp[i * myFollowingEdges.size() + j] = defs[i] / 100. / (double)myFollowingEdges.size();
         }
     }
     // parse from less common multiple

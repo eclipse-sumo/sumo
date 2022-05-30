@@ -142,3 +142,6 @@ ticket10771
 
 # invalid rail crossing
 ticket10777
+
+# join looses tram connection
+ticket10826

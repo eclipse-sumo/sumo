@@ -54,7 +54,7 @@ GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create treelist dinamic
-    myTreeListDinamic = new FXTreeListDinamic(mainFrame, this, MID_GNE_UNDOLIST_UPDATE, GUIDesignTreeListDinamicExpandHeight);
+    myTreeListDinamic = new FXTreeListDynamic(mainFrame, this, MID_GNE_UNDOLIST_UPDATE, GUIDesignTreeListDinamicExpandHeight);
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -72,13 +72,19 @@ GNEUndoListDialog::open() {
     updateList();
     // reset last undo element
     myLastUndoElement = -1;
+
     // show
     show(PLACEMENT_SCREEN);
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    myGNEApp->getApp()->runModalFor(this);
+    
 }
 
 
 void
 GNEUndoListDialog::hide() {
+    // stop modal
+    myGNEApp->getApp()->stopModal(this);
     FXTopWindow::hide();
 }
 
@@ -103,6 +109,7 @@ GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
     hide();
     return 1;
 }
+
 
 long 
 GNEUndoListDialog::onCmdUpdate(FXObject*, FXSelector, void*) {
@@ -133,12 +140,31 @@ void
 GNEUndoListDialog::updateList() {
     // first clear myTreeListDinamic
     myTreeListDinamic->clearItems();
-    // declare iterator over UndoList
-    GNEUndoList::Iterator it(myGNEApp->getUndoList());
+    // declare undo iterator over UndoList
+    GNEUndoList::UndoIterator itUndo(myGNEApp->getUndoList());
+    FXTreeItem* firstItem = nullptr;
     // fill myTreeListDinamic
-    while (!it.end()) {
-        myTreeListDinamic->insertItem(nullptr, it.getDescription().c_str(), it.getIcon());
-        it++;
+    while (!itUndo.end()) {
+        if (firstItem == nullptr) {
+            firstItem = myTreeListDinamic->appendItem(nullptr, itUndo.getDescription().c_str(), itUndo.getIcon());
+        } else {
+            myTreeListDinamic->appendItem(nullptr, itUndo.getDescription().c_str(), itUndo.getIcon());
+        }
+        itUndo++;
+    }
+    // declare redo iterator over UndoList
+    GNEUndoList::RedoIterator itRedo(myGNEApp->getUndoList());
+    // fill myTreeListDinamic
+    while (!itRedo.end()) {
+        if (firstItem == nullptr) {
+            firstItem = myTreeListDinamic->prependItem(nullptr, itRedo.getDescription().c_str(), itRedo.getIcon(), FXRGB(255, 0, 0));
+        } else {
+            myTreeListDinamic->prependItem(nullptr, itRedo.getDescription().c_str(), itRedo.getIcon(), FXRGB(255, 0, 0));
+        }
+        itRedo++;
+    }
+    if (firstItem) {
+        firstItem->setSelected(true);
     }
 }
 

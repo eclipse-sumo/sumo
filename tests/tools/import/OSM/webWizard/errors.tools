@@ -76,7 +76,6 @@ Warning: First stop edge '25946670' is not part of the route of line '6593455'.
 Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node).
 Warning: Not joining junctions 28373970,540698421 (only 1 edge within and no cross-traffic).
 Warning: Not joining junctions 28373972,3513423889,3513425993 (not compact (maxEdge=4612964#0 length=8.21)).
-Warning: Ambiguous node type for node cluster 'cluster_1673527224_1673527227_21487161_303436603_3781110311_3781110312_3781110313_3918673901_3918673903_3918673904_4603453181_4603453187_51974030' (rail_crossing,unknown), setting to 'priority'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
 Warning: Ambiguity in turnarounds computation at junction '196721246'.
@@ -155,4 +154,3 @@ Warning: Person 'ped135' aborted waiting for N40:1 at busStop '1686199552'.
 Warning: Person 'ped173' aborted waiting for N2:0 at busStop '3867910420'.
 Warning: Person 'ped99' aborted waiting for 100:1 at busStop '270718978'.
 Warning: Person 'ped37' aborted waiting for S5:1 at busStop '27411231'.
-Warning: Person 'ped71' aborted waiting for 200:1 at busStop '1827996414'.

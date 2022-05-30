@@ -96,7 +96,7 @@ def _readLogics(result):
 
 
 class Constraint:
-    def __init__(self, signalId, tripId, foeId, foeSignal, limit, type, mustWait, active = True):
+    def __init__(self, signalId, tripId, foeId, foeSignal, limit, type, mustWait, active=True):
         self.signalId = signalId
         self.tripId = tripId
         self.foeId = foeId
@@ -108,7 +108,8 @@ class Constraint:
 
     def __repr__(self):
         return ("Constraint(signalId=%s tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s, mustWait=%s, active=%s)" %
-                (self.signalId, self.tripId, self.foeId, self.foeSignal, self.limit, self.type, self.mustWait, self.active))
+                (self.signalId, self.tripId, self.foeId, self.foeSignal,
+                 self.limit, self.type, self.mustWait, self.active))
 
 
 def _readLinks(result):

@@ -54,12 +54,6 @@ FXIMPLEMENT_ABSTRACT(GNEUndoList, GNEChangeGroup, GNEUndoListMap, ARRAYNUMBER(GN
 // GNEUndoList::Iterator
 // ---------------------------------------------------------------------------
 
-GNEUndoList::Iterator::Iterator(const GNEUndoList* undoList) :
-    myCurrentChange(undoList->undoList),
-    myIndex(0) {
-}
-
-
 GNEUndoList::Iterator::~Iterator() {}
 
 
@@ -106,6 +100,28 @@ GNEUndoList::Iterator::operator++(int) {
     return *this;
 }
 
+
+GNEUndoList::Iterator::Iterator(GNEChange* change) :
+    myCurrentChange(change),
+    myIndex(0) {
+}
+
+
+GNEUndoList::Iterator::Iterator() :
+    myCurrentChange(nullptr),
+    myIndex(0) {
+}
+
+
+GNEUndoList::UndoIterator::UndoIterator(const GNEUndoList* undoList) :
+    Iterator(undoList->undoList) {
+}
+
+
+GNEUndoList::RedoIterator::RedoIterator(const GNEUndoList* undoList) :
+    Iterator(undoList->redoList) {
+}
+
 // ---------------------------------------------------------------------------
 // GNEUndoList
 // ---------------------------------------------------------------------------
@@ -124,7 +140,7 @@ GNEUndoList::undo() {
     WRITE_DEBUG("Calling GNEUndoList::undo()");
     GNEChange* change = nullptr;
     if (group) {
-        throw ProcessError("GNEChangeGroup::undo: cannot call undo inside begin-end block");
+        throw ProcessError("GNEUndoList::undo() cannot call undo inside begin-end block");
     }
     if (undoList) {
         myWorking = true;
@@ -147,7 +163,7 @@ GNEUndoList::redo() {
     WRITE_DEBUG("Calling GNEUndoList::redo()");
     GNEChange* change = nullptr;
     if (group) {
-        throw ProcessError("GNEChangeGroup::redo: cannot call undo inside begin-end block");
+        throw ProcessError("GNEUndoList::redo() cannot call undo inside begin-end block");
     }
     if (redoList) {
         myWorking = true;

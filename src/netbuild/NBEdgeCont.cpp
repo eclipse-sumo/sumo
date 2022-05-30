@@ -1004,7 +1004,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
         }
     }
     if (joinEdges) {
-        speed /= edges.size();
+        speed /= (double)edges.size();
         // build the new edge
         NBEdge* newEdge = new NBEdge(id, from, to, "", speed, nolanes, priority,
                                      NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,

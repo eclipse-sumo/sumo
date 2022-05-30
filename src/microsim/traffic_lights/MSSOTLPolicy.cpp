@@ -38,7 +38,7 @@ void PushButtonLogic::init(std::string prefix, const Parameterised* parameterise
 
 bool PushButtonLogic::pushButtonLogic(SUMOTime elapsed, bool pushButtonPressed, const MSPhaseDefinition* stage) {
     //pushbutton logic
-    if (pushButtonPressed && elapsed >= (stage->duration * m_pushButtonScaleFactor)) {
+    if (pushButtonPressed && elapsed >= (SUMOTime)(stage->duration * m_pushButtonScaleFactor)) {
         //If the stage duration has been passed
 #ifdef SWARM_DEBUG
         std::ostringstream oss;
@@ -69,7 +69,7 @@ void SigmoidLogic::init(std::string prefix, const Parameterised* parameterised) 
 bool SigmoidLogic::sigmoidLogic(SUMOTime elapsed, const MSPhaseDefinition* stage, int vehicleCount) {
     //use the sigmoid logic
     if (m_useSigmoid && vehicleCount == 0) {
-        double sigmoidValue = 1.0 / (1.0 + exp(-m_k * (elapsed / 1000 - stage->duration / 1000)));
+        double sigmoidValue = 1.0 / (1.0 + exp(-m_k * STEPS2TIME(elapsed - stage->duration)));
         double rnd = RandHelper::rand();
 //    DBG(
         std::ostringstream oss;

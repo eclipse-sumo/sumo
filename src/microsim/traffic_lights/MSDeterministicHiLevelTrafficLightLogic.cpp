@@ -124,7 +124,7 @@ double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes() {
         WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes:: in" + i_str.str());
 #endif
     }
-    return vSpeedInTot / inputLanes.size();
+    return vSpeedInTot / (double)inputLanes.size();
 }
 
 double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes() {
@@ -145,7 +145,7 @@ double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes() {
         WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes:: out" + i_str.str());
 #endif
     }
-    return vSpeedOutTot / outputLanes.size();
+    return vSpeedOutTot / (double)outputLanes.size();
 }
 
 void MSDeterministicHiLevelTrafficLightLogic::decidePolicy() {

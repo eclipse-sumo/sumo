@@ -554,7 +554,7 @@ double MSSwarmTrafficLightLogic::getPheromoneForInputLanes() {
     o_str << " TOTpheromoneIN  " << pheroIn << " return  " << pheroIn / pheromoneInputLanes.size() << getID() << " .";
     WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::getPheromoneForInputLanes::" + o_str.str());
 #endif
-    return pheroIn / pheromoneInputLanes.size();
+    return pheroIn / (double)pheromoneInputLanes.size();
 }
 
 double MSSwarmTrafficLightLogic::getPheromoneForOutputLanes() {
@@ -576,7 +576,7 @@ double MSSwarmTrafficLightLogic::getPheromoneForOutputLanes() {
     o_str << " TOTpheromoneOUT  " << pheroOut << " return  " << pheroOut / pheromoneOutputLanes.size() << " id " << getID() << " .";
     WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::getPheromoneForOutputLanes::" + o_str.str());
 #endif
-    return pheroOut / pheromoneOutputLanes.size();
+    return pheroOut / (double)pheromoneOutputLanes.size();
 }
 
 double MSSwarmTrafficLightLogic::getDispersionForInputLanes(double average_phero_in) {
@@ -590,7 +590,7 @@ double MSSwarmTrafficLightLogic::getDispersionForInputLanes(double average_phero
         sum += pow(iterator->second - average_phero_in, 2);
     }
 
-    double result = sqrt(sum / pheromoneInputLanes.size()) * getScaleFactorDispersionIn();
+    double result = sqrt(sum / (double)pheromoneInputLanes.size()) * getScaleFactorDispersionIn();
 #ifdef SWARM_DEBUG
     ostringstream so_str;
     so_str << " dispersionIn " << result;
@@ -609,7 +609,7 @@ double MSSwarmTrafficLightLogic::getDispersionForOutputLanes(double average_pher
         sum += pow(iterator->second - average_phero_out, 2);
     }
 
-    double result = sqrt(sum / pheromoneOutputLanes.size()) * getScaleFactorDispersionOut();
+    double result = sqrt(sum / (double)pheromoneOutputLanes.size()) * getScaleFactorDispersionOut();
 #ifdef SWARM_DEBUG
     ostringstream so_str;
     so_str << " dispersionOut " << result;

@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXTreeListDinamic.h
+/// @file    FXTreeListDynamic.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2021
 ///
@@ -44,19 +44,19 @@ private:
     FXColor myTextColor = FXRGB(0, 0, 0);
 };
 
-/// @brief FXTreeListDinamic
-class FXTreeListDinamic : protected FXTreeList {
+/// @brief FXTreeListDynamic
+class FXTreeListDynamic : protected FXTreeList {
     /// @brief FOX-declaration
-    FXDECLARE(FXTreeListDinamic)
+    FXDECLARE(FXTreeListDynamic)
 
 public:
     /// @brief Constructor
-    FXTreeListDinamic(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts);
+    FXTreeListDynamic(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts);
 
-    /// @brief Show FXTreeListDinamic
+    /// @brief Show FXTreeListDynamic
     void show();
 
-    /// @brief Hide FXTreeListDinamic
+    /// @brief Hide FXTreeListDynamic
     void hide();
 
     /// @brief update
@@ -71,10 +71,13 @@ public:
     /// @brief getSelected item index
     FXint getSelectedIndex();
 
-    /// @brief Insert item with given text and icon
-    FXTreeItem* insertItem(FXTreeItem* father, const FXString& text, FXIcon* oi);
+    /// @brief prepend item with given text and icon
+    FXTreeItem* prependItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor textColor = FXRGB(0, 0, 0));
 
-    /// @brief get FXWindows associated with this FXTreeListDinamic
+    /// @brief append item with given text and icon
+    FXTreeItem* appendItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor textColor = FXRGB(0, 0, 0));
+
+    /// @brief get FXWindows associated with this FXTreeListDynamic
     FXWindow* getFXWindow();
 
     /// @brief Get item at x,y, if any
@@ -93,7 +96,7 @@ public:
 
 protected:
     /// @brief default constructor
-    FXTreeListDinamic();
+    FXTreeListDynamic();
 
     /// @brief list with current FXTreeItemDynamic elements
     std::vector<FXTreeItemDynamic*> myFXTreeItemDynamicItems;
@@ -103,8 +106,8 @@ protected:
     
 private:
     /// @brief Invalidated copy constructor.
-    FXTreeListDinamic(const FXTreeListDinamic&) = delete;
+    FXTreeListDynamic(const FXTreeListDynamic&) = delete;
 
     /// @brief Invalidated assignment operator.
-    FXTreeListDinamic& operator=(const FXTreeListDinamic&) = delete;
+    FXTreeListDynamic& operator=(const FXTreeListDynamic&) = delete;
 };
