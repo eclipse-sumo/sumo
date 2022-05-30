@@ -4,8 +4,10 @@ SET mypath=%~dp0
 rem change the following line to customize the location of your sumo installation
 SET sumo_home=%mypath:~0,-5%
 
-rem change the following line to customize the location of your python installation
-SET python_dir=C:\Python27
+rem find the default python installation directory
+python -c "import os, sys; print((os.path.dirname(sys.executable)))" > Output
+SET /p python_dir=<Output
+del Output
 
 rem change the following line to set a new working dir:
 set default_dir=%USERPROFILE%\Sumo
