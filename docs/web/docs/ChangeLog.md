@@ -14,14 +14,24 @@ title: ChangeLog
   - Inconvenience of slower lanes is now taken into accout for cooperative changing. Issue #10714  
   - NEMA controller: fixed invalid initial state (until the first switch). Issue #10743
   - NEMA controller: fixed crash when custom detectors are missing. Issue #10745
+  - Fixed bug where vehicles would enter lanes that are seperated from a required lane by a forbidden lane. Issue #10512
+  - Fixed invalid speed when approaching stop for carFollowModel IDM. Issue #8577
+  - Fixed unsafe insertion speed when the insertion lane requires multiple lane changes close to the insertion point. Issue #10761
+  - Fixed invalid estimation of the number of required lane changes if multiple lanes are equally suitable. Issue #10769
+  - Fixed unsafe speed adaptation for lane changing. Issue #10767
   
 - netedit
   - Fixed crash when loading a network (on very slow computers / builds). Issue #10750 (regression in 1.9.0)
   - Greatly increased rendering speed. Issue #10425 (regression in 1.11.0)
   - tls mode coloring of 'yellow' phase is now consistent with sumo-gui. Issue #10651
   - Loading a demand file only triggers a 'demand is modified' warning after actual modification. Issue #9529
-  - Locate dialog buttons "select all" and "deselect all" now toggle selection status. Issue #10707 
-
+  - Locate dialog buttons "select all" and "deselect all" now toggle selection status. Issue #10707
+  - Editing traffic light parameters now marks it as changed. Issue #10673
+  
+- sumo-gui
+  - Background images (decals) and multi-view settings are now restored on reload. Issue #10788 (regression in 1.13.0)
+  - Background grid configured in settings is now shown when first opening gui. Issue #10789
+   
 - netconvert
   - Fixed invalid edge reduction in edge shape detail at very dense geometry. Issue #10727 (regression in 1.12.0)
   - Fixed crash when importing plain-xml with self-looped edge and re-occuring edge ids. Issue #10700
@@ -32,6 +42,8 @@ title: ChangeLog
 
 - tools
   - sumolib no longer crashes in an environment where rtree and stderr are missing. Issue #10666
+  - [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle) now aborts on an unreadable cycle. Issue #10754
+  - game/racing.py now uses the intended vehicle scaling and simulation delay. Issues #10783 (regression in 1.0.0)
 
 ### Enhancements
 
@@ -49,12 +61,22 @@ title: ChangeLog
   - PersonPlan-mode now permits selecting the person via clicking (deselect with ESC). Issue #9606
   - Taz Mode: Added new button to update source and sink weight for fringe edges. Isseue #4991
   - Now supports creating and editing NEMA controller. Issue #9599
+  - A tooltip is now shown when the mouse is over any button in the button bar. Issue #10085
+  - Traffic light type is now show in traffic light mode. Issue #3423
+  - All attributes can now be reset to their default value by deleting the attribute content if that attribute has a default. Issue #9350
+  - TAZ-source and TAZ-sink elements can now be inspected and selected (upon activating a new toggle button). Issue #10273
 
 - sumo-gui
   - InductionLoop detectors now list the time of continous occupation in their parameter dialog. Issue #10671
+  - 3D-view now permits opening vehicle context menu via right-click. Issue #10191
 
 - netconvert
   - Now supports generating NEMA controllers. Issue #9599
+
+- netgenerate
+  - Add option synonymes **--random.lanenumber** and **--random.priority** for options that apply to all network types. Issue #10775
+  - Added option **--random.type** to pick a random edge type from all loaded types. Issue #10774
+  - Options **--geometry.split**, **--geometry.max-segment-length** and **--junctions.join-same** are now supported. Together, they allow for generating intermediate junctions along the generated edges (i.e. for merging shifted grids). Issue #10787
 
 - tools
   - [tls_csvSignalGroups](Tools/tls.md#tls_csvsignalgroupspy) now supports keyword **actuated** to declare time ranges for shorting/extending phases and causes programs of type *actuated* to be written. Issue #10719

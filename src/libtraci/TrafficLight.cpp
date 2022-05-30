@@ -202,6 +202,7 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
         c.limit = StoHelp::readTypedInt(ret);
         c.type = StoHelp::readTypedInt(ret);
         c.mustWait = StoHelp::readTypedByte(ret) != 0;
+        c.active = StoHelp::readTypedByte(ret) != 0;
         result.push_back(c);
     }
     return result;
@@ -226,6 +227,7 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
         c.limit = StoHelp::readTypedInt(ret);
         c.type = StoHelp::readTypedInt(ret);
         c.mustWait = StoHelp::readTypedByte(ret) != 0;
+        c.active = StoHelp::readTypedByte(ret) != 0;
         result.push_back(c);
     }
     return result;

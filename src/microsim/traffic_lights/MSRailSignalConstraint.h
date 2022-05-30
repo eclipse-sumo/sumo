@@ -48,6 +48,10 @@ public:
     /// @brief whether the constraint has been met
     virtual bool cleared() const = 0;
 
+    virtual void setActive(bool active) = 0;
+
+    virtual bool isActive() const = 0;
+
     virtual std::string getDescription() const {
         return "RailSignalConstraint";
     }
@@ -75,7 +79,7 @@ class MSRailSignalConstraint_Predecessor : public MSRailSignalConstraint {
 public:
     /** @brief Constructor
      */
-    MSRailSignalConstraint_Predecessor(const MSRailSignal* signal, const std::string& tripId, int limit);
+    MSRailSignalConstraint_Predecessor(const MSRailSignal* signal, const std::string& tripId, int limit, bool active);
 
     /// @brief Destructor
     ~MSRailSignalConstraint_Predecessor() {};
@@ -95,6 +99,14 @@ public:
     static void clearState();
 
     bool cleared() const;
+
+    void setActive(bool active) {
+        myAmActive = active;
+    }
+
+    bool isActive() const {
+        return myAmActive;
+    }
 
     std::string getDescription() const;
 
@@ -136,6 +148,9 @@ public:
 
     /// @brief the number of passed vehicles within which tripId must have occured
     const int myLimit;
+
+    /// @brief Whether this constraint is currently active
+    int myAmActive;
 
     /// @brief store the foe signal (for TraCI access)
     const MSRailSignal* myFoeSignal;

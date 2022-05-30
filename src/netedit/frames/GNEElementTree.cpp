@@ -307,7 +307,7 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
         myClickedDataInterval = attributeCarriers->retrieveDataInterval(clickedAC, false);
         myClickedGenericData = attributeCarriers->retrieveGenericData(clickedAC, false);
         // create FXMenuPane
-        FXMenuPane* pane = new FXMenuPane(myTreeListDinamic);
+        FXMenuPane* pane = new FXMenuPane(myTreeListDinamic->getFXWindow());
         // set item name and icon
         new MFXMenuHeader(pane, myFrameParent->getViewNet()->getViewParent()->getGUIMainWindow()->getBoldFont(), myClickedAC->getPopUpID().c_str(), myClickedAC->getIcon());
         // insert separator
@@ -394,8 +394,8 @@ GNEElementTree::showAttributeCarrierParents() {
                 GNEEdge* edge = attributeCarriers->retrieveEdge(myHE->getID(), false);
                 if (edge) {
                     // insert Junctions of edge in tree (Pararell because a edge has always two Junctions)
-                    FXTreeItem* junctionSourceItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
-                    FXTreeItem* junctionDestinyItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " destiny").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
+                    FXTreeItem* junctionSourceItem = myTreeListDinamic->insertItem(nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon());
+                    FXTreeItem* junctionDestinyItem = myTreeListDinamic->insertItem(nullptr, (edge->getFromJunction()->getHierarchyName() + " destiny").c_str(), edge->getFromJunction()->getIcon());
                     junctionDestinyItem->setExpanded(true);
                     // Save items in myTreeItemToACMap
                     myTreeItemToACMap[junctionSourceItem] = edge->getFromJunction();
@@ -413,11 +413,11 @@ GNEElementTree::showAttributeCarrierParents() {
                     // obtain parent edge
                     GNEEdge* edge = attributeCarriers->retrieveEdge(lane->getParentEdge()->getID());
                     //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-                    FXTreeItem* junctionSourceItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
-                    FXTreeItem* junctionDestinyItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " destiny").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
+                    FXTreeItem* junctionSourceItem = myTreeListDinamic->insertItem(nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon());
+                    FXTreeItem* junctionDestinyItem = myTreeListDinamic->insertItem(nullptr, (edge->getFromJunction()->getHierarchyName() + " destiny").c_str(), edge->getFromJunction()->getIcon());
                     junctionDestinyItem->setExpanded(true);
                     // Create edge item
-                    FXTreeItem* edgeItem = myTreeListDinamic->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
+                    FXTreeItem* edgeItem = myTreeListDinamic->insertItem(junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon());
                     edgeItem->setExpanded(true);
                     // Save items in myTreeItemToACMap
                     myTreeItemToACMap[junctionSourceItem] = edge->getFromJunction();
@@ -433,7 +433,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 // obtain crossing parent junction
                 GNEJunction* junction = attributeCarriers->retrieveCrossing(myHE)->getParentJunction();
                 // create junction item
-                FXTreeItem* junctionItem = myTreeListDinamic->insertItem(nullptr, nullptr, junction->getHierarchyName().c_str(), junction->getIcon(), junction->getIcon());
+                FXTreeItem* junctionItem = myTreeListDinamic->insertItem(nullptr, junction->getHierarchyName().c_str(), junction->getIcon());
                 junctionItem->setExpanded(true);
                 // Save items in myTreeItemToACMap
                 myTreeItemToACMap[junctionItem] = junction;
@@ -445,13 +445,13 @@ GNEElementTree::showAttributeCarrierParents() {
                 GNEConnection* connection = attributeCarriers->retrieveConnection(myHE->getID(), false);
                 if (connection) {
                     // create edge from item
-                    FXTreeItem* edgeFromItem = myTreeListDinamic->insertItem(nullptr, nullptr, connection->getEdgeFrom()->getHierarchyName().c_str(), connection->getEdgeFrom()->getIcon(), connection->getEdgeFrom()->getIcon());
+                    FXTreeItem* edgeFromItem = myTreeListDinamic->insertItem(nullptr, connection->getEdgeFrom()->getHierarchyName().c_str(), connection->getEdgeFrom()->getIcon());
                     edgeFromItem->setExpanded(true);
                     // create edge to item
-                    FXTreeItem* edgeToItem = myTreeListDinamic->insertItem(nullptr, nullptr, connection->getEdgeTo()->getHierarchyName().c_str(), connection->getEdgeTo()->getIcon(), connection->getEdgeTo()->getIcon());
+                    FXTreeItem* edgeToItem = myTreeListDinamic->insertItem(nullptr, connection->getEdgeTo()->getHierarchyName().c_str(), connection->getEdgeTo()->getIcon());
                     edgeToItem->setExpanded(true);
                     // create connection item
-                    FXTreeItem* connectionItem = myTreeListDinamic->insertItem(nullptr, edgeToItem, connection->getHierarchyName().c_str(), connection->getIcon(), connection->getIcon());
+                    FXTreeItem* connectionItem = myTreeListDinamic->insertItem(edgeToItem, connection->getHierarchyName().c_str(), connection->getIcon());
                     connectionItem->setExpanded(true);
                     // Save items in myTreeItemToACMap
                     myTreeItemToACMap[edgeFromItem] = connection->getEdgeFrom();
@@ -474,14 +474,14 @@ GNEElementTree::showAttributeCarrierParents() {
         // obtain parent edge
         GNEEdge* edge = attributeCarriers->retrieveEdge(lane->getParentEdge()->getID());
         //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-        FXTreeItem* junctionSourceItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
-        FXTreeItem* junctionDestinyItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " destiny").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
+        FXTreeItem* junctionSourceItem = myTreeListDinamic->insertItem(nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon());
+        FXTreeItem* junctionDestinyItem = myTreeListDinamic->insertItem(nullptr, (edge->getFromJunction()->getHierarchyName() + " destiny").c_str(), edge->getFromJunction()->getIcon());
         junctionDestinyItem->setExpanded(true);
         // Create edge item
-        FXTreeItem* edgeItem = myTreeListDinamic->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
+        FXTreeItem* edgeItem = myTreeListDinamic->insertItem(junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon());
         edgeItem->setExpanded(true);
         // Create lane item
-        FXTreeItem* laneItem = myTreeListDinamic->insertItem(nullptr, edgeItem, lane->getHierarchyName().c_str(), lane->getIcon(), lane->getIcon());
+        FXTreeItem* laneItem = myTreeListDinamic->insertItem(edgeItem, lane->getHierarchyName().c_str(), lane->getIcon());
         laneItem->setExpanded(true);
         // Save items in myTreeItemToACMap
         myTreeItemToACMap[junctionSourceItem] = edge->getFromJunction();
@@ -939,7 +939,7 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
 FXTreeItem*
 GNEElementTree::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std::string prefix, std::string sufix) {
     // insert item in Tree list
-    FXTreeItem* item = myTreeListDinamic->insertItem(nullptr, itemParent, (prefix + AC->getHierarchyName() + sufix).c_str(), AC->getIcon(), AC->getIcon());
+    FXTreeItem* item = myTreeListDinamic->insertItem(itemParent, (prefix + AC->getHierarchyName() + sufix).c_str(), AC->getIcon());
     // insert item in map
     myTreeItemToACMap[item] = AC;
     // by default item is expanded
@@ -952,7 +952,7 @@ GNEElementTree::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std
 FXTreeItem*
 GNEElementTree::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
     // insert item in Tree list
-    FXTreeItem* item = myTreeListDinamic->insertItem(nullptr, itemParent, text.c_str(), icon, icon);
+    FXTreeItem* item = myTreeListDinamic->insertItem(itemParent, text.c_str(), icon);
     // expand item depending of flag expanded
     item->setExpanded(expanded);
     // return created FXTreeItem

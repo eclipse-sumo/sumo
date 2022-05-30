@@ -100,9 +100,10 @@ MSRailSignalConstraint::getVehID(const std::string& tripID) {
 // ===========================================================================
 // MSRailSignalConstraint_Predecessor method definitions
 // ===========================================================================
-MSRailSignalConstraint_Predecessor::MSRailSignalConstraint_Predecessor(const MSRailSignal* signal, const std::string& tripId, int limit) :
+MSRailSignalConstraint_Predecessor::MSRailSignalConstraint_Predecessor(const MSRailSignal* signal, const std::string& tripId, int limit, bool active) :
     myTripId(tripId),
     myLimit(limit),
+    myAmActive(active),
     myFoeSignal(signal) {
     for (const auto& lv : signal->getLinks()) {
         for (const MSLink* link : lv) {
@@ -165,6 +166,9 @@ MSRailSignalConstraint_Predecessor::clearState() {
 
 bool
 MSRailSignalConstraint_Predecessor::cleared() const {
+    if (!myAmActive) {
+        return true;
+    }
     for (PassedTracker* pt : myTrackers) {
         if (pt->hasPassed(myTripId, myLimit)) {
             return true;

@@ -96,7 +96,7 @@ def _readLogics(result):
 
 
 class Constraint:
-    def __init__(self, signalId, tripId, foeId, foeSignal, limit, type, mustWait):
+    def __init__(self, signalId, tripId, foeId, foeSignal, limit, type, mustWait, active = True):
         self.signalId = signalId
         self.tripId = tripId
         self.foeId = foeId
@@ -104,10 +104,11 @@ class Constraint:
         self.limit = limit
         self.type = type
         self.mustWait = mustWait
+        self.active = active
 
     def __repr__(self):
-        return ("Constraint(signalId=%s tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s, mustWait=%s)" %
-                (self.signalId, self.tripId, self.foeId, self.foeSignal, self.limit, self.type, self.mustWait))
+        return ("Constraint(signalId=%s tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s, mustWait=%s, active=%s)" %
+                (self.signalId, self.tripId, self.foeId, self.foeSignal, self.limit, self.type, self.mustWait, self.active))
 
 
 def _readLinks(result):
@@ -140,7 +141,8 @@ def _readConstraints(result):
         limit = result.readTypedInt()
         type = result.readTypedInt()
         mustWait = bool(result.readTypedByte())
-        constraints.append(Constraint(signalId, tripId, foeId, foeSignal, limit, type, mustWait))
+        active = bool(result.readTypedByte())
+        constraints.append(Constraint(signalId, tripId, foeId, foeSignal, limit, type, mustWait, active))
     return constraints
 
 

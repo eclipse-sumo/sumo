@@ -21,11 +21,31 @@
 #pragma once
 #include <config.h>
 
+#include <vector>
 
 #include "fxheader.h"
 
+
+class FXTreeItemDynamic : public FXTreeItem {
+
+public:
+    /// @brief Constructor
+    FXTreeItemDynamic(const FXString& text, FXIcon* oi = nullptr, FXIcon* ci = nullptr, void* ptr = nullptr);
+
+    /// Change text color
+    void setTextColor(FXColor clr);
+
+protected:
+    /// @brief draw tree item
+    void draw(const FXTreeList* list, FXDC& dc, FXint xx, FXint yy, FXint, FXint hh) const;
+
+private:
+    /// @brief set text color
+    FXColor myTextColor = FXRGB(0, 0, 0);
+};
+
 /// @brief FXTreeListDinamic
-class FXTreeListDinamic : public FXTreeList {
+class FXTreeListDinamic : protected FXTreeList {
     /// @brief FOX-declaration
     FXDECLARE(FXTreeListDinamic)
 
@@ -36,6 +56,36 @@ public:
     /// @brief Show FXTreeListDinamic
     void show();
 
+    /// @brief Hide FXTreeListDinamic
+    void hide();
+
+    /// @brief update
+    void update();
+
+    /// @brief clear items
+    void clearItems();
+
+    /// @brief get num items
+    FXint getNumItems();
+
+    /// @brief getSelected item index
+    FXint getSelectedIndex();
+
+    /// @brief Insert item with given text and icon
+    FXTreeItem* insertItem(FXTreeItem* father, const FXString& text, FXIcon* oi);
+
+    /// @brief get FXWindows associated with this FXTreeListDinamic
+    FXWindow* getFXWindow();
+
+    /// @brief Get item at x,y, if any
+    FXTreeItem* getItemAt(FXint x,FXint y) const;
+
+    /// @brief Get item 
+    FXTreeItemDynamic* getItem(FXint index) const;
+
+    /// @brief reset selected item
+    void resetSelectedItem();
+
     /// @name FOX calls
     /// @{
     long onLeftBtnPress(FXObject*, FXSelector, void*);
@@ -45,6 +95,12 @@ protected:
     /// @brief default constructor
     FXTreeListDinamic();
 
+    /// @brief list with current FXTreeItemDynamic elements
+    std::vector<FXTreeItemDynamic*> myFXTreeItemDynamicItems;
+
+    /// @brief selected item
+    FXint mySelectedItem = -1;
+    
 private:
     /// @brief Invalidated copy constructor.
     FXTreeListDinamic(const FXTreeListDinamic&) = delete;

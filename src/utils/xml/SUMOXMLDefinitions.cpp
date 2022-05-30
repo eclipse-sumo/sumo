@@ -876,6 +876,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "destination",            SUMO_ATTR_DESTINATION },
     { "visible",                SUMO_ATTR_VISIBLE },
     { "limit",                  SUMO_ATTR_LIMIT },
+    { "active",                 SUMO_ATTR_ACTIVE },
     { "arrivalTime",            SUMO_ATTR_ARRIVALTIME },
     { "arrivalTimeBraking",     SUMO_ATTR_ARRIVALTIMEBRAKING },
     { "arrivalSpeedBraking",    SUMO_ATTR_ARRIVALSPEEDBRAKING },

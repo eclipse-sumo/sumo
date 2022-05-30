@@ -36,9 +36,9 @@
 // ===========================================================================
 
 FXDEFMAP(GNEUndoListDialog) GNEUndoListDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,        0,                                      GNEUndoListDialog::onCmdClose),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_ACCEPT,                  GNEUndoListDialog::onCmdClose),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_REROUTEDIALOG_ADD_INTERVAL,     GNEUndoListDialog::onCmdSelectElement),
+    FXMAPFUNC(SEL_CLOSE,    0,                      GNEUndoListDialog::onCmdClose),
+    FXMAPFUNC(SEL_UPDATE,   0,                      GNEUndoListDialog::onCmdUpdate),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEUndoListDialog::onCmdClose),
 };
 
 // Object implementation
@@ -49,7 +49,7 @@ FXIMPLEMENT(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GN
 // ===========================================================================
 
 GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
-    FXTopWindow(GNEApp->getApp(), "Undo/Redo history", GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(300, 400)),
+    FXTopWindow(GNEApp->getApp(), "Undo/Redo history", GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(500, 400)),
     myGNEApp(GNEApp) {
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
@@ -58,7 +58,7 @@ GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonsFrame, "OK\tclose dialog",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    new FXButton(buttonsFrame, "OK\tclose dialog", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
@@ -70,6 +70,8 @@ void
 GNEUndoListDialog::open() {
     // update table
     updateList();
+    // reset last undo element
+    myLastUndoElement = -1;
     // show
     show(PLACEMENT_SCREEN);
 }
@@ -95,16 +97,35 @@ GNEUndoListDialog::setFocus() {
 
 long
 GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
-    // just close dialog
+    // reset selected elements
+    myTreeListDinamic->resetSelectedItem();
+    // close dialog
     hide();
     return 1;
 }
 
-
-long
-GNEUndoListDialog::onCmdSelectElement(FXObject*, FXSelector, void*) {
-    // currently unused
-    return 1;
+long 
+GNEUndoListDialog::onCmdUpdate(FXObject*, FXSelector, void*) {
+    // first check if shown
+    if (shown() && (myLastUndoElement != myTreeListDinamic->getSelectedIndex())) {
+        // set colors
+        for (int i = 0; i < myTreeListDinamic->getSelectedIndex(); i++) {
+            myTreeListDinamic->getItem(i)->setTextColor(FXRGB(255, 0, 0));
+        }
+        for (int i = myTreeListDinamic->getSelectedIndex(); i < myTreeListDinamic->getNumItems(); i++) {
+            myTreeListDinamic->getItem(i)->setTextColor(FXRGB(0, 0, 0));
+        }
+        myTreeListDinamic->update();
+        // undo/redo
+        for (int i = myLastUndoElement; i < myTreeListDinamic->getSelectedIndex(); i++) {
+            myGNEApp->getUndoList()->undo();
+        }
+        for (int i = myLastUndoElement; i >= myTreeListDinamic->getSelectedIndex(); i--) {
+            myGNEApp->getUndoList()->redo();
+        }
+        myLastUndoElement = myTreeListDinamic->getSelectedIndex();
+    }
+    return 0;
 }
 
 
@@ -116,7 +137,7 @@ GNEUndoListDialog::updateList() {
     GNEUndoList::Iterator it(myGNEApp->getUndoList());
     // fill myTreeListDinamic
     while (!it.end()) {
-        myTreeListDinamic->insertItem(nullptr, nullptr, it.getDescription().c_str(), it.getIcon(), it.getIcon());
+        myTreeListDinamic->insertItem(nullptr, it.getDescription().c_str(), it.getIcon());
         it++;
     }
 }
