@@ -17,7 +17,8 @@
 # @date    2016-12-08
 
 """
-build a patch file for the given network that reduces the lanes for edges with more than 1 lane within a specified range of its nodes
+build a patch file for the given network that reduces the lanes
+for edges with more than 2 lanes within a specified range of its nodes
 """
 
 from __future__ import absolute_import
@@ -30,6 +31,7 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.geomhelper import polyLength  # noqa
+
 
 def parse_args():
     argParser = sumolib.options.ArgumentParser()
@@ -65,20 +67,23 @@ if __name__ == "__main__":
         for edge in net.getEdges():
             edgeID = edge.getID()
             if edge.getPriority() <= options.max_priority and edge.getLaneNumber() > options.min_lane_number:
-                if polyLength(edge.getShape()) >= options.min_length: 
+                if polyLength(edge.getShape()) >= options.min_length:
                     if edgeID not in allRoundabouts:
                         modifiedEdges += 1
                         lanes = edge.getLaneNumber()
                         f.write('    <edge id="%s">\n' % edgeID)
-                        f.write('        <split lanes="%s" pos="%s" idBefore="%s"/>\n' % (" ".join(map(str, range(lanes)[1:])), options.junction_distance, edgeID + ".before"))
-                        f.write('        <split pos="%s" idBefore="%s" idAfter="%s"/>\n' % (-options.junction_distance, edgeID, edgeID + ".after"))
+                        f.write('        <split lanes="%s" pos="%s" idBefore="%s"/>\n' %
+                                (" ".join(map(str, range(lanes)[1:])), options.junction_distance, edgeID + ".before"))
+                        f.write('        <split pos="%s" idBefore="%s" idAfter="%s"/>\n' %
+                                (-options.junction_distance, edgeID, edgeID + ".after"))
                         f.write('    </edge>\n')
                     else:
                         roundabouts.add(edgeID)
                 else:
                     tooShort.add(edgeID)
         f.write('</edges>\n')
-    print("added splits for %s edges (%s were to short to qualify and %s were roundabouts)" % (modifiedEdges, len(tooShort), len(roundabouts)))
+    print("added splits for %s edges (%s were to short to qualify and %s were roundabouts)" %
+          (modifiedEdges, len(tooShort), len(roundabouts)))
 
     with open("tooShort.sel.txt", 'w') as f:
         for edgeID in tooShort:

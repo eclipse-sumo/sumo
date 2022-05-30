@@ -847,7 +847,8 @@ def findConflicts(options, net, switchRoutes, mergeSignals, signalTimes, stopEdg
                     info = getIntermediateInfo(pStop, nStop)
                     isIntermediateParking = nStop.intermediateStop and parseBool(
                         nStop.intermediateStop.getAttributeSecure("parking", "false"))
-                    active = not nStop.getAttributeSecure("invalid", False) and not pStop.getAttributeSecure("invalid", False)
+                    active = not nStop.getAttributeSecure(
+                        "invalid", False) and not pStop.getAttributeSecure("invalid", False)
                     if isIntermediateParking:
                         # intermediateParkingConflicts: train order isn't determined at the switch
                         #  but rather when the second vehicle leaves it's parking stop
@@ -902,7 +903,8 @@ def findConflicts(options, net, switchRoutes, mergeSignals, signalTimes, stopEdg
                             info = getIntermediateInfo(p2Stop, nStop)
                             times = "arrival=%s foeArrival=%s " % (
                                 humanReadableTime(nArrival), humanReadableTime(p2Arrival))
-                            active = not nStop.getAttributeSecure("invalid", False) and not pStop.getAttributeSecure("invalid", False)
+                            active = not nStop.getAttributeSecure(
+                                "invalid", False) and not pStop.getAttributeSecure("invalid", False)
                             conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, p2Stop.prevTripId, limit,
                                                                # attributes for adding comments
                                                                nStop.prevLine, p2Stop.prevLine,
@@ -999,11 +1001,9 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
             nIsPassing = nIndex < len(nVehStops) - 1
             nIsDepart = len(nEdges) == 1 and nIndex == 0
             if options.verbose and busStop == options.debugStop:
-                print("%s n: %s %s %s %s %s passing: %s depart: %s%s" % (i,
-                      humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops),
-                      nIsPassing,
-                      nIsDepart,
-                      (" bidiStop: %s" % nStop.busStop) if nIsBidiStop else ""))
+                print("%s n: %s %s %s %s %s passing: %s depart: %s%s" %
+                      (i, humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops),
+                       nIsPassing, nIsDepart, (" bidiStop: %s" % nStop.busStop) if nIsBidiStop else ""))
             # ignore duplicate bidiStop vs bidiStop conflicts
             if prevPassing is not None and nIsDepart and not nIsBidiStop:
                 pUntil, pEdges, pStop = prevPassing
@@ -1094,11 +1094,9 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
             nIsPassing = nIndex < len(nVehStops) - 1
             nIsDepart = len(nEdges) == 1 and nIndex == 0
             if options.verbose and busStop == options.debugStop:
-                print("%s n: %s %s %s %s %s passing: %s depart: %s%s" % (i,
-                      humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops),
-                      nIsPassing,
-                      nIsDepart,
-                      (" bidiStop: %s" % nStop.busStop) if nIsBidiStop else ""))
+                print("%s n: %s %s %s %s %s passing: %s depart: %s%s" %
+                      (i, humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops),
+                       nIsPassing, nIsDepart, (" bidiStop: %s" % nStop.busStop) if nIsBidiStop else ""))
             # ignore duplicate bidiStop vs bidiStop conflicts
             if prevDepart is not None and nIsPassing and not nIsDepart and not nIsBidiStop:
                 pUntil, pEdges, pStop = prevDepart
@@ -1171,7 +1169,8 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
                     info = "foeInsertion"
                     if nStop.busStop != pStop.busStop:
                         info += " foeStop=%s" % pStop.busStop
-                    active = not nStop.getAttributeSecure("invalid", False) and not pStop.getAttributeSecure("invalid", False)
+                    active = not nStop.getAttributeSecure(
+                        "invalid", False) and not pStop.getAttributeSecure("invalid", False)
                     conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pTripId, limit,
                                                        # attributes for adding comments
                                                        nStop.prevLine,
