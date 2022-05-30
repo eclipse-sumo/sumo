@@ -150,7 +150,7 @@ public:
     const int myLimit;
 
     /// @brief Whether this constraint is currently active
-    int myAmActive;
+    bool myAmActive;
 
     /// @brief store the foe signal (for TraCI access)
     const MSRailSignal* myFoeSignal;

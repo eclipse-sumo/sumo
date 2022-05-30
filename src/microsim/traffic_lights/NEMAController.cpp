@@ -67,7 +67,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     myDetectorLengthLeftTurnLane = StringUtils::toDouble(getParameter("detector-length-leftTurnLane", "20"));
     myCycleLength = TIME2STEPS(StringUtils::toDouble(getParameter("total-cycle-length", getParameter("cycle-length", getParameter(toString(SUMO_ATTR_CYCLETIME), "60")))));
     myNextCycleLength = myCycleLength;
-    myDefaultCycleTime = TIME2STEPS(myCycleLength);
+    myDefaultCycleTime = myCycleLength;
     myShowDetectors = StringUtils::toBool(getParameter("show-detectors", toString(OptionsCont::getOptions().getBool("tls.actuated.show-detectors"))));
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));

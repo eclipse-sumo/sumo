@@ -20,10 +20,10 @@
 // The base abstract class for SOTL logics
 /****************************************************************************/
 
-#include "MSSOTLTrafficLightLogic.h"
-#include "../MSLane.h"
-#include "../MSEdge.h"
+#include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 #include "MSPushButton.h"
+#include "MSSOTLTrafficLightLogic.h"
 //#define SWARM_DEBUG
 //#define ANALYSIS_DEBUG
 

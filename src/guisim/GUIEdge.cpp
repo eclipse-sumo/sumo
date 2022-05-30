@@ -121,7 +121,7 @@ GUIEdge::getTotalLength(bool includeInternal, bool eachLane) {
         const MSEdge* edge = i->second;
         if (includeInternal || !edge->isInternal()) {
             // @note needs to be change once lanes may have different length
-            result += edge->getLength() * (eachLane ? edge->getLanes().size() : 1);
+            result += edge->getLength() * (eachLane ? (double)edge->getLanes().size() : 1.);
         }
     }
     return result;

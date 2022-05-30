@@ -3412,7 +3412,7 @@ NBEdge::lanesWereAssigned() const {
 
 double
 NBEdge::getMaxLaneOffset() {
-    return (double) SUMO_const_laneWidthAndOffset * myLanes.size();
+    return SUMO_const_laneWidthAndOffset * (double)myLanes.size();
 }
 
 
@@ -4404,7 +4404,7 @@ NBEdge::getFinalLength() const {
     if (isBidiRail()) {
         avgEndOffset += myPossibleTurnDestination->getEndOffset();
     }
-    avgEndOffset /= myLanes.size();
+    avgEndOffset /= (double)myLanes.size();
     return MAX2(result - avgEndOffset, POSITION_EPS);
 }
 
