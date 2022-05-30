@@ -74,7 +74,7 @@ GNEElementTree::GNEElementTree(GNEFrame* frameParent) :
     myClickedDataInterval(nullptr),
     myClickedGenericData(nullptr) {
     // Create three list
-    myTreeListDinamic = new FXTreeListDinamic(getCollapsableFrame(), this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListDinamic);
+    myTreeListDinamic = new FXTreeListDynamic(getCollapsableFrame(), this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListDinamic);
     hide();
 }
 

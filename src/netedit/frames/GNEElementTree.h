@@ -138,7 +138,7 @@ private:
     GNEGenericData* myClickedGenericData;
 
     /// @brief tree list dinamic to show the children of the element to erase
-    FXTreeListDinamic* myTreeListDinamic = nullptr;
+    FXTreeListDynamic* myTreeListDinamic = nullptr;
 
     /// @brief map used to save the FXTreeItems items with their vinculated AC
     std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;
