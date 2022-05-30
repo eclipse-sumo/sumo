@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-22 22:18:00 by Eclipse SUMO netgenerate Version v1_13_0+0392-8630667
+<!-- generated on 2022-05-30 10:09:09 by Eclipse SUMO netgenerate Version v1_13_0+0413-5a356ecaa14
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -115,6 +115,7 @@
         <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT" help="The default width of lanes"/>
         <default.spreadtype value="right" type="STR" help="The default method for computing lane shapes from edge shapes"/>
         <default.speed value="13.89" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
+        <default.friction value="1" synonymes="F friction" type="FLOAT" help="The default friction on an edge"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
         <default.type value="" type="STR" help="The default edge type"/>
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>

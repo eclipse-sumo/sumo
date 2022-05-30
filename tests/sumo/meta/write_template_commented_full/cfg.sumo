@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-12 09:23:33 by Eclipse SUMO sumo Version v1_13_0+0176-54e71bd3408
+<!-- generated on 2022-05-30 10:09:44 by Eclipse SUMO sumo Version v1_13_0+0413-5a356ecaa14
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -1003,6 +1003,24 @@
         <device.vehroute.deterministic value="false" type="BOOL"/>
 
     </vehroutes_device>
+
+    <seeroad_device>
+        <!-- The probability for a vehicle to have a &apos;Seeroad&apos; device -->
+        <device.Seeroad.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;Seeroad&apos; device to named vehicles -->
+        <device.Seeroad.explicit value="" synonymes="device.Seeroad.knownveh" type="STR[]"/>
+
+        <!-- The &apos;Seeroad&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.Seeroad.deterministic value="false" type="BOOL"/>
+
+        <!-- The measurement noise parameter which can be applied to the Seeroad device -->
+        <device.Seeroad.stdev value="0.1" type="FLOAT"/>
+
+        <!-- The measurement offset parameter which can be applied to the Seeroad device -&gt; e.g. to force false measurements -->
+        <device.Seeroad.offset value="0" type="FLOAT"/>
+
+    </seeroad_device>
 
     <traci_server>
         <!-- Enables TraCI Server if set -->
