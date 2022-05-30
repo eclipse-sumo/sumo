@@ -247,6 +247,8 @@ class ArgumentParser(argparse.ArgumentParser):
             
             if unrecognized_args:
                 self.error('unrecognized arguments: %s' % ' '.join(unrecognized_args))
+        else:
+            args.remaining_args = None
         if _OPTIONS[0] is None:
             # only save the "outermost" option instance
             _OPTIONS[0] = args

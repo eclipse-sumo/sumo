@@ -631,11 +631,12 @@ def main(options):
     else:
         args += ['--verbose']
     
-    duarouter_options = sumolib.options.assign_remaining_args(DUAROUTER, "duarouter", options.remaining_args)
-    duarouter_options = [[duarouter_options[i], duarouter_options[i+1]] for i in range(0, len(duarouter_options)-1, 2)]
-    for arg in duarouter_options:
-        if arg[0] not in args:
-            args += arg
+    if options.remaining_args:
+        duarouter_options = sumolib.options.assign_remaining_args(DUAROUTER, "duarouter", options.remaining_args)
+        duarouter_options = [[duarouter_options[i], duarouter_options[i+1]] for i in range(0, len(duarouter_options)-1, 2)]
+        for arg in duarouter_options:
+            if arg[0] not in args:
+                args += arg
 
     if options.routefile:
         args2 = args + ['-o', options.routefile]
