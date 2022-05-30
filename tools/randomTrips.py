@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
@@ -628,7 +629,13 @@ def main(options):
     if not options.verbose:
         args += ['--no-warnings']
     else:
-        args += ['-v']
+        args += ['--verbose']
+    
+    duarouter_options = sumolib.options.assign_remaining_args(DUAROUTER, "duarouter", options.remaining_args)
+    duarouter_options = [[duarouter_options[i], duarouter_options[i+1]] for i in range(0, len(duarouter_options)-1, 2)]
+    for arg in duarouter_options:
+        if arg[0] not in args:
+            args += arg
 
     if options.routefile:
         args2 = args + ['-o', options.routefile]
