@@ -133,12 +133,19 @@ void
 GNEUndoListDialog::updateList() {
     // first clear myTreeListDinamic
     myTreeListDinamic->clearItems();
-    // declare iterator over UndoList
-    GNEUndoList::Iterator it(myGNEApp->getUndoList());
+    // declare undo iterator over UndoList
+    GNEUndoList::UndoIterator itUndo(myGNEApp->getUndoList());
     // fill myTreeListDinamic
-    while (!it.end()) {
-        myTreeListDinamic->insertItem(nullptr, it.getDescription().c_str(), it.getIcon());
-        it++;
+    while (!itUndo.end()) {
+        myTreeListDinamic->appendItem(nullptr, itUndo.getDescription().c_str(), itUndo.getIcon());
+        itUndo++;
+    }
+    // declare redo iterator over UndoList
+    GNEUndoList::RedoIterator itRedo(myGNEApp->getUndoList());
+    // fill myTreeListDinamic
+    while (!itRedo.end()) {
+        myTreeListDinamic->prependItem(nullptr, itRedo.getDescription().c_str(), itRedo.getIcon());
+        itRedo++;
     }
 }
 

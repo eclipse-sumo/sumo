@@ -137,8 +137,20 @@ FXTreeListDinamic::getSelectedIndex() {
 
 
 FXTreeItem* 
-FXTreeListDinamic::insertItem(FXTreeItem* father, const FXString& text, FXIcon* oi) {
-    FXTreeItemDynamic* newItem = dynamic_cast<FXTreeItemDynamic*>(FXTreeList::insertItem(nullptr, father, new FXTreeItemDynamic(text, oi, oi, nullptr), false));
+FXTreeListDinamic::prependItem(FXTreeItem* father, const FXString& text, FXIcon* oi) {
+    FXTreeItemDynamic* newItem = dynamic_cast<FXTreeItemDynamic*>(FXTreeList::prependItem(father, new FXTreeItemDynamic(text, oi, oi, nullptr), false));
+    if (newItem != nullptr) {
+        myFXTreeItemDynamicItems.insert(myFXTreeItemDynamicItems.begin(), newItem);
+        return newItem;
+    } else {
+        throw ProcessError("New item cannot be NULL");
+    }
+}
+
+
+FXTreeItem* 
+FXTreeListDinamic::appendItem(FXTreeItem* father, const FXString& text, FXIcon* oi) {
+    FXTreeItemDynamic* newItem = dynamic_cast<FXTreeItemDynamic*>(FXTreeList::appendItem(father, new FXTreeItemDynamic(text, oi, oi, nullptr), false));
     if (newItem != nullptr) {
         myFXTreeItemDynamicItems.push_back(newItem);
         return newItem;

@@ -71,8 +71,11 @@ public:
     /// @brief getSelected item index
     FXint getSelectedIndex();
 
-    /// @brief Insert item with given text and icon
-    FXTreeItem* insertItem(FXTreeItem* father, const FXString& text, FXIcon* oi);
+    /// @brief prepend item with given text and icon
+    FXTreeItem* prependItem(FXTreeItem* father, const FXString& text, FXIcon* oi);
+
+    /// @brief append item with given text and icon
+    FXTreeItem* appendItem(FXTreeItem* father, const FXString& text, FXIcon* oi);
 
     /// @brief get FXWindows associated with this FXTreeListDinamic
     FXWindow* getFXWindow();
