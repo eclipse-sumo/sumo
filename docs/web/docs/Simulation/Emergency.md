@@ -57,7 +57,7 @@ Surrounding traffic reacts when within 25m. This distance is configurable by
 
 ```
 <vType id="rescue" vClass="emergency" speedFactor="1.5">
-   <param key="has.bluelight.device value="true"/>
+   <param key="has.bluelight.device" value="true"/>
 </vType>
 
 ```
