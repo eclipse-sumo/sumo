@@ -241,9 +241,9 @@ class ArgumentParser(argparse.ArgumentParser):
             # Not prefixed args at that stage are unrecognized while prefixed ones
             # will be analyzed downstream with the help of the assign_remaining_args function.
             unrecognized_args = []
-            for idx, arg in enumerate(args.remaining_args):
+            for arg in args.remaining_args:
                 if arg.split('--')[0] == '':
-                        unrecognized_args += [args.remaining_args[idx], args.remaining_args[idx+1]]                
+                        unrecognized_args += [arg]                
             
             if unrecognized_args:
                 self.error('unrecognized arguments: %s' % ' '.join(unrecognized_args))
