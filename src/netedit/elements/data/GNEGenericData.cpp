@@ -207,8 +207,8 @@ GNEGenericData::getACParametersMap() const {
 // ---------------------------------------------------------------------------
 
 void
-GNEGenericData::drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector& laneShape, const std::string& attribute) const {
-    if (getParametersMap().count(attribute) > 0) {
+GNEGenericData::drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector& laneShape, const std::string& attribute, const GNEDataInterval* dataIntervalParent) const {
+    if ((myDataIntervalParent == dataIntervalParent) && (getParametersMap().count(attribute) > 0)) {
         const Position pos = laneShape.positionAtOffset2D(laneShape.length2D() * 0.5);
         const double rot = laneShape.rotationDegreeAtOffset(laneShape.length2D() * 0.5);
         // Add a draw matrix for details

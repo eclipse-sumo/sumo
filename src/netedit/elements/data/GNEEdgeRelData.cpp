@@ -170,7 +170,9 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         // draw filtered attribute
         if (getParentEdges().front()->getLanes().front() == lane) {
-            drawFilteredAttribute(s, lane->getLaneShape(), myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute());
+            drawFilteredAttribute(s, lane->getLaneShape(), 
+                myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute(),
+                myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval());
         }
         // draw dotted contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
