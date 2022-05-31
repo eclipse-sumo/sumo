@@ -1,2 +1,4 @@
-Warning: Teleporting vehicle 'v_0'; frontal collision with vehicle 'v_1', lane='E3_0', gap=-3.10', latGap=-1.80, time=40.00 stage=move.
-Warning: Vehicle 'v_0' ends teleporting on edge 'E4', time=41.00.
+Warning: Teleporting vehicle 'v_0'; waited too long (jam), lane='E3_0', time=341.00.
+Warning: Teleporting vehicle 'v_1'; waited too long (jam), lane='-E3_0', time=341.00.
+Warning: Vehicle 'v_0' ends teleporting on edge 'E4', time=341.00.
+Warning: Vehicle 'v_1' ends teleporting on edge '-E2', time=341.00.
