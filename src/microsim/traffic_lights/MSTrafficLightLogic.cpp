@@ -175,7 +175,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                         for (LaneVector::const_iterator it = myLanes[j].begin(); it != myLanes[j].end(); ++it) {
                             if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
                                 if (getLogicType() != TrafficLightType::NEMA) {
-                                    WRITE_WARNINGF("Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %",
+                                    WRITE_WARNINGF("Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %.",
                                                    getID(), getProgramID(), j, optionalFrom, iNext);
                                     // one warning per program is enough
                                     haveWarned = true;
@@ -188,7 +188,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                 // warn about links that never get the green light
                 for (int j = 0; j < (int)state1.size(); ++j) {
                     LinkState ls = (LinkState)state1[j];
-                    if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
+                    if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR || ls == LINKSTATE_TL_OFF_BLINKING || ls == LINKSTATE_TL_OFF_NOSIGNAL || ls == LINKSTATE_STOP) {
                         foundGreen[j] = true;
                     }
                 }
@@ -197,7 +197,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         for (int j = 0; j < (int)foundGreen.size(); ++j) {
             if (!foundGreen[j]) {
                 if (getLogicType() != TrafficLightType::NEMA) {
-                    WRITE_WARNINGF("Missing green phase in tlLogic '%', program '%' for tl-index %", getID(), getProgramID(), j);
+                    WRITE_WARNINGF("Missing green phase in tlLogic '%', program '%' for tl-index %.", getID(), getProgramID(), j);
                 }
                 break;
             }
