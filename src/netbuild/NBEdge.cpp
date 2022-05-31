@@ -3424,7 +3424,7 @@ NBEdge::lanesWereAssigned() const {
 
 double
 NBEdge::getMaxLaneOffset() {
-    return SUMO_const_laneWidthAndOffset * (double)myLanes.size();
+    return SUMO_const_laneWidth * (double)myLanes.size();
 }
 
 

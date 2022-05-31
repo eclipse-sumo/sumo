@@ -48,8 +48,6 @@ class RGBColor;
 const double SUMO_const_laneWidth = 3.2;
 const double SUMO_const_halfLaneWidth = SUMO_const_laneWidth / 2;
 const double SUMO_const_quarterLaneWidth = SUMO_const_laneWidth / 4;
-const double SUMO_const_laneWidthAndOffset = SUMO_const_laneWidth;
-const double SUMO_const_halfLaneAndOffset = SUMO_const_halfLaneWidth;
 const double SUMO_const_laneMarkWidth = 0.1;
 const double SUMO_const_waitingPersonWidth = 0.8;
 const double SUMO_const_waitingPersonDepth = 0.67;
