@@ -413,14 +413,14 @@ MSInsertionControl::clearState() {
     // myPendingEmitsForLane must not be cleared since it updates itself on the next call
 }
 
+
 SUMOTime
 MSInsertionControl::computeRandomDepartOffset() const {
     if (myMaxRandomDepartOffset > 0) {
         // round to the closest usable simulation step
-        return DELTA_T * int((RandHelper::rand((int)myMaxRandomDepartOffset, MSRouteHandler::getParsingRNG()) + 0.5 * DELTA_T) / DELTA_T);
-    } else {
-        return 0;
+        return DELTA_T * ((RandHelper::rand(myMaxRandomDepartOffset, MSRouteHandler::getParsingRNG()) + DELTA_T / 2) / DELTA_T);
     }
+    return 0;
 }
 
 

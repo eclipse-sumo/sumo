@@ -1392,13 +1392,13 @@ MSEdge::getOccupancy() const {
         for (const SUMOVehicle* veh : getVehicles()) {
             sum += dynamic_cast<const MEVehicle*>(veh)->getVehicleType().getLength();
         }
-        return sum / (myLength * myLanes->size());
+        return sum / (myLength * (double)myLanes->size());
     } else {
         double sum = 0;
         for (auto lane : getLanes()) {
             sum += lane->getNettoOccupancy();
         }
-        return sum / myLanes->size();
+        return sum / (double)myLanes->size();
     }
 }
 
