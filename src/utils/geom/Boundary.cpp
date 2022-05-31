@@ -22,6 +22,7 @@
 #include <config.h>
 #include <utility>
 
+#include <utils/common/StdDefs.h>
 #include "GeomHelper.h"
 #include "Boundary.h"
 #include "PositionVector.h"
@@ -372,10 +373,10 @@ Boundary::set(double xmin, double ymin, double xmax, double ymax) {
             - ymin > ymax
     */
     
-    myXmin = std::min(xmin, xmax);
-    myYmin = std::min(ymin, ymax);
-    myXmax = std::max(xmin, xmax);
-    myYmax = std::max(ymin, ymax);
+    myXmin = MIN2(xmin, xmax);
+    myYmin = MIN2(ymin, ymax);
+    myXmax = MAX2(xmin, xmax);
+    myYmax = MAX2(ymin, ymax);
 }
 
 
