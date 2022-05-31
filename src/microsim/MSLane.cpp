@@ -73,6 +73,7 @@
 //#define DEBUG_PLAN_MOVE
 //#define DEBUG_EXEC_MOVE
 //#define DEBUG_CONTEXT
+//#define DEBUG_PARTIALS
 //#define DEBUG_OPPOSITE
 //#define DEBUG_VEHICLE_CONTAINER
 //#define DEBUG_COLLISIONS
@@ -330,7 +331,7 @@ double
 MSLane::setPartialOccupation(MSVehicle* v) {
     // multithreading: there are concurrent writes to myNeedsCollisionCheck but all of them should set it to true
     myNeedsCollisionCheck = true; // always check
-#ifdef DEBUG_CONTEXT
+#ifdef DEBUG_PARTIALS
     if (DEBUG_COND2(v)) {
         std::cout << SIMTIME << " setPartialOccupation. lane=" << getID() << " veh=" << v->getID() << "\n";
     }
@@ -350,7 +351,7 @@ MSLane::resetPartialOccupation(MSVehicle* v) {
 #ifdef HAVE_FOX
     ScopedLocker<> lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1);
 #endif
-#ifdef DEBUG_CONTEXT
+#ifdef DEBUG_PARTIALS
     if (DEBUG_COND2(v)) {
         std::cout << SIMTIME << " resetPartialOccupation. lane=" << getID() << " veh=" << v->getID() << "\n";
     }
