@@ -45,13 +45,12 @@ class RGBColor;
 /* -------------------------------------------------------------------------
  * some constant defaults used by SUMO
  * ----------------------------------------------------------------------- */
-const double SUMO_const_laneWidth = (double) 3.2;
-const double SUMO_const_laneOffset = (double) 0;
+const double SUMO_const_laneWidth = 3.2;
 const double SUMO_const_halfLaneWidth = SUMO_const_laneWidth / 2;
 const double SUMO_const_quarterLaneWidth = SUMO_const_laneWidth / 4;
-const double SUMO_const_laneWidthAndOffset = SUMO_const_laneWidth + SUMO_const_laneOffset;
-const double SUMO_const_halfLaneAndOffset = SUMO_const_halfLaneWidth + SUMO_const_laneOffset;
-const double SUMO_const_laneMarkWidth = (double) 0.1;
+const double SUMO_const_laneWidthAndOffset = SUMO_const_laneWidth;
+const double SUMO_const_halfLaneAndOffset = SUMO_const_halfLaneWidth;
+const double SUMO_const_laneMarkWidth = 0.1;
 const double SUMO_const_waitingPersonWidth = 0.8;
 const double SUMO_const_waitingPersonDepth = 0.67;
 const double SUMO_const_waitingContainerWidth = 2.5;

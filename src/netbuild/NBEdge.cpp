@@ -2140,7 +2140,7 @@ NBEdge::computeLaneShapes() {
     std::vector<double> offsets(myLanes.size(), 0.);
     double offset = 0;
     for (int i = (int)myLanes.size() - 2; i >= 0; --i) {
-        offset += (getLaneWidth(i) + getLaneWidth(i + 1)) / 2. + SUMO_const_laneOffset;
+        offset += (getLaneWidth(i) + getLaneWidth(i + 1)) / 2.;
         offsets[i] = offset;
     }
     if (myLaneSpreadFunction == LaneSpreadFunction::CENTER) {
@@ -2148,11 +2148,10 @@ NBEdge::computeLaneShapes() {
         for (int i = 0; i < (int)myLanes.size(); ++i) {
             width += getLaneWidth(i);
         }
-        width += SUMO_const_laneOffset * double(myLanes.size() - 1);
         offset = -width / 2. + getLaneWidth((int)myLanes.size() - 1) / 2.;
     } else {
         double laneWidth = myLanes.back().width != UNSPECIFIED_WIDTH ? myLanes.back().width : SUMO_const_laneWidth;
-        offset = (laneWidth + SUMO_const_laneOffset) / 2.; // @note: offset for half of the center-line marking of the road
+        offset = laneWidth / 2.;
     }
     if (myLaneSpreadFunction == LaneSpreadFunction::ROADCENTER) {
         for (NBEdge* e : myTo->getOutgoingEdges()) {
@@ -4371,10 +4370,10 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
         const int i = (node == myTo ? -1 : 0);
         const int i2 = (node == myTo ? 0 : -1);
         const double dist = myGeom[i].distanceTo2D(node->getPosition());
-        const double neededOffset = (getTotalWidth() + getNumLanes() * SUMO_const_laneOffset) / 2;
+        const double neededOffset = getTotalWidth() / 2;
         const double dist2 = MIN2(myGeom.distance2D(other->getGeometry()[i2]),
                                   other->getGeometry().distance2D(myGeom[i]));
-        const double neededOffset2 = neededOffset + (other->getTotalWidth() + other->getNumLanes() * SUMO_const_laneOffset) / 2;
+        const double neededOffset2 = neededOffset + (other->getTotalWidth()) / 2;
         if (dist < neededOffset && dist2 < neededOffset2) {
             PositionVector tmp = myGeom;
             // @note this doesn't work well for vissim networks
