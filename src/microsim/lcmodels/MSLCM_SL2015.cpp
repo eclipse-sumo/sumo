@@ -2068,12 +2068,25 @@ void MSLCM_SL2015::addLCSpeedAdvice(const double vSafe) {
 #endif
 }
 
+bool
+MSLCM_SL2015::isBidi(const MSLane* lane) const {
+    if (lane == myVehicle.getLane()->getBidiLane()) {
+        return true;
+    }
+    for (const MSLane* cand : myVehicle.getBestLanesContinuation()) {
+        if (cand != nullptr && cand->getBidiLane() == lane) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void
 MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int sublaneOffset, int laneIndex) {
     const std::vector<MSLane*>& lanes = myVehicle.getLane()->getEdge().getLanes();
     const std::vector<MSVehicle::LaneQ>& preb = myVehicle.getBestLanes();
     const MSLane* lane = isOpposite() ? myVehicle.getLane()->getParallelOpposite() : lanes[laneIndex];
+    const MSLane* bidi = myVehicle.getLane()->getBidiLane();
     const double vMax = lane->getVehicleMaxSpeed(&myVehicle);
     assert(preb.size() == lanes.size() || isOpposite());
 #ifdef DEBUG_EXPECTED_SLSPEED
@@ -2104,6 +2117,18 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                     const double dist = preb[prebIndex].length - myVehicle.getPositionOnLane();
                     vSafe = getCarFollowModel().followSpeed(&myVehicle, vMax, dist, 0, 0);
                 }
+            } else if (bidi != nullptr && leader->getLane()->getBidiLane() != nullptr && isBidi(leader->getLane())) {
+                // oncoming
+                if (gap < (1 + mySpeedGainLookahead * 2) * (vMax + leader->getSpeed())) {
+                    vSafe = 0;
+                } else {
+                    vSafe = vMax;
+                }
+#ifdef DEBUG_EXPECTED_SLSPEED
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " updateExpectedSublaneSpeeds sublane=" << sublane << " leader=" << leader->getID() << " bidi=" << bidi->getID() << " gap=" << gap << " vSafe=" << vSafe << "\n";
+                }
+#endif
             } else {
                 if (leader->getAcceleration() > 0.5 * leader->getCarFollowModel().getMaxAccel()) {
                     // assume that the leader will continue accelerating to its maximum speed

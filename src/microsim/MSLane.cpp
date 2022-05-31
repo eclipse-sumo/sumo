@@ -3699,6 +3699,9 @@ MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo
         double speed = vehicle->getSpeed();
         // leader vehicle could be link leader on the next junction
         double dist = MAX2(vehicle->getCarFollowModel().brakeGap(speed), 10.0) + vehicle->getVehicleType().getMinGap();
+        if (getBidiLane() != nullptr) {
+            dist = MAX2(dist, myMaxSpeed * 20);
+        }
         if (seen > dist) {
 #ifdef DEBUG_SURROUNDING
             if (DEBUG_COND || DEBUG_COND2(vehicle)) {

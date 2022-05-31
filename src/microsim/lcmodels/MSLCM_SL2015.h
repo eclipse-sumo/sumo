@@ -367,6 +367,9 @@ protected:
     /// @brief check against thresholds
     inline bool wantsKeepRight(double keepRightProb) const;
 
+    /// @brief check whether lane is an upcoming bidi lane
+    bool isBidi(const MSLane* lane) const;
+
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
     double mySpeedGainProbabilityRight;
