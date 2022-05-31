@@ -4,11 +4,17 @@ title: elementsAdditional
 
 # Additional elements
 
-*Additionals* are elements which do not belong to the network, but may be used to influence the simulation or generate specific outputs. Additionals are defined in an {{AdditionalFile}} and can be loaded in **netedit**. Additionals are created in the *Additionals* editing mode (shortcut key: a). Once this mode is selected, the first step is to choose what kind of additional should be created in the comboBox "additional element". Once selected and if required, the parameters of the additional can be changed. Finally, with
-a click over a Lane/junction/edge (If the additional should be set over an element of the network), or over an empty area (if the item is independent of the network) the additional will be created.
+Additionals* are elements which do not belong to the network, but may be used to influence the simulation or generate specific outputs. Additionals are defined in an {{AdditionalFile}}.
+
+## Loading and Saving
+
+Additionals can be loaded and saved via the File menu:
 
 ![](../images/GNELoadAdditionals.png)    
 Menu for loading additionals
+
+## Create
+Additionals are created in the *Additionals* editing mode (shortcut key: a). Once this mode is selected, the first step is to choose what kind of additional should be created in the comboBox "additional element". Once selected and if required, the parameters of the additional can be changed. Finally, with a click over a Lane/junction/edge (If the additional should be set over an element of the network), or over an empty area (if the item is independent of the network) the additional will be created.
 
 ![](../images/GNEFrame.png)    
 Frame to insert additionals
