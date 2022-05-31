@@ -1082,6 +1082,8 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
                 until = parseTime(stop.arrival) + parseTime(stop.getAttributeSecure("duration", "0"))
             else:
                 continue
+            if stop.getAttributeSecure("invalid", False) and not options.writeInactive:
+                continue
             untils.append((until, edgesBefore, stop))
         # only use 'until' for sorting and keep the result stable otherwise
         untils.sort(key=itemgetter(0))
