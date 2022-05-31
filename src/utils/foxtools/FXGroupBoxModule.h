@@ -23,6 +23,9 @@
 
 #include "fxheader.h"
 
+/// @brief class declaration
+class GNEFrame;
+
 /// @brief FXGroupBoxModule (based on FXGroupBox)
 class FXGroupBoxModule : protected FXVerticalFrame {
     FXDECLARE(FXGroupBoxModule)
@@ -30,11 +33,15 @@ class FXGroupBoxModule : protected FXVerticalFrame {
 public:
     /// @brief GroupBoxModule options
     enum Options {
-        NOTHING =       1 << 0, // Collapsible groupBox
+        NOTHING =       1 << 0, // Basic GroupBox
         COLLAPSIBLE =   1 << 1, // Collapsible groupBox
-        SAVE =          1 << 2, // Save contents
-        LOAD =          1 << 3, // Load contents
+        EXTENSIBLE =    1 << 2, // Extensible groupBox
+        SAVE =          1 << 3, // Save contents
+        LOAD =          1 << 4, // Load contents
     };
+
+    /// @brief constructor for frames
+    FXGroupBoxModule(GNEFrame* frame, const std::string& text, const int options = Options::COLLAPSIBLE);
 
     /// @brief constructor
     FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string& text, const int options = Options::COLLAPSIBLE);
@@ -53,6 +60,9 @@ public:
 
     /// @brief collapse GroupBoxModule
     long onCmdCollapseButton(FXObject*, FXSelector, void*);
+
+    /// @brief extends GroupBoxModule
+    long onCmdExtendsButton(FXObject*, FXSelector, void*);
 
     /// @brief save contents
     long onCmdSaveButton(FXObject*, FXSelector, void*);
@@ -77,6 +87,9 @@ private:
     /// @brief GroupBoxModule options
     const int myOptions;
 
+    /// @brief GNEFrame in which this GroupBox is placed
+    GNEFrame* myFrameParent = nullptr;
+
     /// @brief vertical collapsable frame
     FXVerticalFrame* myCollapsableFrame = nullptr;
 
@@ -85,6 +98,9 @@ private:
 
     /// @brief button for collapse elements
     FXButton* myCollapseButton = nullptr;
+
+    /// @brief button for extend elements
+    FXButton* myExtendButton = nullptr;
 
     /// @brief button for save elements
     FXButton* mySaveButton = nullptr;

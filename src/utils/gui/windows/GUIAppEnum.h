@@ -627,6 +627,8 @@ enum {
     /// @{
     /// @brief collapse groupBoxModule
     MID_GROUPBOXMODULE_COLLAPSE,
+    /// @brief extends groupBoxModule
+    MID_GROUPBOXMODULE_EXTEND,
     /// @brief save contents
     MID_GROUPBOXMODULE_SAVE,
     /// @brief load contents
