@@ -45,7 +45,7 @@ FXIMPLEMENT(GNEDrawingShape,               FXGroupBoxModule,     DrawingShapeMap
 // ===========================================================================
 
 GNEDrawingShape::GNEDrawingShape(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Drawing"),
+    FXGroupBoxModule(frameParent, "Drawing"),
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
     // create start and stop buttons

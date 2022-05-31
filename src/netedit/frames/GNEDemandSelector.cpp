@@ -45,7 +45,7 @@ FXIMPLEMENT(DemandElementSelector,      FXGroupBoxModule,     DemandElementSelec
 // ===========================================================================
 
 DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, GNEDemandElement* defaultElement) :
-    FXGroupBoxModule(frameParent->getContentFrame(), ("Parent " + toString(demandElementTag)).c_str()),
+    FXGroupBoxModule(frameParent, ("Parent " + toString(demandElementTag)).c_str()),
     myFrameParent(frameParent),
     myCurrentDemandElement(defaultElement),
     myDemandElementTags({demandElementTag}),
@@ -62,7 +62,7 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag d
 
 
 DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Parent element"),
+    FXGroupBoxModule(frameParent, "Parent element"),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
     mySelectingMultipleElements(false) {

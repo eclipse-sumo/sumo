@@ -46,7 +46,7 @@ FXIMPLEMENT(GNENeteditAttributes,  FXGroupBoxModule,   NeteditAttributesMap,   A
 // ===========================================================================
 
 GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Netedit attributes"),
+    FXGroupBoxModule(frameParent, "Netedit attributes"),
     myFrameParent(frameParent),
     myCurrentLengthValid(true),
     myActualAdditionalReferencePoint(AdditionalReferencePoint::LEFT) {

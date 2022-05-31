@@ -49,7 +49,7 @@ FXIMPLEMENT(GNEOverlappedInspection,       FXGroupBoxModule,     OverlappedInspe
 // ===========================================================================
 
 GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Overlapped elements"),
+    FXGroupBoxModule(frameParent, "Overlapped elements"),
     myFrameParent(frameParent),
     myFilteredTag(SUMO_TAG_NOTHING),
     myItemIndex(0) {
@@ -59,7 +59,7 @@ GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent) :
 
 
 GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag) :
-    FXGroupBoxModule(frameParent->getContentFrame(), ("Overlapped " + toString(filteredTag) + "s").c_str()),
+    FXGroupBoxModule(frameParent, ("Overlapped " + toString(filteredTag) + "s").c_str()),
     myFrameParent(frameParent),
     myFilteredTag(filteredTag),
     myItemIndex(0) {

@@ -46,7 +46,7 @@ FXIMPLEMENT(GNENetworkSelector, FXGroupBoxModule, SelectorParentNetworkElementsM
 // ---------------------------------------------------------------------------
 
 GNENetworkSelector::GNENetworkSelector(GNEFrame* frameParent, const Type networkElementType) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "NetworkElements"),
+    FXGroupBoxModule(frameParent, "NetworkElements"),
     myFrameParent(frameParent),
     myNetworkElementType(networkElementType) {
     // Create horizontal frame

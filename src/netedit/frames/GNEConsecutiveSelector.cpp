@@ -52,7 +52,7 @@ FXIMPLEMENT(GNEConsecutiveSelector, FXGroupBoxModule, ConsecutiveLaneSelectorMap
 // ---------------------------------------------------------------------------
 
 GNEConsecutiveSelector::GNEConsecutiveSelector(GNEFrame* frameParent, const bool allowOneLane) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Consecutive lane selector"),
+    FXGroupBoxModule(frameParent, "Consecutive lane selector"),
     myFrameParent(frameParent),
     myAllowOneLane(allowOneLane) {
     // create label for route info

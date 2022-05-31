@@ -38,7 +38,7 @@ class GNEFlowEditor : public FXGroupBoxModule {
 
 public:
     /// @brief constructor
-    GNEFlowEditor(GNEViewNet* viewNet, FXVerticalFrame* contentFrame);
+    GNEFlowEditor(GNEViewNet* viewNet, GNEFrame* frameParent);
 
     /// @brief destructor
     ~GNEFlowEditor();

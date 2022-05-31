@@ -31,7 +31,7 @@
 // ===========================================================================
 
 GNEM_PathLegend::GNEM_PathLegend(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Information") {
+    FXGroupBoxModule(frameParent, "Information") {
     // declare label
     FXLabel* legendLabel = nullptr;
     // edge candidate

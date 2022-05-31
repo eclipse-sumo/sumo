@@ -621,14 +621,14 @@ GNEFrameAttributeModules::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, c
 // GNEFrameAttributeModules::AttributesEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributeModules::AttributesEditor::AttributesEditor(GNEFrame* FrameParent) :
-    FXGroupBoxModule(FrameParent->getContentFrame(), "Internal attributes"),
-    myFrameParent(FrameParent),
+GNEFrameAttributeModules::AttributesEditor::AttributesEditor(GNEFrame* frameParent) :
+    FXGroupBoxModule(frameParent, "Internal attributes"),
+    myFrameParent(frameParent),
     myIncludeExtended(true) {
     // resize myAttributesEditorRows
     myAttributesEditorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // create myAttributesFlowEditor
-    myAttributesEditorFlow = new GNEFlowEditor(FrameParent->getViewNet(), FrameParent->getContentFrame());
+    myAttributesEditorFlow = new GNEFlowEditor(frameParent->getViewNet(), frameParent);
     // leave it hidden
     myAttributesEditorFlow->hideFlowEditor();
     // Create help button
@@ -834,7 +834,7 @@ GNEFrameAttributeModules::AttributesEditor::onCmdAttributesEditorHelp(FXObject*,
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::AttributesEditorExtended::AttributesEditorExtended(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Extended attributes"),
+    FXGroupBoxModule(frameParent, "Extended attributes"),
     myFrameParent(frameParent) {
     // Create open dialog button
     new FXButton(getCollapsableFrame(), "Open attributes editor", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
@@ -868,7 +868,7 @@ GNEFrameAttributeModules::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::GenericDataAttributes::GenericDataAttributes(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Attributes"),
+    FXGroupBoxModule(frameParent, "Attributes"),
     myFrameParent(frameParent) {
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);

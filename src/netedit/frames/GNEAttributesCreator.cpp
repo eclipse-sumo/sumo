@@ -47,13 +47,13 @@ FXIMPLEMENT(GNEAttributesCreator, FXGroupBoxModule, AttributesCreatorMap, ARRAYN
 // ===========================================================================
 
 GNEAttributesCreator::GNEAttributesCreator(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Internal attributes"),
+    FXGroupBoxModule(frameParent, "Internal attributes"),
     myFrameParent(frameParent),
     myTemplateAC(nullptr) {
     // resize myAttributesCreatorRows
     myAttributesCreatorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // create myFlowEditor
-    myFlowEditor = new GNEFlowEditor(frameParent->getViewNet(), frameParent->getContentFrame());
+    myFlowEditor = new GNEFlowEditor(frameParent->getViewNet(), frameParent);
     // create reset and help button
     myFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myResetButton = new FXButton(myFrameButtons, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);

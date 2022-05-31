@@ -121,7 +121,7 @@ GNEPathCreator::Path::Path() :
 
 
 GNEPathCreator::GNEPathCreator(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Route creator"),
+    FXGroupBoxModule(frameParent, "Route creator"),
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
     myCreationMode(0),
