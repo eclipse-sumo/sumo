@@ -406,6 +406,12 @@ GNEViewParent::updateUndoRedoButtons() {
 }
 
 
+void 
+GNEViewParent::setFrameAreaWith(int width) {
+    myFramesArea->setWidth(width);
+}
+
+
 long
 GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     // get the new file name

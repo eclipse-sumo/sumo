@@ -207,6 +207,9 @@ public:
     /// @brief update toolbar undo/redo buttons (called when user press Ctrl+Z/Y)
     void updateUndoRedoButtons();
 
+    /// @brief set frame area width
+    void setFrameAreaWith(int width);
+
     /// @name FOX-callbacks
     /// @{
     /// @brief Called if the user wants to make a snapshot (screenshot)
