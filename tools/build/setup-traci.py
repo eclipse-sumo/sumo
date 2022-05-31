@@ -46,7 +46,7 @@ setup(
     ],
     keywords='traffic simulation traci sumo',
 
-    packages=["traci"],
+    packages=["traci", "simpla"],
     package_dir={'': package_dir},
 
     install_requires=['sumolib>='+SUMO_VERSION],
