@@ -40,9 +40,11 @@
 FXDEFMAP(FXGroupBoxModule) FXGroupBoxModuleMap[] = {
     FXMAPFUNC(SEL_PAINT,    0,                              FXGroupBoxModule::onPaint),
     FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_COLLAPSE,    FXGroupBoxModule::onCmdCollapseButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_EXTEND,      FXGroupBoxModule::onCmdExtendsButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_EXTEND,      FXGroupBoxModule::onCmdExtendButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_RESETWIDTH,  FXGroupBoxModule::onCmdResetButton),
     FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_SAVE,        FXGroupBoxModule::onCmdSaveButton),
     FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_LOAD,        FXGroupBoxModule::onCmdLoadButton),
+    FXMAPFUNC(SEL_UPDATE,   MID_GROUPBOXMODULE_RESETWIDTH,  FXGroupBoxModule::onUpdResetButton),
 };
 
 // Object implementation
@@ -64,6 +66,7 @@ FXGroupBoxModule::FXGroupBoxModule(GNEFrame* frame, const std::string& text, con
     }
     if (myOptions & Options::EXTENSIBLE) {
         myExtendButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::EXTEND), this, MID_GROUPBOXMODULE_EXTEND, GUIDesignButtonFXGroupBoxModule);
+        myResetWidthButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GROUPBOXMODULE_RESETWIDTH, GUIDesignButtonFXGroupBoxModule);
     }
     if (myOptions & Options::SAVE) {
         mySaveButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonFXGroupBoxModule);
@@ -144,8 +147,9 @@ FXGroupBoxModule::onCmdCollapseButton(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
 long 
-FXGroupBoxModule::onCmdExtendsButton(FXObject*, FXSelector, void*) {
+FXGroupBoxModule::onCmdExtendButton(FXObject*, FXSelector, void*) {
     if (myFrameParent) {
         int maximumWidth = -1;
         // search in every child 
@@ -159,6 +163,28 @@ FXGroupBoxModule::onCmdExtendsButton(FXObject*, FXSelector, void*) {
         // now set parent parent width
         if (maximumWidth != -1) {
             myFrameParent->getViewNet()->getViewParent()->setFrameAreaWith(maximumWidth);
+        }
+    }
+    return 1;
+}
+
+
+long 
+FXGroupBoxModule::onCmdResetButton(FXObject*, FXSelector, void*) {
+    if (myFrameParent) {
+        myFrameParent->getViewNet()->getViewParent()->setFrameAreaWith(220);
+    }
+    return 1;
+}
+
+
+long 
+FXGroupBoxModule::onUpdResetButton(FXObject* sender, FXSelector, void*) {
+    if (myFrameParent) {
+        if (myFrameParent->getViewNet()->getViewParent()->getFrameAreaWith() == 220) {
+            sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        } else {
+            sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
         }
     }
     return 1;

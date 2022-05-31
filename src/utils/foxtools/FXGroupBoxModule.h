@@ -62,7 +62,13 @@ public:
     long onCmdCollapseButton(FXObject*, FXSelector, void*);
 
     /// @brief extends GroupBoxModule
-    long onCmdExtendsButton(FXObject*, FXSelector, void*);
+    long onCmdExtendButton(FXObject*, FXSelector, void*);
+
+    /// @brief reset GroupBoxModule
+    long onCmdResetButton(FXObject*, FXSelector, void*);
+
+    /// @brief update reset GroupBoxModule
+    long onUpdResetButton(FXObject*, FXSelector, void*);
 
     /// @brief save contents
     long onCmdSaveButton(FXObject*, FXSelector, void*);
@@ -101,6 +107,9 @@ private:
 
     /// @brief button for extend elements
     FXButton* myExtendButton = nullptr;
+
+    /// @brief button for reset frame width
+    FXButton* myResetWidthButton = nullptr;
 
     /// @brief button for save elements
     FXButton* mySaveButton = nullptr;

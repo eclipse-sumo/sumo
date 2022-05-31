@@ -629,6 +629,8 @@ enum {
     MID_GROUPBOXMODULE_COLLAPSE,
     /// @brief extends groupBoxModule
     MID_GROUPBOXMODULE_EXTEND,
+    /// @brief reset widh groupBoxModule
+    MID_GROUPBOXMODULE_RESETWIDTH,
     /// @brief save contents
     MID_GROUPBOXMODULE_SAVE,
     /// @brief load contents
