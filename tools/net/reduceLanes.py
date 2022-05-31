@@ -37,9 +37,12 @@ def parse_args():
     argParser = sumolib.options.ArgumentParser()
     argParser.add_argument("-n", "--network", required=True, help="sumo network to use")
     argParser.add_argument("-o", "--output-file", default="reduced.edg.xml", help="The output edge patch file name")
+    argParser.add_argument("--too-short-output", help="The output for edges which were ignored because of length")
+    argParser.add_argument("--roundabout-output",
+                           help="The output for edges which were ignored because of roundabouts")
     argParser.add_argument("--min-length", type=float, default=60.,
                            help="the minimum edge length to process")
-    argParser.add_argument("--min-lane-number", type=int, default=2,
+    argParser.add_argument("--min-lane-number", type=int, default=1,
                            help="the minimum number of lanes to process")
     argParser.add_argument("--junction-distance", type=float, default=20.,
                            help="where to perform the edge split near the junction")
@@ -67,6 +70,8 @@ if __name__ == "__main__":
         for edge in net.getEdges():
             edgeID = edge.getID()
             if edge.getPriority() <= options.max_priority and edge.getLaneNumber() > options.min_lane_number:
+                if any([lane.getPermissions() in (set(["bus"]), set(["tram"])) for lane in edge.getLanes()]):
+                    continue
                 if polyLength(edge.getShape()) >= options.min_length:
                     if edgeID not in allRoundabouts:
                         modifiedEdges += 1
@@ -85,10 +90,12 @@ if __name__ == "__main__":
     print("added splits for %s edges (%s were to short to qualify and %s were roundabouts)" %
           (modifiedEdges, len(tooShort), len(roundabouts)))
 
-    with open("tooShort.sel.txt", 'w') as f:
-        for edgeID in tooShort:
-            f.write("edge:%s\n" % edgeID)
+    if tooShort and options.too_short_output:
+        with open(options.too_short_output, 'w') as f:
+            for edgeID in tooShort:
+                f.write("edge:%s\n" % edgeID)
 
-    with open("roundabouts.sel.txt", 'w') as f:
-        for edgeID in roundabouts:
-            f.write("edge:%s\n" % edgeID)
+    if roundabouts and options.roundabout_output:
+        with open(options.roundabout_output, 'w') as f:
+            for edgeID in roundabouts:
+                f.write("edge:%s\n" % edgeID)
