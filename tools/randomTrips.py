@@ -575,11 +575,11 @@ def main(options):
                     if options.randomDepart:
                         subsecond = math.fmod(options.period, 1)
                         while time < maxTime:
-                            rTime = random.randrange(begin, maxTime)
+                            rTime = random.randrange(int(begin), int(maxTime))
                             time += options.period
                             if subsecond != 0:
                                 # allow all multiples of subsecond to appear
-                                rSubSecond = math.fmod(subsecond * random.randrange(begin, maxTime), 1)
+                                rSubSecond = math.fmod(subsecond * random.randrange(int(begin), int(maxTime)), 1)
                                 rTime = min(maxTime, rTime + rSubSecond)
                             departures.append(rTime)
                         departures.sort()
