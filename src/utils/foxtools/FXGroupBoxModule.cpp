@@ -54,8 +54,8 @@ FXIMPLEMENT(FXGroupBoxModule, FXVerticalFrame, FXGroupBoxModuleMap, ARRAYNUMBER(
 
 FXGroupBoxModule::FXGroupBoxModule(GNEFrame* frame, const std::string& text, const int options) :
     FXVerticalFrame(frame->getContentFrame(), GUIDesignHorizontalFrame),
-    myFrameParent(frame),
     myOptions(options),
+    myFrameParent(frame),
     myCollapsed(false) {
     // build button and labels
     FXHorizontalFrame* headerFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
