@@ -1,3 +1,19 @@
+# two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 2 bikes
+# Check if a vehicle wiggles when bikes are passing by.
+bikePassingWithoutWiggledVeh
+
+# two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 1 bike
+# Check if SUMO identifies fault collisions, and if everlasting stop exists.
+bikeFaultCollision
+
+# two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 2 bikes
+# Check if a bike avoid conflict with another bike, and if delayedTeleporting exists.
+bikeAvoidConflictWithBike
+
+# two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 1 bike
+# Check if a bike avoid conflict with a vehicle.
+bikeAvoidConflictWithVeh
+
 # a single pair of bidi-edges and 2 vehicles
 1edge
 
