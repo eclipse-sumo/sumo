@@ -243,6 +243,9 @@ public:
     /// @brief hide Frame
     void hide();
 
+    /// @brief function called after undo/redo in the current frame
+    void updateFrameAfterUndoRedo();
+
 protected:
     /**@brief Constructor (protected due GNEGenericDataFrame is abtract)
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed

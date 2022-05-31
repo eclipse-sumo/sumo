@@ -550,6 +550,17 @@ GNEGenericDataFrame::hide() {
 }
 
 
+void 
+GNEGenericDataFrame::updateFrameAfterUndoRedo() {
+    // refresh data set selector
+    myDataSetSelector->refreshDataSetSelector(nullptr);
+    // check if there is an edge path creator
+    if (myPathCreator) {
+        myPathCreator->showPathCreatorModule(myGenericDataTag, false, false);
+    }
+}
+
+
 GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator) :
     GNEFrame(horizontalFrameParent, viewNet, toString(tag)),
     myDataSetSelector(nullptr),
