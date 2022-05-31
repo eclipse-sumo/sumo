@@ -220,6 +220,7 @@ enum class GUIIcon {
     COMPUTEPATHMANAGER,
     COLLAPSE,
     UNCOLLAPSE,
+    EXTEND,
     /// @}
 
     /// @name NETEDIT common mode specific icons
