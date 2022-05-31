@@ -295,6 +295,9 @@ Each lane incoming to the traffic light will receive a detector. However, not al
 In the current implementation, detectors for actuation are only used if all connections from the detector lane gets the unconditional green light ('G') in a particular phase. This is done to prevent useless phase extensions when the first vehicle on a given lane is not allowed to drive.
 A simple fix is often the provide dedicate left turn lanes.
 
+!!! note
+    When setting option **--tls.actuated.jam-threshold** to a value > 0 (i.e. 30), all detectors will be usable, because useless phase extension is automatically avoided if a detector is found to be jammed. Alternatively, this can be configured for individual tls or even individual lanes using `<param>`.
+
 The detector names take the form `TLSID_PROGRAMID_EDGEINDEX.LANEINDEX` where
 
 - **TLSID** is the id of the tlLogic element
