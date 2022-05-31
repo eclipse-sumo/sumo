@@ -363,6 +363,12 @@ PollutantsInterface::getModifiedAccel(const SUMOEmissionClass c, const double v,
 }
 
 
+double
+PollutantsInterface::getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) {
+    return myHelpers[c >> 16]->getCoastingDecel(c, v, a, slope, param);
+}
+
+
 const HelpersEnergy&
 PollutantsInterface::getEnergyHelper() {
     return myEnergyHelper;

@@ -46,7 +46,7 @@ public:
      */
     TrajectoriesHandler(const bool computeA, const bool computeAForward, const bool accelZeroCorrection,
                         const SUMOEmissionClass defaultClass,
-                        EnergyParams* params,
+                        EnergyParams* params, long long int attributes,
                         const double defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut);
 
 
@@ -59,7 +59,7 @@ public:
 
     bool writeEmissions(std::ostream& o, const std::string id,
                         const SUMOEmissionClass c,
-                        EnergyParams* params,
+                        EnergyParams* params, long long int attributes,
                         double t, double& v,
                         double& a, double& s);
 
@@ -91,6 +91,8 @@ protected:
                         const SUMOSAXAttributes& attrs);
     //@}
 
+private:
+    void writeOptional(std::ostream& o, long long int attributes, const SumoXMLAttr attr, double v);
 
 private:
     const bool myComputeA;
@@ -98,6 +100,7 @@ private:
     const bool myAccelZeroCorrection;
     const SUMOEmissionClass myDefaultClass;
     EnergyParams* myParams;
+    long long int myAttributes;
     const double myDefaultSlope;
     std::ostream* myStdOut;
     OutputDevice* myXMLOut;

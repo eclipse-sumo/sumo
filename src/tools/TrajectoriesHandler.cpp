@@ -39,13 +39,13 @@
 // ===========================================================================
 TrajectoriesHandler::TrajectoriesHandler(const bool computeA, const bool computeAForward,
         const bool accelZeroCorrection, const SUMOEmissionClass defaultClass, EnergyParams* params,
-        const double defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut) :
+        long long int attributes, const double defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut) :
     SUMOSAXHandler(""),
     myComputeA(computeA),
     myComputeAForward(computeAForward),
     myAccelZeroCorrection(accelZeroCorrection),
     myDefaultClass(defaultClass),
-    myParams(params),
+    myParams(params), myAttributes(attributes),
     myDefaultSlope(defaultSlope), myStdOut(stdOut), myXMLOut(xmlOut), myCurrentTime(-1), myStepSize(TS) {}
 
 
@@ -68,7 +68,7 @@ TrajectoriesHandler::myStartElement(int element,
                 double v = attrs.getFloat(SUMO_ATTR_SPEED);
                 double a = INVALID_VALUE;
                 double s = INVALID_VALUE;
-                writeEmissions(std::cout, attrs.getString(SUMO_ATTR_ID), myDefaultClass, myParams, STEPS2TIME(myCurrentTime), v, a, s);
+                writeEmissions(std::cout, attrs.getString(SUMO_ATTR_ID), myDefaultClass, myParams, myAttributes, STEPS2TIME(myCurrentTime), v, a, s);
             } else {
                 const std::string acId = attrs.getString(SUMO_ATTR_ACTORCONFIG);
                 const std::string id = attrs.getString(SUMO_ATTR_ID);
@@ -103,7 +103,7 @@ TrajectoriesHandler::myStartElement(int element,
                 writeXMLEmissions(id, c, nullptr, time, v, a, s);
             }
             if (myStdOut != nullptr) {
-                writeEmissions(*myStdOut, id, c, nullptr, STEPS2TIME(time), v, a, s);
+                writeEmissions(*myStdOut, id, c, nullptr, myAttributes, STEPS2TIME(time), v, a, s);
             }
             break;
         }
@@ -147,12 +147,21 @@ TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionCl
 }
 
 
+void
+TrajectoriesHandler::writeOptional(std::ostream& o, long long int attributes, const SumoXMLAttr attr, double v) {
+    if ((attributes & ((long long int)1 << attr)) != 0) {
+        o << ";" << v;
+    }
+}
+
+
 bool
 TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
-                                    const SUMOEmissionClass c,
-                                    EnergyParams* params,
-                                    double t, double& v,
-                                    double& a, double& s) {
+    const SUMOEmissionClass c,
+    EnergyParams* params,
+    long long int attributes,
+    double t, double& v,
+    double& a, double& s) {
     if (myComputeA && myLastV.count(id) == 0) {
         myLastV[id] = v;
         myLastSlope[id] = s;
@@ -165,9 +174,19 @@ TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
         myLastSlope[id] = nextS;
     }
     const PollutantsInterface::Emissions e = computeEmissions(id, c, params, v, a, s);
-    o << t << ";" << v << ";" << a << ";" << s << ";"
-      << e.CO << ";" << e.CO2 << ";" << e.HC << ";" << e.PMx << ";"
-      << e.NOx << ";" << e.fuel << ";" << e.electricity << std::endl;
+    o << t;
+    writeOptional(o, attributes, SUMO_ATTR_SPEED, v);
+    writeOptional(o, attributes, SUMO_ATTR_ACCELERATION, a);
+    writeOptional(o, attributes, SUMO_ATTR_SLOPE, s);
+    writeOptional(o, attributes, SUMO_ATTR_CO_ABS, e.CO);
+    writeOptional(o, attributes, SUMO_ATTR_CO2_ABS, e.CO2);
+    writeOptional(o, attributes, SUMO_ATTR_HC_ABS, e.HC);
+    writeOptional(o, attributes, SUMO_ATTR_PMX_ABS, e.PMx);
+    writeOptional(o, attributes, SUMO_ATTR_NOX_ABS, e.NOx);
+    writeOptional(o, attributes, SUMO_ATTR_FUEL_ABS, e.fuel);
+    writeOptional(o, attributes, SUMO_ATTR_ELECTRICITY_ABS, e.electricity);
+    writeOptional(o, attributes, SUMO_ATTR_AMOUNT, PollutantsInterface::getCoastingDecel(c, v, a, s, params));
+    o << std::endl;
     return true;
 }
 

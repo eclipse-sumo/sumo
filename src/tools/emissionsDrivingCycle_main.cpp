@@ -118,7 +118,10 @@ main(int argc, char** argv) {
     oc.addOptionSubTopic("Output");
     oc.doRegister("output-file", 'o', new Option_String());
     oc.addSynonyme("output", "output-file");
-    oc.addDescription("output", "Output", "Defines the file to write the emission cycle results into. ");
+    oc.addDescription("output", "Output", "Defines the file to write the emission cycle results into.");
+
+    oc.doRegister("output.attributes", new Option_StringVector());
+    oc.addDescription("output", "Output", "Defines the attributes to write.");
 
     oc.doRegister("emission-output", new Option_FileName());
     oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle in XML");
@@ -165,6 +168,24 @@ main(int argc, char** argv) {
         if (oc.isSet("output-file")) {
             out = new std::ofstream(oc.getString("output-file").c_str());
         }
+        long long int attributes = 0;
+        if (oc.isSet("output.attributes")) {
+            for (std::string attrName : oc.getStringVector("output.attributes")) {
+                if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
+                    if (attrName == "all") {
+                        attributes = std::numeric_limits<long long int>::max() - 1;
+                    } else {
+                        WRITE_ERROR("Unknown attribute '" + attrName + "' to write in output.");
+                    }
+                    continue;
+                }
+                int attr = SUMOXMLDefinitions::Attrs.get(attrName);
+                assert(attr < 63);
+                attributes |= ((long long int)1 << attr);
+            }
+        } else {
+            attributes = ~(((long long int)1 << SUMO_ATTR_AMOUNT));
+        }
         OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
         OutputDevice* xmlOut = nullptr;
         if (oc.isSet("emission-output")) {
@@ -201,7 +222,7 @@ main(int argc, char** argv) {
 
         const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-class"));
         const bool computeA = oc.getBool("compute-a") || oc.getBool("compute-a.forward");
-        TrajectoriesHandler handler(computeA, oc.getBool("compute-a.forward"), oc.getBool("compute-a.zero-correction"), defaultClass, &energyParams, oc.getFloat("slope"), out, xmlOut);
+        TrajectoriesHandler handler(computeA, oc.getBool("compute-a.forward"), oc.getBool("compute-a.zero-correction"), defaultClass, &energyParams, attributes, oc.getFloat("slope"), out, xmlOut);
 
         if (oc.isSet("timeline-file")) {
             int skip = oc.getBool("skip-first") ? 1 : oc.getInt("timeline-file.skip");
@@ -238,7 +259,7 @@ main(int argc, char** argv) {
                         }
                         double a = !computeA && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
                         double s = haveSlope && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
-                        if (handler.writeEmissions(*out, "", defaultClass, &energyParams, t, v, a, s)) {
+                        if (handler.writeEmissions(*out, "", defaultClass, &energyParams, attributes, t, v, a, s)) {
                             l += v;
                             totalA += a;
                             totalS += s;

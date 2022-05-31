@@ -335,6 +335,7 @@ public:
      * @param[in] a The vehicle's average acceleration
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @param{in] tt the time the vehicle travels
+     * @param[in] param parameter of the emission model affecting the computation
      * @return The amount emitted by the given vehicle class [mg]
      */
     static double computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const EnergyParams* param = nullptr);
@@ -347,6 +348,16 @@ public:
      * @return the modified acceleration
      */
     static double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope);
+
+    /** @brief Returns the coasting deceleration value, useful for comparing with external PHEMlight references.
+     * @param[in] c the emission class
+     * @param[in] v the speed value
+     * @param[in] a the acceleration value
+     * @param[in] slope The road's slope at vehicle's position [deg]
+     * @param[in] param parameter of the emission model affecting the computation
+     * @return the coasting deceleration
+     */
+    static double getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param);
 
     /// @brief get energy helper
     static const HelpersEnergy& getEnergyHelper();
