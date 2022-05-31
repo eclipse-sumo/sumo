@@ -17,3 +17,6 @@ nefz_energy
 
 # Battery model, load additional params from vType
 nefz_energy_vtype
+
+# output coasting decel
+coasting
