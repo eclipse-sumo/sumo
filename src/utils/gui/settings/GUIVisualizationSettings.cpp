@@ -1089,10 +1089,10 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     containerColorer.addScheme(scheme);
     scheme = GUIColorScheme("by mode", RGBColor::GREY, "waiting for insertion", true, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::RED, 1., "stopped");
-    scheme.addColor(RGBColor::GREEN, 2., "tranship"); // walking
     scheme.addColor(RGBColor::BLUE, 3., "transport");
     scheme.addColor(RGBColor::CYAN, 4., "accessing trainStop");
     scheme.addColor(RGBColor::YELLOW, 5., "waiting for transport");
+    scheme.addColor(RGBColor::GREEN, 6., "tranship"); // (moving without vehicle)
     containerColorer.addScheme(scheme);
     scheme = GUIColorScheme("by waiting time", RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::CYAN, 30.);
