@@ -338,6 +338,8 @@ GNEJunction::updateCenteringBoundary(const bool updateGrid) {
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
     }
+    // trigger rebuilding tesselation
+    myExaggeration = 2;
 }
 
 
