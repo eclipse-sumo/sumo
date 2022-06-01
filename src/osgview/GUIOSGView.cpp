@@ -138,6 +138,7 @@ GUIOSGView::GUIOSGView(
     myViewer = new osgViewer::Viewer();
     myViewer->getCamera()->setGraphicsContext(myAdapter);
     myViewer->getCamera()->setViewport(0, 0, w, h);
+	myViewer->getCamera()->setNearFarRatio(0.005);
     myViewer->setThreadingModel(osgViewer::Viewer::SingleThreaded);
 	myViewer->addEventHandler(new PickHandler(this));
 

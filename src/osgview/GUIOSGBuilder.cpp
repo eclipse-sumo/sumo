@@ -37,7 +37,9 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
+
 
 #include "GUIOSGView.h"
 #include "GUIOSGBuilder.h"
@@ -103,6 +105,8 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
             lastLane = lane;
         }
     }
+	osg::ref_ptr<osg::StateSet> ss = root->getOrCreateStateSet();
+	ss->setMode(GL_RESCALE_NORMAL, osg::StateAttribute::ON);
     return root;
 }
 
@@ -137,59 +141,72 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
     const std::vector<MSLane*>& lanes = edge.getLanes();
     for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
         MSLane* l = (*j);
+		const bool extrude = edge.isWalkingArea() || isSidewalk(l->getPermissions());
+		const int geomFactor = (edge.isWalkingArea()) ? 1 : 2;
         const PositionVector& shape = l->getShape();
+		const int originalSize = (int)shape.size();
         osg::Geode* geode = new osg::Geode();
         osg::Geometry* geom = new osg::Geometry();
         geode->addDrawable(geom);
         addTo.addChild(geode);
-        const int shapeSize = (int)(edge.isWalkingArea() ? shape.size() : shape.size() * 2);
-        const float zOffset = edge.isWalkingArea() || edge.isCrossing() ? 0.01f : 0.f;
-        osg::Vec3Array* osg_coords = new osg::Vec3Array(shapeSize);
+		const int upperShapeSize = originalSize * geomFactor;
+		const int totalShapeSize = (extrude) ? originalSize * 2 * geomFactor : originalSize * geomFactor;
+        const float zOffset = (extrude)? 0.1f : (edge.isCrossing())? 0.01f : 0.f;
+        osg::Vec3Array* osg_coords = new osg::Vec3Array(totalShapeSize);
         geom->setVertexArray(osg_coords);
         int sizeDiff = 0;
         if (edge.isWalkingArea()) {
-            int index = 0;
-            for (int k = 0; k < (int)shape.size(); ++k, ++index) {
+            int index = upperShapeSize - 1;
+            for (int k = 0; k < upperShapeSize; ++k, --index) {
                 (*osg_coords)[index].set((float)shape[k].x(), (float)shape[k].y(), (float)shape[k].z() + zOffset);
             }
         } else {
-            PositionVector rshape = shape;
-            rshape.move2side(l->getWidth() / 2);
-            int index = 0;
-            for (int k = 0; k < (int)rshape.size(); ++k, ++index) {
-                (*osg_coords)[index].set((float)rshape[k].x(), (float)rshape[k].y(), (float)rshape[k].z() + zOffset);
-            }
-            PositionVector lshape = shape;
-            lshape.move2side(-l->getWidth() / 2);
-            for (int k = (int) lshape.size() - 1; k >= 0; --k, ++index) {
-                (*osg_coords)[index].set((float)lshape[k].x(), (float)lshape[k].y(), (float)lshape[k].z() + zOffset);
-            }
-            sizeDiff = (int)rshape.size() + (int)lshape.size() - shapeSize;
+			PositionVector lshape = shape;
+			lshape.move2side(-l->getWidth() / 2);
+			int index = 0;
+			for (int k = (int)lshape.size() - 1; k >= 0; --k, ++index) {
+				(*osg_coords)[index].set((float)lshape[k].x(), (float)lshape[k].y(), (float)lshape[k].z() + zOffset);
+			}
+			PositionVector rshape = shape;
+			rshape.move2side(l->getWidth() / 2);
+			for (int k = 0; k < (int)rshape.size(); ++k, ++index) {
+			    (*osg_coords)[index].set((float)rshape[k].x(), (float)rshape[k].y(), (float)rshape[k].z() + zOffset);
+			}
+			sizeDiff = (int)rshape.size() + (int)lshape.size() - upperShapeSize;
         }
-        osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
-        (*osg_normals)[0] = osg::Vec3(0, 0, 1);
-#if OSG_MIN_VERSION_REQUIRED(3,2,0)
-        geom->setNormalArray(osg_normals, osg::Array::BIND_PER_PRIMITIVE_SET);
-#else
-        geom->setNormalArray(osg_normals);
-        geom->setNormalBinding(osg::Geometry::BIND_PER_PRIMITIVE);
-#endif
         osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
         (*osg_colors)[0].set(128, 128, 128, 255);
-#if OSG_MIN_VERSION_REQUIRED(3,2,0)
         geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
-#else
-        geom->setColorArray(osg_colors);
-        geom->setColorBinding(osg::Geometry::BIND_OVERALL);
-#endif
-        geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, shapeSize + sizeDiff));
+		geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, upperShapeSize + sizeDiff));
 
+		if (extrude) {
+			int index = upperShapeSize;
+			for (int k = 0; k < upperShapeSize + sizeDiff; ++k, ++index) {
+				(*osg_coords)[index].set((*osg_coords)[k].x(), (*osg_coords)[k].y(), 0.);
+			}
+			// extrude edge to create the kerb
+			for (int i = 0; i < upperShapeSize + sizeDiff; ++i) {
+				osg::Vec3 surfaceVec = (*osg_coords)[i] - (*osg_coords)[(i + 1) % upperShapeSize];
+				if (surfaceVec.length() > 0.) {					
+					osg::DrawElementsUInt* kerb = new osg::DrawElementsUInt(osg::PrimitiveSet::POLYGON, 0);
+					kerb->push_back(i);
+					kerb->push_back(upperShapeSize + i);
+					kerb->push_back(upperShapeSize + (i + 1) % upperShapeSize);
+					kerb->push_back((i + 1) % upperShapeSize);
+					geom->addPrimitiveSet(kerb);
+				}
+			}
+		}
+		else {
+			geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, upperShapeSize + sizeDiff));
+		}
         osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
         ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
         ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
 
         if (shape.size() > 2) {
             tessellator.retessellatePolygons(*geom);
+
 #ifdef DEBUG_TESSEL
             std::cout << "l=" << l->getID() << " origPoints=" << shape.size() << " geomSize=" << geom->getVertexArray()->getNumElements() << " points=";
             for (int i = 0; i < (int)geom->getVertexArray()->getNumElements(); i++) {
@@ -199,6 +216,10 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
             std::cout << "\n";
 #endif
         }
+		osgUtil::SmoothingVisitor sv;
+		sv.setCreaseAngle(0.6*osg::PI);
+		geom->accept(sv);
+
         static_cast<GUILane*>(l)->setGeometry(geom);
     }
 }
