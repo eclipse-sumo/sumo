@@ -1,6 +1,0 @@
-
-[Reported by Windows at 01Jun12:51:12]
-search_string:<edge id="100481757#1"
-search_file:net
-full_description:geometry removal should happen again after edge merging
-brief_description:see #10853
