@@ -159,38 +159,13 @@ GNETranship::writeDemandElement(OutputDevice& device) const {
 
 GNEDemandElement::Problem
 GNETranship::isDemandElementValid() const {
-    if (getParentEdges().size() == 2) {
-        if (getParentEdges().at(0) == getParentEdges().at(1)) {
-            // from and to are the same edges, then path is valid
-            return Problem::OK;
-        } else {
-            // check if exist a route between parent edges
-            if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0) {
-                return Problem::OK;
-            } else {
-                return Problem::INVALID_PATH;
-            }
-        }
-    } else {
-        return Problem::INVALID_ELEMENT;
-    }
+    return Problem::OK;
 }
 
 
 std::string
 GNETranship::getDemandElementProblem() const {
-    if (getParentEdges().size() == 0) {
-        return ("A tranship need at least one edge");
-    } else {
-        // check if exist at least a connection between every edge
-        for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
-                return ("Edge '" + getParentEdges().at((int)i - 1)->getID() + "' and edge '" + getParentEdges().at(i)->getID() + "' aren't consecutives");
-            }
-        }
-        // there is connections bewteen all edges, then all ok
-        return "";
-    }
+    return "";
 }
 
 

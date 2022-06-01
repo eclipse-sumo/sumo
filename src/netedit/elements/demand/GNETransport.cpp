@@ -150,7 +150,7 @@ GNETransport::isDemandElementValid() const {
             return Problem::OK;
         } else {
             // check if exist a route between parent edges
-            if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0) {
+            if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(SVC_IGNORING, getParentEdges()).size() > 0) {
                 return Problem::OK;
             } else {
                 return Problem::INVALID_PATH;
@@ -169,7 +169,7 @@ GNETransport::getDemandElementProblem() const {
     } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
+            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(SVC_IGNORING, getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
                 return ("Edge '" + getParentEdges().at((int)i - 1)->getID() + "' and edge '" + getParentEdges().at(i)->getID() + "' aren't consecutives");
             }
         }
