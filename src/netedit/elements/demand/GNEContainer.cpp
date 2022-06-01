@@ -399,12 +399,16 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             // set scale
             glScaled(exaggeration, exaggeration, 1);
             // draw container depending of detail level
-            if (s.drawDetail(s.detailSettings.personShapes, exaggeration)) {
-                GUIBasePersonHelper::drawAction_drawAsImage(0, length, width, file, SUMOVehicleShape::PEDESTRIAN, exaggeration);
-            } else if (s.drawDetail(s.detailSettings.personCircles, exaggeration)) {
-                GUIBasePersonHelper::drawAction_drawAsCircle(0, length, width, s.scale * exaggeration);
-            } else if (s.drawDetail(s.detailSettings.personTriangles, exaggeration)) {
-                GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
+            switch (s.containerQuality) {
+                case 0:
+                case 1:
+                case 2:
+                    drawAction_drawAsPoly();
+                    break;
+                case 3:
+                default:
+                    drawAction_drawAsImage(s);
+                    break;
             }
             // pop matrix
             GLHelper::popMatrix();
@@ -783,57 +787,57 @@ GNEContainer::getACParametersMap() const {
 void
 GNEContainer::setColor(const GUIVisualizationSettings& s) const {
     const GUIColorer& c = s.containerColorer;
-    if (!setFunctionalColor(c.getActive())) {
-        GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
-    }
+    GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
 }
 
 
-bool
-GNEContainer::setFunctionalColor(int /* activeScheme */) const {
-    /*
-    switch (activeScheme) {
-        case 0: {
-            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(getParameter().color);
-                return true;
-            }
-            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
-                GLHelper::setColor(getVehicleType().getColor());
-                return true;
-            }
-            return false;
+
+void
+GNEContainer::drawAction_drawAsPoly() const {
+    // obtain width and length
+    const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
+    const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
+    // draw pedestrian shape
+    glScaled(length * 0.2, width * 0.2, 1);
+    glBegin(GL_QUADS);
+    glVertex2d(0, 0.5);
+    glVertex2d(0, -0.5);
+    glVertex2d(-1, -0.5);
+    glVertex2d(-1, 0.5);
+    glEnd();
+    GLHelper::setColor(GLHelper::getColor().changedBrightness(-30));
+    glTranslated(0, 0, .045);
+    glBegin(GL_QUADS);
+    glVertex2d(-0.1, 0.4);
+    glVertex2d(-0.1, -0.4);
+    glVertex2d(-0.9, -0.4);
+    glVertex2d(-0.9, 0.4);
+    glEnd();
+}
+
+
+void
+GNEContainer::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
+    const std::string& file = getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
+    // obtain width and length
+    const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
+    const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
+    if (file != "") {
+        // @todo invent an option for controlling whether images should be rotated or not
+        //if (getVehicleType().getGuiShape() == SVS_CONTAINER) {
+        //    glRotated(RAD2DEG(getAngle() + M_PI / 2.), 0, 0, 1);
+        //}
+        int textureID = GUITexturesHelper::getTextureID(file);
+        if (textureID > 0) {
+            const double exaggeration = s.personSize.getExaggeration(s, this);
+            const double halfLength = length / 2.0 * exaggeration;
+            const double halfWidth = width / 2.0 * exaggeration;
+            GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);
         }
-        case 2: {
-            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(getParameter().color);
-                return true;
-            }
-            return false;
-        }
-        case 3: {
-            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
-                GLHelper::setColor(getVehicleType().getColor());
-                return true;
-            }
-            return false;
-        }
-        case 8: { // color by angle
-            double hue = GeomHelper::naviDegree(getAngle());
-            GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
-            return true;
-        }
-        case 9: { // color randomly (by pointer)
-            const double hue = (long)this % 360; // [0-360]
-            const double sat = (((long)this / 360) % 67) / 100.0 + 0.33; // [0.33-1]
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-            return true;
-        }
-        default:
-            return false;
+    } else {
+        // fallback if no image is defined
+        drawAction_drawAsPoly();
     }
-    */
-    return false;
 }
 
 // ===========================================================================

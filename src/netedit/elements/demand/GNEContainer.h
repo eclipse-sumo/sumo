@@ -287,8 +287,11 @@ protected:
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 
-    /// @brief sets the color according to the current scheme index and some vehicle function
-    bool setFunctionalColor(int activeScheme) const;
+    /// @brief draw container as poly
+    void drawAction_drawAsPoly() const;
+
+    /// @brief draw container as image
+    void drawAction_drawAsImage(const GUIVisualizationSettings& s) const;
 
 private:
     // @brief struct used for calculating container plan geometry segments
