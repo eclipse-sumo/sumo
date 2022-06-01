@@ -165,6 +165,9 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
 {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
+    // set end and vehPerHours
+    toogleAttribute(SUMO_ATTR_END, 1);
+    toogleAttribute(SUMO_ATTR_CONTAINERSPERHOUR, 1);
 }
 
 
