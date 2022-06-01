@@ -223,7 +223,7 @@ GNEContainer::getBegin() const {
 void
 GNEContainer::writeDemandElement(OutputDevice& device) const {
     // attribute VType musn't be written if is DEFAULT_PEDTYPE_ID
-    if (getParentDemandElements().at(0)->getID() == DEFAULT_PEDTYPE_ID) {
+    if (getParentDemandElements().at(0)->getID() == DEFAULT_CONTAINERTYPE_ID) {
         // unset VType parameter
         parametersSet &= ~VEHPARS_VTYPE_SET;
         // write container attributes (VType will not be written)
