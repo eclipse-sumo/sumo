@@ -346,7 +346,8 @@ def findMergingSwitches(options, uniqueRoutes, net):
 
     mergeSwitches = set()
     numReversals = 0
-    for edge, preds in predEdges.items():
+    for edge in sorted(predEdges.keys()):
+        preds = predEdges[edge]
         if len(preds) > 1:
             reversalInfo = ""
             if edge in predReversal:
@@ -742,7 +743,8 @@ def findConflicts(options, net, switchRoutes, mergeSignals, signalTimes, stopEdg
     conflicts = defaultdict(list)
     intermediateParkingConflicts = defaultdict(list)
 
-    for switch, stopRoutes2 in switchRoutes.items():
+    for switch in sorted(switchRoutes.keys()):
+        stopRoutes2 = switchRoutes[switch]
         numSwitchConflicts = 0
         numRedundantSwitchConflicts = 0
         numIgnoredSwitchConflicts = 0
