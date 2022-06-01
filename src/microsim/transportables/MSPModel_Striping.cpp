@@ -1991,7 +1991,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
             }
             xSpeed = vMax / 4;
         }
-    } else if (stripe(myRelY) >= 0 && stripe(myRelY) <= sMax)  {
+    } else if (myAmJammed && stripe(myRelY) >= 0 && stripe(myRelY) <= sMax && xDist >= MIN_STARTUP_DIST)  {
         myAmJammed = false;
     }
     // dawdling
