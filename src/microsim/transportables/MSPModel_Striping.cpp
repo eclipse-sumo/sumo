@@ -1721,7 +1721,10 @@ MSPModel_Striping::PState::otherStripe() const {
 double
 MSPModel_Striping::PState::distToLaneEnd() const {
     if (myStage->getNextRouteEdge() == nullptr) {
-        return myDir * (myStage->getArrivalPos() - myRelX) - POSITION_EPS;
+        return myDir * (myStage->getArrivalPos() - myRelX) - POSITION_EPS - (
+                (myWaitingTime > DELTA_T && (myStage->getDestinationStop() == nullptr ||
+                                             myStage->getDestinationStop()->getWaitingCapacity() > myStage->getDestinationStop()->getNumWaitingPersons()))
+                ? getMinGap() : 0);
     } else {
         const double length = myWalkingAreaPath == nullptr ? myLane->getLength() : myWalkingAreaPath->length;
         return myDir == FORWARD ? length - myRelX : myRelX;
