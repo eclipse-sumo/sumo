@@ -281,6 +281,10 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         before = PROGRESS_BEGIN_TIME_MESSAGE("Joining similar edges");
         const bool removeDuplicates = oc.exists("junctions.join-same") && oc.getBool("junctions.join-same");
         myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont, removeDuplicates);
+        // now we may have new chances to remove geometry if wished
+        if (oc.exists("geometry.remove") && oc.getBool("geometry.remove")) {
+            myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont, myPTStopCont, myPTLineCont, myParkingCont, true);
+        }
         PROGRESS_TIME_MESSAGE(before);
     }
     if (oc.getBool("opposites.guess")) {
