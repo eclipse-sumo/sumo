@@ -1047,16 +1047,17 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             prevEdge = &myStops.back().lane->getEdge();
             prevStopPos = myStops.back().pars.endPos;
             stop.edge = std::find(prevStopEdge, myRoute->end(), stopEdge);
-#ifdef DEBUG_ADD_STOP
-            if (DEBUG_COND) {
-                std::cout << " (@end) prevStopEdge=" << (*prevStopEdge)->getID() << " index=" << (int)(prevStopEdge - myRoute->begin()) << "\n";
-            }
-#endif
             if (prevStopEdge == stop.edge                // laneEdge check is insufficient for looped routes
                     && prevEdge == &stop.lane->getEdge() // route iterator check insufficient for internal lane stops
                     && prevStopPos > stop.pars.endPos) {
                 stop.edge = std::find(prevStopEdge + 1, myRoute->end(), stopEdge);
             }
+#ifdef DEBUG_ADD_STOP
+            if (DEBUG_COND) {
+                std::cout << " (@end) prevStopEdge=" << (*prevStopEdge)->getID() << " index=" << (int)(prevStopEdge - myRoute->begin())
+                    << " foundIndex=" << (stop.edge == myRoute->end() ? -1 : (int)(stop.edge - myRoute->begin())) << "\n";
+            }
+#endif
         }
     } else {
         if (stopPar.index == STOP_INDEX_FIT) {
