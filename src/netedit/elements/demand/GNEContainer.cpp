@@ -78,7 +78,7 @@ GNEContainer::GNEContainerPopupMenu::GNEContainerPopupMenu(GNEContainer* contain
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all transformations
         myTransformToContainer = GUIDesigns::buildFXMenuCommand(transformOperation, "Container", GUIIconSubSys::getIcon(GUIIcon::CONTAINER), this, MID_GNE_CONTAINER_TRANSFORM);
-        myTransformToContainerFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "Container (embedded route)", GUIIconSubSys::getIcon(GUIIcon::CONTAINERFLOW), this, MID_GNE_CONTAINER_TRANSFORM);
+        myTransformToContainerFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "ContainerFlow", GUIIconSubSys::getIcon(GUIIcon::CONTAINERFLOW), this, MID_GNE_CONTAINER_TRANSFORM);
         // check what menu command has to be disabled
         if (myContainer->getTagProperty().getTag() == SUMO_TAG_CONTAINER) {
             myTransformToContainer->disable();
@@ -144,13 +144,13 @@ GNEContainer::GNESelectedContainersPopupMenu::~GNESelectedContainersPopupMenu() 
 long
 GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) {
     // iterate over all selected containers
-    for (const auto& i : mySelectedContainers) {
+    for (const auto& container : mySelectedContainers) {
         if ((obj == myTransformToContainer) &&
-                (i->getTagProperty().getTag() == myContainerTag)) {
-            GNERouteHandler::transformToContainer(i);
+                (container->getTagProperty().getTag() == myContainerTag)) {
+            GNERouteHandler::transformToContainer(container);
         } else if ((obj == myTransformToContainerFlow) &&
-                   (i->getTagProperty().getTag() == myContainerTag)) {
-            GNERouteHandler::transformToContainer(i);
+                   (container->getTagProperty().getTag() == myContainerTag)) {
+            GNERouteHandler::transformToContainer(container);
         }
     }
     return 1;
