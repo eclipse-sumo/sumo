@@ -28,8 +28,8 @@ below. Each container must have at least one stage in its plan.
 
 | Attribute | Type      | Range               | Default | Remark |
 | --------- | --------- | ------------------- | ------- | ------ |
-| id        | string    | valid XML ids       | \-      |        |
-| depart    | float(s)  | ≥0                  | \-      |        |
+| **id**    | string    | valid XML ids       | \-      |        |
+| **depart**| float(s)  | ≥0                  | \-      |        |
 | type      | string    | any declared vType  |         |        |
 | color     | rgb color |                     |         |        |
 
@@ -49,10 +49,10 @@ elements of plan definitions.
 
 | Attribute     | Type   | Range                     | Default | Remark                                                 |
 | ------------- | ------ | ------------------------- | ------- | ------------------------------------------------------ |
-| from          | string | valid edge ids            | \-      | id of the start edge (optional, if it is a subsequent movement or [starts in a vehicle](Containers.md#starting_the_simulation_in_a_vehicle)) |
-| to            | string | valid edge ids            | \-      | id of the destination edge                             |
-| containerStop | string | valid container stop ids  | \-      | id of the destination stop                             |
-| lines         | list   | valid line or vehicle ids | \-      | list of vehicle alternatives to take for the transport |
+| from      | string | valid edge ids                | \-      | id of the start edge (optional, if it is a subsequent movement or [starts in a vehicle](Containers.md#starting_the_simulation_in_a_vehicle)) |
+| to        | string | valid edge ids                | \-      | id of the destination edge                             |
+| **lines**     | list   | valid line or vehicle ids | \-      | list of vehicle alternatives to take for the transport |
+| containerStop | string | valid container stop ids  | \-      | id of the destination stop (allows to ommit *to*)       |
 | arrivalPos    |float(m)|                           | \-1     | arrival position on the destination edge               |
 
 The route to take is defined by the vehicle.
