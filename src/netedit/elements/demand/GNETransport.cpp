@@ -296,6 +296,7 @@ GNETransport::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         // Common container plan attributes
         case SUMO_ATTR_ID:
+        case GNE_ATTR_PARENT:
             return getParentDemandElements().front()->getID();
         case SUMO_ATTR_FROM:
             return getParentEdges().front()->getID();
@@ -316,8 +317,6 @@ GNETransport::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
-        case GNE_ATTR_PARENT:
-            return getParentDemandElements().front()->getID();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -371,6 +370,7 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_ARRIVALPOS:
         case SUMO_ATTR_LINES:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_PARENT:
         case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
@@ -441,6 +441,14 @@ GNETransport::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
+        case GNE_ATTR_PARENT:
+            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_CONTAINER, value, false) != nullptr) {
+                return true;
+            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_CONTAINERFLOW, value, false) != nullptr) {
+                return true;
+            } else {
+                return false;
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -538,6 +546,14 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_PARENT:
+            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_CONTAINER, value, false) != nullptr) {
+                replaceDemandElementParent(SUMO_TAG_CONTAINER, value, 0);
+            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_CONTAINERFLOW, value, false) != nullptr) {
+                replaceDemandElementParent(SUMO_TAG_CONTAINERFLOW, value, 0);
+            }
+            updateGeometry();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
