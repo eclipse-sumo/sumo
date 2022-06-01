@@ -42,6 +42,7 @@
 #include <microsim/MSRouteHandler.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDevice_Taxi.h>
+#include "MSStageTrip.h"
 #include "MSPerson.h"
 #include "MSPModel.h"
 

@@ -36,6 +36,7 @@
 #include <microsim/devices/MSTransportableDevice.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/transportables/MSStageTrip.h>
 #include <microsim/transportables/MSTransportable.h>
 
 
