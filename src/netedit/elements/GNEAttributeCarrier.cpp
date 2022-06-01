@@ -4127,13 +4127,12 @@ GNEAttributeCarrier::fillContainerTransportElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                                               "list of vehicle alternatives to take for the " + toString(currentTag),
-                                              "");
+                                              "ANY");
         myTagProperties[currentTag].addAttribute(attrProperty);
         // arrival position
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                                              "arrival position on the destination edge",
-                                              "-1");
+                                              "arrival position on the destination edge");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_TRANSPORT_CONTAINERSTOP;
@@ -4152,7 +4151,7 @@ GNEAttributeCarrier::fillContainerTransportElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                                               "list of vehicle alternatives to take for the " + toString(currentTag),
-                                              "");
+                                              "ANY");
         myTagProperties[currentTag].addAttribute(attrProperty);
         // to busStop
         attrProperty = GNEAttributeProperties(GNE_ATTR_TO_CONTAINERSTOP,
@@ -4200,8 +4199,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
         // arrival position
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                                              "arrival position on the destination edge",
-                                              "-1");
+                                              "arrival position on the destination edge");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP;
@@ -4261,8 +4259,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
         // arrival pos
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Arrival position on the destination edge",
-                                              "-1");
+                                              "Arrival position on the destination edge");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
@@ -4375,8 +4372,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // arrival position
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "arrival position on the destination edge",
-                                              "-1");
+                                              "arrival position on the destination edge");
         myTagProperties[currentTag].addAttribute(attrProperty);
         // vTypes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
@@ -4473,8 +4469,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // arrival position
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "arrival position on the destination edge",
-                                              "-1");
+                                              "arrival position on the destination edge");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_WALK_BUSSTOP;
@@ -4510,8 +4505,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // arrival pos
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Arrival position on the destination edge",
-                                              "-1");
+                                              "Arrival position on the destination edge");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_WALK_ROUTE;
@@ -4529,8 +4523,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // arrival pos
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Arrival position on the destination edge",
-                                              "-1");
+                                              "Arrival position on the destination edge");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 
@@ -4580,8 +4573,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
         // arrival position
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              "arrival position on the destination edge",
-                                              "-1");
+                                              "arrival position on the destination edge");
         myTagProperties[currentTag].addAttribute(attrProperty);
         // lines
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
