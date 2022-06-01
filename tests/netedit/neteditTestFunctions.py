@@ -1520,6 +1520,82 @@ def changePersonFlowPlan(personFlowPlan):
     pasteIntoTextField(personFlowPlan)
     # type enter to save change
     typeEnter()
+    
+#################################################
+# container elements
+#################################################
+
+
+def containerMode():
+    """
+    @brief change to container mode
+    """
+    typeKey('g')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+
+def changeContainerMode(value):
+    """
+    @brief change container mode
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to container mode
+    typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
+
+
+def changeContainerVClass(value):
+    """
+    @brief change vClass mode
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to vClass
+    for _ in range(3):
+        typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
+
+
+def changeContainerPlan(containerPlan, flow):
+    """
+    @brief change containerPlan
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to container plan
+    if (flow):
+        for _ in range(20):
+            typeTab()
+    else:
+        for _ in range(13):
+            typeTab()
+    # paste the new containerPlan
+    pasteIntoTextField(containerPlan)
+    # type enter to save change
+    typeEnter()
+
+
+def changeContainerFlowPlan(containerFlowPlan):
+    """
+    @brief change containerFlowPlan
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to containerFlow plan
+    for _ in range(23):
+        typeTab()
+    # paste the new containerFlowPlan
+    pasteIntoTextField(containerFlowPlan)
+    # type enter to save change
+    typeEnter()
 
 #################################################
 # stop elements
