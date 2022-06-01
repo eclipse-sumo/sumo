@@ -2101,7 +2101,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             }
             // check whether the cluster should be controlled
             // to avoid gigantic clusters, assume that at most 4 nodes should be needed for a guessed-joined-tls
-            if (c.size() == 0 || !shouldBeTLSControlled(c, laneSpeedThreshold * (double)(c.size() / MIN2((int)c.size(), 4)))) {
+            if (c.size() == 0 || !shouldBeTLSControlled(c, laneSpeedThreshold * (double)c.size() / MIN2((double)c.size(), 4.))) {
                 i = cands.erase(i);
             } else {
                 ++i;
