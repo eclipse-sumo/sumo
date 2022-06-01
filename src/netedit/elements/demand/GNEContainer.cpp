@@ -259,8 +259,8 @@ GNEContainer::writeDemandElement(OutputDevice& device) const {
     // write parameters
     writeParams(device);
     // write child demand elements associated to this container (Rides, Walks...)
-    for (const auto& i : getChildDemandElements()) {
-        i->writeDemandElement(device);
+    for (const auto& containerPlan : getChildDemandElements()) {
+        containerPlan->writeDemandElement(device);
     }
     // close container tag
     device.closeTag();

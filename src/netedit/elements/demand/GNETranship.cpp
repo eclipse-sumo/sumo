@@ -39,7 +39,7 @@ GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
 {}, {}, {}, {}, {}, {}),
 mySpeed(0),
 myDepartPosition(0),
-myArrivalPosition(0) {
+myArrivalPosition(-1) {
     // reset default values
     resetDefaultValues();
 }
