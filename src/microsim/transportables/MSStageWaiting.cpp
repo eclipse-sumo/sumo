@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <utils/vehicle/SUMOVehicleParameter.h>
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>

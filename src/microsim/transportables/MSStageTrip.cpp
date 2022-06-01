@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <utils/common/StringTokenizer.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/router/PedestrianRouter.h>
