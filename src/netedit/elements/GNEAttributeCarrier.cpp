@@ -4088,7 +4088,7 @@ GNEAttributeCarrier::fillContainerElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINER,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINER | GNETagProperties::FLOW,
                                       0,
                                       GUIIcon::CONTAINERFLOW, currentTag);
 
