@@ -322,7 +322,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             buildTransport(obj,
                            obj->getStringAttribute(SUMO_ATTR_FROM),
                            obj->getStringAttribute(SUMO_ATTR_TO),
-                           obj->getStringAttribute(SUMO_ATTR_BUS_STOP),
+                           obj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP),
                            obj->getStringListAttribute(SUMO_ATTR_LINES),
                            obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS));
             break;
@@ -330,7 +330,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             buildTranship(obj,
                           obj->getStringAttribute(SUMO_ATTR_FROM),
                           obj->getStringAttribute(SUMO_ATTR_TO),
-                          obj->getStringAttribute(SUMO_ATTR_BUS_STOP),
+                          obj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP),
                           obj->getStringListAttribute(SUMO_ATTR_EDGES),
                           obj->getDoubleAttribute(SUMO_ATTR_SPEED),
                           obj->getDoubleAttribute(SUMO_ATTR_DEPARTPOS),
