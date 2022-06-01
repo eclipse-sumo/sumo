@@ -368,7 +368,7 @@ public:
                                     double halfWidth, bool cl, bool cr, bool lefthand, double scale);
 
     /// @brief draw vertex numbers for the given shape (in a random color)
-    static void debugVertices(const PositionVector& shape, double size, double layer = 256);
+    static void debugVertices(const PositionVector& shape, const GUIVisualizationTextSettings& settings, double scale, double layer = 1024);
 
     /// @brief Draw a boundary (used for debugging)
     static void drawBoundary(const Boundary& b);

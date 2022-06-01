@@ -953,6 +953,9 @@ public:
     /// @brief flag to force draw for rectangle selection (see drawForRectangleSelection)
     bool forceDrawForRectangleSelection;
 
+    // Setting bundles for optional drawing geometry point indices
+    GUIVisualizationTextSettings geometryIndices;
+
     /**@brief whether drawing is performed in left-hand networks
      * @note used to avoid calls to OptionsCont::getOptions() in every drawgl(...) function, and
      * updated in every doPaintGL(int mode, const Boundary& bound) call

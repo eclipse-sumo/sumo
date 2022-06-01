@@ -58,8 +58,6 @@
 
 #include <osgview/GUIOSGHeader.h>
 
-//#define GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
-//#define GUILane_DEBUG_DRAW_VERTICES
 //#define GUILane_DEBUG_DRAW_FOE_INTERSECTIONS
 
 // ===========================================================================
@@ -602,9 +600,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                         myTesselation->drawTesselation(myShape);
                     }
                     glTranslated(0, 0, -.2);
-#ifdef GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
-                    GLHelper::debugVertices(myShape, 80 / s.scale);
-#endif
+                    if (s.geometryIndices.show(this)) {
+                        GLHelper::debugVertices(myShape, s.geometryIndices, s.scale);
+                    }
                 }
             } else {
                 // we draw the lanes with reduced width so that the lane markings below are visible
@@ -620,15 +618,15 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfWidth * exaggeration, cornerDetail, offset);
                 }
             }
-#ifdef GUILane_DEBUG_DRAW_VERTICES
-            GLHelper::debugVertices(myShape, 80 / s.scale);
-#endif
 #ifdef GUILane_DEBUG_DRAW_FOE_INTERSECTIONS
             if (myEdge->isInternal() && gSelected.isSelected(getType(), getGlID())) {
                 debugDrawFoeIntersections();
             }
 #endif
             GLHelper::popMatrix();
+            if (s.geometryIndices.show(this)) {
+                GLHelper::debugVertices(myShape, s.geometryIndices, s.scale);
+            }
             // draw details
             if ((!isInternal || isCrossing || !s.drawJunctionShape) && (drawDetails || s.drawForPositionSelection || junctionExaggeration > 1)) {
                 GLHelper::pushMatrix();

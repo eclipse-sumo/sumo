@@ -47,8 +47,6 @@
 
 #include <osgview/GUIOSGHeader.h>
 
-//#define GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -166,9 +164,6 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 } else {
                     myTesselation.drawTesselation(myTesselation.getShape());
                 }
-#ifdef GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES
-                GLHelper::debugVertices(shape, 80 / s.scale);
-#endif
                 // make small junctions more visible when coloring by type
                 if (myJunction.getType() == SumoXMLNodeType::RAIL_SIGNAL && s.junctionColorer.getActive() == 2) {
                     glTranslated(myJunction.getPosition().x(), myJunction.getPosition().y(), getType() + 0.05);
@@ -177,6 +172,9 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
             }
             GLHelper::popName();
             GLHelper::popMatrix();
+            if (s.geometryIndices.show(this)) {
+                GLHelper::debugVertices(myJunction.getShape(), s.geometryIndices, s.scale);
+            }
         }
     }
     if (myIsInternal) {

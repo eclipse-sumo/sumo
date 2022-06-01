@@ -400,7 +400,7 @@ protected:
                *myAddNamePanel, *myAddFullNamePanel,
                *myPOINamePanel, *myPOITypePanel, *myPOITextPanel,
                *myPolyNamePanel, *myPolyTypePanel,
-               *myDataValuePanel;
+               *myDataValuePanel, *myGeometryIndicesPanel;
 
     /// @brief size panels
     SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myContainerSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel, *myJunctionSizePanel;

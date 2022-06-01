@@ -870,10 +870,15 @@ GLHelper::drawInverseMarkings(const PositionVector& geom,
 
 
 void
-GLHelper::debugVertices(const PositionVector& shape, double size, double layer) {
+GLHelper::debugVertices(const PositionVector& shape, const GUIVisualizationTextSettings& settings, double scale, double layer) {
     RGBColor color = RGBColor::randomHue();
     for (int i = 0; i < (int)shape.size(); ++i) {
-        GLHelper::drawText(toString(i), shape[i], layer, size, color, 0);
+        drawTextBox(toString(i), shape[i], layer,
+                settings.scaledSize(scale),
+                color,
+                settings.bgColor,
+                RGBColor::INVISIBLE,
+                0, 0, 0.2);
     }
 }
 

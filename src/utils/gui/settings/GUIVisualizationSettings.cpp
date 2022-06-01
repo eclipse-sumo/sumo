@@ -589,6 +589,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     drawForRectangleSelection(false),
     forceDrawForPositionSelection(false),
     forceDrawForRectangleSelection(false),
+    geometryIndices(false, 50, RGBColor(255, 0, 128, 255)),
     lefthand(false),
     disableLaneIcons(false) {
     // init defaults depending of NETEDIT or SUMO-GUI
@@ -1667,6 +1668,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("drawBoundaries", drawBoundaries);
     dev.writeAttr("forceDrawPositionSelection", forceDrawForPositionSelection);
     dev.writeAttr("forceDrawRectangleSelection", forceDrawForRectangleSelection);
+    dev.writeAttr("forceDrawRectangleSelection", forceDrawForRectangleSelection);
+    geometryIndices.print(dev, "geometryIndices");
     dev.closeTag();
     dev.openTag(SUMO_TAG_VIEWSETTINGS_BACKGROUND);
     dev.writeAttr("backgroundColor", backgroundColor);
@@ -1893,6 +1896,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (forceDrawForRectangleSelection != v2.forceDrawForRectangleSelection) {
+        return false;
+    }
+    if (geometryIndices != v2.geometryIndices) {
         return false;
     }
     if (backgroundColor != v2.backgroundColor) {

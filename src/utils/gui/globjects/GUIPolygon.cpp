@@ -39,7 +39,6 @@
 #define CALLBACK
 #endif
 
-//#define GUIPolygon_DEBUG_DRAW_VERTICES
 
 // ===========================================================================
 // static members
@@ -363,10 +362,10 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const Tesselated
         glDisable(GL_TEXTURE_GEN_S);
         glDisable(GL_TEXTURE_GEN_T);
     }
-#ifdef GUIPolygon_DEBUG_DRAW_VERTICES
-    GLHelper::debugVertices(shape, 80 / s.scale);
-#endif
     GLHelper::popMatrix();
+    if (s.geometryIndices.show(o)) {
+        GLHelper::debugVertices(shape, s.geometryIndices, s.scale);
+    }
     const Position& namePos = shape.getPolygonCenter();
     o->drawName(namePos, s.scale, s.polyName, s.angle);
     if (s.polyType.show(o)) {
