@@ -1824,7 +1824,7 @@ NBNodeCont::analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
             }
         }
     }
-    pos.mul(1.0 / cluster.size());
+    pos.mul(1. / (double)cluster.size());
     if (ambiguousType) {
         type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
         WRITE_WARNINGF("Ambiguous traffic light type for node cluster '%', setting to '%'.", id, toString(type));
@@ -2101,7 +2101,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             }
             // check whether the cluster should be controlled
             // to avoid gigantic clusters, assume that at most 4 nodes should be needed for a guessed-joined-tls
-            if (c.size() == 0 || !shouldBeTLSControlled(c, laneSpeedThreshold * c.size() / MIN2((int)c.size(), 4))) {
+            if (c.size() == 0 || !shouldBeTLSControlled(c, laneSpeedThreshold * (double)(c.size() / MIN2((int)c.size(), 4)))) {
                 i = cands.erase(i);
             } else {
                 ++i;

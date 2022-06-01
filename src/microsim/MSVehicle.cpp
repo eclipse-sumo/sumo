@@ -3777,7 +3777,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
         // ensure that the vehicle is fully on bidi edges that allow reversal
         const int neededFutureRoute = 1 + (int)(MSGlobals::gUsingInternalLanes
                                                 ? myFurtherLanes.size()
-                                                : ceil(myFurtherLanes.size() / 2.0));
+                                                : ceil((double)myFurtherLanes.size() / 2.0));
         const int remainingRoute = int(myRoute->end() - myCurrEdge) - 1;
         if (remainingRoute < neededFutureRoute) {
 #ifdef DEBUG_REVERSE_BIDI
@@ -7130,7 +7130,7 @@ MSVehicle::Manoeuvre::configureEntryManoeuvre(MSVehicle* veh) {
     myManoeuvreType = MSVehicle::MANOEUVRE_ENTRY;
     myManoeuvreStartTime = currentTime;
     myManoeuvreCompleteTime = currentTime + veh->myType->getEntryManoeuvreTime(manoeuverAngle);
-    myGUIIncrement = GUIAngle / ((myManoeuvreCompleteTime - myManoeuvreStartTime) / (TS * 1000.));
+    myGUIIncrement = GUIAngle / (STEPS2TIME(myManoeuvreCompleteTime - myManoeuvreStartTime) / TS);
 
 #ifdef DEBUG_STOPS
     if (veh->isSelected()) {
@@ -7169,7 +7169,7 @@ MSVehicle::Manoeuvre::configureExitManoeuvre(MSVehicle* veh) {
     myManoeuvreType = MSVehicle::MANOEUVRE_EXIT;
     myManoeuvreStartTime = currentTime;
     myManoeuvreCompleteTime = currentTime + veh->myType->getExitManoeuvreTime(manoeuverAngle);
-    myGUIIncrement = (-GUIAngle) / ((myManoeuvreCompleteTime - myManoeuvreStartTime) / (TS * 1000.));
+    myGUIIncrement = -GUIAngle / (STEPS2TIME(myManoeuvreCompleteTime - myManoeuvreStartTime) / TS);
     if (veh->remainingStopDuration() > 0) {
         myManoeuvreCompleteTime += veh->remainingStopDuration();
     }

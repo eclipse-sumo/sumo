@@ -38,7 +38,7 @@ void PushButtonLogic::init(std::string prefix, const Parameterised* parameterise
 
 bool PushButtonLogic::pushButtonLogic(SUMOTime elapsed, bool pushButtonPressed, const MSPhaseDefinition* stage) {
     //pushbutton logic
-    if (pushButtonPressed && elapsed >= (SUMOTime)(stage->duration * m_pushButtonScaleFactor)) {
+    if (pushButtonPressed && (double)elapsed >= (double)stage->duration * m_pushButtonScaleFactor) {
         //If the stage duration has been passed
 #ifdef SWARM_DEBUG
         std::ostringstream oss;

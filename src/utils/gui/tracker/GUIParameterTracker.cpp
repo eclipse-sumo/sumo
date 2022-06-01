@@ -322,7 +322,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     if (values.size() < 2) {
         // draw name
         glTranslated(-.9, 0.9, 0);
-        GLHelper::drawText(desc.getName(), Position((double)index / myParent->myTracked.size(), 0), 1, fontHeight, col, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+        GLHelper::drawText(desc.getName(), Position((double)index / (double)myParent->myTracked.size(), 0.), 1, fontHeight, col, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
         desc.unlockValues();
         return;
     }
@@ -421,7 +421,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
 
     // draw name
     glTranslated(-0.98, .92, 0);
-    GLHelper::drawText(desc.getName(), Position((double)index / myParent->myTracked.size(), 0), 1, fontHeight, col, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    GLHelper::drawText(desc.getName(), Position((double)index / (double)myParent->myTracked.size(), 0.), 1, fontHeight, col, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
     glTranslated(0.98, -.92, 0);
 
     // draw current value (with contrasting color)
@@ -442,7 +442,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         if (index == 0) {
             // time is the same for all plots so we only draw it once
             const std::string mouseTime = time2string(beginStep + static_cast<SUMOTime>(mIndex * desc.getAggregationSpan()));
-            glTranslated(1.6 * mIndex / values.size() - 0.8, -0.9, 0);
+            glTranslated(1.6 * (double)mIndex / (double)values.size() - 0.8, -0.9, 0);
             GLHelper::drawText(mouseTime, Position(0, 0), 1, fontHeight, isMultiPlot ? col.changedBrightness(-40) : RGBColor::BLUE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
         }
     }

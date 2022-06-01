@@ -81,6 +81,7 @@
  * ----------------------------------------------------------------------- */
 #ifdef _MSC_VER
 #pragma warning(push)
+/* Disable warning about using "this" in the constructor */
 #pragma warning(disable: 4355)
 #endif
 GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,

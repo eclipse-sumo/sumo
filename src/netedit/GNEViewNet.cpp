@@ -73,6 +73,11 @@
 #include "GNEApplicationWindow.h"
 
 
+#ifdef _MSC_VER
+/* Disable warning about using "this" in the constructor */
+#pragma warning(disable: 4355)
+#endif
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -213,10 +218,10 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewNetMap))
 
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
 GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
                        GNEViewParent* viewParent, GNENet* net, const bool newNet, GNEUndoList* undoList,
                        FXGLVisual* glVis, FXGLCanvas* share) :

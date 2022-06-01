@@ -41,6 +41,7 @@
 // ===========================================================================
 #ifdef _MSC_VER
 #pragma warning(push)
+/* Disable warning about using "this" in the constructor */
 #pragma warning(disable: 4355)
 #endif
 GUIMEVehicle::GUIMEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,

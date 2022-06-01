@@ -230,14 +230,14 @@ MSCFModel::applyStartupDelay(const MSVehicle* veh, double vMin, double vMax) con
     // timeSinceStartup was already incremented by DELTA_T
     if (veh->getTimeSinceStartup() > 0 && veh->getTimeSinceStartup() - DELTA_T < myStartupDelay) {
         assert(veh->getSpeed() <= SUMO_const_haltingSpeed);
-        SUMOTime remainingDelay = myStartupDelay  - (veh->getTimeSinceStartup() - DELTA_T);
+        const SUMOTime remainingDelay = myStartupDelay  - (veh->getTimeSinceStartup() - DELTA_T);
         //std::cout << SIMTIME << " applyStartupDelay veh=" << veh->getID() << " remainingDelay=" << remainingDelay << "\n";
         if (remainingDelay >= DELTA_T) {
             // delay startup by at least a whole step
             return 0;
         } else {
-            // reduce acceleration for frational startup delay
-            return 1.0 * (DELTA_T - remainingDelay) / DELTA_T * vMax;
+            // reduce acceleration for fractional startup delay
+            return (double)(DELTA_T - remainingDelay) / (double)DELTA_T * vMax;
         }
     }
     return vMax;

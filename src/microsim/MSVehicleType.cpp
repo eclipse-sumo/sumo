@@ -211,7 +211,7 @@ MSVehicleType::setSpeedDeviation(const double& dev) {
 
 void
 MSVehicleType::setActionStepLength(const SUMOTime actionStepLength, bool resetActionOffset) {
-    assert(actionStepLength >= 0.);
+    assert(actionStepLength >= 0);
     myParameter.parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
 
     if (myParameter.actionStepLength == actionStepLength) {

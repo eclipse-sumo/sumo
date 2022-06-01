@@ -1852,23 +1852,20 @@ NBNode::removeEdge(NBEdge* edge, bool removeFromConnections) {
 Position
 NBNode::getEmptyDir() const {
     Position pos(0, 0);
-    EdgeVector::const_iterator i;
-    for (i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-        NBNode* conn = (*i)->getFromNode();
-        Position toAdd = conn->getPosition();
+    for (const NBEdge* const in : myIncomingEdges) {
+        Position toAdd = in->getFromNode()->getPosition();
         toAdd.sub(myPosition);
-        toAdd.mul((double) 1.0 / sqrt(toAdd.x()*toAdd.x() + toAdd.y()*toAdd.y()));
+        toAdd.norm2d();
         pos.add(toAdd);
     }
-    for (i = myOutgoingEdges.begin(); i != myOutgoingEdges.end(); i++) {
-        NBNode* conn = (*i)->getToNode();
-        Position toAdd = conn->getPosition();
+    for (const NBEdge* const out : myOutgoingEdges) {
+        Position toAdd = out->getToNode()->getPosition();
         toAdd.sub(myPosition);
-        toAdd.mul((double) 1.0 / sqrt(toAdd.x()*toAdd.x() + toAdd.y()*toAdd.y()));
+        toAdd.norm2d();
         pos.add(toAdd);
     }
-    pos.mul((double) - 1.0 / (myIncomingEdges.size() + myOutgoingEdges.size()));
-    if (pos.x() == 0 && pos.y() == 0) {
+    pos.mul(-1. / (double)(myIncomingEdges.size() + myOutgoingEdges.size()));
+    if (pos.x() == 0. && pos.y() == 0.) {
         pos = Position(1, 0);
     }
     pos.norm2d();

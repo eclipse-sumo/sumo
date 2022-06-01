@@ -55,9 +55,9 @@ FXTreeItemDynamic::setTextColor(FXColor clr) {
 
 void
 FXTreeItemDynamic::draw(const FXTreeList* list, FXDC& dc, FXint xx, FXint yy, FXint, FXint hh) const {
-    register FXIcon* icon = (state & OPENED) ? openIcon : closedIcon;
-    register FXFont* font = list->getFont();
-    register FXint th = 0, tw = 0, ih = 0, iw = 0;
+    FXIcon* icon = (state & OPENED) ? openIcon : closedIcon;
+    FXFont* font = list->getFont();
+    FXint th = 0, tw = 0, ih = 0, iw = 0;
     xx += SIDE_SPACING / 2;
     if (icon) {
         iw = icon->getWidth();

@@ -772,9 +772,9 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
         glTranslated(0, 0, 0.1);
         glBegin(GL_QUADS);
         glVertex2d(left, topi + fontHeight * bgShift);
-        glVertex2d(left - fontWidth * text.size() / 2, topi + fontHeight * bgShift);
-        glVertex2d(left - fontWidth * text.size() / 2, topi + fontHeight * (1 + bgShift));
-        glVertex2d(left, topi + fontHeight * (1 + bgShift));
+        glVertex2d(left - fontWidth * (double)text.size() / 2., topi + fontHeight * bgShift);
+        glVertex2d(left - fontWidth * (double)text.size() / 2., topi + fontHeight * (1. + bgShift));
+        glVertex2d(left, topi + fontHeight * (1. + bgShift));
         glEnd();
         glTranslated(0, 0, -0.1);
         GLHelper::drawText(text, Position(textX, topi + textShift), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
