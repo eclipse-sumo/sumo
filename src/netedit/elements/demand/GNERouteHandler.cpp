@@ -828,8 +828,10 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
     GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
     GNEAdditional* toContainerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, toContainerStopID, false);
     std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
+    // avoid consecutive duplicated edges
+    edges.erase(std::unique(edges.begin(), edges.end()), edges.end());
     // check conditions
-    if (containerParent && fromEdge) {
+    if (containerParent && (fromEdge || (edges.size() > 0))) {
         if (edges.size() > 0) {
             // create tranship edges
             GNEDemandElement* tranship = new GNETranship(myNet, containerParent, edges, speed, departPosition, arrivalPosition);
