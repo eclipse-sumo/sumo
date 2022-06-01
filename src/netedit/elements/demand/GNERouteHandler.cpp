@@ -1769,14 +1769,69 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
 
 
 void
-GNERouteHandler::transformToContainer(GNEContainer* /*originalContainer*/) {
-    //
+GNERouteHandler::transformToContainer(GNEContainer* originalContainer) {
+    // get pointer to net
+    GNENet* net = originalContainer->getNet();
+    // declare route handler
+    GNERouteHandler routeHandler("", net, true);
+    // obtain container parameters
+    SUMOVehicleParameter containerParameters = *originalContainer;
+    // get container plans
+    const auto containerPlans = originalContainer->getChildDemandElements();
+    // save ID
+    const auto ID = containerParameters.id;
+    // set dummy ID
+    containerParameters.id = "%dummyID%";
+    // begin undo-redo operation
+    net->getViewNet()->getUndoList()->begin(originalContainer->getTagProperty().getGUIIcon(), "transform " + originalContainer->getTagStr() + " to " + toString(SUMO_TAG_CONTAINER));
+    // create containerFlow
+    routeHandler.buildContainer(nullptr, containerParameters);
+    // move all container plans to new container
+    for (const auto &containerPlan : containerPlans) {
+        containerPlan->setAttribute(GNE_ATTR_PARENT, "%dummyID%", net->getViewNet()->getUndoList());
+    }
+    // delete original container plan
+    net->deleteDemandElement(originalContainer, net->getViewNet()->getUndoList());
+    // restore ID of new container plan
+    auto newContainer = net->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_CONTAINER, "%dummyID%");
+    newContainer->setAttribute(SUMO_ATTR_ID, ID, net->getViewNet()->getUndoList());
+    // finish undoList
+    net->getViewNet()->getUndoList()->end();
 }
 
 
 void
-GNERouteHandler::transformToContainerFlow(GNEContainer* /*originalContainer*/) {
-    //
+GNERouteHandler::transformToContainerFlow(GNEContainer* originalContainer) {
+    // get pointer to net
+    GNENet* net = originalContainer->getNet();
+    // declare route handler
+    GNERouteHandler routeHandler("", net, true);
+    // obtain container parameters
+    SUMOVehicleParameter containerParameters = *originalContainer;
+    // get container plans
+    const auto containerPlans = originalContainer->getChildDemandElements();
+    // save ID
+    const auto ID = containerParameters.id;
+    // set dummy ID
+    containerParameters.id = "%dummyID%";
+    // begin undo-redo operation
+    net->getViewNet()->getUndoList()->begin(originalContainer->getTagProperty().getGUIIcon(), "transform " + originalContainer->getTagStr() + " to " + toString(SUMO_TAG_CONTAINERFLOW));
+    // create containerFlow
+    routeHandler.buildContainerFlow(nullptr, containerParameters);
+    // move all container plans to new container
+    for (const auto &containerPlan : containerPlans) {
+        containerPlan->setAttribute(GNE_ATTR_PARENT, "%dummyID%", net->getViewNet()->getUndoList());
+    }
+    // delete original container plan
+    net->deleteDemandElement(originalContainer, net->getViewNet()->getUndoList());
+    // restore ID of new container plan
+    auto newContainer = net->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_CONTAINERFLOW, "%dummyID%");
+    newContainer->setAttribute(SUMO_ATTR_ID, ID, net->getViewNet()->getUndoList());
+    // enable attributes
+    newContainer->enableAttribute(SUMO_ATTR_END, net->getViewNet()->getUndoList());
+    newContainer->enableAttribute(SUMO_ATTR_CONTAINERSPERHOUR, net->getViewNet()->getUndoList());
+    // finish undoList
+    net->getViewNet()->getUndoList()->end();
 }
 
 // ===========================================================================
