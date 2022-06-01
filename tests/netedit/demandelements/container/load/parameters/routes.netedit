@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-22 10:25:28 by Eclipse SUMO netedit Version v1_12_0+2231-716019c1d80
+<!-- generated on 2022-06-01 15:03:24 by Eclipse SUMO netedit Version v1_13_0+0541-af1312cc9f7
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <!-- Vehicles, containers and containers (sorted by depart) -->
+    <!-- Vehicles, persons and containers (sorted by depart) -->
     <container id="p_0" depart="0.00">
         <param key="$$key with spaces%%" value="value4"/>
         <param key="key1" value="value5"/>
         <param key="key2" value=""/>
         <param key="key3" value="$$value with spaces%%"/>
         <param key="keyFinal" value="valueFinal"/>
-        <tranship from="gneE2" to="gneE5" arrivalPos="0.00"/>
+        <tranship from="gneE2" to="gneE5"/>
     </container>
 </routes>
