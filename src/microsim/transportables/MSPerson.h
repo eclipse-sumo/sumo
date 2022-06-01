@@ -31,6 +31,7 @@
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include <microsim/transportables/MSTransportable.h>
+#include <microsim/transportables/MSStageMoving.h>
 
 
 // ===========================================================================
