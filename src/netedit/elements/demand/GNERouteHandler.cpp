@@ -1233,7 +1233,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
 
 
 bool
-GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes, GNEPathCreator* pathCreator) {
+GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes, GNEPathCreator* pathCreator, const bool centerAfterCreation) {
     // clear and set planObject
     myPlanObject->clear();
     myPlanObject->setTag(containerParent->getTagProperty().getTag());
@@ -1341,6 +1341,17 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
         }
         default:
             throw InvalidArgument("Invalid container plan tag");
+    }
+    // get container
+    const auto container = myNet->getAttributeCarriers()->retrieveDemandElement(containerPlanObject->getParentSumoBaseObject()->getTag(),
+        containerPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    if (container) {
+        // compute container (and all container plans)
+        container->computePathElement();
+        // center view after creation
+        if (centerAfterCreation && !myNet->getViewNet()->getVisibleBoundary().around(container->getPositionInView())) {
+            myNet->getViewNet()->centerTo(container->getPositionInView(), false);
+        }
     }
     return true;
 }

@@ -148,7 +148,7 @@ public:
                          GNEPathCreator* pathCreator, const bool centerAfterCreation);
 
     /// @brief build container plan
-    bool buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes, GNEPathCreator* pathCreator);
+    bool buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes, GNEPathCreator* pathCreator, const bool centerAfterCreation);
 
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
     static bool isVehicleIdDuplicated(GNENet* net, const std::string& id);

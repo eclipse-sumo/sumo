@@ -205,7 +205,7 @@ GNEContainerPlanFrame::createPath() {
                     myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
                     myContainerSelector->getCurrentDemandElement(),
                     myContainerPlanAttributes,
-                    myPathCreator)) {
+                    myPathCreator, true)) {
             // refresh GNEElementTree
             myContainerHierarchy->refreshHierarchicalElementTree();
             // abort path creation

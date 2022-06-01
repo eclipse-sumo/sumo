@@ -212,8 +212,9 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             myCreationMode |= END_JUNCTION;
             myCreationMode |= ONLY_FROMTO;
             break;
-        // walk edges
+        // edges
         case GNE_TAG_WALK_EDGES:
+        case GNE_TAG_TRANSHIP_EDGES:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
@@ -222,6 +223,8 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
         case GNE_TAG_PERSONTRIP_EDGE:
         case GNE_TAG_RIDE_EDGE:
         case GNE_TAG_WALK_EDGE:
+        case GNE_TAG_TRANSPORT_EDGE:
+        case GNE_TAG_TRANSHIP_EDGE:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= ONLY_FROMTO;
             myCreationMode |= START_EDGE;
@@ -234,6 +237,13 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= ONLY_FROMTO;
             myCreationMode |= END_BUSSTOP;
+            break;
+        // edge->containerStop
+        case GNE_TAG_TRANSPORT_CONTAINERSTOP:
+        case GNE_TAG_TRANSHIP_CONTAINERSTOP:
+            myCreationMode |= SHOW_CANDIDATE_EDGES;
+            myCreationMode |= ONLY_FROMTO;
+            myCreationMode |= END_CONTAINERSTOP;
             break;
         // junction->junction
         case GNE_TAG_PERSONTRIP_JUNCTIONS:
@@ -447,8 +457,17 @@ GNEPathCreator::getSelectedJunctions() const {
 
 bool
 GNEPathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+    if (stoppingPlace == nullptr) {
+        return false;
+    }
     // check if stoppingPlaces aren allowed
-    if ((myCreationMode & END_BUSSTOP) == 0) {
+    if (((myCreationMode & END_BUSSTOP) == 0) && ((myCreationMode & END_CONTAINERSTOP) == 0)) {
+        return false;
+    }
+    if (((myCreationMode & END_BUSSTOP) != 0) && (stoppingPlace->getTagProperty().getTag() != SUMO_TAG_BUS_STOP)) {
+        return false;
+    }
+    if (((myCreationMode & END_CONTAINERSTOP) != 0) && (stoppingPlace->getTagProperty().getTag() != SUMO_TAG_CONTAINER_STOP)) {
         return false;
     }
     // check if previously stopping place from was set

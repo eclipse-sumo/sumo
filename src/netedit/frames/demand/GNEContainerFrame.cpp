@@ -21,6 +21,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
@@ -256,29 +257,31 @@ GNEContainerFrame::createPath() {
     } else if (!myContainerPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
-        /*
-                // begin undo-redo operation
-                myViewNet->getUndoList()->begin("create " + myContainerTagSelector->getCurrentTagProperties().getTagStr() + " and " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr());
-                // create container
-                GNEDemandElement* container = buildContainer();
-                // check if container and container plan can be created
-                if (GNERouteHandler::buildContainerPlan(
-                            myContainerPlanTagSelector->getCurrentTagProperties().getTag(),
-                            container, myContainerPlanAttributes, myPathCreator)) {
-                    // end undo-redo operation
-                    myViewNet->getUndoList()->end();
-                    // abort path creation
-                    myPathCreator->abortPathCreation();
-                    // refresh container and containerPlan attributes
-                    myContainerAttributes->refreshRows();
-                    myContainerPlanAttributes->refreshRows();
-                    // compute container
-                    container->computePathElement();
-                } else {
-                    // abort container creation
-                    myViewNet->getUndoList()->p_abort();
-                }
-        */
+        // begin undo-redo operation
+        myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getGUIIcon(), "create " +
+            myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
+            myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr());
+        // create person
+        GNEDemandElement* person = buildContainer();
+        // check if person and person plan can be created
+        if (myRouteHandler.buildContainerPlan(
+            myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
+            person, myContainerPlanAttributes, myPathCreator, true)) {
+            // end undo-redo operation
+            myViewNet->getUndoList()->end();
+            // abort path creation
+            myPathCreator->abortPathCreation();
+            // refresh person and personPlan attributes
+            myContainerAttributes->refreshAttributesCreator();
+            myContainerPlanAttributes->refreshAttributesCreator();
+            // compute person
+            person->computePathElement();
+            // enable show all person plans
+            myViewNet->getDemandViewOptions().menuCheckShowAllContainerPlans->setChecked(TRUE);
+        } else {
+            // abort person creation
+            myViewNet->getUndoList()->abortAllChangeGroups();
+        }
     }
 }
 
@@ -288,8 +291,12 @@ GNEContainerFrame::createPath() {
 
 GNEDemandElement*
 GNEContainerFrame::buildContainer() {
+    // first container base object
+    myContainerBaseObject->clear();
     // obtain container tag (only for improve code legibility)
     SumoXMLTag containerTag = myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+    // set tag
+    myContainerBaseObject->setTag(containerTag);
     // Declare map to keep attributes from myContainerAttributes
     myContainerAttributes->getAttributesAndValues(myContainerBaseObject, false);
     // Check if ID has to be generated
