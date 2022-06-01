@@ -31,12 +31,13 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/MSVehicleControl.h>
+#include <microsim/devices/MSTransportableDevice.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
-#include <microsim/devices/MSTransportableDevice.h>
-#include <microsim/MSVehicleControl.h>
-#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSStageTrip.h>
+#include <microsim/transportables/MSStageWaiting.h>
 #include <microsim/transportables/MSTransportable.h>
 
 

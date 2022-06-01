@@ -33,6 +33,7 @@
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/transportables/MSStageDriving.h>
+#include <microsim/transportables/MSStageWaiting.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageTrip.h>

@@ -26,6 +26,7 @@
 #include "MSRouteHandler.h"
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSStageDriving.h>
+#include <microsim/transportables/MSStageWaiting.h>
 #include <microsim/transportables/MSStageTranship.h>
 #include <microsim/transportables/MSStageTrip.h>
 #include <microsim/MSEdge.h>

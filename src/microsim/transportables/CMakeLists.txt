@@ -17,6 +17,8 @@ set(microsim_transportables_STAT_SRCS
         MSStage.h
         MSStageTrip.cpp
         MSStageTrip.h
+        MSStageWaiting.cpp
+        MSStageWaiting.h
         MSStageMoving.cpp
         MSStageMoving.h
         MSStageDriving.cpp
