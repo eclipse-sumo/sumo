@@ -2224,25 +2224,22 @@ class container:
         id = 8
         colorButton = 9
         color = 10
-        departPos = 11
-        depart = 12
+        depart = 11
 
     class inspect:
         id = 1
         type = 2
         colorButton = 3
         color = 4
-        departPos = 5
-        depart = 6
-        parameters = 9
+        depart = 5
+        parameters = 8
 
     class inspectSelection:
         type = 1
         colorButton = 2
         color = 3
-        departPos = 4
-        depart = 5
-        parameters = 8
+        depart = 4
+        parameters = 7
 
 
 class containerFlow:
@@ -2250,40 +2247,37 @@ class containerFlow:
         id = 8
         colorButton = 9
         color = 10
-        departPos = 11
-        begin = 12
-        terminate = 16
-        end = 18
-        number = 19
-        spacing = 18
-        terminateOption = 20
-        spacingOption = 21
+        begin = 11
+        terminate = 15
+        end = 17
+        number = 18
+        spacing = 17
+        terminateOption = 19
+        spacingOption = 20
 
     class inspect:
         id = 1
         type = 2
         colorButton = 3
         color = 4
-        departPos = 5
-        begin = 6
-        terminate = 9
-        spacing = 11
-        end = 12
-        terminateOption = 13
-        spacingOption = 14
-        parameters = 16
+        begin = 5
+        terminate = 8
+        spacing = 10
+        end = 11
+        terminateOption = 12
+        spacingOption = 13
+        parameters = 15
 
     class inspectSelection:
         type = 1
         colorButton = 2
         color = 3
-        departPos = 4
-        begin = 5
-        terminate = 8
-        spacing = 10
-        terminateOption = 12
-        spacingOption = 13
-        parameters = 15
+        begin = 4
+        terminate = 7
+        spacing = 9
+        terminateOption = 11
+        spacingOption = 12
+        parameters = 14
 
 # --------------------------------
 # DATA ELEMENTS
