@@ -22,7 +22,7 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'flow' in DemandElementSelector
 Debug: Selected item 'waypointChargingStation' in GNETagSelector
 Debug: Invalid input parameter of waypointChargingStation
-Debug: Invalid input parameter of waypointChargingStation
+Debug: Adding waypointChargingStation 'flow' in GNEChange_DemandElement
 Debug: Invalid input parameter of waypointChargingStation
 Debug: Adding waypointChargingStation 'flow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -30,10 +30,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Removing waypointChargingStation 'flow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing flow 'flow' in GNEChange_DemandElement
+Debug: Removing waypointChargingStation 'flow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding flow 'flow' in GNEChange_DemandElement
+Debug: Adding waypointChargingStation 'flow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding waypointChargingStation 'flow' in GNEChange_DemandElement
@@ -52,6 +52,7 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Deleting unreferenced waypointChargingStation 'flow'
+Debug: Deleting unreferenced waypointChargingStation 'flow'
 Debug: Deleting unreferenced flow 'flow'
 Debug: Deleting unreferenced chargingStation 'chargingStationB'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
@@ -64,3 +65,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4
+X connection to :27327.0 broken (explicit kill or server shutdown).

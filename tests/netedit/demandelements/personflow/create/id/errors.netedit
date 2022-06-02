@@ -74,7 +74,6 @@ Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
 Debug: Adding walk: edge->busStop 'f_0' in GNEChange_DemandElement
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
-Debug: Key ENTER pressed
 Debug: Adding personFlow 'customID' in GNEChange_DemandElement
 Debug: Adding walk: edge->busStop 'customID' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed

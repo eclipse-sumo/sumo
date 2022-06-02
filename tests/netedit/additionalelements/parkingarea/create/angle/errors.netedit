@@ -1,30 +1,31 @@
 Debug: Selected item 'parkingArea' in GNETagSelector
 Debug: Invalid input parameter of parkingArea
-Debug: Invalid input parameter of parkingArea
 Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
 Debug: Adding parkingArea 'pa_1' in GNEChange_Additional
 Debug: Adding parkingArea 'pa_2' in GNEChange_Additional
+Debug: Adding parkingArea 'pa_3' in GNEChange_Additional
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing parkingArea 'pa_3' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'pa_2' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'pa_1' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing parkingArea 'pa_0' in GNEChange_Additional
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding parkingArea 'pa_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding parkingArea 'pa_2' in GNEChange_Additional
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding parkingArea 'pa_3' in GNEChange_Additional
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
+Debug: Deleting unreferenced parkingArea 'pa_3'
 Debug: Deleting unreferenced parkingArea 'pa_2'
 Debug: Deleting unreferenced parkingArea 'pa_1'
 Debug: Deleting unreferenced parkingArea 'pa_0'

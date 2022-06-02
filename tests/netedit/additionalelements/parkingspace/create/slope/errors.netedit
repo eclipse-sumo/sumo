@@ -2,7 +2,7 @@ Debug: Selected item 'parkingArea' in GNETagSelector
 Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
 Debug: Selected item 'space' in GNETagSelector
 Debug: Invalid input parameter of space
-Debug: Invalid input parameter of space
+Debug: Adding space 'pa_0' in GNEChange_Additional
 Debug: Adding space 'pa_0' in GNEChange_Additional
 Debug: Invalid input parameter of space: A parkingArea must be selected before insertion of space.
 Debug: Adding space 'pa_0' in GNEChange_Additional
@@ -14,8 +14,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Removing space 'pa_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing parkingArea 'pa_0' in GNEChange_Additional
+Debug: Removing space 'pa_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing parkingArea 'pa_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
@@ -27,10 +29,13 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding space 'pa_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding space 'pa_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
+Debug: Deleting unreferenced space 'pa_0'
 Debug: Deleting unreferenced space 'pa_0'
 Debug: Deleting unreferenced space 'pa_0'
 Debug: Deleting unreferenced parkingArea 'pa_0'
@@ -43,3 +48,4 @@ Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destru
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
+X connection to :27135.0 broken (explicit kill or server shutdown).

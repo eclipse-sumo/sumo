@@ -9,41 +9,45 @@ Debug: Adding taz 'taz_0' in GNEChange_Additional
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
 Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
 Debug: Value 'dummyTAZ' for attribute shape of taz isn't valid
-Debug: Value '' for attribute shape of taz isn't valid
 Debug: Setting new attribute
 GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,0.00,20.00,30.00
-GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary 2.00,-2.00,22.00,18.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,-10.00,10.00,10.00
 Debug: Setting new attribute
-GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary 2.00,-2.00,22.00,18.00
-GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -8.00,-2.00,22.00,28.00
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,-10.00,10.00,10.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,-10.00,22.00,18.00
+Debug: Setting new attribute
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,-10.00,22.00,18.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,-10.00,22.00,28.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
-GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -8.00,-2.00,22.00,28.00
-GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary 2.00,-2.00,22.00,18.00
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,-10.00,22.00,28.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,-10.00,22.00,18.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
-GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary 2.00,-2.00,22.00,18.00
-GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,-10.00,22.00,18.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,-10.00,10.00,10.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing taz 'taz_0' in GNEChange_Additional
-GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,0.00,20.00,30.00
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding taz 'taz_0' in GNEChange_Additional
-GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
+Debug: Restoring previous attribute
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,-10.00,10.00,10.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,-10.00,20.00,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
-GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,0.00,20.00,30.00
-GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary 2.00,-2.00,22.00,18.00
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,-10.00,20.00,30.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,-10.00,10.00,10.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
-GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary 2.00,-2.00,22.00,18.00
-GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -8.00,-2.00,22.00,28.00
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,-10.00,10.00,10.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,-10.00,22.00,18.00
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,-10.00,22.00,18.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,-10.00,22.00,28.00
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -72,7 +76,7 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Deleting unreferenced taz 'taz_0'
-GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -8.00,-2.00,22.00,28.00
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,-10.00,22.00,28.00
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -83,3 +87,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4
+X connection to :32685.0 broken (explicit kill or server shutdown).

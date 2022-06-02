@@ -71,7 +71,6 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'walk: edge->busStop' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
-Debug: Key ENTER pressed
 Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
 Debug: Adding walk: edge->busStop 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed

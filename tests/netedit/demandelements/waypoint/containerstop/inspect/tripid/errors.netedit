@@ -23,7 +23,6 @@ Debug: Selected item 'trip' in DemandElementSelector
 Debug: Selected item 'waypointContainerStop' in GNETagSelector
 Debug: Adding waypointContainerStop 'trip' in GNEChange_DemandElement
 Debug: Value ';;;;;;' for attribute tripId of waypointContainerStop isn't valid
-Debug: Value '' for attribute tripId of waypointContainerStop isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

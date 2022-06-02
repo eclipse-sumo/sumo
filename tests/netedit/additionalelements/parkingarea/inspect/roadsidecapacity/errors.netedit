@@ -1,7 +1,6 @@
 Debug: Selected item 'parkingArea' in GNETagSelector
 Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
 Debug: Value 'dummyRoadSideCapacity' for attribute roadsideCapacity of parkingArea isn't valid
-Debug: Value '' for attribute roadsideCapacity of parkingArea isn't valid
 Debug: Value '-5' for attribute roadsideCapacity of parkingArea isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
