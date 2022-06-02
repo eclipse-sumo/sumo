@@ -1520,7 +1520,7 @@ def changePersonFlowPlan(personFlowPlan):
     pasteIntoTextField(personFlowPlan)
     # type enter to save change
     typeEnter()
-    
+
 #################################################
 # container elements
 #################################################

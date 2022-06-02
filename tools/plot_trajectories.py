@@ -40,16 +40,17 @@ from sumolib.miscutils import uMin, uMax, parseTime  # noqa
 from sumolib.options import ArgumentParser  # noqa
 
 KEYS = {
-        't': 'Time',
-        's': 'Speed',
-        'd': 'Distance',
-        'a': 'Acceleration',
-        'i': 'Angle',
-        'x': 'x-Position',
-        'y': 'y-Position',
-        'k': 'kilometrage',
-        'g': 'gap',
-        }
+    't': 'Time',
+    's': 'Speed',
+    'd': 'Distance',
+    'a': 'Acceleration',
+    'i': 'Angle',
+    'x': 'x-Position',
+    'y': 'y-Position',
+    'k': 'kilometrage',
+    'g': 'gap',
+}
+
 
 def getOptions(args=None):
     optParser = ArgumentParser()
@@ -124,7 +125,7 @@ def main(options):
     xdata = None
     ydata = None
     shortFileNames = short_names(options.fcdfiles)
-    xdata = options.ttype[0] 
+    xdata = options.ttype[0]
     ydata = options.ttype[1]
     if (len(options.ttype) == 2
             and xdata in KEYS
