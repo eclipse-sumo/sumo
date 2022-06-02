@@ -5294,6 +5294,12 @@ GNEAttributeCarrier::fillCommonContainerAttributes(SumoXMLTag currentTag) {
                                           "The name of the " + toString(currentTag));
     myTagProperties[currentTag].addAttribute(attrProperty);
 
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
+                                          "This " + toString(currentTag) + "'s color",
+                                          "yellow");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
     attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPART,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                                           "The time step at which the " + toString(currentTag) + " shall enter the network",
