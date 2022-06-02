@@ -87,6 +87,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     // write depart depending of tag
     if (altTag == SUMO_TAG_FLOW
             || altTag == SUMO_TAG_PERSONFLOW
+            || altTag == SUMO_TAG_CONTAINERFLOW
             || altTag == GNE_TAG_FLOW_ROUTE
             || altTag == GNE_TAG_FLOW_WITHROUTE
             || altTag == SUMO_TAG_FLOWSTATE) {
