@@ -23,6 +23,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
+import random
 from collections import defaultdict
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
@@ -47,8 +48,8 @@ def get_options(args=None):
                          help="Define end time of vehicle stop")
     optParser.add_option("-p", "--parking", dest="parking", action="store_true",
                          default=False, help="where is the vehicle parking")
-    optParser.add_option("--relpos", type=float,
-                         help="relative stopping positiong along the edge [0,1]")
+    optParser.add_option("--relpos",
+                         help="relative stopping positiong along the edge [0,1] or 'random'")
     optParser.add_option("--parking-areas", dest="parkingareas", default=False,
                          help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
     optParser.add_option("--start-at-stop", dest="startAtStop", action="store_true",
@@ -63,6 +64,7 @@ def get_options(args=None):
                          help="Define duration of person stop")
     optParser.add_option("-U", "--person-until", dest="pUntil",
                          help="Define end time of person stop")
+    optParser.add_option("-s", "--seed", type=int, default=42, help="random seed")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
 
@@ -100,7 +102,12 @@ def get_options(args=None):
         sys.exit("stop duration or until missing")
 
     if options.relpos is not None:
-        options.relpos = max(0, min(1, options.relpos))
+        try:
+            options.relpos = max(0, min(1, float(options.relpos)))
+        except:
+            if options.relpos != 'random':
+                sys.exit("option --relpos must be set to 'random' or to a float value from [0,1]")
+            pass
 
     return options
 
@@ -171,7 +178,10 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                         stopAttrs["lane"] = lane.getID()
 
                         if options.relpos:
-                            stopAttrs["endPos"] = lane.getLength() * options.relpos
+                            if options.relpos == 'random':
+                                stopAttrs["endPos"] = "%.2f" % (lane.getLength() * random.random())
+                            else:
+                                stopAttrs["endPos"] = lane.getLength() * options.relpos
                         skip = False
                         break
                 if skip:
@@ -230,6 +240,7 @@ def generateStationary(options, edge2parking, outf):
 
 
 def main(options):
+    random.seed(options.seed)
 
     edge2parking = {}
     if options.parkingareas:
