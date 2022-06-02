@@ -121,7 +121,7 @@ main(int argc, char** argv) {
     oc.addDescription("output", "Output", "Defines the file to write the emission cycle results into.");
 
     oc.doRegister("output.attributes", new Option_StringVector());
-    oc.addDescription("output", "Output", "Defines the attributes to write.");
+    oc.addDescription("output.attributes", "Output", "Defines the attributes to write.");
 
     oc.doRegister("emission-output", new Option_FileName());
     oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle in XML");
