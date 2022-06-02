@@ -50,6 +50,8 @@ def get_options(args=None):
                          default=False, help="where is the vehicle parking")
     optParser.add_option("--relpos",
                          help="relative stopping positiong along the edge [0,1] or 'random'")
+    optParser.add_option("--lane", default="0",
+                         help="set index of stop lane or 'random' (unusable lanes are not counted)")
     optParser.add_option("--parking-areas", dest="parkingareas", default=False,
                          help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
     optParser.add_option("--start-at-stop", dest="startAtStop", action="store_true",
@@ -107,6 +109,16 @@ def get_options(args=None):
         except:
             if options.relpos != 'random':
                 sys.exit("option --relpos must be set to 'random' or to a float value from [0,1]")
+            pass
+
+    if options.lane is not None:
+        try:
+            options.lane = int(options.lane)
+            if options.lane < 0:
+                sys.exit("option --lane must be set to 'random' or to a non-negative integer value")
+        except:
+            if options.lane != 'random':
+                sys.exit("option --lane must be set to 'random' or to an integer value")
             pass
 
     return options
@@ -173,17 +185,22 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                 # find usable lane
                 skip = True
                 lanes = lastEdge.getLanes()
-                for lane in lanes:
-                    if lane.allows(vtypes[obj.type]):
-                        stopAttrs["lane"] = lane.getID()
+                usable = [l for l in lanes if l.allows(vtypes[obj.type])]
+                if usable:
+                    lane = None
+                    if options.lane == 'random':
+                        lane = random.choice(usable)
+                    elif options.lane < len(usable):
+                        lane = usable[options.lane]
 
+                    if lane:
+                        skip = False
+                        stopAttrs["lane"] = lane.getID()
                         if options.relpos:
                             if options.relpos == 'random':
                                 stopAttrs["endPos"] = "%.2f" % (lane.getLength() * random.random())
                             else:
                                 stopAttrs["endPos"] = lane.getLength() * options.relpos
-                        skip = False
-                        break
                 if skip:
                     numSkipped[obj.name] += 1
                     print("Warning: no allowed lane found on edge '%s' for vehicle '%s' (%s)" % (
