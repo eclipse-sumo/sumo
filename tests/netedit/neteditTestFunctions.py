@@ -1279,19 +1279,19 @@ def changeElement(element):
     typeEnter()
 
 
-def changeDefaultValue(numTabs, length):
+def changeDefaultValue(numTabs, value):
     """
     @brief modify default int/double/string value of an additional, shape, vehicle...
     """
     # focus current frame
     focusOnFrame()
-    # go to length TextField
+    # go to value TextField
     for _ in range(numTabs):
         typeTab()
-    # paste new length
-    pasteIntoTextField(length)
-    # type tab to save new value
-    typeTab()
+    # paste new value
+    pasteIntoTextField(value)
+    # type enter to save new value
+    typeEnter()
 
 
 def changeDefaultBoolValue(numTabs):
