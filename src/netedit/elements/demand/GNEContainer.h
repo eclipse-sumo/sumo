@@ -284,9 +284,6 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
-    /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings& s) const;
-
     /// @brief draw container as poly
     void drawAction_drawAsPoly() const;
 

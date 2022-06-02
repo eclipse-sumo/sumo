@@ -398,7 +398,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(containerPosition.x(), containerPosition.y(), 0);
             glRotated(90, 0, 0, 1);
             // set container color
-            setColor(s);
+            GLHelper::setColor(color);
             // set scale
             glScaled(exaggeration, exaggeration, 1);
             // draw container depending of detail level
@@ -429,11 +429,11 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contours has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, containerPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
             }
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, containerPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
             }
         }
     }
@@ -786,14 +786,6 @@ GNEContainer::getACParametersMap() const {
 // ===========================================================================
 // protected
 // ===========================================================================
-
-void
-GNEContainer::setColor(const GUIVisualizationSettings& s) const {
-    const GUIColorer& c = s.containerColorer;
-    GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
-}
-
-
 
 void
 GNEContainer::drawAction_drawAsPoly() const {
