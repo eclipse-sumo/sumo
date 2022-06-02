@@ -118,7 +118,8 @@
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
         <xsd:attribute name="pos" type="xsd:float" use="required"/>
         <xsd:attribute name="length" type="nonNegativeFloatType" use="optional"/>
-        <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="period" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="detectPersons" type="xsd:string" use="optional"/>
@@ -134,7 +135,8 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="period" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
     </xsd:complexType>
 
@@ -149,6 +151,7 @@
         <xsd:attribute name="pos" type="xsd:float" use="optional"/>
         <xsd:attribute name="endPos" type="xsd:float" use="optional"/>
         <xsd:attribute name="length" type="xsd:float" use="optional"/>
+        <xsd:attribute name="period" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="tl" type="xsd:string" use="optional"/>
         <xsd:attribute name="to" type="xsd:string" use="optional"/>
@@ -173,7 +176,8 @@
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="detectorIdType" use="required"/>
-        <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="period" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
         <xsd:attribute name="timeThreshold" type="xsd:float" use="optional"/>
         <xsd:attribute name="speedThreshold" type="nonNegativeFloatType" use="optional"/>
@@ -206,6 +210,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="period" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
         <xsd:attribute name="begin" type="nonNegativeFloatType" use="optional"/>
@@ -296,7 +301,8 @@
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="edge" type="xsd:string" use="optional"/>
         <xsd:attribute name="begin" type="nonNegativeFloatType" use="optional"/>
-        <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="period" type="positiveFloatType" use="optional" />
+        <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
@@ -521,6 +527,7 @@
         <xsd:attribute name="lane" type="xsd:string" use="optional"/>
         <xsd:attribute name="pos" type="xsd:float" use="required"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
+        <xsd:attribute name="period" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="optional"/>
         <xsd:attribute name="output" type="xsd:string" use="optional"/>

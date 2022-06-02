@@ -910,7 +910,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    const SUMOTime period = attrs.getPeriod(id.c_str(), ok);
+    const SUMOTime period = attrs.getOptPeriod(id.c_str(), ok, SUMOTime_MAX);
     const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), ok);
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, 0);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
@@ -983,7 +983,7 @@ NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes& attrs) {
     WRITE_WARNING("VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) instead.");
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
-    SUMOTime period = attrs.getPeriod(id.c_str(), ok);
+    SUMOTime period = attrs.getOptPeriod(id.c_str(), ok, SUMOTime_MAX);
     std::string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
     std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
@@ -1003,7 +1003,7 @@ void
 NLHandler::addRouteProbeDetector(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
-    SUMOTime period = attrs.getPeriod(id.c_str(), ok);
+    SUMOTime period = attrs.getOptPeriod(id.c_str(), ok, SUMOTime_MAX);
     SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, -1);
     std::string edge = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
     std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
@@ -1225,7 +1225,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     myCurrentIsBroken = false;
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
-    const SUMOTime period = attrs.getPeriod(id.c_str(), ok);
+    const SUMOTime period = attrs.getOptPeriod(id.c_str(), ok, SUMOTime_MAX);
     const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
     const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
