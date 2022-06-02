@@ -4080,6 +4080,12 @@ GNEAttributeCarrier::fillContainerElements() {
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINER,
                                       0,
                                       GUIIcon::CONTAINER, currentTag);
+        
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPART,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                              "The time step at which the " + toString(currentTag) + " shall enter the network",
+                                              "0.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
 
         // add flow attributes
         fillCommonContainerAttributes(currentTag);
@@ -5298,12 +5304,6 @@ GNEAttributeCarrier::fillCommonContainerAttributes(SumoXMLTag currentTag) {
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
                                           "This " + toString(currentTag) + "'s color",
                                           "yellow");
-    myTagProperties[currentTag].addAttribute(attrProperty);
-
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPART,
-                                          GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                          "The time step at which the " + toString(currentTag) + " shall enter the network",
-                                          "0.00");
     myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
