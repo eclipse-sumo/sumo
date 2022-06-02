@@ -43,7 +43,7 @@ def get_options(args=None):
     optParser.add_option("-t", "--typesfile", dest="typesfile",
                          help="Give a typesfile")
     optParser.add_option("-d", "--duration",
-                         help="Define duration of vehicle stop")
+                         help="Define duration of vehicle stop (setting 'X-Y' picks randomly from [X,Y[)")
     optParser.add_option("-u", "--until",
                          help="Define end time of vehicle stop")
     optParser.add_option("-p", "--parking", dest="parking", action="store_true",
@@ -65,7 +65,7 @@ def get_options(args=None):
     optParser.add_option("--abs-free", dest="absFree", type=int,
                          help="fill all parkingAreas to absolute remaining capacity")
     optParser.add_option("-D", "--person-duration", dest="pDuration",
-                         help="Define duration of person stop")
+                         help="Define duration of person stop (setting 'X-Y' picks randomly from [X,Y[)")
     optParser.add_option("-U", "--person-until", dest="pUntil",
                          help="Define end time of person stop")
     optParser.add_option("-s", "--seed", type=int, default=42, help="random seed")
@@ -153,6 +153,13 @@ def getEdgeIDs(obj):
         result.append(obj.to)
     return result
 
+def interpretDuration(duration):
+    if '-' in duration:
+        start, stop = duration.split('-')
+        return random.randrange(int(start), int(stop)) 
+    else:
+        return duration
+
 def loadRouteFiles(options, routefile, edge2parking, outf):
     net = sumolib.net.readNet(options.netfile)
     vtypes = readTypes(options)
@@ -177,7 +184,7 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                         or options.pUntil is not None):
                     stopAttrs = {}
                     if options.pDuration:
-                        stopAttrs["duration"] = options.pDuration
+                        stopAttrs["duration"] = interpretDuration(options.pDuration)
                     if options.pUntil:
                         stopAttrs["until"] = options.pUntil
                     # stop location is derived automatically from previous plan element
@@ -226,7 +233,7 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
             if options.parking:
                 stopAttrs["parking"] = "true"
             if options.duration:
-                stopAttrs["duration"] = options.duration
+                stopAttrs["duration"] = interpretDuration(options.duration)
             if options.until:
                 stopAttrs["until"] = options.until
             if not skip:
@@ -253,7 +260,7 @@ def generateStationary(options, edge2parking, outf):
 
     attrs = ""
     if options.duration:
-        attrs += ' duration="%s"' % options.duration
+        attrs += ' duration="%s"' % interpretDuration(options.duration)
     if options.until:
         attrs += ' until="%s"' % options.until
 
