@@ -133,6 +133,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myAttributeColorButton->setTextColor(FXRGB(0, 0, 255));
             } else {
                 myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
+                myAttributeColorButton->killFocus();
             }
             myAttributeColorButton->setText(myACAttr.getAttrStr().c_str());
             myAttributeColorButton->show();
@@ -145,6 +146,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myAttributeCheckButton->setTextColor(FXRGB(0, 0, 255));
             } else {
                 myAttributeCheckButton->setTextColor(FXRGB(0, 0, 0));
+                myAttributeCheckButton->killFocus();
             }
             myAttributeCheckButton->setText(myACAttr.getAttrStr().c_str());
             myAttributeCheckButton->show();
@@ -195,6 +197,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                     myValueTextField->setTextColor(FXRGB(0, 0, 255));
                 } else {
                     myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                    myValueTextField->killFocus();
                 }
                 myValueTextField->show();
             }
@@ -213,6 +216,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                     myValueTextField->setTextColor(FXRGB(0, 0, 255));
                 } else {
                     myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                    myValueTextField->killFocus();
                 }
                 myValueTextField->show();
             } else if (!myMultiple) {
@@ -229,6 +233,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                     myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 255));
                 } else {
                     myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
+                    myValueComboBoxChoices->killFocus();
                 }
                 myValueComboBoxChoices->show();
             } else {
@@ -239,6 +244,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                     myValueTextField->setTextColor(FXRGB(0, 0, 255));
                 } else {
                     myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                    myValueTextField->killFocus();
                 }
                 myValueTextField->show();
             }
@@ -250,6 +256,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myValueTextField->setTextColor(FXRGB(0, 0, 255));
             } else {
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                myValueTextField->killFocus();
             }
             myValueTextField->show();
         }
@@ -309,6 +316,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
                 myValueTextField->setTextColor(FXRGB(0, 0, 255));
             } else {
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                myValueTextField->killFocus();
             }
         }
     } else if (myValueComboBoxChoices->shown()) {
@@ -325,6 +333,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
             myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 255));
         } else {
             myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
+            myValueComboBoxChoices->killFocus();
         }
         myValueComboBoxChoices->show();
     } else if (myValueCheckButton->shown()) {
@@ -899,6 +908,7 @@ void
 GNEFrameAttributeModules::GenericDataAttributes::refreshGenericDataAttributes() {
     myTextFieldParameters->setText(getParametersStr().c_str());
     myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
+    myTextFieldParameters->killFocus();
 }
 
 

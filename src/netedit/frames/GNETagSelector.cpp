@@ -213,6 +213,7 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
     }
     // set color of myTypeMatchBox to black (valid)
     myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
+    myTagsMatchBox->killFocus();
     // Set visible items
     myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems() + 1);
     // set first myACTemplate as edited AC
@@ -236,6 +237,7 @@ GNETagSelector::setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent) {
             myTagsMatchBox->setCurrentItem(i);
             // set color of myTypeMatchBox to black (valid)
             myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myTagsMatchBox->killFocus();
         }
     }
     // call tag selected function
@@ -262,6 +264,7 @@ GNETagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
             myTagsMatchBox->setCurrentItem(i);
             // set color of myTypeMatchBox to black (valid)
             myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myTagsMatchBox->killFocus();
             // call tag selected function
             myFrameParent->tagSelected();
             // Write Warning in console if we're in testing mode

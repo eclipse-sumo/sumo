@@ -128,7 +128,9 @@ GNEFlowEditor::refreshFlowEditor() {
     mySpacingFrameTextField->show();
     // reset colors
     myTerminateTextField->setTextColor(FXRGB(0, 0, 0));
+    myTerminateTextField->killFocus();
     mySpacingTextField->setTextColor(FXRGB(0, 0, 0));
+    mySpacingTextField->killFocus();
     // continue depending of number of flow
     if (myEditedFlows.size() == 1) {
         refreshSingleFlow();

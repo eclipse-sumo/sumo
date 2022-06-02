@@ -317,6 +317,7 @@ DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
             if (demandElement->getID() == myDemandElementsMatchBox->getText().text()) {
                 // set color of myTypeMatchBox to black (valid)
                 myDemandElementsMatchBox->setTextColor(FXRGB(0, 0, 0));
+                myDemandElementsMatchBox->killFocus();
                 // Set new current demand element
                 myCurrentDemandElement = demandElement;
                 // call demandElementSelected function

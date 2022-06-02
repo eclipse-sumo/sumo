@@ -194,15 +194,18 @@ GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*)
         // Cast actual reference point type
         if (myReferencePointMatchBox->getText() == "reference left") {
             myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myReferencePointMatchBox->killFocus();
             myActualAdditionalReferencePoint = AdditionalReferencePoint::LEFT;
             myLengthTextField->enable();
         } else if (myReferencePointMatchBox->getText() == "reference right") {
             myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myReferencePointMatchBox->killFocus();
             myActualAdditionalReferencePoint = AdditionalReferencePoint::RIGHT;
             myLengthTextField->enable();
         } else if (myReferencePointMatchBox->getText() == "reference center") {
             myLengthTextField->enable();
             myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myReferencePointMatchBox->killFocus();
             myActualAdditionalReferencePoint = AdditionalReferencePoint::CENTER;
             myLengthTextField->enable();
         } else {

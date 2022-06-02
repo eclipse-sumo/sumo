@@ -192,12 +192,14 @@ GNEAttributesCreatorRow::refreshRow() {
         myValueTextField->setText(generateID().c_str());
         // show textField
         myValueTextField->setTextColor(FXRGB(0, 0, 0));
+        myValueTextField->killFocus();
         myValueTextField->show();
     } else {
         // left
         if (myAttrProperties.isColor() || (myAttrProperties.getAttr() == SUMO_ATTR_ALLOW) || (myAttrProperties.getAttr() == SUMO_ATTR_DISALLOW)) {
             // show color button
             myAttributeButton->setTextColor(FXRGB(0, 0, 0));
+            myAttributeButton->killFocus();
             myAttributeButton->setText(myAttrProperties.getAttrStr().c_str());
             myAttributeButton->show();
         } else if (myAttrProperties.isActivatable()) {
@@ -243,6 +245,7 @@ GNEAttributesCreatorRow::refreshRow() {
                 myValueComboBox->setTextColor(FXRGB(128, 128, 128));
             } else {
                 myValueComboBox->setTextColor(FXRGB(0, 0, 0));
+                myValueComboBox->killFocus();
             }
             myValueComboBox->show();
             // check if enable or disable
@@ -253,11 +256,13 @@ GNEAttributesCreatorRow::refreshRow() {
             }
         } else {
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            myValueTextField->killFocus();
             myValueTextField->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
             if (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueTextField->getText().text())) {
                 myValueTextField->setTextColor(FXRGB(128, 128, 128));
             } else {
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                myValueTextField->killFocus();
             }
             myValueTextField->show();
             // check if enable or disable
@@ -346,6 +351,7 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
                 myValueComboBox->setTextColor(FXRGB(128, 128, 128));
             } else {
                 myValueComboBox->setTextColor(FXRGB(0, 0, 0));
+                myValueComboBox->killFocus();
             }
             // check if use default value
             if (useDefaultValue) {
@@ -375,6 +381,7 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
                 myValueTextField->setTextColor(FXRGB(128, 128, 128));
             } else {
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                myValueTextField->killFocus();
             }
             // check if use default value
             if (useDefaultValue) {
