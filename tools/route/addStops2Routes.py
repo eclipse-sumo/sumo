@@ -49,9 +49,11 @@ def get_options(args=None):
     optParser.add_option("-p", "--parking", dest="parking", action="store_true",
                          default=False, help="where is the vehicle parking")
     optParser.add_option("--relpos",
-                         help="relative stopping positiong along the edge [0,1] or 'random'")
+                         help="relative stopping position along the edge [0,1] or 'random'")
     optParser.add_option("--lane", default="0",
                          help="set index of stop lane or 'random' (unusable lanes are not counted)")
+    optParser.add_option("--reledge", default="1",
+                         help="relative stopping position along the route [0,1] or 'random' (1 indicates the last edge)")
     optParser.add_option("--parking-areas", dest="parkingareas", default=False,
                          help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
     optParser.add_option("--start-at-stop", dest="startAtStop", action="store_true",
@@ -121,6 +123,14 @@ def get_options(args=None):
                 sys.exit("option --lane must be set to 'random' or to an integer value")
             pass
 
+    if options.reledge is not None:
+        try:
+            options.reledge = max(0, min(1, float(options.reledge)))
+        except:
+            if options.reledge != 'random':
+                sys.exit("option --reledge must be set to 'random' or to a float value from [0,1]")
+            pass
+
     return options
 
 
@@ -133,15 +143,15 @@ def readTypes(options):
     return vtypes
 
 
-def getLastEdge(obj):
+def getEdgeIDs(obj):
+    result = []
     if obj.route:
-        edgesList = obj.route[0].edges.split()
-        return edgesList[-1]
-    elif obj.to:
-        return obj.to
-    else:
-        return None
-
+        return obj.route[0].edges.split()
+    if obj.attr_from:
+        result.append(obj.attr_from)
+    if obj.to:
+        result.append(obj.to)
+    return result
 
 def loadRouteFiles(options, routefile, edge2parking, outf):
     net = sumolib.net.readNet(options.netfile)
@@ -153,7 +163,14 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
             if obj.name == 'vType':
                 outf.write(obj.toXML(' '*4))
                 continue
-            lastEdgeID = getLastEdge(obj)
+            edgeIDs = getEdgeIDs(obj)
+            reledge = options.reledge
+            if reledge == 'random':
+                reledge = random.random()
+            lastEdgeID = None
+            if edgeIDs:
+                lastEdgeID = edgeIDs[round(reledge * (len(edgeIDs) - 1))]
+
             if lastEdgeID is None:
                 if obj.name == 'person' and (
                         options.pDuration is not None
@@ -197,10 +214,10 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                         skip = False
                         stopAttrs["lane"] = lane.getID()
                         if options.relpos:
+                            relpos = options.relpos
                             if options.relpos == 'random':
-                                stopAttrs["endPos"] = "%.2f" % (lane.getLength() * random.random())
-                            else:
-                                stopAttrs["endPos"] = lane.getLength() * options.relpos
+                                relpos = random.random()
+                            stopAttrs["endPos"] = "%.2f" % (lane.getLength() * relpos)
                 if skip:
                     numSkipped[obj.name] += 1
                     print("Warning: no allowed lane found on edge '%s' for vehicle '%s' (%s)" % (
