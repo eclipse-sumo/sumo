@@ -54,6 +54,8 @@ def get_options(args=None):
                          help="set index of stop lane or 'random' (unusable lanes are not counted)")
     optParser.add_option("--reledge", default="1",
                          help="relative stopping position along the route [0,1] or 'random' (1 indicates the last edge)")
+    optParser.add_argument("--probability", type=float, default=1,
+                         help="app stop with the given probability ]0, 1]")
     optParser.add_option("--parking-areas", dest="parkingareas", default=False,
                          help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
     optParser.add_option("--start-at-stop", dest="startAtStop", action="store_true",
@@ -167,7 +169,8 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
 
     for routefile in options.routefiles:
         for obj in sumolib.xml.parse(routefile, ['vehicle', 'trip', 'flow', 'person', 'vType']):
-            if obj.name == 'vType':
+            if (obj.name == 'vType' or
+                    options.probability < 1 and random.random() > options.probability):
                 outf.write(obj.toXML(' '*4))
                 continue
             edgeIDs = getEdgeIDs(obj)
