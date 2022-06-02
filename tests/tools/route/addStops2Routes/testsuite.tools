@@ -22,6 +22,7 @@ reledge_0
 
 # set relative edge along route
 reledge_random
+duration_random
 
 # tests for adding stops at the end of a trip
 trip
