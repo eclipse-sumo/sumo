@@ -58,8 +58,8 @@ The message contents are as following:
 | value type *compound* | item number = 4 | value type *string* | type name | value type *color* | color | value type *int* | layer | value type *position2D* | position |
 
 If the PoI could not been added because another one with the same ID
-already exists within the layer, an error message is generated.
-
+already exists within the layer, an error message is generated.  
+Please note that, if an image has been passed (through the `imgFile` attribute), the resultant colour of the POI is a combination of the image's native colour and the value of `color` passed. In this case, passing `color` as (255,255,255) will result in the POI having the same colours as that of the image passed.
 ### REMOVE (0x81)
 
 |      ubyte       |  int  |
