@@ -399,7 +399,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(personPosition.x(), personPosition.y(), 0);
             glRotated(90, 0, 0, 1);
             // set person color
-            GLHelper::setColor(color);
+            setColor(s);
             // set scale
             glScaled(exaggeration, exaggeration, 1);
             // draw person depending of detail level
@@ -760,6 +760,66 @@ GNEPerson::getHierarchyName() const {
 const Parameterised::Map&
 GNEPerson::getACParametersMap() const {
     return getParametersMap();
+}
+
+// ===========================================================================
+// protected
+// ===========================================================================
+
+void
+GNEPerson::setColor(const GUIVisualizationSettings& s) const {
+    const GUIColorer& c = s.personColorer;
+    if (!setFunctionalColor(c.getActive())) {
+        GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
+    }
+}
+
+
+bool
+GNEPerson::setFunctionalColor(int /* activeScheme */) const {
+    /*
+    switch (activeScheme) {
+        case 0: {
+            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
+                GLHelper::setColor(getParameter().color);
+                return true;
+            }
+            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
+                GLHelper::setColor(getVehicleType().getColor());
+                return true;
+            }
+            return false;
+        }
+        case 2: {
+            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
+                GLHelper::setColor(getParameter().color);
+                return true;
+            }
+            return false;
+        }
+        case 3: {
+            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
+                GLHelper::setColor(getVehicleType().getColor());
+                return true;
+            }
+            return false;
+        }
+        case 8: { // color by angle
+            double hue = GeomHelper::naviDegree(getAngle());
+            GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
+            return true;
+        }
+        case 9: { // color randomly (by pointer)
+            const double hue = (long)this % 360; // [0-360]
+            const double sat = (((long)this / 360) % 67) / 100.0 + 0.33; // [0.33-1]
+            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
+            return true;
+        }
+        default:
+            return false;
+    }
+    */
+    return false;
 }
 
 // ===========================================================================
