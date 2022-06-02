@@ -1290,8 +1290,8 @@ def changeDefaultValue(numTabs, length):
         typeTab()
     # paste new length
     pasteIntoTextField(length)
-    # type enter to save new length
-    typeEnter()
+    # type tab to save new value
+    typeTab()
 
 
 def changeDefaultBoolValue(numTabs):
