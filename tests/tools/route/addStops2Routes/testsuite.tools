@@ -8,6 +8,12 @@ relpos
 # set stop position
 relpos_random
 
+# set stop lane
+lane
+
+# set stop lane
+lane_random
+
 # tests for adding stops at the end of a trip
 trip
 
