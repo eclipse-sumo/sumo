@@ -328,6 +328,7 @@ routes:0.0001
 output:0.0001
 xml:0.0001
 csv:0.0101
+dualog:0.0101
 
 [unordered_text]
 errors:ERROR:SCHEMA
