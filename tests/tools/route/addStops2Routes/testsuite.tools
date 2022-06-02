@@ -14,6 +14,15 @@ lane
 # set stop lane
 lane_random
 
+# set relative edge along route
+reledge
+
+# set stop on first edge
+reledge_0
+
+# set relative edge along route
+reledge_random
+
 # tests for adding stops at the end of a trip
 trip
 
