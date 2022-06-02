@@ -550,13 +550,7 @@ GNEContainer::getAttributePosition(SumoXMLAttr key) const {
                 return containerPlan->getPositionInView();
             } else {
                 // declare lane lane
-                GNELane* lane = nullptr;
-                // update lane
-                if (containerPlan->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
-                    lane = containerPlan->getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-                } else {
-                    lane = containerPlan->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-                }
+                const GNELane* lane = containerPlan->getParentEdges().front()->getLaneByAllowedVClass(SVC_IGNORING);
                 // get position over lane shape
                 if (departPos <= 0) {
                     return lane->getLaneShape().front();

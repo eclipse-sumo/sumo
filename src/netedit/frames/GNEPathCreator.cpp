@@ -253,12 +253,17 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             myCreationMode |= END_JUNCTION;
             myCreationMode |= ONLY_FROMTO;
             break;
-        // stops
+        // stops (person and containers)
         case GNE_TAG_STOPPERSON_BUSSTOP:
             myCreationMode |= SINGLE_ELEMENT;
             myCreationMode |= END_BUSSTOP;
             break;
+        case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
+            myCreationMode |= SINGLE_ELEMENT;
+            myCreationMode |= END_CONTAINERSTOP;
+            break;
         case GNE_TAG_STOPPERSON_EDGE:
+        case GNE_TAG_STOPCONTAINER_EDGE:
             myCreationMode |= SINGLE_ELEMENT;
             myCreationMode |= START_EDGE;
             break;
