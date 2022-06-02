@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2022-06-02 19:04:50.466001 by addStops2Routes.py v1_13_0+0575-41db295
+<configuration>
+    <duration value="1800"/>
+    <net-file value="input_net.net.xml"/>
+    <output-file value="out.rou.xml"/>
+    <parking value="True"/>
+    <relpos value="random"/>
+    <route-files value="input_routes2.rou.xml"/>
+    <until value="12:0:0"/>
+</configuration>
+
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="type1" vClass="bicycle"/>
+    <vehicle color="1,0,0" depart="0" id="0" type="type1">
+        <route edges="SC CN"/>
+        <stop duration="1800" endPos="55.57" lane="CN_2" parking="true" until="12:0:0"/>
+    </vehicle>
+    <vehicle color="1,0,0" depart="0" id="1" type="type1">
+        <route edges="EC CW"/>
+        <stop duration="1800" endPos="2.15" lane="CW_2" parking="true" until="12:0:0"/>
+    </vehicle>
+    <vehicle color="1,0,0" depart="0" id="2" type="type1">
+        <route edges="NC CW WC CS"/>
+        <stop duration="1800" endPos="23.49" lane="CS_2" parking="true" until="12:0:0"/>
+    </vehicle>
+</routes>

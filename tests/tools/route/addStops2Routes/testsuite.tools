@@ -5,6 +5,9 @@ default_type_file
 # set stop position
 relpos
 
+# set stop position
+relpos_random
+
 # tests for adding stops at the end of a trip
 trip
 
