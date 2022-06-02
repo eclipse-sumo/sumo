@@ -63,22 +63,22 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_CONTAINERTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_CONTAINERTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_CONTAINERTYPE' in DemandElementSelector
 Debug: Selected item 'tranship: edge->containerStop' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
-Debug: Adding container 'p_0' in GNEChange_DemandElement
-Debug: Adding tranship: edge->containerStop 'p_0' in GNEChange_DemandElement
+Debug: Adding container 'c_0' in GNEChange_DemandElement
+Debug: Adding tranship: edge->containerStop 'c_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing tranship: edge->containerStop 'p_0' in GNEChange_DemandElement
-Debug: Removing container 'p_0' in GNEChange_DemandElement
+Debug: Removing tranship: edge->containerStop 'c_0' in GNEChange_DemandElement
+Debug: Removing container 'c_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding container 'p_0' in GNEChange_DemandElement
-Debug: Adding tranship: edge->containerStop 'p_0' in GNEChange_DemandElement
+Debug: Adding container 'c_0' in GNEChange_DemandElement
+Debug: Adding tranship: edge->containerStop 'c_0' in GNEChange_DemandElement
 Debug: demand elements saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
@@ -117,8 +117,8 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
-Debug: Deleting unreferenced tranship: edge->containerStop 'p_0'
-Debug: Deleting unreferenced container 'p_0'
+Debug: Deleting unreferenced tranship: edge->containerStop 'c_0'
+Debug: Deleting unreferenced container 'c_0'
 Debug: Deleting unreferenced containerStop 'containerStop'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor

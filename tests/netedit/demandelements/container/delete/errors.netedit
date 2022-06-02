@@ -63,22 +63,22 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_CONTAINERTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_CONTAINERTYPE' in DemandElementSelector
 Debug: Key ENTER pressed
-Debug: Adding container 'p_0' in GNEChange_DemandElement
-Debug: Adding tranship: edge->edge 'p_0' in GNEChange_DemandElement
+Debug: Adding container 'c_0' in GNEChange_DemandElement
+Debug: Adding transport: edge->edge 'c_0' in GNEChange_DemandElement
 Debug: Current Viewport values: 0.00, -6.00, 5.00. Zoom = '1736.00'
-Debug: Removing tranship: edge->edge 'p_0' in GNEChange_DemandElement
-Debug: Removing container 'p_0' in GNEChange_DemandElement
+Debug: Removing transport: edge->edge 'c_0' in GNEChange_DemandElement
+Debug: Removing container 'c_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding container 'p_0' in GNEChange_DemandElement
-Debug: Adding tranship: edge->edge 'p_0' in GNEChange_DemandElement
+Debug: Adding container 'c_0' in GNEChange_DemandElement
+Debug: Adding transport: edge->edge 'c_0' in GNEChange_DemandElement
 Debug: Opened FXMessageBox Problem deleting edge 'gneE2'
 Debug: Closed FXMessageBox Problem deleting edge 'gneE2'
-Debug: Removing tranship: edge->edge 'p_0' in GNEChange_DemandElement
-Debug: Removing container 'p_0' in GNEChange_DemandElement
+Debug: Removing transport: edge->edge 'c_0' in GNEChange_DemandElement
+Debug: Removing container 'c_0' in GNEChange_DemandElement
 Debug: Removing connection 'gneE2_1->gneE4_1' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_1togneE4_1' in removeConnection()
 Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'
@@ -93,12 +93,12 @@ Debug: Adding connection 'gneE2_0->gneE4_0' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_0togneE4_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE2_1->gneE4_1' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_1togneE4_1' in retrieveGNEConnection()
-Debug: Adding container 'p_0' in GNEChange_DemandElement
-Debug: Adding tranship: edge->edge 'p_0' in GNEChange_DemandElement
+Debug: Adding container 'c_0' in GNEChange_DemandElement
+Debug: Adding transport: edge->edge 'c_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing tranship: edge->edge 'p_0' in GNEChange_DemandElement
-Debug: Removing container 'p_0' in GNEChange_DemandElement
+Debug: Removing transport: edge->edge 'c_0' in GNEChange_DemandElement
+Debug: Removing container 'c_0' in GNEChange_DemandElement
 Debug: Removing connection 'gneE2_1->gneE4_1' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_1togneE4_1' in removeConnection()
 Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'
@@ -144,8 +144,8 @@ Debug: Additionals saved
 Debug: Deleting unreferenced edge 'gneE2' GNEChange_Edge
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
-Debug: Deleting unreferenced tranship: edge->edge 'p_0'
-Debug: Deleting unreferenced container 'p_0'
+Debug: Deleting unreferenced transport: edge->edge 'c_0'
+Debug: Deleting unreferenced container 'c_0'
 Debug: Deleting unreferenced containerStop 'containerStop'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
