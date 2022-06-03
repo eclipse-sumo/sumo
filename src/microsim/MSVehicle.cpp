@@ -1401,6 +1401,11 @@ MSVehicle::computeAngle() const {
     if (myLaneChangeModel->isChangingLanes()) {
         // cannot use getPosition() because it already includes the offset to the side and thus messes up the angle
         p1 = myLane->geometryPositionAtOffset(myState.myPos, lefthandSign * posLat);
+		if (p1 == Position::INVALID && myLane->getShape().length2D() == 0. && myLane->isInternal()) {
+			// workaround: extrapolate the preceding lane shape
+			MSLane* predecessorLane = myLane->getCanonicalPredecessorLane();
+			p1 = predecessorLane->geometryPositionAtOffset(predecessorLane->getLength() + myState.myPos, lefthandSign * posLat);
+		}
     } else {
         p1 = getPosition();
     }
