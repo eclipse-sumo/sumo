@@ -8,7 +8,6 @@ demandelements/stop/chargingstation/inspect_selection/tripid
 demandelements/stop/containerstop/inspect_selection/tripid
 demandelements/stop/lane/inspect_selection/poslat
 demandelements/stop/parkingarea/inspect_selection/tripid
-demandelements/vehicletype/edit_default/vclass
 demandelements/waypoint/busstop/create/speed
 demandelements/waypoint/chargingstation/create/speed
 demandelements/waypoint/containerstop/create/speed
