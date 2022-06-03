@@ -905,6 +905,9 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // draw temporal person plan route
         myViewParent->getPersonFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
         myViewParent->getPersonPlanFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
+        // draw temporal container plan route
+        myViewParent->getContainerFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
+        myViewParent->getContainerPlanFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
         // draw temporal route
         myViewParent->getRouteFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
         // draw temporal edgeRelPath
