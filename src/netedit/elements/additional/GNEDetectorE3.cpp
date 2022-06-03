@@ -87,7 +87,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
         }
         device.writeAttr(SUMO_ATTR_POSITION, myPosition);
-        device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFreq));
+        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myFreq));
         if (myFilename.size() > 0) {
             device.writeAttr(SUMO_ATTR_FILE, myFilename);
         }
@@ -177,6 +177,7 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
             return getID();
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             return time2string(myFreq);
         case SUMO_ATTR_NAME:
@@ -218,6 +219,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
     }
     switch (key) {
         case SUMO_ATTR_ID:
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:
@@ -242,6 +244,7 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidDetectorID(value);
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             return canParse<SUMOTime>(value);
         case SUMO_ATTR_NAME:
@@ -331,6 +334,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
                 updateCenteringBoundary(true);
             }
             break;
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             myFreq = string2time(value);
             break;

@@ -121,7 +121,7 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
     }
     device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
     if (time2string(myFrequency) != "1.00") {
-        device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFrequency));
+        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myFrequency));
     }
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, myAdditionalName);
@@ -273,6 +273,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
             return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             return time2string(myFrequency);
         case SUMO_ATTR_NAME:
@@ -320,6 +321,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_EDGE:
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_OUTPUT:
@@ -372,6 +374,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             return canParse<SUMOTime>(value);
         case SUMO_ATTR_NAME:
@@ -504,6 +507,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value);
             break;
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             myFrequency = parse<SUMOTime>(value);
             break;

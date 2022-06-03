@@ -851,7 +851,7 @@ RODFDetectorCon::writeValidationDetectors(const std::string& file,
                 pos += 1;
             }
             out.openTag(SUMO_TAG_E1DETECTOR).writeAttr(SUMO_ATTR_ID, "validation_" + StringUtils::escapeXML(det->getID())).writeAttr(SUMO_ATTR_LANE, det->getLaneID());
-            out.writeAttr(SUMO_ATTR_POSITION, pos).writeAttr(SUMO_ATTR_FREQUENCY, 60);
+            out.writeAttr(SUMO_ATTR_POSITION, pos).writeAttr(SUMO_ATTR_PERIOD, 60);
             if (friendly) {
                 out.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
             }

@@ -69,7 +69,7 @@ GNERouteProbe::writeAdditional(OutputDevice& device) const {
     // write parameters
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_BEGIN, time2string(myBegin));
-    device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFrequency));
+    device.writeAttr(SUMO_ATTR_PERIOD, time2string(myFrequency));
     device.writeAttr(SUMO_ATTR_EDGE, getParentEdges().front()->getID());
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, myAdditionalName);
@@ -211,6 +211,7 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
             return myAdditionalName;
         case SUMO_ATTR_FILE:
             return myFilename;
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             return time2string(myFrequency);
         case SUMO_ATTR_BEGIN:
@@ -252,6 +253,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_EDGE:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_BEGIN:
         case GNE_ATTR_SELECTED:
@@ -300,6 +302,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             if (canParse<SUMOTime>(value)) {
                 return (parse<SUMOTime>(value) > 0);
@@ -334,6 +337,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             myFilename = value;
             break;
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             myFrequency = parse<SUMOTime>(value);
             break;

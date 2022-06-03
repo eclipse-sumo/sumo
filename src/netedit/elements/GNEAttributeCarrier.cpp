@@ -1850,7 +1850,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "The position on the lane the detector shall be laid on in meters. The position must be a value between -1*lane's length and the lane's length");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FREQUENCY,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               "The aggregation period the values the detector collects shall be summed up",
                                               "300.00");
@@ -1906,7 +1906,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "10.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FREQUENCY,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               "The aggregation period the values the detector collects shall be summed up",
                                               "300.00");
@@ -1984,7 +1984,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "The end position on the lane the detector shall be laid on in meters");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FREQUENCY,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               "The aggregation period the values the detector collects shall be summed up",
                                               "300.00");
@@ -2054,7 +2054,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FREQUENCY,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               "The aggregation period the values the detector collects shall be summed up",
                                               "300.00");
@@ -2267,7 +2267,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FREQUENCY,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               "The aggregation interval in which to calibrate the flows. Default is step-length",
                                               "1.00");
@@ -2323,7 +2323,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FREQUENCY,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               "The aggregation interval in which to calibrate the flows. Default is step-length",
                                               "1.00");
@@ -2615,7 +2615,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "The id of an edge in the simulation network");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FREQUENCY,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               "The frequency in which to report the distribution",
                                               "3600.00");

@@ -100,7 +100,7 @@ GNEDetectorE2::writeAdditional(OutputDevice& device) const {
     if (myTrafficLight.size() > 0) {
         device.writeAttr(SUMO_ATTR_TLID, myTrafficLight);
     } else {
-        device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFreq));
+        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myFreq));
     }
     if (myFilename.size() > 0) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
@@ -504,6 +504,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
             return toString(myPositionOverLane);
         case SUMO_ATTR_ENDPOS:
             return toString(myEndPositionOverLane);
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             if (myFreq == -1) {
                 return "";
@@ -563,6 +564,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_LANES:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_ENDPOS:
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_TLID:
         case SUMO_ATTR_LENGTH:
@@ -615,6 +617,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_ENDPOS:
             return canParse<double>(value);
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             return value.empty() || (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_TLID:
@@ -684,6 +687,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
                 updateGeometry();
             }
             break;
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             if (value.empty()) {
                 myFreq = -1;
