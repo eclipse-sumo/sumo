@@ -35,26 +35,26 @@ netedit.createEdgeMode()
 netedit.changeDefaultValue(netedit.attrs.edge.create.spreadType, "dummy")
 
 # Create two nodes
-netedit.leftClick(referencePosition, 87, 108)
-netedit.leftClick(referencePosition, 510, 108)
+netedit.leftClick(referencePosition, 80, 100)
+netedit.leftClick(referencePosition, 510, 100)
 
 # set attribute
 netedit.changeDefaultValue(netedit.attrs.edge.create.spreadType, "")
 
 # Create two nodes
-netedit.leftClick(referencePosition, 87, 108)
-netedit.leftClick(referencePosition, 510, 108)
+netedit.leftClick(referencePosition, 80, 175)
+netedit.leftClick(referencePosition, 500, 175)
 
 # set attribute
 netedit.changeDefaultValue(netedit.attrs.edge.create.spreadType, "center")
 
 # Create two nodes
-netedit.leftClick(referencePosition, 87, 108)
-netedit.leftClick(referencePosition, 510, 108)
+netedit.leftClick(referencePosition, 80, 250)
+netedit.leftClick(referencePosition, 500, 250)
 
 # Check undo and redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # rebuild network
 netedit.rebuildNetwork()

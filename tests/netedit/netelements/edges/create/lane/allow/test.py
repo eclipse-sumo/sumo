@@ -35,29 +35,29 @@ netedit.createEdgeMode()
 netedit.changeDefaultValue(netedit.attrs.edge.createLane.allow, "dummy")
 
 # Create two nodes
-netedit.leftClick(referencePosition, 87, 108)
-netedit.leftClick(referencePosition, 510, 108)
+netedit.leftClick(referencePosition, 80, 100)
+netedit.leftClick(referencePosition, 510, 100)
 
 # set attribute
 netedit.changeDefaultValue(netedit.attrs.edge.createLane.allow, "pedestrian bus")
 
 # Create two nodes
-netedit.leftClick(referencePosition, 87, 108)
-netedit.leftClick(referencePosition, 510, 108)
+netedit.leftClick(referencePosition, 80, 175)
+netedit.leftClick(referencePosition, 500, 175)
 
 # set attribute
 netedit.changeDefaultValue(netedit.attrs.edge.createLane.allow, "all")
 
 # Create two nodes
-netedit.leftClick(referencePosition, 87, 120)
-netedit.leftClick(referencePosition, 510, 120)
+netedit.leftClick(referencePosition, 80, 250)
+netedit.leftClick(referencePosition, 500, 250)
 
 # set attribute
 netedit.changeDefaultAllowDisallowValue(netedit.attrs.edge.createLane.allowButton)
 
 # Create two nodes
-netedit.leftClick(referencePosition, 87, 160)
-netedit.leftClick(referencePosition, 510, 160)
+netedit.leftClick(referencePosition, 80, 325)
+netedit.leftClick(referencePosition, 500, 325)
 
 # Check undo and redo
 netedit.undo(referencePosition, 3)
