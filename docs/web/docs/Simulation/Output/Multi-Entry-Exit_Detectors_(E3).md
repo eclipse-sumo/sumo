@@ -54,7 +54,7 @@ The complete list of attributes is:
 | -------------- | ----------- | ---------------------------------------------------- |
 | **id**         | id (string) | A string holding the id of the detector              |
 | **file**       | filename    | The path to the output file. The path may be relative.    |
-| **period** (alias freq) | int| The aggregation period the values the detector collects shall be summed up.     |
+| period (alias freq) | int| The aggregation period the values the detector collects shall be summed up (*default: whole simulation time*).     |
 | timeThreshold  | float       | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.    |
 | speedThreshold | float       | The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; *in m/s, default: 5/3.6m/s*.    |
 | openEntry      | bool        | If set to *true*, no error will be reported if vehicles leave the detector without first entering it. This can be useful when tracking vehicles for a particular combination of entry and exit lane at an intersection and other vehicles may also use the exit lane. *default: false*. |

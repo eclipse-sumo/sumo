@@ -25,7 +25,7 @@ The following attributes are used within the `routeProbe` element:
 | -------------- | ----------- | ------------------------------------------------- |
 | **id**         | id (string) | The id of the routeProbe element (user choice)    |
 | **edge**       | id (string) | The id of an edge in the simulation network       |
-| **period** (alias freq) | time (s) | The period in which to report the distribution |
+| period (alias freq) | time (s) | The period in which to report the distribution (*default: whole simulation time*) |
 | **file**       | string      | The file for generated output                     |
 | **begin**      | time (s)    | The time at which to start generating output      |
 

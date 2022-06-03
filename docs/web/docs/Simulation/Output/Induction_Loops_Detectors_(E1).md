@@ -41,7 +41,7 @@ The attributes:
 | **id**         | id (string)        | The id of the detector                                                                      |
 | **lane**       | referenced lane id | The id of the lane the detector shall be laid on. The lane must be a part of the network used.           |
 | **pos**        | float              | The position on the lane the detector shall be laid on in meters. The position must be a value between -1\*lane's length and the lane's length. In the case of a negative value, the position will be computed backward from the lane's end (the position the vehicles drive towards). |
-| **period** (alias freq) | int (time)| The aggregation period the values the detector collects shall be summed up.                         |
+| period (alias freq) | int (time)| The aggregation period the values the detector collects shall be summed up (*default: whole simulation time*).                         |
 | **file**       | filename           | The path to the output file. See [Writing Files](../../Basics/Using_the_Command_Line_Applications.md#writing_files) for further information.                                                                                                                                         |
 | friendlyPos    | bool     | If set, no error will be reported if the detector is placed behind the lane. Instead, the detector will be placed 0.1 meters from the lane's end or at position 0.1, if the position was negative and larger than the lane's length after multiplication with -1; *default: false*.    |
 | vTypes         | string   | space separated list of vehicle type ids to consider, "" means all; default "".                       |
