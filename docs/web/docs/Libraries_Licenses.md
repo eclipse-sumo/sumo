@@ -116,7 +116,7 @@ won't work
 
 ### [Google Test](https://github.com/google/googletest) - C++ Unit Test Framework
 
-- [BSD License](https://opensource.org/licenses/bsd-license.html)
+- [BSD License](https://github.com/google/googletest/blob/main/LICENSE)
 
 ## Data and Documentation
 
