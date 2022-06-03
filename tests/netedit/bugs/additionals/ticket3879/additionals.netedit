@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-22 10:14:46 by Eclipse SUMO netedit Version v1_12_0+1580-9c18c03b069
+<!-- generated on 2022-06-03 15:47:18 by Eclipse SUMO netedit Version v1_13_0+0610-e5b7f68bfcb
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
@@ -14,10 +14,10 @@
         <space x="36.82" y="10.96" width="3.20" length="5.00" angle="0.00"/>
     </parkingArea>
     <!-- Detectors -->
-    <e1Detector id="e1" lane="gneE1_0" pos="19.68" freq="100.00" file="e1.txt"/>
+    <e1Detector id="e1" lane="gneE1_0" pos="19.68" period="100.00" file="e1.txt"/>
     <instantInductionLoop id="e1i" lane="gneE1_0" pos="22.00" file="e1i.txt"/>
-    <e2Detector id="e2" lane="gneE1_0" pos="7.17" length="10.00" freq="100.00" file="e2.txt"/>
-    <e3Detector id="e3" pos="9.06,-7.45" freq="100.00" file="e3.txt">
+    <e2Detector id="e2" lane="gneE1_0" pos="7.17" length="10.00" period="100.00" file="e2.txt"/>
+    <e3Detector id="e3" pos="9.06,-7.45" period="100.00" file="e3.txt">
         <detEntry lane="gneE0_0" pos="5.45"/>
         <detExit lane="gneE0_0" pos="12.65"/>
     </e3Detector>

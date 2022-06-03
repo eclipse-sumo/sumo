@@ -22,8 +22,8 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Value 'dummyFrequency' for attribute freq of e2MultilaneDetector isn't valid
-Debug: Value '-100' for attribute freq of e2MultilaneDetector isn't valid
+Debug: Value 'dummyFrequency' for attribute period of e2MultilaneDetector isn't valid
+Debug: Value '-100' for attribute period of e2MultilaneDetector isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

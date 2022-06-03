@@ -22,7 +22,7 @@ Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Setting new attribute
 Debug: Value 'dummyPriority' for attribute priority of edge isn't valid
 Debug: Setting new attribute
-Debug: Value '' for attribute priority of edge isn't valid
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

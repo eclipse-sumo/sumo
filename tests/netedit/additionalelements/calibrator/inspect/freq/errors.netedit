@@ -1,7 +1,7 @@
 Debug: Selected item 'calibrator' in GNETagSelector
 Debug: Adding calibrator 'ca_0' in GNEChange_Additional
-Debug: Value 'dummyFreq' for attribute freq of calibrator isn't valid
-Debug: Value '-12' for attribute freq of calibrator isn't valid
+Debug: Value 'dummyFreq' for attribute period of calibrator isn't valid
+Debug: Value '-12' for attribute period of calibrator isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

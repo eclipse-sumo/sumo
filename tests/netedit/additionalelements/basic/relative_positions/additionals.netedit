@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-04 10:13:17 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
+<!-- generated on 2022-06-03 15:48:54 by Eclipse SUMO netedit Version v1_13_0+0610-e5b7f68bfcb
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- RouteProbes -->
-    <routeProbe id="routeProbe_gneE1_0" begin="0.00" freq="100.00" edge="gneE1" file="routeProbe_gneE1_0.txt"/>
+    <routeProbe id="routeProbe_gneE1_0" begin="0.00" period="100.00" edge="gneE1" file="routeProbe_gneE1_0.txt"/>
     <!-- Calibrators -->
-    <calibrator id="calibrator_gneE1_0_0" lane="gneE1_0" pos="5.00" freq="100.00" output="calibrator_gneE1_0_0.txt"/>
-    <calibrator id="calibrator_gneE1_1" edge="gneE1" pos="10.00" freq="100.00" output="calibrator_gneE1_1_1.txt"/>
+    <calibrator id="calibrator_gneE1_0_0" lane="gneE1_0" pos="5.00" period="100.00" output="calibrator_gneE1_0_0.txt"/>
+    <calibrator id="calibrator_gneE1_1" edge="gneE1" pos="10.00" period="100.00" output="calibrator_gneE1_1_1.txt"/>
     <!-- StoppingPlaces -->
     <busStop id="busStop_gneE1_0_0" lane="gneE1_0" startPos="24.90" endPos="25.00"/>
     <containerStop id="containerStop_gneE1_1_0" lane="gneE1_1" startPos="24.90" endPos="25.00"/>
     <chargingStation id="chargingStation_gneE1_2_0" lane="gneE1_2" startPos="24.90" endPos="25.00"/>
     <!-- Detectors -->
-    <e1Detector id="e1Detector_gneE0_2_0" lane="gneE0_2" pos="10.00" freq="100.00" file="e1Detector_gneE0_2_0.txt" vTypes="bus taxi private"/>
+    <e1Detector id="e1Detector_gneE0_2_0" lane="gneE0_2" pos="10.00" period="100.00" file="e1Detector_gneE0_2_0.txt" vTypes="bus taxi private"/>
     <instantInductionLoop id="instantInductionLoop_1" lane="gneE0_2" pos="12.00" file="instantInductionLoop_1.txt"/>
-    <e2Detector id="e2Detector_gneE0_1_0" lane="gneE0_1" pos="5.00" length="10.00" freq="100.00" file="e2Detector_gneE0_1_0.txt"/>
-    <e3Detector id="e3Detector_0" pos="10.00,-15.00" freq="100.00" file="e3Detector_0.txt">
+    <e2Detector id="e2Detector_gneE0_1_0" lane="gneE0_1" pos="5.00" length="10.00" period="100.00" file="e2Detector_gneE0_1_0.txt"/>
+    <e3Detector id="e3Detector_0" pos="10.00,-15.00" period="100.00" file="e3Detector_0.txt">
         <detEntry lane="gneE0_0" pos="5.00"/>
         <detExit lane="gneE0_0" pos="15.00"/>
     </e3Detector>

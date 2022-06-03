@@ -5,8 +5,8 @@ Debug: Created connection 'fromgneE4_0togneE5_0' in retrieveGNEConnection()
 Debug: Selected item 'e2MultilaneDetector' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2_0' in GNEChange_Additional
-Debug: Value 'dummyFrequency' for attribute freq of e2MultilaneDetector isn't valid
-Debug: Value '-100' for attribute freq of e2MultilaneDetector isn't valid
+Debug: Value 'dummyFrequency' for attribute period of e2MultilaneDetector isn't valid
+Debug: Value '-100' for attribute period of e2MultilaneDetector isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

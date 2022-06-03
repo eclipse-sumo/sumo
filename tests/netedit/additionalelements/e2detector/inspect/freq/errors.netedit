@@ -1,7 +1,7 @@
 Debug: Selected item 'e2Detector' in GNETagSelector
 Debug: Adding e2Detector 'e2_0' in GNEChange_Additional
-Debug: Value 'dummyFrequency' for attribute freq of e2Detector isn't valid
-Debug: Value '-100' for attribute freq of e2Detector isn't valid
+Debug: Value 'dummyFrequency' for attribute period of e2Detector isn't valid
+Debug: Value '-100' for attribute period of e2Detector isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

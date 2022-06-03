@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-04 11:01:55 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
+<!-- generated on 2022-06-03 16:42:24 by Eclipse SUMO netedit Version v1_13_0+0610-e5b7f68bfcb
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <e2Detector id="e2MultilaneDetector_0" lanes="gneE2_0 gneE3_0" pos="15.00" endPos="15.00" freq="900.00" file="e2MultilaneDetector_0.xml"/>
-    <e2Detector id="e2MultilaneDetector_2" lanes="gneE2_0 gneE3_0" pos="15.00" endPos="15.00" freq="900.00" file="e2MultilaneDetector_2.xml" vTypes="Type1 Type2"/>
+    <e2Detector id="e2MultilaneDetector_0" lanes="gneE2_0 gneE3_0" pos="15.00" endPos="15.00" period="900.00" file="e2MultilaneDetector_0.xml"/>
+    <e2Detector id="e2MultilaneDetector_2" lanes="gneE2_0 gneE3_0" pos="15.00" endPos="15.00" period="900.00" file="e2MultilaneDetector_2.xml" vTypes="Type1 Type2"/>
 </additional>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-22 15:01:03 by Eclipse SUMO netedit Version v1_12_0+2247-3061a52e208
+<!-- generated on 2022-06-03 16:47:13 by Eclipse SUMO netedit Version v1_13_0+0610-e5b7f68bfcb
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <e2Detector id="e2_0" lanes="gneE2_0 gneE3_0" pos="0.00" endPos="3.00" freq="300.00" file="e2_0.xml"/>
+    <e2Detector id="e2_0" lanes="gneE2_0 gneE3_0" pos="0.00" endPos="3.00" period="300.00" file="e2_0.xml"/>
 </additional>

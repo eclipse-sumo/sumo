@@ -9,8 +9,8 @@ Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
-Debug: Value 'dummy' for attribute freq of routeProbe isn't valid
-Debug: Value '-50' for attribute freq of routeProbe isn't valid
+Debug: Value 'dummy' for attribute period of routeProbe isn't valid
+Debug: Value '-50' for attribute period of routeProbe isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

@@ -20,8 +20,8 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Value '%%%;:..&&%$%$' for attribute freq of e3Detector isn't valid
-Debug: Value '-30' for attribute freq of e3Detector isn't valid
+Debug: Value '%%%;:..&&%$%$' for attribute period of e3Detector isn't valid
+Debug: Value '-30' for attribute period of e3Detector isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
