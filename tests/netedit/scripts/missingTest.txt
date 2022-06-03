@@ -1,4 +1,6 @@
 POIGEO.create.lonLat
+containerFlow.create.end
+containerFlow.create.number
 fix.demandElements.routes
 fix.demandElements.routes.removeStops
 flowEmbedded.inspect.arrivalEdge
@@ -19,7 +21,6 @@ modes.network.spreadVehicle
 personFlow.create.end
 personFlow.create.number
 selection.lockSelectionNetwork.TAZs
-stopLane.inspectSelection.posLat
 type.editDialog.colorButton
 type.editDialog.imgFileButton
 type.editDialog.osgFileButton
@@ -27,4 +28,3 @@ type.editDialog.parametersButton
 vehicleEmbedded.inspect.arrivalEdge
 vehicleEmbedded.inspect.departEdge
 waypoint.inspectSelection.speed
-waypointLane.inspectSelection.posLat
