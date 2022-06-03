@@ -708,7 +708,7 @@ GNEContainer::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
-        case SUMO_ATTR_PERSONSPERHOUR:
+        case SUMO_ATTR_CONTAINERSPERHOUR:
         case SUMO_ATTR_PERIOD:
         case GNE_ATTR_POISSON:
         case SUMO_ATTR_PROB:
