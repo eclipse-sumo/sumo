@@ -71,30 +71,26 @@ Debug: Key ENTER pressed
 Debug: Adding containerFlow 'f_0' in GNEChange_DemandElement
 Debug: Adding transport: edge->edge 'f_0' in GNEChange_DemandElement
 Debug: Current Viewport values: 0.00, -6.00, 5.00. Zoom = '1736.00'
-Debug: Value ' ' for attribute color of containerFlow isn't valid
-Debug: Setting new attribute into containerFlow 'f_0'
-Debug: Setting new attribute into containerFlow 'f_0'
-Debug: Setting new attribute into containerFlow 'f_0'
-Debug: Setting new attribute into containerFlow 'f_0'
 Debug: Setting new attribute
-Debug: Value 'dummyColor' for attribute begin of containerFlow isn't valid
-Debug: Value 'cyan' for attribute begin of containerFlow isn't valid
-Debug: Value '12,13,14' for attribute begin of containerFlow isn't valid
+Debug: Setting new attribute
+Debug: Value 'dummyColor' for attribute color of containerFlow isn't valid
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into containerFlow 'f_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into containerFlow 'f_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into containerFlow 'f_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into containerFlow 'f_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
