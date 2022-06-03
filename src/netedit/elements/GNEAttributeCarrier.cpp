@@ -5300,6 +5300,12 @@ GNEAttributeCarrier::fillCommonContainerAttributes(SumoXMLTag currentTag) {
                                           "The name of the " + toString(currentTag));
     myTagProperties[currentTag].addAttribute(attrProperty);
 
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                          "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag) +
+                                          DEFAULT_CONTAINERTYPE_ID);
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
     attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
                                           "This " + toString(currentTag) + "'s color",

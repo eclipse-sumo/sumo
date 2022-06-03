@@ -269,7 +269,8 @@ GNEAttributesCreator::refreshRows(const bool createRows) {
         // check special case for VType IDs in vehicle and person Frame
         if ((attribute.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
                 ((myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
-                 (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_PERSON))) {
+                 (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_PERSON) ||
+                 (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_CONTAINER))) {
             showAttribute = false;
         }
         // show attribute depending of showAttribute flag

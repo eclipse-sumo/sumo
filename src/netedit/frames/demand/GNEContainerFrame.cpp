@@ -319,7 +319,7 @@ GNEContainerFrame::buildContainer() {
     // check if we're creating a container or containerFlow
     if (containerTag == SUMO_TAG_CONTAINER) {
         // Add parameter departure
-        if (myContainerBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) && myContainerBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
+        if (!myContainerBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) || myContainerBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
             myContainerBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
         }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
