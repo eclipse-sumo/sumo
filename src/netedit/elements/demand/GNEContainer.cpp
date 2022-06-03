@@ -498,7 +498,17 @@ GNEContainer::getAttribute(SumoXMLAttr key) const {
             }
         // Specific of containers
         case SUMO_ATTR_DEPART:
-            return toString(depart);
+            if (departProcedure == DepartDefinition::TRIGGERED) {
+                return "triggered";
+            } else if (departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
+                return "containerTriggered";
+            } else if (departProcedure == DepartDefinition::SPLIT) {
+                return "split";
+            } else if (departProcedure == DepartDefinition::NOW) {
+                return "now";
+            } else {
+                return time2string(depart);
+            }
         // Specific of containerFlows
         case SUMO_ATTR_BEGIN:
             return time2string(depart);
@@ -528,11 +538,7 @@ double
 GNEContainer::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DEPARTPOS:
-            if (departPosProcedure == DepartPosDefinition::GIVEN) {
-                return departPos;
-            } else {
-                return 0;
-            }
+            return STEPS2TIME(depart);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
@@ -621,20 +627,15 @@ GNEContainer::isValid(SumoXMLAttr key, const std::string& value) {
             return error.empty();
         }
         // Specific of containers
-        case SUMO_ATTR_DEPART: {
-            if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
-            } else {
-                return false;
-            }
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN: {
+            SUMOTime dummyDepart;
+            DepartDefinition dummyDepartProcedure;
+            parseDepart(value, toString(SUMO_TAG_CONTAINER), id, dummyDepart, dummyDepartProcedure, error);
+            // if error is empty, given value is valid
+            return error.empty();
         }
         // Specific of containerflows
-        case SUMO_ATTR_BEGIN:
-            if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
-            } else {
-                return false;
-            }
         case SUMO_ATTR_END:
             if (value.empty()) {
                 return true;
@@ -892,13 +893,9 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGeometry();
             break;
         // Specific of containers
-        case SUMO_ATTR_DEPART: {
-            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
-            break;
-        }
-        // Specific of containerFlows
+        case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN: {
-            depart = string2time(value);
+            parseDepart(value, toString(SUMO_TAG_CONTAINER), id, depart, departProcedure, error);
             break;
         }
         case SUMO_ATTR_END:
