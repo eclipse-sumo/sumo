@@ -288,3 +288,17 @@ def geh(m, c):
         return 0
     else:
         return math.sqrt(2 * (m - c) * (m - c) / (m + c))
+
+"""
+    Scaling Quality Value Calculation
+    Ref: https://journals.sagepub.com/doi/10.1177/0361198119838849
+
+    Typical values for scaling factor
+    - Number of person trips per day (total, per mode, per purpose) - 1
+    - Mean trip distance in kilometers - 10
+    - Duration of all trips per person per day in minutes - 100
+    - Traffic volume per hour - 1000
+    - Traffic volume per day - 10000
+"""
+def sqv(self, m, c, scaling_factor = 1000):
+    return 1/(1 + math.sqrt(((m-c)*(m-c))/(scaling_factor*c)))
