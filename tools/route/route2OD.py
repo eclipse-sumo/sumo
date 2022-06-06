@@ -81,8 +81,8 @@ def main(options):
                     for source in taz.tazSource:
                         edgeFromTaz[source.id].append(taz.id)
                 if taz.tazSink:
-                    for sink in taz.tazSource:
-                        edgeToTaz[source.id].append(taz.id)
+                    for sink in taz.tazSink:
+                        edgeToTaz[sink.id].append(taz.id)
 
         ambiguousSource = []
         ambiguousSink = []
