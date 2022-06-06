@@ -113,7 +113,7 @@ class Statistics:
     def update(self, other):
         for v in other.values:
             self.add(v)
-
+    
     def clear(self):
         self.min = uMax
         self.min_label = None
@@ -261,6 +261,25 @@ class Statistics:
 
     def __str__(self):
         return self.toString()
+
+    """
+        Normalises the stored list of values between n_min and n_max
+        Default: [0,1]
+    """
+    def normalise_to_range(self, n_min = 0, n_max = 1):
+        # Normalised values 
+        ret = []
+
+        # Constructing the range differences
+        range_length = n_max - n_min
+        values_diff = max(self.values) - min(self.values)
+        
+        # Constructing the normalised list
+        for val in self.values:
+            temp = (((val - min(self.values))*range_length)/values_diff) + n_min
+            ret.append(temp)
+        return ret
+        
 
 
 def geh(m, c):
