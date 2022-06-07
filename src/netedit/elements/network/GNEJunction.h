@@ -139,6 +139,9 @@ public:
     /// @brief Returns GNECrossings
     const std::vector<GNECrossing*>& getGNECrossings() const;
 
+    /// @brief Returns GNEWalkingAreas
+    const std::vector<GNEWalkingArea*>& getGNEWalkingAreas() const;
+
     /// @brief Returns all GNEConnections vinculated with this junction
     std::vector<GNEConnection*> getGNEConnections() const;
 
@@ -233,6 +236,9 @@ public:
     /// @brief get GNECrossing if exist, and if not create it if create is enabled
     GNECrossing* retrieveGNECrossing(NBNode::Crossing* NBNodeCrossing, bool createIfNoExist = true);
 
+    /// @brief get GNEWalkingArea if exist, and if not create it if create is enabled
+    GNEWalkingArea* retrieveGNEWalkingArea(const std::string &NBNodeWalkingAreaID, bool createIfNoExist = true);
+
     /// @brief mark connections as deprecated
     void markConnectionsDeprecated(bool includingNeighbours);
 
@@ -254,6 +260,9 @@ protected:
 
     /// @brief the built crossing objects
     std::vector<GNECrossing*> myGNECrossings;
+
+    /// @brief the built walkingArea objects
+    std::vector<GNEWalkingArea*> myGNEWalkingAreas;
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double myMaxDrawingSize;
@@ -322,6 +331,9 @@ private:
 
     /// @brief rebuilds crossing objects for this junction
     void rebuildGNECrossings(bool rebuildNBNodeCrossings = true);
+
+    /// @brief rebuilds WalkingAreas objects for this junction
+    void rebuildGNEWalkingAreas();
 
     /// @brief remove the given connections from all traffic light definitions of this junction
     void removeTLSConnections(std::vector<NBConnection>& connections, GNEUndoList* undoList);
