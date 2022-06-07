@@ -79,7 +79,7 @@ public:
     GNEJunction* getParentJunction() const;
 
     ///@brief get NBode::WalkingArea
-    const NBNode::WalkingArea& getNBWalkingArea() const;
+    NBNode::WalkingArea& getNBWalkingArea() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -141,12 +141,6 @@ public:
 
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
-
-    /// @brief return true if a edge belongs to crossing's edges
-    bool checkEdgeBelong(GNEEdge* edges) const;
-
-    /// @brief return true if a edge of a vector of edges belongs to crossing's edges
-    bool checkEdgeBelong(const std::vector<GNEEdge*>& edges) const;
 
 protected:
     /// @brief the parent junction of this crossing

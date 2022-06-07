@@ -3470,8 +3470,8 @@ NBNode::getCrossing(const EdgeVector& edges, bool hardFail) const {
 }
 
 
-const NBNode::WalkingArea&
-NBNode::getWalkingArea(const std::string &id) const {
+NBNode::WalkingArea&
+NBNode::getWalkingArea(const std::string &id) {
     for (auto& walkingArea : myWalkingAreas) {
         if (walkingArea.id == id) {
             return walkingArea;

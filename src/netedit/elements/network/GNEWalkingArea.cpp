@@ -128,7 +128,7 @@ GNEWalkingArea::getParentJunction() const {
 }
 
 
-const NBNode::WalkingArea&
+NBNode::WalkingArea&
 GNEWalkingArea::getNBWalkingArea() const {
     if (myTemplateNBWalkingArea) {
         return *myTemplateNBWalkingArea;
@@ -284,7 +284,25 @@ GNEWalkingArea::getAttribute(SumoXMLAttr key) const {
     const auto walkingArea = getNBWalkingArea();
     switch (key) {
         case SUMO_ATTR_ID:
-            return getMicrosimID();
+            return walkingArea.id;
+        case SUMO_ATTR_WIDTH:
+            if (walkingArea.width == -1) {
+                return "";
+            } else {
+                return toString(walkingArea.width);
+            }
+        case SUMO_ATTR_LENGTH:
+            if (walkingArea.length == -1) {
+                return "";
+            } else {
+                return toString(walkingArea.length);
+            }
+        case SUMO_ATTR_CUSTOMSHAPE:
+            if (walkingArea.hasCustomShape) {
+                walkingArea.shape;
+            } else {
+                return "";
+            }
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         default:
@@ -302,6 +320,8 @@ GNEWalkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_ID:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
         case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_LENGTH:
+        case SUMO_ATTR_CUSTOMSHAPE:
         case GNE_ATTR_SELECTED:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
@@ -335,6 +355,24 @@ GNEWalkingArea::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return false;
+        case SUMO_ATTR_WIDTH:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value) && ((parse<double>(value) >= 0) || (parse<double>(value) == -1)); // can not be 0, or -1 (it means default)
+            }
+        case SUMO_ATTR_LENGTH:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value) && ((parse<double>(value) >= 0) || (parse<double>(value) == -1)); // can not be 0, or -1 (it means default)
+            }
+        case SUMO_ATTR_CUSTOMSHAPE:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<PositionVector>(value);
+            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         default:
@@ -348,41 +386,44 @@ GNEWalkingArea::getACParametersMap() const {
     return GNEAttributeCarrier::PARAMETERS_EMPTY;
 }
 
-
-bool
-GNEWalkingArea::checkEdgeBelong(GNEEdge* edge) const {
-/*
-    const auto walkingArea = getNBWalkingArea();
-    if (std::find(crossing->edges.begin(), crossing->edges.end(), edge->getNBEdge()) !=  crossing->edges.end()) {
-        return true;
-    } else {
-        return false;
-    }
-*/
-    return false;
-}
-
-
-bool
-GNEWalkingArea::checkEdgeBelong(const std::vector<GNEEdge*>& edges) const {
-    for (auto i : edges) {
-        if (checkEdgeBelong(i)) {
-            return true;
-        }
-    }
-    return false;
-}
-
 // ===========================================================================
 // private
 // ===========================================================================
 
 void
 GNEWalkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
-    const auto crossing = getNBWalkingArea();
+    auto &walkingArea = getNBWalkingArea();
     switch (key) {
         case SUMO_ATTR_ID:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
+        case SUMO_ATTR_WIDTH:
+            if (value.empty()) {
+                walkingArea.width = -1;
+            } else {
+                walkingArea.width = parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_LENGTH:
+            if (value.empty()) {
+                walkingArea.length = -1;
+            } else {
+                walkingArea.length = parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_CUSTOMSHAPE:
+            if (value.empty()) {
+                walkingArea.hasCustomShape = false;
+            } else {
+                // set custom shape
+            }
+            break;
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
+            break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
