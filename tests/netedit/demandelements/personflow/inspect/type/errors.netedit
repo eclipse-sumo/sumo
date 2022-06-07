@@ -73,7 +73,7 @@ Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'f_0' in GNEChange_DemandElement
 Debug: Current Viewport values: 0.00, -6.00, 5.00. Zoom = '1736.00'
 Debug: Value ';;;;;' for attribute type of personFlow isn't valid
-Debug: Value '' for attribute type of personFlow isn't valid
+Debug: Setting new attribute
 Debug: Value 'dummyType' for attribute type of personFlow isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -81,12 +81,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing personTrip: edge->edge 'f_0' in GNEChange_DemandElement
-Debug: Removing personFlow 'f_0' in GNEChange_DemandElement
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding personTrip: edge->edge 'f_0' in GNEChange_DemandElement
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
