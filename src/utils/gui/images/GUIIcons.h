@@ -359,6 +359,7 @@ enum class GUIIcon {
     CONNECTION,
     PROHIBITION,
     CROSSING,
+    WALKINGAREA,
     /// @}
 
     /// @name additional elements icons
