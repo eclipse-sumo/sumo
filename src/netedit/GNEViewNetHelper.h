@@ -206,6 +206,9 @@ struct GNEViewNetHelper {
         /// @brief get front crossing or a pointer to nullptr
         GNECrossing* getCrossingFront() const;
 
+        /// @brief get front walkingArea or a pointer to nullptr
+        GNEWalkingArea* getWalkingAreaFront() const;
+
         /// @brief get front connection or a pointer to nullptr
         GNEConnection* getConnectionFront() const;
 
@@ -273,6 +276,9 @@ struct GNEViewNetHelper {
 
             /// @brief vector with the clicked crossings
             std::vector<GNECrossing*> crossings;
+
+            /// @brief vector with the clicked walkingAreas
+            std::vector<GNEWalkingArea*> walkingAreas;
 
             /// @brief vector with the clicked connections
             std::vector<GNEConnection*> connections;

@@ -27,6 +27,7 @@
 #include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
+#include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/elements/network/GNEInternalLane.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
@@ -361,6 +362,24 @@ GNEViewNetHelper::ObjectsUnderCursor::getCrossingFront() const {
 }
 
 
+GNEWalkingArea*
+GNEViewNetHelper::ObjectsUnderCursor::getWalkingAreaFront() const {
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.walkingAreas.size() > 0) {
+            return myEdgeObjects.walkingAreas.front();
+        } else {
+            return nullptr;
+        }
+    } else {
+        if (myLaneObjects.walkingAreas.size() > 0) {
+            return myLaneObjects.walkingAreas.front();
+        } else {
+            return nullptr;
+        }
+    }
+}
+
+
 GNEConnection*
 GNEViewNetHelper::ObjectsUnderCursor::getConnectionFront() const {
     if (mySwapLane2edge) {
@@ -522,6 +541,7 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
     edges.clear();
     lanes.clear();
     crossings.clear();
+    walkingAreas.clear();
     connections.clear();
     internalLanes.clear();
     TAZs.clear();
@@ -647,6 +667,17 @@ GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& co
             } else {
                 // insert at back
                 container.crossings.push_back(dynamic_cast<GNECrossing*>(AC));
+            }
+            break;
+        }
+        case GLO_WALKINGAREA: {
+            // check front element
+            if (AC == frontAC) {
+                // insert at front
+                container.walkingAreas.insert(container.walkingAreas.begin(), dynamic_cast<GNEWalkingArea*>(AC));
+            } else {
+                // insert at back
+                container.walkingAreas.push_back(dynamic_cast<GNEWalkingArea*>(AC));
             }
             break;
         }
@@ -3585,6 +3616,7 @@ GNEViewNetHelper::LockManager::LockManager(GNEViewNet* viewNet) :
     myLockedElements[GLO_LANE] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_CONNECTION] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_CROSSING] = OperationLocked(Supermode::NETWORK);
+    myLockedElements[GLO_WALKINGAREA] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_ADDITIONALELEMENT] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_TAZ] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_WIRE] = OperationLocked(Supermode::NETWORK);
@@ -3649,6 +3681,7 @@ GNEViewNetHelper::LockManager::updateFlags() {
     myLockedElements[GLO_LANE].lock = lockMenuCommands.menuCheckLockLanes->getCheck() == TRUE;
     myLockedElements[GLO_CONNECTION].lock = lockMenuCommands.menuCheckLockConnections->getCheck() == TRUE;
     myLockedElements[GLO_CROSSING].lock = lockMenuCommands.menuCheckLockCrossings->getCheck() == TRUE;
+    myLockedElements[GLO_WALK].lock = lockMenuCommands.menuCheckLockCrossings->getCheck() == TRUE;
     myLockedElements[GLO_ADDITIONALELEMENT].lock = lockMenuCommands.menuCheckLockAdditionals->getCheck() == TRUE;
     myLockedElements[GLO_TAZ].lock = lockMenuCommands.menuCheckLockTAZs->getCheck() == TRUE;
     myLockedElements[GLO_POLYGON].lock = lockMenuCommands.menuCheckLockPolygons->getCheck() == TRUE;
@@ -3681,6 +3714,7 @@ GNEViewNetHelper::LockManager::updateLockMenuBar() {
     lockMenuCommands.menuCheckLockLanes->setCheck(myLockedElements[GLO_LANE].lock);
     lockMenuCommands.menuCheckLockConnections->setCheck(myLockedElements[GLO_CONNECTION].lock);
     lockMenuCommands.menuCheckLockCrossings->setCheck(myLockedElements[GLO_CROSSING].lock);
+    lockMenuCommands.menuCheckLockCrossings->setCheck(myLockedElements[GLO_WALKINGAREA].lock);
     lockMenuCommands.menuCheckLockAdditionals->setCheck(myLockedElements[GLO_ADDITIONALELEMENT].lock);
     lockMenuCommands.menuCheckLockTAZs->setCheck(myLockedElements[GLO_TAZ].lock);
     lockMenuCommands.menuCheckLockPolygons->setCheck(myLockedElements[GLO_POLYGON].lock);
