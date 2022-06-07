@@ -239,6 +239,9 @@ public:
     /// @brief set junction Type (using undo/redo)
     void setJunctionType(const std::string &value, GNEUndoList* undoList);
 
+    /// @brief get the maximum size (in either x-, or y-dimension) for determining whether to draw or not
+    double getMaxDrawingSize() const;
+
 protected:
     /// @brief A reference to the represented junction
     NBNode* myNBNode;
@@ -276,6 +279,8 @@ protected:
 
     /// @brief An object that stores the shape and its tesselation
     mutable TesselatedPolygon myTesselation;
+
+    /// @brief exaggeration used in tesselation
     mutable double myExaggeration;
 
 private:

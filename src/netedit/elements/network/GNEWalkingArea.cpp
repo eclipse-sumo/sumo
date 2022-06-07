@@ -40,6 +40,7 @@ GNEWalkingArea::GNEWalkingArea(GNENet* net) :
     GNENetworkElement(net, "", GLO_CROSSING, SUMO_TAG_CROSSING,
         {}, {}, {}, {}, {}, {}),
     myParentJunction(nullptr),
+    myTesselation("", "", RGBColor::GREY, {}, false, true, 0),
     myTemplateNBWalkingArea(new NBNode::WalkingArea("", 1)) {
     // reset default values
     resetDefaultValues();
@@ -49,6 +50,7 @@ GNEWalkingArea::GNEWalkingArea(GNEJunction* parentJunction, const std::string &I
     GNENetworkElement(parentJunction->getNet(), ID, GLO_CROSSING, SUMO_TAG_WALKINGAREA,
         {}, {}, {}, {}, {}, {}),
     myParentJunction(parentJunction),
+    myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0),
     myTemplateNBWalkingArea(nullptr) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -138,7 +140,104 @@ GNEWalkingArea::getNBWalkingArea() const {
 
 void
 GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
-    
+    // check if boundary has to be drawn
+    if (s.drawBoundaries) {
+        GLHelper::drawBoundary(getCenteringBoundary());
+    }
+    // check if draw start und end
+    const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+        myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
+    // declare variables
+    const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+    const double walkingAreaExaggeration = getExaggeration(s);
+    // only continue if exaggeration is greather than 0
+    if ((getWalkingAreaShape().size() > 0) && s.drawCrossingsAndWalkingareas) {
+        // push junction name
+        GLHelper::pushName(getGlID());
+        // push layer matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION);
+        // set shape color
+        const RGBColor junctionShapeColor = setColor(s);
+        // recognize full transparency and simply don't draw
+        if (junctionShapeColor.alpha() != 0) {
+            // set color
+            GLHelper::setColor(junctionShapeColor);
+            // adjust shape to exaggeration
+            if (((walkingAreaExaggeration > 1) || (myExaggeration > 1)) && (walkingAreaExaggeration != myExaggeration)) {
+                myExaggeration = walkingAreaExaggeration;
+                myTesselation.setShape(getWalkingAreaShape());
+                myTesselation.getShapeRef().closePolygon();
+                myTesselation.getShapeRef().scaleRelative(walkingAreaExaggeration);
+                myTesselation.myTesselation.clear();
+            }
+            // first check if inner junction polygon can be drawn
+            if (s.drawForPositionSelection) {
+                // only draw a point if mouse is around shape
+                if (myTesselation.getShape().around(mousePosition)) {
+                    // push matrix
+                    GLHelper::pushMatrix();
+                    // move to mouse position
+                    glTranslated(mousePosition.x(), mousePosition.y(), 0.1);
+                    // draw a simple circle
+                    GLHelper::drawFilledCircle(1, s.getCircleResolution());
+                    // pop matrix
+                    GLHelper::popMatrix();
+                }
+            } else if ((s.scale * walkingAreaExaggeration * myParentJunction->getMaxDrawingSize()) >= 40) {
+                // draw shape with high detail
+                myTesselation.drawTesselation(myTesselation.getShape());
+            } else {
+                // draw shape
+                GLHelper::drawFilledPoly(myTesselation.getShape(), true);
+            }
+            // draw shape points only in Network supemode
+            if (myShapeEdited && s.drawMovingGeometryPoint(walkingAreaExaggeration, s.neteditSizeSettings.junctionGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                // set color
+                const RGBColor darkerColor = junctionShapeColor.changedBrightness(-32);
+                // calculate geometry
+                GUIGeometry junctionGeometry;
+                // obtain junction Shape
+                PositionVector junctionOpenShape = getWalkingAreaShape();
+                // adjust shape to exaggeration
+                if (walkingAreaExaggeration > 1) {
+                    junctionOpenShape.scaleRelative(walkingAreaExaggeration);
+                }
+                // update geometry
+                junctionGeometry.updateGeometry(junctionOpenShape);
+                // set color
+                GLHelper::setColor(darkerColor);
+                // draw shape
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
+                // draw geometry points
+                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), junctionOpenShape, darkerColor, RGBColor::BLACK,
+                    s.neteditSizeSettings.junctionGeometryPointRadius, walkingAreaExaggeration, false, drawExtremeSymbols);
+                // draw moving hint
+                if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), junctionOpenShape, darkerColor,
+                        s.neteditSizeSettings.junctionGeometryPointRadius, walkingAreaExaggeration);
+                }
+            }
+        }
+        // pop layer Matrix
+        GLHelper::popMatrix();
+        // pop junction name
+        GLHelper::popName();
+
+        // draw lock icon
+        // GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
+        // check if dotted contour has to be drawn
+        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, getWalkingAreaShape(),
+                (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
+        }
+        // check if dotted contour has to be drawn
+        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, getWalkingAreaShape(),
+                (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
+        }
+    }
 }
 
 
@@ -309,6 +408,13 @@ GNEWalkingArea::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* un
     undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
     undoList->end();
 */
+}
+
+
+RGBColor
+GNEWalkingArea::setColor(const GUIVisualizationSettings& /*s*/) const {
+    // return color
+    return RGBColor::GREY;
 }
 
 /****************************************************************************/

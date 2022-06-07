@@ -59,8 +59,7 @@ GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     myAmTLSSelected(false),
     myColorForMissingConnections(false),
     myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0),
-    myExaggeration(1)
-{
+    myExaggeration(1) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -996,6 +995,12 @@ GNEJunction::setJunctionType(const std::string &value, GNEUndoList* undoList) {
         undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
     }
     undoList->end();
+}
+
+
+double
+GNEJunction::getMaxDrawingSize() const {
+    return myMaxDrawingSize;
 }
 
 

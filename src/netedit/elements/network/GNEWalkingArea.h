@@ -152,6 +152,12 @@ protected:
     /// @brief the parent junction of this crossing
     GNEJunction* myParentJunction;
 
+    /// @brief An object that stores the shape and its tesselation
+    mutable TesselatedPolygon myTesselation;
+
+    /// @brief exaggeration used in tesselation
+    mutable double myExaggeration;
+
     /// @brief template NBWalkingArea
     NBNode::WalkingArea* myTemplateNBWalkingArea;
 
@@ -164,6 +170,9 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /// @brief sets junction color depending on circumstances
+    RGBColor setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief Invalidated copy constructor.
     GNEWalkingArea(const GNEWalkingArea&) = delete;
