@@ -30,6 +30,7 @@
 #include <netedit/elements/demand/GNEVType.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
+#include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
@@ -231,6 +232,10 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
     } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_CROSSING)) {
         for (const auto& crossing : myCrossings) {
             result.push_back(crossing);
+        }
+    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_WALKINGAREA)) {
+        for (const auto& walkingArea : myWalkingAreas) {
+            result.push_back(walkingArea);
         }
     } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag).isAdditionalElement())) {
         for (const auto& additional : myAdditionals.at(tag)) {
@@ -506,6 +511,70 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
     int counter = 0;
     for (const auto& crossing : myCrossings) {
         if (crossing->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+GNEWalkingArea*
+GNENetHelper::AttributeCarriers::retrieveWalkingArea(GNEAttributeCarrier* AC, bool hardFail) const {
+    // cast walkingArea
+    GNEWalkingArea* walkingArea = dynamic_cast<GNEWalkingArea*>(AC);
+    if (walkingArea && (myWalkingAreas.count(walkingArea) > 0)) {
+        return walkingArea;
+    } else if (hardFail) {
+        throw UnknownElement("WalkingArea " + AC->getID());
+    } else {
+        return nullptr;
+    }
+}
+
+
+const std::set<GNEWalkingArea*>&
+GNENetHelper::AttributeCarriers::getWalkingAreas() const {
+    return myWalkingAreas;
+}
+
+
+std::vector<GNEWalkingArea*>
+GNENetHelper::AttributeCarriers::getSelectedWalkingAreas() const {
+    std::vector<GNEWalkingArea*> result;
+    // iterate over walkingAreas
+    for (const auto& walkingArea : myWalkingAreas) {
+        if (walkingArea->isAttributeCarrierSelected()) {
+            result.push_back(walkingArea);
+        }
+    }
+    return result;
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertWalkingArea(GNEWalkingArea* walkingArea) {
+    if (myWalkingAreas.insert(walkingArea).second == false) {
+        throw ProcessError(walkingArea->getTagStr() + " with ID='" + walkingArea->getID() + "' already exist");
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::deleteWalkingArea(GNEWalkingArea* walkingArea) {
+    const auto finder = myWalkingAreas.find(walkingArea);
+    if (finder == myWalkingAreas.end()) {
+        throw ProcessError(walkingArea->getTagStr() + " with ID='" + walkingArea->getID() + "' wasn't previously inserted");
+    } else {
+        myWalkingAreas.erase(finder);
+    }
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedWalkingAreas() const {
+    int counter = 0;
+    for (const auto& walkingArea : myWalkingAreas) {
+        if (walkingArea->isAttributeCarrierSelected()) {
             counter++;
         }
     }

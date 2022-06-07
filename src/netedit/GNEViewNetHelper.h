@@ -133,6 +133,7 @@ class GNEEdge;
 class GNELane;
 class GNEConnection;
 class GNECrossing;
+class GNEWalkingArea;
 class GNEInternalLane;
 // additional elements
 class GNEAdditional;
