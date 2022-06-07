@@ -173,7 +173,7 @@ public:
             width(_width) {
         }
         /// @brief the (edge)-id of this walkingArea
-        std::string id;
+        const std::string id;
         /// @brief This lane's width
         double width;
         /// @brief This lane's width
@@ -724,6 +724,9 @@ public:
 
     /// @brief return the crossing with the given Edges
     Crossing* getCrossing(const EdgeVector& edges, bool hardFail = true) const;
+
+    /// @brief return the walkingArea with the given ID
+    const WalkingArea &getWalkingArea(const std::string &id) const;
 
     /* @brief set tl indices of this nodes crossing starting at the given index
      * @return Whether a custom index was used

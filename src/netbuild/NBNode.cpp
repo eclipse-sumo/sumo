@@ -3456,15 +3456,26 @@ NBNode::getCrossing(const std::string& id) const {
 
 NBNode::Crossing*
 NBNode::getCrossing(const EdgeVector& edges, bool hardFail) const {
-    EdgeSet edgeSet(edges.begin(), edges.end());
-    for (auto& it : myCrossings) {
-        EdgeSet edgeSet2(it->edges.begin(), it->edges.end());
+    const EdgeSet edgeSet(edges.begin(), edges.end());
+    for (auto& crossing : myCrossings) {
+        const EdgeSet edgeSet2(crossing->edges.begin(), crossing->edges.end());
         if (edgeSet == edgeSet2) {
-            return it.get();
+            return crossing.get();
         }
     }
     if (!hardFail) {
         return nullptr;
+    }
+    throw ProcessError("Request for unknown crossing for the given Edges");
+}
+
+
+const NBNode::WalkingArea&
+NBNode::getWalkingArea(const std::string &id) const {
+    for (auto& walkingArea : myWalkingAreas) {
+        if (walkingArea.id == id) {
+            return walkingArea;
+        }
     }
     throw ProcessError("Request for unknown crossing for the given Edges");
 }
