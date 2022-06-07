@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNEWalkingArea::GNEWalkingArea(GNENet* net) :
-    GNENetworkElement(net, "", GLO_CROSSING, SUMO_TAG_CROSSING,
+    GNENetworkElement(net, "", GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA,
         {}, {}, {}, {}, {}, {}),
     myParentJunction(nullptr),
     myTesselation("", "", RGBColor::GREY, {}, false, true, 0),
@@ -47,7 +47,7 @@ GNEWalkingArea::GNEWalkingArea(GNENet* net) :
 }
 
 GNEWalkingArea::GNEWalkingArea(GNEJunction* parentJunction, const std::string &ID) :
-    GNENetworkElement(parentJunction->getNet(), ID, GLO_CROSSING, SUMO_TAG_WALKINGAREA,
+    GNENetworkElement(parentJunction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA,
         {}, {}, {}, {}, {}, {}),
     myParentJunction(parentJunction),
     myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0),
@@ -157,13 +157,13 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION);
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_WALKINGAREA);
         // set shape color
-        const RGBColor junctionShapeColor = setColor(s);
+        const RGBColor walkingAreaColor = setColor(s);
         // recognize full transparency and simply don't draw
-        if (junctionShapeColor.alpha() != 0) {
+        if (walkingAreaColor.alpha() != 0) {
             // set color
-            GLHelper::setColor(junctionShapeColor);
+            GLHelper::setColor(walkingAreaColor);
             // adjust shape to exaggeration
             if (((walkingAreaExaggeration > 1) || (myExaggeration > 1)) && (walkingAreaExaggeration != myExaggeration)) {
                 myExaggeration = walkingAreaExaggeration;
@@ -195,7 +195,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // draw shape points only in Network supemode
             if (myShapeEdited && s.drawMovingGeometryPoint(walkingAreaExaggeration, s.neteditSizeSettings.junctionGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // set color
-                const RGBColor darkerColor = junctionShapeColor.changedBrightness(-32);
+                const RGBColor darkerColor = walkingAreaColor.changedBrightness(-32);
                 // calculate geometry
                 GUIGeometry junctionGeometry;
                 // obtain junction Shape
