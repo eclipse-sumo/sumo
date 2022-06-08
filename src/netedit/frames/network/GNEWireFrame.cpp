@@ -108,7 +108,7 @@ GNEWireFrame::getConsecutiveLaneSelector() const {
 
 
 void
-GNEWireFrame::createPath() {
+GNEWireFrame::createPath(const bool useLastRoute) {
     // obtain tagproperty (only for improve code legibility)
     const auto& tagProperty = myWireTagSelector->getCurrentTemplateAC()->getTagProperty();
     // first check that current tag is valid (currently only for overhead wires)

@@ -70,7 +70,7 @@ protected:
     void demandElementSelected();
 
     /// @brief create path
-    void createPath();
+    void createPath(const bool useLastRoute);
 
 private:
     /// @brief route handler

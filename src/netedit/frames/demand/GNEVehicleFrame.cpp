@@ -349,7 +349,7 @@ GNEVehicleFrame::demandElementSelected() {
 
 
 void
-GNEVehicleFrame::createPath() {
+GNEVehicleFrame::createPath(const bool useLastRoute) {
     // begin cleaning vehicle base object
     myVehicleBaseObject->clear();
     // obtain tag (only for improve code legibility)

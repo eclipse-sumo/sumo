@@ -1295,28 +1295,28 @@ GNEViewNet::hotkeyEnter() {
             }
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
             // create path element
-            myViewParent->getAdditionalFrame()->createPath();
+            myViewParent->getAdditionalFrame()->createPath(false);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_WIRE) {
             // create path element
-            myViewParent->getWireFrame()->createPath();
+            myViewParent->getWireFrame()->createPath(false);
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {
-            myViewParent->getRouteFrame()->getPathCreator()->createPath();
+            myViewParent->getRouteFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
-            myViewParent->getVehicleFrame()->getPathCreator()->createPath();
+            myViewParent->getVehicleFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
-            myViewParent->getPersonFrame()->getPathCreator()->createPath();
+            myViewParent->getPersonFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            myViewParent->getPersonPlanFrame()->getPathCreator()->createPath();
+            myViewParent->getPersonPlanFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
-            myViewParent->getContainerFrame()->getPathCreator()->createPath();
+            myViewParent->getContainerFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
-            myViewParent->getContainerPlanFrame()->getPathCreator()->createPath();
+            myViewParent->getContainerPlanFrame()->getPathCreator()->createPath(false);
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
-            myViewParent->getEdgeRelDataFrame()->getPathCreator()->createPath();
+            myViewParent->getEdgeRelDataFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.dataEditMode == DataEditMode::DATA_TAZRELDATA) {
             myViewParent->getTAZRelDataFrame()->buildTAZRelationData();
         }

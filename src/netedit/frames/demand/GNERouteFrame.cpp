@@ -249,7 +249,7 @@ GNERouteFrame::getPathCreator() const {
 
 
 void
-GNERouteFrame::createPath() {
+GNERouteFrame::createPath(const bool /*useLastRoute*/) {
     // check that route attributes are valid
     if (!myRouteAttributes->areValuesValid()) {
         myRouteAttributes->showWarningMessage();
@@ -283,8 +283,12 @@ GNERouteFrame::createPath() {
         myPathCreator->abortPathCreation();
         // refresh route attributes
         myRouteAttributes->refreshAttributesCreator();
+        // get new route
+        auto newRoute = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteBaseObject->getStringAttribute(SUMO_ATTR_ID));
         // compute path route
-        myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteBaseObject->getStringAttribute(SUMO_ATTR_ID))->computePathElement();
+        newRoute->computePathElement();
+        // set as last created route
+        myViewNet->setLastCreatedRoute(newRoute);
     }
 }
 

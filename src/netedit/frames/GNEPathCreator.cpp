@@ -746,9 +746,9 @@ GNEPathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEPathCreator::createPath() {
+GNEPathCreator::createPath(const bool useLastRoute) {
     // call create path implemented in frame parent
-    myFrameParent->createPath();
+    myFrameParent->createPath(useLastRoute);
 }
 
 
@@ -810,16 +810,16 @@ GNEPathCreator::removeLastElement() {
 
 long
 GNEPathCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
-    // just call create path
-    createPath();
+    // call create path
+    createPath(false);
     return 1;
 }
 
 
 long
 GNEPathCreator::onCmdUseLastRoute(FXObject*, FXSelector, void*) {
-    // just call create path
-    createPath();
+    // call create path with useLastRoute = true
+    createPath(true);
     return 1;
 }
 

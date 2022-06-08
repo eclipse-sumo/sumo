@@ -2200,6 +2200,10 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     myNet->getViewNet()->removeFromAttributeCarrierInspected(demandElement);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
     myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPersonHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
+    // if is the last inserted route, remove it from GNEViewNet
+    if (myNet->getViewNet()->getLastCreatedRoute() == demandElement) {
+        myNet->getViewNet()->setLastCreatedRoute(nullptr);
+    }
     // erase it from container
     myDemandElements.at(demandElement->getTagProperty().getTag()).erase(itFind);
     // remove element from grid
