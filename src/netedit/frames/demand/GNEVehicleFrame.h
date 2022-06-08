@@ -105,6 +105,9 @@ protected:
     /// @brief create path
     void createPath(const bool useLastRoute);
 
+    /// @brief build vehicle over route
+    bool buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* route);
+
 private:
     /// @brief route handler
     GNERouteHandler myRouteHandler;
