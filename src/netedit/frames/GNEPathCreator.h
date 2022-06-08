@@ -269,6 +269,8 @@ protected:
     /// @brief label for control information
     FXLabel* myControlLabel;
 
+    /// @brief label for backSpace information
+    FXLabel* myBackSpaceLabel;
 private:
     /// @brief Invalidated copy constructor.
     GNEPathCreator(GNEPathCreator*) = delete;
