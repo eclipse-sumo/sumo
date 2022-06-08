@@ -169,6 +169,12 @@ public:
     /// @brief Called when the user click over button "Finish route creation"
     long onCmdCreatePath(FXObject*, FXSelector, void*);
 
+    /// @brief Called when the user click over button "Use last route"
+    long onCmdUseLastRoute(FXObject*, FXSelector, void*);
+
+    /// @brief Called when update button "Use last route"
+    long onUpdUseLastRoute(FXObject*, FXSelector, void*);
+
     /// @brief Called when the user click over button "Abort route creation"
     long onCmdAbortPathCreation(FXObject*, FXSelector, void*);
 
@@ -241,6 +247,9 @@ protected:
 
     /// @brief label with route info
     FXLabel* myInfoRouteLabel;
+
+    /// @brief button for use last inserted route
+    FXButton* myUseLastRoute;
 
     /// @brief button for finish route creation
     FXButton* myFinishCreationButton;

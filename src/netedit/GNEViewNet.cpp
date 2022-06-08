@@ -247,9 +247,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myLockManager(this),
     myViewParent(viewParent),
     myNet(net),
-    myCurrentFrame(nullptr),
-    myUndoList(undoList),
-    myFrontAttributeCarrier(nullptr) {
+    myUndoList(undoList) {
     // view must be the final member of actualParent
     reparent(actualParent);
     // Build edit modes
@@ -758,12 +756,7 @@ GNEViewNet::GNEViewNet() :
     mySaveElements(this),
     mySelectingArea(this),
     myEditNetworkElementShapes(this),
-    myLockManager(this),
-    myViewParent(nullptr),
-    myNet(nullptr),
-    myCurrentFrame(nullptr),
-    myUndoList(nullptr),
-    myFrontAttributeCarrier(nullptr) {
+    myLockManager(this) {
 }
 
 
@@ -1460,6 +1453,18 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
     } else {
         glTranslated(0, 0, typeOrLayer + extraOffset);
     }
+}
+
+
+GNEDemandElement*
+GNEViewNet::getLastCreatedRoute() const {
+    return myLastCreatedRoute;
+}
+
+
+void
+GNEViewNet::setLastCreatedRoute(GNEDemandElement *lastCreatedRoute) {
+    myLastCreatedRoute = lastCreatedRoute;
 }
 
 
