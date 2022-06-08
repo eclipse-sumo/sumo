@@ -180,12 +180,12 @@ namespace PHEMlightdllV5 {
                             setVehMileage(GetMileage(Helper));
                         }
 
-                        for (int i = 1; i < Mileage.size(); i++) {
+                        for (int i = 1; i < (int)Mileage.size(); i++) {
                             if (i == 1 && Mileage[i] > getVehMileage()) {
                                 DETFactors.insert(std::make_pair(key, Factor[0]));
                                 break;
                             }
-                            else if (i == Mileage.size() - 1 && getVehMileage() > Mileage[i]) {
+                            else if (i == (int)Mileage.size() - 1 && getVehMileage() > Mileage[i]) {
                                 DETFactors.insert(std::make_pair(key, Factor[i]));
                                 break;
                             }
@@ -349,15 +349,17 @@ namespace PHEMlightdllV5 {
             if (TNOxdata.at("Vehicle").at(Helper->getvClass()).at("EUClass").contains(EUclass)) {
                 //Check/set temperature borders, because calculation is a straight function
                 const nlohmann::json& EUclassJson = TNOxdata.at("Vehicle").at(Helper->getvClass()).at("EUClass").at(EUclass);
+                const double m = EUclassJson.at("m");
                 const double c = EUclassJson.at("c");
-                if (getAmbTemp() < EUclassJson.at("TB")[0]) {
-                    setTNOxFactor(EUclassJson.at("m") + c * EUclassJson.at("TB")[0]);
+                const double tb0 = EUclassJson.at("TB")[0];
+                if (getAmbTemp() < tb0) {
+                    setTNOxFactor(m + c * tb0);
                 }
                 else if (getAmbTemp() > EUclassJson.at("TB")[1]) {
                     setTNOxFactor(1);
                 }
                 else {
-                    setTNOxFactor(EUclassJson.at("m") + c * getAmbTemp());
+                    setTNOxFactor(m + c * getAmbTemp());
                 }
             }
         }

@@ -261,7 +261,7 @@ GNEContainerFrame::demandElementSelected() {
 
 
 void
-GNEContainerFrame::createPath(const bool useLastRoute) {
+GNEContainerFrame::createPath(const bool /* useLastRoute */) {
     // first check that all attributes are valid
     if (!myContainerAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid container parameters.");

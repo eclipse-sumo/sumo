@@ -140,7 +140,7 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 
 
 void
-GNEAdditionalFrame::createPath(const bool useLastRoute) {
+GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
     // obtain tagproperty (only for improve code legibility)
     const auto& tagProperty = myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
     // first check that current tag is valid (currently only for E2 multilane detectors)

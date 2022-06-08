@@ -202,10 +202,9 @@ GNEWalkingArea::getAttribute(SumoXMLAttr key) const {
             return toString(walkingArea.length);
         case SUMO_ATTR_CUSTOMSHAPE:
             if (walkingArea.hasCustomShape) {
-                walkingArea.shape;
-            } else {
-                return "";
+                return toString(walkingArea.shape);
             }
+            return "";
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         default:
