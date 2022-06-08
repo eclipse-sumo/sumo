@@ -8,6 +8,9 @@ write-route-distribution
 write-flows-number
 write-flows-probability
 
+# probability would exceed 1
+write-flows-probability_high
+
 # -f number -i
 f-number-i
 f-probability-i
