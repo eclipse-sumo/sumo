@@ -119,8 +119,11 @@ void
 GNEJunction::updateGeometryAfterNetbuild(bool rebuildNBNodeCrossings) {
     // recalc max drawing size
     myMaxDrawingSize = MAX2(getCenteringBoundary().getWidth(), getCenteringBoundary().getHeight());
+    // rebuild crossings
     rebuildGNECrossings(rebuildNBNodeCrossings);
-    rebuildGNEWalkingAreas();
+    // clear walking areas
+    clearWalkingAreas();
+    // clear missing connections
     checkMissingConnections();
 }
 
@@ -223,53 +226,6 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
         // copy retrieved (existent and created) GNECrossings to myGNECrossings
         myGNECrossings = retrievedCrossings;
     }
-}
-
-
-void
-GNEJunction::rebuildGNEWalkingAreas() {
-
-    // create a vector to keep retrieved and created walkingAreas
-    std::vector<GNEWalkingArea*> retrievedWalkingAreas;
-    // iterate over NBNode::WalkingAreas of GNEJunction
-    for (const auto& walkingArea : myNBNode->getWalkingAreas()) {
-        // retrieve existent GNEWalkingArea, or create it
-        GNEWalkingArea* retrievedGNEWalkingArea = retrieveGNEWalkingArea(walkingArea.id);
-        retrievedWalkingAreas.push_back(retrievedGNEWalkingArea);
-        // check if previously this GNEWalkingAreas exists, and if true, remove it from myGNEWalkingAreas and insert in tree again
-        std::vector<GNEWalkingArea*>::iterator retrievedExists = std::find(myGNEWalkingAreas.begin(), myGNEWalkingAreas.end(), retrievedGNEWalkingArea);
-        if (retrievedExists != myGNEWalkingAreas.end()) {
-            myGNEWalkingAreas.erase(retrievedExists);
-            // update geometry of retrieved walkingArea
-            retrievedGNEWalkingArea->updateGeometry();
-            // update boundary
-            retrievedGNEWalkingArea->updateCenteringBoundary(false);
-        } else {
-            // include reference to created GNEWalkingArea
-            retrievedGNEWalkingArea->incRef();
-        }
-    }
-    // delete non retrieved GNEWalkingAreas (we don't need to extract if from Tree two times)
-    for (const auto& walkingArea : myGNEWalkingAreas) {
-        walkingArea->decRef();
-        // check if walkingArea is selected
-        if (walkingArea->isAttributeCarrierSelected()) {
-            walkingArea->unselectAttributeCarrier();
-        }
-        // remove it from inspected ACS
-        myNet->getViewNet()->removeFromAttributeCarrierInspected(walkingArea);
-        // remove it from net
-        myNet->removeGLObjectFromGrid(walkingArea);
-        // remove it from attributeCarriers
-        myNet->getAttributeCarriers()->deleteWalkingArea(walkingArea);
-        if (walkingArea->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + walkingArea->getTagStr() + " in rebuildGNEWalkingAreas()");
-            delete walkingArea;
-        }
-    }
-    // copy retrieved (existent and created) GNEWalkingAreas to myGNEWalkingAreas
-    myGNEWalkingAreas = retrievedWalkingAreas;
 }
 
 
@@ -704,9 +660,9 @@ GNEJunction::getGNEWalkingAreas() const {
 std::vector<GNEConnection*>
 GNEJunction::getGNEConnections() const {
     std::vector<GNEConnection*> connections;
-    for (const auto& i : myGNEIncomingEdges) {
-        for (const auto& j : i->getGNEConnections()) {
-            connections.push_back(j);
+    for (const auto& incomingEdge : myGNEIncomingEdges) {
+        for (const auto& connection : incomingEdge->getGNEConnections()) {
+            connections.push_back(connection);
         }
     }
     return connections;
@@ -1097,6 +1053,51 @@ GNEJunction::setJunctionType(const std::string &value, GNEUndoList* undoList) {
 double
 GNEJunction::getMaxDrawingSize() const {
     return myMaxDrawingSize;
+}
+
+
+void
+GNEJunction::clearWalkingAreas() {
+    // delete non retrieved GNEWalkingAreas (we don't need to extract if from Tree two times)
+    for (const auto& walkingArea : myGNEWalkingAreas) {
+        walkingArea->decRef();
+        // check if walkingArea is selected
+        if (walkingArea->isAttributeCarrierSelected()) {
+            walkingArea->unselectAttributeCarrier();
+        }
+        // remove it from inspected ACS
+        myNet->getViewNet()->removeFromAttributeCarrierInspected(walkingArea);
+        // remove it from net
+        myNet->removeGLObjectFromGrid(walkingArea);
+        // remove it from attributeCarriers
+        myNet->getAttributeCarriers()->deleteWalkingArea(walkingArea);
+        if (walkingArea->unreferenced()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + walkingArea->getTagStr() + " in rebuildGNEWalkingAreas()");
+            delete walkingArea;
+        }
+    }
+    myGNEWalkingAreas.clear();
+}
+
+
+void
+GNEJunction::rebuildGNEWalkingAreas() {
+    // first clear GNEWalkingAreas
+    clearWalkingAreas();
+    // iterate over NBNode::WalkingAreas of GNEJunction
+    for (const auto& walkingArea : myNBNode->getWalkingAreas()) {
+        // retrieve existent GNEWalkingArea, or create it
+        GNEWalkingArea* retrievedGNEWalkingArea = retrieveGNEWalkingArea(walkingArea.id, true);
+        // include reference to created GNEWalkingArea
+        retrievedGNEWalkingArea->incRef();
+        // update geometry of retrieved walkingArea
+        retrievedGNEWalkingArea->updateGeometry();
+        // update boundary
+        retrievedGNEWalkingArea->updateCenteringBoundary(false);
+        // add in walkingAreas
+        myGNEWalkingAreas.push_back(retrievedGNEWalkingArea);
+    }
 }
 
 
@@ -1672,6 +1673,10 @@ GNEJunction::moveJunctionGeometry(const Position& pos, const bool updateEdgeBoun
         for (const auto& junctionDestinyEdge : edge->getToJunction()->getChildEdges()) {
             affectedEdges.insert(junctionDestinyEdge);
         }
+    }
+    // reset walking areas of affected edges
+    for (const auto &affectedJunction : affectedJunctions) {
+        affectedJunction->clearWalkingAreas();
     }
     // Iterate over affected Edges
     for (const auto& affectedEdge : affectedEdges) {

@@ -248,6 +248,12 @@ public:
     /// @brief get the maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double getMaxDrawingSize() const;
 
+    /// @brief clear walking areas
+    void clearWalkingAreas();
+
+    /// @brief rebuilds WalkingAreas objects for this junction
+    void rebuildGNEWalkingAreas();
+
 protected:
     /// @brief A reference to the represented junction
     NBNode* myNBNode;
@@ -331,9 +337,6 @@ private:
 
     /// @brief rebuilds crossing objects for this junction
     void rebuildGNECrossings(bool rebuildNBNodeCrossings = true);
-
-    /// @brief rebuilds WalkingAreas objects for this junction
-    void rebuildGNEWalkingAreas();
 
     /// @brief remove the given connections from all traffic light definitions of this junction
     void removeTLSConnections(std::vector<NBConnection>& connections, GNEUndoList* undoList);
