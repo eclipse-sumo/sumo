@@ -62,11 +62,11 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
     osg::Group* root = new osg::Group();
     GUINet* net = static_cast<GUINet*>(MSNet::getInstance());
     // build edges
-    for (const MSEdge* e : net->getEdgeControl().getEdges()) {
-        if (!e->isInternal()) {
-            buildOSGEdgeGeometry(*e, *root, tesselator);
-        }
-    }
+	for (const MSEdge* e : net->getEdgeControl().getEdges()) {
+		if (!e->isInternal()) {
+			buildOSGEdgeGeometry(*e, *root, tesselator);
+		}
+	}
     // build junctions
     for (int index = 0; index < (int)net->myJunctionWrapper.size(); ++index) {
         buildOSGJunctionGeometry(*net->myJunctionWrapper[index], *root, tesselator);
@@ -99,6 +99,8 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
             switchNode->addChild(getTrafficLight(d, tly, osg::Vec4d(0.5, 0.5, 0.1, 1.0), .25), false);
             switchNode->addChild(getTrafficLight(d, tlr, osg::Vec4d(0.5, 0.1, 0.1, 1.0), .25), false);
             switchNode->addChild(getTrafficLight(d, tlu, osg::Vec4d(0.8, 0.4, 0.0, 1.0), .25), false);
+			switchNode->addChild(getTrafficLight(d, tlu, osg::Vec4d(0.5, 0.25, 0.0, 1.0), .25), false);
+			switchNode->setName("tlLogic:" + *i);
             root->addChild(switchNode);
             const MSLink* const l = vars.getActive()->getLinksAt(idx)[0];
             vars.addSwitchCommand(new GUIOSGView::Command_TLSChange(l, switchNode));
@@ -148,7 +150,9 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         osg::Geode* geode = new osg::Geode();
         osg::Geometry* geom = new osg::Geometry();
         geode->addDrawable(geom);
+		geode->setName("lane:" + l->getID());
         addTo.addChild(geode);
+		dynamic_cast<GUIGlObject*>(l)->setNode(geode);
 		const int upperShapeSize = originalSize * geomFactor;
 		const int totalShapeSize = (extrude) ? originalSize * 2 * geomFactor : originalSize * geomFactor;
         const float zOffset = (extrude)? 0.1f : (edge.isCrossing())? 0.01f : 0.f;
@@ -241,6 +245,7 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
     osg::Geode* geode = new osg::Geode();
     osg::Geometry* geom = new osg::Geometry();
     geode->addDrawable(geom);
+	geode->setName("junction:" + junction.getMicrosimID());
     addTo.addChild(geode);
     osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size());
     geom->setVertexArray(osg_coords);
