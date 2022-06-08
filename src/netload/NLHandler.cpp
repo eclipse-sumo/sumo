@@ -1165,7 +1165,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
 
     SUMOTime period;
     if (!lsaGiven) {
-        period = attrs.getPeriod(id.c_str(), ok);
+        period = attrs.getOptPeriod(id.c_str(), ok, SUMOTime_MAX - SUMOTime_MAX % DELTA_T);
         if (!ok) {
             myCurrentIsBroken = true;
             return;
