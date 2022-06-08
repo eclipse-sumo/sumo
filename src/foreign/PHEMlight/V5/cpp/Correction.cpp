@@ -138,7 +138,6 @@ namespace PHEMlightdllV5 {
         }
 
         //**** VMA Datei einlesen ****
-        nlohmann::json json;
         try {
             vmaReader >> VMAdata;
         } catch (...) {
@@ -311,7 +310,6 @@ namespace PHEMlightdllV5 {
         }
 
         //**** VMA Datei einlesen ****
-        nlohmann::json json;
         try {
             tnoxReader >> TNOxdata;
         } catch (...) {
