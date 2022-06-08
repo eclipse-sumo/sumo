@@ -7,14 +7,14 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
-  - Vehicles waiting at a red ligth no longer change lanes in response to vehicles passing the intersection. #10665
+  - Vehicles waiting at a red light no longer change lanes in response to vehicles passing the intersection. #10665
   - Fixed crash when loading NEMA controller with invalid phases. Issue #10704
   - Fixed crash when loading NEMA controller embedded in .net.xml. Issue #10705
   - Lane-specific speed limits now influence lane-changing decisions. Issue #8984
-  - Inconvenience of slower lanes is now taken into accout for cooperative changing. Issue #10714  
+  - Inconvenience of slower lanes is now taken into account for cooperative changing. Issue #10714  
   - NEMA controller: fixed invalid initial state (until the first switch). Issue #10743
   - NEMA controller: fixed crash when custom detectors are missing. Issue #10745
-  - Fixed bug where vehicles would enter lanes that are seperated from a required lane by a forbidden lane. Issue #10512
+  - Fixed bug where vehicles would enter lanes that are separated from a required lane by a forbidden lane. Issue #10512
   - Fixed invalid speed when approaching stop for carFollowModel IDM. Issue #8577
   - Fixed unsafe insertion speed when the insertion lane requires multiple lane changes close to the insertion point. Issue #10761
   - Fixed invalid estimation of the number of required lane changes if multiple lanes are equally suitable. Issue #10769
@@ -42,7 +42,7 @@ title: ChangeLog
    
 - netconvert
   - Fixed invalid edge reduction in edge shape detail at very dense geometry. Issue #10727 (regression in 1.12.0)
-  - Fixed crash when importing plain-xml with self-looped edge and re-occuring edge ids. Issue #10700
+  - Fixed crash when importing plain-xml with self-looped edge and re-occurring edge ids. Issue #10700
   - Fixed crash when loading OpenDRIVE road object validity record. Issue #10701
   - Reduced overly verbose ambiguous node type warnings. Issue #10827
   - Fixed missing tram connections at sharper turns on large junctions. Issue #10826
@@ -62,7 +62,7 @@ title: ChangeLog
 
 - Simulation
   - Jammed detectors of actuated traffic lights can now be ignored for phase extension after a configurable time threshold. Issue #5212
-  - When jam detection is actived (i.e. via option **--tls.actuated.jam-threshold**), all detectors are usable for activation and this eliminates the warnings about "no controlling detectors". Issue #9280, #10682
+  - When jam detection is activated (i.e. via option **--tls.actuated.jam-threshold**), all detectors are usable for activation and this eliminates the warnings about "no controlling detectors". Issue #9280, #10682
   - InductionLoop detectors now support optional attribute 'length'. Issue #10668
   - Actuated traffic lights now support param key 'detector-length' to set the default length of it's detectors. Issue #10668
   - Option **--fcd-output.attributes** now supports the value **posLat** to include lateral positions in fcd-output. Issue #10695
@@ -71,10 +71,10 @@ title: ChangeLog
   
 - netedit
   - Persons and personFlows can now be transformed into each other via context menu (similar to vehicles and flows). Issue #10607
-  - Containerrs and containerFlows can now be transformed into each other via context menu. Issue #10685
+  - Containers and containerFlows can now be transformed into each other via context menu. Issue #10685
   - Traffic light mode now supports phase attributes `earliestEnd, latestEnd` (tlType=actuated) and `vehExt,yellow,red` (tlType=NEMA). Issue #10656
   - PersonPlan-mode now permits selecting the person via clicking (deselect with ESC). Issue #9606
-  - Taz Mode: Added new button to update source and sink weight for fringe edges. Isseue #4991
+  - Taz Mode: Added new button to update source and sink weight for fringe edges. Issue #4991
   - Now supports creating and editing NEMA controller. Issue #9599
   - A tooltip is now shown when the mouse is over any button in the button bar. Issue #10085
   - Traffic light type is now show in traffic light mode. Issue #3423
@@ -84,15 +84,15 @@ title: ChangeLog
   
 
 - sumo-gui
-  - InductionLoop detectors now list the time of continous occupation in their parameter dialog. Issue #10671
+  - InductionLoop detectors now list the time of continuos occupation in their parameter dialog. Issue #10671
   - 3D-view now permits opening vehicle context menu via right-click. Issue #10191
-  - Geometry points of polygons juntions and walkingareas can now be annotaded to aid in debugging (activated in the openGL settings). Issue #10594
+  - Geometry points of polygons junctions and walkingareas can now be annotated to aid in debugging (activated in the openGL settings). Issue #10594
 
 - netconvert
   - Now supports generating NEMA controllers. Issue #9599
 
 - netgenerate
-  - Add option synonymes **--random.lanenumber** and **--random.priority** for options that apply to all network types. Issue #10775
+  - Add option synonyms **--random.lanenumber** and **--random.priority** for options that apply to all network types. Issue #10775
   - Added option **--random.type** to pick a random edge type from all loaded types. Issue #10774
   - Options **--geometry.split**, **--geometry.max-segment-length** and **--junctions.join-same** are now supported. Together, they allow for generating intermediate junctions along the generated edges (i.e. for merging shifted grids). Issue #10787
 
@@ -103,7 +103,7 @@ title: ChangeLog
   - plotTrajectories.py: Now supports plotting type 'g' to plot by leaderGap (requires fcd output with option **--fcd-output.max-leader-distance**). Issue #10839
   - addStops2Routes.py: Added various options to randomize stop assignment. Issue #10871
 
-### Mscellaneous
+### Miscellaneous
 
   - Outputfile comment header no longer includes options that were set automatically (only user defined options). Issue #10712
 
@@ -195,7 +195,7 @@ title: ChangeLog
   - 3D options are no longer shown in viewport editor for 2D view. Issue #10540
   - exaggerated person-as-circle no longer exceeds car size when zoomed out. Issue #10633  
   - Exaggerated trucks are now slightly larger than vehicles when zoomed out. Issue #10635
-  - Fixed partially invisible individuallly defined parking spaces. Issue #10568 (regression in 1.10.0)
+  - Fixed partially invisible individually defined parking spaces. Issue #10568 (regression in 1.10.0)
   - Fixed missing window focus at startup. Issue #10499
   - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069
   - GUI-defined traffic scaling is now preserved on reload. Issue #10096
@@ -251,7 +251,7 @@ title: ChangeLog
   - Stops can now load tripId attribute. Issue #10475
   - Stops within embedded routes are now written sorted. Issue #10476
   - Fixed crash in edgeRelation mode. Issue #10485
-  - Train visualization paramters (i.e. *carriageLength*) are now written. Issue #10553
+  - Train visualization parameters (i.e. *carriageLength*) are now written. Issue #10553
   - Empty person plans now trigger a warning when saving. Issue #10566
   - Fixed bad visibility of dotted contour for very short edge. Issue #10555
   - Person drawing style takes now effect. Issue #10636
@@ -399,7 +399,7 @@ title: ChangeLog
   - Actuated traffic lights can now retrieve switching condition states via `trafficlight.getParameter(tlsID, "condition.CONDITION_ID")` #10561
   - Added function 'vehicle.setAcceleration' Issue #10197
   - Function vehicle.replaceStop now supports the flag 'teleport=2' to trigger rerouting after stop removal. Issue #10131
-  - Function `vehicle.moveToXY` now "guesses" the next route edges to prevent artefacts when reaching the end of the current route. Issue #4250
+  - Function `vehicle.moveToXY` now "guesses" the next route edges to prevent artifacts when reaching the end of the current route. Issue #4250
 
 - tools
   - routeStats.py: Can use measures "speed", "speedKmh", "routeLength", can switch to the fast XML parser and can also filter by route length . Issue #10044
@@ -419,7 +419,7 @@ title: ChangeLog
   - attributeStats.py now supports reading attributes from multiple files. Issue #10643
   - added new tool [runSeeds.py](Tools/Misc.md#runseedspy) to run a configuration multiple times with different random seeds and collect distinct outputs. Issue #10642
 
-### miscellaneous
+### Miscellaneous
 
 - simulation
   - Rerouter attribute 'file' is no longer supported. Intervals should be child elements of rerouters. Alternatively, element `<include href="FILE"/>`  may be used. Issue #9579
