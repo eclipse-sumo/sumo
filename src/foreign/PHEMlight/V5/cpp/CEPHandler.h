@@ -255,6 +255,8 @@ namespace PHEMlightdllV5 {
 
 
     private:
+        bool CalcCorrection(Correction* DataCor, Helpers* Helper, VEHPHEMLightJSON::Vehicle_Data* vehicle_Data);
+
         bool Load(std::vector<std::string>& DataPath, Helpers* Helper, Correction* DataCor, bool fleetMix = false);
 
         bool ReadVehicleFile(const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, bool fleetMix, VEHPHEMLightJSON::VEH*& Vehicle);

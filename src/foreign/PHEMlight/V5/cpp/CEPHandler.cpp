@@ -51,6 +51,27 @@ namespace PHEMlightdllV5 {
         return true;
     }
 
+    bool CEPHandler::CalcCorrection(Correction* DataCor, Helpers* Helper, VEHPHEMLightJSON::Vehicle_Data* vehicle_Data) {
+            if (DataCor->getUseDet()) {
+                DataCor->setVehMileage(-1);
+                if (vehicle_Data->getMileage() > 0.) {
+                    DataCor->setVehMileage(vehicle_Data->getMileage());
+                }
+
+                if (!DataCor->IniDETfactor(Helper)) {
+                    return false;
+                }
+            }
+            if (DataCor->getUseTNOx()) {
+                if (!DataCor->IniTNOxfactor(Helper)) {
+                    return false;
+                }
+            }
+
+            //Return value
+            return true;
+    }
+
     bool CEPHandler::Load(std::vector<std::string>& DataPath, Helpers* Helper, Correction* DataCor, bool fleetMix) {
         //Deklaration
         // get string identifier for PHEM emission class
@@ -67,6 +88,12 @@ namespace PHEMlightdllV5 {
 
         if (!ReadVehicleFile(DataPath, emissionRep, Helper, fleetMix, Vehicle)) {
             return false;
+        }
+
+        if (DataCor != nullptr) {
+            if (!CalcCorrection(DataCor, Helper, Vehicle->getVehicleData())) {
+                return false;
+            }
         }
 
         if (!ReadEmissionData(true, DataPath, emissionRep, Helper, fleetMix, DataCor, headerFCvalues, matrixFCvalues, idlingValuesFCvalues)) {
@@ -129,6 +156,7 @@ namespace PHEMlightdllV5 {
         Vehicle->getVehicleData()->setWheelDiameter(json2double(vd, "WheelDiameter"));
         Vehicle->getVehicleData()->setCw(json2double(vd, "Cw"));
         Vehicle->getVehicleData()->setA(json2double(vd, "A"));
+        Vehicle->getVehicleData()->setMileage(json2double(vd, "Mileage"));
 
         // Auxiliaries
         nlohmann::json::iterator auxDataIt = json.find("AuxiliariesData");

@@ -112,7 +112,6 @@ namespace PHEMlightdllV5 {
         }
 
         //**** DET Datei einlesen ****
-        nlohmann::json json;
         try {
             detReader >> DETdata;
         } catch (...) {

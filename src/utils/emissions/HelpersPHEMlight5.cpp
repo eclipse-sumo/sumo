@@ -70,6 +70,7 @@ HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleCl
         if (!myCorrection->ReadDet(err)) {
             throw InvalidArgument("Error reading PHEMlight5 deterioration data.\n" + err);
         }
+        myCorrection->setUseDet(true);
     }
     myHelper.setCommentPrefix("c");
     myHelper.setPHEMDataV("V5");
