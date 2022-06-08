@@ -161,23 +161,34 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
                 (*osg_coords)[index].set((float)shape[k].x(), (float)shape[k].y(), (float)shape[k].z() + zOffset);
             }
         } else {
-			PositionVector lshape = shape;
-			lshape.move2side(-l->getWidth() / 2);
 			int index = 0;
-			for (int k = (int)lshape.size() - 1; k >= 0; --k, ++index) {
-				(*osg_coords)[index].set((float)lshape[k].x(), (float)lshape[k].y(), (float)lshape[k].z() + zOffset);
-			}
 			PositionVector rshape = shape;
 			rshape.move2side(l->getWidth() / 2);
-			for (int k = 0; k < (int)rshape.size(); ++k, ++index) {
-			    (*osg_coords)[index].set((float)rshape[k].x(), (float)rshape[k].y(), (float)rshape[k].z() + zOffset);
+			for (int k = (int)rshape.size() - 1; k >= 0; --k, ++index) {
+				(*osg_coords)[index].set((float)rshape[k].x(), (float)rshape[k].y(), (float)rshape[k].z() + zOffset);
 			}
-			sizeDiff = (int)rshape.size() + (int)lshape.size() - upperShapeSize;
+			PositionVector lshape = shape;
+			lshape.move2side(-l->getWidth() / 2);
+			for (int k = 0; k < (int)lshape.size(); ++k, ++index) {
+				(*osg_coords)[index].set((float)lshape[k].x(), (float)lshape[k].y(), (float)lshape[k].z() + zOffset);
+			}
+			sizeDiff = (int)rshape.size() + (int)lshape.size() - upperShapeSize;			
         }
         osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
         (*osg_colors)[0].set(128, 128, 128, 255);
         geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
-		geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, upperShapeSize + sizeDiff));
+
+		if(edge.isWalkingArea()) {
+			geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, upperShapeSize));
+		}
+		else {
+			osg::DrawElementsUInt* surface = new osg::DrawElementsUInt(osg::PrimitiveSet::TRIANGLE_STRIP, 0);
+			for (int i = 0; i < originalSize; ++i) {
+				surface->push_back(i);
+				surface->push_back(2*originalSize - i - 1);
+			}
+			geom->addPrimitiveSet(surface);
+		}
 
 		if (extrude) {
 			int index = upperShapeSize;
@@ -197,9 +208,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
 				}
 			}
 		}
-		else {
-			geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, upperShapeSize + sizeDiff));
-		}
+
         osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
         ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
         ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
@@ -219,7 +228,6 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
 		osgUtil::SmoothingVisitor sv;
 		sv.setCreaseAngle(0.6*osg::PI);
 		geom->accept(sv);
-
         static_cast<GUILane*>(l)->setGeometry(geom);
     }
 }
