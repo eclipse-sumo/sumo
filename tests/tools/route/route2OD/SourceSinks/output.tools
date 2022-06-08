@@ -1,0 +1,10 @@
+read 3 TAZ
+edges ['C1B1', 'E4E3', 'E2E1'] (total 3) are sinks for more than one TAZ
+No toTaz found for edge 'A1A0' of vehicle '0' 
+No toTaz found for edge 'B1B0' of vehicle '1' 
+No toTaz found for edge 'D1D2' of vehicle '2' 
+No toTaz found for edge 'A2A3' of vehicle '3' 
+No fromTaz found for edge 'C0D0' of vehicle '4' 
+read 10 vehicles
+No fromTaz found for 1 edges and no toTaz found for 10 edges
+Wrote 0 OD-pairs (0 distinct) in 0 intervals
