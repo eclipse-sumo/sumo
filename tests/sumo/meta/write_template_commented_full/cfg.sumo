@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-12 09:23:33 by Eclipse SUMO sumo Version v1_13_0+0176-54e71bd3408
+<!-- generated on 2022-06-08 16:44:35 by Eclipse SUMO sumo Version v1_13_0+0654-36aa75fb917
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -648,8 +648,11 @@
     </report>
 
     <emissions>
-        <!-- Determines where to load PHEMlight definitions from. -->
+        <!-- Determines where to load PHEMlight definitions from -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
+
+        <!-- Enable fleet age modelling with the given reference year in PHEMlight5 -->
+        <phemlight-year value="0" type="INT"/>
 
         <!-- The probability for a vehicle to have a &apos;emissions&apos; device -->
         <device.emissions.probability value="-1" type="FLOAT"/>

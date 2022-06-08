@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_12_0+0320-a562602254b
+Eclipse SUMO duarouter Version v1_13_0+0654-36aa75fb917
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -22,7 +22,9 @@ Input Options:
   -r, --route-files FILE              Read sumo routes, alternatives, flows,
                                        and trips from FILE(s)
   --phemlight-path FILE               Determines where to load PHEMlight
-                                       definitions from.
+                                       definitions from
+  --phemlight-year INT                Enable fleet age modelling with the given
+                                       reference year in PHEMlight5
   -w, --weight-files FILE             Read network weights from FILE(s)
   --lane-weight-files FILE            Read lane-based network weights from
                                        FILE(s)

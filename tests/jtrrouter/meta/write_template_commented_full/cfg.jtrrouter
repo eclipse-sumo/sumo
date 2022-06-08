@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-08 10:59:39 by Eclipse SUMO jtrrouter Version v1_12_0+0320-a562602254b
+<!-- generated on 2022-06-08 16:48:11 by Eclipse SUMO jtrrouter Version v1_13_0+0654-36aa75fb917
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -36,8 +36,11 @@
         <!-- Read sumo routes, alternatives, flows, and trips from FILE(s) -->
         <route-files value="" synonymes="alternative-files alternatives-files f flow-files flows r trip-files trips" type="FILE"/>
 
-        <!-- Determines where to load PHEMlight definitions from. -->
+        <!-- Determines where to load PHEMlight definitions from -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
+
+        <!-- Enable fleet age modelling with the given reference year in PHEMlight5 -->
+        <phemlight-year value="0" type="INT"/>
 
         <!-- Initialize a TAZ for every junction to use attributes toJunction and fromJunction -->
         <junction-taz value="false" type="BOOL"/>
