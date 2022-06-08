@@ -78,7 +78,7 @@ MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {
 
 MSStage*
 MSPerson::MSPersonStage_Walking::clone() const {
-    std::vector<const MSEdge*> route = myRoute;;
+    std::vector<const MSEdge*> route = myRoute;
     double departPos = myDepartPos;
     double arrivalPos = myArrivalPos;
     int departLane = myDepartLane;

@@ -64,7 +64,7 @@ NGEdge::buildNBEdge(NBNetBuilder& nb, std::string type, const bool reversed) con
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.getBool("random-type") && nb.getTypeCont().size() > 1) {
         auto it = nb.getTypeCont().begin();
-        std::advance(it, RandHelper::rand((int)nb.getTypeCont().size()));;
+        std::advance(it, RandHelper::rand((int)nb.getTypeCont().size()));
         type = it->first;
     }
     int priority = nb.getTypeCont().getEdgeTypePriority(type);

@@ -611,7 +611,7 @@ private:
     std::vector<GNEAttributeCarrier*> myInspectedAttributeCarriers;
 
     /// @brief front attribute carrier
-    GNEAttributeCarrier* myFrontAttributeCarrier = nullptr;;
+    GNEAttributeCarrier* myFrontAttributeCarrier = nullptr;
 
     /// @brief last created route
     GNEDemandElement* myLastCreatedRoute = nullptr;

@@ -279,7 +279,7 @@ MSInductLoop::getTimeSinceLastDetection() const {
 double
 MSInductLoop::getOccupancyTime() const {
     if (myOverrideTime >= 0) {
-        return SIMTIME - myOverrideEntryTime;;
+        return SIMTIME - myOverrideEntryTime;
     }
     if (myVehiclesOnDet.size() == 0) {
         // detector is unoccupied

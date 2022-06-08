@@ -127,7 +127,7 @@ public:
 #endif
         if (success) {
             const size_t intoSize = into.size();
-            const int backIndex = (int)backLengths.size() - 1;;
+            const int backIndex = (int)backLengths.size() - 1;
             for (const _RailEdge* railEdge : intoTmp) {
                 // prevent premature reversal on back edge (extend train length)
                 const double length = backIndex >= 0 ? backLengths[backIndex] : vehicle->getLength();

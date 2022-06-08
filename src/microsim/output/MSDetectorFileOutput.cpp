@@ -75,7 +75,7 @@ MSDetectorFileOutput::personApplies(const MSTransportable& p, int dir) const {
         }
     } else {
         const SUMOVehicleClass svc = p.getVehicle()->getVClass();
-        int vClassCode;;
+        int vClassCode;
         if ((svc & SVC_PUBLIC_CLASSES) != 0) {
             vClassCode = (int)PersonMode::PUBLIC;
         } else if ((svc & SVC_BICYCLE) != 0) {

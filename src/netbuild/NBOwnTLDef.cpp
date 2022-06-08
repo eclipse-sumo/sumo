@@ -1399,7 +1399,7 @@ NBOwnTLDef::corridorLike() const {
 
 std::string
 NBOwnTLDef::filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e) {
-    bool haveGreen = false;;
+    bool haveGreen = false;
     for (int j = 0; j < (int)state.size(); j++) {
         if (fromEdges[j] != e) {
             state[j] = 'r';
@@ -1444,9 +1444,9 @@ NBOwnTLDef::fixDurationSum(NBTrafficLightLogic* logic, const std::map<int, int>&
     if (ring1existing.size() != ring2existing.size()) {
         int pI; // sumo phase index
         if (ring1existing.size() < ring2existing.size()) {
-            pI = names.find(*ring1existing.begin())->second;;
+            pI = names.find(*ring1existing.begin())->second;
         } else {
-            pI = names.find(*ring2existing.begin())->second;;
+            pI = names.find(*ring2existing.begin())->second;
         }
         const auto& p = logic->getPhases()[pI];
         SUMOTime newMaxDur = 2 * p.maxDur + p.yellow + p.red;
