@@ -81,6 +81,14 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
                 myCharacteristicMapMap.at(item.first) = CharacteristicMap(typeParams->getParameter(toString(item.first)));
             }
         }
+        myMap[SUMO_ATTR_MASS] = typeParams->mass;
+        myMap[SUMO_ATTR_WIDTH] = typeParams->width;
+        myMap[SUMO_ATTR_HEIGHT] = typeParams->height;
+    } else {
+        const SUMOVTypeParameter::VClassDefaultValues defaultValues(SVC_PASSENGER);
+        myMap[SUMO_ATTR_MASS] = defaultValues.mass;
+        myMap[SUMO_ATTR_WIDTH] = defaultValues.width;
+        myMap[SUMO_ATTR_HEIGHT] = defaultValues.height;
     }
 }
 

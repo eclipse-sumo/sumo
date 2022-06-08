@@ -193,6 +193,14 @@ public:
     }
 
 
+    /** @brief Get this vehicle type's mass
+     * @return The mass of this vehicle type
+     */
+    inline double getMass() const {
+        return myParameter.mass;
+    }
+
+
     /** @brief Returns this type's color
      * @return The color of this type
      */
@@ -472,6 +480,12 @@ public:
      * @param[in] eclass The new emission class of this type
      */
     void setEmissionClass(SUMOEmissionClass eclass);
+
+
+    /** @brief Set a new value for this type's mass
+     * @param[in] mass The new mass of this type
+     */
+    void setMass(double mass);
 
 
     /** @brief Set a new value for this type's color
