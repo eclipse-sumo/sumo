@@ -376,7 +376,7 @@ MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, c
     v.haltings = 0;
     v.intervalHaltings = 0;
     if (veh.getSpeed() < myHaltingSpeedThreshold) {
-        if (fractionTimeOnDet > myHaltingTimeThreshold) {
+        if (TIME2STEPS(fractionTimeOnDet) > myHaltingTimeThreshold) {
             v.haltings++;
             v.intervalHaltings++;
         }
