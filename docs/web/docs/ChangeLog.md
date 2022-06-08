@@ -19,6 +19,12 @@ title: ChangeLog
   - Fixed unsafe insertion speed when the insertion lane requires multiple lane changes close to the insertion point. Issue #10761
   - Fixed invalid estimation of the number of required lane changes if multiple lanes are equally suitable. Issue #10769
   - Fixed unsafe speed adaptation for lane changing. Issue #10767
+  - Fixed invalid warnings about missing green phase for "off" and "stop" links. Issue #10835
+  - Fixed pedestrian collision after jamming. Issue #10823
+  - Fixed invalid jamming that persists after an overfilled busStop has cleared. Issue #10822
+  - Fixed invalid detector placement for joined actuated traffic lights. Issue #10837
+  - Fixed bug where taxi fails to drop off customer. Issue #10860
+  - Setting a subsecond `timeThreshold` for `e3detector`s is now working. Issue #10881
   
 - netedit
   - Fixed crash when loading a network (on very slow computers / builds). Issue #10750 (regression in 1.9.0)
@@ -27,15 +33,20 @@ title: ChangeLog
   - Loading a demand file only triggers a 'demand is modified' warning after actual modification. Issue #9529
   - Locate dialog buttons "select all" and "deselect all" now toggle selection status. Issue #10707
   - Editing traffic light parameters now marks it as changed. Issue #10673
+  - Fixed various issues related to containers. Issue #10844
   
 - sumo-gui
   - Background images (decals) and multi-view settings are now restored on reload. Issue #10788 (regression in 1.13.0)
   - Background grid configured in settings is now shown when first opening gui. Issue #10789
+  - Fixed invalid tranship color when coloring container by mode. Issue #10849
    
 - netconvert
   - Fixed invalid edge reduction in edge shape detail at very dense geometry. Issue #10727 (regression in 1.12.0)
   - Fixed crash when importing plain-xml with self-looped edge and re-occuring edge ids. Issue #10700
   - Fixed crash when loading OpenDRIVE road object validity record. Issue #10701
+  - Reduced overly verbose ambiguous node type warnings. Issue #10827
+  - Fixed missing tram connections at sharper turns on large junctions. Issue #10826
+  - Option **--geometry.remove** now works correctly when merging networks. Issue #10853
 
 - TraCI
   - Function `vehicle.setAcceleration` now supports negative values. Issue #10693
@@ -44,6 +55,8 @@ title: ChangeLog
   - sumolib no longer crashes in an environment where rtree and stderr are missing. Issue #10666
   - [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle) now aborts on an unreadable cycle. Issue #10754
   - game/racing.py now uses the intended vehicle scaling and simulation delay. Issues #10783 (regression in 1.0.0)
+  - generateRailSignalConstraints.py: Fixed bug where constraints for invalid stops were generated. Issue #10843
+  - route2OD.py: Fixed invalid handling of TAZ defined with tazSource and tazSink elements. Issue #10873
 
 ### Enhancements
 
@@ -54,9 +67,11 @@ title: ChangeLog
   - Actuated traffic lights now support param key 'detector-length' to set the default length of it's detectors. Issue #10668
   - Option **--fcd-output.attributes** now supports the value **posLat** to include lateral positions in fcd-output. Issue #10695
   - Setting lcSpeedGain=0 now fully disables changing for speedGain. Issue #10709
+  - RailSignalConstraints can now be loaded in a deactivated state by setting attribute `active="false"`. They can still be retrieved via TraCI. Issue #10799
   
 - netedit
   - Persons and personFlows can now be transformed into each other via context menu (similar to vehicles and flows). Issue #10607
+  - Containerrs and containerFlows can now be transformed into each other via context menu. Issue #10685
   - Traffic light mode now supports phase attributes `earliestEnd, latestEnd` (tlType=actuated) and `vehExt,yellow,red` (tlType=NEMA). Issue #10656
   - PersonPlan-mode now permits selecting the person via clicking (deselect with ESC). Issue #9606
   - Taz Mode: Added new button to update source and sink weight for fringe edges. Isseue #4991
@@ -65,10 +80,13 @@ title: ChangeLog
   - Traffic light type is now show in traffic light mode. Issue #3423
   - All attributes can now be reset to their default value by deleting the attribute content if that attribute has a default. Issue #9350
   - TAZ-source and TAZ-sink elements can now be inspected and selected (upon activating a new toggle button). Issue #10273
+  - Stops for containers can now be defined. Issue #10855
+  
 
 - sumo-gui
   - InductionLoop detectors now list the time of continous occupation in their parameter dialog. Issue #10671
   - 3D-view now permits opening vehicle context menu via right-click. Issue #10191
+  - Geometry points of polygons juntions and walkingareas can now be annotaded to aid in debugging (activated in the openGL settings). Issue #10594
 
 - netconvert
   - Now supports generating NEMA controllers. Issue #9599
@@ -81,6 +99,9 @@ title: ChangeLog
 - tools
   - [tls_csvSignalGroups](Tools/tls.md#tls_csvsignalgroupspy) now supports keyword **actuated** to declare time ranges for shorting/extending phases and causes programs of type *actuated* to be written. Issue #10719
   - osmWebWizard now uses a different projection when activating the "satellite background" option  to ensure that the network matches the background.
+  - generateRailSignalConstraints.py: Can now write discarded constraints as inactive by setting option **--write-inactive**. Issue #10800
+  - plotTrajectories.py: Now supports plotting type 'g' to plot by leaderGap (requires fcd output with option **--fcd-output.max-leader-distance**). Issue #10839
+  - addStops2Routes.py: Added various options to randomize stop assignment. Issue #10871
 
 ### Mscellaneous
 
