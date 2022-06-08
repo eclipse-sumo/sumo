@@ -275,7 +275,7 @@ GNEPersonFrame::demandElementSelected() {
 
 
 void
-GNEPersonFrame::createPath(const bool useLastRoute) {
+GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myPersonAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid person parameters.");

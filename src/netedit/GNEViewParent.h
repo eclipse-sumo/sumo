@@ -211,7 +211,7 @@ public:
     int getFrameAreaWith() const;
 
     /// @brief set frame area width
-    void setFrameAreaWith(int width);
+    void setFrameAreaWith(const int frameAreaWith);
 
     /// @name FOX-callbacks
     /// @{

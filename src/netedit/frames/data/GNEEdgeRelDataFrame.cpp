@@ -52,7 +52,7 @@ GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCur
 
 
 void
-GNEEdgeRelDataFrame::createPath(const bool useLastRoute) {
+GNEEdgeRelDataFrame::createPath(const bool /*useLastRoute*/) {
     // first check that we have at least two edges and parameters are valid
     if ((myPathCreator->getSelectedEdges().size() > 1) && (myGenericDataAttributes->areAttributesValid())) {
         GNEDataHandler dataHandler(myViewNet->getNet(), "", true);

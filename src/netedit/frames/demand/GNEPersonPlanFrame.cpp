@@ -253,7 +253,7 @@ GNEPersonPlanFrame::demandElementSelected() {
 
 
 void
-GNEPersonPlanFrame::createPath(const bool useLastRoute) {
+GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myPersonPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
