@@ -42,9 +42,6 @@ class GNEEdge;
 class GNEWalkingArea : public GNENetworkElement {
 
 public:
-    /// @brief default constructor
-    GNEWalkingArea(GNENet* net);
-
     /**@brief Constructor
      * @param[in] parentJunction GNEJunction in which this crossing is placed
      * @param[in] ID walkingArea ID
@@ -56,9 +53,6 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /// @brief get WalkingArea shape
-    const PositionVector& getWalkingAreaShape() const;
-
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -77,9 +71,6 @@ public:
 
     /// @brief get parent Junction
     GNEJunction* getParentJunction() const;
-
-    ///@brief get NBode::WalkingArea
-    NBNode::WalkingArea& getNBWalkingArea() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -152,9 +143,6 @@ protected:
     /// @brief exaggeration used in tesselation
     mutable double myExaggeration;
 
-    /// @brief template NBWalkingArea
-    NBNode::WalkingArea* myTemplateNBWalkingArea;
-
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
@@ -164,9 +152,6 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /// @brief sets junction color depending on circumstances
-    RGBColor setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief Invalidated copy constructor.
     GNEWalkingArea(const GNEWalkingArea&) = delete;
