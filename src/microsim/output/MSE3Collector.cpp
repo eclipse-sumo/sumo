@@ -628,7 +628,7 @@ MSE3Collector::detectorUpdate(const SUMOTime step) {
     if (myEnteredContainer.size() == 0) {
         myCurrentMeanSpeed = -1;
     } else {
-        myCurrentMeanSpeed /= myEnteredContainer.size();
+        myCurrentMeanSpeed /= (double)myEnteredContainer.size();
     }
 }
 
