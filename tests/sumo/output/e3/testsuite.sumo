@@ -28,3 +28,6 @@ junction_output
 
 # Copy of persons
 persons
+
+# freq is missing
+freq_missing

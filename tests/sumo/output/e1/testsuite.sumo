@@ -31,3 +31,6 @@ errors
 
 # filtering by vTypeDistribution id
 vTypeDist
+
+# freq is missing
+freq_missing
