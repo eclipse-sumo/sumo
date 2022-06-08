@@ -348,7 +348,7 @@ This constrain defines that a given vehicle id (or tripId) can only be inserted 
 | **tripId**      | id (string)            | The 'tripId' param of a vehicle or the id of a vehicle to which this constraint applies   |
 | **tl**          | id (string)            | The id of a railSignal   |
 | **foes**        | ids (string list)      | The ids of one or more vehicles that must have passed **tl** before the parent rail signal permits **tripID** to pass   |
-| limit           | int                    | The number of intermediate vehicles that may pass **tl** after the **foes** before the consraint is evaluated for **tripId** (setting a high number has now downside besides memory use), default: number of given **foes**)      |
+| limit           | int                    | The number of intermediate vehicles that may pass **tl** after the **foes** before the consraint is evaluated for **tripId**.  default: number of given **foes**. (setting a high number has now downside besides memory use but setting a low number may cause the constraint to block **tripId** indefinitely because the ids of the passed foes were *overwritten* by later trains)     |
 | active         | bool                    |  Whether this constraint is active (inactive constraints may still be retrieved via TraCI) |         
 
 
