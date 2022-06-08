@@ -704,13 +704,13 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 totalCount = sum(routeCounts)
                 probability = totalCount / (end - begin)
                 flowID = options.prefix + intervalPrefix + options.writeRouteDist
-                if options.writeFlows == "number" or probability > 1.001:
+                if options.writeFlows == "number" or probability > 1.00004:
                     repeat = 'number="%s"' % totalCount
                     if options.writeFlows == "probability":
-                        sys.stderr.write("Warning: could not write flow %s with probability %.2f\n" %
+                        sys.stderr.write("Warning: could not write flow %s with probability %.5f\n" %
                                          (flowID, probability))
                 else:
-                    repeat = 'probability="%s"' % probability
+                    repeat = 'probability="%.4f"' % probability
                 outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s"%s/>\n' % (
                     flowID, begin, end, repeat,
                     options.writeRouteDist, options.vehattrs))
@@ -723,13 +723,13 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                     fEnd = max(routeDeparts[routeIndex] + [fBegin + 1.0])
                     probability = routeCounts[routeIndex] / (fEnd - fBegin)
                     flowID = "%s%s%s" % (options.prefix, intervalPrefix, routeIndex)
-                    if options.writeFlows == "number" or probability > 1.001:
+                    if options.writeFlows == "number" or probability > 1.00004:
                         repeat = 'number="%s"' % routeCounts[routeIndex]
                         if options.writeFlows == "probability":
-                            sys.stderr.write("Warning: could not write flow %s with probability %.2f\n" % (
+                            sys.stderr.write("Warning: could not write flow %s with probability %.5f\n" % (
                                 flowID, probability))
                     else:
-                        repeat = 'probability="%s"' % probability
+                        repeat = 'probability="%.4f"' % probability
                     if options.writeRouteIDs:
                         if options.pedestrians:
                             outf2.write('    <personFlow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
