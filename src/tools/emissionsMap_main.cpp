@@ -122,7 +122,10 @@ main(int argc, char** argv) {
 
     oc.addOptionSubTopic("Emissions");
     oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
-    oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
+    oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from");
+
+    oc.doRegister("phemlight-year", new Option_Integer(0));
+    oc.addDescription("phemlight-year", "Emissions", "Enable fleet age modelling with the given reference year in PHEMlight5");
 
     SystemFrame::addReportOptions(oc);
 

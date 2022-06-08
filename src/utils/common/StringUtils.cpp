@@ -423,10 +423,7 @@ StringUtils::toBool(const std::string& sData) {
         throw EmptyData();
     }
     std::string s = sData;
-    // Don't use std::transform(..., ::tolower) due a C4244 Warning in MSVC17
-    for (int i = 0; i < (int)s.length(); i++) {
-        s[i] = (char)::tolower((char)s[i]);
-    }
+    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return std::tolower(c); });
     if (s == "1" || s == "yes" || s == "true" || s == "on" || s == "x" || s == "t") {
         return true;
     } else if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {

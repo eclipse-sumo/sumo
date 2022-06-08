@@ -24,6 +24,7 @@
 #include <limits>
 #include <cmath>
 #include <foreign/PHEMlight/V5/cpp/Constants.h>
+#include <foreign/PHEMlight/V5/cpp/Correction.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 
@@ -62,10 +63,18 @@ HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleCl
     if (getenv("SUMO_HOME") != nullptr) {
         phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight5/");
     }
+    const int referenceYear = OptionsCont::getOptions().getInt("phemlight-year");
+    if (referenceYear > 0 && myCorrection == nullptr) {
+        myCorrection = new PHEMlightdllV5::Correction(referenceYear, phemPath);
+        std::string err;
+        if (!myCorrection->ReadDet(err)) {
+            throw InvalidArgument("Error reading PHEMlight5 deterioration data.\n" + err);
+        }
+    }
     myHelper.setCommentPrefix("c");
     myHelper.setPHEMDataV("V5");
     myHelper.setclass(eClass);
-    if (!myCEPHandler.GetCEP(phemPath, &myHelper, nullptr)) {
+    if (!myCEPHandler.GetCEP(phemPath, &myHelper, myCorrection)) {
         throw InvalidArgument("File for PHEMlight5 emission class " + eClass + " not found.\n" + myHelper.getErrMsg());
     }
     PHEMlightdllV5::CEP* const currCep = myCEPHandler.getCEPS().find(myHelper.getgClass())->second;

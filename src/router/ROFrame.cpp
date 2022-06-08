@@ -84,7 +84,10 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
     oc.addDescription("route-files", "Input", "Read sumo routes, alternatives, flows, and trips from FILE(s)");
 
     oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
-    oc.addDescription("phemlight-path", "Input", "Determines where to load PHEMlight definitions from.");
+    oc.addDescription("phemlight-path", "Input", "Determines where to load PHEMlight definitions from");
+
+    oc.doRegister("phemlight-year", new Option_Integer(0));
+    oc.addDescription("phemlight-year", "Input", "Enable fleet age modelling with the given reference year in PHEMlight5");
 
     if (isDUA || isMA) {
         oc.doRegister("weight-files", 'w', new Option_FileName());

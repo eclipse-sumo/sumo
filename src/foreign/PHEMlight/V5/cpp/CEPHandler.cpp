@@ -26,9 +26,10 @@
 #include <sstream>
 #define JSON_USE_IMPLICIT_CONVERSIONS 0
 #include <foreign/nlohmann/json.hpp>
+#include <utils/common/StringUtils.h>
 #include "CEPHandler.h"
 #include "CEP.h"
-//#include "Correction.h"
+#include "Correction.h"
 #include "Helpers.h"
 
 
@@ -298,27 +299,22 @@ namespace PHEMlightdllV5 {
         return true;
     }
 
-    double CEPHandler::GetDetTempCor(Correction* DataCor, const std::string& /* Emi */) {
+    double CEPHandler::GetDetTempCor(Correction* DataCor, const std::string& Emi) {
         //Initialisation
         double CorF = 1;
+        std::string emi = Emi;
+        std::transform(emi.begin(), emi.end(), emi.begin(), [](unsigned char c) { return std::toupper(c); });
 
         if (DataCor != 0) {
-/*            if (DataCor->getUseDet()) {
-                for (std::map<std::string, double>::const_iterator Key = DataCor->DETFactors.begin(); Key != DataCor->DETFactors.end(); ++Key) {
-//                    if (boost::to_upper_copy(Emi) == Key->first->ToUpper()) {
-                    if (Emi == "NOX") {
-                        CorF += (DataCor->DETFactors[Key->first] - 1);
-                        break;
-                    }
-                }
+            if (DataCor->getUseDet() && DataCor->DETFactors.count(emi) > 0) {
+                CorF += DataCor->DETFactors[emi] - 1;
             }
             if (DataCor->getUseTNOx()) {
-//                if (boost::to_upper_copy(Emi)->Contains("NOX")) {
-                if (Emi == "NOX") {
+                if (emi.find("NOX") != std::string::npos) {
                     CorF += (DataCor->getTNOxFactor() - 1);
                 }
             }
-*/        }
+        }
 
         //Return value
         return CorF;
