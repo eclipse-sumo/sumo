@@ -115,11 +115,11 @@ protected:
 
 private:
     /// @brief The list that holds the ids
-    FXList* myList;
+    FXList* myList = nullptr;
 
     /// @brief The parent window
-    GUIMainWindow* myParent;
+    GUIMainWindow* myParent = nullptr;
 
     /// @brief The storage
-    GUISelectedStorage* myStorage;
+    GUISelectedStorage* myStorage = nullptr;
 };
