@@ -136,9 +136,9 @@ TesselatedPolygon::drawTesselation(const PositionVector& shape) const {
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
         gluTessBeginPolygon(tobj, nullptr);
         gluTessBeginContour(tobj);
-        for (int i = 0; i != (int)shape.size(); ++i) {
-            points[3 * i]  = shape[(int) i].x();
-            points[3 * i + 1]  = shape[(int) i].y();
+        for (size_t i = 0; i < shape.size(); i++) {
+            points[3 * i]  = shape[i].x();
+            points[3 * i + 1]  = shape[i].y();
             points[3 * i + 2]  = 0;
             gluTessVertex(tobj, points + 3 * i, points + 3 * i);
         }
