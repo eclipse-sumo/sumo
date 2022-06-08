@@ -24,6 +24,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
+#include <netedit/elements/network/GNEWalkingArea.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -96,6 +97,7 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel("Lanes", ACs->getNumberOfSelectedLanes());
         updateInformationLabel("Connections", ACs->getNumberOfSelectedConnections());
         updateInformationLabel("Crossings", ACs->getNumberOfSelectedCrossings());
+        updateInformationLabel("WalkingAreas", ACs->getNumberOfSelectedWalkingAreas());
         updateInformationLabel("Additionals", ACs->getNumberOfSelectedAdditionals());
         updateInformationLabel("TAZs", ACs->getNumberOfSelectedTAZs());
         updateInformationLabel("TAZSources", ACs->getNumberOfSelectedTAZSources());
@@ -525,6 +527,21 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                     crossing->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                 } else {
                     crossing->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                }
+            }
+        } else if (onlyCount) {
+            ignoreLocking = askContinueIfLock();
+            return true;
+        }
+        // check if walkingArea selection is locked
+        if (ignoreLocking || !locks.isObjectLocked(GLO_WALKINGAREA, false)) {
+            for (const auto& walkingArea : junction.second->getGNEWalkingAreas()) {
+                if (onlyCount) {
+                    return true;
+                } else if (onlyUnselect || walkingArea->isAttributeCarrierSelected()) {
+                    walkingArea->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                } else {
+                    walkingArea->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                 }
             }
         } else if (onlyCount) {
@@ -1410,21 +1427,27 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
         }
         // iterate over extracted edges
         for (const auto& edgeToSelect : edgesToSelect) {
-            // select junction source and all connections and crossings
+            // select junction source and all connections, crossings and walkingAreas
             ACsToSelect.insert(std::make_pair(edgeToSelect->getFromJunction()->getID(), edgeToSelect->getFromJunction()));
             for (const auto& connectionToSelect : edgeToSelect->getFromJunction()->getGNEConnections()) {
                 ACsToSelect.insert(std::make_pair(connectionToSelect->getID(), connectionToSelect));
             }
-            for (const auto& crossingToSelect : edgeToSelect->getFromJunction()->getGNECrossings()) {
-                ACsToSelect.insert(std::make_pair(crossingToSelect->getID(), crossingToSelect));
+            for (const auto& fromCrossingToSelect : edgeToSelect->getFromJunction()->getGNECrossings()) {
+                ACsToSelect.insert(std::make_pair(fromCrossingToSelect->getID(), fromCrossingToSelect));
             }
-            // select junction destiny and all connections and crossings
+            for (const auto& fromWalkingAreaToSelect : edgeToSelect->getFromJunction()->getGNEWalkingAreas()) {
+                ACsToSelect.insert(std::make_pair(fromWalkingAreaToSelect->getID(), fromWalkingAreaToSelect));
+            }
+            // select junction destiny and all connections, crossings and walkingAreas
             ACsToSelect.insert(std::make_pair(edgeToSelect->getToJunction()->getID(), edgeToSelect->getToJunction()));
             for (const auto& connectionToSelect : edgeToSelect->getToJunction()->getGNEConnections()) {
                 ACsToSelect.insert(std::make_pair(connectionToSelect->getID(), connectionToSelect));
             }
-            for (const auto& crossingToSelect : edgeToSelect->getToJunction()->getGNECrossings()) {
-                ACsToSelect.insert(std::make_pair(crossingToSelect->getID(), crossingToSelect));
+            for (const auto& toCrossingToSelect : edgeToSelect->getToJunction()->getGNECrossings()) {
+                ACsToSelect.insert(std::make_pair(toCrossingToSelect->getID(), toCrossingToSelect));
+            }
+            for (const auto& toWalkingAreaToSelect : edgeToSelect->getToJunction()->getGNEWalkingAreas()) {
+                ACsToSelect.insert(std::make_pair(toWalkingAreaToSelect->getID(), toWalkingAreaToSelect));
             }
         }
     }
