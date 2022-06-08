@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-08 08:16:09 by Eclipse SUMO sumo Version v1_13_0+0638-0d80c8d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<e3Detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e3_file.xsd">
+   <interval begin="0.00" end="300.00" id="e3_C" meanTravelTime="53.55" meanOverlapTravelTime="55.33" meanSpeed="6.06" meanHaltsPerVehicle="1.12" meanTimeLoss="37.24" vehicleSum="261" meanSpeedWithin="5.34" meanHaltsPerVehicleWithin="1.89" meanDurationWithin="61.18" vehicleSumWithin="99" meanIntervalSpeedWithin="5.34" meanIntervalHaltsPerVehicleWithin="1.89" meanIntervalDurationWithin="61.18" meanTimeLossWithin="47.18"/>
+   <interval begin="300.00" end="600.00" id="e3_C" meanTravelTime="86.57" meanOverlapTravelTime="88.61" meanSpeed="4.65" meanHaltsPerVehicle="2.01" meanTimeLoss="70.61" vehicleSum="305" meanSpeedWithin="3.53" meanHaltsPerVehicleWithin="2.99" meanDurationWithin="103.09" vehicleSumWithin="139" meanIntervalSpeedWithin="3.53" meanIntervalHaltsPerVehicleWithin="2.97" meanIntervalDurationWithin="102.73" meanTimeLossWithin="90.53"/>
+   <interval begin="600.00" end="900.00" id="e3_C" meanTravelTime="118.24" meanOverlapTravelTime="120.25" meanSpeed="4.67" meanHaltsPerVehicle="2.83" meanTimeLoss="102.30" vehicleSum="278" meanSpeedWithin="3.52" meanHaltsPerVehicleWithin="3.85" meanDurationWithin="161.39" vehicleSumWithin="104" meanIntervalSpeedWithin="3.50" meanIntervalHaltsPerVehicleWithin="3.29" meanIntervalDurationWithin="140.38" meanTimeLossWithin="127.65"/>
+   <interval begin="900.00" end="1156.00" id="e3_C" meanTravelTime="183.14" meanOverlapTravelTime="184.67" meanSpeed="3.74" meanHaltsPerVehicle="4.19" meanTimeLoss="166.34" vehicleSum="156" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+</e3Detector>
