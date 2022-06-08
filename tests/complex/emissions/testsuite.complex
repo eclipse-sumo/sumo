@@ -9,6 +9,9 @@ nefz_hbefa3_separator
 nefz_phemlight
 nefz_phemlight5
 
+# Copy of nefz_phemlight5
+nefz_phemlight5_deterioration
+
 # non-existing driving cycle file
 invalid_cycle
 
