@@ -1,5 +1,5 @@
 ---
-title: PHEMlight
+title: PHEMlight5
 ---
 
 # PHEMlight V5
@@ -32,6 +32,9 @@ e.g. `emissionClass="PHEMlight5/PC_EU4_G"`.
 
 The name is composed of the vehicle category and size, the technology
 and the emission standard, all connected with underscores.
+
+!!! caution
+    Please note that the order of the name parts is different than in the old PHEMlight.
 
 ### Vehicle Category and Size Classes
 
@@ -79,17 +82,21 @@ and the emission standard, all connected with underscores.
 
 - **CB_EUV_D**  city bus, diesel engine, Euro V
 
+## PHEMlight5 Emission Classes 
+
 The following tables show the available classes. Except for the two Euro 4
 passenger cars the classes need to be licensed from TU Graz.
 
-## PHEMlight5 Emission Classes for Light Vehicles running on Diesel or Gasoline
+### Light Vehicles running on Diesel
 
-<table style="border-collapse:collapse;border-spacing:0" class="tg"><tr><th>Passenger Cars</th><th colspan="3">Light Duty Vehicles</th></tr>
+<table><tr><th>Passenger Cars</th><th colspan="3">Light Duty Vehicles</th></tr>
   <tr><td>PC_EU0_D</td><td>LCV_EU0_D_I</td><td>LCV_EU0_D_II</td><td>LCV_EU0_D_III</td></tr>
   <tr><td>PC_EU1_D</td><td>LCV_EU1_D_I</td><td>LCV_EU1_D_II</td><td>LCV_EU1_D_III</td></tr>
   <tr><td>PC_EU2_D</td><td>LCV_EU2_D_I</td><td>LCV_EU2_D_II</td><td>LCV_EU2_D_III</td></tr>
   <tr><td>PC_EU3_D</td><td>LCV_EU3_D_I</td><td>LCV_EU3_D_II</td><td>LCV_EU3_D_III</td></tr>
   <tr><td>PC_EU4_D</td><td>LCV_EU4_D_I</td><td>LCV_EU4_D_II</td><td>LCV_EU4_D_III</td></tr>
+  <tr><td>PC_EU4_D_DPF</td><td>LCV_EU4_D_DPF_I</td><td>LCV_EU4_D_DPF_II</td><td>LCV_EU4_D_DPF_III</td></tr>
+  <tr><td>PC_EU4_D_MW</td><td>LCV_EU4_D_MW_I</td><td>LCV_EU4_D_MW_II</td><td>LCV_EU4_D_MW_III</td></tr>
   <tr><td>PC_EU5_D</td><td>LCV_EU5_D_I</td><td>LCV_EU5_D_II</td><td>LCV_EU5_D_III</td></tr>
   <tr><td>PC_EU6ab_D</td><td>LCV_EU6ab_D_I</td><td>LCV_EU6ab_D_II</td><td>LCV_EU6ab_D_III</td></tr>
   <tr><td>PC_EU6c_D</td><td>LCV_EU6c_D_I</td><td>LCV_EU6c_D_II</td><td>LCV_EU6c_D_III</td></tr>
@@ -97,22 +104,36 @@ passenger cars the classes need to be licensed from TU Graz.
   <tr><td>PC_EU6d-Temp_D</td><td>LCV_EU6d-Temp_D_I</td><td>LCV_EU6d-Temp_D_II</td><td>LCV_EU6d-Temp_D_III</td></tr>
 </table>
 
-## PHEMlight5 Emission Classes for Light Vehicles running on alternative fuels
+### Light Vehicles running on Gasoline
 
-<table style="border-collapse:collapse;border-spacing:0" class="tg"><tr><th class="tg-uzvj" colspan="2">Passenger Cars</th><th class="tg-uzvj" colspan="3">Light Duty Vehicles<br></th></tr>
-  <tr><td></td><td>PC_BEV</td><td>LCV_I_BEV</td><td>LCV_II_BEV</td><td>LCV_III_BEV</td></tr>
-  <tr><td></td><td>PC_CNG_EU5</td><td>LCV_I_CNG_EU5</td><td>LCV_II_CNG_EU5</td><td>LCV_III_CNG_EU5</td></tr>
-  <tr><td></td><td>PC_CNG_EU6</td><td>LCV_I_CNG_EU6</td><td>LCV_II_CNG_EU6</td><td>LCV_III_CNG_EU6</td></tr>
-  <tr><td></td><td>PC_CNG_EU6c</td><td>LCV_I_CNG_EU6c</td><td>LCV_II_CNG_EU6c</td><td>LCV_III_CNG_EU6c</td></tr>
-  <tr><td>H_PKW_D_EU5</td><td></td><td></td><td></td><td></td></tr>
-  <tr><td>H_PKW_D_EU6</td><td>PC_D_HEV_EU6</td><td>LCV_I_D_HEV_EU6</td><td>LCV_II_D_HEV_EU6</td><td>LCV_III_D_HEV_EU6</td></tr>
-  <tr><td></td><td>PC_D_HEV_EU6c</td><td>LCV_I_D_HEV_EU6c</td><td>LCV_II_D_HEV_EU6c</td><td>LCV_III_D_HEV_EU6c</td></tr>
-  <tr><td>H_PKW_G_EU5</td><td></td><td></td><td></td><td></td></tr>
-  <tr><td>H_PKW_G_EU6</td><td>PC_G_HEV_EU6</td><td>LCV_I_G_HEV_EU6</td><td>LCV_II_G_HEV_EU6</td><td>LCV_III_G_HEV_EU6</td></tr>
-  <tr><td></td><td>PC_G_HEV_EU6c</td><td>LCV_I_G_HEV_EU6c</td><td>LCV_II_G_HEV_EU6c</td><td>LCV_III_G_HEV_EU6c</td></tr>
+<table><tr><th>Passenger Cars</th><th colspan="3">Light Duty Vehicles</th></tr>
+  <tr><td>PC_EU0_G</td><td>LCV_EU0_G_I</td><td>LCV_EU0_G_II</td><td>LCV_EU0_G_III</td></tr>
+  <tr><td>PC_EU1_G</td><td>LCV_EU1_G_I</td><td>LCV_EU1_G_II</td><td>LCV_EU1_G_III</td></tr>
+  <tr><td>PC_EU2_G</td><td>LCV_EU2_G_I</td><td>LCV_EU2_G_II</td><td>LCV_EU2_G_III</td></tr>
+  <tr><td>PC_EU3_G</td><td>LCV_EU3_G_I</td><td>LCV_EU3_G_II</td><td>LCV_EU3_G_III</td></tr>
+  <tr><td>PC_EU4_G</td><td>LCV_EU4_G_I</td><td>LCV_EU4_G_II</td><td>LCV_EU4_G_III</td></tr>
+  <tr><td>PC_EU5_G</td><td>LCV_EU5_G_I</td><td>LCV_EU5_G_II</td><td>LCV_EU5_G_III</td></tr>
+  <tr><td>PC_EU6ab_G</td><td>LCV_EU6ab_G_I</td><td>LCV_EU6ab_G_II</td><td>LCV_EU6ab_G_III</td></tr>
+  <tr><td>PC_EU6c_G</td><td>LCV_EU6c_G_I</td><td>LCV_EU6c_G_II</td><td>LCV_EU6c_G_III</td></tr>
+  <tr><td>PC_EU6d_G</td><td>LCV_EU6d_G_I</td><td>LCV_EU6d_G_II</td><td>LCV_EU6d_G_III</td></tr>
+  <tr><td>PC_EU6d-Temp_G</td><td>LCV_EU6d-Temp_G_I</td><td>LCV_EU6d-Temp_G_II</td><td>LCV_EU6d-Temp_G_III</td></tr>
 </table>
 
-## PHEMlight5 Emission Classes for Motor Cycles
+### Light Vehicles running on alternative fuels
+
+<table><tr><th>Passenger Cars</th><th colspan="3">Light Duty Vehicles</th></tr>
+  <tr><td>PC_BEV_GEN1</td><td>LCV_BEV_GEN1_I</td><td>LCV_BEV_GEN1_II</td><td>LCV_BEV_GEN1_III</td></tr>
+  <tr><td>PC_EU6ab_D_HEV</td><td>LCV_EU6ab_D_I_HEV</td><td>LCV_EU6ab_D_II_HEV</td><td>LCV_EU6ab_D_III_HEV</td></tr>
+  <tr><td>PC_EU6c_D_HEV</td><td>LCV_EU6c_D_I_HEV</td><td>LCV_EU6c_D_II_HEV</td><td>LCV_EU6c_D_III_HEV</td></tr>
+  <tr><td>PC_EU6d_D_HEV</td><td>LCV_EU6d_D_I_HEV</td><td>LCV_EU6d_D_II_HEV</td><td>LCV_EU6d_D_III_HEV</td></tr>
+  <tr><td>PC_EU6d-Temp_D_HEV</td><td>LCV_EU6d-Temp_D_I_HEV</td><td>LCV_EU6d-Temp_D_II_HEV</td><td>LCV_EU6d-Temp_D_III_HEV</td></tr>
+  <tr><td>PC_EU6ab_G_HEV</td><td>LCV_EU6ab_G_I_HEV</td><td>LCV_EU6ab_G_II_HEV</td><td>LCV_EU6ab_G_III_HEV</td></tr>
+  <tr><td>PC_EU6c_G_HEV</td><td>LCV_EU6c_G_I_HEV</td><td>LCV_EU6c_G_II_HEV</td><td>LCV_EU6c_G_III_HEV</td></tr>
+  <tr><td>PC_EU6d_G_HEV</td><td>LCV_EU6d_G_I_HEV</td><td>LCV_EU6d_G_II_HEV</td><td>LCV_EU6d_G_III_HEV</td></tr>
+  <tr><td>PC_EU6d-Temp_G_HEV</td><td>LCV_EU6d-Temp_G_I_HEV</td><td>LCV_EU6d-Temp_G_II_HEV</td><td>LCV_EU6d-Temp_G_III_HEV</td></tr>
+</table>
+
+### Motor Cycles
 
 <table>
   <tr><th colspan="3">Motor Cycles</th></tr>
@@ -126,21 +147,18 @@ passenger cars the classes need to be licensed from TU Graz.
   <tr><td colspan="3">MC_BEV_GEN1</td></tr>
 </table>
 
-## PHEMlight5 Emission Classes for Heavy Vehicles
+### Heavy Vehicles
 
-<table style="border-collapse:collapse;border-spacing:0" class="tg"><tr><th class="tg-uzvj" colspan="2">Tractor/Trailor</th><th class="tg-uzvj" colspan="2">Coach</th><th class="tg-uzvj" colspan="2">Urban and Inter Urban Buses</th><th class="tg-uzvj" colspan="4">Trucks</th></tr>
-  <tr><td></td><td></td><td></td><td></td><td></td><td>HDV_CB_BEV</td><td></td><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td><td></td><td></td><td>HDV_CB_CNG_EU6</td><td></td><td></td><td></td><td></td></tr>
-  <tr><td>LSZ_D_EU0</td><td>LSZ_D_EU0</td><td>RB_D_EU0</td><td>HDV_CO_D_EU0</td><td>LB_D_EU0</td><td>HDV_CB_D_EU0</td><td>SOLO_LKW_D_EU0_I</td><td>HDV_RT_I_D_EU0</td><td>SOLO_LKW_D_EU0_II</td><td>HDV_RT_II_D_EU0</td></tr>
-  <tr><td>LSZ_D_EU1</td><td>HDV_TT_D_EU1</td><td>RB_D_EU1</td><td>HDV_CO_D_EU1</td><td>LB_D_EU1</td><td>HDV_CB_D_EU1</td><td>SOLO_LKW_D_EU1_I</td><td>HDV_RT_I_D_EU1</td><td>SOLO_LKW_D_EU1_II</td><td>HDV_RT_II_D_EU1</td></tr>
-  <tr><td>LSZ_D_EU2</td><td>HDV_TT_D_EU2</td><td>RB_D_EU2</td><td>HDV_CO_D_EU2</td><td>LB_D_EU2</td><td>HDV_CB_D_EU2</td><td>SOLO_LKW_D_EU2_I</td><td>HDV_RT_I_D_EU2</td><td>SOLO_LKW_D_EU2_II</td><td>HDV_RT_II_D_EU2</td></tr>
-  <tr><td>LSZ_D_EU3</td><td>HDV_TT_D_EU3</td><td>RB_D_EU3</td><td>HDV_CO_D_EU3</td><td>LB_D_EU3</td><td>HDV_CB_D_EU3</td><td>SOLO_LKW_D_EU3_I</td><td>HDV_RT_I_D_EU3</td><td>SOLO_LKW_D_EU3_II</td><td>HDV_RT_II_D_EU3</td></tr>
-  <tr><td>LSZ_D_EU4</td><td>HDV_TT_D_EU4</td><td>RB_D_EU4</td><td>HDV_CO_D_EU4</td><td>LB_D_EU4</td><td>HDV_CB_D_EU4</td><td>SOLO_LKW_D_EU4_I</td><td>HDV_RT_I_D_EU4</td><td>SOLO_LKW_D_EU4_II</td><td>HDV_RT_II_D_EU4</td></tr>
-  <tr><td>LSZ_D_EU5</td><td>HDV_TT_D_EU5</td><td>RB_D_EU5</td><td>HDV_CO_D_EU5</td><td>LB_D_EU5</td><td>HDV_CB_D_EU5</td><td>SOLO_LKW_D_EU5_I</td><td>HDV_RT_I_D_EU5</td><td>SOLO_LKW_D_EU5_II</td><td>HDV_RT_II_D_EU5</td></tr>
-  <tr><td>LSZ_D_EU6</td><td>HDV_TT_D_EU6</td><td>RB_D_EU6</td><td>HDV_CO_D_EU6</td><td>LB_D_EU6</td><td>HDV_CB_D_EU6</td><td>SOLO_LKW_D_EU6_I</td><td>HDV_RT_I_D_EU6</td><td>SOLO_LKW_D_EU6_II</td><td>HDV_RT_II_D_EU6</td></tr>
-  <tr><td></td><td></td><td></td><td></td><td></td><td>HDV_CB_D_HEV_EU6</td><td></td><td></td><td></td><td></td></tr>
+<table><tr><th colspan="2">Rigid Truck</th><th>Truck + Trailer</th><th colspan="3">City Bus</th><th>Coach</th></tr>
+  <tr><td>RT_EU0_D_I</td><td>RT_EU0_D_II</td><td>TT_EU0_D</td><td>CB_EU0_D</td><td>CB_EU0_D_Midi</td><td>CB_EU0_D_Heavy</td><td>CO_EU0_D</td></tr>
+  <tr><td>RT_EUI_D_I</td><td>RT_EUI_D_II</td><td>TT_EUI_D</td><td>CB_EUI_D</td><td>CB_EUI_D_Midi</td><td>CB_EUI_D_Heavy</td><td>CO_EUI_D</td></tr>
+  <tr><td>RT_EUII_D_I</td><td>RT_EUII_D_II</td><td>TT_EUII_D</td><td>CB_EUII_D</td><td>CB_EUII_D_Midi</td><td>CB_EUII_D_Heavy</td><td>CO_EUII_D</td></tr>
+  <tr><td>RT_EUIII_D_I</td><td>RT_EUIII_D_II</td><td>TT_EUIII_D</td><td>CB_EUIII_D</td><td>CB_EUIII_D_Midi</td><td>CB_EUIII_D_Heavy</td><td>CO_EUIII_D</td></tr>
+  <tr><td>RT_EUIV_D_I</td><td>RT_EUIV_D_II</td><td>TT_EUIV_D</td><td>CB_EUIV_D</td><td>CB_EUIV_D_Midi</td><td>CB_EUIV_D_Heavy</td><td>CO_EUIV_D</td></tr>
+  <tr><td>RT_EUV_D_I</td><td>RT_EUV_D_II</td><td>TT_EUV_D</td><td>CB_EUV_D</td><td>CB_EUV_D_Midi</td><td>CB_EUV_D_Heavy</td><td>CO_EUV_D</td></tr>
+  <tr><td>RT_EUVI_D_I</td><td>RT_EUVI_D_II</td><td>TT_EUVI_D</td><td>CB_EUVI_D</td><td>CB_EUVI_D_Midi</td><td>CB_EUVI_D_Heavy</td><td>CO_EUVI_D</td></tr>
 </table>
 
-## Special Classes
+### Special Classes
 
 The special class `zero` may be used to specify a vehicle without emissions.
