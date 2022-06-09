@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec 13 13:39:44 2016 by SUMO Version dev-SVN-r22280
+<!-- generated on 2022-06-09 15:58:56 by Eclipse SUMO sumo Version v1_13_0+0699-e1d15bc5765
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,10 +18,18 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <begin value="0"/>
         <end value="150"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -44,9 +57,9 @@ SPDX-License-Identifier: EPL-2.0
     </interval>
     <interval begin="15.00" end="30.00" id="dump_15">
         <edge id="beg">
-            <lane id="beg_0" sampledSeconds="9.63" CO_abs="281.657067" CO2_abs="30506.797333" HC_abs="2.059048" PMx_abs="0.596225" NOx_abs="10.040861" fuel_abs="13.113611" electricity_abs="0"
-            CO_normed="135.588599" CO2_normed="14685.851690" HC_normed="0.991218" PMx_normed="0.287020" NOx_normed="4.833631" fuel_normed="6.312841" electricity_normed="0"
-            traveltime="19.66" CO_perVeh="574.903298" CO2_perVeh="62268.838528" HC_perVeh="4.202818" PMx_perVeh="1.216982" NOx_perVeh="20.494866" fuel_perVeh="26.766800" electricity_perVeh="0"/>
+            <lane id="beg_0" sampledSeconds="9.63" CO_abs="281.657067" CO2_abs="32612.928889" HC_abs="2.059048" PMx_abs="0.616492" NOx_abs="10.317769" fuel_abs="14.018981" electricity_abs="0"
+            CO_normed="135.588599" CO2_normed="15699.735098" HC_normed="0.991218" PMx_normed="0.296777" NOx_normed="4.966933" fuel_normed="6.748682" electricity_normed="0"
+            traveltime="19.66" CO_perVeh="574.903298" CO2_perVeh="66567.761300" HC_perVeh="4.202818" PMx_perVeh="1.258351" NOx_perVeh="21.060078" fuel_perVeh="28.614791" electricity_perVeh="0"/>
         </edge>
         <edge id="middle">
             <lane id="middle_0" sampledSeconds="5.28" CO_abs="0" CO2_abs="11689.478611" HC_abs="0.118454" PMx_abs="0.057798" NOx_abs="3.515763" fuel_abs="5.024886" electricity_abs="0"
@@ -61,9 +74,9 @@ SPDX-License-Identifier: EPL-2.0
             traveltime="0.45" CO_perVeh="0" CO2_perVeh="97.762726" HC_perVeh="0.000991" PMx_perVeh="0.000483" NOx_perVeh="0.029403" fuel_perVeh="0.042025" electricity_perVeh="0"/>
         </edge>
         <edge id="beg">
-            <lane id="beg_0" sampledSeconds="9.63" CO_abs="281.657067" CO2_abs="30506.797333" HC_abs="2.059048" PMx_abs="0.596225" NOx_abs="10.040861" fuel_abs="13.113611" electricity_abs="0"
-            CO_normed="135.588599" CO2_normed="14685.851690" HC_normed="0.991218" PMx_normed="0.287020" NOx_normed="4.833631" fuel_normed="6.312841" electricity_normed="0"
-            traveltime="19.66" CO_perVeh="574.903298" CO2_perVeh="62268.838528" HC_perVeh="4.202818" PMx_perVeh="1.216982" NOx_perVeh="20.494866" fuel_perVeh="26.766800" electricity_perVeh="0"/>
+            <lane id="beg_0" sampledSeconds="9.63" CO_abs="281.657067" CO2_abs="32612.928889" HC_abs="2.059048" PMx_abs="0.616492" NOx_abs="10.317769" fuel_abs="14.018981" electricity_abs="0"
+            CO_normed="135.588599" CO2_normed="15699.735098" HC_normed="0.991218" PMx_normed="0.296777" NOx_normed="4.966933" fuel_normed="6.748682" electricity_normed="0"
+            traveltime="19.66" CO_perVeh="574.903298" CO2_perVeh="66567.761300" HC_perVeh="4.202818" PMx_perVeh="1.258351" NOx_perVeh="21.060078" fuel_perVeh="28.614791" electricity_perVeh="0"/>
         </edge>
         <edge id="middle">
             <lane id="middle_0" sampledSeconds="5.28" CO_abs="0" CO2_abs="11689.478611" HC_abs="0.118454" PMx_abs="0.057798" NOx_abs="3.515763" fuel_abs="5.024886" electricity_abs="0"
