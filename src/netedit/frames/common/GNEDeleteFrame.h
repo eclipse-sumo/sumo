@@ -34,6 +34,34 @@ class GNEDeleteFrame : public GNEFrame {
 public:
 
     // ===========================================================================
+    // class MultipleDeletePane
+    // ===========================================================================
+
+    class MultipleDeletePane : public FXMenuPane {
+        // FOX-declarations
+        FXDECLARE(MultipleDeletePane)
+
+    public:
+        /// @brief Constructor
+        MultipleDeletePane(GNEDeleteFrame* deleteFrameParent);
+     
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user change an option
+        long onCmdSelect(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(MultipleDeletePane)
+
+    private:
+        /// @brief pointer to delete frame parent
+        GNEDeleteFrame* myDeleteFrameParent = nullptr;
+    };
+
+    // ===========================================================================
     // class DeleteOptions
     // ===========================================================================
 

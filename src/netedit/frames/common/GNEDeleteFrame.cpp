@@ -35,12 +35,32 @@
 // FOX callback mapping
 // ===========================================================================
 
+FXDEFMAP(GNEDeleteFrame::MultipleDeletePane) MultipleDeletePaneMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECT, GNEDeleteFrame::MultipleDeletePane::onCmdSelect),
+};
+
 FXDEFMAP(GNEDeleteFrame::DeleteOptions) DeleteOptionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDeleteFrame::DeleteOptions::onCmdSetOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE, GNEDeleteFrame::DeleteOptions::onCmdSetOption),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDeleteFrame::DeleteOptions, FXGroupBoxModule, DeleteOptionsMap, ARRAYNUMBER(DeleteOptionsMap))
+FXIMPLEMENT(GNEDeleteFrame::DeleteOptions,      FXGroupBoxModule, DeleteOptionsMap,      ARRAYNUMBER(DeleteOptionsMap))
+FXIMPLEMENT(GNEDeleteFrame::MultipleDeletePane, FXMenuPane,       MultipleDeletePaneMap, ARRAYNUMBER(MultipleDeletePaneMap))
+
+
+// ---------------------------------------------------------------------------
+// GNEDeleteFrame::MultipleDeletePane - methods
+// ---------------------------------------------------------------------------
+
+GNEDeleteFrame::MultipleDeletePane::MultipleDeletePane(GNEDeleteFrame* deleteFrameParent) :
+    FXMenuPane(deleteFrameParent->getViewNet()),
+    myDeleteFrameParent(deleteFrameParent) {
+}
+
+long
+GNEDeleteFrame::MultipleDeletePane::onCmdSelect(FXObject*, FXSelector, void*) {
+    return 1;
+}
 
 // ---------------------------------------------------------------------------
 // GNEDeleteFrame::DeleteOptions - methods
