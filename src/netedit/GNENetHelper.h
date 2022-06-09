@@ -369,11 +369,14 @@ struct GNENetHelper {
         /// @brief clear additionals
         void clearAdditionals();
 
-        /// @brief get number of selected additionals (except POIs and Polygons)
-        int getNumberOfSelectedAdditionals() const;
-
         /// @brief generate additional id
         std::string generateAdditionalID(SumoXMLTag type) const;
+
+        /// @brief get number of selected additionals (Including POIs, Polygons, TAZs and Wires)
+        int getNumberOfSelectedAdditionals() const;
+
+        /// @brief get number of selected pure additionals (Except POIs, Polygons, TAZs and Wires)
+        int getNumberOfSelectedPureAdditionals() const;
 
         /// @brief get number of selected polygons
         int getNumberOfSelectedPolygons() const;
@@ -389,6 +392,9 @@ struct GNENetHelper {
 
         /// @brief get number of selected TAZSinks
         int getNumberOfSelectedTAZSinks() const;
+
+        /// @brief get number of selected Wires
+        int getNumberOfSelectedWires() const;
 
         /// @}
 

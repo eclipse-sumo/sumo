@@ -1054,20 +1054,6 @@ GNENetHelper::AttributeCarriers::clearAdditionals() {
 }
 
 
-int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
-    int counter = 0;
-    for (const auto& additionalsTags : myAdditionals) {
-        for (const auto& additional : additionalsTags.second) {
-            if (additional->isAttributeCarrierSelected()) {
-                counter++;
-            }
-        }
-    }
-    return counter - getNumberOfSelectedPolygons() - getNumberOfSelectedPOIs() - getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() - getNumberOfSelectedTAZSinks();
-}
-
-
 std::string
 GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
     // obtain option container
@@ -1140,6 +1126,28 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
 
 
 int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
+    int counter = 0;
+    for (const auto& additionalsTags : myAdditionals) {
+        for (const auto& additional : additionalsTags.second) {
+            if (additional->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedPureAdditionals() const {
+    return getNumberOfSelectedAdditionals() - getNumberOfSelectedPolygons() - 
+           getNumberOfSelectedPOIs() - getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() - 
+           getNumberOfSelectedTAZSinks() - getNumberOfSelectedWires();
+}
+
+
+int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedPolygons() const {
     int counter = 0;
     for (const auto& poly : myAdditionals.at(SUMO_TAG_POLY)) {
@@ -1203,6 +1211,20 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZSinks() const {
     for (const auto& TAZSink : myAdditionals.at(SUMO_TAG_TAZSINK)) {
         if (TAZSink->isAttributeCarrierSelected()) {
             counter++;
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedWires() const {
+    int counter = 0;
+    for (const auto& additionalsTags : myAdditionals) {
+        for (const auto& additional : additionalsTags.second) {
+            if (additional->isAttributeCarrierSelected() && additional->getTagProperty().isWireElement()) {
+                counter++;
+            }
         }
     }
     return counter;
