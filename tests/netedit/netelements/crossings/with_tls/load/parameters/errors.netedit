@@ -67,6 +67,10 @@ Debug: Created crossing ':C_c0' in retrieveGNECrossing()
 Debug: Created crossing ':C_c1' in retrieveGNECrossing()
 Debug: Created crossing ':C_c2' in retrieveGNECrossing()
 Debug: Created crossing ':C_c3' in retrieveGNECrossing()
+Debug: Created walkingArea ':C_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w2' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w3' in retrieveGNEWalkingArea()
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:C from SUMORTree with boundary 79.60,79.60,120.40,120.40
 GLDebug: 	Removed object junction:E from SUMORTree with boundary 190.00,83.60,210.00,116.40
@@ -97,6 +101,14 @@ GLDebug: 	Inserted edge:EC into SUMORTree with boundary 90.00,90.00,210.00,114.8
 GLDebug: 	Inserted edge:NC into SUMORTree with boundary 85.20,90.00,110.00,210.00
 GLDebug: 	Inserted edge:SC into SUMORTree with boundary 90.00,-10.00,114.80,110.00
 GLDebug: 	Inserted edge:WC into SUMORTree with boundary -10.00,85.20,110.00,110.00
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':C_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w2' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w3' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced edge 'CE' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'CE_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'CE_1' in GNEEdge destructor
@@ -146,6 +158,10 @@ Debug: Deleting unreferenced crossing ':C_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':C_c1' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':C_c2' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':C_c3' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':C_w0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':C_w1' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':C_w2' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':C_w3' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'E' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'N' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'S' in AttributeCarriers destructor

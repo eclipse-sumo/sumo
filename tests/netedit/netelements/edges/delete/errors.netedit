@@ -30,10 +30,18 @@ Debug: Created connection 'from8_2to2_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to3_2' in retrieveGNEConnection()
 Debug: Created connection 'from8_3to3_3' in retrieveGNEConnection()
 Debug: Created connection 'from8_3to1_1' in retrieveGNEConnection()
+Debug: Created walkingArea ':A_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':B_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w0' in retrieveGNEWalkingArea()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Created walkingArea ':Center_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':Center_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':D_w0' in retrieveGNEWalkingArea()
 Debug: Removing busStop 'busStop_3_2_0' in GNEChange_Additional
 Debug: Setting new attribute
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Removing connection '6_0->3_2' from edge '6'
 Debug: Deleting unreferenced connection 'from6_0to3_2' in removeConnection()
 Debug: Removing connection '6_0->3_1' from edge '6'
@@ -127,9 +135,13 @@ Debug: Created connection 'from7_1to1_0' in retrieveGNEConnection()
 Debug: Created connection 'from7_2to1_0' in retrieveGNEConnection()
 Debug: Created connection 'from7_3to1_1' in retrieveGNEConnection()
 Debug: Created connection 'from7_3to2_1' in retrieveGNEConnection()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding junction 'D' into net
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Adding edge '4' from net
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
@@ -229,14 +241,22 @@ Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Adding busStop 'busStop_3_2_0' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
+Debug: Created walkingArea ':A_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':B_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w0' in retrieveGNEWalkingArea()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
+Debug: Created walkingArea ':Center_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':Center_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':D_w0' in retrieveGNEWalkingArea()
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Removing busStop 'busStop_3_2_0' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Removing connection '6_0->3_2' from edge '6'
 Debug: Deleting unreferenced connection 'from6_0to3_2' in removeConnection()
 Debug: Removing connection '6_0->3_1' from edge '6'
@@ -333,6 +353,9 @@ Debug: Created connection 'from7_1to1_0' in retrieveGNEConnection()
 Debug: Created connection 'from7_2to1_0' in retrieveGNEConnection()
 Debug: Created connection 'from7_3to1_1' in retrieveGNEConnection()
 Debug: Created connection 'from7_3to2_1' in retrieveGNEConnection()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Additionals saved
 Debug: Deleting unreferenced edge '8' in GNEChange_Attribute
 Debug: Deleting unreferenced lane '8_0' in GNEEdge destructor
@@ -340,6 +363,7 @@ Debug: Deleting unreferenced lane '8_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '8_2' in GNEEdge destructor
 Debug: Deleting unreferenced lane '8_3' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'D' in GNEChange_Attribute
+Debug: Deleting unreferenced walkingArea ':D_w0' in GNEJunction destructor
 Debug: Deleting NBNode of 'D' in GNEJunction destructor
 Debug: Deleting unreferenced edge '4' in GNEChange_Attribute
 Debug: Deleting unreferenced lane '4_0' in GNEEdge destructor
