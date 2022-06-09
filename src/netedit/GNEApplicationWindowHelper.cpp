@@ -950,29 +950,6 @@ GNEApplicationWindowHelper::EditMenuCommands::buildOpenSUMOMenuCommands(FXMenuPa
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::LockMenuCommands::LockMenuCommands(GNEApplicationWindow* GNEApp) :
-    menuCheckLockJunction(nullptr),
-    menuCheckLockEdges(nullptr),
-    menuCheckLockLanes(nullptr),
-    menuCheckLockConnections(nullptr),
-    menuCheckLockCrossings(nullptr),
-    menuCheckLockAdditionals(nullptr),
-    menuCheckLockTAZs(nullptr),
-    menuCheckLockPolygons(nullptr),
-    menuCheckLockPOIs(nullptr),
-    menuCheckLockRoutes(nullptr),
-    menuCheckLockVehicles(nullptr),
-    menuCheckLockPersons(nullptr),
-    menuCheckLockPersonTrip(nullptr),
-    menuCheckLockWalk(nullptr),
-    menuCheckLockRides(nullptr),
-    menuCheckLockContainers(nullptr),
-    menuCheckLockTransports(nullptr),
-    menuCheckLockTranships(nullptr),
-    menuCheckLockStops(nullptr),
-    menuCheckLockEdgeDatas(nullptr),
-    menuCheckLockEdgeRelDatas(nullptr),
-    menuCheckLockEdgeTAZRels(nullptr),
-    menuCheckLockSelectedElements(nullptr),
     myGNEApp(GNEApp) {
 }
 
@@ -1005,6 +982,11 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
                              GUIIconSubSys::getIcon(GUIIcon::CROSSING),
                              myGNEApp, MID_GNE_LOCK_ELEMENT);
 
+    menuCheckLockWalkingAreas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                                "Lock walkin&gAreas", "", "",
+                                GUIIconSubSys::getIcon(GUIIcon::WALKINGAREA),
+                                myGNEApp, MID_GNE_LOCK_ELEMENT);
+
     menuCheckLockAdditionals = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                                "Lock &additionals", "", "",
                                GUIIconSubSys::getIcon(GUIIcon::BUSSTOP),
@@ -1014,6 +996,11 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
                         "Lock &TAZs", "", "",
                         GUIIconSubSys::getIcon(GUIIcon::TAZ),
                         myGNEApp, MID_GNE_LOCK_ELEMENT);
+
+    menuCheckLockWires = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                         "Lock &wires", "", "",
+                         GUIIconSubSys::getIcon(GUIIcon::OVERHEADWIRE),
+                         myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockPolygons = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                             "Lock &polygons", "", "",
@@ -1118,8 +1105,10 @@ GNEApplicationWindowHelper::LockMenuCommands::removeHotkeys() {
     menuCheckLockLanes->remHotKey(parseHotKey('l'));
     menuCheckLockConnections->remHotKey(parseHotKey('c'));
     menuCheckLockCrossings->remHotKey(parseHotKey('r'));
+    menuCheckLockWalkingAreas->remHotKey(parseHotKey('g'));
     menuCheckLockAdditionals->remHotKey(parseHotKey('a'));
     menuCheckLockTAZs->remHotKey(parseHotKey('t'));
+    menuCheckLockWires->remHotKey(parseHotKey('w'));
     menuCheckLockPolygons->remHotKey(parseHotKey('p'));
     menuCheckLockPOIs->remHotKey(parseHotKey('o'));
     // demand
@@ -1147,8 +1136,10 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockLanes->enable();
     menuCheckLockConnections->enable();
     menuCheckLockCrossings->enable();
+    menuCheckLockWalkingAreas->enable();
     menuCheckLockAdditionals->enable();
     menuCheckLockTAZs->enable();
+    menuCheckLockWires->enable();
     menuCheckLockPolygons->enable();
     menuCheckLockPOIs->enable();
     // set accels
@@ -1157,8 +1148,10 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockLanes->addHotKey(parseHotKey('l'));
     menuCheckLockConnections->addHotKey(parseHotKey('c'));
     menuCheckLockCrossings->addHotKey(parseHotKey('r'));
+    menuCheckLockWalkingAreas->addHotKey(parseHotKey('g'));
     menuCheckLockAdditionals->addHotKey(parseHotKey('a'));
     menuCheckLockTAZs->addHotKey(parseHotKey('t'));
+    menuCheckLockWires->addHotKey(parseHotKey('w'));
     menuCheckLockPolygons->addHotKey(parseHotKey('p'));
     menuCheckLockPOIs->addHotKey(parseHotKey('o'));
     // now show it
@@ -1167,8 +1160,10 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockLanes->show();
     menuCheckLockConnections->show();
     menuCheckLockCrossings->show();
+    menuCheckLockWalkingAreas->show();
     menuCheckLockAdditionals->show();
     menuCheckLockTAZs->show();
+    menuCheckLockWires->show();
     menuCheckLockPolygons->show();
     menuCheckLockPOIs->show();
 }
@@ -1182,6 +1177,7 @@ GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
     menuCheckLockLanes->disable();
     menuCheckLockConnections->disable();
     menuCheckLockCrossings->disable();
+    menuCheckLockWalkingAreas->disable();
     menuCheckLockAdditionals->disable();
     menuCheckLockTAZs->disable();
     menuCheckLockPolygons->disable();
@@ -1192,8 +1188,10 @@ GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
     menuCheckLockLanes->hide();
     menuCheckLockConnections->hide();
     menuCheckLockCrossings->hide();
+    menuCheckLockWalkingAreas->hide();
     menuCheckLockAdditionals->hide();
     menuCheckLockTAZs->hide();
+    menuCheckLockWires->hide();
     menuCheckLockPolygons->hide();
     menuCheckLockPOIs->hide();
 }
@@ -1301,8 +1299,10 @@ GNEApplicationWindowHelper::LockMenuCommands::lockAll() {
     menuCheckLockLanes->setCheck(TRUE);
     menuCheckLockConnections->setCheck(TRUE);
     menuCheckLockCrossings->setCheck(TRUE);
+    menuCheckLockWalkingAreas->setCheck(TRUE);
     menuCheckLockAdditionals->setCheck(TRUE);
     menuCheckLockTAZs->setCheck(TRUE);
+    menuCheckLockWires->setCheck(TRUE);
     menuCheckLockPolygons->setCheck(TRUE);
     menuCheckLockPOIs->setCheck(TRUE);
     menuCheckLockRoutes->setCheck(TRUE);
@@ -1328,8 +1328,10 @@ GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
     menuCheckLockLanes->setCheck(FALSE);
     menuCheckLockConnections->setCheck(FALSE);
     menuCheckLockCrossings->setCheck(FALSE);
+    menuCheckLockWalkingAreas->setCheck(FALSE);
     menuCheckLockAdditionals->setCheck(FALSE);
     menuCheckLockTAZs->setCheck(FALSE);
+    menuCheckLockWires->setCheck(FALSE);
     menuCheckLockPolygons->setCheck(FALSE);
     menuCheckLockPOIs->setCheck(FALSE);
     menuCheckLockRoutes->setCheck(FALSE);
@@ -1361,13 +1363,17 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
         menuCheckLockConnections->setCheck(value);
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
         menuCheckLockCrossings->setCheck(value);
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_WALKINGAREA) {
+        menuCheckLockWalkingAreas->setCheck(value);
     } else if (AC->getTagProperty().isAdditionalElement()) {
         menuCheckLockAdditionals->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+    } else if (AC->getTagProperty().isTAZElement()) {
         menuCheckLockTAZs->setCheck(value);
+    } else if (AC->getTagProperty().isWireElement()) {
+        menuCheckLockWires->setCheck(value);
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_POLY) {
         menuCheckLockPolygons->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_POI) {
+    } else if (AC->getTagProperty().isShapeElement() && (AC->getTagProperty().getTag() != SUMO_TAG_POLY)) {
         menuCheckLockPOIs->setCheck(value);
     } else if (AC->getTagProperty().isRoute()) {
         menuCheckLockRoutes->setCheck(value);

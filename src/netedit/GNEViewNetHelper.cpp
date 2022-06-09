@@ -3618,6 +3618,7 @@ GNEViewNetHelper::LockManager::LockManager(GNEViewNet* viewNet) :
     myLockedElements[GLO_CROSSING] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_WALKINGAREA] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_ADDITIONALELEMENT] = OperationLocked(Supermode::NETWORK);
+    myLockedElements[GLO_WIRE] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_TAZ] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_WIRE] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_POLYGON] = OperationLocked(Supermode::NETWORK);
@@ -3681,8 +3682,9 @@ GNEViewNetHelper::LockManager::updateFlags() {
     myLockedElements[GLO_LANE].lock = lockMenuCommands.menuCheckLockLanes->getCheck() == TRUE;
     myLockedElements[GLO_CONNECTION].lock = lockMenuCommands.menuCheckLockConnections->getCheck() == TRUE;
     myLockedElements[GLO_CROSSING].lock = lockMenuCommands.menuCheckLockCrossings->getCheck() == TRUE;
-    myLockedElements[GLO_WALK].lock = lockMenuCommands.menuCheckLockCrossings->getCheck() == TRUE;
+    myLockedElements[GLO_WALKINGAREA].lock = lockMenuCommands.menuCheckLockWalkingAreas->getCheck() == TRUE;
     myLockedElements[GLO_ADDITIONALELEMENT].lock = lockMenuCommands.menuCheckLockAdditionals->getCheck() == TRUE;
+    myLockedElements[GLO_WIRE].lock = lockMenuCommands.menuCheckLockWires->getCheck() == TRUE;
     myLockedElements[GLO_TAZ].lock = lockMenuCommands.menuCheckLockTAZs->getCheck() == TRUE;
     myLockedElements[GLO_POLYGON].lock = lockMenuCommands.menuCheckLockPolygons->getCheck() == TRUE;
     myLockedElements[GLO_POI].lock = lockMenuCommands.menuCheckLockPOIs->getCheck() == TRUE;
@@ -3714,8 +3716,9 @@ GNEViewNetHelper::LockManager::updateLockMenuBar() {
     lockMenuCommands.menuCheckLockLanes->setCheck(myLockedElements[GLO_LANE].lock);
     lockMenuCommands.menuCheckLockConnections->setCheck(myLockedElements[GLO_CONNECTION].lock);
     lockMenuCommands.menuCheckLockCrossings->setCheck(myLockedElements[GLO_CROSSING].lock);
-    lockMenuCommands.menuCheckLockCrossings->setCheck(myLockedElements[GLO_WALKINGAREA].lock);
+    lockMenuCommands.menuCheckLockWalkingAreas->setCheck(myLockedElements[GLO_WALKINGAREA].lock);
     lockMenuCommands.menuCheckLockAdditionals->setCheck(myLockedElements[GLO_ADDITIONALELEMENT].lock);
+    lockMenuCommands.menuCheckLockWires->setCheck(myLockedElements[GLO_WIRE].lock);
     lockMenuCommands.menuCheckLockTAZs->setCheck(myLockedElements[GLO_TAZ].lock);
     lockMenuCommands.menuCheckLockPolygons->setCheck(myLockedElements[GLO_POLYGON].lock);
     lockMenuCommands.menuCheckLockPOIs->setCheck(myLockedElements[GLO_POI].lock);
