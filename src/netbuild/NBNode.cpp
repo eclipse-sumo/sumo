@@ -2708,8 +2708,14 @@ NBNode::buildCrossingsAndWalkingAreas() {
     while (recheck) {
         recheck = false;
         std::set<std::string> waIDs;
+        int numSidewalks = 0;
         for (WalkingArea& wa : myWalkingAreas) {
             waIDs.insert(wa.id);
+            numSidewalks += wa.prevSidewalks.size() + wa.nextSidewalks.size();
+        }
+        if (numSidewalks < 2) {
+            // all crossings are invalid if there are fewer than 2 sidewalks involved
+            waIDs.clear();
         }
         for (auto& crossing : myCrossings) {
             if (waIDs.count(crossing->prevWalkingArea) == 0 || waIDs.count(crossing->nextWalkingArea) == 0 || !crossing->valid) {
