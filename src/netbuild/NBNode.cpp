@@ -2704,21 +2704,37 @@ NBNode::buildCrossingsAndWalkingAreas() {
     buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"),
                       OptionsCont::getOptions().getFloat("walkingareas.join-dist"));
     // ensure that all crossings are properly connected
-    for (auto& crossing : myCrossings) {
-        if (crossing->prevWalkingArea == "" || crossing->nextWalkingArea == "" || !crossing->valid) {
-            if (crossing->valid) {
-                WRITE_WARNINGF("Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).",
-                               crossing->id, getID(), toString(crossing->edges));
-            }
-            for (WalkingArea& wa : myWalkingAreas) {
-                std::vector<std::string>::iterator it_nc = std::find(wa.nextCrossings.begin(), wa.nextCrossings.end(), crossing->id);
-                if (it_nc != wa.nextCrossings.end()) {
-                    wa.nextCrossings.erase(it_nc);
+    bool recheck = myCrossings.size() > 0;
+    while (recheck) {
+        recheck = false;
+        std::set<std::string> waIDs;
+        for (WalkingArea& wa : myWalkingAreas) {
+            waIDs.insert(wa.id);
+        }
+        for (auto& crossing : myCrossings) {
+            if (waIDs.count(crossing->prevWalkingArea) == 0 || waIDs.count(crossing->nextWalkingArea) == 0 || !crossing->valid) {
+                if (crossing->valid) {
+                    WRITE_WARNINGF("Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).",
+                            crossing->id, getID(), toString(crossing->edges));
+                    recheck = true;
                 }
+                for (auto waIt = myWalkingAreas.begin(); waIt != myWalkingAreas.end();) {
+                    WalkingArea& wa = *waIt;
+                    std::vector<std::string>::iterator it_nc = std::find(wa.nextCrossings.begin(), wa.nextCrossings.end(), crossing->id);
+                    if (it_nc != wa.nextCrossings.end()) {
+                        wa.nextCrossings.erase(it_nc);
+                    }
+                    if (wa.prevSidewalks.size() + wa.nextSidewalks.size() + wa.nextCrossings.size() + wa.prevCrossings.size() < 2) {
+                        waIt = myWalkingAreas.erase(waIt);
+                        recheck = true;
+                    } else {
+                        waIt++;
+                    }
+                }
+                crossing->valid = false;
+                crossing->prevWalkingArea = "";
+                crossing->nextWalkingArea = "";
             }
-            crossing->valid = false;
-            crossing->prevWalkingArea = "";
-            crossing->nextWalkingArea = "";
         }
     }
 }
@@ -3043,6 +3059,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     c->valid = false;
                 }
                 c->nextWalkingArea = wa.id;
+                wa.prevCrossings.push_back(c->id);
                 if ((int)c->edges.size() < wa.minPrevCrossingEdges) {
                     // if there are multiple crossings, use the shape of the one that crosses fewer edges
                     endCrossingWidth = c->width;

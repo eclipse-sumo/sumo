@@ -173,7 +173,7 @@ public:
             width(_width) {
         }
         /// @brief the (edge)-id of this walkingArea
-        const std::string id;
+        std::string id;
         /// @brief This lane's width
         double width;
         /// @brief This lane's width
@@ -182,6 +182,8 @@ public:
         PositionVector shape;
         /// @brief the lane-id of the next crossing(s)
         std::vector<std::string> nextCrossings;
+        /// @brief the lane-id of the previous crossing(s)
+        std::vector<std::string> prevCrossings;
         /// @brief the lane-id of the next sidewalk lane or ""
         std::vector<std::string> nextSidewalks;
         /// @brief the lane-id of the previous sidewalk lane or ""
