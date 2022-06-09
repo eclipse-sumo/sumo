@@ -649,7 +649,11 @@ GNEViewNet::setStatusBarText(const std::string& text) {
 
 bool
 GNEViewNet::autoSelectNodes() {
-    return (myNetworkViewOptions.menuCheckExtendSelection->amChecked() != 0);
+    if (myLockManager.isObjectLocked(GLO_JUNCTION, false)) {
+        return false;
+    } else {
+        return (myNetworkViewOptions.menuCheckExtendSelection->amChecked() != 0);
+    }
 }
 
 
