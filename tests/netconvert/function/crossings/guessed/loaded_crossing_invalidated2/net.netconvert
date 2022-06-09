@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:21:18 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-06-09 10:57:17 by Eclipse SUMO netconvert Version v1_13_0+0690-7bab047
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -39,7 +44,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -66,9 +70,6 @@ SPDX-License-Identifier: EPL-2.0
     <edge id=":C_4" function="internal">
         <lane id=":C_4_0" index="0" allow="passenger" speed="13.89" length="18.03" shape="87.60,-1.60 95.12,-1.41 100.50,-0.83 103.72,0.14 104.80,1.50"/>
         <lane id=":C_4_1" index="1" allow="passenger" speed="13.89" length="14.95" shape="87.60,-1.60 93.72,-1.41 98.10,-0.83 100.72,0.14 101.60,1.50"/>
-    </edge>
-    <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.75" width="4.50" shape="89.10,1.50 92.10,1.50 93.60,1.50 93.60,-3.00"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
         <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="3.20" shape="100.00,1.50 103.20,1.50 103.20,1.50 106.40,1.50 106.40,1.50 107.90,1.50 107.90,1.50 110.90,1.50"/>
@@ -143,7 +144,6 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":C_4" to="CN" fromLane="0" toLane="2" dir="l" state="M"/>
     <connection from=":C_4" to="CN" fromLane="1" toLane="3" dir="l" state="M"/>
 
-    <connection from="NC" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_w1" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_w2" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="WC" to=":C_w2" fromLane="0" toLane="0" dir="s" state="M"/>
