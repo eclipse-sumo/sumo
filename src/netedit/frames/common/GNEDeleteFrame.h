@@ -37,14 +37,20 @@ public:
     // class MultipleDeletePane
     // ===========================================================================
 
-    class MultipleDeletePane : public FXMenuPane {
+    class MultipleDeletePane : protected FXMenuPane {
         // FOX-declarations
         FXDECLARE(MultipleDeletePane)
 
     public:
         /// @brief Constructor
         MultipleDeletePane(GNEDeleteFrame* deleteFrameParent);
-     
+
+        /// @brief show MultipleDeletePane
+        void show();
+
+        /// @brief hide MultipleDeletePane
+        void hide();
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when user change an option
@@ -248,6 +254,9 @@ protected:
     bool selectedACsToDelete() const;
 
 private:
+    /// @brief MultipleDeletePane
+    MultipleDeletePane* myMultipleDeletePane;
+
     /// @brief modul for delete options
     DeleteOptions* myDeleteOptions;
 

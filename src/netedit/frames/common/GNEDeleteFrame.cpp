@@ -22,12 +22,15 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/foxtools/MFXMenuHeader.h>
 
 #include "GNEDeleteFrame.h"
 
@@ -56,6 +59,46 @@ GNEDeleteFrame::MultipleDeletePane::MultipleDeletePane(GNEDeleteFrame* deleteFra
     FXMenuPane(deleteFrameParent->getViewNet()),
     myDeleteFrameParent(deleteFrameParent) {
 }
+
+
+void 
+GNEDeleteFrame::MultipleDeletePane::show() {
+    // get GNEAppWindow
+    const auto appWindow = myDeleteFrameParent->getViewNet()->getViewParent()->getGNEAppWindows();
+    new MFXMenuHeader(this, appWindow->getBoldFont(), "EJEMPLO", nullptr, nullptr, 0);
+    // obtain cursor position
+    int x, y;
+    FXuint b;
+    appWindow->getCursorPosition(x, y, b);
+    // set pane position
+    int popX = x + appWindow->getX();
+    int popY = y + appWindow->getY();
+    setX(popX);
+    setY(popY);
+    // try to stay on screen unless click appears to come from a multi-screen setup
+    const int rootWidth = getApp()->getRootWindow()->getWidth();
+    const int rootHeight = getApp()->getRootWindow()->getHeight();
+    if (popX <= rootWidth) {
+        popX = MAX2(0, MIN2(popX, rootWidth - getWidth() - 10));
+    }
+    if (popY <= rootHeight) {
+        popY = MAX2(0, MIN2(popY, rootHeight - getHeight() - 50));
+    }
+    // move pane
+    move(popX, popY);
+        // first create
+    create();
+    // show
+    FXMenuPane::show();
+}
+
+
+void 
+GNEDeleteFrame::MultipleDeletePane::hide() {
+    // hide
+    FXMenuPane::hide();
+}
+
 
 long
 GNEDeleteFrame::MultipleDeletePane::onCmdSelect(FXObject*, FXSelector, void*) {
@@ -143,6 +186,8 @@ GNEDeleteFrame::ProtectElements::protectGenericDatas() const {
 
 GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Delete") {
+    // create multiple delete pane
+    myMultipleDeletePane = new MultipleDeletePane(this);
     // create delete options modul
     myDeleteOptions = new DeleteOptions(this);
     // create protect elements modul
@@ -156,11 +201,15 @@ GNEDeleteFrame::~GNEDeleteFrame() {}
 void
 GNEDeleteFrame::show() {
     GNEFrame::show();
+    // show multiple delete pane
+    myMultipleDeletePane->show();
 }
 
 
 void
 GNEDeleteFrame::hide() {
+    // hide multiple delete pane
+    myMultipleDeletePane->hide();
     GNEFrame::hide();
 }
 
