@@ -40,6 +40,9 @@ customTLIndex2
 # 4 arm junction with crossings on 2 opposite sides. Road permissions are invalid (pedestrians permitted on all lanes)
 2_opposite_invalid
 
+# 4 arm junction with crossings on 2 opposite sides. Road permissions are invalid (pedestrians prohibited on all lanes)
+2_opposite_invalid_noSidewalk
+
 # 4 arm junction with 2 crossings on neighboring sides
 2_neighboring
 2_neighboring_corner_detail
