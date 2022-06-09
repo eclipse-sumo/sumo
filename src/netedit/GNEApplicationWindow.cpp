@@ -1322,8 +1322,6 @@ GNEApplicationWindow::fillMenuBar() {
     myEditMenuCommands.buildFrontElementMenuCommand(myEditMenu);
     // build separator
     new FXMenuSeparator(myEditMenu);
-    // build separator
-    new FXMenuSeparator(myEditMenu);
     // build open in sumo menu commands
     myEditMenuCommands.buildOpenSUMOMenuCommands(myEditMenu);
     // build lock menu
