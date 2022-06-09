@@ -292,25 +292,25 @@ ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride
         double value = myLength / mySpeed;
         const SUMOEmissionClass c = PollutantsInterface::getClassByName("unknown");
         if (measure == "CO") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::CO, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::CO, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         if (measure == "CO2") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::CO2, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::CO2, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         if (measure == "HC") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::HC, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::HC, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         if (measure == "PMx") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::PM_X, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::PM_X, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         if (measure == "NOx") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::NO_X, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::NO_X, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         if (measure == "fuel") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::FUEL, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::FUEL, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         if (measure == "electricity") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::ELEC, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::ELEC, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         myEfforts.fillGaps(value, boundariesOverride);
     }

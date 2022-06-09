@@ -129,7 +129,7 @@ HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface:
 
     if (!isBEV && corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) &&
             corrSpeed > PHEMlightdllV5::Constants::ZERO_SPEED_ACCURACY) {
-        return 0;
+        return 0.;
     }
     const std::string& fuelType = currCep->getFuelType();
     switch (e) {

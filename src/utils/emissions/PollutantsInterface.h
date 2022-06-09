@@ -27,7 +27,6 @@
 #include <algorithm>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include "PHEMCEP.h"
 
 
 // ===========================================================================
@@ -218,6 +217,9 @@ public:
         bool includesClass(const SUMOEmissionClass c) const;
 
     protected:
+        /// @brief the lowest speed which allows reliable coasting calculations
+        static const double ZERO_SPEED_ACCURACY;
+
         /// @brief the name of the model
         const std::string myName;
 
@@ -317,7 +319,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
-    static double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const EnergyParams* param = nullptr);
+    static double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const EnergyParams* param);
 
     /** @brief Returns the amount of all emitted pollutants given the vehicle type and state (in mg/s or ml/s for fuel)
      * @param[in] c The vehicle emission class
@@ -326,7 +328,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
-    static Emissions computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param = nullptr);
+    static Emissions computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param);
 
     /** @brief Returns the amount of emitted pollutant given the vehicle type and default values for the state (in mg)
      * @param[in] c The vehicle emission class
@@ -338,7 +340,7 @@ public:
      * @param[in] param parameter of the emission model affecting the computation
      * @return The amount emitted by the given vehicle class [mg]
      */
-    static double computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const EnergyParams* param = nullptr);
+    static double computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const EnergyParams* param);
 
     /** @brief Returns the adapted acceleration value, useful for comparing with external PHEMlight references.
      * @param[in] c the emission class

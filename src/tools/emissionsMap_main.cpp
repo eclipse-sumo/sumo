@@ -64,7 +64,7 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
     for (double v = vMin; v <= vMax; v += vStep) {
         for (double a = aMin; a <= aMax; a += aStep) {
             for (double s = sMin; s <= sMax; s += sStep) {
-                const PollutantsInterface::Emissions result = PollutantsInterface::computeAll(c, v, a, s);
+                const PollutantsInterface::Emissions result = PollutantsInterface::computeAll(c, v, a, s, nullptr);
                 o << v << ";" << a << ";" << s << ";" << "CO" << ";" << result.CO << std::endl;
                 o << v << ";" << a << ";" << s << ";" << "CO2" << ";" << result.CO2 << std::endl;
                 o << v << ";" << a << ";" << s << ";" << "HC" << ";" << result.HC << std::endl;

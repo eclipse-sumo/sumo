@@ -71,14 +71,4 @@ public:
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
     double acceleration(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double P, const double slope, const EnergyParams* param) const;
-
-    double getDefaultParam(SumoXMLAttr attr) const {
-        return myDefaultParameter.getDouble(attr);
-    }
-
-private:
-    void initDefaultParameter() const;
-
-    /// @brief The default parameter
-    EnergyParams myDefaultParameter;
 };

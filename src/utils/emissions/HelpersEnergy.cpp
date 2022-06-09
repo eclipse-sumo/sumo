@@ -47,7 +47,7 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
         return 0.;
     }
     if (param == nullptr) {
-        param = &myDefaultParameter;
+        param = EnergyParams::getDefault();
     }
     //@ToDo: All formulas below work with the logic of the euler update (refs #860).
     //       Approximation order could be improved. Refs. #2592.
@@ -136,7 +136,7 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
     }
 
     if (param == nullptr) {
-        param = &myDefaultParameter;
+        param = EnergyParams::getDefault();
     }
 
     // Inverse formula for the function compute()

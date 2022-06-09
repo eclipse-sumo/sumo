@@ -30,9 +30,14 @@
 
 
 // ===========================================================================
+// static definitions
+// ===========================================================================
+const EnergyParams* EnergyParams::myDefault = nullptr;
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
-
 EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
     myMap[SUMO_ATTR_SHUT_OFF_STOP] = 300.;
     myMap[SUMO_ATTR_SHUT_OFF_AUTO] = std::numeric_limits<double>::max();
@@ -146,7 +151,7 @@ EnergyParams::checkParam(const SumoXMLAttr paramKey, const std::string& id, cons
     const auto& p = myMap.find(paramKey);
     if (p != myMap.end() && (p->second < lower || p->second > upper)) {
         WRITE_WARNINGF("Vehicle device '%' doesn't have a valid value for parameter % (%).", id, toString(paramKey), p->second);
-        setDouble(paramKey, PollutantsInterface::getEnergyHelper().getDefaultParam(paramKey));
+        setDouble(paramKey, EnergyParams::getDefault()->getDouble(paramKey));
     }
 }
 
