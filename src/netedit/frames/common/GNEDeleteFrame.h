@@ -43,13 +43,7 @@ public:
 
     public:
         /// @brief Constructor
-        MultipleDeletePane(GNEDeleteFrame* deleteFrameParent);
-
-        /// @brief show MultipleDeletePane
-        void show();
-
-        /// @brief hide MultipleDeletePane
-        void hide();
+        MultipleDeletePane(GNEDeleteFrame* deleteFrameParent, const std::vector<GNEDemandElement*>& clickedDemandElements);
 
         /// @name FOX-callbacks
         /// @{
@@ -65,6 +59,12 @@ public:
     private:
         /// @brief pointer to delete frame parent
         GNEDeleteFrame* myDeleteFrameParent = nullptr;
+
+        /// @brief clear all elements
+        FXMenuCommand* myClearAllElements = nullptr;
+
+        /// @brief clicked demand elements
+        const std::vector<GNEDemandElement*> myClickedDemandElements;
     };
 
     // ===========================================================================
@@ -255,11 +255,11 @@ protected:
 
 private:
     /// @brief MultipleDeletePane
-    MultipleDeletePane* myMultipleDeletePane;
+    MultipleDeletePane* myMultipleDeletePane = nullptr;
 
     /// @brief modul for delete options
-    DeleteOptions* myDeleteOptions;
+    DeleteOptions* myDeleteOptions = nullptr;
 
     /// @brief modul for protect elements
-    ProtectElements* myProtectElements;
+    ProtectElements* myProtectElements = nullptr;
 };
