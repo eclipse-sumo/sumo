@@ -269,7 +269,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                 if (c->departures.empty()) {
                     const SUMOTime b = MAX2(begin, c->begin);
                     const SUMOTime e = MIN2(end, c->end);
-                    const int numVehs = int(c->vehicleNumber * (e - b) / (c->end - c->begin));
+                    const int numVehs = int(c->vehicleNumber * (double)(e - b) / (double)(c->end - c->begin));
                     OutputDevice_String od(1);
                     od.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, oc.getString("prefix") + toString(num++));
                     od.writeAttr(SUMO_ATTR_BEGIN, time2string(b)).writeAttr(SUMO_ATTR_END, time2string(e));

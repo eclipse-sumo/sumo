@@ -33,10 +33,11 @@ class MSLane;
 
 
 // ===========================================================================
-// types definitions
+// type definitions
 // ===========================================================================
 typedef std::pair<const MSVehicle*, double> CLeaderDist;
 typedef std::pair<MSVehicle*, double> LeaderDist;
+
 
 // ===========================================================================
 // class definitions
@@ -47,7 +48,7 @@ typedef std::pair<MSVehicle*, double> LeaderDist;
 class MSLeaderInfo {
 public:
     /// Constructor
-    MSLeaderInfo(const MSLane* lane, const MSVehicle* ego = 0, double latOffset = 0);
+    MSLeaderInfo(const double laneWidth, const MSVehicle* ego = nullptr, const double latOffset = 0.);
 
     /// Destructor
     virtual ~MSLeaderInfo();
@@ -58,7 +59,7 @@ public:
      * @param[in] latOffset The lateral offset that must be added to the position of veh
      * @return The number of free sublanes
      */
-    virtual int addLeader(const MSVehicle* veh, bool beyond, double latOffset = 0);
+    virtual int addLeader(const MSVehicle* veh, bool beyond, double latOffset = 0.);
 
     /// @brief discard all information
     virtual void clear();
@@ -143,10 +144,10 @@ protected:
 class MSLeaderDistanceInfo : public MSLeaderInfo {
 public:
     /// Constructor
-    MSLeaderDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset);
+    MSLeaderDistanceInfo(const double laneWidth, const MSVehicle* ego, const double latOffset);
 
     /// @brief Construct for the non-sublane-case
-    MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const MSLane* dummy);
+    MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const double laneWidth);
 
     /// Destructor
     virtual ~MSLeaderDistanceInfo();
@@ -202,7 +203,7 @@ protected:
 class MSCriticalFollowerDistanceInfo : public MSLeaderDistanceInfo {
 public:
     /// Constructor
-    MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset, bool haveOppositeLeaders = false);
+    MSCriticalFollowerDistanceInfo(const double laneWidth, const MSVehicle* ego, const double latOffset, const bool haveOppositeLeaders = false);
 
     /// Destructor
     virtual ~MSCriticalFollowerDistanceInfo();

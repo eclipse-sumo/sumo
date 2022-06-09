@@ -612,7 +612,7 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* vehic
         std::cout << SIMTIME << " getLeaders lane=" << target->lane->getID() << " ego=" << vehicle->getID() << " ahead=" << target->ahead.toString() << "\n";
     }
 #endif
-    MSLeaderDistanceInfo result(target->lane, nullptr, 0);
+    MSLeaderDistanceInfo result(target->lane->getWidth(), nullptr, 0);
     if (target->lane == vehicle->getLane()) {
         if (vehicle->getLeftSideOnLane() < -MSGlobals::gLateralResolution) {
             result.setSublaneOffset(int(-vehicle->getLeftSideOnLane() / MSGlobals::gLateralResolution));
@@ -666,10 +666,10 @@ MSLaneChangerSublane::checkChangeSublane(
 
     MSLeaderDistanceInfo neighLeaders = target->aheadNext;
     MSLeaderDistanceInfo neighFollowers = target->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
-    MSLeaderDistanceInfo neighBlockers(&neighLane, vehicle, vehicle->getLane()->getRightSideOnEdge() - neighLane.getRightSideOnEdge());
+    MSLeaderDistanceInfo neighBlockers(neighLane.getWidth(), vehicle, vehicle->getLane()->getRightSideOnEdge() - neighLane.getRightSideOnEdge());
     MSLeaderDistanceInfo leaders = myCandi->aheadNext;
     MSLeaderDistanceInfo followers = myCandi->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
-    MSLeaderDistanceInfo blockers(vehicle->getLane(), vehicle, 0);
+    MSLeaderDistanceInfo blockers(vehicle->getLane()->getWidth(), vehicle, 0);
 
     // break leader symmetry
     if (laneOffset == -1 && neighLeaders.hasVehicles()) {
@@ -738,12 +738,12 @@ MSLaneChangerSublane::checkChangeOpposite(
     const MSLane& neighLane = *targetLane;
     MSLane* curLane = myCandi->lane;
 
-    MSLeaderDistanceInfo neighLeaders(targetLane, nullptr, 0);
-    MSLeaderDistanceInfo neighFollowers(targetLane, nullptr, 0);
-    MSLeaderDistanceInfo neighBlockers(targetLane, nullptr, 0);
-    MSLeaderDistanceInfo leaders(curLane, nullptr, 0);
-    MSLeaderDistanceInfo followers(curLane, nullptr, 0);
-    MSLeaderDistanceInfo blockers(curLane, nullptr, 0);
+    MSLeaderDistanceInfo neighLeaders(targetLane->getWidth(), nullptr, 0);
+    MSLeaderDistanceInfo neighFollowers(targetLane->getWidth(), nullptr, 0);
+    MSLeaderDistanceInfo neighBlockers(targetLane->getWidth(), nullptr, 0);
+    MSLeaderDistanceInfo leaders(curLane->getWidth(), nullptr, 0);
+    MSLeaderDistanceInfo followers(curLane->getWidth(), nullptr, 0);
+    MSLeaderDistanceInfo blockers(curLane->getWidth(), nullptr, 0);
 
     const double backPosOnTarget = vehicle->getLane()->getOppositePos(vehicle->getBackPositionOnLane());
     if (vehicle->getLaneChangeModel().isOpposite()) {
@@ -757,7 +757,7 @@ MSLaneChangerSublane::checkChangeOpposite(
         targetLane->addLeaders(vehicle, posOnTarget, neighLeaders);
         int sublaneIndex = 0;
         for (int i = 0; i < targetLane->getIndex(); i++) {
-            sublaneIndex += MSLeaderInfo(targetLane->getEdge().getLanes()[i]).numSublanes();
+            sublaneIndex += MSLeaderInfo(targetLane->getEdge().getLanes()[i]->getWidth()).numSublanes();
         }
         vehicle->getLaneChangeModel().updateExpectedSublaneSpeeds(neighLeaders, sublaneIndex, targetLane->getIndex());
     } else {

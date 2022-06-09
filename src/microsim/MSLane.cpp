@@ -252,8 +252,8 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
     myCanonicalSuccessorLane(nullptr),
     myBruttoVehicleLengthSum(0), myNettoVehicleLengthSum(0),
     myBruttoVehicleLengthSumToRemove(0), myNettoVehicleLengthSumToRemove(0),
-    myLeaderInfo(this, nullptr, 0),
-    myFollowerInfo(this, nullptr, 0),
+    myLeaderInfo(width, nullptr, 0.),
+    myFollowerInfo(width, nullptr, 0.),
     myLeaderInfoTime(SUMOTime_MIN),
     myFollowerInfoTime(SUMOTime_MIN),
     myLengthGeometryFactor(MAX2(POSITION_EPS, myShape.length()) / myLength), // factor should not be 0
@@ -1270,7 +1270,7 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
 const MSLeaderInfo
 MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double minPos, bool allowCached) const {
     if (myLeaderInfoTime < MSNet::getInstance()->getCurrentTimeStep() || ego != nullptr || minPos > 0 || !allowCached) {
-        MSLeaderInfo leaderTmp(this, ego, latOffset);
+        MSLeaderInfo leaderTmp(myWidth, ego, latOffset);
         AnyVehicleIterator last = anyVehiclesBegin();
         int freeSublanes = 1; // number of sublanes for which no leader was found
         //if (ego->getID() == "disabled" && SIMTIME == 58) {
@@ -1330,7 +1330,7 @@ MSLane::getFirstVehicleInformation(const MSVehicle* ego, double latOffset, bool 
 #endif
     if (myFollowerInfoTime < MSNet::getInstance()->getCurrentTimeStep() || ego != nullptr || maxPos < myLength || !allowCached || onlyFrontOnLane) {
         // XXX separate cache for onlyFrontOnLane = true
-        MSLeaderInfo followerTmp(this, ego, latOffset);
+        MSLeaderInfo followerTmp(myWidth, ego, latOffset);
         AnyVehicleIterator first = anyVehiclesUpstreamBegin();
         int freeSublanes = 1; // number of sublanes for which no leader was found
         const MSVehicle* veh = *first;
@@ -1382,7 +1382,7 @@ void
 MSLane::planMovements(SUMOTime t) {
     assert(myVehicles.size() != 0);
     double cumulatedVehLength = 0.;
-    MSLeaderInfo leaders(this);
+    MSLeaderInfo leaders(myWidth);
 
     // iterate over myVehicles, myPartialVehicles, and myManeuverReservations merge-sort style
     VehCont::reverse_iterator veh = myVehicles.rbegin();
@@ -3373,7 +3373,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                   << "\n";
     }
 #endif
-    MSCriticalFollowerDistanceInfo result(this, allSublanes ? nullptr : ego, allSublanes ? 0 : egoLatDist, getOppositeLeaders);
+    MSCriticalFollowerDistanceInfo result(myWidth, allSublanes ? nullptr : ego, allSublanes ? 0 : egoLatDist, getOppositeLeaders);
     if (MSGlobals::gLateralResolution > 0 && egoLatDist == 0) {
         // check whether ego is outside lane bounds far enough so that another vehicle might
         // be between itself and the first "actual" sublane
@@ -3761,7 +3761,7 @@ MSLane::getPartialBehind(const MSVehicle* ego) const {
 
 MSLeaderInfo
 MSLane::getPartialBeyond() const {
-    MSLeaderInfo result(this);
+    MSLeaderInfo result(myWidth);
     for (VehCont::const_iterator it = myPartialVehicles.begin(); it != myPartialVehicles.end(); ++it) {
         MSVehicle* veh = *it;
         if (!veh->isFrontOnLane(this)) {

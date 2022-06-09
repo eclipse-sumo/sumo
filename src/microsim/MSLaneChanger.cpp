@@ -85,8 +85,8 @@ MSLaneChanger::ChangeElem::ChangeElem(MSLane* _lane) :
     lastBlocked(nullptr),
     firstBlocked(nullptr),
     lastStopped(nullptr),
-    ahead(lane),
-    aheadNext(lane, nullptr, 0) {
+    ahead(_lane->getWidth()),
+    aheadNext(_lane->getWidth(), nullptr, 0.) {
 }
 
 void

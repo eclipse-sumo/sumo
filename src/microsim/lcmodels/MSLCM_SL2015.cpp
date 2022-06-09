@@ -985,13 +985,13 @@ MSLCM_SL2015::computeSublaneShift(const MSEdge* prevEdge, const MSEdge* curEdge)
                     if (lane2 == target) {
                         return prevShift + curShift;
                     }
-                    MSLeaderInfo ahead(lane2);
+                    MSLeaderInfo ahead(lane2->getWidth());
                     curShift += ahead.numSublanes();
                 }
                 assert(false);
             }
         }
-        MSLeaderInfo ahead(lane);
+        MSLeaderInfo ahead(lane->getWidth());
         prevShift -= ahead.numSublanes();
     }
     return std::numeric_limits<int>::max();
@@ -3720,13 +3720,13 @@ MSLCM_SL2015::wantsChange(
 #endif
 
     double latDist = 0;
-    const MSLane* dummy = myVehicle.getLane();
-    MSLeaderDistanceInfo leaders(leader, dummy);
-    MSLeaderDistanceInfo followers(follower, dummy);
-    MSLeaderDistanceInfo blockers(std::make_pair((MSVehicle*)nullptr, -1), dummy);
-    MSLeaderDistanceInfo neighLeaders(neighLead, dummy);
-    MSLeaderDistanceInfo neighFollowers(neighFollow, dummy);
-    MSLeaderDistanceInfo neighBlockers(std::make_pair((MSVehicle*)nullptr, -1), dummy);
+    const double laneWidth = myVehicle.getLane()->getWidth();
+    MSLeaderDistanceInfo leaders(leader, laneWidth);
+    MSLeaderDistanceInfo followers(follower, laneWidth);
+    MSLeaderDistanceInfo blockers(std::make_pair((MSVehicle*)nullptr, -1), laneWidth);
+    MSLeaderDistanceInfo neighLeaders(neighLead, laneWidth);
+    MSLeaderDistanceInfo neighFollowers(neighFollow, laneWidth);
+    MSLeaderDistanceInfo neighBlockers(std::make_pair((MSVehicle*)nullptr, -1), laneWidth);
 
     double maneuverDist;
     int result = _wantsChangeSublane(laneOffset,

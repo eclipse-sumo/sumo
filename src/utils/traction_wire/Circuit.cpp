@@ -32,22 +32,7 @@
 #include <mutex>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-
 #include <microsim/MSGlobals.h>
-#ifdef HAVE_EIGEN
-#ifdef _MSC_VER
-#pragma warning(push)
-/* Disable "conditional expression is constant" warnings. */
-#pragma warning(disable: 4127)
-#endif
-#include "Eigen/Dense"
-#include "Eigen/Sparse"
-#include "Eigen/Geometry"
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
-#endif
-
 #include "Element.h"
 #include "Node.h"
 #include "Circuit.h"

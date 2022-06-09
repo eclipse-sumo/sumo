@@ -104,7 +104,7 @@ MSEdge::initialize(const std::vector<MSLane*>* lanes) {
     }
     for (MSLane* const lane : *lanes) {
         lane->setRightSideOnEdge(myWidth, (int)mySublaneSides.size());
-        MSLeaderInfo ahead(lane);
+        MSLeaderInfo ahead(lane->getWidth());
         for (int j = 0; j < ahead.numSublanes(); ++j) {
             mySublaneSides.push_back(myWidth + j * MSGlobals::gLateralResolution);
         }
@@ -215,7 +215,7 @@ MSEdge::closeBuilding() {
     // extend lookup table for sublane model after all edges are read
     if (myLanes->back()->getOpposite() != nullptr) {
         MSLane* opposite = myLanes->back()->getOpposite();
-        MSLeaderInfo ahead(opposite);
+        MSLeaderInfo ahead(opposite->getWidth());
         for (int j = 0; j < ahead.numSublanes(); ++j) {
             mySublaneSides.push_back(myWidth + j * MSGlobals::gLateralResolution);
         }

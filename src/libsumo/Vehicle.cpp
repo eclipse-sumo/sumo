@@ -660,7 +660,7 @@ Vehicle::getNeighbors(const std::string& vehID, const int mode) {
     }
     // need to recompute leaders and followers (#8119)
     const bool opposite = &veh->getLane()->getEdge() != &targetLane->getEdge();
-    MSLeaderDistanceInfo neighbors(targetLane, nullptr, 0);
+    MSLeaderDistanceInfo neighbors(targetLane->getWidth(), nullptr, 0.);
     if (queryLeaders) {
         if (opposite) {
             double pos = targetLane->getOppositePos(veh->getPositionOnLane());
@@ -679,7 +679,7 @@ Vehicle::getNeighbors(const std::string& vehID, const int mode) {
     }
     if (blockersOnly) {
         // filter out vehicles that aren't blocking
-        MSLeaderDistanceInfo blockers(targetLane, nullptr, 0);
+        MSLeaderDistanceInfo blockers(targetLane->getWidth(), nullptr, 0.);
         for (int i = 0; i < neighbors.numSublanes(); i++) {
             CLeaderDist n = neighbors[i];
             if (n.first != nullptr) {

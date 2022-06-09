@@ -2145,7 +2145,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             const double backOffset = leaderLane == myLane ? getPositionOnLane() : leaderLane->getLength();
             const double gapOffset = leaderLane == myLane ? 0 : seen - leaderLane->getLength();
             const MSLeaderDistanceInfo cands = leaderLane->getFollowersOnConsecutive(this, backOffset, true, backOffset, MSLane::MinorLinkMode::FOLLOW_NEVER);
-            MSLeaderDistanceInfo oppositeLeaders(leaderLane, this, 0);
+            MSLeaderDistanceInfo oppositeLeaders(leaderLane->getWidth(), this, 0.);
             const double minTimeToLeaveLane = MSGlobals::gSublane ? MAX2(TS, (0.5 *  myLane->getWidth() - getLateralPositionOnLane()) / getVehicleType().getMaxSpeedLat()) : TS;
             for (int i = 0; i < cands.numSublanes(); i++) {
                 CLeaderDist cand = cands[i];
@@ -2732,7 +2732,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
             break;
         }
-        ahead = opposite ? MSLeaderInfo(leaderLane) : leaderLane->getLastVehicleInformation(nullptr, 0);
+        ahead = opposite ? MSLeaderInfo(leaderLane->getWidth()) : leaderLane->getLastVehicleInformation(nullptr, 0);
         seen += lane->getLength();
         vLinkPass = MIN2(cfModel.estimateSpeedAfterDistance(lane->getLength(), v, cfModel.getMaxAccel()), laneMaxV); // upper bound
         lastLink = &lfLinks.back();
@@ -3099,7 +3099,7 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                     &leader->getLane()->getEdge() == &lane->getEdge()) {
                 // check for sublane obstruction (trivial for sibling link leaders)
                 const MSLane* conflictLane = link->getInternalLaneBefore();
-                MSLeaderInfo linkLeadersAhead = MSLeaderInfo(conflictLane);
+                MSLeaderInfo linkLeadersAhead = MSLeaderInfo(conflictLane->getWidth());
                 linkLeadersAhead.addLeader(leader, false, 0); // assume sibling lane has the same geometry as the leader lane
                 const double latOffset = isShadowLink ? (getLane()->getRightSideOnEdge() - myLaneChangeModel->getShadowLane()->getRightSideOnEdge()) : 0;
                 // leader is neither on lane nor conflictLane (the conflict is only established geometrically)

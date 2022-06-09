@@ -32,17 +32,12 @@
 
 
 // ===========================================================================
-// static member variables
-// ===========================================================================
-
-
-// ===========================================================================
 // MSLeaderInfo member method definitions
 // ===========================================================================
-MSLeaderInfo::MSLeaderInfo(const MSLane* lane, const MSVehicle* ego, double latOffset) :
-    myWidth(lane->getWidth()),
+MSLeaderInfo::MSLeaderInfo(const double laneWidth, const MSVehicle* ego, const double latOffset) :
+    myWidth(laneWidth),
     myOffset(0),
-    myVehicles(MAX2(1, int(ceil(myWidth / MSGlobals::gLateralResolution))), (MSVehicle*)nullptr),
+    myVehicles(MAX2(1, int(ceil(laneWidth / MSGlobals::gLateralResolution))), (MSVehicle*)nullptr),
     myFreeSublanes((int)myVehicles.size()),
     egoRightMost(-1),
     egoLeftMost(-1),
@@ -216,19 +211,18 @@ MSLeaderInfo::removeOpposite(const MSLane* lane) {
     }
 }
 
+
 // ===========================================================================
 // MSLeaderDistanceInfo member method definitions
 // ===========================================================================
-
-
-MSLeaderDistanceInfo::MSLeaderDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset) :
-    MSLeaderInfo(lane, ego, latOffset),
+MSLeaderDistanceInfo::MSLeaderDistanceInfo(const double laneWidth, const MSVehicle* ego, const double latOffset) :
+    MSLeaderInfo(laneWidth, ego, latOffset),
     myDistances(myVehicles.size(), std::numeric_limits<double>::max()) {
 }
 
 
-MSLeaderDistanceInfo::MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const MSLane* dummy) :
-    MSLeaderInfo(dummy, nullptr, 0),
+MSLeaderDistanceInfo::MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const double laneWidth) :
+    MSLeaderInfo(laneWidth, nullptr, 0.),
     myDistances(1, cLeaderDist.second) {
     assert(myVehicles.size() == 1);
     myVehicles[0] = cLeaderDist.first;
@@ -365,8 +359,8 @@ MSLeaderDistanceInfo::moveSamePosTo(const MSVehicle* ego, MSLeaderDistanceInfo& 
 // ===========================================================================
 
 
-MSCriticalFollowerDistanceInfo::MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset, bool haveOppositeLeaders) :
-    MSLeaderDistanceInfo(lane, ego, latOffset),
+MSCriticalFollowerDistanceInfo::MSCriticalFollowerDistanceInfo(const double laneWidth, const MSVehicle* ego, const double latOffset, const bool haveOppositeLeaders) :
+    MSLeaderDistanceInfo(laneWidth, ego, latOffset),
     myMissingGaps(myVehicles.size(), -std::numeric_limits<double>::max()),
     myHaveOppositeLeaders(haveOppositeLeaders)
 { }
