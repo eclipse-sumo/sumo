@@ -1,4 +1,4 @@
-﻿/****************************************************************************/
+/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2016-2022 German Aerospace Center (DLR) and others.
 // PHEMlight module
@@ -13,7 +13,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    CEP.cpp
+/// @file    Correction.cpp
 /// @author  Martin Dippold
 /// @author  Michael Behrisch
 /// @date    July 2016
