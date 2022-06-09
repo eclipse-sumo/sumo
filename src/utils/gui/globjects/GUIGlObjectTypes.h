@@ -51,10 +51,10 @@ enum GUIGlObjectType {
     GLO_JUNCTION = 4,
     /// @brief a connection
     GLO_CONNECTION = 5,
-    /// @brief a tl-logic
-    GLO_CROSSING = 6,
     /// @brief a walkingArea
-    GLO_WALKINGAREA = 7,
+    GLO_WALKINGAREA = 6,
+    /// @brief a tl-logic
+    GLO_CROSSING = 7,
     /// @brief a tl-logic
     GLO_TLLOGIC = 8,
     /// @brief an edge_type

@@ -201,12 +201,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushName(getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
-            // translate to front (if is invalid, draw over walkingAreas)
-            if (NBCrossing->valid) {
-                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CROSSING);
-            } else {
-                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_WALKINGAREA + 0.1);
-            }
+            // translate to front   
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CROSSING);
             // set color
             GLHelper::setColor(crossingColor);
             // draw depending of selection
