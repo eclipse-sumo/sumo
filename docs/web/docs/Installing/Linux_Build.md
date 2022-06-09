@@ -50,11 +50,13 @@ alternatives below.
  - libOpenSceneGraph-devel (for the experimental 3D GUI),
  - gtest (for unit testing)
  - texttest (for the acceptance tests)
+ - flake, astyle and autopep for style checking
 
 The package names above are for openSUSE, for ubuntu the call to get all optional libraries and tools is:
   
 ```
 sudo apt-get install ccache libavformat-dev libswscale-dev libopenscenegraph-dev libgtest-dev python3-pip python3-setuptools
+sudo apt-get install flake8 astyle python3-autopep8
 sudo pip3 install texttest
 ```
 
