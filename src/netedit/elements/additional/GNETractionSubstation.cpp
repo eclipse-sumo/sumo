@@ -152,6 +152,8 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
             return toString(myVoltage);
         case SUMO_ATTR_CURRENTLIMIT:
             return toString(myCurrentLimit);
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
