@@ -268,10 +268,10 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
             for (const auto& selectedCrossing : selectedCrossings) {
                 myViewNet->getNet()->deleteCrossing(selectedCrossing, myViewNet->getUndoList());
             }
-            // additionals
+            // additionals (including Polygons, POIs, TAZs and Wires)
             while (attributeCarriers->getNumberOfSelectedAdditionals() > 0) {
                 myViewNet->getNet()->deleteAdditional(attributeCarriers->getSelectedAdditionals().front(), myViewNet->getUndoList());
-            }
+            } 
         } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // demand elements
             while (attributeCarriers->getNumberOfSelectedDemandElements() > 0) {
