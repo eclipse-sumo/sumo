@@ -70,7 +70,7 @@
 //#define DEBUG_PED_STRUCTURES
 //#define DEBUG_EDGE_SORTING
 //#define DEBUGCOND true
-#define DEBUG_NODE_ID "F"
+#define DEBUG_NODE_ID "C"
 #define DEBUGCOND (getID() == DEBUG_NODE_ID)
 #define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == DEBUG_NODE_ID))
 
@@ -2861,15 +2861,16 @@ NBNode::buildCrossings() {
         }
         // reverse to get them in CCW order (walking direction around the node)
         std::reverse(edges.begin(), edges.end());
-        if (gDebugFlag1) {
-            std::cout << " finalEdges=" << toString(edges) << "\n";
-        }
         // compute shape
         c->shape.clear();
         const int begDir = (edges.front()->getFromNode() == this ? FORWARD : BACKWARD);
         const int endDir = (edges.back()->getToNode() == this ? FORWARD : BACKWARD);
-        if (edges.front()->getFirstNonPedestrianLaneIndex(begDir) < 0
-                || edges.back()->getFirstNonPedestrianLaneIndex(endDir) < 0) {
+        const int firstNonPedLane = edges.front()->getFirstNonPedestrianLaneIndex(begDir);
+        const int lastNonPedLane = edges.back()->getFirstNonPedestrianLaneIndex(endDir);
+        if (gDebugFlag1) {
+            std::cout << " finalEdges=" << toString(edges) << " firstNonPedLane=" << firstNonPedLane << " lastNonPedLane=" << lastNonPedLane << "\n";
+        }
+        if (firstNonPedLane < 0 || lastNonPedLane < 0) {
             // invalid crossing
             WRITE_WARNINGF("Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross).", c->id, getID(), toString(c->edges));
             c->valid = false;
