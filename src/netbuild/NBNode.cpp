@@ -2865,8 +2865,8 @@ NBNode::buildCrossings() {
         c->shape.clear();
         const int begDir = (edges.front()->getFromNode() == this ? FORWARD : BACKWARD);
         const int endDir = (edges.back()->getToNode() == this ? FORWARD : BACKWARD);
-        const int firstNonPedLane = edges.front()->getFirstNonPedestrianLaneIndex(begDir);
-        const int lastNonPedLane = edges.back()->getFirstNonPedestrianLaneIndex(endDir);
+        int firstNonPedLane = edges.front()->getFirstNonPedestrianLaneIndex(begDir);
+        int lastNonPedLane = edges.back()->getFirstNonPedestrianLaneIndex(endDir);
         if (gDebugFlag1) {
             std::cout << " finalEdges=" << toString(edges) << " firstNonPedLane=" << firstNonPedLane << " lastNonPedLane=" << lastNonPedLane << "\n";
         }
@@ -2874,11 +2874,15 @@ NBNode::buildCrossings() {
             // invalid crossing
             WRITE_WARNINGF("Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross).", c->id, getID(), toString(c->edges));
             c->valid = false;
-        } else if (c->customShape.size() != 0) {
+            // compute surrogate shape to make it visible in netedit
+            firstNonPedLane = begDir == FORWARD ? 0 : edges.front()->getNumLanes() - 1;
+            lastNonPedLane = endDir == FORWARD ? 0 : edges.back()->getNumLanes() - 1;
+        }
+        if (c->customShape.size() != 0) {
             c->shape = c->customShape;
         } else {
-            NBEdge::Lane crossingBeg = edges.front()->getFirstNonPedestrianLane(begDir);
-            NBEdge::Lane crossingEnd = edges.back()->getFirstNonPedestrianLane(endDir);
+            NBEdge::Lane crossingBeg = edges.front()->getLanes()[firstNonPedLane];
+            NBEdge::Lane crossingEnd = edges.back()->getLanes()[lastNonPedLane];
             crossingBeg.width = (crossingBeg.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : crossingBeg.width);
             crossingEnd.width = (crossingEnd.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : crossingEnd.width);
             crossingBeg.shape.move2side(begDir * crossingBeg.width / 2);
