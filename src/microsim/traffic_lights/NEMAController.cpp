@@ -74,6 +74,8 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     myVehicleTypes = getParameter("vTypes", "");
     myControllerType = parseControllerType(getParameter("controllerType", "TS2"));
     ignoreErrors = StringUtils::toBool(getParameter("ignore-errors", "false"));
+    // This should be 
+    myNumberRings = 2;
 }
 
 NEMALogic::~NEMALogic() {
@@ -154,7 +156,19 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
 
                 // create lane specific objects
                 std::string state = tempPhase->getState();
-                std::set<std::string> laneIDs = getLaneIDsFromNEMAState(state);
+
+                // check that all phases have the same length. myPhaseStrLen is initially set to -1.
+                if (myPhaseStrLen < 0){
+                    myPhaseStrLen = (int)state.size();
+                } else if (myPhaseStrLen != (int)state.size()){
+                    throw ProcessError("At NEMA tlLogic '" + getID() + "', different sizes of NEMA phase states. Please check the NEMA XML");
+                }
+
+                // get the lane-based info
+                StringVector laneIDs;
+                IntVector controlledStateIndexes;
+                getLaneInfoFromNEMAState(state, laneIDs, controlledStateIndexes);
+                
                 std::vector<std::string> laneIDs_vector;
                 for (std::string laneID : laneIDs) {
                     laneIDs_vector.push_back(laneID);
@@ -194,7 +208,7 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
 
                 // now ready to create the phase
                 myPhaseObjs.push_back(
-                    new NEMAPhase(p, barrierPhase, phaseGreenRest, coordinatePhase, minRecall, maxRecall, fixForceOff, barrierNum, ringNum, tempPhase)
+                    new NEMAPhase(p, barrierPhase, phaseGreenRest, coordinatePhase, minRecall, maxRecall, fixForceOff, barrierNum, ringNum, controlledStateIndexes, tempPhase)
                 );
 
                 // Add a reference to the sequetionaly prior phase
@@ -704,18 +718,19 @@ NEMALogic::ModeCycle(SUMOTime a, SUMOTime b) {
 }
 
 
-std::set<std::string> NEMALogic::getLaneIDsFromNEMAState(std::string state) {
+void 
+NEMALogic::getLaneInfoFromNEMAState(std::string state, StringVector &laneIDs, IntVector &stateIndex) {
     std::set<std::string> output;
     for (int i = 0; i < (int)state.size(); i++) {
         char ch = state[i];
         // if the ch is 'G', it means that the phase is controlling this lane
         if (ch == 'G') {
+            stateIndex.push_back(i);
             for (auto link : myLinks[i]) {
-                output.insert(link->getLaneBefore()->getID());
+                laneIDs.push_back(link->getLaneBefore()->getID());
             }
         }
     }
-    return output;
 }
 
 bool NEMALogic::isLeftTurnLane(const MSLane* const lane) const {
@@ -1091,39 +1106,29 @@ NEMALogic::getNextPhases(TransitionPairs& transitions) {
 
 std::string
 NEMALogic::composeLightString() {
-    // Construct the Phase String
-    std::string state[2] = { "", "" };
-    for (int i = 0; i < 2; i++) {
-        state[i] = myActivePhaseObjs[i]->getNEMAState();
-    }
-    // check if both strings are the same length
-    if (state[0].size() != state[1].size()) {
-        throw ProcessError("At NEMA tlLogic '" + getID() + "', different sizes of NEMA phase states. Please check the NEMA XML");
-    }
-    // join the strings with G as the dominant color, g being next, then y then ...
-    std::string output = "";
-    for (int i = 0; i < (int)state[0].size(); i++) {
-        char ch1 = state[0][i];
-        char ch2 = state[1][i];
-        if (ch1 == 'G' || ch2 == 'G') {
-            output += 'G';
-        } else if (ch1 == 'g' || ch2 == 'g') {
-            output += 'g';
-        } else if (ch1 == 's' || ch2 == 's') {
-            output += 's';
-        } else if (ch1 == 'y' || ch2 == 'y') {
-            output += 'y';
-        } else if (ch1 == 'u' || ch2 == 'u') {
-            output += 'u';
-        } else if (ch1 == 'O' || ch2 == 'O') {
-            output += 'O';
-        } else if (ch1 == 'o' || ch2 == 'o') {
-            output += 'o';
-        } else {
-            output += 'r';
+    // FIX with plan to support #10742
+    std::string out(myPhaseStrLen, 'r');
+    for (int i = 0; i < myPhaseStrLen; i++){
+        bool controlled = false;
+        std::string phaseChars = "";
+        for (auto &p: myActivePhaseObjs){
+            phaseChars += p->getNEMAChar(i);
+            if (p->controlledIndex(i)){
+                out[i] = p->getNEMAChar(i);
+                controlled = true;
+            }
+        }
+        // if the index wasn't a controlled one, the prior priority order still stands
+        if (!controlled){
+            for (auto priority_char: lightHeadPriority){
+                if (std::count(phaseChars.begin(), phaseChars.end(), priority_char)){
+                    out[i] = priority_char;
+                    break;
+                }
+            } 
         }
     }
-    return output;
+    return out;
 }
 
 
@@ -1224,6 +1229,7 @@ NEMALogic::implementTraciChanges(void) {
 // ===========================================================================
 NEMAPhase::NEMAPhase(int phaseName, bool isBarrier, bool isGreenRest, bool isCoordinated,
                      bool minRecall, bool maxRecall, bool fixForceOff, int barrierNum, int ringNum,
+                     IntVector phaseStringInds,
                      MSPhaseDefinition* phase) :
     phaseName(phaseName),
     isAtBarrier(isBarrier),
@@ -1234,7 +1240,9 @@ NEMAPhase::NEMAPhase(int phaseName, bool isBarrier, bool isGreenRest, bool isCoo
     maxRecall(maxRecall),
     fixForceOff(fixForceOff),
     ringNum(ringNum),
-    myCorePhase(phase) {
+    myCorePhase(phase),
+    myPhaseStringInds(phaseStringInds)
+    {
     // Public
     readyToSwitch = false;
     greenRestTimer = 0;
@@ -1253,6 +1261,9 @@ NEMAPhase::NEMAPhase(int phaseName, bool isBarrier, bool isGreenRest, bool isCoo
     myStartTime = TIME2STEPS(0.);
     myExpectedDuration = myCorePhase->minDuration;
     myLastEnd = TIME2STEPS(0.);
+
+    // set the phase colors
+    setMyNEMAStates();
 }
 
 NEMAPhase::~NEMAPhase() {
@@ -1261,7 +1272,6 @@ NEMAPhase::~NEMAPhase() {
         delete t;
     }
 }
-
 
 void
 NEMAPhase::init(NEMALogic* controller, int crossPhaseTarget, int crossPhaseSource, bool latching) {
@@ -1299,29 +1309,31 @@ NEMAPhase::recalculateTiming(void) {
 }
 
 
-std::string
-NEMAPhase::getNEMAState() {
-    // construct the light streing for just my phase
-    std::string newState = "";
-    std::string curState = myCorePhase->getState();
+// TODO: this can be computed once.
+char
+NEMAPhase::getNEMAChar(int i) { 
     if (myLightState >= LightState::Green) {
-        newState = curState;
+        return myGreenString[i];
     } else if (myLightState <= LightState::Red) {
-        for (char ch : curState) {
-            UNUSED_PARAMETER(ch);
-            newState += 'r';
-        }
+        return myRedString[i];
     } else {
-        // yellow
-        for (char ch : curState) {
-            if (ch == 'G' || ch == 'g') {
-                newState += 'y';
-            } else {
-                newState += ch;
-            }
-        }
+        return myYellowString[i];
     }
-    return newState;
+}
+
+void
+NEMAPhase::setMyNEMAStates(){
+    myGreenString = myCorePhase->getState();
+    myRedString = "";
+    myYellowString = "";
+    for (char ch : myGreenString) {
+        myRedString += 'r';
+        if (ch == 'G' || ch == 'g') {
+            myYellowString += 'y';
+        } else {
+            myYellowString += ch;
+        } 
+    }
 }
 
 void
