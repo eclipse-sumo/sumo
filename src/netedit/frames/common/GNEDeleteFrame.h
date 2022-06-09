@@ -60,8 +60,8 @@ public:
         /// @brief pointer to delete frame parent
         GNEDeleteFrame* myDeleteFrameParent = nullptr;
 
-        /// @brief clear all elements
-        FXMenuCommand* myClearAllElements = nullptr;
+        /// @brief delete all elements
+        FXMenuCommand* myDeleteAllElements = nullptr;
 
         /// @brief clicked demand elements
         const std::vector<GNEDemandElement*> myClickedDemandElements;

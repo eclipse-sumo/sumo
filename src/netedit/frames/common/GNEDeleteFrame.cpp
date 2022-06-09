@@ -61,8 +61,8 @@ GNEDeleteFrame::MultipleDeletePane::MultipleDeletePane(GNEDeleteFrame* deleteFra
     myClickedDemandElements(clickedDemandElements) {
     // get GNEAppWindow
     const auto appWindow = myDeleteFrameParent->getViewNet()->getViewParent()->getGNEAppWindows();
-    // add clear elements
-    myClearAllElements = GUIDesigns::buildFXMenuCommand(this, "Clear all elements", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_SELECT);
+    // add delete all elements
+    myDeleteAllElements = GUIDesigns::buildFXMenuCommand(this, "Delete all elements", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_SELECT);
     // add separators
     new FXMenuSeparator(this);
     // add elements
@@ -98,7 +98,7 @@ GNEDeleteFrame::MultipleDeletePane::MultipleDeletePane(GNEDeleteFrame* deleteFra
 
 long
 GNEDeleteFrame::MultipleDeletePane::onCmdSelect(FXObject* obj, FXSelector, void*) {
-    if (obj == myClearAllElements) {
+    if (obj == myDeleteAllElements) {
         // remove all selected attribute carrier susing the following parent-child sequence
         myDeleteFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::MODEDELETE, "remove clicked items");
         // add elements
