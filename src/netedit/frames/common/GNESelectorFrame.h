@@ -304,6 +304,7 @@ public:
             EDGE,
             LANE,
             ADDITIONAL,
+            WIRE,
             SHAPE,
             DEMAND,
             DATA,
@@ -338,6 +339,7 @@ public:
             std::make_pair(Selection::EDGE, "edge"),
             std::make_pair(Selection::LANE, "lane"),
             std::make_pair(Selection::ADDITIONAL, "additionalElements"),
+            std::make_pair(Selection::WIRE, "wireElements"),
             std::make_pair(Selection::SHAPE, "shapeElements"),
             std::make_pair(Selection::DEMAND, "demandElements"),
             std::make_pair(Selection::DATA, "dataElements")

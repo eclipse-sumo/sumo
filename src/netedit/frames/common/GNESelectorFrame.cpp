@@ -98,7 +98,8 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel("Connections", ACs->getNumberOfSelectedConnections());
         updateInformationLabel("Crossings", ACs->getNumberOfSelectedCrossings());
         updateInformationLabel("WalkingAreas", ACs->getNumberOfSelectedWalkingAreas());
-        updateInformationLabel("Additionals", ACs->getNumberOfSelectedAdditionals());
+        updateInformationLabel("Additionals", ACs->getNumberOfSelectedPureAdditionals());
+        updateInformationLabel("Wires", ACs->getNumberOfSelectedWires());
         updateInformationLabel("TAZs", ACs->getNumberOfSelectedTAZs());
         updateInformationLabel("TAZSources", ACs->getNumberOfSelectedTAZSources());
         updateInformationLabel("TAZSinks", ACs->getNumberOfSelectedTAZSinks());
@@ -561,6 +562,26 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                         additional->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
                         additional->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+        }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
+    }
+    // check if wires selection is locked
+    if (ignoreLocking || !locks.isObjectLocked(GLO_WIRE, false)) {
+        for (const auto& wireTag : ACs->getAdditionals()) {
+            // first check if wire is selectable
+            if (GNEAttributeCarrier::getTagProperty(wireTag.first).isWireElement() && GNEAttributeCarrier::getTagProperty(wireTag.first).isSelectable()) {
+                for (const auto& wire : wireTag.second) {
+                    if (onlyCount) {
+                        return true;
+                    } else if (onlyUnselect || wire->isAttributeCarrierSelected()) {
+                        wire->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        wire->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
             }
@@ -1195,6 +1216,10 @@ GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, vo
             if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::ADDITIONAL)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getParentAdditionals().begin(), HE->getParentAdditionals().end());
             }
+            // wire
+            if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::WIRE)) {
+                HEToSelect.insert(HEToSelect.end(), HE->getParentAdditionals().begin(), HE->getParentAdditionals().end());
+            }
             // demand
             if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::DEMAND)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getParentDemandElements().begin(), HE->getParentDemandElements().end());
@@ -1265,8 +1290,17 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::ADDITIONAL)) {
                 // avoid insert symbols
                 for (const auto& additionalChild : HE->getChildAdditionals()) {
-                    if (!additionalChild->getTagProperty().isSymbol()) {
+                    if (!additionalChild->getTagProperty().isWireElement() && !additionalChild->getTagProperty().isSymbol()) {
                         HEToSelect.push_back(additionalChild);
+                    }
+                }
+            }
+            // wire
+            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::WIRE)) {
+                // avoid insert symbols
+                for (const auto& wireChild : HE->getChildAdditionals()) {
+                    if (wireChild->getTagProperty().isWireElement() && !wireChild->getTagProperty().isSymbol()) {
+                        HEToSelect.push_back(wireChild);
                     }
                 }
             }
