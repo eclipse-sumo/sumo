@@ -26,7 +26,6 @@
 #include <vector>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/StringBijection.h>
-#include "PHEMCEP.h"
 #include "PHEMConstants.h"
 
 

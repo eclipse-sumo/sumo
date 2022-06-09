@@ -39,7 +39,7 @@
 // ===========================================================================
 // static definitions
 // ===========================================================================
-
+const double PollutantsInterface::Helper::ZERO_SPEED_ACCURACY = .5;
 PollutantsInterface::Helper PollutantsInterface::myZeroHelper("Zero", PollutantsInterface::ZERO_EMISSIONS, PollutantsInterface::ZERO_EMISSIONS);
 HelpersHBEFA PollutantsInterface::myHBEFA2Helper;
 HelpersHBEFA3 PollutantsInterface::myHBEFA3Helper;
@@ -54,6 +54,7 @@ PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {
     &PollutantsInterface::myMMPEVEMHelper, &PollutantsInterface::myPHEMlight5Helper
 };
 std::vector<std::string> PollutantsInterface::myAllClassesStr;
+
 
 // ===========================================================================
 // method definitions
@@ -190,6 +191,9 @@ PollutantsInterface::Helper::getCoastingDecel(const SUMOEmissionClass c, const d
     // the interpolation for small v is basically the same as in PHEMlightdllV5::CEP::GetDecelCoast
     if (v < PHEMlightdllV5::Constants::SPEED_DCEL_MIN) {
         return v / PHEMlightdllV5::Constants::SPEED_DCEL_MIN * getCoastingDecel(c, PHEMlightdllV5::Constants::SPEED_DCEL_MIN, a, slope, param);
+    }
+    if (param == nullptr) {
+        param = EnergyParams::getDefault();
     }
     // the magic numbers below come from a linear interpolation with http://ts-sim-service-ba/svn/simo/trunk/projects/sumo/data/emissions/linear.py
     const double mass = param->getDouble(SUMO_ATTR_MASS);
