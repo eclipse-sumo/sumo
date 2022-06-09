@@ -73,13 +73,10 @@ StringUtils::pruneZeros(const std::string& str, int max) {
 }
 
 std::string
-StringUtils::to_lower_case(std::string str) {
-    for (int i = 0; i < (int)str.length(); i++) {
-        if (str[i] >= 'A' && str[i] <= 'Z') {
-            str[i] = str[i] + 'a' - 'A';
-        }
-    }
-    return str;
+StringUtils::to_lower_case(const std::string& str) {
+    std::string s = str;
+    std::transform(s.begin(), s.end(), s.begin(), [](char c) { return (char)::tolower(c); });
+    return s;
 }
 
 
@@ -422,15 +419,14 @@ StringUtils::toBool(const std::string& sData) {
     if (sData.length() == 0) {
         throw EmptyData();
     }
-    std::string s = sData;
-    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return std::tolower(c); });
+    const std::string s = to_lower_case(sData);
     if (s == "1" || s == "yes" || s == "true" || s == "on" || s == "x" || s == "t") {
         return true;
-    } else if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {
+    } 
+    if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {
         return false;
-    } else {
-        throw BoolFormatException(s);
     }
+    throw BoolFormatException(s);
 }
 
 

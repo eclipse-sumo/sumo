@@ -331,7 +331,7 @@ namespace PHEMlightdllV5 {
         //Initialisation
         double CorF = 1;
         std::string emi = Emi;
-        std::transform(emi.begin(), emi.end(), emi.begin(), [](unsigned char c) { return std::toupper(c); });
+        std::transform(emi.begin(), emi.end(), emi.begin(), [](char c) { return (char)::toupper(c); });
 
         if (DataCor != 0) {
             if (DataCor->getUseDet() && DataCor->DETFactors.count(emi) > 0) {

@@ -169,7 +169,7 @@ namespace PHEMlightdllV5 {
 
                     //Store in upper case because retrieval will be upper case as well
                     std::string key = it.key();
-                    std::transform(key.begin(), key.end(), key.begin(), [](unsigned char c) { return std::toupper(c); });
+                    std::transform(key.begin(), key.end(), key.begin(), [](char c) { return (char)::toupper(c); });
                     //Get the factor
                     if (it.value().at("EUClass").contains(EUclass)) {
                         const std::vector<double>& Mileage = it.value().at("Mileage");
