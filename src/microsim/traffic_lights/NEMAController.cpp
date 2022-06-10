@@ -74,7 +74,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     myVehicleTypes = getParameter("vTypes", "");
     myControllerType = parseControllerType(getParameter("controllerType", "TS2"));
     ignoreErrors = StringUtils::toBool(getParameter("ignore-errors", "false"));
-    // This should be 
+    // This should be extended in the future.
     myNumberRings = 2;
 }
 
