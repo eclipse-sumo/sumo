@@ -106,6 +106,7 @@ title: ChangeLog
 ### Miscellaneous
 
   - Outputfile comment header no longer includes options that were set automatically (only user defined options). Issue #10712
+  - PHEMlight5 has been added as a new emission model allowing also for modelling of aging fleets. Issue #10237
 
 ## Version 1.13.0 (03.05.2022)
 
