@@ -56,13 +56,6 @@ MSDetectorFileOutput::MSDetectorFileOutput(const std::string& id,
 }
 
 
-MSDetectorFileOutput::MSDetectorFileOutput(const std::string& id,
-        const std::set<std::string>& vTypes,
-        const std::string& nextEdges,
-        const int detectPersons) :
-    Named(id), myVehicleTypes(vTypes), myDetectPersons(detectPersons)
-{ }
-
 bool
 MSDetectorFileOutput::vehicleApplies(const SUMOTrafficObject& veh) const {
     if (veh.isVehicle() == detectPersons()) {
