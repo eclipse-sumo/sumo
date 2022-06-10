@@ -76,6 +76,7 @@ public:
                  double positionInMeters,
                  double length,
                  const std::string& vTypes,
+                 const std::string& nextEdges,
                  int detectPersons,
                  const bool needLocking);
 

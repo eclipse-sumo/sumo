@@ -421,7 +421,7 @@ MSMeanData::MSMeanData(const std::string& id,
                        const std::string& writeAttributes,
                        const std::vector<MSEdge*>& edges,
                        bool aggregate) :
-    MSDetectorFileOutput(id, vTypes, detectPersons),
+    MSDetectorFileOutput(id, vTypes, "", detectPersons),
     myMinSamples(minSamples),
     myMaxTravelTime(maxTravelTime),
     myDumpEmpty(withEmpty),

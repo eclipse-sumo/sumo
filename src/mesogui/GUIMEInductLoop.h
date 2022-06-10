@@ -45,7 +45,9 @@ class GUIMEInductLoop : public MEInductLoop {
 public:
     /// Construtor
     GUIMEInductLoop(const std::string& id, MESegment* s,
-                    double position, const std::string& vTypes,
+                    double position,
+                    const std::string& vTypes,
+                    const std::string& nextEdges,
                     int detectPersons, bool show);
 
     /// Destructor

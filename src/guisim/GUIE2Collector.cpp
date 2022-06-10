@@ -42,17 +42,23 @@
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
                                MSLane* lane, double startPos, double endPos, double detLength,
                                SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
-                               double jamDistThreshold, const std::string& vTypes, int detectPersons, bool showDetector)
+                               double jamDistThreshold,
+                               const std::string& vTypes,
+                               const std::string& nextEdges,
+                               int detectPersons, bool showDetector)
     : MSE2Collector(id, usage, lane, startPos, endPos, detLength, haltingTimeThreshold,
-                    haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons),
+                    haltingSpeedThreshold, jamDistThreshold, vTypes, nextEdges, detectPersons),
       myShow(showDetector) {}
 
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
                                std::vector<MSLane*> lanes, double startPos, double endPos,
                                SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
-                               double jamDistThreshold, const std::string& vTypes, int detectPersons, bool showDetector)
+                               double jamDistThreshold,
+                               const std::string& vTypes,
+                               const std::string& nextEdges,
+                               int detectPersons, bool showDetector)
     : MSE2Collector(id, usage, lanes, startPos, endPos, haltingTimeThreshold,
-                    haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons),
+                    haltingSpeedThreshold, jamDistThreshold, vTypes, nextEdges, detectPersons),
       myShow(showDetector) {}
 
 GUIE2Collector::~GUIE2Collector() {}

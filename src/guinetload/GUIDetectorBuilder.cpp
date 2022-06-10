@@ -49,19 +49,22 @@ GUIDetectorBuilder::~GUIDetectorBuilder() {}
 
 MSDetectorFileOutput*
 GUIDetectorBuilder::createInductLoop(const std::string& id,
-                                     MSLane* lane, double pos, double length, const std::string& vTypes, int detectPersons, bool show) {
+                                     MSLane* lane, double pos, double length,
+                                     const std::string& vTypes,
+                                     const std::string& nextEdges,
+                                     int detectPersons, bool show) {
     if (MSGlobals::gUseMesoSim) {
-        return new GUIMEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, vTypes, detectPersons, show);
+        return new GUIMEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, vTypes, nextEdges, detectPersons, show);
     } else {
-        return new GUIInductLoop(id, lane, pos, length, vTypes, detectPersons, show);
+        return new GUIInductLoop(id, lane, pos, length, vTypes, nextEdges, detectPersons, show);
     }
 }
 
 
 MSDetectorFileOutput*
 GUIDetectorBuilder::createInstantInductLoop(const std::string& id,
-        MSLane* lane, double pos, const std::string& od, const std::string& vTypes) {
-    return new GUIInstantInductLoop(id, OutputDevice::getDevice(od), lane, pos, vTypes);
+        MSLane* lane, double pos, const std::string& od, const std::string& vTypes, const std::string& nextEdges) {
+    return new GUIInstantInductLoop(id, OutputDevice::getDevice(od), lane, pos, vTypes, nextEdges);
 }
 
 
@@ -69,16 +72,20 @@ MSE2Collector*
 GUIDetectorBuilder::createE2Detector(const std::string& id,
                                      DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
                                      SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                     const std::string& vTypes, int detectPersons, bool showDetector) {
-    return new GUIE2Collector(id, usage, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
+                                     const std::string& vTypes,
+                                     const std::string& nextEdges,
+                                     int detectPersons, bool showDetector) {
+    return new GUIE2Collector(id, usage, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, nextEdges, detectPersons, showDetector);
 }
 
 MSE2Collector*
 GUIDetectorBuilder::createE2Detector(const std::string& id,
                                      DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
                                      SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                     const std::string& vTypes, int detectPersons, bool showDetector) {
-    return new GUIE2Collector(id, usage, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
+                                     const std::string& vTypes,
+                                     const std::string& nextEdges,
+                                     int detectPersons, bool showDetector) {
+    return new GUIE2Collector(id, usage, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, nextEdges, detectPersons, showDetector);
 }
 
 MSDetectorFileOutput*
@@ -86,8 +93,11 @@ GUIDetectorBuilder::createE3Detector(const std::string& id,
                                      const CrossSectionVector& entries,
                                      const CrossSectionVector& exits,
                                      double haltingSpeedThreshold,
-                                     SUMOTime haltingTimeThreshold, const std::string& vTypes, int detectPersons, bool openEntry) {
-    return new GUIE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons,  openEntry);
+                                     SUMOTime haltingTimeThreshold,
+                                     const std::string& vTypes,
+                                     const std::string& nextEdges,
+                                     int detectPersons, bool openEntry) {
+    return new GUIE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, nextEdges, detectPersons,  openEntry);
 }
 
 

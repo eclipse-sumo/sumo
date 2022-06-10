@@ -35,14 +35,20 @@
 // method definitions
 // ===========================================================================
 
-MSDetectorFileOutput::MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const int detectPersons) :
+MSDetectorFileOutput::MSDetectorFileOutput(const std::string& id,
+        const std::string& vTypes,
+        const std::string& nextEdges,
+        const int detectPersons) :
     Named(id),
     myDetectPersons(detectPersons) {
     const std::vector<std::string> vt = StringTokenizer(vTypes).getVector();
     myVehicleTypes.insert(vt.begin(), vt.end());
 }
 
-MSDetectorFileOutput::MSDetectorFileOutput(const std::string& id, const std::set<std::string>& vTypes, const int detectPersons) :
+MSDetectorFileOutput::MSDetectorFileOutput(const std::string& id,
+        const std::set<std::string>& vTypes,
+        const std::string& nextEdges,
+        const int detectPersons) :
     Named(id), myVehicleTypes(vTypes), myDetectPersons(detectPersons)
 { }
 
