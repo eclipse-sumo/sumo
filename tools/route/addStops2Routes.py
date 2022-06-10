@@ -33,55 +33,55 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = ArgumentParser()
-    optParser.add_option("-n", "--net-file", dest="netfile",
-                         help="define the net filename (mandatory)")
-    optParser.add_option("-r", "--route-files", dest="routefiles",
-                         help="define the route file seperated by comma (mandatory)")
-    optParser.add_option("-o", "--output-file", dest="outfile",
-                         help="define the output filename")
-    optParser.add_option("-t", "--typesfile", dest="typesfile",
-                         help="Give a typesfile")
-    optParser.add_option("-d", "--duration",
-                         help="Define duration of vehicle stop (setting 'X-Y' picks randomly from [X,Y[)")
-    optParser.add_option("-u", "--until",
-                         help="Define end time of vehicle stop")
-    optParser.add_option("-p", "--parking", dest="parking", action="store_true",
-                         default=False, help="where is the vehicle parking")
-    optParser.add_option("--relpos",
-                         help="relative stopping position along the edge [0,1] or 'random'")
-    optParser.add_option("--lane", default="0",
-                         help="set index of stop lane or 'random' (unusable lanes are not counted)")
-    optParser.add_option("--reledge", default="1",
-                         help="relative stopping position along the route [0,1] or 'random' (1 indicates the last edge)")
-    optParser.add_argument("--probability", type=float, default=1,
-                         help="app stop with the given probability ]0, 1]")
-    optParser.add_option("--parking-areas", dest="parkingareas", default=False,
-                         help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
-    optParser.add_option("--start-at-stop", dest="startAtStop", action="store_true",
-                         default=False, help="shorten route so it starts at stop")
-    optParser.add_option("--rel-occupancy", dest="relOccupancy", type=float,
-                         help="fill all parkingAreas to relative occupancy")
-    optParser.add_option("--abs-occupancy", dest="absOccupancy", type=int, default=1,
-                         help="fill all parkingAreas to absolute occupancy")
-    optParser.add_option("--abs-free", dest="absFree", type=int,
-                         help="fill all parkingAreas to absolute remaining capacity")
-    optParser.add_option("-D", "--person-duration", dest="pDuration",
-                         help="Define duration of person stop (setting 'X-Y' picks randomly from [X,Y[)")
-    optParser.add_option("-U", "--person-until", dest="pUntil",
-                         help="Define end time of person stop")
-    optParser.add_option("-s", "--seed", type=int, default=42, help="random seed")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
+    op = ArgumentParser()
+    op.add_option("-n", "--net-file", dest="netfile",
+                  help="define the net filename (mandatory)")
+    op.add_option("-r", "--route-files", dest="routefiles",
+                  help="define the route file seperated by comma (mandatory)")
+    op.add_option("-o", "--output-file", dest="outfile",
+                  help="define the output filename")
+    op.add_option("-t", "--typesfile", dest="typesfile",
+                  help="Give a typesfile")
+    op.add_option("-d", "--duration",
+                  help="Define duration of vehicle stop (setting 'X-Y' picks randomly from [X,Y[)")
+    op.add_option("-u", "--until",
+                  help="Define end time of vehicle stop")
+    op.add_option("-p", "--parking", dest="parking", action="store_true",
+                  default=False, help="where is the vehicle parking")
+    op.add_option("--relpos",
+                  help="relative stopping position along the edge [0,1] or 'random'")
+    op.add_option("--lane", default="0",
+                  help="set index of stop lane or 'random' (unusable lanes are not counted)")
+    op.add_option("--reledge", default="1",
+                  help="relative stopping position along the route [0,1] or 'random' (1 indicates the last edge)")
+    op.add_option("--probability", type=float, default=1,
+                  help="app stop with the given probability ]0, 1]")
+    op.add_option("--parking-areas", dest="parkingareas", default=False,
+                  help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
+    op.add_option("--start-at-stop", dest="startAtStop", action="store_true",
+                  default=False, help="shorten route so it starts at stop")
+    op.add_option("--rel-occupancy", dest="relOccupancy", type=float,
+                  help="fill all parkingAreas to relative occupancy")
+    op.add_option("--abs-occupancy", dest="absOccupancy", type=int, default=1,
+                  help="fill all parkingAreas to absolute occupancy")
+    op.add_option("--abs-free", dest="absFree", type=int,
+                  help="fill all parkingAreas to absolute remaining capacity")
+    op.add_option("-D", "--person-duration", dest="pDuration",
+                  help="Define duration of person stop (setting 'X-Y' picks randomly from [X,Y[)")
+    op.add_option("-U", "--person-until", dest="pUntil",
+                  help="Define end time of person stop")
+    op.add_option("-s", "--seed", type=int, default=42, help="random seed")
+    op.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
 
-    (options, args) = optParser.parse_known_args(args=args)
+    (options, args) = op.parse_known_args(args=args)
 
     if options.parkingareas:
         options.parkingareas = options.parkingareas.split(",")
 
     if not options.routefiles:
         if not options.startAtStop:
-            optParser.print_help()
+            op.print_help()
             sys.exit("--route-files missing")
         elif not options.parkingareas:
             sys.exit("--parking-areas needed to generation stationary traffic without route-files")
@@ -95,7 +95,7 @@ def get_options(args=None):
             options.outfile = options.routefiles[0][:-4] + ".stops.xml"
 
     if not options.netfile:
-        optParser.print_help()
+        op.print_help()
         sys.exit("--net-file missing")
 
     if not options.typesfile:
@@ -104,13 +104,13 @@ def get_options(args=None):
         options.typesfile = options.typesfile.split(",")
 
     if not options.duration and not options.until:
-        optParser.print_help()
+        op.print_help()
         sys.exit("stop duration or until missing")
 
     if options.relpos is not None:
         try:
             options.relpos = max(0, min(1, float(options.relpos)))
-        except:
+        except ValueError:
             if options.relpos != 'random':
                 sys.exit("option --relpos must be set to 'random' or to a float value from [0,1]")
             pass
@@ -120,7 +120,7 @@ def get_options(args=None):
             options.lane = int(options.lane)
             if options.lane < 0:
                 sys.exit("option --lane must be set to 'random' or to a non-negative integer value")
-        except:
+        except ValueError:
             if options.lane != 'random':
                 sys.exit("option --lane must be set to 'random' or to an integer value")
             pass
@@ -128,7 +128,7 @@ def get_options(args=None):
     if options.reledge is not None:
         try:
             options.reledge = max(0, min(1, float(options.reledge)))
-        except:
+        except ValueError:
             if options.reledge != 'random':
                 sys.exit("option --reledge must be set to 'random' or to a float value from [0,1]")
             pass
@@ -155,12 +155,14 @@ def getEdgeIDs(obj):
         result.append(obj.to)
     return result
 
+
 def interpretDuration(duration):
     if '-' in duration:
         start, stop = duration.split('-')
-        return random.randrange(int(start), int(stop)) 
+        return random.randrange(int(start), int(stop))
     else:
         return duration
+
 
 def loadRouteFiles(options, routefile, edge2parking, outf):
     net = sumolib.net.readNet(options.netfile)
@@ -179,7 +181,7 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                 reledge = random.random()
             lastEdgeID = None
             if edgeIDs:
-                lastEdgeID = edgeIDs[round(reledge * (len(edgeIDs) - 1))]
+                lastEdgeID = edgeIDs[int(round(reledge * (len(edgeIDs) - 1)))]
 
             if lastEdgeID is None:
                 if obj.name == 'person' and (
