@@ -40,6 +40,7 @@ class OutputDevice;
 class GUIDetectorWrapper;
 class SUMOTrafficObject;
 class MSTransportable;
+class MSEdge;
 
 
 // ===========================================================================
@@ -156,6 +157,9 @@ public:
 protected:
     /// @brief The vehicle types to look for (empty means all)
     std::set<std::string> myVehicleTypes;
+
+    /// @brief The upcoming edges to filter by (empty means no filtering)
+    std::vector<const MSEdge*> myNextEdges;
 
     /// @brief Whether pedestrians shall be detected instead of vehicles
     const int myDetectPersons;
