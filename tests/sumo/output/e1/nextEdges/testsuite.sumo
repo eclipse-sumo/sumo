@@ -9,3 +9,6 @@ nextCrossing
 
 # detect person on walkingarea depending on their next crossing
 walkingArea_nextCrossing
+
+# detect person on walkingarea depending on their next crossing (some are walking in negative direction)
+walkingArea_nextCrossing2
