@@ -578,16 +578,16 @@ struct GNEApplicationWindowHelper {
             FXMenuCheckIcon* menuCheckShowDemandElements;
 
             /// @brief menu check to toggle TAZRel drawing mode
-            FXMenuCheckIcon* menuCheckToogleTAZRelDrawing;
+            FXMenuCheckIcon* menuCheckToggleTAZRelDrawing;
 
             /// @brief menu check to toggle TAZ draw fill
-            FXMenuCheckIcon* menuCheckToogleTAZDrawFill;
+            FXMenuCheckIcon* menuCheckToggleTAZDrawFill;
 
             /// @brief menu check to toggle TAZRel only from
-            FXMenuCheckIcon* menuCheckToogleTAZRelOnlyFrom;
+            FXMenuCheckIcon* menuCheckToggleTAZRelOnlyFrom;
 
             /// @brief menu check to toggle TAZRel only to
-            FXMenuCheckIcon* menuCheckToogleTAZRelOnlyTo;
+            FXMenuCheckIcon* menuCheckToggleTAZRelOnlyTo;
 
             /// @brief separator
             FXMenuSeparator* separator;
