@@ -46,8 +46,9 @@ MEInductLoop::MEInductLoop(const std::string& id,
                            MESegment* s,
                            double positionInMeters,
                            const std::string& vTypes,
+                           const std::string& nextEdges,
                            int detectPersons) :
-    MSDetectorFileOutput(id, vTypes, detectPersons),
+    MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
     mySegment(s),
     myPosition(positionInMeters),
     myMeanData(nullptr, mySegment->getLength(), false, nullptr) {

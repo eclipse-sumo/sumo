@@ -42,9 +42,11 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
-                             double position, double length, const std::string& vTypes,
+                             double position, double length,
+                             const std::string& vTypes,
+                             const std::string& nextEdges,
                              int detectPersons, bool show) :
-    MSInductLoop(id, lane, position, length, vTypes, detectPersons, true),
+    MSInductLoop(id, lane, position, length, vTypes, nextEdges, detectPersons, true),
     myWrapper(nullptr),
     myShow(show) {
 }

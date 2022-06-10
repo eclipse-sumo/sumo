@@ -67,9 +67,11 @@
 MSE2Collector::MSE2Collector(const std::string& id,
                              DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
                              SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                             const std::string& vTypes, int detectPersons) :
+                             const std::string& vTypes,
+                             const std::string& nextEdges,
+                             int detectPersons) :
     MSMoveReminder(id, lane, false),
-    MSDetectorFileOutput(id, vTypes, detectPersons),
+    MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
     myUsage(usage),
     myJamHaltingSpeedThreshold(haltingSpeedThreshold),
     myJamHaltingTimeThreshold(haltingTimeThreshold),
@@ -163,9 +165,11 @@ MSE2Collector::MSE2Collector(const std::string& id,
 MSE2Collector::MSE2Collector(const std::string& id,
                              DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
                              SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                             const std::string& vTypes, int detectPersons) :
+                             const std::string& vTypes,
+                             const std::string& nextEdges,
+                             int detectPersons) :
     MSMoveReminder(id, lanes[lanes.size() - 1], false), // assure that lanes.size() > 0 at caller side!!!
-    MSDetectorFileOutput(id, vTypes, detectPersons),
+    MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
     myUsage(usage),
     myFirstLane(lanes[0]),
     myLastLane(lanes[lanes.size() - 1]),

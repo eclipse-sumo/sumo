@@ -233,7 +233,9 @@ public:
                   const CrossSectionVector& entries, const CrossSectionVector& exits,
                   double haltingSpeedThreshold,
                   SUMOTime haltingTimeThreshold,
-                  const std::string& vTypes, int detectPersons, bool openEntry);
+                  const std::string& vTypes,
+                  const std::string& nextEdges,
+                  int detectPersons, bool openEntry);
 
 
     /// @brief Destructor

@@ -418,11 +418,12 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                                        0, // speed threshold as halting
                                        0, // minimum dist to the next standing vehicle to make this vehicle count as a participant to the jam
                                        myVehicleTypes, //vehicle types to consider, if it is empty, meaning consider all types of vehicles
-                                       false, // detector position check. More details could be found on SUMO web
+                                       "", // nextEdges (no filtering by vehicle route)
+                                       (int)PersonMode::NONE, // detector vehicles, not persons
                                        true, // whether to give some slack on positioning
                                        myShowDetectors, // whether to show detectors in sumo-gui
-                                       0, //traffic light that triggers aggregation when swithing
-                                       0); // outgoing lane that associated with the traffic light
+                                       nullptr, //traffic light that triggers aggregation when swithing
+                                       nullptr); // outgoing lane that associated with the traffic light
 
                     //get the detector to be used in the lane detector map loading
                     det = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(id));
