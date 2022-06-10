@@ -739,16 +739,16 @@ struct GNEViewNetHelper {
         MFXCheckableButton* menuCheckShowDemandElements;
 
         /// @brief menu check to toggle TAZ Rel drawing
-        MFXCheckableButton* menuCheckToogleTAZRelDrawing;
+        MFXCheckableButton* menuCheckToggleTAZRelDrawing;
 
         /// @brief menu check to toggle TAZ draw fill
-        MFXCheckableButton* menuCheckToogleTAZDrawFill;
+        MFXCheckableButton* menuCheckToggleTAZDrawFill;
 
         /// @brief menu check to toggle TAZRel only from
-        MFXCheckableButton* menuCheckToogleTAZRelOnlyFrom;
+        MFXCheckableButton* menuCheckToggleTAZRelOnlyFrom;
 
         /// @brief menu check to toggle TAZRel only to
-        MFXCheckableButton* menuCheckToogleTAZRelOnlyTo;
+        MFXCheckableButton* menuCheckToggleTAZRelOnlyTo;
 
     private:
         /// @brief pointer to net

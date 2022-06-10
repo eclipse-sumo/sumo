@@ -3078,14 +3078,14 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 }
                 break;
             case MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING:
-                if (myViewNet->getDataViewOptions().menuCheckToogleTAZRelDrawing->amChecked()) {
+                if (myViewNet->getDataViewOptions().menuCheckToggleTAZRelDrawing->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);
                 }
                 break;
             case MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL:
-                if (myViewNet->getDataViewOptions().menuCheckToogleTAZDrawFill->amChecked()) {
+                if (myViewNet->getDataViewOptions().menuCheckToggleTAZDrawFill->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);
@@ -3093,14 +3093,14 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 break;
 
             case MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM:
-                if (myViewNet->getDataViewOptions().menuCheckToogleTAZRelOnlyFrom->amChecked()) {
+                if (myViewNet->getDataViewOptions().menuCheckToggleTAZRelOnlyFrom->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);
                 }
                 break;
             case MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO:
-                if (myViewNet->getDataViewOptions().menuCheckToogleTAZRelOnlyTo->amChecked()) {
+                if (myViewNet->getDataViewOptions().menuCheckToggleTAZRelOnlyTo->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);
