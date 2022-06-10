@@ -38,7 +38,7 @@ namespace PHEMlightdllV5 {
         setAmbTemp(20);
         setYear(2022);
         setVehMileage(-1);
-        setDETFilePath("Detoriation.det");
+        setDETFilePath("Deterioration.det");
         setVMAFilePath("Mileage.vma");
         setTNOxFilePath("NOxCor.tno");
     }
