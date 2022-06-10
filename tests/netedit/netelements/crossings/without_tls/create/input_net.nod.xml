@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:/SUMO/tests/netedit\netelements\crossings\without_tls\create/input_net.net.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\netelements\crossings\without_tls\create_sidewalks/input_net.net.xml"/>
     </input>
 
     <output>
-        <plain-output-prefix value="D:/SUMO/tests/netedit\netelements\crossings\without_tls\create/input_net"/>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\netelements\crossings\without_tls\create_sidewalks/input_net"/>
     </output>
 
     <processing>
