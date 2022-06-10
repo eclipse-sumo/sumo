@@ -67,6 +67,9 @@ HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleCl
     if (myCorrection == nullptr && (!oc.isDefault("phemlight-year") || !oc.isDefault("phemlight-temperature"))) {
         myCorrection = new PHEMlightdllV5::Correction(phemPath);
         if (!oc.isDefault("phemlight-year")) {
+            if (oc.getInt("phemlight-year") < 2020) {
+                throw InvalidArgument("Invalid reference year for PHEMlight5.");
+            }
             myCorrection->setYear(oc.getInt("phemlight-year"));
             std::string err;
             if (!myCorrection->ReadDet(err)) {
