@@ -357,9 +357,10 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         osg::PositionAttitudeTransform* n = myVehicles[veh].pos;
         n->setPosition(osg::Vec3d(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()));
         const double dir = veh->getAngle() + M_PI / 2.;
-        const double slope = veh->getSlope();
-        n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)) *
-                       osg::Quat(osg::DegreesToRadians(slope), osg::Vec3d(0, 1, 0)));
+        const double slope = -veh->getSlope();
+		n->setAttitude(osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(1, 0, 0),
+			0, osg::Vec3(0, 1, 0),
+			dir, osg::Vec3(0, 0, 1)));
         /*
         osg::ref_ptr<osg::AnimationPath> path = new osg::AnimationPath;
         // path->setLoopMode( osg::AnimationPath::NO_LOOPING );
