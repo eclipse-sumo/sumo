@@ -2711,7 +2711,7 @@ NBNode::buildCrossingsAndWalkingAreas() {
         int numSidewalks = 0;
         for (WalkingArea& wa : myWalkingAreas) {
             waIDs.insert(wa.id);
-            numSidewalks += wa.prevSidewalks.size() + wa.nextSidewalks.size();
+            numSidewalks += (int)(wa.prevSidewalks.size() + wa.nextSidewalks.size());
         }
         if (numSidewalks < 2) {
             // all crossings are invalid if there are fewer than 2 sidewalks involved
@@ -2744,6 +2744,7 @@ NBNode::buildCrossingsAndWalkingAreas() {
         }
     }
 }
+
 
 std::vector<NBNode::Crossing*>
 NBNode::getCrossings() const {
