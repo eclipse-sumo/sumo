@@ -42,3 +42,6 @@ file_empty
 
 # file can not be built
 file_false
+
+# edge does not exist
+nextEdges_invalid
