@@ -90,7 +90,7 @@ and the emission standard, all connected with underscores.
 
 ## PHEMlight5 Emission Classes 
 
-The following tables show the available classes. Except for the two Euro 4
+The following tables show the available classes. Except for the two highlighted Euro 4
 passenger cars the classes need to be licensed from TU Graz.
 
 ### Light Vehicles running on Diesel
@@ -102,7 +102,7 @@ passenger cars the classes need to be licensed from TU Graz.
   <tr><td>PC_EU3_D</td><td>LCV_EU3_D_I</td><td>LCV_EU3_D_II</td><td>LCV_EU3_D_III</td></tr>
   <tr><td>PC_EU4_D</td><td>LCV_EU4_D_I</td><td>LCV_EU4_D_II</td><td>LCV_EU4_D_III</td></tr>
   <tr><td>PC_EU4_D_DPF</td><td>LCV_EU4_D_DPF_I</td><td>LCV_EU4_D_DPF_II</td><td>LCV_EU4_D_DPF_III</td></tr>
-  <tr><td>PC_EU4_D_MW</td><td>LCV_EU4_D_MW_I</td><td>LCV_EU4_D_MW_II</td><td>LCV_EU4_D_MW_III</td></tr>
+  <tr><td style="background-color:#34ff34">PC_EU4_D_MW</td><td>LCV_EU4_D_MW_I</td><td>LCV_EU4_D_MW_II</td><td>LCV_EU4_D_MW_III</td></tr>
   <tr><td>PC_EU5_D</td><td>LCV_EU5_D_I</td><td>LCV_EU5_D_II</td><td>LCV_EU5_D_III</td></tr>
   <tr><td>PC_EU5_D_SU</td><td></td><td></td><td></td></tr>
   <tr><td>PC_EU6ab_D</td><td>LCV_EU6ab_D_I</td><td>LCV_EU6ab_D_II</td><td>LCV_EU6ab_D_III</td></tr>
@@ -119,7 +119,7 @@ passenger cars the classes need to be licensed from TU Graz.
   <tr><td>PC_EU1_G</td><td>LCV_EU1_G_I</td><td>LCV_EU1_G_II</td><td>LCV_EU1_G_III</td></tr>
   <tr><td>PC_EU2_G</td><td>LCV_EU2_G_I</td><td>LCV_EU2_G_II</td><td>LCV_EU2_G_III</td></tr>
   <tr><td>PC_EU3_G</td><td>LCV_EU3_G_I</td><td>LCV_EU3_G_II</td><td>LCV_EU3_G_III</td></tr>
-  <tr><td>PC_EU4_G</td><td>LCV_EU4_G_I</td><td>LCV_EU4_G_II</td><td>LCV_EU4_G_III</td></tr>
+  <tr><td style="background-color:#34ff34">PC_EU4_G</td><td>LCV_EU4_G_I</td><td>LCV_EU4_G_II</td><td>LCV_EU4_G_III</td></tr>
   <tr><td>PC_EU5_G</td><td>LCV_EU5_G_I</td><td>LCV_EU5_G_II</td><td>LCV_EU5_G_III</td></tr>
   <tr><td>PC_EU6ab_G</td><td>LCV_EU6ab_G_I</td><td>LCV_EU6ab_G_II</td><td>LCV_EU6ab_G_III</td></tr>
   <tr><td>PC_EU6c_G</td><td>LCV_EU6c_G_I</td><td>LCV_EU6c_G_II</td><td>LCV_EU6c_G_III</td></tr>
