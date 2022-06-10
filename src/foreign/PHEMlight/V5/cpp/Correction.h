@@ -46,7 +46,7 @@ namespace PHEMlightdllV5 {
         double privateTNOxFactor;
 
     public:
-        Correction(const int year, const std::vector<std::string>& dataPath);
+        Correction(const std::vector<std::string>& dataPath);
 
     public:
         std::map<std::string, double> DETFactors;

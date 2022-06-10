@@ -31,12 +31,12 @@
 
 namespace PHEMlightdllV5 {
 
-    Correction::Correction(const int year, const std::vector<std::string>& dataPath)
+    Correction::Correction(const std::vector<std::string>& dataPath)
         : privateDataPath(dataPath) {
         setUseDet(false);
         setUseTNOx(false);
         setAmbTemp(20);
-        setYear(year);
+        setYear(2022);
         setVehMileage(-1);
         setDETFilePath("Detoriation.det");
         setVMAFilePath("Mileage.vma");
