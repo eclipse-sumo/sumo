@@ -104,8 +104,10 @@ GNEOverheadWire::isAdditionalValid() const {
         if (myFriendlyPosition) {
             return true;
         } else {
-            return (myStartPos >= 0) && ((myStartPos) <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) &&
-                   (myEndPos >= 0) && ((myEndPos) <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
+            return (myStartPos >= 0) && 
+                   (myEndPos >= 0) && 
+                   ((myStartPos) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) &&
+                   ((myEndPos) <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
         }
     } else {
         return false;
@@ -120,6 +122,10 @@ GNEOverheadWire::getAdditionalProblem() const {
     // abort if lanes aren't consecutives
     if (!areLaneConsecutives(getParentLanes())) {
         return "lanes aren't consecutives";
+    }
+    // abort if lanes aren't connected
+    if (!areLaneConnected(getParentLanes())) {
+        return "lanes aren't connected";
     }
     // check positions over first lane
     if (myStartPos < 0) {
