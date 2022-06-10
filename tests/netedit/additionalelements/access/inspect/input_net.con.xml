@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-22 13:15:40 by Eclipse SUMO netconvert Version v1_12_0+2234-4a9e9d56134
+<!-- generated on 2022-06-10 10:41:45 by Eclipse SUMO netconvert Version v1_13_0+0734-4d9b53714aa
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -29,10 +29,6 @@
         <walkingareas value="false"/>
     </pedestrian>
 
-    <report>
-        <aggregate-warnings value="5"/>
-    </report>
-
 </configuration>
 -->
 
@@ -45,8 +41,4 @@
 
     <connection from="gneE3" to="gneE2" fromLane="1" toLane="1"/>
 
-    <crossing node="gneJ0" edges="gneE0" priority="1" width="3.00" linkIndex="1"/>
-    <crossing node="gneJ0" edges="gneE1" priority="1" width="3.00" linkIndex="2"/>
-    <crossing node="gneJ1" edges="gneE1" priority="1" width="3.00" linkIndex="1"/>
-    <crossing node="gneJ1" edges="gneE0" priority="1" width="3.00" linkIndex="2"/>
 </connections>
