@@ -167,7 +167,7 @@ The special class `zero` may be used to specify a vehicle without emissions.
 
 PHEMlight5 allows to model the effects of aging and temperature on emissions. There are two new options to enable these models.
 
-- **--phemlight-year** the year your scenario simulates (only values larger than 2019 are allowed). PHEMlight will try to compute an average mileage for every emission class and adapt the emission values accordingly
+- **--phemlight-year** the year your scenario simulates. PHEMlight will try to compute an average mileage for every emission class and adapt the emission values accordingly.
 - **--phemlight-temperature** the ambient temperature. This will only affect the NOx value of some Diesel cars.
 
-The underlying correction factors are read from the files Detoriation.det, Mileage.vma and NOxCor.tno in your PHEMlight5 directory.
+The underlying correction factors are read from the files Deterioration.det, Mileage.vma and NOxCor.tno in your PHEMlight5 directory.
