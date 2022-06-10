@@ -64,10 +64,6 @@ public:
     /// @brief Constructor
     MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const std::string& nextEdges = "", const int detectPersons = false);
 
-    /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id, const std::set<std::string>& vTypes, const std::string& nextEdges = "", const int detectPersons = false);
-
-
     /// @brief (virtual) destructor
     virtual ~MSDetectorFileOutput() { }
 
