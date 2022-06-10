@@ -379,7 +379,7 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
     if (myCars.find(osgFile) == myCars.end()) {
         myCars[osgFile] = osgDB::readNodeFile(osgFile);
         if (myCars[osgFile] == 0) {
-            WRITE_ERROR("Could not load '" + osgFile + "'. The model is replaced by a box shape.");
+            WRITE_ERROR("Could not load '" + osgFile + "'. The model is replaced by a cone shape.");
 			osg::PositionAttitudeTransform* rot = new osg::PositionAttitudeTransform();
 			rot->addChild(new osg::ShapeDrawable(new osg::Cone(osg::Vec3d(0, 0, 0), 1.0f, 1.0f)));
 			rot->setAttitude(osg::Quat(osg::DegreesToRadians(90.), osg::Vec3(1, 0, 0),
