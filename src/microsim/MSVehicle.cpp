@@ -7367,4 +7367,19 @@ const MSEdge*
 MSVehicle::getCurrentEdge() const {
     return myLane != nullptr ? &myLane->getEdge() : getEdge();
 }
+
+const MSEdge*
+MSVehicle::getNextEdgePtr() const {
+    if (myLane == nullptr || (myCurrEdge + 1) == myRoute->end()) {
+        return nullptr;
+    }
+    if (myLane->isInternal()) {
+        return &myLane->getCanonicalSuccessorLane()->getEdge();
+    } else {
+        const MSEdge* nextNormal = succEdge(1);
+        const MSEdge* nextInternal = myLane->getEdge().getInternalFollowingEdge(nextNormal);
+        return nextInternal ? nextInternal : nextNormal;
+    }
+}
+
 /****************************************************************************/

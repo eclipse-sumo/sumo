@@ -90,7 +90,9 @@ MSDetectorFileOutput::vehicleApplies(const SUMOTrafficObject& veh) const {
         for (const MSEdge* e : myNextEdges) {
             it = std::find(it, end, e);
             if (it == end) {
-                return false;
+                if (e != veh.getNextEdgePtr()) {
+                    return false;
+                }
             }
         }
     }

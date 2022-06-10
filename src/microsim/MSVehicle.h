@@ -636,6 +636,9 @@ public:
      */
     const MSEdge* getCurrentEdge() const;
 
+    /// @brief returns the next edge (possibly an internal edge)
+    const MSEdge* getNextEdgePtr() const;
+
     /** @brief Returns the starting point for reroutes (usually the current edge)
      *
      * This differs from *myCurrEdge only if the vehicle is on an internal edge or
