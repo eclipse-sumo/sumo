@@ -1,4 +1,4 @@
-Eclipse SUMO jtrrouter Version v1_13_0+0654-36aa75fb917
+Eclipse SUMO jtrrouter Version v1_13_0+0728-092f803c3ab
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
  junction turning ratios.
@@ -25,6 +25,8 @@ Input Options:
                                     definitions from
   --phemlight-year INT             Enable fleet age modelling with the given
                                     reference year in PHEMlight5
+  --phemlight-temperature FLOAT    Set ambient temperature to correct NOx
+                                    emissions in PHEMlight5
   --junction-taz                   Initialize a TAZ for every junction to use
                                     attributes toJunction and fromJunction
   -t, --turn-ratio-files FILE      Read turning ratios from FILE(s)
