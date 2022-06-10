@@ -1,2 +1,11 @@
 # filter cars by their next edge
 20s_10r_5l
+
+# filter cars by their next edge
+20s_10r_5l_internal
+
+# detect persons depending on their next crossing
+nextCrossing
+
+# detect person on walkingarea depending on their next crossing
+walkingArea_nextCrossing
