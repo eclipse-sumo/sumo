@@ -137,13 +137,14 @@ GNEDetectorE2::isAdditionalValid() const {
         }
     } else {
         // first check if there is connection between all consecutive lanes
-        if (areLaneConsecutives(getParentLanes())) {
+        if (areLaneConnected(getParentLanes())) {
             // with friendly position enabled position are "always fixed"
             if (myFriendlyPosition) {
                 return true;
             } else {
-                return (myPositionOverLane >= 0) && (myEndPositionOverLane >= 0) &&
-                       (myPositionOverLane <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) &&
+                return (myPositionOverLane >= 0) && 
+                       (myEndPositionOverLane >= 0) &&
+                       (myPositionOverLane <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) &&
                        (myEndPositionOverLane <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
             }
         } else {
@@ -169,6 +170,10 @@ GNEDetectorE2::getAdditionalProblem() const {
         // abort if lanes aren't consecutives
         if (!areLaneConsecutives(getParentLanes())) {
             return "lanes aren't consecutives";
+        }
+        // abort if lanes aren't connected
+        if (!areLaneConnected(getParentLanes())) {
+            return "lanes aren't connected";
         }
         // check positions over first lane
         if (myPositionOverLane < 0) {
