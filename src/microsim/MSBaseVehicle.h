@@ -179,6 +179,11 @@ public:
         return getEdge();
     }
 
+    /// @brief returns the next edge (possibly an internal edge)
+    virtual const MSEdge* getNextEdgePtr() const {
+        return nullptr;
+    }
+
     /** @brief Returns the information whether the vehicle is on a road (is simulated)
      * @return Whether the vehicle is simulated
      */

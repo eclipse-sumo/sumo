@@ -111,6 +111,9 @@ public:
      */
     virtual const MSEdge* getEdge() const = 0;
 
+    /// @brief returns the next edge (possibly an internal edge)
+    virtual const MSEdge* getNextEdgePtr() const = 0;
+
     /** @brief Returns the lane the object is currently at
      *
      * @return The current lane or nullptr if the object is not on a lane
