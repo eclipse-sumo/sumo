@@ -25,6 +25,8 @@
 
 #include <utils/common/StringTokenizer.h>
 #include <microsim/MSVehicleType.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSRoute.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <utils/vehicle/SUMOTrafficObject.h>
@@ -43,7 +45,16 @@ MSDetectorFileOutput::MSDetectorFileOutput(const std::string& id,
     myDetectPersons(detectPersons) {
     const std::vector<std::string> vt = StringTokenizer(vTypes).getVector();
     myVehicleTypes.insert(vt.begin(), vt.end());
+    for (const std::string edgeID : StringTokenizer(nextEdges).getVector()) {
+        const MSEdge* e = MSEdge::dictionary(edgeID);
+        if (e) {
+            myNextEdges.push_back(e);
+        } else {
+            throw ProcessError("Unknown edge '" + edgeID + "' given as nextEdges in detector '" + id + "'");
+        }
+    }
 }
+
 
 MSDetectorFileOutput::MSDetectorFileOutput(const std::string& id,
         const std::set<std::string>& vTypes,
@@ -68,6 +79,26 @@ MSDetectorFileOutput::vehicleApplies(const SUMOTrafficObject& veh) const {
         }
         if (!typeMatches) {
             return false;
+        }
+    }
+    if (!myNextEdges.empty()) {
+        MSRouteIterator it;
+        MSRouteIterator end;
+        if (veh.isVehicle()) {
+            const SUMOVehicle& v = dynamic_cast<const SUMOVehicle&>(veh);
+            it = v.getCurrentRouteEdge();
+            end = v.getRoute().end();
+        } else if (veh.isPerson()) {
+            const MSTransportable& p = dynamic_cast<const MSTransportable&>(veh);
+            ConstMSEdgeVector route = p.getEdges(0);
+            it = route.begin() + p.getRoutePosition();
+            end = route.end();
+        }
+        for (const MSEdge* e : myNextEdges) {
+            it = std::find(it, end, e);
+            if (it == end) {
+                return false;
+            }
         }
     }
     return true;
