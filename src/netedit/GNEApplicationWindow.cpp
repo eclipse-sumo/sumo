@@ -200,6 +200,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS,          GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS,       GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS,       GNEApplicationWindow::onUpdToggleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWTAZELEMENTS,          GNEApplicationWindow::onCmdToggleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_SHOWTAZELEMENTS,          GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,          GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,          GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES,          GNEApplicationWindow::onCmdToggleViewOption),
@@ -414,6 +416,8 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     GUICursorSubSys::initCursors(a);
     // create undoList dialog (after initCursors)
     myUndoListDialog = new GNEUndoListDialog(this);
+    a->setTooltipTime(1000000000);
+    a->setTooltipPause(1000000000);
 }
 
 
@@ -749,7 +753,7 @@ GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject*, FXSelector, void*) {
     // check if file exist
-    if (OptionsCont::getOptions().getString("TLSPrograms-output").empty()) {
+    if (myViewNet && OptionsCont::getOptions().getString("TLSPrograms-output").empty()) {
         return myFileMenuCommands.reloadTLSPrograms->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return myFileMenuCommands.reloadTLSPrograms->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -834,7 +838,7 @@ GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject*, FXSelector, void*) {
     // check if file exist
-    if (OptionsCont::getOptions().getString("edgeTypes-output").empty()) {
+    if (myViewNet && OptionsCont::getOptions().getString("edgeTypes-output").empty()) {
         return myFileMenuCommands.reloadEdgeTypes->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return myFileMenuCommands.reloadEdgeTypes->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -2521,8 +2525,6 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
                     currentFolder);
     // check that file is valid (note: in this case we don't need to use function FileHelpers::addExtension)
     if (file != "") {
-        bool wasSet = oc.isSet("plain-output-prefix");
-        std::string oldPrefix = oc.getString("plain-output-prefix");
         std::string prefix = file.text();
         // if the name of an edg.xml file was given, remove the suffix
         if (StringUtils::endsWith(prefix, ".edg.xml")) {
@@ -2531,11 +2533,9 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
         if (StringUtils::endsWith(prefix, ".")) {
             prefix = prefix.substr(0, prefix.size() - 1);
         }
-        oc.resetWritable();
-        oc.set("plain-output-prefix", prefix);
         getApp()->beginWaitCursor();
         try {
-            myNet->savePlain(oc);
+            myNet->savePlain(oc, prefix);
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
@@ -2546,12 +2546,6 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Plain XML saved with prefix '" + prefix + "'.\n");
         myMessageWindow->addSeparator();
-        if (wasSet) {
-            oc.resetWritable();
-            oc.set("plain-output-prefix", oldPrefix);
-        } else {
-            oc.unSet("plain-output-prefix");
-        }
         getApp()->endWaitCursor();
         // restore focus
         setFocus();
@@ -2580,13 +2574,9 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check that file with extension is valid
     if (fileWithExtension != "") {
-        bool wasSet = oc.isSet("junctions.join-output");
-        std::string oldFile = oc.getString("junctions.join-output");
-        oc.resetWritable();
-        oc.set("junctions.join-output", fileWithExtension);
         getApp()->beginWaitCursor();
         try {
-            myNet->saveJoined(oc);
+            myNet->saveJoined(oc, fileWithExtension);
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
@@ -2597,12 +2587,6 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Joined junctions saved to '" + fileWithExtension + "'.\n");
         myMessageWindow->addSeparator();
-        if (wasSet) {
-            oc.resetWritable();
-            oc.set("junctions.join-output", oldFile);
-        } else {
-            oc.unSet("junctions.join-output");
-        }
         getApp()->endWaitCursor();
         // restore focus
         setFocus();
@@ -2782,6 +2766,8 @@ GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 return myViewNet->onCmdToggleHideConnections(obj, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS:
                 return myViewNet->onCmdToggleShowAdditionalSubElements(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_SHOWTAZELEMENTS:
+                return myViewNet->onCmdToggleShowTAZElements(obj, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION:
                 return myViewNet->onCmdToggleExtendSelection(obj, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES:
@@ -2905,6 +2891,13 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 break;
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS:
                 if (myViewNet->getNetworkViewOptions().menuCheckShowAdditionalSubElements->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_NETWORKVIEWOPTIONS_SHOWTAZELEMENTS:
+                if (myViewNet->getNetworkViewOptions().menuCheckShowTAZElements->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);
@@ -3453,7 +3446,7 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdReloadAdditionals(FXObject*, FXSelector, void*) {
     // check if file exist
-    if (OptionsCont::getOptions().getString("additional-files").empty()) {
+    if (myViewNet && OptionsCont::getOptions().getString("additional-files").empty()) {
         return myFileMenuCommands.reloadAdditionals->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return myFileMenuCommands.reloadAdditionals->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3631,7 +3624,7 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdReloadDemandElements(FXObject*, FXSelector, void*) {
     // check if file exist
-    if (OptionsCont::getOptions().getString("route-files").empty()) {
+    if (myViewNet && OptionsCont::getOptions().getString("route-files").empty()) {
         return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3817,7 +3810,7 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdReloadDataElements(FXObject*, FXSelector, void*) {
     // check if file exist
-    if (OptionsCont::getOptions().getString("data-files").empty()) {
+    if (myViewNet && OptionsCont::getOptions().getString("data-files").empty()) {
         return myFileMenuCommands.reloadDataElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return myFileMenuCommands.reloadDataElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);

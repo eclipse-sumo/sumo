@@ -149,6 +149,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                         StoHelp::writeTypedInt(server.getWrapperStorage(), c.limit);
                         StoHelp::writeTypedInt(server.getWrapperStorage(), c.type);
                         StoHelp::writeTypedByte(server.getWrapperStorage(), c.mustWait);
+                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.active);
                     }
                     break;
                 }
@@ -171,6 +172,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                         StoHelp::writeTypedInt(server.getWrapperStorage(), c.limit);
                         StoHelp::writeTypedInt(server.getWrapperStorage(), c.type);
                         StoHelp::writeTypedByte(server.getWrapperStorage(), c.mustWait);
+                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.active);
                     }
                     break;
                 }
@@ -206,6 +208,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                         StoHelp::writeTypedInt(server.getWrapperStorage(), c.limit);
                         StoHelp::writeTypedInt(server.getWrapperStorage(), c.type);
                         StoHelp::writeTypedByte(server.getWrapperStorage(), c.mustWait);
+                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.active);
                     }
                     break;
                 }

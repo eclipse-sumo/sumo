@@ -43,6 +43,9 @@ public:
     /// @brief Definition of the key to pointer map type
     typedef std::map< std::string, T > IDMap;
 
+    ///@brief Constructor
+    NamedObjectCont() {}
+
     ///@brief Destructor
     virtual ~NamedObjectCont() {
         // iterate over all elements to delete it

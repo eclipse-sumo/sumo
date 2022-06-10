@@ -79,7 +79,7 @@ jobs:
         PYTHON_VERSION=${{ matrix.python }}
         python -m pip install manylinux-wheels/libsumo-*cp3${PYTHON_VERSION:2}*
         cd tests
-        texttest -b ci -v ci -a complex.libsumo -ts vehicle_s
+        texttest -b ci -v ci -a complex.libsumo
 
     - name: Uploading test results
       if: failure()

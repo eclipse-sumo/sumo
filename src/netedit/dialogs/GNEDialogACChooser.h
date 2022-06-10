@@ -60,6 +60,12 @@ protected:
     /// @brief toggle selection
     void toggleSelection(int listIndex) override;
 
+    /// @brief set selection (handled differently in NETEDIT)
+    void select(int listIndex) override;
+
+    /// @brief unset selection (handled differently in NETEDIT)
+    void deselect(int listIndex) override;
+
     /// @brief filter ACs
     void filterACs(const std::vector<GUIGlID>& GLIDs) override;
 

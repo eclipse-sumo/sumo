@@ -69,10 +69,26 @@ GNEPersonPlanFrame::show() {
         // refresh tag selector
         myPersonPlanTagSelector->refreshTagSelector();
         // set first person as demand element (this will call demandElementSelected() function)
-        if (persons.size() > 0) {
-            myPersonSelector->setDemandElement(*persons.begin());
+        if (myViewNet->getFrontAttributeCarrier() && myViewNet->getFrontAttributeCarrier()->getTagProperty().isPerson()) {
+            GNEDemandElement *personFound = nullptr;
+            // search person
+            for (const auto &person : persons) {
+                if (myViewNet->getFrontAttributeCarrier()->getID() == person->getID()) {
+                    personFound = person;
+                }
+            }
+            // search personFlow
+            for (const auto &personFlow : personFlows) {
+                if (myViewNet->getFrontAttributeCarrier()->getID() == personFlow->getID()) {
+                    personFound = personFlow;
+                }
+            }
+            // check personFound
+            if (personFound) {
+                myPersonSelector->setDemandElement(personFound);
+            }
         } else {
-            myPersonSelector->setDemandElement(*personFlows.begin());
+            myPersonSelector->setDemandElement(nullptr);
         }
     } else {
         // hide all moduls except helpCreation
@@ -100,10 +116,22 @@ GNEPersonPlanFrame::hide() {
 
 bool
 GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
-    // first check if person selected is valid
+    // check if we have to select a new person
     if (myPersonSelector->getCurrentDemandElement() == nullptr) {
-        myViewNet->setStatusBarText("Current selected person isn't valid.");
-        return false;
+        if (objectsUnderCursor.getDemandElementFront() && objectsUnderCursor.getDemandElementFront()->getTagProperty().isPerson()) {
+            // continue depending of number of demand elements under cursor
+            if (objectsUnderCursor.getClickedDemandElements().size() > 1) {
+                // Filter persons
+                myPersonSelector->setDemandElements(objectsUnderCursor.getClickedDemandElements());
+            } else {
+                // select new person
+                myPersonSelector->setDemandElement(objectsUnderCursor.getDemandElementFront());
+            }
+            return true;
+        } else {
+            myViewNet->setStatusBarText("Current selected person isn't valid.");
+            return false;
+        }
     }
     // finally check that person plan selected is valid
     if (myPersonPlanTagSelector->getCurrentTemplateAC() == nullptr) {
@@ -133,6 +161,12 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     } else {
         return false;
     }
+}
+
+
+void 
+GNEPersonPlanFrame::resetSelectedPerson() {
+    myPersonSelector->setDemandElement(nullptr);
 }
 
 

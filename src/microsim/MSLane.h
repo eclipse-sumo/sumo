@@ -37,11 +37,12 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/NamedRTree.h>
+#include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/PositionVector.h>
 #include "MSGlobals.h"
 #include "MSLeaderInfo.h"
 #include "MSMoveReminder.h"
-#include <libsumo/Helper.h>
+#include "MSVehicle.h"
 
 #include <utils/foxtools/FXSynchQue.h>
 #ifdef HAVE_FOX
@@ -54,20 +55,22 @@
 // class declarations
 // ===========================================================================
 class MSEdge;
-class MSVehicle;
+class MSBaseVehicle;
 class MSLaneChanger;
 class MSLink;
 class MSVehicleTransfer;
 class MSVehicleControl;
 class OutputDevice;
 class MSLeaderInfo;
+class MSJunction;
 
 
 // ===========================================================================
 // type definitions
 // ===========================================================================
+#define LANE_RTREE_QUAL RTree<MSLane*, MSLane, float, 2, MSLane::StoringVisitor>
 /// Coverage info
-typedef std::map<const MSLane*, std::pair<double, double> >  LaneCoverageInfo; // also declared in libsumo/Helper.h!
+typedef std::map<const MSLane*, std::pair<double, double> >  LaneCoverageInfo;
 
 // ===========================================================================
 // class definitions
@@ -81,6 +84,31 @@ typedef std::map<const MSLane*, std::pair<double, double> >  LaneCoverageInfo; /
  */
 class MSLane : public Named, public Parameterised {
 public:
+    class StoringVisitor {
+    public:
+        /// @brief Constructor
+        StoringVisitor(std::set<const Named*>& objects, const PositionVector& shape,
+            const double range, const int domain)
+            : myObjects(objects), myShape(shape), myRange(range), myDomain(domain) {}
+
+        /// @brief Adds the given object to the container
+        void add(const MSLane* const l) const;
+
+    private:
+        /// @brief The container
+        std::set<const Named*>& myObjects;
+        const PositionVector& myShape;
+        const double myRange;
+        const int myDomain;
+
+    private:
+        /// @brief invalidated copy constructor
+        StoringVisitor(const StoringVisitor& src);
+
+        /// @brief invalidated assignment operator
+        StoringVisitor& operator=(const StoringVisitor& src);
+    };
+
     /// needs access to myTmpVehicles (this maybe should be done via double-buffering!!!)
     friend class MSLaneChanger;
     friend class MSLaneChangerSublane;
@@ -940,19 +968,18 @@ public:
      * @param[in] speed The speed of the vehicle used for determining whether a subsequent link will be opened at arrival time
      * @param[in] veh The vehicle for which the information shall be computed
      * @param[in] bestLaneConts The lanes the vehicle will use in future
-     * @param[in] abortClosed Whether the leader search should abort upon encountering a closed link
      * @return
      */
     std::pair<MSVehicle* const, double> getLeaderOnConsecutive(double dist, double seen,
-            double speed, const MSVehicle& veh, const std::vector<MSLane*>& bestLaneConts, bool abortClosed) const;
+            double speed, const MSVehicle& veh, const std::vector<MSLane*>& bestLaneConts) const;
 
     /// @brief Returns the immediate leaders and the distance to them (as getLeaderOnConsecutive but for the sublane case)
     void getLeadersOnConsecutive(double dist, double seen, double speed, const MSVehicle* ego,
-                                 const std::vector<MSLane*>& bestLaneConts, bool abortClosed, MSLeaderDistanceInfo& result, bool oppositeDirection = false) const;
+                                 const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result, bool oppositeDirection = false) const;
 
 
     /// @brief get leaders for ego on the given lane
-    void addLeaders(const MSVehicle* vehicle, double vehPos, bool abortClosed, MSLeaderDistanceInfo& result, bool oppositeDirection = false);
+    void addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result, bool oppositeDirection = false);
 
 
     /** @brief Returns the most dangerous leader and the distance to him
@@ -997,9 +1024,9 @@ public:
     /// @note  Does not consider vehs with front on subsequent lanes
     std::set<MSVehicle*> getVehiclesInRange(const double a, const double b) const;
 
-
     /// @brief Returns all upcoming junctions within given range along the given (non-internal) continuation lanes measured from given position
     std::vector<const MSJunction*> getUpcomingJunctions(double pos, double range, const std::vector<MSLane*>& contLanes) const;
+
     /// @brief Returns all upcoming links within given range along the given (non-internal) continuation lanes measured from given position
     std::vector<const MSLink*> getUpcomingLinks(double pos, double range, const std::vector<MSLane*>& contLanes) const;
 
@@ -1079,46 +1106,18 @@ public:
     }
 
 
-    /** @brief Returns the sum of last step CO2 emissions
-     * @return CO2 emissions of vehicles on this lane during the last step
+    /** @brief Returns the sum of last step emissions
+     * @return emissions of vehicles on this lane during the last step
      */
-    double getCO2Emissions() const;
-
-
-    /** @brief Returns the sum of last step CO emissions
-     * @return CO emissions of vehicles on this lane during the last step
-     */
-    double getCOEmissions() const;
-
-
-    /** @brief Returns the sum of last step PMx emissions
-     * @return PMx emissions of vehicles on this lane during the last step
-     */
-    double getPMxEmissions() const;
-
-
-    /** @brief Returns the sum of last step NOx emissions
-     * @return NOx emissions of vehicles on this lane during the last step
-     */
-    double getNOxEmissions() const;
-
-
-    /** @brief Returns the sum of last step HC emissions
-     * @return HC emissions of vehicles on this lane during the last step
-     */
-    double getHCEmissions() const;
-
-
-    /** @brief Returns the sum of last step fuel consumption
-    * @return fuel consumption of vehicles on this lane during the last step
-    */
-    double getFuelConsumption() const;
-
-
-    /** @brief Returns the sum of last step electricity consumption
-    * @return electricity consumption of vehicles on this lane during the last step
-    */
-    double getElectricityConsumption() const;
+    template<PollutantsInterface::EmissionType ET>
+    double getEmissions() const {
+        double ret = 0;
+        for (MSVehicle* const v : getVehiclesSecure()) {
+            ret += v->getEmissions<ET>();
+        }
+        releaseVehicles();
+        return ret;
+    }
 
 
     /** @brief Returns the sum of last step noise emissions
@@ -1277,7 +1276,7 @@ public:
      * @param[in] cont The context doing all the work
      * @see libsumo::Helper::LaneStoringVisitor::add
      */
-    void visit(const LaneStoringVisitor& cont) const {
+    void visit(const MSLane::StoringVisitor& cont) const {
         cont.add(this);
     }
 
@@ -1592,8 +1591,6 @@ private:
         int operator()(const MSEdge* const e1, const MSEdge* const e2) const;
 
     private:
-        by_connections_to_sorter& operator=(const by_connections_to_sorter&) = delete; // just to avoid a compiler warning
-    private:
         const MSEdge* const myEdge;
         double myLaneDir;
     };
@@ -1613,8 +1610,6 @@ private:
         int operator()(const IncomingLaneInfo& lane1, const IncomingLaneInfo& lane2) const;
 
     private:
-        incoming_lane_priority_sorter& operator=(const incoming_lane_priority_sorter&) = delete; // just to avoid a compiler warning
-    private:
         const MSLane* const myLane;
         double myLaneDir;
     };
@@ -1633,8 +1628,6 @@ private:
         int operator()(const MSLink* link1, const MSLink* link2) const;
 
     private:
-        outgoing_lane_priority_sorter& operator=(const outgoing_lane_priority_sorter&) = delete; // just to avoid a compiler warning
-    private:
         double myLaneDir;
     };
 
@@ -1647,8 +1640,6 @@ private:
         bool operator()(const IncomingLaneInfo& ili) const {
             return &(ili.lane->getEdge()) == myEdge;
         }
-    private:
-        edge_finder& operator=(const edge_finder&) = delete; // just to avoid a compiler warning
     private:
         const MSEdge* const myEdge;
     };

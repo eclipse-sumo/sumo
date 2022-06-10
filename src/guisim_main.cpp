@@ -83,7 +83,7 @@ main(int argc, char** argv) {
         GUIApplicationWindow* window =
             new GUIApplicationWindow(&application, "*.sumo.cfg,*.sumocfg");
         gSchemeStorage.init(&application);
-        window->dependentBuild();
+        window->dependentBuild(false);
         // Create app
         application.addSignal(SIGINT, window, MID_HOTKEY_CTRL_Q_CLOSE);
         application.create();

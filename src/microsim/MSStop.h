@@ -110,9 +110,4 @@ public:
 
     /// @brief return minimum stop duration when starting stop at time
     SUMOTime getMinDuration(SUMOTime time) const;
-
-private:
-    /// @brief Invalidated assignment operator
-    MSStop& operator=(const MSStop& src) = delete;
-
 };

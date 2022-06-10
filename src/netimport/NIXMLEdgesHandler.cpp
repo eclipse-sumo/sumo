@@ -305,6 +305,13 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myCurrentEdge = nullptr;
         return;
     }
+    if (myFromNode == myToNode) {
+        // this might as well be an error. We make this a warning mostly for
+        // backward compatibility
+        WRITE_WARNINGF("Ignoring self-looped edge '%' at junction '%'", myCurrentID, myFromNode->getID());
+        myCurrentEdge = nullptr;
+        return;
+    }
     // check whether a previously defined edge shall be overwritten
     const bool applyLaneType = myCurrentEdge == nullptr;
     if (myCurrentEdge != nullptr) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-19 17:28:04 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
+<!-- generated on 2022-05-13 11:31:49 by Eclipse SUMO netconvert Version v1_13_0+0231-194ea10
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1367,7 +1367,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="165358540_0" index="0" allow="pedestrian" speed="1.39" length="3.60" shape="622.97,1134.60 622.88,1131.00"/>
     </edge>
     <edge id="165358541" from="1979164102" to="1769087045" priority="1" type="highway.footway" spreadType="center" shape="611.96,1091.50 610.59,1091.78 610.39,1102.68">
-        <lane id="165358541_0" index="0" allow="pedestrian" speed="8.33" length="8.83" shape="610.55,1093.85 610.39,1102.68"/>
+        <lane id="165358541_0" index="0" allow="pedestrian" speed="8.33" length="9.07" shape="610.56,1093.62 610.39,1102.68"/>
     </edge>
     <edge id="165358545" from="1769087045" to="1769087046" priority="1" type="highway.steps" spreadType="center">
         <lane id="165358545_0" index="0" allow="pedestrian" speed="1.39" length="5.45" shape="610.39,1102.68 610.60,1108.13"/>
@@ -1967,7 +1967,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="1979164101" type="priority" x="629.40" y="961.45" incLanes="58980584#4_0" intLanes=":1979164101_0_0" shape="629.40,961.45 626.22,961.07 629.40,961.45">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="1979164102" type="right_before_left" x="611.96" y="1091.50" incLanes="-58980584#1_0 58980584#0_0" intLanes=":1979164102_0_0 :1979164102_1_0 :1979164102_2_0 :1979164102_3_0" shape="616.77,1094.70 616.77,1088.30 615.94,1088.13 615.66,1087.92 615.46,1087.63 615.35,1087.26 615.32,1086.80 608.93,1086.58 608.98,1092.31 612.92,1096.18 613.44,1095.36 613.99,1095.07 614.72,1094.86 615.65,1094.74">
+    <junction id="1979164102" type="right_before_left" x="611.96" y="1091.50" incLanes="-58980584#1_0 58980584#0_0" intLanes=":1979164102_0_0 :1979164102_1_0 :1979164102_2_0 :1979164102_3_0" shape="616.77,1094.70 616.77,1088.30 615.94,1088.13 615.66,1087.92 615.46,1087.63 615.35,1087.26 615.32,1086.80 608.93,1086.58 609.00,1091.03 612.11,1096.20 612.64,1095.36 613.29,1095.07 614.19,1094.86 615.35,1094.74">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="0"/>
         <request index="2" response="0000" foes="0010" cont="0"/>

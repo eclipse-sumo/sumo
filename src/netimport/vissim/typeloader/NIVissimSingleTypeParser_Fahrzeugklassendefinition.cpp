@@ -24,8 +24,8 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/VectorHelper.h>
-#include "../NIImporter_Vissim.h"
-#include "../tempstructs/NIVissimVehTypeClass.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
+#include <netimport/vissim/tempstructs/NIVissimVehTypeClass.h>
 #include "NIVissimSingleTypeParser_Fahrzeugklassendefinition.h"
 
 

@@ -131,9 +131,8 @@ def applyPlotOptions(fig, ax, options):
             xticks(
                 arange(float(vals[0]), float(vals[1]), float(vals[2])), size=float(vals[3]))
         else:
-            print(
+            raise Exception(
                 "Error: ticks must be given as one float (<SIZE>) or four floats (<MIN>,<MAX>,<STEP>,<SIZE>)")
-            sys.exit()
     if options.xtime1:
         ax.xaxis.set_major_formatter(ff(m2hm1))
     if options.xtime2:
@@ -158,9 +157,8 @@ def applyPlotOptions(fig, ax, options):
             yticks(
                 arange(float(vals[0]), float(vals[1]), float(vals[2])), size=float(vals[3]))
         else:
-            print(
+            raise Exception(
                 "Error: ticks must be given as one float (<SIZE>) or four floats (<MIN>,<MAX>,<STEP>,<SIZE>)")
-            sys.exit()
     if options.ytime1:
         ax.yaxis.set_major_formatter(ff(m2hm1))
     if options.ytime2:
@@ -184,10 +182,9 @@ def applyPlotOptions(fig, ax, options):
             fig.subplots_adjust(left=float(vals[0]), bottom=float(
                 vals[1]), right=float(vals[2]), top=float(vals[3]))
         else:
-            print(
+            raise Exception(
                 "Error: adjust must be given as two floats (<LEFT>,<BOTTOM>) or four floats " +
                 "(<LEFT>,<BOTTOM>,<RIGHT>,<TOP>)")
-            sys.exit()
 
 
 def plotNet(net, colors, widths, options):
@@ -217,8 +214,7 @@ def getColor(options, i, a):
     if options.colors:
         v = options.colors.split(",")
         if i >= len(v):
-            print("Error: not enough colors given")
-            sys.exit(1)
+            raise Exception("Error: not enough colors given")
         return v[i]
     if options.colormap[0] == '#':
         colormap = parseColorMap(options.colormap[1:])

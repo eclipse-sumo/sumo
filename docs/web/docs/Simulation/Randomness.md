@@ -84,7 +84,7 @@ For low probability the distribution of inserted vehicles approximates a [Poisso
 Distribution](https://en.wikipedia.org/wiki/Poisson_distribution)
 
 ## Poisson distribution
-Since version 1.13.0 flow can also be defined with attribute `end` and `probability="exp(X)"` where `X` is a positive value.
+Since version 1.13.0 flow can also be defined with attribute `end` and `period="exp(X)"` where `X` is a positive value.
 This will cause the time gaps between vehicle insertions to follow an [exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution) with rate parameter `X`. Effectively insertion an expected value of `X` vehicles per second.
 The number of vehicles inserted this way will follow the [Poisson distribution](https://en.wikipedia.org/wiki/Poisson_distribution).
 

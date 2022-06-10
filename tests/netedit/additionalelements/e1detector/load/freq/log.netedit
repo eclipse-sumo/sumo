@@ -1,4 +1,4 @@
-Error: Attribute 'freq' is missing in definition of e1Detector 'E1_01'.
+Error: Attribute 'period' is missing in definition of e1Detector 'E1_01'.
 Error: Attribute 'freq' in definition of e1Detector 'E1_02' is not a valid time value.
 Error: Could not build e1Detector with ID 'E1_03' in netedit; attribute freq cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e1detector\load\freq\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09May091435.5936\netedit.gui\additionalelements\e1detector\load\freq\input_additionals.add.xml failed.

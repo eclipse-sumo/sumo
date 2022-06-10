@@ -107,11 +107,10 @@ MSFullExport::writeEdge(OutputDevice& of) {
 
 void
 MSFullExport::writeLane(OutputDevice& of, const MSLane& lane) {
-
-    of.openTag("lane").writeAttr("id", lane.getID()).writeAttr("CO", lane.getCOEmissions()).writeAttr("CO2", lane.getCO2Emissions());
-    of.writeAttr("NOx", lane.getNOxEmissions()).writeAttr("PMx", lane.getPMxEmissions()).writeAttr("HC", lane.getHCEmissions());
-    of.writeAttr("noise", lane.getHarmonoise_NoiseEmissions()).writeAttr("fuel", lane.getFuelConsumption());
-    of.writeAttr("electricity", lane.getElectricityConsumption()).writeAttr("maxspeed", lane.getSpeedLimit());
+    of.openTag("lane").writeAttr("id", lane.getID()).writeAttr("CO", lane.getEmissions<PollutantsInterface::CO>()).writeAttr("CO2", lane.getEmissions<PollutantsInterface::CO2>());
+    of.writeAttr("NOx", lane.getEmissions<PollutantsInterface::NO_X>()).writeAttr("PMx", lane.getEmissions<PollutantsInterface::PM_X>()).writeAttr("HC", lane.getEmissions<PollutantsInterface::HC>());
+    of.writeAttr("noise", lane.getHarmonoise_NoiseEmissions()).writeAttr("fuel", lane.getEmissions<PollutantsInterface::FUEL>());
+    of.writeAttr("electricity", lane.getEmissions<PollutantsInterface::ELEC>()).writeAttr("maxspeed", lane.getSpeedLimit());
     of.writeAttr("meanspeed", lane.getMeanSpeed()).writeAttr("occupancy", lane.getNettoOccupancy()).writeAttr("vehicle_count", lane.getVehicleNumber());
     of.closeTag();
 }
@@ -145,3 +144,5 @@ MSFullExport::writeTLS(OutputDevice& of, SUMOTime /* timestep */) {
     of.closeTag();
 }
 
+
+/****************************************************************************/

@@ -17,6 +17,7 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
+#include <config.h>
 
 #define LIBTRACI 1
 #include <iterator>

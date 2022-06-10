@@ -151,6 +151,7 @@ public:
     /// @brief Definition of a method to be called for serving an associated commandID
     typedef bool(*SubscriptionHandler)(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
     VariableWrapper(SubscriptionHandler handler = nullptr) : handle(handler) {}
+    virtual ~VariableWrapper() {}
     SubscriptionHandler handle;
     virtual void setContext(const std::string* const /* refID */) {}
     virtual void clear() {}

@@ -456,6 +456,9 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check to show additional sub-elements
             FXMenuCheckIcon* menuCheckShowAdditionalSubElements;
 
+            /// @brief menu check to show TAZ elements
+            FXMenuCheckIcon* menuCheckShowTAZElements;
+
             /// @brief menu check to extend to edge nodes
             FXMenuCheckIcon* menuCheckExtendSelection;
 

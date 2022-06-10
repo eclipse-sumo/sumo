@@ -72,7 +72,6 @@ FXIMPLEMENT(GUIDialog_Options::InputFilename,       FXHorizontalFrame, InputFile
 // ===========================================================================
 GUIDialog_Options::GUIDialog_Options(FXWindow* parent,  const char* titleName, int width, int height) :
     FXDialogBox(parent, titleName, GUIDesignDialogBox, 0, 0, width, height) {
-    //new FXToolTip(getApp(), TOOLTIP_VARIABLE); // not working
     OptionsCont& oc = OptionsCont::getOptions();
     new FXStatusBar(this, GUIDesignStatusBar);
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);

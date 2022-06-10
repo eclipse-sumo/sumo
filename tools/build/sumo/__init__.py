@@ -20,13 +20,12 @@ import subprocess
 
 
 SUMO_HOME = os.path.dirname(__file__)
-ENV = os.environ.copy()
-if "SUMO_HOME" not in ENV:
-    ENV["SUMO_HOME"] = SUMO_HOME
+if "SUMO_HOME" not in os.environ:
+    os.environ["SUMO_HOME"] = SUMO_HOME
 
 
 def _makefunc(app):
-    return lambda: sys.exit(subprocess.call([os.path.join(SUMO_HOME, 'bin', app)] + sys.argv[1:], env=ENV))
+    return lambda: sys.exit(subprocess.call([os.path.join(SUMO_HOME, 'bin', app)] + sys.argv[1:], env=os.environ))
 
 
 activitygen = _makefunc("activitygen")

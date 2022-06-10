@@ -20,8 +20,8 @@ from __future__ import print_function
 import os
 import sys
 
-SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 
 import traci  # noqa
 import sumolib  # noqa
@@ -43,7 +43,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
     leaderHighDist = traci.vehicle.getLeader(vehID, 150)
     leaderLane = traci.vehicle.getLaneID(leaderHighDist[0]) if leaderHighDist is not None else None
     print("%s: egoLane=%s leaderAuto=%s leaderHigh=%s leaderLane=%s" % (
-            t, traci.vehicle.getLaneID(vehID), leaderAutoDist, leaderHighDist, leaderLane))
+        t, traci.vehicle.getLaneID(vehID), leaderAutoDist, leaderHighDist, leaderLane))
     traci.simulationStep()
 
 

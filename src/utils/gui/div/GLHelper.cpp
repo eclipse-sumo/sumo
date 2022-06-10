@@ -29,7 +29,7 @@
 #include <utils/options/OptionsCont.h>
 #define FONTSTASH_IMPLEMENTATION // Expands implementation
 #ifdef _MSC_VER
-#pragma warning(disable: 4505) // do not warn about unused functions
+#pragma warning(disable: 4505 5219) // do not warn about unused functions and implicit float conversions
 #endif
 #if __GNUC__ > 3
 #pragma GCC diagnostic push

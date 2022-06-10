@@ -1,3 +1,4 @@
 -n net.net.xml
 -r input_routes.rou.xml
 --no-step-log
+--collision.action warn

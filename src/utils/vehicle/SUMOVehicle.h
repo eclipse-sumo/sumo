@@ -149,7 +149,7 @@ public:
      *
      * @return The vehicle's emission parameters
      */
-    virtual const EnergyParams* getEmissionParameters() const = 0;
+    virtual EnergyParams* getEmissionParameters() const = 0;
 
     /** @brief Replaces the vehicle's parameter
      */

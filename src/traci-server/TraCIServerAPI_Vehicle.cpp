@@ -881,9 +881,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 } else {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting acceleration requires 2 parameters as compound object description.", outputStorage);
                 }
-                if (accel < 0) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Acceleration must not be negative.", outputStorage);
-                }
                 if (duration < 0) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Duration must not be negative.", outputStorage);
                 }

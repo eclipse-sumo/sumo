@@ -59,7 +59,6 @@ Debug: Setting new attribute
 Debug: Removing lane 'gneE3_1' from edge
 Debug: Value 'dummyLanes' for attribute numLanes of edge isn't valid
 Debug: Value '-6' for attribute numLanes of edge isn't valid
-Debug: Value '' for attribute numLanes of edge isn't valid
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute

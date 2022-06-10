@@ -99,9 +99,9 @@ def init(manager):
     optParser.add_option("-t", "--test", action="store_true",
                          default=False, help="Run in test mode")
     options, _ = optParser.parse_args()
-    sumoExe = os.environ.get("SUMO_BINARY", os.path.join(os.environ['SUMO_HOME'], 'bin', 'sumo'))
+    sumoExe = sumolib.checkBinary('sumo')
     if options.gui:
-        sumoExe = os.environ.get("GUISIM_BINARY", os.path.join(os.environ['SUMO_HOME'], 'bin', 'sumo-gui'))
+        sumoExe = sumolib.checkBinary('sumo-gui')
     sumoConfig = "%s%02i.sumocfg" % (PREFIX, options.demand)
     if options.cyber:
         sumoConfig = "%s%02i_cyber.sumocfg" % (PREFIX, options.demand)

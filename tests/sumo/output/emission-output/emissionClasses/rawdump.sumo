@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun  2 19:20:19 2020 by Eclipse SUMO Version v1_6_0+0491-ce9947823b
+<!-- generated on 2022-05-19 11:13:35 by Eclipse SUMO sumo Version v1_13_0+0338-3f382a7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -37,73 +42,73 @@ SPDX-License-Identifier: EPL-2.0
 
 <emission-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/emission_file.xsd">
     <timestep time="0.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="1895.56" CO="0.58" HC="0.03" NOx="13.18" PMx="0.00" fuel="0.71" electricity="0.00" noise="55.94" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="5.10" speed="0.00" angle="90.00" x="5.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="508.15" CO="0.07" HC="0.04" NOx="1.65" PMx="0.04" fuel="0.19" electricity="0.00" noise="55.94" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="5.10" speed="0.00" angle="90.00" x="5.10" y="-1.60"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="3179.29" CO="0.61" HC="0.08" NOx="18.08" PMx="0.00" fuel="1.20" electricity="0.00" noise="68.38" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="7.70" speed="2.60" angle="90.00" x="7.70" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="4554.95" CO="0.77" HC="0.22" NOx="15.31" PMx="0.54" fuel="1.72" electricity="0.00" noise="68.38" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="7.70" speed="2.60" angle="90.00" x="7.70" y="-1.60"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="4524.84" CO="0.64" HC="0.13" NOx="23.59" PMx="0.00" fuel="1.70" electricity="0.00" noise="69.46" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="12.90" speed="5.20" angle="90.00" x="12.90" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="7268.49" CO="0.89" HC="0.27" NOx="31.87" PMx="0.78" fuel="2.75" electricity="0.00" noise="69.46" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="12.90" speed="5.20" angle="90.00" x="12.90" y="-1.60"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="5932.20" CO="0.67" HC="0.18" NOx="29.71" PMx="0.00" fuel="2.23" electricity="0.00" noise="70.61" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="20.70" speed="7.80" angle="90.00" x="20.70" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="8524.30" CO="0.93" HC="0.27" NOx="42.33" PMx="0.76" fuel="3.23" electricity="0.00" noise="70.61" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="20.70" speed="7.80" angle="90.00" x="20.70" y="-1.60"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="7401.38" CO="0.70" HC="0.22" NOx="36.44" PMx="0.00" fuel="2.79" electricity="0.00" noise="71.82" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="31.10" speed="10.40" angle="90.00" x="31.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="9848.08" CO="1.55" HC="0.27" NOx="60.74" PMx="0.88" fuel="3.73" electricity="0.00" noise="71.82" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="31.10" speed="10.40" angle="90.00" x="31.10" y="-1.60"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="8932.38" CO="0.73" HC="0.27" NOx="43.77" PMx="0.00" fuel="3.36" electricity="0.00" noise="73.06" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="44.10" speed="13.00" angle="90.00" x="44.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="12099.91" CO="1.48" HC="0.35" NOx="76.45" PMx="1.03" fuel="4.58" electricity="0.00" noise="73.06" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="44.10" speed="13.00" angle="90.00" x="44.10" y="-1.60"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="10525.20" CO="0.76" HC="0.32" NOx="51.72" PMx="0.00" fuel="3.96" electricity="0.00" noise="74.32" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="59.70" speed="15.60" angle="90.00" x="59.70" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="13346.66" CO="1.48" HC="0.43" NOx="80.95" PMx="1.71" fuel="5.05" electricity="0.00" noise="74.32" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="59.70" speed="15.60" angle="90.00" x="59.70" y="-1.60"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="12179.83" CO="0.78" HC="0.36" NOx="60.27" PMx="0.00" fuel="4.58" electricity="0.00" noise="75.60" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="77.90" speed="18.20" angle="90.00" x="77.90" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="13318.08" CO="1.48" HC="0.43" NOx="80.80" PMx="1.70" fuel="5.04" electricity="0.00" noise="75.60" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="77.90" speed="18.20" angle="90.00" x="77.90" y="-1.60"/>
     </timestep>
     <timestep time="8.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="13896.28" CO="0.81" HC="0.41" NOx="69.43" PMx="0.00" fuel="5.23" electricity="0.00" noise="76.87" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="98.70" speed="20.80" angle="90.00" x="98.70" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="13282.57" CO="1.48" HC="0.43" NOx="80.61" PMx="1.68" fuel="5.03" electricity="0.00" noise="76.87" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="98.70" speed="20.80" angle="90.00" x="98.70" y="-1.60"/>
     </timestep>
     <timestep time="9.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="15674.54" CO="0.84" HC="0.46" NOx="79.19" PMx="0.00" fuel="5.90" electricity="0.00" noise="78.14" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="122.10" speed="23.40" angle="90.00" x="122.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="13239.04" CO="1.48" HC="0.42" NOx="80.38" PMx="1.66" fuel="5.01" electricity="0.00" noise="78.14" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="122.10" speed="23.40" angle="90.00" x="122.10" y="-1.60"/>
     </timestep>
     <timestep time="10.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="17514.62" CO="0.87" HC="0.51" NOx="89.57" PMx="0.00" fuel="6.59" electricity="0.00" noise="79.40" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="148.10" speed="26.00" angle="90.00" x="148.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="13186.30" CO="1.48" HC="0.42" NOx="80.10" PMx="1.63" fuel="4.99" electricity="0.00" noise="79.40" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="148.10" speed="26.00" angle="90.00" x="148.10" y="-1.60"/>
     </timestep>
     <timestep time="11.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="19416.52" CO="0.90" HC="0.55" NOx="100.55" PMx="0.00" fuel="7.31" electricity="0.00" noise="80.65" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="176.70" speed="28.60" angle="90.00" x="176.70" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="13123.14" CO="1.48" HC="0.42" NOx="79.77" PMx="1.60" fuel="4.97" electricity="0.00" noise="80.65" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="176.70" speed="28.60" angle="90.00" x="176.70" y="-1.60"/>
     </timestep>
     <timestep time="12.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="21380.23" CO="0.93" HC="0.60" NOx="112.14" PMx="0.00" fuel="8.04" electricity="0.00" noise="81.89" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="207.90" speed="31.20" angle="90.00" x="207.90" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="13048.24" CO="1.48" HC="0.42" NOx="79.38" PMx="1.56" fuel="4.94" electricity="0.00" noise="81.89" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="207.90" speed="31.20" angle="90.00" x="207.90" y="-1.60"/>
     </timestep>
     <timestep time="13.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="23405.76" CO="0.95" HC="0.65" NOx="124.34" PMx="0.00" fuel="8.81" electricity="0.00" noise="83.13" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="241.70" speed="33.80" angle="90.00" x="241.70" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="12960.22" CO="1.48" HC="0.42" NOx="78.91" PMx="1.52" fuel="4.91" electricity="0.00" noise="83.13" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="241.70" speed="33.80" angle="90.00" x="241.70" y="-1.60"/>
     </timestep>
     <timestep time="14.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="25493.11" CO="0.98" HC="0.70" NOx="137.15" PMx="0.00" fuel="9.59" electricity="0.00" noise="84.36" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="278.10" speed="36.40" angle="90.00" x="278.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="12870.19" CO="1.48" HC="0.41" NOx="78.37" PMx="1.47" fuel="4.87" electricity="0.00" noise="84.36" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="278.10" speed="36.40" angle="90.00" x="278.10" y="-1.60"/>
     </timestep>
     <timestep time="15.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="10725.19" CO="0.39" HC="0.37" NOx="57.74" PMx="0.00" fuel="4.04" electricity="0.00" noise="78.19" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="315.10" speed="37.00" angle="90.00" x="315.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="12521.32" CO="1.48" HC="0.39" NOx="77.94" PMx="1.24" fuel="4.74" electricity="0.00" noise="78.19" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="315.10" speed="37.00" angle="90.00" x="315.10" y="-1.60"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="6147.68" CO="0.22" HC="0.27" NOx="33.01" PMx="0.00" fuel="2.31" electricity="0.00" noise="77.02" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="352.10" speed="37.00" angle="90.00" x="352.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="6516.26" CO="0.89" HC="0.25" NOx="26.35" PMx="0.72" fuel="2.47" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="352.10" speed="37.00" angle="90.00" x="352.10" y="-1.60"/>
     </timestep>
     <timestep time="17.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="6147.68" CO="0.22" HC="0.27" NOx="33.01" PMx="0.00" fuel="2.31" electricity="0.00" noise="77.02" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="389.10" speed="37.00" angle="90.00" x="389.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="6516.26" CO="0.89" HC="0.25" NOx="26.35" PMx="0.72" fuel="2.47" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="389.10" speed="37.00" angle="90.00" x="389.10" y="-1.60"/>
     </timestep>
     <timestep time="18.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="6147.68" CO="0.22" HC="0.27" NOx="33.01" PMx="0.00" fuel="2.31" electricity="0.00" noise="77.02" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="426.10" speed="37.00" angle="90.00" x="426.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="6516.26" CO="0.89" HC="0.25" NOx="26.35" PMx="0.72" fuel="2.47" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="426.10" speed="37.00" angle="90.00" x="426.10" y="-1.60"/>
     </timestep>
     <timestep time="19.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="6147.68" CO="0.22" HC="0.27" NOx="33.01" PMx="0.00" fuel="2.31" electricity="0.00" noise="77.02" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="463.10" speed="37.00" angle="90.00" x="463.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="6516.26" CO="0.89" HC="0.25" NOx="26.35" PMx="0.72" fuel="2.47" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="463.10" speed="37.00" angle="90.00" x="463.10" y="-1.60"/>
     </timestep>
     <timestep time="20.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="6147.68" CO="0.22" HC="0.27" NOx="33.01" PMx="0.00" fuel="2.31" electricity="0.00" noise="77.02" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="500.10" speed="37.00" angle="90.00" x="500.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="6516.26" CO="0.89" HC="0.25" NOx="26.35" PMx="0.72" fuel="2.47" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="500.10" speed="37.00" angle="90.00" x="500.10" y="-1.60"/>
     </timestep>
     <timestep time="21.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="6147.68" CO="0.22" HC="0.27" NOx="33.01" PMx="0.00" fuel="2.31" electricity="0.00" noise="77.02" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="537.10" speed="37.00" angle="90.00" x="537.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="6516.26" CO="0.89" HC="0.25" NOx="26.35" PMx="0.72" fuel="2.47" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="537.10" speed="37.00" angle="90.00" x="537.10" y="-1.60"/>
     </timestep>
     <timestep time="22.00">
-        <vehicle id="PHEMlight_PC_D_EU4" eclass="HBEFA3/PC_D_EU4" CO2="6147.68" CO="0.22" HC="0.27" NOx="33.01" PMx="0.00" fuel="2.31" electricity="0.00" noise="77.02" route="route0" type="PC_D_EU4" waiting="0.00" lane="e_0" pos="574.10" speed="37.00" angle="90.00" x="574.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_D_EU4" eclass="PHEMlight/PC_D_EU4" CO2="6516.26" CO="0.89" HC="0.25" NOx="26.35" PMx="0.72" fuel="2.47" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_D_EU4" waiting="0.00" lane="e_0" pos="574.10" speed="37.00" angle="90.00" x="574.10" y="-1.60"/>
     </timestep>
     <timestep time="23.00"/>
     <timestep time="24.00"/>
@@ -183,73 +188,73 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="98.00"/>
     <timestep time="99.00"/>
     <timestep time="100.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="2624.72" CO="164.78" HC="0.81" NOx="1.20" PMx="0.07" fuel="1.13" electricity="0.00" noise="55.94" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="5.10" speed="0.00" angle="90.00" x="5.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="685.16" CO="0.44" HC="0.02" NOx="0.06" PMx="0.00" fuel="0.29" electricity="0.00" noise="55.94" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="5.10" speed="0.00" angle="90.00" x="5.10" y="-1.60"/>
     </timestep>
     <timestep time="101.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="4102.54" CO="152.07" HC="0.79" NOx="1.83" PMx="0.09" fuel="1.76" electricity="0.00" noise="68.38" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="7.70" speed="2.60" angle="90.00" x="7.70" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="4861.95" CO="11.49" HC="0.19" NOx="1.53" PMx="0.06" fuel="2.08" electricity="0.00" noise="68.38" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="7.70" speed="2.60" angle="90.00" x="7.70" y="-1.60"/>
     </timestep>
     <timestep time="102.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="5686.50" CO="147.20" HC="0.81" NOx="2.51" PMx="0.12" fuel="2.44" electricity="0.00" noise="69.46" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="12.90" speed="5.20" angle="90.00" x="12.90" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="7688.49" CO="54.80" HC="0.64" NOx="3.91" PMx="0.19" fuel="3.31" electricity="0.00" noise="69.46" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="12.90" speed="5.20" angle="90.00" x="12.90" y="-1.60"/>
     </timestep>
     <timestep time="103.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="7376.59" CO="150.16" HC="0.86" NOx="3.24" PMx="0.16" fuel="3.17" electricity="0.00" noise="70.61" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="20.70" speed="7.80" angle="90.00" x="20.70" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="9705.26" CO="110.23" HC="1.03" NOx="5.04" PMx="0.53" fuel="4.20" electricity="0.00" noise="70.61" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="20.70" speed="7.80" angle="90.00" x="20.70" y="-1.60"/>
     </timestep>
     <timestep time="104.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="9172.80" CO="160.95" HC="0.95" NOx="4.02" PMx="0.20" fuel="3.94" electricity="0.00" noise="71.82" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="31.10" speed="10.40" angle="90.00" x="31.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="11488.24" CO="317.01" HC="2.03" NOx="6.43" PMx="1.08" fuel="5.10" electricity="0.00" noise="71.82" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="31.10" speed="10.40" angle="90.00" x="31.10" y="-1.60"/>
     </timestep>
     <timestep time="105.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="11075.16" CO="179.58" HC="1.09" NOx="4.85" PMx="0.24" fuel="4.76" electricity="0.00" noise="73.06" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="44.10" speed="13.00" angle="90.00" x="44.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="12468.35" CO="742.18" HC="3.56" NOx="6.71" PMx="0.96" fuel="5.80" electricity="0.00" noise="73.06" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="44.10" speed="13.00" angle="90.00" x="44.10" y="-1.60"/>
     </timestep>
     <timestep time="106.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="13083.64" CO="206.05" HC="1.26" NOx="5.73" PMx="0.29" fuel="5.62" electricity="0.00" noise="74.32" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="59.70" speed="15.60" angle="90.00" x="59.70" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="13426.36" CO="823.90" HC="3.93" NOx="7.16" PMx="1.02" fuel="6.27" electricity="0.00" noise="74.32" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="59.70" speed="15.60" angle="90.00" x="59.70" y="-1.60"/>
     </timestep>
     <timestep time="107.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="15198.25" CO="240.34" HC="1.47" NOx="6.67" PMx="0.35" fuel="6.53" electricity="0.00" noise="75.60" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="77.90" speed="18.20" angle="90.00" x="77.90" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="13393.99" CO="821.92" HC="3.92" NOx="7.14" PMx="1.02" fuel="6.25" electricity="0.00" noise="75.60" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="77.90" speed="18.20" angle="90.00" x="77.90" y="-1.60"/>
     </timestep>
     <timestep time="108.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="17419.00" CO="282.48" HC="1.72" NOx="7.65" PMx="0.41" fuel="7.49" electricity="0.00" noise="76.87" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="98.70" speed="20.80" angle="90.00" x="98.70" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="13353.46" CO="819.43" HC="3.91" NOx="7.12" PMx="1.02" fuel="6.23" electricity="0.00" noise="76.87" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="98.70" speed="20.80" angle="90.00" x="98.70" y="-1.60"/>
     </timestep>
     <timestep time="109.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="19745.88" CO="332.44" HC="2.00" NOx="8.69" PMx="0.47" fuel="8.49" electricity="0.00" noise="78.14" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="122.10" speed="23.40" angle="90.00" x="122.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="13303.50" CO="816.36" HC="3.89" NOx="7.10" PMx="1.01" fuel="6.21" electricity="0.00" noise="78.14" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="122.10" speed="23.40" angle="90.00" x="122.10" y="-1.60"/>
     </timestep>
     <timestep time="110.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="22178.89" CO="390.24" HC="2.33" NOx="9.78" PMx="0.54" fuel="9.53" electricity="0.00" noise="79.40" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="148.10" speed="26.00" angle="90.00" x="148.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="13242.76" CO="812.64" HC="3.87" NOx="7.06" PMx="1.01" fuel="6.18" electricity="0.00" noise="79.40" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="148.10" speed="26.00" angle="90.00" x="148.10" y="-1.60"/>
     </timestep>
     <timestep time="111.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="24718.03" CO="455.87" HC="2.69" NOx="10.92" PMx="0.61" fuel="10.63" electricity="0.00" noise="80.65" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="176.70" speed="28.60" angle="90.00" x="176.70" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="13169.83" CO="808.16" HC="3.85" NOx="7.02" PMx="1.00" fuel="6.15" electricity="0.00" noise="80.65" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="176.70" speed="28.60" angle="90.00" x="176.70" y="-1.60"/>
     </timestep>
     <timestep time="112.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="27363.31" CO="529.34" HC="3.10" NOx="12.11" PMx="0.69" fuel="11.76" electricity="0.00" noise="81.89" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="207.90" speed="31.20" angle="90.00" x="207.90" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="13083.23" CO="802.85" HC="3.83" NOx="6.98" PMx="0.99" fuel="6.11" electricity="0.00" noise="81.89" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="207.90" speed="31.20" angle="90.00" x="207.90" y="-1.60"/>
     </timestep>
     <timestep time="113.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="30114.71" CO="610.64" HC="3.54" NOx="13.36" PMx="0.78" fuel="12.94" electricity="0.00" noise="83.13" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="241.70" speed="33.80" angle="90.00" x="241.70" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="12981.39" CO="796.60" HC="3.80" NOx="6.92" PMx="0.99" fuel="6.06" electricity="0.00" noise="83.13" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="241.70" speed="33.80" angle="90.00" x="241.70" y="-1.60"/>
     </timestep>
     <timestep time="114.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="32972.25" CO="699.78" HC="4.02" NOx="14.65" PMx="0.87" fuel="14.17" electricity="0.00" noise="84.36" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="278.10" speed="36.40" angle="90.00" x="278.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="12862.64" CO="789.31" HC="3.76" NOx="6.86" PMx="0.98" fuel="6.00" electricity="0.00" noise="84.36" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="278.10" speed="36.40" angle="90.00" x="278.10" y="-1.60"/>
     </timestep>
     <timestep time="115.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="14357.42" CO="324.33" HC="1.85" NOx="5.86" PMx="0.39" fuel="6.17" electricity="0.00" noise="78.19" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="315.10" speed="37.00" angle="90.00" x="315.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="12832.65" CO="787.47" HC="3.75" NOx="6.84" PMx="0.98" fuel="5.99" electricity="0.00" noise="78.19" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="315.10" speed="37.00" angle="90.00" x="315.10" y="-1.60"/>
     </timestep>
     <timestep time="116.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="8570.62" CO="205.19" HC="1.16" NOx="3.13" PMx="0.24" fuel="3.68" electricity="0.00" noise="77.02" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="352.10" speed="37.00" angle="90.00" x="352.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="6952.27" CO="44.92" HC="0.52" NOx="3.71" PMx="0.14" fuel="2.99" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="352.10" speed="37.00" angle="90.00" x="352.10" y="-1.60"/>
     </timestep>
     <timestep time="117.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="8570.62" CO="205.19" HC="1.16" NOx="3.13" PMx="0.24" fuel="3.68" electricity="0.00" noise="77.02" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="389.10" speed="37.00" angle="90.00" x="389.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="6952.27" CO="44.92" HC="0.52" NOx="3.71" PMx="0.14" fuel="2.99" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="389.10" speed="37.00" angle="90.00" x="389.10" y="-1.60"/>
     </timestep>
     <timestep time="118.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="8570.62" CO="205.19" HC="1.16" NOx="3.13" PMx="0.24" fuel="3.68" electricity="0.00" noise="77.02" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="426.10" speed="37.00" angle="90.00" x="426.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="6952.27" CO="44.92" HC="0.52" NOx="3.71" PMx="0.14" fuel="2.99" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="426.10" speed="37.00" angle="90.00" x="426.10" y="-1.60"/>
     </timestep>
     <timestep time="119.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="8570.62" CO="205.19" HC="1.16" NOx="3.13" PMx="0.24" fuel="3.68" electricity="0.00" noise="77.02" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="463.10" speed="37.00" angle="90.00" x="463.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="6952.27" CO="44.92" HC="0.52" NOx="3.71" PMx="0.14" fuel="2.99" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="463.10" speed="37.00" angle="90.00" x="463.10" y="-1.60"/>
     </timestep>
     <timestep time="120.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="8570.62" CO="205.19" HC="1.16" NOx="3.13" PMx="0.24" fuel="3.68" electricity="0.00" noise="77.02" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="500.10" speed="37.00" angle="90.00" x="500.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="6952.27" CO="44.92" HC="0.52" NOx="3.71" PMx="0.14" fuel="2.99" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="500.10" speed="37.00" angle="90.00" x="500.10" y="-1.60"/>
     </timestep>
     <timestep time="121.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="8570.62" CO="205.19" HC="1.16" NOx="3.13" PMx="0.24" fuel="3.68" electricity="0.00" noise="77.02" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="537.10" speed="37.00" angle="90.00" x="537.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="6952.27" CO="44.92" HC="0.52" NOx="3.71" PMx="0.14" fuel="2.99" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="537.10" speed="37.00" angle="90.00" x="537.10" y="-1.60"/>
     </timestep>
     <timestep time="122.00">
-        <vehicle id="PHEMlight_PC_G_EU4" eclass="HBEFA3/PC_G_EU4" CO2="8570.62" CO="205.19" HC="1.16" NOx="3.13" PMx="0.24" fuel="3.68" electricity="0.00" noise="77.02" route="route0" type="PC_G_EU4" waiting="0.00" lane="e_0" pos="574.10" speed="37.00" angle="90.00" x="574.10" y="-1.60"/>
+        <vehicle id="PHEMlight_PC_G_EU4" eclass="PHEMlight/PC_G_EU4" CO2="6952.27" CO="44.92" HC="0.52" NOx="3.71" PMx="0.14" fuel="2.99" electricity="0.00" noise="77.02" route="route0" type="PHEMlight_PC_G_EU4" waiting="0.00" lane="e_0" pos="574.10" speed="37.00" angle="90.00" x="574.10" y="-1.60"/>
     </timestep>
     <timestep time="123.00"/>
     <timestep time="124.00"/>
@@ -7087,7 +7092,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="11.04" noise="73.06" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="44.10" speed="13.00" angle="90.00" x="44.10" y="-1.60"/>
     </timestep>
     <timestep time="4706.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="14.10" noise="74.32" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="59.70" speed="15.60" angle="90.00" x="59.70" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="14.09" noise="74.32" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="59.70" speed="15.60" angle="90.00" x="59.70" y="-1.60"/>
     </timestep>
     <timestep time="4707.00">
         <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="17.50" noise="75.60" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="77.90" speed="18.20" angle="90.00" x="77.90" y="-1.60"/>
@@ -7111,7 +7116,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="48.66" noise="83.13" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="241.70" speed="33.80" angle="90.00" x="241.70" y="-1.60"/>
     </timestep>
     <timestep time="4714.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="56.19" noise="84.36" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="278.10" speed="36.40" angle="90.00" x="278.10" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="56.18" noise="84.36" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="278.10" speed="36.40" angle="90.00" x="278.10" y="-1.60"/>
     </timestep>
     <timestep time="4715.00">
         <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="36.18" noise="78.19" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="315.10" speed="37.00" angle="90.00" x="315.10" y="-1.60"/>
@@ -7138,4 +7143,296 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="29.39" noise="77.02" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="574.10" speed="37.00" angle="90.00" x="574.10" y="-1.60"/>
     </timestep>
     <timestep time="4723.00"/>
+    <timestep time="4724.00"/>
+    <timestep time="4725.00"/>
+    <timestep time="4726.00"/>
+    <timestep time="4727.00"/>
+    <timestep time="4728.00"/>
+    <timestep time="4729.00"/>
+    <timestep time="4730.00"/>
+    <timestep time="4731.00"/>
+    <timestep time="4732.00"/>
+    <timestep time="4733.00"/>
+    <timestep time="4734.00"/>
+    <timestep time="4735.00"/>
+    <timestep time="4736.00"/>
+    <timestep time="4737.00"/>
+    <timestep time="4738.00"/>
+    <timestep time="4739.00"/>
+    <timestep time="4740.00"/>
+    <timestep time="4741.00"/>
+    <timestep time="4742.00"/>
+    <timestep time="4743.00"/>
+    <timestep time="4744.00"/>
+    <timestep time="4745.00"/>
+    <timestep time="4746.00"/>
+    <timestep time="4747.00"/>
+    <timestep time="4748.00"/>
+    <timestep time="4749.00"/>
+    <timestep time="4750.00"/>
+    <timestep time="4751.00"/>
+    <timestep time="4752.00"/>
+    <timestep time="4753.00"/>
+    <timestep time="4754.00"/>
+    <timestep time="4755.00"/>
+    <timestep time="4756.00"/>
+    <timestep time="4757.00"/>
+    <timestep time="4758.00"/>
+    <timestep time="4759.00"/>
+    <timestep time="4760.00"/>
+    <timestep time="4761.00"/>
+    <timestep time="4762.00"/>
+    <timestep time="4763.00"/>
+    <timestep time="4764.00"/>
+    <timestep time="4765.00"/>
+    <timestep time="4766.00"/>
+    <timestep time="4767.00"/>
+    <timestep time="4768.00"/>
+    <timestep time="4769.00"/>
+    <timestep time="4770.00"/>
+    <timestep time="4771.00"/>
+    <timestep time="4772.00"/>
+    <timestep time="4773.00"/>
+    <timestep time="4774.00"/>
+    <timestep time="4775.00"/>
+    <timestep time="4776.00"/>
+    <timestep time="4777.00"/>
+    <timestep time="4778.00"/>
+    <timestep time="4779.00"/>
+    <timestep time="4780.00"/>
+    <timestep time="4781.00"/>
+    <timestep time="4782.00"/>
+    <timestep time="4783.00"/>
+    <timestep time="4784.00"/>
+    <timestep time="4785.00"/>
+    <timestep time="4786.00"/>
+    <timestep time="4787.00"/>
+    <timestep time="4788.00"/>
+    <timestep time="4789.00"/>
+    <timestep time="4790.00"/>
+    <timestep time="4791.00"/>
+    <timestep time="4792.00"/>
+    <timestep time="4793.00"/>
+    <timestep time="4794.00"/>
+    <timestep time="4795.00"/>
+    <timestep time="4796.00"/>
+    <timestep time="4797.00"/>
+    <timestep time="4798.00"/>
+    <timestep time="4799.00"/>
+    <timestep time="4800.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="504.70" CO="0.10" HC="0.05" NOx="2.52" PMx="0.07" fuel="0.19" electricity="0.00" noise="55.94" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="5.10" speed="0.00" angle="90.00" x="5.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4801.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="5556.02" CO="0.59" HC="0.23" NOx="20.59" PMx="0.60" fuel="2.10" electricity="0.00" noise="68.38" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="7.70" speed="2.60" angle="90.00" x="7.70" y="-1.60"/>
+    </timestep>
+    <timestep time="4802.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="9194.90" CO="0.59" HC="0.30" NOx="46.73" PMx="0.86" fuel="3.48" electricity="0.00" noise="69.46" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="12.90" speed="5.20" angle="90.00" x="12.90" y="-1.60"/>
+    </timestep>
+    <timestep time="4803.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="11471.10" CO="0.71" HC="0.34" NOx="72.60" PMx="1.02" fuel="4.34" electricity="0.00" noise="70.61" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="20.70" speed="7.80" angle="90.00" x="20.70" y="-1.60"/>
+    </timestep>
+    <timestep time="4804.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="14840.57" CO="0.60" HC="0.39" NOx="101.34" PMx="1.52" fuel="5.62" electricity="0.00" noise="71.82" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="31.10" speed="10.40" angle="90.00" x="31.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4805.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="17895.29" CO="0.63" HC="0.44" NOx="126.18" PMx="2.22" fuel="6.77" electricity="0.00" noise="73.06" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="44.10" speed="13.00" angle="90.00" x="44.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4806.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="21754.55" CO="0.70" HC="0.49" NOx="157.93" PMx="2.60" fuel="8.23" electricity="0.00" noise="74.32" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="59.70" speed="15.60" angle="90.00" x="59.70" y="-1.60"/>
+    </timestep>
+    <timestep time="4807.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="22790.60" CO="0.73" HC="0.51" NOx="172.40" PMx="2.74" fuel="8.62" electricity="0.00" noise="75.60" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="77.90" speed="18.20" angle="90.00" x="77.90" y="-1.60"/>
+    </timestep>
+    <timestep time="4808.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="22790.60" CO="0.73" HC="0.51" NOx="172.40" PMx="2.74" fuel="8.62" electricity="0.00" noise="76.87" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="98.70" speed="20.80" angle="90.00" x="98.70" y="-1.60"/>
+    </timestep>
+    <timestep time="4809.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="22790.60" CO="0.73" HC="0.51" NOx="172.40" PMx="2.74" fuel="8.62" electricity="0.00" noise="78.14" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="122.10" speed="23.40" angle="90.00" x="122.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4810.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="22790.60" CO="0.73" HC="0.51" NOx="172.40" PMx="2.74" fuel="8.62" electricity="0.00" noise="79.40" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="148.10" speed="26.00" angle="90.00" x="148.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4811.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="22790.60" CO="0.73" HC="0.51" NOx="172.40" PMx="2.74" fuel="8.62" electricity="0.00" noise="80.65" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="176.70" speed="28.60" angle="90.00" x="176.70" y="-1.60"/>
+    </timestep>
+    <timestep time="4812.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="22790.60" CO="0.73" HC="0.51" NOx="172.40" PMx="2.74" fuel="8.62" electricity="0.00" noise="81.89" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="207.90" speed="31.20" angle="90.00" x="207.90" y="-1.60"/>
+    </timestep>
+    <timestep time="4813.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="22790.60" CO="0.73" HC="0.51" NOx="172.40" PMx="2.74" fuel="8.62" electricity="0.00" noise="83.13" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="241.70" speed="33.80" angle="90.00" x="241.70" y="-1.60"/>
+    </timestep>
+    <timestep time="4814.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="22790.60" CO="0.73" HC="0.51" NOx="172.40" PMx="2.74" fuel="8.62" electricity="0.00" noise="84.36" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="278.10" speed="36.40" angle="90.00" x="278.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4815.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="18531.43" CO="0.64" HC="0.45" NOx="129.98" PMx="2.28" fuel="7.01" electricity="0.00" noise="78.19" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="315.10" speed="37.00" angle="90.00" x="315.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4816.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="7851.62" CO="0.65" HC="0.27" NOx="34.78" PMx="0.76" fuel="2.97" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="352.10" speed="37.00" angle="90.00" x="352.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4817.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="7851.62" CO="0.65" HC="0.27" NOx="34.78" PMx="0.76" fuel="2.97" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="389.10" speed="37.00" angle="90.00" x="389.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4818.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="7851.62" CO="0.65" HC="0.27" NOx="34.78" PMx="0.76" fuel="2.97" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="426.10" speed="37.00" angle="90.00" x="426.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4819.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="7851.62" CO="0.65" HC="0.27" NOx="34.78" PMx="0.76" fuel="2.97" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="463.10" speed="37.00" angle="90.00" x="463.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4820.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="7851.62" CO="0.65" HC="0.27" NOx="34.78" PMx="0.76" fuel="2.97" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="500.10" speed="37.00" angle="90.00" x="500.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4821.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="7851.62" CO="0.65" HC="0.27" NOx="34.78" PMx="0.76" fuel="2.97" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="537.10" speed="37.00" angle="90.00" x="537.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4822.00">
+        <vehicle id="PHEMlight5_PC_D_EU4" eclass="PHEMlight5/PC_EU4_D_MW" CO2="7851.62" CO="0.65" HC="0.27" NOx="34.78" PMx="0.76" fuel="2.97" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_D_EU4" waiting="0.00" lane="e_0" pos="574.10" speed="37.00" angle="90.00" x="574.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4823.00"/>
+    <timestep time="4824.00"/>
+    <timestep time="4825.00"/>
+    <timestep time="4826.00"/>
+    <timestep time="4827.00"/>
+    <timestep time="4828.00"/>
+    <timestep time="4829.00"/>
+    <timestep time="4830.00"/>
+    <timestep time="4831.00"/>
+    <timestep time="4832.00"/>
+    <timestep time="4833.00"/>
+    <timestep time="4834.00"/>
+    <timestep time="4835.00"/>
+    <timestep time="4836.00"/>
+    <timestep time="4837.00"/>
+    <timestep time="4838.00"/>
+    <timestep time="4839.00"/>
+    <timestep time="4840.00"/>
+    <timestep time="4841.00"/>
+    <timestep time="4842.00"/>
+    <timestep time="4843.00"/>
+    <timestep time="4844.00"/>
+    <timestep time="4845.00"/>
+    <timestep time="4846.00"/>
+    <timestep time="4847.00"/>
+    <timestep time="4848.00"/>
+    <timestep time="4849.00"/>
+    <timestep time="4850.00"/>
+    <timestep time="4851.00"/>
+    <timestep time="4852.00"/>
+    <timestep time="4853.00"/>
+    <timestep time="4854.00"/>
+    <timestep time="4855.00"/>
+    <timestep time="4856.00"/>
+    <timestep time="4857.00"/>
+    <timestep time="4858.00"/>
+    <timestep time="4859.00"/>
+    <timestep time="4860.00"/>
+    <timestep time="4861.00"/>
+    <timestep time="4862.00"/>
+    <timestep time="4863.00"/>
+    <timestep time="4864.00"/>
+    <timestep time="4865.00"/>
+    <timestep time="4866.00"/>
+    <timestep time="4867.00"/>
+    <timestep time="4868.00"/>
+    <timestep time="4869.00"/>
+    <timestep time="4870.00"/>
+    <timestep time="4871.00"/>
+    <timestep time="4872.00"/>
+    <timestep time="4873.00"/>
+    <timestep time="4874.00"/>
+    <timestep time="4875.00"/>
+    <timestep time="4876.00"/>
+    <timestep time="4877.00"/>
+    <timestep time="4878.00"/>
+    <timestep time="4879.00"/>
+    <timestep time="4880.00"/>
+    <timestep time="4881.00"/>
+    <timestep time="4882.00"/>
+    <timestep time="4883.00"/>
+    <timestep time="4884.00"/>
+    <timestep time="4885.00"/>
+    <timestep time="4886.00"/>
+    <timestep time="4887.00"/>
+    <timestep time="4888.00"/>
+    <timestep time="4889.00"/>
+    <timestep time="4890.00"/>
+    <timestep time="4891.00"/>
+    <timestep time="4892.00"/>
+    <timestep time="4893.00"/>
+    <timestep time="4894.00"/>
+    <timestep time="4895.00"/>
+    <timestep time="4896.00"/>
+    <timestep time="4897.00"/>
+    <timestep time="4898.00"/>
+    <timestep time="4899.00"/>
+    <timestep time="4900.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="752.35" CO="0.50" HC="0.01" NOx="0.08" PMx="0.00" fuel="0.32" electricity="0.00" noise="55.94" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="5.10" speed="0.00" angle="90.00" x="5.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4901.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="5466.88" CO="22.20" HC="0.22" NOx="1.65" PMx="0.05" fuel="2.34" electricity="0.00" noise="68.38" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="7.70" speed="2.60" angle="90.00" x="7.70" y="-1.60"/>
+    </timestep>
+    <timestep time="4902.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="8872.08" CO="131.45" HC="1.04" NOx="4.21" PMx="0.17" fuel="3.86" electricity="0.00" noise="69.46" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="12.90" speed="5.20" angle="90.00" x="12.90" y="-1.60"/>
+    </timestep>
+    <timestep time="4903.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="10735.56" CO="183.43" HC="1.59" NOx="4.95" PMx="0.26" fuel="4.69" electricity="0.00" noise="70.61" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="20.70" speed="7.80" angle="90.00" x="20.70" y="-1.60"/>
+    </timestep>
+    <timestep time="4904.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="12846.39" CO="442.29" HC="2.50" NOx="7.02" PMx="0.38" fuel="5.76" electricity="0.00" noise="71.82" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="31.10" speed="10.40" angle="90.00" x="31.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4905.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="15094.57" CO="786.95" HC="3.89" NOx="6.95" PMx="0.64" fuel="6.95" electricity="0.00" noise="73.06" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="44.10" speed="13.00" angle="90.00" x="44.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4906.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="17738.52" CO="986.82" HC="5.59" NOx="7.13" PMx="1.57" fuel="8.21" electricity="0.00" noise="74.32" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="59.70" speed="15.60" angle="90.00" x="59.70" y="-1.60"/>
+    </timestep>
+    <timestep time="4907.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="19104.67" CO="980.11" HC="5.60" NOx="7.64" PMx="1.55" fuel="8.79" electricity="0.00" noise="75.60" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="77.90" speed="18.20" angle="90.00" x="77.90" y="-1.60"/>
+    </timestep>
+    <timestep time="4908.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="19104.67" CO="980.11" HC="5.60" NOx="7.64" PMx="1.55" fuel="8.79" electricity="0.00" noise="76.87" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="98.70" speed="20.80" angle="90.00" x="98.70" y="-1.60"/>
+    </timestep>
+    <timestep time="4909.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="19104.67" CO="980.11" HC="5.60" NOx="7.64" PMx="1.55" fuel="8.79" electricity="0.00" noise="78.14" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="122.10" speed="23.40" angle="90.00" x="122.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4910.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="19104.67" CO="980.11" HC="5.60" NOx="7.64" PMx="1.55" fuel="8.79" electricity="0.00" noise="79.40" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="148.10" speed="26.00" angle="90.00" x="148.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4911.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="19104.67" CO="980.11" HC="5.60" NOx="7.64" PMx="1.55" fuel="8.79" electricity="0.00" noise="80.65" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="176.70" speed="28.60" angle="90.00" x="176.70" y="-1.60"/>
+    </timestep>
+    <timestep time="4912.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="19104.67" CO="980.11" HC="5.60" NOx="7.64" PMx="1.55" fuel="8.79" electricity="0.00" noise="81.89" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="207.90" speed="31.20" angle="90.00" x="207.90" y="-1.60"/>
+    </timestep>
+    <timestep time="4913.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="19052.19" CO="983.47" HC="5.61" NOx="7.62" PMx="1.57" fuel="8.77" electricity="0.00" noise="83.13" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="241.70" speed="33.80" angle="90.00" x="241.70" y="-1.60"/>
+    </timestep>
+    <timestep time="4914.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="18920.06" CO="991.93" HC="5.62" NOx="7.55" PMx="1.60" fuel="8.72" electricity="0.00" noise="84.36" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="278.10" speed="36.40" angle="90.00" x="278.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4915.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="16271.79" CO="916.48" HC="4.80" NOx="6.76" PMx="0.99" fuel="7.54" electricity="0.00" noise="78.19" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="315.10" speed="37.00" angle="90.00" x="315.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4916.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="8094.52" CO="105.80" HC="0.76" NOx="3.95" PMx="0.14" fuel="3.51" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="352.10" speed="37.00" angle="90.00" x="352.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4917.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="8094.52" CO="105.80" HC="0.76" NOx="3.95" PMx="0.14" fuel="3.51" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="389.10" speed="37.00" angle="90.00" x="389.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4918.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="8094.52" CO="105.80" HC="0.76" NOx="3.95" PMx="0.14" fuel="3.51" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="426.10" speed="37.00" angle="90.00" x="426.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4919.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="8094.52" CO="105.80" HC="0.76" NOx="3.95" PMx="0.14" fuel="3.51" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="463.10" speed="37.00" angle="90.00" x="463.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4920.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="8094.52" CO="105.80" HC="0.76" NOx="3.95" PMx="0.14" fuel="3.51" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="500.10" speed="37.00" angle="90.00" x="500.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4921.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="8094.52" CO="105.80" HC="0.76" NOx="3.95" PMx="0.14" fuel="3.51" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="537.10" speed="37.00" angle="90.00" x="537.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4922.00">
+        <vehicle id="PHEMlight5_PC_G_EU4" eclass="PHEMlight5/PC_EU4_G" CO2="8094.52" CO="105.80" HC="0.76" NOx="3.95" PMx="0.14" fuel="3.51" electricity="0.00" noise="77.02" route="route0" type="PHEMlight5_PC_G_EU4" waiting="0.00" lane="e_0" pos="574.10" speed="37.00" angle="90.00" x="574.10" y="-1.60"/>
+    </timestep>
+    <timestep time="4923.00"/>
 </emission-export>

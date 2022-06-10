@@ -6,3 +6,10 @@
 
 # provided by Max (#9940)
 4way_error
+
+# trying to load phases from a 'static' controller
+missingPhaseName
+
+# trying to load phases from a 'static' controller
+badPhases
+customDetectorsMissing

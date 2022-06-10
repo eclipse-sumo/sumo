@@ -15,8 +15,13 @@
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
 ///
-// Testing libsumo for C++
+// Testing libtraci for C++
 /****************************************************************************/
+#ifdef _MSC_VER
+// Avoid some noisy warnings with Visual Studio
+#pragma warning(disable:4820 4514 5045 4710)
+#endif
+
 #include <iostream>
 #include <libsumo/libtraci.h>
 

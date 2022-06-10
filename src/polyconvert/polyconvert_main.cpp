@@ -211,7 +211,7 @@ fillOptions() {
     oc.doRegister("type", new Option_String("unknown"));
     oc.addDescription("type", "Building Defaults", "Sets STR as default type");
 
-    oc.doRegister("fill", new Option_Bool("false"));
+    oc.doRegister("fill", new Option_Bool(true));
     oc.addDescription("fill", "Building Defaults", "Fills polygons by default");
 
     oc.doRegister("layer", new Option_Float(-1));
@@ -298,7 +298,7 @@ main(int argc, char** argv) {
             prune = true;
         }
         if (oc.isSet("osm-files") && oc.isDefault("poi-layer-offset")) {
-            oc.set("poi-layer-offset", "5"); // sufficient when using the default typemap
+            oc.setDefault("poi-layer-offset", "5"); // sufficient when using the default typemap
         }
 
         PCPolyContainer toFill(prune, pruningBoundary, oc.getStringVector("remove"));

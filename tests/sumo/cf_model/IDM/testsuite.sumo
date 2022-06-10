@@ -10,6 +10,12 @@ stop_exact_lowDecel
 # test speeds when stopping at exact position
 stop_exact_subsecond
 
+# test speeds when stopping at exact position
+stop_exact_laneEnd
+
+# test speeds when stopping at exact position
+stop_exact_laneEnd_subSecond
+
 # test insertion with maximum vehicle speed
 insert_with_maximum_speed
 

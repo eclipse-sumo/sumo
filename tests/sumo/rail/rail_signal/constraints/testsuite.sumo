@@ -1,5 +1,8 @@
 wait_for_one
 
+# deactivated contraint
+wait_for_one_inactive
+
 # use vehicleId instead of tripId
 wait_for_one_tripId
 

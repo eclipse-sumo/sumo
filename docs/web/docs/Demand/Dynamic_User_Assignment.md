@@ -147,6 +147,18 @@ Option **--convergence-steps** may used to force convergence by iteratively redu
 - If a positive value x is used, the fraction of vehicles that keep their old route is set to `max(0, min(step / x, 1)` which prevents changes in assignment after step x.
 - If a negative value x is used, the fraction of vehicles that keep their old route is set to `1 - 1.0 / (step - |x|)` for steps after `|x|` which asymptotically reduces assignment after `|x|` steps.
 
+## Speeding up Iterations
+
+There is currently now way to speed up duaIteraty.py by parallelization.
+However, the total running time of duaIterate is strongly influenced by the total running time of "jammed" iterations.
+This is a frequent occurrence in the early iterations where many cars try to take the fastest route while disregarding capacity.
+There are several options to mitigate this:
+
+- by ramping up the traffic scaling so the first iterations have fewer traffic (**--inc-start, --inc-base, --inc-max, --incrementation**)
+- by aborting earlier iterations at an earlier time (**--time-inc**)
+- by giving the initial demand with a sensible starting solution (i.e. computed by marouter) along with option **--skip-first-routing**
+- by trying to carry more information between runs (**--weight-memory, --pessimism**)
+
 ## Usage Examples
 
 ### Loading vehicle types from an additional file

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-23 13:10:15 by Eclipse SUMO netconvert Version v1_11_0+1383-87ad85f7aa6
+<!-- generated on 2022-05-13 11:31:47 by Eclipse SUMO netconvert Version v1_13_0+0231-194ea10
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -125,7 +130,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="16_0" index="0" speed="13.89" length="168.36" shape="3129.84,12.84 3185.90,0.00 3287.61,1.50"/>
     </edge>
     <edge id="17" from="605000025" to="605000026" name="VISUM Strecke 83535603" priority="-1" type="86" spreadType="center" shape="3121.54,26.76 3121.19,31.17 3101.19,29.17">
-        <lane id="17_0" index="0" speed="13.89" length="38.92" shape="3121.54,26.76 3121.19,31.17 3105.10,29.56"/>
+        <lane id="17_0" index="0" speed="13.89" length="38.94" shape="3121.54,26.76 3121.19,31.17 3104.87,29.54"/>
     </edge>
     <edge id="18" from="605000026" to="605000025" name="VISUM Strecke 83535603" priority="-1" type="100" spreadType="center" shape="3105.21,26.06 3117.98,27.33 3118.05,26.48">
         <lane id="18_0" index="0" speed="13.89" length="33.18" shape="3105.21,26.06 3117.98,27.33 3118.05,26.48"/>
@@ -439,7 +444,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="605000026" type="priority" x="3094.94" y="24.73" incLanes="17_0 19_0" intLanes="" shape="3105.04,31.17 3105.27,24.46 3048.26,18.79 3048.31,25.49 3059.47,25.67 3068.61,26.32 3076.73,27.32 3084.84,28.54 3093.94,29.87">
+    <junction id="605000026" type="priority" x="3094.94" y="24.73" incLanes="17_0 19_0" intLanes="" shape="3104.71,31.13 3105.37,24.46 3094.24,23.17 3085.07,21.84 3076.86,20.62 3068.65,19.62 3059.44,18.97 3048.26,18.79 3048.31,25.49 3059.44,25.67 3068.52,26.31 3076.56,27.30 3084.59,28.52 3093.63,29.84">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>

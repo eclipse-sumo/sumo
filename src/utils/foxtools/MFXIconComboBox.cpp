@@ -384,11 +384,22 @@ MFXIconComboBox::setItem(const FXString& text, FXIcon* icon) {
         const MFXListItem* item = dynamic_cast<MFXListItem*>(myList->getItem(i));
         // set icon and background color
         if (item && (item->getText() == text) && (item->getIcon() == icon)) {
-            myList->setCurrentItem(i, FALSE);
+            myTextFieldIcon->setText(item->getText());
+            myTextFieldIcon->setBackColor(item->getBackGroundColor());
+            myIconLabel->setIcon(item->getIcon());
+            myIconLabel->setBackColor(item->getBackGroundColor());
+            myTextFieldIcon->setTextColor(FXRGB(0,0,0));
             return true;
         }
     }
     return false;
+}
+
+
+void
+MFXIconComboBox::setCustomText(const FXString text) {
+    myTextFieldIcon->setText(text);
+    myTextFieldIcon->setTextColor(FXRGB(128, 128, 128));
 }
 
 

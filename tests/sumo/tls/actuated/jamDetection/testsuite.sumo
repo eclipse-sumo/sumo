@@ -4,6 +4,9 @@ default
 # detect blockage after 5s of jamming
 jamThresh_5
 
+# detect blockage after 5s of jamming (set via option)
+jamThresh_5_option
+
 # set for a specific lane rather than for all detectors
 jamThresh_5_lane
 

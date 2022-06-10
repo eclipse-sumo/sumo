@@ -6,6 +6,7 @@
 /latex
 /mirror
 /share
+/dist
 # IDE project files
 /.settings
 /.cproject

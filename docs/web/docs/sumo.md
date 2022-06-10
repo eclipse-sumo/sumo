@@ -570,8 +570,8 @@ The additional file always needs a top level tag with arbitrary name
 
 ```
 <additional>
-    <inductionLoop id="myLoop1" lane="foo_0" pos="42" freq="900" file="out.xml"/>
-    <inductionLoop id="myLoop2" lane="foo_2" pos="42" freq="900" file="out.xml"/>
+    <inductionLoop id="myLoop1" lane="foo_0" pos="42" period="900" file="out.xml"/>
+    <inductionLoop id="myLoop2" lane="foo_2" pos="42" period="900" file="out.xml"/>
 
     <busStop id="station1" lane="foo_0" startPos="5" endPos="20"/>
 

@@ -53,7 +53,7 @@ public:
     Parameterised(const Parameterised::Map& mapArg);
 
     /// @brief Destructor
-    ~Parameterised();
+    virtual ~Parameterised();
 
     /**@brief Sets a parameter
      * @param[in] key The parameter's name

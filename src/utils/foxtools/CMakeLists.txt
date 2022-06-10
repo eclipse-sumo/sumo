@@ -17,12 +17,14 @@ set(utils_foxtools_STAT_SRCS
    FXSevenSegment.h
    FXSingleEventThread.cpp
    FXSingleEventThread.h
+   FXStaticToolTip.cpp
+   FXStaticToolTip.h
    FXSynchQue.h
    FXSynchSet.h
    FXThreadEvent.cpp
    FXThreadEvent.h
-   FXTreeListDinamic.cpp
-   FXTreeListDinamic.h
+   FXTreeListDynamic.cpp
+   FXTreeListDynamic.h
    FXWorkerThread.h
    MFXAddEditTypedTable.cpp
    MFXAddEditTypedTable.h

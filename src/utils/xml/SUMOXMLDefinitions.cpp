@@ -365,6 +365,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "leaderGap",              SUMO_ATTR_LEADER_GAP },
     { "vehicle",                SUMO_ATTR_VEHICLE },
     { "odometer",               SUMO_ATTR_ODOMETER },
+    { "posLat",                 SUMO_ATTR_POSITION_LAT },
 
     // Edge
     { "id",                     SUMO_ATTR_ID },
@@ -519,6 +520,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "chargingEnd",                    SUMO_ATTR_CHARGINGEND },
     { "partialCharge",                  SUMO_ATTR_PARTIALCHARGE },
 
+    // general emission / consumption
+    { "shutOffStopDuration",    SUMO_ATTR_SHUT_OFF_STOP },
+    { "shutOffAutoDuration",    SUMO_ATTR_SHUT_OFF_AUTO },
+
     { "sigma",                  SUMO_ATTR_SIGMA },
     { "sigmaStep",              SUMO_ATTR_SIGMA_STEP },
     { "startupDelay",           SUMO_ATTR_STARTUP_DELAY },
@@ -643,7 +648,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "walkFactor",             SUMO_ATTR_WALKFACTOR },
 
     { "function",               SUMO_ATTR_FUNCTION },
-    { "posLat",                 SUMO_ATTR_POSITION_LAT },
     { "freq",                   SUMO_ATTR_FREQUENCY },
     { "style",                  SUMO_ATTR_STYLE },
     { "file",                   SUMO_ATTR_FILE },
@@ -872,6 +876,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "destination",            SUMO_ATTR_DESTINATION },
     { "visible",                SUMO_ATTR_VISIBLE },
     { "limit",                  SUMO_ATTR_LIMIT },
+    { "active",                 SUMO_ATTR_ACTIVE },
     { "arrivalTime",            SUMO_ATTR_ARRIVALTIME },
     { "arrivalTimeBraking",     SUMO_ATTR_ARRIVALTIMEBRAKING },
     { "arrivalSpeedBraking",    SUMO_ATTR_ARRIVALSPEEDBRAKING },
@@ -1114,6 +1119,8 @@ StringBijection<InsertionCheck>::Entry SUMOXMLDefinitions::insertionCheckValues[
     { "oncomingTrain", InsertionCheck::ONCOMING_TRAIN },
     { "speedLimit",    InsertionCheck::SPEED_LIMIT },
     { "pedestrian",    InsertionCheck::PEDESTRIAN },
+    { "bidi",          InsertionCheck::BIDI },
+    { "laneChange",    InsertionCheck::LANECHANGE },
     { "all",           InsertionCheck::ALL } //< must be the last one
 };
 

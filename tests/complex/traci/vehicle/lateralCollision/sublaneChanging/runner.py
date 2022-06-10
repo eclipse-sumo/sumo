@@ -29,9 +29,9 @@ import traci  # noqa
 
 
 if sys.argv[1] == "sumo":
-    sumoCall = [os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))]
+    sumoCall = [sumolib.checkBinary('sumo')]
 else:
-    sumoCall = [os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
+    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q']
 
 
 def runSingle(traciEndTime, latDist, vehID):

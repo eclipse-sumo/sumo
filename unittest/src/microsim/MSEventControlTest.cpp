@@ -19,6 +19,7 @@
 ///
 // Tests the class MSEventControl
 /****************************************************************************/
+#include <config.h>
 
 #include <gtest/gtest.h>
 #include <microsim/MSEventControl.h>

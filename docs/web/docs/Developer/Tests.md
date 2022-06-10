@@ -57,6 +57,16 @@ to collapse the static test suites on program start. E.g.:
    static_collapse_suites:1
 ```
 
+## Recommended python packages
+
+The following packes are used by some of the tools under test
+
+`pip install pyproj rtree numpy scipy`
+
+For a "naked" python installation, the following may be needed to allow TextTest to work:
+
+`pip install gobject PyGObject psutil`
+
 # Running the Tests
 
 Within the  `$SUMO_HOME/tests` folder you can find batch files for Windows and shell files for Linux & macOS which start

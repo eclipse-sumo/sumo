@@ -294,46 +294,46 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 NBConnection(prohibitedFrom, prohibitedTo));
         }
     }
-    if (!myHaveSeenInternalEdge && oc.isDefault("no-internal-links")) {
+    if (!myHaveSeenInternalEdge && oc.isWriteable("no-internal-links")) {
         oc.set("no-internal-links", "true");
     }
-    if (oc.isDefault("lefthand")) {
+    if (oc.isWriteable("lefthand")) {
         oc.set("lefthand", toString(myAmLefthand));
     }
-    if (oc.isDefault("junctions.corner-detail")) {
+    if (oc.isWriteable("junctions.corner-detail")) {
         oc.set("junctions.corner-detail", toString(myCornerDetail));
     }
-    if (oc.isDefault("junctions.internal-link-detail") && myLinkDetail > 0) {
+    if (oc.isWriteable("junctions.internal-link-detail") && myLinkDetail > 0) {
         oc.set("junctions.internal-link-detail", toString(myLinkDetail));
     }
-    if (oc.isDefault("rectangular-lane-cut")) {
+    if (oc.isWriteable("rectangular-lane-cut")) {
         oc.set("rectangular-lane-cut", toString(myRectLaneCut));
     }
-    if (oc.isDefault("walkingareas")) {
+    if (oc.isWriteable("walkingareas")) {
         oc.set("walkingareas", toString(myWalkingAreas));
     }
-    if (oc.isDefault("junctions.limit-turn-speed")) {
+    if (oc.isWriteable("junctions.limit-turn-speed")) {
         oc.set("junctions.limit-turn-speed", toString(myLimitTurnSpeed));
     }
-    if (oc.isDefault("check-lane-foes.all") && oc.getBool("check-lane-foes.all") != myCheckLaneFoesAll) {
+    if (oc.isWriteable("check-lane-foes.all") && oc.getBool("check-lane-foes.all") != myCheckLaneFoesAll) {
         oc.set("check-lane-foes.all", toString(myCheckLaneFoesAll));
     }
-    if (oc.isDefault("check-lane-foes.roundabout") && oc.getBool("check-lane-foes.roundabout") != myCheckLaneFoesRoundabout) {
+    if (oc.isWriteable("check-lane-foes.roundabout") && oc.getBool("check-lane-foes.roundabout") != myCheckLaneFoesRoundabout) {
         oc.set("check-lane-foes.roundabout", toString(myCheckLaneFoesRoundabout));
     }
-    if (oc.isDefault("tls.ignore-internal-junction-jam") && oc.getBool("tls.ignore-internal-junction-jam") != myTlsIgnoreInternalJunctionJam) {
+    if (oc.isWriteable("tls.ignore-internal-junction-jam") && oc.getBool("tls.ignore-internal-junction-jam") != myTlsIgnoreInternalJunctionJam) {
         oc.set("tls.ignore-internal-junction-jam", toString(myTlsIgnoreInternalJunctionJam));
     }
-    if (oc.isDefault("default.spreadtype") && oc.getString("default.spreadtype") != myDefaultSpreadType) {
+    if (oc.isWriteable("default.spreadtype") && oc.getString("default.spreadtype") != myDefaultSpreadType) {
         oc.set("default.spreadtype", myDefaultSpreadType);
     }
-    if (oc.isDefault("geometry.avoid-overlap") && oc.getBool("geometry.avoid-overlap") != myGeomAvoidOverlap) {
+    if (oc.isWriteable("geometry.avoid-overlap") && oc.getBool("geometry.avoid-overlap") != myGeomAvoidOverlap) {
         oc.set("geometry.avoid-overlap", toString(myGeomAvoidOverlap));
     }
-    if (oc.isDefault("junctions.higher-speed") && oc.getBool("junctions.higher-speed") != myJunctionsHigherSpeed) {
+    if (oc.isWriteable("junctions.higher-speed") && oc.getBool("junctions.higher-speed") != myJunctionsHigherSpeed) {
         oc.set("junctions.higher-speed", toString(myJunctionsHigherSpeed));
     }
-    if (oc.isDefault("internal-junctions.vehicle-width") && oc.getFloat("internal-junctions.vehicle-width") != myInternalJunctionsVehicleWidth) {
+    if (oc.isWriteable("internal-junctions.vehicle-width") && oc.getFloat("internal-junctions.vehicle-width") != myInternalJunctionsVehicleWidth) {
         oc.set("internal-junctions.vehicle-width", toString(myInternalJunctionsVehicleWidth));
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
@@ -947,14 +947,20 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* cur
         WRITE_ERROR("Phase duration for tl-logic '" + id + "/" + currentTL->getProgramID() + "' must be positive.");
         return;
     }
-    // if the traffic light is an actuated traffic light, try to get
-    //  the minimum and maximum durations
-    SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-    SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+    // if the traffic light is an actuated traffic light, try to get the minimum and maximum durations and ends
     std::vector<int> nextPhases = attrs.getOpt<std::vector<int> >(SUMO_ATTR_NEXT, id.c_str(), ok);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok);
+    // Specific from actuated
+    const SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+    const SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+    const SUMOTime earliestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_EARLIEST_END, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+    const SUMOTime latestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_LATEST_END, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+    // specific von NEMA
+    const SUMOTime vehExt = attrs.getOptSUMOTimeReporting(SUMO_ATTR_VEHICLEEXTENSION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+    const SUMOTime yellow = attrs.getOptSUMOTimeReporting(SUMO_ATTR_YELLOW, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+    const SUMOTime red = attrs.getOptSUMOTimeReporting(SUMO_ATTR_RED, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
     if (ok) {
-        currentTL->addPhase(duration, state, minDuration, maxDuration, nextPhases, name);
+        currentTL->addPhase(duration, state, minDuration, maxDuration, earliestEnd, latestEnd, vehExt, yellow, red, nextPhases, name);
     }
 }
 

@@ -1,4 +1,4 @@
 --fcd-output=fcd.xml --no-step-log --no-duration-log --net-file=net.net.xml -a
 input_routes.rou.xml 
 -e 5
---fcd-output.attributes x,y,speed,odometer
+--fcd-output.attributes x,y,speed,odometer,posLat

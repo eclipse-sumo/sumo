@@ -63,9 +63,9 @@
 // member method definitions
 // ===========================================================================
 GUILoadThread::GUILoadThread(FXApp* app, GUIApplicationWindow* mw,
-                             FXSynchQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev)
+                             FXSynchQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev, const bool isLibsumo)
     : FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
-      myEventThrow(ev) {
+      myEventThrow(ev), myAmLibsumo(isLibsumo) {
     myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_MESSAGE);
     myWarningRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_WARNING);
@@ -112,15 +112,17 @@ GUILoadThread::run() {
             myParent->addRecentFile(FXPath::absolute(myFile.c_str()));
         }
         myTitle = myFile;
-        // within gui-based applications, nothing is reported to the console
-        MsgHandler::getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
-        MsgHandler::getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
-        MsgHandler::getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
+        if (!myAmLibsumo) {
+            // within gui-based applications, nothing is reported to the console
+            MsgHandler::getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
+            MsgHandler::getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
+            MsgHandler::getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
+        }
         // do this once again to get parsed options
         if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
             // must be done before calling initOutputOptions (which checks option "verbose")
             // but initOutputOptions must come before checkOptions (so that warnings are printed)
-            oc.set("verbose", "true");
+            oc.setDefault("verbose", "true");
         }
         MsgHandler::initOutputOptions();
         if (!MSFrame::checkOptions()) {

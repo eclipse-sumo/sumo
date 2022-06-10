@@ -98,6 +98,8 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel("Crossings", ACs->getNumberOfSelectedCrossings());
         updateInformationLabel("Additionals", ACs->getNumberOfSelectedAdditionals());
         updateInformationLabel("TAZs", ACs->getNumberOfSelectedTAZs());
+        updateInformationLabel("TAZSources", ACs->getNumberOfSelectedTAZSources());
+        updateInformationLabel("TAZSinks", ACs->getNumberOfSelectedTAZSinks());
         updateInformationLabel("Polygon", ACs->getNumberOfSelectedPolygons());
         updateInformationLabel("POIs", ACs->getNumberOfSelectedPOIs());
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
@@ -574,6 +576,24 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                 TAZ->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
                 TAZ->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& TAZSource : ACs->getAdditionals().at(SUMO_TAG_TAZSOURCE)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || TAZSource->isAttributeCarrierSelected()) {
+                TAZSource->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                TAZSource->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& TAZSink : ACs->getAdditionals().at(SUMO_TAG_TAZSINK)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || TAZSink->isAttributeCarrierSelected()) {
+                TAZSink->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                TAZSink->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
     } else if (onlyCount) {

@@ -19,10 +19,10 @@
 ///
 // Tests the class NBTrafficLightLogic
 /****************************************************************************/
+#include <config.h>
 
 #include <gtest/gtest.h>
 #include <netbuild/NBTrafficLightLogic.h>
-#include "../utils/iodevices/OutputDeviceMock.h"
 
 
 /* Test the method 'getDuration'*/

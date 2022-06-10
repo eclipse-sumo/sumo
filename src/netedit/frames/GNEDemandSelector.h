@@ -55,6 +55,9 @@ public:
     /// @brief set current demand element
     void setDemandElement(GNEDemandElement* demandElement);
 
+    /// @brief set multiple demand elements to filter
+    void setDemandElements(const std::vector<GNEDemandElement*> &demandElements);
+
     /// @brief show demand element selector
     void showDemandElementSelector();
 
@@ -80,6 +83,7 @@ public:
     /// @}
 
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(DemandElementSelector)
 
 private:
@@ -89,9 +93,15 @@ private:
     /// @brief comboBox with the list of elements type
     MFXIconComboBox* myDemandElementsMatchBox;
 
+    /// @brief info label
+    FXLabel* myInfoLabel;
+
     /// @brief current demand element
     GNEDemandElement* myCurrentDemandElement;
 
     /// @brief demand element tags
     std::vector<SumoXMLTag> myDemandElementTags;
+
+    /// @brief flag for enable/disable multiple element selection
+    bool mySelectingMultipleElements;
 };

@@ -158,7 +158,7 @@ MSPModel_NonInteracting::PState::computeDuration(const MSEdge* prev, const MSSta
 double
 MSPModel_NonInteracting::PState::getEdgePos(const MSStageMoving&, SUMOTime now) const {
     //std::cout << SIMTIME << " lastEntryTime=" << myLastEntryTime << " pos=" << (myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime)) << "\n";
-    return myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime);
+    return myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / (double)myCurrentDuration * (double)(now - myLastEntryTime);
 }
 
 int

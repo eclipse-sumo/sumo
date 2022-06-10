@@ -65,7 +65,7 @@ public:
 private:
     /// @brief The main GUI window
     GUIMainWindow* myParent;
-        
+
     /// @brief Information whether the application shall be quit
     bool myAppQuitOnEnd;
 

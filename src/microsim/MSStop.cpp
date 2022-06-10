@@ -22,6 +22,7 @@
 
 #include <mesosim/MESegment.h>
 #include "MSLane.h"
+#include "MSNet.h"
 #include "MSParkingArea.h"
 #include "MSStoppingPlace.h"
 #include "MSStop.h"

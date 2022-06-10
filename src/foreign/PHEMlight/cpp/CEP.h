@@ -20,10 +20,8 @@
 ///
 //
 /****************************************************************************/
-
-
-#ifndef PHEMlightCEP
-#define PHEMlightCEP
+#pragma once
+#include <config.h>
 
 #define _USE_MATH_DEFINES
 #include <string>
@@ -169,6 +167,3 @@ namespace PHEMlightdll {
         void InitializeInstanceFields();
     };
 }
-
-
-#endif	//#ifndef PHEMlightCEP

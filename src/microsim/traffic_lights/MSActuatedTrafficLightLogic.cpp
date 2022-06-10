@@ -55,7 +55,6 @@ const std::vector<std::string> MSActuatedTrafficLightLogic::OPERATOR_PRECEDENCE(
 // parameter defaults definitions
 // ===========================================================================
 #define DEFAULT_MAX_GAP "3.0"
-#define DEFAULT_JAM_THRESHOLD "-1"
 #define DEFAULT_DET_LENGTH "0"
 #define DEFAULT_PASSING_TIME "1.9"
 #define DEFAULT_DETECTOR_GAP "2.0"
@@ -87,7 +86,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myTraCISwitch(false),
     myDetectorPrefix(id + "_" + programID + "_") {
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
-    myJamThreshold = StringUtils::toDouble(getParameter("jam-threshold", DEFAULT_JAM_THRESHOLD));
+    myJamThreshold = StringUtils::toDouble(getParameter("jam-threshold", OptionsCont::getOptions().getValueString("tls.actuated.jam-threshold")));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
     myInactiveThreshold = string2time(getParameter("inactive-threshold", DEFAULT_INACTIVE_THRESHOLD));
@@ -1077,7 +1076,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
     } else if (tokens.size() == 2) {
         if (tokens[0] == "not") {
             try {
-                return !(bool)(evalAtomicExpression(tokens[1]));
+                return evalAtomicExpression(tokens[1]) == 0. ? 1. : 0.;
             } catch (ProcessError& e) {
                 throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
             }
@@ -1210,7 +1209,7 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
     if (expr.size() == 0) {
         throw ProcessError("Invalid empty expression");
     } else if (expr[0] == '!') {
-        return !(bool)evalAtomicExpression(expr.substr(1));
+        return evalAtomicExpression(expr.substr(1)) == 0. ? 1. : 0.;
     } else if (expr[0] == '-') {
         return -evalAtomicExpression(expr.substr(1));
     } else {

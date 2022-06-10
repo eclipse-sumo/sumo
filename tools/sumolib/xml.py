@@ -222,6 +222,19 @@ def compound_object(element_name, attrnames, warn=False):
     return CompoundObject
 
 
+def parselines(xmlline, element_name, element_attrs=None, attr_conversions=None,
+        heterogeneous=True, warn=False, addRoot="dummy"):
+    tagStart1 = "<%s>" % element_name
+    tagStart2 = "<%s " % element_name
+    if tagStart1 in xmlline or tagStart2 in xmlline:
+        if addRoot is not None:
+            xmlline = "<%s>\n%s</%s>\n" % (addRoot, xmlline, addRoot)
+        xmlfile = io.StringIO(xmlline)
+        for x in parse(xmlfile, element_name, element_attrs, attr_conversions,
+                heterogeneous, warn):
+            yield x
+
+
 def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
           heterogeneous=True, warn=False):
     """

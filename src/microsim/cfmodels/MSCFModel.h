@@ -333,7 +333,7 @@ public:
      * @param[in] speed The vehicle's current speed
      * @return The distance needed to halt
      */
-    virtual double brakeGap(const double speed) const {
+    double brakeGap(const double speed) const {
         return brakeGap(speed, myDecel, myHeadwayTime);
     }
 
@@ -364,7 +364,7 @@ public:
      * @return The velocity after maximum deceleration
      */
     inline double getSpeedAfterMaxDecel(double v) const {
-        return MAX2((double) 0, v - (double) ACCEL2SPEED(myDecel));
+        return MAX2(0., v - ACCEL2SPEED(myDecel));
     }
     /// @}
 

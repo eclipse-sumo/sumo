@@ -155,7 +155,4 @@ private:
 
     /// @brief dotted element shape (note: It's centered in 0,0 due scaling)
     std::vector<GUIDottedGeometry::Segment> myDottedGeometrySegments;
-
-    /// @brief Invalidated assignment operator
-    GUIDottedGeometry& operator=(const GUIDottedGeometry& other) = delete;
 };

@@ -1,0 +1,1 @@
+-n input_net.net.xml -o pois.add.xml --lanes --internal tools/net/net2poly.py

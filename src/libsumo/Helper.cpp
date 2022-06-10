@@ -62,52 +62,6 @@
 //#define DEBUG_MOVEXY_ANGLE
 //#define DEBUG_SURROUNDING
 
-void
-LaneStoringVisitor::add(const MSLane* const l) const {
-    switch (myDomain) {
-        case libsumo::CMD_GET_VEHICLE_VARIABLE: {
-            for (const MSVehicle* veh : l->getVehiclesSecure()) {
-                if (myShape.distance2D(veh->getPosition()) <= myRange) {
-                    myObjects.insert(veh);
-                }
-            }
-            for (const MSBaseVehicle* veh : l->getParkingVehicles()) {
-                if (myShape.distance2D(veh->getPosition()) <= myRange) {
-                    myObjects.insert(veh);
-                }
-            }
-            l->releaseVehicles();
-        }
-        break;
-        case libsumo::CMD_GET_PERSON_VARIABLE: {
-            l->getVehiclesSecure();
-            std::vector<MSTransportable*> persons = l->getEdge().getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
-            for (auto p : persons) {
-                if (myShape.distance2D(p->getPosition()) <= myRange) {
-                    myObjects.insert(p);
-                }
-            }
-            l->releaseVehicles();
-        }
-        break;
-        case libsumo::CMD_GET_EDGE_VARIABLE: {
-            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
-                myObjects.insert(&l->getEdge());
-            }
-        }
-        break;
-        case libsumo::CMD_GET_LANE_VARIABLE: {
-            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
-                myObjects.insert(l);
-            }
-        }
-        break;
-        default:
-            break;
-
-    }
-}
-
 namespace libsumo {
 // ===========================================================================
 // static member initializations
@@ -248,7 +202,9 @@ Helper::addSubscriptionFilter(SubscriptionFilterType filter) {
         int filterType = 0;
         if (index != 0) {
             ++filterType;
-            while (index >>= 1) ++filterType;
+            while (index >>= 1) {
+                ++filterType;
+            }
         }
         throw TraCIException("No previous vehicle context subscription exists to apply filter type " + toHex(filterType, 2));
     }
@@ -806,7 +762,7 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
                 myLaneTree = new LANE_RTREE_QUAL(&MSLane::visit);
                 MSLane::fill(*myLaneTree);
             }
-            LaneStoringVisitor lsv(into, shape, range, domain);
+            MSLane::StoringVisitor lsv(into, shape, range, domain);
             myLaneTree->Search(cmin, cmax, lsv);
         }
         break;
@@ -902,7 +858,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                         // this is a non-opposite lane
                         MSVehicle* leader = lane->getLeader(v, v->getPositionOnLane(), v->getBestLanesContinuation(lane), downstreamDist).first;
                         MSVehicle* follower = lane->getFollower(v, v->getPositionOnLane(), upstreamDist,
-                                MSLane::MinorLinkMode::FOLLOW_ALWAYS).first;
+                                                                MSLane::MinorLinkMode::FOLLOW_ALWAYS).first;
                         vehs.insert(vehs.end(), leader);
                         vehs.insert(vehs.end(), follower);
 

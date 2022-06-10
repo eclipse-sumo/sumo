@@ -39,6 +39,7 @@
 class GUINet;
 class MSVehicle;
 class MSNet;
+class TesselatedPolygon;
 #ifdef HAVE_OSG
 namespace osg {
 class Geometry;
@@ -62,7 +63,7 @@ public:
      *
      * @param[in] id The lane's id
      * @param[in] maxSpeed The speed allowed on this lane
-	 * @param[in] friction The initial friction on this lane
+     * @param[in] friction The initial friction on this lane
      * @param[in] length The lane's length
      * @param[in] edge The edge this lane belongs to
      * @param[in] numericalID The numerical id of the lane
@@ -367,6 +368,9 @@ private:
     /// @brief list of parkingAreas on this lane
     mutable std::vector<MSParkingArea*>* myParkingAreas;
 
+    /// @brief An object that stores the tesselation
+    mutable TesselatedPolygon* myTesselation;
+
 #ifdef HAVE_OSG
     osg::Geometry* myGeom;
 #endif
@@ -375,7 +379,7 @@ private:
     bool myAmClosed;
 
     /// @brief cached for tracking color value
-    static const GUIVisualizationSettings* myCachedGUISettings;
+    static GUIVisualizationSettings* myCachedGUISettings;
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer

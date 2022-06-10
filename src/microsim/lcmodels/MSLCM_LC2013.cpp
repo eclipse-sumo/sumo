@@ -135,8 +135,13 @@ MSLCM_LC2013::~MSLCM_LC2013() {
 
 void
 MSLCM_LC2013::initDerivedParameters() {
-    myChangeProbThresholdRight = (0.2 / mySpeedGainRight) / MAX2(NUMERICAL_EPS, mySpeedGainParam);
-    myChangeProbThresholdLeft = 0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam);
+    if (mySpeedGainParam <= 0) {
+        myChangeProbThresholdRight = std::numeric_limits<double>::max();
+        myChangeProbThresholdLeft = std::numeric_limits<double>::max();
+    } else {
+        myChangeProbThresholdRight = (0.2 / mySpeedGainRight) / mySpeedGainParam;
+        myChangeProbThresholdLeft = 0.2 / mySpeedGainParam;
+    }
 }
 
 
@@ -220,7 +225,7 @@ MSLCM_LC2013::patchSpeed(const double min, const double wanted, const double max
 
 
 double
-MSLCM_LC2013::_patchSpeed(double min, const double wanted, const double max, const MSCFModel& cfModel) {
+MSLCM_LC2013::_patchSpeed(double min, const double wanted, double max, const MSCFModel& cfModel) {
     int state = myOwnState;
 #ifdef DEBUG_PATCH_SPEED
     if (DEBUG_COND) {
@@ -248,6 +253,7 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, const double max, con
         if (space > 0) { // XXX space > -MAGIC_offset
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
             double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
+            max = MIN2(max, safe);
             // if we are approaching this place
             if (safe < wanted) {
                 // return this speed as the speed to use
@@ -1066,6 +1072,16 @@ MSLCM_LC2013::prepareStep() {
 }
 
 
+double
+MSLCM_LC2013::getExtraReservation(int bestLaneOffset) const {
+    if (bestLaneOffset < -1) {
+        return 20;
+    } else if (bestLaneOffset > 1) {
+        return 40;
+    }
+    return 0;
+}
+
 void
 MSLCM_LC2013::changed() {
     myOwnState = 0;
@@ -1505,12 +1521,43 @@ MSLCM_LC2013::_wantsChange(
         ret = getCanceledState(laneOffset);
         return ret;
     }
-    // a high inconvenience prevents cooperative changes.
-    const double inconvenience = MIN2(1.0, (laneOffset < 0
-                                            ? mySpeedGainProbability / myChangeProbThresholdRight
-                                            : -mySpeedGainProbability / myChangeProbThresholdLeft));
+
+    // we wish to anticipate future speeds. This is difficult when the leading
+    // vehicles are still accelerating so we resort to comparing speeds for the near future (1s) in this case
+    const bool acceleratingLeader = (neighLead.first != 0 && neighLead.first->getAcceleration() > 0)
+                                    || (leader.first != 0 && leader.first->getAcceleration() > 0);
+    const double neighVMax = neighLane.getVehicleMaxSpeed(&myVehicle);
+    double neighLaneVSafe = MIN2(neighVMax, anticipateFollowSpeed(neighLead, neighDist, neighVMax, acceleratingLeader));
+    thisLaneVSafe = MIN2(thisLaneVSafe, anticipateFollowSpeed(leader, currentDist, vMax, acceleratingLeader));
+    //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " thisLaneVSafe=" << thisLaneVSafe << " neighLaneVSafe=" << neighLaneVSafe << "\n";
+
+
+    // a high inconvenience prevents cooperative changes and the following things are inconvenient:
+    // - a desire to change in the opposite direction for speedGain
+    // - low anticipated speed on the neighboring lane
+    // - high occupancy on the neighboring lane while in a roundabout
+
+    double inconvenience = laneOffset < 0
+        ? mySpeedGainProbability / myChangeProbThresholdRight
+        : -mySpeedGainProbability / myChangeProbThresholdLeft;
+
+    inconvenience = MAX2(thisLaneVSafe / neighLaneVSafe - 1, inconvenience);
+    inconvenience = MIN2(1.0, inconvenience);
+
     const bool speedGainInconvenient = inconvenience > myCooperativeParam;
     const bool neighOccupancyInconvenient = neigh.lane->getBruttoOccupancy() > curr.lane->getBruttoOccupancy();
+#ifdef DEBUG_WANTS_CHANGE
+    if (DEBUG_COND) {
+        std::cout << STEPS2TIME(currentTime)
+            << " veh=" << myVehicle.getID()
+            << " speedGainProb=" << mySpeedGainProbability
+            << " neighSpeedFactor=" << (thisLaneVSafe / neighLaneVSafe - 1)
+            << " inconvenience=" << inconvenience
+            << " speedInconv=" << speedGainInconvenient
+            << " occInconv=" << neighOccupancyInconvenient
+            << "\n";
+    }
+#endif
 
     // VARIANT_15
     if (roundaboutBonus > 0) {
@@ -1606,15 +1653,6 @@ MSLCM_LC2013::_wantsChange(
     //if ((congested(neighLead.first) && neighLead.second < 20) || predInteraction(leader.first)) { //!!!
     //    return ret;
     //}
-
-    // we wish to anticipate future speeds. This is difficult when the leading
-    // vehicles are still accelerating so we resort to comparing speeds for the near future (1s) in this case
-    const bool acceleratingLeader = (neighLead.first != 0 && neighLead.first->getAcceleration() > 0)
-                                    || (leader.first != 0 && leader.first->getAcceleration() > 0);
-    double neighLaneVSafe = anticipateFollowSpeed(neighLead, neighDist, vMax, acceleratingLeader);
-    thisLaneVSafe = MIN2(thisLaneVSafe, anticipateFollowSpeed(leader, currentDist, vMax, acceleratingLeader));
-
-    //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " thisLaneVSafe=" << thisLaneVSafe << " neighLaneVSafe=" << neighLaneVSafe << "\n";
 
     if (neighLane.getEdge().getPersons().size() > 0) {
         // react to pedestrians
@@ -2005,7 +2043,7 @@ MSLCM_LC2013::getOppositeSafetyFactor() const {
     return myOppositeParam <= 0 ? std::numeric_limits<double>::max() : 1 / myOppositeParam;
 }
 
-double
+bool
 MSLCM_LC2013::saveBlockerLength(double length, double foeLeftSpace) {
     const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
     if (!isOpposite() && (canReserve || myLeftSpace > foeLeftSpace)) {
@@ -2056,6 +2094,22 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(myMaxSpeedLatFactor);
     } else if (key == toString(SUMO_ATTR_LCA_MAXDISTLATSTANDING)) {
         return toString(myMaxDistLatStanding);
+        // access to internal state for debugging in sumo-gui (not documented since it may change at any time)
+    } else if (key == "speedGainProbabilityRight") {
+        return toString(-mySpeedGainProbability);
+    } else if (key == "speedGainProbabilityLeft") {
+        return toString(mySpeedGainProbability);
+    } else if (key == "keepRightProbability") {
+        return toString(-myKeepRightProbability);
+    } else if (key == "lookAheadSpeed") {
+        return toString(myLookAheadSpeed);
+        // motivation relative to threshold
+    } else if (key == "speedGainRP") {
+        return toString(-mySpeedGainProbability / myChangeProbThresholdRight);
+    } else if (key == "speedGainLP") {
+        return toString(mySpeedGainProbability / myChangeProbThresholdLeft);
+    } else if (key == "keepRightP") {
+        return toString(myKeepRightProbability * myKeepRightParam / -myChangeProbThresholdRight);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }

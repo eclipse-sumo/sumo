@@ -564,7 +564,7 @@ MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stop
 
     if (writePrefix(dev, *sumData, SUMO_TAG_EDGE, "AGGREGATED")) {
         dev.writeAttr(SUMO_ATTR_NUMEDGES, myEdges.size());
-        sumData->write(dev, myWrittenAttributes, stopTime - startTime, (double)laneNumber, speedSum / myEdges.size(),
+        sumData->write(dev, myWrittenAttributes, stopTime - startTime, (double)laneNumber, speedSum / (double)myEdges.size(),
                        myPrintDefaults ? totalTT : -1.);
     }
 }

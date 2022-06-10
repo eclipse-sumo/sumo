@@ -30,8 +30,8 @@
 #include <netbuild/NBDistrict.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
-#include "../NIImporter_Vissim.h"
-#include "../tempstructs/NIVissimDistrictConnection.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
+#include <netimport/vissim/tempstructs/NIVissimDistrictConnection.h>
 #include "NIVissimSingleTypeParser_Parkplatzdefinition.h"
 
 

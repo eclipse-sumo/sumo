@@ -27,6 +27,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 
+#include "EnergyParams.h"
 #include "HelpersPHEMlight5.h"
 
 
@@ -42,10 +43,10 @@ HelpersPHEMlight5::HelpersPHEMlight5() :
 SUMOEmissionClass
 HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     if (eClass == "unknown" && !myEmissionClassStrings.hasString("unknown")) {
-        myEmissionClassStrings.addAlias("unknown", getClassByName("PC_G_EU4", vc));
+        myEmissionClassStrings.addAlias("unknown", getClassByName("PC_EU4_G", vc));
     }
     if (eClass == "default" && !myEmissionClassStrings.hasString("default")) {
-        myEmissionClassStrings.addAlias("default", getClassByName("PC_G_EU4", vc));
+        myEmissionClassStrings.addAlias("default", getClassByName("PC_EU4_G", vc));
     }
     if (myEmissionClassStrings.hasString(eClass)) {
         return myEmissionClassStrings.get(eClass);
@@ -53,35 +54,27 @@ HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleCl
     if (eClass.size() < 6) {
         throw InvalidArgument("Unknown emission class '" + eClass + "'.");
     }
+    std::vector<std::string> phemPath;
+    phemPath.push_back(OptionsCont::getOptions().getString("phemlight-path") + "/");
+    if (getenv("PHEMLIGHT_PATH") != nullptr) {
+        phemPath.push_back(std::string(getenv("PHEMLIGHT_PATH")) + "/");
+    }
+    if (getenv("SUMO_HOME") != nullptr) {
+        phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight5/");
+    }
+    myHelper.setCommentPrefix("c");
+    myHelper.setPHEMDataV("V5");
+    myHelper.setclass(eClass);
+    if (!myCEPHandler.GetCEP(phemPath, &myHelper, nullptr)) {
+        throw InvalidArgument("File for PHEMlight5 emission class " + eClass + " not found.\n" + myHelper.getErrMsg());
+    }
+    PHEMlightdllV5::CEP* const currCep = myCEPHandler.getCEPS().find(myHelper.getgClass())->second;
     int index = myIndex++;
-    const std::string type = eClass.substr(0, 3);
-    if (type == "HDV" || type == "LB_" || type == "RB_" || type == "LSZ" || eClass.find("LKW") != std::string::npos) {
+    if (currCep->getHeavyVehicle()) {
         index |= PollutantsInterface::HEAVY_BIT;
     }
     myEmissionClassStrings.insert(eClass, index);
-#ifdef INTERNAL_PHEM
-    if (type == "HDV" || type == "LCV" || type == "PC_" || !PHEMCEPHandler::getHandlerInstance().Load(index, eClass)) {
-#endif
-        std::vector<std::string> phemPath;
-        phemPath.push_back(OptionsCont::getOptions().getString("phemlight-path") + "/");
-        if (getenv("PHEMLIGHT_PATH") != nullptr) {
-            phemPath.push_back(std::string(getenv("PHEMLIGHT_PATH")) + "/");
-        }
-        if (getenv("SUMO_HOME") != nullptr) {
-            phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight/V5/");
-        }
-        myHelper.setCommentPrefix("c");
-        myHelper.setPHEMDataV("V5");
-        myHelper.setclass(eClass);
-        if (!myCEPHandler.GetCEP(phemPath, &myHelper, nullptr)) {
-            myEmissionClassStrings.remove(eClass, index);
-            myIndex--;
-            throw InvalidArgument("File for PHEM emission class " + eClass + " not found.\n" + myHelper.getErrMsg());
-        }
-        myCEPs[index] = myCEPHandler.getCEPS().find(myHelper.getgClass())->second;
-#ifdef INTERNAL_PHEM
-    }
-#endif
+    myCEPs[index] = currCep;
     myEmissionClassStrings.addAlias(StringUtils::to_lower_case(eClass), index);
     return index;
 }
@@ -105,18 +98,28 @@ HelpersPHEMlight5::getModifiedAccel(const SUMOEmissionClass c, const double v, c
 
 
 double
-HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* /* param */) const {
+HelpersPHEMlight5::getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* /* param */) const {
+    return myCEPs.find(c)->second->GetDecelCoast(v, a, slope);
+}
+
+
+double
+HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const {
+    if (param != nullptr && param->isEngineOff()) {
+        return 0.;
+    }
     const double corrSpeed = MAX2(0.0, v);
-    double power = 0.;
-    PHEMlightdllV5::CEP* currCep = myCEPs.count(c) == 0 ? 0 : myCEPs.find(c)->second;
-    if (currCep != nullptr) {
-        const double corrAcc = getModifiedAccel(c, corrSpeed, a, slope);
-        const bool isHBEV = currCep->getFuelType() == PHEMlightdllV5::Constants::strBEV || currCep->getFuelType() == PHEMlightdllV5::Constants::strHybrid;
-        if (isHBEV && corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) &&
-                corrSpeed > PHEMlightdllV5::Constants::ZERO_SPEED_ACCURACY) {
-            return 0;
-        }
-        power = currCep->CalcPower(corrSpeed, corrAcc, slope, isHBEV);
+    assert(myCEPs.count(c) == 1);
+    PHEMlightdllV5::CEP* const currCep = myCEPs.find(c)->second;
+    const double corrAcc = getModifiedAccel(c, corrSpeed, a, slope);
+    const bool isBEV = currCep->getFuelType() == PHEMlightdllV5::Constants::strBEV;
+    const bool isHybrid = currCep->getFuelType() == PHEMlightdllV5::Constants::strHybrid;
+    const double power_raw = currCep->CalcPower(corrSpeed, corrAcc, slope, isBEV || isHybrid);
+    const double power = isHybrid ? currCep->CalcWheelPower(corrSpeed, corrAcc, slope) : currCep->CalcEngPower(power_raw);
+
+    if (!isBEV && corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) &&
+            corrSpeed > PHEMlightdllV5::Constants::ZERO_SPEED_ACCURACY) {
+        return 0;
     }
     const std::string& fuelType = currCep->getFuelType();
     switch (e) {

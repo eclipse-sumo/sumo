@@ -1810,7 +1810,7 @@ NBNodeCont::analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
         } else if (nodeType != otherType) {
             if (hasTLS) {
                 nodeType = SumoXMLNodeType::TRAFFIC_LIGHT;
-            } else {
+            } else if (otherType != SumoXMLNodeType::UNKNOWN) {
                 if ((nodeType != SumoXMLNodeType::PRIORITY && (nodeType != SumoXMLNodeType::NOJUNCTION || otherType != SumoXMLNodeType::PRIORITY))
                         || (otherType != SumoXMLNodeType::NOJUNCTION && otherType != SumoXMLNodeType::UNKNOWN && otherType != SumoXMLNodeType::PRIORITY)) {
                     WRITE_WARNINGF("Ambiguous node type for node cluster '%' (%,%), setting to '" + toString(SumoXMLNodeType::PRIORITY) + "'.", id, toString(nodeType), toString(otherType));
@@ -2472,6 +2472,9 @@ NBNodeCont::discardRailSignals() {
 int
 NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix) {
     bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.node-start");
+    if (!numericaIDs && !reservedIDs && prefix == "" && !startGiven) {
+        return 0;
+    }
     std::vector<std::string> avoid;
     if (startGiven) {
         avoid.push_back(toString(OptionsCont::getOptions().getInt("numerical-ids.node-start") - 1));

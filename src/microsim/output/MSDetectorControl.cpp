@@ -25,11 +25,12 @@
 #include <config.h>
 
 #include <iostream>
-#include "MSDetectorControl.h"
-#include "MSMeanData_Net.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/common/MsgHandler.h>
+#include "MSMeanData_Emissions.h"
+#include "MSMeanData_Net.h"
+#include "MSDetectorControl.h"
 
 
 // ===========================================================================
@@ -70,14 +71,12 @@ MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, const std::stri
 }
 
 
-
 void
 MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d) {
     if (!myDetectors[type].add(d->getID(), d)) {
         throw ProcessError(toString(type) + " detector '" + d->getID() + "' could not be build (declared twice?).");
     }
 }
-
 
 
 void
@@ -88,6 +87,7 @@ MSDetectorControl::add(MSMeanData* md, const std::string& device,
     if (begin <= string2time(OptionsCont::getOptions().getString("begin"))) {
         md->init();
     }
+    MSGlobals::gHaveEmissions |= typeid(*md) == typeid(MSMeanData_Emissions);
 }
 
 

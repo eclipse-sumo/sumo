@@ -184,6 +184,17 @@ PollutantsInterface::Helper::getModifiedAccel(const SUMOEmissionClass c, const d
 }
 
 
+double
+PollutantsInterface::Helper::getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const {
+    UNUSED_PARAMETER(c);
+    UNUSED_PARAMETER(v);
+    UNUSED_PARAMETER(a);
+    UNUSED_PARAMETER(slope);
+    UNUSED_PARAMETER(param);
+    return 0.;
+}
+
+
 void
 PollutantsInterface::Helper::addAllClassesInto(std::vector<SUMOEmissionClass>& list) const {
     myEmissionClassStrings.addKeysInto(list);

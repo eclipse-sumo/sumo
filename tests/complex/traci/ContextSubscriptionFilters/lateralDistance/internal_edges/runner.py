@@ -24,7 +24,8 @@ import os
 import sys
 
 sumoHome = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', '..', '..'))
-sys.path.append(os.path.join(sumoHome, "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
 import traci  # noqa
 

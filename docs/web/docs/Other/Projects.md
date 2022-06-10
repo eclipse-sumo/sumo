@@ -145,7 +145,7 @@ title: Projects
   mobiler
   Kommunikation" by Clemens Honomichl; Diploma thesis; 2008
 - [emil - Elektrobusse mit induktiver Ladetechnik (german only)](https://web.archive.org/web/20150722031908/http://www.verkehr-bs.de/unternehmen/forschungsprojekt-emil.html)
-- [Metro Traffic Simulator](https://tech.d-itlab.co.jp/author/osamumasutani/)
+- [Metro Traffic Simulator](https://www.youtube.com/watch?v=P9rHo6yHRNc)
 
 ## Code repositories with SUMO related stuff
 

@@ -33,7 +33,8 @@ import sumolib  # noqa
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " -n <net> <options>"
     argParser = sumolib.options.ArgumentParser(usage=USAGE)
-    argParser.add_argument("-n", "--net-file", dest="netFile", help="The .net.xml file to convert")
+    argParser.add_argument("-n", "--net-file", dest="netFile", required=True,
+                           help="The .net.xml file to convert")
     argParser.add_argument("-d", "--edgedata-file", dest="edgeData", help="Optional edgeData to include in the output")
     argParser.add_argument("-p", "--ptline-file", dest="ptlines",
                            help="Optional ptline information to include in the output")
@@ -48,13 +49,7 @@ def parse_args():
                            help="Append junction coordinates to edge shapes")
     argParser.add_argument("--edgedata-timeline", action="store_true", default=False, dest="edgedataTimeline",
                            help="exports all time intervals (by default only the first is exported)")
-
-    options = argParser.parse_args()
-    if not options.netFile:
-        print("Missing arguments")
-        argParser.print_help()
-        exit()
-    return options
+    return argParser.parse_args()
 
 
 def getGeometries(options, net):

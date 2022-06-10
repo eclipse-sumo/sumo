@@ -30,8 +30,10 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <mesosim/MELoop.h>
+#include <mesosim/MEVehicle.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/devices/MSDevice_Transportable.h>
+#include <microsim/devices/MSDevice_Emissions.h>
 #include <microsim/devices/MSDevice_Battery.h>
 #include <microsim/devices/MSDevice_ElecHybrid.h>
 #include <microsim/devices/MSDevice_Taxi.h>
@@ -108,6 +110,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myMoveReminders(0),
     myPersonDevice(nullptr),
     myContainerDevice(nullptr),
+    myEnergyParams(nullptr),
     myDeparture(NOT_YET_DEPARTED),
     myDepartPos(-1),
     myArrivalPos(-1),
@@ -156,6 +159,10 @@ MSBaseVehicle::initDevices() {
     for (MSVehicleDevice* dev : myDevices) {
         myMoveReminders.push_back(std::make_pair(dev, 0.));
     }
+    if (MSGlobals::gHaveEmissions) {
+        // ensure we have the emission parameters even if we don't have the device
+        getEmissionParameters();
+    }
 }
 
 
@@ -169,23 +176,6 @@ MSBaseVehicle::getParameter() const {
     return *myParameter;
 }
 
-const EnergyParams*
-MSBaseVehicle::getEmissionParameters() const {
-    MSDevice_Battery* batteryDevice = static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
-    MSDevice_ElecHybrid* elecHybridDevice = static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
-    if (batteryDevice != nullptr) {
-        if (elecHybridDevice != nullptr) {
-            WRITE_WARNING("MSBaseVehicle::getEmissionParameters(): both batteryDevice and elecHybridDevice defined, returning batteryDevice parameters.");
-        }
-        return &batteryDevice->getEnergyParams();
-    } else {
-        if (elecHybridDevice != nullptr) {
-            return &elecHybridDevice->getEnergyParams();
-        } else {
-            return nullptr;
-        }
-    }
-}
 
 void
 MSBaseVehicle::replaceParameter(const SUMOVehicleParameter* newParameter) {
@@ -1665,75 +1655,6 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
 
 
 double
-MSBaseVehicle::getCO2Emissions() const {
-    if (isOnRoad() || isIdling()) {
-        return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::CO2, getSpeed(), getAcceleration(), getSlope());
-    } else {
-        return 0.;
-    }
-}
-
-
-double
-MSBaseVehicle::getCOEmissions() const {
-    if (isOnRoad() || isIdling()) {
-        return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::CO, getSpeed(), getAcceleration(), getSlope());
-    } else {
-        return 0.;
-    }
-}
-
-
-double
-MSBaseVehicle::getHCEmissions() const {
-    if (isOnRoad() || isIdling()) {
-        return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::HC, getSpeed(), getAcceleration(), getSlope());
-    } else {
-        return 0.;
-    }
-}
-
-
-double
-MSBaseVehicle::getNOxEmissions() const {
-    if (isOnRoad() || isIdling()) {
-        return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::NO_X, getSpeed(), getAcceleration(), getSlope());
-    } else {
-        return 0.;
-    }
-}
-
-
-double
-MSBaseVehicle::getPMxEmissions() const {
-    if (isOnRoad() || isIdling()) {
-        return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::PM_X, getSpeed(), getAcceleration(), getSlope());
-    } else {
-        return 0.;
-    }
-}
-
-
-double
-MSBaseVehicle::getFuelConsumption() const {
-    if (isOnRoad() || isIdling()) {
-        return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::FUEL, getSpeed(), getAcceleration(), getSlope());
-    } else {
-        return 0.;
-    }
-}
-
-
-double
-MSBaseVehicle::getElectricityConsumption() const {
-    if (isOnRoad() || isIdling()) {
-        return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::ELEC, getSpeed(), getAcceleration(), getSlope(), getEmissionParameters());
-    } else {
-        return 0.;
-    }
-}
-
-double
 MSBaseVehicle::getStateOfCharge() const {
     if (static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery))) != 0) {
         MSDevice_Battery* batteryOfVehicle = dynamic_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
@@ -1933,9 +1854,9 @@ MSBaseVehicle::setJunctionModelParameter(const std::string& key, const std::stri
 
 void
 MSBaseVehicle::initJunctionModelParams() {
-    /* Design idea for additioanl junction model parameters:
+    /* Design idea for additional junction model parameters:
        We can distinguish between 3 levels of parameters
-       1. typically shared buy multiple vehicles -> vType parameter
+       1. typically shared by multiple vehicles -> vType parameter
        2. specific to one vehicle but stays constant throughout the simulation -> vehicle parameter
        3. specific to one vehicle and expected to change during simulation -> prefixed generic vehicle parameter
        */
@@ -1954,6 +1875,9 @@ MSBaseVehicle::replaceVehicleType(MSVehicleType* type) {
         MSNet::getInstance()->getVehicleControl().removeVType(myType);
     }
     myType = type;
+    if (myEnergyParams != nullptr) {
+        myEnergyParams->setSecondary(type->getEmissionParameters());
+    }
 }
 
 

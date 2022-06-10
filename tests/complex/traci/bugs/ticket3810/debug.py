@@ -17,7 +17,8 @@
 
 import os
 import sys
-sys.path.append(os.path.join(os.environ["SUMO_HOME"], '/home/kobo/dlr/sumo/tools'))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], '/home/kobo/dlr/sumo/tools'))
 import traci  # noqa
 
 traci.start(['sumo', '-c', 'test.sumocfg', '--no-step-log'])

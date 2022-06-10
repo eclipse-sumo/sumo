@@ -161,8 +161,13 @@ MSLCM_SL2015::~MSLCM_SL2015() {
 
 void
 MSLCM_SL2015::initDerivedParameters() {
-    myChangeProbThresholdRight = ((0.2 / mySpeedGainRight) / MAX2(NUMERICAL_EPS, mySpeedGainParam));
-    myChangeProbThresholdLeft = (0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam));
+    if (mySpeedGainParam <= 0) {
+        myChangeProbThresholdRight = std::numeric_limits<double>::max();
+        myChangeProbThresholdLeft = std::numeric_limits<double>::max();
+    } else {
+        myChangeProbThresholdRight = (0.2 / mySpeedGainRight) / mySpeedGainParam;
+        myChangeProbThresholdLeft = 0.2 / mySpeedGainParam;
+    }
     mySpeedLossProbThreshold = (-0.1 + (1 - mySublaneParam));
 }
 
@@ -323,7 +328,7 @@ MSLCM_SL2015::patchSpeed(const double min, const double wanted, const double max
 
 
 double
-MSLCM_SL2015::_patchSpeed(double min, const double wanted, const double max, const MSCFModel& cfModel) {
+MSLCM_SL2015::_patchSpeed(double min, const double wanted, double max, const MSCFModel& cfModel) {
     if (wanted <= 0) {
         return wanted;
     }
@@ -344,6 +349,7 @@ MSLCM_SL2015::_patchSpeed(double min, const double wanted, const double max, con
         if (space >= 0) { // XXX space > -MAGIC_OFFSET
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
             double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
+            max = MIN2(max, safe);
             // if we are approaching this place
             if (safe < wanted) {
                 if (safe < min) {
@@ -939,6 +945,17 @@ MSLCM_SL2015::prepareStep() {
 }
 
 double
+MSLCM_SL2015::getExtraReservation(int bestLaneOffset) const {
+    if (bestLaneOffset < -1) {
+        return 20;
+    } else if (bestLaneOffset > 1) {
+        return 40;
+    }
+    return 0;
+}
+
+
+double
 MSLCM_SL2015::getLateralDrift() {
     //OUProcess::step(double state, double dt, double timeScale, double noiseIntensity)
     const double deltaState = OUProcess::step(mySigmaState,
@@ -1393,6 +1410,22 @@ MSLCM_SL2015::_wantsChangeSublane(
     const double inconvenience = (latLaneDist < 0
                                   ? -mySpeedGainProbabilityRight / myChangeProbThresholdRight
                                   : -mySpeedGainProbabilityLeft / myChangeProbThresholdLeft);
+#ifdef DEBUG_COOPERATE
+    if (gDebugFlag2) {
+        std::cout << STEPS2TIME(currentTime)
+            << " veh=" << myVehicle.getID()
+            << " amBlocking=" << amBlockingFollowerPlusNB()
+            << " state=" << toString((LaneChangeAction)myOwnState)
+            << " myLca=" << toString((LaneChangeAction)myLca)
+            << " prevState=" << toString((LaneChangeAction)myPreviousState)
+            << " inconvenience=" << inconvenience
+            << " origLatDist=" << getManeuverDist()
+            << " wantsChangeToHelp=" << (right ? "right" : "left")
+            << " state=" << myOwnState
+            << "\n";
+    }
+#endif
+
     if (laneOffset != 0
             && ((amBlockingFollowerPlusNB()
                  // VARIANT_6 : counterNoHelp
@@ -1409,15 +1442,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         // VARIANT_2 (nbWhenChangingToHelp)
 #ifdef DEBUG_COOPERATE
         if (gDebugFlag2) {
-            std::cout << STEPS2TIME(currentTime)
-                      << " veh=" << myVehicle.getID()
-                      << " amBlocking=" << amBlockingFollowerPlusNB()
-                      << " prevState=" << toString((LaneChangeAction)myPreviousState)
-                      << " origLatDist=" << getManeuverDist()
-                      << " wantsChangeToHelp=" << (right ? "right" : "left")
-                      << " state=" << myOwnState
-                      //<< (((myOwnState & myLca) == 0) ? " (counter)" : "")
-                      << "\n";
+            std::cout << "   wants cooperative change\n";
         }
 #endif
 
@@ -3561,7 +3586,7 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myLookAheadSpeed);
     } else if (key == "sigmaState") {
         return toString(mySigmaState);
-        // motivaiton relative to threshold
+        // motivation relative to threshold
     } else if (key == "speedGainRP") {
         return toString(mySpeedGainProbabilityRight / myChangeProbThresholdRight);
     } else if (key == "speedGainLP") {
@@ -3770,7 +3795,7 @@ MSLCM_SL2015::wantsKeepRight(double keepRightProb) const {
 }
 
 
-double
+bool
 MSLCM_SL2015::saveBlockerLength(double length, double foeLeftSpace) {
     const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
     if (!isOpposite() && (canReserve || myLeftSpace > foeLeftSpace)) {

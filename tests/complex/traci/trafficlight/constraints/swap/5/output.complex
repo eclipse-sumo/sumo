@@ -1,14 +1,14 @@
  Retrying in 1 seconds
 constraints before swap
- tls=A Constraint(signalId=A tripId=t2, foeId=tx, foeSignal=D, limit=3, type=0, mustWait=True)
- tls=A Constraint(signalId=A tripId=t2, foeId=t0, foeSignal=D, limit=3, type=0, mustWait=True)
- tls=C Constraint(signalId=C tripId=t2, foeId=t1, foeSignal=H, limit=3, type=0, mustWait=True)
- tls=H Constraint(signalId=H tripId=t1, foeId=t0, foeSignal=C, limit=3, type=0, mustWait=True)
+ tls=A Constraint(signalId=A tripId=t2, foeId=tx, foeSignal=D, limit=3, type=0, mustWait=True, active=True)
+ tls=A Constraint(signalId=A tripId=t2, foeId=t0, foeSignal=D, limit=3, type=0, mustWait=True, active=True)
+ tls=C Constraint(signalId=C tripId=t2, foeId=t1, foeSignal=H, limit=3, type=0, mustWait=True, active=True)
+ tls=H Constraint(signalId=H tripId=t1, foeId=t0, foeSignal=C, limit=3, type=0, mustWait=True, active=True)
 constraints added to avoid deadlock
- tls=H Constraint(signalId=D tripId=t0, foeId=t2, foeSignal=A, limit=3, type=0, mustWait=True)
- tls=H Constraint(signalId=C tripId=t0, foeId=t1, foeSignal=H, limit=3, type=0, mustWait=True)
+ tls=H Constraint(signalId=D tripId=t0, foeId=t2, foeSignal=A, limit=3, type=0, mustWait=True, active=True)
+ tls=H Constraint(signalId=C tripId=t0, foeId=t1, foeSignal=H, limit=3, type=0, mustWait=True, active=True)
 constraints after swap
- tls=C Constraint(signalId=C tripId=t0, foeId=t1, foeSignal=H, limit=3, type=0, mustWait=True)
- tls=C Constraint(signalId=C tripId=t2, foeId=t1, foeSignal=H, limit=3, type=0, mustWait=True)
- tls=D Constraint(signalId=D tripId=t0, foeId=t2, foeSignal=A, limit=3, type=0, mustWait=True)
- tls=D Constraint(signalId=D tripId=tx, foeId=t2, foeSignal=A, limit=3, type=0, mustWait=True)
+ tls=C Constraint(signalId=C tripId=t0, foeId=t1, foeSignal=H, limit=3, type=0, mustWait=True, active=True)
+ tls=C Constraint(signalId=C tripId=t2, foeId=t1, foeSignal=H, limit=3, type=0, mustWait=True, active=True)
+ tls=D Constraint(signalId=D tripId=t0, foeId=t2, foeSignal=A, limit=3, type=0, mustWait=True, active=True)
+ tls=D Constraint(signalId=D tripId=tx, foeId=t2, foeSignal=A, limit=3, type=0, mustWait=True, active=True)

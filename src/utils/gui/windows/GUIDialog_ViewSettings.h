@@ -124,6 +124,9 @@ public:
                            std::vector<GUISUMOAbstractView::Decal>* decals,
                            FXMutex* decalsLock);
 
+    /// @brief FOX need this
+    GUIDialog_ViewSettings() : myBackup("DUMMY") {}
+
     /// @brief Destructor
     ~GUIDialog_ViewSettings();
 
@@ -198,9 +201,6 @@ public:
     void setCurrentScheme(const std::string&);
 
 protected:
-    /// @brief FOX need this
-    FOX_CONSTRUCTOR(GUIDialog_ViewSettings)
-
     /// @brief The parent view (which settings are changed)
     GUISUMOAbstractView* myParent;
 

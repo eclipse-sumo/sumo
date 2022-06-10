@@ -222,37 +222,37 @@ Vehicle::getLateralLanePosition(const std::string& vehID) {
 double
 Vehicle::getCO2Emission(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    return isVisible(veh) ? veh->getCO2Emissions() : INVALID_DOUBLE_VALUE;
+    return isVisible(veh) ? veh->getEmissions<PollutantsInterface::CO2>() : INVALID_DOUBLE_VALUE;
 }
 
 double
 Vehicle::getCOEmission(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    return isVisible(veh) ? veh->getCOEmissions() : INVALID_DOUBLE_VALUE;
+    return isVisible(veh) ? veh->getEmissions<PollutantsInterface::CO>() : INVALID_DOUBLE_VALUE;
 }
 
 double
 Vehicle::getHCEmission(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    return isVisible(veh) ? veh->getHCEmissions() : INVALID_DOUBLE_VALUE;
+    return isVisible(veh) ? veh->getEmissions<PollutantsInterface::HC>() : INVALID_DOUBLE_VALUE;
 }
 
 double
 Vehicle::getPMxEmission(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    return isVisible(veh) ? veh->getPMxEmissions() : INVALID_DOUBLE_VALUE;
+    return isVisible(veh) ? veh->getEmissions<PollutantsInterface::PM_X>() : INVALID_DOUBLE_VALUE;
 }
 
 double
 Vehicle::getNOxEmission(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    return isVisible(veh) ? veh->getNOxEmissions() : INVALID_DOUBLE_VALUE;
+    return isVisible(veh) ? veh->getEmissions<PollutantsInterface::NO_X>() : INVALID_DOUBLE_VALUE;
 }
 
 double
 Vehicle::getFuelConsumption(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    return isVisible(veh) ? veh->getFuelConsumption() : INVALID_DOUBLE_VALUE;
+    return isVisible(veh) ? veh->getEmissions<PollutantsInterface::FUEL>() : INVALID_DOUBLE_VALUE;
 }
 
 double
@@ -264,7 +264,7 @@ Vehicle::getNoiseEmission(const std::string& vehID) {
 double
 Vehicle::getElectricityConsumption(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    return isVisible(veh) ? veh->getElectricityConsumption() : INVALID_DOUBLE_VALUE;
+    return isVisible(veh) ? veh->getEmissions<PollutantsInterface::ELEC>() : INVALID_DOUBLE_VALUE;
 }
 
 int
@@ -666,12 +666,12 @@ Vehicle::getNeighbors(const std::string& vehID, const int mode) {
             double pos = targetLane->getOppositePos(veh->getPositionOnLane());
             neighbors = targetLane->getFollowersOnConsecutive(veh, pos, true);
         } else {
-            targetLane->addLeaders(veh, veh->getPositionOnLane(), false, neighbors);
+            targetLane->addLeaders(veh, veh->getPositionOnLane(), neighbors);
         }
     } else {
         if (opposite) {
             double pos = targetLane->getOppositePos(veh->getPositionOnLane());
-            targetLane->addLeaders(veh, pos, false, neighbors);
+            targetLane->addLeaders(veh, pos, neighbors);
             neighbors.fixOppositeGaps(true);
         } else {
             neighbors = targetLane->getFollowersOnConsecutive(veh, veh->getBackPositionOnLane(), true);
@@ -1653,12 +1653,10 @@ Vehicle::setAcceleration(const std::string& vehID, double accel, double duration
         return;
     }
 
-    double targetSpeed = veh->getSpeed() + accel * duration;
+    double targetSpeed = std::max(veh->getSpeed() + accel * duration, 0.0);
     std::vector<std::pair<SUMOTime, double>> speedTimeLine;
-    if (accel >= 0) {
-        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), veh->getSpeed()));
-        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), targetSpeed));
-    }
+    speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), veh->getSpeed()));
+    speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), targetSpeed));
     veh->getInfluencer().setSpeedTimeLine(speedTimeLine);
 }
 

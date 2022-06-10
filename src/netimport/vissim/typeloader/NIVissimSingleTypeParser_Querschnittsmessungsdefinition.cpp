@@ -22,8 +22,8 @@
 
 #include <iostream>
 #include <utils/common/StringUtils.h>
-#include "../NIImporter_Vissim.h"
-#include "../tempstructs/NIVissimClosures.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
+#include <netimport/vissim/tempstructs/NIVissimClosures.h>
 #include "NIVissimSingleTypeParser_Querschnittsmessungsdefinition.h"
 
 

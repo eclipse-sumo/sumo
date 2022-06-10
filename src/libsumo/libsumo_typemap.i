@@ -339,7 +339,8 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 #ifdef _MSC_VER
 // ignore constant conditional expression (C4127) and unreachable/unsafe code warnings
 // and hidden local declaration (C4456), uninitialized variable (C4701), assignment in conditional expression (C4706)
-#pragma warning(disable:4127 4456 4701 4702 4706 4996)
+// also see config.h.cmake
+#pragma warning(disable:4127 4456 4701 4702 4706 4996 4365 4820 4514 5045 4191 4710)
 #else
 // ignore unused parameter warnings for vector template code
 #pragma GCC diagnostic ignored "-Wunused-parameter"

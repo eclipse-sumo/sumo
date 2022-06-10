@@ -239,8 +239,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myTimeLoss(0),
     myEmergencyVehicleCount(0),
     myTotalDistance(0),
-    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY)
-{
+    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY) {
     // init icons
     GUIIconSubSys::initIcons(a);
     // init cursors
@@ -249,7 +248,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
 
 
 void
-GUIApplicationWindow::dependentBuild() {
+GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
     // don't do this twice
     if (hadDependentBuild) {
         return;
@@ -302,7 +301,7 @@ GUIApplicationWindow::dependentBuild() {
     myToolBar9->hide();
     myToolBar10->hide();
     // build additional threads
-    myLoadThread = new GUILoadThread(getApp(), this, myEvents, myLoadThreadEvent);
+    myLoadThread = new GUILoadThread(getApp(), this, myEvents, myLoadThreadEvent, isLibsumo);
     myRunThread = new GUIRunThread(getApp(), this, mySimDelay, myEvents, myRunThreadEvent);
     // set the status bar
     myStatusbar->getStatusLine()->setText("Ready.");
@@ -812,7 +811,7 @@ GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
                 GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
                 if (w != nullptr) {
                     // color by selection
-                    w->getView()->getVisualisationSettings().laneColorer.setActive(1);
+                    w->getView()->editVisualisationSettings()->laneColorer.setActive(1);
                 }
             }
         }
@@ -1225,7 +1224,7 @@ long
 GUIApplicationWindow::onCmdDelayInc(FXObject*, FXSelector, void*) {
     if (mySimDelay < 10) {
         mySimDelay = 10;
-    } else if (mySimDelay >=20 && mySimDelay < 50) {
+    } else if (mySimDelay >= 20 && mySimDelay < 50) {
         mySimDelay = 50;
     } else if (mySimDelay >= 200 && mySimDelay < 500) {
         mySimDelay = 500;
@@ -1377,7 +1376,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         return 1;
     }
     myAmGaming = !myAmGaming;
-    myGLWindows[0]->getView()->getVisualisationSettings().gaming = myAmGaming;
+    myGLWindows[0]->getView()->editVisualisationSettings()->gaming = myAmGaming;
     if (myAmGaming) {
         myGamingModeCheckbox->setCheck(TRUE);
         myMenuBar->hide();
@@ -1427,15 +1426,15 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GUIApplicationWindow::onCmdToogleDrawJunctionShape(FXObject*, FXSelector, void*) {
     GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
     if (w != nullptr) {
         // show or hide grid depending of myNetworkViewOptions.menuCheckToggleGrid
         if (w->getView()->getVisualisationSettings().drawJunctionShape) {
-            w->getView()->getVisualisationSettings().drawJunctionShape = false;
+            w->getView()->editVisualisationSettings()->drawJunctionShape = false;
         } else {
-            w->getView()->getVisualisationSettings().drawJunctionShape = true;
+            w->getView()->editVisualisationSettings()->drawJunctionShape = true;
         }
         w->getView()->update();
     }
@@ -1639,7 +1638,8 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                     mTime = MAX2(mTime, SysUtils::getModifiedTime(fname));
                 }
             }
-            if (ec->mySettingsFiles.size() > 0 && (!myIsReload || myGuiSettingsFileMTime < mTime)) {
+            // always reload if settings were modified or to restore multiple views
+            if (ec->mySettingsFiles.size() > 0 && (!myIsReload || myGuiSettingsFileMTime < mTime || ec->mySettingsFiles.size() > 1)) {
                 // open a view for each file and apply settings
                 for (std::string fname : ec->mySettingsFiles) {
                     GUISettingsHandler settings(fname);
@@ -2029,8 +2029,13 @@ GUIApplicationWindow::getTrackerInterval() const {
 
 
 void
-GUIApplicationWindow::loadOnStartup() {
+GUIApplicationWindow::loadOnStartup(const bool wait) {
     loadConfigOrNet("");
+    if (wait) {
+        while (myAmLoading) {
+            myRunThread->sleep(50);
+        }
+    }
 }
 
 

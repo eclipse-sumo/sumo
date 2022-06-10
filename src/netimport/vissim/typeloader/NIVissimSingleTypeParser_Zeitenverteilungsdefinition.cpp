@@ -24,7 +24,7 @@
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/StringUtils.h>
-#include "../NIImporter_Vissim.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
 #include <utils/distribution/Distribution_Parameterized.h>
 #include <utils/distribution/Distribution_Points.h>
 #include <utils/distribution/DistributionCont.h>

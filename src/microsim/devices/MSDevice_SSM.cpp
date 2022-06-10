@@ -218,23 +218,23 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("ssm", "SSM Device", oc);
 
     // custom options
-    oc.doRegister("device.ssm.measures", Option::makeUnsetWithDefault<Option_String, std::string>(""));
+    oc.doRegister("device.ssm.measures", new Option_String(""));
     oc.addDescription("device.ssm.measures", "SSM Device", "Specifies which measures will be logged (as a space separated sequence of IDs in ('TTC', 'DRAC', 'PET')).");
-    oc.doRegister("device.ssm.thresholds", Option::makeUnsetWithDefault<Option_String, std::string>(""));
+    oc.doRegister("device.ssm.thresholds", new Option_String(""));
     oc.addDescription("device.ssm.thresholds", "SSM Device", "Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged.");
-    oc.doRegister("device.ssm.trajectories",  Option::makeUnsetWithDefault<Option_Bool, bool>(false));
+    oc.doRegister("device.ssm.trajectories",  new Option_Bool(false));
     oc.addDescription("device.ssm.trajectories", "SSM Device", "Specifies whether trajectories will be logged (if false, only the extremal values and times are reported, this is the default).");
-    oc.doRegister("device.ssm.range", Option::makeUnsetWithDefault<Option_Float, double>(DEFAULT_RANGE));
+    oc.doRegister("device.ssm.range", new Option_Float(DEFAULT_RANGE));
     oc.addDescription("device.ssm.range", "SSM Device", "Specifies the detection range in meters (default is " + ::toString(DEFAULT_RANGE) + "m.). For vehicles below this distance from the equipped vehicle, SSM values are traced.");
-    oc.doRegister("device.ssm.extratime", Option::makeUnsetWithDefault<Option_Float, double>(DEFAULT_EXTRA_TIME));
+    oc.doRegister("device.ssm.extratime", new Option_Float(DEFAULT_EXTRA_TIME));
     oc.addDescription("device.ssm.extratime", "SSM Device", "Specifies the time in seconds to be logged after a conflict is over (default is " + ::toString(DEFAULT_EXTRA_TIME) + "secs.). Required >0 if PET is to be calculated for crossing conflicts.");
-    oc.doRegister("device.ssm.file", Option::makeUnsetWithDefault<Option_String, std::string>(""));
+    oc.doRegister("device.ssm.file", new Option_String(""));
     oc.addDescription("device.ssm.file", "SSM Device", "Give a global default filename for the SSM output.");
-    oc.doRegister("device.ssm.geo", Option::makeUnsetWithDefault<Option_Bool, bool>(false));
+    oc.doRegister("device.ssm.geo", new Option_Bool(false));
     oc.addDescription("device.ssm.geo", "SSM Device", "Whether to use coordinates of the original reference system in output (default is false).");
-    oc.doRegister("device.ssm.write-positions", Option::makeUnsetWithDefault<Option_Bool, bool>(false));
+    oc.doRegister("device.ssm.write-positions", new Option_Bool(false));
     oc.addDescription("device.ssm.write-positions", "SSM Device", "Whether to write positions (coordinates) for each timestep.");
-    oc.doRegister("device.ssm.write-lane-positions", Option::makeUnsetWithDefault<Option_Bool, bool>(false));
+    oc.doRegister("device.ssm.write-lane-positions", new Option_Bool(false));
     oc.addDescription("device.ssm.write-lane-positions", "SSM Device", "Whether to write lanes and their positions for each timestep.");
 
 }
@@ -2360,15 +2360,12 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                 // Here we also determine the real crossing lanes (before the conflict lane is the first lane of the connection)
                 // for the ego
                 double egoDistToConflictFromJunctionEntry = INVALID_DOUBLE;
-                double foeInternalLaneLengthsBeforeCrossing = 0.;
                 while (foeConflictLane != nullptr && foeConflictLane->isInternal()) {
                     egoDistToConflictFromJunctionEntry = egoEntryLink->getLengthsBeforeCrossing(foeConflictLane);
                     if (egoDistToConflictFromJunctionEntry != INVALID_DOUBLE) {
                         // found correct foeConflictLane
                         egoDistToConflictFromJunctionEntry += 0.5 * (foeConflictLane->getWidth() - e->foe->getVehicleType().getWidth());
                         break;
-                    } else {
-                        foeInternalLaneLengthsBeforeCrossing += foeConflictLane->getLength();
                     }
                     if (!foeConflictLane->getCanonicalSuccessorLane()->isInternal()) {
                         // intersection has wierd geometry and the intersection was found
@@ -2380,13 +2377,12 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         break;
                     }
                     foeConflictLane = foeConflictLane->getCanonicalSuccessorLane();
-                    assert(foeConflictLane != 0 && foeConflictLane->isInternal()); // this loop should be ended by the break! Otherwise the lanes do not cross, which should be the case here.
+                    assert(foeConflictLane != nullptr && foeConflictLane->isInternal()); // this loop should be ended by the break! Otherwise the lanes do not cross, which should be the case here.
                 }
                 assert(egoDistToConflictFromJunctionEntry != INVALID_DOUBLE);
 
                 // for the foe
                 double foeDistToConflictFromJunctionEntry = INVALID_DOUBLE;
-                double egoInternalLaneLengthsBeforeCrossing = 0.;
                 foeDistToConflictFromJunctionEntry = INVALID_DOUBLE;
                 while (egoConflictLane != nullptr && egoConflictLane->isInternal()) {
                     foeDistToConflictFromJunctionEntry = foeEntryLink->getLengthsBeforeCrossing(egoConflictLane);
@@ -2394,8 +2390,6 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         // found correct egoConflictLane
                         foeDistToConflictFromJunctionEntry += 0.5 * (egoConflictLane->getWidth() - e->ego->getVehicleType().getWidth());
                         break;
-                    } else {
-                        egoInternalLaneLengthsBeforeCrossing += egoConflictLane->getLength();
                     }
                     if (!egoConflictLane->getCanonicalSuccessorLane()->isInternal()) {
                         // intersection has wierd geometry and the intersection was found
@@ -2407,7 +2401,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         break;
                     }
                     egoConflictLane = egoConflictLane->getCanonicalSuccessorLane();
-                    assert(egoConflictLane != 0 && egoConflictLane->isInternal()); // this loop should be ended by the break! Otherwise the lanes do not cross, which should be the case here.
+                    assert(egoConflictLane != nullptr && egoConflictLane->isInternal()); // this loop should be ended by the break! Otherwise the lanes do not cross, which should be the case here.
                 }
                 assert(foeDistToConflictFromJunctionEntry != INVALID_DOUBLE);
 
@@ -3489,18 +3483,18 @@ MSDevice_SSM::getOutputFilename(const SUMOVehicle& v, std::string deviceID) {
         try {
             file = v.getParameter().getParameter("device.ssm.file", file);
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.file", file) + "'for vehicle parameter 'ssm.measures'");
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.file", file) + "'for vehicle parameter 'ssm.measures'.");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.file")) {
         try {
             file = v.getVehicleType().getParameter().getParameter("device.ssm.file", file);
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.file", file) + "'for vType parameter 'ssm.measures'");
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.file", file) + "'for vType parameter 'ssm.measures'.");
         }
     } else {
         file = oc.getString("device.ssm.file") == "" ? file : oc.getString("device.ssm.file");
-        if (!oc.isSet("device.ssm.file") && (issuedParameterWarnFlags & SSM_WARN_FILE) == 0) {
-            WRITE_MESSAGE("vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.file'. Using default of '" + file + "'");
+        if (oc.isDefault("device.ssm.file") && (issuedParameterWarnFlags & SSM_WARN_FILE) == 0) {
+            WRITE_MESSAGE("Vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.file'. Using default of '" + file + "'.");
             issuedParameterWarnFlags |= SSM_WARN_FILE;
         }
     }
@@ -3523,18 +3517,18 @@ MSDevice_SSM::useGeoCoords(const SUMOVehicle& v) {
         try {
             useGeo = StringUtils::toBool(v.getParameter().getParameter("device.ssm.geo", "no"));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.geo", "no") + "'for vehicle parameter 'ssm.geo'");
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.geo", "no") + "'for vehicle parameter 'ssm.geo'.");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.geo")) {
         try {
             useGeo = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.geo", "no"));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.geo", "no") + "'for vType parameter 'ssm.geo'");
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.geo", "no") + "'for vType parameter 'ssm.geo'.");
         }
     } else {
         useGeo = oc.getBool("device.ssm.geo");
-        if (!oc.isSet("device.ssm.geo") && (issuedParameterWarnFlags & SSM_WARN_GEO) == 0) {
-            WRITE_MESSAGE("vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.geo'. Using default of '" + toString(useGeo) + "'");
+        if (oc.isDefault("device.ssm.geo") && (issuedParameterWarnFlags & SSM_WARN_GEO) == 0) {
+            WRITE_MESSAGE("Vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.geo'. Using default of '" + toString(useGeo) + "'.");
             issuedParameterWarnFlags |= SSM_WARN_GEO;
         }
     }
@@ -3550,18 +3544,18 @@ MSDevice_SSM::writePositions(const SUMOVehicle& v) {
         try {
             writePos = StringUtils::toBool(v.getParameter().getParameter("device.ssm.write-positions", "no"));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.write-positions", "no") + "'for vehicle parameter 'ssm.write-positions'");
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.write-positions", "no") + "'for vehicle parameter 'ssm.write-positions'.");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.write-positions")) {
         try {
             writePos = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.write-positions", "no"));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.write-positions", "no") + "'for vType parameter 'ssm.write-positions'");
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.write-positions", "no") + "'for vType parameter 'ssm.write-positions'.");
         }
     } else {
         writePos = oc.getBool("device.ssm.write-positions");
-        if (!oc.isSet("device.ssm.write-positions") && (issuedParameterWarnFlags & SSM_WARN_POS) == 0) {
-            WRITE_MESSAGE("vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '" + toString(writePos) + "'");
+        if (oc.isDefault("device.ssm.write-positions") && (issuedParameterWarnFlags & SSM_WARN_POS) == 0) {
+            WRITE_MESSAGE("Vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '" + toString(writePos) + "'.");
             issuedParameterWarnFlags |= SSM_WARN_POS;
         }
     }
@@ -3577,18 +3571,18 @@ MSDevice_SSM::writeLanesPositions(const SUMOVehicle& v) {
         try {
             writeLanesPos = StringUtils::toBool(v.getParameter().getParameter("device.ssm.write-lane-positions", "no"));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.write-lane-positions", "no") + "'for vehicle parameter 'ssm.write-lane-positions'");
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.write-lane-positions", "no") + "'for vehicle parameter 'ssm.write-lane-positions'.");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.write-lane-positions")) {
         try {
             writeLanesPos = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.write-lane-positions", "no"));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.write-lane-positions", "no") + "'for vType parameter 'ssm.write-lane-positions'");
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.write-lane-positions", "no") + "'for vType parameter 'ssm.write-lane-positions'.");
         }
     } else {
         writeLanesPos = oc.getBool("device.ssm.write-lane-positions");
-        if (!oc.isSet("device.ssm.write-lane-positions") && (issuedParameterWarnFlags & SSM_WARN_LANEPOS) == 0) {
-            WRITE_MESSAGE("vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '" + toString(writeLanesPos) + "'");
+        if (oc.isDefault("device.ssm.write-lane-positions") && (issuedParameterWarnFlags & SSM_WARN_LANEPOS) == 0) {
+            WRITE_MESSAGE("Vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '" + toString(writeLanesPos) + "'.");
             issuedParameterWarnFlags |= SSM_WARN_LANEPOS;
         }
     }
@@ -3604,18 +3598,18 @@ MSDevice_SSM::getDetectionRange(const SUMOVehicle& v) {
         try {
             range = StringUtils::toDouble(v.getParameter().getParameter("device.ssm.range", ""));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.range", "") + "'for vehicle parameter 'ssm.range'");
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.range", "") + "'for vehicle parameter 'ssm.range'.");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.range")) {
         try {
             range = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("device.ssm.range", ""));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.range", "") + "'for vType parameter 'ssm.range'");
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.range", "") + "'for vType parameter 'ssm.range'.");
         }
     } else {
         range = oc.getFloat("device.ssm.range");
-        if (!oc.isSet("device.ssm.range") && (issuedParameterWarnFlags & SSM_WARN_RANGE) == 0) {
-            WRITE_MESSAGE("vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.range'. Using default of '" + toString(range) + "'");
+        if (oc.isDefault("device.ssm.range") && (issuedParameterWarnFlags & SSM_WARN_RANGE) == 0) {
+            WRITE_MESSAGE("Vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.range'. Using default of '" + toString(range) + "'.");
             issuedParameterWarnFlags |= SSM_WARN_RANGE;
         }
     }
@@ -3631,24 +3625,24 @@ MSDevice_SSM::getExtraTime(const SUMOVehicle& v) {
         try {
             extraTime = StringUtils::toDouble(v.getParameter().getParameter("device.ssm.extratime", ""));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.extratime", "") + "'for vehicle parameter 'ssm.extratime'");
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.extratime", "") + "'for vehicle parameter 'ssm.extratime'.");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.extratime")) {
         try {
             extraTime = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("device.ssm.extratime", ""));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.extratime", "") + "'for vType parameter 'ssm.extratime'");
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.extratime", "") + "'for vType parameter 'ssm.extratime'.");
         }
     } else {
         extraTime = oc.getFloat("device.ssm.extratime");
-        if (!oc.isSet("device.ssm.extratime") && (issuedParameterWarnFlags & SSM_WARN_EXTRATIME) == 0) {
-            WRITE_MESSAGE("vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '" + toString(extraTime) + "'");
+        if (oc.isDefault("device.ssm.extratime") && (issuedParameterWarnFlags & SSM_WARN_EXTRATIME) == 0) {
+            WRITE_MESSAGE("Vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '" + toString(extraTime) + "'.");
             issuedParameterWarnFlags |= SSM_WARN_EXTRATIME;
         }
     }
     if (extraTime < 0.) {
         extraTime = DEFAULT_EXTRA_TIME;
-        WRITE_WARNING("Negative (or no) value encountered for vehicle parameter 'device.ssm.extratime' in vehicle '" + v.getID() + "' using default value " + ::toString(extraTime) + " instead");
+        WRITE_WARNING("Negative (or no) value encountered for vehicle parameter 'device.ssm.extratime' in vehicle '" + v.getID() + "' using default value " + ::toString(extraTime) + " instead.");
     }
     return extraTime;
 }
@@ -3662,18 +3656,18 @@ MSDevice_SSM::requestsTrajectories(const SUMOVehicle& v) {
         try {
             trajectories = StringUtils::toBool(v.getParameter().getParameter("device.ssm.trajectories", "no"));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.trajectories", "no") + "'for vehicle parameter 'ssm.trajectories'");
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.trajectories", "no") + "'for vehicle parameter 'ssm.trajectories'.");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.trajectories")) {
         try {
             trajectories = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.trajectories", "no"));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.trajectories", "no") + "'for vType parameter 'ssm.trajectories'");
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.trajectories", "no") + "'for vType parameter 'ssm.trajectories'.");
         }
     } else {
         trajectories = oc.getBool("device.ssm.trajectories");
-        if (!oc.isSet("device.ssm.trajectories") && (issuedParameterWarnFlags & SSM_WARN_TRAJECTORIES) == 0) {
-            WRITE_MESSAGE("vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '" + toString(trajectories) + "'");
+        if (oc.isDefault("device.ssm.trajectories") && (issuedParameterWarnFlags & SSM_WARN_TRAJECTORIES) == 0) {
+            WRITE_MESSAGE("Vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '" + toString(trajectories) + "'.");
             issuedParameterWarnFlags |= SSM_WARN_TRAJECTORIES;
         }
     }
@@ -3691,19 +3685,19 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
         try {
             measures_str = v.getParameter().getParameter("device.ssm.measures", "");
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.measures", "") + "'for vehicle parameter 'ssm.measures'");
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.measures", "") + "'for vehicle parameter 'ssm.measures'.");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.measures")) {
         try {
             measures_str = v.getVehicleType().getParameter().getParameter("device.ssm.measures", "");
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.measures", "") + "'for vType parameter 'ssm.measures'");
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.measures", "") + "'for vType parameter 'ssm.measures'.");
         }
     } else {
         measures_str = oc.getString("device.ssm.measures");
-        if (!oc.isSet("device.ssm.measures") && (issuedParameterWarnFlags & SSM_WARN_MEASURES) == 0) {
-            WRITE_MESSAGE("vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.measures'. Using default of '" + measures_str + "'");
-            issuedParameterWarnFlags |= SSM_WARN_THRESHOLDS;
+        if (oc.isDefault("device.ssm.measures") && (issuedParameterWarnFlags & SSM_WARN_MEASURES) == 0) {
+            WRITE_MESSAGE("Vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.measures'. Using default of '" + measures_str + "'.");
+            issuedParameterWarnFlags |= SSM_WARN_MEASURES;
         }
     }
 
@@ -3730,18 +3724,18 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
         try {
             thresholds_str = v.getParameter().getParameter("device.ssm.thresholds", "");
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.thresholds", "") + "'for vehicle parameter 'ssm.thresholds'");
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.thresholds", "") + "'for vehicle parameter 'ssm.thresholds'.");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.thresholds")) {
         try {
             thresholds_str = v.getVehicleType().getParameter().getParameter("device.ssm.thresholds", "");
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.thresholds", "") + "'for vType parameter 'ssm.thresholds'");
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.thresholds", "") + "'for vType parameter 'ssm.thresholds'.");
         }
     } else {
         thresholds_str = oc.getString("device.ssm.thresholds");
-        if (!oc.isSet("device.ssm.thresholds") && (issuedParameterWarnFlags & SSM_WARN_THRESHOLDS) == 0) {
-            WRITE_MESSAGE("vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.thresholds'. Using default of '" + thresholds_str + "'");
+        if (oc.isDefault("device.ssm.thresholds") && (issuedParameterWarnFlags & SSM_WARN_THRESHOLDS) == 0) {
+            WRITE_MESSAGE("Vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.thresholds'. Using default of '" + thresholds_str + "'.");
             issuedParameterWarnFlags |= SSM_WARN_THRESHOLDS;
         }
     }
@@ -3820,7 +3814,7 @@ MSDevice_SSM::getParameter(const std::string& key) const {
             return toString(value);
         }
     }
-    throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+    throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'.");
 }
 
 
@@ -3830,12 +3824,12 @@ MSDevice_SSM::setParameter(const std::string& key, const std::string& value) {
     try {
         doubleValue = StringUtils::toDouble(value);
     } catch (NumberFormatException&) {
-        throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
+        throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'.");
     }
     if (false || key == "foo") {
         UNUSED_PARAMETER(doubleValue);
     } else {
-        throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+        throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'.");
     }
 }
 

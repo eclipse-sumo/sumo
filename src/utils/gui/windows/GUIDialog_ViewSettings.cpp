@@ -77,9 +77,10 @@ FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRA
 // ===========================================================================
 GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings, std::vector<GUISUMOAbstractView::Decal>* decals, FXMutex* decalsLock) :
     FXDialogBox(parent, "View Settings", GUIDesignViewSettingsMainDialog),
-    myParent(parent), mySettings(settings), myBackup(*settings),
+    myParent(parent), mySettings(settings), myBackup(settings->name, settings->netedit),
     myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(nullptr),
     myDataValuePanel(nullptr) {
+    myBackup.copy(*settings);
     // create content frame
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignViewSettingsVerticalFrame1);
     // build header
@@ -179,7 +180,7 @@ GUIDialog_ViewSettings::show() {
 void
 GUIDialog_ViewSettings::setCurrent(GUIVisualizationSettings* settings) {
     mySettings = settings;
-    myBackup = (*settings);
+    myBackup.copy(*settings);
     onCmdNameChange(nullptr, 0, nullptr);
 }
 
@@ -196,7 +197,7 @@ long
 GUIDialog_ViewSettings::onCmdCancel(FXObject*, FXSelector, void*) {
     saveWindowSize();
     hide();
-    (*mySettings) = myBackup;
+    mySettings->copy(myBackup);
     myParent->update();
     return 1;
 }
@@ -214,7 +215,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
                 }
             }
         }
-        myBackup = gSchemeStorage.get(dataS.text());
+        myBackup.copy(gSchemeStorage.get(dataS.text()));
         mySettings = &gSchemeStorage.get(dataS.text());
     }
     rebuildColorMatrices(true);
@@ -460,7 +461,8 @@ GUIDialog_ViewSettings::updateScaleRanges(FXObject* sender, std::vector<FXRealSp
 
 long
 GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*val*/) {
-    GUIVisualizationSettings tmpSettings = *mySettings;
+    GUIVisualizationSettings tmpSettings(mySettings->name);
+    tmpSettings.copy(*mySettings);
     int prevLaneMode = mySettings->getLaneEdgeMode();
     int prevLaneScaleMode = mySettings->getLaneEdgeScaleMode();
     int prevVehicleMode = mySettings->vehicleColorer.getActive();
@@ -939,13 +941,14 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
             }
         }
     }
-    GUIVisualizationSettings tmpSettings = *mySettings;
+    GUIVisualizationSettings tmpSettings(mySettings->name, mySettings->netedit);
+    tmpSettings.copy(*mySettings);
     tmpSettings.name = name;
     if (name == mySettings->name || StringUtils::startsWith(mySettings->name, "custom_")) {
         gSchemeStorage.remove(mySettings->name);
         myParent->getColoringSchemesCombo()->setItemText(index, name.c_str());
     } else {
-        gSchemeStorage.get(mySettings->name) = myBackup;
+        gSchemeStorage.get(mySettings->name).copy(myBackup);
         index = mySchemeName->appendItem(name.c_str());
         myParent->getColoringSchemesCombo()->appendItem(name.c_str());
         myParent->getColoringSchemesCombo()->setCurrentItem(
@@ -955,7 +958,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
     mySchemeName->setItemText(index, name.c_str());
     myParent->setColorScheme(name);
     mySettings = &gSchemeStorage.get(name);
-    myBackup = *mySettings;
+    myBackup.copy(*mySettings);
     gSchemeStorage.writeSettings(getApp());
     return 1;
 }

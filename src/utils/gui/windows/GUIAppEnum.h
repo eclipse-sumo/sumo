@@ -712,6 +712,8 @@ enum {
     MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS,
     /// @brief show sub-additionals
     MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS,
+    /// @brief show TAZ elements
+    MID_GNE_NETWORKVIEWOPTIONS_SHOWTAZELEMENTS,
     /// @brief extend selection
     MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,
     /// @brief change all phases
@@ -899,6 +901,8 @@ enum {
     MID_GNE_CUSTOM_GEOMETRYPOINT,
     /// @brief reset geometry point
     MID_GNE_RESET_GEOMETRYPOINT,
+    /// @brief set zero fringe probabilities (used in TAZ Frame)
+    MID_GNE_SET_ZEROFRINGEPROB,
 
     /// @}
 

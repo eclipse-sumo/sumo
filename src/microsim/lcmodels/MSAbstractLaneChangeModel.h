@@ -505,8 +505,8 @@ public:
     void cleanupTargetLane();
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    virtual double saveBlockerLength(double length, double /*foeLeftSpace*/) {
-        return length;
+    virtual bool saveBlockerLength(double /* length */, double /* foeLeftSpace */) {
+        return true;
     }
 
     void setShadowPartialOccupator(MSLane* lane) {
@@ -576,6 +576,10 @@ public:
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
 
+    /// reserve extra space for unseen blockers when more tnan one lane change is required
+    virtual double getExtraReservation(int /*bestLaneOffset*/) const {
+        return 0;
+    }
 
     /// @brief Check for commands issued for the vehicle via TraCI and apply the appropriate state changes
     ///        For the sublane case, this includes setting a new maneuver distance if appropriate.

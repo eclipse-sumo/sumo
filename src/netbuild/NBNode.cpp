@@ -1821,6 +1821,11 @@ NBNode::removeEdge(NBEdge* edge, bool removeFromConnections) {
         i = std::find(myOutgoingEdges.begin(), myOutgoingEdges.end(), edge);
         if (i != myOutgoingEdges.end()) {
             myOutgoingEdges.erase(i);
+            // potential self-loop
+            i = std::find(myIncomingEdges.begin(), myIncomingEdges.end(), edge);
+            if (i != myIncomingEdges.end()) {
+                myIncomingEdges.erase(i);
+            }
         } else {
             i = std::find(myIncomingEdges.begin(), myIncomingEdges.end(), edge);
             if (i != myIncomingEdges.end()) {

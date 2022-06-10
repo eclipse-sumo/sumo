@@ -48,9 +48,12 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag d
     FXGroupBoxModule(frameParent->getContentFrame(), ("Parent " + toString(demandElementTag)).c_str()),
     myFrameParent(frameParent),
     myCurrentDemandElement(defaultElement),
-    myDemandElementTags({demandElementTag}) {
+    myDemandElementTags({demandElementTag}),
+    mySelectingMultipleElements(false) {
     // Create MFXIconComboBox
     myDemandElementsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // create info label
+    myInfoLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation
@@ -61,7 +64,8 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag d
 DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes) :
     FXGroupBoxModule(frameParent->getContentFrame(), "Parent element"),
     myFrameParent(frameParent),
-    myCurrentDemandElement(nullptr) {
+    myCurrentDemandElement(nullptr),
+    mySelectingMultipleElements(false) {
     // fill myDemandElementTags
     for (const auto& tagType : tagTypes) {
         const auto tagProperties = GNEAttributeCarrier::getTagPropertiesByType(tagType);
@@ -71,6 +75,8 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::v
     }
     // Create MFXIconComboBox
     myDemandElementsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // create info label
+    myInfoLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation
@@ -95,15 +101,39 @@ DemandElementSelector::getAllowedTags() const {
 
 void
 DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
-    // first check that demandElement tag correspond to a tag of myDemandElementTags
-    if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
-        // update text of myDemandElementsMatchBox
-        myDemandElementsMatchBox->setItem(demandElement->getID().c_str(), demandElement->getIcon());
-        // Set new current demand element
-        myCurrentDemandElement = demandElement;
-        // call demandElementSelected function
-        myFrameParent->demandElementSelected();
+    mySelectingMultipleElements = false;
+    // Set new current demand element
+    myCurrentDemandElement = demandElement;
+    if (demandElement == nullptr) {
+        myDemandElementsMatchBox->setCustomText("select item...");
+        // set info label
+        myInfoLabel->setText("-Select an item in the list or\n  click over an element in view");
+        myInfoLabel->show();
+    } else {
+        // check that demandElement tag correspond to a tag of myDemandElementTags
+        if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
+            // update text of myDemandElementsMatchBox
+            myDemandElementsMatchBox->setItem(demandElement->getID().c_str(), demandElement->getIcon());
+        }
+        myInfoLabel->hide();
     }
+    // call demandElementSelected function
+    myFrameParent->demandElementSelected();
+}
+
+
+void 
+DemandElementSelector::setDemandElements(const std::vector<GNEDemandElement*> &demandElements) {
+    mySelectingMultipleElements = true;
+    myCurrentDemandElement = nullptr;
+    myDemandElementsMatchBox->clearItems();
+    for (const auto &demandElement : demandElements) {
+        myDemandElementsMatchBox->appendIconItem(demandElement->getID().c_str(), demandElement->getIcon());
+    }
+    myDemandElementsMatchBox->setCustomText("select sub-item...");
+    // set info label
+    myInfoLabel->setText("-Clicked over multiple\n elements\n-Select an item in the\n list or click over an\n element in view");
+    myInfoLabel->show();
 }
 
 
@@ -293,6 +323,7 @@ DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
                 myFrameParent->demandElementSelected();
                 // Write Warning in console if we're in testing mode
                 WRITE_DEBUG(("Selected item '" + myDemandElementsMatchBox->getText() + "' in DemandElementSelector").text());
+                myInfoLabel->hide();
                 return 1;
             }
         }

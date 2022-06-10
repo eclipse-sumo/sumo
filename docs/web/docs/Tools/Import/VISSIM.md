@@ -499,8 +499,8 @@ Fahrstreifen und Laufmeter angegeben. Es ist jedoch zusätzlich möglich
 das Zeitintervall zu definieren, in dem die Daten aggregiert werden.
 
 ```
-  <inductionLoop file="ind_out.xml" freq="900" id="1_301.41" lane="108_0" pos="162.554736186"/>
-  <inductionLoop file="ind_out.xml" freq="900" id="33_359.21" lane="123_0" pos="28.1962390136"/>
+  <inductionLoop file="ind_out.xml" period="900" id="1_301.41" lane="108_0" pos="162.554736186"/>
+  <inductionLoop file="ind_out.xml" period="900" id="33_359.21" lane="123_0" pos="28.1962390136"/>
 ```
 
 Wie bei den Induktionsschleifen sind auch die Reisezeitmessungen durch
@@ -510,7 +510,7 @@ die ganze Strecke beziehen, da definiert wird, welche Fahrstreifen
 berücksichtigt werden sollen.
 
 ```
-  <entryExitDetector file="time_out.xml" freq="900" id="1">
+  <entryExitDetector file="time_out.xml" period="900" id="1">
      <detEntry lane="207_0" pos="239.753789696"/>
      <detEntry lane="207_1" pos="241.370532161"/>
      <detExit lane="126_0" pos="23.2884507277"/>

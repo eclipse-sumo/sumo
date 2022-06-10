@@ -995,7 +995,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
             }
         }
     }
-    return counter - getNumberOfSelectedPolygons() - getNumberOfSelectedPOIs() - getNumberOfSelectedTAZs();
+    return counter - getNumberOfSelectedPolygons() - getNumberOfSelectedPOIs() - getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() - getNumberOfSelectedTAZSinks();
 }
 
 
@@ -1109,8 +1109,32 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIs() const {
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZs() const {
     int counter = 0;
-    for (const auto& POI : myAdditionals.at(SUMO_TAG_TAZ)) {
-        if (POI->isAttributeCarrierSelected()) {
+    for (const auto& TAZ : myAdditionals.at(SUMO_TAG_TAZ)) {
+        if (TAZ->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZSources() const {
+    int counter = 0;
+    for (const auto& TAZSource : myAdditionals.at(SUMO_TAG_TAZSOURCE)) {
+        if (TAZSource->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZSinks() const {
+    int counter = 0;
+    for (const auto& TAZSink : myAdditionals.at(SUMO_TAG_TAZSINK)) {
+        if (TAZSink->isAttributeCarrierSelected()) {
             counter++;
         }
     }

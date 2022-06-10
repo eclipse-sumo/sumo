@@ -940,8 +940,8 @@ class VehicleDomain(VTypeDomain):
                     until=tc.INVALID_DOUBLE_VALUE, teleport=0):
         """replaceStop(string, int, string, double, integer, double, integer, double, double) -> None
 
-        Replaces stop at the given index with a new stop. Automatically modifies
-        the route if the replacement stop is at another location.
+        Replaces stop at the given index (within the list of all stops) with a new stop.
+        Automatically modifies the route if the replacement stop is at another location.
         For edgeID a stopping place id may be given if the flag marks this
         stop as stopping on busStop, parkingArea, containerStop etc.
         If edgeID is "", the stop at the given index will be removed without
@@ -960,8 +960,8 @@ class VehicleDomain(VTypeDomain):
                    until=tc.INVALID_DOUBLE_VALUE, teleport=0):
         """replaceStop(string, int, string, double, integer, double, integer, double, double) -> None
 
-        Insert stop at the given index. Automatically modifies
-        the route if the new stop is not along the route between the preceeding
+        Insert stop at the given index (within the list of all existing stops).
+        Automatically modifies the route if the new stop is not along the route between the preceeding
         and succeeding stops (or start / end).
         For edgeID a stopping place id may be given if the flag marks this
         stop as stopping on busStop, parkingArea, containerStop etc.
@@ -976,7 +976,8 @@ class VehicleDomain(VTypeDomain):
 
     def setStopParameter(self, vehID, nextStopIndex, param, value):
         """setStopParameter(string, int, string, string) -> None
-        Sets the value of the given parameter for the (upcoming) stop at the given index
+        Sets the value of the given parameter for the (upcoming) stop at the
+        given index (within the list of all stops).
         Supported params correspond to (almost) all legal stop xml-attributes
         and their value semantics
         """

@@ -609,7 +609,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         if (value != "") {
             auto lines = StringTokenizer(value, StringTokenizer::NEWLINE).getVector();
             glRotated(-s.angle, 0, 0, 1);
-            glTranslated(0, 0.7 * s.vehicleText.scaledSize(s.scale) * lines.size(), 0);
+            glTranslated(0, 0.7 * s.vehicleText.scaledSize(s.scale) * (double)lines.size(), 0);
             glRotated(s.angle, 0, 0, 1);
             for (std::string& line : lines) {
                 GLHelper::drawTextSettings(s.vehicleText, line, Position(0, 0), s.scale, s.angle);
@@ -795,7 +795,7 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, R
         case 33: { // color randomly (by pointer hash)
             std::hash<const MSBaseVehicle*> ptr_hash;
             const double hue = (double)(ptr_hash(veh) % 360); // [0-360]
-            const double sat = ((ptr_hash(veh) / 360) % 67) / 100.0 + 0.33; // [0.33-1]
+            const double sat = (double)((ptr_hash(veh) / 360) % 67) / 100.0 + 0.33; // [0.33-1]
             col = RGBColor::fromHSV(hue, sat, 1.);
             return true;
         }

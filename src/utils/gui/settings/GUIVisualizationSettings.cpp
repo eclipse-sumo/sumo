@@ -502,8 +502,8 @@ GUIVisualizationWidthSettings::operator!=(const GUIVisualizationWidthSettings& v
 // GUIVisualizationWidthSettings - methods
 // ---------------------------------------------------------------------------
 
-GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
-    name(""),
+GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, bool _netedit) :
+    name(_name),
     netedit(_netedit),
     angle(0),
     dither(false),
@@ -599,6 +599,13 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     } else {
         initSumoGuiDefaults();
     }
+}
+
+
+void 
+GUIVisualizationSettings::copy(const GUIVisualizationSettings& s) {
+    // just copy. Note: By default = operator is disabled to avoid accidental copies)
+    *this = s;
 }
 
 
@@ -2278,7 +2285,7 @@ GUIVisualizationSettings::getCircleResolution() const {
         return 8;
     } else if (scale >= 10) {
         return 32;
-    } else if (scale >= 2) {
+    } else if (scale >= 5) {
         return 16;
     } else {
         return 8;

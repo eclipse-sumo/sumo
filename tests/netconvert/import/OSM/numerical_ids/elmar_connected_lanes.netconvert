@@ -1,12 +1,17 @@
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
-# <!-- generated on 2021-09-07 12:27:56 by Eclipse SUMO netconvert Version v1_10_0+0544-e2f47533c3f
+# <!-- generated on 2022-05-13 16:38:10 by Eclipse SUMO netconvert Version v1_13_0+0243-3930482e178
 # This data file and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# This file may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 # -->
 # 
 # <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -39,14 +44,9 @@
 #         <junctions.join value="true"/>
 #     </junctions>
 # 
-#     <formats>
-#         <osm.all-attributes value="true"/>
-#     </formats>
-# 
 #     <report>
 #         <verbose value="true"/>
 #         <xml-validation value="never"/>
-#         <aggregate-warnings value="5"/>
 #     </report>
 # 
 # </configuration>

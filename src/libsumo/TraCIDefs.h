@@ -22,6 +22,12 @@
 /****************************************************************************/
 #pragma once
 // we do not include config.h here, since we should be independent of a special sumo build
+// but we want to avoid certain warnings in MSVC see config.h.cmake for details
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4514 4820)
+#endif
+
 #include <libsumo/TraCIConstants.h>
 #include <vector>
 #include <limits>
@@ -616,6 +622,8 @@ struct TraCISignalConstraint {
     int type;
     /// @brief whether tripId must still wait for foeId to pass foeSignal
     bool mustWait;
+    /// @brief whether this constraint is active
+    bool active;
 
     std::string getString() const {
         std::ostringstream os;
@@ -625,3 +633,8 @@ struct TraCISignalConstraint {
 };
 
 }
+
+// pop MSVC warnings
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif

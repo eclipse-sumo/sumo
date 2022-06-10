@@ -89,13 +89,13 @@ public:
     virtual void detach();
     /// @}
 
-    void loadOnStartup();
+    void loadOnStartup(const bool wait = false);
 
     GUIRunThread* getRunner() {
         return myRunThread;
     }
 
-    void dependentBuild();
+    void dependentBuild(const bool isLibsumo);
 
     void setStatusBarText(const std::string& text);
 

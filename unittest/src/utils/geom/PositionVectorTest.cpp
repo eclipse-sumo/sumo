@@ -19,6 +19,7 @@
 ///
 // Tests the class PositionVector
 /****************************************************************************/
+#include <config.h>
 
 #include <gtest/gtest.h>
 #include <utils/geom/PositionVector.h>

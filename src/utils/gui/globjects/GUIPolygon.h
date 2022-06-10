@@ -72,6 +72,10 @@ public:
 
     /// @brief id of the display list for the cached tesselation
     mutable std::vector<GLPrimitive> myTesselation;
+
+    PositionVector& getShapeRef() {
+        return myShape;
+    }
 };
 
 /*

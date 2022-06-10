@@ -70,7 +70,6 @@ Debug: Selected item 'vehicle (over route)' in GNETagSelector
 Debug: Adding vehicle 'v_0' in GNEChange_DemandElement
 Debug: Value 'dummyNumber' for attribute containerNumber of vehicle isn't valid
 Debug: Value '-5' for attribute containerNumber of vehicle isn't valid
-Debug: Value '' for attribute containerNumber of vehicle isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

@@ -25,6 +25,7 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/MSNet.h>
+#include <libsumo/Helper.h>
 #include <libsumo/TraCIConstants.h>
 #include "MultiEntryExit.h"
 

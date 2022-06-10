@@ -57,7 +57,7 @@ public:
     GNERouteHandler(const std::string& file, GNENet* net, bool undoDemandElements = true);
 
     /// @brief Destructor
-    ~GNERouteHandler();
+    virtual ~GNERouteHandler();
 
     /// @name build functions
     /// @{

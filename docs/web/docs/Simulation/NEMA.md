@@ -32,11 +32,11 @@ looks like this:
         <param key="detector-length" value="20"/>
         <param key="detector-length-leftTurnLane" value="10"/>
         <param key="total-cycle-length" value="130"/>
-        <param key="ring1" value="3,4,1,2"/>
-        <param key="ring2" value="7,8,5,6"/>
-        <param key="barrierPhases" value="4,8"/>
+        <param key="ring1" value="1,2,3,4"/>
+        <param key="ring2" value="5,6,7,8"/>
+        <param key="barrierPhases" value="2,6"/>
         <param key="coordinate-mode" value="true"/>
-        <param key="barrier2Phases" value="2,6"/>
+        <param key="barrier2Phases" value="4,8"/>
         <param key="minRecall" value="2,6"/>
         <param key="maxRecall" value=""/>
         <param key="whetherOutputState" value="true"/>
@@ -60,11 +60,11 @@ For an intersection at a ramp, the traffic light program configuration could loo
         <param key="detector-length" value="20"/>
         <param key="detector-length-leftTurnLane" value="10"/>
         <param key="total-cycle-length" value="120"/>
-        <param key="ring1" value="0,4,1,2"/>
-        <param key="ring2" value="0,4,0,6"/>
-        <param key="barrierPhases" value="4,4"/>
+        <param key="ring1" value="1,2,0,4"/>
+        <param key="ring2" value="0,6,0,4"/>
+        <param key="barrierPhases" value="2,6"/>
         <param key="coordinate-mode" value="true"/>
-        <param key="barrier2Phases" value="2,6"/>
+        <param key="barrier2Phases" value="4,4"/>
         <param key="minRecall" value="2,6"/>
         <param key="maxRecall" value=""/>
         <param key="whetherOutputState" value="true"/>

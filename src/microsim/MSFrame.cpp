@@ -437,6 +437,9 @@ MSFrame::fillOptions() {
     oc.doRegister("tls.actuated.show-detectors", new Option_Bool(false));
     oc.addDescription("tls.actuated.show-detectors", "Processing", "Sets default visibility for actuation detectors");
 
+    oc.doRegister("tls.actuated.jam-threshold", new Option_Float(-1));
+    oc.addDescription("tls.actuated.jam-threshold", "Processing", "Sets default jam-treshold parameter for all actuation detectors");
+
     oc.doRegister("tls.delay_based.detector-range", new Option_Float(100));
     oc.addDescription("tls.delay_based.detector-range", "Processing", "Sets default range for detecting delayed vehicles");
 
@@ -772,18 +775,21 @@ MSFrame::checkOptions() {
         ok = false;
     }
     if (oc.getBool("demo") && oc.isDefault("start")) {
-        oc.set("start", "true");
+        oc.setDefault("start", "true");
     }
     if (oc.getBool("demo") && oc.getBool("quit-on-end")) {
         WRITE_ERROR("You can either restart or quit on end.");
         ok = false;
     }
     if (oc.getBool("meso-junction-control.limited") && !oc.getBool("meso-junction-control")) {
-        oc.set("meso-junction-control", "true");
+        if (!oc.isDefault("meso-junction-control")) {
+            WRITE_WARNING("The option 'meso-junction-control.limited' implies 'meso-junction-control'.")
+        }
+        oc.setDefault("meso-junction-control", "true");
     }
     if (oc.getBool("mesosim")) {
         if (oc.isDefault("pedestrian.model")) {
-            oc.set("pedestrian.model", "nonInteracting");
+            oc.setDefault("pedestrian.model", "nonInteracting");
         }
     }
     const SUMOTime begin = string2time(oc.getString("begin"));
@@ -850,35 +856,35 @@ MSFrame::checkOptions() {
         WRITE_WARNING("The option 'ignore-accidents' is deprecated. Use 'collision.action none' instead.");
     }
     if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
-        oc.set("verbose", "true");
+        oc.setDefault("verbose", "true");
     }
     if (oc.isDefault("precision") && string2time(oc.getString("step-length")) % 10 != 0) {
-        oc.set("precision", "3");
+        oc.setDefault("precision", "3");
     }
     if (oc.isDefault("tracker-interval") && !oc.isDefault("step-length")) {
-        oc.set("tracker-interval", oc.getString("step-length"));
+        oc.setDefault("tracker-interval", oc.getString("step-length"));
     }
     if (oc.getBool("tripinfo-output.write-undeparted")) {
         if (!oc.isDefault("tripinfo-output.write-unfinished") && !oc.getBool("tripinfo-output.write-unfinished")) {
-            WRITE_WARNING("option tripinfo-output.write-undeparted implies tripinfo-output.write-unfinished");
+            WRITE_WARNING("The option tripinfo-output.write-undeparted implies tripinfo-output.write-unfinished.");
         }
-        oc.set("tripinfo-output.write-unfinished", "true");
+        oc.setDefault("tripinfo-output.write-unfinished", "true");
     }
     if (oc.getInt("precision") > 2) {
         if (oc.isDefault("netstate-dump.precision")) {
-            oc.set("netstate-dump.precision", toString(oc.getInt("precision")));
+            oc.setDefault("netstate-dump.precision", toString(oc.getInt("precision")));
         }
         if (oc.isDefault("emission-output.precision")) {
-            oc.set("emission-output.precision", toString(oc.getInt("precision")));
+            oc.setDefault("emission-output.precision", toString(oc.getInt("precision")));
         }
         if (oc.isDefault("battery-output.precision")) {
-            oc.set("battery-output.precision", toString(oc.getInt("precision")));
+            oc.setDefault("battery-output.precision", toString(oc.getInt("precision")));
         }
         if (oc.isDefault("elechybrid-output.precision")) {
-            oc.set("elechybrid-output.precision", toString(oc.getInt("precision")));
+            oc.setDefault("elechybrid-output.precision", toString(oc.getInt("precision")));
         }
         if (oc.isDefault("substations-output.precision")) {
-            oc.set("substations-output.precision", toString(oc.getInt("precision")));
+            oc.setDefault("substations-output.precision", toString(oc.getInt("precision")));
         }
     }
     if (!SUMOXMLDefinitions::CarFollowModels.hasString(oc.getString("carfollow.model"))) {

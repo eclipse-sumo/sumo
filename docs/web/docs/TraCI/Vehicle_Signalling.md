@@ -23,8 +23,9 @@ The blinker is activated in either of the following conditions
   - The vehicle is about to take a turn at an intersection
     (activated 7 seconds before reaching the intersection)
   - Either of the [continuous lane-change models](../Simulation/SublaneModel.md) is active
-  - A desired lane change cannot be executed due to neighboring
-    vehicles.
+  - A desired lane change cannot be executed due to neighboring vehicles.
+  - a vehicle is about to stop for parking
+  - the vehicle is stopped on a lane that is not the rightmost usable lane (emergency blinkers on both sides are active)
 - **VEH_SIGNAL_EMERGENCY_BLUE**: when switched on, a blinking blue
 light is shown in the GUI for vehicles with vClass="emergency" and
 shapeClass="emergency"

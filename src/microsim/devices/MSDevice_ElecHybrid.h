@@ -31,6 +31,7 @@
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
+class MSDevice_Emissions;
 
 
 // ===========================================================================
@@ -207,11 +208,6 @@ public:
         return veh_elem;
     }
 
-    /// @brief retrieve parameters for the energy consumption model
-    const EnergyParams& getEnergyParams() const {
-        return myParam;
-    }
-
 private:
     /** @brief Constructor
     *
@@ -219,9 +215,7 @@ private:
     * @param[in] id The ID of the device
     */
     MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string& id,
-                        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower, const EnergyParams& param);
-
-    void checkParam(const SumoXMLAttr paramKey, const double lower = 0., const double upper = std::numeric_limits<double>::infinity());
+                        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower);
 
 protected:
     /// @brief Parameter, The actual vehicles's Battery Capacity in Wh, [myActualBatteryCapacity <= myMaximumBatteryCapacity]
@@ -233,8 +227,8 @@ protected:
     /// @brief Parameter, overhead wire charging power to battery, if the battery SoC is not full (in Watt)
     double myOverheadWireChargingPower;
 
-    /// @brief Parameter collection
-    EnergyParams myParam;
+    /// @brief Parameter holding emission device
+    MSDevice_Emissions* myEmissionDevice;
 
     /// @brief Parameter, Vehicle's last angle
     double myLastAngle;

@@ -98,7 +98,7 @@ private:
     bool myKeepRoutes;
 
     /// @brief Information whether new routes shall be computed
-    double mySkipNewRoutes;
+    bool mySkipNewRoutes;
 
     /// @brief Information whether the old route shall be kept
     double myKeepRouteProb;

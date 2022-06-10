@@ -482,8 +482,10 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
     }
     // get inspected ACs (for code cleaning)
     const auto& inspectedACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    // check if use default value
+    const bool useDefaultValue = (newVal.empty() && myACAttr.hasDefaultValue());
     // Check if attribute must be changed
-    if ((inspectedACs.size() > 0) && inspectedACs.front()->isValid(myACAttr.getAttr(), newVal)) {
+    if ((inspectedACs.size() > 0) && (inspectedACs.front()->isValid(myACAttr.getAttr(), newVal) || useDefaultValue)) {
         // check if we're merging junction
         if (!mergeJunction(myACAttr.getAttr(), inspectedACs, newVal)) {
             // if its valid for the first AC than its valid for all (of the same type)
@@ -495,7 +497,11 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             }
             // Set new value of attribute in all selected ACs
             for (const auto& inspectedAC : inspectedACs) {
-                inspectedAC->setAttribute(myACAttr.getAttr(), newVal, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+                if (useDefaultValue) {
+                    inspectedAC->setAttribute(myACAttr.getAttr(), myACAttr.getDefaultValue(), myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+                } else {
+                    inspectedAC->setAttribute(myACAttr.getAttr(), newVal, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+                }
             }
             // finish change multiple attributes or ID Attributes
             if (inspectedACs.size() > 1) {
@@ -506,14 +512,17 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             // If previously value was incorrect, change font color to black
             if (myACAttr.isVClasses()) {
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                myValueTextField->setBackColor(FXRGB(255, 255, 255));
                 myValueTextField->killFocus();
                 // in this case, we need to refresh the other values (For example, allow/Disallow objects)
                 myAttributesEditorParent->refreshAttributeEditor(false, false);
             } else if (myACAttr.isDiscrete()) {
                 myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
+                myValueComboBoxChoices->setBackColor(FXRGB(255, 255, 255));
                 myValueComboBoxChoices->killFocus();
             } else if (myValueTextField != nullptr) {
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                myValueTextField->setBackColor(FXRGB(255, 255, 255));
                 myValueTextField->killFocus();
             }
             // update frame parent after attribute successfully set
@@ -523,12 +532,19 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         // If value of TextField isn't valid, change color to Red depending of type
         if (myACAttr.isVClasses()) {
             myValueTextField->setTextColor(FXRGB(255, 0, 0));
-            myValueTextField->killFocus();
+            if (newVal.empty()) {
+                myValueTextField->setBackColor(FXRGBA(255, 213, 213, 255));
+            }
         } else if (myACAttr.isDiscrete()) {
             myValueComboBoxChoices->setTextColor(FXRGB(255, 0, 0));
-            myValueComboBoxChoices->killFocus();
+            if (newVal.empty()) {
+                myValueComboBoxChoices->setBackColor(FXRGBA(255, 213, 213, 255));
+            }
         } else if (myValueTextField != nullptr) {
             myValueTextField->setTextColor(FXRGB(255, 0, 0));
+            if (newVal.empty()) {
+                myValueTextField->setBackColor(FXRGBA(255, 213, 213, 255));
+            }
         }
         // Write Warning in console if we're in testing mode
         WRITE_DEBUG("Value '" + newVal + "' for attribute " + myACAttr.getAttrStr() + " of " + myACAttr.getTagPropertyParent().getTagStr() + " isn't valid");

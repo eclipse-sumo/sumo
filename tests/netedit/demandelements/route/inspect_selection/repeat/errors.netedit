@@ -67,7 +67,6 @@ Debug: Adding route 'r_0' in GNEChange_DemandElement
 Debug: Key ENTER pressed
 Debug: Adding route 'r_1' in GNEChange_DemandElement
 Debug: Value 'dummyRepeat' for attribute repeat of route isn't valid
-Debug: Value '' for attribute repeat of route isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

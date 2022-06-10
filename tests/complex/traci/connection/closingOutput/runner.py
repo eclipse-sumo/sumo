@@ -23,7 +23,8 @@ import os
 import sys
 import time
 
-sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 import traci  # noqa
 

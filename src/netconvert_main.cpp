@@ -109,7 +109,7 @@ main(int argc, char** argv) {
         }
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
         if (oc.isDefault("aggregate-warnings")) {
-            oc.set("aggregate-warnings", "5");
+            oc.setDefault("aggregate-warnings", "5");
         }
         MsgHandler::initOutputOptions();
         if (!checkOptions()) {

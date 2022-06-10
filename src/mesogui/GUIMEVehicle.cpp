@@ -170,17 +170,17 @@ GUIMEVehicle::getColorValue(const GUIVisualizationSettings& /* s */, int activeS
         case 13:
             return getSegment()->getEdge().getVehicleMaxSpeed(this);
         case 14:
-            return 0; // invalid getCO2Emissions();
+            return 0; // invalid getEmissions<PollutantsInterface::CO2>();
         case 15:
-            return 0; // invalid getCOEmissions();
+            return 0; // invalid getEmissions<PollutantsInterface::CO>();
         case 16:
-            return 0; // invalid getPMxEmissions();
+            return 0; // invalid getEmissions<PollutantsInterface::PM_X>();
         case 17:
-            return 0; // invalid  getNOxEmissions();
+            return 0; // invalid getEmissions<PollutantsInterface::NO_X>();
         case 18:
-            return 0; // invalid getHCEmissions();
+            return 0; // invalid getEmissions<PollutantsInterface::HC>();
         case 19:
-            return 0; // invalid getFuelConsumption();
+            return 0; // invalid getEmissions<PollutantsInterface::FUEL>();
         case 20:
             return 0; // invalid getHarmonoise_NoiseEmissions();
         case 21: // reroute number

@@ -356,9 +356,9 @@ public:
      */
     void setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh = DO_NOT_PATCH_JAM_THRESHOLD);
 
-	/** @brief reset myFrictionCoefficient
-	*/
-	void setFrictionCoefficient(double newFriction, SUMOTime currentTime);
+    /** @brief reset myFrictionCoefficient
+    */
+    void setFrictionCoefficient(double newFriction, SUMOTime currentTime);
 
     /** @brief Returns the (planned) time at which the next vehicle leaves this segment
      * @return The time the vehicle thinks it leaves
@@ -498,7 +498,7 @@ private:
 
     /// @brief convert net time gap (leader back to follower front) to gross time gap (leader front to follower front)
     inline SUMOTime tauWithVehLength(SUMOTime tau, double lengthWithGap, double vehicleTau) const {
-        return (SUMOTime)(tau * vehicleTau + lengthWithGap * myTau_length);
+        return (SUMOTime)((double)tau * vehicleTau + lengthWithGap * myTau_length);
     }
 
     SUMOTime getTauJJ(double nextQueueSize, double nextQueueCapacity, double nextJamThreshold) const;

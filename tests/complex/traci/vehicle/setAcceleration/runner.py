@@ -20,8 +20,8 @@ from __future__ import print_function
 import os
 import sys
 
-SUMO_HOME = os.path.abspath(os.environ['SUMO_HOME'])
-sys.path.append(os.path.join(SUMO_HOME, "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 
 import traci  # noqa
 import sumolib  # noqa
@@ -54,6 +54,8 @@ while traci.simulation.getMinExpectedNumber() > 0:
         accelerate(speed, speed + 2, 2)
     if t == 8:
         accelerate(speed, speed + 4, 3)
+    if t == 15:
+        accelerate(speed, -1, 5)
     traci.simulationStep()
 
 traci.close()

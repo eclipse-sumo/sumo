@@ -26,7 +26,7 @@ The definition:
 
 ```xml
 <additional>
-   <entryExitDetector id="<ID>" freq="<AGGREGATION_TIME>" file="<OUTPUT_XMLFILE>" 
+   <entryExitDetector id="<ID>" period="<AGGREGATION_TIME>" file="<OUTPUT_XMLFILE>" 
    timeThreshold="<FLOAT>" speedThreshold="<FLOAT>">
       <detEntry lane="<LANE_ID1>" pos="<POSITION_ON_LANE>" friendlyPos="<BOOL>"/>
       <detEntry lane="<LANE_ID2>" pos="<POSITION_ON_LANE>" friendlyPos="<BOOL>"/>
@@ -54,7 +54,7 @@ The complete list of attributes is:
 | -------------- | ----------- | ---------------------------------------------------- |
 | **id**         | id (string) | A string holding the id of the detector              |
 | **file**       | filename    | The path to the output file. The path may be relative.    |
-| **freq**       | int         | The aggregation period the values the detector collects shall be summed up.     |
+| **period** (alias freq) | int| The aggregation period the values the detector collects shall be summed up.     |
 | timeThreshold  | float       | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.    |
 | speedThreshold | float       | The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; *in m/s, default: 5/3.6m/s*.    |
 | openEntry      | bool        | If set to *true*, no error will be reported if vehicles leave the detector without first entering it. This can be useful when tracking vehicles for a particular combination of entry and exit lane at an intersection and other vehicles may also use the exit lane. *default: false*. |
@@ -98,11 +98,11 @@ in the following table.
 | vehicleSum                        | \#                   | The number of vehicles that have left the area during the interval.                                                                                                                                           |
 | meanSpeedWithin                   | m/s                  | The mean speed of those vehicles that have entered, but not yet left the area. Averaged over the time each vehicle was in the area and vehicles.                                                              |
 | meanHaltsPerVehicleWithin         | m/s                  | The mean number of haltings of those vehicles that have entered, but not yet left the area. Averaged over the time each vehicle was in the area and vehicles.                                                 |
-| meanDurationWithin                | s                    | The mean duration is within the area of those vehicles that have entered, but not yet left the area. Averaged over the time each vehicle was in the area and vehicles.                                        |
+| meanDurationWithin                | s                    | The mean duration within the area of those vehicles that have entered, but not yet left the area. Averaged over the time each vehicle was in the area and vehicles.                                        |
 | vehicleSumWithin                  | s                    | The number of vehicles that have entered but not yet left the area.                                                                                                                                           |
 | meanIntervalSpeedWithin           | m/s                  | The mean speed of those vehicles that have entered, but not yet left the area, collected during the written interval. Averaged over the interval and vehicles.                                                |
-| meanIntervalHaltsPerVehicleWithin | \#                   | The number of vehicles that have left the area during the interval, collected during the written interval. Averaged over the interval and vehicles.                                                           |
-| meanIntervalDurationWithin        | s                    | The number of vehicles that have left the area during the interval, collected during the written interval. Averaged over the interval and vehicles.                                                           |
+| meanIntervalHaltsPerVehicleWithin | \#                   | The number of halts per vehicles that have entered, but not yet left the area, collected during the written interval. Averaged over the vehicles.                                                           |
+| meanIntervalDurationWithin        | s                    | The mean duration within the area of those vehicles that have entered, but not yet left the area, collected during the written interval. Averaged over the vehicles.                                                           |
 | meanTimeLossWithin                | s                    | The average time loss collected by vehicles that have entered but not yet left the area during the written interval.                                                                                          |
 
 ## Further Notes

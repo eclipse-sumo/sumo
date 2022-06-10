@@ -24,7 +24,7 @@
 #include <iostream>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
-#include "../NIImporter_Vissim.h"
+#include <netimport/vissim/NIImporter_Vissim.h>
 #include "NIVissimSingleTypeParser_Simdauer.h"
 
 

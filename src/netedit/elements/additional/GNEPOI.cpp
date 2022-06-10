@@ -18,6 +18,8 @@
 // A class for visualizing and editing POIS in netedit (adapted from
 // GUIPointOfInterest and NLHandler)
 /****************************************************************************/
+#include <config.h>
+
 #include <string>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>

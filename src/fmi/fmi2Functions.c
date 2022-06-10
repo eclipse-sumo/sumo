@@ -23,6 +23,7 @@
 // Avoid warnings in windows build because of strcpy instead of strcpy_s,
 // because the latter is not available on all platforms
 #define _CRT_SECURE_NO_WARNINGS
+#pragma warning(disable:4820 4514 5045)
 #endif
 
 #include <string.h>

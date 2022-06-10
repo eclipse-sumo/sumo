@@ -68,16 +68,15 @@ RODFDetFlowLoader::read(const std::string& file) {
             if (!myDetectorContainer.knows(detName)) {
                 continue;
             }
-            const double parsedTime = StringUtils::toDouble((myLineHandler.get("time"))) * myTimeScale - myTimeOffset;
+            const SUMOTime time = (SUMOTime)(StringUtils::toDouble(myLineHandler.get("time")) * (double)myTimeScale + .5) - myTimeOffset;
             // parsing as float to handle values which would cause int overflow
-            if (parsedTime < myStartTime || parsedTime >= myEndTime) {
+            if (time < myStartTime || time >= myEndTime) {
                 if (!myHaveWarnedAboutOverridingBoundaries) {
                     myHaveWarnedAboutOverridingBoundaries = true;
                     WRITE_WARNING("At least one value lies beyond given time boundaries.");
                 }
                 continue;
             }
-            const SUMOTime time = (SUMOTime)(parsedTime + .5);
             FlowDef fd;
             fd.isLKW = 0;
             fd.qPKW = StringUtils::toDouble(myLineHandler.get("qpkw"));

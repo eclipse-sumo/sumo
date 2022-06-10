@@ -1,5 +1,11 @@
 basic
 
+# tests for changing to gain speed
+speedGain
+
+# test cooperative changing
+cooperative
+
 # tests for overtaking and merging at ramps
 motorway
 
@@ -15,6 +21,9 @@ opposite_direction_driving
 
 # test latAlignment configuration
 latAlignment
+
+# test vehicles moving in opposite directions on the same edge
+bidiEdge
 
 # vehicle behavior on a single edge with 2 lanes (default alignment)
 1edge_2lanes

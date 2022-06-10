@@ -1,0 +1,5 @@
+Warning: Discarding unknown compound 'cycleway.crossing' in type 'cycleway.crossing|highway.cycleway' (first occurence for edge '916807057').
+Warning: Found angle of 141.12 degrees at edge '26184171', segment 0.
+Warning: Found sharp turn with radius 7.03 at the start of edge '26184171'.
+Warning: The traffic light '256574415' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '256574415'

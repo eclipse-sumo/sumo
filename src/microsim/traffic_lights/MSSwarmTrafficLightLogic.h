@@ -342,14 +342,14 @@ protected:
             sum_avg_tmp += phero_values[i];
         }
 
-        double mean = sum_avg_tmp / phero_values.size();
+        const double mean = sum_avg_tmp / (double)phero_values.size();
 
         double sum_dev_tmp = 0;
         for (int i = 0; i < (int)phero_values.size(); i++) {
             sum_dev_tmp += pow(phero_values[i] - mean, 2);
         }
 
-        double deviation = sqrt(sum_dev_tmp / phero_values.size());
+        const double deviation = sqrt(sum_dev_tmp / (double)phero_values.size());
 
         scaleFactorDispersionIn = getPheroMaxVal() / deviation;
     }
@@ -368,7 +368,7 @@ protected:
         for (int i = 0; i < (int)phero_values.size(); i++) {
             sum_avg_tmp += phero_values[i];
         }
-        double mean = sum_avg_tmp / phero_values.size();
+        const double mean = sum_avg_tmp / (double)phero_values.size();
 
         double sum_dev_tmp = 0;
 
@@ -376,7 +376,7 @@ protected:
             sum_dev_tmp += pow(phero_values[i] - mean, 2);
         }
 
-        double deviation = sqrt(sum_dev_tmp / phero_values.size());
+        const double deviation = sqrt(sum_dev_tmp / (double)phero_values.size());
 
         scaleFactorDispersionOut = getPheroMaxVal() / deviation;
     }
