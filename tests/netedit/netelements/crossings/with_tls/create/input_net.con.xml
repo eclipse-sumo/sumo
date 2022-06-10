@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\create/input_net.net.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\create_sidewalks/input_net.net.xml"/>
     </input>
 
     <output>
-        <plain-output-prefix value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\create/input_net"/>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\create_sidewalks/input_net"/>
     </output>
 
     <processing>
@@ -42,24 +42,24 @@
 
     <connection from="4"/>
 
-    <connection from="5" to="4" fromLane="0" toLane="0"/>
-    <connection from="5" to="2" fromLane="0" toLane="0"/>
+    <connection from="5" to="4" fromLane="1" toLane="1"/>
     <connection from="5" to="2" fromLane="1" toLane="1"/>
-    <connection from="5" to="3" fromLane="1" toLane="1"/>
+    <connection from="5" to="2" fromLane="2" toLane="2"/>
+    <connection from="5" to="3" fromLane="2" toLane="2"/>
 
-    <connection from="6" to="3" fromLane="0" toLane="0"/>
-    <connection from="6" to="1" fromLane="0" toLane="0"/>
+    <connection from="6" to="3" fromLane="1" toLane="1"/>
     <connection from="6" to="1" fromLane="1" toLane="1"/>
-    <connection from="6" to="4" fromLane="1" toLane="1"/>
+    <connection from="6" to="1" fromLane="2" toLane="2"/>
+    <connection from="6" to="4" fromLane="2" toLane="2"/>
 
-    <connection from="7" to="1" fromLane="0" toLane="0"/>
-    <connection from="7" to="4" fromLane="0" toLane="0"/>
+    <connection from="7" to="1" fromLane="1" toLane="1"/>
     <connection from="7" to="4" fromLane="1" toLane="1"/>
-    <connection from="7" to="2" fromLane="1" toLane="1"/>
+    <connection from="7" to="4" fromLane="2" toLane="2"/>
+    <connection from="7" to="2" fromLane="2" toLane="2"/>
 
-    <connection from="8" to="2" fromLane="0" toLane="0"/>
-    <connection from="8" to="3" fromLane="0" toLane="0"/>
+    <connection from="8" to="2" fromLane="1" toLane="1"/>
     <connection from="8" to="3" fromLane="1" toLane="1"/>
-    <connection from="8" to="1" fromLane="1" toLane="1"/>
+    <connection from="8" to="3" fromLane="2" toLane="2"/>
+    <connection from="8" to="1" fromLane="2" toLane="2"/>
 
 </connections>

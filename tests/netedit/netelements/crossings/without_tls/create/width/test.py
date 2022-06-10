@@ -42,9 +42,11 @@ netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.create.edges, "3 7")
 
 # check invalid width
 netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.create.width, "dummyWidth")
+netedit.createCrossing(False)
 
 # check negative width
 netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.create.width, "-7")
+netedit.createCrossing(False)
 
 # set invalid width
 netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.create.width, "5.2")
