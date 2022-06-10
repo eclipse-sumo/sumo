@@ -52,19 +52,25 @@ and the emission standard, all connected with underscores.
 - **TT**  heavy duty vehicles - truck + trailer (incl. articulated
   trucks = tractor + semitrailer)
   
-- **CB**  heavy duty vehicles - city bus
+- **CB**  city bus; midi: <= 15t, heavy: mix of > 15t, no suffix: mix of midi and heavy
   
-- **CO**  heavy duty vehicles - coach
+- **CO**  coach
   
 - **MC_2S**  motorcycles - 2 stroke
   
-- **MC_4S**  motorcycles - 4 stroke
+- **MC_4S**  motorcycles - 4 stroke; s250cc: < 250ccm, g250cc: > 250ccm
   
 ### Technology
 
 - **G**  gasoline engine (no HEV suffix: conventional powertrain)
   
 - **D**  diesel engine (no HEV suffix: conventional powertrain)
+  
+- **D_DPF**  diesel engine with particle filter
+  
+- **D_MW**  average between diesel engine with and without particle filter
+  
+- **D_SU**  diesel engine with software update
   
 - **HEV**  hybrid powertrain (additional suffix)
   
@@ -98,10 +104,12 @@ passenger cars the classes need to be licensed from TU Graz.
   <tr><td>PC_EU4_D_DPF</td><td>LCV_EU4_D_DPF_I</td><td>LCV_EU4_D_DPF_II</td><td>LCV_EU4_D_DPF_III</td></tr>
   <tr><td>PC_EU4_D_MW</td><td>LCV_EU4_D_MW_I</td><td>LCV_EU4_D_MW_II</td><td>LCV_EU4_D_MW_III</td></tr>
   <tr><td>PC_EU5_D</td><td>LCV_EU5_D_I</td><td>LCV_EU5_D_II</td><td>LCV_EU5_D_III</td></tr>
+  <tr><td>PC_EU5_D_SU</td><td></td><td></td><td></td></tr>
   <tr><td>PC_EU6ab_D</td><td>LCV_EU6ab_D_I</td><td>LCV_EU6ab_D_II</td><td>LCV_EU6ab_D_III</td></tr>
   <tr><td>PC_EU6c_D</td><td>LCV_EU6c_D_I</td><td>LCV_EU6c_D_II</td><td>LCV_EU6c_D_III</td></tr>
   <tr><td>PC_EU6d_D</td><td>LCV_EU6d_D_I</td><td>LCV_EU6d_D_II</td><td>LCV_EU6d_D_III</td></tr>
   <tr><td>PC_EU6d-Temp_D</td><td>LCV_EU6d-Temp_D_I</td><td>LCV_EU6d-Temp_D_II</td><td>LCV_EU6d-Temp_D_III</td></tr>
+  <tr><td>PC_EU7_D</td><td></td><td></td><td></td></tr>
 </table>
 
 ### Light Vehicles running on Gasoline
@@ -117,6 +125,7 @@ passenger cars the classes need to be licensed from TU Graz.
   <tr><td>PC_EU6c_G</td><td>LCV_EU6c_G_I</td><td>LCV_EU6c_G_II</td><td>LCV_EU6c_G_III</td></tr>
   <tr><td>PC_EU6d_G</td><td>LCV_EU6d_G_I</td><td>LCV_EU6d_G_II</td><td>LCV_EU6d_G_III</td></tr>
   <tr><td>PC_EU6d-Temp_G</td><td>LCV_EU6d-Temp_G_I</td><td>LCV_EU6d-Temp_G_II</td><td>LCV_EU6d-Temp_G_III</td></tr>
+  <tr><td>PC_EU7_G</td><td></td><td></td><td></td></tr>
 </table>
 
 ### Light Vehicles running on alternative fuels
@@ -137,13 +146,13 @@ passenger cars the classes need to be licensed from TU Graz.
 
 <table>
   <tr><th colspan="3">Motor Cycles</th></tr>
-  <tr><td>MC_2S_EU0_G</td><td>MC_4S_EU0_G_g250cc</td><td>MC_4S_EU0_G_s250cc</td></tr>
-  <tr><td>MC_2S_EU1_G</td><td>MC_4S_EU1_G_g250cc</td><td>MC_4S_EU1_G_s250cc</td></tr>
-  <tr><td>MC_2S_EU2_G</td><td>MC_4S_EU2_G_g250cc</td><td>MC_4S_EU2_G_s250cc</td></tr>
-  <tr><td>MC_2S_EU3_G</td><td>MC_4S_EU3_G_g250cc</td><td>MC_4S_EU3_G_s250cc</td></tr>
-  <tr><td>MC_2S_EU4_G</td><td>MC_4S_EU4_G_g250cc</td><td>MC_4S_EU4_G_s250cc</td></tr>
-  <tr><td>MC_2S_EU5_G</td><td>MC_4S_EU5_G_g250cc</td><td>MC_4S_EU5_G_s250cc</td></tr>
-  <tr><td>MC_2S_EU6_G</td><td>MC_4S_EU6_G_g250cc</td><td>MC_4S_EU6_G_s250cc</td></tr>
+  <tr><td>MC_2S_EU0_G</td><td>MC_4S_EU0_G_s250cc</td><td>MC_4S_EU0_G_g250cc</td></tr>
+  <tr><td>MC_2S_EU1_G</td><td>MC_4S_EU1_G_s250cc</td><td>MC_4S_EU1_G_g250cc</td></tr>
+  <tr><td>MC_2S_EU2_G</td><td>MC_4S_EU2_G_s250cc</td><td>MC_4S_EU2_G_g250cc</td></tr>
+  <tr><td>MC_2S_EU3_G</td><td>MC_4S_EU3_G_s250cc</td><td>MC_4S_EU3_G_g250cc</td></tr>
+  <tr><td>MC_2S_EU4_G</td><td>MC_4S_EU4_G_s250cc</td><td>MC_4S_EU4_G_g250cc</td></tr>
+  <tr><td>MC_2S_EU5_G</td><td>MC_4S_EU5_G_s250cc</td><td>MC_4S_EU5_G_g250cc</td></tr>
+  <tr><td>MC_2S_EU6_G</td><td>MC_4S_EU6_G_s250cc</td><td>MC_4S_EU6_G_g250cc</td></tr>
   <tr><td colspan="3">MC_BEV_GEN1</td></tr>
 </table>
 
@@ -156,7 +165,10 @@ passenger cars the classes need to be licensed from TU Graz.
   <tr><td>RT_EUIII_D_I</td><td>RT_EUIII_D_II</td><td>TT_EUIII_D</td><td>CB_EUIII_D</td><td>CB_EUIII_D_Midi</td><td>CB_EUIII_D_Heavy</td><td>CO_EUIII_D</td></tr>
   <tr><td>RT_EUIV_D_I</td><td>RT_EUIV_D_II</td><td>TT_EUIV_D</td><td>CB_EUIV_D</td><td>CB_EUIV_D_Midi</td><td>CB_EUIV_D_Heavy</td><td>CO_EUIV_D</td></tr>
   <tr><td>RT_EUV_D_I</td><td>RT_EUV_D_II</td><td>TT_EUV_D</td><td>CB_EUV_D</td><td>CB_EUV_D_Midi</td><td>CB_EUV_D_Heavy</td><td>CO_EUV_D</td></tr>
+  <tr><td></td><td></td><td></td><td>CB_EUV_D_HEV</td><td></td><td></td><td></td></tr>
   <tr><td>RT_EUVI_D_I</td><td>RT_EUVI_D_II</td><td>TT_EUVI_D</td><td>CB_EUVI_D</td><td>CB_EUVI_D_Midi</td><td>CB_EUVI_D_Heavy</td><td>CO_EUVI_D</td></tr>
+  <tr><td></td><td></td><td></td><td>CB_EUVI_D_HEV</td><td></td><td></td><td></td></tr>
+  <tr><td></td><td></td><td></td><td>CB_BEV_GEN1</td><td></td><td></td><td></td></tr>
 </table>
 
 ### Special Classes
