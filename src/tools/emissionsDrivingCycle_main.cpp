@@ -137,6 +137,9 @@ main(int argc, char** argv) {
     oc.doRegister("phemlight-year", new Option_Integer(0));
     oc.addDescription("phemlight-year", "Emissions", "Enable fleet age modelling with the given reference year in PHEMlight5");
 
+    oc.doRegister("phemlight-temperature", new Option_Float(INVALID_DOUBLE));
+    oc.addDescription("phemlight-temperature", "Emissions", "Set ambient temperature to correct NOx emissions in PHEMlight5");
+
     oc.doRegister("begin", new Option_String("0", "TIME"));
     oc.addDescription("begin", "Processing", "Defines the begin time in seconds;");
 

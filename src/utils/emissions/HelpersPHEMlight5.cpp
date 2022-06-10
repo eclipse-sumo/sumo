@@ -55,22 +55,33 @@ HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleCl
     if (eClass.size() < 6) {
         throw InvalidArgument("Unknown emission class '" + eClass + "'.");
     }
+    const OptionsCont& oc = OptionsCont::getOptions();
     std::vector<std::string> phemPath;
-    phemPath.push_back(OptionsCont::getOptions().getString("phemlight-path") + "/");
+    phemPath.push_back(oc.getString("phemlight-path") + "/");
     if (getenv("PHEMLIGHT_PATH") != nullptr) {
         phemPath.push_back(std::string(getenv("PHEMLIGHT_PATH")) + "/");
     }
     if (getenv("SUMO_HOME") != nullptr) {
         phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight5/");
     }
-    const int referenceYear = OptionsCont::getOptions().getInt("phemlight-year");
-    if (referenceYear > 0 && myCorrection == nullptr) {
-        myCorrection = new PHEMlightdllV5::Correction(referenceYear, phemPath);
-        std::string err;
-        if (!myCorrection->ReadDet(err)) {
-            throw InvalidArgument("Error reading PHEMlight5 deterioration data.\n" + err);
+    if (myCorrection == nullptr && (!oc.isDefault("phemlight-year") || !oc.isDefault("phemlight-temperature"))) {
+        myCorrection = new PHEMlightdllV5::Correction(phemPath);
+        if (!oc.isDefault("phemlight-year")) {
+            myCorrection->setYear(oc.getInt("phemlight-year"));
+            std::string err;
+            if (!myCorrection->ReadDet(err)) {
+                throw InvalidArgument("Error reading PHEMlight5 deterioration data.\n" + err);
+            }
+            myCorrection->setUseDet(true);
         }
-        myCorrection->setUseDet(true);
+        if (!oc.isDefault("phemlight-temperature")) {
+            myCorrection->setAmbTemp(oc.getFloat("phemlight-temperature"));
+            std::string err;
+            if (!myCorrection->ReadTNOx(err)) {
+                throw InvalidArgument("Error reading PHEMlight5 deterioration data.\n" + err);
+            }
+            myCorrection->setUseTNOx(true);
+        }
     }
     myHelper.setCommentPrefix("c");
     myHelper.setPHEMDataV("V5");

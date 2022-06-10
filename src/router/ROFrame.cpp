@@ -89,6 +89,9 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
     oc.doRegister("phemlight-year", new Option_Integer(0));
     oc.addDescription("phemlight-year", "Input", "Enable fleet age modelling with the given reference year in PHEMlight5");
 
+    oc.doRegister("phemlight-temperature", new Option_Float(INVALID_DOUBLE));
+    oc.addDescription("phemlight-temperature", "Input", "Set ambient temperature to correct NOx emissions in PHEMlight5");
+
     if (isDUA || isMA) {
         oc.doRegister("weight-files", 'w', new Option_FileName());
         oc.addSynonyme("weight-files", "weights");
