@@ -25,6 +25,7 @@ title: ChangeLog
   - Fixed invalid detector placement for joined actuated traffic lights. Issue #10837
   - Fixed bug where taxi fails to drop off customer. Issue #10860
   - Setting a subsecond `timeThreshold` for `e3detector`s is now working. Issue #10881
+  - Coasting decelerations have been implemented for HBEFA models. Issue #2110
   
 - netedit
   - Fixed crash when loading a network (on very slow computers / builds). Issue #10750 (regression in 1.9.0)
@@ -68,6 +69,8 @@ title: ChangeLog
   - Option **--fcd-output.attributes** now supports the value **posLat** to include lateral positions in fcd-output. Issue #10695
   - Setting lcSpeedGain=0 now fully disables changing for speedGain. Issue #10709
   - RailSignalConstraints can now be loaded in a deactivated state by setting attribute `active="false"`. They can still be retrieved via TraCI. Issue #10799
+  - Vehicles at longer planned stops now switch off their engine. Issue #10491, #4019
+  - Automated engine start/stop can be modelled. Issue #10441
   
 - netedit
   - Persons and personFlows can now be transformed into each other via context menu (similar to vehicles and flows). Issue #10607
@@ -81,7 +84,6 @@ title: ChangeLog
   - All attributes can now be reset to their default value by deleting the attribute content if that attribute has a default. Issue #9350
   - TAZ-source and TAZ-sink elements can now be inspected and selected (upon activating a new toggle button). Issue #10273
   - Stops for containers can now be defined. Issue #10855
-  
 
 - sumo-gui
   - InductionLoop detectors now list the time of continuos occupation in their parameter dialog. Issue #10671
