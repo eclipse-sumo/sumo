@@ -163,6 +163,17 @@ following output can be used:
   during each simulation step (or for the whole edge in
   [Simulation/Meso](../Simulation/Meso.md)).
 
+# Standing vehicles
+
+A vehicle can have either a foreseeable stop on its route or stop at a junction or in a jam.
+In both cases it will still produce emissions / consume energy as long as the motor is running.
+For planned stops SUMO will switch off the engine immediately if the duration is longer than 300s
+(configurable via the vehicle type parameter `shutOffStopDuration`).
+
+The automated start/stop also for unplanned stops is not enabled by default but can be set using
+the vehicle type parameter `shutOffAutoDuration`. This expects a value in seconds and will switch
+off the engine automatically if the vehicle does not move for longer than the given time.
+
 # Further Interfaces
 
 The tool [traceExporter.py](../Tools/TraceExporter.md) converts
