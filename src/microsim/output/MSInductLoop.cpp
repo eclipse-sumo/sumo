@@ -60,10 +60,11 @@ MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
                            double positionInMeters,
                            double length,
                            const std::string& vTypes,
+                           const std::string& nextEdges,
                            int detectPersons,
                            const bool needLocking) :
     MSMoveReminder(id, lane),
-    MSDetectorFileOutput(id, vTypes, detectPersons),
+    MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
     myPosition(positionInMeters),
     myEndPosition(myPosition + length),
     myNeedLock(needLocking || MSGlobals::gNumSimThreads > 1),
@@ -279,7 +280,7 @@ MSInductLoop::getTimeSinceLastDetection() const {
 double
 MSInductLoop::getOccupancyTime() const {
     if (myOverrideTime >= 0) {
-        return SIMTIME - myOverrideEntryTime;;
+        return SIMTIME - myOverrideEntryTime;
     }
     if (myVehiclesOnDet.size() == 0) {
         // detector is unoccupied

@@ -202,11 +202,11 @@ MSAbstractLaneChangeModel::saveNeighbors(const int dir, const MSLeaderDistanceIn
 void
 MSAbstractLaneChangeModel::saveNeighbors(const int dir, const std::pair<MSVehicle* const, double>& follower, const std::pair<MSVehicle* const, double>& leader) {
     if (dir == -1) {
-        myLeftFollowers = std::make_shared<MSLeaderDistanceInfo>(follower, myVehicle.getLane());
-        myLeftLeaders = std::make_shared<MSLeaderDistanceInfo>(leader, myVehicle.getLane());
+        myLeftFollowers = std::make_shared<MSLeaderDistanceInfo>(follower, myVehicle.getLane()->getWidth());
+        myLeftLeaders = std::make_shared<MSLeaderDistanceInfo>(leader, myVehicle.getLane()->getWidth());
     } else if (dir == 1) {
-        myRightFollowers = std::make_shared<MSLeaderDistanceInfo>(follower, myVehicle.getLane());
-        myRightLeaders = std::make_shared<MSLeaderDistanceInfo>(leader, myVehicle.getLane());
+        myRightFollowers = std::make_shared<MSLeaderDistanceInfo>(follower, myVehicle.getLane()->getWidth());
+        myRightLeaders = std::make_shared<MSLeaderDistanceInfo>(leader, myVehicle.getLane()->getWidth());
     } else {
         // dir \in {-1,1} !
         assert(false);

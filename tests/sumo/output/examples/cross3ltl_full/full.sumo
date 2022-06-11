@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul  3 08:58:21 2019 by Eclipse SUMO Version v1_2_0+0918-6832705
+<!-- generated on 2022-06-09 15:59:02 by Eclipse SUMO sumo Version v1_13_0+0699-e1d15bc5765
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -17416,7 +17421,7 @@ SPDX-License-Identifier: EPL-2.0
             <vehicle id="always_right.1" eclass="HBEFA3/PC_G_EU4" CO2="3010.22" CO="147.73" HC="0.74" NOx="1.35" PMx="0.07" fuel="1.29" electricity="0.00" noise="62.94" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="6.56" speed="1.46" angle="0.00" x="501.65" y="6.56"/>
             <vehicle id="horizontal.0" eclass="HBEFA3/PC_G_EU4" CO2="2729.68" CO="23.04" HC="0.17" NOx="0.96" PMx="0.03" fuel="1.17" electricity="0.00" noise="63.08" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="95.34" speed="11.00" angle="270.00" x="904.66" y="501.65"/>
             <vehicle id="horizontal.1" eclass="HBEFA3/PC_G_EU4" CO2="4069.79" CO="151.80" HC="0.79" NOx="1.82" PMx="0.09" fuel="1.75" electricity="0.00" noise="68.26" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="7.67" speed="2.57" angle="270.00" x="992.33" y="501.65"/>
-            <vehicle id="vertical.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="61.51" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="65.79" speed="10.09" angle="0.00" x="501.65" y="65.79"/>
+            <vehicle id="vertical.0" eclass="HBEFA3/PC_G_EU4" CO2="1810.90" CO="12.23" HC="0.09" NOx="0.55" PMx="0.00" fuel="0.78" electricity="0.00" noise="61.51" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="65.79" speed="10.09" angle="0.00" x="501.65" y="65.79"/>
         </vehicles>
         <edges>
             <edge id=":0_0" traveltime="0.87">
@@ -17546,7 +17551,7 @@ SPDX-License-Identifier: EPL-2.0
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3fi" traveltime="34.46">
-                <lane id="3fi_0" CO="171.53" CO2="5380.88" NOx="2.16" PMx="0.09" HC="0.90" noise="67.00" fuel="2.31" electricity="0.00" maxspeed="11.11" meanspeed="7.21" occupancy="0.06" vehicle_count="3"/>
+                <lane id="3fi_0" CO="183.76" CO2="7191.78" NOx="2.71" PMx="0.09" HC="1.00" noise="67.00" fuel="3.09" electricity="0.00" maxspeed="11.11" meanspeed="7.21" occupancy="0.06" vehicle_count="3"/>
             </edge>
             <edge id="3o" traveltime="43.98">
                 <lane id="3o_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="11.11" meanspeed="11.11" occupancy="0.00" vehicle_count="0"/>
@@ -17574,7 +17579,7 @@ SPDX-License-Identifier: EPL-2.0
     </data>
     <data timestep="112.00">
         <vehicles>
-            <vehicle id="always_left.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="61.69" route="always_left" type="DEFAULT_VEHTYPE" waiting="0.00" lane="1fi_0" pos="107.98" speed="10.19" angle="90.00" x="107.98" y="498.35"/>
+            <vehicle id="always_left.0" eclass="HBEFA3/PC_G_EU4" CO2="1913.05" CO="13.37" HC="0.10" NOx="0.60" PMx="0.01" fuel="0.82" electricity="0.00" noise="61.69" route="always_left" type="DEFAULT_VEHTYPE" waiting="0.00" lane="1fi_0" pos="107.98" speed="10.19" angle="90.00" x="107.98" y="498.35"/>
             <vehicle id="always_left.1" eclass="HBEFA3/PC_G_EU4" CO2="3940.90" CO="130.70" HC="0.69" NOx="1.72" PMx="0.08" fuel="1.69" electricity="0.00" noise="64.99" route="always_left" type="DEFAULT_VEHTYPE" waiting="0.00" lane="1fi_0" pos="11.00" speed="3.80" angle="90.00" x="11.00" y="498.35"/>
             <vehicle id="always_right.0" eclass="HBEFA3/PC_G_EU4" CO2="4148.17" CO="54.00" HC="0.34" NOx="1.64" PMx="0.06" fuel="1.78" electricity="0.00" noise="64.59" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="105.73" speed="10.80" angle="0.00" x="501.65" y="105.73"/>
             <vehicle id="always_right.1" eclass="HBEFA3/PC_G_EU4" CO2="4393.02" CO="141.66" HC="0.75" NOx="1.94" PMx="0.09" fuel="1.89" electricity="0.00" noise="67.18" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="10.25" speed="3.69" angle="0.00" x="501.65" y="10.25"/>
@@ -17688,7 +17693,7 @@ SPDX-License-Identifier: EPL-2.0
                 <lane id=":m4_0_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="12.50" meanspeed="12.50" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="1fi" traveltime="35.51">
-                <lane id="1fi_0" CO="130.70" CO2="3940.90" NOx="1.72" PMx="0.08" HC="0.69" noise="66.65" fuel="1.69" electricity="0.00" maxspeed="11.11" meanspeed="7.00" occupancy="0.04" vehicle_count="2"/>
+                <lane id="1fi_0" CO="144.06" CO2="5853.95" NOx="2.32" PMx="0.09" HC="0.79" noise="66.65" fuel="2.52" electricity="0.00" maxspeed="11.11" meanspeed="7.00" occupancy="0.04" vehicle_count="2"/>
             </edge>
             <edge id="1o" traveltime="43.98">
                 <lane id="1o_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="11.11" meanspeed="11.11" occupancy="0.00" vehicle_count="0"/>
@@ -17744,7 +17749,7 @@ SPDX-License-Identifier: EPL-2.0
             <vehicle id="always_right.1" eclass="HBEFA3/PC_G_EU4" CO2="6273.66" CO="145.85" HC="0.81" NOx="2.76" PMx="0.13" fuel="2.70" electricity="0.00" noise="69.71" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="16.50" speed="6.24" angle="0.00" x="501.65" y="16.50"/>
             <vehicle id="horizontal.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="61.02" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="115.55" speed="9.98" angle="270.00" x="884.45" y="501.65"/>
             <vehicle id="horizontal.1" eclass="HBEFA3/PC_G_EU4" CO2="4854.86" CO="118.69" HC="0.65" NOx="2.09" PMx="0.10" fuel="2.09" electricity="0.00" noise="66.05" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="18.11" speed="6.08" angle="270.00" x="981.89" y="501.65"/>
-            <vehicle id="vertical.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="61.75" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="87.19" speed="10.61" angle="0.00" x="501.65" y="87.19"/>
+            <vehicle id="vertical.0" eclass="HBEFA3/PC_G_EU4" CO2="1654.54" CO="4.27" HC="0.05" NOx="0.46" PMx="0.00" fuel="0.71" electricity="0.00" noise="61.75" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="87.19" speed="10.61" angle="0.00" x="501.65" y="87.19"/>
             <vehicle id="vertical.1" eclass="HBEFA3/PC_G_EU4" CO2="2624.72" CO="164.78" HC="0.81" NOx="1.20" PMx="0.07" fuel="1.13" electricity="0.00" noise="55.94" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="5.10" speed="0.00" angle="0.00" x="501.65" y="5.10"/>
         </vehicles>
         <edges>
@@ -17875,7 +17880,7 @@ SPDX-License-Identifier: EPL-2.0
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3fi" traveltime="36.30">
-                <lane id="3fi_0" CO="310.63" CO2="8898.38" NOx="3.96" PMx="0.20" HC="1.63" noise="71.01" fuel="3.83" electricity="0.00" maxspeed="11.11" meanspeed="6.85" occupancy="0.08" vehicle_count="4"/>
+                <lane id="3fi_0" CO="314.90" CO2="10552.92" NOx="4.42" PMx="0.20" HC="1.68" noise="71.01" fuel="4.54" electricity="0.00" maxspeed="11.11" meanspeed="6.85" occupancy="0.08" vehicle_count="4"/>
             </edge>
             <edge id="3o" traveltime="43.98">
                 <lane id="3o_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="11.11" meanspeed="11.11" occupancy="0.00" vehicle_count="0"/>
@@ -18070,7 +18075,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicles>
             <vehicle id="always_left.0" eclass="HBEFA3/PC_G_EU4" CO2="2191.50" CO="22.11" HC="0.15" NOx="0.74" PMx="0.01" fuel="0.94" electricity="0.00" noise="61.78" route="always_left" type="DEFAULT_VEHTYPE" waiting="0.00" lane="1fi_0" pos="138.34" speed="9.87" angle="90.00" x="138.34" y="498.35"/>
             <vehicle id="always_left.1" eclass="HBEFA3/PC_G_EU4" CO2="5714.99" CO="110.70" HC="0.64" NOx="2.44" PMx="0.11" fuel="2.46" electricity="0.00" noise="66.94" route="always_left" type="DEFAULT_VEHTYPE" waiting="0.00" lane="1fi_0" pos="31.07" speed="8.28" angle="90.00" x="31.07" y="498.35"/>
-            <vehicle id="always_right.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="62.33" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="138.04" speed="10.88" angle="0.00" x="501.65" y="138.04"/>
+            <vehicle id="always_right.0" eclass="HBEFA3/PC_G_EU4" CO2="2056.33" CO="10.25" HC="0.09" NOx="0.65" PMx="0.01" fuel="0.88" electricity="0.00" noise="62.33" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="138.04" speed="10.88" angle="0.00" x="501.65" y="138.04"/>
             <vehicle id="always_right.1" eclass="HBEFA3/PC_G_EU4" CO2="6880.92" CO="119.12" HC="0.71" NOx="2.95" PMx="0.14" fuel="2.96" electricity="0.00" noise="68.46" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="34.27" speed="9.82" angle="0.00" x="501.65" y="34.27"/>
             <vehicle id="horizontal.0" eclass="HBEFA3/PC_G_EU4" CO2="3746.45" CO="46.14" HC="0.30" NOx="1.45" PMx="0.05" fuel="1.61" electricity="0.00" noise="64.09" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="136.48" speed="10.75" angle="270.00" x="863.52" y="501.65"/>
             <vehicle id="horizontal.1" eclass="HBEFA3/PC_G_EU4" CO2="6171.92" CO="109.42" HC="0.64" NOx="2.63" PMx="0.12" fuel="2.65" electricity="0.00" noise="67.45" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="35.06" speed="9.31" angle="270.00" x="964.94" y="501.65"/>
@@ -18205,7 +18210,7 @@ SPDX-License-Identifier: EPL-2.0
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3fi" traveltime="27.97">
-                <lane id="3fi_0" CO="311.15" CO2="15425.77" NOx="6.52" PMx="0.29" HC="1.78" noise="72.26" fuel="6.63" electricity="0.00" maxspeed="11.11" meanspeed="8.89" occupancy="0.08" vehicle_count="4"/>
+                <lane id="3fi_0" CO="321.41" CO2="17482.10" NOx="7.16" PMx="0.30" HC="1.87" noise="72.26" fuel="7.51" electricity="0.00" maxspeed="11.11" meanspeed="8.89" occupancy="0.08" vehicle_count="4"/>
             </edge>
             <edge id="3o" traveltime="43.98">
                 <lane id="3o_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="11.11" meanspeed="11.11" occupancy="0.00" vehicle_count="0"/>
@@ -18237,7 +18242,7 @@ SPDX-License-Identifier: EPL-2.0
             <vehicle id="always_left.1" eclass="HBEFA3/PC_G_EU4" CO2="8658.06" CO="148.28" HC="0.88" NOx="3.77" PMx="0.18" fuel="3.72" electricity="0.00" noise="70.89" route="always_left" type="DEFAULT_VEHTYPE" waiting="0.00" lane="1fi_0" pos="41.70" speed="10.63" angle="90.00" x="41.70" y="498.35"/>
             <vehicle id="always_right.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="59.28" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="147.93" speed="9.89" angle="0.00" x="501.65" y="147.93"/>
             <vehicle id="always_right.1" eclass="HBEFA3/PC_G_EU4" CO2="3978.03" CO="53.14" HC="0.33" NOx="1.56" PMx="0.06" fuel="1.71" electricity="0.00" noise="64.28" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="44.77" speed="10.50" angle="0.00" x="501.65" y="44.77"/>
-            <vehicle id="horizontal.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="61.80" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="147.08" speed="10.60" angle="270.00" x="852.92" y="501.65"/>
+            <vehicle id="horizontal.0" eclass="HBEFA3/PC_G_EU4" CO2="1720.58" CO="5.73" HC="0.06" NOx="0.50" PMx="0.00" fuel="0.74" electricity="0.00" noise="61.80" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="147.08" speed="10.60" angle="270.00" x="852.92" y="501.65"/>
             <vehicle id="horizontal.1" eclass="HBEFA3/PC_G_EU4" CO2="6847.91" CO="108.19" HC="0.66" NOx="2.91" PMx="0.13" fuel="2.94" electricity="0.00" noise="68.16" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="46.02" speed="10.96" angle="270.00" x="953.98" y="501.65"/>
             <vehicle id="vertical.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="61.19" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="119.26" speed="10.65" angle="0.00" x="501.65" y="119.26"/>
             <vehicle id="vertical.1" eclass="HBEFA3/PC_G_EU4" CO2="4781.84" CO="123.30" HC="0.67" NOx="2.07" PMx="0.10" fuel="2.06" electricity="0.00" noise="66.20" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="16.08" speed="5.60" angle="0.00" x="501.65" y="16.08"/>
@@ -18359,7 +18364,7 @@ SPDX-License-Identifier: EPL-2.0
                 <lane id="1si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="2fi" traveltime="23.05">
-                <lane id="2fi_0" CO="108.19" CO2="6847.91" NOx="2.91" PMx="0.13" HC="0.66" noise="69.06" fuel="2.94" electricity="0.00" maxspeed="11.11" meanspeed="10.78" occupancy="0.04" vehicle_count="2"/>
+                <lane id="2fi_0" CO="113.92" CO2="8568.49" NOx="3.40" PMx="0.13" HC="0.72" noise="69.06" fuel="3.68" electricity="0.00" maxspeed="11.11" meanspeed="10.78" occupancy="0.04" vehicle_count="2"/>
             </edge>
             <edge id="2o" traveltime="43.98">
                 <lane id="2o_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="11.11" meanspeed="11.11" occupancy="0.00" vehicle_count="0"/>
@@ -18402,9 +18407,9 @@ SPDX-License-Identifier: EPL-2.0
             <vehicle id="always_left.1" eclass="HBEFA3/PC_G_EU4" CO2="2164.94" CO="14.50" HC="0.11" NOx="0.70" PMx="0.01" fuel="0.93" electricity="0.00" noise="62.28" route="always_left" type="DEFAULT_VEHTYPE" waiting="0.00" lane="1fi_0" pos="52.35" speed="10.65" angle="90.00" x="52.35" y="498.35"/>
             <vehicle id="always_right.0" eclass="HBEFA3/PC_G_EU4" CO2="5505.15" CO="79.74" HC="0.49" NOx="2.27" PMx="0.10" fuel="2.37" electricity="0.00" noise="66.36" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="158.99" speed="11.06" angle="0.00" x="501.65" y="158.99"/>
             <vehicle id="always_right.1" eclass="HBEFA3/PC_G_EU4" CO2="3065.06" CO="31.47" HC="0.21" NOx="1.12" PMx="0.04" fuel="1.32" electricity="0.00" noise="63.34" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="55.59" speed="10.82" angle="0.00" x="501.65" y="55.59"/>
-            <vehicle id="horizontal.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="61.44" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="157.46" speed="10.38" angle="270.00" x="842.54" y="501.65"/>
+            <vehicle id="horizontal.0" eclass="HBEFA3/PC_G_EU4" CO2="1523.01" CO="3.64" HC="0.05" NOx="0.41" PMx="0.00" fuel="0.65" electricity="0.00" noise="61.44" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="157.46" speed="10.38" angle="270.00" x="842.54" y="501.65"/>
             <vehicle id="horizontal.1" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="59.39" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="56.01" speed="9.99" angle="270.00" x="943.99" y="501.65"/>
-            <vehicle id="vertical.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="61.77" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="129.77" speed="10.51" angle="0.00" x="501.65" y="129.77"/>
+            <vehicle id="vertical.0" eclass="HBEFA3/PC_G_EU4" CO2="1755.73" CO="7.24" HC="0.07" NOx="0.51" PMx="0.00" fuel="0.75" electricity="0.00" noise="61.77" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="129.77" speed="10.51" angle="0.00" x="501.65" y="129.77"/>
             <vehicle id="vertical.1" eclass="HBEFA3/PC_G_EU4" CO2="7521.71" CO="149.23" HC="0.86" NOx="3.30" PMx="0.16" fuel="3.23" electricity="0.00" noise="70.58" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="24.24" speed="8.16" angle="0.00" x="501.65" y="24.24"/>
         </vehicles>
         <edges>
@@ -18524,7 +18529,7 @@ SPDX-License-Identifier: EPL-2.0
                 <lane id="1si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="2fi" traveltime="24.40">
-                <lane id="2fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="63.55" fuel="0.00" electricity="0.00" maxspeed="11.11" meanspeed="10.18" occupancy="0.04" vehicle_count="2"/>
+                <lane id="2fi_0" CO="3.64" CO2="1523.01" NOx="0.41" PMx="0.00" HC="0.05" noise="63.55" fuel="0.65" electricity="0.00" maxspeed="11.11" meanspeed="10.18" occupancy="0.04" vehicle_count="2"/>
             </edge>
             <edge id="2o" traveltime="43.98">
                 <lane id="2o_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="11.11" meanspeed="11.11" occupancy="0.00" vehicle_count="0"/>
@@ -18535,7 +18540,7 @@ SPDX-License-Identifier: EPL-2.0
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3fi" traveltime="24.51">
-                <lane id="3fi_0" CO="260.43" CO2="16091.92" NOx="6.69" PMx="0.29" HC="1.56" noise="72.88" fuel="6.92" electricity="0.00" maxspeed="11.11" meanspeed="10.14" occupancy="0.08" vehicle_count="4"/>
+                <lane id="3fi_0" CO="267.67" CO2="17847.65" NOx="7.20" PMx="0.29" HC="1.63" noise="72.88" fuel="7.67" electricity="0.00" maxspeed="11.11" meanspeed="10.14" occupancy="0.08" vehicle_count="4"/>
             </edge>
             <edge id="3o" traveltime="43.98">
                 <lane id="3o_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="11.11" meanspeed="11.11" occupancy="0.00" vehicle_count="0"/>
@@ -18568,7 +18573,7 @@ SPDX-License-Identifier: EPL-2.0
             <vehicle id="always_right.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="61.58" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="169.76" speed="10.77" angle="0.00" x="501.65" y="169.76"/>
             <vehicle id="always_right.1" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="61.52" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="66.17" speed="10.58" angle="0.00" x="501.65" y="66.17"/>
             <vehicle id="horizontal.0" eclass="HBEFA3/PC_G_EU4" CO2="3773.41" CO="44.98" HC="0.29" NOx="1.45" PMx="0.05" fuel="1.62" electricity="0.00" noise="64.20" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="168.41" speed="10.95" angle="270.00" x="831.59" y="501.65"/>
-            <vehicle id="horizontal.1" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="61.16" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="65.83" speed="9.82" angle="270.00" x="934.17" y="501.65"/>
+            <vehicle id="horizontal.1" eclass="HBEFA3/PC_G_EU4" CO2="1683.73" CO="12.11" HC="0.09" NOx="0.50" PMx="0.00" fuel="0.72" electricity="0.00" noise="61.16" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="65.83" speed="9.82" angle="270.00" x="934.17" y="501.65"/>
             <vehicle id="vertical.0" eclass="HBEFA3/PC_G_EU4" CO2="3635.62" CO="41.46" HC="0.27" NOx="1.39" PMx="0.05" fuel="1.56" electricity="0.00" noise="64.08" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="140.80" speed="11.03" angle="0.00" x="501.65" y="140.80"/>
             <vehicle id="vertical.1" eclass="HBEFA3/PC_G_EU4" CO2="8635.88" CO="148.76" HC="0.88" NOx="3.76" PMx="0.18" fuel="3.71" electricity="0.00" noise="70.91" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="34.76" speed="10.53" angle="0.00" x="501.65" y="34.76"/>
         </vehicles>
@@ -18689,7 +18694,7 @@ SPDX-License-Identifier: EPL-2.0
                 <lane id="1si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="2fi" traveltime="23.93">
-                <lane id="2fi_0" CO="44.98" CO2="3773.41" NOx="1.45" PMx="0.05" HC="0.29" noise="65.96" fuel="1.62" electricity="0.00" maxspeed="11.11" meanspeed="10.39" occupancy="0.04" vehicle_count="2"/>
+                <lane id="2fi_0" CO="57.08" CO2="5457.14" NOx="1.95" PMx="0.06" HC="0.38" noise="65.96" fuel="2.35" electricity="0.00" maxspeed="11.11" meanspeed="10.39" occupancy="0.04" vehicle_count="2"/>
             </edge>
             <edge id="2o" traveltime="43.98">
                 <lane id="2o_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="11.11" meanspeed="11.11" occupancy="0.00" vehicle_count="0"/>
@@ -18730,12 +18735,12 @@ SPDX-License-Identifier: EPL-2.0
         <vehicles>
             <vehicle id="always_left.0" eclass="HBEFA3/PC_G_EU4" CO2="5002.10" CO="69.51" HC="0.43" NOx="2.03" PMx="0.09" fuel="2.15" electricity="0.00" noise="65.72" route="always_left" type="DEFAULT_VEHTYPE" waiting="0.00" lane="1fi_0" pos="179.32" speed="11.04" angle="90.00" x="179.32" y="498.35"/>
             <vehicle id="always_left.1" eclass="HBEFA3/PC_G_EU4" CO2="4035.19" CO="49.86" HC="0.32" NOx="1.58" PMx="0.06" fuel="1.73" electricity="0.00" noise="64.53" route="always_left" type="DEFAULT_VEHTYPE" waiting="0.00" lane="1fi_0" pos="73.71" speed="11.01" angle="90.00" x="73.71" y="498.35"/>
-            <vehicle id="always_right.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="62.02" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="180.44" speed="10.68" angle="0.00" x="501.65" y="180.44"/>
-            <vehicle id="always_right.1" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="62.19" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="76.74" speed="10.57" angle="0.00" x="501.65" y="76.74"/>
+            <vehicle id="always_right.0" eclass="HBEFA3/PC_G_EU4" CO2="1886.16" CO="8.45" HC="0.08" NOx="0.57" PMx="0.01" fuel="0.81" electricity="0.00" noise="62.02" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="180.44" speed="10.68" angle="0.00" x="501.65" y="180.44"/>
+            <vehicle id="always_right.1" eclass="HBEFA3/PC_G_EU4" CO2="2127.36" CO="14.35" HC="0.11" NOx="0.69" PMx="0.01" fuel="0.91" electricity="0.00" noise="62.19" route="always_right" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="76.74" speed="10.57" angle="0.00" x="501.65" y="76.74"/>
             <vehicle id="horizontal.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="61.00" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="178.92" speed="10.51" angle="270.00" x="821.08" y="501.65"/>
             <vehicle id="horizontal.1" eclass="HBEFA3/PC_G_EU4" CO2="2719.59" CO="31.27" HC="0.20" NOx="0.98" PMx="0.03" fuel="1.17" electricity="0.00" noise="62.52" route="horizontal" type="DEFAULT_VEHTYPE" waiting="0.00" lane="2fi_0" pos="75.88" speed="10.05" angle="270.00" x="924.12" y="501.65"/>
             <vehicle id="vertical.0" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="58.79" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="150.61" speed="9.81" angle="0.00" x="501.65" y="150.61"/>
-            <vehicle id="vertical.1" eclass="HBEFA3/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="61.96" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="45.24" speed="10.47" angle="0.00" x="501.65" y="45.24"/>
+            <vehicle id="vertical.1" eclass="HBEFA3/PC_G_EU4" CO2="1974.92" CO="12.12" HC="0.10" NOx="0.62" PMx="0.01" fuel="0.85" electricity="0.00" noise="61.96" route="vertical" type="DEFAULT_VEHTYPE" waiting="0.00" lane="3fi_0" pos="45.24" speed="10.47" angle="0.00" x="501.65" y="45.24"/>
         </vehicles>
         <edges>
             <edge id=":0_0" traveltime="0.87">
@@ -18865,7 +18870,7 @@ SPDX-License-Identifier: EPL-2.0
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3fi" traveltime="23.93">
-                <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="67.46" fuel="0.00" electricity="0.00" maxspeed="11.11" meanspeed="10.38" occupancy="0.08" vehicle_count="4"/>
+                <lane id="3fi_0" CO="34.92" CO2="5988.44" NOx="1.88" PMx="0.02" HC="0.29" noise="67.46" fuel="2.57" electricity="0.00" maxspeed="11.11" meanspeed="10.38" occupancy="0.08" vehicle_count="4"/>
             </edge>
             <edge id="3o" traveltime="43.98">
                 <lane id="3o_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="11.11" meanspeed="11.11" occupancy="0.00" vehicle_count="0"/>

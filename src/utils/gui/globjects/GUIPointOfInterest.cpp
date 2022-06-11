@@ -172,7 +172,7 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
             if (value != "") {
                 auto lines = StringTokenizer(value, StringTokenizer::NEWLINE).getVector();
                 glRotated(-s.angle, 0, 0, 1);
-                glTranslated(0, 0.7 * s.poiText.scaledSize(s.scale) * lines.size(), 0);
+                glTranslated(0, 0.7 * s.poiText.scaledSize(s.scale) * (double)lines.size(), 0);
                 glRotated(s.angle, 0, 0, 1);
                 // FONS_ALIGN_LEFT = 1
                 // FONS_ALIGN_CENTER = 2

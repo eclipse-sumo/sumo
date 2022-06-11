@@ -22,12 +22,15 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/foxtools/MFXMenuHeader.h>
 
 #include "GNEDeleteFrame.h"
 
@@ -35,12 +38,89 @@
 // FOX callback mapping
 // ===========================================================================
 
+FXDEFMAP(GNEDeleteFrame::MultipleDeletePane) MultipleDeletePaneMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECT, GNEDeleteFrame::MultipleDeletePane::onCmdSelect),
+};
+
 FXDEFMAP(GNEDeleteFrame::DeleteOptions) DeleteOptionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDeleteFrame::DeleteOptions::onCmdSetOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE, GNEDeleteFrame::DeleteOptions::onCmdSetOption),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDeleteFrame::DeleteOptions, FXGroupBoxModule, DeleteOptionsMap, ARRAYNUMBER(DeleteOptionsMap))
+FXIMPLEMENT(GNEDeleteFrame::DeleteOptions,      FXGroupBoxModule, DeleteOptionsMap,      ARRAYNUMBER(DeleteOptionsMap))
+FXIMPLEMENT(GNEDeleteFrame::MultipleDeletePane, FXMenuPane,       MultipleDeletePaneMap, ARRAYNUMBER(MultipleDeletePaneMap))
+
+
+// ---------------------------------------------------------------------------
+// GNEDeleteFrame::MultipleDeletePane - methods
+// ---------------------------------------------------------------------------
+
+GNEDeleteFrame::MultipleDeletePane::MultipleDeletePane(GNEDeleteFrame* deleteFrameParent, const std::vector<GNEDemandElement*>& clickedDemandElements) :
+    FXMenuPane(deleteFrameParent->getViewNet()),
+    myDeleteFrameParent(deleteFrameParent),
+    myClickedDemandElements(clickedDemandElements) {
+    // get GNEAppWindow
+    const auto appWindow = myDeleteFrameParent->getViewNet()->getViewParent()->getGNEAppWindows();
+    // add delete all elements
+    myDeleteAllElements = GUIDesigns::buildFXMenuCommand(this, "Delete all elements", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_SELECT);
+    // add separators
+    new FXMenuSeparator(this);
+    // add elements
+    for (const auto &demandElement : myClickedDemandElements) {
+        GUIDesigns::buildFXMenuCommand(this, demandElement->getTagStr() + ": " + demandElement->getID(), demandElement->getIcon(), this, MID_GNE_SELECT);
+    }
+    // obtain cursor position
+    int x, y;
+    FXuint b;
+    appWindow->getCursorPosition(x, y, b);
+    // set pane position
+    int popX = x + appWindow->getX();
+    int popY = y + appWindow->getY();
+    setX(popX);
+    setY(popY);
+    // try to stay on screen unless click appears to come from a multi-screen setup
+    const int rootWidth = getApp()->getRootWindow()->getWidth();
+    const int rootHeight = getApp()->getRootWindow()->getHeight();
+    if (popX <= rootWidth) {
+        popX = MAX2(0, MIN2(popX, rootWidth - getWidth() - 10));
+    }
+    if (popY <= rootHeight) {
+        popY = MAX2(0, MIN2(popY, rootHeight - getHeight() - 50));
+    }
+    // move pane
+    move(popX, popY);
+    // create
+    create();
+    // show
+    show();
+}
+
+
+long
+GNEDeleteFrame::MultipleDeletePane::onCmdSelect(FXObject* obj, FXSelector, void*) {
+    if (obj == myDeleteAllElements) {
+        // remove all selected attribute carrier susing the following parent-child sequence
+        myDeleteFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::MODEDELETE, "remove clicked items");
+        // add elements
+        for (const auto &demandElement : myClickedDemandElements) {
+            if (myDeleteFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(demandElement, false)) {
+                myDeleteFrameParent->getViewNet()->getNet()->deleteDemandElement(demandElement, myDeleteFrameParent->getViewNet()->getUndoList());
+            }
+        }
+        // finish deletion
+        myDeleteFrameParent->getViewNet()->getUndoList()->end();
+    } else {
+        // get menu command
+        const std::string menuCommandStr = dynamic_cast<FXMenuCommand*>(obj)->getText().text();
+        for (const auto &demandElement : myClickedDemandElements) {
+            if (menuCommandStr == (demandElement->getTagStr() + ": " + demandElement->getID())) {
+                myDeleteFrameParent->getViewNet()->getNet()->deleteDemandElement(demandElement, myDeleteFrameParent->getViewNet()->getUndoList());
+                return 1;
+            }
+        }
+    }
+    return 1;
+}
 
 // ---------------------------------------------------------------------------
 // GNEDeleteFrame::DeleteOptions - methods
@@ -130,7 +210,11 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
 }
 
 
-GNEDeleteFrame::~GNEDeleteFrame() {}
+GNEDeleteFrame::~GNEDeleteFrame() {
+    if (myMultipleDeletePane) {
+        delete myMultipleDeletePane;
+    }
+}
 
 
 void
@@ -141,6 +225,8 @@ GNEDeleteFrame::show() {
 
 void
 GNEDeleteFrame::hide() {
+    delete myMultipleDeletePane;
+    myMultipleDeletePane = nullptr;
     GNEFrame::hide();
 }
 
@@ -182,10 +268,10 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
             for (const auto& selectedCrossing : selectedCrossings) {
                 myViewNet->getNet()->deleteCrossing(selectedCrossing, myViewNet->getUndoList());
             }
-            // additionals
+            // additionals (including Polygons, POIs, TAZs and Wires)
             while (attributeCarriers->getNumberOfSelectedAdditionals() > 0) {
                 myViewNet->getNet()->deleteAdditional(attributeCarriers->getSelectedAdditionals().front(), myViewNet->getUndoList());
-            }
+            } 
         } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // demand elements
             while (attributeCarriers->getNumberOfSelectedDemandElements() > 0) {
@@ -209,7 +295,13 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
 void
 GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool ignoreOptions) {
     // first check if there is at leas an AC under cursor)
-    if (objectsUnderCursor.getAttributeCarrierFront()) {
+    if (objectsUnderCursor.getClickedDemandElements().size() > 1) {
+        // show multiple delete pane
+    if (myMultipleDeletePane) {
+        delete myMultipleDeletePane;
+    }
+    myMultipleDeletePane = new MultipleDeletePane(this, objectsUnderCursor.getClickedDemandElements());
+    } else if (objectsUnderCursor.getAttributeCarrierFront()) {
         // disable update geometry
         myViewNet->getNet()->disableUpdateGeometry();
         // check type of of object under cursor object

@@ -108,6 +108,10 @@ GUIOSGView::Command_TLSChange::execute() {
         case LINKSTATE_TL_REDYELLOW:
             mySwitch->setSingleChildOn(3);
             break;
+		case LINKSTATE_TL_OFF_BLINKING:
+		case LINKSTATE_TL_OFF_NOSIGNAL:
+			mySwitch->setSingleChildOn(3);
+			break;
         default:
             mySwitch->setAllChildrenOff();
     }
@@ -276,7 +280,20 @@ GUIOSGView::recenterView() {
 
 void
 GUIOSGView::centerTo(GUIGlID id, bool /* applyZoom */, double /* zoomDist */) {
-    startTrack(id);
+	GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+	if (o != nullptr && dynamic_cast<GUIGlObject*>(o) != nullptr) {
+		// get OSG object from GLObject
+		osg::Node* objectNode = o->getNode();
+		if (objectNode != nullptr) {
+			// center to current position
+			osg::Vec3d lookFromOSG, lookAtOSG, up;
+			myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
+			myCameraManipulator->setHomePosition(lookFromOSG, objectNode->getBound().center(), up);
+			myViewer->home();
+			//updatePositionInformation(); // TODO: needs reimplementation in OSG
+		}
+	}
+	GUIGlObjectStorage::gIDStorage.unblockObject(id);
 }
 
 
@@ -311,17 +328,20 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                 const int linkStringIdx = (int)d.filename.find(':', 3);
                 GUINet* net = (GUINet*) MSNet::getInstance();
                 try {
-                    MSTLLogicControl::TLSLogicVariants& vars = net->getTLSControl().get(d.filename.substr(3, linkStringIdx - 3));
+					const std::string tlLogic = d.filename.substr(3, linkStringIdx - 3);
+                    MSTLLogicControl::TLSLogicVariants& vars = net->getTLSControl().get(tlLogic);
                     const int linkIdx = StringUtils::toInt(d.filename.substr(linkStringIdx + 1));
                     if (linkIdx < 0 || linkIdx >= static_cast<int>(vars.getActive()->getLinks().size())) {
                         throw NumberFormatException("");
                     }
                     const MSLink* const link = vars.getActive()->getLinksAt(linkIdx)[0];
                     osg::Switch* switchNode = new osg::Switch();
+					switchNode->setName("tlLogic:" + tlLogic);
                     switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myGreenLight, osg::Vec4d(0., 1., 0., .3)), false);
                     switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myYellowLight, osg::Vec4d(1., 1., 0., .3)), false);
                     switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedLight, osg::Vec4d(1., 0., 0., .3)), false);
                     switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(1., .5, 0., .3)), false);
+					switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(.5, .25, 0., .3)), false);
                     myRoot->addChild(switchNode);
                     vars.addSwitchCommand(new Command_TLSChange(link, switchNode));
                 } catch (NumberFormatException&) {
@@ -351,15 +371,17 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
             myVehicles[veh] = GUIOSGBuilder::buildMovable(veh->getVehicleType());
             myRoot->addChild(myVehicles[veh].pos);
 			myVehicles[veh].pos->setName("vehicle:"+veh->getID());
+			veh->setNode(myVehicles[veh].pos);
         } else {
             itVeh->second.active = true;
         }
         osg::PositionAttitudeTransform* n = myVehicles[veh].pos;
         n->setPosition(osg::Vec3d(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()));
         const double dir = veh->getAngle() + M_PI / 2.;
-        const double slope = veh->getSlope();
-        n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)) *
-                       osg::Quat(osg::DegreesToRadians(slope), osg::Vec3d(0, 1, 0)));
+        const double slope = -veh->getSlope();
+		n->setAttitude(osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(1, 0, 0),
+			0, osg::Vec3(0, 1, 0),
+			dir, osg::Vec3(0, 0, 1)));
         /*
         osg::ref_ptr<osg::AnimationPath> path = new osg::AnimationPath;
         // path->setLoopMode( osg::AnimationPath::NO_LOOPING );
@@ -813,13 +835,12 @@ bool GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GU
 
 void GUIOSGView::PickHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea) {
 	osgUtil::LineSegmentIntersector::Intersections intersections;
-	if (view->computeIntersections(ea, intersections))
-	{
+	if (view->computeIntersections(ea, intersections))	{
 		for (auto intersection : intersections) {
-			if (!intersection.nodePath.empty() && !(intersection.nodePath.back()->getName().empty())) {
-				// the vehicle is identified by the ID stored in OSG
+			if (!intersection.nodePath.empty()) {
+				// the object is identified by the ID stored in OSG
 				for (osg::Node* currentNode : intersection.nodePath) {
-					if (currentNode->getName().length() > 8 && currentNode->getName().substr(0,8) == "vehicle:") {
+					if(currentNode->getName().length() > 0 && currentNode->getName().find(":") != std::string::npos) {
 						const std::string vehID = currentNode->getName();
 						if (myParent->makeCurrent()) {
 							GUIGlObject* obj = GUIGlObjectStorage::gIDStorage.getObjectBlocking(vehID);

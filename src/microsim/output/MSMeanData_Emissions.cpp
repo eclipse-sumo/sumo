@@ -141,13 +141,13 @@ MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, long long i
             dev << "\n           ";
         }
         dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME,         OutputDevice::realString(defaultTravelTime), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_CO_PERVEH,          OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_CO2_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO2,  speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_HC_PERVEH,          OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::HC,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_PMX_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::PM_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_NOX_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::NO_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_FUEL_PERVEH,        OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::FUEL, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_PERVEH, OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::ELEC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_CO_PERVEH,          OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_CO2_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO2,  speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_HC_PERVEH,          OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::HC,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_PMX_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::PM_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_NOX_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::NO_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_FUEL_PERVEH,        OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::FUEL, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_PERVEH, OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::ELEC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
     }
     dev.closeTag();
 }

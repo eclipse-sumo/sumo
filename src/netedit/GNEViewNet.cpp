@@ -247,9 +247,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myLockManager(this),
     myViewParent(viewParent),
     myNet(net),
-    myCurrentFrame(nullptr),
-    myUndoList(undoList),
-    myFrontAttributeCarrier(nullptr) {
+    myUndoList(undoList) {
     // view must be the final member of actualParent
     reparent(actualParent);
     // Build edit modes
@@ -651,7 +649,11 @@ GNEViewNet::setStatusBarText(const std::string& text) {
 
 bool
 GNEViewNet::autoSelectNodes() {
-    return (myNetworkViewOptions.menuCheckExtendSelection->amChecked() != 0);
+    if (myLockManager.isObjectLocked(GLO_JUNCTION, false)) {
+        return false;
+    } else {
+        return (myNetworkViewOptions.menuCheckExtendSelection->amChecked() != 0);
+    }
 }
 
 
@@ -758,12 +760,7 @@ GNEViewNet::GNEViewNet() :
     mySaveElements(this),
     mySelectingArea(this),
     myEditNetworkElementShapes(this),
-    myLockManager(this),
-    myViewParent(nullptr),
-    myNet(nullptr),
-    myCurrentFrame(nullptr),
-    myUndoList(nullptr),
-    myFrontAttributeCarrier(nullptr) {
+    myLockManager(this) {
 }
 
 
@@ -1302,28 +1299,28 @@ GNEViewNet::hotkeyEnter() {
             }
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
             // create path element
-            myViewParent->getAdditionalFrame()->createPath();
+            myViewParent->getAdditionalFrame()->createPath(false);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_WIRE) {
             // create path element
-            myViewParent->getWireFrame()->createPath();
+            myViewParent->getWireFrame()->createPath(false);
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {
-            myViewParent->getRouteFrame()->getPathCreator()->createPath();
+            myViewParent->getRouteFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
-            myViewParent->getVehicleFrame()->getPathCreator()->createPath();
+            myViewParent->getVehicleFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
-            myViewParent->getPersonFrame()->getPathCreator()->createPath();
+            myViewParent->getPersonFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            myViewParent->getPersonPlanFrame()->getPathCreator()->createPath();
+            myViewParent->getPersonPlanFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
-            myViewParent->getContainerFrame()->getPathCreator()->createPath();
+            myViewParent->getContainerFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
-            myViewParent->getContainerPlanFrame()->getPathCreator()->createPath();
+            myViewParent->getContainerPlanFrame()->getPathCreator()->createPath(false);
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
-            myViewParent->getEdgeRelDataFrame()->getPathCreator()->createPath();
+            myViewParent->getEdgeRelDataFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.dataEditMode == DataEditMode::DATA_TAZRELDATA) {
             myViewParent->getTAZRelDataFrame()->buildTAZRelationData();
         }
@@ -1460,6 +1457,18 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
     } else {
         glTranslated(0, 0, typeOrLayer + extraOffset);
     }
+}
+
+
+GNEDemandElement*
+GNEViewNet::getLastCreatedRoute() const {
+    return myLastCreatedRoute;
+}
+
+
+void
+GNEViewNet::setLastCreatedRoute(GNEDemandElement *lastCreatedRoute) {
+    myLastCreatedRoute = lastCreatedRoute;
 }
 
 
@@ -3668,17 +3677,17 @@ GNEViewNet::onCmdToggleShowDemandElementsData(FXObject*, FXSelector sel, void*) 
 long
 GNEViewNet::onCmdToggleTAZRelDrawing(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckShowDemandElements
-    if (myDataViewOptions.menuCheckToogleTAZRelDrawing->amChecked() == TRUE) {
-        myDataViewOptions.menuCheckToogleTAZRelDrawing->setChecked(FALSE);
+    if (myDataViewOptions.menuCheckToggleTAZRelDrawing->amChecked() == TRUE) {
+        myDataViewOptions.menuCheckToggleTAZRelDrawing->setChecked(FALSE);
     } else {
-        myDataViewOptions.menuCheckToogleTAZRelDrawing->setChecked(TRUE);
+        myDataViewOptions.menuCheckToggleTAZRelDrawing->setChecked(TRUE);
     }
-    myDataViewOptions.menuCheckToogleTAZRelDrawing->update();
+    myDataViewOptions.menuCheckToggleTAZRelDrawing->update();
     // update view to show demand elements
     updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING)) {
-        myDataViewOptions.menuCheckToogleTAZRelDrawing->setFocus();
+        myDataViewOptions.menuCheckToggleTAZRelDrawing->setFocus();
     }
     return 1;
 }
@@ -3687,17 +3696,17 @@ GNEViewNet::onCmdToggleTAZRelDrawing(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToggleTAZDrawFill(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckShowDemandElements
-    if (myDataViewOptions.menuCheckToogleTAZDrawFill->amChecked() == TRUE) {
-        myDataViewOptions.menuCheckToogleTAZDrawFill->setChecked(FALSE);
+    if (myDataViewOptions.menuCheckToggleTAZDrawFill->amChecked() == TRUE) {
+        myDataViewOptions.menuCheckToggleTAZDrawFill->setChecked(FALSE);
     } else {
-        myDataViewOptions.menuCheckToogleTAZDrawFill->setChecked(TRUE);
+        myDataViewOptions.menuCheckToggleTAZDrawFill->setChecked(TRUE);
     }
-    myDataViewOptions.menuCheckToogleTAZDrawFill->update();
+    myDataViewOptions.menuCheckToggleTAZDrawFill->update();
     // update view to show demand elements
     updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL)) {
-        myDataViewOptions.menuCheckToogleTAZDrawFill->setFocus();
+        myDataViewOptions.menuCheckToggleTAZDrawFill->setFocus();
     }
     return 1;
 }
@@ -3706,17 +3715,17 @@ GNEViewNet::onCmdToggleTAZDrawFill(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToggleTAZRelOnlyFrom(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckShowDemandElements
-    if (myDataViewOptions.menuCheckToogleTAZRelOnlyFrom->amChecked() == TRUE) {
-        myDataViewOptions.menuCheckToogleTAZRelOnlyFrom->setChecked(FALSE);
+    if (myDataViewOptions.menuCheckToggleTAZRelOnlyFrom->amChecked() == TRUE) {
+        myDataViewOptions.menuCheckToggleTAZRelOnlyFrom->setChecked(FALSE);
     } else {
-        myDataViewOptions.menuCheckToogleTAZRelOnlyFrom->setChecked(TRUE);
+        myDataViewOptions.menuCheckToggleTAZRelOnlyFrom->setChecked(TRUE);
     }
-    myDataViewOptions.menuCheckToogleTAZRelOnlyFrom->update();
+    myDataViewOptions.menuCheckToggleTAZRelOnlyFrom->update();
     // update view to show demand elements
     updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM)) {
-        myDataViewOptions.menuCheckToogleTAZRelOnlyFrom->setFocus();
+        myDataViewOptions.menuCheckToggleTAZRelOnlyFrom->setFocus();
     }
     return 1;
 }
@@ -3725,17 +3734,17 @@ GNEViewNet::onCmdToggleTAZRelOnlyFrom(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToggleTAZRelOnlyTo(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckShowDemandElements
-    if (myDataViewOptions.menuCheckToogleTAZRelOnlyTo->amChecked() == TRUE) {
-        myDataViewOptions.menuCheckToogleTAZRelOnlyTo->setChecked(FALSE);
+    if (myDataViewOptions.menuCheckToggleTAZRelOnlyTo->amChecked() == TRUE) {
+        myDataViewOptions.menuCheckToggleTAZRelOnlyTo->setChecked(FALSE);
     } else {
-        myDataViewOptions.menuCheckToogleTAZRelOnlyTo->setChecked(TRUE);
+        myDataViewOptions.menuCheckToggleTAZRelOnlyTo->setChecked(TRUE);
     }
-    myDataViewOptions.menuCheckToogleTAZRelOnlyTo->update();
+    myDataViewOptions.menuCheckToggleTAZRelOnlyTo->update();
     // update view to show demand elements
     updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO)) {
-        myDataViewOptions.menuCheckToogleTAZRelOnlyTo->setFocus();
+        myDataViewOptions.menuCheckToggleTAZRelOnlyTo->setFocus();
     }
     return 1;
 }
@@ -4291,15 +4300,15 @@ GNEViewNet::updateDataModeSpecificControls() {
             // set checkable button
             myCommonCheckableButtons.inspectButton->setChecked(true);
             // show view option
-            myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
-            myDataViewOptions.menuCheckToogleTAZDrawFill->show();
-            myDataViewOptions.menuCheckToogleTAZRelOnlyFrom->show();
-            myDataViewOptions.menuCheckToogleTAZRelOnlyTo->show();
+            myDataViewOptions.menuCheckToggleTAZRelDrawing->show();
+            myDataViewOptions.menuCheckToggleTAZDrawFill->show();
+            myDataViewOptions.menuCheckToggleTAZRelOnlyFrom->show();
+            myDataViewOptions.menuCheckToggleTAZRelOnlyTo->show();
             // show menu check
-            menuChecks.menuCheckToogleTAZRelDrawing->show();
-            menuChecks.menuCheckToogleTAZDrawFill->show();
-            menuChecks.menuCheckToogleTAZRelOnlyFrom->show();
-            menuChecks.menuCheckToogleTAZRelOnlyTo->show();
+            menuChecks.menuCheckToggleTAZRelDrawing->show();
+            menuChecks.menuCheckToggleTAZDrawFill->show();
+            menuChecks.menuCheckToggleTAZRelOnlyFrom->show();
+            menuChecks.menuCheckToggleTAZRelOnlyTo->show();
             break;
         case DataEditMode::DATA_DELETE:
             myViewParent->getDeleteFrame()->show();
@@ -4308,9 +4317,9 @@ GNEViewNet::updateDataModeSpecificControls() {
             // set checkable button
             myCommonCheckableButtons.deleteButton->setChecked(true);
             // show toggle TAZRel drawing view option
-            myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
+            myDataViewOptions.menuCheckToggleTAZRelDrawing->show();
             // show toggle TAZRel drawing menu check
-            menuChecks.menuCheckToogleTAZRelDrawing->show();
+            menuChecks.menuCheckToggleTAZRelDrawing->show();
             break;
         case DataEditMode::DATA_SELECT:
             myViewParent->getSelectorFrame()->show();
@@ -4319,9 +4328,9 @@ GNEViewNet::updateDataModeSpecificControls() {
             // set checkable button
             myCommonCheckableButtons.selectButton->setChecked(true);
             // show toggle TAZRel drawing view option
-            myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
+            myDataViewOptions.menuCheckToggleTAZRelDrawing->show();
             // show toggle TAZRel drawing menu check
-            menuChecks.menuCheckToogleTAZRelDrawing->show();
+            menuChecks.menuCheckToggleTAZRelDrawing->show();
             break;
         case DataEditMode::DATA_EDGEDATA:
             myViewParent->getEdgeDataFrame()->show();
@@ -4344,11 +4353,11 @@ GNEViewNet::updateDataModeSpecificControls() {
             // set checkable button
             myDataCheckableButtons.TAZRelDataButton->setChecked(true);
             // show view option
-            myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
-            myDataViewOptions.menuCheckToogleTAZDrawFill->show();
+            myDataViewOptions.menuCheckToggleTAZRelDrawing->show();
+            myDataViewOptions.menuCheckToggleTAZDrawFill->show();
             // show menu check
-            menuChecks.menuCheckToogleTAZRelDrawing->show();
-            menuChecks.menuCheckToogleTAZDrawFill->show();
+            menuChecks.menuCheckToggleTAZRelDrawing->show();
+            menuChecks.menuCheckToggleTAZDrawFill->show();
             break;
         default:
             break;

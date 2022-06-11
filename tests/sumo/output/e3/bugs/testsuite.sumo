@@ -9,3 +9,6 @@ ticket4803b
 
 # crash when leaving simulation without passing exit detector after multiple lane changes 
 ticket4845
+
+# Copy of joined
+ticket10881

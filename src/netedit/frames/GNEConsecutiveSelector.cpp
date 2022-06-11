@@ -355,7 +355,7 @@ GNEConsecutiveSelector::removeLastElement() {
 
 long
 GNEConsecutiveSelector::onCmdCreatePath(FXObject*, FXSelector, void*) {
-    myFrameParent->createPath();
+    myFrameParent->createPath(false);
     return 1;
 }
 

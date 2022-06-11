@@ -2712,6 +2712,8 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             junction.second->setLogicValid(true, nullptr);
             // updated geometry
             junction.second->updateGeometryAfterNetbuild();
+            // rebuild walking areas
+            junction.second->rebuildGNEWalkingAreas();
         }
         // iterate over all edges of net
         for (const auto& edge : myAttributeCarriers->getEdges()) {

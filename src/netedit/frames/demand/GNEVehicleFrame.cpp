@@ -184,88 +184,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // set route or edges depending of vehicle type
     if ((vehicleTag == SUMO_TAG_VEHICLE) || (vehicleTag == GNE_TAG_FLOW_ROUTE)) {
-        // get route
-        const auto route = objectsUnderCursor.getDemandElementFront();
-        if (route && (route->getTagProperty().isRoute())) {
-            // check if departLane is valid
-            if ((route->getTagProperty().getTag() == SUMO_TAG_ROUTE) && myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTLANE) &&
-                    GNEAttributeCarrier::canParse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE))) {
-                const int departLane = GNEAttributeCarrier::parse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE));
-                if (departLane >= (int)route->getParentEdges().front()->getLanes().size()) {
-                    myViewNet->setStatusBarText("Invalid " + toString(SUMO_ATTR_DEPARTLANE));
-                    return false;
-                }
-            }
-            // check if departSpeed is valid
-            if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTSPEED) && GNEAttributeCarrier::canParse<double>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTSPEED))) {
-                double departSpeed = GNEAttributeCarrier::parse<double>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTSPEED));
-                if (departSpeed >= myTypeSelector->getCurrentDemandElement()->getAttributeDouble(SUMO_ATTR_MAXSPEED)) {
-                    myViewNet->setStatusBarText("Invalid " + toString(SUMO_ATTR_DEPARTSPEED));
-                    return false;
-                }
-            }
-            // check if we're creating a vehicle or a flow
-            if (vehicleTag == SUMO_TAG_VEHICLE) {
-                // set tag
-                myVehicleBaseObject->setTag(SUMO_TAG_VEHICLE);
-                // Add parameter departure
-                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
-                }
-                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
-                // obtain vehicle parameters in vehicleParameters
-                SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
-                // check if vehicle was successfully created)
-                if (vehicleParameters) {
-                    vehicleParameters->routeid = route->getID();
-                    myVehicleBaseObject->setVehicleParameter(vehicleParameters);
-                    // parse vehicle
-                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
-                    // delete vehicleParameters and sumoBaseObject
-                    delete vehicleParameters;
-                }
-            } else {
-                // set tag
-                myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
-                // set begin and end attributes
-                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
-                }
-                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_END) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
-                }
-                // adjust poisson value
-                if (myVehicleBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myVehicleBaseObject->getDoubleAttribute(GNE_ATTR_POISSON)) + ")");
-                }
-                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
-                // obtain routeFlow parameters in routeFlowParameters
-                SUMOVehicleParameter* routeFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
-                // check if flow was successfully created)
-                if (routeFlowParameters) {
-                    routeFlowParameters->routeid = route->getID();
-                    myVehicleBaseObject->setVehicleParameter(routeFlowParameters);
-                    // parse flow
-                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
-                    // delete vehicleParameters and sumoBaseObject
-                    delete routeFlowParameters;
-                }
-            }
-            // center view after creation
-            const auto* vehicle = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(myVehicleBaseObject->getTag(), myVehicleBaseObject->getStringAttribute(SUMO_ATTR_ID), false);
-            if (vehicle && !myViewNet->getVisibleBoundary().around(vehicle->getPositionInView())) {
-                myViewNet->centerTo(vehicle->getPositionInView(), false);
-            }
-            // refresh myVehicleAttributes
-            myVehicleAttributes->refreshAttributesCreator();
-            // all ok, then return true;
-            return true;
-        } else {
-            myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed within a route.");
-            return false;
-        }
+        return buildVehicleOverRoute(vehicleTag, objectsUnderCursor.getDemandElementFront());
     } else if (addEdge && objectsUnderCursor.getEdgeFront()) {
         // add clicked edge in GNEPathCreator
         return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
@@ -315,8 +234,6 @@ GNEVehicleFrame::tagSelected() {
 void
 GNEVehicleFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement()) {
-        // get tag
-        SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
         // show vehicle attributes modul
         myVehicleAttributes->showAttributesCreatorModule(myVehicleTagSelector->getCurrentTemplateAC(), {});
         // clear colors
@@ -324,10 +241,8 @@ GNEVehicleFrame::demandElementSelected() {
         myPathCreator->clearEdgeColors();
         // set current VTypeClass in pathCreator
         myPathCreator->setVClass(myTypeSelector->getCurrentDemandElement()->getVClass());
-        // show path creator modul (except for vehicles and flow over routes)
-        if ((vehicleTag != SUMO_TAG_VEHICLE) && (vehicleTag != GNE_TAG_FLOW_ROUTE)) {
-            myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
-        }
+        // show path creator module
+        myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
         // show help creation
         myHelpCreation->showHelpCreation();
         // show warning if we have selected a vType oriented to pedestrians or containers
@@ -349,91 +264,262 @@ GNEVehicleFrame::demandElementSelected() {
 
 
 void
-GNEVehicleFrame::createPath() {
-    // begin cleaning vehicle base object
-    myVehicleBaseObject->clear();
+GNEVehicleFrame::createPath(const bool useLastRoute) {
     // obtain tag (only for improve code legibility)
     SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
-    // check number of edges
-    if ((myPathCreator->getSelectedEdges().size() > 0) || (myPathCreator->getSelectedJunctions().size() > 0)) {
-        // Updated myVehicleBaseObject
-        myVehicleAttributes->getAttributesAndValues(myVehicleBaseObject, false);
-        // Check if ID has to be generated
-        if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
-            myVehicleBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(vehicleTag));
-        }
-        // add VType
-        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
-        // extract via attribute
-        std::vector<std::string> viaEdges;
-        for (int i = 1; i < ((int)myPathCreator->getSelectedEdges().size() - 1); i++) {
-            viaEdges.push_back(myPathCreator->getSelectedEdges().at(i)->getID());
-        }
-        // continue depending of tag
-        if (vehicleTag == SUMO_TAG_TRIP) {
-            // set tag
-            myVehicleBaseObject->setTag(SUMO_TAG_TRIP);
-            // Add parameter departure
-            if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
+    // begin cleaning vehicle base object
+    myVehicleBaseObject->clear();
+    // Updated myVehicleBaseObject
+    myVehicleAttributes->getAttributesAndValues(myVehicleBaseObject, false);
+    // Check if ID has to be generated
+    if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
+        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(vehicleTag));
+    }
+    // add VType
+    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
+    // check if use last route
+    if (useLastRoute) {
+        // build vehicle using last route
+        buildVehicleOverRoute(vehicleTag, myViewNet->getLastCreatedRoute());
+    } else {
+        // check number of edges
+        if ((myPathCreator->getSelectedEdges().size() > 0) || (myPathCreator->getSelectedJunctions().size() > 0)) {
+            // extract via attribute
+            std::vector<std::string> viaEdges;
+            for (int i = 1; i < ((int)myPathCreator->getSelectedEdges().size() - 1); i++) {
+                viaEdges.push_back(myPathCreator->getSelectedEdges().at(i)->getID());
             }
-            // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-            SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
-            // obtain trip parameters
-            SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
-            // check trip parameters
-            if (tripParameters) {
-                myVehicleBaseObject->setVehicleParameter(tripParameters);
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM, myPathCreator->getSelectedEdges().front()->getID());
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO, myPathCreator->getSelectedEdges().back()->getID());
-                myVehicleBaseObject->addStringListAttribute(SUMO_ATTR_VIA, viaEdges);
-                // parse vehicle
-                myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
-                // delete tripParameters and base object
-                delete tripParameters;
+            // continue depending of tag
+            if (vehicleTag == SUMO_TAG_TRIP) {
+                // set tag
+                myVehicleBaseObject->setTag(SUMO_TAG_TRIP);
+                // Add parameter departure
+                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
+                }
+                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
+                // obtain trip parameters
+                SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
+                // check trip parameters
+                if (tripParameters) {
+                    myVehicleBaseObject->setVehicleParameter(tripParameters);
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM, myPathCreator->getSelectedEdges().front()->getID());
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO, myPathCreator->getSelectedEdges().back()->getID());
+                    myVehicleBaseObject->addStringListAttribute(SUMO_ATTR_VIA, viaEdges);
+                    // parse vehicle
+                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                    // delete tripParameters and base object
+                    delete tripParameters;
+                }
+            } else if (vehicleTag == GNE_TAG_VEHICLE_WITHROUTE) {
+                // set tag
+                myVehicleBaseObject->setTag(SUMO_TAG_VEHICLE);
+                // Add parameter departure
+                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
+                }
+                // get route edges
+                std::vector<std::string> routeEdges;
+                for (const auto& subPath : myPathCreator->getPath()) {
+                    for (const auto& edge : subPath.getSubPath()) {
+                        routeEdges.push_back(edge->getID());
+                    }
+                }
+                // avoid consecutive duplicated edges
+                routeEdges.erase(std::unique(routeEdges.begin(), routeEdges.end()), routeEdges.end());
+                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
+                // obtain vehicle parameters
+                SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
+                // continue depending of vehicleParameters
+                if (vehicleParameters) {
+                    myVehicleBaseObject->setVehicleParameter(vehicleParameters);
+                    // create route base object
+                    CommonXMLStructure::SumoBaseObject* embeddedRouteObject = new CommonXMLStructure::SumoBaseObject(myVehicleBaseObject);
+                    embeddedRouteObject->setTag(SUMO_TAG_ROUTE);
+                    embeddedRouteObject->addStringAttribute(SUMO_ATTR_ID, "");
+                    embeddedRouteObject->addStringListAttribute(SUMO_ATTR_EDGES, routeEdges);
+                    embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::INVISIBLE),
+                                        embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0),
+                                        embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0),
+                                        // parse route
+                                        myRouteHandler.parseSumoBaseObject(embeddedRouteObject);
+                    // delete vehicleParamters
+                    delete vehicleParameters;
+                }
+            } else if (vehicleTag == SUMO_TAG_FLOW) {
+                // set tag
+                myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
+                // set begin and end attributes
+                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
+                }
+                // adjust poisson value
+                if (myVehicleBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myVehicleBaseObject->getDoubleAttribute(GNE_ATTR_POISSON)) + ")");
+                }
+                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
+                // obtain flow parameters
+                SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
+                // check flowParameters
+                if (flowParameters) {
+                    myVehicleBaseObject->setVehicleParameter(flowParameters);
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM, myPathCreator->getSelectedEdges().front()->getID());
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO, myPathCreator->getSelectedEdges().back()->getID());
+                    myVehicleBaseObject->addStringListAttribute(SUMO_ATTR_VIA, viaEdges);
+                    // parse vehicle
+                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                    // delete flowParameters and base object
+                    delete flowParameters;
+                }
+            } else if (vehicleTag == GNE_TAG_FLOW_WITHROUTE) {
+                // set tag
+                myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
+                // set begin and end attributes
+                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
+                }
+                // adjust poisson value
+                if (myVehicleBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myVehicleBaseObject->getDoubleAttribute(GNE_ATTR_POISSON)) + ")");
+                }
+                // get route edges
+                std::vector<std::string> routeEdges;
+                for (const auto& subPath : myPathCreator->getPath()) {
+                    for (const auto& edge : subPath.getSubPath()) {
+                        routeEdges.push_back(edge->getID());
+                    }
+                }
+                // avoid consecutive duplicated edges
+                routeEdges.erase(std::unique(routeEdges.begin(), routeEdges.end()), routeEdges.end());
+                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
+                // obtain flow parameters
+                SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
+                // continue depending of vehicleParameters
+                if (flowParameters) {
+                    myVehicleBaseObject->setVehicleParameter(flowParameters);
+                    // create under base object
+                    CommonXMLStructure::SumoBaseObject* embeddedRouteObject = new CommonXMLStructure::SumoBaseObject(myVehicleBaseObject);
+                    embeddedRouteObject->setTag(SUMO_TAG_ROUTE);
+                    embeddedRouteObject->addStringAttribute(SUMO_ATTR_ID, "");
+                    embeddedRouteObject->addStringListAttribute(SUMO_ATTR_EDGES, routeEdges);
+                    embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::INVISIBLE),
+                                        embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0),
+                                        embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0),
+                                        // parse route
+                                        myRouteHandler.parseSumoBaseObject(embeddedRouteObject);
+                    // delete vehicleParamters
+                    delete flowParameters;
+                }
+            } else if (vehicleTag == GNE_TAG_TRIP_JUNCTIONS) {
+                // set tag
+                myVehicleBaseObject->setTag(SUMO_TAG_TRIP);
+                // Add parameter departure
+                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
+                }
+                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
+                // obtain trip parameters
+                SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
+                // check trip parameters
+                if (tripParameters) {
+                    myVehicleBaseObject->setVehicleParameter(tripParameters);
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROMJUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TOJUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
+                    // parse vehicle
+                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                    // delete tripParameters and base object
+                    delete tripParameters;
+                }
+            } else if (vehicleTag == GNE_TAG_FLOW_JUNCTIONS) {
+                // set tag
+                myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
+                // set begin and end attributes
+                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
+                }
+                // adjust poisson value
+                if (myVehicleBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myVehicleBaseObject->getDoubleAttribute(GNE_ATTR_POISSON)) + ")");
+                }
+                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
+                // obtain flow parameters
+                SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
+                // check flowParameters
+                if (flowParameters) {
+                    myVehicleBaseObject->setVehicleParameter(flowParameters);
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROMJUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TOJUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
+                    // parse vehicle
+                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                    // delete flowParameters and base object
+                    delete flowParameters;
+                }
             }
-        } else if (vehicleTag == GNE_TAG_VEHICLE_WITHROUTE) {
+            // abort path creation
+            myPathCreator->abortPathCreation();
+            // refresh myVehicleAttributes
+            myVehicleAttributes->refreshAttributesCreator();
+        }
+    }
+}
+
+
+bool 
+GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* route) {
+    if (route && (route->getTagProperty().isRoute())) {
+        // check if departLane is valid
+        if ((route->getTagProperty().getTag() == SUMO_TAG_ROUTE) && myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTLANE) &&
+                GNEAttributeCarrier::canParse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE))) {
+            const int departLane = GNEAttributeCarrier::parse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE));
+            if (departLane >= (int)route->getParentEdges().front()->getLanes().size()) {
+                myViewNet->setStatusBarText("Invalid " + toString(SUMO_ATTR_DEPARTLANE));
+                return false;
+            }
+        }
+        // check if departSpeed is valid
+        if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTSPEED) && GNEAttributeCarrier::canParse<double>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTSPEED))) {
+            double departSpeed = GNEAttributeCarrier::parse<double>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTSPEED));
+            if (departSpeed >= myTypeSelector->getCurrentDemandElement()->getAttributeDouble(SUMO_ATTR_MAXSPEED)) {
+                myViewNet->setStatusBarText("Invalid " + toString(SUMO_ATTR_DEPARTSPEED));
+                return false;
+            }
+        }
+        // check if we're creating a vehicle or a flow
+        if (vehicleTag == SUMO_TAG_VEHICLE) {
             // set tag
             myVehicleBaseObject->setTag(SUMO_TAG_VEHICLE);
             // Add parameter departure
             if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
                 myVehicleBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
             }
-            // get route edges
-            std::vector<std::string> routeEdges;
-            for (const auto& subPath : myPathCreator->getPath()) {
-                for (const auto& edge : subPath.getSubPath()) {
-                    routeEdges.push_back(edge->getID());
-                }
-            }
-            // avoid consecutive duplicated edges
-            routeEdges.erase(std::unique(routeEdges.begin(), routeEdges.end()), routeEdges.end());
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
-            // obtain vehicle parameters
+            // obtain vehicle parameters in vehicleParameters
             SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
-            // continue depending of vehicleParameters
+            // check if vehicle was successfully created)
             if (vehicleParameters) {
+                vehicleParameters->routeid = route->getID();
                 myVehicleBaseObject->setVehicleParameter(vehicleParameters);
-                // create route base object
-                CommonXMLStructure::SumoBaseObject* embeddedRouteObject = new CommonXMLStructure::SumoBaseObject(myVehicleBaseObject);
-                embeddedRouteObject->setTag(SUMO_TAG_ROUTE);
-                embeddedRouteObject->addStringAttribute(SUMO_ATTR_ID, "");
-                embeddedRouteObject->addStringListAttribute(SUMO_ATTR_EDGES, routeEdges);
-                embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::INVISIBLE),
-                                    embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0),
-                                    embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0),
-                                    // parse route
-                                    myRouteHandler.parseSumoBaseObject(embeddedRouteObject);
-                // delete vehicleParamters
+                // parse vehicle
+                myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                // delete vehicleParameters and sumoBaseObject
                 delete vehicleParameters;
             }
-        } else if (vehicleTag == SUMO_TAG_FLOW) {
+        } else {
             // set tag
             myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
             // set begin and end attributes
             if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
                 myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
+            }
+            if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_END) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
+                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
             }
             // adjust poisson value
             if (myVehicleBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
@@ -441,112 +527,31 @@ GNEVehicleFrame::createPath() {
             }
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
-            // obtain flow parameters
-            SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
-            // check flowParameters
-            if (flowParameters) {
-                myVehicleBaseObject->setVehicleParameter(flowParameters);
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM, myPathCreator->getSelectedEdges().front()->getID());
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO, myPathCreator->getSelectedEdges().back()->getID());
-                myVehicleBaseObject->addStringListAttribute(SUMO_ATTR_VIA, viaEdges);
-                // parse vehicle
+            // obtain routeFlow parameters in routeFlowParameters
+            SUMOVehicleParameter* routeFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
+            // check if flow was successfully created)
+            if (routeFlowParameters) {
+                routeFlowParameters->routeid = route->getID();
+                myVehicleBaseObject->setVehicleParameter(routeFlowParameters);
+                // parse flow
                 myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
-                // delete flowParameters and base object
-                delete flowParameters;
-            }
-        } else if (vehicleTag == GNE_TAG_FLOW_WITHROUTE) {
-            // set tag
-            myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
-            // set begin and end attributes
-            if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
-            }
-            // adjust poisson value
-            if (myVehicleBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myVehicleBaseObject->getDoubleAttribute(GNE_ATTR_POISSON)) + ")");
-            }
-            // get route edges
-            std::vector<std::string> routeEdges;
-            for (const auto& subPath : myPathCreator->getPath()) {
-                for (const auto& edge : subPath.getSubPath()) {
-                    routeEdges.push_back(edge->getID());
-                }
-            }
-            // avoid consecutive duplicated edges
-            routeEdges.erase(std::unique(routeEdges.begin(), routeEdges.end()), routeEdges.end());
-            // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-            SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
-            // obtain flow parameters
-            SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
-            // continue depending of vehicleParameters
-            if (flowParameters) {
-                myVehicleBaseObject->setVehicleParameter(flowParameters);
-                // create under base object
-                CommonXMLStructure::SumoBaseObject* embeddedRouteObject = new CommonXMLStructure::SumoBaseObject(myVehicleBaseObject);
-                embeddedRouteObject->setTag(SUMO_TAG_ROUTE);
-                embeddedRouteObject->addStringAttribute(SUMO_ATTR_ID, "");
-                embeddedRouteObject->addStringListAttribute(SUMO_ATTR_EDGES, routeEdges);
-                embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::INVISIBLE),
-                                    embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0),
-                                    embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0),
-                                    // parse route
-                                    myRouteHandler.parseSumoBaseObject(embeddedRouteObject);
-                // delete vehicleParamters
-                delete flowParameters;
-            }
-        } else if (vehicleTag == GNE_TAG_TRIP_JUNCTIONS) {
-            // set tag
-            myVehicleBaseObject->setTag(SUMO_TAG_TRIP);
-            // Add parameter departure
-            if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
-            }
-            // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-            SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
-            // obtain trip parameters
-            SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
-            // check trip parameters
-            if (tripParameters) {
-                myVehicleBaseObject->setVehicleParameter(tripParameters);
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROMJUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TOJUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
-                // parse vehicle
-                myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
-                // delete tripParameters and base object
-                delete tripParameters;
-            }
-        } else if (vehicleTag == GNE_TAG_FLOW_JUNCTIONS) {
-            // set tag
-            myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
-            // set begin and end attributes
-            if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
-            }
-            // adjust poisson value
-            if (myVehicleBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myVehicleBaseObject->getDoubleAttribute(GNE_ATTR_POISSON)) + ")");
-            }
-            // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-            SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
-            // obtain flow parameters
-            SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
-            // check flowParameters
-            if (flowParameters) {
-                myVehicleBaseObject->setVehicleParameter(flowParameters);
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROMJUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TOJUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
-                // parse vehicle
-                myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
-                // delete flowParameters and base object
-                delete flowParameters;
+                // delete vehicleParameters and sumoBaseObject
+                delete routeFlowParameters;
             }
         }
-        // abort path creation
-        myPathCreator->abortPathCreation();
+        // center view after creation
+        const auto* vehicle = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(myVehicleBaseObject->getTag(), myVehicleBaseObject->getStringAttribute(SUMO_ATTR_ID), false);
+        if (vehicle && !myViewNet->getVisibleBoundary().around(vehicle->getPositionInView())) {
+            myViewNet->centerTo(vehicle->getPositionInView(), false);
+        }
         // refresh myVehicleAttributes
         myVehicleAttributes->refreshAttributesCreator();
+        // all ok, then return true;
+        return true;
+    } else {
+        myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed within a route.");
+        return false;
     }
 }
-
 
 /****************************************************************************/

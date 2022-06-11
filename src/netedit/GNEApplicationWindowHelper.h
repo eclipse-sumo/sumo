@@ -578,16 +578,16 @@ struct GNEApplicationWindowHelper {
             FXMenuCheckIcon* menuCheckShowDemandElements;
 
             /// @brief menu check to toggle TAZRel drawing mode
-            FXMenuCheckIcon* menuCheckToogleTAZRelDrawing;
+            FXMenuCheckIcon* menuCheckToggleTAZRelDrawing;
 
             /// @brief menu check to toggle TAZ draw fill
-            FXMenuCheckIcon* menuCheckToogleTAZDrawFill;
+            FXMenuCheckIcon* menuCheckToggleTAZDrawFill;
 
             /// @brief menu check to toggle TAZRel only from
-            FXMenuCheckIcon* menuCheckToogleTAZRelOnlyFrom;
+            FXMenuCheckIcon* menuCheckToggleTAZRelOnlyFrom;
 
             /// @brief menu check to toggle TAZRel only to
-            FXMenuCheckIcon* menuCheckToogleTAZRelOnlyTo;
+            FXMenuCheckIcon* menuCheckToggleTAZRelOnlyTo;
 
             /// @brief separator
             FXMenuSeparator* separator;
@@ -707,31 +707,37 @@ struct GNEApplicationWindowHelper {
         /// @name Processing FXMenuCommands for Network mode
         /// @{
         /// @brief menu check to lock junction
-        FXMenuCheckIcon* menuCheckLockJunction;
+        FXMenuCheckIcon* menuCheckLockJunction = nullptr;
 
         /// @brief menu check to lock edges
-        FXMenuCheckIcon* menuCheckLockEdges;
+        FXMenuCheckIcon* menuCheckLockEdges = nullptr;
 
         /// @brief menu check to lock lanes
-        FXMenuCheckIcon* menuCheckLockLanes;
+        FXMenuCheckIcon* menuCheckLockLanes = nullptr;
 
         /// @brief menu check to lock connections
-        FXMenuCheckIcon* menuCheckLockConnections;
+        FXMenuCheckIcon* menuCheckLockConnections = nullptr;
 
         /// @brief menu check to lock crossings
-        FXMenuCheckIcon* menuCheckLockCrossings;
+        FXMenuCheckIcon* menuCheckLockCrossings = nullptr;
+
+        /// @brief menu check to lock walkingAreas
+        FXMenuCheckIcon* menuCheckLockWalkingAreas = nullptr;
 
         /// @brief menu check to lock additionals
-        FXMenuCheckIcon* menuCheckLockAdditionals;
+        FXMenuCheckIcon* menuCheckLockAdditionals = nullptr;
 
         /// @brief menu check to lock TAZs
-        FXMenuCheckIcon* menuCheckLockTAZs;
+        FXMenuCheckIcon* menuCheckLockTAZs = nullptr;
+
+        /// @brief menu check to lock Wires
+        FXMenuCheckIcon* menuCheckLockWires = nullptr;
 
         /// @brief menu check to lock polygons
-        FXMenuCheckIcon* menuCheckLockPolygons;
+        FXMenuCheckIcon* menuCheckLockPolygons = nullptr;
 
         /// @brief menu check to lock POIs
-        FXMenuCheckIcon* menuCheckLockPOIs;
+        FXMenuCheckIcon* menuCheckLockPOIs = nullptr;
 
         /// @}
 

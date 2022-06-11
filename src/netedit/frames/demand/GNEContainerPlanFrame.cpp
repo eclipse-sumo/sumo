@@ -195,7 +195,7 @@ GNEContainerPlanFrame::demandElementSelected() {
 
 
 void
-GNEContainerPlanFrame::createPath() {
+GNEContainerPlanFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myContainerPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");

@@ -253,6 +253,13 @@ MSVehicleType::setEmissionClass(SUMOEmissionClass eclass) {
 
 
 void
+MSVehicleType::setMass(double mass) {
+    myParameter.mass = mass;
+    myParameter.parametersSet |= VTYPEPARS_MASS_SET;
+}
+
+
+void
 MSVehicleType::setColor(const RGBColor& color) {
     myParameter.color = color;
     myParameter.parametersSet |= VTYPEPARS_COLOR_SET;

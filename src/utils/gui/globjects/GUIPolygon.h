@@ -166,7 +166,7 @@ public:
 
     /// @brief draw inner Polygon (before pushName() )
     static void drawInnerPolygon(const GUIVisualizationSettings& s, const TesselatedPolygon* polygon, const GUIGlObject* o,
-                                 const PositionVector shape, bool disableSelectionColor = false, int alphaOverride = -1);
+                                 const PositionVector shape, const double layer, const bool disableSelectionColor = false, const int alphaOverride = -1);
 
 private:
     /// The mutex used to avoid concurrent updates of the shape
@@ -174,8 +174,4 @@ private:
 
     /// @brief shape rotated on the centroid, if rotation is needed, nullptr otherwise
     PositionVector* myRotatedShape;
-
-    /// @brief store the drawing commands in a display list
-    void storeTesselation(const bool fill, const PositionVector& shape, double lineWidth) const;
-
 };

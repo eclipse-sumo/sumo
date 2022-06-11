@@ -39,7 +39,6 @@ class SUMOVTypeParameter;
  * @brief An upper class for objects with additional parameters
  */
 class EnergyParams {
-
 public:
     /// @brief Constructor
     EnergyParams(const SUMOVTypeParameter* typeParams = nullptr);
@@ -91,10 +90,19 @@ public:
      */
     bool isOff() const;
 
+    static const EnergyParams* getDefault() {
+        if (myDefault == nullptr) {
+            myDefault = new EnergyParams();
+        }
+        return myDefault;
+    }
+
 private:
     /// @brief The key->value maps
     std::map<SumoXMLAttr, double> myMap;
     std::map<SumoXMLAttr, std::vector<double> > myVecMap;
     std::map<SumoXMLAttr, CharacteristicMap> myCharacteristicMapMap;
     const EnergyParams* mySecondaryParams = nullptr;
+
+    static const EnergyParams* myDefault;
 };

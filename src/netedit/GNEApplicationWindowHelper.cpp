@@ -89,7 +89,7 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     }
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(modes, modes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for interal
+    // build menu bar for interval
     myToolBarShellIntervalBar = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     intervalBar = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellIntervalBar, GUIDesignToolBarRaisedNext);
     // declare toolbar grip for menu bar modes
@@ -527,6 +527,11 @@ GNEApplicationWindowHelper::ModesMenuCommands::DataMenuCommands::buildDataMenuCo
 // GNEApplicationWindowHelper::ModesMenuCommands - methods
 // ---------------------------------------------------------------------------
 
+#ifdef _MSC_VER
+#pragma warning(push)
+/* Disable warning about using "this" in the constructor */
+#pragma warning(disable: 4355)
+#endif
 GNEApplicationWindowHelper::ModesMenuCommands::ModesMenuCommands(GNEApplicationWindow* GNEApp) :
     commonMenuCommands(this),
     networkMenuCommands(this),
@@ -534,6 +539,9 @@ GNEApplicationWindowHelper::ModesMenuCommands::ModesMenuCommands(GNEApplicationW
     dataMenuCommands(this),
     myGNEApp(GNEApp) {
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 void
@@ -795,10 +803,10 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::DataViewOptions(G
     menuCheckShowAdditionals(nullptr),
     menuCheckShowShapes(nullptr),
     menuCheckShowDemandElements(nullptr),
-    menuCheckToogleTAZRelDrawing(nullptr),
-    menuCheckToogleTAZDrawFill(nullptr),
-    menuCheckToogleTAZRelOnlyFrom(nullptr),
-    menuCheckToogleTAZRelOnlyTo(nullptr),
+    menuCheckToggleTAZRelDrawing(nullptr),
+    menuCheckToggleTAZDrawFill(nullptr),
+    menuCheckToggleTAZRelOnlyFrom(nullptr),
+    menuCheckToggleTAZRelOnlyTo(nullptr),
     separator(nullptr),
     myGNEApp(GNEApp) {
 }
@@ -827,22 +835,22 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::buildDataViewOpti
                                   GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS),
                                   myGNEApp, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS);
 
-    menuCheckToogleTAZRelDrawing = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+    menuCheckToggleTAZRelDrawing = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
                                    "Draw TAZRel from center", "Alt+5", "",
                                    GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELDRAWING),
                                    myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING);
 
-    menuCheckToogleTAZDrawFill = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+    menuCheckToggleTAZDrawFill = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
                                  "Draw TAZ fill", "Alt+6", "",
                                  GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZDRAWFILL),
                                  myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL);
 
-    menuCheckToogleTAZRelOnlyFrom = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+    menuCheckToggleTAZRelOnlyFrom = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
                                     "Only draw TAZRel from", "Alt+6", "",
                                     GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYFROM),
                                     myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM);
 
-    menuCheckToogleTAZRelOnlyTo = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+    menuCheckToggleTAZRelOnlyTo = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
                                   "Only draw TAZRel to", "Alt+7", "",
                                   GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYTO),
                                   myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO);
@@ -857,10 +865,10 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::hideDataViewOptio
     menuCheckToggleDrawJunctionShape->hide();
     menuCheckShowShapes->hide();
     menuCheckShowDemandElements->hide();
-    menuCheckToogleTAZRelDrawing->hide();
-    menuCheckToogleTAZDrawFill->hide();
-    menuCheckToogleTAZRelOnlyFrom->hide();
-    menuCheckToogleTAZRelOnlyTo->hide();
+    menuCheckToggleTAZRelDrawing->hide();
+    menuCheckToggleTAZDrawFill->hide();
+    menuCheckToggleTAZRelOnlyFrom->hide();
+    menuCheckToggleTAZRelOnlyTo->hide();
     separator->hide();
 }
 
@@ -942,29 +950,6 @@ GNEApplicationWindowHelper::EditMenuCommands::buildOpenSUMOMenuCommands(FXMenuPa
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::LockMenuCommands::LockMenuCommands(GNEApplicationWindow* GNEApp) :
-    menuCheckLockJunction(nullptr),
-    menuCheckLockEdges(nullptr),
-    menuCheckLockLanes(nullptr),
-    menuCheckLockConnections(nullptr),
-    menuCheckLockCrossings(nullptr),
-    menuCheckLockAdditionals(nullptr),
-    menuCheckLockTAZs(nullptr),
-    menuCheckLockPolygons(nullptr),
-    menuCheckLockPOIs(nullptr),
-    menuCheckLockRoutes(nullptr),
-    menuCheckLockVehicles(nullptr),
-    menuCheckLockPersons(nullptr),
-    menuCheckLockPersonTrip(nullptr),
-    menuCheckLockWalk(nullptr),
-    menuCheckLockRides(nullptr),
-    menuCheckLockContainers(nullptr),
-    menuCheckLockTransports(nullptr),
-    menuCheckLockTranships(nullptr),
-    menuCheckLockStops(nullptr),
-    menuCheckLockEdgeDatas(nullptr),
-    menuCheckLockEdgeRelDatas(nullptr),
-    menuCheckLockEdgeTAZRels(nullptr),
-    menuCheckLockSelectedElements(nullptr),
     myGNEApp(GNEApp) {
 }
 
@@ -997,6 +982,11 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
                              GUIIconSubSys::getIcon(GUIIcon::CROSSING),
                              myGNEApp, MID_GNE_LOCK_ELEMENT);
 
+    menuCheckLockWalkingAreas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                                "Lock walkin&gAreas", "", "",
+                                GUIIconSubSys::getIcon(GUIIcon::WALKINGAREA),
+                                myGNEApp, MID_GNE_LOCK_ELEMENT);
+
     menuCheckLockAdditionals = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                                "Lock &additionals", "", "",
                                GUIIconSubSys::getIcon(GUIIcon::BUSSTOP),
@@ -1006,6 +996,11 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
                         "Lock &TAZs", "", "",
                         GUIIconSubSys::getIcon(GUIIcon::TAZ),
                         myGNEApp, MID_GNE_LOCK_ELEMENT);
+
+    menuCheckLockWires = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                         "Lock &wires", "", "",
+                         GUIIconSubSys::getIcon(GUIIcon::OVERHEADWIRE),
+                         myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockPolygons = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                             "Lock &polygons", "", "",
@@ -1110,8 +1105,10 @@ GNEApplicationWindowHelper::LockMenuCommands::removeHotkeys() {
     menuCheckLockLanes->remHotKey(parseHotKey('l'));
     menuCheckLockConnections->remHotKey(parseHotKey('c'));
     menuCheckLockCrossings->remHotKey(parseHotKey('r'));
+    menuCheckLockWalkingAreas->remHotKey(parseHotKey('g'));
     menuCheckLockAdditionals->remHotKey(parseHotKey('a'));
     menuCheckLockTAZs->remHotKey(parseHotKey('t'));
+    menuCheckLockWires->remHotKey(parseHotKey('w'));
     menuCheckLockPolygons->remHotKey(parseHotKey('p'));
     menuCheckLockPOIs->remHotKey(parseHotKey('o'));
     // demand
@@ -1139,8 +1136,10 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockLanes->enable();
     menuCheckLockConnections->enable();
     menuCheckLockCrossings->enable();
+    menuCheckLockWalkingAreas->enable();
     menuCheckLockAdditionals->enable();
     menuCheckLockTAZs->enable();
+    menuCheckLockWires->enable();
     menuCheckLockPolygons->enable();
     menuCheckLockPOIs->enable();
     // set accels
@@ -1149,8 +1148,10 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockLanes->addHotKey(parseHotKey('l'));
     menuCheckLockConnections->addHotKey(parseHotKey('c'));
     menuCheckLockCrossings->addHotKey(parseHotKey('r'));
+    menuCheckLockWalkingAreas->addHotKey(parseHotKey('g'));
     menuCheckLockAdditionals->addHotKey(parseHotKey('a'));
     menuCheckLockTAZs->addHotKey(parseHotKey('t'));
+    menuCheckLockWires->addHotKey(parseHotKey('w'));
     menuCheckLockPolygons->addHotKey(parseHotKey('p'));
     menuCheckLockPOIs->addHotKey(parseHotKey('o'));
     // now show it
@@ -1159,8 +1160,10 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockLanes->show();
     menuCheckLockConnections->show();
     menuCheckLockCrossings->show();
+    menuCheckLockWalkingAreas->show();
     menuCheckLockAdditionals->show();
     menuCheckLockTAZs->show();
+    menuCheckLockWires->show();
     menuCheckLockPolygons->show();
     menuCheckLockPOIs->show();
 }
@@ -1174,6 +1177,7 @@ GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
     menuCheckLockLanes->disable();
     menuCheckLockConnections->disable();
     menuCheckLockCrossings->disable();
+    menuCheckLockWalkingAreas->disable();
     menuCheckLockAdditionals->disable();
     menuCheckLockTAZs->disable();
     menuCheckLockPolygons->disable();
@@ -1184,8 +1188,10 @@ GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
     menuCheckLockLanes->hide();
     menuCheckLockConnections->hide();
     menuCheckLockCrossings->hide();
+    menuCheckLockWalkingAreas->hide();
     menuCheckLockAdditionals->hide();
     menuCheckLockTAZs->hide();
+    menuCheckLockWires->hide();
     menuCheckLockPolygons->hide();
     menuCheckLockPOIs->hide();
 }
@@ -1293,8 +1299,10 @@ GNEApplicationWindowHelper::LockMenuCommands::lockAll() {
     menuCheckLockLanes->setCheck(TRUE);
     menuCheckLockConnections->setCheck(TRUE);
     menuCheckLockCrossings->setCheck(TRUE);
+    menuCheckLockWalkingAreas->setCheck(TRUE);
     menuCheckLockAdditionals->setCheck(TRUE);
     menuCheckLockTAZs->setCheck(TRUE);
+    menuCheckLockWires->setCheck(TRUE);
     menuCheckLockPolygons->setCheck(TRUE);
     menuCheckLockPOIs->setCheck(TRUE);
     menuCheckLockRoutes->setCheck(TRUE);
@@ -1320,8 +1328,10 @@ GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
     menuCheckLockLanes->setCheck(FALSE);
     menuCheckLockConnections->setCheck(FALSE);
     menuCheckLockCrossings->setCheck(FALSE);
+    menuCheckLockWalkingAreas->setCheck(FALSE);
     menuCheckLockAdditionals->setCheck(FALSE);
     menuCheckLockTAZs->setCheck(FALSE);
+    menuCheckLockWires->setCheck(FALSE);
     menuCheckLockPolygons->setCheck(FALSE);
     menuCheckLockPOIs->setCheck(FALSE);
     menuCheckLockRoutes->setCheck(FALSE);
@@ -1353,13 +1363,17 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
         menuCheckLockConnections->setCheck(value);
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
         menuCheckLockCrossings->setCheck(value);
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_WALKINGAREA) {
+        menuCheckLockWalkingAreas->setCheck(value);
     } else if (AC->getTagProperty().isAdditionalElement()) {
         menuCheckLockAdditionals->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+    } else if (AC->getTagProperty().isTAZElement()) {
         menuCheckLockTAZs->setCheck(value);
+    } else if (AC->getTagProperty().isWireElement()) {
+        menuCheckLockWires->setCheck(value);
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_POLY) {
         menuCheckLockPolygons->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_POI) {
+    } else if (AC->getTagProperty().isShapeElement() && (AC->getTagProperty().getTag() != SUMO_TAG_POLY)) {
         menuCheckLockPOIs->setCheck(value);
     } else if (AC->getTagProperty().isRoute()) {
         menuCheckLockRoutes->setCheck(value);
@@ -2047,9 +2061,9 @@ GNEApplicationWindowHelper::toggleEditOptionsData(GNEViewNet* viewNet, const MFX
         }
         // Call manually onCmdToggleShowDemandElementsData
         viewNet->onCmdToggleShowDemandElementsData(obj, sel, nullptr);
-    } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToogleTAZRelDrawing) {
-        // Toggle menuCheckToogleTAZRelDrawing
-        if (viewNet->getDataViewOptions().menuCheckToogleTAZRelDrawing->amChecked() == TRUE) {
+    } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToggleTAZRelDrawing) {
+        // Toggle menuCheckToggleTAZRelDrawing
+        if (viewNet->getDataViewOptions().menuCheckToggleTAZRelDrawing->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled toogle TAXRel drawing throught alt + " + toString(numericalKeyPressed + 1));
         } else {
@@ -2058,9 +2072,9 @@ GNEApplicationWindowHelper::toggleEditOptionsData(GNEViewNet* viewNet, const MFX
         }
         // Call manually onCmdToggleTAZRelDrawing
         viewNet->onCmdToggleTAZRelDrawing(obj, sel, nullptr);
-    } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToogleTAZDrawFill) {
-        // Toggle menuCheckToogleTAZDrawFill
-        if (viewNet->getDataViewOptions().menuCheckToogleTAZDrawFill->amChecked() == TRUE) {
+    } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToggleTAZDrawFill) {
+        // Toggle menuCheckToggleTAZDrawFill
+        if (viewNet->getDataViewOptions().menuCheckToggleTAZDrawFill->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled toogle TAZ draw fill throught alt + " + toString(numericalKeyPressed + 1));
         } else {
@@ -2069,9 +2083,9 @@ GNEApplicationWindowHelper::toggleEditOptionsData(GNEViewNet* viewNet, const MFX
         }
         // Call manually onCmdToggleTAZDrawFill
         viewNet->onCmdToggleTAZDrawFill(obj, sel, nullptr);
-    } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToogleTAZRelOnlyFrom) {
-        // Toggle menuCheckToogleTAZRelOnlyFrom
-        if (viewNet->getDataViewOptions().menuCheckToogleTAZRelOnlyFrom->amChecked() == TRUE) {
+    } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToggleTAZRelOnlyFrom) {
+        // Toggle menuCheckToggleTAZRelOnlyFrom
+        if (viewNet->getDataViewOptions().menuCheckToggleTAZRelOnlyFrom->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled toogle TAZRel only from throught alt + " + toString(numericalKeyPressed + 1));
         } else {
@@ -2080,9 +2094,9 @@ GNEApplicationWindowHelper::toggleEditOptionsData(GNEViewNet* viewNet, const MFX
         }
         // Call manually onCmdToggleTAZRelOnlyFrom
         viewNet->onCmdToggleTAZRelOnlyFrom(obj, sel, nullptr);
-    } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToogleTAZRelOnlyTo) {
-        // Toggle menuCheckToogleTAZRelOnlyTo
-        if (viewNet->getDataViewOptions().menuCheckToogleTAZRelOnlyTo->amChecked() == TRUE) {
+    } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToggleTAZRelOnlyTo) {
+        // Toggle menuCheckToggleTAZRelOnlyTo
+        if (viewNet->getDataViewOptions().menuCheckToggleTAZRelOnlyTo->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled toogle TAZRel only to throught alt + " + toString(numericalKeyPressed + 1));
         } else {

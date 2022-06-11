@@ -63,25 +63,25 @@ public:
         void update(const GUIVisualizationTextSettings& settings);
 
         /// @brief check button
-        FXCheckButton* myCheck;
+        FXCheckButton* myCheck = nullptr;
 
         /// @brief size dial
-        FXRealSpinner* mySizeDial;
+        FXRealSpinner* mySizeDial = nullptr;
 
         /// @brief color well
-        FXColorWell* myColorWell;
+        FXColorWell* myColorWell = nullptr;
 
         /// @brief BGColor well
-        FXColorWell* myBGColorWell;
+        FXColorWell* myBGColorWell = nullptr;
 
         /// @brief draw only for selected?
-        FXCheckButton* mySelectedCheck;
+        FXCheckButton* mySelectedCheck = nullptr;
 
         /// @brief const size check
-        FXCheckButton* myConstSizeCheck;
+        FXCheckButton* myConstSizeCheck = nullptr;
 
         /// @brief Matrix
-        FXMatrix* myMatrix0;
+        FXMatrix* myMatrix0 = nullptr;
     };
 
     /// @brief SizePanel
@@ -99,16 +99,16 @@ public:
         void update(const GUIVisualizationSizeSettings& settings);
 
         /// @brief min size dial
-        FXRealSpinner* myMinSizeDial;
+        FXRealSpinner* myMinSizeDial = nullptr;
 
         /// @brief exaggerate dial
-        FXRealSpinner* myExaggerateDial;
+        FXRealSpinner* myExaggerateDial = nullptr;
 
         /// @brief check button
-        FXCheckButton* myCheck;
+        FXCheckButton* myCheck = nullptr;
 
         /// @brief check selected button
-        FXCheckButton* myCheckSelected;
+        FXCheckButton* myCheckSelected = nullptr;
     };
 
     /** @brief Constructor
@@ -202,211 +202,253 @@ public:
 
 protected:
     /// @brief The parent view (which settings are changed)
-    GUISUMOAbstractView* myParent;
+    GUISUMOAbstractView* myParent = nullptr;
 
     /// @brief The current settings
-    GUIVisualizationSettings* mySettings;
+    GUIVisualizationSettings* mySettings = nullptr;
 
     /// @brief A backup of the settings (used if the "Cancel" button is pressed)
     GUIVisualizationSettings myBackup;
 
     /// @brief The parent's decals
-    std::vector<GUISUMOAbstractView::Decal>* myDecals;
+    std::vector<GUISUMOAbstractView::Decal>* myDecals = nullptr;
 
     /// @brief Lock used when changing the decals
-    FXMutex* myDecalsLock;
+    FXMutex* myDecalsLock = nullptr;
 
     /// @name Dialog elements
     /// @{
-    FXComboBox* mySchemeName;
-    FXCheckButton* myShowGrid;
-    FXRealSpinner* myGridXSizeDialer, *myGridYSizeDialer;
+    FXComboBox* mySchemeName = nullptr;
+    FXCheckButton* myShowGrid = nullptr;
+    FXRealSpinner* myGridXSizeDialer = nullptr;
+    FXRealSpinner* myGridYSizeDialer = nullptr;
 
-    FXColorWell* myBackgroundColor;
-    FXVerticalFrame* myDecalsFrame;
-    MFXAddEditTypedTable* myDecalsTable;
+    FXColorWell* myBackgroundColor = nullptr;
+    FXVerticalFrame* myDecalsFrame = nullptr;
+    MFXAddEditTypedTable* myDecalsTable = nullptr;
 
     /// @brief selection colors
-    FXColorWell* mySelectionColor;
-    FXColorWell* mySelectedEdgeColor;
-    FXColorWell* mySelectedLaneColor;
-    FXColorWell* mySelectedConnectionColor;
-    FXColorWell* mySelectedProhibitionColor;
-    FXColorWell* mySelectedCrossingColor;
-    FXColorWell* mySelectedAdditionalColor;
-    FXColorWell* mySelectedRouteColor;
-    FXColorWell* mySelectedVehicleColor;
-    FXColorWell* mySelectedPersonColor;
-    FXColorWell* mySelectedPersonPlanColor;
-    FXColorWell* mySelectedEdgeDataColor;
+    FXColorWell* mySelectionColor = nullptr;
+    FXColorWell* mySelectedEdgeColor = nullptr;
+    FXColorWell* mySelectedLaneColor = nullptr;
+    FXColorWell* mySelectedConnectionColor = nullptr;
+    FXColorWell* mySelectedProhibitionColor = nullptr;
+    FXColorWell* mySelectedCrossingColor = nullptr;
+    FXColorWell* mySelectedAdditionalColor = nullptr;
+    FXColorWell* mySelectedRouteColor = nullptr;
+    FXColorWell* mySelectedVehicleColor = nullptr;
+    FXColorWell* mySelectedPersonColor = nullptr;
+    FXColorWell* mySelectedPersonPlanColor = nullptr;
+    FXColorWell* mySelectedEdgeDataColor = nullptr;
 
     /// @brief additional colors
-    FXColorWell* myBusStopColor;
-    FXColorWell* myBusStopColorSign;
-    FXColorWell* myTrainStopColor;
-    FXColorWell* myTrainStopColorSign;
-    FXColorWell* myContainerStopColor;
-    FXColorWell* myContainerStopColorSign;
-    FXColorWell* myChargingStationColor;
-    FXColorWell* myChargingStationColorSign;
-    FXColorWell* myStopColor;
-    FXColorWell* myWaypointColor;
-    FXColorWell* myVehicleTripsColor;
-    FXColorWell* myStopPersonsColor;
-    FXColorWell* myPersonTripColor;
-    FXColorWell* myWalkColor;
-    FXColorWell* myRideColor;
-    FXColorWell* myStopContainersColor;
-    FXColorWell* myTransportColor;
-    FXColorWell* myTranshipColor;
+    FXColorWell* myBusStopColor = nullptr;
+    FXColorWell* myBusStopColorSign = nullptr;
+    FXColorWell* myTrainStopColor = nullptr;
+    FXColorWell* myTrainStopColorSign = nullptr;
+    FXColorWell* myContainerStopColor = nullptr;
+    FXColorWell* myContainerStopColorSign = nullptr;
+    FXColorWell* myChargingStationColor = nullptr;
+    FXColorWell* myChargingStationColorSign = nullptr;
+    FXColorWell* myStopColor = nullptr;
+    FXColorWell* myWaypointColor = nullptr;
+    FXColorWell* myVehicleTripsColor = nullptr;
+    FXColorWell* myStopPersonsColor = nullptr;
+    FXColorWell* myPersonTripColor = nullptr;
+    FXColorWell* myWalkColor = nullptr;
+    FXColorWell* myRideColor = nullptr;
+    FXColorWell* myStopContainersColor = nullptr;
+    FXColorWell* myTransportColor = nullptr;
+    FXColorWell* myTranshipColor = nullptr;
 
     /// @brief demand widths
 
-    FXRealSpinner* myTripWidth;
-    FXRealSpinner* myPersonTripWidth;
-    FXRealSpinner* myWalkWidth;
-    FXRealSpinner* myRideWidth;
-    FXRealSpinner* myTransportWidth;
-    FXRealSpinner* myTranshipWidth;
+    FXRealSpinner* myTripWidth = nullptr;
+    FXRealSpinner* myPersonTripWidth = nullptr;
+    FXRealSpinner* myWalkWidth = nullptr;
+    FXRealSpinner* myRideWidth = nullptr;
+    FXRealSpinner* myTransportWidth = nullptr;
+    FXRealSpinner* myTranshipWidth = nullptr;
 
     /// @brief ... lane colorer
-    MFXIconComboBox* myLaneEdgeColorMode;
-    FXVerticalFrame* myLaneColorSettingFrame;
+    MFXIconComboBox* myLaneEdgeColorMode = nullptr;
+    FXVerticalFrame* myLaneColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myLaneColors;
     std::vector<FXRealSpinner*> myLaneThresholds;
     std::vector<FXButton*> myLaneButtons;
-    FXCheckButton* myLaneColorInterpolation;
-    FXButton* myLaneColorRainbow;
-    FXCheckButton* myLaneColorRainbowCheck;
-    FXRealSpinner* myLaneColorRainbowThreshold;
-    FXButton* myJunctionColorRainbow;
-    FXComboBox* myParamKey;
+    FXCheckButton* myLaneColorInterpolation = nullptr;
+    FXButton* myLaneColorRainbow = nullptr;
+    FXCheckButton* myLaneColorRainbowCheck = nullptr;
+    FXRealSpinner* myLaneColorRainbowThreshold = nullptr;
+    FXButton* myJunctionColorRainbow = nullptr;
+    FXComboBox* myParamKey = nullptr;
 
     /// @brief ... lane scaler
-    MFXIconComboBox* myLaneEdgeScaleMode;
-    FXVerticalFrame* myLaneScaleSettingFrame;
+    MFXIconComboBox* myLaneEdgeScaleMode = nullptr;
+    FXVerticalFrame* myLaneScaleSettingFrame = nullptr;
     std::vector<FXRealSpinner*> myLaneScales;
     std::vector<FXRealSpinner*> myLaneScaleThresholds;
     std::vector<FXButton*> myLaneScaleButtons;
-    FXCheckButton* myLaneScaleInterpolation;
+    FXCheckButton* myLaneScaleInterpolation = nullptr;
 
-    FXCheckButton* myShowLaneBorders, *myShowBikeMarkings, *myShowLaneDecals,
-                   *myRealisticLinkRules, *myShowLinkRules, *myShowRails,
-                   *myHideMacroConnectors, *myShowLaneDirection, *myShowSublanes, *mySpreadSuperposed;
-    FXRealSpinner* myLaneWidthUpscaleDialer;
-    FXRealSpinner* myLaneMinWidthDialer;
+    FXCheckButton* myShowLaneBorders = nullptr;
+    FXCheckButton* myShowBikeMarkings = nullptr;
+    FXCheckButton* myShowLaneDecals = nullptr;
+    FXCheckButton* myRealisticLinkRules = nullptr; 
+    FXCheckButton* myShowLinkRules = nullptr;
+    FXCheckButton* myShowRails = nullptr;
+    FXCheckButton* myHideMacroConnectors = nullptr;
+    FXCheckButton* myShowLaneDirection = nullptr;
+    FXCheckButton* myShowSublanes = nullptr;
+    FXCheckButton* mySpreadSuperposed = nullptr;
+    FXRealSpinner* myLaneWidthUpscaleDialer = nullptr;
+    FXRealSpinner* myLaneMinWidthDialer = nullptr;
 
     /// @brief Vehicles
-    MFXIconComboBox* myVehicleColorMode, *myVehicleShapeDetail;
-    FXVerticalFrame* myVehicleColorSettingFrame;
+    MFXIconComboBox* myVehicleColorMode, *myVehicleShapeDetail = nullptr;
+    FXVerticalFrame* myVehicleColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myVehicleColors;
     std::vector<FXRealSpinner*> myVehicleThresholds;
     std::vector<FXButton*> myVehicleButtons;
-    FXCheckButton* myVehicleColorInterpolation;
+    FXCheckButton* myVehicleColorInterpolation = nullptr;
 
     /// @brief vehicle scaler
-    MFXIconComboBox* myVehicleScaleMode;
-    FXVerticalFrame* myVehicleScaleSettingFrame;
+    MFXIconComboBox* myVehicleScaleMode = nullptr;
+    FXVerticalFrame* myVehicleScaleSettingFrame = nullptr;
     std::vector<FXRealSpinner*> myVehicleScales;
     std::vector<FXRealSpinner*> myVehicleScaleThresholds;
     std::vector<FXButton*> myVehicleScaleButtons;
-    FXCheckButton* myVehicleScaleInterpolation;
+    FXCheckButton* myVehicleScaleInterpolation = nullptr;
 
-    FXCheckButton* myShowBlinker, *myShowMinGap, *myShowBrakeGap, *myShowBTRange, *myShowRouteIndex, *myScaleLength, *myShowParkingInfo; /* *myShowLaneChangePreference,*/
-    FXComboBox* myVehicleParamKey;
-    FXComboBox* myVehicleTextParamKey;
+    FXCheckButton* myShowBlinker = nullptr; 
+    FXCheckButton* myShowMinGap = nullptr; 
+    FXCheckButton* myShowBrakeGap = nullptr; 
+    FXCheckButton* myShowBTRange = nullptr; 
+    FXCheckButton* myShowRouteIndex = nullptr; 
+    FXCheckButton* myScaleLength = nullptr; 
+    FXCheckButton* myShowParkingInfo = nullptr; 
+    /*FXCheckButton* myShowLaneChangePreference = nullptr;*/
+
+    FXComboBox* myVehicleParamKey = nullptr;
+    FXComboBox* myVehicleTextParamKey = nullptr;
 
     /// @brief Persons
-    MFXIconComboBox* myPersonColorMode, *myPersonShapeDetail;
-    FXVerticalFrame* myPersonColorSettingFrame;
+    MFXIconComboBox* myPersonColorMode, *myPersonShapeDetail = nullptr;
+    FXVerticalFrame* myPersonColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myPersonColors;
     std::vector<FXRealSpinner*> myPersonThresholds;
     std::vector<FXButton*> myPersonButtons;
-    FXCheckButton* myPersonColorInterpolation;
+    FXCheckButton* myPersonColorInterpolation = nullptr;
 
     /// @brief Containers
-    MFXIconComboBox* myContainerColorMode, *myContainerShapeDetail;
-    FXVerticalFrame* myContainerColorSettingFrame;
+    MFXIconComboBox* myContainerColorMode, *myContainerShapeDetail = nullptr;
+    FXVerticalFrame* myContainerColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myContainerColors;
     std::vector<FXRealSpinner*> myContainerThresholds;
     std::vector<FXButton*> myContainerButtons;
-    FXCheckButton* myContainerColorInterpolation;
-    FXRealSpinner* myContainerMinSizeDialer, *myContainerUpscaleDialer;
+    FXCheckButton* myContainerColorInterpolation = nullptr;
+    FXRealSpinner* myContainerMinSizeDialer, *myContainerUpscaleDialer = nullptr;
 
     /// @brief junctions
-    MFXIconComboBox* myJunctionColorMode;
-    FXVerticalFrame* myJunctionColorSettingFrame;
+    MFXIconComboBox* myJunctionColorMode = nullptr;
+    FXVerticalFrame* myJunctionColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myJunctionColors;
     std::vector<FXRealSpinner*> myJunctionThresholds;
     std::vector<FXButton*> myJunctionButtons;
-    FXCheckButton* myJunctionColorInterpolation;
+    FXCheckButton* myJunctionColorInterpolation = nullptr;
 
     /// @brief POIs
-    MFXIconComboBox* myPOIColorMode, *myPOIShapeDetail;
-    FXVerticalFrame* myPOIColorSettingFrame;
+    MFXIconComboBox* myPOIColorMode, *myPOIShapeDetail = nullptr;
+    FXVerticalFrame* myPOIColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myPOIColors;
     std::vector<FXRealSpinner*> myPOIThresholds;
     std::vector<FXButton*> myPOIButtons;
-    FXCheckButton* myPOIColorInterpolation;
-    FXComboBox* myPOITextParamKey;
-    FXSpinner* myPoiDetail;
+    FXCheckButton* myPOIColorInterpolation = nullptr;
+    FXComboBox* myPOITextParamKey = nullptr;
+    FXSpinner* myPoiDetail = nullptr;
 
     /// @brief Polygons
-    MFXIconComboBox* myPolyColorMode, *myPolyShapeDetail;
-    FXVerticalFrame* myPolyColorSettingFrame;
+    MFXIconComboBox* myPolyColorMode, *myPolyShapeDetail = nullptr;
+    FXVerticalFrame* myPolyColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myPolyColors;
     std::vector<FXRealSpinner*> myPolyThresholds;
     std::vector<FXButton*> myPolyButtons;
-    FXCheckButton* myPolyColorInterpolation;
+    FXCheckButton* myPolyColorInterpolation = nullptr;
 
     /// @brief Data
-    MFXIconComboBox* myDataColorMode;
-    FXVerticalFrame* myDataColorSettingFrame;
+    MFXIconComboBox* myDataColorMode = nullptr;
+    FXVerticalFrame* myDataColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myDataColors;
     std::vector<FXRealSpinner*> myDataThresholds;
     std::vector<FXButton*> myDataButtons;
-    FXCheckButton* myDataColorInterpolation;
-    FXComboBox* myDataParamKey;
-    FXRealSpinner* myEdgeRelationUpscaleDialer;
-    FXRealSpinner* myTazRelationUpscaleDialer;
-    FXButton* myDataColorRainbow;
-    FXCheckButton* myDataColorRainbowCheck;
-    FXRealSpinner* myDataColorRainbowThreshold;
+    FXCheckButton* myDataColorInterpolation = nullptr;
+    FXComboBox* myDataParamKey = nullptr;
+    FXRealSpinner* myEdgeRelationUpscaleDialer = nullptr;
+    FXRealSpinner* myTazRelationUpscaleDialer = nullptr;
+    FXButton* myDataColorRainbow = nullptr;
+    FXCheckButton* myDataColorRainbowCheck = nullptr;
+    FXRealSpinner* myDataColorRainbowThreshold = nullptr;
 
     /// @brief buttons
-    FXCheckButton* myShowLane2Lane;
-    FXCheckButton* myDrawJunctionShape;
-    FXCheckButton* myDrawCrossingsAndWalkingAreas;
-    FXCheckButton* myShowSizeLegend;
-    FXCheckButton* myShowColorLegend;
-    FXCheckButton* myShowVehicleColorLegend;
+    FXCheckButton* myShowLane2Lane = nullptr;
+    FXCheckButton* myDrawJunctionShape = nullptr;
+    FXCheckButton* myDrawCrossingsAndWalkingAreas = nullptr;
+    FXCheckButton* myShowSizeLegend = nullptr;
+    FXCheckButton* myShowColorLegend = nullptr;
+    FXCheckButton* myShowVehicleColorLegend = nullptr;
 
     /// @brief openGL
-    FXCheckButton* myDither;
-    FXCheckButton* myFPS;
-    FXCheckButton* myDrawBoundaries;
-    FXCheckButton* myForceDrawForPositionSelection;
-    FXCheckButton* myForceDrawForRectangleSelection;
-    FXButton* myRecalculateBoundaries;
+    FXCheckButton* myDither = nullptr;
+    FXCheckButton* myFPS = nullptr;
+    FXCheckButton* myDrawBoundaries = nullptr;
+    FXCheckButton* myForceDrawForPositionSelection = nullptr;
+    FXCheckButton* myForceDrawForRectangleSelection = nullptr;
+    FXButton* myRecalculateBoundaries = nullptr;
 
     /// @brief name panels
-    NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel, *myEdgeValuePanel,
-               *myJunctionIndexPanel, *myTLIndexPanel,
-               *myJunctionIDPanel, *myJunctionNamePanel, *myInternalJunctionNamePanel,
-               *myTLSPhaseIndexPanel, *myTLSPhaseNamePanel,
-               *myVehicleNamePanel, *myVehicleValuePanel, *myVehicleScaleValuePanel, *myVehicleTextPanel,
-               *myPersonNamePanel, *myPersonValuePanel,
-               *myContainerNamePanel,
-               *myAddNamePanel, *myAddFullNamePanel,
-               *myPOINamePanel, *myPOITypePanel, *myPOITextPanel,
-               *myPolyNamePanel, *myPolyTypePanel,
-               *myDataValuePanel, *myGeometryIndicesPanel;
+    NamePanel* myEdgeNamePanel = nullptr; 
+    NamePanel* myInternalEdgeNamePanel = nullptr; 
+    NamePanel* myCwaEdgeNamePanel = nullptr; 
+    NamePanel* myStreetNamePanel = nullptr; 
+    NamePanel* myEdgeValuePanel = nullptr;
+    NamePanel* myJunctionIndexPanel = nullptr; 
+    NamePanel* myTLIndexPanel = nullptr;
+    NamePanel* myJunctionIDPanel = nullptr; 
+    NamePanel* myJunctionNamePanel = nullptr; 
+    NamePanel* myInternalJunctionNamePanel = nullptr;
+    NamePanel* myTLSPhaseIndexPanel = nullptr; 
+    NamePanel* myTLSPhaseNamePanel = nullptr;
+    NamePanel* myVehicleNamePanel = nullptr; 
+    NamePanel* myVehicleValuePanel = nullptr;
+    NamePanel* myVehicleScaleValuePanel = nullptr; 
+    NamePanel* myVehicleTextPanel = nullptr;
+    NamePanel* myPersonNamePanel = nullptr; 
+    NamePanel* myPersonValuePanel = nullptr;
+    NamePanel* myContainerNamePanel = nullptr;
+    NamePanel* myAddNamePanel = nullptr; 
+    NamePanel* myAddFullNamePanel = nullptr;
+    NamePanel* myPOINamePanel = nullptr; 
+    NamePanel* myPOITypePanel = nullptr; 
+    NamePanel* myPOITextPanel = nullptr;
+    NamePanel* myPolyNamePanel = nullptr; 
+    NamePanel* myPolyTypePanel = nullptr;
+    NamePanel* myDataValuePanel = nullptr; 
+    NamePanel* myGeometryIndicesPanel = nullptr;
 
     /// @brief size panels
-    SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myContainerSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel, *myJunctionSizePanel;
+    SizePanel* myVehicleSizePanel = nullptr; 
+    SizePanel* myPersonSizePanel = nullptr;
+    SizePanel* myContainerSizePanel = nullptr;
+    SizePanel* myPOISizePanel = nullptr;
+    SizePanel* myPolySizePanel = nullptr;
+    SizePanel* myAddSizePanel = nullptr;
+    SizePanel* myJunctionSizePanel = nullptr;
 
     /// @brief load/save-menu
-    FXCheckButton* mySaveViewPort, *mySaveDelay, *mySaveDecals, *mySaveBreakpoints;
+    FXCheckButton* mySaveViewPort = nullptr;
+    FXCheckButton* mySaveDelay = nullptr;
+    FXCheckButton* mySaveDecals = nullptr;
+    FXCheckButton* mySaveBreakpoints = nullptr;
 
     /// @}
 

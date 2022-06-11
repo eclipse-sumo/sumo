@@ -916,6 +916,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_PROBS,
     SUMO_ATTR_ROUTES,
     SUMO_ATTR_VTYPES,
+    SUMO_ATTR_NEXT_EDGES,
     /// @}
 
     /// @name trip definition attributes
@@ -1121,6 +1122,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_IMGFILE,
     SUMO_ATTR_RELATIVEPATH,
     SUMO_ATTR_EMISSIONCLASS,
+    SUMO_ATTR_MASS,
     SUMO_ATTR_IMPATIENCE,
     SUMO_ATTR_STARTPOS,
     SUMO_ATTR_ENDPOS,

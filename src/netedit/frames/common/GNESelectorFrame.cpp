@@ -24,6 +24,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
+#include <netedit/elements/network/GNEWalkingArea.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -96,7 +97,9 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel("Lanes", ACs->getNumberOfSelectedLanes());
         updateInformationLabel("Connections", ACs->getNumberOfSelectedConnections());
         updateInformationLabel("Crossings", ACs->getNumberOfSelectedCrossings());
-        updateInformationLabel("Additionals", ACs->getNumberOfSelectedAdditionals());
+        updateInformationLabel("WalkingAreas", ACs->getNumberOfSelectedWalkingAreas());
+        updateInformationLabel("Additionals", ACs->getNumberOfSelectedPureAdditionals());
+        updateInformationLabel("Wires", ACs->getNumberOfSelectedWires());
         updateInformationLabel("TAZs", ACs->getNumberOfSelectedTAZs());
         updateInformationLabel("TAZSources", ACs->getNumberOfSelectedTAZSources());
         updateInformationLabel("TAZSinks", ACs->getNumberOfSelectedTAZSinks());
@@ -531,6 +534,21 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
             ignoreLocking = askContinueIfLock();
             return true;
         }
+        // check if walkingArea selection is locked
+        if (ignoreLocking || !locks.isObjectLocked(GLO_WALKINGAREA, false)) {
+            for (const auto& walkingArea : junction.second->getGNEWalkingAreas()) {
+                if (onlyCount) {
+                    return true;
+                } else if (onlyUnselect || walkingArea->isAttributeCarrierSelected()) {
+                    walkingArea->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                } else {
+                    walkingArea->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                }
+            }
+        } else if (onlyCount) {
+            ignoreLocking = askContinueIfLock();
+            return true;
+        }
     }
     // check if additionals selection is locked
     if (ignoreLocking || !locks.isObjectLocked(GLO_ADDITIONALELEMENT, false)) {
@@ -544,6 +562,26 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                         additional->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
                         additional->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+        }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
+    }
+    // check if wires selection is locked
+    if (ignoreLocking || !locks.isObjectLocked(GLO_WIRE, false)) {
+        for (const auto& wireTag : ACs->getAdditionals()) {
+            // first check if wire is selectable
+            if (GNEAttributeCarrier::getTagProperty(wireTag.first).isWireElement() && GNEAttributeCarrier::getTagProperty(wireTag.first).isSelectable()) {
+                for (const auto& wire : wireTag.second) {
+                    if (onlyCount) {
+                        return true;
+                    } else if (onlyUnselect || wire->isAttributeCarrierSelected()) {
+                        wire->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        wire->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
             }
@@ -1178,6 +1216,10 @@ GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, vo
             if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::ADDITIONAL)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getParentAdditionals().begin(), HE->getParentAdditionals().end());
             }
+            // wire
+            if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::WIRE)) {
+                HEToSelect.insert(HEToSelect.end(), HE->getParentAdditionals().begin(), HE->getParentAdditionals().end());
+            }
             // demand
             if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::DEMAND)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getParentDemandElements().begin(), HE->getParentDemandElements().end());
@@ -1248,8 +1290,17 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::ADDITIONAL)) {
                 // avoid insert symbols
                 for (const auto& additionalChild : HE->getChildAdditionals()) {
-                    if (!additionalChild->getTagProperty().isSymbol()) {
+                    if (!additionalChild->getTagProperty().isWireElement() && !additionalChild->getTagProperty().isSymbol()) {
                         HEToSelect.push_back(additionalChild);
+                    }
+                }
+            }
+            // wire
+            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::WIRE)) {
+                // avoid insert symbols
+                for (const auto& wireChild : HE->getChildAdditionals()) {
+                    if (wireChild->getTagProperty().isWireElement() && !wireChild->getTagProperty().isSymbol()) {
+                        HEToSelect.push_back(wireChild);
                     }
                 }
             }
@@ -1410,21 +1461,27 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
         }
         // iterate over extracted edges
         for (const auto& edgeToSelect : edgesToSelect) {
-            // select junction source and all connections and crossings
+            // select junction source and all connections, crossings and walkingAreas
             ACsToSelect.insert(std::make_pair(edgeToSelect->getFromJunction()->getID(), edgeToSelect->getFromJunction()));
             for (const auto& connectionToSelect : edgeToSelect->getFromJunction()->getGNEConnections()) {
                 ACsToSelect.insert(std::make_pair(connectionToSelect->getID(), connectionToSelect));
             }
-            for (const auto& crossingToSelect : edgeToSelect->getFromJunction()->getGNECrossings()) {
-                ACsToSelect.insert(std::make_pair(crossingToSelect->getID(), crossingToSelect));
+            for (const auto& fromCrossingToSelect : edgeToSelect->getFromJunction()->getGNECrossings()) {
+                ACsToSelect.insert(std::make_pair(fromCrossingToSelect->getID(), fromCrossingToSelect));
             }
-            // select junction destiny and all connections and crossings
+            for (const auto& fromWalkingAreaToSelect : edgeToSelect->getFromJunction()->getGNEWalkingAreas()) {
+                ACsToSelect.insert(std::make_pair(fromWalkingAreaToSelect->getID(), fromWalkingAreaToSelect));
+            }
+            // select junction destiny and all connections, crossings and walkingAreas
             ACsToSelect.insert(std::make_pair(edgeToSelect->getToJunction()->getID(), edgeToSelect->getToJunction()));
             for (const auto& connectionToSelect : edgeToSelect->getToJunction()->getGNEConnections()) {
                 ACsToSelect.insert(std::make_pair(connectionToSelect->getID(), connectionToSelect));
             }
-            for (const auto& crossingToSelect : edgeToSelect->getToJunction()->getGNECrossings()) {
-                ACsToSelect.insert(std::make_pair(crossingToSelect->getID(), crossingToSelect));
+            for (const auto& toCrossingToSelect : edgeToSelect->getToJunction()->getGNECrossings()) {
+                ACsToSelect.insert(std::make_pair(toCrossingToSelect->getID(), toCrossingToSelect));
+            }
+            for (const auto& toWalkingAreaToSelect : edgeToSelect->getToJunction()->getGNEWalkingAreas()) {
+                ACsToSelect.insert(std::make_pair(toWalkingAreaToSelect->getID(), toWalkingAreaToSelect));
             }
         }
     }

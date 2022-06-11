@@ -81,8 +81,8 @@ def main(options):
                     for source in taz.tazSource:
                         edgeFromTaz[source.id].append(taz.id)
                 if taz.tazSink:
-                    for sink in taz.tazSource:
-                        edgeToTaz[source.id].append(taz.id)
+                    for sink in taz.tazSink:
+                        edgeToTaz[sink.id].append(taz.id)
 
         ambiguousSource = []
         ambiguousSink = []
@@ -185,6 +185,7 @@ def main(options):
 
     if nl.numVehicles > 0:
         numOD = 0
+        numVehicles = 0
         distinctOD = set()
         if options.edgeod:
             edgeOD = set()
@@ -199,14 +200,15 @@ def main(options):
                         options.intervalID, begin, end))
                     for od in sorted(edgeRelations.keys()):
                         numOD += 1
+                        numVehicles += edgeRelations[od]
                         edgeOD.add(od)
                         outf.write(8 * ' ' + '<edgeRelation from="%s" to="%s" count="%s"/>\n' % (
                             od[0], od[1], edgeRelations[od]))
                     outf.write(4 * ' ' + '</interval>\n')
                 outf.write('</data>\n')
 
-            print("Wrote %s OD-pairs (%s edgeOD) in %s intervals" % (
-                numOD, len(edgeOD), len(intervals_edge)))
+            print("Wrote %s OD-pairs (%s edgeOD) in %s intervals (%s vehicles total)" % (
+                numOD, len(edgeOD), len(intervals_edge), numVehicles))
         else:
             with open(options.outfile, 'w') as outf:
                 sumolib.writeXMLHeader(outf, "$Id$", "data", "datamode_file.xsd", options=options)  # noqa
@@ -219,14 +221,15 @@ def main(options):
                         options.intervalID, begin, end))
                     for od in sorted(tazRelations.keys()):
                         numOD += 1
+                        numVehicles += tazRelations[od]
                         distinctOD.add(od)
                         outf.write(8 * ' ' + '<tazRelation from="%s" to="%s" count="%s"/>\n' % (
                             od[0], od[1], tazRelations[od]))
                     outf.write(4 * ' ' + '</interval>\n')
                 outf.write('</data>\n')
 
-            print("Wrote %s OD-pairs (%s distinct) in %s intervals" % (
-                numOD, len(distinctOD), len(intervals)))
+            print("Wrote %s OD-pairs (%s distinct) in %s intervals (%s vehicles total)" % (
+                numOD, len(distinctOD), len(intervals), numVehicles))
 
 
 if __name__ == "__main__":

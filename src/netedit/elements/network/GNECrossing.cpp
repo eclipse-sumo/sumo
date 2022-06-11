@@ -201,7 +201,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushName(getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
-            // translate to front
+            // translate to front   
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CROSSING);
             // set color
             GLHelper::setColor(crossingColor);

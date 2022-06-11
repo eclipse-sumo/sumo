@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-08 10:57:22 by Eclipse SUMO duarouter Version v1_12_0+0320-a562602254b
+<!-- generated on 2022-06-10 05:46:55 by Eclipse SUMO duarouter Version v1_13_0+0728-092f803c3ab
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -36,8 +36,14 @@
         <!-- Read sumo routes, alternatives, flows, and trips from FILE(s) -->
         <route-files value="" synonymes="alternative-files alternatives-files f flow-files flows r t trip-files trips" type="FILE"/>
 
-        <!-- Determines where to load PHEMlight definitions from. -->
+        <!-- Determines where to load PHEMlight definitions from -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
+
+        <!-- Enable fleet age modelling with the given reference year in PHEMlight5 -->
+        <phemlight-year value="0" type="INT"/>
+
+        <!-- Set ambient temperature to correct NOx emissions in PHEMlight5 -->
+        <phemlight-temperature value="1.79769e+308" type="FLOAT"/>
 
         <!-- Read network weights from FILE(s) -->
         <weight-files value="" synonymes="w weights" type="FILE"/>

@@ -95,7 +95,7 @@ public:
     /// @brief handle event of type Network loaded
     void handleEvent_NetworkLoaded(GUIEvent* e);
 
-    /// @brief hanlde event of type message
+    /// @brief handle event of type message
     void handleEvent_Message(GUIEvent* e);
     /// @}
 

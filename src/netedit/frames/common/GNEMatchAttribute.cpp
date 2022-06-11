@@ -361,10 +361,12 @@ GNEMatchAttribute::updateAttribute() {
                 attrIndex = i;
             }
         }
-        // Add extra attribute "Parameter"
-        myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARAMETERS).c_str());
-        if (myCurrentAttribute == GNE_ATTR_PARAMETERS) {
-            attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
+        // Check if are allowed "Parameter"
+        if (tagProperty.hasParameters()) {
+            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARAMETERS).c_str());
+            if (myCurrentAttribute == GNE_ATTR_PARAMETERS) {
+                attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
+            }
         }
         // check if item can close shape
         if (tagProperty.canCloseShape()) {

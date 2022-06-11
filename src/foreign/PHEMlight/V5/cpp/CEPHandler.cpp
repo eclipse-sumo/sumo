@@ -26,9 +26,10 @@
 #include <sstream>
 #define JSON_USE_IMPLICIT_CONVERSIONS 0
 #include <foreign/nlohmann/json.hpp>
+#include <utils/common/StringUtils.h>
 #include "CEPHandler.h"
 #include "CEP.h"
-//#include "Correction.h"
+#include "Correction.h"
 #include "Helpers.h"
 
 
@@ -50,6 +51,27 @@ namespace PHEMlightdllV5 {
         return true;
     }
 
+    bool CEPHandler::CalcCorrection(Correction* DataCor, Helpers* Helper, VEHPHEMLightJSON::Vehicle_Data* vehicle_Data) {
+            if (DataCor->getUseDet()) {
+                DataCor->setVehMileage(-1);
+                if (vehicle_Data->getMileage() > 0.) {
+                    DataCor->setVehMileage(vehicle_Data->getMileage());
+                }
+
+                if (!DataCor->IniDETfactor(Helper)) {
+                    return false;
+                }
+            }
+            if (DataCor->getUseTNOx()) {
+                if (!DataCor->IniTNOxfactor(Helper)) {
+                    return false;
+                }
+            }
+
+            //Return value
+            return true;
+    }
+
     bool CEPHandler::Load(std::vector<std::string>& DataPath, Helpers* Helper, Correction* DataCor, bool fleetMix) {
         //Deklaration
         // get string identifier for PHEM emission class
@@ -66,6 +88,12 @@ namespace PHEMlightdllV5 {
 
         if (!ReadVehicleFile(DataPath, emissionRep, Helper, fleetMix, Vehicle)) {
             return false;
+        }
+
+        if (DataCor != nullptr) {
+            if (!CalcCorrection(DataCor, Helper, Vehicle->getVehicleData())) {
+                return false;
+            }
         }
 
         if (!ReadEmissionData(true, DataPath, emissionRep, Helper, fleetMix, DataCor, headerFCvalues, matrixFCvalues, idlingValuesFCvalues)) {
@@ -128,6 +156,7 @@ namespace PHEMlightdllV5 {
         Vehicle->getVehicleData()->setWheelDiameter(json2double(vd, "WheelDiameter"));
         Vehicle->getVehicleData()->setCw(json2double(vd, "Cw"));
         Vehicle->getVehicleData()->setA(json2double(vd, "A"));
+        Vehicle->getVehicleData()->setMileage(json2double(vd, "Mileage"));
 
         // Auxiliaries
         nlohmann::json::iterator auxDataIt = json.find("AuxiliariesData");
@@ -298,27 +327,22 @@ namespace PHEMlightdllV5 {
         return true;
     }
 
-    double CEPHandler::GetDetTempCor(Correction* DataCor, const std::string& /* Emi */) {
+    double CEPHandler::GetDetTempCor(Correction* DataCor, const std::string& Emi) {
         //Initialisation
         double CorF = 1;
+        std::string emi = Emi;
+        std::transform(emi.begin(), emi.end(), emi.begin(), [](char c) { return (char)::toupper(c); });
 
         if (DataCor != 0) {
-/*            if (DataCor->getUseDet()) {
-                for (std::map<std::string, double>::const_iterator Key = DataCor->DETFactors.begin(); Key != DataCor->DETFactors.end(); ++Key) {
-//                    if (boost::to_upper_copy(Emi) == Key->first->ToUpper()) {
-                    if (Emi == "NOX") {
-                        CorF += (DataCor->DETFactors[Key->first] - 1);
-                        break;
-                    }
-                }
+            if (DataCor->getUseDet() && DataCor->DETFactors.count(emi) > 0) {
+                CorF += DataCor->DETFactors[emi] - 1;
             }
             if (DataCor->getUseTNOx()) {
-//                if (boost::to_upper_copy(Emi)->Contains("NOX")) {
-                if (Emi == "NOX") {
+                if (emi.find("NOX") != std::string::npos) {
                     CorF += (DataCor->getTNOxFactor() - 1);
                 }
             }
-*/        }
+        }
 
         //Return value
         return CorF;

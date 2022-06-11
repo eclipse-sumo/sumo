@@ -123,10 +123,12 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), ok, myDefaultLayer);
     const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     const std::string laneID = attrs.getOpt<std::string>(SUMO_ATTR_LANE, id.c_str(), ok, "");
-    const RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok) : myDefaultColor;
     const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
     std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
+    const RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok) : (imgFile != "" ? RGBColor::WHITE : myDefaultColor);
     bool relativePath = attrs.getOpt<bool>(SUMO_ATTR_RELATIVEPATH, id.c_str(), ok, Shape::DEFAULT_RELATIVEPATH);
+
+    // If the image file is set, change the default POI color to white.
     if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
         imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
     }

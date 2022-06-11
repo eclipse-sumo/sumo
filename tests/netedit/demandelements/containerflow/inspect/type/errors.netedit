@@ -64,16 +64,15 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_CONTAINERTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_CONTAINERTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_CONTAINERTYPE' in DemandElementSelector
 Debug: Selected item 'containerFlow' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding containerFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding tranship: edge->edge 'f_0' in GNEChange_DemandElement
+Debug: Adding transport: edge->edge 'f_0' in GNEChange_DemandElement
 Debug: Current Viewport values: 0.00, -6.00, 5.00. Zoom = '1736.00'
 Debug: Value ';;;;;' for attribute type of containerFlow isn't valid
-Debug: Value '' for attribute type of containerFlow isn't valid
 Debug: Value 'dummyType' for attribute type of containerFlow isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -81,12 +80,12 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing tranship: edge->edge 'f_0' in GNEChange_DemandElement
+Debug: Removing transport: edge->edge 'f_0' in GNEChange_DemandElement
 Debug: Removing containerFlow 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding containerFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding tranship: edge->edge 'f_0' in GNEChange_DemandElement
+Debug: Adding transport: edge->edge 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -128,7 +127,7 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: demand elements saved
 Debug: Additionals saved
-Debug: Deleting unreferenced tranship: edge->edge 'f_0'
+Debug: Deleting unreferenced transport: edge->edge 'f_0'
 Debug: Deleting unreferenced containerFlow 'f_0'
 Debug: Deleting unreferenced vType 'custom_vType'
 Debug: Deleting unreferenced containerStop 'containerStop'

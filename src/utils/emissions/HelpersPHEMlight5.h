@@ -96,6 +96,7 @@ private:
     /// @brief the index of the next class
     int myIndex;
     PHEMlightdllV5::CEPHandler myCEPHandler;
+    PHEMlightdllV5::Correction* myCorrection = nullptr;
     mutable PHEMlightdllV5::Helpers myHelper;
     std::map<SUMOEmissionClass, PHEMlightdllV5::CEP*> myCEPs;
 };

@@ -10,7 +10,7 @@
         <ride to="CN" lines="shuttle"/>
     </personFlow>
 
-    <vType id="shuttle" personCapacit="5" guiShape="bus"/>
+    <vType id="shuttle" personCapacity="4" guiShape="bus"/>
     <flow id="C" type="shuttle" begin="340" period="20" number="10" line="shuttle">
         <route edges="SC CN"/>
         <stop busStop="stop" duration="10"/>

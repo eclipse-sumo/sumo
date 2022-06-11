@@ -70,7 +70,7 @@
 //#define DEBUG_PED_STRUCTURES
 //#define DEBUG_EDGE_SORTING
 //#define DEBUGCOND true
-#define DEBUG_NODE_ID "F"
+#define DEBUG_NODE_ID "C"
 #define DEBUGCOND (getID() == DEBUG_NODE_ID)
 #define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == DEBUG_NODE_ID))
 
@@ -858,7 +858,7 @@ NBNode::displaceShapeAtWidthChange(const NBEdge* from, const NBEdge::Connection&
                 // (on the left side for left turns)
                 // XXX indirect left turns should also start on the right side
                 LinkDirection dir = getDirection(from, con.toEdge);
-                if (dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT || dir == LinkDirection::TURN) {
+                if ((dir == LinkDirection::LEFT) || (dir == LinkDirection::PARTLEFT) || (dir == LinkDirection::TURN)) {
                     fromShape.move2side(-shift);
                 } else {
                     fromShape.move2side(shift);
@@ -2704,24 +2704,47 @@ NBNode::buildCrossingsAndWalkingAreas() {
     buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"),
                       OptionsCont::getOptions().getFloat("walkingareas.join-dist"));
     // ensure that all crossings are properly connected
-    for (auto& crossing : myCrossings) {
-        if (crossing->prevWalkingArea == "" || crossing->nextWalkingArea == "" || !crossing->valid) {
-            if (crossing->valid) {
-                WRITE_WARNINGF("Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).",
-                               crossing->id, getID(), toString(crossing->edges));
-            }
-            for (WalkingArea& wa : myWalkingAreas) {
-                std::vector<std::string>::iterator it_nc = std::find(wa.nextCrossings.begin(), wa.nextCrossings.end(), crossing->id);
-                if (it_nc != wa.nextCrossings.end()) {
-                    wa.nextCrossings.erase(it_nc);
+    bool recheck = myCrossings.size() > 0;
+    while (recheck) {
+        recheck = false;
+        std::set<std::string> waIDs;
+        int numSidewalks = 0;
+        for (WalkingArea& wa : myWalkingAreas) {
+            waIDs.insert(wa.id);
+            numSidewalks += (int)(wa.prevSidewalks.size() + wa.nextSidewalks.size());
+        }
+        if (numSidewalks < 2) {
+            // all crossings are invalid if there are fewer than 2 sidewalks involved
+            waIDs.clear();
+        }
+        for (auto& crossing : myCrossings) {
+            if (waIDs.count(crossing->prevWalkingArea) == 0 || waIDs.count(crossing->nextWalkingArea) == 0 || !crossing->valid) {
+                if (crossing->valid) {
+                    WRITE_WARNINGF("Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).",
+                            crossing->id, getID(), toString(crossing->edges));
+                    recheck = true;
                 }
+                for (auto waIt = myWalkingAreas.begin(); waIt != myWalkingAreas.end();) {
+                    WalkingArea& wa = *waIt;
+                    std::vector<std::string>::iterator it_nc = std::find(wa.nextCrossings.begin(), wa.nextCrossings.end(), crossing->id);
+                    if (it_nc != wa.nextCrossings.end()) {
+                        wa.nextCrossings.erase(it_nc);
+                    }
+                    if (wa.prevSidewalks.size() + wa.nextSidewalks.size() + wa.nextCrossings.size() + wa.prevCrossings.size() < 2) {
+                        waIt = myWalkingAreas.erase(waIt);
+                        recheck = true;
+                    } else {
+                        waIt++;
+                    }
+                }
+                crossing->valid = false;
+                crossing->prevWalkingArea = "";
+                crossing->nextWalkingArea = "";
             }
-            crossing->valid = false;
-            crossing->prevWalkingArea = "";
-            crossing->nextWalkingArea = "";
         }
     }
 }
+
 
 std::vector<NBNode::Crossing*>
 NBNode::getCrossings() const {
@@ -2861,23 +2884,28 @@ NBNode::buildCrossings() {
         }
         // reverse to get them in CCW order (walking direction around the node)
         std::reverse(edges.begin(), edges.end());
-        if (gDebugFlag1) {
-            std::cout << " finalEdges=" << toString(edges) << "\n";
-        }
         // compute shape
         c->shape.clear();
         const int begDir = (edges.front()->getFromNode() == this ? FORWARD : BACKWARD);
         const int endDir = (edges.back()->getToNode() == this ? FORWARD : BACKWARD);
-        if (edges.front()->getFirstNonPedestrianLaneIndex(begDir) < 0
-                || edges.back()->getFirstNonPedestrianLaneIndex(endDir) < 0) {
+        int firstNonPedLane = edges.front()->getFirstNonPedestrianLaneIndex(begDir);
+        int lastNonPedLane = edges.back()->getFirstNonPedestrianLaneIndex(endDir);
+        if (gDebugFlag1) {
+            std::cout << " finalEdges=" << toString(edges) << " firstNonPedLane=" << firstNonPedLane << " lastNonPedLane=" << lastNonPedLane << "\n";
+        }
+        if (firstNonPedLane < 0 || lastNonPedLane < 0) {
             // invalid crossing
             WRITE_WARNINGF("Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross).", c->id, getID(), toString(c->edges));
             c->valid = false;
-        } else if (c->customShape.size() != 0) {
+            // compute surrogate shape to make it visible in netedit
+            firstNonPedLane = begDir == FORWARD ? 0 : edges.front()->getNumLanes() - 1;
+            lastNonPedLane = endDir == FORWARD ? 0 : edges.back()->getNumLanes() - 1;
+        }
+        if (c->customShape.size() != 0) {
             c->shape = c->customShape;
         } else {
-            NBEdge::Lane crossingBeg = edges.front()->getFirstNonPedestrianLane(begDir);
-            NBEdge::Lane crossingEnd = edges.back()->getFirstNonPedestrianLane(endDir);
+            NBEdge::Lane crossingBeg = edges.front()->getLanes()[firstNonPedLane];
+            NBEdge::Lane crossingEnd = edges.back()->getLanes()[lastNonPedLane];
             crossingBeg.width = (crossingBeg.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : crossingBeg.width);
             crossingEnd.width = (crossingEnd.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : crossingEnd.width);
             crossingBeg.shape.move2side(begDir * crossingBeg.width / 2);
@@ -3038,6 +3066,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     c->valid = false;
                 }
                 c->nextWalkingArea = wa.id;
+                wa.prevCrossings.push_back(c->id);
                 if ((int)c->edges.size() < wa.minPrevCrossingEdges) {
                     // if there are multiple crossings, use the shape of the one that crosses fewer edges
                     endCrossingWidth = c->width;
@@ -3456,15 +3485,26 @@ NBNode::getCrossing(const std::string& id) const {
 
 NBNode::Crossing*
 NBNode::getCrossing(const EdgeVector& edges, bool hardFail) const {
-    EdgeSet edgeSet(edges.begin(), edges.end());
-    for (auto& it : myCrossings) {
-        EdgeSet edgeSet2(it->edges.begin(), it->edges.end());
+    const EdgeSet edgeSet(edges.begin(), edges.end());
+    for (auto& crossing : myCrossings) {
+        const EdgeSet edgeSet2(crossing->edges.begin(), crossing->edges.end());
         if (edgeSet == edgeSet2) {
-            return it.get();
+            return crossing.get();
         }
     }
     if (!hardFail) {
         return nullptr;
+    }
+    throw ProcessError("Request for unknown crossing for the given Edges");
+}
+
+
+NBNode::WalkingArea&
+NBNode::getWalkingArea(const std::string &id) {
+    for (auto& walkingArea : myWalkingAreas) {
+        if (walkingArea.id == id) {
+            return walkingArea;
+        }
     }
     throw ProcessError("Request for unknown crossing for the given Edges");
 }

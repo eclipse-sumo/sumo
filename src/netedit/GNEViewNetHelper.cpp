@@ -27,6 +27,7 @@
 #include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
+#include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/elements/network/GNEInternalLane.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
@@ -361,6 +362,24 @@ GNEViewNetHelper::ObjectsUnderCursor::getCrossingFront() const {
 }
 
 
+GNEWalkingArea*
+GNEViewNetHelper::ObjectsUnderCursor::getWalkingAreaFront() const {
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.walkingAreas.size() > 0) {
+            return myEdgeObjects.walkingAreas.front();
+        } else {
+            return nullptr;
+        }
+    } else {
+        if (myLaneObjects.walkingAreas.size() > 0) {
+            return myLaneObjects.walkingAreas.front();
+        } else {
+            return nullptr;
+        }
+    }
+}
+
+
 GNEConnection*
 GNEViewNetHelper::ObjectsUnderCursor::getConnectionFront() const {
     if (mySwapLane2edge) {
@@ -522,6 +541,7 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
     edges.clear();
     lanes.clear();
     crossings.clear();
+    walkingAreas.clear();
     connections.clear();
     internalLanes.clear();
     TAZs.clear();
@@ -647,6 +667,17 @@ GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& co
             } else {
                 // insert at back
                 container.crossings.push_back(dynamic_cast<GNECrossing*>(AC));
+            }
+            break;
+        }
+        case GLO_WALKINGAREA: {
+            // check front element
+            if (AC == frontAC) {
+                // insert at front
+                container.walkingAreas.insert(container.walkingAreas.begin(), dynamic_cast<GNEWalkingArea*>(AC));
+            } else {
+                // insert at back
+                container.walkingAreas.push_back(dynamic_cast<GNEWalkingArea*>(AC));
             }
             break;
         }
@@ -2508,10 +2539,10 @@ GNEViewNetHelper::DataViewOptions::DataViewOptions(GNEViewNet* viewNet) :
     menuCheckShowAdditionals(nullptr),
     menuCheckShowShapes(nullptr),
     menuCheckShowDemandElements(nullptr),
-    menuCheckToogleTAZRelDrawing(nullptr),
-    menuCheckToogleTAZDrawFill(nullptr),
-    menuCheckToogleTAZRelOnlyFrom(nullptr),
-    menuCheckToogleTAZRelOnlyTo(nullptr),
+    menuCheckToggleTAZRelDrawing(nullptr),
+    menuCheckToggleTAZDrawFill(nullptr),
+    menuCheckToggleTAZRelOnlyFrom(nullptr),
+    menuCheckToggleTAZRelOnlyTo(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -2547,33 +2578,33 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
     menuCheckShowDemandElements->setChecked(false);
     menuCheckShowDemandElements->create();
 
-    menuCheckToogleTAZRelDrawing = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+    menuCheckToggleTAZRelDrawing = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\tDraw TAZREL drawing mode\tToggle draw TAZREL drawing mode."),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELDRAWING),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING, GUIDesignMFXCheckableButtonSquare);
-    menuCheckToogleTAZRelDrawing->setChecked(true);
-    menuCheckToogleTAZRelDrawing->create();
+    menuCheckToggleTAZRelDrawing->setChecked(true);
+    menuCheckToggleTAZRelDrawing->create();
 
-    menuCheckToogleTAZDrawFill = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+    menuCheckToggleTAZDrawFill = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\tDraw TAZ fill\tToggle draw TAZ fill"),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZDRAWFILL),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL, GUIDesignMFXCheckableButtonSquare);
-    menuCheckToogleTAZDrawFill->setChecked(false);
-    menuCheckToogleTAZDrawFill->create();
+    menuCheckToggleTAZDrawFill->setChecked(false);
+    menuCheckToggleTAZDrawFill->create();
 
-    menuCheckToogleTAZRelOnlyFrom = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+    menuCheckToggleTAZRelOnlyFrom = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\tDraw TAZRel only from\tToggle draw TAZRel only from"),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYFROM),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM, GUIDesignMFXCheckableButtonSquare);
-    menuCheckToogleTAZRelOnlyFrom->setChecked(true);
-    menuCheckToogleTAZRelOnlyFrom->create();
+    menuCheckToggleTAZRelOnlyFrom->setChecked(true);
+    menuCheckToggleTAZRelOnlyFrom->create();
 
-    menuCheckToogleTAZRelOnlyTo = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+    menuCheckToggleTAZRelOnlyTo = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\tDraw TAZRel only to\tToggle draw TAZRel only to"),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYTO),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO, GUIDesignMFXCheckableButtonSquare);
-    menuCheckToogleTAZRelOnlyTo->setChecked(true);
-    menuCheckToogleTAZRelOnlyTo->create();
+    menuCheckToggleTAZRelOnlyTo->setChecked(true);
+    menuCheckToggleTAZRelOnlyTo->create();
 
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
@@ -2586,10 +2617,10 @@ GNEViewNetHelper::DataViewOptions::hideDataViewOptionsMenuChecks() {
     menuCheckShowAdditionals->hide();
     menuCheckShowShapes->hide();
     menuCheckShowDemandElements->hide();
-    menuCheckToogleTAZRelDrawing->hide();
-    menuCheckToogleTAZDrawFill->hide();
-    menuCheckToogleTAZRelOnlyFrom->hide();
-    menuCheckToogleTAZRelOnlyTo->hide();
+    menuCheckToggleTAZRelDrawing->hide();
+    menuCheckToggleTAZDrawFill->hide();
+    menuCheckToggleTAZRelOnlyFrom->hide();
+    menuCheckToggleTAZRelOnlyTo->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->show();
 }
@@ -2610,17 +2641,17 @@ GNEViewNetHelper::DataViewOptions::getVisibleDataMenuCommands(std::vector<MFXChe
     if (menuCheckShowDemandElements->shown()) {
         commands.push_back(menuCheckShowDemandElements);
     }
-    if (menuCheckToogleTAZRelDrawing->shown()) {
-        commands.push_back(menuCheckToogleTAZRelDrawing);
+    if (menuCheckToggleTAZRelDrawing->shown()) {
+        commands.push_back(menuCheckToggleTAZRelDrawing);
     }
-    if (menuCheckToogleTAZDrawFill->shown()) {
-        commands.push_back(menuCheckToogleTAZDrawFill);
+    if (menuCheckToggleTAZDrawFill->shown()) {
+        commands.push_back(menuCheckToggleTAZDrawFill);
     }
-    if (menuCheckToogleTAZRelOnlyFrom->shown()) {
-        commands.push_back(menuCheckToogleTAZRelOnlyFrom);
+    if (menuCheckToggleTAZRelOnlyFrom->shown()) {
+        commands.push_back(menuCheckToggleTAZRelOnlyFrom);
     }
-    if (menuCheckToogleTAZRelOnlyTo->shown()) {
-        commands.push_back(menuCheckToogleTAZRelOnlyTo);
+    if (menuCheckToggleTAZRelOnlyTo->shown()) {
+        commands.push_back(menuCheckToggleTAZRelOnlyTo);
     }
 }
 
@@ -2657,14 +2688,14 @@ GNEViewNetHelper::DataViewOptions::showDemandElements() const {
 
 bool
 GNEViewNetHelper::DataViewOptions::TAZRelDrawing() const {
-    return (menuCheckToogleTAZRelDrawing->amChecked() == TRUE);
+    return (menuCheckToggleTAZRelDrawing->amChecked() == TRUE);
 }
 
 
 bool
 GNEViewNetHelper::DataViewOptions::TAZDrawFill() const {
-    if (menuCheckToogleTAZDrawFill->shown()) {
-        return (menuCheckToogleTAZDrawFill->amChecked() == TRUE);
+    if (menuCheckToggleTAZDrawFill->shown()) {
+        return (menuCheckToggleTAZDrawFill->amChecked() == TRUE);
     } else {
         return false;
     }
@@ -2673,8 +2704,8 @@ GNEViewNetHelper::DataViewOptions::TAZDrawFill() const {
 
 bool
 GNEViewNetHelper::DataViewOptions::TAZRelOnlyFrom() const {
-    if (menuCheckToogleTAZRelOnlyFrom->shown()) {
-        return (menuCheckToogleTAZRelOnlyFrom->amChecked() == TRUE);
+    if (menuCheckToggleTAZRelOnlyFrom->shown()) {
+        return (menuCheckToggleTAZRelOnlyFrom->amChecked() == TRUE);
     } else {
         return false;
     }
@@ -2683,8 +2714,8 @@ GNEViewNetHelper::DataViewOptions::TAZRelOnlyFrom() const {
 
 bool
 GNEViewNetHelper::DataViewOptions::TAZRelOnlyTo() const {
-    if (menuCheckToogleTAZRelOnlyTo->shown()) {
-        return (menuCheckToogleTAZRelOnlyTo->amChecked() == TRUE);
+    if (menuCheckToggleTAZRelOnlyTo->shown()) {
+        return (menuCheckToggleTAZRelOnlyTo->amChecked() == TRUE);
     } else {
         return false;
     }
@@ -3585,7 +3616,9 @@ GNEViewNetHelper::LockManager::LockManager(GNEViewNet* viewNet) :
     myLockedElements[GLO_LANE] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_CONNECTION] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_CROSSING] = OperationLocked(Supermode::NETWORK);
+    myLockedElements[GLO_WALKINGAREA] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_ADDITIONALELEMENT] = OperationLocked(Supermode::NETWORK);
+    myLockedElements[GLO_WIRE] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_TAZ] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_WIRE] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_POLYGON] = OperationLocked(Supermode::NETWORK);
@@ -3649,7 +3682,9 @@ GNEViewNetHelper::LockManager::updateFlags() {
     myLockedElements[GLO_LANE].lock = lockMenuCommands.menuCheckLockLanes->getCheck() == TRUE;
     myLockedElements[GLO_CONNECTION].lock = lockMenuCommands.menuCheckLockConnections->getCheck() == TRUE;
     myLockedElements[GLO_CROSSING].lock = lockMenuCommands.menuCheckLockCrossings->getCheck() == TRUE;
+    myLockedElements[GLO_WALKINGAREA].lock = lockMenuCommands.menuCheckLockWalkingAreas->getCheck() == TRUE;
     myLockedElements[GLO_ADDITIONALELEMENT].lock = lockMenuCommands.menuCheckLockAdditionals->getCheck() == TRUE;
+    myLockedElements[GLO_WIRE].lock = lockMenuCommands.menuCheckLockWires->getCheck() == TRUE;
     myLockedElements[GLO_TAZ].lock = lockMenuCommands.menuCheckLockTAZs->getCheck() == TRUE;
     myLockedElements[GLO_POLYGON].lock = lockMenuCommands.menuCheckLockPolygons->getCheck() == TRUE;
     myLockedElements[GLO_POI].lock = lockMenuCommands.menuCheckLockPOIs->getCheck() == TRUE;
@@ -3681,7 +3716,9 @@ GNEViewNetHelper::LockManager::updateLockMenuBar() {
     lockMenuCommands.menuCheckLockLanes->setCheck(myLockedElements[GLO_LANE].lock);
     lockMenuCommands.menuCheckLockConnections->setCheck(myLockedElements[GLO_CONNECTION].lock);
     lockMenuCommands.menuCheckLockCrossings->setCheck(myLockedElements[GLO_CROSSING].lock);
+    lockMenuCommands.menuCheckLockWalkingAreas->setCheck(myLockedElements[GLO_WALKINGAREA].lock);
     lockMenuCommands.menuCheckLockAdditionals->setCheck(myLockedElements[GLO_ADDITIONALELEMENT].lock);
+    lockMenuCommands.menuCheckLockWires->setCheck(myLockedElements[GLO_WIRE].lock);
     lockMenuCommands.menuCheckLockTAZs->setCheck(myLockedElements[GLO_TAZ].lock);
     lockMenuCommands.menuCheckLockPolygons->setCheck(myLockedElements[GLO_POLYGON].lock);
     lockMenuCommands.menuCheckLockPOIs->setCheck(myLockedElements[GLO_POI].lock);

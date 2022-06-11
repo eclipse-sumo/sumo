@@ -40,21 +40,34 @@ alternatives below.
   For openSUSE this means installing libxerces-c-devel, libproj-devel,
   libgdal-devel, and fox16-devel. For ubuntu the call is above.
   The installation of swig, python3-dev and the jdk enables also the build of libsumo
-  wgile eigen3 is necessary for the overheadwire model.
+  while eigen3 is necessary for the overheadwire model.
   There are some outdated [platform specific
   and manual build instructions for the
   libraries](Linux_Build_Libraries.md)
 - Optionally you may want to add
+ - ccache (to speed up builds)
  - ffmpeg-devel (for video output),
  - libOpenSceneGraph-devel (for the experimental 3D GUI),
  - gtest (for unit testing)
- - texttest (for the acceptance tests)
-  The package names above are for openSUSE, for ubuntu the call to get all optional libraries and tools is:
+ - texttest, xvfb  and tkdiff (for the acceptance tests)
+ - flake, astyle and autopep for style checking
+ - see also further dependencies [for GUI testing](../Developer/GUI_Testing.md)
+
+The package names above are for openSUSE, for ubuntu the call to get the most important optional libraries and tools is:
   
-  ```
-  sudo apt-get install libavformat-dev libswscale-dev libopenscenegraph-dev libgtest-dev python3-pip python3-setuptools
-  sudo pip3 install texttest
-  ```
+```
+sudo apt-get install ccache libavformat-dev libswscale-dev libopenscenegraph-dev python3-pip python3-setuptools
+sudo apt-get install libgtest-dev tkdiff xvfb flake8 astyle python3-autopep8
+sudo pip3 install texttest
+```
+
+For the Python tools there are some requirements depending on which tools you want to use. If you want to install
+everything using pip do `pip install -r tools/requirements.txt`. To install the most common dependencies with your
+package manager on ubuntu do:
+
+```
+sudo apt-get install python3-pandas python3-rtree python3-pyproj
+```
 
 ## Getting the source code
 

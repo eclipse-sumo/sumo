@@ -41,6 +41,7 @@
 #include "GNEConnection.h"
 #include "GNEJunction.h"
 #include "GNECrossing.h"
+#include "GNEWalkingArea.h"
 
 
 // ===========================================================================
@@ -59,8 +60,7 @@ GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     myAmTLSSelected(false),
     myColorForMissingConnections(false),
     myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0),
-    myExaggeration(1)
-{
+    myExaggeration(1) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -78,6 +78,19 @@ GNEJunction::~GNEJunction() {
             // show extra information for tests
             WRITE_DEBUG("Deleting unreferenced " + crossing->getTagStr() + " '" + crossing->getID() + "' in GNEJunction destructor");
             delete crossing;
+        }
+    }
+    // delete all GNEWalkingArea
+    for (const auto& walkingArea : myGNEWalkingAreas) {
+        walkingArea->decRef();
+        if (walkingArea->unreferenced()) {
+            // check if remove it from Attribute Carriers
+            if (myNet->getAttributeCarriers()->getWalkingAreas().count(walkingArea) > 0) {
+                myNet->getAttributeCarriers()->deleteWalkingArea(walkingArea);
+            }
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + walkingArea->getTagStr() + " '" + walkingArea->getID() + "' in GNEJunction destructor");
+            delete walkingArea;
         }
     }
     if (myAmResponsible) {
@@ -106,7 +119,11 @@ void
 GNEJunction::updateGeometryAfterNetbuild(bool rebuildNBNodeCrossings) {
     // recalc max drawing size
     myMaxDrawingSize = MAX2(getCenteringBoundary().getWidth(), getCenteringBoundary().getHeight());
+    // rebuild crossings
     rebuildGNECrossings(rebuildNBNodeCrossings);
+    // clear walking areas
+    clearWalkingAreas();
+    // clear missing connections
     checkMissingConnections();
 }
 
@@ -210,6 +227,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
         myGNECrossings = retrievedCrossings;
     }
 }
+
 
 void
 GNEJunction::mirrorXLeftHand() {
@@ -633,12 +651,18 @@ GNEJunction::getGNECrossings() const {
 }
 
 
+const std::vector<GNEWalkingArea*>&
+GNEJunction::getGNEWalkingAreas() const {
+    return myGNEWalkingAreas;
+}
+
+
 std::vector<GNEConnection*>
 GNEJunction::getGNEConnections() const {
     std::vector<GNEConnection*> connections;
-    for (const auto& i : myGNEIncomingEdges) {
-        for (const auto& j : i->getGNEConnections()) {
-            connections.push_back(j);
+    for (const auto& incomingEdge : myGNEIncomingEdges) {
+        for (const auto& connection : incomingEdge->getGNEConnections()) {
+            connections.push_back(connection);
         }
     }
     return connections;
@@ -854,13 +878,13 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
                 if (addedConnection.getTLIndex() == NBConnection::InvalidTlIndex) {
                     // custom tl indices of crossings might become invalid upon recomputation so we must save them
                     // however, they could remain valid so we register a change but keep them at their old value
-                    for (GNECrossing* c : myGNECrossings) {
-                        const std::string oldValue = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
-                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
-                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, oldValue), true);
-                        const std::string oldValue2 = c->getAttribute(SUMO_ATTR_TLLINKINDEX2);
-                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
-                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, oldValue2), true);
+                    for (const auto &crossing : myGNECrossings) {
+                        const std::string oldValue = crossing->getAttribute(SUMO_ATTR_TLLINKINDEX);
+                        undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
+                        undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX, oldValue), true);
+                        const std::string oldValue2 = crossing->getAttribute(SUMO_ATTR_TLLINKINDEX2);
+                        undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
+                        undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX2, oldValue2), true);
                     }
                 }
                 NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(*tlDef, *tlDef->getLogic());
@@ -869,11 +893,11 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
                 replacementDef = repl;
             } else {
                 // recompute crossing indices along with everything else
-                for (GNECrossing* c : myGNECrossings) {
-                    const std::string oldValue = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
-                    undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
-                    const std::string oldValue2 = c->getAttribute(SUMO_ATTR_TLLINKINDEX2);
-                    undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
+                for (const auto &crossing : myGNECrossings) {
+                    const std::string oldValue = crossing->getAttribute(SUMO_ATTR_TLLINKINDEX);
+                    undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
+                    const std::string oldValue2 = crossing->getAttribute(SUMO_ATTR_TLLINKINDEX2);
+                    undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
                 }
                 replacementDef = new NBOwnTLDef(newID, tlDef->getOffset(), tlDef->getType());
                 replacementDef->setProgramID(tlDef->getProgramID());
@@ -948,6 +972,33 @@ GNEJunction::retrieveGNECrossing(NBNode::Crossing* NBNodeCrossing, bool createIf
 }
 
 
+GNEWalkingArea*
+GNEJunction::retrieveGNEWalkingArea(const std::string &NBNodeWalkingAreaID, bool createIfNoExist) {
+    // iterate over all walkingArea
+    for (const auto& walkingArea : myGNEWalkingAreas) {
+        // if found, return it
+        if (walkingArea->getID() == NBNodeWalkingAreaID) {
+            return walkingArea;
+        }
+    }
+    if (createIfNoExist) {
+        // create new GNEWalkingArea
+        GNEWalkingArea* createdGNEWalkingArea = new GNEWalkingArea(this, NBNodeWalkingAreaID);
+        // show extra information for tests
+        WRITE_DEBUG("Created " + createdGNEWalkingArea->getTagStr() + " '" + createdGNEWalkingArea->getID() + "' in retrieveGNEWalkingArea()");
+        // update geometry after creating
+        createdGNEWalkingArea->updateGeometry();
+        // add it in Network
+        myNet->addGLObjectIntoGrid(createdGNEWalkingArea);
+        // add it in attributeCarriers
+        myNet->getAttributeCarriers()->insertWalkingArea(createdGNEWalkingArea);
+        return createdGNEWalkingArea;
+    } else {
+        return nullptr;
+    }
+}
+
+
 void
 GNEJunction::markConnectionsDeprecated(bool includingNeighbours) {
     // only it's needed to mark the connections of incoming edges
@@ -996,6 +1047,57 @@ GNEJunction::setJunctionType(const std::string &value, GNEUndoList* undoList) {
         undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
     }
     undoList->end();
+}
+
+
+double
+GNEJunction::getMaxDrawingSize() const {
+    return myMaxDrawingSize;
+}
+
+
+void
+GNEJunction::clearWalkingAreas() {
+    // delete non retrieved GNEWalkingAreas (we don't need to extract if from Tree two times)
+    for (const auto& walkingArea : myGNEWalkingAreas) {
+        walkingArea->decRef();
+        // check if walkingArea is selected
+        if (walkingArea->isAttributeCarrierSelected()) {
+            walkingArea->unselectAttributeCarrier();
+        }
+        // remove it from inspected ACS
+        myNet->getViewNet()->removeFromAttributeCarrierInspected(walkingArea);
+        // remove it from net
+        myNet->removeGLObjectFromGrid(walkingArea);
+        // remove it from attributeCarriers
+        myNet->getAttributeCarriers()->deleteWalkingArea(walkingArea);
+        if (walkingArea->unreferenced()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + walkingArea->getTagStr() + " in rebuildGNEWalkingAreas()");
+            delete walkingArea;
+        }
+    }
+    myGNEWalkingAreas.clear();
+}
+
+
+void
+GNEJunction::rebuildGNEWalkingAreas() {
+    // first clear GNEWalkingAreas
+    clearWalkingAreas();
+    // iterate over NBNode::WalkingAreas of GNEJunction
+    for (const auto& walkingArea : myNBNode->getWalkingAreas()) {
+        // retrieve existent GNEWalkingArea, or create it
+        GNEWalkingArea* retrievedGNEWalkingArea = retrieveGNEWalkingArea(walkingArea.id, true);
+        // include reference to created GNEWalkingArea
+        retrievedGNEWalkingArea->incRef();
+        // update geometry of retrieved walkingArea
+        retrievedGNEWalkingArea->updateGeometry();
+        // update boundary
+        retrievedGNEWalkingArea->updateCenteringBoundary(false);
+        // add in walkingAreas
+        myGNEWalkingAreas.push_back(retrievedGNEWalkingArea);
+    }
 }
 
 
@@ -1320,6 +1422,10 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
     for (const auto& crossing : myGNECrossings) {
         crossing->drawGL(s);
     }
+    // draw walkingAreas
+    for (const auto& walkingArea : myGNEWalkingAreas) {
+        walkingArea->drawGL(s);
+    }
     // draw connections and route elements connections (Only for incoming edges)
     for (const auto& incomingEdge : myGNEIncomingEdges) {
         for (const auto& connection : incomingEdge->getGNEConnections()) {
@@ -1567,6 +1673,10 @@ GNEJunction::moveJunctionGeometry(const Position& pos, const bool updateEdgeBoun
         for (const auto& junctionDestinyEdge : edge->getToJunction()->getChildEdges()) {
             affectedEdges.insert(junctionDestinyEdge);
         }
+    }
+    // reset walking areas of affected edges
+    for (const auto &affectedJunction : affectedJunctions) {
+        affectedJunction->clearWalkingAreas();
     }
     // Iterate over affected Edges
     for (const auto& affectedEdge : affectedEdges) {

@@ -76,7 +76,7 @@ The complete list of attributes is:
 | **endPos**     | float                   | The end position on the last lane covered by the detector. Per default the end position is placed at the last lane's end.    |
 | **length**     | float                   | The length of the detector in meters. If the detector reaches over the lane's end, it is extended to preceding / consecutive lanes.   |
 | **file**       | filename                | The path to the output file. The path may be relative.   |
-| period (alias freq) | int                | The aggregation period the values the detector collects shall be summed up. Either *period* or *tl* must be specified      |
+| period (alias freq) | int                | The aggregation period for aggregation collected data. If neither *period* nor *tl* are set, data will be aggregated over the whole simulation      |
 | tl             | id                      | The [traffic light that triggers aggregation when switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). Either *period* or *tl* must be specified   |
 | to             | id                      | The id of an outgoing lane that [triggers aggregation in conjunction with traffic light switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). This is only used together with *tl*.   |
 | timeThreshold  | float                   | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.      |

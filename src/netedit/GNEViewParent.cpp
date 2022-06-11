@@ -413,8 +413,8 @@ GNEViewParent::getFrameAreaWith() const {
 
 
 void 
-GNEViewParent::setFrameAreaWith(int width) {
-    myFramesArea->setWidth(width);
+GNEViewParent::setFrameAreaWith(const int frameAreaWith) {
+    myFramesArea->setWidth(frameAreaWith);
 }
 
 

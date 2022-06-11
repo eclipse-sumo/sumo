@@ -30,6 +30,7 @@
 #include <netedit/elements/demand/GNEVType.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
+#include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
@@ -231,6 +232,10 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
     } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_CROSSING)) {
         for (const auto& crossing : myCrossings) {
             result.push_back(crossing);
+        }
+    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_WALKINGAREA)) {
+        for (const auto& walkingArea : myWalkingAreas) {
+            result.push_back(walkingArea);
         }
     } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag).isAdditionalElement())) {
         for (const auto& additional : myAdditionals.at(tag)) {
@@ -506,6 +511,70 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
     int counter = 0;
     for (const auto& crossing : myCrossings) {
         if (crossing->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+GNEWalkingArea*
+GNENetHelper::AttributeCarriers::retrieveWalkingArea(GNEAttributeCarrier* AC, bool hardFail) const {
+    // cast walkingArea
+    GNEWalkingArea* walkingArea = dynamic_cast<GNEWalkingArea*>(AC);
+    if (walkingArea && (myWalkingAreas.count(walkingArea) > 0)) {
+        return walkingArea;
+    } else if (hardFail) {
+        throw UnknownElement("WalkingArea " + AC->getID());
+    } else {
+        return nullptr;
+    }
+}
+
+
+const std::set<GNEWalkingArea*>&
+GNENetHelper::AttributeCarriers::getWalkingAreas() const {
+    return myWalkingAreas;
+}
+
+
+std::vector<GNEWalkingArea*>
+GNENetHelper::AttributeCarriers::getSelectedWalkingAreas() const {
+    std::vector<GNEWalkingArea*> result;
+    // iterate over walkingAreas
+    for (const auto& walkingArea : myWalkingAreas) {
+        if (walkingArea->isAttributeCarrierSelected()) {
+            result.push_back(walkingArea);
+        }
+    }
+    return result;
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertWalkingArea(GNEWalkingArea* walkingArea) {
+    if (myWalkingAreas.insert(walkingArea).second == false) {
+        throw ProcessError(walkingArea->getTagStr() + " with ID='" + walkingArea->getID() + "' already exist");
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::deleteWalkingArea(GNEWalkingArea* walkingArea) {
+    const auto finder = myWalkingAreas.find(walkingArea);
+    if (finder == myWalkingAreas.end()) {
+        throw ProcessError(walkingArea->getTagStr() + " with ID='" + walkingArea->getID() + "' wasn't previously inserted");
+    } else {
+        myWalkingAreas.erase(finder);
+    }
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedWalkingAreas() const {
+    int counter = 0;
+    for (const auto& walkingArea : myWalkingAreas) {
+        if (walkingArea->isAttributeCarrierSelected()) {
             counter++;
         }
     }
@@ -985,20 +1054,6 @@ GNENetHelper::AttributeCarriers::clearAdditionals() {
 }
 
 
-int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
-    int counter = 0;
-    for (const auto& additionalsTags : myAdditionals) {
-        for (const auto& additional : additionalsTags.second) {
-            if (additional->isAttributeCarrierSelected()) {
-                counter++;
-            }
-        }
-    }
-    return counter - getNumberOfSelectedPolygons() - getNumberOfSelectedPOIs() - getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() - getNumberOfSelectedTAZSinks();
-}
-
-
 std::string
 GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
     // obtain option container
@@ -1071,6 +1126,28 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
 
 
 int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
+    int counter = 0;
+    for (const auto& additionalsTags : myAdditionals) {
+        for (const auto& additional : additionalsTags.second) {
+            if (additional->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedPureAdditionals() const {
+    return getNumberOfSelectedAdditionals() - getNumberOfSelectedPolygons() - 
+           getNumberOfSelectedPOIs() - getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() - 
+           getNumberOfSelectedTAZSinks() - getNumberOfSelectedWires();
+}
+
+
+int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedPolygons() const {
     int counter = 0;
     for (const auto& poly : myAdditionals.at(SUMO_TAG_POLY)) {
@@ -1134,6 +1211,20 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZSinks() const {
     for (const auto& TAZSink : myAdditionals.at(SUMO_TAG_TAZSINK)) {
         if (TAZSink->isAttributeCarrierSelected()) {
             counter++;
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedWires() const {
+    int counter = 0;
+    for (const auto& additionalsTags : myAdditionals) {
+        for (const auto& additional : additionalsTags.second) {
+            if (additional->isAttributeCarrierSelected() && additional->getTagProperty().isWireElement()) {
+                counter++;
+            }
         }
     }
     return counter;
@@ -2131,6 +2222,10 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     myNet->getViewNet()->removeFromAttributeCarrierInspected(demandElement);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
     myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPersonHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
+    // if is the last inserted route, remove it from GNEViewNet
+    if (myNet->getViewNet()->getLastCreatedRoute() == demandElement) {
+        myNet->getViewNet()->setLastCreatedRoute(nullptr);
+    }
     // erase it from container
     myDemandElements.at(demandElement->getTagProperty().getTag()).erase(itFind);
     // remove element from grid

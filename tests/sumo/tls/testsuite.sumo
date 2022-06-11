@@ -12,14 +12,8 @@ begin50
 # Simulation starts at 100
 begin100
 
-# switch tls off
-off
-
-# switch all tls off with option
-all_off
-
-# Tests for error handling
-errors
+# Tests whether wauts (tls program switches) work
+wauts
 
 # test tlLogic type "actuated"
 actuated
@@ -41,3 +35,13 @@ offset_unknown
 
 # the loaded program contains branches specified via attribute 'next'
 add_attribute_next
+
+# switch tls off
+off
+
+# switch all tls off with option
+all_off
+
+# Tests for error handling
+errors
+

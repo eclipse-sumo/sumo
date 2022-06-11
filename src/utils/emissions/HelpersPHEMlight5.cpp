@@ -24,6 +24,7 @@
 #include <limits>
 #include <cmath>
 #include <foreign/PHEMlight/V5/cpp/Constants.h>
+#include <foreign/PHEMlight/V5/cpp/Correction.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 
@@ -54,18 +55,38 @@ HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleCl
     if (eClass.size() < 6) {
         throw InvalidArgument("Unknown emission class '" + eClass + "'.");
     }
+    const OptionsCont& oc = OptionsCont::getOptions();
     std::vector<std::string> phemPath;
-    phemPath.push_back(OptionsCont::getOptions().getString("phemlight-path") + "/");
+    phemPath.push_back(oc.getString("phemlight-path") + "/");
     if (getenv("PHEMLIGHT_PATH") != nullptr) {
         phemPath.push_back(std::string(getenv("PHEMLIGHT_PATH")) + "/");
     }
     if (getenv("SUMO_HOME") != nullptr) {
         phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight5/");
     }
+    if (myCorrection == nullptr && (!oc.isDefault("phemlight-year") || !oc.isDefault("phemlight-temperature"))) {
+        myCorrection = new PHEMlightdllV5::Correction(phemPath);
+        if (!oc.isDefault("phemlight-year")) {
+            myCorrection->setYear(oc.getInt("phemlight-year"));
+            std::string err;
+            if (!myCorrection->ReadDet(err)) {
+                throw InvalidArgument("Error reading PHEMlight5 deterioration data.\n" + err);
+            }
+            myCorrection->setUseDet(true);
+        }
+        if (!oc.isDefault("phemlight-temperature")) {
+            myCorrection->setAmbTemp(oc.getFloat("phemlight-temperature"));
+            std::string err;
+            if (!myCorrection->ReadTNOx(err)) {
+                throw InvalidArgument("Error reading PHEMlight5 deterioration data.\n" + err);
+            }
+            myCorrection->setUseTNOx(true);
+        }
+    }
     myHelper.setCommentPrefix("c");
     myHelper.setPHEMDataV("V5");
     myHelper.setclass(eClass);
-    if (!myCEPHandler.GetCEP(phemPath, &myHelper, nullptr)) {
+    if (!myCEPHandler.GetCEP(phemPath, &myHelper, myCorrection)) {
         throw InvalidArgument("File for PHEMlight5 emission class " + eClass + " not found.\n" + myHelper.getErrMsg());
     }
     PHEMlightdllV5::CEP* const currCep = myCEPHandler.getCEPS().find(myHelper.getgClass())->second;
@@ -119,7 +140,7 @@ HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface:
 
     if (!isBEV && corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) &&
             corrSpeed > PHEMlightdllV5::Constants::ZERO_SPEED_ACCURACY) {
-        return 0;
+        return 0.;
     }
     const std::string& fuelType = currCep->getFuelType();
     switch (e) {

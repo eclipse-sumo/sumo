@@ -66,8 +66,10 @@ public:
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
     inline double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const {
-        UNUSED_PARAMETER(slope);
         if (e == PollutantsInterface::ELEC || (param != nullptr && param->isEngineOff())) {
+            return 0.;
+        }
+        if (v > ZERO_SPEED_ACCURACY && a < getCoastingDecel(c, v, a, slope, param)) {
             return 0.;
         }
         const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA_BASE;
@@ -75,14 +77,11 @@ public:
         const double scale = (e == PollutantsInterface::FUEL) ? 3.6 * 790. : 3.6;
         if (index >= 42) {
             const double* f = myFunctionParameter[index - 42] + 6 * e;
-            return (double) MAX2((f[0] + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
-        }
-        if (a < 0.) {
-            return 0.;
+            return MAX2((f[0] + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
         }
         const double* f = myFunctionParameter[index] + 6 * e;
         const double alpha = RAD2DEG(asin(a / GRAVITY));
-        return (double) MAX2((f[0] + f[1] * alpha * kmh + f[2] * alpha * alpha * kmh + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
+        return MAX2((f[0] + f[1] * alpha * kmh + f[2] * alpha * alpha * kmh + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
     }
 
 

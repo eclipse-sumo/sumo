@@ -37,10 +37,12 @@
 // ===========================================================================
 
 FXDEFMAP(GNEPathCreator) PathCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,          GNEPathCreator::onCmdAbortPathCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,         GNEPathCreator::onCmdCreatePath),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELAST,     GNEPathCreator::onCmdRemoveLastElement),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_SHOWCANDIDATES, GNEPathCreator::onCmdShowCandidateEdges)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_ABORT,           GNEPathCreator::onCmdAbortPathCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_FINISH,          GNEPathCreator::onCmdCreatePath),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_USELASTROUTE,    GNEPathCreator::onCmdUseLastRoute),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_PATHCREATOR_USELASTROUTE,    GNEPathCreator::onUpdUseLastRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_REMOVELAST,      GNEPathCreator::onCmdRemoveLastElement),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_SHOWCANDIDATES,  GNEPathCreator::onCmdShowCandidateEdges)
 };
 
 // Object implementation
@@ -129,17 +131,20 @@ GNEPathCreator::GNEPathCreator(GNEFrame* frameParent) :
     myRoute(nullptr) {
     // create label for route info
     myInfoRouteLabel = new FXLabel(getCollapsableFrame(), "No edges selected", 0, GUIDesignLabelFrameThicked);
+    // create button for use last route
+    myUseLastRoute = new FXButton(getCollapsableFrame(), "Use last route", GUIIconSubSys::getIcon(GUIIcon::ROUTE), this, MID_GNE_PATHCREATOR_USELASTROUTE, GUIDesignButton);
+    myUseLastRoute->disable();
     // create button for finish route creation
-    myFinishCreationButton = new FXButton(getCollapsableFrame(), "Finish route creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
+    myFinishCreationButton = new FXButton(getCollapsableFrame(), "Finish route creation", nullptr, this, MID_GNE_PATHCREATOR_FINISH, GUIDesignButton);
     myFinishCreationButton->disable();
     // create button for abort route creation
-    myAbortCreationButton = new FXButton(getCollapsableFrame(), "Abort route creation", nullptr, this, MID_GNE_EDGEPATH_ABORT, GUIDesignButton);
+    myAbortCreationButton = new FXButton(getCollapsableFrame(), "Abort route creation", nullptr, this, MID_GNE_PATHCREATOR_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted edge
-    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELAST, GUIDesignButton);
+    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), "Remove last inserted edge", nullptr, this, MID_GNE_PATHCREATOR_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedElement->disable();
     // create check button
-    myShowCandidateEdges = new FXCheckButton(getCollapsableFrame(), "Show candidate edges", this, MID_GNE_EDGEPATH_SHOWCANDIDATES, GUIDesignCheckButton);
+    myShowCandidateEdges = new FXCheckButton(getCollapsableFrame(), "Show candidate edges", this, MID_GNE_PATHCREATOR_SHOWCANDIDATES, GUIDesignCheckButton);
     myShowCandidateEdges->setCheck(TRUE);
     // create shift label
     myShiftLabel = new FXLabel(this,
@@ -150,9 +155,9 @@ GNEPathCreator::GNEPathCreator(GNEFrame* frameParent) :
                                  "CTRL-click: add disconnected",
                                  0, GUIDesignLabelFrameInformation);
     // create backspace label (always shown)
-    new FXLabel(this,
-                "BACKSPACE: undo click",
-                0, GUIDesignLabelFrameInformation);
+    myBackSpaceLabel = new FXLabel(this,
+                                   "BACKSPACE: undo click",
+                                   0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -165,10 +170,18 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
     bool showPathCreator = true;
     // first abort creation
     abortPathCreation();
+    // hide use last inserted route
+    myUseLastRoute->hide();
     // disable buttons
     myFinishCreationButton->disable();
     myAbortCreationButton->disable();
     myRemoveLastInsertedElement->disable();
+    // show info label
+    myInfoRouteLabel->show();
+    myShowCandidateEdges->show();
+    myShiftLabel->show();
+    myControlLabel->show();
+    myBackSpaceLabel->show();
     // reset creation mode
     myCreationMode = 0;
     // set first element
@@ -196,6 +209,17 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
         case GNE_TAG_WALK_ROUTE:
             myCreationMode |= SINGLE_ELEMENT;
             myCreationMode |= ROUTE;
+            // show use last inserted route
+            myUseLastRoute->show();
+            // disable other elements
+            myFinishCreationButton->hide();
+            myAbortCreationButton->hide();
+            myRemoveLastInsertedElement->hide();
+            myInfoRouteLabel->hide();
+            myShowCandidateEdges->hide();
+            myShiftLabel->hide();
+            myControlLabel->hide();
+            myBackSpaceLabel->hide();
             break;
         case SUMO_TAG_TRIP:
         case SUMO_TAG_FLOW:
@@ -740,9 +764,9 @@ GNEPathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEPathCreator::createPath() {
+GNEPathCreator::createPath(const bool useLastRoute) {
     // call create path implemented in frame parent
-    myFrameParent->createPath();
+    myFrameParent->createPath(useLastRoute);
 }
 
 
@@ -804,11 +828,27 @@ GNEPathCreator::removeLastElement() {
 
 long
 GNEPathCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
-    // just call create path
-    createPath();
+    // call create path
+    createPath(false);
     return 1;
 }
 
+
+long
+GNEPathCreator::onCmdUseLastRoute(FXObject*, FXSelector, void*) {
+    // call create path with useLastRoute = true
+    createPath(true);
+    return 1;
+}
+
+long
+GNEPathCreator::onUpdUseLastRoute(FXObject* sender, FXSelector, void*) {
+    if ((myCreationMode & ROUTE) && myFrameParent->getViewNet()->getLastCreatedRoute()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
+}
 
 long
 GNEPathCreator::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {

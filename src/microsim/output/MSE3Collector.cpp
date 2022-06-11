@@ -303,9 +303,10 @@ MSE3Collector::MSE3Collector(const std::string& id,
                              double haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold,
                              const std::string& vTypes,
+                             const std::string& nextEdges,
                              int detectPersons,
                              bool openEntry) :
-    MSDetectorFileOutput(id, vTypes, detectPersons),
+    MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
     myEntries(entries),
     myExits(exits),
     myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
@@ -376,7 +377,7 @@ MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, c
     v.haltings = 0;
     v.intervalHaltings = 0;
     if (veh.getSpeed() < myHaltingSpeedThreshold) {
-        if (fractionTimeOnDet > myHaltingTimeThreshold) {
+        if (TIME2STEPS(fractionTimeOnDet) > myHaltingTimeThreshold) {
             v.haltings++;
             v.intervalHaltings++;
         }
@@ -628,7 +629,7 @@ MSE3Collector::detectorUpdate(const SUMOTime step) {
     if (myEnteredContainer.size() == 0) {
         myCurrentMeanSpeed = -1;
     } else {
-        myCurrentMeanSpeed /= myEnteredContainer.size();
+        myCurrentMeanSpeed /= (double)myEnteredContainer.size();
     }
 }
 

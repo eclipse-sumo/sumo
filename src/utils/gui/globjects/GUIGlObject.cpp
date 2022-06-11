@@ -54,6 +54,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"junction",                GLO_JUNCTION},
     {"connection",              GLO_CONNECTION},
     {"crossing",                GLO_CROSSING},
+    {"walkingArea",             GLO_WALKINGAREA},
     {"tlLogic",                 GLO_TLLOGIC},
     {"type",                    GLO_TYPE},
     //

@@ -471,6 +471,12 @@ public:
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
+    /// @brief get last created route
+    GNEDemandElement *getLastCreatedRoute() const;
+
+    /// @brief set last created route
+    void setLastCreatedRoute(GNEDemandElement *lastCreatedRoute);
+
     /// @brief set statusBar text
     void setStatusBarText(const std::string& text);
 
@@ -590,22 +596,25 @@ private:
     GNEViewNetHelper::LockManager myLockManager;
 
     /// @brief view parent
-    GNEViewParent* myViewParent;
+    GNEViewParent* myViewParent = nullptr;
 
     /// @brief Pointer to current net. (We are not responsible for deletion)
-    GNENet* myNet;
+    GNENet* myNet = nullptr;
 
     /// @brief the current frame
-    GNEFrame* myCurrentFrame;
+    GNEFrame* myCurrentFrame = nullptr;
 
     /// @brief a reference to the undolist maintained in the application
-    GNEUndoList* myUndoList;
+    GNEUndoList* myUndoList = nullptr;
 
     /// @brief current inspected attribute carrier
     std::vector<GNEAttributeCarrier*> myInspectedAttributeCarriers;
 
     /// @brief front attribute carrier
-    GNEAttributeCarrier* myFrontAttributeCarrier;
+    GNEAttributeCarrier* myFrontAttributeCarrier = nullptr;
+
+    /// @brief last created route
+    GNEDemandElement* myLastCreatedRoute = nullptr;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
@@ -672,9 +681,6 @@ private:
 
     /// @brief draw functions
     /// @{
-
-    /// @brief draw connections between lane candidates during selecting lane mode in Additional mode
-    void drawLaneCandidates() const;
 
     /// @brief draw temporal polygon shape in Polygon Mode
     void drawTemporalDrawingShape() const;

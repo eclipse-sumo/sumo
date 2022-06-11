@@ -237,6 +237,20 @@ Debug: Created connection 'fromgneE7_1togneE13_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE7_1togneE8_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_1togneE0_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE1_1' in retrieveGNEConnection()
+Debug: Created walkingArea ':gneJ0_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ0_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ1_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ1_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ2_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ2_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ3_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ3_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ4_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ4_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ4_w2' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ5_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ5_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ5_w2' in retrieveGNEWalkingArea()
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -15.20,-15.20,15.20,15.20
@@ -282,6 +296,34 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,5.80,60.00,30.
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,10.00,60.00,34.20
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -14.20,-10.00,10.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 35.80,-10.00,60.00,30.00
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':gneJ0_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ0_w1' in retrieveGNEWalkingArea()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':gneJ1_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ1_w1' in retrieveGNEWalkingArea()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':gneJ2_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ2_w1' in retrieveGNEWalkingArea()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':gneJ3_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ3_w1' in retrieveGNEWalkingArea()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':gneJ4_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ4_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ4_w2' in retrieveGNEWalkingArea()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':gneJ5_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ5_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':gneJ5_w2' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -357,19 +399,33 @@ Debug: Deleting unreferenced lane 'gneE9_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE1_1' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ0_c0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ0_w0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ0_w1' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ1_w0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ1_w1' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ2_c0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ2_w0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ2_w1' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ3_c0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ3_w0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ3_w1' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ4' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ4_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ4_c1' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ4_c2' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ4_w0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ4_w1' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ4_w2' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ5' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ5_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ5_c1' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ5_c2' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ5_w0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ5_w1' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':gneJ5_w2' in GNEJunction destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 20

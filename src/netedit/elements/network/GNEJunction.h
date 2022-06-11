@@ -139,6 +139,9 @@ public:
     /// @brief Returns GNECrossings
     const std::vector<GNECrossing*>& getGNECrossings() const;
 
+    /// @brief Returns GNEWalkingAreas
+    const std::vector<GNEWalkingArea*>& getGNEWalkingAreas() const;
+
     /// @brief Returns all GNEConnections vinculated with this junction
     std::vector<GNEConnection*> getGNEConnections() const;
 
@@ -233,11 +236,23 @@ public:
     /// @brief get GNECrossing if exist, and if not create it if create is enabled
     GNECrossing* retrieveGNECrossing(NBNode::Crossing* NBNodeCrossing, bool createIfNoExist = true);
 
+    /// @brief get GNEWalkingArea if exist, and if not create it if create is enabled
+    GNEWalkingArea* retrieveGNEWalkingArea(const std::string &NBNodeWalkingAreaID, bool createIfNoExist = true);
+
     /// @brief mark connections as deprecated
     void markConnectionsDeprecated(bool includingNeighbours);
 
     /// @brief set junction Type (using undo/redo)
     void setJunctionType(const std::string &value, GNEUndoList* undoList);
+
+    /// @brief get the maximum size (in either x-, or y-dimension) for determining whether to draw or not
+    double getMaxDrawingSize() const;
+
+    /// @brief clear walking areas
+    void clearWalkingAreas();
+
+    /// @brief rebuilds WalkingAreas objects for this junction
+    void rebuildGNEWalkingAreas();
 
 protected:
     /// @brief A reference to the represented junction
@@ -251,6 +266,9 @@ protected:
 
     /// @brief the built crossing objects
     std::vector<GNECrossing*> myGNECrossings;
+
+    /// @brief the built walkingArea objects
+    std::vector<GNEWalkingArea*> myGNEWalkingAreas;
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double myMaxDrawingSize;
@@ -276,6 +294,8 @@ protected:
 
     /// @brief An object that stores the shape and its tesselation
     mutable TesselatedPolygon myTesselation;
+
+    /// @brief exaggeration used in tesselation
     mutable double myExaggeration;
 
 private:

@@ -62,11 +62,11 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
     osg::Group* root = new osg::Group();
     GUINet* net = static_cast<GUINet*>(MSNet::getInstance());
     // build edges
-    for (const MSEdge* e : net->getEdgeControl().getEdges()) {
-        if (!e->isInternal()) {
-            buildOSGEdgeGeometry(*e, *root, tesselator);
-        }
-    }
+	for (const MSEdge* e : net->getEdgeControl().getEdges()) {
+		if (!e->isInternal()) {
+			buildOSGEdgeGeometry(*e, *root, tesselator);
+		}
+	}
     // build junctions
     for (int index = 0; index < (int)net->myJunctionWrapper.size(); ++index) {
         buildOSGJunctionGeometry(*net->myJunctionWrapper[index], *root, tesselator);
@@ -99,6 +99,8 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
             switchNode->addChild(getTrafficLight(d, tly, osg::Vec4d(0.5, 0.5, 0.1, 1.0), .25), false);
             switchNode->addChild(getTrafficLight(d, tlr, osg::Vec4d(0.5, 0.1, 0.1, 1.0), .25), false);
             switchNode->addChild(getTrafficLight(d, tlu, osg::Vec4d(0.8, 0.4, 0.0, 1.0), .25), false);
+			switchNode->addChild(getTrafficLight(d, tlu, osg::Vec4d(0.5, 0.25, 0.0, 1.0), .25), false);
+			switchNode->setName("tlLogic:" + *i);
             root->addChild(switchNode);
             const MSLink* const l = vars.getActive()->getLinksAt(idx)[0];
             vars.addSwitchCommand(new GUIOSGView::Command_TLSChange(l, switchNode));
@@ -148,7 +150,9 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         osg::Geode* geode = new osg::Geode();
         osg::Geometry* geom = new osg::Geometry();
         geode->addDrawable(geom);
+		geode->setName("lane:" + l->getID());
         addTo.addChild(geode);
+		dynamic_cast<GUIGlObject*>(l)->setNode(geode);
 		const int upperShapeSize = originalSize * geomFactor;
 		const int totalShapeSize = (extrude) ? originalSize * 2 * geomFactor : originalSize * geomFactor;
         const float zOffset = (extrude)? 0.1f : (edge.isCrossing())? 0.01f : 0.f;
@@ -161,23 +165,34 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
                 (*osg_coords)[index].set((float)shape[k].x(), (float)shape[k].y(), (float)shape[k].z() + zOffset);
             }
         } else {
-			PositionVector lshape = shape;
-			lshape.move2side(-l->getWidth() / 2);
 			int index = 0;
-			for (int k = (int)lshape.size() - 1; k >= 0; --k, ++index) {
-				(*osg_coords)[index].set((float)lshape[k].x(), (float)lshape[k].y(), (float)lshape[k].z() + zOffset);
-			}
 			PositionVector rshape = shape;
 			rshape.move2side(l->getWidth() / 2);
-			for (int k = 0; k < (int)rshape.size(); ++k, ++index) {
-			    (*osg_coords)[index].set((float)rshape[k].x(), (float)rshape[k].y(), (float)rshape[k].z() + zOffset);
+			for (int k = (int)rshape.size() - 1; k >= 0; --k, ++index) {
+				(*osg_coords)[index].set((float)rshape[k].x(), (float)rshape[k].y(), (float)rshape[k].z() + zOffset);
 			}
-			sizeDiff = (int)rshape.size() + (int)lshape.size() - upperShapeSize;
+			PositionVector lshape = shape;
+			lshape.move2side(-l->getWidth() / 2);
+			for (int k = 0; k < (int)lshape.size(); ++k, ++index) {
+				(*osg_coords)[index].set((float)lshape[k].x(), (float)lshape[k].y(), (float)lshape[k].z() + zOffset);
+			}
+			sizeDiff = (int)rshape.size() + (int)lshape.size() - upperShapeSize;			
         }
         osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
         (*osg_colors)[0].set(128, 128, 128, 255);
         geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
-		geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, upperShapeSize + sizeDiff));
+
+		if(edge.isWalkingArea()) {
+			geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, upperShapeSize));
+		}
+		else {
+			osg::DrawElementsUInt* surface = new osg::DrawElementsUInt(osg::PrimitiveSet::TRIANGLE_STRIP, 0);
+			for (int i = 0; i < originalSize; ++i) {
+				surface->push_back(i);
+				surface->push_back(2*originalSize - i - 1);
+			}
+			geom->addPrimitiveSet(surface);
+		}
 
 		if (extrude) {
 			int index = upperShapeSize;
@@ -197,9 +212,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
 				}
 			}
 		}
-		else {
-			geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, upperShapeSize + sizeDiff));
-		}
+
         osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
         ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
         ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
@@ -219,7 +232,6 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
 		osgUtil::SmoothingVisitor sv;
 		sv.setCreaseAngle(0.6*osg::PI);
 		geom->accept(sv);
-
         static_cast<GUILane*>(l)->setGeometry(geom);
     }
 }
@@ -233,6 +245,7 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
     osg::Geode* geode = new osg::Geode();
     osg::Geometry* geom = new osg::Geometry();
     geode->addDrawable(geom);
+	geode->setName("junction:" + junction.getMicrosimID());
     addTo.addChild(geode);
     osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size());
     geom->setVertexArray(osg_coords);
@@ -371,7 +384,13 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
     if (myCars.find(osgFile) == myCars.end()) {
         myCars[osgFile] = osgDB::readNodeFile(osgFile);
         if (myCars[osgFile] == 0) {
-            WRITE_ERROR("Could not load '" + osgFile + "'.");
+            WRITE_ERROR("Could not load '" + osgFile + "'. The model is replaced by a cone shape.");
+			osg::PositionAttitudeTransform* rot = new osg::PositionAttitudeTransform();
+			rot->addChild(new osg::ShapeDrawable(new osg::Cone(osg::Vec3d(0, 0, 0), 1.0f, 1.0f)));
+			rot->setAttitude(osg::Quat(osg::DegreesToRadians(90.), osg::Vec3(1, 0, 0),
+				0., osg::Vec3(0, 1, 0),
+				0., osg::Vec3(0, 0, 1)));
+			myCars[osgFile] = rot;
         }
     }
     osg::Node* carNode = myCars[osgFile];

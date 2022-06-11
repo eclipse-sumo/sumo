@@ -172,6 +172,11 @@ public:
     /// @brief the edges of the current stage
     virtual ConstMSEdgeVector getEdges() const;
 
+    /// @brief return index of current edge within route
+    virtual int getRoutePosition() const {
+        return 0;
+    }
+
     /// @brief get position on edge e at length at with orthogonal offset
     Position getEdgePosition(const MSEdge* e, double at, double offset) const;
 

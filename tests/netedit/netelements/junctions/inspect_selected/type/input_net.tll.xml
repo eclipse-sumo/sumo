@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-22 13:15:59 by Eclipse SUMO netconvert Version v1_12_0+2234-4a9e9d56134
+<!-- generated on 2022-06-10 10:42:05 by Eclipse SUMO netconvert Version v1_13_0+0734-4d9b53714aa
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -29,20 +29,15 @@
         <walkingareas value="false"/>
     </pedestrian>
 
-    <report>
-        <aggregate-warnings value="5"/>
-    </report>
-
 </configuration>
 -->
 
 <tlLogics version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="Center" type="static" programID="0" offset="0">
-        <phase duration="37" state="gGGggrrrrrgGGggrrrrrGG"/>
-        <phase duration="5"  state="gGGggrrrrrgGGggrrrrrrr"/>
-        <phase duration="3"  state="yyyyyrrrrryyyyyrrrrrrr"/>
-        <phase duration="42" state="rrrrrGGGggrrrrrGGGggrr"/>
-        <phase duration="3"  state="rrrrryyyyyrrrrryyyyyrr"/>
+        <phase duration="42" state="gGGggrrrrrgGGggrrrrr"/>
+        <phase duration="3"  state="yyyyyrrrrryyyyyrrrrr"/>
+        <phase duration="42" state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="3"  state="rrrrryyyyyrrrrryyyyy"/>
     </tlLogic>
 
     <connection from="5" to="4" fromLane="0" toLane="0" tl="Center" linkIndex="10"/>

@@ -101,7 +101,7 @@ def get_options(args=None):
     parser.add_argument("--geh-ok", dest="gehOk", type=float, default=5,
                         help="threshold for acceptable GEH values")
     parser.add_argument("-f", "--write-flows", dest="writeFlows",
-                        help="write flows with the give style instead of vehicles [number|probability]")
+                        help="write flows with the give style instead of vehicles [number|probability|poisson]")
     parser.add_argument("-I", "--write-route-ids", dest="writeRouteIDs", action="store_true", default=False,
                         help="write routes with ids")
     parser.add_argument("-u", "--write-route-distribution", dest="writeRouteDist",
@@ -128,8 +128,8 @@ def get_options(args=None):
     if options.writeRouteIDs and options.writeRouteDist:
         sys.stderr.write("Only one of the options --write-route-ids and --write-route-distribution may be used")
         sys.exit()
-    if options.writeFlows not in [None, "number", "probability"]:
-        sys.stderr.write("Options --write-flows only accepts arguments 'number' and 'probability'")
+    if options.writeFlows not in [None, "number", "probability", "poisson"]:
+        sys.stderr.write("Options --write-flows only accepts arguments 'number', 'probability' and 'poisson'")
         sys.exit()
 
     options.routeFiles = options.routeFiles.split(',')
@@ -704,13 +704,15 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 totalCount = sum(routeCounts)
                 probability = totalCount / (end - begin)
                 flowID = options.prefix + intervalPrefix + options.writeRouteDist
-                if options.writeFlows == "number" or probability > 1.001:
+                if options.writeFlows == "poisson":
+                    repeat = 'period="exp(%.4f)"' % probability
+                elif options.writeFlows == "number" or probability > 1.00004:
                     repeat = 'number="%s"' % totalCount
                     if options.writeFlows == "probability":
-                        sys.stderr.write("Warning: could not write flow %s with probability %.2f\n" %
+                        sys.stderr.write("Warning: could not write flow %s with probability %.5f\n" %
                                          (flowID, probability))
                 else:
-                    repeat = 'probability="%s"' % probability
+                    repeat = 'probability="%.4f"' % probability
                 outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s"%s/>\n' % (
                     flowID, begin, end, repeat,
                     options.writeRouteDist, options.vehattrs))
@@ -723,13 +725,15 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                     fEnd = max(routeDeparts[routeIndex] + [fBegin + 1.0])
                     probability = routeCounts[routeIndex] / (fEnd - fBegin)
                     flowID = "%s%s%s" % (options.prefix, intervalPrefix, routeIndex)
-                    if options.writeFlows == "number" or probability > 1.001:
+                    if options.writeFlows == "poisson":
+                        repeat = 'period="exp(%.4f)"' % probability
+                    elif options.writeFlows == "number" or probability > 1.00004:
                         repeat = 'number="%s"' % routeCounts[routeIndex]
                         if options.writeFlows == "probability":
-                            sys.stderr.write("Warning: could not write flow %s with probability %.2f\n" % (
+                            sys.stderr.write("Warning: could not write flow %s with probability %.5f\n" % (
                                 flowID, probability))
                     else:
-                        repeat = 'probability="%s"' % probability
+                        repeat = 'probability="%.4f"' % probability
                     if options.writeRouteIDs:
                         if options.pedestrians:
                             outf2.write('    <personFlow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (

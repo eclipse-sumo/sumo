@@ -315,8 +315,11 @@ public:
     /// @brief get draw position index (used in rerouters and VSS)
     int getDrawPositionIndex() const;
 
-    /// @brief check if the given lanes are consecutive (used by E2 Multilane)
+    /// @brief check if the given lanes are consecutive
     static bool areLaneConsecutives(const std::vector<GNELane*>& lanes);
+
+    /// @brief check if the given lanes are connected
+    static bool areLaneConnected(const std::vector<GNELane*>& lanes);
 
 protected:
     /// @brief Additional Boundary

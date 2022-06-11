@@ -617,6 +617,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "probabilities",          SUMO_ATTR_PROBS },
     { "routes",                 SUMO_ATTR_ROUTES },
     { "vTypes",                 SUMO_ATTR_VTYPES },
+    { "nextEdges",              SUMO_ATTR_NEXT_EDGES },
 
     { "lanes",                  SUMO_ATTR_LANES },
     { "from",                   SUMO_ATTR_FROM },
@@ -767,6 +768,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "imgFile",                SUMO_ATTR_IMGFILE },
     { "relativePath",           SUMO_ATTR_RELATIVEPATH },
     { "emissionClass",          SUMO_ATTR_EMISSIONCLASS },
+    { "mass",                   SUMO_ATTR_MASS },
     { "impatience",             SUMO_ATTR_IMPATIENCE },
     { "startPos",               SUMO_ATTR_STARTPOS },
     { "endPos",                 SUMO_ATTR_ENDPOS },

@@ -105,6 +105,7 @@ The option **-t (--trajectory-type)** supports different attributes that can be 
 - **x**: X-Position in m
 - **y**: Y-Position in m
 - **k**: [Kilometrage](../Simulation/Railways.md#kilometrage_mileage_chainage) (requires **--fcd-output.distance**)
+- **g**: gap to leader (requires **--fcd-output.max-leader-distance**)
 
 ### Examples Trajectory Types
 

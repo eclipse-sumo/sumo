@@ -136,10 +136,10 @@ TesselatedPolygon::drawTesselation(const PositionVector& shape) const {
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
         gluTessBeginPolygon(tobj, nullptr);
         gluTessBeginContour(tobj);
-        for (int i = 0; i != (int)shape.size(); ++i) {
-            points[3 * i]  = shape[(int) i].x();
-            points[3 * i + 1]  = shape[(int) i].y();
-            points[3 * i + 2]  = 0;
+        for (int i = 0; i < (int)shape.size(); i++) {
+            points[3 * i]  = shape[i].x();
+            points[3 * i + 1]  = shape[i].y();
+            points[3 * i + 2]  = 0.;
             gluTessVertex(tobj, points + 3 * i, points + 3 * i);
         }
         gluTessEndContour(tobj);
@@ -236,9 +236,9 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushName(getGlID());
         // draw inner polygon
         if (myRotatedShape) {
-            drawInnerPolygon(s, this, this, *myRotatedShape);
+            drawInnerPolygon(s, this, this, *myRotatedShape, getShapeLayer());
         } else {
-            drawInnerPolygon(s, this, this, myShape);
+            drawInnerPolygon(s, this, this, myShape, getShapeLayer());
         }
         // pop name
         GLHelper::popName();
@@ -313,9 +313,9 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* poly
 
 void
 GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const TesselatedPolygon* polygon, const GUIGlObject* o,
-                             const PositionVector shape, bool disableSelectionColor, int alphaOverride) {
+                             const PositionVector shape, const double layer, const bool disableSelectionColor, const int alphaOverride) {
     GLHelper::pushMatrix();
-    glTranslated(0, 0, polygon->getShapeLayer());
+    glTranslated(0, 0, layer);
     setColor(s, polygon, o, disableSelectionColor, alphaOverride);
     int textureID = -1;
     if (polygon->getFill()) {

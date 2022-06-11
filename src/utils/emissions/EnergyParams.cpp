@@ -30,9 +30,14 @@
 
 
 // ===========================================================================
+// static definitions
+// ===========================================================================
+const EnergyParams* EnergyParams::myDefault = nullptr;
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
-
 EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
     myMap[SUMO_ATTR_SHUT_OFF_STOP] = 300.;
     myMap[SUMO_ATTR_SHUT_OFF_AUTO] = std::numeric_limits<double>::max();
@@ -81,6 +86,14 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
                 myCharacteristicMapMap.at(item.first) = CharacteristicMap(typeParams->getParameter(toString(item.first)));
             }
         }
+        myMap[SUMO_ATTR_MASS] = typeParams->mass;
+        myMap[SUMO_ATTR_WIDTH] = typeParams->width;
+        myMap[SUMO_ATTR_HEIGHT] = typeParams->height;
+    } else {
+        const SUMOVTypeParameter::VClassDefaultValues defaultValues(SVC_PASSENGER);
+        myMap[SUMO_ATTR_MASS] = defaultValues.mass;
+        myMap[SUMO_ATTR_WIDTH] = defaultValues.width;
+        myMap[SUMO_ATTR_HEIGHT] = defaultValues.height;
     }
 }
 
@@ -138,7 +151,7 @@ EnergyParams::checkParam(const SumoXMLAttr paramKey, const std::string& id, cons
     const auto& p = myMap.find(paramKey);
     if (p != myMap.end() && (p->second < lower || p->second > upper)) {
         WRITE_WARNINGF("Vehicle device '%' doesn't have a valid value for parameter % (%).", id, toString(paramKey), p->second);
-        setDouble(paramKey, PollutantsInterface::getEnergyHelper().getDefaultParam(paramKey));
+        setDouble(paramKey, EnergyParams::getDefault()->getDouble(paramKey));
     }
 }
 

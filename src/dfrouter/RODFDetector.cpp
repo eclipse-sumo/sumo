@@ -905,7 +905,7 @@ RODFDetectorCon::guessEmptyFlows(RODFDetectorFlows& flows) {
         const std::set<const RODFDetector*>& follower = det->getFollowerDetectors();
         int noFollowerWithRoutes = 0;
         int noPriorWithRoutes = 0;
-        // count occurences of detectors with/without routes
+        // count occurrences of detectors with/without routes
         std::set<const RODFDetector*>::const_iterator j;
         for (j = prior.begin(); j != prior.end(); ++j) {
             if (flows.knows((*j)->getID())) {

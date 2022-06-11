@@ -122,6 +122,7 @@
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="nextEdges" type="xsd:string" use="optional"/>
         <xsd:attribute name="detectPersons" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
@@ -160,6 +161,7 @@
         <xsd:attribute name="speedThreshold" type="xsd:float" use="optional"/>
         <xsd:attribute name="jamThreshold" type="xsd:float" use="optional"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="nextEdges" type="xsd:string" use="optional"/>
         <xsd:attribute name="detectPersons" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
@@ -182,6 +184,7 @@
         <xsd:attribute name="timeThreshold" type="xsd:float" use="optional"/>
         <xsd:attribute name="speedThreshold" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="nextEdges" type="xsd:string" use="optional"/>
         <xsd:attribute name="detectPersons" type="xsd:string" use="optional"/>
         <xsd:attribute name="openEntry" type="boolType" use="optional"/>
         <xsd:attribute name="pos" type="xsd:string" use="optional"/>
@@ -376,6 +379,7 @@
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="nextEdges" type="xsd:string" use="optional"/>
         <xsd:attribute name="detectPersons" type="xsd:string" use="optional"/>
     </xsd:complexType>
 

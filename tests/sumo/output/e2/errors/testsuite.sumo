@@ -37,9 +37,6 @@ length_false
 # length length is beyond lane's length. (NOTE: This is no longer forbidden since multiple lanes may be spanned by the E2 detector)
 length_too_high
 
-# freq is missing
-freq_missing
-
 # freq is empty
 freq_empty
 

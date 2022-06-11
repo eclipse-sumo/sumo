@@ -248,6 +248,7 @@
 #include "connection.xpm"
 #include "prohibition.xpm"
 #include "crossing.xpm"
+#include "walkingarea.xpm"
 
 #include "busstop.xpm"
 #include "trainstop.xpm"
@@ -664,6 +665,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::CONNECTION] = new FXXPMIcon(a, connection_xpm);
     myIcons[GUIIcon::PROHIBITION] = new FXXPMIcon(a, prohibition_xpm);
     myIcons[GUIIcon::CROSSING] = new FXXPMIcon(a, crossing_xpm);
+    myIcons[GUIIcon::WALKINGAREA] = new FXXPMIcon(a, walkingarea_xpm);
 
     myIcons[GUIIcon::BUSSTOP] = new FXXPMIcon(a, busstop_xpm);
     myIcons[GUIIcon::TRAINSTOP] = new FXXPMIcon(a, trainstop_xpm);

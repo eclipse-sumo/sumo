@@ -119,27 +119,33 @@ protected:
 
 private:
     /// @brief The calling view
-    GUISUMOAbstractView* myParent;
+    GUISUMOAbstractView* myParent = nullptr;
 
     /// @brief The old viewport
     Position myOldLookFrom, myOldLookAt;
     double myOldRotation;
 
     /// @brief load button
-    FXButton* myLoadButton;
+    FXButton* myLoadButton = nullptr;
 
     /// @brief save button
-    FXButton* mySaveButton;
+    FXButton* mySaveButton = nullptr;
 
     /// @brief The spin dialers used to change the view
-    FXRealSpinner* myZoom, *myXOff, *myYOff, *myZOff, *myRotation;
+    FXRealSpinner* myZoom = nullptr;
+    FXRealSpinner* myXOff = nullptr;
+    FXRealSpinner* myYOff = nullptr;
+    FXRealSpinner* myZOff = nullptr;
+    FXRealSpinner* myRotation = nullptr;
 
     /// @brief The spin dialers used to change the view at (osg only)
-    FXRealSpinner* myLookAtX, *myLookAtY, *myLookAtZ;
+    FXRealSpinner* myLookAtX = nullptr;
+    FXRealSpinner* myLookAtY = nullptr;
+    FXRealSpinner* myLookAtZ = nullptr;
 
     /// @brief OK button
-    FXButton* myOKButton;
+    FXButton* myOKButton = nullptr;
 
     /// @brief Cancel button
-    FXButton* myCancelButton;
+    FXButton* myCancelButton = nullptr;
 };

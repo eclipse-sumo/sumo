@@ -129,14 +129,14 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ObjectsUnderCursor& obje
         const bool result = myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
         // if we're creating a stop, create it immediately
         if (result && myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
-            createPath();
+            createPath(false);
         }
         return result;
     } else if (clickedACTag == SUMO_TAG_CONTAINER_STOP) {
         const bool result = myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
         // if we're creating a stop, create it immediately
         if (result && myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
-            createPath();
+            createPath(false);
         }
         return result;
     } else if (clickedACTag == SUMO_TAG_JUNCTION) {
@@ -261,7 +261,7 @@ GNEContainerFrame::demandElementSelected() {
 
 
 void
-GNEContainerFrame::createPath() {
+GNEContainerFrame::createPath(const bool /* useLastRoute */) {
     // first check that all attributes are valid
     if (!myContainerAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid container parameters.");

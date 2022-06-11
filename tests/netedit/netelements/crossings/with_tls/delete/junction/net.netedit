@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.09.2018 09:12:47 by Eclipse SUMO netedit Version d6cfaccbb6
+<!-- generated on 03.09.2018 09:17:18 by Eclipse SUMO netedit Version d6cfaccbb6
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/delete/delete_junction\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/delete_sidewalks/delete_junction\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/delete/delete_junction\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/delete_sidewalks/delete_junction\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,12 +29,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/delete/delete_junction\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/delete/delete_junction\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/delete_sidewalks/delete_junction\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/delete_sidewalks/delete_junction\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/delete/delete_junction\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/delete_sidewalks/delete_junction\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,7 +43,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/delete/delete_junction\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/delete_sidewalks/delete_junction\log.txt"/>
     </report>
 
 </configuration>

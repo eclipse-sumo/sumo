@@ -34,6 +34,10 @@
 #include "PCLoaderArcView.h"
 
 #ifdef HAVE_GDAL
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4435 5219 5220)
+#endif
 #if __GNUC__ > 3
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpedantic"
@@ -41,6 +45,9 @@
 #include <ogrsf_frmts.h>
 #if __GNUC__ > 3
 #pragma GCC diagnostic pop
+#endif
+#ifdef _MSC_VER
+#pragma warning(pop)
 #endif
 #endif
 

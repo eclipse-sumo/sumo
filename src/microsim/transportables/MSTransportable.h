@@ -242,6 +242,16 @@ public:
     /// @brief Return the total number stages in this persons plan
     int getNumStages() const;
 
+    /// @brief return index of edge within route
+    int getRoutePosition() const {
+        return (*myStep)->getRoutePosition();
+    }
+
+    /// @brief returns the next edge ptr (used by walking persons)
+    virtual const MSEdge* getNextEdgePtr() const {
+        return nullptr;
+    }
+
     /** @brief Called on writing tripinfo output
      *
      * @param[in] os The stream to write the information into

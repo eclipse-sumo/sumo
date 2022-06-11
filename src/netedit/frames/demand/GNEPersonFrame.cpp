@@ -129,21 +129,21 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
         const bool result = myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
         // if we're creating a stop, create it immediately
         if (result && myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
-            createPath();
+            createPath(false);
         }
         return result;
     } else if (clickedACTag == SUMO_TAG_BUS_STOP) {
         const bool result = myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
         // if we're creating a stop, create it immediately
         if (result && myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
-            createPath();
+            createPath(false);
         }
         return result;
     } else if (clickedACTag == SUMO_TAG_ROUTE) {
         const bool result = myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
         // if we're creating a walk route, create it immediately
         if (result && (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE)) {
-            createPath();
+            createPath(false);
             myPathCreator->removeRoute();
         }
         return result;
@@ -275,7 +275,7 @@ GNEPersonFrame::demandElementSelected() {
 
 
 void
-GNEPersonFrame::createPath() {
+GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myPersonAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid person parameters.");

@@ -392,6 +392,11 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 // GNEApplicationWindow method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+/* Disable warning about using "this" in the constructor */
+#pragma warning(disable: 4355)
+#endif
 GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPattern) :
     GUIMainWindow(a),
     myUndoList(new GNEUndoList(this)),
@@ -419,6 +424,9 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     a->setTooltipTime(1000000000);
     a->setTooltipPause(1000000000);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 void
@@ -1312,8 +1320,6 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myEditMenu);
     // build front element menu commands
     myEditMenuCommands.buildFrontElementMenuCommand(myEditMenu);
-    // build separator
-    new FXMenuSeparator(myEditMenu);
     // build separator
     new FXMenuSeparator(myEditMenu);
     // build open in sumo menu commands
@@ -3072,14 +3078,14 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 }
                 break;
             case MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING:
-                if (myViewNet->getDataViewOptions().menuCheckToogleTAZRelDrawing->amChecked()) {
+                if (myViewNet->getDataViewOptions().menuCheckToggleTAZRelDrawing->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);
                 }
                 break;
             case MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL:
-                if (myViewNet->getDataViewOptions().menuCheckToogleTAZDrawFill->amChecked()) {
+                if (myViewNet->getDataViewOptions().menuCheckToggleTAZDrawFill->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);
@@ -3087,14 +3093,14 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 break;
 
             case MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM:
-                if (myViewNet->getDataViewOptions().menuCheckToogleTAZRelOnlyFrom->amChecked()) {
+                if (myViewNet->getDataViewOptions().menuCheckToggleTAZRelOnlyFrom->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);
                 }
                 break;
             case MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO:
-                if (myViewNet->getDataViewOptions().menuCheckToogleTAZRelOnlyTo->amChecked()) {
+                if (myViewNet->getDataViewOptions().menuCheckToggleTAZRelOnlyTo->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);
@@ -4246,6 +4252,11 @@ GNEApplicationWindow::clearUndoList() {
 // GNEApplicationWindow - protected methods
 // ---------------------------------------------------------------------------
 
+#ifdef _MSC_VER
+#pragma warning(push)
+/* Disable warning about using "this" in the constructor */
+#pragma warning(disable: 4355)
+#endif
 GNEApplicationWindow::GNEApplicationWindow() :
     myToolbarsGrip(this),
     myMenuBarFile(this),
@@ -4259,6 +4270,9 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myWindowsMenuCommands(this),
     mySupermodeCommands(this) {
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 long

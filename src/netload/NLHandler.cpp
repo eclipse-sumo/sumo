@@ -915,6 +915,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, 0);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
+    const std::string nextEdges = attrs.getOpt<std::string>(SUMO_ATTR_NEXT_EDGES, id.c_str(), ok, "");
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
@@ -935,7 +936,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     try {
         Parameterised* det = myDetectorBuilder.buildInductLoop(id, lane, position, length, period,
                              FileHelpers::checkForRelativity(file, getFileName()),
-                             friendlyPos, vTypes, detectPersons);
+                             friendlyPos, vTypes, nextEdges, detectPersons);
         myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         myCurrentIsBroken = true;
@@ -962,12 +963,13 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
+    const std::string nextEdges = attrs.getOpt<std::string>(SUMO_ATTR_NEXT_EDGES, id.c_str(), ok, "");
     if (!ok) {
         myCurrentIsBroken = true;
         return;
     }
     try {
-        Parameterised* det = myDetectorBuilder.buildInstantInductLoop(id, lane, position, FileHelpers::checkForRelativity(file, getFileName()), friendlyPos, vTypes);
+        Parameterised* det = myDetectorBuilder.buildInstantInductLoop(id, lane, position, FileHelpers::checkForRelativity(file, getFileName()), friendlyPos, vTypes, nextEdges);
         myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
@@ -1045,6 +1047,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     std::string lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, id.c_str(), ok, "");
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
+    const std::string nextEdges = attrs.getOpt<std::string>(SUMO_ATTR_NEXT_EDGES, id.c_str(), ok, "");
 
     double endPosition = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, std::numeric_limits<double>::max());
     const std::string lanes = attrs.getOpt<std::string>(SUMO_ATTR_LANES, id.c_str(), ok, ""); // lanes has priority to lane
@@ -1165,7 +1168,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
 
     SUMOTime period;
     if (!lsaGiven) {
-        period = attrs.getPeriod(id.c_str(), ok);
+        period = attrs.getOptPeriod(id.c_str(), ok, SUMOTime_MAX - SUMOTime_MAX % DELTA_T);
         if (!ok) {
             myCurrentIsBroken = true;
             return;
@@ -1207,13 +1210,13 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
         // specification by a lane sequence
         det = myDetectorBuilder.buildE2Detector(id, clanes, position, endPosition, filename, period,
                                                 haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                                vTypes, detectPersons, friendlyPos, showDetector,
+                                                vTypes, nextEdges, detectPersons, friendlyPos, showDetector,
                                                 tlls, cToLane);
     } else {
         // specification by start or end lane
         det = myDetectorBuilder.buildE2Detector(id, clane, position, endPosition, length, filename, period,
                                                 haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                                vTypes, detectPersons, friendlyPos, showDetector,
+                                                vTypes, nextEdges, detectPersons, friendlyPos, showDetector,
                                                 tlls, cToLane);
     }
     myLastParameterised.push_back(det);
@@ -1230,6 +1233,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
+    const std::string nextEdges = attrs.getOpt<std::string>(SUMO_ATTR_NEXT_EDGES, id.c_str(), ok, "");
     const bool openEntry = attrs.getOpt<bool>(SUMO_ATTR_OPEN_ENTRY, id.c_str(), ok, false);
     const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
     int detectPersons = 0;
@@ -1249,7 +1253,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     try {
         Parameterised* det = myDetectorBuilder.beginE3Detector(id,
                              FileHelpers::checkForRelativity(file, getFileName()),
-                             period, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons, openEntry);
+                             period, haltingSpeedThreshold, haltingTimeThreshold, vTypes, nextEdges, detectPersons, openEntry);
         myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         myCurrentIsBroken = true;

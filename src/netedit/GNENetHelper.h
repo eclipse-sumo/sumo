@@ -176,6 +176,32 @@ struct GNENetHelper {
 
         /// @}
 
+        /// @name function for walkingAreas
+        /// @{
+        /**@brief get WalkingArea by AC
+        * @param[in] AC The attribute carrier related with the walkingArea
+        * @param[in] hardFail Whether attempts to retrieve a nonexisting WalkingArea should result in an exception
+        * @throws UnknownElement
+        */
+        GNEWalkingArea* retrieveWalkingArea(GNEAttributeCarrier* AC, bool hardFail = true) const;
+
+        /// @brief get walkingAreas
+        const std::set<GNEWalkingArea*>& getWalkingAreas() const;
+
+        /// @brief return all selected walkingAreas
+        std::vector<GNEWalkingArea*> getSelectedWalkingAreas() const;
+
+        /// @brief insert walkingArea
+        void insertWalkingArea(GNEWalkingArea* walkingArea);
+
+        /// @brief delete walkingArea
+        void deleteWalkingArea(GNEWalkingArea* walkingArea);
+
+        /// @brief get number of selected walkingAreas
+        int getNumberOfSelectedWalkingAreas() const;
+
+        /// @}
+
         /// @name function for edgeTypes
         /// @{
         /**@brief get edge type by id
@@ -343,11 +369,14 @@ struct GNENetHelper {
         /// @brief clear additionals
         void clearAdditionals();
 
-        /// @brief get number of selected additionals (except POIs and Polygons)
-        int getNumberOfSelectedAdditionals() const;
-
         /// @brief generate additional id
         std::string generateAdditionalID(SumoXMLTag type) const;
+
+        /// @brief get number of selected additionals (Including POIs, Polygons, TAZs and Wires)
+        int getNumberOfSelectedAdditionals() const;
+
+        /// @brief get number of selected pure additionals (Except POIs, Polygons, TAZs and Wires)
+        int getNumberOfSelectedPureAdditionals() const;
 
         /// @brief get number of selected polygons
         int getNumberOfSelectedPolygons() const;
@@ -363,6 +392,9 @@ struct GNENetHelper {
 
         /// @brief get number of selected TAZSinks
         int getNumberOfSelectedTAZSinks() const;
+
+        /// @brief get number of selected Wires
+        int getNumberOfSelectedWires() const;
 
         /// @}
 
@@ -623,6 +655,9 @@ struct GNENetHelper {
 
         /// @brief set with crossings
         std::set<GNECrossing*> myCrossings;
+
+        /// @brief set with walkingAreas
+        std::set<GNEWalkingArea*> myWalkingAreas;
 
         /// @brief map with the ID and pointer to edgeTypes of net
         std::map<std::string, GNEEdgeType*> myEdgeTypes;

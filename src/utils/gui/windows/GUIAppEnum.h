@@ -864,13 +864,15 @@ enum {
     /// @brief attribute selected using button (radio button or checkbox)
     MID_GNE_SET_ATTRIBUTE_BUTTON,
     /// @brief abort edge path creation
-    MID_GNE_EDGEPATH_ABORT,
+    MID_GNE_PATHCREATOR_ABORT,
     /// @brief finish edge path creation
-    MID_GNE_EDGEPATH_FINISH,
+    MID_GNE_PATHCREATOR_FINISH,
+    /// @brief use last inserted route
+    MID_GNE_PATHCREATOR_USELASTROUTE,
     /// @brief remove last inserted element in path
-    MID_GNE_EDGEPATH_REMOVELAST,
+    MID_GNE_PATHCREATOR_REMOVELAST,
     /// @brief enable or disable show path candidates
-    MID_GNE_EDGEPATH_SHOWCANDIDATES,
+    MID_GNE_PATHCREATOR_SHOWCANDIDATES,
     /// @brief abort lane path creation
     MID_GNE_ABORT,
     /// @brief finish lane path creation

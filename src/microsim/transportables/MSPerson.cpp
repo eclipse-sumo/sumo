@@ -78,7 +78,7 @@ MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {
 
 MSStage*
 MSPerson::MSPersonStage_Walking::clone() const {
-    std::vector<const MSEdge*> route = myRoute;;
+    std::vector<const MSEdge*> route = myRoute;
     double departPos = myDepartPos;
     double arrivalPos = myArrivalPos;
     int departLane = myDepartLane;
@@ -306,9 +306,7 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
                                 ? (prevDir == MSPModel::FORWARD
                                    ? getArrivalPos() + tl
                                    : getArrivalPos() - tl)
-                                : (prevDir == MSPModel::FORWARD
-                                   ? lane->getLength() + tl
-                                   : -tl));
+                                : person->getPositionOnLane());
         for (MSMoveReminder* rem : myMoveReminders) {
             rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, currentTime, currentTime, true);
             rem->notifyLeave(*person, lastPos, arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION);

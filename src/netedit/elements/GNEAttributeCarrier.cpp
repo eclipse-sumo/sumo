@@ -1023,7 +1023,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
-                                              "The id of the edge");
+                                              "Edge ID");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -1148,7 +1148,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
-                                              "ID of lane (Automatic, non editable)");
+                                              "Lane ID (Automatic, non editable)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_INDEX,
@@ -1243,7 +1243,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
-                                              "The ID of Crossing");
+                                              "Crossing ID");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGES,
@@ -1278,6 +1278,35 @@ GNEAttributeCarrier::fillNetworkElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CUSTOMSHAPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "Overrids default shape of pedestrian crossing");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_WALKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                                       GNETagProperties::NETWORKELEMENT,
+                                                       GNETagProperties::NOPARAMETERS,
+                                                       GUIIcon::WALKINGAREA, currentTag);
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
+                                              "Walking Area ID");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The width of the WalkingArea",
+                                              toString(OptionsCont::getOptions().getFloat("default.sidewalk-width")));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LENGTH,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The length of the WalkingArea in meter");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CUSTOMSHAPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "Overrids default shape of pedestrian sidelwak");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_CONNECTION;
@@ -5272,7 +5301,7 @@ GNEAttributeCarrier::fillCommonPersonAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                          "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag) +
+                                          "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                           DEFAULT_VTYPE_ID);
     myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -5302,7 +5331,7 @@ GNEAttributeCarrier::fillCommonContainerAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                          "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag) +
+                                          "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                           DEFAULT_CONTAINERTYPE_ID);
     myTagProperties[currentTag].addAttribute(attrProperty);
 

@@ -252,7 +252,7 @@ CommonXMLStructure::SumoBaseObject::getPositionVectorAttribute(const SumoXMLAttr
         return myPositionVectorAttributes.at(attr);
     } else {
         handleAttributeError(attr, "position vector");
-        throw ProcessError();;
+        throw ProcessError();
     }
 }
 

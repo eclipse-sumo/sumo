@@ -786,7 +786,7 @@ MSBaseVehicle::calculateArrivalParams(bool onInit) {
             WRITE_WARNING("Vehicle '" + getID() + "' has no usable arrivalLane on edge '" + arrivalEdge->getID() + "'.");
             myArrivalLane = 0;
         } else {
-            myArrivalLane = usable[RandHelper::rand(0, (int)usable.size())]->getIndex();;
+            myArrivalLane = usable[RandHelper::rand(0, (int)usable.size())]->getIndex();
         }
     }
     if (myParameter->arrivalSpeedProcedure == ArrivalSpeedDefinition::GIVEN) {

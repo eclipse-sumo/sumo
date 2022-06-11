@@ -572,7 +572,13 @@ MSFrame::fillOptions() {
     // devices
     oc.addOptionSubTopic("Emissions");
     oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
-    oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
+    oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from");
+
+    oc.doRegister("phemlight-year", new Option_Integer(0));
+    oc.addDescription("phemlight-year", "Emissions", "Enable fleet age modelling with the given reference year in PHEMlight5");
+
+    oc.doRegister("phemlight-temperature", new Option_Float(INVALID_DOUBLE));
+    oc.addDescription("phemlight-temperature", "Emissions", "Set ambient temperature to correct NOx emissions in PHEMlight5");
 
     oc.addOptionSubTopic("Communication");
     oc.addOptionSubTopic("Battery");

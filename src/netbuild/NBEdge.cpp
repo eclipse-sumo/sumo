@@ -4136,7 +4136,7 @@ NBEdge::getFirstNonPedestrianLaneIndex(int direction, bool exclusive) const {
         // SVCAll, does not count as a sidewalk, green verges (permissions = 0) do not count as road
         // in the exclusive case, lanes that allow pedestrians along with any other class also count as road
         if ((exclusive && myLanes[i].permissions != SVC_PEDESTRIAN && myLanes[i].permissions != 0)
-                || (myLanes[i].permissions == SVCAll || ((myLanes[i].permissions & SVC_PEDESTRIAN) == 0 && myLanes[i].permissions != 0))) {
+                || ((myLanes[i].permissions & SVC_PEDESTRIAN) == 0 && myLanes[i].permissions != 0)) {
             return i;
         }
     }

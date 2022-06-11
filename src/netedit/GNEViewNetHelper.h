@@ -133,6 +133,7 @@ class GNEEdge;
 class GNELane;
 class GNEConnection;
 class GNECrossing;
+class GNEWalkingArea;
 class GNEInternalLane;
 // additional elements
 class GNEAdditional;
@@ -205,6 +206,9 @@ struct GNEViewNetHelper {
         /// @brief get front crossing or a pointer to nullptr
         GNECrossing* getCrossingFront() const;
 
+        /// @brief get front walkingArea or a pointer to nullptr
+        GNEWalkingArea* getWalkingAreaFront() const;
+
         /// @brief get front connection or a pointer to nullptr
         GNEConnection* getConnectionFront() const;
 
@@ -272,6 +276,9 @@ struct GNEViewNetHelper {
 
             /// @brief vector with the clicked crossings
             std::vector<GNECrossing*> crossings;
+
+            /// @brief vector with the clicked walkingAreas
+            std::vector<GNEWalkingArea*> walkingAreas;
 
             /// @brief vector with the clicked connections
             std::vector<GNEConnection*> connections;
@@ -732,16 +739,16 @@ struct GNEViewNetHelper {
         MFXCheckableButton* menuCheckShowDemandElements;
 
         /// @brief menu check to toggle TAZ Rel drawing
-        MFXCheckableButton* menuCheckToogleTAZRelDrawing;
+        MFXCheckableButton* menuCheckToggleTAZRelDrawing;
 
         /// @brief menu check to toggle TAZ draw fill
-        MFXCheckableButton* menuCheckToogleTAZDrawFill;
+        MFXCheckableButton* menuCheckToggleTAZDrawFill;
 
         /// @brief menu check to toggle TAZRel only from
-        MFXCheckableButton* menuCheckToogleTAZRelOnlyFrom;
+        MFXCheckableButton* menuCheckToggleTAZRelOnlyFrom;
 
         /// @brief menu check to toggle TAZRel only to
-        MFXCheckableButton* menuCheckToogleTAZRelOnlyTo;
+        MFXCheckableButton* menuCheckToggleTAZRelOnlyTo;
 
     private:
         /// @brief pointer to net

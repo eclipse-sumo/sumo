@@ -747,15 +747,53 @@ bool
 GNEAdditional::areLaneConsecutives(const std::vector<GNELane*>& lanes) {
     // declare lane iterator
     int laneIt = 0;
+    // iterate over all lanes
+    while (laneIt < ((int)lanes.size() - 1)) {
+        // we assume that lanes aren't consecutives
+        bool consecutiveFound = false;
+        // get lanes
+        const auto lane = lanes.at(laneIt);
+        const auto nextLane = lanes.at(laneIt + 1);
+        // if there is a connection betwen "from" lane and "to" lane of connection, change connectionFound to true
+        for (const auto& outgoingEdge : lane->getParentEdge()->getToJunction()->getGNEOutgoingEdges()) {
+            for (const auto& outgoingLane : outgoingEdge->getLanes()) {
+                if (outgoingLane == nextLane) {
+                    consecutiveFound = true;
+                }
+            }
+        }
+        // abort if consecutiveFound is false
+        if (!consecutiveFound) {
+            return false;
+        }
+        // update iterator
+        laneIt++;
+    }
+    // lanes are consecutive, then return true
+    return true;
+}
+
+
+bool
+GNEAdditional::areLaneConnected(const std::vector<GNELane*>& lanes) {
+    // declare lane iterator
+    int laneIt = 0;
     // iterate over all lanes, and stop if myE2valid is false
     while (laneIt < ((int)lanes.size() - 1)) {
         // we assume that E2 is invalid
         bool connectionFound = false;
+        // get lanes
+        const auto lane = lanes.at(laneIt);
+        const auto nextLane = lanes.at(laneIt + 1);
+        // check if both lanes are sidewalks
+        if ((lane->getAttribute(SUMO_ATTR_ALLOW) == "pedestrian") && (nextLane->getAttribute(SUMO_ATTR_ALLOW) == "pedestrian")) {
+            connectionFound = true;
+        }
         // if there is a connection betwen "from" lane and "to" lane of connection, change connectionFound to true
-        for (const auto& connection : lanes.at(laneIt)->getParentEdge()->getNBEdge()->getConnections()) {
-            if ((connection.toEdge == lanes.at(laneIt + 1)->getParentEdge()->getNBEdge()) &&
-                    (connection.fromLane == lanes.at(laneIt)->getIndex()) &&
-                    (connection.toLane == lanes.at(laneIt + 1)->getIndex())) {
+        for (const auto& connection : lane->getParentEdge()->getNBEdge()->getConnections()) {
+            if ((connection.toEdge == nextLane->getParentEdge()->getNBEdge()) &&
+                (connection.fromLane == lane->getIndex()) &&
+                (connection.toLane == nextLane->getIndex())) {
                 connectionFound = true;
             }
         }

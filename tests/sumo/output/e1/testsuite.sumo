@@ -26,8 +26,14 @@ two_vehicles_diff_length
 two_vehicles_diff_length__split
 persons
 
+# filter detector vehicles by their oupcoming route
+nextEdges
+
 # Testing error cases
 errors
 
 # filtering by vTypeDistribution id
 vTypeDist
+
+# freq is missing
+freq_missing
