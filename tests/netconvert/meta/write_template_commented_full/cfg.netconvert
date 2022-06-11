@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-11 12:04:18 by Eclipse SUMO netconvert Version v1_13_0+0143-484dc81fb93
+<!-- generated on 2022-06-11 22:44:09 by Eclipse SUMO netconvert Version v1_13_0+0773-f0267577d88
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -195,7 +195,7 @@
     </projection>
 
     <processing>
-        <!-- vmax is parsed as given in km/h (some) -->
+        <!-- vmax is parsed as given in km/h -->
         <speed-in-kmh value="false" type="BOOL"/>
 
         <!-- Use YYYY-MM-DD date to determine the readiness of features under construction -->
@@ -350,6 +350,9 @@
 
         <!-- The default speed on an edge (in m/s) -->
         <default.speed value="13.89" synonymes="S speed" type="FLOAT"/>
+
+        <!-- The default friction on an edge -->
+        <default.friction value="1" synonymes="friction" type="FLOAT"/>
 
         <!-- The default priority of an edge -->
         <default.priority value="-1" synonymes="P priority" type="INT"/>
