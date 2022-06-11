@@ -303,7 +303,7 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
         const LaneSpreadFunction spread = LaneSpreadFunction::RIGHT;
         // build NBEdge
         NBEdge* nbe = new NBEdge(edgeID, src->getNBNode(), dest->getNBNode(),
-                                 defaultType, defaultSpeed,
+                                 defaultType, defaultSpeed, NBEdge::UNSPECIFIED_FRICTION,
                                  defaultNrLanes, defaultPriority,
                                  defaultWidth, defaultOffset, spread);
         // create edge

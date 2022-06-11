@@ -492,7 +492,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
     }
 
     NBEdge* buildEdge = new NBEdge(toString<int>(myID), fromNode, toNode, myType,
-                                   avgSpeed / (double) 3.6, myNoLanes, -1,
+                                   avgSpeed / 3.6, NBEdge::UNSPECIFIED_FRICTION, myNoLanes, -1,
                                    NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                    myGeom, LaneSpreadFunction::CENTER, myName, "", true);
     for (int i = 0; i < myNoLanes; i++) {

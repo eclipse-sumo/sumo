@@ -154,7 +154,7 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.addDescription("ignore-errors.edge-type", "Report", "Continue on unknown edge types");
 
     oc.doRegister("speed-in-kmh", new Option_Bool(false));
-    oc.addDescription("speed-in-kmh", "Processing", "vmax is parsed as given in km/h (some)");
+    oc.addDescription("speed-in-kmh", "Processing", "vmax is parsed as given in km/h");
 
     oc.doRegister("construction-date", new Option_String());
     oc.addDescription("construction-date", "Processing", "Use YYYY-MM-DD date to determine the readiness of features under construction");

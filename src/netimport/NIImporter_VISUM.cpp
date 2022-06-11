@@ -452,7 +452,7 @@ NIImporter_VISUM::parse_Edges() {
     int prio = myUseVisumPrio ? myNetBuilder.getTypeCont().getEdgeTypePriority(type) : -1;
     if (nolanes != 0 && speed != 0) {
         LaneSpreadFunction lsf = oneway_checked ? LaneSpreadFunction::CENTER : LaneSpreadFunction::RIGHT;
-        NBEdge* e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio,
+        NBEdge* e = new NBEdge(myCurrentID, from, to, type, speed, NBEdge::UNSPECIFIED_FRICTION, nolanes, prio,
                                NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, lsf, name);
         e->setPermissions(permissions);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
@@ -469,7 +469,7 @@ NIImporter_VISUM::parse_Edges() {
     myCurrentID = '-' + myCurrentID;
     if (nolanes != 0 && speed != 0) {
         LaneSpreadFunction lsf = oneway_checked ? LaneSpreadFunction::CENTER : LaneSpreadFunction::RIGHT;
-        NBEdge* e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio,
+        NBEdge* e = new NBEdge(myCurrentID, from, to, type, speed, NBEdge::UNSPECIFIED_FRICTION, nolanes, prio,
                                NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, lsf, name);
         e->setPermissions(permissions);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
@@ -587,7 +587,7 @@ NIImporter_VISUM::parse_Connectors_legacy() {
                 return;
             }
             NBEdge* edge = new NBEdge(id, src, dest, "VisumConnector",
-                                      OptionsCont::getOptions().getFloat("visum.connector-speeds"),
+                                      OptionsCont::getOptions().getFloat("visum.connector-speeds"), NBEdge::UNSPECIFIED_FRICTION,
                                       OptionsCont::getOptions().getInt("visum.connectors-lane-number"),
                                       -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                       LaneSpreadFunction::RIGHT, "");
@@ -622,7 +622,7 @@ NIImporter_VISUM::parse_Connectors_legacy() {
             }
             id = "-" + id;
             NBEdge* edge = new NBEdge(id, dest, src, "VisumConnector",
-                                      OptionsCont::getOptions().getFloat("visum.connector-speeds"),
+                                      OptionsCont::getOptions().getFloat("visum.connector-speeds"), NBEdge::UNSPECIFIED_FRICTION,
                                       OptionsCont::getOptions().getInt("visum.connectors-lane-number"),
                                       -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                       LaneSpreadFunction::RIGHT, "");

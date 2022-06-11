@@ -176,7 +176,7 @@ NIImporter_MATSim::EdgesHandler::~EdgesHandler() {
 
 void
 NIImporter_MATSim::EdgesHandler::insertEdge(const std::string& id, NBNode* fromNode, NBNode* toNode, double freeSpeed, int numLanes, double capacity, double length) {
-    NBEdge* edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, numLanes, -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
+    NBEdge* edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, NBEdge::UNSPECIFIED_FRICTION, numLanes, -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
     edge->setParameter("capacity", toString(capacity));
     if (myKeepEdgeLengths) {
         edge->setLoadedLength(length);

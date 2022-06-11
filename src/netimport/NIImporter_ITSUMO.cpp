@@ -210,7 +210,7 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
             for (std::vector<Section*>::iterator i = mySections.begin(); i != mySections.end(); ++i) {
                 for (std::vector<LaneSet*>::iterator j = (*i)->laneSets.begin(); j != (*i)->laneSets.end(); ++j) {
                     LaneSet* ls = (*j);
-                    NBEdge* edge = new NBEdge(ls->id, ls->from, ls->to, "", ls->v, (int)ls->lanes.size(), -1,
+                    NBEdge* edge = new NBEdge(ls->id, ls->from, ls->to, "", ls->v, NBEdge::UNSPECIFIED_FRICTION, (int)ls->lanes.size(), -1,
                                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
                     if (!myNetBuilder.getEdgeCont().insert(edge)) {
                         delete edge;

@@ -94,7 +94,7 @@ NGEdge::buildNBEdge(NBNetBuilder& nb, std::string type, const bool reversed) con
     NBEdge* result = new NBEdge(
         reversed ? myReverseID : myID,
         from, to,
-        type, nb.getTypeCont().getEdgeTypeSpeed(type), lanenumber,
+        type, nb.getTypeCont().getEdgeTypeSpeed(type), NBEdge::UNSPECIFIED_FRICTION, lanenumber,
         priority, nb.getTypeCont().getEdgeTypeWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape, lsf);
     result->setPermissions(permissions);
     return result;
