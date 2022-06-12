@@ -209,6 +209,7 @@ public:
      *
      * @param[in] id The lane's id
      * @param[in] maxSpeed The speed allowed on this lane
+     * @param[in] friction The friction of this lane
      * @param[in] length The lane's length
      * @param[in] edge The edge this lane belongs to
      * @param[in] numericalID The numerical id of the lane
@@ -219,7 +220,7 @@ public:
      * @param[in] isRampAccel Whether this lane is an acceleration lane
      * @see SUMOVehicleClass
      */
-    MSLane(const std::string& id, double maxSpeed, double length, MSEdge* const edge,
+    MSLane(const std::string& id, double maxSpeed, double friction, double length, MSEdge* const edge,
            int numericalID, const PositionVector& shape, double width,
            SVCPermissions permissions,
            SVCPermissions changeLeft, SVCPermissions changeRight,
@@ -561,6 +562,12 @@ public:
         return myMaxSpeed;
     }
 
+    /** @brief Returns the lane's friction coefficient
+    * @return This lane's friction coefficient
+    */
+    inline double getFrictionCoefficient() const {
+        return myFrictionCoefficient;
+    }
 
     /** @brief Returns the lane's length
      * @return This lane's length
@@ -689,6 +696,11 @@ public:
      * @param[in] val the new speed in m/s
      */
     void setMaxSpeed(double val);
+
+    /** @brief Sets a new friction coefficient for the lane [*to be later (used by TraCI and MSCalibrator)*]
+    * @param[in] val the new friction coefficient [0..1]
+    */
+    void setFrictionCoefficient(double val);
 
     /** @brief Sets a new length for the lane (used by TraCI only)
      * @param[in] val the new length in m
@@ -1395,6 +1407,8 @@ protected:
 
     /// Lane-wide speedlimit [m/s]
     double myMaxSpeed;
+    /// Lane-wide friction coefficient [0..1]
+    double myFrictionCoefficient;
 
     /// The vClass permissions for this lane
     SVCPermissions myPermissions;

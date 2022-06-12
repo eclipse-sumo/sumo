@@ -233,7 +233,7 @@ MSLane::AnyVehicleIterator::nextIsMyVehicles() const {
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* const edge,
+MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double length, MSEdge* const edge,
                int numericalID, const PositionVector& shape, double width,
                SVCPermissions permissions,
                SVCPermissions changeLeft, SVCPermissions changeRight,
@@ -243,6 +243,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
     myNumericalID(numericalID), myShape(shape), myIndex(index),
     myVehicles(), myLength(length), myWidth(width),
     myEdge(edge), myMaxSpeed(maxSpeed),
+    myFrictionCoefficient(friction),
     myPermissions(permissions),
     myChangeLeft(changeLeft),
     myChangeRight(changeRight),
@@ -2405,6 +2406,13 @@ MSLane::getEntryLink() const {
 void
 MSLane::setMaxSpeed(double val) {
     myMaxSpeed = val;
+    myEdge->recalcCache();
+}
+
+
+void
+MSLane::setFrictionCoefficient(double val) {
+    myFrictionCoefficient = val;
     myEdge->recalcCache();
 }
 

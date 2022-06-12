@@ -882,6 +882,20 @@ MSEdge::getMeanSpeed() const {
     return v / totalNumVehs;
 }
 
+
+double
+MSEdge::getMeanFriction() const {
+    double f = 0.;
+    for (const MSLane* const lane : *myLanes) {
+        f += lane->getFrictionCoefficient();
+    }
+    if (!myLanes->empty()) {
+        return f / (double)myLanes->size();
+    }
+    return 1.;
+}
+
+
 double
 MSEdge::getMeanSpeedBike() const {
     if (MSGlobals::gUseMesoSim) {
@@ -900,6 +914,7 @@ MSEdge::getMeanSpeedBike() const {
     }
     return v / totalNumVehs;
 }
+
 
 double
 MSEdge::getCurrentTravelTime(double minSpeed) const {
