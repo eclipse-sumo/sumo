@@ -373,7 +373,18 @@ NBHeightMapper::clearData() {
 NBHeightMapper::Triangle::Triangle(const PositionVector& corners):
     myCorners(corners) {
     assert(myCorners.size() == 3);
-    // @todo assert non-colinearity
+
+    // Check and correct for collinearity (ref:https://math.stackexchange.com/a/636229/728074)
+    Position v1 = myCorners[1] - myCorners[0];
+    Position v2 = myCorners[2] - myCorners[0];
+   
+    if(v1.crossProduct(v2) == 0){
+        // Update the trace elements to make the determinant non-zero
+        myCorners[0][0] = 1.01*myCorners[0][0];
+        myCorners[1][1] = 1.01*myCorners[1][1]; // Z values update is not strictly necessary
+    }
+
+
 }
 
 
