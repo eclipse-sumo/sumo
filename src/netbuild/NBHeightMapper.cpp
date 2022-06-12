@@ -381,8 +381,9 @@ NBHeightMapper::Triangle::Triangle(const PositionVector& corners):
 
     if(cp.x() == 0.0 && cp.y() == 0.0 && cp.z() == 0.0){
         // Update the trace elements to make the determinant non-zero
-        myCorners[0][0] = 1.01*myCorners[0][0];
-        myCorners[1][1] = 1.01*myCorners[1][1]; // Z values update is not strictly necessary
+        // Z values update is not strictly necessary
+        myCorners[0].setx(1.01*myCorners[0].x());
+        myCorners[1].sety(1.01*myCorners[1].y());
     }
 }
 
