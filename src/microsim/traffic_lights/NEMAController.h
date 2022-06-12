@@ -81,6 +81,9 @@ public:
         TS2
     };
 
+    /// @brief constant for storing the priority order for light heads. Iterates left to right and stops when finds a match. 
+    const std::string lightHeadPriority = "GgyuOs";
+
     typedef std::vector<transitionInfo> TransitionPairs;
 
     /** @brief Constructor
@@ -160,7 +163,7 @@ public:
      * @param state the light state string
      * @return std::set<std::string>
      */
-    std::set<std::string> getLaneIDsFromNEMAState(std::string state);
+    void getLaneInfoFromNEMAState(std::string state, StringVector &laneIDs, IntVector &stateIndex);
 
     /**
      * @brief Set the max green of all phases.
@@ -318,12 +321,18 @@ protected:
     /// @brief stores the simulation time to make it easily accessible
     SUMOTime simTime = 0;
 
+    /// @brief stores controllers # of rings
+    int myNumberRings;
+
+    /// @brief stores the length of phase string for the controller "GGrrrrs" = 6. Must be the same length for all phases
+    int myPhaseStrLen = -1;
+
     /// @brief Set the simTime
     inline void setCurrentTime(void) {
         simTime = MSNet::getInstance()->getCurrentTimeStep();
     }
 
-    // / @brief variable to store the active phases
+    /// @brief variable to store the active phases
     PhasePtr myActivePhaseObjs[2] = { nullptr, nullptr };
 
     /// @brief a vector that stores a pointer to the instantiated NEMAPhase objects
@@ -589,6 +598,7 @@ public:
      * @param fixForceOff if the phase has a force off or not
      * @param barrierNum the barrier to which the phase belongs (0 or 1)
      * @param ringNum the ring to which the phase belongs (0 or 1)
+     * @param phaseStringInds the indexes of lanes that I control, ie. "srrrrGG" is {5, 6}
      * @param phase the MSPhaseDefinition base class
      */
     NEMAPhase(int phaseName,
@@ -600,6 +610,7 @@ public:
               bool fixForceOff,
               int barrierNum,
               int ringNum,
+              IntVector phaseStringInds,
               MSPhaseDefinition* phase);
 
     /// @brief Destructor
@@ -730,7 +741,7 @@ public:
     PhaseTransitionLogic* getTransition(int toPhase);
 
     /// @brief Return the ryg light string for the phase
-    std::string getNEMAState(void);
+    char getNEMAChar(int i);
 
     /// @brief accessory function to recalculate timing
     void recalculateTiming(void);
@@ -738,6 +749,11 @@ public:
     /// @brief Force Enter. This Should only be called at initialization time
     inline void forceEnter(NEMALogic* controller) {
         enter(controller, sequentialPriorPhase);
+    }
+
+    /// @brief Return whether or not the phase index is controlled by me
+    inline bool controlledIndex(int i){
+        return std::count(myPhaseStringInds.begin(), myPhaseStringInds.end(), i) > 0;
     }
 
     ///  @name Basic Phase Timing Parameters
@@ -773,6 +789,14 @@ private:
     SUMOTime myLastEnd;
     /// @}
 
+    /// @name Light String Parameters
+    /// @{
+    IntVector myPhaseStringInds;
+    std::string myGreenString;
+    std::string myYellowString;
+    std::string myRedString;
+    /// }
+
     /**
      * @brief Applies the vehicle extension timer if appropriate
      *
@@ -792,6 +816,12 @@ private:
      * @param lastPhase a reference to the last phase
      */
     void enter(NEMALogic* controller, PhasePtr lastPhase);
+
+    /**
+     * @brief this function replaces getNEMAStates calculation at every call
+     * It sets my myGreenString, myYellowString, and myRedString on class creation
+    */
+    void setMyNEMAStates(void);
 
     /// @brief variable to store whether a transition is active or not
     bool transitionActive;
