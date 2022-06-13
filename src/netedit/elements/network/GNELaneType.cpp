@@ -151,6 +151,12 @@ GNELaneType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(width);
             }
+        case SUMO_ATTR_FRICTION:
+            if (attrs.count(key) == 0) {
+                return "";
+            } else {
+                return toString(width);
+            }
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:

@@ -855,6 +855,8 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(edge->getLaneStruct(myIndex).width);
             }
+        case SUMO_ATTR_FRICTION:
+            return toString(edge->getLaneStruct(myIndex).friction);
         case SUMO_ATTR_ENDOFFSET:
             return toString(edge->getLaneStruct(myIndex).endOffset);
         case SUMO_ATTR_ACCELERATION:
@@ -907,6 +909,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_CHANGE_LEFT:
         case SUMO_ATTR_CHANGE_RIGHT:
         case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_FRICTION:
         case SUMO_ATTR_ENDOFFSET:
         case SUMO_ATTR_ACCELERATION:
         case SUMO_ATTR_CUSTOMSHAPE:
@@ -945,6 +948,7 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
             }
+        case SUMO_ATTR_FRICTION:
         case SUMO_ATTR_ENDOFFSET:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_ACCELERATION:
@@ -1065,6 +1069,9 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // update edge parent boundary
             myParentEdge->updateCenteringBoundary(true);
+            break;
+        case SUMO_ATTR_FRICTION:
+            edge->setFriction(myIndex, parse<double>(value));
             break;
         case SUMO_ATTR_ENDOFFSET:
             edge->setEndOffset(myIndex, parse<double>(value));
