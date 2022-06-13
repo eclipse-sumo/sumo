@@ -556,7 +556,7 @@ public:
      * @see reportDoubleSetting
      * @see Option::set(const std::string &)
      */
-    bool set(const std::string& name, const std::string& value);
+    bool set(const std::string& name, const std::string& value, const bool append=false);
 
     /** @brief Sets the given value for the named option as new default value
      *

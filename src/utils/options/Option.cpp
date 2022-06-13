@@ -168,7 +168,7 @@ Option_Integer::getInt() const {
 
 
 bool
-Option_Integer::set(const std::string& v) {
+Option_Integer::set(const std::string& v, const bool /* append */) {
     try {
         myValue = StringUtils::toInt(v);
         return markSet();
@@ -210,7 +210,7 @@ Option_String::getString() const {
 
 
 bool
-Option_String::set(const std::string& v) {
+Option_String::set(const std::string& v, const bool /* append */) {
     myValue = v;
     return markSet();
 }
@@ -239,7 +239,7 @@ Option_Float::getFloat() const {
 
 
 bool
-Option_Float::set(const std::string& v) {
+Option_Float::set(const std::string& v, const bool /* append */) {
     try {
         myValue = StringUtils::toDouble(v);
         return markSet();
@@ -274,7 +274,7 @@ Option_Bool::getBool() const {
 
 
 bool
-Option_Bool::set(const std::string& v) {
+Option_Bool::set(const std::string& v, const bool /* append */) {
     try {
         myValue = StringUtils::toBool(v);
         return markSet();
@@ -309,7 +309,7 @@ Option_BoolExtended::Option_BoolExtended(bool value)
 
 
 bool
-Option_BoolExtended::set(const std::string& v) {
+Option_BoolExtended::set(const std::string& v, const bool /* append */) {
     try {
         myValue = StringUtils::toBool(v);
         myValueString = "";
@@ -349,8 +349,10 @@ Option_IntVector::getIntVector() const {
 
 
 bool
-Option_IntVector::set(const std::string& v) {
-    myValue.clear();
+Option_IntVector::set(const std::string& v, const bool append) {
+    if (!append) {
+        myValue.clear();
+    }
     try {
         if (v.find(';') != std::string::npos) {
             WRITE_WARNING("Please note that using ';' as list separator is deprecated and not accepted anymore.");
@@ -395,8 +397,10 @@ Option_StringVector::getStringVector() const {
 
 
 bool
-Option_StringVector::set(const std::string& v) {
-    myValue.clear();
+Option_StringVector::set(const std::string& v, const bool append) {
+    if (!append) {
+        myValue.clear();
+    }
     try {
         if (v.find(';') != std::string::npos) {
             WRITE_WARNING("Please note that using ';' as list separator is deprecated and not accepted anymore.");
@@ -412,6 +416,7 @@ Option_StringVector::set(const std::string& v) {
         throw ProcessError("'" + v + "' is not a valid string vector.");
     }
 }
+
 
 std::string
 Option_StringVector::getValueString() const {

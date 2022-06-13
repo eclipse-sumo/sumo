@@ -77,7 +77,7 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
             if (arg2 == nullptr || (oc.isBool(convert(arg1 + 2)) && arg2[0] == '-')) {
                 ok &= oc.set(convert(arg1 + 2), "true");
             } else {
-                ok &= oc.set(convert(arg1 + 2), convert(arg2));
+                ok &= oc.set(convert(arg1 + 2), convert(arg2), arg1[0] == '+');
                 return 2;
             }
         }
@@ -98,11 +98,11 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
             // check whether the parameter comes directly after the switch
             //  and process if so
             if (arg2 == nullptr || arg1[i + 1] != 0) {
-                ok &= processNonBooleanSingleSwitch(oc, arg1 + i);
+                ok &= processNonBooleanSingleSwitch(oc, arg1 + i, arg1[0] == '+');
                 return 1;
                 // process parameter following after a space
             } else {
-                ok &= oc.set(convert(arg1[i]), convert(arg2));
+                ok &= oc.set(convert(arg1[i]), convert(arg2), arg1[0] == '+');
                 // option name and attribute were in two arguments
                 return 2;
             }
@@ -114,20 +114,20 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
 
 
 bool
-OptionsParser::processNonBooleanSingleSwitch(OptionsCont& oc, const char* arg) {
+OptionsParser::processNonBooleanSingleSwitch(OptionsCont& oc, const char* arg, const bool append) {
     if (arg[1] == '=') {
         if (strlen(arg) < 3) {
             WRITE_ERROR("Missing value for parameter '" + std::string(arg).substr(0, 1) + "'.");
             return false;
         } else {
-            return oc.set(convert(arg[0]), std::string(arg + 2));
+            return oc.set(convert(arg[0]), std::string(arg + 2), append);
         }
     } else {
         if (strlen(arg) < 2) {
             WRITE_ERROR("Missing value for parameter '" + std::string(arg) + "'.");
             return false;
         } else {
-            return oc.set(convert(arg[0]), std::string(arg + 1));
+            return oc.set(convert(arg[0]), std::string(arg + 1), append);
         }
     }
 }
@@ -135,7 +135,7 @@ OptionsParser::processNonBooleanSingleSwitch(OptionsCont& oc, const char* arg) {
 
 bool
 OptionsParser::checkParameter(const char* arg1) {
-    if (arg1[0] != '-') {
+    if (arg1[0] != '-' && arg1[0] != '+') {
         WRITE_ERROR("The parameter '" + std::string(arg1) + "' is not allowed in this context.\n Switch or parameter name expected.");
         return false;
     }
@@ -145,7 +145,7 @@ OptionsParser::checkParameter(const char* arg1) {
 
 bool
 OptionsParser::isAbbreviation(const char* arg1) {
-    return arg1[1] != '-';
+    return arg1[1] != '-' && arg1[1] != '+';
 }
 
 

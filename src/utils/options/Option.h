@@ -161,7 +161,7 @@ public:
      * @return Whether the new value could be set
      * @exception InvalidArgument If the value could not be converted
      */
-    virtual bool set(const std::string& v) = 0;
+    virtual bool set(const std::string& v, const bool append) = 0;
 
 
     /** @brief Returns the string-representation of the value
@@ -331,7 +331,7 @@ public:
      * @return Whether the new value could be set
      * @exception InvalidArgument If the value could not be converted into an integer
      */
-    bool set(const std::string& v);
+    bool set(const std::string& v, const bool append);
 
     /** @brief Returns the string-representation of the value
      *
@@ -384,7 +384,7 @@ public:
      * @see bool Option::set(std::string v)
      * @return Whether the new value could be set
      */
-    bool set(const std::string& v);
+    bool set(const std::string& v, const bool append);
 
     /** @brief Returns the string-representation of the value
      *
@@ -436,7 +436,7 @@ public:
      * @return Whether the new value could be set
      * @exception InvalidArgument If the value could not be converted into a double
      */
-    bool set(const std::string& v);
+    bool set(const std::string& v, const bool append);
 
     /** @brief Returns the string-representation of the value
      *
@@ -473,7 +473,7 @@ public:
     bool getBool() const;
 
     /** sets the given value (converts it to bool) */
-    bool set(const std::string& v);
+    bool set(const std::string& v, const bool append);
 
     /** @brief Returns the string-representation of the value
      *
@@ -515,7 +515,7 @@ public:
     Option_BoolExtended(bool value);
 
     /** sets the given value (converts it to bool) */
-    bool set(const std::string& v);
+    bool set(const std::string& v, const bool append);
 
     /** @brief Returns the string-representation of the value
      *
@@ -569,7 +569,7 @@ public:
      * @return Whether the new value could be set
      * @exception InvalidArgument If the value could not be converted into a vector of integers
      */
-    bool set(const std::string& v);
+    bool set(const std::string& v, const bool append);
 
     /** @brief Returns the string-representation of the value
      *
@@ -623,7 +623,7 @@ public:
      * @exception InvalidArgument If the value could not be converted into a
      * vector of strings
      */
-    bool set(const std::string& v);
+    bool set(const std::string& v, const bool append);
 
     /** @brief Returns the string-representation of the value
      *

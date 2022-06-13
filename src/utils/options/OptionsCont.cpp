@@ -234,7 +234,7 @@ OptionsCont::getStringVector(const std::string& name) const {
 
 
 bool
-OptionsCont::set(const std::string& name, const std::string& value) {
+OptionsCont::set(const std::string& name, const std::string& value, const bool append) {
     Option* o = getSecure(name);
     if (!o->isWriteable()) {
         reportDoubleSetting(name);
@@ -242,7 +242,7 @@ OptionsCont::set(const std::string& name, const std::string& value) {
     }
     try {
         // Substitute environment variables defined by ${NAME} with their value
-        if (!o->set(StringUtils::substituteEnvironment(value, &OptionsIO::getLoadTime()))) {
+        if (!o->set(StringUtils::substituteEnvironment(value, &OptionsIO::getLoadTime()), append)) {
             return false;
         }
     } catch (ProcessError& e) {
@@ -345,7 +345,7 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
             const std::string conv = joinToString(fileList, ',');
             if (conv != joinToString(option->getStringVector(), ',')) {
                 const bool hadDefault = option->isDefault();
-                option->set(conv);
+                option->set(conv, false);
                 if (hadDefault) {
                     option->resetDefault();
                 }
@@ -357,9 +357,7 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
 
 bool
 OptionsCont::isUsableFileList(const std::string& name) const {
-    Option* o = getSecure(name);
-    // check whether the option is set
-    //  return false i not
+    Option* const o = getSecure(name);
     if (!o->isSet()) {
         return false;
     }
