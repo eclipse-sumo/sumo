@@ -52,6 +52,7 @@
 #include "locate.xpm"
 #include "locate_junction.xpm"
 #include "locate_edge.xpm"
+#include "locate_walkingarea.xpm"
 #include "locate_vehicle.xpm"
 #include "locate_route.xpm"
 #include "locate_stop.xpm"
@@ -481,6 +482,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::LOCATE] = new FXXPMIcon(a, locate_xpm);
     myIcons[GUIIcon::LOCATEJUNCTION] = new FXXPMIcon(a, locate_junction_xpm);
     myIcons[GUIIcon::LOCATEEDGE] = new FXXPMIcon(a, locate_edge_xpm);
+    myIcons[GUIIcon::LOCATEWALKINGAREA] = new FXXPMIcon(a, locate_walkingarea_xpm);
     myIcons[GUIIcon::LOCATEVEHICLE] = new FXXPMIcon(a, locate_vehicle_xpm);
     myIcons[GUIIcon::LOCATEROUTE] = new FXXPMIcon(a, locate_route_xpm);
     myIcons[GUIIcon::LOCATESTOP] = new FXXPMIcon(a, locate_stop_xpm);
