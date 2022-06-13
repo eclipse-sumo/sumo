@@ -114,3 +114,6 @@ junctionTaz_validate
 
 # prevent some edge types from being used as source or destination
 viaEdgeType
+
+# This test makes sure that the options --random-departpos and --random-arrivalpos work as intended.
+random-departpos_random-arrivalpos
