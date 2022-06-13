@@ -266,7 +266,7 @@ GNEVehicleFrame::demandElementSelected() {
 void
 GNEVehicleFrame::createPath(const bool useLastRoute) {
     // first check if parameters are valid
-    if (myVehicleAttributes->areValuesValid()) {
+    if (myVehicleAttributes->areValuesValid() && myTypeSelector->getCurrentDemandElement()) {
         // obtain tag (only for improve code legibility)
         SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
         // begin cleaning vehicle base object
