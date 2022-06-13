@@ -374,11 +374,11 @@ NLDetectorBuilder::endE3Detector() {
         det->updateParameters(myE3Definition->getParametersMap());
         // add to net
         myNet.getDetectorControl().add(SUMO_TAG_ENTRY_EXIT_DETECTOR, det, myE3Definition->myDevice, myE3Definition->mySampleInterval);
-    } else
+    } else {
         WRITE_WARNING(toString(SUMO_TAG_E3DETECTOR) + " with id = '" + myE3Definition->myID + "' will not be created because is empty (no " + toString(SUMO_TAG_DET_ENTRY) + " or " + toString(SUMO_TAG_DET_EXIT) + " was defined)")
-
-        // clean up
-        delete myE3Definition;
+    }
+    // clean up
+    delete myE3Definition;
     myE3Definition = nullptr;
 }
 
