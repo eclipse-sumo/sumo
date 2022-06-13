@@ -184,7 +184,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("street name", false, getStreetName());
     ret->mkItem("pending insertions [#]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getPendingEmits));
-    ret->mkItem("Friction Coefficient [%]", true, new FunctionBinding<GUIEdge, double>(this, &MSEdge::getMeanFriction, 100.));
+    ret->mkItem("mean friction [%]", true, new FunctionBinding<GUIEdge, double>(this, &MSEdge::getMeanFriction, 100.));
     ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getMeanSpeed));
     ret->mkItem("routing speed [m/s]", true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getRoutingSpeed));
     ret->mkItem("time penalty [s]", true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getTimePenalty));
