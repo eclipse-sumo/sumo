@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 #include "GNENetworkElement.h"
+#include <utils/gui/globjects/GUIPolygon.h>
 #include <netbuild/NBNode.h>
 
 // ===========================================================================

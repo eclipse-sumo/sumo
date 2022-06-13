@@ -417,6 +417,9 @@ protected:
         /// @brief pointer to ACChooser dialog used for locate edges
         GNEDialogACChooser* ACChooserEdges;
 
+        /// @brief pointer to ACChooser dialog used for locate walkingareas
+        GNEDialogACChooser* ACChooserWalkingAreas;
+
         /// @brief pointer to ACChooser dialog used for locate vehicles
         GNEDialogACChooser* ACChooserVehicles;
 

@@ -328,7 +328,11 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
                  "\tLocate Edges\tLocate an edge within the network. (Shift+E)",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-
+    // for walkingAreas
+    new FXButton(v->getLocatorPopup(),
+                 "\tLocate WalkingAreas\tLocate an walkingArea within the network. (Shift+W)",
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), v, MID_LOCATEWALKINGAREA,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for vehicles
     new FXButton(v->getLocatorPopup(),
                  "\tLocate Vehicles\tLocate a vehicle within the network. (Shift+V)",

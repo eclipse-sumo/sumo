@@ -353,6 +353,8 @@ enum {
     MID_LOCATEJUNCTION,
     /// @brief Locate edge - button
     MID_LOCATEEDGE,
+    /// @brief Locate edge - button
+    MID_LOCATEWALKINGAREA,
     /// @brief Locate vehicle - button
     MID_LOCATEVEHICLE,
     /// @brief Locate route - button

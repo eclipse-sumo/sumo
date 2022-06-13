@@ -1587,6 +1587,9 @@ GNEApplicationWindowHelper::LocateMenuCommands::buildLocateMenuCommands(FXMenuPa
                                            "Locate &Edges", "Shift+E", "Open a dialog for locating an Edge.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), myGNEApp, MID_LOCATEEDGE);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
+                                           "Locate &WalkingAreas", "Shift+W", "Open a dialog for locating a Walking Area.",
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), myGNEApp, MID_LOCATEWALKINGAREA);
+    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            "Locate &Vehicles", "Shift+V", "Open a dialog for locating a Vehicle.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), myGNEApp, MID_LOCATEVEHICLE);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,

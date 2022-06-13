@@ -23,6 +23,7 @@
 
 #include <netedit/dialogs/GNEDialogACChooser.h>
 #include <netedit/elements/additional/GNEAdditional.h>
+#include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
@@ -64,6 +65,7 @@ FXDEFMAP(GNEViewParent) GNEViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_MAKESNAPSHOT,                       GNEViewParent::onCmdMakeSnapshot),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,                     GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                         GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEWALKINGAREA,                  GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,                      GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPERSON,                       GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEROUTE,                        GNEViewParent::onCmdLocate),
@@ -373,6 +375,8 @@ GNEViewParent::eraseACChooserDialog(GNEDialogACChooser* chooserDialog) {
         myACChoosers.ACChooserJunction = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserEdges) {
         myACChoosers.ACChooserEdges = nullptr;
+    } else if (chooserDialog == myACChoosers.ACChooserWalkingAreas) {
+        myACChoosers.ACChooserWalkingAreas = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserVehicles) {
         myACChoosers.ACChooserVehicles = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserPersons) {
@@ -499,6 +503,21 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                         ACsToLocate.push_back(edge.second);
                     }
                     myACChoosers.ACChooserEdges = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), "Edge Chooser", ACsToLocate);
+                }
+                break;
+            }
+            case MID_LOCATEWALKINGAREA: {
+                if (myACChoosers.ACChooserWalkingAreas) {
+                    // restore focus in the existent chooser dialog
+                    myACChoosers.ACChooserWalkingAreas->restore();
+                    myACChoosers.ACChooserWalkingAreas->setFocus();
+                } else {
+                    // fill ACsToLocate with walkingAreas
+                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getWalkingAreas().size());
+                    for (const auto& walkingArea : viewNet->getNet()->getAttributeCarriers()->getWalkingAreas()) {
+                        ACsToLocate.push_back(walkingArea);
+                    }
+                    myACChoosers.ACChooserWalkingAreas = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), "WalkingArea Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -1098,6 +1117,7 @@ GNEViewParent::DataFrames::getCurrentShownFrame() const {
 GNEViewParent::ACChoosers::ACChoosers() :
     ACChooserJunction(nullptr),
     ACChooserEdges(nullptr),
+    ACChooserWalkingAreas(nullptr),
     ACChooserVehicles(nullptr),
     ACChooserPersons(nullptr),
     ACChooserRoutes(nullptr),
@@ -1118,6 +1138,9 @@ GNEViewParent::ACChoosers::~ACChoosers() {
     }
     if (ACChooserEdges) {
         delete ACChooserEdges;
+    }
+    if (ACChooserWalkingAreas) {
+        delete ACChooserWalkingAreas;
     }
     if (ACChooserRoutes) {
         delete ACChooserRoutes;
