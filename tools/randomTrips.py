@@ -148,6 +148,10 @@ def get_options(args=None):
                            help="Whether to produce trip output that is already checked for connectivity")
     optParser.add_argument("-v", "--verbose", action="store_true",
                            default=False, help="tell me what you are doing")
+    optParser.add_argument("--random-departpos", dest="randomDepartPos", action="store_true",
+                           help="Randomly choose a position on the starting edge of the trip")
+    optParser.add_argument("--random-arrivalpos", dest="randomArrivalPos", action="store_true",
+                           help="Randomly choose a position on the ending edge of the trip")
     options = optParser.parse_args(args=args)
     if not options.netfile:
         optParser.print_help()
@@ -181,6 +185,16 @@ def get_options(args=None):
 
         if 'type=' in options.tripattrs:
             print("Error: trip-attribute 'type' cannot be used together with option --vehicle-class", file=sys.stderr)
+            sys.exit(1)
+            
+    if options.randomDepartPos:
+        if 'departPos' in options.tripattrs:
+            print("Error: trip-attribute 'departPos' cannot be used together with option --random-departpos", file=sys.stderr)
+            sys.exit(1)
+            
+    if options.randomArrivalPos:
+        if 'arrivalPos' in options.tripattrs:
+            print("Error: trip-attribute 'arrivalPos' cannot be used together with option --random-arrivalpos", file=sys.stderr)
             sys.exit(1)
 
     if options.viaEdgeTypes:
@@ -462,6 +476,10 @@ def prependSpace(s):
         return " " + s
 
 
+def samplePosition(edge):
+    return random.uniform(0.0, edge.getLength())
+
+
 def main(options):
     if not options.random:
         random.seed(options.seed)
@@ -493,6 +511,12 @@ def main(options):
                 options.min_distance, options.max_distance, options.maxtries,
                 options.junctionTaz)
             combined_attrs = options.tripattrs
+            if options.randomDepartPos:
+                randomPosition = samplePosition(source_edge)
+                combined_attrs += ' departPos="%.2f"' % randomPosition
+            if options.randomArrivalPos:
+                randomPosition = samplePosition(sink_edge)
+                combined_attrs += ' arrivalPos="%.2f"' % randomPosition
             if options.fringeattrs and source_edge.is_fringe(
                     source_edge._incoming, checkJunctions=options.fringeJunctions):
                 combined_attrs += " " + options.fringeattrs
