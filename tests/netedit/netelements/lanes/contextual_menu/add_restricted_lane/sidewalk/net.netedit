@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-20 10:56:46 by Eclipse SUMO netedit Version v1_11_0+1305-0448234e9dc
+<!-- generated on 2022-06-13 09:27:14 by Eclipse SUMO netedit Version v1_13_0+0782-7ebc6a11477
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092519.1232\netedit.gui\netelements\lanes\contextual_menu\add_restricted_lane\sidewalk\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092519.1232\netedit.gui\netelements\lanes\contextual_menu\add_restricted_lane\sidewalk\net.net.xml"/>
     </output>
 
     <processing>
@@ -27,38 +27,37 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="true"/>
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092519.1232\netedit.gui\netelements\lanes\contextual_menu\add_restricted_lane\sidewalk\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092519.1232\netedit.gui\netelements\lanes\contextual_menu\add_restricted_lane\sidewalk\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092519.1232\netedit.gui\netelements\lanes\contextual_menu\add_restricted_lane\sidewalk\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092519.1232\netedit.gui\netelements\lanes\contextual_menu\add_restricted_lane\sidewalk\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092519.1232\netedit.gui\netelements\lanes\contextual_menu\add_restricted_lane\sidewalk\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092519.1232\netedit.gui\netelements\lanes\contextual_menu\add_restricted_lane\sidewalk\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092519.1232\netedit.gui\netelements\lanes\contextual_menu\add_restricted_lane\sidewalk\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092519.1232\netedit.gui\netelements\lanes\contextual_menu\add_restricted_lane\sidewalk\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092519.1232\netedit.gui\netelements\lanes\contextual_menu\add_restricted_lane\sidewalk\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -98,14 +97,8 @@
     <edge id=":gneJ2_1" function="internal">
         <lane id=":gneJ2_1_0" index="0" disallow="pedestrian" speed="5.99" length="7.49" shape="1.60,12.80 1.82,15.25 2.50,17.00 3.62,18.05 5.20,18.40"/>
     </edge>
-    <edge id=":gneJ2_c0" function="crossing" crossingEdges="gneE2 -gneE2">
-        <lane id=":gneJ2_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="3.20,16.80 3.20,23.20"/>
-    </edge>
     <edge id=":gneJ2_w0" function="walkingarea">
-        <lane id=":gneJ2_w0_0" index="0" allow="pedestrian" speed="1.00" length="5.97" width="4.00" shape="1.20,16.80 5.20,16.80 5.20,14.80 3.20,12.80 0.00,12.80 0.00,12.80 -3.20,12.80 5.20,23.20 5.20,20.00"/>
-    </edge>
-    <edge id=":gneJ2_w1" function="walkingarea">
-        <lane id=":gneJ2_w1_0" index="0" allow="pedestrian" speed="1.00" length="10.56" width="4.00" shape="1.20,23.20 5.20,23.20 -3.20,12.80 -3.20,16.80"/>
+        <lane id=":gneJ2_w0_0" index="0" allow="pedestrian" speed="1.00" length="6.96" width="3.20" shape="5.20,16.80 5.20,14.80 3.20,12.80 0.00,12.80 0.00,12.80 -3.20,12.80 5.20,23.20 5.20,20.00"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
         <lane id=":gneJ3_0_0" index="0" speed="7.58" length="12.62" shape="51.60,12.80 51.17,16.65 49.90,19.40 47.78,21.05 44.80,21.60"/>
@@ -113,14 +106,8 @@
     <edge id=":gneJ3_1" function="internal">
         <lane id=":gneJ3_1_0" index="0" disallow="pedestrian" speed="5.99" length="7.49" shape="44.80,18.40 46.38,18.05 47.50,17.00 48.17,15.25 48.40,12.80"/>
     </edge>
-    <edge id=":gneJ3_c1" function="crossing" crossingEdges="-gneE2 gneE2">
-        <lane id=":gneJ3_c1_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="46.80,23.20 46.80,16.80"/>
-    </edge>
     <edge id=":gneJ3_w0" function="walkingarea">
-        <lane id=":gneJ3_w0_0" index="0" allow="pedestrian" speed="1.00" length="5.97" width="4.00" shape="44.80,20.00 44.80,23.20 53.20,12.80 50.00,12.80 50.00,12.80 46.80,12.80 44.80,14.80 44.80,16.80 48.80,16.80"/>
-    </edge>
-    <edge id=":gneJ3_w1" function="walkingarea">
-        <lane id=":gneJ3_w1_0" index="0" allow="pedestrian" speed="1.00" length="10.56" width="4.00" shape="53.20,16.80 53.20,12.80 44.80,23.20 48.80,23.20"/>
+        <lane id=":gneJ3_w0_0" index="0" allow="pedestrian" speed="1.00" length="6.96" width="3.20" shape="44.80,20.00 44.80,23.20 53.20,12.80 50.00,12.80 50.00,12.80 46.80,12.80 44.80,14.80 44.80,16.80"/>
     </edge>
 
     <edge id="-gneE2" from="gneJ3" to="gneJ2" priority="1">
@@ -159,15 +146,13 @@
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="001" foes="001" cont="1"/>
     </junction>
-    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="-gneE2_0 gneE9_0 :gneJ2_w0_0" intLanes=":gneJ2_0_0 :gneJ2_1_0 :gneJ2_c0_0" shape="5.20,23.20 5.20,14.80 4.09,14.58 3.70,14.30 3.42,13.91 3.26,13.41 3.20,12.80 -3.20,12.80 -2.97,15.98 -2.27,18.58 -1.10,20.60 0.53,22.04 2.63,22.91">
-        <request index="0" response="000" foes="100" cont="0"/>
-        <request index="1" response="100" foes="100" cont="0"/>
-        <request index="2" response="001" foes="011" cont="0"/>
+    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="-gneE2_0 gneE9_0" intLanes=":gneJ2_0_0 :gneJ2_1_0" shape="5.20,23.20 5.20,14.80 4.09,14.58 3.70,14.30 3.42,13.91 3.26,13.41 3.20,12.80 -3.20,12.80 -2.97,15.98 -2.27,18.58 -1.10,20.60 0.53,22.04 2.63,22.91">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ3" type="priority" x="50.00" y="20.00" incLanes="gneE5_0 gneE2_0 gneE2_1 :gneJ3_w1_0" intLanes=":gneJ3_0_0 :gneJ3_1_0 :gneJ3_c1_0" shape="53.20,12.80 46.80,12.80 46.58,13.91 46.30,14.30 45.91,14.58 45.41,14.74 44.80,14.80 44.80,23.20 47.37,22.91 49.47,22.04 51.10,20.60 52.27,18.58 52.97,15.98">
-        <request index="0" response="100" foes="100" cont="0"/>
-        <request index="1" response="000" foes="100" cont="0"/>
-        <request index="2" response="010" foes="011" cont="0"/>
+    <junction id="gneJ3" type="priority" x="50.00" y="20.00" incLanes="gneE5_0 gneE2_0 gneE2_1" intLanes=":gneJ3_0_0 :gneJ3_1_0" shape="53.20,12.80 46.80,12.80 46.58,13.91 46.30,14.30 45.91,14.58 45.41,14.74 44.80,14.80 44.80,23.20 47.37,22.91 49.47,22.04 51.10,20.60 52.27,18.58 52.97,15.98">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
     </junction>
 
     <junction id=":gneJ0_3_0" type="internal" x="2.12" y="0.88" incLanes=":gneJ0_2_0 gneE8_0" intLanes=":gneJ0_0_0"/>
@@ -180,9 +165,9 @@
     <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_2_0" dir="t" state="m"/>
     <connection from="gneE2" to="gneE4" fromLane="1" toLane="0" via=":gneJ3_1_0" dir="r" state="M"/>
     <connection from="gneE4" to="gneE1" fromLane="0" toLane="0" keepClear="0" via=":gneJ1_0_0" dir="r" state="M"/>
-    <connection from="gneE5" to="-gneE2" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="l" state="m"/>
+    <connection from="gneE5" to="-gneE2" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="l" state="M"/>
     <connection from="gneE8" to="gneE0" fromLane="0" toLane="0" keepClear="0" via=":gneJ0_0_0" dir="l" state="M"/>
-    <connection from="gneE9" to="gneE2" fromLane="0" toLane="1" via=":gneJ2_1_0" dir="r" state="m"/>
+    <connection from="gneE9" to="gneE2" fromLane="0" toLane="1" via=":gneJ2_1_0" dir="r" state="M"/>
 
     <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":gneJ0_1" to="gneE9" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -205,16 +190,12 @@
     <connection from=":gneJ1_w0" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="gneE4" to=":gneJ1_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="gneE0" to=":gneJ1_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ2_c0" to=":gneJ2_w1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ2_w0" to=":gneJ2_c0" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from=":gneJ2_w0" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ2_w0" to="gneE8" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="gneE9" to=":gneJ2_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-gneE2" to=":gneJ2_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ3_c1" to=":gneJ3_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ3_w0" to="-gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ3_w0" to="gneE4" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="gneE5" to=":gneJ3_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="gneE2" to=":gneJ3_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ3_w1" to=":gneJ3_c1" fromLane="0" toLane="0" dir="s" state="m"/>
 </net>

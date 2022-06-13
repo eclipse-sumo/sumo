@@ -1,2 +1,8 @@
 Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.net.edges.08Apr202457.3639/netedit.daily.net.edges/netelements/edges/contextual_menu/straighten_elevation_edge/input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092528.8024\netedit.gui\netelements\edges\contextual_menu\straighten_elevation_edge\input_additionals.add.xml failed.
+Warning: Discarding invalid crossing ':gneJ2_c0' at junction 'gneJ2' with edges [gneE2] (no vehicle lanes to cross).
+Warning: Discarding invalid crossing ':gneJ2_c1' at junction 'gneJ2' with edges [gneE8 gneE9] (no vehicle lanes to cross).
+Warning: Discarding invalid crossing ':gneJ3_c0' at junction 'gneJ3' with edges [gneE4 gneE5] (no vehicle lanes to cross).
+Warning: Discarding invalid crossing ':gneJ3_c1' at junction 'gneJ3' with edges [gneE2] (no vehicle lanes to cross).
+Warning: Discarding invalid crossing ':gneJ2_c0' at junction 'gneJ2' with edges [gneE2] (no vehicle lanes to cross).
+Warning: 16 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross).
