@@ -225,7 +225,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                         transportable->appendStage(previous, stageIndex++);
                     } else if (isTaxi) {
                         const ConstMSEdgeVector& prevEdges = previous->getEdges();
-                        if (prevEdges.size() >= 2) {
+                        if (prevEdges.size() >= 2 && previous->getDestinationStop() == nullptr) {
                             // determine walking direction and let the previous
                             // stage end after entering its final edge
                             const MSEdge* last = prevEdges.back();
