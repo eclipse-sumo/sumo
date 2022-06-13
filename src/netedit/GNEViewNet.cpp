@@ -330,7 +330,7 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for walkingAreas
     new FXButton(v->getLocatorPopup(),
-                 "\tLocate WalkingAreas\tLocate an walkingArea within the network. (Shift+W)",
+                 "\tLocate WalkingAreas\tLocate a walkingArea within the network. (Shift+W)",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), v, MID_LOCATEWALKINGAREA,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for vehicles
