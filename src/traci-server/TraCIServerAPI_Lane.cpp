@@ -137,6 +137,11 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 libsumo::Lane::setMaxSpeed(id, value);
                 break;
             }
+            case libsumo::VAR_FRICTION: {
+                const double value = StoHelp::readTypedDouble(inputStorage, "The friction must be given as a double.");
+                libsumo::Lane::setFriction(id, value);
+                break;
+            }
             case libsumo::VAR_LENGTH: {
                 const double value = StoHelp::readTypedDouble(inputStorage, "The length must be given as a double.");
                 libsumo::Lane::setLength(id, value);

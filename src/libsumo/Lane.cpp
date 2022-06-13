@@ -77,6 +77,10 @@ Lane::getMaxSpeed(std::string laneID) {
     return getLane(laneID)->getSpeedLimit();
 }
 
+double
+Lane::getFriction(std::string laneID) {
+    return getLane(laneID)->getFrictionCoefficient();
+}
 
 int
 Lane::getLinkNumber(std::string laneID) {
@@ -349,6 +353,11 @@ Lane::setLength(std::string laneID, double length) {
     l->setLength(length);
 }
 
+void
+Lane::setFriction(std::string laneID, double friction) {
+    MSLane* l = const_cast<MSLane*>(getLane(laneID));
+    l->setFrictionCoefficient(friction);
+}
 
 std::string
 Lane::getParameter(const std::string& laneID, const std::string& param) {
@@ -406,6 +415,8 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapDouble(objID, variable, getLength(objID));
         case VAR_MAXSPEED:
             return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
+        case VAR_FRICTION:
+            return wrapper->wrapDouble(objID, variable, getFriction(objID));
         case LANE_ALLOWED:
             return wrapper->wrapStringList(objID, variable, getAllowed(objID));
         case LANE_DISALLOWED:
