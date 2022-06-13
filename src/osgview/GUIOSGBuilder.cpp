@@ -156,6 +156,9 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
 		const int upperShapeSize = originalSize * geomFactor;
 		const int totalShapeSize = (extrude) ? originalSize * 2 * geomFactor : originalSize * geomFactor;
         const float zOffset = (extrude)? 0.1f : (edge.isCrossing())? 0.01f : 0.f;
+		osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
+		(*osg_colors)[0].set(128, 128, 128, 255);
+		geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
         osg::Vec3Array* osg_coords = new osg::Vec3Array(totalShapeSize);
         geom->setVertexArray(osg_coords);
         int sizeDiff = 0;
@@ -164,6 +167,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
             for (int k = 0; k < upperShapeSize; ++k, --index) {
                 (*osg_coords)[index].set((float)shape[k].x(), (float)shape[k].y(), (float)shape[k].z() + zOffset);
             }
+			geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, upperShapeSize));
         } else {
 			int index = 0;
 			PositionVector rshape = shape;
@@ -176,24 +180,15 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
 			for (int k = 0; k < (int)lshape.size(); ++k, ++index) {
 				(*osg_coords)[index].set((float)lshape[k].x(), (float)lshape[k].y(), (float)lshape[k].z() + zOffset);
 			}
-			sizeDiff = (int)rshape.size() + (int)lshape.size() - upperShapeSize;			
-        }
-        osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
-        (*osg_colors)[0].set(128, 128, 128, 255);
-        geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
-
-		if(edge.isWalkingArea()) {
-			geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, upperShapeSize));
-		}
-		else {
+			sizeDiff = (int)rshape.size() + (int)lshape.size() - upperShapeSize;
+			int minSize = MIN2((int)rshape.size(), (int)lshape.size());
 			osg::DrawElementsUInt* surface = new osg::DrawElementsUInt(osg::PrimitiveSet::TRIANGLE_STRIP, 0);
-			for (int i = 0; i < originalSize; ++i) {
+			for (int i = 0; i < minSize; ++i) {
 				surface->push_back(i);
-				surface->push_back(2*originalSize - i - 1);
+				surface->push_back(upperShapeSize + sizeDiff - 1 - i);
 			}
-			geom->addPrimitiveSet(surface);
-		}
-
+			geom->addPrimitiveSet(surface);			
+        }
 		if (extrude) {
 			int index = upperShapeSize;
 			for (int k = 0; k < upperShapeSize + sizeDiff; ++k, ++index) {
@@ -201,13 +196,13 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
 			}
 			// extrude edge to create the kerb
 			for (int i = 0; i < upperShapeSize + sizeDiff; ++i) {
-				osg::Vec3 surfaceVec = (*osg_coords)[i] - (*osg_coords)[(i + 1) % upperShapeSize];
+				osg::Vec3 surfaceVec = (*osg_coords)[i] - (*osg_coords)[(i + 1) % (upperShapeSize + sizeDiff)];
 				if (surfaceVec.length() > 0.) {					
 					osg::DrawElementsUInt* kerb = new osg::DrawElementsUInt(osg::PrimitiveSet::POLYGON, 0);
 					kerb->push_back(i);
 					kerb->push_back(upperShapeSize + i);
-					kerb->push_back(upperShapeSize + (i + 1) % upperShapeSize);
-					kerb->push_back((i + 1) % upperShapeSize);
+					kerb->push_back(upperShapeSize + (i + 1) % (upperShapeSize + sizeDiff));
+					kerb->push_back((i + 1) % (upperShapeSize + sizeDiff));
 					geom->addPrimitiveSet(kerb);
 				}
 			}
