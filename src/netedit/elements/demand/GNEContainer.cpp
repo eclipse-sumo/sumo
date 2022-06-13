@@ -267,15 +267,21 @@ GNEContainer::writeDemandElement(OutputDevice& device) const {
 
 GNEDemandElement::Problem
 GNEContainer::isDemandElementValid() const {
-    // a single container is always valid
-    return Problem::OK;
+    if (getChildDemandElements().size() == 0) {
+        return Problem::NO_PLANS;
+    } else {
+        return Problem::OK;
+    }
 }
 
 
 std::string
 GNEContainer::getDemandElementProblem() const {
-    // A single container cannot habe problem (but their children)
-    return "";
+    if (getChildDemandElements().size() == 0) {
+        return "Container needs at least one plan";
+    } else {
+        return "";
+    }
 }
 
 
