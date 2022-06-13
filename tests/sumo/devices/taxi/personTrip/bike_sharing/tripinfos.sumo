@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-13 14:35:48 by Eclipse SUMO GUI Version v1_13_0+0784-2e53121
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net3.net.xml"/>
+        <route-files value="input_routes.rou.xml,input_routes2.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <persontrip.transfer.taxi-walk value="ptStops"/>
+        <persontrip.transfer.walk-taxi value="ptStops"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="1" depart="0.00" type="DEFAULT_PEDTYPE">
+        <walk depart="0.00" departPos="0.00" arrival="594.00" arrivalPos="142.80" duration="594.00" routeLength="742.80" timeLoss="59.18" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE">
+        <walk depart="0.00" departPos="0.00" arrival="251.00" arrivalPos="10.00" duration="251.00" routeLength="310.00" timeLoss="27.80" maxSpeed="1.39"/>
+        <ride waitingTime="154.00" vehicle="bikeA" depart="405.00" arrival="533.00" arrivalPos="142.80" duration="128.00" routeLength="645.97" timeLoss="11.73"/>
+        <walk depart="533.00" departPos="142.80" arrival="774.00" arrivalPos="142.80" duration="241.00" routeLength="300.00" timeLoss="25.00" maxSpeed="1.39"/>
+    </personinfo>
+    <tripinfo id="bikeA" depart="0.00" departLane="A0B0_1" departPos="1.70" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="775.00" routeLength="1137.53" waitingTime="6.00" waitingCount="2" stopTime="545.00" timeLoss="25.26" rerouteNo="2" devices="tripinfo_bikeA routing_bikeA taxi_bikeA person_bikeA" vType="shared_bike" speedFactor="1.00" vaporized="">
+        <taxi customers="1" occupiedDistance="645.97" occupiedTime="130.00"/>
+    </tripinfo>
+    <tripinfo id="bikeB" depart="0.00" departLane="A2B2_1" departPos="1.70" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="775.00" routeLength="0.10" waitingTime="0.00" waitingCount="0" stopTime="775.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_bikeB routing_bikeB taxi_bikeB" vType="shared_bike" speedFactor="1.00" vaporized="">
+        <taxi customers="0" occupiedDistance="0.00" occupiedTime="0.00"/>
+    </tripinfo>
+</tripinfos>
