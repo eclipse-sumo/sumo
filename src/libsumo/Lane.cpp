@@ -245,6 +245,7 @@ Lane::getLastStepVehicleNumber(std::string laneID) {
     return (int)getLane(laneID)->getVehicleNumber();
 }
 
+
 int
 Lane::getLastStepHaltingNumber(std::string laneID) {
     const MSLane* lane = getLane(laneID);
@@ -308,15 +309,16 @@ Lane::getInternalFoes(const std::string& laneID) {
 
 const std::vector<std::string>
 Lane::getPendingVehicles(const std::string& laneID) {
-    getLane(laneID); // validate laneID
+    MSLane* const l = getLane(laneID); // validate laneID
     std::vector<std::string> vehIDs;
     for (const SUMOVehicle* veh : MSNet::getInstance()->getInsertionControl().getPendingVehicles()) {
-        if (veh->getLane() != nullptr && veh->getLane()->getID() == laneID) {
+        if (veh->getLane() == l) {
             vehIDs.push_back(veh->getID());
         }
     }
     return vehIDs;
 }
+
 
 void
 Lane::setAllowed(std::string laneID, std::string allowedClass) {
@@ -326,7 +328,7 @@ Lane::setAllowed(std::string laneID, std::string allowedClass) {
 
 void
 Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
+    MSLane* const l = getLane(laneID);
     l->setPermissions(parseVehicleClasses(allowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT);
     l->getEdge().rebuildAllowedLanes();
 }
@@ -334,7 +336,7 @@ Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
 
 void
 Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClasses) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
+    MSLane* const l = getLane(laneID);
     l->setPermissions(invertPermissions(parseVehicleClasses(disallowedClasses)), MSLane::CHANGE_PERMISSIONS_PERMANENT); // negation yields allowed
     l->getEdge().rebuildAllowedLanes();
 }
@@ -342,22 +344,21 @@ Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClass
 
 void
 Lane::setMaxSpeed(std::string laneID, double speed) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
-    l->setMaxSpeed(speed);
+    getLane(laneID)->setMaxSpeed(speed);
 }
 
 
 void
 Lane::setLength(std::string laneID, double length) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
-    l->setLength(length);
+    getLane(laneID)->setLength(length);
 }
+
 
 void
 Lane::setFriction(std::string laneID, double friction) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
-    l->setFrictionCoefficient(friction);
+    getLane(laneID)->setFrictionCoefficient(friction);
 }
+
 
 std::string
 Lane::getParameter(const std::string& laneID, const std::string& param) {
@@ -370,21 +371,20 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Lane)
 
 void
 Lane::setParameter(const std::string& laneID, const std::string& key, const std::string& value) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
-    l->setParameter(key, value);
+    getLane(laneID)->setParameter(key, value);
 }
 
 
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Lane, LANE)
 
 
-const MSLane*
+MSLane*
 Lane::getLane(const std::string& id) {
-    const MSLane* r = MSLane::dictionary(id);
-    if (r == nullptr) {
+    MSLane* const lane = MSLane::dictionary(id);
+    if (lane == nullptr) {
         throw TraCIException("Lane '" + id + "' is not known");
     }
-    return r;
+    return lane;
 }
 
 

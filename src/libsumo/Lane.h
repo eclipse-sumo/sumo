@@ -103,7 +103,7 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
-    static const MSLane* getLane(const std::string& id);
+    static MSLane* getLane(const std::string& id);
 
 private:
     static SubscriptionResults mySubscriptionResults;
