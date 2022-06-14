@@ -661,7 +661,7 @@ class parkingSpace:
 class E1:
     class create:
         id = 5
-        freq = 6
+        period = 6
         name = 7
         file = 8
         vTypes = 9
@@ -671,7 +671,7 @@ class E1:
         id = 1
         lane = 2
         pos = 3
-        freq = 4
+        period = 4
         name = 5
         file = 6
         vTypes = 7
@@ -679,7 +679,7 @@ class E1:
         parameters = 11
 
     class inspectSelection:
-        freq = 1
+        period = 1
         name = 2
         file = 3
         vTypes = 4
@@ -693,7 +693,7 @@ class E2:
     class create:
         id = 5
         length = 6
-        freq = 7
+        period = 7
         tl = 8
         name = 9
         file = 10
@@ -708,7 +708,7 @@ class E2:
         lane = 2
         pos = 3
         length = 4
-        freq = 5
+        period = 5
         tl = 6
         name = 7
         file = 8
@@ -721,7 +721,7 @@ class E2:
 
     class inspectSelection:
         length = 1
-        freq = 2
+        period = 2
         tl = 3
         name = 4
         file = 5
@@ -738,7 +738,7 @@ class E2:
 class E2Multilane:
     class create:
         id = 5
-        freq = 6
+        period = 6
         tl = 7
         name = 8
         file = 9
@@ -753,7 +753,7 @@ class E2Multilane:
         lanes = 2
         pos = 3
         endPos = 4
-        freq = 5
+        period = 5
         tl = 6
         name = 7
         file = 8
@@ -765,7 +765,7 @@ class E2Multilane:
         parameters = 16
 
     class inspectSelection:
-        freq = 1
+        period = 1
         tl = 2
         name = 3
         file = 4
@@ -782,7 +782,7 @@ class E2Multilane:
 class E3:
     class create:
         id = 5
-        freq = 6
+        period = 6
         name = 7
         file = 8
         vTypes = 9
@@ -792,7 +792,7 @@ class E3:
     class inspect:
         id = 1
         pos = 2
-        freq = 3
+        period = 3
         name = 4
         file = 5
         vTypes = 6
@@ -801,7 +801,7 @@ class E3:
         parameters = 11
 
     class inspectSelection:
-        freq = 1
+        period = 1
         name = 2
         file = 3
         vTypes = 4

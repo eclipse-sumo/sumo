@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/freq/input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/period/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/freq/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/period/net.net.xml"/>
     </output>
 
     <processing>
@@ -31,26 +31,26 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/freq/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/freq/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/freq/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/freq/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/freq/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/freq/datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/period/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/period/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/period/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/period/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/period/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/period/datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/freq/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/period/gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/freq/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/period/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/freq/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.14Jun084955.10395/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect/period/log.txt"/>
     </report>
 
 </configuration>

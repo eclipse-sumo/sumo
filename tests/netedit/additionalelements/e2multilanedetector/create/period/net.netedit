@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\freq\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\period\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\freq\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\period\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,27 +30,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\freq\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\freq\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\freq\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\freq\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\freq\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\freq\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\period\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\period\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\period\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\period\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\period\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\period\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\freq\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\period\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\freq\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\period\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\freq\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Apr132802.8920\netedit.gui\additionalelements\e2multilanedetector\create\period\log.txt"/>
     </report>
 
 </configuration>

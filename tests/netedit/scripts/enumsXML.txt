@@ -527,7 +527,7 @@ parkingSpace.inspectSelection.parent
 E1
 E1.create
 E1.create.id 
-E1.create.freq 
+E1.create.period 
 E1.create.name 
 E1.create.file 
 E1.create.vTypes 
@@ -536,14 +536,14 @@ E1.inspect
 E1.inspect.id 
 E1.inspect.lane 
 E1.inspect.pos 
-E1.inspect.freq 
+E1.inspect.period 
 E1.inspect.name 
 E1.inspect.file 
 E1.inspect.vTypes 
 E1.inspect.friendlyPos 
 E1.inspect.parameters 
 E1.inspectSelection
-E1.inspectSelection.freq 
+E1.inspectSelection.period 
 E1.inspectSelection.name 
 E1.inspectSelection.file 
 E1.inspectSelection.vTypes 
@@ -553,7 +553,7 @@ E2
 E2.create
 E2.create.id 
 E2.create.length 
-E2.create.freq 
+E2.create.period 
 E2.create.tl 
 E2.create.name 
 E2.create.file 
@@ -567,7 +567,7 @@ E2.inspect.id
 E2.inspect.lane 
 E2.inspect.pos 
 E2.inspect.length 
-E2.inspect.freq 
+E2.inspect.period 
 E2.inspect.tl 
 E2.inspect.name 
 E2.inspect.file 
@@ -579,7 +579,7 @@ E2.inspect.friendlyPos
 E2.inspect.parameters 
 E2.inspectSelection
 E2.inspectSelection.length 
-E2.inspectSelection.freq 
+E2.inspectSelection.period 
 E2.inspectSelection.tl 
 E2.inspectSelection.name 
 E2.inspectSelection.file 
@@ -592,7 +592,7 @@ E2.inspectSelection.parameters
 E2Multilane
 E2Multilane.create
 E2Multilane.create.id 
-E2Multilane.create.freq 
+E2Multilane.create.period 
 E2Multilane.create.tl 
 E2Multilane.create.name 
 E2Multilane.create.file 
@@ -606,7 +606,7 @@ E2Multilane.inspect.id
 E2Multilane.inspect.lanes 
 E2Multilane.inspect.pos 
 E2Multilane.inspect.endPos 
-E2Multilane.inspect.freq 
+E2Multilane.inspect.period 
 E2Multilane.inspect.tl 
 E2Multilane.inspect.name 
 E2Multilane.inspect.file 
@@ -617,7 +617,7 @@ E2Multilane.inspect.jamThreshold
 E2Multilane.inspect.friendlyPos 
 E2Multilane.inspect.parameters 
 E2Multilane.inspectSelection
-E2Multilane.inspectSelection.freq 
+E2Multilane.inspectSelection.period 
 E2Multilane.inspectSelection.tl 
 E2Multilane.inspectSelection.name 
 E2Multilane.inspectSelection.file 
@@ -630,7 +630,7 @@ E2Multilane.inspectSelection.parameters
 E3
 E3.create
 E3.create.id 
-E3.create.freq 
+E3.create.period 
 E3.create.name 
 E3.create.file 
 E3.create.vTypes 
@@ -639,7 +639,7 @@ E3.create.speedThreshold
 E3.inspect
 E3.inspect.id 
 E3.inspect.pos 
-E3.inspect.freq 
+E3.inspect.period 
 E3.inspect.name 
 E3.inspect.file 
 E3.inspect.vTypes 
@@ -647,7 +647,7 @@ E3.inspect.timeThreshold
 E3.inspect.speedThreshold 
 E3.inspect.parameters 
 E3.inspectSelection
-E3.inspectSelection.freq 
+E3.inspectSelection.period 
 E3.inspectSelection.name 
 E3.inspectSelection.file 
 E3.inspectSelection.vTypes 

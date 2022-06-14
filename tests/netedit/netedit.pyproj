@@ -78,7 +78,7 @@
     <Compile Include="additionalelements\calibratorflow\load\test.py" />
     <Compile Include="additionalelements\calibratorlane\create\default\test.py" />
     <Compile Include="additionalelements\calibratorlane\create\default_nocenter\test.py" />
-    <Compile Include="additionalelements\calibratorlane\create\freq\test.py" />
+    <Compile Include="additionalelements\calibratorlane\create\period\test.py" />
     <Compile Include="additionalelements\calibratorlane\create\id\test.py" />
     <Compile Include="additionalelements\calibratorlane\create\jamtreshold\test.py" />
     <Compile Include="additionalelements\calibratorlane\create\name\test.py" />
@@ -86,7 +86,7 @@
     <Compile Include="additionalelements\calibratorlane\create\pos\test.py" />
     <Compile Include="additionalelements\calibratorlane\create\routeprobe\test.py" />
     <Compile Include="additionalelements\calibratorlane\create\vtypes\test.py" />
-    <Compile Include="additionalelements\calibratorlane\inspect\freq\test.py" />
+    <Compile Include="additionalelements\calibratorlane\inspect\period\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect\id\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect\jamtreshold\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect\lane\test.py" />
@@ -96,7 +96,7 @@
     <Compile Include="additionalelements\calibratorlane\inspect\pos\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect\routeprobe\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect\vtypes\test.py" />
-    <Compile Include="additionalelements\calibratorlane\inspect_selection\freq\test.py" />
+    <Compile Include="additionalelements\calibratorlane\inspect_selection\period\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect_selection\jamtreshold\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect_selection\name\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect_selection\output\test.py" />
@@ -108,7 +108,7 @@
     <Compile Include="additionalelements\calibratorlane\volatilerecomputing\test.py" />
     <Compile Include="additionalelements\calibrator\create\default\test.py" />
     <Compile Include="additionalelements\calibrator\create\default_nocenter\test.py" />
-    <Compile Include="additionalelements\calibrator\create\freq\test.py" />
+    <Compile Include="additionalelements\calibrator\create\period\test.py" />
     <Compile Include="additionalelements\calibrator\create\id\test.py" />
     <Compile Include="additionalelements\calibrator\create\jamtreshold\test.py" />
     <Compile Include="additionalelements\calibrator\create\name\test.py" />
@@ -117,7 +117,7 @@
     <Compile Include="additionalelements\calibrator\create\routeprobe\test.py" />
     <Compile Include="additionalelements\calibrator\create\vtypes\test.py" />
     <Compile Include="additionalelements\calibrator\inspect\edge\test.py" />
-    <Compile Include="additionalelements\calibrator\inspect\freq\test.py" />
+    <Compile Include="additionalelements\calibrator\inspect\period\test.py" />
     <Compile Include="additionalelements\calibrator\inspect\id\test.py" />
     <Compile Include="additionalelements\calibrator\inspect\jamtreshold\test.py" />
     <Compile Include="additionalelements\calibrator\inspect\name\test.py" />
@@ -126,7 +126,7 @@
     <Compile Include="additionalelements\calibrator\inspect\pos\test.py" />
     <Compile Include="additionalelements\calibrator\inspect\routeprobe\test.py" />
     <Compile Include="additionalelements\calibrator\inspect\vtypes\test.py" />
-    <Compile Include="additionalelements\calibrator\inspect_selection\freq\test.py" />
+    <Compile Include="additionalelements\calibrator\inspect_selection\period\test.py" />
     <Compile Include="additionalelements\calibrator\inspect_selection\jamtreshold\test.py" />
     <Compile Include="additionalelements\calibrator\inspect_selection\name\test.py" />
     <Compile Include="additionalelements\calibrator\inspect_selection\output\test.py" />
@@ -240,14 +240,14 @@
     <Compile Include="additionalelements\detexit\volatilerecomputing\test.py" />
     <Compile Include="additionalelements\e1detector\create\default\test.py" />
     <Compile Include="additionalelements\e1detector\create\file\test.py" />
-    <Compile Include="additionalelements\e1detector\create\freq\test.py" />
+    <Compile Include="additionalelements\e1detector\create\period\test.py" />
     <Compile Include="additionalelements\e1detector\create\friendlypos\test.py" />
     <Compile Include="additionalelements\e1detector\create\id\test.py" />
     <Compile Include="additionalelements\e1detector\create\name\test.py" />
     <Compile Include="additionalelements\e1detector\create\vtypes\test.py" />
     <Compile Include="additionalelements\e1detector\delete\test.py" />
     <Compile Include="additionalelements\e1detector\inspect\file\test.py" />
-    <Compile Include="additionalelements\e1detector\inspect\freq\test.py" />
+    <Compile Include="additionalelements\e1detector\inspect\period\test.py" />
     <Compile Include="additionalelements\e1detector\inspect\friendlypos\test.py" />
     <Compile Include="additionalelements\e1detector\inspect\id\test.py" />
     <Compile Include="additionalelements\e1detector\inspect\lane\test.py" />
@@ -256,7 +256,7 @@
     <Compile Include="additionalelements\e1detector\inspect\pos\test.py" />
     <Compile Include="additionalelements\e1detector\inspect\vtypes\test.py" />
     <Compile Include="additionalelements\e1detector\inspect_selection\file\test.py" />
-    <Compile Include="additionalelements\e1detector\inspect_selection\freq\test.py" />
+    <Compile Include="additionalelements\e1detector\inspect_selection\period\test.py" />
     <Compile Include="additionalelements\e1detector\inspect_selection\friendlypos\test.py" />
     <Compile Include="additionalelements\e1detector\inspect_selection\name\test.py" />
     <Compile Include="additionalelements\e1detector\inspect_selection\parameters\test.py" />
@@ -289,7 +289,7 @@
     <Compile Include="additionalelements\e1instantdetector\volatilerecomputing\test.py" />
     <Compile Include="additionalelements\e2detector\create\default\test.py" />
     <Compile Include="additionalelements\e2detector\create\file\test.py" />
-    <Compile Include="additionalelements\e2detector\create\freq\test.py" />
+    <Compile Include="additionalelements\e2detector\create\period\test.py" />
     <Compile Include="additionalelements\e2detector\create\friendlypos\test.py" />
     <Compile Include="additionalelements\e2detector\create\id\test.py" />
     <Compile Include="additionalelements\e2detector\create\jamtreshold\test.py" />
@@ -301,7 +301,7 @@
     <Compile Include="additionalelements\e2detector\create\vtypes\test.py" />
     <Compile Include="additionalelements\e2detector\delete\test.py" />
     <Compile Include="additionalelements\e2detector\inspect\file\test.py" />
-    <Compile Include="additionalelements\e2detector\inspect\freq\test.py" />
+    <Compile Include="additionalelements\e2detector\inspect\period\test.py" />
     <Compile Include="additionalelements\e2detector\inspect\friendlypos\test.py" />
     <Compile Include="additionalelements\e2detector\inspect\id\test.py" />
     <Compile Include="additionalelements\e2detector\inspect\jamthreshold\test.py" />
@@ -315,7 +315,7 @@
     <Compile Include="additionalelements\e2detector\inspect\tl\test.py" />
     <Compile Include="additionalelements\e2detector\inspect\vtypes\test.py" />
     <Compile Include="additionalelements\e2detector\inspect_selection\file\test.py" />
-    <Compile Include="additionalelements\e2detector\inspect_selection\freq\test.py" />
+    <Compile Include="additionalelements\e2detector\inspect_selection\period\test.py" />
     <Compile Include="additionalelements\e2detector\inspect_selection\friendlypos\test.py" />
     <Compile Include="additionalelements\e2detector\inspect_selection\jamthreshold\test.py" />
     <Compile Include="additionalelements\e2detector\inspect_selection\length\test.py" />
@@ -333,7 +333,7 @@
     <Compile Include="additionalelements\e2multilanedetector\create\default_nonconsecutive\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\create\default_singlelane\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\create\file\test.py" />
-    <Compile Include="additionalelements\e2multilanedetector\create\freq\test.py" />
+    <Compile Include="additionalelements\e2multilanedetector\create\period\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\create\friendlypos\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\create\id\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\create\jamthreshold\test.py" />
@@ -345,7 +345,7 @@
     <Compile Include="additionalelements\e2multilanedetector\delete\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\inspect\endpos\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\inspect\file\test.py" />
-    <Compile Include="additionalelements\e2multilanedetector\inspect\freq\test.py" />
+    <Compile Include="additionalelements\e2multilanedetector\inspect\period\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\inspect\friendlypos\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\inspect\id\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\inspect\jamthreshold\test.py" />
@@ -358,7 +358,7 @@
     <Compile Include="additionalelements\e2multilanedetector\inspect\tl\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\inspect\vtypes\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\inspect_selection\file\test.py" />
-    <Compile Include="additionalelements\e2multilanedetector\inspect_selection\freq\test.py" />
+    <Compile Include="additionalelements\e2multilanedetector\inspect_selection\period\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\inspect_selection\friendlypos\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\inspect_selection\jamthreshold\test.py" />
     <Compile Include="additionalelements\e2multilanedetector\inspect_selection\name\test.py" />
@@ -373,7 +373,7 @@
     <Compile Include="additionalelements\e3detector\create\default\test.py" />
     <Compile Include="additionalelements\e3detector\create\default_nochilds\test.py" />
     <Compile Include="additionalelements\e3detector\create\file\test.py" />
-    <Compile Include="additionalelements\e3detector\create\freq\test.py" />
+    <Compile Include="additionalelements\e3detector\create\period\test.py" />
     <Compile Include="additionalelements\e3detector\create\id\test.py" />
     <Compile Include="additionalelements\e3detector\create\name\test.py" />
     <Compile Include="additionalelements\e3detector\create\speedthreshold\test.py" />
@@ -382,7 +382,7 @@
     <Compile Include="additionalelements\e3detector\delete\delete_child\test.py" />
     <Compile Include="additionalelements\e3detector\delete\delete_parent\test.py" />
     <Compile Include="additionalelements\e3detector\inspect\file\test.py" />
-    <Compile Include="additionalelements\e3detector\inspect\freq\test.py" />
+    <Compile Include="additionalelements\e3detector\inspect\period\test.py" />
     <Compile Include="additionalelements\e3detector\inspect\id\test.py" />
     <Compile Include="additionalelements\e3detector\inspect\name\test.py" />
     <Compile Include="additionalelements\e3detector\inspect\parameters\test.py" />
@@ -391,7 +391,7 @@
     <Compile Include="additionalelements\e3detector\inspect\timethreshold\test.py" />
     <Compile Include="additionalelements\e3detector\inspect\vtypes\test.py" />
     <Compile Include="additionalelements\e3detector\inspect_selection\file\test.py" />
-    <Compile Include="additionalelements\e3detector\inspect_selection\freq\test.py" />
+    <Compile Include="additionalelements\e3detector\inspect_selection\period\test.py" />
     <Compile Include="additionalelements\e3detector\inspect_selection\name\test.py" />
     <Compile Include="additionalelements\e3detector\inspect_selection\parameters\test.py" />
     <Compile Include="additionalelements\e3detector\inspect_selection\speedthreshold\test.py" />
@@ -479,20 +479,20 @@
     <Compile Include="additionalelements\routeprobe\create\default\test.py" />
     <Compile Include="additionalelements\routeprobe\create\default_nocenter\test.py" />
     <Compile Include="additionalelements\routeprobe\create\file\test.py" />
-    <Compile Include="additionalelements\routeprobe\create\freq\test.py" />
+    <Compile Include="additionalelements\routeprobe\create\period\test.py" />
     <Compile Include="additionalelements\routeprobe\create\id\test.py" />
     <Compile Include="additionalelements\routeprobe\create\name\test.py" />
     <Compile Include="additionalelements\routeprobe\delete\test.py" />
     <Compile Include="additionalelements\routeprobe\inspect\begin\test.py" />
     <Compile Include="additionalelements\routeprobe\inspect\edge\test.py" />
     <Compile Include="additionalelements\routeprobe\inspect\file\test.py" />
-    <Compile Include="additionalelements\routeprobe\inspect\freq\test.py" />
+    <Compile Include="additionalelements\routeprobe\inspect\period\test.py" />
     <Compile Include="additionalelements\routeprobe\inspect\id\test.py" />
     <Compile Include="additionalelements\routeprobe\inspect\name\test.py" />
     <Compile Include="additionalelements\routeprobe\inspect\parameters\test.py" />
     <Compile Include="additionalelements\routeprobe\inspect_selection\begin\test.py" />
     <Compile Include="additionalelements\routeprobe\inspect_selection\file\test.py" />
-    <Compile Include="additionalelements\routeprobe\inspect_selection\freq\test.py" />
+    <Compile Include="additionalelements\routeprobe\inspect_selection\period\test.py" />
     <Compile Include="additionalelements\routeprobe\inspect_selection\name\test.py" />
     <Compile Include="additionalelements\routeprobe\inspect_selection\parameters\test.py" />
     <Compile Include="additionalelements\routeprobe\load\test.py" />
@@ -3014,7 +3014,7 @@
     <Folder Include="additionalelements\calibratorlane\create\" />
     <Folder Include="additionalelements\calibratorlane\create\default" />
     <Folder Include="additionalelements\calibratorlane\create\default_nocenter" />
-    <Folder Include="additionalelements\calibratorlane\create\freq" />
+    <Folder Include="additionalelements\calibratorlane\create\period" />
     <Folder Include="additionalelements\calibratorlane\create\id" />
     <Folder Include="additionalelements\calibratorlane\create\jamtreshold" />
     <Folder Include="additionalelements\calibratorlane\create\name" />
@@ -3023,7 +3023,7 @@
     <Folder Include="additionalelements\calibratorlane\create\routeprobe" />
     <Folder Include="additionalelements\calibratorlane\create\vtypes" />
     <Folder Include="additionalelements\calibratorlane\inspect\" />
-    <Folder Include="additionalelements\calibratorlane\inspect\freq" />
+    <Folder Include="additionalelements\calibratorlane\inspect\period" />
     <Folder Include="additionalelements\calibratorlane\inspect\id" />
     <Folder Include="additionalelements\calibratorlane\inspect\jamtreshold" />
     <Folder Include="additionalelements\calibratorlane\inspect\lane" />
@@ -3034,7 +3034,7 @@
     <Folder Include="additionalelements\calibratorlane\inspect\routeprobe" />
     <Folder Include="additionalelements\calibratorlane\inspect\vtypes" />
     <Folder Include="additionalelements\calibratorlane\inspect_selection\" />
-    <Folder Include="additionalelements\calibratorlane\inspect_selection\freq" />
+    <Folder Include="additionalelements\calibratorlane\inspect_selection\period" />
     <Folder Include="additionalelements\calibratorlane\inspect_selection\jamtreshold" />
     <Folder Include="additionalelements\calibratorlane\inspect_selection\name" />
     <Folder Include="additionalelements\calibratorlane\inspect_selection\output" />
@@ -3048,7 +3048,7 @@
     <Folder Include="additionalelements\calibrator\create\" />
     <Folder Include="additionalelements\calibrator\create\default" />
     <Folder Include="additionalelements\calibrator\create\default_nocenter" />
-    <Folder Include="additionalelements\calibrator\create\freq" />
+    <Folder Include="additionalelements\calibrator\create\period" />
     <Folder Include="additionalelements\calibrator\create\id" />
     <Folder Include="additionalelements\calibrator\create\jamtreshold" />
     <Folder Include="additionalelements\calibrator\create\name" />
@@ -3058,7 +3058,7 @@
     <Folder Include="additionalelements\calibrator\create\vtypes" />
     <Folder Include="additionalelements\calibrator\inspect\" />
     <Folder Include="additionalelements\calibrator\inspect\edge" />
-    <Folder Include="additionalelements\calibrator\inspect\freq" />
+    <Folder Include="additionalelements\calibrator\inspect\period" />
     <Folder Include="additionalelements\calibrator\inspect\id" />
     <Folder Include="additionalelements\calibrator\inspect\jamtreshold" />
     <Folder Include="additionalelements\calibrator\inspect\name" />
@@ -3068,7 +3068,7 @@
     <Folder Include="additionalelements\calibrator\inspect\routeprobe" />
     <Folder Include="additionalelements\calibrator\inspect\vtypes" />
     <Folder Include="additionalelements\calibrator\inspect_selection\" />
-    <Folder Include="additionalelements\calibrator\inspect_selection\freq" />
+    <Folder Include="additionalelements\calibrator\inspect_selection\period" />
     <Folder Include="additionalelements\calibrator\inspect_selection\jamtreshold" />
     <Folder Include="additionalelements\calibrator\inspect_selection\name" />
     <Folder Include="additionalelements\calibrator\inspect_selection\output" />
@@ -3202,7 +3202,7 @@
     <Folder Include="additionalelements\e1detector\create\" />
     <Folder Include="additionalelements\e1detector\create\default" />
     <Folder Include="additionalelements\e1detector\create\file" />
-    <Folder Include="additionalelements\e1detector\create\freq" />
+    <Folder Include="additionalelements\e1detector\create\period" />
     <Folder Include="additionalelements\e1detector\create\friendlypos" />
     <Folder Include="additionalelements\e1detector\create\id" />
     <Folder Include="additionalelements\e1detector\create\name" />
@@ -3210,7 +3210,7 @@
     <Folder Include="additionalelements\e1detector\delete" />
     <Folder Include="additionalelements\e1detector\inspect\" />
     <Folder Include="additionalelements\e1detector\inspect\file" />
-    <Folder Include="additionalelements\e1detector\inspect\freq" />
+    <Folder Include="additionalelements\e1detector\inspect\period" />
     <Folder Include="additionalelements\e1detector\inspect\friendlypos" />
     <Folder Include="additionalelements\e1detector\inspect\id" />
     <Folder Include="additionalelements\e1detector\inspect\lane" />
@@ -3220,7 +3220,7 @@
     <Folder Include="additionalelements\e1detector\inspect\vtypes" />
     <Folder Include="additionalelements\e1detector\inspect_selection\" />
     <Folder Include="additionalelements\e1detector\inspect_selection\file" />
-    <Folder Include="additionalelements\e1detector\inspect_selection\freq" />
+    <Folder Include="additionalelements\e1detector\inspect_selection\period" />
     <Folder Include="additionalelements\e1detector\inspect_selection\friendlypos" />
     <Folder Include="additionalelements\e1detector\inspect_selection\name" />
     <Folder Include="additionalelements\e1detector\inspect_selection\parameters" />
@@ -3259,7 +3259,7 @@
     <Folder Include="additionalelements\e2detector\create\" />
     <Folder Include="additionalelements\e2detector\create\default" />
     <Folder Include="additionalelements\e2detector\create\file" />
-    <Folder Include="additionalelements\e2detector\create\freq" />
+    <Folder Include="additionalelements\e2detector\create\period" />
     <Folder Include="additionalelements\e2detector\create\friendlypos" />
     <Folder Include="additionalelements\e2detector\create\id" />
     <Folder Include="additionalelements\e2detector\create\jamtreshold" />
@@ -3272,7 +3272,7 @@
     <Folder Include="additionalelements\e2detector\delete" />
     <Folder Include="additionalelements\e2detector\inspect\" />
     <Folder Include="additionalelements\e2detector\inspect\file" />
-    <Folder Include="additionalelements\e2detector\inspect\freq" />
+    <Folder Include="additionalelements\e2detector\inspect\period" />
     <Folder Include="additionalelements\e2detector\inspect\friendlypos" />
     <Folder Include="additionalelements\e2detector\inspect\id" />
     <Folder Include="additionalelements\e2detector\inspect\jamthreshold" />
@@ -3287,7 +3287,7 @@
     <Folder Include="additionalelements\e2detector\inspect\vtypes" />
     <Folder Include="additionalelements\e2detector\inspect_selection\" />
     <Folder Include="additionalelements\e2detector\inspect_selection\file" />
-    <Folder Include="additionalelements\e2detector\inspect_selection\freq" />
+    <Folder Include="additionalelements\e2detector\inspect_selection\period" />
     <Folder Include="additionalelements\e2detector\inspect_selection\friendlypos" />
     <Folder Include="additionalelements\e2detector\inspect_selection\jamthreshold" />
     <Folder Include="additionalelements\e2detector\inspect_selection\length" />
@@ -3307,7 +3307,7 @@
     <Folder Include="additionalelements\e2multilanedetector\create\default_nonconsecutive" />
     <Folder Include="additionalelements\e2multilanedetector\create\default_singlelane" />
     <Folder Include="additionalelements\e2multilanedetector\create\file" />
-    <Folder Include="additionalelements\e2multilanedetector\create\freq" />
+    <Folder Include="additionalelements\e2multilanedetector\create\period" />
     <Folder Include="additionalelements\e2multilanedetector\create\friendlypos" />
     <Folder Include="additionalelements\e2multilanedetector\create\id" />
     <Folder Include="additionalelements\e2multilanedetector\create\jamthreshold" />
@@ -3320,7 +3320,7 @@
     <Folder Include="additionalelements\e2multilanedetector\inspect\" />
     <Folder Include="additionalelements\e2multilanedetector\inspect\endpos" />
     <Folder Include="additionalelements\e2multilanedetector\inspect\file" />
-    <Folder Include="additionalelements\e2multilanedetector\inspect\freq" />
+    <Folder Include="additionalelements\e2multilanedetector\inspect\period" />
     <Folder Include="additionalelements\e2multilanedetector\inspect\friendlypos" />
     <Folder Include="additionalelements\e2multilanedetector\inspect\id" />
     <Folder Include="additionalelements\e2multilanedetector\inspect\jamthreshold" />
@@ -3334,7 +3334,7 @@
     <Folder Include="additionalelements\e2multilanedetector\inspect\vtypes" />
     <Folder Include="additionalelements\e2multilanedetector\inspect_selection\" />
     <Folder Include="additionalelements\e2multilanedetector\inspect_selection\file" />
-    <Folder Include="additionalelements\e2multilanedetector\inspect_selection\freq" />
+    <Folder Include="additionalelements\e2multilanedetector\inspect_selection\period" />
     <Folder Include="additionalelements\e2multilanedetector\inspect_selection\friendlypos" />
     <Folder Include="additionalelements\e2multilanedetector\inspect_selection\jamthreshold" />
     <Folder Include="additionalelements\e2multilanedetector\inspect_selection\name" />
@@ -3351,7 +3351,7 @@
     <Folder Include="additionalelements\e3detector\create\default" />
     <Folder Include="additionalelements\e3detector\create\default_nochilds" />
     <Folder Include="additionalelements\e3detector\create\file" />
-    <Folder Include="additionalelements\e3detector\create\freq" />
+    <Folder Include="additionalelements\e3detector\create\period" />
     <Folder Include="additionalelements\e3detector\create\id" />
     <Folder Include="additionalelements\e3detector\create\name" />
     <Folder Include="additionalelements\e3detector\create\speedthreshold" />
@@ -3362,7 +3362,7 @@
     <Folder Include="additionalelements\e3detector\delete\delete_parent" />
     <Folder Include="additionalelements\e3detector\inspect\" />
     <Folder Include="additionalelements\e3detector\inspect\file" />
-    <Folder Include="additionalelements\e3detector\inspect\freq" />
+    <Folder Include="additionalelements\e3detector\inspect\period" />
     <Folder Include="additionalelements\e3detector\inspect\id" />
     <Folder Include="additionalelements\e3detector\inspect\name" />
     <Folder Include="additionalelements\e3detector\inspect\parameters" />
@@ -3372,7 +3372,7 @@
     <Folder Include="additionalelements\e3detector\inspect\vtypes" />
     <Folder Include="additionalelements\e3detector\inspect_selection\" />
     <Folder Include="additionalelements\e3detector\inspect_selection\file" />
-    <Folder Include="additionalelements\e3detector\inspect_selection\freq" />
+    <Folder Include="additionalelements\e3detector\inspect_selection\period" />
     <Folder Include="additionalelements\e3detector\inspect_selection\name" />
     <Folder Include="additionalelements\e3detector\inspect_selection\parameters" />
     <Folder Include="additionalelements\e3detector\inspect_selection\speedthreshold" />
@@ -3478,7 +3478,7 @@
     <Folder Include="additionalelements\routeprobe\create\default" />
     <Folder Include="additionalelements\routeprobe\create\default_nocenter" />
     <Folder Include="additionalelements\routeprobe\create\file" />
-    <Folder Include="additionalelements\routeprobe\create\freq" />
+    <Folder Include="additionalelements\routeprobe\create\period" />
     <Folder Include="additionalelements\routeprobe\create\id" />
     <Folder Include="additionalelements\routeprobe\create\name" />
     <Folder Include="additionalelements\routeprobe\delete" />
@@ -3486,14 +3486,14 @@
     <Folder Include="additionalelements\routeprobe\inspect\begin" />
     <Folder Include="additionalelements\routeprobe\inspect\edge" />
     <Folder Include="additionalelements\routeprobe\inspect\file" />
-    <Folder Include="additionalelements\routeprobe\inspect\freq" />
+    <Folder Include="additionalelements\routeprobe\inspect\period" />
     <Folder Include="additionalelements\routeprobe\inspect\id" />
     <Folder Include="additionalelements\routeprobe\inspect\name" />
     <Folder Include="additionalelements\routeprobe\inspect\parameters" />
     <Folder Include="additionalelements\routeprobe\inspect_selection\" />
     <Folder Include="additionalelements\routeprobe\inspect_selection\begin" />
     <Folder Include="additionalelements\routeprobe\inspect_selection\file" />
-    <Folder Include="additionalelements\routeprobe\inspect_selection\freq" />
+    <Folder Include="additionalelements\routeprobe\inspect_selection\period" />
     <Folder Include="additionalelements\routeprobe\inspect_selection\name" />
     <Folder Include="additionalelements\routeprobe\inspect_selection\parameters" />
     <Folder Include="additionalelements\routeprobe\load" />

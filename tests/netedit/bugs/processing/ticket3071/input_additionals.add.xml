@@ -9,7 +9,7 @@
     <busStop id="bs7" lane="gneE17_0" startPos="2.5" endPos="7.5"/>
     <busStop id="bs8" lane="gneE19_0" startPos="2.5" endPos="7.5"/>
     <busStop id="bs9" lane="gneE8_0" startPos="2.5" endPos="7.5"/>
-    <e3Detector id="e3" freq="100" file="e3.txt" timeThreshold="1.00" speedThreshold="1.39" pos="60,50">
+    <e3Detector id="e3" period="100" file="e3.txt" timeThreshold="1.00" speedThreshold="1.39" pos="60,50">
         <detEntry lane="-gneE18_0" pos="5"/>
         <detExit lane="gneE9_0" pos="5"/>
     </e3Detector>

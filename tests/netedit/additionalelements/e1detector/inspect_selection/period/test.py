@@ -40,14 +40,14 @@ netedit.inspectMode()
 # inspect E1
 netedit.leftClick(referencePosition, 150, 240)
 
-# Change parameter freq with a non valid value (non numeral)
-netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.freq, "dummyFrequency", True)
+# Change parameter period with a non valid value (non numeral)
+netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.period, "dummyFrequency", True)
 
-# Change parameter freq with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.freq, "-100", True)
+# Change parameter period with a non valid value (negative)
+netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.period, "-100", True)
 
-# Change parameter freq with a valid value
-netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.freq, "120", True)
+# Change parameter period with a valid value
+netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.period, "120", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

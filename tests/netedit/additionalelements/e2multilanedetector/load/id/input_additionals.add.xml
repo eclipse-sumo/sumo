@@ -32,14 +32,14 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 	<!-- missing -->
-    <e2Detector lanes="gneE2_0 gneE3_0" pos="15" freq="900.00" file="e2MultilaneDetector_0.xml" endPos="15"/>
+    <e2Detector lanes="gneE2_0 gneE3_0" pos="15" period="900.00" file="e2MultilaneDetector_0.xml" endPos="15"/>
 	
 	<!-- invalid characters -->
-    <e2Detector id=";;%%$$$$$$%" lanes="gneE2_0 gneE3_0" pos="15" freq="900.00" file="e2MultilaneDetector_1.xml" endPos="15"/>
+    <e2Detector id=";;%%$$$$$$%" lanes="gneE2_0 gneE3_0" pos="15" period="900.00" file="e2MultilaneDetector_1.xml" endPos="15"/>
 	
 	<!-- valid -->
-    <e2Detector id="e2MultilaneDetector_1" lanes="gneE2_0 gneE3_0" pos="15" freq="900.00" file="e2MultilaneDetector_2.xml" endPos="15"/>
+    <e2Detector id="e2MultilaneDetector_1" lanes="gneE2_0 gneE3_0" pos="15" period="900.00" file="e2MultilaneDetector_2.xml" endPos="15"/>
 	
 	<!-- duplicated -->
-    <e2Detector id="e2MultilaneDetector_1" lanes="gneE2_0 gneE3_0" pos="15" freq="900.00" file="e2MultilaneDetector_3.xml" endPos="15"/>
+    <e2Detector id="e2MultilaneDetector_1" lanes="gneE2_0 gneE3_0" pos="15" period="900.00" file="e2MultilaneDetector_3.xml" endPos="15"/>
 </additional>

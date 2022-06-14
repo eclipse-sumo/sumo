@@ -31,10 +31,10 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-	<!-- missing freq -->
+	<!-- missing period -->
     <e2Detector id="e2MultilaneDetector_0" lanes="gneE2_0 gneE3_0" pos="15" file="e2MultilaneDetector_0.xml" endPos="15"/>
 	
-	<!-- dummy freq -->
+	<!-- dummy period -->
     <e2Detector id="e2MultilaneDetector_1" lanes="gneE2_0 gneE3_0" pos="15" tl=";;;;;" file="e2MultilaneDetector_1.xml" endPos="15"/>
 	
 	<!-- negative -->

@@ -1,13 +1,13 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector1" lane="3_1" pos="30.00" friendlyPos="1"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector2" lane="3_2" pos="5.00" friendlyPos="1"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector3" lane="8_1" pos="35.00" friendlyPos="1"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector4" lane="8_2" pos="10.00" friendlyPos="1"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector5" lane="4_1" pos="30.00" friendlyPos="1"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector6" lane="4_2" pos="5.00" friendlyPos="1"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector7" lane="7_1" pos="35.00" friendlyPos="1"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector8" lane="7_2" pos="10.00" friendlyPos="1"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector1" lane="3_1" pos="30.00" friendlyPos="1"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector2" lane="3_2" pos="5.00" friendlyPos="1"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector3" lane="8_1" pos="35.00" friendlyPos="1"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector4" lane="8_2" pos="10.00" friendlyPos="1"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector5" lane="4_1" pos="30.00" friendlyPos="1"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector6" lane="4_2" pos="5.00" friendlyPos="1"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector7" lane="7_1" pos="35.00" friendlyPos="1"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector8" lane="7_2" pos="10.00" friendlyPos="1"/>
 	
 	<poly id="poly_0" color="green" fill="1" layer="0.00" shape="35.00,63.00 29.00,63.00 29.00,69.00 35.00,69.00 35.00,63.00"/>
 	

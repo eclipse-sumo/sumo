@@ -5,14 +5,14 @@
     <busStop id="busStopC" lane="7_1" startPos="25.00" endPos="35.00"/>
     <busStop id="busStopD" lane="8_1" startPos="25.00" endPos="35.00"/>
 	
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector1" lane="3_1" pos="30.00"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector2" lane="3_2" pos="5.00"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector3" lane="8_1" pos="35.00"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector4" lane="8_2" pos="10.00"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector5" lane="4_1" pos="30.00"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector6" lane="4_2" pos="5.00"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector7" lane="7_1" pos="35.00"/>
-	<e1Detector freq="100.00" file="E1Output.txt" id="detector8" lane="7_2" pos="10.00"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector1" lane="3_1" pos="30.00"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector2" lane="3_2" pos="5.00"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector3" lane="8_1" pos="35.00"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector4" lane="8_2" pos="10.00"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector5" lane="4_1" pos="30.00"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector6" lane="4_2" pos="5.00"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector7" lane="7_1" pos="35.00"/>
+	<e1Detector period="100.00" file="E1Output.txt" id="detector8" lane="7_2" pos="10.00"/>
 
     <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
 	
