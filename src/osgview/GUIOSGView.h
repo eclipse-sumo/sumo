@@ -193,6 +193,9 @@ public:
     long onPaint(FXObject*, FXSelector, void*);
     long OnIdle(FXObject* sender, FXSelector sel, void* ptr);
 
+protected:
+	void updatePositionInformation() const;
+
 private:
     double calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up);
 

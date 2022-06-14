@@ -242,6 +242,7 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
     geode->addDrawable(geom);
 	geode->setName("junction:" + junction.getMicrosimID());
     addTo.addChild(geode);
+	dynamic_cast<GUIGlObject&>(junction).setNode(geode);
     osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size());
     geom->setVertexArray(osg_coords);
     for (int k = 0; k < (int)shape.size(); ++k) {

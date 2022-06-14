@@ -398,7 +398,7 @@ protected:
     void paintGL();
 
     /// @brief update position information
-    void updatePositionInformation() const;
+    virtual void updatePositionInformation() const;
 
     /// @brief paint GL
     virtual int doPaintGL(int /*mode*/, const Boundary& /*boundary*/);

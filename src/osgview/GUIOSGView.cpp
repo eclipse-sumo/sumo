@@ -290,7 +290,7 @@ GUIOSGView::centerTo(GUIGlID id, bool /* applyZoom */, double /* zoomDist */) {
 			myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
 			myCameraManipulator->setHomePosition(lookFromOSG, objectNode->getBound().center(), up);
 			myViewer->home();
-			//updatePositionInformation(); // TODO: needs reimplementation in OSG
+			updatePositionInformation();
 		}
 	}
 	GUIGlObjectStorage::gIDStorage.unblockObject(id);
@@ -736,7 +736,7 @@ GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
         myViewportChooser->setValues(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
                                      Position(lookAt[0], lookAt[1], lookAt[2]), calculateRotation(lookFrom, lookAt, up));
     }
-
+	updatePositionInformation();
     return FXGLCanvas::onMotion(sender, sel, ptr);
 }
 
@@ -764,6 +764,14 @@ GUIOSGView::calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& look
         angle += M_PI;
     }
     return RAD2DEG(angle);
+}
+
+
+void 
+GUIOSGView::updatePositionInformation() const {
+	// set placeholder
+	myApp->getCartesianLabel()->setText("N/A");
+	myApp->getGeoLabel()->setText("N/A");
 }
 
 

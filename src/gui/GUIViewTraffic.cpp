@@ -382,6 +382,27 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
 
 
 void
+GUIViewTraffic::updatePositionInformation() const {
+	Position pos = getPositionInformation();
+	// set cartesian position
+	myApp->getCartesianLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y())).c_str());
+	// set geo position
+	GeoConvHelper::getFinal().cartesian2geo(pos);
+	if (GeoConvHelper::getFinal().usingGeoProjection()) {
+		myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
+	}
+	else {
+		myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + " (No projection defined)").c_str());
+	}
+	// if enabled, set test position
+	if (myApp->getTestLabel()) {
+		// adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
+		myApp->getTestLabel()->setText(("Test: x:" + toString(getWindowCursorPosition().x() - 24.0) + " y:" + toString(getWindowCursorPosition().y() - 25.0)).c_str());
+	}
+}
+
+
+void
 GUIViewTraffic::startTrack(int id) {
     myTrackedID = id;
 }
