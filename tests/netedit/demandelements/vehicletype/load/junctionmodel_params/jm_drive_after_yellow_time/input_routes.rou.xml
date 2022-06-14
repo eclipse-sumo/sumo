@@ -39,17 +39,17 @@
 
     <!-- junctionModel param -->
     <vType id="vType0" jmDriveAfterYellowTime="dummy_jmDriveAfterYellowTime"/>
-    
+
     <!-- junctionModel param -->
     <vType id="vType1" jmDriveAfterYellowTime="-3"/>
-    
+
     <!-- junctionModel param -->
     <vType id="vType2" jmDriveAfterYellowTime="0"/>
-    
+
     <!-- junctionModel param -->
     <vType id="vType3" jmDriveAfterYellowTime="2"/>
-    
+
     <!-- junctionModel param -->
     <vType id="vType4" jmDriveAfterYellowTime="5.5"/>
-    
+
 </routes>

@@ -54,21 +54,21 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <flow id="flow_0" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departSpeed="dummyDepart"/>
-    
+
     <flow id="flow_1" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departSpeed="-12"/>
-    
+
     <flow id="flow_2" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departSpeed="0"/>
-    
+
     <flow id="flow_3" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departSpeed="500"/>
-    
+
     <flow id="flow_4" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departSpeed="1"/>
-    
+
     <flow id="flow_5" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departSpeed="random"/>
-    
+
     <flow id="flow_6" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departSpeed="max"/>
-    
+
     <flow id="flow_7" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departSpeed="desired"/>
-    
+
     <flow id="flow_8" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departSpeed="speedLimit"/>
 
 </routes>

@@ -39,17 +39,17 @@
 
     <!-- test collisionAvoidanceGainSpace -->
     <vType id="vType0" carFollowModel="ACC" collisionAvoidanceGainSpace="dummy_collisionAvoidanceGainSpace"/>
-    
+
     <!-- test collisionAvoidanceGainSpace -->
     <vType id="vType1" carFollowModel="ACC" collisionAvoidanceGainSpace="-3"/>
-    
+
     <!-- test collisionAvoidanceGainSpace -->
     <vType id="vType2" carFollowModel="ACC" collisionAvoidanceGainSpace="0"/>
-    
+
     <!-- test collisionAvoidanceGainSpace -->
     <vType id="vType3" carFollowModel="ACC" collisionAvoidanceGainSpace="12"/>
-    
+
     <!-- test collisionAvoidanceGainSpace -->
     <vType id="vType4" carFollowModel="ACC" collisionAvoidanceGainSpace="4.5"/>
-    
+
 </routes>

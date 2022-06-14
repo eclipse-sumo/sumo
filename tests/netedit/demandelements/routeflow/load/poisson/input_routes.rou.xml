@@ -53,21 +53,21 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0"/>
-    
+
     <flow id="flow_0" end="100.00" period="exp(10" vehsPerHour="100" route="route_0"/>
-    
+
     <flow id="flow_1" end="100.00" route="route_0"/>
-    
+
     <flow id="flow_2" end="100.00" period="exp(dummyPeriod)" route="route_0"/>
-    
+
     <flow id="flow_3" end="100.00" period="" route="route_0"/>
-    
+
     <flow id="flow_4" end="100.00" period="exp(-10)" route="route_0"/>
-    
+
     <flow id="flow_5" end="100.00" period="exp(0)" route="route_0"/>
-    
+
     <flow id="flow_6" end="100.00" period="exp(2.30)" route="route_0"/>
-    
+
     <flow id="flow_7" end="100.00" period="exp(5.0)" route="route_0"/>
-    
+
 </routes>

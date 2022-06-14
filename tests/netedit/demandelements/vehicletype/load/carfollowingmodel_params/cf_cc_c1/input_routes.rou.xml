@@ -39,17 +39,17 @@
 
     <!-- test c1 -->
     <vType id="vType0" carFollowModel="CC" lanesCount="1" c1="dummy_c1"/>
-    
+
     <!-- test c1 -->
     <vType id="vType1" carFollowModel="CC" lanesCount="1" c1="-3"/>
-    
+
     <!-- test c1 -->
     <vType id="vType2" carFollowModel="CC" lanesCount="1" c1="0"/>
-    
+
     <!-- test c1 -->
     <vType id="vType3" carFollowModel="CC" lanesCount="1" c1="12"/>
-    
+
     <!-- test c1 -->
     <vType id="vType4" carFollowModel="CC" lanesCount="1" c1="4.5"/>
-    
+
 </routes>

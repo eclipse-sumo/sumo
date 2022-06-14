@@ -3,13 +3,13 @@
 
         <!-- non valid x (missing) -->
         <space y="15.00" z="1" width="3.30" length="6.00" angle="45.00"/>
-        
+
         <!-- non valid x (dummy) -->
         <space x="dummyX" y="15.00" z="1" width="3.30" length="6.00" angle="45.00"/>
-        
+
         <!-- non valid x (empty) -->
         <space x="" y="15.00" z="1" width="3.30" length="6.00" angle="45.00"/>
-        
+
         <!-- valid x -->
         <space x="10.00" y="15.00" z="1" width="3.30" length="6.00" angle="45.00"/>
 

@@ -39,17 +39,17 @@
 
     <!-- laneChangeModel param -->
     <vType id="vType0" laneChangeModel="LC2013" lcOvertakeRight="dummy_overtakeRight"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType1" laneChangeModel="LC2013" lcOvertakeRight="-3"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType2" laneChangeModel="LC2013" lcOvertakeRight="0"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType3" laneChangeModel="LC2013" lcOvertakeRight="2"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType4" laneChangeModel="LC2013" lcOvertakeRight="5.5"/>
-    
+
 </routes>

@@ -39,17 +39,17 @@
 
     <!-- test apparentDecel -->
     <vType id="vType0" carFollowModel="KraussOrig1" apparentDecel="dummyApparentAccel"/>
-    
+
     <!-- test apparentDecel -->
     <vType id="vType1" carFollowModel="KraussOrig1" apparentDecel="-3"/>
-    
+
     <!-- test apparentDecel -->
     <vType id="vType2" carFollowModel="KraussOrig1" apparentDecel="0"/>
-    
+
     <!-- test apparentDecel -->
     <vType id="vType3" carFollowModel="KraussOrig1" apparentDecel="12"/>
-    
+
     <!-- test apparentDecel -->
     <vType id="vType4" carFollowModel="KraussOrig1" apparentDecel="4.5"/>
-    
+
 </routes>

@@ -1,12 +1,12 @@
 <additionals>
     <taz id="TAZ_0" color="green" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00">
-    
+
         <!-- valid generic parameter (valid) -->
         <param key="key1" value="value1"/>
 
         <!-- empty generic parameter (invalid -->
         <param/>
-        
+
         <!-- missin key (invalid) -->
         <param value="value2"/>
 
@@ -27,9 +27,9 @@
 
         <!-- value contains invalid characters (valid - no restrictions on value) -->
         <param key="key3" value="$$value with spaces%%"/>
-        
+
          <!-- valid generic parameter (valid) -->
          <param key="keyFinal" value="valueFinal"/>
-        
+
     </taz>
 </additionals>

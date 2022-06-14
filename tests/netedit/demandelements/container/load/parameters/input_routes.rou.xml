@@ -11,7 +11,7 @@
 
         <!-- empty generic parameter (invalid -->
         <param/>
-        
+
         <!-- missin key (invalid) -->
         <param value="value2"/>
 
@@ -32,10 +32,10 @@
 
         <!-- value contains invalid characters (valid - no restrictions on value) -->
         <param key="key3" value="$$value with spaces%%"/>
-        
+
          <!-- valid generic parameter (valid) -->
          <param key="keyFinal" value="valueFinal"/>
-         
+ 
         <tranship from="gneE2" to="gneE5"/>
     </container>
 </routes>

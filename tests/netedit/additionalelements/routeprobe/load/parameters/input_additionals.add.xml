@@ -1,12 +1,12 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <routeProbe id="routeProbe_01" edge="gneE1" period="100.00" file="fileA.txt" begin="0.00">
-    
+
     <!-- valid generic parameter (valid) -->
     <param key="key1" value="value1"/>
 
     <!-- empty generic parameter (invalid -->
     <param/>
-    
+
     <!-- missin key (invalid) -->
     <param value="value2"/>
 
@@ -27,9 +27,9 @@
 
     <!-- value contains invalid characters (valid - no restrictions on value) -->
     <param key="key3" value="$$value with spaces%%"/>
-    
+
      <!-- valid generic parameter (valid) -->
      <param key="keyFinal" value="valueFinal"/>
-        
+
     </routeProbe>
 </additional>

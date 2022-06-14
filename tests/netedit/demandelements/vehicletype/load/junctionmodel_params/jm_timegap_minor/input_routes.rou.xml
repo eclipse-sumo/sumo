@@ -39,17 +39,17 @@
 
     <!-- junctionModel param -->
     <vType id="vType0" jmTimegapMinor="dummy_jmTimegapMinor"/>
-    
+
     <!-- junctionModel param -->
     <vType id="vType1" jmTimegapMinor="-3"/>
-    
+
     <!-- junctionModel param -->
     <vType id="vType2" jmTimegapMinor="0"/>
-    
+
     <!-- junctionModel param -->
     <vType id="vType3" jmTimegapMinor="2"/>
-    
+
     <!-- junctionModel param -->
     <vType id="vType4" jmTimegapMinor="5.5"/>
-    
+
 </routes>

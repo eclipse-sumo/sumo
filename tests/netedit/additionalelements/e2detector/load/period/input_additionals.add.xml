@@ -2,7 +2,7 @@
 
     <!-- non valid frequency (missing) -->
     <e2Detector id="E2_01" lane="gneE0_0" pos="10" length="10.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
-    
+
     <!-- non valid frequency (dummy) -->
     <e2Detector id="E2_02" lane="gneE0_0" pos="11" length="10.00" period="dummyFrequency" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
 

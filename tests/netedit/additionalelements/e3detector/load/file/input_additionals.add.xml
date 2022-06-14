@@ -4,19 +4,19 @@
         <detEntry lane="gneE1_0" pos="16" friendlyPos="0"/>
         <detExit lane="gneE0_0" pos="16" friendlyPos="0"/>
     </e3Detector>
-    
+
     <!-- non valid file (invalid) -->
     <e3Detector id="e3Detector_1" period="100.00" file="%%$$$%%" timeThreshold="1.00" speedThreshold="1.39" pos="12,10">
         <detEntry lane="gneE1_0" pos="18" friendlyPos="0"/>
         <detExit lane="gneE0_0" pos="18" friendlyPos="0"/>
     </e3Detector>
-    
+
     <!-- valid file (empty) -->
     <e3Detector id="e3Detector_2" period="100.00" file="" timeThreshold="1.00" speedThreshold="1.39" pos="14,10">
         <detEntry lane="gneE1_0" pos="20" friendlyPos="0"/>
         <detExit lane="gneE0_0" pos="20" friendlyPos="0"/>
     </e3Detector>
-    
+
     <!-- valid file -->
     <e3Detector id="e3Detector_3" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="16,10">
         <detEntry lane="gneE1_0" pos="22" friendlyPos="0"/>

@@ -39,11 +39,11 @@
 
     <!-- non valid imgFile -->
     <vType id="vType0" imgFile="dummyImgFile"/>
-    
+
     <!-- non valid imgFile -->
     <vType id="vType1" imgFile=""/>
-    
+
     <!-- valid imgFile -->
     <vType id="vType2" imgFile="berlin_icon"/>
-    
+
 </routes>

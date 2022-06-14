@@ -39,17 +39,17 @@
 
     <!-- test estimation -->
     <vType id="vType0" carFollowModel="Wiedemann" estimation="dummy_estimation"/>
-    
+
     <!-- test estimation -->
     <vType id="vType1" carFollowModel="Wiedemann" estimation="-3"/>
-    
+
     <!-- test estimation -->
     <vType id="vType2" carFollowModel="Wiedemann" estimation="0"/>
-    
+
     <!-- test estimation -->
     <vType id="vType3" carFollowModel="Wiedemann" estimation="12"/>
-    
+
     <!-- test estimation -->
     <vType id="vType4" carFollowModel="Wiedemann" estimation="4.5"/>
-    
+
 </routes>

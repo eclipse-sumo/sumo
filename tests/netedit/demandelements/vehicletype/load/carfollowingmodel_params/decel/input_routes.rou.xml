@@ -39,17 +39,17 @@
 
     <!-- test decel -->
     <vType id="vType0" carFollowModel="KraussPS" decel="dummyDecel"/>
-    
+
     <!-- test decel -->
     <vType id="vType1" carFollowModel="KraussPS" decel="-3"/>
-    
+
     <!-- test decel -->
     <vType id="vType2" carFollowModel="KraussPS" decel="0"/>
-    
+
     <!-- test decel -->
     <vType id="vType3" carFollowModel="KraussPS" decel="12"/>
-    
+
     <!-- test decel -->
     <vType id="vType4" carFollowModel="KraussPS" decel="4.5"/>
-    
+
 </routes>

@@ -39,17 +39,17 @@
 
     <!-- laneChangeModel param -->
     <vType id="vType0" laneChangeModel="SL2015" lcTurnAlignmentDistance="dummy_turnAlignmentDistance"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType1" laneChangeModel="SL2015" lcTurnAlignmentDistance="-3"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType2" laneChangeModel="SL2015" lcTurnAlignmentDistance="0"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType3" laneChangeModel="SL2015" lcTurnAlignmentDistance="2"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType4" laneChangeModel="SL2015" lcTurnAlignmentDistance="5.5"/>
-    
+
 </routes>

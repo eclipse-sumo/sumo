@@ -2,11 +2,11 @@
 
     <!-- missing lane -->
     <containerStop id="containerStop_01" startPos="15" endPos="20" lines="line1 line2" name="containerStop" friendlyPos="false"/>
-    
+
     <!-- non valid lane -->
     <containerStop id="containerStop_02" lane="dummyLane" startPos="15" endPos="20" lines="line1 line2" name="containerStop" friendlyPos="false"/>
-    
+
     <!-- valid lane -->
     <containerStop id="containerStop_03" lane="gneE1_0" startPos="15" endPos="20" lines="line1 line2" name="containerStop" friendlyPos="false"/>
-    
+
 </additional>

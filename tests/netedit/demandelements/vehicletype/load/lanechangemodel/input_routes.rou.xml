@@ -39,11 +39,11 @@
 
     <!-- non valid laneChangeModel -->
     <vType id="vType0" laneChangeModel="dummyLaneChangeModel"/>
-    
+
     <!-- non valid laneChangeModel -->
     <vType id="vType1" laneChangeModel=""/>
-    
+
     <!-- valid laneChangeModel -->
     <vType id="vType2" laneChangeModel="LC2013"/>
-    
+
 </routes>

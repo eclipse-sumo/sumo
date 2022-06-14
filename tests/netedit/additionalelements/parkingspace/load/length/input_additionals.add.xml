@@ -3,18 +3,18 @@
 
         <!-- valid length (missing) -->
         <space x="30.00" y="15.00" z="1" width="3.30" angle="45.00"/>
-        
+
         <!-- non valid length (dummy) -->
         <space x="35.00" y="15.00" z="1" width="3.30" length="dummyLength" angle="45.00"/>
-        
+
         <!-- non valid length (empty) -->
         <space x="35.00" y="15.00" z="1" width="3.30" length="" angle="45.00"/>
-        
+
         <!-- non valid length (negative) -->
         <space x="35.00" y="15.00" z="1" width="3.30" length="-2" angle="45.00"/>
-        
+
         <!-- valid length -->
         <space x="35.00" y="15.00" z="1" width="3.30" length="5.5" angle="45.00"/>
-        
+
     </parkingArea>
 </additional>

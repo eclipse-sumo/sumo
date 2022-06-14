@@ -39,17 +39,17 @@
 
     <!-- test apProb -->
     <vType id="vType0" carFollowModel="PWagner2009" apProb="dummy_apProb"/>
-    
+
     <!-- test apProb -->
     <vType id="vType1" carFollowModel="PWagner2009" apProb="-3"/>
-    
+
     <!-- test apProb -->
     <vType id="vType2" carFollowModel="PWagner2009" apProb="0"/>
-    
+
     <!-- test apProb -->
     <vType id="vType3" carFollowModel="PWagner2009" apProb="12"/>
-    
+
     <!-- test apProb -->
     <vType id="vType4" carFollowModel="PWagner2009" apProb="4.5"/>
-    
+
 </routes>

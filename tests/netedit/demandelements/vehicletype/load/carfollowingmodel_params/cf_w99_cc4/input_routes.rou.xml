@@ -39,17 +39,17 @@
 
     <!-- test cc4 -->
     <vType id="vType0" carFollowModel="W99" cc4="dummy_cc4"/>
-    
+
     <!-- test cc4 -->
     <vType id="vType1" carFollowModel="W99" cc4="-3"/>
-    
+
     <!-- test cc4 -->
     <vType id="vType2" carFollowModel="W99" cc4="0"/>
-    
+
     <!-- test cc4 -->
     <vType id="vType3" carFollowModel="W99" cc4="12"/>
-    
+
     <!-- test cc4 -->
     <vType id="vType4" carFollowModel="W99" cc4="4.5"/>
-    
+
 </routes>

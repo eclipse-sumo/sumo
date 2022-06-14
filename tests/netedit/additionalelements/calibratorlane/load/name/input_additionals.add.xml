@@ -2,8 +2,8 @@
 
     <!-- non valid name -->
     <calibrator id="calibrator01" lane="gneE0_0" pos="0.00" period="100.00" name="///" output="calibrator01.txt"/>
-    
+
     <!-- valid name-->
     <calibrator id="calibrator02" lane="gneE0_0" pos="0.00" period="100.00" name="ownName" output="calibrator02.txt"/>
-    
+
 </additional>

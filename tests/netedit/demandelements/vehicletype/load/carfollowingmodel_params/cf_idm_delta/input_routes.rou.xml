@@ -39,17 +39,17 @@
 
     <!-- test delta -->
     <vType id="vType0" carFollowModel="IDM" delta="dummy_delta"/>
-    
+
     <!-- test delta -->
     <vType id="vType1" carFollowModel="IDM" delta="-3"/>
-    
+
     <!-- test delta -->
     <vType id="vType2" carFollowModel="IDM" delta="0"/>
-    
+
     <!-- test delta -->
     <vType id="vType3" carFollowModel="IDM" delta="12"/>
-    
+
     <!-- test delta -->
     <vType id="vType4" carFollowModel="IDM" delta="4.5"/>
-    
+
 </routes>

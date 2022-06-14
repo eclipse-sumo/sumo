@@ -39,20 +39,20 @@
 
     <!-- valid id -->
     <vType id="vType0"/>
-    
+
     <!-- non valid id -->
-    <vType />    
-    
+    <vType />
+
     <!-- non valid id -->
-    <vType id=""/>    
-    
+    <vType id=""/>
+
     <!-- non valid id -->
-    <vType id="$$·$·%%··$·"/>    
-    
+    <vType id="$$·$·%%··$·"/>
+
     <!-- non valid id -->
     <vType id="vType0"/>
-    
+
     <!-- valid id -->
     <vType id="vType1"/>
-    
+
 </routes>

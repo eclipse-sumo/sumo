@@ -2,10 +2,10 @@
 
     <!-- non valid Lane (missing) -->
     <instantInductionLoop id="E1_01" pos="9" file="fileA.txt" vTypes="type1 type2 type3" friendlyPos="0"/>
-    
+
     <!-- non valid lane (dummy Lane) -->
     <instantInductionLoop id="E1_02" lane="dummyLane" pos="12" file="fileA.txt" vTypes="type1 type2 type3" friendlyPos="0"/>
-    
+
     <!-- valid lane -->
     <instantInductionLoop id="E1_03" lane="gneE0_0" pos="12" file="fileA.txt" vTypes="type1 type2 type3" friendlyPos="0"/>
 

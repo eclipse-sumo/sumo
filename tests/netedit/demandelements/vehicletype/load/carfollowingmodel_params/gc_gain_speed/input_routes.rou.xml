@@ -39,17 +39,17 @@
 
     <!-- test gapControlGainSpeed -->
     <vType id="vType0" carFollowModel="ACC" gapControlGainSpeed="dummy_gapControlGainSpeed"/>
-    
+
     <!-- test gapControlGainSpeed -->
     <vType id="vType1" carFollowModel="ACC" gapControlGainSpeed="-3"/>
-    
+
     <!-- test gapControlGainSpeed -->
     <vType id="vType2" carFollowModel="ACC" gapControlGainSpeed="0"/>
-    
+
     <!-- test gapControlGainSpeed -->
     <vType id="vType3" carFollowModel="ACC" gapControlGainSpeed="12"/>
-    
+
     <!-- test gapControlGainSpeed -->
     <vType id="vType4" carFollowModel="ACC" gapControlGainSpeed="4.5"/>
-    
+
 </routes>

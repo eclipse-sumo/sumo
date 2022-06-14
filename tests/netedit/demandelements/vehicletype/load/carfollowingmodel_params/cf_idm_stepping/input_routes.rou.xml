@@ -39,17 +39,17 @@
 
     <!-- test stepping -->
     <vType id="vType0" carFollowModel="IDM" stepping="dummy_stepping"/>
-    
+
     <!-- test stepping -->
     <vType id="vType1" carFollowModel="IDM" stepping="-3"/>
-    
+
     <!-- test stepping -->
     <vType id="vType2" carFollowModel="IDM" stepping="0"/>
-    
+
     <!-- test stepping -->
     <vType id="vType3" carFollowModel="IDM" stepping="12"/>
-    
+
     <!-- test stepping -->
     <vType id="vType4" carFollowModel="IDM" stepping="4.5"/>
-    
+
 </routes>

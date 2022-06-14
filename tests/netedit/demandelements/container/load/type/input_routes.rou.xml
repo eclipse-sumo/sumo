@@ -9,15 +9,15 @@
     <container id="p_0" depart="0.00">
         <tranship from="gneE2" to="gneE5"/>
     </container>
-    
+
     <container id="p_1" type="" depart="1.00">
         <tranship from="gneE2" to="gneE5"/>
     </container>
-    
+
     <container id="p_2" type="dummyType" depart="2.00">
         <tranship from="gneE2" to="gneE5"/>
     </container>
-    
+
     <container id="p_3" type="customType" depart="3.00">
         <tranship from="gneE2" to="gneE5"/>
     </container>

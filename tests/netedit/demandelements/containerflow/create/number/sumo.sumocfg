@@ -7,5 +7,5 @@
         <additional-files value="additionals.netedit"/>
         <route-files value="routes.netedit"/>
     </input>
-    
+
 </configuration>

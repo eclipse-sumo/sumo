@@ -7,7 +7,7 @@
             <param key="KeyA2" value="valueA3"/>
         </access>
     </busStop>
-    
+
     <!-- Access B -->
     <busStop id="busStopB" lane="gneE0_0" startPos="23.00" endPos="33.00">
         <access lane="gneE0_0" pos="20" length="20" friendlyPos="1">

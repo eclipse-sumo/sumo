@@ -39,17 +39,17 @@
 
     <!-- non valid width -->
     <vType id="vType0" width="dummyWidth"/>
-    
+
     <!-- non valid width -->
     <vType id="vType1" width="-3"/>
-    
+
     <!-- valid width -->
     <vType id="vType2" width="0"/>
-    
+
     <!-- valid width -->
     <vType id="vType3" width="12"/>
-    
+
     <!-- valid width -->
     <vType id="vType4" width="4.5"/>
-    
+
 </routes>

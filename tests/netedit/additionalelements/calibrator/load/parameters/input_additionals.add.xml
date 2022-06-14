@@ -2,13 +2,13 @@
 
     <!-- default calibrator -->
     <calibrator id="calibrator01" edge="gneE0" pos="0.00" period="100.00" output="calibrator01.txt">
-    
+
     <!-- valid generic parameter (valid) -->
     <param key="key1" value="value1"/>
 
     <!-- empty generic parameter (invalid -->
     <param/>
-    
+
     <!-- missin key (invalid) -->
     <param value="value2"/>
 
@@ -29,10 +29,10 @@
 
     <!-- value contains invalid characters (valid - no restrictions on value) -->
     <param key="key3" value="$$value with spaces%%"/>
-    
+
      <!-- valid generic parameter (valid) -->
      <param key="keyFinal" value="valueFinal"/>
-        
+
     </calibrator>
-    
+
 </additional>

@@ -49,5 +49,5 @@
     <route edges="gneE0 gneE1" color="yellow" id="route_2">
         <stop busStop="busStop" line="customLine" speed="10"/>
     </route>
-    
+
 </routes>

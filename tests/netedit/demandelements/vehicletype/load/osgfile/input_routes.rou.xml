@@ -39,8 +39,8 @@
 
     <!-- non valid osgFile -->
     <vType id="vType0" osgFile="dummyOsgFile"/>
-    
+
     <!-- non valid osgFile -->
     <vType id="vType1" osgFile=""/>
-    
+
 </routes>

@@ -39,17 +39,17 @@
 
     <!-- non valid maxSpeedLat -->
     <vType id="vType0" maxSpeedLat="dummyMaxSpeedLat"/>
-    
+
     <!-- non valid maxSpeedLat -->
     <vType id="vType1" maxSpeedLat="-3"/>
-    
+
     <!-- valid maxSpeedLat -->
     <vType id="vType2" maxSpeedLat="0"/>
-    
+
     <!-- valid maxSpeedLat -->
     <vType id="vType3" maxSpeedLat="12"/>
-    
+
     <!-- valid maxSpeedLat -->
     <vType id="vType4" maxSpeedLat="4.5"/>
-    
+
 </routes>

@@ -39,17 +39,17 @@
 
     <!-- valid id -->
     <route edges="gneE2 gneE4 gneE5" color="blue" id="route_0"/>
-    
+
     <!-- non valid id (missing)-->
     <route edges="gneE2 gneE4 gneE5" color="blue"/>
-    
+
     <!-- non valid id (empty)-->
     <route edges="gneE2 gneE4 gneE5" color="blue" id=""/>
-    
+
     <!-- non valid id (invalid characters)-->
     <route edges="gneE2 gneE4 gneE5" color="blue" id="%%$$$%  $$%"/>
 
     <!-- non valid id (duplicated)-->
     <route edges="gneE2 gneE4 gneE5" color="blue" id="route_0"/>
-    
+
 </routes>

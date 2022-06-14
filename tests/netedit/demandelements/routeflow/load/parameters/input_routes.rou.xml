@@ -54,13 +54,13 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0"/>
     <flow id="flow_0" begin="20.00" end="500.00" number="100" route="route_0">
-    
+
         <!-- valid generic parameter (valid) -->
         <param key="key1" value="value1"/>
 
         <!-- empty generic parameter (invalid -->
         <param/>
-        
+
         <!-- missin key (invalid) -->
         <param value="value2"/>
 
@@ -81,9 +81,9 @@
 
         <!-- value contains invalid characters (valid - no restrictions on value) -->
         <param key="key3" value="$$value with spaces%%"/>
-        
+
          <!-- valid generic parameter (valid) -->
          <param key="keyFinal" value="valueFinal"/>
-         
+ 
     </flow>
 </routes>

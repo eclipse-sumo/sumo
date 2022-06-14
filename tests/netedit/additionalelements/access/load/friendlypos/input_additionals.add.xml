@@ -3,13 +3,13 @@
 
         <!-- non valid friendly position (missing) -->
         <access lane="8_0" pos="10"/>
-        
+
         <!-- non valid friendly position (dummy) -->
         <access lane="9_0" pos="10" length="10" friendlyPos="dummyFriendlyPos"/>
-        
+
         <!-- valid friendly position, invalid position 1 -->
         <access lane="10_0" pos="4000" length="10" friendlyPos="1"/>
-        
+
         <!-- valid friendly position, invalid position 2 -->
         <access lane="11_0" pos="-200" length="10" friendlyPos="1"/>
 

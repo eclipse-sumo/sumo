@@ -8,13 +8,13 @@
 
         <!-- non valid (empty) -->
         <flow route="CRoute" begin="000" end="100" speed="10" vehsPerHour="" id="CFlow01"/>
-        
+
         <!-- non valid (dummy) -->
         <flow route="CRoute" begin="100" end="200" speed="10" vehsPerHour="dummy" id="CFlow02" />
-        
+
         <!-- valid -->
         <flow route="CRoute" begin="200" end="300" speed="10" vehsPerHour="230.00" id="CFlow03" />
-        
+
     </calibrator>
-    
+
 </additional>

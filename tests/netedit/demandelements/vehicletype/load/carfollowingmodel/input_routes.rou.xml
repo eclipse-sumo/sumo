@@ -39,11 +39,11 @@
 
     <!-- non valid carFollowModel -->
     <vType id="vType0" carFollowModel="dummyTau"/>
-    
+
     <!-- non valid carFollowModel -->
     <vType id="vType1" carFollowModel=""/>
-    
+
     <!-- valid carFollowModel -->
     <vType id="vType2" carFollowModel="Wiedemann"/>
-    
+
 </routes>

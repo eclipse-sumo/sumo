@@ -8,7 +8,7 @@
         </detExit>
         <detEntry lane="gneE0_0" pos="15" friendlyPos="0"/>
     </e3Detector>
-    
+
     <!-- Entry B -->
     <e3Detector id="E3_1" period="100.00" file="fileB.txt" timeThreshold="1.00" speedThreshold="1.39" pos="17.5,3">
         <detExit lane="gneE0_0" pos="20" friendlyPos="1">

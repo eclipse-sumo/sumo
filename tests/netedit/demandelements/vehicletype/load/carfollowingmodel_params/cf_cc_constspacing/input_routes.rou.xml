@@ -39,17 +39,17 @@
 
     <!-- test constSpacing -->
     <vType id="vType0" carFollowModel="CC" lanesCount="1" constSpacing="dummy_constSpacing"/>
-    
+
     <!-- test constSpacing -->
     <vType id="vType1" carFollowModel="CC" lanesCount="1" constSpacing="-3"/>
-    
+
     <!-- test constSpacing -->
     <vType id="vType2" carFollowModel="CC" lanesCount="1" constSpacing="0"/>
-    
+
     <!-- test constSpacing -->
     <vType id="vType3" carFollowModel="CC" lanesCount="1" constSpacing="12"/>
-    
+
     <!-- test constSpacing -->
     <vType id="vType4" carFollowModel="CC" lanesCount="1" constSpacing="4.5"/>
-    
+
 </routes>

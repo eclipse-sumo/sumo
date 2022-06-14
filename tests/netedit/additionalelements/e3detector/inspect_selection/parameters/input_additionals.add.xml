@@ -7,7 +7,7 @@
         <param key="keyA2" value="valueA2"/>
         <param key="keyA3" value="valueA3"/>
     </e3Detector>
-    
+
     <!-- E3 B -->
     <e3Detector id="e3Detector_B" period="120.00" file="e3Detector_00.txt" name="B" timeThreshold="2.00" speedThreshold="3.39" pos="17.50,-2">
         <detEntry lane="gneE1_0" pos="10" friendlyPos="0"/>
@@ -16,5 +16,5 @@
         <param key="keyB2" value="valueB2"/>
         <param key="keyB3" value="valueB3"/>
     </e3Detector>
-    
+
 </additionals>

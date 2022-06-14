@@ -1,13 +1,13 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <rerouter id="rerouter_0" edges="gneE0 gneE1" pos="0.00,10.00">
-    
+
         <!-- valid generic parameter (valid) -->
         <param key="key1" value="value1"/>
 
         <!-- empty generic parameter (invalid -->
         <param/>
-        
+
         <!-- missin key (invalid) -->
         <param value="value2"/>
 
@@ -28,10 +28,10 @@
 
         <!-- value contains invalid characters (valid - no restrictions on value) -->
         <param key="key3" value="$$value with spaces%%"/>
-        
+
          <!-- valid generic parameter (valid) -->
          <param key="keyFinal" value="valueFinal"/>
-         
+ 
     </rerouter>
-    
+
 </additional>

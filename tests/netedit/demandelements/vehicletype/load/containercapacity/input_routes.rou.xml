@@ -39,17 +39,17 @@
 
     <!-- non valid containerCapacity -->
     <vType id="vType0" containerCapacity="dummyContainerCapacity"/>
-    
+
     <!-- non valid containerCapacity -->
     <vType id="vType1" containerCapacity="-3"/>
-    
+
     <!-- non valid containerCapacity -->
     <vType id="vType2" containerCapacity="4.5"/>
-    
+
     <!-- valid containerCapacity -->
     <vType id="vType3" containerCapacity="0"/>
-    
+
     <!-- valid containerCapacity -->
     <vType id="vType4" containerCapacity="12"/>
-    
+
 </routes>

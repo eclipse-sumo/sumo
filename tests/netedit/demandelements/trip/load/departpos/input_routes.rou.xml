@@ -54,23 +54,23 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <trip id="trip_0" from="gneE2" to="gneE5" depart="20.00" departPos="dummyDepart"/>
-    
+
     <trip id="trip_1" from="gneE2" to="gneE5" depart="20.00" departPos="-12"/>
-    
+
     <trip id="trip_2" from="gneE2" to="gneE5" depart="20.00" departPos="0"/>
-    
+
     <trip id="trip_3" from="gneE2" to="gneE5" depart="20.00" departPos="500"/>
-    
+
     <trip id="trip_4" from="gneE2" to="gneE5" depart="20.00" departPos="1"/>
-    
+
     <trip id="trip_5" from="gneE2" to="gneE5" depart="20.00" departPos="random"/>
-    
+
     <trip id="trip_6" from="gneE2" to="gneE5" depart="20.00" departPos="free"/>
-    
+
     <trip id="trip_7" from="gneE2" to="gneE5" depart="20.00" departPos="random_free"/>
-    
+
     <trip id="trip_8" from="gneE2" to="gneE5" depart="20.00" departPos="base"/>
-    
+
     <trip id="trip_9" from="gneE2" to="gneE5" depart="20.00" departPos="last"/>
-    
+
 </routes>

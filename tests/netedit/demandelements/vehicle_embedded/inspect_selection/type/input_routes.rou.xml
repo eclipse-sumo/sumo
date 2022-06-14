@@ -48,7 +48,7 @@
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>
     </vehicle>
-    
+
     <!-- vehicle B -->
     <vehicle id="vehicle_embeddedB" type="typeB" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" depart="0.00">
         <route edges="gneE4 gneE5" color="red"/>

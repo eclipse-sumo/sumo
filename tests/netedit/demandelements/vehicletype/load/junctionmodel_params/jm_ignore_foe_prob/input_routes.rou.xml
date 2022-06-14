@@ -39,17 +39,17 @@
 
     <!-- junctionModel param -->
     <vType id="vType0" jmIgnoreFoeProb="dummy_jmIgnoreFoeProb"/>
-    
+
     <!-- junctionModel param -->
     <vType id="vType1" jmIgnoreFoeProb="-3"/>
-    
+
     <!-- junctionModel param -->
     <vType id="vType2" jmIgnoreFoeProb="0"/>
-    
+
     <!-- junctionModel param -->
     <vType id="vType3" jmIgnoreFoeProb="2"/>
-    
+
     <!-- junctionModel param -->
     <vType id="vType4" jmIgnoreFoeProb="5.5"/>
-    
+
 </routes>

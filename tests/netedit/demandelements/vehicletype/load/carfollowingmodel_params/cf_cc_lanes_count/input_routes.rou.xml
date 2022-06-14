@@ -45,8 +45,8 @@
 
     <!-- test lanesCount -->
     <vType id="vType3" carFollowModel="CC" lanesCount="12"/>
-    
+
     <!-- test lanesCount -->
     <vType id="vType4" carFollowModel="CC" lanesCount="4.5"/>
-    
+
 </routes>

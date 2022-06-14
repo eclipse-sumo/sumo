@@ -39,14 +39,14 @@
 
     <!-- non valid guiShape -->
     <vType id="vType0" guiShape="dummyGuiShape"/>
-    
+
     <!-- non valid guiShape -->
     <vType id="vType1" guiShape=""/>
-    
+
     <!-- valid guiShape -->
     <vType id="vType2" guiShape="unknown"/>
-    
+
     <!-- valid guiShape -->
     <vType id="vType3" guiShape="truck"/>
-    
+
 </routes>

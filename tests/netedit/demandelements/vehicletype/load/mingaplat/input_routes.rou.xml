@@ -39,17 +39,17 @@
 
     <!-- non valid minGapLat -->
     <vType id="vType0" minGapLat="dummyMinGapLat"/>
-    
+
     <!-- non valid minGapLat -->
     <vType id="vType1" minGapLat="-3"/>
-    
+
     <!-- valid minGapLat -->
     <vType id="vType2" minGapLat="0"/>
-    
+
     <!-- valid minGapLat -->
     <vType id="vType3" minGapLat="12"/>
-    
+
     <!-- valid minGapLat -->
     <vType id="vType4" minGapLat="4.5"/>
-    
+
 </routes>

@@ -1,13 +1,13 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Without errors -->
     <chargingStation id="chargingStation_0" lane="gneE0_0" startPos="5" endPos="10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" friendlyPos="false">
-    
+
     <!-- valid generic parameter (valid) -->
     <param key="key1" value="value1"/>
 
     <!-- empty generic parameter (invalid -->
     <param/>
-    
+
     <!-- missin key (invalid) -->
     <param value="value2"/>
 
@@ -28,9 +28,9 @@
 
     <!-- value contains invalid characters (valid - no restrictions on value) -->
     <param key="key3" value="$$value with spaces%%"/>
-    
+
      <!-- valid generic parameter (valid) -->
      <param key="keyFinal" value="valueFinal"/>
-        
+
     </chargingStation>
 </additional>

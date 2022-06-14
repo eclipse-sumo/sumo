@@ -39,17 +39,17 @@
 
     <!-- non valid impatience -->
     <vType id="vType0" impatience="dummyImpatience"/>
-    
+
     <!-- non valid impatience -->
     <vType id="vType1" impatience="-3"/>
-    
+
     <!-- valid impatience -->
     <vType id="vType2" impatience="0"/>
-    
+
     <!-- valid impatience -->
     <vType id="vType3" impatience="12"/>
-    
+
     <!-- valid impatience -->
     <vType id="vType4" impatience="4.5"/>
-    
+
 </routes>

@@ -39,17 +39,17 @@
 
     <!-- test omegaN -->
     <vType id="vType0" carFollowModel="CC" lanesCount="1" omegaN="dummy_omegaN"/>
-    
+
     <!-- test omegaN -->
     <vType id="vType1" carFollowModel="CC" lanesCount="1" omegaN="-3"/>
-    
+
     <!-- test omegaN -->
     <vType id="vType2" carFollowModel="CC" lanesCount="1" omegaN="0"/>
-    
+
     <!-- test omegaN -->
     <vType id="vType3" carFollowModel="CC" lanesCount="1" omegaN="12"/>
-    
+
     <!-- test omegaN -->
     <vType id="vType4" carFollowModel="CC" lanesCount="1" omegaN="4.5"/>
-    
+
 </routes>

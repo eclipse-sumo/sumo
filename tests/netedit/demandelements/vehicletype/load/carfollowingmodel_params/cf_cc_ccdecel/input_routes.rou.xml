@@ -39,17 +39,17 @@
 
     <!-- test ccDecel -->
     <vType id="vType0" carFollowModel="CC" lanesCount="1" ccDecel="dummy_ccDecel"/>
-    
+
     <!-- test ccDecel -->
     <vType id="vType1" carFollowModel="CC" lanesCount="1" ccDecel="-3"/>
-    
+
     <!-- test ccDecel -->
     <vType id="vType2" carFollowModel="CC" lanesCount="1" ccDecel="0"/>
-    
+
     <!-- test ccDecel -->
     <vType id="vType3" carFollowModel="CC" lanesCount="1" ccDecel="12"/>
-    
+
     <!-- test ccDecel -->
     <vType id="vType4" carFollowModel="CC" lanesCount="1" ccDecel="4.5"/>
-    
+
 </routes>

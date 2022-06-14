@@ -39,17 +39,17 @@
 
     <!-- laneChangeModel param -->
     <vType id="vType0" laneChangeModel="LC2013" lcOpposite="dummy_opposite"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType1" laneChangeModel="LC2013" lcOpposite="-3"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType2" laneChangeModel="LC2013" lcOpposite="0"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType3" laneChangeModel="LC2013" lcOpposite="2"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType4" laneChangeModel="LC2013" lcOpposite="5.5"/>
-    
+
 </routes>

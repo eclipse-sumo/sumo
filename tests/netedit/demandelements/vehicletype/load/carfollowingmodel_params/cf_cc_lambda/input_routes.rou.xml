@@ -39,17 +39,17 @@
 
     <!-- test lambda -->
     <vType id="vType0" carFollowModel="CC" lanesCount="1" lambda="dummy_lambda"/>
-    
+
     <!-- test lambda -->
     <vType id="vType1" carFollowModel="CC" lanesCount="1" lambda="-3"/>
-    
+
     <!-- test lambda -->
     <vType id="vType2" carFollowModel="CC" lanesCount="1" lambda="0"/>
-    
+
     <!-- test lambda -->
     <vType id="vType3" carFollowModel="CC" lanesCount="1" lambda="12"/>
-    
+
     <!-- test lambda -->
     <vType id="vType4" carFollowModel="CC" lanesCount="1" lambda="4.5"/>
-    
+
 </routes>

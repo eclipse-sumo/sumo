@@ -39,17 +39,17 @@
 
     <!-- test gapControlGainGapDot -->
     <vType id="vType0" carFollowModel="CACC" gapControlGainGapDot="dummy_gapControlGainGapDot"/>
-    
+
     <!-- test gapControlGainGapDot -->
     <vType id="vType1" carFollowModel="CACC" gapControlGainGapDot="-3"/>
-    
+
     <!-- test gapControlGainGapDot -->
     <vType id="vType2" carFollowModel="CACC" gapControlGainGapDot="0"/>
-    
+
     <!-- test gapControlGainGapDot -->
     <vType id="vType3" carFollowModel="CACC" gapControlGainGapDot="12"/>
-    
+
     <!-- test gapControlGainGapDot -->
     <vType id="vType4" carFollowModel="CACC" gapControlGainGapDot="4.5"/>
-    
+
 </routes>

@@ -39,17 +39,17 @@
 
     <!-- test accel -->
     <vType id="vType0" carFollowModel="Krauss" accel="dummyAccel"/>
-    
+
     <!-- test accel -->
     <vType id="vType1" carFollowModel="Krauss" accel="-3"/>
-    
+
     <!-- test accel -->
     <vType id="vType2" carFollowModel="Krauss" accel="0"/>
-    
+
     <!-- test accel -->
     <vType id="vType3" carFollowModel="Krauss" accel="12"/>
-    
+
     <!-- test accel -->
     <vType id="vType4" carFollowModel="Krauss" accel="4.5"/>
-    
+
 </routes>

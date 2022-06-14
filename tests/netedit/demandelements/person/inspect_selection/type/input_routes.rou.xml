@@ -7,7 +7,7 @@
     <vType id="typeA" length="20.00" width="5.00" height="12.00" color="cyan"/>
     <vType id="typeB" length="20.00" width="5.00" height="12.00" color="cyan"/>
     <vType id="typeC" length="20.00" width="5.00" height="12.00" color="cyan"/>
-    
+
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" type="typeA" color="red" departPos="0.00" depart="10.00">
         <personTrip from="gneE2" to="gneE5"/>

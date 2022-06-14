@@ -39,35 +39,35 @@
 
     <!-- non valid latAlignment -->
     <vType id="vType00" latAlignment="dummyLatAlignment"/>
-    
+
     <!-- non valid latAlignment -->
     <vType id="vType01" latAlignment="-3"/>
-    
+
     <!-- valid latAlignment -->
     <vType id="vType02" latAlignment="0"/>
-    
+
     <!-- valid latAlignment -->
     <vType id="vType03" latAlignment="12"/>
-    
+
     <!-- valid latAlignment -->
     <vType id="vType04" latAlignment="4.5"/>
-    
+
     <!-- valid latAlignment -->
     <vType id="vType05" latAlignment="left"/>
-    
+
     <!-- valid latAlignment -->
     <vType id="vType06" latAlignment="right"/>
-    
+
     <!-- valid latAlignment -->
     <vType id="vType07" latAlignment="center"/>
-    
+
     <!-- valid latAlignment -->
     <vType id="vType08" latAlignment="compact"/>
-    
+
     <!-- valid latAlignment -->
     <vType id="vType09" latAlignment="nice"/>
-    
+
     <!-- valid latAlignment -->
     <vType id="vType10" latAlignment="arbitrary"/>
-    
+
 </routes>

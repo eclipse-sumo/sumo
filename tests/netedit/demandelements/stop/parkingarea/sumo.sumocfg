@@ -7,10 +7,10 @@
         <additional-files value="additionals.netedit"/>
         <route-files value="routes.netedit"/>
     </input>
-    
+
     <time>
         <begin value="0"/>
         <end value="1500"/>
     </time>
-    
+
 </configuration>

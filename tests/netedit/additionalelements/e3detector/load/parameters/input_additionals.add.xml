@@ -6,7 +6,7 @@
 
     <!-- empty generic parameter (invalid -->
     <param/>
-    
+
     <!-- missin key (invalid) -->
     <param value="value2"/>
 
@@ -27,12 +27,12 @@
 
     <!-- value contains invalid characters (valid - no restrictions on value) -->
     <param key="key3" value="$$value with spaces%%"/>
-    
+
      <!-- valid generic parameter (valid) -->
      <param key="keyFinal" value="valueFinal"/>
         <!-- childs -->
         <detEntry lane="gneE1_0" pos="2" friendlyPos="0"/>
         <detExit lane="gneE0_0" pos="2" friendlyPos="0"/>
-        
+
     </e3Detector>
 </additional>

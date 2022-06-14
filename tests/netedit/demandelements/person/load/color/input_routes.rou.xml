@@ -8,15 +8,15 @@
     <person id="p_0" depart="0.00">
         <personTrip from="gneE2" to="gneE5"/>
     </person>
-    
+
     <person id="p_1" color="" depart="1.00">
         <personTrip from="gneE2" to="gneE5"/>
     </person>
-    
+
     <person id="p_2" color="dummyColor" depart="2.00">
         <personTrip from="gneE2" to="gneE5"/>
     </person>
-    
+
     <person id="p_3" color="12,13,14" depart="3.00">
         <personTrip from="gneE2" to="gneE5"/>
     </person>

@@ -57,9 +57,9 @@
 
 <!-- value contains invalid characters (valid - no restrictions on value) -->
 <param key="key3" value="$$value with spaces%%"/>
-        
+
     </e2Detector>
-    
+
     <!-- out of class -->
     <param key="keyOut" value="valueOut"/>
 </additional>

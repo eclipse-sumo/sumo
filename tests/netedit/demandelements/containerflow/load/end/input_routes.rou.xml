@@ -8,23 +8,23 @@
     <containerFlow id="p_0" begin="0.00" end="23.00" containersPerHour="1200.00">
         <tranship from="gneE2" to="gneE5"/>
     </containerFlow>
-    
+
     <containerFlow id="p_1" begin="0.00" end="" containersPerHour="1200.00">
         <tranship from="gneE2" to="gneE5"/>
     </containerFlow>
-    
+
     <containerFlow id="p_2" begin="0.00" end="dummy" containersPerHour="1200.00">
         <tranship from="gneE2" to="gneE5"/>
     </containerFlow>
-    
+
     <containerFlow id="p_3" begin="0.00" end="-23.00" containersPerHour="1200.00">
         <tranship from="gneE2" to="gneE5"/>
     </containerFlow>
-    
+
     <containerFlow id="p_4" begin="0.00" end="12.5" containersPerHour="1200.00">
         <tranship from="gneE2" to="gneE5"/>
     </containerFlow>
-    
+
     <containerFlow id="p_5" begin="0.00" end="30" containersPerHour="1200.00">
         <tranship from="gneE2" to="gneE5"/>
     </containerFlow>

@@ -39,17 +39,17 @@
 
     <!-- test tmp1 -->
     <vType id="vType0" carFollowModel="Daniel1" tmp1="dummy_tmp1"/>
-    
+
     <!-- test tmp1 -->
     <vType id="vType1" carFollowModel="Daniel1" tmp1="-3"/>
-    
+
     <!-- test tmp1 -->
     <vType id="vType2" carFollowModel="Daniel1" tmp1="0"/>
-    
+
     <!-- test tmp1 -->
     <vType id="vType3" carFollowModel="Daniel1" tmp1="12"/>
-    
+
     <!-- test tmp1 -->
     <vType id="vType4" carFollowModel="Daniel1" tmp1="4.5"/>
-    
+
 </routes>

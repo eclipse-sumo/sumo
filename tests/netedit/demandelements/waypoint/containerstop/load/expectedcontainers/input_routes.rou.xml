@@ -51,7 +51,7 @@
     </trip>
 
     <trip depart="0.00" from="gneE0" to="gneE1" id="trip_3">
-        <stop containerStop="containerStop" containerTriggered="1" expectedContainers="ID1 ID2" speed="10"/>        
+        <stop containerStop="containerStop" containerTriggered="1" expectedContainers="ID1 ID2" speed="10"/>
     </trip>
-    
+
 </routes>

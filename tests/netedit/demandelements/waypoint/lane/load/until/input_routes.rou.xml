@@ -37,9 +37,9 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    
+
     <route id="route_0" edges="gneE0 gneE1" color="yellow"/>
-    
+
     <flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
         <stop lane="gneE1_0" startPos="7.00" endPos="17.00" until="dummyDuration" speed="10"/>
     </flow>

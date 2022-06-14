@@ -51,7 +51,7 @@
     </route>
 
     <route edges="gneE0 gneE1" color="yellow" id="route_3">
-        <stop busStop="busStop" containerTriggered="1" expectedContainers="ID1 ID2" speed="10"/>        
+        <stop busStop="busStop" containerTriggered="1" expectedContainers="ID1 ID2" speed="10"/>
     </route>
-    
+
 </routes>

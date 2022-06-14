@@ -64,7 +64,7 @@
 
             <!-- empty generic parameter (invalid -->
             <param/>
-            
+
             <!-- missin key (invalid) -->
             <param value="2"/>
 
@@ -85,7 +85,7 @@
 
             <!-- value contains invalid characters (valid - no restrictions on value) -->
             <param key="key3" value="$$value with spaces%%"/>
-            
+
              <!-- valid generic parameter (valid) -->
              <param key="keyFinal" value="10"/>
         </tazRelation>

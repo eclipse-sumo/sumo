@@ -39,17 +39,17 @@
 
     <!-- test flatbedKp -->
     <vType id="vType0" carFollowModel="CC" lanesCount="1" flatbedKp="dummy_flatbedKp"/>
-    
+
     <!-- test flatbedKp -->
     <vType id="vType1" carFollowModel="CC" lanesCount="1" flatbedKp="-3"/>
-    
+
     <!-- test flatbedKp -->
     <vType id="vType2" carFollowModel="CC" lanesCount="1" flatbedKp="0"/>
-    
+
     <!-- test flatbedKp -->
     <vType id="vType3" carFollowModel="CC" lanesCount="1" flatbedKp="12"/>
-    
+
     <!-- test flatbedKp -->
     <vType id="vType4" carFollowModel="CC" lanesCount="1" flatbedKp="4.5"/>
-    
+
 </routes>

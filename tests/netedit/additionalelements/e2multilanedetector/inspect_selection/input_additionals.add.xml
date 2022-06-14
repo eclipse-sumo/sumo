@@ -7,12 +7,12 @@
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>
     </e2Detector>
-    
+
     <!-- E2 Multi B -->
     <e2Detector id="e2MultilaneDetector_1" name="nameB" lanes="gneE4_0 gneE5_0" pos="14.00" period="200.00" file="fileB.xml" vTypes="type4 type5 type6" endPos="14.00" friendlyPos="true">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>
     </e2Detector>
-    
+
 </additional>

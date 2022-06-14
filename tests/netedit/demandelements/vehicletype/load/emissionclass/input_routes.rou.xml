@@ -39,11 +39,11 @@
 
     <!-- non valid emissionClass -->
     <vType id="vType0" emissionClass="dummyEmissionClass"/>
-    
+
     <!-- non valid emissionClass -->
     <vType id="vType1" emissionClass=""/>
-    
+
     <!-- valid emissionClass -->
     <vType id="vType2" emissionClass="HDV_12_1"/>
-    
+
 </routes>

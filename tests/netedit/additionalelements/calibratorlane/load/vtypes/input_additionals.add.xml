@@ -2,11 +2,11 @@
 
     <!-- non valid vTypes -->
     <calibrator id="calibrator01" lane="gneE0_0" pos="0.00" period="100.00" vTypes="%%%%,,,$$$$$" output="calibrator01.txt"/>
-    
+
     <!-- valid vType-->
     <calibrator id="calibrator02" lane="gneE0_0" pos="0.00" period="100.00" vTypes="" output="calibrator02.txt"/>
-    
+
     <!-- valid name-->
     <calibrator id="calibrator03" lane="gneE0_0" pos="0.00" period="100.00" vTypes="Type1 Type2 Type3" output="calibrator03.txt"/>
-    
+
 </additional>

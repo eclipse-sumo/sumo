@@ -49,5 +49,5 @@
     <trip depart="0.00" from="gneE0" to="gneE1" id="trip_2">
         <stop containerStop="containerStop" tripId="customTripID"/>
     </trip>
-    
+
 </routes>

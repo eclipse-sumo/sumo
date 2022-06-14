@@ -39,17 +39,17 @@
 
     <!-- non valid color -->
     <vType id="vType0" color="dummyColor"/>
-    
+
     <!-- non valid color -->
     <vType id="vType1" color=""/>
-    
+
     <!-- valid color -->
     <vType id="vType2" color="500,600,800"/>
-    
+
     <!-- valid color -->
     <vType id="vType3" color="black"/>
-    
+
     <!-- valid color -->
     <vType id="vType4" color="23,45,67"/>
-    
+
 </routes>

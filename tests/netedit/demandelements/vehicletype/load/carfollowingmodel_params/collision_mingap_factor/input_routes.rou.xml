@@ -39,17 +39,17 @@
 
     <!-- test collisionMinGapFactor -->
     <vType id="vType0" carFollowModel="CACC" collisionMinGapFactor="dummy_collisionMinGapFactor"/>
-    
+
     <!-- test collisionMinGapFactor -->
     <vType id="vType1" carFollowModel="CACC" collisionMinGapFactor="-3"/>
-    
+
     <!-- test collisionMinGapFactor -->
     <vType id="vType2" carFollowModel="CACC" collisionMinGapFactor="0"/>
-    
+
     <!-- test collisionMinGapFactor -->
     <vType id="vType3" carFollowModel="CACC" collisionMinGapFactor="12"/>
-    
+
     <!-- test collisionMinGapFactor -->
     <vType id="vType4" carFollowModel="CACC" collisionMinGapFactor="4.5"/>
-    
+
 </routes>

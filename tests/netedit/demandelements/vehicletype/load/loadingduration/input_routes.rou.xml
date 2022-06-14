@@ -39,17 +39,17 @@
 
     <!-- non valid loadingDuration -->
     <vType id="vType0" loadingDuration="dummyLoadingDuration"/>
-    
+
     <!-- non valid loadingDuration -->
     <vType id="vType1" loadingDuration="-3"/>
-    
+
     <!-- valid loadingDuration -->
     <vType id="vType2" loadingDuration="0"/>
-    
+
     <!-- valid loadingDuration -->
     <vType id="vType3" loadingDuration="12"/>
-    
+
     <!-- valid loadingDuration -->
     <vType id="vType4" loadingDuration="4.5"/>
-    
+
 </routes>

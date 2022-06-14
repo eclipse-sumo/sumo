@@ -39,17 +39,17 @@
 
     <!-- non valid maxSpeed -->
     <vType id="vType0" maxSpeed="dummyMinGap"/>
-    
+
     <!-- non valid maxSpeed -->
     <vType id="vType1" maxSpeed="-3"/>
-    
+
     <!-- valid maxSpeed -->
     <vType id="vType2" maxSpeed="0"/>
-    
+
     <!-- valid maxSpeed -->
     <vType id="vType3" maxSpeed="12"/>
-    
+
     <!-- valid maxSpeed -->
     <vType id="vType4" maxSpeed="4.5"/>
-    
+
 </routes>

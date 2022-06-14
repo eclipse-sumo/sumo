@@ -52,29 +52,29 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    
+
     <flow id="flow_0" begin="20.00" end="500.00">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
-    
+
     <flow id="flow_1" begin="20.00" end="500.00" number="dummyNumber">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
-    
+
     <flow id="flow_2" begin="20.00" end="500.00" number="">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
-    
+
     <flow id="flow_3" begin="20.00" end="500.00" number="-30">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
-    
+
     <flow id="flow_4" begin="20.00" end="500.00" number="12.5">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
-    
+
     <flow id="flow_5" begin="20.00" end="500.00" number="15">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
-    
+
 </routes>

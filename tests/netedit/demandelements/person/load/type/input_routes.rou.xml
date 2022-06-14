@@ -9,15 +9,15 @@
     <person id="p_0" depart="0.00">
         <personTrip from="gneE2" to="gneE5"/>
     </person>
-    
+
     <person id="p_1" type="" depart="1.00">
         <personTrip from="gneE2" to="gneE5"/>
     </person>
-    
+
     <person id="p_2" type="dummyType" depart="2.00">
         <personTrip from="gneE2" to="gneE5"/>
     </person>
-    
+
     <person id="p_3" type="customType" depart="3.00">
         <personTrip from="gneE2" to="gneE5"/>
     </person>

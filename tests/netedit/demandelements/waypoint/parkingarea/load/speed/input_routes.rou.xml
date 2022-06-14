@@ -52,10 +52,10 @@
         <route edges="gneE0 gneE1" color="yellow"/>
         <stop parkingArea="parkingArea" speed="-12"/>
     </vehicle>
-    
+
     <vehicle id="vehicle_3" depart="0.00">
         <route edges="gneE0 gneE1" color="yellow"/>
         <stop parkingArea="parkingArea" speed="8.5"/>
     </vehicle>
-    
+
 </routes>

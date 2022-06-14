@@ -33,13 +33,13 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- missing period -->
     <e2Detector id="e2MultilaneDetector_0" lanes="gneE2_0 gneE3_0" pos="15" file="e2MultilaneDetector_0.xml" endPos="15"/>
-    
+
     <!-- dummy period -->
     <e2Detector id="e2MultilaneDetector_1" lanes="gneE2_0 gneE3_0" pos="15" period="dummyFreq" file="e2MultilaneDetector_1.xml" endPos="15"/>
-    
+
     <!-- negative -->
     <e2Detector id="e2MultilaneDetector_2" lanes="gneE2_0 gneE3_0" pos="15" period="-50" file="e2MultilaneDetector_2.xml" endPos="15"/>
-    
+
     <!-- standard -->
     <e2Detector id="e2MultilaneDetector_3" lanes="gneE2_0 gneE3_0" pos="15" period="12.5" file="e2MultilaneDetector_3.xml" endPos="15"/>
 </additional>

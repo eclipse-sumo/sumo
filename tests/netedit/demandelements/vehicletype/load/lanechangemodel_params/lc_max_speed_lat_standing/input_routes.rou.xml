@@ -39,17 +39,17 @@
 
     <!-- laneChangeModel param -->
     <vType id="vType0" laneChangeModel="LC2013" lcMaxSpeedLatStanding="dummy_maxSpeedLatStanding"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType1" laneChangeModel="LC2013" lcMaxSpeedLatStanding="-3"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType2" laneChangeModel="LC2013" lcMaxSpeedLatStanding="0"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType3" laneChangeModel="LC2013" lcMaxSpeedLatStanding="2"/>
-    
+
     <!-- laneChangeModel param -->
     <vType id="vType4" laneChangeModel="LC2013" lcMaxSpeedLatStanding="5.5"/>
-    
+
 </routes>

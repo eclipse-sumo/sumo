@@ -2,7 +2,7 @@
 
     <!-- non valid Lane (missing) -->
     <e2Detector id="E2_01" pos="4" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
-    
+
     <!-- non valid lane (dummy Lane) -->
     <e2Detector id="E2_02" lane="dummyLane" pos="3" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
 

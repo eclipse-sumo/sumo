@@ -5,16 +5,16 @@
 
         <!-- non valid friendly position (invalid) -->
         <detEntry lane="gneE1_0" pos="30" friendlyPos="dummyFriendlyPos"/>
-        
+
         <!-- valid friendly position, invalid position-->
         <detEntry lane="gneE1_0" pos="4000" friendlyPos="1"/>
-        
+
         <!-- valid friendly position, invalid position-->
         <detEntry lane="gneE1_0" pos="-200" friendlyPos="1"/>
 
         <!-- Valid Entry -->
         <detExit lane="gneE1_0" pos="50" friendlyPos="1"/>
-        
+
     </e3Detector>
 
 </additional>
