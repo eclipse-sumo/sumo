@@ -1,0 +1,6 @@
+Warning: Discarding invalid crossing ':Center_c0' at junction 'Center' with edges [4 8] (no vehicle lanes to cross).
+Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges [3 7] (no vehicle lanes to cross).
+Warning: Discarding invalid crossing ':Center_c0' at junction 'Center' with edges [4 8] (no vehicle lanes to cross).
+Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges [3 7] (no vehicle lanes to cross).
+Warning: Discarding invalid crossing ':Center_c0' at junction 'Center' with edges [4 8] (no vehicle lanes to cross).
+Warning: 28 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross).
