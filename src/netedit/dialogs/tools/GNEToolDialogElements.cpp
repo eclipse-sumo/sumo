@@ -28,10 +28,26 @@
 // member method definitions
 // ===========================================================================
 
-
-GNEToolDialogElements::FileNameElement::FileNameElement() :
-    FXHorizontalFrame() {
+GNEToolDialogElements::Argument::Argument(const std::string name, const std::string parameter_) :
+    argumentName(name),
+    parameter(parameter_) {
 }
 
+
+GNEToolDialogElements::Argument::~Argument() {}
+
+
+GNEToolDialogElements::Argument::Argument() {}
+
+
+GNEToolDialogElements::FileNameArgument::FileNameArgument(FXComposite *parent, const std::string name, const std::string parameter) :
+    FXHorizontalFrame(parent),
+    Argument(name, parameter){
+}
+
+std::string 
+GNEToolDialogElements::FileNameArgument::getArgument() const {
+    return "";
+}
 
 /****************************************************************************/

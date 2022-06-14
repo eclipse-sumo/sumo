@@ -30,19 +30,53 @@
 class GNEToolDialogElements {
     
 public:
-    
+    /// @brief argument
+    class Argument {
+
+    public:
+        /// @brief constructor
+        Argument(const std::string name, const std::string parameter_);
+
+        /// @brief destructor
+        virtual ~Argument();
+
+        /// get argument (parameter and value)
+        virtual std::string getArgument() const = 0;
+
+    protected:
+        /// @brief argument name
+        const std::string argumentName;
+
+        /// @brief parameter
+        const std::string parameter;
+
+    private:
+        /// @brief default constructor
+        Argument();
+
+        /// @brief Invalidated copy constructor.
+        Argument(const Argument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        Argument& operator=(const Argument&) = delete;
+    };
+
     /// @brief filename
-    class FileNameElement : protected FXHorizontalFrame {
+    class FileNameArgument : protected FXHorizontalFrame, protected Argument {
     
     public:
-        /// @brief Filename element
-        FileNameElement();
+        /// @brief constructor
+        FileNameArgument(FXComposite *parent, const std::string name, const std::string parameter);
+
+        /// get argument (parameter and value)
+        std::string getArgument() const;
 
     private:
         /// @brief Invalidated copy constructor.
-        FileNameElement(const FileNameElement&) = delete;
+        FileNameArgument(const FileNameArgument&) = delete;
 
         /// @brief Invalidated assignment operator.
-        FileNameElement& operator=(const FileNameElement&) = delete;
+        FileNameArgument& operator=(const FileNameArgument&) = delete;
     };
+
 };
