@@ -1,5 +1,0 @@
-# This test makes sure that the options --random-departpos and --random-arrivalpos work as intended when invoked together.
-random-departpos_random-arrivalpos_together
-
-# This test makes sure that the options --random-departpos and --trip-attributes work as intended when invoked together.
-random-departpos_trip-attributes
