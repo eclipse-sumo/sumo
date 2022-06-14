@@ -280,6 +280,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // Obtain constants
         const double TAZExaggeration = getExaggeration(s);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+        const bool drawFill = (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && myNet->getViewNet()->getDataViewOptions().TAZDrawFill())? true : getFill();
         // get colors
         const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
         const RGBColor invertedColor = color.invertedColor();
@@ -309,7 +310,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             } else {
                 // draw inner polygon
                 const int alphaOverride = myNet->getViewNet()->getDataViewOptions().TAZDrawFill() ? 128 : -1;
-                GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), 0, drawUsingSelectColor(), alphaOverride);
+                GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), 0, drawFill, drawUsingSelectColor(), alphaOverride);
             }
         } else {
             // push matrix

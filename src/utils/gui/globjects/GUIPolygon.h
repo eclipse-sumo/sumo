@@ -166,7 +166,7 @@ public:
 
     /// @brief draw inner Polygon (before pushName() )
     static void drawInnerPolygon(const GUIVisualizationSettings& s, const TesselatedPolygon* polygon, const GUIGlObject* o,
-                                 const PositionVector shape, const double layer, const bool disableSelectionColor = false, const int alphaOverride = -1);
+                                 const PositionVector shape, const double layer, const bool fill, const bool disableSelectionColor = false, const int alphaOverride = -1);
 
 private:
     /// The mutex used to avoid concurrent updates of the shape
