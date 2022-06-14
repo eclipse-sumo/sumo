@@ -54,9 +54,6 @@ flows
 flows_jtrrouter
 flows_binomial
 
-# some extra options that are passed  directly to duarouter
-duarouter_options
-
 # use fromJunction and toJunction
 junctionTaz
 
@@ -66,3 +63,6 @@ junctionTaz_validate
 
 # prevent some edge types from being used as source or destination
 viaEdgeType
+
+# This test suite checks that argument forwarding to duarouter works correctly.
+duarouter_options
