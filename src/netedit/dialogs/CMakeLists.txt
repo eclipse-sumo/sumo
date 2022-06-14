@@ -1,3 +1,5 @@
+add_subdirectory(tools)
+
 set(netedit_dialogs_SRCS
    GNEVariableSpeedSignDialog.h
    GNEVariableSpeedSignDialog.cpp
