@@ -1276,26 +1276,34 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
             return getPendingEmits();
         case 31: {
             // by numerical edge param value
-            try {
-                return StringUtils::toDouble(myEdge->getParameter(s.edgeParam, "0"));
-            } catch (NumberFormatException&) {
+            if (myEdge->knowsParameter(s.edgeParam)) {
                 try {
-                    return StringUtils::toBool(myEdge->getParameter(s.edgeParam, "0"));
-                } catch (BoolFormatException&) {
-                    return -1;
+                    return StringUtils::toDouble(myEdge->getParameter(s.edgeParam, "0"));
+                } catch (NumberFormatException&) {
+                    try {
+                        return StringUtils::toBool(myEdge->getParameter(s.edgeParam, "0"));
+                    } catch (BoolFormatException&) {
+                        return GUIVisualizationSettings::MISSING_DATA;
+                    }
                 }
+            } else {
+                return GUIVisualizationSettings::MISSING_DATA;
             }
         }
         case 32: {
             // by numerical lane param value
-            try {
-                return StringUtils::toDouble(getParameter(s.laneParam, "0"));
-            } catch (NumberFormatException&) {
+            if  (knowsParameter(s.laneParam)) {
                 try {
-                    return StringUtils::toBool(getParameter(s.laneParam, "0"));
-                } catch (BoolFormatException&) {
-                    return -1;
+                    return StringUtils::toDouble(getParameter(s.laneParam, "0"));
+                } catch (NumberFormatException&) {
+                    try {
+                        return StringUtils::toBool(getParameter(s.laneParam, "0"));
+                    } catch (BoolFormatException&) {
+                        return GUIVisualizationSettings::MISSING_DATA;
+                    }
                 }
+            } else {
+                return GUIVisualizationSettings::MISSING_DATA;
             }
         }
         case 33: {

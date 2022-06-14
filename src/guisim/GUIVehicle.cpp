@@ -599,7 +599,7 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
             std::string val = getPrefixedParameter(s.vehicleParam, error);
             try {
                 if (val == "") {
-                    return 0;
+                    return GUIVisualizationSettings::MISSING_DATA;
                 } else {
                     return StringUtils::toDouble(val);
                 }
@@ -608,7 +608,7 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
                     return StringUtils::toBool(val);
                 } catch (BoolFormatException&) {
                     WRITE_WARNING("Vehicle parameter '" + myParameter->getParameter(s.vehicleParam, "0") + "' key '" + s.vehicleParam + "' is not a number for vehicle '" + getID() + "'");
-                    return -1;
+                    return GUIVisualizationSettings::MISSING_DATA;
                 }
             }
     }
