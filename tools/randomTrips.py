@@ -186,15 +186,17 @@ def get_options(args=None):
         if 'type=' in options.tripattrs:
             print("Error: trip-attribute 'type' cannot be used together with option --vehicle-class", file=sys.stderr)
             sys.exit(1)
-            
+
     if options.randomDepartPos:
         if 'departPos' in options.tripattrs:
-            print("Error: trip-attribute 'departPos' cannot be used together with option --random-departpos", file=sys.stderr)
+            print("Error: trip-attribute 'departPos' cannot be used together with option --random-departpos",
+                  file=sys.stderr)
             sys.exit(1)
-            
+
     if options.randomArrivalPos:
         if 'arrivalPos' in options.tripattrs:
-            print("Error: trip-attribute 'arrivalPos' cannot be used together with option --random-arrivalpos", file=sys.stderr)
+            print("Error: trip-attribute 'arrivalPos' cannot be used together with option --random-arrivalpos",
+                  file=sys.stderr)
             sys.exit(1)
 
     if options.viaEdgeTypes:

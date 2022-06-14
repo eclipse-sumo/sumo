@@ -72,7 +72,7 @@ def get_options(args=None):
                   help="Define end time of person stop")
     op.add_option("-s", "--seed", type=int, default=42, help="random seed")
     op.add_option("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="tell me what you are doing")
+                  default=False, help="tell me what you are doing")
 
     (options, args) = op.parse_known_args(args=args)
 
