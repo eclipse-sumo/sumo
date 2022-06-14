@@ -31,7 +31,7 @@
  * @class GNETAZ
  * Class for Traffic Assign Zones (TAZs)
  */
-class GNETAZ : public GNEAdditional, private TesselatedPolygon {
+class GNETAZ : public GNEAdditional, public TesselatedPolygon {
 
 public:
     /// @brief needed to avoid diamond Problem between GUIPolygon and GNEAdditional

@@ -212,6 +212,9 @@ private:
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
     void toogleAttribute(SumoXMLAttr key, const bool value);
 
+    /// @brief sets the color according to the current scheme index and some tazRel function
+    bool setFunctionalColor(int activeScheme, RGBColor& col) const;
+
     /// @brief Invalidated copy constructor.
     GNETAZRelData(const GNETAZRelData&) = delete;
 

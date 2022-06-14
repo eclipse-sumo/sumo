@@ -28,6 +28,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
 #include <utils/gui/div/GLHelper.h>
@@ -249,8 +250,14 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
         // set color
-        double val = getColorValue(s, s.dataColorer.getActive());
-        myColor = s.dataColorer.getScheme().getColor(val);
+        if (isAttributeCarrierSelected()) {
+            myColor = s.colorSettings.selectedEdgeDataColor;
+        } else {
+            if (!setFunctionalColor(s.dataColorer.getActive(), myColor)) {
+                double val = getColorValue(s, s.dataColorer.getActive());
+                myColor = s.dataColorer.getScheme().getColor(val);
+            }
+        }
         GLHelper::setColor(myColor);
         // check if update lastWidth
         const double width = onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration;
@@ -304,6 +311,23 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
     }
 }
 
+bool
+GNETAZRelData::setFunctionalColor(int activeScheme, RGBColor& col) const {
+    switch (activeScheme) {
+        case 2: { // origin taz
+            const GNETAZ* from = dynamic_cast<const GNETAZ*>(getParentAdditionals().front());
+            col = from->getShapeColor();
+            return true;
+        }
+        case 3: { // destination taz
+            const GNETAZ* to = dynamic_cast<const GNETAZ*>(getParentAdditionals().back());
+            col = to->getShapeColor();
+            return true;
+        }
+        default:
+            return false;
+    }
+}
 
 void
 GNETAZRelData::computePathElement() {
