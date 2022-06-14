@@ -8,24 +8,24 @@
     <personFlow id="p_0" begin="0.00" number="23.00" personsPerHour="1200.00">
         <personTrip from="gneE2" to="gneE5"/>
     </personFlow>
-	
-	<personFlow id="p_1" begin="0.00" number="" personsPerHour="1200.00">
+    
+    <personFlow id="p_1" begin="0.00" number="" personsPerHour="1200.00">
         <personTrip from="gneE2" to="gneE5"/>
     </personFlow>
-	
-	<personFlow id="p_2" begin="0.00" number="dummy" personsPerHour="1200.00">
+    
+    <personFlow id="p_2" begin="0.00" number="dummy" personsPerHour="1200.00">
         <personTrip from="gneE2" to="gneE5"/>
     </personFlow>
-	
-	<personFlow id="p_3" begin="0.00" number="-23.00" personsPerHour="1200.00">
+    
+    <personFlow id="p_3" begin="0.00" number="-23.00" personsPerHour="1200.00">
         <personTrip from="gneE2" to="gneE5"/>
     </personFlow>
-	
-	<personFlow id="p_4" begin="0.00" number="12.5" personsPerHour="1200.00">
+    
+    <personFlow id="p_4" begin="0.00" number="12.5" personsPerHour="1200.00">
         <personTrip from="gneE2" to="gneE5"/>
     </personFlow>
-	
-	<personFlow id="p_5" begin="0.00" number="30" personsPerHour="1200.00">
+    
+    <personFlow id="p_5" begin="0.00" number="30" personsPerHour="1200.00">
         <personTrip from="gneE2" to="gneE5"/>
     </personFlow>
 </routes>

@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- junctionModel param -->
+    <!-- junctionModel param -->
     <vType id="vType0" jmTimegapMinor="dummy_jmTimegapMinor"/>
-	
-	<!-- junctionModel param -->
+    
+    <!-- junctionModel param -->
     <vType id="vType1" jmTimegapMinor="-3"/>
-	
-	<!-- junctionModel param -->
+    
+    <!-- junctionModel param -->
     <vType id="vType2" jmTimegapMinor="0"/>
-	
-	<!-- junctionModel param -->
+    
+    <!-- junctionModel param -->
     <vType id="vType3" jmTimegapMinor="2"/>
-	
-	<!-- junctionModel param -->
+    
+    <!-- junctionModel param -->
     <vType id="vType4" jmTimegapMinor="5.5"/>
-	
+    
 </routes>

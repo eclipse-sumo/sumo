@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid color -->
+    <!-- non valid color -->
     <vType id="vType0" color="dummyColor"/>
-	
-	<!-- non valid color -->
+    
+    <!-- non valid color -->
     <vType id="vType1" color=""/>
-	
-	<!-- valid color -->
+    
+    <!-- valid color -->
     <vType id="vType2" color="500,600,800"/>
-	
-	<!-- valid color -->
+    
+    <!-- valid color -->
     <vType id="vType3" color="black"/>
-	
-	<!-- valid color -->
+    
+    <!-- valid color -->
     <vType id="vType4" color="23,45,67"/>
-	
+    
 </routes>

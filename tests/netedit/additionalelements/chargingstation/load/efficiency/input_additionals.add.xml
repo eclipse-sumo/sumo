@@ -8,11 +8,11 @@
     
     <!-- non valid power efficiency 3 (< 0)-->
     <chargingStation id="chargingStation_2" lane="gneE1_0" startPos="20" endPos="22" power="22000.00" efficiency="-10" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
-	
-	<!-- non valid power efficiency 4 (> 1) -->
+    
+    <!-- non valid power efficiency 4 (> 1) -->
     <chargingStation id="chargingStation_3" lane="gneE1_0" startPos="20" endPos="22" power="22000.00" efficiency="500" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
-	
-	<!-- valid power efficiency 5 -->
+    
+    <!-- valid power efficiency 5 -->
     <chargingStation id="chargingStation_4" lane="gneE1_0" startPos="20" endPos="22" power="22000.00" efficiency="0.6" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
     
 </additional>

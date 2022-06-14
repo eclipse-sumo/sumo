@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- test gapClosingControlGainGapDot -->
+    <!-- test gapClosingControlGainGapDot -->
     <vType id="vType0" carFollowModel="CACC" gapClosingControlGainGapDot="dummy_gapClosingControlGainGapDot"/>
-	
-	<!-- test gapClosingControlGainGapDot -->
+    
+    <!-- test gapClosingControlGainGapDot -->
     <vType id="vType1" carFollowModel="CACC" gapClosingControlGainGapDot="-3"/>
-	
-	<!-- test gapClosingControlGainGapDot -->
+    
+    <!-- test gapClosingControlGainGapDot -->
     <vType id="vType2" carFollowModel="CACC" gapClosingControlGainGapDot="0"/>
-	
-	<!-- test gapClosingControlGainGapDot -->
+    
+    <!-- test gapClosingControlGainGapDot -->
     <vType id="vType3" carFollowModel="CACC" gapClosingControlGainGapDot="12"/>
-	
-	<!-- test gapClosingControlGainGapDot -->
+    
+    <!-- test gapClosingControlGainGapDot -->
     <vType id="vType4" carFollowModel="CACC" gapClosingControlGainGapDot="4.5"/>
-	
+    
 </routes>

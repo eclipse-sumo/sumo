@@ -5,14 +5,14 @@
     
     <!-- non valid format parkingLength (dummy) -->
     <containerStop id="containerStop_02" lane="gneE0_0" startPos="35" endPos="40" parkingLength="dummyparkingLength" name="containerStop" friendlyPos="false"/>
-	
-	<!-- non valid format parkingLength (negative) -->
+    
+    <!-- non valid format parkingLength (negative) -->
     <containerStop id="containerStop_03" lane="gneE0_0" startPos="35" endPos="40" parkingLength="-7" name="containerStop" friendlyPos="false"/>
-	
-	<!-- non valid format parkingLength (double) -->
+    
+    <!-- non valid format parkingLength (double) -->
     <containerStop id="containerStop_04" lane="gneE0_0" startPos="35" endPos="40" parkingLength="2.5" name="containerStop" friendlyPos="false"/>
-	
-	<!-- valid format parkingLength -->
+    
+    <!-- valid format parkingLength -->
     <containerStop id="containerStop_05" lane="gneE0_0" startPos="45" endPos="50" parkingLength="6" name="containerStop" friendlyPos="false"/>
 
 </additional>

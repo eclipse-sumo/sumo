@@ -40,18 +40,18 @@
 
     <route edges="gneE0 gneE1" color="yellow" id="route_0">
         <stop busStop="busStop" triggered="1" expected=""/>
-	</route>
-	
-	<route edges="gneE0 gneE1" color="yellow" id="route_1">
-		<stop busStop="busStop" triggered="1" expected=";;;;"/>
-	</route>
+    </route>
+    
+    <route edges="gneE0 gneE1" color="yellow" id="route_1">
+        <stop busStop="busStop" triggered="1" expected=";;;;"/>
+    </route>
 
-	<route edges="gneE0 gneE1" color="yellow" id="route_2">
-		<stop busStop="busStop" triggered="1" expected="ID1"/>
-	</route>
+    <route edges="gneE0 gneE1" color="yellow" id="route_2">
+        <stop busStop="busStop" triggered="1" expected="ID1"/>
+    </route>
 
-	<route edges="gneE0 gneE1" color="yellow" id="route_3">
-		<stop busStop="busStop" triggered="1" expected="ID1 ID2"/>
-	</route>
-	
+    <route edges="gneE0 gneE1" color="yellow" id="route_3">
+        <stop busStop="busStop" triggered="1" expected="ID1 ID2"/>
+    </route>
+    
 </routes>

@@ -37,22 +37,22 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- valid id -->
+    <!-- valid id -->
     <vType id="vType0"/>
-	
-	<!-- non valid id -->
-    <vType />	
-	
-	<!-- non valid id -->
-    <vType id=""/>	
-	
-	<!-- non valid id -->
-    <vType id="$$·$·%%··$·"/>	
-	
-	<!-- non valid id -->
+    
+    <!-- non valid id -->
+    <vType />    
+    
+    <!-- non valid id -->
+    <vType id=""/>    
+    
+    <!-- non valid id -->
+    <vType id="$$·$·%%··$·"/>    
+    
+    <!-- non valid id -->
     <vType id="vType0"/>
-	
-	<!-- valid id -->
+    
+    <!-- valid id -->
     <vType id="vType1"/>
-	
+    
 </routes>

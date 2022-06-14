@@ -9,23 +9,23 @@
         <personTrip from="gneE2" to="gneE5"/>
     </person>
     
-	<person id="p_1" depart="">
+    <person id="p_1" depart="">
         <personTrip from="gneE2" to="gneE5"/>
     </person>
-	
-	<person id="p_2" depart="dummyDepart">
+    
+    <person id="p_2" depart="dummyDepart">
         <personTrip from="gneE2" to="gneE5"/>
     </person>
-	
-	<person id="p_3" depart="-12.00">
+    
+    <person id="p_3" depart="-12.00">
         <personTrip from="gneE2" to="gneE5"/>
     </person>
-	
-	<person id="p_4" depart="4.00">
+    
+    <person id="p_4" depart="4.00">
         <personTrip from="gneE2" to="gneE5"/>
     </person>
-	
-	<person id="p_5" depart="5.20">
+    
+    <person id="p_5" depart="5.20">
         <personTrip from="gneE2" to="gneE5"/>
     </person>
 </routes>

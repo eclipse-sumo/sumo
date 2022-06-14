@@ -54,13 +54,13 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <flow id="flow_0" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
-	
-	<flow id="flow_1" fromJunction="" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
-	
-	<flow id="flow_2" fromJunction="dummyFrom" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
-	
-	<flow id="flow_3" fromJunction="gneJ7" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
-	
-	<flow id="flow_4" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
+    
+    <flow id="flow_1" fromJunction="" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
+    
+    <flow id="flow_2" fromJunction="dummyFrom" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
+    
+    <flow id="flow_3" fromJunction="gneJ7" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
+    
+    <flow id="flow_4" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
 
 </routes>

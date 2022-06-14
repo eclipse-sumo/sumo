@@ -54,15 +54,15 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <vType id="custom_vType"/>
-	
+    
     <flow id="flow_0" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
-	
-	<flow id="flow_1" type="dummy_Type" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
-	
-	<flow id="flow_2" type="" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
-	
-	<flow id="flow_3" type="id with invalid characters" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
-	
-	<flow id="flow_4" type="custom_vType" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
-	
+    
+    <flow id="flow_1" type="dummy_Type" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
+    
+    <flow id="flow_2" type="" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
+    
+    <flow id="flow_3" type="id with invalid characters" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
+    
+    <flow id="flow_4" type="custom_vType" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
+    
 </routes>

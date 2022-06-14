@@ -40,18 +40,18 @@
 
     <flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_0">
         <stop chargingStation="chargingStation" triggered="1" expected=""/>
-	</flow>
-	
-	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_1">
-		<stop chargingStation="chargingStation" triggered="1" expected=";;;;"/>
-	</flow>
+    </flow>
+    
+    <flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_1">
+        <stop chargingStation="chargingStation" triggered="1" expected=";;;;"/>
+    </flow>
 
-	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_2">
-		<stop chargingStation="chargingStation" triggered="1" expected="ID1"/>
-	</flow>
+    <flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_2">
+        <stop chargingStation="chargingStation" triggered="1" expected="ID1"/>
+    </flow>
 
-	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_3">
-		<stop chargingStation="chargingStation" triggered="1" expected="ID1 ID2"/>
-	</flow>
-	
+    <flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_3">
+        <stop chargingStation="chargingStation" triggered="1" expected="ID1 ID2"/>
+    </flow>
+    
 </routes>

@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- junctionModel param -->
+    <!-- junctionModel param -->
     <vType id="vType0" jmDriveAfterYellowTime="dummy_jmDriveAfterYellowTime"/>
-	
-	<!-- junctionModel param -->
+    
+    <!-- junctionModel param -->
     <vType id="vType1" jmDriveAfterYellowTime="-3"/>
-	
-	<!-- junctionModel param -->
+    
+    <!-- junctionModel param -->
     <vType id="vType2" jmDriveAfterYellowTime="0"/>
-	
-	<!-- junctionModel param -->
+    
+    <!-- junctionModel param -->
     <vType id="vType3" jmDriveAfterYellowTime="2"/>
-	
-	<!-- junctionModel param -->
+    
+    <!-- junctionModel param -->
     <vType id="vType4" jmDriveAfterYellowTime="5.5"/>
-	
+    
 </routes>

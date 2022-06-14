@@ -8,8 +8,8 @@
     
     <!-- non valid charge in transit 3 -->
     <chargingStation id="chargingStation_2" lane="gneE1_0" startPos="32" endPos="34" power="22000.00" efficiency="0.95" chargeInTransit="-1" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
-	
-	<!-- valid charge in transit -->
+    
+    <!-- valid charge in transit -->
     <chargingStation id="chargingStation_3" lane="gneE1_0" startPos="32" endPos="34" power="22000.00" efficiency="0.95" chargeInTransit="true" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
     
 </additional>

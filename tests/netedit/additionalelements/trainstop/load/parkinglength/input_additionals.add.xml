@@ -5,14 +5,14 @@
     
     <!-- non valid format parkingLength (dummy) -->
     <trainStop id="trainStop_02" lane="gneE0_0" startPos="35" endPos="40" parkingLength="dummyparkingLength" name="trainStop" friendlyPos="false"/>
-	
-	<!-- non valid format parkingLength (negative) -->
+    
+    <!-- non valid format parkingLength (negative) -->
     <trainStop id="trainStop_03" lane="gneE0_0" startPos="35" endPos="40" parkingLength="-7" name="trainStop" friendlyPos="false"/>
-	
-	<!-- non valid format parkingLength (double) -->
+    
+    <!-- non valid format parkingLength (double) -->
     <trainStop id="trainStop_04" lane="gneE0_0" startPos="35" endPos="40" parkingLength="2.5" name="trainStop" friendlyPos="false"/>
-	
-	<!-- valid format parkingLength -->
+    
+    <!-- valid format parkingLength -->
     <trainStop id="trainStop_05" lane="gneE0_0" startPos="45" endPos="50" parkingLength="6" name="trainStop" friendlyPos="false"/>
 
 </additional>

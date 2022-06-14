@@ -5,8 +5,8 @@
     
     <!-- non valid lane (dummy Lane) -->
     <e1Detector id="E1_02" lane="dummyLane" pos="12" period="100.00" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
-	
-	<!-- valid lane -->
+    
+    <!-- valid lane -->
     <e1Detector id="E1_03" lane="gneE0_0" pos="12" period="100.00" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
 
 </additional>

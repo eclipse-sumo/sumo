@@ -37,10 +37,10 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid osgFile -->
+    <!-- non valid osgFile -->
     <vType id="vType0" osgFile="dummyOsgFile"/>
-	
-	<!-- non valid osgFile -->
+    
+    <!-- non valid osgFile -->
     <vType id="vType1" osgFile=""/>
-	
+    
 </routes>

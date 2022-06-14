@@ -54,25 +54,25 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <flow id="flow_0" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="dummyDepart"/>
-	
-	<flow id="flow_1" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="-12"/>
-	
-	<flow id="flow_2" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="0"/>
-	
-	<flow id="flow_3" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="500"/>
-	
-	<flow id="flow_4" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="1"/>
-	
-	<flow id="flow_5" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="random"/>
-	
-	<flow id="flow_6" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="free"/>
-	
-	<flow id="flow_7" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="random_free"/>
-	
-	<flow id="flow_8" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="left"/>
-	
-	<flow id="flow_9" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="right"/>
-	
-	<flow id="flow_10" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="center"/>
-	
+    
+    <flow id="flow_1" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="-12"/>
+    
+    <flow id="flow_2" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="0"/>
+    
+    <flow id="flow_3" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="500"/>
+    
+    <flow id="flow_4" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="1"/>
+    
+    <flow id="flow_5" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="random"/>
+    
+    <flow id="flow_6" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="free"/>
+    
+    <flow id="flow_7" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="random_free"/>
+    
+    <flow id="flow_8" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="left"/>
+    
+    <flow id="flow_9" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="right"/>
+    
+    <flow id="flow_10" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100" departPosLat="center"/>
+    
 </routes>

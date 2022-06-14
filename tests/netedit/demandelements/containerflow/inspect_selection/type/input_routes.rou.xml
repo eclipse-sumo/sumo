@@ -4,11 +4,11 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-	<vType id="typeA" length="20.00" width="5.00" height="12.00" color="cyan"/>
-	<vType id="typeB" length="20.00" width="5.00" height="12.00" color="cyan"/>
-	<vType id="typeC" length="20.00" width="5.00" height="12.00" color="cyan"/>
-	
-	<!-- Vehicles, containers and containers (sorted by depart) -->
+    <vType id="typeA" length="20.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeB" length="20.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeC" length="20.00" width="5.00" height="12.00" color="cyan"/>
+    
+    <!-- Vehicles, containers and containers (sorted by depart) -->
     <containerFlow id="f_0" type="typeA" color="red" departPos="0.00" begin="10.00" end="3600.00" containersPerHour="1200.00">
         <tranship from="gneE2" to="gneE5"/>
     </containerFlow>

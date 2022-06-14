@@ -39,23 +39,23 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <vehicle id="vehicle_0" depart="0.00">
-	    <route edges="gneE0 gneE1" color="yellow"/>
-		<stop parkingArea="parkingArea" containerTriggered="1" expectedContainers="" speed="10"/>
-	</vehicle>
+        <route edges="gneE0 gneE1" color="yellow"/>
+        <stop parkingArea="parkingArea" containerTriggered="1" expectedContainers="" speed="10"/>
+    </vehicle>
 
     <vehicle id="vehicle_1" depart="0.00">
-	    <route edges="gneE0 gneE1" color="yellow"/>
-		<stop parkingArea="parkingArea" containerTriggered="1" expectedContainers=";;;;" speed="10"/>
-	</vehicle>
+        <route edges="gneE0 gneE1" color="yellow"/>
+        <stop parkingArea="parkingArea" containerTriggered="1" expectedContainers=";;;;" speed="10"/>
+    </vehicle>
 
     <vehicle id="vehicle_2" depart="0.00">
-	    <route edges="gneE0 gneE1" color="yellow"/>
-		<stop parkingArea="parkingArea" containerTriggered="1" expectedContainers="ID1" speed="10"/>
-	</vehicle>
+        <route edges="gneE0 gneE1" color="yellow"/>
+        <stop parkingArea="parkingArea" containerTriggered="1" expectedContainers="ID1" speed="10"/>
+    </vehicle>
 
     <vehicle id="vehicle_3" depart="0.00">
-	    <route edges="gneE0 gneE1" color="yellow"/>
-		<stop parkingArea="parkingArea" containerTriggered="1" expectedContainers="ID1 ID2" speed="10"/>		
-	</vehicle>
-	
+        <route edges="gneE0 gneE1" color="yellow"/>
+        <stop parkingArea="parkingArea" containerTriggered="1" expectedContainers="ID1 ID2" speed="10"/>        
+    </vehicle>
+    
 </routes>

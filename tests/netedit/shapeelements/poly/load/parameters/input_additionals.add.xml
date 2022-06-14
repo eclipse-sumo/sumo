@@ -1,6 +1,6 @@
 <additionals>
-	<poly id="poly_0" color="green" fill="0" layer="0.00" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00">
-	
+    <poly id="poly_0" color="green" fill="0" layer="0.00" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00">
+    
     <!-- valid generic parameter (valid) -->
     <param key="key1" value="value1"/>
 
@@ -30,6 +30,6 @@
     
      <!-- valid generic parameter (valid) -->
      <param key="keyFinal" value="valueFinal"/>
-		
-	</poly>
+        
+    </poly>
 </additionals>

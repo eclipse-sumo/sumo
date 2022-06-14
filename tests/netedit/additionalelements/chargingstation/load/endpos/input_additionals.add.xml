@@ -11,8 +11,8 @@
     
     <!-- non valid end position 3 -->
     <chargingStation id="chargingStation_10" lane="gneE0_0" startPos="35" endPos="25" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
-	
-	<!-- valid end position -->
+    
+    <!-- valid end position -->
     <chargingStation id="chargingStation_10" lane="gneE0_0" startPos="35" endPos="40" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
     
 </additional>

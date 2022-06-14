@@ -7,8 +7,8 @@
     
     <!-- non valid power 2 (negative) -->
     <chargingStation id="chargingStation_2" lane="gneE1_0" startPos="8" endPos="10" power="-22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
-	
-	<!-- valid power 3-->
+    
+    <!-- valid power 3-->
     <chargingStation id="chargingStation_2" lane="gneE1_0" startPos="8" endPos="10" power="5000.50" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
     
 </additional>

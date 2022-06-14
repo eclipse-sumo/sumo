@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- test delta -->
+    <!-- test delta -->
     <vType id="vType0" carFollowModel="IDM" delta="dummy_delta"/>
-	
-	<!-- test delta -->
+    
+    <!-- test delta -->
     <vType id="vType1" carFollowModel="IDM" delta="-3"/>
-	
-	<!-- test delta -->
+    
+    <!-- test delta -->
     <vType id="vType2" carFollowModel="IDM" delta="0"/>
-	
-	<!-- test delta -->
+    
+    <!-- test delta -->
     <vType id="vType3" carFollowModel="IDM" delta="12"/>
-	
-	<!-- test delta -->
+    
+    <!-- test delta -->
     <vType id="vType4" carFollowModel="IDM" delta="4.5"/>
-	
+    
 </routes>

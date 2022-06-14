@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid width -->
+    <!-- non valid width -->
     <vType id="vType0" width="dummyWidth"/>
-	
-	<!-- non valid width -->
+    
+    <!-- non valid width -->
     <vType id="vType1" width="-3"/>
-	
-	<!-- valid width -->
+    
+    <!-- valid width -->
     <vType id="vType2" width="0"/>
-	
-	<!-- valid width -->
+    
+    <!-- valid width -->
     <vType id="vType3" width="12"/>
-	
-	<!-- valid width -->
+    
+    <!-- valid width -->
     <vType id="vType4" width="4.5"/>
-	
+    
 </routes>

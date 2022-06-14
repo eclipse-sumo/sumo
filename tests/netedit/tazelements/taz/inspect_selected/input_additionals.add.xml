@@ -51,13 +51,13 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <taz id="TAZ_0" center="20,30" name="name1" fill="true" color="red" shape="12.000000,8.000000 12.000000,18.000000 2.000000,18.000000 2.000000,8.000000 12.000000,8.000000">
-		<param key="keyA1" value="valueA1"/>
+        <param key="keyA1" value="valueA1"/>
         <param key="keyA2" value="valueA2"/>
         <param key="keyA3" value="valueA3"/>
-	</taz>
+    </taz>
     <taz id="TAZ_1" center="40,50" name="name2" color="red" shape="32.000000,8.000000 32.000000,18.000000 22.000000,18.000000 22.000000,8.000000 32.000000,8.000000">
-		<param key="keyB1" value="valueB1"/>
+        <param key="keyB1" value="valueB1"/>
         <param key="keyB2" value="valueB2"/>
         <param key="keyB3" value="valueB3"/>
-	</taz>
+    </taz>
 </additional>

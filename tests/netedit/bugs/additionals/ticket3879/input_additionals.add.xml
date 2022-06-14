@@ -8,7 +8,7 @@
         <detEntry lane="gneE0_0" pos="5.45" friendlyPos="0" blockMovement="1"/>
         <detExit lane="gneE0_0" pos="12.65" friendlyPos="0"/>
     </e3Detector>
-	<instantInductionLoop id="e1i" lane="gneE1_0" pos="22" period="100.00" file="e1i.txt" friendlyPos="0" blockMovement="1"/>
+    <instantInductionLoop id="e1i" lane="gneE1_0" pos="22" period="100.00" file="e1i.txt" friendlyPos="0" blockMovement="1"/>
     <parkingArea id="pa" lane="gneE1_0" startPos="11.84" endPos="21.84" friendlyPos="0" roadsideCapacity="0" width="3.20" length="5.00" angle="0.00" blockMovement="1">
         <space x="29.09" y="10.92" z="0.00" width="3.20" length="5.00" angle="0.00" blockMovement="1"/>
         <space x="32.71" y="10.95" z="0.00" width="3.20" length="5.00" angle="0.00" blockMovement="1"/>

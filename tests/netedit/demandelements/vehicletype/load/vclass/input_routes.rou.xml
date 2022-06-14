@@ -37,13 +37,13 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid vClass -->
+    <!-- non valid vClass -->
     <vType id="vType0" vClass="dummyVClass"/>
-	
-	<!-- non valid vClass -->
+    
+    <!-- non valid vClass -->
     <vType id="vType1" vClass=""/>
-	
-	<!-- valid vClass -->
+    
+    <!-- valid vClass -->
     <vType id="vType2" vClass="bus"/>
-	
+    
 </routes>

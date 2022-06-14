@@ -6,18 +6,18 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "netedit", "netedit.pyproj", "{10A6C233-5E7A-4066-B7EF-DBB8949E2EEA}"
 EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{10A6C233-5E7A-4066-B7EF-DBB8949E2EEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10A6C233-5E7A-4066-B7EF-DBB8949E2EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {CFEFCFF4-DECE-4279-9F26-C618FF3F6EE1}
-	EndGlobalSection
+    GlobalSection(SolutionConfigurationPlatforms) = preSolution
+        Debug|Any CPU = Debug|Any CPU
+        Release|Any CPU = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(ProjectConfigurationPlatforms) = postSolution
+        {10A6C233-5E7A-4066-B7EF-DBB8949E2EEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {10A6C233-5E7A-4066-B7EF-DBB8949E2EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(SolutionProperties) = preSolution
+        HideSolutionNode = FALSE
+    EndGlobalSection
+    GlobalSection(ExtensibilityGlobals) = postSolution
+        SolutionGuid = {CFEFCFF4-DECE-4279-9F26-C618FF3F6EE1}
+    EndGlobalSection
 EndGlobal

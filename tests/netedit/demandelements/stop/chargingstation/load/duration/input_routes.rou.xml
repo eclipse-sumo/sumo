@@ -38,24 +38,24 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_0">
-		<stop chargingStation="chargingStation" duration="dummyDuration"/>
-	</flow>
+    <flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_0">
+        <stop chargingStation="chargingStation" duration="dummyDuration"/>
+    </flow>
 
-	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_1">
-		<stop chargingStation="chargingStation" duration=""/>
-	</flow>
+    <flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_1">
+        <stop chargingStation="chargingStation" duration=""/>
+    </flow>
 
-	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_2">
-		<stop chargingStation="chargingStation" duration="-3"/>
-	</flow>
+    <flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_2">
+        <stop chargingStation="chargingStation" duration="-3"/>
+    </flow>
 
-	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_3">
-		<stop chargingStation="chargingStation" duration="0"/>
-	</flow>
+    <flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_3">
+        <stop chargingStation="chargingStation" duration="0"/>
+    </flow>
 
-	<flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_4">
-		<stop chargingStation="chargingStation" duration="2"/>
-	</flow>
+    <flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_4">
+        <stop chargingStation="chargingStation" duration="2"/>
+    </flow>
 
 </routes>

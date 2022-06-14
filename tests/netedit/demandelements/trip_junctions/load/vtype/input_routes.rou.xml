@@ -54,15 +54,15 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <vType id="custom_vType"/>
-	
+    
     <trip id="trip_0" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
-	
-	<trip id="trip_1" type="dummy_Type" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
-	
-	<trip id="trip_2" type="" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
-	
-	<trip id="trip_3" type="id with invalid characters" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
-	
-	<trip id="trip_4" type="custom_vType" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
-	
+    
+    <trip id="trip_1" type="dummy_Type" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
+    
+    <trip id="trip_2" type="" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
+    
+    <trip id="trip_3" type="id with invalid characters" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
+    
+    <trip id="trip_4" type="custom_vType" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
+    
 </routes>

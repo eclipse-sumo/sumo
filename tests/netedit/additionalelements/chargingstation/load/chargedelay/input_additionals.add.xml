@@ -9,7 +9,7 @@
     <!-- non valid charge delay 3 -->
     <chargingStation id="chargingStation_2" lane="gneE1_0" startPos="44" endPos="46" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="-3" name="chargingStation" friendlyPos="false"/>
     
-	<!-- valid charge delay -->
+    <!-- valid charge delay -->
     <chargingStation id="chargingStation_3" lane="gneE1_0" startPos="44" endPos="46" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5.5" name="chargingStation" friendlyPos="false"/>
-	
+    
 </additional>

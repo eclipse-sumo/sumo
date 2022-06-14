@@ -3,9 +3,9 @@
     <!-- non valid file (missing) -->
     <e1Detector id="E1_01" lane="gneE0_0" pos="27" period="120.00" vTypes="bus taxi private" friendlyPos="0"/>
     
-	<!-- non valid file (dummy) -->
+    <!-- non valid file (dummy) -->
     <e1Detector id="E1_02" lane="gneE0_0" pos="30" period="120.00" file="%%%$$$%%%" vTypes="bus taxi private" friendlyPos="0"/>
-	
+    
     <!-- valid file (empty) -->
     <e1Detector id="E1_03" lane="gneE0_0" pos="33" period="120.00" file="" vTypes="bus taxi private" friendlyPos="0"/>
     

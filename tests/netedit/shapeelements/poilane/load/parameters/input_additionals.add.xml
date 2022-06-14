@@ -1,7 +1,7 @@
 <additionals>
 
     <poi id="POI_0" color="red" layer="0.00" lane="gneE1_0" pos="20" width="0.00" height="0.00" angle="0">
-	
+    
     <!-- valid generic parameter (valid) -->
     <param key="key1" value="value1"/>
 
@@ -31,7 +31,7 @@
     
      <!-- valid generic parameter (valid) -->
      <param key="keyFinal" value="valueFinal"/>
-		
-	</poi>
-	
+        
+    </poi>
+    
 </additionals>

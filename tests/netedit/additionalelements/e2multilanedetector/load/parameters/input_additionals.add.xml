@@ -31,7 +31,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-	<!-- E2 parent -->
+    <!-- E2 parent -->
     <e2Detector id="e2MultilaneDetector_0" lanes="gneE2_0 gneE3_0" pos="15" period="900.00" file="e2MultilaneDetector_0.xml" endPos="15">
 
  <!-- valid generic parameter (valid) -->
@@ -57,9 +57,9 @@
 
 <!-- value contains invalid characters (valid - no restrictions on value) -->
 <param key="key3" value="$$value with spaces%%"/>
-		
-	</e2Detector>
-	
-	<!-- out of class -->
-	<param key="keyOut" value="valueOut"/>
+        
+    </e2Detector>
+    
+    <!-- out of class -->
+    <param key="keyOut" value="valueOut"/>
 </additional>

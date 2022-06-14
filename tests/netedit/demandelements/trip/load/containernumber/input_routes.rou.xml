@@ -54,15 +54,15 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <trip id="trip_0" from="gneE2" to="gneE5" depart="20.00" containerNumber="dummycontainerNumber"/>
-	
-	<trip id="trip_1" from="gneE2" to="gneE5" depart="20.00" containerNumber=""/>
-	
-	<trip id="trip_2" from="gneE2" to="gneE5" depart="20.00" containerNumber="-3"/>
-	
-	<trip id="trip_3" from="gneE2" to="gneE5" depart="20.00" containerNumber="0"/>
-	
-	<trip id="trip_4" from="gneE2" to="gneE5" depart="20.00" containerNumber="2.5"/>
-	
-	<trip id="trip_5" from="gneE2" to="gneE5" depart="20.00" containerNumber="4"/>
-	
+    
+    <trip id="trip_1" from="gneE2" to="gneE5" depart="20.00" containerNumber=""/>
+    
+    <trip id="trip_2" from="gneE2" to="gneE5" depart="20.00" containerNumber="-3"/>
+    
+    <trip id="trip_3" from="gneE2" to="gneE5" depart="20.00" containerNumber="0"/>
+    
+    <trip id="trip_4" from="gneE2" to="gneE5" depart="20.00" containerNumber="2.5"/>
+    
+    <trip id="trip_5" from="gneE2" to="gneE5" depart="20.00" containerNumber="4"/>
+    
 </routes>

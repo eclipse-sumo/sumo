@@ -10,7 +10,7 @@
         <detEntry lane="gneE0_0" pos="5.00" friendlyPos="0"/>
         <detExit lane="gneE0_0" pos="15.00" friendlyPos="0"/>
     </e3Detector>
-	<instantInductionLoop id="instantInductionLoop_1" lane="gneE0_2" pos="12.00" period="100.00" file="instantInductionLoop_1.txt" friendlyPos="0"/>
+    <instantInductionLoop id="instantInductionLoop_1" lane="gneE0_2" pos="12.00" period="100.00" file="instantInductionLoop_1.txt" friendlyPos="0"/>
     <rerouter id="rerouter_0" edges="gneE1" probability="1.00" off="0" pos="15.15,-14.96"/>
     <routeProbe id="routeProbe_gneE1_0" edge="gneE1" period="100.00" file="routeProbe_gneE1_0.txt" begin="0.00"/>
     <vaporizer id="gneE1" begin="0.00" end="10.00"/>

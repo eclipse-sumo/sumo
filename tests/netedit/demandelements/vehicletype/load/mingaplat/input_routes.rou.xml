@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid minGapLat -->
+    <!-- non valid minGapLat -->
     <vType id="vType0" minGapLat="dummyMinGapLat"/>
-	
-	<!-- non valid minGapLat -->
+    
+    <!-- non valid minGapLat -->
     <vType id="vType1" minGapLat="-3"/>
-	
-	<!-- valid minGapLat -->
+    
+    <!-- valid minGapLat -->
     <vType id="vType2" minGapLat="0"/>
-	
-	<!-- valid minGapLat -->
+    
+    <!-- valid minGapLat -->
     <vType id="vType3" minGapLat="12"/>
-	
-	<!-- valid minGapLat -->
+    
+    <!-- valid minGapLat -->
     <vType id="vType4" minGapLat="4.5"/>
-	
+    
 </routes>

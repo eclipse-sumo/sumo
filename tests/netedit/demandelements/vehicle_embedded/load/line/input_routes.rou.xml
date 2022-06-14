@@ -56,13 +56,13 @@
     <vehicle id="vehicle_0" depart="20.00" line="%%99iii99">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </vehicle>
-	
-	<vehicle id="vehicle_1" depart="20.00" line="">
+    
+    <vehicle id="vehicle_1" depart="20.00" line="">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </vehicle>
-	
-	<vehicle id="vehicle_2" depart="20.00" line="Own Line">
+    
+    <vehicle id="vehicle_2" depart="20.00" line="Own Line">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </vehicle>
-	
+    
 </routes>

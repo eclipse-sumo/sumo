@@ -37,25 +37,25 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid edges (missing)-->
+    <!-- non valid edges (missing)-->
     <route color="yellow" id="route_0"/>
-	
-	<!-- non valid edges (empty)-->
+    
+    <!-- non valid edges (empty)-->
     <route edges="" color="yellow" id="route_1"/>
-	
-	<!-- non valid edges (invalid)-->
+    
+    <!-- non valid edges (invalid)-->
     <route edges="dummy1 dummy2 dummy3" color="yellow" id="route_2"/>
-	
-	<!-- non valid edges (non consecutive)-->
+    
+    <!-- non valid edges (non consecutive)-->
     <route edges="gneE2 gneE5" color="yellow" id="route_3"/>
-	
-	<!-- valid edges (check vClass) -->
+    
+    <!-- valid edges (check vClass) -->
     <route edges="gneE2 gneE4 gneE5 gneE10 gneE8" color="yellow" id="route_4"/>
-	
-	<!-- valid edges (consecutive) -->
+    
+    <!-- valid edges (consecutive) -->
     <route edges="gneE2 gneE4" color="yellow" id="route_5"/>
-	
-	<!-- valid edges (single) -->
+    
+    <!-- valid edges (single) -->
     <route edges="gneE2" color="yellow" id="route_6"/>
-	
+    
 </routes>

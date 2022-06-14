@@ -8,16 +8,16 @@
     <container id="p_0" depart="0.00">
         <tranship from="gneE2" to="gneE5"/>
     </container>
-	
-	<container id="p_1" color="" depart="1.00">
+    
+    <container id="p_1" color="" depart="1.00">
         <tranship from="gneE2" to="gneE5"/>
     </container>
-	
-	<container id="p_2" color="dummyColor" depart="2.00">
+    
+    <container id="p_2" color="dummyColor" depart="2.00">
         <tranship from="gneE2" to="gneE5"/>
     </container>
-	
-	<container id="p_3" color="12,13,14" depart="3.00">
+    
+    <container id="p_3" color="12,13,14" depart="3.00">
         <tranship from="gneE2" to="gneE5"/>
     </container>
 </routes>

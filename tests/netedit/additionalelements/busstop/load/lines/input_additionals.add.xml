@@ -5,8 +5,8 @@
     
     <!-- non valid format lines -->
     <busStop id="busStop_02" lane="gneE0_0" startPos="35" endPos="40" lines="line1, line2" name="busStop" friendlyPos="false"/>
-	
-	<!-- valid format lines -->
+    
+    <!-- valid format lines -->
     <busStop id="busStop_03" lane="gneE0_0" startPos="45" endPos="50" lines="lineA lineB" name="busStop" friendlyPos="false"/>
 
 </additional>

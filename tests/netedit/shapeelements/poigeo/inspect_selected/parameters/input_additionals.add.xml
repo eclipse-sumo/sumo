@@ -51,13 +51,13 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poi id="POI_1" color="red" layer="202.00" lon="10.511086" lat="0.000162">
-		<param kelat="keyA1" value="valueA1"/>
+        <param kelat="keyA1" value="valueA1"/>
         <param kelat="keyA2" value="valueA2"/>
         <param kelat="keyA3" value="valueA3"/>
-	</poi>
+    </poi>
     <poi id="POI_2" color="red" layer="202.00" lon="10.511086" lat="0.000162">
-		<param kelat="keyB1" value="valueB1"/>
+        <param kelat="keyB1" value="valueB1"/>
         <param kelat="keyB2" value="valueB2"/>
         <param kelat="keyB3" value="valueB3"/>
-	</poi>
+    </poi>
 </additional>

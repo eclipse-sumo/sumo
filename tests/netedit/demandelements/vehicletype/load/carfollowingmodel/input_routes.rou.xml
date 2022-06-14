@@ -37,13 +37,13 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid carFollowModel -->
+    <!-- non valid carFollowModel -->
     <vType id="vType0" carFollowModel="dummyTau"/>
-	
-	<!-- non valid carFollowModel -->
+    
+    <!-- non valid carFollowModel -->
     <vType id="vType1" carFollowModel=""/>
-	
-	<!-- valid carFollowModel -->
+    
+    <!-- valid carFollowModel -->
     <vType id="vType2" carFollowModel="Wiedemann"/>
-	
+    
 </routes>

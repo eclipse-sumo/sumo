@@ -53,5 +53,5 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-	<flow id="duplicatedVehicle" begin="0.00" from="gneE4" to="gneE5" end="3600.00" vehsPerHour="1800.00"/>
+    <flow id="duplicatedVehicle" begin="0.00" from="gneE4" to="gneE5" end="3600.00" vehsPerHour="1800.00"/>
 </routes>

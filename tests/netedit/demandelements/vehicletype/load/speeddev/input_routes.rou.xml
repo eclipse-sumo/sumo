@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid speedDev -->
+    <!-- non valid speedDev -->
     <vType id="vType0" speedDev="dummySpeedDev"/>
-	
-	<!-- non valid speedDev -->
+    
+    <!-- non valid speedDev -->
     <vType id="vType1" speedDev="-3"/>
-	
-	<!-- valid speedDev -->
+    
+    <!-- valid speedDev -->
     <vType id="vType2" speedDev="0"/>
-	
-	<!-- valid speedDev -->
+    
+    <!-- valid speedDev -->
     <vType id="vType3" speedDev="12"/>
-	
-	<!-- valid speedDev -->
+    
+    <!-- valid speedDev -->
     <vType id="vType4" speedDev="4.5"/>
-	
+    
 </routes>

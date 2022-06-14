@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- test phi -->
+    <!-- test phi -->
     <vType id="vType0" carFollowModel="BKerner" phi="dummy_phi"/>
-	
-	<!-- test phi -->
+    
+    <!-- test phi -->
     <vType id="vType1" carFollowModel="BKerner" phi="-3"/>
-	
-	<!-- test phi -->
+    
+    <!-- test phi -->
     <vType id="vType2" carFollowModel="BKerner" phi="0"/>
-	
-	<!-- test phi -->
+    
+    <!-- test phi -->
     <vType id="vType3" carFollowModel="BKerner" phi="12"/>
-	
-	<!-- test phi -->
+    
+    <!-- test phi -->
     <vType id="vType4" carFollowModel="BKerner" phi="4.5"/>
-	
+    
 </routes>

@@ -11,7 +11,7 @@
     <busStop id="busStop_gneE7_0_6" lane="gneE7_0" startPos="2.5" endPos="7.5"/>
     <e3Detector id="e3Detector_0" period="100" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" pos="60,50">
         <detEntry lane="gneE23_0" pos="5" friendlyPos="0"/>
-		<detEntry lane="-gneE17_0" pos="5" friendlyPos="0"/>
+        <detEntry lane="-gneE17_0" pos="5" friendlyPos="0"/>
         <detExit lane="-gneE17_0" pos="5" friendlyPos="0"/>
     </e3Detector>
 </additional>

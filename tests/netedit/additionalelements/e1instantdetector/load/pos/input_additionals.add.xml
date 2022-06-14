@@ -2,7 +2,7 @@
     
     <!-- non valid position (dummy) -->
     <instantInductionLoop id="E1_02" lane="gneE0_0" pos="dummyPosition" file="fileA.txt" vTypes="type1 type2 type3" friendlyPos="0"/>
-	
+    
     <!-- valid position (missing) -->
     <instantInductionLoop id="E1_01" lane="gneE0_0" file="fileA.txt" vTypes="type1 type2 type3" friendlyPos="0"/>
     
@@ -11,8 +11,8 @@
     
     <!-- valid position (overpassing length) -->
     <instantInductionLoop id="E1_04" lane="gneE0_0" pos="3000" file="fileA.txt" vTypes="type1 type2 type3" friendlyPos="0"/>
-	
-	<!-- valid position -->
+    
+    <!-- valid position -->
     <instantInductionLoop id="E1_05" lane="gneE0_0" pos="25" file="fileA.txt" vTypes="type1 type2 type3" friendlyPos="0"/>
     
 </additional>

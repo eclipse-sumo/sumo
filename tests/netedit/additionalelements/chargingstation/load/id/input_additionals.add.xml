@@ -5,9 +5,9 @@
     <!-- missing ID -->
     <chargingStation lane="gneE0_0" startPos="5" endPos="10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
     
-	<!-- invalid ID -->
+    <!-- invalid ID -->
     <chargingStation id="id with spaces" lane="gneE0_0" startPos="5" endPos="10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
-	
+    
     <!-- Duplicated ID -->
     <chargingStation id="chargingStation_0" lane="gneE0_0" startPos="5" endPos="10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
     

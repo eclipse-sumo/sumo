@@ -5,14 +5,14 @@
     
     <!-- non valid format personCapacity (dummy) -->
     <trainStop id="trainStop_02" lane="gneE0_0" startPos="35" endPos="40" personCapacity="dummyPersonCapacity" name="trainStop" friendlyPos="false"/>
-	
-	<!-- non valid format personCapacity (negative) -->
+    
+    <!-- non valid format personCapacity (negative) -->
     <trainStop id="trainStop_03" lane="gneE0_0" startPos="35" endPos="40" personCapacity="-7" name="trainStop" friendlyPos="false"/>
-	
-	<!-- non valid format personCapacity (double) -->
+    
+    <!-- non valid format personCapacity (double) -->
     <trainStop id="trainStop_04" lane="gneE0_0" startPos="35" endPos="40" personCapacity="2.5" name="trainStop" friendlyPos="false"/>
-	
-	<!-- valid format personCapacity -->
+    
+    <!-- valid format personCapacity -->
     <trainStop id="trainStop_05" lane="gneE0_0" startPos="45" endPos="50" personCapacity="6" name="trainStop" friendlyPos="false"/>
 
 </additional>

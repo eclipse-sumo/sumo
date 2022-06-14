@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- junctionModel param -->
+    <!-- junctionModel param -->
     <vType id="vType0" jmDriveRedSpeed="dummy_jmDriveRedSpeed"/>
-	
-	<!-- junctionModel param -->
+    
+    <!-- junctionModel param -->
     <vType id="vType1" jmDriveRedSpeed="-3"/>
-	
-	<!-- junctionModel param -->
+    
+    <!-- junctionModel param -->
     <vType id="vType2" jmDriveRedSpeed="0"/>
-	
-	<!-- junctionModel param -->
+    
+    <!-- junctionModel param -->
     <vType id="vType3" jmDriveRedSpeed="2"/>
-	
-	<!-- junctionModel param -->
+    
+    <!-- junctionModel param -->
     <vType id="vType4" jmDriveRedSpeed="5.5"/>
-	
+    
 </routes>

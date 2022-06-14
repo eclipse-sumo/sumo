@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- test gapControlGainSpace -->
+    <!-- test gapControlGainSpace -->
     <vType id="vType0" carFollowModel="ACC" gapControlGainSpace="dummy_gapControlGainSpace"/>
-	
-	<!-- test gapControlGainSpace -->
+    
+    <!-- test gapControlGainSpace -->
     <vType id="vType1" carFollowModel="ACC" gapControlGainSpace="-3"/>
-	
-	<!-- test gapControlGainSpace -->
+    
+    <!-- test gapControlGainSpace -->
     <vType id="vType2" carFollowModel="ACC" gapControlGainSpace="0"/>
-	
-	<!-- test gapControlGainSpace -->
+    
+    <!-- test gapControlGainSpace -->
     <vType id="vType3" carFollowModel="ACC" gapControlGainSpace="12"/>
-	
-	<!-- test gapControlGainSpace -->
+    
+    <!-- test gapControlGainSpace -->
     <vType id="vType4" carFollowModel="ACC" gapControlGainSpace="4.5"/>
-	
+    
 </routes>

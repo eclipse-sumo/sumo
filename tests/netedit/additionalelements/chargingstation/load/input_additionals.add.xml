@@ -8,9 +8,9 @@
     <!-- missing ID -->
     <chargingStation lane="gneE0_0" startPos="5" endPos="10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
     
-	<!-- invalid ID -->
+    <!-- invalid ID -->
     <chargingStation id="id with spaces" lane="gneE0_0" startPos="5" endPos="10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
-	
+    
     <!-- Duplicated ID -->
     <chargingStation id="chargingStation_0" lane="gneE0_0" startPos="5" endPos="10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
     
@@ -80,31 +80,31 @@
     <!-- non valid charge delay 3 -->
     <chargingStation id="chargingStation_22" lane="gneE1_0" startPos="44" endPos="46" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="-3" name="chargingStation" friendlyPos="false"/>
     
-	<!-- valid charge delay -->
+    <!-- valid charge delay -->
     <chargingStation id="chargingStation_23" lane="gneE1_0" startPos="44" endPos="46" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5" name="chargingStation" friendlyPos="false"/>
-	
-	<!-- missing friendly position -->
+    
+    <!-- missing friendly position -->
     <chargingStation id="chargingStation_24" lane="gneE1_0" startPos="46" endPos="48" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5" name="chargingStation"/>
-	
-	<!-- different friendly position -->
+    
+    <!-- different friendly position -->
     <chargingStation id="chargingStation_25" lane="gneE1_0" startPos="48" endPos="50" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5" name="chargingStation" friendlyPos="true"/>
 
-	<!-- missing friendlyPos -->
+    <!-- missing friendlyPos -->
     <chargingStation id="chargingStation_26" lane="gneE1_0" startPos="5" endPos="10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5" name="chargingStation"/>
-	
-	<!-- enabled friendlyPos -->
+    
+    <!-- enabled friendlyPos -->
     <chargingStation id="chargingStation_27" lane="gneE1_0" startPos="15" endPos="20" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5" name="chargingStation" friendlyPos="true"/>
-	
-	<!-- enabled friendlyPos, invalid positions 1 -->
+    
+    <!-- enabled friendlyPos, invalid positions 1 -->
     <chargingStation id="chargingStation_28" lane="gneE1_0" startPos="-20" endPos="-10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5" name="chargingStation" friendlyPos="true"/>
-	
-	<!-- enabled friendlyPos, invalid positions 2 -->
+    
+    <!-- enabled friendlyPos, invalid positions 2 -->
     <chargingStation id="chargingStation_29" lane="gneE1_0" startPos="200" endPos="300" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5" name="chargingStation" friendlyPos="true"/>
-	
-	<!-- enabled friendlyPos, invalid positions 3 -->
+    
+    <!-- enabled friendlyPos, invalid positions 3 -->
     <chargingStation id="chargingStation_30" lane="gneE1_0" startPos="50" endPos="20" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5" name="chargingStation" friendlyPos="true"/>
-	
-	<!-- enabled friendlyPos, invalid positions 4 -->
+    
+    <!-- enabled friendlyPos, invalid positions 4 -->
     <chargingStation id="chargingStation_31" lane="gneE1_0" startPos="20" endPos="20" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5" name="chargingStation" friendlyPos="true"/>
 
 </additional>

@@ -2,8 +2,8 @@
 
     <!-- non valid vtypes -->
     <instantInductionLoop id="E1_01" lane="gneE0_0" pos="3" file="fileA.txt" vTypes="%%% $$$ ;;;" friendlyPos="0"/>
-	
-	<!-- valid vtypes -->
+    
+    <!-- valid vtypes -->
     <instantInductionLoop id="E1_02" lane="gneE0_0" pos="3" file="fileA.txt" vTypes="type1 type2 type3" friendlyPos="0"/>
 
 </additional>

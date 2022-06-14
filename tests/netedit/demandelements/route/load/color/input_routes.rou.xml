@@ -37,16 +37,16 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- invalid color (missing)-->
+    <!-- invalid color (missing)-->
     <route edges="gneE2 gneE4 gneE5" id="route_0"/>
-	
-	<!-- invalid color (empty)-->
-	<route edges="gneE2 gneE4 gneE5" color="" id="route_1"/>
-	
-	<!-- invalid color (dummy) -->
-	<route edges="gneE2 gneE4 gneE5" color="dummyColor" id="route_2"/>
-	
-	<!-- valid color -->
-	<route edges="gneE2 gneE4 gneE5" color="13, 14, 15" id="route_3"/>
-	
+    
+    <!-- invalid color (empty)-->
+    <route edges="gneE2 gneE4 gneE5" color="" id="route_1"/>
+    
+    <!-- invalid color (dummy) -->
+    <route edges="gneE2 gneE4 gneE5" color="dummyColor" id="route_2"/>
+    
+    <!-- valid color -->
+    <route edges="gneE2 gneE4 gneE5" color="13, 14, 15" id="route_3"/>
+    
 </routes>

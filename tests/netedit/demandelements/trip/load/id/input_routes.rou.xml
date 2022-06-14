@@ -54,13 +54,13 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <trip from="gneE2" to="gneE5" depart="20.00"/>
-	
-	<trip id="" from="gneE2" to="gneE5" depart="20.00"/>
-	
-	<trip id="id with spaces" from="gneE2" to="gneE5" depart="20.00"/>
-	
-	<trip id="trip_valid" from="gneE2" to="gneE5" depart="20.00"/>
-	
-	<trip id="trip_valid" from="gneE2" to="gneE5" depart="20.00"/>
-	
+    
+    <trip id="" from="gneE2" to="gneE5" depart="20.00"/>
+    
+    <trip id="id with spaces" from="gneE2" to="gneE5" depart="20.00"/>
+    
+    <trip id="trip_valid" from="gneE2" to="gneE5" depart="20.00"/>
+    
+    <trip id="trip_valid" from="gneE2" to="gneE5" depart="20.00"/>
+    
 </routes>

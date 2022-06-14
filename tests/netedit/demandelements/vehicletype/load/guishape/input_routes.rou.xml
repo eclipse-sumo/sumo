@@ -37,16 +37,16 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid guiShape -->
+    <!-- non valid guiShape -->
     <vType id="vType0" guiShape="dummyGuiShape"/>
-	
-	<!-- non valid guiShape -->
+    
+    <!-- non valid guiShape -->
     <vType id="vType1" guiShape=""/>
-	
-	<!-- valid guiShape -->
+    
+    <!-- valid guiShape -->
     <vType id="vType2" guiShape="unknown"/>
-	
-	<!-- valid guiShape -->
+    
+    <!-- valid guiShape -->
     <vType id="vType3" guiShape="truck"/>
-	
+    
 </routes>

@@ -40,18 +40,18 @@
 
     <trip depart="0.00" from="gneE0" to="gneE1" id="trip_0">
         <stop containerStop="containerStop" triggered="1" expected="" speed="10"/>
-	</trip>
-	
-	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_1">
-		<stop containerStop="containerStop" triggered="1" expected=";;;;" speed="10"/>
-	</trip>
+    </trip>
+    
+    <trip depart="0.00" from="gneE0" to="gneE1" id="trip_1">
+        <stop containerStop="containerStop" triggered="1" expected=";;;;" speed="10"/>
+    </trip>
 
-	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_2">
-		<stop containerStop="containerStop" triggered="1" expected="ID1" speed="10"/>
-	</trip>
+    <trip depart="0.00" from="gneE0" to="gneE1" id="trip_2">
+        <stop containerStop="containerStop" triggered="1" expected="ID1" speed="10"/>
+    </trip>
 
-	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_3">
-		<stop containerStop="containerStop" triggered="1" expected="ID1 ID2" speed="10"/>
-	</trip>
-	
+    <trip depart="0.00" from="gneE0" to="gneE1" id="trip_3">
+        <stop containerStop="containerStop" triggered="1" expected="ID1 ID2" speed="10"/>
+    </trip>
+    
 </routes>

@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- laneChangeModel param -->
+    <!-- laneChangeModel param -->
     <vType id="vType0" laneChangeModel="LC2013" lcKeepRight="dummy_keepRight"/>
-	
-	<!-- laneChangeModel param -->
+    
+    <!-- laneChangeModel param -->
     <vType id="vType1" laneChangeModel="LC2013" lcKeepRight="-3"/>
-	
-	<!-- laneChangeModel param -->
+    
+    <!-- laneChangeModel param -->
     <vType id="vType2" laneChangeModel="LC2013" lcKeepRight="0"/>
-	
-	<!-- laneChangeModel param -->
+    
+    <!-- laneChangeModel param -->
     <vType id="vType3" laneChangeModel="LC2013" lcKeepRight="2"/>
-	
-	<!-- laneChangeModel param -->
+    
+    <!-- laneChangeModel param -->
     <vType id="vType4" laneChangeModel="LC2013" lcKeepRight="5.5"/>
-	
+    
 </routes>

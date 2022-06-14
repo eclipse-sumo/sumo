@@ -52,27 +52,27 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-	
+    
     <flow id="flow_0" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="dummyDepart"/>
-	
-	<flow id="flow_1" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="-12"/>
-	
-	<flow id="flow_2" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="0"/>
-	
-	<flow id="flow_3" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="500"/>
-	
-	<flow id="flow_4" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="1"/>
-	
-	<flow id="flow_5" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="random"/>
-	
-	<flow id="flow_6" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="free"/>
-	
-	<flow id="flow_7" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="random_free"/>
-	
-	<flow id="flow_8" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="left"/>
-	
-	<flow id="flow_9" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="right"/>
-	
-	<flow id="flow_10" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="center"/>
-	
+    
+    <flow id="flow_1" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="-12"/>
+    
+    <flow id="flow_2" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="0"/>
+    
+    <flow id="flow_3" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="500"/>
+    
+    <flow id="flow_4" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="1"/>
+    
+    <flow id="flow_5" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="random"/>
+    
+    <flow id="flow_6" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="free"/>
+    
+    <flow id="flow_7" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="random_free"/>
+    
+    <flow id="flow_8" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="left"/>
+    
+    <flow id="flow_9" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="right"/>
+    
+    <flow id="flow_10" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" departPosLat="center"/>
+    
 </routes>

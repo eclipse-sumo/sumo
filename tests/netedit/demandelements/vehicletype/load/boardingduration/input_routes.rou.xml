@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid boardingDuration -->
+    <!-- non valid boardingDuration -->
     <vType id="vType0" boardingDuration="dummyBoardingDuration"/>
-	
-	<!-- non valid boardingDuration -->
+    
+    <!-- non valid boardingDuration -->
     <vType id="vType1" boardingDuration="-3"/>
-	
-	<!-- valid boardingDuration -->
+    
+    <!-- valid boardingDuration -->
     <vType id="vType2" boardingDuration="0"/>
-	
-	<!-- valid boardingDuration -->
+    
+    <!-- valid boardingDuration -->
     <vType id="vType3" boardingDuration="12"/>
-	
-	<!-- valid boardingDuration -->
+    
+    <!-- valid boardingDuration -->
     <vType id="vType4" boardingDuration="4.5"/>
-	
+    
 </routes>

@@ -38,28 +38,28 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_0">
-		<stop containerStop="containerStop" triggered="dummy"/>
-	</trip>
+    <trip depart="0.00" from="gneE0" to="gneE1" id="trip_0">
+        <stop containerStop="containerStop" triggered="dummy"/>
+    </trip>
 
-	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_1">
-		<stop containerStop="containerStop" triggered=""/>
-	</trip>
+    <trip depart="0.00" from="gneE0" to="gneE1" id="trip_1">
+        <stop containerStop="containerStop" triggered=""/>
+    </trip>
 
-	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_2">
-		<stop containerStop="containerStop" triggered="-4"/>
-	</trip>
+    <trip depart="0.00" from="gneE0" to="gneE1" id="trip_2">
+        <stop containerStop="containerStop" triggered="-4"/>
+    </trip>
 
-	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_3">
-		<stop containerStop="containerStop" triggered="0"/>
-	</trip>
+    <trip depart="0.00" from="gneE0" to="gneE1" id="trip_3">
+        <stop containerStop="containerStop" triggered="0"/>
+    </trip>
 
-	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_4">
-		<stop containerStop="containerStop" triggered="2.3"/>
-	</trip>
+    <trip depart="0.00" from="gneE0" to="gneE1" id="trip_4">
+        <stop containerStop="containerStop" triggered="2.3"/>
+    </trip>
 
-	<trip depart="0.00" from="gneE0" to="gneE1" id="trip_5">
-		<stop containerStop="containerStop" triggered="true"/>
-	</trip>
+    <trip depart="0.00" from="gneE0" to="gneE1" id="trip_5">
+        <stop containerStop="containerStop" triggered="true"/>
+    </trip>
 
 </routes>

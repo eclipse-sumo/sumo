@@ -52,21 +52,21 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-	
+    
     <flow id="flow_0" end="100.00" period="10" vehsPerHour="100" from="gneE2" to="gneE5"/>
-	
-	<flow id="flow_1" end="100.00" from="gneE2" to="gneE5"/>
-	
-	<flow id="flow_2" end="100.00" period="dummyPeriod" from="gneE2" to="gneE5"/>
-	
-	<flow id="flow_3" end="100.00" period="" from="gneE2" to="gneE5"/>
-	
-	<flow id="flow_4" end="100.00" period="-10" from="gneE2" to="gneE5"/>
-	
-	<flow id="flow_5" end="100.00" period="0" from="gneE2" to="gneE5"/>
-	
-	<flow id="flow_6" end="100.00" period="20.30" from="gneE2" to="gneE5"/>
-	
-	<flow id="flow_7" end="100.00" period="50" from="gneE2" to="gneE5"/>
-	
+    
+    <flow id="flow_1" end="100.00" from="gneE2" to="gneE5"/>
+    
+    <flow id="flow_2" end="100.00" period="dummyPeriod" from="gneE2" to="gneE5"/>
+    
+    <flow id="flow_3" end="100.00" period="" from="gneE2" to="gneE5"/>
+    
+    <flow id="flow_4" end="100.00" period="-10" from="gneE2" to="gneE5"/>
+    
+    <flow id="flow_5" end="100.00" period="0" from="gneE2" to="gneE5"/>
+    
+    <flow id="flow_6" end="100.00" period="20.30" from="gneE2" to="gneE5"/>
+    
+    <flow id="flow_7" end="100.00" period="50" from="gneE2" to="gneE5"/>
+    
 </routes>
