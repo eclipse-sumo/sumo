@@ -1353,26 +1353,34 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 
         case 12: {
             // by numerical edge param value
-            try {
-                return StringUtils::toDouble(myParentEdge->getNBEdge()->getParameter(s.edgeParam, "0"));
-            } catch (NumberFormatException&) {
+            if (myParentEdge->getNBEdge()->knowsParameter(s.edgeParam)) {
                 try {
-                    return StringUtils::toBool(myParentEdge->getNBEdge()->getParameter(s.edgeParam, "0"));
-                } catch (BoolFormatException&) {
-                    return -1;
+                    return StringUtils::toDouble(myParentEdge->getNBEdge()->getParameter(s.edgeParam, "0"));
+                } catch (NumberFormatException&) {
+                    try {
+                        return StringUtils::toBool(myParentEdge->getNBEdge()->getParameter(s.edgeParam, "0"));
+                    } catch (BoolFormatException&) {
+                        return -1;
+                    }
                 }
+            } else {
+                return GUIVisualizationSettings::MISSING_DATA;
             }
         }
         case 13: {
             // by numerical lane param value
-            try {
-                return StringUtils::toDouble(myParentEdge->getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0"));
-            } catch (NumberFormatException&) {
+            if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).knowsParameter(s.laneParam)) {
                 try {
-                    return StringUtils::toBool(myParentEdge->getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0"));
-                } catch (BoolFormatException&) {
-                    return -1;
+                    return StringUtils::toDouble(myParentEdge->getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0"));
+                } catch (NumberFormatException&) {
+                    try {
+                        return StringUtils::toBool(myParentEdge->getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0"));
+                    } catch (BoolFormatException&) {
+                        return -1;
+                    }
                 }
+            } else {
+                return GUIVisualizationSettings::MISSING_DATA;
             }
         }
         case 14: {

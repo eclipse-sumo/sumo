@@ -605,6 +605,9 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
         if (active == 4) {
             for (const auto& genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_TAZREL)) {
                 const double value = genericData->getColorValue(s, active);
+                if (value == s.MISSING_DATA) {
+                    continue;
+                }
                 minValue = MIN2(minValue, value);
                 maxValue = MAX2(maxValue, value);
             }
@@ -628,6 +631,13 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
     if (minValue != std::numeric_limits<double>::infinity()) {
         scheme.clear();
         // add new thresholds
+        if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL
+                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL
+                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL
+                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL
+                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL)  {
+            scheme.addColor(RGBColor(204, 204, 204), std::numeric_limits<double>::max(), "missing data");
+        }
         if (hide) {
             const double rawRange = maxValue - minValue;
             minValue = MAX2(hideThreshold + MIN2(1.0, rawRange / 100.0), minValue);

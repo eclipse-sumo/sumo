@@ -89,9 +89,13 @@ GNETAZRelData::getColorValue(const GUIVisualizationSettings& s, int activeScheme
         case 4:
             // by numerical attribute value
             try {
-                return StringUtils::toDouble(getParameter(s.relDataAttr, "-1"));
+                if (knowsParameter(s.relDataAttr)) {
+                    return StringUtils::toDouble(getParameter(s.relDataAttr, "-1"));
+                } else {
+                    return GUIVisualizationSettings::MISSING_DATA;
+                }
             } catch (NumberFormatException&) {
-                return -1;
+                return GUIVisualizationSettings::MISSING_DATA;
             }
 
     }
