@@ -1,3 +1,9 @@
+# Trips are defined with TAZ instead of edges. But the option edgeod is active.
+trips_no_edgeod
+
+# Trips are defined with TAZ instead of edges.
+trips_taz
+
 # load vehicles in standard form
 simple
 
