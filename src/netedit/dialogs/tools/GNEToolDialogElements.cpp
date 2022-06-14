@@ -13,9 +13,9 @@
 /****************************************************************************/
 /// @file    GNEToolDialog.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Oct 2021
+/// @date    Jun 2022
 ///
-// Abstract dialog for tools
+// Elements used in GNEToolDialog
 /****************************************************************************/
 #include <config.h>
 
@@ -34,7 +34,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-
+/*
 FXDEFMAP(GNEToolDialog) GNEToolDialogMap[] = {
     FXMAPFUNC(SEL_CLOSE,    0,                      GNEToolDialog::onCmdClose),
     FXMAPFUNC(SEL_UPDATE,   0,                      GNEToolDialog::onCmdUpdate),
@@ -43,11 +43,11 @@ FXDEFMAP(GNEToolDialog) GNEToolDialogMap[] = {
 
 // Object implementation
 FXIMPLEMENT(GNEToolDialog, FXTopWindow, GNEToolDialogMap, ARRAYNUMBER(GNEToolDialogMap))
-
+*/
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
-
+/*
 GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string &name, const int dialogWidth, const int dialogHeight) :
     FXTopWindow(GNEApp->getApp(), name.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIDesignDialogBoxExplicit(dialogWidth, dialogHeight)),
     myGNEApp(GNEApp) {
@@ -100,5 +100,5 @@ long
 GNEToolDialog::onCmdUpdate(FXObject*, FXSelector, void*) {
     return 0;
 }
-
+*/
 /****************************************************************************/

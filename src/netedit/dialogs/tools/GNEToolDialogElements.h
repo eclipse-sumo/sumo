@@ -13,9 +13,9 @@
 /****************************************************************************/
 /// @file    GNEToolDialog.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Oct 2021
+/// @date    Jun 2022
 ///
-// Abstract dialog for tools
+// Elements used in GNEToolDialog
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -38,6 +38,7 @@ class GNEApplicationWindow;
  * @class GNEToolDialog
  * @brief Abstract dialog for tools
  */
+ /*
 class GNEToolDialogElements : protected FXTopWindow {
     /// @brief FOX-declaration
     FXDECLARE(GNEToolDialog)
@@ -86,3 +87,4 @@ private:
     GNEToolDialog& operator=(const GNEToolDialog&) = delete;
 };
 
+*/
