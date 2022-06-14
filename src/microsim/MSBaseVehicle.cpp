@@ -1027,12 +1027,20 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
         // if stop is on an internal edge the normal edge before the intersection is used
         stopEdge = stopLaneEdge->getNormalBefore();
     }
+    MSRouteIterator succ = myCurrEdge + 1; // we're using the address but only within the scope of this function (and recursive calls)
     if (searchStart == nullptr) {
         searchStart = &myCurrEdge;
+        if (stopLaneEdge->isNormal() && getLane() != nullptr && getLane()->isInternal()) {
+            // already on the intersection but myCurrEdge is before it
+            searchStart = &succ;
+        }
     }
 #ifdef DEBUG_ADD_STOP
     if (DEBUG_COND) {
-        std::cout << "addStop desc=" << stop.getDescription() << " stopEdge=" << stopEdge->getID() << " searchStart=" << (**searchStart)->getID() << " index=" << (int)((*searchStart) - myRoute->begin()) << " route=" << toString(myRoute->getEdges()) << "\n";
+        std::cout << "addStop desc=" << stop.getDescription() << " stopEdge=" << stopEdge->getID()
+            << " searchStart=" << ((*searchStart) == myRoute->end() ? "END" : (**searchStart)->getID())
+            << " index=" << (int)((*searchStart) - myRoute->begin()) << " route=" << toString(myRoute->getEdges())
+            << "\n";
     }
 #endif
     stop.edge = std::find(*searchStart, myRoute->end(), stopEdge);
