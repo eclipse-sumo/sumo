@@ -34,6 +34,39 @@ class GNETAZRelDataFrame : public GNEGenericDataFrame {
 
 public:
     // ===========================================================================
+    // Confirm TAZ relation
+    // ===========================================================================
+
+    class ConfirmTAZRelation : public FXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETAZRelDataFrame::ConfirmTAZRelation)
+
+    public:
+        /// @brief constructor
+        ConfirmTAZRelation(GNETAZRelDataFrame* TAZRelDataFrame);
+
+        /// @brief destructor
+        ~ConfirmTAZRelation();
+
+        /// @brief called when user press confirm TAZ Relation button
+        long onCmdConfirmTAZRelation(FXObject*, FXSelector, void*);
+
+        /// @brief called when TAZ Relation button is updated
+        long onUpdConfirmTAZRelation(FXObject*, FXSelector, void*);
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(ConfirmTAZRelation)
+
+    private:
+        /// @brief pointer to TAZRelDataFrame parent
+        GNETAZRelDataFrame* myTAZRelDataFrame = nullptr;
+
+        /// @brief confirm TAZ Button
+        FXButton* myConfirmTAZButton = nullptr;
+    };
+
+    // ===========================================================================
     // class Legend
     // ===========================================================================
 
@@ -83,13 +116,16 @@ public:
 
 protected:
     /// @brief first selected TAZ Element
-    GNETAZ* myFirstTAZ;
+    GNETAZ* myFirstTAZ = nullptr;
 
     /// @brief first selected TAZ Element
-    GNETAZ* mySecondTAZ;
+    GNETAZ* mySecondTAZ = nullptr;
+
+    /// @brief confirm TAZ Relation
+    GNETAZRelDataFrame::ConfirmTAZRelation* myConfirmTAZRelation = nullptr;
 
     /// @brief TAZRel legend
-    GNETAZRelDataFrame::Legend* myLegend;
+    GNETAZRelDataFrame::Legend* myLegend = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

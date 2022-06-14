@@ -24,14 +24,58 @@
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNETAZRelDataFrame.h"
 
 
 // ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+FXDEFMAP(GNETAZRelDataFrame::ConfirmTAZRelation) ConfirmTAZRelationMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CREATE, GNETAZRelDataFrame::ConfirmTAZRelation::onCmdConfirmTAZRelation),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_CREATE, GNETAZRelDataFrame::ConfirmTAZRelation::onUpdConfirmTAZRelation)
+};
+
+// Object implementation
+FXIMPLEMENT(GNETAZRelDataFrame::ConfirmTAZRelation, FXGroupBoxModule, ConfirmTAZRelationMap, ARRAYNUMBER(ConfirmTAZRelationMap))
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// GNETAZRelDataFrame::ConfirmTAZRelation - methods
+// ---------------------------------------------------------------------------
+
+GNETAZRelDataFrame::ConfirmTAZRelation::ConfirmTAZRelation(GNETAZRelDataFrame* TAZRelDataFrame) :
+    FXGroupBoxModule(TAZRelDataFrame, "Confirm TAZRelation"),
+    myTAZRelDataFrame(TAZRelDataFrame) {
+    myConfirmTAZButton = new FXButton(getCollapsableFrame(), "Create TAZRelation", GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA), this, MID_GNE_CREATE, GUIDesignButton);
+    myConfirmTAZButton->disable();
+}
+
+
+GNETAZRelDataFrame::ConfirmTAZRelation::~ConfirmTAZRelation() {}
+
+
+long
+GNETAZRelDataFrame::ConfirmTAZRelation::onCmdConfirmTAZRelation(FXObject*, FXSelector, void*) {
+    myTAZRelDataFrame->buildTAZRelationData();
+    return 1;
+}
+
+
+long 
+GNETAZRelDataFrame::ConfirmTAZRelation::onUpdConfirmTAZRelation(FXObject*, FXSelector, void*) {
+    if (myTAZRelDataFrame->myFirstTAZ && myTAZRelDataFrame->mySecondTAZ) {
+        myConfirmTAZButton->enable();
+    } else {
+        myConfirmTAZButton->disable();
+    }
+    return 1;
+}
 
 // ---------------------------------------------------------------------------
 // GNETAZRelDataFrame::TAZRelLegend - methods
@@ -74,10 +118,9 @@ GNETAZRelDataFrame::Legend::setLabels(const GNETAZ* fromTAZ, const GNETAZ* toTAZ
 // ------------------------------------------------------------------------
 
 GNETAZRelDataFrame::GNETAZRelDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEGenericDataFrame(horizontalFrameParent, viewNet, SUMO_TAG_TAZREL, false),
-    myFirstTAZ(nullptr),
-    mySecondTAZ(nullptr),
-    myLegend(nullptr) {
+    GNEGenericDataFrame(horizontalFrameParent, viewNet, SUMO_TAG_TAZREL, false) {
+    // create confirm TAZ Relation
+    myConfirmTAZRelation = new ConfirmTAZRelation(this);
     // create legend
     myLegend = new Legend(this);
 }
