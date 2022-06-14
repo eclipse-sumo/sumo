@@ -52,7 +52,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
         hasStop = True
         try:
             traci.vehicle.setStop(vehID, "SC", 90, duration=7)
-        except TraCIException as e:
+        except traci.TraCIException as e:
             print("caught '%s'" % e)
 
     traci.simulationStep()
