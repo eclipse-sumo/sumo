@@ -20,71 +20,29 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXTreeListDynamic.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEUndoList;
-class GNEApplicationWindow;
+#include "GNEToolDialog.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEToolDialog
- * @brief Abstract dialog for tools
- */
- /*
-class GNEToolDialogElements : protected FXTopWindow {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEToolDialog)
-
+/// @brief elements used in Tool Dialogs
+class GNEToolDialogElements {
+    
 public:
-    /// @brief Constructor
-    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string &name, const int dialogWidth, const int dialogHeight);
+    
+    /// @brief filename
+    class FileNameElement : protected FXHorizontalFrame {
+    
+    public:
+        /// @brief Filename element
+        FileNameElement();
 
-    /// @brief destructor
-    ~GNEToolDialog();
+    private:
+        /// @brief Invalidated copy constructor.
+        FileNameElement(const FileNameElement&) = delete;
 
-    /// @brief open window
-    void openToolDialog();
-
-    /// @brief hide window
-    void hideToolDialog();
-
-    /// @brief shown
-    bool shown() const;
-
-    /// @brief Move the focus to this window
-    void setFocus();
-
-    /// @name FOX-callbacks
-    /// @{
-    /// @brief event after press close button
-    long onCmdClose(FXObject*, FXSelector, void*);
-
-    /// @brief event after update command
-    long onCmdUpdate(FXObject*, FXSelector, void*);
-
-    /// @}
-
-protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEToolDialog)
-
-    /// @brief pointer to GNEApplicationWindow
-    GNEApplicationWindow* myGNEApp;
-
-private:
-    /// @brief Invalidated copy constructor.
-    GNEToolDialog(const GNEToolDialog&) = delete;
-
-    /// @brief Invalidated assignment operator.
-    GNEToolDialog& operator=(const GNEToolDialog&) = delete;
+        /// @brief Invalidated assignment operator.
+        FileNameElement& operator=(const FileNameElement&) = delete;
+    };
 };
-
-*/

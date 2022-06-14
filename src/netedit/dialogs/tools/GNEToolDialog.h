@@ -20,7 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXTreeListDynamic.h>
+#include <fx.h>
+#include <string>
 
 
 // ===========================================================================
